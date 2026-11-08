@@ -13,6 +13,7 @@ StringBase<char>'s, and FXList's copy constructor matched through it
   * report worst first, callers named, and never fail the run (shadow).
 """
 import importlib.util
+import os
 import pickle
 import sys
 from pathlib import Path
@@ -164,3 +165,78 @@ def test_a_refusal_about_a_callee_is_marked_as_one():
                 FOLD: ["Code/F.cpp compiles ?callee@@YAXXZ to 9 bytes; the ledger body at 0x00001000 is 11"]}
     findings = {f["name"]: f for f in pin_consistency.audit(pins, rows, index, lambda p, rva: verdicts[p["name"]])}
     assert not findings[WRONG]["on_callee"] and findings[FOLD]["on_callee"]
+
+
+def test_an_empty_census_index_leaves_pins_unjudged(tmp_path):
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(b"")
+    census = pin_consistency.CensusIndex([row(CALLER, 0x52BD3A)], path)
+    assert census.problem and census.sources(WRONG) == [] and census.matched_callers(WRONG) == []
+    findings = pin_consistency.audit([pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census,
+                                     lambda p, rva: [])
+    assert findings[0]["verdict"] == "NO-DEFINING-OBJECT"
+
+
+def test_an_index_entry_outside_its_object_list_is_skipped(tmp_path):
+    fx = build.obj_path(build.ROOT / "Code/FXList.cpp").name
+    index = {"objects": [fx], "comdat": {WRONG: [(7, "d", "retail"), (0, "d", "retail")]},
+             "strong": {WRONG: [3]}, "references": {"edges": {}}}
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(pickle.dumps(index))
+    census = pin_consistency.CensusIndex([row(CALLER, 0x52BD3A, source="Code/FXList.cpp")], path)
+    assert census.sources(WRONG) == ["Code/FXList.cpp"]
+
+
+def test_the_proof_compiles_in_isolation_and_cleans_up(monkeypatch, tmp_path):
+    real = tmp_path / "match"
+    real.mkdir()
+    monkeypatch.setattr(build, "BUILD_DIR", real)
+    monkeypatch.delenv("BFME_OBJSTORE", raising=False)
+    seen = {}
+
+    def fake_proof(p, rva, rows, symbol_map, pins):
+        out = build.obj_path(build.ROOT / "Code/F.cpp")
+        seen["dir"], seen["store"] = out.parent, os.environ.get("BFME_OBJSTORE")
+        out.write_bytes(b"obj")
+        build._deps_sidecar(out).write_text("{}")
+        return []
+    import pin_admission
+    monkeypatch.setattr(pin_admission, "fold_proof_problems", fake_proof)
+    monkeypatch.setattr(build, "load_symbol_map", lambda: {})
+    pins = [pin(FOLD, 0x365F0, "fold-proof=Code/F.cpp")]
+    findings = pin_consistency.audit(pins, [row(OWNER, 0x365F0)], FakeIndex())
+    assert findings[0]["verdict"] == "PROVEN"
+    assert seen["dir"] != real and seen["store"] == "off"
+    assert seen["dir"].parent == build.ROOT / "build" and seen["dir"].name.startswith("pin-audit-")
+    assert not seen["dir"].exists()                     # removed
+    assert list(real.iterdir()) == []                   # the shared cache is untouched
+    assert build.BUILD_DIR == real and "BFME_OBJSTORE" not in os.environ
+
+
+def test_isolation_is_undone_when_the_proof_fails(monkeypatch, tmp_path):
+    real = tmp_path / "match"
+    real.mkdir()
+    monkeypatch.setattr(build, "BUILD_DIR", real)
+    monkeypatch.setenv("BFME_OBJSTORE", "on")
+    seen = {}
+
+    def broken(p, rva, rows, symbol_map, pins):
+        seen["dir"] = build.BUILD_DIR
+        raise RuntimeError("compiler crashed")
+    import pin_admission
+    monkeypatch.setattr(pin_admission, "fold_proof_problems", broken)
+    with pytest.raises(RuntimeError):
+        pin_consistency.audit([pin(FOLD, 0x365F0, "fold-proof=Code/F.cpp")], [row(OWNER, 0x365F0)],
+                              FakeIndex())
+    assert not seen["dir"].exists() and build.BUILD_DIR == real
+    assert os.environ["BFME_OBJSTORE"] == "on"
+
+
+def test_a_current_object_is_seeded_into_the_scratch_cache(tmp_path):
+    real, scratch = tmp_path / "match", tmp_path / "scratch"
+    real.mkdir(); scratch.mkdir()
+    name = build.obj_path(build.ROOT / "Code/F.cpp").name
+    (real / name).write_bytes(b"obj")
+    build._deps_sidecar(real / name).write_text("{}")
+    pin_consistency.seed_isolated("Code/F.cpp", real, scratch)
+    assert (scratch / name).read_bytes() == b"obj" and (real / name).exists()

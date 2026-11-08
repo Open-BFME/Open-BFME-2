@@ -81,10 +81,14 @@ one commit. Shrinking this file is the only direction it is allowed to move.
 import argparse
 import bisect
 import collections
+import contextlib
 import csv
 import io
+import os
+import shutil
 import struct
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -851,21 +855,40 @@ class CensusIndex:
             except (OSError, ValueError):
                 continue
         self.matched = {r["name"] for r in rows if r.get("status") == "matched"}
+        self.problem = None
         if not self.path.exists():
             return
         import pickle
-        with self.path.open("rb") as handle:
-            index = pickle.load(handle)
-        self.objects, self.comdat, self.strong = index["objects"], index["comdat"], index["strong"]
-        for caller, refs in index["references"]["edges"].items():
+        # A truncated or foreign file names no sources: its pins stay unjudged, the audit goes on.
+        try:
+            with self.path.open("rb") as handle:
+                index = pickle.load(handle)
+            objects, comdat, strong = index["objects"], index["comdat"], index["strong"]
+            edges = index["references"]["edges"]
+        except (EOFError, OSError, pickle.UnpicklingError, AttributeError, ImportError,
+                KeyError, TypeError) as error:
+            self.problem = f"census index {self.path} unreadable ({type(error).__name__}: {error})"
+            return
+        self.objects, self.comdat, self.strong = objects, comdat, strong
+        for caller, refs in edges.items():
             for name in refs:
                 self.callers.setdefault(name, set()).add(caller)
 
+    def _object(self, number):
+        """The object an index entry names, or None for one outside its object list."""
+        try:
+            return self.objects[number] if isinstance(number, int) and number >= 0 else None
+        except IndexError:
+            return None
+
     def sources(self, name):
         found = []
-        objects = [self.objects[entry[0]] for entry in self.comdat.get(name, ())]
-        objects += [self.objects[i] for i in self.strong.get(name, ())]
+        objects = [self._object(entry[0] if isinstance(entry, (tuple, list)) and entry else None)
+                   for entry in self.comdat.get(name, ())]
+        objects += [self._object(i) for i in self.strong.get(name, ())]
         for obj in objects:
+            if obj is None:
+                continue
             source = self.source_of.get(obj)
             if (source and not source.lower().endswith(build.LIB_SUFFIX)
                     and source not in found):
@@ -874,6 +897,45 @@ class CensusIndex:
 
     def matched_callers(self, name):
         return sorted(c for c in self.callers.get(name, ()) if c in self.matched)
+
+
+@contextlib.contextmanager
+def isolated_build():
+    """Compile into a private directory, never the shared caches, for the duration.
+
+    The proof compiles its unit through build.compile_rows, which writes the object and its
+    .deps.json to build.BUILD_DIR (build/match) and copies them into the object store shared by
+    every worktree (docs/matching.md, "The build cache trap"). An audit is a reader: BUILD_DIR
+    points at a temporary directory and the store is off until it ends, and the directory is
+    removed whether the audit finishes or fails. Yields (the real BUILD_DIR, the temporary one,
+    build/pin-audit-*)."""
+    real, saved = build.BUILD_DIR, os.environ.get("BFME_OBJSTORE")
+    # Inside the checkout (build.py keys objects by their path below ROOT), never build/match.
+    parent = build.ROOT / "build"
+    parent.mkdir(parents=True, exist_ok=True)
+    scratch = Path(tempfile.mkdtemp(prefix="pin-audit-", dir=parent))
+    os.environ["BFME_OBJSTORE"] = "off"
+    build._objstore_root.cache_clear()
+    build.BUILD_DIR = scratch
+    try:
+        yield real, scratch
+    finally:
+        build.BUILD_DIR = real
+        if saved is None:
+            os.environ.pop("BFME_OBJSTORE", None)
+        else:
+            os.environ["BFME_OBJSTORE"] = saved
+        build._objstore_root.cache_clear()
+        shutil.rmtree(scratch, ignore_errors=True)
+
+
+def seed_isolated(source, real, scratch):
+    """Copy a unit's existing object pair from the real cache into the scratch one, read-only on
+    the real side, so a current object is reused (compile_is_current still decides)."""
+    name = build.obj_path(build.ROOT / source).name
+    for src in (real / name, build._deps_sidecar(real / name)):
+        if src.exists():
+            shutil.copyfile(src, scratch / src.name)
 
 
 def audit(pins=None, rows=None, index=None, prove=None, limit=None):
@@ -891,15 +953,18 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None):
     if index is None:
         index = CensusIndex(rows)
     if prove is None:
-        maps = []
+        with isolated_build() as (real, scratch):
+            maps = []
 
-        def symbol_map():
-            if not maps:
-                maps.append(build.load_symbol_map())
-            return maps[0]
+            def symbol_map():
+                if not maps:
+                    maps.append(build.load_symbol_map())
+                return maps[0]
 
-        def prove(pin, rva):
-            return pin_admission.fold_proof_problems(pin, rva, rows, symbol_map, pins)
+            def isolated_prove(pin, rva):
+                seed_isolated(pin_admission.FOLD_PROOF_RE.search(pin["notes"]).group(1), real, scratch)
+                return pin_admission.fold_proof_problems(pin, rva, rows, symbol_map, pins)
+            return audit(pins, rows, index, isolated_prove, limit)
     findings = []
     for pin, rva, others in stacked_pins(pins, rows)[:limit]:
         name, notes = pin["name"], pin.get("notes") or ""
@@ -914,7 +979,7 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None):
             try:
                 problems = prove({"name": name, "address": pin["address"],
                                   "notes": f"fold-proof={sources[0]}"}, rva)
-            except (OSError, ValueError, KeyError, SystemExit) as error:
+            except (OSError, ValueError, KeyError, IndexError, EOFError, SystemExit) as error:
                 problems = [f"audit could not run the proof: {error}"]
             finding["verdict"] = audit_verdict(problems)
             finding["problems"] = problems[:2]
@@ -923,6 +988,8 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None):
             finding["on_callee"] = bool(problems) and name not in problems[0]
         findings.append(finding)
     findings.sort(key=lambda f: (AUDIT_ORDER.index(f["verdict"]), -len(f["callers"]), f["address"]))
+    if getattr(index, "problem", None):
+        print(f"pin audit: {index.problem}; pins without a fold-proof= source are unjudged")
     return findings
 
 
