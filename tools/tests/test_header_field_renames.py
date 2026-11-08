@@ -105,6 +105,102 @@ def test_flat_fields_skip_virtual_bases():
     assert lane.flat_fields("D", layouts) == {(4, 4): [("m_d", "int", "D")]}
 
 
+# -- the vftable pointers a flat private view spells out and the canonical header does not
+
+def test_vptr_offsets_finds_the_classs_own_pointer():
+    layouts = {"C": dict(layout([(4, "m_a", "int", 4)], size=8), vfptr=True)}
+    assert lane.vptr_offsets("C", layouts) == {0}
+
+
+def test_vptr_offsets_finds_one_per_polymorphic_base():
+    layouts = {"P": dict(layout([(4, "m_p", "int", 4)], size=8), vfptr=True),
+               "I": dict(layout([], size=4), vfptr=True),
+               "D": layout([(0x14, "m_d", "int", 4)], bases=[("P", 0), ("I", 0x10)], size=0x18)}
+    assert lane.vptr_offsets("D", layouts) == {0, 0x10}
+
+
+def test_vptr_offsets_skip_a_plain_base_and_a_virtual_one():
+    layouts = {"V": dict(layout([], size=4), vfptr=True),
+               "B": layout([(0, "m_b", "int", 4)], size=4),
+               "D": layout([(4, "m_d", "int", 4)], bases=[("B", 0), ("virtual V", -1)], size=8)}
+    assert lane.vptr_offsets("D", layouts) == set()
+
+
+FLAT_UNIT = """// cl: /O2
+class Object
+{
+public:
+    const void *m_vtable;
+    int m_flags;
+};
+int flags(Object *o) { return o->m_flags; }
+"""
+
+FLAT_UNIT_LAYOUTS = {"Object": layout([(0, "m_vtable", "const void *", 4),
+                                       (4, "m_flags", "int", 4)], size=8)}
+POLY_HEADER_LAYOUTS = {"Object": dict(layout([(4, "m_status", "int", 4)], size=8), vfptr=True)}
+
+
+def test_a_view_spelling_out_the_compilers_vptr_adopts_a_polymorphic_header():
+    mapping, why = lane.field_renames("u.cpp", FLAT_UNIT, ["Object"], "Object.h",
+                                      compiler(unit=FLAT_UNIT_LAYOUTS, header=POLY_HEADER_LAYOUTS))
+    assert why is None
+    assert mapping == {"Object": {"m_flags": "m_status"}}   # the vptr member has no counterpart
+
+
+def test_a_leading_pointer_is_still_refused_when_the_canonical_class_has_no_vptr():
+    header = {"Object": layout([(4, "m_status", "int", 4)], size=8)}
+    mapping, why = lane.field_renames("u.cpp", FLAT_UNIT, ["Object"], "Object.h",
+                                      compiler(unit=FLAT_UNIT_LAYOUTS, header=header))
+    assert mapping is None and "m_vtable (+0x0, 4 bytes) has no canonical field" in why
+
+
+def test_a_field_too_small_for_a_pointer_at_a_vptr_offset_is_still_refused():
+    unit = {"Object": layout([(0, "m_tag", "short", 2), (4, "m_flags", "int", 4)], size=8)}
+    text = FLAT_UNIT.replace("const void *m_vtable;", "short m_tag;")
+    mapping, why = lane.field_renames("u.cpp", text, ["Object"], "Object.h",
+                                      compiler(unit=unit, header=POLY_HEADER_LAYOUTS))
+    assert mapping is None and "m_tag (+0x0, 2 bytes) has no canonical field" in why
+
+
+MULTI_UNIT = """// cl: /O2
+class UpdateModule
+{
+public:
+    const void *m_vtable;
+    const void *m_data;
+    int m_object;
+    const void *m_p0C;
+    const void *m_p10;
+    int m_frame;
+};
+int frame(UpdateModule *u) { return u->m_frame; }
+"""
+
+MULTI_UNIT_LAYOUTS = {"UpdateModule": layout(
+    [(0, "m_vtable", "const void *", 4), (4, "m_data", "const void *", 4),
+     (8, "m_object", "int", 4), (0xC, "m_p0C", "const void *", 4),
+     (0x10, "m_p10", "const void *", 4), (0x14, "m_frame", "int", 4)], size=0x18)}
+
+MULTI_HEADER_LAYOUTS = {
+    "BehaviorModuleInterface": dict(layout([], size=4), vfptr=True),
+    "BehaviorModule": dict(layout([(4, "m_moduleData", "const void *", 4), (8, "m_object", "int", 4)],
+                                  bases=[("BehaviorModuleInterface", 0xC)], size=0x10), vfptr=True),
+    "UpdateModuleInterface": dict(layout([], size=4), vfptr=True),
+    "UpdateModule": layout([(0x14, "m_nextCallFrameAndPhase", "int", 4)],
+                           bases=[("BehaviorModule", 0), ("UpdateModuleInterface", 0x10)], size=0x18),
+}
+
+
+def test_the_three_vptrs_of_a_multiply_derived_view_need_no_counterpart():
+    assert lane.vptr_offsets("UpdateModule", MULTI_HEADER_LAYOUTS) == {0, 0xC, 0x10}
+    mapping, why = lane.field_renames("u.cpp", MULTI_UNIT, ["UpdateModule"], "UpdateModule.h",
+                                      compiler(unit=MULTI_UNIT_LAYOUTS, header=MULTI_HEADER_LAYOUTS))
+    assert why is None
+    assert mapping == {"UpdateModule": {"m_data": "m_moduleData",
+                                        "m_frame": "m_nextCallFrameAndPhase"}}
+
+
 @pytest.fixture
 def tree(tmp_path, monkeypatch):
     (tmp_path / "Code").mkdir()

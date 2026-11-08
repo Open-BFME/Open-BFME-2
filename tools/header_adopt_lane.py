@@ -285,6 +285,23 @@ def flat_fields(name, layouts, base=0, seen=()):
     return out
 
 
+VPTR_SIZE = 4                                           # 32-bit target
+
+
+def vptr_offsets(name, layouts, base=0, seen=()):
+    """The offsets in `name` the compiler fills with a vftable pointer: its own, where it
+    introduces one, and one per non-virtual base that introduces one, at that base's offset.
+    A flat private view of a polymorphic class spells these out as pointer members because the
+    view itself declares no virtual function; the canonical header declares the virtuals and
+    the compiler supplies the pointers, so no canonical field carries those offsets."""
+    lay = layouts.get(name) or {}
+    out = {base} if lay.get("vfptr") else set()
+    for base_name, offset in lay.get("bases", []):
+        if offset >= 0 and base_name not in seen:
+            out |= vptr_offsets(base_name, layouts, base + offset, seen + (name,))
+    return out
+
+
 def read_path(path):
     try:
         return Path(path).read_text(encoding="latin-1")
@@ -663,7 +680,9 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     hierarchy or hidden by a static, method, nested type, typedef, using alias or enumerator
     there (the unqualified name would select that), the two disagree on what the field is, a
     rename is unsafe in the unit (tu_views.rename_problem), or the unit or an include shadows
-    the class's name or defines a macro the rename depends on. `compile(source, text)` gives
+    the class's name or defines a macro the rename depends on. A pointer-sized field at an
+    offset the canonical class fills with a vftable pointer (vptr_offsets) is not one of those:
+    it has no canonical field by construction and needs no counterpart. `compile(source, text)` gives
     {class: layout} (text None: the unit as it stands); `header` is the canonical header,
     whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
     import tu_views
@@ -735,11 +754,18 @@ def field_renames(source, text, strip, include, compile=None, header=None):
                 declared[field].add(owner)
         hides = hiding(name, laid, canonical)
         table = tu_views.field_table(view)
+        vptrs = vptr_offsets(name, laid)
         mine = {}
         for old in own:
             offset, size, cvtype = table[old]
             found = fields.get((offset, size), [])
             if not found:
+                # A pointer the canonical class gets from the compiler: the view's member goes
+                # away with the view and there is no canonical field to rename it to. A body
+                # that reads one then fails to compile, which the compile step answers; this
+                # check only decides whether the two layouts can be spoken about.
+                if size == VPTR_SIZE and offset in vptrs:
+                    continue
                 return None, (f"{name}::{old} (+0x{offset:X}, {size} bytes) has no canonical field "
                               "of that offset and size")
             same = [f for f in found if f[0] == old]
