@@ -499,3 +499,14 @@ INCONCLUSIVE: index d171e84869 versus base
 a296f17cfaa3547c81b66793d006906def90a824, affected
 Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry that
 consumer into the next census/image check; the served strong table is still open.
+
+**2026-11-08 BoxRenderObj whole-file compiler-control cleanup:** boxrobj.cpp
+removes its unused vector-constructor anchor, twelve unused/empty optimization
+pragmas, two empty inline-depth pairs and the stale marker on its rowed AABox
+Render. All57 code rows and12 EH graphs remain exact. All246 COMDAT facts
+including flags, external definition names and25 named data allocations are
+unchanged. The hatch register shrinks by13 occurrences only in this source;
+the RefCount optimization pair remains. Strict preparation passes and preview
+conserves LINKS/6,110 at d171e84869. The shared bounding-getter provider/alignment
+refusal still blocks its tables; no alignment exception or image clearance.
+[Whole-file evidence](../../reverse/attempt_support/boxrobj-anchor-pragma-cleanup-20261108/README.md).

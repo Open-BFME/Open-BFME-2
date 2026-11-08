@@ -28,25 +28,12 @@
 #include "meshgeometry.h"
 #define NUM_BOX_VERTS	8
 #define NUM_BOX_FACES	12
-#pragma inline_depth(0)
-#pragma inline_depth()
 // ??0BoxRenderObjClass@@QAE@ABUW3dBoxStruct@@@Z @ 0x00175A40 (266B).
 // Dedicated TU: boxrobj.cpp cannot take another row (bulk import left defs
 // without rows or markers, failing find_declared_unmatched on any staging).
 // Same headers and /arch:SSE2 (retail inlines the conversions as SSE math),
 // so layout and codegen match the home TU. The name copy goes through the
 // member Set_Name so the inlined strcpy keeps retail's coloring.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include "rendobj.h"
 #include <string.h>
 #undef W3DMPO_GLUE
@@ -54,22 +41,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 #include "vector3.h"
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
-#pragma optimize("s", on)
-#pragma optimize("", on)
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
 #include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
-#pragma inline_depth(0)
-#pragma inline_depth()
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
-#pragma optimize("s", on)
-#pragma optimize("", on)
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 
@@ -880,7 +855,6 @@ static inline void aaboxTranslate(Matrix3D &matrix3D, const Vector3 &t)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABoxRenderObjClass::Render present-unmatched
 void AABoxRenderObjClass::Render(RenderInfoClass & rinfo)
 {
 	Vector3 translation;

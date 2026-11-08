@@ -1,0 +1,12 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp",
+  "old_object_sha256": "2a854b400d0ff5be16c3efa12e106f4c851ca994a2a4eebaba4f4786e85db079",
+  "new_object_sha256": "607dc478c6f57b3999408c83eb05a5c64ae97a44b20864bb3a2be5228ed6bd78",
+  "comdat_facts_and_flags_equal": true,
+  "comdat_count": 246,
+  "external_definition_names_equal": true,
+  "named_data_allocations_equal": true,
+  "named_data_count": 25,
+  "hatches_retired": 13,
+  "outside_source_register_records_byte_identical": true
+}

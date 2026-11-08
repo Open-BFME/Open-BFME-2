@@ -10722,9 +10722,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"gsy",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"",on	7
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"gsy",on	4
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"s",on	3
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"",on	5
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"s",on	4
@@ -12957,7 +12956,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObj
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Class_ID	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Intersect_AABox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Intersect_OBBox	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Render	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	BoxLoaderClass::Load_W3D	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	BoxPrototypeClass::BoxPrototypeClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	BoxPrototypeClass::Create	1

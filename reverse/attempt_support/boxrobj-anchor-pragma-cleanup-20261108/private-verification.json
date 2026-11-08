@@ -1,0 +1,21 @@
+{
+  "rows": 57,
+  "matched": 57,
+  "missing": [],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\06bc2416a497ac87.obj",
+  "stale_markers": [
+    {
+      "label": "?AABoxRenderObjClass::Render",
+      "row": "?Render@AABoxRenderObjClass@@UAEXAAVRenderInfoClass@@@Z",
+      "rva": "0x00175E50"
+    }
+  ],
+  "empty_opt_pairs": 5,
+  "empty_inline_depth_pairs": 2,
+  "comdat_count": 246,
+  "added": [],
+  "removed": [],
+  "changed": [],
+  "guard": []
+}
