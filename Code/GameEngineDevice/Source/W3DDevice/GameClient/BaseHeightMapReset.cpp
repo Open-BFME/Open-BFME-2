@@ -116,10 +116,6 @@ static __forceinline BfmeResetTextureRef &terrainTexture(RefCountPtr<TextureClas
 {
 	return *reinterpret_cast<BfmeResetTextureRef *>(&word);
 }
-static __forceinline AsciiString &terrainString(unsigned int &word)
-{
-	return *reinterpret_cast<AsciiString *>(&word);
-}
 static __forceinline Rva000EE198Owner *propBuffer(W3DPropBuffer *buffer)
 {
 	return reinterpret_cast<Rva000EE198Owner *>(buffer);
@@ -176,5 +172,5 @@ void BaseHeightMapRenderObjClass::reset()
 	}
 	rva0006ABE7(AsciiString(""), false);
 	terrainTexture(field381C).clear();
-	terrainString(field3820).clear();
+	field3820.clear();
 }

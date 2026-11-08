@@ -12,8 +12,7 @@ Target interface: named virtual overrides are proved by primary slots 26 (0x0006
 #endif
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class AsciiString;
-template<class T> class StringBase;
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
 #include <vector>
 template<class T> class RefMultiListIterator;
@@ -219,19 +218,20 @@ public:
     unsigned int field3814;
     void *field3818;
     RefCountPtr<TextureClass> field381C;
-    unsigned int field3820;
-    unsigned int field3824;
+    // Each texture slot's name pair: the destructor 0x0006D0D7 releases them through ~AsciiString 0x0048BA39.
+    AsciiString field3820;
+    AsciiString field3824;
     RefCountPtr<TextureClass> field3828;
-    unsigned int field382C;
-    unsigned int field3830;
+    AsciiString field382C;
+    AsciiString field3830;
     bool field3834;
     char unknown3835[3];
     RefCountPtr<TextureClass> field3838;
-    unsigned int field383C;
-    unsigned int field3840;
+    AsciiString field383C;
+    AsciiString field3840;
     RefCountPtr<TextureClass> field3844;
-    unsigned int field3848;
-    unsigned int field384C;
+    AsciiString field3848;
+    AsciiString field384C;
     W3DTreeBuffer *m_treeBuffer;
     W3DShrubBuffer *m_shrubBuffer;
     W3DPropBuffer *m_propBuffer;

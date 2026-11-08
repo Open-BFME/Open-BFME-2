@@ -30,10 +30,6 @@ extern GlobalData *TheWritableGlobalData;
 
 // The header keeps +0x3820/+0x382C as string words and the buffers at
 // +0x3850/+0x3854 as opaque pointers; read them as the views this body uses.
-static __forceinline AsciiString &terrainString(unsigned int &word)
-{
-	return *reinterpret_cast<AsciiString *>(&word);
-}
 
 static __forceinline Rva000E6594 *vegetationBuffer(W3DTreeBuffer *buffer)
 {
@@ -56,6 +52,6 @@ void BaseHeightMapRenderObjClass::rva0006B804()
         operator delete(oldResource);
         field387C = 0;
     }
-    rva0006ACBD(terrainString(field3820));
-    rva0006ABE7(terrainString(field382C), field3834);
+    rva0006ACBD(field3820);
+    rva0006ABE7(field382C, field3834);
 }

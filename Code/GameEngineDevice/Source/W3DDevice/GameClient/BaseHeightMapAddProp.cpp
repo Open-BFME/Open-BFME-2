@@ -47,10 +47,6 @@ class GeometryInfo;
 
 #include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 
-static __forceinline AsciiString &terrainString(unsigned int &word)
-{
-	return *reinterpret_cast<AsciiString *>(&word);
-}
 
 //-----------------------------------------------------------------------------
 // BaseHeightMapRenderObjClass::addProp
@@ -86,7 +82,7 @@ void BaseHeightMapRenderObjClass::writeEnvironmentData(DataChunkOutput *chunk)
 	chunk->writeReal(field37E4);
 	chunk->writeReal(field37E8);
 	chunk->writeByte(field3834 != 0);
-	chunk->writeAsciiString(terrainString(field382C));
-	chunk->writeAsciiString(terrainString(field3820));
+	chunk->writeAsciiString(field382C);
+	chunk->writeAsciiString(field3820);
 	chunk->closeDataChunk();
 }
