@@ -283,6 +283,32 @@ public:
 
 namespace FXParticleSystem
 {
+// StreakDrawModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
+// thunk (slot 0 at +8). The class is abstract, so its own constructor units
+// cannot new an array of it; this view keeps only the size and the +8
+// secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) StreakDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
+{
+public:
+	virtual ~StreakDrawModuleTemplate();
+};
+}
+
+namespace FXParticleSystem
+{
+// QuadDrawModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
+// thunk (slot 0 at +8). The class is abstract, so its own constructor units
+// cannot new an array of it; this view keeps only the size and the +8
+// secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) QuadDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
+{
+public:
+	virtual ~QuadDrawModuleTemplate();
+};
+}
+
+namespace FXParticleSystem
+{
 template <int Category> class DefaultModuleTemplate;
 
 // DefaultModuleTemplate<6>'s class tables (0x0081BD60 slot 0, 0x0081BAD0 slot 0)
@@ -313,6 +339,8 @@ void bfmeVectorDeleteAnchorV03Unresolved()
 	new Rva003A7A06Vec[2];
 	new FXParticleSystem::DefaultModuleTemplate<2>[2];
 	new Rva003A7B9FVec[2];
+	new FXParticleSystem::StreakDrawModuleTemplate[2];
+	new FXParticleSystem::QuadDrawModuleTemplate[2];
 	new FXParticleSystem::DefaultModuleTemplate<6>[2];
 }
 
