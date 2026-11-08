@@ -4657,7 +4657,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007EDA28,12,.rdata,string,??_C@_09KIJDGJJH@TimingLog?$AA@,,literal,,0,1
 0x007EDA34,20,.rdata,string,??_C@_0BE@FIPEPBPB@StillImage_Film?$CF02d?$AA@,,literal,,0,1
 0x007EDA48,88,.rdata,string,??_C@_0FG@GCEIDGLL@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,7
-0x007EDAA0,4,.rdata,global,?g_bfme5RefVtable@@3PAXA,Code/GameEngine/Source/Common/Bfme5NodeMakers.cpp,provisional,??_7Rva0023DAE8@@6B@;?g_bfme5RefVtable@@3PAXA,1,2
+0x007EDAA0,4,.rdata,vtable,??_7Rva0023DAE8@@6B@,Code/GameEngine/Source/Common/Bfme5NodeMakers.cpp,owned,,0,2
 0x007EDAA8,16,.rdata,global,?g_00BEDAA8@@3QBQBXB,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,provisional,??_7Rva0023DB34@@6B@;?g_00BEDAA8@@3QBQBXB,1,2
 0x007EDAB8,20,.rdata,string,??_C@_0BD@NJOMAPDP@teamReplayObserver?$AA@,,literal,,0,1
 0x007EDACC,16,.rdata,string,??_C@_0BA@COGJGIOE@FactionObserver?$AA@,,literal,,0,8
@@ -5662,7 +5662,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007FDF3C,32,.rdata,vtable,??_7Player@@6BSnapshot@@@,,literal,,0,2
 0x007FDF5C,8,.rdata,string,??_C@_06NPAAKFED@Player?$AA@,,literal,,0,2
 0x007FDF64,4,.rdata,global,?g_00BFDF64@@3MB,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicPlayerObserverRva002BA3F2.cpp,owned,,1,2
-0x007FDF68,16,.rdata,vtable,??_7Rva0056B126B2@@6B@,,literal,??_7Base005CEFD3@@6B@;??_7LivingWorldRegionObserver@@6B@;??_7Rva0056B126B2@@6B@;??_7Rva005CF27ABase@@6B@;?g_vtableAtBFDF68@@3QBQBXB,1,14
+0x007FDF68,16,.rdata,vtable,??_7Rva0056B126B2@@6B@,,literal,??_7Base005CEFD3@@6B@;??_7LivingWorldRegionObserver@@6B@;??_7Rva0056B126B2@@6B@;??_7Rva005CF27ABase@@6B@,0,13
 0x007FDF78,20,.rdata,string,??_C@_0BB@JPAGMHNK@DelayedEventType?$AA@,,literal,,0,1
 0x007FDF8C,16,.rdata,vtable,??_7LivingWorldPlayerObserver@@6B@,,literal,??_7LivingWorldPlayerObserver@@6B@;??_7Rva002B964FPlayerObserver@@6B@;_vtbl_00BFDF8C,1,8
 0x007FDF9C,24,.rdata,string,??_C@_0BF@CJHKPGFD@LivingWorldTurnPhase?$AA@,,literal,,0,1
@@ -12401,7 +12401,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008408FC,24,.rdata,vtable,??_7BridgeBehavior@@6BBridgeBehaviorInterface@@@,,literal,,0,2
 0x00840914,12,.rdata,vtable,??_7BridgeBehavior@@6BUpdateModule@@@,,literal,,0,2
 0x00840920,188,.rdata,vtable,??_7BridgeBehavior@@6BBehaviorModuleInterface@@@,,literal,,0,2
-0x008409DC,52,.rdata,global,_vtbl_00C409DC,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp,provisional,??_7BridgeBehavior@@6BObjectModule@@@;_vtbl_00C409DC,0,2
+0x008409DC,52,.rdata,vtable,??_7BridgeBehavior@@6BObjectModule@@@,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp,owned,,0,2
 0x00840A10,124,.rdata,vtable,??_7BridgeBehaviorModuleData@@6B@,,literal,,0,2
 0x00840A8C,36,.rdata,string,??_C@_0CB@IINFCHG@Expected?5?8FX?8?5token?0?5found?5?8?$CFs?8?6@,,literal,,0,1
 0x00840AB0,112,.rdata,string,??_C@_0CC@NGNKILDF@Expected?5?8OCL?8?5token?0?5found?5?8?$CFs?8@,,literal,,0,1
