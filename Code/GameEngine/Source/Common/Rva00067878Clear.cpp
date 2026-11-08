@@ -37,7 +37,7 @@ static __forceinline RefObj00067878 *&scorchHolder(IndexBufferClass *&field)
 	return reinterpret_cast<RefObj00067878 *&>(field);
 }
 
-static __forceinline BfmeResetTextureRef &scorchTexture(void *&field)
+static __forceinline BfmeResetTextureRef &scorchTexture(RefCountPtr<TextureClass> &field)
 {
 	return reinterpret_cast<BfmeResetTextureRef &>(field);
 }

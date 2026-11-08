@@ -19,17 +19,10 @@ class TextureClass : public TextureBaseClass
 	int m_pad[2];
 };
 
-template <class T>
-class RefCountPtr
-{
-public:
-	RefCountPtr() : m_ptr(0) {}
-	const RefCountPtr &operator=(const RefCountPtr &other);
-	~RefCountPtr() { if (m_ptr) m_ptr->Release_Ref(); }
-
-public:
-	T *m_ptr;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
+// Retail calls RefCountPtr<TextureClass>'s out-of-line assignment 0x000424D0 (RefCountPtrTextureAssign.cpp);
+// this unit's TextureClass view declares no Add_Ref to instantiate the inline body with.
+template <> const RefCountPtr<TextureClass> &RefCountPtr<TextureClass>::operator =(const RefCountPtr<TextureClass> &);
 
 namespace _STL
 {

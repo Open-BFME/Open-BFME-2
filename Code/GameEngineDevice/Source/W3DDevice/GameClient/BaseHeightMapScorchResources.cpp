@@ -39,24 +39,15 @@ class TextureClass : public TextureBaseClass
 {
 };
 
-template<class T>
-class RefCountPtr
-{
-public:
-	__declspec(noinline) RefCountPtr(int kind);
-	T *Referent;
-	~RefCountPtr()
-	{
-		if (Referent != 0)
-			Referent->Release_Ref();
-	}
-	const RefCountPtr &operator=(const RefCountPtr &other);
-};
-
-class Rva0006B3F3ScorchTexture:public RefCountPtr<TextureClass>{public:Rva0006B3F3ScorchTexture(int);};
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 #define REFCOUNT_H
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+// Retail calls RefCountPtr<TextureClass>'s out-of-line assignment 0x000424D0 (RefCountPtrTextureAssign.cpp);
+// this unit's TextureClass view declares no Add_Ref to instantiate the inline body with.
+template <> const RefCountPtr<TextureClass> &RefCountPtr<TextureClass>::operator =(const RefCountPtr<TextureClass> &);
+
+// The scorch texture holder whose constructor 0x000EF966 fetches the asset (TextureAsset::Get).
+class Rva0006B3F3ScorchTexture:public RefCountPtr<TextureClass>{public:Rva0006B3F3ScorchTexture(int);};
 
 // The header keeps +0xCC as VertexBufferClass*; this body allocates the
 // dynamic native VB that the constructor 0x0006C9CF stores there.
@@ -65,11 +56,11 @@ static __forceinline BfmeDynamicNativeVB *&scorchVertexBuffer(BaseHeightMapRende
 	return *reinterpret_cast<BfmeDynamicNativeVB **>(&self->m_vertexScorch);
 }
 
-// +0xD4 is the scorch texture holder (opaque word in the header).
+// +0xD4, the scorch texture holder. Retail evaluates the slot's address before pushing the
+// temporary; reaching it through this reference keeps that order.
 static __forceinline RefCountPtr<TextureClass> &scorchSlot(BaseHeightMapRenderObjClass *self)
 {
-	return self ? *reinterpret_cast<RefCountPtr<TextureClass> *>(&self->field00D4)
-	            : *reinterpret_cast<RefCountPtr<TextureClass> *>(&self->field00D4);
+	return self ? self->field00D4 : self->field00D4;
 }
 
 void BaseHeightMapRenderObjClass::rva0006B3F3()

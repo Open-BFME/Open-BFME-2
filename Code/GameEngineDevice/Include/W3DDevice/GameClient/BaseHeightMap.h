@@ -14,7 +14,7 @@ Target interface: named virtual overrides are proved by primary slots 26 (0x0006
 
 class AsciiString;
 template<class T> class StringBase;
-template<class T> class RefCountPtr;
+#include "../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
 template<class T> class RefMultiListIterator;
 struct Coord3D;
 struct VertexFormatXYZDUV2;
@@ -135,7 +135,9 @@ protected:
 public:
     VertexBufferClass *m_vertexScorch;
     IndexBufferClass *m_indexScorch;
-    void *field00D4;
+    // The constructor nulls +0xD4, its unwind destroys it through RefCountPtr's 0x0017098D, and the
+    // destructor 0x0006D0D7 releases it at its own EH state: a texture holder, not a raw word.
+    RefCountPtr<TextureClass> field00D4;
     int m_curNumScorchVertices;
     int m_curNumScorchIndices;
     char unknown00E0[0x36B0];
