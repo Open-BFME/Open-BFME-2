@@ -311,3 +311,10 @@ is not a general placement exemption. These are covered bodies, not a
 regression. Shared-class/Wind-queue work and next-image confirmation
 remain open; no full bridge or runtime clearance is claimed.
 [Getter proof and held inherited-name dependency](../../reverse/attempt_support/back-away-getter-20261108/README.md).
+
+Published as 11c1dad59b (attempt three, 34.6 seconds after two lost races).
+Required checks and the post-publication native table/getter proof pass.
+The broader audit remains INCONCLUSIVE: unchanged AICowerState_onEnter.cpp
+lacks a current receipt (index c885072a48/base93e2f70268). The three held
+inherited-name gaps persist; carry both dependencies into the next
+census/image rather than reporting full link/bridge clearance.

@@ -48,3 +48,14 @@ image, census or runtime clearance is claimed. The blocked table handoff
 is recorded through re_log.py; a mistaken covered-body dependency token
 was retracted through the same tool and replaced with the claim/name
 dependency. No log is edited by hand.
+
+Published as 11c1dad59b on attempt three (34.6 seconds for the successful
+attempt), after two lost races at 36.7/36.5 seconds. Required row, EH,
+data and scoped-DIR32 checks pass; the final retry reuses all three
+source receipts. The native getter/table proof passes again after
+publication, with the same three inherited name gaps. The broader audit
+is INCONCLUSIVE: unchanged Common/AICowerState_onEnter.cpp lacks a
+current receipt against index c885072a48 and outgoing base
+93e2f70268d6b2a3b18ca5381fc9aa665b2669f1. Carry that consumer and the
+inherited-name dependency into the next census/image; no full-link gain
+is claimed.
