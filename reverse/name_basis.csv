@@ -9182,3 +9182,4 @@ carry,?Class_ID@Rva0006DD63@@QAEHXZ,?Class_ID@LightClass@@UBEHXZ,inferred,"class
 function,?rva0052D83B@Rva0052D83B@@QAEXABURva0052D801Record@@@Z,?AddAct@LivingWorldCampaign@@QAEXABURva0052D801Record@@@Z,inferred,agree:nl-8aace85058e8,Code/GameEngine/Source/Common/Rva0052D83B.cpp,0x0052D83B
 function,?rva0007BEA7@Rva007C454@@UAE_NABVSphereClass@@@Z,?Cull_Sphere@Rva007C454@@UAE_NABVSphereClass@@@Z,inferred,agree:nl-d8708e4343be,Code/GameEngine/Source/Common/Rva0007BEA7Overlap.cpp,0x0007BEA7
 function,?rva0007BEDA@Rva007C454@@UAE_NABVAABoxClass@@@Z,?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z,inferred,agree:nl-d18b46a5b97c,Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp,0x0007BEDA
+global,unrowedData,?g_vp6BicubicTapsMmx@@3QAY0CA@$$CBFA,inferred,agree:nl-dddc9deb88a1,Code/Libraries/Source/VP6/FilterBlockMmx.cpp,0x009B82B0

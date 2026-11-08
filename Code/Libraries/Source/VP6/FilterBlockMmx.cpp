@@ -7,11 +7,25 @@
 // one line minus 1 or one line plus 1) with the bilinear or bicubic filter
 // bank, then widens the byte block into the int16 output. The bilinear bank
 // is g_rva00DB81B0Weights (retail 0x00DB81B0, phase times 32); the bicubic
-// bank at 0x00DB82B0 (phase times 64) still has no definition, so it is
-// addressed relative to g_bfmeBinkRoundMmx (retail 0x00DB81A0).
+// bank is g_vp6BicubicTapsMmx (retail 0x00DB82B0, phase times 64).
 
-extern const unsigned short g_bfmeBinkRoundMmx[4];
 extern const unsigned short g_rva00DB81B0Weights[8][16];
+
+// Eight phases, each of four 16-bit weights replicated eight times for the MMX filters.
+#define BFME_BICUBIC_TAP(w) w, w, w, w, w, w, w, w
+#define BFME_BICUBIC_TAPS(a, b, c, d) { BFME_BICUBIC_TAP(a), BFME_BICUBIC_TAP(b), BFME_BICUBIC_TAP(c), BFME_BICUBIC_TAP(d) }
+extern const short g_vp6BicubicTapsMmx[8][32] =
+{
+    BFME_BICUBIC_TAPS(0, 128, 0, 0),
+    BFME_BICUBIC_TAPS(-4, 118, 16, -2),
+    BFME_BICUBIC_TAPS(-7, 106, 34, -5),
+    BFME_BICUBIC_TAPS(-8, 90, 53, -7),
+    BFME_BICUBIC_TAPS(-8, 72, 72, -8),
+    BFME_BICUBIC_TAPS(-7, 53, 90, -8),
+    BFME_BICUBIC_TAPS(-5, 34, 106, -7),
+    BFME_BICUBIC_TAPS(-2, 16, 118, -4),
+};
+
 extern "C" void __cdecl FilterBlock1d_h_mmx(const void *, void *, int, int, int, int, const void *);
 extern "C" void __cdecl FilterBlock1d_hb8_mmx(const void *, void *, int, int, int, int, const void *);
 extern "C" void __cdecl FilterBlock1d_v_mmx(const void *, void *, int, int, int, int, const void *);
@@ -39,7 +53,7 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
     {
         if (mode != 0)
             FilterBlock1d_h_mmx(arg1, scratch, stride, distance, 8, 8,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsA << 6)));
+                (const void *)((const unsigned char *)g_vp6BicubicTapsMmx + (weightsA << 6)));
         else
             FilterBlock1d_hb8_mmx(arg1, scratch, stride, 1, 8, 8,
                 (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsA << 5)));
@@ -48,7 +62,7 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
     {
         if (mode != 0)
             FilterBlock1d_v_mmx(arg1, scratch, stride, stride, 8, 8,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsB << 6)));
+                (const void *)((const unsigned char *)g_vp6BicubicTapsMmx + (weightsB << 6)));
         else
             FilterBlock1d_vb8_mmx(arg1, scratch, stride, stride, 8, 8,
                 (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsB << 5)));
@@ -57,8 +71,8 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
     {
         if (mode != 0)
             FilterBlock2d_mmx((const unsigned char *)arg1 - 1, scratch, stride,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsA << 6)),
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsB << 6)));
+                (const void *)((const unsigned char *)g_vp6BicubicTapsMmx + (weightsA << 6)),
+                (const void *)((const unsigned char *)g_vp6BicubicTapsMmx + (weightsB << 6)));
         else
             FilterBlock2dBil_mmx((const unsigned char *)arg1 - 1, scratch, stride,
                 (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsA << 5)),
@@ -68,8 +82,8 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
     {
         if (mode != 0)
             FilterBlock2d_mmx(arg1, scratch, stride,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsA << 6)),
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsB << 6)));
+                (const void *)((const unsigned char *)g_vp6BicubicTapsMmx + (weightsA << 6)),
+                (const void *)((const unsigned char *)g_vp6BicubicTapsMmx + (weightsB << 6)));
         else
             FilterBlock2dBil_mmx((const unsigned char *)arg1, scratch, stride,
                 (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsA << 5)),

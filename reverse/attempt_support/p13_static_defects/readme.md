@@ -6,7 +6,7 @@ down from 102 at the first run and 24 at e3397174c459.
 
 | Defect | Sites | Status |
 |---|---|---|
-| `_FilterBlock_mmx` 0x001D7330 | 6 | The bicubic bank at VA 0x00DB82B0 is registered for blind naming (b01cabb6ed); two blind voters are voting. Once agreed, define it in FilterBlockMmx.cpp and address it directly. |
+| `_FilterBlock_mmx` 0x001D7330 | 6 | Fixed: the bicubic bank is g_vp6BicubicTapsMmx (agree:nl-dddc9deb88a1), defined in FilterBlockMmx.cpp, and all six sites address it directly. |
 | `??1Rva007EB2C0Object` 0x00658260 and its `??_G` | 4 | Tool request 1 below. |
 | `?rva00261C89@Rva00261C89@@QAE_NXZ` (KindGate) | 1 | Tool request 2 below. |
 
