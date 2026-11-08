@@ -835,6 +835,20 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
     return report
 
 
+def runtime_problem(lane):
+    """Why submit cannot arrange a second review from this checkout, or None. `status` says so:
+    votes are still recorded, but nothing here will review them."""
+    config = load_config(lane)
+    if config is not None and not config.get("enabled"):
+        return "no reviewer runs from this checkout: `review disable` turned it off; a second vote must come from another worker"
+    try:
+        reviewer_runtime(config.get("provider", "auto") if config else "auto", config.get("model") if config else None,
+                         root=lane.root)
+    except (ReviewError, OSError, ValueError) as exc:
+        return f"no reviewer can run from this checkout, so a second vote must come from another worker: {exc}"
+    return None
+
+
 def ensure_automatic_config(lane):
     """Discover the installed reviewer once; never replace an explicit configuration."""
     import name_lane
@@ -933,6 +947,9 @@ def run(lane, args):
             save_json(config_path(lane), dict(config, enabled=False))
     elif args.action == "status":
         print(json.dumps(load_config(lane), indent=2))
+        problem = runtime_problem(lane)
+        if problem:
+            print(f"name_lane: {problem}", file=sys.stderr)
     else:
         if args.apply_ready is not None and args.apply_ready < 1:
             raise ReviewError("--apply-ready must be positive")

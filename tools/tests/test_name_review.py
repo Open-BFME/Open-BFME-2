@@ -727,3 +727,51 @@ def test_automatic_second_vote_serves_large_data_request_as_excerpts(unrowed, tm
         return answer(packet, 'g_sampleContext')
     result = name_review.dispatch(lane_of(tree), keys=[key], runner=runner)
     assert result['newly_agreed'] == [key]
+
+
+# ---- what `status` says when no reviewer can run from this checkout
+
+def no_cli(monkeypatch):
+    monkeypatch.setattr(name_review.shutil, "which", lambda name: None)
+
+
+def test_status_says_no_reviewer_can_run_here(tree, monkeypatch, capsys):
+    no_cli(monkeypatch)
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "no reviewer can run from this checkout, so a second vote must come from another worker" in out
+    assert "CLI is not installed on PATH" in out
+
+
+def test_status_says_nothing_when_a_reviewer_can_run(tree, monkeypatch, capsys):
+    monkeypatch.setattr(name_review.shutil, "which", lambda name: f"/usr/bin/{name}" if name == "codex" else None)
+    monkeypatch.setattr(name_review, "configured_model", lambda: "a-model")
+    assert name_review.runtime_problem(lane_of(tree)) is None
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    assert "no reviewer" not in capsys.readouterr().out
+
+
+def test_status_names_a_disabled_reviewer(tree, monkeypatch):
+    enable(tree)
+    lane = lane_of(tree)
+    config = name_review.load_config(lane)
+    name_review.save_json(name_review.config_path(lane), dict(config, enabled=False))
+    assert "`review disable` turned it off" in name_review.runtime_problem(lane_of(tree))
+
+
+def test_a_configured_reviewer_is_the_one_checked(tree, monkeypatch):
+    enable(tree)
+    lane = lane_of(tree)
+    config = name_review.load_config(lane)
+    name_review.save_json(name_review.config_path(lane), dict(config, provider="claude", model="sonnet"))
+    monkeypatch.setattr(name_review.shutil, "which", lambda name: f"/usr/bin/{name}" if name == "codex" else None)
+    assert "Claude CLI is not installed" in name_review.runtime_problem(lane_of(tree))
+
+
+def test_review_status_keeps_its_json_on_stdout(tree, monkeypatch, capsys):
+    no_cli(monkeypatch)
+    enable(tree)
+    assert name_lane.main(["review", "status"], lane=lane_of(tree)) == 0
+    captured = capsys.readouterr()
+    assert "enabled" in json.loads(captured.out)
+    assert "no reviewer can run from this checkout" in captured.err

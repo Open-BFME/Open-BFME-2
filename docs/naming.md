@@ -1721,6 +1721,9 @@ submitting CLI when identifiable. Existing configurations, especially an explici
 launch this external reviewer. Historical approved scoped names can still be
 applied without dispatching an external reviewer.
 Missing runtimes/models are reported explicitly; recorded votes are retained.
+`status` and `review status` say when no reviewer can run from a checkout. A seat with no
+Codex, Claude or OpenCode CLI on PATH, srv1's among them, records votes and arranges no review,
+so the second vote has to come from another worker.
 
 Override the discovered runner/model once per local fleet when desired:
 

@@ -1297,7 +1297,8 @@ Write your answer with a file-writing tool, never inline in a shell command
 (other sessions can read command lines). If a stand-in type IS a real class
 that a game or Zero Hour header declares, answer that class's name.
 
-Write a JSON object mapping each key below to a name or "skip", then check it
+Write a JSON object mapping each key below to a name or "skip", spelled as listed
+(a key's full form, as `next --key` takes it, is read as the same key), then check it
 before recording votes:
   python3 tools/name_lane.py validate ANSWER.json --session {session} --model {model}
 Revise only rejected answers once using the reported reasons and declarations;
@@ -1809,6 +1810,13 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     unknown = set(answers) - set(files)
     if unknown:
         fail(f"files not served to session {session}: {', '.join(sorted(unknown)[:4])}")
+    for rel, mapping in answers.items():             # `next --key`'s full form names the same item
+        for kind, scope, ident, _rva in files[rel]["items"]:
+            full, bare = key_of(rel, kind, scope, ident), answer_key(kind, scope, ident)
+            if full in mapping:
+                if bare in mapping and mapping[bare] != mapping[full]:
+                    fail(f"{full} and {bare} are one key with two answers")
+                mapping[bare] = mapping.pop(full)
     retired = []
     for rel, mapping in answers.items():
         for kind, scope, ident, _rva in files[rel]["items"]:
@@ -2892,6 +2900,10 @@ def cmd_status(lane, args):
               "each needs fresh votes")
     report_grandfathered(lane, state)
     report_unrecorded(lane, lead=args.lead, min_models=args.min_models)
+    import name_review
+    problem = name_review.runtime_problem(lane)
+    if problem:
+        print(f"name_lane: {problem}")
     if getattr(args, "only_labels", None):
         only, tally, refused = label_list(args.only_labels), lane.tally(), lane.disputed()
         picked = 0

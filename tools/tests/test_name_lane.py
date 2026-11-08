@@ -3227,6 +3227,44 @@ def test_votes_with_no_fingerprint_record_nothing(tree, capsys):
     assert "0 key(s) have agreeing votes" in capsys.readouterr().out
 
 
+def submit_keys(tree, tmp_path, answers, session="full"):
+    serve(tree, session, worker=f"seat-{session}")
+    answer = tmp_path / f"answer-{session}.json"
+    answer.write_text(json.dumps(answers))
+    return name_lane.cmd_submit(lane_of(tree), SimpleNamespace(answer=str(answer), session=session,
+                                                               model="claude-opus-5-5"), lead=2, min_models=1)
+
+
+def test_an_answer_file_may_use_the_full_key_form(tree, tmp_path):
+    assert submit_keys(tree, tmp_path, {FN_KEY: "sumBox", MEMBER_KEY: "m_width"}) == 0
+    tally = lane_of(tree).tally()
+    assert FN_KEY in tally and MEMBER_KEY in tally
+
+
+def test_the_two_key_forms_vote_the_same(tree, tmp_path):
+    assert submit_keys(tree, tmp_path, {FN_KEY: "sumBox"}, "full") == 0
+    assert submit_keys(tree, tmp_path, FN_ANSWER, "bare") == 0
+    assert lane_of(tree).state()[FN_KEY]["new"] == "sumBox"       # two workers, one spelling, either form
+
+
+def test_one_key_with_two_answers_refuses(tree, tmp_path):
+    with pytest.raises(SystemExit):
+        submit_keys(tree, tmp_path, {FN_KEY: "sumBox", "rva00401000": "otherName"})
+    assert not lane_of(tree).votes()
+    assert submit_keys(tree, tmp_path, {FN_KEY: "sumBox", "rva00401000": "sumBox"}, "same") == 0
+
+
+def test_a_full_key_of_something_not_served_still_refuses(tree, tmp_path):
+    with pytest.raises(SystemExit):
+        submit_keys(tree, tmp_path, {f"{SOURCE}|function|0x00409000|rva00409000": "sumBox"})
+
+
+def test_the_brief_says_which_key_form_it_reads(tree):
+    record = serve(tree, "brief")
+    brief = (tree / "build/name_lane/briefs/brief.txt").read_text()
+    assert "a key's full form, as `next --key` takes it, is read as the same key" in brief and record
+
+
 def test_status_tells_the_two_kinds_apart(tree, capsys):
     concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
     concurrent_votes(tree, FN_KEY, "sumBox", fingerprint=False)
