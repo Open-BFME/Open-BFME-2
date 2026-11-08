@@ -86,6 +86,7 @@ class FakeKernel:
         self.wait_late = wait_late                    # a wait may return this long after it was due to
         self.stream_from = stream_from                # from this run time, an event is always pending
         self.look_cost = look_cost                    # seconds a zero wait takes
+        self.looks = 0
         self.clock = clock
         self.events = list(events)
         self.fail_continue = fail_continue
@@ -196,7 +197,8 @@ class FakeKernel:
 
     def WaitForDebugEvent(self, output, milliseconds):
         self.tick()
-        assert self.clock.now < 1000, "the run never ended"
+        self.looks += 1
+        assert self.clock.now < 1000 and self.looks < 100000, "the run never ended"
         if self.events and not self.wait_error:
             return self.deliver(output, self.events.pop(0))
         if not milliseconds:
@@ -530,6 +532,14 @@ class MainThreadSamplerTests(unittest.TestCase):
         self.assertEqual(result["spin_sample_failures"], 1)
         self.assertGreaterEqual(len(result["spin_samples"]), 20)
 
+    def test_a_thread_already_held_is_no_sample_even_when_the_resume_adds_up(self):
+        # Held when we arrived, released by its holder while we held it too: our resume finds 1, as on a clean
+        # read, but this EIP was not free to move. It runs on from here, and later reads are good.
+        kernel, result = self.run_case(self.GAME, timeout=40, suspended=1, other_resume_on=1)
+        self.assertEqual(kernel.suspended, 0)
+        self.assertEqual(result["spin_sample_failures"], 1)
+        self.assertGreaterEqual(len(result["spin_samples"]), 20)
+
     def test_a_resume_that_raises_is_a_debugger_error(self):
         kernel, result = self.run_case(self.GAME, timeout=40, resume_raises=-1)
         self.assertEqual(result["outcome"], "debugger-error")
@@ -598,7 +608,7 @@ class MainThreadSamplerTests(unittest.TestCase):
         with mock.patch.object(runner, "SPIN_SPAN", 0.0):             # no span samples: only the final ones
             kernel, result = self.run_case(self.GAME, timeout=2, real_samples=True, resume_failures=-1)
         self.assertEqual(result["outcome"], "debugger-error")
-        self.assertTrue(any(e["operation"].startswith("ResumeThread") for e in result["debugger_errors"]))
+        self.assertIn("ResumeThread:final-sample", [e["operation"] for e in result["debugger_errors"]])
 
     # Finding 2: the deadline holds at run time, whatever sampling costs.
     CRASH = debug_event(1, exception=0xC0000005, first_chance=0)
