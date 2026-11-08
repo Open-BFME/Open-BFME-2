@@ -74,14 +74,7 @@ private:
 #define OBJECT_DISABLED_MASK(object) \
 	((const BitFlags<11> *)((const char *)(object) + 0x1C8))
 
-class SpecialPowerModuleData
-{
-public:
-	unsigned char m_pad00[0x0C];
-	Bool m_updateModuleStartsAttack;        // +0x0C
-	unsigned char m_pad0D[0x68 - 0x0D];
-	Bool m_data68;                          // +0x68
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
@@ -130,7 +123,7 @@ void SpecialPowerModule::doSpecialPowerAtObject(Object *obj, UnsignedInt command
 		return;
 
 	Object *owner = getObject();
-	if (owner->testStatus(OBJECT_STATUS_26) && getSpecialPowerModuleData()->m_data68)
+	if (owner->testStatus(OBJECT_STATUS_26) && getSpecialPowerModuleData()->field68)
 		obj = obj->adjustVictim(owner, 1, 0);
 
 	initiateIntentToDoSpecialPower(obj, NULL, commandOptions, NULL);

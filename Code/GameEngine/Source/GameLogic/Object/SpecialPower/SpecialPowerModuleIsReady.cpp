@@ -13,8 +13,7 @@ class Object { public: bool testStatus(ObjectStatusTypes) const; Player *getCont
 class GameLogic; extern GameLogic *TheGameLogic;
 struct SpecialReadyFrameView { char pad[0x40]; unsigned frame; };
 static unsigned frame() { return ((SpecialReadyFrameView *)TheGameLogic)->frame; }
-class ModuleData { public: virtual ~ModuleData(); };
-class SpecialPowerModuleData : public ModuleData { public: int unknown4; const SpecialPowerTemplate *power; };
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
@@ -33,7 +32,7 @@ bool SpecialPowerModule::isReady() const
  if (obj && modData) {
   Player *player = obj->getControllingPlayer();
   if (player) {
-   const SpecialPowerTemplate *power = modData->power;
+   const SpecialPowerTemplate *power = modData->m_specialPowerTemplate;
    if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->m_sharedSyncedTimer)
     return frame() >= ((Rva002AC6B1PlayerTimers *)player)->getOrStart(power);
   }
@@ -51,7 +50,7 @@ static inline bool testBit(unsigned flags, int bit) { return (flags & (1 << bit)
 void SpecialPowerModule::startPowerRecharge(float percent)
 {
  const SpecialPowerModuleData *modData = static_cast<const SpecialPowerModuleData *>(getModuleData());
- if (modData->power == 0)
+ if (modData->m_specialPowerTemplate == 0)
   return;
  Object *obj = getObject();
  if (obj == 0)
@@ -59,7 +58,7 @@ void SpecialPowerModule::startPowerRecharge(float percent)
  Player *player = obj->getControllingPlayer();
  if (player == 0)
   return;
- const SpecialPowerTemplate *power = modData->power;
+ const SpecialPowerTemplate *power = modData->m_specialPowerTemplate;
  if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->m_sharedSyncedTimer)
  {
   ((Rva002AC6B1PlayerTimers *)player)->resetOrStart(power);
@@ -69,7 +68,7 @@ void SpecialPowerModule::startPowerRecharge(float percent)
   float modifier = 1.0f;
   obj->rva0028C15E(12, &modifier, 0, 1);
   float bonus = 1.0f;
-  if (testBit(((const SpecialPowerTemplate *)modData->power->friend_getFinalOverride())->m_flags, 5))
+  if (testBit(((const SpecialPowerTemplate *)modData->m_specialPowerTemplate->friend_getFinalOverride())->m_flags, 5))
    bonus = ((Rva002AA0B1FloatField *)player)->get() + 1.0f;
   unsigned frames = (unsigned)(((const SpecialPowerTemplate *)getSpecialPowerTemplate()->friend_getFinalOverride())->m_reloadTime * modifier * bonus);
   if (frames == 0)

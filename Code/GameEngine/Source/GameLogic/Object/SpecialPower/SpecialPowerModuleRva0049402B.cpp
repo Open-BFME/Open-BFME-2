@@ -113,36 +113,13 @@ public:
 	void rva004B05F5(bool keep);
 };
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
-class SpecialPowerModuleData : public ModuleData
+// +0x34 holds the BitFlags<11> AntiCategory mask the canonical header keeps as neutral storage.
+static inline const BitFlags<11> &antiCategoryMask(const SpecialPowerModuleData *data)
 {
-public:
-	int m_unknown4;
-	const SpecialPowerTemplate *m_specialPowerTemplate;
-	char m_pad0C[0x18 - 0x0C];
-	AsciiString m_attributeModifierName;
-	char m_pad1C[0x20 - 0x1C];
-	bool m_includeSelf;
-	char m_pad21[0x28 - 0x21];
-	const FXList *m_fx28;
-	char m_pad2C[0x34 - 0x2C];
-	BitFlags<11> m_mask;
-	char m_pad38[0x42 - 0x38];
-	bool m_reEnableAntiCategory;
-	char m_pad43[0x4C - 0x43];
-	const FXList *m_fx4C;
-	char m_pad50[0x58 - 0x50];
-	int m_levels;
-	char m_pad5C[0x5E - 0x5C];
-	bool m_skipFlaggedPlayers;
-	bool m_onlyFlaggedPlayers;
-	bool m_anyPlayer;
-};
+	return *(const BitFlags<11> *)&data->field34;
+}
 
 class SpecialPowerModule
 {
@@ -172,13 +149,13 @@ void SpecialPowerModule::rva0049402B(BfmeWideResult *iter)
 	}
 
 	unsigned frame = 0;
-	if (modData->m_mask.any())
+	if (antiCategoryMask(modData).any())
 	{
 		frame = ((Rva0049402BFrameView *)TheGameLogic)->frame;
-		if (!((const StringBase<char> *)&modData->m_attributeModifierName)->isEmpty())
+		if (!((const StringBase<char> *)&modData->field18)->isEmpty())
 		{
 			int duration = (int)TheAttributeModifierStore->getDuration(
-				TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(modData->m_attributeModifierName.str())));
+				TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(modData->field18.str())));
 			if (duration > 0)
 				frame += duration;
 			else
@@ -191,15 +168,15 @@ void SpecialPowerModule::rva0049402B(BfmeWideResult *iter)
 	{
 		if (((obj->getTemplate()->m_kindof[KINDOF_47 >> 5] & (1U << (KINDOF_47 & 31))) != 0))
 			continue;
-		if (!modData->m_includeSelf && obj == source)
+		if (!modData->field20 && obj == source)
 			continue;
-		if (modData->m_skipFlaggedPlayers && obj->getControllingPlayer()->rva0049402BFlag())
+		if (modData->field5E && obj->getControllingPlayer()->rva0049402BFlag())
 			continue;
-		if (modData->m_onlyFlaggedPlayers && !obj->getControllingPlayer()->rva0049402BFlag())
+		if (modData->field5F && !obj->getControllingPlayer()->rva0049402BFlag())
 			continue;
-		if (!modData->m_anyPlayer && obj->getControllingPlayer() != source->getControllingPlayer())
+		if (!modData->field60 && obj->getControllingPlayer() != source->getControllingPlayer())
 			continue;
-		ApplyPowerToObject(obj, frame, &modData->m_mask);
+		ApplyPowerToObject(obj, frame, &antiCategoryMask(modData));
 	}
 }
 
@@ -210,7 +187,7 @@ void SpecialPowerModule::ApplyPowerToObject(Object *obj, int frame, const BitFla
 	ExperienceTracker *tracker = obj->getExperienceTracker();
 	if (tracker)
 	{
-		int levels = modData->m_levels;
+		int levels = modData->field58;
 		while (levels > 0)
 		{
 			if (tracker->rva0039ABFF())
@@ -223,20 +200,20 @@ void SpecialPowerModule::ApplyPowerToObject(Object *obj, int frame, const BitFla
 		}
 	}
 
-	if (!((const StringBase<char> *)&modData->m_attributeModifierName)->isEmpty())
-		obj->addAttributeModifierToPool(modData->m_attributeModifierName.str(), -1);
+	if (!((const StringBase<char> *)&modData->field18)->isEmpty())
+		obj->addAttributeModifierToPool(modData->field18.str(), -1);
 
 	if (frame != 0 && mask->any())
 	{
 		AttributeModifierPoolUpdate *pool = obj->findAttributeModifierPoolUpdate();
 		bool useNow = false;
-		if (modData->m_reEnableAntiCategory)
+		if (modData->field42)
 		{
-			if (modData->m_onlyFlaggedPlayers && obj->getControllingPlayer()->rva0049402BFlag())
+			if (modData->field5F && obj->getControllingPlayer()->rva0049402BFlag())
 				useNow = true;
-			if (modData->m_skipFlaggedPlayers && !obj->getControllingPlayer()->rva0049402BFlag())
+			if (modData->field5E && !obj->getControllingPlayer()->rva0049402BFlag())
 				useNow = true;
-			if (!modData->m_onlyFlaggedPlayers && !modData->m_skipFlaggedPlayers
+			if (!modData->field5F && !modData->field5E
 				&& m_object->getRelationship(obj) == REL_ALLIES)
 				useNow = true;
 		}
@@ -244,10 +221,10 @@ void SpecialPowerModule::ApplyPowerToObject(Object *obj, int frame, const BitFla
 			pool->rva00403415((int *)mask, ((Rva0049402BFrameView *)TheGameLogic)->frame);
 		else
 			pool->rva00403415((int *)mask, frame);
-		if (modData->m_fx4C)
-			FXList::doFXObj(modData->m_fx4C, obj, 0);
+		if (modData->field4C)
+			FXList::doFXObj(modData->field4C, obj, 0);
 	}
 
-	if (modData->m_fx28 && !((obj->getTemplate()->m_kindof[KINDOF_109 >> 5] & (1U << (KINDOF_109 & 31))) != 0))
-		FXList::doFXObj(modData->m_fx28, obj, 0);
+	if (modData->field28 && !((obj->getTemplate()->m_kindof[KINDOF_109 >> 5] & (1U << (KINDOF_109 & 31))) != 0))
+		FXList::doFXObj(modData->field28, obj, 0);
 }

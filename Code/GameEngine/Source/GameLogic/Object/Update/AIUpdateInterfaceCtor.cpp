@@ -4,16 +4,7 @@
 // Trial: ??0CombineHordeSpecialPowerModuleData@@QAE@XZ.
 // Default ctor over opaque intermediate base 0x004930A0 (pinned); vtable
 // plus one trailing float. Factory stub order names it.
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-protected:
-	unsigned char m_pad0[0x7C - 4];
-	float m_f7C;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class CombineHordeSpecialPowerModuleData : public SpecialPowerModuleData
 {
@@ -21,6 +12,7 @@ public:
 	CombineHordeSpecialPowerModuleData();
 	virtual ~CombineHordeSpecialPowerModuleData();
 
+	float m_f7C;
 };
 
 // Stands in for retail's 100.0f literal (__real@42c80000, .rdata 0x007C292C), the
