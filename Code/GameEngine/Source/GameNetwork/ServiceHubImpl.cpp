@@ -65,15 +65,11 @@ struct Gen_007e86c0
 	void m();
 };
 
-extern int vftable_01129CB0;
-
-// vftable_01129CB0: matched references place it at VA 0xce1510 (retail .rdata value 10846432).
-int vftable_01129CB0 = 10846432;
-
-extern int vftable_01129AF4;
-
-// vftable_01129AF4: matched references place it at VA 0xce1354 (retail .rdata value 10843760).
-int vftable_01129AF4 = 10843760;
+// The destructor stores ServiceHubImpl's own table (VA 0x00CE1510, compiler-emitted
+// in ServiceHubImpl_ctor.cpp) first and its base's (VA 0x00CE1354, Rva00657670's,
+// emitted in InlineDtorDeletingDtors2.cpp) last; the ledger binds both names there.
+extern "C" char __identifier("??_7ServiceHubImpl@@6B@");
+extern "C" char __identifier("??_7Rva00657670@@6B@");
 
 class ServiceHubImpl
 {
@@ -398,7 +394,7 @@ private:
 ServiceHubImpl::~ServiceHubImpl()
 {
 	void *p = m_2A4;
-	*(int *)this = (int)&vftable_01129CB0;
+	*(int *)this = (int)&__identifier("??_7ServiceHubImpl@@6B@");
 	if (p)
 		Rva007EB810Get()->fail("mGameBrowser == 0",
 			"\\views\\feslbuild_main\\jabba\\fesl\\source\\servicehub.cpp", 0x6D);
@@ -453,7 +449,7 @@ ServiceHubImpl::~ServiceHubImpl()
 	m_28C.m();
 	m_270.m();
 	m_258.m();
-	*(int *)this = (int)&vftable_01129AF4;
+	*(int *)this = (int)&__identifier("??_7Rva00657670@@6B@");
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
