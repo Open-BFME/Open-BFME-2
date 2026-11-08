@@ -1719,7 +1719,10 @@ class EmitMoveTests(unittest.TestCase):
                    # review of f458166062: a parenthesized declarator
                    'extern "C" inline void\n(__identifier("??_GRec@@UAEPAXI@Z"))() {}\n',
                    'extern "C" inline void ((__identifier("??_GRec@@UAEPAXI@Z")))() {}\n',
-                   'extern "C" __declspec(naked) inline void (__identifier("??_GRec@@UAEPAXI@Z"))() { }\n')
+                   'extern "C" __declspec(naked) inline void (__identifier("??_GRec@@UAEPAXI@Z"))() { }\n',
+                   # review of f11be8ac37: a bracket inside a default argument's literal
+                   'extern "C" inline void __identifier("??_GRec@@UAEPAXI@Z")(const char *p = ")") {}\n',
+                   "extern \"C\" inline void __identifier(\"??_GRec@@UAEPAXI@Z\")(char p = ')') {}\n")
         for text in refused:
             for unit in (self.TU, self.SOURCE):
                 with self.subTest(text=text, unit=unit):
@@ -1759,43 +1762,46 @@ class EmitMoveTests(unittest.TestCase):
                 self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
                 self.setUp()
 
-    def test_identifier_definition_reads_only_definitions(self):
-        name = "??_GRec@@UAEPAXI@Z"
-        cases = {'void __identifier("??_GRec@@UAEPAXI@Z")() {}': True,
-                 'void __identifier ( "??_GRec@@UAEPAXI@Z" ) ( int a = (1) ) const throw ( ) { }': True,
-                 'void __identifier("??_GRec@@UAEPAXI@Z")();': False,
-                 'int x = sizeof(&__identifier("??_GRec@@UAEPAXI@Z")); void f() {}': False,
-                 'void f() { if (__identifier("??_GRec@@UAEPAXI@Z")()) { } }': True,             # over-refuses
-                 'void __identifier("??_GOther@@UAEPAXI@Z")() {}': False,
-                 'void __identifier("??_GRec@@UAEPAXI@Z" "")() {}': True,
-                 'int __identifier("??_GRec@@UAEPAXI@Z") = 1;': False,                          # data: the object check
-                 'void f() {}': False,
-                 # review of f458166062: parenthesized declarators, and what a declarator may carry
-                 'extern "C" inline void\n(__identifier("??_GRec@@UAEPAXI@Z"))() {}': True,
-                 'void ((__identifier("??_GRec@@UAEPAXI@Z")))() {}': True,
-                 'void (__identifier("??_GRec@@UAEPAXI@Z"))()\n#line 3 "x.h"\n{}': True,
-                 'void (__identifier("??_GRec@@UAEPAXI@Z"))() throw() {}': True,
-                 '__declspec(naked) void (__identifier("??_GRec@@UAEPAXI@Z"))() { }': True,
-                 'void (__identifier("??_GRec@@UAEPAXI@Z"))() __declspec(x) {}': True,
-                 'void __identifier("??_GRec@@UAEPAXI@Z")() try { } catch (...) { }': True,    # an unknown word
-                 'int (*(__identifier("??_GRec@@UAEPAXI@Z"))(int))[3] { return 0; }': True,
-                 'void (__identifier("??_GRec@@UAEPAXI@Z"))(': True,                           # unbalanced
-                 'void __identifier("??_GRec@@UAEPAXI@Z")() MACRO_LEFT {}': True,
-                 'void __identifier("??_GRec@@UAEPAXI@Z")() throw': True,                      # cut short
-                 'void __identifier("??_GRec@@UAEPAXI@Z")() : a(1) {}': True,                  # a lone `:`
-                 'void __identifier("??_GRec@@UAEPAXI@Z")() throw();': False,
-                 'void x = a ? __identifier("??_GRec@@UAEPAXI@Z")() :: b;': False,
-                 'void __identifier("??_GRec@@UAEPAXI@Z")()': True,                            # the text ends
-                 'void (__identifier("??_GRec@@UAEPAXI@Z"))();': False,
-                 'void (*p)() = (&__identifier("??_GRec@@UAEPAXI@Z"));': False,
-                 '(const void *)&(__identifier("??_GRec@@UAEPAXI@Z")),': False,
-                 'int x = __identifier("??_GRec@@UAEPAXI@Z")() + 1;': False,
-                 'void (__identifier("??_GRec@@UAEPAXI@Z"))() const;': False,
-                 'int (__identifier("??_GRec@@UAEPAXI@Z"))[2] = {1};': False,
-                 'void (__identifier("??_GOther@@UAEPAXI@Z"))() {}': False}
-        for code, defined in cases.items():
+    def test_identifier_definition_admits_only_the_allowed_shapes(self):
+        # review of f11be8ac37: a positive allowlist on the masked text; after any `)`, only `;`, `,`, `}`,
+        # `()`/`(void)` then `;`/`,`, or `[]` then `;`/`,`/`=`
+        n = "??_GRec@@UAEPAXI@Z"
+        admitted = ['void __identifier("{n}")();', 'void __identifier("{n}")(void);', 'void __identifier("{n}")(),',
+                    'void (__identifier("{n}"))();', '(const void *)&__identifier("{n}"),', '(const void *)&(__identifier("{n}")),',
+                    'reinterpret_cast<const void *>(__identifier("{n}")),', 'f(&__identifier("{n}"));',
+                    'const void *t[] = {{ &__identifier("{n}") }};', 'extern "C" const void *__identifier("{n}")[];',
+                    'extern "C" const void *__identifier("{n}")[] = {{0}};', 'void g() {{ __identifier("{n}")(); }}',
+                    'void __identifier("{n}")\n#line 3 "x.h"\n();', 'void __identifier("{n}") /* a ) */ ();',
+                    'void __identifier("??_GOther@@UAEPAXI@Z")(const char *p = ")") {{}}',     # another name
+                    'void f() {{}}', 'const char *s = "__identifier(\\"{n}\\")() {{}}";']      # inside a literal
+        refused = ['void __identifier("{n}")() {{}}', 'void __identifier("{n}")(void) {{}}',
+                   'extern "C" inline void __identifier("{n}")(const char *p = ")") {{}}',     # the review's default
+                   "extern \"C\" inline void __identifier(\"{n}\")(char p = ')') {{}}",
+                   'void __identifier("{n}")(int);', 'void __identifier("{n}")() throw();',
+                   'void __identifier("{n}")() const;', 'int __identifier("{n}") = 1;', 'int __identifier("{n}")[2];',
+                   'void (__identifier("{n}"))() {{}}', 'void ((__identifier("{n}")))() {{}}',
+                   'void __identifier("{n}")()\n#line 3 "x.h"\n{{}}', 'void __identifier("{n}")() try {{ }} catch (...) {{ }}',
+                   'int x = __identifier("{n}")() + 1;', 'void f() {{ if (__identifier("{n}")()) {{ }} }}',
+                   'void __identifier("{n}")()', 'void __identifier("{n}")(', 'void __identifier("{n}"',
+                   'void __identifier("??_G" "Rec@@UAEPAXI@Z")();' + ' void __identifier("??_G" "Rec@@UAEPAXI@Z")() {{}}',
+                   'void __identifier("\\x3f?_GRec@@UAEPAXI@Z")() {{}}', 'void __identifier(L"{n}")() {{}}',
+                   'void __identifier("{n}")(); const char *s = "open;',                       # unterminated
+                   'void __identifier("{n}")(); /* open']
+        for code in admitted + refused:
             with self.subTest(code=code):
-                self.assertEqual(bool(T.identifier_definition(code, name)), defined)
+                self.assertEqual(bool(T.identifier_definition(code.format(n=n), n)), code in refused)
+
+    def test_mask_code_keeps_every_index_and_blanks_what_could_read_as_code(self):
+        text = 'f("a)b", \'(\', "x\\"y");\n#line 1 "c:\\\\a(b.h"\n/* ( */ g(); // )\n'
+        masked = T.mask_code(text)
+        self.assertEqual(len(masked), len(text))
+        self.assertEqual(masked.count("("), 2)
+        self.assertEqual(masked.count(")"), 2)
+        self.assertIn('f("xxx", \'x\', "xxxx");', masked)
+        self.assertIsNone(T.mask_code('f("open);\n'))
+        self.assertIsNone(T.mask_code('f("open);\ng(");\n'))            # a quote on a later line closes nothing
+        self.assertIsNone(T.mask_code("f(); /* open"))
+        self.assertIsNone(T.mask_code("char c = 'x;\n"))
 
 
 class VtableRiderPreparedSplitTests(unittest.TestCase):
@@ -2041,6 +2047,25 @@ class NativeDeletingDtorSelectionTests(unittest.TestCase):
                 self.assertTrue(T.hand_written_problem(name, [obj], {"u.cpp": (code, None)}))
         decl = f'extern "C" void (__identifier("{self.NAME}"))();\nvoid (*use)() = &(__identifier("{self.NAME}"));\n'
         self.assertIsNone(T.identifier_definition(self.run_cl("paren_decl_pp", decl, preprocess=True), self.NAME))
+
+    def test_a_default_argument_literal_hides_no_body(self):
+        # review of f11be8ac37: `(const char *p = ")") {}` compiled to the exact name, selected ANY in code,
+        # and the bracket counting read no body; the allowlist on the masked text refuses each
+        e = "??_ERec@@UAEPAXI@Z"
+        cases = {"default_paren_g": (f'extern "C" inline void __identifier("{self.NAME}")(const char *p = ")") {{}}\n',
+                                     self.NAME),
+                 "default_char_g": (f"extern \"C\" inline void __identifier(\"{self.NAME}\")(char p = ')') {{}}\n",
+                                    self.NAME),
+                 "default_paren_e": (f'extern "C" inline void __identifier("{e}")(const char *p = ")") {{}}\n', e),
+                 "default_char_e": (f"extern \"C\" inline void __identifier(\"{e}\")(char p = ')') {{}}\n", e)}
+        for stem, (text, name) in cases.items():
+            with self.subTest(stem=stem):
+                obj = self.run_cl(stem, text + f'void g() {{ __identifier("{name}")(); }}\n')   # the default, used
+                self.assertIn(name, T.comdat_symbols(obj))
+                self.assertIsNone(T.deleting_copy_problem(obj, name))          # ANY, in code: (a) cannot see it
+                code = self.run_cl(stem + "_pp", text, preprocess=True)
+                self.assertTrue(T.identifier_definition(code, name))
+                self.assertTrue(T.hand_written_problem(name, [obj], {"u.cpp": (code, None)}))
 
 
 class FoldAliasSplitTests(unittest.TestCase):
