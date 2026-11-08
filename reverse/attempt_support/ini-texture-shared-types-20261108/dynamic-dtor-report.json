@@ -1,0 +1,12 @@
+{
+  "rows": 5,
+  "matched": 4,
+  "missing": [
+    "Unwind@00b945af"
+  ],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\d473ef394cf42875.obj",
+  "guard": [
+    "unresolved __imp_??1?$DynamicVectorClass@VStringClass@@@@UAE@XZ"
+  ]
+}

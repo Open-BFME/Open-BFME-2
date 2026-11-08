@@ -418,3 +418,14 @@ reusable source receipt without changing census status. The served 0x007D0D80
 table's provider/alignment refusal remains pending a new real link; no
 alignment exception, pin, row or path is changed.
 [Type provenance and verification scope](../../reverse/attempt_support/ini-texture-shared-types-20261108/README.md).
+
+Shared-type cleanup published as e17651338f. Its strict source receipt is
+current and all required row/EH/DIR32/data checks pass. Broader audit stays
+INCONCLUSIVE: index eba83a23be versus base
+0fbd488b314b440e163d497ec0b5fc11af609e9a, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. The existing
+11-byte DynamicVector destructor copy versus native's 67-byte storage-release
+body also remains a code-identity shadow finding. Import suppression loses
+the cleanup row; extern-template declarations do not change emission, so
+neither trial is landed. Preserve this lifetime/provider scope with the
+table alignment boundary for the next census and real image.
