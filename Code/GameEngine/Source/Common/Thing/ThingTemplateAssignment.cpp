@@ -49,7 +49,9 @@ typedef _STL::vector<Rva0021C21BElement,_STL::allocator<Rva0021C21BElement> > VR
 struct BfmeFixedObject260;
 typedef _STL::vector<BfmeFixedObject260,_STL::allocator<BfmeFixedObject260> > VBfmeFixedObject260;
 typedef _STL::vector<AsciiString,_STL::allocator<AsciiString> > VAsciiString;
-typedef _STL::_Rb_tree<Rva002D07F4Element,_STL::pair<const Rva002D07F4Element,int> ,_STL::_Select1st<_STL::pair<const Rva002D07F4Element,int> >,_STL::less<Rva002D07F4Element>,_STL::allocator<_STL::pair<const Rva002D07F4Element,int> > > ShortTree;
+struct BfmeStringRecord002CF550;
+namespace _STL { template <class T> struct _Identity; }
+typedef _STL::_Rb_tree<BfmeStringRecord002CF550,BfmeStringRecord002CF550,_STL::_Identity<BfmeStringRecord002CF550>,_STL::less<BfmeStringRecord002CF550>,_STL::allocator<BfmeStringRecord002CF550> > ShortTree;
 typedef _STL::_Rb_tree<AsciiString,_STL::pair<const AsciiString,NoCaseTreeValue4> ,_STL::_Select1st<_STL::pair<const AsciiString,NoCaseTreeValue4> >,BfmeStringNoCaseLess,_STL::allocator<_STL::pair<const AsciiString,NoCaseTreeValue4> > > NoCaseTree;
 typedef _STL::_Rb_tree<LocomotorSetType,_STL::pair<const LocomotorSetType,_STL::vector<const LocomotorTemplate*,_STL::allocator<const LocomotorTemplate*> > > ,_STL::_Select1st<_STL::pair<const LocomotorSetType,_STL::vector<const LocomotorTemplate*,_STL::allocator<const LocomotorTemplate*> > > >,_STL::less<LocomotorSetType>,_STL::allocator<_STL::pair<const LocomotorSetType,_STL::vector<const LocomotorTemplate*,_STL::allocator<const LocomotorTemplate*> > > > > LocomotorTree;
 struct LocomotorMapView { LocomotorTree tree; __forceinline LocomotorMapView& operator=(const LocomotorMapView&b){tree.rva002D0E69(b.tree);return *this;} };
