@@ -35,3 +35,10 @@ Broader audit remains INCONCLUSIVE: index d171e84869 versus outgoing base
 4daa8e15ddd826c8c1956e08d4a1faff69a2190a, affected
 Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Preserve that
 consumer for the next census/image verification.
+
+After publication, the borrowed consumer source was claimed and verified
+separately: all24 rows in0CreateAHeroManager21FE49.cpp pass strict preparation,
+including three complete emitted STL constructor folds. Its local reusable
+receipt is current, and its file claim was released. This addresses the
+specific missing-receipt gap locally; the original push remains recorded as
+INCONCLUSIVE and no wider link/census/image result follows from preparation.

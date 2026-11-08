@@ -225,6 +225,13 @@ Side fix landed separately: vftable_0112B89C (0x00C1C780, one `__purecall` slot,
 50 FX particle files) now holds `(int)&_purecall` in Rva00800920FeslCtor.cpp. The array stays, because
 those consumers name it.
 
+2026-11-08 whole-file recheck: this source's compiler anchor is still live.
+Removing it keeps the 210-byte constructor exact but changes the shared
+array-constructor iterator from retail's complete 34-byte body to48 bytes.
+The source/table/aliases are retained. The existing compiler-table data owner
+at0x0081C780 is a separate folded callback view, not proof of the FESL
+interface's original identity. [Private trial and native comparison](../../reverse/attempt_support/fesl-live-iterator-anchor-20261108/README.md).
+
 Not pointers (left as they are):
 - Huff.cpp `LZHLEncoderStat::symbolTable0`: henc.tbl packed {nBits, code} shorts (0x00B70008,
   0x00C30008, 0x00C70008).

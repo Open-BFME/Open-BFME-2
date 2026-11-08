@@ -1,0 +1,14 @@
+{
+  "rows": 1,
+  "matched": 1,
+  "missing": [],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\767aeb945161b953.obj",
+  "comdat_count": 9,
+  "added": [],
+  "removed": [],
+  "changed": [
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "guard": []
+}

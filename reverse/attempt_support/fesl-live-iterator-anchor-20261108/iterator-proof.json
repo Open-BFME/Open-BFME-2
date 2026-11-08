@@ -1,0 +1,17 @@
+{
+  "before": {
+    "size": 34,
+    "body_hex": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+    "relocation_count": 0,
+    "equals_complete_native": true,
+    "digest": "6246c280fc30"
+  },
+  "after": {
+    "size": 48,
+    "body_hex": "8b44240c487826538b5c2414558b6c2410568b742410578d78018d9b000000008bceffd303f54f75f75f5e5d5bc21000",
+    "relocation_count": 0,
+    "equals_complete_native": false,
+    "digest": "9776e8993c2d"
+  },
+  "native_hex": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000"
+}

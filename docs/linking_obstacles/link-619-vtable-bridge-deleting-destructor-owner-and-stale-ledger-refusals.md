@@ -516,3 +516,8 @@ remains INCONCLUSIVE: index d171e84869 versus base
 4daa8e15ddd826c8c1956e08d4a1faff69a2190a, affected
 Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry the
 consumer into the next census/image check; the RenderObj boundary stays open.
+
+Post-publication local receipt follow-up:0CreateAHeroManager21FE49.cpp was
+claimed, strictly prepared (24/24 rows and three complete STL constructor
+folds pass), and released. Its reusable receipt now covers that local audit
+gap. No census/index/status change or wider linking clearance is claimed.
