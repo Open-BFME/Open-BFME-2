@@ -1,0 +1,65 @@
+walk_order	verdict	symbol	retail_rva	our_size	consumers	source
+1406	DIFFERS	?Load_W3D@MeshGeometryClass@@UAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x16d810	629	2	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
+1406	DIFFERS	?Compute_Vertex_Normals@MeshGeometryClass@@MAEXPAVVector3@@@Z	0x16cfc0	870	2	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
+2965	DIFFERS	?crc@Locomotor@@MAEXPAVXfer@@@Z	0x1e3e56	3	1	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+2965	same	?loadPostProcess@Locomotor@@MAEXXZ	0xb3fd0	1	1	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+3119	DIFFERS	?crc@WeaponSet@@MAEXPAVXfer@@@Z	0x2c74fb	3	3	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+3119	same	?loadPostProcess@WeaponSet@@MAEXXZ	0xb3fd0	1	3	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+3626	same	?loadPostProcess@SequentialScript@@MAEXXZ	0xb3fd0	1	3	Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScriptXfer.cpp
+4392	same	?loadPostProcess@PerTurnStats@LivingWorldScoreKeeper@@UAEXXZ	0xb3fd0	1	1	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp
+5772	same	?loadPostProcess@TAiData@@UAEXXZ	0xb3fd0	1	2	Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp
+9916	DIFFERS	?update@OpenContain@@UAE?AW4UpdateSleepTime@@XZ	0x4640be	63	2	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
+10482	consumers disagree	?loadPostProcess@DrawableModule@@MAEXXZ	0xb3fd0	1	4	Code/GameEngine/Source/Common/Thing/Module.cpp
+11390	DIFFERS	?getSpecialPowerTemplate@SpecialPowerModule@@UBEPBVSpecialPowerTemplate@@XZ	0x4934b8	7	2	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
+11390	DIFFERS	?getRequiredScience@SpecialPowerModule@@UBE?AW4ScienceType@@XZ	0x493236	15	2	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
+11390	DIFFERS	?getPercentReady@SpecialPowerModule@@UBEMXZ	0x49355e	222	2	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
+23271	same	?rva0006EE1B@SimpleSceneClass@@UBEHXZ	0x6ee1b	7	1	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClassConstructorBFME2.cpp
+23271	same	?rva001428E0@SimpleSceneClass@@UAEXABURva00141F90Bounds@@@Z	0x1428e0	8	1	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClassConstructorBFME2.cpp
+23271	same	?rva001428F0@SimpleSceneClass@@UAEXI@Z	0x1428f0	8	1	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClassConstructorBFME2.cpp
+25800	DIFFERS	?crc@GameClient@@MAEXPAVXfer@@@Z	0x4c457	3	1	Code/GameEngine/Source/GameClient/GameClient.cpp
+25800	DIFFERS	?loadPostProcess@GameClient@@MAEXXZ	0x239a9d	55	1	Code/GameEngine/Source/GameClient/GameClient.cpp
+28984	same	?loadPostProcess@FireLogicSystem@@UAEXXZ	0xb3fd0	1	2	Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
+	DIFFERS	?Read_Rotation_Keyframes@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b0720	286	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_Header@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1afde0	130	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_Props@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b0230	942	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_Line_Properties@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0e50	68	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_InfoV2@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0ca0	68	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_Info@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1aff00	90	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_Info@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0c50	70	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Create_Decal@CompositeRenderObjClass@@UAEXPAVDecalGeneratorClass@@_N@Z	0x50b238	77	2	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp
+	DIFFERS	?Read_Extra_Info@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b0a20	74	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_W3D@ParticleEmitterDefClass@@UAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0a70	205	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Load_W3D@ParticleEmitterDefClass@@UAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1af910	268	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_User_Data@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1afe60	159	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Get_Bone_Transform@Animatable3DObjClass@@UAEABVMatrix3D@@H@Z	0x1a56e0	79	1	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp
+	DIFFERS	?Get_Bone_Transform@Animatable3DObjClass@@UAEABVMatrix3D@@PBD@Z	0x1a4de0	52	1	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp
+	DIFFERS	?Save_Blur_Time_Keyframes@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b1070	235	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_Rotation_Keyframes@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0ea0	251	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_Frame_Keyframes@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b0840	243	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_Header@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0b40	120	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_Line_Properties@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b06e0	65	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Read_InfoV2@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b0160	204	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_User_Data@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0bc0	143	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Delete_Decal@CompositeRenderObjClass@@UAEXK@Z	0x47a69c	75	2	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp
+	DIFFERS	?Read_Blur_Time_Keyframes@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkLoadClass@@@Z	0x1b0930	243	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	DIFFERS	?Save_Frame_Keyframes@ParticleEmitterDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z	0x1b0f90	235	1	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp
+	same	?Render@Null3DObjClass@@UAEXAAVRenderInfoClass@@@Z	0x180fd0	3	1	Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp
+	no rowed consumer	??1Locomotor@@MAE@XZ		7	1	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+	no rowed consumer	??1View@@UAE@XZ		7	2	Code/GameEngine/Source/GameClient/View.cpp
+	no rowed consumer	?Cast_World_Space_AABox@MeshGeometryClass@@QAE_NAAVAABoxCollisionTestClass@@ABVMatrix3D@@@Z		853	1	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
+	same	?Get_Name@CompositeRenderObjClass@@UBEPBDXZ	0x15e600	7	3	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp
+	no rowed consumer	?Cast_AABox_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVAABoxCollisionTestClass@@@Z		158	1	Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp
+	no rowed consumer	?Generate_APT@AABTreeClass@@QAEXABVOBBoxClass@@AAV?$SimpleDynVecClass@K@@@Z		51	1	Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp
+	no rowed consumer	?hasAnyWeapons@WeaponTemplateSet@@QBE_NXZ		25	1	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+	no rowed consumer	?Generate_APT@AABTreeClass@@QAEXABVOBBoxClass@@ABVVector3@@AAV?$SimpleDynVecClass@K@@@Z		87	1	Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp
+	no rowed consumer	?Cast_Semi_Infinite_Axis_Aligned_Ray_Recursive@AABTreeClass@@AAEHPAUCullNodeStruct@1@ABVVector3@@HHHHAAE@Z		313	1	Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp
+	no rowed consumer	?Cast_OBBox@MeshGeometryClass@@QAE_NAAVOBBoxCollisionTestClass@@@Z		34	1	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
+	no rowed consumer	?Get_Texture@SegLineRendererClass@@QBEPAVTextureClass@@XZ		14	1	Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp
+	no rowed consumer	?Get_Plane_Array@MeshGeometryClass@@QAEPBVVector4@@_N@Z		31	1	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
+	no rowed consumer	?Contains@MeshGeometryClass@@QAE_NABVVector3@@@Z		168	1	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
+	no rowed consumer	?Cast_OBBox_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVOBBoxCollisionTestClass@@@Z		158	1	Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp
+	no rowed consumer	??1Rva00211E75@@QAE@XZ		12	2	Code/GameEngine/Source/Common/GameEngineControl.cpp
+	same	?Class_ID@Null3DObjClass@@UBEHXZ	0x1874d0	6	1	Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp
+	no rowed consumer	?clear@WeaponTemplateSet@@QAEXXZ		51	1	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+	no rowed consumer	?Set_HTree@Animatable3DObjClass@@QAEXPAVHTreeClass@@@Z		119	1	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp
+	no rowed consumer	?Special_Render@Animatable3DObjClass@@QAEXAAVSpecialRenderInfoClass@@@Z		58	1	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp
