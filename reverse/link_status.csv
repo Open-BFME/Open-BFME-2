@@ -6209,7 +6209,7 @@ Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StringRecordDtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StringRecordVectorGrowthG7.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/StringScalarVectorCopyBFME2.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/StringScalarVectorCopyBFME2.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/StringVectorRecordAssignBFME2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StringVectorRecordAssignC0BEC.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp,yes,0,0,0,0,0
@@ -7252,7 +7252,7 @@ Code/GameEngine/Source/GameClient/EvaEventFXNuggetDoFXObj.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaInit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaLocationQueueRva001DDAE1.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaMessageName.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/EvaMessageVectorAssign.cpp,no,0,0,4,0,4
+Code/GameEngine/Source/GameClient/EvaMessageVectorAssign.cpp,no,0,0,3,0,3
 Code/GameEngine/Source/GameClient/EvaMessageVectorDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp,yes,0,0,0,0,0
