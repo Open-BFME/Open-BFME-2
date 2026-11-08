@@ -493,3 +493,9 @@ array remains correct and retained. Its primary table's getter returns
 "DamagerModule", a runtime identity lead; full class/interface recovery and
 both compiler-table replacements remain open, with no image clearance.
 [Evidence and next repair](../../reverse/attempt_support/damager-base-adoption-20261108/README.md).
+
+Published as d2cd5a68d5; required checks pass. The broader audit remains
+INCONCLUSIVE: index d171e84869 versus base
+a296f17cfaa3547c81b66793d006906def90a824, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry that
+consumer into the next census/image check; the served strong table is still open.

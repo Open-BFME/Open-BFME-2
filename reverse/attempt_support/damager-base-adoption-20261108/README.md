@@ -36,3 +36,10 @@ reconcile the destructor/xfer/getter owners, and replace both manual arrays
 with matching compiler tables. Preserve the native store order and Pillage
 caller throughout. Current-image provider selection and runtime verification
 remain pending; this prerequisite does not retire a bridge or prove the game runs.
+
+Published as d2cd5a68d5; first attempt landed in45.9 seconds. Required
+byte/data/EH/scoped-DIR32 checks pass after rebase. Broader batch audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+a296f17cfaa3547c81b66793d006906def90a824, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Preserve that
+consumer for the next census/image verification; no broader link clearance.
