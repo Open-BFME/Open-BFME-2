@@ -29,6 +29,7 @@ the other way round and are outside it. Neither is a bug in the check; both are
 uncovered ground, and saying so here is the point.
 
 1. ONE ADDRESS, MANY NAMES. The 0x14867 incident above is really this shape.
+   `--audit` re-judges it in shadow (see audit() below); --check does not.
    Three of its four names are flagged only incidentally, because they happen to
    carry other pins too; ?winSetEnabledBorderColor@GameWindow@@QAEHHH@Z pins
    0x14867 and nothing else and is completely invisible here. 70,144 of 70,633
@@ -777,6 +778,179 @@ def verify(path=BASELINE):
           f"{stats['names']}; {len(violations)} baselined, 0 new, 0 stale)")
 
 
+# ONE ADDRESS, MANY NAMES, re-judged (--audit). pin_admission refuses a real
+# name stacked on an address that already carries another real name unless its
+# notes carry fold-proof=<source> AND the proof holds -- but only for a pin
+# being ADDED. A pin admitted before that rule, or whose proof's premises have
+# moved since, is never judged again, and the resolver keeps lending it to every
+# caller: 0x000365F0 carried `list<FXNugget*>`'s copy constructor over
+# StringBase<char>'s, and FXList's copy constructor "matched" through it
+# (LINK-629). --audit replays the admission proof over every existing stacked
+# pin. It reports and never gates (shadow): a backlog this size is drained, not
+# baselined.
+AUDIT_PROVEN = "PROVEN"                  # bytes, relocations and callees are retail's
+AUDIT_DIFFERS = "DIFFERS"                # the name's own body is not the body there
+AUDIT_DIFFERS_RELOC = "DIFFERS-RELOC"    # same bytes, different relocations
+AUDIT_ELSEWHERE = "IDENTITY-ELSEWHERE"   # the name resolves at another address too
+AUDIT_NO_OBJECT = "NO-DEFINING-OBJECT"   # no ledger unit's object defines the name
+AUDIT_INCONCLUSIVE = "INCONCLUSIVE"      # the proof stopped short (callee, size, compile)
+AUDIT_ORDER = (AUDIT_DIFFERS, AUDIT_DIFFERS_RELOC, AUDIT_ELSEWHERE, AUDIT_INCONCLUSIVE,
+               AUDIT_NO_OBJECT, AUDIT_PROVEN)
+
+
+def stacked_pins(pins, rows):
+    """[(pin, rva, other real names)] for each pin whose real name sits on an
+    address whose ledger rows carry a different real name: pin_admission's
+    one-address-one-identity test, applied to pins already in symbols.csv."""
+    import pin_admission
+    names_at = pin_admission.names_by_address(rows, ())
+    found = []
+    for pin in pins:
+        try:
+            rva = int(pin["address"], 16)
+        except (KeyError, TypeError, ValueError):
+            continue
+        name = pin.get("name") or ""
+        if pin_admission.is_placeholder(name, rva):
+            continue
+        others = sorted(n for n in names_at.get(rva, ())
+                        if n != name and not pin_admission.is_placeholder(n, rva))
+        if others:
+            found.append((pin, rva, others))
+    return found
+
+
+def audit_verdict(problems):
+    """Map pin_admission.fold_proof_problems' first refusal onto a verdict."""
+    if not problems:
+        return AUDIT_PROVEN
+    first = problems[0]
+    if " differs from retail " in first or (" compiles " in first and "the ledger body at" in first):
+        return AUDIT_DIFFERS
+    if "relocations are not those" in first:
+        return AUDIT_DIFFERS_RELOC
+    if "already has its own address" in first:
+        return AUDIT_ELSEWHERE
+    return AUDIT_INCONCLUSIVE
+
+
+class CensusIndex:
+    """Which ledger units define a name, and which matched rows reference it,
+    from the last census index (link_check --fetch-index). Absent, every pin
+    without a fold-proof= source is NO-DEFINING-OBJECT and no callers are named."""
+
+    def __init__(self, rows, path=None):
+        import link_census
+        self.path = path or link_census.OUT / "link_index.pkl"
+        self.objects, self.comdat, self.strong, self.callers = [], {}, {}, {}
+        sources = {r["source"] for r in rows if r.get("status") == "matched" and r.get("source")}
+        self.source_of = {}
+        for source in sources:
+            try:
+                self.source_of[build.obj_path(build.ROOT / source).name] = source
+            except (OSError, ValueError):
+                continue
+        self.matched = {r["name"] for r in rows if r.get("status") == "matched"}
+        if not self.path.exists():
+            return
+        import pickle
+        with self.path.open("rb") as handle:
+            index = pickle.load(handle)
+        self.objects, self.comdat, self.strong = index["objects"], index["comdat"], index["strong"]
+        for caller, refs in index["references"]["edges"].items():
+            for name in refs:
+                self.callers.setdefault(name, set()).add(caller)
+
+    def sources(self, name):
+        found = []
+        objects = [self.objects[entry[0]] for entry in self.comdat.get(name, ())]
+        objects += [self.objects[i] for i in self.strong.get(name, ())]
+        for obj in objects:
+            source = self.source_of.get(obj)
+            if (source and not source.lower().endswith(build.LIB_SUFFIX)
+                    and source not in found):
+                found.append(source)
+        return found
+
+    def matched_callers(self, name):
+        return sorted(c for c in self.callers.get(name, ()) if c in self.matched)
+
+
+def audit(pins=None, rows=None, index=None, prove=None, limit=None):
+    """Re-judge every stacked pin; [finding] worst first.
+
+    prove(pin, rva) -> problems defaults to pin_admission.fold_proof_problems
+    against the ledger and pin set. A pin's own fold-proof= source is replayed
+    first; otherwise the first ledger unit whose object defines the name."""
+    import pin_admission
+    if pins is None:
+        with (ROOT / "reverse" / "symbols.csv").open(newline="", encoding="utf-8") as handle:
+            pins = list(csv.DictReader(handle))
+    if rows is None:
+        rows = build.load_all_function_rows()
+    if index is None:
+        index = CensusIndex(rows)
+    if prove is None:
+        maps = []
+
+        def symbol_map():
+            if not maps:
+                maps.append(build.load_symbol_map())
+            return maps[0]
+
+        def prove(pin, rva):
+            return pin_admission.fold_proof_problems(pin, rva, rows, symbol_map, pins)
+    findings = []
+    for pin, rva, others in stacked_pins(pins, rows)[:limit]:
+        name, notes = pin["name"], pin.get("notes") or ""
+        recorded = pin_admission.FOLD_PROOF_RE.search(notes)
+        sources = [recorded.group(1)] if recorded else index.sources(name)
+        finding = {"name": name, "address": f"0x{rva:08X}", "others": others,
+                   "fold_proof_noted": bool(recorded), "source": sources[0] if sources else None,
+                   "callers": index.matched_callers(name), "problems": []}
+        if not sources:
+            finding["verdict"] = AUDIT_NO_OBJECT
+        else:
+            try:
+                problems = prove({"name": name, "address": pin["address"],
+                                  "notes": f"fold-proof={sources[0]}"}, rva)
+            except (OSError, ValueError, KeyError, SystemExit) as error:
+                problems = [f"audit could not run the proof: {error}"]
+            finding["verdict"] = audit_verdict(problems)
+            finding["problems"] = problems[:2]
+            # The proof recurses into callees; a refusal that never names the
+            # pinned function is about one of them, not about this pin.
+            finding["on_callee"] = bool(problems) and name not in problems[0]
+        findings.append(finding)
+    findings.sort(key=lambda f: (AUDIT_ORDER.index(f["verdict"]), -len(f["callers"]), f["address"]))
+    return findings
+
+
+def report_audit(findings, json_path=None):
+    counts = collections.Counter(f["verdict"] for f in findings)
+    print(f"pin audit (shadow): {len(findings)} pin(s) stack a real name on an address "
+          "that carries another")
+    for verdict in AUDIT_ORDER:
+        if counts[verdict]:
+            with_callers = sum(1 for f in findings if f["verdict"] == verdict and f["callers"])
+            print(f"    {verdict}: {counts[verdict]} ({with_callers} with matched callers)")
+    for finding in findings:
+        if finding["verdict"] == AUDIT_PROVEN:
+            continue
+        print(f"{finding['verdict']}  {finding['address']}  {finding['name']}")
+        print(f"    address carries {finding['others'][0]}"
+              + (f" (+{len(finding['others']) - 1})" if len(finding["others"]) > 1 else ""))
+        if finding["problems"]:
+            print(("    (on a callee) " if finding.get("on_callee") else "    ")
+                  + finding["problems"][0])
+        if finding["callers"]:
+            print(f"    matched callers ({len(finding['callers'])}): "
+                  + ", ".join(finding["callers"][:3]))
+    if json_path:
+        import json
+        Path(json_path).write_text(json.dumps(findings, indent=1) + "\n", encoding="utf-8")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check", action="store_true",
@@ -795,7 +969,17 @@ def main(argv=None):
                              "(functions.csv rows + symbols.csv pins), not the pins alone")
     parser.add_argument("--clear-cut", action="store_true",
                         help="candidates a byte-verified ledger row settles — each still needs caller confirmation")
+    parser.add_argument("--audit", action="store_true",
+                        help="re-judge every existing pin that stacks a real name on an address carrying "
+                             "another: replay pin_admission's fold proof (shadow: reports, never fails)")
+    parser.add_argument("--audit-json", metavar="PATH", help="with --audit: also write the findings as JSON")
+    parser.add_argument("--audit-limit", metavar="N", type=int,
+                        help="with --audit: judge only the first N stacked pins (symbols.csv order)")
     args = parser.parse_args(argv)
+
+    if args.audit:
+        report_audit(audit(limit=args.audit_limit), args.audit_json)
+        return 0
 
     if args.assert_shrink_only:
         assert_shrink_only(args.assert_shrink_only, args.at)
