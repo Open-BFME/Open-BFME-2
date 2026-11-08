@@ -1,9 +1,12 @@
 # P23: BaseHeightMapRenderObjClass's real tables, ready except for one claim
 
-**Status.** Blocked on `Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp`.
-Another contributor's header seat (`class:DX8Wrapper`, StarkillerHDX@fleet, "header seat w17")
-holds it in its footprint, so `claims.py claim file:...BaseHeightMap.cpp` is refused. Do not
-use `--force`. Retry the claim; carry on once it is granted.
+**Status.** Blocked on a claim. `class:DX8Wrapper` and `BaseHeightMap.cpp` came free on 2026-11-08, but
+`codex-01a1071d-root-recovery-oct11` then took `file:.../Rva0006D0D7Dtor.cpp` ("next_work link-cycle repair"), and
+that footprint refuses `class:BaseHeightMapRenderObjClass` and 0x0006D0D7. Do not use `--force`. Retry the claim;
+carry on once it is granted.
+
+Rechecked the same day: the prepared header and constructor still build on master, 105/105 exact across the
+header's 45 dependent sources (working tree only, reverted).
 
 **Landed.** Every BaseHeightMap.h field is typed from retail: +0xD4 and four texture slots
 `RefCountPtr<TextureClass>`, `TScorch[500]`, two `vector<bool>`s, eight AsciiStrings.
