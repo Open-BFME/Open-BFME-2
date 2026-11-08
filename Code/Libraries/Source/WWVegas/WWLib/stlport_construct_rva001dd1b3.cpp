@@ -5,11 +5,6 @@
 // Same 18B frameless shape as rowed _Construct 0x001DD2DC.
 #include <stddef.h>
 
-inline void *operator new(size_t, void *place)
-{
-    return place;
-}
-
 struct Rva001DD1B3 {
     Rva001DD1B3(const Rva001DD1B3 &that);
 };
@@ -17,12 +12,13 @@ struct Rva001DD1B3 {
 namespace _STL {
 
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<Rva001DD1B3, Rva001DD1B3>(Rva001DD1B3 *p, const Rva001DD1B3 &value)
 {
     if (p)
-        new (p) Rva001DD1B3(*(const Rva001DD1B3 *)&value);
+        p->Rva001DD1B3::Rva001DD1B3(value);
 }
 
 }
-
-template void _STL::_Construct(Rva001DD1B3 *, const Rva001DD1B3 &);
