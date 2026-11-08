@@ -1377,6 +1377,7 @@ Bool Player::isScienceHidden( ScienceType t ) const
 
 // Force-emit ScienceVec::erase(iterator) COMDAT claimed on this TU @ 0xCEA00.
 // Was previously only referenced by the C++ setScienceAvailability body.
+static ScienceType *bfme_force_ScienceVec_erase(ScienceVec *scienceVec, ScienceType *it);
 static ScienceType *bfme_force_ScienceVec_erase(ScienceVec *scienceVec, ScienceType *it)
 {
 	return scienceVec->erase(it);
