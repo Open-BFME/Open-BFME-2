@@ -99,3 +99,13 @@ units (the handoff's 19 plus `statistics.cpp`): 18 link, `collect.cpp` and
 0 -> 59 B, `Rva007B7280Siblings.cpp` 0 -> 353 B, `statistics.cpp` 986 -> 1,019 B,
 `pointgr.cpp` 10,565 -> 10,532 B (the row moved); total 30,747 -> 31,179 B.
 Census confirmation pending.
+
+**2026-11-08 global-teardown bridge recheck:** all six live teardown rows in
+Rva007B7280Siblings.cpp pass; ordinary preview remains LINKS/353 against
+d171e84869. Its /O2 deleting copy is still71B versus the rowed constructor
+owner's34B. A whole-class extern-template declaration removes that copy and
+the table but fails the two Vector3 teardown bodies (4/6 exact), so no source
+edit is retained. Current dest queries still give only neighbour heuristics
+for 0x007B7280/0x007B7400, no approved TU for a merge. The bridge/provider and
+Resize/EH boundary remain open; there is no new census or image clearance.
+[Private trial and remaining prerequisites](../../reverse/attempt_support/vector-global-provider-20261108/README.md).

@@ -472,3 +472,13 @@ on retry. Required checks pass. Broader audit stays INCONCLUSIVE: index
 eba83a23be versus base 4904abd4bd222cb47e06f9bbccd5f30303a5e693, affected
 Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Preserve that
 consumer for the next census/image check.
+
+**2026-11-08 Vector3 global-teardown provider boundary:** the first
+Rva007B7280Siblings.cpp deleting copy is71B, with a34B rowed owner in
+vector_class_vector3_ctor.cpp. Whole-class extern-template suppression drops
+the copy/table but changes two teardown bodies (4/6 exact). No Code change
+is retained; all six live rows pass and preview is LINKS/353 at d171e84869.
+Current endpoint dest queries supply no usable approved TU, so no merge was
+attempted. The different body and Resize/EH provider proof remain open;
+this recheck does not authorize an alignment exception or clear a table.
+[Evidence](../../reverse/attempt_support/vector-global-provider-20261108/README.md).

@@ -1,0 +1,28 @@
+{
+  "rows": 6,
+  "matched": 4,
+  "missing": [
+    "?rva007B7280@@YAXXZ",
+    "?destroyVertexLoc@@YAXXZ"
+  ],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\48fb1f43b9e20e5f.obj",
+  "added": [],
+  "removed": [
+    "??1?$VectorClass@VVector3@@@@UAE@XZ",
+    "??_7?$VectorClass@VVector3@@@@6B@",
+    "??_G?$VectorClass@VVector3@@@@UAEPAXI@Z",
+    "?Clear@?$VectorClass@VVector3@@@@UAEXXZ"
+  ],
+  "changed": [
+    "?destroyVertexLoc@@YAXXZ",
+    "?rva007B7280@@YAXXZ"
+  ],
+  "existing_vector3_deleting_copy": [
+    {
+      "name": "??_G?$VectorClass@VVector3@@@@UAEPAXI@Z",
+      "size": 71,
+      "digest": "ac2be0dc8c7c"
+    }
+  ]
+}
