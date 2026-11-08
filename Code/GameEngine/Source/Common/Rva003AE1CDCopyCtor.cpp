@@ -18,11 +18,12 @@ public:
 	Rva005EA0D0(const Rva005EA0D0 &other);
 };
 
-// Rva003AE1CD_v0: matched references place it at VA 0xc1d31c (retail .rdata value 112).
-extern "C" char Rva003AE1CD_v0 = 112;
+// The +0 and +0x0C tables (VA 0x00C1D31C, 0x00C1D348) are the compiler tables
+// Rva0056224FCtor.cpp emits for Rva00562366; the data ledger binds both names
+// at those addresses.
+extern "C" char __identifier("??_7Rva00562366@@6BRva003ADFDBPrimary@@@");
 extern "C" char __identifier("?vftable_0112B89C@@3HA");
-// Rva003AE1CD_v0C: matched references place it at VA 0xc1d348 (retail .rdata value 72).
-extern "C" char Rva003AE1CD_v0C = 72;
+extern "C" char __identifier("??_7Rva00562366@@6B@");
 
 class Rva003AE1CD
 {
@@ -42,8 +43,8 @@ Rva003AE1CD::Rva003AE1CD(const Rva003AE1CD &that)
 	((Rva003ADFDB *)this)->Rva003ADFDB::Rva003ADFDB(*(const Rva003ADFDB *)src);
 	const void *poly_src = src ? (const char *)src + 0x0C : 0;
 	((Rva005EA0D0 *)((char *)this + 0x0C))->Rva005EA0D0::Rva005EA0D0(*(const Rva005EA0D0 *)poly_src);
-	*(void **)((char *)this + 0x0C) = &Rva003AE1CD_v0C;
-	*(void **)this = &Rva003AE1CD_v0;
+	*(void **)((char *)this + 0x0C) = &__identifier("??_7Rva00562366@@6B@");
+	*(void **)this = &__identifier("??_7Rva00562366@@6BRva003ADFDBPrimary@@@");
 	*(void **)((char *)this + 8) = &__identifier("?vftable_0112B89C@@3HA");
 }
 // _Rva003AE1CD_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
