@@ -249,19 +249,7 @@ template <> struct less<AsciiString>
 #include "../../../../../Include/GameClient/MapMetaData.h"
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
-class GameSlot
-{
-public:
-	void setPlayerTemplate(int playerTemplate);
-	void setMapAvailability(bool available);
-	bool isHuman() const;
-	char m_pad00[0xC];
-	int m_color; // +0x0C
-	char m_pad10[0x20];
-	UnicodeString m_name; // +0x30
-	char m_pad34[0xC];
-	int m_40; // +0x40
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 class Rva00447773
 {
 public:
@@ -287,37 +275,6 @@ class Rva00444165
 {
 public:
 	int rva00444165();
-};
-class GameInfo
-{
-public:
-	int getNumPlayers() const;
-	int getNumOpenOrOccupiedSlots() const;
-	GameSlot *getSlot(int index);
-	void setMapForwarder(AsciiString mapName);
-	void setMapCRC(unsigned int mapCRC);
-	void setMapSize(unsigned int mapSize);
-	// Unrowed 0x003FF1A7 (27 bytes; stores the game mode at +0x5C and resets
-	// the rules for it), pinned by address.
-	void rva003FF1A7(int mode);
-	const GameSlot *getConstSlot(int slot) const;
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual int getLocalSlotNum() const;
-	virtual void resetAccepted();
-	virtual void resetStartSpots();
-	virtual void adjustSlotsForMap();
 };
 // The +0x288 panel (destroyed by ??1Rva004421E1); 0x0043DE19 (265 bytes) is
 // unrowed and pinned by address.
@@ -817,15 +774,7 @@ void GadgetListBoxGetSelected(GameWindow *listbox, int *selectList);
 class LANGameInfo : public GameInfo
 {
 public:
-	unsigned char m_pad004[0x44 - 0x04];
-	unsigned int m_mapCRC; // +0x44
-	unsigned int m_mapSize; // +0x48
-	unsigned char m_pad04c[0x58 - 0x4C];
-	int m_58; // +0x58
-	int m_5c; // +0x5C (game mode)
-	int m_rules[10]; // +0x60
-	int m_88; // +0x88
-	unsigned char m_pad08c[0xF5C - 0x8C];
+	unsigned char m_padDC[0xF5C - 0xDC];
 	LANGameInfo *m_next; // +0xF5C
 };
 
@@ -1111,7 +1060,7 @@ void AptLanLobby::rva00445E3E(LANGameInfo *games)
 	reinterpret_cast<Rva00601941 *>(&m_668)->rva00601941();
 	for (LANGameInfo *game = games; game; game = game->m_next)
 	{
-		if (game->m_5c == m_panel.field7c)
+		if (game->m_field5C == m_panel.field7c)
 			reinterpret_cast<Rva00580B40 *>(&m_668)->rva00580B40((const ModuleData *)game);
 	}
 	rva004457BC();
@@ -1559,12 +1508,12 @@ bool AptLanLobby::rva004467AC()
 				slot->m_color = modePrefs().rva0044D836();
 				slot->setPlayerTemplate(modePrefs().rva0044D88C());
 				modePrefs().rva0044D774(slot);
-				slot->m_40 = 1;
+				slot->m_field40 = 1;
 				if (m_panel.field7c == 1)
-					game->m_58 = modePrefs().getStrategicScenario();
+					game->m_field58 = modePrefs().getStrategicScenario();
 				int rules[10];
 				modePrefs().rva0044DB54(rules);
-				memcpy(game->m_rules, rules, sizeof(rules));
+				memcpy(game->m_field60, rules, sizeof(rules));
 			}
 
 			AsciiString mapName;

@@ -167,26 +167,7 @@ class Rva0043DA65 { public: int rva0043DA65(); };
 
 class Rva003821B9AsciiField { public: AsciiString get() const; };
 
-class GameSlot
-{
-public:
-    bool isHuman() const;
-    unsigned char m_pad000[0x1C];
-    int m_team; // +0x1C
-    unsigned char m_pad020[0x30 - 0x20];
-    UnicodeString m_name; // +0x30
-};
-
-class GameInfo
-{
-public:
-    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-    virtual void v12();
-    virtual int getLocalSlotNum(); // +0x34
-    GameSlot *getSlot(int slotNum);
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
 int GadgetListBoxAddEntryText(GameWindow *, UnicodeString, int, int, int, bool);
 
@@ -438,7 +419,7 @@ void AptMpClans::OnGameInfoChange()
     UnicodeString unused;
     if (localTag.isEmpty())
         reinterpret_cast<Rva0057F538 *>(this)->rva0057F538(TheGameText->fetch("CLAN:ErrorMissingClanAffiliation", 0));
-    else if (localSlot->m_team < 0)
+    else if (localSlot->m_teamNumber < 0)
         reinterpret_cast<Rva0057F538 *>(this)->rva0057F538(TheGameText->fetch("CLAN:ErrorOnlyTwoClans", 0));
     else
         reinterpret_cast<Rva0057F538 *>(this)->rva0057F538(UnicodeString::TheEmptyString);
@@ -448,7 +429,7 @@ void AptMpClans::OnGameInfoChange()
         if (!slot || !slot->isHuman())
             continue;
         int color;
-        if (slot->m_team < 0)
+        if (slot->m_teamNumber < 0)
             color = noTeam;
         else
             {

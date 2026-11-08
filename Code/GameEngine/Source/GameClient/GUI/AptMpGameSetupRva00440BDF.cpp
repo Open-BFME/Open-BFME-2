@@ -53,79 +53,13 @@ enum SlotState
 
 #include "../../../Include/GameNetwork/GameSlotConnectInfo.h"
 
-class GameSlot
-{
-public:
-	bool isOpen() const;
-	bool isHuman() const;
-	bool isObserver() const;
-	bool isOccupied() const;
-	bool isAI() const;
-
-	unsigned char m_pad00[0x04];
-	int m_state; // +0x04
-	bool m_accepted; // +0x08
-	bool m_hasMap; // +0x09
-	unsigned char m_pad0a[0x0C - 0x0A];
-	int m_color; // +0x0C
-	int m_10; // +0x10
-	int m_14; // +0x14
-	int m_playerTemplate; // +0x18
-	int m_team; // +0x1C
-	int m_20; // +0x20 (the handicap)
-	unsigned char m_pad24[0x30 - 0x24];
-	UnicodeString m_name; // +0x30
-	unsigned char m_pad34[0x40 - 0x34];
-	int m_40; // +0x40
-	unsigned char m_pad44[0x50 - 0x44];
-	int m_heroKind; // +0x50 (1 random, 2 or 3 by the hero's +0x48 flag)
-	int m_hero0c; // +0x54 (the hero's +0x0C)
-	int m_hero10; // +0x58 (the hero's +0x10)
-	int m_hero; // +0x5C
-	unsigned char m_pad60[0x1AC - 0x60];
-
-	void setPlayerTemplate(int playerTemplate);
-	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
-	int getTeamNumber() const { return m_team; }
-	int getState() const { return m_state; }
-	int getHeroKey0c() const { return m_hero0c; }
-	int getHeroKey10() const { return m_hero10; }
-	int getStartPos() const { return m_10; }
-
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
 class Rva003821B9AsciiField
 {
 public:
 	AsciiString get() const;
-};
-
-// The slot's +0x5C setter (rowed as a Disp8 dword setter).
-class GameInfo
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual bool v12();
-	virtual int v13();
-	virtual void v14();
-	virtual void v15();
-
-	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
-	AsciiString getMap() const;
-	void setMap(AsciiString map);
-
-	unsigned char m_pad04[0x58 - 0x04];
-	int m_58; // +0x58
-	unsigned char m_pad5c[0x8C - 0x5C];
-	bool m_8c; // +0x8C
-	unsigned char m_pad8d[0xCC - 0x8D];
-	unsigned char m_digest[16]; // +0xCC
-
-	bool isLocked() const { return m_8c; }
 };
 
 // Unrowed 0x00300E42 (cdecl; whether the game's map starts with the map
@@ -793,7 +727,7 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
  if(maxPlayers<=0) return false;
  UnicodeString mapName;
  bool willTransfer=Rva00300E42Check(game);
- game->getSlot(0)->m_accepted=true;
+ game->getSlot(0)->m_isAccepted=true;
  if(md) {
   mapName.format((const unsigned short*)L"%ls",const_cast<MapMetaData*>(md)->bfme_getDisplayName(true).str());
   for(int i=0;i<8;++i) {
@@ -810,7 +744,7 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
      m_owner->v17(msg,2);
      allHaveMap=false;
     }
-    if(!slot->m_accepted) allAccepted=false;
+    if(!slot->m_isAccepted) allAccepted=false;
     if(!slot->isObserver()) {
      bool noClan=tagIsEmpty(((Rva003821B9AsciiField*)slot)->get());
      if(noClan) ++numMissingClan;
@@ -819,9 +753,9 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
    if(slot->isOccupied() && !slot->isObserver()) {
     ++numUsers;
     if(slot->isHuman()) ++numHumans;
-    if(slot->m_team>=0) {int team=slot->m_team;teams.insert(team);}
+    if(slot->m_teamNumber>=0) {int team=slot->m_teamNumber;teams.insert(team);}
     else ++numRandom;
-    if(slot->m_10==-1) allSpots=false;
+    if(slot->m_startPos==-1) allSpots=false;
    }
   }
   bool wotrEnemy=mode1 && (m_flags&0x100);
@@ -873,7 +807,7 @@ void AptMpGameSetup::PopulatePlayerTemplateCombo(int index)
  GadgetComboBoxReset(combo);
  int mode=m_60.m_mode; bool mode1=mode==1;
  bool allowObservers=!slot->isAI() && !(m_flags&4) && !mode1;
- bool local=index==info->v13();
+ bool local=index==info->getLocalSlotNum();
  bool hostAI=m_owner->v01() && slot->isAI();
  if(!local && !hostAI) {
   int value=slot->m_playerTemplate;
@@ -941,14 +875,14 @@ void AptMpGameSetup::PopulateHeroCombo(int index)
  if(!info) return;
  GameSlot *slot=info->getSlot(index);
  if(!slot) return;
- int selectedHero=slot->m_hero;
+ int selectedHero=slot->m_field5C;
  int selectPos=0;
  int row=GadgetComboBoxAddEntry(combo,UnicodeString((const unsigned short*)L"-"),def->getColor());
  GadgetComboBoxSetItemData(combo,row,(void*)-1);
  row=GadgetComboBoxAddEntry(combo,TheGameText->fetch("GUI:Random"),def->getColor());
  GadgetComboBoxSetItemData(combo,row,(void*)-2);
  if(selectedHero==-2) selectPos=row;
- bool local=index==info->v13();
+ bool local=index==info->getLocalSlotNum();
  if(local || m_owner->v01()) {
   const PlayerTemplate *pt=ThePlayerTemplateStore->getNthPlayerTemplate(slot->m_playerTemplate);
   int side=pt ? pt->rva001FD234() : -1;

@@ -109,50 +109,15 @@ static __forceinline UnicodeStringMap::iterator findNoThrow(
     return values.find(key);
 }
 
-// The layout view this body needs. Offsets are the ones the surrounding
-// LANGameInfo TU and LANGameInfoBodies.cpp already carry: GameSlot is 0x44
-// bytes, LANGameSlot adds m_user at +0x44, m_serial at +0x60 and m_lastHeard
-// at +0x64, and GameInfo carries the map name at +0x3c with its CRC at +0x44.
-// GameInfo's virtuals are placeholders in retail's own order: the body reads
-// isInGame's flag byte directly and calls getLocalSlotNum at vtable+0x14.
-class GameInfo {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual Int getLocalSlotNum() const;
- __declspec(dllimport) __forceinline Bool isInGame() const { return m_inGame; }
- AsciiString getMap() const;
- __declspec(dllimport) __forceinline UnsignedInt getMapCRC() const { return m_mapCRC; }
-private:
- unsigned char before[0x10-4]; Bool m_inGame;
- unsigned char beforeMap[0x40-0x11]; AsciiString m_mapName; UnsignedInt m_mapCRC;
-};
+// LANGameSlot extends the 0x1AC-byte GameSlot with m_lastHeard at +0x1CC;
+// the slot's LAN user comes from the rowed GameSlot::rva004479B1.
+#include "../../Include/GameNetwork/GameInfo.h"
 #include "../../Include/GameNetwork/LANPlayerClass.h"
-class GameSlot {
-public:
- Bool isHuman() const;
- void *rva004479B1();
- LANPlayer *getUser(){return (LANPlayer*)rva004479B1();}
- const UnicodeString &getName()const{return m_name;}
-private:
- unsigned char pad[0x30]; UnicodeString m_name;
-};
 class Rva00447773 {public: void *getLANSlot(int);};
 class Rva00447A5C {public: void rva00447A5C(UnicodeString);};
 class Rva00447A93 {public: void rva00447A93(UnicodeString);};
 class LANGameSlot:public GameSlot {public:
- unsigned char beforeHeard[0x1cc-0x34]; UnsignedInt m_lastHeard;
+ unsigned char beforeHeard[0x1cc-0x1ac]; UnsignedInt m_lastHeard;
  void setLastHeard(UnsignedInt now){m_lastHeard=now;}
 };
 class LANGameInfo:public GameInfo {};
@@ -193,8 +158,8 @@ Bool ParseGameOptionsString(LANGameInfo *game, AsciiString options,
         LANGameSlot *slot = (LANGameSlot*)((Rva00447773*)game)->getLANSlot(i);
         if (slot && slot->isHuman())
         {
-            oldLogins[slot->getName()] = slot->getUser()->m_login;
-            oldMachines[slot->getName()] = slot->getUser()->m_host;
+            oldLogins[slot->m_name] = ((LANPlayer*)slot->rva004479B1())->m_login;
+            oldMachines[slot->m_name] = ((LANPlayer*)slot->rva004479B1())->m_host;
         }
     }
 
@@ -227,10 +192,10 @@ Bool ParseGameOptionsString(LANGameInfo *game, AsciiString options,
             if (slot->isHuman())
             {
                 slot->setLastHeard(now);
-                mapIt = findNoThrow(oldLogins, slot->getName());
+                mapIt = findNoThrow(oldLogins, slot->m_name);
                 if (mapIt != oldLogins.end())
                     ((Rva00447A5C*)slot)->rva00447A5C(mapIt->second);
-                mapIt = findNoThrow(oldMachines, slot->getName());
+                mapIt = findNoThrow(oldMachines, slot->m_name);
                 if (mapIt != oldMachines.end())
                     ((Rva00447A93*)slot)->rva00447A93(mapIt->second);
             }

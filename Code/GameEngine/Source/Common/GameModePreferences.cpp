@@ -54,15 +54,7 @@ class GameSlot;
 
 // Target-backed GameSlot fields: AptMpGameSetup::rva0043DD34 reads/writes
 // +0x50 through +0x5C; the +0x5C dword setter is rowed at 0x003FF0E7.
-class GameSlot
-{
-public:
-	unsigned char m_pad00[0x50];
-	int m_heroKind;
-	int m_hero0c;
-	int m_hero10;
-	int m_hero;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class Rva003FF0E7DwordSlot
 {
@@ -168,9 +160,9 @@ Bool GameModePreferences::rva0044D774(GameSlot *slot)
 		return false;
 	if (!TheCreateAHeroManager)
 		return false;
-	slot->m_heroKind = 0;
-	slot->m_hero0c = 0;
-	slot->m_hero10 = 0;
+	slot->m_field50 = 0;
+	slot->m_field54 = 0;
+	slot->m_field58 = 0;
 	((Rva003FF0E7DwordSlot *)slot)->set(-1);
 	PreferenceMap::const_iterator it = find(makeKey("Hero"));
 	if (it == end())
@@ -179,7 +171,7 @@ Bool GameModePreferences::rva0044D774(GameSlot *slot)
 	if (hero == -1)
 		return true;
 	if (hero == -2) {
-		slot->m_heroKind = 1;
+		slot->m_field50 = 1;
 		((Rva003FF0E7DwordSlot *)slot)->set(hero);
 		return true;
 	}
@@ -187,10 +179,10 @@ Bool GameModePreferences::rva0044D774(GameSlot *slot)
 	CreateAHeroData *entry = heroes->rva0040A32F(hero);
 	if (!entry)
 		return true;
-	slot->m_heroKind = entry->m_48 ? 2 : 3;
+	slot->m_field50 = entry->m_48 ? 2 : 3;
 	((Rva003FF0E7DwordSlot *)slot)->set(hero);
-	slot->m_hero0c = entry->m_0c;
-	slot->m_hero10 = entry->m_10;
+	slot->m_field54 = entry->m_0c;
+	slot->m_field58 = entry->m_10;
 	return true;
 }
 

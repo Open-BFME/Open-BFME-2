@@ -223,28 +223,7 @@ class DisconnectMenu;
  extern DisconnectMenu *TheDisconnectMenu;
 // TheGameInfo (0x00E02EEC): vslot 19 lets a chat other than the console
 // open while TheWritableGlobalData's +0xA44 flag is set.
-class GameSlot
-{
-public:
-	unsigned char m_pad000[0xA];
-	bool m_0A; // +0x0A
-	unsigned char m_pad00B[0x34 - 0xB];
-	AsciiString m_playerName; // +0x34
-};
-class GameInfo
-{
-public:
-	int getSlotNum(AsciiString name) const;
-	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
-
-#define INFO_SLOT(N) virtual void slot##N();
-	INFO_SLOT(00) INFO_SLOT(01) INFO_SLOT(02) INFO_SLOT(03) INFO_SLOT(04) INFO_SLOT(05) INFO_SLOT(06)
-	INFO_SLOT(07) INFO_SLOT(08) INFO_SLOT(09) INFO_SLOT(10) INFO_SLOT(11) INFO_SLOT(12) INFO_SLOT(13)
-	INFO_SLOT(14) INFO_SLOT(15) INFO_SLOT(16) INFO_SLOT(17) INFO_SLOT(18)
-#undef INFO_SLOT
-	virtual bool slot19();
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
@@ -492,7 +471,7 @@ void AptInGameChat::OpenScreen(int chatType)
 		return;
 	if (chatType != 3)
 	{
-		if (!TheGameInfo->slot19() && TheWritableGlobalData->field0A44 != 0)
+		if (!TheGameInfo->isMultiPlayer() && TheWritableGlobalData->field0A44 != 0)
 			return;
 	}
 	if (g_Va00E04478 != 0)
@@ -566,7 +545,7 @@ bool AptInGameChat::rva004E8670(UnicodeString text)
 		GameSlot *slot = TheGameInfo->getSlot(slotNum);
 		if (slot == 0)
 			return true;
-		Player *to = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(slot->m_playerName));
+		Player *to = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(slot->m_field34));
 		if (to == 0)
 			return true;
 		int toIndex = to->m_playerIndex;
@@ -606,7 +585,7 @@ void AptInGameChat::Send(const char *unused)
 		UnicodeString message(L"Unknown");
 		for (int i = 0; i < 8; ++i)
 		{
-			name = TheGameInfo->getSlot(i)->m_playerName;
+			name = TheGameInfo->getSlot(i)->m_field34;
 			Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));
 			if (player == 0 || local == 0)
 				continue;
@@ -618,7 +597,7 @@ void AptInGameChat::Send(const char *unused)
 				message.format(TheGameText->fetchPtr("APT:TeamChat", 0), text.str());
 				break;
 			case 1:
-				if (!TheGameInfo->getConstSlot(i)->m_0A)
+				if (!TheGameInfo->getConstSlot(i)->m_isMuted)
 					playerMask |= 1 << i;
 				message.format(TheGameText->fetchPtr("APT:GlobalChat", 0), text.str());
 				break;
