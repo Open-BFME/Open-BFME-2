@@ -212,3 +212,11 @@ Next check: the next real link's `vtable_bridge_queue.tsv` lists the ten boot ta
 `vtable_name_discovery` reports about 2 unindexed bindings (604 at `bbb1979380`), and its image report and crash
 receipt show whether the startup crash moves. Clearance: none claimed (offline plan only). Census confirmation: none
 claimed.
+
+**2026-11-08, seat LeonardBuhl (base `7523f06674`): one strong array from Finding 1's list retired.**
+`?g_00C078DC@@3QBQBXB` (0x008078DC, five `__purecall` slots, refused as strong-definition in
+`reverse/vtable_bridge_queue.tsv`) is gone: `Rva005D25F2Dtor.cpp`'s abstract base now installs its compiler-emitted
+`??_7Rva005D25F2Base@@6B@`, which owns the data row (byte-verified, 25/25 rows exact). Its other consumer, a stale
+present-unmatched copy of BattlePromptMovieClip's constructor in `Rva005FA393Dtor.cpp`, was removed (the constructor is
+rowed in `Rva005F9364Region.cpp`). Clearance: none claimed until the next real link's bridge queue no longer refuses
+0x008078DC.
