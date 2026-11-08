@@ -112,3 +112,61 @@ failure predates some header move and does not describe the unit's current
 state. `class_layouts` keeps only the error codes from a failed probe
 (`re.findall` with a capturing group discards the message), so the missing
 include cannot be named from the queue text alone.
+
+## Follow-up, same day: a second bug, a sharper split, and one adoption
+
+### probe_text dropped the unit's toolchain markers
+
+`SlowDeathBehavior.cpp`'s stale row (above) was not stale. Its probe failed
+C1083 because `probe_text` cuts the unit just past its view, and this unit's
+`// platformsdk` line sits at line 446 -- below the cut. `build.py` and
+`stlport_overlay` read `// platformsdk`, `// dxsdk`, `// stlport` and
+`// stlport46` from anywhere in the file (the old fixed-window trap is fixed and
+documented in `build.py`), so the probe compiled without the PlatformSDK include
+directory and `#include <windows.h>` at line 14 could not resolve.
+
+`lost_markers(text, kept)` returns the markers the cut dropped and `probe_text`
+re-appends them; they are comments, inert to the compiler and read by the build
+module. The probe then compiles.
+
+76 queue rows fail at the header's layout with C1083, so this was not one unit's
+problem. The other header-layout codes are C2011 (285), C1189 (141), C2084 (28)
+and C2953 (25).
+
+### The 113 vptr rows are two different things
+
+Of the 99 distinct (unit, field) pairs behind those rows:
+
+- **43 assign the pointer by hand** and can never adopt. `SlowDeathBehavior.cpp`
+  is one: its constructor writes all three with
+  `__identifier("??_7Rva0045D39E@@6BObjectModule@@@")` and friends, because
+  retail's constructor installs three particular vftables. With the header
+  adopted there is no member to assign, and the compile says so
+  (`C2065: 'm_p0C' : undeclared identifier`). These units want a
+  `// class-gate: allow` comment recording why, as the two ICoord2D views have.
+- **56 only declare it** as leading padding. Those are adoptable in principle,
+  and the refusal was the only thing in their way.
+
+### One adoption landed
+
+`Code/GameEngine/Source/GameLogic/Object/Object.cpp` adopting
+`AttributeModifierPoolUpdate.h` now passes the byte gate outright. Two others
+sampled from the 56 still refuse, each on a later field and for good reason:
+`SubsystemInterface::m_04 (+0x4)` has no canonical counterpart, and
+`ConnectionManager::opaque24` is a 73732-byte opaque block.
+
+### Held back: naming the compiler error
+
+`class_layouts.compile_layouts` keeps only the error *codes* from a failed
+compile -- `re.findall(r"error (C\d+)[^\n]*", ...)` returns just the group, so
+the message is discarded and the 739 rows that fail at a layout record a bare
+code. Keeping each error's own text is what turned the C1083 above from
+"compile failed: C1083" into "Cannot open include file: 'windows.h'", which is
+the whole diagnosis.
+
+That change is written and tested (five tests, including the three-error cap and
+the no-error-line fallback) but **not landed**: `tools/class_layouts.py` is held
+by `ancalgonn-swarm-seat6` for the bridge lane's conflicting duplicate type
+records. Whoever takes it next should keep each error's text; every consumer
+only stores `str(exc)`, so nothing parses the format, and `land_wave.py`'s
+`^compile failed: (\S+)$` matches `build.py`'s message, not this one.

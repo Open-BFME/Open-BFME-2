@@ -1,4 +1,5 @@
 """header_adopt_lane field renames: a unit adopting a canonical header speaks its field names."""
+import re
 import sys
 from pathlib import Path
 
@@ -62,6 +63,34 @@ def test_the_probe_compiles_the_unit_only_up_to_its_view():
     assert '#include "Object.h"' in probe and "class Team;" in probe
     assert "o->m_flags" not in probe and "m_speed" not in probe
     assert f"int {lane.PROBE_FN}(Object *p0)" in probe
+
+
+def test_the_probe_carries_a_toolchain_marker_the_cut_dropped():
+    # build.py reads `// platformsdk` from anywhere in the file; below the view it is cut away
+    # with the body and the probe then compiles without <windows.h> (C1083).
+    text = UNIT + "// platformsdk\n"
+    probe = lane.probe_text(text, ["Object"], "Object.h")
+    assert "// platformsdk" in probe and "o->m_flags" not in probe
+    assert lane.lost_markers(text, UNIT) == ["// platformsdk"]
+
+
+def test_a_marker_above_the_view_is_not_repeated():
+    text = UNIT.replace("// cl: /O2\n", "// cl: /O2\n// platformsdk\n")
+    probe = lane.probe_text(text, ["Object"], "Object.h")
+    assert probe.count("// platformsdk") == 1
+    assert lane.lost_markers(text, probe) == []
+
+
+def test_the_stlport46_marker_is_carried_without_inventing_a_plain_one():
+    text = UNIT + "// stlport46\n"
+    probe = lane.probe_text(text, ["Object"], "Object.h")
+    assert "// stlport46" in probe
+    assert not re.search(r"(?m)^// stlport[ \t]*$", probe)
+
+
+def test_a_unit_whose_markers_all_survive_the_cut_gains_nothing():
+    assert lane.lost_markers(UNIT, UNIT) == []
+    assert lane.probe_text(UNIT, ["Object"], "Object.h").count("//") == UNIT.count("//")
 
 
 def test_a_field_with_no_canonical_counterpart_is_refused():

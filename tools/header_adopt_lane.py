@@ -241,17 +241,37 @@ def swap_at(text, names, include):
 PROBE_FN = "header_adopt_lane_layout_probe"
 
 
+TOOLCHAIN_MARKERS = ("// platformsdk", "// dxsdk", "// stlport46", "// stlport")
+
+
+def lost_markers(text, kept):
+    """The toolchain marker lines `text` carries that `kept` does not. build.py and
+    stlport_overlay read these from anywhere in the file to choose include directories, so a
+    marker standing below the unit's view is cut away with the body and the probe would
+    compile without the PlatformSDK, DirectX or STLport headers -- C1083 on <windows.h> for a
+    unit whose `// platformsdk` line sits further down."""
+    out = []
+    for marker in TOOLCHAIN_MARKERS:
+        found = re.compile(r"(?m)^" + re.escape(marker) + r"[ \t]*$")
+        if found.search(text) and not found.search(kept):
+            out.append(marker)
+    return out
+
+
 def probe_text(text, strip, include):
-    """The unit cut just past where its first view stood, the header included there and a
-    function that makes the compiler lay every stripped class out. The cut code spells the
-    private field names the header lacks; the code before the view cannot reach the members."""
+    """The unit cut just past where its first view stood, the header included there, any
+    toolchain marker the cut dropped, and a function that makes the compiler lay every
+    stripped class out. The cut code spells the private field names the header lacks; the
+    code before the view cannot reach the members."""
     swapped = swap_at(text, strip, include)
     if swapped is None:
         return None
     out, cut = swapped
+    kept = out[:cut]
     params = ", ".join(f"{c} *p{i}" for i, c in enumerate(strip))
     sizes = " + ".join(f"(int)sizeof(*p{i})" for i in range(len(strip)))
-    return out[:cut] + f"\nint {PROBE_FN}({params}) {{ return {sizes}; }}\n"
+    markers = "".join(f"{marker}\n" for marker in lost_markers(text, kept))
+    return kept + markers + f"\nint {PROBE_FN}({params}) {{ return {sizes}; }}\n"
 
 
 def compile_text(source, text):
