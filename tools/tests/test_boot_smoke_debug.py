@@ -679,8 +679,9 @@ class MainThreadSamplerTests(unittest.TestCase):
 
     def test_a_one_off_hard_error_at_either_wait_ends_the_run_there(self):
         # A later wait that works must not carry the run on to the deadline and overwrite the error with "timeout".
-        # The game's create event is the first look; the second finds nothing and the third is the waiting one.
-        for failing in (2, 3):
+        # The first call delivers the game's create event; the second finds nothing and a sample follows; the third
+        # finds nothing with no sample due; the fourth is the waiting call.
+        for failing in (2, 3, 4):
             kernel, result = self.run_case(self.GAME, timeout=2, wait_error_on=failing)
             self.assertEqual(result["outcome"], "debugger-error", failing)
             self.assertEqual(self.captured_at, None, failing)
