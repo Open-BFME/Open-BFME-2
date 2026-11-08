@@ -4817,8 +4817,9 @@ class LinkGuardTests(unittest.TestCase):
         self.assertEqual(T.portable_comdat_contexts(b"truncated"), {})
 
     @staticmethod
-    def weak_table(default="??_Gx@@", selection=2, tag_at=None, alias=None, another_weak=False):
-        """A vftable's shape: a data COMDAT with one DIR32 to weak `??_Ex@@`, whose default is `default`,
+    def weak_table(default="??_Gx@@", selection=2, tag_at=None, alias=None, another_weak=False, characteristics=2,
+                   slot="??_Ex@@"):
+        """A vftable's shape: a data COMDAT with one DIR32 to weak `slot`, whose default is `default`,
         a code COMDAT here selected `selection`."""
         import struct
         from test_gate_exploits import coff, TEXT
@@ -4827,17 +4828,17 @@ class LinkGuardTests(unittest.TestCase):
         if alias:
             sections.append((".drectve", 0x00100A00, f" /alternatename:{alias}=other".encode(), []))
         symbols = [(".rdata", 0, 1, 0, 3, 1), ("??_7x@@", 0, 1, 0, 2, 0),
-                   (".text", 0, 2, 0, 3, 1), ("??_Gx@@", 0, 2, 0x20, 2, 0),
-                   ("??_Ex@@", 0, 0, 0x20, 105, 1)]
+                   (".text", 0, 2, 0, 3, 1), (default, 0, 2, 0x20, 2, 0),
+                   (slot, 0, 0, 0x20, 105, 1)]
         if another_weak:
-            symbols.append(("??_Ex@@", 0, 0, 0x20, 105, 1))
+            symbols.append((slot, 0, 0, 0x20, 105, 1))
         data = bytearray(coff(sections, symbols))
         table = struct.unpack_from("<I", data, 8)[0]
         data[table + 18 + 14] = 2
         data[table + 18 * 4 + 14] = selection
-        struct.pack_into("<I", data, table + 18 * 7, 5 if tag_at is None else tag_at)
+        struct.pack_into("<II", data, table + 18 * 7, 5 if tag_at is None else tag_at, characteristics)
         if another_weak:
-            struct.pack_into("<I", data, table + 18 * 9, 5)
+            struct.pack_into("<II", data, table + 18 * 9, 5, characteristics)
         return bytes(data)
 
     def test_portable_context_names_a_compilers_weak_slot_and_its_default(self):
@@ -4853,7 +4854,14 @@ class LinkGuardTests(unittest.TestCase):
     def test_portable_context_refuses_a_weak_slot_it_cannot_follow(self):
         for label, options in (("default selected otherwise", {"selection": 1}), ("default not a body here", {"tag_at": 0}),
                                ("the slot redirected", {"alias": "??_Ex@@"}), ("the default redirected", {"alias": "??_Gx@@"}),
-                               ("two weak records of the slot", {"another_weak": True})):
+                               ("two weak records of the slot", {"another_weak": True}),
+                               ("Characteristics 0", {"characteristics": 0}), ("Characteristics 1", {"characteristics": 1}),
+                               ("Characteristics 3", {"characteristics": 3}), ("Characteristics 4", {"characteristics": 4}),
+                               ("Characteristics of all ones", {"characteristics": 0xFFFFFFFF}),
+                               ("another class's default", {"default": "??_Gy@@"}),
+                               ("a slot that is not ??_E", {"slot": "_slot", "default": "_del"}),
+                               ("??_E defaulting elsewhere", {"default": "_del"}),
+                               ("??_G as the slot", {"slot": "??_Gx@@", "default": "??_Ex@@"})):
             with self.subTest(label=label):
                 found = T.portable_comdat_contexts(self.weak_table(**options))
                 self.assertEqual([k for k in found if k[0] == "??_7x@@"], [])
@@ -5481,7 +5489,7 @@ class SplitLinkGuardTests(unittest.TestCase):
         (self.root / "reverse").mkdir()
         self.truth = SimpleNamespace(verdict=lambda *args: None)
 
-    def obj(self, stem, defined=(), refs=(), copies=(), aliases=(), common=(), tables=()):
+    def obj(self, stem, defined=(), refs=(), copies=(), aliases=(), common=(), tables=(), characteristics=2):
         """`tables`: (table, weak slot, its default, the default's body), a vftable's shape, each a COMDAT selected ANY."""
         import struct
         from test_gate_exploits import coff, TEXT
@@ -5520,7 +5528,7 @@ class SplitLinkGuardTests(unittest.TestCase):
         for at in aux_at:
             raw[table + 18 * at + 14] = 2
         for weak, tag in tags:
-            struct.pack_into("<I", raw, table + 18 * (weak + 1), tag)
+            struct.pack_into("<II", raw, table + 18 * (weak + 1), tag, characteristics)
         path = self.root / "objects" / (stem + ".obj")
         path.parent.mkdir(exist_ok=True)
         path.write_bytes(raw)
@@ -5652,11 +5660,12 @@ class SplitLinkGuardTests(unittest.TestCase):
             why = self.judge(destination_options=dict(copies=(("_fold", b"\xc3"),)))
         self.assertTrue(any("lacks matching private/weak-free context" in item for item in why))
 
-    TABLE = ("_tab", "_slot", "_del", b"\xc3")
+    SLOT, DEFAULT = "??_Ex@@", "??_Gx@@"
+    TABLE = ("_tab", SLOT, DEFAULT, b"\xc3")
     REFUSED = "lacks matching private/weak-free context"
 
     def table_guard(self, verdict="retail"):
-        self.truth.verdict = lambda symbol, *rest: verdict if symbol["name"] == "_del" else None
+        self.truth.verdict = lambda symbol, *rest: verdict if symbol["name"] == self.DEFAULT else None
         return self.setup_guard(source_options=dict(tables=(self.TABLE,)), outside_options=dict(refs=("_tab",)))
 
     def test_a_moved_table_is_proven_through_its_weak_slot(self):
@@ -5672,23 +5681,38 @@ class SplitLinkGuardTests(unittest.TestCase):
                 self.assertTrue(any(self.REFUSED in item for item in why), why)
 
     def test_a_moved_table_may_not_change_its_slots_route(self):
-        for label, table in (("another default", ("_tab", "_slot", "_other", b"\xc3")),
-                             ("another body of the default", ("_tab", "_slot", "_del", b"\x90\xc3"))):
+        for label, table in (("another default", ("_tab", self.SLOT, "??_Gy@@", b"\xc3")),
+                             ("another body of the default", ("_tab", self.SLOT, self.DEFAULT, b"\x90\xc3"))):
             with self.subTest(label=label):
                 self.table_guard()
                 why = self.judge(destination_options=dict(tables=(table,)))
                 self.assertTrue(any(self.REFUSED in item for item in why), why)
 
+    def test_weak_characteristics_the_linker_would_not_resolve_refuse(self):
+        # The review's repro: 0xFFFFFFFF, 0 and 4 passed the guard and fail LINK (LNK2001/LNK1120).
+        for characteristics in (0, 1, 3, 4, 0xFFFFFFFF):
+            with self.subTest(characteristics=characteristics):
+                self.table_guard()
+                why = self.judge(destination_options=dict(tables=(self.TABLE,), characteristics=characteristics))
+                self.assertTrue(any(self.REFUSED in item for item in why), why)
+
+    def test_a_slot_that_is_not_the_compilers_refuses_though_it_moved_unchanged(self):
+        self.truth.verdict = lambda symbol, *rest: "retail" if symbol["name"] == "_del" else None
+        table = ("_tab", "_slot", "_del", b"\xc3")
+        self.setup_guard(source_options=dict(tables=(table,)), outside_options=dict(refs=("_tab",)))
+        why = self.judge(destination_options=dict(tables=(table,)))
+        self.assertTrue(any(self.REFUSED in item for item in why), why)
+
     def test_a_changed_object_may_not_give_the_slot_another_default(self):
         self.table_guard()
-        why = self.judge(residual_options=dict(tables=(("_tab2", "_slot", "_other", b"\xc3"),)),
+        why = self.judge(residual_options=dict(tables=(("_tab2", self.SLOT, "_other", b"\xc3"),)),
                          destination_options=dict(tables=(self.TABLE,)))
         self.assertTrue(any(self.REFUSED in item for item in why), why)
 
     def test_nothing_may_define_or_redirect_the_slot_or_its_default(self):
-        cases = {"strong": ("strong", "_slot", [1]), "comdat": ("comdat", "_slot", [(1, "s", None)]),
-                 "common": ("common", "_slot", [(1, 4)]), "an alias of the slot": ("alternates", "_slot", [(1, "_x")]),
-                 "an alias of the default": ("alternates", "_del", [(1, "_x")])}
+        cases = {"strong": ("strong", self.SLOT, [1]), "comdat": ("comdat", self.SLOT, [(1, "s", None)]),
+                 "common": ("common", self.SLOT, [(1, 4)]), "an alias of the slot": ("alternates", self.SLOT, [(1, "_x")]),
+                 "an alias of the default": ("alternates", self.DEFAULT, [(1, "_x")])}
         for label, (table, name, entry) in cases.items():
             with self.subTest(label=label):
                 g = self.table_guard()

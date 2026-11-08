@@ -401,7 +401,9 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
   anything it cannot compare refused); no other object of the transaction defines
   it, a weak external or `/alternatename` included. That last check covers the
   objects of the transaction only: the whole link is judged by the pre-push batch
-  audit and `link_check`, so a move is not cleared until those have run. Under `/Gy` a plain function is a COMDAT section too, but selected
+  audit and `link_check`, so a move is not cleared until those have run. Only a
+  prepared `--emit-move` forces fresh compiles; a plain `--split` may restore
+  validated objects from the object store. Under `/Gy` a plain function is a COMDAT section too, but selected
   NODUPLICATES, so a real body still goes through `--split` or `--merge`. Every
   compile runs with the object store off, the real objects are deleted before the
   build, and anything that cannot be read (a failed compile, a missing object, an

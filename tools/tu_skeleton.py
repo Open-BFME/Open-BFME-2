@@ -1305,14 +1305,37 @@ LINK_TABLES = (("strong", lambda entry: entry), ("comdat", lambda entry: entry[0
                ("common", lambda entry: entry[0]), ("alternates", lambda entry: entry[0]))
 
 
+COMPILER_WEAK_CHARACTERISTICS = 2       # all 7,300 weak externals in a 22,814-object census: search libraries
+
+
+def compiler_weak_slots(data):
+    """{name: default} of the weak externals in COFF `data` written as MSVC 7.1 writes a vftable slot: one
+    aux record, Characteristics 2, `??_E<class>` defaulting to `??_G<class>` of the same class. A name with
+    any other record of that name is left out: LINK leaves other Characteristics values unresolved."""
+    import struct
+    import link_census as LCe
+    names = {symbol["index"]: symbol["name"] for symbol in LCe._coff_symbols(data)}
+    table, count = struct.unpack_from("<II", data, 8)
+    records, index = collections.defaultdict(list), 0
+    while index < count:
+        storage, aux = data[table + 18 * index + 16], data[table + 18 * index + 17]
+        if storage == LCe.WEAK_EXTERNAL:
+            tag, characteristics = struct.unpack_from("<II", data, table + 18 * (index + 1)) if aux == 1 else (None, None)
+            records[names.get(index, "?")].append((names.get(tag), characteristics))
+        index += 1 + aux
+    return {name: found[0][0] for name, found in records.items()
+            if len(found) == 1 and found[0][1] == COMPILER_WEAK_CHARACTERISTICS
+            and name.startswith("??_E") and found[0][0] == "??_G" + name[len("??_E"):]}
+
+
 def portable_comdat_contexts(data):
     """Exact copies whose relocations need no private or weak object context.
 
     The census digest normalizes local labels and does not encode weak defaults.
     It is not enough for moving existing debt. Compare raw bodies and ordinary
     undefined external references, from both authenticated old and new objects.
-    A weak slot the compiler writes (a vftable's `??_E`) counts only with its
-    default: a body of this object selected ANY. Its context then ends with
+    A weak slot exactly as the compiler writes one (compiler_weak_slots) counts only
+    with its default: a body of this object selected ANY. Its context then ends with
     ((weak name, (default, default's digest)), ...), for the guard to prove the
     route. Other kinds keep the existing refusal; this is deliberately a narrow proof.
     """
@@ -1322,9 +1345,8 @@ def portable_comdat_contexts(data):
         selections = LCe._comdat_selections(data)
         aliases = {m.group(1).decode("latin-1").strip('"')
                    for m in re.finditer(rb"/alternatename:([^=\s]+)=(\S+)", data, re.I)}
-        weak_pairs = LCe._weak_externals(data)
-        weaks = {name for name, _ in weak_pairs}
-        defaults = dict(weak_pairs)
+        weaks = {name for name, _ in LCe._weak_externals(data)}
+        defaults = compiler_weak_slots(data)
         defined = {s["name"] for s in LCe._coff_symbols(data)
                    if s["storage"] == LCe.EXTERNAL and (s["section"] > 0 or s["value"] != 0)}
         sections = list(LCe._comdat_sections(data))
@@ -1336,7 +1358,6 @@ def portable_comdat_contexts(data):
             default = defaults.get(ref["name"])
             if (ref["storage"] != LCe.WEAK_EXTERNAL or ref["section"] != 0 or ref["value"] != 0
                     or ref["name"] in aliases | defined or LCe._normal(ref["name"]) != ref["name"]
-                    or len([n for n, _ in weak_pairs if n == ref["name"]]) != 1
                     or default not in selected_any or default in aliases or LCe._normal(default) != default):
                 return None
             return default, selected_any[default]
