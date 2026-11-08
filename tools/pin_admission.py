@@ -86,6 +86,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build  # noqa: E402
+import retail_identity  # noqa: E402
 
 ROOT = build.ROOT
 PINS = "reverse/symbols.csv"
@@ -808,6 +809,13 @@ def judge(old_pins, new_pins, old_rows, new_rows, *, static_only=False):
         except (KeyError, TypeError, ValueError):
             pass
         added.append(pin)
+    # The pin of a family retail's own bytes prove (retail_identity), respelled at its address: it
+    # is the same pin under its proven class, so no second name stacks on that address.
+    gone = {(p.get("name"), p.get("address")) for p in old_pins if pin_key(p) not in after}
+    respelled = [pin for pin in added if any(address == pin.get("address") and
+                                             retail_identity.pin_respell_proven(name, pin["name"], int(address, 16))
+                                             for name, address in gone)]
+    added = [pin for pin in added if pin not in respelled]
     # Judge the proposed ownership state. Removed pins/rows must not block a
     # corrected owner, and a newly added ledger owner must still block an alias.
     # Added pins are checked and accumulated below so two new names also conflict.

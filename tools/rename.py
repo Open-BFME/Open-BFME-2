@@ -291,6 +291,7 @@ SYMBOLS = "reverse/symbols.csv"
 DATA_ROWS = "reverse/data_rows.csv"
 DELETED = "reverse/deleted_rows.csv"
 NAME_BASIS = "reverse/name_basis.csv"
+CODE_IDENTITY_BASELINE = "reverse/code_identity_baseline.tsv"
 NAME_BINDINGS = "reverse/name_bindings.csv"
 NAME_BINDINGS_HEADER = "record,old,new,source,outer_sha256"
 EXPORTS = "reverse/exports.csv"
@@ -1476,6 +1477,8 @@ class Plan:
             what = (f"{self.old} as {self.new}" if len(rows) == 1 else
                     f"{len(rows)} rows ({', '.join(f'0x{at:08X}' for at, _o, _n in rows)})")
             where = f", moved to {self.source}" if self.removed else ""
+            if self.identity.get("retail"):
+                return f"Respell {what} by retail identity"
             return f"Respell {what} by code identity{where}"
         if self.retype:
             return (f"Retype {self.retype['word']} as {self.retype['type']} "
@@ -3156,7 +3159,7 @@ def function_identity_checks(ctx, rva, old_name, old_word, owner):
     refuse_vendored(ctx, [owner["source"]], f"renaming {old_name}")
 
 
-def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, *, respell):
+def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, *, respell, frozen_ok=frozenset()):
     """Refuse a new name that collides, a local static, an alias pin a respell cannot follow, an
     identifier another function shares (a word rewrite) or a frozen key; the alias pins a word
     rewrite renames too."""
@@ -3195,7 +3198,7 @@ def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, 
     other = None if respell else shared_identifier(ctx, old_word, own_re)
     if other:
         raise Refusal(f"{old_word} also spells {other}; a word rewrite would rename it too")
-    frozen = frozen_mentions(ctx, old_name)
+    frozen = [rel for rel in frozen_mentions(ctx, old_name) if rel not in frozen_ok]
     if frozen:
         raise Refusal(f"{old_name} is a key in {', '.join(frozen)} (frozen, shrink-only); "
                       "renaming it needs a Verifier-Change commit")
@@ -3204,7 +3207,7 @@ def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, 
 
 def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
                   to_class=None, prepared=None, access=None, also=None, respell=False, identity=False,
-                  move_to=None):
+                  move_to=None, move_rows=()):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
     (plan_virtual: no new identifier, no basis, retail evidence); with
@@ -3218,6 +3221,11 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     if identity or move_to:
         if not respell or identity is False:
             raise Refusal("--identity and --move-to go with --respell --identity only")
+        if basis == "retail":
+            return plan_retail_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
+                                       move_rows=move_rows, evidence=evidence, max_files=max_files)
+        if move_rows:
+            raise Refusal("--move-rows goes with --basis retail only")
         return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
                                      basis=basis, evidence=evidence, max_files=max_files)
     if also and not respell:
@@ -4493,6 +4501,232 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
     plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))}
                            - edited)
     return plan
+
+
+def repoint_row_source(raw, label, keycol, rva, old, new):
+    """`raw` with the `source` of the records keyed `rva` in `keycol` changed from `old` to `new`;
+    (new_raw, count), every other byte kept. A row moves alone: the owner source stays."""
+    ledger_io.lf_terminator(raw, label)
+    records = ledger_io.split_records(raw)
+    header = ledger_io.fields(records[0][0]) if records else []
+    if keycol not in header or "source" not in header:
+        raise Refusal(f"{label} lacks {keycol!r} or 'source'")
+    ki, si = header.index(keycol), header.index("source")
+    out, count = [records[0][0] + records[0][1]], 0
+    for payload, term in records[1:]:
+        text = payload.decode("utf-8")
+        spans = field_spans(text)
+        if len(spans) > max(ki, si) and _rva(text[spans[ki][0]:spans[ki][1]].strip('"')) == rva:
+            start, end = spans[si]
+            value = text[start:end]
+            if value in (old, f'"{old}"'):
+                payload = (text[:start] + value.replace(old, new) + text[end:]).encode("utf-8")
+                count += 1
+        out.append(payload + term)
+    return b"".join(out), count
+
+
+ROW_KEYED_LEDGERS = ((FUNCTIONS, "target_rva"), (TU_MAP, "rva"), ("reverse/body_owners.csv", "target_rva"))
+
+
+def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(), evidence="",
+                        max_files=25):
+    """--respell --identity --basis retail: the whole family tools/retail_identity.py spells out, from
+    its stand-in class to the class retail proves, on retail's own bytes and no vote: every fact is read
+    from the image, the class's own rowed member installs the same table, and the data ledger names that
+    table for the class. After ./build.sh the rebuilt copy must bind the class's table, and no touched
+    row may gain a wrong binding (retail_identity_problems). `move_rows` moves those rows alone into
+    `move_to`, the unit the map approves, because retail reached them from its code; their owner stays."""
+    import retail_identity
+    family = retail_identity.family_of(rva, new)
+    if family is None:
+        raise Refusal(f"--basis retail proves only the families in tools/retail_identity.py; 0x{rva:08X} -> {new} "
+                      "is not one")
+    if old or also:
+        raise Refusal("--basis retail respells the family its table spells out: no --old, no --also")
+    if not prepared:
+        raise Refusal("--basis retail needs --prepared sources for every unit whose C++ must change")
+    if evidence != family.evidence():
+        raise Refusal(f"--evidence must name the proof: {family.evidence()!r}")
+    problems = retail_identity.facts_problems(family.facts())
+    if problems:
+        raise Refusal(f"retail does not state {family.old} -> {family.new}: {problems[0]}")
+    rows = ctx.rows()
+    owner = family.owner
+    if not any(r["name"] == owner["name"] and _rva(r.get("target_rva")) == owner["rva"] and r.get("status") == "matched"
+               for r in rows):
+        raise Refusal(f"{owner['name']} is not rowed at 0x{owner['rva']:08X}: the table proves no class without its member")
+    table_row = [r for r in ctx.dicts("reverse/data_ledger.csv")
+                 if _rva(r.get("address")) == family.table - retail_identity.IMAGE_BASE]
+    if not table_row or table_row[0].get("name") != family.table_name:
+        raise Refusal(f"the data ledger does not name 0x{family.table:08X} {family.table_name}")
+    entries = []
+    for at, (old_name, facts) in sorted(family.rows.items()):
+        found = [r for r in rows if r["name"] == old_name and _rva(r.get("target_rva")) == at]
+        if len(found) != 1:
+            raise Refusal(f"{old_name} is not the one row of that name at 0x{at:08X}")
+        new_name = family.respell(old_name)
+        function_identity_checks(ctx, at, old_name, old_name, found[0])
+        function_collision_checks(ctx, at, old_name, new_name, old_name, new_name, respell=True,
+                                  frozen_ok=frozenset({CODE_IDENTITY_BASELINE}) if at == family.copy else frozenset())
+        entries.append(dict(rva=at, old=old_name, new=new_name, source=found[0]["source"], facts=facts))
+    pins = {(p.get("name", ""), _rva(p.get("address"))) for p in ctx.pins()}
+    names = {p.get("name", "") for p in ctx.pins()} | {r["name"] for r in rows}
+    for at, (old_name, _facts) in sorted(family.pins.items()):
+        if (old_name, at) not in pins:
+            raise Refusal(f"pin {old_name} is not at 0x{at:08X}")
+        if family.respell(old_name) in names:
+            raise Refusal(f"{family.respell(old_name)} already names a row or pin")
+
+    moved = sorted(set(move_rows or ()))
+    if moved:
+        if not move_to:
+            raise Refusal("--move-rows names the rows --move-to moves")
+        if move_to not in prepared:
+            raise Refusal(f"--move-to {move_to} needs its prepared bytes (what emits the moved rows)")
+        strangers = [at for at in moved if at not in family.rows]
+        if strangers:
+            raise Refusal(f"0x{strangers[0]:08X} is not a row of the family")
+        import tu_map
+        try:
+            map_rows, stale = tu_map.current_rows(tu_map.Layout(ctx.root))
+        except tu_map.NoZhTree as error:
+            raise Refusal(f"--move-to cannot rebuild {TU_MAP} from current inputs: {error}") from None
+        approved = {}
+        for row in map_rows:
+            approved.setdefault(_rva(row.get("rva")), (row.get("tu", ""), row.get("confidence", "")))
+        for at in moved:
+            tu, confidence = approved.get(at, ("", ""))
+            if tu != move_to or confidence != "approved":
+                raise Refusal(f"0x{at:08X} is not approved for {move_to} in {TU_MAP}"
+                              + (" (rebuilt in memory: the committed map is stale)" if stale else "") +
+                              f" ({tu or 'no TU'}, {confidence or 'unlisted'}): rows move only into their approved unit")
+            carried = [r["name"] for r in rows if f"parent={family.rows[at][0]}" in r.get("notes", "")]
+            if carried:
+                raise Refusal(f"0x{at:08X} has funclets ({carried[0]}): a row with funclets does not move alone")
+    elif move_to:
+        raise Refusal("--basis retail moves the rows --move-rows names, and only those")
+
+    primary = next(e for e in entries if e["rva"] == family.copy)
+    plan = Plan("function", primary["old"], primary["new"], retail_identity.BASIS, family.evidence(),
+                move_to if family.copy in moved else primary["source"], primary["rva"])
+    source_of = {e["rva"]: (move_to if e["rva"] in moved else e["source"]) for e in entries}
+
+    # Ledgers: every row, funclet, pin and notes token spelling an old name.
+    raw = ctx.read(FUNCTIONS)
+    pin_raw = ctx.read(SYMBOLS)
+    for e in entries:
+        raw, changed = rewrite_records(raw, "functions.csv", mangled_re(e["old"]), e["new"])
+        for b, a in changed:
+            at = _rva(b[2])
+            if b[0] != a[0]:
+                plan.renamed_rows.append((b[0], a[0], at))
+            else:
+                plan.notes_rows.append((b[0], at))
+        pin_raw, _changed = rewrite_records(pin_raw, "symbols.csv", mangled_re(e["old"]), e["new"])
+    for at, (old_name, _facts) in sorted(family.pins.items()):
+        raw, changed = rewrite_records(raw, "functions.csv", mangled_re(old_name), family.respell(old_name))
+        plan.notes_rows.extend((b[0], _rva(b[2])) for b, _a in changed)
+        pin_raw, changed = rewrite_records(pin_raw, "symbols.csv", mangled_re(old_name), family.respell(old_name))
+        plan.renamed_pins.extend((b[0], family.respell(old_name), f"0x{at:08X}") for b, _a in changed)
+    plan.edit(ctx, SYMBOLS, pin_raw)
+    edited = {FUNCTIONS: raw}
+    for at in moved:
+        for rel, keycol in ROW_KEYED_LEDGERS:
+            data = edited.get(rel, ctx.read(rel))
+            if data is None:
+                continue
+            data, _count = repoint_row_source(data, rel, keycol, at, next(e["source"] for e in entries if e["rva"] == at), move_to)
+            edited[rel] = data
+    for rel, data in edited.items():
+        if data != ctx.read(rel):
+            plan.edit(ctx, rel, data)
+    tombstoned = _tombstones(ctx)
+    for old_row, new_row, at in plan.renamed_rows:
+        if (old_row, at) not in tombstoned:
+            plan.edit(ctx, DELETED, appended(plan.after.get(DELETED, ctx.read(DELETED)), [tombstone_line(
+                old_row, at, f"Respelled to {new_row} by tools/rename.py (retail identity)")],
+                header="name,target_rva,reason"))
+    plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
+        ["function", e["old"], e["new"], retail_identity.BASIS, retail_identity.record(e["facts"]),
+         source_of[e["rva"]], f"0x{e['rva']:08X}"]) for e in entries], header=NAME_BASIS_HEADER))
+
+    # Sources: the prepared C++ is the whole change; nothing may still spell an old name.
+    _batch_source_edits(ctx, plan, prepared)
+    for old_name in [e["old"] for e in entries] + [name for name, _f in family.pins.values()]:
+        left = sorted(rel for rel, data in plan.after.items()
+                      if rel in prepared and mangled_re(old_name).search(data.decode("utf-8", "replace")))
+        if left:
+            raise Refusal(f"prepared {', '.join(left)} still spells {old_name}")
+        elsewhere = sorted(set(ctx.grep_files(old_name, roots=("Code",))) - set(prepared))
+        if elsewhere:
+            raise Refusal(f"{', '.join(elsewhere[:4])} still spells {old_name}: prepare every unit that names it")
+    owner_sources = {e["source"] for e in entries}
+    verify = set(prepared) | owner_sources
+    verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    plan.verify = sorted(v for v in verify if not is_generated(v))
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    import allowed_symbols
+    try:
+        before = identity_refs(ctx, set(plan.verify))
+    except allowed_symbols.UnverifiedFunclet as error:
+        raise Refusal(f"the code-identity scan cannot read the units as they stand ({error}): "
+                      f"./build.sh {' '.join(plan.verify)} first") from None
+    renames = {e["old"]: e["new"] for e in entries}
+    plan.identity = dict(
+        retail=True, rows=[(e["rva"], e["old"], e["new"]) for e in entries], sources=sorted(set(plan.verify)),
+        wrong_before=sorted({_identity_key(r, renames) for r in identity_wrong(before)}),
+        table_name=family.table_name, copy=family.copy, copy_name=primary["new"], copy_store=family.copy_store,
+        copy_source=source_of[family.copy], retired=[], moved=moved)
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
+        [f"file:{s}" for s in sorted(owner_sources | ({move_to} if move_to else set()))]
+    done = set(plan.after) | {"reverse/re_attempts.log"}
+    plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))} - done)
+    if any(CODE_IDENTITY_BASELINE in ctx.grep_files(e["old"], roots=FROZEN_KEYED) for e in entries):
+        plan.warnings.append(f"{CODE_IDENTITY_BASELINE} keys {primary['old']}: python3 tools/repair_queue.py retire "
+                             f"identity {primary['source']} in the next commit (it refuses while HEAD holds the row)")
+    return plan
+
+
+DIR32 = 6
+
+
+def object_symbol_relocs(ctx, source, name):
+    """[(offset, type, target)] of `name`'s body in `source`'s rebuilt object; [] when it cannot be
+    read. Tests replace this through ctx.object_symbol_relocs."""
+    hook = getattr(ctx, "object_symbol_relocs", None)
+    if hook:
+        return hook(source, name)
+    import build
+    try:
+        return list(build.read_object_symbol_bytes(build.obj_path(ctx.path(source)), name, code_only=True)[1])
+    except (OSError, SystemExit, ValueError, KeyError, IndexError):
+        return []
+
+
+def retail_identity_problems(ctx, identity):
+    """What the rebuilt objects say against a retail respell: the copy no longer binding the class's
+    table, a respelled row with no references, or a wrong binding new to a touched source."""
+    import allowed_symbols
+    try:
+        refs = identity_refs(ctx, identity["sources"])
+    except allowed_symbols.UnverifiedFunclet as error:
+        return [f"the code-identity scan cannot read the rebuilt units: {error}"]
+    problems = []
+    for at, _old, new in identity["rows"]:
+        if not any(r["row"] == new and r["rva"] == at for r in refs):
+            problems.append(f"{new} (0x{at:08X}) has no references after the respell")
+    relocs = object_symbol_relocs(ctx, identity["copy_source"], identity["copy_name"])
+    if (identity["copy_store"], DIR32, identity["table_name"]) not in relocs:
+        problems.append(f"{identity['copy_name']} does not store {identity['table_name']} at +{identity['copy_store']} "
+                        f"after the respell ({identity['copy_source']})")
+    known = {tuple(k) for k in identity["wrong_before"]}
+    for r in identity_wrong(refs):
+        if _identity_key(r, {}) not in known:
+            problems.append(f"{r['row']} in {r['source']} gains a wrong binding of {r['symbol']} "
+                            f"at 0x{r['target']:08X} ({r['cls']})")
+    return problems
 
 
 def identity_problems(ctx, identity):
@@ -12571,7 +12805,8 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             # The rebuilt objects' bindings are the proof: every reference of a
             # respelled row binds its retail owner, and no touched row gains a
             # wrong binding.
-            identity_problems_found = identity_problems(ctx, plan.identity)
+            identity_problems_found = (retail_identity_problems if plan.identity.get("retail") else identity_problems)(
+                ctx, plan.identity)
             if identity_problems_found:
                 raise VerifyFailed(f"the code-identity check does not prove {plan.old} -> {plan.new}: "
                                    f"{identity_problems_found[0][:300]}; every file restored")
@@ -13996,7 +14231,11 @@ def main(argv=None):
     function.add_argument("--move-to", metavar="TU",
                           help="with --respell --identity: also move the respelled rows into their approved "
                                "TU (reverse/tu_map.csv); every row of the owner source must move, its "
-                               "path-keyed columns follow and the emptied source is deleted")
+                               "path-keyed columns follow and the emptied source is deleted; with --basis "
+                               "retail, only the rows --move-rows names move")
+    function.add_argument("--move-rows", default="", metavar="RVA[,RVA...]",
+                          help="with --basis retail and --move-to: move only these rows of the family, each "
+                               "approved for that TU; their owner source stays")
     data = kinds.add_parser("global", parents=[common],
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
@@ -14209,7 +14448,8 @@ def main(argv=None):
     if respell and also:
         kwargs["also"] = also
     if identity:
-        kwargs.update(identity=True, move_to=args.move_to)
+        kwargs.update(identity=True, move_to=args.move_to,
+                      move_rows=[int(x, 16) for x in args.move_rows.split(",") if x.strip()])
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)

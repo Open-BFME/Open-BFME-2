@@ -841,6 +841,8 @@ class Bases:
         """(tier, evidence kind) for one record's basis; None for `restored`."""
         if basis.startswith("canonical:"):
             return "evidence", basis.partition(":")[2]
+        if basis == "retail":                   # proven by retail's own bytes (tools/retail_identity.py)
+            return "evidence", basis
         if basis == "inferred":
             cited = re.match(r"([a-z][a-z0-9-]*):", evidence.strip())
             return "inferred", cited.group(1) if cited else "inferred"

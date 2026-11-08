@@ -1191,6 +1191,26 @@ two review rounds set where the evidence ends:
   that slot. `--also RVA=NEW` adds slots of the same table, each with the same
   proof and the primary row's own checks, and all slots are judged after one
   build.
+- **retail identity** (`--identity --basis retail --evidence 'retail:<site> ...'`): a class
+  family retail's own bytes prove, respelled from the stand-in class it was rowed
+  under, with no vote. `tools/retail_identity.py` spells each family out whole,
+  every row and pin by exact name and address and every fact by its site, and a new
+  family is a reviewed entry (`Verifier-Change`), not a shape the tool infers. Each
+  record reads `retail:<site> <fact>=<value> ...`, a form that names no family, so
+  another route proven by retail's bytes records the same way. The family's facts
+  must all hold on the image; its class's own rowed member must install the same
+  table, and the data ledger must name that table for the class; after the build the
+  copy must store the class's table and no touched row may gain a wrong binding. Its
+  pins are respelled in place: `pin_admission.py` admits exactly the family's pin at
+  its own address, with the old pin gone and the facts holding, as the same pin rather
+  than a second name. Anything else there is judged as before. `--move-to TU --move-rows
+  RVA,...` moves only those rows, each approved for that TU and with no funclets, and
+  their owner source stays. The one register key a family's copy leaves behind goes by
+  its own path: the plan warns, and `repair_queue.py retire identity SOURCE` runs in
+  the next commit, since it refuses while HEAD still holds the row, on a worktree whose
+  ledger objects are built. Every unit that names an old spelling must be prepared. The
+  `name_dependents` hook judges a unit with no cached object on its text, and names
+  like `push_back` match widely, so expect a wide build where objects are missing.
 - **code identity** (`--identity`): a placeholder-typed operator, special member
   or template member whose bytes match while its calls bind the wrong
   instantiation. A callee's class does not prove the caller's (`mov
