@@ -362,3 +362,47 @@ def test_also_refused_without_a_this_cv_primary(tree, objects):
     with pytest.raises(Refusal) as error:
         batch(tree, new=pointer)
     assert "adds rows to a this-cv respell only" in str(error.value)
+
+
+
+# ------------------------------- a sibling gets the primary row's own checks (review of 8190d42b18)
+
+def test_also_refused_when_a_sibling_carries_an_alias_pin(tree, objects):
+    """An alias pin (the row mangled through another view) refuses a sibling as it refuses the primary."""
+    alias = OLD_BOX.replace("ABVAABoxClass", "PBVAABoxClass")
+    recommit(tree, "reverse/symbols.csv", f"name,address,notes\n{alias},0x{BOX_RVA:08X},alias\n")
+    assert rename.alias_pins(rename.Context(tree, object_scan=False), OLD_BOX, BOX_RVA) == [alias]
+    with pytest.raises(Refusal, match="alias pin") as as_sibling:
+        batch(tree)
+    with pytest.raises(Refusal, match="alias pin") as as_primary:
+        plan(tree, rva=BOX_RVA, new=NEW_BOX, prepared={BOX_SRC: BOX_PREPARED.encode(),
+                                                       CTOR_SRC: CTOR_PREPARED.encode()})
+    assert str(as_sibling.value) == str(as_primary.value)
+
+
+def test_also_refused_when_a_siblings_identifier_is_canonical(tree, objects):
+    """A canonical record of the bare identifier refuses a sibling as it refuses the primary."""
+    recommit(tree, "reverse/name_basis.csv", "kind,old,new,basis,evidence,source,rva\n"
+             "function,Old,Cull_Box,canonical:zh,proof,Code/X.cpp,0x0007BEDA\n")
+    with pytest.raises(Refusal, match="canonical name") as as_sibling:
+        batch(tree)
+    with pytest.raises(Refusal, match="canonical name") as as_primary:
+        plan(tree, rva=BOX_RVA, new=NEW_BOX, prepared={BOX_SRC: BOX_PREPARED.encode(),
+                                                       CTOR_SRC: CTOR_PREPARED.encode()})
+    assert str(as_sibling.value) == str(as_primary.value)
+
+
+def test_siblings_run_the_primary_rows_check_functions(tree, objects, monkeypatch):
+    """One set of checks for both: each runs once per row, sibling included."""
+    seen = {"owner": [], "identity": [], "collision": []}
+    for name, key in (("function_owner", "owner"), ("function_identity_checks", "identity"),
+                      ("function_collision_checks", "collision")):
+        real = getattr(rename, name)
+
+        def spy(ctx, rva, *args, real=real, key=key, **kwargs):
+            seen[key].append(rva)
+            return real(ctx, rva, *args, **kwargs)
+        monkeypatch.setattr(rename, name, spy)
+    batch(tree)
+    assert {key: sorted(rvas) for key, rvas in seen.items()} == {
+        "owner": [RVA, BOX_RVA], "identity": [RVA, BOX_RVA], "collision": [RVA, BOX_RVA]}

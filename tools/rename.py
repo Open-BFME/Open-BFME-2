@@ -553,33 +553,18 @@ def this_cv_siblings(ctx, rva, proof, also, prepared):
             raise Refusal("a this-cv --also batch names each RVA and each new name once")
         seen_rvas.add(at)
         seen_names.add(new)
-        owners = [r for r in rows if _rva(r.get("target_rva")) == at
-                  and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
-        names = sorted({r["name"] for r in owners})
-        if len(names) != 1:
-            raise Refusal(f"0x{at:08X} carries {len(names)} function names ({', '.join(names) or 'none'})")
-        old, owner = names[0], owners[0]
-        if is_generated(owner["source"]):
-            raise Refusal(f"{old} lives in generated source {owner['source']}")
-        refuse_vendored(ctx, [owner["source"]], f"respelling {old}")
-        reason = is_protected(ctx, "function", old, rva=at)
-        if reason:
-            raise Refusal(f"canonical name: {reason}")
+        # the primary row's own checks, so the two cannot drift apart
+        old, owner = function_owner(ctx, at)
         if not this_cv_change(old, new):
             raise Refusal(f"--also 0x{at:08X}: {new} is not {old} with only `this`'s cv changed")
-        if any(r["name"] == new for r in rows) or any(p.get("name") == new for p in ctx.pins()):
-            raise Refusal(f"{new} already names a row or pin")
-        if (new, at) in _tombstones(ctx):
-            raise Refusal(f"({new}, 0x{at:08X}) is tombstoned in deleted_rows.csv")
+        word = split_function_name(old)[1]
+        function_identity_checks(ctx, at, old, word, owner)
+        function_collision_checks(ctx, at, old, new, word, word, respell=True)
+        # the batch edits no pin or body owner of a sibling (the primary's path rewrites them)
         old_re = mangled_re(old)
         if any(old_re.search(p.get("name", "")) for p in ctx.pins()) or \
                 old_re.search((ctx.read(BODY_OWNERS) or b"").decode("utf-8", "replace")):
             raise Refusal(f"--also {old} is named by a pin or body_owners.csv: respell it in its own plan")
-        if any(old_re.search(d.get("name", "")) for d in ctx.dicts(DATA_ROWS)):
-            raise Refusal(f"a data row (a local static) embeds {old}")
-        frozen = frozen_mentions(ctx, old)
-        if frozen:
-            raise Refusal(f"{old} is a key in {', '.join(frozen)} (frozen, shrink-only)")
         evidence, sibling = this_cv_proof(ctx, at, old, new, owner["source"], prepared)
         if (sibling["cls"], sibling["table"]) != (check["cls"], check["table"]):
             raise Refusal(f"--also 0x{at:08X} sits in {sibling['cls']}'s retail table "
@@ -3004,36 +2989,8 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
     return verify
 
 
-def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
-                  to_class=None, prepared=None, access=None, also=None, respell=False, identity=False,
-                  move_to=None):
-    """Plan respelling one RVA's function identifier everywhere it is named;
-    with `virtual`, its decoration from non-virtual to virtual instead
-    (plan_virtual: no new identifier, no basis, retail evidence); with
-    `to_class`, moving a placeholder-class member into that class as its
-    virtual (plan_to_class: retail vftable evidence, prepared C++)."""
-    if to_class:
-        if basis:
-            raise Refusal("--to-class takes its evidence from retail's vftable: pass no --basis")
-        return plan_to_class(ctx, rva, to_class, new, evidence=evidence, old=old, prepared=prepared,
-                             max_files=max_files, also=also)
-    if identity or move_to:
-        if not respell or identity is False:
-            raise Refusal("--identity and --move-to go with --respell --identity only")
-        return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
-                                     basis=basis, max_files=max_files)
-    if also and not respell:
-        raise Refusal("--also adds slots of one retail table to a --to-class move only")
-    if prepared and not (virtual or respell):
-        raise Refusal("--prepared sources go with --to-class, --virtual or --respell only")
-    if access is not None and not virtual:
-        raise Refusal("--access goes with --virtual only")
-    if virtual:
-        if new or basis:
-            raise Refusal("--virtual keeps the identifier and takes its evidence from retail: "
-                          "pass neither a new name nor a basis")
-        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files, prepared=prepared,
-                            access=access)
+def function_owner(ctx, rva, old=None):
+    """(name, owner row) of the one function name at `rva` (`old` chooses among several)."""
     rows = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva]
     if not rows:
         raise Refusal(f"no functions.csv row at 0x{rva:08X}")
@@ -3052,64 +3009,21 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     if is_generated(owner["source"]):
         raise Refusal(f"{old_name} lives in generated source {owner['source']}; "
                       "recover it as real C++ first (never edit Code/gen_*)")
-    prefix, old_word, _ = split_function_name(old_name)
-    new = new or ""
-    # --respell: `new` is the row's whole name even where it differs beyond the
-    # identifier, and the prepared C++ carries the change the word rewrite below
-    # cannot express.
-    literal = ""
-    if new.startswith("?"):
-        # a full mangled spelling: it must equal the identifier-only rewrite
-        new_word = split_function_name(new)[1]
-        if new_word == old_word and not respell:
-            raise Refusal("the new name is the old name")
-        if rename_function_symbol(old_name, new_word) != new:
-            if not respell:
-                raise Refusal(f"{new} changes the mangled signature beyond the identifier "
-                              f"(identifier-only rewrite is {rename_function_symbol(old_name, new_word)}; "
-                              "--respell with --prepared sources carries a signature change)")
-            literal = new
-    else:
-        new_word = new
-        if respell:
-            raise Refusal("--respell needs --new as the row's whole mangled name, not an identifier")
-    check_new_identifier(new_word, "function", basis)
-    if respell:
-        if not literal:
-            raise Refusal(f"{new} is the identifier-only rewrite of {old_name}; "
-                          "rename it with function --new alone, without --respell")
-        if not prepared:
-            raise Refusal("--respell needs --prepared sources for every unit whose C++ must change, "
-                          "since no word rewrite can change a return type, parameter or template argument")
-    elif new_word == old_word:
-        raise Refusal("the new name is the old name")
-    new_name = literal or rename_function_symbol(old_name, new_word)
+    return old_name, owner
 
-    signature_only = respell and new_word == old_word
-    this_cv, siblings = None, []
+
+def function_identity_checks(ctx, rva, old_name, old_word, owner):
+    """Refuse a canonical name (by its spelling or its bare identifier) or a vendored source."""
     reason = is_protected(ctx, "function", old_name, rva=rva, identifier=old_word)
     if reason:
         raise Refusal(f"canonical name: {reason}")
     refuse_vendored(ctx, [owner["source"]], f"renaming {old_name}")
-    if signature_only:
-        # The same function, the same identifier: no naming claim. Only a parameter's or the return
-        # type's cv-qualifier or pointer-ness changes, the prepared units are rebuilt byte-exact, and
-        # the record is labelled inference with its reason.
-        if this_cv_change(old_name, new_name):
-            # only `this`'s cv: proved by the base virtual the row overrides at its retail slot
-            this_cv = this_cv_proof(ctx, rva, old_name, new_name, owner["source"], prepared)
-            if also:
-                # siblings: the same proof each, every slot judged after one build
-                siblings = this_cv_siblings(ctx, rva, this_cv, also, prepared)
-        else:
-            signature_only_change(old_name, new_name)
-        which = check_signature_basis(basis, evidence)
-    else:
-        which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
-                            new_word=new_word)
-    if also and not this_cv:
-        raise Refusal("--also with --respell (no --identity) adds rows to a this-cv respell only")
 
+
+def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, *, respell):
+    """Refuse a new name that collides, a local static, an alias pin a respell cannot follow, an
+    identifier another function shares (a word rewrite) or a frozen key; the alias pins a word
+    rewrite renames too."""
     # Collisions: one name, one identity.
     if any(r["name"] == new_name for r in ctx.rows()) or any(p.get("name") == new_name for p in ctx.pins()):
         raise Refusal(f"{new_name} already names a row or pin")
@@ -3149,6 +3063,99 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     if frozen:
         raise Refusal(f"{old_name} is a key in {', '.join(frozen)} (frozen, shrink-only); "
                       "renaming it needs a Verifier-Change commit")
+    return aliases
+
+
+def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
+                  to_class=None, prepared=None, access=None, also=None, respell=False, identity=False,
+                  move_to=None):
+    """Plan respelling one RVA's function identifier everywhere it is named;
+    with `virtual`, its decoration from non-virtual to virtual instead
+    (plan_virtual: no new identifier, no basis, retail evidence); with
+    `to_class`, moving a placeholder-class member into that class as its
+    virtual (plan_to_class: retail vftable evidence, prepared C++)."""
+    if to_class:
+        if basis:
+            raise Refusal("--to-class takes its evidence from retail's vftable: pass no --basis")
+        return plan_to_class(ctx, rva, to_class, new, evidence=evidence, old=old, prepared=prepared,
+                             max_files=max_files, also=also)
+    if identity or move_to:
+        if not respell or identity is False:
+            raise Refusal("--identity and --move-to go with --respell --identity only")
+        return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
+                                     basis=basis, max_files=max_files)
+    if also and not respell:
+        raise Refusal("--also adds slots of one retail table to a --to-class move only")
+    if prepared and not (virtual or respell):
+        raise Refusal("--prepared sources go with --to-class, --virtual or --respell only")
+    if access is not None and not virtual:
+        raise Refusal("--access goes with --virtual only")
+    if virtual:
+        if new or basis:
+            raise Refusal("--virtual keeps the identifier and takes its evidence from retail: "
+                          "pass neither a new name nor a basis")
+        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files, prepared=prepared,
+                            access=access)
+    old_name, owner = function_owner(ctx, rva, old)
+    prefix, old_word, _ = split_function_name(old_name)
+    new = new or ""
+    # --respell: `new` is the row's whole name even where it differs beyond the
+    # identifier, and the prepared C++ carries the change the word rewrite below
+    # cannot express.
+    literal = ""
+    if new.startswith("?"):
+        # a full mangled spelling: it must equal the identifier-only rewrite
+        new_word = split_function_name(new)[1]
+        if new_word == old_word and not respell:
+            raise Refusal("the new name is the old name")
+        if rename_function_symbol(old_name, new_word) != new:
+            if not respell:
+                raise Refusal(f"{new} changes the mangled signature beyond the identifier "
+                              f"(identifier-only rewrite is {rename_function_symbol(old_name, new_word)}; "
+                              "--respell with --prepared sources carries a signature change)")
+            literal = new
+    else:
+        new_word = new
+        if respell:
+            raise Refusal("--respell needs --new as the row's whole mangled name, not an identifier")
+    check_new_identifier(new_word, "function", basis)
+    if respell:
+        if not literal:
+            raise Refusal(f"{new} is the identifier-only rewrite of {old_name}; "
+                          "rename it with function --new alone, without --respell")
+        if not prepared:
+            raise Refusal("--respell needs --prepared sources for every unit whose C++ must change, "
+                          "since no word rewrite can change a return type, parameter or template argument")
+    elif new_word == old_word:
+        raise Refusal("the new name is the old name")
+    new_name = literal or rename_function_symbol(old_name, new_word)
+
+    signature_only = respell and new_word == old_word
+    this_cv, siblings = None, []
+    function_identity_checks(ctx, rva, old_name, old_word, owner)
+    if signature_only:
+        # The same function, the same identifier: no naming claim. Only a parameter's or the return
+        # type's cv-qualifier or pointer-ness changes, the prepared units are rebuilt byte-exact, and
+        # the record is labelled inference with its reason.
+        if this_cv_change(old_name, new_name):
+            # only `this`'s cv: proved by the base virtual the row overrides at its retail slot
+            this_cv = this_cv_proof(ctx, rva, old_name, new_name, owner["source"], prepared)
+            if also:
+                # siblings: the same proof each, every slot judged after one build
+                siblings = this_cv_siblings(ctx, rva, this_cv, also, prepared)
+        else:
+            signature_only_change(old_name, new_name)
+        which = check_signature_basis(basis, evidence)
+    else:
+        which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
+                            new_word=new_word)
+    if also and not this_cv:
+        raise Refusal("--also with --respell (no --identity) adds rows to a this-cv respell only")
+
+    old_re = mangled_re(old_name)
+    aliases = function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, respell=respell)
+    tombstoned = _tombstones(ctx)
+    own_re = re.compile("|".join(mangled_re(n).pattern for n in [old_name] + aliases))
 
     plan = Plan("function", old_name, new_name, basis, evidence.strip(), owner["source"], rva,
                 old_word=old_word, new_word=new_word)
