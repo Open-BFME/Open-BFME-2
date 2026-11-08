@@ -112,7 +112,7 @@ static __forceinline _STL::vector<bool> &visibilityBits(_STL::vector<bool> &stor
 {
 	return storage;
 }
-static __forceinline BfmeResetTextureRef &terrainTexture(void *&word)
+static __forceinline BfmeResetTextureRef &terrainTexture(RefCountPtr<TextureClass> &word)
 {
 	return *reinterpret_cast<BfmeResetTextureRef *>(&word);
 }
