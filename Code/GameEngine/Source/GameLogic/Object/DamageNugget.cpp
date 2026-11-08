@@ -30,17 +30,7 @@ typedef int Int;
 #include "Lib/Coord3D.h"
 static inline void coordSet(Coord3D &destination, const Coord3D *p) { destination.x = p->x; destination.y = p->y; destination.z = p->z; }
 static inline void coordSub(Coord3D &d, const Coord3D *p) { d.x -= p->x; d.y -= p->y; d.z -= p->z; }
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	Real Length2() const { return X * X + Y * Y + Z * Z; }
-	void Normalize();
-	Real X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class WWMath
 {
 public:
@@ -48,7 +38,7 @@ public:
 };
 __forceinline void Vector3::Normalize()
 {
-	Real len2 = Length2();
+	Real len2 = X * X + Y * Y + Z * Z;
 	if (len2 != 0.0f)
 	{
 		Real oolen = WWMath::Inv_Sqrt(len2);
@@ -70,30 +60,12 @@ public:
 	unsigned char pad10B[0x11D - 0x10B];
 	unsigned char kind11D;
 };
-class Matrix3D
-{
-public:
-	Vector3 Get_X_Vector() const { return Vector3(Row[0][0], Row[1][0], Row[2][0]); }
-	Real Row[3][4];
-};
-class Thing
-{
-public:
- virtual Real calculateHeightAboveTerrain() const;
- Real getHeightAboveTerrain() const;
- const Matrix3D *getTransformMatrix() const { return &m_transform; }
- Rva00507D84TemplateView *m_template;
- Matrix3D m_transform;
- Coord3D m_position;
- unsigned char pad44[0x54-0x44];
- mutable float m_cachedAltitudeAboveTerrain;
- float m_cachedAltitudeAboveTerrainOrWater;
- mutable int m_cacheFlags;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+#include "../../Common/Thing/thing.h"
 class Object : public Thing
 {
 public:
- const Coord3D *getPosition() const {return &m_position;}
+ const Coord3D *getPosition() const {return &m_cachedPos;}
  unsigned char pad60[0x250-0x60];
  void *m_contain;
 };
@@ -282,7 +254,7 @@ void DamageNugget::doEffectPosition(void *weapon, const Coord3D *position)
 		mode = 1;
 	else if (radius >= 10.0f)
 	{
-		if (!(source->m_template->kind11D & 8) || !(source->m_template->kind10A & 0x20) || !source->m_contain)
+		if (!(reinterpret_cast<const Rva00507D84TemplateView *>(source->m_template)->kind11D & 8) || !(reinterpret_cast<const Rva00507D84TemplateView *>(source->m_template)->kind10A & 0x20) || !source->m_contain)
 			mode = 4;
 	}
 	Rva0004584D filter(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE), damageStorage(Rva0006EE7A(0, 0x59, 0x36)));
@@ -296,7 +268,7 @@ void DamageNugget::doEffectPosition(void *weapon, const Coord3D *position)
 			Coord3D delta; coordSet(delta, position); coordSub(delta, source->getPosition());
 			Vector3 facing(delta.x, delta.y, delta.z);
 			if (delta.length() == 0.0f)
-				facing = source->getTransformMatrix()->Get_X_Vector();
+				facing = Vector3(source->getTransformMatrix()->Row[0].X, source->getTransformMatrix()->Row[1].X, source->getTransformMatrix()->Row[2].X);
 			Vector3 dir(toObj.x, toObj.y, toObj.z);
 			facing.Normalize();
 			dir.Normalize();

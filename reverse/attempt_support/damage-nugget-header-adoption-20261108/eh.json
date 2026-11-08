@@ -1,0 +1,17 @@
+{
+"??0DamageNugget@@QAE@XZ@0x00507C2D": [
+"EXACT",
+"",
+"Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp"
+],
+"??1DamageNugget@@UAE@XZ@0x00508684": [
+"EXACT",
+"",
+"Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp"
+],
+"?doEffectPosition@DamageNugget@@QAEXPAXPBUCoord3D@@@Z@0x00507D84": [
+"EXACT",
+"",
+"Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp"
+]
+}

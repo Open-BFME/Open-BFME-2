@@ -1,0 +1,69 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp",
+  "original_object_sha256": "5cd31df74c96905849c701332cbf73e3a3875a8bbcc8ad5be1e55ea123c33f62",
+  "current_object_sha256": "93da9f8736b82b001523c9c56cebd9f4ec67161768f2bc39f654676e83d001bf",
+  "retained_unchanged_code_comdats": 27,
+  "named_data_allocations_equal": true,
+  "named_data_count": 7,
+  "removed_definitions": [
+    "?Get_X_Vector@Matrix3D@@QBE?AVVector3@@XZ",
+    "?Length2@Vector3@@QBEMXZ"
+  ],
+  "added_definitions": [
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "normalization": {
+    "old_size": 57,
+    "new_size": 100,
+    "native_rva": "0x0006924F",
+    "complete_existing_native_body_exact": true,
+    "float_referent_checked": true,
+    "flags_and_selection_unchanged": true,
+    "ownership_row_unchanged": true
+  },
+  "iterator": {
+    "size": 34,
+    "native_rva": "0x00001423",
+    "native_bytes_equal": true,
+    "relocations": []
+  },
+  "existing_current_providers": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathRandomForceRva0045D636.cpp",
+      "name": "?Get_X_Vector@Matrix3D@@QBE?AVVector3@@XZ",
+      "native_rva": "0x000D085E",
+      "size": 31,
+      "native_bytes_and_relocations_exact": true,
+      "flags": 1611665440,
+      "selection": 2,
+      "strict_current": true,
+      "path_precedes_candidate": true,
+      "object_sha256": "f21cdb699bff41076a1dc48fb8ba36887e06adcfffea5eb33427ba3418ae5c46"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCastRay.cpp",
+      "name": "?Length2@Vector3@@QBEMXZ",
+      "native_rva": "0x00711C40",
+      "size": 31,
+      "native_bytes_and_relocations_exact": true,
+      "flags": 1611665440,
+      "selection": 2,
+      "strict_current": true,
+      "path_precedes_candidate": true,
+      "object_sha256": "08c94ec80759cad83eae776086ad808ca2767bffe2056c720edd5504cb4def6e"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCastRay.cpp",
+      "name": "?Normalize@Vector3@@QAEXXZ",
+      "native_rva": "0x0006924F",
+      "size": 100,
+      "native_bytes_and_relocations_exact": true,
+      "flags": 1611665440,
+      "selection": 2,
+      "strict_current": true,
+      "path_precedes_candidate": true,
+      "object_sha256": "08c94ec80759cad83eae776086ad808ca2767bffe2056c720edd5504cb4def6e"
+    }
+  ],
+  "boundary": "Current explicit providers plus cached d171e84869 selection population; no full current image/census or runtime claim."
+}

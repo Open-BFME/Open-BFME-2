@@ -491,3 +491,15 @@ INCONCLUSIVE: index d171e84869 versus outgoing base
 195accef7eb242f0247ea449bf48c6d07435daa7; Common/AICowerState_onEnter.cpp
 lacks a current receipt. AIBaseBuilder now has a local current receipt, but
 this does not change the earlier recorded audits or establish image closure.
+
+**2026-11-08 Thing header dependency cohort: DamageNugget.cpp** adopts canonical
+Thing, Matrix3D and Vector3 together and retires three owning-tool header debts.
+All 14 source rows, three EH graphs and eleven floats remain exact; strict
+provider preparation and staged-peer checks pass. Twenty-seven retained code
+COMDAT facts/flags/policies and seven named data allocations agree. The two
+omitted helper copies retain current earlier native providers. The emitted
+Normalize copy now matches all 100 native bytes at0x0006924F, replacing a
+57-byte copy, with its existing ownership untouched; the added iterator is
+native-exact. Preview conserves LINKS/1,393, with no new coverage or image
+clearance. Canonical Object, remaining views and TU consolidation stay open.
+[Complete provider and copy proof](../../reverse/attempt_support/damage-nugget-header-adoption-20261108/README.md).
