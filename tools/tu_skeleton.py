@@ -99,6 +99,7 @@ import argparse
 import collections
 import contextlib
 import csv
+import functools
 import hashlib
 import io
 import json
@@ -2262,6 +2263,24 @@ def reuse_merge_plan(tu, don, report, plan, dry_run):
     return report
 
 
+class NothingWritten(SystemExit):
+    """A writer's refusal before its first write: no half-written tree to protect (marks_half_applied)."""
+
+
+def marks_half_applied(writer):
+    """Mark an exception leaving `writer` as `half_applied`: it may have written (give_back_after)."""
+    @functools.wraps(writer)
+    def wrapped(*args, **kw):
+        try:
+            return writer(*args, **kw)
+        except NothingWritten:
+            raise
+        except BaseException as error:
+            error.half_applied = True
+            raise
+    return wrapped
+
+
 def merge(tu, dry_run=False, log=print, claim=True):
     state = merge_plan_state()
     sk = skeleton(tu)
@@ -2301,35 +2320,39 @@ def merge(tu, dry_run=False, log=print, claim=True):
                 and (tu not in don or tu in accepted)):
             scope = {f: don[f] for f in accepted}
     taken = []          # each claim_scope result this merge holds: give_back releases exactly those
-    if claim and not dry_run:
-        held = claim_scope(tu, scope)
-        if held:
-            give_back(held)                           # the part of the scope we did win goes back
-            report["blocked"] = held_message(held)
-            return report
-        taken.append(held)
-    if plan:
-        reused = reuse_merge_plan(tu, don, report, plan, dry_run)
-        if reused is not None:
-            if claim and not dry_run and "blocked" in reused:   # nothing was written
-                give_back(*taken)
-            return view_hint(reused, tu, don)
-    # A saved plan can fail its fresh byte, link or carry checks. Searching for
-    # another cohort may touch rejected donors, so claim them before widening.
-    if claim and not dry_run and scope != don:
-        held = claim_scope(tu, don, skip=claim_keys(tu, scope))
-        if held:
-            give_back(*taken, held)
-            report["blocked"] = held_message(held)
-            return report
-        taken.append(held)
-    result = _merge(tu, sk, don, report, dry_run)
-    saved = result.pop("_plan", None)
-    if dry_run and saved and not result.get("blocked"):
-        save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
-    if claim and not dry_run and "blocked" in result:   # nothing was written
-        give_back(*taken)
-    return view_hint(result, tu, don)
+    try:
+        if claim and not dry_run:
+            held = claim_scope(tu, scope)
+            if held:
+                give_back(held)                           # the part of the scope we did win goes back
+                report["blocked"] = held_message(held)
+                return report
+            taken.append(held)
+        if plan:
+            reused = reuse_merge_plan(tu, don, report, plan, dry_run)
+            if reused is not None:
+                if claim and not dry_run and "blocked" in reused:   # nothing was written
+                    give_back(*taken)
+                return view_hint(reused, tu, don)
+        # A saved plan can fail its fresh byte, link or carry checks. Searching for
+        # another cohort may touch rejected donors, so claim them before widening.
+        if claim and not dry_run and scope != don:
+            held = claim_scope(tu, don, skip=claim_keys(tu, scope))
+            if held:
+                give_back(*taken, held)
+                report["blocked"] = held_message(held)
+                return report
+            taken.append(held)
+        result = _merge(tu, sk, don, report, dry_run)
+        saved = result.pop("_plan", None)
+        if dry_run and saved and not result.get("blocked"):
+            save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
+        if claim and not dry_run and "blocked" in result:   # nothing was written
+            give_back(*taken)
+        return view_hint(result, tu, don)
+    except BaseException as error:
+        give_back_after(error, report, *taken)
+        raise
 
 
 def view_hint(report, tu, don):
@@ -3685,7 +3708,11 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
             give_back(held)
             report["blocked"] = held_message(held)
             return report
-        report = run()
+        try:
+            report = run()
+        except BaseException as error:
+            give_back_after(error, report, held)
+            raise
         if "blocked" in report:
             give_back(held)
     else:
@@ -4153,7 +4180,12 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
                 report["blocked"] = held_message(held)
                 return report
             acquired, tokens = list(held.acquired), dict(held.tokens)
-        result = _apply_emit(path, dest, movers, report["moved"], acquired, tokens)
+        try:
+            result = _apply_emit(path, dest, movers, report["moved"], acquired, tokens)
+        except BaseException as error:
+            if claim and not getattr(error, "journalled", False):    # with a journal, undo_emit released them
+                give_back_after(error, report, held)
+            raise
     if isinstance(result, str):
         report["blocked"] = result
         return report
@@ -4202,6 +4234,9 @@ def _apply_emit(path, dest, movers, rvas, acquired, tokens):
         if problem is None:
             subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
             done = True
+    except BaseException as error:
+        error.journalled = True
+        raise
     finally:
         record = json.loads(journal.read_text(encoding="utf-8"))
         errors = [] if done else undo_emit(record)
@@ -4817,13 +4852,8 @@ def shatter(path, dry_run=False, claim=True):
     report["verified"] = True
     if dry_run:
         return report
-    if claim:
-        held = claim_scope(tus[0], {path: rows, **{t: [] for t in tus[1:]}})
-        if held:
-            give_back(held)
-            report["blocked"] = held_message(held)
-            return report
-    report["staged"] = apply_shatter(path, finals, new_raws, bool(hatches))
+    if not write_shatter(report, path, tus, rows, finals, new_raws, bool(hatches), claim=claim):
+        return report
     report["subject"] = (f"Shatter {posixpath.basename(path)} into {len(tus)} TUs "
                          f"({sum(len(units[t]) for t in tus)} rows, tu_map approved TUs"
                          + (f"; {len(stays)} unplaced rows stay" if stays else "") + ")")
@@ -4867,6 +4897,25 @@ def shatter_hatches(path, before, existing, texts):
     return {k: n for k, n in totals(H.scan(path, before)).items() if n}
 
 
+def write_shatter(report, path, tus, rows, finals, raws, hatches, claim=True):
+    """Claim the scope and write the shatter; False when another worker holds the scope (`report` says
+    so). An exception gives back what this call took, unless the write had started (give_back_after)."""
+    held = None
+    if claim:
+        held = claim_scope(tus[0], {path: rows, **{t: [] for t in tus[1:]}})
+        if held:
+            give_back(held)
+            report["blocked"] = held_message(held)
+            return False
+    try:
+        report["staged"] = apply_shatter(path, finals, raws, hatches)
+    except BaseException as error:
+        give_back_after(error, report, held)
+        raise
+    return True
+
+
+@marks_half_applied
 def apply_shatter(path, finals, raws, hatches, root=ROOT):
     """Write every TU, repoint the moved rows, delete the mixed file (or write
     its residual, when `finals` holds one under its own path), stage it all."""
@@ -4874,7 +4923,7 @@ def apply_shatter(path, finals, raws, hatches, root=ROOT):
     if hatches:
         others = dirty_others(root, set(finals) | {path})
         if others:
-            raise SystemExit("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
+            raise NothingWritten("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
                              "the other modified files first: " + ", ".join(others[:5]))
     moved = []
     for rel, raw in raws.items():
@@ -5009,6 +5058,7 @@ def data_row_names(raw, idents):
     return out
 
 
+@marks_half_applied
 def apply_split(tu, text, path, residual, rvas, hatches, root=ROOT, data_moved=(), extra=None):
     """Write the split; `extra` {rel: raw}: carried unit-key registers (unit_key_carry)."""
     moved = {}
@@ -5017,7 +5067,7 @@ def apply_split(tu, text, path, residual, rvas, hatches, root=ROOT, data_moved=(
                                capture_output=True, text=True).stdout.splitlines()
         others = [l for l in dirty if l[3:] not in (tu, path)]
         if others:
-            raise SystemExit("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
+            raise NothingWritten("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
                              "the other modified files first: " + ", ".join(l[3:] for l in others[:5]))
     for rel, keycol in ROW_KEYED:
         p = Path(root) / rel
@@ -5539,6 +5589,25 @@ def give_back(*helds):
     return claims.release(keys, tokens=tokens) if keys else []
 
 
+def give_back_after(error, report, *helds):
+    """`error` is leaving a call that claimed `helds`: release what it took (give_back) when nothing was
+    written (review of dee0813e84), and never mask `error`. A move that wrote keeps its claims: a merge
+    or split has no journal, so a half-written tree is restored by hand, and releasing would hand its
+    files to another worker meanwhile; an applied move's claims settle when it lands. They expire by
+    themselves, and an operator can release them once the tree is restored."""
+    if getattr(error, "half_applied", False):
+        print(f"tu_skeleton: {type(error).__name__} during the write: the tree may be half written, so the claims "
+              "stay held; restore it (git restore --staged --worktree on the paths git status lists), then "
+              "tools/claims.py release the scope", file=sys.stderr)
+        return
+    if "repointed" in report or "staged" in report:
+        return
+    try:
+        give_back(*helds)
+    except Exception as failed:                 # noqa: BLE001 - `error` is what the caller must see
+        print(f"tu_skeleton: the claims were not given back ({failed}); they expire by themselves", file=sys.stderr)
+
+
 def key_text(key):
     """A claim key as the claim service names it (claims.label for an RVA: `0x00002000`; a
     scope key as is), so it round-trips through claims.key_of: a decimal `8192` would be
@@ -5721,13 +5790,14 @@ def map_regressions(tu, accepted):
             + " (move the group's files together)")[:600]
 
 
+@marks_half_applied
 def apply(tu, accepted, text, root=ROOT, carry=None):
     gone = [f for f in accepted if f != tu]
     if carry and carry.hatch:
         # hatch_counters --update rewrites the register from the whole tree
         others = dirty_others(root, set(accepted) | {tu})
         if others:
-            raise SystemExit("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
+            raise NothingWritten("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
                              "the other modified files first: " + ", ".join(others[:5]))
     (Path(root) / tu).parent.mkdir(parents=True, exist_ok=True)   # a TU in a directory nothing lives in yet
     moved = repoint_all(root, gone, tu)

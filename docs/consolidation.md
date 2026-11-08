@@ -491,6 +491,12 @@ trailer. Pin admission re-proves a moved fold proof at commit.
   accepted donors' rows repointed and refuse when any code row's confidence falls
   or a row is placed in a path the move deletes. Move the group's files together.
   A split that leaves its file in place is not judged this way.
+- **A write that fails partway keeps its claims.** A merge, split or shatter has
+  no journal. An exception before the first write gives back what the call claimed;
+  once the write has started, the tool says so and the claims stay held, so no
+  other worker takes the files while the tree is half written. Restore it with
+  `git restore --staged --worktree` on the paths `git status` lists, then release
+  the scope with `tools/claims.py release`.
 - **A header-queue retirement and its source's merge go in separate pushes.**
   If `header_adopt_lane.py accept` retires a donor's header-queue row and a merge
   in the same push deletes that donor, the pre-push debt check sees a retired

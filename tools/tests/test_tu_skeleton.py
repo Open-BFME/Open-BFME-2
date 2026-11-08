@@ -1,6 +1,7 @@
 """tu_skeleton's merge lane: verified flags, redefinition repair, repointing and claims."""
 import contextlib
 import csv
+import io
 import json
 import os
 import re
@@ -17,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import tu_skeleton as T
 
 REAL_MAP_REGRESSIONS = T.map_regressions
+REAL_APPLY = T.apply
 
 
 def setUpModule():
@@ -1378,6 +1380,16 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(self.objects_left(), [])
         self.released.assert_called_once()
 
+    def test_an_exception_before_the_journal_gives_back_the_claims(self):
+        # review of dee0813e84's question for every claim site: with no journal, undo_emit never runs
+        before = self.ledger()
+        with patch.object(T, "repoint_rows", side_effect=T.rename.Refusal("no such column")), self.assertRaises(T.rename.Refusal):
+            self.move(rvas=["0x00002000"], dry_run=False, claim=True)
+        key = T.claims.key_of(f"file:{self.TU}")
+        self.released.assert_called_once_with([key], tokens={key: self.TOKEN})
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+        self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])
+
     def test_a_passing_move_keeps_its_objects_and_claims(self):
         self.ledger()
         report = self.move(rvas=["0x00002000"], dry_run=False, claim=True)
@@ -1860,7 +1872,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
 
     def split(self, *, prepared=PREPARED, stay=False, tu_vtable=True, residual_vtable=False, map_tu="",
               second_row=False, prepared_misses=False, dtor=True, held=None, merge_blocked=False, copies=None,
-              donor_pp=""):
+              donor_pp="", merge_raises=None):
         row = lambda n, r, s=self.SOURCE: dict(name=n, export_rva="", target_rva=r, target_size="1", source=s,
                                                status="matched", notes="")
         mine = ([row("_move", "0x1000")] + ([row(self.DTOR, "0x7000")] if dtor else [])
@@ -1889,6 +1901,8 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
 
         def merge(tu, sk, don, report, dry_run, **kw):
             seen.update(don=don, **kw)
+            if merge_raises:
+                raise merge_raises
             return dict(report, blocked="no verified merge") if merge_blocked else dict(report, accepted=list(don))
 
         def vtables(obj, cls):
@@ -1988,6 +2002,22 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.release.assert_called_once_with([key], tokens={key: "MINE"})
         report, _ = self.split(held=T.Held(["file:Code/Ctor.cpp"]))            # nothing acquired: nothing released
         self.release.assert_not_called()
+
+    def test_a_split_raising_gives_back_only_before_its_first_write(self):
+        # review of dee0813e84: both a whole donor's absorb and a partial split run through here
+        key = T.claims.key_of(f"file:{self.TU}")
+        won = T.Held()
+        won.acquired, won.tokens = [key], {key: "MINE"}
+        for stay in (False, True):
+            with self.subTest(stay=stay):
+                with self.assertRaises(OSError):
+                    self.split(held=won, stay=stay, merge_raises=OSError("before the write"))
+                self.release.assert_called_once_with([key], tokens={key: "MINE"})
+                during = OSError("during the write")
+                during.half_applied = True
+                with self.assertRaises(OSError), contextlib.redirect_stderr(io.StringIO()):
+                    self.split(held=won, stay=stay, merge_raises=during)
+                self.release.assert_not_called()
 
     def test_a_hand_written_rider_never_rides(self):
         # review of 87417c8f9f: the destination's or the residual's copy must be the compiler's, and neither
@@ -2792,6 +2822,127 @@ class MapGuardOnEveryDeletingPathTests(unittest.TestCase):
             self.assertEqual(out["blocked"], "lost approval")
             release.assert_called_once_with(list(held.acquired), tokens=dict(held.tokens))
             write.assert_not_called()
+    # ------------------------------------------------------------------ an exception after the claim
+    def released_once(self, release):
+        held = self.held()
+        release.assert_called_once_with(list(held.acquired), tokens=dict(held.tokens))
+
+    def test_a_reused_plan_raising_gives_back_its_claims(self):
+        # review of dee0813e84: only what this call took, fenced, and the exception goes on
+        with self.saved_plan() as (release, write), patch.object(T, "reuse_merge_plan", side_effect=OSError("read failed")):
+            with self.assertRaises(OSError):
+                T.merge(self.TU)
+            self.released_once(release)
+            write.assert_not_called()
+
+    def test_a_fresh_search_raising_gives_back_its_claims(self):
+        with self.saved_plan() as (release, write), patch.object(T, "load_merge_plan", return_value=None), \
+                patch.object(T, "_merge", side_effect=KeyboardInterrupt):
+            with self.assertRaises(KeyboardInterrupt):
+                T.merge(self.TU)
+            self.released_once(release)
+
+    def test_the_wider_claim_is_given_back_with_the_first(self):
+        first, second = self.held(), T.Held()
+        key = T.claims.key_of(f"file:{self.DONOR}")
+        second.acquired, second.tokens = [key], {key: "SECOND"}
+        with self.saved_plan() as (release, write), \
+                patch.object(T, "load_merge_plan", return_value={"tu_file": self.TU, "accepted": [self.TU]}), \
+                patch.object(T, "reuse_merge_plan", return_value=None), patch.object(T, "claim_scope", side_effect=[first, second]), \
+                patch.object(T, "_merge", side_effect=OSError("disk")):
+            with self.assertRaises(OSError):
+                T.merge(self.TU)
+            release.assert_called_once_with(first.acquired + [key], tokens={**first.tokens, key: "SECOND"})
+
+    def test_a_claim_held_before_this_call_survives_an_exception(self):
+        nothing_new = T.Held()                                  # every key was this worker's already (prior)
+        with self.saved_plan() as (release, write), patch.object(T, "claim_scope", return_value=nothing_new), \
+                patch.object(T, "reuse_merge_plan", side_effect=OSError("read failed")):
+            with self.assertRaises(OSError):
+                T.merge(self.TU)
+            release.assert_not_called()
+
+    def test_a_failing_release_never_masks_the_exception(self):
+        with self.saved_plan() as (release, write), patch.object(T, "reuse_merge_plan", side_effect=OSError("read failed")), \
+                contextlib.redirect_stderr(io.StringIO()) as err:
+            release.side_effect = RuntimeError("origin down")
+            with self.assertRaises(OSError):
+                T.merge(self.TU)
+            self.assertIn("were not given back", err.getvalue())
+
+    def test_a_write_that_started_keeps_its_claims(self):
+        # no journal for a merge: the half-written tree is restored by hand, and its files stay claimed meanwhile
+        carry = SimpleNamespace(problems=[], report=lambda: {}, hatch=False)
+        with self.saved_plan() as (release, write), patch.object(T, "apply", REAL_APPLY), patch.object(T, "Carry", return_value=carry), \
+                patch.object(T, "map_regressions", return_value=None), patch.object(T, "repoint_all", side_effect=OSError("disk full")), \
+                contextlib.redirect_stderr(io.StringIO()) as err:
+            with self.assertRaises(OSError) as caught:
+                T.merge(self.TU)
+            self.assertTrue(caught.exception.half_applied)
+            release.assert_not_called()
+            self.assertIn("the claims stay held", err.getvalue())
+            self.assertIn("git restore", err.getvalue())
+
+    def test_a_refusal_before_the_first_write_gives_back(self):
+        carry = SimpleNamespace(problems=[], report=lambda: {}, hatch=True)
+        with self.saved_plan() as (release, write), patch.object(T, "apply", REAL_APPLY), patch.object(T, "Carry", return_value=carry), \
+                patch.object(T, "map_regressions", return_value=None), patch.object(T, "dirty_others", return_value=["Code/Other.cpp"]), \
+                patch.object(T, "repoint_all") as repoint:
+            with self.assertRaises(SystemExit) as caught:
+                T.merge(self.TU)
+            self.assertFalse(getattr(caught.exception, "half_applied", False))
+            repoint.assert_not_called()
+            self.released_once(release)
+
+    def test_an_applied_merge_keeps_its_claims_whatever_follows(self):
+        with self.saved_plan() as (release, write), patch.object(T, "map_regressions", return_value=None), \
+                patch.object(T, "view_hint", side_effect=RuntimeError("after the write")):
+            with self.assertRaises(RuntimeError):
+                T.merge(self.TU)
+            write.assert_called_once()
+            release.assert_not_called()
+
+    def test_each_writer_marks_what_escapes_it(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with self.assertRaises(FileNotFoundError) as caught:
+                T.apply_shatter("Code/M.cpp", {}, {"reverse/missing.csv": b"x"}, False, root=root)
+            self.assertTrue(caught.exception.half_applied)
+            with patch.object(T.subprocess, "run", side_effect=OSError("no git")), self.assertRaises(OSError) as caught:
+                T.apply_split(self.TU, "text", self.DONOR, "residual", [], False, root=root)
+            self.assertTrue(caught.exception.half_applied)
+            with patch.object(T, "dirty_others", return_value=["x"]), self.assertRaises(T.NothingWritten) as caught:
+                T.apply_shatter("Code/M.cpp", {}, {}, True, root=root)
+            self.assertFalse(hasattr(caught.exception, "half_applied"))
+            dirty = SimpleNamespace(stdout=" M Code/Other.cpp\n")
+            with patch.object(T.subprocess, "run", return_value=dirty), self.assertRaises(T.NothingWritten):
+                T.apply_split(self.TU, "text", self.DONOR, "residual", [], True, root=root)
+
+    def test_a_shatter_gives_back_before_its_first_write_and_not_after(self):
+        args = ("Code/M.cpp", [self.TU], [{"target_rva": "0x00001000"}], {}, {}, False)
+        cases = ((OSError("before"), False, True), (OSError("during"), True, False))
+        for error, started, released in cases:
+            with self.subTest(error=error):
+                if started:
+                    error.half_applied = True
+                with patch.object(T, "claim_scope", return_value=self.held()), patch.object(T, "apply_shatter", side_effect=error), \
+                        patch.object(T.claims, "release") as release, contextlib.redirect_stderr(io.StringIO()), self.assertRaises(OSError):
+                    T.write_shatter({}, *args, claim=True)
+                self.assertEqual(release.called, released)
+        refused = T.Held(["file:Code/M.cpp"])
+        refused.acquired, refused.tokens = ["k"], {"k": "T"}
+        report = {}
+        with patch.object(T, "claim_scope", return_value=refused), patch.object(T, "apply_shatter") as write, \
+                patch.object(T.claims, "release") as release:
+            self.assertFalse(T.write_shatter(report, *args, claim=True))
+        self.assertIn("held by another worker", report["blocked"])
+        write.assert_not_called()
+        release.assert_called_once_with(["k"], tokens={"k": "T"})
+        with patch.object(T, "claim_scope") as claimed, patch.object(T, "apply_shatter", return_value=["x"]):
+            report = {}
+            self.assertTrue(T.write_shatter(report, *args, claim=False))
+            self.assertEqual(report["staged"], ["x"])
+            claimed.assert_not_called()
 
 
 class VerifierCacheTests(unittest.TestCase):
