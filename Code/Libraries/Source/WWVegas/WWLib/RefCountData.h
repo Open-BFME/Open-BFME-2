@@ -5,6 +5,11 @@
 #ifndef BFME2_WWLIB_REFCOUNTDATA_H
 #define BFME2_WWLIB_REFCOUNTDATA_H
 
+// One RefCountClass for both header families: Zero Hour's refcount.h (which rendobj.h includes) uses
+// REFCOUNT_H, so whichever of the two a unit reaches first defines the class and the other is skipped.
+#ifndef REFCOUNT_H
+#define REFCOUNT_H
+
 class RefCountClass
 {
 public:
@@ -14,7 +19,9 @@ public:
     void Add_Ref() { ++NumRefs; }
     void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
     int Num_Refs() { return NumRefs; }
-    virtual void Delete_This();
+    // Retail keeps this body as a header COMDAT: 0x0006CE57 (every RefCountClass-derived table's slot 0)
+    // and an identical unreferenced copy at 0x0030F466 in FXParticleSystem.cpp's region.
+    virtual void Delete_This() { delete this; }
 
 protected:
     virtual ~RefCountClass();
@@ -23,4 +30,20 @@ public:
     int NumRefs;
 };
 
+
+// refcount.h's pointer macros (NDEBUG forms), for units that reach this header first.
+#ifndef NEW_REF
+#define NEW_REF( C, P ) ( W3DNEW C P )
+#endif
+#ifndef SET_REF_OWNER
+#define SET_REF_OWNER( P ) P
+#endif
+#ifndef REF_PTR_SET
+#define REF_PTR_SET(dst,src) { if (src) (src)->Add_Ref(); if (dst) (dst)->Release_Ref(); (dst) = (src); }
+#endif
+#ifndef REF_PTR_RELEASE
+#define REF_PTR_RELEASE(x) { if (x) { x->Release_Ref(); x = NULL; } }
+#endif
+
+#endif // REFCOUNT_H
 #endif
