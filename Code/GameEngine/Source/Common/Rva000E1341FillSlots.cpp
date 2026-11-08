@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// stlport
 // ?rva000E1341@Rva000E1341@@QAEXXZ @0x000E1341 102B.
 // Clears GlobalData bytes +0x3C and +0x48, then calls FillFourSlots on
 // each 0xD4 record. Index is inner * outerCount + outer.
