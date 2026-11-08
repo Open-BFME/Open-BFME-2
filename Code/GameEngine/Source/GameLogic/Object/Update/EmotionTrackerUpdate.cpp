@@ -23,13 +23,7 @@ struct EmotionLookupBuckets {
 struct EmotionLookupMap { unsigned char hashEqual[4]; EmotionLookupBuckets buckets; };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1, UPDATE_SLEEP_FOREVER=0x3fffffff };
 enum NameKeyType { NK_UNKNOWN = 0 };
-class Player
-{
-public:
-	__forceinline int getPlayerIndex() const { return index; }
-	char m_pad00[0x54];
-	int index; // +0x54
-};
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 enum ObjectStatusTypes;
@@ -528,9 +522,9 @@ EmotionNugget *EmotionTrackerUpdate::rva004B13D8()
 	Player *player = m_object ? m_object->getControllingPlayer() : 0;
 	if (player != 0)
 	{
-		int index = player->index;
+		int index = player->m_playerIndex;
 		int rel3 = ThePlayerList->getPlayersWithRelationship(index, 3, false);
-		int index4 = player->index;
+		int index4 = player->m_playerIndex;
 		int rel4 = ThePlayerList->getPlayersWithRelationship(index4, 4, false);
 		Object *host = m_object;
 		slotA = ((Rva00739830 *)TheShroudManager)->rva00739830((const BfmePointFD *)&host->pos, 1, (unsigned int)rel4);

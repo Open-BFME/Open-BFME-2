@@ -64,18 +64,8 @@ public:
 	virtual void rva004534F5Slot24(bool flag) = 0;
 };
 
-struct Rva004534F5PlayerPart
-{
-	unsigned char m_pad000[0x1BC];
-	bool m_isEvil; // +0x1BC
-};
-
-class Player
-{
-public:
-	unsigned char m_pad00[0x34];
-	Rva004534F5PlayerPart *m_34; // +0x34
-};
+#include "../../../../Include/Common/PlayerTemplate.h"
+#include "../../../../Include/Common/Player.h"
 
 #include "../object.h"
 
@@ -111,7 +101,7 @@ void GettingBuiltBehavior::onObjectCreated()
 			Player *player = obj->getControllingPlayer();
 			if (player)
 			{
-				bool alt = player->m_34 ? player->m_34->m_isEvil : false;
+				bool alt = player->m_playerTemplate ? player->m_playerTemplate->m_isEvil : false;
 				if (alt)
 					named = rva004534F5Find(TheThingFactory, data->m_evilWorkerName);
 				else

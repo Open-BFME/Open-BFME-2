@@ -7,19 +7,9 @@
 // call) per the BFME1 donor SpawnBehavior.cpp:170, plus 31 further raw
 // callers game-wide. Sibling at 0x0028AFE7 writes the same ID to +0x7C.
 
-typedef unsigned int ObjectID;
 typedef int Color;
 
-class Player
-{
-	unsigned char m_pad000[0x280];
-	Color m_color; // +0x280, read by getIndicatorColor
-	Color m_nightColor; // +0x284, read by getNightIndicatorColor
-
-public:
-	__declspec(dllimport) __forceinline Color getPlayerColor() const { return m_color; }
-	__declspec(dllimport) __forceinline Color getPlayerNightColor() const { return m_nightColor; }
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -67,12 +57,12 @@ private:
 // ?setProducer@Object@@QAEXPAV1@@Z
 void Object::setProducer(Object *producer)
 {
-	m_producerID = producer ? producer->m_id : 0;
+	m_producerID = producer ? producer->m_id : (ObjectID)0;
 }
 
 void Object::setBuilder(const Object *producer)
 {
-	m_7C = producer ? producer->m_id : 0;
+	m_7C = producer ? producer->m_id : (ObjectID)0;
 }
 
 // The four indicator-color bodies follow setBuilder in Zero Hour's
@@ -130,7 +120,7 @@ Color Object::getNightIndicatorColor() const
 			const Player *player = myTeam->getControllingPlayer();
 			if (player)
 			{
-				return player->getPlayerNightColor();
+				return player->m_nightColor;
 			}
 		}
 		return GameMakeColor(0, 0, 0, 255);

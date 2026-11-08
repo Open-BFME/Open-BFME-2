@@ -41,17 +41,8 @@ class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;
 
 class Player;
-struct Rva003BE6CBP34
-{
-	unsigned char m_pad[0x1BC];
-	unsigned char m_1bc;
-};
-class Player
-{
-public:
-	char m_pad[0x34];
-	Rva003BE6CBP34 *m_p34; // +0x34
-};
+#include "../../../Include/Common/PlayerTemplate.h"
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
@@ -133,8 +124,8 @@ void Rva003BE6CB::rva003BE6CB()
 			{
 				AsciiString s1("Gui_DefeatScreen");
 				AsciiString s2(Rva003BA8F3Get() ? "APT:EndGameOver" : "APT:EndDefeat");
-				Rva003BE6CBP34 *p = pl->m_p34;
-				((Rva00E03138 *)TheVictoryConditions)->slot23(s2, p ? p->m_1bc : (unsigned char)0, s1, AsciiString::TheEmptyString);
+				const PlayerTemplate *p = pl->m_playerTemplate;
+				((Rva00E03138 *)TheVictoryConditions)->slot23(s2, p ? p->m_isEvil : false, s1, AsciiString::TheEmptyString);
 			}
 			if (((Rva0023C6A4 *)TheGameLogic)->rva00200084())
 				((Rva00E03138 *)TheVictoryConditions)->slot27(1);

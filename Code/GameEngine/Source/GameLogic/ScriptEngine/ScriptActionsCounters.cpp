@@ -144,16 +144,7 @@ private:
 
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Player.h
-class Player
-{
-public:
-	unsigned char m_beforeCommandPoints[0x30];
-	PlayerCommandPoints m_commandPoints;
-	unsigned char m_beforeKills[0x317];
-	PlayerKills m_kills;
-
-	Int rva000D4730CountObjects(UnsignedInt bitIndex, Int limit) const;
-};
+#include "../../../Include/Common/Player.h"
 
 struct UnitExperience
 {

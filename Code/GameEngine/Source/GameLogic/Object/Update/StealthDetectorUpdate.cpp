@@ -328,7 +328,7 @@ class UpgradeTemplate;
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-class Player{public:char pad[0x54];int m_index;};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/PlayerList.h"
 
@@ -495,7 +495,7 @@ UpdateSleepTime StealthDetectorUpdate::update(){
   }}
   if(!forceUnstealth){Drawable *draw=((Thing*)them)->getDrawable();if(draw)draw->m_secondMaterialPassOpacity=1.0f;}
  }
- if(data->m_grid&&self->getShroudStatusForPlayer(ThePlayerList->m_local->m_index)<=2){
+ if(data->m_grid&&self->getShroudStatusForPlayer(ThePlayerList->m_local->m_playerIndex)<=2){
   Drawable *draw=((Thing*)self)->getDrawable();Coord3D bone;bone.x=-1.66f;bone.y=5.5f;bone.z=15.0f;if(draw)draw->getPristineBonePositions(data->m_bone.str(),0,&bone,0,1,0);
   const ParticleSystemTemplate *ping=foundSomeone?data->m_bright:data->m_ping;
   if(ping){BfmeParticleSystemHandle sys=TheParticleSystemManager->createParticleSystem(ping,true);if(sys){if(draw)((Rva001F3C20Slot*)sys.m_system)->set((const Rva0055A88BDwordField*)draw);else ((Rva001F3C43Slot*)sys.m_system)->set((const Rva001F3C43Arg*)self);((Rva001F3899Slot*)sys.operator->())->set(*(const Rva001F3899Arg*)&bone);}}

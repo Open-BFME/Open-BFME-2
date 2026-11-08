@@ -52,17 +52,7 @@ private:
 	unsigned char m_privateStatus;				// +0x438
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;	// 0x002AD0C6
-	Relationship getRelationship(const Object *that) const;	// 0x002AD11E
-	int getPlayerIndex() const { return m_playerIndex; }
-
-private:
-	unsigned char m_unmodelled_00[0x54];
-	int m_playerIndex;							// +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 

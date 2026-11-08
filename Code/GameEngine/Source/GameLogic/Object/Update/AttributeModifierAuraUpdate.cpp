@@ -172,22 +172,10 @@ public:
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class Rva0028B511Side
-{
-public:
-	char m_unknown000[0x1BC];
-	Bool m_isGood; // +0x1BC
-};
-
-class Player
-{
-public:
-	Bool isGood() const { return m_side ? m_side->m_isGood : false; }
-
-private:
-	char m_unknown00[0x34];
-	Rva0028B511Side *m_side; // +0x34
-};
+#include "../../../../Include/Common/PlayerTemplate.h"
+#include "../../../../Include/Common/Player.h"
+// PlayerTemplate's IsEvil flag of the player's template, inlined where retail reads it.
+static inline bool playerIsEvil(const Player *player) { return player->m_playerTemplate ? player->m_playerTemplate->m_isEvil : false; }
 
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 
@@ -394,9 +382,9 @@ void objectAuraUpdate(Object *obj, void *userData)
 	if (!info->m_data->m_allowSelf && obj == info->m_source)
 		return;
 	Player *player = obj->getControllingPlayer();
-	if (info->m_data->m_affectGood && player->isGood())
+	if (info->m_data->m_affectGood && playerIsEvil(player))
 		return;
-	if (info->m_data->m_affectEvil && !player->isGood())
+	if (info->m_data->m_affectEvil && !playerIsEvil(player))
 		return;
 	ExperienceTracker *experience = obj->getExperienceTracker();
 	if (experience)

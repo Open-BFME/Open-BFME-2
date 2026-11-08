@@ -264,13 +264,7 @@ enum ScienceType { SCIENCE_INVALID = -1 };
 
 #include "../../../../Common/Thing/thing.h"
 
-class Player {
-public:
-	bool hasScience(ScienceType science) const;
-	bool rva002AA245() const;
-	char m_pad00[0x5C];
-	int m_5C;
-};
+#include "../../../../../Include/Common/Player.h"
 
 #include "../../../../../Include/Common/ThingTemplate.h"
 
@@ -405,7 +399,7 @@ bool CrateCollide::isValidToExecute(const Object *other) const
 			return false;
 		if (md->m_isForbidOwnerPlayer && getObject()->getControllingPlayer() == other->getControllingPlayer())
 			return false;
-		if (md->m_isHumanOnlyPickup && other->getControllingPlayer() != 0 && other->getControllingPlayer()->m_5C != 0)
+		if (md->m_isHumanOnlyPickup && other->getControllingPlayer() != 0 && other->getControllingPlayer()->m_playerType != 0)
 			return false;
 		if (md->m_pickupScience != SCIENCE_INVALID && other->getControllingPlayer() != 0 && !other->getControllingPlayer()->hasScience((ScienceType)md->m_pickupScience))
 			return false;

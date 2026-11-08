@@ -183,16 +183,9 @@ public:
 
 class BfmeTab1026;
 
-class Player
-{
-public:
-	void rva002AF614(void *points);
-	bool rva002AB2D9(BfmeTab1026 *tab, bool flag) const;
-	ResourceGatheringManager *getResourceGatheringManager() const { return m_resourceGatheringManager; }
-private:
-	char m_pad[0x2E4];
-	ResourceGatheringManager *m_resourceGatheringManager; // +0x2E4
-};
+#include "../../../../Include/Common/Player.h"
+// Player's resource gathering manager, read the way retail inlines it.
+static inline ResourceGatheringManager *playerResourceGatheringManager(const Player *player) { return player->m_resourceGatheringManager; }
 
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 
@@ -427,7 +420,7 @@ void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj,
 		AIUpdateInterface *ai = obj->getAI();
 		if (ai)
 		{
-			ResourceGatheringManager *manager = obj->getControllingPlayer()->getResourceGatheringManager();
+			ResourceGatheringManager *manager = playerResourceGatheringManager(obj->getControllingPlayer());
 			if (manager)
 			{
 				Coord3D pos;

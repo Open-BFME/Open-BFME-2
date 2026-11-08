@@ -35,19 +35,7 @@ enum ObjectStatusTypes
 class Team;
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-	Relationship getRelationship(const Team *) const;
-
-private:
-	unsigned char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-	unsigned char m_pad058[0x2EC - 0x58];
-public:
-	Team *team; // +0x2EC, target relationship calls
-};
+#include "../../../Include/Common/Player.h"
 
 class Rva002AA21CDwordField
 {
@@ -236,7 +224,7 @@ bool Object::rva00294471(void *arg, int mode)
 	if (mode == 1)
 	{
 		Player *owner = getControllingPlayer();
-		if (owner && player->getRelationship(owner->team) == ALLIES)
+		if (owner && player->getRelationship(owner->m_defaultTeam) == ALLIES)
 			return false;
 	}
 	if (rva0028F518() || (testStatus(STATUS15) && !testStatus(STATUS17)))
@@ -248,12 +236,12 @@ bool Object::rva00294471(void *arg, int mode)
 		{
 			Player *owner = ThePlayerList->getNthPlayer(effect->playerIndex);
 			if (player && owner)
-				return (unsigned char)(player->getRelationship(owner->team) == ENEMIES);
+				return (unsigned char)(player->getRelationship(owner->m_defaultTeam) == ENEMIES);
 		}
 		if (mode == 1)
 		{
 			Player *owner = getControllingPlayer();
-			if (!owner || player->getRelationship(owner->team) != ENEMIES)
+			if (!owner || player->getRelationship(owner->m_defaultTeam) != ENEMIES)
 				return false;
 		}
 		return true;
@@ -263,7 +251,7 @@ bool Object::rva00294471(void *arg, int mode)
 		if (mode == 1)
 		{
 			Player *owner = getControllingPlayer();
-			if (!owner || player->getRelationship(owner->team) != ENEMIES)
+			if (!owner || player->getRelationship(owner->m_defaultTeam) != ENEMIES)
 				return false;
 		}
 		if (m_template->m_kindof[3] & (1U << 13))
@@ -308,7 +296,7 @@ bool Object::rva00294471(void *arg, int mode)
 				if (first != view.list->head)
 				{
 					Object *obj = first->value;
-					if (obj && !(unsigned char)obj->rva002933CD() && !obj->testStatus(STATUS17) && owner && player->getRelationship(owner->team) == ENEMIES)
+					if (obj && !(unsigned char)obj->rva002933CD() && !obj->testStatus(STATUS17) && owner && player->getRelationship(owner->m_defaultTeam) == ENEMIES)
 						return false;
 				}
 			}
