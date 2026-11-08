@@ -2445,15 +2445,6 @@ alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundCl
 alternatename	Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp	?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??0RenderObjectDrawCategoryBase@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??1Rva0002B8C8TailBase@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$00@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$01@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$02@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$03@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$04@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$05@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$06@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$07@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@?$CategoryModuleTemplate@$0A@@FXParticleSystem@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@LineEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
@@ -2578,8 +2569,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultM
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14b	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v18a	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v18b	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate06CopyCtorThunk.cpp	_DefaultModuleTemplate6_vtbl4	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate6CtorThunk.cpp	?construct@DefaultModuleTemplate7CtorShim@FXParticleSystem@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEB0A_v14a	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEB0A_v14b	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEB0A_v18a	1
@@ -2893,7 +2882,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cp
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp	?allow@Rva00260FD0Filter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterSameMapStatusAllow.cpp	?allow@Rva002611BFFilter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp	?allow@Rva0026137EFilter@@UAE_NPAVObject@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	?g_00DFE490@@3VRva00575674@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00355BDADtor.cpp	??1ArmorTemplateMap@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva0041E764Find.cpp	??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@@1@ABW4NameKeyType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	??0InitiateVoiceEntry@@QAE@XZ	1
@@ -4389,7 +4377,7 @@ pin	reverse/symbols.csv	0x00035930	1
 pin	reverse/symbols.csv	0x00035FB0	1
 pin	reverse/symbols.csv	0x000362B0	1
 pin	reverse/symbols.csv	0x00036410	32
-pin	reverse/symbols.csv	0x000365F0	19
+pin	reverse/symbols.csv	0x000365F0	18
 pin	reverse/symbols.csv	0x000366F0	8
 pin	reverse/symbols.csv	0x00036A70	1
 pin	reverse/symbols.csv	0x00036E70	7
@@ -4653,7 +4641,7 @@ pin	reverse/symbols.csv	0x0007EA1F	1
 pin	reverse/symbols.csv	0x0007EB6E	1
 pin	reverse/symbols.csv	0x0007EBB1	1
 pin	reverse/symbols.csv	0x0007F87C	1
-pin	reverse/symbols.csv	0x0007FAB3	50
+pin	reverse/symbols.csv	0x0007FAB3	49
 pin	reverse/symbols.csv	0x0007FAEA	2
 pin	reverse/symbols.csv	0x00080221	1
 pin	reverse/symbols.csv	0x000806B4	1
@@ -5085,7 +5073,7 @@ pin	reverse/symbols.csv	0x00141D90	1
 pin	reverse/symbols.csv	0x00141DF0	1
 pin	reverse/symbols.csv	0x00141F90	1
 pin	reverse/symbols.csv	0x00142060	1
-pin	reverse/symbols.csv	0x00142D70	27
+pin	reverse/symbols.csv	0x00142D70	26
 pin	reverse/symbols.csv	0x00142E20	2
 pin	reverse/symbols.csv	0x00142FE0	2
 pin	reverse/symbols.csv	0x00143560	1
@@ -11693,7 +11681,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp	Reviv
 present_unmatched	Code/GameEngine/Source/Common/RegionArmyIconSlotView.h	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00030DD0AddRef.cpp	bfmeEmitRva00030DD0LockDtor@@YAXPAURva00030DD0Lock@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00068119::rva00068119	2
-present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00068441::rva00068441	2
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE3::rva00078AE3	2
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0007B851Math::Sqrt	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0006ED36Call.cpp	RTS2DScene::doRender	1
@@ -11948,8 +11935,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	0FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXList@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	SecondaryModuleBase::SecondaryModuleBase	1
-present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	SecondaryModuleBase::~SecondaryModuleBase	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp	bfmeEmitFXParticleSystemModulesAssign@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptComponentRegistry.cpp	Rva004121D1Context::Rva004121D1Context	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptLoadMovieFrame.cpp	text)	1
