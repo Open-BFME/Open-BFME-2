@@ -1,0 +1,75 @@
+{
+  "index": {
+    "date": "2026-11-08 12:06",
+    "commit": "f4727bbd09",
+    "clean_tree": true,
+    "census_date": "2026-11-08 10:36",
+    "census_commit": "6494b4b9d0"
+  },
+  "checks": [
+    {
+      "order": "census_order",
+      "name": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+      "first": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_animobj.obj",
+      "first_flags": "0x60501020",
+      "owner_flags": "0x60501020",
+      "same_bytes": true,
+      "same_relocations": true,
+      "strict_twin": true,
+      "retail_bytes_exact": true,
+      "reason": null,
+      "result": {
+        "name": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+        "rva": 446526,
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp",
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_animobj.obj",
+        "twin_of": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_hlod.obj"
+      }
+    },
+    {
+      "order": "census_order",
+      "name": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+      "first": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_animobj.obj",
+      "first_flags": "0x60501020",
+      "owner_flags": "0x60501020",
+      "same_bytes": true,
+      "same_relocations": true,
+      "strict_twin": true,
+      "retail_bytes_exact": true,
+      "reason": null,
+      "result": {
+        "name": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+        "rva": 446504,
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp",
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_animobj.obj",
+        "twin_of": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_hlod.obj"
+      }
+    },
+    {
+      "order": "path_order",
+      "name": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+      "first": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+      "first_flags": "0x60101020",
+      "owner_flags": "0x60501020",
+      "same_bytes": true,
+      "same_relocations": true,
+      "strict_twin": false,
+      "retail_bytes_exact": true,
+      "reason": "target-not-winning-provider",
+      "result": null
+    },
+    {
+      "order": "path_order",
+      "name": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+      "first": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+      "first_flags": "0x60101020",
+      "owner_flags": "0x60501020",
+      "same_bytes": true,
+      "same_relocations": true,
+      "strict_twin": false,
+      "retail_bytes_exact": true,
+      "reason": "target-not-winning-provider",
+      "result": null
+    }
+  ]
+}

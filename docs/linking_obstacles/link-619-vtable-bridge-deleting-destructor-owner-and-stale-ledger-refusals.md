@@ -334,3 +334,15 @@ for that confirmation. Follow-up: rename the placeholder row at 0x0006CE57 to `?
   destructor (`??_7BaseHeightMapRenderObjClass@@6BRO0@@@` and `??_7Rva006DD51@@6BRva006DD51Base0@@@`, scaffold views).
   The pre-phase-1 image 05d517395d gives the identical 84/20/2 split, so phase 1 changed no slot-0 binding. Follow-ups,
   not caused by phase 1: those 2 scaffold tables, and naming the 0x0006CE57 row so the 20 tables bind to it.
+
+**2026-11-08, bounding getter order/identity boundary:** Rva001684D6Copy.cpp's
+served table 0x007D41C8 remains a real path-order refusal. The refreshed census
+index selects exact animobj twins in retail order, but exit_link's default
+path order selects BaseHeightMapConstructor with identical 22-byte getter
+bodies/relocations and different alignment flags. A direct Targets.resolve
+replay reproduces both outcomes. Normal three-unit gate passes 193/193.
+A blanket alignment-mask change is not applied: position-observing code
+(call/pop is one counterexample) needs a sound proof boundary first. A private
+speed-preference flag trial loses 15/30 BaseHeightMapConstructor rows and is
+not landed. No source/header/verifier edit; queue and owners stay intact.
+[Reproduction and remaining proof](../../reverse/attempt_support/renderobj-bounding-order-20261108/README.md).
