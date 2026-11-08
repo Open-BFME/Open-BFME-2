@@ -511,3 +511,12 @@ DamageNugget itself lacked a current strict receipt after rebase. A local
 post-publication refresh passes 19/19 rows across it and the two explicit
 providers, and the full scoped object/provider proof passes again. This
 refresh does not rewrite the recorded push audit or establish image closure.
+
+**2026-11-08 AutoDeposit Thing header queue follow-up:** the old m_08 view is
+already absent from AutoDepositUpdateCtor.cpp. The explicit canonical Thing
+include passes owning-tool acceptance and retires one header debt. Both rows,
+62 retained code COMDAT facts/flags/policies, three named data allocations and
+undefined references agree; the sole added iterator matches native and the
+existing provider policy. Strict preparation passes; preview conserves
+LINKS/144. No new coverage, table-bridge or full-image clearance is claimed.
+[Scoped proof](../../reverse/attempt_support/auto-deposit-thing-adoption-20261108/README.md).

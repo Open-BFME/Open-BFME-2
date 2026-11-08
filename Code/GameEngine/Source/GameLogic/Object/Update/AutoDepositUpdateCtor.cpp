@@ -39,6 +39,7 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../Common/Thing/thing.h"
 
 extern GameLogic *TheGameLogic;
 
