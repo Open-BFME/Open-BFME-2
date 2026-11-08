@@ -228,3 +228,33 @@ Update (2026-11-07, static-defects lane): P16 route chosen: minimal B.
 - Handoff, with the text, the refusing commands and their output: `reverse/attempt_support/p16_minimal_b/`.
 - The record chain respell, the shared Act header and the LivingWorldCampaign.cpp move (P2-P4, stage 0)
   are later cleanup, no longer on P16's path; their stage-0 tool needs are in the same handoff.
+
+Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on a wrong pin.
+- Harness's minimal-B split (bfb856bfbf) is refused by the link guard: once FXList.cpp absorbs
+  ParticleSystemFXNuggetCtor.cpp it must link, and its copies of `??1?$_List_base<FXNugget*>` and
+  `list<FXNugget*>`'s copy constructor would win over "retail's" copies. Both are pinned, not rowed, at
+  addresses holding other functions:
+  - `??1?$_List_base@PAVFXNugget@@...@QAE@XZ` -> 0x00036E70 (symbols.csv, donor_sweep note). Retail there is
+    `StringBase<wchar_t>::releaseBuffer` (133 B, rowed in StringBaseWideReleaseBuffer.cpp). FXList.obj's
+    23-byte body is byte-identical to retail 0x004EC395, the pointer-element list destructor retail folds,
+    rowed as `list<int>`'s in stlport_list_int_o1.cpp. Its calls are `clear` 0x0023DAA5 (already an ICF-twin
+    row in FXList.cpp) and `_free`. No row's bytes use the 0x00036E70 pin.
+  - `??0?$list@PAVFXNugget@@...@QAE@ABV01@@Z` -> 0x000365F0. Retail there is `StringBase<char>`'s copy
+    constructor (66 B, StringBaseNarrowCopySet.cpp). Retail has no distinct `list<FXNugget*>` copy
+    constructor: by-value FXList copies do not exist in BFME 2, and the generic 88-byte list copy body occurs
+    18 times, each with its own list's callees.
+  - The only row using the 0x000365F0 pin is 0x0052BD3A `??0FXList@@QAE@ABV0@@Z` (call at 0x0052BD4E). In
+    retail that call is the AsciiString copy inside EnableRegionRecord's copy constructor, which 0x0052BD3A
+    is. FXList.cpp's Zero Hour FXList copy constructor calls `list<FXNugget*>`'s copy there instead, and
+    the wrong pin makes it "match". Correcting the pin removes the match, so the row moves with its real
+    code (P16 minimal B v2, plan in reverse/attempt_support/p16_minimal_b/readme.md).
+- The suspect family checks out as identical-code folds, not wrong identities: `push_back` 0x0005548F,
+  `insert` 0x005925E2 and `_M_create_node` 0x000B6447 each sit on the folded pointer-element list body,
+  rowed as `list<int>`'s and a dozen other pointer lists'. None carries a `fold-proof=` note; the Link lane's
+  cleanup should record them or row them as ICF twins. The two wrong pins go to the Link lane too (no pin
+  edits here).
+- Verifier gap: a pin that names a different function than the row at its address let a false match pass.
+  `tools/pin_consistency.py --check` passes (it judges only symbols pinned at several addresses) and
+  `reverse/pin_consistency_baseline.csv` lists neither pin. `pin_admission.py` refuses a second real name
+  on a named address only for newly added pins, so pins admitted earlier are never re-judged against the
+  row at their address.
