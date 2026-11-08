@@ -10,11 +10,6 @@
 
 #include <stddef.h>
 
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
-
 class Rva0054103E
 {
 public:
@@ -25,12 +20,13 @@ namespace _STL
 {
 
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<Rva0054103E, Rva0054103E>(Rva0054103E *p, const Rva0054103E &value)
 {
 	if (p)
-		new (p) T1(value);
+		p->Rva0054103E::Rva0054103E(value);
 }
 
 }
-
-template void _STL::_Construct(Rva0054103E *, const Rva0054103E &);
