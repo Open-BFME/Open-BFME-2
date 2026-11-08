@@ -1233,9 +1233,11 @@ After the build, a retype also reads every rebuilt row's DIR32 relocations: reta
 less the compiled addend must be the new symbol's start, and nothing may reach into the
 extent through another symbol. The byte gate masks those operands, so a table read at +0
 rather than +0x100 passes it. No rebuilt object or preprocessed unit may name an absorbed
-identifier under any spelling. Outside the rebuilt set, a current object is read by its own symbol
-table and may not name the old, new or absorbed symbols, and a stale or missing one refuses unless
-the compiler cleared its unit.
+identifier under any spelling, in its symbols or its linker directives. Outside the rebuilt set, a
+current object is read by its own symbol table and `.drectve` and may not name the old, new or
+absorbed symbols, and a stale or missing one refuses unless the compiler cleared its unit. A
+clearance holds only for what it read: if a cleared unit's source, an included file or its build
+command changed since the scan, the retype refuses and has to be run again.
 
 ### `rename.py function --respell`: `this` cv and code identity
 
