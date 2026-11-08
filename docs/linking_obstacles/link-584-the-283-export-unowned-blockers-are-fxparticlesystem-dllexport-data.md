@@ -463,3 +463,8 @@ and relocations; Modules (121) and Factories (55) unchanged.
 
 Not done: the 12 KEY/NAME (LINK-615: startup order) and 14 guards. Re-measure the KEY/NAME trial against this shape, as the note
 above asks.
+
+**2026-11-08 measured by the real link at `4a3033f245`:** 107 -> 29 unresolved, 0 of the 78, 0 duplicates, no image yet.
+`no_object_defines_it` 3 -> 27, as predicted (24 stale ledger rows until a refresh, plus the 3 from before this landing, which
+were stale names too: 0x007C6C54, 0x007C6C58, 0x0084D700). The Box, Sphere, Point and Butterfly copy constructors now install
+retail's exported tables, not one-byte placeholders, as the Line unit does; 4/4 rows exact, not yet measured by a real link.
