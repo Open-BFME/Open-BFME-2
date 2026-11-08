@@ -910,7 +910,6 @@ DX8SkinFVFCategoryContainer::~DX8SkinFVFCategoryContainer()
 
 // ----------------------------------------------------------------------------
 
-// ?Log@DX8SkinFVFCategoryContainer@@ present-unmatched
 void DX8SkinFVFCategoryContainer::Log(bool only_visible)
 {
 #ifdef ENABLE_CATEGORY_LOG
