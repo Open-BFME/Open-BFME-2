@@ -1193,7 +1193,7 @@ void Rva000683FF::rva000683FF(Vector3 corners[4], ObjectID id, bool highlight)
 
 // tu-skeleton: 0x0006B7BF 69B ?rva0006B7BF@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@M@Z -- matched in Code/GameEngine/Source/Common/Rva0006B7BFMethod.cpp (not merged yet)
 
-// tu-skeleton: 0x0006B804 145B ?rva0006B804@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp (not merged yet)
+// tu-skeleton: 0x0006B804 145B ?rva0006B804@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp (not merged yet)
 
 // tu-skeleton: 0x0006BE05 26B ?size@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp (not merged yet)
 

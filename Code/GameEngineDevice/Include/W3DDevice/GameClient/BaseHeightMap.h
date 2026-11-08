@@ -119,7 +119,7 @@ public:
     virtual void vslot140() = 0;
     virtual void vslot141() = 0;
     virtual bool vslot142(int);
-    virtual void vslot143();
+    virtual void rva0006B804();
     virtual int vslot144() { return 0; }
     virtual float getHeightMapHeight(float x, float y, Coord3D *normal) const;
     virtual float getMaxCellHeight(float x, float y) const;
@@ -142,7 +142,6 @@ public:
     unsigned char rva0006730B(float, float);
     bool rva0006B114(float, float);
     unsigned char rva0006B187(float, float);
-    void rva0006B804();
     bool rva00067298(float, float);
     void CheckCorners(int, int, int, int, int, int, bool *, bool *);
     float EstimateMaxHeightAlongLine(const Coord3D &, const Coord3D &) const;

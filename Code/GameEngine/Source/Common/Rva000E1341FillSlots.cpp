@@ -32,7 +32,7 @@ public:
 
 void Rva000E1341::rva000E1341()
 {
-	rva0006B804();
+	BaseHeightMapRenderObjClass::rva0006B804();
 	((unsigned char *)TheWritableGlobalData)[0x3C] = 0;
 	unsigned char *globalData = (unsigned char *)*(void *volatile *)&TheWritableGlobalData;
 	reinterpret_cast<unsigned char *>(globalData)[0x48] = 0;
