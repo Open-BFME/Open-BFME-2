@@ -59,6 +59,8 @@ PROTECTED = (
     "tools/link_check.py",
     # data identity: the pre-commit check and the ledger it reads
     "tools/data_check.py", "tools/data_ledger.py", "reverse/data_ledger.csv", "reverse/data_converged.csv",
+    # the folds class --fold's initializer route may admit: each row is a reviewer's read
+    "reverse/initializer_fold_census.csv",
     # which models may judge, and how they are called (decision record, pillar 5)
     "tools/judges.py", "tools/judges.json",
     # the advisory audit: its panel, canaries and harness

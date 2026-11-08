@@ -1,0 +1,2 @@
+old,new,initializer,review
+Rva005F00FB,MappedImageCache,0x007B51EB,"P36, read by hand 2026-11-08: 0x005F005B builds 'TypeImages' and its getters 0x005F0152 and 0x005F0185 use the arrays it sets up; Codex reproduced the census three times"

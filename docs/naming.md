@@ -741,6 +741,31 @@ refuses unless all of these hold:
   in T's slots, and OLD and NEW do not both row one special-member kind (one
   class has one destructor; two constructor rows stay refused in this narrow
   mode).
+- A NEW with no row naming T and no virtual method may instead be tied by retail's
+  initializer (`initializer_tie`, P36). Retail must build a global rowed as NEW with
+  OLD's constructor, in exactly `mov ecx,&G; call ctor` then `ret` or an atexit
+  registration, and G must start exactly at one matched data row typed exactly NEW, with
+  the same name and extent in the data ledger. The tree must record NEW as a real class:
+  an `inferred` record whose agreement `check_agreement` recomputes at plan time, for that class in
+  G's owner unit. A `canonical` label or a `canonical_classes.csv` row alone does not count here,
+  since neither is protected or checkable by this guard. The agreement's address is optional, and
+  naming another member of the same class still passes: it stays bound to the class and the owner. That initializer must be the only retail
+  code reaching the constructor, its atexit thunk must run a destructor of OLD, and the
+  constructor must store +0 exactly once, T. Retail must call a member of NEW on G and
+  no member of another readable class; placeholder methods decide nothing, since one may
+  be a base's. That member must touch a field the constructor sets up at or past its base
+  chain's reach, and no member of NEW may touch a field past the constructor's reach
+  (state a derived NEW adds). No row of either class may reach past G; OLD's destructors are read
+  as far as they can be. Whatever else cannot be read refuses, and the reader takes a short list
+  of shapes on purpose. The fold must also be listed, with a review, in
+  `reverse/initializer_fold_census.csv`: retail's bytes never change, so the census over them is
+  what bounds a false accept. A new member refuses until a reviewer has looked at it by hand. Editing
+  the list needs a `Verifier-Change:` trailer, the same control as a baseline; the `review` column is
+  not authenticated. `tools/tests/test_rename_fold_census.py` fails if the census and the list differ:
+  a listed fold must still be admitted or have landed, which takes its constructor rowed `??0NEW`
+  and no row naming OLD. It needs no vote and invents no name. The global's owner, and only it,
+  comes as `--prepared`: after the build its object must reference the folded constructor
+  without defining one, and `data_rows` must prove G's compiled size.
 - The usual `class` rules: OLD is not protected or registered in
   `canonical_classes.csv`, is global and no template, is no function's
   identifier, and keys no frozen register; a registered NEW is refused where

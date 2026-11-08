@@ -222,7 +222,8 @@ OLD constructor/destructor/deleting destructor installs a vftable as its own
 whose `??_7` names are NEW's, no third class owns that table (retail ICF-folds
 identical vftables of distinct classes), the deleting destructors sit in its
 slots, and OLD and NEW never both row one special-member kind (see
-plan_fold's section). It invents no name: no name_basis.csv record, tombstones
+plan_fold's section), or when retail's only initializer of a global typed NEW
+runs OLD's constructor (initializer_tie). It invents no name: no name_basis.csv record, tombstones
 `(fold: retail vftable 0x...)`, and a pin the respelling makes a row's own name
 is dropped. A readable OLD is refused.
 
@@ -265,6 +266,7 @@ import posixpath
 import re
 import signal
 import socket
+import struct
 import subprocess
 import sys
 import tempfile
@@ -296,6 +298,7 @@ NAME_TIERS = "reverse/name_tiers.csv"
 CONVERGED = "reverse/data_converged.csv"
 MODULES = "reverse/module_factory_registrations.csv"
 DATA_LEDGER = "reverse/data_ledger.csv"
+FOLD_CENSUS = "reverse/initializer_fold_census.csv"
 TU_MAP = "reverse/tu_map.csv"
 LINK_STATUS = "reverse/link_status.csv"
 SOURCES_CFG = "docs/doxygen/sources.cfg"
@@ -1446,6 +1449,7 @@ class Plan:
     spellings: list = field(default_factory=list)     # carry: (old spelling, new spelling, occurrences)
     virtual: bool = False                             # function --virtual: the decoration, not the name
     fold: int = None                                  # class --fold: the retail vftable rva proving one class
+    fold_tie: dict = None                             # class --fold by retail's initializer: what the build must prove
     dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
     to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
     retype: dict = None                               # global --retype: what the rebuilt objects must prove
@@ -9319,9 +9323,782 @@ def virtual_slot_tie(ctx, old, new, table, tables, unnamed):
     return evidence
 
 
-def fold_evidence(ctx, old, new):
+# The initializer route, the virtual-slot route's sibling: NEW names no vftable and has no
+# virtual, but a global rowed as NEW is what retail builds with OLD's constructor. A compiler
+# initializer `mov ecx,&G; call ctor` runs the most-derived constructor of G, so G's class is
+# that constructor's, unless ctor is a base's and the derived constructor was inlined into the
+# initializer. A class derived from a polymorphic OLD has a table of its own and stores it after
+# the base constructor returns, which the exact shape refuses; and OLD's constructor storing +0
+# once shows OLD is polymorphic and no inlined base of its own class sits in that body. Every
+# condition below is read from retail's bytes and refuses when it cannot be read:
+#   - exactly one retail initializer calls a constructor of OLD, its bytes are exactly
+#     `mov ecx,imm32; call rel32` (or `jmp rel32`) then nothing but `ret` or `push thunk; call
+#     _atexit; pop ecx; ret`, and no other code in retail calls or names that constructor (a
+#     derived constructor's call would be one);
+#   - imm32 is the exact start of one matched data row, whose decorated type is exactly the
+#     global class NEW, and the data ledger gives that row the same name and extent;
+#   - the tree records NEW as a real class (new_class_provenance): a verified agreement;
+#   - an atexit thunk is exactly `mov ecx,&G; jmp dtor` (or `call dtor; ret`), dtor a destructor
+#     of OLD;
+#   - OLD's constructor makes exactly one +0 store through `this`, of OLD's own table;
+#   - retail calls a member of NEW with ecx=&G and no member of another readable class (OLD's
+#     own methods and placeholder classes decide nothing: a placeholder method may be a base's);
+#   - such a member touches a field OLD's constructor itself sets up, at or past everything its
+#     base constructor chain reaches, so NEW's layout is OLD's and NEW is not one of its bases;
+#   - no member of NEW touches a field at or past everything OLD's constructor reaches, which
+#     would be state a derived NEW adds; no row of either class reaches past G's extent, OLD's
+#     destructors read as far as they can be (a tail call into a base ends that walk);
+#   - no view derives one of the two from the other;
+#   - the fold is pinned in reverse/initializer_fold_census.csv. Retail's bytes never change, so what
+#     bounds a false accept is the census over them (initializer_fold_census): a fold not on that
+#     list, or with no review, refuses until a reviewer has looked at it by hand and added it, and
+#     tests/test_rename_fold_census.py fails if the census and the list differ (fold_census_problems).
+# The owner's view comes prepared, and after the build its object must reference the folded
+# constructor without defining one, and data_rows must prove G's compiled size (fold_tie_problems).
+INIT_THIS_CALL = re.compile(r"\?[A-Za-z_]\w*@((?:[A-Za-z_]\w*@)+)@[ABEFIJMNQRUV]")
+
+
+class ThisInconclusive(ValueError):
+    """this_use could not read what a body does with `this`."""
+
+
+def retail_initializers(ctx):
+    """Function RVAs of retail's `.CRT$XCU` table (image_report's reading of `_initterm`'s)."""
+    key = "_retail_initializers"
+    if key not in ctx._cache:
+        import build
+        import image_report
+        ctx._cache[key] = image_report.Retail(build.EXE.read_bytes()).initializers()
+    return ctx._cache[key]
+
+
+def retail_text(ctx):
+    """(rva, bytes) of retail's .text."""
+    key = "_retail_text"
+    if key not in ctx._cache:
+        import build
+        image, sections = build.exe_image()
+        text = next(section for section in sections if section["name"] == ".text")
+        ctx._cache[key] = (text["rva"], image[text["raw_pointer"]:text["raw_pointer"] + text["raw_size"]])
+    return ctx._cache[key]
+
+
+def rel32_target(rva, code, at):
+    """The RVA a `call/jmp rel32` at offset `at` of `code` (read from `rva`) lands on."""
+    return (rva + at + 5 + struct.unpack_from("<i", code, at + 1)[0]) & 0xFFFFFFFF
+
+
+def initializer_shape(code, rva):
+    """(G va, ctor rva, atexit thunk va or None, atexit rva or None) when `code` at `rva` is
+    exactly the initializer shape, else None."""
+    if len(code) < 11 or code[0] != 0xB9 or code[5] not in (0xE8, 0xE9):
+        return None
+    g, ctor = struct.unpack_from("<I", code, 1)[0], rel32_target(rva, code, 5)
+    if code[5] == 0xE9 or code[10] == 0xC3:
+        return g, ctor, None, None
+    if len(code) >= 22 and code[10] == 0x68 and code[15] == 0xE8 and code[20] == 0x59 and code[21] == 0xC3:
+        return g, ctor, struct.unpack_from("<I", code, 11)[0], rel32_target(rva, code, 15)
+    return None
+
+
+def initializer_callees(code, rva):
+    """Every direct call or jump target of the function at `rva`, up to its first return."""
+    import capstone
+    out = set()
+    for _address, _size, mnemonic, operands in capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32).disasm_lite(code, rva):
+        if mnemonic in ("call", "jmp") and operands.startswith("0x"):
+            out.add(int(operands, 16))
+        if mnemonic in ("ret", "retn", "jmp"):
+            break
+    return out
+
+
+def retail_code_refs(ctx, target):
+    """Every .text address that `call`s or `jmp`s `target` by rel32 or spells its VA."""
+    base, raw = retail_text(ctx)
+    found = set()
+    for match in re.finditer(rb"[\xE8\xE9]", raw):
+        at = match.start()
+        if at + 5 <= len(raw) and (base + at + 5 + struct.unpack_from("<i", raw, at + 1)[0]) & 0xFFFFFFFF == target:
+            found.add(base + at)
+    needle, at = struct.pack("<I", target + IMAGE_BASE), -1
+    while True:
+        at = raw.find(needle, at + 1)
+        if at < 0:
+            return found
+        found.add(base + at)
+
+
+def _thiscall(ctx, target):
+    """Is the row at `target` a __thiscall member? None when no decorated name says."""
+    row = row_at(ctx, target)
+    name = row["name"] if row is not None and _rva(row.get("target_rva")) == target else ""
+    return bool(re.search(r"@@[ABEFIJMNQRUV][A-D]?E", name)) if name.startswith("?") else None
+
+
+def _callee_pops(ctx, target):
+    """The bytes `target`'s own `ret` takes off the stack, or None when it cannot be read."""
+    import capstone
+    import build
+    row = row_at(ctx, target)
+    if row is None or _rva(row.get("target_rva")) != target:
+        return None
+    code = build.read_target_bytes(target, int(row.get("target_size") or 0))
+    for ins in capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32).disasm(code, target):
+        if ins.mnemonic in ("ret", "retn"):
+            return int(ins.op_str, 16) if ins.op_str else 0
+    return None
+
+
+def _merge_this(a, b):
+    """Two paths' `this` states at one address. Holding `this`, or a stack address, on only one
+    path is `maybe`; a saved copy of `this` taints its stack slot on every path after it."""
+    regs = a["regs"] & b["regs"]
+    maybe = (a["maybe"] | b["maybe"] | a["regs"] | b["regs"]) - regs
+    derived, stack = {}, {}
+    for name in set(a["derived"]) | set(b["derived"]):
+        left, right = a["derived"].get(name), b["derived"].get(name)
+        if left is None or right is None:
+            maybe |= {name}
+        else:
+            derived[name] = left if left == right else (min(left[0], right[0]), False)  # a loop's pointer
+    for name in set(a["stack"]) | set(b["stack"]):
+        if a["stack"].get(name) == b["stack"].get(name):
+            stack[name] = a["stack"][name]
+        else:
+            maybe |= {name}
+    return dict(regs=regs, maybe=maybe - set(derived) - set(stack), derived=derived, stack=stack,
+                taint=a["taint"] | b["taint"], built=a["built"] & b["built"], sp=a["sp"] if a["sp"] == b["sp"] else None,
+                frame=a["frame"] if a["frame"] == b["frame"] else None)
+
+
+# What this_use reads through `this`. Anything else that reads a register holding it refuses.
+THIS_READS = frozenset(("mov", "lea", "push", "cmp", "test", "add", "sub", "and", "or", "inc", "dec", "movzx", "movsx"))
+
+
+def this_use(ctx, start, seed="ecx", *, follow=False, lenient=False, _seen=None):
+    """What the rowed retail body at `start` does with `this`, which arrives in ecx or, with an
+    int `seed`, as that stack argument. A dict: `fields` {displacement read, written or taken},
+    `setup` {displacement written through `this`, or whose address the body writes through or
+    passes on}, `reach` (the largest displacement plus access size, or displacement alone for an
+    address), `vptr` [the immediate, or None, of each store at this+0], `chain` [(callee, seed)
+    of each call receiving `this` itself: in ecx, unless the callee's decorated name says it is no
+    __thiscall member, or pushed as an argument].
+
+    It reads a short list of shapes and raises ThisInconclusive on anything else; a false refusal
+    costs nothing here. The body's control flow is followed to a fixed point. A write to a register
+    drops `this` from it, and a register holding `this` on only some paths into a join cannot be used.
+    Past the ledger's one __EH_prolog row (eh_prolog_rva) ecx stays. Every path must end in a `ret` or
+    in a call or tail jump the walk handled; running off the row, a branch it cannot follow, or a
+    target inside an instruction refuses.
+
+    The stack holds no live copy of `this`. Pushing a register holding it, or storing it in a frame
+    slot, is allowed (an arguments's push, `push ecx` reserving a local, a spill for unwinding), but
+    taints that slot for good: nothing may read it or pop it, whatever overwrote it since. Its address
+    may not be taken either, with one exception, P36's local temporary: once `lea ecx,[slot]; call ??0X`
+    has constructed over the reserved slot, its address may travel, though its bytes are still never
+    read. An incoming stack argument holding `this` may only be loaded whole into a register. Copying
+    a stack address refuses, and a register holding one cannot be dereferenced, nor passed on if a
+    tainted slot lies at or above it. An 8- or 16-bit operation on a register holding `this` refuses.
+    A call or tail jump with this+d in ecx refuses, since the callee's reach through the subobject is
+    unread. With `follow`, a callee receiving `this` is read the same way and its reach counts; an
+    unrowed or indirect callee, a subobject address passed on, or an indexed or loop access refuses,
+    since none of those bounds the reach. A pointer to `this` stored outside the stack is not
+    followed: that is the other object's use of it, not a field this body's class chain sets up.
+
+    With `lenient` the body is read as far as it can be, and what it cannot read adds nothing instead
+    of raising: enough to catch a destructor reaching past a global, which is all it is used for."""
+    import capstone
+    from capstone import x86
+    import build
+    seen = {} if _seen is None else _seen
+    key = (start, seed)
+    if key in seen:
+        return seen[key]
+    if len(seen) > 32:
+        raise ThisInconclusive(f"the chain from 0x{start:08X} goes too deep to read")
+    row = row_at(ctx, start)
+    if row is None or _rva(row.get("target_rva")) != start:
+        raise ThisInconclusive(f"0x{start:08X} has no row, so its body's extent is unknown")
+    size = int(row.get("target_size") or 0)
+    code = build.read_target_bytes(start, size)
+    use = dict(fields=set(), setup=set(), reach=0, vptr=[], chain=[])
+    seen[key] = use
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    decoded, finish = {}, start
+    for ins in md.disasm(code, start):
+        decoded[ins.address] = ins
+        finish = ins.address + ins.size
+    if finish != start + size:
+        raise ThisInconclusive(f"0x{start:08X} does not decode to its row's end (stopped at 0x{finish:08X})")
+    eh_prolog = eh_prolog_rva(ctx)
+    argument = None if seed == "ecx" else 4 + 4 * seed
+
+    def step(ins, state, record):
+        """(state after `ins`, the addresses it continues at). Only `record` touches `use` or raises:
+        states only ever lose certainty, so the final pass sees each instruction at its least certain."""
+        state = dict(state, regs=set(state["regs"]), maybe=set(state["maybe"]), derived=dict(state["derived"]),
+                     stack=dict(state["stack"]), taint=set(state["taint"]), built=set(state["built"]))
+        regs, maybe, derived, stack, taint, built = (state[n] for n in ("regs", "maybe", "derived", "stack", "taint", "built"))
+        ops, mnemonic = ins.operands, ins.mnemonic
+        where = f"0x{ins.address:08X} in 0x{start:08X}"
+        guarded = bool(taint) or argument is not None
+
+        def unsure(why):
+            if record and not lenient:
+                raise ThisInconclusive(f"{where} {why}")
+
+        def full(reg):
+            return FULL_REG.get(ins.reg_name(reg), ins.reg_name(reg))
+
+        def place(mem, name):
+            if mem.index:
+                return None
+            if name == "esp":
+                return None if state["sp"] is None else mem.disp - state["sp"]
+            return mem.disp + state["frame"] if name == "ebp" and state["frame"] is not None else None
+
+        def saved(slot, width=4):
+            return any(slot < t + 4 and t < slot + width for t in taint)
+
+        def receive(target):
+            """`this` reaches `target`: in ecx, and as each stack argument holding it."""
+            kind = None if target is None else _thiscall(ctx, target)
+            takes_ecx = target is None or kind is not False
+            if takes_ecx and "ecx" in maybe:
+                unsure("may or may not pass `this` in ecx")
+            if takes_ecx and "ecx" in derived:
+                unsure(f"passes this+{derived['ecx'][0]:#x} in ecx to a callee the proof does not read")
+            if "ecx" in stack and takes_ecx:
+                slot = stack["ecx"]
+                name = next((r["name"] for r in ctx.rows() if _rva(r.get("target_rva")) == target), "")
+                if slot in taint and kind and name.startswith("??0"):
+                    built.add(slot)
+                if any(t >= slot for t in taint - built):
+                    unsure("passes the address of a stack slot holding `this` in ecx")
+            given = ["ecx"] if "ecx" in regs and takes_ecx else []
+            if taint:
+                if state["sp"] is None:
+                    unsure("makes a call on a stack it cannot place")
+                else:
+                    pops = None if target is None else _callee_pops(ctx, target)
+                    counted = pops if pops or kind else None
+                    given += [(slot + state["sp"]) // 4 for slot in sorted(taint - built) if slot >= -state["sp"]
+                              and not (slot + state["sp"]) % 4 and (counted is None or slot + state["sp"] < counted)]
+            for how in given:
+                if target is None:
+                    unsure("passes `this` to an indirect call")
+                elif record:
+                    if (target, how) not in use["chain"]:
+                        use["chain"].append((target, how))
+                    if follow:
+                        use["reach"] = max(use["reach"], this_use(ctx, target, how, follow=True, _seen=seen)["reach"])
+
+        alias = regs | maybe | set(derived)
+        if any(op.type == x86.X86_OP_REG and ins.reg_name(op.reg) != full(op.reg)
+               and full(op.reg) in alias | set(stack) for op in ops):
+            unsure(f"runs `{mnemonic}` on part of a register holding `this`")
+        if {full(reg) for reg in ins.regs_access()[0]} & alias:
+            operands = {full(op.reg) for op in ops if op.type == x86.X86_OP_REG}
+            control = ins.group(capstone.CS_GRP_CALL) or ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET)
+            if not control and mnemonic not in THIS_READS:
+                unsure(f"runs `{mnemonic}` on `this`")
+            elif control and operands & alias:
+                unsure("branches through a register holding `this`")
+            elif mnemonic in ("and", "or", "inc", "dec", "movzx", "movsx") and operands & alias:
+                unsure(f"runs `{mnemonic}` on `this`")
+            elif mnemonic in ("add", "sub") and operands & alias and (
+                    len(ops) != 2 or ops[0].type != x86.X86_OP_REG or ops[1].type != x86.X86_OP_IMM):
+                unsure(f"runs `{mnemonic}` on `this`")
+        for op in ops:
+            if op.type != x86.X86_OP_MEM:
+                continue
+            base = ins.reg_name(op.mem.base) if op.mem.base else None
+            index = ins.reg_name(op.mem.index) if op.mem.index else None
+            if index in alias or index in stack:
+                unsure("indexes by `this`")
+            if base in maybe:
+                unsure(f"uses {base}, which may or may not hold `this` here")
+            elif base in stack and guarded:
+                unsure("reads through a stack address while `this` is on the stack")
+            elif base in regs or base in derived:
+                at, exact = derived.get(base, (0, True))
+                at += op.mem.disp
+                if follow and (index or not exact):
+                    unsure("reaches an unbounded offset of `this`")
+                if record:
+                    use["fields"].add(at)
+                    use["reach"] = max(use["reach"], at + (0 if mnemonic == "lea" else op.size))
+                    if mnemonic != "lea" and op.access & capstone.CS_AC_WRITE:
+                        use["setup"].add(at)
+                        if not at and not index and exact:
+                            use["vptr"].append(ops[1].imm & 0xFFFFFFFF if len(ops) == 2 and mnemonic == "mov"
+                                               and ops[1].type == x86.X86_OP_IMM else None)
+            elif base in ("esp", "ebp") and mnemonic != "lea":
+                slot = place(op.mem, base)
+                if slot is None:
+                    if guarded:
+                        unsure("uses a stack slot it cannot place")
+                    continue
+                if op.access & capstone.CS_AC_READ and saved(slot, op.size):
+                    unsure("reads a stack slot that has held `this`")
+                if argument is not None and slot < argument + 4 and argument < slot + op.size:
+                    whole = mnemonic == "mov" and op.access == capstone.CS_AC_READ and op.size == 4 \
+                        and slot == argument and ops[0].type == x86.X86_OP_REG
+                    if not whole:
+                        unsure("uses the stack argument holding `this` other than loading it whole")
+
+        if ins.group(capstone.CS_GRP_RET):
+            return state, []
+        if ins.group(capstone.CS_GRP_INT):
+            unsure(f"stops at `{mnemonic}`")
+            return state, []
+        if ins.group(capstone.CS_GRP_CALL):
+            target = ops[0].imm if ops and ops[0].type == x86.X86_OP_IMM else None
+            if target is not None and target == eh_prolog:
+                # __EH_prolog: ebp is the caller's esp less 4, the frame takes 0x10; ecx stays
+                state["frame"] = None if state["sp"] is None else -state["sp"] - 4
+                state["sp"] = None if state["sp"] is None else state["sp"] + 0x10
+                for name in ("eax", "edx"):
+                    regs.discard(name), maybe.discard(name), derived.pop(name, None), stack.pop(name, None)
+                return state, [ins.address + ins.size]
+            receive(target)
+            for name in ("eax", "ecx", "edx"):
+                regs.discard(name), maybe.discard(name), derived.pop(name, None), stack.pop(name, None)
+            pops = _callee_pops(ctx, target) if target is not None else None
+            state["sp"] = None if state["sp"] is None or pops is None else state["sp"] - pops
+            return state, [ins.address + ins.size]
+        if ins.group(capstone.CS_GRP_JUMP):
+            target = ops[0].imm if ops and ops[0].type == x86.X86_OP_IMM else None
+            onward = [] if mnemonic == "jmp" else [ins.address + ins.size]
+            if target is None:
+                unsure("branches where the walk cannot follow")
+                return state, onward
+            if start <= target < start + size:
+                if target not in decoded:
+                    unsure(f"branches into an instruction at 0x{target:08X}")
+                    return state, onward
+                return state, onward + [target]
+            found = row_at(ctx, target)
+            if found is None or _rva(found.get("target_rva")) != target:
+                unsure(f"jumps off its row to 0x{target:08X}, which is no row's start")
+            receive(target)
+            return state, onward
+
+        src, dst = (ops[1], ops[0]) if len(ops) == 2 else (None, None)
+        dst_reg = ins.reg_name(dst.reg) if dst is not None and dst.type == x86.X86_OP_REG else None
+        source = ins.reg_name(src.reg) if src is not None and src.type == x86.X86_OP_REG else None
+        kept = {}
+        if mnemonic == "mov" and dst_reg == "ebp" and source == "esp":
+            state["frame"] = None if state["sp"] is None else -state["sp"]
+        elif mnemonic == "lea" and dst_reg == "ebp" and src.mem.base and ins.reg_name(src.mem.base) == "esp":
+            state["frame"] = None if state["sp"] is None else src.mem.disp - state["sp"]
+        elif mnemonic == "mov" and dst_reg and source:
+            if source in ("esp", "ebp") or source in stack:
+                unsure("copies a stack address")
+            elif source in regs:
+                kept["regs"] = True
+            elif source in maybe:
+                kept["maybe"] = True
+            elif source in derived:
+                kept["derived"] = derived[source]
+        elif mnemonic == "mov" and dst_reg and src.type == x86.X86_OP_MEM and src.mem.base \
+                and argument is not None and place(src.mem, ins.reg_name(src.mem.base)) == argument:
+            kept["regs"] = True
+        elif mnemonic == "lea" and dst_reg and src.mem.base:
+            name = ins.reg_name(src.mem.base)
+            if name in ("esp", "ebp"):
+                slot = place(src.mem, name)
+                if guarded and (slot is None or src.mem.index or (dst_reg != "ecx" and any(
+                        slot < t + 4 and t < slot + 4 for t in taint - built))):
+                    unsure("takes the address of a stack slot that has held `this`")
+                if slot is not None:
+                    kept["stack"] = slot
+            elif not src.mem.index:
+                if name in regs and not src.mem.disp:
+                    kept["regs"] = True
+                elif name in regs:
+                    kept["derived"] = (src.mem.disp, True)
+                elif name in derived:
+                    kept["derived"] = (src.mem.disp + derived[name][0], derived[name][1])
+                elif name in stack:
+                    unsure("offsets a stack address")
+        elif mnemonic in ("add", "sub") and dst_reg and src.type == x86.X86_OP_IMM:
+            if dst_reg in regs or dst_reg in derived:
+                at, exact = derived.get(dst_reg, (0, True))
+                kept["derived"] = (at + (src.imm if mnemonic == "add" else -src.imm), exact)
+            elif dst_reg in stack:
+                unsure("offsets a stack address")
+        elif mnemonic == "mov" and dst is not None and dst.type == x86.X86_OP_MEM and source:
+            name = ins.reg_name(dst.mem.base) if dst.mem.base else None
+            if name in ("esp", "ebp") and not (name == "ebp" and name in regs):
+                slot = place(dst.mem, name)
+                if source in regs or source in maybe:
+                    if source in maybe:
+                        unsure("saves a register that may or may not hold `this`")
+                    if slot is None:
+                        unsure("saves `this` in a stack slot it cannot place")
+                    else:
+                        taint.add(slot)
+                elif source in stack:
+                    unsure("saves a stack address")
+        if mnemonic in ("add", "sub") and dst_reg == "esp" and state["sp"] is not None:
+            state["sp"] = state["sp"] + (src.imm if mnemonic == "sub" else -src.imm) if src.type == x86.X86_OP_IMM else None
+        elif dst_reg == "esp" and mnemonic not in ("add", "sub"):
+            state["sp"] = None
+        if mnemonic == "leave":
+            state["sp"] = None if state["frame"] is None else -(state["frame"] + 4)
+        if mnemonic == "push":
+            state["sp"] = None if state["sp"] is None else state["sp"] + 4
+            if ops[0].type == x86.X86_OP_REG:
+                name = ins.reg_name(ops[0].reg)
+                if name in maybe:
+                    unsure("pushes a register that may or may not hold `this`")
+                if name in regs:
+                    if state["sp"] is None:
+                        unsure("pushes `this` on a stack it cannot place")
+                    else:
+                        taint.add(-state["sp"])
+                elif name in derived:
+                    if record:
+                        use["setup"].add(derived[name][0])
+                        use["reach"] = max(use["reach"], derived[name][0])
+                    if follow:
+                        unsure(f"passes this+{derived[name][0]:#x} on")
+                elif name in stack and any(t >= stack[name] for t in taint - built):
+                    unsure("passes the address of a stack slot holding `this`")
+                elif name == "esp" or (name == "ebp" and state["frame"] is not None):
+                    unsure("pushes a stack address")
+            return state, [ins.address + ins.size]
+        if mnemonic == "pop":
+            if guarded and state["sp"] is None:
+                unsure("pops a stack it cannot place")
+            elif state["sp"] is not None:
+                if saved(-state["sp"]):
+                    unsure("pops a stack slot that has held `this`")
+                if argument == -state["sp"]:
+                    unsure("pops the stack argument holding `this`")
+                state["sp"] -= 4
+            if ops[0].type == x86.X86_OP_REG:
+                name = ins.reg_name(ops[0].reg)
+                regs.discard(name), maybe.discard(name), derived.pop(name, None), stack.pop(name, None)
+            return state, [ins.address + ins.size]
+        for reg in ins.regs_access()[1]:
+            name = full(reg)
+            regs.discard(name), maybe.discard(name), derived.pop(name, None), stack.pop(name, None)
+        if dst_reg and dst_reg not in ("esp",) and not (dst_reg == "ebp" and not kept):
+            if kept.get("regs"):
+                regs.add(dst_reg)
+            elif kept.get("maybe"):
+                maybe.add(dst_reg)
+            elif "derived" in kept:
+                derived[dst_reg] = kept["derived"]
+            elif "stack" in kept:
+                stack[dst_reg] = kept["stack"]
+        return state, [ins.address + ins.size]
+
+    states = {start: dict(regs={"ecx"} if seed == "ecx" else set(), maybe=set(), derived={}, stack={}, taint=set(),
+                          built=set(), sp=0, frame=None)}
+    work = [start]
+    visits = 0
+    while work:
+        address = work.pop()
+        visits += 1
+        if visits > 64 * len(decoded) + 64:
+            raise ThisInconclusive(f"the walk of 0x{start:08X} does not settle")
+        after, onward = step(decoded[address], states[address], False)
+        for target in onward:
+            if target not in decoded:
+                if lenient:
+                    continue
+                raise ThisInconclusive(f"0x{address:08X} in 0x{start:08X} runs off its row's end")
+            merged = _merge_this(states[target], after) if target in states else after
+            if merged != states.get(target):
+                states[target] = merged
+                work.append(target)
+    for address in sorted(states):
+        step(decoded[address], states[address], True)
+    return use
+
+
+def new_class_provenance(ctx, new, owner):
+    """How the tree records NEW as a real class, or raises Refusal: spelling alone never qualifies, and
+    neither does a label or a registry row nobody can check. The one arm is an inferred name_basis.csv
+    record whose agreement check_agreement recomputes here, for this class in the global's owner unit.
+    A two-agent agreement is the project's normal standard for a name, not retail evidence: the byte
+    conditions are what tie OLD to NEW. The agreement's address is optional, and naming another member of
+    the same class still passes: it stays bound to the class and the owner."""
+    records = [row for row in name_basis_rows(ctx) if row.get("kind") == "class" and row.get("new") == new]
+    if not records:
+        raise Refusal(f"{new} has no class record in {NAME_BASIS}: a hand-named class does not qualify")
+    record = records[-1]
+    basis, evidence = record.get("basis", ""), record.get("evidence", "")
+    if basis != "inferred" or not evidence.startswith("agree:"):
+        raise Refusal(f"{new}'s {NAME_BASIS} record is {basis or 'no basis'} ({evidence or 'no evidence'}), "
+                      "not a verified agreement")
+    if record.get("source") != owner:
+        raise Refusal(f"{new}'s {NAME_BASIS} record is for {record.get('source') or 'no source'}, not the global's "
+                      f"owner {owner}")
+    agreed = [row for row in ctx.dicts(AGREED) if row.get("id") == evidence[len("agree:"):]]
+    if agreed and agreed[-1].get("key", "").split("|")[0] != owner:
+        raise Refusal(f"agreement {evidence} is for {agreed[-1].get('key', '').split('|')[0] or 'no source'}, not the "
+                      f"global's owner {owner}")
+    address = _rva((record.get("rva") or (agreed[-1].get("rva") if agreed else "")) or None)
+    if address is not None and not any(_rva(r.get("target_rva")) == address and INIT_THIS_CALL.match(r["name"])
+                                       and INIT_THIS_CALL.match(r["name"]).group(1).rstrip("@") == new
+                                       for r in ctx.rows()):
+        raise Refusal(f"{new}'s agreement names 0x{address:08X}, which is no member row of {new}")
+    check_agreement(ctx, "class", evidence, {record.get("old")}, {new}, address)
+    return f"{new} is agreed ({evidence}, verified now), not retail-evidenced"
+
+
+def initializer_fold_census(ctx):
+    """{(old, new, initializer rva)}: every fold initializer_tie admits over retail's whole table."""
+    import build
+    data = {data_rva(d): d for d in ctx.dicts(DATA_ROWS) if d.get("address")}
+    admitted = set()
+    for entry in retail_initializers(ctx):
+        shape = initializer_shape(build.read_target_bytes(entry, 64), entry)
+        if shape is None:
+            continue
+        row, datum = row_at(ctx, shape[1]), data.get(shape[0] - IMAGE_BASE)
+        if row is None or datum is None or _rva(row["target_rva"]) != shape[1]:
+            continue
+        member = special_member(row["name"])
+        if not member or member[0] != "0":
+            continue
+        try:
+            typed = type_tree(datum["name"])[3][2]
+        except (ValueError, IndexError, TypeError):
+            continue
+        if typed[0] != "C" or len(typed[2][1]) != 1 or typed[2][1][0][0] != "N":
+            continue
+        old, new = member[1], typed[2][1][0][1]
+        if old == new or not is_placeholder(old, "class"):
+            continue
+        tie = {}
+        try:
+            fold_evidence(ctx, old, new, tie, pinned=False)
+        except Refusal:
+            continue
+        if tie:
+            admitted.add((old, new, tie["entry"]))
+    return admitted
+
+
+def fold_census_problems(ctx):
+    """[why] the census over retail and the reviewed list differ. Every listed fold is either still
+    admitted, or has landed, which takes positive evidence: the constructor retail's initializer calls
+    is rowed ??0NEW and no row or pin names OLD. Nothing admitted may be unlisted."""
+    import build
+    admitted = initializer_fold_census(ctx)
+    problems, listed = [], set()
+    for row in ctx.dicts(FOLD_CENSUS):
+        old, new, entry = row.get("old", ""), row.get("new", ""), _rva(row.get("initializer"))
+        fold = (old, new, entry)
+        listed.add(fold)
+        where = f"{old} into {new} by {row.get('initializer')}"
+        if not (row.get("review") or "").strip():
+            problems.append(f"{where} has no review")
+        if fold in admitted:
+            continue
+        shape = initializer_shape(build.read_target_bytes(entry, 64), entry) if entry is not None else None
+        ctor_named = shape is not None and any(
+            _rva(r.get("target_rva")) == shape[1] and r["name"].startswith(f"??0{new}@@") for r in ctx.rows())
+        frag = type_fragment_re(old) if old else None
+        spells_old = frag is None or any(frag.search(r["name"]) for r in ctx.rows()) or any(
+            frag.search(p.get("name", "")) for p in ctx.pins())
+        if not ctor_named or spells_old:
+            problems.append(f"{where} is neither admitted nor landed (the constructor retail's initializer calls "
+                            f"{'is' if ctor_named else 'is not'} rowed ??0{new}; rows or pins "
+                            f"{'still name' if spells_old else 'no longer name'} {old})")
+    for fold in sorted(admitted - listed, key=str):
+        problems.append(f"{fold[0]} into {fold[1]} by 0x{fold[2]:08X} is admitted but not listed: a reviewer must read it")
+    return problems
+
+
+def initializer_tie(ctx, old, new, table, tables, members, unnamed, pinned=True):
+    """([evidence], tie) proving G's class NEW and OLD one class (see the comment above);
+    raises Refusal with `unnamed` plus the reason. `pinned` also requires the fold to be on the
+    reviewed census; only the census itself reads without it."""
+    import build
+
+    def no(why):
+        return Refusal(unnamed + f"; and no retail initializer ties them: {why}")
+
+    if name_metric.placeholder(new) or not IDENT.fullmatch(new):
+        raise no(f"{new} is a placeholder or scoped name, so no real row says what G is")
+    ctors = {_rva(r["target_rva"]): r for r in members[old] if special_member(r["name"])[0] == "0"}
+    dtors = {_rva(r["target_rva"]): r for r in members[old] if special_member(r["name"])[0] == "1"}
+    if not ctors:
+        raise no(f"{old} has no constructor row")
+    try:
+        hits = []
+        for entry in retail_initializers(ctx):
+            code = build.read_target_bytes(entry, 64)
+            if initializer_callees(code, entry) & set(ctors):
+                hits.append((entry, code))
+        if len(hits) != 1:
+            raise no(f"{len(hits)} retail initializers call a constructor of {old} "
+                     f"({', '.join(f'0x{e:08X}' for e, _c in hits[:4])}): exactly one must")
+        entry, code = hits[0]
+        shape = initializer_shape(code, entry)
+        if shape is None or shape[1] not in ctors:
+            raise no(f"0x{entry:08X} is not exactly `mov ecx,&G; call ctor`, then `ret` or an atexit registration: "
+                     "anything more may be a derived class's own construction")
+        g_va, ctor, thunk, atexit = shape
+        g = g_va - IMAGE_BASE
+        for address in sorted(set(ctors)):
+            others = retail_code_refs(ctx, address) - {entry + 5}
+            if others:
+                raise no(f"retail also reaches {ctors[address]['name']} from 0x{min(others):08X}: a derived "
+                         "constructor or a second use, so the initializer alone does not say what the class is")
+        data = [d for d in ctx.dicts(DATA_ROWS) if d.get("status") == "matched" and d.get("address")
+                and data_rva(d) <= g < data_rva(d) + int(d.get("size") or 0)]
+        if len(data) != 1 or data_rva(data[0]) != g:
+            raise no(f"0x{g_va:08X} is not the exact start of one matched data row ({len(data)} rows hold it)")
+        row = data[0]
+        try:
+            tree = type_tree(row["name"])
+            header = tree[3]
+            typed = header[2]
+        except (Unparsed, IndexError):
+            raise no(f"{row['name']}'s type cannot be read") from None
+        if not (tree[0] == "SYM" and header[0] == "H" and header[1][:1] in "01234" and typed[0] == "C"
+                and typed[2][1] == (("N", new),)):
+            raise no(f"{row['name']} at 0x{g_va:08X} is not typed exactly as class {new}")
+        try:
+            provenance = new_class_provenance(ctx, new, row.get("source", ""))
+        except Refusal as error:
+            raise no(str(error)) from None
+        extent = int(row.get("size") or 0)
+        ledger = [d for d in ctx.dicts(DATA_LEDGER) if _rva(d.get("address")) == g]
+        if len(ledger) != 1 or ledger[0].get("name") != row["name"] or int(ledger[0].get("size") or 0) != extent \
+                or not extent:
+            raise no(f"the data ledger does not give {row['name']} that name and the extent {extent} at 0x{g:08X}")
+        cleanup = None
+        if thunk is not None:
+            names = {r["name"] for r in ctx.rows() if _rva(r.get("target_rva")) == atexit}
+            if "_atexit" not in names:
+                raise no(f"0x{entry:08X} registers its thunk through 0x{atexit:08X} "
+                         f"({', '.join(sorted(names)) or 'unrowed'}), not _atexit")
+            body = build.read_target_bytes(thunk - IMAGE_BASE, 11)
+            exact = len(body) >= 10 and body[0] == 0xB9 and struct.unpack_from("<I", body, 1)[0] == g_va \
+                and (body[5] == 0xE9 or (body[5] == 0xE8 and len(body) > 10 and body[10] == 0xC3))
+            cleanup = rel32_target(thunk - IMAGE_BASE, body, 5) if exact else None
+            if cleanup not in dtors:
+                raise no(f"its atexit thunk 0x{thunk:08X} is not exactly `mov ecx,&G; jmp dtor` with a destructor of {old}")
+
+        # OLD's constructor: one +0 store, of its own table; what it sets up past its bases
+        own = this_use(ctx, ctor)
+        if own["vptr"] != [table + IMAGE_BASE]:
+            stored = ", ".join("an unknown value" if v is None else f"0x{v:08X}" for v in own["vptr"]) or "nothing"
+            raise no(f"{ctors[ctor]['name']} stores {stored} at +0, not exactly once 0x{table + IMAGE_BASE:08X}: "
+                     "an inlined base may sit in its body")
+        seen = {}
+        base_reach = 0
+        for callee, how in own["chain"]:
+            base_reach = max(base_reach, this_use(ctx, callee, how, follow=True, _seen=seen)["reach"])
+        past_base = {at for at in own["setup"] if at >= max(base_reach, 4)}
+
+        # the row is corroborated by retail's own calls on G
+        text_rva, raw = retail_text(ctx)
+        needle = b"\xB9" + struct.pack("<I", g_va)
+        called, others, at = {}, set(), raw.find(needle)
+        while at >= 0:
+            if raw[at + 5:at + 6] == b"\xE8":
+                target = (text_rva + at + 10 + struct.unpack_from("<i", raw, at + 6)[0]) & 0xFFFFFFFF
+                member = row_at(ctx, target)
+                match = INIT_THIS_CALL.match(member["name"]) if member and _rva(member["target_rva"]) == target else None
+                cls = match.group(1).rstrip("@") if match else None
+                if cls == new:
+                    called[target] = member
+                elif cls and cls != old and not name_metric.placeholder(cls.split("@")[0]):
+                    others.add(member["name"])
+            at = raw.find(needle, at + 1)
+        if others:
+            raise no(f"retail also calls {', '.join(sorted(others)[:2])} on it: a member of another real class, so "
+                     "G's class is not settled")
+        if not called:
+            raise no(f"retail calls no rowed member of {new} on it, so nothing corroborates {row['name']}")
+        shared = {}
+        for target, member in called.items():
+            for field in this_use(ctx, target)["fields"] & past_base:
+                shared.setdefault(field, member)
+        if not shared:
+            raise no(f"no member of {new} retail calls on it touches a field {ctors[ctor]['name']} sets up past its "
+                     f"base chain's reach (+{base_reach:#x}; it sets up "
+                     f"{', '.join(f'+{d:#x}' for d in sorted(past_base)) or 'nothing'}): {new} may be a base")
+
+        # no state a derived NEW adds, and nothing reaches past G
+        new_rows = [r for _s, _e, r in _row_spans(ctx)[1] if INIT_THIS_CALL.match(r["name"])
+                    and INIT_THIS_CALL.match(r["name"]).group(1).rstrip("@") == new]
+        for member in new_rows:
+            use = this_use(ctx, _rva(member["target_rva"]))
+            beyond = sorted(d for d in use["fields"] if d >= own["reach"])
+            if beyond:
+                raise no(f"{member['name']} touches +{beyond[0]:#x}, past everything {ctors[ctor]['name']} reaches "
+                         f"(+{own['reach']:#x}): {new} may be a class derived from {old}")
+        for member in list(ctors.values()) + new_rows + [r for r in members[old] if _rva(r["target_rva"]) not in ctors]:
+            reach = this_use(ctx, _rva(member["target_rva"]), lenient=_rva(member["target_rva"]) not in ctors
+                             and member in members[old])["reach"]
+            if reach > extent:
+                raise no(f"{member['name']} reaches this+{reach:#x}, past G's {extent:#x} bytes")
+    except ThisInconclusive as error:
+        raise no(str(error)) from None
+    except (OSError, ValueError, struct.error) as error:
+        raise no(f"retail's bytes cannot be read ({error})") from None
+    owner = row.get("source", "")
+    for rel in sorted({owner, *(r["source"] for r in members[old])}):
+        bases = class_base_map(ctx, rel)
+        if old in class_chain(bases, new)[0] or new in class_chain(bases, old)[0]:
+            raise no(f"{rel} derives one of {old} and {new} from the other, so they are two classes")
+    if pinned and not any(r.get("old") == old and r.get("new") == new and _rva(r.get("initializer")) == entry
+                          and (r.get("review") or "").strip() for r in ctx.dicts(FOLD_CENSUS)):
+        raise no(f"{old} into {new} by 0x{entry:08X} has no row with a review in {FOLD_CENSUS}: a new member of the "
+                 "census needs a reviewer's look by hand before it is added")
+    evidence = [f"retail initializer 0x{entry:08X} builds {row['name']} at 0x{g_va:08X} ({extent} bytes) with "
+                f"{ctors[ctor]['name']}: exactly `mov ecx,&G; call ctor`, its only caller", provenance]
+    if thunk is not None:
+        evidence.append(f"its atexit thunk 0x{thunk:08X} is `mov ecx,&G; jmp {dtors[cleanup]['name']}`")
+    field, member = min(shared.items())
+    evidence.append(f"{ctors[ctor]['name']} stores +0 once (0x{table + IMAGE_BASE:08X}) and sets up +{field:#x}, past "
+                    f"its base chain's +{base_reach:#x}; {member['name']}, which retail calls on it, touches that field")
+    return evidence, dict(row=row, owner=owner, ctor=ctors[ctor]["name"], entry=entry, g=g, extent=extent,
+                          thunk=None if thunk is None else thunk - IMAGE_BASE)
+
+
+def fold_tie_problems(ctx, tie):
+    """After ./build.sh: the owner's object references the folded constructor and defines none
+    (a local plain-data constructor is the defect this route repairs), and data_rows proves the
+    global's compiled size against its row."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    import data_rows
+    import reloc_ledger
+    obj = build.obj_path(ctx.path(tie["owner"]))
+    if not obj.exists():
+        return [f"{tie['owner']} has no object after the build"]
+    _sections, symbols = reloc_ledger.parse_coff(obj.read_bytes())
+    named = [sym for sym in symbols.values() if sym["name"] == tie["ctor_new"]]
+    problems = []
+    if not named:
+        problems.append(f"{tie['owner']}'s object does not reference {tie['ctor_new']}: its initializer does not run it")
+    if any(sym["section"] > 0 for sym in named):
+        problems.append(f"{tie['owner']}'s object defines its own {tie['ctor_new']}: a local copy, not retail's row")
+    if not problems:
+        img, resolve = reloc_ledger.Image(), data_rows.Resolver(data_rows.load())
+        ok, message = data_rows.verify_row(tie["row"], img, resolve, compile=False)
+        if not ok:
+            problems.append(f"data_rows does not prove {tie['row']['name']}: {message}")
+    return problems
+
+
+def fold_evidence(ctx, old, new, tie=None, pinned=True):
     """(table rva, [evidence]) proving the class names `old` and `new` one
-    retail class (see the section comment); raises Refusal."""
+    retail class (see the section comment); raises Refusal. `tie` (a dict) receives
+    what the initializer route must prove after the build, when that route decided."""
     tables = retail_vtables(ctx)
     spans = _row_spans(ctx)[1]
     members = {old: [], new: []}
@@ -9401,7 +10178,13 @@ def fold_evidence(ctx, old, new):
         # (see the section comment); refused like before when they do not.
         if via_slot or members[new] or set(classes) - {old}:
             raise Refusal(unnamed)
-        evidence.extend(virtual_slot_tie(ctx, old, new, table, tables, unnamed))
+        if tie is None or any(virtual_member_re(new).match(r["name"]) for _s, _e, r in spans):
+            evidence.extend(virtual_slot_tie(ctx, old, new, table, tables, unnamed))
+        else:
+            found, proved = initializer_tie(ctx, old, new, table, tables, members, unnamed + (
+                f"; and no row is a virtual method of {new}, so no slot of {va} ties it either"), pinned)
+            evidence.extend(found)
+            tie.update(proved)
     # The destructor-only route lets a third class that installs T as its own
     # stand (see the section comment); it is named in the evidence, not folded.
     co_owners = third_owners(ctx, table, (old, new), tables) if via_slot else {}
@@ -9566,9 +10349,6 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
         raise Refusal(f"{old} is one of {new}'s own scope names: the fold would nest the class in itself")
     registered = {row.get("class") for row in ctx.dicts(CANONICAL_CLASSES)}
     registered_new = new in registered or ctx.path(f"{CLASS_CONTRACTS}/{new}.json").exists()
-    if prepared and not nested and not registered_new:
-        raise Refusal("--prepared goes with a nested --into (A::B::C) or a NEW registered in "
-                      f"{CANONICAL_CLASSES}; an unregistered global NEW is a token rewrite")
     if access is not None and access not in VIRTUAL_CODE_OF:
         raise Refusal(f"--access {access!r} is not one of {', '.join(sorted(VIRTUAL_CODE_OF))}")
     if access is not None and not prepared:
@@ -9576,7 +10356,7 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
                       "so only units prepared on NEW's header compile the respelled destructor family")
     # A registered NEW has one shared header: a token rewrite would turn each
     # unit's OLD view into a private copy of it, so its units come prepared.
-    by_hand = nested or bool(prepared)
+    by_hand = nested or (bool(prepared) and registered_new)
     if not is_placeholder(old, "class"):
         raise Refusal(f"{old} is a readable name: class --fold folds only a placeholder (docs/naming.md: a "
                       "placeholder never replaces a readable name except by a `restored` revert, and choosing "
@@ -9587,7 +10367,15 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     if old in registered or ctx.path(f"{CLASS_CONTRACTS}/{old}.json").exists():
         raise Refusal(f"{old} is registered in {CANONICAL_CLASSES} / {CLASS_CONTRACTS}; its key, contract "
                       "and class_gate allowances move in a class-reconciliation commit, not here")
-    table, proof = fold_evidence(ctx, old, new)
+    tie = {}
+    table, proof = fold_evidence(ctx, old, new, tie)
+    if prepared and not nested and not registered_new and not tie:
+        raise Refusal("--prepared goes with a nested --into (A::B::C) or a NEW registered in "
+                      f"{CANONICAL_CLASSES}; an unregistered global NEW is a token rewrite, unless a retail "
+                      "initializer ties it (then its global's owner alone comes prepared)")
+    if tie and set(prepared or ()) != {tie["owner"]}:
+        raise Refusal(f"the initializer route needs exactly the global's owner {tie['owner']} prepared: its view "
+                      f"must declare {new}'s retail layout and constructor, so its initializer runs the row")
     va = f"0x{table + IMAGE_BASE:08X}"
 
     # A nested NEW is respelled in mangled names as its decorated scope
@@ -9754,6 +10542,14 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
             if token.search(data.decode("utf-8", errors="surrogateescape")):
                 raise Refusal(f"prepared {rel} still spells {old}: the fold leaves no {old} behind")
         _batch_source_edits(ctx, plan, prepared)
+    if tie:
+        data = prepared[tie["owner"]]
+        if token.search(data.decode("utf-8", errors="surrogateescape")) or tie["owner"] in touched:
+            raise Refusal(f"{tie['owner']} spells {old}: the fold leaves no {old} behind, and the prepared owner is "
+                          "its whole change")
+        _batch_source_edits(ctx, plan, prepared)
+        tie["ctor_new"] = frag.sub(mangled_new, tie["ctor"])
+        plan.fold_tie = tie
     for rel in sorted(touched) if not by_hand else ():
         text = texts.get(rel)
         if text is None:
@@ -9783,6 +10579,8 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
         if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
             headers.append(rel)
     verify = {rel for rel in plan.source_counts if rel in ctx.ledger_sources()}
+    if tie:
+        verify.add(tie["owner"])
     renamed = {o for o, _, _ in plan.renamed_rows}
     verify |= {r["source"] for r in rows if r["name"] in renamed}
     verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
@@ -11698,6 +12496,11 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if identity_problems_found:
                 raise VerifyFailed(f"the code-identity check does not prove {plan.old} -> {plan.new}: "
                                    f"{identity_problems_found[0][:300]}; every file restored")
+        if plan.fold_tie:
+            tie_problems = fold_tie_problems(ctx, plan.fold_tie)
+            if tie_problems:
+                raise VerifyFailed(f"the rebuilt owner does not prove {plan.old} -> {plan.new}: "
+                                   f"{tie_problems[0][:300]}; every file restored")
         if plan.retype:
             retype_problems = retype_object_problems(ctx, plan.retype)
             if retype_problems:
