@@ -64,24 +64,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class StrafeAreaUpdate : public UpdateModule
 {
@@ -108,9 +91,9 @@ StrafeAreaUpdate::StrafeAreaUpdate(Thing *thing, const ModuleData *moduleData)
 	float fzero = 0.0f;
 	int zero = 0;
 	float *fromSlot = &m_strafeFromX;
-	m_vtable = (const void *)((unsigned int)vtbl_00C1B164);
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva003A4CAE@@6BRva003A4CAE_B2@@@"));
+	*reinterpret_cast<const void **>(this) = (const void *)((unsigned int)vtbl_00C1B164);
+	*reinterpret_cast<const void **>((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	*reinterpret_cast<const void **>((char *)this + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva003A4CAE@@6BRva003A4CAE_B2@@@"));
 	m_sweepOffset = fzero;
 	m_strafeMode = zero;
 	m_strafing = 0;

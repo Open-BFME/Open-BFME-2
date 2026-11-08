@@ -490,3 +490,12 @@ bytes is insufficient. [Exact private evidence and next checks](../../reverse/at
 - Confirmed (real link at b033afb2ab): BridgeTowerBehavior.cpp is gone from
   reverse/exit_link_blockers.tsv as well. No unit is blocked on ?crc@BehaviorModule any more. Scope:
   the five die/behavior units above. The BehaviorModule table-provider question stays open.
+
+2026-11-08 StrafeAreaUpdateCtor.cpp prerequisite: canonical UpdateModule
+replaces the private registered base. All three native table bindings remain,
+including the correct 13-slot primary manual array; no table is replaced by a
+short provider. Both code rows, the data row and parent EH graph pass; private
+provider facts and LINKS/139 preview are unchanged. Supported header acceptance
+retires only this source's UpdateModule row. Full class reconciliation and the
+primary strong-definition refusal remain open under LINK-514.
+[Evidence and minimum next repair](../../reverse/attempt_support/strafe-base-adoption-20261108/README.md).

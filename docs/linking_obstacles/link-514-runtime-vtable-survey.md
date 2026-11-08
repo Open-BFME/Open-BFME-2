@@ -124,6 +124,13 @@ Still walled (scan of the 77 UpdateModule-family getter tables, `0x00497805` in 
 - About 30 Die/Upgrade/Collide/Body tables still hold `__purecall` in slots 1 and 3 (Wall 2).
 - About 33 classes whose only installer is a dummy-vptr ctor or emits no table (Wall 4), e.g.
   StrafeAreaUpdate, HeightDieUpdate, OCLUpdate, RadarUpdate, ToppleUpdate.
+  StrafeAreaUpdate constructor prerequisite verified 2026-11-08: canonical
+  UpdateModule replaces its private base, retaining the correct 13-slot manual
+  table and all three explicit stores. Both rows, the 52-byte data row and
+  parent EH graph remain exact; header acceptance retires one debt row.
+  The split StrafeAreaUpdate/Rva003A4CAE identities and short mixed-destructor
+  table still block replacement of the manual table; strong-definition is
+  still open. [Evidence](../../reverse/attempt_support/strafe-base-adoption-20261108/README.md).
 - BattlePlanUpdate: slot 8 is `onDelete@Module` where retail names 0x004984CC (rowed as
   `?cleanUp@SpectreGunshipUpdate@@QAEXXZ`, an identity question). DemoTrapUpdate and
   EntEnragedUpdate: Rva0024A797Derived.cpp emits one-slot copies of their tables.
