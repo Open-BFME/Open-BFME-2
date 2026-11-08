@@ -12,8 +12,8 @@ Its four tables now match retail by slot on both installers: 149 (allowed gaps 0
 
 Left over, none of it BaseHeightMap's own:
 
-- `RenderObjClass` (`rendobj.h`) disagrees with retail at three inherited slots, for every class
-  that compiles its table. Fixing it is a full-gate header edit.
+- `RenderObjClass` (`rendobj.h`) disagreed with retail at three inherited slots, for every class
+  that compiles its table. P53 fixes slots 51, 52 and 98, so only slot 0 remains here.
   - Slots 51 and 52: the header returns `const Matrix3D &`, but the ledger rows at 0x0006D06D return by value
     through a hidden pointer (retail's body is 106 bytes). If that row's form is retail's, callers and callee
     disagree on the stack.

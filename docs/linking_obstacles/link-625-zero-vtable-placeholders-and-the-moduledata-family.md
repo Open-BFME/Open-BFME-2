@@ -401,7 +401,7 @@ Its getter row 0x002CC2F6 is still the free-function placeholder `Rva002CC2F6Get
 - Other classes on this base store real tables by hand, so they are not zero-vptr defects, and can take the header later:
   TerrainResourceClientBehavior, ModelConditionAudioLoopClientBehavior, RandomSoundSelectorClientBehavior and AnimationSoundClientBehavior.
 
-**`RenderObjClass` against retail, found while checking BaseHeightMap (P23's handoff has the detail).** Slots 51 and 52: `rendobj.h` returns `const Matrix3D &`,
+**`RenderObjClass` against retail, found while checking BaseHeightMap (fixed by P53, below; P23's handoff has the detail).** Slots 51 and 52: `rendobj.h` returns `const Matrix3D &`,
 but the ledger rows at 0x0006D06D return by value through a hidden pointer. Slot 98: the header's `Is_Visible` is a bit test, retail's 0x0013B6D0 is 55 bytes. Every class that
 compiles a RenderObjClass table carries these. The fix is a full-gate edit of `rendobj.h`.
 
@@ -412,7 +412,7 @@ base's instead. They are now virtual overrides on `Rva000E3B41`, with both insta
 - A `__forceinline` wrapper is no way to move a slot. It compiles to a bare `jmp` for a body with EH state, moves registers in larger bodies (0x000E3CE1, 0x000E1669), and leaves an unrowed definition. Make the view the table's class, with its first pad 4 smaller.
 - `class RefRenderObjListIterator;` at namespace scope in `BaseHeightMap.h` is a repeatable C1001 in `Rva000E1341FillSlots.cpp` (`msc1.cpp` line 2701), though other units compile it. The cause is not understood. Elaborating the type in the parameter avoids it, with the same mangled name.
 - Renumbering the labels voids a parent's funclet `object-symbol=` tokens, and funclet rows locate only through a parent row that exists. Row the parent first, then rebind from the unwind map by state against retail's.
-- Still open: `Rva000E3B41` and its slots' names are placeholders until the class rename to `FlatHeightMapRenderObjClass`. Slot 98 and slots 51/52 wait on P53.
+- Still open: `Rva000E3B41` and its slots' names are placeholders until the class rename to `FlatHeightMapRenderObjClass`.
 
 **The `crc` trio and `GameClient::loadPostProcess`, P54, 2026-11-08.** Retail's Snapshot slot 2 returns the class's name. `Locomotor`, `WeaponSet` and `GameClient` compiled Zero Hour's `crc(Xfer *)` there, an empty `ret 4`, so a caller that pushes nothing, like `GameStatePostProcess.cpp`'s `snapshot->GetSnapshotName()`, would unbalance its stack. All three tables are bridged, so slot 2 is right in today's image: this was latent, and retiring those bridges would have exposed it. Each row now has the class's name (`GetSnapshotName`), and the `present-unmatched` definitions are gone.
 - `Locomotor` and `WeaponSet` rows are in their approved units. `GameClient`'s two stay put: 0x0004C457 and 0x00239A9D have only proposed TUs.
@@ -423,3 +423,9 @@ base's instead. They are now virtual overrides on `Rva000E3B41`, with both insta
 **`getPercentReady` and `MeshGeometryClass`, P54, 2026-11-08.** Same defect class, also bridged, so also latent today.
 - `getPercentReady`: Zero Hour's body had a 0.99999 paused-at-ready case and lacked retail's early return on the byte at interface+0x18. Retail's 0x0049355E now carries the name, from `Rva0049355ERatio.cpp`. Its approved unit, `SpecialPowerModule.cpp`, compiles a class with neither that byte nor the reload field at +4, so the row stays until that unit takes the real layout.
 - `MeshGeometryClass`: slots 2 and 4 named Zero Hour's bodies, whose signatures differ from retail's (`Load_W3D` returns bool; `Compute_Vertex_Normals` is ret 8). The emitters now declare retail's, the shim's through `BFME_MESHGEOMETRY_RETAIL_SLOTS`. It stays opt-in because `meshmdl.h` still overrides Zero Hour's `Load_W3D`: drop the macro when `MeshModelClass` takes retail's.
+
+**P53: `RenderObjClass` slots 51, 52 and 98, 2026-11-08.** `rendobj.h` declares retail's signatures. Slot 98's name, `queryVisible`, is a placeholder until its vote lands. 51, 52 and 98 differ on none of the 21 `RenderObjClass` tables with a known retail table.
+- Live, unlike P54's bridged slots: the bridge refuses 19 of these tables (`target-not-winning-provider`): AABox, Animatable3DObj, Box, Camera, CompositeRenderObj, Line3D, Mesh, Null3DObj, OBBox, ParticleBuffer, ParticleEmitter, RenderObj, Rva000E3B41, Rva001684D6, SegmentedLine, StreakLine, TerrainTracks, Water and Light. Of the bridged ones, this touches `??_7HLodClass@@6BRefCountClass@@@`, whose retirement it makes safe.
+- `hlod.h` sits beside the reference `animobj.h`, so a quoted include finds that copy before any `/I`. The seven HLod units include the `bfmeanimobj` shim first and its guard does the rest. A unit that reaches `animobj.h` through `hlod.h` without it fails C2555.
+- Not covered: `DistLODClass` compiles the old slots through the `sweep` copy of `rendobj.h`. Other copies of `rendobj.h` (`bfmerendobj`, `bfmestreak`, `bfmesegline`, `bfme2_treebuffer`) still spell the old slots too, though no table on this list compiles through them. `Rva00166DE0`, `Rva007C454` and `W3DStatusCircle` were not read back: the bridge knows no retail table for them.
+- Other slots still differ on some of these classes (`MeshClass` 19, `Rva001684D6` 9, `HLodClass` 8, `Animatable3DObjClass` 7, others fewer). Not read individually: they are not this defect and may be the next one.

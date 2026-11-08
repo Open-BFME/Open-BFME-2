@@ -66,8 +66,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   Animatable3DObjClass::Set_Animation -- Set the animation state to the given anim/frame    *
  *   Animatable3DObjClass::Set_Animation -- set the animation state to a blend of two anims    *
  *   Animatable3DObjClass::Set_Animation -- Set animation state with an anim combo             *
- *   Animatable3DObjClass::Get_Bone_Transform -- return the transform for the given bone       *
- *   Animatable3DObjClass::Get_Bone_Transform -- return the transform for the given bone       *
  *   Animatable3DObjClass::Capture_Bone -- capture the specified bone (override animation)     *
  *   Animatable3DObjClass::Release_Bone -- release the specified bone (allow animation)        *
  *   Animatable3DObjClass::Is_Bone_Captured -- returns whether the specified bone is captured  *
@@ -572,64 +570,6 @@ HAnimClass *	Animatable3DObjClass::Peek_Animation( void )
 		return ModeAnim.Motion;
 	} else {
 		return NULL;
-	}
-}
-
-/***********************************************************************************************
- * Animatable3DObjClass::Get_Bone_Transform -- return the transform for the given bone         *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/8/98    GTH : Created.                                                                 *
- *=============================================================================================*/
-// ?Animatable3DObjClass::Get_Bone_Transform present-unmatched
-const Matrix3D &	Animatable3DObjClass::Get_Bone_Transform(const char * bonename)
-{
-	if (HTree) {
-		WWASSERT(HTree);
-		WWASSERT(bonename);
-		
-		int idx = HTree->Get_Bone_Index(bonename);
-		return Get_Bone_Transform(idx);
-	} else {
-		return Get_Transform();
-	}
-}
-
-/***********************************************************************************************
- * Animatable3DObjClass::Get_Bone_Transform -- return the transform for the given bone         *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/8/98    GTH : Created.                                                                 *
- *=============================================================================================*/
-// ?Animatable3DObjClass::Get_Bone_Transform present-unmatched
-const Matrix3D &	Animatable3DObjClass::Get_Bone_Transform(int boneindex)
-{
-	Validate_Transform();
-
-	if (HTree) {
-		/*
-		** If our hierarchy isn't valid, we just need to evaluate our animation
-		** state.
-		*/
-		if (!Is_Hierarchy_Valid()) {
-			Update_Sub_Object_Transforms();
-		}
-
-		return HTree->Get_Transform(boneindex);
-	} else {
-		return Transform;
 	}
 }
 

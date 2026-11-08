@@ -215,6 +215,8 @@ struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct In
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
 #pragma optimize("", on)
 #include <htree.h>
+// Retail's Get_Bone_Transform returns by value; the shim's guard keeps the reference animobj.h out.
+#include "../../../../../reference/shims/bfmeanimobj/animobj.h"
 #include "hlod.h"
 // Access the donor protected type without changing any member access or ABI.
 struct BfmeHLodModelNodeAccess : HLodClass { typedef ModelNodeClass Node; };

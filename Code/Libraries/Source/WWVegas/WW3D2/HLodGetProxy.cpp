@@ -58,6 +58,8 @@ struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct In
 #pragma optimize("gsy", on)
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
 #pragma optimize("", on)
+// Retail's Get_Bone_Transform returns by value; the shim's guard keeps the reference animobj.h out.
+#include "../../../../../reference/shims/bfmeanimobj/animobj.h"
 #include "hlod.h"
 #include "assetmgr.h"
 #include "hmdldef.h"

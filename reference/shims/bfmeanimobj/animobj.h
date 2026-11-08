@@ -111,8 +111,8 @@ public:
 	virtual int						Get_Num_Bones(void);
 	virtual const char *			Get_Bone_Name(int bone_index);
 	virtual int						Get_Bone_Index(const char * bonename);
-	virtual const Matrix3D &	Get_Bone_Transform(const char * bonename);
-	virtual const Matrix3D &	Get_Bone_Transform(int boneindex);
+	virtual Matrix3D			Get_Bone_Transform(const char * bonename);
+	virtual Matrix3D			Get_Bone_Transform(int boneindex);
 	virtual void					Capture_Bone(int boneindex);
 	virtual void					Release_Bone(int boneindex);
 	virtual bool					Is_Bone_Captured(int boneindex) const;

@@ -438,8 +438,9 @@ public:
 	virtual int						Get_Num_Bones(void)															{ return 0; }
 	virtual const char *			Get_Bone_Name(int bone_index)												{ return NULL; }
 	virtual int						Get_Bone_Index(const char * bonename)									{ return 0; }
-	virtual const Matrix3D &	Get_Bone_Transform(const char * bonename)    						{ return Get_Transform(); }
-	virtual const Matrix3D &	Get_Bone_Transform(int boneindex)      								{ return Get_Transform(); }
+	// BFME 2: by value through a hidden pointer, row 0x0006D06D (ret 8), slots 51 and 52.
+	virtual Matrix3D	Get_Bone_Transform(const char * bonename);
+	virtual Matrix3D	Get_Bone_Transform(int boneindex);
 	// BFME: unidentified retail slot before Capture_Bone (stub returns true).
 	virtual bool					_bfme_ro_v50(int unk)														{ return true; }
 	virtual void					Capture_Bone(int bindex)													{ }
@@ -563,12 +564,13 @@ public:
 // HeightMap.cpp. Every other unit only declares them, so its vtables reference
 // the one retail copy instead of emitting a differently-compiled COMDAT.
 #ifdef BFME_RO_DEFINE_VISIBILITY
-	virtual int						Is_Really_Visible(void)														{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL) && Is_Visible(); }
+	virtual int						Is_Really_Visible(void)														{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL) && queryVisible(); }
 #else
 	virtual int						Is_Really_Visible(void);
 #endif
 	virtual int						Is_Not_Hidden_At_All(void)													{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL); }
-	virtual int						Is_Visible(void) const														{ return (Bits & IS_VISIBLE); }
+	// Slot 98, row 0x0013B6D0: force-visible, else the scene's token against +0x88. A placeholder name until its vote lands.
+	virtual int						queryVisible(void);
 	// BFME: retail Set_Visible takes a second parameter (stored at member 0x90);
 	// defaulted here so ZH call sites still compile.  Out-of-line in retail.
   virtual void					Set_Visible(int onoff, int unk = 0);

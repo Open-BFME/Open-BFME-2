@@ -32,6 +32,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define _CRTIMP
 #include "rendobj.h"
 #include "winbase_shim.h"
+// Retail's Get_Bone_Transform returns by value; the shim's guard keeps the reference animobj.h out.
+#include "../../../../../reference/shims/bfmeanimobj/animobj.h"
 #include "hlod.h"
 #include "assetmgr.h"
 #include "hmdldef.h"
