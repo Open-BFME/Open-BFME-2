@@ -59,6 +59,11 @@ private:
 // Rva003EE900Forward.cpp.
 #pragma inline_depth( 0 )
 AsciiString g_Rva00E02E84("UnifiedEffect");
+// P32 TEST-BRANCH-ONLY diagnostic: retail builds every effect-name string before 0x007AF9D6 fills the
+// LivingWorldRegionEffects FieldParse entries; this image runs that fill earlier (bridged), so fill again here.
+void initializeRegionEffectFields();
+// ?<s_p32RegionEffectFieldsDiag> absent-from-retail
+static int s_p32RegionEffectFieldsDiag = (initializeRegionEffectFields(), 0);
 #pragma inline_depth()
 
 class Rva003EE980
