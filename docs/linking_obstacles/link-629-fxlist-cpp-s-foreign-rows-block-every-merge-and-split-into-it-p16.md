@@ -294,6 +294,13 @@ Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on
 - Minimal B: text regenerated on the day's FXList.cpp (identical to the banked text), 15/15 exact, guard accepted, donor
   absorbed. `link_batch_audit` was INCONCLUSIVE for the split and respell (no current receipts, index older than the
   batch), so carry them into the next census.
-- Not yet proven: the pass test. A boot of a plain master image of the landing commit must get past `findMemoryPool`;
-  until that receipt exists, P16 is not closed.
+- Cleared, P16, on the packet's pass test: receipt 2026-11-08T191813Z-boot_smoke-76af3f77a7f1 on plain master 0998e2bfee
+  (local link, no anchor, 29 stubs, harness on master) has `crash: null` and is past `findMemoryPool`, where plain master
+  e834581c00 crashed. FXList.cpp's blob `ccd1cb5b35` is the landed split's, and the map takes `parse` from
+  FXListNuggetParse.obj with no `getClassMemoryPool`. Scope: this proves the boot gets past P16, not that FXList.cpp links
+  clean; the batch audit's INCONCLUSIVE cases still go to the next census.
+- It did not reach loading. Its `loading-screen` label is `boot_smoke`'s word for any picture without the menu bar; the
+  shot is the title splash. The main thread is hung in P30, a known packet: `Rva00425CE2::init` 0x00424DDE calls `sort`
+  0x00424D17, whose inlined `__lg(n)` (`inc ecx; sar eax,1; cmp eax,1; jne`) never ends with eax = -1. Retail passes it
+  0x00E031B8 and 0x00E031A8, one object 0x10 apart; the image passes separate globals 0x10C305E8 and 0x10C305F8.
 
