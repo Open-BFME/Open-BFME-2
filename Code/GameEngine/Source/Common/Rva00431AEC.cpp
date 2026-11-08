@@ -1,5 +1,6 @@
 // cl: /MD
 // ?rva00431AEC@Rva00431AEC@@QAEHPAVGameMessage@@@Z @0x00431AEC 138B: bool method checking GameMessage+0x10 for 4 or 0xe then building Rva00431920 via ctor 0x00431920 plus final Rva00575674 call. Evidence: chain lane calls rowed 0x00431920; rowed getArgument 0x0030F4EA new 0x0002FDA0 rva00575674 0x00575674.
+#include <new.h>
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 
 union GameMessageArgumentType
@@ -15,8 +16,15 @@ union GameMessageArgumentType
 
 class Rva00431920
 {
+	void *m_00;
+	void *m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
 public:
-	Rva00431920(void *a, int b, ICoord2D *c, int d, int e);
+	Rva00431920(void *a, int b, ICoord2D *c, int d, int e) throw();
 };
 
 class Object;
@@ -29,9 +37,6 @@ class Rva00431AEC
 public:
 	int rva00431AEC(GameMessage *msg);
 };
-
-void *__cdecl operator new(unsigned int size);
-inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 
 int Rva00431AEC::rva00431AEC(GameMessage *msg)
 {
