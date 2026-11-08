@@ -91,17 +91,7 @@ extern GameTextInterface *TheGameText;
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class Drawable
-{
-public:
-	__declspec(dllimport) __forceinline void setSecondMaterialPassOpacity(Real op) { m_secondMaterialPassOpacity = op; }
-	bool rva004389DBFlag440() const { return m_440 != 0; }
-private:
-	char m_pad000[0x358];
-	Real m_secondMaterialPassOpacity;	// +0x358
-	char m_pad35C[0x440 - 0x35C];
-	unsigned char m_440;	// +0x440
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct Rva004389DBTemplate
 {
@@ -158,7 +148,7 @@ void Rva00439E0C::rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback)
 		{
 			Drawable *draw = obj->getDrawable();
 			if (draw)
-				draw->setSecondMaterialPassOpacity(1.0f);
+				draw->m_secondMaterialPassOpacity = 1.0f;
 		}
 	}
 
@@ -182,7 +172,7 @@ void Rva00439E0C::rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback)
 	}
 	else if (localPlayer->getRelationship(obj) != ALLIES)
 	{
-		if (!draw->rva004389DBFlag440())
+		if (!draw->field_440)
 		{
 			TheRadar->createEvent(obj->getPosition(), RADAR_EVENT_STEALTH_DISCOVERED);
 			if (info->m_detector)

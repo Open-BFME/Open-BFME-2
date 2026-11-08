@@ -341,26 +341,7 @@ class RadiusDecalTemplate
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 struct Coord3D;
-class Drawable
-
-{
- public:
- const ThingTemplate*getTemplate()const 
- {
-  return m_template;
-  
- }
- const Coord3D*getPosition()const;
- void*vptr;
- const ThingTemplate*m_template;
- const Matrix3D *getTransformMatrix() const;
- unsigned char m_pad[0xE4-8];
- bool m_e4;
- int m_e8;
- int m_ec;
- 
-}
-;
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../../../../GameEngine/Include/Common/DrawableModule.h"
 class DrawModule:public DrawableModule 
 {
@@ -561,7 +542,7 @@ W3DScriptedModelDraw::~W3DScriptedModelDraw()
  ((Rva000B3C61*)this)->rva000B3C61(1);
  ((Rva000B3C61*)this)->rva000B3C61(2);
  ((Rva000B3348*)this)->rva000B3348(0);
- const ThingTemplate*thingTemplate=(m_60 ? (getDrawable()->getTemplate()) : (getDrawable()->getTemplate()));
+ const ThingTemplate*thingTemplate=(m_60 ? (getDrawable()->m_template) : (getDrawable()->m_template));
  const float*sizePtr=&thingTemplate->m_removeTerrainRadius;
  if(*sizePtr>1.0f)
  {
