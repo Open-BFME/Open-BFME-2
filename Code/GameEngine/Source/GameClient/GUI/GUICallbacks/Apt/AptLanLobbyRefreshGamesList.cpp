@@ -53,35 +53,12 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-// GameInfo vslots 6 (icon by index, vtable+0x18) and 22 (host name,
-// vtable+0x58) and its rowed slot counters.
-class GameInfo
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05();
-	virtual const Image *v06(int index);
-	// v07's result feeds the sort record's (void*,uint) ctor at 0x581171,
-	// so it returns a 32-bit value; no other caller in this TU uses it.
-	virtual unsigned int v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21();
-	virtual UnicodeString v22();
-
-	int getNumPlayers() const;
-	int getNumOpenOrOccupiedSlots() const;
-	AsciiString getMap() const;
-};
+// GameInfo slots 6 (icon by index, vtable+0x18), 7 (sort key) and 22 (host
+// name, vtable+0x58) and its rowed slot counters.
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
 class LANGameInfo : public GameInfo
 {
-public:
-	unsigned char m_pad004[0x11 - 0x04];
-	unsigned char m_11; // +0x11 (in progress: the name is bracketed)
-	unsigned char m_pad012[0x90 - 0x12];
-	unsigned char m_version[0x10]; // +0x90
 };
 
 #include "../../../../../Include/GameClient/MapMetaData.h"
@@ -214,18 +191,18 @@ void AptLanLobby::rva004457BC()
 
 		UnicodeString name;
 		name = (const unsigned short *)L"";
-		if (game->m_11)
+		if (game->m_inProgress)
 			name += (const unsigned short *)L"[";
-		name += game->v22();
-		if (game->m_11)
+		name += game->vslot22();
+		if (game->m_inProgress)
 			name += (const unsigned short *)L"]";
 
 		UnicodeString players;
 		players.format((const unsigned short *)L"%d/%d", game->getNumPlayers(), game->getNumOpenOrOccupiedSlots());
-		int color = TheVersion->rva00237E63(game->m_version, false);
-		const Image *icon0 = game->v06(0);
-		const Image *icon1 = game->v06(1);
-		const Image *icon2 = game->v06(2);
+		int color = TheVersion->rva00237E63(game->m_field90, false);
+		const Image *icon0 = game->rva00401015(0);
+		const Image *icon1 = game->rva00401015(1);
+		const Image *icon2 = game->rva00401015(2);
 
 		UnicodeString mapName;
 		switch (m_304)
@@ -268,7 +245,7 @@ void AptLanLobby::rva004457BC()
 // Retail 0x0058113D (87 bytes): indexed getter over the lobby's game list
 // with a lazy sort. An out-of-range index returns null; the first in-range
 // call sorts the pointer list through the rowed 0x5810B6 introsort, keyed
-// by a record built from this list and the element's v07 value, then marks
+// by a record built from this list and the element's slot-7 value, then marks
 // the list sorted so later calls index it directly.
 LANGameInfo *Rva0058113D::rva0058113D(unsigned int index)
 {
@@ -276,7 +253,7 @@ LANGameInfo *Rva0058113D::rva0058113D(unsigned int index)
 		return 0;
 	if (!m_sorted)
 	{
-		unsigned int sortKey = ((LANGameInfo *)m_first[index])->v07();
+		unsigned int sortKey = ((LANGameInfo *)m_first[index])->vslot07();
 		sort(first(), last(), Rva000795C1Record(this, sortKey));
 		m_sorted = true;
 	}
