@@ -25,7 +25,6 @@ extern "C" const void *const __identifier("??_7Rva005F0584Base0@@6B@")[];  // fo
 extern "C" const void *const __identifier("??_7BfmeCtorVirtualBase001B3A20@@6B@")[];  // folded vftable 0x00C078DC (4 classes), by its data-ledger name
 extern "C" const void *const __identifier("??_7Rva00575E4EBase2@@6B@")[];  // folded vftable 0x00C3702C (4 classes), by its data-ledger name
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];  // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
-extern "C" const void *const __identifier("??_7NetCommandMsg@@6B@")[];  // folded vftable 0x00C60130 (2 classes), by its data-ledger name
 extern "C" const void *const __identifier("??_7Rva005754FF@@6B@")[];  // folded vftable 0x00C6E60C (2 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7Rva000421C8@@6B@")[];  // vftable 0x00BC26E0
@@ -300,19 +299,6 @@ void Rva003F3F7CDwordImmSetter::apply()
 
 // Native3F7BC5 is the registry base nondeleting destructor. Its full
 // interface now lives with Rva0056AC26Base2; no address-table alias is needed.
-
-class Rva004CEE78DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva004CEE78DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)__identifier("??_7NetCommandMsg@@6B@"));
-}
 
 class Rva00506B28DwordImmSetter
 {
