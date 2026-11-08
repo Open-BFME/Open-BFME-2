@@ -4403,7 +4403,7 @@ pin	reverse/symbols.csv	0x00036410	32
 pin	reverse/symbols.csv	0x000365F0	19
 pin	reverse/symbols.csv	0x000366F0	8
 pin	reverse/symbols.csv	0x00036A70	1
-pin	reverse/symbols.csv	0x00036E70	8
+pin	reverse/symbols.csv	0x00036E70	7
 pin	reverse/symbols.csv	0x00037050	2
 pin	reverse/symbols.csv	0x00037150	2
 pin	reverse/symbols.csv	0x00037980	1

@@ -1717,7 +1717,6 @@ name,address,notes
 ??1?$_List_base@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@QAE@XZ,0x004EC395,ICF twin of int list-base dtor per AnimateWindowManager dtor 0x0053B6E0 call sites; fold-proof=Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp
 ??1?$_List_base@PAVControlBarScheme@@V?$allocator@PAVControlBarScheme@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1?$_List_base@PAVControlBarSchemeAnimation@@V?$allocator@PAVControlBarSchemeAnimation@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAE@XZ,0x00036E70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1?$_List_base@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE@XZ,0x004EC395,ICF twin of int list-base dtor per GameWindowManager registerTabList 0x002C55AC call site
 ??1?$_List_base@PAVLadderInfo@@V?$allocator@PAVLadderInfo@@@_STL@@@_STL@@QAE@XZ,0x004EC395,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1?$_List_base@PAVResizerWindow@@V?$allocator@PAVResizerWindow@@@_STL@@@_STL@@QAE@XZ,0x004EC395,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
