@@ -313,3 +313,15 @@ was dropped after three Codex rounds: proving the name from the base's table by 
 text or the compiled table each left a P1 (a same-length secondary table can stand in for a wrong-length
 primary; an installer's private view can declare the member virtual where the canonical header does not).
 Placeholder method names take the ordinary route: blind-vote naming, then an inferred respell.
+
+**2026-11-08, crash-triage seat2 (P25 phase 1): census check required for RefCountClass slot 0.** f0d7034d24 makes
+the canonical `RefCountData.h` define `RefCountClass` under Zero Hour's `REFCOUNT_H` guard too (one definition for
+both header families) and makes `Delete_This` the inline `{ delete this; }` that retail shows: its live body
+0x0006CE57 (slot 0 of all 106 RefCountClass-derived tables, rowed under the placeholder
+`?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ`) has a byte-identical unreferenced twin at 0x0030F466. The 334 header
+dependents stay byte-exact (pre-push verified 334) and a 12-unit link_check sample is unchanged, but the outgoing link
+batch audit was inconclusive (no census-grade receipts), and per-unit checks cannot see COMDAT selection. Before this
+change the image already bound slot 0 to an unrowed COMDAT copy (BaseHeightMapConstructor.obj); with more units now
+emitting the inline body, **the next census or real link must confirm that slot 0 of the RefCountClass-derived tables
+still resolves to a `Delete_This` body** (crash triage checks it when that census reports). Phase 2 (multilist) waits
+for that confirmation. Follow-up: rename the placeholder row at 0x0006CE57 to `?Delete_This@RefCountClass@@UAEXXZ`.
