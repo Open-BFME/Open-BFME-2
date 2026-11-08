@@ -1,6 +1,3 @@
-char g_00C4307C;
-char g_00C42FC0;
-
 // cl: /DNDEBUG /MD
 //
 // ??0RunOffMapBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0046217B,
@@ -9,39 +6,62 @@ char g_00C42FC0;
 // behavior factory rowed at 0x24B6B1 news 0x34 with this pinned 2-arg ctor;
 // poolkey rowed at 0x4621B2).
 //
-// Shape: frameless single-base ctor over the rowed BehaviorModule base
-// 0x253330 (CreateModule donor spelling, human-readable row) with four
-// explicit vtable stores at +0x10/+0/+0xC/+0x10 via byte-wise pointer casts
-// (Defector precedent: explicit stores, no virtuals declared anywhere so no
-// vtable is emitted here; all four immediates are DIR32-masked in
-// comparison). The first +0x10 store is volatile (Assault
-// volatile-first-store precedent: a redundant same-slot pair survives iff
-// the first is volatile; pointer-local DSEs away under pressure,
-// source-order does not hold). Flat classes throughout keep the body
-// frameless. Factory news fits. Zero new pins (base resolves via the
-// existing BehaviorModule row).
+// Shape: frameless ctor over the rowed BehaviorModule base 0x253330. Retail's first +0x10 store is
+// RunOffMapBehaviorInterface's own table, written by that base's constructor before the class's three.
 
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (35 classes), by its data-ledger name
-
-extern "C" const void *const __identifier("??_7Rva00462151@@6B@")[];  // vftable 0x00C42F1C
-
+// Slots 1 and 3 make the base calls these two macros declare.
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+#define BFME_BEHAVIORMODULE_XFER
 class Thing;
 class ModuleData;
 
+class Object;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class RunOffMapBehavior : public BehaviorModule
+class RunOffMapBehaviorInterface {public:virtual void triggerFlee()=0;};
+class RunOffMapBehavior : public BehaviorModule, public RunOffMapBehaviorInterface
 {
 public:
 	RunOffMapBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onObjectCreated();
+	virtual void triggerFlee();
+	virtual void *slot35() { return static_cast<RunOffMapBehaviorInterface *>(this); } // 0x002533D3
+protected:
+	// Retail's slots 1-3: 0x0058B03E (a `jmp` to the shared empty body), the name getter 0x004621AC
+	// and the shared xfer 0x004CE56D (Version 1, then BehaviorModule::xfer).
+	virtual void loadPostProcess() { BehaviorModule::loadPostProcess(); }
+	virtual const char *GetSnapshotName() const { return "RunOffMapBehavior"; }
+	virtual void xfer(Xfer *xfer);
 };
 
 // ??0RunOffMapBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x0046217B
 RunOffMapBehavior::RunOffMapBehavior(Thing *thing, const ModuleData *moduleData) :
 	BehaviorModule(thing, moduleData)
 {
-	*(volatile unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
-	*(unsigned int *)this = (unsigned int)&g_00C4307C;
-	*(unsigned int *)((char *)this + 0xC) = (unsigned int)&g_00C42FC0;
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva00462151@@6B@"));
+}
+
+// ?xfer@RunOffMapBehavior@@MAEXPAVXfer@@@Z @0x004CE56D: slot 3, Version1 then the base, folded with its siblings'.
+void RunOffMapBehavior::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	BehaviorModule::xfer(xfer);
 }
