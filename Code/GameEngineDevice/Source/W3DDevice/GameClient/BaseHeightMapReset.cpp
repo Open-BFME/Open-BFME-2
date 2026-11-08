@@ -108,9 +108,9 @@ extern GlobalData *TheWritableGlobalData;
 // TU-local views of the header's untyped words: the two visibility bit
 // vectors, the first terrain texture and its name, and the buffers whose
 // reset entry points this body calls.
-static __forceinline _STL::vector<bool> &visibilityBits(char (&storage)[0x14])
+static __forceinline _STL::vector<bool> &visibilityBits(_STL::vector<bool> &storage)
 {
-	return *reinterpret_cast<_STL::vector<bool> *>(storage);
+	return storage;
 }
 static __forceinline BfmeResetTextureRef &terrainTexture(void *&word)
 {

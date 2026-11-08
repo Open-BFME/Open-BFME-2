@@ -21,11 +21,11 @@
 // these readers give this TU the std::vector<bool> views the bodies index.
 static __forceinline const std::vector<bool> &visibleCliffBits(const BaseHeightMapRenderObjClass *self)
 {
- return *reinterpret_cast<const std::vector<bool> *>(self->unknown37EC);
+ return self->unknown37EC;
 }
 static __forceinline const std::vector<bool> &visibleImpassableBits(const BaseHeightMapRenderObjClass *self)
 {
- return *reinterpret_cast<const std::vector<bool> *>(self->unknown3800);
+ return self->unknown3800;
 }
 bool BaseHeightMapRenderObjClass::showAsVisibleCliff(int xIndex,int yIndex) const {
  int width=m_map->m_width;

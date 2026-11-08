@@ -41,10 +41,10 @@ template<> vector<bool, allocator<bool> >::reference vector<bool, allocator<bool
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
-// The header keeps the cliff-visibility vector<bool> at +0x37EC as raw storage.
+// The cliff-visibility vector<bool> at +0x37EC.
 static __forceinline _STL::vector<bool> &visibleCliffBits(BaseHeightMapRenderObjClass *self)
 {
-	return *reinterpret_cast<_STL::vector<bool> *>(self->unknown37EC);
+	return self->unknown37EC;
 }
 
 void BaseHeightMapRenderObjClass::updateViewImpassableAreas(Bool partial, Int minX, Int maxX, Int minY, Int maxY)

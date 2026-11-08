@@ -15,6 +15,7 @@ Target interface: named virtual overrides are proved by primary slots 26 (0x0006
 class AsciiString;
 template<class T> class StringBase;
 #include "../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
+#include <vector>
 template<class T> class RefMultiListIterator;
 struct Coord3D;
 struct VertexFormatXYZDUV2;
@@ -212,8 +213,9 @@ public:
     char unknown37E1[3];
     float field37E4;
     float field37E8;
-    char unknown37EC[0x14];
-    char unknown3800[0x14];
+    // Two STLport vector<bool>s (20 bytes each): the cliff and impassable cell bits.
+    _STL::vector<bool> unknown37EC;
+    _STL::vector<bool> unknown3800;
     unsigned int field3814;
     void *field3818;
     void *field381C;
