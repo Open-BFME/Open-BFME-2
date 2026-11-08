@@ -398,7 +398,8 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
   still the baseline, every remaining row must match in the new text, hatch
   totals may move but not grow, and no strong symbol may vanish from every object
   of the move. A COMDAT a prepared text stops emitting is reported as
-  `comdats_dropped` for the pre-push link audit.
+  `comdats_dropped` for the pre-push link audit. Like a split, it may not cost the
+  map an approval, row by row.
 - An emission move journals its before-state under
   `build/tu_skeleton/emit-journal/` before touching the ledger and undoes itself
   on any failure. A killed run leaves the journal; `--recover-emit` undoes it per

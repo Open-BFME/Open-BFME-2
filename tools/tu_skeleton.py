@@ -4227,6 +4227,10 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
         if dropped:
             report["comdats_dropped"] = dropped[:20]
     report["moved"] = [r["target_rva"] for r in all_moved]
+    why = map_regressions(dest, moved_rows={f: [r["target_rva"] for r in moved[f]] for f in files})
+    if why:
+        report["blocked"] = why
+        return report
     if dry_run:
         report["verify"] = ("screened by a scratch compile; the apply proves it by building exactly "
                             + " ".join(files + [dest]))

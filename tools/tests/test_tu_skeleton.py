@@ -1463,6 +1463,7 @@ class EmitMoveTests(unittest.TestCase):
         child = ("import os, sys\nfrom pathlib import Path\n"
                  f"sys.path[:0] = [{str(Path(__file__).resolve().parents[1])!r}, {str(Path(__file__).resolve().parent)!r}]\n"
                  "import test_tu_skeleton as M\n"
+                 "M.T.map_regressions = lambda *a, **k: None\n"     # as setUpModule: no real map rebuild here
                  "t = M.EmitMoveTests('test_emitted_deleting_destructors_move')\n"
                  "t.root = Path(sys.argv[1])\n"
                  "t.move(rvas=['0x00002000'], dry_run=False, claim=True, build_effect=lambda sources: os._exit(3))\n")
@@ -2062,6 +2063,16 @@ class EmitTransactionTests(unittest.TestCase):
         self.approved["0x00002000"] = self.TU
         report = self.transact()
         self.assertIn("shares its address", report["refused_rows"]["0x00002000"])
+
+    def test_a_move_that_costs_the_map_an_approval_is_refused(self):
+        # moving rows shifts N hints as a partial split does (review of dee0813e84)
+        for dry_run in (True, False):
+            with self.subTest(dry_run=dry_run), patch.object(T, "map_regressions", return_value="lost approval") as check:
+                report = self.transact(dry_run=dry_run)
+                self.assertEqual(report["blocked"], "lost approval")
+                check.assert_called_once_with(self.TU, moved_rows={self.A: ["0x00002000"], self.B: ["0x00002100"]})
+                self.exact.assert_not_called()
+                self.unchanged()
 
     def test_the_claim_covers_every_file_and_a_refusal_touches_nothing(self):
         report = self.transact(dry_run=False, claim=True)
