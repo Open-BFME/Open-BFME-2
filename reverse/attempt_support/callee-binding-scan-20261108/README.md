@@ -4,12 +4,12 @@ Check this first when a boot stops. It compares a diagnostic image with retail b
 masks call targets, so a row can match retail's bytes while its calls bind to a body retail never had. P31, P37, P38, P40, P43 and
 P44 were that defect, and each cost a boot and a diagnosis.
 
-Reference list: `callee-binding-master-f9b8b46525.tsv`, from the plain master diagnostic image at
-`f9b8b465255add1f519b12329e8a6f76617c9158` (real link run 42489542040, 0 duplicates, no test-only commits) with the ledger at that commit.
+Reference list: `callee-binding-master-e3760a5c6c.tsv`, from the plain master diagnostic image at
+`e3760a5c6c554a6fff90e8f77a5231d87c38bc85` (no test-only commits) with the ledger at that commit. The first reference list, from `f9b8b46525`, is
+in git history.
 
-**It predates the landing of P36, P47, P48 and P50**, and of anything else after `f9b8b46525`, so those fixes' entries are still listed: check
-`git log f9b8b46525..origin/master` before chasing a row. It will be refreshed when a later master image has them. Rerun the scan on the
-newest image before relying on a miss.
+**It holds P36, P47, P48, P49 and P50's first fixes, and predates anything after `e3760a5c6c`**, including P50's list fix `1920130b0f`, so 0x4f711c
+and 0x240c89 are still listed: check `git log e3760a5c6c..origin/master` before chasing a row. Rerun the scan on the newest image before relying on a miss.
 
 **A row's absence clears nothing**, for the reasons under "What it can't see". A test stack's image can also hide defects: on the earlier
 list, from `swarm/scan/p36-boot` with its P29 diagnostic, P29's entries were missing; they are back on this plain image.
@@ -22,7 +22,7 @@ A pair is listed under the body that differs, which is usually the callee, not t
 `retail_rva`. On the control image P29's wrong binding is listed at 0x256fb5 and 0x2cfa6c, with 0x2d07f4 only in their chains, and
 0x2d0b36 does not appear at all. `chain` holds the first path the walk found, so a row missing from it can still reach a listed body.
 
-    grep -F '0x2d07f4' callee-binding-master-f9b8b46525.tsv    # matches retail_rva and chain
+    grep -F '0x2d07f4' callee-binding-master-e3760a5c6c.tsv    # matches retail_rva and chain
 
 **A stop only counts as absent after searching by callee too.** Take the retail call targets of the row at the stop and of its callers,
 and search each address the same way. Searching names is not enough: a row is listed under retail's name for the address, which can
@@ -48,13 +48,14 @@ For each pair of (retail target, image target):
 
 | Class | Meaning | Count here |
 |---|---|---|
-| `ok-named` | The image target carries a name the ledger gives retail's target, and the bodies match | 72,620 |
-| `ok-identical` | Another name, but the same body with addresses masked | 8,056 |
+| `ok-named` | The image target carries a name the ledger gives retail's target, and the bodies match | 72,582 |
+| `ok-identical` | Another name, but the same body with addresses masked | 8,067 |
 | `ok-forwards` | A short image body that calls or jumps to a symbol the ledger gives retail's target: a wrapper around the real row | 19 |
-| `named-body` (listed) | The image target has retail's name but a different body: another object's copy won, or a caller bound a local static copy | 267 |
-| `other-body` (listed) | Another name and a different body | 333 |
+| `named-body` (listed) | The image target has retail's name but a different body: another object's copy won, or a caller bound a local static copy | 264 |
+| `other-body` (listed) | Another name and a different body | 326 |
+| `stub` | The image target is a diagnostic trap: an unresolved symbol | 1 |
 
-`callee-binding-master-f9b8b46525.tsv` lists the 600 differing pairs in boot-walk order, with these columns to read them by:
+`callee-binding-master-e3760a5c6c.tsv` lists the 590 differing pairs in boot-walk order, with these columns to read them by:
 
 - `layout`: compares the numbers a type's layout shows through (member offsets, shifts, pushed sizes, virtual call slots). `same`
   means none differ, `operands` means only operands differ in the same instructions, and the others mean a number exists on only one
@@ -65,10 +66,10 @@ For each pair of (retail target, image target):
 - `root`, `chain`: where the walk came from, as `retail rva+offset` hops.
 - `order`, `anchor`, `tier`: position in LINK-627's boot walk over retail's call graph.
 
-| The 600 | On the boot walk | Not reached by the walk |
+| The 590 | On the boot walk | Not reached by the walk |
 |---|---|---|
-| A size or offset differs (`layout` not `same`) | 163 | 134 |
-| None differs (`layout` `same`) | 150 | 153 |
+| A size or offset differs (`layout` not `same`) | 154 | 131 |
+| None differs (`layout` `same`) | 151 | 154 |
 
 ## How far to trust a row
 
@@ -90,6 +91,8 @@ body's shape somewhere" both drop P40 and P43. The `layout` test drops P37, P38 
 - Indirect and virtual calls, and function pointers in data tables (P33's kind).
 - Funclets, about 31,000 addresses, because their names aren't unique.
 - 724 rows with no body in the image.
+- `present-unmatched` definitions that are a symbol's only provider: with no row or pin, nothing ties them to a retail address. Static defects
+  ranks 64 of them in `reverse/attempt_support/marked-sole-providers-20261108/`; check that list too when a boot stops.
 - Wrong globals, because data addresses are masked.
 - Folds: "identical body" only means the bytes match with addresses masked, not that the type is right.
 - Reachability: the boot walk is only a ranking. It marked P43's path unreached even though P43 crashed during boot, so "not reached"
