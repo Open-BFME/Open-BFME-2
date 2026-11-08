@@ -70,3 +70,44 @@ was the one I nearly skipped because 120 items looked small.
   `merge-lane-claim-blocking-20261108.md`.
 - The decision snapshot is as old as the pass that wrote it; the approval counts
   should be re-read before acting.
+
+## Correction: InGameUI needs a carve, not two approvals
+
+I wrote above that `InGameUI.cpp` is "a single donor file, two rows, and 113
+files freed if they are approved". The second half is wrong, and checking the
+addresses rather than the ratio says why.
+
+`Rva0029A407Clear.cpp` holds three rows, of two different classes:
+
+| rva | size | class |
+| --- | ---: | --- |
+| 0x0029A407 | 19B | `Rva0029A407` |
+| 0x0029A41A | 28B | `Rva0029A41A` |
+| 0x0029B53C | 28B | `Rva0029A407` |
+
+`InGameUI.cpp`'s approved rows run 0x0029A4CA to 0x00775633, and its plan lists
+exactly one row of this donor -- 0x0029B53C -- marked `refused (2 row(s) not
+approved for this TU)`. The other two sit **below** the TU's first approved row,
+and they are not adjacent to it: 0x0029A436 and 0x0029A452
+(`GapBodiesGE06.cpp`) and 0x0029A469 (`Rva0029A469.cpp`) lie between them and
+0x0029A4CA. Above them sit `ReplayControls.cpp` rows at 0x0029A39C-0x0029A3CE.
+
+So the region is interleaved placeholder territory, and nothing suggests those
+two rows are InGameUI's. Approving them *for InGameUI* to unblock the merge
+would be asserting layout evidence that points the other way -- the exact thing
+TU approval exists to prevent.
+
+The real path is a **carve**: split 0x0029B53C out of `Rva0029A407Clear.cpp`
+into `InGameUI.cpp`, leaving the other two rows where they are, as its own
+verified commit before the merge. `docs/consolidation.md` is blunt about what
+that costs -- each carve needs its own prerequisite retired first and the dry
+run names which -- so this is not two approvals, and 113 files is still only a
+ceiling.
+
+**What this does to the finding.** The 595-file total stands, and so does the
+point that `refused` is second by files and was hiding behind a small item
+count. What does not stand is reading "N rows not approved" as "N approvals
+away". For each of the 38 TUs the question is first *whether those rows belong
+there at all*; where they do not, the work is a carve, which is a different and
+usually larger job. The three cheapest entries by ratio should each be checked
+the way this one was -- addresses first -- before anyone budgets for them.
