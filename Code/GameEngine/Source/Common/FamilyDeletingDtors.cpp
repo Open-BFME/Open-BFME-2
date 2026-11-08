@@ -43,10 +43,6 @@ class RousingSpeechUpdate { public: RousingSpeechUpdate(EmitVtableTag *); virtua
 // ?<RousingSpeechUpdate::RousingSpeechUpdate> absent-from-retail
 RousingSpeechUpdate::RousingSpeechUpdate(EmitVtableTag *) {}
 
-// ??_GGloriousChargeUpdate@@UAEPAXI@Z @0x4ad6f4
-class GloriousChargeUpdate { public: GloriousChargeUpdate(EmitVtableTag *); virtual ~GloriousChargeUpdate(); };
-// ?<GloriousChargeUpdate::GloriousChargeUpdate> absent-from-retail
-GloriousChargeUpdate::GloriousChargeUpdate(EmitVtableTag *) {}
 
 // ??_GTransitionDamageFXModuleData@@UAEPAXI@Z @0x4ba6f9
 // Same bases as TransitionDamageFX.cpp's view, so this unit's ??_7 is the constructor unit's 31-slot table
