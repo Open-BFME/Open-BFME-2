@@ -939,6 +939,7 @@ def link_setup(rows, present):
         "import_dlls": sorted(entries),
         "imports_retail_does_not_import": sorted(missing),
         "crt_absolute_symbols": {name: value for name, value in link_cycle.ABSOLUTE.items()},
+        "object_order": ORDER,
     }
     table, bridge = initializer_table(rows, inputs)
     metadata["initializer_bridge"] = bridge
@@ -967,7 +968,70 @@ def expected_objects(rows):
     for source in census.data_sources():
         path = build.obj_path(source)
         found.setdefault(path.resolve(), path)
-    return sorted(found.values(), key=lambda path: path.as_posix())
+    paths = sorted(found.values(), key=lambda path: path.as_posix())
+    return retail_object_order(rows, paths) if ORDER == "retail" else paths
+
+
+# Object order (--order). link.exe lays out each grouped section, .CRT$XCU among them, in the
+# order its inputs arrive, so static initializers run in input order. Path order runs them in
+# path order: 0x007AF9D6's initializeRegionEffectFields (Rva003EE746ColorProvider.obj) registered
+# at .CRT$XCU 252, before the string initializers it reads (0x007AF8E3..0x007AF9BB, slots 658-666),
+# and LivingWorldRegionEffects' field table got empty names (P32). "retail" follows retail's own
+# order instead; "path" stays the default until a measured link shows what moving copies costs.
+ORDER = "path"
+ORDERS = ("path", "retail")
+
+
+def retail_object_order(rows, paths, initializers=None, places=None):
+    """`paths` in retail's order: the census's address order, initializers in their slot order.
+
+    1. Every object takes its census place (link_census.link_order, rule retail-truth-5): the lowest
+       retail RVA of its own unshared code rows, else of its data rows after all code objects. Retail
+       laid out .text in link order, so this is its object order wherever an object has code.
+    2. Objects that row an entry of retail's .CRT$XCU table are then reordered among the positions
+       they already hold, by their lowest slot there. link.exe lays out .CRT$XCU in input order, so
+       those slots are retail's order for them, and an object's code place need not be. P32: the
+       table fill 0x007AF9D6 sits in Rva003EE746ColorProvider.obj, whose code at 0x003EE746
+       precedes the objects of the string initializers it reads, which retail ran first.
+       Retail keeps its initializer functions apart, in slot order (RVA rises with slot for 1,161 of
+       1,165 consecutive slots), so for the 1,162 objects that hold only initializers the two orders
+       agree; the objects that move are those with code elsewhere.
+    3. No other object moves: its COMDAT copies win or lose as the census's link order says.
+    4. Ties, and objects with no place (they go last), fall back to path order.
+
+    `initializers` ([rva] in retail's table order) and `places` ({resolved object: (kind, rva)}) are
+    retail's table and the census places; tests pass their own."""
+    if initializers is None:
+        import image_report
+        initializers = image_report.Retail(build.EXE.read_bytes()).initializers()
+    if places is None:
+        places = {obj.resolve(): (0, rva) for obj, rva in census.code_places(rows).items()}
+        for row in census.data_ledger():
+            obj = census.data_object(row).resolve()
+            if obj not in places or places[obj][0] == 1:
+                rva = census.data_rva(row)
+                places[obj] = min(places.get(obj, (1, rva)), (1, rva))
+    slot = {}
+    for index, rva in enumerate(initializers):
+        slot.setdefault(rva, index)
+    first = {}
+    for row in rows:
+        try:
+            index = slot.get(int(row["target_rva"], 16))
+        except (KeyError, TypeError, ValueError):
+            continue
+        if index is not None:
+            obj = build.row_object(row).resolve()
+            first[obj] = min(first.get(obj, index), index)
+    nowhere = (2, 0)
+    base = sorted(paths, key=lambda p: (places.get(p.resolve(), nowhere), p.as_posix()))
+    held = [i for i, p in enumerate(base) if p.resolve() in first]
+    position = {p: i for i, p in enumerate(base)}
+    by_slot = sorted((base[i] for i in held), key=lambda p: (first[p.resolve()], position[p]))
+    ordered = list(base)
+    for i, p in zip(held, by_slot):
+        ordered[i] = p
+    return ordered
 
 
 def object_inventory(rows):
@@ -1316,7 +1380,12 @@ def main(argv=None):
     parser.add_argument("--stub-seed", metavar="STUBBED_TSV", type=Path,
                         help="with --diagnostic: stub an earlier diagnostic link's names (its stubbed.tsv) "
                              "before the first pass, where this link certainly leaves them unresolved")
+    parser.add_argument("--order", choices=ORDERS, default="path",
+                        help="object order: path (default) or retail (.CRT$XCU slot, then retail "
+                             "address; see retail_object_order)")
     args = parser.parse_args(argv)
+    global ORDER
+    ORDER = args.order
     if args.stub_seed and not args.diagnostic:
         parser.error("--stub-seed goes with --diagnostic")
     if args.blockers:
