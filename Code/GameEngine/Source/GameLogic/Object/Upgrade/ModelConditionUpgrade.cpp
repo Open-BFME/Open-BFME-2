@@ -98,17 +98,15 @@ struct CondStore
 	unsigned char m_data[0x4C];
 };
 //
-// ?upgradeImplementation@Rva004B63BD@@MAEXXZ, retail 0x004B6532 (115B): the
-// UpgradeMux-side slot before getUpgradeActivationMasks in the vtable of the
-// upgrade module whose destructor is rowed as Rva004B63BD
-// (FireWeaponWhenDeadBehaviorDerived.cpp), so `this` is the module +0x10
-// (module data at -0x0C, object at -0x08). When the upgrade fires it sets the
+// ?upgradeImplementation@ModelConditionUpgrade@@MAEXXZ, retail 0x004B6532 (115B):
+// UpgradeMux slot 10 of the class's table 0x00C58610 (installed by its
+// constructor 0x004B64E5), so `this` is the module +0x10 (module data at
+// -0x0C, object at -0x08). When the upgrade fires it sets the
 // module data's model-condition flags at +0x164 (0x001E42F2), clears those at
 // +0x118 (0x001E431E), and, given a special condition type (+0x1B0, not -1)
 // with a positive duration in seconds (+0x1B4), sets it for that many logic
-// frames (frame rate BfmeLogicFramesPerSecond). Own unit: the destructor unit keeps every
-// class down to its destructor so its emitted vtables stay alike; this view
-// defines no constructor or destructor and emits none.
+// frames (frame rate BfmeLogicFramesPerSecond). The module data view below
+// models only the fields the body reads.
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef float Real;
@@ -117,7 +115,7 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_INVALID = -1
 };
-struct Rva004B63BDModuleData
+struct ModelConditionUpgradeDataView
 {
 	unsigned char m_pad000[0x118];
 	ModelConditionFlags m_conditionsToClear;	// +0x118
@@ -131,29 +129,6 @@ class Rva001E431E { public: void rva001E431E(const int *flags); };
 extern int BfmeLogicFramesPerSecond;
 	// logic frames per second
 
-class Rva004B63BDPrimary
-{
-public:
-	virtual void slot0();
-protected:
-	const Rva004B63BDModuleData *m_moduleData;	// +0x04
-	Object *m_object;				// +0x08
-};
-class Rva004B63BDInterfaceC
-{
-public:
-	virtual void slot0();
-};
-class Rva004B63BDUpgradeMux
-{
-protected:
-	virtual void upgradeImplementation() = 0;
-};
-class Rva004B63BD : public Rva004B63BDPrimary, public Rva004B63BDInterfaceC, public Rva004B63BDUpgradeMux
-{
-protected:
-	virtual void upgradeImplementation();
-};
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
 // buildFieldParse, then registers its own FieldParse table with
@@ -328,10 +303,10 @@ ModelConditionUpgradeModuleData::ModelConditionUpgradeModuleData()
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B63BDUpgradeImplementation.cpp
 
-void Rva004B63BD::upgradeImplementation()
+void ModelConditionUpgrade::upgradeImplementation()
 {
-	const Rva004B63BDModuleData *data = m_moduleData;
-	Object *obj = m_object;
+	const ModelConditionUpgradeDataView *data = (const ModelConditionUpgradeDataView *)m_moduleData;
+	Object *obj = getObject();
 	if (data->m_conditionsToSet.rva000B3EB3())
 		((Rva001E42F2 *)obj)->rva001E42F2((const int *)&data->m_conditionsToSet);
 	if (data->m_conditionsToClear.rva000B3EB3())
@@ -401,7 +376,7 @@ ModelConditionUpgrade::ModelConditionUpgrade( Thing *thing, const ModuleData *mo
 
 // tu-skeleton: 0x004B6516 28B ??_GRva004B63BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@Rva004B65A5@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
+// tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@ModelConditionUpgrade@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
 
 // The Xfer operand types.
 class AsciiString;

@@ -5830,3 +5830,5 @@ __ehhandler$?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z,0x0079CBA3
 ??1RefTex@@QAE@XZ,0x0017098D,Retired obsolete private RefTex after canonical RefCountPtr<TextureClass> adoption; existing 12-byte owner ??1?$RefCountPtr@VTextureClass@@@@QAE@XZ at the same address remains matched; all retained source rows and parent EH graph verified.
 ?Cull_Sphere@Rva007C454@@UAE_NABVSphereClass@@@Z,0x0007BEA7,"Renamed to ?Cull_Sphere@Rva007C454@@UBE_NABVSphereClass@@@Z by tools/rename.py (inferred)"
 ?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z,0x0007BEDA,"Renamed to ?Cull_Box@Rva007C454@@UBE_NABVAABoxClass@@@Z by tools/rename.py (inferred)"
+?upgradeImplementation@Rva004B63BD@@MAEXXZ,0x004B6532,"Renamed to ?upgradeImplementation@ModelConditionUpgrade@@MAEXXZ by tools/rename.py (to-class: retail vftable 0x00C58610 slot 10)"
+?upgradeRemovalImplementation@Rva004B65A5@@UAEXXZ,0x004B65A5,"Renamed to ?upgradeRemovalImplementation@ModelConditionUpgrade@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C58610 slot 8)"

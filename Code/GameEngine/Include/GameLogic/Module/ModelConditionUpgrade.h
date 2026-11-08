@@ -32,9 +32,11 @@ public:
 	ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData );
 
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
 
 protected:
 	virtual void xfer( Xfer *xfer );										// primary slot 3
+	virtual void upgradeImplementation();									// UpgradeMux slot 10
 };
 
 #endif // __BFME2_MODELCONDITIONUPGRADE_H_

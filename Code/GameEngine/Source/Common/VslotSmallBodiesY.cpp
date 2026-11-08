@@ -311,9 +311,9 @@ bool AISpellBookBuffTerrain::shouldActivate(Object *obj)
 
 // Native4FC23E now uses its proven +4 observer receiver in Rva004FC4D1Dtor.cpp.
 
-// 0x004B65A5 (interface at +0x10): the rowed 0x001E431E resp. 0x001E42F2
-// on the object with the module data's +0x164 resp. +0x118 condition flags,
-// each only when the pinned ModelConditionFlags 0x000B3EB3 test holds.
+// Views for ModelConditionUpgrade::upgradeRemovalImplementation (0x004B65A5, defined after
+// UpdateModule.h below): the pinned ModelConditionFlags test 0x000B3EB3, the rowed Object
+// flag clear 0x001E431E and set 0x001E42F2, and the module data's two flag sets.
 class ModelConditionFlags
 {
 public:
@@ -336,35 +336,6 @@ struct Rva004B65A5Data
 	char m_pad119[0x4B];
 	ModelConditionFlags m_164;
 };
-class Rva004B65A5Primary
-{
-public:
-	virtual void primarySlot();
-protected:
-	Rva004B65A5Data *m_moduleData; // +0x04
-	Rva001E431E *m_object; // +0x08
-	Int m_0C;
-};
-class Rva004B65A5Iface
-{
-public:
-	virtual void upgradeRemovalImplementation() = 0;
-};
-class Rva004B65A5 : public Rva004B65A5Primary, public Rva004B65A5Iface
-{
-public:
-	void upgradeRemovalImplementation();
-};
-void Rva004B65A5::upgradeRemovalImplementation()
-{
-	Rva001E431E *obj = m_object;
-	Rva004B65A5Data *data = m_moduleData;
-	if (data->m_164.rva000B3EB3())
-		obj->rva001E431E((const Int *)&data->m_164);
-	if (data->m_118.rva000B3EB3())
-		((Rva001E42F2 *)obj)->rva001E42F2((const Int *)&data->m_118);
-}
-
 // 0x0043D41E: message 0x15 answers 1 for byte arguments 1, 0x1C and 0x29;
 // with bit 0 of the third argument, byte 1 runs the rowed 0x0043D3DA then
 // 0x0043C7C9 (each with 0) and the others only the latter; else 0.
@@ -421,6 +392,21 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 void XferObjectID(Xfer *xfer, ObjectID *id);
+// ?upgradeRemovalImplementation@ModelConditionUpgrade@@UAEXXZ, retail 0x004B65A5 (63 bytes),
+// UpgradeMux slot 8 of ModelConditionUpgrade's table 0x00C58610: undo the upgrade, clearing
+// the module data's +0x164 flags (the ones upgradeImplementation sets) and setting its +0x118
+// flags again, each only when the set is not empty. `this` is the module's +0x10 UpgradeMux
+// subobject, so the object and module data sit at -0x08 and -0x0C.
+#include "../../Include/GameLogic/Module/ModelConditionUpgrade.h"
+void ModelConditionUpgrade::upgradeRemovalImplementation()
+{
+	Rva001E431E *obj = (Rva001E431E *)getObject();
+	const Rva004B65A5Data *data = (const Rva004B65A5Data *)m_moduleData;
+	if (data->m_164.rva000B3EB3())
+		obj->rva001E431E((const Int *)&data->m_164);
+	if (data->m_118.rva000B3EB3())
+		((Rva001E42F2 *)obj)->rva001E42F2((const Int *)&data->m_118);
+}
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 class Rva004A3B95 : public UpdateModule
 {
