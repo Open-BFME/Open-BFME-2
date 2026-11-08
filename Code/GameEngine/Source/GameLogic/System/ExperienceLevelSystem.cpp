@@ -714,7 +714,7 @@ template _STL::list<crateCreationEntry>::~list();
 template void _STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry> >::swap(_STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry> > &);
 struct Rva00289FBCRecord { Rva00289FBCRecord(); Rva00289FBCRecord(const Rva00289FBCRecord&); virtual ~Rva00289FBCRecord();
  Rva00289FBCRecord&operator=(const Rva00289FBCRecord&);
- char bytes[1]; bool operator==(const Rva00289FBCRecord&) const; bool operator<(const Rva00289FBCRecord&) const; };
+ char bytes[0x108 - 4]; bool operator==(const Rva00289FBCRecord&) const; bool operator<(const Rva00289FBCRecord&) const; };
 namespace _STL {
 template<> void _Construct<BfmePod264,BfmePod264>(BfmePod264*,const BfmePod264&);
 template<> __declspec(dllimport) __forceinline void _Construct<Rva00289FBCRecord,Rva00289FBCRecord>(Rva00289FBCRecord*p,const Rva00289FBCRecord&v)
