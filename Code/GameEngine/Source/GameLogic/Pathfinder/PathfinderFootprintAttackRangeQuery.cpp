@@ -43,7 +43,7 @@ class DynamicPortalBehaviourModuleData {public:char pad[0x144];Coord3D m_144;};
 class DynamicPortalBehaviour {public:static Module *rva004608E0(Object*);void rva00460CBA(Coord3D*);void *m_vptr;const DynamicPortalBehaviourModuleData *m_moduleData;Object *m_object;};
 template<int N> class QueryTerrainSlots:public QueryTerrainSlots<N-1>{public:virtual void gap(char(*)[N])=0;};
 template<>class QueryTerrainSlots<0>{};
-class TerrainLogic:public QueryTerrainSlots<44>{public:virtual bool querySurface(Object*,int)=0;};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct QueryCellInfo {char pad[0x28];int structure;};
 enum CellType {CELL_IMPASSABLE=5};
@@ -123,7 +123,7 @@ bool Pathfinder::rva002EC479(Object *attacker,const Coord3D *from,Object *target
  int radius=queryFloor(cellRange+0.1f);
  if(target->definition->kindOf(7)){
   int layers[2];layers[0]=attacker->rva0028B511();int count=1;
-  if(!(unsigned char)isGroundOrBridgeLayer(layers[0]) && TheTerrainLogic->querySurface(attacker,layers[0])){layers[1]=1;count=2;}
+  if(!(unsigned char)isGroundOrBridgeLayer(layers[0]) && TheTerrainLogic->objectInteractsWithBridgeEnd(attacker,layers[0])){layers[1]=1;count=2;}
   bool foundWall=false;
   while(radius-->=0){
    for(int j=diameter;j>=0;--j){

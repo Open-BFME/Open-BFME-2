@@ -5,16 +5,7 @@
 // TheTerrainLogic slot 0x4C returns true, saturating word add plus 12/10/8-bit packed
 // field max/max/min updates. Evidence: same +0x70/+0x78/+0x7C layout and 0x14 stride
 // as Rva00285D34Cell, TheTerrainLogic 0x009FEC50, callers at 0x002865C5/0x002865EB.
-class TerrainLogic
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18();
-	virtual bool IsBlocked(float x, float y, int a, int b, int c);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
@@ -62,7 +53,7 @@ void FireLogicSystem::rva00285DC5(int startRow, int endRow, int col, int add, in
 		return;
 	float colF = (float)(((double)col + 0.5) * 10.0);
 	for (; startRow <= endRow; startRow++) {
-		if (TheTerrainLogic->IsBlocked((float)(((double)startRow + 0.5) * 10.0), colF, 0, 0, 0))
+		if (TheTerrainLogic->isUnderwater((float)(((double)startRow + 0.5) * 10.0), colF, 0, 0, 0))
 			continue;
 		Cell *cell = (Cell *)((char *)m_cells[startRow] + col * 20);
 		if (flag != false && cell->m_check < 1)

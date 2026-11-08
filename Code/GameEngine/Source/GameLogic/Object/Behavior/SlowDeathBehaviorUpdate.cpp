@@ -363,18 +363,7 @@ private:
 };
 extern GameEngine *TheGameEngine;
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class SlowDeathBehaviorModuleData
@@ -634,7 +623,7 @@ UpdateSleepTime SlowDeathBehavior::update()
 		pos.y = obj->getPosition()->y;
 		pos.z = obj->getPosition()->z;
 		pos.z -= slowDeathBehaviorModuleData->m_sinkRate / m_acceleratedTimeScale;
-		if (TheTerrainLogic->getLayerHeight(pos.x, pos.y, obj->rva0028B511(), 0, true) < pos.z)
+		if (TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)obj->rva0028B511(), 0, true) < pos.z)
 			pos.z -= 5.7f;
 		obj->setPosition(&pos);
 	}

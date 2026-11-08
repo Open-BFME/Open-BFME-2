@@ -59,7 +59,7 @@ class Rva001E3511 {public:int rva001E3511();};
 template<int N> class NotifySlots:public NotifySlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class NotifySlots<0>{};
 struct BfmeE12 { float x, y, z; }; // 12B element-agnostic swap stand-in; swap touches only header pointers
 class NotifyHorde:public NotifySlots<135>{public:virtual void slot135(_STL::vector<ObjectID>*,_STL::vector<ObjectID>*,_STL::vector<ObjectID>*)=0;};
-class TerrainLogic:public NotifySlots<35>{public:virtual void *slot35(int)=0;PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 class Rva0028B525DwordSlot {public:void set(int);};
 extern TerrainLogic*TheTerrainLogic;extern GameLogic*TheGameLogic;
 class AIUpdateInterface {public:void destroyPath();void NotifyPathHasInvalidPortals();char pad0[8];Object*owner;char padC[0x140-0xc];Path*path;char pad144[0x1f0-0x144];Rva0008BB38FloatField*loco;};
@@ -71,7 +71,7 @@ void AIUpdateInterface::NotifyPathHasInvalidPortals(){
  }
  Path *objPath=path;if(!objPath)return;
  Rva003642DFResult closest=objPath->rva00364521(loco);
- if(((Rva001E3511*)&closest)->rva001E3511()==0x7fffffff || TheTerrainLogic->slot35(((Rva001E3511*)&closest)->rva001E3511())){destroyPath();return;}
+ if(((Rva001E3511*)&closest)->rva001E3511()==0x7fffffff || TheTerrainLogic->getWaypointByID(((Rva001E3511*)&closest)->rva001E3511())){destroyPath();return;}
  if(obj->m_template->m_kindof[3]&0x2000){
   NotifyHorde*hci=(NotifyHorde*)obj->rva0028C197();if(!hci)return;
   _STL::vector<ObjectID> a,b,c;hci->slot135(&a,&b,&c);

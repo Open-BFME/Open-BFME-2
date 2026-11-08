@@ -49,14 +49,7 @@ void _STLP_alloc_proxy<_List_node<CameraMarker>*,_List_node<CameraMarker>,alloca
 }
 
 namespace _STL {template<> __declspec(noinline) void _Base_bitset<32>::_M_do_or(const _Base_bitset<32>&);}
-class TerrainLogic{public:
-virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
-virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
-virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
-virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38();
-virtual void*slot39(const AsciiString&);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;
 class WeaponSet{public:void updateWeaponSet(const Object*);};
 #include "../../../Include/GameLogic/AIPathfind.h"
@@ -91,7 +84,7 @@ void Object::loadPostProcess(){
  if(containedId!=INVALID_OBJECT_ID)contained=TheGameLogic->findObjectByID(containedId);else contained=0;
  if(original()->testStatus(STATUS_51))original()->tempRemoveObjectFromWorld();
  _STL::list<CameraMarker>::iterator it=names.begin();while(it!=names.end()){
- int index=(int)it->index;AsciiString name=it->name;binding[index].region=TheTerrainLogic->slot39(name);it=names.erase(it);
+ int index=(int)it->index;AsciiString name=it->name;binding[index].region=TheTerrainLogic->getTriggerAreaByName(name);it=names.erase(it);
  }
  weapons.updateWeaponSet(original());if(original()->rva0028B511()!=1)((Rva0022AEE4Subsystem *)TheAI)->pathfinder->AdjustLayer(original());
  if(!(original()->m_template->m_kindof[1]&0x10000000))((Rva0022AEE4Subsystem *)TheAI)->pathfinder->AddObjectToPathfindMap(original());

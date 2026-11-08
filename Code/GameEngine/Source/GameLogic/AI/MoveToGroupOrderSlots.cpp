@@ -217,18 +217,7 @@ class Object {public:
  char prefix0[4];FormationTemplateView *info;char gap8[0x258-8];AIUpdateInterface *ai;char gap25C[0x274-0x25C];void *physics;
  void rva0028AD00(int,float,int);void rva0028ACEE(int,int);
 };
-class TerrainLogic {public:
-virtual void slot0();
-virtual void slot1();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-
- virtual float slot7(float,float,PathfindLayerEnum,Coord3D*,bool);
- PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class FormationAIQuery {public:
 virtual void slot0();
@@ -378,7 +367,7 @@ void MoveToFormationGroupOrder::rva00547E5C(Object *object,const Coord3D *positi
  if(reinterpret_cast<FormationAIQuery*>(ai)->slot137() || object->physics) {
   PathfindLayerEnum layer=TheTerrainLogic->getLayerForDestination(object,position);
   Coord3D goal;
-  goal.z=TheTerrainLogic->slot7(position->x,position->y,layer,0,true);
+  goal.z=TheTerrainLogic->getLayerHeight(position->x,position->y,layer,0,true);
   goal.x=position->x;goal.y=position->y;
   if(object->info->kindHigh&0x04000000)object->rva0028AD00((int)&goal,m_angle,layer);
   else object->rva0028ACEE((int)&goal,layer);

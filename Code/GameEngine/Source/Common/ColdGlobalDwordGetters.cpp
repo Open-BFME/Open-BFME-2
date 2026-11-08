@@ -432,40 +432,6 @@ extern GameLogic *TheGameLogic;
 #include <windows.h>
 
 struct WaterHandle;
-struct TerrainWaterDispatch {
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual void slot19();
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual void slot24();
- virtual void slot25();
- virtual void slot26();
- virtual void slot27();
- virtual void slot28();
- virtual void slot29();
- virtual void slot30();
- virtual void setWaterHeight(const WaterHandle *,Real,Real,Bool);
-};
 class TerrainVisual {
 public:
  virtual void slot0();
@@ -493,39 +459,26 @@ public:
 class G00DFF080Obj;
 extern G00DFF080Obj *TheTerrainVisual;
 // Native TerrainLogic subsystem table BFB28C slot10 names this update role.
-// This is an entry-ABI view: ECX is the secondary SubsystemInterface at +4,
-// so the observed flag/record/count offsets below are relative to that entry,
-// rather than offsets from TerrainLogic's complete-object Snapshot pointer.
-class TerrainLogic {
-public:
- virtual void update();
- char pad04[0x40-4];
- Bool m_bridgeDamageStatesChanged;
- char pad41[0x64 - 0x41];
- struct DynamicWaterEntry {
-  const WaterHandle *waterTable;
-  Real changePerFrame, targetHeight, damageAmount, currentHeight;
- } m_waterToUpdate[64];
- Int m_numWaterToUpdate;
-};
+// ECX is the secondary SubsystemInterface at +4, so retail's displacements are 4 below the header's offsets.
+#include "../../Include/GameLogic/TerrainLogic.h"
 void TerrainLogic::update( void )
 {
-	m_bridgeDamageStatesChanged = false;
+	field44 = false;
 
-	if( m_numWaterToUpdate )
+	if( field568 )
 	{
 		const WaterHandle *water;
 		Real changePerFrame, damageAmount, targetHeight, currentHeight;
 		Bool finalTransition,
 				 doDamageThisFrame = (TheGameLogic->getFrame() % Rva004B879DGet()) == 0;
 
-		for( Int i = m_numWaterToUpdate - 1; i >= 0; --i )
+		for( Int i = field568 - 1; i >= 0; --i )
 		{
-			water = m_waterToUpdate[ i ].waterTable;
-			changePerFrame = m_waterToUpdate[ i ].changePerFrame;
-			targetHeight = m_waterToUpdate[ i ].targetHeight;
-			damageAmount = m_waterToUpdate[ i ].damageAmount;
-			currentHeight = m_waterToUpdate[ i ].currentHeight;
+			water = field68[ i ].waterTable;
+			changePerFrame = field68[ i ].changePerFrame;
+			targetHeight = field68[ i ].targetHeight;
+			damageAmount = field68[ i ].damageAmount;
+			currentHeight = field68[ i ].currentHeight;
 
 			finalTransition = FALSE;
 			if( changePerFrame > 0 )
@@ -541,18 +494,18 @@ void TerrainLogic::update( void )
 
 			if( finalTransition == TRUE )
 			{
-				reinterpret_cast<TerrainWaterDispatch *>((char *)this - 4)->setWaterHeight( water, targetHeight, damageAmount, TRUE );
-				for( Int j = i; j < m_numWaterToUpdate; j++ )
-					m_waterToUpdate[ i ] = m_waterToUpdate[ j ];
-				m_numWaterToUpdate -= 1;
+				setWaterHeight( water, targetHeight, damageAmount, TRUE );
+				for( Int j = i; j < field568; j++ )
+					field68[ i ] = field68[ j ];
+				field568 -= 1;
 			}
 			else
 			{
 				if( doDamageThisFrame == FALSE )
 					damageAmount = 0.0f;
 				currentHeight += changePerFrame;
-				m_waterToUpdate[ i ].currentHeight = currentHeight;
-				reinterpret_cast<TerrainWaterDispatch *>((char *)this - 4)->setWaterHeight( water, currentHeight, damageAmount, FALSE );
+				field68[ i ].currentHeight = currentHeight;
+				setWaterHeight( water, currentHeight, damageAmount, FALSE );
 			}
 		}
 	}

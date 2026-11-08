@@ -29,59 +29,8 @@ bool Rva002629EACheck(const Thing*,const Thing*);int Rva00264237Check(const Coor
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern GameLogic*TheGameLogic;
-class TerrainLogic{public:
- virtual void v0();
- virtual void v1();
- virtual void v2();
- virtual void v3();
- virtual void v4();
- virtual void v5();
- virtual void v6();
- virtual void v7();
- virtual void v8();
- virtual void v9();
- virtual void v10();
- virtual void v11();
- virtual void v12();
- virtual void v13();
- virtual void v14();
- virtual void v15();
- virtual void v16();
- virtual void v17();
- virtual void v18();
- virtual void v19();
- virtual void v20();
- virtual void v21();
- virtual void v22();
- virtual void v23();
- virtual void v24();
- virtual void v25();
- virtual void v26();
- virtual void v27();
- virtual void v28();
- virtual void v29();
- virtual void v30();
- virtual void v31();
- virtual void v32();
- virtual void v33();
- virtual void v34();
- virtual void v35();
- virtual void v36();
- virtual void v37();
- virtual void v38();
- virtual void v39();
- virtual void v40();
- virtual void v41();
- virtual void v42();
- virtual void v43();
- virtual void v44();
- virtual void v45();
- virtual void v46();
- virtual void v47();
- virtual void v48();
- virtual void v49();
- virtual bool isUnderwater(const Coord3D*);
-};extern TerrainLogic*TheTerrainLogic;extern int BfmeLogicFramesPerSecond;
+#include "../../../../Include/GameLogic/TerrainLogic.h"
+extern TerrainLogic*TheTerrainLogic;extern int BfmeLogicFramesPerSecond;
 class State{public:char pad[4];int id;};class Machine{public:char pad[4];State*state;int getID()const{return state?state->id:999999;}};
 class AICommandInterface{public:void aiMoveToPosition(const Coord3D*,CommandSourceType);char pad[0x10];};
 class AIUpdateInterface{public:
@@ -238,7 +187,7 @@ bool AIUpdateInterface::rva0026CF11(Object*other)
  Object*obj=owner;Relationship relationship=obj->getRelationship(other);
  if(relationship==0 && obj->rva0029493F(other,2))return false;
  if(loco && loco->ignores())return false;
- if(((obj->templ->m_kindof[3] & 0x2000U)!=0)&&relationship==2){if(obj->rva0028B511()!=1)return false;if(TheTerrainLogic->isUnderwater(&obj->position))return false;}
+ if(((obj->templ->m_kindof[3] & 0x2000U)!=0)&&relationship==2){if(obj->rva0028B511()!=1)return false;if(TheTerrainLogic->slot50(&obj->position))return false;}
  if(aiOther->currentVictim()==obj)return false;
  if(!isDoingGroundMovement())return false;if(!aiOther->isDoingGroundMovement())return false;
  if(((obj->templ->m_kindof[0] & 0x100U)!=0)&&machine->getID()==0x13)return false;

@@ -111,20 +111,7 @@ class Bridge
  
 }
 ;
-class TerrainLogic 
-{
- public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual float slot7(float,float,bool,Coord3D*,bool);
- 
-}
-;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // ZH BaseType.h fast_float2long_round, preserved for the proven x87
 // conversion blocker: C++ casts call _ftol2 and /QIfist rejects /arch:SSE.
@@ -207,7 +194,7 @@ void PathfindLayer::ClassifyBridgeCells()
    center.y=lo.y+5.0f;
    if((cell->m_0C&15)!=5 && ((cell->m_0C>>10)&0x3f)!=1) 
    {
-    float height=TheTerrainLogic->slot7(center.x,center.y,true,0,true)+10.0f;
+    float height=TheTerrainLogic->getLayerHeight(center.x,center.y,(PathfindLayerEnum)1,0,true)+10.0f;
     if(height>m_bridge->getBridgeHeight(&center,0)) 
     {
      PathfindCell *ground=TheAI->m_pathfinder->getCell(LAYER_GROUND,worldX,worldY);

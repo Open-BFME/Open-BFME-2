@@ -16,35 +16,25 @@
 
 extern float g_Va00BBB8D8;
 
-class TerrainLogic
-{
-public:
-	virtual void init();				// 0x000B3FD0
+#include "../../Include/GameLogic/TerrainLogic.h"
 
-private:
-	unsigned char m_pad04[0x18 - 0x04];
-
-protected:
-	int m_mapDX;						// +0x18
-	int m_mapDY;						// +0x1C
-};
-
+// init overrides the SubsystemInterface slot, so this is the +4 subobject: retail's
+// +0x18/+0x1C/+0x1918/+0x191C displacements are full-object +0x1C/+0x20/+0x191C/+0x1920.
 class W3DTerrainLogic : public TerrainLogic
 {
 public:
 	virtual void init();
 
 private:
-	unsigned char m_pad20[0x1918 - 0x20];
-	float m_mapMinZ;					// +0x1918
-	float m_mapMaxZ;					// +0x191C
+	float m_mapMinZ;					// +0x191C
+	float m_mapMaxZ;					// +0x1920
 };
 
 void W3DTerrainLogic::init( void )
 {
 	TerrainLogic::init();
-	m_mapDX = 0;
-	m_mapDY = 0;
+	field1C = 0;
+	field20 = 0;
 	m_mapMinZ = 0;
 	m_mapMaxZ = g_Va00BBB8D8;
 }

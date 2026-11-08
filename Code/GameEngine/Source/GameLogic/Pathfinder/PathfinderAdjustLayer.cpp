@@ -18,12 +18,7 @@ public:
 	int m_a34; // +0x34
 	int m_b38; // +0x38
 };
-class TerrainLogic {
-public:
- virtual void slot0();virtual void slot4();virtual void slot8();virtual void slotC();
- virtual void slot10();virtual void slot14();virtual void slot18();
- virtual float slot1C(float,float,int,Coord3D *,bool);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIPathfind.h"
 void Pathfinder::AdjustLayer(Object *obj)
@@ -33,13 +28,13 @@ void Pathfinder::AdjustLayer(Object *obj)
  Coord3D pos;pos.x=obj->position.x;pos.y=obj->position.y;pos.z=obj->position.z;
  if(cell && cell->getLayer()!=oldLayer) {
   float limit=pos.z+10.0f;
-  if(TheTerrainLogic->slot1C(pos.x,pos.y,cell->getLayer(),0,true)>limit)obj->setLayer((PathfindLayerEnum)cell->getLayer());
+  if(TheTerrainLogic->getLayerHeight(pos.x,pos.y,(PathfindLayerEnum)cell->getLayer(),0,true)>limit)obj->setLayer((PathfindLayerEnum)cell->getLayer());
   int i=2;Rva0036666B *layer=(Rva0036666B *)((char *)this+0xE0);
   for(;i<=15;++i,layer=(Rva0036666B *)((char *)layer+0x40)) {
    if(layer->rva0036666B()) {
     PathfindCell *next=(PathfindCell *)rva001E3647Pos(i,&pos);
     if(next && next->getLayer()==i && next->getType()!=PathfindCell::CELL_BRIDGE_IMPASSABLE) {
-     if(fabs(TheTerrainLogic->slot1C(pos.x,pos.y,i,0,true)-pos.z)<10.0f) {
+     if(fabs(TheTerrainLogic->getLayerHeight(pos.x,pos.y,(PathfindLayerEnum)i,0,true)-pos.z)<10.0f) {
       obj->setLayer((PathfindLayerEnum)i);break;
      }
     }

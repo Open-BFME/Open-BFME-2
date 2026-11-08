@@ -66,22 +66,7 @@ public:
 	bool rva0052E0A1(int value);
 };
 
-class TerrainLogic
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08();
-	virtual void slot0C(); virtual void slot10(); virtual void slot14();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const; // +0x18
-	virtual void slot1C(); virtual void slot20(); virtual void slot24();
-	virtual void slot28(); virtual void slot2C(); virtual void slot30();
-	virtual void slot34(); virtual void slot38(); virtual void slot3C();
-	virtual void slot40(); virtual void slot44(); virtual void slot48();
-	virtual Bool isUnderwater(Real x, Real y, Real *waterZ, Real *terrainZ, void *extra); // +0x4C
-	virtual Bool isCliffCell(Real x, Real y) const; // +0x50
-	virtual void slot54();
-	virtual Bool slot58(Real x, Real y); // +0x58
-	virtual Bool slot5C(Real x, Real y); // +0x5C
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 #include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
@@ -121,11 +106,11 @@ void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
 	Int type = PathfindCell::CELL_CLEAR;
 	if (TheTerrainLogic->isCliffCell(topLeftCorner.x, topLeftCorner.y))
 		type = CELL_TYPE_CLIFF;
-	if (TheTerrainLogic->slot58(topLeftCorner.x, topLeftCorner.y))
+	if (TheTerrainLogic->slot22(topLeftCorner.x, topLeftCorner.y))
 		((Rva0052E05D *)cell)->rva0052E05D(true);
 	else
 		((Rva0052E05D *)cell)->rva0052E05D(false);
-	setCellBit21(cell, TheTerrainLogic->slot5C(topLeftCorner.x, topLeftCorner.y));
+	setCellBit21(cell, TheTerrainLogic->slot23(topLeftCorner.x, topLeftCorner.y));
 
 	if (type != CELL_TYPE_CLIFF)
 	{

@@ -294,30 +294,7 @@ public:
 	Obj258Holder *m_258;
 };
 #include "../../Include/Common/GlobalData.h"
-class TerrainLogic
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual bool s19(float x, float y, float *a, float *b, unsigned char *out);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 struct Rva001E468FInner;
 class Rva001E468F
 {
@@ -394,8 +371,8 @@ float Locomotor::getMaxSpeed(Object *obj) const
 	if (obj->rva0028C15E(8, &tmp, 0, 1))
 		f = tmp * f;
 	if (m_data->m_14C != 1.0f) {
-		unsigned char flag = 0;
-		if (TheTerrainLogic->s19(obj->m_cachedPos.x, obj->m_cachedPos.y, 0, 0, &flag) && flag != 0)
+		bool flag = 0;
+		if (TheTerrainLogic->isUnderwater(obj->m_cachedPos.x, obj->m_cachedPos.y, 0, 0, &flag) && flag != 0)
 			f = m_data->m_14C * f;
 	}
 	if (m_2c != -1.0f) {
@@ -500,7 +477,7 @@ struct Rva001E5F1DAI { char pad[0x18]; const Rva001E5F1DData *m_data; };
 bool Rva001E46E1::rva001E5F1D(Object *obj,const Coord3D *pos,float *ground)
 {
     float height=0.0f;
-    if(obj->rva0028B511()==1 && TheTerrainLogic->s19(pos->x,pos->y,&height,ground,0)) {
+    if(obj->rva0028B511()==1 && TheTerrainLogic->isUnderwater(pos->x,pos->y,&height,ground,0)) {
         const float &limit=((Rva001E5F1DAI*)TheAI)->m_data->m_98;
         float depth=height-*ground;
         if(depth>limit*0.25f) {

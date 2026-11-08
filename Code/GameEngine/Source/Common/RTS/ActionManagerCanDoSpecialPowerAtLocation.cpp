@@ -112,13 +112,7 @@ class CastleBehavior { public: static NameKeyType rva0003955DA(); };
 #include "../../../Include/GameLogic/AIPathfind.h"
 class AI; extern AI *TheAI;
 struct ActionAIManagerView { char pad[0x10]; Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; } };
-class TerrainLogic {
-public:
- V10(a) V10(b)
- virtual bool isUnderwater(float,float);
- virtual bool isCliff(float,float);
- PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/ActionManager.h"
 #include "XYDistanceCallView.h"
@@ -149,7 +143,7 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
   case 0x38:
    if(obj->ai() && obj->ai()->specialAbility() && !obj->ai()->specialAbility()->get()) return false;
   case 0x41:case 0x8c:
-   if(TheTerrainLogic->isUnderwater(loc->x,loc->y)) return false;
+   if(TheTerrainLogic->isCliffCell(loc->x,loc->y)) return false;
   }
   switch(spTemplate->getSpecialPowerType()) {
   case 0x52:case 0x61:case 0x67:case 0x6a: {
@@ -177,8 +171,8 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
    int ymin=(int)(center.y-radius),ymax=(int)(center.y+radius);
    for(int y=ymin;y<=ymax;y+=radius*0.2f) {
     for(int x=xmin;x<=xmax;x+=radius*0.2f) {
-     if(TheTerrainLogic->isCliff((float)x,(float)y)) return false;
-     if(TheTerrainLogic->isUnderwater((float)x,(float)y)) return false;
+     if(TheTerrainLogic->slot21((float)x,(float)y)) return false;
+     if(TheTerrainLogic->isCliffCell((float)x,(float)y)) return false;
     }
    }
    return TheShroudManager->getShroudStatusForPlayer(obj->getControllingPlayer()->getPlayerIndex(),loc)==CELLSHROUD_CLEAR;
@@ -213,8 +207,8 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
    int ymin=(int)(center.y-radius),ymax=(int)(center.y+radius);
    for(int y=ymin;y<=ymax;y+=radius*0.2f) {
     for(int x=xmin;x<=xmax;x+=radius*0.2f) {
-     if(TheTerrainLogic->isCliff((float)x,(float)y)) return false;
-     if(TheTerrainLogic->isUnderwater((float)x,(float)y)) return false;
+     if(TheTerrainLogic->slot21((float)x,(float)y)) return false;
+     if(TheTerrainLogic->isCliffCell((float)x,(float)y)) return false;
     }
    }
    return TheShroudManager->getShroudStatusForPlayer(obj->getControllingPlayer()->getPlayerIndex(),loc)==CELLSHROUD_CLEAR;
@@ -272,7 +266,7 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
    int xmin=(int)(center.x-radius),xmax=(int)(center.x+radius);
    int ymin=(int)(center.y-radius),ymax=(int)(center.y+radius);
    for(int y=ymin;y<=ymax;y+=radius/5) for(int x=xmin;x<=xmax;x+=radius/5)
-    if(TheTerrainLogic->isCliff((float)x,(float)y)) return false;
+    if(TheTerrainLogic->slot21((float)x,(float)y)) return false;
    return (TheShroudManager->getShroudStatusForPlayer(obj->getControllingPlayer()->getPlayerIndex(),loc)!=CELLSHROUD_SHROUDED) ? true : false;
   }
   case 0x5a:case 0x6f: return true;
@@ -282,7 +276,7 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
    int xmin=(int)(center.x-200.0f),xmax=(int)(center.x+200.0f);
    int ymin=(int)(center.y-200.0f),ymax=(int)(center.y+200.0f);
    for(int y=ymin;y<=ymax;y+=40) for(int x=xmin;x<=xmax;x+=40)
-    if(TheTerrainLogic->isCliff((float)x,(float)y)) return false;
+    if(TheTerrainLogic->slot21((float)x,(float)y)) return false;
    return (TheShroudManager->getShroudStatusForPlayer(obj->getControllingPlayer()->getPlayerIndex(),loc)==CELLSHROUD_CLEAR) ? true : false;
   }
   case 0x48:case 0x49:case 0x4a: {
@@ -291,8 +285,8 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
    int xmin=(int)(center.x-radius),xmax=(int)(center.x+radius);
    int ymin=(int)(center.y-radius),ymax=(int)(center.y+radius);
    for(int y=ymin;y<=ymax;y+=radius/5) for(int x=xmin;x<=xmax;x+=radius/5) {
-    if(TheTerrainLogic->isCliff((float)x,(float)y)) return false;
-    if(TheTerrainLogic->isUnderwater((float)x,(float)y)) return false;
+    if(TheTerrainLogic->slot21((float)x,(float)y)) return false;
+    if(TheTerrainLogic->isCliffCell((float)x,(float)y)) return false;
    }
    if(ThePartitionManager->getClosestObject(loc,(float)radius,0,&FILTER(0x3c))) return false;
    return (TheShroudManager->getShroudStatusForPlayer(obj->getControllingPlayer()->getPlayerIndex(),loc)==CELLSHROUD_CLEAR) ? true : false;

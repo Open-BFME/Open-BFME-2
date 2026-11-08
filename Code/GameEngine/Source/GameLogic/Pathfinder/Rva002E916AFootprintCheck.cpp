@@ -41,10 +41,7 @@ private:
 int Rva002E6E8AGet(int);
 bool Rva001E3679(int);
 int isGroundOrBridgeLayer(int);
-class TerrainLogic {
-public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();
- virtual float height(float,float,int,void*,bool);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Rva002E7388Owner {
 public:bool rva002E916A(int x,int y);
@@ -70,7 +67,7 @@ bool Rva002E7388Owner::rva002E916A(int x,int y)
    Coord3D pos;
    pos.x=cx*10+5.0f;
    pos.y=cy*10+5.0f;
-   float h=TheTerrainLogic->height(pos.x,pos.y,cellLayer,0,true);
+   float h=TheTerrainLogic->getLayerHeight(pos.x,pos.y,(PathfindLayerEnum)cellLayer,0,true);
    if(first){initialHeight=h;first=false;}
    else if(fabs(h-initialHeight)>10.0f)return false;
   }

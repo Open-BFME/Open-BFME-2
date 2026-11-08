@@ -29,9 +29,7 @@ struct Rva00464B96Mask { unsigned words[4]; bool test(int i) const { return (wor
 class Rva00464B96Status : public Rva00464B96Slots<44> {
 public: virtual Rva00464B96Mask status(int);
 };
-class TerrainLogic : public Rva00464B96Slots<7> {
-public: virtual float height(float, float, int, int, int);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva00464B96Object {
     char unknown00[0x38];
@@ -68,7 +66,7 @@ void Rva00464B96::rva00464B96(Object *rider)
     Coord3D target;
     target.x = distance * Cos(angle) + position->x;
     target.y = distance * Sin(angle) + position->y;
-    target.z = TheTerrainLogic->height(target.x, target.y, container->rva0028B511(), 0, 1);
+    target.z = TheTerrainLogic->getLayerHeight(target.x, target.y, (PathfindLayerEnum)container->rva0028B511(), 0, 1);
     AIUpdateInterface *ai = reinterpret_cast<Rva00464B96Object *>(rider)->m_ai;
     if (ai) {
         if (status20.status(0).test(61)) {

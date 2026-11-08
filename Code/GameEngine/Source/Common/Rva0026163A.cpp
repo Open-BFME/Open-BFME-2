@@ -21,26 +21,7 @@ public:
 
 #include "../../Include/GameLogic/AI.h"
 
-class TerrainLogic
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual bool checkClear(const Coord3D *a, const Coord3D *b);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
@@ -63,7 +44,7 @@ bool Rva0026163A::rva0026163A(const Coord3D *target)
 	targetPos.y = target->y;
 	targetPos.z = target->z;
 	sourcePos.z += m_obj->m_geom.getMaxHeightAbovePosition();
-	if (!TheTerrainLogic->checkClear(&sourcePos, &targetPos))
+	if (!TheTerrainLogic->isClearLineOfSight(sourcePos, targetPos))
 		return false;
 	AI *ai = TheAI;
 	if (ai != 0)

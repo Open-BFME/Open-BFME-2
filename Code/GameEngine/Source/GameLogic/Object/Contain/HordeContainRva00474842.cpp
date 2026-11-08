@@ -242,20 +242,7 @@ class Rva001E42F2
 }
 ;
 #include "../../../Common/Thing/thing.h"
-class TerrainLogic 
-{
- public:
- virtual void unused0();
- virtual void unused1();
- virtual void unused2();
- virtual void unused3();
- virtual void unused4();
- virtual void unused5();
- virtual void unused6();
- virtual float height(float,float,int,bool*,bool);
- 
-}
-;
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Rva00469012 
 {
@@ -500,7 +487,7 @@ void HordeContain::rva00474842(Object *obj,const Coord3D *position,float orienta
    if(obj->isKindOf(Rva474842Kind443)) 
    {
     ((Rva001E42F2*)obj)->rva001E42F2((const int*)&Rva00265254(0,103,105,443));
-    ((Thing*)obj)->setPositionZ(TheTerrainLogic->height(obj->position.x,obj->position.y,obj->rva0028B511(),0,true));
+    ((Thing*)obj)->setPositionZ(TheTerrainLogic->getLayerHeight(obj->position.x,obj->position.y,(PathfindLayerEnum)obj->rva0028B511(),0,true));
     
    }
    return;

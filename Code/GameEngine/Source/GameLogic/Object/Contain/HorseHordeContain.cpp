@@ -219,9 +219,7 @@ enum NameKeyType
 
 #include "../../../../Include/GameLogic/AI.h"
 
-class TerrainLogic {public:
-virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual float s1C(float,float,int,Coord3D*,bool);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic*TheTerrainLogic;
 
@@ -372,8 +370,8 @@ void HorseHordeContain::_horseUpdatePosition(Object *obj, const Coord3D *destina
                 Pathfinder *pathfinder = TheAI->m_pathfinder;
                 if (pathfinder->IsValidMovementPositionForObject(
                         &desired, obj->rva0028B511(), movementType, pathOwner))
-                    desired.z = TheTerrainLogic->s1C(
-                        desired.x, desired.y, obj->rva0028B511(), 0, true);
+                    desired.z = TheTerrainLogic->getLayerHeight(
+                        desired.x, desired.y, (PathfindLayerEnum)obj->rva0028B511(), 0, true);
             }
             float relative = normalizeAngle((double)angle - obj->angle);
             if (mode == 0 && fabs(relative) > 0.17453294f) {

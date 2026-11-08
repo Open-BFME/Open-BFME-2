@@ -335,17 +335,7 @@ extern Eva *TheEva;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
-class TerrainLogic {
-  public:
-    virtual void s00();
-    virtual void s04();
-    virtual void s08();
-    virtual void s0C();
-    virtual void s10();
-    virtual void s14();
-    virtual float s18(float, float, bool);
-    virtual float s1C(float, float, int, Coord3D *, bool);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Rva0046ACF6 {
   public:
@@ -574,7 +564,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
         bool move = delta.length() > 0.5f;
         bool rising = !move && dz > 0.5f;
         bool falling = !move && dz < -0.5f;
-        float ground = TheTerrainLogic->s18(obj->pos.x, obj->pos.y, false);
+        float ground = TheTerrainLogic->getGroundHeight(obj->pos.x, obj->pos.y, 0);
         if (ground + 0.01f >= obj->pos.z && move && obj->flags.test(443)) {
             obj->flags.clear(443);
             obj->rva0028AE6D();
@@ -610,7 +600,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
         } else
             obj->clearModel(61);
         ((Thing *)obj)->setPosition(&goal);
-        float newGround = TheTerrainLogic->s18(obj->pos.x, obj->pos.y, false);
+        float newGround = TheTerrainLogic->getGroundHeight(obj->pos.x, obj->pos.y, 0);
         if (newGround > obj->pos.z)
             ((Thing *)obj)->setPositionZ(newGround);
         moving = true;
@@ -732,7 +722,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
             target.z = old.z;
             if (TheAI->pathfinder()->IsValidMovementPositionForObject(
                     &target, obj->rva0028B511(), unitAI->getMovementType(), getObject()))
-                target.z = TheTerrainLogic->s1C(target.x, target.y, obj->rva0028B511(), 0, true);
+                target.z = TheTerrainLogic->getLayerHeight(target.x, target.y, (PathfindLayerEnum)obj->rva0028B511(), 0, true);
         }
         float relative = angle - obj->angle;
         relative = normalizeAngle(relative);

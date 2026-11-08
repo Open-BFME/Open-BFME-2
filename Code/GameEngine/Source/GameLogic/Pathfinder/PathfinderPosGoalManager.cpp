@@ -266,7 +266,7 @@ private:
     unsigned char pad00[8]; bool m_enabled;
 };
 #include "../../../Include/GameLogic/AI.h"
-class TerrainLogic : public NativeSlots<44> { public: virtual bool slot44(Object *,int)=0; PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *); }; extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h" extern TerrainLogic *TheTerrainLogic;
 float __cdecl Rva004DD722Get(int);
 int __cdecl Rva002E9B31Get(void *);
 int __cdecl isGroundOrBridgeLayer(int);
@@ -293,7 +293,7 @@ void PathfinderPosGoalManager::AddObjPtr(Rva004DD843Slot *slot)
  Rva004DD9E3 visitor;
  visitor.slot=slot; visitor.category=slot->m_listKind; visitor.object=callbackObject;
  visitor.secondary=0; visitor.layer=slot->m_pathLayer;
- if (!(unsigned char)isGroundOrBridgeLayer(slot->m_pathLayer) && TheTerrainLogic->slot44(callbackObject,slot->m_pathLayer)) visitor.secondary=1;
+ if (!(unsigned char)isGroundOrBridgeLayer(slot->m_pathLayer) && TheTerrainLogic->objectInteractsWithBridgeEnd(callbackObject,slot->m_pathLayer)) visitor.secondary=1;
  TheAI->m_pathfinder->IterateCellsInRectangle((ICoord2DBase *)slot,&diameter,Rva004DD722Get(slot->m_angle),slot->m_pathLayer,&visitor);
 }
 
