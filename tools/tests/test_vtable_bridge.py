@@ -386,6 +386,39 @@ def test_ledger_tables_are_vtable_rows_and_global_owner_rows_binding_a_vftable_n
     assert [row["address"] for row in V.table_rows(tmp_path)] == ["0x3000", "0x3010"]
 
 
+def test_virtual_base_tables_are_not_function_tables_but_mixed_and_legacy_rows_are(tmp_path):
+    write_ledger(tmp_path, [
+        {"address": "0x3000", "kind": "vtable", "name": "??_8A@@7B@"},
+        {"address": "0x3010", "kind": "vtable", "name": "??_8B@@7B@", "names": "??_8B@@7B@;??_8C@@7BB@@@"},
+        {"address": "0x3020", "kind": "vtable", "name": "??_8D@@7B@", "names": "??_7D@@6B@;??_8D@@7B@"},
+        {"address": "0x3030", "kind": "vtable", "name": "_vtbl_00C03030"},
+        {"address": "0x3040", "kind": "vtable", "name": "??_8E@@7B@", "names": "??_8E@@7B@;_vtbl_00C03040"},
+        {"address": "0x3050", "kind": "global", "name": "_vbtbl_00C03050", "names": "??_7F@@6B@;??_8F@@7B@;_vbtbl_00C03050"}])
+    assert [row["address"] for row in V.table_rows(tmp_path)] == ["0x3020", "0x3030", "0x3040", "0x3050"]
+
+
+def test_virtual_base_table_is_not_refused_and_its_strong_neighbour_still_is(tmp_path, monkeypatch):
+    code, _table, rows, _data = inputs(tmp_path)
+    vbtable = L.write_coff(tmp_path / "vbase.obj", [(".rdata", 0x40300040 | V.COMDAT,
+                                                     struct.pack("<ii", 0, 36), 2)],
+                           [("??_8D@@7B@", 1, 0, L.EXTERNAL)])
+    strong = table_object(tmp_path / "owner.obj", ("_first", "_second"), name="_vtbl_00C03000", selection=0)
+    write_ledger(tmp_path, [
+        {"address": "0x3000", "kind": "global", "name": "_vtbl_00C03000", "names": "??_7T@@6B@;_vtbl_00C03000"},
+        {"address": "0x3008", "kind": "vtable", "name": "??_8D@@7B@"}])
+    retail = Retail()
+    retail.raw += struct.pack("<ii", 0, 36)
+    assert V.retail_slots(retail, {"address": "0x3008", "size": "8"}) == (None, "no-retail-slots")
+    monkeypatch.setattr(V.build, "ROOT", tmp_path)
+    monkeypatch.setattr(V.build, "row_object", lambda row: code)
+    monkeypatch.setattr(V.build, "ledger_object_symbol", lambda row: row["name"])
+    (tmp_path / "out").mkdir()
+    _path, metadata = V.build_bridge(rows, [vbtable, strong, code], [], [], tmp_path / "out", retail)
+    assert [(entry["name"], entry["reason"]) for entry in metadata["refusals"]] == [
+        ("_vtbl_00C03000", "strong-definition")]
+    assert "??_8D@@7B@" not in (tmp_path / "out" / "vtable_bridge_queue.tsv").read_text()
+
+
 def test_global_owner_row_bridges_its_comdat_vftable_and_refuses_the_strong_owner(tmp_path, monkeypatch):
     code, _table, rows, _data = inputs(tmp_path)
     table = table_object(tmp_path / "class.obj", name="??_7T@@6B@")

@@ -29,9 +29,17 @@ def is_table_row(row):
     hand-built strong array registered there (`_vtbl_00BF17F8`,
     `?g_0086FFFC@@3QBQBXB`) makes the row `global` although compiled classes'
     vftable names are bound at the same address. That row is still a table
-    (plan() refuses the strong owner by name); other kinds are not."""
+    (plan() refuses the strong owner by name); other kinds are not.
+
+    The ledger also files MSVC virtual-base tables (`??_8X@@7B@`) as
+    kind=vtable. They hold signed base offsets, not code pointers, so this
+    planner has no slot to bridge; a row whose every name is a `??_8` is not
+    a table here. A row that also binds any other name stays one."""
+    names = row_names(row)
+    if names and all(name.startswith("??_8") for name in names):
+        return False
     return row["kind"] == "vtable" or row["kind"] == "global" and any(
-        name.startswith("??_7") for name in row_names(row))
+        name.startswith("??_7") for name in names)
 
 
 def table_rows(root):

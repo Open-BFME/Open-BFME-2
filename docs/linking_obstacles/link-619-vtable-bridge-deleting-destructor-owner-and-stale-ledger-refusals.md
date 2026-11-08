@@ -568,3 +568,13 @@ strictly prepared; all 33 code rows, its one data row, two string references
 and seven float references pass. The source is untouched. This supplies the
 local receipt missing in the particle-copy push audit, without changing its
 recorded INCONCLUSIVE result or claiming broader current closure.
+
+**2026-11-08, seat LeonardBuhl: the vbtable false reject is repaired in the tool.**
+`tools/vtable_bridge.is_table_row` no longer admits a data-ledger row whose every name is a `??_8` virtual-base
+table; a row that also binds a `??_7`, a legacy `_vtbl_` name or any other name stays a table. On the current ledger
+this drops exactly the 34 vbtable-only rows (3,843 -> 3,809 table rows; no mixed `??_7`/`??_8` row exists). Two
+regression tests cover the selector boundary and an end-to-end bridge run where an offset table `(0, 36)` sits beside a
+strong `_vtbl_` owner: the vbtable is neither refused nor queued, and the strong owner's refusal survives. Bridge,
+exit_link, link_batch_audit and gate-exploit suites pass (416 tests). Clearance: none claimed until the next real link's
+`vtable_bridge_queue.tsv` lists no `no-retail-slots` row (34 at `4a3033f245`). The `??_7` tables in the same units remain
+separate bridge work.
