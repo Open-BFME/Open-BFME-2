@@ -13,7 +13,10 @@ public:
 class Rva007F1DE0BaseB
 {
 public:
-	virtual void secondary();
+	// No derived class overrides this slot: every +4 vftable (retail 0x008E0FB4)
+	// holds 0x007244B0, `mov eax,[ecx+4]; ret`, the payload getter that ICF
+	// folded with CullSystemClass::Get_First_Collected_Object_Internal.
+	virtual void *secondary() { return m_payload; }
 	void *m_payload;
 	Rva007F1DE0BaseB(void *payload) : m_payload(payload) {}
 };
@@ -24,7 +27,6 @@ class Rva##RVA##Object : public Rva007F1DE0BaseA, public Rva007F1DE0BaseB \
 public: \
 	Rva##RVA##Object(void *payload); \
 	virtual void primary(); \
-	virtual void secondary(); \
 }; \
 Rva##RVA##Object::Rva##RVA##Object(void *payload) : Rva007F1DE0BaseB(payload) {}
 
@@ -37,14 +39,8 @@ BFME_DERIVED_CTOR(007FC150)
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?secondary@Rva007F1DE0BaseB@@UAEXXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
-#pragma comment(linker, "/alternatename:?secondary@Rva007F2680Object@@UAEXXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
 #pragma comment(linker, "/alternatename:?primary@Rva007F2680Object@@UAEXXZ=??_GGen007F2E30@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?secondary@Rva007F2F80Object@@UAEXXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
 #pragma comment(linker, "/alternatename:?primary@Rva007F2F80Object@@UAEXXZ=??_GGen007F33E0@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?secondary@Rva007FAE20Object@@UAEXXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
 #pragma comment(linker, "/alternatename:?primary@Rva007FAE20Object@@UAEXXZ=??_GGen007FBAF0@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?secondary@Rva007FC150Object@@UAEXXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
 #pragma comment(linker, "/alternatename:?primary@Rva007FC150Object@@UAEXXZ=??_GGen007F1BF0@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?secondary@Rva007F1DE0Object@@UAEXXZ=?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")
 #pragma comment(linker, "/alternatename:?primary@Rva007F1DE0Object@@UAEXXZ=??_GGen007F2120@@UAEPAXI@Z")
