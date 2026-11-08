@@ -27,7 +27,8 @@ struct Rva009AD750Context
 	int *m_bounding;
 };
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 
 extern "C" void __cdecl DeblockVerticalEdgesInNonFilteredBand(Rva009AD750Context *ctx,
 	unsigned char *source, unsigned char *destination, unsigned int stride,
@@ -87,8 +88,8 @@ extern "C" void __cdecl DeblockVerticalEdgesInNonFilteredBand(Rva009AD750Context
 				rowOutput[3] = (unsigned char)(((rolling+right+samples[8])*2-samples[5] - samples[4])>>4);
 			} else {
 				filter = ctx->m_bounding[(samples[3] - samples[6] + 3 * (samples[5] - samples[4]) + 4) >> 3];
-				rowOutput[-1] = g_bfmeClampTable[samples[4] + filter];
-				rowOutput[0] = g_bfmeClampTable[samples[5] - filter];
+				rowOutput[-1] = BFME_CLAMP_ZERO[samples[4] + filter];
+				rowOutput[0] = BFME_CLAMP_ZERO[samples[5] - filter];
 			}
 			rowInput += stride;
 			rowOutput += stride;
@@ -178,8 +179,8 @@ extern "C" void __cdecl DeblockVerticalEdgesInNonFilteredBandNewFilter(Rva009AF2
 				d[3] = (unsigned char)((sum + x[8]) >> 3);
 			} else {
 				filter = ctx->m_bounding[(x[3] - x[6] + 3 * (x[5] - x[4]) + 4) >> 3];
-				d[-1] = g_bfmeClampTable[x[4] + filter];
-				d[0] = g_bfmeClampTable[x[5] - filter];
+				d[-1] = BFME_CLAMP_ZERO[x[4] + filter];
+				d[0] = BFME_CLAMP_ZERO[x[5] - filter];
 			}
 			s += step;
 			d += step;

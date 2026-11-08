@@ -12,15 +12,16 @@
 // g_bfmeFilterLimit (retail 0x00E22CE0). Both centre taps are written back
 // through the saturating clamp table whose zero point is at 0x00E23100.
 
-extern const unsigned char g_bfmeClampTable[];		// retail 0x00E23100 (zero point)
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 // g_bfmeFilterLimit is defined in InitPostProcessing.cpp, which sets it.
 extern int g_bfmeDeringModifiers[65];
 #define g_bfmeFilterLimit (*(int **)(g_bfmeDeringModifiers + 64))
 
-// g_bfmeClampTable: matched DIR32 references place this at VA 0x00E23100
-// (RVA 0x00A23100), in .data's zero-filled tail. This 0x200-byte storage
-// view ends at the next known global, g_bfmeSharedJX (VA 0x00E23300).
-const unsigned char g_bfmeClampTable[0x200] = { 0 };
+// g_bfmeClampTable: 0x300 bytes in .data's zero-filled tail, from VA 0x00E23000 to the next
+// known global, g_bfmeSharedJX (VA 0x00E23300). InitPostProcessing fills it for the indices
+// -256..511 around the zero point, which every reader's DIR32 names.
+unsigned char g_bfmeClampTable[0x300];
 
 #define BFME_LIMIT_ADJUST(v, t)		\
 	{								\
@@ -45,8 +46,8 @@ extern "C" void __cdecl FilteringHoriz_8_C(unsigned int index, unsigned char *pt
 	for (int i = 0; i < 8; ++i) {
 		int v = ((ptr[-2] - ptr[1]) + 3 * (ptr[0] - ptr[-1]) + 4) >> 3;
 		BFME_LIMIT_ADJUST(v, t)
-		ptr[-1] = g_bfmeClampTable[ptr[-1] + v];
-		ptr[0] = g_bfmeClampTable[ptr[0] - v];
+		ptr[-1] = BFME_CLAMP_ZERO[ptr[-1] + v];
+		ptr[0] = BFME_CLAMP_ZERO[ptr[0] - v];
 		ptr += stride;
 	}
 }
@@ -60,8 +61,8 @@ extern "C" void __cdecl FilteringVert_8_C(unsigned int index, unsigned char *ptr
 		int v = ((*(const unsigned char *)((-2 * s) + (unsigned int)ptr) - ptr[stride])
 			+ 3 * (ptr[0] - ptr[-stride]) + 4) >> 3;
 		BFME_LIMIT_ADJUST(v, t)
-		ptr[-stride] = g_bfmeClampTable[ptr[-stride] + v];
-		ptr[0] = g_bfmeClampTable[ptr[0] - v];
+		ptr[-stride] = BFME_CLAMP_ZERO[ptr[-stride] + v];
+		ptr[0] = BFME_CLAMP_ZERO[ptr[0] - v];
 		++ptr;
 	}
 }
@@ -73,8 +74,8 @@ extern "C" void __cdecl FilteringHoriz_12_C(unsigned int index, unsigned char *p
 	for (int i = 0; i < 12; ++i) {
 		int v = ((ptr[-2] - ptr[1]) + 3 * (ptr[0] - ptr[-1]) + 4) >> 3;
 		BFME_LIMIT_ADJUST(v, t)
-		ptr[-1] = g_bfmeClampTable[ptr[-1] + v];
-		ptr[0] = g_bfmeClampTable[ptr[0] - v];
+		ptr[-1] = BFME_CLAMP_ZERO[ptr[-1] + v];
+		ptr[0] = BFME_CLAMP_ZERO[ptr[0] - v];
 		ptr += stride;
 	}
 }
@@ -88,8 +89,8 @@ extern "C" void __cdecl FilteringVert_12_C(unsigned int index, unsigned char *pt
 		int v = ((*(const unsigned char *)((-2 * s) + (unsigned int)ptr) - ptr[stride])
 			+ 3 * (ptr[0] - ptr[-stride]) + 4) >> 3;
 		BFME_LIMIT_ADJUST(v, t)
-		ptr[-stride] = g_bfmeClampTable[ptr[-stride] + v];
-		ptr[0] = g_bfmeClampTable[ptr[0] - v];
+		ptr[-stride] = BFME_CLAMP_ZERO[ptr[-stride] + v];
+		ptr[0] = BFME_CLAMP_ZERO[ptr[0] - v];
 		++ptr;
 	}
 }

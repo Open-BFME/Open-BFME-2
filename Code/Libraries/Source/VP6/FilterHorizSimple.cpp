@@ -11,7 +11,8 @@
 // edge-adjacent pixels, and half of it the outer pixels on non-high-activity
 // lines, all through the saturating clamp table.
 
-extern const unsigned char g_bfmeClampTable[];			// retail 0x00E23100 (zero point)
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 
 // RVA 0x001C3F50
 extern "C" void __cdecl FilterHoriz_Simple_C(void *, unsigned char *ptr, int stride, const int *bounding)
@@ -51,13 +52,13 @@ steep:
 
 filter:
 		delta = bounding[(value + 4) >> 3];
-		ptr[1] = g_bfmeClampTable[ptr[1] + delta];
-		ptr[2] = g_bfmeClampTable[ptr[2] - delta];
+		ptr[1] = BFME_CLAMP_ZERO[ptr[1] + delta];
+		ptr[2] = BFME_CLAMP_ZERO[ptr[2] - delta];
 
 		if (flag == 0) {
 			delta >>= 1;
-			ptr[0] = g_bfmeClampTable[ptr[0] + delta];
-			ptr[3] = g_bfmeClampTable[ptr[3] - delta];
+			ptr[0] = BFME_CLAMP_ZERO[ptr[0] + delta];
+			ptr[3] = BFME_CLAMP_ZERO[ptr[3] - delta];
 		}
 
 		ptr += stride;
