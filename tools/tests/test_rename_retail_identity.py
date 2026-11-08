@@ -222,6 +222,21 @@ def test_a_retail_record_outside_the_table_grants_nothing(tmp_path, label, kind,
     assert got.lookup(new, int(rva, 16) if rva else 0) is None, label
 
 
+@pytest.mark.parametrize("spelled", ["0052BD3A", "52BD3A", "0x52BD3A", "0x0052bd3a", "0X0052BD3A", " 0x0052BD3A", "0x0052BD3A ", "", "x"])
+def test_only_the_planners_spelling_of_the_address_grants(tmp_path, spelled):
+    """The review's repro: a prefixless address read as no address made the grant hold at every address."""
+    got = bases(tmp_path, f"function,{F.rows[COPY][0]},{NEW_COPY},retail,{EVIDENCE},{TU},{spelled}")
+    assert got.lookup(NEW_COPY, 0x001E296E) is None
+    assert got.lookup(NEW_COPY, COPY) is None
+    assert not R.record_proven(F.rows[COPY][0], NEW_COPY, spelled, EVIDENCE)
+
+
+def test_the_planners_spelling_grants_at_its_address_only(tmp_path):
+    got = bases(tmp_path, f"function,{F.rows[COPY][0]},{NEW_COPY},retail,{EVIDENCE},{TU},0x{COPY:08X}")
+    assert got.lookup(NEW_COPY, COPY) == ("evidence", "retail")
+    assert got.lookup(NEW_COPY, 0x001E296E) is None
+
+
 def test_the_table_and_its_hash_are_protected_paths():
     import protected_paths
     paths = ["tools/retail_identity.py", "baselines/bfme2/workshop-vanilla-1.06/manifest.json", "tools/pin_admission.py"]
@@ -512,6 +527,33 @@ def test_the_old_pin_with_new_notes_is_not_gone(image, admission):
     # with no owner at the address only the new spelling can be refused: the old pin stays and they stack
     got = admission.judge([pin(OLD_GET, GET)], [pin(OLD_GET, GET, "other notes"), pin(NEW_GET, GET)], [], [])
     assert got and NEW_GET in got[0] and "already carries the real name" in got[0]
+
+
+UNRELATED = "?unrelated@@YAXXZ"
+
+
+def test_the_exemption_covers_the_one_respelled_pin(image, admission):
+    """The review's repro: no owner at the address, the respelling, and a stranger beside it."""
+    got = admission.judge([pin(OLD_GET, GET)], [pin(NEW_GET, GET), pin(UNRELATED, GET)], [], [])
+    assert len(got) == 1 and UNRELATED in got[0] and "already carries the real name" in got[0]
+    # and in the other order of the lines
+    assert admission.judge([pin(OLD_GET, GET)], [pin(UNRELATED, GET), pin(NEW_GET, GET)], [], [])
+
+
+def test_the_old_name_with_whitespace_is_still_the_old_name(image, admission):
+    for spelled in (OLD_GET + " ", " " + OLD_GET, OLD_GET + "\t"):
+        got = admission.judge([pin(OLD_GET, GET)], [pin(spelled, GET), pin(NEW_GET, GET)], [], [])
+        # the old pin is not gone, so the respelling gets no exemption and is the line refused
+        assert got and got[0].startswith(f"{admission.PINS}: {NEW_GET},") and "already carries the real name" in got[0], repr(spelled)
+
+
+def test_the_respelling_may_not_appear_twice(image, admission):
+    assert admission.judge([pin(OLD_GET, GET)], [pin(NEW_GET, GET, "one"), pin(NEW_GET, GET, "two")],
+                           [owner(REAL, GET)], [owner(REAL, GET)])
+
+
+def test_the_respelling_alone_is_still_admitted_with_no_owner(image, admission):
+    assert admission.judge([pin(OLD_GET, GET)], [pin(NEW_GET, GET)], [], []) == []
 
 
 def test_a_respelled_pin_may_change_its_notes_and_spelling(image, admission):

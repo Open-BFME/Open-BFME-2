@@ -183,15 +183,14 @@ def family_of(rva, new):
 
 def record_proven(old_name, new_name, rva, evidence):
     """Is this name_basis record a family's own record of its row: the row's old spelling, its respell,
-    its address and exactly the facts the table holds for it? Nothing else speaks for a name as `retail`."""
-    try:
-        at = int(rva, 16)
-    except (TypeError, ValueError):
-        return False
+    its address spelled exactly as the planner writes it (0x and eight upper-case digits) and exactly
+    the facts the table holds for it? Nothing else speaks for a name as `retail`; a reader that does not
+    parse another spelling of the address would hold the grant at no address at all."""
     for family in FAMILIES:
-        got = family.rows.get(at)
-        if got and got[0] == old_name and family.respell(old_name) == new_name and record(got[1]) == evidence:
-            return True
+        for at, (old, facts) in family.rows.items():
+            if (rva == f"0x{at:08X}" and old == old_name and family.respell(old) == new_name
+                    and record(facts) == evidence):
+                return True
     return False
 
 

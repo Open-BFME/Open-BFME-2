@@ -786,6 +786,11 @@ def row_key(row):
                                       "source", "status", "notes"))
 
 
+def _name(pin):
+    """A pin's name as the resolver would read it: csv keeps surrounding whitespace, a symbol has none."""
+    return (pin.get("name") or "").strip()
+
+
 def _address(pin):
     """A pin's address as a number, None when it does not read as one."""
     try:
@@ -819,18 +824,20 @@ def judge(old_pins, new_pins, old_rows, new_rows, *, static_only=False):
         added.append(pin)
     # The pin of a family retail's own bytes prove (retail_identity), respelled at its address: it
     # is the same pin under its proven class, so no second name stacks on that address.
-    still = {(p.get("name"), _address(p)) for p in new_pins}
-    gone = {(p.get("name"), _address(p)) for p in old_pins} - still
+    # Only that one pin: every other new pin is still judged, against it too. Names compare stripped.
+    still = {(_name(p), _address(p)) for p in new_pins}
+    gone = {(_name(p), _address(p)) for p in old_pins} - still
     respelled = [pin for pin in added if any(address is not None and address == _address(pin) and
                                              retail_identity.pin_respell_proven(name, pin["name"], address)
-                                             for name, address in gone)]
+                                             for name, address in gone)
+                 and sum(_name(p) == _name(pin) and _address(p) == _address(pin) for p in new_pins) == 1]
     added = [pin for pin in added if pin not in respelled]
     # Judge the proposed ownership state. Removed pins/rows must not block a
     # corrected owner, and a newly added ledger owner must still block an alias.
     # Added pins are checked and accumulated below so two new names also conflict.
     if added:
         retained_pins = [p for p in new_pins if pin_key(p) in before]
-        names_at = names_by_address(new_rows, retained_pins)
+        names_at = names_by_address(new_rows, retained_pins + respelled)
         # Static preflight defers proof-dependent decisions to the full gate.
         prove = (lambda pin, rva: []) if static_only else fold_prover(new_rows, new_pins)
     for pin in added:
