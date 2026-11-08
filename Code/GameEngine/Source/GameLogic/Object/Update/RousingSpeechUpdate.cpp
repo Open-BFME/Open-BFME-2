@@ -264,9 +264,18 @@ public:
 	Rva00360D26Member m_objectFilter; // +0xF4
 };
 
-class RousingSpeechUpdate : public SpecialAbilityUpdate
+class Rva0044EF5E : public SpecialAbilityUpdate
 {
 public:
+	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva0044EF5E();
+};
+// Retail's tables: 0x00C54FE8 (23 slots), 0x00C4D640 at +0x0C, 0x00C54FD8 at +0x10 and 0x00C552A4 at +0x20.
+class RousingSpeechUpdate : public Rva0044EF5E
+{
+public:
+	RousingSpeechUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~RousingSpeechUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void startPreparation();
 	void rva004ACF1D();

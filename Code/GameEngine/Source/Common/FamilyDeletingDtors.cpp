@@ -38,10 +38,6 @@ void famgenDelete(Rva0048B95F *p) { delete p; }
 // constructor unit, with the complete ModuleData interface.
 
 
-// ??_GRousingSpeechUpdate@@UAEPAXI@Z @0x4acffd
-class RousingSpeechUpdate { public: RousingSpeechUpdate(EmitVtableTag *); virtual ~RousingSpeechUpdate(); };
-// ?<RousingSpeechUpdate::RousingSpeechUpdate> absent-from-retail
-RousingSpeechUpdate::RousingSpeechUpdate(EmitVtableTag *) {}
 
 
 // ??_GTransitionDamageFXModuleData@@UAEPAXI@Z @0x4ba6f9
