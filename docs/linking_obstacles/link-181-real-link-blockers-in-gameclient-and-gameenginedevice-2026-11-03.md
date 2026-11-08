@@ -586,3 +586,16 @@ Published as 79e9193622 on the first attempt (54.1 seconds). Required
 checks pass; the broader audit remains INCONCLUSIVE against c885072a48
 because unchanged Common/AICommandInterface_aiMoveToPositionEvenIfSleeping.cpp
 lacks a current strict receipt. This does not establish current image closure.
+
+**2026-11-08 Animal main-class adoption:** the seed now uses the complete
+canonical AnimalAIUpdate header. Its offset helpers take the actual update
+interface; the explicit proven +0x10 view preserves the native override
+entry without the null mask emitted by the two base-conversion trials.
+All 15 rows, three EH graphs, 63 code COMDAT facts, 30 data allocations and
+external bindings remain identical. One final header debt is retired, so
+this source has no header-queue entries. No table is newly emitted; preview
+conserves LINKS/3,167 bytes. Other constructor/destructor, state-machine and
+transfer donors still need reconciliation before TU composition, and the
+placeholder literal getter keeps its existing identity. No image/runtime
+clearance is claimed.
+[Class and receiver proof](../../reverse/attempt_support/animal-full-header-adoption-20261108/README.md).

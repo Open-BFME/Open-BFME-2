@@ -221,12 +221,7 @@ private:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AnimalAIUpdate
-{
-public:
-	virtual UpdateSleepTime update();
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 
 BFME_LITERAL_NAME_GETTER(Rva0047EBA9Named, "AnimalAIUpdate")
 
@@ -305,12 +300,12 @@ inline __declspec(noinline) float Rva000CBA20::distSq(const Rva000CBA20Point *p)
 	return dx * dx + dy * dy;
 }
 
-static __forceinline const AnimalAIUpdateModuleDataView *animalData(AnimalAIUpdate *self)
+static __forceinline const AnimalAIUpdateModuleDataView *animalData(UpdateModuleInterface *self)
 {
 	return *(AnimalAIUpdateModuleDataView **)((char *)self - 0x0c);
 }
 
-static __forceinline Object *animalObject(AnimalAIUpdate *self)
+static __forceinline Object *animalObject(UpdateModuleInterface *self)
 {
 	return *(Object **)((char *)self - 8);
 }
@@ -328,32 +323,32 @@ static __forceinline ObjectID animalID(Object *object)
 static __forceinline const char *animalDebugName(Object*object){return ((const StringBase<char> *)&object->getTemplate()->getName())->str();}
 
 // The current update body receives the secondary interface at whole-object +0x10.
-static __forceinline AIUpdateInterface *animalPrimary(AnimalAIUpdate *self)
+static __forceinline AIUpdateInterface *animalPrimary(UpdateModuleInterface *self)
 {
 	return (AIUpdateInterface *)((char *)self - 0x10);
 }
 
-static __forceinline AICommandInterface *animalCommands(AnimalAIUpdate *self)
+static __forceinline AICommandInterface *animalCommands(UpdateModuleInterface *self)
 {
 	return (AICommandInterface *)((char *)self + 0x10);
 }
 
-static __forceinline Coord3D *originalPosition(AnimalAIUpdate *self)
+static __forceinline Coord3D *originalPosition(UpdateModuleInterface *self)
 {
 	return (Coord3D *)((char *)self + 0x3dc);
 }
 
-static __forceinline ObjectID &scaringObjectID(AnimalAIUpdate *self)
+static __forceinline ObjectID &scaringObjectID(UpdateModuleInterface *self)
 {
 	return *(ObjectID *)((char *)self + 0x3d8);
 }
 
-static __forceinline unsigned char &processedOne(AnimalAIUpdate *self)
+static __forceinline unsigned char &processedOne(UpdateModuleInterface *self)
 {
 	return *(unsigned char *)((char *)self + 0x3e8);
 }
 
-static __forceinline unsigned char &returning(AnimalAIUpdate *self)
+static __forceinline unsigned char &returning(UpdateModuleInterface *self)
 {
 	return *(unsigned char *)((char *)self + 0x3e9);
 }
@@ -366,7 +361,7 @@ static __forceinline void animalLog(const char *text)
 
 UpdateSleepTime AnimalAIUpdate::update()
 {
-	AnimalAIUpdate *self = this;
+	UpdateModuleInterface *self = reinterpret_cast<UpdateModuleInterface *>((char *)this + 0x10);
 	void *log;
 	const AnimalAIUpdateModuleDataView *data = animalData(self);
 	Object *animal = animalObject(self);
