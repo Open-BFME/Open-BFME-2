@@ -282,8 +282,18 @@ Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on
   today), then the record family is respelled and 0x0052BD3A moved alone to its approved unit: `rename.py --basis retail`
   passed its build, its post-check and the full ledger checks, with `name_dependents` byte-verifying 205 dependent units.
   Both commits passed their pre-commit hooks.
-- Remaining, in order: `repair_queue.py retire identity FXList.cpp` (refuses until its objects are built: 2 missing, 30
-  providers not proven current), the `list<FXNugget*>` pin fix, minimal B with its text regenerated.
+- Remaining at that point: the retire, the `list<FXNugget*>` pin fix and minimal B. All three followed (next section).
 - `rename.py check --range` reports the family's unchanged identifiers (`push_back`, `_M_insert_overflow`,
   `rva00566527`) as still spelled, about 1,500 lines. These are false positives: check_row scans the bare identifier
   even when a respell keeps it. No ledger still spells an old name, and no hook runs `check`.
+
+## 2026-11-08: retire, pin fix and minimal B (Harness)
+
+- `retire identity FXList.cpp` retired `??0FXList@@` and the stale `?doFXObj@ParticleSystemFXNugget` key; the commit says
+  why each clears. `??0?$list@PAVFXNugget...` is off 0x000365F0.
+- Minimal B: text regenerated on the day's FXList.cpp (identical to the banked text), 15/15 exact, guard accepted, donor
+  absorbed. `link_batch_audit` was INCONCLUSIVE for the split and respell (no current receipts, index older than the
+  batch), so carry them into the next census.
+- Not yet proven: the pass test. A boot of a plain master image of the landing commit must get past `findMemoryPool`;
+  until that receipt exists, P16 is not closed.
+
