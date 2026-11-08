@@ -17,15 +17,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-class UpgradeTemplate
-{
-public:
-	Int getUpgradeType() const { return m_type; }
-
-private:
-	void *m_vtbl;
-	Int m_type; // +0x04
-};
+#include "../../../Include/Common/Upgrade.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

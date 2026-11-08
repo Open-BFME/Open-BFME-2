@@ -87,3 +87,42 @@ the evidence register and can be ahead of the header or behind it. So every
 figure here is a classification of the recorded failure text, not a prediction
 of what a re-run does -- which is exactly why the 195 group is worth re-running
 rather than reasoning about.
+
+## Re-ran the 195 group: 2 of 85 (2026-11-08)
+
+The 195 rows whose contract records a field of exactly the view field's offset
+and size were re-run through `adopt`, after removing the 99 vptr rows the
+earlier fix covers and the rows under another seat's claim. 85 units in 28
+cohorts: **2 PASS, 83 FAIL**.
+
+Both passes were `UpgradeTemplate` (`AIGroupBroadcastOrders.cpp`,
+`ObjectRva00294ADD.cpp`), applied, byte-verified 2/2 and retired.
+
+So the hypothesis that these rows were stale is mostly wrong: the contract knows
+a field the **compiled header** does not spell, and the row stands. The failures
+re-report the same refusal against a different field of the same class, which is
+what it looks like when the header is genuinely behind its contract:
+
+| units | refusal |
+| ---: | --- |
+| 4 | `TreeHintOpaque0043671B::m_slots` |
+| 4 | `INI::m_data` |
+| 3 | `ScriptList::m_firstGroup` |
+| 3 | `Rva00330757Member::m_items` |
+| 2 | `SidesList::m_bases`, `ScriptList::groups`, `ModuleInfo::m_info`, `INI::storage`, `GameSlot::m_hero`, `Drawable::m_354` |
+| 3 | `no private view found` |
+
+That makes this group **contract-to-header work**, not classifier work: the
+evidence exists and the canonical header has not caught up with it. It is also
+the group with the clearest next step, because the contract already names the
+field, its offset and its size.
+
+Two incidental findings from the sweep:
+
+- Three units report `no private view found`, so their queue rows name a class
+  the unit no longer declares -- the same population as the 81 unretirable rows
+  in `header-lane-vptr-standin-20261107.md`.
+- One refusal printed an absolute path from the reference checkout
+  (`/home/dave/.../reference/open-bfme-1/...`) inside a field-rename message.
+  Harmless to the verdict, but a message that embeds a local absolute path is
+  not reproducible between checkouts.

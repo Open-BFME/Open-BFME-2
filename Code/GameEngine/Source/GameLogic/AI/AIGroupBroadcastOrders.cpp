@@ -83,15 +83,7 @@ enum CanMakeType { CANMAKE_QUEUE_FULL = 4 };
 #include "../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Upgrade.h
-class UpgradeTemplate
-{
-public:
-	UpgradeType getUpgradeType(void) const { return m_type; }
-
-private:
-	unsigned char m_unmodelled_000[4];
-	UpgradeType m_type;					// +0x04
-};
+#include "../../../Include/Common/Upgrade.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ProductionUpdate.h
 #include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
@@ -132,11 +124,6 @@ private:
 #include "../../../Include/Common/BuildAssistantClass.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Upgrade.h
-class UpgradeCenter
-{
-public:
-	Bool canAffordUpgrade(Player *player, const UpgradeTemplate *upgrade, Bool bfmeFlag, Bool forceCheck) const;	// ILT 0x0001CEA9
-};
 
 extern BuildAssistant *TheBuildAssistant;
 extern UpgradeCenter *TheUpgradeCenter;
