@@ -13,6 +13,7 @@
 // WorldBuilder names computeApproachTarget; computePath identity follows the donor
 // contact-weapon callsite and its native body, with unnamed WB strings twin.
 // Their bodies remain unrowed; bindings are candidate pins with target call evidence.
+#include <stdio.h>
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -45,7 +46,6 @@ enum KindOfType
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 extern GameLogic *TheGameLogic;
 
 #define CRITTER_TRACE(s) \

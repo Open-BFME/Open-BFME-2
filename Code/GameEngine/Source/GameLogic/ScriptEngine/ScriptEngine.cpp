@@ -4,6 +4,7 @@
 #pragma push_macro("_CRTIMP")
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
+#include <math.h>
 #include <stdio.h>
 #pragma pop_macro("_CRTIMP")
 #include "ascii_string.h"
@@ -14,7 +15,6 @@ extern "C" void _ReadWriteBarrier(void);
 typedef float Real;
 extern "C" float __cdecl sinf(float);
 extern "C" float __cdecl cosf(float);
-extern "C" __declspec(dllimport) double __cdecl ceil(double);
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 unsigned long Rva003ECA13Get(const AsciiString &name);
 	// 0x003ECA13, the name's CRC

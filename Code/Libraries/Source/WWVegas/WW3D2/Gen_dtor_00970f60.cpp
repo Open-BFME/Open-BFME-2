@@ -50,10 +50,10 @@ private:
 
 extern "C" char *__cdecl _mbscpy(char *, const char *);
 extern "C" char *__cdecl _mbscat(char *, const char *);
-extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
 void *__cdecl operator new(unsigned int);
 
 // Same chunk reader view as the verified sibling factory at 0x001808B0.
+#include <string.h>
 #include "../../../../GameEngine/Include/Common/File.h"
 class FileClass;
 File *__cdecl GetGameFilePart(const char *, int, int);

@@ -1,4 +1,5 @@
 // cl: /O2 /EHs
+#include <stdlib.h>
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
 typedef unsigned short wchar_t;
 
@@ -10,7 +11,6 @@ class WideLock;
 Rva00041004 *Rva00035DF0Get();
 Rva00041004 *Rva00035C90Get();
 
-extern "C" void __cdecl free(void *block);
 
 #include <string.h>
 

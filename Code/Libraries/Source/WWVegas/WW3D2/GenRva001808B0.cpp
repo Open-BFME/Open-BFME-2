@@ -7,12 +7,12 @@
 // +0x14, releases File via slot 8. Evidence: vtable slot, callers share.
 
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" __declspec(dllimport) char *__cdecl strchr(const char *s, int c);
 
 typedef unsigned int uint32;
 typedef unsigned char uint8;
 
 
+#include <string.h>
 #include "../../../../GameEngine/Include/Common/File.h"
 
 class FileClass;

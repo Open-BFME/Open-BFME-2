@@ -21,11 +21,11 @@
 // destructor 0x004247E3 and stores its first argument at +0x0C; the destructor
 // thunk 0x00425801 and scalar deleting destructor 0x00425826 tear the same
 // object down.
+#include <stdlib.h>
 #include "ascii_string.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 
 
-extern "C" void __cdecl free(void *);
 inline void *operator new(unsigned int, void *where) throw() { return where; }
 
 class INI;

@@ -6,13 +6,13 @@
 // WSACleanups, and returns 1 unless startup or version failed. Imports
 // declared dllimport explicitly (direct slot calls); memset via extern C
 // to the thunk row. The sockaddr overlays the buffer tail by union.
+#include <string.h>
 extern "C" __declspec(dllimport) int __stdcall WSAStartup(unsigned short v, void *data);
 extern "C" __declspec(dllimport) int __stdcall socket(int a, int t, int p);
 extern "C" __declspec(dllimport) int __stdcall closesocket(int s);
 extern "C" __declspec(dllimport) int __stdcall connect(int s, void *a, int n);
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long v);
 extern "C" __declspec(dllimport) int __stdcall WSACleanup();
-extern "C" void *__cdecl memset(void *dst, int val, unsigned int n);
 
 struct Rva005B6E32Addr
 {

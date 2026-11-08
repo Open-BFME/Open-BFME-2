@@ -116,6 +116,7 @@ bool Rva0055B417::rva0055B417(int type) const
 // point (+0x38) and radius (+0x44) agrees with the +0x1C flag.
 struct Coord3D;
 
+#include <stdio.h>
 #include "../../Include/Common/Geometry.h"
 
 struct Rva00261603Object
@@ -262,7 +263,6 @@ void Made002CCB04::rva0050B4E2(void *a, Object *obj)
 // --- 0x0050E952 (56B): describe the +0x20 value into the buffer ("0"
 // first; "%d" unless only the default is wanted).
 extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src);
-extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
 
 class Rva0050E952
 {

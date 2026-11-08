@@ -7,7 +7,6 @@
 // lane; callees strncpy IAT 0x00BBA620 strlen thunk 0x00629170 _mbscpy thunk
 // 0x00629176 rowed; caller at 0x00447D3F; neighbours share flags.
 #include <string.h>
-extern "C" __declspec(dllimport) char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 
 // WorldBuilder NetworkBufferAppend, WB VA 0x014A7E60 (align lead, score 1.0).

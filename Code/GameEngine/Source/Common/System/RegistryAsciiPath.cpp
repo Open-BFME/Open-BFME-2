@@ -33,10 +33,10 @@
 // nodes are template-shared across the image, so their bodies sit far from
 // the registry code that first used them here.
 
-extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int written);
 
 class AsciiString;
 
+#include <string.h>
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 

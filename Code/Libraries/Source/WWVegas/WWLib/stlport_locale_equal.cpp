@@ -5,6 +5,7 @@
 // the same locale; otherwise the names decide, and a nameless locale is
 // never equal to anything.
 
+#include <string.h>
 #include <stdlib.h>
 
 namespace _STL
@@ -60,7 +61,6 @@ template <class CharT, class Traits, class Alloc>
 bool __cdecl operator!=(const basic_string<CharT, Traits, Alloc> &x,
 	const basic_string<CharT, Traits, Alloc> &y) throw();
 
-extern "C" int __cdecl memcmp(const void *a, const void *b, unsigned int n);
 #pragma intrinsic(memcmp)
 
 template <class CharT, class Traits, class Alloc>

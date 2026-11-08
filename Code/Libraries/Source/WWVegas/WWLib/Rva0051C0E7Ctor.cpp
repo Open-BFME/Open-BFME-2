@@ -4,8 +4,8 @@
 // memset is msvcr71's, called through its import thunk at 0x006291AE
 // rather than expanded inline (#pragma function). The constructor stores no
 // EH state around the call, so memset is first declared throw().
-extern "C" void *__cdecl memset(void *, int, unsigned int) throw();
 #pragma function(memset)
+#include <string.h>
 #include "ascii_string.h"
 #include <vector>
 

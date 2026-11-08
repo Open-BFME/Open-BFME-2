@@ -5,7 +5,6 @@
 #include <math.h>
 #undef atan2
 #undef inline
-extern "C" double __cdecl atan2(double, double);
 float __cdecl atan2(float y, float x);
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

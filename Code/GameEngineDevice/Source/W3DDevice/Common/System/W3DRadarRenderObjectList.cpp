@@ -21,6 +21,7 @@
 // Lock helpers: an early `if (!bits) return;` puts the EH lock object above
 // pitch in the frame (4DF6F/4F037/4F29B) and a block-scoped column variable
 // per half gives the lower-half column its own slot (4F037/4F29B).
+#include <math.h>
 #include <stl/_algobase.h>
 // These comparisons stay inline; retail keeps its external max elsewhere.
 namespace _STL {
@@ -38,7 +39,6 @@ typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 
-extern "C" __declspec(dllimport) double __cdecl floor(double);
 
 class Member0C00739C70 { public: void clear(); };
 class Rva0004D729 {

@@ -45,6 +45,7 @@
 // stopLoopingSound plus audioHandle). Recipe follows FlammableUpdateXfer
 // (Version plus audio-handle shape) plus GateOpenAndCloseBehaviorXfer.
 
+#include <string.h>
 #include <bitset>
 #include <list>
 
@@ -82,7 +83,6 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-extern "C" void *__cdecl memset(void *dest, int value, unsigned int count);
 
 class AsciiString;
 class UnicodeString;

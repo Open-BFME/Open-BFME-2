@@ -9,9 +9,9 @@
 // Static scope preserves the observed EAX/ECX/EDX argument convention.
 // Original wrapper names and target reachability remain unproven.
 
+#include <stdio.h>
 #include <stdarg.h>
 
-extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *buffer, unsigned int size, const char *format, va_list args);
 __declspec(dllimport) int __cdecl vswprintf(unsigned short *buffer, unsigned int size, const unsigned short *format, va_list args);
 
 static int Rva000356E0Narrow(char *buffer, unsigned int size, const char *format, va_list args)

@@ -91,7 +91,6 @@ public:
 // taking <string.h>'s spelling. Original name unknown; address-named.
 typedef unsigned int size_t;
 
-extern "C" __declspec(dllimport) size_t __cdecl wcslen(const unsigned short *text);
 
 extern "C" __declspec(dllimport) unsigned short __cdecl towlower(unsigned short value);
 
