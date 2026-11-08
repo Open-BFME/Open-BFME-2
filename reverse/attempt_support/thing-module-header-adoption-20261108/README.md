@@ -43,3 +43,10 @@ consumer closure, full real-link/runtime validation and retail TU recovery
 remain open. The earlier Module consolidation attempt's seed-header slot
 failure does not apply to this verified canonical-header adoption, and no
 merge or generated pass-test queue is edited.
+
+Published as b38a3024b4; first attempt landed in 50.8 seconds. Required
+row/EH/scoped-DIR32 checks pass after rebase. Broader link audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+195accef7eb242f0247ea449bf48c6d07435daa7; Common/AICowerState_onEnter.cpp
+lacks a current receipt. AIBaseBuilder now has a local current receipt, but
+this does not change the earlier recorded audits or establish image closure.

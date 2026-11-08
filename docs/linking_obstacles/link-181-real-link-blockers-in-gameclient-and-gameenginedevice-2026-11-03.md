@@ -484,3 +484,10 @@ in cached census or default real-link path order; strict native-provider receipt
 are current. Paired checks pass and preview conserves LINKS/226 bytes. This
 clears only the two header debts, with full current image and TU recovery open.
 [Helper emission and selection proof](../../reverse/attempt_support/thing-module-header-adoption-20261108/README.md).
+
+Published as b38a3024b4; first attempt landed in 50.8 seconds. Required
+row/EH/scoped-DIR32 checks pass after rebase. Broader link audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+195accef7eb242f0247ea449bf48c6d07435daa7; Common/AICowerState_onEnter.cpp
+lacks a current receipt. AIBaseBuilder now has a local current receipt, but
+this does not change the earlier recorded audits or establish image closure.
