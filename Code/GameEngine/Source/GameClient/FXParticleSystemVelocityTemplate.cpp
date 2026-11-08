@@ -3,23 +3,50 @@
 // The three subobjects retain their BFME2 retail vtables after the spherical
 // base constructor runs.
 
-extern "C" char HemisphericalEmissionVelocityModuleTemplate_cvtbl0;  // 0x00C1BC60, defined by HemisphericalEmissionVelocityModuleTemplateCopyCtorThunk.cpp
-
-extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];  // folded, 35 classes
-
-extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVHemisphericalEmissionVelocityModule@2@VHemisphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@6BHemisphericalEmissionVelocityInfo@1@@")[];  // folded, 2 classes
-
 extern "C" const void *const __identifier("??_7SphereEmissionVolumeInfo@FXParticleSystem@@6B@")[];
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../Include/GameClient/EmissionVolumeInfo.h"
 #include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
+#include "../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
-class SphericalEmissionVelocityModuleTemplate
+class ModuleTemplate
+{
+public:
+    ModuleTemplate();
+    virtual ~ModuleTemplate();
+};
+
+// Retail's nested category shape (LINK-584).
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
+{
+public:
+    virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
+
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
+{
+public:
+    CategoryModuleTemplateBase();
+    virtual ~CategoryModuleTemplateBase();
+};
+
+class SphericalEmissionVelocityModuleTemplate : public CategoryModuleTemplateBase<4>,
+    public SphericalEmissionVelocityInfo
 {
 public:
     SphericalEmissionVelocityModuleTemplate();
+    virtual ~SphericalEmissionVelocityModuleTemplate();
 };
 
 class HemisphericalEmissionVelocityModuleTemplate
@@ -27,16 +54,12 @@ class HemisphericalEmissionVelocityModuleTemplate
 {
 public:
     HemisphericalEmissionVelocityModuleTemplate();
+    virtual ~HemisphericalEmissionVelocityModuleTemplate();
 };
-
-
 
 // ??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@XZ
 HemisphericalEmissionVelocityModuleTemplate::HemisphericalEmissionVelocityModuleTemplate()
 {
-    *reinterpret_cast<unsigned int *>(this) = (unsigned int)&HemisphericalEmissionVelocityModuleTemplate_cvtbl0;
-    *reinterpret_cast<unsigned int *>(reinterpret_cast<unsigned char *>(this) + 4) = ((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
-    *reinterpret_cast<unsigned int *>(reinterpret_cast<unsigned char *>(this) + 8) = ((unsigned int)__identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVHemisphericalEmissionVelocityModule@2@VHemisphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@6BHemisphericalEmissionVelocityInfo@1@@"));
 }
 
 // ??0SphereEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z

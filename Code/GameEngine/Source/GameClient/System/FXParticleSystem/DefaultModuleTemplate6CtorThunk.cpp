@@ -1,48 +1,71 @@
 // cl: /DNDEBUG /MD /GX- /Ob2
 
 // Open-BFME5: DefaultModuleTemplate (ledger $06 / N=7) ctor
-// Retail: shim construct then three vtbl stores at +0/+4/+8.
+// Retail: the category constructor, then three vtbl stores at +0/+4/+8.
+
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../Include/GameClient/WindModuleInfo.h"
 
 namespace FXParticleSystem
 {
 
-class DefaultModuleTemplate7CtorShim
+class ModuleTemplate
 {
 public:
-	void construct();
+    ModuleTemplate();
+    ModuleTemplate(const ModuleTemplate &that);
+    virtual ~ModuleTemplate();
 };
 
-extern "C" char DefaultModuleTemplate6_vtbl0;
-extern "C" char DefaultModuleTemplate6_vtbl4;
-extern "C" char DefaultModuleTemplate6_vtbl8;
-
-template <int N>
-class DefaultModuleTemplate
+// Retail's nested category shape (LINK-584).
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
 {
 public:
-	DefaultModuleTemplate();
+    virtual void v1() = 0;
 
-private:
-	void *m_v0;
-	void *m_v4;
-	void *m_v8;
+protected:
+    ~CategoryModuleInfo();
 };
 
-// MSVC mangles DefaultModuleTemplate<7> as @$06
-template <int N>
-DefaultModuleTemplate<N>::DefaultModuleTemplate()
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
 {
-	((DefaultModuleTemplate7CtorShim *)this)->construct();
-	m_v0 = &DefaultModuleTemplate6_vtbl0;
-	m_v4 = &DefaultModuleTemplate6_vtbl4;
-	m_v8 = &DefaultModuleTemplate6_vtbl8;
-}
+public:
+    CategoryModuleTemplateBase();
+    CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY_ARG> &that);
+    virtual ~CategoryModuleTemplateBase();
+};
 
-template DefaultModuleTemplate<7>::DefaultModuleTemplate();
-}
+template <int CATEGORY>
+class CategoryModuleTemplate;
 
-// Each retail call in this body reads an address the ledger already carries
-// under the rowed name below; bind the donor spelling to that owner so one
-// address keeps one definition.
-//   0x001F448D -> ??0?$CategoryModuleTemplate@$06@FXParticleSystem@@QAE@XZ
-#pragma comment(linker, "/alternatename:?construct@DefaultModuleTemplate7CtorShim@FXParticleSystem@@QAEXXZ=??0?$CategoryModuleTemplate@$06@FXParticleSystem@@QAE@XZ")
+template <>
+class CategoryModuleTemplate<7> : public CategoryModuleTemplateBase<7>, public WindModuleInfo
+{
+public:
+    CategoryModuleTemplate();
+    CategoryModuleTemplate(const CategoryModuleTemplate<7> &that);
+    virtual ~CategoryModuleTemplate();
+    virtual void v1();
+};
+
+template <int N>
+class DefaultModuleTemplate;
+
+template <>
+class DefaultModuleTemplate<7> : public CategoryModuleTemplate<7>
+{
+public:
+    DefaultModuleTemplate();
+    DefaultModuleTemplate(const DefaultModuleTemplate<7> &that);
+    virtual ~DefaultModuleTemplate();
+};
+
+DefaultModuleTemplate<7>::DefaultModuleTemplate()
+{
+}
+}
