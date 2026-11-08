@@ -15,6 +15,7 @@ class TextureClass;
 class W3DVideoSurfaceHandle
 {
 public:
+	W3DVideoSurfaceHandle() : m_surface(0) {}
 	~W3DVideoSurfaceHandle() {}
 private:
 	void *m_surface; // +0x00
@@ -23,7 +24,8 @@ private:
 class Rva00739C70State
 {
 public:
-	Rva00739C70State() {}
+	// Retail's element ctor 0x000724A0 zeroes +8, +0xC and +0x10; +0 and +4 are left.
+	Rva00739C70State() : m_texture(0), m_surface(), m_flags(0) {}
 	~Rva00739C70State() {}
 private:
 	int m_value_00; // +0x00
