@@ -29,18 +29,13 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 }
 namespace _STL {template<>_Bvector_base<allocator<bool> >::_Bvector_base(const allocator<bool>&) throw();}
 #define BFME_RO_DTOR_DECL_ONLY
-#include "rendobj.h"
-#include "Snapshot.h"
-class DX8_CleanupHook {public:DX8_CleanupHook(){}virtual void ReleaseResources()=0;virtual void ReAcquireResources()=0;};
-class TScorch:public Snapshot {public:TScorch();virtual~TScorch(){}virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);unsigned char data[24];};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 // The texture handles' unwind funclets (0x0075E810, 0x0075E855, ...) jump to
 // the rowed release-if-non-null destructor 0x0017098D (RefCountPtr<TextureClass>'s, rowed in
 // streakRender.cpp; about 50 holder destructors fold there); the other four strings at
 // 0x3820/0x382C/0x383C/0x3848 are released through AsciiString's 0x0048BA39.
-#include "../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
 class TextureBaseClass {public:void Release_Ref();};
 class TextureClass:public TextureBaseClass {};
-#include "ascii_string.h"
 // Suppress this TU's non-retail copy of ??1?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> _Bvector_base<allocator<bool> >::~_Bvector_base(); }
@@ -136,106 +131,41 @@ public:
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct TerrainGlobalView {char data[0xC6A];bool useTaint;};
 class Rva001E35DFView {public:const Rva001E35DFView*getFinalOverride()const{if(next)return next->getFinalOverride();return this;}void*unknown00;Rva001E35DFView*next;bool isOverride;};
-class Rva00DFF488Setting:public Rva001E35DFView {public:char unknown0C[12];int m_transparentWaterDepth,m_minWaterOpacity;};
+class Rva00DFF488Setting:public Rva001E35DFView {public:char unknown0C[12];float m_transparentWaterDepth,m_minWaterOpacity;};
 template<class T>class OVERRIDE {public:__forceinline operator const T*()const{if(!pointer)return 0;return(const T*)pointer->getFinalOverride();}__forceinline const T*operator->()const{if(!pointer)return 0;return(const T*)pointer->getFinalOverride();}const T*pointer;};
 class WaterTransparencySetting;
 extern OVERRIDE<WaterTransparencySetting>TheWaterTransparency;
 class BaseHeightMapRenderObjClass;extern BaseHeightMapRenderObjClass*TheTerrainRenderObject;class DX8Wrapper {public:static void SetCleanupHook(DX8_CleanupHook*h){m_pCleanupHook=h;}protected:static DX8_CleanupHook*m_pCleanupHook;};
 double Rva006C5BE0(double,int);
-class BaseHeightMapRenderObjClass:public RenderObjClass,public DX8_CleanupHook,public Snapshot {public:
-BaseHeightMapRenderObjClass();virtual~BaseHeightMapRenderObjClass();
-virtual void ReleaseResources();virtual void ReAcquireResources();
-virtual void loadPostProcess() = 0;virtual const char*GetSnapshotName()const = 0;virtual void xfer(Xfer*) = 0;
-int x;
-int y;
-RefCountPtr<TextureClass> vertexScorch;
-void* indexScorch;
-void* scorchTexture;
-TScorch scorches[500];
-int count;
-int cached;
-int unk3798;
-float slope;
-float slope2;
-int f37a4;
-int f37a8;
-int f37ac;
-char pad37B0[16];
-void* map;
-bool useDepthFade;
-bool updating;
-char pad37C6[2];
-float depthX;
-float depthY;
-float depthZ;
-bool disableTextures;
-char pad37D5[3];
-float minHeight;
-float maxHeight;
-bool showImpassable;
-char pad37E1[3];
-int config18;
-int config1C;
-std::vector<bool> flags1;
-std::vector<bool> flags2;
-unsigned shader;
-int f3818;
-RefCountPtr<TextureClass> f381c;
-AsciiString f3820;
-AsciiString f3824;
-RefCountPtr<TextureClass> f3828;
-AsciiString f382c;
-AsciiString f3830;
-char pad3834[4];
-RefCountPtr<TextureClass> f3838;
-AsciiString f383c;
-AsciiString f3840;
-RefCountPtr<TextureClass> f3844;
-AsciiString f3848;
-AsciiString f384c;
-W3DTreeBuffer* buffer0;
-W3DShrubBuffer* buffer1;
-W3DPropBuffer* buffer2;
-W3DBibBuffer* buffer3;
-Rva000E59D3* buffer5;
-W3DWaypointBuffer* buffer6;
-Rva000E0AE2* buffer7;
-W3DRoadBuffer* buffer8;
-W3DBridgeBuffer* buffer4;
-Rva000D3A17* buffer9;
-W3DShroud* buffer10;
-W3DTaint* buffer11;
-bool initialized;
-};
-BaseHeightMapRenderObjClass::BaseHeightMapRenderObjClass():shader(0x10441B)
+BaseHeightMapRenderObjClass::BaseHeightMapRenderObjClass():field3814(0x10441B)
 {
- disableTextures=false;showImpassable=false;updating=false;
- double h=Rva006C5BE0(256.0,2);float zero=0;h-=1.0;minHeight=zero;maxHeight=h*0.0390625;_ReadWriteBarrier();
- f3818=0;map=0;depthX=0;depthY=0;depthZ=0;useDepthFade=false;TheTerrainRenderObject=this;
-buffer0=0;
-buffer0=new W3DTreeBuffer;
-buffer1=0;
-buffer1=new W3DShrubBuffer;
-buffer2=0;
-buffer2=new W3DPropBuffer;
-buffer3=0;
-buffer3=new W3DBibBuffer;
-slope=89.9f;slope2=70.0f;
-buffer4=0;
-buffer4=new W3DBridgeBuffer;
-buffer5=0;buffer5=new Rva000E59D3;
-buffer6=new W3DWaypointBuffer;
-buffer7=new Rva000E0AE2;
-buffer8=0;
-buffer8=new W3DRoadBuffer;
-buffer9=0;
-buffer9=new Rva000D3A17;
-x=0;y=0;count=0;cached=0;unk3798=0;f37a4=0;f37a8=0;f37ac=0;
-buffer10=new W3DShroud;
-if(((const TerrainGlobalView*)TheWritableGlobalData)->useTaint)buffer11=new W3DTaint;else buffer11=0;
+ m_disableTextures=false;m_showImpassableAreas=false;m_updating=false;
+ double h=Rva006C5BE0(256.0,2);float zero=0;h-=1.0;m_minHeight=zero;m_maxHeight=h*0.0390625;_ReadWriteBarrier();
+ field3818=0;m_map=0;field37C8=0;field37CC=0;field37D0=0;m_useDepthFade=false;TheTerrainRenderObject=this;
+m_treeBuffer=0;
+m_treeBuffer=new W3DTreeBuffer;
+m_shrubBuffer=0;
+m_shrubBuffer=new W3DShrubBuffer;
+m_propBuffer=0;
+m_propBuffer=new W3DPropBuffer;
+m_bibBuffer=0;
+m_bibBuffer=new W3DBibBuffer;
+m_curImpassableSlope=89.9f;field37A0=70.0f;
+m_bridgeBuffer=0;
+m_bridgeBuffer=new W3DBridgeBuffer;
+field3860=0;field3860=new Rva000E59D3;
+m_waypointBuffer=new W3DWaypointBuffer;
+field3868=new Rva000E0AE2;
+m_roadBuffer=0;
+m_roadBuffer=new W3DRoadBuffer;
+field3874=0;
+field3874=new Rva000D3A17;
+m_vertexScorch=0;m_indexScorch=0;m_numScorches=0;m_scorchesInBuffer=0;field3798=0;field37A4=0;field37A8=0;field37AC=0;
+m_shroud=new W3DShroud;
+if(((const TerrainGlobalView*)TheWritableGlobalData)->useTaint)field387C=new W3DTaint;else field387C=0;
 DX8Wrapper::SetCleanupHook(this);
-f3824.set("TSCloudMed.tga");f3830.set("TSNoiseUrb.tga");f3840.set("TSTaintMed.tga");f384c.set("TSElvenMed.tga");
+field3824.set("TSCloudMed.tga");field3830.set("TSNoiseUrb.tga");field3840.set("TSTaintMed.tga");field384C.set("TSElvenMed.tga");
 const OVERRIDE<Rva00DFF488Setting>&settings=(const OVERRIDE<Rva00DFF488Setting>&)TheWaterTransparency;
-config1C=settings->m_minWaterOpacity;config18=settings->m_transparentWaterDepth;
-initialized=true;
+field37E8=settings->m_minWaterOpacity;field37E4=settings->m_transparentWaterDepth;
+field3880=true;
 }
