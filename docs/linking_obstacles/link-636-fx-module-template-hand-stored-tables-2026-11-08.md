@@ -55,3 +55,13 @@ Remaining / next check:
   [Evidence](../../reverse/attempt_support/default-alpha-table-bindings-20261108/README.md).
 - Confirm in the next published real link that the converted tables leave
   `reverse/vtable_bridge_queue.tsv`.
+
+2026-11-08 particle clone prerequisite: Rva003AF27BClone.cpp removes its own
+two one-byte stand-ins for0x0081CFB0/0x0081C030 and binds the existing compiler
+tables, with native constructor operands proving each address. Its81-byte row
+and parent EH graph remain exact; preview conserves LINKS/81. Bounded replay
+removes two strong-definition refusals, retaining the same two bridges/six
+slots. The shared +0x18 char belongs to ParticleModuleTemplateCopyCtors.cpp
+and remains for that nine-row cohort's recovery. Full concrete class/template
+recovery and real-image confirmation remain open.
+[Evidence](../../reverse/attempt_support/particle-clone-table-bindings-20261108/README.md).

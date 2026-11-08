@@ -1,0 +1,13 @@
+{
+  "rows": 1,
+  "matched": 1,
+  "missing": [],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\9e52405f2a9538cf.obj",
+  "added_definitions": [],
+  "removed_definitions": [
+    "_Rva003AF27B_v0",
+    "_Rva003AF27B_v14"
+  ],
+  "guard": []
+}

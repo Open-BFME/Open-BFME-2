@@ -1,0 +1,19 @@
+{
+  "before": {
+    "tables": 2,
+    "slots": 6,
+    "refused_tables": 2,
+    "refusal_reasons": {
+      "strong-definition": 2
+    },
+    "already_correct": 0
+  },
+  "after": {
+    "tables": 2,
+    "slots": 6,
+    "refused_tables": 0,
+    "refusal_reasons": {},
+    "already_correct": 0
+  },
+  "code_comdat_facts_equal_after_only_proven_table_referent_normalization": true
+}

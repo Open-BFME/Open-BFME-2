@@ -521,3 +521,12 @@ Post-publication local receipt follow-up:0CreateAHeroManager21FE49.cpp was
 claimed, strictly prepared (24/24 rows and three complete STL constructor
 folds pass), and released. Its reusable receipt now covers that local audit
 gap. No census/index/status change or wider linking clearance is claimed.
+
+**2026-11-08 particle clone table-provider bindings:** Rva003AF27BClone.cpp
+replaces two unowned chars with existing compiler table references at the
+same native addresses. The81-byte body/EH graph pass; all code COMDAT facts
+and flags agree after only the proved referent substitutions. Bounded cached
+replay drops two strong-definition refusals to0, with the same two bridges
+and six slots. The +0x18 char provider in ParticleModuleTemplateCopyCtors.cpp
+and complete class recovery remain separate work. No runtime/image clearance.
+[Native operand proof and remaining cohort](../../reverse/attempt_support/particle-clone-table-bindings-20261108/README.md).

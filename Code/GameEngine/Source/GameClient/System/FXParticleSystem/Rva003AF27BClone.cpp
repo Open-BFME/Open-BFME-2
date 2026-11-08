@@ -19,10 +19,10 @@ private:
 	char m_pad1C[12]; // +0x1C..0x27: makes sizeof 0x28 for new
 };
 
-// Rva003AF27B_v0: matched references place it at VA 0xc1cfb0 (retail .rdata value 87).
-extern "C" char Rva003AF27B_v0 = 87;
-// Rva003AF27B_v14: matched references place it at VA 0xc1c030 (retail .rdata value -12).
-extern "C" char Rva003AF27B_v14 = -12;
+// Existing compiler table: native address established by the rowed module constructor.
+extern "C" const void *const __identifier("??_7Rva003AD1CAModule@@6BDefaultModuleHeadBase@@@")[];
+// Existing compiler table: native address established by the rowed module constructor.
+extern "C" const void *const __identifier("??_7Rva003AD1CAModule@@6BRva003AA228Slice@FXParticleSystem@@@")[];
 extern "C" char Rva003AF208_v18;
 
 class Rva003AF27B : public Rva003AF2CC
@@ -31,8 +31,8 @@ public:
 	__forceinline Rva003AF27B(const Rva003AF27B &that)
 		: Rva003AF2CC(that)
 	{
-		*(void **)this = &Rva003AF27B_v0;
-		*(void **)((char *)this + 0x14) = &Rva003AF27B_v14;
+		*(void **)this = (void *)__identifier("??_7Rva003AD1CAModule@@6BDefaultModuleHeadBase@@@");
+		*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003AD1CAModule@@6BRva003AA228Slice@FXParticleSystem@@@");
 		*(void **)((char *)this + 0x18) = &Rva003AF208_v18;
 	}
 	Rva003AF27B *clone() const;

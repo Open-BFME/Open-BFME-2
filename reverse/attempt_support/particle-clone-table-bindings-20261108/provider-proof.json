@@ -1,0 +1,36 @@
+{
+  "provider_scope": "Bounded cached emitter; constructor operands independently establish addresses, not original hierarchy or a current image.",
+  "constructor": "??0Rva003AD1CAModule@@QAE@PAXPAVRva003ADAB8Template@@@Z",
+  "constructor_rva": "0x003AD1CA",
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+  "cached_object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894",
+  "tables": [
+    {
+      "table": "??_7Rva003AD1CAModule@@6BDefaultModuleHeadBase@@@",
+      "rva": "0x81cfb0",
+      "native_DIR32_sites": [
+        "0x3ad1dc"
+      ]
+    },
+    {
+      "table": "??_7Rva003AD1CAModule@@6BRva003AA228Slice@FXParticleSystem@@@",
+      "rva": "0x81c030",
+      "native_DIR32_sites": [
+        "0x3ad1e3"
+      ]
+    }
+  ],
+  "index_meta": {
+    "date": "2026-11-08 15:35",
+    "commit": "d171e84869",
+    "clean_tree": true
+  },
+  "census_touches": {
+    "_Rva003AF27B_v0": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva003^a^f27^b^clone.obj"
+    ],
+    "_Rva003AF27B_v14": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva003^a^f27^b^clone.obj"
+    ]
+  }
+}
