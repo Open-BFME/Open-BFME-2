@@ -7,6 +7,14 @@
 // createTexture at 7EEBE supplies the loader's counted return lifetime.
 // StringBase<char>'s canonical header owns isEmpty; the native string
 // prefix read proves its shared-buffer data starts eight bytes later.
+// The canonical RenderObjClass and CameraClass, included first: rendobj.h reaches Zero Hour's refcount.h,
+// multilist.h and vector3.h, so the canonical RefCountData.h, MultiListObjectClass.h and Vector3Data.h this
+// unit includes later add nothing (one definition each). BFME_RO_DTOR_DECL_ONLY keeps the destructor a call to
+// retail's 0x0013BE20.
+#define BFME_RO_DTOR_DECL_ONLY
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include <vector>
 class ModuleData;
 #include "string_base.h"
@@ -105,10 +113,6 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 }
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
-class RenderObjClass : public RefCountClass,public MultiListObjectClass {
-public: RenderObjClass(); virtual ~RenderObjClass();
-private: char unmodelled[0xC4-0x10];
-};
 template<int N> class WaterAreaObserver {public: virtual ~WaterAreaObserver(){} };
 class CreateAHeroData;
 class Rva002B7250 {public: void rva002B7250(CreateAHeroData*);};
@@ -117,7 +121,7 @@ struct WaterCountedRef {
  RefCountClass *ptr;
  WaterCountedRef():ptr(0){}
  WaterCountedRef(RefCountClass *refCount):ptr(refCount){}
- __forceinline ~WaterCountedRef(){ RefCountClass *refCount=ptr; if(refCount && --refCount->NumRefs==0)refCount->Delete_This(); }
+ __forceinline ~WaterCountedRef(){ RefCountClass *refCount=ptr; if(refCount) refCount->Release_Ref(); }
 };
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 // The unit's vectors use STLport's own empty construction; their destructor
@@ -148,13 +152,17 @@ class WaterTransparencySetting;
 class WaterTransparencyDeleteView {public: virtual void *destroy(unsigned flags);};
 template<class T> class OVERRIDE {public: T *ptr;};
 extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
-class CameraClass : public RenderObjClass {
-public: CameraClass();
-private: char unmodelled[0x3FC-0xC4];
-};
 class WaterRenderObjClass : public Snapshot,public RenderObjClass,
  public WaterAreaObserver<0>,public WaterAreaObserver<1>,public WaterAreaObserver<2> {
 public: WaterRenderObjClass(); virtual ~WaterRenderObjClass();
+ // Retail's table (VA 0x00BC7108) overrides six of RenderObjClass's 129 slots: the deleting destructor, these
+ // two, Render and the two bounding volumes. Clone and Class_ID are one-instruction bodies retail folded with
+ // others (0x000D43D0 xor eax,eax; 0x0036CC7A or eax,-1).
+ virtual RenderObjClass *Clone(void) const { return 0; }
+ virtual int Class_ID(void) const { return CLASSID_UNKNOWN; }
+ virtual void Render(RenderInfoClass &rinfo);
+ virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;
+ virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;
  struct Setting {Setting():skyTexture(0),waterTexture(0){} ~Setting(); TextureBaseClass *skyTexture,*waterTexture; char data[0x28];};
  void rva0007F87C(void *scene, CameraClass *camera);
 private:
