@@ -41,7 +41,9 @@ four settled leads (the LuaScriptEngine copy, the LivingWorldSound zoom region, 
 divisor, SidesList), then GameClient/DrawableFramesPerFlash.h, with which 31 copies of units that refuse the
 canonical Drawable.h registered, 529 -> 494 (see "Round lk58"); halilkkaya-lk60: BuildAssistant's two frame counts, 492 -> 490;
 halilkkaya-lk62: the SPAWN_UPDATE_RATE and SLAVED_UPDATE_RATE header constants and seven copies whose
-units were free again, 491 -> 475 (see "Round lk62"); next seat continues).
+units were free again, 491 -> 475 (see "Round lk62"); halilkkaya-lk63: three FrameRate frame counts and a
+copy whose readers name their units, and RandomValue's multiplier, 475 -> 470 (see "Round lk63"); next seat
+continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -1313,3 +1315,65 @@ run is in retail's order, and bridge_entries removed exactly the named RVAs at e
     AwardSystemManager, HordeSiegeEngineContain, ImmortalBody, ElvenWoodSpecialPower's five,
     UnleashSpecialPower, ObjectGuardingHelper, AIPlayer, Made002CCAA1, ControlBarStructureInventory) need
     their approvals settled before rowing. Use the guard rule above.
+
+**Round lk63 (halilkkaya-lk63, 2026-11-08, bridged 475 -> 470).** Measured with
+`image_report.bridge_entries` over the kept objects (exit_link's rule) on `eaefe561ff`'s tree plus the
+round. Each entry was retracted (`reverse/deleted_rows.csv`) and readmitted by relocation target in the
+same commit. Every touched object kept every COMDAT digest, and bridge_entries removed exactly the named
+RVAs at each step.
+- *Taken (475 -> 471): FrameRate globals named by their readers (lk62's lead, lk60's method).*
+  - 0x007B3FCA (`BfmeLogicFramesPerSecond * 60` into 0x00E062F4) is alone in its run. Its one reader is
+    `AITargetHeuristicExpansionBase::wantsToExpand` (0x00573122), approved to
+    AITargetHeuristicExpansionBase.cpp. That unit now defines the global with the initializer as `_$E1`.
+  - 0x007B4316 (`* 120` into 0x00E063CC) is alone in its run. Its one reader is
+    `AIUpgradeScienceBuilder::buildExpansionUpgrades` (0x00597E30, approved), so it is
+    AIUpgradeScienceBuilder.cpp's `_$E1`.
+  - AITeamBuilder's run is its Drawable.h copy 0x007B43AD (static 0x00E063DC), then 0x007B43BD (`* 10`
+    into 0x00E063E0), then the marker. The two readers 0x0059A01C and `checkIdleTeams` 0x0059AA37 are
+    approved to AITeamBuilder.cpp. The unit includes GameClient/DrawableFramesPerFlash.h just before the
+    definition, so the copy is `_$E1` and the global `_$E3`. Its .bss holds the copy at +0 and the global at
+    +4, as retail does.
+  - The three data rows moved to their owners, and the grab-bags lost the bodies and definitions.
+    link_check over the five files and AIUpgradeScienceBuilder's two siblings: 7 of 7 link.
+- *Taken (471 -> 470): RandomValue's multiplier.* 0x007ADBFF builds `theMultFactor` (VA 0x00DFE738,
+  `1.0f / (powf(2, 32) - 1.0f)` through the C powf) and is alone in its run. Its readers are the three
+  getValueReal functions just before RandomValue.cpp's approved rows. Zero Hour's RandomValue.cpp defines
+  the same multiplier (donor fact). RandomValue.cpp now defines it (C linkage, as the split readers
+  declare it) as `_$E1`. RandomValueMultFactorInit.cpp held nothing else and is gone. Its `_powf` COMDAT
+  (27 bytes, the same digest) now comes from RandomValue.obj. link_check 5 of 5, dx8wrapper.cpp (retail's
+  `_powf` owner) included.
+- *Blocked.*
+  - AISpellBookArmyBreaker 0x007B4CD5/0x007B4CEC (`(int)(rate * 15.0f)` and `* 30.0f` into its own
+    g_00E06668/g_00E0666C). The run [the two, vector allocator 0x007B4D03, marker] proves the unit.
+    Retail's bodies are x87: fild, fmul dword, __ftol2. The unit's region default `/O1 /arch:SSE /G7`
+    compiles the same expression with cvtsi2ss, mulss and cvttss2si (26 bytes). A double literal gives
+    fmul qword. Without /arch:SSE the initializers are exact, but rva005D8619 grows 187 -> 190 bytes. So the
+    unit's flags, or 0x005D8619's unit, must be settled first (re_log). AssistBattle's 0x007B4C70/0x007B4C87
+    have the same shape, behind three bridged iostream-style entries in their run. Not tried.
+  - Read-but-typed globals: AptOnlineHome's six FactionStatBlock objects (0x007B474C..0x007B477E) are
+    constructed by the out-of-line `Rva00552F2E` constructor. The unit's `FactionStatBlock` view would have to
+    become that class, and every consumer's mangled name would change. Several other entries need the same
+    kind of type change before their owner can emit them: GameText's UnicodeString 0x007AE4ED, GlowMaterial's
+    map 0x007AED71, LivingWorldLogic's map 0x007B3486 and AIWallBuilder's vector 0x007B31A8. Each also needs
+    its atexit thunk readmitted as the owner's `_$E<n+1>`.
+  - ScoreKeeper's copy and four kind masks (0x007AF2B2..0x007AF2F8; every reader is approved to
+    ScoreKeeper.cpp) are blocked because the unit is built on Zero Hour's PreRTS.h.
+  - 0x007AE27C (`* 4`, read only by TacticalAI::updateInterestZones) shares its run with KINDOFMASK_NONE's
+    mask 0x007AE26A. Its .bss follows AITarget's and the interest zone's serials (0x00DFEFC0..C8), and
+    `tu_map` proposes the zone's xfer to TacticalAI.cpp, whose own run is the next but one. The interest zone's
+    unit is not settled.
+  - 0x007B440F has no real reader: the hit at 0x0065D998 is a call's rel32 bytes. 0x007B3B50 sits between
+    ControlBarCommandProcessing's and ControlBarCommand's runs, and the reader 0x00539A65 is approved to
+    the first, which has its own copy. Both copies' units stay open.
+  - The SPAWN pairs 0x007AEE5B/6B (closed by the second pool object's marker, after GiantBirdAIUpdate's
+    masks) and 0x007B041B/2B (between g_fakeDesync and g_00E03210) have no unit evidence yet.
+- *Next.*
+  - The remaining BlockParse nodes all need an approval first: every bridged node's callback is unapproved
+    or only proposed (AIBase, ArmyDefinition, LightPointLevel, the LivingWorld AutoResolve stores). The
+    INI wrappers (SpecialPower, ShellMenuScheme, Upgrade, Weather, Weapon, HeaderTemplate, CommandSet,
+    CrateData, DamageFX) need their INI*.cpp units, which the tree does not have.
+  - The ZeroInits runs wait for the giant-bird header (see "ZeroInits").
+  - The cheapest remaining work is lk60's leftover once InGameUI.cpp's merge lands (`lk60-leftover`), and
+    the ScriptEngine run: 0x007AD7C0, 0x007AD7DD and 0x007AD7F3 between the copy `_$E1` and the nodes
+    `_$E4`/`_$E6`. ScriptEngine.cpp would have to renumber its nodes, and 0x007AD7DD is already registered by
+    `Rva007AB81ACtorInits_Rva007ACC20.cpp`.
