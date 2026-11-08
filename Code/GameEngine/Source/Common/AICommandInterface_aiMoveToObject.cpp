@@ -59,16 +59,11 @@ struct AICommandParms
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	virtual void rvaVirtual(AICommandParms *parms) = 0;
-	void aiMoveToObject(Object *targetObject, CommandSourceType commandSource);
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 void AICommandInterface::aiMoveToObject(Object *targetObject, CommandSourceType commandSource)
 {
 	AICommandParms parms(AICMD_MOVE_TO_OBJECT, commandSource);
 	parms.m_obj = targetObject;
-	rvaVirtual(&parms);
+	aiDoCommand(&parms);
 }

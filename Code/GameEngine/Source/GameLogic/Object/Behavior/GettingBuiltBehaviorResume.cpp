@@ -14,14 +14,7 @@ class Object;
 // retail uses the complete shared RET at B3FD0. Original spelling unknown.
 enum ObjectStatusTypes { STATUS_NONE = 0 };
 enum CommandSourceType { SOURCE_NONE = 0 };
-class AICommandInterface
-{
-public:
-	void aiResumeConstruction(Object *, CommandSourceType);
-	void rva0036F19B(Object *, CommandSourceType);
-	void aiIdle(CommandSourceType);
-};
-struct AIUpdateView { unsigned char pad[0x20]; AICommandInterface commands; };
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct PlayerPart { unsigned char pad[0x1bc]; bool alternate; };
 class Team;
 class Player {
@@ -41,7 +34,7 @@ public:
  bool testStatus(ObjectStatusTypes) const;
  void rva0028AE6D();
  unsigned char pad44[0x10C - 0x60]; GettingBuiltConditions conditions;
- unsigned char pad158[0x258-0x158]; AIUpdateView *ai;
+ unsigned char pad158[0x258-0x158]; AIUpdateInterface *ai;
  unsigned char pad25c[0x280-0x25c]; float construction;
  unsigned char pad284[0x438-0x284]; unsigned char privateStatus;
 };
@@ -88,10 +81,10 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
    if (object->conditions.test(60)) { object->conditions.clear(60); object->rva0028AE6D(); }
    if (!object->conditions.test(69)) { object->conditions.set(69); object->rva0028AE6D(); }
  }
- AIUpdateView *ai = builder->ai;
+ AIUpdateInterface *ai = builder->ai;
  if (ai) {
-   if (object->testStatus((ObjectStatusTypes)2)) ai->commands.aiResumeConstruction(object,(CommandSourceType)2);
-   else ai->commands.rva0036F19B(object,(CommandSourceType)2);
+   if (object->testStatus((ObjectStatusTypes)2)) ai->aiResumeConstruction(object,(CommandSourceType)2);
+   else ai->rva0036F19B(object,(CommandSourceType)2);
  }
  Drawable *drawable = builder->getDrawable();
  if (drawable) drawable->rva000B3FD0();

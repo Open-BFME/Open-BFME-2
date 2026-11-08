@@ -102,12 +102,11 @@ virtual void getItems(ParalyzeListPair &)=0;
 };
 enum DisabledType{PARALYZE=1};
 enum CommandSourceType{CMD_FROM_PLAYER=0};
-class AICommandInterface {public:void rva0037379B(Object *,CommandSourceType);void aiExit(Object *,CommandSourceType);};
-struct ParalyzeAI {char pad[0x20];AICommandInterface commands;};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct ParalyzeTemplate {char pad[0x115];unsigned char flags115;};
 class Object {public:
 char pad00[4];ParalyzeTemplate *m_template;float matrix08[12];float x38,y3C,z40;
-char pad44[0x250-0x44];ParalyzeContainView *contain250;char pad254[4];ParalyzeAI *ai258;
+char pad44[0x250-0x44];ParalyzeContainView *contain250;char pad254[4];AIUpdateInterface *ai258;
 void setDisabledUntil(DisabledType,unsigned int);bool rva002931BA();
 };
 class FXList {public:static void doFXObj(const FXList*,const Object*,const Object*);};
@@ -165,10 +164,10 @@ if(contain && contain->isContainer()){
 ParalyzeListPair items;contain->getItems(items);
 for(ParalyzeNode *node=items.m04->sentinel->next;node!=items.m04->sentinel;node=node->next){
 Object *object=node->object;
-ParalyzeAI *ai=object?object->ai258:0;
+AIUpdateInterface *ai=object?object->ai258:0;
 if(!ai)continue;
-if(object->m_template->flags115&0x20)ai->commands.rva0037379B(target,CMD_FROM_PLAYER);
-else if(!object->rva002931BA())ai->commands.aiExit(target,CMD_FROM_PLAYER);
+if(object->m_template->flags115&0x20)ai->rva0037379B(target,CMD_FROM_PLAYER);
+else if(!object->rva002931BA())ai->aiExit(target,CMD_FROM_PLAYER);
 }
 }
 }

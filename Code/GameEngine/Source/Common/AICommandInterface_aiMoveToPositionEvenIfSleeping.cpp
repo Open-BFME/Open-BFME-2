@@ -54,16 +54,11 @@ struct AICommandParms
 	char m_tail[0xC0 - 0x2C];
 };
 
-class AICommandInterface
-{
-public:
-	virtual void v0(AICommandParms *parms) = 0;
-	void aiMoveToPositionEvenIfSleeping(const Coord3D *destination, CommandSourceType commandSource);
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 void AICommandInterface::aiMoveToPositionEvenIfSleeping(const Coord3D *destination, CommandSourceType commandSource)
 {
 	AICommandParms parms((AICommandType)0x36, commandSource);
 	parms.m_pos = *destination;
-	v0(&parms);
+	aiDoCommand(&parms);
 }

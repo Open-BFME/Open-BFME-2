@@ -79,24 +79,10 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The object's AI (+0x258): slot 110 answers a bool; its command interface
 // sits at +0x20.
-class Rva00583933AIView
-{
-public:
-	PAD_VIRTUAL_100
-	virtual void a100(); virtual void a101(); virtual void a102(); virtual void a103(); virtual void a104();
-	virtual void a105(); virtual void a106(); virtual void a107(); virtual void a108(); virtual void a109();
-	virtual Bool slot110();
-	char m_pad04[0x20 - 0x04];
-	AICommandInterface m_commands;	// +0x20
-};
 
 class Object
 {
@@ -104,10 +90,10 @@ public:
 	Object *rva002931F5(bool flag);
 	Bool testStatus(ObjectStatusTypes status) const;
 	void rva00295F05(bool value);
-	Rva00583933AIView *getAI() const { return m_ai; }
+	AIUpdateInterface *getAI() const { return m_ai; }
 private:
 	char m_pad000[0x258];
-	Rva00583933AIView *m_ai;	// +0x258
+	AIUpdateInterface *m_ai;	// +0x258
 };
 
 struct Rva00583794Node
@@ -199,9 +185,9 @@ void Rva00583794::rva00583933(Object *)
 		{
 			if (!item->testStatus(RVA_OBJECT_STATUS_1C))
 			{
-				Rva00583933AIView *ai = item->getAI();
-				if (ai != 0 && !ai->slot110())
-					ai->m_commands.aiIdle(CMD_FROM_AI);
+				AIUpdateInterface *ai = item->getAI();
+				if (ai != 0 && !ai->isIdle())
+					ai->aiIdle(CMD_FROM_AI);
 			}
 			item->rva00295F05(0);
 		}

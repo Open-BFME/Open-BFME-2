@@ -35,8 +35,7 @@ enum WeaponLockType{LOCK2=2};
 enum ObjectStatusTypes{STATUS39=39};
 enum CommandSourceType{SOURCE2=2};
 enum UpdateSleepTime{FOREVER=0x3fffffff};
-class AICommandInterface {public:void aiIdle(CommandSourceType);};
-struct RiderAI {char pad[0x20];AICommandInterface commands;};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class BfmeSubBGB {public:bool rva00298893();};
 class Rva001E42F2 {public:void rva001E42F2(const int*);};
 template<int N>class VGap:public VGap<N-1>{public:virtual void gap(char(*)[N]);};
@@ -52,7 +51,7 @@ struct RiderConditionBits {
 class Object {
 public:
  Drawable*getDrawable()const;bool clearDisabled(DisabledType);bool setWeaponLock(WeaponSlotType,WeaponLockType);void releaseWeaponLock(WeaponLockType);void setStatus(ObjectStatusTypes,bool);bool testStatus(ObjectStatusTypes)const;void rva0028AE6D();
- char pad[0x110];RiderConditionBits conditions;char pad15c[0x250-0x15c];RiderContainInterface*contain;char pad254[4];RiderAI*ai;char pad25c[0x274-0x25c];Object*parent;
+ char pad[0x110];RiderConditionBits conditions;char pad15c[0x250-0x15c];RiderContainInterface*contain;char pad254[4];AIUpdateInterface*ai;char pad25c[0x274-0x25c];Object*parent;
  __forceinline RiderInterface*getRider(){RiderContainInterface*riderContain=contain;return riderContain?riderContain->getRider():0;}
 };
 struct RiderRecord {int mask[19];unsigned opaque4c;ObjectCreationList*creation;};
@@ -224,7 +223,7 @@ UpdateSleepTime DetachableRiderUpdateUpdateReceiver::update(){
    if(parent){
     RiderInterface*rider=parent->getRider();
     if(rider)rider->release(object);else {RiderContainInterface*riderContain=parent->contain;if(riderContain)riderContain->remove(object,false);}
-    if(object->ai)object->ai->commands.aiIdle(SOURCE2);
+    if(object->ai)object->ai->aiIdle(SOURCE2);
    }
    TheGameLogic->deselectObject(object,0xfffff,true);
   }else if(data->m_riderlessHordeFlees){

@@ -74,18 +74,8 @@ public:
 	void *m_250;
 };
 
-class AICommandInterface
-{
-public:
-	void aiBfmeObjectCommand3D(Object *obj, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdate
-{
-public:
-	unsigned char m_pad[0x20];
-	AICommandInterface m_cmd;
-};
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
@@ -173,10 +163,10 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType cmdSource)
 	if (!contain->gate(outer, 1, 0))
 		return;
 	Object *outerObj = *(Object **)((char *)this - 0x114);
-	AIUpdate *ai = *(AIUpdate **)((char *)outerObj + 0x258);
+	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)outerObj + 0x258);
 	if (!ai)
 		return;
-	ai->m_cmd.aiBfmeObjectCommand3D(obj, cmdSource);
+	ai->aiBfmeObjectCommand3D(obj, cmdSource);
 	_STL::list<int> snap;
 	GetterFC *gf = (GetterFC *)((char *)this - 0xFC);
 	unsigned char buf[8];

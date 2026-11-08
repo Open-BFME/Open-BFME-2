@@ -106,7 +106,7 @@ public:
 	char m_pad44[0x250 - 0x44];
 	OpenContainActionIface *m_contain250;
 	void *m_word254;
-	void *m_ai;
+	AIUpdateInterface *m_ai;
 	char m_pad25c[0x274 - 0x25c];
 	// Target body 0x00464120 clears this dword with `and [object+0x274],0`.
 	// Its semantic field name is not established by the retail accesses here.
@@ -121,11 +121,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiExit(Object *, CommandSourceType);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class OpenContainActionIface
 {
@@ -221,12 +217,6 @@ public:
 	virtual bool rva00462955(Object *obj, int unused);
 };
 
-class AIUpdateInterfaceView
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_command;
-};
 
 #include "../../../../Include/GameLogic/Rva00439E0C.h"
 
@@ -366,7 +356,7 @@ void OpenContainActionIface::rva00465078(CommandSourceType source)
 	{
 		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		if (rider->m_ai != 0)
-			((AIUpdateInterfaceView *)rider->m_ai)->m_command.aiExit(contain->m_object, source);
+			rider->m_ai->aiExit(contain->m_object, source);
 	}
 }
 
@@ -389,9 +379,9 @@ void OpenContainActionIface::rva00465011(Object *commandSourceArgument)
 		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		if (rider->m_ai != 0)
 		{
-			AIUpdateInterfaceView *currentAI = (AIUpdateInterfaceView *)rider->m_ai;
+			AIUpdateInterface *currentAI = rider->m_ai;
 			Object *owner = contain->m_object;
-			currentAI->m_command.aiExit(owner, (CommandSourceType)(unsigned long)commandSourceArgument);
+			currentAI->aiExit(owner, (CommandSourceType)(unsigned long)commandSourceArgument);
 		}
 	}
 }
@@ -445,8 +435,8 @@ bool OpenContain::rva00464EE7(Object *object)
 					((StealthUpdate *)helper)->markAsDetected(0, 1, 0, 1);
 				TheGameLogic->getManager178()->detected(rider, 0, 0, 1);
 				Object *owner = m_object;
-				AIUpdateInterfaceView *currentAI = (AIUpdateInterfaceView *)rider->m_ai;
-				currentAI->m_command.aiExit(owner, CMD_FROM_AI);
+				AIUpdateInterface *currentAI = rider->m_ai;
+				currentAI->aiExit(owner, CMD_FROM_AI);
 			}
 			else
 			{

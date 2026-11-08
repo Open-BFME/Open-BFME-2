@@ -37,13 +37,7 @@ class LocomotorSet;
 class Object;
 class Rva0035149F;
 float Cos(float); float Sin(float);
-class AICommandInterface { public: void rva0047971C(const Rva0035149F &,Object *,CommandSourceType); };
-class AIUpdateInterface {
-public:
-    const Locomotor *loco() const { return *reinterpret_cast<const Locomotor *const *>(reinterpret_cast<const char *>(this)+0x1F0); }
-    const LocomotorSet &set() const { return *reinterpret_cast<const LocomotorSet *>(reinterpret_cast<const char *>(this)+0x1CC); }
-    AICommandInterface *commands() { return reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(this)+0x20); }
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Common/Thing/thing.h"
 class Object:public Thing {
 public:
@@ -81,7 +75,7 @@ void GarrisonContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
     start.x=point->x; start.y=point->y; start.z=point->z;
     ai=exitObj->ai();
     if (ai) {
-        const Locomotor *loco=ai->loco();
+        const Locomotor *loco=ai->getCurLocomotor();
         if (loco && !TheAI->pathfinder()->IsValidMovementTerrain(LAYER_GROUND,loco,&start)) {
             float offset=object()->radius();
             start.x-=offset*Cos(angle); start.y-=offset*Sin(angle);
@@ -96,7 +90,7 @@ void GarrisonContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
     if (ai && !exitObj->rva002931BA()) {
         Coord3D end; point=reinterpret_cast<Rva0047983AEnd *>(contain())->end();
         end.x=point->x; end.y=point->y; end.z=point->z;
-        TheAI->pathfinder()->adjustToPossibleDestination(exitObj,ai->set(),&end);
+        TheAI->pathfinder()->adjustToPossibleDestination(exitObj,ai->getLocomotorSet(),&end);
         _STL::vector<Coord3D> path;
         path.push_back(end);
         const Coord3D *rallyPoint=rally();
@@ -108,7 +102,7 @@ void GarrisonContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
         path.push_back(end);
         void *module=exitObj->rva0029439D();
         if (module) { reinterpret_cast<Rva0047983APassenger38 *>(module)->leaving(exitObj); reinterpret_cast<Rva0047983APassenger *>(module)->state(0); }
-        ai->commands()->rva0047971C(*reinterpret_cast<const Rva0035149F *>(&path),object(),CMD_FROM_AI);
+        ai->rva0047971C(*reinterpret_cast<const Rva0035149F *>(&path),object(),CMD_FROM_AI);
         exitObj->rva0028ACDC((int)&end);
     }
     reinterpret_cast<Rva0047983ATeam *>(contain())->recalc();

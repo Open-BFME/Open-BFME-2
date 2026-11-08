@@ -29,7 +29,6 @@ enum CommandSourceType
 #include "Lib/Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../Include/Common/Module.h"
-#define AISLOT(n) virtual void s##n();
 
 //
 // ??0Made002CC971@@QAE@XZ retail 0x0050ABF7 18B base plus vtable.
@@ -62,37 +61,9 @@ public:
 
 #include "../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
-class AICommandInterface
-{
-public:
-	void aiAttackPosition(const Coord3D *pos, int i, CommandSourceType src);
-	void rva0026C2D9(Object *victim, int i, CommandSourceType src);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-struct Object258Holder
-{
-	char m_pad20[0x20];
-	AICommandInterface m_ai;
-};
 
-class AIUpdateInterface
-{
-public:
-	AISLOT(000) AISLOT(001) AISLOT(002) AISLOT(003) AISLOT(004) AISLOT(005) AISLOT(006) AISLOT(007) AISLOT(008) AISLOT(009)
-	AISLOT(010) AISLOT(011) AISLOT(012) AISLOT(013) AISLOT(014) AISLOT(015) AISLOT(016) AISLOT(017) AISLOT(018) AISLOT(019)
-	AISLOT(020) AISLOT(021) AISLOT(022) AISLOT(023) AISLOT(024) AISLOT(025) AISLOT(026) AISLOT(027) AISLOT(028) AISLOT(029)
-	AISLOT(030) AISLOT(031) AISLOT(032) AISLOT(033) AISLOT(034) AISLOT(035) AISLOT(036) AISLOT(037) AISLOT(038) AISLOT(039)
-	AISLOT(040) AISLOT(041) AISLOT(042) AISLOT(043) AISLOT(044) AISLOT(045) AISLOT(046) AISLOT(047) AISLOT(048) AISLOT(049)
-	AISLOT(050) AISLOT(051) AISLOT(052) AISLOT(053) AISLOT(054) AISLOT(055) AISLOT(056) AISLOT(057) AISLOT(058) AISLOT(059)
-	AISLOT(060) AISLOT(061) AISLOT(062) AISLOT(063) AISLOT(064) AISLOT(065) AISLOT(066) AISLOT(067) AISLOT(068) AISLOT(069)
-	AISLOT(070) AISLOT(071) AISLOT(072) AISLOT(073) AISLOT(074) AISLOT(075) AISLOT(076) AISLOT(077) AISLOT(078) AISLOT(079)
-	AISLOT(080) AISLOT(081) AISLOT(082) AISLOT(083) AISLOT(084) AISLOT(085) AISLOT(086) AISLOT(087) AISLOT(088) AISLOT(089)
-	AISLOT(090) AISLOT(091) AISLOT(092) AISLOT(093) AISLOT(094) AISLOT(095) AISLOT(096) AISLOT(097) AISLOT(098) AISLOT(099)
-	AISLOT(100) AISLOT(101) AISLOT(102) AISLOT(103) AISLOT(104) AISLOT(105) AISLOT(106) AISLOT(107) AISLOT(108) AISLOT(109)
-	AISLOT(110)
-	virtual bool rva0050AC09Busy();		// +0x1BC
-	Object *getCurrentVictim() const;
-};
 
 #include "../../../Include/Common/Player.h"
 
@@ -105,7 +76,7 @@ protected:
 	class Module *findModule(NameKeyType key) const;
 public:
 	char m_pad258[0x258];
-	Object258Holder *m_258;
+	AIUpdateInterface *m_258;
 	const Player *getControllingPlayer() const;
 	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
 	Weapon *getCurrentWeapon(WeaponSlotType *slot);
@@ -145,11 +116,11 @@ void Made002CC971::rva0050ACE0(Rva0050ACE0Arg *arg, const Coord3D *pos)
 	Object *target = TheGameLogic->findObjectByID((ObjectID)len);
 	if (target == 0)
 		return;
-	Object258Holder *holder = target->m_258;
+	AIUpdateInterface *holder = target->m_258;
 	if (holder == 0)
 		return;
 	target->setWeaponLock((WeaponSlotType)0, (WeaponLockType)1);
-	holder->m_ai.aiAttackPosition(pos, 1, (CommandSourceType)2);
+	holder->aiAttackPosition(pos, 1, (CommandSourceType)2);
 }
 
 // ?rva0050AC09@Made002CC971@@QAEXPAURva0050ACE0Arg@@PAVObject@@@Z
@@ -168,20 +139,20 @@ void Made002CC971::rva0050AC09(Rva0050ACE0Arg *arg, Object *unused)
 		return;
 	if (obj->m_258 == 0)
 		return;
-	Object *victim = ((const AIUpdateInterface *)obj->m_258)->getCurrentVictim();
+	Object *victim = obj->m_258->getCurrentVictim();
 	if (victim == 0)
 		return;
 	unsigned int len = ((NetWrapperCommandMsg *)mod)->getDataLength();
 	Object *target = TheGameLogic->findObjectByID((ObjectID)len);
 	if (target == 0)
 		return;
-	Object258Holder *holder = target->m_258;
+	AIUpdateInterface *holder = target->m_258;
 	if (holder == 0)
 		return;
-	if (((AIUpdateInterface *)holder)->rva0050AC09Busy())
+	if (holder->rva00262D8F())
 		return;
 	target->setWeaponLock((WeaponSlotType)0, (WeaponLockType)1);
-	holder->m_ai.rva0026C2D9(victim, 1, (CommandSourceType)2);
+	holder->rva0026C2D9(victim, 1, (CommandSourceType)2);
 }
 
 // Native 0050AB37..0050ABF7, WB 010A7BA0: slot 1 of the same nugget.

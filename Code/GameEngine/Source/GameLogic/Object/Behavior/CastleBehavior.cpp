@@ -210,16 +210,7 @@ enum CommandSourceType
     CMD_FROM_AI = 1,
     CMD_FROM_DOZER = 2
 };
-class AICommandInterface
-{
-  public:
-    void aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType src);
-};
-struct AIHolder
-{
-    char m_pad[0x20];
-    AICommandInterface m_cmd;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Slot114Module
 {
   public:
@@ -350,7 +341,7 @@ class Object
     char m_pad48[0xA8 - 0x48];
     GeometryInfo m_geomA8;
     char m_padAfterGeom[0x258 - 0xA8 - 0x5C];
-    AIHolder *m_ai258;
+    AIUpdateInterface *m_ai258;
     void *rva0029439D();
 };
 class Rva0039A270MoveOwner
@@ -387,7 +378,7 @@ void Rva0039A270MoveOwner::rva0039A270Move(Object *src)
         Slot114Module *mod = (Slot114Module *)them->rva0029439D();
         if (mod && mod->slot114())
             continue;
-        AIHolder *holder = them->m_ai258;
+        AIUpdateInterface *holder = them->m_ai258;
         if (!holder)
             continue;
         DisplacementCoord delta = them->m_pos38;
@@ -410,7 +401,7 @@ void Rva0039A270MoveOwner::rva0039A270Move(Object *src)
         dest.x = pos.x + delta.x;
         dest.y = pos.y + delta.y;
         dest.z = pos.z + delta.z;
-        holder->m_cmd.aiMoveToPositionEvenIfSleeping(&dest, CMD_FROM_DOZER);
+        holder->aiMoveToPositionEvenIfSleeping(&dest, CMD_FROM_DOZER);
     }
 }
 #include <math.h>
