@@ -257,3 +257,107 @@ Nine sit under another seat's live `class:` or `file:` claim, leaving 309 in 97
 The queue is also shrinking on its own: 6721 rows on 2026-11-07, 6513 today,
 with field renames 3083 -> 3012, byte gate 822 -> 803, C2039 706 -> 682 and
 manual header 250 -> 218.
+
+### Correction: 98 rows, not 318, and the lane already has the verdict
+
+The 4.9% above is wrong, in two ways, and running `accept` over the 318 found
+both within two cohorts:
+
+- `State`, 37 sources: 1 PASS, 36 FAIL, every failure
+  `does not #include Code/GameEngine/Include/Common/StateMachine.h`.
+- `View`, 20 sources: 0 PASS, 20 FAIL, `still declares a private body; does not
+  #include .../View.h`.
+
+**First mistake: retirement turns on the include, not on the view.**
+`adoption_problems` retires a row by proving the unit *adopted* the canonical
+header, which means including it. A unit that reaches the class through some
+other header has adopted nothing. "No private view" was never the test.
+
+**Second mistake: the detectors were a reimplementation, and both were loose.**
+"Already includes the canonical header" matched the header's basename anywhere
+in an include path, so `#include "../Common/GameLogicObjectLookupView.h"` read
+as an adoption of `View.h`; that is why the whole `View` cohort was mispredicted.
+The view test missed bodies the lane's own `class_layouts.class_bodies` finds.
+Re-measured with the lane's own `includes_header` and `class_bodies` instead of
+my own, against the queue at 6496 rows:
+
+| rows | verdict |
+| ---: | --- |
+| 6275 | the unit still declares a private body: live debt |
+|  123 | no body, but the unit still names the class |
+|   81 | no body and the unit never names the class |
+|   17 | the unit includes the canonical header |
+
+So **98 rows (1.5%) are retirable**, not 318, and 6275 are ordinary live debt.
+The lesson is narrow and worth keeping: predict a lane's verdict with the lane's
+own predicates. Ten lines of regex standing in for `includes_header` and
+`class_bodies` were wrong on both.
+
+### Measured, not predicted: 16 of 16, and 0 of 81
+
+Both groups were then run through `accept`:
+
+| predicted | passed | judged |
+| --- | ---: | ---: |
+| `adopted` | **16** | 16 |
+| `no-body-unreferenced` | **0** | 81 |
+
+The prediction built from the lane's own `includes_header` and `class_bodies`
+was exact on the group it was built for. The other group failed completely, and
+the reason is worth recording, because `header_adopt_lane.misclassified` exists
+for apparently that exact case: a row owes no include when the unit declared no
+namespace-scope body of the class in the commit that queued it *and* its
+compiled types hold no global of that name.
+
+`Recorder.cpp` satisfies the second half -- `compile_layouts` returns 221 types
+for it and `State` is not among them -- and still fails. The first half is what
+refuses: `queued_text('State', ...)` returns the file as it stood when the row
+was queued, and `State` **did** have a private body in it then. The guard is
+deliberate and its comment says so: "so no view renamed since can pass". A view
+that was removed or renamed since cannot be distinguished from one still present
+under another spelling, so the lane will not call the row a discovery error.
+
+So these 81 rows are neither live debt nor retirable: the unit no longer copies
+the class, and nothing can prove the row dead. That is a real gap, but it is a
+gap in what the register can *prove*, not a bug, and closing it means deciding
+what evidence should stand for "this view went away without being adopted" --
+a judgement call for a maintainer, not a tool change to make unasked.
+
+The per-row four-way prediction is `header-queue-prediction-20261108.tsv`. The
+earlier `header-queue-staleness-20261108.tsv` records the superseded two-way
+verdicts; read this table, not that one.
+
+### What the sweep retired
+
+35 rows left `reverse/header_queue.tsv` on the register path: 6513 rows before,
+6478 after. 16 from the `adopted` group, 17 from the first two passes over the
+coarser plan, and 2 from the `UpgradeMux` adoptions below.
+
+## UpgradeMux adopted in two units (2026-11-08)
+
+Picked from the merge-blocker ranking (`header-work-ranked-by-merges-20261108.md`):
+17 live rows reaching 10 TUs, the cheapest wide entry in the lane.
+
+`adopt` over all 17: **2 PASS, 15 FAIL**. Both passing units
+(`DetachableRiderBody.cpp`, `RadiateFearUpdate.cpp`) were applied,
+byte-verified (25/25 functions matched across the two) and their rows retired
+through `accept`.
+
+Two private class copies gone, and two views worth looking at: the one in
+`RadiateFearUpdate.cpp` spelled `bool m_upgradeExecuted` correctly and declared
+four of the sixteen virtuals; the one in `DetachableRiderBody.cpp` derived from
+`Rva004C1C29Slots<11>` and declared the four pure-virtual hooks.
+
+**`canonical_classes.csv`'s sampled adopt rate does not predict the queue.**
+Its note for `UpgradeMux` reads "49/76 sampled units adopt", and 2/17 adopted
+here. Those are not in conflict: the queue *is* the set that already failed, so
+its rows are the residue the 49 left behind. The same reading applies to every
+class in the ranking -- `UpdateModule`'s "46/357" says nothing about its 73
+queue rows. Rank by rows and reach, never by the registry's sampled rate.
+
+The 15 failures are not a long tail. Five share one cause:
+`UpgradeMux::m_executed (+0x4, 4 bytes) has no canonical field of that offset
+and size`, which is the padding-span pattern anatomised in
+`header-missing-field-rows-anatomised-20261108.md`. One more is its sibling
+(`m_muxPad (+0x5, 3 bytes)`) and one is a token-collision refusal
+(`m_executed also appears at file scope; a token rename would reach it`).

@@ -115,19 +115,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class RadiateFearUpdate;
-class UpgradeMux
-{
-	friend class RadiateFearUpdate;
-public:
-	UpgradeMux();
-	void giveSelfUpgrade();
-	virtual bool isAlreadyUpgraded() const;	// slot 0, 0x00098CBC
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.

@@ -65,14 +65,7 @@ template <> class Rva004C1C29Slots<1>
 public:
 	virtual void gap(char (*)[1]) = 0;
 };
-class UpgradeMux : public Rva004C1C29Slots<11>
-{
-protected:
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-	virtual void performUpgradeFX() = 0;
-	virtual bool requiresAllActivationUpgrades() const = 0;
-	virtual bool requiresAllConflictingUpgrades() const = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpgradeMux.h"
 class BehaviorModuleInterface : public Rva004C1C29Slots<10>
 {
 public:
