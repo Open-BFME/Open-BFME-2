@@ -21,11 +21,6 @@ public:
 };
 }
 
-inline void *__cdecl operator new(unsigned int, void *__p)
-{
-	return __p;
-}
-
 class Rva002F1CB3
 {
 	Rva002F1CB3 *helper(int x);
@@ -38,7 +33,8 @@ Rva002F1CB3 *Rva002F1CB3::helper(int x)
 	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > *proxy =
 		(_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > *)this;
 	__assume(proxy != 0);
-	new (proxy) _STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> >(tmp, 0);
+	typedef _STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > ProxyType;
+	proxy->ProxyType::_STLP_alloc_proxy(tmp, 0);
 	proxy->_M_data = (unsigned int)g_Va00DBD4C8.rva002EB448();
 	return this;
 }
