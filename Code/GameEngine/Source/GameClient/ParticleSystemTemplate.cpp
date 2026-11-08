@@ -67,8 +67,8 @@ extern const char *const EmissionVelocityTypeNames[7] = {
 extern const char *const EmissionVolumeTypeNames[8] = {
     "NONE", "POINT", "LINE", "BOX", "SPHERE", "CYLINDER", "TERRAIN", NULL,
 };
-// VA 0x00C1B6A4 (.rdata), 8 slots through the sentinel, before the next known
-// data symbol Rva003AF184_v0a at VA 0x00C1C84C.
+// VA 0x00C1B6A4 (.rdata), 8 slots through the sentinel; the next known datum
+// is the DefaultParticleModule<3> table at VA 0x00C1C84C.
 extern const char *const ParticlePriorityNames[8] = {
     "NONE", "ULTRA_HIGH_ONLY", "HIGH_OR_ABOVE", "MEDIUM_OR_ABOVE",
     "LOW_OR_ABOVE", "VERY_LOW_OR_ABOVE", "ALWAYS_RENDER", NULL,
