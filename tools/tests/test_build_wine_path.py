@@ -77,6 +77,8 @@ def test_a_compile_returns_while_a_process_it_started_holds_its_stdio(tmp_path, 
     monkeypatch.setattr(build, "_write_deps_sidecar", lambda source, output, fingerprint, stdout, *rest:
                         seen.append(stdout))
     monkeypatch.setattr(build, "_store_object", lambda source, output, fingerprint: None)
+    # the fake's include note names no real file: include confinement is not what this tests
+    monkeypatch.setattr(build, "include_confinement", lambda stdout_text: None)
     result = []
     worker = threading.Thread(target=lambda: result.append(
         build.try_compile_source(tmp_path / "unit.cpp", tmp_path / "out" / "unit.obj")), daemon=True)

@@ -125,10 +125,19 @@ def cl_non_flags(line):
     return bad
 
 
-def cl_text_refusals(text, plain_words=True):
+def include_values_at(tree):
+    """reverse/cl_include_roots.txt's values in `tree` (a commit, or ":" for the index); None when
+    the tree has none (the gate then judges include paths lexically; build.py refuses them all)."""
+    import cl_flags
+    spec = (":" if tree == ":" else tree + ":") + cl_flags.INCLUDE_ROOTS
+    shown = subprocess.run(["git", "show", spec], capture_output=True)
+    return cl_flags.parse_include_roots(shown.stdout.decode("utf-8", "replace")) if shown.returncode == 0 else None
+
+
+def cl_text_refusals(text, plain_words=True, include_values=None):
     """Rule F's refusals for source text: a `// cl:` line build.py and git read differently, and
-    every `// cl:` line (as build.py splits lines) with a flag cl_flags refuses. plain_words=False
-    leaves words that are not flags to Rule D."""
+    every `// cl:` line (as build.py splits lines) with a flag cl_flags refuses, or an include
+    value outside `include_values`. plain_words=False leaves words that are not flags to Rule D."""
     import build
     import cl_flags
     split = cl_flags.directive_split(text)
@@ -141,7 +150,7 @@ def cl_text_refusals(text, plain_words=True):
         except SystemExit as malformed:
             found.append(str(malformed))
             continue
-        refused = [(token, reason) for token, reason in cl_flags.problems(tokens)
+        refused = [(token, reason) for token, reason in cl_flags.problems(tokens, include_values)
                    if plain_words or reason != "is not a flag"]
         if refused:
             found.append(cl_flags.describe(refused)[:300])
@@ -152,12 +161,12 @@ def added_cl_unsafe(old, new):
     """[(path, refusal)] for each added line under Code/ holding a `// cl:` directive with a flag
     cl_flags refuses, or one a line break other than a newline hides (Rule D reports plain words
     that are not flags; this reports everything else)."""
-    found, path = [], None
+    found, path, values = [], None, include_values_at(new)
     for line in diff_lines(old, new, "Code/"):
         if line.startswith("+++ b/"):
             path = line[6:]
         elif line.startswith("+") and not line.startswith("+++") and CL_MARK in line:
-            found.extend((path, refusal) for refusal in cl_text_refusals(line[1:], plain_words=False))
+            found.extend((path, refusal) for refusal in cl_text_refusals(line[1:], False, values))
     return found
 
 
@@ -230,13 +239,21 @@ def _blobs(specs):
 
 
 def read_directive_refusals(specs):
-    """[(path, refusal)] for each Code/ text blob holding #import, #using or include_alias."""
+    """[(path, refusal)] for each text blob holding #import, #using or include_alias: an early
+    warning (build.py's include confinement is the boundary). UTF-16 with a byte-order mark is
+    read as such; other binary blobs are skipped."""
     import cl_flags
     found = []
     for spec, blob in zip(specs, _blobs(specs)):
-        if blob is None or b"\0" in blob[:8192]:
+        if blob is None:
             continue
-        names = cl_flags.read_directives(blob.decode("utf-8-sig", errors="replace"))
+        if blob[:2] in (b"\xff\xfe", b"\xfe\xff"):
+            text = blob.decode("utf-16", errors="replace")
+        elif b"\0" in blob[:8192]:
+            continue
+        else:
+            text = blob.decode("utf-8-sig", errors="replace")
+        names = cl_flags.read_directives(text)
         if names:
             found.append((spec.decode("utf-8", "replace").split(":", 1)[1], ", ".join(names)))
     return found
@@ -246,24 +263,25 @@ def added_read_directives(old, new):
     """read_directive_refusals over every Code/ file the change adds or changes, whole (a line
     splice can assemble a directive from an unchanged line and an added one)."""
     if old is None:
-        cmd = ["git", "diff-tree", "--root", "-r", "--name-only", "-z", "--diff-filter=ACMR", new, "--", "Code/"]
+        cmd = ["git", "diff-tree", "--root", "-r", "--name-only", "-z", "--diff-filter=ACMR", new,
+               "--", "Code/", "reference/shims/"]
     elif new == ":":
-        cmd = ["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR", old, "--", "Code/"]
+        cmd = ["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR", old, "--", "Code/",
+               "reference/shims/"]
     else:
-        cmd = ["git", "diff", "--name-only", "-z", "--diff-filter=ACMR", old, new, "--", "Code/"]
+        cmd = ["git", "diff", "--name-only", "-z", "--diff-filter=ACMR", old, new, "--", "Code/", "reference/shims/"]
     names = [name for name in subprocess.run(cmd, capture_output=True, check=True).stdout.split(b"\0")
-             if name.startswith(b"Code/")]
+             if name.startswith((b"Code/", b"reference/shims/"))]
     prefix = b":" if new == ":" else new.encode() + b":"
     return read_directive_refusals([prefix + name for name in names])
 
 
 def tree_read_directives(commit):
-    """read_directive_refusals over every Code/ file of `commit` that could hold one."""
-    listing = subprocess.run(["git", "grep", "-l", "-z", "-I", "-E", "import|using|include_alias|[?][?]",
-                              commit, "--", "Code/"], capture_output=True)
-    if listing.returncode not in (0, 1):
-        raise SystemExit("conversion gate: git grep failed: " + listing.stderr.decode(errors="replace"))
-    return read_directive_refusals([name for name in listing.stdout.split(b"\0") if name])
+    """read_directive_refusals over every Code/ and reference/shims/ file of `commit` (no textual
+    prefilter: a splice or a trigraph would hide the name from one)."""
+    listing = subprocess.run(["git", "ls-tree", "-r", "-z", "--name-only", commit, "--", "Code/", "reference/shims/"],
+                             capture_output=True, check=True).stdout
+    return read_directive_refusals([commit.encode() + b":" + name for name in listing.split(b"\0") if name])
 
 
 def tree_cl_refusals(commit):
@@ -274,6 +292,7 @@ def tree_cl_refusals(commit):
     if listing.returncode not in (0, 1):
         raise SystemExit("conversion gate: git grep failed: " + listing.stderr.decode(errors="replace"))
     names = [name for name in listing.stdout.split(b"\0") if name]           # b"<commit>:<path>"
+    values = include_values_at(commit)
     batch = subprocess.run(["git", "cat-file", "--batch"], input=b"".join(name + b"\n" for name in names),
                            capture_output=True, check=True).stdout
     found, at = [], 0
@@ -283,7 +302,7 @@ def tree_cl_refusals(commit):
         text = batch[header_end + 1:header_end + 1 + size].decode("utf-8-sig", errors="replace")
         at = header_end + 1 + size + 1
         path = name.decode("utf-8", "replace").split(":", 1)[1]
-        found.extend((path, refusal) for refusal in cl_text_refusals(text))
+        found.extend((path, refusal) for refusal in cl_text_refusals(text, True, values))
     return found
 
 

@@ -94,7 +94,9 @@ def test_return_type_of_indented_and_one_line_definitions():
     assert permute._return_type(lines, 9) is None
 
 
-def test_flag_search_preserves_directive_after_bank_metadata(tmp_path):
+def test_flag_search_preserves_directive_after_bank_metadata(tmp_path, monkeypatch):
+    # an invented include directory: the include value allowlist is not what this tests
+    monkeypatch.setattr(permute.build, "_include_values", lambda: None)
     metadata = "// symbol\n" + "// partial score=0.8 date=2026-10-20\n" * 16
     source = metadata + "// cl: /O1 /Ob1 /G7 /Oy- /Iinclude-dir\nint body() { return 1; }\n"
     variant = permute._with_flags(source, "/O2", ("/O1", "/Ox"))

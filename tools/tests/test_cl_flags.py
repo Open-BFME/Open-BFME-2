@@ -1,4 +1,5 @@
-"""tools/cl_flags.py: the `// cl:` flags a source may carry, as the gate and build.py apply them."""
+"""tools/cl_flags.py and build.py's include confinement: what a source may make the compiler do and read."""
+import json
 import os
 import shutil
 import subprocess
@@ -29,6 +30,9 @@ OUTSIDE = [
     "/I /etc", "-I ../x", "/FI/etc/passwd", "/FI../x.h",
     '/FI"Z:\\secret\\evil.h"',              # P2: a quoted /FI value
 ]
+# Round 3, finding 1: Windows aliases of an allowed directory are other strings.
+ALIASES = ["/ICode/LOWERLINK", "/ICode/lowerlink.", "/ICODE~1/LOWERL~1", "/ICode/lowerlink::$INDEX_ALLOCATION",
+           "/ICode/GameEngine/Include/", "/ICode//GameEngine/Include", "/I./Code/GameEngine/Include"]
 ALLOWED = (
     "/O1 /O2 /Ox /Od /Os /Ot /Og /Og- /Oi /Oi- /Oy /Oy- /Oa /Ow /Op /Ob0 /Ob1 /Ob2 /G5 /G6 /G7 /GX /GX- "
     "/GR /GR- /GS /GS- /GF /GF- /GZ /Gy /Gz /Gs /Gs4096 /EHsc /EHs /EHa /EHs-c- /EHsc- /EHc- /EHs- "
@@ -47,10 +51,6 @@ def tokens(line):
     return build._source_flag_tokens(line)
 
 
-def in_checkout():
-    return {"root": str(build.ROOT), "trusted": build._trusted_include_links()}
-
-
 def link(target, at):
     """A directory symlink, or skip where this account cannot make one."""
     try:
@@ -63,13 +63,15 @@ def link(target, at):
 def scratch():
     """A directory inside the checkout (compiler_command takes only its sources), removed after."""
     path = build.ROOT / "build" / "test_cl_flags"
+    shutil.rmtree(path, ignore_errors=True)
     path.mkdir(parents=True, exist_ok=True)
-    cl_flags.forget()
+    build._include_escape.cache_clear()
     yield path
     shutil.rmtree(path, ignore_errors=True)
-    cl_flags.forget()
+    build._include_escape.cache_clear()
 
 
+# ------------------------------------------------- flags
 def test_every_flag_master_s_sources_carry_passes():
     # Every first `// cl:` line build.source_extra_flags reads under Code/, and the banked
     # attempts' and generators' flag lines (two reverse/ notes are prose, never compiled).
@@ -77,12 +79,14 @@ def test_every_flag_master_s_sources_carry_passes():
                           "reverse/attempts"], capture_output=True, text=True, encoding="utf-8",
                          errors="replace").stdout
     seen, refused = set(), []
+    values = build._include_values()
     for line in out.splitlines():
         path, _number, text = line.split(":", 2)
         if path in seen:
             continue
         seen.add(path)
-        found = cl_flags.problems(tokens(text[len("// cl:"):]), **in_checkout())
+        found = cl_flags.problems(tokens(text[len("// cl:"):]),
+                                  None if path.startswith("tools/") else values)
         if found:
             refused.append((path, cl_flags.describe(found)))
     assert len(seen) > 15000
@@ -107,77 +111,155 @@ def test_an_include_path_outside_the_checkout_is_refused(line):
 
 
 def test_the_flag_families_in_use_pass():
-    assert cl_flags.problems(tokens(ALLOWED), **in_checkout()) == []
+    assert cl_flags.problems(tokens(ALLOWED)) == []
 
 
 def test_prose_is_refused_as_not_a_flag():
     assert [reason for _, reason in cl_flags.problems(tokens("(none, base flags)"))] == ["is not a flag"] * 3
 
 
-# ------------------------------------------------- the include walk (security re-check of 488d80c460)
+# ------------------------------------------------- A: include values are exact strings from the list
+def test_master_s_include_values_are_all_listed():
+    values = build._include_values()
+    assert len(values) > 500 and "Code/GameEngine/Include" in values and "reference/shims" in values
+
+
+@pytest.mark.parametrize("line", ALIASES)
+def test_any_other_spelling_of_an_allowed_value_is_refused(line):
+    values = frozenset({"Code/lowerlink", "Code/GameEngine/Include"})
+    found = cl_flags.problems(tokens(line), values)
+    assert found and found[0][1].startswith("include path")
+
+
+def test_listed_values_pass_in_every_form_build_reads():
+    values = frozenset({"Code/a", "reference/shims/b c", "x.h"})
+    assert cl_flags.problems(tokens('/ICode/a -I Code/a /I"reference/shims/b c" /FIx.h /ICode\\a'), values) == []
+    assert cl_flags.problems(tokens("/ICode/b /FIy.h"), values) == [
+        ("/ICode/b", f"include path is not in {cl_flags.INCLUDE_ROOTS}"),
+        ("/FIy.h", f"include path is not in {cl_flags.INCLUDE_ROOTS}")]
+
+
+def test_a_missing_list_refuses_every_include_flag(scratch, monkeypatch):
+    monkeypatch.setattr(build, "ROOT", scratch)            # a tree without reverse/cl_include_roots.txt
+    assert build._include_values() == frozenset()
+    assert cl_flags.problems(tokens("/ICode"), build._include_values())
+
+
+def test_the_list_file_format():
+    assert cl_flags.parse_include_roots("# comment\nCode\n\n  # also\nreference/shims/a b\r\n") == \
+        frozenset({"Code", "reference/shims/a b"})
+
+
+# ------------------------------------------------- B: what the compiler opened stays inside
+def note(path):
+    """A /showIncludes line as cl prints it under Wine (or natively on Windows)."""
+    text = str(path)
+    if os.name != "nt":
+        text = "Z:" + text.replace("/", "\\")
+    return f"Note: including file: {text}"
+
+
+def test_include_confinement_accepts_the_checkout_and_the_toolchain(scratch):
+    (scratch / "inside.h").write_text("", encoding="utf-8")
+    header = build.vc71_root() / "Vc7" / "include" / "stdio.h"
+    assert build.include_confinement("\n".join([note(scratch / "inside.h"), note(header), "other output"])) is None
+
+
+def test_include_confinement_refuses_a_file_outside(scratch, tmp_path):
+    (tmp_path / "sentinel.h").write_text("#error outside\n", encoding="utf-8")
+    assert "outside" in build.include_confinement(note(tmp_path / "sentinel.h"))
+
+
+def test_include_confinement_follows_a_link_and_a_case_variant_of_one(scratch, tmp_path):
+    (tmp_path / "sentinel.h").write_text("", encoding="utf-8")
+    link(tmp_path, scratch / "lowerlink")
+    assert "outside" in build.include_confinement(note(scratch / "lowerlink" / "sentinel.h"))
+    if os.name != "nt":                                       # Wine opens lowerlink for LOWERLINK
+        assert "outside" in build.include_confinement(note(scratch / "LOWERLINK" / "sentinel.h"))
+
+
+def test_include_confinement_refuses_import_output_and_an_unresolvable_file(scratch):
+    (scratch / "x.tlh").write_text("", encoding="utf-8")
+    assert "#import output" in build.include_confinement(note(scratch / "x.tlh"))
+    assert "does not resolve" in build.include_confinement(note(scratch / "lowerlink." / "missing.h"))
+
+
+def test_a_trusted_seat_link_is_inside(scratch, tmp_path, monkeypatch):
+    (tmp_path / "sentinel.h").write_text("", encoding="utf-8")
+    link(tmp_path, scratch / "seatlink")
+    rel = scratch.relative_to(build.ROOT).as_posix() + "/seatlink"
+    monkeypatch.setattr(build, "_trusted_include_links", lambda: frozenset({rel}))
+    assert build.include_confinement(note(scratch / "seatlink" / "sentinel.h")) is None
+
+
+def test_an_object_built_from_a_header_outside_is_never_current(scratch, tmp_path):
+    source, obj = scratch / "unit.cpp", scratch / "unit.obj"
+    source.write_text("int f() { return 1; }\n", encoding="utf-8")
+    obj.write_bytes(b"obj")
+    (tmp_path / "outside.h").write_text("", encoding="utf-8")
+    command, env = build.compiler_command(source, obj)
+    meta = {"cmd": build._cmd_fingerprint(command, env), "source": build._hash_file(str(source)),
+            "deps": {str(tmp_path / "outside.h"): build._hash_file(str(tmp_path / "outside.h"))}}
+    build._deps_sidecar(obj).write_text(json.dumps(meta), encoding="utf-8")
+    assert build.compile_is_current(source, obj) is False
+    meta["deps"] = {}
+    build._deps_sidecar(obj).write_text(json.dumps(meta), encoding="utf-8")
+    assert build.compile_is_current(source, obj) is True
+
+
+def test_an_assembler_source_naming_an_include_is_refused(scratch):
+    source = scratch / "unit.asm"
+    source.write_text(".386\n.model flat\nINCLUDE Z:\\tmp\\x.inc\nEND\n", encoding="utf-8")
+    ok, text, _code = build.try_compile_source(source, scratch / "unit.obj")
+    assert not ok and "include confinement" in text
+
+
 @pytest.fixture
-def tree(tmp_path):
-    """A checkout: Code/Real, Code/lowerlink -> outside, reference/open-bfme-1/{game,review_link}."""
-    root, outside = tmp_path / "checkout", tmp_path / "outside"
-    (root / "Code/Real").mkdir(parents=True)
-    (root / "reference/open-bfme-1/game").mkdir(parents=True)
-    outside.mkdir()
-    (outside / "sentinel.h").write_text("#error outside\n", encoding="utf-8")
-    link(outside, root / "Code/lowerlink")
-    link(outside, root / "reference/open-bfme-1/review_link")
-    cl_flags.forget()
-    yield root
-    cl_flags.forget()
+def compiler(monkeypatch):
+    try:
+        build.vc71_root()
+    except SystemExit:
+        pytest.skip("MSVC 7.1 is not set up here")
+    monkeypatch.setenv("BFME_OBJSTORE", "off")              # a scratch compile never enters the store
 
 
-def test_the_walk_passes_real_directories_spelt_as_on_disk(tree):
-    walk = lambda path, trusted=(): cl_flags.walk(str(tree), path, trusted)  # noqa: E731
-    assert walk("Code/Real") is None
-    assert walk("reference/open-bfme-1/game") is None
-    assert walk("Code/Missing/deeper") is None                  # nothing there for the compiler to read
+def compile_text(scratch, text):
+    source = scratch / "unit.cpp"
+    source.write_text(text, encoding="utf-8")
+    return build.try_compile_source(source, scratch / "unit.obj")
 
 
-def test_a_case_variant_of_a_link_is_refused(tree):
-    # P1: realpath() on a case-sensitive host does not resolve Code/LOWERLINK; Wine opens
-    # Code/lowerlink and follows it out.
-    assert cl_flags.walk(str(tree), "Code/LOWERLINK") == "differs in case from its directory entry"
-    assert cl_flags.walk(str(tree), "Code/LowerLink/sentinel.h") == "differs in case from its directory entry"
-    assert cl_flags.walk(str(tree), "code/Real") == "differs in case from its directory entry"
-    assert cl_flags.problems(tokens("/ICode/LOWERLINK /FIsentinel.h"), root=str(tree))
+def test_a_real_compile_reading_outside_through_a_link_fails(compiler, scratch, tmp_path):
+    (tmp_path / "sentinel.h").write_text("int sentinel;\n", encoding="utf-8")
+    link(tmp_path, scratch / "lowerlink")
+    for name in ("lowerlink", "LOWERLINK"):              # Wine opens lowerlink for LOWERLINK too
+        ok, text, _ = compile_text(scratch, f'#include "{name}/sentinel.h"\nint f() {{ return sentinel; }}\n')
+        assert not ok and "include confinement" in text and not (scratch / "unit.obj").exists(), name
 
 
-def test_a_link_is_refused_wherever_it_is_unless_the_seat_trusts_it(tree):
-    # P2: a directory under reference/open-bfme-1 authorized its link target.
-    assert cl_flags.walk(str(tree), "Code/lowerlink") == "passes a symlink or junction"
-    assert cl_flags.walk(str(tree), "reference/open-bfme-1/review_link") == "passes a symlink or junction"
-    assert cl_flags.problems(tokens("/Ireference/open-bfme-1/review_link /FIsentinel.h"), root=str(tree))
-    trusted = frozenset({"reference/open-bfme-1/review_link"})
-    assert cl_flags.walk(str(tree), "reference/open-bfme-1/review_link", trusted) is None
-    assert cl_flags.walk(str(tree), "reference/open-bfme-1/REVIEW_LINK", trusted) is not None
-    assert cl_flags.walk(str(tree), "Code/lowerlink", trusted) == "passes a symlink or junction"
+def test_a_real_compile_climbing_out_or_aliased_out_fails(compiler, scratch, tmp_path):
+    (tmp_path / "sentinel.h").write_text("int sentinel;\n", encoding="utf-8")
+    climb = os.path.relpath(tmp_path / "sentinel.h", scratch).replace("\\", "/")
+    for text in (f'#include "{climb}"\nint f() {{ return sentinel; }}\n',
+                 f'#pragma include_alias("quiet.h", "{climb}")\n#include "quiet.h"\nint f() {{ return sentinel; }}\n',
+                 f'#define OUT "{climb}"\n#include OUT\nint f() {{ return sentinel; }}\n'):
+        ok, out, _ = compile_text(scratch, text)
+        assert not ok and "include confinement" in out, text
 
 
-def test_a_submodule_that_is_itself_a_junction_needs_the_seat_s_trust(tmp_path):
-    root = tmp_path / "worktree"
-    (root / "reference").mkdir(parents=True)
-    (tmp_path / "main/game").mkdir(parents=True)
-    link(tmp_path / "main", root / "reference/open-bfme-1")
-    cl_flags.forget()
-    assert cl_flags.walk(str(root), "reference/open-bfme-1/game") == "passes a symlink or junction"
-    assert cl_flags.walk(str(root), "reference/open-bfme-1/game", frozenset({"reference/open-bfme-1"})) is None
+def test_a_real_compile_of_a_utf16_source_reading_outside_fails(compiler, scratch, tmp_path):
+    (tmp_path / "sentinel.h").write_text("int sentinel;\n", encoding="utf-8")
+    climb = os.path.relpath(tmp_path / "sentinel.h", scratch).replace("\\", "/")
+    source = scratch / "unit.cpp"
+    source.write_bytes(f'#include "{climb}"\r\nint f() {{ return sentinel; }}\r\n'.encode("utf-16"))
+    ok, out, _ = build.try_compile_source(source, scratch / "unit.obj")
+    assert not ok and "include confinement" in out
 
 
-def test_the_trust_list_is_read_from_the_seat_s_own_git_dir(tmp_path):
-    root, gitdir = tmp_path / "seat", tmp_path / "main/.git/worktrees/seat"
-    root.mkdir()
-    gitdir.mkdir(parents=True)
-    (root / ".git").write_text(f"gitdir: {gitdir}\n", encoding="utf-8")
-    assert build._trusted_include_links_of(str(root)) == frozenset()
-    build._trusted_include_links_of.cache_clear()
-    (gitdir / build.TRUSTED_INCLUDE_LINKS).write_text(
-        "# this seat links the submodule in from the main checkout\nreference/open-bfme-1\n\n", encoding="utf-8")
-    assert build._trusted_include_links_of(str(root)) == frozenset({"reference/open-bfme-1"})
-    build._trusted_include_links_of.cache_clear()
+def test_a_real_compile_inside_the_checkout_passes(compiler, scratch):
+    (scratch / "inside.h").write_text("int inside;\n", encoding="utf-8")
+    ok, text, _ = compile_text(scratch, '#include "inside.h"\nint f() { return inside; }\n')
+    assert ok, text
 
 
 # ------------------------------------------------- build.py at compile time
@@ -191,30 +273,16 @@ def test_build_refuses_to_compile_a_source_with_a_refused_flag(scratch):
         build.compiler_command(source, scratch / "evil.obj")
 
 
-@pytest.mark.parametrize("line", RESPONSE_FILES[:4])
-def test_build_refuses_a_response_file_argument(scratch, line):
+@pytest.mark.parametrize("line", RESPONSE_FILES[:4] + ALIASES[:4])
+def test_build_refuses_a_response_file_or_an_unlisted_include_value(scratch, line):
     source = scratch / "rsp.cpp"
     source.write_text(f"// cl: /O2 {line}\nint f() {{ return 1; }}\n", encoding="utf-8")
     with pytest.raises(cl_flags.Refused):
         build.source_extra_flags(source)
 
 
-def test_build_refuses_a_case_variant_of_a_link_in_the_checkout(scratch, tmp_path):
-    (scratch / "inside").mkdir()
-    link(tmp_path, scratch / "lowerlink")
-    rel = scratch.relative_to(build.ROOT).as_posix()
-    cl_flags.forget()
-    source = scratch / "walk.cpp"
-    for operand in (f"{rel}/inside", f"{rel}/lowerlink", f"{rel}/LOWERLINK", f"{rel}/INSIDE"):
-        source.write_text(f"// cl: /O2 /I{operand} /FIsentinel.h\nint f() {{ return 1; }}\n", encoding="utf-8")
-        if operand.endswith("/inside"):
-            assert build.source_extra_flags(source)[1] == f"-I{operand}"
-        else:
-            with pytest.raises(cl_flags.Refused):
-                build.source_extra_flags(source)
-
-
-@pytest.mark.parametrize("injected", [["-B1x.dll"], ["-IZ:/outside"], ["-I", "/outside"], ["@x.rsp"]])
+@pytest.mark.parametrize("injected", [["-B1x.dll"], ["-IZ:/outside"], ["-I", "/outside"], ["@x.rsp"],
+                                      ["-ICode/NotListed"]])
 def test_build_refuses_a_flag_or_path_injected_after_the_line(scratch, monkeypatch, injected):
     # flag_defaults.apply adds region tokens from reverse/ data (opt=IZ:/outside): checked too.
     source = scratch / "region.cpp"
@@ -258,24 +326,39 @@ def test_the_compile_environment_drops_every_variable_a_tool_reads_flags_from(mo
     assert "INCLUDE" in env and "LIB" in env                   # what build sets stays
 
 
+def test_the_trust_list_is_read_from_the_seat_s_own_git_dir(tmp_path):
+    root, gitdir = tmp_path / "seat", tmp_path / "main/.git/worktrees/seat"
+    root.mkdir()
+    gitdir.mkdir(parents=True)
+    (root / ".git").write_text(f"gitdir: {gitdir}\n", encoding="utf-8")
+    assert build._trusted_include_links_of(str(root)) == frozenset()
+    build._trusted_include_links_of.cache_clear()
+    (gitdir / build.TRUSTED_INCLUDE_LINKS).write_text(
+        "# this seat links the submodule in from the main checkout\nreference/open-bfme-1\n\n", encoding="utf-8")
+    assert build._trusted_include_links_of(str(root)) == frozenset({"reference/open-bfme-1"})
+    build._trusted_include_links_of.cache_clear()
+
+
 def test_build_passes_allowed_flags_through_unchanged(scratch):
     source = scratch / "good.cpp"
-    source.write_text("// cl: /O1 /Ob2 /EHsc /MD /DNDEBUG /Ireference/shims/include\nint f() { return 1; }\n",
+    source.write_text("// cl: /O1 /Ob2 /EHsc /MD /DNDEBUG /ICode/GameEngine/Include\nint f() { return 1; }\n",
                       encoding="utf-8")
     assert build.source_extra_flags(source) == ["-O1", "-Ob2", "-EHsc", "-MD", "-DNDEBUG",
-                                                "-Ireference/shims/include"]
+                                                "-ICode/GameEngine/Include"]
 
 
-# ------------------------------------------------- reads a source directs itself (round 3)
+# ------------------------------------------------- reads a source directs itself (early warning)
 READ_DIRECTIVES = [
     ('#import "Z:\\evil.tlb"', ["#import"]), ("  #  using <x.dll>", ["#using"]),
     ('#pragma include_alias("a.h", "/etc/passwd")', ["#pragma include_alias"]),
     ('__pragma(include_alias("a.h", "b.h"))', ["#pragma include_alias"]),
     ('??=import "x.tlb"', ["#import"]),                         # a trigraph for #
-    ('#imp\\\nort "x.tlb"', ["#import"]),                      # a line splice inside the name
+    ('#imp\\\nort "x.tlb"', ["#import"]),                       # a line splice inside the name
     ('#\\\npragma include_alias("a.h", "b.h")', ["#pragma include_alias"]),
     ('# /* comment */ import "x.tlb"', ["#import"]),            # a comment is whitespace
     ('int x;\r#import "x.tlb"', ["#import"]),                   # a lone carriage return
+    ('#pragma\vinclude_alias("a.h", "b.h")', ["#pragma include_alias"]),   # round 3: a vertical tab
+    ('x = "n/*";\n#pragma include_alias("a.h", "b.h")\n// */', ["#pragma include_alias"]),  # round 3
 ]
 NOT_READ_DIRECTIVES = ["using namespace std;", "// #import x", "/* #import y */", 'const char *s = "#import";',
                        '#include "import.h"', "#pragma once", "int using_x;", "#pragma warning(disable: 4786)"]

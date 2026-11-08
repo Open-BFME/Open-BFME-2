@@ -10,6 +10,13 @@ sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def any_include_value(monkeypatch):
+    """These tests build their own trees and flag spellings to test the include rewrite, not
+    reverse/cl_include_roots.txt's allowlist (tools/tests/test_cl_flags.py tests that)."""
+    monkeypatch.setattr(build, "_include_values", lambda: None)
+
+
 def test_current_layout_donor_flags_are_rooted_at_the_submodule(tmp_path, monkeypatch):
     monkeypatch.setattr(build, "BFME1_ROOT", tmp_path)
     (tmp_path / "game").mkdir()

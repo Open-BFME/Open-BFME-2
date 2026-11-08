@@ -1,4 +1,4 @@
-"""The compiler flags a `// cl:` line may carry: one list for the hooks and the build.
+"""What a source may tell the compiler through its `// cl:` line: one policy for the hooks and the build.
 
 cl.exe does what its flags say. /B1, /B2 and /Bx swap in another compiler pass or
 preprocessor DLL; /Fa /FA /Fo /Fd /Fe /Fm /FR /Fr /Fp /Fx write files wherever they point
@@ -11,15 +11,18 @@ conversion_gate.py (Rule F) refuses an added `// cl:` line with one, and
 build.source_extra_flags refuses to compile any source with one: that is the backstop
 for every source the gate does not judge (outside Code/, never added in a diff).
 
-So only the flag families this repository's sources used on 2026-11-07 pass, each of
-them code-generation or language only: Code/, the banked attempts under reverse/, the
-generators in tools/ and the Open-BFME-1 donors (every token was surveyed). No token
-may hold `@` or a quote. A /I or /FI path must stay inside the checkout: relative, no
-`..`, no drive or root, and (given the checkout) walked on disk: every component spelt
-as its directory entry is (Wine matches case-insensitively) and no symlink or junction
-on the way, except one the seat's own uncommitted trust list names
-(build._trusted_include_links). Anything else, prose included, is refused; a new flag
-is a reviewed edit to this list.
+Two compiler-facing guarantees, neither a parser of paths:
+  * Flags: only the flag families this repository's sources used on 2026-11-07 pass, each
+    code-generation or language only (every token of Code/, the banked attempts, the
+    generators and the Open-BFME-1 donors was surveyed). No token may hold `@` or a quote.
+  * Include flag values: a /I or /FI operand must be one of the exact strings in
+    reverse/cl_include_roots.txt (INCLUDE_ROOTS, written from master's sources by
+    `python3 tools/cl_flags.py --write-include-roots`; adding one is a reviewed ledger
+    change with a Verifier-Change trailer). An 8.3 name, a trailing dot, an alternate
+    stream or another case is another string, so it is refused without being interpreted.
+What the compiler then opens through #include, however a source spells or builds it, is
+confined by build.try_compile_source from cl's own /showIncludes list (build.py, "include
+confinement"); this module does not try to read paths.
 
 The environment can carry flags too: cl.exe and clang-cl read CL and _CL_, ml.exe ML and
 _ML_, link.exe LINK and _LINK_, clang CCC_OVERRIDE_OPTIONS and its include path variables,
@@ -29,14 +32,17 @@ Windows programs look names up case-insensitively).
 A `// cl:` directive is a line to build.py (str.splitlines, which also breaks at \\v \\f
 \\x1c-\\x1e U+0085 U+2028 U+2029 and a lone \\r) but a line to git and the gate only at
 \\n. directive_split() refuses a source whose two readings of its `// cl:` lines differ.
+
+  python3 tools/cl_flags.py --write-include-roots   # rewrite reverse/cl_include_roots.txt from the tree
 """
-import functools
-import os
 import re
+import sys
+from pathlib import Path
 
 OPTION_ENV = frozenset(["CL", "_CL_", "ML", "_ML_", "LINK", "_LINK_", "LIBPATH", "CCC_OVERRIDE_OPTIONS",
                         "CPATH", "C_INCLUDE_PATH", "CPLUS_INCLUDE_PATH", "OBJC_INCLUDE_PATH"])
 MARK = "// cl:"
+INCLUDE_ROOTS = "reverse/cl_include_roots.txt"
 
 
 class Refused(ValueError):
@@ -66,78 +72,39 @@ DANGEROUS = re.compile(r"-(?:B|F[aAodemRrpxi]|Y|link$|clang:|P$|E$|EP$|clr|AI|FU
 SEPARATOR = re.compile("[\\v\\f\\x1c\\x1d\\x1e\\x85\\u2028\\u2029]|\\r(?!\\n)")
 
 
-def _is_link(path):
-    """A symlink, or on Windows a junction or other reparse point."""
-    if os.path.islink(path):
-        return True
-    isjunction = getattr(os.path, "isjunction", None)
-    if isjunction is not None and isjunction(path):
-        return True
-    if os.name == "nt":
-        try:
-            return bool(os.lstat(path).st_file_attributes & 0x400)   # FILE_ATTRIBUTE_REPARSE_POINT
-        except OSError:
-            return False
-    return False
+def include_value(operand):
+    """The string a /I or /FI operand is compared as: backslashes written as slashes."""
+    return operand.replace("\\", "/")
 
 
-@functools.lru_cache(maxsize=8192)
-def _entries(directory):
-    return tuple(os.listdir(directory))
-
-
-def forget():
-    """Drop the directory listings walk() caches (a test that changes the tree)."""
-    _entries.cache_clear()
-
-
-def walk(root, path, trusted=()):
-    """Why `path`, relative to `root` (the compiler's working directory, the checkout), may lead
-    out of the checkout as Wine or Windows resolve it, or None. Wine resolves case-insensitively,
-    so each component must match its directory entry exactly (Code/LOWERLINK would open
-    Code/lowerlink); none may be a symlink or junction unless `trusted` names it (repo-relative,
-    exact case: a seat's own linked tree). A component that is not there ends the walk: the
-    compiler finds nothing beyond it."""
-    current, walked = root, []
-    for part in path.split("/"):
-        if part in ("", "."):
-            continue
-        try:
-            entries = _entries(current)
-        except OSError:
-            return None
-        if part not in entries:
-            if any(entry.casefold() == part.casefold() for entry in entries):
-                return "differs in case from its directory entry"
-            return None
-        walked.append(part)
-        candidate = os.path.join(current, part)
-        if _is_link(candidate):
-            if "/".join(walked) not in trusted:
-                return "passes a symlink or junction"
-            current = os.path.realpath(candidate)
-        else:
-            current = candidate
-    return None
-
-
-def outside(path, root=None, trusted=()):
-    """Why an include path leaves the checkout, or None. Given `root`, the path is also walked
-    on disk (walk())."""
+def outside(path):
+    """Why an include path is not a plain relative path inside the checkout, or None (cheap,
+    lexical: the value allowlist and build's include confinement are the guarantees)."""
     if not path:
         return "is empty"
     if '"' in path or "@" in path:
         return "holds a quote or @"
-    path = path.replace("\\", "/")
+    path = include_value(path)
     if path.startswith("/") or re.match(r"[A-Za-z]:", path):
         return "is absolute"
     if ".." in path.split("/"):
         return "climbs out with .."
-    return walk(root, path, trusted) if root else None
+    return None
 
 
-def problems(tokens, root=None, trusted=()):
-    """[(token, reason)] for each `// cl:` token (build._source_flag_tokens') a source may not carry."""
+def _path_problem(operand, values):
+    why = outside(operand)
+    if why:
+        return f"include path {why}"
+    if values is not None and include_value(operand) not in values:
+        return f"include path is not in {INCLUDE_ROOTS}"
+    return None
+
+
+def problems(tokens, include_values=None):
+    """[(token, reason)] for each `// cl:` token (build._source_flag_tokens') a source may not carry.
+    `include_values` (a set of include_value() strings) is the allowlist /I and /FI operands must
+    be in; None checks them lexically only."""
     found = []
     index = 0
     while index < len(tokens):
@@ -146,13 +113,13 @@ def problems(tokens, root=None, trusted=()):
         if flag in ("-I", "-FI"):                     # the operand is the next token
             index += 1
             operand = tokens[index] if index < len(tokens) else ""
-            why = outside(operand, root, trusted)
+            why = _path_problem(operand, include_values)
             if why:
-                found.append((f"{token} {operand}".strip(), f"include path {why}"))
+                found.append((f"{token} {operand}".strip(), why))
         elif PATH_FLAG.match(flag):
-            why = outside(PATH_FLAG.match(flag).group(2), root, trusted)
+            why = _path_problem(PATH_FLAG.match(flag).group(2), include_values)
             if why:
-                found.append((token, f"include path {why}"))
+                found.append((token, why))
         elif "@" in flag or '"' in flag:
             found.append((token, "holds @ (a response file) or a quote"))
         elif not ALLOWED.match(flag):
@@ -164,6 +131,27 @@ def problems(tokens, root=None, trusted=()):
                 found.append((token, "is not a flag"))
         index += 1
     return found
+
+
+def include_operands(tokens):
+    """The include_value() of every /I and /FI operand among `tokens`."""
+    values, index = [], 0
+    while index < len(tokens):
+        flag = "-" + tokens[index][1:] if tokens[index].startswith("/") else tokens[index]
+        if flag in ("-I", "-FI"):
+            index += 1
+            if index < len(tokens):
+                values.append(include_value(tokens[index]))
+        elif PATH_FLAG.match(flag):
+            values.append(include_value(PATH_FLAG.match(flag).group(2)))
+        index += 1
+    return values
+
+
+def parse_include_roots(text):
+    """The values of an INCLUDE_ROOTS file: one per line, `#` comments and blank lines ignored."""
+    return frozenset(line.rstrip("\r") for line in text.split("\n")
+                     if line.strip() and not line.lstrip().startswith("#"))
 
 
 def directive_split(text):
@@ -182,20 +170,21 @@ def describe(found):
     return "; ".join(f"{token!r} {reason}" for token, reason in found)
 
 
-# Reads a source directs itself, which no flag governs: #import reads a type library (and writes
-# .tlh/.tli files beside the object), #using an assembly, include_alias reroutes an #include to any
-# path. Master's sources use none of them, so conversion_gate Rule F refuses all three in Code/.
+# An early warning only (conversion_gate Rule F): the boundary for what the compiler reads is
+# build.py's include confinement, from cl's own /showIncludes list. #import reads a type library
+# (and writes .tlh/.tli files beside the object), #using an assembly, include_alias reroutes an
+# #include. Master's sources use none of them.
 TRIGRAPHS = {"??=": "#", "??/": "\\", "??'": "^", "??(": "[", "??)": "]", "??!": "|", "??<": "{",
              "??>": "}", "??-": "~"}
-COMMENT_OR_LITERAL = re.compile(r'"(?:\.|[^"\\n])*"|\'(?:\.|[^\'\\n])*\'|/\*[\s\S]*?\*/|//[^\n]*')
-READ_DIRECTIVE = re.compile(r"^[ \t]*#[ \t]*(import|using)\b|^[ \t]*#[ \t]*pragma[ \t]+(include_alias)\b"
-                            r"|\b__pragma[ \t]*\([ \t]*(include_alias)\b", re.M)
+COMMENT_OR_LITERAL = re.compile(r'"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'|/\*[\s\S]*?\*/|//[^\n]*')
+READ_DIRECTIVE = re.compile(r"^[^\S\n]*#[^\S\n]*(import|using)\b|^[^\S\n]*#[^\S\n]*pragma[^\S\n]+(include_alias)\b"
+                            r"|\b__pragma[^\S\n]*\([^\S\n]*(include_alias)\b", re.M)
 
 
 def read_directives(text):
     """The file-reading directives in source `text` (#import, #using, include_alias by #pragma or
     __pragma), found as the preprocessor finds them: trigraphs replaced, line splices joined,
-    comments blanked (line breaks kept), any \r taken as a line break."""
+    comments blanked (line breaks kept), any \\r taken as a line break."""
     for trigraph, char in TRIGRAPHS.items():
         text = text.replace(trigraph, char)
     text = text.replace("\r\n", "\n").replace("\r", "\n")
@@ -207,3 +196,45 @@ def read_directives(text):
         name = next(group for group in match.groups() if group)
         found.append("#pragma include_alias" if name == "include_alias" else f"#{name}")
     return sorted(set(found))
+
+
+def write_include_roots():
+    """Write INCLUDE_ROOTS from every source build.py can compile: Code/ and the banked attempts
+    (their `// cl:` lines as written and as build.source_extra_flags rewrites them) and the
+    Open-BFME-1 donors. A source refused for anything else contributes nothing."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import subprocess
+    import build
+    import cl_flags              # build's copy: run as a script, this module is __main__
+    values = set()
+    build._include_values = lambda: None           # this run collects; it does not judge
+    roots = [(build.ROOT, ["Code", "reverse/attempts"]), (build.BFME1_ROOT, ["."])]
+    for repo, paths in roots:
+        listing = subprocess.run(["git", "-C", str(repo), "grep", "-l", "-I", "-z", "^// cl:", "--", *paths],
+                                 capture_output=True, check=False).stdout
+        for name in listing.split(b"\0"):
+            source = repo / name.decode("utf-8", "replace")
+            if not name or source.suffix.lower() not in (".cpp", ".c", ".cxx", ".cc"):
+                continue
+            text = source.read_text(encoding="utf-8-sig", errors="replace")
+            line = next((line for line in text.splitlines() if line.startswith(MARK)), None)
+            try:
+                written = build._source_flag_tokens(line[len(MARK):])
+                final = build.source_extra_flags(source)
+            except (cl_flags.Refused, SystemExit, OSError):
+                continue
+            values.update(include_operands(written))
+            values.update(include_operands(final))
+    out = build.ROOT / INCLUDE_ROOTS
+    out.write_text("# The /I and /FI values a `// cl:` line may name (tools/cl_flags.py): exact strings,\n"
+                   "# backslashes as slashes. Written by `python3 tools/cl_flags.py --write-include-roots`;\n"
+                   "# adding a value is a reviewed change with a Verifier-Change trailer.\n"
+                   + "".join(value + "\n" for value in sorted(values)), encoding="utf-8", newline="\n")
+    print(f"{INCLUDE_ROOTS}: {len(values)} values")
+
+
+if __name__ == "__main__":
+    if sys.argv[1:] == ["--write-include-roots"]:
+        write_include_roots()
+    else:
+        raise SystemExit(__doc__.strip().splitlines()[-1].strip())

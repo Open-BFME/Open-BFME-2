@@ -1357,9 +1357,73 @@ def source_extra_flags(source):
 TRUSTED_INCLUDE_LINKS = "bfme-trusted-include-links"
 
 
+def _include_values():
+    """reverse/cl_include_roots.txt's values (cl_flags.INCLUDE_ROOTS); none when it is missing, so
+    every include flag is refused."""
+    path = ROOT / cl_flags.INCLUDE_ROOTS
+    try:
+        stat = path.stat()
+    except OSError:
+        return frozenset()
+    return _include_values_of(str(path), stat.st_mtime_ns, stat.st_size)
+
+
+@functools.lru_cache(maxsize=4)
+def _include_values_of(path, _mtime, _size):
+    return cl_flags.parse_include_roots(Path(path).read_text(encoding="utf-8"))
+
+
+# Include confinement. Every compile (try_compile_source) asks cl for the files it opened through
+# #include (/showIncludes, also the dependency cache's input) and fails unless each resolves, case
+# found as Wine finds it and links followed, inside this checkout, the toolchain (vc71_root) or a
+# tree this seat trusts (_trusted_include_links). That bounds reads however a source names or builds
+# them: include_alias, "../..", a macro, a junction, an 8.3 name, a UTF-16 header. #import's .tlh/
+# .tli output is refused outright. Nothing is claimed for other reads (#import's type library, #using).
+def _include_roots():
+    return _include_roots_of(str(ROOT), _trusted_include_links())
+
+
+@functools.lru_cache(maxsize=4)
+def _include_roots_of(root, trusted):
+    roots = [os.path.realpath(root)]
+    try:
+        roots.append(os.path.realpath(vc71_root()))
+    except SystemExit:
+        pass
+    roots += [os.path.realpath(Path(root) / link) for link in sorted(trusted)]
+    return tuple(os.path.normcase(r) for r in dict.fromkeys(roots))
+
+
+@functools.lru_cache(maxsize=65536)
+def _include_escape(path, roots):
+    """Why the included file at host `path` is outside `roots`, or None."""
+    if path.lower().endswith((".tlh", ".tli")):
+        return "is #import output (.tlh/.tli)"
+    real = os.path.normcase(os.path.realpath(path))
+    if any(real == r or real.startswith(r.rstrip(os.sep) + os.sep) for r in roots):
+        return None
+    return "resolves outside the checkout and toolchain"
+
+
+def include_confinement(stdout_text):
+    """Why a compile's /showIncludes notes leave the include roots, or None."""
+    roots = _include_roots()
+    for line in stdout_text.splitlines():
+        if not line.startswith("Note: including file:"):
+            continue
+        raw = line[len("Note: including file:"):].strip()
+        host = _case_resolve(_host_path(raw))
+        if host is None:
+            return f"{raw}: does not resolve to a file on this host"
+        why = _include_escape(host, roots)
+        if why:
+            return f"{raw}: {why}"
+    return None
+
+
 def _trusted_include_links():
-    """The symlinks or junctions a /I or /FI path may pass through: only those this seat names, one
-    repo-relative path per line (exact case, `#` comments), in <its git dir>/bfme-trusted-include-links.
+    """The linked trees whose targets include confinement also accepts: only those this seat names,
+    one repo-relative path per line (exact case, `#` comments), in <its git dir>/bfme-trusted-include-links.
     That file is the seat's own and never committed, so no commit can trust a link. A worktree whose
     reference/open-bfme-1 is a junction to the main checkout lists `reference/open-bfme-1`."""
     return _trusted_include_links_of(str(ROOT))
@@ -1388,9 +1452,9 @@ def _allowed_flags(source, flags):
     files would run on every machine that builds the source. This is the backstop for every
     source conversion_gate's Rule F does not judge. The `// cl:` tokens are checked as written
     and the final list again (its include paths are rewritten in between, and flag_defaults adds
-    tokens from reverse/ data), include paths walked on disk as Wine would resolve them
-    (cl_flags.walk: exact case, no link but a trusted one)."""
-    refused = cl_flags.problems(flags, root=str(ROOT), trusted=_trusted_include_links())
+    tokens from reverse/ data); each /I and /FI value must be one of reverse/cl_include_roots.txt's
+    exact strings."""
+    refused = cl_flags.problems(flags, include_values=_include_values())
     if refused:
         raise cl_flags.Refused(f"cl flags: {source}: {cl_flags.describe(refused)}; tools/cl_flags.py "
                                "lists the flags a source may carry")
@@ -2015,9 +2079,12 @@ def compile_is_current(source, output, *, strict=False, inventory_cache=None):
         return False
     if meta.get("source") != _hash_file(str(source)):
         return False
+    roots = _include_roots()
     for dep, digest in meta.get("deps", {}).items():
         if not cache_path_is_valid(dep):
             return False
+        if _include_escape(dep if os.path.isabs(dep) else str(ROOT / dep), roots):
+            return False      # an object built from a header outside the roots is never current
         path = dep if os.path.isabs(dep) else str(ROOT / dep)
         if _hash_file(path) != digest:
             return False
@@ -2509,6 +2576,9 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
         _deps_sidecar(output).unlink(missing_ok=True)
     command, env = compiler_command(source, output)
     is_cl = source.suffix.lower() != ".asm"
+    if not is_cl and re.search(r"include", source.read_text(encoding="utf-8", errors="replace"), re.I):
+        # ml.exe lists no included file, so include confinement cannot see one: refuse any.
+        return False, f"include confinement: {source}: an assembler source names an include", 1
     # Fingerprint the BASE command: the sweep-include retry below is a
     # deterministic function of these same inputs, so cache validity holds.
     fingerprint = _cmd_fingerprint(command, env)
@@ -2538,6 +2608,11 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
             stdout = log.read()
         filtered = "\n".join(l for l in stdout.splitlines() if not l.startswith("Note: including file:"))
         code = result.returncode
+        escape = include_confinement(stdout) if code == 0 and is_cl else None
+        if escape:
+            output.unlink(missing_ok=True)
+            _deps_sidecar(output).unlink(missing_ok=True)
+            return False, f"include confinement: {source}: {escape}\n{filtered}", 1
         if code == 0:
             _write_deps_sidecar(source, output, fingerprint, stdout, is_cl,
                                 command, env, inventory_before, retry_dirs)

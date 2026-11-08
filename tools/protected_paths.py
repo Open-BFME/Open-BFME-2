@@ -43,6 +43,8 @@ PROTECTED = (
     "build.sh", "build.cmd", "tools/build.py", "tools/stlport_overlay.py", "tools/delta_sources.py", "tools/name_dependents.py", "tools/flag_delta_sources.py",
     "tools/flag_defaults.py", "tools/compiler_profiles.py", "vendor/clang23-x86/*",
     "reverse/flag_overrides.csv", "tools/eh_verify.py",
+    # what a source may tell the compiler: the flag and include value allowlists
+    "tools/cl_flags.py", "reverse/cl_include_roots.txt",
     "tools/find_declared_unmatched.py", "tools/gen_case_shims.py",
     # data rows: the byte gate's verification of reverse/data_rows.csv and the
     # retail-image/COFF readers it uses
