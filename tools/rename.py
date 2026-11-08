@@ -7869,6 +7869,8 @@ def retype_object_problems(ctx, retype):
     problems, definitions = [], []
     word, old, new = retype["word"], retype["old"], retype["new"]
     for rel in retype["sources"]:                    # every declaration, as the compiler sees it
+        if not rel.endswith(SOURCE_SUFFIXES):        # an assembler source: its object is read below
+            continue
         text, why = preprocess_unit(ctx, rel)
         if text is None:
             problems.append(f"{rel}: {why}")

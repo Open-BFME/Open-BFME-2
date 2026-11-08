@@ -979,6 +979,21 @@ def test_object_check_passes_a_clean_owner(tree, objects):
     assert rename.retype_object_problems(ctx_of(tree), retype_record([OWNER, USER])) == []
 
 
+def test_object_check_reads_a_rebuilt_asm_by_its_object_alone(tree, objects, monkeypatch):
+    """The scan rebuilds a stale .asm; no preprocessor reads one, and its object still answers."""
+    made, tmp = objects
+    asked = []
+    monkeypatch.setattr(rename, "preprocess_unit", lambda ctx, rel: asked.append(rel) or ("", None))
+    made["ThunksRva00401000.cpp"] = coff(tmp / "owner.obj", [(NEW, 1, 2)])
+    made["Thunk.asm"] = coff(tmp / "thunk.obj", [("_thunk", 1, 2)])
+    unit = "Code/Game/Thunk.asm"
+    assert rename.retype_object_problems(ctx_of(tree), retype_record([OWNER, unit])) == []
+    assert asked == [OWNER]
+    made["Thunk.asm"] = coff(tmp / "thunk2.obj", [("_thunk", 1, 2), (OLD, 0, 2)])
+    problems = rename.retype_object_problems(ctx_of(tree), retype_record([OWNER, unit]))
+    assert problems and f"{unit}'s object still names {OLD}" in problems[0]
+
+
 def test_object_check_refuses_a_compiler_built_global(tree, objects):
     made, tmp = objects
     made["ThunksRva00401000.cpp"] = coff(tmp / "owner.obj", [(NEW, 1, 2), ("??__Eg_00A01000@@YAXXZ", 1, 2)])
