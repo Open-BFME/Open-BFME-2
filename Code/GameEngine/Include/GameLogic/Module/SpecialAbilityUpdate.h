@@ -49,6 +49,7 @@
 
 #include "UpdateModule.h"
 #include "SpecialPowerUpdateInterface.h"
+#include "../../Common/BitFlags11.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <list>
 
@@ -67,7 +68,11 @@ public:
 
     virtual NameKeyType getModuleNameKey() const;
     virtual UpdateSleepTime update();
-    virtual DisabledMaskType getDisabledTypesToProcess() const;
+    // 0x004A2D67, folded with AIUpdateInterface's: bit 3.
+    virtual DisabledMaskType getDisabledTypesToProcess() const
+    {
+        return DisabledMaskType(DisabledMaskType::kInit, 3);
+    }
     // 0x004543A9, from the +0x0C interface: the +0x20 interface, null-checked.
     virtual void *slot25() { return static_cast<SpecialPowerUpdateInterface *>(this); }
     virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *, const Object *,
@@ -109,9 +114,9 @@ public:
     UpdateSleepTime rva0044F881();
 
 protected:
-    virtual void loadPostProcess();
+    virtual void loadPostProcess() { UpdateModule::loadPostProcess(); } // 0x00497805, a jmp to UpdateModule's
 #ifdef BFME_SNAPSHOT_NAME_SLOT
-    virtual const char *GetSnapshotName() const;
+    virtual const char *GetSnapshotName() const { return "SpecialAbilityUpdate"; } // 0x0044F099
 #endif
     virtual void xfer(Xfer *);
     void validateSpecialObjects();

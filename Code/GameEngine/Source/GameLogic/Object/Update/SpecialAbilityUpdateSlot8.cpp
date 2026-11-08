@@ -72,3 +72,48 @@ if ((m_moduleData != 0 || m_moduleData == 0)) {
  _ReadWriteBarrier(); return true;
 }
 }
+
+// The +0x20 interface's slots 6 and 7 are bodies retail folded across SpecialAbilityUpdate's
+// subclasses (rows 0x0044EECA and 0x0044F09F own them).
+struct Rva0044F09FData
+{
+	char m_pad00[0x38];
+	int m_38; // +0x38
+};
+Bool SpecialAbilityUpdate::vslot07(int value)
+{
+	return value == ((const Rva0044F09FData *)m_moduleData)->m_38;
+}
+
+struct Rva0044EECAParam
+{
+	unsigned char m_pad00[0x1D];
+	unsigned char m_flags1D;
+	unsigned char m_pad1E[0x44 - 0x1E];
+	const SpecialPowerTemplate *m_over44;
+};
+Bool SpecialAbilityUpdate::isPowerCurrentlyInUse(const CommandButton *command) const
+{
+	const Rva0044EECAParam *p = (const Rva0044EECAParam *)command;
+	if (p != 0) {
+		const SpecialPowerTemplate *overridable = p->m_over44;
+		if (overridable != 0) {
+			const SpecialPowerTemplate *f = overridable->getFO();
+			if (f->m_type == 0x16 && (p->m_flags1D & 2) == 0)
+				return m_68 == 0;
+		}
+	}
+	int v = m_packingState;
+	if (v != 0) {
+		if (v == 1 || v == 3) {
+			if (p != 0) {
+				const SpecialPowerTemplate *f2 = p->m_over44->getFO();
+				if (f2->m_reloadTime == 0)
+					return false;
+			}
+		}
+		if (m_withinStartAbilityRange != 0)
+			return true;
+	}
+	return false;
+}
