@@ -19,6 +19,7 @@ struct Rva00492C59ModuleData
 	unsigned char m_pad000[0xD4];
 	Real m_maxDistance; // +0xD4
 };
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class Rva00492C59 : public SpecialAbilityUpdate
 {
