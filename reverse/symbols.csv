@@ -6206,7 +6206,6 @@ name,address,notes
 ?rva0044446D@Rva004469D1Receiver@@QAEX_N@Z,0x0044446D,"member of the LAN menu at VA 0x00E03354 taking a byte (cmp byte [esp+4]); REL32 (tail jmp) in LANAPI slot 61 0x00248E39; identity not recovered"
 ?rva0044FC52@SpecialAbilityUpdate@@UAE_NXZ,0x0044FC52,"SpecialAbilityUpdate slot 16 of 0x00C3FBA8 (bool, no args; /EH frame); WeaponFireSpecialAbilityUpdate 0x004927D0 tail-jumps to it; body unrowed"
 ?rva004500A3@Rva004500A3@@QAEXHHHHH@Z,0x004500A3,callee of ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z
-?rva00450AE9CallView@GiveUpgradeUpdate@@QAEXXZ,0x00450AE9,"auto-pin (permute --pins): REL32 call target read from retail in 0x0049c8e9, whose banked body is byte-exact once this call resolves"
 ?rva00450D9A@SpecialAbilityUpdate@@UAEXXZ,0x00450D9A,slot 15 of the SpecialAbilityUpdate vtable 0x00C3FBA8 (matched ??_GSpecialAbilityUpdate/xfer/pool key in slots 0/3/4); called directly as the base implementation by the GloriousChargeUpdate slot-15 override 0x004AD554; address from that REL32; slot name not established
 ?rva00451B92@SpecialAbilityUpdate@@UAEXXZ,0x00451B92,"SpecialAbilityUpdate primary slot-19 base (EH, plain ret): the slot-19 entry of 26 special-ability vtables, SpecialAbilityUpdate's own 0x00C3FBA8 among them; EvacuateGarrisonSpecialPower slot 19 0x004CDCB4 calls it first"
 ?rva0046247D@Rva0046247D@@QAEPAXAAURva0046247DPair@@@Z,0x0046247D,callee of ?redeployOccupants@OpenContain@@MAEXXZ
