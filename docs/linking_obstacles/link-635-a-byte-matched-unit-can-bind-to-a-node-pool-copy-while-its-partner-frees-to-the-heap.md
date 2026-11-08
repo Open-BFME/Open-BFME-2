@@ -1,6 +1,6 @@
 ### LINK-635: a byte-matched unit can bind to a node-pool allocator copy while its partner frees to the heap
 
-**Status: Open (check gap; five units repaired, P38). Updated: 2026-11-08; inspected revision: 224133c092 (diagnostic
+**Status: Open (check gap; six units repaired, P37 and P38). Updated: 2026-11-08; inspected revision: 2c4de0f0ec (diagnostic
 image) (crash-triage seat2, P37, P38). Family:
 [LINK-630](link-630-a-byte-matched-row-whose-calls-bind-to-local-unrowed-comdats.md).**
 
@@ -14,14 +14,15 @@ image) (crash-triage seat2, P37, P38). Family:
     pointer. Freeing it through `_free` would return the whole pool chunk to the heap while the pool keeps carving it.
   - **Heap to pool:** a heap block pushed on a pool free list is handed out again as a node while the heap still owns it,
     which is its own corruption path. This entry has no boot receipt for that path; it is inferred from the allocators.
-- **Case (P37, crash, cause still open):** rank 1's RankInfo at 0x21712270 is overlapped by the pool's chunk at 0x21712128
-  (0x280 bytes); `_S_refill` then `list<ControlBarScheme*>` nodes overwrite its SciencesGranted vector during
-  `ControlBarSchemeManager::init` (receipt 2026-11-08T075343Z-boot_smoke-693f2aeeaef9), and `Player::rva002AE252` walks
-  off a page. The heap header below the chunk already reads 0x11 when first observed (receipt
-  2026-11-08T083558Z-boot_smoke-8929915d61b4), but no free is on record and the first user is unidentified. **The P38
-  repair does not clear it:** receipt 2026-11-08T091110Z-boot_smoke-079162d29578 carries the same flag on the two pool-to-heap
-  units and crashes identically. The chunk appears after TheEva and before MapCache, so those units did not make it.
-- **Repair (P38):** `/Ireference/shims/bfmealloc_alloconly` on the five units below. It holds only the allocator change;
+- **Case (P37, crash, cleared):** `SidesList::SidesList` -> `TeamsInfoRec::TeamsInfoRec` -> `vector<Rva00196D90Element>(n)`
+  (0x0032BDE7) -> `__node_alloc::allocate` made the pool's first chunk, 0x21712128, heap header 0x289. `SidesList::clear` ->
+  `TeamsInfoRec::clear` -> `vector<BfmeThingUBB>::~vector` -> `_free` freed that pointer, one object spelled under two element
+  types (receipt 2026-11-08T101057Z-boot_smoke-82cc0b4654b1). The heap re-carved the chunk: rank 1's RankInfo at 0x21712270 sat
+  inside it, `list<ControlBarScheme*>` nodes overwrote its SciencesGranted vector during `ControlBarSchemeManager::init`
+  (receipt 2026-11-08T075343Z-boot_smoke-693f2aeeaef9), and `Player::rva002AE252` walked off a page.
+  **Repair (P37):** `bfmealloc_alloconly` on `Rva00196D90MemberConstructor_Rva0032bde7.cpp`. Verification, scope one image with
+  diagnostics: receipt 2026-11-08T111958Z-boot_smoke-023afde5b726 keeps rank 1's vector zero and passes PlayerList.
+- **Repair (P38, does not clear P37):** `/Ireference/shims/bfmealloc_alloconly` on the five units below. It holds only the allocator change;
   the full `bfmealloc` root moves three rows in `EvaMessageVectorAssign.cpp` through its `_algobase` copy helpers.
 
   | Direction | Element type | Unit repaired |
@@ -32,7 +33,7 @@ image) (crash-triage seat2, P37, P38). Family:
   | heap to pool | `Rva005E2B0EElement` | `StrategicInGameUIRegionDetailsStructuresPage.cpp` |
   | heap to pool | `SaveMapPreview` | `SaveMapPreviewCopy.cpp` |
 
-- **Proposed check:** classify every linked allocate and deallocate copy per element type by allocator family, and flag a
-  split. A scan of plain allocator copies is not enough: in image 224133c092 node-allocator call sites sit in 250 functions,
-  90 of them inlined into bodies such as `_M_create_node` and `_M_initialize_map`, which such a scan cannot classify. The P37
-  type was not among the six splits the plain scan found, so a check has to pass that case before it is relied on.
+- **Proposed check:** compare call graphs, not type names: list rows whose image body reaches the node pool within a bounded
+  depth while retail's body at the row's address does not. A scan pairing allocate and deallocate per element type cannot see
+  P37's pair, and cannot classify the 90 functions in image 224133c092 with inlined node-allocator calls. A seed of the graph
+  form flags both the P37 and P38 units and lists 39 rows on image 8ada236aeb (before P38); those rows are not yet vetted.
