@@ -6818,38 +6818,6 @@ def hatch_lines_lowered(raw, removed):
     return "".join(out).encode("utf-8")
 
 
-def paste_units(ctx, word):
-    """Units a `##` paste could build `word` in (review of 92c6d902ed): a paste joins
-    tokens, so the pieces appear somewhere as whole tokens, in a macro body (`g_##x`) or at
-    a call (`DECL(00A01000)`). A unit is selected when it holds a proper prefix (2+
-    characters) or suffix (3+) of `word` as a whole token and either pastes itself (`##`)
-    or calls a function-like macro whose body pastes. Their text never spells the
-    identifier, so only the preprocessor shows what they declare."""
-    pieces = sorted({word[:i] for i in range(2, len(word))} | {word[i:] for i in range(1, len(word) - 2)})
-    holders = set(ctx.git("grep", "-l", "-w", "-F", *[x for piece in pieces for x in ("-e", piece)], "--",
-                          *SEARCH_ROOTS).splitlines())
-    if not holders:
-        return set()
-    pasting = set(ctx.git("grep", "-l", "-F", "-e", "##", "--", *SEARCH_ROOTS).splitlines())
-    macros = paste_macros(ctx, pasting)
-    callers = set(ctx.git("grep", "-l", "-E", *[x for name in sorted(macros) for x in ("-e", rf"\b{name}[[:space:]]*\(")],
-                          "--", *SEARCH_ROOTS).splitlines()) if macros else set()
-    return holders & (pasting | callers)
-
-
-def paste_macros(ctx, files):
-    """Names of the function-like macros these files define with `##` in their body."""
-    names = set()
-    for rel in sorted(files):
-        data = ctx.read(rel)
-        if data is None:
-            continue
-        for d in DEFINE.finditer(data.decode("utf-8", errors="replace")):
-            if d.group("params") and "##" in d.group("body"):
-                names.add(d.group("name"))
-    return names
-
-
 def forced_include_units(ctx, word, headers):
     """Units whose // cl: flags force-include (/FI) a header that names `word` or #includes,
     through any chain, one of `headers`: no #include line of the unit names it."""
@@ -6955,6 +6923,77 @@ def absorbed_rows(ctx, names, old_name, source, rva, size):
     return out
 
 
+RETYPE_SCAN_WORKERS = 8
+PREPROCESSOR_LINE = re.compile(r"(?m)^[ \t]*#[ \t]*line\b[^\n]*\n")
+LITERAL_JOIN = re.compile(r'"\s*L?"')
+
+
+def preprocessed_spells(text, words):
+    """Does a unit's preprocessed text spell any of `words` anywhere? It is searched as text, so
+    string literals, `__identifier`, `__asm` and `#pragma comment(linker, ...)` all count, and a
+    longer name holding the word counts too. The preprocessor leaves adjacent literals apart and
+    the compiler joins them later, so they are joined here, across a `#line` between them."""
+    joined = LITERAL_JOIN.sub("", PREPROCESSOR_LINE.sub("", text))
+    return any(word in joined for word in words)
+
+
+def paste_reach(ctx, word):
+    """Compiled units that can reach any `##`, whatever it pastes. Which pastes could build a name
+    is the preprocessor's to say (compiler_scan), not this text's."""
+    pasting = ctx.git("grep", "-l", "-F", "-e", "##", "--", *SEARCH_ROOTS).splitlines()
+    units = {rel for rel in pasting if rel in ctx.ledger_sources()}
+    others = sorted(rel for rel in pasting if rel not in ctx.ledger_sources())
+    computed = ctx.git("grep", "-l", "-E", "-e", COMPUTED_INCLUDE, "--", *SEARCH_ROOTS).splitlines()
+    units |= {rel for rel in computed if rel in ctx.ledger_sources()}
+    others += [rel for rel in computed if rel not in ctx.ledger_sources()]
+    if others:
+        units |= includers(ctx, others, len(ctx.ledger_sources()))
+        units |= {rel for rel in forced_include_units(ctx, word, others) if rel in ctx.ledger_sources()}
+    return {rel for rel in units if rel.endswith(SOURCE_SUFFIXES)}
+
+
+def compiler_scan(ctx, words, *, workers=RETYPE_SCAN_WORKERS):
+    """Ask the compiler which units spell `words`: every unit that can reach a `##`, and every unit
+    whose object is stale or missing, preprocessed under its own build command with no cache.
+    {"spelled": units that spell one and join the rebuild, "asm": stale or missing objects no
+    preprocessor can read and that rebuild instead, "cleared": the rest, for this source state}. A
+    unit that fails to preprocess never counts as not spelling it: the retype refuses."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    import name_dependents
+    objects = name_dependents.merged(name_dependents._row_objects(ctx.rows()),
+                                     name_dependents._data_row_objects(ctx.dicts(DATA_ROWS)))
+    stale, asm = set(), set()
+    for rel, paths in objects.items():
+        if rel.lower().endswith(build.LIB_SUFFIX):
+            continue
+        if not paths or not all(p.exists() and build.compile_is_current(ctx.path(rel), p) for p in paths):
+            (stale if rel.endswith(SOURCE_SUFFIXES) else asm).add(rel)
+    units = sorted(paste_reach(ctx, words[0]) | stale)
+    started = time.time()
+    print(f"rename: asking the compiler whether {len(units)} units spell {', '.join(words)} "
+          f"({len(stale)} with stale or missing objects, {workers} at a time)", flush=True)
+
+    def asked(rel):
+        text, why = preprocess_unit(ctx, rel)
+        return rel, None if text is None else preprocessed_spells(text, words), why
+    spelled, failed = set(), {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+        for rel, spells, why in pool.map(asked, units):
+            if spells is None:
+                failed[rel] = why
+            elif spells:
+                spelled.add(rel)
+    print(f"rename: the compiler asked in {time.time() - started:.0f} s: {len(spelled)} spell it, "
+          f"{len(failed)} failed", flush=True)
+    if failed:
+        for rel, why in sorted(failed.items()):
+            print(f"rename: did not preprocess: {rel}: {' '.join(str(why).split())[:200]}", flush=True)
+        raise Refusal(f"{len(failed)} unit(s) did not preprocess, so nothing says they do not spell {words[0]}: "
+                      f"{', '.join(sorted(failed)[:3])}")
+    return {"spelled": spelled, "asm": asm, "cleared": set(units) - spelled}
+
+
 def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, prepared=None, max_files=25,
                 address=None, absorb=(), model=None):
     """Plan `global --retype`: one global's type and size, its identifier kept; with `address` and
@@ -7031,6 +7070,12 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
             or any(p.get("name") == new for p in ctx.pins()):
         raise Refusal(f"{new} already names a data row, function or pin")
     refuse_vendored(ctx, [source], f"retyping {old_name}")
+    for symbol in [old_name] + [row["name"] for row in absorbed]:     # consumers with no compile unit
+        if symbol.encode("utf-8") in (ctx.read(EXPORTS) or b""):
+            raise Refusal(f"{EXPORTS} names {symbol}: an exported name is retail's own, and a retype would retire it")
+        shims = ctx.grep_files(_identifier(symbol), word=True, roots=("reference/shims",))
+        if shims:
+            raise Refusal(f"{', '.join(shims[:3])} names {_identifier(symbol)}: a shim is not this retype's to respell")
 
     overlaps = extent_overlaps(ctx, rva, size, {old_name: old_rva, **{a["name"]: a["rva"] for a in absorbed}})
     if overlaps:
@@ -7202,12 +7247,12 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
             verify |= includers(ctx, others, max_files)
         for each in [word] + [row["word"] for row in absorbed]:
             verify |= {rel for rel in forced_include_units(ctx, each, headers) if rel in ctx.ledger_sources()}
-    # a unit or header whose `##` pastes could build the identifier is preprocessed too
-    pasted = set().union(*(paste_units(ctx, each) for each in [word] + [row["word"] for row in absorbed]))
-    verify |= {rel for rel in pasted if rel in ctx.ledger_sources()}
-    pasted_headers = sorted(rel for rel in pasted if rel not in ctx.ledger_sources())
-    if pasted_headers:
-        verify |= includers(ctx, pasted_headers, max_files)
+    # whatever a macro builds, and whatever a stale object cannot show, the compiler says
+    scan = compiler_scan(ctx, [word] + [row["word"] for row in absorbed])
+    generated = sorted(rel for rel in scan["spelled"] | scan["asm"] if is_generated(rel))
+    if generated:
+        raise Refusal(f"generated source(s) must rebuild for {word}: {', '.join(generated[:5])} (never edited)")
+    verify |= scan["spelled"] | scan["asm"]
     verify |= {r["source"] for r in ctx.rows() if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
     plan.verify = sorted(v for v in verify if not is_generated(v))
     if len(plan.verify) > max_files:
@@ -7217,7 +7262,8 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
         [f"file:{rel}" for rel in sorted(plan.source_counts)]
     plan.retype = {"word": word, "old": old_name, "new": new, "type": new_type.strip(), "size": size,
                    "owner": source, "row": new_row, "sources": sorted(plan.verify), "removed": removed,
-                   "start": rva, "absorbed": [(row["word"], row["name"]) for row in absorbed]}
+                   "start": rva, "absorbed": [(row["word"], row["name"]) for row in absorbed],
+                   "cleared": scan["cleared"]}
     plan.mentions = sorted(set(ctx.grep_files(old_name, roots=("docs", "reverse"))) - set(plan.after))
     return plan
 
@@ -7624,6 +7670,26 @@ def preprocessed_problems(text, word, new_type):
     return problems
 
 
+def outside_references(ctx, retype, objects):
+    """Why an object outside the rebuilt set may still name the old, new or absorbed symbols: it
+    does, or it is stale or missing and compiler_scan did not clear its unit. A current object is
+    read by its own symbol table, and nothing falls back to a source's text."""
+    import build
+    import name_dependents
+    names = {retype["old"], retype["new"]} | {name for _word, name in retype["absorbed"]}
+    problems = []
+    for rel, paths in sorted(objects.items()):
+        if rel in retype["sources"]:
+            continue
+        library = rel.lower().endswith(build.LIB_SUFFIX)
+        if paths and all(p.exists() and (library or build.compile_is_current(ctx.path(rel), p)) for p in paths):
+            if any(names & name_dependents.coff_symbol_names(p.read_bytes(), include_local=False) for p in paths):
+                problems.append(f"{rel} references {retype['word']} but this retype did not rebuild it")
+        elif rel not in retype.get("cleared", ()):
+            problems.append(f"{rel}'s object is stale or missing and the compiler scan did not clear it")
+    return problems
+
+
 def retype_reference_problems(ctx, retype):
     """Every absolute reference a rebuilt row makes into the extent goes through the new symbol
     at its start. The byte gate masks DIR32 operands, so a wrong addend (P35's table read at +0
@@ -7631,7 +7697,7 @@ def retype_reference_problems(ctx, retype):
     pointer less the compiled addend must be the start. A reference to the symbol anywhere else
     in a rebuilt object must lie in a row too, a data row's initializer proven by data_rows.py,
     and no object outside the rebuilt set may name the old, new or absorbed symbols: what cannot
-    be compared with retail refuses. A source with no current object is read by its text."""
+    be compared with retail refuses (outside_references)."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import build
     import data_rows
@@ -7640,10 +7706,8 @@ def retype_reference_problems(ctx, retype):
     start = IMAGE_BASE + retype["start"]
     end, sources, statics, problems = start + retype["size"], set(retype["sources"]), {}, []
     rows, datas = build.load_function_rows(), data_rows.load()
-    names = {retype["old"], retype["new"]} | {name for _word, name in retype["absorbed"]}
     objects = name_dependents.merged(name_dependents._row_objects(rows), name_dependents._data_row_objects(datas))
-    for rel in sorted(name_dependents.dependents(names, objects, ctx.root) - sources):
-        problems.append(f"{rel} references {retype['word']} but this retype did not rebuild it")
+    problems += outside_references(ctx, retype, objects)
     spans = collections.defaultdict(list)            # {source: [(symbol, size, data row or None)]}
     for row in rows:
         if row["source"] in sources:

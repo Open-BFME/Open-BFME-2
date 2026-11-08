@@ -1154,8 +1154,7 @@ cannot classify refuses. Whether a statement is a declaration is decided by its 
 by knowing its type names: a run of names (qualified, templated or attributes) followed only
 by declarator punctuation (`*`, `&`, `(`, cv-qualifiers) must parse as a declaration of the
 new type, a function head's parameters included, or it refuses. That covers declarations macros build, including nested arguments, and the units
-a computed include, a `/FI` forced include or a `##` paste reaches (the last selected by
-the identifier's prefixes and suffixes appearing as tokens next to a paste). The new type
+a computed include or a `/FI` forced include reaches. The new type
 must be arithmetic (an integer or float, or an array of one); an initializer may not spell
 a number in retail's address range, and an extent where retail relocates a word refuses.
 
@@ -1170,8 +1169,6 @@ Known limits, each refused or out of reach rather than passed wrongly:
 
 - A target type spelled through a typedef (`--retype 'UINT [3]'`) is refused: give the
   builtin spelling.
-- A `##` paste that splits the identifier below token level (`g_00 ## DFE1AC`) does not
-  select the unit; prefixes and suffixes are matched as whole tokens only.
 - `decltype(...)` in a declaration and a name that is both a parenthesised typedef and a
   function (`typedef int (T); void T(int); T(g);`) are not modelled; such statements refuse.
 - A functional cast in a statement of its own (`unsigned(g) + 1;`) is refused as
@@ -1217,11 +1214,24 @@ python3 tools/rename.py global --name '?g_00E031A8@@3...' --new '?g_00E031A8@@3P
 - **A global only `data_ledger.csv` owns** (status `owned`, with a source) gains its data row,
   and `--model` names who lands it. An unowned or provisional ledger row refuses.
 
+Before the build, a retype asks the compiler which units spell the identifier: every unit that
+can reach any `##`, and every unit whose object is stale or missing, each preprocessed under its
+own build command, 8 at a time, with no cache, so a retype on a cold tree costs up to two hours.
+The whole output is searched as text, so string literals, `__identifier`, `__asm` and
+`#pragma comment(linker, ...)` count, and adjacent literals are joined first because the
+preprocessor leaves them apart. A unit that spells it joins the rebuild, and the checks on rebuilt
+objects decide. One that does not is cleared for this retype. A unit that fails to preprocess
+refuses the retype and is printed. A stale or missing `.asm` object rebuilds, since no preprocessor
+reads it, and a generated one refuses. An exported name (`reverse/exports.csv`) or an identifier a
+shim names refuses too. A string that spells the name through escapes (`"g_\x30"`) is not seen.
+
 After the build, a retype also reads every rebuilt row's DIR32 relocations: retail's pointer
 less the compiled addend must be the new symbol's start, and nothing may reach into the
 extent through another symbol. The byte gate masks those operands, so a table read at +0
 rather than +0x100 passes it. No rebuilt object or preprocessed unit may name an absorbed
-identifier under any spelling.
+identifier under any spelling. Outside the rebuilt set, a current object is read by its own symbol
+table and may not name the old, new or absorbed symbols, and a stale or missing one refuses unless
+the compiler cleared its unit.
 
 ### `rename.py function --respell`: `this` cv and code identity
 
