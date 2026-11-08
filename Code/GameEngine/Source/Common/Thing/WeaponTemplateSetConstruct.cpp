@@ -6,11 +6,6 @@
 
 #include <stddef.h>
 
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
-
 class WeaponTemplateSet
 {
 public:
@@ -21,12 +16,13 @@ namespace _STL
 {
 
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<WeaponTemplateSet, WeaponTemplateSet>(WeaponTemplateSet *p, const WeaponTemplateSet &value)
 {
 	if (p)
-		new (p) T1(value);
+		p->WeaponTemplateSet::WeaponTemplateSet(value);
 }
 
 }
-
-template void _STL::_Construct(WeaponTemplateSet *, const WeaponTemplateSet &);
