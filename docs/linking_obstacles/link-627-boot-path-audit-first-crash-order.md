@@ -217,6 +217,13 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   The two Rva003AED6B owners above remain outside this repair. Actual
   next-image queue/crash confirmation is pending; no runtime clearance.
   [Owner, operands and generated-index audit](../../reverse/attempt_support/alpha-snapshot-owner-20261108/README.md).
+
+  Published as cfeb0c1829/ee6718dbac (first attempt, 34.8 seconds).
+  Required checks and the post-publication full-table proof pass. The
+  broader audit is INCONCLUSIVE: ConstIntGetters4.cpp lacks a current
+  receipt (indexc885072a48/base15b108ac97). Two unchanged emitter
+  destructor-alias identity shadow findings remain documented. Queue
+  and crash confirmation still require the next actual image.
 - Gates with the regenerated ledger: full `./build.sh` OK (99,554/99,554); `data_check --converged --all` 0 second
   names; `hatch_counters.py --report` identical; `data_check --all` (shadow) 1,137 -> 297 findings, 33 of them new
   (listed in the regeneration commit; no baseline growth).

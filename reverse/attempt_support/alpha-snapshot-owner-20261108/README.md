@@ -56,3 +56,12 @@ unchanged and normal byte/relocation gates pass. No identity baseline is
 expanded or debt retired here; retain these alias-identity findings for
 the emitter's later class reconciliation. They are outside the complete
 four-slot data-owner proof above.
+
+Source repair published as cfeb0c1829 with generated index ee6718dbac,
+first push attempt in 34.8 seconds. Required code/data/EH/scoped-DIR32
+checks pass, and the complete native table proof passes again after
+publication. The broader audit remains INCONCLUSIVE: unchanged
+Common/ConstIntGetters4.cpp lacks a current receipt against index
+c885072a48/outgoing base15b108ac973d532bd4531bf8693f537b4355fb9a.
+Carry that consumer into the next census/image check. The scoped native
+table is correct; complete image/link/runtime clearance is not claimed.

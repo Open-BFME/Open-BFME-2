@@ -131,3 +131,10 @@ index retains every verified owner; its raw extent must be refreshed for
 the real link. Primary/factory array recovery and next-image confirmation
 remain; this is not full enclosing-class or runtime clearance.
 [Native owner and index scope](../../reverse/attempt_support/alpha-snapshot-owner-20261108/README.md).
+
+Published as cfeb0c1829 with index ee6718dbac (first attempt, 34.8 seconds).
+Required checks and post-publication table proof pass. Broader audit stays
+INCONCLUSIVE for unchanged ConstIntGetters4.cpp's missing current receipt
+at indexc885072a48/base15b108ac97; two unchanged emitter destructor-alias
+identity shadow findings remain. Carry those scopes into the next census
+and image check; no complete game/link clearance is claimed.
