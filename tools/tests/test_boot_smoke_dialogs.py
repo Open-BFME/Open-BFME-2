@@ -182,8 +182,9 @@ class Classification(unittest.TestCase):
         self.assertNotIn("crash", out)
 
     SHOT = {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0}
-    SPINNING = [(270.0 + i, e) for i, e in enumerate([0x1085646D, 0x10856470, 0x1085646A] * 10)]
+    SPINNING = [(270.0 + i, e) for i, e in enumerate([0x82446D, 0x824470, 0x82446A] * 10)]
     WORKING = [(270.0 + i, e) for i, e in enumerate([0x401000, 0x7A0000, 0x452000] * 10)]
+    WAITING = [(270.0 + i, 0x79A9C844) for i in range(30)]        # retail's control at 120 s, in a system call
 
     def run_with(self, shot, samples):
         report = timeout_run([MAIN], shot)
@@ -209,8 +210,13 @@ class Classification(unittest.TestCase):
         self.assertNotIn("main_thread_span", out)
 
     def test_a_spin_spread_just_over_the_window_is_not_a_hang(self):
-        wide = [(270.0 + i, 0x1000 + (i % 2) * bs.SPIN_WINDOW) for i in range(30)]
+        wide = [(270.0 + i, 0x401000 + (i % 2) * bs.SPIN_WINDOW) for i in range(30)]
         self.assertEqual(self.run_with(self.SHOT, wide)["outcome"], "loading-screen")
+
+    def test_a_thread_waiting_outside_the_image_is_not_a_hang(self):
+        out = self.run_with(self.SHOT, self.WAITING)
+        self.assertEqual(out["outcome"], "loading-screen")
+        self.assertFalse(out["main_thread_span"]["inside_image"])
 
     def test_a_spin_on_another_picture_is_a_hang_there(self):
         self.assertEqual(self.run_with(self.SHOT, self.SPINNING)["outcome"], "hang-on-loading-screen")

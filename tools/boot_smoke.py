@@ -24,12 +24,14 @@ Outcome (build/boot/smoke.json, also printed):
                         since PrintWindow is black there)
   title-splash          alive showing the game's title splash: nothing past it is proven
   loading-screen        alive with another picture, but the main menu's button bar
-                        is not up yet (the shell map before the menu, say)
+                        is not up yet (an intro movie, or the shell map before the menu)
   hang-on-<picture>     one of the pictures above with the main thread spinning: about
                         a sample a second over the run's last 30 seconds, all inside
-                        SPIN_WINDOW bytes (main_thread_span). How far it ran is the
-                        picture; it is not still getting there. A run too short to
-                        sample that long never gets this label
+                        SPIN_WINDOW bytes of the game's own image (main_thread_span). How
+                        far it ran is the picture; it is not still getting there. A run
+                        too short to sample that long never gets this label, and neither
+                        does a thread parked outside the image: retail waits in a system
+                        call for 29 s at a time while its intro movies play
   profile-redirect-failed  the appdata lie could not be installed (nothing ran)
   profile-changed       the owner's profile or HKCU EA keys changed
 
@@ -1023,16 +1025,20 @@ SPIN_MIN_SECONDS = 25.0
 SPIN_MIN_SAMPLES = 20
 
 
-def main_thread_span(samples):
+def main_thread_span(samples, image_low, image_high):
     """What samples [(seconds into the run, eip)] say, or None when there are none: where the thread sat,
-    over how long, and `spinning` only when all of it fits SPIN_WINDOW over at least SPIN_MIN_SECONDS and
-    SPIN_MIN_SAMPLES. The numbers stay in the receipt either way, so a miss can be read."""
+    over how long, and `spinning` only when all of it is the game's own code, [image_low, image_high), and
+    fits SPIN_WINDOW over at least SPIN_MIN_SECONDS and SPIN_MIN_SAMPLES. A thread outside the image is
+    waiting in a system call, as retail's does for 29 s at a stretch, which proves nothing. The numbers
+    stay in the receipt either way, so a miss can be read."""
     if not samples:
         return None
     times, eips = [t for t, _ in samples], [e for _, e in samples]
     seconds, spread = round(times[-1] - times[0], 1), max(eips) - min(eips)
+    inside = image_low <= min(eips) and max(eips) < image_high
     return {"low": hex(min(eips)), "high": hex(max(eips)), "spread": spread, "samples": len(samples), "seconds": seconds,
-            "spinning": spread < SPIN_WINDOW and seconds >= SPIN_MIN_SECONDS and len(samples) >= SPIN_MIN_SAMPLES}
+            "inside_image": inside,
+            "spinning": inside and spread < SPIN_WINDOW and seconds >= SPIN_MIN_SECONDS and len(samples) >= SPIN_MIN_SAMPLES}
 
 
 def classify_picture(shot):
@@ -1435,7 +1441,13 @@ def smoke(a, rows=None, tag="boot"):
             out["outcome"] = "crash-dialog"
         else:
             picture = classify_picture(shot)
-            span = main_thread_span(res.get("spin_samples", []))
+            if ri is not None:
+                image_size = ri.img.pe.OPTIONAL_HEADER.SizeOfImage
+            elif pieces_map is None:
+                image_size = boot_image.Retail().size_of_image
+            else:
+                image_size = max(n + z for _, _, n, z in pieces_map)
+            span = main_thread_span(res.get("spin_samples", []), loaded, loaded + image_size)
             if span:
                 out["main_thread_span"] = span
             out["picture"] = picture
