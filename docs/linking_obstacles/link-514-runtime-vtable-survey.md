@@ -1078,3 +1078,45 @@ by hand on samples (Clear@VectorClass<ResolutionDescClass> 0x00154A30, ??_GRva00
   Burachi-3D. The same retraction applies when it releases. Disp0DwordImmSetters.cpp's `apply` stores
   `??_7NetCommandMsg@@6B@` and nothing calls it. `??1NetCommandMsg@@MAE@XZ` (NetGameCommandMsgDtor.cpp,
   fold-proof) already rows the address.
+
+**Lead (1): slot names no input defines (2026-11-08, seat halilkkaya-lk70, base `23b25439bf`).**
+Method: lk65_ab.py (old = new = HEAD's `tools/vtable_bridge.py`) over exit_link's inputs, then every
+`source_slot_mismatches` name checked with `vtable_bridge.first_providers` over the kept objects and the
+runtime archives. 3,262 mismatching names, 1,789 defined nowhere: 1,152 slots are weak `??_E` names
+(their default exists; a separate shape) and 1,101 slots / 641 names in 453 tables are plain phantoms
+(lk68's 641). Count tables by (address, name): several table names share one retail address.
+- Done, four commits: `e08827b2fbd` (Q3MakeBaseB and Rva007F1DE0BaseB define their payload getter
+  inline; 2 ICF twin rows at 0x007244B0; 15 tables at 0x008E0FB4), `9870659d694` (the interface slot of
+  FakePathfindPortalBehaviour, ShareExperienceBehavior (2 tables), FireWeaponWhenDeadBehavior and
+  HordeWorkerAIUpdate declared with the rowed override), `3b3aaba23e7` (`rename.py class --fold
+  Rva004BC4FC --into CrateCollide`; CrateCollide.cpp and SalvageCrateCollide.cpp declare
+  `~CrateCollide` out of line, or the fold duplicates it), `81b9d9e8a78` (the crate +0x10 tables name
+  CrateCollide::onCollide). 19 /alternatename pragmas gone (2,739 -> 2,720).
+- Offline A/B before -> after: bridged 4,298 -> 4,278, already correct 1,371 -> 1,391, mismatching
+  source slots 46,021 -> 45,993; refusals identical (158); no table newly bridged or lost (the fold
+  renames three CrateCollide tables in place). link_check: every touched unit, its consumers and the
+  65 CrateCollide sources keep their verdict and bytes.
+- Left: 1,074 phantom slots in 575 tables, 120 of them phantom-only. Next leads:
+  (1) held: the Contain family's die/payload slots (onDie@OpenContain, createPayloadMember@TransportContain,
+  CaveContain, TunnelContain, HordeSiegeEngineContain; 12 tables, class:OpenContain/TransportContain/
+  GarrisonContain held by ancalgonn-swarm-defects) and WorkerAIUpdate's DBaseM3 slot;
+  (2) class folds before the slot can be spelled: DieModuleDerived.cpp's ten Rva*_B2 tables and
+  CreateObjectDie.cpp (excluded DieModule scope), Rva0045D39E -> SlowDeathBehavior (4 tables;
+  SlowDeathBehavior.cpp held), the Rva0024A797Grandchildren.cpp E1/E2 tables whose slot names
+  OneRingPenaltyUpdate, StructureCollapseUpdate, RubbleRiseUpdate, WallUpgradeUpdate, SpawnUnitBehavior
+  (LINK-584 holds those files), the partition filters (Rva00260FD0Filter = PartitionFilterPossibleToAttack,
+  Rva0026137EFilter = PartitionFilterPlayer), PropagandaTowerBehavior (0x00481837 rowed under placeholder
+  Rva00481837 in GapBodiesS3B.cpp; Rva0048180C's table holds it too);
+  (3) retail 0x007CA08C (5 table names: W3DTankDraw, W3DTruckDraw, Rva000CA119, Rva000CAEC6,
+  Rva0078B83): slot 0 is 0x000BFB76, rowed `?rva000BFB76@Rva000BFB76Interface@@...`, most likely
+  W3DModelDraw's own interface method; name it first;
+  (4) AIInternalMoveToState (65 slots, 27 tables): `header_adopt_lane.py adopt` byte-passes
+  Rva00342826/3429B9/342B87/342EACCtor.cpp, but adoption alone points their derived tables at
+  AIInternalMoveToState's methods where retail (and today's /alternatename) has the derived overrides
+  (Rva00342826 is AIMoveOutOfTheWayState by its onEnter row). Name the derived classes first.
+  AIStateRva0034005DCtor.cpp refuses on a field-name collision (m_30 vs m_goalLayer);
+  AIStateMoveTightenCtors.cpp is held by Burachi-3D;
+  (5) the CrateCollide +0x10 tables now match in slot 0 but our copies are one slot long; retail's
+  interface has six (0x004BC51B, then 0x0047A699 four times, held by Burachi-3D);
+  (6) STLport moneypunct/codecvt/_Locale_impl/_Messages: our STLport units never compile those members
+  (retail ICF-folds them); STLport lane.
