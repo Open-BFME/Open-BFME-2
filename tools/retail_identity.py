@@ -130,6 +130,54 @@ class Family:
         return record(self.rows[self.copy][1])
 
 
+class BodyFamily:
+    """A class with no vftable, respelled from a real class retail's bytes contradict. `rows` and `pins` are
+    Family's, and `spellings` {old: new} writes out each new name, since the container can change with the
+    class and no fragment swap states that. `retired` {rva: (old name, facts)} are the old class's pins on an
+    address `members` already rows under the new class: they go, rather than stack a second name.
+
+    With no table to prove the class, these stand in for it, and the constructor requires every one:
+    `element` is the new class's element copy, by its own bytes, and what reaches it from the rows;
+    `old_element` and `old_members` are the same for the old class, so the two are told apart by what each
+    copies; `members` {rva: name} are the new class's other rows, and `member_facts` show their bodies reach
+    the same element copy; `bindings` [(row rva, offset, target name)] are the REL32s each rebuilt row must
+    hold, the check the rebuilt copy's table store is for a Family. `copy` is the row the plan is keyed on."""
+
+    def __init__(self, old, new, copy, spellings, element, old_element, old_members, members, member_facts, bindings,
+                 rows, pins, retired=None):
+        for label, value in (("element", element), ("old_element", old_element), ("old_members", old_members),
+                             ("members", members), ("member_facts", member_facts), ("bindings", bindings)):
+            if not value:
+                raise ValueError(f"a family with no table still needs its {label}")
+        strangers = sorted({at for at, _offset, _target in bindings} - set(rows))
+        if strangers or set(rows) - {at for at, _offset, _target in bindings}:
+            raise ValueError(f"every row needs a binding and every binding a row: {strangers}")
+        if copy not in rows:
+            raise ValueError(f"0x{copy:08X} is not a row of the family")
+        for old_name, _facts in [*rows.values(), *pins.values()]:
+            if spellings.get(old_name, old_name) == old_name:
+                raise ValueError(f"{old_name} needs a spelling of its own: a row left out would respell to itself")
+        if set(retired or ()) - set(members):
+            raise ValueError("only a pin on an address the new class rows is retired")
+        self.old, self.new, self.copy, self.spellings = old, new, copy, spellings
+        self.element, self.old_element, self.old_members = tuple(element), tuple(old_element), old_members
+        self.members, self.member_facts, self.bindings = members, tuple(member_facts), tuple(bindings)
+        self.rows, self.pins, self.retired = rows, pins, retired or {}
+
+    def respell(self, name):
+        """`name`'s written-out spelling; a name the family does not spell stays as it is, and so proves nothing."""
+        return self.spellings.get(name, name)
+
+    def facts(self):
+        return ([f for _name, facts in self.rows.values() for f in facts]
+                + [f for _name, facts in self.pins.values() for f in facts]
+                + [f for _name, facts in self.retired.values() for f in facts]
+                + list(self.element) + list(self.old_element) + list(self.member_facts))
+
+    def evidence(self):
+        return record(self.rows[self.copy][1])
+
+
 C = Fact
 _VECTOR = "?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@"
 ENABLE_REGION_RECORD = Family(
@@ -171,7 +219,66 @@ ENABLE_REGION_RECORD = Family(
         0x0014F3C4: ("??0?$_STLP_alloc_proxy@PAVFXList@@V1@V?$allocator@VFXList@@@_STL@@@_STL@@"
                      "QAE@ABV?$allocator@VFXList@@@1@PAVFXList@@@Z", (C("calls", 0x000B638E, 0x0014F3C4),)),
     })
-FAMILIES = (ENABLE_REGION_RECORD,)
+_RECORD = "UBfmeStringRecord0021A940"
+_RECORD_ALLOC = f"V?$allocator@{_RECORD}@@@"
+_RECORD_TREE = f"?$_Rb_tree@{_RECORD}@@U1@U?$_Identity@{_RECORD}@@@_STL@@U?$less@{_RECORD}@@@3@{_RECORD_ALLOC}3@@_STL@@"
+_RECORD_SET = f"?$set@{_RECORD}@@U?$less@{_RECORD}@@@_STL@@{_RECORD_ALLOC}3@@_STL@@"
+_RECORD_NODE = f"?$_Rb_tree_node@{_RECORD}@@@"
+_LADDER_PAIR = "U?$pair@$$CBJVLadderPref@@@_STL@@"
+_LADDER_TREE = (f"?$_Rb_tree@J{_LADDER_PAIR}U?$_Select1st@{_LADDER_PAIR}@2@U?$less@J@2@"
+                f"V?$allocator@{_LADDER_PAIR}@2@@_STL@@")
+_LADDER_MAP = f"?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@{_LADDER_PAIR}@3@@_STL@@"
+_LADDER_BASE = f"?$_Rb_tree_base@{_LADDER_PAIR}V?$allocator@{_LADDER_PAIR}@2@@_STL@@"
+_RECORD_MCOPY = f"?_M_copy@{_RECORD_TREE}AAEPAU{_RECORD_NODE}2@PAU32@0@Z"
+_RECORD_TREE_COPY = f"??0{_RECORD_TREE}QAE@ABV01@@Z"
+# The member at +0x54 of the hero sub-class record: its copy ctor builds it with 0x0021DBBA, its dtor tears it
+# down with the record tree's 0x0021D61F. The nodes are the same 0x24 bytes as map<long, LadderPref>'s, so node
+# size says nothing; the element copies differ: a dword and three narrow strings against wide, narrow, word, dword.
+HERO_RECORD_SET = BodyFamily(
+    old="LadderPref", new="BfmeStringRecord0021A940", copy=0x0021DBBA,
+    spellings={
+        f"??0{_LADDER_TREE}QAE@ABV01@@Z": _RECORD_TREE_COPY,
+        f"??0{_LADDER_MAP}QAE@ABV01@@Z": f"??0{_RECORD_SET}QAE@ABV01@@Z",
+        f"?get_allocator@{_LADDER_BASE}QBE?AV?$allocator@{_LADDER_PAIR}@2@XZ":
+            f"?get_allocator@?$_Rb_tree_base@{_RECORD}@@{_RECORD_ALLOC}_STL@@@_STL@@QBE?AV?$allocator@{_RECORD}@@@2@XZ",
+    },
+    element=(C("calls", 0x0021D7DC, 0x0021D13B), C("calls", 0x0021D144, 0x0021C48E), C("calls", 0x0021C4A2, 0x0021B8C5),
+             C("calls", 0x0021B8E1, 0x0021AAE1), C("calls", 0x0021AAF3, 0x00219B0B),
+             C("offset", 0x00219B1B, 0, "8b07"), C("offset", 0x00219B1F, 0, "8906"),
+             C("calls", 0x00219B2B, 0x000365F0), C("calls", 0x00219B3B, 0x000365F0), C("calls", 0x00219B4B, 0x000365F0)),
+    old_element=(C("calls", 0x005DFCBD, 0x005DFBDE), C("calls", 0x005DFBFA, 0x005DFBB8), C("calls", 0x005DFBCA, 0x005BA3F5),
+                 C("calls", 0x005BA40B, 0x00037050), C("calls", 0x005BA41B, 0x000365F0),
+                 C("offset", 0x005BA420, 8, "668b4708")),
+    old_members={0x005DFCA9: f"?_M_create_node@{_LADDER_TREE}IAEPAU?$_Rb_tree_node@{_LADDER_PAIR}@2@ABU?$pair@$$CBJVLadderPref@@@2@@Z",
+                 0x005BA3F5: "??0LadderPref@@QAE@ABV0@@Z"},
+    members={
+        0x0021D7CF: _RECORD_MCOPY,
+        0x0021D13B: f"?_M_clone_node@{_RECORD_TREE}IAEPAU{_RECORD_NODE}2@PAU32@@Z",
+        0x0021C48E: f"?_M_create_node@{_RECORD_TREE}IAEPAU{_RECORD_NODE}2@AB{_RECORD}@@@Z",
+        0x0021B8C5: f"??$_Construct@{_RECORD}@@U1@@_STL@@YAXPA{_RECORD}@@ABU1@@Z",
+        0x0021AAE1: "??0BfmeStringRecord0021A940@@QAE@ABU0@@Z",
+        0x00219B0B: "??0BfmeStringRecord00219B0B@@QAE@ABU0@@Z",
+        0x0021D842: f"??4{_RECORD_TREE}QAEAAV01@ABV01@@Z",
+        0x0021DA96: f"??4{_RECORD_SET}QAEAAV01@ABV01@@Z",
+        0x0021D61F: f"??1{_RECORD_TREE}QAE@XZ",
+        0x0021DA0E: f"??1{_RECORD_SET}QAE@XZ",
+    },
+    # operator= reaches the same _M_copy, the dtor tears down this member, and the set's dtor is the same tree's
+    member_facts=(C("calls", 0x0021DA9D, 0x0021D842), C("calls", 0x0021D879, 0x0021D7CF),
+                  C("offset", 0x0021E520, 0x54, "8d4e54"), C("calls", 0x0021E52A, 0x0021D61F),
+                  C("jumps", 0x0021DA0E, 0x0021D61F)),
+    bindings=((0x0021DBBA, 0x5C, _RECORD_MCOPY), (0x0021E134, 0x08, _RECORD_TREE_COPY)),
+    rows={
+        0x0021DBBA: (f"??0{_LADDER_TREE}QAE@ABV01@@Z",
+                     (C("offset", 0x0021E912, 0x54, "8d4b54"), C("calls", 0x0021E919, 0x0021DBBA),
+                      C("calls", 0x0021DC15, 0x0021D7CF))),
+        0x0021E134: (f"??0{_LADDER_MAP}QAE@ABV01@@Z", (C("calls", 0x0021E13B, 0x0021DBBA),)),
+    },
+    pins={0x0021983A: (f"?get_allocator@{_LADDER_BASE}QBE?AV?$allocator@{_LADDER_PAIR}@2@XZ",
+                       (C("calls", 0x0021DBD7, 0x0021983A),))},
+    retired={0x0021D7CF: (f"?_M_copy@{_LADDER_TREE}AAEPAU?$_Rb_tree_node@{_LADDER_PAIR}@2@PAU32@0@Z",
+                          (C("calls", 0x0021DC15, 0x0021D7CF),))})
+FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET)
 
 
 def family_of(rva, new):
@@ -212,4 +319,5 @@ if __name__ == "__main__":
         print(f"{each.old} -> {each.new}: {len(each.facts())} facts, {len(problems)} problem(s)")
         for line in problems:
             print("  " + line)
-        sys.exit(1 if problems else 0)
+        if problems:
+            sys.exit(1)

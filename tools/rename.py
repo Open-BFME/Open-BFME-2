@@ -4552,14 +4552,23 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     if problems:
         raise Refusal(f"retail does not state {family.old} -> {family.new}: {problems[0]}")
     rows = ctx.rows()
-    owner = family.owner
-    if not any(r["name"] == owner["name"] and _rva(r.get("target_rva")) == owner["rva"] and r.get("status") == "matched"
-               for r in rows):
-        raise Refusal(f"{owner['name']} is not rowed at 0x{owner['rva']:08X}: the table proves no class without its member")
-    table_row = [r for r in ctx.dicts("reverse/data_ledger.csv")
-                 if _rva(r.get("address")) == family.table - retail_identity.IMAGE_BASE]
-    if not table_row or table_row[0].get("name") != family.table_name:
-        raise Refusal(f"the data ledger does not name 0x{family.table:08X} {family.table_name}")
+    no_table = isinstance(family, retail_identity.BodyFamily)
+    if no_table:
+        for label, members in (("new", family.members), ("old", family.old_members)):
+            for at, name in sorted(members.items()):
+                if not any(r["name"] == name and _rva(r.get("target_rva")) == at and r.get("status") == "matched"
+                           for r in rows):
+                    raise Refusal(f"{name} is not rowed at 0x{at:08X}: with no table, the {label} class's rows "
+                                  "are what tie the proof to it")
+    else:
+        owner = family.owner
+        if not any(r["name"] == owner["name"] and _rva(r.get("target_rva")) == owner["rva"] and r.get("status") == "matched"
+                   for r in rows):
+            raise Refusal(f"{owner['name']} is not rowed at 0x{owner['rva']:08X}: the table proves no class without its member")
+        table_row = [r for r in ctx.dicts("reverse/data_ledger.csv")
+                     if _rva(r.get("address")) == family.table - retail_identity.IMAGE_BASE]
+        if not table_row or table_row[0].get("name") != family.table_name:
+            raise Refusal(f"the data ledger does not name 0x{family.table:08X} {family.table_name}")
     entries = []
     for at, (old_name, facts) in sorted(family.rows.items()):
         found = [r for r in rows if r["name"] == old_name and _rva(r.get("target_rva")) == at]
@@ -4577,6 +4586,12 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(f"pin {old_name} is not at 0x{at:08X}")
         if family.respell(old_name) in names:
             raise Refusal(f"{family.respell(old_name)} already names a row or pin")
+    retired = getattr(family, "retired", {})
+    for at, (old_name, _facts) in sorted(retired.items()):
+        if (old_name, at) not in pins:
+            raise Refusal(f"pin {old_name} is not at 0x{at:08X}")
+        if at not in family.members:
+            raise Refusal(f"0x{at:08X} is not rowed for {family.new}: only a pin the new class's row replaces is retired")
 
     moved = sorted(set(move_rows or ()))
     if moved:
@@ -4629,6 +4644,22 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         plan.notes_rows.extend((b[0], _rva(b[2])) for b, _a in changed)
         pin_raw, changed = rewrite_records(pin_raw, "symbols.csv", mangled_re(old_name), family.respell(old_name))
         plan.renamed_pins.extend((b[0], family.respell(old_name), f"0x{at:08X}") for b, _a in changed)
+    if retired:
+        drop = {(old_name, at) for at, (old_name, _facts) in retired.items()}
+        problems, _rebuilt = pin_consumers(ctx, sorted(name for name, _at in drop), [family.old],
+                                           {e["source"] for e in entries} | set(prepared))
+        if problems:
+            raise Refusal(f"the old class's pin(s) cannot be retired: {problems[0]}"
+                          + (f" (and {len(problems) - 1} more)" if len(problems) > 1 else ""))
+        ledger_io.lf_terminator(pin_raw, "symbols.csv")
+        kept = []
+        for index, (payload, term) in enumerate(ledger_io.split_records(pin_raw)):
+            flds = ledger_io.fields(payload)
+            if index and len(flds) >= 2 and (flds[0], _rva(flds[1])) in drop:
+                plan.dropped_pins.append((flds[0], family.members[_rva(flds[1])], flds[1]))
+                continue
+            kept.append(payload + term)
+        pin_raw = b"".join(kept)
     plan.edit(ctx, SYMBOLS, pin_raw)
     edited = {FUNCTIONS: raw}
     for at in moved:
@@ -4653,7 +4684,8 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
 
     # Sources: the prepared C++ is the whole change; nothing may still spell an old name.
     _batch_source_edits(ctx, plan, prepared)
-    for old_name in [e["old"] for e in entries] + [name for name, _f in family.pins.values()]:
+    for old_name in ([e["old"] for e in entries] + [name for name, _f in family.pins.values()]
+                     + [name for name, _f in retired.values()]):
         left = sorted(rel for rel, data in plan.after.items()
                       if rel in prepared and mangled_re(old_name).search(data.decode("utf-8", "replace")))
         if left:
@@ -4677,8 +4709,13 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     plan.identity = dict(
         retail=True, rows=[(e["rva"], e["old"], e["new"]) for e in entries], sources=sorted(set(plan.verify)),
         wrong_before=sorted({_identity_key(r, renames) for r in identity_wrong(before)}),
-        table_name=family.table_name, copy=family.copy, copy_name=primary["new"], copy_store=family.copy_store,
-        copy_source=source_of[family.copy], retired=[], moved=moved)
+        copy=family.copy, copy_name=primary["new"], copy_source=source_of[family.copy], retired=[], moved=moved)
+    if no_table:
+        by_rva = {e["rva"]: e["new"] for e in entries}
+        plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
+        plan.identity["retired"] = sorted((name, at, family.members[at]) for at, (name, _f) in retired.items())
+    else:
+        plan.identity.update(table_name=family.table_name, copy_store=family.copy_store)
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
         [f"file:{s}" for s in sorted(owner_sources | ({move_to} if move_to else set()))]
     done = set(plan.after) | {"reverse/re_attempts.log"}
@@ -4690,6 +4727,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
 
 
 DIR32 = 6
+REL32 = 20
 
 
 def object_symbol_relocs(ctx, source, name):
@@ -4717,10 +4755,27 @@ def retail_identity_problems(ctx, identity):
     for at, _old, new in identity["rows"]:
         if not any(r["row"] == new and r["rva"] == at for r in refs):
             problems.append(f"{new} (0x{at:08X}) has no references after the respell")
-    relocs = object_symbol_relocs(ctx, identity["copy_source"], identity["copy_name"])
-    if (identity["copy_store"], DIR32, identity["table_name"]) not in relocs:
-        problems.append(f"{identity['copy_name']} does not store {identity['table_name']} at +{identity['copy_store']} "
-                        f"after the respell ({identity['copy_source']})")
+    if "bindings" in identity:
+        if not identity["bindings"]:
+            problems.append("a family with no table has no bindings to check")
+        for source, name, offset, target in identity["bindings"]:
+            if (offset, REL32, target) not in object_symbol_relocs(ctx, source, name):
+                problems.append(f"{name} does not bind {target} at +{offset} after the respell ({source})")
+        written = ctx.path(SYMBOLS).read_bytes().decode("utf-8") if ctx.path(SYMBOLS).exists() else ""
+        left = {(p.get("name", ""), _rva(p.get("address"))) for p in csv.DictReader(io.StringIO(written))}
+        for name, at, _member in identity.get("retired", ()):
+            if (name, at) in left:
+                problems.append(f"pin {name} at 0x{at:08X} is still in {SYMBOLS}")
+            if any(r["symbol"] == name for r in refs):
+                problems.append(f"a rebuilt object still binds the retired pin {name}")
+        names = sorted({name for name, _at, _member in identity.get("retired", ())})
+        if names:
+            problems += object_pin_references(source_objects(ctx, identity["sources"]), names)
+    else:
+        relocs = object_symbol_relocs(ctx, identity["copy_source"], identity["copy_name"])
+        if (identity["copy_store"], DIR32, identity["table_name"]) not in relocs:
+            problems.append(f"{identity['copy_name']} does not store {identity['table_name']} at +{identity['copy_store']} "
+                            f"after the respell ({identity['copy_source']})")
     known = {tuple(k) for k in identity["wrong_before"]}
     for r in identity_wrong(refs):
         if _identity_key(r, {}) not in known:
