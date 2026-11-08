@@ -22,16 +22,9 @@ extern int g_00E033D0;
 int g_00E033D0 = 0;
 extern int g_00E05F24;
 int g_00E05F24 = 0;	// owned here; retail .data starts it at 0
-extern int g_00E062F4;
-// Owned here: written by rva007B3FCA below; retail .data starts it at 0.
-int g_00E062F4 = 0;
-extern int g_00E063E0;
-int g_00E063E0 = 0;	// owned here; retail .data starts it at 0
 extern int g_00E063E8;
 int g_00E063E8 = 0;	// owned here; retail .data starts it at 0
 extern int g_Va00DFE18C;
-extern unsigned g_00E063CC;
-unsigned g_00E063CC = 0;	// owned here; retail .data starts it at 0
 extern unsigned int g_00DFEE08;
 unsigned int g_00DFEE08 = 0;	// owned here; retail .data starts it at 0
 
@@ -52,9 +45,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007B042B();
 	static void rva007B07F5();
 	static void rva007B3B50();
-	static void rva007B3FCA();
-	static void rva007B4316();
-	static void rva007B43BD();
 	static void rva007B440F();
 };
 
@@ -116,24 +106,6 @@ void Rva007ABC6FFrameRateInits::rva007B07F5()
 void Rva007ABC6FFrameRateInits::rva007B3B50()
 {
 	g_00E05F24 = BfmeClientFramesPerSecond / 2;
-}
-
-// ?rva007B3FCA@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B3FCA (14B): global at VA 0x00E062F4, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007B3FCA()
-{
-	g_00E062F4 = BfmeLogicFramesPerSecond * 60;
-}
-
-// ?rva007B4316@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B4316 (14B): global at VA 0x00E063CC, named as the TU that reads it names it
-void Rva007ABC6FFrameRateInits::rva007B4316()
-{
-	g_00E063CC = BfmeLogicFramesPerSecond * 120;
-}
-
-// ?rva007B43BD@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B43BD (14B): global at VA 0x00E063E0, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007B43BD()
-{
-	g_00E063E0 = BfmeLogicFramesPerSecond * 10;
 }
 
 // ?rva007B440F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B440F (16B): global at VA 0x00E063E8, also read elsewhere in .text

@@ -131,8 +131,8 @@ struct AITargetHeuristicExpansionBase : Rva005CB22A
 };
 
 // 0x00573122 helpers: the player list's bool getter (rowed 0x002A7EA0), the
-// logic random-log file (0x00DFEFF0), the frame threshold FrameRateInits sets
-// (0x00E062F4) and the logic random real (0x00234092).
+// logic random-log file (0x00DFEFF0), the unit's frame threshold (0x00E062F4)
+// and the logic random real (0x00234092).
 class Rva002A7EA0CmpBoolField
 {
 public:
@@ -145,7 +145,10 @@ extern PlayerList *ThePlayerList;
 
 extern "C" void *theLogicRandomLogFile;
 
-extern int g_00E062F4;
+// Retail builds the threshold (60 seconds of logic frames) as this unit's only
+// dynamic initializer, 0x007B3FCA, alone in its .text$yc run (LINK-236).
+extern int BfmeLogicFramesPerSecond;
+int g_00E062F4 = BfmeLogicFramesPerSecond * 60;
 
 extern "C" int __cdecl fprintf(void *file, const char *format, ...);
 

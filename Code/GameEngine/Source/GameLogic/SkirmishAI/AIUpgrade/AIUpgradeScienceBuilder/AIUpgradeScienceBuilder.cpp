@@ -92,7 +92,11 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-extern unsigned g_00E063CC;
+// The expansion-upgrade wait (120 seconds of logic frames). Retail builds it as
+// this unit's only dynamic initializer, 0x007B4316, alone in its .text$yc run
+// (LINK-236); buildExpansionUpgrades is its one reader.
+extern int BfmeLogicFramesPerSecond;
+unsigned g_00E063CC = BfmeLogicFramesPerSecond * 120;
 
 	// frames between attempts
 

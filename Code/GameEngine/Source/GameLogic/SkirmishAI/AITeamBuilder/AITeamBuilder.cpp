@@ -188,7 +188,13 @@ struct AITargetView { int word0; int kind; int word8; Coord3D position; };
 class TeamPriorityCallView { public: virtual void slot0(); virtual void slot4(); virtual float priority(); };
 struct TeamPriorityDataView { char prefix[0x111]; bool active; };
 extern GameLogic* TheGameLogic;
-extern int g_00E063E0;
+// Retail's .text$yc run for this unit is its Drawable.h copy 0x007B43AD, then the
+// idle-team age limit 0x007B43BD (10 seconds of logic frames, read by the recruit
+// predicate and checkIdleTeams), then the pool-init marker (LINK-236). The unit
+// takes Drawable.h's one dynamic constant through its own header.
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
+extern int BfmeLogicFramesPerSecond;
+int g_00E063E0 = BfmeLogicFramesPerSecond * 10;
 // Native 0059A01C..0059A153 and WB0152A380 establish this three-argument
 // recruitment predicate. WB only exposes inlined Vector3 names, so retain
 // an address name for the outer method. Retail rejects unordered distance
