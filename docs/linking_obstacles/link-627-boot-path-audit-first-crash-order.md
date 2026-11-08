@@ -204,6 +204,19 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   Slot0/1/3 (FXParticleSystem's ParticleModuleTemplateClones.cpp) and `BfmeBaseVNH` (Rva003BBAF0Ctor_Rva003FD199.cpp); 3
   one-byte placeholder owners (`_Rva003AEA15_v1c`, `_Rva003AED6B_vsub`, `_Rva003AED6B_v0`, FXParticleSystem: other
   owners) whose ledger extent is 1, so the bridge cannot bound the table.
+
+  2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
+  by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
+  The copy constructor removes three byte stand-ins and binds existing
+  providers, including the current C1C900 category-table qualifier. All
+  37 code rows/16 data rows pass normal verification; all four table
+  relocations match native, bounded independently by the next datum.
+  Bounded replay changes strong/unbounded refusals 2 -> 0 and needs no
+  bridge for this table. The tool-generated raw index carries extent16;
+  all 2,354 verified owners are retained in its full regeneration.
+  The two Rva003AED6B owners above remain outside this repair. Actual
+  next-image queue/crash confirmation is pending; no runtime clearance.
+  [Owner, operands and generated-index audit](../../reverse/attempt_support/alpha-snapshot-owner-20261108/README.md).
 - Gates with the regenerated ledger: full `./build.sh` OK (99,554/99,554); `data_check --converged --all` 0 second
   names; `hatch_counters.py --report` identical; `data_check --all` (shadow) 1,137 -> 297 findings, 33 of them new
   (listed in the regeneration commit; no baseline growth).

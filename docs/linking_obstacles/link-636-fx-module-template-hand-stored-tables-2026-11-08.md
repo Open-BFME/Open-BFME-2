@@ -118,3 +118,16 @@ removed char names reported as provisional loss candidates through an
 unread object and zero proven newly unresolved names. The scoped consumer
 proof found no outside live consumer. Carry those names and the held
 getter receipt into the next census/image; no full-link clearance is claimed.
+
+2026-11-08 root alpha Snapshot follow-up: Rva003AEA15CopyCtor.cpp removes
+three byte stand-ins, uses the existing primary/factory arrays and full
+Rva003ABC6E Snapshot table, and fixes its stale C1C900 compiler qualifier
+from the exact 3ACEFC store. The C1CDBC data owner transfers from the
+one-byte char to the existing 16-byte compiler table; all four native
+targets/relocations and its independent next-datum boundary pass. Normal
+37 code/16 data rows pass. Bounded replay removes strong/unbounded
+refusals 2 -> 0 with no bridge required for this table. The full generated
+index retains every verified owner; its raw extent must be refreshed for
+the real link. Primary/factory array recovery and next-image confirmation
+remain; this is not full enclosing-class or runtime clearance.
+[Native owner and index scope](../../reverse/attempt_support/alpha-snapshot-owner-20261108/README.md).
