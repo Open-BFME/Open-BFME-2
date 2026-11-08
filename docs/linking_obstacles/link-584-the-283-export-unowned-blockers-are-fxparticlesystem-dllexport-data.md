@@ -468,3 +468,27 @@ above asks.
 `no_object_defines_it` 3 -> 27, as predicted (24 stale ledger rows until a refresh, plus the 3 from before this landing, which
 were stale names too: 0x007C6C54, 0x007C6C58, 0x0084D700). The Box, Sphere, Point and Butterfly copy constructors now install
 retail's exported tables, not one-byte placeholders, as the Line unit does; 4/4 rows exact, not yet measured by a real link.
+
+**2026-11-08 the nested shape left 23 units depending on the bridge (swarm Link lane, being moved).** The census at `b9aeebea15`
+against `d171e84869` lost 27 linking units and gained `VectorDeletingDtorsV06.cpp`. 3 are deleted files whose rows moved
+(`RandomValueMultFactorInit.cpp`, `SmallGaps/rva0045F4C2.cpp`, `GameWindowManagerScript_setWindowText.cpp`). 1 is not from
+this work: `VectorDeletingDtorsV02.cpp`'s `??1Rva001F3574Vec` pin, repaired by `4fc4b563a4`. The other **23 come from `e82daa0fe0`..`5c67670252`**:
+they name table spellings that batch retired, which no object defines now.
+
+Real link: unaffected. At `4a3033f245` none of these names is unresolved, because `retail_vtables.obj` provides them. Census: real,
+because it has no bridge. The pre-push audit said INCONCLUSIVE and did not flag it, and the note above did not warn of it. The bridge
+is scaffolding, so these move to retail's names next, Link lane, claiming each file:
+
+- `??_7SecondaryModuleBase@FXParticleSystem@@6B@`, the folded single-pure table 0x0081C780: `Common/Rva0055EFE1Ctor.cpp`,
+  `GameClient/System/ParticleSys.cpp`, `Behavior/FakePathfindPortalBehaviour.cpp`, `Behavior/SlowDeathBehavior.cpp`,
+  `Behavior/TerrainResourceBehavior.cpp`, `Update/OneRingPenaltyUpdate.cpp`, `Update/RubbleRiseUpdateCtor.cpp`,
+  `Update/StructureCollapseUpdateCtor.cpp`, `Update/WallUpgradeUpdate.cpp`, `GameNetwork/BfmeThingDGDConstructor.cpp`,
+  `GameNetwork/Rva007F9B80Ctor.cpp`, `W3DDevice/.../W3DFloorDrawCtor.cpp`.
+- `…6BSecondaryModuleBase@1@@` and `…6B<Info>@1@@` on template and concrete tables: `Common/Rva003AE1A7CopyCtor.cpp` and, under
+  `System/FXParticleSystem/`, `ConcreteModuleTemplateCopyCtors.cpp`, `CylinderEmissionVolumeModuleTemplateCopyCtorThunk.cpp`,
+  `LineEmissionVolumeModuleTemplateCopyCtorThunk.cpp`, `ModuleCtorChainsA.cpp`, `ModuleCtorChainsA_Rva003ABAF3.cpp`,
+  `ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp`, `Rva003ACD71Ctor.cpp`, `Rva003AD355ModuleCtor.cpp`, `Rva003ADC4FCopy.cpp`,
+  `Rva003ADD0BCopy.cpp`.
+
+Also still naming the old class, without a lost link: `Rva0055BCF1ColorModuleCtor.cpp` (a private view) and the unused
+`FX_MODULE_TEMPLATE` macro in `Common/BfmeAccessorMacros.h`.
