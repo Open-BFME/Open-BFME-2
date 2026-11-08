@@ -149,7 +149,7 @@ public:
 
 #include "../../Include/Common/Dict.h"
 
-extern Dict g_Va00E00944;
+class MapObject { public: static Dict TheWorldDict; };
 extern Rva00148F5ECache g_00DBDEEC;
 
 // The audio events the client keeps playing across a save. Each is a
@@ -538,13 +538,13 @@ void GameClient::xfer(Xfer *xfer)
 		if (version.m_minimum > 1)
 		{
 			bool exists;
-			float value = g_Va00E00944.getReal(g_00DBDEEC.get(), &exists);
+			float value = MapObject::TheWorldDict.getReal(g_00DBDEEC.get(), &exists);
 			*xfer == exists;
 			*xfer == value;
 			if (exists && xfer->IsLoading())
 			{
 				NameKeyType key = g_00DBDEEC.get();
-				g_Va00E00944.setReal(key, value);
+				MapObject::TheWorldDict.setReal(key, value);
 			}
 		}
 	}
