@@ -41,13 +41,6 @@ public:
 	Rva0039B893(const Rva0039B893 &other);
 };
 
-class LivingWorldScoreKeeper { public: class PerTurnStats; };
-class LivingWorldScoreKeeper::PerTurnStats
-{
-public:
-	PerTurnStats(const PerTurnStats &other);
-};
-
 class Rva003A6360Record
 {
 public:
@@ -72,7 +65,6 @@ template<> void _Construct<Rva0014F480, Rva0014F480>(Rva0014F480 *dest, const Rv
 template<> void _Construct<Rva0014F4A1, Rva0014F4A1>(Rva0014F4A1 *dest, const Rva0014F4A1 &source) throw() { new (dest) Rva0014F4A1(source); }
 template<> void _Construct<Rva0014F4C2, Rva0014F4C2>(Rva0014F4C2 *dest, const Rva0014F4C2 &source) throw() { new (dest) Rva0014F4C2(source); }
 template<> void _Construct<Rva0039B893, Rva0039B893>(Rva0039B893 *dest, const Rva0039B893 &source) throw() { new (dest) Rva0039B893(source); }
-template<> void _Construct<LivingWorldScoreKeeper::PerTurnStats, LivingWorldScoreKeeper::PerTurnStats>(LivingWorldScoreKeeper::PerTurnStats *dest, const LivingWorldScoreKeeper::PerTurnStats &source) throw() { new (dest) LivingWorldScoreKeeper::PerTurnStats(source); }
 template<> void _Construct<Rva003A6360Record, Rva003A6360Record>(Rva003A6360Record *dest, const Rva003A6360Record &source) throw() { new (dest) Rva003A6360Record(source); }
 template<> void _Construct<Rva005DBCD1, Rva005DBCD1>(Rva005DBCD1 *dest, const Rva005DBCD1 &source) throw() { new (dest) Rva005DBCD1(source); }
 template<> void _Construct<Rva004E18A2, Rva004E18A2>(Rva004E18A2 *dest, const Rva004E18A2 &source) throw() { new (dest) Rva004E18A2(source); }

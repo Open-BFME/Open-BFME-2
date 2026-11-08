@@ -200,30 +200,8 @@ Rva0020E449::Rva0020E449(const Rva0020E449 &other)
 	m_field18 = other.m_field18;
 }
 
-// ------------------------- vptr + three words (retail 0x004EE1A9)
-// B2 body-address name: three word members at +0x04/+0x06/+0x08 with
-// 66-prefixed loads and stores. Five retail E8 callers.
-class LivingWorldScoreKeeper { public: class PerTurnStats; };
-class LivingWorldScoreKeeper::PerTurnStats
-{
-public:
-	PerTurnStats(const PerTurnStats &other);
-	virtual ~PerTurnStats();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(class Xfer *);
-
-	Short m_field04;
-	Short m_field06;
-	Short m_field08;
-};
-
-LivingWorldScoreKeeper::PerTurnStats::PerTurnStats(const LivingWorldScoreKeeper::PerTurnStats &other)
-{
-	m_field04 = other.m_field04;
-	m_field06 = other.m_field06;
-	m_field08 = other.m_field08;
-}
+// PerTurnStats's copy constructor (retail 0x004EE1A9) is the implicit one
+// LivingWorldScoreKeeper.cpp emits.
 
 // -------------------------- vptr + two words (retail 0x005DBCD1)
 // B2 body-address name: two word members at +0x04/+0x06 with 66-prefix
