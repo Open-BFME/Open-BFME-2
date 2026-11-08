@@ -11,11 +11,12 @@ public:
 	Rva003AE1CD(const Rva003AE1CD &other);
 };
 
-// Rva003AE1A7_v0: matched references place it at VA 0xc1ca40 (retail .rdata value 112).
-extern "C" char Rva003AE1A7_v0 = 112;
+// The +0 and +0x0C tables (VA 0x00C1CA40, 0x00C1CA2C) are the compiler
+// tables ModuleTemplateCloneSlots.cpp emits for Rva003ACA93Object's first and
+// third bases; the data ledger binds both names at those addresses.
+extern "C" char __identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot0@@@");
 extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
-// Rva003AE1A7_v0C: matched references place it at VA 0xc1ca2c (retail .rdata value 72).
-extern "C" char Rva003AE1A7_v0C = 72;
+extern "C" char __identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot2@@@");
 
 class Rva003AE1A7
 {
@@ -33,10 +34,7 @@ Rva003AE1A7::Rva003AE1A7(const Rva003AE1A7 &that)
 {
 	const void *src = &that;
 	((Rva003AE1CD *)this)->Rva003AE1CD::Rva003AE1CD(*(const Rva003AE1CD *)src);
-	*(void **)this = &Rva003AE1A7_v0;
+	*(void **)this = &__identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot0@@@");
 	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
-	*(void **)((char *)this + 0x0C) = &Rva003AE1A7_v0C;
+	*(void **)((char *)this + 0x0C) = &__identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot2@@@");
 }
-
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
