@@ -9,7 +9,8 @@
 // BFME 1's image carries two byte-identical copies of this routine; BFME 2's
 // generic post-processing tier installs this one in its dispatch slot 25.
 
-extern const unsigned char g_bfmeClampTable[];			// retail 0x01356FE0 (zero point)
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 
 extern "C" void __cdecl FilterVert_Simple_C(void *, unsigned char *ptr, int stride, const int *bounding)
 {
@@ -42,13 +43,13 @@ steep:
 
 filter:
 		delta = bounding[(value + 4) >> 3];
-		ptr[-stride] = g_bfmeClampTable[ptr[-stride] + delta];
-		ptr[0] = g_bfmeClampTable[ptr[0] - delta];
+		ptr[-stride] = BFME_CLAMP_ZERO[ptr[-stride] + delta];
+		ptr[0] = BFME_CLAMP_ZERO[ptr[0] - delta];
 
 		if (flag == 0) {
 			int half = delta >> 1;
-			ptr[-2 * stride] = g_bfmeClampTable[ptr[-2 * stride] + half];
-			ptr[stride] = g_bfmeClampTable[ptr[stride] - half];
+			ptr[-2 * stride] = BFME_CLAMP_ZERO[ptr[-2 * stride] + half];
+			ptr[stride] = BFME_CLAMP_ZERO[ptr[stride] - half];
 		}
 
 		++ptr;

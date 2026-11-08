@@ -11,7 +11,8 @@
 // Retail passes the tier on the stack; the installer never reads it.
 extern "C" void __cdecl PostProcMachineSpecificConfig(int version);
 
-extern const unsigned char g_bfmeClampTable[];	// retail 0x01356FE0 (zero point)
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 extern const unsigned int *g_bfmeScaleTableV2;
 // g_bfmeScaleTableV2: the V2 DC-quant scale table pointer (VA 0xe22cf0, zero-filled .bss), set here.
 const unsigned int * g_bfmeScaleTableV2;
@@ -125,7 +126,7 @@ int g_bfmeDeblockLimitV6[64] = {
 
 extern "C" void __cdecl InitPostProcessing(void *firstTable, void *secondTable, void *sourceTable, int tier)
 {
-	unsigned char *clamp = (unsigned char *)g_bfmeClampTable;
+	unsigned char *clamp = BFME_CLAMP_ZERO;
 	int i;
 	for (i = -256; i < 512; ++i)
 	{

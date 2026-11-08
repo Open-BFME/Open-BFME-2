@@ -27,7 +27,8 @@ struct Vp6DeblockBandInstance
 	int *m_bounding;
 };
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 #define VABS(x) ((x) > 0 ? (x) : -(x))
 
 extern "C" void __cdecl DeblockNonFilteredBand_C(Vp6DeblockBandInstance *ctx,
@@ -94,8 +95,8 @@ extern "C" void __cdecl DeblockNonFilteredBand_C(Vp6DeblockBandInstance *ctx,
 				rowOutput[rowOffset3] = (unsigned char)(((rolling+right+samples[8])*2-samples[5] - samples[4])>>4);
 			} else {
 				filter = ctx->m_bounding[(samples[3] - samples[6] + 3 * (samples[5] - samples[4]) + 4) >> 3];
-				rowOutput[-(int)stride] = g_bfmeClampTable[samples[4] + filter];
-				rowOutput[0] = g_bfmeClampTable[samples[5] - filter];
+				rowOutput[-(int)stride] = BFME_CLAMP_ZERO[samples[4] + filter];
+				rowOutput[0] = BFME_CLAMP_ZERO[samples[5] - filter];
 				rowOutput[-rowOffset4] = rowInput[-rowOffset4];
 				rowOutput[-rowOffset3] = rowInput[-rowOffset3];
 				rowOutput[-rowOffset2] = rowInput[-rowOffset2];
@@ -155,8 +156,8 @@ extern "C" void __cdecl DeblockNonFilteredBand_C(Vp6DeblockBandInstance *ctx,
 				rowOutput[3] = (unsigned char)(((rolling+right+samples[8])*2-samples[5] - samples[4])>>4);
 			} else {
 				filter = ctx->m_bounding[(samples[3] - samples[6] + 3 * (samples[5] - samples[4]) + 4) >> 3];
-				rowOutput[-1] = g_bfmeClampTable[samples[4] + filter];
-				rowOutput[0] = g_bfmeClampTable[samples[5] - filter];
+				rowOutput[-1] = BFME_CLAMP_ZERO[samples[4] + filter];
+				rowOutput[0] = BFME_CLAMP_ZERO[samples[5] - filter];
 			}
 			rowInput += stride;
 			rowOutput += stride;

@@ -8,7 +8,8 @@
 // mapped through the bounding array at (value + 4) >> 3; pixel b gains it and
 // pixel c loses it through the clamp table (zero point at image 0x00E23100).
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 
 // RVA 0x001C0090
 extern "C" void __cdecl FilterVert_Generic(void *, unsigned char *ptr, int lineLength, const int *bounding)
@@ -16,8 +17,8 @@ extern "C" void __cdecl FilterVert_Generic(void *, unsigned char *ptr, int lineL
 	for (int i = 0; i < 8; ++i) {
 		int value = (ptr[-2 * lineLength] - ptr[lineLength]) + 3 * (ptr[0] - ptr[-lineLength]);
 		int delta = bounding[(value + 4) >> 3];
-		ptr[-lineLength] = g_bfmeClampTable[ptr[-lineLength] + delta];
-		ptr[0] = g_bfmeClampTable[ptr[0] - delta];
+		ptr[-lineLength] = BFME_CLAMP_ZERO[ptr[-lineLength] + delta];
+		ptr[0] = BFME_CLAMP_ZERO[ptr[0] - delta];
 		++ptr;
 	}
 }

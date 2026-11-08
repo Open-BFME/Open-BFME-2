@@ -13,7 +13,8 @@
 // clamp table g_bfmeClampTable (zero point 0x00E23100). Retail advances
 // the pointer by the line length only on a filtered line (the skip branch
 // at 0x001C3B97 jumps past the add at 0x001C3BFC).
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[0x300];	// retail 0x00E23000
+#define BFME_CLAMP_ZERO (g_bfmeClampTable + 0x100)	// retail 0x00E23100, the table's zero point
 extern "C" void FilterHoriz_Simple2_C(void *, unsigned char *ptr, int pitch, const int *bounding)
 {
 	int i, step, left, right, amount, half;
@@ -23,11 +24,11 @@ extern "C" void FilterHoriz_Simple2_C(void *, unsigned char *ptr, int pitch, con
 			left = ptr[1] - ptr[0];
 			right = ptr[3] - ptr[2];
 			amount = bounding[(step * 2 - left + right + 4) >> 3];
-			ptr[1] = g_bfmeClampTable[ptr[1] + amount];
-			ptr[2] = g_bfmeClampTable[ptr[2] - amount];
+			ptr[1] = BFME_CLAMP_ZERO[ptr[1] + amount];
+			ptr[2] = BFME_CLAMP_ZERO[ptr[2] - amount];
 			half = ((right | left) == 0) * (amount >> 1);
-			ptr[0] = g_bfmeClampTable[ptr[0] + half];
-			ptr[3] = g_bfmeClampTable[ptr[3] - half];
+			ptr[0] = BFME_CLAMP_ZERO[ptr[0] + half];
+			ptr[3] = BFME_CLAMP_ZERO[ptr[3] - half];
 			ptr += pitch;
 		}
 	}
