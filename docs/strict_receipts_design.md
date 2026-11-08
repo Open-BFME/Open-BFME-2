@@ -1,20 +1,23 @@
-# Strict receipts on every compile (design, not scheduled)
+# Strict receipts on every compile (design: only step 0 has landed)
 
-Status: routed to the Link lane, revised 2026-11-07 after its review. It changes
-`tools/build.py` and what the hooks' compiles write, so it lands as its own
-reviewed `Verifier-Change` commit, after the verdict logger (step 0) has a
-baseline. Evidence:
+Status: only step 0, the verdict logger, has landed (e2b22f90d4, 104cd6d6a8).
+Steps 1 to 5 are not scheduled. The owner will revisit them once the log has a
+real sample of INCONCLUSIVE rates to judge them by; on 2026-11-08 it held 9 real
+lines, 3 of them inconclusive, which is too few. If scheduled, they change
+`tools/build.py` and what the hooks' compiles write, so they land as their own
+reviewed `Verifier-Change` commit. Revised 2026-11-07 after the Link lane's
+review; checked against master at 3b141964e7 on 2026-11-08. Evidence:
 [LINK-628](linking_obstacles/link-628-real-link-loss-audit-runs-in-report-mode-six-gaps-block-refuse.md),
-measured on srv1 on 2026-11-07.
+measured on srv1 on 2026-11-07 unless dated otherwise.
 
 ## Problem
 
 `tools/link_batch_audit.py` proves an object current only with
 `link_census.object_current`, which is `build.compile_is_current(strict=True)`:
 a version-2 receipt whose include search inventory still matches the tree, or a
-header-free version-1 receipt. Only two callers write version 2:
-`link_census.py --build` and `link_check.py --prepare-current`. Everything else
-writes version 1:
+header-free version-1 receipt. Only three callers compile for version 2:
+`link_census.py --build`, `link_check.py --prepare-current` and `link_cycle.py`
+(`compile_rows(strict=True)`). Everything else writes version 1:
 
 | Writer | Receipt | Why |
 |---|---|---|
@@ -28,26 +31,37 @@ consumer compiled the same way ("affected consumer lacks current receipt").
 
 Measured: worker seat5 had 337 version-2 receipts among 18,431 (1.8%), 5,004
 header-free version-1 receipts (which pass) and 13,090 (71%) that fail strict.
-The census cache had 16,400 of 22,802.
+The census runner's cache had 16,400 of 22,802.
+
+That cache's figure depends on when it is read, because the runner's follower
+cycles write to it too. On 2026-11-08 one follower restored 6,746 TUs from the
+object store, nearly all as version 1 with headers, leaving 9,645 version-2 of
+22,804 and 6,991 version-1 with headers. Step 2 is about exactly this.
 
 ## Design
 
-0. **Verdict logger first, in its own small commit.** It lands before
-   everything else, so the change can be compared before and after.
+Step 0 describes what landed. Steps 1 to 5 are the unscheduled proposal.
+
+0. **Verdict logger (landed).** It went first, so that any later change can be
+   compared before and after.
    - **Format:** after its verdict, `link_batch_audit.py` appends one JSON line
      to `<git common dir>/link_audit_verdicts.jsonl`, as `class_gate.shadow_log`
      does for `class_gate_shadow.jsonl`.
-   - **Fields:** UTC time, base, tip, verdict (`clean`, `failed`, or
-     `inconclusive` with its reason: missing receipts, consumer without a
-     receipt, no index, non-exact base), the scope and missing counts, and
-     `exact_base`.
+   - **Fields:** `utc`, `base`, `tip`, `verdict` (`clean`, `failed`,
+     `inconclusive`, `crashed`, or `exit-N` for any other exit code), `reason`
+     for an inconclusive run (`missing-receipts`, `consumer-receipt`, `no-index`,
+     `non-exact-base`, else `other`), `exit`, `sources` (the scope), `exact_base`,
+     `real_link_findings`, and `lines` (the first 12 output lines, each cut to 300
+     characters). There is no missing-count field; that count is only in the text
+     of `lines`.
    - **No behaviour change:** the hook's output and exit code don't change, and
-     a failing write loses the line, never the push. One clone's file is that
-     clone's pushes; the seats on srv1 share one common dir, so they share one log.
+     a failing write loses the line, never the push. A run the hook's time cap
+     kills writes no line. One clone's file is that clone's pushes; the seats on
+     srv1 share one common dir, so they share one log.
    - **Reading it:** drop lines with `"base": "a"` and `"tip": "b"`. They are
      fixtures `tools/tests/test_link_batch_audit.py` wrote into real logs
      (2026-11-07 on; 6 of srv1's first 8 lines), and a clone running the suite from
-     before its fix can still add more. The live log is left as it is.
+     before its fix (1ec1e0a27a) can still add more. The live log is left as it is.
 
 1. **Every compile records the inventory.** `try_compile_source` takes
    `inventory_before` and runs `_inventory_problems` for every `cl` compile, not
@@ -120,16 +134,15 @@ The census cache had 16,400 of 22,802.
      audit says INCONCLUSIVE, the pusher may run
      `link_check.py --prepare-current` (1..32 explicit sources) on the sources
      it names and push again.
-   - **Header pushes stay inconclusive often:** 16 of master's 57 scoped header
-     commits in the last 48 h (28%) recompile at least one of the 265 TUs whose
-     search cannot be inventoried (measured below). Those pushes stay
+   - **Header pushes stay inconclusive often:** at most 16 of master's 57 scoped
+     header commits in the 48 h measured (28%) recompile a TU whose search cannot
+     be inventoried (an upper bound, see "Measurements" below). Those pushes stay
      INCONCLUSIVE whatever the pusher does. The median scoped header push recompiles 4 sources, the largest 1,285, and 3 of 60
      header commits ran the full gate.
    - **Two other causes:** a consumer the push does not recompile still needs a
      strict receipt of its own until caches turn over, and a census index that
      is not at the pushed base keeps findings provisional.
-   - **Lowering the 28% floor:** fixing those 265 TUs at the source is what
-     lowers it.
+   - **Lowering that floor:** fixing those TUs at the source is what lowers it.
 
 ## Cost
 
@@ -151,10 +164,11 @@ The census cache had 16,400 of 22,802.
   inventories were unchanged after 6 h, changed for 2% after 12 h and for 5%
   after 24 h (1,353 master commits in 48 h).
 - Within a day of rollout, objects compiled or restored from the store should
-  be strict-current at about the census cache's rate (72%) or better. A touched
-  source is strict by construction unless it is one of the 265.
-- Source-only pushes should then mostly turn conclusive. Header pushes keep
-  about the 28% floor from (5).
+  be strict-current at about the runner cache's 2026-11-07 rate (72%) or better.
+  A touched source is strict by construction unless its search cannot be
+  inventoried.
+- Source-only pushes should then mostly turn conclusive. Header pushes keep the
+  floor from (5), at most about 28%.
 - The logger from (0) measures both against its pre-change baseline.
 
 ## Tests
@@ -186,10 +200,17 @@ The census cache had 16,400 of 22,802.
 
 ## Measurements behind the numbers
 
-- **The 265:** the census cache's version-1 receipts that record headers. The
-  census compiles with `inventory=True`, so these failed `_inventory_problems`:
-  macro or `..` includes, or headers outside the roots.
+- **The TUs whose search cannot be inventoried:** not settled. The runner cache's
+  version-1 receipts that record headers were read as these, since the census
+  compiles with `inventory=True` and such a receipt there failed
+  `_inventory_problems` (macro or `..` includes, or headers outside the search
+  roots). That gave 226 and later 265 on 2026-11-07, but follower cycles write the
+  same kind of receipt (6,991 on 2026-11-08), so both are upper bounds and the
+  count cannot be repeated that way. Run `_inventory_problems` over the TUs before
+  relying on it. A header outside the checkout, the toolchain and a trusted link
+  no longer compiles at all (include confinement, `docs/matching.md`).
 - **The 28%:** master's header-touching commits in the 48 h before 2026-11-07
-  21:00 UTC, with each push's recompile set from `header_dependents.py --range`.
+  21:00 UTC, with each push's recompile set from `header_dependents.py --range`,
+  against the 265, so it is an upper bound too.
 - **Seat counts:** the `build/match` sidecars of seat5 and of the census runner
-  on srv1.
+  on srv1, on 2026-11-07.

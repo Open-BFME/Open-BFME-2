@@ -1,6 +1,6 @@
 ### LINK-628: real-link loss audit runs in report mode; six gaps block refuse
-Status: Open (report mode landed; refuse mode blocked). Updated: 2026-11-07; inspected revision: the
-landing batch on 6186dccaff.
+Status: Open (report mode landed; refuse mode blocked). Updated: 2026-11-08; inspected revision: the
+landing batch on 6186dccaff; the INCONCLUSIVE section below re-checked against 3b141964e7.
 
 Evidence / affected units: `tools/link_batch_audit.py` (`real_link_losses`, `import_supplies`,
 `import_request_reader`, `reference_reader`, `bridge_copy_reader`, `report_real_link_losses`),
@@ -60,7 +60,8 @@ real pushes first.
 Why most pushes print INCONCLUSIVE (measured 2026-11-07 on srv1, master 46c764cbb8): the audit proves an
 object current only through `link_census.object_current`, i.e. `build.compile_is_current(strict=True)`: a
 version-2 receipt whose include search inventory still matches, or a header-free version-1 one. Only
-`link_census.py --build` and `link_check.py --prepare-current` compile with `inventory=True`. The pre-push
+`link_census.py --build`, `link_check.py --prepare-current` and `link_cycle.py` (`compile_rows(strict=True)`)
+compile with `inventory=True`. The pre-push
 hook's scoped gate, `./build.sh` and every worker compile call `try_compile_source(inventory=False)`, which
 writes version 1, so a source the hook has just byte-verified fails the audit ("N source object(s) lack
 current receipts", exit 2), and so does any consumer compiled the same way ("affected consumer lacks current
@@ -68,7 +69,11 @@ receipt"). Target facts:
 - Receipts in caches: worker seat5 `build/match` 337 version-2 of 18,431 (1.8%), 5,004 header-free version-1
   (these pass), 13,090 (71%) fail strict. The census runner's cache: 16,400 version-2 of 22,802. An ops seat
   restored from the object store after 3,443 commits: 6,419 version-2 of 18,578 (the store returns the
-  newest variant, a census-compiled one when the census compiled last).
+  newest variant, a census-compiled one when the census compiled last). The runner's follower cycles write
+  that cache too: on 2026-11-08 one restored 6,746 TUs from the store, nearly all as version 1 with headers,
+  leaving 9,645 version-2 of 22,804 and 6,991 version-1 with headers. A strict compile on master at 3b141964e7
+  still writes version 2 (two TUs, 110 and 118 headers), so this is the store's choice of variant, not a
+  change in what the census writes.
 - Inventory durability, once written: for 400 sampled ledger TUs, the in-repo search roots' inventories
   (tracked files, rebuilt from `git ls-tree`) were unchanged after 6 h, changed for 2% after 12 h and 5%
   after 24 h (1,353 master commits in 48 h). So receipts are missing, not going stale.
@@ -79,12 +84,19 @@ Remaining prerequisites (structural inference, not yet tried): (1) make ordinary
 inventory (`compile_rows`/`try_compile_source` default), keeping `input_proof` census-only; (2) do not lose
 the object store: `try_compile_source` skips `_restore_object` whenever `inventory` is set, so (1) alone turns
 every restore into a compile; restore must instead prefer a stored version-2 variant and accept it only when
-its inventory matches now (one inventory per restored TU, cacheable per `compile_rows` call); (3) the ~1% of
-TUs whose search cannot be inventoried (226 version-1 receipts with headers in the census cache: macro or
-`..` includes, headers outside the roots) stay unprovable outside a census and keep the audit inconclusive
-when touched. Separately, `compiler_command` re-verifies the STLport overlay (`stlport_overlay.materialize`
--> `verify_tree`) on every call: 210 s of a 330 s single-core currency check over 17,961 objects, so a
-per-process memo would cut every currency check, including this audit's.
+its inventory matches now (one inventory per restored TU, cacheable per `compile_rows` call); (3) the TUs
+whose search cannot be inventoried (macro or `..` includes, headers outside the search roots) stay
+unprovable outside a census and keep the audit inconclusive when touched. Their count is not settled: 226
+and later 265 version-1 receipts with headers in the runner's cache on 2026-11-07, both upper bounds because
+follower cycles write the same kind of receipt. Separately, `compiler_command` re-verifies the STLport overlay
+(`stlport_overlay.materialize` -> `verify_tree`) twice on every call: 210 s of a 330 s single-core currency
+check over 17,961 objects, so a per-process memo would cut every currency check, including this audit's
+([proposal, not scheduled](../stlport_overlay_memo_proposal.md)).
+
+Design: [strict receipts](../strict_receipts_design.md). Only its step 0 has landed: each audit run appends a
+line to `<git common dir>/link_audit_verdicts.jsonl` (e2b22f90d4, 104cd6d6a8; readers drop `"base": "a"`,
+`"tip": "b"` fixture lines). The rest is not scheduled; the owner will revisit it once the log has a real sample
+of INCONCLUSIVE rates (2026-11-08: 9 real lines, 3 inconclusive, all for missing receipts).
 
 Clearance: pending (refuse mode). Census confirmation: not claimed; this check reads object files and the
 census index, it does not change census figures.
