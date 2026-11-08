@@ -12,6 +12,9 @@ deleting destructor 0x003A63EE, two pure calls and writeINI 0x0055C263; table 0x
 DefaultModuleTemplate<3> (constructors 0x003A9852 and 0x003A77F2): table 0x0081BCC0 holds the 0x2C-stride
 deleting destructor 0x003A7853, two pure calls and writeINI 0x0055F368; table 0x0081BCD0 the -8 thunk
 0x003A965D and DefaultPhysicsModuleInfo's three Snapshot slots.
+DefaultModuleTemplate<6> (constructors 0x003A97E5 and 0x003A6447): table 0x0081BD60 holds the 0xC-stride
+deleting destructor 0x003A7B9F, two pure calls and writeINI 0x005613F9; table 0x0081BAD0 the -8 thunk
+0x003A966D and DefaultDrawModuleInfo's three Snapshot slots.
 Each DefaultModuleTemplate<N> pairs its category with a different info class (alpha for 1), so the
 categories are spelled as explicit specializations. */
 #pragma once
@@ -23,6 +26,7 @@ categories are spelled as explicit specializations. */
 #include "DefaultUpdateModuleInfo.h"
 #include "DefaultColorModuleInfo.h"
 #include "DefaultPhysicsModuleInfo.h"
+#include "DefaultDrawModuleInfo.h"
 #include "FXModuleTemplateBase.h"
 
 namespace FXParticleSystem
@@ -70,6 +74,18 @@ public:
 template <>
 class DefaultModuleTemplate<3> : public CategoryModuleTemplate<3>,
     public DefaultPhysicsModuleInfo
+{
+public:
+    DefaultModuleTemplate();
+    DefaultModuleTemplate(const DefaultModuleTemplate &that);
+    virtual ~DefaultModuleTemplate();
+
+    virtual void writeINI(File &file, unsigned int indent) const;
+};
+
+template <>
+class DefaultModuleTemplate<6> : public CategoryModuleTemplate<6>,
+    public DefaultDrawModuleInfo
 {
 public:
     DefaultModuleTemplate();
