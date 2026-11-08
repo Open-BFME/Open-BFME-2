@@ -51,5 +51,60 @@ Remaining / next check:
 - Before retail order becomes the default: compare each moved code COMDAT's bytes with retail (not
   only vtables), and look at the two new defects (FX LifeEvent tag table, IMEManager slot).
 
+*Per-copy code comparison and plan (2026-11-08, swarm Link lane; read-only on the two images above).*
+For each public (MAP "Publics by Value" only: file-local statics never bind another object's call) whose
+supplying object differs between the two images and that a matched functions.csv row places in retail,
+each image's bytes were compared with retail's at the row over its extent (DIR32 slots masked by the
+image's own .reloc table; a rel32 after E8/E9/0F 8x equivalent when both targets resolve to the same
+ledger function, through jmp thunks). A first pass that also read MAP statics counted 28 worse cases;
+20 of them (GameWindowManagerScript's file-static parsers, the per-file C helpers `_ggetm`,
+`_get_sockaddrin`, `_piFindActivePing`, `AddSubInternalFPF`, `rva00343FB0`, and `_floorf`) were that
+artifact: their other copies are file-local in both images, as in retail.
+
+| | moved publics (14,337) |
+|---|---:|
+| better (new copy matches retail, old did not) | 234 |
+| worse (old matched, new does not) | 8 |
+| both match | 3,222 |
+| neither matches | 424 |
+| no matched row (no retail address to compare) | 10,449 |
+
+The 8 worse cases are all LINK-630's shape: an STL copy from another unit whose call binds to that
+unit's own instantiation of the callee, which has no row (6 only a pin to retail's address, 2 neither),
+where retail calls a body rowed under another instantiation's name (an ICF fold):
+
+| caller (retail) | new winner | its callee | retail's callee row | callee body |
+|---|---|---|---|---|
+| `__unguarded_insertion_sort_aux<BfmeAssignRecord32>` 0x00173841 | stlport_bfmeassignrecord32_sort | `__unguarded_linear_insert<BfmeAssignRecord32>` (pin) | `Rva0017351CInsert` 0x0017351C | identical |
+| `sort<int*, fnptr>` 0x002C571E | stlport_funptr_value_sort | `__final_insertion_sort<int*>` (pin) | `__final_insertion_sort<void**>` 0x002C55EB | differs at +29 (its own call) |
+| `vector<Rva001DEF38Element>::~vector` 0x001DEEF9 | StlportVectorDtorDeferred | `_Destroy<Rva001DEF38Element>` (pin) | `__destroy_aux<Rva00414BDBElement>` 0x001DEEE0 | identical |
+| `ModuleInfo::~ModuleInfo` 0x0033CF2F | ThingTemplate | `vector<ModuleInfo::Nugget>::~vector` (no pin) | `vector<BfmeStringRecord002CF4C6>::~vector` 0x0033CD02 | differs at +27 |
+| `_Rb_tree<pair<AsciiString,AsciiString>,...>::_M_insert` 0x002072AF | ScriptEngineRva0020881A | `operator< <AsciiString,AsciiString>` (pin) | `??M` pair 0x00206BCF | identical |
+| `..._Rb_tree::insert_unique` 0x0020796D | ScriptEngineRva0020881A | same | same | identical |
+| `vector<PolygonTrigger*>::_M_insert_overflow` 0x002DFCF6 | CastleBehaviorRegisterOwnedObject | `allocator<PolygonTrigger*>::allocate` (no pin) | `allocator<int>::allocate` 0x00068E15 | identical |
+| `vector<ObjectID>::erase` 0x0025BF5D | VectorObjectIDFillInsert | `__copy_ptrs<ObjectID>` (pin) | `__copy_ptrs<Rva005334A4Element>` 0x0025BF40 | differs at +20 |
+
+Five are identity only (the callee body the new winner links is byte-identical to retail's); three are
+unproven (their callee differs at a further call, probably the same shape one level down). Rebinding any
+of them to retail's row means calling the row's spelling from the donor unit: the code-identity respell
+route (crash-prevention's, approved, not landed). Left until it lands.
+
+The two new image_iso defects:
+- FX LifeEvent `ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT ...>>` (0x0081C2E4, retail 4 slots): in path
+  order the vtable bridge supplies it; in retail order the bridge refuses it (target-not-winning-provider:
+  slot 0, the deleting destructor 0x003ABF34, is won by FXParticleSystemFactories' own copy), and
+  Factories' 2-slot table wins. The fix is LINK-584's vtable half (Factories' flattened class shape).
+- IMEManager slot 30: both images point at the same `serviceIMEMessage` copy, which byte-matches retail in
+  both; most likely image_iso's next-symbol extent moving with the order (to confirm).
+
+Plan: (1) the code-identity respell route for the 8 (or fold proofs where the body is identical);
+(2) LINK-584's vtable half for the LifeEvent table; (3) re-link both orders: retail order becomes the
+default only with zero worse cases; (4) then give 0x007AF9D6 its real static registration in its own TU
+(one bridge entry fewer), which places it after the strings under retail order (P32).
+
+Backlog, not started: the 424 publics that match retail in neither order (both images' copies differ
+from retail's body). They do not depend on the order. List: build/copy_compare.json on the Link lane's
+srv1 seat ("neither matches"); regenerate with the same comparison before working them.
+
 Clearance: pending.
 Census confirmation: not claimed.
