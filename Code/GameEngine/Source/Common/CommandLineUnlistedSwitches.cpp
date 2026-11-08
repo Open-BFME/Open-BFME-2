@@ -199,16 +199,13 @@ int parseModCinematics(char *args[],int num) {
 extern bool g_00E02D8B;
 // Owned here (its only reader); retail .bss zero-initializes it (VA 0x00E02D8B).
 bool g_00E02D8B = false;
-extern StringBase<char> g_Va00E02D90;
-// Owned here (one of its readers); retail .bss zero-initializes it (VA 0x00E02D90).
-StringBase<char> g_Va00E02D90;
-extern StringBase<char> g_Va00E02D94;
-// Owned here (one of its readers); retail .bss zero-initializes it (VA 0x00E02D94).
-StringBase<char> g_Va00E02D94;
+// Retail's two AsciiStrings at 0x00E02D90 and 0x00E02D94, built by Rva007ABBB3CtorInits.cpp.
+extern unsigned g_Va00E02D90;
+extern unsigned g_Va00E02D94;
 int Rva003B9F8CParse(char *args[],int num) {
     g_00E02D8B=true;
-    g_Va00E02D90.set(args[1]);
-    g_Va00E02D94.set(args[2]);
+    ((StringBase<char> *)&g_Va00E02D90)->set(args[1]);
+    ((StringBase<char> *)&g_Va00E02D94)->set(args[2]);
     return 1;
 }
 

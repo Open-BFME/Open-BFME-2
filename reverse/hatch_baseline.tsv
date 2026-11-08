@@ -59,8 +59,8 @@ address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00E0
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp	g_Va00E17724	3
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordSetters.cpp	g_Va00E177EC	4
 address_global	Code/GameEngine/Source/Common/CommandLineRva003B9E0F.cpp	g_Va00DB6218	2
-address_global	Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp	g_Va00E02D90	3
-address_global	Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp	g_Va00E02D94	3
+address_global	Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp	g_Va00E02D90	2
+address_global	Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp	g_Va00E02D94	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters.cpp	g_Va00DD828C	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters.cpp	g_Va00DD8314	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters.cpp	g_Va00DD83B4	2
