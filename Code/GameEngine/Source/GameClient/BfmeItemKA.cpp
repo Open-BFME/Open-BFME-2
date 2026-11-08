@@ -530,9 +530,13 @@ private:
 HeaderTemplateString HeaderTemplateGetRegistryLanguage( void );
 struct Rva002606AFElem { char m_pad[8]; };
 class Rva002606AFDtor { public: ~Rva002606AFDtor(); };
+// Declared only: Rva002606AF::erase's copy is the row 0x00260647, which assigns each record through
+// 0x002602A6. <vector> brings the template's definition into this unit, and instantiating it over these
+// opaque bytes would copy UnicodeString members raw (P45), so this one specialization has no body here.
 namespace _STL {
-template <class InputIter, class OutputIter>
-OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
+template <>
+Rva002606AFElem *__copy_ptrs<const Rva002606AFElem *, Rva002606AFElem *>(const Rva002606AFElem *first,
+	const Rva002606AFElem *last, Rva002606AFElem *result, const __false_type &tag);
 }
 // Retail __copy 0x002605EB 47B: forward copy of 8-byte BfmeStringRecord002602A6 via operator= at 0x002602A6; sar 3 stride 8; caller at 0x0026065A; same shape as 47B __copy at 0x00426A82.
 template BfmeStringRecord002602A6* _STL::__copy<BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, int>(BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, const _STL::random_access_iterator_tag&, int*);
