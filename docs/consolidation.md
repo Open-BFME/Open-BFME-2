@@ -481,6 +481,11 @@ trailer. Pin admission re-proves a moved fold proof at commit.
   batch, using current object receipts. It reports stale inputs as inconclusive
   and leaves consumer byte totals for the next census. Review its shadow
   findings and update the shared linking obstacle register.
+  Each run appends one JSON line to `<git common dir>/link_audit_verdicts.jsonl`,
+  the before/after measurement for strict receipts. Anything reading that log
+  must drop lines with `"base": "a"` and `"tip": "b"`: they are fixtures
+  `tools/tests/test_link_batch_audit.py` wrote into real logs (2026-11-07 on), and
+  a clone running the suite from before its fix can still add more.
 - **A merge that would cost the map an approval is refused, not repaired.** N
   hints follow a file's directory, so moving one file of a provisional group can
   leave a sibling row with no interleaving cluster (2026-11-07:
