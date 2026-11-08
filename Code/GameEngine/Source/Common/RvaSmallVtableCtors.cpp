@@ -2404,10 +2404,10 @@ class Rva0023DB34
 {
 public:
 	Rva0023DB34();
-	virtual int slot00(void *p, int n) = 0;
-	virtual int slot04() = 0;
-	virtual bool slot08(int n) = 0;
-	virtual bool slot0C() = 0;
+	virtual int slot00(void *p, int n);
+	virtual int slot04();
+	virtual bool slot08(int n);
+	virtual bool slot0C();
 private:
 	void *m_04;
 	void *m_08;
