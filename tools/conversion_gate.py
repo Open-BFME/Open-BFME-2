@@ -47,7 +47,10 @@ Rule F: an added `// cl:` line under Code/ carries only the flags tools/cl_flags
         DLL and /Fa writes a file anywhere, on every seat, worker and runner that builds
         the commit. `--cl-tree COMMIT` judges every Code/ source of a tree (pre-push, when
         a push has no known base). build.source_extra_flags refuses the same at compile
-        time, for every source, judged here or not.
+        time, for every source, judged here or not. Rule F also refuses a commit adding a
+        symlink anywhere, or a gitlink other than reference/open-bfme-1: Wine and cl.exe
+        follow a link out of the checkout (an include path is walked on disk at compile
+        time too, cl_flags.walk). Master holds neither.
 """
 
 from collections import Counter
@@ -152,6 +155,56 @@ def added_cl_unsafe(old, new):
             path = line[6:]
         elif line.startswith("+") and not line.startswith("+++") and CL_MARK in line:
             found.extend((path, refusal) for refusal in cl_text_refusals(line[1:], plain_words=False))
+    return found
+
+
+SUBMODULES = ("reference/open-bfme-1",)
+
+
+def link_kind(mode, path):
+    """"a symlink" or "a gitlink" when a tree entry of `mode` at `path` is one Rule F refuses, or None."""
+    if mode == "120000":
+        return "a symlink"
+    if mode == "160000" and path not in SUBMODULES:
+        return "a gitlink"
+    return None
+
+
+def added_links(old, new):
+    """[(path, kind)] for each symlink, or gitlink other than the pinned submodule, the change adds
+    or changes anywhere in the tree."""
+    if old is None:
+        cmd = ["git", "diff-tree", "--root", "-r", "--raw", "-z", "--no-renames", new]
+    elif new == ":":
+        cmd = ["git", "diff", "--cached", "--raw", "-z", "--no-renames", old]
+    else:
+        cmd = ["git", "diff", "--raw", "-z", "--no-renames", old, new]
+    fields = subprocess.run(cmd, capture_output=True, check=True).stdout.split(b"\0")
+    found, index = [], 0
+    while index < len(fields):
+        meta = fields[index].decode("utf-8", "replace")
+        if not meta.startswith(":"):
+            index += 1                                  # diff-tree's leading commit id
+            continue
+        path = fields[index + 1].decode("utf-8", "replace")
+        _old_mode, new_mode, _old, _new, status = meta[1:].split()
+        kind = None if status == "D" else link_kind(new_mode, path)
+        if kind:
+            found.append((path, kind))
+        index += 2
+    return found
+
+
+def tree_links(commit):
+    """[(path, kind)] for each symlink or stray gitlink in `commit`'s tree."""
+    listing = subprocess.run(["git", "ls-tree", "-r", "-z", commit], capture_output=True, check=True).stdout
+    found = []
+    for entry in listing.split(b"\0"):
+        if b"\t" in entry:
+            meta, path = entry.decode("utf-8", "replace").split("\t", 1)
+            kind = link_kind(meta.split()[0], path)
+            if kind:
+                found.append((path, kind))
     return found
 
 
@@ -468,6 +521,8 @@ def clean_coverage_lost(old, new):
 def main():
     if len(sys.argv) == 3 and sys.argv[1] == "--cl-tree":
         found = tree_cl_refusals(sys.argv[2])
+        found += [(path, f"{kind}: Wine and cl.exe follow a link out of the checkout")
+                  for path, kind in tree_links(sys.argv[2])]
         for path, refusal in found:
             print(f"conversion gate: {path}: a `// cl:` line tools/cl_flags.py refuses: {refusal}",
                   file=sys.stderr)
@@ -502,6 +557,12 @@ def main():
               "would run on every machine that builds this commit, and an include path must stay\n"
               "inside the checkout. A new code-generation flag is a reviewed edit to cl_flags.py."
               % (path, refusal), file=sys.stderr)
+    for path, kind in by_trees("links", old, new, lambda: added_links(old, new)):
+        failed = True
+        print("conversion gate: %s: adds %s. Wine and cl.exe follow a link out of the checkout,\n"
+              "so a commit may hold none (the pinned reference/open-bfme-1 gitlink aside). A seat's own\n"
+              "linked tree goes in its uncommitted <git dir>/bfme-trusted-include-links instead."
+              % (path, kind), file=sys.stderr)
     for rva, name, old_src, new_src in by_trees("coverage", old, new, lambda: clean_coverage_lost(old, new)):
         failed = True
         print("conversion gate: %s (%s) was clean C++ at %s, repointed to %s.\n"

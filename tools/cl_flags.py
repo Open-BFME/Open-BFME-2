@@ -15,9 +15,11 @@ So only the flag families this repository's sources used on 2026-11-07 pass, eac
 them code-generation or language only: Code/, the banked attempts under reverse/, the
 generators in tools/ and the Open-BFME-1 donors (every token was surveyed). No token
 may hold `@` or a quote. A /I or /FI path must stay inside the checkout: relative, no
-`..`, no drive or root, and (given the roots) resolving, links followed, inside the
-checkout or Open-BFME-1. Anything else, prose included, is refused; a new flag is a
-reviewed edit to this list.
+`..`, no drive or root, and (given the checkout) walked on disk: every component spelt
+as its directory entry is (Wine matches case-insensitively) and no symlink or junction
+on the way, except one the seat's own uncommitted trust list names
+(build._trusted_include_links). Anything else, prose included, is refused; a new flag
+is a reviewed edit to this list.
 
 The environment can carry flags too: cl.exe and clang-cl read CL and _CL_, ml.exe ML and
 _ML_, link.exe LINK and _LINK_, clang CCC_OVERRIDE_OPTIONS and its include path variables,
@@ -28,6 +30,7 @@ A `// cl:` directive is a line to build.py (str.splitlines, which also breaks at
 \\x1c-\\x1e U+0085 U+2028 U+2029 and a lone \\r) but a line to git and the gate only at
 \\n. directive_split() refuses a source whose two readings of its `// cl:` lines differ.
 """
+import functools
 import os
 import re
 
@@ -63,9 +66,64 @@ DANGEROUS = re.compile(r"-(?:B|F[aAodemRrpxi]|Y|link$|clang:|P$|E$|EP$|clr|AI|FU
 SEPARATOR = re.compile("[\\v\\f\\x1c\\x1d\\x1e\\x85\\u2028\\u2029]|\\r(?!\\n)")
 
 
-def outside(path, roots=None):
-    """Why an include path leaves the checkout, or None. `roots`: the directories it may resolve
-    into (links followed), relative to the first, the compiler's working directory."""
+def _is_link(path):
+    """A symlink, or on Windows a junction or other reparse point."""
+    if os.path.islink(path):
+        return True
+    isjunction = getattr(os.path, "isjunction", None)
+    if isjunction is not None and isjunction(path):
+        return True
+    if os.name == "nt":
+        try:
+            return bool(os.lstat(path).st_file_attributes & 0x400)   # FILE_ATTRIBUTE_REPARSE_POINT
+        except OSError:
+            return False
+    return False
+
+
+@functools.lru_cache(maxsize=8192)
+def _entries(directory):
+    return tuple(os.listdir(directory))
+
+
+def forget():
+    """Drop the directory listings walk() caches (a test that changes the tree)."""
+    _entries.cache_clear()
+
+
+def walk(root, path, trusted=()):
+    """Why `path`, relative to `root` (the compiler's working directory, the checkout), may lead
+    out of the checkout as Wine or Windows resolve it, or None. Wine resolves case-insensitively,
+    so each component must match its directory entry exactly (Code/LOWERLINK would open
+    Code/lowerlink); none may be a symlink or junction unless `trusted` names it (repo-relative,
+    exact case: a seat's own linked tree). A component that is not there ends the walk: the
+    compiler finds nothing beyond it."""
+    current, walked = root, []
+    for part in path.split("/"):
+        if part in ("", "."):
+            continue
+        try:
+            entries = _entries(current)
+        except OSError:
+            return None
+        if part not in entries:
+            if any(entry.casefold() == part.casefold() for entry in entries):
+                return "differs in case from its directory entry"
+            return None
+        walked.append(part)
+        candidate = os.path.join(current, part)
+        if _is_link(candidate):
+            if "/".join(walked) not in trusted:
+                return "passes a symlink or junction"
+            current = os.path.realpath(candidate)
+        else:
+            current = candidate
+    return None
+
+
+def outside(path, root=None, trusted=()):
+    """Why an include path leaves the checkout, or None. Given `root`, the path is also walked
+    on disk (walk())."""
     if not path:
         return "is empty"
     if '"' in path or "@" in path:
@@ -75,15 +133,10 @@ def outside(path, roots=None):
         return "is absolute"
     if ".." in path.split("/"):
         return "climbs out with .."
-    if roots:
-        target = os.path.realpath(os.path.join(roots[0], path))
-        if not any(target == root or target.startswith(root.rstrip(os.sep) + os.sep)
-                   for root in (os.path.realpath(r) for r in roots)):
-            return "resolves outside the checkout"
-    return None
+    return walk(root, path, trusted) if root else None
 
 
-def problems(tokens, roots=None):
+def problems(tokens, root=None, trusted=()):
     """[(token, reason)] for each `// cl:` token (build._source_flag_tokens') a source may not carry."""
     found = []
     index = 0
@@ -93,11 +146,11 @@ def problems(tokens, roots=None):
         if flag in ("-I", "-FI"):                     # the operand is the next token
             index += 1
             operand = tokens[index] if index < len(tokens) else ""
-            why = outside(operand, roots)
+            why = outside(operand, root, trusted)
             if why:
                 found.append((f"{token} {operand}".strip(), f"include path {why}"))
         elif PATH_FLAG.match(flag):
-            why = outside(PATH_FLAG.match(flag).group(2), roots)
+            why = outside(PATH_FLAG.match(flag).group(2), root, trusted)
             if why:
                 found.append((token, f"include path {why}"))
         elif "@" in flag or '"' in flag:

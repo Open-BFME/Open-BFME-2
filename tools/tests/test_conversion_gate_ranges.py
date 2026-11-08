@@ -543,3 +543,20 @@ def test_pre_push_runs_rule_f_when_a_push_has_no_known_base():
     branch = hook[hook.index('if [ -z "$base" ]; then'):]
     branch = branch[:branch.index("continue")]
     assert "conversion_gate.py --cl-tree" in branch and branch.index("--cl-tree") < branch.index("join_jobs")
+
+
+def test_rule_f_refuses_a_committed_symlink_and_a_stray_gitlink(repo, monkeypatch):
+    # Codex security re-check of 488d80c460: a link in the tree is followed out of the checkout.
+    import os
+    git, write, commit, base = repo
+    try:
+        os.symlink("/", Path("Code/lowerlink"), target_is_directory=True)
+    except (OSError, NotImplementedError) as error:
+        pytest.skip(f"symlinks unavailable here ({error}): Windows needs Developer Mode or admin rights")
+    git("add", "Code/lowerlink")
+    tip = commit()
+    assert check_main(monkeypatch, base, tip) == 1
+    monkeypatch.setattr(sys, "argv", ["conversion_gate.py", "--cl-tree", tip])
+    assert gate.main() == 1
+    assert gate.link_kind("160000", "reference/open-bfme-1") is None
+    assert gate.link_kind("160000", "reference/other") == "a gitlink"

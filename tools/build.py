@@ -1354,20 +1354,33 @@ def source_extra_flags(source):
     return _allowed_flags(source, flag_defaults.apply(source, []))
 
 
-def _include_roots():
-    """Where a /I or /FI path may resolve: this checkout (the compiler's working directory, first),
-    Open-BFME-1 and its top-level trees, which a seat may link in from another checkout."""
-    return _include_roots_of(str(ROOT), str(BFME1_ROOT))
+TRUSTED_INCLUDE_LINKS = "bfme-trusted-include-links"
+
+
+def _trusted_include_links():
+    """The symlinks or junctions a /I or /FI path may pass through: only those this seat names, one
+    repo-relative path per line (exact case, `#` comments), in <its git dir>/bfme-trusted-include-links.
+    That file is the seat's own and never committed, so no commit can trust a link. A worktree whose
+    reference/open-bfme-1 is a junction to the main checkout lists `reference/open-bfme-1`."""
+    return _trusted_include_links_of(str(ROOT))
 
 
 @functools.lru_cache(maxsize=4)
-def _include_roots_of(root, bfme1_root):
-    roots = [root, bfme1_root]
+def _trusted_include_links_of(root):
+    dotgit = Path(root) / ".git"
     try:
-        roots += [os.path.realpath(entry) for entry in Path(bfme1_root).iterdir() if entry.is_dir()]
+        if dotgit.is_file():                           # a linked worktree: "gitdir: <its git dir>"
+            text = dotgit.read_text(encoding="utf-8").strip()
+            gitdir = Path(text[len("gitdir:"):].strip()) if text.startswith("gitdir:") else None
+            if gitdir is not None and not gitdir.is_absolute():
+                gitdir = Path(root) / gitdir
+        else:
+            gitdir = dotgit
+        listing = (gitdir / TRUSTED_INCLUDE_LINKS).read_text(encoding="utf-8") if gitdir else ""
     except OSError:
-        pass
-    return tuple(dict.fromkeys(roots))
+        return frozenset()
+    return frozenset(line.strip().strip("/") for line in listing.splitlines()
+                     if line.strip() and not line.lstrip().startswith("#"))
 
 
 def _allowed_flags(source, flags):
@@ -1375,8 +1388,9 @@ def _allowed_flags(source, flags):
     files would run on every machine that builds the source. This is the backstop for every
     source conversion_gate's Rule F does not judge. The `// cl:` tokens are checked as written
     and the final list again (its include paths are rewritten in between, and flag_defaults adds
-    tokens from reverse/ data), include paths resolved, links followed."""
-    refused = cl_flags.problems(flags, roots=_include_roots())
+    tokens from reverse/ data), include paths walked on disk as Wine would resolve them
+    (cl_flags.walk: exact case, no link but a trusted one)."""
+    refused = cl_flags.problems(flags, root=str(ROOT), trusted=_trusted_include_links())
     if refused:
         raise cl_flags.Refused(f"cl flags: {source}: {cl_flags.describe(refused)}; tools/cl_flags.py "
                                "lists the flags a source may carry")
