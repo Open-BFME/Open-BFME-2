@@ -757,7 +757,11 @@ def compile_layouts(source, builder=None, use_cache=True, extra_flags=()):
                     return result
     done = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, errors="replace")
     if done.returncode:
-        errors = re.findall(r"error (C\d+)[^\n]*", done.stdout + done.stderr)
+        # Each error keeps its own text, not just its code. A bare "C1083" cannot say which
+        # include was missing, and for a probe this message is all that reaches the caller --
+        # header_queue.tsv rows record it verbatim and are the next worker's only account.
+        found = re.findall(r"error (C\d+)([^\n]*)", done.stdout + done.stderr)
+        errors = [code + rest[:160] for code, rest in found]
         raise RuntimeError(f"{rel}: compile failed: " + ("; ".join(errors[:3]) or (done.stdout + done.stderr)[-400:]))
     headers = {}
     for line in done.stdout.splitlines():

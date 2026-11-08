@@ -50,6 +50,54 @@ def test_parsed_cache_changes_when_the_reader_changes(monkeypatch, tmp_path):
     assert not class_layouts.parsed_path("stream").exists()
 
 
+class FakeBuilder:
+    def compiler_command(self, source, obj):
+        return ["cl", "-Fo" + str(obj), str(source)], {}
+
+
+def failing_compile(monkeypatch, tmp_path, output, returncode=2):
+    """Drive compile_layouts' failure path with `output` as the compiler's console text."""
+    monkeypatch.setattr(class_layouts, "CACHE", tmp_path / "cache")
+    monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
+    source = tmp_path / "u.cpp"
+    source.write_text("void f() {}\n")
+    done = type("Done", (), {"returncode": returncode, "stdout": output, "stderr": ""})()
+    monkeypatch.setattr(class_layouts.subprocess, "run", lambda *a, **k: done)
+    with pytest.raises(RuntimeError) as caught:
+        class_layouts.compile_layouts("u.cpp", FakeBuilder(), use_cache=False)
+    return str(caught.value)
+
+
+def test_a_failed_compile_names_the_include_it_could_not_open(monkeypatch, tmp_path):
+    why = failing_compile(monkeypatch, tmp_path,
+                          "u.cpp(3) : fatal error C1083: Cannot open include file: 'Lib/Gone.h'\n")
+    assert why.startswith("u.cpp: compile failed: C1083")
+    assert "Cannot open include file: 'Lib/Gone.h'" in why   # the code alone names no cause
+
+
+def test_a_failed_compile_keeps_the_first_three_errors_with_their_text(monkeypatch, tmp_path):
+    why = failing_compile(monkeypatch, tmp_path,
+                          "a.h(1) : error C2065: 'Foo' : undeclared identifier\n"
+                          "a.h(2) : error C2039: 'bar' : is not a member of 'Baz'\n"
+                          "a.h(3) : error C2011: 'Qux' : 'class' type redefinition\n"
+                          "a.h(4) : error C2143: syntax error\n")
+    assert why.count("; ") == 2 and "C2143" not in why
+    for code, detail in [("C2065", "undeclared identifier"), ("C2039", "is not a member of 'Baz'"),
+                         ("C2011", "'class' type redefinition")]:
+        assert code in why and detail in why
+
+
+def test_a_long_error_is_cut_but_still_says_what_went_wrong(monkeypatch, tmp_path):
+    why = failing_compile(monkeypatch, tmp_path,
+                          "x.h(9) : error C2955: 'list' : " + "T" * 400 + "\n")
+    assert "C2955: 'list' :" in why and len(why) < 260
+
+
+def test_a_failure_with_no_error_line_still_reports_the_console_text(monkeypatch, tmp_path):
+    why = failing_compile(monkeypatch, tmp_path, "LINK : fatal error LNK1104: cannot open file\n")
+    assert "LNK1104" in why                                  # the tail fallback, unchanged
+
+
 @pytest.mark.parametrize("indent", ["", "    ", "\t"])
 def test_nested_snapshot_is_not_a_global_private_view(indent):
     text = ("namespace EA { namespace Allocator {\n"
