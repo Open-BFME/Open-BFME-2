@@ -1,6 +1,6 @@
 ### LINK-625: Zero vtable placeholders, and the ModuleData family's vptrs
 
-Status: Open (partly repaired). Updated: 2026-11-07 (seat halilkkaya-lk49); base `f0cce4d912f`, census index
+Status: Open (partly repaired). Updated: 2026-11-08 (seat ancalgonn-swarm-defects); earlier: 2026-11-07 (seat halilkkaya-lk49); base `f0cce4d912f`, census index
 `c26c6b63fa`.
 
 Evidence / affected units: [inventory TSV](../../reverse/attempt_support/zero-vtable-placeholders-20261107-lk49.tsv)
@@ -264,3 +264,42 @@ scaffold's view the same bases in the same commit so both copies are identical.
   regeneration binds it. Until then the constructor unit's full 31-slot copy is the one kept: link order follows object
   path, and `arrow^storm^update^module^data^ctor.obj` sorts before `update^module^data^deleting^dtors.obj`, the scaffold
   that keeps a 1-slot copy because its TU defines ModuleData through BfmeModuleData.h.
+
+**2026-11-08, static-defects lane (seat ancalgonn-swarm-defects): image_report's `ours_zero_retail_not` at real link
+`0448c6d48c` (26 rows, plus `contents_differ` 1).** Each row was read against retail. They are not scattered statics:
+
+- 25 of the 26 are this entry's zero vptr placeholders: a constructor or destructor stores `&g_00XXXXXX`, a 1-byte zero
+  `char`, as a vptr. They cover 15 classes, and each class still needs its first virtual call fixed.
+- The 26th, `g_00C6E614` (Rva0057551C / Rva00575540), is also a stored vptr; this entry's boot-path triage already puts it
+  off the boot path.
+- `contents_differ` is the DirtySock format string `_Rva012C4C24`, LINK-623's padding artifact, not an image defect.
+
+The real link names none of these tables, so the bridge cannot repair them (see Problem, above). No extracted retail INIs
+are reachable from srv1, so I could not rank by INI use. Every class is first constructed at object creation, not at
+engine init.
+
+| class (tables) | status |
+|---|---|
+| W3DTreeDraw, W3DDefaultDraw (267 and 94 INI uses, above) | walled above: the DrawModule fold |
+| UpgradeModule, UpgradeMux | LINK-218 |
+| DamageFieldUpdate (`g_00C4D970`, `g_00C4D964`) | **repaired**, below |
+| GloriousChargeUpdate, RousingSpeechUpdate | open: SpecialAbilityUpdate base and a fourth table at +0x20 |
+| ArrowStormUpdate (`g_00C4D61C`, +0x20) | open: same family; its ctor and dtor are in separate units |
+| InvisibilitySpecialPower, SpecialPowerTimerRefreshSpecialPower | open: the base's canonical view is the placeholder-named `Rva00493009` (Rva00493009.h), and units spell it `SpecialPowerModule` |
+| SpawnedModelConditionCreate, UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior, RunOffMapBehavior, HordeTransportContain | open: not yet read |
+
+**Repaired: DamageFieldUpdate** (ctor 0x004912A9, dtor 0x0049122C). The HeightDieUpdate recipe, with FireWeaponUpdate on the
+canonical UpdateModule: the compiler installs `??_7DamageFieldUpdate`'s three tables in retail's order.
+
+- Bytes: 36/36 across the unit, FamilyDeletingDtors.cpp and DamageFieldUpdateRva004911AE.cpp.
+- Slots: 60 of 63 resolve to retail's address against 0x00C4D970, 0x00BEFF90 and 0x00C4D964. Slot 0 is the weak `??_E` of the
+  rowed `??_G`; slot 1 is `UpdateModule::loadPostProcess`, where retail's 0x00483CEF is a `jmp` to 0x00497805, one of that
+  name's addresses; slot 2 reads "UpdateModule" (below).
+- A trap for this family: FamilyDeletingDtors.cpp's `EmitVtableTag` scaffold emits a one-slot `??_7Class@@6B@`, the name the
+  real class gives its +0x10 table, so one copy would have won silently. Move each `??_G` with its class (a displaced
+  deleting destructor rides with the vtable's unit, docs/consolidation.md), or give the scaffold the same view.
+- link_check: run the unit and FamilyDeletingDtors.cpp together. Alone, the unit reports "does not link" against the census's
+  old first copy of `??_7DamageFieldUpdate@@6B@`. Together: 6/6, LINKED 18,685 unchanged.
+
+**Open: slot 2.** `rename.py function --to-class DamageFieldUpdate --new ?GetSnapshotName@DamageFieldUpdate@@MBEPBDXZ` for
+0x0049125E plans and builds exact, then its post-build check refuses because slot 1 differs. Recorded as a false reject.
