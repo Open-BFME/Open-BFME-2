@@ -39,10 +39,13 @@ private:
 	char m_pad08[12];
 };
 
+struct AICommandParms;
+
+// The AI command interface: its only slot is aiDoCommand.
 class DBaseM3
 {
 public:
-	virtual void f3();
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 };
 
 class DBaseM4
@@ -71,6 +74,8 @@ class HordeWorkerAIUpdate : public HordeAIUpdate
 {
 public:
 	virtual ~HordeWorkerAIUpdate();
+	// Rowed at 0x0049B231 (HordeAIUpdatePrivateCommands.cpp).
+	virtual void aiDoCommand(const AICommandParms *parms);
 };
 
 HordeWorkerAIUpdate::~HordeWorkerAIUpdate()

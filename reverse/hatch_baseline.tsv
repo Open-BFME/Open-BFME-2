@@ -2116,7 +2116,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00481F
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00482E96_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00589079_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f4@Rva00481F82_S4@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f4@Rva00482E96_S4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f4@Rva00589079_S4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?f1@Rva0058A0F4_M1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?f2@Rva0058A0F4_B2@@UAEXXZ	1
@@ -2674,7 +2673,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBeha
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp	??1DynamicPortalLinkVec@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f3@FakePathfindPortalBehaviour_B3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5982_E@@UAEXXZ	1
@@ -2698,7 +2696,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp	?slot@ShareExperienceBehaviorIface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp	?slot@ShareExperienceBehaviorIface2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp	?slot@ShareExperienceBehaviorInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehavior.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1

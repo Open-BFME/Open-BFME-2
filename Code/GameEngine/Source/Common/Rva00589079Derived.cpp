@@ -129,10 +129,13 @@ private:
 	char m_pad18[4];
 };
 
+class DamageInfo;
+
+// The die interface: its only slot is onDie.
 class Rva00482E96_S4
 {
 public:
-	virtual void f4();
+	virtual void onDie(const DamageInfo *damageInfo) = 0;
 };
 
 class AsciiString;
@@ -186,6 +189,8 @@ public:
 	}
 	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
+	// The die-interface override, rowed at 0x00482C4A (FireWeaponWhenDeadBehaviorOnDie.cpp).
+	virtual void onDie(const DamageInfo *damageInfo);
 protected:
 	virtual void xfer(Xfer *xfer);
 public:
@@ -261,5 +266,4 @@ void FireWeaponWhenDeadBehavior::xfer(Xfer *xfer)
 #pragma comment(linker, "/alternatename:?f2@Rva00481F82_S2@@UAEXXZ=?update@TerrainResourceBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f3@Rva00481F82_S3@@UAEXXZ=?rva00482152@Rva00482152@@UAEXH@Z")
 #pragma comment(linker, "/alternatename:?f3@Rva00589079_S3@@UAEXXZ=?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z")
-#pragma comment(linker, "/alternatename:?f4@Rva00482E96_S4@@UAEXXZ=?onDie@FireWeaponWhenDeadBehavior@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f4@Rva00589079_S4@@UAEXXZ=?eq@Rva0026A910@@QBE_NH@Z")

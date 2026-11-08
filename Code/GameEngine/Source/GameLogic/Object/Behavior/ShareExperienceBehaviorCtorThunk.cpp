@@ -27,7 +27,8 @@ public:
 class ShareExperienceBehaviorInterface
 {
 public:
-    virtual void slot();
+    // Retail's own table for this interface holds __purecall; the class overrides it.
+    virtual void rva00480093(float value) = 0;
 };
 
 class ShareExperienceBehavior : public UpdateModule,
@@ -41,6 +42,8 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+	// The interface override, rowed at 0x00480093.
+	virtual void rva00480093(float value);
 };
 
 // ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -55,4 +58,3 @@ ShareExperienceBehavior::ShareExperienceBehavior(Thing *thing, const ModuleData 
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorIface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorIface2@@UAEXXZ=?update@ShareExperienceBehavior@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorInterface@@UAEXXZ=?rva00480093@ShareExperienceBehavior@@UAEXM@Z")

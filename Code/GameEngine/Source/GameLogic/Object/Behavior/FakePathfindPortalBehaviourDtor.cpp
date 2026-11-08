@@ -20,7 +20,8 @@ struct FakePortalOwnerView { char pad[0x74];unsigned id; };
 class FakePathfindPortalBehaviour_B3
 {
 public:
-	virtual void f3();
+	// +0x20 interface: retail table 0x00C42B50 slot 0 is the class's override 0x0046190A.
+	virtual void rva0046190A(void *arg) = 0;
 };
 
 class FakePathfindPortalBehaviour_B4
@@ -35,6 +36,8 @@ class FakePathfindPortalBehaviour : public UpdateModule,
 public:
 	virtual ~FakePathfindPortalBehaviour();
 	virtual UpdateSleepTime update();
+	// The +0x20 interface override (rowed at 0x0046190A in FakePathfindPortalBehaviour.cpp).
+	virtual void rva0046190A(void *arg);
 	void rva0046183B();
 	void rva004618D4();
  Waypoint *rva00461A46(const Coord3D *point);
@@ -160,4 +163,3 @@ BehaviorModule *findFakePathfindPortalBehaviour(FakePortalObjectView *obj)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f3@FakePathfindPortalBehaviour_B3@@UAEXXZ=?rva0046190A@FakePathfindPortalBehaviour@@UAEXPAX@Z")
