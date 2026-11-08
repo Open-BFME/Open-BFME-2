@@ -1,5 +1,5 @@
 ### LINK-631: 42 existing pins name a function whose own body is not the body at their address
-Status: Open. Updated: 2026-11-07; inspected revision: c32d83389b (swarm Link lane).
+Status: Open. Updated: 2026-11-08; inspected revision: c32d83389b (swarm Link lane).
 
 Evidence / affected units: pin_admission refuses a real name stacked on an address that carries another
 real name unless a fold proof holds, but only for a pin being added; pin_consistency judges only one name
@@ -60,6 +60,71 @@ can also be our defining unit compiling the name unlike retail. The ProductionPr
 family (0x002CF99D, 0x004EE1A9, 0x00395928) looks like one misidentified record type. Retract or
 respell through pin_admission / rename.py, rebuild each caller, and expect some callers to go red: those
 were false matches. Re-run `pin_consistency.py --audit` after each batch.
+
+#### 2026-11-08: the ProductionPrerequisite family, re-judged (swarm static-defects lane, seat3)
+
+This is retail disassembly plus scratch compiles. No pin, row or ledger was changed.
+
+**PrereqUnitRec's layout is already retail's.**
+- Retail 0x002CF5B1 copies a 12-byte `{dword, dword, AsciiString}` record. It calls
+  StringBase<char>'s copy at 0x004365F0, and `_Construct` 0x002CF99D calls 0x002CF5B1.
+- Our unit compiles Zero Hour's `PrereqUnitRec {const ThingTemplate *unit; Int flags;
+  AsciiString name;}`. Its copy constructor (35 B) is the same instruction sequence as
+  0x002CF5B1.
+
+**The string member's class is the defect, not its size.**
+- ProductionPrerequisite.cpp compiles against Zero Hour's inline AsciiString
+  (`/Ireference/shims/zh_ascii_outofline`). MSVC then emits `_Construct` without
+  retail's EH frame: 18 B instead of 45.
+- A minimal probe isolated the cause. The AsciiString header alone decides it:
+  BFME 2's AsciiString gives 45 B under STLport 4.5.3 or 4.6, with an implicit or a
+  user copy constructor. Zero Hour's gives 18 B in every case.
+- In scratch, swapping the unit to `/Ireference/shims/bfme2_ascii_common
+  /Ireference/shims/bfme2_ascii` makes the pinned `_Construct` 0x002CF99D compile to
+  retail's 45-byte body.
+- `allocate` (0x00395928) is a separate configuration difference. Ours calls
+  dllimport `__new_alloc::allocate`; retail's 28-byte body calls 0x004307F0 with a
+  0 hint. `bfmealloc` clashes with this unit's explicit instantiations (C2950), so
+  that needs its own pass.
+
+**0x004EE1A9 and three rows are vector<LivingWorldScoreKeeper::PerTurnStats>'s, not PrereqUnitRec's.**
+- 0x004EE1A9 stores vtable 0x00C62A28, which is `??_7PerTurnStats@LivingWorldScoreKeeper@@6B@`,
+  then copies three 16-bit fields. It is rowed as PerTurnStats's copy constructor,
+  and the `??0PrereqUnitRec@...` pin stacked on it is wrong.
+- These rows call 0x004EE1A9 and sit in LivingWorldScoreKeeper.cpp's approved
+  tu_map range (0x004EE113..0x004EE233), next to the rowed
+  `_Construct<PerTurnStats>` at 0x004EE1D0:
+  - 0x004EE1E2 `__uninitialized_copy` and 0x004EE20B `__uninitialized_fill_n`, both
+    rowed in ProductionPrerequisite.cpp under PrereqUnitRec names.
+  - 0x004EE233 `_M_allocate_and_copy`, rowed in Rva004EE233AllocateCopy.cpp.
+- They matched only because REL32 resolution lends them the wrong pin.
+- Retail's real PrereqUnitRec helpers are 0x004F5097 and 0x004F50BD. Both are only
+  pinned today. They call `_Construct` 0x002CF99D out of line, and the real overflow
+  0x004F5165 and push_back 0x004F5243 call them.
+- Under the BFME 2 AsciiString, 0x004EE1E2 and 0x004EE20B go red in
+  ProductionPrerequisite.cpp; the other 4 of 6 rows stay exact. That is expected:
+  they were false matches.
+
+**Rehoming the three rows (scratch, LivingWorldScoreKeeper.cpp).** I declared
+`PerTurnStats(const PerTurnStats &)` and explicitly instantiated the three helpers.
+- 0x004EE233 `_M_allocate_and_copy<PerTurnStats*>` is exact once
+  `allocator<PerTurnStats>::allocate` has a home at 0x00395928 (a fold pin
+  through pin_admission).
+- 0x004EE1E2 and 0x004EE20B still miss on one point: the unit calls
+  `_Construct<PerTurnStats>` out of line, where retail inlines it. That looks like
+  an inlining-flag difference for this region; it is untested.
+
+**Order of work.**
+1. Rehome 0x004EE1E2, 0x004EE20B and 0x004EE233 as PerTurnStats helpers in
+   LivingWorldScoreKeeper.cpp. This needs the inlining question settled and a fold
+   pin for `allocate<PerTurnStats>`.
+2. Retract the `??0PrereqUnitRec` pin at 0x004EE1A9 (Link lane).
+3. Move ProductionPrerequisite.cpp to the BFME 2 AsciiString. This depends on the
+   shared AsciiString work (Merge lane 2's string_base.h) or the
+   `bfme2_ascii_common` include pattern. The ProductionPrerequisite class scope
+   intersects the ThingTemplate header seat's claim (StarkillerHDX@fleet, w14) through
+   ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp.
+4. Row 0x004F5097 and 0x004F50BD under the PrereqUnitRec names in place of their pins.
 
 Clearance: pending.
 Census confirmation: not claimed.
