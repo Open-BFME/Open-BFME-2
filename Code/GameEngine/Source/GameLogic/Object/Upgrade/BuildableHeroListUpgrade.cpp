@@ -133,17 +133,12 @@ private:
 #include "../../../../Include/Common/MemoryPoolObject.h"
 #include "Common/Snapshot.h"
 #include "../../../../Include/Common/TeamBFME2.h"
-class TeamPrototype
+#include "../../../../Include/Common/Team.h"
+
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
-public:
-    DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
-    {
-        return DLINK_ITERATOR<Team>(m_head, &Team::dlink_next_TeamInstanceList);
-    }
-private:
-    char pad[0x334];
-    Team *m_head;
-};
+	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
 #include "../../../../Include/GameLogic/PlayerTeamNode.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 //

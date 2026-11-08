@@ -104,17 +104,8 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-struct TeamTemplateInfo
-{
-	char m_pad000[0x216];
-	bool m_attackCommonTarget;	// +0x216
-};
+#include "../../../Include/Common/Team.h"
 
-struct TeamPrototype
-{
-	__declspec(dllimport) __forceinline const TeamTemplateInfo *getTemplateInfo() const { return &m_info; }
-	TeamTemplateInfo m_info;
-};
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -154,7 +145,7 @@ bool AIGuardRetaliateMachine::lookForInnerTarget()
 	Object *owner = m_owner;
 	if (!owner->isAbleToAttack())
 		return false;
-	if (owner->m_team->m_proto->getTemplateInfo()->m_attackCommonTarget) {
+	if (owner->m_team->m_proto->m_attackCommonTarget) {
 		Object *teamVictim = owner->m_team->getTeamTargetObject();
 		if (teamVictim) {
 			m_nemesisID = teamVictim->m_id;

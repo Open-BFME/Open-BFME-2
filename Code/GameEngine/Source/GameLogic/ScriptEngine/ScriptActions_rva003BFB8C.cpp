@@ -11,20 +11,7 @@
 typedef bool Bool;
 #include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
-class TeamPrototype
-{
-public:
-	void decreaseAIPriorityForFailure();
-	void rva0039D747(int delta);
-	void rva0039D754(int delta);
-private:
-	char m_pad00[0x21C];
-public:
-	int m_priority21C;
-private:
-	char m_pad220[0x224 - 0x220];
-	int m_delta224;
-};
+#include "../../../Include/Common/Team.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -39,6 +26,6 @@ void ScriptActions::Rva003BFB8CDo(const AsciiString &teamName, int delta)
 		return;
 	proto->rva0039D747(delta);
 	AsciiString msg;
-	msg.format("Team '%s' priority increased to %d.", teamName.str(), proto->m_priority21C);
+	msg.format("Team '%s' priority increased to %d.", teamName.str(), proto->m_productionPriority);
 	TheScriptEngine->AppendDebugMessage(msg, false);
 }

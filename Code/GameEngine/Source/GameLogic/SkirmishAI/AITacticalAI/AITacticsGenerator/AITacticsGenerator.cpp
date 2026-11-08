@@ -99,21 +99,9 @@ struct Rva00506909Request
 	void *m_00;
 	int m_kind;		// +0x04
 };
-struct Rva005059A1Team
-{
-	char m_pad00[0x2D8];
-	int m_id;	// +0x2D8
-};
+#include "../../../../../Include/Common/TeamBFME2.h"
+#include "../../../../../Include/Common/Team.h"
 #include "../../../../../Include/Common/Player.h"
-
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-	void disband();
-	char m_pad00[0x30];
-	Rva005059A1Team *m_team;	// +0x30
-};
 
 class AITacticsGenerator
 {
@@ -426,28 +414,28 @@ void AITacticsGenerator::Register(Team *unit)
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCreated(unit);
 			return;
 		}
 	}
 	for (it = m_28.begin(); it != m_28.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCreated(unit);
 			return;
 		}
 	}
 	for (it = m_40.begin(); it != m_40.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCreated(unit);
 			return;
 		}
 	}
 	for (it = m_58.begin(); it != m_58.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCreated(unit);
 			return;
 		}
@@ -460,28 +448,28 @@ void AITacticsGenerator::UnRegister(Team *unit)
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
 	for (it = m_28.begin(); it != m_28.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
 	for (it = m_40.begin(); it != m_40.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
 	for (it = m_58.begin(); it != m_58.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_proto->m_2D8) {
 			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}

@@ -111,7 +111,11 @@ public:
     int m_productionPriority;
     int m_productionPrioritySuccessIncrease;
     int m_productionPriorityFailureDecrease;
-    unsigned char m_opaque228[0x318 - 0x228];
+    unsigned char m_opaque228[0x2C4 - 0x228];
+    int m_2C4;  // stored by TeamFactory::initTeamForTacticalAI 0x003A2FD4
+    unsigned char m_opaque2C8[0x2D8 - 0x2C8];
+    int m_2D8;  // stored by 0x003A2FD4; read by AITacticsGenerator 0x005059A1 and 0x00505A56 through Team+0x30
+    unsigned char m_opaque2DC[0x318 - 0x2DC];
     unsigned char m_opaque318[4];
     bool m_field31C;
     bool m_field31D;

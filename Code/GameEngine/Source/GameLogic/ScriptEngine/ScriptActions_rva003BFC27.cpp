@@ -15,19 +15,7 @@
 typedef bool Bool;
 #include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
-class TeamPrototype
-{
-public:
-	void increaseAIPriorityForSuccess();
-	void decreaseAIPriorityForFailure();
-private:
-	char m_pad00[0x21C];
-public:
-	int m_priority21C;
-private:
-	char m_pad220[0x224 - 0x220];
-	int m_delta224;
-};
+#include "../../../Include/Common/Team.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -42,7 +30,7 @@ void ScriptActions::Rva003BFC27Do(const AsciiString &teamName)
 		return;
 	proto->decreaseAIPriorityForFailure();
 	AsciiString msg;
-	msg.format("Team '%s' priority decreased to %d for failure.", teamName.str(), proto->m_priority21C);
+	msg.format("Team '%s' priority decreased to %d for failure.", teamName.str(), proto->m_productionPriority);
 	TheScriptEngine->AppendDebugMessage(msg, false);
 }
 
@@ -56,7 +44,7 @@ void ScriptActions::Rva003BFAF4Do(const AsciiString &teamName)
 		return;
 	proto->increaseAIPriorityForSuccess();
 	AsciiString msg;
-	msg.format("Team '%s' priority increased to %d for success.", teamName.str(), proto->m_priority21C);
+	msg.format("Team '%s' priority increased to %d for success.", teamName.str(), proto->m_productionPriority);
 	TheScriptEngine->AppendDebugMessage(msg, false);
 }
 
