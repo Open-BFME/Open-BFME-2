@@ -3408,8 +3408,11 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 # is a naming judgement -- a callee's class does not prove the caller's (`mov
 # ecx,[ecx+4]; call clear` acts on a contained object) -- so the new spelling
 # comes from the naming route: --basis inferred, --evidence agree:<id> for every
-# row, two blind votes on the row's placeholder key (docs/naming.md). The voters
-# judge the whole signature. The code-identity checks are hard gates on top:
+# row, two blind votes on the row's own key (its current source, kind, address
+# and placeholder: docs/naming.md). Only placeholder fragments may change, token
+# by token: every other name, code and back-reference stays in place, and a
+# canonical class name is never replaced. The code-identity checks are hard gates
+# on top:
 #
 #   1. before: the identity scan of a respelled row reports a wrong binding, or
 #      the row calls another row the same plan respells;
@@ -3425,9 +3428,10 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 #
 # A callee pin spelling the callee under the respelled row's old class (the
 # symbol the old object binds there) is retired only when no object outside the
-# rebuilt units references it. Every rowed object's symbol table, weak externals
-# and .drectve (/alternatename, /INCLUDE) is read; a missing or unreadable object
-# refuses; a stale object whose source, or a header it includes, spells the pin
+# rebuilt units references it. Every object the real link takes (exit_link's own
+# inventory: function and data providers) is parsed whole -- symbol table, weak
+# externals and .drectve (/alternatename, /INCLUDE); a missing object or one that
+# does not parse refuses; a stale object whose source, or a header it includes, spells the pin
 # or one of its placeholder types is rebuilt with ./build.sh first (refused when
 # it cannot be). The rebuilt units' objects are read again after the build.
 # `--move-to TU` also moves the respelled rows to their approved TU (the map
@@ -3520,6 +3524,22 @@ def identity_class(mangled):
     return elements, args
 
 
+def placeholder_masked(mangled, kept=frozenset()):
+    """`mangled` with each placeholder name fragment replaced by one marker, every other
+    character (scope, class and type names, codes, back-references) as spelled; a fragment in
+    `kept` (a registered canonical class) is never masked. None when the parser cannot read it."""
+    try:
+        spans = fragments(mangled)
+    except Unparsed:
+        return None
+    out, at = [], 0
+    for a, b in spans:
+        word = mangled[a:b]
+        out += [mangled[at:a], "\0" if name_metric.placeholder(word) and word not in kept else word]
+        at = b
+    return "".join(out + [mangled[at:]])
+
+
 def placeholder_types(mangled):
     """The placeholder identifiers (Rva.../Bfme... and name_metric's other
     placeholder shapes) among the name fragments of `mangled`."""
@@ -3584,10 +3604,32 @@ def folded_callee(named, notes, at):
 
 # ---- the objects that could still reference a retired pin
 
-def rowed_objects(ctx):
-    """{source: [object paths]} of every ledger source with matched rows (the build's own mapping)."""
-    import name_dependents
-    return name_dependents._row_objects(ctx.rows())
+def link_objects(ctx):
+    """{source: [object paths]} of every object the real link takes: tools/exit_link.py's own
+    inventory (expected_objects: each matched functions.csv row's object and each data_rows.csv
+    provider's), less the placement-only objects its link_setup leaves out. An object no source
+    names (a vendored library member) is keyed by its file name."""
+    if ctx.root.resolve() != ROOT.resolve():
+        raise Refusal("the real link's object inventory is read from the repository itself")
+    import exit_link
+    import link_census
+    rows = link_census.ledger()
+    omitted = set(exit_link.placement_objects(rows))
+    sources = link_census._object_sources(rows)
+    out = collections.defaultdict(list)
+    for path in exit_link.expected_objects(rows):
+        if path in omitted:
+            continue
+        source = sources.get(path)
+        key = Path(os.path.relpath(source, ROOT)).as_posix() if source else f"({path.name})"
+        out[key].append(path)
+    return dict(out)
+
+
+def source_objects(ctx, sources):
+    """{source: [object path]} of the units the plan rebuilds (build.obj_path, as the link names them)."""
+    import build
+    return {src: [build.obj_path(ctx.path(src))] for src in sources}
 
 
 def object_is_current(ctx, source, path):
@@ -3632,11 +3674,39 @@ def mentioning_sources(ctx, words):
     return seen
 
 
+def coff_layout_problem(data):
+    """Why `data` is not a whole i386 COFF object (header, section table, raw data, relocations,
+    symbol and string tables all inside the file), or None."""
+    import struct
+    if len(data) < 20:
+        return "shorter than a COFF header"
+    machine, count, _stamp, symbols, nsyms, optional, _flags = struct.unpack_from("<HHIIIHH", data, 0)
+    if machine != 0x14C:
+        return f"machine {machine:#x} is not an i386 COFF object"
+    table = 20 + optional
+    if table + 40 * count > len(data):
+        return "its section table runs past the end"
+    for index in range(count):
+        size, pointer, relocs, nrelocs = struct.unpack_from("<IIIH", data, table + 40 * index + 16)[:3] + \
+            struct.unpack_from("<H", data, table + 40 * index + 32)
+        if pointer and pointer + size > len(data):
+            return f"section {index + 1}'s raw data runs past the end"
+        if nrelocs and relocs + 10 * nrelocs > len(data):
+            return f"section {index + 1}'s relocations run past the end"
+    strings = symbols + 18 * nsyms
+    if strings + 4 > len(data):
+        return "its symbol table runs past the end"
+    size = struct.unpack_from("<I", data, strings)[0]
+    if size < 4 or strings + size > len(data):
+        return "its string table runs past the end"
+    return None
+
+
 def object_pin_references(objects, names):
-    """[problem] for the objects {source: [paths]}: one missing or unreadable, or one whose symbol
-    table, weak externals or .drectve (/alternatename either side, /INCLUDE) names one of `names`."""
+    """[problem] for the objects {source: [paths]}: one missing, unreadable or not a whole COFF
+    object, or one whose symbol table, weak externals or .drectve (/alternatename either side,
+    /INCLUDE) names one of `names`. Every object is parsed whole: none is passed as clean unread."""
     import link_census
-    needles = [n.encode() for n in names]
     problems = []
     for src, paths in sorted(objects.items()):
         if not paths:
@@ -3648,11 +3718,13 @@ def object_pin_references(objects, names):
                 data = path.read_bytes()
             except OSError:
                 data = b""
-            if len(data) < 20:
+            if not data:
                 problems.append(f"{src}'s object {path.name} is missing or unreadable")
                 break
-            if not any(n in data for n in needles):
-                continue
+            bad = coff_layout_problem(data)
+            if bad:
+                problems.append(f"{src}'s object {path.name} is unreadable: {bad}")
+                break
             try:
                 defined, referenced, weak, alternate, includes = link_census.object_symbols(path, data)
             except Exception as error:      # a damaged object: refuse, never read as clean
@@ -3671,7 +3743,7 @@ def pin_consumers(ctx, names, words, rebuilt):
     """(problems, count rebuilt) for retiring the pins `names` (placeholder types `words`): every
     rowed object outside `rebuilt` (the units the plan rebuilds) is read. A stale object whose source
     or an included header spells a pin or a type is rebuilt through ./build.sh first."""
-    objects = rowed_objects(ctx)
+    objects = link_objects(ctx)
     mentioned = mentioning_sources(ctx, sorted(set(names) | set(words)))
     stale = sorted(src for src in mentioned if objects.get(src) and src not in rebuilt
                    and not all(object_is_current(ctx, src, path) for path in objects[src]))
@@ -3679,7 +3751,7 @@ def pin_consumers(ctx, names, words, rebuilt):
         if not rebuild_sources(ctx, stale):
             return [f"./build.sh could not rebuild the stale object(s) of {', '.join(stale[:4])}, which spell a "
                     "retired pin or its placeholder types"], 0
-        objects = rowed_objects(ctx)
+        objects = link_objects(ctx)
         still = [src for src in stale if not objects.get(src)
                  or not all(object_is_current(ctx, src, path) for path in objects[src])]
         if still:
@@ -3689,7 +3761,8 @@ def pin_consumers(ctx, names, words, rebuilt):
 
 def identity_approvals(ctx, entries, evidence):
     """Give each entry its `agree` token: the naming approval among `evidence` that covers its
-    exact old and new spelling at its address. Every token covers one row, once."""
+    exact old and new spelling at its address, under the row's own current key (source, kind,
+    address, placeholder: the votes behind it are on this row). Every token covers one row, once."""
     tokens = (evidence or "").split()
     if not tokens or any(not AGREE_TOKEN.fullmatch(tok) for tok in tokens):
         raise Refusal("--identity needs --evidence 'agree:<id> [agree:<id> ...]', one naming approval per "
@@ -3697,11 +3770,16 @@ def identity_approvals(ctx, entries, evidence):
     for e in entries:
         inferred_guards(ctx, "function", e["old"], e["old"], e["rva"])
         why = []
+        key = f"{e['source']}|function|0x{e['rva']:08X}|{e['old']}"
         for tok in tokens:
             try:
                 check_agreement(ctx, "function", tok, {e["old"]}, {e["new"]}, e["rva"])
             except Refusal as error:
                 why.append(f"{tok}: {error}")
+                continue
+            record = [r for r in ctx.dicts(AGREED) if r.get("id") == tok[len("agree:"):]][-1]
+            if record.get("key") != key:
+                why.append(f"{tok}: its key {record.get('key')!r} is not this row's key {key!r}")
                 continue
             e["agree"] = tok
             break
@@ -3742,6 +3820,16 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         if not placeholder_types(old_name):
             raise Refusal(f"{old_name} names no placeholder type (Rva.../Bfme...): an identity respell replaces "
                           "a placeholder-typed spelling only")
+        # token by token: only placeholder fragments change; every other name, code and
+        # back-reference stays in place, and a canonical class name is never replaced
+        canonical = {r.get("class") for r in ctx.dicts(CANONICAL_CLASSES)} - {"", None}
+        masked_old, masked_new = placeholder_masked(old_name, canonical), placeholder_masked(new_name, canonical)
+        if masked_old is None or masked_new is None or masked_old != masked_new:
+            at = next((i for i, (a, b) in enumerate(zip(masked_old or "", masked_new or "")) if a != b),
+                      min(len(masked_old or ""), len(masked_new or "")))
+            raise Refusal(f"{new_name} changes more than the placeholder types of {old_name} (first difference at "
+                          f"character {at}): every other name -- scope, classes, types -- and every code and "
+                          "back-reference must stay in place, and a canonical class is never replaced")
         # the primary row checks of plan_function, on every row
         function_identity_checks(ctx, at, old_name, old_name, owner)
         function_collision_checks(ctx, at, old_name, new_name, old_name, new_name, respell=True)
@@ -4003,8 +4091,7 @@ def identity_problems(ctx, identity):
             problems.append(f"no respelled row binds {callee} at 0x{t:08X} directly after the pin is retired")
     if identity.get("retired"):
         names = sorted({name for name, _t, _c in identity["retired"]})
-        objects = rowed_objects(ctx)
-        problems += object_pin_references({s: objects.get(s, []) for s in identity["sources"]}, names)
+        problems += object_pin_references(source_objects(ctx, identity["sources"]), names)
         if (ctx.root / "tools/pin_consistency.py").exists():
             result = subprocess.run([sys.executable, "tools/pin_consistency.py", "--check"], cwd=str(ctx.root),
                                     capture_output=True, text=True)

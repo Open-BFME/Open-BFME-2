@@ -1118,19 +1118,27 @@ two review rounds set where the evidence ends:
   instantiation. A callee's class does not prove the caller's (`mov
   ecx,[ecx+4]; call clear` acts on a contained object), and a mechanical proof
   of the whole signature leaked twice. So the new spelling is a naming
-  judgement: `--basis inferred --evidence 'agree:<id> ...'`, one approval (two
-  blind votes on the row's placeholder key, keyed on its whole old spelling) per
-  row. The voters judge the whole signature. The code-identity checks are hard
-  gates on top:
+  judgement: `--basis inferred --evidence 'agree:<id> ...'`, one approval per
+  row: two blind votes on the row's own current key,
+  `source|function|0xRVA|<whole old spelling>`. Votes under another unit's key
+  authorise nothing. Only placeholder fragments may change, compared token by
+  token: every other name (scope, classes, types), code and back-reference stays
+  in place, and a registered canonical class is never replaced. So a placeholder
+  parameter cannot unlock its real class, and a container's template name or
+  argument structure (`map` to `set`, `pair` to `_Identity`) cannot change
+  either. The code-identity checks are hard gates on top:
   - before: the scan shows a wrong binding;
   - after the build: every call binds retail's row directly (no alias, pin or
     ICF-marked callee);
   - the bytes match and the new name is unowned.
   A callee pin spelling the callee under the row's old type is retired only when
-  no object outside the rebuilt units names it (symbol table, weak externals,
-  `/alternatename`, `/INCLUDE`). A missing or unreadable object refuses, and a
-  stale object whose source or an included header spells the pin or its type is
-  rebuilt with `./build.sh` first. The evidence records how many were rebuilt.
+  no object the real link takes names it. The inventory is tools/exit_link.py's
+  own: function and data providers, less its placement-only objects. Each object
+  is parsed whole (symbol table, weak externals, `/alternatename`, `/INCLUDE`). A
+  missing object, or one that does not parse as a whole i386 COFF object,
+  refuses. A stale object whose source or an included header spells the pin or
+  its type is rebuilt with `./build.sh` first. The evidence records how many were
+  rebuilt.
   Each `name_basis.csv` record is the approval alone (`agree:<id>`), so `revert`
   finds it.
 

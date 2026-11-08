@@ -44,9 +44,9 @@ WRAP = 0x002D0B36
 CLEAR = 0x002572AE
 COPY = 0x002D0326
 OLD_OP = "??4?$_Rb_tree@URva002D07F4Element@@U?$pair@HH@@@@QAEAAV0@ABV0@@Z"
-NEW_OP = "??4?$_Rb_tree@UBfmeStringRecord002CF550@@U1@@@QAEAAV0@ABV0@@Z"
+NEW_OP = "??4?$_Rb_tree@UBfmeStringRecord002CF550@@U?$pair@HH@@@@QAEAAV0@ABV0@@Z"
 OLD_WRAP = "??4?$map@URva002D07F4Element@@H@@QAEAAV0@ABV0@@Z"
-NEW_WRAP = "??4?$set@UBfmeStringRecord002CF550@@@@QAEAAV0@ABV0@@Z"
+NEW_WRAP = "??4?$map@UBfmeStringRecord002CF550@@H@@QAEAAV0@ABV0@@Z"
 CLEAR_NAME = "?clear@?$_Rb_tree@UBfmeStringRecord002CF550@@U1@@@QAEXXZ"
 COPY_NAME = "?_M_copy@?$_Rb_tree@UBfmeStringRecord002CF550@@U1@@@AAEPAXPAX0@Z"
 PLAIN = "?helper@@YAXXZ"
@@ -100,9 +100,10 @@ def recommit(root, rel, text):
     commit(root)
 
 
-def agree(root, rid, old, new, rva, agents=("seat-a", "seat-b")):
-    """An agreement record and the two blind votes behind it (name_agreement recomputes from votes)."""
-    key = f"{OWNER}|function|scope|{old}"
+def agree(root, rid, old, new, rva, agents=("seat-a", "seat-b"), source=OWNER):
+    """An agreement record and the two blind votes behind it (name_agreement recomputes from
+    votes), on the row's own key: source|function|0xRVA|placeholder."""
+    key = f"{source}|function|0x{rva:08X}|{old}"
     agreed = root / rename.AGREED
     text = agreed.read_text(encoding="utf-8") if agreed.exists() else rename.AGREED_HEADER + "\n"
     text += rename.csv_line([rid, "function", old, new, f"0x{rva:08X}", ";".join(agents), key, "agreed",
@@ -271,7 +272,7 @@ def test_a_callees_class_proves_nothing_without_votes(tree):
     """Finding 1 (review_receiver_repro.py): `mov ecx,[ecx+4]; call clear` acts on a
     contained object, so the callees' class is not the caller's. A spelling no vote
     approved is refused whatever the callees bind; the voters' spelling lands."""
-    member = "??4?$_Rb_tree@UBfmeStringRecord002CF550@@H@@QAEAAV0@ABV0@@Z"
+    member = OLD_OP.replace("Rva002D07F4Element", "BfmeContainedMember00500000")
     ctx, _ = context(tree, BEFORE)
     with pytest.raises(Refusal, match="no naming approval covers"):
         plan(ctx, new=member, evidence="agree:nl-op", also=[], move_to=None,
@@ -286,10 +287,10 @@ def test_a_callees_class_proves_nothing_without_votes(tree):
 
 def test_an_approval_covers_its_exact_signature_only(tree):
     """Finding 5 (review_r2_repros.py): a parameter respelled to an invented type is
-    another spelling, which the approval of NEW_OP does not cover."""
+    more than a placeholder change, and no approval covers it either."""
     invented = NEW_OP.replace("ABV0@", "ABVInventedRealType@@")
     ctx, _ = context(tree, BEFORE)
-    with pytest.raises(Refusal, match="no naming approval covers"):
+    with pytest.raises(Refusal, match="changes more than the placeholder types"):
         plan(ctx, new=invented, prepared={TU: TU_PREPARED.replace(NEW_OP, invented).encode(),
                                           CALLER: CALLER_PREPARED.encode()})
 
@@ -535,11 +536,13 @@ def obj(root, name, references=(), defines=("?f@@YAXXZ",), directives=""):
 
 @pytest.fixture
 def objects(tree, monkeypatch):
-    """rowed_objects over real objects, every one current; a test edits `state`."""
+    """link_objects over real objects, every one current; a test edits `state`."""
     state = {"objects": {src: [obj(tree, Path(src).stem + ".obj")] for src in
                          ("Code/Lib/Cleanup.cpp", "Code/Lib/Copy.cpp", "Code/Lib/Plain.cpp", *SKIPPED)},
              "stale": set(), "rebuilt": [], "rebuild_ok": True}
-    monkeypatch.setattr(rename, "rowed_objects", lambda ctx: dict(state["objects"]))
+    monkeypatch.setattr(rename, "link_objects", lambda ctx: dict(state["objects"]))
+    monkeypatch.setattr(rename, "source_objects",
+                        lambda ctx, sources: {src: state["objects"].get(src, []) for src in sources})
     monkeypatch.setattr(rename, "object_is_current", lambda ctx, src, path: src not in state["stale"])
 
     def rebuild(ctx, sources):
@@ -626,7 +629,7 @@ def test_refused_when_a_rowed_object_is_unreadable(tree, objects):
     broken.write_bytes(b"\0" * 4)
     objects["objects"]["Code/Lib/Other.cpp"] = [broken]
     ctx, _ = context(tree, BEFORE)
-    with pytest.raises(Refusal, match="Broken.obj is missing or unreadable"):
+    with pytest.raises(Refusal, match="Broken.obj is unreadable: shorter than a COFF header"):
         plan(ctx)
 
 
@@ -682,3 +685,129 @@ def test_refused_for_a_pin_naming_a_second_address(tree, objects):
     ctx, _ = context(tree, BEFORE)
     with pytest.raises(Refusal, match="proves nothing"):
         plan(ctx)
+
+
+
+# ------------------------------------------------- round 3 of the review (r3_probes.py)
+
+def test_an_approval_on_another_units_key_does_not_cover_the_row(tree):
+    """Finding 2 ('wrong source key'): genuine votes on the same placeholder under
+    Code/Unrelated.cpp's key do not authorise this row."""
+    for rel in (rename.AGREED, name_agreement.VOTES):
+        text = (tree / rel).read_text(encoding="utf-8").replace(OWNER, "Code/Unrelated.cpp")
+        write(tree / rel, text)
+    votes = (tree / name_agreement.VOTES).read_text(encoding="utf-8").splitlines()
+    rebuilt = [votes[0]]
+    for line in votes[1:]:
+        cells = line.split(",")
+        cells[1] = name_agreement.digest(cells[0], NEW_OP if cells[0].endswith(OLD_OP) else NEW_WRAP)
+        rebuilt.append(",".join(cells))
+    write(tree / name_agreement.VOTES, "\n".join(rebuilt) + "\n")
+    commit(tree)
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal, match="is not this row's key"):
+        plan(ctx)
+
+
+def test_an_approval_index_without_votes_is_refused(tree):
+    """'approval index without supporting votes': the record alone authorises nothing."""
+    write(tree / name_agreement.VOTES, ",".join(name_agreement.VOTE_COLUMNS) + "\n")
+    commit(tree)
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal, match="no naming approval covers"):
+        plan(ctx)
+
+
+REAL_OLD = "??4ExistingRealType@@QAEAAV0@ABURva002D07F4Element@@@Z"
+REAL_NEW = REAL_OLD.replace("ExistingRealType", "InventedRealType")
+
+
+def real_class_tree(tree):
+    for rel in ("reverse/functions.csv", OWNER):
+        write(tree / rel, (tree / rel).read_text().replace(OLD_OP, REAL_OLD))
+    token = agree(tree, "nl-real", REAL_OLD, REAL_NEW, OP)
+    commit(tree)
+    ctx, _ = context(tree, [dict(r, row=REAL_OLD) if r["row"] == OLD_OP else r for r in BEFORE])
+    return ctx, token
+
+
+def test_a_placeholder_parameter_does_not_unlock_a_real_class(tree):
+    """Finding 3 ('real class changed using placeholder parameter'), voted or not."""
+    ctx, token = real_class_tree(tree)
+    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+        plan(ctx, new=REAL_NEW, evidence=token, also=[], move_to=None,
+             prepared={OWNER: OWNER_SRC.replace(OLD_OP, REAL_NEW).encode()})
+
+
+def test_a_canonical_real_class_is_never_replaced(tree):
+    """Finding 3 ('canonical real class changed'): the record of a canonical name changes nothing."""
+    recommit(tree, "reverse/name_basis.csv", "kind,old,new,basis,evidence,source,rva\n"
+             "class,Original,ExistingRealType,canonical:zh,proof,Code/X.cpp,0x00000001\n")
+    recommit(tree, "reverse/canonical_classes.csv", "class,header,notes\nExistingRealType,Code/X.h,x\n")
+    ctx, token = real_class_tree(tree)
+    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+        plan(ctx, new=REAL_NEW, evidence=token, also=[], move_to=None,
+             prepared={OWNER: OWNER_SRC.replace(OLD_OP, REAL_NEW).encode()})
+
+
+def test_a_placeholder_shaped_canonical_class_is_never_replaced(tree):
+    """A registered canonical class keeps its spelling even when its name looks like a placeholder."""
+    recommit(tree, "reverse/canonical_classes.csv", "class,header,notes\nRva002D07F4Element,Code/X.h,x\n")
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+        plan(ctx)
+
+
+def test_only_placeholder_fragments_may_change():
+    assert rename.placeholder_masked(OLD_OP) == rename.placeholder_masked(NEW_OP)
+    assert rename.placeholder_masked(OLD_WRAP) == rename.placeholder_masked(NEW_WRAP)
+    assert rename.placeholder_masked(OLD_WRAP) != rename.placeholder_masked(OLD_WRAP.replace("?$map@", "?$set@"))
+    assert rename.placeholder_masked(REAL_OLD) != rename.placeholder_masked(REAL_NEW)
+    # a moved back-reference is a change, not a placeholder's
+    assert rename.placeholder_masked(NEW_OP) != rename.placeholder_masked(NEW_OP.replace("ABV0@", "ABV1@"))
+    assert rename.placeholder_masked(OLD_OP, {"Rva002D07F4Element"}) != rename.placeholder_masked(NEW_OP)
+
+
+def test_a_data_only_provider_is_a_consumer(tree, objects):
+    """Finding 1 ('data-only consumer'): the link takes data_rows.csv providers too."""
+    recommit(tree, "Code/DataOnly.cpp", "void *table[] = {0};\n")
+    objects["objects"]["Code/DataOnly.cpp"] = [obj(tree, "data.obj", references=(OLD_CLEAR,))]
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal, match="Code/DataOnly.cpp's object data.obj references"):
+        plan(ctx)
+
+
+def test_the_link_inventory_is_exit_links(monkeypatch, tmp_path):
+    """link_objects reads tools/exit_link.py's expected_objects (function and data
+    providers), less its placement-only objects."""
+    import exit_link
+    import link_census
+    code, data, placed, member = (tmp_path / n for n in ("code.obj", "data.obj", "placed.obj", "crt_x.obj"))
+    root = rename.ROOT
+    monkeypatch.setattr(link_census, "ledger", lambda: [{"source": "Code/Code.cpp"}])
+    monkeypatch.setattr(exit_link, "expected_objects", lambda rows: [code, data, placed, member])
+    monkeypatch.setattr(exit_link, "placement_objects", lambda rows: {placed: "Code/Placed.cpp"})
+    monkeypatch.setattr(link_census, "_object_sources", lambda rows: {
+        code: root / "Code/Code.cpp", data: root / "Code/DataOnly.cpp", placed: root / "Code/Placed.cpp"})
+    got = rename.link_objects(rename.Context(root, object_scan=False))
+    assert got == {"Code/Code.cpp": [code], "Code/DataOnly.cpp": [data], "(crt_x.obj)": [member]}
+    with pytest.raises(Refusal, match="from the repository itself"):
+        rename.link_objects(rename.Context(tmp_path, object_scan=False))
+
+
+def test_a_malformed_object_without_the_pin_bytes_is_not_clean(tmp_path):
+    """Finding 4: every object is parsed whole; a damaged one refuses even when the
+    pin's name is not among its bytes."""
+    broken = tmp_path / "not-coff.obj"
+    broken.write_bytes(b"not a COFF object" * 5)
+    problems = rename.object_pin_references({"Code/Broken.cpp": [broken]}, ["?retired@@YAXXZ"])
+    assert problems and "is unreadable" in problems[0]
+
+
+def test_a_truncated_object_is_not_clean(tmp_path):
+    whole = obj(tmp_path, "whole.obj")
+    truncated = tmp_path / "truncated.obj"
+    truncated.write_bytes(whole.read_bytes()[:-6])
+    assert rename.object_pin_references({"Code/A.cpp": [whole]}, ["?retired@@YAXXZ"]) == []
+    problems = rename.object_pin_references({"Code/A.cpp": [truncated]}, ["?retired@@YAXXZ"])
+    assert problems and "runs past the end" in problems[0]
