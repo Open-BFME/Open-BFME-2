@@ -18,22 +18,13 @@ private:
 	bool m_flag; // +0x1A4D9
 };
 
-class ScriptEngine
-{
-public:
-    void rva002064D0();
-    void AppendDebugMessage(const AsciiString &message, bool forcePause);
-
-private:
-    char m_prefix[0x1A4D9];
-    bool m_useLogicDebugFrame;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva002064D0()
 {
     bool forcePause = ((Rva00203B08 *)this)->rva0020424FF();
-    m_useLogicDebugFrame = !m_useLogicDebugFrame;
-    if (m_useLogicDebugFrame)
+    m_1A4D9 = !m_1A4D9;
+    if (m_1A4D9)
         AppendDebugMessage(AsciiString("Stepping logic frames."), forcePause);
     else
         AppendDebugMessage(AsciiString("Stepping client frames."), forcePause);

@@ -13,12 +13,7 @@
 #include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class Rva0023C902 { public: int rva0023C902(); };
-class ScriptEngine
-{
-public:
-	unsigned char m_pad[0x1a104];
-	int m_1A104;
-};
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class GameWindowTransitionsHandler { public: bool isFinished(); };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
@@ -154,7 +149,7 @@ void StrategicPlayerStatus::rva005234AD()
 		return;
 	if (TheGameLogic->m_6d)
 		return;
-	if (TheScriptEngine->m_1A104 >= 0)
+	if (TheScriptEngine->m_endGameTimer >= 0)
 		return;
 	if (!TheTransitionHandler->isFinished())
 		return;
@@ -205,7 +200,7 @@ void AptPlayerTribute::OpenScreen()
 		return;
 	if (TheGameLogic->m_6d)
 		return;
-	if (TheScriptEngine->m_1A104 >= 0)
+	if (TheScriptEngine->m_endGameTimer >= 0)
 		return;
 	if (!TheTransitionHandler->isFinished())
 		return;

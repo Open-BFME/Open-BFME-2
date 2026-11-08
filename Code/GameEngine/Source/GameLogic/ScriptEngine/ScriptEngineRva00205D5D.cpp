@@ -10,15 +10,7 @@
 // priority set" limit; callees are rowed StringBase::compare and pinned
 // AsciiString::operator=.
 #include "ascii_string.h"
-class AttackPriorityInfo
-{
-public:
-	int m_00;
-	AsciiString m_name;
-	int m_08;
-	int m_0C;
-	void setPriority(const class ThingTemplate *, int);
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 class ThingTemplate;
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
@@ -78,37 +70,22 @@ private:
 	AsciiString *m_capacity;
 };
 
-class ScriptEngine
-{
-public:
-	AttackPriorityInfo *findAttackInfo(const AsciiString &s, bool create);
-	const AttackPriorityInfo *getAttackInfo(const AsciiString &name);
-	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
-	void AppendDebugMessage(const AsciiString &message, bool forcePause);
-
-protected:
-	void setPriorityThing(ScriptAction *action);
-
-private:
-	char m_pad[0x19100];
-	AttackPriorityInfo m_table[256];
-	int m_count;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 
 AttackPriorityInfo *ScriptEngine::findAttackInfo(const AsciiString &asciiString, bool create)
 {
-	for (int i = 1; i < m_count; ++i)
+	for (int i = 1; i < m_numAttackInfo; ++i)
 	{
-		if (m_table[i].m_name.compare(asciiString) == 0)
-			return &m_table[i];
+		if (m_attackPriorityInfo[i].m_name.compare(asciiString) == 0)
+			return &m_attackPriorityInfo[i];
 	}
-	if (create && m_count < 0x100)
+	if (create && m_numAttackInfo < 0x100)
 	{
-		m_table[m_count].m_name = asciiString;
-		++m_count;
-		return &m_table[m_count - 1];
+		m_attackPriorityInfo[m_numAttackInfo].m_name = asciiString;
+		++m_numAttackInfo;
+		return &m_attackPriorityInfo[m_numAttackInfo - 1];
 	}
 	return 0;
 }
@@ -122,10 +99,10 @@ AttackPriorityInfo *ScriptEngine::findAttackInfo(const AsciiString &asciiString,
 const AttackPriorityInfo *ScriptEngine::getAttackInfo(const AsciiString &name)
 {
 	int i;
-	for (i = 1; i < m_count; ++i)
+	for (i = 1; i < m_numAttackInfo; ++i)
 	{
-		if (m_table[i].m_name.compare(name) == 0)
-			return reinterpret_cast<const AttackPriorityInfo *>(&m_table[i]);
+		if (m_attackPriorityInfo[i].m_name.compare(name) == 0)
+			return &m_attackPriorityInfo[i];
 	}
 
 	for (Rva00205DDDSet *set = ((Rva00205DDDAI *)TheAI)->m_data->m_attackPrioritySets; set; set = set->m_next)
@@ -136,7 +113,7 @@ const AttackPriorityInfo *ScriptEngine::getAttackInfo(const AsciiString &name)
 			if (!info)
 				break;
 
-			info->m_08 = set->m_defaultPriority;
+			info->m_defaultPriority = set->m_defaultPriority;
 			Rva00205DDDItem *item = set->m_priorityList->m_next;
 			while (item != set->m_priorityList)
 			{
@@ -156,7 +133,7 @@ const AttackPriorityInfo *ScriptEngine::getAttackInfo(const AsciiString &name)
 		Debug &dbg = theDebug->CrashBegin(0, 0, 0);
 		(dbg << "Attempting to use an undefined attack priority - '" << (const StringBase<char> &)name << "'\n").CrashDone(2);
 	}
-	return reinterpret_cast<const AttackPriorityInfo *>(&m_table[0]);
+	return &m_attackPriorityInfo[0];
 }
 
 // ?setPriorityThing@ScriptEngine@@IAEXPAVScriptAction@@@Z, retail 0x00205EEC,

@@ -60,13 +60,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	char m_pad00[0x1A104];
-	Int m_endGameTimer;             // +0x1A104
-	Bool isGameEnding() { return m_endGameTimer >= 0; }
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class LanguageFilter

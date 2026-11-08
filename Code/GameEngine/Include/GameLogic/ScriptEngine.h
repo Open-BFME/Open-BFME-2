@@ -230,6 +230,7 @@ public:
 	AsciiString getStats(float *curTimePtr, float *script1Time, float *script2Time);
 	void applyNamed(void *obj, void *slot);
 	bool isFrozen();
+	Bool isGameEnding() { return m_endGameTimer >= 0; }	// Zero Hour inline; ControlBarSystem 0x0040246E
 
 protected:
 	void updateFades();									// 0x002036CC
@@ -267,7 +268,18 @@ public:
 	unsigned char m_opaque10[0x1C - 0x10];				// +0x10
 #endif
 private:
-	unsigned char m_opaque1C[0x1A110 - 0x1C];			// +0x1C: templates, counter/flag maps, attack priorities
+	unsigned char m_opaque1C[0x19100 - 0x1C];			// +0x1C: templates, counter and flag maps
+public:
+	// The ctor 0x0020843E..0x0020845A builds 0x100 entries of 0x10 bytes here.
+#ifdef CANONICAL_ATTACKPRIORITYINFO_H
+	AttackPriorityInfo m_attackPriorityInfo[256];		// +0x19100: findAttackInfo 0x00205DA9, getAttackInfo 0x00205E97
+#else
+	unsigned char m_opaque19100[0x1A100 - 0x19100];	// +0x19100
+#endif
+	int m_numAttackInfo;								// +0x1A100: ctor 0x0020845F, findAttackInfo 0x00205D65
+	int m_endGameTimer;								// +0x1A104: ctor 0x00208465, reads 0x0040246E 0x0050EC70
+private:
+	unsigned char m_opaque108[0x1A110 - 0x1A108];		// +0x1A108
 public:
 	Team *m_callingTeam;								// +0x1A110: 0x002051E8, getTeamNamed 0x00358510
 	Object *m_callingObject;							// +0x1A114: 0x00356FCA
@@ -338,7 +350,11 @@ public:
 	Bool m_objectsShouldReceiveDifficultyBonus;			// +0x1A4D5: ctor 0x0020866B stores 1
 	Bool m_ChooseVictimAlwaysUsesNormal;				// +0x1A4D6: ctor 0x0020864E, Rva003BCC6ESet 0x003BCC78
 private:
-	unsigned char m_opaque4D7[0x1A4E0 - 0x1A4D7];		// +0x1A4D7
+	unsigned char m_opaque4D7[0x1A4D9 - 0x1A4D7];		// +0x1A4D7
+public:
+	Bool m_1A4D9;										// +0x1A4D9: ctor 0x00208672 stores 1, rva002064D0 toggles it
+private:
+	unsigned char m_opaque4DA[0x1A4E0 - 0x1A4DA];		// +0x1A4DA
 	double m_numFrames;									// +0x1A4E0
 	double m_totalUpdateTime;							// +0x1A4E8
 	double m_maxUpdateTime;								// +0x1A4F0
