@@ -24,14 +24,7 @@ public:
 class CommandButton;
 #include "../../../Include/GameClient/CommandSet.h"
 
-class CreateAHeroManager
-{
-public:
-	int GetRequiredButtonCount();
-	const CommandButton *GetRequiredButton(unsigned int buttonIndex);
-	char m_pad[0x1dc];
-	AsciiString m_name;
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 const CommandButton *CreateAHeroManager::GetRequiredButton(unsigned int buttonIndex)
 {
@@ -39,7 +32,7 @@ const CommandButton *CreateAHeroManager::GetRequiredButton(unsigned int buttonIn
 		return 0;
 	else
 	{
-		CommandSet *set = (CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&m_name);
+		CommandSet *set = (CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&field1DC);
 		if (set == 0)
 			return 0;
 		else

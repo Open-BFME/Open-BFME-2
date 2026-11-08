@@ -17,29 +17,27 @@
 typedef unsigned int UnsignedInt;
 class AsciiString;
 
-class CreateAHeroManager
+#include "../../Include/GameLogic/CreateAHeroManager.h"
+
+class CreateAHeroManager::CreateAHeroSubClass
 {
 public:
-	class CreateAHeroSubClass
-	{
-	public:
-		int *rva0021BD22(int attribute) const;
-		int GetBlingIndex(int attribute, const AsciiString &value);
-		int GetAttributeMinValue(UnsignedInt attribute) const;
-		int GetAttributeMaxValue(UnsignedInt attribute) const;
-		int GetAttributeDefaultValue(UnsignedInt attribute) const;
-	};
+	int *rva0021BD22(int attribute) const;
+	int GetBlingIndex(int attribute, const AsciiString &value);
+	int GetAttributeMinValue(UnsignedInt attribute) const;
+	int GetAttributeMaxValue(UnsignedInt attribute) const;
+	int GetAttributeDefaultValue(UnsignedInt attribute) const;
+};
 
-	class CreateAHeroClass
-	{
-	public:
-		int GetAttributeMinValue(UnsignedInt attribute, UnsignedInt subClassIndex);
-		int GetAttributeMaxValue(UnsignedInt attribute, UnsignedInt subClassIndex);
-		int GetAttributeDefaultValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+class CreateAHeroManager::CreateAHeroClass
+{
+public:
+	int GetAttributeMinValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+	int GetAttributeMaxValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+	int GetAttributeDefaultValue(UnsignedInt attribute, UnsignedInt subClassIndex);
 
-	private:
-		const CreateAHeroSubClass *rva00219B9E(UnsignedInt subClassIndex) const;	// 0x00219B9E
-	};
+private:
+	const CreateAHeroSubClass *rva00219B9E(UnsignedInt subClassIndex) const;	// 0x00219B9E
 };
 
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;

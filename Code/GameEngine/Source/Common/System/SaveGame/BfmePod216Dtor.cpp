@@ -39,28 +39,26 @@ typedef _STL::map<int, _STL::vector<unsigned int> > IntegerVectorMap;
 typedef _STL::map<int, int> IntegerMap;
 typedef _STL::set<BfmeStringRecord0021A940> BfmeStringSet;
 
-class CreateAHeroManager
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
+
+class CreateAHeroManager::CreateAHeroSubClass
 {
+    AsciiString m_00;
+    AsciiString m_04;
+    AsciiString m_08;
+    AsciiString m_0c;
+    int m_10;
+    int m_14;
+    int m_18;
+    int m_1c;
+    AsciiString m_20;
+    IntegerVectorMap m_24;
+    _STL::vector<ScienceType> m_30;
+    _STL::vector<ScienceType> m_3c;
+    IntegerMap m_48;
+    BfmeStringSet m_54;
 public:
-    class CreateAHeroSubClass
-    {
-        AsciiString m_00;
-        AsciiString m_04;
-        AsciiString m_08;
-        AsciiString m_0c;
-        int m_10;
-        int m_14;
-        int m_18;
-        int m_1c;
-        AsciiString m_20;
-        IntegerVectorMap m_24;
-        _STL::vector<ScienceType> m_30;
-        _STL::vector<ScienceType> m_3c;
-        IntegerMap m_48;
-        BfmeStringSet m_54;
-    public:
-        ~CreateAHeroSubClass();
-    };
+    ~CreateAHeroSubClass();
 };
 
 CreateAHeroManager::CreateAHeroSubClass::~CreateAHeroSubClass()

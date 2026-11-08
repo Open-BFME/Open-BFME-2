@@ -46,33 +46,31 @@ bool operator<(const BfmeStringRecord0021A940 &a, const BfmeStringRecord0021A940
 
 struct Rva0021E5B3Block { int words[27]; };
 
-class CreateAHeroManager
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
+
+class CreateAHeroManager::CreateAHeroSubClass
 {
 public:
-    class CreateAHeroSubClass
-    {
-    public:
-        CreateAHeroSubClass &operator=(const CreateAHeroSubClass &that);
-    private:
-        AsciiString m_00;
-        AsciiString m_04;
-        AsciiString m_08;
-        AsciiString m_0c;
-        int m_10;
-        int m_14;
-        int m_18;
-        int m_1c;
-        AsciiString m_20;
-        _STL::map<int, _STL::vector<unsigned int> > m_24;
-        _STL::vector<Rva0021C21BElement> m_30;
-        _STL::vector<Rva0021C21BElement> m_3c;
-        _STL::map<Rva0021C33FElement, int> m_48;
-        _STL::set<BfmeStringRecord0021A940> m_54;
-        bool m_60;
-        int m_64;
-        int m_68;
-        Rva0021E5B3Block m_6c;
-    };
+    CreateAHeroSubClass &operator=(const CreateAHeroSubClass &that);
+private:
+    AsciiString m_00;
+    AsciiString m_04;
+    AsciiString m_08;
+    AsciiString m_0c;
+    int m_10;
+    int m_14;
+    int m_18;
+    int m_1c;
+    AsciiString m_20;
+    _STL::map<int, _STL::vector<unsigned int> > m_24;
+    _STL::vector<Rva0021C21BElement> m_30;
+    _STL::vector<Rva0021C21BElement> m_3c;
+    _STL::map<Rva0021C33FElement, int> m_48;
+    _STL::set<BfmeStringRecord0021A940> m_54;
+    bool m_60;
+    int m_64;
+    int m_68;
+    Rva0021E5B3Block m_6c;
 };
 
 CreateAHeroManager::CreateAHeroSubClass &CreateAHeroManager::CreateAHeroSubClass::operator=(const CreateAHeroSubClass &that)

@@ -43,22 +43,17 @@ enum NameKeyType
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CreateAHeroManager
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
+
+class CreateAHeroManager::CreateAHeroSubClass
 {
 public:
-	class CreateAHeroSubClass
-	{
-	public:
-		void *GetBlingGroupNameKey(UnsignedInt index);			// 0x0021AD5D
-		UnsignedInt GetBlingIndex(Int groupKey, UnsignedInt index);	// 0x0021BCEA
-		Int rva0021BC2C(Int groupKey) const;				// 0x0021BC2C
-		char m_pad00[0x28];
-		UnsignedInt m_blingGroupCount;					// +0x28
-	};
-	const CreateAHeroSubClass *rva0021A1B6(UnsignedInt classIndex, UnsignedInt subClassIndex);
-	Bool FindBlingByUpgradeName(const AsciiString &upgradeName, Int *blingId, Int *groupKey);
+	void *GetBlingGroupNameKey(UnsignedInt index);			// 0x0021AD5D
+	UnsignedInt GetBlingIndex(Int groupKey, UnsignedInt index);	// 0x0021BCEA
+	Int rva0021BC2C(Int groupKey) const;				// 0x0021BC2C
+	char m_pad00[0x28];
+	UnsignedInt m_blingGroupCount;					// +0x28
 };
-extern CreateAHeroManager *TheCreateAHeroManager;
 
 class CreateAHeroHero;
 // The rowed award test (0x0040AA27): every requirement holds for the hero.

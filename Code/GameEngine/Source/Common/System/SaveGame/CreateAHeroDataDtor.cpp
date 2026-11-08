@@ -163,10 +163,7 @@ extern GameState *TheGameState;
 class Rva002DC74A {
 public: UnicodeString rva002DC74A(const UnicodeString &) const;
 };
-class CreateAHeroManager {
-public: unsigned char pad[0x1D8]; bool statsChanged;
-};
-extern CreateAHeroManager *TheCreateAHeroManager;
+#include "../../../../Include/GameLogic/CreateAHeroManager.h"
 struct _iobuf;
 extern "C" {
 __declspec(dllimport) _iobuf *__cdecl _wfopen(const unsigned short *,const unsigned short *);
@@ -181,7 +178,7 @@ extern char *(__cdecl *_imp__fgets)(char *, int, _iobuf *);
 // WorldBuilder's same-string SaveStats lead does not reconcile the class name.
 bool CreateAHeroData::WriteNamedHeroAtRva004074CF() {
  UnicodeString path=((const Rva002DC74A *)TheGameState)->rva002DC74A(UnicodeString(text4C));
- TheCreateAHeroManager->statsChanged=true;
+ TheCreateAHeroManager->field1D8=true;
  _iobuf *file=_wfopen(path.str(),(const unsigned short *)L"w");
  if(file) {
  for(StringPayloadMap::iterator it=map50.begin();it!=map50.end();++it) {
