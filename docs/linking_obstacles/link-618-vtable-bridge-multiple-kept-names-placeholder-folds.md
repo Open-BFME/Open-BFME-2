@@ -250,3 +250,18 @@ copy per used name. The folds above therefore no longer gate bridging; they stil
 identity per table and for the first kept copy being retail's (fewer bridges). The AIInternalMoveToState
 chain was not started: its first step's address 0x0033F2F7 was held by another seat's `class:UpdateModule`
 claim.
+
+2026-11-08 root follow-up: the Rva0033F33D constructor/destructor pair now
+uses the same canonical State base and xfer declaration. The constructor
+removes its one-byte char and manual vptr write in favour of compiler
+emission; the destructor retires its incompatible private WindModuleInfo
+view. All three rows (33/75/28-byte extents) remain exact; eight-source
+strict preparation passes 129 rows/four data rows, with four exact EH
+graphs. Both emitted tables agree at 68 bytes/17 slots. Bounded replay
+changes one strong-definition refusal to zero, retaining one bridge/17
+slots; preview conserves LINKS/4,207 bytes at c885072a48. This is the same
+State prerequisite as the earlier cohort, not full table recovery:
+AIBackAwayAndCowerState's placeholder getter/class and lifecycle slots
+2/4/5/6 still need reconciliation. The stale Wind queue key remains;
+LINK-247 records that boundary. Next-image confirmation is pending.
+[Native operands, preserved bodies and controls](../../reverse/attempt_support/back-away-state-table-20261108/README.md).

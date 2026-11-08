@@ -1,0 +1,314 @@
+{
+  "sources": {
+    "Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp": {
+      "retained_executable_comdats": 1,
+      "normalized_retained_bodies_relocations_flags_policies_equal": true,
+      "removed_definitions": [
+        "_Rva0033F33D_vftable"
+      ],
+      "added_state_defaults": [
+        {
+          "name": "?_bfme_state_slot10@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot11@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot12@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot13@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot14@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot15@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot16@State@@EAEXXZ",
+          "rva": "0xb3fd0",
+          "whole_body_hex": "c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot7@State@@EAEXXZ",
+          "rva": "0xb3fd0",
+          "whole_body_hex": "c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot9@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?isAttack@State@@UBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?loadPostProcess@State@@MAEXXZ",
+          "rva": "0xb3fd0",
+          "whole_body_hex": "c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?onEnter@State@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0xd43d0",
+          "whole_body_hex": "33c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        }
+      ],
+      "additional_deleting_wrapper_identical_to_existing_owner": true,
+      "added_references": [
+        "??1Rva0033F33D@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??_GRva0033F33D@@UAEPAXI@Z",
+        "?onExit@State@@UAEXW4StateExitType@@@Z",
+        "?xfer@Rva0033F33D@@MAEXPAVXfer@@@Z",
+        "__purecall"
+      ],
+      "removed_references": [],
+      "native_rows": [
+        {
+          "name": "??0Rva0033F33D@@QAE@PAVStateMachine@@@Z",
+          "rva": "0x0033F33D",
+          "size": "33"
+        }
+      ],
+      "table_extent": 68,
+      "source_sha256": "a290cd18125afb8a000d8199f890247ab2b0e10bcb8018b7da7322470ef615d0",
+      "object_sha256": "f0981390dbc7e9e72e410ae293bbb7ebea2ba11eaa0d8a39ea92f503d8f6a219"
+    },
+    "Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp": {
+      "retained_executable_comdats": 2,
+      "normalized_retained_bodies_relocations_flags_policies_equal": true,
+      "removed_definitions": [],
+      "added_state_defaults": [
+        {
+          "name": "?_bfme_state_slot10@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot11@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot12@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot13@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot14@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot15@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot16@State@@EAEXXZ",
+          "rva": "0xb3fd0",
+          "whole_body_hex": "c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot7@State@@EAEXXZ",
+          "rva": "0xb3fd0",
+          "whole_body_hex": "c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?_bfme_state_slot9@State@@EBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?isAttack@State@@UBE_NXZ",
+          "rva": "0x47a699",
+          "whole_body_hex": "32c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?loadPostProcess@State@@MAEXXZ",
+          "rva": "0xb3fd0",
+          "whole_body_hex": "c3",
+          "flags": "0x60101020",
+          "policy": 2
+        },
+        {
+          "name": "?onEnter@State@@UAE?AW4StateReturnType@@XZ",
+          "rva": "0xd43d0",
+          "whole_body_hex": "33c0c3",
+          "flags": "0x60101020",
+          "policy": 2
+        }
+      ],
+      "additional_deleting_wrapper_identical_to_existing_owner": false,
+      "added_references": [
+        "??1State@@UAE@XZ",
+        "?onExit@State@@UAEXW4StateExitType@@@Z",
+        "?xfer@Rva0033F33D@@MAEXPAVXfer@@@Z",
+        "__purecall"
+      ],
+      "removed_references": [
+        "??1WindModuleInfo@FXParticleSystem@@UAE@XZ"
+      ],
+      "native_rows": [
+        {
+          "name": "??1Rva0033F33D@@UAE@XZ",
+          "rva": "0x003401E4",
+          "size": "75"
+        },
+        {
+          "name": "??_GRva0033F33D@@UAEPAXI@Z",
+          "rva": "0x003428F1",
+          "size": "28"
+        }
+      ],
+      "table_extent": 68,
+      "source_sha256": "9cc04d1eac00e5af2f07722a4384c85e33b134bc9efa28d12b4023fdf57e8dcc",
+      "object_sha256": "bbf5dd79250b5dd81be2d6c0fd968d39eb4992e14acfab53e70a7926aeb6a7b1"
+    }
+  },
+  "same_17_slot_table_facts_in_both_units": true,
+  "independent_native_bindings": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp",
+      "row_rva": "0x33f33d",
+      "operand_rva": "0x33f354",
+      "zero_addend_dir32": true,
+      "native_operand_va": "0xc10ee0"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp",
+      "row_rva": "0x3401e4",
+      "operand_rva": "0x3401f7",
+      "zero_addend_dir32": true,
+      "native_operand_va": "0xc10ee0"
+    }
+  ],
+  "strict_current_sources": [
+    "Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp",
+    "Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp",
+    "Code/GameEngine/Source/Common/Rva0033F33DXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "Code/GameEngine/Source/Common/System/Xfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleLoadPostProcess.cpp",
+    "Code/GameEngine/Source/Common/StateMachine.cpp"
+  ],
+  "verified_rows": 129,
+  "native_slot_rvas": [
+    "0x3428f1",
+    "0xb3fd0",
+    "0x33f35e",
+    "0x34027d",
+    "0x347c38",
+    "0x34025e",
+    "0x34022f",
+    "0xb3fd0",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0xb3fd0"
+  ],
+  "bridge": {
+    "before": {
+      "tables": 1,
+      "slots": 17,
+      "refused_tables": 1,
+      "refusal_reasons": {
+        "strong-definition": 1
+      },
+      "already_correct": 0
+    },
+    "after": {
+      "tables": 1,
+      "slots": 17,
+      "refused_tables": 0,
+      "refusal_reasons": {},
+      "already_correct": 0
+    }
+  },
+  "remaining_slots": [
+    2,
+    4,
+    5,
+    6
+  ],
+  "old_char_cached_index_reference_edges": [],
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "index_boundary": "Aggregate reference graph only; no per-object provenance in this downloaded index. No complete current-image consumer claim.",
+  "remaining": "Placeholder getter/class and lifecycle names require reconciliation; canonical Wind header debt is retained; no full class/table/image recovery claim."
+}

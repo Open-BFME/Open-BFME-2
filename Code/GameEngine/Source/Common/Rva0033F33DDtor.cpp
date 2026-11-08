@@ -1,31 +1,22 @@
 // cl: /MD /EHsc
 // ??1Rva0033F33D@@UAE@XZ @0x003401E4 75B: Rva0033F33D public virtual dtor.
-// Donor Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp ctor (State machine hash 0x6D9C1CB9 plus vtable 0x00810EE0 plus m_20 zero tail).
-// Vptr install plus member at +0x20 via virtual slot0 with 0 plus delete 0x0002FD60 plus base WindModuleInfo 0x0049B47C via row.
+// Native ctor 0x0033F33D uses State, hash 0x6D9C1CB9 and table 0x00810EE0.
+// The member at +0x20 is released through slot 0 then global delete.
+// The base teardown at 0x0049B47C is the rowed State destructor.
+// Both lifecycle units declare native xfer slot 3 at 0x0034027D.
 // Unblocks deleting dtor at 0x003428F1.
 class StateMachine;
-namespace FXParticleSystem {
-class WindModuleInfo {
-public:
-	virtual ~WindModuleInfo();
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-	char m_pad1D[0x20 - 0x1D];
-};
-}
+#include "../../Include/Common/StateMachine.h"
+
 class Rva0033F33DMember {
 public:
 	virtual void *v0(int);
 };
-extern "C" char Rva0033F33D_vftable;
-class Rva0033F33D : public FXParticleSystem::WindModuleInfo {
+class Rva0033F33D : public State {
 public:
 	virtual ~Rva0033F33D();
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
 	Rva0033F33DMember *m_20;
 };

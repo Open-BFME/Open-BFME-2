@@ -4,27 +4,28 @@
 // State-derived ctor forwarding (machine, 0x6D9C1CB9) to the unsigned-hash
 // twin ??0State@@QAE@PAVStateMachine@@I@Z at 0x004D73FC then zeroing dword
 // at +0x20 then installing vtable 0x00810EE0. Caller is 0x0035245D.
-// Recipe is StateDerivedCtors_muse-a7a4 hash-plus-vtable with the And-zero
-// tail (And is the /O1 size form of =0).
+// The compiler installs the State-derived table; the destructor uses the same
+// 17-slot view. Getter and lifecycle identities still need reconciliation.
 
 class StateMachine;
 
 #include "../../Include/Common/StateMachine.h"
 
-// Rva0033F33D_vftable: matched references place it at VA 0xc10ee0 (retail .rdata value -15).
-extern "C" char Rva0033F33D_vftable = -15;
+class Rva0033F33DMember;
 
-class __declspec(novtable) Rva0033F33D : public State
+class Rva0033F33D : public State
 {
 public:
 	Rva0033F33D(StateMachine *machine);
+	virtual ~Rva0033F33D();
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned int m_20;
+	Rva0033F33DMember *m_20;
 };
 
 Rva0033F33D::Rva0033F33D(StateMachine *machine) : State(machine, 0x6D9C1CB9u)
 {
 	m_20 = 0;
-	*reinterpret_cast<char **>(this) = &Rva0033F33D_vftable;
 }
