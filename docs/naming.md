@@ -1128,12 +1128,16 @@ two review rounds set where the evidence ends:
     (`vendor/stlport-4.6/stlport`) declare, such as `map` to `set` or
     `pair`/`_Select1st` to `_Identity`. `_STL` is reopened in this codebase, so
     the decoration alone does not prove STLport. The declared names are the
-    class, struct, union and typedef declarations (comments, string literals and
-    template parameters stripped). They are read with git from the vendored tree
-    at the merge base with origin/master; a vendored tree that differs from that
-    base refuses.
+    class, struct, union and typedef declarations, function-pointer typedefs
+    included. Comments, string literals, preprocessor lines and template
+    parameters are stripped first. Only the public headers are read: the files in
+    `stlport/` itself and everything under `stlport/stl/`, never `config/` or the
+    configure probes. They are read from disk only when their sha256 manifest
+    equals the pin committed in `rename.py` (`STLPORT_MANIFEST`), and no git ref
+    or history is trusted.
   Neither kind may have a protected name inside it. Every other real name keeps
-  its exact qualified path, placeholder scopes around it included, and its place
+  its exact qualified path, with every enclosing scope matching whole (placeholder
+  scopes and their template arguments included), and its place
   in the tree (argument index, nesting depth): project classes, global types,
   scope and member identifiers. Every qualifier and storage code stays, a member
   pointer's `P8`/`Q8` among them. A

@@ -133,7 +133,7 @@ def agree(root, rid, old, new, rva, agents=("seat-a", "seat-b"), source=OWNER):
 
 
 @pytest.fixture
-def tree(tmp_path):
+def tree(tmp_path, monkeypatch):
     files = {
         "reverse/functions.csv": FUNCTIONS,
         "reverse/symbols.csv": "name,address,notes\n",
@@ -157,7 +157,8 @@ def tree(tmp_path):
     agree(tmp_path, "nl-wrap", OLD_WRAP, NEW_WRAP, WRAP)
     _git(tmp_path, "init", "-q")
     commit(tmp_path, "seed")
-    _git(tmp_path, "update-ref", "refs/remotes/origin/master", "HEAD")
+    monkeypatch.setattr(rename, "STLPORT_MANIFEST",
+                        rename.stlport_manifest(rename.stlport_files(rename.Context(tmp_path, object_scan=False))))
     return tmp_path
 
 
@@ -1024,9 +1025,9 @@ SCOPED = "??4Project@Rva00123456@@QAEAAV01@ABV01@@Z"            # Rva00123456::P
 def test_a_protected_name_keeps_its_placeholder_scopes():
     """Finding 2 (r5_scope_plan.py): Rva00123456::Project -> NamedScope::Project moves Project."""
     moved = SCOPED.replace("Rva00123456", "NamedScope")
-    assert "changes the qualified path of the protected name Project" in rename.identity_shape_problem(
+    assert "enclosing scope Rva00123456 of the protected name Project" in rename.identity_shape_problem(
         SCOPED, moved, set(), STLPORT)
-    assert "changes the qualified path of the protected name Project" in rename.identity_shape_problem(
+    assert "enclosing scope Rva00123456 of the protected name Project" in rename.identity_shape_problem(
         SCOPED, moved, {"Project"}, STLPORT)
 
 
@@ -1044,7 +1045,7 @@ def test_the_scope_probe_is_refused_by_the_planner(tree):
     token = agree(tree, "r5-scope", SCOPED, moved, OP)
     commit(tree)
     ctx, _ = context(tree, [dict(r, row=SCOPED) if r["row"] == OLD_OP else r for r in BEFORE])
-    with pytest.raises(Refusal, match="changes the qualified path of the protected name Project"):
+    with pytest.raises(Refusal, match="of the protected name Project"):
         plan(ctx, new=moved, evidence=token, also=[], move_to=None,
              prepared={OWNER: OWNER_SRC.replace(OLD_OP, moved).encode()})
 
@@ -1063,21 +1064,75 @@ template <> struct less<int> {};
     assert rename.stlport_names(text) == {"vector", "_Identity", "pair", "size_type", "less"}
 
 
-def test_the_stlport_index_is_read_at_the_merge_base(tree):
-    """Finding 3: the working copy's vendored tree is not trusted; it must equal the base."""
+def test_the_stlport_index_is_pinned_by_its_manifest(tree):
+    """Round 6, findings 2-3: no git ref or replace object decides; the headers on disk
+    must hash to the pin, committed or not."""
     header = tree / "vendor/stlport-4.6/stlport/stl/_tree.h"
     write(header, header.read_text() + "class Injected {};\n")
-    with pytest.raises(Refusal, match="differs from the merge base"):
+    with pytest.raises(Refusal, match="not the pinned"):
         rename.stlport_declared(rename.Context(tree, object_scan=False))
     commit(tree, "vendored change on the branch")
-    with pytest.raises(Refusal, match="differs from the merge base"):
+    with pytest.raises(Refusal, match="not the pinned"):
         rename.stlport_declared(rename.Context(tree, object_scan=False))
 
 
-def test_the_stlport_index_refuses_without_a_merge_base(tree):
-    _git(tree, "update-ref", "-d", "refs/remotes/origin/master")
-    with pytest.raises(Refusal):
-        rename.stlport_declared(rename.Context(tree, object_scan=False))
+def test_the_real_vendored_headers_match_the_pin():
+    """The committed pin is the repository's vendored tree, and its index holds P29's names."""
+    declared = rename.stlport_declared(rename.Context(rename.ROOT, object_scan=False))
+    assert STLPORT - {"_Rep_type"} <= declared
+    assert {"raw_storage_iterator", "__oom_handler_type", "facet"} <= declared
+    assert not {"test_class", "Class"} & declared
+
+
+def test_only_the_public_headers_are_read(tree):
+    """Round 6, finding 4: config/ and configure probes are never read (nor hashed)."""
+    write(tree / "vendor/stlport-4.6/stlport/config/new_compiler/configure.in", "class test_class {};\n")
+    write(tree / "vendor/stlport-4.6/stlport/BC50/x.h", "class Elsewhere {};\n")
+    write(tree / "vendor/stlport-4.6/stlport/stl/debug/_x.h", "class DebugOne {};\n")
+    files = [rel for rel, _data in rename.stlport_files(rename.Context(tree, object_scan=False))]
+    assert "stl/_tree.h" in files and "stl/debug/_x.h" in files
+    assert not [rel for rel in files if rel.startswith(("config/", "BC50/"))]
+
+
+def test_declarations_split_by_directives_and_function_pointer_typedefs():
+    """Round 6, finding 5 (r6_decl_extra.py)."""
+    assert rename.stlport_names("template <class T> class Foo\n#ifdef FLAG\n: public Bar\n#endif\n{};") == {"Foo"}
+    assert rename.stlport_names("#define DECLARE(classname) class classname;") == set()
+    assert rename.stlport_names("typedef struct tag* Handle;") == {"Handle"}
+    assert rename.stlport_names("typedef int (*callback)(int);") == {"callback"}
+    assert rename.stlport_names("typedef void (_STLP_CALL * __oom_handler_type)();") == {"__oom_handler_type"}
+    assert rename.stlport_names("#  define _STLP_X \\\n  class Hidden {};\nclass Shown {};") == {"Shown"}
+
+
+def test_a_configure_probe_name_is_not_stlport():
+    """r6_index_shape.py: _STL::map -> _STL::test_class is not an STLport change."""
+    old = "?f@@YAXURva00123456@@Vmap@_STL@@@Z"
+    assert "do not declare" in rename.identity_shape_problem(old, old.replace("map@", "test_class@"),
+                                                             set(), STLPORT)
+
+
+SCOPE_TEMPLATE = "??4Project@?$Rva00123456@URva00654321@@@@QAEAAV01@ABV01@@Z"     # Rva00123456<Rva00654321>::Project
+
+
+def test_an_enclosing_scopes_template_arguments_are_part_of_the_path():
+    """Round 6, finding 1: Rva00123456<Rva00654321>::Project -> Rva00123456<NamedThing>::Project."""
+    moved = SCOPE_TEMPLATE.replace("Rva00654321", "NamedThing")
+    for canonical in (set(), {"Project"}):
+        assert "enclosing scope Rva00123456 of the protected name Project" in rename.identity_shape_problem(
+            SCOPE_TEMPLATE, moved, canonical, STLPORT)
+
+
+def test_the_scope_template_probe_is_refused_by_the_planner(tree):
+    moved = SCOPE_TEMPLATE.replace("Rva00654321", "NamedThing")
+    for rel in ("reverse/functions.csv", OWNER):
+        write(tree / rel, (tree / rel).read_text().replace(OLD_OP, SCOPE_TEMPLATE))
+    write(tree / "reverse/canonical_classes.csv", "class,header,notes\nProject,Code/Project.h,canonical\n")
+    token = agree(tree, "r6-scope", SCOPE_TEMPLATE, moved, OP)
+    commit(tree)
+    ctx, _ = context(tree, [dict(r, row=SCOPE_TEMPLATE) if r["row"] == OLD_OP else r for r in BEFORE])
+    with pytest.raises(Refusal, match="enclosing scope Rva00123456 of the protected name Project"):
+        plan(ctx, new=moved, evidence=token, also=[], move_to=None,
+             prepared={OWNER: OWNER_SRC.replace(OLD_OP, moved).encode()})
 
 
 def test_overlapping_sections_are_unreadable():

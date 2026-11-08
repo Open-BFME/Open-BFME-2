@@ -3714,45 +3714,62 @@ def type_tree(mangled):
 
 
 C_NOISE = re.compile(r'/\*.*?\*/|//[^\n]*|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
+# a preprocessor line with its continuations: removed whole, so a declaration split by
+# `#ifdef ... #endif` reads as both branches together, and a macro body declares nothing
+C_DIRECTIVE = re.compile(r"^[ \t]*#(?:[^\n]*\\\n)*[^\n]*", re.M)
 # a class, struct or union declared or defined (`{`, `;`, a base clause or a specialization's
 # `<` follows the name; a template parameter's `class T` is followed by `,`, `>` or `=`)
 STLPORT_RECORD = re.compile(r"\b(?:class|struct|union)\s+(?:_STLP_\w+\s+)*([A-Za-z_]\w*)\s*(?=[{;:<])")
 STLPORT_TYPEDEF = re.compile(r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)?;")
+STLPORT_FN_TYPEDEF = re.compile(r"\btypedef\b[^;{}]*?\(\s*(?:_STLP_\w+\s*)*\*\s*([A-Za-z_]\w*)\s*\)\s*\(")
+# sha256 over the public headers (stlport_files: the files in stlport/ itself and everything
+# under stlport/stl/, as sorted relative paths and contents): the vendored tree the index
+# trusts. Neither git history nor refs are read; a change to these headers moves this pin in
+# its own reviewed commit.
+STLPORT_MANIFEST = "1e29e3c3ab663685a69cddf9315032e8b93fe4ee9db249a0c6d281661475d749"
 
 
 def stlport_names(text):
-    """The record and typedef names `text` declares, comments and string literals stripped."""
-    code = C_NOISE.sub(" ", text)
-    return set(STLPORT_RECORD.findall(code)) | set(STLPORT_TYPEDEF.findall(code))
+    """The record and typedef names `text` declares, comments, string literals and
+    preprocessor lines stripped."""
+    code = C_DIRECTIVE.sub(" ", C_NOISE.sub(" ", text))
+    return set(STLPORT_RECORD.findall(code)) | set(STLPORT_TYPEDEF.findall(code)) | \
+        set(STLPORT_FN_TYPEDEF.findall(code))
+
+
+def stlport_files(ctx):
+    """[(path relative to the headers, bytes)] of the public headers STLport ships for
+    inclusion: the files in stlport/ itself and everything under stlport/stl/ -- never
+    config/, configure scripts, tests or the other compilers' trees."""
+    root = ctx.path(STLPORT_HEADERS)
+    found = []
+    if root.is_dir():
+        found += [path for path in root.iterdir() if path.is_file()]
+        if (root / "stl").is_dir():
+            found += [path for path in (root / "stl").rglob("*") if path.is_file()]
+    return sorted((path.relative_to(root).as_posix(), path.read_bytes()) for path in found)
+
+
+def stlport_manifest(files):
+    digest = hashlib.sha256()
+    for rel, data in files:
+        digest.update(rel.encode() + b"\0" + str(len(data)).encode() + b"\0" + data)
+    return digest.hexdigest()
 
 
 def stlport_declared(ctx):
-    """Every class, struct, union and typedef name the vendored STLport headers declare, read
-    from the tree as it is at the merge base with origin/master (git), never from the working
-    copy. Refusal when the vendored tree here differs from that base, or there is no base."""
+    """Every class, struct, union and typedef name the vendored STLport public headers declare,
+    read from disk once their manifest equals STLPORT_MANIFEST; Refusal otherwise."""
     key = "_stlport_declared"
     if key not in ctx._cache:
-        base = ctx.git("merge-base", "HEAD", "origin/master").strip()
-        if not re.fullmatch(r"[0-9a-f]{40}", base):
-            raise Refusal(f"no merge base with origin/master to read {STLPORT_HEADERS} from")
-        drift = ctx.git("status", "--porcelain", "--untracked-files=all", "--", STLPORT_HEADERS).strip() or \
-            ctx.git("diff", "--name-only", base, "--", STLPORT_HEADERS).strip()
-        if drift:
-            raise Refusal(f"{STLPORT_HEADERS} differs from the merge base {base[:10]} "
-                          f"({drift.splitlines()[0].strip()}): the STLport index is read from the base")
-        paths = [p for p in ctx.git("ls-tree", "-r", "--name-only", base, "--", STLPORT_HEADERS).splitlines()
-                 if p.strip()]
+        files = stlport_files(ctx)
+        got = stlport_manifest(files)
+        if got != STLPORT_MANIFEST:
+            raise Refusal(f"{STLPORT_HEADERS}'s public headers ({len(files)} files) hash to {got[:16]}, not the "
+                          f"pinned {STLPORT_MANIFEST[:16]}: the STLport index is read only from the pinned tree")
         names = set()
-        if paths:
-            batch = subprocess.run(["git", "-C", str(ctx.root), "cat-file", "--batch"],
-                                   input="".join(f"{base}:{p}\n" for p in paths).encode(),
-                                   capture_output=True, check=True).stdout
-            at = 0
-            for _ in paths:
-                header_end = batch.index(b"\n", at)
-                size = int(batch[at:header_end].split()[2])
-                names |= stlport_names(batch[header_end + 1:header_end + 1 + size].decode("latin-1"))
-                at = header_end + 1 + size + 1
+        for _rel, data in files:
+            names |= stlport_names(data.decode("latin-1"))
         ctx._cache[key] = frozenset(names)
     return ctx._cache[key]
 
@@ -3830,9 +3847,9 @@ def identity_shape_problem(old, new, canonical=frozenset(), stlport=frozenset())
                 spot = f"{where} element {depth}"
                 if e[0] != f[0]:
                     return f"its shape differs at {spot} ({e[1]})"
-                if e[1] != f[1] and guarded is not None and depth > guarded:
-                    return (f"it changes the qualified path of the protected name {x[1][guarded][1]} "
-                            f"({e[1]} -> {f[1]}, {spot})")
+                if guarded is not None and depth > guarded and e != f:
+                    return (f"it changes the enclosing scope {e[1]} of the protected name {x[1][guarded][1]} "
+                            f"(its name or template arguments, {spot})")
                 if e[1] != f[1]:
                     if protected(e[1], stl):
                         kind = "canonical class" if e[1] in canonical else "real name"
