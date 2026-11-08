@@ -1,5 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc
-// ??1Rva006D0D7@@UAE@XZ @0x0006D0D7 735B
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2renderobj /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/shims/bfme2_ascii
+// ??1BaseHeightMapRenderObjClass@@UAE@XZ @0x0006D0D7 735B
 // Terrain render-object destructor (the class whose name getter 0x6D054
 // returns "BaseHeightMapRenderObjClass"; vtables BC5DB0/BC5DA8/BC5DA0/BC5D90).
 // Body: freeMapResources 0x6933D, null-guarded deletes of the buffers at
@@ -114,12 +114,13 @@ public:
 	char data[80]; // +0x00
 };
 
-class RO0 { public: virtual ~RO0(); private: char m_pad[4]; };
-class RO8 { public: virtual ~RO8(); private: char m_pad[0xB8]; };
-class ROC4 { public: virtual ~ROC4(); };
-class RenderObjClass : public RO0, public RO8, public ROC4 {
+#define BFME_RO_DTOR_DECL_ONLY
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
+// Native +0xC4 cleanup table: two resource callbacks and no destructor slot.
+class DX8_CleanupHook {
 public:
-	virtual ~RenderObjClass();
+	virtual void ReleaseResources() = 0;
+	virtual void ReAcquireResources() = 0;
 };
 class SnapC8 { public: virtual ~SnapC8() {} };
 
@@ -133,9 +134,11 @@ template <class T> static __forceinline void destroyMember(T *&p)
 	}
 }
 
-class BaseHeightMapRenderObjClass : public RenderObjClass, public SnapC8 {
+class BaseHeightMapRenderObjClass : public RenderObjClass, public DX8_CleanupHook, public SnapC8 {
 public:
 	virtual ~BaseHeightMapRenderObjClass();
+	virtual void ReleaseResources();
+	virtual void ReAcquireResources();
 private:
 	char m_pad0[0xD4 - 0xCC];
 	RefTex m_d4;

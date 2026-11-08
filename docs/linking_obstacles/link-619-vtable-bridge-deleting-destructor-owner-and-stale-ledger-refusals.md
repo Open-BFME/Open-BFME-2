@@ -346,3 +346,15 @@ A blanket alignment-mask change is not applied: position-observing code
 speed-preference flag trial loses 15/30 BaseHeightMapConstructor rows and is
 not landed. No source/header/verifier edit; queue and owners stay intact.
 [Reproduction and remaining proof](../../reverse/attempt_support/renderobj-bounding-order-20261108/README.md).
+
+**2026-11-08 terrain destructor RenderObj adoption:** Rva0006D0D7Dtor.cpp
+removes its RO0/RO8/ROC4/private-RenderObj scaffold and includes canonical
+rendobj.h; a native two-slot DX8_CleanupHook view preserves +0xC4, with the
+existing resource callback names. All26 rows remain exact and the one parent
+EH graph is EXACT. Header acceptance retires its RenderObjClass debt row.
+Source slot0 now names Delete_This, slot1 the deleting destructor, and the
+cleanup table has the two resource callbacks. The primary grows1->129 slots
+but retail needs148; the SnapC8 one-slot view and full BaseHeightMap lifetime/
+interface adoption remain open. Preview817B is conserved; the separate
+bounding-getter alignment refusal and real-image verification remain pending.
+[Source and table scope](../../reverse/attempt_support/baseheight-renderobj-parent-20261108/README.md).
