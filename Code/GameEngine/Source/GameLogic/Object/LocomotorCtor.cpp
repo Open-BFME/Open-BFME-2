@@ -14,6 +14,7 @@
 // rowed destructor decrements (data ledger name kept), and the
 // IS_CLOSE_ENOUGH_DIST_3D flag from the template (+0xC8). Table 0x00BDE888.
 // Field names past Zero Hour's are offsets only.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 typedef float Real;
@@ -91,7 +92,7 @@ public:
 
 protected:
 	virtual ~Locomotor(); // protected, as rowed at 0x003067D2 (Locomotor.cpp)
-	virtual void crc(Xfer *xfer);
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	virtual void loadPostProcess();
 

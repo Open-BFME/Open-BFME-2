@@ -60,7 +60,6 @@ const char *W3DDebrisDraw::GetSnapshotName() const
 BFME_LITERAL_NAME_GETTER(EventParameter, "EventParameter")
 BFME_LITERAL_NAME_GETTER(Rva000B6DCCNamed, "LuaEventParameters")
 BFME_LITERAL_NAME_GETTER(Rva001042C1Named, "Palantir")
-BFME_LITERAL_NAME_GETTER(Rva001E3E56Named, "Locomotor")
 BFME_LITERAL_NAME_GETTER(Rva001E70BCNamed, "LocomotorSet")
 BFME_LITERAL_NAME_GETTER(Rva001EAE63Named, "LinearCampaign")
 BFME_LITERAL_NAME_GETTER(Rva001EAE69Named, "LinearCampaignManager")

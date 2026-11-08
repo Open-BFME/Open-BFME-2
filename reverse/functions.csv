@@ -9808,7 +9808,6 @@ _luaU_undump,,0x00756D10,133,Code/Libraries/Source/Lua/lundump.c,matched,object-
 ?get@Rva00151DB8SubDwordField@@QBEHXZ,,0x00151DB8,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ??_GRva0033EEC9@@UAEPAXI@Z,,0x0033F017,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GStealthUpdate@@UAEPAXI@Z,,0x00373F3D,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-?name@Rva001E3E56Named@@QBEPBDXZ,,0x001E3E56,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning Locomotor; vtable ref in .rdata; address-derived placeholder name
 ??_GRva003A4322@@UAEPAXI@Z,,0x003A43EC,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ?get@Rva00217490SubDwordField@@QBEHXZ,,0x00217490,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ??_GRva003A49D1@@UAEPAXI@Z,,0x003A4A97,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -100177,3 +100176,4 @@ __ehhandler$?Render@Rva000E3B41@@UAEXAAVRenderInfoClass@@@Z,,0x00763248,10,Code/
 ?secondary@Rva007F1DE0BaseB@@UAEPAXXZ,,0x007244B0,4,Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp,matched,ICF twin at 0x007244B0: Rva007F1DE0BaseB payload getter (mov eax [ecx+4]; ret) that every derived +4 vftable (retail 0x008E0FB4) holds in slot 0; bytes and relocations equal the owner Get_First_Collected_Object_Internal@CullSystemClass (LINK-514 lk70); fold-proof=Code/Libraries/Source/WWVegas/WWMath/cullsys.cpp
 ?GetSnapshotName@GameClient@@MBEPBDXZ,,0x0004C457,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning GameClient; vtable refs at 0x7C472C and 0x7ED848; address-derived placeholder name
 ?loadPostProcess@GameClient@@MAEXXZ,,0x00239A9D,87,Code/GameEngine/Source/Common/Rva00239A9D.cpp,matched,max Drawable ID scan then TacticalView slot 0x224
+?GetSnapshotName@Locomotor@@MBEPBDXZ,,0x001E3E56,6,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,Snapshot slot 2 of retail table 0x00BDE888
