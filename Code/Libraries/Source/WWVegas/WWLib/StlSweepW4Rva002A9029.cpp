@@ -1,8 +1,9 @@
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /Og /Os /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Og /Os /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include "ascii_string.h"
 #include <hash_map>
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *,allocator<void *> >::size()const  { return (unsigned int)(this->_M_finish - this->_M_start); } }
@@ -29,7 +30,8 @@ namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
 
-struct Rva002A9029Element { char bytes[1]; bool operator<(const Rva002A9029Element&)const; bool operator==(const Rva002A9029Element&)const; };
+// The mapped value of retail's hash_map<int, AsciiString> (0x00523DB7 builds this pair): its node copy-constructs the string.
+struct Rva002A9029Element { AsciiString value; bool operator<(const Rva002A9029Element&)const; bool operator==(const Rva002A9029Element&)const; };
 namespace _STL {template<> struct hash<Rva002A9029Element> { unsigned operator()(const Rva002A9029Element&) const; };}
 // resize is retail's shared 0x0053F1EC body (pinned); declare it so this TU binds that copy.
 namespace _STL { template <> void hashtable<pair<int const, Rva002A9029Element>, int, hash<int>, _Select1st<pair<int const, Rva002A9029Element> >, equal_to<int>, allocator<pair<int const, Rva002A9029Element> > >::resize(unsigned int); }
