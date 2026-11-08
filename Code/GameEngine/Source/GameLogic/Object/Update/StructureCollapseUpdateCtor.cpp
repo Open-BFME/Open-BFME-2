@@ -24,7 +24,7 @@ extern "C" const void *const __identifier("??_7PropagandaTowerBehavior@@6BBehavi
 extern "C" const void *const __identifier("??_7Rva004A4214@@6BRva004A4214_E1@@@")[];  // vftable 0x00C52638
 extern "C" const void *const __identifier("??_7Rva004A4214@@6BUpdateModule@@@")[];  // vftable 0x00C5263C
 extern "C" const void *const __identifier("??_7Rva004A4214@@6BObjectModule@@@")[];  // vftable 0x00C52648
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
 class Thing;
 class ModuleData;
@@ -78,7 +78,7 @@ StructureCollapseUpdate::StructureCollapseUpdate(Thing *thing, const ModuleData 
 {
 	float fzero = 0.0f;
 	int *slot20 = (int *)&m_secondary20;
-	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot20 = (int)((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	int zero = 0;
 	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A4214@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7PropagandaTowerBehavior@@6BBehaviorModuleInterface@@@"));

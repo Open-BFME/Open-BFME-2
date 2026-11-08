@@ -80,7 +80,7 @@ extern "C" const void *const __identifier("??_7Rva0045D39E@@6BRva0045D39E_E2@@@"
 extern "C" const void *const __identifier("??_7Rva0045D39E@@6BObjectModule@@@")[];
   // vftable 0x00C42040
 
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
   // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
 class Thing;
@@ -358,7 +358,7 @@ SlowDeathBehavior::SlowDeathBehavior(Thing *thing, const ModuleData *moduleData)
 {
 	int *slot20 = (int *)&m_secondary20;
 	int *slot24 = (int *)&m_secondary24;
-	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot20 = (int)((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	*slot24 = ((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
 	m_4C = -1;
 	m_3C = 0;

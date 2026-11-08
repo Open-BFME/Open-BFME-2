@@ -26,7 +26,7 @@ extern const void *const g_00C1C954[6] = {
 	(const void *)&__identifier("?rva0055BBAE@Rva003ADFB2@@QAE_NH@Z"), // slot 4 0x0055BBAE
 	(const void *)&__identifier("?get@Rva003AC99ALeaGetter@@QBEPAXXZ"), // slot 5 0x003AC99A
 };
-extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
+extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@")[];
 class Rva003ADD0B : public Rva003ADD31
 {
 public:
@@ -36,6 +36,6 @@ Rva003ADD0B::Rva003ADD0B(const Rva003ADD0B &other)
 	: Rva003ADD31(other)
 {
 	*(const void **)this = g_00C1C954;
-	*(const void **)((char *)this + 8) = __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	*(const void **)((char *)this + 8) = __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
 	*(const char **)((char *)this + 12) = "HZz";
 }

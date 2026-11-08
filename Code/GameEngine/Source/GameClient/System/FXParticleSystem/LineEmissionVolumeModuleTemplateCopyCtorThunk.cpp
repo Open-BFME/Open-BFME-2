@@ -5,7 +5,7 @@
 
 // LineEmissionVolumeModuleTemplate sub vtbl at VA 0x00C1BB10, outer at 0x00C1BB20;
 // +4 slot reuses s_slot3E4first at VA 0x00C1C780 (?vftable_0112B89C).
-extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BLineEmissionVolumeInfo@1@@")[];
+extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6B@")[];
 extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@")[];
 extern "C" char s_slot3E4first;
 
@@ -43,7 +43,7 @@ LineEmissionVolumeModuleTemplate::LineEmissionVolumeModuleTemplate(
 	LineEmissionVolumeInfo *sub = (LineEmissionVolumeInfo *)((char *)this + 8);
 	sub->LineEmissionVolumeInfo::LineEmissionVolumeInfo(*(const LineEmissionVolumeInfo *)sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
-	*(void **)sub = (void *)__identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BLineEmissionVolumeInfo@1@@");
+	*(void **)sub = (void *)__identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6B@");
 	m_v0 = (void *)__identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
 	m_v4 = (void *)&s_slot3E4first;
 }

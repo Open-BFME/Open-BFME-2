@@ -418,7 +418,7 @@ extern "C" const void *const vtbl_00C49408[13] = {
 	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
 };
 
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 
 extern InGameUI *TheInGameUI;
 
@@ -724,7 +724,7 @@ TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData 
 	float fzero = 0.0f;
 	int *slot20 = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x20);
 	int *slot24 = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x24);
-	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot20 = (int)((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	*slot24 = (int)((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
 	*reinterpret_cast<const void **>(this) = (const void *)((unsigned int)vtbl_00C49408);
 	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x0C) = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@"));

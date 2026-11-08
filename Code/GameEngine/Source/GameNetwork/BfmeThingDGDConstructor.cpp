@@ -21,7 +21,7 @@
 // It can also change how later array constructions here compile; checked to
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7?$CategoryModuleClass@$04@FXParticleSystem@@6B@")[];  // folded vftable 0x00C6FFFC (10 classes), by its data-ledger name
 
@@ -192,7 +192,7 @@ public:
 	Rva007F8090Root()
 	{
 		// BFME2 vtable VAs measured from retail (BFME1 donor holds 0x01118e58/0x0112b680).
-		*(volatile unsigned *)&m_v4 = ((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+		*(volatile unsigned *)&m_v4 = ((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 		*(volatile unsigned *)&m_v8 = ((unsigned int)__identifier("??_7?$CategoryModuleClass@$04@FXParticleSystem@@6B@"));
 	}
 

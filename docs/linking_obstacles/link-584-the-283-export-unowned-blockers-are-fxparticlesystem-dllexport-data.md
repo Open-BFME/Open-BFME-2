@@ -492,3 +492,11 @@ is scaffolding, so these move to retail's names next, Link lane, claiming each f
 
 Also still naming the old class, without a lost link: `Rva0055BCF1ColorModuleCtor.cpp` (a private view) and the unused
 `FX_MODULE_TEMPLATE` macro in `Common/BfmeAccessorMacros.h`.
+
+**2026-11-08 the 23 units move to retail's table names.** Each retired spelling becomes retail's exported name at the same retail
+address, from the ledger's address and `reverse/exports.csv`: 24 names, none unmapped. `??_7SecondaryModuleBase@…6B@` becomes
+`??_7?$CategoryModuleInfo@$00@…6B@`, one of the names of the folded single-pure table 0x0081C780. That is the address's retail name,
+not an identity claim for the behaviour units that store it. 277/277 rows exact, DIR32 OK, `link_check` 25 of 26 with the FX units
+(Factories already at 0), no old names referenced. `data_check`: 15 findings, the same 15 as before this change. The census is the
+pass test: it should give these units back. Not moved, no link lost: `Rva0055BCF1ColorModuleCtor.cpp`'s private view and the unused
+`FX_MODULE_TEMPLATE` macro in a shared header.

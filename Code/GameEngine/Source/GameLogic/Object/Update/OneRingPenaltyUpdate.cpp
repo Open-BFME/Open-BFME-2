@@ -162,7 +162,7 @@ extern "C" const void *const __identifier("??_7Rva00499934@@6BUpdateModule@@@")[
 
 extern "C" const void *const __identifier("??_7Rva00499934@@6BObjectModule@@@")[];
 
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 
 class Thing;
 
@@ -307,7 +307,7 @@ OneRingPenaltyUpdate::OneRingPenaltyUpdate(Thing *thing, const ModuleData *modul
 {
 	float fzero = 0.0f;
 	int *slot20 = (int *)&m_20;
-	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot20 = (int)((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	int zero = 0;
 	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva00499934@@6BBehaviorModuleInterface@@@"));

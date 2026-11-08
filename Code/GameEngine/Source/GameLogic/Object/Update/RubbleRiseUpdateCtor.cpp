@@ -28,7 +28,7 @@ extern "C" const void *const __identifier("??_7PropagandaTowerBehavior@@6BBehavi
 extern "C" const void *const __identifier("??_7Rva004A4C19@@6BRva004A4C19_E1@@@")[];  // vftable 0x00C52858
 extern "C" const void *const __identifier("??_7Rva004A4C19@@6BUpdateModule@@@")[];  // vftable 0x00C5285C
 extern "C" const void *const __identifier("??_7Rva004A4C19@@6BObjectModule@@@")[];  // vftable 0x00C52868
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
 class Thing;
 class ModuleData;
@@ -83,7 +83,7 @@ RubbleRiseUpdate::RubbleRiseUpdate(Thing *thing, const ModuleData *moduleData)
 {
 	float fzero = 0.0f;
 	int *slot20 = (int *)&m_secondary20;
-	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot20 = (int)((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	float *lingerSlot = &m_linger38;
 	Object **objSlot = &m_object;
 	int zero = 0;

@@ -19,8 +19,8 @@ public:
 // The three vftables (VA 0xc1bb90, 0xc1c780, 0xc1bb10) are the class's own,
 // emitted by FXParticleSystem.cpp; __identifier spells those symbols exactly.
 extern "C" char __identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
-extern "C" char __identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6BSecondaryModuleBase@1@@");
-extern "C" char __identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6BCylinderEmissionVolumeInfo@1@@");
+extern "C" char __identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6B?$CategoryModuleInfo@$04@1@@");
+extern "C" char __identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6B@");
 
 class CylinderEmissionVolumeModuleTemplate
 {
@@ -44,8 +44,8 @@ CylinderEmissionVolumeModuleTemplate::CylinderEmissionVolumeModuleTemplate(
 	LineEmissionVolumeInfo *sub = (LineEmissionVolumeInfo *)((char *)this + 8);
 	sub->LineEmissionVolumeInfo::LineEmissionVolumeInfo(*(const LineEmissionVolumeInfo *)sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
-	*(void **)sub = &__identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6BCylinderEmissionVolumeInfo@1@@");
+	*(void **)sub = &__identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6B@");
 	m_v0 = &__identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
-	m_v4 = &__identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	m_v4 = &__identifier("??_7CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@6B?$CategoryModuleInfo@$04@1@@");
 }
 }

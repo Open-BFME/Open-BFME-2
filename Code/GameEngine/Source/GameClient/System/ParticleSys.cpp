@@ -506,9 +506,9 @@ public:
 };
 #include "../../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem {
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
-extern "C" const void *const __identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
-extern "C" const void *const __identifier("??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@")[];
 extern "C" const void *const vtbl_00BBB58C[];
 extern "C" const void *const vtbl_00BE16C8[];
 extern "C" const void *const vtbl_00BE16D8[];
@@ -518,17 +518,17 @@ extern "C" const void *const vtbl_00BE16D8[];
 template<int N> class __declspec(novtable) CategoryModuleTemplateBase {
 public:
     CategoryModuleTemplateBase() {
-        *(void *volatile *)&v4=(void*)__identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+        *(void *volatile *)&v4=(void*)__identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
         *(void **)this=(void*)vtbl_00BBB58C;
-        v4=(void*)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@");
+        v4=(void*)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
     }
     // LINK: the default ctor's COMDAT loses to the kept copy; the derived ctor calls a
     // TU-unique no-init ctor with the identical stores instead. No flags touched.
     struct BfmeNoInitWind {};
     CategoryModuleTemplateBase(BfmeNoInitWind) {
-        *(void *volatile *)&v4=(void*)__identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+        *(void *volatile *)&v4=(void*)__identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
         *(void **)this=(void*)vtbl_00BBB58C;
-        v4=(void*)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@");
+        v4=(void*)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
     }
     virtual ~CategoryModuleTemplateBase();
     void *v4;
@@ -541,7 +541,7 @@ public:
 template<int N> CategoryModuleTemplate<N>::CategoryModuleTemplate() : CategoryModuleTemplateBase<N>(typename CategoryModuleTemplateBase<N>::BfmeNoInitWind()) {
     *(void **)&wind=(void*)vtbl_00BE16D8;
     *(void **)this=(void*)vtbl_00BE16C8;
-    v4=(void*)__identifier("??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+    v4=(void*)__identifier("??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
 }
 template CategoryModuleTemplate<7>::CategoryModuleTemplate();
 }

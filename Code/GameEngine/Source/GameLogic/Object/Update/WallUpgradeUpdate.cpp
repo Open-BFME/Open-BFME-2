@@ -267,7 +267,7 @@ extern "C" const void *const __identifier("??_7Rva004AB246@@6BUpdateModule@@@")[
 extern "C" const void *const __identifier("??_7Rva004AB246@@6BObjectModule@@@")[];
 
   // vftable 0x00C54780
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 
   // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
 
@@ -385,7 +385,7 @@ WallUpgradeUpdate::WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData)
 	int *wakeSlot20 = (int *)&m_secondary20;
 	*wakeSlot20 = (int)((unsigned int)__identifier("??_7DamageModuleInterface@@6B@"));
 	int *wakeSlot24 = (int *)&m_secondary24;
-	*wakeSlot24 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*wakeSlot24 = (int)((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004AB246@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004AB246@@6BUpdateModule@@@"));

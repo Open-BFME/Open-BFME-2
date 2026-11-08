@@ -52,7 +52,7 @@ class Object;
 
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
   // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 #include <string.h>
 #include "ascii_string.h"
 #include "Coord3D.h"
@@ -394,7 +394,7 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 {
 	int *slot20 = (int *)((char *)this + 0x20);
 	int *slot24 = (int *)((char *)this + 0x24);
-	*slot20 = ((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot20 = ((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	*slot24 = ((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
 	m_30 = false;
 	m_31 = false;

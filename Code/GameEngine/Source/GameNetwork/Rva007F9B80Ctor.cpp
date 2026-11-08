@@ -5,7 +5,7 @@
 // The emitted donor table is independently checked as four bytes with
 // one __purecall relocation, whose matched body is at RVA 0x0003B810.
 // This establishes table contents; it assigns no donor class to the caller.
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];  // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
 
@@ -41,7 +41,7 @@ Rva007F9B80::Rva007F9B80(void *owner) throw()
 {
 	volatile unsigned int *base = (volatile unsigned int *)this;
 	base[1] = ((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
-	base[2] = ((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	base[2] = ((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
 	base[0] = ((unsigned int)__identifier("??_7Rva007F9C50@@6BRva007F9C50Base0@@@"));
 	base[1] = ((unsigned int)__identifier("??_7Rva007F9C50@@6BRva007F9C50Base4@@@"));
 	base[2] = ((unsigned int)__identifier("??_7Rva007F9C50@@6BRva007F9C50Base8@@@"));

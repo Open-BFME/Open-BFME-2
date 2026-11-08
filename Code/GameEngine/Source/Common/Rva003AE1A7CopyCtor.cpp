@@ -15,7 +15,7 @@ public:
 // tables ModuleTemplateCloneSlots.cpp emits for Rva003ACA93Object's first and
 // third bases; the data ledger binds both names at those addresses.
 extern "C" char __identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot0@@@");
-extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
 extern "C" char __identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot2@@@");
 
 class Rva003AE1A7
@@ -35,6 +35,6 @@ Rva003AE1A7::Rva003AE1A7(const Rva003AE1A7 &that)
 	const void *src = &that;
 	((Rva003AE1CD *)this)->Rva003AE1CD::Rva003AE1CD(*(const Rva003AE1CD *)src);
 	*(void **)this = &__identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot0@@@");
-	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
 	*(void **)((char *)this + 0x0C) = &__identifier("??_7Rva003ACA93Object@@6BRva003AC8D7Slot2@@@");
 }
