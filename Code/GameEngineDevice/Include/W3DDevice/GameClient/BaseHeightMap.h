@@ -172,8 +172,8 @@ public:
     void rva000687EF();
 
 protected:
-    virtual void loadPostProcess();
-    virtual const char *GetSnapshotName() const;
+    virtual void loadPostProcess() { } // 0x000B3FD0
+    virtual const char *GetSnapshotName() const { return "BaseHeightMapRenderObjClass"; } // 0x0006D054
     virtual void xfer(Xfer *);
 
 public:
