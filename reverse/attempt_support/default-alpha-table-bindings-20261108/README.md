@@ -37,3 +37,11 @@ containing class/tables before retiring them. No data row, source path, pin,
 baseline, generated queue or compiler flag changes in this pass. Next real
 link must confirm the old char refusals disappear; complete class recovery
 and bridge retirement remain open under LINK-636/LINK-619.
+
+Published as c2ca5f6f36 after one lost race. The successful second attempt
+took30.1 seconds and reused the first attempt's source verification receipt.
+Required byte/data/EH/scoped-DIR32 checks pass. Broader audit remains
+INCONCLUSIVE: index eba83a23be versus outgoing base
+4904abd4bd222cb47e06f9bbccd5f30303a5e693, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry that
+consumer into the next census/image verification; no broader link clearance.

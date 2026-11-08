@@ -461,8 +461,14 @@ DefaultModuleTemplate01InlineCopyCtors.cpp removes two unowned one-byte
 definitions and names the existing alpha-info/head compiler tables at their
 native addresses. The 97-byte body and its two registered data owners pass;
 private LinkGuard and LINKS/97 preview are clean. Bounded cached replay drops
-strong-definition refusals2 to0, with the same one five-slot head bridge.
+strong-definition refusals from 2 to 0, with the same one five-slot head bridge.
 The alpha-info table is already correct in that cached emitter. Its private
 copy view/helper is removed; complete containing-class recovery for v0b/vsub,
 current-image provider selection and real-link queue confirmation remain open.
 [Native operands and provider scope](../../reverse/attempt_support/default-alpha-table-bindings-20261108/README.md).
+
+Published as c2ca5f6f36 after one lost race, with the source receipt reused
+on retry. Required checks pass. Broader audit stays INCONCLUSIVE: index
+eba83a23be versus base 4904abd4bd222cb47e06f9bbccd5f30303a5e693, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Preserve that
+consumer for the next census/image check.
