@@ -110,7 +110,7 @@ public:
     virtual int initHeightData(int, int, WorldHeightMap *, void *);
     virtual void vslot132() = 0;
     virtual int rva0006933D();
-    virtual void vslot134(const Rva000E3A8D &, int);
+    virtual void rva00069CE6(const Rva000E3A8D &, int);
     virtual void adjustTerrainLOD(int adjustment);
     virtual void vslot136() = 0;
     virtual void vslot137(int);
@@ -158,7 +158,6 @@ public:
     void rva00068223(unsigned int, Coord3D, float, const Matrix3D *, float, const Rva000E91CEData *, int, const AsciiString &, const AsciiString &);
     void rva00068395(int, AsciiString *, AsciiString *, bool, bool);
     void rva00069C5F(Vector3, float);
-    void rva00069CE6(const Rva000E3A8D &, int);
     void rva0006B3F3();
     void rva0006B895(RenderInfoClass &);
     void updateViewImpassableAreas(bool, int, int, int, int);

@@ -149,7 +149,7 @@ struct TileRecord
 class BaseHeightMapRenderObjClass
 {
 public:
-	void rva00069CE6(const Rva000E3A8D &cameras, Int arg);
+	virtual void rva00069CE6(const Rva000E3A8D &cameras, Int arg);
 };
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
@@ -191,7 +191,7 @@ void Rva000E3B41::rva000E3CE1(const Rva000E3A8D &cameras, Int arg)
 {
 	if (g_00DFE7A8)
 	{
-		((BaseHeightMapRenderObjClass *)this)->rva00069CE6(cameras, arg);
+		((BaseHeightMapRenderObjClass *)this)->BaseHeightMapRenderObjClass::rva00069CE6(cameras, arg);
 	}
 	else
 	{
@@ -217,7 +217,7 @@ void Rva000E3B41::rva000E3CE1(const Rva000E3A8D &cameras, Int arg)
 		m_cameraPositions[cameraIndex] = camera->Get_Position();
 	}
 
-	((BaseHeightMapRenderObjClass *)this)->rva00069CE6(cameras, arg);
+	((BaseHeightMapRenderObjClass *)this)->BaseHeightMapRenderObjClass::rva00069CE6(cameras, arg);
 	m_cameras.rva000E3A8D(cameras);
 
 	m_needFullUpdate = false;

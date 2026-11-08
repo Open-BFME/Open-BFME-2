@@ -1169,7 +1169,7 @@ void Rva000683FF::rva000683FF(Vector3 corners[4], ObjectID id, bool highlight)
 
 // tu-skeleton: 0x00069C5F 135B ?rva00069C5F@BaseHeightMapRenderObjClass@@QAEXVVector3@@M@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp (not merged yet)
 
-// tu-skeleton: 0x00069CE6 203B ?rva00069CE6@BaseHeightMapRenderObjClass@@QAEXABVRva000E3A8D@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp (not merged yet)
+// tu-skeleton: 0x00069CE6 203B ?rva00069CE6@BaseHeightMapRenderObjClass@@UAEXABVRva000E3A8D@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp (not merged yet)
 
 // tu-skeleton: 0x00069DB1 369B ?draw@Rva00069DB1@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawAuxiliary.cpp (not merged yet)
 
