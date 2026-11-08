@@ -211,25 +211,6 @@ void DrawableModule::crc( Xfer *xfer )
 }  // end crc
 
 // ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// ?DrawableModule::xfer present-unmatched
-void DrawableModule::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	Module::xfer( xfer );
-
-}  // end xfer
-
-// ------------------------------------------------------------------------------------------------
 /** load post process */
 // ------------------------------------------------------------------------------------------------
 // ?DrawableModule::loadPostProcess present-unmatched

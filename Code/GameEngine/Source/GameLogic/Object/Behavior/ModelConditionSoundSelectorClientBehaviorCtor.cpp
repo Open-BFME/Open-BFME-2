@@ -1,57 +1,65 @@
-char g_00BF3210;
-char g_00BF3220;
-
 // cl: /DNDEBUG /MD
 //
-// ??0ModelConditionSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,
-// retail 0x00254B82, 42 bytes. ModelConditionSoundSelectorClientBehavior
-// behavior ctor over the rowed Rva00252B68 intermediate base (0x252B68,
-// thing plus data): re-stores the primary vtable slot (the behavior vtable
-// 0x007F3220, whose slot0 is the rowed ??_G 0x254C2F and whose slot2 is the
-// rowed name getter 0x254BF1) and the +0x0C secondary slot (secondary vtable
-// 0x007F3210). The first +0x0C store carries the base-secondary value
-// 0x007E2B78 and is overwritten by the derived secondary vtable in body
-// order; the class declares no virtuals of its own so the stores land from
-// explicit members in source order. The base ctor spelling resolves to its
-// row. Recipe: PlayerHealSpecialPowerCtor.cpp opaque-base pattern with the
-// SoundSelector file-unit (pool key rowed at 0x00254BAC starting exactly
-// where this ctor ends plus name getter rowed at 0x00254BF1; the instance
-// factory at 0x00255C26 is the sole raw caller).
-
-extern "C" const void *const __identifier("??_7DamageModuleInterface@@6B@")[];  // folded vftable 0x00BE2B78 (9 classes), by its data-ledger name
+// ??0ModelConditionSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00254B82, 42 bytes. The rowed Rva00252B68 base, the
+// interface base's own table (retail's folded 0x00BE2B78, three pure slots), then the compiler's two table
+// installs: 0x00BF3220 at +0 and 0x00BF3210 at +0x0C. The instance factory 0x00255C26 is its sole raw caller.
 
 class Thing;
 class ModuleData;
+class Object;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+struct Rva002C99FB;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/Rva00252B68.h"
 
-// Opaque intermediate base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class Rva00252B68
+class Rva00BF3210Iface
 {
 public:
-	Rva00252B68(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	const void *m_vtable;
-	unsigned char m_pad04[0x0C - 4];
-	const void *m_p0C;
+	virtual bool rva004CAC2F(int idx, Rva002C99FB *dest) = 0;
+	virtual bool rva004CAC9C(const AsciiString &key, Rva002C99FB *dest) = 0;
+	virtual bool rva004CABCD(int *dest) = 0;
 };
 
-class ModelConditionSoundSelectorClientBehavior : public Rva00252B68
+// Retail's tables: 0x00BF3220 (19 slots) and 0x00BF3210 at +0x0C.
+class ModelConditionSoundSelectorClientBehavior : public Rva00252B68, public Rva00BF3210Iface
 {
 public:
 	ModelConditionSoundSelectorClientBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void *vslot13() { return static_cast<Rva00BF3210Iface *>(this); }
+	virtual void *vslot14() { return static_cast<Rva00BF3210Iface *>(this); }
+	virtual bool rva004CAC2F(int idx, Rva002C99FB *dest);
+	virtual bool rva004CAC9C(const AsciiString &key, Rva002C99FB *dest);
+	virtual bool rva004CABCD(int *dest);
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
-// ??0ModelConditionSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x254B82
-ModelConditionSoundSelectorClientBehavior::ModelConditionSoundSelectorClientBehavior(Thing *thing, const ModuleData *moduleData)
-	: Rva00252B68(thing, moduleData)
+// ??0ModelConditionSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x00254B82
+ModelConditionSoundSelectorClientBehavior::ModelConditionSoundSelectorClientBehavior(Thing *thing, const ModuleData *moduleData) :
+	Rva00252B68(thing, moduleData)
 {
-	// Pointer-then-direct: the sourced-before address take commits the
-	// first +0x0C store to source position (FreeLife precedent); a second
-	// direct store to the same member survives while direct-direct would
-	// be eaten by the dead-store eliminator.
-	const void **p0C = &m_p0C;
-	*p0C = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7DamageModuleInterface@@6B@")));
-	m_vtable = reinterpret_cast<const void *>((void *)&g_00BF3220);
-	m_p0C = reinterpret_cast<const void *>((void *)&g_00BF3210);
+}
+
+// ?xfer@ModelConditionSoundSelectorClientBehavior@@MAEXPAVXfer@@@Z @0x004CBF58: slot 3, the base then Version1, folded with DrawModule's.
+void ModelConditionSoundSelectorClientBehavior::xfer(Xfer *xfer)
+{
+	Rva00252B68::xfer(xfer);
+	xfer->Version1();
 }

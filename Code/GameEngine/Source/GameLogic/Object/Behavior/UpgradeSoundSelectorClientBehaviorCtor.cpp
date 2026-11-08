@@ -1,47 +1,65 @@
-char g_00BEFEA4;
-char g_00BEFEB0;
-
 // cl: /DNDEBUG /MD
 //
-// ??0UpgradeSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,
-// retail 0x00252CB5, 40 bytes. Behavior-side ctor completing the
-// UpgradeSoundSelectorClientBehavior file-unit (poolkey rowed at 0x252CDF,
-// name getter rowed at 0x252D24, behavior instance factory rowed at
-// 0x254BF7 news 0x34 with this ctor as sole raw caller).
-//
-// Shape: frameless single-base ctor over the rowed Rva00252B68 base 0x252B68
-// (opaque intermediate, do-not-name precedent: the base class identity is
-// unproven, so the TU reuses the row's own spelling purely for call
-// resolution) with three explicit body stores in retail order (+0xC, +0,
-// +0xC) via byte-wise pointer casts (no virtuals declared anywhere so no
-// vtable is emitted here; all three immediates are DIR32-masked in
-// comparison). The redundant first +0xC store survives only as volatile
-// (volatile-first-store law: the plain triple folds to two stores, volatile
-// emits identical mov bytes). Zero new pins (base resolves via the rowed
-// Rva00252B68 spelling).
-
-extern "C" const void *const __identifier("??_7DamageModuleInterface@@6B@")[];  // folded vftable 0x00BE2B78 (9 classes), by its data-ledger name
+// ??0UpgradeSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00252CB5, 42 bytes. The rowed Rva00252B68 base, the
+// interface base's own table (retail's folded 0x00BE2B78, three pure slots), then the compiler's two table
+// installs: 0x00BEFEB0 at +0 and 0x00BEFEA4 at +0x0C. The instance factory 0x00254BF7 is its sole raw caller.
 
 class Thing;
 class ModuleData;
+class Object;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+struct Rva002C99FB;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/Rva00252B68.h"
 
-class Rva00252B68
+class Rva004CB51CInterface
 {
 public:
-	Rva00252B68(Thing *thing, const ModuleData *moduleData);
+	virtual bool rva004CB3F8(int index, Rva002C99FB *out) = 0;
+	virtual bool rva004CB48A(const AsciiString &name, Rva002C99FB *out) = 0;
+	virtual bool rva004CB51C(int *out) = 0;
 };
 
-class UpgradeSoundSelectorClientBehavior : public Rva00252B68
+// Retail's tables: 0x00BEFEB0 (19 slots) and 0x00BEFEA4 at +0x0C.
+class UpgradeSoundSelectorClientBehavior : public Rva00252B68, public Rva004CB51CInterface
 {
 public:
 	UpgradeSoundSelectorClientBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void *vslot13() { return static_cast<Rva004CB51CInterface *>(this); }
+	virtual void *vslot14() { return static_cast<Rva004CB51CInterface *>(this); }
+	virtual bool rva004CB3F8(int index, Rva002C99FB *out);
+	virtual bool rva004CB48A(const AsciiString &name, Rva002C99FB *out);
+	virtual bool rva004CB51C(int *out);
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // ??0UpgradeSoundSelectorClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x00252CB5
 UpgradeSoundSelectorClientBehavior::UpgradeSoundSelectorClientBehavior(Thing *thing, const ModuleData *moduleData) :
 	Rva00252B68(thing, moduleData)
 {
-	*(unsigned int volatile *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7DamageModuleInterface@@6B@"));
-	*(unsigned int *)this = (unsigned int)&g_00BEFEB0;
-	*(unsigned int *)((char *)this + 0xC) = (unsigned int)&g_00BEFEA4;
+}
+
+// ?xfer@UpgradeSoundSelectorClientBehavior@@MAEXPAVXfer@@@Z @0x004CBF58: slot 3, the base then Version1, folded with DrawModule's.
+void UpgradeSoundSelectorClientBehavior::xfer(Xfer *xfer)
+{
+	Rva00252B68::xfer(xfer);
+	xfer->Version1();
 }

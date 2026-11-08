@@ -38,3 +38,12 @@ void ObjectModule::xfer(Xfer *xfer)
 	xfer->Version1();
 	xfer->Version1();
 }
+
+#include "../../../../Include/Common/DrawableModule.h"
+
+// ?xfer@DrawableModule@@MAEXPAVXfer@@@Z @0x00560AE1: slot 3 of retail's table 0x00C07E54, folded with the above.
+void DrawableModule::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	xfer->Version1();
+}
