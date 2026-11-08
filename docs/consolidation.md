@@ -445,6 +445,26 @@ trailer. Pin admission re-proves a moved fold proof at commit.
   batch, using current object receipts. It reports stale inputs as inconclusive
   and leaves consumer byte totals for the next census. Review its shadow
   findings and update the shared linking obstacle register.
+- **An empty `compile:` reason.** A dry run saves its result under ignored
+  `build/tu_skeleton/plans/` and reuses it while the worktree and TU inputs are
+  unchanged. The verifier keeps only compiler lines containing ` error `, so a
+  reused or failed candidate can report a donor as `compile: ` with nothing
+  after it. To see the real diagnostic, delete that TU's plan file and dry-run
+  again (2026-11-07: BaseUpgrade.cpp, where the hidden cause was a second
+  `BaseUpgrade` class and a private member read).
+- **A relocating merge can lower approval.** When the TU path does not exist
+  yet, a merge that accepts a single donor only moves it, removing no files.
+  N hints follow a file's directory. So moving one file of a provisional group
+  can leave a sibling row with no interleaving cluster: it drops from approved
+  to proposed, and its funclets stay approved for the deleted path (2026-11-07:
+  `Upgrade/BaseUpgrade.cpp` without `BaseUpgradeUpgradeImplementation.cpp`, row
+  0x004B37CA). Rebuild the map in memory before and after a relocating merge,
+  and move a group's files together.
+- **A header-queue retirement and its source's merge go in separate pushes.**
+  If `header_adopt_lane.py accept` retires a donor's header-queue row and a merge
+  in the same push deletes that donor, the pre-push debt check sees a retired
+  row whose unit vanished and refuses it as a regression. Push the adoption
+  first, then the merge (merges alone may use the go-file).
 
 ### Measured blockers, 2026-11-03 (ten TUs sampled)
 
