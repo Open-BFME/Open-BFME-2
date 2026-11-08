@@ -1,4 +1,4 @@
-// cl: /D_OPERATOR_NEW_DEFINED_ /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /D_OPERATOR_NEW_DEFINED_ /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0006933D@Rva0006933D@@QAEHXZ @0x0006933D 113B
@@ -20,44 +20,28 @@ class Rva000687B8
 public:
 	void rva000687B8();
 };
-class Rva0006933D
+int BaseHeightMapRenderObjClass::rva0006933D()
 {
-public:
-	int rva0006933D();
-private:
-	unsigned char m_pad0[0x37C0];
-	RefObj0006933D *m_37c0;
-	unsigned char m_pad1[0x54];
-	RefObj0006933D *m_3818;
-	BfmeResetTextureRef m_381c;
-	unsigned char m_pad2[0x8];
-	BfmeResetTextureRef m_3828;
-	unsigned char m_pad3[0xC];
-	BfmeResetTextureRef m_3838;
-	unsigned char m_pad4[0x8];
-	BfmeResetTextureRef m_3844;
-};
-int Rva0006933D::rva0006933D()
-{
-	((BaseHeightMapRenderObjClass *)this)->rva00067878();
+	rva00067878();
 	((Rva000687B8 *)this)->rva000687B8();
-	RefObj0006933D *a = m_3818;
+	RefObj0006933D *a = (RefObj0006933D *)field3818;
 	if (a)
 	{
 		if (--a->m_ref == 0)
 			a->v0();
-		m_3818 = 0;
+		field3818 = 0;
 	}
-	m_381c.clear();
-	m_3828.clear();
-	m_3838.clear();
-	m_3844.clear();
-	RefObj0006933D *b = m_37c0;
+	((BfmeResetTextureRef *)&field381C)->clear();
+	((BfmeResetTextureRef *)&field3828)->clear();
+	((BfmeResetTextureRef *)&field3838)->clear();
+	((BfmeResetTextureRef *)&field3844)->clear();
+	RefObj0006933D **slot = (RefObj0006933D **)&m_map;
+	RefObj0006933D *b = *slot;
 	if (b)
 	{
 		if (--b->m_ref == 0)
 			b->v0();
-		m_37c0 = 0;
+		*slot = 0;
 	}
 	return 0;
 }
