@@ -12,7 +12,7 @@
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-// Shared writable multiplier initialized by RandomValueMultFactorInit.cpp.
+// Shared writable multiplier RandomValue.cpp defines and initializes.
 extern "C" Real theMultFactor;
 
 extern "C" UnsignedInt theGameLogicSeed[6];

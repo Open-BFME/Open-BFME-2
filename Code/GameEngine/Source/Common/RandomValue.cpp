@@ -7,6 +7,17 @@
 
 typedef float Real;
 
+#include <math.h>
+
+typedef unsigned int UnsignedInt;
+
+// The multiplier the three getValueReal readers scale a raw random value by
+// (VA 0x00DFE738). Retail builds it as this unit's only dynamic initializer,
+// 0x007ADBFF, alone in its .text$yc run, through the C powf (LINK-236). Zero
+// Hour's RandomValue.cpp spells it 1.0f / (pow(2, 8 * sizeof(UnsignedInt)) - 1.0f)
+// (donor fact); BFME 2's readers sit in their own files, so it keeps C linkage.
+extern "C" Real theMultFactor = 1.0f / (powf(2, 8 * sizeof(UnsignedInt)) - 1.0f);
+
 extern Real GetGameClientRandomValueReal(Real low, Real high, char *file,
 	int line);
 

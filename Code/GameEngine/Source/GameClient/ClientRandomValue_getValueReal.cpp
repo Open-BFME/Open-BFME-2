@@ -6,9 +6,9 @@
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-// Sole storage for the native shared multiplier at VA 0x00DFE738.
-// RandomValueMultFactorInit.cpp initializes it before the three readers run.
-extern "C" { Real theMultFactor; }
+// The native shared multiplier at VA 0x00DFE738; RandomValue.cpp defines and
+// initializes it before the three readers run.
+extern "C" Real theMultFactor;
 
 // Shared native seed storage; split readers declare the same C symbol.
 extern "C" {
