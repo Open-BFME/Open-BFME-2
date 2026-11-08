@@ -585,3 +585,7 @@ Rva001684D6Ctor.obj (EH body, so no twin proof). Rva001684D6Ctor.cpp's decl-only
 `SimpleVecClass<Vector3>::Uninitialised_Grow`, so the unit references it; in path order SimpleVecVector3O1.obj (the row's
 owner) precedes the remaining copies in particle_buffer_render_line and shattersystem. 4/4 rows exact; link_check LINKS
 135 -> 135. Clearance: none claimed until the next real link.
+
+Same seat, the Vector4 twin: StreakLineCtor.cpp and mesh.cpp now declare
+`SimpleVecClass<Vector4>::Uninitialised_Grow`, so meshgeometry.obj (the row's owner) is its first provider for the
+0x007D71C8 tables. 16/16 rows exact; link_check LINKS 805 -> 805. Clearance: none claimed.
