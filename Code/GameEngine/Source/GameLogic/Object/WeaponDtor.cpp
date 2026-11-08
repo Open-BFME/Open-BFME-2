@@ -8,6 +8,7 @@
 //   TheGameLogic findObjectByID/destroyObject on +0x5C; vector free at +0x40;
 //   deleting dtor 0x002CCE37 slot 0 calls this body.
 #include <vector>
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
@@ -23,6 +24,14 @@ class Weapon : public Snapshot
 {
 protected:
 	virtual ~Weapon();
+	// Retail's table 0x00C0214C: the deleting destructor, an empty loadPostProcess (0x000B3FD0, shared),
+	// the name getter 0x002CC2F6 and xfer 0x002CDD47. GameState::addPostProcessSnapshot leaves Weapons
+	// off its post-process list by this name, so a pure slot here calls __purecall on load.
+	virtual void loadPostProcess() {}
+	virtual const char *GetSnapshotName() const { return "Weapon"; }
+public:
+	virtual void xfer(Xfer *xfer);
+
 
 private:
 	const void *m_template; // +4

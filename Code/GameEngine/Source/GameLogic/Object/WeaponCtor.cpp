@@ -29,15 +29,21 @@ static __forceinline int weaponTemplateShotsPerBarrel(const WeaponTemplate *wt) 
 
 extern GameLogic *TheGameLogic;
 
+class Xfer;
 class Weapon
 {
 protected:
 	Weapon(const WeaponTemplate *tmpl, WeaponSlotType wslot);
 	Weapon(const Weapon &that);
 	virtual ~Weapon(); // rowed in WeaponDtor.cpp; vtable 0x0080214C: dtor then three snapshot slots
-	virtual void bfmeSnapshotSlot1() = 0;
-	virtual void bfmeSnapshotSlot2() = 0;
-	virtual void bfmeSnapshotSlot3() = 0;
+	// Retail's table 0x00C0214C: the deleting destructor, an empty loadPostProcess (0x000B3FD0, shared),
+	// the name getter 0x002CC2F6 and xfer 0x002CDD47. GameState::addPostProcessSnapshot leaves Weapons
+	// off its post-process list by this name, so a pure slot here calls __purecall on load.
+	virtual void loadPostProcess() {}
+	virtual const char *GetSnapshotName() const { return "Weapon"; }
+public:
+	virtual void xfer(Xfer *xfer);
+protected:
 
 private:
 	const WeaponTemplate *m_template; // +4
