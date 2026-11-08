@@ -67,10 +67,15 @@ public:
 	Rva005E3DE8();
 };
 
+// retail's constructor 0x005F005B builds it; the owner is Rva005F0152ImageGet.cpp
+class INI;
+
 class MappedImageCache
 {
 public:
 	MappedImageCache();
+	virtual ~MappedImageCache();
+	virtual void rva005EFFA6(INI *ini);
 };
 
 class Rva003B6831
