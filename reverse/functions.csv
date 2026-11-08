@@ -21066,7 +21066,7 @@ _vp6_drawc,,0x001BB580,109,Code/Libraries/Source/VP6/debug.cpp,matched,Target CR
 ?getSupplyBoxValue@Player@@QAEHXZ,,0x002A9DAC,12,Code/GameEngine/Source/Common/Player_getSupplyBoxValue.cpp,matched,unlock global indirect dword getter via DFE758 plus A5C
 ?rva002A9CCA@Rva002A9BF2@@QAEXH@Z,,0x002A9CCA,20,Code/GameEngine/Source/Common/RTS/Rva002A9BF2Get.cpp,matched,sibling window-field setter via same 2DC window
 ?rva002A9EFB@Rva002A9EFB@@QAEXH@Z,,0x002A9EFB,20,Code/GameEngine/Source/Common/Rva002A9EFBSub.cpp,matched,unlock saturated subtract with zero clamp
-??0Rva0033F33D@@QAE@PAVStateMachine@@@Z,,0x0033F33D,33,Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp,matched,State hash 0x6D9C1CB9 vtable 0x810EE0 zero 0x20
+??0AIBackAwayAndCowerState@@QAE@PAVStateMachine@@@Z,,0x0033F33D,33,Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp,matched,State hash 0x6D9C1CB9 vtable 0x810EE0 zero 0x20
 ??0AIGuardState@@QAE@PAVStateMachine@@@Z,,0x0033F6DA,33,Code/GameEngine/Source/Common/AIGuardState.cpp,matched,State hash 0xEBE7A650 vtable 0x811740 zero 0x20 twin F33D
 ??0Rva0033FC42@@QAE@PAVStateMachine@@@Z,,0x0033FC1B,33,Code/GameEngine/Source/Common/Rva0033FC42Ctor.cpp,matched,State hash 0x7E4CE41F vtable 0x811DB0 ctor of FC42
 ?rva002AC425@Player@@QAEXABV?$vector@HV?$allocator@H@_STL@@@_STL@@@Z,,0x002AC425,26,Code/GameEngine/Source/Common/RTS/PlayerScienceAssign.cpp,matched,Player 4B POD assign guard via caller 0x0040F94F plus dup assign
@@ -21867,8 +21867,8 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva0052DBCDInit@@YAXXZ,,0x0052DBCD,92,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,matched,pool init callers 0x002E8BAC 0x002F45A7 element 0x3c pool 0x00A049D0 ctor 0x52DB99
 ?Rva000A78A3Less@@YG_NABUTreeKey00242F5E@@0@Z,,0x000A78A3,46,Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5ELess.cpp,matched,TreeKey set comparator unsigned id then AsciiString via rowed 0x5598C
 ?GadgetComboBoxGetText@@YA?AVUnicodeString@@PAVGameWindow@@@Z,,0x00322D21,66,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxGetText.cpp,matched,ZH donor GadgetComboBoxGetText style 0x8000 11 callers empty A0C898
-??1Rva0033F33D@@UAE@XZ,,0x003401E4,75,Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp,matched,dtor vtable 0x00810EE0 member slot0 plus delete plus base WindModuleInfo
-??_GRva0033F33D@@UAEPAXI@Z,,0x003428F1,28,Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp,matched,deleting dtor slot0 calls rowed dtor plus delete; rehomed from FamilyDeletingDtors_muse-a530.cpp: Rva0033F33DDtor.cpp owns ~Rva0033F33D and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
+??1AIBackAwayAndCowerState@@UAE@XZ,,0x003401E4,75,Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp,matched,dtor vtable 0x00810EE0 member slot0 plus delete plus base WindModuleInfo
+??_GAIBackAwayAndCowerState@@UAEPAXI@Z,,0x003428F1,28,Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp,matched,deleting dtor slot0 calls rowed dtor plus delete; rehomed from FamilyDeletingDtors_muse-a530.cpp: Rva0033F33DDtor.cpp owns ~AIBackAwayAndCowerState and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
 ??_GNetKeepAliveCommandMsg@@MAEPAXI@Z,,0x004D5B30,28,Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp,matched,deleting dtor slot0 calls apply twin plus delete
 ?set@Rva004D5978WordSlot@@QAEXG@Z,,0x004D5978,12,Code/GameEngine/Source/Common/Disp8WordFieldSetters.cpp,matched,disp8 word setter at 0x20
 ?set@Rva004D59ACWordSlot@@QAEXG@Z,,0x004D59AC,12,Code/GameEngine/Source/Common/Disp8WordFieldSetters.cpp,matched,disp8 word setter at 0x1c
@@ -23150,7 +23150,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?removeRecycleRva0029DFE9@@YGXPAX0@Z,,0x0029DFE9,36,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,unlocks 0x0029F34F twin freelist 0xDBA5E8
 ?rva005E8077@Rva005E8077@@QAEXXZ,,0x005E8077,30,Code/GameEngine/Source/Common/Bfme/Rva005E8077Clear.cpp,matched,chain via Forward 0x005E7FB0 and free 0x00030830 with callers 0x005E80D0 0x005E8224
 ?xfer@RadiusDecalUpdate@@MAEXPAVXfer@@@Z,,0x003915AE,60,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecalUpdate.cpp,matched,slot 3 of 0x0081A018 via rowed base and callees OneRing pattern
-?xfer@Rva0033F33D@@MAEXPAVXfer@@@Z,,0x0034027D,30,Code/GameEngine/Source/Common/Rva0033F33DXfer.cpp,matched,slot 3 Version1 plus Snapshot m20 via 0x30
+?xfer@AIBackAwayAndCowerState@@MAEXPAVXfer@@@Z,,0x0034027D,30,Code/GameEngine/Source/Common/Rva0033F33DXfer.cpp,matched,slot 3 Version1 plus Snapshot m20 via 0x30
 ??_GRva004E1A04@@QAEPAXI@Z,,0x0052BBBB,28,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,chain deleting dtor calls rowed dtor plus delete
 ?rva0052BAB2@Rva0052BAB2@@QBEHXZ,,0x0052BAB2,15,Code/GameEngine/Source/Common/Rva0052BAB2Getter.cpp,matched,unlock conditional getter callers 4
 ??0Rva002CF120@@QAE@ABU0@@Z,,0x002CF120,27,Code/Libraries/Source/WWVegas/WWLib/Rva002CF120Copy.cpp,matched,small copy ctor via header 0x2CF108 caller 0x2CF368

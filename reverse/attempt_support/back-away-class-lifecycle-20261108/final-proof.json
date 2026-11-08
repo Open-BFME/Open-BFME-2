@@ -1,0 +1,96 @@
+{
+  "sources": {
+    "Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp": {
+      "retained_executable_comdats": 13,
+      "normalized_code_bodies_relocations_flags_policies_equal": true,
+      "normalized_data_equal_except_native_lifecycle_slots": true,
+      "removed_unreferenced_default": [
+        "?onEnter@State@@UAE?AW4StateReturnType@@XZ"
+      ],
+      "added_native_references": [
+        "?onEnter@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ",
+        "?onExit@AIBackAwayAndCowerState@@UAEXW4StateExitType@@@Z",
+        "?update@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ"
+      ],
+      "source_sha256": "6892c70ef86ba1a831f60a4b493f5ff422f85ca988888fd0ee13ac81f1d92758",
+      "object_sha256": "ce2379d4e0c0f184e5560a61b958fc855346f3dd542bda68a91b673a2229fccb"
+    },
+    "Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp": {
+      "retained_executable_comdats": 13,
+      "normalized_code_bodies_relocations_flags_policies_equal": true,
+      "normalized_data_equal_except_native_lifecycle_slots": true,
+      "removed_unreferenced_default": [
+        "?onEnter@State@@UAE?AW4StateReturnType@@XZ"
+      ],
+      "added_native_references": [
+        "?onEnter@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ",
+        "?onExit@AIBackAwayAndCowerState@@UAEXW4StateExitType@@@Z",
+        "?update@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ"
+      ],
+      "source_sha256": "46375693724482be9e73b07732cee7d8fda00e04cb94bd259f0e9fc071324506",
+      "object_sha256": "11729651967d871edb50c34d652dd652907598d8e3a71a5bf2b5554587b4ed24"
+    },
+    "Code/GameEngine/Source/Common/Rva0033F33DXfer.cpp": {
+      "retained_executable_comdats": 1,
+      "normalized_code_bodies_relocations_flags_policies_equal": true,
+      "normalized_data_equal_except_native_lifecycle_slots": true,
+      "removed_unreferenced_default": [],
+      "added_native_references": [],
+      "source_sha256": "7e61ce7ed7773f338bc9d61e5d44d5d0cb8f17ac79eceb5df0229d0fe498975d",
+      "object_sha256": "5d78090acc3b7f93228a61126f03f3aab3db8d3aed0cd187c1c4edb69b2e6670"
+    },
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp": {
+      "retained_executable_comdats": 27,
+      "normalized_code_bodies_relocations_flags_policies_equal": true,
+      "normalized_data_equal_except_native_lifecycle_slots": true,
+      "removed_unreferenced_default": [],
+      "added_native_references": [],
+      "source_sha256": "031ca823a0e00d79dcfa63471a9ec89d7a0421576bc0b21b817c60366e09cda3",
+      "object_sha256": "b06d64e1d053433a7dde35f1013a3f22689e7a4462a1b2e4cd6fab17a38b6456"
+    }
+  },
+  "renamed_rows": [
+    {
+      "old": "??0Rva0033F33D@@QAE@PAVStateMachine@@@Z",
+      "new": "??0AIBackAwayAndCowerState@@QAE@PAVStateMachine@@@Z",
+      "rva": "0x0033F33D",
+      "size": "33",
+      "source": "Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp"
+    },
+    {
+      "old": "??1Rva0033F33D@@UAE@XZ",
+      "new": "??1AIBackAwayAndCowerState@@UAE@XZ",
+      "rva": "0x003401E4",
+      "size": "75",
+      "source": "Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp"
+    },
+    {
+      "old": "??_GRva0033F33D@@UAEPAXI@Z",
+      "new": "??_GAIBackAwayAndCowerState@@UAEPAXI@Z",
+      "rva": "0x003428F1",
+      "size": "28",
+      "source": "Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp"
+    },
+    {
+      "old": "?xfer@Rva0033F33D@@MAEXPAVXfer@@@Z",
+      "new": "?xfer@AIBackAwayAndCowerState@@MAEXPAVXfer@@@Z",
+      "rva": "0x0034027D",
+      "size": "30",
+      "source": "Code/GameEngine/Source/Common/Rva0033F33DXfer.cpp"
+    }
+  ],
+  "canonical_name_evidence": "retail table VA0x00C10EE0 installed by ctor0x0033F33D and dtor0x003401E4 has slot2 getter0x0033F35E returning AIBackAwayAndCowerState at VA0x00C10F24; slots4/5/6 are the already-rowed readable onEnter/onExit/update at347C38/34025E/34022F; rename.py class --fold cannot express the getter tie or inherited ICF slots; docs/naming.md canonical hand rename and LINK-618 precedent",
+  "table_copies_identical": true,
+  "native_lifecycle_slots": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "remaining_getter_slot": 2,
+  "removed_default_provider": "Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp",
+  "removed_default_provider_current_and_identical": true,
+  "no_new_pin_alias_flag_header_or_source_path": true,
+  "naming_route": "docs/naming.md canonical hand rename: automatic fold cannot express getter tie/inherited ICF slots; no name_basis tier claim",
+  "boundary": "Source/table prerequisite only. Getter, shared-class consolidation, stale Wind queue identity and next-image confirmation remain."
+}

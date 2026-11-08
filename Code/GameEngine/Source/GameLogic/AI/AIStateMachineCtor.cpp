@@ -278,10 +278,10 @@ public:
 private:
 	unsigned char m_pad00[0x54];
 };
-class Rva0033F33D
+class AIBackAwayAndCowerState
 {
 public:
-	Rva0033F33D(StateMachine *machine);
+	AIBackAwayAndCowerState(StateMachine *machine);
 private:
 	unsigned char m_pad00[0x24];
 };
@@ -560,7 +560,7 @@ AIStateMachine::AIStateMachine(Object *owner, UnsignedInt nameKey) : StateMachin
 	defineState( 48, (State *)new Rva0033F7C8( this ), 0, 0 );
 	defineState( 57, (State *)new Rva00340391( this ), 0, 0 );
 	defineState( 22, (State *)new AIMoveAwayAndCowerState( this ), 48, 0 );
-	defineState( 32, (State *)new Rva0033F33D( this ), 0, 0 );
+	defineState( 32, (State *)new AIBackAwayAndCowerState( this ), 0, 0 );
 	defineState( 13, (State *)new Rva0033F51D( this ), 0, 0 );
 	defineState( 14, (State *)new AIDockState( this ), 0, 0 );
 	defineState( 47, (State *)new AIHarvestState( this ), 0, 0 );

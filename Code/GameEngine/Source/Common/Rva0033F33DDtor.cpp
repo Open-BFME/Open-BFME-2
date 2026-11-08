@@ -1,31 +1,29 @@
 // cl: /MD /EHsc
-// ??1Rva0033F33D@@UAE@XZ @0x003401E4 75B: Rva0033F33D public virtual dtor.
+// ??1AIBackAwayAndCowerState@@UAE@XZ @0x003401E4 75B: AIBackAwayAndCowerState public virtual dtor.
 // Native ctor 0x0033F33D uses State, hash 0x6D9C1CB9 and table 0x00810EE0.
 // The member at +0x20 is released through slot 0 then global delete.
 // The base teardown at 0x0049B47C is the rowed State destructor.
 // Both lifecycle units declare native xfer slot 3 at 0x0034027D.
 // Unblocks deleting dtor at 0x003428F1.
 class StateMachine;
-#include "../../Include/Common/StateMachine.h"
+#include "../../Include/Common/StateMachineClass.h"
 
-class Rva0033F33DMember {
+class AIBackAwayAndCowerState : public State {
 public:
-	virtual void *v0(int);
-};
-class Rva0033F33D : public State {
-public:
-	virtual ~Rva0033F33D();
+	virtual ~AIBackAwayAndCowerState();
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
-	Rva0033F33DMember *m_20;
+	StateMachine *m_20;
 };
 #include <new>
-Rva0033F33D::~Rva0033F33D()
+AIBackAwayAndCowerState::~AIBackAwayAndCowerState()
 {
 	if (m_20) {
-		void *p = m_20->v0(0);
-		::operator delete(p);
+		::delete m_20;
 		m_20 = 0;
 	}
 }

@@ -25,3 +25,11 @@ Published as 60858c3763 (first attempt, 27.9 seconds). Required checks pass.
 The broader audit remains INCONCLUSIVE: unchanged Rva00340BDCDtor.cpp lacks
 a current receipt against index c885072a48/outgoing base bc96d415a7. That
 consumer and real-image confirmation remain follow-up; the queue key stays.
+
+The paired identity follow-up names this State-derived class
+AIBackAwayAndCowerState from its native getter/table, reconciles existing
+lifecycle slots 3/4/5/6, and uses the canonical StateMachine pointer for
+its owned member. All 85 changed-source rows remain exact; both tables
+agree and five EH graphs pass. This further removes the member slot proxy,
+without adopting WindModuleInfo or retiring its stale queue key.
+[Identity/lifecycle scope](../../reverse/attempt_support/back-away-class-lifecycle-20261108/README.md).

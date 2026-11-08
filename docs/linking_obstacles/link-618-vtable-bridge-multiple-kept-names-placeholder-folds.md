@@ -271,3 +271,19 @@ the broader audit is INCONCLUSIVE because unchanged Rva00340BDCDtor.cpp
 lacks a current receipt (index c885072a48/base bc96d415a7). Carry it into
 the next census/image; the one bridge and four derived-slot prerequisites
 remain, with no full-link/runtime claim.
+
+2026-11-08 root identity/lifecycle follow-up: Rva0033F33D's four rows and
+its constructor caller now spell AIBackAwayAndCowerState, the literal
+returned by native table C10EE0's slot-2 getter 33F35E (VA C10F24). This
+uses the documented canonical hand-rename route: the fold planner cannot
+express the getter tie or inherited ICF slots. Old rows are tombstoned and
+re_log records the evidence; name_basis is unchanged. Both lifecycle
+views declare existing native slots 3/4/5/6, and the measured owned pointer
+uses StateMachine plus normal global-scope deletion instead of a private
+slot proxy. All 85 changed-source rows and five EH graphs pass; supporting
+strict receipts cover 171 rows, and the eight-source preview conserves
+LINKS/6,021 bytes at c885072a48. Both 17-slot tables remain identical;
+the removed inherited default has an identical current provider. Slot 2,
+shared-class consolidation, the Wind queue identity and next-image
+confirmation remain open; no bridge/image/runtime clearance is claimed.
+[Identity, native slots and preserved-body proof](../../reverse/attempt_support/back-away-class-lifecycle-20261108/README.md).

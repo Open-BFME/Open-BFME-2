@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ??0Rva0033F33D@@QAE@PAVStateMachine@@@Z, retail 0x0033F33D, 33 bytes.
+// ??0AIBackAwayAndCowerState@@QAE@PAVStateMachine@@@Z, retail 0x0033F33D, 33 bytes.
 // State-derived ctor forwarding (machine, 0x6D9C1CB9) to the unsigned-hash
 // twin ??0State@@QAE@PAVStateMachine@@I@Z at 0x004D73FC then zeroing dword
 // at +0x20 then installing vtable 0x00810EE0. Caller is 0x0035245D.
@@ -9,23 +9,24 @@
 
 class StateMachine;
 
-#include "../../Include/Common/StateMachine.h"
+#include "../../Include/Common/StateMachineClass.h"
 
-class Rva0033F33DMember;
-
-class Rva0033F33D : public State
+class AIBackAwayAndCowerState : public State
 {
 public:
-	Rva0033F33D(StateMachine *machine);
-	virtual ~Rva0033F33D();
+	AIBackAwayAndCowerState(StateMachine *machine);
+	virtual ~AIBackAwayAndCowerState();
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	Rva0033F33DMember *m_20;
+	StateMachine *m_20;
 };
 
-Rva0033F33D::Rva0033F33D(StateMachine *machine) : State(machine, 0x6D9C1CB9u)
+AIBackAwayAndCowerState::AIBackAwayAndCowerState(StateMachine *machine) : State(machine, 0x6D9C1CB9u)
 {
 	m_20 = 0;
 }
