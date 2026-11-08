@@ -43,7 +43,15 @@ Remaining / next check:
 - Box, Point and Sphere EmissionVolume: their default constructors live in
   `FXParticleSystem.cpp`'s own views (59, 41 and 49 bytes), so only the copy constructors can adopt
   a header until that unit is reconciled.
-- HemisphericalEmissionVelocity, `DefaultModuleTemplate<7>` (three stores, no info copy) and
-  `DefaultModuleTemplate01InlineCopyCtors.cpp` keep their stand-ins.
+- HemisphericalEmissionVelocity and `DefaultModuleTemplate<7>` (three stores, no info copy)
+  keep their stand-ins.
+- 2026-11-08 DefaultModuleTemplate01InlineCopyCtors.cpp removes its two unowned char
+  stand-ins at 0x0081BA60/0x0081D5E8 and binds existing compiler tables, whose addresses
+  are independently proved by native constructor DIR32 operands. Its 97-byte copy and
+  two unrelated registered data rows remain exact; the private alpha-info copy view and
+  unused helper disappear. Bounded cached replay removes two strong-definition refusals,
+  with the existing five-slot head bridge unchanged. Registered v0b/vsub chars remain for
+  complete class recovery; real-link confirmation is pending.
+  [Evidence](../../reverse/attempt_support/default-alpha-table-bindings-20261108/README.md).
 - Confirm in the next published real link that the converted tables leave
   `reverse/vtable_bridge_queue.tsv`.

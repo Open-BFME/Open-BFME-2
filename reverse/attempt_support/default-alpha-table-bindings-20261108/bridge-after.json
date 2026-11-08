@@ -1,0 +1,145 @@
+{
+  "tables": 1,
+  "slots": 5,
+  "refused_tables": 0,
+  "refusal_reasons": {},
+  "already_correct": 1,
+  "entries": [
+    {
+      "rva": 8508904,
+      "name": "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@",
+      "names": [
+        "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@"
+      ],
+      "slots": [
+        {
+          "name": "??_GRva0055F98A@@UAEPAXI@Z",
+          "rva": 3862296,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^derived^smart^ctors.obj"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+        }
+      ],
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "referenced_by": [
+        "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\d0754d8d6a309d68.obj"
+      ],
+      "name_bindings": [
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp",
+          "row_rva": 3861058,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\d0754d8d6a309d68.obj",
+          "names": [
+            "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@",
+            "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@"
+          ],
+          "offset": 28,
+          "name": "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@",
+          "rva": 8508904
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+          "row_rva": 5617087,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^derived^smart^ctors.obj",
+          "names": [
+            "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@",
+            "??_7Rva0055B5BF@@6BRva003AEEB3Slot14@@@",
+            "??_7Rva0055B5BF@@6BRva003AEEB3Slot18@@@"
+          ],
+          "offset": 18,
+          "name": "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@",
+          "rva": 8508904
+        }
+      ],
+      "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^derived^smart^ctors.obj",
+      "previous_extent": 16,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "??_ERva0055B5BF@@UAEPAXI@Z",
+          "ledger_rvas": [],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 3862296
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        }
+      ]
+    }
+  ],
+  "refusals": [],
+  "correct": [
+    {
+      "rva": 8501856,
+      "name": "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@",
+      "names": [
+        "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@"
+      ],
+      "name_bindings": [
+        {
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+          "row_rva": 3826031,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^particle^system.obj",
+          "names": [
+            "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@"
+          ],
+          "offset": 19,
+          "name": "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@",
+          "rva": 8501856
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp",
+          "row_rva": 3861058,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\d0754d8d6a309d68.obj",
+          "names": [
+            "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@",
+            "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@"
+          ],
+          "offset": 49,
+          "name": "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@",
+          "rva": 8501856
+        }
+      ],
+      "name_addresses": {
+        "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@": [
+          8501856
+        ]
+      },
+      "slots": 4,
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+      "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^particle^system.obj",
+      "previous_extent": 16,
+      "source_slot_mismatches": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^particle^system.obj"
+    }
+  ],
+  "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+}

@@ -455,3 +455,14 @@ graph pass; the positive-slot selector still admits both and reports
 no-retail-slots. The tool remains claimed by another worker, so no verifier,
 data ledger or queue was edited. Its two real function tables remain separate
 bridge/interface work. [Exact offsets and next repair](../../reverse/attempt_support/wave-owner-vbtable-20261108/README.md).
+
+**2026-11-08 default-alpha copy table bindings:**
+DefaultModuleTemplate01InlineCopyCtors.cpp removes two unowned one-byte
+definitions and names the existing alpha-info/head compiler tables at their
+native addresses. The 97-byte body and its two registered data owners pass;
+private LinkGuard and LINKS/97 preview are clean. Bounded cached replay drops
+strong-definition refusals2 to0, with the same one five-slot head bridge.
+The alpha-info table is already correct in that cached emitter. Its private
+copy view/helper is removed; complete containing-class recovery for v0b/vsub,
+current-image provider selection and real-link queue confirmation remain open.
+[Native operands and provider scope](../../reverse/attempt_support/default-alpha-table-bindings-20261108/README.md).

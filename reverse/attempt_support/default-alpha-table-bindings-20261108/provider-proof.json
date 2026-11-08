@@ -1,0 +1,45 @@
+{
+  "provider_scope": "Existing cached emitters; native constructor operands independently establish addresses. Not a complete current image replay.",
+  "providers": [
+    {
+      "constructor": "??0DefaultAlphaModuleInfo@FXParticleSystem@@QAE@ABV01@@Z",
+      "constructor_rva": "0x003A616F",
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+      "cached_object_sha256": "1c293c96d1f77796c91d334e847eee4815202d1446e168dc625163e65786935c",
+      "table": "??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@",
+      "table_rva": "0x81ba60",
+      "native_DIR32_sites": [
+        "0x3a6182"
+      ]
+    },
+    {
+      "constructor": "??0Rva0055B5BF@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "constructor_rva": "0x0055B5BF",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "cached_object_sha256": "a3bdbc1671fb0fc9ebf86738a4fbcd40807b94a7d446888a19e284304dddb7ed",
+      "table": "??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@",
+      "table_rva": "0x81d5e8",
+      "native_DIR32_sites": [
+        "0x55b5d1"
+      ]
+    }
+  ],
+  "census_touches": {
+    "?bfme_copy_from@DefaultAlphaModuleInfo@FXParticleSystem@@QAEXABV12@@Z": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template01^inline^copy^ctors.obj"
+    ],
+    "_DefaultAlphaModuleInfo_vtbl": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template01^inline^copy^ctors.obj"
+    ],
+    "_Rva003AEA42_v0a": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template01^inline^copy^ctors.obj"
+    ]
+  },
+  "index_meta": {
+    "date": "2026-11-08 14:08",
+    "commit": "eba83a23be",
+    "clean_tree": true,
+    "census_date": "2026-11-08 13:00",
+    "census_commit": "73237e7dfd"
+  }
+}
