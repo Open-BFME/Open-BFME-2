@@ -93,3 +93,7 @@ strong one-byte `Rva003AE1A7_v0`/`_v0C`. 1/1 row exact; link_check LINKS 38 -> 3
 strong-definition refusals at 0x0081CA40/0x0081CA2C go and those tables are bridged (short one-slot copies), like the
 `7efac5f6d8` cohort. Clearance: none claimed. The concrete class (ConcreteModuleTemplate over
 RenderObjectParticleUpdateModule, opaque here as Rva003ACA93Object) and its full tables remain.
+
+Same seat, its base 0x003AE1CD (Rva003AE1CDCopyCtor.cpp): `Rva003AE1CD_v0`/`_v0C` give way to
+`??_7Rva00562366@@6BRva003ADFDBPrimary@@@` (VA 0x00C1D31C) and `??_7Rva00562366@@6B@` (0x00C1D348), the SELECT_ANY
+tables Rva0056224FCtor.cpp emits there. 1/1 row exact; link_check LINKS 64 -> 64. Clearance: none claimed.
