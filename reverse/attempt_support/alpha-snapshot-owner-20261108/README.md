@@ -48,3 +48,11 @@ Primary/factory tables still use existing raw-array providers. No
 original enclosing class name, complete layout, fresh image, census or
 runtime clearance is claimed. Next published real link must confirm
 this table leaves both refused and bridged queues.
+
+The source commit's identity shadow check exposes two existing emitter
+bindings: both scalar helpers name their own 3ACB6F destructor aliases,
+which the identity checker labels wrong. All emitter code/data facts are
+unchanged and normal byte/relocation gates pass. No identity baseline is
+expanded or debt retired here; retain these alias-identity findings for
+the emitter's later class reconciliation. They are outside the complete
+four-slot data-owner proof above.
