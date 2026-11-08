@@ -1193,3 +1193,46 @@ recursive twin test plus lk68's kept-copy check; and every placeholder pair dry-
   methods (naming lane). (5) The rest of the planner's genuine-fold twin rows: AIStateHashCtors0033F2FD.cpp
   50 (held by Burachi-3D), ElvenWoodSpecialPower.cpp 4 (held), BfmeDirtyBaseDerived.cpp 6, and folds
   that only one or two classes reach.
+
+**lk71's EH and fold-check leftovers (2026-11-09, seat halilkkaya-lk72, base `93e2f70268`).**
+- EH at 0x001A46B4/0x001A47BC: no regression on master. After a clean `./build.sh`, standalone
+  `tools/eh_verify.py` on BFME2MotionChannelFactory.cpp is EXACT for `?Load_BFME2MotionChannel`, so nothing
+  needs a baseline. lk71's failure came from a stale object, and add_match refused the twins for another
+  reason than the labels. flag_defaults compiles a TU under the flag region that holds most of its matched
+  row bytes (`8ed9b443761`, Jonathan; `12559cc15ef` then dropped the file's inert `/O1 /G7`). This file has
+  310 B in the /O2 region 0x0018D2A0-0x001B20E4 and 319 B in /O1, so it builds /O1. The two 28 B twins at
+  0x001A47BC sit in the /O2 region and raise it to 366 B, which flips the TU to /O2 (checked with
+  `flag_defaults._load_source_regions` over the file's rows plus the twins). Under /O2,
+  `Load_BFME2MotionChannel` becomes a 319 B inline `fs:[0]` frame; retail's 264 B body is
+  `mov eax,handler; call __EH_prolog`. Its EH is then no longer EXACT, so build.py cannot place the funclet
+  rows. add_match reverted the rows but left that object in build/match. The renumbered labels are routine:
+  `56d13052df7` (StarkillerHDX, ChunkLoadClass.h) moved `$L573`-`$L575` to `$L914`-`$L916`, and a full build
+  verifies 20,983 rows past renumbered labels. The twins first need a `reverse/flag_overrides.csv`
+  `/O1 /G7` entry. `flag_defaults.py propose` records one only when the rows are present and the `// cl:`
+  line carries the flags. The verdict is in re_attempts.
+- Fold check: reproduced. With `--dry-run`, HEAD's `rename.py class --fold` passed `Rva00535776` into the
+  Profile, StrategicStats and RealTimeStats preferences, `Rva005EA2AB` into AABTreeLinkClass and
+  Rva005EA026, `Rva004318D8` into Rva004318FC and Rva0043190E, `Rva005C47A3` into Rva004FA623 and
+  Rva005C43CFRegistration, and `Rva005E57C9` into Rva005E569A and Rva005E56C8. Cause: when only destructors
+  tie OLD to the table T (the destructor-only route, the inlined-base route, or a destructor's first +0
+  store, which an inlined base destructor can supply), no check asked whether OLD's deleting destructor also
+  sits in other tables. Retail ICF-folds identical deleting destructors, so 0x00537E60 is slot 0 of
+  0x00C68DD8, 0x00C6913C and 0x00C69188. Fix: refuse when a deleting destructor of OLD is a slot of a
+  retail table other than T and T's subobject tables, unless a constructor of OLD installs T as its own.
+  With the fix all 11 pairs above refuse; the fix's commit adds regression tests to test_rename_fold.py. The
+  "would declare class NEW twice" check also missed a class head with `__declspec(novtable)`, so
+  `Rva0055133F -> BuddyThreadClass` passed although BuddyThread.cpp defines both classes (the build would
+  have refused it later). The fix accepts `__declspec(...)` in the head, and that dry run now refuses.
+  Of lk71's 107 passing pairs, 20 refuse under the fix (19 on a shared deleting destructor, 1 on the
+  `__declspec` view) and 87 still pass.
+  - Unchanged by design: `Rva004C6CC1 -> EvacuateGarrisonSpecialPowerModuleData` still passes. Its `??_G`
+    0x004AD538 sits only in 0x00C5F778, which ten classes' constructors install as their own (one ICF
+    table). The documented co-owner exception allows that; whether it should refuse too is a maintainer
+    call.
+  - Held: ancalgonn-swarm-seat6 holds `file:tools/rename.py` (retype route), so the fix waits as a local
+    commit on wt_x's branch `lk72-fold-check` until that claim clears.
+- lk71's eight table-completing folds: none landed. With the fix, the three preferences folds refuse.
+  `Rva0041F94A` and `Rva00488D3B` still need 0x000B3FD0/0x000D43D0 (Burachi-3D). `Rva001505CD` and
+  `Rva003E3C39` need the TU merges lk71 described. `Rva004C6CC1` is the co-owner case above.
+  `Rva0055133F` first needs BuddyThreadClass's own 170 B destructor (its implicit one is 140 B), and it
+  refuses under the fix until then.
