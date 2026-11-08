@@ -303,6 +303,8 @@ address_global	Code/GameEngine/Source/Common/Rva00574499Dtor.cpp	g_Va00E0630C	1
 address_global	Code/GameEngine/Source/Common/Rva00574499Dtor_Unresolved.cpp	g_Va00E062FC	2
 address_global	Code/GameEngine/Source/Common/Rva00574499Dtor_Unresolved.cpp	g_Va00E0630C	2
 address_global	Code/GameEngine/Source/Common/Rva005745D8.cpp	g_Va00BBB8D8	2
+address_global	Code/GameEngine/Source/Common/Rva00574815Ctor.cpp	g_Va00E0661C	2
+address_global	Code/GameEngine/Source/Common/Rva005756B6Ctor.cpp	g_Va00E0661C	2
 address_global	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/Common/Rva00583015Destroy.cpp	g_Va00E06398	5
 address_global	Code/GameEngine/Source/Common/Rva005B02B5.cpp	g_Va00BBB8D8	2
