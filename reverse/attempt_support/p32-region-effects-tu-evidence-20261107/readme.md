@@ -79,3 +79,22 @@ approved rows, so steps 2 and 3 are blocked on tooling.
 
 No merge, move or row repoint: rows without an approved TU may not move (AGENTS.md). Triage's
 test-only diag remains the interim.
+
+## Merge plan addendum (crash triage, 2026-11-07)
+
+The full retail order is in `~/bfme2-ops/swarm/packets.tsv` P32. It runs the eight string
+initializers 0x007AF8E3..0x007AF9A0 (Rva003EE900Forward.cpp), then 0x007AF9BB
+(Rva003EE980Forward.cpp), then 0x007AF9D6 `initializeRegionEffectFields`
+(Rva003EE746ColorProvider.cpp).
+
+Our `initializeRegionEffectFields` is an ordinary function. It reaches `.CRT$XCU` only through
+the exit link's initializer bridge. When the merge becomes possible, it should do both of these:
+
+- define the nine string globals in retail order, and after them make
+  `initializeRegionEffectFields` a real dynamic initializer of the same TU (a file-scope
+  initializer the compiler emits into `.CRT$XCU` right after the strings), byte-verified against
+  0x007AF9D6;
+- drop the bridge entry, which lowers the real link's `initializers_bridged` (G1 debt) by one.
+
+Then check that the image's `.CRT$XCU` puts the strings first, using link_check, the census or
+`tools/image_iso.py`'s initializer report.
