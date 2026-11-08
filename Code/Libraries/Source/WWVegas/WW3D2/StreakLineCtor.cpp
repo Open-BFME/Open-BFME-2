@@ -25,6 +25,8 @@ void operator delete[](void *) throw();
 
 #include "../WWMath/Vector4Data.h"
 
+// Uninitialised_Grow is meshgeometry.cpp's row: reference it, do not emit a copy.
+template <> bool SimpleVecClass<Vector4>::Uninitialised_Grow(int);
 // Emit only the owned Vector4 template bodies.
 template bool SimpleVecClass<Vector4>::Resize(int);
 template SimpleDynVecClass<Vector4>::~SimpleDynVecClass();

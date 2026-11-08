@@ -165,6 +165,7 @@ template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
 // Retail keeps the nothrow-delete[] copies 0x001A7C80 and 0x001A7DE0; this unit's would carry an EH frame.
 template <> bool SimpleVecClass<Vector4>::Resize(int);
 template <> SimpleDynVecClass<Vector4>::~SimpleDynVecClass();
+template <> bool SimpleVecClass<Vector4>::Uninitialised_Grow(int);
 // bfme link decl-only end
 
 
