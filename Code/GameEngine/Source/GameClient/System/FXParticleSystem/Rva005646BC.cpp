@@ -52,13 +52,12 @@ extern "C" char Rva003AE2CF_v0 = 60;
 extern "C" char s_slot3E4first;
 // Rva003AE2CF_v10: matched references place it at VA 0xc1d390 (retail .rdata value -117).
 extern "C" char Rva003AE2CF_v10 = -117;
-extern char g_00C1D3B0;
-// g_00C1D3B0: matched references place it at VA 0xc1d3b0 (retail .rdata value -3).
-char g_00C1D3B0 = -3;
+// The copy constructor at 0x003AE315 emits this particle-info table.
+extern "C" const void *const __identifier("??_7Rva003AE315@@6B@")[];
 
 struct Rva005646BCSub
 {
-	Rva005646BCSub() : m_10((void *)&g_00C1D3B0), m_14(0.0f), m_18(0), m_1c(false) {}
+	Rva005646BCSub() : m_10((void *)__identifier("??_7Rva003AE315@@6B@")), m_14(0.0f), m_18(0), m_1c(false) {}
 	// Unwind funclet 0x00799DC8 destroys this subobject (at +0x10) through the
 	// folded Snapshot destructor 0x0049B47C: restore the Snapshot table.
 	~Rva005646BCSub() { ((Snapshot *)this)->Snapshot::~Snapshot(); }

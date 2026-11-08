@@ -341,6 +341,11 @@ hand-spelled Snapshot table with the inline destructor. The build passes **18/18
 preview stays **LINKS 899 -> 899 B** against index `d707d2f53b`. Awaiting the automated
 real link. [Evidence](../../reverse/attempt_support/terrain-collision-geteventfx-export-20261106-noro.md).
 
+2026-11-08: the same constructor now references the existing C++ particle-info
+table instead of its separate one-byte g_00C1D3B0 definition. The getEventFX
+export/call remains unchanged. The strong-provider and remaining class-table
+scope are recorded in [the particle-info entry](particle-terrain-info-table-provider-2026-11-08.md).
+
 2026-11-06, createSlaveSystem (base `5f3c26f35a9`): export ordinal 1552 identifies `0x001F9CF3`.
 The row and its caller now use the exported `TrackingPtr<FXParticleSystem::ParticleSystem>`
 return, and the destructor its funclet calls is rowed as a verified ICF fold at

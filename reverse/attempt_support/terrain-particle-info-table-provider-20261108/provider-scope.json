@@ -1,0 +1,22 @@
+{
+  "index": {
+    "date": "2026-11-08 14:08",
+    "commit": "eba83a23be",
+    "clean_tree": true,
+    "census_date": "2026-11-08 13:00",
+    "census_commit": "73237e7dfd"
+  },
+  "old_name": "?g_00C1D3B0@@3DA",
+  "old_touches": [
+    "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva005646^b^c.obj"
+  ],
+  "old_strong_providers": [
+    "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva005646^b^c.obj"
+  ],
+  "new_name": "??_7Rva003AE315@@6B@",
+  "new_providers": [
+    "^code_^game^engine_^source_^common_^v3^poly^deferred^copy^ctors.obj"
+  ],
+  "native_table": "0x0081D3B0",
+  "native_name_string": "ParticleTerrainCollisionModuleInfo"
+}

@@ -1,0 +1,116 @@
+{
+  "tables": 1,
+  "slots": 4,
+  "refused_tables": 0,
+  "refusal_reasons": {},
+  "entries": [
+    {
+      "rva": 8508336,
+      "name": "??_7Rva003AE315@@6B@",
+      "names": [
+        "??_7Rva003AE315@@6B@"
+      ],
+      "slots": [
+        {
+          "name": "??_GObjectModule@@UAEPAXI@Z",
+          "rva": 4854013,
+          "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^opaque^scalar^deleting^dtors.obj"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^math_region.obj"
+        },
+        {
+          "name": "?Rva003AE336Get@@YAHXZ",
+          "rva": 3859254,
+          "source": "Code/GameEngine/Source/Common/ConstIntGetters4.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^const^int^getters4.obj"
+        },
+        {
+          "name": "?xfer@Rva00564522@@QAEXPAVXfer@@@Z",
+          "rva": 5653794,
+          "source": "Code/GameEngine/Source/Common/Rva00564522Xfer.cpp",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva00564522^xfer.obj"
+        }
+      ],
+      "source": "Code/GameEngine/Source/Common/V3PolyDeferredCopyCtors.cpp",
+      "referenced_by": [
+        "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\a96d34f2083ed112.obj"
+      ],
+      "name_bindings": [
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005646BC.cpp",
+          "row_rva": 5654204,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\a96d34f2083ed112.obj",
+          "names": [
+            "??_7Rva003AE315@@6B@"
+          ],
+          "offset": 37,
+          "name": "??_7Rva003AE315@@6B@",
+          "rva": 8508336
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005646BC.cpp",
+          "row_rva": 5653769,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\a96d34f2083ed112.obj",
+          "names": [
+            "??_7Rva003AE315@@6B@"
+          ],
+          "offset": 11,
+          "name": "??_7Rva003AE315@@6B@",
+          "rva": 8508336
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/V3PolyDeferredCopyCtors.cpp",
+          "row_rva": 3859221,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^v3^poly^deferred^copy^ctors.obj",
+          "names": [
+            "??_7Rva003AE315@@6B@"
+          ],
+          "offset": 8,
+          "name": "??_7Rva003AE315@@6B@",
+          "rva": 8508336
+        }
+      ],
+      "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^v3^poly^deferred^copy^ctors.obj",
+      "previous_extent": 4,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "??_ERva003AE315@@UAEPAXI@Z",
+          "ledger_rvas": [],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4854013
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3859254,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5653794,
+          "reason": "missing-source-slot"
+        }
+      ]
+    }
+  ],
+  "refusals": [],
+  "correct": [],
+  "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+}

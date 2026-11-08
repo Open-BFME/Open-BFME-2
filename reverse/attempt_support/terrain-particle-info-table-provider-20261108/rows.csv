@@ -1,0 +1,5 @@
+name,export_rva,target_rva,target_size,source,status,notes
+??0Rva005646BC@@QAE@IAAUSrc005646BC@@@Z,,0x005646BC,135,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005646BC.cpp,matched,copy-template ctor twin via rowed base uint ctor and FX cache
+??0Rva005646BCSub@@QAE@XZ,,0x00564509,25,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005646BC.cpp,matched,placed by masked byte search of already-compiled unit
+__ehhandler$??0Rva005646BC@@QAE@IAAUSrc005646BC@@@Z,,0x00799DD3,10,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005646BC.cpp,matched,Compiler-emitted C++ EH handler of the rowed parent 0x005646BC; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler
+??0Rva003AE315@@QAE@ABV0@@Z,,0x003AE315,33,Code/GameEngine/Source/Common/V3PolyDeferredCopyCtors.cpp,matched,unchanged class moved out of complete-lifetime unit pending destructor or vtable provider
