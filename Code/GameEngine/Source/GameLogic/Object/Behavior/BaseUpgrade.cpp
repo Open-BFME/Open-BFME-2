@@ -309,7 +309,9 @@ void BaseUpgrade::xfer(Xfer *xfer)
 
 // tu-skeleton: 0x004B374D 28B ??_GBaseUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3769 28B ??_GBaseUpgradeModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-67c0.cpp (not merged yet)
+// ??_GBaseUpgradeModuleData@@UAEPAXI@Z 0x004B3769 (28 B) is the compiler's deleting destructor,
+// emitted here because the constructor above installs the vtable; it calls the destructor
+// 0x004B3785 that follows it in retail.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp
 
