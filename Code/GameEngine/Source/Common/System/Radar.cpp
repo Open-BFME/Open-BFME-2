@@ -580,19 +580,17 @@ struct RadarAttackRef : OpaqueRefElement4 {
 // the family's other bodies is written the same way rather than asserting a
 // polymorphic class. The bytes do not distinguish the two for the leading case.
 //
-// The address that store holds is a DIR32 site the patcher fills from retail.
-// R2Data01088838 is an address-derived placeholder and carries no type
-// information, per the donor's own note. Nothing in the image names the object
-// at that address, so the row claims the bytes without asserting an identity.
+// The address that store holds is a DIR32 site; retail's value is RadarObject's
+// table (below). That names the stored object, not this class: the row still
+// claims the bytes without asserting an identity.
 //
 // IDENTITY IS NOT RECOVERED. The class and member names are derived from an
 // address.
 
-extern int R2Data01088838;
-// R2Data01088838: retail stores 0x00C035D0 (12585936) at this DIR32 site. That
-// VA lies past the last loaded section of the image, so it is recorded as the
-// literal retail carries rather than as a resolvable pin.
-int R2Data01088838 = 12585936;
+// The stored address, VA 0x00C035D0, is RadarObject's table: its four slots are
+// this unit's rowed RadarObject deleting destructor, loadPostProcess,
+// GetSnapshotName and xfer, and this unit emits it.
+extern "C" void (__cdecl *const __identifier("??_7RadarObject@@6B@")[4])(void);
 // ??0Rva00106B40@@QAE@XZ
 // retail 0x002D7667, 21 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/R2ZeroingConstructors.cpp
@@ -832,7 +830,7 @@ extern LANAPI *TheLAN;
 
 Rva00106B40::Rva00106B40()
 {
-	m_at00 = &R2Data01088838;
+	m_at00 = (int *)__identifier("??_7RadarObject@@6B@");
 	m_at04 = 0;
 	m_at08 = 0;
 	m_at0C = -1;
