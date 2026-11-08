@@ -158,30 +158,6 @@ struct AICommandParms
 // Three errands handed straight on: one to a holder that may not be there, one
 // to a part of the record itself, and one that asks first which of two to run.
 
-class BfmeSubBJ
-{
-public:
-	virtual void bfmeDoBJ(void);
-};
-
-struct BfmeKindBJ
-{
-	unsigned char m_bfmeHead[0x10];		// 0x00
-	unsigned char m_bfmeStop;		// 0x10
-};
-
-class BfmeThingBJ
-{
-public:
-	void bfmeGoBJ(void);
-
-private:
-	int m_bfmeFirst;			// 0x00
-	BfmeKindBJ *m_bfmeKind;			// 0x04
-	unsigned char m_bfmeGap[8];		// 0x08
-	BfmeSubBJ m_bfmeSub;			// 0x10
-};
-
 class RunOffMapBehaviorInterface {public:virtual void triggerFlee()=0;};
 
 class RunOffMapBehavior:public BehaviorModule,public RunOffMapBehaviorInterface {public:
@@ -246,16 +222,6 @@ void AICommandInterface::aiMoveToAndDie(const Coord3D *pos, CommandSourceType sr
 	AICommandParms parms((AICommandType)0x41, src);
 	parms.m_pos = *pos;
 	aiDoCommand(&parms);
-}
-
-// ---- from Code/GameEngine/Source/Common/BfmeOneHundredSeventyFour.cpp
-
-void BfmeThingBJ::bfmeGoBJ(void)
-{
-	if (m_bfmeKind->m_bfmeStop != 0)
-		return;
-
-	m_bfmeSub.bfmeDoBJ();
 }
 
 // tu-skeleton: 0x004621F7 28B ??_GRva00462151@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp (not merged yet)
