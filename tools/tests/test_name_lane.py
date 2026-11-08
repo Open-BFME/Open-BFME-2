@@ -3018,3 +3018,129 @@ def test_submitting_again_with_no_agreement_is_still_refused(tree, tmp_path, cap
     name_lane.cmd_submit(lane_of(tree), args, lead=2, min_models=1)
     assert "already voted" in capsys.readouterr().out
     assert MEMBER_KEY not in lane_of(tree).state()
+
+
+# ---------------------------------------------------------------- compiler-spelled rows
+
+SPELLED_OLD = "??4?$map@URva00401000Box@@H@@QAEAAV0@ABV0@@Z"
+SPELLED_NEW = "??4?$set@UBfmeRecord@@@@QAEAAV0@ABV0@@Z"
+SPELLED_KEY = name_lane.key_of(SOURCE, "function", "0x00401100", SPELLED_OLD)
+
+
+@pytest.fixture
+def spelled_tree(tree):
+    with open(tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{SPELLED_OLD},,0x00401100,18,{SOURCE},matched,\n")
+    _git(tree, "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-qm", "an operator row")
+    return tree
+
+
+def serve_key(root, session, worker, key=SPELLED_KEY):
+    be(worker)
+    args = SimpleNamespace(session=session, model="claude-opus-5-5", count=1, file=SOURCE, list_only=False, key=[key])
+    assert name_lane.cmd_next(lane_of(root), args) == 0
+    return json.loads((root / f"build/name_lane/sessions/{session}.json").read_text())
+
+
+def submit_spelled(root, tmp_path, session, spelling=SPELLED_NEW):
+    answer = tmp_path / f"answer-{session}.json"
+    answer.write_text(json.dumps({SPELLED_OLD: spelling}))
+    args = SimpleNamespace(answer=str(answer), session=session, model="claude-opus-5-5")
+    return name_lane.cmd_submit(lane_of(root), args, lead=2, min_models=1)
+
+
+@pytest.mark.parametrize("name,spelled", [
+    (SPELLED_OLD, True),
+    ("??0Rva00401000Box@@QAE@XZ", True),                         # a special member
+    ("?clear@?$_Rb_tree@URva00401000Box@@@@QAEXXZ", True),       # a template's member
+    ("?clear@?$_Rb_tree@UBfmeRecord@@@@QAEXXZ", False),          # no placeholder
+    ("??4?$map@UBfmeRecord@@H@@QAEAAV0@ABV0@@Z", False),
+    ("?rva00401000@@YAHPAURva00401000Box@@H@Z", False),          # an identifier of its own: the ordinary route
+    ("_plainC", False),
+])
+def test_which_rows_are_compiler_spelled(name, spelled):
+    assert name_lane.compiler_spelled(name) is spelled
+
+
+@pytest.mark.parametrize("new,why", [
+    (SPELLED_NEW, None),
+    ("??4?$set@URva00402000Rec@URva00401000Box@@@@QAEAAV0@ABV0@@Z", "still a placeholder"),
+    (SPELLED_OLD, "same spelling"),
+    ("betterName", "whole new mangled spelling"),
+    ("??4 bad", "whole new mangled spelling"),
+    ("??4?$set@UA|B@@@@QAEAAV0@ABV0@@Z", "whole new mangled spelling"),
+    ("??0?$set@UBfmeRecord@@@@QAE@XZ", "same operator or member"),
+])
+def test_a_spelled_answer_must_read_as_this_rows_respelling(new, why):
+    got = name_lane.spelled_problem(SPELLED_OLD, new)
+    assert (got is None) if why is None else (why in got)
+
+
+def test_mangled_spellings_hash_exactly():
+    """Word order and plurals are the type tree in a mangled name: canon() must not merge them."""
+    reversed_args = "??4?$map@UBfmeRecord@@UOtherRecord@@@@QAEAAV0@ABV0@@Z"
+    other = "??4?$map@UOtherRecord@@UBfmeRecord@@@@QAEAAV0@ABV0@@Z"
+    assert name_agreement.digest(SPELLED_KEY, reversed_args) != name_agreement.digest(SPELLED_KEY, other)
+    assert name_agreement.digest(MEMBER_KEY, "m_boxWidth") == name_agreement.digest(MEMBER_KEY, "m_widthBox")
+
+
+def test_a_spelled_row_is_served_only_by_its_key(spelled_tree, capsys):
+    served = serve(spelled_tree, "plain")
+    assert not [i for i in served["files"][SOURCE]["items"] if i[2] == SPELLED_OLD]
+    served = serve_key(spelled_tree, "keyed", "seat-a")
+    assert [tuple(i) for i in served["files"][SOURCE]["items"]] == [("function", "0x00401100", SPELLED_OLD, 0x00401100)]
+    brief = (spelled_tree / "build/name_lane/briefs/keyed.txt").read_text(encoding="utf-8")
+    assert "COMPILER-SPELLED ROWS" in brief
+
+
+def test_two_blind_votes_give_the_approval_the_identity_route_checks(spelled_tree, tmp_path, capsys):
+    serve_key(spelled_tree, "a", "seat-a")
+    assert submit_spelled(spelled_tree, tmp_path, "a") == 0
+    assert SPELLED_KEY not in lane_of(spelled_tree).state()
+    serve_key(spelled_tree, "b", "seat-b")
+    assert submit_spelled(spelled_tree, tmp_path, "b") == 0
+    row = lane_of(spelled_tree).state()[SPELLED_KEY]
+    assert (row["status"], row["kind"], row["old"], row["new"], row["rva"]) == (
+        "agreed", "function", SPELLED_OLD, SPELLED_NEW, "0x00401100")
+    assert SPELLED_NEW not in (spelled_tree / name_lane.VOTES).read_text()              # hashes only
+    # what rename.py function --respell --identity runs on the record (identity_approvals)
+    ctx = rename.Context(spelled_tree, object_scan=False)
+    rename.check_agreement(ctx, "function", f"agree:{row['id']}", {SPELLED_OLD}, {SPELLED_NEW}, 0x00401100)
+    assert row["key"] == f"{SOURCE}|function|0x00401100|{SPELLED_OLD}"
+
+
+def test_different_spellings_do_not_agree(spelled_tree, tmp_path):
+    serve_key(spelled_tree, "a", "seat-a")
+    assert submit_spelled(spelled_tree, tmp_path, "a") == 0
+    serve_key(spelled_tree, "b", "seat-b")
+    assert submit_spelled(spelled_tree, tmp_path, "b", "??4?$set@UOtherRecord@@@@QAEAAV0@ABV0@@Z") == 0
+    assert SPELLED_KEY not in lane_of(spelled_tree).state()
+
+
+def test_a_bad_spelled_answer_is_rejected_at_submit(spelled_tree, tmp_path, capsys):
+    serve_key(spelled_tree, "a", "seat-a")
+    submit_spelled(spelled_tree, tmp_path, "a", "betterName")
+    assert "whole new mangled spelling" in capsys.readouterr().out
+    assert not [v for v in lane_of(spelled_tree).votes() if v["key"] == SPELLED_KEY]
+
+
+def test_apply_points_a_spelled_agreement_at_the_identity_route(spelled_tree, tmp_path, capsys):
+    concurrent_votes(spelled_tree, SPELLED_KEY, SPELLED_NEW)
+    assert agree(spelled_tree, SPELLED_KEY, SPELLED_NEW) == 0
+    capsys.readouterr()
+    assert apply(spelled_tree) == 0
+    out = capsys.readouterr().out
+    assert "--respell --identity" in out and "agree:" in out
+    assert lane_of(spelled_tree).state()[SPELLED_KEY]["status"] == "agreed"
+    assert SPELLED_OLD in (spelled_tree / "reverse/functions.csv").read_text()
+
+
+def test_disputing_a_spelled_agreement_refuses_that_exact_spelling(spelled_tree):
+    concurrent_votes(spelled_tree, SPELLED_KEY, SPELLED_NEW)
+    assert agree(spelled_tree, SPELLED_KEY, SPELLED_NEW) == 0
+    row = lane_of(spelled_tree).state()[SPELLED_KEY]
+    lane_of(spelled_tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, agents="", status="disputed")])
+    assert name_lane.unrecorded_agreements(lane_of(spelled_tree)) == []
+    with pytest.raises(SystemExit):
+        agree(spelled_tree, SPELLED_KEY, SPELLED_NEW)

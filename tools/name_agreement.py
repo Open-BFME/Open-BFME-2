@@ -93,7 +93,10 @@ def scoped_key(key):
 
 
 def canon(name):
-    """Word order, plurals and common abbreviations are style, not meaning."""
+    """Word order, plurals and common abbreviations are style, not meaning. A mangled spelling
+    (a compiler-spelled row's whole name) is exact: its order and plurals are the type tree."""
+    if (name or "").startswith("?"):
+        return name
     words = re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+", re.sub(r"^[msg]_", "", name or ""))
     words = [SYNONYMS.get(w.lower(), w.lower()) for w in words]
     return " ".join(sorted(w[:-1] if len(w) > 3 and w.endswith("s") else w for w in words))

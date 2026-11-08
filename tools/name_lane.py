@@ -29,6 +29,12 @@ spelling must come from someone who knows it: `agree`, or a submit of the worker
 counted vote, records the agreement without adding a vote, and only for a spelling that
 hashes to the votes' winning hash and passes today's checks.
 
+A compiler-spelled row (an operator, special member or template member whose mangled name
+carries a placeholder type) has no identifier of its own, so its key's placeholder is its
+whole old spelling and each vote answers with a whole new one, compared exactly. There are
+thousands and most need only a class rename, so one is served only by `next --key KEY`. It
+lands by tools/rename.py function --respell --identity, not by `apply`.
+
 `next` serves matched, non-generated Code/ sources from one subsystem, with
 shared existing-source context. Each file decides only its own identifiers --
 functions it owns rows for, classes only it
@@ -941,6 +947,8 @@ class Lane:
 
     def problem(self, kind, old, new, file_words, *, rel=None, scope="", text=None):
         """Why `new` may not be voted for `old`, or None (BFME 1's problem())."""
+        if kind == "function" and compiler_spelled(old):
+            return spelled_problem(old, new)
         if not re.fullmatch(r"[A-Za-z_]\w*", new or "") or new in name_metric.KEYWORDS:
             return "not a C++ identifier"
         if new == old or name_metric.weak(kind if kind in ("param", "local") else "function", new):
@@ -965,6 +973,57 @@ class Lane:
 def base(scope):
     """The function word of a param's or local's scope (Class::method#2 -> method)."""
     return scope.split("#")[0].split("::")[-1]
+
+
+SPELLED_PLACEHOLDER = re.compile(r"Rva[0-9A-Fa-f]{8}\w*")
+SPELLED_HEAD = re.compile(r"\?\?_?.|\?[A-Za-z_]\w*")
+
+
+def compiler_spelled(name):
+    """Whether a row's mangled name has no identifier of its own to respell (an operator or
+    special member, or a template's member) and spells a placeholder type."""
+    if not name.startswith("?") or not SPELLED_PLACEHOLDER.search(name):
+        return False
+    try:
+        rename.split_function_name(name)
+    except rename.Refusal:
+        return True
+    return "?$" in name
+
+
+def scope_rva(key):
+    return key.split("|")[2]
+
+
+def spelled_key(key):
+    parts = key.split("|")
+    return len(parts) == 4 and parts[1] == "function" and compiler_spelled(parts[3])
+
+
+def spelled_items(lane, rel):
+    """[(kind, scope, ident, rva)] of `rel`'s compiler-spelled rows, one row to an address. The
+    key's placeholder is the row's whole old spelling (rename.py's --identity approval key)."""
+    rows = lane.ledger().get(rel, [])
+    seen = collections.Counter(rename._rva(r.get("target_rva")) for r in rows)
+    return [("function", f"0x{rva:08X}", r["name"], rva) for r in rows
+            for rva in [rename._rva(r.get("target_rva"))]
+            if rva is not None and seen[rva] == 1 and compiler_spelled(r["name"])
+            and not r["name"].startswith(rename.FUNCLET_PREFIXES + ("$L",)) and "parent=" not in (r.get("notes") or "")]
+
+
+def spelled_problem(old, new):
+    """Why `new` cannot answer a compiler-spelled row's key `old`, or None. rename.py's identity
+    route decides the shape; here it must read as a respelling of this row and lose a placeholder."""
+    if not re.fullmatch(r"\?[!-{}~]+", new or ""):
+        return "a compiler-spelled row is answered with its whole new mangled spelling"
+    if new == old:
+        return "still the same spelling"
+    head = SPELLED_HEAD.match(old)
+    if head is None or not new.startswith(head.group(0)):
+        return "it must stay the same operator or member"
+    if set(SPELLED_PLACEHOLDER.findall(new)) >= set(SPELLED_PLACEHOLDER.findall(old)):
+        return "still a placeholder"
+    return None
 
 
 def key_of(rel, kind, scope, ident):
@@ -1154,6 +1213,10 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
                             json.dumps({k: v for k, v in blind.items() if k != 'user_sources'}, sort_keys=True))
             for user in json.loads(request['users']):
                 evidence.append('USER ' + user + ':\n' + blind['user_sources'][user])
+    if any(compiler_spelled(ident) for kind, _s, ident, _r in items if kind == "function"):
+        evidence.append("COMPILER-SPELLED ROWS: a key starting with ? is the row's whole mangled spelling. Answer "
+                        "its whole new mangled spelling, the same operator or member with the placeholder type "
+                        "replaced by the one the row's retail callees prove; \"skip\" when they do not.")
     for kind, scope, ident, rva in items:
         if kind == "function":
             found = callers(lane, rel, ident)
@@ -1403,6 +1466,8 @@ def cmd_next(lane, args):
                 continue
         else:
             candidates = cache.items(rel, text)
+        if selected_keys:
+            candidates = [*candidates, *(i for i in spelled_items(lane, rel) if key_of(rel, *i[:3]) in selected_keys)]
         items = [i for i in candidates
                  if i[0] in NAMED and (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
                  and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
@@ -1600,7 +1665,7 @@ def cmd_agree(lane, args):
     text = lane.text(rel)
     if text is None:
         fail(f"{rel} no longer exists: its votes name nothing")
-    items = {key_of(rel, *item[:3]): item for item in lane.owned(rel, text, kinds=NAMED)}
+    items = {key_of(rel, *item[:3]): item for item in [*lane.owned(rel, text, kinds=NAMED), *spelled_items(lane, rel)]}
     if key not in items:
         fail(f"{rel} no longer owns {ident} as a {kind}: its votes name nothing")
     rva = items[key][3]
@@ -1809,7 +1874,9 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
 def lane_spelling(lane, name, kind):
     """Zero Hour's or WorldBuilder's own spelling of an agreed name when exactly
     one fits: votes match case- and order-blind, so otherwise the last voter's
-    casing would land."""
+    casing would land. A mangled spelling is exact and is its own."""
+    if name.startswith("?"):
+        return name
     words = set()
     for row in lane.ctx.dicts(rename.WB_LEADS):
         words |= set(name_metric.WORD.findall(row.get("wb_name", "")))
@@ -2425,6 +2492,10 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                     print(f"{key}: reviewed approval is no longer valid for this source and voter set; left")
                 else:
                     print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
+                continue
+            if spelled_key(key):
+                print(f"{key}: agreed {row['new']}; land it with tools/rename.py function --rva {scope_rva(key)} "
+                      f"--new NEW --respell --identity --prepared ... --basis inferred --evidence agree:{row['id']}")
                 continue
             if unrowed_key(key):
                 print(f"{key}: agreed {row['new']}; define it in {split_key(key)[0]}, then run "
