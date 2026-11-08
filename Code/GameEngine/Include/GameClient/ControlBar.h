@@ -5,6 +5,8 @@
 // Target facts: constructor 0x0031EA46 clears byte +0x28, 0x0031E9C9 clears pointer +0x210, and 0x0031E983 clears byte +0x214. Other storage stays opaque; its extent follows the two allocations. Field names are neutral because these stores do not establish original member spellings.
 // Target facts: W3DCommandBarBackgroundDraw reads the manager pointer +0x44 at 0x0009FA95, W3DCommandBarGridDraw reads the border-color dword +0x22C at 0x0009DE6C, and ControlBarArrowTransition::init reads the image pointer +0x26C at 0x0035D87A, each through TheControlBar (VA 0x00E01CFC). Player's 0x002ADC77 writes byte +0x28 = 1 through that global.
 // Target facts: the constructor clears +0x10 at 0x0031EAC8, nine dwords +0x48..+0x6B with one rep stosd at 0x0031EA4C, +0x6C at 0x0031EA9D, +0x70 at 0x0031EAA0, +0x7C at 0x0031EAAB and +0x29C at 0x0031EB26. HideControlBar reads +0x10 at 0x00402A1C and calls AnimateWindowManager::reverseAnimateWindow (0x0053B417) on it; ShowControlBar tests +0x29C at 0x00402A99. processCommandTransitionUI 0x00539997 reads the context dword +0x70 and the drawable +0x6C whose object it tests at +0xFC; populateOCLTimer reads window +0x64 at 0x0053E360; updateContextOCLTimer compares +0x7C at 0x0053E326 and updateOCLTimerTextDisplay stores it at 0x0053E29D. The constructor also clears dword +0x80 at 0x0031EABF and 32 dwords +0xDC..+0x15B with one rep stosd at 0x0031EA55, and stores the clock color 0x64000000 at +0x208 at 0x0031EA1B. It clears 32 dwords +0x15C..+0x1DB (ecx 0x20 from 0x0031E9B8, rep stosd at 0x0031EA13), which updateContextMultiSelect walks from 0x0053E11F. populateMultiSelect loads +0x2A0 at 0x0053DEFA and calls ?rva0053EF2E@Rva0053ED1A@@QAEXXZ (0x0053EF2E) on it; init passes the same pointer at 0x0031CA2C. Zero Hour declares the same positions as AnimateWindowManager*, GameWindow* parents, Drawable*, the context, the unsigned OCL-timer seconds, an inventory count, the 32 GameWindow* command windows, the 32 const CommandButton* common commands and the clock Color; names stay neutral.
+// Target facts: the constructor clears +0x2C at 0x0031E9BD, two five-entry dword arrays +0xA8 and +0xBC in one loop (count 5 at 0x0031EA57, stores [eax-0x14] and [eax] from +0xBC at 0x0031EA64/0x0031EA67), +0xD8 at 0x0031EA79 and +0xD4 at 0x0031EA7F. rva0031BAC3 releases the layout +0xD4 (0x0031BAEB, cleared 0x0031BB15), clears +0xD8 and +0xD0 (0x0031BB1E, 0x0031BB24), stores the created layout at 0x0031BBBC, the parent window at 0x0031BC03 and the button count at 0x0031BC4B, and walks +0xA8 and +0xBC (0x0031BAD7, 0x0031BC5E). populateSpecialPowerShortcut compares against the count +0xD0 at 0x0031D897, walks both arrays (0x0031D8A5, 0x0031D8B3), reads the button list +0x2C at 0x0031DA08 and follows it, and reads +0xD8 at 0x0031DAC1. Zero Hour declares these positions as CommandButton *m_commandButtons, the GameWindow* special-power shortcut buttons and their parents, the Int count, WindowLayout* and the GameWindow* shortcut parent; names stay neutral.
+// Target facts: the constructor clears +0xC, +0x18 and +0x14 at 0x0031EAC5/0x0031EACB/0x0031EACE; the destructor deletes the four owned managers +0xC..+0x18 through their slot 0 from 0x0031DD24. update 0x0031E25E calls through +0xC (0x0031E287) and +0x14 (0x0031E30B), tests byte +0x214 at 0x0031E34A, releases the +0x2A4 holder through 0x000AD6F4 at 0x0031E371/0x0031E377 and clears +0x214 at 0x0031E37E. Zero Hour declares WindowVideoManager *m_videoManager, the AnimateWindowManager* managers and Bool m_showBuildToolTipLayout; the holder is the registered Rva000AD6F4.
 // Donor facts: Zero Hour ControlBar.h declares markUIDirty, setObserverLookAtPlayer, getObserverLookAtPlayer, getControlBarSchemeManager, getBorderColor and getArrowImage. Their operations use the fields established by retail. All other methods below are declarations for ledger rows or existing retail-call bindings; no lifetime or rowed method is defined inline.
 // Ledger declarations (RVA, exact decorated identity):
 // 0x000D43D0 ?calculateVeterancyOverlayForObject@ControlBar@@KAPBVImage@@PBVObject@@@Z
@@ -116,6 +118,8 @@ class Object;
 class Player;
 class PlayerTemplate;
 class Rva0053ED1A;
+class WindowLayout;
+class WindowVideoManager;
 struct BfmeMsgDN;
 struct Coord3D;
 enum CBCommandStatus;
@@ -210,11 +214,15 @@ public:
     int getBorderColor() { return field22C; }
     const Image *getArrowImage() { return field26C; }
 
-    unsigned char field0C[0x4];
+    WindowVideoManager *field0C;
     AnimateWindowManager *field10;
-    unsigned char field14[0x14];
+    AnimateWindowManager *field14;
+    AnimateWindowManager *field18;
+    unsigned char field1C[0xC];
     bool field28;
-    unsigned char field29[0x1B];
+    unsigned char field29[0x3];
+    CommandButton *field2C;
+    unsigned char field30[0x14];
     ControlBarSchemeManager *field44;
     GameWindow *field48[9];
     Drawable *field6C;
@@ -222,21 +230,33 @@ public:
     unsigned char field74[0x8];
     unsigned int field7C;
     int field80;
-    unsigned char field84[0x58];
+    unsigned char field84[0x24];
+    GameWindow *fieldA8[5];
+    GameWindow *fieldBC[5];
+    int fieldD0;
+    WindowLayout *fieldD4;
+    GameWindow *fieldD8;
     GameWindow *fieldDC[32];
     const CommandButton *field15C[32];
     unsigned char field1DC[0x2C];
     int field208;
     unsigned char field20C[0x4];
     Player *field210;
-    unsigned char field214[0x18];
+    bool field214;
+    unsigned char field215[0x17];
     int field22C;
     unsigned char field230[0x3C];
     const Image *field26C;
     unsigned char field270[0x2C];
     int field29C;
     Rva0053ED1A *field2A0;
-    unsigned char field2A4[0x10];
+    // The holder is typed where the unit included its registered header first; elsewhere the same bytes stay opaque.
+#ifdef BFME2_COMMON_RVA000AD6F4_H
+    Rva000AD6F4 field2A4;
+#else
+    unsigned char opaque2A4[0x4];
+#endif
+    unsigned char field2A8[0xC];
 
 protected:
     CommandButton *findNonConstCommandButton(const AsciiString &name);
