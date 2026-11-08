@@ -382,3 +382,10 @@ image/runtime verification remain open.
   are respelled const by the this-cv route (`?Cull_Sphere@Rva007C454@@UBE_NABVSphereClass@@@Z`, `?Cull_Box@Rva007C454@@UBE_NABVAABoxClass@@@Z`),
   after the route's walker stopped dropping `this` at `__EH_prolog` (006734770a). Earlier spellings above are history. Verified: the six units
   build exact and link_check LINKS, unchanged at 470 bytes; no boot receipt covers it yet.
+
+Texture-handle cleanup published as e45a923881, first attempt 34.7 seconds.
+Normal byte/EH/DIR32/data checks pass; name_dependents finds zero outside
+users of the retired RefTex name. Broader audit remains INCONCLUSIVE: index
+f4727bbd09 versus base eba83a23bec9a0ccf16e8e8bbf244379acf77da4, one missing
+current source receipt (the destructor). Array-helper identity, complete
+interfaces, census selection and actual-image verification remain open.

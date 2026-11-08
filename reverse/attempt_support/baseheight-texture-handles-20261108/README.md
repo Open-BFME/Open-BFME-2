@@ -44,3 +44,12 @@ view is experimental and is not claimed as a recovered complete class.
 The primary table still has 129 of retail's 148 slots, and the Snapshot view
 still has one of four. This pass claims only canonical texture-handle lifetime
 cleanup. It does not establish a new linked image or runtime progress.
+
+Published as e45a923881 on the first push attempt (34.7 seconds). Required
+gates pass all 25 rows, scoped DIR32 for seven symbols, the exact parent EH
+graph and converged data. name_dependents finds zero outside users of the
+retired helper. The outgoing audit remains INCONCLUSIVE: index f4727bbd09
+versus base eba83a23bec9a0ccf16e8e8bbf244379acf77da4, one source without a
+current audit receipt (this destructor). The code-identity shadow report also
+retains the array helper Rva001F3574Vec's two bindings to Snapshot's folded
+destructor; this pass does not repair that independent helper identity.
