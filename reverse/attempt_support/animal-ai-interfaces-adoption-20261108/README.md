@@ -40,9 +40,9 @@ claim changes. Full Animal class adoption, constructor/destructor/table
 reconciliation and TU consolidation remain open. Preview and retained
 provider checks do not establish a new census or runtime result.
 
-Published as 79e9193622 on push.py attempt 1 in54.1 seconds. Required
+Published as 79e9193622 on push.py attempt 1 in 54.1 seconds. Required
 row, string, float, import, EH, converged-data and scoped DIR32 checks pass.
 The broader audit remains INCONCLUSIVE: index c885072a48 versus outgoing
-base82d2fed020238b3eb1addcb63bdb27fd4cec13c4; unchanged consumer
+base 82d2fed020238b3eb1addcb63bdb27fd4cec13c4; unchanged consumer
 Common/AICommandInterface_aiMoveToPositionEvenIfSleeping.cpp lacks a
 current strict receipt. No full-image or runtime clearance is claimed.

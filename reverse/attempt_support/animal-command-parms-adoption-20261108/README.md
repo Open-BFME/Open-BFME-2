@@ -40,7 +40,7 @@ contracts must be reconciled before source consolidation. No shared header,
 row, source path, pin, alias or escape hatch changes in this package.
 
 Published as 2058c08f50 on push.py attempt 3 (28.7 seconds for the
-successful attempt). The first two lost races cost 33.5 and27.8 seconds;
+successful attempt). The first two lost races cost 33.5 and 27.8 seconds;
 normal passed receipts were reused on retries. Required row, string,
 float, import, EH, converged-data and scoped DIR32 checks pass. The broader
 link audit remains INCONCLUSIVE: index c885072a48 versus outgoing base

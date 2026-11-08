@@ -599,3 +599,9 @@ transfer donors still need reconciliation before TU composition, and the
 placeholder literal getter keeps its existing identity. No image/runtime
 clearance is claimed.
 [Class and receiver proof](../../reverse/attempt_support/animal-full-header-adoption-20261108/README.md).
+
+Published as 3b101f6e88 on the first attempt (41.1 seconds). Required
+checks pass. The broader audit remains INCONCLUSIVE against c885072a48:
+unchanged Common/AICommandInterface_aiMoveToPositionEvenIfSleeping.cpp
+lacks a current strict receipt. The seed's header queue is drained; full
+donor composition and current-image closure remain open.
