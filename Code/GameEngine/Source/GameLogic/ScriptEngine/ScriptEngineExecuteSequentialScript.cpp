@@ -86,15 +86,7 @@ extern AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class ScriptEngine
-{
-public:
-	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
-	Player *getCurrentPlayer();
-	Team *getTeamNamed(AsciiString name, bool exact);
-	void appendSequentialScript(const SequentialScript *scriptToSequence);
-	void executeSequentialScript(Script *pScript, const AsciiString &scriptName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::executeSequentialScript(Script *pScript, const AsciiString &scriptName)
 {

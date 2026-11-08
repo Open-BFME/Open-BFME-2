@@ -76,13 +76,7 @@ extern AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *pUnitParm);
-	Team *getTeamNamed(AsciiString name, bool exact);
-	void appendSequentialScript(const SequentialScript *scriptToSequence);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

@@ -18,7 +18,6 @@
 
 typedef int Int;
 typedef unsigned char Byte;
-typedef unsigned char Bool;
 
 enum NameKeyType
 {
@@ -36,11 +35,7 @@ public:
 	NameKeyType m_internalNameKey; // +0x10
 };
 
-class ScriptEngine
-{
-public:
-	const ActionTemplate *getActionTemplate(Int actionType);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

@@ -72,25 +72,14 @@ int __cdecl Rva003BD46ESum(void *range);
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 
-class ScriptEngine
-{
-public:
-	int rva00357B82(Parameter *pPlayerParm);
-	unsigned int getFrameObjectCountChanged() const { return m_frameObjectCountChanged; }
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	friend class ScriptActions;
-private:
-	unsigned char m_pad00[0x1A15C];
-	unsigned int m_frameObjectCountChanged; // +0x1A15C
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 void ScriptActions::rva003C5F1B(ScriptAction *pAction, Parameter *pTypeParm, Parameter *pPlayerParm, Parameter *pCounterParm, bool ignoreDead)
 {
-	if (TheScriptEngine->getFrameObjectCountChanged() == (unsigned int)pAction->field44)
+	if (TheScriptEngine->m_frameObjectCountChanged == (unsigned int)pAction->field44)
 		return;
 
 	_STL::vector<int> counts;
@@ -116,7 +105,7 @@ void ScriptActions::rva003C5F1B(ScriptAction *pAction, Parameter *pTypeParm, Par
 	}
 
 	TheScriptEngine->bfmeCounter(pCounterParm->getString())->m_value = count;
-	pAction->field44 = TheScriptEngine->getFrameObjectCountChanged();
+	pAction->field44 = TheScriptEngine->m_frameObjectCountChanged;
 }
 
 // The retail call in this body reads 0x00376C50, an address the ledger already

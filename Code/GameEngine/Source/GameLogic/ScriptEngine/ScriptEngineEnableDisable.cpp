@@ -39,15 +39,7 @@ struct Rva00204FBBScript
     bool active;
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class ScriptEngine
-{
-protected:
-    void enableScript(ScriptAction *action);
-    void disableScript(ScriptAction *action);
-private:
-    unsigned char m_pad00[0x1A110];
-    Team *m_currentTeam;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::enableScript(ScriptAction *action)
 {
@@ -62,10 +54,10 @@ void ScriptEngine::enableScript(ScriptAction *action)
         reinterpret_cast<BfmeOwnZC *>(this)->bfmeRunZC(*(BfmeRoomZC *)&name, 0));
     if (script)
         script->active = true;
-    if (m_currentTeam)
+    if (m_callingTeam)
     {
         AsciiString resolved = reinterpret_cast<Rva002046C0Owner *>(this)->resolveName(name);
-        m_currentTeam->enableGenericScript(name, resolved, true);
+        m_callingTeam->enableGenericScript(name, resolved, true);
     }
 }
 
@@ -80,9 +72,9 @@ void ScriptEngine::disableScript(ScriptAction *action)
         reinterpret_cast<BfmeOwnZC *>(this)->rva00204EBB(*(BfmeRoomZC *)&name, 0));
     if (group)
         group->active = false;
-    if (m_currentTeam)
+    if (m_callingTeam)
     {
         AsciiString resolved = reinterpret_cast<Rva002046C0Owner *>(this)->resolveName(name);
-        m_currentTeam->enableGenericScript(name, resolved, false);
+        m_callingTeam->enableGenericScript(name, resolved, false);
     }
 }

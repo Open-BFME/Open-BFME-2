@@ -38,17 +38,7 @@ static inline Player *getCurrentEnemy(Player *player) { return (Player *)((Rva00
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class ScriptEngine
-{
-public:
-	Player *getCurrentPlayer();
-	void AppendDebugMessage(const AsciiString &strToAdd, Bool forcePause);
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-
-private:
-	unsigned char m_pad00[0x1A130];
-	Player *m_currentPlayer; // +0x1A130
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 PolygonTrigger *ScriptEngine::getQualifiedTriggerAreaByName(AsciiString name)
 {

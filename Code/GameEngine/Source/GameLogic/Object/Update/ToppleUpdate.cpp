@@ -38,7 +38,8 @@ class ToppleBits {public:unsigned words[19];
  __forceinline bool test(int bit)const{return mask(bit)!=0;}
  __forceinline void set(int bit){words[bit>>5]|=1U<<(bit&31);}
 };
-class ScriptEngine {public:void rva00357340(void *,Coord3D *);};
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"

@@ -33,6 +33,8 @@
 #define _CRTIMP
 #include <stdlib.h>
 #include <new>
+#include <vector>
+#include <utility>
 #undef _CRTIMP
 
 #include "ascii_string.h"
@@ -160,7 +162,7 @@ class Rva002039B6Host
 public:
 	void rva002039B6();
 };
-class ScriptEngine { public: void rva00356FAF(int obj); };
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva002D37Owner

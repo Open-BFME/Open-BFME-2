@@ -60,10 +60,8 @@ class GameLogic;
 extern GameLogic* TheGameLogic;
 class GlobalData;
 extern GlobalData* TheWritableGlobalData;
-class ScriptEngine { public:
- void AppendDebugMessage(const AsciiString&,bool);
- void addObjectToCache(Object*,const AsciiString&);
-};
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine* TheScriptEngine;
 extern int BfmeClientFramesPerSecond;
 float normalizeAngle(float);
