@@ -53,54 +53,14 @@ void __identifier("?rva005A6582@AptOnlineCustomMatch@@UAEHHHEH@Z")();
 void __identifier("?rva005A6697@AptOnlineCustomMatch@@UAE_NXZ")();
 }
 
-// Retail table at VA 0x00C73D34.
-extern "C" const void *const g_openPlayTable00[11] = {
-	(const void *)&__identifier("??_GRva005BA23A@@UAEPAXI@Z"), // slot 0, RVA 0x005BA272
-	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
-	(const void *)&__identifier("?InitGadgets@AptOnlineCustomMatch@@UAEXXZ"), // slot 2, RVA 0x0059EFA0
-	(const void *)&__identifier("?Update@AptOnlineCustomMatch@@UAEXXZ"), // slot 3, RVA 0x005A61C6
-	(const void *)&__identifier("?rva005A6582@AptOnlineCustomMatch@@UAEHHHEH@Z"), // slot 4, RVA 0x005A6582
-	(const void *)&__identifier("?GameWindowSystem@AptOnlineCustomMatch@@UAEHPAVGameWindow@@III@Z"), // slot 5, RVA 0x005A52FE
-	(const void *)&__identifier("?ProcessGameSpyResponses@AptOnlineCustomMatch@@QAEXXZ"), // slot 6, RVA 0x005A2DB7
-	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 7, RVA 0x0050B5C6
-	(const void *)&__identifier("?rva0059EF49@AptOnlineCustomMatch@@UAE_NXZ"), // slot 8, RVA 0x0059EF49
-	(const void *)&__identifier("?rva005A6697@AptOnlineCustomMatch@@UAE_NXZ"), // slot 9, RVA 0x005A6697
-	(const void *)&__identifier("?Rva005BA234Get@@YAHXZ"), // slot 10, RVA 0x005BA234
-};
+// Retail table at VA 0x00C73D34: Rva005BA23A's compiler table (Rva005BA2CBDtor.cpp emits it).
+extern "C" const void *const __identifier("??_7Rva005BA23A@@6BRva005A0009@@@")[];
 
-// Retail table at VA 0x00C73CD8.
-extern "C" const void *const g_openPlayTable60[23] = {
-	(const void *)&__identifier("??_ERva005BA23A@@WGA@AEPAXI@Z"), // slot 0, RVA 0x005BA262
-	(const void *)&__identifier("?rva0059EBDE@AptOnlineCustomMatch@@UAE_NXZ"), // slot 1, RVA 0x0059EBDE
-	(const void *)&__identifier("?rva0059EBFE@AptOnlineCustomMatch@@UAEXXZ"), // slot 2, RVA 0x0059EBFE
-	(const void *)&__identifier("?MpOwnerOnReadyChecked@AptOnlineCustomMatch@@UAE_N_N@Z"), // slot 3, RVA 0x005A1DCE
-	(const void *)&__identifier("?MpOwnerSelectColor@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@H@Z"), // slot 4, RVA 0x005A0F4B
-	(const void *)&__identifier("?MpOwnerSelectHandicap@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@H@Z"), // slot 5, RVA 0x005A152F
-	(const void *)&__identifier("?MpOwnerSelectHero@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@@Z"), // slot 6, RVA 0x005A1281
-	(const void *)&__identifier("?MpOwnerSelectMap@AptOnlineCustomMatch@@UAE_NABVAsciiString@@@Z"), // slot 7, RVA 0x005A0B7E
-	(const void *)&__identifier("?MpOwnerSelectStrategicScenario@AptOnlineCustomMatch@@UAE_NH@Z"), // slot 8, RVA 0x0059EB6F
-	(const void *)&__identifier("?MpOwnerSelectPlayer@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@HH@Z"), // slot 9, RVA 0x005A168D
-	(const void *)&__identifier("?MpOwnerSelectPlayerTemplate@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@H@Z"), // slot 10, RVA 0x005A10DA
-	(const void *)&__identifier("?MpOwnerSelectStartPosition@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@H@Z"), // slot 11, RVA 0x005A186B
-	(const void *)&__identifier("?MpOwnerSelectTeam@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@H@Z"), // slot 12, RVA 0x005A13D8
-	(const void *)&__identifier("?MpOwnerSetClanID@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@ABVUnicodeString@@@Z"), // slot 13, RVA 0x005A19C0
-	(const void *)&__identifier("?MpOwnerGetLocalPlayerName@AptOnlineCustomMatch@@QAEXAAVUnicodeString@@@Z"), // slot 14, RVA 0x0059EBAF
-	(const void *)&__identifier("?rva005A1D32@AptOnlineCustomMatch@@UAEXXZ"), // slot 15, RVA 0x005A1D32
-	(const void *)&__identifier("?rva005A1C87@AptOnlineCustomMatch@@UAEX_N@Z"), // slot 16, RVA 0x005A1C87
-	(const void *)&__identifier("?MpOwnerPrintMessage@AptOnlineCustomMatch@@UAEXABVUnicodeString@@H@Z"), // slot 17, RVA 0x0059F043
-	(const void *)&__identifier("?rva005A1B4F@AptOnlineCustomMatch@@UAEX_NH@Z"), // slot 18, RVA 0x005A1B4F
-	(const void *)&__identifier("?MpOwnerUpdatePlayerTooltip@AptOnlineCustomMatch@@UAEXPAVGameSlot@@@Z"), // slot 19, RVA 0x005A00E6
-	(const void *)&__identifier("?rva0059F35E@Rva0059F35E@@QAEPAVRva004444EBBase@@XZ"), // slot 20, RVA 0x0059F35E
-	(const void *)&__identifier("?get@Rva005A00CCPtrChase32Field@@QBEHXZ"), // slot 21, RVA 0x005A00CC
-	(const void *)&__identifier("?rva0059EC50@AptOnlineCustomMatch@@UAE_NXZ"), // slot 22, RVA 0x0059EC50
-};
+// Retail table at VA 0x00C73CD8: Rva005BA23A's compiler table (Rva005BA2CBDtor.cpp emits it).
+extern "C" const void *const __identifier("??_7Rva005BA23A@@6BRva005BA23ABase60@@@")[];
 
-// Retail table at VA 0x00C73CCC.
-extern "C" const void *const g_openPlayTable6C[3] = {
-	(const void *)&__identifier("?rva0059EF57@Rva0059EF57@@QAEXHHH@Z"), // slot 0, RVA 0x0059EF57
-	(const void *)&__identifier("?rva0059EF57@Rva0059EF57@@QAEXHHH@Z"), // slot 1, RVA 0x0059EF57
-	(const void *)&__identifier("??_ERva005BA23A@@WGM@AEPAXI@Z"), // slot 2, RVA 0x005BA26A
-};
+// Retail table at VA 0x00C73CCC: Rva005BA23A's compiler table (Rva005BA2CBDtor.cpp emits it).
+extern "C" const void *const __identifier("??_7Rva005BA23A@@6BRva005BA23ABase6C@@@")[];
 
 // Retail table at VA 0x00C73DCC.
 extern "C" const void *const g_customMatchScreenTable00[11] = {
@@ -172,9 +132,9 @@ private:
 AptOnlineOpenPlay::AptOnlineOpenPlay(int arg)
 	: AptOnlineCustomMatch(arg, 0)
 {
-	m_table00 = g_openPlayTable00;
-	m_table60 = g_openPlayTable60;
-	m_table6C = g_openPlayTable6C;
+	m_table00 = __identifier("??_7Rva005BA23A@@6BRva005A0009@@@");
+	m_table60 = __identifier("??_7Rva005BA23A@@6BRva005BA23ABase60@@@");
+	m_table6C = __identifier("??_7Rva005BA23A@@6BRva005BA23ABase6C@@@");
 	if (g_rva005BA1FDInst == 0)
 		g_rva005BA1FDInst = this;
 }
