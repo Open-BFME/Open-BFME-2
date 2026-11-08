@@ -26,6 +26,35 @@
   retail's. Proving a family-wide table needs `class:DrawModule`, which other
   workers hold.
 
+- **2026-11-08 header-lane data point (dave-cons4-header, index `eba83a23be`
+  2026-11-08 14:08):** the family problem bites header adoption too, from the
+  derived side. `header_adopt_lane.py adopt --class DrawModule --header
+  Code/GameEngine/Include/GameLogic/Module/DrawModule.h` **passes** on
+  `W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp` and `./build.sh` is
+  25/25 exact, but `accept` refuses on the link guard and `link_check` shows why:
+
+      pristine   LINKS       LINKED 1,497 -> 1,497 bytes
+      adopted    does not link  LINKED 1,497 -> 0 bytes
+        comdat  ??_7W3DStreakDraw@@6B@  (first: differs from the first copy in link order)
+
+  So the lost COMDAT is the **derived** class's own vftable, not
+  `??_7DrawModule@@6B@`. Adopting the canonical header gives `W3DStreakDraw` a
+  base with a different virtual list from the one its table was built against,
+  and its own table changes shape with it. That is the mirror image of the
+  2026-11-01 repair above, which fixed `W3DPropDraw.cpp` by declaring the ZH
+  `DrawModule` locally *precisely so* its derived table stayed unchanged.
+  The adoption was reverted; nothing was retained.
+
+  **Consequence for the header lane:** `DrawModule.h` should not be adopted in a
+  `W3D*Draw` unit until this entry's remaining prerequisite -- a family-wide
+  `DrawModule` table proven against retail (VA 0x00BC9690, at least 48 slots) --
+  is settled. A byte-exact adoption is not evidence here; the byte gate cannot
+  see a COMDAT selection change, which is what the link guard is for. The
+  `DrawModule` queue rows are blocked on this entry, not on a layout
+  disagreement. Measured yield for the class was 1 pass in 29 units
+  (`reverse/attempt_support/header-bulk-probe-yield-20261108.md`), and that one
+  pass is this unit.
+
 - **Earlier recheck (2026-10-28, revision `e1b88db116ad`):** all five rows in `W3DPropDraw.cpp`
   byte-verify, but its current object still previews blocked for all 124 authored
   bytes against index `14dc3d2467`: the same ModuleData destructor, DrawModule
