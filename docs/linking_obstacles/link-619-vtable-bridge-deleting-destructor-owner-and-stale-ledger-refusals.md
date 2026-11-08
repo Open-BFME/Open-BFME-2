@@ -325,3 +325,12 @@ change the image already bound slot 0 to an unrowed COMDAT copy (BaseHeightMapCo
 emitting the inline body, **the next census or real link must confirm that slot 0 of the RefCountClass-derived tables
 still resolves to a `Delete_This` body** (crash triage checks it when that census reports). Phase 2 (multilist) waits
 for that confirmation. Follow-up: rename the placeholder row at 0x0006CE57 to `?Delete_This@RefCountClass@@UAEXXZ`.
+- **Verified 2026-11-08 (crash triage):** on the diagnostic image 8bd091877e (master f0d7034d24, phase 1 included;
+  real link run 42434021523 at the same base: 132 unresolved, 0 duplicates), all 106 retail tables whose slot 0 is
+  0x0006CE57 resolve by ledger name, and slot 0 still resolves to a `Delete_This` body in 104: 84 to the rowed retail
+  body (`?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ`, alias `?f0@CamBase0@@UAEXXZ`, byte-identical to 0x0006CE57 apart
+  from the operator-delete displacement) and 20 to the unrowed `?Delete_This@RefCountClass@@UAEXXZ` COMDAT from
+  BaseHeightMapConstructor.obj (a different but equivalent shape: `push 1; call [eax+4]`). The other 2 hold a deleting
+  destructor (`??_7BaseHeightMapRenderObjClass@@6BRO0@@@` and `??_7Rva006DD51@@6BRva006DD51Base0@@@`, scaffold views).
+  The pre-phase-1 image 05d517395d gives the identical 84/20/2 split, so phase 1 changed no slot-0 binding. Follow-ups,
+  not caused by phase 1: those 2 scaffold tables, and naming the 0x0006CE57 row so the 20 tables bind to it.
