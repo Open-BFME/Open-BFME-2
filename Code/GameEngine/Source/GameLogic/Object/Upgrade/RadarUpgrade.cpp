@@ -101,11 +101,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class CastleUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 
 // ArmorUpgrade own table (retail VA 0x00DBA870, 16-byte entries
 // {label, parse, userData, offset} per the landed RiderChange precedent).

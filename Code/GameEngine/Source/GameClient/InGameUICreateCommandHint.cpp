@@ -92,7 +92,7 @@ private:
  Rva002A1316Iterator insert(Rva002A1316Iterator,void *const &);
 };
 class CreateAHeroData;
-class AiOrdersManager {public:void *rva0035538C(const Coord3D &,int,const _STL::list<CreateAHeroData *> *);};
+#include "../../Include/GameLogic/AiOrdersManager.h"
 extern AiOrdersManager *TheAiOrdersManager;
 class CommandButton {public:char pad14[0x14];int command;char pad18[4];unsigned options;char pad20[0x24];void *special;char pad48[4];int radius;AsciiString cursor,invalid;char pad58[0x28];int weapon;bool isContextCommand() const;};
 bool CanSelectDrawable(const Drawable *,bool);
