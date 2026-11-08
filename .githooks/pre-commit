@@ -23,12 +23,31 @@ export GIT_NO_REPLACE_OBJECTS=1
 # rewrites history (a shallow clone, info/grafts, refs/replace/, GIT_GRAFT_FILE or
 # GIT_REPLACE_REF_BASE) refuses outright. Keep the two hooks' copies and the tool alike.
 git_history_trusted() {
-    local why="local git state rewrites history" shallow common replaced
+    local why="local git state rewrites history" own_git top gitdir common knob own shallow replaced
+    # This checkout's own repository, found from its top with every selection variable unset;
+    # one that is set must name exactly it (git exports GIT_INDEX_FILE, inside the git dir).
+    own_git=(env -u GIT_DIR -u GIT_WORK_TREE -u GIT_COMMON_DIR -u GIT_INDEX_FILE git)
+    top=$("${own_git[@]}" rev-parse --show-toplevel) || fail "$why (cannot find $ROOT's own repository)"
+    gitdir=$("${own_git[@]}" rev-parse --absolute-git-dir) || fail "$why (cannot find $ROOT's own repository)"
+    common=$("${own_git[@]}" rev-parse --git-common-dir) || fail "$why (cannot find $ROOT's own repository)"
+    top=$(realpath -m "$top"); gitdir=$(realpath -m "$gitdir"); common=$(realpath -m "$common")
+    [ "$top" = "$(realpath -m "$ROOT")" ] || fail "$why ($ROOT is not its repository's top ($top))"
+    for knob in GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR; do
+        [ -n "${!knob+x}" ] || continue
+        case $knob in GIT_DIR) own=$gitdir ;; GIT_WORK_TREE) own=$top ;; *) own=$common ;; esac
+        [ "$(realpath -m "${!knob}")" = "$own" ] || fail "$why ($knob names ${!knob}, not this checkout's $own)"
+    done
+    if [ -n "${GIT_INDEX_FILE+x}" ]; then
+        case "$(realpath -m "$GIT_INDEX_FILE")" in
+            "$gitdir"/*) export GIT_INDEX_FILE="$(realpath -m "$GIT_INDEX_FILE")" ;;
+            *) fail "$why (GIT_INDEX_FILE names $GIT_INDEX_FILE, outside this checkout's git directory $gitdir)" ;;
+        esac
+    fi
+    unset GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR           # every git below finds the same repository itself
     [ -z "${GIT_GRAFT_FILE+x}" ] || fail "$why (GIT_GRAFT_FILE is set)"
     [ -z "${GIT_REPLACE_REF_BASE+x}" ] || fail "$why (GIT_REPLACE_REF_BASE is set)"
     shallow=$(git rev-parse --is-shallow-repository) || fail "$why (cannot tell whether the repository is shallow)"
     [ "$shallow" = false ] || fail "$why (the repository is shallow: git fetch --unshallow)"
-    common=$(git rev-parse --git-common-dir) || fail "$why (cannot find the git directory)"
     [ ! -e "$common/info/grafts" ] && [ ! -L "$common/info/grafts" ] || fail "$why ($common/info/grafts exists)"
     replaced=$(git for-each-ref --format='%(refname)' refs/replace/) || fail "$why (cannot list refs/replace/)"
     [ -z "$replaced" ] || fail "$why (refs/replace/ holds ${replaced%%$'\n'*}: git replace -d)"

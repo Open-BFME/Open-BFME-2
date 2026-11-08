@@ -64,7 +64,6 @@ import collections
 import csv
 import hashlib
 import io
-import os
 import re
 import subprocess
 import sys
@@ -81,13 +80,12 @@ import git_trust  # noqa: E402
 ALLOW = re.compile(r"//\s*class-gate:\s*allow\s+(\w+)\s+\S")
 
 
-# History is read as git wrote it: no `git replace` object stands in for a vote, a header or
-# a base revision, in this gate's own git calls or the base verify-record it runs.
-TRUSTED_GIT = {"GIT_NO_REPLACE_OBJECTS": "1"}
-
-
+# History is read as git wrote it, from this checkout's own repository: every git call of
+# this gate (and the base verify-record it runs) uses git_trust.trusted_env -- no
+# GIT_DIR/GIT_WORK_TREE/GIT_COMMON_DIR of the caller's, no replace objects -- behind
+# git_trust.preflight.
 def trusted_env():
-    return {**os.environ, **TRUSTED_GIT}
+    return git_trust.trusted_env()
 
 
 def git_text(spec):
@@ -240,8 +238,13 @@ def gated(path):
 def staged_sources():
     # -z: a path with a space or a non-ASCII byte must not be split or quoted,
     # or git show fails on it and the unit would go unchecked.
-    out = subprocess.run(["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR", "--", "Code/"],
-                         cwd=ROOT, capture_output=True).stdout.decode("utf-8", "surrogateescape")
+    # A failing git never reads as "nothing staged": the gate stops instead.
+    result = subprocess.run(["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR", "--", "Code/"],
+                            cwd=ROOT, capture_output=True, env=trusted_env())
+    if result.returncode != 0:
+        raise SystemExit(f"  class_gate: git diff --cached failed ({result.returncode}): "
+                         f"{result.stderr.decode('utf-8', 'replace').strip()[:200]}; nothing staged was checked")
+    out = result.stdout.decode("utf-8", "surrogateescape")
     return [p for p in out.split("\0") if p and gated(p)]
 
 
@@ -255,7 +258,7 @@ def staged_renames():
     Any git failure (no HEAD) gives {}: no credit, as before this existed.
     """
     result = subprocess.run(["git", "diff", "--cached", "-M50%", "--name-status", "-z", "--diff-filter=R",
-                             "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True)
+                             "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True, env=trusted_env())
     if result.returncode != 0:
         return {}
     fields = result.stdout.decode("utf-8", "surrogateescape").split("\0")
@@ -443,7 +446,8 @@ def staged_deletions(renames):
     gives {}: no credit.
     """
     result = subprocess.run(["git", "diff", "--cached", "--no-renames", "--name-only", "-z",
-                             "--diff-filter=D", "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True)
+                             "--diff-filter=D", "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True,
+                            env=trusted_env())
     if result.returncode != 0:
         return {}
     credited = set(renames.values())
@@ -585,7 +589,8 @@ def staged_identity_deletions(renames, canon):
     """{(key, args, scope, normalised body): [HEAD path, ...]} for gated units the index deletes:
     the template-aware twin of staged_deletions(). An unreadable donor credits nothing."""
     result = subprocess.run(["git", "diff", "--cached", "--no-renames", "--name-only", "-z",
-                             "--diff-filter=D", "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True)
+                             "--diff-filter=D", "HEAD", "--", "Code/"], cwd=ROOT, capture_output=True,
+                            env=trusted_env())
     if result.returncode != 0:
         return {}
     credited = set(renames.values())
@@ -706,7 +711,8 @@ def shadow_log(record):
     Never raises: a failing git, path or write loses the log line, not the commit."""
     import json
     try:
-        result = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=ROOT, capture_output=True, text=True)
+        result = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=ROOT, capture_output=True, text=True,
+                                env=trusted_env())
         if result.returncode != 0:
             return
         common = Path(result.stdout.strip())

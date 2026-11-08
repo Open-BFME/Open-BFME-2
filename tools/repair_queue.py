@@ -416,7 +416,7 @@ def shell_quote(text):
 
 
 def locate_source(name):
-    got = subprocess.run(["git", "grep", "-l", "-F", "--", name, SOURCE_PREFIX], cwd=ROOT,
+    got = subprocess.run(["git", "grep", "-l", "-F", "--", name, SOURCE_PREFIX], cwd=ROOT, env=trusted_git_env(),
                          capture_output=True, text=True)
     files = got.stdout.split()
     return files[0] if files else None
@@ -457,31 +457,67 @@ def pass_test(line, build_cmd=None):
 
 def _git(*args):
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True,
-                          encoding="utf-8", errors="replace")
+                          encoding="utf-8", errors="replace", env=trusted_git_env())
 
 
 # tools/git_trust.py's rule, kept inline because the hooks run this file from a base copy on
-# stdin: local git state that rewrites history (a shallow clone, info/grafts, refs/replace/,
-# GIT_GRAFT_FILE or GIT_REPLACE_REF_BASE) leaves nothing read from it trustworthy.
+# stdin: git reads ROOT's own repository (GIT_DIR, GIT_WORK_TREE and GIT_COMMON_DIR dropped,
+# each call run from ROOT, GIT_INDEX_FILE absolute, replace objects off), and local git state
+# that rewrites history (another repository named by the environment, a shallow clone,
+# info/grafts, refs/replace/, GIT_GRAFT_FILE or GIT_REPLACE_REF_BASE) leaves nothing read
+# from it trustworthy. Keep it the same as git_trust's (test_git_trust.py compares them).
 GIT_TRUST_ENV = ("GIT_GRAFT_FILE", "GIT_REPLACE_REF_BASE")
+GIT_REPO_SELECTION = ("GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR")
+
+
+def trusted_git_env():
+    env = {k: v for k, v in os.environ.items() if k not in GIT_REPO_SELECTION}
+    if "GIT_INDEX_FILE" in env:
+        env["GIT_INDEX_FILE"] = os.path.abspath(env["GIT_INDEX_FILE"])
+    env["GIT_NO_REPLACE_OBJECTS"] = "1"
+    return env
+
+
+def _same_path(a, b):
+    return os.path.normcase(os.path.realpath(a)) == os.path.normcase(os.path.realpath(b))
+
+
+def _bound_repository():
+    env = {k: v for k, v in os.environ.items() if k not in GIT_REPO_SELECTION + ("GIT_INDEX_FILE",)}
+    got = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--show-toplevel", "--absolute-git-dir",
+                          "--git-common-dir"], capture_output=True, text=True, env=env)
+    lines = got.stdout.splitlines()
+    if got.returncode or len(lines) != 3:
+        return None
+    top, git_dir, common = lines
+    return top, git_dir, os.path.join(str(ROOT), common)
 
 
 def untrusted_history():
     """What makes ROOT's history untrustworthy (tools/git_trust.py's untrusted_history)."""
-    problems = [f"{knob} is set" for knob in GIT_TRUST_ENV if knob in os.environ]
-    shallow = _git("rev-parse", "--is-shallow-repository")
+    bound = _bound_repository()
+    if bound is None:
+        return [f"cannot find {ROOT}'s own repository"]
+    top, git_dir, common = bound
+    problems = [] if _same_path(top, ROOT) else [f"{ROOT} is not its repository's top ({top})"]
+    for knob, own in (("GIT_DIR", git_dir), ("GIT_WORK_TREE", top), ("GIT_COMMON_DIR", common)):
+        if knob in os.environ and not _same_path(os.environ[knob], own):
+            problems.append(f"{knob} names {os.environ[knob]}, not this checkout's {own}")
+    if "GIT_INDEX_FILE" in os.environ:
+        index = os.path.normcase(os.path.realpath(os.environ["GIT_INDEX_FILE"]))
+        if not index.startswith(os.path.normcase(os.path.realpath(git_dir)) + os.sep):
+            problems.append(f"GIT_INDEX_FILE names {os.environ['GIT_INDEX_FILE']}, outside this checkout's "
+                            f"git directory {git_dir}")
+    problems += [f"{knob} is set" for knob in GIT_TRUST_ENV if knob in os.environ]
+    shallow = _git("-C", str(ROOT), "rev-parse", "--is-shallow-repository")
     if shallow.returncode or shallow.stdout.strip() not in ("true", "false"):
         problems.append("cannot tell whether the repository is shallow")
     elif shallow.stdout.strip() == "true":
         problems.append("the repository is shallow (git fetch --unshallow)")
-    common = _git("rev-parse", "--git-common-dir")
-    if common.returncode or not common.stdout.strip():
-        problems.append("cannot find the git directory")
-    else:
-        grafts = (Path(ROOT) / common.stdout.strip()) / "info" / "grafts"
-        if os.path.lexists(grafts):
-            problems.append(f"{grafts} exists")
-    replaced = _git("for-each-ref", "--format=%(refname)", "refs/replace/")
+    grafts = os.path.join(common, "info", "grafts")
+    if os.path.lexists(grafts):
+        problems.append(f"{grafts} exists")
+    replaced = _git("-C", str(ROOT), "for-each-ref", "--format=%(refname)", "refs/replace/")
     if replaced.returncode:
         problems.append("cannot list refs/replace/")
     elif replaced.stdout.split():
@@ -678,7 +714,7 @@ def link_source(path=None):
         newer, basis = True, "named by hand"
         if not (path or LINK_STATUS_SET) and census:
             got = subprocess.run(["git", "merge-base", "--is-ancestor", census["commit"], commit],
-                                 cwd=ROOT, capture_output=True) if commit and not untrusted_history() else None
+                                 cwd=ROOT, capture_output=True, env=trusted_git_env()) if commit and not untrusted_history() else None
             if got is not None and got.returncode in (0, 1):
                 newer, basis = got.returncode == 0, "commit vs the census's %s" % census["commit"][:10]
             else:
@@ -2026,7 +2062,7 @@ def _base_verified(candidates):
     DEBT_BASE's tools/*.py; anything that fails to run credits nothing."""
     import tarfile
     import tempfile
-    trusted = dict(os.environ, GIT_NO_REPLACE_OBJECTS="1")      # no `git replace` stands in for the base
+    trusted = trusted_git_env()                     # ROOT's own repository, no replace objects
     archive = subprocess.run(["git", "archive", DEBT_BASE or "HEAD", "--", ":(glob)tools/*.py"], cwd=ROOT,
                              capture_output=True, env=trusted)
     if archive.returncode != 0:
@@ -2503,7 +2539,7 @@ def stub_items(path=None):
         return [], f"{out}: stubs.json is not the one receipt.json names: stub-closure queue skipped"
     commit = receipt.get("commit") or ""
     got = subprocess.run(["git", "merge-base", "--is-ancestor", commit, "HEAD"], cwd=ROOT,
-                         capture_output=True) if commit and not untrusted_history() else None
+                         capture_output=True, env=trusted_git_env()) if commit and not untrusted_history() else None
     if got is None or got.returncode != 0:
         return [], (f"{out}: link cycle measured commit {commit[:10] or '(none)'}, which is not HEAD or an "
                     "ancestor of it: stub-closure queue skipped")

@@ -833,10 +833,19 @@ both hooks run with `GIT_NO_REPLACE_OBJECTS=1`, so a `git replace` object never
 stands in for history they trust. Neither tool sets it on import, so other lanes'
 git calls are unaffected.
 
-Every history-dependent path first runs one preflight (`tools/git_trust.py`). It
-refuses when local git state could rewrite what git reports as history: a shallow
-clone, an `info/grafts` file, any ref under `refs/replace/`, or `GIT_GRAFT_FILE` or
-`GIT_REPLACE_REF_BASE` set. It runs at the start of `verify-record`, the revert of a
+Every history-dependent path first runs one preflight (`tools/git_trust.py`). The
+repository it judges is the tool's own checkout, found from its root with `GIT_DIR`,
+`GIT_WORK_TREE`, `GIT_COMMON_DIR` and `GIT_INDEX_FILE` unset. Each of those that is
+set must resolve to exactly that repository's paths; `GIT_INDEX_FILE`, which git
+exports to hooks, must sit inside its git directory. Every trusted git call then runs
+from the root with the three selection variables dropped, so it cannot read another
+repository. The preflight also refuses when local git state could rewrite what git
+reports as history: a shallow clone, an `info/grafts` file, any ref under
+`refs/replace/`, or `GIT_GRAFT_FILE` or `GIT_REPLACE_REF_BASE` set. A failed `git
+diff --cached` in class_gate stops the gate; it never reads as nothing staged.
+Alternates and borrowed objects (`objects/info/alternates`, as srv1's worktrees use)
+are allowed: they add objects but never change which object a name means. A corrupt
+or substituted object store is outside what this guards. It runs at the start of `verify-record`, the revert of a
 registered class, `--prepared`'s baseline and proof, `class_gate.py --staged` and
 `--vote-sources-range`, and repair_queue's `verify-removed`, `verify-missing`,
 `retire`, `retired` and header-queue reads. repair_queue keeps an inline copy (the

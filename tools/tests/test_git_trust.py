@@ -23,7 +23,13 @@ import git_trust  # noqa: E402
 import rename  # noqa: E402
 from test_hook_fail_closed import repo, run as run_hook  # noqa: E402,F401  (the fixture)
 
-CONDITIONS = ["shallow", "grafts", "replace", "GIT_GRAFT_FILE", "GIT_REPLACE_REF_BASE"]
+# the last four point git at another repository (a donor): the review's GIT_DIR probe
+CONDITIONS = ["shallow", "grafts", "replace", "GIT_GRAFT_FILE", "GIT_REPLACE_REF_BASE",
+              "GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR", "GIT_INDEX_FILE"]
+EXPECTED = {"shallow": "shallow", "grafts": "grafts exists", "replace": "refs/replace/ holds 1 ref",
+            "GIT_GRAFT_FILE": "GIT_GRAFT_FILE is set", "GIT_REPLACE_REF_BASE": "GIT_REPLACE_REF_BASE is set",
+            "GIT_DIR": "GIT_DIR names", "GIT_WORK_TREE": "GIT_WORK_TREE names",
+            "GIT_COMMON_DIR": "GIT_COMMON_DIR names", "GIT_INDEX_FILE": "GIT_INDEX_FILE names"}
 
 
 def git(root, *args, **kwargs):
@@ -67,8 +73,16 @@ def untrust(root, condition, monkeypatch, tmp_path):
     elif condition == "GIT_GRAFT_FILE":
         (tmp_path / "grafts").write_text(f"{head}\n")
         monkeypatch.setenv("GIT_GRAFT_FILE", str(tmp_path / "grafts"))
-    else:
+    elif condition == "GIT_REPLACE_REF_BASE":
         monkeypatch.setenv("GIT_REPLACE_REF_BASE", "refs/elsewhere/")
+    else:                                                       # a donor repository named by the environment
+        donor = tmp_path / "donor"
+        if not donor.exists():
+            subprocess.run(["git", "init", "-q", str(donor)], check=True, capture_output=True)
+        commit(donor, "d.txt", "donor\n", "donor")
+        monkeypatch.setenv(condition, str({"GIT_DIR": donor / ".git", "GIT_WORK_TREE": donor,
+                                           "GIT_COMMON_DIR": donor / ".git",
+                                           "GIT_INDEX_FILE": donor / ".git" / "index"}[condition]))
     return root
 
 
@@ -84,10 +98,7 @@ def test_each_condition_refuses(tmp_path, monkeypatch, condition, capsys):
     root = untrust(history(tmp_path)[0], condition, monkeypatch, tmp_path)
     problems = git_trust.untrusted_history(root)
     assert len(problems) == 1, problems
-    expected = {"shallow": "shallow", "grafts": "grafts exists", "replace": "refs/replace/ holds 1 ref",
-                "GIT_GRAFT_FILE": "GIT_GRAFT_FILE is set",
-                "GIT_REPLACE_REF_BASE": "GIT_REPLACE_REF_BASE is set"}[condition]
-    assert expected in problems[0]
+    assert EXPECTED[condition] in problems[0]
     with pytest.raises(git_trust.UntrustedHistory, match="verify-record: local git state rewrites history"):
         git_trust.preflight(root, "verify-record")
     assert git_trust.main(["--root", str(root), "pre-push"]) == 1
@@ -95,7 +106,57 @@ def test_each_condition_refuses(tmp_path, monkeypatch, condition, capsys):
 
 
 def test_not_a_repository_refuses(tmp_path):
-    assert "cannot tell whether the repository is shallow" in git_trust.untrusted_history(tmp_path)[0]
+    assert git_trust.untrusted_history(tmp_path) == [f"cannot find {tmp_path}'s own repository"]
+
+
+@pytest.mark.parametrize("knob,value", [
+    ("GIT_DIR", ".git"), ("GIT_DIR", "{root}/.git"), ("GIT_WORK_TREE", "{root}"),
+    ("GIT_COMMON_DIR", "{root}/.git"),
+    ("GIT_INDEX_FILE", ".git/index"),                                  # what git exports to a plain commit
+    ("GIT_INDEX_FILE", "{root}/.git/index.lock"),                      # commit -a
+    ("GIT_INDEX_FILE", "{root}/.git/next-index-123.lock"),             # a partial commit
+])
+def test_a_variable_naming_this_checkout_is_accepted(tmp_path, monkeypatch, rq_at, knob, value):
+    root = history(tmp_path)[0]
+    monkeypatch.chdir(root)                                            # a hook runs from the top
+    monkeypatch.setenv(knob, value.format(root=root))
+    assert git_trust.untrusted_history(root) == []
+    assert rq_at(root).untrusted_history() == []
+
+
+def test_trusted_calls_drop_the_callers_repository_selection(tmp_path, monkeypatch):
+    root = history(tmp_path)[0]
+    monkeypatch.chdir(root)
+    for knob in git_trust.REPO_SELECTION:
+        monkeypatch.setenv(knob, "/elsewhere")
+    monkeypatch.setenv("GIT_INDEX_FILE", ".git/index")
+    env = git_trust.trusted_env()
+    assert not set(git_trust.REPO_SELECTION) & set(env)
+    assert env["GIT_INDEX_FILE"] == os.path.abspath(".git/index") and env["GIT_NO_REPLACE_OBJECTS"] == "1"
+    assert rename.trusted_env() == env and class_gate.trusted_env() == env
+
+
+def test_a_failing_staged_diff_stops_the_gate(tmp_path, monkeypatch):
+    """class_gate never reads a failed `git diff --cached` as nothing staged."""
+    monkeypatch.setattr(class_gate, "ROOT", tmp_path)                  # no repository: git diff fails
+    with pytest.raises(SystemExit, match="(?s)git diff --cached failed .*nothing staged was checked"):
+        class_gate.staged_sources()
+
+
+def test_a_repository_git_cannot_read_stops_the_gate(tmp_path, monkeypatch):
+    """The review's extension probe: the repository's own git reads it (the preflight passes),
+    but its objects no longer match the format, so `git diff --cached` fails; that never
+    reads as nothing staged."""
+    root = history(tmp_path)[0]
+    (root / "Code").mkdir()
+    (root / "Code/View.cpp").write_text("class Widget { int m; };\n")
+    git(root, "add", "-A")
+    git(root, "config", "core.repositoryformatversion", "1")
+    git(root, "config", "extensions.objectFormat", "sha256")
+    monkeypatch.setattr(class_gate, "ROOT", root)
+    monkeypatch.setattr(class_gate.class_views, "canonical_classes", lambda: {"Widget": "Code/Game/Widget.h"})
+    with pytest.raises(SystemExit, match="(?s)git diff --cached failed .*nothing staged was checked"):
+        class_gate.main(["--staged"])
 
 
 @pytest.fixture
@@ -158,11 +219,22 @@ def test_both_hooks_refuse_before_any_check(repo, tmp_path, monkeypatch, hook, c
     git(repo, "commit", "-qm", "a second commit")
     judged = untrust(repo, condition, monkeypatch, tmp_path)
     assert git_trust.untrusted_history(judged)
+    if condition == "GIT_WORK_TREE":                 # as git runs the hook: GIT_DIR names the checkout's own
+        monkeypatch.setenv("GIT_DIR", str(repo / ".git"))
     head = git(judged, "rev-parse", "HEAD")
     result = run_hook(judged, hook, f"refs/heads/main {head} refs/heads/main {'0' * 40}\n"
                       if hook == "pre-push" else "")
     assert result.returncode == 1, (result.stdout, result.stderr)
     assert "local git state rewrites history" in result.stderr
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+@pytest.mark.parametrize("env", [{"GIT_INDEX_FILE": ".git/index"}, {"GIT_DIR": ".git"}])
+def test_the_hooks_accept_what_git_itself_exports(repo, hook, env):
+    head = git(repo, "rev-parse", "HEAD")
+    result = run_hook(repo, hook, f"refs/heads/main {head} refs/heads/main {head}\n" if hook == "pre-push" else "",
+                      env=env)
+    assert "local git state rewrites history" not in result.stderr, result.stderr
 
 
 def hook_copy(name):

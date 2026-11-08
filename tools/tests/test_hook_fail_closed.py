@@ -152,8 +152,10 @@ def test_pre_commit_refuses_when_git_cannot_list_the_index(repo):
     # its early exit: a commit with sources passed with nothing checked.
     write(repo, SOURCE, "struct Unit { void f(); };\nvoid Unit::f() { int x = 0; }\n")
     git(repo, "add", SOURCE)
-    write(repo, "bad-index", "not an index\n")
-    result = run(repo, "pre-commit", env={"GIT_INDEX_FILE": str(repo / "bad-index")})
+    # inside the git directory, where git's own index files live: one outside it is refused
+    # earlier, as another repository's (tools/git_trust.py)
+    write(repo, ".git/bad-index", "not an index\n")
+    result = run(repo, "pre-commit", env={"GIT_INDEX_FILE": str(repo / ".git" / "bad-index")})
     assert result.returncode == 1
     # the lessons ban's listing is the first: through a pipe its failure read as "no
     # lessons.md" and the hook went on to the next listing

@@ -6169,14 +6169,12 @@ def fingerprint_bound(ctx, row, rel):
 # reference/open-bfme-1) is read at the commit the base pins for that submodule.
 
 
-# Trusted history is read as git wrote it: no `git replace` object may stand in for a frozen
-# contract, a vote or a base revision. Every git call of the registered-class rename, its
-# credit check (verify-record) and its prepared-unit proof runs under this environment.
-TRUSTED_GIT = {"GIT_NO_REPLACE_OBJECTS": "1"}
-
-
+# Trusted history is read as git wrote it, from the checkout's own repository: every git call
+# of the registered-class rename, its credit check (verify-record) and its prepared-unit proof
+# runs under git_trust.trusted_env (no GIT_DIR/GIT_WORK_TREE/GIT_COMMON_DIR of the caller's,
+# no replace objects), behind git_trust.preflight.
 def trusted_env(extra=None):
-    return {**os.environ, **TRUSTED_GIT, **(extra or {})}
+    return git_trust.trusted_env(extra)
 
 
 class RevisionContext(Context):
