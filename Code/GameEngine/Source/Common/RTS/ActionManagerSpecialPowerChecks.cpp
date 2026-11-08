@@ -443,11 +443,7 @@ bool ActionManager::canRepairObject(
 // BFME2 41C79C..41C96C RET16 receives its module as the fourth argument;
 // its template override +60 filter supersedes the legacy capture restrictions.
 // The local chain is 64 bytes, with seven-dword masks at +8 and +24.
-class BfmeFixedStorage0004543D {
-public:
- BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();
- unsigned words[7];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template<int N> class BitFlags { public: unsigned m_bits[7]; };
 // Native second mask at DFEFA4 is seven clear words. Use the existing
