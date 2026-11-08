@@ -44,6 +44,10 @@ The census cache had 16,400 of 22,802.
    - **No behaviour change:** the hook's output and exit code don't change, and
      a failing write loses the line, never the push. One clone's file is that
      clone's pushes; the seats on srv1 share one common dir, so they share one log.
+   - **Reading it:** drop lines with `"base": "a"` and `"tip": "b"`. They are
+     fixtures `tools/tests/test_link_batch_audit.py` wrote into real logs
+     (2026-11-07 on; 6 of srv1's first 8 lines), and a clone running the suite from
+     before its fix can still add more. The live log is left as it is.
 
 1. **Every compile records the inventory.** `try_compile_source` takes
    `inventory_before` and runs `_inventory_problems` for every `cl` compile, not
