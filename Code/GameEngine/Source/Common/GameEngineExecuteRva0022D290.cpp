@@ -4,7 +4,7 @@
 // GameEngine's execute loop body with the startup load, embedded catch handlers
 // and the frame pacing. BFME1 GameEngine_execute.cpp and ZH GameEngine::execute
 // are the semantic guides; offsets, globals and calls are from the retail body.
-// The pacing stores the elapsed time into EngineFrameElapsedTime before the
+// The pacing stores the elapsed time into BfmeLastFrameDeltaMS before the
 // remaining-time ternary reads it back (retail's distinct EAX copy of elapsed),
 // and the network headroom test is a plain if (no early exit).
 // Native22D290..22D7FC includes startup load, embedded catch handlers and pacing.
@@ -327,8 +327,11 @@ extern int SavedClientFrame;
 // EngineInitialFrameTime, EngineSleepTimeTotal and EngineLimitFrameRate are
 // defined (data rows) in W3DDisplayGatherNetworkStats.cpp.
 extern unsigned EngineInitialFrameTime;
-unsigned EnginePreviousFrameTime,EngineFrameElapsedTime;
-unsigned EngineSleepTimeRemaining;
+unsigned EnginePreviousFrameTime;
+// 0x00DFE6FC and 0x00DFE700: the stats display reads these, and they are defined
+// (data rows) in W3DDisplayGatherNetworkStats.cpp.
+extern int BfmeLastSleptMS;
+extern int BfmeLastFrameDeltaMS;
 extern unsigned EngineSleepTimeTotal;
 extern bool EngineLimitFrameRate;
 extern bool TheDeepCRC,TheLiteCRC;
@@ -508,10 +511,10 @@ void GameEngine::rva0022D290()
   {
    unsigned now=timeGetTime();
    int limit=(int)(1000.0f/(float)((double)m_maxFPS*LOGIC_SCALE));
-   EngineFrameElapsedTime=now-EnginePreviousFrameTime;
-   unsigned remaining=EngineFrameElapsedTime<(unsigned)limit ? (unsigned)limit-EngineFrameElapsedTime : 0;
+   BfmeLastFrameDeltaMS=now-EnginePreviousFrameTime;
+   unsigned remaining=BfmeLastFrameDeltaMS<(unsigned)limit ? (unsigned)limit-BfmeLastFrameDeltaMS : 0;
    EngineSleepTimeTotal+=remaining;
-   EngineSleepTimeRemaining=remaining;
+   BfmeLastSleptMS=remaining;
    unsigned elapsed=now-EnginePreviousFrameTime;
    if(elapsed<(unsigned)limit)
    {
@@ -529,8 +532,8 @@ void GameEngine::rva0022D290()
   
   {
    unsigned now=timeGetTime();
-   EngineFrameElapsedTime=now-EnginePreviousFrameTime;
-   EngineSleepTimeRemaining=0;
+   BfmeLastFrameDeltaMS=now-EnginePreviousFrameTime;
+   BfmeLastSleptMS=0;
    EnginePreviousFrameTime=now;
    
   }
