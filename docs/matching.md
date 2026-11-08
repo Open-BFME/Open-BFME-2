@@ -658,11 +658,11 @@ path, repo-relative and in exact case, one per line, in its uncommitted
 can trust a link. On 2026-11-07 no srv1 checkout needed an entry.
 
 Residual boundary. The `// cl:` allowlist governs the flags a source passes, not what
-the source itself reads: `#include "../../.."` climbing out of the checkout, an
-absolute `#include` (Rule E refuses one only on an added Code/ line), `#pragma
-include_alias`, `#import` (which also writes `.tlh`/`.tli` files beside the object) and
-`#using` (inert without `/clr`, which is refused). These read files and do not run
-code; master's sources use no `#import`, `#using` or `include_alias`.
+the source itself reads. Rule F also refuses `#import` (which writes `.tlh`/`.tli` files
+too), `#using` and `#pragma include_alias` in any changed Code/ file and in `--cl-tree`
+(master used none). Still open: `#include "../../.."` climbing out of the checkout,
+and an absolute `#include` anywhere but an added Code/ line (Rule E). Those read files
+and do not run code.
 
 ## Work selection in detail (moved from AGENTS.md, 2026-10)
 
