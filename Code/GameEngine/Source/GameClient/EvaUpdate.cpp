@@ -68,13 +68,7 @@ public:
 	unsigned char m_pad08[0x34 - 0x08];
 };
 
-class LivingWorldLogic
-{
-public:
-	unsigned char m_pad00[0x100];
-	UnsignedInt m_frame;					// +0x100
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 struct EvaEventReport;
 class Rva001DD70F { public: void rva001DD846(); };
@@ -211,7 +205,7 @@ void Eva::update()
 	if (m_7C && audio) {
 		if (!((EvaAudioDispatch *)audio)->playing(m_74)) {
 			GameLogic *logic = TheGameLogic;
-			UnsignedInt frame = logic->rva001DCD1C() ? TheLivingWorldLogic->m_frame : logic->getFrame();
+			UnsignedInt frame = logic->rva001DCD1C() ? TheLivingWorldLogic->field100 : logic->getFrame();
 			if (frame > 2)
 				rva001DDF04();
 		}

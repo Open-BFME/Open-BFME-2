@@ -4,8 +4,8 @@
 // Table 0x00BFE2E4 has fourteen slots: 0=0x002BAEE5 (deleting destructor calling 0x002B964F); 1=init 0x002B98AD; 2=SubsystemInterface::loadIniFilesFromLegend 0x001B5384; 3/8/12=0x000B3FD0 (ret); 4/11=0x005CB9FF (false, ret 4); 5=0x0047A699 (false); 6=0x000D43D0 (zero); 7/13=0x0047A69C (ret 4); 9=reset 0x002B2535; 10=update 0x002BD9B4. The next word is class-name text, not a fifteenth slot. The registered parent's BFME_SUBSYSTEM_SLOTS form supplies the inherited slots.
 // Snapshot's four-slot table 0x00BFE2D4 is 0x002B9647 (subtract 0xC, jump to deleting destructor), loadPostProcess 0x002BC5D3, GetSnapshotName 0x002B9641 (returns the LivingWorldLogic string at 0x00BFE31C), xfer 0x002BC653. The three observer tables each have four callbacks and no destructor slot: +0x10 has ret4, event1_1 0x002B64C7, ret4, ret8; +0x14 has OnRegionChangedOwnership 0x002BA82B, ret12, ret8, ret8; +0x18 has rva002BA3F2 0x002BA3F2, rva002BA654 0x002BA654, 0x002B2A95, ret4. Their bodies receive the adjusted secondary-base this. The Vslots classes below are structural views; equal folded base tables do not identify them with another registered observer type.
 // Seven calls to 0x00330757 at 0x002B93DC..0x002B940C construct 0x10-byte listener storage at +0x1C/+0x2C/+0x3C/+0x4C/+0x5C/+0x6C/+0x7C. Their original template/base identities remain unproved, so this storage is opaque. Vector-header construction at 0x002B9453/0x002B94A0/0x002B94BB/0x002B94CA/0x002B952A/0x002B9539/0x002B9548/0x002B9575/0x002B9584 establishes twelve-byte storage at +0x8C/+0xBC/+0xCC/+0xD8/+0x10C/+0x118/+0x124/+0x148/+0x154. List +0xF0 and tree headers +0x130/+0x13C are constructed at 0x002B94F6/0x002B9557/0x002B9566. Element and template types are not inferred from folded constructors.
-// GameEngine::init pushes 0x17C at 0x0022F2EF, calls scalar new at 0x0022F2F4 and constructs LivingWorldLogic at 0x0022F307. Constructor stores at 0x002B9458..0x002B95C5 and 0x002B95EE..0x002B9601 establish the scalar offsets and byte flags below, ending at +0x178 (four bytes). The destructor releases the +0x160 reference at 0x002B9712 and clears the +0x178 owner at 0x002B96FF. Scalar names stay neutral. ValidatePlayers 0x002B38D2 establishes the player-pointer role at +0x98; the region-manager construction 0x002B95E5 and store 0x002B95F5 establish +0xB0.
-// Method names and parameter class/struct spellings below follow the matched LivingWorldLogic ledger rows; lifetime and other rowed bodies are declared without inline definitions. AddDelayedRegionVictory 0x002B9B42 and CheckTurnPhaseTransitions 0x002BD23E have private (AAE) ledger identities; the caller at 0x002BAF01 accesses the former as friend Rva002BAF01.
+// GameEngine::init pushes 0x17C at 0x0022F2EF, calls scalar new at 0x0022F2F4 and constructs LivingWorldLogic at 0x0022F307. Constructor stores at 0x002B9458..0x002B95C5 and 0x002B95EE..0x002B9601 establish the scalar offsets and byte flags below, ending at +0x178 (four bytes). The destructor releases the +0x160 reference at 0x002B9712 and clears the +0x178 owner at 0x002B96FF. Scalar names stay neutral. ValidatePlayers 0x002B38D2 establishes the player-pointer role at +0x98; the region-manager construction 0x002B95E5 and store 0x002B95F5 establish +0xB0. The shared xfer block 0x002BB2B7 transfers +0x164 through Xfer's unsigned-int slot +0x78 at 0x002BB404.
+// Method names and parameter class/struct spellings below follow the matched LivingWorldLogic ledger rows; lifetime and other rowed bodies are declared without inline definitions. AddDelayedRegionVictory 0x002B9B42 and CheckTurnPhaseTransitions 0x002BD23E have private (AAE) ledger identities; the caller at 0x002BAF01 accesses the former as friend Rva002BAF01, and LivingWorldRegionManager::CheckForBattles 0x0020FDDF calls it at 0x0020FF29.
 // Out-of-line method: reset at 0x002B2535.
 // Out-of-line method: rva002B27B5 at 0x002B27B5.
 // Out-of-line method: rva002B2834 at 0x002B2834.
@@ -301,7 +301,7 @@ public:
     unsigned int field148[3];
     unsigned int field154[3];
     void *field160;
-    int field164;
+    unsigned int field164;
     bool field168, field169;
     int field16C, field170;
     bool field174, field175, field176, field177;
@@ -309,6 +309,7 @@ public:
 
 private:
     friend class Rva002BAF01;
+    friend class LivingWorldRegionManager;
     void AddDelayedRegionVictory(Rva003F287F *, int, unsigned int);
     void CheckTurnPhaseTransitions();
 };

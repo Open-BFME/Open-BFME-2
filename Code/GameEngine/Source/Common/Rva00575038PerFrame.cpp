@@ -21,13 +21,7 @@ class Rva0042D71A { public: int get() const; };
 class Rva002B4650 { public: bool rva002B2BAA(); int rva002B3DD0(); };
 void __fastcall Rva005745D8Get(void *object);
 
-class LivingWorldLogic
-{
-public:
-	char pad0[0xfc];
-	int turn;
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva00575038Listener
 {
@@ -69,7 +63,7 @@ void Rva00575038::rva00575038()
 	Rva00575038Listener *listener = reinterpret_cast<Rva00575038Listener *>(m_source->get());
 	if (listener && TheLivingWorldLogic)
 	{
-		listener->setTurn(TheLivingWorldLogic->turn + 1);
+		listener->setTurn(TheLivingWorldLogic->fieldFC + 1);
 		if (reinterpret_cast<Rva002B4650 *>(TheLivingWorldLogic)->rva002B2BAA())
 		{
 			int value = reinterpret_cast<Rva002B4650 *>(TheLivingWorldLogic)->rva002B3DD0();

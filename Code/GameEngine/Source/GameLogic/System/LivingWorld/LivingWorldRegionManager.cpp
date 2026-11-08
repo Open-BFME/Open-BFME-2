@@ -313,19 +313,7 @@ class Rva003F287F;
 struct LivingWorldArmy;
 struct Rva002B6A04Player;
 class LivingWorldRegion;
-class LivingWorldLogic
-{
-    friend class LivingWorldRegionManager;
-private:
-    void AddDelayedRegionVictory(Rva003F287F *, int, unsigned int);
-public:
-    LivingWorldArmy *CreateEmptyGarrisonArmy(Rva002B6A04Player *, LivingWorldRegion *);
-    void LetAIResolveRegionAwardDispute(int, const _STL::vector<int> &, unsigned int);
-    void rva002B9A90(int, const _STL::vector<int> &, unsigned int);
-	unsigned char m_pad00[0xB0];
-	LivingWorldRegionManager *m_regionManager;	// +0xB0
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 // The rule is the record built above; its ctor and dtor are rowed under the
 // record's placeholder name.
@@ -393,7 +381,7 @@ Bool LivingWorldRegionBonusRule::IsRuleSatisfied(Rva002E071E *player, float *fra
 	Int held = 0;
 	for (unsigned int i = 0; i < m_regionIDs.size(); ++i)
 	{
-		Rva0020E89C *region = ((Rva0020EAF6View *)TheLivingWorldLogic->m_regionManager)->rva0020EAF6(m_regionIDs[i]);
+		Rva0020E89C *region = ((Rva0020EAF6View *)TheLivingWorldLogic->fieldB0)->rva0020EAF6(m_regionIDs[i]);
 		if (region == 0)
 			return false;
 		const Int &regionID = region->m_id;

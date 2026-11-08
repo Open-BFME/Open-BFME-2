@@ -50,41 +50,38 @@ class RvaSnapshotResetView {public:
 };
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
-#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
-class LivingWorldLogic : public SubsystemInterface, public Snapshot
-{public:virtual void xfer(Xfer*);
- char unknown10[0x9C - 0x10];int army90,building94,plot98,spawn9C,playerA0;RvaSnapshotView*otherA4;bool enabledA8,flagA9;char unknownAA[0xBD-0xAA];bool loadEnabledBD;char unknownBE[0xF0-0xBE];int counterF0;
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 void LivingWorldLogic::xfer(Xfer*xfer){
  if(xfer->IsCRC()){
-  if(!enabledA8 || !((BfmeSelectionState*)((char*)this))->isSelectionLocked())return;
+  if(!fieldB4 || !((BfmeSelectionState*)((char*)this))->isSelectionLocked())return;
  }
  Version version(1,6);
  (*xfer == reinterpret_cast<Xfer::Version &>(version));
- XferLivingWorldArmyID(xfer,&army90);
- Rva004E075FGet((Rva004E075FObj*)xfer,(int)&building94);
- XferLivingWorldBuildPlotID(xfer,&plot98);
- Rva004E12D7Parse(xfer,&spawn9C);
- if(version.current>=5)XferLivingWorldPlayerID(xfer,&playerA0);
+ XferLivingWorldArmyID(xfer,&field9C);
+ Rva004E075FGet((Rva004E075FObj*)xfer,(int)&fieldA0);
+ XferLivingWorldBuildPlotID(xfer,&fieldA4);
+ Rva004E12D7Parse(xfer,&fieldA8);
+ if(version.current>=5)XferLivingWorldPlayerID(xfer,&fieldAC);
  if(xfer->IsLoading()){
-  (*xfer == loadEnabledBD);
-  if(!loadEnabledBD){((Rva002BED10*)((Rva002D3627Host *)TheLivingWorld))->rva002BED10();return;}
+  (*xfer == fieldC9);
+  if(!fieldC9){((Rva002BED10*)((Rva002D3627Host *)TheLivingWorld))->rva002BED10();return;}
   ((Rva002BED10*)((Rva002D3627Host *)TheLivingWorld))->rva002BED10();
   ((Rva002BBA45*)((BfmeSelectionState*)((char*)this)))->rva002BBA45(xfer);
  }else{
-  loadEnabledBD=enabledA8;
-  (*xfer == loadEnabledBD);
-  if(!loadEnabledBD)return;
+  fieldC9=fieldB4;
+  (*xfer == fieldC9);
+  if(!fieldC9)return;
   ((Rva002BB5DD*)((BfmeSelectionState*)((char*)this)))->rva002BB5DD(xfer);
  }
  ((RvaSnapshotView*)((char*)TheCampaignManager+12))->transfer(xfer);
- (*xfer == flagA9);
+ (*xfer == fieldB5);
  if(xfer->IsLoading()){
   ((Rva002BBBE7*)&g_Va00E04544)->rva002BC39D();
-  if(flagA9)((Glo012F1028Type*)((BfmeSelectionState*)((char*)this)))->rva002B7D03();
+  if(fieldB5)((Glo012F1028Type*)((BfmeSelectionState*)((char*)this)))->rva002B7D03();
   else ((Rva002B7C74*)((BfmeSelectionState*)((char*)this)))->rva002B7C74();
  }
- otherA4->transfer(xfer);
+ fieldB0->xfer(xfer);
  TheGameLogic->rva0023CFE4(xfer);
  if(!xfer->IsCRC()){
   ((RvaSnapshotView*)((char*)TheLivingWorldManager+12))->transfer(xfer);
@@ -94,6 +91,6 @@ void LivingWorldLogic::xfer(Xfer*xfer){
   if(((BfmeSelectionState*)((char*)this))->isSelectionLocked())((Rva002B6AA2*)((BfmeSelectionState*)((char*)this)))->rva002B6AA2();
   else ((RvaSnapshotResetView*)((Rva002D3627Host *)TheLivingWorld))->reset(0);
  }
- if(version.current>=2)(*xfer == counterF0);
- else if(xfer->IsLoading())counterF0=0;
+ if(version.current>=2)(*xfer == fieldFC);
+ else if(xfer->IsLoading())fieldFC=0;
 }

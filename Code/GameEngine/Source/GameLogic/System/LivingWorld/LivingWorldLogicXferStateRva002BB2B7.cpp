@@ -77,45 +77,7 @@ public:
 	void rva002B9CFC(Other002B9CFC *xfer);
 };
 
-class LivingWorldLogic
-{
-public:
-	void rva002BB2B7(Xfer *xfer);
-	void XferDelayedRegionVictories(Xfer *xfer);
-	void XferPlayers(Xfer *xfer);
-
-private:
-	unsigned char m_pad000[0xB8];
-	Int m_regionB8;			// +0xB8
-	unsigned char m_padBC[0xC8 - 0xBC];
-	Bool m_flagC8;			// +0xC8
-	unsigned char m_padC9[0xE4 - 0xC9];
-	Int m_intE4;			// +0xE4
-	Bool m_flagE8;			// +0xE8
-	Bool m_flagE9;			// +0xE9
-	unsigned char m_padEA[0xEC - 0xEA];
-	int m_difficultyEC;		// +0xEC
-	unsigned char m_padF0[0xF4 - 0xF0];
-	Int m_idF4;			// +0xF4
-	Int m_idF8;			// +0xF8
-	unsigned char m_padFC[0x100 - 0xFC];
-	UnsignedInt m_word100;		// +0x100
-	UnsignedInt m_word104;		// +0x104
-	Bool m_flag108;			// +0x108
-	Bool m_flag109;			// +0x109
-	Bool m_flag10A;			// +0x10A
-	unsigned char m_pad10B;
-	unsigned char m_modules10C[0x0C];	// +0x10C
-	unsigned char m_modules118[0x0C];	// +0x118
-	unsigned char m_armies124[0x0C];	// +0x124
-	unsigned char m_pad130[0x164 - 0x130];
-	UnsignedInt m_word164;		// +0x164
-	Bool m_flag168;			// +0x168
-	unsigned char m_pad169[0x175 - 0x169];
-	Bool m_flag175;			// +0x175
-	Bool m_flag176;			// +0x176
-	Bool m_flag177;			// +0x177
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 void LivingWorldLogic::rva002BB2B7(Xfer *xfer)
 {
@@ -123,46 +85,46 @@ void LivingWorldLogic::rva002BB2B7(Xfer *xfer)
 	version.m_minVersion = 1;
 	version.m_version = 7;
 	(*xfer == reinterpret_cast<Xfer::Version &>(version));
-	Rva003EFE82Get((Rva003EFE82Obj *)xfer, &m_regionB8);
+	Rva003EFE82Get((Rva003EFE82Obj *)xfer, &fieldB8);
 	if (!xfer->IsCRC())
 	{
-		(*xfer == m_flagC8);
-		(*xfer == m_flagE8);
+		(*xfer == fieldC8);
+		(*xfer == fieldE8);
 		if (version.m_version >= 5)
 		{
-			(*xfer == m_intE4);
-			(*xfer == m_flag10A);
+			(*xfer == fieldE4);
+			(*xfer == field10A);
 			if (xfer->IsLoading())
-				m_flag10A = false;
-			(*xfer == m_flag176);
-			(*xfer == m_flag177);
+				field10A = false;
+			(*xfer == field176);
+			(*xfer == field177);
 		}
 	}
-	(*xfer == m_flagE9);
+	(*xfer == fieldE9);
 	if (!xfer->IsCRC())
-		XferGameDifficulty(xfer, &m_difficultyEC);
+		XferGameDifficulty(xfer, &fieldEC);
 	if (version.m_version >= 4)
 	{
-		(*xfer == m_word100);
-		(*xfer == m_word104);
+		(*xfer == field100);
+		(*xfer == field104);
 	}
 	if (version.m_version >= 6 && !xfer->IsCRC())
-		(*xfer == m_flag175);
+		(*xfer == field175);
 	if (version.m_version >= 7 && !xfer->IsCRC())
 	{
-		(*xfer == m_flag168);
-		(*xfer == m_word164);
+		(*xfer == field168);
+		(*xfer == field164);
 	}
 	XferPlayers(xfer);
-	XferOwningLivingWorldArmyVec(xfer, (ModuleDataVector *)m_armies124);
-	((Rva002BA8F1Logic *)this)->rva002B8D06(xfer, (ModuleDataVector *)m_modules10C);
-	((Rva002BA8F1Logic *)this)->rva002B8D06(xfer, (ModuleDataVector *)m_modules118);
-	Rva002B2435Get((Rva002B2435Obj *)xfer, &m_idF4);
-	Rva002B2435Get((Rva002B2435Obj *)xfer, &m_idF8);
+	XferOwningLivingWorldArmyVec(xfer, (ModuleDataVector *)field124);
+	((Rva002BA8F1Logic *)this)->rva002B8D06(xfer, (ModuleDataVector *)field10C);
+	((Rva002BA8F1Logic *)this)->rva002B8D06(xfer, (ModuleDataVector *)field118);
+	Rva002B2435Get((Rva002B2435Obj *)xfer, &fieldF4);
+	Rva002B2435Get((Rva002B2435Obj *)xfer, &fieldF8);
 	if (!xfer->IsCRC())
 	{
-		(*xfer == m_flag108);
-		(*xfer == m_flag109);
+		(*xfer == field108);
+		(*xfer == field109);
 	}
 	XferDelayedRegionVictories(xfer);
 	((Rva002B9CFC *)this)->rva002B9CFC((Other002B9CFC *)xfer);
