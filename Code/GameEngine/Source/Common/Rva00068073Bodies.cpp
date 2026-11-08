@@ -13,12 +13,7 @@ class GeometryInfo;
 
 // The +0x3854 buffer's two callees are rowed on W3DShrubBuffer (0x000E912A,
 // 0x000E9D18); 0x000EE04A takes a const Coord3D * on W3DPropBuffer.
-class W3DShrubBuffer
-{
-public:
-	void rva000E912A(const Coord3D *a, float b, int c);
-	void rva000E9D18(const Coord3D *a, const GeometryInfo &b, float c);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
 class AsciiString;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"

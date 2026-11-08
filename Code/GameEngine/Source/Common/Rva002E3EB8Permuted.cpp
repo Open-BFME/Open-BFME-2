@@ -17,65 +17,7 @@ struct Rva0030B72CPoint {
  float x,y;
 };
 
-class Rva00330C50Interface
-{
-public:
-	~Rva00330C50Interface() {}
-	virtual int slot0() const = 0;
-	virtual Rva0030B72CPoint slot1(int index) const = 0;
-	virtual int slot2() const = 0;
-	virtual Region2D slot3() = 0;
-	virtual float slot4() const = 0;
-	virtual float slot5() const = 0;
-	virtual Rva0030B72CPoint slot6() const = 0;
-};
-
-class Rva0030B9DD
-{
-public:
-	Rva0030B9DD(int);
-	~Rva0030B9DD();
-private:
-	char unknown00[0x2C];
-};
-
-class Rva00330C50 : public virtual Rva00330C50Interface
-{
-public:
-	Rva00330C50();
-	virtual ~Rva00330C50();
-	virtual int slot0() const;
-	virtual Rva0030B72CPoint slot1(int index) const;
-	virtual int slot2() const;
-	virtual Region2D slot3();
-	virtual float slot4() const;
-	virtual float slot5() const;
-	virtual Rva0030B72CPoint slot6() const;
-private:
-	Rva0030B9DD container;
-	bool changed;
-};
-
-
-#include <ascii_string.h>
-class Rva002E3EB8Base { public: virtual void slot()=0; };
-class PolygonTrigger;
-class PolygonLink { public: PolygonLink():next(0){} PolygonTrigger* next; };
-class PolygonTrigger:public PolygonLink,public Rva00330C50,public Rva002E3EB8Base {
-public:
- PolygonTrigger(int);
- virtual ~PolygonTrigger();
- virtual void slot() = 0;
- void rva002E36B7(int);
-private:
- AsciiString name;
- int id;
- void* unknown48;
- AsciiString layer;
- char unknown50[12];
- static int s_currentID;
-};
-typedef char PolygonExtent[sizeof(PolygonTrigger)==100?1:-1];
+#include "../../Include/GameLogic/PolygonTrigger.h"
 PolygonTrigger::PolygonTrigger(int n):id(s_currentID++) { rva002E36B7(n); }
 
 // The class's destructor: this unit's constructor row stores the vftable whose slot 0 is the

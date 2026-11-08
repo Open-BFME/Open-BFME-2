@@ -72,14 +72,7 @@ extern Dict g_Va00E00944;	// VA 0x00E00944
 
 extern GlobalData *TheWritableGlobalData;	// VA 0x00DFE758
 
-class PolygonTrigger
-{
-public:
-	bool pointInTrigger(const ICoord3D &point);
-	void getCenterPoint(Coord3D *pOutCoord) const;
-	bool rva002E3A39(const Coord3D &point);
-	bool rva002E3AA8(const Coord3D *from, const Coord3D *to, Coord3D *hit, bool flag);
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

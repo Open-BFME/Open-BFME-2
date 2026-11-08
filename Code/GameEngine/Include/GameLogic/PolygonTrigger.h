@@ -92,6 +92,10 @@ public:
  AsciiString layer;
  bool flag50;
  int field54,field58;
+private:
+ friend class Rva002E41EC;    // 0x002E41EC raises the counter past parsed ids
+ friend void Rva00328A6B(int); // 0x00328A6B stores the counter
+ static int s_currentID;       // ?s_currentID@PolygonTrigger@@0HA, VA 0x00DBD0F0
 };
 
 typedef char PolygonTriggerRetailSize[sizeof(PolygonTrigger)==0x64 ? 1 : -1];

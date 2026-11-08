@@ -13,6 +13,7 @@ class VertexBufferClass;
 class IndexBufferClass;
 class MeshClass;
 class GeometryInfo;
+class Thing;
 struct W3DShrubTypeData {
  unsigned char opaque00[0x18];
  float m_maxOutwardMovement;
@@ -45,6 +46,8 @@ struct ShrubInstance {
 class W3DShrubBuffer {
 public:
  void rva000E9D18(const Coord3D *,const GeometryInfo &,float);
+ void rva000E912A(const Coord3D *,float,int); // 0x000E912A
+ void rva000E7734(Thing *);                   // 0x000E7734
  void rva000E8365();
  void loadShrubsInVertexAndIndexBuffers();
 private:

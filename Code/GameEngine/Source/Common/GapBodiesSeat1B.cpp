@@ -1089,11 +1089,7 @@ void Rva0031A9F2::rva0031A9F2(Rva0031A9F2 **head)
 // 0x0033F9AA (10B, cdecl): sets the AI flag byte at VA 0x00E03624.
 // VA 0x00DBD0F0 is PolygonTrigger's private ?s_currentID@PolygonTrigger@@0HA,
 // defined in PolygonTrigger.cpp (initial 1); reached through a friend view.
-class PolygonTrigger
-{
-	friend void Rva00328A6B(int value);
-	static int s_currentID;
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 extern bool BfmeAIExitDoorFlag;
 
 void Rva00328A6B(int value)

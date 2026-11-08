@@ -4,13 +4,7 @@
 
 #include "../../../Libraries/Include/Lib/ICoord3D.h"
 
-class PolygonTrigger
-{
-public:
-	bool pointInTrigger(const ICoord3D &point);
-	char m_pad00[0x3c];
-	PolygonTrigger *m_next3C;
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 
 class Rva00366B30
 {
@@ -31,7 +25,7 @@ bool Rva00366B30::rva00366B30(const Coord3D *point)
 	while (trig != 0) {
 		if (trig->pointInTrigger(ic))
 			return true;
-		trig = trig->m_next3C;
+		trig = trig->next;
 	}
 	return false;
 }

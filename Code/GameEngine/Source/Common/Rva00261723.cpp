@@ -12,11 +12,7 @@ typedef bool Bool;
 
 #include "../../../Libraries/Include/Lib/ICoord3D.h"
 
-class PolygonTrigger
-{
-public:
-	Bool pointInTrigger(const ICoord3D &pt);
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 
 class Arg00261723
 {

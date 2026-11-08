@@ -9,12 +9,7 @@
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
-class PolygonTrigger
-{
-public:
-	void getCenterPoint(Coord3D *center) const;
-	void getBounds(IRegion2D *bounds);
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 class Rva0027D30D
 {
 public:

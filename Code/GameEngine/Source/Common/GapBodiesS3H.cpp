@@ -95,11 +95,7 @@ extern Rva002E373CHolder *g_Va00DBD0F4;
 
 class Rva002E41EC;
 
-class PolygonTrigger
-{
-	friend class Rva002E41EC;
-	static int s_currentID;									// 0x00DBD0F0
-};
+#include "../../Include/GameLogic/PolygonTrigger.h"
 
 class DataChunkInput;
 struct DataChunkInfo;

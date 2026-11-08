@@ -16,11 +16,7 @@
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PolygonTrigger.h
-class PolygonTrigger
-{
-public:
-	bool pointInTrigger(const ICoord3D &point);
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 bool Point_In_Triangle_2D(const Vector3 &tri_point0, const Vector3 &tri_point1,
 	const Vector3 &tri_point2, const Vector3 &test_point, int axis_1, int axis_2,

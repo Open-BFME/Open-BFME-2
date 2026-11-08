@@ -85,11 +85,7 @@ private:
 };
 typedef Rva0027C36A BridgeInfo;
 
-class PolygonTrigger
-{
-public:
-	void getBounds(IRegion2D *bounds);
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 class Dict;
 class Team;

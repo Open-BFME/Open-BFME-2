@@ -14,7 +14,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 #include <float.h>
 
-class PolygonTrigger { public: bool pointInTrigger(const ICoord3D &); };
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 // Volatile observations preserve native y/height/shape load order; the
 // retail loads are proven, but the original source qualifiers are unknown.
