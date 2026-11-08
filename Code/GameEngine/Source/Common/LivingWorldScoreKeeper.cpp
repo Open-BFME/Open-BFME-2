@@ -437,9 +437,9 @@ public:
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *);
 private:
-	char m_4[2];
-	char m_6[2];
-	int m_8;
+	short m_4;
+	short m_6;
+	short m_8;
 };
 
 // tu-skeleton: 0x004EE016 33B ?rva004EE016@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
@@ -844,27 +844,28 @@ void LivingWorldScoreKeeper::rva004EE78A()
 //
 // PerTurnStats snapshot transfer, retail 0x004EE15B.
 // The canonical Xfer overloads preserve retail's slot-0x28 version call
-// and three slot-0x84 short transfers at +0x04/+0x06/+0x08. Keep the
-// existing field storage pending reconciliation with the full Snapshot view.
+// and three slot-0x84 short transfers at +0x04/+0x06/+0x08.
 
 void LivingWorldScoreKeeper::PerTurnStats::xfer(Xfer *transfer)
 {
 	char versionBytes[2] = { 1, 1 };
 	(*transfer) == *reinterpret_cast<Xfer::Version *>(versionBytes);
-	(*transfer) == *reinterpret_cast<short *>(m_4);
-	(*transfer) == *reinterpret_cast<short *>(m_6);
-	(*transfer) == *reinterpret_cast<short *>(&m_8);
+	(*transfer) == m_4;
+	(*transfer) == m_6;
+	(*transfer) == m_8;
 }
 
-// tu-skeleton: 0x004EE1A9 39B ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE1D0 18B ??$_Construct@VPerTurnStats@LivingWorldScoreKeeper@@V12@@_STL@@YAXPAVPerTurnStats@LivingWorldScoreKeeper@@ABV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE1E2 41B ??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE20B 40B ??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp (not merged yet)
-
-// tu-skeleton: 0x004EE233 45B ??$_M_allocate_and_copy@PAUPrereqUnitRec@ProductionPrerequisite@@@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEPAUPrereqUnitRec@ProductionPrerequisite@@IPAU23@0@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva004EE233AllocateCopy.cpp (not merged yet)
+// PerTurnStats's implicit copy constructor (retail 0x004EE1A9: the vftable
+// and three 16-bit fields) cannot throw, so _Construct (0x004EE1D0) has no
+// EH frame and inlines into vector<PerTurnStats>'s growth helpers, which
+// call the copy constructor directly: __uninitialized_copy 0x004EE1E2,
+// __uninitialized_fill_n 0x004EE20B and _M_allocate_and_copy 0x004EE233.
+template LivingWorldScoreKeeper::PerTurnStats *_STL::__uninitialized_copy(LivingWorldScoreKeeper::PerTurnStats *,
+	LivingWorldScoreKeeper::PerTurnStats *, LivingWorldScoreKeeper::PerTurnStats *, const _STL::__false_type &);
+template LivingWorldScoreKeeper::PerTurnStats *_STL::__uninitialized_fill_n(LivingWorldScoreKeeper::PerTurnStats *,
+	unsigned int, const LivingWorldScoreKeeper::PerTurnStats &, const _STL::__false_type &);
+template LivingWorldScoreKeeper::PerTurnStats *_STL::vector<LivingWorldScoreKeeper::PerTurnStats>::_M_allocate_and_copy(
+	unsigned int, LivingWorldScoreKeeper::PerTurnStats *, LivingWorldScoreKeeper::PerTurnStats *);
 
 // tu-skeleton: 0x004EE33B 34B ?rva004EE33B@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
 
