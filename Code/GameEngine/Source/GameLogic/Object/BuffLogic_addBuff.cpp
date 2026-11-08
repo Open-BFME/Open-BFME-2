@@ -2,16 +2,7 @@
 // ?addBuff@BuffLogic@@QAEPAXPAX0@Z retail 0x0030682A 230 bytes. Buff draw helper returning draw object via manager. Evidence: callers 0x00362561 0x00362A3B pass global 0x00DFF190 as this with two pointer args ret 8, callee reuses arg slot for AsciiString, virtual 0x44 on ModuleData then manager virtual 0x60, debug via theDebug SkipNext CrashBegin operator<< CrashDone like Rva0033BA46.
 #include "ascii_string.h"
 
-class ModuleData
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16();
-	virtual int s17() const;
-};
+#include "../../../Include/Common/ModuleData.h"
 
 #include "../../../Include/Common/ModuleInfoClass.h"
 
@@ -76,7 +67,7 @@ void *BuffLogic::addBuff(void *a, void *b)
 		msg.format("No draw module specified for Buff! In Buff (%s)", name);
 		return 0;
 	}
-	int v = data->s17();
+	const void *v = data->slot17();
 	if (v == 0)
 	{
 		if (bfmeRva000387C0())
