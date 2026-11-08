@@ -169,16 +169,7 @@ class Snapshot;
 #pragma comment(linker, "/alternatename:?b8@B8@@UAEXXZ=??1Region2D@@QAE@XZ")
 #include "../../../../Include/GameLogic/Weapon.h"
 struct Rva004786F8LogicView { char m_lead[0x40]; unsigned int m_frame; };
-class DamageInfo {
-public:
-    DamageInfo();
-    char m_lead[0x10];
-    int m_damageType;
-    char m_gap[8];
-    int m_deathType;
-    float m_amount;
-    char m_tail[0x7c-0x24];
-};
+#include "../../../../Include/GameLogic/Damage.h"
 class Rva00263895Member
 {
 public:

@@ -26,16 +26,7 @@ class Drawable;
 
 extern GameLogic *TheGameLogic;
 
-class DamageInfo
-{
-public:
-	char m_pad00[0x10];
-	int m_10;
-	char m_pad14[0x7c - 0x14];
-	unsigned int m_7c;
-	unsigned int m_80;
-	unsigned int m_84;
-};
+#include "../../../Include/GameLogic/Damage.h"
 
 #include "../../GameLogic/Object/object.h"
 
@@ -46,7 +37,14 @@ struct MapNode
 	MapNode *m_left;
 	MapNode *m_right;
 	ScienceType m_key;
-	DamageInfo m_data;
+	// The mapped value: the damage record, then the fields copied after it.
+	struct Value
+	{
+		DamageInfo m_info;
+		unsigned int m_7c;
+		unsigned int m_80;
+		unsigned int m_84;
+	} m_data;
 };
 
 class Rva0043B2E2
@@ -106,15 +104,15 @@ void DOTManager::update()
 		}
 		else
 		{
-			DamageInfo *di = &node->m_data;
+			MapNode::Value *di = &node->m_data;
 			if (di->m_80 == 0)
 			{
 				((_STL::vector<ScienceType> &)vecRaw).push_back(*keyPtr);
-				this->rva0043B2A4Clear((ObjectID)*keyPtr, di->m_10);
+				this->rva0043B2A4Clear((ObjectID)*keyPtr, di->m_info.m_damageType);
 			}
 			else if (di->m_84 != 0 && curFrame >= di->m_84)
 			{
-				obj->attemptDamage(di);
+				obj->attemptDamage(&di->m_info);
 				di->m_84 = di->m_7c + curFrame;
 			}
 			if ((obj->m_privateStatus & 1) != 0)
@@ -124,7 +122,7 @@ void DOTManager::update()
 			else if (di->m_80 != 0 && curFrame >= di->m_80)
 			{
 				((_STL::vector<ScienceType> &)vecRaw).push_back(*keyPtr);
-				this->rva0043B2A4Clear((ObjectID)*keyPtr, di->m_10);
+				this->rva0043B2A4Clear((ObjectID)*keyPtr, di->m_info.m_damageType);
 			}
 		}
 		node = (MapNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node);

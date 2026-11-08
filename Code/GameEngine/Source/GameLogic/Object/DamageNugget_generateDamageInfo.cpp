@@ -23,28 +23,7 @@ struct DamageOffset : Coord3D {
  void sub(const Coord3D *other){ x-=other->x; y-=other->y; z-=other->z; }
 };
 #include "RTS/XYDistanceCallView.h"
-class DamageInfo
-{
-public:
- DamageInfo();
- unsigned char pad00[8];
- int sourceID08;
- int playerMask0C;
- int damageType10;
- int deathType14;
- int value18;
- int value1C;
- float amount20;
- bool flag24;
- bool flag25;
- unsigned char pad26[2];
- float delay28;
- int value2C;
- unsigned char pad30[0x40];
- float value70;
- float value74;
- unsigned char pad78[4];
-};
+#include "../../../Include/GameLogic/Damage.h"
 class Rva005084FCModuleView
 {
 public:
@@ -175,10 +154,10 @@ bool DamageNugget::generateDamageInfo(void *weapon, Object *target, DamageInfo *
   float clamped = clamp(minRadius134, distance, maxRadius130);
   float ratio = (clamped - minRadius134) / (maxRadius130 - minRadius134);
   float damage = damage128;
-  info->amount20 = damage - (damage - minDamage12C) * ratio;
+  info->m_amount = damage - (damage - minDamage12C) * ratio;
  }
  else
-  info->amount20 = damage128;
+  info->m_amount = damage128;
  Rva00508120ContainView *contain;
  if (view->template04->m_passengerProportionalAttack && (contain = source->contain250) != 0)
  {
@@ -187,7 +166,7 @@ bool DamageNugget::generateDamageInfo(void *weapon, Object *target, DamageInfo *
   if (maximum > 0)
   {
    float ratio = (float)count / maximum;
-   info->amount20 *= _STL::min(ratio, 1.0f);
+   info->m_amount *= _STL::min(ratio, 1.0f);
   }
  }
  int scalars = scalars168.size();
@@ -195,15 +174,15 @@ bool DamageNugget::generateDamageInfo(void *weapon, Object *target, DamageInfo *
  {
   if (scalars168[i].filter.accepts(target, source->getControllingPlayer()))
   {
-   info->amount20 *= scalars168[i].factor;
+   info->m_amount *= scalars168[i].factor;
    break;
   }
  }
- if (bonusEnabled148 && info->amount20 != 0.0f)
+ if (bonusEnabled148 && info->m_amount != 0.0f)
  {
   float bonus = 0.0f;
   if (source->rva0028C149(2, &bonus, 0))
-   info->amount20 += bonus;
+   info->m_amount += bonus;
  }
  float multiplier = 1.0f;
  bool scaled;
@@ -217,7 +196,7 @@ bool DamageNugget::generateDamageInfo(void *weapon, Object *target, DamageInfo *
   scaled = source->scaleBy(3, &multiplier, 0, flag171);
  }
  if (scaled)
-  info->amount20 *= multiplier;
+  info->m_amount *= multiplier;
  float delay = (float)delay154;
  if (target)
  {
@@ -231,26 +210,26 @@ bool DamageNugget::generateDamageInfo(void *weapon, Object *target, DamageInfo *
   if (!flag)
   {
    if (target->rva0028F44C(source))
-    info->amount20 *= bonusScale14C + 1.0f;
+    info->m_amount *= bonusScale14C + 1.0f;
    if (source->rva0028F44C(target))
    {
-    info->amount20 = scale150 * info->amount20;
-    if (info->amount20 < 1.0f)
+    info->m_amount = scale150 * info->m_amount;
+    if (info->m_amount < 1.0f)
      return false;
    }
   }
  }
  if (filter19C.isValid() && filter19C.accepts(target, source->getControllingPlayer()))
-  info->flag24 = true;
- info->damageType10 = damageType158;
- info->deathType14 = deathType160;
- info->value18 = value164;
- info->value1C = value15C;
- info->delay28 = delay;
- info->sourceID08 = view->sourceID08;
+  info->m_kill = true;
+ info->m_damageType = damageType158;
+ info->field14 = deathType160;
+ info->field18 = value164;
+ info->m_deathType = value15C;
+ info->m_x28 = delay;
+ info->m_sourceID = (ObjectID)view->sourceID08;
  Player *player = source->getControllingPlayer();
- info->playerMask0C = 1 << player->getPlayerIndex();
- info->value2C = view->template04->value10;
- info->flag25 = view->template04->m_shouldPlayUnderAttackEvaEvent;
+ info->m_sourcePlayerMask = 1 << player->getPlayerIndex();
+ info->field2C = view->template04->value10;
+ info->field25 = view->template04->m_shouldPlayUnderAttackEvaEvent;
  return true;
 }

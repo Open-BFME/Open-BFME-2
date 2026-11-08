@@ -9,7 +9,7 @@
 class UpgradeTemplate;
 enum ObjectID;
 enum ModelConditionFlagType;
-class DamageInfo { public: unsigned char before08[8]; ObjectID source; };
+#include "../../../../Include/GameLogic/Damage.h"
 #include "../../../../Include/Common/Player.h"
 #include "../object.h"
 struct Rva00294D61 { void report(Object *, int); };
@@ -59,7 +59,7 @@ void Rva004C19DCOwner::apply(float amount, DamageInfo *info)
             obj->setSpecialModelConditionState(md->condition, md->duration);
         restore(amountF4 * 100.0f, false);
         if (info) {
-            Object *source = TheGameLogic->findObjectByID(info->source);
+            Object *source = TheGameLogic->findObjectByID(info->m_sourceID);
             if (source)
                 ((Rva00294D61 *)source)->report(obj, 3);
         }

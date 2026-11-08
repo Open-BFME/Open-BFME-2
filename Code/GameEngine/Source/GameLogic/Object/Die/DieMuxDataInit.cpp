@@ -34,8 +34,7 @@ private:
  char pad0[0x44]; float orientation; char pad48[0x94-0x48]; _STL::bitset<128> status;
 };
 extern GameLogic *TheGameLogic;
-struct DamageInput { char pad0[8]; ObjectID source; char pad0C[0x1C-0x0C]; int deathType; float amount; };
-class DamageInfo { public: DamageInput in; };
+#include "../../../../Include/GameLogic/Damage.h"
 float normalizeAngle(float a);
 
 class DieMuxData
@@ -79,11 +78,11 @@ DieMuxData *DieMuxData::init()
 // direction source/amount offsets8/20 and deathType1C from native access.
 bool DieMuxData::isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const
 {
- if (!(m_flags & (1 << (damageInfo->in.deathType - 1)))) return false;
+ if (!(m_flags & (1 << (damageInfo->m_deathType - 1)))) return false;
  if (!obj->getStatus()->testMasks(&m_requiredStatus, &m_exemptStatus)) return false;
- if (m_damageThreshold >= 0.0f && m_damageThreshold > damageInfo->in.amount) return false;
+ if (m_damageThreshold >= 0.0f && m_damageThreshold > damageInfo->m_amount) return false;
  if (m_angleMax > m_angleMin) {
-  Object *source = TheGameLogic->findObjectByID(damageInfo->in.source);
+  Object *source = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
   if (!source) return false;
   Coord3D direction;
   obj->getPlanarDirectionTo(&direction, source);
