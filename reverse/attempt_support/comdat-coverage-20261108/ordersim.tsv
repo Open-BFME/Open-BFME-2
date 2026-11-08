@@ -1,0 +1,1107 @@
+scenario	outcome	name
+rowed + initializers + data frozen	fixed	??1?$allocator@PAX@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ
+rowed + initializers + data frozen	fixed	?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ
+rowed + initializers + data frozen	fixed	?capacity@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data frozen	fixed	?_M_set@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAX00@Z
+rowed + initializers + data frozen	fixed	?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z
+rowed + initializers + data frozen	fixed	?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ
+rowed + initializers + data frozen	fixed	??$swap@V?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@0@0@Z
+rowed + initializers + data frozen	fixed	?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z
+rowed + initializers + data frozen	fixed	??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z
+rowed + initializers + data frozen	fixed	??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z
+rowed + initializers + data frozen	fixed	??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z
+rowed + initializers + data frozen	fixed	?_M_clear@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	fixed	??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z
+rowed + initializers + data frozen	fixed	??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAXABQAXABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z
+rowed + initializers + data frozen	fixed	?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data frozen	fixed	?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z
+rowed + initializers + data frozen	fixed	?insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z
+rowed + initializers + data frozen	fixed	?empty@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data frozen	fixed	??$copy@U?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@U12@@_STL@@YA?AU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@0@U10@00@Z
+rowed + initializers + data frozen	fixed	?load@BoundedShortGrid@@QAEFHH@Z
+rowed + initializers + data frozen	fixed	??$find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@1@ABH@Z
+rowed + initializers + data frozen	fixed	?length@?$char_traits@D@_STL@@SAIPBD@Z
+rowed + initializers + data frozen	fixed	??0?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@@Z
+rowed + initializers + data frozen	fixed	??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data frozen	fixed	??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBDABV?$allocator@D@1@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEXPAUCoord3D@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@IAEXPAUBfmeE16@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?deallocate@?$__malloc_alloc@$0A@@_STL@@SAXPAXI@Z
+rowed + initializers + data frozen	fixed	??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?Set_Lighting@VertexMaterialClass@@QAEX_N@Z
+rowed + initializers + data frozen	fixed	?_M_erase_after@?$_Slist_base@HV?$allocator@H@_STL@@@_STL@@IAEPAU_Slist_node_base@2@PAU32@0@Z
+rowed + initializers + data frozen	fixed	??0Matrix3D@@QAE@MMMMMMMMMMMM@Z
+rowed + initializers + data frozen	fixed	?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z
+rowed + initializers + data frozen	fixed	??0Vector4@@QAE@MMMM@Z
+rowed + initializers + data frozen	fixed	?Set_Color_Mask@ShaderClass@@QAEXW4ColorMaskType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Post_Detail_Alpha_Func@ShaderClass@@QAEXW4DetailAlphaFuncType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Post_Detail_Color_Func@ShaderClass@@QAEXW4DetailColorFuncType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Alpha_Test@ShaderClass@@QAEXW4AlphaTestType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Cull_Mode@ShaderClass@@QAEXW4CullModeType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Dst_Blend_Func@ShaderClass@@QAEXW4DstBlendFuncType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Fog_Func@ShaderClass@@QAEXW4FogFuncType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Primary_Gradient@ShaderClass@@QAEXW4PriGradientType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Secondary_Gradient@ShaderClass@@QAEXW4SecGradientType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Src_Blend_Func@ShaderClass@@QAEXW4SrcBlendFuncType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_Texturing@ShaderClass@@QAEXW4TexturingType@1@@Z
+rowed + initializers + data frozen	fixed	?Set_NPatch_Enable@ShaderClass@@QAEXW4NPatchEnableType@1@@Z
+rowed + initializers + data frozen	fixed	?Rotate_Y@Matrix3D@@QAEXMM@Z
+rowed + initializers + data frozen	fixed	??0Matrix3D@@QAE@ABVVector3@@M@Z
+rowed + initializers + data frozen	fixed	??_GW3DShroudMaterialPassClass@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	?fill@_STL@@YAXPAD0ABD@Z
+rowed + initializers + data frozen	fixed	?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@IPBX@Z
+rowed + initializers + data frozen	fixed	??0?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@QAE@ABU01@@Z
+rowed + initializers + data frozen	fixed	??$_Construct@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@0@ABU10@@Z
+rowed + initializers + data frozen	fixed	?_M_create_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@2@@Z
+rowed + initializers + data frozen	fixed	??0?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?erase@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPADPAD0@Z
+rowed + initializers + data frozen	fixed	?insertRange@Rva008312E0String@@QAEXPAD00ABURva008312E0Tag@@@Z
+rowed + initializers + data frozen	fixed	??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data frozen	fixed	??_GBucket@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??$__uninitialized_copy@PBUBfmeVectorRecord000BDF17@@PAU1@@_STL@@YAPAUBfmeVectorRecord000BDF17@@PBU1@0PAU1@ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	?_M_clear@?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	fixed	??$_M_allocate_and_copy@PBUBfmeVectorRecord000BDF17@@@?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord000BDF17@@IPBU2@0@Z
+rowed + initializers + data frozen	fixed	?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data frozen	fixed	??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z
+rowed + initializers + data frozen	fixed	?erase@?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAEPAW4ObjectID@@PAW43@0@Z
+rowed + initializers + data frozen	fixed	?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z
+rowed + initializers + data frozen	fixed	?erase@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEPAUBfmePod12@@PAU3@@Z
+rowed + initializers + data frozen	fixed	?insert_unique@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z
+rowed + initializers + data frozen	fixed	??_G?$VectorClass@VStringClass@@@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	?__stl_hash_string@_STL@@YAIPBD@Z
+rowed + initializers + data frozen	fixed	??1?$vector@VBfmeStringTailRecord156@@V?$allocator@VBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??A?$map@VAsciiString@@UTreeHintRef00221D6B@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@@4@@_STL@@QAEAAUTreeHintRef00221D6B@@ABVAsciiString@@@Z
+rowed + initializers + data frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva003A37FAElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@1@@Z
+rowed + initializers + data frozen	fixed	?_M_clear@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	fixed	?isKindOfMulti@ThingTemplate@@QBE_NABV?$BitFlags@$0HE@@@0@Z
+rowed + initializers + data frozen	fixed	?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z
+rowed + initializers + data frozen	fixed	?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@QBVThingTemplate@@H@2@@Z
+rowed + initializers + data frozen	fixed	_powf
+rowed + initializers + data frozen	fixed	??$min@H@_STL@@YAABHABH0@Z
+rowed + initializers + data frozen	fixed	??$__uninitialized_fill_n@PAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@IV12@@_STL@@YAPAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@0@PAV10@IABV10@ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	??1?$vector@VCreateAHeroSubClass@CreateAHeroManager@@V?$allocator@VCreateAHeroSubClass@CreateAHeroManager@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?__copy_trivial@_STL@@YAPAXPBX0PAX@Z
+rowed + initializers + data frozen	fixed	??$max@I@_STL@@YAABIABI0@Z
+rowed + initializers + data frozen	fixed	?scale@Coord3D@@QAEXM@Z
+rowed + initializers + data frozen	fixed	?_M_setstate_nothrow@ios_base@_STL@@IAEXH@Z
+rowed + initializers + data frozen	fixed	??_G?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??_GRva0040DB52@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??$_M_initialize_dispatch@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABU__false_type@1@@Z
+rowed + initializers + data frozen	fixed	??$?0PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBD0ABV?$allocator@D@1@@Z
+rowed + initializers + data frozen	fixed	??0D3DXMATRIX@@QAE@MMMMMMMMMMMMMMMM@Z
+rowed + initializers + data frozen	fixed	?Rva00574BA5Create@@YA?AV?$RvaCloneResult@VRva00574ABB@@@@PBUPayload@Rva00574ABB@@@Z
+rowed + initializers + data frozen	fixed	??_GRva005E3AE1@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??$_Destroy@PAUGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@0@Z
+rowed + initializers + data frozen	fixed	??1?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??_G?$VectorClass@VVector3@@@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??4?$vector@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data frozen	fixed	??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@1@ABVAsciiString@@@Z
+rowed + initializers + data frozen	fixed	??$__uninitialized_copy@PBV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@0@PBV10@0PAV10@ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	??$__distance@PAD@_STL@@YAHABQAD0ABUrandom_access_iterator_tag@0@@Z
+rowed + initializers + data frozen	fixed	??$?0PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PAD0ABV?$allocator@D@1@@Z
+rowed + initializers + data frozen	fixed	?insert@?$list@PAVCreditsLine@@V?$allocator@PAVCreditsLine@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVCreditsLine@@U?$_Nonconst_traits@PAVCreditsLine@@@_STL@@@2@U32@ABQAVCreditsLine@@@Z
+rowed + initializers + data frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva001DE80FElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@1@@Z
+rowed + initializers + data frozen	fixed	??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z
+rowed + initializers + data frozen	fixed	?getCharAt@?$StringBase@D@@QBEDH@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@PAVMapMetaData@@V?$allocator@PAVMapMetaData@@@_STL@@@_STL@@IAEXPAPAVMapMetaData@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??1?$_List_base@UTreeHintOpaque0043671B@@V?$allocator@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?_M_copy@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@PAU32@0@Z
+rowed + initializers + data frozen	fixed	??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z
+rowed + initializers + data frozen	fixed	?insert@?$list@PAVHeaderTemplate@@V?$allocator@PAVHeaderTemplate@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVHeaderTemplate@@U?$_Nonconst_traits@PAVHeaderTemplate@@@_STL@@@2@U32@ABQAVHeaderTemplate@@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@IAEXPAURva00578425Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?push_back@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@QAEXABURva00578425Element@@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva005FA197Element@@V?$allocator@URva005FA197Element@@@_STL@@@_STL@@IAEXPAURva005FA197Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva005FA1CEElement@@V?$allocator@URva005FA1CEElement@@@_STL@@@_STL@@IAEXPAURva005FA1CEElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva005F13E6Element@@V?$allocator@URva005F13E6Element@@@_STL@@@_STL@@IAEXPAURva005F13E6Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?insert@?$list@PAVShellMenuScheme@@V?$allocator@PAVShellMenuScheme@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShellMenuScheme@@U?$_Nonconst_traits@PAVShellMenuScheme@@@_STL@@@2@U32@ABQAVShellMenuScheme@@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva005E2B0EElement@@V?$allocator@URva005E2B0EElement@@@_STL@@@_STL@@IAEXPAURva005E2B0EElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@IAEXPAPAVSubtitleEntry@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?insert@?$list@PAVAIGroup@@V?$allocator@PAVAIGroup@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVAIGroup@@U?$_Nonconst_traits@PAVAIGroup@@@_STL@@@2@U32@ABQAVAIGroup@@@Z
+rowed + initializers + data frozen	fixed	??A?$hash_map@W4ObjectID@@UCoord3D@@U?$hash@W4ObjectID@@@rts@@U?$equal_to@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@6@@_STL@@QAEAAUCoord3D@@ABW4ObjectID@@@Z
+rowed + initializers + data frozen	fixed	??$copy_backward@PAVRva002B2F97@@PAV1@@_STL@@YAPAVRva002B2F97@@PAV1@00@Z
+rowed + initializers + data frozen	fixed	??$copy@PAVSidesInfo@@PAV1@@_STL@@YAPAVSidesInfo@@PAV1@00@Z
+rowed + initializers + data frozen	fixed	??$copy@PAUBfmeAssignRecord172@@PAU1@@_STL@@YAPAUBfmeAssignRecord172@@PAU1@00@Z
+rowed + initializers + data frozen	fixed	??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z
+rowed + initializers + data frozen	fixed	??1?$vector@UDynamicPortalLink@@V?$allocator@UDynamicPortalLink@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$_Rb_tree@HU?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$vector@URvaPair0039973B@@V?$allocator@URvaPair0039973B@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$vector@URva00395D77@@V?$allocator@URva00395D77@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEXPAPAVObject@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU01@XZ
+rowed + initializers + data frozen	fixed	??F?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU01@XZ
+rowed + initializers + data frozen	fixed	??0?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@1@AB_N@Z
+rowed + initializers + data frozen	fixed	??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU01@H@Z
+rowed + initializers + data frozen	fixed	??A?$map@HV?$vector@IV?$allocator@I@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@@_STL@@QAEAAV?$vector@IV?$allocator@I@_STL@@@1@ABH@Z
+rowed + initializers + data frozen	fixed	?insert_unique@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z
+rowed + initializers + data frozen	fixed	??$_Destroy@PAUBfmeAssignRecord44@@@_STL@@YAXPAUBfmeAssignRecord44@@0@Z
+rowed + initializers + data frozen	fixed	??1?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??$__uninitialized_fill_n@PAUAngleFXInfo@@IU1@@_STL@@YAPAUAngleFXInfo@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	??$_M_allocate_and_copy@PAUAngleFXInfo@@@?$vector@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@IAEPAUAngleFXInfo@@IPAU2@0@Z
+rowed + initializers + data frozen	fixed	??$__destroy@U?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@_STL@@UBfmeWordValue4@@@_STL@@YAXU?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@0@0PAUBfmeWordValue4@@@Z
+rowed + initializers + data frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data frozen	fixed	??$_Destroy@U?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@0@0@Z
+rowed + initializers + data frozen	fixed	??1?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??$_Construct@HH@_STL@@YAXPAHABH@Z
+rowed + initializers + data frozen	fixed	??1?$_Vector_base@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1?$vector@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??$__uninitialized_fill_n@PAVRva0040CB11Entry@@IV1@@_STL@@YAPAVRva0040CB11Entry@@PAV1@IABV1@ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@IAEXPAVRva0040CB11Entry@@ABV3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??A?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAEAAUTreeOpaqueMapped242F5E@@ABUTreeKey00242F5E@@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva004F87BCElement@@V?$allocator@URva004F87BCElement@@@_STL@@@_STL@@IAEXPAURva004F87BCElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva002B9062Element@@V?$allocator@URva002B9062Element@@@_STL@@@_STL@@IAEXPAURva002B9062Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??$_Construct@GG@_STL@@YAXPAGABG@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??1?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@@3@UAsciiComparator@@V?$allocator@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@@3@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??1GameResultsResponse@@QAE@XZ
+rowed + initializers + data frozen	fixed	?compare@?$char_traits@D@_STL@@SAHPBD0I@Z
+rowed + initializers + data frozen	fixed	?_M_create_nodes@?$_Deque_base@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXPAPAVBuddyResponse@@0@Z
+rowed + initializers + data frozen	fixed	?_M_initialize_map@?$_Deque_base@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data frozen	fixed	??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data frozen	fixed	??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0@Z
+rowed + initializers + data frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@PBGABV?$allocator@G@1@@Z
+rowed + initializers + data frozen	fixed	?assign@?$char_traits@D@_STL@@SAXAADABD@Z
+rowed + initializers + data frozen	fixed	?copy@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z
+rowed + initializers + data frozen	fixed	?move@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z
+rowed + initializers + data frozen	fixed	?assign@?$__char_traits_base@GG@_STL@@SAXAAGABG@Z
+rowed + initializers + data frozen	fixed	?_M_construct_null_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAGABU__true_type@2@@Z
+rowed + initializers + data frozen	fixed	?erase@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEPAGPAG0@Z
+rowed + initializers + data frozen	fixed	?_M_construct_null@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAG@Z
+rowed + initializers + data frozen	fixed	?length@?$__char_traits_base@GG@_STL@@SAIPBG@Z
+rowed + initializers + data frozen	fixed	?_M_erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@@Z
+rowed + initializers + data frozen	fixed	??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data frozen	fixed	??$append@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PBG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data frozen	fixed	??$_M_append_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABU__false_type@1@@Z
+rowed + initializers + data frozen	fixed	??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z
+rowed + initializers + data frozen	fixed	?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z
+rowed + initializers + data frozen	fixed	??$assign@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z
+rowed + initializers + data frozen	fixed	??4?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data frozen	fixed	??_GRva00802380Owner@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??_GRva00802680Owner@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	??1Rva006FBDB0@@QAE@XZ
+rowed + initializers + data frozen	fixed	??_ERva004A9DF3Element@@QAEPAXI@Z
+rowed + initializers + data frozen	fixed	??G@YA?AVCoord2D@@V0@ABV0@@Z
+rowed + initializers + data frozen	fixed	??H@YA?AVCoord2D@@V0@ABV0@@Z
+rowed + initializers + data frozen	fixed	?seekpos@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z
+rowed + initializers + data frozen	fixed	??$__uninitialized_copy@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	??$__uninitialized_fill_n@PAURva00153729@@IU1@@_STL@@YAPAURva00153729@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@IAEXPAURva00153729@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?Add_Sphere@SphereClass@@QAEXABV1@@Z
+rowed + initializers + data frozen	fixed	??0?$VectorClass@PAVVertexMaterialClass@@@@QAE@HPBQAVVertexMaterialClass@@@Z
+rowed + initializers + data frozen	fixed	??_E?$RefCountPtr@VTextureClass@@@@QAEPAXI@Z
+rowed + initializers + data frozen	fixed	?Peek_Single_Texture@MeshModelClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HH@Z
+rowed + initializers + data frozen	fixed	??_G?$VectorClass@H@@UAEPAXI@Z
+rowed + initializers + data frozen	fixed	?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z
+rowed + initializers + data frozen	fixed	?resize@BfmeWordVec@@QAEXIG@Z
+rowed + initializers + data frozen	fixed	?Add@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@_N@Z
+rowed + initializers + data frozen	fixed	?Remove@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@@Z
+rowed + initializers + data frozen	fixed	?Peek_Head@?$RefMultiListClass@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ
+rowed + initializers + data frozen	fixed	?Init_Min_Max@AABoxClass@@QAEXABVVector3@@0@Z
+rowed + initializers + data frozen	fixed	?Rotate_Vector@Quaternion@@QBE?AVVector3@@ABV2@@Z
+rowed + initializers + data frozen	fixed	?Inverse_Transform_Vector@Matrix3D@@SAXABV1@ABVVector3@@PAV2@@Z
+rowed + initializers + data frozen	fixed	??1?$SimpleDynVecClass@VVector3@@@@UAE@XZ
+rowed + initializers + data frozen	fixed	?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z
+rowed + initializers + data frozen	fixed	??0?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@QAE@ABV01@@Z
+rowed + initializers + data frozen	fixed	??1?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@3@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??$_M_allocate_and_copy@PAUBfmeStringRecord00111ACF@@@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@IAEPAUBfmeStringRecord00111ACF@@IPAU2@0@Z
+rowed + initializers + data frozen	fixed	?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ
+rowed + initializers + data frozen	fixed	??$_Construct@UBfmeAssignRecord32@@U1@@_STL@@YAXPAUBfmeAssignRecord32@@ABU1@@Z
+rowed + initializers + data frozen	fixed	??$_Destroy@PAUBfmeAssignRecord32@@@_STL@@YAXPAUBfmeAssignRecord32@@0@Z
+rowed + initializers + data frozen	fixed	?_M_clear@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXPAUBfmeAssignRecord32@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@IAEXPAVArmySummary@@ABV3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva0041FC37Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@1@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@IAEXPAURva00587375@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_advance@?$_Deque_iterator_base@PAX@_STL@@QAEXH@Z
+rowed + initializers + data frozen	fixed	??Z?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QAEAAU01@H@Z
+rowed + initializers + data frozen	fixed	?_M_subtract@?$_Deque_iterator_base@UBfmeE8@@@_STL@@QBEHABU12@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@UBfmePod248@@V?$allocator@UBfmePod248@@@_STL@@@_STL@@IAEXPAUBfmePod248@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	??4?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@D@Z
+rowed + initializers + data frozen	fixed	?getloc@ios_base@_STL@@QBE?AVlocale@2@XZ
+rowed + initializers + data frozen	fixed	??$__uninitialized_copy@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z
+rowed + initializers + data frozen	fixed	?erase@?$list@UBfmeStringRecord00415F34@@V?$allocator@UBfmeStringRecord00415F34@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord00415F34@@U?$_Nonconst_traits@UBfmeStringRecord00415F34@@@_STL@@@2@U32@@Z
+rowed + initializers + data frozen	fixed	??$__get_decimal_integer@PADO@_STL@@YA_NAAPAD0AAO@Z
+rowed + initializers + data frozen	fixed	??$_M_range_initialize@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPAD0@Z
+rowed + initializers + data frozen	fixed	?failed@?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data frozen	fixed	?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z
+rowed + initializers + data frozen	fixed	??4?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data frozen	fixed	?_M_insert_overflow@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@IAEXPAUBfmePod52@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	fixed	?_M_create_nodes@?$_Deque_base@UBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@IAEXPAPAUBfmePod492@@0@Z
+rowed + initializers + data frozen	fixed	?_M_create_nodes@?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@IAEXPAPAVBuddyRequest@@0@Z
+rowed + initializers + data frozen	fixed	?_M_create_nodes@?$_Deque_base@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXPAPAUBfmePod840@@0@Z
+rowed + initializers + data frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data frozen	fixed	?_M_initialize_map@?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data frozen	fixed	?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@0@Z
+rowed + initializers + data frozen	fixed	?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
+rowed + initializers + data frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@ABV01@@Z
+rowed + initializers + data frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ
+rowed + initializers + data frozen	fixed	??$?0PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@PBG0ABV?$allocator@G@1@@Z
+rowed + initializers + data frozen	fixed	?Resize@?$VectorClass@VVector3@@@@UAE_NHPBVVector3@@@Z
+rowed + initializers + data frozen	still	??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less@PAURva001408C0Target@@@3@V?$allocator@PAURva001408C0Target@@@3@@_STL@@QAE@XZ
+rowed + initializers + data frozen	still	?_M_insert_overflow@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@ProductionPrerequisite@@ABU34@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	still	?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+rowed + initializers + data frozen	still	?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
+rowed + initializers + data frozen	code	?_M_subtract@?$_Deque_iterator_base@UOpaqueRefElement4@@@_STL@@QBEHABU12@@Z
+rowed + initializers + data frozen	code	??0?$_Hashtable_iterator@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBIPAX@_STL@@@1@PAV?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@1@@Z
+rowed + initializers + data frozen	code	?_Ret@?$_OKToMemCpy@PAXPAX@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data frozen	code	??$_IsOKToMemCpy@PAXPAX@_STL@@YA?AU?$_OKToMemCpy@PAXPAX@0@PAPAX0@Z
+rowed + initializers + data frozen	code	??0?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBIPAX@_STL@@@1@PBV?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@1@@Z
+rowed + initializers + data frozen	code	?erase@?$list@PAURva00051107AudioRequest@@V?$allocator@PAURva00051107AudioRequest@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAURva00051107AudioRequest@@U?$_Nonconst_traits@PAURva00051107AudioRequest@@@_STL@@@2@U32@@Z
+rowed + initializers + data frozen	code	?end@?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@2@XZ
+rowed + initializers + data frozen	code	?_M_delete_node@?$hashtable@PAURva00051B89Keyed@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051B89Keyed@@@_STL@@U?$equal_to@PAURva00051B89Keyed@@@4@V?$allocator@PAURva00051B89Keyed@@@4@@_STL@@AAEXPAU?$_Hashtable_node@PAURva00051B89Keyed@@@2@@Z
+rowed + initializers + data frozen	code	?end@?$hash_map@IPAXU?$hash@I@_STL@@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@2@XZ
+rowed + initializers + data frozen	code	?reserve@?$vector@UAudioTriggerArea@@V?$allocator@UAudioTriggerArea@@@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data frozen	code	?_M_insert_overflow@?$vector@UAudioTriggerArea@@V?$allocator@UAudioTriggerArea@@@_STL@@@_STL@@IAEXPAUAudioTriggerArea@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data frozen	code	??E?$_Rb_tree_iterator@PAURva001408C0Target@@U?$_Const_traits@PAURva001408C0Target@@@_STL@@@_STL@@QAEAAU01@XZ
+rowed + initializers + data frozen	code	?_M_empty_initialize@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@AAEXXZ
+rowed + initializers + data frozen	code	??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@1@ABH@Z
+rowed + initializers + data frozen	code	?uninitialized_copy@_STL@@YAPADPBD0PAD@Z
+rowed + initializers + data frozen	code	??$__distance@PBD@_STL@@YAHABQBD0ABUrandom_access_iterator_tag@0@@Z
+rowed + initializers + data frozen	code	??$distance@PBD@_STL@@YAHABQBD0@Z
+rowed + initializers + data frozen	code	??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0@Z
+rowed + initializers + data frozen	code	??1Rva006D07E0Key@@QAE@XZ
+rowed + initializers + data frozen	code	??1Rva008A2BA0Handle@@QAE@XZ
+rowed + initializers + data frozen	code	??0Rva0006C995@@QAE@XZ
+rowed + initializers + data frozen	code	?Set_Depth_Mask@ShaderClass@@QAEXW4DepthMaskType@1@@Z
+rowed + initializers + data frozen	code	?Peek_Obj@?$RefMultiListIterator@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ
+rowed + initializers + data frozen	code	??1?$vector@DV?$allocator@D@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	code	??0FastCriticalSectionClass@@QAE@XZ
+rowed + initializers + data frozen	code	??0BfmeEventPositionView@@QAE@MMM@Z
+rowed + initializers + data frozen	code	??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@IABV?$allocator@VAsciiString@@@1@@Z
+rowed + initializers + data frozen	code	??0?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@IABV?$allocator@I@1@@Z
+rowed + initializers + data frozen	code	??1?$DynamicVectorClass@VStringClass@@@@UAE@XZ
+rowed + initializers + data frozen	code	??F?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@QAEAAU01@XZ
+rowed + initializers + data frozen	code	?concat@AsciiString@@QAEXD@Z
+rowed + initializers + data frozen	code	??0?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@1@AB_N@Z
+rowed + initializers + data frozen	code	??0?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@QAE@ABVAsciiString@@ABUTreeHintRef00221D6B@@@Z
+rowed + initializers + data frozen	code	??0Rva004EE501@@QAE@XZ
+rowed + initializers + data frozen	code	?isPlayableSide@PlayerTemplate@@QBE_NXZ
+rowed + initializers + data frozen	code	?getNumTeams@TeamsInfoRec@@QBEHXZ
+rowed + initializers + data frozen	code	?isSharedNSync@SpecialPowerTemplate@@QBE_NXZ
+rowed + initializers + data frozen	code	?isScoringEnabled@GameLogic@@QBE_NXZ
+rowed + initializers + data frozen	code	?test@?$BitFlags@$0HE@@@QBE_NH@Z
+rowed + initializers + data frozen	code	?TEST_KINDOFMASK@@YA_NABV?$BitFlags@$0HE@@@W4KindOfType@@@Z
+rowed + initializers + data frozen	code	?buffer_size@?$_Deque_base@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@SAIXZ
+rowed + initializers + data frozen	code	??0BfmeFixedStorage128@@QAE@XZ
+rowed + initializers + data frozen	code	?Clear@?$RefCountPtr@VTextureClass@@@@QAEXXZ
+rowed + initializers + data frozen	code	?setstate@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAEXH@Z
+rowed + initializers + data frozen	code	?_M_handle_exception@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAEXH@Z
+rowed + initializers + data frozen	code	??6?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@I@Z
+rowed + initializers + data frozen	code	??RS4Cmp002E1690@@QBE_NABUS4SortElem12@@0@Z
+rowed + initializers + data frozen	code	?Clear@?$VectorClass@VVector3@@@@UAEXXZ
+rowed + initializers + data frozen	code	?isNotEmpty@AsciiString@@QBE_NXZ
+rowed + initializers + data frozen	code	??0?$_Vector_base@V?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@@2@@_STL@@QAE@IABV?$allocator@V?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@@1@@Z
+rowed + initializers + data frozen	code	??$distance@PAD@_STL@@YAHABQAD0@Z
+rowed + initializers + data frozen	code	?getCharAt@AsciiString@@QBEDH@Z
+rowed + initializers + data frozen	code	?_Ret@?$_BothPtrType@PAGPAG@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data frozen	code	?_Ret@?$_BothPtrType@PADPAD@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data frozen	code	?_Ret@?$_OKToMemCpy@GG@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data frozen	code	?_Ret@?$_OKToMemCpy@DD@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data frozen	code	??$_IsOKToMemCpy@GG@_STL@@YA?AU?$_OKToMemCpy@GG@0@PAG0@Z
+rowed + initializers + data frozen	code	??$__copy_backward_ptrs@PAGPAG@_STL@@YAPAGPAG00ABU__true_type@0@@Z
+rowed + initializers + data frozen	code	??$_IsOKToMemCpy@DD@_STL@@YA?AU?$_OKToMemCpy@DD@0@PAD0@Z
+rowed + initializers + data frozen	code	??$__copy_backward_aux@PAGPAG@_STL@@YAPAGPAG00ABU__true_type@0@@Z
+rowed + initializers + data frozen	code	??$__copy_backward_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z
+rowed + initializers + data frozen	code	??$copy_backward@PAGPAG@_STL@@YAPAGPAG00@Z
+rowed + initializers + data frozen	code	??$copy_backward@PADPAD@_STL@@YAPADPAD00@Z
+rowed + initializers + data frozen	code	??$copy@PADPAD@_STL@@YAPADPAD00@Z
+rowed + initializers + data frozen	code	??$__uninitialized_fill_n@PAURva00578425Element@@IU1@@_STL@@YAPAURva00578425Element@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data frozen	code	?testDrawableStatus@Drawable@@QBE_NW4DrawableStatus@@@Z
+rowed + initializers + data frozen	code	??0?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSubtitleEntry@@@1@@Z
+rowed + initializers + data frozen	code	??1?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	code	??1?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$Rva002F0C32Allocator@H@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	code	??0?$DLINK_ITERATOR@VTeamInQueue@@@@QAE@PAVTeamInQueue@@P81@BEPAV1@XZ@Z
+rowed + initializers + data frozen	code	?iterate_TeamBuildQueue@AIPlayer@@IBE?AV?$DLINK_ITERATOR@VTeamInQueue@@@@XZ
+rowed + initializers + data frozen	code	?resize@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEXI@Z
+rowed + initializers + data frozen	code	??$__copy@PAVSidesInfo@@PAV1@H@_STL@@YAPAVSidesInfo@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z
+rowed + initializers + data frozen	code	??$__copy_backward_aux@PAVRva002B2F97@@PAV1@@_STL@@YAPAVRva002B2F97@@PAV1@00ABU__true_type@0@@Z
+rowed + initializers + data frozen	code	??0Rva002ED236Pos@@QAE@ABUCoord3D@@@Z
+rowed + initializers + data frozen	code	??0CollideModuleInterface@@QAE@XZ
+rowed + initializers + data frozen	code	??0Rva00469155@@QAE@ABV0@@Z
+rowed + initializers + data frozen	code	?push_back@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXABQAVObject@@@Z
+rowed + initializers + data frozen	code	?clearCondition@Object@@QAEXI@Z
+rowed + initializers + data frozen	code	?_M_reallocate_map@?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@IAEXI_N@Z
+rowed + initializers + data frozen	code	??0?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@I@Z
+rowed + initializers + data frozen	code	?front@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXXZ
+rowed + initializers + data frozen	code	?empty@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data frozen	code	?_M_destroy_nodes@?$_Deque_base@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@IAEXPAPAUBfmeWordValue4@@0@Z
+rowed + initializers + data frozen	code	?_M_insert_overflow@?$vector@PAVRva005DCE08@@V?$allocator@PAVRva005DCE08@@@_STL@@@_STL@@IAEXPAPAVRva005DCE08@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	code	??$find@H@?$hashtable@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@@1@ABH@Z
+rowed + initializers + data frozen	code	??$__default_constructed_aux@UTreeOpaqueMapped242F5E@@@_STL@@YA?AUTreeOpaqueMapped242F5E@@PAU1@ABU__false_type@0@@Z
+rowed + initializers + data frozen	code	??$__default_constructed@UTreeOpaqueMapped242F5E@@@_STL@@YA?AUTreeOpaqueMapped242F5E@@PAU1@@Z
+rowed + initializers + data frozen	code	??$__copy_ptrs@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z
+rowed + initializers + data frozen	code	??$__copy_aux@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z
+rowed + initializers + data frozen	code	??0?$_String_base@GV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@@Z
+rowed + initializers + data frozen	code	?max_size@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data frozen	code	?_M_destroy_nodes@?$_Deque_base@UBfmeOpaqueOwnedRecord492@@V?$allocator@UBfmeOpaqueOwnedRecord492@@@_STL@@@_STL@@IAEXPAPAUBfmeOpaqueOwnedRecord492@@0@Z
+rowed + initializers + data frozen	code	?_M_destroy_nodes@?$_Deque_base@UBfmeOpaqueOwnedRecord840@@V?$allocator@UBfmeOpaqueOwnedRecord840@@@_STL@@@_STL@@IAEXPAPAUBfmeOpaqueOwnedRecord840@@0@Z
+rowed + initializers + data frozen	code	?max_size@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIXZ
+rowed + initializers + data frozen	code	??1?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@QAE@XZ
+rowed + initializers + data frozen	code	??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data frozen	code	?_M_reallocate_map@?$deque@UBfmeOpaqueOwnedRecord492@@V?$allocator@UBfmeOpaqueOwnedRecord492@@@_STL@@@_STL@@IAEXI_N@Z
+rowed + initializers + data frozen	code	?_M_reallocate_map@?$deque@UBfmeOpaqueOwnedRecord840@@V?$allocator@UBfmeOpaqueOwnedRecord840@@@_STL@@@_STL@@IAEXI_N@Z
+rowed + initializers + data frozen	code	??$_M_append_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABU__false_type@1@@Z
+rowed + initializers + data frozen	code	??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@PAD0@Z
+rowed + initializers + data frozen	code	??$append@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PBG0@Z
+rowed + initializers + data frozen	code	??$_M_assign_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABU__false_type@1@@Z
+rowed + initializers + data frozen	code	??4BfmeRefVGO@@QAEAAV0@ABV0@@Z
+rowed + initializers + data frozen	code	??_VRva004A9DF3Element@@SAXPAX@Z
+rowed + initializers + data frozen	code	??A?$VectorClass@VVector3@@@@QAEAAVVector3@@H@Z
+rowed + initializers + data frozen	code	??1?$vector@FV?$allocator@F@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	code	??8@YA_NABVVector3@@0@Z
+rowed + initializers + data frozen	code	??0TextureVector@@QAE@XZ
+rowed + initializers + data frozen	code	??0Matrix4@@QAE@XZ
+rowed + initializers + data frozen	code	?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__true_type@2@I_N@Z
+rowed + initializers + data frozen	code	?push_back@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z
+rowed + initializers + data frozen	code	?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z
+rowed + initializers + data frozen	code	??AMatrix3@@QAEAAVVector3@@H@Z
+rowed + initializers + data frozen	code	??$fill_n@PAUBfmeStringRecord00111ACF@@IU1@@_STL@@YAPAUBfmeStringRecord00111ACF@@PAU1@IABU1@@Z
+rowed + initializers + data frozen	code	?insert@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEPAUBfmeStringRecord00111ACF@@PAU3@ABU3@@Z
+rowed + initializers + data frozen	code	?push_back@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEXXZ
+rowed + initializers + data frozen	code	?insert@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEPAUBfmeStringRecord00111ACF@@PAU3@@Z
+rowed + initializers + data frozen	code	?_M_fill_insert@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEXPAUBfmeStringRecord00111ACF@@IABU3@@Z
+rowed + initializers + data frozen	code	??0?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAE@I@Z
+rowed + initializers + data frozen	code	?resize@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data frozen	code	??$_Construct@URva00587375@@U1@@_STL@@YAXPAURva00587375@@ABU1@@Z
+rowed + initializers + data frozen	code	??Y?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QAEAAU01@H@Z
+rowed + initializers + data frozen	code	??G?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QBEHABU01@@Z
+rowed + initializers + data frozen	code	?splice@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@AAV12@00@Z
+rowed + initializers + data frozen	code	?back@?$list@HV?$allocator@H@_STL@@@_STL@@QBEABHXZ
+rowed + initializers + data frozen	code	?_M_fill_insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@IABH@Z
+rowed + initializers + data frozen	code	??$_S_unique@HV?$allocator@H@_STL@@U?$equal_to@H@2@@_STL@@YAXAAV?$list@HV?$allocator@H@_STL@@@0@U?$equal_to@H@0@@Z
+rowed + initializers + data frozen	code	??$_S_merge@HV?$allocator@H@_STL@@U?$less@H@2@@_STL@@YAXAAV?$list@HV?$allocator@H@_STL@@@0@0U?$less@H@0@@Z
+rowed + initializers + data frozen	code	??$_S_sort@HV?$allocator@H@_STL@@U?$less@H@2@@_STL@@YAXAAV?$list@HV?$allocator@H@_STL@@@0@U?$less@H@0@@Z
+rowed + initializers + data frozen	code	?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@IABH@Z
+rowed + initializers + data frozen	code	??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@IABHABV?$allocator@H@1@@Z
+rowed + initializers + data frozen	code	??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@I@Z
+rowed + initializers + data frozen	code	?unique@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ
+rowed + initializers + data frozen	code	?merge@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXAAV12@@Z
+rowed + initializers + data frozen	code	?sort@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ
+rowed + initializers + data frozen	code	?resize@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXIABH@Z
+rowed + initializers + data frozen	code	?_M_fill_assign@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXIABH@Z
+rowed + initializers + data frozen	code	?resize@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data frozen	code	??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPBD0@Z
+rowed + initializers + data frozen	code	??$fill_n@I@_STL@@YAPADPADIABD@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_List_node@PAURva00051107AudioRequest@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAURva00051107AudioRequest@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_List_node@UOpaqueRefElement4@@@_STL@@@_STL@@QBEXPAU?$_List_node@UOpaqueRefElement4@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@VUnicodeString@@@_STL@@QBEXPAVUnicodeString@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UAudioTriggerArea@@@_STL@@QBEXPAUAudioTriggerArea@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UAudioTriggerAreaSave@@@_STL@@QBEXPAUAudioTriggerAreaSave@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@PAX@_STL@@QBEXPAPAXI@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UOpaqueRefElement4@@@_STL@@QBEXPAUOpaqueRefElement4@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAURva00051107AudioRequest@@@_STL@@U12@V?$allocator@U?$_List_node@PAURva00051107AudioRequest@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@PAURva00051107AudioRequest@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@UOpaqueRefElement4@@@_STL@@U12@V?$allocator@U?$_List_node@UOpaqueRefElement4@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@UOpaqueRefElement4@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAVUnicodeString@@V1@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAEXPAVUnicodeString@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAUAudioTriggerArea@@U1@V?$allocator@UAudioTriggerArea@@@_STL@@@_STL@@QAEXPAUAudioTriggerArea@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAUAudioTriggerAreaSave@@U1@V?$allocator@UAudioTriggerAreaSave@@@_STL@@@_STL@@QAEXPAUAudioTriggerAreaSave@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@IUOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAEXPAUOpaqueRefElement4@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@PAURva00051B89Keyed@@@_STL@@V?$allocator@U?$_Hashtable_node@PAURva00051B89Keyed@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@PAURva00051B89Keyed@@@2@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Rb_tree_base@U?$pair@$$CBIPAVImage@@@_STL@@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?_M_clear@?$vector@UAudioTriggerArea@@V?$allocator@UAudioTriggerArea@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	alloc	??1?$_Rb_tree_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?_M_clear@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	alloc	?_M_clear@?$vector@DV?$allocator@D@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UBfmeE12@@@_STL@@QBEXPAUBfmeE12@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAUBfmeE12@@U1@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAEXPAUBfmeE12@@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Vector_base@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?allocate@?$_STLP_alloc_proxy@IPAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXI@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@QBEXPAUPrereqUnitRec@ProductionPrerequisite@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAUPrereqUnitRec@ProductionPrerequisite@@U12@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEXPAUPrereqUnitRec@ProductionPrerequisite@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@PAUBfmeE8@@@_STL@@QBEXPAPAUBfmeE8@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAPAUBfmeE8@@PAU1@V?$allocator@PAUBfmeE8@@@_STL@@@_STL@@QAEXPAPAUBfmeE8@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@IUBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXPAUBfmeE8@@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Deque_base@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	??$_M_allocate_and_copy@PAW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPAW42@0@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAUAngleFXInfo@@U1@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@QAEXPAUAngleFXInfo@@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Vector_base@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_List_node@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QBEXPAU?$_List_node@UTreeHintOpaque0043671B@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@UTreeHintOpaque0043671B@@@_STL@@U12@V?$allocator@U?$_List_node@UTreeHintOpaque0043671B@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@UTreeHintOpaque0043671B@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_List_node@PAVWindowLayout@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVWindowLayout@@@2@I@Z
+rowed + initializers + data frozen	alloc	?allocate@?$allocator@U?$_List_node@PAVWindowLayout@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVWindowLayout@@@2@IPBX@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVWindowLayout@@@_STL@@U12@V?$allocator@U?$_List_node@PAVWindowLayout@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@PAVWindowLayout@@@2@I@Z
+rowed + initializers + data frozen	alloc	?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVWindowLayout@@@_STL@@U12@V?$allocator@U?$_List_node@PAVWindowLayout@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVWindowLayout@@@2@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Vector_base@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?_M_clear@?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@H@_STL@@U12@V?$Rva002F0C32Allocator@H@@@_STL@@QAEXPAU?$_Rb_tree_node@H@2@I@Z
+rowed + initializers + data frozen	alloc	?_M_erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$Rva002F0C32Allocator@H@@@_STL@@AAEXPAU?$_Rb_tree_node@H@2@@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Rb_tree_base@HV?$Rva002F0C32Allocator@H@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@URva004C7878Record@@@_STL@@QBEXPAURva004C7878Record@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAURva004C7878Record@@U1@V?$allocator@URva004C7878Record@@@_STL@@@_STL@@QAEXPAURva004C7878Record@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UBfmeStringTailRecord156@@@_STL@@QBEXPAUBfmeStringTailRecord156@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAUBfmeStringTailRecord156@@U1@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAEXPAUBfmeStringTailRecord156@@I@Z
+rowed + initializers + data frozen	alloc	??1?$_Deque_base@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@PAUBfmeOpaqueOwnedRecord492@@@_STL@@QBEXPAPAUBfmeOpaqueOwnedRecord492@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UBfmeOpaqueOwnedRecord492@@@_STL@@QBEXPAUBfmeOpaqueOwnedRecord492@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@PAUBfmeOpaqueOwnedRecord840@@@_STL@@QBEXPAPAUBfmeOpaqueOwnedRecord840@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@UBfmeOpaqueOwnedRecord840@@@_STL@@QBEXPAUBfmeOpaqueOwnedRecord840@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?allocate@?$allocator@G@_STL@@QBEPAGIPBX@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAPAUBfmeOpaqueOwnedRecord492@@PAU1@V?$allocator@PAUBfmeOpaqueOwnedRecord492@@@_STL@@@_STL@@QAEXPAPAUBfmeOpaqueOwnedRecord492@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@IUBfmeOpaqueOwnedRecord492@@V?$allocator@UBfmeOpaqueOwnedRecord492@@@_STL@@@_STL@@QAEXPAUBfmeOpaqueOwnedRecord492@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAPAUBfmeOpaqueOwnedRecord840@@PAU1@V?$allocator@PAUBfmeOpaqueOwnedRecord840@@@_STL@@@_STL@@QAEXPAPAUBfmeOpaqueOwnedRecord840@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@IUBfmeOpaqueOwnedRecord840@@V?$allocator@UBfmeOpaqueOwnedRecord840@@@_STL@@@_STL@@QAEXPAUBfmeOpaqueOwnedRecord840@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@H@_STL@@@2@I@Z
+rowed + initializers + data frozen	alloc	?allocate@?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAEPAGI@Z
+rowed + initializers + data frozen	alloc	??1?$_Deque_base@UBfmeOpaqueOwnedRecord492@@V?$allocator@UBfmeOpaqueOwnedRecord492@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	??1?$_Deque_base@UBfmeOpaqueOwnedRecord840@@V?$allocator@UBfmeOpaqueOwnedRecord840@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?_M_allocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@F@_STL@@QBEXPAFI@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAFFV?$allocator@F@_STL@@@_STL@@QAEXPAFI@Z
+rowed + initializers + data frozen	alloc	??1?$_Vector_base@FV?$allocator@F@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@VRva000BB491@@@_STL@@QBEXPAVRva000BB491@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$allocator@VRva000BB4AC@@@_STL@@QBEXPAVRva000BB4AC@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAVRva000BB4AC@@V1@V?$allocator@VRva000BB4AC@@@_STL@@@_STL@@QAEXPAVRva000BB4AC@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAVRva000BB491@@V1@V?$allocator@VRva000BB491@@@_STL@@@_STL@@QAEXPAVRva000BB491@@I@Z
+rowed + initializers + data frozen	alloc	?allocate@?$_STLP_alloc_proxy@PAURva00587375@@U1@V?$allocator@URva00587375@@@_STL@@@_STL@@QAEPAURva00587375@@I@Z
+rowed + initializers + data frozen	alloc	?deallocate@?$_STLP_alloc_proxy@PAURva00587375@@U1@V?$allocator@URva00587375@@@_STL@@@_STL@@QAEXPAURva00587375@@I@Z
+rowed + initializers + data frozen	alloc	?_M_clear@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data frozen	alloc	?_M_create_node@?$list@HV?$allocator@H@_STL@@@_STL@@IAEPAU?$_List_node@H@2@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$allocator@PAX@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ
+rowed + initializers + data + allocator-side frozen	fixed	?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?capacity@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data + allocator-side frozen	fixed	?_M_set@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAX00@Z
+rowed + initializers + data + allocator-side frozen	fixed	?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z
+rowed + initializers + data + allocator-side frozen	fixed	?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ
+rowed + initializers + data + allocator-side frozen	fixed	??$swap@V?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@0@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_clear@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + allocator-side frozen	fixed	??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAXABQAXABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z
+rowed + initializers + data + allocator-side frozen	fixed	?empty@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	fixed	??$copy@U?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@U12@@_STL@@YA?AU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@0@U10@00@Z
+rowed + initializers + data + allocator-side frozen	fixed	?load@BoundedShortGrid@@QAEFHH@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@1@ABH@Z
+rowed + initializers + data + allocator-side frozen	fixed	?length@?$char_traits@D@_STL@@SAIPBD@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBDABV?$allocator@D@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@IAEXPAUBfmeE16@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?deallocate@?$__malloc_alloc@$0A@@_STL@@SAXPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Lighting@VertexMaterialClass@@QAEX_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_erase_after@?$_Slist_base@HV?$allocator@H@_STL@@@_STL@@IAEPAU_Slist_node_base@2@PAU32@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0Matrix3D@@QAE@MMMMMMMMMMMM@Z
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0Vector4@@QAE@MMMM@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Color_Mask@ShaderClass@@QAEXW4ColorMaskType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Post_Detail_Alpha_Func@ShaderClass@@QAEXW4DetailAlphaFuncType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Post_Detail_Color_Func@ShaderClass@@QAEXW4DetailColorFuncType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Alpha_Test@ShaderClass@@QAEXW4AlphaTestType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Cull_Mode@ShaderClass@@QAEXW4CullModeType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Dst_Blend_Func@ShaderClass@@QAEXW4DstBlendFuncType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Fog_Func@ShaderClass@@QAEXW4FogFuncType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Primary_Gradient@ShaderClass@@QAEXW4PriGradientType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Secondary_Gradient@ShaderClass@@QAEXW4SecGradientType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Src_Blend_Func@ShaderClass@@QAEXW4SrcBlendFuncType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_Texturing@ShaderClass@@QAEXW4TexturingType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Set_NPatch_Enable@ShaderClass@@QAEXW4NPatchEnableType@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Rotate_Y@Matrix3D@@QAEXMM@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0Matrix3D@@QAE@ABVVector3@@M@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_GW3DShroudMaterialPassClass@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?fill@_STL@@YAXPAD0ABD@Z
+rowed + initializers + data + allocator-side frozen	fixed	?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@IPBX@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@QAE@ABU01@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_Construct@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@0@ABU10@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_create_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPADPAD0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insertRange@Rva008312E0String@@QAEXPAD00ABURva008312E0Tag@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_GBucket@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_copy@PBUBfmeVectorRecord000BDF17@@PAU1@@_STL@@YAPAUBfmeVectorRecord000BDF17@@PBU1@0PAU1@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_clear@?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_allocate_and_copy@PBUBfmeVectorRecord000BDF17@@@?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord000BDF17@@IPBU2@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data + allocator-side frozen	fixed	??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAEPAW4ObjectID@@PAW43@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEPAUBfmePod12@@PAU3@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_G?$VectorClass@VStringClass@@@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?__stl_hash_string@_STL@@YAIPBD@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@VBfmeStringTailRecord156@@V?$allocator@VBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??A?$map@VAsciiString@@UTreeHintRef00221D6B@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@@4@@_STL@@QAEAAUTreeHintRef00221D6B@@ABVAsciiString@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva003A37FAElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?isKindOfMulti@ThingTemplate@@QBE_NABV?$BitFlags@$0HE@@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@QBVThingTemplate@@H@2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	_powf
+rowed + initializers + data + allocator-side frozen	fixed	??$min@H@_STL@@YAABHABH0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_fill_n@PAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@IV12@@_STL@@YAPAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@0@PAV10@IABV10@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@VCreateAHeroSubClass@CreateAHeroManager@@V?$allocator@VCreateAHeroSubClass@CreateAHeroManager@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?__copy_trivial@_STL@@YAPAXPBX0PAX@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$max@I@_STL@@YAABIABI0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?scale@Coord3D@@QAEXM@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_setstate_nothrow@ios_base@_STL@@IAEXH@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_G?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_GRva0040DB52@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_initialize_dispatch@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABU__false_type@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$?0PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBD0ABV?$allocator@D@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0D3DXMATRIX@@QAE@MMMMMMMMMMMMMMMM@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Rva00574BA5Create@@YA?AV?$RvaCloneResult@VRva00574ABB@@@@PBUPayload@Rva00574ABB@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_GRva005E3AE1@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_Destroy@PAUGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??_G?$VectorClass@VVector3@@@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??4?$vector@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@1@ABVAsciiString@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_copy@PBV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@0@PBV10@0PAV10@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__distance@PAD@_STL@@YAHABQAD0ABUrandom_access_iterator_tag@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$?0PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PAD0ABV?$allocator@D@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert@?$list@PAVCreditsLine@@V?$allocator@PAVCreditsLine@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVCreditsLine@@U?$_Nonconst_traits@PAVCreditsLine@@@_STL@@@2@U32@ABQAVCreditsLine@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva001DE80FElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?getCharAt@?$StringBase@D@@QBEDH@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@PAVMapMetaData@@V?$allocator@PAVMapMetaData@@@_STL@@@_STL@@IAEXPAPAVMapMetaData@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_copy@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@PAU32@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert@?$list@PAVHeaderTemplate@@V?$allocator@PAVHeaderTemplate@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVHeaderTemplate@@U?$_Nonconst_traits@PAVHeaderTemplate@@@_STL@@@2@U32@ABQAVHeaderTemplate@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@IAEXPAURva00578425Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?push_back@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@QAEXABURva00578425Element@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva005FA197Element@@V?$allocator@URva005FA197Element@@@_STL@@@_STL@@IAEXPAURva005FA197Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva005FA1CEElement@@V?$allocator@URva005FA1CEElement@@@_STL@@@_STL@@IAEXPAURva005FA1CEElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva005F13E6Element@@V?$allocator@URva005F13E6Element@@@_STL@@@_STL@@IAEXPAURva005F13E6Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert@?$list@PAVShellMenuScheme@@V?$allocator@PAVShellMenuScheme@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShellMenuScheme@@U?$_Nonconst_traits@PAVShellMenuScheme@@@_STL@@@2@U32@ABQAVShellMenuScheme@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva005E2B0EElement@@V?$allocator@URva005E2B0EElement@@@_STL@@@_STL@@IAEXPAURva005E2B0EElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?insert@?$list@PAVAIGroup@@V?$allocator@PAVAIGroup@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVAIGroup@@U?$_Nonconst_traits@PAVAIGroup@@@_STL@@@2@U32@ABQAVAIGroup@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??A?$hash_map@W4ObjectID@@UCoord3D@@U?$hash@W4ObjectID@@@rts@@U?$equal_to@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@6@@_STL@@QAEAAUCoord3D@@ABW4ObjectID@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$copy_backward@PAVRva002B2F97@@PAV1@@_STL@@YAPAVRva002B2F97@@PAV1@00@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$copy@PAVSidesInfo@@PAV1@@_STL@@YAPAVSidesInfo@@PAV1@00@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$copy@PAUBfmeAssignRecord172@@PAU1@@_STL@@YAPAUBfmeAssignRecord172@@PAU1@00@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@UDynamicPortalLink@@V?$allocator@UDynamicPortalLink@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$_Rb_tree@HU?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@URvaPair0039973B@@V?$allocator@URvaPair0039973B@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@URva00395D77@@V?$allocator@URva00395D77@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEXPAPAVObject@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??F?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??0?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@1@AB_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU01@H@Z
+rowed + initializers + data + allocator-side frozen	fixed	??A?$map@HV?$vector@IV?$allocator@I@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@@_STL@@QAEAAV?$vector@IV?$allocator@I@_STL@@@1@ABH@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert_unique@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_Destroy@PAUBfmeAssignRecord44@@@_STL@@YAXPAUBfmeAssignRecord44@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_fill_n@PAUAngleFXInfo@@IU1@@_STL@@YAPAUAngleFXInfo@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_allocate_and_copy@PAUAngleFXInfo@@@?$vector@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@IAEPAUAngleFXInfo@@IPAU2@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_Construct@HH@_STL@@YAXPAHABH@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_fill_n@PAVRva0040CB11Entry@@IV1@@_STL@@YAPAVRva0040CB11Entry@@PAV1@IABV1@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@IAEXPAVRva0040CB11Entry@@ABV3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??A?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAEAAUTreeOpaqueMapped242F5E@@ABUTreeKey00242F5E@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva004F87BCElement@@V?$allocator@URva004F87BCElement@@@_STL@@@_STL@@IAEXPAURva004F87BCElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva002B9062Element@@V?$allocator@URva002B9062Element@@@_STL@@@_STL@@IAEXPAURva002B9062Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_Construct@GG@_STL@@YAXPAGABG@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@@3@UAsciiComparator@@V?$allocator@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@@3@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??1GameResultsResponse@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?compare@?$char_traits@D@_STL@@SAHPBD0I@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_create_nodes@?$_Deque_base@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXPAPAVBuddyResponse@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_initialize_map@?$_Deque_base@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@PBGABV?$allocator@G@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?assign@?$char_traits@D@_STL@@SAXAADABD@Z
+rowed + initializers + data + allocator-side frozen	fixed	?copy@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?move@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?assign@?$__char_traits_base@GG@_STL@@SAXAAGABG@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_construct_null_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAGABU__true_type@2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEPAGPAG0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_construct_null@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAG@Z
+rowed + initializers + data + allocator-side frozen	fixed	?length@?$__char_traits_base@GG@_STL@@SAIPBG@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$append@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PBG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_append_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABU__false_type@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$assign@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z
+rowed + initializers + data + allocator-side frozen	fixed	??4?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_GRva00802380Owner@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_GRva00802680Owner@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1Rva006FBDB0@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??_ERva004A9DF3Element@@QAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	??G@YA?AVCoord2D@@V0@ABV0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??H@YA?AVCoord2D@@V0@ABV0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?seekpos@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_copy@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_fill_n@PAURva00153729@@IU1@@_STL@@YAPAURva00153729@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@IAEXPAURva00153729@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Add_Sphere@SphereClass@@QAEXABV1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$VectorClass@PAVVertexMaterialClass@@@@QAE@HPBQAVVertexMaterialClass@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_E?$RefCountPtr@VTextureClass@@@@QAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Peek_Single_Texture@MeshModelClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HH@Z
+rowed + initializers + data + allocator-side frozen	fixed	??_G?$VectorClass@H@@UAEPAXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z
+rowed + initializers + data + allocator-side frozen	fixed	?resize@BfmeWordVec@@QAEXIG@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Add@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Remove@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Peek_Head@?$RefMultiListClass@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?Init_Min_Max@AABoxClass@@QAEXABVVector3@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Rotate_Vector@Quaternion@@QBE?AVVector3@@ABV2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Inverse_Transform_Vector@Matrix3D@@SAXABV1@ABVVector3@@PAV2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$SimpleDynVecClass@VVector3@@@@UAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@QAE@ABV01@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??1?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@3@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_allocate_and_copy@PAUBfmeStringRecord00111ACF@@@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@IAEPAUBfmeStringRecord00111ACF@@IPAU2@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??$_Construct@UBfmeAssignRecord32@@U1@@_STL@@YAXPAUBfmeAssignRecord32@@ABU1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_Destroy@PAUBfmeAssignRecord32@@@_STL@@YAXPAUBfmeAssignRecord32@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_clear@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXPAUBfmeAssignRecord32@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@IAEXPAVArmySummary@@ABV3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva0041FC37Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_advance@?$_Deque_iterator_base@PAX@_STL@@QAEXH@Z
+rowed + initializers + data + allocator-side frozen	fixed	??Z?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QAEAAU01@H@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_subtract@?$_Deque_iterator_base@UBfmeE8@@@_STL@@QBEHABU12@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@UBfmePod248@@V?$allocator@UBfmePod248@@@_STL@@@_STL@@IAEXPAUBfmePod248@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	??4?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@D@Z
+rowed + initializers + data + allocator-side frozen	fixed	?getloc@ios_base@_STL@@QBE?AVlocale@2@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??$__uninitialized_copy@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?erase@?$list@UBfmeStringRecord00415F34@@V?$allocator@UBfmeStringRecord00415F34@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord00415F34@@U?$_Nonconst_traits@UBfmeStringRecord00415F34@@@_STL@@@2@U32@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$__get_decimal_integer@PADO@_STL@@YA_NAAPAD0AAO@Z
+rowed + initializers + data + allocator-side frozen	fixed	??$_M_range_initialize@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPAD0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?failed@?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	fixed	?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z
+rowed + initializers + data + allocator-side frozen	fixed	??4?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert_overflow@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@IAEXPAUBfmePod52@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_create_nodes@?$_Deque_base@UBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@IAEXPAPAUBfmePod492@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_create_nodes@?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@IAEXPAPAVBuddyRequest@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_create_nodes@?$_Deque_base@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXPAPAUBfmePod840@@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_initialize_map@?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + allocator-side frozen	fixed	?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@0@Z
+rowed + initializers + data + allocator-side frozen	fixed	?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@ABV01@@Z
+rowed + initializers + data + allocator-side frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	fixed	??$?0PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@PBG0ABV?$allocator@G@1@@Z
+rowed + initializers + data + allocator-side frozen	fixed	?Resize@?$VectorClass@VVector3@@@@UAE_NHPBVVector3@@@Z
+rowed + initializers + data + allocator-side frozen	still	??0?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@@Z
+rowed + initializers + data + allocator-side frozen	still	?_M_insert_overflow@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEXPAUCoord3D@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	still	??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less@PAURva001408C0Target@@@3@V?$allocator@PAURva001408C0Target@@@3@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	still	?insert_unique@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z
+rowed + initializers + data + allocator-side frozen	still	?_M_clear@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + allocator-side frozen	still	?_M_insert_overflow@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@ProductionPrerequisite@@ABU34@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	still	??1?$_List_base@UTreeHintOpaque0043671B@@V?$allocator@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	still	?_M_insert_overflow@?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@IAEXPAPAVSubtitleEntry@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	still	??$__destroy@U?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@_STL@@UBfmeWordValue4@@@_STL@@YAXU?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@0@0PAUBfmeWordValue4@@@Z
+rowed + initializers + data + allocator-side frozen	still	?_M_initialize_map@?$_Deque_base@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + allocator-side frozen	still	??$_Destroy@U?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@0@0@Z
+rowed + initializers + data + allocator-side frozen	still	??1?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	still	??1?$_Vector_base@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	still	??1?$vector@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	still	?_M_insert_overflow@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@IAEXPAURva00587375@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	still	?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+rowed + initializers + data + allocator-side frozen	still	?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
+rowed + initializers + data + allocator-side frozen	code	?_M_subtract@?$_Deque_iterator_base@UOpaqueRefElement4@@@_STL@@QBEHABU12@@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$_Hashtable_iterator@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBIPAX@_STL@@@1@PAV?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@1@@Z
+rowed + initializers + data + allocator-side frozen	code	?_Ret@?$_OKToMemCpy@PAXPAX@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data + allocator-side frozen	code	??$_IsOKToMemCpy@PAXPAX@_STL@@YA?AU?$_OKToMemCpy@PAXPAX@0@PAPAX0@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBIPAX@_STL@@@1@PBV?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@1@@Z
+rowed + initializers + data + allocator-side frozen	code	?end@?$hashtable@U?$pair@$$CBIPAX@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@2@XZ
+rowed + initializers + data + allocator-side frozen	code	?end@?$hash_map@IPAXU?$hash@I@_STL@@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@2@XZ
+rowed + initializers + data + allocator-side frozen	code	??E?$_Rb_tree_iterator@PAURva001408C0Target@@U?$_Const_traits@PAURva001408C0Target@@@_STL@@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + allocator-side frozen	code	??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@1@ABH@Z
+rowed + initializers + data + allocator-side frozen	code	?uninitialized_copy@_STL@@YAPADPBD0PAD@Z
+rowed + initializers + data + allocator-side frozen	code	??$__distance@PBD@_STL@@YAHABQBD0ABUrandom_access_iterator_tag@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$distance@PBD@_STL@@YAHABQBD0@Z
+rowed + initializers + data + allocator-side frozen	code	??1Rva006D07E0Key@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??1Rva008A2BA0Handle@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??0Rva0006C995@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??1?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	?Set_Depth_Mask@ShaderClass@@QAEXW4DepthMaskType@1@@Z
+rowed + initializers + data + allocator-side frozen	code	?Peek_Obj@?$RefMultiListIterator@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ
+rowed + initializers + data + allocator-side frozen	code	??$__copy_backward_ptrs@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??0FastCriticalSectionClass@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??0BfmeEventPositionView@@QAE@MMM@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@IABV?$allocator@VAsciiString@@@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$_Vector_base@IV?$allocator@I@_STL@@@_STL@@QAE@IABV?$allocator@I@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??1?$DynamicVectorClass@VStringClass@@@@UAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??F?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + allocator-side frozen	code	?concat@AsciiString@@QAEXD@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@1@AB_N@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@QAE@ABVAsciiString@@ABUTreeHintRef00221D6B@@@Z
+rowed + initializers + data + allocator-side frozen	code	??0Rva004EE501@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	?isPlayableSide@PlayerTemplate@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	code	?getNumTeams@TeamsInfoRec@@QBEHXZ
+rowed + initializers + data + allocator-side frozen	code	?isSharedNSync@SpecialPowerTemplate@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	code	?isScoringEnabled@GameLogic@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	code	?test@?$BitFlags@$0HE@@@QBE_NH@Z
+rowed + initializers + data + allocator-side frozen	code	?TEST_KINDOFMASK@@YA_NABV?$BitFlags@$0HE@@@W4KindOfType@@@Z
+rowed + initializers + data + allocator-side frozen	code	??0BfmeFixedStorage128@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	?Clear@?$RefCountPtr@VTextureClass@@@@QAEXXZ
+rowed + initializers + data + allocator-side frozen	code	?setstate@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAEXH@Z
+rowed + initializers + data + allocator-side frozen	code	?_M_handle_exception@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAEXH@Z
+rowed + initializers + data + allocator-side frozen	code	?_M_set_node@?$_Deque_iterator_base@PAVLightPoint@@@_STL@@QAEXPAPAPAVLightPoint@@@Z
+rowed + initializers + data + allocator-side frozen	code	??$?9PAVLightPoint@@@_STL@@YA_NABU?$_Deque_iterator_base@PAVLightPoint@@@0@0@Z
+rowed + initializers + data + allocator-side frozen	code	??6?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@I@Z
+rowed + initializers + data + allocator-side frozen	code	??RS4Cmp002E1690@@QBE_NABUS4SortElem12@@0@Z
+rowed + initializers + data + allocator-side frozen	code	?Clear@?$VectorClass@VVector3@@@@UAEXXZ
+rowed + initializers + data + allocator-side frozen	code	?isNotEmpty@AsciiString@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	code	??0?$_Vector_base@V?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@@2@@_STL@@QAE@IABV?$allocator@V?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??$distance@PAD@_STL@@YAHABQAD0@Z
+rowed + initializers + data + allocator-side frozen	code	?getCharAt@AsciiString@@QBEDH@Z
+rowed + initializers + data + allocator-side frozen	code	?_Ret@?$_BothPtrType@PAGPAG@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data + allocator-side frozen	code	?_Ret@?$_BothPtrType@PADPAD@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data + allocator-side frozen	code	?_Ret@?$_OKToMemCpy@GG@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data + allocator-side frozen	code	?_Ret@?$_OKToMemCpy@DD@_STL@@SA?AU__true_type@2@XZ
+rowed + initializers + data + allocator-side frozen	code	??$_IsOKToMemCpy@GG@_STL@@YA?AU?$_OKToMemCpy@GG@0@PAG0@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_backward_ptrs@PAGPAG@_STL@@YAPAGPAG00ABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$_IsOKToMemCpy@DD@_STL@@YA?AU?$_OKToMemCpy@DD@0@PAD0@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_backward_aux@PAGPAG@_STL@@YAPAGPAG00ABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_backward_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$copy_backward@PAGPAG@_STL@@YAPAGPAG00@Z
+rowed + initializers + data + allocator-side frozen	code	??$copy_backward@PADPAD@_STL@@YAPADPAD00@Z
+rowed + initializers + data + allocator-side frozen	code	??$copy@PADPAD@_STL@@YAPADPAD00@Z
+rowed + initializers + data + allocator-side frozen	code	??$__uninitialized_fill_n@PAURva00578425Element@@IU1@@_STL@@YAPAURva00578425Element@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	?testDrawableStatus@Drawable@@QBE_NW4DrawableStatus@@@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$DLINK_ITERATOR@VTeamInQueue@@@@QAE@PAVTeamInQueue@@P81@BEPAV1@XZ@Z
+rowed + initializers + data + allocator-side frozen	code	?iterate_TeamBuildQueue@AIPlayer@@IBE?AV?$DLINK_ITERATOR@VTeamInQueue@@@@XZ
+rowed + initializers + data + allocator-side frozen	code	?resize@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEXI@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy@PAVSidesInfo@@PAV1@H@_STL@@YAPAVSidesInfo@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_backward_aux@PAVRva002B2F97@@PAV1@@_STL@@YAPAVRva002B2F97@@PAV1@00ABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??0Rva002ED236Pos@@QAE@ABUCoord3D@@@Z
+rowed + initializers + data + allocator-side frozen	code	??0CollideModuleInterface@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??0Rva00469155@@QAE@ABV0@@Z
+rowed + initializers + data + allocator-side frozen	code	?push_back@?$list@PAVObject@@V?$Rva001EB984PoolAllocator@PAVObject@@@@@_STL@@QAEXABQAVObject@@@Z
+rowed + initializers + data + allocator-side frozen	code	?clearCondition@Object@@QAEXI@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@I@Z
+rowed + initializers + data + allocator-side frozen	code	?front@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXXZ
+rowed + initializers + data + allocator-side frozen	code	?empty@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data + allocator-side frozen	code	?_M_insert_overflow@?$vector@PAVRva005DCE08@@V?$allocator@PAVRva005DCE08@@@_STL@@@_STL@@IAEXPAPAVRva005DCE08@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	code	??$find@H@?$hashtable@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@@1@ABH@Z
+rowed + initializers + data + allocator-side frozen	code	??$__default_constructed_aux@UTreeOpaqueMapped242F5E@@@_STL@@YA?AUTreeOpaqueMapped242F5E@@PAU1@ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$__default_constructed@UTreeOpaqueMapped242F5E@@@_STL@@YA?AUTreeOpaqueMapped242F5E@@PAU1@@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_ptrs@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_aux@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$_String_base@GV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@@Z
+rowed + initializers + data + allocator-side frozen	code	?max_size@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data + allocator-side frozen	code	?max_size@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIXZ
+rowed + initializers + data + allocator-side frozen	code	??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??$_M_append_dispatch@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABU__false_type@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@PAD0@Z
+rowed + initializers + data + allocator-side frozen	code	??$append@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PBG0@Z
+rowed + initializers + data + allocator-side frozen	code	??$_M_assign_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABU__false_type@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??4BfmeRefVGO@@QAEAAV0@ABV0@@Z
+rowed + initializers + data + allocator-side frozen	code	??_VRva004A9DF3Element@@SAXPAX@Z
+rowed + initializers + data + allocator-side frozen	code	??A?$VectorClass@VVector3@@@@QAEAAVVector3@@H@Z
+rowed + initializers + data + allocator-side frozen	code	??8@YA_NABVVector3@@0@Z
+rowed + initializers + data + allocator-side frozen	code	??0TextureVector@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	??0Matrix4@@QAE@XZ
+rowed + initializers + data + allocator-side frozen	code	?_M_insert_overflow@?$vector@HV?$allocator@H@_STL@@@_STL@@IAEXPAHABHABU__true_type@2@I_N@Z
+rowed + initializers + data + allocator-side frozen	code	?push_back@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z
+rowed + initializers + data + allocator-side frozen	code	?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z
+rowed + initializers + data + allocator-side frozen	code	??AMatrix3@@QAEAAVVector3@@H@Z
+rowed + initializers + data + allocator-side frozen	code	??$fill_n@PAUBfmeStringRecord00111ACF@@IU1@@_STL@@YAPAUBfmeStringRecord00111ACF@@PAU1@IABU1@@Z
+rowed + initializers + data + allocator-side frozen	code	?insert@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEPAUBfmeStringRecord00111ACF@@PAU3@ABU3@@Z
+rowed + initializers + data + allocator-side frozen	code	?push_back@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEXXZ
+rowed + initializers + data + allocator-side frozen	code	?insert@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEPAUBfmeStringRecord00111ACF@@PAU3@@Z
+rowed + initializers + data + allocator-side frozen	code	?_M_fill_insert@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEXPAUBfmeStringRecord00111ACF@@IABU3@@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAE@I@Z
+rowed + initializers + data + allocator-side frozen	code	?resize@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data + allocator-side frozen	code	??Y?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QAEAAU01@H@Z
+rowed + initializers + data + allocator-side frozen	code	??G?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QBEHABU01@@Z
+rowed + initializers + data + allocator-side frozen	code	??$__copy_backward_aux@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00ABU__false_type@0@@Z
+rowed + initializers + data + allocator-side frozen	code	??$?9UBfmeE8@@@_STL@@YA_NABU?$_Deque_iterator_base@UBfmeE8@@@0@0@Z
+rowed + initializers + data + allocator-side frozen	code	??E?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + allocator-side frozen	code	?upper_bound@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Const_traits@U?$pair@$$CBHH@_STL@@@2@@2@ABH@Z
+rowed + initializers + data + allocator-side frozen	code	?erase@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@@Z
+rowed + initializers + data + allocator-side frozen	code	??0?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHH@_STL@@@1@@Z
+rowed + initializers + data + allocator-side frozen	code	??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPBD0@Z
+rowed + initializers + data + allocator-side frozen	code	??$fill_n@I@_STL@@YAPADPADIABD@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$allocator@PAX@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ
+rowed + initializers + data + all no-row code frozen	fixed	?get_allocator@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE?AV?$allocator@PAX@2@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?capacity@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data + all no-row code frozen	fixed	?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXXZ
+rowed + initializers + data + all no-row code frozen	fixed	??$swap@V?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@0@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?swap@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXAAV12@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABV?$allocator@PAX@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@IABQAXABV?$allocator@PAX@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_clear@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + all no-row code frozen	fixed	??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAXABQAXABU__true_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_M_allocate_and_copy@PAPAX@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAPAXIPAPAX0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?reserve@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_fill_insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z
+rowed + initializers + data + all no-row code frozen	fixed	?empty@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data + all no-row code frozen	fixed	??$copy@U?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@U12@@_STL@@YA?AU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@0@U10@00@Z
+rowed + initializers + data + all no-row code frozen	fixed	?load@BoundedShortGrid@@QAEFHH@Z
+rowed + initializers + data + all no-row code frozen	fixed	?length@?$char_traits@D@_STL@@SAIPBD@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_M_range_initialize@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBDABV?$allocator@D@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@IAEXPAUBfmeE16@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?deallocate@?$__malloc_alloc@$0A@@_STL@@SAXPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Lighting@VertexMaterialClass@@QAEX_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_erase_after@?$_Slist_base@HV?$allocator@H@_STL@@@_STL@@IAEPAU_Slist_node_base@2@PAU32@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0Matrix3D@@QAE@MMMMMMMMMMMM@Z
+rowed + initializers + data + all no-row code frozen	fixed	?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0Vector4@@QAE@MMMM@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Color_Mask@ShaderClass@@QAEXW4ColorMaskType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Post_Detail_Alpha_Func@ShaderClass@@QAEXW4DetailAlphaFuncType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Post_Detail_Color_Func@ShaderClass@@QAEXW4DetailColorFuncType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Alpha_Test@ShaderClass@@QAEXW4AlphaTestType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Cull_Mode@ShaderClass@@QAEXW4CullModeType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Dst_Blend_Func@ShaderClass@@QAEXW4DstBlendFuncType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Fog_Func@ShaderClass@@QAEXW4FogFuncType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Primary_Gradient@ShaderClass@@QAEXW4PriGradientType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Secondary_Gradient@ShaderClass@@QAEXW4SecGradientType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Src_Blend_Func@ShaderClass@@QAEXW4SrcBlendFuncType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_Texturing@ShaderClass@@QAEXW4TexturingType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Set_NPatch_Enable@ShaderClass@@QAEXW4NPatchEnableType@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Rotate_Y@Matrix3D@@QAEXMM@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0Matrix3D@@QAE@ABVVector3@@M@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_GW3DShroudMaterialPassClass@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@IPBX@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@QAE@ABU01@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_Construct@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@0@ABU10@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_create_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@2@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?erase@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPADPAD0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insertRange@Rva008312E0String@@QAEXPAD00ABURva008312E0Tag@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_GBucket@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_copy@PBUBfmeVectorRecord000BDF17@@PAU1@@_STL@@YAPAUBfmeVectorRecord000BDF17@@PBU1@0PAU1@ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_clear@?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + all no-row code frozen	fixed	??$_M_allocate_and_copy@PBUBfmeVectorRecord000BDF17@@@?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord000BDF17@@IPBU2@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ
+rowed + initializers + data + all no-row code frozen	fixed	??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?erase@?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAEPAW4ObjectID@@PAW43@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?erase@?$vector@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEPAUBfmePod12@@PAU3@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?__stl_hash_string@_STL@@YAIPBD@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@VBfmeStringTailRecord156@@V?$allocator@VBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva003A37FAElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva003A37FAElement@@@_STL@@@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?isKindOfMulti@ThingTemplate@@QBE_NABV?$BitFlags@$0HE@@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@QBVThingTemplate@@H@2@@Z
+rowed + initializers + data + all no-row code frozen	fixed	_powf
+rowed + initializers + data + all no-row code frozen	fixed	??$min@H@_STL@@YAABHABH0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_fill_n@PAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@IV12@@_STL@@YAPAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@0@PAV10@IABV10@ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@VCreateAHeroSubClass@CreateAHeroManager@@V?$allocator@VCreateAHeroSubClass@CreateAHeroManager@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?__copy_trivial@_STL@@YAPAXPBX0PAX@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$max@I@_STL@@YAABIABI0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?scale@Coord3D@@QAEXM@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_setstate_nothrow@ios_base@_STL@@IAEXH@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_G?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_GRva0040DB52@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0D3DXMATRIX@@QAE@MMMMMMMMMMMMMMMM@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Rva00574BA5Create@@YA?AV?$RvaCloneResult@VRva00574ABB@@@@PBUPayload@Rva00574ABB@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_GRva005E3AE1@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_Destroy@PAUGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??_G?$VectorClass@VVector3@@@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??4?$vector@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_copy@PBV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@0@PBV10@0PAV10@ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insert@?$list@PAVCreditsLine@@V?$allocator@PAVCreditsLine@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVCreditsLine@@U?$_Nonconst_traits@PAVCreditsLine@@@_STL@@@2@U32@ABQAVCreditsLine@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva001DE80FElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?getCharAt@?$StringBase@D@@QBEDH@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@PAVMapMetaData@@V?$allocator@PAVMapMetaData@@@_STL@@@_STL@@IAEXPAPAVMapMetaData@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_copy@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@PAU32@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@ABV?$allocator@I@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insert@?$list@PAVHeaderTemplate@@V?$allocator@PAVHeaderTemplate@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVHeaderTemplate@@U?$_Nonconst_traits@PAVHeaderTemplate@@@_STL@@@2@U32@ABQAVHeaderTemplate@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva005FA197Element@@V?$allocator@URva005FA197Element@@@_STL@@@_STL@@IAEXPAURva005FA197Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva005FA1CEElement@@V?$allocator@URva005FA1CEElement@@@_STL@@@_STL@@IAEXPAURva005FA1CEElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva005F13E6Element@@V?$allocator@URva005F13E6Element@@@_STL@@@_STL@@IAEXPAURva005F13E6Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insert@?$list@PAVShellMenuScheme@@V?$allocator@PAVShellMenuScheme@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVShellMenuScheme@@U?$_Nonconst_traits@PAVShellMenuScheme@@@_STL@@@2@U32@ABQAVShellMenuScheme@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva005E2B0EElement@@V?$allocator@URva005E2B0EElement@@@_STL@@@_STL@@IAEXPAURva005E2B0EElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?insert@?$list@PAVAIGroup@@V?$allocator@PAVAIGroup@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVAIGroup@@U?$_Nonconst_traits@PAVAIGroup@@@_STL@@@2@U32@ABQAVAIGroup@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@UDynamicPortalLink@@V?$allocator@UDynamicPortalLink@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$_Rb_tree@HU?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@URvaPair0039973B@@V?$allocator@URvaPair0039973B@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@URva00395D77@@V?$allocator@URva00395D77@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEXPAPAVObject@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??F?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAU01@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??0?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@1@AB_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??A?$map@HV?$vector@IV?$allocator@I@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@@_STL@@QAEAAV?$vector@IV?$allocator@I@_STL@@@1@ABH@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insert_unique@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_Destroy@PAUBfmeAssignRecord44@@@_STL@@YAXPAUBfmeAssignRecord44@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_fill_n@PAUAngleFXInfo@@IU1@@_STL@@YAPAUAngleFXInfo@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_M_allocate_and_copy@PAUAngleFXInfo@@@?$vector@UAngleFXInfo@@V?$allocator@UAngleFXInfo@@@_STL@@@_STL@@IAEPAUAngleFXInfo@@IPAU2@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_Construct@HH@_STL@@YAXPAHABH@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_fill_n@PAVRva0040CB11Entry@@IV1@@_STL@@YAPAVRva0040CB11Entry@@PAV1@IABV1@ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@IAEXPAVRva0040CB11Entry@@ABV3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva004F87BCElement@@V?$allocator@URva004F87BCElement@@@_STL@@@_STL@@IAEXPAURva004F87BCElement@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva002B9062Element@@V?$allocator@URva002B9062Element@@@_STL@@@_STL@@IAEXPAURva002B9062Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_Construct@GG@_STL@@YAXPAGABG@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@@3@UAsciiComparator@@V?$allocator@U?$pair@$$CBVAsciiString@@VPlayerInfo@@@_STL@@@3@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??1GameResultsResponse@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?_M_create_nodes@?$_Deque_base@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXPAPAVBuddyResponse@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_initialize_map@?$_Deque_base@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_M_range_initialize@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPBG0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@PBGABV?$allocator@G@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?copy@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_construct_null@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAG@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$append@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_GRva00802380Owner@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_GRva00802680Owner@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1Rva006FBDB0@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??G@YA?AVCoord2D@@V0@ABV0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??H@YA?AVCoord2D@@V0@ABV0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?seekpos@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@V32@H@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_copy@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__uninitialized_fill_n@PAURva00153729@@IU1@@_STL@@YAPAURva00153729@@PAU1@IABU1@ABU__false_type@0@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@IAEXPAURva00153729@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Add_Sphere@SphereClass@@QAEXABV1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$VectorClass@PAVVertexMaterialClass@@@@QAE@HPBQAVVertexMaterialClass@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_E?$RefCountPtr@VTextureClass@@@@QAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Peek_Single_Texture@MeshModelClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HH@Z
+rowed + initializers + data + all no-row code frozen	fixed	??_G?$VectorClass@H@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z
+rowed + initializers + data + all no-row code frozen	fixed	?resize@BfmeWordVec@@QAEXIG@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Add@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Remove@?$RefMultiListClass@VRenderObjClass@@@@QAE_NPAVRenderObjClass@@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Peek_Head@?$RefMultiListClass@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?Init_Min_Max@AABoxClass@@QAEXABVVector3@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Rotate_Vector@Quaternion@@QBE?AVVector3@@ABV2@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Inverse_Transform_Vector@Matrix3D@@SAXABV1@ABVVector3@@PAV2@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$SimpleDynVecClass@VVector3@@@@UAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?Add@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@H@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@QAE@ABV01@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??1?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@3@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?get_allocator@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBE?AV?$allocator@G@2@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??$_Construct@UBfmeAssignRecord32@@U1@@_STL@@YAXPAUBfmeAssignRecord32@@ABU1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$_Destroy@PAUBfmeAssignRecord32@@@_STL@@YAXPAUBfmeAssignRecord32@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_clear@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXPAUBfmeAssignRecord32@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@VArmySummary@@V?$allocator@VArmySummary@@@_STL@@@_STL@@IAEXPAVArmySummary@@ABV3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$hashtable@U?$pair@$$CBHURva0041FC37Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva0041FC37Element@@@_STL@@@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_advance@?$_Deque_iterator_base@PAX@_STL@@QAEXH@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@UBfmePod248@@V?$allocator@UBfmePod248@@@_STL@@@_STL@@IAEXPAUBfmePod248@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	??4?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAEAAV01@D@Z
+rowed + initializers + data + all no-row code frozen	fixed	?getloc@ios_base@_STL@@QBE?AVlocale@2@XZ
+rowed + initializers + data + all no-row code frozen	fixed	?erase@?$list@UBfmeStringRecord00415F34@@V?$allocator@UBfmeStringRecord00415F34@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord00415F34@@U?$_Nonconst_traits@UBfmeStringRecord00415F34@@@_STL@@@2@U32@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??$__get_decimal_integer@PADO@_STL@@YA_NAAPAD0AAO@Z
+rowed + initializers + data + all no-row code frozen	fixed	?failed@?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBE_NXZ
+rowed + initializers + data + all no-row code frozen	fixed	?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z
+rowed + initializers + data + all no-row code frozen	fixed	??4?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert_overflow@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@IAEXPAUBfmePod52@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_create_nodes@?$_Deque_base@UBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@IAEXPAPAUBfmePod492@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_create_nodes@?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@IAEXPAPAVBuddyRequest@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_create_nodes@?$_Deque_base@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXPAPAUBfmePod840@@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmePod492@@V?$allocator@UBfmePod492@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_initialize_map@?$_Deque_base@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_initialize_map@?$_Deque_base@UBfmePod840@@V?$allocator@UBfmePod840@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + all no-row code frozen	fixed	?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@0@Z
+rowed + initializers + data + all no-row code frozen	fixed	?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@UBfmeStringNoCaseLess@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@ABV01@@Z
+rowed + initializers + data + all no-row code frozen	fixed	??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	fixed	??$?0PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@PBG0ABV?$allocator@G@1@@Z
+rowed + initializers + data + all no-row code frozen	fixed	?Resize@?$VectorClass@VVector3@@@@UAE_NHPBVVector3@@@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_set@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAX00@Z
+rowed + initializers + data + all no-row code frozen	still	?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z
+rowed + initializers + data + all no-row code frozen	still	?insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXPAPAXIABQAX@Z
+rowed + initializers + data + all no-row code frozen	still	??$find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@1@ABH@Z
+rowed + initializers + data + all no-row code frozen	still	??0?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_insert_overflow@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEXPAUCoord3D@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	still	?fill@_STL@@YAXPAD0ABD@Z
+rowed + initializers + data + all no-row code frozen	still	?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z
+rowed + initializers + data + all no-row code frozen	still	??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less@PAURva001408C0Target@@@3@V?$allocator@PAURva001408C0Target@@@3@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + all no-row code frozen	still	?insert_unique@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z
+rowed + initializers + data + all no-row code frozen	still	??_G?$VectorClass@VStringClass@@@@UAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	still	??1?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	??A?$map@VAsciiString@@UTreeHintRef00221D6B@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@_STL@@@4@@_STL@@QAEAAUTreeHintRef00221D6B@@ABVAsciiString@@@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_clear@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXXZ
+rowed + initializers + data + all no-row code frozen	still	?_M_insert_overflow@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@ProductionPrerequisite@@ABU34@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	still	??$_M_initialize_dispatch@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXPBD0ABU__false_type@1@@Z
+rowed + initializers + data + all no-row code frozen	still	??$?0PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PBD0ABV?$allocator@D@1@@Z
+rowed + initializers + data + all no-row code frozen	still	??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVThingTemplate@@@_STL@@@1@ABVAsciiString@@@Z
+rowed + initializers + data + all no-row code frozen	still	??$__distance@PAD@_STL@@YAHABQAD0ABUrandom_access_iterator_tag@0@@Z
+rowed + initializers + data + all no-row code frozen	still	??$?0PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@PAD0ABV?$allocator@D@1@@Z
+rowed + initializers + data + all no-row code frozen	still	??1?$_List_base@UTreeHintOpaque0043671B@@V?$allocator@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	?_M_insert_overflow@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@IAEXPAURva00578425Element@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	still	?push_back@?$vector@URva00578425Element@@V?$allocator@URva00578425Element@@@_STL@@@_STL@@QAEXABURva00578425Element@@@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_insert_overflow@?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@IAEXPAPAVSubtitleEntry@@ABQAV3@ABU__true_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	still	??A?$hash_map@W4ObjectID@@UCoord3D@@U?$hash@W4ObjectID@@@rts@@U?$equal_to@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@6@@_STL@@QAEAAUCoord3D@@ABW4ObjectID@@@Z
+rowed + initializers + data + all no-row code frozen	still	??$copy_backward@PAVRva002B2F97@@PAV1@@_STL@@YAPAVRva002B2F97@@PAV1@00@Z
+rowed + initializers + data + all no-row code frozen	still	??$copy@PAVSidesInfo@@PAV1@@_STL@@YAPAVSidesInfo@@PAV1@00@Z
+rowed + initializers + data + all no-row code frozen	still	??$copy@PAUBfmeAssignRecord172@@PAU1@@_STL@@YAPAUBfmeAssignRecord172@@PAU1@00@Z
+rowed + initializers + data + all no-row code frozen	still	??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z
+rowed + initializers + data + all no-row code frozen	still	??E?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU01@H@Z
+rowed + initializers + data + all no-row code frozen	still	??$__destroy@U?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@_STL@@UBfmeWordValue4@@@_STL@@YAXU?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@0@0PAUBfmeWordValue4@@@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_initialize_map@?$_Deque_base@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@IAEXI@Z
+rowed + initializers + data + all no-row code frozen	still	??$_Destroy@U?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeWordValue4@@U?$_Nonconst_traits@UBfmeWordValue4@@@_STL@@@0@0@Z
+rowed + initializers + data + all no-row code frozen	still	??1?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	??1?$_Vector_base@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	??1?$vector@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ
+rowed + initializers + data + all no-row code frozen	still	??A?$map@UTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@U?$less@UTreeKey00242F5E@@@_STL@@V?$allocator@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@@4@@_STL@@QAEAAUTreeOpaqueMapped242F5E@@ABUTreeKey00242F5E@@@Z
+rowed + initializers + data + all no-row code frozen	still	?compare@?$char_traits@D@_STL@@SAHPBD0I@Z
+rowed + initializers + data + all no-row code frozen	still	?assign@?$char_traits@D@_STL@@SAXAADABD@Z
+rowed + initializers + data + all no-row code frozen	still	?move@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z
+rowed + initializers + data + all no-row code frozen	still	?assign@?$__char_traits_base@GG@_STL@@SAXAAGABG@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_construct_null_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAGABU__true_type@2@@Z
+rowed + initializers + data + all no-row code frozen	still	?erase@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEPAGPAG0@Z
+rowed + initializers + data + all no-row code frozen	still	?length@?$__char_traits_base@GG@_STL@@SAIPBG@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_erase@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@@Z
+rowed + initializers + data + all no-row code frozen	still	??$append@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + all no-row code frozen	still	??$append@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PBG0ABUforward_iterator_tag@1@@Z
+rowed + initializers + data + all no-row code frozen	still	??$_M_append_dispatch@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PAG0ABU__false_type@1@@Z
+rowed + initializers + data + all no-row code frozen	still	?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z
+rowed + initializers + data + all no-row code frozen	still	??$assign@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z
+rowed + initializers + data + all no-row code frozen	still	??4?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@ABV01@@Z
+rowed + initializers + data + all no-row code frozen	still	??_ERva004A9DF3Element@@QAEPAXI@Z
+rowed + initializers + data + all no-row code frozen	still	??$_M_allocate_and_copy@PAUBfmeStringRecord00111ACF@@@?$vector@UBfmeStringRecord00111ACF@@V?$allocator@UBfmeStringRecord00111ACF@@@_STL@@@_STL@@IAEPAUBfmeStringRecord00111ACF@@IPAU2@0@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_insert_overflow@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@IAEXPAURva00587375@@ABU3@ABU__false_type@2@I_N@Z
+rowed + initializers + data + all no-row code frozen	still	??Z?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@QAEAAU01@H@Z
+rowed + initializers + data + all no-row code frozen	still	?_M_subtract@?$_Deque_iterator_base@UBfmeE8@@@_STL@@QBEHABU12@@Z
+rowed + initializers + data + all no-row code frozen	still	??$__uninitialized_copy@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z
+rowed + initializers + data + all no-row code frozen	still	?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+rowed + initializers + data + all no-row code frozen	still	?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z
+rowed + initializers + data + all no-row code frozen	still	??$_M_range_initialize@PAD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEXPAD0@Z
