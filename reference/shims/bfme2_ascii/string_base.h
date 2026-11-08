@@ -132,7 +132,21 @@ private:
     StringBase(const T *str, int len);
     StringBase(const T *str, int start, int len);
     StringBase(const CharSource<T> &src);
+    // Per-unit switch, default off: a unit whose retail code passes a StringBase temporary by
+    // value, built in its argument slot before the call setup (W3DFloorDraw::doDrawModule
+    // 0x000CF3BA), defines BFME_STRINGBASE_PUBLIC_COPY. It makes the copy constructor (0x000365F0)
+    // accessible, which C++ requires even where MSVC elides the copy, and adds the inline
+    // two-argument form that records the slot address before calling it (the int only selects
+    // the overload). Not global: declaring even an unused inline member here shifts MSVC 7.1's
+    // codegen in units that never call it (TeamTemplateInfo::loadFromDict swapped two loads).
+#ifdef BFME_STRINGBASE_PUBLIC_COPY
+public:
     StringBase(const StringBase<T> &src);
+    __forceinline StringBase(const StringBase<T> &src, int) { this->StringBase<T>::StringBase(src); }
+private:
+#else
+    StringBase(const StringBase<T> &src);
+#endif
     StringBase(const StringBase<T> &src, int start, int len);
     // ??1?$StringBase@D@@AAE@XZ (0x0005E490) and ??1AsciiString@@QAE@XZ
     // (0x0005EE90) are both a bare `jmp releaseBuffer`.

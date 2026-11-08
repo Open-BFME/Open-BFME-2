@@ -10,19 +10,14 @@
 // bit 0), the terrain render object gets the drawable, a copy of the module
 // data's name at +0x08 and that value (rowed 0x0006B7BF, which hands them to
 // its +0x3860 member). The name travels by value: the private StringBase
-// copy constructor builds it in the argument slot, reached through an inline
-// two-argument wrapper so the slot address is recorded before the call setup,
+// copy constructor builds it in the argument slot, reached through the shared inline
+// two-argument form so the slot address is recorded before the call setup,
 // as in retail.
-template <typename T> class StringBase
-{
-public:
-	~StringBase();
-	__forceinline StringBase(const StringBase &other, int) { this->StringBase<T>::StringBase(other); }
-private:
-	StringBase(const StringBase &other);
-	friend class W3DFloorDraw;
-	T *m_data;
-};
+// The shared StringBase (bfme2_ascii); its two-argument copy form builds the by-value
+// argument as retail does. ~StringBase<char> is declared out of line (releaseBuffer's alias).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#define BFME_STRINGBASE_PUBLIC_COPY
+#include "../../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva0055A88BDwordField;
 
