@@ -630,11 +630,12 @@ carries anything else (`cl_flags.Refused`). At pin 946f3c05a1 (2026-11-07) that 
 `/inputs/reference/...`; cl.exe ignores them as unknown options) and 11 ask for an
 assembly listing (`/FAsc` with `/Fa<path>`, one at an absolute `/Users/...` path).
 Fix them upstream in Open-BFME-1, never by editing the submodule here. A sweep also
-skips 16 more (42 in all; one overlaps), and those are BFME 2's to fix: they write `/I`
-and its path as two words, and `build._current_bfme1_include_flag` rewrites the bare
-`/I` alone, into `-Ireference/open-bfme-1/`, leaving the path a stray word cl.exe takes
-for an input file; the final-list check refuses that. At each pin update, list what
-remains upstream:
+skips 16 more, and those are BFME 2's to fix: they write `/I` and its path as two words,
+and `build._current_bfme1_include_flag` rewrites the bare `/I` alone, into
+`-Ireference/open-bfme-1/`, leaving the path a stray word cl.exe takes for an input
+file; the final-list check refuses that. One more spells an include directory in
+another case than the disk does, which the include walk refuses (43 in all; one
+overlaps). At each pin update, list what remains upstream:
 
 ```
 python3 -c "import subprocess,sys; sys.path.insert(0,'tools'); import build,cl_flags
@@ -645,6 +646,23 @@ for l in subprocess.run(['git','-C','reference/open-bfme-1','grep','-n','-I','^/
         seen.add(f); bad=cl_flags.problems(build._source_flag_tokens(t[6:]))
         if bad: print(f, '--', cl_flags.describe(bad))"
 ```
+
+Include paths and links. `build.source_extra_flags` walks every `/I` and `/FI` path from
+the checkout one component at a time (`cl_flags.walk`): each must be spelt as its
+directory entry is (Wine opens `Code/LOWERLINK` for `Code/lowerlink`) and none may be
+a symlink or junction, and conversion_gate Rule F refuses a commit that adds a symlink,
+or a gitlink other than this submodule's. A seat whose own trees are links (a worktree
+whose `reference/open-bfme-1` is a junction to the main checkout) names each linked
+path, repo-relative and in exact case, one per line, in its uncommitted
+`<git dir>/bfme-trusted-include-links` (`git rev-parse --git-dir`); nothing committed
+can trust a link. On 2026-11-07 no srv1 checkout needed an entry.
+
+Residual boundary. The `// cl:` allowlist governs the flags a source passes, not what
+the source itself reads: `#include "../../.."` climbing out of the checkout, an
+absolute `#include` (Rule E refuses one only on an added Code/ line), `#pragma
+include_alias`, `#import` (which also writes `.tlh`/`.tli` files beside the object) and
+`#using` (inert without `/clr`, which is refused). These read files and do not run
+code; master's sources use no `#import`, `#using` or `include_alias`.
 
 ## Work selection in detail (moved from AGENTS.md, 2026-10)
 
