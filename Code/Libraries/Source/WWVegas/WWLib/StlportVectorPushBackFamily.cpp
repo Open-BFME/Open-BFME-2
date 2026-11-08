@@ -145,7 +145,10 @@ struct BfmeStringRecord00395E75 { int a[3]; };
 class LivingWorldRegionConnection { public: int a[6]; };
 struct Rva003F7B22Element { int a[1]; };
 class Rva00403927 { public: int a[5]; };
-struct Rva0040C0C7Element { virtual ~Rva0040C0C7Element(); int a[9]; };
+// Retail's 40-byte element is the class whose dtor is the row at 0x0040B77E: a plain int at +0, not a vptr (its copy ctor 0x0040B707
+// copies +0 as an int), and retail's _M_clear 0x0040BEF9 -> _Destroy 0x0040BEA1 calls that dtor directly. Identity is still owed.
+class Rva0040B77E { public: ~Rva0040B77E(); private: int m_data[10]; };
+struct Rva0040C0C7Element { Rva0040B77E m_value; };
 struct Rva00413B16Element { int a[6]; };
 struct Rva00414258Element { int a[6]; };
 struct Rva00414BA4Element { int a[11]; };
@@ -197,15 +200,9 @@ struct Rva005FA1CEElement { int a[1]; };
 //   StlportVectorOverflow0008257F.cpp          (Rva00082BE6Element)
 //   StlportVectorOverflow00082631.cpp          (Rva00082C1DElement)
 //
-// Rva0040C0C7Element is the exception: retail's _M_insert_overflow at
-// 0x0040BFF4 (owned retail-identically by
-// stlport_vector_Rva0040C0C7_overflow.cpp) proves the 40-byte element has a
-// virtual destructor, not the flat int[10] this TU used to assume. The
-// polymorphic view (vptr + int[9], still 40 bytes) makes this TU's
-// _Destroy/__destroy_aux/_M_clear copies bit-identical to the held unit's,
-// and this TU sorts first in link order (0x4CF63 < 0x40C0C7), so they win
-// retail-side. Declaring those three for Rva0040C0C7 instead leaves the held
-// unit blocked by the peer POD copies (AwardSystemManager.obj).
+// Rva0040C0C7Element is the exception. Its element has a real, non-virtual destructor (the row at 0x0040B77E), so this TU's
+// _Destroy/__destroy_aux/_M_clear copies call it directly as retail's do, and this TU sorts first in link order (0x4CF63 < 0x40C0C7), so they
+// win. Declaring those three instead leaves the held unit blocked by the peer POD copies (AwardSystemManager.obj).
 namespace _STL {
 template <> void _Destroy<Rva00082BE6Element *>(Rva00082BE6Element *, Rva00082BE6Element *);
 template <> void _Destroy<Rva00082C1DElement *>(Rva00082C1DElement *, Rva00082C1DElement *);
