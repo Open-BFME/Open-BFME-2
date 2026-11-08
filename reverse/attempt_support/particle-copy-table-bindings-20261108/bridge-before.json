@@ -1,0 +1,1848 @@
+{
+  "tables": 29,
+  "slots": 115,
+  "refused_tables": 21,
+  "refusal_reasons": {
+    "strong-definition": 21
+  },
+  "already_correct": 0,
+  "entries": [
+    {
+      "rva": 8503288,
+      "name": "??_7Rva003AD16CModule@@6BRva003AA228Slice@FXParticleSystem@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "?getClass@?$ConcreteModuleTemplate@UOrthoEmissionVelocityModuleTag@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@UOrthoEmissionVelocityModuleTag@FXParticleSystem@@@2@XZ",
+          "rva": 3854742,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystemModuleGetClass.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8503324,
+      "name": "??_7Rva003AD19BModule@@6BRva003AA228Slice@FXParticleSystem@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+      "slots": [
+        {
+          "name": "?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?SPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?SPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVSphericalEmissionVelocityModule@2@VSphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$03$E?SPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?SPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVSphericalEmissionVelocityModule@2@VSphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@2@XZ",
+          "rva": 3854789,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/NamedModuleClassInstances.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8503380,
+      "name": "??_7Rva003AD1F9Module@@6BRva003AA228Slice@FXParticleSystem@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVCylindricalEmissionVelocityModule@2@VCylindricalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$03$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVCylindricalEmissionVelocityModule@2@VCylindricalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@2@XZ",
+          "rva": 3854883,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/NamedModuleClassInstances.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8503416,
+      "name": "??_7Rva003AD228Module@@6BRva003AA228Slice@FXParticleSystem@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?OUTWARD_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?OUTWARD_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVOutwardEmissionVelocityModule@2@VOutwardEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$03$E?OUTWARD_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?OUTWARD_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVOutwardEmissionVelocityModule@2@VOutwardEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@2@XZ",
+          "rva": 3854930,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/NamedModuleClassInstances.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505420,
+      "name": "??_7?$DefaultParticleModule@$03@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003A97E0@@UAEPAXI@Z",
+          "rva": 3860284,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003A97E0.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505440,
+      "name": "??_7OrthoEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003ABA36@@UAEPAXI@Z",
+          "rva": 3860693,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "?xfer@OrthoEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z",
+          "rva": 5630044,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OrthoEmissionVelocityModuleGetVelocity.cpp"
+        },
+        {
+          "name": "?getVelocity@OrthoEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@HH@Z",
+          "rva": 5629983,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OrthoEmissionVelocityModuleGetVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505460,
+      "name": "??_7OrthoEmissionVelocityModule@FXParticleSystem@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003ABA36@@WBI@AEPAXI@Z",
+          "rva": 3850735,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@OrthoEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850727,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505476,
+      "name": "??_7SphericalEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003ABA36@@UAEPAXI@Z",
+          "rva": 3860693,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@MAEXPAVXfer@@@Z",
+          "rva": 5630606,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF22EXfer.cpp"
+        },
+        {
+          "name": "?rva00564AB8@Rva00564AB8@@QAEXPAUCoord3D@@PBX1@Z",
+          "rva": 5655224,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RandomDirectionVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505496,
+      "name": "??_7SphericalEmissionVelocityModule@FXParticleSystem@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003ABA36@@WBI@AEPAXI@Z",
+          "rva": 3850735,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850811,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505512,
+      "name": "??_7Rva003ACBA3@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850811,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505512,
+      "name": "??_7Rva003ACBCD@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850811,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505512,
+      "name": "??_7Rva003AD19BModule@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850811,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505512,
+      "name": "??_7Rva003AD1CAModule@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850811,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505528,
+      "name": "??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003ABA36@@UAEPAXI@Z",
+          "rva": 3860693,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z",
+          "rva": 5631284,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylindricalEmissionVelocityModuleSample.cpp"
+        },
+        {
+          "name": "?getVelocity@CylindricalEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@HH@Z",
+          "rva": 5630852,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fxpsemittercylindervelocitymodule.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505548,
+      "name": "??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003ABA36@@WBI@AEPAXI@Z",
+          "rva": 3850735,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850895,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505548,
+      "name": "??_7Rva003AC297Module@FXParticleSystem@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003ABA36@@WBI@AEPAXI@Z",
+          "rva": 3850735,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850895,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8505564,
+      "name": "??_7Rva003AC297Module@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003ABA36@@UAEPAXI@Z",
+          "rva": 3860693,
+          "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z",
+          "rva": 5631284,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylindricalEmissionVelocityModuleSample.cpp"
+        },
+        {
+          "name": "?getVelocity@OutwardEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@PBU32@PAVEmissionVolumeModuleInterface@2@@Z",
+          "rva": 5631225,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OutwardEmissionVelocityModuleGetVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8506088,
+      "name": "??_7Rva003ACBA3@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003AD273@@UAEPAXI@Z",
+          "rva": 3854935,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@MAEXPAVXfer@@@Z",
+          "rva": 5630606,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF22EXfer.cpp"
+        },
+        {
+          "name": "?rva00564AB8@Rva00564AB8@@QAEXPAUCoord3D@@PBX1@Z",
+          "rva": 5655224,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RandomDirectionVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8506088,
+      "name": "??_7Rva003ACBCD@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003AD273@@UAEPAXI@Z",
+          "rva": 3854935,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "__purecall",
+          "rva": 243728,
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@MAEXPAVXfer@@@Z",
+          "rva": 5630606,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF22EXfer.cpp"
+        },
+        {
+          "name": "?rva00564AB8@Rva00564AB8@@QAEXPAUCoord3D@@PBX1@Z",
+          "rva": 5655224,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RandomDirectionVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507256,
+      "name": "??_7Rva003ACB79@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@OrthoEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850727,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507256,
+      "name": "??_7Rva003AD16CModule@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@OrthoEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850727,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507272,
+      "name": "??_7Rva003AD16CModule@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003AD273@@UAEPAXI@Z",
+          "rva": 3854935,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?clone@Rva003AF15E@@QBEPAV1@XZ",
+          "rva": 3862823,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF15EClone.cpp"
+        },
+        {
+          "name": "?xfer@OrthoEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z",
+          "rva": 5630044,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OrthoEmissionVelocityModuleGetVelocity.cpp"
+        },
+        {
+          "name": "?getVelocity@OrthoEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@HH@Z",
+          "rva": 5629983,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OrthoEmissionVelocityModuleGetVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507292,
+      "name": "??_7Rva003AD19BModule@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003AD273@@UAEPAXI@Z",
+          "rva": 3854935,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?clone@Rva003AF208@@QBEPAV1@XZ",
+          "rva": 3862993,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "?xfer@Rva003AF22E@@MAEXPAVXfer@@@Z",
+          "rva": 5630606,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF22EXfer.cpp"
+        },
+        {
+          "name": "?rva00564AB8@Rva00564AB8@@QAEXPAUCoord3D@@PBX1@Z",
+          "rva": 5655224,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RandomDirectionVelocity.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507332,
+      "name": "??_7Rva003ACBF7@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850895,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507332,
+      "name": "??_7Rva003AD1F9Module@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850895,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507348,
+      "name": "??_7Rva003AD1F9Module@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003AD273@@UAEPAXI@Z",
+          "rva": 3854935,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?clone@Rva003AF329@@QBEPAV1@XZ",
+          "rva": 3863282,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF329Clone.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z",
+          "rva": 5631284,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylindricalEmissionVelocityModuleSample.cpp"
+        },
+        {
+          "name": "?getVelocity@CylindricalEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@HH@Z",
+          "rva": 5630852,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fxpsemittercylindervelocitymodule.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507368,
+      "name": "??_7Rva003ACC21@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850895,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507368,
+      "name": "??_7Rva003AD228Module@@6B@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_ERva003AD19BModule@@WBI@AEPAXI@Z",
+          "rva": 3850819,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ",
+          "rva": 2045375,
+          "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@OBI@AEXPAVXfer@@@Z",
+          "rva": 3850895,
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        }
+      ]
+    },
+    {
+      "rva": 8507384,
+      "name": "??_7Rva003AD228Module@@6BDefaultModuleHeadBase@@@",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+      "slots": [
+        {
+          "name": "??_GRva003AD273@@UAEPAXI@Z",
+          "rva": 3854935,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp"
+        },
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "rva": 737232,
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?clone@Rva003AF3D3@@QBEPAV1@XZ",
+          "rva": 3863452,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF3D3Clone.cpp"
+        },
+        {
+          "name": "?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z",
+          "rva": 5631284,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylindricalEmissionVelocityModuleSample.cpp"
+        },
+        {
+          "name": "?getVelocity@OutwardEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@PBU32@PAVEmissionVolumeModuleInterface@2@@Z",
+          "rva": 5631225,
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OutwardEmissionVelocityModuleGetVelocity.cpp"
+        }
+      ]
+    }
+  ],
+  "refusals": [
+    {
+      "rva": 8503288,
+      "name": "_Rva003AF15E_v14",
+      "names": [
+        "_Rva003AF15E_v14"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF15E_v14": [
+          8503288
+        ]
+      },
+      "slots": 1,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854742,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8503324,
+      "name": "_Rva003AF208_v14",
+      "names": [
+        "_Rva003AF208_v14"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF208_v14": [
+          8503324
+        ]
+      },
+      "slots": 1,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854789,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8503380,
+      "name": "_g_00C1C054",
+      "names": [
+        "_g_00C1C054"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_g_00C1C054": [
+          8503380
+        ]
+      },
+      "slots": 1,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854883,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8503416,
+      "name": "_g_00C1C078",
+      "names": [
+        "_g_00C1C078"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_g_00C1C078": [
+          8503416
+        ]
+      },
+      "slots": 1,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854930,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505420,
+      "name": "_Rva003AF184_v0a",
+      "names": [
+        "_Rva003AF184_v0a"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF184_v0a": [
+          8505420
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3860284,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505440,
+      "name": "_Rva003AF184_v0b",
+      "names": [
+        "_Rva003AF184_v0b"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF184_v0b": [
+          8505440
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3860693,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630044,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5629983,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505460,
+      "name": "_Rva003AF184_vsub",
+      "names": [
+        "_Rva003AF184_vsub"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF184_vsub": [
+          8505460
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850735,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850727,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505476,
+      "name": "_Rva003AF22E_v0b",
+      "names": [
+        "_Rva003AF22E_v0b"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF22E_v0b": [
+          8505476
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3860693,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630606,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5655224,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505496,
+      "name": "_Rva003AF22E_vsub",
+      "names": [
+        "_Rva003AF22E_vsub"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF22E_vsub": [
+          8505496
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850735,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850811,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505512,
+      "name": "_Rva003AF208_v18",
+      "names": [
+        "_Rva003AF208_v18"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF208_v18": [
+          8505512
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850819,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850811,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505528,
+      "name": "_Rva003AF34F_v0b",
+      "names": [
+        "_Rva003AF34F_v0b"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF34F_v0b": [
+          8505528
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3860693,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5631284,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630852,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505548,
+      "name": "_Rva003AF34F_vsub",
+      "names": [
+        "_Rva003AF34F_vsub"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF34F_vsub": [
+          8505548
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850735,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850895,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8505564,
+      "name": "_Rva003AF3F9_v0b",
+      "names": [
+        "_Rva003AF3F9_v0b"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF3F9_v0b": [
+          8505564
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3860693,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5631284,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5631225,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8506088,
+      "name": "_Rva003AF2CC_v0",
+      "names": [
+        "_Rva003AF2CC_v0"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF2CC_v0": [
+          8506088
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854935,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 243728,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630606,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5655224,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507256,
+      "name": "_Rva003AF15E_v18",
+      "names": [
+        "_Rva003AF15E_v18"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF15E_v18": [
+          8507256
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850819,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850727,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507272,
+      "name": "_Rva003AF15E_v0",
+      "names": [
+        "_Rva003AF15E_v0"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF15E_v0": [
+          8507272
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854935,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3862823,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630044,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5629983,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507292,
+      "name": "_Rva003AF208_v0",
+      "names": [
+        "_Rva003AF208_v0"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_Rva003AF208_v0": [
+          8507292
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854935,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3862993,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630606,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5655224,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507332,
+      "name": "_g_00C1CFC4",
+      "names": [
+        "_g_00C1CFC4"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_g_00C1CFC4": [
+          8507332
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850819,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850895,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507348,
+      "name": "_g_00C1CFD4",
+      "names": [
+        "_g_00C1CFD4"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_g_00C1CFD4": [
+          8507348
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854935,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3863282,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5631284,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5630852,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507368,
+      "name": "_g_00C1CFE8",
+      "names": [
+        "_g_00C1CFE8"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_g_00C1CFE8": [
+          8507368
+        ]
+      },
+      "slots": 4,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850819,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 2045375,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3850895,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    },
+    {
+      "rva": 8507384,
+      "name": "_g_00C1CFF8",
+      "names": [
+        "_g_00C1CFF8"
+      ],
+      "name_bindings": [],
+      "name_addresses": {
+        "_g_00C1CFF8": [
+          8507384
+        ]
+      },
+      "slots": 5,
+      "source": "",
+      "previous_object": "build\\particle-copy-cohort-20261108\\original-0.obj",
+      "previous_extent": 1,
+      "source_slot_mismatches": [
+        {
+          "slot": 0,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3854935,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 1,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 737232,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 3863452,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5631284,
+          "reason": "missing-source-slot"
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "ledger_rvas": [],
+          "retail_target_rva": 5631225,
+          "reason": "missing-source-slot"
+        }
+      ],
+      "reason": "strong-definition",
+      "providers": [
+        "build\\particle-copy-cohort-20261108\\original-0.obj"
+      ]
+    }
+  ]
+}

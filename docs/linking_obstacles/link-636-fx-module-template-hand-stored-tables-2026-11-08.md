@@ -65,3 +65,16 @@ slots. The shared +0x18 char belongs to ParticleModuleTemplateCopyCtors.cpp
 and remains for that nine-row cohort's recovery. Full concrete class/template
 recovery and real-image confirmation remain open.
 [Evidence](../../reverse/attempt_support/particle-clone-table-bindings-20261108/README.md).
+
+**2026-11-08 particle copy-constructor cohort:** ParticleModuleTemplateCopyCtors.cpp
+retires its 21 unowned one-byte table stand-ins and nine old linker aliases.
+Existing compiler symbols have independent native constructor operand proofs;
+distinct construction-stage symbols preserve stores at the folded pure table.
+The sole live outside char consumer, Rva003AF27BClone.cpp, changes in the same
+batch. All 10 rows (579 bytes of extents), EH 1, strict preparation and paired
+consumer checks pass; code COMDAT facts and flags remain equal after only
+proved table-referent normalization. Bounded cached replay removes 21 strong
+definition refusals, with the same 29 bridges/115 slots remaining. The previous
+clone packet's shared-char prerequisite is resolved; full class recovery and
+real-image confirmation remain open. No bridge-retirement or runtime claim.
+[Native proofs and stage-coalescing boundary](../../reverse/attempt_support/particle-copy-table-bindings-20261108/README.md).

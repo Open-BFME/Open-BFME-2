@@ -1,0 +1,15 @@
+{
+  "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateCopyCtors.cpp": {
+    "rows": 9,
+    "matched": 9,
+    "errors": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\3adef2602e200cff.obj"
+  },
+  "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF27BClone.cpp": {
+    "rows": 1,
+    "matched": 1,
+    "errors": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\2864c55b1348d856.obj"
+  },
+  "single_file_guard_note": "Removing the shared char alone is refused because the old clone references it; paired consumer replacement must pass the normal staged-peer audit."
+}

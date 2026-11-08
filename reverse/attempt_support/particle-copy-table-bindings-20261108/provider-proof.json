@@ -1,0 +1,476 @@
+{
+  "bindings": {
+    "Rva003AF184_v0a": {
+      "rva": "0x0081C84C",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7?$DefaultParticleModule@$03@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0?$DefaultParticleModule@$03@FXParticleSystem@@QAE@PAX0@Z",
+        "row_rva": "0x003AC180",
+        "site": "0x3ac192",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF184_vsub": {
+      "rva": "0x0081C874",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7OrthoEmissionVelocityModule@FXParticleSystem@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0OrthoEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVOrthoEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC1A3",
+        "site": "0x3ac1ce",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF184_v0b": {
+      "rva": "0x0081C860",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7OrthoEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0OrthoEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVOrthoEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC1A3",
+        "site": "0x3ac1d5",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF22E_vsub": {
+      "rva": "0x0081C898",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7SphericalEmissionVelocityModule@FXParticleSystem@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0SphericalEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVSphericalEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC1F7",
+        "site": "0x3ac222",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF22E_v0b": {
+      "rva": "0x0081C884",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7SphericalEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0SphericalEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVSphericalEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC1F7",
+        "site": "0x3ac229",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF34F_vsub": {
+      "rva": "0x0081C8CC",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0CylindricalEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVCylindricalEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC24B",
+        "site": "0x3ac276",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF34F_v0b": {
+      "rva": "0x0081C8B8",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0CylindricalEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVCylindricalEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC24B",
+        "site": "0x3ac27d",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF3F9_v0b": {
+      "rva": "0x0081C8DC",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7Rva003AC297Module@FXParticleSystem@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AC297Module@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVRva003AC297ModuleTemplate@1@@Z",
+        "row_rva": "0x003AC297",
+        "site": "0x3ac2c9",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF15E_v0": {
+      "rva": "0x0081CF88",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7Rva003AD16CModule@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AD16CModule@@QAE@PAXPAVRva003ADA72Template@@@Z",
+        "row_rva": "0x003AD16C",
+        "site": "0x3ad17e",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF15E_v14": {
+      "rva": "0x0081BFF8",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7Rva003AD16CModule@@6BRva003AA228Slice@FXParticleSystem@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AD16CModule@@QAE@PAXPAVRva003ADA72Template@@@Z",
+        "row_rva": "0x003AD16C",
+        "site": "0x3ad185",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF15E_v18": {
+      "rva": "0x0081CF78",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7Rva003ACB79@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003ACB79@@QAE@PAX0@Z",
+        "row_rva": "0x003ACB79",
+        "site": "0x3acb99",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF208_v0": {
+      "rva": "0x0081CF9C",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7Rva003AD19BModule@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+        "row": "??0Rva003AD19BModule@@QAE@PAXPAVRva003ADA95Template@@@Z",
+        "row_rva": "0x003AD19B",
+        "site": "0x3ad1ad",
+        "object_sha256": "9589545d9595034fb428eb5bce0b6c6d96e317c5e3c326689aba24b0baad8faf"
+      }
+    },
+    "Rva003AF208_v14": {
+      "rva": "0x0081C01C",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7Rva003AD19BModule@@6BRva003AA228Slice@FXParticleSystem@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+        "row": "??0Rva003AD19BModule@@QAE@PAXPAVRva003ADA95Template@@@Z",
+        "row_rva": "0x003AD19B",
+        "site": "0x3ad1b4",
+        "object_sha256": "9589545d9595034fb428eb5bce0b6c6d96e317c5e3c326689aba24b0baad8faf"
+      }
+    },
+    "Rva003AF208_v18": {
+      "rva": "0x0081C8A8",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7Rva003ACBA3@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003ACBA3@@QAE@PAX0@Z",
+        "row_rva": "0x003ACBA3",
+        "site": "0x3acbc3",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF2CC_v0": {
+      "rva": "0x0081CAE8",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7Rva003ACBA3@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003ACBA3@@QAE@PAX0@Z",
+        "row_rva": "0x003ACBA3",
+        "site": "0x3acbb5",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "g_00C1CFD4": {
+      "rva": "0x0081CFD4",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7Rva003AD1F9Module@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AD1F9Module@@QAE@PAXPAVRva003ADADBTemplate@@@Z",
+        "row_rva": "0x003AD1F9",
+        "site": "0x3ad20b",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "g_00C1C054": {
+      "rva": "0x0081C054",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7Rva003AD1F9Module@@6BRva003AA228Slice@FXParticleSystem@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AD1F9Module@@QAE@PAXPAVRva003ADADBTemplate@@@Z",
+        "row_rva": "0x003AD1F9",
+        "site": "0x3ad212",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "g_00C1CFC4": {
+      "rva": "0x0081CFC4",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7Rva003ACBF7@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003ACBF7@@QAE@PAX0@Z",
+        "row_rva": "0x003ACBF7",
+        "site": "0x3acc17",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "g_00C1CFF8": {
+      "rva": "0x0081CFF8",
+      "size": 20,
+      "witness": {
+        "symbol": "??_7Rva003AD228Module@@6BDefaultModuleHeadBase@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AD228Module@@QAE@PAXPAVRva003ADAFETemplate@@@Z",
+        "row_rva": "0x003AD228",
+        "site": "0x3ad23a",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "g_00C1C078": {
+      "rva": "0x0081C078",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7Rva003AD228Module@@6BRva003AA228Slice@FXParticleSystem@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AD228Module@@QAE@PAXPAVRva003ADAFETemplate@@@Z",
+        "row_rva": "0x003AD228",
+        "site": "0x3ad241",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "g_00C1CFE8": {
+      "rva": "0x0081CFE8",
+      "size": 16,
+      "witness": {
+        "symbol": "??_7Rva003ACC21@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003ACC21@@QAE@PAX0@Z",
+        "row_rva": "0x003ACC21",
+        "site": "0x3acc41",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF184_v14a": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7?$DefaultParticleModule@$03@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0?$DefaultParticleModule@$03@FXParticleSystem@@QAE@PAX0@Z",
+        "row_rva": "0x003AC180",
+        "site": "0x3ac199",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF184_v14b": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7OrthoEmissionVelocityModule@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0OrthoEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVOrthoEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC1A3",
+        "site": "0x3ac1dc",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF22E_v14a": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7?$DefaultParticleModule@$03@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0?$DefaultParticleModule@$03@FXParticleSystem@@QAE@PAX0@Z",
+        "row_rva": "0x003AC180",
+        "site": "0x3ac199",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF22E_v14b": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7SphericalEmissionVelocityModule@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0SphericalEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVSphericalEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC1F7",
+        "site": "0x3ac230",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF34F_v14a": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7?$DefaultParticleModule@$03@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0?$DefaultParticleModule@$03@FXParticleSystem@@QAE@PAX0@Z",
+        "row_rva": "0x003AC180",
+        "site": "0x3ac199",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF34F_v14b": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0CylindricalEmissionVelocityModule@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVCylindricalEmissionVelocityModuleTemplate@1@@Z",
+        "row_rva": "0x003AC24B",
+        "site": "0x3ac284",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF3F9_v14a": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7?$DefaultParticleModule@$03@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0?$DefaultParticleModule@$03@FXParticleSystem@@QAE@PAX0@Z",
+        "row_rva": "0x003AC180",
+        "site": "0x3ac199",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF3F9_v14b": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7Rva003AC297Module@FXParticleSystem@@6BRva003AA228Slice@1@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003AC297Module@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVRva003AC297ModuleTemplate@1@@Z",
+        "row_rva": "0x003AC297",
+        "site": "0x3ac2d0",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    },
+    "Rva003AF2CC_v14": {
+      "rva": "0x0081C780",
+      "size": 4,
+      "witness": {
+        "symbol": "??_7Rva003ACBCD@@6BRva003AA228Slice@FXParticleSystem@@@",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp",
+        "row": "??0Rva003ACBCD@@QAE@PAX0@Z",
+        "row_rva": "0x003ACBCD",
+        "site": "0x3acbe6",
+        "object_sha256": "59ddcdc455bb3f94f571158953b3e8071aa1f6a304e0f0f9d2830286e0e83894"
+      }
+    }
+  },
+  "objects": {
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateCopyCtors.cpp": {
+      "comdats": 9,
+      "code_comdat_facts_and_flags_equal_after_proven_table_normalization": true,
+      "removed_definitions": [
+        "_Rva003AF15E_v0",
+        "_Rva003AF15E_v14",
+        "_Rva003AF15E_v18",
+        "_Rva003AF184_v0a",
+        "_Rva003AF184_v0b",
+        "_Rva003AF184_vsub",
+        "_Rva003AF208_v0",
+        "_Rva003AF208_v14",
+        "_Rva003AF208_v18",
+        "_Rva003AF22E_v0b",
+        "_Rva003AF22E_vsub",
+        "_Rva003AF2CC_v0",
+        "_Rva003AF34F_v0b",
+        "_Rva003AF34F_vsub",
+        "_Rva003AF3F9_v0b",
+        "_g_00C1C054",
+        "_g_00C1C078",
+        "_g_00C1CFC4",
+        "_g_00C1CFD4",
+        "_g_00C1CFE8",
+        "_g_00C1CFF8"
+      ],
+      "added_definitions": [],
+      "old_object_sha256": "13a76d32b1e5067a0c6c3fcf2b0a801e9c9c8005fdfd1f9e49d9a8bc6ee19679",
+      "new_object_sha256": "e1bb971191ca6a2bb0501fadc64e8aff31c11d845415a678b00be5e6180c273c"
+    },
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF27BClone.cpp": {
+      "comdats": 2,
+      "code_comdat_facts_and_flags_equal_after_proven_table_normalization": true,
+      "removed_definitions": [],
+      "added_definitions": [],
+      "old_object_sha256": "64918a57659fefb0e2126724307f8cec47c089af8fec657dae5e28c42add856d",
+      "new_object_sha256": "52a6c00006a3e90b8ad253f8cb3fdd566cad8853ec22dd5a3fb9deae95e0e1c7"
+    }
+  },
+  "removed_char_definitions": 21,
+  "removed_chars_without_registered_data_owner": true,
+  "cached_index_touches": {
+    "_Rva003AF15E_v0": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF15E_v14": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF15E_v18": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF184_v0a": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF184_v0b": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF184_vsub": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF208_v0": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF208_v14": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF208_v18": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj",
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva003^a^f27^b^clone.obj"
+    ],
+    "_Rva003AF22E_v0b": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF22E_vsub": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF2CC_v0": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF34F_v0b": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF34F_vsub": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_Rva003AF3F9_v0b": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_g_00C1C054": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_g_00C1C078": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_g_00C1CFC4": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_g_00C1CFD4": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_g_00C1CFE8": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ],
+    "_g_00C1CFF8": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^particle^module^template^copy^ctors.obj"
+    ]
+  },
+  "hatch_register": {
+    "retired": 9,
+    "outside_source_records_byte_identical": true
+  }
+}

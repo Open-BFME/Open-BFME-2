@@ -1,0 +1,18 @@
+{
+  "before": {
+    "tables": 29,
+    "slots": 115,
+    "refused_tables": 21,
+    "refusal_reasons": {
+      "strong-definition": 21
+    },
+    "already_correct": 0
+  },
+  "after": {
+    "tables": 29,
+    "slots": 115,
+    "refused_tables": 0,
+    "refusal_reasons": {},
+    "already_correct": 0
+  }
+}

@@ -23,7 +23,7 @@ private:
 extern "C" const void *const __identifier("??_7Rva003AD1CAModule@@6BDefaultModuleHeadBase@@@")[];
 // Existing compiler table: native address established by the rowed module constructor.
 extern "C" const void *const __identifier("??_7Rva003AD1CAModule@@6BRva003AA228Slice@FXParticleSystem@@@")[];
-extern "C" char Rva003AF208_v18;
+extern "C" const void *const __identifier("??_7Rva003ACBA3@@6B@")[];
 
 class Rva003AF27B : public Rva003AF2CC
 {
@@ -33,7 +33,7 @@ public:
 	{
 		*(void **)this = (void *)__identifier("??_7Rva003AD1CAModule@@6BDefaultModuleHeadBase@@@");
 		*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003AD1CAModule@@6BRva003AA228Slice@FXParticleSystem@@@");
-		*(void **)((char *)this + 0x18) = &Rva003AF208_v18;
+		*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva003ACBA3@@6B@");
 	}
 	Rva003AF27B *clone() const;
 };

@@ -535,3 +535,16 @@ Published as4f82f0c3ee; required checks pass. Broader audit remains
 INCONCLUSIVE: index d171e84869 versus base
 155a1d23107357e01c7bc8836ac37840e5c75e53; Common/AIBaseBuilder.cpp lacks a
 current receipt. Preserve that consumer for the next census/image pass.
+
+**2026-11-08 particle copy-constructor cohort:** ParticleModuleTemplateCopyCtors.cpp
+retires its 21 unowned one-byte table stand-ins and nine old linker aliases.
+Existing compiler symbols have independent native constructor operand proofs;
+distinct construction-stage symbols preserve stores at the folded pure table.
+The sole live outside char consumer, Rva003AF27BClone.cpp, changes in the same
+batch. All 10 rows (579 bytes of extents), EH 1, strict preparation and paired
+consumer checks pass; code COMDAT facts and flags remain equal after only
+proved table-referent normalization. Bounded cached replay removes 21 strong
+definition refusals, with the same 29 bridges/115 slots remaining. The previous
+clone packet's shared-char prerequisite is resolved; full class recovery and
+real-image confirmation remain open. No bridge-retirement or runtime claim.
+[Native proofs and stage-coalescing boundary](../../reverse/attempt_support/particle-copy-table-bindings-20261108/README.md).
