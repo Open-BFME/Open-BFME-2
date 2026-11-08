@@ -2,7 +2,6 @@
 #include <string.h>
 #define BFME_ASCII_DTOR_DECL
 #include "ascii_string.h"
-inline void *operator new(unsigned int, void *where) { return where; }
 
 // Native 006BFB20..006BFBC5 stores a 16-byte element in the vector at +38.
 // Its three scalar words and the string at +0C are copied separately;
@@ -65,7 +64,8 @@ void BfmeObjZH::bfmeSetZH(const BfmeVecZH *value,
 	const AsciiString *name)
 {
 	BfmeElemCD local;
-	AsciiString &localName = *new (&local.nameStorage) AsciiString;
+	AsciiString &localName = *(AsciiString *)&local.nameStorage;
+	localName.AsciiString::AsciiString();
 	BfmeObjZH *owner = this;
 	volatile const BfmeVecZH *vector = value;
 	local.x = vector->x;
@@ -111,7 +111,8 @@ void bfmeApplyEB(BfmeObjEB *object);
 void Rva006BFBD0Parse(INI *ini, void *, void *store, const void *)
 {
 	unsigned int nameStorage;
-	AsciiString &name = *new (&nameStorage) AsciiString("");
+	AsciiString &name = *(AsciiString *)&nameStorage;
+	name.AsciiString::AsciiString("");
 	BfmeVecZH value;
 	value.x = ini->scanReal(ini->getNextSubToken("X"));
 	value.y = ini->scanReal(ini->getNextSubToken("Y"));
