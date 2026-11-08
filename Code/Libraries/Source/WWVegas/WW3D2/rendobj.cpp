@@ -220,8 +220,8 @@ RenderObjClass &RenderObjClass::operator=(const RenderObjClass &that)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjVisibilityBFME2.cpp
 
-// ?queryVisible@RenderObjClass@@UAEHXZ @0x0013B6D0: slot 98 of retail's table 0x00BD2F68. The name is a placeholder.
-int RenderObjClass::queryVisible() {
+// ?rva0013B6D0@RenderObjClass@@UAEHXZ @0x0013B6D0: slot 98 of retail's table 0x00BD2F68. The name is a placeholder.
+int RenderObjClass::rva0013B6D0() {
  if(Is_Force_Visible()) return 1;
  if(!Scene || !_bfme_unk_88 || ((SceneTokenView *)Scene)->slot17()!=_bfme_unk_88) return 0;
  return 1;

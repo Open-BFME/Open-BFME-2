@@ -564,13 +564,13 @@ public:
 // HeightMap.cpp. Every other unit only declares them, so its vtables reference
 // the one retail copy instead of emitting a differently-compiled COMDAT.
 #ifdef BFME_RO_DEFINE_VISIBILITY
-	virtual int						Is_Really_Visible(void)														{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL) && queryVisible(); }
+	virtual int						Is_Really_Visible(void)														{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL) && rva0013B6D0(); }
 #else
 	virtual int						Is_Really_Visible(void);
 #endif
 	virtual int						Is_Not_Hidden_At_All(void)													{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL); }
 	// Slot 98, row 0x0013B6D0: force-visible, else the scene's token against +0x88. A placeholder name until its vote lands.
-	virtual int						queryVisible(void);
+	virtual int						rva0013B6D0(void);
 	// BFME: retail Set_Visible takes a second parameter (stored at member 0x90);
 	// defaulted here so ZH call sites still compile.  Out-of-line in retail.
   virtual void					Set_Visible(int onoff, int unk = 0);
