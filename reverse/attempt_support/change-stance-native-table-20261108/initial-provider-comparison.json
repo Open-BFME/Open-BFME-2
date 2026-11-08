@@ -1,0 +1,212 @@
+{
+  "Code/GameEngine/Source/GameLogic/AI/ChangeStanceGroupOrder.cpp": {
+    "object_sha256": "2588a716d3960e1ed3b400cdc5933f6071978b23f402c5c336fc36b07b90c469",
+    "slots": [
+      {
+        "slot": 0,
+        "symbol": "??_EChangeStanceGroupOrder@@UAEPAXI@Z",
+        "resolved": "??_GChangeStanceGroupOrder@@UAEPAXI@Z",
+        "target_rva": "0x546b75"
+      },
+      {
+        "slot": 1,
+        "symbol": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "resolved": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "target_rva": "0xb3fd0"
+      },
+      {
+        "slot": 2,
+        "symbol": "?getClassName@ChangeStanceGroupOrder@@UAEPBDXZ",
+        "resolved": "?getClassName@ChangeStanceGroupOrder@@UAEPBDXZ",
+        "target_rva": "0x546bc7"
+      },
+      {
+        "slot": 3,
+        "symbol": "?xfer@ChangeStanceGroupOrder@@UAEXPAVXfer@@@Z",
+        "resolved": "?xfer@ChangeStanceGroupOrder@@UAEXPAVXfer@@@Z",
+        "target_rva": "0x546b91"
+      },
+      {
+        "slot": 4,
+        "symbol": "?rva00546BED@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "resolved": "?rva00546BED@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "target_rva": "0x546bed"
+      },
+      {
+        "slot": 5,
+        "symbol": "?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z",
+        "resolved": "?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z",
+        "target_rva": "0x5cb9fa"
+      },
+      {
+        "slot": 6,
+        "symbol": "?slot06@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "resolved": "?slot06@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "target_rva": "0x47a69c"
+      },
+      {
+        "slot": 7,
+        "symbol": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "resolved": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "target_rva": "0x47a69c"
+      },
+      {
+        "slot": 8,
+        "symbol": "?getDestination@ChangeStanceGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "resolved": "?getDestination@ChangeStanceGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "target_rva": "0x21983a"
+      },
+      {
+        "slot": 9,
+        "symbol": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "resolved": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "target_rva": "0x5cb9ff"
+      },
+      {
+        "slot": 10,
+        "symbol": "?slot10@GroupOrder@@UAEHXZ",
+        "resolved": "?slot10@GroupOrder@@UAEHXZ",
+        "target_rva": "0x36cc7a"
+      },
+      {
+        "slot": 11,
+        "symbol": "?slot11Command@ChangeStanceGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "resolved": "?slot11Command@ChangeStanceGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "target_rva": "0x50b5f1"
+      },
+      {
+        "slot": 12,
+        "symbol": "?getClassKey@ChangeStanceGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "resolved": "?getClassKey@ChangeStanceGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "target_rva": "0x546b6b"
+      },
+      {
+        "slot": 13,
+        "symbol": "?rva00546B34@ChangeStanceGroupOrder@@UAEPAV1@XZ",
+        "resolved": "?rva00546B34@ChangeStanceGroupOrder@@UAEPAV1@XZ",
+        "target_rva": "0x546b34"
+      }
+    ],
+    "compiler_table_size": 56,
+    "data_gate_size_proof": [
+      56,
+      "the vftable's own COMDAT section size"
+    ],
+    "added": [
+      "?getDestination@ChangeStanceGroupOrder@@UAEPAUCoord3D@@H@Z",
+      "?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z",
+      "?slot06@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+      "?slot11Command@ChangeStanceGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z"
+    ],
+    "changed": [
+      "??_7ChangeStanceGroupOrder@@6B@"
+    ],
+    "removed": [],
+    "comparison_scope": "Private candidate versus original normal object, before removal of the hand-built table; final normal/private COMDAT equality rechecked separately."
+  },
+  "Code/GameEngine/Source/GameLogic/AI/GroupOrderDerivedDtors.cpp": {
+    "object_sha256": "ce74bc89794e6a261faa5b80028188530b7d44c65a4d7cd714ceb95e2f308d08",
+    "slots": [
+      {
+        "slot": 0,
+        "symbol": "??_EChangeStanceGroupOrder@@UAEPAXI@Z",
+        "resolved": "??_GChangeStanceGroupOrder@@UAEPAXI@Z",
+        "target_rva": "0x546b75"
+      },
+      {
+        "slot": 1,
+        "symbol": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "resolved": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "target_rva": "0xb3fd0"
+      },
+      {
+        "slot": 2,
+        "symbol": "?getClassName@ChangeStanceGroupOrder@@UAEPBDXZ",
+        "resolved": "?getClassName@ChangeStanceGroupOrder@@UAEPBDXZ",
+        "target_rva": "0x546bc7"
+      },
+      {
+        "slot": 3,
+        "symbol": "?xfer@ChangeStanceGroupOrder@@UAEXPAVXfer@@@Z",
+        "resolved": "?xfer@ChangeStanceGroupOrder@@UAEXPAVXfer@@@Z",
+        "target_rva": "0x546b91"
+      },
+      {
+        "slot": 4,
+        "symbol": "?rva00546BED@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "resolved": "?rva00546BED@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "target_rva": "0x546bed"
+      },
+      {
+        "slot": 5,
+        "symbol": "?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z",
+        "resolved": "?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z",
+        "target_rva": "0x5cb9fa"
+      },
+      {
+        "slot": 6,
+        "symbol": "?slot06@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "resolved": "?slot06@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+        "target_rva": "0x47a69c"
+      },
+      {
+        "slot": 7,
+        "symbol": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "resolved": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "target_rva": "0x47a69c"
+      },
+      {
+        "slot": 8,
+        "symbol": "?getDestination@ChangeStanceGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "resolved": "?getDestination@ChangeStanceGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "target_rva": "0x21983a"
+      },
+      {
+        "slot": 9,
+        "symbol": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "resolved": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "target_rva": "0x5cb9ff"
+      },
+      {
+        "slot": 10,
+        "symbol": "?slot10@GroupOrder@@UAEHXZ",
+        "resolved": "?slot10@GroupOrder@@UAEHXZ",
+        "target_rva": "0x36cc7a"
+      },
+      {
+        "slot": 11,
+        "symbol": "?slot11Command@ChangeStanceGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "resolved": "?slot11Command@ChangeStanceGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "target_rva": "0x50b5f1"
+      },
+      {
+        "slot": 12,
+        "symbol": "?getClassKey@ChangeStanceGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "resolved": "?getClassKey@ChangeStanceGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "target_rva": "0x546b6b"
+      },
+      {
+        "slot": 13,
+        "symbol": "?rva00546B34@ChangeStanceGroupOrder@@UAEPAV1@XZ",
+        "resolved": "?rva00546B34@ChangeStanceGroupOrder@@UAEPAV1@XZ",
+        "target_rva": "0x546b34"
+      }
+    ],
+    "compiler_table_size": 56,
+    "data_gate_size_proof": [
+      56,
+      "the vftable's own COMDAT section size"
+    ],
+    "added": [
+      "?getDestination@ChangeStanceGroupOrder@@UAEPAUCoord3D@@H@Z",
+      "?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z",
+      "?slot06@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z",
+      "?slot11Command@ChangeStanceGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z"
+    ],
+    "changed": [
+      "??_7ChangeStanceGroupOrder@@6B@"
+    ],
+    "removed": [],
+    "comparison_scope": "Private candidate versus original normal object, before removal of the hand-built table; final normal/private COMDAT equality rechecked separately."
+  }
+}

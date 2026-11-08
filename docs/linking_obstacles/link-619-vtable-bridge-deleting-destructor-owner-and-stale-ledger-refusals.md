@@ -429,3 +429,15 @@ body also remains a code-identity shadow finding. Import suppression loses
 the cleanup row; extern-template declarations do not change emission, so
 neither trial is landed. Preserve this lifetime/provider scope with the
 table alignment boundary for the next census and real image.
+
+**2026-11-08 ChangeStanceGroupOrder table repair:** both constructor and
+destructor emitters now share a temporary ABI view and emit the native 14-slot,
+56-byte table. Four byte-exact ICF leaf bodies supply the missing slots; all
+15 code rows and every data-table relocation pass. Garrison/Attack providers
+are unchanged. The redundant strong g_0086A36C array is removed and its data
+row transferred to the compiler table at the same address and extent. Paired
+preview is 2/2 LINKS against eba83a23be, with strict receipts for both sources.
+Canonical GroupOrder hierarchy, historical data-ledger regeneration, actual
+kept-provider/bridge selection and runtime confirmation remain open; this is
+source-scope verification, not a full-link or image clearance.
+[Slot closure and ownership transfer](../../reverse/attempt_support/change-stance-native-table-20261108/README.md).

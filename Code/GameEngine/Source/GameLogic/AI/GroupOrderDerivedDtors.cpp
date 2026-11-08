@@ -6,21 +6,14 @@
 // Model only the known 0x18 base extent needed by these destructor bodies.
 #include "Common/Snapshot.h"
 
-#include "../../../Include/GameLogic/GroupOrder.h"
+#include "ChangeStanceGroupOrderView.h"
 
 class Xfer;
 enum ObjectID;
 
 // Table 0x0086A36C: slot 3 xfer 0x00546B91, slot 4 rva00546BED 0x00546BED;
 // every unit that emits the table spells these two (ChangeStanceGroupOrder.cpp).
-class ChangeStanceGroupOrder : public GroupOrder
-{
-public:
-	virtual ~ChangeStanceGroupOrder();
 
-	virtual void xfer(Xfer *xfer);
-	virtual void rva00546BED(ObjectID id);
-};
 
 ChangeStanceGroupOrder::~ChangeStanceGroupOrder()
 {
