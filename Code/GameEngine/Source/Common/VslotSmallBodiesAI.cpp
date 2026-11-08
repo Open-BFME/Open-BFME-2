@@ -11,7 +11,7 @@ typedef unsigned int UnsignedInt;
 
 // Native 0x0059B14E..0x0059B19A (RET 4): a nonzero input selects an
 // experience-level handle with the receiver's +0x08 value; a valid handle
-// adds its award to +0x04. The receiver's original identity is unknown.
+// adds its award to +0x04: slot 0 of the visitor Rva0059AEE9 (Rva002206F9Sink.h).
 // The two-word handle and award query agree with ExperienceLevelSystem.cpp.
 class ExperienceLevelList;
 struct ExperienceLevelNode;
@@ -35,16 +35,8 @@ struct ExperienceLevelHandle
 class Rva00288CFA;
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
-class Rva0059B14E
-{
-public:
-	int rva0059B14E(int value);
-private:
-	char m_unknown00[4];
-	int m_award;
-	int m_experience;
-};
-int Rva0059B14E::rva0059B14E(int value)
+#include "../../Include/Common/Rva002206F9Sink.h"
+int Rva0059AEE9::add(int value)
 {
 	if (value != 0)
 	{
