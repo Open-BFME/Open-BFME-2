@@ -20,10 +20,10 @@ public:
 	virtual void dummy();
 };
 
-extern "C" char ButterflyDrawModuleTemplate_cvtbl0;
+// The tables are retail's exported names, at retail's addresses (reverse/exports.csv).
+extern "C" const void *const __identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@")[];
 extern "C" char __identifier("?vftable_0112B89C@@3HA");
-// ButterflyDrawModuleTemplate_csub_vtbl: matched references place it at VA 0xc1bd70 (retail .rdata value 109).
-extern "C" char ButterflyDrawModuleTemplate_csub_vtbl = 109;
+extern "C" const void *const __identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6B@")[];
 
 class ButterflyDrawModuleTemplate
 {
@@ -47,12 +47,9 @@ ButterflyDrawModuleTemplate::ButterflyDrawModuleTemplate(
 	ButterflyDrawModuleInfo *sub = (ButterflyDrawModuleInfo *)((char *)this + 8);
 	sub->ButterflyDrawModuleInfo::ButterflyDrawModuleInfo(*(const ButterflyDrawModuleInfo *)sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
-	*(void **)sub = &ButterflyDrawModuleTemplate_csub_vtbl;
-	m_v0 = &ButterflyDrawModuleTemplate_cvtbl0;
+	*(void **)sub = (void *)__identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6B@");
+	m_v0 = (void *)__identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
 	m_v4 = &__identifier("?vftable_0112B89C@@3HA");
 }
 }
 // _ButterflyDrawModuleTemplate_cvtbl4: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-// _ButterflyDrawModuleTemplate_cvtbl0: the global at VA 0xc1bd60 is DefaultModuleTemplate<6>'s +0 table,
-// which DefaultModuleTemplate.h now emits under its real name.
-#pragma comment(linker, "/alternatename:_ButterflyDrawModuleTemplate_cvtbl0=??_7?$DefaultModuleTemplate@$05@FXParticleSystem@@6BModuleTemplate@1@@")

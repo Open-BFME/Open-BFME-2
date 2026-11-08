@@ -15,11 +15,10 @@ public:
 };
 
 
-// PointEmissionVolumeModuleTemplate_cvtbl0: matched references place it at VA 0xc1baf0 (retail .rdata value -16).
-extern "C" char PointEmissionVolumeModuleTemplate_cvtbl0 = -16;
+// The tables are retail's exported names, at retail's addresses (reverse/exports.csv).
+extern "C" const void *const __identifier("??_7PointEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@")[];
 extern "C" char __identifier("?vftable_0112B89C@@3HA");
-// PointEmissionVolumeModuleTemplate_csub_vtbl: matched references place it at VA 0xc1bae0 (retail .rdata value -91).
-extern "C" char PointEmissionVolumeModuleTemplate_csub_vtbl = -91;
+extern "C" const void *const __identifier("??_7PointEmissionVolumeModuleTemplate@FXParticleSystem@@6B@")[];
 
 class PointEmissionVolumeModuleTemplate
 {
@@ -43,8 +42,8 @@ PointEmissionVolumeModuleTemplate::PointEmissionVolumeModuleTemplate(
 	EmissionVolumeInfo *sub = (EmissionVolumeInfo *)((char *)this + 8);
 	sub->EmissionVolumeInfo::EmissionVolumeInfo(*(const EmissionVolumeInfo *)sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
-	*(void **)sub = &PointEmissionVolumeModuleTemplate_csub_vtbl;
-	m_v0 = &PointEmissionVolumeModuleTemplate_cvtbl0;
+	*(void **)sub = (void *)__identifier("??_7PointEmissionVolumeModuleTemplate@FXParticleSystem@@6B@");
+	m_v0 = (void *)__identifier("??_7PointEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
 	m_v4 = &__identifier("?vftable_0112B89C@@3HA");
 }
 }
