@@ -143,11 +143,10 @@ virtual void slot121();
 virtual void slot122();
 virtual void slot123();
 virtual void slot124();
-virtual void slot125();
+virtual void Recolor_Prototype(const Rva0013101E&);
 virtual void RecolorHouseColor(const Rva0013101E&,const char *);
 char gap04[0xC0];MeshModelClass *model;
 MeshModelClass *Get_Model()const{if(model)model->Add_Ref();return model;}
-void Recolor_Prototype(const Rva0013101E&);
 };
 void MeshClass::Recolor_Prototype(const Rva0013101E &options)
 {

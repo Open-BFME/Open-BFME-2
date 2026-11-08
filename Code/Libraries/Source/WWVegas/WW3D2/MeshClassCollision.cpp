@@ -50,6 +50,7 @@ public:
 	int Get_Polygon_Count(void) const { return PolyCount; }
 	int Get_Vertex_Count(void) const { return VertexCount; }
 	int Get_Sort_Level(void) const { return SortLevel; }
+	void setSortLevelByte(int level) { SortLevel = (signed char)level; }
 	bool Intersect_OBBox(OBBoxIntersectionTestClass & boxtest);
 
 protected:
@@ -94,6 +95,7 @@ public:
 	virtual int _bfme_ro_v9(void) const;
 	virtual bool Intersect_AABox(AABoxIntersectionTestClass & boxtest);
 	virtual int Get_Sort_Level(void) const;
+	virtual void Set_Sort_Level(int level);
 	virtual MaterialInfoClass *Get_Material_Info(void);
 
 protected:
@@ -166,6 +168,14 @@ int MeshClass::Get_Sort_Level(void) const
 		return (Model->Get_Sort_Level());
 	}
 	return(0);	// SORT_LEVEL_NONE
+}
+
+// ?Set_Sort_Level@MeshClass@@UAEXH@Z @0x0014A090: slot 95 of retail's table 0x00BD35A8. It writes the byte slot 94 reads.
+void MeshClass::Set_Sort_Level(int level)
+{
+	if (Model) {
+		Model->setSortLevelByte(level);
+	}
 }
 
 // MeshClass vtable 0xBD35A8 slot 85, 0x00149980.
