@@ -48,6 +48,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <hash_map>
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "GUI/HeaderTemplateView.h"
 #include "../Common/GameLogicObjectLookupView.h"
@@ -414,7 +415,7 @@ public:
 	void rva0023B383(Dict *props, ThingTemplate *tmpl, const Coord3D *pos);
 
 protected:
-	virtual void crc(Xfer *xfer);
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	virtual void loadPostProcess(void);
 

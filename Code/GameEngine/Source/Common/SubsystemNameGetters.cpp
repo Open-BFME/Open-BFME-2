@@ -24,7 +24,12 @@ const char *ModuleData::GetSnapshotName() const
 }
 BFME_LITERAL_NAME_GETTER(Rva00041FC9Named, "GameLogic")
 BFME_LITERAL_NAME_GETTER(Rva000420D6Named, "ModuleFactory")
-BFME_LITERAL_NAME_GETTER(Rva0004C457Named, "GameClient")
+#include "../../Include/GameClient/GameClientClass.h"
+
+const char *GameClient::GetSnapshotName() const
+{
+	return "GameClient";
+}
 BFME_LITERAL_NAME_GETTER(Rva0004CE28Named, "FXParticleSystemManager")
 BFME_LITERAL_NAME_GETTER(Rva0004FA11Named, "Radar")
 BFME_LITERAL_NAME_GETTER(Rva000647CENamed, "W3DBuffLogic")

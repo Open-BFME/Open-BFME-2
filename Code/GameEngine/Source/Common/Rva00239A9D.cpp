@@ -1,53 +1,13 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
-// ?rva00239A9D@Rva00239A9D@@QAEXXZ @0x00239A9D 87B: max Drawable ID scan then TacticalView slot 0x224.
+// ?loadPostProcess@GameClient@@MAEXXZ @0x00239A9D 87B: max Drawable ID scan then TacticalView slot 0x224.
 // Evidence: callees get@Rva0055A88BDwordField isEmpty@StringBase TheTacticalView, table slots 0x007C4728 0x007ED844. Honest address name.
 #include "ascii_string.h"
+#include "../../Include/GameClient/GameClientClass.h"
 
 class Rva0055A88BDwordField
 {
 public:
 	int get() const;
-};
-
-class Outer00239A9D
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual void slot23();
-	virtual void slot24();
-	virtual void slot25();
-	virtual void slot26();
-	virtual void slot27();
-	virtual void slot28();
-	virtual void slot29();
-	virtual void slot30();
-	virtual void slot31();
-	virtual void slot32();
-	virtual void slot33();
-	virtual void slot34();
-	virtual Rva0055A88BDwordField *slot35();
 };
 
 class View
@@ -196,26 +156,16 @@ public:
 
 extern View *TheTacticalView;
 
-class Rva00239A9D
+// retail's table 0x00BED840 slot 1. this is the Snapshot base at +0xC.
+void GameClient::loadPostProcess()
 {
-public:
-	char m_pad0[0x20];
-	int m_max;
-	char m_pad1[0xB0 - 0x24];
-	AsciiString m_str;
-	void rva00239A9D();
-};
-
-void Rva00239A9D::rva00239A9D()
-{
-	Outer00239A9D *outer = (Outer00239A9D *)((char *)this - 0xC);
-	Rva0055A88BDwordField *cur = outer->slot35();
+	Rva0055A88BDwordField *cur = (Rva0055A88BDwordField *)getDrawableList();
 	while (cur != 0) {
-		if (cur->get() >= m_max)
-			m_max = cur->get() + 1;
+		if (cur->get() >= (int)m_nextDrawableID)
+			m_nextDrawableID = cur->get() + 1;
 		cur = *(Rva0055A88BDwordField **)((char *)cur + 0x104);
 	}
-	AsciiString &asciiString = m_str;
+	AsciiString &asciiString = m_stringBC;
 	if (((const StringBase<char> &)asciiString).isEmpty())
 		return;
 	TheTacticalView->slot137(asciiString);

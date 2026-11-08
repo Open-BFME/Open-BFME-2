@@ -446,30 +446,3 @@ void GameClient::xferDrawableTOC( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 // GameClient::xfer is rowed in its home unit; this copy was a duplicate definition.
 
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-// ?GameClient::loadPostProcess present-unmatched
-void GameClient::loadPostProcess( void )
-{
-
-	//
-	// due to the fact that during the load process we have called newDrawable for drawables
-	// without objects, and then overwrote their ids with data from the save file, our allocater
-	// id may be far higher than it needs to be.  We'll pull it back down as low as we can
-	//
-	Drawable *draw;
-	for( draw = getDrawableList(); draw; draw = draw->getNextDrawable() )
-		if( (DrawableID)((const Rva0055A88BDwordField *)draw)->get() >= m_nextDrawableID )
-			m_nextDrawableID = (DrawableID)((UnsignedInt)((const Rva0055A88BDwordField *)draw)->get() + 1);
-
-}  // end loadPostProcess
-
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// ?GameClient::crc present-unmatched
-void GameClient::crc( Xfer *xfer )
-{
-
-}  // end crc
