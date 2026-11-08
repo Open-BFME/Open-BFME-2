@@ -147,13 +147,29 @@ Of the 99 distinct (unit, field) pairs behind those rows:
 - **56 only declare it** as leading padding. Those are adoptable in principle,
   and the refusal was the only thing in their way.
 
-### One adoption landed
+### One adoption landed -- but not because of either fix
 
 `Code/GameEngine/Source/GameLogic/Object/Object.cpp` adopting
-`AttributeModifierPoolUpdate.h` now passes the byte gate outright. Two others
+`AttributeModifierPoolUpdate.h` passes the byte gate outright. Two others
 sampled from the 56 still refuse, each on a later field and for good reason:
 `SubsystemInterface::m_04 (+0x4)` has no canonical counterpart, and
 `ConnectionManager::opaque24` is a 73732-byte opaque block.
+
+**Correction.** Commit e972ab5d44's message credits this adoption to the two
+fixes above. That is wrong, and this is the record of it. Re-running the
+adoption with both fixes neutralised at runtime (`vptr_offsets` returning an
+empty set, `lost_markers` returning nothing) still gives PASS. Neither fix can
+reach this unit: its only toolchain marker is `// stlport` on line 2, above the
+cut, and its private view declares two methods and no data member at all, so
+`field_renames` finds no own field to look up and never consults the vptr
+offsets. The row was simply **stale** -- the unit became adoptable through other
+work and the queue kept the old failure.
+
+That is the more useful finding. `reverse/header_queue.tsv` is a historical
+record, not a current measurement: a row says what happened when it was written.
+Before treating any part of those 6721 rows as debt, re-run the units; some
+number of them already adopt. Sizing that staleness is the open question this
+leaves, and it bears on every count in this document.
 
 ### Held back: naming the compiler error
 

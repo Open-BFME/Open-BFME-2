@@ -832,12 +832,7 @@ private:
 
 typedef int Int;
 
-class AttributeModifierPoolUpdate
-{
-public:
-	Bool rva00403382(Int attribute, Real *value, Int arg);
-	Bool rva00403448(Int attribute, Real *value, Int arg, Int arg2);
-};
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 // ?rva0028C4B6@Object@@QAEXXZ @0x0028C4B6 55B
 // Object provider-gated global flag set: prov = rva0028C197(); if prov and slot60 and slot23 then call slot24 and set holder+0x28.
