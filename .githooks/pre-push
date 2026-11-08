@@ -699,6 +699,10 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # conflict (one file per entry); the remote tip already holds the other one.
     spawn "a LINK ID heads two obstacle-register entries across the outgoing range" \
         python3 tools/obstacle_ids.py --range "$base" "$local_sha"
+    # A vote's fingerprint binds when its row is added: each commit of the range keeps
+    # reverse/name_vote_sources.csv append-only and binds its added rows (tools/class_gate.py).
+    spawn "a vote fingerprint edited, removed or unbound across the outgoing range" \
+        python3 tools/class_gate.py --vote-sources-range "$base" "$local_sha"
 
     # Direction gate over the OUTGOING range, same call verify_pr.sh makes on a
     # PR. pre-commit runs it too, but --no-verify and clones that never ran

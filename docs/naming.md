@@ -820,10 +820,12 @@ spelling but not the text, so `name_lane.py submit` records beside each vote the
 sha256 of the source it served the voter (`reverse/name_vote_sources.csv`). Every
 vote counted for the name needs that row, and its fingerprint must be the sha256
 of the base's canonical header, the text the rename is applied to. A row binds
-only when it is added. `class_gate.py --staged` keeps `name_vote_sources.csv`
-append-only (no line of the parent's copy modified or deleted). It also requires
-each added row's hash to equal the sha256 of the header it names in that
-commit's index. The credit readers accept a row only if history adds it once and
+only when it is added. `class_gate.py --staged` (pre-commit) keeps
+`name_vote_sources.csv` append-only (no line of the parent's copy modified or
+deleted). It also requires each added row's hash to equal the sha256 of the
+header it names in that commit's index. Pre-push applies the same rule to every
+commit of the outgoing range against its parent (`--vote-sources-range`), so a
+batch can't add a fingerprint and rewrite it in a later commit. The credit readers accept a row only if history adds it once and
 never touches it again, with the hash of the header as it stood in that adding
 commit. A header edited before, with or after the votes earns nothing, in
 whatever order the commits land, and so does a vote recorded without a
@@ -893,33 +895,40 @@ C++ source that reads as after the rename:
 - `#include` of the canonical header wherever its code spells NEW;
 - no second body (`NEW::m(`) of a row the rename respells, unless the unit owns
   that row;
-- no `#line` directive (`#line N` or `# N`) of its own: one would make the
-  preprocessor attribute the unit's own lines to any file it names;
-- no `/D`, `/U`, `/FI` or `/I` in its `// cl:` line unless master's copy of the
-  unit carried exactly the same ones (`/Dint=double` turns the canonical header
-  into another class).
+- no `#line` directive of its own, in any spelling the preprocessor could read
+  as one: `#line N`, `# N`, after a BOM, across a backslash-newline, with `??=`
+  or `%:`, or with a comment between `#` and `line`. One would make the
+  preprocessor attribute the unit's own lines to any file it names.
+
+The proof is fixed before anything is written. At the merge base with
+`origin/master`, `canonical_classes.csv`, OLD's contract and every prepared unit
+must read exactly as in the working tree. An edit in an outgoing commit or in
+the tree refuses (a contract widened to fit a prepared layout proves nothing), so
+land such a change first. The contract the proof compares with is master's,
+respelled. The `NEW.json` the transaction writes must be that respelling byte for
+byte.
 
 Those text checks are only a fast pre-filter; `#if 0`, `__declspec(...)` or a
-macro can hide a private copy from them. After `./build.sh`, each prepared unit
-is run through its own compiler's preprocessor (`cl -E` under its build command;
-no object is written). Its output has every `#if` and macro resolved, and its
-`#line` markers attribute each line to the file it came from, compared as the
-full repo-relative path (a header at `other/Code/Game/X.h` is not `Code/Game/X.h`).
-The unit must see NEW defined only by the canonical header. Attribution says where
-the class came from, not what it compiled to, so the unit's object must also
-hold one complete CodeView record of NEW equal to the canonical contract:
-sizeof, base names, every field's offset, name, size and i4-level kind (the
-vfptr as the contract's `VPTR` field), and every virtual slot. The rename
-refuses, and every file is restored, when:
-- a definition of NEW comes from any other file: the unit itself, a macro
-  expanded there, another header, or a shim such as Zero Hour's `FXList.h`;
-- no definition comes from the canonical header (a disabled or missing
-  `#include`);
-- a definition of OLD remains;
-- the preprocessor refuses the unit;
-- the contract is missing, or the compiled record is absent, forward-only,
-  unparsed (two complete records of the name that differ in fields or virtual
-  slots) or differs from the contract in anything above.
+macro can hide a private copy from them. After `./build.sh`, the rename refuses,
+and every file is restored, unless each prepared unit:
+- compiles with exactly the flags the build gave master's copy. They are read by
+  `build.source_extra_flags`, the build's own reading of `// cl:`, never parsed
+  here. `/Dint=double`, an indented decoy line or a BOM in front of the directive
+  all show up there.
+- lists the canonical header in the compiler's own include list (`cl -E
+  -showIncludes` under its build command; no object is written);
+- includes no file that carries a `#line` directive, so every line marker in the
+  preprocessed output is the compiler's own (no header on master carries one);
+- defines NEW, once preprocessed, only through the canonical header (markers
+  compared as full repo-relative paths), with no definition of OLD left;
+- holds one complete CodeView record of NEW equal to master's contract: sizeof,
+  base names, every field's offset, name, size and i4-level kind (the vfptr as
+  the contract's `VPTR` field), and every virtual slot. An absent, forward-only
+  or unparsed record (two complete records of the name that differ in fields or
+  virtual slots) refuses.
+
+The 14 units on master that carry retail `#line` markers therefore cannot be
+prepared.
 
 A merge may be **inferred**: two blind votes through `name_lane.py next
 --registered OLD`, which accepts an answer the tree already spells when it is
@@ -937,7 +946,10 @@ On 2026-11-07, FXNugget would refuse on all three of these:
 Its prepared path also refuses until the contract equals the compiled canonical
 header. `FXNugget.json` names `m_filter08`/`m_filter0C` as filter structs and
 slot 3 `slot3()`. The header compiles `m_08`/`m_0C`, adds `m_10`, `m_5C`,
-`m_A8` and `m_F4`, and declares slot 3 as `slot03(AssetList*,int)`.
+`m_A8` and `m_F4`, and declares slot 3 as `slot03(AssetList*,int)`. Reconcile the
+contract through the class-contract and header-adoption lane
+(`class_contract.py --write`, then `header_adopt_lane.py`) as its own verified
+change, never by rewriting it to fit a rename.
 
 ### `rename.py carry`: notes added after a rename
 

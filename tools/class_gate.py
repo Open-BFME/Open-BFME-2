@@ -142,32 +142,52 @@ def base_verify_record(root, base, target, old, new):
 VOTE_SOURCES = "reverse/name_vote_sources.csv"
 
 
-def vote_sources_problems():
-    """The staged reverse/name_vote_sources.csv against HEAD's: append-only (HEAD's lines
-    unchanged and in place, the file never deleted), and every added row's source_sha the
-    sha256 of its key's source in the staged tree itself. A vote's fingerprint is bound to
-    the text when its row is added, and can never be edited afterwards; rename.py's
-    verify-record re-reads the same rule from history."""
-    head = git_text(f"HEAD:{VOTE_SOURCES}") or ""
-    staged = git_text(f":{VOTE_SOURCES}")
-    if staged is None:
-        return [f"{VOTE_SOURCES} is deleted; it is append-only"] if head else []
-    if staged == head:
+def vote_sources_change_problems(before, after, tree):
+    """One change of reverse/name_vote_sources.csv, `before` -> `after` (None: deleted):
+    append-only (before's lines unchanged and in place, the file never deleted), and every
+    added row's source_sha the sha256 of its key's source in `tree` ('' is the index), the
+    tree that adds it. A vote's fingerprint is bound to the text when its row is added, and
+    can never be edited afterwards; rename.py's verify-record re-reads the same rule from
+    history."""
+    before = before or ""
+    if after is None:
+        return [f"{VOTE_SOURCES} is deleted; it is append-only"] if before else []
+    if after == before:
         return []
-    before, after = head.splitlines(), staged.splitlines()
-    if after[:len(before)] != before:
+    old, new = before.splitlines(), after.splitlines()
+    if new[:len(old)] != old:
         return [f"{VOTE_SOURCES} is append-only: a line was modified, moved or removed"]
-    if not after:
+    if not new:
         return []
-    added = after[len(before):] if before else after[1:]
+    added = new[len(old):] if old else new[1:]
     problems = []
-    for row in csv.DictReader(io.StringIO("\n".join([after[0]] + added) + "\n")):
+    for row in csv.DictReader(io.StringIO("\n".join([new[0]] + added) + "\n")):
         rel = (row.get("key") or "").split("|")[0]
-        blob = subprocess.run(["git", "show", f":{rel}"], cwd=ROOT, capture_output=True)
+        blob = subprocess.run(["git", "show", f"{tree}:{rel}"], cwd=ROOT, capture_output=True)
         digest = hashlib.sha256(blob.stdout).hexdigest() if blob.returncode == 0 else None
         if digest is None or digest != row.get("source_sha"):
             problems.append(f"{VOTE_SOURCES}: the vote by {row.get('worker')} at {row.get('key')} fingerprints "
-                            f"another text than the staged {rel}")
+                            f"another text than {f'{tree[:10]}:' if tree else 'the staged '}{rel}")
+    return problems
+
+
+def vote_sources_problems():
+    """The staged reverse/name_vote_sources.csv against HEAD's (the pre-commit hook)."""
+    return vote_sources_change_problems(git_text(f"HEAD:{VOTE_SOURCES}"), git_text(f":{VOTE_SOURCES}"), "")
+
+
+def vote_sources_range_problems(base, tip):
+    """The same rule for every commit of base..tip that touches the file, each against its
+    first parent (the pre-push hook): a batch that adds a fingerprint and then rewrites it
+    is refused even though its tip alone only adds rows."""
+    listed = subprocess.run(["git", "rev-list", "--reverse", "--full-history", f"{base}..{tip}", "--",
+                             VOTE_SOURCES], cwd=ROOT, capture_output=True, text=True)
+    if listed.returncode:
+        return [f"{VOTE_SOURCES}: cannot list the commits of {base}..{tip}: {listed.stderr.strip()[:200]}"]
+    problems = []
+    for commit in listed.stdout.split():
+        problems += [f"{commit[:10]}: {problem}" for problem in vote_sources_change_problems(
+            git_text(f"{commit}^:{VOTE_SOURCES}"), git_text(f"{commit}:{VOTE_SOURCES}"), commit)]
     return problems
 
 
@@ -746,7 +766,15 @@ def main(argv=None):
     parser.add_argument("--staged", action="store_true")
     parser.add_argument("files", nargs="*")
     parser.add_argument("--shadow-census", nargs="?", const="build/class_gate_shadow", metavar="DIR")
+    parser.add_argument("--vote-sources-range", nargs=2, metavar=("BASE", "TIP"),
+                        help="check every commit of BASE..TIP keeps reverse/name_vote_sources.csv append-only "
+                             "and bound (the pre-push hook)")
     args = parser.parse_args(argv)
+    if args.vote_sources_range:
+        problems = vote_sources_range_problems(*args.vote_sources_range)
+        for problem in problems:
+            print(f"  {problem}", file=sys.stderr)
+        return 1 if problems else 0
     if args.shadow_census:
         target, summary = shadow_census(ROOT / args.shadow_census)
         for item in summary["would_refuse"]:

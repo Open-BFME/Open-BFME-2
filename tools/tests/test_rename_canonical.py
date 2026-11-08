@@ -12,7 +12,9 @@ name_evidence may grade it), and tools/rename.py class / member on a registered
 class: the key, contract and header_queue rows move, everything rolls back, and
 what it cannot move refuses. Verification is injected."""
 import importlib
+import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -508,6 +510,12 @@ def defined(root, body):
         handle.write(f"?nuggetType@@YAHPAV{NEW}@@@Z,,0x00404000,8,{VIEWS},matched,\n".encode("utf-8"))
     run(root, "add", "-A")
     run(root, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "a private view of NEW")   # clean, as prepared needs
+    publish(root)
+
+
+def publish(root):
+    """origin/master at HEAD: what a --prepared rename is proved against (prepared_baseline)."""
+    run(root, "update-ref", "refs/remotes/origin/master", "HEAD")
 
 
 def layouts(monkeypatch, rename, fields, size, **layout):
@@ -630,16 +638,21 @@ CONTRACT_LAYOUT = {"fwd": False, "size": 12, "bases": [], "vfptr": True,
                    "vslots": {"1": f"?doFX@{NEW}@@UBEXXZ"}}
 
 
-def preprocessed(monkeypatch, rename, root, outputs, layouts=None):
-    """preprocess_unit and view_layouts as cl -E and -Z7 would answer after the build: `outputs`
-    maps a unit to its preprocessed text (or an exception for a refused unit), `layouts` to its
+def preprocessed(monkeypatch, rename, root, outputs, layouts=None, includes=None):
+    """preprocess_unit and view_layouts as cl -E, /showIncludes and -Z7 would answer after the
+    build: `outputs` maps a unit to its preprocessed text (or an exception for a refused unit),
+    `includes` to the repo files it includes (default: the canonical header), `layouts` to its
     compiled classes (default: the class the contract states)."""
     seen = []
 
-    def fake(ctx, rel):
+    def fake(ctx, rel, found=None):
         seen.append(rel)
         out = outputs.get(rel, canonical_pp(root))
-        return (None, out.args[0]) if isinstance(out, Exception) else (out, None)
+        if isinstance(out, Exception):
+            return None, out.args[0]
+        if found is not None:
+            found.extend(str(root / i) for i in (includes or {}).get(rel, [HEADER]))
+        return out, None
     monkeypatch.setattr(rename, "preprocess_unit", fake)
     monkeypatch.setattr(rename, "view_layouts", lambda ctx, rel: (layouts or {}).get(rel, {NEW: CONTRACT_LAYOUT}))
     monkeypatch.setattr(rename, "registered_object_problems", lambda ctx, plan: [])
@@ -649,6 +662,10 @@ def preprocessed(monkeypatch, rename, root, outputs, layouts=None):
 def apply_prepared(root, rename, text):
     p = plan_of(root, merge=True, prepared={VIEWS: text.encode()})
     assert p.registered["prepared"] == [VIEWS] and "references" not in p.registered
+    return apply_plan(root, rename, p)
+
+
+def apply_plan(root, rename, p):
     return rename.apply_rename(p, ctx=rename.Context(root, object_scan=False), verify=lambda ctx, sources: True,
                                checks=None)
 
@@ -665,7 +682,6 @@ def test_a_prepared_unit_seeing_only_the_canonical_header_lands(spelled, evidenc
     # round 5's probe: the include compiled out, a __declspec head, a 176-byte private class
     (lambda root: unit_marker() + f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n",
      "defines its own FXNugget in code/game/nuggetviews.cpp"),
-    (lambda root: unit_marker() + f"int nuggetType({NEW} *n);\n", "never sees code/game/rva00401000base.h"),
     (lambda root: canonical_pp(root) + unit_marker(9) + f"class {NEW} : public Base {{ int m_x; }};\n",
      "defines its own FXNugget"),
     (lambda root: unit_marker() + header_part(root) + f'#line 70 "{SHIM}"\nclass {NEW} {{ public: int m_type; }};\n',
@@ -680,6 +696,26 @@ def test_a_prepared_unit_keeping_its_own_class_rolls_back(spelled, evidence_stub
     defined(spelled, "    int m_nuggetType;\n")
     before = snapshot(spelled)
     preprocessed(monkeypatch, evidence_stubbed, spelled, {VIEWS: output(spelled)})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match=message):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+    assert snapshot(spelled) == before
+
+
+@pytest.mark.parametrize("included,message", [
+    ([], "never includes Code/Game/Rva00401000Base.h"),
+    (["other/" + HEADER], "never includes Code/Game/Rva00401000Base.h"),
+    # round 7's probe: an included header whose own #line names the canonical one over its private class
+    ([HEADER, "Code/Game/Other.h"], "includes Code/Game/Other.h, which carries a #line directive"),
+])
+def test_the_compiler_s_include_list_must_name_the_header_and_carry_no_line(spelled, evidence_stubbed, monkeypatch,
+                                                                            included, message):
+    write(spelled, "Code/Game/Other.h", '#line 1 "Code/Game/Canonical.h"\nint other;\n')
+    write(spelled, "other/" + HEADER, "int elsewhere;\n")
+    run(spelled, "add", "-A")
+    run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "another header")
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {}, includes={VIEWS: included})
     with pytest.raises(evidence_stubbed.VerifyFailed, match=message):
         apply_prepared(spelled, evidence_stubbed, RESHAPED)
     assert snapshot(spelled) == before
@@ -706,53 +742,153 @@ def test_attribution_is_not_enough_the_compiled_class_must_be_its_contract(spell
 
 
 def test_no_contract_to_compare_refuses(spelled, evidence_stubbed, monkeypatch):
-    """The attribution check never passes on its own: without the contract nothing is proved."""
+    """The attribution check never passes on its own: without master's contract nothing is proved."""
     import rename
     preprocessed(monkeypatch, rename, spelled, {VIEWS: canonical_pp(spelled)})
     from types import SimpleNamespace
-    plan = SimpleNamespace(registered={"old": OLD, "new": NEW, "header": HEADER, "prepared": [VIEWS]})
+    plan = SimpleNamespace(registered={"old": OLD, "new": NEW, "header": HEADER, "prepared": [VIEWS],
+                                       "contract": CONTRACT})
     defined(spelled, "    int m_nuggetType;\n")
-    (spelled / CONTRACT).unlink()
     problems = rename.prepared_attribution_problems(rename.Context(spelled, object_scan=False), plan)
     assert problems and "has no contract to equal" in problems[0]
 
 
-@pytest.mark.parametrize("text,message", [
-    # round 6's probe: a #line in the unit's own text names the canonical header over a private class
-    (f'#line 1 "{HEADER}"\nclass __declspec(align(4)) {NEW} {{ public: double unrelated[20]; }};\n',
-     "carries a #line directive"),
-    (f"# 1 \"{HEADER}\"\n" + RESHAPED, "carries a #line directive"),
-    ("// cl: /O2 /Dint=double\n" + RESHAPED.split("\n", 1)[1], r"adds /Dint=double"),
-    ("// cl: /O2 /FIother.h\n" + RESHAPED.split("\n", 1)[1], r"adds /FIother.h"),
-    ("// cl: /O2 -Ireference/shims/other\n" + RESHAPED.split("\n", 1)[1], r"adds -Ireference/shims/other"),
-])
-def test_a_prepared_unit_text_that_could_fool_the_preprocessor_refuses(spelled, evidence_stubbed, text, message):
+@pytest.mark.parametrize("edit", ["tree", "commit"])
+@pytest.mark.parametrize("rel", [CONTRACT, "reverse/canonical_classes.csv", VIEWS])
+def test_the_contract_registry_and_unit_are_master_s(spelled, evidence_stubbed, monkeypatch, rel, edit):
+    """Round 7's probe: the contract widened to 16 bytes, with a prepared layout to match, proves nothing.
+    The registry, OLD's contract and the prepared unit must read as at origin/master's merge base,
+    whether the change sits in the working tree or in an outgoing commit."""
     defined(spelled, "    int m_nuggetType;\n")
-    with pytest.raises(evidence_stubbed.Refusal, match=message):
+    if rel == CONTRACT:
+        frozen = json.loads((spelled / CONTRACT).read_text())
+        frozen["size"] = 16
+        write(spelled, CONTRACT, json.dumps(frozen))
+    else:
+        write(spelled, rel, (spelled / rel).read_text() + "\n")
+    if edit == "commit":
+        run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "an outgoing change")
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {}, layouts={VIEWS: {NEW: dict(CONTRACT_LAYOUT, size=16)}})
+    dirty_unit = rel == VIEWS and edit == "tree"          # refused sooner: a prepared unit must be clean
+    with pytest.raises(evidence_stubbed.Refusal,
+                       match=re.escape(rel) if dirty_unit else f"{re.escape(rel)} differs from origin/master"):
+        plan_of(spelled, merge=True, prepared={VIEWS: RESHAPED.encode()})
+
+
+def test_a_contract_the_transaction_rewrites_is_no_proof(spelled, evidence_stubbed, monkeypatch):
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {}, layouts={VIEWS: {NEW: dict(CONTRACT_LAYOUT, size=16)}})
+    p = plan_of(spelled, merge=True, prepared={VIEWS: RESHAPED.encode()})
+    target = f"reverse/class_contracts/{NEW}.json"
+    p.after[target] = p.after[target].replace(b'"size": 12', b'"size": 16')
+    assert b'"size": 16' in p.after[target]
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="the contract changed in the transaction"):
+        apply_plan(spelled, evidence_stubbed, p)
+    assert snapshot(spelled) == before
+
+
+LINE_SPELLINGS = [
+    f'#line 1 "{HEADER}"\n', '# 1 "x.h"\n', '  #  line 7\n', '﻿#line 1\n', '#\\\nline 1\n',
+    '#\\\r\nline 1\n', '??=line 1\n', '%:line 1\n', '#/**/line 1\n', '#line 1\r', '/* x\n#line 1 */\n',
+]
+
+
+@pytest.mark.parametrize("text", LINE_SPELLINGS)
+def test_every_spelling_of_line_is_a_line_directive(text):
+    import rename
+    assert rename.line_directive("int a;\n" + text) and rename.line_directive(text)
+
+
+@pytest.mark.parametrize("text", ["#include \"line.h\"\n", "// line 5\n", "#pragma once\n", "#lineage\n",
+                                  "int line = 1;\n"])
+def test_other_text_is_no_line_directive(text):
+    import rename
+    assert not rename.line_directive(text)
+
+
+@pytest.mark.parametrize("text", [
+    # round 6's probe: a #line in the unit's own text names the canonical header over a private class
+    f'#line 1 "{HEADER}"\nclass __declspec(align(4)) {NEW} {{ public: double unrelated[20]; }};\n',
+    f"# 1 \"{HEADER}\"\n" + RESHAPED,
+    f'﻿#line 1 "{HEADER}"\n' + RESHAPED,
+    RESHAPED + f'#\\\nline 1 "{HEADER}"\n',
+])
+def test_a_prepared_unit_with_its_own_line_directive_refuses(spelled, evidence_stubbed, text):
+    defined(spelled, "    int m_nuggetType;\n")
+    with pytest.raises(evidence_stubbed.Refusal, match="carries a #line directive"):
         plan_of(spelled, merge=True, prepared={VIEWS: text.encode()})
 
 
-def test_master_s_own_preprocessor_flags_are_accepted(spelled, evidence_stubbed):
+@pytest.mark.parametrize("head", [
+    "// cl: /O2 /Dint=double\n",
+    "// cl: /O2 /FIother.h\n",
+    "// cl: /O2 -Ireference/shims/other\n",
+    # round 7's probe: an indented decoy the build ignores, then the line it reads
+    " // cl: /O2\n// cl: /O2 /DANSWER=999\n",
+    # a BOM: the build strips it and reads the directive behind it
+    "﻿// cl: /O2 /DANSWER=999\n",
+])
+def test_the_build_s_own_flags_must_be_master_s(spelled, evidence_stubbed, monkeypatch, head):
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="a prepared unit keeps master's flags"):
+        apply_prepared(spelled, evidence_stubbed, head + RESHAPED.split("\n", 1)[1])
+    assert snapshot(spelled) == before
+
+
+def test_master_s_own_preprocessor_flags_are_accepted(spelled, evidence_stubbed, monkeypatch):
     write(spelled, VIEWS, f"// cl: /O2 /DBFME_FX=1\nclass {NEW} {{\npublic:\n    int m_nuggetType;\n}};\n"
                           f"int nuggetType({NEW} *n);\n")
     with open(spelled / "reverse/functions.csv", "ab") as handle:
         handle.write(f"?nuggetType@@YAHPAV{NEW}@@@Z,,0x00404000,8,{VIEWS},matched,\n".encode("utf-8"))
     run(spelled, "add", "-A")
     run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "a unit with its own /D")
+    publish(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {})
     text = "// cl: /O2 /DBFME_FX=1\n" + RESHAPED.split("\n", 1)[1]
-    assert plan_of(spelled, merge=True, prepared={VIEWS: text.encode()}).after[VIEWS] == text.encode()
-    with pytest.raises(evidence_stubbed.Refusal, match="adds /DBFME_FX=2"):
-        plan_of(spelled, merge=True, prepared={VIEWS: text.replace("=1", "=2").encode()})
+    p = plan_of(spelled, merge=True, prepared={VIEWS: text.encode()})
+    assert p.registered["baseline"]["flags"][VIEWS] == ["-O2", "-DBFME_FX=1"]
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="a prepared unit keeps master's flags"):
+        apply_prepared(spelled, evidence_stubbed, text.replace("=1", "=2"))
+    apply_plan(spelled, evidence_stubbed, p)
+    assert (spelled / VIEWS).read_bytes() == text.encode()
 
 
 def test_a_private_copy_the_text_scan_misses_is_caught_by_the_preprocessor(spelled, evidence_stubbed, monkeypatch):
     """`#if 0` around the include and `class __declspec(align(4)) FXNugget` pass the text pre-filter."""
     defined(spelled, "    int m_nuggetType;\n")
     before = snapshot(spelled)
-    preprocessed(monkeypatch, evidence_stubbed, spelled, {VIEWS: unit_marker(4) + HIDDEN.split("#endif\n", 1)[1]})
-    with pytest.raises(evidence_stubbed.VerifyFailed, match="keeps its own FXNugget"):
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {VIEWS: unit_marker(4) + HIDDEN.split("#endif\n", 1)[1]},
+                 includes={VIEWS: []})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="keeps its own FXNugget.*never includes"):
         apply_prepared(spelled, evidence_stubbed, HIDDEN)
     assert snapshot(spelled) == before
+
+
+def test_the_push_keeps_fingerprints_append_only_across_its_range(approved, monkeypatch):
+    """Round 7's probe: one commit adds a bound fingerprint, the next rewrites it. The tip alone
+    shows only an added file; the pre-push range check reads each commit against its parent."""
+    import hashlib
+    import name_lane
+    base = run(approved, "rev-parse", "HEAD").stdout.strip()
+    vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch)
+    assert class_gate.vote_sources_range_problems(base, "HEAD") == []
+    overwrite_fingerprints(approved, hashlib.sha256((approved / HEADER).read_bytes()).hexdigest()[::-1])
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "rewrite a fingerprint")
+    problems = class_gate.vote_sources_range_problems(base, "HEAD")
+    assert len(problems) == 1 and "append-only" in problems[0], problems
+    assert class_gate.main(["--vote-sources-range", base, "HEAD"]) == 1
+    path = approved / name_lane.VOTE_SOURCES
+    path.write_bytes(path.read_bytes() + f"{HEADER}|class||{OLD},h,w-9,s9,{'f' * 64}\n".encode())
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "an unbound row")
+    assert any("fingerprints another text" in p for p in class_gate.vote_sources_range_problems(base, "HEAD"))
+
+
+def test_the_pre_push_hook_runs_the_range_check():
+    hook = (Path(__file__).resolve().parents[2] / ".githooks/pre-push").read_text()
+    assert 'python3 tools/class_gate.py --vote-sources-range "$base" "$local_sha"' in hook
 
 
 @pytest.mark.parametrize("head,defines", [

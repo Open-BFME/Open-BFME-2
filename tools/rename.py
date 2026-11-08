@@ -5205,10 +5205,11 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
     return plan
 
 
-def preprocess_unit(ctx, rel):
+def preprocess_unit(ctx, rel, includes=None):
     """(text, None) of `rel` after the compiler's preprocessor (cl -E under the unit's own
     build command, no -c and no -Fo, so no object is written and build/match is
-    untouched), or (None, why)."""
+    untouched), or (None, why). Given a list `includes`, the compiler's /showIncludes
+    notes fill it with the host path of every file the unit includes."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import build
     source = ctx.path(rel)
@@ -5220,12 +5221,22 @@ def preprocess_unit(ctx, rel):
         return None, f"no build command to preprocess it with: {error}"
     command = [c for c in command if not c.startswith(("-Fo", "/Fo")) and c not in ("-c", "/c")]
     command.insert(len(command) - 1, "-E")
+    if includes is not None:
+        command.insert(len(command) - 1, "-showIncludes")
     try:
         proc = subprocess.run(command, capture_output=True, env=env, cwd=str(ctx.root), timeout=900)
     except (OSError, subprocess.TimeoutExpired) as error:
         return None, f"the preprocessor did not run: {error}"
     if proc.returncode:
         return None, f"the preprocessor refused it: {proc.stderr.decode('latin-1', 'replace').strip()[-300:]}"
+    if includes is not None:
+        note = "Note: including file:"
+        for line in proc.stderr.decode("latin-1").splitlines():
+            if line.startswith(note):
+                host = build._case_resolve(build._host_path(line[len(note):]))
+                if host is None:
+                    return None, f"an included file cannot be found: {line.strip()[:200]}"
+                includes.append(host)
     return proc.stdout.decode("latin-1"), None
 
 
@@ -6554,7 +6565,7 @@ def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
     header = posixpath.basename(registration["header"]).lower()
     for rel, data in sorted(prepared.items()):
         text = data.decode("utf-8", errors="surrogateescape")
-        own = prepared_text_problems(rel, text, (ctx.read(rel) or b"").decode("utf-8", errors="replace"))
+        own = prepared_text_problems(rel, text)
         if own:
             raise Refusal(f"prepared {own[0]}")
         code = name_metric.strip(text)
@@ -6610,29 +6621,53 @@ def class_definitions(text, word, root=ROOT):
     return out
 
 
-CL_LINE = re.compile(r"(?m)^[ \t]*//[ \t]*cl:(.*)$")
-PREPROCESSOR_FLAG = re.compile(r"[/-](?:D|U|FI|I)")
+UPSTREAM = "origin/master"
+LINE_DIRECTIVE = re.compile(r"(?m)^[ \t\f\v]*(?:#|\?\?=|%:)[ \t\f\v]*(?:line\b|\d)")
 
 
-def preprocessor_flags(text):
-    """The `// cl:` flags that change what the preprocessor makes of a header."""
-    line = CL_LINE.search(text or "")
-    return [t for t in (line.group(1).split() if line else []) if PREPROCESSOR_FLAG.match(t)]
+def line_directive(text):
+    """True when `text` holds a #line directive (`#line N`, `# N`) in any spelling the
+    preprocessor could read as one: after a BOM, across backslash-newline splices, with
+    a trigraph or digraph `#`, or a comment between `#` and `line` (a BOM anywhere is
+    dropped). A directive inside a comment counts too: refusing it costs nothing."""
+    text = text.replace("\ufeff", "").replace("\r\n", "\n").replace("\r", "\n")
+    spliced = re.sub(r"\\[ \t]*\n", "", text)
+    return any(LINE_DIRECTIVE.search(t) for t in
+               (spliced, name_metric.strip(spliced), re.sub(r"/\*.*?\*/", " ", spliced, flags=re.S)))
 
 
-def prepared_text_problems(rel, text, master):
-    """Why a prepared unit's own text cannot be trusted to show the canonical class: a
-    `#line` directive of its own (it would make the preprocessor attribute the unit's
-    lines to any file it names), or /D, /U, /FI or /I in its `// cl:` line (they change
-    what the canonical header means in it) unless master's copy carried the same ones."""
-    problems = []
-    if re.search(r"(?m)^[ \t]*#[ \t]*(?:line\b|\d)", name_metric.strip(text)):
-        problems.append(f"{rel} carries a #line directive of its own: its lines could be attributed to any file")
-    flags = preprocessor_flags(text)
-    if flags and flags != preprocessor_flags(master):
-        problems.append(f"{rel}'s // cl: line adds {' '.join(flags)}, which change what the canonical header "
-                        "compiles to; only master's own flags are accepted")
-    return problems
+def prepared_text_problems(rel, text):
+    """A prepared unit's own `#line` directive would make the preprocessor attribute its
+    lines to any file it names, so the unit is refused before anything is written."""
+    if line_directive(text):
+        return [f"{rel} carries a #line directive of its own: its lines could be attributed to any file"]
+    return []
+
+
+def unit_flags(ctx, rel):
+    """The flags the build itself gives `rel`: build.source_extra_flags, which reads the
+    `// cl:` directive exactly as a compile does. Never parsed here."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    return list(build.source_extra_flags(ctx.path(rel)))
+
+
+def prepared_baseline(ctx, registration, prepared):
+    """What a prepared unit is proved against, fixed before anything is written: the merge
+    base with origin/master. The registry, OLD's contract and every prepared unit must read
+    there exactly as in the working tree (one edited in an outgoing commit or in the tree
+    proves nothing), and each unit's flags are the build's flags for that copy."""
+    code, out = _git_out(ctx.root, "merge-base", "HEAD", UPSTREAM)
+    base = out.decode("ascii", "replace").strip() if not code else ""
+    if not base:
+        raise Refusal(f"--prepared: no merge base with {UPSTREAM}; a prepared unit is proved against "
+                      "master's contract")
+    for rel in [CANONICAL_CLASSES, registration["contract"], *prepared]:
+        code, blob = _git_out(ctx.root, "show", f"{base}:{rel}")
+        if code or blob != ctx.read(rel):
+            raise Refusal(f"--prepared: {rel} differs from {UPSTREAM} ({base[:10]}); a prepared unit is proved "
+                          "against master's registry, contract and unit, so land that change first")
+    return {"base": base, "flags": {rel: unit_flags(ctx, rel) for rel in prepared}}
 
 
 def contract_layout_problems(rel, contract, layout):
@@ -6662,51 +6697,81 @@ def contract_layout_problems(rel, contract, layout):
     return [f"{rel}'s class is not its contract: " + "; ".join(problems)] if problems else []
 
 
-def prepared_attribution_problems(ctx, plan):
-    """After ./build.sh, each prepared unit must show the canonical class and nothing else:
-      - its own text has no #line and adds no preprocessor flag (prepared_text_problems);
-      - its compiler's preprocessor (preprocess_unit: cl -E under its build command, no
-        object written) attributes every definition of NEW to the canonical header's
-        exact repo-relative path, at least one, and none to any other file (the unit, a
-        macro expanded there, another header, a shim); no definition of OLD remains;
-      - its compiled type record of NEW (view_layouts, CodeView) equals the canonical
-        contract exactly (contract_layout_problems): attribution says where the class
-        came from, the layout check says what it compiled to.
-    A text scan cannot see through `#if 0`, `__declspec(...)` or macros; the preprocessor
-    and the compiler can. Anything it cannot read refuses."""
-    registered = plan.registered
-    old, new, header = registered["old"], registered["new"], registered["header"].lower()
-    contract_data = ctx.read(f"{CLASS_CONTRACTS}/{new}.json")
+def master_contract(ctx, registered):
+    """(contract, problems): OLD's contract as origin/master's merge base holds it, respelled
+    to NEW exactly as the rename writes it; the working copy is never read as proof, and the
+    NEW.json the transaction wrote must be that respelling byte for byte."""
+    old, new = registered["old"], registered["new"]
+    base = (registered.get("baseline") or {}).get("base")
+    code, data = _git_out(ctx.root, "show", f"{base}:{registered['contract']}") if base else (1, b"")
     try:
-        contract = json.loads(contract_data.decode("utf-8")) if contract_data is not None else None
+        text = class_token_re(old).sub(new, data.decode("utf-8")) if not code else None
+        contract = json.loads(text) if text is not None else None
     except ValueError:
         contract = None
-    problems = []
+    if contract is None:
+        return None, [f"{registered['contract']} cannot be read at {UPSTREAM}'s merge base: the prepared units' "
+                      f"{new} has no contract to equal"]
+    if ctx.read(f"{CLASS_CONTRACTS}/{new}.json") != text.encode("utf-8"):
+        return None, [f"{CLASS_CONTRACTS}/{new}.json is not {UPSTREAM}'s {registered['contract']} respelled: "
+                      "the contract changed in the transaction"]
+    return contract, []
+
+
+def prepared_attribution_problems(ctx, plan):
+    """After ./build.sh, each prepared unit must compile the canonical class and nothing else:
+      - its own text has no #line (prepared_text_problems), and the build gives it exactly
+        the flags it gave master's copy (unit_flags, frozen by prepared_baseline);
+      - the compiler's own include list (/showIncludes) names the canonical header, and no
+        file it includes carries a #line directive, so every `#line` marker in the
+        preprocessed output is the compiler's own;
+      - no definition of NEW comes from any other file than the canonical header, and no
+        definition of OLD remains;
+      - its compiled type record of NEW (view_layouts, CodeView) equals master's contract
+        (master_contract) exactly (contract_layout_problems).
+    Anything it cannot read refuses."""
+    registered = plan.registered
+    old, new, header = registered["old"], registered["new"], registered["header"]
+    contract, problems = master_contract(ctx, registered)
+    if contract is None:
+        return problems
+    frozen = (registered.get("baseline") or {}).get("flags") or {}
     for rel in registered.get("prepared") or ():
         own = ctx.read(rel)
         if own is None:
             problems.append(f"{rel} cannot be read to prove its {new}")
             continue
-        master = _git_out(ctx.root, "show", f"HEAD:{rel}")
-        problems += prepared_text_problems(rel, own.decode("utf-8", errors="replace"),
-                                           master[1].decode("utf-8", errors="replace") if not master[0] else "")
-        text, why = preprocess_unit(ctx, rel)
+        problems += prepared_text_problems(rel, own.decode("utf-8", errors="replace"))
+        flags = unit_flags(ctx, rel)
+        if rel not in frozen or flags != frozen[rel]:
+            problems.append(f"{rel} compiles with {flags}, {UPSTREAM}'s copy with {frozen.get(rel)}: a prepared "
+                            "unit keeps master's flags")
+            continue
+        includes = []
+        text, why = preprocess_unit(ctx, rel, includes)
         if text is None:
             problems.append(f"{rel} cannot be preprocessed to prove its {new}: {why}")
             continue
+        seen, marked = [], []
+        for host in includes:
+            path = Path(host)
+            included = os.path.relpath(path, ctx.root).replace(os.sep, "/")
+            if not path.is_file() or line_directive(path.read_bytes().decode("latin-1")):
+                marked.append(included)
+            seen.append(included)
+        if marked:
+            problems.append(f"{rel} includes {marked[0]}, which carries a #line directive (or cannot be read): "
+                            "its lines could be attributed to any file")
+            continue
+        if header not in seen:
+            problems.append(f"{rel} never includes {header} (the compiler's /showIncludes list)")
+            continue
         if class_definitions(text, old, ctx.root):
             problems.append(f"{rel} still defines {old} once preprocessed")
-        definitions = class_definitions(text, new, ctx.root)
-        canonical = [f for f, _at in definitions if f == header]
-        others = sorted({f or "<no #line>" for f, _at in definitions if f != header})
+        others = sorted({f or "<no #line>" for f, _at in class_definitions(text, new, ctx.root)
+                         if f != header.lower()})
         if others:
             problems.append(f"{rel} defines its own {new} in {', '.join(others[:2])}, not only through {header}")
-            continue
-        if not canonical:
-            problems.append(f"{rel} never sees {header}'s {new} once preprocessed (a disabled or missing #include)")
-            continue
-        if contract is None:
-            problems.append(f"{CLASS_CONTRACTS}/{new}.json cannot be read: {rel}'s class has no contract to equal")
             continue
         problems += contract_layout_problems(rel, contract, view_layouts(ctx, rel).get(new))
     return problems
@@ -7075,8 +7140,9 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     if len(plan.verify) > max_files:
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
     if prepared:
-        # the prepared units' class is proved after the build, from their preprocessed text
+        # the prepared units' class is proved after the build, against master's contract and flags
         plan.registered["prepared"] = sorted(prepared)
+        plan.registered["baseline"] = prepared_baseline(ctx, registration, sorted(prepared))
     if not plan.verify:
         raise Refusal(f"no ledger source compiles {old}; ./build.sh could not verify the rename")
 
