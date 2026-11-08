@@ -9357,7 +9357,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp,yes,0,0,
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp,no,1,0,4,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorOnDamage.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorOnHealing.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorXfer.cpp,yes,0,0,0,0,0
@@ -9406,6 +9406,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp,yes,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/CommandPointsUpgrade.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/DelayedUpgrade.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/DetachableRiderUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/DrawModuleXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp,yes,0,0,0,0,0
@@ -10082,9 +10083,9 @@ Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreateModuleDataDtor.
 Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate_onBuildComplete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate_onCreate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp,no,2,0,1,0,0
+Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/ObjectModuleCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/PreorderCreate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/PreorderCreateHelpers.cpp,yes,0,0,0,0,0
@@ -10142,7 +10143,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataDtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieTestKillerType.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,no,0,0,2,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CrushDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CrushDieModuleDataCtor.cpp,yes,0,0,0,0,0
@@ -10158,7 +10159,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDataFriendNew.cpp,yes,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDeletingDtors.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieMuxDataInit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,no,0,0,2,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDieConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDieFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDieModuleData.cpp,yes,0,0,0,0,0
@@ -10634,7 +10635,6 @@ Code/GameEngine/Source/GameLogic/Object/Rva0043B278Do.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004884B7Check.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva0048B9D0Replace.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Rva0049520BGate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004D6FC4Xfer.cpp,yes,0,0,0,0,0
@@ -11061,7 +11061,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp,yes,0,0,0,0,
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataCtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdatePoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateRva004906CD.cpp,yes,0,0,0,0,0
@@ -11095,7 +11095,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataCtor.c
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorCtor.cpp,yes,0,0,0,0,0
@@ -11249,7 +11248,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/FlingPassengerSpecialAbilityUpdat
 Code/GameEngine/Source/GameLogic/Object/Update/FlingPassengerSpecialAbilityUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateModuleDataCtor.cpp,no,0,0,2,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateModuleDataCtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp,yes,0,0,0,0,0
@@ -11548,7 +11547,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/Rva00492C59Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492D11Update.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492DABUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492E10Xfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/Rva0049508DXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva0049575A.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00495801.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva004958AEUpdate.cpp,yes,0,0,0,0,0
@@ -11789,15 +11787,11 @@ Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataFrien
 Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgradeFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgradeModuleDataDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgrade.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgradeFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgradeImplementation.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgrade.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgrade.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeModuleDataFriendNew.cpp,yes,0,0,0,0,0
@@ -11837,7 +11831,6 @@ Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgrade.cpp,yes,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgradeFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgradeImplementation.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgrade.cpp,yes,0,0,0,0,0
