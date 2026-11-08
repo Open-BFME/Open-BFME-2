@@ -10,7 +10,7 @@ class Rva00330757Member
 {
 public:
     Rva00330757Member() throw();
-    ~Rva00330757Member();
+    ~Rva00330757Member() throw();
 
     void *field00;
     void *field04;

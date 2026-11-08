@@ -712,14 +712,6 @@ int Rva45E9F4Get(void)
 	return (int)"ShipSlowDeathBehavior";
 }
 
-// ?Rva0045EFB6Get@@YAHXZ @ 0x0045efb6 (6B): returns 0x00bf5a4c.
-// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva0045EFB6Get(void)
-{
-	return (int)"StancesBehavior";
-}
-
 // ?Rva00460827Get@@YAHXZ @ 0x00460827 (6B): returns 0x00bf5ac4.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.

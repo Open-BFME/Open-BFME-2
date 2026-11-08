@@ -349,7 +349,7 @@ a crash on its first virtual call **if the bridge retires that table first.** Re
 | table (retail) | order | conflicting slots | state |
 |---|---:|---:|---|
 | `??_7Rva0023DB34@@6B@` (0x00BEDAA8) | 25465, via LivingWorldLogic | 4 | **repaired**: the view declared the four slots pure; all four were rowed under the class. 4/4 resolve |
-| `??_7StancesBehavior@@6BUpdateModule@@@` (0x00C424DC) | 9960 | 2 | P42, larger than first read: the ctor unit stores a hand-built 13-slot `vtbl_00C424DC` over a flat view, and the TU's class sits on private bases with slots 1 and 2 pure. Needs both units on one real class, not only an UpdateModule.h include |
+| `??_7StancesBehavior@@6BObjectModule@@@` (0x00C424DC) | 9960 | 2 | Fixed 2026-11-08: both units on the canonical class, the hand-built array retired for the compiler's table. Read back 0 differ of 13, 47 and 3 |
 | `??_7Rva00481F82@@6BObjectModule@@@` (0x00C49408) | 10078 | 5 | P42: TerrainResourceBehavior's own table under a placeholder; `class --fold` refuses (the ledger names the table for the placeholder), and the unit carries hatches |
 | `??_7LargeGroupAudioUpdate@@6BUpdateModule@@@` (0x00C548F0) | 10669 | 1 | P42: `--to-class` for 0x004AB9D5 needs LargeGroupAudioUpdate.cpp prepared; the dtor's view is a scaffold, and the ctor unit hand-builds the table |
 | `??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@` (0x00C552A4) | 10579 | 8 | the SpecialAbilityUpdate base (below in this entry): the table is shared, and this class's scaffold is only the kept copy; the base's slots are now all defined, so a class on canonical SpecialAbilityUpdate no longer emits these 8 |

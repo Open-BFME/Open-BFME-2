@@ -29,6 +29,7 @@ public:
     void rva0045F235();
 
 protected:
+    virtual void loadPostProcess();
 #ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
 #else

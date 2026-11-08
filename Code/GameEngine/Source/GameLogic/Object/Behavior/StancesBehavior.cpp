@@ -313,55 +313,15 @@ struct StancesBehaviorModuleData
 
 void XferStancesEnum(Xfer *xfer, int *stances);
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	// Retail's Snapshot slots 1 and 2 precede xfer (slot 3, table 0x008424DC).
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void xfer(Xfer *xfer);
-protected:
-	const StancesBehaviorModuleData *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-};
+// Object, its module data and the store stay views: only the class's own layout comes from the header.
+#include "../../../../Include/GameLogic/StancesBehavior.h"
 
-class StancesBehaviorInterfaceA
+// Retail inlines this in ~StancesBehavior; the shared row at 0x0007FAB3 is the out-of-line copy.
+inline Rva00330757Member::~Rva00330757Member() throw()
 {
-public:
-	virtual void stancesInterfaceA() = 0;
-};
-
-class StancesBehaviorInterfaceB
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-private:
-	// Opaque prefix storage before the proven listener base at+20. This view
-	// does not establish the original interface's declared size or fields.
-	char m_pad04[12];
-};
-
-class StancesBehavior : public UpdateModule, public StancesBehaviorInterfaceA, public StancesBehaviorInterfaceB, private Rva00330757List
-{
-public:
-	StancesBehavior(Thing *thing, const ModuleData *moduleData);
-	virtual ~StancesBehavior();
-	virtual void stancesInterfaceA();
-	virtual UpdateSleepTime update();
-	virtual NameKeyType getModuleNameKey() const;
-	int rva0045ED4B() const;
-	bool changeStanceFromXfer(int value);
-	bool changeStance(int value);
-	void rva0045F21C();
-	void rva0045F235();
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	Rva0045EF55List &listeners() { return *(Rva0045EF55List *)static_cast<Rva00330757List *>(this); }
-	int m_30;
-};
+	if (field00)
+		free(field00);
+}
 
 class Rva00148F5ECache
 {
@@ -394,21 +354,21 @@ Rva00425F10 *TheStancesStore = 0;
 // Named constructor/factory prove StancesBehavior primary data4/object8,
 // listener-list20 and stance30; neutral rider slots retain target behavior.
 
-int StancesBehavior::rva0045ED4B() const{switch(m_30){case 2:return 2;case 3:case 4:case 5:return 3;}return 1;}
+int StancesBehavior::rva0045ED4B() const{switch(m_stance){case 2:return 2;case 3:case 4:case 5:return 3;}return 1;}
 
 bool StancesBehavior::changeStance(int value){
- Object*obj=m_object;if(value==m_30)return false;
+ Object*obj=getObject();if(value==m_stance)return false;
  StanceRider*rider=obj->getRider();
- if(rider && m_30==4 && rider->slot60() && rider->slot23()){rider->slot24();rider=obj->getRider();}
+ if(rider && m_stance==4 && rider->slot60() && rider->slot23()){rider->slot24();rider=obj->getRider();}
  if(value==3){AIUpdateInterface*ai=obj->m_ai;if(ai)ai->commands().aiIdle(SOURCE0);}
- int key=m_moduleData->m_key;if(!key)return false;
+ int key=((const StancesBehaviorModuleData *)getModuleData())->m_key;if(!key)return false;
  int*entries=((Rva004260DE*)TheStancesStore)->rva004260DE(key);if(!entries)return false;
- NameKeyType oldMod=(NameKeyType)entries[m_30*2+1];int*entry=entries+value*2;NameKeyType newMod=(NameKeyType)entry[1];
+ NameKeyType oldMod=(NameKeyType)entries[m_stance*2+1];int*entry=entries+value*2;NameKeyType newMod=(NameKeyType)entry[1];
  if(oldMod!=newMod){if(oldMod)obj->removeAttributeModifierFromPool(TheNameKeyGenerator->keyToName(oldMod));if(newMod)obj->addAttributeModifierToPool(TheNameKeyGenerator->keyToName(newMod),-1);}
  if(rider)rider->slot152(entry[2]);
- int oldStance=m_30;int oldClass=rva0045ED4B();m_30=value;int newClass=rva0045ED4B();
+ int oldStance=m_stance;int oldClass=rva0045ED4B();m_stance=value;int newClass=rva0045ED4B();
  if(oldStance==0 || newClass!=oldClass){
- listeners().forEach(&Rva0045EF55Listener::notify,this,oldClass,newClass);
+ ((Rva0045EF55List *)static_cast<Rva00330757Member *>(this))->forEach(&Rva0045EF55Listener::notify,this,oldClass,newClass);
  AIUpdateInterface*ai=obj->m_ai;if(ai && ai->slot110()){
  if(value==1)ai->rva00262D40(0);else if(value==3 || value==4)ai->rva00262D40(1);else if(oldStance==1 || oldStance==3)ai->commands().aiIdle(SOURCE2);
  }}return true;
@@ -436,7 +396,7 @@ void StancesBehavior::xfer(Xfer *xfer)
 	Xfer::Version version(1, 1);
 	*xfer == version;
 	UpdateModule::xfer(xfer);
-	XferStancesEnum(xfer, &m_30);
+	XferStancesEnum(xfer, &m_stance);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCheck.cpp
@@ -445,10 +405,10 @@ void StancesBehavior::xfer(Xfer *xfer)
 
 bool StancesBehavior::changeStanceFromXfer(int value)
 {
-	StanceRider *rider = m_object->getRider();
+	StanceRider *rider = getObject()->getRider();
 	if (rider != 0)
 	{
-		int key = m_moduleData->m_key;
+		int key = ((const StancesBehaviorModuleData *)getModuleData())->m_key;
 		if (key == 0)
 			return false;
 		int *entries = ((Rva004260DE *)TheStancesStore)->rva004260DE(key);
@@ -571,7 +531,7 @@ void Rva0045EF55List::apply(const Rva0045EEC4Call &call)
 
 StancesBehavior::~StancesBehavior()
 {
-	((Rva0045EF37List *)static_cast<Rva00330757List *>(this))->forEach((void (Rva0045EF37Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+	((Rva0045EF37List *)static_cast<Rva00330757Member *>(this))->forEach((void (Rva0045EF37Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 }
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
@@ -614,10 +574,10 @@ NameKeyType StancesBehavior::getModuleNameKey() const
 
 UpdateSleepTime StancesBehavior::update()
 {
-	Object *obj = m_object;
+	Object *obj = getObject();
 	if (obj && obj->testStatus(OBJECT_STATUS_5A))
 		return UPDATE_SLEEP_NONE;
-	if (m_30 == 0)
+	if (m_stance == 0)
 		changeStance(1);
 	return UPDATE_SLEEP_FOREVER;
 }
@@ -628,9 +588,9 @@ UpdateSleepTime StancesBehavior::update()
 // callee changeStance rowed 0x0045F084; caller 0x002673F6; LINK BONUS via.
 void StancesBehavior::rva0045F21C()
 {
-	if (m_30 == 3)
+	if (m_stance == 3)
 		changeStance(5);
-	else if (m_30 == 4)
+	else if (m_stance == 4)
 		changeStance(1);
 }
 
@@ -641,12 +601,12 @@ void StancesBehavior::rva0045F21C()
 // ?rva00262D40@AIUpdateInterface@@QAEXH@Z. Caller 0x00341E66.
 void StancesBehavior::rva0045F235()
 {
-	if (m_30 == 5)
+	if (m_stance == 5)
 		changeStance(3);
-	int stance = m_30;
+	int stance = m_stance;
 	if (stance != 3 && stance != 1 && stance != 4)
 		return;
-	Object *obj = m_object;
+	Object *obj = getObject();
 	if (!obj)
 		return;
 	if (obj->testStatus(OBJECT_STATUS_10))
@@ -660,4 +620,16 @@ void StancesBehavior::rva0045F235()
 	else
 		mode = 0;
 	ai->rva00262D40(mode);
+}
+
+// ?GetSnapshotName@StancesBehavior@@MBEPBDXZ @0x0045EFB6: slot 2 of retail's table 0x00C424DC.
+const char *StancesBehavior::GetSnapshotName() const
+{
+	return "StancesBehavior";
+}
+
+// ?loadPostProcess@StancesBehavior@@MAEXXZ @0x00497805: slot 1, the shared tail jump to UpdateModule's.
+void StancesBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
 }
