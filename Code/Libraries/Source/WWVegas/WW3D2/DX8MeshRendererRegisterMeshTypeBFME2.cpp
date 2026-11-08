@@ -13,11 +13,7 @@
 #include "multilist.h"
 #include "simplevec.h"
 class DX8PolygonRendererClass;
-class MeshModelClass {
-public:
- char pad0[0x18]; unsigned Flags; char SortLevel; char pad1[0x33]; void *VertexBoneLink;
- char pad2[0x48]; MultiListClass<DX8PolygonRendererClass> PolygonRendererList;
-};
+#include "MeshModelClass.h"
 class MaterialPassClass;
 class MeshClass;
 class DX8FVFCategoryContainer: public MultiListObjectClass {
@@ -61,7 +57,6 @@ private:
  SimpleDynVecClass<FVFCategoryList*> texture_category_container_lists_rigid;
  FVFCategoryList *texture_category_container_list_skin;
 };
-typedef char ModelListOffset[(sizeof(MeshModelClass)==0xB4)?1:-1];
 typedef char SkinSize[(sizeof(DX8SkinFVFCategoryContainer)==0xFC)?1:-1];
 void DX8MeshRendererClass::Register_Mesh_Type(MeshModelClass* mmc)
 {

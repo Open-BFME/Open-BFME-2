@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc /Oy
+// cl: /O1 /G7 /DNDEBUG /MD /EHsc /Oy /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // Two more inline-COMDAT instances of the counted-pointer "construct holder, assign through the HAnim combo setter,
 // copy into the hidden return, release" sequence (see W3DViewCameraHandleGet.cpp, 0x000897C8): 0x00136090 (pinned
 // ?Rva00136090MeshHold, MeshModelClass holder) and 0x001007D5 (same body, own EH map). Target evidence: both retail
@@ -6,7 +6,7 @@
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class HAnimClass:public RefCountClass {};
 class HAnimComboDataClass {HAnimClass*HAnim;public: __declspec(noinline) void Set_HAnim(HAnimClass*motion){if(motion)motion->Add_Ref();if(HAnim)HAnim->Release_Ref();HAnim=motion;}};
-class MeshModelClass : public RefCountClass {char opaque[0x20];};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/MeshModelClass.h"
 struct Rva00136090MeshHolder {
  MeshModelClass *pointer;
  Rva00136090MeshHolder():pointer(0){}

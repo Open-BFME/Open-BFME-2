@@ -36,28 +36,10 @@ public:
 	WWINLINE void Get_Translation(Vector3 * set) const { set->X = Row[0][3]; set->Y = Row[1][3]; set->Z = Row[2][3]; }
 };
 
-class MeshGeometryClass : public RefCountClass
-{
-public:
-	// BFME2 bit values, read by Cast_Ray from +0x18.
-	enum FlagsType {
-		ALIGNED =	0x00000200,
-		ORIENTED =	0x00000800,
-	};
+#include "MeshModelClass.h"
 
-	__declspec(dllimport) int Get_Flag(FlagsType flag) { return Flags & flag; }
-	void Get_Bounding_Box(AABoxClass * set_box);
-	bool Cast_Ray(RayCollisionTestClass & raytest);
-	bool Intersect_OBBox(OBBoxIntersectionTestClass & boxtest);
-
-protected:
-	char _bfme_unk_08[0x10];
-	int Flags;                              // +0x18
-};
-
-class MeshModelClass : public MeshGeometryClass
-{
-};
+// Retail inlines MeshGeometryClass::Get_Flag here; the header keeps it out of line.
+static inline int CastRay_Get_Flag(MeshModelClass *model, MeshGeometryClass::FlagsType flag) { return model->Flags & flag; }
 
 // upstream identity and virtual interface:
 // reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/mesh.h
@@ -88,11 +70,11 @@ bool MeshClass::Cast_Ray(RayCollisionTestClass & raytest)
 	Matrix3D world=Get_Transform();
 
 	// if aligned or oriented rotate the mesh so that it's aligned to the ray
-	if (Model->Get_Flag(MeshGeometryClass::ALIGNED)) {
+	if (CastRay_Get_Flag(Model, MeshGeometryClass::ALIGNED)) {
 			Vector3 mesh_position;
 			((const CastRayTranslationView &)world).Get_Translation(&mesh_position);
 			world.Obj_Look_At(mesh_position,mesh_position - raytest.Ray.Get_Dir(),0.0f);
-	} else if (Model->Get_Flag(MeshGeometryClass::ORIENTED)) {
+	} else if (CastRay_Get_Flag(Model, MeshGeometryClass::ORIENTED)) {
 			Vector3 mesh_position;
 			((const CastRayTranslationView &)world).Get_Translation(&mesh_position);
 			world.Obj_Look_At(mesh_position,raytest.Ray.Get_P0(),0.0f);
