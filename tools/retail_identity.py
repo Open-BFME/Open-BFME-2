@@ -45,22 +45,24 @@ def expected(fact):
     raise ValueError(f"unknown retail fact {fact.kind!r}")
 
 
-_verified = [None]        # the image data last held to the manifest: exe_image reads it once per process
+_verified = [None]        # (image bytes, the sha256 they were held to): the object itself, so its identity cannot be reused
 
 
 def image_problem():
-    """Why the image the build reads is not the one the manifest names, or None."""
+    """Why the image the build reads is not the one the manifest names, or None. The manifest is read every
+    time, and a past verdict counts only for these very bytes against that very hash; hashing them once is
+    only a saving, since exe_image serves one object per process."""
     data = build.exe_image()[0]
-    if _verified[0] is data:
-        return None
     wanted = [entry.get("sha256") for entry in json.loads(build.MANIFEST.read_text(encoding="utf-8")).get("files", ())
               if entry.get("path") == "files/" + build.EXE.name]
     if len(wanted) != 1 or not wanted[0]:
         return f"{build.MANIFEST.name} names no one sha256 for {build.EXE.name}"
+    if _verified[0] is not None and _verified[0][0] is data and _verified[0][1] == wanted[0]:
+        return None
     got = hashlib.sha256(data).hexdigest()
     if got != wanted[0]:
         return f"{build.EXE.name} is sha256 {got}, not the manifest's {wanted[0]}"
-    _verified[0] = data
+    _verified[0] = (data, wanted[0])
     return None
 
 

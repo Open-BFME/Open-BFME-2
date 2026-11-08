@@ -244,8 +244,9 @@ def test_the_table_and_its_hash_are_protected_paths():
 
 
 def image_copy(tmp_path, monkeypatch, edit):
-    """The real image with `edit` applied, as the build would read it; skipped where there is none."""
-    import build
+    """The real image with `edit` applied, as the build would read it; skipped where there is none.
+    Patches the module retail_identity reads: a long test run can hold more than one copy of `build`."""
+    build = R.build
     if not Path(build.EXE).exists():
         pytest.skip("no retail image here")
     data = bytearray(Path(build.EXE).read_bytes())
@@ -262,27 +263,58 @@ def test_a_changed_image_states_no_fact(tmp_path, monkeypatch):
     def change_a_byte(data):
         data[len(data) // 2] ^= 0xFF
     image_copy(tmp_path, monkeypatch, change_a_byte)
-    monkeypatch.setattr(R, "_verified", [b"an image verified earlier"])              # that says nothing of this one
+    verified_hash = R.json.loads(R.build.MANIFEST.read_text(encoding="utf-8"))["files"][0]["sha256"]
+    monkeypatch.setattr(R, "_verified", [(b"an image verified earlier", verified_hash)])    # says nothing of this one
     assert "not the manifest's" in R.image_problem()
     problems = R.facts_problems(F.facts())
     assert len(problems) == len(F.facts()) and all("not the manifest's" in p for p in problems)
     assert not R.pin_respell_proven(OLD_GET, NEW_GET, GET)
 
 
+def test_a_verdict_counts_for_those_bytes_against_that_hash(tmp_path, monkeypatch):
+    """Long-lived process: neither other bytes nor a changed manifest may reuse a past verdict."""
+    build = R.build
+    data = b"image"
+    good = R.hashlib.sha256(data).hexdigest()
+    manifest = tmp_path / "manifest.json"
+    entry = '{"files": [{"path": "files/game.dat", "sha256": "%s"}]}'
+    manifest.write_text(entry % good, encoding="utf-8")
+    monkeypatch.setattr(build, "MANIFEST", manifest)
+    monkeypatch.setattr(build, "EXE", tmp_path / "game.dat")
+    monkeypatch.setattr(build, "exe_image", lambda: (data, []))
+    monkeypatch.setattr(R, "_verified", [None])
+    assert R.image_problem() is None
+    assert R._verified[0][0] is data
+    monkeypatch.setattr(R.hashlib, "sha256", lambda raw: pytest.fail("the same bytes and hash were hashed again"))
+    assert R.image_problem() is None
+    monkeypatch.undo()
+    monkeypatch.setattr(build, "MANIFEST", manifest)
+    monkeypatch.setattr(build, "EXE", tmp_path / "game.dat")
+    monkeypatch.setattr(build, "exe_image", lambda: (data, []))
+    manifest.write_text(entry % ("0" * 64), encoding="utf-8")
+    assert "not the manifest's" in R.image_problem()                                  # the manifest changed under it
+    manifest.write_text(entry % good, encoding="utf-8")
+    other = bytes(bytearray(b"image"))                                                # equal bytes, another object: read afresh
+    monkeypatch.setattr(build, "exe_image", lambda: (other, []))
+    assert R.image_problem() is None and R._verified[0][0] is other
+    monkeypatch.setattr(build, "exe_image", lambda: (b"other", []))
+    assert "not the manifest's" in R.image_problem()
+
+
 def test_the_real_image_states_them_all(monkeypatch):
-    import build
+    build = R.build
     if not Path(build.EXE).exists():
         pytest.skip("no retail image here")
     monkeypatch.setattr(R, "_verified", [None])
     assert R.image_problem() is None
-    assert R._verified[0] is build.exe_image()[0]
+    assert R._verified[0][0] is build.exe_image()[0]
     assert R.facts_problems(F.facts()) == []
 
 
 @pytest.mark.parametrize("label, text", [("no entry", '{"files": []}'), ("no hash", '{"files": [{"path": "files/game.dat"}]}'),
                                          ("another image's entry", '{"files": [{"path": "files/other", "sha256": "x"}]}')])
 def test_a_manifest_naming_no_hash_refuses(tmp_path, monkeypatch, label, text):
-    import build
+    build = R.build
     manifest = tmp_path / "manifest.json"
     manifest.write_text(text, encoding="utf-8")
     monkeypatch.setattr(build, "MANIFEST", manifest)
@@ -584,7 +616,7 @@ def test_a_fact_retail_does_not_hold_stops_the_pin(image, admission):
 
 def test_the_table_reads_retail():
     """The real facts on the real image, where one is present."""
-    import build
+    build = R.build
     if not Path(build.EXE).exists():
         pytest.skip("no retail image here")
     assert R.facts_problems(F.facts()) == []
