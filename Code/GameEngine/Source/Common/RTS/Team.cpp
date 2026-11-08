@@ -902,12 +902,6 @@ typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 #include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 typedef BfmeFixedStorage0004543D Rva0039DDC2Filter;
-template<int N>
-class BitFlags
-{
-public:
-	unsigned int m_bits[(N + 31) / 32];
-};
 #include "../Thing/thing.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
@@ -1237,25 +1231,32 @@ struct VideoPair
 };
 #include "../../../Include/GameLogic/Rva000427195.h"
 #include "../../../Include/GameClient/Drawable.h"
+// ?countObjects@Team@@QBEHV?$BitFlags@$0HE@@@0@Z @0x0039DC9E 75B.
+// Team::countObjects(): counts members whose template flags pass testSetAndClear.
+// Evidence: callees rowed 0x00263864 0x0030A146 0x00263526; callers at 0x0039ED4B 0x003BEA80 0x003BEB6F 0x003BEC42 0x004ED617; same 24-byte iterator as siblings.
+template <int N>
+class BitFlags
+{
+public:
+	bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
+private:
+	unsigned m_words[7];
+};
+
 typedef char TeamMemberIteratorABI24[(sizeof(DLINK_ITERATOR<Object>)==24)?1:-1];
-// A production condition equal to this file-scope string is always true
-// (TeamPrototype::evaluateProductionCondition, TeamGetControllingPlayer.cpp). Retail builds
-// it in this TU's .text$yc run (0x007AF334, after the unit's Drawable.h copy 0x007AF324 and
-// before its pool-init marker 0x007AF34F) through the out-of-line AsciiString(const char *)
-// 0x0000654A. Address name kept; the original name is unknown.
+
 #pragma inline_depth( 0 )
 AsciiString g_Va00E028C4("<!TRUE!>");
 #pragma inline_depth()
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
 };
+
 enum KindOfType { KINDOF_INVALID = -1 };
+
 typedef BfmeFixedStorage0004543D Rva0039DF1CFilter;
-
-
-
-
 
 class Object
 {
@@ -1497,6 +1498,14 @@ public:
 };
 
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
+
+// A production condition equal to this file-scope string is always true
+// (TeamPrototype::evaluateProductionCondition, TeamGetControllingPlayer.cpp). Retail builds
+// it in this TU's .text$yc run (0x007AF334, after the unit's Drawable.h copy 0x007AF324 and
+// before its pool-init marker 0x007AF34F) through the out-of-line AsciiString(const char *)
+// 0x0000654A. Address name kept; the original name is unknown.
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp
 
@@ -3595,24 +3604,6 @@ float Rva003ABEFD::rva003A36F7(int)
 	return 0.0f;
 }
 
-// tu-skeleton: 0x0039D599 16B ?Rva0039D599TestBit@@YAHIH@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D7CF 12B ?getControllingPlayer@Team@@QBEPAVPlayer@@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D7DB 101B ?getLocation@Team@@UBE?AVCoord3D@@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamGetLocation.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D84A 63B ?setTeamTargetObject@Team@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D8CC 7B ?rva0039D8CC@Rva0039D8CC@@QBEHHHHH@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D92A 42B ?findTeamByID@TeamPrototype@@QAEPAVTeam@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeFindAndCountInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D954 42B ?countTeamInstances@TeamPrototype@@QAEHXZ -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeFindAndCountInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x0039D97E 101B ?setControllingPlayer@Team@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamSetControllingPlayer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/TeamMemberKindCounts.cpp
 
 int Team::rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) const
@@ -3668,8 +3659,6 @@ void Team::countObjectsByThingTemplate(int numTmplates, const ThingTemplate *con
 	}
 }
 
-// tu-skeleton: 0x0039DC9E 75B ?countObjects@Team@@QBEHV?$BitFlags@$0HE@@@0@Z -- matched in Code/GameEngine/Source/Common/RTS/Team_countObjects.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/Team_hasAnyUnits.cpp
 
 bool Team::hasAnyUnits()
@@ -3719,8 +3708,6 @@ bool Team::hasAnyBuildings(Rva0039DF1CFilter f1, Rva0039DF1CFilter f2)
 	return false;
 }
 
-// tu-skeleton: 0x0039DF87 113B ?rva0039DF87@Team@@QAE_NPAVBfmeTab1026@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp
 
 bool Team::hasAnyObjects(bool bfmeFlag)
@@ -3755,6 +3742,56 @@ bool Team::hasAnyObjects(bool bfmeFlag)
 	return false;
 }
 
+// ---- from Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildFacility.cpp
+
+bool Team::hasAnyBuildFacility()
+{
+	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		Object *cur = iter.cur();
+		ThingTemplate *thingTemplate = cur->m_template;
+		if (thingTemplate->m5E6 != 0)
+			return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x0039D599 16B ?Rva0039D599TestBit@@YAHIH@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D5C1 323B ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D7CF 12B ?getControllingPlayer@Team@@QBEPAVPlayer@@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D7DB 101B ?getLocation@Team@@UBE?AVCoord3D@@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamGetLocation.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D84A 63B ?setTeamTargetObject@Team@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D8CC 7B ?rva0039D8CC@Rva0039D8CC@@QBEHHHHH@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D92A 42B ?findTeamByID@TeamPrototype@@QAEPAVTeam@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeFindAndCountInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D954 42B ?countTeamInstances@TeamPrototype@@QAEHXZ -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeFindAndCountInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x0039D97E 101B ?setControllingPlayer@Team@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamSetControllingPlayer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Team_countObjects.cpp
+
+int Team::countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const
+{
+	int count = 0;
+	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		Object *cur = iter.cur();
+		ThingTemplate *thingTemplate = cur->m_template;
+		if (thingTemplate == 0)
+			continue;
+		if (!((const BitFlags<116> *)thingTemplate->m_kindof)->testSetAndClear(mustBeSet, mustBeClear))
+			continue;
+		++count;
+	}
+	return count;
+}
+
+// tu-skeleton: 0x0039DF87 113B ?rva0039DF87@Team@@QAE_NPAVBfmeTab1026@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp (not merged yet)
+
 // tu-skeleton: 0x0039E0D0 141B ?rva0039E0D0@Team@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/RTS/TeamRva0039E0D0.cpp (not merged yet)
 
 // tu-skeleton: 0x0039E15D 176B ?didAllEnter@Team@@QAE_NPAVPolygonTrigger@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp (not merged yet)
@@ -3780,19 +3817,6 @@ bool Team::hasAnyObjects(bool bfmeFlag)
 // tu-skeleton: 0x0039E76C 134B ?damageTeamMembers@Team@@QAE_NM@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamApplyDamage.cpp (not merged yet)
 
 // tu-skeleton: 0x0039E7F2 35B ?moveTeamTo@Team@@QAEXUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamDidPartialEnter.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildFacility.cpp
-
-bool Team::hasAnyBuildFacility()
-{
-	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-		Object *cur = iter.cur();
-		ThingTemplate *thingTemplate = cur->m_template;
-		if (thingTemplate->m5E6 != 0)
-			return true;
-	}
-	return false;
-}
 
 // tu-skeleton: 0x0039EA0F 18B ??R?$less@U?$pair@HH@_STL@@@_STL@@QBE_NABU?$pair@HH@1@0@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp (not merged yet)
 
