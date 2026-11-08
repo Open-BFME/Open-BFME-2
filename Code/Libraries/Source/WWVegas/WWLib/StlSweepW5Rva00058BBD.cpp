@@ -28,7 +28,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 
 
-struct Rva00058BBDElement { _STL::list<short> values[1]; bool operator==(const Rva00058BBDElement&) const; };
+// Retail's element is a counted handle: the overflow destroys through 0x00054F94 and 0x00051B1E (Release_Ref); copies go through 0x000A8C7C below.
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
+struct Rva00058BBDElement { OpaqueRefElement4 value; bool operator==(const Rva00058BBDElement&) const; };
 
 // Native placement-copy 2393AA calls the owned 0A8C7C counted-handle copy.
 // The old list-shaped view must not instantiate a list copy at that address.
