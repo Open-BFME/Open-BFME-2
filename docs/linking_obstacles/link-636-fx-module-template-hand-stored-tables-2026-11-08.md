@@ -156,3 +156,10 @@ passes. Broad audit stays INCONCLUSIVE at c885072a48/base b7f4e5d3b0 because
 the held unchanged ConstIntGetters4.cpp lacks a current receipt. All six
 claims are released. Full short-table recovery remains blocked and recorded
 at CD40/CD54; the next census/image must cover the support gap.
+
+2026-11-09 C1CDBC recheck: the picker served its pre-repair queue again
+(687433edd9 excludes ee6718dbac by ancestry). Current raw/explicit extent
+is still sixteen, normal twenty code/two data rows pass, and the scoped
+planner reports correct=1 with no bridge or refusal. Source is unchanged;
+recorded a blocked measurement handoff to avoid repeating the landed fix.
+The alpha packet's recheck receipt retains the newer-image requirement.

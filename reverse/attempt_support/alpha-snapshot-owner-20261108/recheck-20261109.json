@@ -1,0 +1,598 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+  "object_sha256": "dd6df18b774b39630672d3922af1a9933e4266234d9100f79210b18a94bbe917",
+  "strict_current": true,
+  "code_rows": 20,
+  "verified_owner": {
+    "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+    "address": "0x00C1CDBC",
+    "address_kind": "va",
+    "size": "16",
+    "section": ".rdata",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+    "status": "matched",
+    "evidence": "Complete compiler-emitted Snapshot subobject table at native +1C: constructor operands bind VA C1CDBC; all four code/relocation targets match 3ABCAD/B3FD0/3ABC9F/3ABCA5; next verified datum C1CDCC bounds16B. Supersedes one-byte char placeholder without lost data coverage. No original class/layout recovery claim.",
+    "model": "gpt-6.1-sol"
+  },
+  "raw_index": {
+    "address": "0x0081CDBC",
+    "size": "16",
+    "section": ".rdata",
+    "kind": "vtable",
+    "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+    "status": "owned",
+    "names": "",
+    "defs": "0",
+    "refs": "3"
+  },
+  "plan": {
+    "tables": 0,
+    "retail_tables": 0,
+    "slots": 0,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 0,
+    "refusal_reasons": {},
+    "already_correct": 1,
+    "entries": [],
+    "refusals": [],
+    "correct": [
+      {
+        "rva": 8506812,
+        "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+        "names": [
+          "??_7Rva003ABC6E@@6BSnapshot@@@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+            "row_rva": 3849326,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+            "names": [
+              "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+              "??_7Rva003ABC6E@@6BSnapshot@@@"
+            ],
+            "offset": 39,
+            "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+            "rva": 8506812
+          },
+          {
+            "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+            "row_rva": 3854076,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+            "names": [
+              "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+              "??_7Rva003ABC6E@@6BSnapshot@@@"
+            ],
+            "offset": 39,
+            "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+            "rva": 8506812
+          }
+        ],
+        "name_addresses": {
+          "??_7Rva003ABC6E@@6BSnapshot@@@": [
+            8506812
+          ]
+        },
+        "slots": 4,
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+        "previous_extent": 16,
+        "source_slot_mismatches": [],
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj"
+      }
+    ],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849107,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@"
+          ],
+          "offset": 25,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849107,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@"
+          ],
+          "offset": 32,
+          "name": "??_7Rva005EBCC0Object@@6B@",
+          "rva": 8506688
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849326,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849326,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+          "rva": 8506812
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849397,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849397,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABCB5@@6BSnapshot@@@",
+          "rva": 8506848
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849792,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 18,
+          "name": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+          "rva": 8506708
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 25,
+          "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8506704
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 32,
+          "name": "??_7Rva005EBCC0Object@@6B@",
+          "rva": 8506688
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854076,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+          "rva": 8505600
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854076,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABC6E@@6BSnapshot@@@",
+          "rva": 8506812
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854130,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+          "rva": 8505680
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854130,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABCB5@@6BSnapshot@@@",
+          "rva": 8506848
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854592,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@",
+          "rva": 8505916
+        }
+      ],
+      "rejected": [],
+      "names": 9,
+      "unindexed": [
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849107,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@"
+          ],
+          "offset": 25,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849107,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@"
+          ],
+          "offset": 32,
+          "name": "??_7Rva005EBCC0Object@@6B@",
+          "rva": 8506688
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849326,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849397,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849397,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABCB5@@6BSnapshot@@@",
+          "rva": 8506848
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849792,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 18,
+          "name": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+          "rva": 8506708
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 25,
+          "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8506704
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 32,
+          "name": "??_7Rva005EBCC0Object@@6B@",
+          "rva": 8506688
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854076,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+          "rva": 8505600
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854130,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+          "rva": 8505680
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854130,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABCB5@@6BSnapshot@@@",
+          "rva": 8506848
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854592,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@",
+          "rva": 8505916
+        }
+      ],
+      "native_names_without_address_binding": [],
+      "new_name_bindings": [
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849107,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@"
+          ],
+          "offset": 25,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849107,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@"
+          ],
+          "offset": 32,
+          "name": "??_7Rva005EBCC0Object@@6B@",
+          "rva": 8506688
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849326,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849397,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849397,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABCB5@@6BSnapshot@@@",
+          "rva": 8506848
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3849792,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8505216
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 18,
+          "name": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+          "rva": 8506708
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 25,
+          "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+          "rva": 8506704
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3853916,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@",
+            "??_7Rva005EBCC0Object@@6B@",
+            "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"
+          ],
+          "offset": 32,
+          "name": "??_7Rva005EBCC0Object@@6B@",
+          "rva": 8506688
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854076,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+            "??_7Rva003ABC6E@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@",
+          "rva": 8505600
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854130,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+          "rva": 8505680
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854130,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@",
+            "??_7Rva003ABCB5@@6BSnapshot@@@"
+          ],
+          "offset": 39,
+          "name": "??_7Rva003ABCB5@@6BSnapshot@@@",
+          "rva": 8506848
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp",
+          "row_rva": 3854592,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+          "names": [
+            "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@"
+          ],
+          "offset": 32,
+          "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@",
+          "rva": 8505916
+        }
+      ]
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  },
+  "queue_head": "# real link at 687433edd9a14a5ee360f2641bac84a135429a94: tools/exit_link.py --blockers",
+  "queue_commit_contains_published_repair": false,
+  "repair_commit": "ee6718dbac",
+  "scope": "Stale queue recheck. No source, ledger, gate or coverage change."
+}

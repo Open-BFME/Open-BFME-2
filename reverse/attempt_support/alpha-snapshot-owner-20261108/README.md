@@ -65,3 +65,16 @@ Common/ConstIntGetters4.cpp lacks a current receipt against index
 c885072a48/outgoing base15b108ac973d532bd4531bf8693f537b4355fb9a.
 Carry that consumer into the next census/image check. The scoped native
 table is correct; complete image/link/runtime clearance is not claimed.
+
+## 2026-11-09 stale queue recheck
+
+The picker served C1CDBC again from the queue measured at 687433edd9
+(22:07 UTC), before the published ee6718dbac index repair (22:49 UTC).
+Git ancestry confirms that measurement excludes the repair. Current normal
+verification passes all twenty emitter rows and its two data rows; the raw
+index and explicit owner both retain the complete 16-byte Snapshot table.
+The unchanged planner returns already_correct=1, zero bridges and zero
+refusals for this table. `recheck-20261109.json` records current inputs and
+the stale measurement boundary. No source or ledger repair was repeated.
+Queue confirmation still awaits a newer maintained real link, so the table
+gets a blocked measurement handoff and its reservations are released.
