@@ -13,11 +13,6 @@
 // for out/copy); exact function identity unproven.
 #include <string.h>
 
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
-
 class Rva002C7492
 {
 public:
@@ -55,6 +50,6 @@ WeaponTemplateSetHead *__cdecl rva002C777E(WeaponTemplateSetHead *out, int idx)
 		memset(&head, 0, 0x4C);
 		break;
 	}
-	new (out) WeaponTemplateSetHead((const WeaponTemplateSetHead &)head);
+	out->WeaponTemplateSetHead::WeaponTemplateSetHead((const WeaponTemplateSetHead &)head);
 	return out;
 }
