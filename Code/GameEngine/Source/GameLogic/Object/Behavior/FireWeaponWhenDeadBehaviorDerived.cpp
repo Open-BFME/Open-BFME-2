@@ -230,13 +230,12 @@ Rva004B5D0B::~Rva004B5D0B()
 {
 }
 
-class Rva004B611C : public UpgradeModule
-{
-public:
-	virtual ~Rva004B611C();
-};
+// ExperienceScalarUpgrade's destructor 0x004B611C: its constructor 0x004B61C6
+// installs the same four tables. The class is ExperienceScalarUpgrade.h's, so this
+// unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/ExperienceScalarUpgrade.h"
 
-Rva004B611C::~Rva004B611C()
+ExperienceScalarUpgrade::~ExperienceScalarUpgrade()
 {
 }
 

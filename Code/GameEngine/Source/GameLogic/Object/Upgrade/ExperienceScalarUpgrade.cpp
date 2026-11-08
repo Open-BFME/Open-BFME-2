@@ -104,19 +104,7 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class ExperienceScalarUpgrade : public UpgradeModule
-{
-protected:
-	virtual void upgradeRemovalImplementation();
-protected:
-	virtual void upgradeImplementation();
-private:
-	const ExperienceScalarUpgradeModuleData *getExperienceScalarUpgradeModuleData() const { return (const ExperienceScalarUpgradeModuleData *)m_moduleData; }
-public:
-	virtual NameKeyType getModuleNameKey() const;
-public:
-	ExperienceScalarUpgrade( Thing *thing, const ModuleData *moduleData );
-};
+#include "../../../../Include/GameLogic/Module/ExperienceScalarUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgrade.cpp
 
@@ -181,4 +169,32 @@ ExperienceScalarUpgrade::ExperienceScalarUpgrade(
 {
 }
 
-// tu-skeleton: 0x004B61F7 28B ??_GRva004B611C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B61F7 28B ??_GExperienceScalarUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// ?xfer@ExperienceScalarUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C584E8 is
+// 0x004B8710, version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+void ExperienceScalarUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
+}

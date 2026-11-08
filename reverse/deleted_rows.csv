@@ -5867,3 +5867,5 @@ __ehhandler$??0Rva005F00FB@@QAE@XZ,0x007A4B0D,"Renamed to __ehhandler$??0MappedI
 ??_GRva004B63BD@@UAEPAXI@Z,0x004B6516,"Renamed to ??_GModelConditionUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58658)"
 ??1Rva004B57CE@@UAE@XZ,0x004B57CE,"Renamed to ??1GarrisonUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C58088)"
 ??_GRva004B57CE@@UAEPAXI@Z,0x004B586A,"Renamed to ??_GGarrisonUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58088)"
+??1Rva004B611C@@UAE@XZ,0x004B611C,"Renamed to ??1ExperienceScalarUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C584E8)"
+??_GRva004B611C@@UAEPAXI@Z,0x004B61F7,"Renamed to ??_GExperienceScalarUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C584E8)"
