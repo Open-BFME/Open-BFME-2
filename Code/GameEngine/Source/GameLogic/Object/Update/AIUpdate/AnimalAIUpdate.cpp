@@ -58,24 +58,15 @@ enum UpdateSleepTime
 
 #include "../../../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getUnitDirectionVector2D() const;	// 0x0030A25F
-private:
-	void *m_vtbl;
-	const ThingTemplate *m_template;
-};
+#include "../../../../Common/Thing/thing.h"
+
 
 class Object : public Thing
 {
 public:
-	const Coord3D *getPosition() const { return &m_pos; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
 	ObjectID getID() const { return m_id; }
-	char m_pad08[0x38 - 0x08];
-	Coord3D m_pos;
-	char m_pad44[0x74 - 0x44];
+	char m_pad60[0x74 - 0x60];
 	ObjectID m_id;
 	char m_pad78[0x1ac - 0x78];
 	float m_fleeDistance;

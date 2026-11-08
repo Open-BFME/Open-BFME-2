@@ -1,0 +1,31 @@
+{
+  "total": 2505,
+  "exact": 2504,
+  "exceptions": {
+    "?processWrapper@NetCommandWrapperList@@QAEXPAVNetCommandRef@@@Z@0x0058C11F": [
+      "bytes_differ",
+      ".text$x @0x79CEF0: 6 byte(s)",
+      "Code/GameEngine/Source/GameNetwork/NetCommandWrapperList.cpp"
+    ]
+  },
+  "animal": {
+    "?getModuleNameKey@AnimalAIUpdate@@UBE?AW4NameKeyType@@XZ@0x0047EC1A": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp"
+    ],
+    "?rva0047ED64@Rva0047ED64@@QAEXPAXW4CommandSourceType@@@Z@0x0047ED64": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp"
+    ],
+    "?update@AnimalAIUpdate@@UAE?AW4UpdateSleepTime@@XZ@0x0047EDC9": [
+      "EXACT",
+      "",
+      "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp"
+    ]
+  },
+  "row_checks": 18890,
+  "source_count": 1734,
+  "new_variants_exit_code": 0
+}

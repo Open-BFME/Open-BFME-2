@@ -1,0 +1,28 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp",
+  "retained_code_comdat_facts_flags_policies_equal": true,
+  "retained_comdats": 63,
+  "named_data_allocations_equal": true,
+  "named_data_count": 30,
+  "undefined_references_equal": true,
+  "removed_definitions": [],
+  "added_definitions": [
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "retained_getter_body_hex": "8b4104c3",
+  "getter_native_address_not_claimed": true,
+  "iterator_native_bytes_equal": true,
+  "iterator_flags_and_policy_equal_to_atl_provider": true,
+  "header_sha256": "906b07a977d3e0e70b01fff3a6a8638fe2a8ca548382bcb09435a5e1182f0147",
+  "getter_providers_in_verified_scope": 13,
+  "getter_variants": [
+    {
+      "digest": "78e4fbf1d9d9",
+      "size": 4,
+      "copies": 13
+    }
+  ],
+  "different_getter_bodies": [],
+  "original_object_sha256": "d3b795a993c19ad4697dc52f3d5211e4cd7745b038d0034ebecedd46eb858c66",
+  "current_object_sha256": "790f771e833e8a7a7ddacebb94e60db987220c8f1ac2370e79ae161270fd5f94"
+}

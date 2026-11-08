@@ -546,3 +546,15 @@ INCONCLUSIVE: index d171e84869 versus outgoing base
 lacks a current receipt. Ordinary preview conserves LINKS/807 and still
 reports unchanged, unreferenced clearStatusBit/setStatusBit variants; those
 are not cleared by this header adoption.
+
+**2026-11-08 canonical Thing accessor / AnimalAIUpdate:** the existing
+getTemplate accessor gains its inline body after the canonical class; Animal
+adopts the header and preserves accessed Object offsets. The final header
+form passes 18,890 row checks across 1,734 sources and 2,504 exact EH graphs;
+one existing baselined NetCommandWrapperList exception is outside this header
+dependency. All 15 Animal rows and three EH graphs pass; one owning-tool
+header debt is retired. All 13 emitted getters in scope retain the existing
+four-byte body. Full-scope variant checking passes. No native accessor RVA,
+new coverage or image/runtime clearance is claimed. Remaining Animal AI
+interface/header and TU work stays open.
+[Declaration-order controls and scope proof](../../reverse/attempt_support/animal-ai-thing-adoption-20261108/README.md).

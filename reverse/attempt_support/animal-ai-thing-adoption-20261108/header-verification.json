@@ -1,0 +1,67 @@
+{
+  "header": "Code/GameEngine/Source/Common/Thing/thing.h",
+  "sources": 1734,
+  "chunks": 11,
+  "completed_sources": 1734,
+  "scope_sha256": "12c28f426d564711579bd3742236d509d14baeefe5d5798a8b62445e10597558",
+  "results": [
+    {
+      "chunk": 1,
+      "sources": 207,
+      "exit_code": 0
+    },
+    {
+      "chunk": 2,
+      "sources": 215,
+      "exit_code": 0
+    },
+    {
+      "chunk": 3,
+      "sources": 173,
+      "exit_code": 0
+    },
+    {
+      "chunk": 4,
+      "sources": 178,
+      "exit_code": 0
+    },
+    {
+      "chunk": 5,
+      "sources": 151,
+      "exit_code": 0
+    },
+    {
+      "chunk": 6,
+      "sources": 173,
+      "exit_code": 0
+    },
+    {
+      "chunk": 7,
+      "sources": 151,
+      "exit_code": 0
+    },
+    {
+      "chunk": 8,
+      "sources": 160,
+      "exit_code": 0
+    },
+    {
+      "chunk": 9,
+      "sources": 147,
+      "exit_code": 0
+    },
+    {
+      "chunk": 10,
+      "sources": 152,
+      "exit_code": 0
+    },
+    {
+      "chunk": 11,
+      "sources": 27,
+      "exit_code": 0
+    }
+  ],
+  "byte_checks_passed": true,
+  "elapsed_seconds": 245.0,
+  "eh_exit_code": 0
+}

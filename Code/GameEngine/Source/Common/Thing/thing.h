@@ -98,4 +98,7 @@ public:
 	int m_cacheFlags;								// +0x5C
 };
 
+// Keep this definition after the class so existing callers retain their code generation.
+inline const ThingTemplate *Thing::getTemplate() const { return m_template; }
+
 #endif // __BFME2_THING_H_

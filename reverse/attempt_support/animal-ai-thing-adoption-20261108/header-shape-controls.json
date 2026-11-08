@@ -1,0 +1,29 @@
+{
+  "committed-declaration": {
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp": {
+      "rows": 44,
+      "matched": 44,
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\ba5230e1706a037a.obj"
+    }
+  },
+  "implicit-inline": {
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp": {
+      "rows": 44,
+      "matched": 43,
+      "missing": [
+        "?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+      ],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\ba5230e1706a037a.obj"
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp": {
+      "rows": 15,
+      "matched": 15,
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\72f4a257279725b9.obj"
+    }
+  }
+}
