@@ -50,7 +50,6 @@ public:
     CategoryModuleTemplate();
     CategoryModuleTemplate(const CategoryModuleTemplate<7> &that);
     virtual ~CategoryModuleTemplate();
-    virtual void v1();
 };
 
 template <int N>

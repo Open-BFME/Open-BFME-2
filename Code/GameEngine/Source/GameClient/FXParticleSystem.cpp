@@ -213,8 +213,14 @@ class CategoryModuleTemplate : public CategoryModuleTemplateBase<CATEGORY_ARG>,
 {
 public:
     CategoryModuleTemplate();
-    virtual void v1();
+    __declspec(noinline) CategoryModuleTemplate(const CategoryModuleTemplate<CATEGORY_ARG> &that);
 };
+
+template <int CATEGORY_ARG>
+CategoryModuleTemplate<CATEGORY_ARG>::CategoryModuleTemplate(const CategoryModuleTemplate<CATEGORY_ARG> &that)
+    : CategoryModuleTemplateBase<CATEGORY_ARG>(that), CategoryInfo<CATEGORY_ARG>::Type(that)
+{
+}
 
 template <int CATEGORY_ARG>
 inline CategoryModuleTemplate<CATEGORY_ARG>::CategoryModuleTemplate() {}
@@ -227,15 +233,15 @@ CategoryModuleTemplate<6>::~CategoryModuleTemplate();
 
 // The retail instantiations are reached through derived module templates, so
 // nothing in this translation unit would emit their constructors on its own.
-// A file-scope instance of each is what forces them out.
-CategoryModuleTemplate<0> g_categoryModuleTemplate0;
-CategoryModuleTemplate<1> g_categoryModuleTemplate1;
-CategoryModuleTemplate<2> g_categoryModuleTemplate2;
-CategoryModuleTemplate<3> g_categoryModuleTemplate3;
-CategoryModuleTemplate<4> g_categoryModuleTemplate4;
-CategoryModuleTemplate<5> g_categoryModuleTemplate5;
-CategoryModuleTemplate<6> g_categoryModuleTemplate6;
-CategoryModuleTemplate<8> g_categoryModuleTemplate8;
+// An explicit instantiation of each constructor is what forces them out.
+template CategoryModuleTemplate<0>::CategoryModuleTemplate();
+template CategoryModuleTemplate<1>::CategoryModuleTemplate();
+template CategoryModuleTemplate<2>::CategoryModuleTemplate();
+template CategoryModuleTemplate<3>::CategoryModuleTemplate();
+template CategoryModuleTemplate<4>::CategoryModuleTemplate();
+template CategoryModuleTemplate<5>::CategoryModuleTemplate();
+template CategoryModuleTemplate<6>::CategoryModuleTemplate();
+template CategoryModuleTemplate<8>::CategoryModuleTemplate();
 
 typedef CategoryModuleTemplate<8> EventCategoryModuleTemplate;
 typedef EventCategoryModuleTemplate &(EventCategoryModuleTemplate::*EventCategoryAssign)(
@@ -271,16 +277,12 @@ EventModuleInfoAssign g_eventModuleInfoAssign = &EventModuleInfo::operator=;
 
 // The generated copy constructor is not emitted by the file-scope instances,
 // which only ever default-construct; this is what forces it out.
-CategoryModuleTemplate<8> *fxCopyEventCategoryModuleTemplate(void *storage,
-    const CategoryModuleTemplate<8> &that)
-{
-    return new (storage) CategoryModuleTemplate<8>(that);
-}
+template CategoryModuleTemplate<8>::CategoryModuleTemplate(const CategoryModuleTemplate<8> &);
 
 // Every category whose info base is the empty ModuleInfo produces the same copy
 // constructor - base copy, then the two vtable stores - so ICF folds all seven
 // onto 0x0004CB7B. These force each one out.
-#define FX_FORCE_CATEGORY_COPY(N)                                                  CategoryModuleTemplate<N> *fxCopyCategoryModuleTemplate##N(void *storage,           const CategoryModuleTemplate<N> &that)                                     {                                                                                  return new (storage) CategoryModuleTemplate<N>(that);                       }
+#define FX_FORCE_CATEGORY_COPY(N) template CategoryModuleTemplate<N>::CategoryModuleTemplate(const CategoryModuleTemplate<N> &);
 
 FX_FORCE_CATEGORY_COPY(0)
 FX_FORCE_CATEGORY_COPY(1)
@@ -943,7 +945,6 @@ template CategoryModuleTemplateBase<7>::CategoryModuleTemplateBase();
 
 // The wind constructor needs EH cleanup; its definition is compiled separately.
 template <> CategoryModuleTemplate<7>::CategoryModuleTemplate();
-CategoryModuleTemplate<7> g_categoryModuleTemplate7;
 
 // Its generated assignment rides here for the same reason: it assigns the
 // base, then the wind info at offset 8.
@@ -952,11 +953,7 @@ typedef CategoryModuleTemplate<7> &(CategoryModuleTemplate<7>::*CategoryModuleTe
 
 CategoryModuleTemplateAssign7 g_categoryModuleTemplateAssign7 = &CategoryModuleTemplate<7>::operator=;
 
-CategoryModuleTemplate<7> *fxCopyWindCategoryModuleTemplate(void *storage,
-    const CategoryModuleTemplate<7> &that)
-{
-    return new (storage) CategoryModuleTemplate<7>(that);
-}
+template CategoryModuleTemplate<7>::CategoryModuleTemplate(const CategoryModuleTemplate<7> &);
 
 // Three more info classes read straight off their generated assignments: a
 // movsd run is a three-float group, a lone dword move is a loose float, and a
@@ -2224,15 +2221,6 @@ void Rva001F42BA::call(int a)
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$0A@@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$00@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$01@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$02@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$03@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$04@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$05@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$07@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$06@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
