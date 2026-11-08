@@ -35,30 +35,30 @@ public:
 extern "C" char __identifier("??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@");
 extern "C" char Rva003AEB0A_v14a;
 extern "C" char Rva003AEB0A_v18a;
-// Rva003AEB0A_vsub: matched references place it at VA 0xc1d628 (retail .rdata value -114).
-extern "C" char Rva003AEB0A_vsub = -114;
-// Rva003AEB0A_v0b: matched references place it at VA 0xc1d60c (retail .rdata value -10).
-extern "C" char Rva003AEB0A_v0b = -10;
+// VA 0xc1d628: the compiler table the owning class's unit emits there.
+extern "C" char __identifier("??_7Rva0055BF4B@@6B@");
+// VA 0xc1d60c: the compiler table the owning class's unit emits there.
+extern "C" char __identifier("??_7Rva0055BF4B@@6BDefaultModuleHeadBase@@@");
 extern "C" char Rva003AEB0A_v14b;
 extern "C" char Rva003AEB0A_v18b;
 
 extern "C" char __identifier("??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@");
 extern "C" char Rva003AEBC9_v14a;
 extern "C" char Rva003AEBC9_v18a;
-// Rva003AEBC9_vsub: matched references place it at VA 0xc1d678 (retail .rdata value -114).
-extern "C" char Rva003AEBC9_vsub = -114;
-// Rva003AEBC9_v0b: matched references place it at VA 0xc1d654 (retail .rdata value -10).
-extern "C" char Rva003AEBC9_v0b = -10;
+// VA 0xc1d678: the compiler table the owning class's unit emits there.
+extern "C" char __identifier("??_7Rva0055F197@@6B@");
+// VA 0xc1d654: the compiler table the owning class's unit emits there.
+extern "C" char __identifier("??_7Rva0055F197@@6BDefaultModuleHeadBase@@@");
 extern "C" char Rva003AEBC9_v14b;
 extern "C" char Rva003AEBC9_v18b;
 
 extern "C" char __identifier("??_7Rva0055F98A@@6BDefaultModuleHeadBase@@@");
 extern "C" char Rva003AEC8B_v14a;
 extern "C" char Rva003AEC8B_v18a;
-// Rva003AEC8B_vsub: matched references place it at VA 0xc1d6b8 (retail .rdata value -114).
-extern "C" char Rva003AEC8B_vsub = -114;
-// Rva003AEC8B_v0b: matched references place it at VA 0xc1d688 (retail .rdata value -10).
-extern "C" char Rva003AEC8B_v0b = -10;
+// VA 0xc1d6b8: the compiler table the owning class's unit emits there.
+extern "C" char __identifier("??_7Rva0055F9B4@@6B@");
+// VA 0xc1d688: the compiler table the owning class's unit emits there.
+extern "C" char __identifier("??_7Rva0055F9B4@@6BDefaultModuleHeadBase@@@");
 extern "C" char Rva003AEC8B_v14b;
 extern "C" char Rva003AEC8B_v18b;
 
@@ -98,8 +98,8 @@ Rva003AEB0A::Rva003AEB0A(const Rva003AEB0A &that)
 	*(void **)((char *)this + 0x18) = &Rva003AEB0A_v18a;
 	sub->DefaultColorModuleInfo::DefaultColorModuleInfo(
 		*(const FXParticleSystem::DefaultColorModuleInfo *)sub_src);
-	*(void **)sub = &Rva003AEB0A_vsub;
-	*(void **)this = &Rva003AEB0A_v0b;
+	*(void **)sub = &__identifier("??_7Rva0055BF4B@@6B@");
+	*(void **)this = &__identifier("??_7Rva0055BF4B@@6BDefaultModuleHeadBase@@@");
 	*(void **)((char *)this + 0x14) = &Rva003AEB0A_v14b;
 	*(void **)((char *)this + 0x18) = &Rva003AEB0A_v18b;
 }
@@ -130,8 +130,8 @@ Rva003AEBC9::Rva003AEBC9(const Rva003AEBC9 &that)
 	*(void **)((char *)this + 0x18) = &Rva003AEBC9_v18a;
 	sub->DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(
 		*(const FXParticleSystem::DefaultPhysicsModuleInfo *)sub_src);
-	*(void **)sub = &Rva003AEBC9_vsub;
-	*(void **)this = &Rva003AEBC9_v0b;
+	*(void **)sub = &__identifier("??_7Rva0055F197@@6B@");
+	*(void **)this = &__identifier("??_7Rva0055F197@@6BDefaultModuleHeadBase@@@");
 	*(void **)((char *)this + 0x14) = &Rva003AEBC9_v14b;
 	*(void **)((char *)this + 0x18) = &Rva003AEBC9_v18b;
 }
@@ -162,8 +162,8 @@ Rva003AEC8B::Rva003AEC8B(const Rva003AEC8B &that)
 	*(void **)((char *)this + 0x18) = &Rva003AEC8B_v18a;
 	sub->DefaultUpdateModuleInfo::DefaultUpdateModuleInfo(
 		*(const FXParticleSystem::DefaultUpdateModuleInfo *)sub_src);
-	*(void **)sub = &Rva003AEC8B_vsub;
-	*(void **)this = &Rva003AEC8B_v0b;
+	*(void **)sub = &__identifier("??_7Rva0055F9B4@@6B@");
+	*(void **)this = &__identifier("??_7Rva0055F9B4@@6BDefaultModuleHeadBase@@@");
 	*(void **)((char *)this + 0x14) = &Rva003AEC8B_v14b;
 	*(void **)((char *)this + 0x18) = &Rva003AEC8B_v18b;
 }
