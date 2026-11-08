@@ -399,13 +399,15 @@ ASM_REFUSED = [
     ".MODEL flat, c", "_DATA SEGMENT", "END include", "ALIGN x_", "_f::", "    nop\rinclude x.inc",
     "    nop\x1ainclude x.inc", "    nop ; caf\u00e9", "    rep movsd", "    mov eax, [eax*4]",
     "    mov eax, x.y", "    mov eax, @Environ(PATH)",
+    # words no tracked source uses (round 6)
+    ".486", ".586", ".XMM", "    dd 0", "    dw 0", "_x DWORD 0", "    mov eax, fs:[0]",
 ]
 ASM_ALLOWED = [
     "; for each entry, include the bias", "    mov eax, 1 ; repeat while x", "x_ = 5", "x_ EQU 5", "x_=0FFh",
     "x_ EQU -1", "PUBLIC _f, ?g@@YAXXZ", "PUBLIC _f,\n    _g", "_f PROC", "_f ENDP", "    jmp eax",
     "_TEXT SEGMENT", "_TEXT ENDS", "END", "END _f", ".386", ".MMX", ".model FLAT", "EXTERN _g:PROC",
     "EXTRN _h:DWORD, _i:WORD", "ASSUME fs:nothing", "ALIGN 16", "EVEN", "ORG 0", "    db 0E8h, 00h",
-    "_x DWORD 0", "lbl_:", "lbl_:nop", "lbl_:\tmov eax, dword ptr fs:[0]",
+    "_x DB 0", "lbl_:", "lbl_:nop", "lbl_:\tmov eax, dword ptr [eax]",
     "    jz NEAR PTR cleanup_done_0075D09B", "    fsubp st(1), st", "    movq mm0, qword ptr [eax + 10h]",
     "done:", "    jmp done", "    push eax \\\n    ; the rest of the line", "    mov eax, 1\r\n    ret",
 ]

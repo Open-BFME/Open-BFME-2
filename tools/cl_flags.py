@@ -302,21 +302,23 @@ def _asm_directive(code, words, head):
     return f"{words[0]!r} begins no statement in the grammar"
 
 
-# The grammar's words. Each is used by a tracked assembler source (most are Code/gen_asm dumps of
-# `db`; the rest hand-written MMX and x87 helpers); add one only with the source that needs it.
-ASM_CPUS = frozenset({".386", ".486", ".586", ".686", ".mmx", ".xmm"})
+# The grammar's words. Every word in these sets is used, in that position, by a tracked assembler
+# source (most are Code/gen_asm dumps of `db`; the rest hand-written MMX and x87 helpers); add one
+# only with the source that needs it. ALIGN, EVEN, ORG, the two equates and OPTION (with no
+# argument) are forms of the reviewed grammar that no tracked source uses.
+ASM_CPUS = frozenset({".386", ".686", ".mmx"})
 ASM_MODELS = frozenset({"flat"})
 ASM_SEGMENTS = frozenset({"_text"})
 ASM_EXTERN_TYPES = frozenset({"proc", "dword", "word"})
 ASM_ASSUME_REGISTERS = frozenset({"fs"})
-ASM_DATA = frozenset({"db", "dw", "dd", "dq", "dt", "df", "byte", "word", "dword", "qword"})
+ASM_DATA = frozenset({"db"})
 ASM_OPTIONS = frozenset()     # OPTION <argument>: no tracked source uses one
 ASM_MNEMONICS = frozenset("""
     adc add and call fild fistp fld fst fstp fsubp inc je jmp jne jns jz lea leave mov movq neg nop paddsw
     paddw pand pmulhw pmullw pop por psllq psraw psrlq psubsw psubw punpckhdq punpckhwd punpckldq punpcklwd
     push pxor ret sbb sub test xor""".split())
 ASM_OPERAND_WORDS = frozenset("""
-    eax ebx ecx edx esi edi ebp esp fs st byte word dword qword ptr near""".split()
+    eax ebx ecx edx esi edi ebp esp st byte word dword qword ptr near""".split()
     + [f"mm{n}" for n in range(8)]      # Code/Libraries/Source/VP6/MmxIDct.asm
     + ["bl"])                           # Code/masm_dumps/VersionSignatureCheckPatched.asm
 # names with none of _ ? $ @, each checked to be no MASM keyword: ftol2.asm's labels

@@ -673,9 +673,9 @@ macros or a label run into it, so `build.py` assembles only the grammar the tree
 assembler sources use (all generated or dumped; `cl_flags.asm_refusals`): printable
 ASCII, `;` comments, `\` and trailing-comma continuations joined; each statement an
 optional `label:` alone or before an instruction from a fixed mnemonic list, or one of
-`.386`-style CPU directives, `.MODEL flat`, `_TEXT SEGMENT`/`ENDS`, `PROC`/`ENDP`,
-`PUBLIC`, `EXTERN name:type`, `ASSUME fs:nothing`, `ALIGN`, `EVEN`, `ORG`, data
-(`DB`...`QWORD`), `END`, `name = number` and `name EQU number`. Operand words are
+`.386`, `.686`, `.MMX`, `.MODEL flat`, `_TEXT SEGMENT`/`ENDS`, `PROC`/`ENDP`,
+`PUBLIC`, `EXTERN name:type`, `ASSUME fs:nothing`, `ALIGN`, `EVEN`, `ORG`, `DB`
+data, `END`, `name = number` and `name EQU number`. Operand words are
 numbers, registers and size words from a fixed list, or names holding `_`, `?`, `$` or
 `@`, which no MASM keyword does (four plain labels in ftol2.asm are listed). Anything
 else is refused, any earlier object and receipt deleted, and never current; widen a list
