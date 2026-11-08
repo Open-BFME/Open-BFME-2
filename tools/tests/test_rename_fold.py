@@ -364,6 +364,15 @@ def test_refused_when_one_file_would_declare_new_twice(tree, monkeypatch):
         plan(tree)
 
 
+def test_refused_when_one_file_would_declare_new_twice_behind_a_declspec(tree, monkeypatch):
+    # BuddyThread.cpp defines BuddyThreadClass beside its placeholder view
+    # `class __declspec(novtable) Rva0055133F`; the class-head pattern missed it.
+    retail(monkeypatch)
+    append(tree, "Code/Game/BaseCtor.cpp", f"class __declspec(novtable) {NEW} {{ public: virtual ~{NEW}(); }};\n")
+    with pytest.raises(Refusal, match="would declare class Rva00402000 twice"):
+        plan(tree)
+
+
 # ------------------------------------------------------------ pins
 
 def test_refused_when_a_renamed_pin_would_name_another_address(tree, monkeypatch):
@@ -1162,6 +1171,58 @@ def test_a_destructor_only_fold_still_refuses_a_third_deleting_destructor_in_a_s
     d_retail(monkeypatch, {TABLE: ([PURECALL, D_GDTOR, 0x00405100], {0x00401002: 0})})
     with pytest.raises(Refusal, match="slot 2 holds Other's deleting destructor"):
         d_plan(root)
+
+
+def test_a_destructor_only_fold_refuses_a_deleting_destructor_other_tables_also_hold(tmp_path, monkeypatch):
+    # 0x00537E60 (??_GRva00535776): one ICF-folded deleting destructor in slot
+    # 0 of three preferences classes' tables; the slot of T named none of
+    # them, yet the fold passed into each. Another class's own table holding
+    # the same body makes the slot no tie.
+    root = make_dtor_tree(tmp_path, ledger_text=d_ledger(
+        "0x00800200,8,.rdata,vtable,??_7Other@@6B@,,literal,??_7Other@@6B@,0,1\n"))
+    tables = d_tables()
+    tables[OTHER_TABLE] = ([D_GDTOR, PURECALL], {0x00405002: 0})       # ??0Other's own table
+    d_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=r"also slot 0 of retail vftable 0x00C00200: an ICF-folded deleting "
+                                      r"destructor of distinct classes"):
+        d_plan(root)
+    # the same refusal for the other candidate: the placeholder folds into neither
+    with pytest.raises(Refusal, match="so Rva00402000 is no single class"):
+        d_plan(root, new="Other")
+
+
+def test_a_destructors_first_store_ties_no_class_when_other_tables_hold_its_deleting_destructor(tmp_path,
+                                                                                               monkeypatch):
+    # 0x00535776 (??1Rva00535776) stores the Profile preferences table first,
+    # but an inlined base destructor's restore stores the same, and its
+    # deleting destructor 0x00537E60 is slot 0 of two derived classes' tables
+    # too: the fold passed into all three.
+    root = make_dtor_tree(tmp_path)
+    tables = {TABLE: ([PURECALL, D_GDTOR, PURECALL], {0x00401002: 0, D_DTOR: 0}),
+              OTHER_TABLE: ([D_GDTOR, PURECALL], {0x00405002: 0})}
+    d_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="no constructor of Rva00402000 installs 0x00C00000, so Rva00402000 is no "
+                                      "single class"):
+        d_plan(root)
+    d_retail(monkeypatch, {TABLE: tables[TABLE]})       # T alone holds it: the destructor's store ties it
+    assert d_plan(root).fold == TABLE
+
+
+def test_a_constructor_owning_the_table_ties_the_class_whatever_shares_its_deleting_destructor(tmp_path,
+                                                                                              monkeypatch):
+    # OLD's own constructor installs T, so OLD is T's class even though retail
+    # shares its deleting destructor's body with another class's table.
+    root = make_dtor_tree(tmp_path, f"""name,export_rva,target_rva,target_size,source,status,notes
+??0{D_OLD}@@QAE@XZ,,0x00402200,13,Code/Game/Dtor.cpp,matched,ctor installs vtable 0x00C00000
+??1{D_OLD}@@QAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched,dtor
+??_G{D_OLD}@@QAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched,deleting dtor
+??0Other@@QAE@XZ,,0x00405000,20,Code/Game/Other.cpp,matched,unrelated ctor
+""")
+    d_retail(monkeypatch, {TABLE: ([PURECALL, D_GDTOR, PURECALL], {0x00402202: 0}),
+                           OTHER_TABLE: ([D_GDTOR, PURECALL], {0x00405002: 0})})
+    p = d_plan(root)
+    assert p.fold == TABLE
+    assert f"??0{D_OLD}@@QAE@XZ at 0x00402200 installs retail vftable 0x00C00000 as its own" in p.evidence
 
 
 def test_a_placeholder_with_a_method_is_not_destructor_only(tmp_path, monkeypatch):

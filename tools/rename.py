@@ -9580,6 +9580,15 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 #     route, because the slot's body is NEW's either way (ICF shares it); it
 #     is recorded in the evidence and is not folded. A name on T for a class
 #     that installs no T of its own still refuses.
+#   * whenever only destructors tie OLD to T (this route, the next one, or a
+#     destructor's first store, which an inlined base destructor's restore
+#     can supply; not when a constructor of OLD installs T as its own), the
+#     slot must be T's alone: a deleting destructor of OLD that another
+#     retail table also holds (outside T's subobject tables) is one body
+#     retail ICF-folded for distinct classes, and refuses. 0x00537E60
+#     (??_GRva00535776, whose destructor 0x00535776 stores 0x00C68DD8 first)
+#     is slot 0 of the Profile, StrategicStats and RealTimeStats preferences
+#     tables; the fold passed into each of the three before this check.
 #   * a destructor family whose stores an inlined base destructor explains
 #     takes the same route. When the base destructor is inline, the class's
 #     destructor stores its own tables and then the base's, and MSVC drops
@@ -11099,6 +11108,28 @@ def fold_evidence(ctx, old, new, tie=None, pinned=True):
             evidence.append(f"{at(row)} is slot {slots.index(_rva(row['target_rva']))}" +
                             (f" of {what}" if checked != table else ""))
 
+    # Unless a constructor of OLD installs T as its own, only destructors tie
+    # OLD to T: a slot, or a destructor's first store, which an inlined base
+    # destructor's restore can supply. Retail ICF-folds identical deleting
+    # destructors of distinct classes into one body, which then sits in a slot
+    # of each class's table; a deleting destructor of OLD that a table other
+    # than the class's own (T and its subobject tables) also holds is such a
+    # body, so OLD is no single class and folding it into NEW is a naming claim.
+    if not (table_owner == old and any(special_member(r["name"])[0] == "0" for r in owns[table])):
+        own = {table} | {other for other, _owner in secondary.values()}
+        for row in members[old]:
+            if special_member(row["name"])[0] not in ("_G", "_E"):
+                continue
+            address = _rva(row["target_rva"])
+            elsewhere = [(other, slots.index(address)) for other, (slots, _installs) in sorted(tables.items())
+                         if other not in own and address in slots]
+            if elsewhere:
+                raise Refusal(f"{at(row)} is also " + ", ".join(
+                    f"slot {index} of retail vftable 0x{other + IMAGE_BASE:08X}" for other, index in elsewhere) +
+                    f": an ICF-folded deleting destructor of distinct classes, and no constructor of {old} "
+                    f"installs {va}, so {old} is no single class ({new} is one candidate of "
+                    f"{len(elsewhere) + 1})")
+
     if via_slot:
         # The destructor-only route: the slots tie OLD's deleting destructors
         # to T (checked above); each destructor of OLD must be the one a
@@ -11404,7 +11435,9 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
                               f"{old} (a macro or generated name): cannot rewrite it")
             continue
         code = name_metric.strip(new_text)
-        bodies = re.findall(r"\b(?:class|struct|union)\s+%s\b([^;{()]*)\{" % re.escape(new), code)
+        # A class head may carry `__declspec(novtable)` before the name.
+        bodies = re.findall(r"\b(?:class|struct|union)\s+(?:__declspec\s*\(\s*\w+\s*\)\s*)*%s\b([^;{()]*)\{"
+                            % re.escape(new), code)
         if len(bodies) > 1:
             raise Refusal(f"{rel} would declare class {new} twice (its {old} view and its {new} view): "
                           "reconcile the two views in that unit first")
