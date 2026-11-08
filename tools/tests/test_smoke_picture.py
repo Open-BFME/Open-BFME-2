@@ -88,6 +88,10 @@ class Labels(unittest.TestCase):
         # worst case on these samples: 2.7 s between two.
         self.assertEqual((bs.SPIN_MAX_FAILURES, bs.SPIN_MAX_GAP), (2, 3.0))
 
+    def test_the_event_grace_is_this(self):
+        # Literal for the same reason: it decides how late a crash can still change a run's label.
+        self.assertEqual(bs.EVENT_GRACE, 2.0)
+
     def test_failed_samples_limit_a_hang(self):
         self.assertTrue(self.span(self.over([self.LOW] * 30), failures=2)["spinning"])
         self.assertFalse(self.span(self.over([self.LOW] * 30), failures=3)["spinning"])

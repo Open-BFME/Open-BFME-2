@@ -63,7 +63,7 @@ class FakeKernel:
                  fail_duplicate=False, emit_exit=True, fail_suspend=False, resume_failures=0, resume_fail_from=0,
                  resume_raises=0, raises=(), other_suspend_on=0, other_resume_on=0, fail_context=False, sampler_cost=0.0,
                  context_cost=0.0, suspended=0, spinning=False, thread_exit_at=None, timed_events=(), wait_late=0.0,
-                 stream_from=None, look_cost=0.0):
+                 stream_from=None, look_cost=0.0, wait_error_on=0):
         # The main thread: it only moves while its suspend count is zero, as a real one does, and the count
         # persists, so a suspend left outstanding reads as identical EIPs, exactly what a spin looks like.
         self.fail_suspend = fail_suspend
@@ -87,6 +87,7 @@ class FakeKernel:
         self.stream_from = stream_from                # from this run time, an event is always pending
         self.look_cost = look_cost                    # seconds a zero wait takes
         self.looks = 0
+        self.wait_error_on = wait_error_on            # only this WaitForDebugEvent fails, hard
         self.clock = clock
         self.events = list(events)
         self.fail_continue = fail_continue
@@ -199,6 +200,9 @@ class FakeKernel:
         self.tick()
         self.looks += 1
         assert self.clock.now < 1000 and self.looks < 100000, "the run never ended"
+        if self.looks == self.wait_error_on:
+            self.last_error = 5
+            return 0
         if self.events and not self.wait_error:
             return self.deliver(output, self.events.pop(0))
         if not milliseconds:
@@ -672,6 +676,14 @@ class MainThreadSamplerTests(unittest.TestCase):
         kernel, result = self.run_case(self.GAME, timeout=2, wait_error=True)
         self.assertEqual(result["outcome"], "debugger-error")
         self.assertEqual(self.captured_at, None)
+
+    def test_a_one_off_hard_error_at_either_wait_ends_the_run_there(self):
+        # A later wait that works must not carry the run on to the deadline and overwrite the error with "timeout".
+        # The game's create event is the first look; the second finds nothing and the third is the waiting one.
+        for failing in (2, 3):
+            kernel, result = self.run_case(self.GAME, timeout=2, wait_error_on=failing)
+            self.assertEqual(result["outcome"], "debugger-error", failing)
+            self.assertEqual(self.captured_at, None, failing)
 
     def test_an_event_due_before_the_deadline_still_counts(self):
         kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=0.25, timed_events=[(1.0, self.CRASH)])
