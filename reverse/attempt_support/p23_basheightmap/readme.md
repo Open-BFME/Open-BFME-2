@@ -1,12 +1,21 @@
 # P23: BaseHeightMapRenderObjClass's real tables, ready except for one claim
 
-**Status.** Blocked on a claim. `class:DX8Wrapper` and `BaseHeightMap.cpp` came free on 2026-11-08, but
-`codex-01a1071d-root-recovery-oct11` then took `file:.../Rva0006D0D7Dtor.cpp` ("next_work link-cycle repair"), and
-that footprint refuses `class:BaseHeightMapRenderObjClass` and 0x0006D0D7. Do not use `--force`. Retry the claim;
-carry on once it is granted.
+**Status.** Done, 2026-11-08: both installers on the canonical header, and all four compiled tables
+compared with retail by slot, with 0 differences outside the three listed below. The prepared
+texts here are history now. Not yet run in the game.
 
-Rechecked the same day: the prepared header and constructor still build on master, 105/105 exact across the
-header's 45 dependent sources (working tree only, reverted).
+Left over, none of it BaseHeightMap's own:
+
+- `RenderObjClass` (`rendobj.h`) disagrees with retail at three inherited slots, for every class
+  that compiles its table. Fixing it is a full-gate header edit.
+  - Slots 51 and 52: the header returns `const Matrix3D &`, but the ledger rows at 0x0006D06D return by value
+    through a hidden pointer (retail's body is 106 bytes). If that row's form is retail's, callers and callee
+    disagree on the stack.
+  - Slot 98: the header's `Is_Visible` is a bit test; retail's 0x0013B6D0 is 55 bytes, rowed `queryVisible@Rva0013B6D0`.
+  - Slot 0: `delete this` against `::delete this`, the known RefCountData.h difference (no behaviour change).
+- The header-queue rows for the two units retire once they reach the census: the hook judges each unit alone.
+- `~vector<bool>` was pinned to 0x00142D70, the `basic_string` fold. Retail's four unwinds of these members go to
+  0x0007FAB3, an identical second body, so it is now rowed there. Other units that name it were rebuilt and pass.
 
 **Landed.** Every BaseHeightMap.h field is typed from retail: +0xD4 and four texture slots
 `RefCountPtr<TextureClass>`, `TScorch[500]`, two `vector<bool>`s, eight AsciiStrings.
