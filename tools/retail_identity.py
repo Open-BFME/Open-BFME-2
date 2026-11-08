@@ -13,6 +13,10 @@ reads a list of Facts against the image; `record` writes them; `well_formed` rea
 FAMILIES holds the respells this route may make, each spelled out whole: every row and pin by
 its exact name and address, every fact by its site. Nothing here generalizes from a family's
 shape to another class: another family is another reviewed entry (Verifier-Change).
+
+EXTENTS holds the same for one global's bounds, what `rename.py global --retype` may do with
+--address and --absorb: where an object starts and what lies inside it, which no compiler or
+byte proves. Each is an entry of its own too.
 """
 import collections
 import hashlib
@@ -280,6 +284,54 @@ HERO_RECORD_SET = BodyFamily(
                           (C("calls", 0x0021DC15, 0x0021D7CF),))})
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET)
 
+# One global's bounds: `old` becomes `new` at the RVA `start`, `size` bytes, taking the rows `absorbs`
+# ((name, rva), ...). A `stores` fact names an address the object holds, an `offset` one its code indexes.
+Extent = collections.namedtuple("Extent", "old new start size absorbs facts")
+_E12_ITERATOR = "U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@A"
+EXTENTS = (
+    # P35: InitPostProcessing fills the indices -256..511 of the table every reader names by its zero point
+    Extent(old="?g_bfmeClampTable@@3QBEB", new="?g_bfmeClampTable@@3PAEA", start=0x00A23000, size=0x300, absorbs=(),
+           facts=(C("offset", 0x001B6520, -256, "b800ffffff"), C("stores", 0x001B653B, 0x00E23100, "8888"),
+                  C("offset", 0x001B6542, 512, "3d00020000"))),
+    # P30: one deque<BfmeE12> the rowed initializer constructs and the atexit thunk destroys, its finish
+    # iterator read at +0x10
+    Extent(old=f"?g_00E031A8@@3{_E12_ITERATOR}", new="?g_00E031A8@@3PAIA", start=0x00A031A8, size=40,
+           absorbs=((f"?g_00E031B8@@3{_E12_ITERATOR}", 0x00A031B8),),
+           facts=(C("stores", 0x007B02DF, 0x00E031A8, "b9"), C("calls", 0x007B02E4, 0x004226CE),
+                  C("stores", 0x007B82E7, 0x00E031A8, "b9"), C("jumps", 0x007B82EC, 0x005858F3),
+                  C("stores", 0x00422557, 0x00E031B8, "a1"))),
+)
+
+
+def extent_of(old, new):
+    """The entry that takes `old` to `new`, or None."""
+    for extent in EXTENTS:
+        if extent.old == old and extent.new == new:
+            return extent
+    return None
+
+
+def extent_problems(extent):
+    """Why retail does not state `extent`, one line each. Its facts must hold on the image, every
+    address they name must lie inside it, and they must reach what no compiler or byte can prove:
+    the start (named, or an address plus a lowest offset its own instruction encodes) and every
+    absorbed row's address."""
+    problems = facts_problems(extent.facts)
+    if problems:
+        return problems
+    start, end = IMAGE_BASE + extent.start, IMAGE_BASE + extent.start + extent.size
+    addresses = [f.value for f in extent.facts if f.kind == "stores"]
+    problems = [f"a fact names 0x{value:08X}, outside 0x{start:08X}..0x{end:08X}" for value in addresses
+                if not start <= value < end]
+    lowest = [f.value for f in extent.facts if f.kind == "offset" and -2 ** 31 <= f.value < 2 ** 31
+              and bytes.fromhex(f.code).endswith(struct.pack("<i", f.value))]
+    if start not in addresses and not any(value + offset == start for value in addresses for offset in lowest):
+        problems.append(f"no fact reaches the start 0x{start:08X}: name it, or a `stores` address plus an `offset` "
+                        "its instruction encodes must land on it")
+    problems += [f"no fact names 0x{IMAGE_BASE + rva:08X}, where {name} is absorbed" for name, rva in extent.absorbs
+                 if IMAGE_BASE + rva not in addresses]
+    return problems
+
 
 def family_of(rva, new):
     """The family whose row at `rva` is spelled `new` after its respell, or None."""
@@ -314,10 +366,11 @@ def pin_respell_proven(old_name, new_name, rva):
 
 
 if __name__ == "__main__":
-    for each in FAMILIES:
-        problems = facts_problems(each.facts())
-        print(f"{each.old} -> {each.new}: {len(each.facts())} facts, {len(problems)} problem(s)")
+    failed = False
+    for each, problems, facts in [(f, facts_problems(f.facts()), f.facts()) for f in FAMILIES] + \
+            [(e, extent_problems(e), e.facts) for e in EXTENTS]:
+        print(f"{each.old} -> {each.new}: {len(facts)} facts, {len(problems)} problem(s)")
         for line in problems:
             print("  " + line)
-        if problems:
-            sys.exit(1)
+        failed = failed or bool(problems)
+    sys.exit(1 if failed else 0)
