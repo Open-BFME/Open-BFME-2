@@ -551,7 +551,7 @@ public:
 };
 
 // SpawnArmies 0x005666C5, rowed on the campaign-act view Rva0056616B.
-class FXList;
+class EnableRegionRecord;
 
 struct BfmePod40;
 
@@ -592,7 +592,7 @@ private:
 
 // The vector copies and destructors the copy constructor calls are rowed elsewhere.
 namespace _STL {
-template <> vector<FXList, allocator<FXList> >::vector(const vector<FXList, allocator<FXList> > &);
+template <> vector<EnableRegionRecord, allocator<EnableRegionRecord> >::vector(const vector<EnableRegionRecord, allocator<EnableRegionRecord> > &);
 template <> vector<BfmePod40, allocator<BfmePod40> >::vector(const vector<BfmePod40, allocator<BfmePod40> > &);
 template <> vector<BfmePod88, allocator<BfmePod88> >::vector(const vector<BfmePod88, allocator<BfmePod88> > &);
 template <> vector<Rva0052BDE6, allocator<Rva0052BDE6> >::vector(const vector<Rva0052BDE6, allocator<Rva0052BDE6> > &);
@@ -613,7 +613,7 @@ public:
 	Rva0056616B(const Rva0056616B &other);
 	virtual ~Rva0056616B();
 	AsciiString m_04;
-	_STL::vector<FXList, _STL::allocator<FXList> > m_08;
+	_STL::vector<EnableRegionRecord, _STL::allocator<EnableRegionRecord> > m_08;
 	_STL::vector<BfmePod40, _STL::allocator<BfmePod40> > m_14;
 	_STL::vector<BfmePod88, _STL::allocator<BfmePod88> > m_20;
 	_STL::vector<Rva0052BDE6, _STL::allocator<Rva0052BDE6> > m_2C;
@@ -653,25 +653,25 @@ public:
 extern LivingWorldManager *TheLivingWorldManager;
 
 //
-// ??$__uninitialized_fill_n@PAVFXList@@IV1@@_STL@@YAPAVFXList@@PAV1@IABV1@ABU__false_type@0@@Z @0x005655DC (37B).
-// _STL::__uninitialized_fill_n<FXList> retail 37 bytes. Dedicated TU
-// so FXList _Construct stays out-of-line. Evidence: loop calls rowed
+// ??$__uninitialized_fill_n@PAVEnableRegionRecord@@IV1@@_STL@@YAPAVEnableRegionRecord@@PAV1@IABV1@ABU__false_type@0@@Z @0x005655DC (37B).
+// _STL::__uninitialized_fill_n<EnableRegionRecord> retail 37 bytes. Dedicated TU
+// so EnableRegionRecord _Construct stays out-of-line. Evidence: loop calls rowed
 // _Construct 0x0052C2F3 stride 0x08 caller 0x00565B36 same shape as rowed
 // 0x0056561E.
-class FXList
+class EnableRegionRecord
 {
 public:
-	FXList(const FXList &that);
+	EnableRegionRecord(const EnableRegionRecord &that);
 private:
 	char _m[8]; // +0x00
 };
 
 namespace _STL
 {
-template <> void _Construct<FXList, FXList>(FXList *, const FXList &);
+template <> void _Construct<EnableRegionRecord, EnableRegionRecord>(EnableRegionRecord *, const EnableRegionRecord &);
 }
 
-template FXList *_STL::__uninitialized_fill_n(FXList *, unsigned int, const FXList &, const _STL::__false_type &);
+template EnableRegionRecord *_STL::__uninitialized_fill_n(EnableRegionRecord *, unsigned int, const EnableRegionRecord &, const _STL::__false_type &);
 
 template Rva0052BDE6 *_STL::__uninitialized_fill_n(Rva0052BDE6 *, unsigned int, const Rva0052BDE6 &, const _STL::__false_type &);
 
@@ -809,7 +809,7 @@ struct Rva0052BF33Elem;
 void __cdecl Rva005A6EDADestroyRange(Rva0052BF33Elem *, Rva0052BF33Elem *);
 
 namespace _STL {
-template <> inline __declspec(noinline) vector<FXList, allocator<FXList> >::~vector();
+template <> inline __declspec(noinline) vector<EnableRegionRecord, allocator<EnableRegionRecord> >::~vector();
 }
 
 struct Rva0052BF4DElem;
@@ -1007,16 +1007,16 @@ template void _STL::vector<Rva0052BEF0>::push_back(const Rva0052BEF0 &);
 
 namespace _STL
 {
-template <> void vector<FXList, allocator<FXList> >::push_back(const FXList &);
+template <> void vector<EnableRegionRecord, allocator<EnableRegionRecord> >::push_back(const EnableRegionRecord &);
 }
 
 class Rva00566527
 {
 public:
-    void rva00566527(const FXList &x);
+    void rva00566527(const EnableRegionRecord &x);
 private:
     char m_pad[8];
-    _STL::vector<FXList, _STL::allocator<FXList> > m_vec;
+    _STL::vector<EnableRegionRecord, _STL::allocator<EnableRegionRecord> > m_vec;
 };
 
 namespace _STL
@@ -1396,7 +1396,7 @@ Rva005657FEElement *Rva005657FEOwner::rva005657FE(const StringBase<char> &key, c
 
 // tu-skeleton: 0x00565AC0 11B ?clear@?$vector@URva00565997Element@@V?$allocator@URva00565997Element@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignAct.cpp (not merged yet)
 
-// tu-skeleton: 0x00565ACB 178B ?_M_insert_overflow@?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@IAEXPAVFXList@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
+// tu-skeleton: 0x00565ACB 178B ?_M_insert_overflow@?$vector@VEnableRegionRecord@@V?$allocator@VEnableRegionRecord@@@_STL@@@_STL@@IAEXPAVEnableRegionRecord@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod40_overflow.cpp
 
@@ -1513,7 +1513,7 @@ inline bool operator<(const Rva0052BEF0 &x, const Rva0052BEF0 &y) { return x.a[0
 
 // tu-skeleton: 0x0056616B 243B ??1Rva0056616B@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignAct.cpp (not merged yet)
 
-// tu-skeleton: 0x0056625E 55B ?push_back@?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@QAEXABVFXList@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
+// tu-skeleton: 0x0056625E 55B ?push_back@?$vector@VEnableRegionRecord@@V?$allocator@VEnableRegionRecord@@@_STL@@@_STL@@QAEXABVEnableRegionRecord@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
 
 // tu-skeleton: 0x00566295 55B ?push_back@?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@QAEXABUBfmePod40@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
@@ -1584,7 +1584,7 @@ inline bool operator<(const Rva0052BEF0 &x, const Rva0052BEF0 &y) { return x.a[0
 
 // ---- from Code/GameEngine/Source/Common/Rva00566527Thunk.cpp
 
-void Rva00566527::rva00566527(const FXList &fXList)
+void Rva00566527::rva00566527(const EnableRegionRecord &fXList)
 {
     m_vec.push_back(fXList);
 }

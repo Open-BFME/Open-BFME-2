@@ -44330,7 +44330,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052BD04,18,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BD16,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp
 0x0052BD16,18,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BD28,Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp
 0x0052BD28,18,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BD3A,Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp
-0x0052BD3A,31,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BD59,Code/GameEngine/Source/GameClient/FXList.cpp
+0x0052BD3A,31,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BD59,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BD59,141,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BDE6,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BDE6,77,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BE33,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052BE33,99,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,C,C=0x0052BBF3..0x0052BE96,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp

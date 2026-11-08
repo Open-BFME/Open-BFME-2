@@ -141,11 +141,11 @@ extern const FieldParse Rva003B7BA0RecordFieldParseTable[2] = {
     { "Region", INI::parseAsciiString, 0, 4 },
     { 0, 0, 0, 0 }
 };
-class FXList;
+class EnableRegionRecord;
 class Rva00566527
 {
 public:
-	void rva00566527( const FXList &record );
+	void rva00566527( const EnableRegionRecord &record );
 };
 class Rva0052BEF0
 {
@@ -1096,8 +1096,7 @@ void ParseEnableRegion( INI *ini, void *instance, void *, const void * )
 		EnableRegionRecord record;
 		ini->initFromINI( &record, Rva003B7BA0RecordFieldParseTable );
 		// Existing rowed thunk 0x00566527 has this same reference ABI.
-		// Its FXList spelling is a callable view, not this record's identity.
-		((Rva00566527 *)instance)->rva00566527( (const FXList &)record );
+		((Rva00566527 *)instance)->rva00566527( record );
 	}
 	else
 		throw INIException( 3, "ParseEnableRegion::Invalid data passed in." );

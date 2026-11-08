@@ -19,10 +19,10 @@
 
 #include "../../../../GameEngine/Include/Common/Geometry.h"
 
-class FXList
+class EnableRegionRecord
 {
 public:
-	FXList(const FXList &other);
+	EnableRegionRecord(const EnableRegionRecord &other);
 };
 
 struct BfmeStringRecord00239B46
@@ -65,7 +65,7 @@ public:
 
 template void _STL::_Construct<TreeKey00242F5E, TreeKey00242F5E>(TreeKey00242F5E *, const TreeKey00242F5E &);
 template void _STL::_Construct<GeometryInfo, GeometryInfo>(GeometryInfo *, const GeometryInfo &);
-template void _STL::_Construct<FXList, FXList>(FXList *, const FXList &);
+template void _STL::_Construct<EnableRegionRecord, EnableRegionRecord>(EnableRegionRecord *, const EnableRegionRecord &);
 template void _STL::_Construct<Rva0052BEF0, Rva0052BEF0>(Rva0052BEF0 *, const Rva0052BEF0 &);
 template void _STL::_Construct<Rva0052BD59, Rva0052BD59>(Rva0052BD59 *, const Rva0052BD59 &);
 template void _STL::_Construct<Rva0052BE33, Rva0052BE33>(Rva0052BE33 *, const Rva0052BE33 &);

@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ??0Rva0056616B@@QAE@ABV0@@Z @0x0052D555 333B
 // Copy ctor for Rva0056616B (vtable 0x008689D0) copying 16 members in order via rowed StringBase 0x365F0 vector copy ctors and custom copies then byte at +0xB4.
-// Evidence: unlock lane; callees all rowed per packet (StringBase FXList Pod40 Pod88 Rva0052BDE6 Rva0052BE33 AsciiString Pod32 Rva004E32F2 Rva0052CD81 Rva0052C867 Rva0052C8AB E16 Rva005668E9 Rva0052BEF0); prev vector copy family next deleting dtor share layout.
+// Evidence: unlock lane; callees all rowed per packet (StringBase EnableRegionRecord Pod40 Pod88 Rva0052BDE6 Rva0052BE33 AsciiString Pod32 Rva004E32F2 Rva0052CD81 Rva0052C867 Rva0052C8AB E16 Rva005668E9 Rva0052BEF0); prev vector copy family next deleting dtor share layout.
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
@@ -11,7 +11,7 @@
 
 #include "ascii_string.h"
 
-class FXList;
+class EnableRegionRecord;
 struct BfmePod40;
 struct BfmePod88;
 class Rva0052BDE6;
@@ -57,7 +57,7 @@ struct Rva0052BF33Elem;
 void __cdecl Rva005A6EDADestroyRange(Rva0052BF33Elem *, Rva0052BF33Elem *);
 
 namespace _STL {
-template <> __declspec(noinline) vector<FXList, allocator<FXList> >::~vector()
+template <> __declspec(noinline) vector<EnableRegionRecord, allocator<EnableRegionRecord> >::~vector()
 {
  Rva005A6EDADestroyRange(reinterpret_cast<Rva0052BF33Elem *>(m_start),
                        reinterpret_cast<Rva0052BF33Elem *>(m_finish));

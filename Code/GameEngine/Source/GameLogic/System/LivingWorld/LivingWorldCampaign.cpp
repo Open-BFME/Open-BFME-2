@@ -1368,7 +1368,7 @@ void Rva0052C404Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x0052BD28 18B ??$_Construct@VRva003A6360Record@@V1@@_STL@@YAXPAVRva003A6360Record@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructCopySiblings.cpp (not merged yet)
 
-// tu-skeleton: 0x0052BD3A 31B ??0FXList@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/FXList.cpp (not merged yet)
+// tu-skeleton: 0x0052BD3A 31B ??0EnableRegionRecord@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/EnableRegionRecord.cpp (not merged yet)
 
 // tu-skeleton: 0x0052BEC9 39B ??0?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00301883.cpp (not merged yet)
 
@@ -1396,7 +1396,7 @@ void Rva0052C404Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x0052C266 24B ?Rva0052C266DestroyRange@@YAXPAURva0052BF4DElem@@0@Z -- matched in Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp (not merged yet)
 
-// tu-skeleton: 0x0052C2F3 45B ??$_Construct@VFXList@@V1@@_STL@@YAXPAVFXList@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+// tu-skeleton: 0x0052C2F3 45B ??$_Construct@VEnableRegionRecord@@V1@@_STL@@YAXPAVEnableRegionRecord@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
 // tu-skeleton: 0x0052C320 45B ??$_Construct@VRva0052BD59@@V1@@_STL@@YAXPAVRva0052BD59@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
@@ -1412,7 +1412,7 @@ void Rva0052C404Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x0052C72B 119B ?hasEntryNamed@Rva0052BFE1@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
 
-// tu-skeleton: 0x0052C8EF 38B ??$__uninitialized_copy@PAVFXList@@PAV1@@_STL@@YAPAVFXList@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
+// tu-skeleton: 0x0052C8EF 38B ??$__uninitialized_copy@PAVEnableRegionRecord@@PAV1@@_STL@@YAPAVEnableRegionRecord@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
 
 // tu-skeleton: 0x0052C915 38B ??$__uninitialized_copy@PBUBfmePod40@@PAU1@@_STL@@YAPAUBfmePod40@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
@@ -1422,7 +1422,7 @@ void Rva0052C404Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x0052CAAB 30B ?rva0052CAAB@Rva0052CAABVec@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp (not merged yet)
 
-// tu-skeleton: 0x0052CAC9 93B ??0?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
+// tu-skeleton: 0x0052CAC9 93B ??0?$vector@VEnableRegionRecord@@V?$allocator@VEnableRegionRecord@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp (not merged yet)
 
 // tu-skeleton: 0x0052CB26 63B ??1Rva0052CB26@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
@@ -1513,11 +1513,10 @@ struct BlockParse
 BlockParse theLivingWorldCampaignBlockParse( "LivingWorldCampaign", LivingWorldCampaign::ParseLivingWorldCampaignBlock );
 
 // The act's copy ctor 0x0052D555. Its members' copies and destructors are rowed elsewhere.
-class FXList;
+#include "../../../../Include/GameLogic/LivingWorldCampaignAct.h"
 class Rva004E32F2;
 struct Rva005668E9Element;
 namespace _STL {
-template <> vector<FXList, allocator<FXList> >::vector(const vector<FXList, allocator<FXList> > &);
 template <> vector<BfmePod88, allocator<BfmePod88> >::vector(const vector<BfmePod88, allocator<BfmePod88> > &);
 template <> vector<Rva0052BDE6, allocator<Rva0052BDE6> >::vector(const vector<Rva0052BDE6, allocator<Rva0052BDE6> > &);
 template <> vector<Rva0052BE33, allocator<Rva0052BE33> >::vector(const vector<Rva0052BE33, allocator<Rva0052BE33> > &);
@@ -1526,7 +1525,7 @@ template <> vector<Rva004E32F2, allocator<Rva004E32F2> >::vector(const vector<Rv
 template <> vector<Rva004E1A04, allocator<Rva004E1A04> >::vector(const vector<Rva004E1A04, allocator<Rva004E1A04> > &);
 template <> vector<Rva005668E9Element, allocator<Rva005668E9Element> >::vector(const vector<Rva005668E9Element, allocator<Rva005668E9Element> > &);
 template <> vector<Rva0052BEF0, allocator<Rva0052BEF0> >::vector(const vector<Rva0052BEF0, allocator<Rva0052BEF0> > &);
-template <> vector<FXList, allocator<FXList> >::~vector();
+template <> vector<EnableRegionRecord, allocator<EnableRegionRecord> >::~vector();
 template <> vector<BfmePod88, allocator<BfmePod88> >::~vector();
 template <> vector<Rva0052BDE6, allocator<Rva0052BDE6> >::~vector();
 template <> vector<Rva0052BE33, allocator<Rva0052BE33> >::~vector();
@@ -1543,7 +1542,7 @@ public:
 	Rva0056616B(const Rva0056616B &other);
 	virtual ~Rva0056616B();
 	AsciiString m_04;
-	_STL::vector<FXList, _STL::allocator<FXList> > m_08;
+	_STL::vector<EnableRegionRecord, _STL::allocator<EnableRegionRecord> > m_08;
 	_STL::vector<BfmePod40, _STL::allocator<BfmePod40> > m_14;
 	_STL::vector<BfmePod88, _STL::allocator<BfmePod88> > m_20;
 	_STL::vector<Rva0052BDE6, _STL::allocator<Rva0052BDE6> > m_2C;
