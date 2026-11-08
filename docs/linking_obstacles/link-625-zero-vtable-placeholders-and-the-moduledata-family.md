@@ -286,7 +286,10 @@ engine init.
 | GloriousChargeUpdate, RousingSpeechUpdate | open: SpecialAbilityUpdate base and a fourth table at +0x20 |
 | ArrowStormUpdate (`g_00C4D61C`, +0x20) | open: same family; its ctor and dtor are in separate units |
 | InvisibilitySpecialPower, SpecialPowerTimerRefreshSpecialPower | open: the base's canonical view is the placeholder-named `Rva00493009` (Rva00493009.h), and units spell it `SpecialPowerModule` |
-| SpawnedModelConditionCreate, UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior, RunOffMapBehavior, HordeTransportContain | open: not yet read |
+| SpawnedModelConditionCreate | **repaired**: canonical CreateModule, compiler-installed tables; 55 of 63 slots resolve to retail's address, the other 8 are the same one-instruction shapes or the deleting destructor, except slot 2 (name getter, a non-virtual row) |
+| RunOffMapBehavior | open: an empty ctor on RunOffMapBehavior.cpp's real view (BehaviorModule plus RunOffMapBehaviorInterface) is exact and reproduces the first +0x10 store the unit keeps `volatile`; its slot 5 is `onObjectCreated` and slots 1-3 need their placeholder rows moved first |
+| UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior | open: need a shared view of the 19-slot base Rva00252B68 |
+| HordeTransportContain | open: not yet read |
 
 **Repaired: DamageFieldUpdate** (ctor 0x004912A9, dtor 0x0049122C). The HeightDieUpdate recipe, with FireWeaponUpdate on the
 canonical UpdateModule: the compiler installs `??_7DamageFieldUpdate`'s three tables in retail's order.

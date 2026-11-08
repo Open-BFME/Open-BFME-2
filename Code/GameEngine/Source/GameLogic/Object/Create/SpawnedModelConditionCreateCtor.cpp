@@ -1,6 +1,3 @@
-char g_00BEF9B0;
-char g_00BEFA7C;
-
 // cl: /DNDEBUG /MD
 //
 // ??0SpawnedModelConditionCreate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
@@ -9,35 +6,24 @@ char g_00BEFA7C;
 // name getter rowed at 0x250A93, behavior instance factory rowed at
 // 0x25496D news 0x18 with this ctor as sole raw caller).
 //
-// Shape: frameless single-base ctor over the rowed CreateModule base
-// 0x4B8CF7 with three explicit vtable stores at +0/+0xC/+0x10 via byte-wise
-// pointer casts (StopSpecialPower precedent: explicit stores, no virtuals
-// declared anywhere so no vtable is emitted here; all three immediates are
-// DIR32-masked in comparison). Zero new pins (base resolves via the
-// rowed CreateModule spelling).
+// Shape: frameless ctor over the rowed CreateModule base 0x4B8CF7. The compiler
+// installs the class's three tables at +0/+0xC/+0x10.
 
-extern "C" const void *const __identifier("??_7CreateModule@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEF9C0 (15 classes), by its data-ledger name
 
-class Thing;
-class ModuleData;
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
-class CreateModule
-{
-public:
-	CreateModule(Thing *thing, const ModuleData *moduleData);
-};
-
+// Retail's tables: 0x00BEFA7C (12 slots), 0x00BEF9C0 at +0x0C (the table 15 classes fold onto) and
+// 0x00BEF9B0 at +0x10: onCreate is empty (0x000B3FD0), the rest are CreateModule's shapes.
 class SpawnedModelConditionCreate : public CreateModule
 {
 public:
 	SpawnedModelConditionCreate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onCreate() {}
 };
 
 // ??0SpawnedModelConditionCreate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00250A1F
 SpawnedModelConditionCreate::SpawnedModelConditionCreate(Thing *thing, const ModuleData *moduleData) :
 	CreateModule(thing, moduleData)
 {
-	*(unsigned int *)this = (unsigned int)&g_00BEFA7C;
-	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7CreateModule@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = (unsigned int)&g_00BEF9B0;
 }
