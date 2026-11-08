@@ -896,3 +896,35 @@ units), WeaponSetUpgrade (Rva004B568B; slots 8/10 under WeaponSetUpgradeSecondar
 scaffolds with placeholder tables in rl7: DieModuleDerived.cpp (30 tables, 10 classes) and
 ModuleUpdateDtors.cpp (9) are DieModule/UpdateModule units this seat may not touch; HealContain.cpp's
 Rva00220240FlatDtor (9 tables) and Rva00082EF5Ctor.cpp (8) are multi-base Contain shapes.
+
+**The slot-0 weak `??_E` lead, verified and measured (2026-11-08, seat halilkkaya-lk65, base `4904abd4bd`,
+census index `eaefe561ff`).** Verified on compiled objects: in the five spot-checked units, slot 0 of
+`??_7X@@6B@` relocates (DIR32) to `??_EX@@UAEPAXI@Z`, an undefined symbol of class 105
+(IMAGE_SYM_CLASS_WEAK_EXTERNAL). Its IMAGE_WEAK_EXTERN aux record names `??_GX@@UAEPAXI@Z` with
+characteristics 2 (search libraries), and the ledger rows `??_GX` at retail's slot-0 address. With no
+definition of `??_EX` in any input, link.exe binds the slot to `??_GX`, so the table already matches retail
+and the bridge copy is not needed.
+Rule tested (tools-only, Verifier-Change): a slot whose relocation names an undefined weak external matches
+only when no input (kept object or runtime archive, COMDAT or not) defines the weak name, every kept
+object's weak record for it gives the same default and characteristics (the slot's own record among them),
+and the default's ledger address is exactly retail's target. Otherwise the existing name comparison
+applies. Five tests cover it: the weak slot matches; a strong or COMDAT `??_EX` stops it; disagreeing
+defaults or characteristics stop it; a default rowed at another address stops it. `test_vtable_bridge.py`
+(104), `test_gate_exploits.py`, `test_exit_link.py`, `test_link_batch_audit.py` and `test_repair_queue.py`
+pass. Without the fix, the first test fails.
+Offline A/B over exit_link's own inputs (17,956 objects, no link): bridged tables 5,075 -> 4,581 (-494;
+retail tables 3,485 -> 3,056; slots 66,093 -> 64,758), already-correct 604 -> 1,098. Refusals are
+identical, no table becomes bridged and no correct table is lost. All 494 move to already-correct. Five
+random multi-slot tables (Rva004E1B72, BuffInstance, StrategicHUD::ArmyUnitSwapperMovieClip, Rva002E0A0A,
+TeamInQueue) match retail by ledger address in every slot, with slot 0 through the default.
+Not landed: `file:tools/vtable_bridge.py` was claimed by yasinschroeder-claudeb2 during this pass. The
+patch waits for that claim to clear.
+Still bridged, with the slot-0 `??_E` as their only mismatch (325 tables; leads, not tooling artefacts):
+- 214: the default `??_GX` has no ledger row. Retail's slot-0 address is rowed under another name, an ICF
+  fold or placeholder (`??_7CImage@ATL@@6B@` -> 0x00002926 `??_GRva00002926Element`). This needs a name or
+  twin route, not a bridge rule.
+- 103: `??_EX` is a plain external, and a real vector deleting destructor is linked. Retail's body there
+  needs its `??_E` row (for example `??_7AudioManager@@6BSnapshot@@@` slot 0 -> 0x00051C9A).
+- 8: the default is rowed at another address. `??_GImage@Gdiplus` sits at 0x2111 and `??_GBitmap@Gdiplus`
+  at 0x1E43, but the Image (0x007BB524) and Bitmap (0x007BB548) tables point the other way. Either the two
+  `??_G` rows or the two table names look swapped. This is a naming lead.
