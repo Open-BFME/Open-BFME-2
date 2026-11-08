@@ -81,3 +81,48 @@ Two different shapes hide in the same column, and they are worth different work:
 accounted for 26 of the 113 queue rows the vftable-pointer refusal was blocking
 (`header-lane-vptr-standin-20261107.md`). So that fix was in the right place by
 this ranking too, which the yield measurement alone did not show.
+
+## Crossed with the queue's live rows
+
+The ranking above says what a class costs the merge lane. It does not say how
+much work the class is. Crossing it with the header queue's *live* rows -- the
+6275 whose unit still declares a private body, per
+`header-queue-prediction-20261108.tsv` -- gives both at once. 445 classes have
+live rows; 250 of those also block a merge:
+
+| class | live rows | donors held | TUs |
+| --- | ---: | ---: | ---: |
+| UpdateModule | 73 | 34 | 33 |
+| Player | 221 | 52 | 21 |
+| Thing | 82 | 27 | 19 |
+| Drawable | 111 | 22 | 18 |
+| AIUpdateInterface | 197 | 24 | 17 |
+| BehaviorModule | 48 | 16 | 15 |
+| Matrix3D | 53 | 15 | 15 |
+| Vector3 | 72 | 18 | 15 |
+| ContainModuleInterface | 51 | 12 | 12 |
+| Overridable | 28 | 12 | 11 |
+| AICommandInterface | 81 | 11 | 10 |
+| ModuleData | 44 | 10 | 10 |
+| UpgradeMux | 17 | 16 | 10 |
+| TerrainLogic | 61 | 32 | 9 |
+| ThingTemplate | 86 | 21 | 9 |
+| UpdateModuleInterface | 25 | 9 | 9 |
+| DX8Wrapper | 91 | 11 | 8 |
+| RenderObjClass | 77 | 15 | 8 |
+
+`UpdateModule` is the pick: the widest reach in the lane (33 TUs) for the
+smallest body of work among the wide ones (73 rows), and the three classes
+beside it in the module hierarchy -- `UpdateModuleInterface` 25 rows / 9 TUs,
+`BehaviorModule` 48 / 15, `BehaviorModuleInterface` 26 / 8 -- are the same
+adoption done once. `UpgradeMux` is the cheapest entry outright: 17 live rows
+reaching 10 TUs.
+
+`Player` and `AIUpdateInterface` carry the most work by far (221 and 197 rows)
+for narrower reach, and `Player` was already held by another seat for it.
+
+Beware reading this as a work estimate. A live row means the unit still declares
+a private view, not that adopting the header will succeed there; the measured
+pass rate on a declaration-only sample was about one in twelve
+(`header-lane-vptr-standin-20261107.md`). The columns rank candidates; they do
+not predict yield.
