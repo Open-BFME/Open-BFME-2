@@ -1,5 +1,5 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
-#include "StringInline.h"
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+#include "../../../Include/GameClient/Mouse.h"
 
 // Open-BFME: transition-step function at retail 0x00565170 (96B). Same
 // shape family as PreParchmentMapFade_LoadGame.cpp / SoloMordorFade_LoadGame.cpp:
@@ -31,11 +31,6 @@ extern GameWindowTransitionsHandler *TheTransitionHandler;
 // Retail's singleton at 0x012F4C5C is EA's Mouse *TheMouse; (defined once in
 // GameClient/Input/Mouse.cpp).  This TU keeps its own view of the layout and
 // casts at the use so the reference links to the one global.
-class Mouse
-{
-public:
-	void _bfme_setEngineVisibility(bool visible);
-};
 extern Mouse *TheMouse;
 
 // ?rva00565170@@YAHH_N@Z

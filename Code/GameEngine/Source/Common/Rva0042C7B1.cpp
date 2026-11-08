@@ -1,18 +1,7 @@
 // cl: /EHsc /MD
 // ?rva0042C7B1@Rva0042C7B1@@QAEHPBURva0042C083Param@@H@Z @0x0042C7B1 47B via mouse-gated setter forward
 // Evidence: TheMouse at 0x009FDCA0 field +0x4FA4 slot 0x4C plus call 0x0042C083 via +0x8; caller 0x0042C8C6; chain from 0x0042C083
-class Mouse
-{
-public:
-	virtual void m00(); virtual void m01(); virtual void m02(); virtual void m03();
-	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
-	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
-	virtual void m12(); virtual void m13(); virtual void m14(); virtual void m15();
-	virtual void m16(); virtual void m17(); virtual void m18();
-	virtual void m19(int x);
-	char m_pad[0x4FA0];
-	int m_4FA4;
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 struct Rva0042C083Param
@@ -38,8 +27,8 @@ private:
 int Rva0042C7B1::rva0042C7B1(const Rva0042C083Param *p, int unused)
 {
 	(void)unused;
-	if (TheMouse && TheMouse->m_4FA4 != 2)
-		TheMouse->m19(2);
+	if (TheMouse && TheMouse->m_currentCursor != Mouse::ARROW)
+		TheMouse->setCursor(Mouse::ARROW);
 	m_08->rva0042C083(p);
 	return 0;
 }

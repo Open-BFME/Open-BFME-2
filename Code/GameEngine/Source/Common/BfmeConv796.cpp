@@ -24,11 +24,7 @@
 // Retail's singleton at 0x012F4C5C is EA's Mouse *TheMouse (defined once in
 // GameEngine/Source/GameClient/Input/Mouse.cpp), so the extern must be spelled
 // Mouse * to mangle to ?TheMouse@@3PAVMouse@@A.
-class Mouse
-{
-public:
-	void _bfme_setEngineVisibility(bool visible);
-};
+#include "../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

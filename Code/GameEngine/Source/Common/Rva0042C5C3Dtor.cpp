@@ -114,13 +114,7 @@ class GameMessage {public:const GameMessageArgumentType*getArgument(int)const;ch
 class Rva005E6817Mid {public:int fwd(GameMessage*);};
 class Rva0042C083 {public:void rva0042C083(const Rva0042C083Param*);};
 #include "../../Include/Common/RAMFileClass.h"
-class Mouse {public:
- virtual void m0();virtual void m1();virtual void m2();virtual void m3();virtual void m4();
- virtual void m5();virtual void m6();virtual void m7();virtual void m8();virtual void m9();
- virtual void m10();virtual void m11();virtual void m12();virtual void m13();virtual void m14();
- virtual void m15();virtual void m16();virtual void m17();virtual void m18();virtual void m19(int);
- char unknown4[0x4FA0];int cursor;
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse*TheMouse;
 class Rva0042C0DBDelegate {public:
  virtual void slot0();virtual void slot1();virtual int slot2(GameMessage*);virtual int slot3(const Rva0042C083Param*,int);
@@ -204,7 +198,7 @@ int Rva0042C5C3::rva0042C0DB(const Rva0042C083Param*p,int value){
     break;
    case 3:cursor=2;break;
   }
-  if(cursor!=TheMouse->cursor)TheMouse->m19(cursor);
+  if(cursor!=TheMouse->m_currentCursor)TheMouse->setCursor((Mouse::MouseCursor)cursor);
  }
  ((Rva0042C083 *)m_1C)->rva0042C083(p);
  return 0;

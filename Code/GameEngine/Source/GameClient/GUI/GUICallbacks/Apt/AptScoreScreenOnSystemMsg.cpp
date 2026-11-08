@@ -50,14 +50,7 @@ extern GameWindowManager *TheWindowManager;
 extern class Rva00222A8BTarget *TheRva00222A8BTarget;
 // TheMouse's rowed tooltip setter 0x001EEA6D (MouseRva001EEA6D.cpp).
 #include "../../../../../../Libraries/Include/Lib/RGBColor.h"
-class Mouse
-
-{
- public:
- void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
- 
-}
-;
+#include "../../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 // TheThingFactory's rowed template lookup 0x002D06CA; the template's
 // display name at +0x30 and its flag byte +0x113, whose bit 2 marks a hero.

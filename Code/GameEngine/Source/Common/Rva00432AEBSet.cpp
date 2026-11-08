@@ -9,30 +9,7 @@ class AptTranslator
 public:
 	int rva0043287E();
 };
-class Mouse
-{
-public:
-	virtual void _v00();
-	virtual void _v01();
-	virtual void _v02();
-	virtual void _v03();
-	virtual void _v04();
-	virtual void _v05();
-	virtual void _v06();
-	virtual void _v07();
-	virtual void _v08();
-	virtual void _v09();
-	virtual void _v10();
-	virtual void _v11();
-	virtual void _v12();
-	virtual void _v13();
-	virtual void _v14();
-	virtual void _v15();
-	virtual void _v16();
-	virtual void _v17();
-	virtual void _v18();
-	virtual void notify(int v);
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class Rva00432AEB
 {
@@ -48,6 +25,6 @@ int Rva00432AEB::rva00432AEB(int v)
 	int old = *slot;
 	*slot = v;
 	if ((unsigned char)((AptTranslator *)this)->rva0043287E())
-		TheMouse->notify(*slot);
+		TheMouse->setCursor((Mouse::MouseCursor)*slot);
 	return old;
 }

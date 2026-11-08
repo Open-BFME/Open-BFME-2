@@ -40,12 +40,7 @@ public:
 
 // 0x00041B85 (tables VA 0x00BC24E8/0x00BC8748): the rowed Mouse
 // 0x001EE5EE with both arguments, then the pinned 0x00041A83 with +0x4FA4.
-class Mouse
-{
-public:
-	enum MouseCursor {};
-	void rva001EE5EE(unsigned char a, unsigned char *b);
-};
+#include "../../Include/GameClient/Mouse.h"
 // 0x00041A83 is rowed as the virtual Win32Mouse::setCursor; called directly.
 class Win32Mouse
 {
@@ -56,14 +51,11 @@ class Rva00041B85 : public Mouse
 {
 public:
 	void rva00041B85(unsigned char a, unsigned char *b);
-private:
-	char m_pad00[0x4FA4];
-	Int m_4FA4;
 };
 void Rva00041B85::rva00041B85(unsigned char a, unsigned char *b)
 {
 	rva001EE5EE(a, b);
-	((Win32Mouse *)this)->Win32Mouse::setCursor((Mouse::MouseCursor)m_4FA4);
+	((Win32Mouse *)this)->Win32Mouse::setCursor(m_currentCursor);
 }
 
 // 0x003FD1FA and 0x003FD321: overrides of the rowed xfer slot 0x003FD1FA

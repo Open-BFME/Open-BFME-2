@@ -57,30 +57,7 @@ public:
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 
-class Mouse
-{
-public:
-	virtual void m00();
-	virtual void m01();
-	virtual void m02();
-	virtual void m03();
-	virtual void m04();
-	virtual void m05();
-	virtual void m06();
-	virtual void m07();
-	virtual void m08();
-	virtual void m09();
-	virtual void m10();
-	virtual void m11();
-	virtual void m12();
-	virtual void m13();
-	virtual void m14();
-	virtual void m15();
-	virtual void m16();
-	virtual void m17();
-	virtual void m18();
-	virtual void m19(int flag);
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
@@ -111,7 +88,7 @@ void LivingWorld::ZoomInTo(void *arg)
 			if (!host->rva0020F27E(itemValue, (int)&field1C))
 				return;
 			v40(1);
-			TheMouse->m19(0);
+			TheMouse->setCursor(Mouse::NONE);
 			v19(2, 0);
 			if (TheLivingWorldManager == 0)
 				return;
