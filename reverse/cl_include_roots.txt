@@ -560,7 +560,6 @@ reference/open-bfme-1/reference/shims/cdmanager
 reference/open-bfme-1/reference/shims/gamelod
 reference/open-bfme-1/reference/shims/ini
 reference/open-bfme-1/reference/shims/ini_noinline
-reference/open-bfme-1/reference/shims/moduledata
 reference/open-bfme-1/reference/shims/mouselayout
 reference/open-bfme-1/reference/shims/namekeygenerator
 reference/open-bfme-1/reference/shims/nat
@@ -591,7 +590,6 @@ reference/shims/bfme2_bezierprojectilebehavior
 reference/shims/bfme2_bonefxupdate
 reference/shims/bfme2_bridgebehavior
 reference/shims/bfme2_buddythread
-reference/shims/bfme2_createobjectdie
 reference/shims/bfme2_dockupdate
 reference/shims/bfme2_dozer
 reference/shims/bfme2_drawable_flash
@@ -677,7 +675,6 @@ reference/shims/connectionnotify
 reference/shims/connectiontransport
 reference/shims/debugstacklayout
 reference/shims/debugvtable
-reference/shims/diemodule_link
 reference/shims/dockupdate
 reference/shims/drawable
 reference/shims/dynamesh_material
