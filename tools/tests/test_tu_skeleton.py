@@ -1876,6 +1876,7 @@ class EmitTransactionTests(unittest.TestCase):
                      self.B: [self.row(self.EB, "0x00002100", self.B), self.row(self.STAY_B, "0x00003100", self.B)],
                      self.TU: [self.row(self.OWN, "0x00001000", self.TU)]}
         self.approved = {"0x00002000": self.TU, "0x00002100": self.TU, "0x00003000": self.OTHER, "0x00003100": self.OTHER}
+        self.confidence = {}
         self.ledger()
 
     def write(self, rel, text):
@@ -1908,7 +1909,34 @@ class EmitTransactionTests(unittest.TestCase):
         return {line.split(" ", 1)[1].strip() for line in text.splitlines()
                 if line.split(" ", 1)[0] in {f"//{k}" for k in kinds} and " " in line}
 
-    def transact(self, files=None, *, rvas=None, prepared=None, dry_run=True, claim=False, build_effect=None, undo=None):
+    RETAIL = "c3"
+
+    @classmethod
+    def emitted(cls, text, name):
+        """The byte the unit emits for `name`: retail's, unless a `//byte NAME xx` line says otherwise."""
+        for line in text.splitlines():
+            parts = line.split()
+            if len(parts) == 3 and parts[0] == "//byte" and parts[1] == name:
+                return parts[2]
+        return cls.RETAIL
+
+    def definitions(self, obj):
+        """coff_definitions as the unit's text says: None when the object is gone or `//garbage`."""
+        try:
+            text = Path(obj).read_text(encoding="utf-8")
+        except (OSError, TypeError):
+            return None
+        if "//garbage" in text:
+            return None
+        out = {n: (True, True, 2) for n in self.names(text, "comdat")}
+        out.update({n: (True, True, 1) for n in self.names(text, "noduplicates")})
+        out.update({n: (False, True, None) for n in self.names(text, "strong")})
+        out.update({n: (True, False, 2) for n in self.names(text, "data")})
+        out.update({n: (False, False, None) for n in self.names(text, "weak")})
+        return out
+
+    def transact(self, files=None, *, rvas=None, prepared=None, dry_run=True, claim=False, build_effect=None, undo=None,
+                 definitions=None):
         """emit_move over `files` (default both donors) in the fixture's tree."""
         files = files if files is not None else [self.A, self.B]
         root, this = self.root, self
@@ -1928,8 +1956,8 @@ class EmitTransactionTests(unittest.TestCase):
                     self.errors = self.all_errors = ["u.cpp(1) : error C2065: undeclared"]
                     return None
                 self.errors = self.all_errors = []
-                good = this.names(text, "comdat", "strong", "noduplicates") - this.names(text, "wrong")
-                return {r["target_rva"] for r in judged if r["name"] in good}
+                good = this.names(text, "comdat", "strong", "noduplicates", "data") - this.names(text, "wrong")
+                return {r["target_rva"] for r in judged if r["name"] in good and this.emitted(text, r["name"]) == this.RETAIL}
 
             def preprocessed(self, text, judged):
                 return (None, "cl -E failed") if "//nopp" in text else (text, None)
@@ -1952,7 +1980,10 @@ class EmitTransactionTests(unittest.TestCase):
             return True, "Functions: OK"
 
         def text_of(obj):
-            return Path(obj).read_text(encoding="utf-8")
+            try:
+                return Path(obj).read_text(encoding="utf-8")
+            except OSError:             # as defined_symbols and comdat_symbols read a missing object
+                return ""
 
         groups = lambda f: {t: [r for r in self.rows[f] if self.approved.get(r["target_rva"], "") == t]
                             for t in {self.approved.get(r["target_rva"], "") for r in self.rows[f]}}
@@ -1962,8 +1993,10 @@ class EmitTransactionTests(unittest.TestCase):
                 patch.object(T, "file_rows", side_effect=lambda p: self.rows.get(p, [])), \
                 patch.object(T, "breakdown", side_effect=groups), patch.object(T, "fold_alias", return_value=False), \
                 patch.object(T, "identity_debt", return_value=False), patch.object(T, "Verifier", Verifier), \
-                patch.object(T, "defined_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "strong", "noduplicates")), \
-                patch.object(T, "comdat_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "noduplicates")), \
+                patch.object(T, "defined_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "strong", "noduplicates", "data")), \
+                patch.object(T, "comdat_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "noduplicates", "data")), \
+                patch.object(T, "coff_definitions", side_effect=definitions or self.definitions), \
+                patch.object(T, "map_rows", side_effect=self.map_of), \
                 patch.object(T, "deleting_copy_problem", side_effect=lambda obj, name: "selects its COMDAT NODUPLICATES"
                              if name in this.names(text_of(obj), "noduplicates") else None), \
                 patch.object(T, "exact_build", side_effect=build_effect or built) as self.exact, \
@@ -1978,6 +2011,11 @@ class EmitTransactionTests(unittest.TestCase):
             finally:
                 for p in extra:
                     p.stop()
+
+    def map_of(self):
+        return [{"rva": r["target_rva"], "kind": "code", "tu": self.approved.get(r["target_rva"], self.TU),
+                 "confidence": self.confidence.get(r["target_rva"], "approved")}
+                for rows in self.rows.values() for r in rows]
 
     def held(self, *a, **k):
         held = T.Held()
@@ -2327,6 +2365,312 @@ class EmitTransactionTests(unittest.TestCase):
             with self.subTest(bad=bad), self.assertRaises(SystemExit):
                 self.run_main("--split", self.A, "--for", self.TU, *bad)
 
+    # ------------------------------------------------------------------ the transfer proof
+    INST, COPY = "??$f@H@@YAXXZ", "??0R@@QAE@ABV0@@Z"          # a template instance, a copy ctor: no name admits them
+
+    def proof_case(self):
+        """Each donor hosts a stand-in the prepared texts remove, and the prepared TU emits it."""
+        self.rows = {self.A: [self.row(self.INST, "0x00002000", self.A), self.row(self.STAY_A, "0x00003000", self.A)],
+                     self.B: [self.row(self.COPY, "0x00002100", self.B), self.row(self.STAY_B, "0x00003100", self.B)],
+                     self.TU: [self.row(self.OWN, "0x00001000", self.TU)]}
+        self.write(self.A, f"//comdat {self.INST}\n//comdat {self.STAY_A}\n")
+        self.write(self.B, f"//comdat {self.COPY}\n//comdat {self.STAY_B}\n")
+        self.write(self.TU, f"//comdat {self.OWN}\n")
+        self.ledger()
+        return {self.TU: f"//comdat {self.OWN}\n//comdat {self.INST}\n//comdat {self.COPY}\n",
+                self.A: f"//comdat {self.STAY_A}\n", self.B: f"//comdat {self.STAY_B}\n"}
+
+    RVAS = ["0x00002000", "0x00002100"]
+
+    def proof_refuses(self, prepared, rva, why, **kw):
+        report = self.transact(rvas=self.RVAS, prepared=prepared, **kw)
+        self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+        self.assertIn(why, report["refused_rows"][rva])
+        self.assertNotIn("transfer_proof", report)
+
+    def test_a_prepared_handover_moves_rows_no_name_admits(self):
+        prepared = self.proof_case()
+        report = self.transact(prepared=prepared)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["transfer_proof"], self.RVAS)
+        self.unchanged()
+        report = self.transact(prepared=prepared, dry_run=False)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["moved"], self.RVAS)
+        funcs = self.read("reverse/functions.csv")
+        self.assertIn(f"{self.INST},,0x00002000,8,{self.TU},", funcs)
+        self.assertIn(f"{self.COPY},,0x00002100,8,{self.TU},", funcs)
+        for rel, text in prepared.items():
+            self.assertEqual(self.read(rel), text)
+
+    def test_the_proof_is_only_for_a_prepared_file(self):
+        prepared = self.proof_case()
+        report = self.transact(rvas=self.RVAS)                                       # no prepared text at all
+        self.assertIn("a template instance", report["refused_rows"]["0x00002000"])
+        self.assertIn("not a deleting destructor", report["refused_rows"]["0x00002100"])
+        report = self.transact(rvas=self.RVAS, prepared={self.TU: prepared[self.TU], self.A: prepared[self.A]})
+        self.assertIn("not a deleting destructor", report["refused_rows"]["0x00002100"])    # B's text is not prepared
+        self.assertNotIn("0x00002000", report["refused_rows"])
+
+    def test_a_deleting_destructor_stays_on_its_own_route(self):
+        # its name admits it, so the hand-written check judges it and the proof does not
+        prepared = self.stand_in_removed()
+        report = self.transact(prepared=prepared)
+        self.assertNotIn("blocked", report)
+        self.assertNotIn("transfer_proof", report)
+
+    def test_the_donor_still_defining_it_refuses(self):
+        for kind in ("comdat", "strong", "weak", "noduplicates"):
+            with self.subTest(kind=kind):
+                self.setUp()
+                prepared = self.proof_case()
+                prepared[self.A] += f"//{kind} {self.INST}\n"
+                report = self.transact(rvas=self.RVAS, prepared=prepared)
+                self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+                # a strong copy is refused earlier, for what it would collide with
+                self.assertIn("outside a COMDAT" if kind == "strong" else "still defines", report["refused_rows"]["0x00002000"])
+
+    def test_the_destination_bytes_differing_by_one_refuse(self):
+        prepared = self.proof_case()
+        prepared[self.TU] += f"//byte {self.INST} c4\n"                              # retail's is c3
+        self.proof_refuses(prepared, "0x00002000", "not byte-exact")
+        prepared[self.TU] = prepared[self.TU].replace("c4", "c3")                    # the same byte: it moves
+        self.assertNotIn("blocked", self.transact(rvas=self.RVAS, prepared=prepared))
+
+    def test_the_destination_must_define_it_as_a_code_comdat_selected_any(self):
+        for kind, why in (("strong", "outside a COMDAT"), ("noduplicates", "selected NODUPLICATES"),
+                          ("data", "outside a code section")):
+            with self.subTest(kind=kind):
+                self.setUp()
+                prepared = self.proof_case()
+                prepared[self.TU] = prepared[self.TU].replace(f"//comdat {self.INST}", f"//{kind} {self.INST}")
+                self.proof_refuses(prepared, "0x00002000", why)
+        self.setUp()
+        prepared = self.proof_case()
+        prepared[self.TU] = prepared[self.TU].replace(f"//comdat {self.INST}\n", "")
+        self.proof_refuses(prepared, "0x00002000", "does not emit it")
+
+    def test_exactly_one_object_may_define_it_afterwards(self):
+        prepared = self.proof_case()
+        prepared[self.B] += f"//comdat {self.INST}\n"                                # another unit of the transaction
+        self.proof_refuses(prepared, "0x00002000", f"exactly one object must define it afterwards: {self.B}")
+
+    def test_the_map_must_approve_the_destination_for_the_address(self):
+        for change in ("proposed", "elsewhere"):
+            with self.subTest(change=change):
+                self.setUp()
+                prepared = self.proof_case()
+
+                def changed():
+                    rows = type(self).map_of(self)
+                    for m in rows:
+                        if m["rva"] == "0x00002000":
+                            m["confidence" if change == "proposed" else "tu"] = "proposed" if change == "proposed" else self.OTHER
+                    return rows
+                self.map_of = changed
+                self.proof_refuses(prepared, "0x00002000", "does not approve")
+
+    def test_anything_inconclusive_refuses(self):
+        for rel in (self.TU, self.A, self.B):
+            with self.subTest(rel=rel):
+                self.setUp()
+                prepared = self.proof_case()
+                prepared[rel] += "//garbage\n"
+                self.proof_refuses(prepared, "0x00002000", "cannot be read: inconclusive")
+
+    def test_the_final_compiles_are_judged_again(self):
+        prepared = self.proof_case()
+        calls = []
+
+        def second_look(obj):
+            calls.append(obj)
+            found = self.definitions(obj)
+            return None if len(calls) > 6 else found                                 # the byte gate read 3 units, twice
+        report = self.transact(rvas=self.RVAS, prepared=prepared, definitions=second_look)
+        self.assertIn("re-judged on the final compiles", report["blocked"])
+        self.assertIn("inconclusive", report["blocked"])
+
+    def after_the_build(self, prepared, change):
+        """The apply over a build whose real objects are the prepared texts, then `change`d."""
+        real = {f: self.root / "build" / f"real-{Path(f).stem}.obj" for f in [self.TU, self.A, self.B]}
+        import build
+
+        def built(sources):
+            for source in sources:
+                real[source].write_text(self.read(source), encoding="utf-8")
+                build._deps_sidecar(real[source]).write_text("{}")
+            change(real)
+            return True, "OK"
+        before = {r: (self.root / r).read_bytes() for r in self.base}
+        report = self.transact(rvas=self.RVAS, prepared=prepared, dry_run=False, build_effect=built)
+        self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+        return report
+
+    def test_the_rebuilt_objects_are_judged_too(self):
+        prepared = self.proof_case()
+
+        def donor_defines(real):
+            real[self.A].write_text(prepared[self.A] + f"//comdat {self.INST}\n", encoding="utf-8")
+        report = self.after_the_build(prepared, donor_defines)
+        self.assertIn("the rebuilt objects fail the transfer proof", report["blocked"])
+        self.assertIn("still defines it", report["blocked"])
+        self.assertIn("the ledger was put back", report["blocked"])
+
+        def donor_gone(real):
+            real[self.B].unlink()
+        report = self.after_the_build(prepared, donor_gone)
+        self.assertIn("inconclusive", report["blocked"])
+
+    def test_the_apply_compiles_from_nothing(self):
+        # objects and receipts deleted, the object store off, so the build cannot reuse a thing
+        prepared = self.proof_case()
+        import build
+        real = {f: self.root / "build" / f"real-{Path(f).stem}.obj" for f in [self.TU, self.A, self.B]}
+        (self.root / "build").mkdir(exist_ok=True)
+        for obj in real.values():
+            obj.write_text("stale", encoding="utf-8")
+            build._deps_sidecar(obj).write_text("{}")
+        saw = []
+
+        def built(sources):
+            saw.append(([p.name for p in real.values() if p.exists() or build._deps_sidecar(p).exists()],
+                        os.environ.get("BFME_OBJSTORE")))
+            for source in sources:
+                real[source].write_text(self.read(source), encoding="utf-8")
+            return True, "OK"
+        report = self.transact(rvas=self.RVAS, prepared=prepared, dry_run=False, build_effect=built)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(saw, [([], "off")])
+        self.assertNotEqual(os.environ.get("BFME_OBJSTORE"), "off")                  # only for the transaction
+
+    def test_an_object_that_cannot_be_deleted_stops_the_build(self):
+        prepared = self.proof_case()
+        (self.root / "build").mkdir(exist_ok=True)
+        locked = self.root / "build" / "real-Mixed.obj"
+        locked.write_text("stale", encoding="utf-8")
+        real_unlink, attempts = Path.unlink, []
+
+        def unlink(path, *a, **k):
+            if Path(path) == locked and not attempts:
+                attempts.append(path)
+                raise PermissionError("locked")
+            return real_unlink(path, *a, **k)
+        with patch.object(Path, "unlink", unlink):
+            report = self.transact(rvas=self.RVAS, prepared=prepared, dry_run=False)
+        self.assertIn("could not delete an object", report["blocked"])
+        self.exact.assert_not_called()
+
+    def test_without_a_proof_the_objects_are_left_alone(self):
+        # a deleting destructor's move keeps its store and its objects, as before
+        prepared = self.stand_in_removed()
+        saw = []
+
+        def built(sources):
+            saw.append(os.environ.get("BFME_OBJSTORE"))
+            for source in sources:
+                (self.root / "build" / f"real-{Path(source).stem}.obj").write_text(self.read(source), encoding="utf-8")
+            return True, "OK"
+        self.assertNotIn("blocked", self.transact(prepared=prepared, dry_run=False, build_effect=built))
+        self.assertEqual(saw, ["off"])                                               # prepared: compiled fresh all the same
+        self.setUp()
+        saw.clear()
+        self.assertNotIn("blocked", self.transact(dry_run=False, build_effect=built))
+        self.assertNotEqual(saw, ["off"])                                            # no text changed
+
+    def test_a_refused_row_stays_and_its_prepared_file_then_loses_it(self):
+        # without --rva a refused row stays in its file, whose prepared text no longer emits it
+        prepared = self.proof_case()
+        prepared[self.TU] = prepared[self.TU].replace(f"//comdat {self.INST}\n", "")
+        report = self.transact(prepared=prepared, dry_run=False)
+        self.assertIn("remaining rows lose matches", report["blocked"])
+        self.exact.assert_not_called()
+
+    def test_a_companion_follows_its_parents_proof(self):
+        funclet = f"__ehhandler${self.INST}"
+        prepared = self.proof_case()
+        self.rows[self.A].insert(1, self.row(funclet, "0x00002010", self.A))
+        self.approved["0x00002010"] = self.TU
+        prepared[self.TU] += f"//comdat {funclet}\n"
+        self.write(self.A, self.read(self.A) + f"//comdat {funclet}\n")
+        self.ledger()
+        report = self.transact(rvas=self.RVAS, prepared=prepared)
+        self.assertNotIn("blocked", report)
+        self.assertIn("0x00002010", report["moved"])
+        self.confidence["0x00002010"] = "proposed"                                   # its own address, not its parent's
+        report = self.transact(rvas=self.RVAS, prepared=prepared)
+        self.assertIn("does not approve", report["refused_rows"]["0x00002010"])
+        self.confidence.clear()
+        prepared[self.B] += f"//comdat {funclet}\n"
+        report = self.transact(rvas=self.RVAS, prepared=prepared)
+        self.assertIn("exactly one object", report["refused_rows"]["0x00002010"])
+
+    @staticmethod
+    def coff(symbols, machine=0x14C):
+        """A minimal COFF object: one section, COMDAT in code, selected ANY, and `symbols`, each
+        (name, section, storage, aux records' bytes or None)."""
+        import struct
+        table = 20 + 40
+        records, count = b"", 0
+        for name, section, storage, aux in [(".text", 1, 3, b"\0" * 14 + bytes([2]) + b"\0" * 3)] + symbols:
+            records += struct.pack("<8sIhHBB", name.encode(), 0, section, 0, storage, 1 if aux else 0) + (aux or b"")
+            count += 2 if aux else 1
+        header = struct.pack("<HHIIIHH", machine, 1, 0, table, count, 0, 0)
+        section = struct.pack("<8sIIIIIIHHI", b".text", 0, 0, 0, 0, 0, 0, 0, 0, 0x20 | 0x1000)
+        return header + section + records + struct.pack("<I", 4)
+
+    def test_coff_definitions_reads_strictly(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            def read(data):
+                path = Path(tmp) / "o.obj"
+                path.write_bytes(data)
+                return T.coff_definitions(path)
+            external, weak = 2, 105
+            self.assertEqual(read(self.coff([("_f", 1, external, None)])), {"_f": (True, True, 2)})
+            self.assertIsNone(read(self.coff([("_f", 9, external, None)])))             # a section out of range
+            self.assertEqual(read(self.coff([("_f", 1, 3, None)])), {})                  # a local symbol is no definition
+            # a weak external can satisfy the name, so it counts: the donor may not keep one
+            tag = (1).to_bytes(4, "little") + b"\0" * 14
+            found = read(self.coff([("_g", 1, external, None), ("_x", 0, weak, tag)]))
+            self.assertEqual(found["_x"], (False, False, None))
+            self.assertIn("still defines", self.handover(found))
+            self.assertEqual(read(self.coff([("_f", 1, external, None)]) + b"/alternatename:_y=_f\0")["_y"], (False, False, None))
+            self.assertIsNone(read(self.coff([("_f", 1, external, None)], machine=0x8664)))   # not i386
+
+    @staticmethod
+    def handover(donor_defs):
+        with patch.object(T, "coff_definitions", side_effect=lambda obj: donor_defs if obj == "d" else {"_x": (True, True, 2)}):
+            return T.transfer_problem("_x", "d", "t", {"d": "d", "t": "t"})
+
+    def test_what_a_transfer_requires_of_the_destination(self):
+        # read directly: the byte gate refuses most of these first, on a less strict reading
+        cases = {"comdat any": ((True, True, 2), None), "strong": ((False, True, None), "outside a COMDAT"),
+                 "no duplicates": ((True, True, 1), "selected NODUPLICATES"), "same size": ((True, True, 3), "selected SAME_SIZE"),
+                 "data": ((True, False, 2), "outside a code section"), "weak": ((False, False, None), "outside a code section")}
+        for label, (found, why) in cases.items():
+            with self.subTest(label=label), patch.object(T, "coff_definitions", side_effect=lambda obj: {"t": {"n": found}}.get(obj, {})):
+                got = T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"})
+                self.assertIsNone(got) if why is None else self.assertIn(why, got)
+        with patch.object(T, "coff_definitions", return_value={}):
+            self.assertIn("does not define it", T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}))
+            # a funclet is usually a local symbol: its absence among the externals is no refusal
+            self.assertIsNone(T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, companion=True))
+
+    def test_fresh_compiles_turns_the_store_off_and_back(self):
+        import build
+        before = os.environ.get("BFME_OBJSTORE")
+        build._objstore_root.cache_clear()
+        with T.fresh_compiles():
+            self.assertEqual(os.environ["BFME_OBJSTORE"], "off")
+            self.assertIsNone(build._objstore_root())
+        self.assertEqual(os.environ.get("BFME_OBJSTORE"), before)
+        with self.assertRaises(RuntimeError), T.fresh_compiles():
+            raise RuntimeError
+        self.assertEqual(os.environ.get("BFME_OBJSTORE"), before)
+        with patch.dict(os.environ, {"BFME_OBJSTORE": "on"}):
+            with T.fresh_compiles():
+                pass
+            self.assertEqual(os.environ["BFME_OBJSTORE"], "on")
+
 
 class VtableRiderPreparedSplitTests(unittest.TestCase):
     """P16 minimal B, rules (b) and (c): ParticleSystemFXNuggetCtor.cpp's ctor moves into FXList.cpp
@@ -2520,11 +2864,8 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.assertNotIn("blocked", report)                    # a declaration defines nothing
 
 
-class NativeDeletingDtorSelectionTests(unittest.TestCase):
-    """MSVC 7.1 itself (under Wine off Windows): the compiler selects its `??_G`/`??_E` ANY in a code
-    section; a hand-written `__identifier` definition gets NODUPLICATES, an inline one ANY (left to
-    identifier_definition on the preprocessed text), selectany data ANY in a data section."""
-    NAME = "??_GRec@@UAEPAXI@Z"
+class NativeCompilerCase(unittest.TestCase):
+    """MSVC 7.1 itself (under Wine off Windows), skipped where there is none."""
 
     def setUp(self):
         import build
@@ -2550,6 +2891,13 @@ class NativeDeletingDtorSelectionTests(unittest.TestCase):
         p = subprocess.run(command, env=env, capture_output=True, cwd=self.build.ROOT, timeout=600)
         self.assertEqual(p.returncode, 0, (p.stdout + p.stderr)[-400:])
         return p.stdout.decode("latin-1") if preprocess else obj
+
+
+class NativeDeletingDtorSelectionTests(NativeCompilerCase):
+    """The compiler selects its `??_G`/`??_E` ANY in a code section; a hand-written `__identifier`
+    definition gets NODUPLICATES, an inline one ANY (left to identifier_definition on the preprocessed
+    text), selectany data ANY in a data section."""
+    NAME = "??_GRec@@UAEPAXI@Z"
 
     def test_the_compiler_selects_its_deleting_dtors_any_and_a_hand_written_one_not(self):
         cases = {"implicit": ("struct Rec { virtual ~Rec(); int a; }; Rec::~Rec() {} void f() { delete new Rec; }\n",
@@ -2636,6 +2984,59 @@ class NativeDeletingDtorSelectionTests(unittest.TestCase):
                 self.assertIn("??/", code)                                      # cl -E leaves the trigraph
                 self.assertTrue(T.identifier_definition(code, name))
                 self.assertTrue(T.hand_written_problem(name, [obj], {"u.cpp": (code, None)}))
+
+
+class NativeTransferProofTests(NativeCompilerCase):
+    """The transfer proof on objects MSVC 7.1 really wrote: a template instance, a plain function under
+    /Gy, data under a function's name, and objects that cannot be read."""
+    INST = "??$f@H@@YAHH@Z"
+    TEMPLATE = "template<class T> T f(T a) { return a + 1; }\n"
+    USE = "int use(int a) { return f<int>(a); }\n"
+
+    def obj(self, stem, text):
+        return self.run_cl(stem, "#pragma optimize(\"\", on)\n" + text)
+
+    def definitions(self, stem, text):
+        found = T.coff_definitions(self.obj(stem, text))
+        self.assertIsNotNone(found)
+        return found
+
+    def test_it_reads_what_the_compiler_wrote(self):
+        found = self.definitions("instance", "#pragma inline_depth(0)\n" + self.TEMPLATE + self.USE)
+        self.assertEqual(found[self.INST], (True, True, 2))                          # an instance: ANY, in code
+        self.assertEqual(found["?use@@YAHH@Z"], (True, True, 1))                     # a plain function under /Gy
+        found = self.definitions("data", '__declspec(selectany) int g = 1;\nint h = 2;\n')
+        self.assertEqual(found["?g@@3HA"], (True, False, 2))
+        self.assertEqual(found["?h@@3HA"][1], False)
+
+    def test_a_weak_name_counts_as_defined(self):
+        found = self.definitions("alternate", '#pragma comment(linker, "/alternatename:?x@@YAXXZ=?use@@YAHH@Z")\n' + self.TEMPLATE + self.USE)
+        self.assertIn("?x@@YAXXZ", found)
+
+    def test_an_object_it_cannot_read_is_not_an_empty_one(self):
+        good = self.obj("readable", self.TEMPLATE + self.USE)
+        self.assertIsNone(T.coff_definitions(good.with_name("missing.obj")))
+        self.assertIsNone(T.coff_definitions(None))
+        for stem, data in (("empty", b""), ("text", b"not an object at all"), ("cut", good.read_bytes()[:64]),
+                           ("other_machine", b"\x64\x86" + good.read_bytes()[2:])):
+            with self.subTest(stem=stem):
+                bad = good.with_name(stem + ".obj")
+                bad.write_bytes(data)
+                self.assertIsNone(T.coff_definitions(bad))
+                self.assertEqual(T.transfer_problem(self.INST, "d", "t", {"d": bad, "t": good}),
+                                 "d's object cannot be read: inconclusive")
+
+    def test_the_handover_on_real_objects(self):
+        with_use = self.obj("dest", "#pragma inline_depth(0)\n" + self.TEMPLATE + self.USE)
+        without = self.obj("donor_after", "int other() { return 1; }\n")
+        explicit = self.obj("donor_before", self.TEMPLATE + "template int f<int>(int);\n")
+        plain = self.obj("plain", "int use(int a) { return a; }\n")
+        self.assertIn(self.INST, T.coff_definitions(explicit))
+        self.assertIsNone(T.transfer_problem(self.INST, "d", "t", {"d": without, "t": with_use}))
+        self.assertIn("still defines", T.transfer_problem(self.INST, "d", "t", {"d": explicit, "t": with_use}))
+        self.assertIn("exactly one object", T.transfer_problem(self.INST, "d", "t", {"d": without, "x": explicit, "t": with_use}))
+        self.assertIn("does not define", T.transfer_problem(self.INST, "d", "t", {"d": without, "t": plain}))
+        self.assertIn("selected NODUPLICATES", T.transfer_problem("?use@@YAHH@Z", "d", "t", {"d": without, "t": plain}))
 
 
 class FoldAliasSplitTests(unittest.TestCase):

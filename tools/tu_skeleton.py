@@ -3964,6 +3964,103 @@ def hand_written_problem(name, objs, texts):
             return f"{unit} (preprocessed) may define it by hand: `{found[:100]}`"
     return None
 
+# The transfer proof (P16 v2 step 5): a prepared transaction may move a row its name alone does not
+# admit, on what the objects show rather than on any reading of the text. The row is no claim about
+# who wrote the body: after the move its one emitter among these units is the unit the map approves.
+# Every fact comes from a compile of this transaction (fresh_compiles); anything that cannot be read
+# refuses. Under /Gy a plain function is a COMDAT section too, but selected NODUPLICATES, so a
+# COMDAT here means selected ANY in code: a real body goes through --split or --merge.
+@contextlib.contextmanager
+def fresh_compiles():
+    """No object store for this block's compiles, in this process or a build it starts: every object
+    is compiled now, never restored (build._restore_object)."""
+    import build
+    saved = os.environ.get("BFME_OBJSTORE")
+    os.environ["BFME_OBJSTORE"] = "off"
+    build._objstore_root.cache_clear()
+    try:
+        yield
+    finally:
+        if saved is None:
+            os.environ.pop("BFME_OBJSTORE", None)
+        else:
+            os.environ["BFME_OBJSTORE"] = saved
+        build._objstore_root.cache_clear()
+
+
+def coff_definitions(obj):
+    """{symbol: (in a COMDAT, in code, COMDAT selection)} of what the COFF object at `obj` defines, or
+    None when it cannot be read: missing, not an i386 object, a section out of range. Unlike
+    defined_symbols, which reads a missing object as defining nothing, this never turns "unread" into
+    "absent". A weak external and an `/alternatename` count as defining: they can satisfy the name."""
+    import struct
+    import link_census as LCe
+    try:
+        data = Path(obj).read_bytes()
+        if data[:2] != b"\x4c\x01":
+            return None
+        count = struct.unpack_from("<H", data, 2)[0]
+        optional = struct.unpack_from("<H", data, 16)[0]
+        selections = LCe._comdat_selections(data)
+        out = {}
+        for s in LCe._coff_symbols(data):
+            if s["storage"] != LCe.EXTERNAL:
+                continue
+            if s["section"] > count:
+                return None
+            if s["section"] > 0:
+                flags = struct.unpack_from("<I", data, 20 + optional + (s["section"] - 1) * 40 + 36)[0]
+                out[s["name"]] = (bool(flags & LCe.COMDAT), bool(flags & 0x20), selections.get(s["section"]))
+            elif s["value"]:
+                out[s["name"]] = (False, False, None)                 # a common symbol
+        for name, _default in LCe._weak_externals(data):
+            out.setdefault(name, (False, False, None))
+        for m in re.finditer(rb"/alternatename:([^=\s]+)=\S+", data, re.I):
+            out.setdefault(m.group(1).decode("latin-1").strip('"'), (False, False, None))
+        return out
+    except (OSError, TypeError, ValueError, IndexError, KeyError, struct.error):
+        return None
+
+
+def map_approved_problem(r, key):
+    """Why the current map does not approve unit `key` for row `r`'s own address, or None. The proof
+    never overrides the map: a funclet that rides with its parent answers for its own address too."""
+    rva = int(r["target_rva"], 16)
+    if "map_approved" not in _CACHE:
+        _CACHE["map_approved"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
+    m = _CACHE["map_approved"].get(rva)
+    if m is None or m["confidence"] != "approved" or not m["tu"] or m["tu"].lower() != key.lower():
+        return f"the current map does not approve {key} for {r['target_rva']}"
+    return None
+
+
+def transfer_problem(name, donor, dest, objs, companion=False):
+    """Why the objects `objs` {unit: object} do not show `name` handed from `donor` to `dest`, or None:
+    the donor's object no longer defines it, the destination's defines it in a code COMDAT selected
+    ANY, and no other object defines it. An unreadable object refuses. A `companion` (a funclet
+    emitted with its parent, usually a local symbol) need not be an external of the destination,
+    and no other unit may define it either."""
+    defs = {}
+    for unit, obj in objs.items():
+        defs[unit] = coff_definitions(obj)
+        if defs[unit] is None:
+            return f"{unit}'s object cannot be read: inconclusive"
+    if name in defs[donor]:
+        return f"{donor}'s rebuilt object still defines it"
+    others = sorted(u for u in defs if u != dest and name in defs[u])
+    if others:
+        return "exactly one object must define it afterwards: " + ", ".join(others) + " does too"
+    found = defs[dest].get(name)
+    if found is None:
+        return None if companion else f"{dest}'s object does not define it"
+    comdat, code, selection = found
+    if not code:
+        return f"{dest} defines it outside a code section"
+    if not comdat or selection != 2:
+        return (f"{dest} defines it {'outside a COMDAT' if not comdat else 'selected ' + str(SELECTION.get(selection, selection))}"
+                ": a real body goes through --split or --merge")
+    return None
+
 
 OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
 
@@ -4002,6 +4099,14 @@ def identity_debt(path, names):
 
 
 def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
+    """_emit_move; a prepared transaction's every compile is fresh (fresh_compiles)."""
+    if not prepared:
+        return _emit_move(path, tu, rvas, dry_run, claim, prepared)
+    with fresh_compiles():
+        return _emit_move(path, tu, rvas, dry_run, claim, prepared)
+
+
+def _emit_move(path, tu, rvas, dry_run, claim, prepared):
     """Repoint the deleting-destructor rows of mixed `path` (one file, or several as one
     transaction) the current map approves for `tu` to the TU file, which must emit each of
     them byte-exact. Fail-closed: every row (an explicit `rvas` list, each in exactly one of
@@ -4020,6 +4125,13 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
     totals over the files may not grow (emit_hatches_grow), and no strong symbol a prepared unit
     defined may vanish from every object of the transaction (a COMDAT it stops emitting is
     reported as `comdats_dropped`, for the pre-push link audit).
+
+    In a prepared transaction a row of a prepared file that its name does not admit may move on the
+    object-level transfer proof instead (transfer_problem, map_approved_problem): today's map approves
+    the TU for its address, the file's rebuilt object no longer defines it, the TU's defines it
+    byte-exact as a code COMDAT selected ANY, and no other object of the transaction defines it. It
+    is judged at the byte gate, again on the final compiles, and on the real objects, rebuilt from
+    nothing, after the build. A row it refuses stays in its file, whose prepared text then loses it.
 
     Two stages. A scratch compile beside each file (Verifier) screens the rows and is
     re-judged with exactly the rows that move, since region flags follow the row set. The
@@ -4084,7 +4196,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
             report["blocked"] = f"no row of {the(f)} is approved for {key}" + (" among those requested" if rvas else "")
             return report
     everywhere = collections.Counter(r["target_rva"].lower() for f in files for r in rows[f])
-    refused = {}
+    refused, on_proof = {}, set()
     for f in files:
         for r in approved[f]:
             other = object_symbol_differs(r)
@@ -4092,6 +4204,10 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
                    "judge one symbol") if other else None
             if why is None:
                 why = emission_problem(r)
+                if why is not None and f in prepared:     # no name admits it: the objects must
+                    why = map_approved_problem(r, key)
+                    if why is None:
+                        on_proof.add(r["target_rva"])
             if why is None and fold_alias(r):
                 why = "an ICF alias: it lives where the bodies emitting its identity live"
             if why is None and everywhere[r["target_rva"].lower()] > 1:
@@ -4167,7 +4283,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
             report["blocked"] = f"{dest}'s own rows lose matches judged beside the moved rows: " + ", ".join(lost[:5])
             return report
     # a deleting destructor's name does not prove the compiler wrote it (review of 87417c8f9f)
-    judged = [r for f in files for r in movers[f] if r["target_rva"] not in refused]
+    judged = [r for f in files for r in movers[f] if r["target_rva"] not in refused and r["target_rva"] not in on_proof]
     if judged:
         texts = {f: vx[f].preprocessed(final_x[f], [r for r in rows[f] if r not in moved[f]] if f in prepared else rows[f])
                  for f in files}
@@ -4176,6 +4292,31 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
             why = hand_written_problem(r["name"], [vt.obj] + [vx[f].obj for f in files], texts)
             if why:
                 refused[r["target_rva"]] = why
+    def proof_rows(f):
+        """(row, is a companion) of file `f` on the transfer proof: each mover on it, and what rides with one."""
+        parents = {r["name"] for r in movers[f] if r["target_rva"] in on_proof}
+        for r in moved[f]:
+            if r in movers[f]:
+                if r["target_rva"] in on_proof:
+                    yield r, False
+            elif parent_of(r, dtors[f]) in parents:
+                yield r, True
+
+    def proof_problems():
+        """{rva: why} of each row on the transfer proof, on the objects as they stand now."""
+        units = {f: vx[f].obj for f in files}
+        units[dest] = vt.obj
+        out = {}
+        for f in files:
+            for r, is_companion in proof_rows(f):
+                if r["target_rva"] not in refused:
+                    why = (map_approved_problem(r, key) if is_companion else None) or transfer_problem(
+                        r["name"], f, dest, units, companion=is_companion)
+                    if why:
+                        out[r["target_rva"]] = why
+        return out
+    if on_proof:
+        refused.update(proof_problems())
     # a refused parent takes its companions with it; a refused companion takes its parent
     for f in files:
         for r in list(moved[f]):
@@ -4218,6 +4359,14 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
             report["blocked"] = f"{the(f)}'s remaining rows lose matches once these rows leave: " + ", ".join(lost[:5])
             return report
         defined_now |= defined_symbols(vx[f].obj)
+    on_proof &= {r["target_rva"] for r in all_moved}
+    if on_proof:
+        again = proof_problems()
+        if again:
+            rva, why = sorted(again.items())[0]
+            report["blocked"] = f"re-judged on the final compiles, the transfer proof of {rva} fails: {why}"
+            return report
+        report["transfer_proof"] = sorted(on_proof)
     if prepared:
         gone = sorted(strong_was - defined_now)
         if gone:
@@ -4249,9 +4398,10 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
                 report["blocked"] = held_message(held)
                 return report
             acquired, tokens = list(held.acquired), dict(held.tokens)
+        proofs = {f: [(r["name"], is_companion) for r, is_companion in proof_rows(f)] for f in files}
         try:
             result = _apply_emit(files, dest, movers, {f: [r["target_rva"] for r in moved[f]] for f in files},
-                                 acquired, tokens, prepared)
+                                 acquired, tokens, prepared, proofs)
         except BaseException as error:
             if claim and not getattr(error, "journalled", False):    # with a journal, undo_emit released them
                 give_back_after(error, report, held)
@@ -4288,14 +4438,16 @@ def emit_hatches_grow(now, prepared):
     return any(new[k] > old.get(k, 0) for k in new)
 
 
-def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None):
+def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None, proofs=None):
     """The write half of emit_move, under the ledger lock: {rel: rows repointed}, or why it
     was undone. The journal (before and after bytes of each ledger file and prepared text,
     their index entries, the claim keys with their fencing tokens) goes to disk, fsynced, before
     anything is touched; a SIGKILL or power loss leaves it for --recover-emit, and any other
     exit short of a verified, staged move undoes it here (undo_emit, row-level for the ledger,
-    whole-file for a text), each step on its own."""
+    whole-file for a text), each step on its own. `proofs` {file: [(name, is a companion)]}: rows on the
+    transfer proof, judged on the real objects; both are deleted first, so the build must compile them."""
     import build
+    proofs = {f: rows for f, rows in (proofs or {}).items() if rows}
     prepared = {rel: text.encode("utf-8") for rel, text in (prepared or {}).items()}
     before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
     after, repointed = {}, {}
@@ -4327,11 +4479,17 @@ def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None):
         # the committed state: exactly these real files at their real paths, under the flags
         # their build picks from the repointed ledger (__FILE__, __LINE__ and region flags theirs)
         _CACHE.clear()
-        ok, output = exact_build(sources)
+        stale = drop_objects(build, sources) if proofs else []
+        ok, output = exact_build(sources) if not stale else (False, "could not delete an object to compile it afresh: " + "; ".join(stale))
         if ok:
             problem = None
             for f in files:
                 problem = problem or committed_problem(movers[f], dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / f))
+            units = {u: build.obj_path(ROOT / u) for u in sources}
+            for f, named in proofs.items():
+                for name, is_companion in named:
+                    why = transfer_problem(name, f, dest, units, companion=is_companion)
+                    problem = problem or (f"the rebuilt objects fail the transfer proof of {name}: {why}" if why else None)
         else:
             problem = "the build did not pass the repointed rows: " + " | ".join(output.strip().splitlines()[-3:])[:400]
         if problem is None:

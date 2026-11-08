@@ -383,13 +383,27 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
   select its COMDAT ANY in a code section as the compiler does (a plain
   `__identifier` definition gets NODUPLICATES), and neither unit's preprocessed
   text may define it through `__identifier` (an `inline` one also gets ANY). The
-  vtable rider passes the same checks. Constructors, destructors and assignments never move this way: a hand-written
-  one compiles to the implicit one's name, bytes and relocations. Template
-  instances do not move either: whether an instance was instantiated from
-  vendored STLport or written in project code (a typedef'd member, a project
-  `#line` naming an STLport header, a reopened `namespace _STL`) cannot be proved
-  from text, and `#line` also rewrites the debug line info. Template moves can
-  return with a provenance proof that does not depend on text.
+  vtable rider passes the same checks. By name alone, constructors, destructors
+  and assignments never move this way: a hand-written one compiles to the implicit
+  one's name, bytes and relocations. Nor do template instances: whether an
+  instance was instantiated from vendored STLport or written in project code (a
+  typedef'd member, a project `#line` naming an STLport header, a reopened
+  `namespace _STL`) cannot be proved from text, and `#line` also rewrites the
+  debug line info.
+- In a prepared transaction a row of a prepared file that no name admits may move
+  on the transfer proof, which reads objects and claims nothing about who wrote the
+  body. All of it must hold, or the row is refused: the current map approves the
+  TU for the row's own address; the file's rebuilt object no longer defines the
+  symbol; the TU's defines it byte-exact in a code COMDAT selected ANY; no other
+  object of the transaction defines it, a weak external or `/alternatename`
+  included. Under `/Gy` a plain function is a COMDAT section too, but selected
+  NODUPLICATES, so a real body still goes through `--split` or `--merge`. Every
+  compile runs with the object store off, the real objects are deleted before the
+  build, and anything that cannot be read (a failed compile, a missing object, an
+  unparseable section) refuses. It is judged at the byte gate, on the final
+  compiles and on the rebuilt objects. A row it refuses stays in its file, whose
+  prepared text then loses it, so the transaction stops. Without a prepared text
+  a template move still needs a provenance proof that does not depend on text.
 - `--emit-move` over several files is one transaction: one journal, one build over
   exactly those files and the TU, one claim scope, one undo. `--rva` picks rows
   across them and each file's others stay; every listed file must contribute a
