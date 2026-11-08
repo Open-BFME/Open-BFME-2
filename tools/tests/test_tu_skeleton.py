@@ -1722,7 +1722,10 @@ class EmitMoveTests(unittest.TestCase):
                    'extern "C" __declspec(naked) inline void (__identifier("??_GRec@@UAEPAXI@Z"))() { }\n',
                    # review of f11be8ac37: a bracket inside a default argument's literal
                    'extern "C" inline void __identifier("??_GRec@@UAEPAXI@Z")(const char *p = ")") {}\n',
-                   "extern \"C\" inline void __identifier(\"??_GRec@@UAEPAXI@Z\")(char p = ')') {}\n")
+                   "extern \"C\" inline void __identifier(\"??_GRec@@UAEPAXI@Z\")(char p = ')') {}\n",
+                   # review of 329404caeb: `??/` is a backslash, so `"??/""` holds a quote
+                   'const char *s="??/""; extern "C" __declspec(dllexport) inline void '
+                   '__identifier("??_GRec@@UAEPAXI@Z")() {} const char *t="??/"";\n')
         for text in refused:
             for unit in (self.TU, self.SOURCE):
                 with self.subTest(text=text, unit=unit):
@@ -1773,7 +1776,12 @@ class EmitMoveTests(unittest.TestCase):
                     'extern "C" const void *__identifier("{n}")[] = {{0}};', 'void g() {{ __identifier("{n}")(); }}',
                     'void __identifier("{n}")\n#line 3 "x.h"\n();', 'void __identifier("{n}") /* a ) */ ();',
                     'void __identifier("??_GOther@@UAEPAXI@Z")(const char *p = ")") {{}}',     # another name
-                    'void f() {{}}', 'const char *s = "__identifier(\\"{n}\\")() {{}}";']      # inside a literal
+                    'void f() {{}}', 'const char *s = "__identifier(\\"{n}\\")() {{}}";',      # inside a literal
+                    # review of 329404caeb: trigraphs read as the compiler reads them
+                    'const char *s="??/""; void __identifier("{n}")(); const char *t="??/"";',
+                    'extern "C" const void *__identifier("{n}")??(??);',                       # `[]`
+                    'const char *s = "a??/"__identifier(\\"{n}\\")() {{}}";',                  # still inside it
+                    'void __identifier("{n}")(); const char *s = "??/\n";']                    # a spliced literal
         refused = ['void __identifier("{n}")() {{}}', 'void __identifier("{n}")(void) {{}}',
                    'extern "C" inline void __identifier("{n}")(const char *p = ")") {{}}',     # the review's default
                    "extern \"C\" inline void __identifier(\"{n}\")(char p = ')') {{}}",
@@ -1786,7 +1794,12 @@ class EmitMoveTests(unittest.TestCase):
                    'void __identifier("??_G" "Rec@@UAEPAXI@Z")();' + ' void __identifier("??_G" "Rec@@UAEPAXI@Z")() {{}}',
                    'void __identifier("\\x3f?_GRec@@UAEPAXI@Z")() {{}}', 'void __identifier(L"{n}")() {{}}',
                    'void __identifier("{n}")(); const char *s = "open;',                       # unterminated
-                   'void __identifier("{n}")(); /* open']
+                   'void __identifier("{n}")(); /* open',
+                   # review of 329404caeb: `"??/""` holds a quote; the definition between two of them is code
+                   'const char *s="??/""; extern "C" __declspec(dllexport) inline void __identifier("{n}")() {{}} '
+                   'const char *t="??/"";',
+                   'void __identifier("{n}")() ??< ??>', 'void __identifier("{n}")??(2??);',
+                   'void __identi\\\nfier("{n}")() {{}}']                                      # a spliced name
         for code in admitted + refused:
             with self.subTest(code=code):
                 self.assertEqual(bool(T.identifier_definition(code.format(n=n), n)), code in refused)
@@ -1802,6 +1815,21 @@ class EmitMoveTests(unittest.TestCase):
         self.assertIsNone(T.mask_code('f("open);\ng(");\n'))            # a quote on a later line closes nothing
         self.assertIsNone(T.mask_code("f(); /* open"))
         self.assertIsNone(T.mask_code("char c = 'x;\n"))
+
+    def test_translation_phases_read_trigraphs_and_splices_as_the_compiler_does(self):
+        # review of 329404caeb: cl -E leaves trigraphs; decorated names are none
+        for tri, char in (("??=", "#"), ("??/", "\\"), ("??'", "^"), ("??(", "["), ("??)", "]"), ("??!", "|"),
+                          ("??<", "{"), ("??>", "}"), ("??-", "~")):
+            with self.subTest(tri=tri):
+                self.assertEqual(T.translation_phases(f"a{tri}b"), f"a{char}b")
+        for name in ("??_GRec@@UAEPAXI@Z", "??_ERec@@UAEPAXI@Z", "??4Rec@@QAEAAV0@ABV0@@Z", "??0Rec@@QAE@XZ",
+                     "??1Rec@@UAE@XZ", "??$f@H@@YAXXZ", "??RBox@@QBEHXZ", "??B?$C@H@@QAEHXZ", "??_7Rec@@6B@",
+                     "??_R0?AVRec@@@8", "???"):
+            with self.subTest(name=name):
+                self.assertEqual(T.translation_phases(name), name)
+        self.assertEqual(T.translation_phases("???/"), "?\\")                 # the leftmost trigraph
+        self.assertEqual(T.translation_phases('"??/""'), '"\\""')
+        self.assertEqual(T.translation_phases("a\\\nb\\\r\nc??/\nd"), "abcd")   # splices, one made by `??/`
 
 
 class VtableRiderPreparedSplitTests(unittest.TestCase):
@@ -2064,6 +2092,22 @@ class NativeDeletingDtorSelectionTests(unittest.TestCase):
                 self.assertIn(name, T.comdat_symbols(obj))
                 self.assertIsNone(T.deleting_copy_problem(obj, name))          # ANY, in code: (a) cannot see it
                 code = self.run_cl(stem + "_pp", text, preprocess=True)
+                self.assertTrue(T.identifier_definition(code, name))
+                self.assertTrue(T.hand_written_problem(name, [obj], {"u.cpp": (code, None)}))
+
+    def test_a_trigraph_escaped_quote_hides_no_body(self):
+        # review of 329404caeb: `??/` is a backslash to the compiler, so `"??/""` holds a quote; masking the raw
+        # text lost quote sync and hid the definition between two of them
+        for name in (self.NAME, "??_ERec@@UAEPAXI@Z"):
+            with self.subTest(name=name):
+                text = (f'const char *s="??/""; extern "C" __declspec(dllexport) inline void '
+                        f'__identifier("{name}")() {{}} const char *t="??/"";\n')
+                stem = "trigraph_" + name[3]
+                obj = self.run_cl(stem, text)
+                self.assertIn(name, T.comdat_symbols(obj))
+                self.assertIsNone(T.deleting_copy_problem(obj, name))          # ANY, in code: (a) cannot see it
+                code = self.run_cl(stem + "_pp", text, preprocess=True)
+                self.assertIn("??/", code)                                      # cl -E leaves the trigraph
                 self.assertTrue(T.identifier_definition(code, name))
                 self.assertTrue(T.hand_written_problem(name, [obj], {"u.cpp": (code, None)}))
 

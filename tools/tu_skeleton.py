@@ -3772,8 +3772,22 @@ def _paren_end(text, at):
     return None
 
 
+TRIGRAPHS = {"=": "#", "/": "\\", "'": "^", "(": "[", ")": "]", "!": "|", "<": "{", ">": "}", "-": "~"}
+
+
+def translation_phases(text):
+    """`text` as the compiler reads it after translation phases 1 and 2: each of the nine
+    trigraphs replaced by its character and each backslash-newline spliced away. cl -E leaves
+    both (review of 329404caeb: in `"??/""` the `??/` is a backslash, so the literal holds a
+    quote, and masking the raw text lost quote sync and hid an `__identifier` definition).
+    Decorated names keep their `??_G`, `??4`, `??$`: no trigraph ends in a letter, digit, `_`
+    or `$`, and none of the nine characters a trigraph yields can appear in one."""
+    text = re.sub(r"\?\?([=/'()!<>-])", lambda m: TRIGRAPHS[m.group(1)], text)
+    return re.sub(r"\\\r?\n", "", text)
+
+
 def mask_code(text):
-    """`text` with every index kept: each directive line and comment blanked, and each string or
+    """`text` (read as translation_phases leaves it) with every index kept: each directive line and comment blanked, and each string or
     character literal's characters between its quotes replaced by `x`, so no bracket, quote or
     token inside one is read as code (review of f11be8ac37: `(const char *p = ")") {}` hid a
     body); None when a literal or comment does not close, as nothing after it can be read."""
@@ -3831,9 +3845,11 @@ def identifier_definition(code, name):
     """The `__identifier(...)` in the preprocessed `code` that may define `name`, or None. Every
     one whose argument is `name`'s literal, or is not one plain literal (an escape, adjacent
     literals, a prefix: it cannot be read), must be followed, after any `)`, by exactly one of
-    the shapes ALLOWED_AFTER admits, read on the masked text (mask_code); a text that cannot be
-    masked, or an unbalanced argument, refuses. A positive allowlist: eleven rounds showed a
-    blocklist of declarator shapes keeps leaking."""
+    the shapes ALLOWED_AFTER admits, read on the masked text (mask_code) of the text the compiler
+    reads (translation_phases); a text that cannot be masked, or an unbalanced argument,
+    refuses. A positive allowlist: eleven rounds showed a blocklist of declarator shapes keeps
+    leaking."""
+    code = translation_phases(code)
     if "__identifier" not in code:
         return None
     masked = mask_code(code)
