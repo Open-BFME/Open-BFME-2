@@ -1,0 +1,139 @@
+{
+  "sources": {
+    "Code/GameEngine/Source/GameLogic/Object/Create/DrawableModuleCtor.cpp": {
+      "rows": 1,
+      "matched": 1,
+      "retained_code_comdat_facts_and_flags_equal": true,
+      "retained_comdats": 22,
+      "retained_external_definitions": true,
+      "new_undefined_references": [],
+      "added_definitions": {
+        "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+          "size": 34,
+          "referenced_in_cached_index": true,
+          "census_earliest": [
+            {
+              "object": "^code_^libraries_^source_^a^t^l_atl_vector_constructor_iterator.obj",
+              "rank": 14,
+              "digest": "6246c280fc30",
+              "verdict": "retail"
+            },
+            {
+              "object": "^code_^game^engine_^source_^main_^win^main.obj",
+              "rank": 17,
+              "digest": "6246c280fc30",
+              "verdict": "retail"
+            }
+          ],
+          "candidate_rank": 8018
+        },
+        "?AsDrawable@@YAPAVDrawable@@PAVThing@@@Z": {
+          "size": 20,
+          "referenced_in_cached_index": false,
+          "census_earliest": [],
+          "candidate_rank": 8018
+        }
+      },
+      "guard": [],
+      "retained_code_including_selection_policy_equal": true,
+      "named_data_allocations_equal": true,
+      "named_data_count": 8,
+      "current_object_sha256": "b07d77a3a0bdc8205650c95553791fab5f18e224e8a194a0192663494a172ce4"
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Create/ObjectModuleCtor.cpp": {
+      "rows": 2,
+      "matched": 2,
+      "retained_code_comdat_facts_and_flags_equal": true,
+      "retained_comdats": 21,
+      "retained_external_definitions": true,
+      "new_undefined_references": [],
+      "added_definitions": {
+        "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+          "size": 34,
+          "referenced_in_cached_index": true,
+          "census_earliest": [
+            {
+              "object": "^code_^libraries_^source_^a^t^l_atl_vector_constructor_iterator.obj",
+              "rank": 14,
+              "digest": "6246c280fc30",
+              "verdict": "retail"
+            },
+            {
+              "object": "^code_^game^engine_^source_^main_^win^main.obj",
+              "rank": 17,
+              "digest": "6246c280fc30",
+              "verdict": "retail"
+            }
+          ],
+          "candidate_rank": 8017
+        },
+        "?AsObject@@YAPAVObject@@PAVThing@@@Z": {
+          "size": 20,
+          "referenced_in_cached_index": true,
+          "census_earliest": [
+            {
+              "object": "^code_^game^engine_^source_^common_^thing_^module_^as^object.obj",
+              "rank": 8015,
+              "digest": "8aa761c022e0",
+              "verdict": "retail"
+            }
+          ],
+          "candidate_rank": 8017
+        }
+      },
+      "guard": [],
+      "retained_code_including_selection_policy_equal": true,
+      "named_data_allocations_equal": true,
+      "named_data_count": 8,
+      "current_object_sha256": "9496006695a461f5450c96b56fb8fe94fd4683170a43c37452a536804de5585e"
+    }
+  },
+  "existing_native_providers": {
+    "iterator_path": {
+      "source": "Code/GameEngineDevice/Source/MilesAudioDevice/AudioSettingsConstructor.cpp",
+      "object": "^code_^game^engine^device_^source_^miles^audio^device_^audio^settings^constructor.obj",
+      "native_rva": "0x00001423",
+      "native_bytes_equal": true,
+      "size": 34,
+      "relocations": [],
+      "flags": 1611665440,
+      "selection": 2,
+      "strict_current": true,
+      "object_sha256": "5c9d32019f0b619d15432d6d7502cc83929fa2158701a31cd038d1530dda9af7",
+      "cached_path_first_unchanged": true
+    },
+    "iterator_retail": {
+      "source": "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp",
+      "object": "^code_^libraries_^source_^a^t^l_atl_vector_constructor_iterator.obj",
+      "native_rva": "0x00001423",
+      "native_bytes_equal": true,
+      "size": 34,
+      "relocations": [],
+      "flags": 1611665440,
+      "selection": 2,
+      "strict_current": true,
+      "object_sha256": "ca4825e8166a946a4db33a4e58391bb4824f0e0277ac75ce1c3b6f9cf451faaa"
+    },
+    "as_object": {
+      "source": "Code/GameEngine/Source/Common/Thing/Module_AsObject.cpp",
+      "object": "^code_^game^engine_^source_^common_^thing_^module_^as^object.obj",
+      "native_rva": "0x00306A5E",
+      "native_bytes_equal": true,
+      "size": 16,
+      "relocations": [],
+      "flags": 1611665440,
+      "selection": 2,
+      "strict_current": true,
+      "object_sha256": "f4fe36e400a8d2d3fcdb9663404b340655f867c4e20d67370ed336f9016ba661",
+      "cached_path_first_unchanged": true
+    }
+  },
+  "paired_current_source_overlay": "Normal staged-peer new-variant check passes for both actual objects; ordinary preview LINKS both.",
+  "as_drawable": {
+    "cached_index_has_no_external_consumer": true,
+    "no_new_undefined_references": true,
+    "no_export": true,
+    "new_framed_outline_not_claimed_byte_exact": true
+  },
+  "boundary": "Cached d171e84869 provider population and current explicit providers, not a full current image/census or runtime clearance."
+}

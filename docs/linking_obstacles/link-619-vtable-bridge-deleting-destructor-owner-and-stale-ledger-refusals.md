@@ -562,3 +562,9 @@ this publication does not establish full link closure or runtime progress.
 false reject. The checker scope is still held elsewhere, so source, ledger
 and queue remain untouched; actual function-table work stays open.
 [Bounded proof](../../reverse/attempt_support/river-owner-vbtable-20261108/README.md).
+
+Post-publication consumer receipt follow-up: AIBaseBuilder.cpp was claimed and
+strictly prepared; all 33 code rows, its one data row, two string references
+and seven float references pass. The source is untouched. This supplies the
+local receipt missing in the particle-copy push audit, without changing its
+recorded INCONCLUSIVE result or claiming broader current closure.

@@ -25,15 +25,10 @@ class Drawable;
 class Player;
 typedef int Bool;
 
-class Thing
-{
-public:
-	virtual void opaqueSlot0(); // slot 0 (unproven)
-	virtual void opaqueSlot4(); // slot 4 (unproven)
-	virtual Object *asObjectMeth(); // slot 8 (BFME1 name; proven by ObjectModule twin)
-	virtual void opaqueSlotC(); // slot 0xC (unproven)
-	virtual Drawable *asDrawableMeth(); // slot 0x10 (BFME1 name, position from retail)
-};
+// Retail inlines this existing friend helper at the constructor call site.
+class Thing;
+__forceinline Drawable *AsDrawable(Thing *thing);
+#include "../../../Common/Thing/thing.h"
 
 #include "../../../../Include/Common/DrawableModule.h"
 
@@ -47,5 +42,5 @@ DrawableModule::DrawableModule(Thing *thing, const ModuleData *moduleData)
 	if (!moduleData) {
 		throw INIException(3, "module data may not be null\n");
 	}
-	m_drawable = thing ? thing->asDrawableMeth() : 0;
+	m_drawable = AsDrawable(thing);
 }

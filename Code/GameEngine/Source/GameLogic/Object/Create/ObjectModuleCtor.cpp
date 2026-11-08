@@ -24,13 +24,10 @@ class Object;
 class Player;
 typedef int Bool;
 
-class Thing
-{
-public:
-	virtual void opaqueSlot0(); // slot 0 (unproven)
-	virtual void opaqueSlot4(); // slot 4 (unproven)
-	virtual Object *asObjectMeth(); // slot 8 (BFME1 name, position from retail)
-};
+// Retail inlines this existing friend helper at the constructor call site.
+class Thing;
+__forceinline Object *AsObject(Thing *thing);
+#include "../../../Common/Thing/thing.h"
 
 #include "../../../../Include/Common/Module.h"
 
@@ -46,5 +43,5 @@ ObjectModule::ObjectModule(Thing *thing, const ModuleData *moduleData)
 	if (!moduleData) {
 		throw INIException(3, "module data may not be null\n");
 	}
-	m_object = thing ? thing->asObjectMeth() : 0;
+	m_object = AsObject(thing);
 }

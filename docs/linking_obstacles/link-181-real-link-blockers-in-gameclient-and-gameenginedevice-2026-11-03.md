@@ -473,3 +473,14 @@ W3DTerrainVisual's.
   Not attempted: DamageModule is lk28's this session.
 - **ProductionPrerequisite.cpp `?freeBytes@AsciiString@@AAEXXZ`:** LINK-182's PerTurnStats plan is still
   not feasible. `LivingWorldScoreKeeper.h` still has `Rva004EE501` and only forward-declares PerTurnStats.
+
+**2026-11-08 module constructor Thing adoption:** DrawableModuleCtor.cpp and
+ObjectModuleCtor.cpp replace their short private Thing views with the canonical
+header and its existing public friend helpers, locally force-inlined. All three
+rows and both parent EH graphs pass; owning-tool acceptance retires two header
+debts. Retained code, relocation bindings, flags, policies and named data remain
+equal. Added framed helper copies do not displace the native earlier providers
+in cached census or default real-link path order; strict native-provider receipts
+are current. Paired checks pass and preview conserves LINKS/226 bytes. This
+clears only the two header debts, with full current image and TU recovery open.
+[Helper emission and selection proof](../../reverse/attempt_support/thing-module-header-adoption-20261108/README.md).
