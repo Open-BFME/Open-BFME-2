@@ -520,3 +520,9 @@ undefined references agree; the sole added iterator matches native and the
 existing provider policy. Strict preparation passes; preview conserves
 LINKS/144. No new coverage, table-bridge or full-image clearance is claimed.
 [Scoped proof](../../reverse/attempt_support/auto-deposit-thing-adoption-20261108/README.md).
+
+Published as a2b72d5896; first attempt landed in 40.7 seconds. Required
+row/scoped-DIR32/data checks pass. Broader audit remains INCONCLUSIVE: index
+d171e84869 versus outgoing base e834581c00d638d23b569831da5d7be01f7c999f;
+Common/AICowerState_onEnter.cpp lacks a current receipt. No wider closure
+or runtime claim is made.
