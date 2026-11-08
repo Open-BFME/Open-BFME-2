@@ -47,7 +47,7 @@ namespace _STL { template <> void _Destroy<BfmeVectorRecord000BDF17 *>(BfmeVecto
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 #include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
 // Only the element's non-trivial destructor matters to these bodies.
-class CreateAHeroManager::CreateAHeroSubClass { public: ~CreateAHeroSubClass(); };
+class CreateAHeroManager::CreateAHeroSubClass { public: ~CreateAHeroSubClass(); private: char m_storage[216]; }; // retail's __destroy_aux 0x0021F17F steps 0xD8
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 namespace _STL { template <> void _Destroy<CreateAHeroClass *>(CreateAHeroClass *,CreateAHeroClass *); }
@@ -150,7 +150,7 @@ template _STL::vector<Made002CC5E1DamageScalar>::~vector();
 // Element is CreateAHeroManager::CreateAHeroSubClass (216 bytes; dtor 0x0021E50F).
 
 // Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline void __destroy_aux<CreateAHeroManager::CreateAHeroSubClass *>(CreateAHeroManager::CreateAHeroSubClass * f,CreateAHeroManager::CreateAHeroSubClass * l,__false_type const &) { for ( ; f != l; ++f) _Destroy(&*f); } }
+namespace _STL { template <> void _Destroy<CreateAHeroManager::CreateAHeroSubClass *>(CreateAHeroManager::CreateAHeroSubClass *, CreateAHeroManager::CreateAHeroSubClass *); }
 template _STL::vector<CreateAHeroManager::CreateAHeroSubClass>::~vector();
 
 // The following ~vector bodies share the 63B Destroy-plus-free shape under
