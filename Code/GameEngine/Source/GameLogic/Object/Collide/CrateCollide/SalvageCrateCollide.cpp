@@ -180,6 +180,8 @@ class CrateCollide : public CollideModule
 {
 public:
 	CrateCollide(Thing *thing, const ModuleData *moduleData);
+	// Out of line: retail 0x004BC4FC (Rva004BB68EDerived.cpp).
+	virtual ~CrateCollide();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
 	virtual void xfer(Xfer *xfer);

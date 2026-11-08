@@ -3,7 +3,7 @@
 #include "ascii_string.h"
 //
 // ?xfer@CrateCollide@@MAEXPAVXfer@@@Z, retail 0x004BC617 64B: slot 3 (offset 0x0C)
-// of vtable 0x0085A618 (class of rowed dtor ??1Rva004BC4FC@@UAE@XZ, the opaque
+// of vtable 0x0085A618 (class of rowed dtor ??1CrateCollide@@UAE@XZ, the opaque
 // CrateCollide dtor immediately before rowed ctor ??0CrateCollide at 0x004BC523).
 // Version(1,2) via Xfer slot 0x28 then the rowed Rva004CE56D::xfer at
 // 0x004CE56D, then bool at +0x14 via Xfer slot 0x90 gated on version>=2.
@@ -83,6 +83,8 @@ class CrateCollide : public CollideModule
 {
 public:
 	CrateCollide( Thing *thing, const ModuleData *moduleData );
+	// Out of line: retail 0x004BC4FC (Rva004BB68EDerived.cpp).
+	virtual ~CrateCollide();
 
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 
@@ -318,7 +320,7 @@ CrateCollideModuleData::CrateCollideModuleData()
 {
 }
 
-// tu-skeleton: 0x004BC551 28B ??_GRva004BC4FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp (not merged yet)
+// tu-skeleton: 0x004BC551 28B ??_GCrateCollide@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/CrateCollideXfer.cpp
 
