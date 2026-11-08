@@ -161,7 +161,7 @@ struct AICommandParms
 class RunOffMapBehaviorInterface {public:virtual void triggerFlee()=0;};
 
 class RunOffMapBehavior:public BehaviorModule,public RunOffMapBehaviorInterface {public:
- virtual NameKeyType getModuleNameKey() const;virtual void rva00462213();virtual void triggerFlee();
+ virtual NameKeyType getModuleNameKey() const;virtual void onObjectCreated();virtual void triggerFlee();
 };
 
 // tu-skeleton: 0x0046216A 17B ?buildFieldParse@RunOffMapBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
@@ -250,7 +250,7 @@ void AICommandInterface::aiMoveToAndDie(const Coord3D *pos, CommandSourceType sr
 // without claiming retail's historical annotation. All other views are
 // accessed prefixes, not allocating layouts.
 
-void RunOffMapBehavior::rva00462213()
+void RunOffMapBehavior::onObjectCreated()
 {
 	if (!reinterpret_cast<const RunOffMapBehaviorModuleData *>(getModuleData())->m_10)
 		triggerFlee();

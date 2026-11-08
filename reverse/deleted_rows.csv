@@ -5887,3 +5887,4 @@ __ehhandler$?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap
 ?rva0006933D@Rva0006933D@@QAEHXZ,0x0006933D,"Retracted: retail table 0x00BC5DB0 slot 133 holds 0x0006933D and that table belongs to BaseHeightMapRenderObjClass (ctor 0x0006C9CF); rowed in the same change as ?rva0006933D@BaseHeightMapRenderObjClass@@UAEHXZ."
 ??1SnapC8@@UAE@XZ,0x0049B47C,"Retracted: a helper of the destructor unit's scaffold view; the adopted unit emits this fold as ~TScorch."
 ??1FreeBuf@@QAE@XZ,0x0007FAB3,"Retracted: a helper of the destructor unit's scaffold view; the adopted unit emits this body as ~_Bvector_base<allocator<bool> >."
+?rva00462213@RunOffMapBehavior@@UAEXXZ,0x00462213,"Renamed to ?onObjectCreated@RunOffMapBehavior@@UAEXXZ by tools/rename.py (inferred)"
