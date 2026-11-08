@@ -134,6 +134,7 @@ def test_audit_is_shadow(monkeypatch, capsys):
         {"name": WRONG, "address": "0x000365F0", "others": [OWNER], "fold_proof_noted": False,
          "source": "Code/FXList.cpp", "callers": [CALLER], "verdict": "DIFFERS",
          "problems": ["differs from retail"]}])
+    monkeypatch.setattr(pin_consistency, "on_windows", lambda: False)   # the refusal has its own test
     assert pin_consistency.main(["--audit"]) == 0
     out = capsys.readouterr().out
     assert "DIFFERS  0x000365F0" in out and CALLER in out
@@ -375,6 +376,7 @@ def test_audit_main_exits_zero_and_says_why_on_an_unreadable_index(monkeypatch, 
     real_audit = pin_consistency.audit
     monkeypatch.setattr(pin_consistency, "audit", lambda limit=None: real_audit(
         [pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census, lambda p, rva: []))
+    monkeypatch.setattr(pin_consistency, "on_windows", lambda: False)   # the refusal has its own test
     assert pin_consistency.main(["--audit"]) == 0
     assert "unreadable" in capsys.readouterr().out
 
