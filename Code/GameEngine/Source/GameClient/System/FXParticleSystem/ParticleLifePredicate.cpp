@@ -19,30 +19,7 @@ enum ParticleType
 	TYPE7 = 7
 };
 
-class ParticleSystem
-{
-public:
-	ParticleType getParticleType() const { return m_particleType; }
-
-	unsigned char m_unmodelled_000[0x08];
-	ParticleType m_particleType;
-};
-
-ParticleSystem *Make001FCBD7();
-
-class ParticleSystemHandle
-{
-public:
-	ParticleSystem *operator->() const
-	{
-		return m_system ? m_system : Make001FCBD7();
-	}
-
-private:
-	ParticleSystem *m_system;
-	void *m_previous;
-	void *m_next;
-};
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 class ParticleVisibilityModule
 {
@@ -51,11 +28,11 @@ public:
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
-	virtual Bool isInvisible(ParticleType type);
+	virtual Bool isInvisible(int type);
 };
 
 static __forceinline Bool callParticleInvisible(ParticleVisibilityModule *module,
-	ParticleType type)
+	int type)
 {
 	return module->isInvisible(type);
 }
@@ -67,7 +44,7 @@ public:
 
 private:
 	unsigned char m_unmodelled_000[0x3C];
-	ParticleSystemHandle m_system;
+	BfmeParticleSystemHandle m_system;
 	unsigned char m_unmodelled_048[0x44];
 	void *m_renderObject;
 	unsigned char m_unmodelled_090[4];
@@ -80,7 +57,8 @@ Bool Rva001F4E2D::rva001F4E2D()
 	if (m_renderObject)
 		return false;
 
-	ParticleType type = m_system.operator->()->m_particleType;
+	// Retail compares the +0x08 shader type signed (jle), so it is read as int.
+	int type = m_system.operator->()->m_shaderType;
 	switch (type)
 	{
 		case PARTICLE:
