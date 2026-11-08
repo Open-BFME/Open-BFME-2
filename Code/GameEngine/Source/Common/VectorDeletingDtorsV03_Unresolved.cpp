@@ -125,6 +125,19 @@ public:
 	virtual ~Rva003A71D4Vec();
 };
 
+namespace FXParticleSystem
+{
+// OrthoEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
+// thunk (slot 0 at +8). The class is abstract, so its own constructor units
+// cannot new an array of it; this view keeps only the size and the +8
+// secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) OrthoEmissionVelocityModuleTemplate : public Rva003A71D4VecBase0, public Rva003A71D4VecBase8
+{
+public:
+	virtual ~OrthoEmissionVelocityModuleTemplate();
+};
+}
+
 
 class __declspec(novtable) Rva003A73ADVecBase0
 {
@@ -149,6 +162,19 @@ class Rva003A73ADVec : public Rva003A73ADVecBase0, public Rva003A73ADVecBase8
 public:
 	virtual ~Rva003A73ADVec();
 };
+
+namespace FXParticleSystem
+{
+// SphericalEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
+// thunk (slot 0 at +8). The class is abstract, so its own constructor units
+// cannot new an array of it; this view keeps only the size and the +8
+// secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) SphericalEmissionVelocityModuleTemplate : public Rva003A73ADVecBase0, public Rva003A73ADVecBase8
+{
+public:
+	virtual ~SphericalEmissionVelocityModuleTemplate();
+};
+}
 
 
 
@@ -279,7 +305,9 @@ void bfmeVectorDeleteAnchorV03Unresolved()
 	new Rva003A679DVec[2];
 	new Rva003A690DVec[2];
 	new Rva003A71D4Vec[2];
+	new FXParticleSystem::OrthoEmissionVelocityModuleTemplate[2];
 	new Rva003A73ADVec[2];
+	new FXParticleSystem::SphericalEmissionVelocityModuleTemplate[2];
 	new Rva003A7853Vec[2];
 	new FXParticleSystem::DefaultModuleTemplate<3>[2];
 	new Rva003A7A06Vec[2];
