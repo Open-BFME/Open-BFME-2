@@ -1,0 +1,67 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp",
+  "retained_code_comdats": 63,
+  "retained_code_facts_relocations_flags_policies_equal": true,
+  "named_data_count": 30,
+  "named_data_equal": true,
+  "undefined_references_equal": true,
+  "removed_definitions": [
+    "??1RvaCoords@@QAE@XZ"
+  ],
+  "added_definitions": [],
+  "parameter_destructor_native_rva": "0x001E7E9F",
+  "parameter_destructor_native_bytes_verified": 15,
+  "coords_destructor_body_hex": "8b0185c0740750e80000000059c3",
+  "coords_destructor_relocations": [
+    [
+      8,
+      20,
+      "_free"
+    ]
+  ],
+  "coords_destructor_flags": "0x60101020",
+  "coords_destructor_policy": 2,
+  "providers": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva00336B23AICommand.cpp",
+      "strict_current": true,
+      "same_body_relocations_flags_policy": true,
+      "sha256": "3f1e7bbf30ff0b0c4893900c44d5b57eedb472f3d20beb142a5d80ed80bbbcf8"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/AICommandInterface_aiMoveToObject.cpp",
+      "strict_current": true,
+      "same_body_relocations_flags_policy": true,
+      "sha256": "fc662162140af3112b0516569bb97e18a539dd1c8a7708e427dc0c967ac43816"
+    }
+  ],
+  "minimum_code_rvas": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp": "0x2615e3",
+    "Code/GameEngine/Source/Common/Rva00336B23AICommand.cpp": "0x336b23",
+    "Code/GameEngine/Source/Common/AICommandInterface_aiMoveToObject.cpp": "0x352eca"
+  },
+  "census_replacement_provider": "Code/GameEngine/Source/Common/Rva00336B23AICommand.cpp",
+  "default_real_link_path_provider": "Code/GameEngine/Source/Common/AICommandInterface_aiMoveToObject.cpp",
+  "cached_census_provider_order": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp",
+    "Code/GameEngine/Source/Common/Rva00336B23AICommand.cpp",
+    "Code/GameEngine/Source/Common/Rva00336B88AICommand.cpp",
+    "Code/GameEngine/Source/Common/AICommandInterface_aiMoveToObject.cpp",
+    "Code/GameEngine/Source/Common/Rva00352F2FOpaqueInvoke.cpp",
+    "Code/GameEngine/Source/Common/Rva00352F9DAICommand.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesShipEvacuate.cpp",
+    "Code/GameEngine/Source/Common/AICommandInterface_aiMoveToPositionEvenIfSleeping.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp"
+  ],
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "original_object_sha256": "3056c1996365ae508344bb79724e312b490ac696fe46bd28d3fcf0afa1a18ed2",
+  "current_object_sha256": "b81e8096393050b15ac4f506cde027ae12c244a7c83f176edbb1cb57c88e4695",
+  "current_source_sha256": "4668b8fa0ca20c43013df43e011b48e757b31557ff4bdd03785fc1689b7cd7c4"
+}

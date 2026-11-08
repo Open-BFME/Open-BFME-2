@@ -566,3 +566,8 @@ module registry. The broader link audit remains INCONCLUSIVE: index
 d171e84869 versus outgoing base 314cbfd1c1be15d969daacd816a3033036bb471e;
 three source objects lacked current strict receipts, first AnimalAIUpdate.
 No full-image or runtime clearance is claimed.
+
+Animal's canonical AICommandParms adoption also passes, retiring one further
+header debt with all 15 rows and three EH graphs exact. AI interface and full
+class adoption remain prerequisites; LINK-592 records the removed helper's
+strict replacement-provider proof and the unchanged link preview.
