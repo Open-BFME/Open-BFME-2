@@ -1,0 +1,22 @@
+{
+  "scalar_deleting_name": "??_GRva0040DB52@@UAEPAXI@Z",
+  "compiled_size": 31,
+  "compiled": "558bec568bf1e800000000f6450801740756e800000000598bc65e5dc20400",
+  "relocations": [
+    [
+      7,
+      20,
+      "??1Rva0040DB52@@UAE@XZ"
+    ],
+    [
+      19,
+      20,
+      "??3@YAXPAX@Z"
+    ]
+  ],
+  "native_size": 28,
+  "native": "568bf1e8affafffff644240801740756e8b01cc2ff598bc65ec20400",
+  "native_name": "ArmySummarySystem",
+  "constructor_size": 98,
+  "typed_view_problem": "Known void-pointer vector-base constructor binds to native15-byte body at0x00025100 rather than the required29-byte helper0x00211E58; altered member typing also reschedules finish-pointer loads across float initialization; erased-empty-container call does not prove stored element domain or stride."
+}

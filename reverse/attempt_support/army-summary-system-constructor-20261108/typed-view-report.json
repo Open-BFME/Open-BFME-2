@@ -1,0 +1,16 @@
+{
+  "rows": 1,
+  "matched": 0,
+  "missing": [
+    "??0Rva0040DB52@@QAE@XZ"
+  ],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\d67f74c9f7cb8314.obj",
+  "guard": [
+    "comdat ??0?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@PAPAX@Z (first)",
+    "comdat ??0?$_STLP_alloc_proxy@PAW4ParticleSystemID@@W41@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ParticleSystemID@@@1@PAW4ParticleSystemID@@@Z (retail)",
+    "comdat ??0?$_Vector_base@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAE@ABV?$allocator@W4ParticleSystemID@@@1@@Z (retail)",
+    "comdat ??0Rva0040DB52@@QAE@XZ (retail)",
+    "selected ??0Rva0040DB52@@QAE@XZ"
+  ]
+}

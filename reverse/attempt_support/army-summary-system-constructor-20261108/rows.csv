@@ -1,0 +1,2 @@
+name,export_rva,target_rva,target_size,source,status,notes
+??0Rva0040DB52@@QAE@XZ,,0x0040E039,98,Code/GameEngine/Source/Common/Rva0040DB52Ctor.cpp,matched,Snapshot holder default ctor with out of line empty vector bases and shared erase clears
