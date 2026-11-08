@@ -188,7 +188,8 @@ def vote_sources_change_problems(before, after, tree):
 def carried_fingerprint_problems(carried, tree):
     """Fingerprints a landing carried (name_lane.carry_verified_votes), {vote: rows this change
     adds}: they must run from the file before this change to the file it leaves, and the
-    difference must be exactly the renames this change records as landed in that file."""
+    difference must be exactly renames this change records as landed, in any file: a rename
+    owned by one file also respells the others that name it."""
     def blob(spec):
         shown = subprocess.run(["git", "show", spec], cwd=ROOT, capture_output=True, env=trusted_env())
         return shown.stdout if shown.returncode == 0 else None
@@ -199,10 +200,8 @@ def carried_fingerprint_problems(carried, tree):
         return []
     parent = f"{tree}^" if tree else "HEAD"
     earlier = {tuple(row.items()) for row in records(f"{parent}:{name_agreement.AGREED}")}
-    pairs = collections.defaultdict(set)
-    for row in records(f"{tree}:{name_agreement.AGREED}"):
-        if row.get("status") == "landed" and tuple(row.items()) not in earlier:
-            pairs[(row.get("key") or "").split("|")[0]].add((row.get("old") or "", row.get("new") or ""))
+    pairs = {(row.get("old") or "", row.get("new") or "") for row in records(f"{tree}:{name_agreement.AGREED}")
+             if row.get("status") == "landed" and tuple(row.items()) not in earlier}
     problems = []
     for (key, _h, worker), rows in carried.items():
         rel = (key or "").split("|")[0]
@@ -213,7 +212,7 @@ def carried_fingerprint_problems(carried, tree):
                 or rows[-1].get("source_sha") != hashlib.sha256(after).hexdigest():
             problems.append(f"{VOTE_SOURCES}: the carried fingerprint of the vote by {worker} at {key} does not run "
                             f"from {rel} before this change to {rel} after it")
-        elif not name_agreement.rename_only(before, after, pairs[rel]):
+        elif not name_agreement.rename_only(before, after, pairs):
             problems.append(f"{VOTE_SOURCES}: {rel} differs by more than the renames this change records as landed, "
                             f"so the vote by {worker} at {key} cannot carry across it")
     return problems

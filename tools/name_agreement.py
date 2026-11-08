@@ -141,11 +141,36 @@ def current_fingerprint(rows):
 
 
 def rename_only(before, after, pairs):
-    """Is `after` exactly `before` with identifiers respelled, each (old, new) of `pairs`? Every
-    other byte must be equal, so a fingerprint never carries across any other edit."""
-    old, new = re.split(rb"(\w+)", before), re.split(rb"(\w+)", after)
-    respelled = {(a.encode("utf-8"), b.encode("utf-8")) for a, b in pairs}
-    return len(old) == len(new) and all(x == y or (x, y) in respelled for x, y in zip(old, new))
+    """Is `after` exactly `before` with identifiers respelled in code, each (old, new) of `pairs`?
+    Every other byte must be equal, so a fingerprint never carries across any other edit: not a
+    string or character literal, a preprocessor directive or a comment. One comment respelling
+    stands, a mangled `?old@`, because the rename itself writes it (rename.rewrite_source), and
+    only beside a change in code. Literals are read as the compiler reads them: tu_skeleton's
+    translation phases and mask, and text that does not read refuses."""
+    import tu_skeleton
+    word = re.compile(r"(\w+)", re.ASCII)
+    first, second = before.decode("latin-1"), after.decode("latin-1")
+    old, new = word.split(first), word.split(second)
+    if len(old) != len(new) or any(x != y and (x, y) not in pairs for x, y in zip(old, new)):
+        return False
+    text, later = tu_skeleton.translation_phases(first), tu_skeleton.translation_phases(second)
+    masked = tu_skeleton.mask_code(text)
+    old, new = word.split(text), word.split(later)
+    if masked is None or len(old) != len(new):
+        return False
+    at, in_code = 0, False
+    for x, y in zip(old, new):
+        if x != y:
+            shown = masked[at:at + len(x)]
+            directive = text[text.rfind("\n", 0, at) + 1:at].lstrip().startswith("#")
+            if (x, y) not in pairs or directive or not x.strip("x"):         # mask_code spells a literal in x
+                return False
+            if shown == x:
+                in_code = True
+            elif shown.strip() or text[at - 1:at] != "?" or text[at + len(x):at + len(x) + 1] != "@":
+                return False
+        at += len(x)
+    return in_code
 
 
 def worker_identity(root=None):

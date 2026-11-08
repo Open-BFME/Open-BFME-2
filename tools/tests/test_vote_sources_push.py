@@ -134,6 +134,37 @@ def test_the_staged_landing_is_read_the_same_way(carrying):
     assert problems and "differs by more than the renames" in problems[0]
 
 
+def test_the_review_string_edit_is_refused(carrying):
+    root, gate, _base = carrying
+    start = 'void rva00401000() {}\nchar *s = "rva00401000";\nint m_x;\n'
+    end = 'void sumBox() {}\nchar *s = "sumBox";\nint m_x;\n'
+    write(root, SOURCE, start)
+    write(root, VOTES, COLUMNS + f"{SIBLING},h,w,s,{sha_of(start)}\n")
+    git(root, "add", "-A")
+    git(root, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "the literal")
+    base = git(root, "rev-parse", "HEAD")
+    land(root, end, [f"{SIBLING},h,w,carried:{sha_of(start)}:s,{sha_of(end)}\n"])
+    problems = gate.vote_sources_range_problems(base, "HEAD")
+    assert problems and "differs by more than the renames" in problems[0]
+
+
+def test_a_rename_owned_by_one_file_carries_in_another_it_touches(carrying):
+    """The review's repro: the agreement's key names the owner, and B also spells the function."""
+    root, gate, _base = carrying
+    other = "Code/Game/User.cpp"
+    other_key = f"{other}|member|User|m_y"
+    other_start, other_end = "void rva00401000();\nint m_y;\n", "void sumBox();\nint m_y;\n"
+    write(root, other, other_start)
+    with open(root / VOTES, "a", newline="\n") as f:
+        f.write(f"{other_key},h,w,s,{sha_of(other_start)}\n")
+    git(root, "add", "-A")
+    git(root, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "another file's vote")
+    base = git(root, "rev-parse", "HEAD")
+    write(root, other, other_end)
+    land(root, AFTER, [carry(BEFORE, AFTER), f"{other_key},h,w,carried:{sha_of(other_start)}:s,{sha_of(other_end)}\n"])
+    assert gate.vote_sources_range_problems(base, "HEAD") == []
+
+
 def test_two_landings_in_one_commit_carry_through_the_text_between(carrying):
     root, gate, base = carrying
     final = AFTER.replace("m_x", "m_width")

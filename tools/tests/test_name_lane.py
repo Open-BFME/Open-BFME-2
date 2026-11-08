@@ -3626,7 +3626,25 @@ def test_current_fingerprint_follows_only_an_unbroken_chain(rows_, expected):
 
 @pytest.mark.parametrize("before,after,same", [
     (b"int rva00401000;\n", b"int sumBox;\n", True),
-    (b"rva00401000 rva00401000 // rva00401000\n", b"sumBox sumBox // sumBox\n", True),
+    (b"rva00401000 rva00401000;\n", b"sumBox sumBox;\n", True),
+    (b"// ?rva00401000@@YAXXZ\nint rva00401000;\n", b"// ?sumBox@@YAXXZ\nint sumBox;\n", True),   # rename's own
+    (b"/* ?rva00401000@@YAXXZ */ int rva00401000;\n", b"/* ?sumBox@@YAXXZ */ int sumBox;\n", True),
+    # the review's repro, and the literals around it: a string edit is no rename
+    (b'int rva00401000; char *s = "rva00401000";\n', b'int sumBox; char *s = "sumBox";\n', False),
+    (b"int rva00401000; int c = 'rva00401000';\n", b"int sumBox; int c = 'sumBox';\n", False),
+    (b'int rva00401000; char *s = "?rva00401000@@";\n', b'int sumBox; char *s = "?sumBox@@";\n', False),
+    (b'char *s = "??/" rva00401000 ";\nint rva00401000;\n',       # a trigraph: ??/ escapes the quote
+     b'char *s = "??/" sumBox ";\nint sumBox;\n', False),
+    (b'char *s = "a\\\nrva00401000";\nint rva00401000;\n',        # a spliced string
+     b'char *s = "a\\\nsumBox";\nint sumBox;\n', False),
+    (b'char *s = "open\nint rva00401000;\n', b'char *s = "open\nint sumBox;\n', False),   # does not read
+    # comments: only a mangled spelling beside code, never prose or on its own
+    (b"// rva00401000\nint rva00401000;\n", b"// sumBox\nint sumBox;\n", False),
+    (b"int rva00401000; // rva00401000\n", b"int sumBox; // sumBox\n", False),
+    (b"// ?rva00401000@@YAXXZ\n", b"// ?sumBox@@YAXXZ\n", False),
+    # directives: a macro's text or a linker pragma is not read as code
+    (b"#define F rva00401000\nint rva00401000;\n", b"#define F sumBox\nint sumBox;\n", False),
+    (b'#define S "?rva00401000@"\nint rva00401000;\n', b'#define S "?sumBox@"\nint sumBox;\n', False),
     (b"int rva00401000;\n", b"int  sumBox;\n", False),                 # whitespace
     (b"int rva00401000;\n", b"long sumBox;\n", False),                 # another token
     (b"int rva00401000;\n", b"int sumBox;\n// more\n", False),         # more text
@@ -3635,6 +3653,19 @@ def test_current_fingerprint_follows_only_an_unbroken_chain(rows_, expected):
 ])
 def test_rename_only_allows_exactly_the_pairs(before, after, same):
     assert name_agreement.rename_only(before, after, {("rva00401000", "sumBox")}) is same
+
+
+def test_a_string_edit_in_a_real_landing_does_not_carry(tree, tmp_path):
+    """The review's repro through carry_verified_votes: the rename, and a literal respelled with it."""
+    with open(tree / SOURCE, "a", newline="\n") as f:
+        f.write('char *g_label = "rva00401000";\n')
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    before = (tree / SOURCE).read_bytes()
+    after = before.replace(b"rva00401000", b"sumBox")
+    (tree / SOURCE).write_bytes(after)
+    name_lane.carry_verified_votes(lane_of(tree), [SimpleNamespace(before={SOURCE: before}, after={SOURCE: after})],
+                                   [dict(key=FN_KEY, old="rva00401000", new="sumBox")])
+    assert not carried_rows(tree)
 
 
 def test_a_row_moved_into_the_prefix_earns_nothing_and_apply_refuses(tree, tmp_path, monkeypatch, capsys):

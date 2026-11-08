@@ -286,14 +286,16 @@ The fingerprint covers the whole file, so an edit reopens a later record. One `a
 all its records before any lands, so they go together. A `name_lane.py apply` landing also
 carries the fingerprints of the file's other votes across it, as new rows of
 `name_vote_sources.csv` whose session reads `carried:<old sha>:<session>`, when its change to the
-file is exactly the renames it verified: every other byte equal, and the file on disk still as the
-landing left it. So a record left waiting by `--limit`, `--key` or a block still lands after its
+file is exactly the renames it verified, in code: every other byte equal, including string and
+character literals, directives and comments, and the file on disk still as the landing left it.
+One comment change stands, the mangled `?old@` the rename itself respells, and only beside a change
+in code; a comment-only change refuses, since a re-vote is cheap. So a record left waiting by `--limit`, `--key` or a block still lands after its
 sibling. Any other difference reopens it and needs fresh votes: an edit before the landing, during
 it, mixed into the plan's bytes, or after it. So does a landing made any other way (`scoped apply`,
 `apply --per-file` or `--no-batch`, or `rename.py` run directly), and a class key is never carried,
 because its rename binds each vote to its own fingerprint. The hook (`tools/class_gate.py`) reads a carry against the commit that adds it:
 the rows must run from the file before that commit to the file after it, and the difference must
-be exactly the renames it records as landed. So commit a landing's sources, `name_agreed.csv` and
+be exactly renames it records as landed, in any file it touches. So commit a landing's sources, `name_agreed.csv` and
 `name_vote_sources.csv` together. Watch `status`'s `source-changed` count.
 
 Blind votes from different checkouts land through separate pushes, so each submit can
