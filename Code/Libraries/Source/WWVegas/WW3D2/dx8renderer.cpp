@@ -747,7 +747,6 @@ DX8RigidFVFCategoryContainer::~DX8RigidFVFCategoryContainer()
 
 // ----------------------------------------------------------------------------
 
-// ?Log@DX8RigidFVFCategoryContainer@@ present-unmatched
 void DX8RigidFVFCategoryContainer::Log(bool only_visible)
 {
 #ifdef ENABLE_CATEGORY_LOG
