@@ -13,9 +13,20 @@ original game runs under automation.
 | Link census | a boat.dev sandbox, started by srv1's `bfme2-runner.timer` | when the last row is 110 minutes old | `reverse/link_census_history.csv`, `reverse/link_status.csv` |
 | Link census | `wings02`, `link-census.yml` (levy) | systemd on that machine; the workflow only reports health | failing at "preparation failed" since 2026-10-29 |
 | Nightly measurement | GitHub, `nightly-measure.yml` | skipped until `NIGHTLY_ENABLED` is set | image ownership receipts |
+| Data ledger refresh | srv1, `bfme2-ledger-refresh.timer` (swarm ops job) | hourly, when master changed a constructor, vtable or class input since the last refresh | `reverse/data_ledger.csv` ("Refresh the data ledger after constructor and vtable changes"), only when an offline vtable-bridge A/B loses nothing and gains something |
 
 The alarm and the real link post to Discord only while the repository variable `DISCORD_POSTS` is
 `true`; it is unset, so they print to their run logs instead. The webhook is the progress channel's.
+
+The data ledger refresh does automatically, with the owner's approval, what db309c3297 and d88c3448da
+did by hand: it
+regenerates `reverse/data_ledger.csv` with `tools/data_ledger.py` over a full current object set and
+compares `vtable_bridge.plan()` under master's ledger and the new one, item by item (covered tables,
+names and RVAs, refusals, unindexed bindings). It publishes only with no loss and a gain, under its
+own claim (`ancalgonn-swarm-ledger`), and discards a run when master moves the ledger's inputs
+(`Code/`, `tools/`, `reference/`, `vendor/`, the four reverse ledgers) before it lands. Anything else
+leaves a report on srv1 and no commit. The procedure and its rules: `~/bfme2-ops/swarm/contract.md`
+("Ledger refresh") on srv1.
 
 GitHub's scheduler is not dependable here: a `*/5` job fires every five to seven hours, and the first
 scheduled `real-link.yml` ran 8 hours after its first slot. Their `schedule:` lines stay, but
