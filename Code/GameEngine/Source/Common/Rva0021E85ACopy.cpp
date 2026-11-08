@@ -29,6 +29,28 @@ namespace _STL { template <> void _Destroy<pair<long const ,LadderPref> >(pair<l
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void _Construct<pair<long const ,LadderPref>,pair<long const ,LadderPref> >(pair<long const ,LadderPref> *,pair<long const ,LadderPref> const &); }
 
+// P51 TEST-BRANCH-ONLY diagnostic: retail's member at +0x54 is a tree of this record (0x0021DBBA -> _M_copy 0x0021D7CF -> element copy 0x0021AAE1).
+#include <set>
+struct BfmeStringRecord00219B0B
+{
+	unsigned int word0;
+	AsciiString text0, text1, text2;
+	BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
+	~BfmeStringRecord00219B0B();
+};
+struct BfmeStringRecord0021A940
+{
+	unsigned int word0;
+	BfmeStringRecord00219B0B rec;
+	BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
+	~BfmeStringRecord0021A940();
+};
+typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > Rva0021E85ARecordTree;
+namespace _STL {
+template <> Rva0021E85ARecordTree::_Link_type Rva0021E85ARecordTree::_M_copy(Rva0021E85ARecordTree::_Link_type, Rva0021E85ARecordTree::_Link_type);
+template <> void Rva0021E85ARecordTree::_M_erase(Rva0021E85ARecordTree::_Link_type);
+}
+
 #include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 struct Tail108
@@ -54,7 +76,7 @@ private:
 	_STL::vector<ScienceType> m_30;
 	_STL::vector<ScienceType> m_3c;
 	_STL::map<int, int> m_48;
-	_STL::map<long, LadderPref> m_54;
+	_STL::set<BfmeStringRecord0021A940> m_54;
 	unsigned char m_60;
 	char m_pad61[3];
 	int m_64;
@@ -83,3 +105,5 @@ Rva0021E85A::Rva0021E85A(const Rva0021E85A &other)
 	, m_6c(other.m_6c)
 {
 }
+
+template _STL::set<BfmeStringRecord0021A940>::set(const _STL::set<BfmeStringRecord0021A940> &);
