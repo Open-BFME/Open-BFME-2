@@ -66,16 +66,7 @@ enum BodyDamageType
 #define PATHFIND_CELL_SIZE_F 10.0f
 #define LAYER_Z_CLOSE_ENOUGH_F 10.0f
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Drawable;
 

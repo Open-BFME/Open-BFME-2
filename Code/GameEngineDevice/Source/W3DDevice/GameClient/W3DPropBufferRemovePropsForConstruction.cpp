@@ -15,19 +15,7 @@ typedef bool Bool;
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-struct Vector3
-{
-	Real x;
-	Real y;
-	Real z;
-
-	void set(Real nx, Real ny, Real nz)
-	{
-		x = nx;
-		y = ny;
-		z = nz;
-	}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct SphereClass
 {
@@ -134,7 +122,7 @@ void W3DPropBuffer::removePropsForConstruction(const Coord3D *pos,
 				robj->Release_Ref();
 				m_props[i].m_robj = 0;
 			}
-			m_props[i].bounds.Center.set(0, 0, 0);
+			m_props[i].bounds.Center.Set(0, 0, 0);
 			m_props[i].bounds.Radius = 1;
 			m_anything_changed = true;
 		}

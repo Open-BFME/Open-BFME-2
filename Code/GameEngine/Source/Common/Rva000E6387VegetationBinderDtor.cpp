@@ -108,16 +108,13 @@ private:
 
 RefCountPtr<TextureClass> Rva00132E76WhiteTexture();
 
-class Vector3
-{
-public:
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	friend Vector3 operator*(float k, const Vector3 &a)
-	{ return Vector3(a.X * k, a.Y * k, a.Z * k); }
-	friend Vector3 operator+(const Vector3 &a, const Vector3 &b)
-	{ return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z); }
-	float X, Y, Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline scalar-times-vector and vector-sum operator bodies.
+static inline Vector3 bfmeScaledV3(float k, const Vector3 &a)
+{ return Vector3(a.X * k, a.Y * k, a.Z * k); }
+static inline Vector3 bfmeSumV3(const Vector3 &a, const Vector3 &b)
+{ return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z); }
 
 enum { MAX_SWAY_TYPES = 10, NUM_SWAY_ENTRIES = 100 };
 
@@ -279,8 +276,8 @@ void Rva000E68C5SwayOffsets(ID3DXEffect *effect, D3DXHANDLE handle)
 			{
 				float nextWeight = buffer->m_curSwayOffset[i] - minOffset;
 				float currentWeight = 1.0f - nextWeight;
-				Vector3 swayFactor = currentWeight * buffer->m_swayOffsets[minOffset]
-					+ nextWeight * buffer->m_swayOffsets[minOffset + 1];
+				Vector3 swayFactor = bfmeSumV3(bfmeScaledV3(currentWeight, buffer->m_swayOffsets[minOffset]),
+					bfmeScaledV3(nextWeight, buffer->m_swayOffsets[minOffset + 1]));
 				float factor = buffer->m_curSwayFactor[i];
 				StoreSway(sway[i + 1], swayFactor.X * factor,
 					swayFactor.Y * factor, swayFactor.Z * factor);

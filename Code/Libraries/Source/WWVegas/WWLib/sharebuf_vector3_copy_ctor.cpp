@@ -16,23 +16,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include <new>
 
-class Vector3
-{
-public:
-	Vector3();
-	Vector3 &operator=(const Vector3 &that)
-	{
-		X = that.X;
-		Y = that.Y;
-		Z = that.Z;
-		return *this;
-	}
-
-private:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 // Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
 // (pop ecx after the delete call); compile just the base class for size so

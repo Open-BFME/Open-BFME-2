@@ -343,20 +343,17 @@ public:
 	static float __fastcall Inv_Sqrt(float val);
 };
 
-struct Vector3
-{
-	float X, Y, Z;
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-	float Length2() const { return X * X + Y * Y + Z * Z; }
-	static float Dot_Product(const Vector3 &left, const Vector3 &right) { return left.X * right.X + left.Y * right.Y + left.Z * right.Z; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline Vector3::Length2 and Dot_Product bodies; retail inlines them here.
+static __forceinline float bfmeLength2V3(const Vector3 &vec) { return vec.X * vec.X + vec.Y * vec.Y + vec.Z * vec.Z; }
+static __forceinline float bfmeDotV3(const Vector3 &left, const Vector3 &right) { return left.X * right.X + left.Y * right.Y + left.Z * right.Z; }
 
 // This unit needs the header-inline SSE operation; retain the canonical
 // out-of-line Vector3::Normalize provider instead of emitting a second copy.
 static __forceinline void normalizeDirection(Vector3 &direction)
 {
- float lengthSquared = direction.Length2();
+ float lengthSquared = bfmeLength2V3(direction);
  if (lengthSquared != 0.0f) {
   float inverseLength = WWMath::Inv_Sqrt(lengthSquared);
   direction.X *= inverseLength; direction.Y *= inverseLength; direction.Z *= inverseLength;
@@ -427,7 +424,7 @@ void Made002CC8A4::rva0050A4A2(void *source, const Coord3D *pos)
 			Vector3 toV(toObj.x, toObj.y, toObj.z);
 			normalizeDirection(dir);
 			normalizeDirection(toV);
-			float dot = Vector3::Dot_Product(toV, dir);
+			float dot = bfmeDotV3(toV, dir);
 			if (!(dot >= Cos(m_130)))
 			{
 				if (!m_134)

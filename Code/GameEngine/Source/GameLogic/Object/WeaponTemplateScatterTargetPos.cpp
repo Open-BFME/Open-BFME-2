@@ -39,23 +39,20 @@ public:
 	static Real __fastcall Inv_Sqrt(Real val);
 };
 
-class Vector3
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline Vector3::Normalize body; retail inlines it here.
+static __forceinline void bfmeNormalizeV3(Vector3 &vec)
 {
-public:
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline void Normalize()
+	Real len2 = vec.X * vec.X + vec.Y * vec.Y + vec.Z * vec.Z;
+	if (len2 != 0.0f)
 	{
-		Real len2 = X * X + Y * Y + Z * Z;
-		if (len2 != 0.0f)
-		{
-			Real oolen = WWMath::Inv_Sqrt(len2);
-			X *= oolen;
-			Y *= oolen;
-			Z *= oolen;
-		}
+		Real oolen = WWMath::Inv_Sqrt(len2);
+		vec.X *= oolen;
+		vec.Y *= oolen;
+		vec.Z *= oolen;
 	}
-	Real X, Y, Z;
-};
+}
 
 #include <math.h>
 Real Cos(Real x);
@@ -138,7 +135,7 @@ Coord3D WeaponTemplate::bfmeCalcScatterTargetPos(const Object *source, const Obj
 	{
 		Vector3 dir(source->getPosition()->x - victim->getPosition()->x,
 			source->getPosition()->y - victim->getPosition()->y, 0.0f);
-		dir.Normalize();
+		bfmeNormalizeV3(dir);
 		Real dirAngle = atan2(dir.Y, dir.X);
 		angle = GetGameLogicRandomValueReal(dirAngle - 1.5707964f, dirAngle + 1.5707964f, WEAPON_CPP, 0x667);
 	}

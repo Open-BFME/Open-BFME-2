@@ -114,23 +114,18 @@ public:
 	void rva000EB21D();				// 0x000EB21D
 };
 
-class Vector3
-{
-public:
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline const Vector3 subscript body (a reference); retail inlines it here.
+static inline const float &bfmeComponentV3(const Vector3 &v, int i) { return (&v.X)[i]; }
 
 struct TreeMatrix
 {
 	void Set_Translation(const Vector3 &t)
 	{
-		Row[0][3] = t[0];
-		Row[1][3] = t[1];
-		Row[2][3] = t[2];
+		Row[0][3] = bfmeComponentV3(t, 0);
+		Row[1][3] = bfmeComponentV3(t, 1);
+		Row[2][3] = bfmeComponentV3(t, 2);
 	}
 	float Row[3][4];
 };

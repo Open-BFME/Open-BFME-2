@@ -61,25 +61,20 @@ struct FindPositionOptions
 	}
 };
 
-class Vector3
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline Vector3::Normalize body; retail inlines it here.
+static __forceinline void bfmeNormalizeV3(Vector3 &vec)
 {
-public:
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	__forceinline void Normalize()
+	float len2 = vec.X * vec.X + vec.Y * vec.Y + vec.Z * vec.Z;
+	if (len2 != 0.0f)
 	{
-		float len2 = X * X + Y * Y + Z * Z;
-		if (len2 != 0.0f)
-		{
-			float oolen = WWMath::Inv_Sqrt(len2);
-			X *= oolen;
-			Y *= oolen;
-			Z *= oolen;
-		}
+		float oolen = WWMath::Inv_Sqrt(len2);
+		vec.X *= oolen;
+		vec.Y *= oolen;
+		vec.Z *= oolen;
 	}
-	float X, Y, Z;
-};
+}
 
 __declspec(dllimport) __forceinline Vector3 operator*(const Vector3 &a, float k)
 {
@@ -134,7 +129,7 @@ Coord3D DockUpdate::computeApproachPosition(int positionIndex, Object *forWhom)
 		Coord3D ourPosition = *us->getPosition();
 		Coord3D theirPosition = *forWhom->getPosition();
 		Vector3 offset(theirPosition.x - ourPosition.x, theirPosition.y - ourPosition.y, theirPosition.z - ourPosition.z);
-		offset.Normalize();
+		bfmeNormalizeV3(offset);
 		offset = offset * (us->getMajorRadius() / 2);
 
 		workingPosition.x += offset.X;

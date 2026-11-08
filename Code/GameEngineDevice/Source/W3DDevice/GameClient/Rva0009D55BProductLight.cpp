@@ -16,31 +16,21 @@
 
 class WWMath { public: static float __fastcall Inv_Sqrt(float); };
 
-struct Vector3
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline Vector3 negate and Normalize bodies and a scalar scale;
+// retail inlines them here.
+static __forceinline Vector3 bfmeNegateV3(const Vector3 &vec) { return Vector3(-vec.X, -vec.Y, -vec.Z); }
+static __forceinline void bfmeNormalizeV3(Vector3 &vec)
 {
-    float X, Y, Z;
-    Vector3() {}
-    Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-    Vector3(const Vector3 &vec) : X(vec.X), Y(vec.Y), Z(vec.Z) {}
-    __forceinline Vector3 operator-() const { return Vector3(-X, -Y, -Z); }
-    __forceinline Vector3 &operator=(const Vector3 &vec)
+    float length2 = vec.X*vec.X + vec.Y*vec.Y + vec.Z*vec.Z;
+    if (length2 != 0.0f)
     {
-        X = vec.X; Y = vec.Y; Z = vec.Z;
-        return *this;
+        float reciprocal = WWMath::Inv_Sqrt(length2);
+        vec.X *= reciprocal; vec.Y *= reciprocal; vec.Z *= reciprocal;
     }
-    void set(float x, float y, float z) { X = x; Y = y; Z = z; }
-    __forceinline float Length2() const { return X*X + Y*Y + Z*Z; }
-    __forceinline void Normalize()
-    {
-        float length2 = Length2();
-        if (length2 != 0.0f)
-        {
-            float reciprocal = WWMath::Inv_Sqrt(length2);
-            X *= reciprocal; Y *= reciprocal; Z *= reciprocal;
-        }
-    }
-    void scale(float factor) { X *= factor; Y *= factor; Z *= factor; }
-};
+}
+static __forceinline void bfmeScaleV3(Vector3 &vec, float factor) { vec.X *= factor; vec.Y *= factor; vec.Z *= factor; }
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
@@ -85,12 +75,12 @@ void Rva0009D55BProduct::rva0009B28C(const Coord2D *angles)
         direction.X = sin((float)angles->x * .017453292f + 1.5707964f) * (float)cos(angles->y * .017453292f);
         direction.Y = sin((float)angles->x * .017453292f + 1.5707964f) * (float)sin(angles->y * .017453292f);
         direction.Z = cos((float)angles->x * .017453292f + 1.5707964f);
-        position = -direction;
-        position.Normalize();
-        position.scale(10000.0f);
-        light->ambient.set(0.0f, 0.0f, 0.0f);
-        light->specular.set(0.0f, 0.0f, 0.0f);
-        light->diffuse.set(color.X, color.Y, color.Z);
+        position = bfmeNegateV3(direction);
+        bfmeNormalizeV3(position);
+        bfmeScaleV3(position, 10000.0f);
+        light->ambient.Set(0.0f, 0.0f, 0.0f);
+        light->specular.Set(0.0f, 0.0f, 0.0f);
+        light->diffuse.Set(color.X, color.Y, color.Z);
         Matrix3D tm(true);
         tm.Row[0][0]=1.0f; tm.Row[0][1]=0.0f; tm.Row[0][2]=direction.X; tm.Row[0][3]=0.0f;
         tm.Row[1][0]=0.0f; tm.Row[1][1]=1.0f; tm.Row[1][2]=direction.Y; tm.Row[1][3]=0.0f;

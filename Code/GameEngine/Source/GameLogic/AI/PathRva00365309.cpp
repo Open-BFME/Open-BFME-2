@@ -25,16 +25,14 @@ class Rva00065964ObjectPool {public:void *rva002635C2()throw();};
 extern Rva00065964ObjectPool g_pathNodePool;
 #include "../../../Include/GameLogic/PathNode.h"
 class WWMath {public:static float __fastcall Inv_Sqrt(float);};
-class Vector3 {public:
- float X,Y,Z;
- __forceinline Vector3(){} __forceinline Vector3(const Vector3 &v){X=v.X;Y=v.Y;Z=v.Z;} __forceinline Vector3(float x,float y,float z):X(x),Y(y),Z(z){} 
- __forceinline float Length2()const{return X*X+Y*Y+Z*Z;}
- __forceinline void Normalize(){float len2=Length2();if(len2!=0.0f){float oolen=WWMath::Inv_Sqrt(len2);X*=oolen;Y*=oolen;Z*=oolen;}}
- __forceinline void Scale(float s){X*=s;Y*=s;Z*=s;}
- __forceinline void Rotate_Z(float s_angle,float c_angle){float tmp_x=X;float tmp_y=Y;X=c_angle*tmp_x-s_angle*tmp_y;Y=s_angle*tmp_x+c_angle*tmp_y;}
- __forceinline void Rotate_Z(float angle){Rotate_Z(sinf(angle),cosf(angle));}
- static __forceinline float Cross_Product_Z(const Vector3 &lhs,const Vector3 &rhs){return lhs.X*rhs.Y-lhs.Y*rhs.X;}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+// Zero Hour's inline Vector3 math bodies and a scalar scale; retail inlines them here.
+static __forceinline float bfmeLength2V3(const Vector3 &v){return v.X*v.X+v.Y*v.Y+v.Z*v.Z;}
+static __forceinline void bfmeNormalizeV3(Vector3 &v){float len2=bfmeLength2V3(v);if(len2!=0.0f){float oolen=WWMath::Inv_Sqrt(len2);v.X*=oolen;v.Y*=oolen;v.Z*=oolen;}}
+static __forceinline void bfmeScaleV3(Vector3 &v,float s){v.X*=s;v.Y*=s;v.Z*=s;}
+static __forceinline void bfmeRotateZV3(Vector3 &v,float s_angle,float c_angle){float tmp_x=v.X;float tmp_y=v.Y;v.X=c_angle*tmp_x-s_angle*tmp_y;v.Y=s_angle*tmp_x+c_angle*tmp_y;}
+static __forceinline void bfmeRotateZV3(Vector3 &v,float angle){bfmeRotateZV3(v,sinf(angle),cosf(angle));}
+static __forceinline float bfmeCrossZV3(const Vector3 &lhs,const Vector3 &rhs){return lhs.X*rhs.Y-lhs.Y*rhs.X;}
 struct Rva00363B4BVector {float x,y,z;};
 float ACos(float);
 inline __declspec(noinline) float rva00363B4BAngle(const Rva00363B4BVector *lhs, const Rva00363B4BVector *rhs)
@@ -65,10 +63,10 @@ bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,Direction
   if(halfLength<radius)radius=halfLength;
  }
  Vector3 direction(input->x,input->y,input->z);
- direction.Normalize();
+ bfmeNormalizeV3(direction);
  Vector3 towards(dest.x-start.x,dest.y-start.y,dest.z-start.z);
- towards.Normalize();
- float sign=Vector3::Cross_Product_Z(direction,towards)>0.0f?1:-1;
+ bfmeNormalizeV3(towards);
+ float sign=bfmeCrossZV3(direction,towards)>0.0f?1:-1;
  bool positive=true;
  float bend=angleBetween(direction,towards);
  if(bend<0.19634955f || bend>maxAngle){if(!options->flag0)rva003649B1(node);return true;}
@@ -79,29 +77,29 @@ bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,Direction
  }
  if(sign<0.0f){positive=false;bend=-bend;rotation=-rotation;}
  Vector3 offset=direction;
- offset.Rotate_Z(rotation);
- offset.Scale(radius);
+ bfmeRotateZV3(offset,rotation);
+ bfmeScaleV3(offset,radius);
  if(!options->flag0)rva003649B1(node);
  Coord3D center=node->m_pos;
  center.x+=offset.X;center.y+=offset.Y;
  Vector3 toDest(dest.x,dest.y,dest.z);
  toDest.X-=center.x;toDest.Y-=center.y;
  Vector3 radial=toDest;
- radial.Rotate_Z(-rotation);
- radial.Normalize();
- radial.Scale(radius);
+ bfmeRotateZV3(radial,-rotation);
+ bfmeNormalizeV3(radial);
+ bfmeScaleV3(radial,radius);
  Coord3D end=center;
  end.x+=radial.X;end.y+=radial.Y;
- offset.Scale(-1.0f);
- Vector3 firstRadial=offset;firstRadial.Z=0.0f;firstRadial.Normalize();
- Vector3 secondRadial=radial;secondRadial.Z=0.0f;secondRadial.Normalize();
+ bfmeScaleV3(offset,-1.0f);
+ Vector3 firstRadial=offset;firstRadial.Z=0.0f;bfmeNormalizeV3(firstRadial);
+ Vector3 secondRadial=radial;secondRadial.Z=0.0f;bfmeNormalizeV3(secondRadial);
  float sweep=angleBetween(firstRadial,secondRadial);
- float radialSign=Vector3::Cross_Product_Z(secondRadial,firstRadial)>0.0f?1:-1;
+ float radialSign=bfmeCrossZV3(secondRadial,firstRadial)>0.0f?1:-1;
  if(radialSign==sign)sweep=6.2831855f-sweep;
  Vector3 remainder(dest.x,dest.y,0.0f);
  remainder.X-=end.x;remainder.Y-=end.y;
- remainder.Normalize();
- remainder.Rotate_Z(-rotation);
+ bfmeNormalizeV3(remainder);
+ bfmeRotateZV3(remainder,-rotation);
  float extra=angleBetween(remainder,secondRadial);
  sweep+=extra;
  if(options->flag1)sweep=6.2831855f-sweep;
@@ -112,7 +110,7 @@ bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,Direction
  float step=sweep/(float)segments;
  for(int i=1;i<=segments;i++){
   Vector3 point=offset;
-  point.Rotate_Z((float)i*step);
+  bfmeRotateZV3(point,(float)i*step);
   Coord3D position=center;
   position.x+=point.X;position.y+=point.Y;position.z=start.z;
   if(options->flag0){

@@ -73,24 +73,21 @@ struct FadeInputPrefix
 	ObjectID id;
 };
 
-// WWMath Vector3 subset (WB 0x10A9940 inlines Vector3::Rotate_Z, vector3.h):
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// Zero Hour's inline Vector3::Rotate_Z bodies (WB 0x10A9940 inlines them):
 // the angle form forwards sinf(angle), cosf(angle) to the X-first rotate.
-struct Vector3
+static __forceinline void bfmeRotateZV3(Vector3 &vec, float s_angle, float c_angle)
 {
-	float X, Y, Z;
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline void Rotate_Z(float angle)
-	{
-		Rotate_Z(sinf(angle), cosf(angle));
-	}
-	__forceinline void Rotate_Z(float s_angle, float c_angle)
-	{
-		float tmp_x = X;
-		float tmp_y = Y;
-		X = c_angle * tmp_x - s_angle * tmp_y;
-		Y = s_angle * tmp_x + c_angle * tmp_y;
-	}
-};
+	float tmp_x = vec.X;
+	float tmp_y = vec.Y;
+	vec.X = c_angle * tmp_x - s_angle * tmp_y;
+	vec.Y = s_angle * tmp_x + c_angle * tmp_y;
+}
+static __forceinline void bfmeRotateZV3(Vector3 &vec, float angle)
+{
+	bfmeRotateZV3(vec, sinf(angle), cosf(angle));
+}
 
 // WB copies the source position member by member through a reloaded source
 // pointer: an inlined copy, not a struct block move.
@@ -143,7 +140,7 @@ void Made002CCC2D::rva0050B98F(const FadeInputPrefix *input, int unused)
 	copyCoord(&pos, &((FadeObjectPrefix *)source)->position);
 	float angle = ((FadeObjectPrefix *)source)->angle;
 	Vector3 offset(m_offset.x, m_offset.y, m_offset.z);
-	offset.Rotate_Z(angle);
+	bfmeRotateZV3(offset, angle);
 	pos.x += offset.X;
 	pos.y += offset.Y;
 	pos.z = ((FadeTerrainPrefix *)TheTerrainLogic)->height(pos.x, pos.y, source->rva0028B511(), 0, true);
