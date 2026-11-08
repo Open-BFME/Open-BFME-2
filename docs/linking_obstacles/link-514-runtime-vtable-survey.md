@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open (partly repaired). Updated: 2026-11-07 (lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
+Status: Open (partly repaired). Updated: 2026-11-08 (lk64 pass at d171e84869; lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -827,3 +827,65 @@ units' views, not from the placeholders: DelayedDeathBody.cpp and FreeLifeBody.c
 on `RespawnBody` with no base for RespawnBody, and DetachableRiderBodyCtor.cpp declares no base for its
 class, so neither chain reaches ActiveBody. ImmortalBody, StructureBody and RespawnBody's tables have
 the same constructor-plus-placeholder-destructor shape and pass.
+
+**The Upgrade family's private views, part 2, and why no table leaves the bridge yet (2026-11-08, seat
+halilkkaya-lk64, base `d171e84869`, census index `eaefe561ff`, real link rl7 at `cdcfc30b16`).** Six more
+upgrade classes now declare their class in a shared `Code/GameEngine/Include/GameLogic/Module/X.h`, and
+their destructor placeholders in FireWeaponWhenDeadBehaviorDerived.cpp are folded into them (lk56's recipe,
+steps 1 and 3 in one commit per class; the getter step stays walled, see below). Each fold deletes the
+placeholder's four `??_7RvaXXXXXXXX@@6B...@@@` tables, which rl7 bridged at the class's own retail
+addresses: 24 bridged tables go, none are added. In every commit the scaffold and the ctor unit share 62
+COMDATs, all digest-identical, the scaffold's other COMDATs are unchanged, and only the ctor unit's
+primary table changes (toward retail); no initializer or non-COMDAT data section changes.
+
+| class (placeholder; primary / UpgradeMux table) | commit | primary vs retail by address | UpgradeMux |
+|---|---|---|---|
+| ModelConditionUpgrade (Rva004B63BD; 0x00C58658 / 0x00C58610) | bab46819bad | scaffold copy 7/12 -> 10/12 | 16/18 -> 18/18 (the scaffold's copy) |
+| GarrisonUpgrade (Rva004B57CE; 0x00C58088 / 0x00C58040) | cbb73e66363 | 7/12 (slot 4 `__purecall`) -> 10/12 | 18/18 |
+| ExperienceScalarUpgrade (Rva004B611C; 0x00C584E8 / 0x00C584A0) | 6f58e03652e | 9/12 -> 10/12 | 18/18 |
+| AttributeModifierUpgrade (Rva004B66B3; 0x00C587E8 / 0x00C587A0) | b86c526fa8c | 7/12 (slot 4 `__purecall`) -> 10/12 | 18/18 |
+| MaxHealthUpgrade (Rva004B6259; 0x00C58590 / 0x00C58548) | 67f30ae7752 | 9/12 -> 10/12 | 18/18 |
+| UnpauseSpecialPowerUpgrade (Rva004B53DF; 0x00C57EA8 / 0x00C57E60) | e784fa681e2 | 8/13 -> 9/13 | 18/18 |
+
+Counts include slot 0 (`??_E` for the rowed `??_G`). Slot 3 is each class's ICF twin of
+`?xfer@ArmorUpgrade` (0x004B8710; BfmeXfer.h read at the end of the unit after the operand forward
+declarations); slot 4 is getModuleNameKey, already rowed (for Garrison and AttributeModifier in
+`Code/GameEngine/Source/Common/System/X.cpp`), so two `__purecall`s are gone. Left in every primary table:
+slot 1 (UpgradeModule's 0x0058B03E where retail has the `jmp` 0x00497805) and slot 2 (the getter, a
+`?name@RvaXXXXXXXXNamed` row in ModuleNameGetters3.cpp, which ancalgonn-swarm-defects holds). Unpause also
+keeps slot 5: retail's 0x004B54D9 sits in Module's onObjectCreated slot, but the row is named
+`?onCreate@UnpauseSpecialPowerUpgrade`, a new virtual that lands at slot 12; the rename needs a naming
+basis. Pitfall confirmed: link_check the scaffold with the current objects of every ctor unit the branch
+changed, or the census copies fake `??1X` duplicates and unresolved `?xfer@X`. The scaffold's own two
+unresolved names (`?xfer@CastleUpgrade`, `?upgradeImplementation@CastleUpgrade`) predate this pass:
+4771339e0a2 merged their providers into CastleUpgrade.cpp after the census index.
+
+Why none of these tables leaves the bridge yet (rl7's `vtable_bridge.json`):
+- `tools/vtable_bridge.py` `matches()` and `source_slot_mismatches()` compare a slot's relocation symbol
+  name with ledger row names. A vftable's slot 0 relocates to `??_EX@@UAEPAXI@Z`, a weak external
+  (`IMAGE_SYM_CLASS_WEAK_EXTERNAL`) whose default is `??_GX`; no ledger row is named `??_EX`, so every
+  table with a virtual destructor is bridged even when the linker resolves the slot to the rowed `??_G` at
+  retail's address. In rl7, 465 bridged tables differ from retail only in such slots (their `??_G` row is
+  at the retail target); the primary tables above join them once slots 1 and 2 are fixed. Lead for a
+  tooling seat (Verifier-Change, with tests): resolve a weak external slot to its default when no kept
+  object or archive defines the weak name. `comdat_body` already reads weak defaults (lk40).
+- Shared inline bodies without a ledger row: 32 bridged `??_7XUpgrade@@6BBehaviorModuleInterface@@@`
+  copies (0x00C57328) differ from retail only in slots 4, 9 and 10 (`?getDamage@UpgradeModule` 0x0045875F,
+  `?getUpdate@BehaviorModule` 0x000D43D0, `?getUpgrade@UpgradeModule` 0x002533D3), and 35
+  `??_7XUpgrade@@6BUpgradeModuleInterface18@@@` copies (0x00C58790) only in slots 0-2 (`vslot18_00/01`
+  0x0047A69C, `vslot18_02` 0x000D1407). Six ICF twin rows in one ctor unit (the SupplyTruckAIUpdateCtor.cpp
+  precedent for BehaviorModule's slots) would clear 67 tables. Not done: `class:UpgradeModule` was held by
+  ancalgonn-swarm-defects all pass and 0x000D43D0 by yasinschroeder-codexb2 (class:Keyboard). The +0x18
+  table's three slots have DamageModuleInterface's shape in Zero Hour (onDamage/onHealing `ret 4`,
+  onBodyDamageStateChange `ret 0xC`), and slot 4 returns that +0x18 interface; a donor lead, not proof.
+- The five UpgradeMux tables with one inline empty slot 8 (Base, Delayed, WeaponBonus, Castle,
+  ReplaceSelf; retail 0x000B3FD0) need the same twin rows; 0x000B3FD0 is held through class:Keyboard.
+
+Still walled in the scaffold: BuildableHeroListUpgrade (Rva004B82A5; its unit reads Snapshot.h without the
+name slot before UpgradeModule.h, so its primary table has 13 slots with `__purecall` in 2 and 4),
+CostModifierUpgrade and SpellRechargeModifierUpgrade (Rva004B5982, Rva004B5D0B; the +0x1C interface),
+LevelUpUpgrade (Rva004B3D3B; placeholder parameter type), SubObjectsUpgrade (Rva004B4CDF; spelled in three
+units), WeaponSetUpgrade (Rva004B568B; slots 8/10 under WeaponSetUpgradeSecondary). Other GameLogic/Object
+scaffolds with placeholder tables in rl7: DieModuleDerived.cpp (30 tables, 10 classes) and
+ModuleUpdateDtors.cpp (9) are DieModule/UpdateModule units this seat may not touch; HealContain.cpp's
+Rva00220240FlatDtor (9 tables) and Rva00082EF5Ctor.cpp (8) are multi-base Contain shapes.
