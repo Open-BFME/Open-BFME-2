@@ -5865,3 +5865,5 @@ __ehhandler$??0Rva005F00FB@@QAE@XZ,0x007A4B0D,"Renamed to __ehhandler$??0MappedI
 ?g_0086A36C@@3QBQBXB,0x0086A36C,Data ownership transferred to compiler ??_7ChangeStanceGroupOrder@@6B@ at the same 56-byte native range; all fourteen code-pointer relocations and structural COMDAT size verified; removed unused hand-built array only.
 ??1Rva004B63BD@@UAE@XZ,0x004B63BD,"Renamed to ??1ModelConditionUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C58658)"
 ??_GRva004B63BD@@UAEPAXI@Z,0x004B6516,"Renamed to ??_GModelConditionUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58658)"
+??1Rva004B57CE@@UAE@XZ,0x004B57CE,"Renamed to ??1GarrisonUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C58088)"
+??_GRva004B57CE@@UAEPAXI@Z,0x004B586A,"Renamed to ??_GGarrisonUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58088)"

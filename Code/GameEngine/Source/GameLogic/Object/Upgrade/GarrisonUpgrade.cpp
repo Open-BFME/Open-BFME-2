@@ -123,19 +123,7 @@ protected:
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
 };
-#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
-class Thing;
-
-
-class GarrisonUpgrade : public UpgradeModule
-{
-protected:
-	virtual void upgradeRemovalImplementation();
-protected:
-	virtual void upgradeImplementation();
-public:
-	GarrisonUpgrade( Thing *thing, const ModuleData *moduleData );
-};
+#include "../../../../Include/GameLogic/Module/GarrisonUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgradeCtor.cpp
 
@@ -146,7 +134,7 @@ GarrisonUpgrade::GarrisonUpgrade( Thing *thing, const ModuleData *moduleData )
 {
 }
 
-// tu-skeleton: 0x004B586A 28B ??_GRva004B57CE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B586A 28B ??_GGarrisonUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgrade.cpp
 
@@ -191,4 +179,32 @@ void GarrisonUpgrade::upgradeImplementation()
 		if (related != 0)
 			related->slot02(object->getID());
 	}
+}
+
+// ?xfer@GarrisonUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C58088 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+void GarrisonUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
 }

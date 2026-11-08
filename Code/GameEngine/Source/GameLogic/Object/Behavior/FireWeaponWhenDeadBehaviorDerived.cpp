@@ -142,13 +142,12 @@ Rva004B568B::~Rva004B568B()
 {
 }
 
-class Rva004B57CE : public UpgradeModule
-{
-public:
-	virtual ~Rva004B57CE();
-};
+// GarrisonUpgrade's destructor 0x004B57CE: its constructor 0x004B5839 installs
+// the same four tables. The class is GarrisonUpgrade.h's, so this unit's copies
+// of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/GarrisonUpgrade.h"
 
-Rva004B57CE::~Rva004B57CE()
+GarrisonUpgrade::~GarrisonUpgrade()
 {
 }
 
