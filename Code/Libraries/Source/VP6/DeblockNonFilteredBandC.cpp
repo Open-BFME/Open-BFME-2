@@ -27,7 +27,7 @@ struct Vp6DeblockBandInstance
 	int *m_bounding;
 };
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[];
 #define VABS(x) ((x) > 0 ? (x) : -(x))
 
 extern "C" void __cdecl DeblockNonFilteredBand_C(Vp6DeblockBandInstance *ctx,

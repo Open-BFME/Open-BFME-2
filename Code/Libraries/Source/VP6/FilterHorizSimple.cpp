@@ -11,7 +11,7 @@
 // edge-adjacent pixels, and half of it the outer pixels on non-high-activity
 // lines, all through the saturating clamp table.
 
-extern const unsigned char g_bfmeClampTable[];			// retail 0x00E23100 (zero point)
+extern unsigned char g_bfmeClampTable[];			// retail 0x00E23100 (zero point)
 
 // RVA 0x001C3F50
 extern "C" void __cdecl FilterHoriz_Simple_C(void *, unsigned char *ptr, int stride, const int *bounding)
