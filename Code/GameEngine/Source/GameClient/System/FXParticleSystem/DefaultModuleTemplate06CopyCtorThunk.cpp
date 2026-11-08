@@ -3,45 +3,70 @@
 // Open-BFME5: DefaultModuleTemplate (ledger $06 / N=7) copy ctor
 // Retail: push src; base copy; three vtbl stores at +0/+4/+8.
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../Include/GameClient/WindModuleInfo.h"
+
 namespace FXParticleSystem
 {
 
+class ModuleTemplate
+{
+public:
+    ModuleTemplate();
+    ModuleTemplate(const ModuleTemplate &that);
+    virtual ~ModuleTemplate();
+};
+
+// Retail's nested category shape (LINK-584).
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
+{
+public:
+    virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
+
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
+{
+public:
+    CategoryModuleTemplateBase();
+    CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY_ARG> &that);
+    virtual ~CategoryModuleTemplateBase();
+};
+
 template <int CATEGORY>
-class CategoryModuleTemplate
+class CategoryModuleTemplate;
+
+template <>
+class CategoryModuleTemplate<7> : public CategoryModuleTemplateBase<7>, public WindModuleInfo
 {
 public:
-	CategoryModuleTemplate(const CategoryModuleTemplate &that);
-};
-
-// DefaultModuleTemplate6_vtbl0: matched references place it at VA 0xc1bfa4 (retail .rdata value -44).
-extern "C" char DefaultModuleTemplate6_vtbl0 = -44;
-extern "C" char DefaultModuleTemplate6_vtbl4;
-// DefaultModuleTemplate6_vtbl8: matched references place it at VA 0xc1bf94 (retail .rdata value -107).
-extern "C" char DefaultModuleTemplate6_vtbl8 = -107;
-
-template <int N>
-class DefaultModuleTemplate
-{
-public:
-	DefaultModuleTemplate(const DefaultModuleTemplate &);
-
-private:
-	void *m_v0;
-	void *m_v4;
-	void *m_v8;
+    CategoryModuleTemplate();
+    CategoryModuleTemplate(const CategoryModuleTemplate<7> &that);
+    virtual ~CategoryModuleTemplate();
+    virtual void v1();
 };
 
 template <int N>
-DefaultModuleTemplate<N>::DefaultModuleTemplate(const DefaultModuleTemplate &that)
-{
-	((CategoryModuleTemplate<7> *)this)->CategoryModuleTemplate<7>::CategoryModuleTemplate(
-		*(const CategoryModuleTemplate<7> *)&that);
-	m_v0 = &DefaultModuleTemplate6_vtbl0;
-	m_v4 = &DefaultModuleTemplate6_vtbl4;
-	m_v8 = &DefaultModuleTemplate6_vtbl8;
-}
+class DefaultModuleTemplate;
 
-template DefaultModuleTemplate<7>::DefaultModuleTemplate(const DefaultModuleTemplate &);
+template <>
+class DefaultModuleTemplate<7> : public CategoryModuleTemplate<7>
+{
+public:
+    DefaultModuleTemplate();
+    DefaultModuleTemplate(const DefaultModuleTemplate<7> &that);
+    virtual ~DefaultModuleTemplate();
+};
+
+DefaultModuleTemplate<7>::DefaultModuleTemplate(const DefaultModuleTemplate<7> &that)
+    : CategoryModuleTemplate<7>(that)
+{
 }
-// _DefaultModuleTemplate6_vtbl4: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_DefaultModuleTemplate6_vtbl4=?vftable_0112B89C@@3HA")
+}
