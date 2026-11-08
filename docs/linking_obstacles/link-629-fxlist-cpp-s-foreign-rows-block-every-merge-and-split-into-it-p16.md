@@ -304,3 +304,16 @@ Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on
   0x00424D17, whose inlined `__lg(n)` (`inc ecx; sar eax,1; cmp eax,1; jne`) never ends with eax = -1. Retail passes it
   0x00E031B8 and 0x00E031A8, one object 0x10 apart; the image passes separate globals 0x10C305E8 and 0x10C305F8.
 
+## 2026-11-08: the census carry-over (Harness)
+
+- Cleared, the batch audit's INCONCLUSIVE cases: the census of 2026-11-08 20:49 at 13abde3b7f contains the pin fix, the
+  split, the respell and minimal B (`b139fa48ef`, `8303e0c1b7`, `4ed3617de0` are its ancestors). FXList.cpp is linked with
+  no loser or wrong selection, and the audit's other units (Glo012F1024Item, LivingWorldCampaign, SpawnArmy, W3DStreakDraw,
+  stlport_construct_game_structs, FXListVectorInsertOverflow, Rva0056616BCopy, FXListNuggetParse) all stayed linked.
+  Scope: this is the census's link, under `/FORCE` with stubs, not the real link. `unreferenced_differs` still lists
+  `getLocalPlayer` and `getPlayerIndex`.
+- A trap when reading an index: the release index at 2a50ce83ab still showed FXList.cpp's losers. Its symbol tables were
+  current, but its `blockers` came from census b9aeebea15 (`census_commit` and `census_date` in its `meta`), which predates
+  minimal B. An index without those keys, as at 13abde3b7f, is that commit's own census. Read them before calling a
+  blocker current.
+
