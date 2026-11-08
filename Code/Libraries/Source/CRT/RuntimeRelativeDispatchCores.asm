@@ -14,17 +14,22 @@
 _TEXT SEGMENT
 ; Each entry consumes the synthetic CALL return, preserves EFLAGS, and
 ; jumps through a PC-relative mutable cell. It is not a C/C++ call ABI.
-DISPATCH_CORE MACRO procName, cellBias
-PUBLIC procName
-procName PROC
-    mov eax, cellBias
+; (Written out per entry: a source may not use MASM macros, tools/cl_flags.py asm_directives.)
+PUBLIC _RuntimeDispatchCore_00007AF3
+_RuntimeDispatchCore_00007AF3 PROC
+    mov eax, -3509
     pop ecx
     lea eax, [ecx+eax]
     mov eax, DWORD PTR [eax]
     jmp eax
-procName ENDP
-ENDM
-DISPATCH_CORE _RuntimeDispatchCore_00007AF3, -3509
-DISPATCH_CORE _RuntimeDispatchCore_00007C63, -4341
+_RuntimeDispatchCore_00007AF3 ENDP
+PUBLIC _RuntimeDispatchCore_00007C63
+_RuntimeDispatchCore_00007C63 PROC
+    mov eax, -4341
+    pop ecx
+    lea eax, [ecx+eax]
+    mov eax, DWORD PTR [eax]
+    jmp eax
+_RuntimeDispatchCore_00007C63 ENDP
 _TEXT ENDS
 END

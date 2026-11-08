@@ -11,15 +11,18 @@ EXTERN _RuntimeDispatchCore_00007AF3:PROC
 EXTERN _RuntimeDispatchCore_00007C63:PROC
 _TEXT SEGMENT
 ; The saved EAX/ECX words remain on the destination's incoming stack.
-DISPATCH_ENTRY MACRO procName, targetCore
-PUBLIC procName
-procName PROC
+; (Written out per entry: a source may not use MASM macros, tools/cl_flags.py asm_directives.)
+PUBLIC _RuntimeDispatchEntry_00007ED9
+_RuntimeDispatchEntry_00007ED9 PROC
     push ecx
     push eax
-    call targetCore
-procName ENDP
-ENDM
-DISPATCH_ENTRY _RuntimeDispatchEntry_00007ED9, _RuntimeDispatchCore_00007AF3
-DISPATCH_ENTRY _RuntimeDispatchEntry_00008449, _RuntimeDispatchCore_00007C63
+    call _RuntimeDispatchCore_00007AF3
+_RuntimeDispatchEntry_00007ED9 ENDP
+PUBLIC _RuntimeDispatchEntry_00008449
+_RuntimeDispatchEntry_00008449 PROC
+    push ecx
+    push eax
+    call _RuntimeDispatchCore_00007C63
+_RuntimeDispatchEntry_00008449 ENDP
 _TEXT ENDS
 END
