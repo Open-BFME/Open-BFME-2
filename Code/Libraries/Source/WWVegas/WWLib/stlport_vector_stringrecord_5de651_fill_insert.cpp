@@ -45,10 +45,11 @@ struct BfmeStringRecord005DDD40 {
     BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &);
 };
 // The overflow call at retail +0xF0 reaches the separate 0x005DE4BA
-// owner, not the chat-history overflow at 0x00381B7B. Its address-derived
-// element identity remains unknown; this view only exposes the recovered ABI.
+// owner, not the chat-history overflow at 0x00381B7B.
+// Retail's element is BfmeStringRecord005DDD40 (a UnicodeString and a word): 0x005DE4BA's calls reach the copy 0x005DDD40
+// and the destroy 0x00381AC7.
 struct Rva005DE4BAElement {
-    _STL::list<short> values[2];
+    BfmeStringRecord005DDD40 value;
     bool operator==(const Rva005DE4BAElement &) const;
 };
 struct Rva005DE4BAVectorView : _STL::vector<Rva005DE4BAElement> {

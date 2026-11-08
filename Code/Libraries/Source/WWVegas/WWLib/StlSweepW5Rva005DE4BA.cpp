@@ -1,6 +1,6 @@
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -10,6 +10,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+#include "unicode_string.h"
+typedef unsigned short wchar_t;
 #include <list>
 #include <vector>
 
@@ -28,7 +30,10 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 
 
-struct Rva005DE4BAElement { _STL::list<short> values[2]; bool operator==(const Rva005DE4BAElement&) const; };
+// Retail's element is BfmeStringRecord005DDD40 (a UnicodeString and a word): 0x005DE4BA's calls reach the copy 0x005DDD40
+// and the destroy 0x00381AC7.
+struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &); BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &); };
+struct Rva005DE4BAElement { BfmeStringRecord005DDD40 value; bool operator==(const Rva005DE4BAElement&) const; };
 
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::vector<Rva005DE4BAElement, _STL::allocator<Rva005DE4BAElement> >::_M_insert_overflow(Rva005DE4BAElement *, Rva005DE4BAElement const &, _STL::__false_type const &, unsigned int, bool);
