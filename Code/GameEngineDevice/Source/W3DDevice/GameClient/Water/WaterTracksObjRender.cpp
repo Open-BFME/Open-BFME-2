@@ -263,12 +263,7 @@ protected:
 	Real m_flipU;						// +0xac
 };
 
-class WaterTracksRenderSystem
-{
-public:
-	DX8VertexBufferClass		*m_vertexBuffer;
-	DX8IndexBufferClass			*m_indexBuffer;
-};
+#include "../../../../Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 extern WaterTracksRenderSystem *TheWaterTracksRenderSystem;
 
 #define WATER_VB_PAGES	1000
