@@ -310,12 +310,7 @@ class MoveAIUpdateView {public:
  virtual bool slot137();
 };
 enum PathfindLayerEnum {LAYER_GROUND=1};
-class TerrainLogic {public:
- virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();virtual void slot04();virtual void slot05();virtual void slot06();
- virtual float slot7(float,float,PathfindLayerEnum,Coord3D*,bool);
- PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 class LocomotorSet;
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
@@ -459,7 +454,7 @@ Coord3D *MoveToGroupOrder::rva005476C8(ObjectID id)
 		AIUpdateInterface *ai = (AIUpdateInterface *)obj->ai;
 		if ((ai && reinterpret_cast<MoveAIUpdateView *>(ai)->slot137()) || obj->physics) {
 			PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination(obj, &m_destination);
-			result.z = TheTerrainLogic->slot7(m_destination.x, m_destination.y, layer, 0, true);
+			result.z = TheTerrainLogic->getLayerHeight(m_destination.x, m_destination.y, layer, 0, true);
 			result.x = m_destination.x;
 			result.y = m_destination.y;
 			if (!TheAI->pathfinder()->AdjustDestination(obj,

@@ -284,13 +284,7 @@ template <> class Rva00468D11Slots<1>
 public:
 	virtual void gap(char (*)[1]) = 0;
 };
-// TheTerrainLogic: only slot 35 (a level/portal query, unnamed) is called.
-class TerrainLogic : public Rva00468D11Slots<35>
-{
-public:
-	virtual int slot35(int level) = 0;
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 class AIUpdateInterfaceSlots : public Rva00468D11Slots<110>
 {
 public:
@@ -4439,7 +4433,7 @@ void HordeContain::ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &be
 			if (point.m_node && point.m_node->m_08)
 			{
 				int level = ((Rva001E3511 *)&point)->rva001E3511();
-				if (level != 0x7fffffff && !TheTerrainLogic->slot35(level))
+				if (level != 0x7fffffff && !TheTerrainLogic->getWaypointByID(level))
 				{
 					on.push_back((ObjectID)obj->getID());
 					continue;

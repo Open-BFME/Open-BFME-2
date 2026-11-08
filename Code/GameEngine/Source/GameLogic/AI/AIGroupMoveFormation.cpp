@@ -276,24 +276,8 @@ class AI
     const FormationAIData *getAiData() const { return data; }
 };
 extern AI *TheAI;
-struct FormationExtent
-{
-    Coord3D lo, hi;
-};
-class TerrainLogic
-{
-  public:
-#define TV(n) virtual void slot##n();
-    TV(0) TV(1) TV(2) TV(3) TV(4) TV(5) TV(6) TV(7) virtual void slot8(FormationExtent *);
-    TV(9)
-    TV(10) TV(11) TV(12) TV(13) TV(14) TV(15) TV(16) TV(17) TV(18) TV(19) TV(20) TV(21) TV(22)
-        TV(23) TV(24) TV(25) TV(26) TV(27) TV(28) TV(29) TV(30) TV(31) TV(32) TV(33) TV(34) TV(35)
-            TV(36) TV(37) TV(38) TV(39) TV(40) TV(41) TV(42) TV(43) TV(44) TV(45) TV(46) TV(47)
-                TV(48) TV(49)
-#undef TV
-                    virtual bool slot50(const Coord3D *);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../../Libraries/Include/Lib/Region3D.h"
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 static const float &larger(const float &leftValue, const float &rightValue) { return leftValue > rightValue ? leftValue : rightValue; }
 struct FormationOffset : Coord2D
@@ -501,8 +485,8 @@ void AIGroup::moveFormationToPos(const Coord3D *pos, CommandSourceType source, i
             TheAI->getPathfinder()->AdjustGroundPathPosition(&endPoint, &dest);
         if (!TheAI->getPathfinder()->AdjustDestination(unit, ai->getLocomotorSet(), &dest, 0))
         {
-            FormationExtent extent;
-            TheTerrainLogic->slot8(&extent);
+            Region3D extent;
+            TheTerrainLogic->getExtent(&extent);
             if (!(dest.x > extent.lo.x && dest.x < extent.hi.x && dest.y > extent.lo.y &&
                   dest.y < extent.hi.y))
             {

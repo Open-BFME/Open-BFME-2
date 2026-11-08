@@ -92,28 +92,7 @@ class PartitionFilter;
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class TerrainLogic
-{
-public:
-#define TERRAIN_SLOT(n) virtual void slot##n();
-	TERRAIN_SLOT(00) TERRAIN_SLOT(01) TERRAIN_SLOT(02) TERRAIN_SLOT(03) TERRAIN_SLOT(04)
-	TERRAIN_SLOT(05) TERRAIN_SLOT(06) TERRAIN_SLOT(07) TERRAIN_SLOT(08) TERRAIN_SLOT(09)
-	TERRAIN_SLOT(10) TERRAIN_SLOT(11) TERRAIN_SLOT(12) TERRAIN_SLOT(13) TERRAIN_SLOT(14)
-	TERRAIN_SLOT(15) TERRAIN_SLOT(16) TERRAIN_SLOT(17) TERRAIN_SLOT(18) TERRAIN_SLOT(19)
-	TERRAIN_SLOT(20) TERRAIN_SLOT(21) TERRAIN_SLOT(22) TERRAIN_SLOT(23) TERRAIN_SLOT(24)
-	TERRAIN_SLOT(25) TERRAIN_SLOT(26) TERRAIN_SLOT(27) TERRAIN_SLOT(28) TERRAIN_SLOT(29)
-	TERRAIN_SLOT(30) TERRAIN_SLOT(31) TERRAIN_SLOT(32) TERRAIN_SLOT(33) TERRAIN_SLOT(34)
-	TERRAIN_SLOT(35) TERRAIN_SLOT(36) TERRAIN_SLOT(37) TERRAIN_SLOT(38) TERRAIN_SLOT(39)
-	TERRAIN_SLOT(40) TERRAIN_SLOT(41) TERRAIN_SLOT(42) TERRAIN_SLOT(43) TERRAIN_SLOT(44)
-	TERRAIN_SLOT(45) TERRAIN_SLOT(46) TERRAIN_SLOT(47) TERRAIN_SLOT(48) TERRAIN_SLOT(49)
-#undef TERRAIN_SLOT
-	// slot 50 (+0xC8): W3DTerrainLogic 0x00063082, a position test on the
-	// terrain under pos; unnamed.
-	virtual Bool rvaSlot50(const Coord3D *pos);
-
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 class AIGroup
 {
@@ -159,7 +138,7 @@ private:
 Bool AIGroup::computeGroundPath(const Coord3D *pos, CommandSourceType cmdSource)
 {
 	Bool bad = TheTerrainLogic->getLayerForDestination(NULL, pos) != LAYER_GROUND ||
-		TheTerrainLogic->rvaSlot50(pos);
+		TheTerrainLogic->slot50(pos);
 	if (bad)
 		return false;
 
@@ -257,7 +236,7 @@ Bool AIGroup::computeGroundPath(const Coord3D *pos, CommandSourceType cmdSource)
 			}
 			for (; node; node = node->getNextOptimized())
 			{
-				if (TheTerrainLogic->rvaSlot50(node->getPosition()))
+				if (TheTerrainLogic->slot50(node->getPosition()))
 				{
 					rva0036CE87();
 					return false;
