@@ -1,4 +1,4 @@
-// cl: -GX-
+// cl: /Ireference/shims/bfmealloc_alloconly -GX-
 // stlport46
 //
 // Bodies ported from Open-BFME-1's

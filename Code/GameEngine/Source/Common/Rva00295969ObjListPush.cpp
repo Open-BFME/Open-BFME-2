@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc_alloconly /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 struct Rva00293486Record { unsigned char bytes[8]; bool operator==(const Rva00293486Record&) const; bool operator<(const Rva00293486Record&) const; };
 // The record's placement copy is retail 0x002927CB, rowed as the typed

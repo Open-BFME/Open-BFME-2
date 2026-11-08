@@ -1,7 +1,7 @@
 ### LINK-635: a byte-matched unit can bind to a node-pool allocator copy while its partner frees to the heap
 
-**Status: Open (check gap; six units repaired, P37 and P38). Updated: 2026-11-08; inspected revision: 2c4de0f0ec (diagnostic
-image) (crash-triage seat2, P37, P38). Family:
+**Status: Open (check gap; twelve units repaired, P37, P38 and P44). Updated: 2026-11-08; inspected revision: 3c5bff6a9b (diagnostic
+image) (crash-triage seat2, P37, P38; crash-prevention seat4, P44). Family:
 [LINK-630](link-630-a-byte-matched-row-whose-calls-bind-to-local-unrowed-comdats.md).**
 
 - **Gap:** `reference/shims/bfmealloc/README.md` records that retail's containers allocate through the raw allocator
@@ -37,3 +37,9 @@ image) (crash-triage seat2, P37, P38). Family:
   depth while retail's body at the row's address does not. A scan pairing allocate and deallocate per element type cannot see
   P37's pair, and cannot classify the 90 functions in image 224133c092 with inlined node-allocator calls. A seed of the graph
   form flags both the P37 and P38 units and lists 39 rows on image 8ada236aeb (before P38); those rows are not yet vetted.
+- **P44 (2026-11-08, crash-prevention seat4, bytes and objects only, no boot):** crash triage's `p37_family.py`, vetted on image 3c5bff6a9b,
+  flagged 27 rows: 15 `$L` label collisions, the pool's own handler, and 11 rows in six element types, now on
+  `bfmealloc_alloconly`: `list<ControlBarScheme*>`, `list<Rva00242EE7Obj*>`, `list<Rva005CD018Obj*>`, `list<Rva00293486Record>`,
+  `vector<Elem003AF9E0>`, `vector<W3DAnimationInfo>`. A row's own unit having the root is not enough: `list<ControlBarScheme*>`'s
+  rows had it, but the image took `_M_create_node` from another unit's COMDAT. So the check has to judge every link input's
+  copy of a name, not the row's source. `p37_family.py` was never a full check: bounded depth, direct calls only.
