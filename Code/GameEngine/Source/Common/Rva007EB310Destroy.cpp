@@ -18,9 +18,9 @@ public:
 extern T_007ea120 *g_Va0130A588;
 extern unsigned char g_Va0130A58D;
 extern unsigned char g_Va0130A58C;
-extern int vftable_01129CB4;
-// vftable_01129CB4: matched references place it at VA 0xce1514 (retail .rdata value 10846896).
-int vftable_01129CB4 = 10846896;
+// The stored table (VA 0x00CE1514) is Rva007EB2C0Object's: its one slot is this
+// body, and Rva007EB2C0ObjectDestructor.cpp emits the compiler table there.
+extern "C" char __identifier("??_7Rva007EB2C0Object@@6B@");
 
 void Rva007EB830Release(void);
 void Rva007F0060();
@@ -28,7 +28,7 @@ void Rva007F0060();
 
 void *Rva007EB310Owner::destroy(unsigned int flags)
 {
-	*(int *)this = (int)&vftable_01129CB4;
+	*(int *)this = (int)&__identifier("??_7Rva007EB2C0Object@@6B@");
 	T_007ea120 *p = g_Va0130A588;
 	if (p)
 	{
