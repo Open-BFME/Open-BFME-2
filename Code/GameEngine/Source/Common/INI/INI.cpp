@@ -885,7 +885,10 @@ _STLP_alloc_proxy<_List_node<short> *, _List_node<short>, allocator<_List_node<s
 }
 }
 
-struct Rva0002C4D8Element { _STL::list<short> values[1]; bool operator==(const Rva0002C4D8Element&) const; };
+// Retail's element is an AsciiString: the fill 0x0002C4D8 copies through 0x0002C485 and 0x000365F0.
+struct Rva0002C4D8Element { AsciiString value; bool operator==(const Rva0002C4D8Element&) const; };
+// This unit owns the row for list<short>'s base constructor, which the old element used to emit.
+template _STL::_List_base<short, _STL::allocator<short> >::_List_base(const _STL::allocator<short> &);
 
 // Teardown resolves to the verified 133-byte releaseBuffer worker at RVA 0x36410.
 struct Rva0002C4FD
