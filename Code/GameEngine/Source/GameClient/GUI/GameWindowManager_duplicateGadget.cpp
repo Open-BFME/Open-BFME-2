@@ -25,15 +25,6 @@ typedef unsigned int UnsignedInt;
 
 void *getDataTemplate(char *type, Int *sizeOut);
 
-class WinInstanceData
-{
-public:
-	Int m_id;
-	Int m_state;
-	Int m_status;
-	UnsignedInt m_style;	// +0x0C
-};
-
 class GadgetCreateView
 {
 public:
@@ -43,13 +34,7 @@ public:
 	unsigned char m_rest[0x34 - 4];
 };
 
-class GameWindow
-{
-public:
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-	void snapshotCreateView(GadgetCreateView *view, bool clear);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 GameWindow *createGadget(char *type, void *data, GadgetCreateView *view, GameWindow *source);
 

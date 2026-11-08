@@ -8,48 +8,14 @@
 // The donor supplies color propagation semantics. Target loads independently
 // prove the child offsets and draw-array layout below. No new pins are needed.
 // BFME's ListboxData child slots are at +0x1c/+0x20/+0x24, four bytes after
-// the vendored ZH declaration.  The retail body also proves GameWindow's
-// draw-data arrays at +0x48/+0xb4/+0x120 (see IMECandidateMainDraw.cpp).
-// Keep this ABI slice TU-local: changing the shared ZH headers would move
-// already matched GameWindow and GadgetListBox bodies.
+// the vendored ZH declaration.  The retail body reads GameWindow's draw-data
+// arrays at +0x48/+0xb4/+0x120 inline, through the canonical m_instData.
+// The list-box child-slot view stays TU-local: the shared ZH ListboxData
+// declaration would move already matched GadgetListBox bodies.
 
 typedef int Color;
 
-struct Image;
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/WinInstanceData.h
-struct WinDrawData
-{
-	const Image *image;
-	Color color;
-	Color borderColor;
-};
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-	int winSetEnabledColor(int index, Color color);
-	int winSetEnabledBorderColor(int index, Color color);
-	int winSetDisabledColor(int index, Color color);
-	int winSetDisabledBorderColor(int index, Color color);
-	int winSetHiliteColor(int index, Color color);
-	int winSetHiliteBorderColor(int index, Color color);
-	GameWindow *winGetChild(void);
-
-	Color winGetEnabledColor(int index) { return m_enabledDrawData[index].color; }
-	Color winGetEnabledBorderColor(int index) { return m_enabledDrawData[index].borderColor; }
-	Color winGetDisabledColor(int index) { return m_disabledDrawData[index].color; }
-	Color winGetDisabledBorderColor(int index) { return m_disabledDrawData[index].borderColor; }
-	Color winGetHiliteColor(int index) { return m_hiliteDrawData[index].color; }
-	Color winGetHiliteBorderColor(int index) { return m_hiliteDrawData[index].borderColor; }
-
-private:
-	unsigned char m_bfmeHead[0x48];
-	WinDrawData m_enabledDrawData[9];
-	WinDrawData m_disabledDrawData[9];
-	WinDrawData m_hiliteDrawData[9];
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 struct BFMEListboxDataView
 {
@@ -110,36 +76,36 @@ void GadgetListBoxSetColors(GameWindow *listbox,
 		GameWindow *upButton = listboxData->upButton;
 		GameWindow *downButton = listboxData->downButton;
 
-		slider->winSetEnabledColor(0, listbox->winGetEnabledColor(0));
-		slider->winSetEnabledBorderColor(0, listbox->winGetEnabledBorderColor(0));
-		slider->winSetDisabledColor(0, listbox->winGetDisabledColor(0));
-		slider->winSetDisabledBorderColor(0, listbox->winGetDisabledBorderColor(0));
-		slider->winSetHiliteColor(0, listbox->winGetHiliteColor(0));
-		slider->winSetHiliteBorderColor(0, listbox->winGetHiliteBorderColor(0));
+		slider->winSetEnabledColor(0, listbox->m_instData.m_enabledDrawData[0].color);
+		slider->winSetEnabledBorderColor(0, listbox->m_instData.m_enabledDrawData[0].borderColor);
+		slider->winSetDisabledColor(0, listbox->m_instData.m_disabledDrawData[0].color);
+		slider->winSetDisabledBorderColor(0, listbox->m_instData.m_disabledDrawData[0].borderColor);
+		slider->winSetHiliteColor(0, listbox->m_instData.m_hiliteDrawData[0].color);
+		slider->winSetHiliteBorderColor(0, listbox->m_instData.m_hiliteDrawData[0].borderColor);
 
-		upButton->winSetEnabledColor(0, slider->winGetEnabledColor(0));
-		upButton->winSetEnabledBorderColor(0, slider->winGetEnabledBorderColor(0));
+		upButton->winSetEnabledColor(0, slider->m_instData.m_enabledDrawData[0].color);
+		upButton->winSetEnabledBorderColor(0, slider->m_instData.m_enabledDrawData[0].borderColor);
 		upButton->winSetEnabledColor(1, GadgetSliderGetEnabledSelectedThumbBorderColor(slider));
 		upButton->winSetEnabledBorderColor(1, bfmeGoDEA(reinterpret_cast<BfmeThingDEA *>(slider)));
-		upButton->winSetDisabledColor(0, slider->winGetDisabledColor(0));
-		upButton->winSetDisabledBorderColor(0, slider->winGetDisabledBorderColor(0));
+		upButton->winSetDisabledColor(0, slider->m_instData.m_disabledDrawData[0].color);
+		upButton->winSetDisabledBorderColor(0, slider->m_instData.m_disabledDrawData[0].borderColor);
 		upButton->winSetDisabledColor(1, GadgetSliderGetDisabledSelectedThumbBorderColor(slider));
 		upButton->winSetDisabledBorderColor(1, getColor(reinterpret_cast<BfmeThingDEB *>(slider)));
-		upButton->winSetHiliteColor(0, slider->winGetHiliteColor(0));
-		upButton->winSetHiliteBorderColor(0, slider->winGetHiliteBorderColor(0));
+		upButton->winSetHiliteColor(0, slider->m_instData.m_hiliteDrawData[0].color);
+		upButton->winSetHiliteBorderColor(0, slider->m_instData.m_hiliteDrawData[0].borderColor);
 		upButton->winSetHiliteColor(1, GadgetSliderGetHiliteSelectedThumbBorderColor(slider));
 		upButton->winSetHiliteBorderColor(1, bfmeGoDEC(reinterpret_cast<BfmeThingDEC *>(slider)));
 
-		downButton->winSetEnabledColor(0, slider->winGetEnabledColor(0));
-		downButton->winSetEnabledBorderColor(0, slider->winGetEnabledBorderColor(0));
+		downButton->winSetEnabledColor(0, slider->m_instData.m_enabledDrawData[0].color);
+		downButton->winSetEnabledBorderColor(0, slider->m_instData.m_enabledDrawData[0].borderColor);
 		downButton->winSetEnabledColor(1, GadgetSliderGetEnabledSelectedThumbBorderColor(slider));
 		downButton->winSetEnabledBorderColor(1, bfmeGoDEA(reinterpret_cast<BfmeThingDEA *>(slider)));
-		downButton->winSetDisabledColor(0, slider->winGetDisabledColor(0));
-		downButton->winSetDisabledBorderColor(0, slider->winGetDisabledBorderColor(0));
+		downButton->winSetDisabledColor(0, slider->m_instData.m_disabledDrawData[0].color);
+		downButton->winSetDisabledBorderColor(0, slider->m_instData.m_disabledDrawData[0].borderColor);
 		downButton->winSetDisabledColor(1, GadgetSliderGetDisabledSelectedThumbBorderColor(slider));
 		downButton->winSetDisabledBorderColor(1, getColor(reinterpret_cast<BfmeThingDEB *>(slider)));
-		downButton->winSetHiliteColor(0, slider->winGetHiliteColor(0));
-		downButton->winSetHiliteBorderColor(0, slider->winGetHiliteBorderColor(0));
+		downButton->winSetHiliteColor(0, slider->m_instData.m_hiliteDrawData[0].color);
+		downButton->winSetHiliteBorderColor(0, slider->m_instData.m_hiliteDrawData[0].borderColor);
 		downButton->winSetHiliteColor(1, GadgetSliderGetHiliteSelectedThumbBorderColor(slider));
 		downButton->winSetHiliteBorderColor(1, bfmeGoDEC(reinterpret_cast<BfmeThingDEC *>(slider)));
 	}

@@ -88,6 +88,7 @@ private:
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
 class Rva007397D0 { public: void rva007397D0(); };
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class ClientFrameSubsystem;
