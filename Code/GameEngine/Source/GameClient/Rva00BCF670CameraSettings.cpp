@@ -24,7 +24,7 @@
 // Target evidence: the cache records at VA 0x00DBDED4..0x00DBDEF4 (retail
 // bytes: key 0, then the pointer to the string above), the rowed
 // Rva00148F5ECache::get 0x00148F5E, Dict::getReal 0x003131FC on
-// g_Va00E00944, TheWritableGlobalData 0x00DFE758, TheTerrainLogic slot 39
+// MapObject::TheWorldDict, TheWritableGlobalData 0x00DFE758, TheTerrainLogic slot 39
 // (getTriggerAreaByName), PolygonTrigger 0x002E3A13 / 0x002E38F3 and the
 // PartitionManager::getShroudStatusForPlayer thunk 0x007397F0 on
 // TheShroudManager with ThePlayerList's local player index (+0x10, +0x54).
@@ -66,7 +66,7 @@ public:
 
 #include "../../Include/Common/Dict.h"
 
-extern Dict g_Va00E00944;	// VA 0x00E00944
+class MapObject { public: static Dict TheWorldDict; };	// VA 0x00E00944
 
 #include "../../Include/Common/GlobalData.h"
 
@@ -129,7 +129,7 @@ private:
 void Rva00BCF670CameraSettings::loadMinHeight()
 {
 	bool exists;
-	m_minHeight04 = g_Va00E00944.getReal(g_00DBDED4.get(), &exists);
+	m_minHeight04 = MapObject::TheWorldDict.getReal(g_00DBDED4.get(), &exists);
 	if (!exists)
 		m_minHeight04 = TheWritableGlobalData->m_defaultCameraMinHeight;
 }
@@ -137,7 +137,7 @@ void Rva00BCF670CameraSettings::loadMinHeight()
 void Rva00BCF670CameraSettings::loadMaxHeight()
 {
 	bool exists;
-	m_maxHeight08 = g_Va00E00944.getReal(g_00DBDEDC.get(), &exists);
+	m_maxHeight08 = MapObject::TheWorldDict.getReal(g_00DBDEDC.get(), &exists);
 	if (!exists)
 		m_maxHeight08 = TheWritableGlobalData->m_defaultCameraMaxHeight;
 }
@@ -145,7 +145,7 @@ void Rva00BCF670CameraSettings::loadMaxHeight()
 void Rva00BCF670CameraSettings::loadPitchAngle()
 {
 	bool exists;
-	m_pitchAngle0C = g_Va00E00944.getReal(g_00DBDEE4.get(), &exists);
+	m_pitchAngle0C = MapObject::TheWorldDict.getReal(g_00DBDEE4.get(), &exists);
 	if (!exists)
 		m_pitchAngle0C = TheWritableGlobalData->m_defaultCameraPitchAngle;
 }
@@ -153,7 +153,7 @@ void Rva00BCF670CameraSettings::loadPitchAngle()
 void Rva00BCF670CameraSettings::loadYawAngle()
 {
 	bool exists;
-	m_yawAngle10 = g_Va00E00944.getReal(g_00DBDEEC.get(), &exists);
+	m_yawAngle10 = MapObject::TheWorldDict.getReal(g_00DBDEEC.get(), &exists);
 	if (!exists)
 		m_yawAngle10 = TheWritableGlobalData->m_defaultCameraYawAngle;
 }
@@ -161,7 +161,7 @@ void Rva00BCF670CameraSettings::loadYawAngle()
 void Rva00BCF670CameraSettings::loadScrollSpeedScalar()
 {
 	bool exists;
-	m_scrollSpeedScalar14 = g_Va00E00944.getReal(g_00DBDEF4.get(), &exists);
+	m_scrollSpeedScalar14 = MapObject::TheWorldDict.getReal(g_00DBDEF4.get(), &exists);
 	if (!exists)
 		m_scrollSpeedScalar14 = TheWritableGlobalData->m_defaultCameraScrollSpeedScalar;
 }

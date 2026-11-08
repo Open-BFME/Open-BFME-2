@@ -18,9 +18,9 @@ struct Outer
 };
 
 class BfmeMapObjectListHolder; extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
-extern Dict g_Va00E00944;
-#define g_00E00944 g_Va00E00944
-// ^ g_00E00944 is only an alias of the owned global g_Va00E00944 (ledger names column).
+class MapObject { public: static Dict TheWorldDict; };
+#define g_00E00944 MapObject::TheWorldDict
+// ^ g_00E00944 is only an alias of the owned global MapObject::TheWorldDict (ledger names column).
 
 void Rva000ABD70Clear()
 {

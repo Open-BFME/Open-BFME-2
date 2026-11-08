@@ -6218,14 +6218,14 @@ void __cdecl rva007B6E7C()
 // is friended. Layout follows Rva00329D0EDtor.cpp.
 #include "../../Include/Common/Dict.h"
 
-// 0x00A00944: defined elsewhere as ?g_Va00E00944@@3VDict@@A.
+// 0x00A00944: defined elsewhere as ?TheWorldDict@MapObject@@2VDict@@A.
 class Dict;
-extern Dict g_Va00E00944;
+class MapObject { public: static Dict TheWorldDict; };
 
-// ?rva007B7B14@@YAXXZ @ 0x007B7B14 (10B). Global Dict teardown: ecx=&g_Va00E00944 then tail-jmp to rowed ?releaseData@Dict@@AAEXXZ (0x0031339C). No callers. Honest address name.
+// ?rva007B7B14@@YAXXZ @ 0x007B7B14 (10B). Global Dict teardown: ecx=&MapObject::TheWorldDict then tail-jmp to rowed ?releaseData@Dict@@AAEXXZ (0x0031339C). No callers. Honest address name.
 void __cdecl rva007B7B14()
 {
-	Dict *receiver = (Dict *)&g_Va00E00944;
+	Dict *receiver = (Dict *)&MapObject::TheWorldDict;
 	return receiver->releaseData();
 }
 
