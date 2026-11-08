@@ -102343,3 +102343,4 @@ _g_weaponStoreTable	0x00802114	56	void	Retract the preceding blocked verdict: it
 ?loadPostProcess@GameClient@@MAEXXZ	0x00239A9D	87	landed	add_match verified Code/GameEngine/Source/Common/Rva00239A9D.cpp 87B; max Drawable ID scan then TacticalView slot 0x224
 ?GetSnapshotName@Locomotor@@MBEPBDXZ	0x001E3E56	6	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp 6B; Snapshot slot 2 of retail table 0x00BDE888
 ?GetSnapshotName@WeaponSet@@MBEPBDXZ	0x002C74FB	6	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp 6B; Snapshot slot 2 of retail table 0x00C0089C
+?getPercentReady@SpecialPowerModule@@UBEMXZ	0x0049355E	194	landed	add_match verified Code/GameEngine/Source/Common/Rva0049355ERatio.cpp 194B; ready ratio or the global zero float

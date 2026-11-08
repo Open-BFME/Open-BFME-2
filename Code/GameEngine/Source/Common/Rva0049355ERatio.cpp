@@ -1,11 +1,12 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// ?rva0049355E@Rva0049355E@@QAEMXZ @0x0049355E 194B.
+// ?getPercentReady@SpecialPowerModule@@UBEMXZ @0x0049355E 194B: slot 2 of the interface, retail's table 0x00C5E080.
 // Early outs return the global at VA 0x00BBAEAC, 1, or the float at +0x14.
 // Otherwise 1 minus the unsigned ready delta over the unsigned at +4.
 
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/Common/SpecialPower.h"
+#include "../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Rva002AC6B1PlayerTimers
 {
@@ -27,17 +28,10 @@ struct Rva0049355EHolder
 	const Overridable *m_ov;
 };
 
-class Rva0049355E
+class SpecialPowerModule : public SpecialPowerModuleInterface
 {
 public:
-	virtual void s0();
-	virtual bool s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual SpecialPowerTemplate *s6();
-	float rva0049355E();
+	virtual float getPercentReady() const;
 	unsigned int m_reloadTime;
 	unsigned int m_availableOnFrame;
 	int m_c;
@@ -46,11 +40,11 @@ public:
 	unsigned char m_blocked;
 };
 
-float Rva0049355E::rva0049355E()
+float SpecialPowerModule::getPercentReady() const
 {
 	if (m_blocked != 0)
 		return 0.0f;
-	if (s1())
+	if (isReady())
 		return 1.0f;
 	if (m_c > 0)
 		return m_pausedPercent;
@@ -63,7 +57,7 @@ float Rva0049355E::rva0049355E()
 	{
 		Player *player = obj->getControllingPlayer();
 		if (player != 0 && ((const SpecialPowerTemplate *)holder->m_ov->friend_getFinalOverride())->m_sharedSyncedTimer != 0)
-			value = ((Rva002AC6B1PlayerTimers *)player)->getOrStart(s6());
+			value = ((Rva002AC6B1PlayerTimers *)player)->getOrStart(getSpecialPowerTemplate());
 		value -= TheGameLogic->getFrame();
 		return 1.0f - (float)value / (float)m_reloadTime;
 	}
