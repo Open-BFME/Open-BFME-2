@@ -378,3 +378,7 @@ virtual names need providers. No pin or masking change is made. The primary
 129/148-slot and Snapshot 1/4-slot gaps, broader consumer selection, and actual
 image/runtime verification remain open.
 [Verified scope and full-header trial](../../reverse/attempt_support/baseheight-texture-handles-20261108/README.md).
+- **P24, camera table (2026-11-08, crash-triage seat2):** `Rva007C454` is registered with base `CameraClass`, and slots 129 and 130 of 0x00BC6C58
+  are respelled const by the this-cv route (`?Cull_Sphere@Rva007C454@@UBE_NABVSphereClass@@@Z`, `?Cull_Box@Rva007C454@@UBE_NABVAABoxClass@@@Z`),
+  after the route's walker stopped dropping `this` at `__EH_prolog` (006734770a). Earlier spellings above are history. Verified: the six units
+  build exact and link_check LINKS, unchanged at 470 bytes; no boot receipt covers it yet.
