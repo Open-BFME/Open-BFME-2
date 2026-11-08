@@ -15,10 +15,19 @@ public:
     virtual ~ModuleTemplate();
 };
 
-class SecondaryModuleBase
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
 {
 public:
-    virtual ~SecondaryModuleBase();
+    virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
+
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
+{
 };
 
 #include "../../../../Include/Common/ModuleInfoClass.h"
@@ -28,7 +37,7 @@ template <int CATEGORY>
 class CategoryModuleTemplate;
 
 template <>
-class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleBase,
+class CategoryModuleTemplate<8> : public CategoryModuleTemplateBase<8>,
                                   public EventModuleInfo
 {
 public:
