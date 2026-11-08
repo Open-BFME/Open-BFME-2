@@ -19,14 +19,7 @@ enum Relationship
 	RvaRelEnemies = 2
 };
 class Team;
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-	int getPlayerIndex() const { return m_playerIndex; }
-	char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 #include "../PartitionRangeQueryCallView.h"
 enum WeaponSlotType { PRIMARY_WEAPON=0 };
 // BFME2 adds a 0x10 attack-type flag: the contained-attack helper ORs it

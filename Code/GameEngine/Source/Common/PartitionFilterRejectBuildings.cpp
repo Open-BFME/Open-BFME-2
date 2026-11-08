@@ -9,12 +9,7 @@
 // native deleting destructor calls it. Original base class name is unproven;
 // the established Rva000421C8 provider is retained. BFME1 575ba2b supplied
 // a semantic cross-check; its offsets and predicate differ from this target.
-class Player
-{
-public:
-	char m_pad[0x5C];
-	int m_field5C;
-};
+#include "../../Include/Common/Player.h"
 #include "../GameLogic/Object/object.h"
 #include "../../Include/GameLogic/PartitionFilter.h"
 class PartitionFilterRejectBuildings:public Rva000421C8 {
@@ -29,7 +24,7 @@ private:
 PartitionFilterRejectBuildings::PartitionFilterRejectBuildings(Object *obj) {
  m_obj=obj;m_flag=false;
  if(obj->getControllingPlayer()!=0) {
-  if(m_obj->getControllingPlayer()->m_field5C==1)m_flag=true;
+  if(m_obj->getControllingPlayer()->m_playerType==1)m_flag=true;
  }
 }
 

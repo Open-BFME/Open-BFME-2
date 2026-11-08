@@ -23,15 +23,7 @@ typedef int Int;
 
 #include <windows.h>
 
-class Player
-{
-public:
-	unsigned int getUnknown3AC() const { return m_unknown3AC; }
-
-private:
-	unsigned char m_pad[0x3AC];
-	unsigned int m_unknown3AC; // +0x3AC
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 
@@ -40,7 +32,7 @@ Player *PlayerList::Rva002A7A6F(Int key)
 {
 	for (Int i = 0; i < m_playerCount; i++)
 	{
-		if (m_players[i]->getUnknown3AC() == (unsigned int)key)
+		if (m_players[i]->m_3AC == key)
 		{
 			return m_players[i];
 		}

@@ -11,7 +11,7 @@ typedef bool Bool;
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
-class Player {public:Player(int);private:char bytes[0x758];};
+#include "../../../Include/Common/Player.h"
 class PlayerList : public SubsystemInterface, public Snapshot {
 public:
  PlayerList();virtual ~PlayerList();virtual void init();virtual void reset();virtual void update();

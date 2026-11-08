@@ -12,14 +12,7 @@ class Player;
 extern GameLogic *TheGameLogic;
 
 
-class Player
-{
-	char m_pad[0x6f0];
-	ObjectID m_cachedID;
-public:
-	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
-	Object *rva002AC629();
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva002AC629Info
 {
@@ -47,13 +40,13 @@ int doFindRva002AC629(Object *obj, void *userData)
 
 Object *Player::rva002AC629()
 {
-	if (m_cachedID == INVALID_OBJECT_ID) {
+	if (m_6F0 == INVALID_OBJECT_ID) {
 		Rva002AC629Info info;
 		info.player = this;
 		info.obj = 0;
 		iterateObjects(doFindRva002AC629, &info);
 		if (info.obj)
-			m_cachedID = info.obj->m_id;
+			m_6F0 = info.obj->m_id;
 	}
-	return TheGameLogic->findObjectByID(m_cachedID);
+	return TheGameLogic->findObjectByID(m_6F0);
 }

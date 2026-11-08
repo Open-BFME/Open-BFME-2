@@ -208,6 +208,7 @@ struct FieldParse;
 // Rva00429276, offering the incoming entry; repeat once with second slot empty.
 class Object;
 typedef int (*ObjectIterateFunc)(Object *, void *);
+#include "../../Include/Common/Player.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;
 // --- 0x0042C0A2 (12B): the +0x14 base of the object (null stays null).

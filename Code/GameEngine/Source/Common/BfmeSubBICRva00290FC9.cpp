@@ -54,15 +54,7 @@ public:
 	virtual void v18();
 	virtual Player *slot4C(Player *p);
 };
-class Player
-{
-public:
-	Relationship getRelationship(const Team *other) const;
-	char m_pad00[0x280];
-	int m_color280;
-	char m_pad284[0x2EC - 0x284];
-	const Team *m_team2EC;
-};
+#include "../../Include/Common/Player.h"
 extern PlayerList *ThePlayerList;
 class Object
 {
@@ -89,7 +81,7 @@ int BfmeSubBIC::bfmeAskBIC()
 	if (m_inner04->m_113 & 1) {
 		Rva00373EC6 *p = rva0028F4BC();
 		// Codegen: same-valued PHI receiver on the player list closes the native register roles.
-		if (p != 0 && p->m_3c != 0 && controller != 0 && local != 0 && controller->getRelationship(local->m_team2EC) != REL_ALLY && ((BfmeMemberRV *)local)->bfmeAskRV() && (candidate = (ThePlayerList?ThePlayerList:ThePlayerList)->getNthPlayer(p->m_38)) != 0) {
+		if (p != 0 && p->m_3c != 0 && controller != 0 && local != 0 && controller->getRelationship(local->m_defaultTeam) != REL_ALLY && ((BfmeMemberRV *)local)->bfmeAskRV() && (candidate = (ThePlayerList?ThePlayerList:ThePlayerList)->getNthPlayer(p->m_38)) != 0) {
 			useFallback = false;
 		}
 	}
@@ -101,7 +93,7 @@ int BfmeSubBIC::bfmeAskBIC()
 		}
 	}
 	if (!useFallback && candidate != 0) {
-		return candidate->m_color280;
+		return candidate->m_color;
 	}
 	return getIndicatorColor();
 }

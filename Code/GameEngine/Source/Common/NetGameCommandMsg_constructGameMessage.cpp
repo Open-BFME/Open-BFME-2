@@ -23,12 +23,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 extern GameInfo *TheGameInfo;
 
-class Player
-{
-public:
-	char m_pad00[0x54];
-	void *m_54;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -65,7 +60,7 @@ public:
 	void appendTimestampArgument(unsigned int v);
 	void appendWideCharArgument(const unsigned short &v);
 	char m_pad00[0x14];
-	void *m_14;
+	int m_14;
 	char m_pad18[0x0c];
 };
 
@@ -115,7 +110,7 @@ GameMessage *NetGameCommandMsg::constructGameMessage()
 	GameMessage *msg = (GameMessage *)new Rva0030F47A((void *)m_type);
 	if (msg != 0)
 	{
-		msg->m_14 = player->m_54;
+		msg->m_14 = player->m_playerIndex;
 		for (ArgNode *node = (ArgNode *)m_argList; node != 0; node = node->m_next)
 		{
 			int type = node->m_type;
