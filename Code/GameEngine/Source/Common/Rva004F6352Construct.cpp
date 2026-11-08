@@ -8,11 +8,6 @@
 // 0x004F93E7 are uninitialized-copy walks with stride 0xC.
 #include <stddef.h>
 
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
-
 struct Rva004F6352
 {
 	Rva004F6352(const Rva004F6352 &that);
@@ -22,12 +17,13 @@ namespace _STL
 {
 
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<Rva004F6352, Rva004F6352>(Rva004F6352 *p, const Rva004F6352 &value)
 {
 	if (p)
-		new (p) T1(value);
+		p->Rva004F6352::Rva004F6352(value);
 }
 
 }
-
-template void _STL::_Construct(Rva004F6352 *, const Rva004F6352 &);
