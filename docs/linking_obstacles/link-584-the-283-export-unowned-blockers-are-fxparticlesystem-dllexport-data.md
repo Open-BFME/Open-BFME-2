@@ -312,3 +312,59 @@ Retail's own order is neither. By initializer address it interleaves defaults wi
 
 Remaining: re-measure after the Link lane's nested `CategoryModuleTemplateBase<N>` shape lands, because it
 rewrites this unit. Not measured: whether that shape yields `ModuleTag<...>::KEY`/`NAME` itself.
+**2026-11-08 the GetValue statics re-read (merge lane 2, `ancalgonn-swarm-seat5`).** This replaces one claim in the
+"not taken" block above: the guard numbers do not gate the batch. The 24 `initialized`/`value` names were fixed on
+their own in FXParticleSystemDefaults.cpp; the 14 `$S` guards stay open and now have a sharper description.
+
+*The 24 names (done).* `GetValue` is defined in class in `DefaultModuleKey`/`DefaultModuleName` and its bool local is
+`initialized`. Both locals are now COMDAT externals under retail's export names. Checked the LINK-615 way on the two objects: 12 CRT actions before and after, in the same order, each target's
+bytes and relocated symbols identical apart from those respellings; 11 of 12 `_$E` labels renumber. Scoped DIR32 is OK
+(72 verified rows, 19 witnesses). All 72 rows byte-match. The 12 `$S` guards in this object keep our own numbers. Real
+link effect is expected at -24 and not yet measured.
+
+*Target facts about the 14 guards (retail image and export table).*
+
+- Exports name `$S22`, `$S26` at 0x00A0609C/A0, and `$S24`, `$S28`, `$S128`..`$S188` inside the contiguous `.data` run
+  0x00A02944..0x00A02AAC. Category 6 is the only one exported twice.
+- Every surviving GetValue body uses the second set: 0x003AA252 uses `$S24`, 0x003AA97F `$S128`, 0x003AAE23 `$S184`.
+- No word in any section of the image holds the VA of `$S22` or `$S26` (byte scan of all sections). Nothing retail
+  kept reads them.
+- The word just before them, 0x00A06098, is a pointer referenced by 0x0055C45F and by code through 0x0055C8F3.
+- The run's `.data` opens after `WindModuleInfo::DEFAULT_MOTION_START_ANGLE` (0x00A02904, referenced at 0x003A53C4).
+  `.data` referencers walk monotonically through `.text` from there until a break at 0x00A02D4C (0x003B15D6).
+- `__FILE__` anchors: `fxpswindmodule.cpp` at 0x003A5572, `fxpsemittervolumemodule.cpp` at 0x003AFA64.
+
+*Tree facts (measured 2026-11-08; these move).*
+
+- 0x003A53C4..0x003AFA64 holds 929 rows, 42,656 bytes, in 251 source files; 894 rows have no TU, 30 are proposed and 4
+  approved. `tu_skeleton.py --plan fxpswindmodule.cpp` shows 1 row in 1 file. No GetValue row has a TU.
+- `$S` maxima by object: FXParticleSystemModules 297, Factories 197, FXParticleSystem 177; Defaults was 48 before the
+  move in class. Retail's highest known is 188.
+- A GetValue ticks our counter by 4 out of class and by 2 in class ($S1, $S3, ...).
+
+*Donor facts (WorldBuilder; not BFME 2 game source).* WorldBuilder pairs 0x0055C478 and 0x0055C8BC with
+`fxpsdefaultdrawmodule.cpp`. Its tree also has `fxpsmodulecategory.cpp`, with `present_in_game_dat=no`.
+
+*Inference, not proven.*
+
+- Two objects compiled these templates. This is the strongest step: `$S<n>` carries its TU's counter, so two guard
+  names for `GetValue` of category 6 mean two compilations. The bodies were folded to one copy and both guard words
+  stayed, which fits the unreferenced `$S22`/`$S26`.
+- The object with the 12-guard run is `fxpswindmodule.cpp`, first in link order among the FX objects, so it kept the
+  template copies. This rests on `.data` order and one anchor per unit, and the `.data`-order signal measured 0.92-0.95
+  in `tu_evidence.py`'s record, below its 99% gate.
+- The object with `$S22`/`$S26` is `fxpsdefaultdrawmodule.cpp`. This rests on an adjacent word plus the donor pairing.
+- The 100 ticks between `$S28` and `$S128` were template copies the linker discarded. Nothing in the image records them.
+- Retail's 4-tick Key-to-Name gap may be the VALUE initializer interleaved with GetValue. Ours is now 2, and the bytes
+  and startup order do not depend on it.
+
+*The 14 guards: two options, neither taken.*
+
+1. An export alias from the guard names to our own guards. Not taken: it is a hatch and nobody adds one by hand.
+2. Recovering the two retail TUs whole. Not taken: no approval route reaches them (each fxps unit has one anchor, so C
+   and T cannot bracket; namespaced names give no N hint; Zero Hour has no such code; the `.data` signal is under the
+   gate), it means class views across 251 files, and a merge concatenates what we hold, so it cannot reproduce a
+   counter that ran over discarded copies. No tool measures that counter either.
+
+Nothing is planned around these 14. Expect them to be the last names standing. How they count toward the exit is a
+question for the owner, and no work here depends on the answer.
