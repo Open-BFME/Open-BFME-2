@@ -15,17 +15,12 @@ public:
 	SegLineRendererClass();
 };
 
-inline void *operator new(unsigned int, void *where)
-{
-	return where;
-}
-
 extern unsigned int g_Va00A1F4E8;
 
 void __cdecl rva007B9CC0();
 
 void rva007B6830()
 {
-	new (&g_Va00A1F4E8) SegLineRendererClass;
+	reinterpret_cast<SegLineRendererClass *>(&g_Va00A1F4E8)->SegLineRendererClass::SegLineRendererClass();
 	atexit(rva007B9CC0);
 }

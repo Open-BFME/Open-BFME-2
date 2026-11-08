@@ -75,7 +75,6 @@ Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp	unverified	unverified	2
 Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits_Rva007AC6DD.cpp	unverified	unverified	2	0	1	0	1	0	0	0	0	0	0	<new.h>,<stdlib.h>	no	yes	hand			operator new:unverified,atexit:source
 Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	unverified	unverified	2	0	1	0	1	0	0	0	0	0	0	<new.h>,<stdlib.h>	no	yes	hand			operator new:unverified,atexit:source
 Code/GameEngine/Source/Common/Rva007AFC6BRegionInit.cpp	unverified	unverified	2	0	1	0	1	0	0	0	0	0	0	<new.h>,<stdlib.h>	no	yes	hand			operator new:unverified,atexit:source
-Code/GameEngine/Source/Common/Rva007B6830SegLineInit.cpp	unverified	unverified	2	0	1	0	1	0	0	0	0	0	0	<new.h>,<stdlib.h>	no	yes	hand			operator new:unverified,atexit:source
 Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	0	0	<string.h>,<new.h>	no	yes	hand			operator new:unverified,size_t:same
 Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	0	0	<new>,<new.h>	no	yes	hand			operator new:unverified,operator new:same
 Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBuildQueueDetailsImplCtor.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	0	0	<new>,<windows.h>	yes	yes	hand			TEXT:unverified,operator new:same
