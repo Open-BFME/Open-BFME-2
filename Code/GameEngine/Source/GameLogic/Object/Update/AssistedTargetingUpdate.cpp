@@ -61,10 +61,7 @@ extern GameLogic *TheGameLogic;
 
 class AsciiString;
 
-class AICommandInterface {
-public:
-    void rva0026C2D9(Object *victim, int shots, CommandSourceType source);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct BfmeAssistedLaserTemplates {
     char prefix[8];
