@@ -7,22 +7,24 @@
 // Evidence: single caller 0x004634BA (0x60-byte RB node alloc plus +0x10 construct)
 // unblocks 0x004634BA; prev 0x00462D62 in StringContainerRecordCopyBFME2.
 #include <stddef.h>
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
+
 class Rva0046267A
 {
 public:
 	Rva0046267A(const Rva0046267A &that);
 };
+
 namespace _STL
 {
+
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<Rva0046267A, Rva0046267A>(Rva0046267A *p, const Rva0046267A &value)
 {
 	if (p)
-		new (p) T1(value);
+		p->Rva0046267A::Rva0046267A(value);
 }
+
 }
-template void _STL::_Construct(Rva0046267A *, const Rva0046267A &);
