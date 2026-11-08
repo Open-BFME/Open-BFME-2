@@ -332,7 +332,9 @@ struct WallBoundaryPoint : Coord2D {
 };
 
 // Native serial at VA00E044A4; descriptive name, original spelling unknown.
-int wallTriggerSerial;
+// The serial SkirmishAIManager's reset clears: one object at 0x00E044A4 (reset 0x002A9072 writes it, 0x004EBB58 reads and bumps it).
+extern unsigned BfmeSkirmishAIResetState1;
+#define wallTriggerSerial BfmeSkirmishAIResetState1
 
 // Inline-only copies of the game allocator cleanup, using the same compiler
 // treatment as CastleBehavior's less<int> repair. The native growth body
