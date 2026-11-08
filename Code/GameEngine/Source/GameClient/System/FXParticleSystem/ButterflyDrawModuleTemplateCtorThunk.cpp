@@ -40,7 +40,6 @@ class CategoryModuleTemplate : public CategoryModuleTemplateBase<Category>,
 public:
     CategoryModuleTemplate() {}
     virtual ~CategoryModuleTemplate();
-    virtual void v1();
 };
 
 class ButterflyDrawModuleInfo
