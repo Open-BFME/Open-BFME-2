@@ -6495,13 +6495,16 @@ void __cdecl rva007B9843()
 	return receiver->~basic_string();
 }
 
-// Opaque-class view for the thunk below. The destructor is declared only;
-// symbols.csv pins ??1MappedImageCache@@UAE@XZ to 0x005F00FB
-// (see OpaqueScalarDeletingDtorsB17.cpp).
+// MappedImageCache's members for the thunk below; the owner is Rva005F0152ImageGet.cpp and its
+// destructor is the row 0x005F00FB.
+class INI;
+
 class MappedImageCache
 {
 public:
+	MappedImageCache();
 	virtual ~MappedImageCache();
+	virtual void rva005EFFA6(INI *ini);
 };
 
 // Retail's object extends 112 bytes; the mangled name stays the one its other users declare.
