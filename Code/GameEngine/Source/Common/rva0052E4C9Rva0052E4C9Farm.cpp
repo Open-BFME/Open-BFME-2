@@ -83,18 +83,7 @@ static __forceinline int RealToIntCeil(float v)
 	return i;
 }
 
-class Pathfinder
-{
-public:
-	void rva0052E4C9(Object *fenceObject, Bool insertFence);
-
-private:
-	char m_pad00[0x10];
-	PathfindCell **m_map;
-	IRegion2D m_extent;
-	char m_pad24[0x460 - 0x24];
-	PathfindZoneManager m_zoneManager;
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 
 // ?rva0052E4C9@Pathfinder@@QAEXPAVObject@@_N@Z
 void Pathfinder::rva0052E4C9(Object *fenceObject, Bool insertFence)

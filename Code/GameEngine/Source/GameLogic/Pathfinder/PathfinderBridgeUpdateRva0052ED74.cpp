@@ -44,9 +44,7 @@ class Rva0052E001{public:bool rva0052E001(bool v);};
 class Object;
 struct Rva002ED236Pos {float x,y,z;Rva002ED236Pos(const Coord3D &p){x=p.x;y=p.y;z=p.z;}~Rva002ED236Pos(){}};
 enum PathfindLayerEnum {GROUND=1};
-class Pathfinder {public:PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos);void rva0052E914(int,int,PathfindCell *,Bridge *,bool,PathfindCell *,float);float GetWallHeight(PathfindLayerEnum,const Coord3D *,Coord3D *);
-private:
- char m_pad00[0x10];PathfindCell **m_map;int m_loX,m_loY,m_hiX,m_hiY;char m_pad24[0x460-0x24];PathfindZoneManager m_zoneManager;};
+#include "../../../Include/GameLogic/AIPathfind.h"
 extern GameLogic *TheGameLogic;
 class Rva0052E0A1{public:bool rva0052E0A1(int v);};
 // Native 0052E914..0052ED74, RET28. WB12DE080 gives each ORed setter condition; the
@@ -106,9 +104,9 @@ void Pathfinder::rva0052E914(int i,int j,PathfindCell *cell,Bridge *theBridge,bo
 		if(((Rva0052E001*)cell)->rva0052E001(false))m_zoneManager.MarkDirty(i,j);
 		int count=0;int maxLayer=1;
 		for(int x=i-1;x<i+2;x++){
-			if(x<m_loX||x>m_hiX)continue;
+			if(x<m_extent.lo.x||x>m_extent.hi.x)continue;
 			for(int y=j-1;y<j+2;y++){
-				if(y<m_loY||y>m_hiY)continue;
+				if(y<m_extent.lo.y||y>m_extent.hi.y)continue;
 				if(x==i&&j==y)continue;
 				int layer=m_map[x][y].getLayer();
 				if(layer>0x10){count++;maxLayer=layer;}
