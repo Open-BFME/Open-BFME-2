@@ -178,30 +178,7 @@ template<>class ReplaceSlots<0>{};
 extern BuildAssistant *TheBuildAssistant;
 class ReplaceContain:public ReplaceSlots<18>{public:virtual void addToContain(Object *);virtual void s19();virtual void s20();virtual void s21();virtual void s22();virtual Bool isContained(unsigned);};
 struct ReplaceInfo {char pad[0x34];Int delay;};
-class Object : public Thing
-{
-public:
-	void rva0028BAC0(); // 0x0028BAC0
-	Bool testStatus(ObjectStatusTypes bit) const;
-	void leaveGroup();
- unsigned getID() const { return id; }
-	class Player *getControllingPlayer() const;
-	void *rva0028BD17() const;
-	void teleportTo(const Coord3D *, Bool);
-	void kill(enum DamageType, enum DeathType);
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	Real getOrientation() const { return m_cachedAngle; }
-private:
-	unsigned char pad48[0x74 - 0x60];
-public:
-	unsigned int id;
-	unsigned char pad78[0x88-0x78];
-	AsciiString name;
-	Object *next;
-	unsigned char pad90[0x324-0x90];
-	float delay;
-};
+#include "../object.h"
 // The (init, bit1, bit2) ctor 0x0006EE7A is rowed as Rva0006EE7A; a no-member
 // view of the mask type so the temporary is built through that row.
 struct Rva0006EE7A : BfmeFixedStorage0004543D { Rva0006EE7A(Int init, Int bit1, Int bit2); };
@@ -430,7 +407,7 @@ bool ReplaceSelfUpgrade::wouldUpgrade(const BitFlags<128> &keyMask) const
 
 		for (Object *other = iter.next(); other; other = iter.next())
 		{
-			if (!thingTemplate->isKindOf28() || other->getTemplate()->isKindOf28())
+			if (!thingTemplate->isKindOf28() || other->m_template->isKindOf28())
 				return false;
 		}
 
@@ -471,7 +448,7 @@ void ReplaceSelfUpgrade::upgradeImplementation()
  AsciiStringVector names=data->m_replaceWith;
  Int count=names.size();if(!count)return;
  Coord3D pos;copyCoord(pos,m_object->getPosition());Real angle=m_object->getOrientation();
- AsciiString name=m_object->name;
+ AsciiString name=m_object->m_name;
  m_object->rva0028BAC0();
  m_object->leaveGroup();
  if(m_object->getDrawable())m_object->getDrawable()->setDrawableHidden(true);
@@ -490,12 +467,12 @@ void ReplaceSelfUpgrade::upgradeImplementation()
   Object *constructor=m_object;
   Object *created=TheBuildAssistant->buildObjectNow(constructor,thingTemplate,&cur,angle,constructor->getControllingPlayer());
   if(!created)return;
-  created->teleportTo(&cur,false);created->name=name;addCoord(cur,&step);
+  created->teleportTo(&cur,false);created->m_name=name;addCoord(cur,&step);
   ReplaceInfo *info=(ReplaceInfo*)((Rva0026F0F0*)TheUpgradeCenter)->rva0026F0F0((const char*)data+8);
-  if(info)created->delay=(float)info->delay;
-  unsigned oldID=m_object->id;
-  for(Object *other=TheGameLogic->getFirstObject();other;other=other->next){
-   const unsigned char *kind=(const unsigned char*)other->getTemplate();
+  if(info)created->m_324=(float)info->delay;
+  unsigned oldID=m_object->getID();
+  for(Object *other=TheGameLogic->getFirstObject();other;other=other->m_next){
+   const unsigned char *kind=(const unsigned char*)other->m_template;
    if(!(kind[0x11b]&0x10) && !(kind[0x11a]&0x40) && !(kind[0x11f]&0x20))continue;
    ReplaceContain *contain=(ReplaceContain*)other->rva0028BD17();
    if(contain && contain->isContained(oldID))contain->addToContain(created);
