@@ -1,0 +1,259 @@
+{
+  "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+  "sha256": "7ae8b9adc0b03c85292afc5538a8372c8dd92a34c3cbb886d9c23ecec0ce6462",
+  "code": [
+    {
+      "name": "??0type_info@@AAE@ABV0@@Z",
+      "rva": "0x0062903D",
+      "size": "11"
+    },
+    {
+      "name": "??_Etype_info@@UAEPAXI@Z",
+      "rva": "0x00629048",
+      "size": "75"
+    }
+  ],
+  "table": {
+    "address": "0x0087C730",
+    "size": "628",
+    "section": ".rdata",
+    "kind": "vtable",
+    "name": "??_7type_info@@6B@",
+    "source": "",
+    "status": "literal",
+    "names": "",
+    "defs": "0",
+    "refs": "1"
+  },
+  "definitions": {
+    "??_7type_info@@6B@": [
+      {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+        "extent": 4,
+        "offset": 0,
+        "comdat": true,
+        "selection": 2,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "??_Etype_info@@UAEPAXI@Z",
+            6,
+            0
+          ]
+        },
+        "weak": {}
+      }
+    ]
+  },
+  "retail_bytes_at_table": "4890a20000000000ffffffffe190a2000591a200",
+  "retail_slots": [
+    [
+      6459464
+    ],
+    null
+  ],
+  "plan": {
+    "tables": 0,
+    "retail_tables": 0,
+    "slots": 0,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 0,
+    "refusal_reasons": {},
+    "already_correct": 1,
+    "entries": [],
+    "refusals": [],
+    "correct": [
+      {
+        "rva": 8898352,
+        "name": "??_7type_info@@6B@",
+        "names": [
+          "??_7type_info@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+            "row_rva": 6459453,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+            "names": [
+              "??_7type_info@@6B@"
+            ],
+            "offset": 4,
+            "name": "??_7type_info@@6B@",
+            "rva": 8898352
+          }
+        ],
+        "name_addresses": {
+          "??_7type_info@@6B@": [
+            8898352
+          ]
+        },
+        "slots": 1,
+        "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [],
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj"
+      }
+    ],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+          "row_rva": 6459453,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+          "names": [
+            "??_7type_info@@6B@"
+          ],
+          "offset": 4,
+          "name": "??_7type_info@@6B@",
+          "rva": 8898352
+        }
+      ],
+      "rejected": [],
+      "names": 1,
+      "unindexed": [],
+      "native_names_without_address_binding": [],
+      "new_name_bindings": []
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  },
+  "runtime_archives": [
+    "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\lib\\msvcrt.lib",
+    "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\lib\\oldnames.lib"
+  ],
+  "runtime_definitions": {
+    "??_7type_info@@6B@": [
+      {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+        "extent": 4,
+        "offset": 0,
+        "comdat": true,
+        "selection": 2,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "??_Etype_info@@UAEPAXI@Z",
+            6,
+            0
+          ]
+        },
+        "weak": {}
+      },
+      {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\lib\\msvcrt.lib(build\\intel\\dll_obj\\ti_inst.obj)",
+        "archive": true,
+        "import_member": false,
+        "comdat": true,
+        "selection": 6
+      }
+    ]
+  },
+  "runtime_plan": {
+    "tables": 0,
+    "retail_tables": 0,
+    "slots": 0,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 1,
+    "refusal_reasons": {
+      "unsupported-selection": 1
+    },
+    "already_correct": 0,
+    "entries": [],
+    "refusals": [
+      {
+        "rva": 8898352,
+        "name": "??_7type_info@@6B@",
+        "names": [
+          "??_7type_info@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+            "row_rva": 6459453,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+            "names": [
+              "??_7type_info@@6B@"
+            ],
+            "offset": 4,
+            "name": "??_7type_info@@6B@",
+            "rva": 8898352
+          }
+        ],
+        "name_addresses": {
+          "??_7type_info@@6B@": [
+            8898352
+          ]
+        },
+        "slots": 1,
+        "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [],
+        "reason": "unsupported-selection"
+      }
+    ],
+    "correct": [],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+          "row_rva": 6459453,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+          "names": [
+            "??_7type_info@@6B@"
+          ],
+          "offset": 4,
+          "name": "??_7type_info@@6B@",
+          "rva": 8898352
+        }
+      ],
+      "rejected": [],
+      "names": 1,
+      "unindexed": [],
+      "native_names_without_address_binding": [],
+      "new_name_bindings": []
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  },
+  "archive_facts": [
+    {
+      "library": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\lib\\msvcrt.lib",
+      "member": "build\\intel\\dll_obj\\ti_inst.obj",
+      "sha256": "a03833b45869b6b2396e8e44c3ebccc59af1c18d1bae29cb42cd24da8768c0ba",
+      "selection": 6,
+      "size": 8,
+      "offset": 4,
+      "flags": "0x40301040",
+      "relocations": [
+        {
+          "offset": 0,
+          "name": "??_R4type_info@@6B@",
+          "kind": 6
+        },
+        {
+          "offset": 4,
+          "name": "??_Etype_info@@UAEPAXI@Z",
+          "kind": 6
+        }
+      ],
+      "defined_publics": [
+        "??0type_info@@AAE@ABV0@@Z",
+        "??4type_info@@AAEAAV0@ABV0@@Z",
+        "??_7type_info@@6B@",
+        "??_Etype_info@@UAEPAXI@Z",
+        "??_R0?AVtype_info@@@8",
+        "??_R1A@?0A@A@type_info@@8",
+        "??_R2type_info@@8",
+        "??_R3type_info@@8",
+        "??_R4type_info@@6B@"
+      ]
+    }
+  ]
+}

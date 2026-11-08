@@ -633,3 +633,14 @@ the broader audit remains INCONCLUSIVE with three provisional old-char
 loss candidates through an unread object, despite no scoped outside live
 consumer and zero proven newly unresolved names. LINK-636 records the
 index/base and next-census/image follow-up; bridge counts are unchanged.
+
+2026-11-08, type_info selection investigation: the current source already
+emits the correct complete one-slot SELECT_ANY table (normal 2/2 code rows,
+86 bytes; bounded replay already_correct=1). The normal runtime archive
+adds msvcrt.lib(ti_inst.obj)'s SELECT_LARGEST copy, offset four after an RTTI
+locator. This alone reproduces unsupported-selection. A source-only change
+cannot remove that archive candidate. Its assignment operator and RTTI
+publics leave extraction unproven, so this pass claims neither a false
+reject nor global clearance. Next: establish kept providers/live references
+for those names or use the next maintained image's extraction evidence.
+[Exact member and bounded-plan evidence](../../reverse/attempt_support/typeinfo-runtime-selection-20261108/README.md).
