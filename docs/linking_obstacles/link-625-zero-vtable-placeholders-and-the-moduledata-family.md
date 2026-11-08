@@ -283,13 +283,12 @@ engine init.
 | W3DTreeDraw, W3DDefaultDraw (267 and 94 INI uses, above) | walled above: the DrawModule fold |
 | UpgradeModule, UpgradeMux | LINK-218 |
 | DamageFieldUpdate (`g_00C4D970`, `g_00C4D964`) | **repaired**, below |
-| GloriousChargeUpdate, RousingSpeechUpdate | open: SpecialAbilityUpdate base and a fourth table at +0x20 |
-| ArrowStormUpdate (`g_00C4D61C`, +0x20) | open: same family; its ctor and dtor are in separate units |
-| InvisibilitySpecialPower, SpecialPowerTimerRefreshSpecialPower | open: the base's canonical view is the placeholder-named `Rva00493009` (Rva00493009.h), and units spell it `SpecialPowerModule` |
+| GloriousChargeUpdate, RousingSpeechUpdate, ArrowStormUpdate | open, base first: removing GloriousChargeUpdate's `novtable` and its stores is 21/21 **byte-exact but wrong**: its view gives a 18-slot primary table against retail's 23 (slots 13, 14 and 16 name undefined `primarySlotNN`) and 9 `__purecall`s at +0x20, where today's explicit store holds retail's real table 0x00C552A4. Check slots, not just bytes. Needs SpecialAbilityUpdate's slot names reconciled first; then all three follow |
+| InvisibilitySpecialPower, SpecialPowerTimerRefreshSpecialPower | open, header lane: `SpecialPowerModule`'s slots are rowed under real names, but it has no canonical header, only the placeholder-named `Rva00493009` (Rva00493009.h), and about 53 units declare the class privately |
 | SpawnedModelConditionCreate | **repaired**: canonical CreateModule, compiler-installed tables; 55 of 63 slots resolve to retail's address, the other 8 are the same one-instruction shapes or the deleting destructor, except slot 2 (name getter, a non-virtual row) |
 | RunOffMapBehavior | open, needs a name: [ctor_real_view.txt](../../reverse/attempt_support/runoffmap_real_tables/ctor_real_view.txt) is 1/1 exact with an empty ctor body on BehaviorModule plus RunOffMapBehaviorInterface, and reproduces the first +0x10 store the unit keeps `volatile`. Its table is 12 slots, as retail's. Slot 5 (0x00462213) needs the identifier `onObjectCreated`, but the row is `?rva00462213@RunOffMapBehavior@@UAEXXZ`: `--to-class` refuses a row already on the class, and a slot position is only a hint in docs/naming.md, so it goes through the inferred lane. Landing without it would make retail's slot 5 the base's empty body. Slots 1-3 also need definitions: `loadPostProcess` (0x0058B03E, a `jmp` to the shared empty body), `GetSnapshotName` (0x004621AC, a free-function placeholder row) and `xfer` (0x004CE56D, an ICF fold rowed as `?xfer@DamageModule@@MAEXPAVXfer@@@Z`) |
 | UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior | open: need a shared view of the 19-slot base Rva00252B68 |
-| HordeTransportContain | open: not yet read |
+| HordeTransportContain | open, large: its ctor stores 10 tables (OpenContain, TransportContain and Horde levels); nearly all 31 primary slots are rowed under real names, but no shared view of the chain exists |
 
 **Repaired: DamageFieldUpdate** (ctor 0x004912A9, dtor 0x0049122C). The HeightDieUpdate recipe, with FireWeaponUpdate on the
 canonical UpdateModule: the compiler installs `??_7DamageFieldUpdate`'s three tables in retail's order.
