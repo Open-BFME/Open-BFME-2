@@ -290,7 +290,7 @@ def test_an_approval_covers_its_exact_signature_only(tree):
     more than a placeholder change, and no approval covers it either."""
     invented = NEW_OP.replace("ABV0@", "ABVInventedRealType@@")
     ctx, _ = context(tree, BEFORE)
-    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+    with pytest.raises(Refusal, match="changes more than an identity respell may"):
         plan(ctx, new=invented, prepared={TU: TU_PREPARED.replace(NEW_OP, invented).encode(),
                                           CALLER: CALLER_PREPARED.encode()})
 
@@ -734,7 +734,7 @@ def real_class_tree(tree):
 def test_a_placeholder_parameter_does_not_unlock_a_real_class(tree):
     """Finding 3 ('real class changed using placeholder parameter'), voted or not."""
     ctx, token = real_class_tree(tree)
-    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+    with pytest.raises(Refusal, match="changes more than an identity respell may"):
         plan(ctx, new=REAL_NEW, evidence=token, also=[], move_to=None,
              prepared={OWNER: OWNER_SRC.replace(OLD_OP, REAL_NEW).encode()})
 
@@ -745,7 +745,7 @@ def test_a_canonical_real_class_is_never_replaced(tree):
              "class,Original,ExistingRealType,canonical:zh,proof,Code/X.cpp,0x00000001\n")
     recommit(tree, "reverse/canonical_classes.csv", "class,header,notes\nExistingRealType,Code/X.h,x\n")
     ctx, token = real_class_tree(tree)
-    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+    with pytest.raises(Refusal, match="changes more than an identity respell may"):
         plan(ctx, new=REAL_NEW, evidence=token, also=[], move_to=None,
              prepared={OWNER: OWNER_SRC.replace(OLD_OP, REAL_NEW).encode()})
 
@@ -754,18 +754,85 @@ def test_a_placeholder_shaped_canonical_class_is_never_replaced(tree):
     """A registered canonical class keeps its spelling even when its name looks like a placeholder."""
     recommit(tree, "reverse/canonical_classes.csv", "class,header,notes\nRva002D07F4Element,Code/X.h,x\n")
     ctx, _ = context(tree, BEFORE)
-    with pytest.raises(Refusal, match="changes more than the placeholder types"):
+    with pytest.raises(Refusal, match="replaces the canonical class Rva002D07F4Element"):
         plan(ctx)
 
 
-def test_only_placeholder_fragments_may_change():
-    assert rename.placeholder_masked(OLD_OP) == rename.placeholder_masked(NEW_OP)
-    assert rename.placeholder_masked(OLD_WRAP) == rename.placeholder_masked(NEW_WRAP)
-    assert rename.placeholder_masked(OLD_WRAP) != rename.placeholder_masked(OLD_WRAP.replace("?$map@", "?$set@"))
-    assert rename.placeholder_masked(REAL_OLD) != rename.placeholder_masked(REAL_NEW)
-    # a moved back-reference is a change, not a placeholder's
-    assert rename.placeholder_masked(NEW_OP) != rename.placeholder_masked(NEW_OP.replace("ABV0@", "ABV1@"))
-    assert rename.placeholder_masked(OLD_OP, {"Rva002D07F4Element"}) != rename.placeholder_masked(NEW_OP)
+P29_OLD_OP = ("??4?$_Rb_tree@URva002D07F4Element@@U?$pair@$$CBURva002D07F4Element@@H@_STL@@"
+              "U?$_Select1st@U?$pair@$$CBURva002D07F4Element@@H@_STL@@@3@U?$less@URva002D07F4Element@@@3@"
+              "V?$allocator@U?$pair@$$CBURva002D07F4Element@@H@_STL@@@3@@_STL@@QAEAAV01@ABV01@@Z")
+P29_NEW_OP = ("??4?$_Rb_tree@UBfmeStringRecord002CF550@@U1@U?$_Identity@UBfmeStringRecord002CF550@@@_STL@@"
+              "U?$less@UBfmeStringRecord002CF550@@@3@V?$allocator@UBfmeStringRecord002CF550@@@3@@_STL@@"
+              "QAEAAV01@ABV01@@Z")
+P29_OLD_WRAP = ("??4?$map@URva002D07F4Element@@HU?$less@URva002D07F4Element@@@_STL@@"
+                "V?$allocator@U?$pair@$$CBURva002D07F4Element@@H@_STL@@@3@@_STL@@QAEAAV01@ABV01@@Z")
+P29_NEW_WRAP = ("??4?$set@UBfmeStringRecord002CF550@@U?$less@UBfmeStringRecord002CF550@@@_STL@@"
+                "V?$allocator@UBfmeStringRecord002CF550@@@3@@_STL@@QAEAAV01@ABV01@@Z")
+# an _STL::map<Rva..., ProjectA>: a project class inside an STLport template argument (in map's
+# argument table 0 map, 1 Rva..., 2 ProjectA, 3 less<...>, 4 _STL)
+STL_MAP = ("??4?$map@URva002D07F4Element@@VProjectA@@U?$less@URva002D07F4Element@@@_STL@@"
+           "V?$allocator@U?$pair@$$CBURva002D07F4Element@@VProjectA@@@_STL@@@4@@_STL@@QAEAAV01@ABV01@@Z")
+
+
+def test_stlport_names_and_placeholders_may_change():
+    """P29's shapes: map -> set and pair/_Select1st -> _Identity are STLport's names, judged
+    by the `_STL` scope; every name outside STLport in them is a placeholder."""
+    assert rename.identity_token_problem(P29_OLD_OP, P29_NEW_OP) is None
+    assert rename.identity_token_problem(P29_OLD_WRAP, P29_NEW_WRAP) is None
+    stl = {name for name, from_stl in rename.name_tokens(P29_NEW_WRAP) if from_stl}
+    assert {"set", "less", "allocator", "_STL"} <= stl
+    ours = [name for name, from_stl in rename.name_tokens(P29_OLD_OP) if not from_stl]
+    assert set(ours) == {"Rva002D07F4Element"}     # back-references resolved: every spelling counts
+
+
+def test_a_global_template_is_a_project_name():
+    """Without the `_STL` scope, map is the project's name and stays: OLD_WRAP is a global map."""
+    assert "replaces the real name map" in rename.identity_token_problem(
+        OLD_WRAP, OLD_WRAP.replace("?$map@", "?$set@"))
+
+
+def test_a_project_class_inside_an_stl_argument_cannot_be_swapped():
+    swapped = STL_MAP.replace("VProjectA@@", "VProjectB@@")
+    assert "replaces the real name ProjectA with ProjectB" in rename.identity_token_problem(STL_MAP, swapped)
+    # the placeholder beside it may still be named
+    named = STL_MAP.replace("Rva002D07F4Element", "BfmeStringRecord002CF550")
+    assert rename.identity_token_problem(STL_MAP, named) is None
+
+
+def test_a_canonical_class_inside_an_stl_argument_cannot_be_replaced():
+    renamed = STL_MAP.replace("VProjectA@@", "VProjectRenamed@@")
+    assert "replaces the canonical class ProjectA" in rename.identity_token_problem(
+        STL_MAP, renamed, {"ProjectA"})
+    # a placeholder-shaped canonical class is a real name too
+    assert "replaces the canonical class Rva002D07F4Element" in rename.identity_token_problem(
+        P29_OLD_OP, P29_NEW_OP, {"Rva002D07F4Element"})
+
+
+def test_a_moved_back_reference_or_an_added_name_is_a_change():
+    assert rename.identity_token_problem(NEW_OP, NEW_OP.replace("ABV0@", "ABVInventedRealType@@")) is not None
+    assert "names outside STLport" in rename.identity_token_problem(
+        STL_MAP, STL_MAP.replace("VProjectA@@U?$less", "VProjectA@@VProjectC@@U?$less")
+        .replace("@@@4@@_STL", "@@@5@@_STL"))
+
+
+def test_p29s_shapes_pass_the_token_stage_and_still_need_votes(tree):
+    for rel in ("reverse/functions.csv", OWNER):
+        write(tree / rel, (tree / rel).read_text().replace(OLD_OP, P29_OLD_OP).replace(OLD_WRAP, P29_OLD_WRAP))
+    commit(tree)
+    rows = {OLD_OP: P29_OLD_OP, OLD_WRAP: P29_OLD_WRAP}
+    before = [dict(r, row=rows.get(r["row"], r["row"]),
+                   symbol=rows.get(r["symbol"], r["symbol"])) for r in BEFORE]
+    prepared = {TU: TU_PREPARED.replace(NEW_OP, P29_NEW_OP).replace(NEW_WRAP, P29_NEW_WRAP).encode(),
+                CALLER: CALLER_PREPARED.encode()}
+    ctx, _ = context(tree, before)
+    with pytest.raises(Refusal, match="no naming approval covers"):
+        plan(ctx, new=P29_NEW_OP, also=[(WRAP, P29_NEW_WRAP)], prepared=prepared)
+    votes = " ".join([agree(tree, "nl-p29-op", P29_OLD_OP, P29_NEW_OP, OP),
+                      agree(tree, "nl-p29-wrap", P29_OLD_WRAP, P29_NEW_WRAP, WRAP)])
+    commit(tree)
+    ctx, _ = context(tree, before)
+    got = plan(ctx, new=P29_NEW_OP, also=[(WRAP, P29_NEW_WRAP)], prepared=prepared, evidence=votes)
+    assert (P29_OLD_OP, P29_NEW_OP, OP) in got.renamed_rows and (P29_OLD_WRAP, P29_NEW_WRAP, WRAP) in got.renamed_rows
 
 
 def test_a_data_only_provider_is_a_consumer(tree, objects):

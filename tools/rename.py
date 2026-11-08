@@ -3409,10 +3409,12 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 # ecx,[ecx+4]; call clear` acts on a contained object) -- so the new spelling
 # comes from the naming route: --basis inferred, --evidence agree:<id> for every
 # row, two blind votes on the row's own key (its current source, kind, address
-# and placeholder: docs/naming.md). Only placeholder fragments may change, token
-# by token: every other name, code and back-reference stays in place, and a
-# canonical class name is never replaced. The code-identity checks are hard gates
-# on top:
+# and placeholder: docs/naming.md). Only placeholder names and the vendored
+# STLport namespace's names (a qualified name under `_STL`: map, set, _Rb_tree,
+# pair, ...) may change; every other real name -- project classes, global types,
+# scope and member identifiers -- stays in place, compared name by name with
+# back-references resolved, and a canonical class is never replaced. The
+# code-identity checks are hard gates on top:
 #
 #   1. before: the identity scan of a respelled row reports a wrong binding, or
 #      the row calls another row the same plan respells;
@@ -3524,20 +3526,212 @@ def identity_class(mangled):
     return elements, args
 
 
-def placeholder_masked(mangled, kept=frozenset()):
-    """`mangled` with each placeholder name fragment replaced by one marker, every other
-    character (scope, class and type names, codes, back-references) as spelled; a fragment in
-    `kept` (a registered canonical class) is never masked. None when the parser cannot read it."""
+STL_NAMESPACE = "_STL"
+
+
+class _NameTokens:
+    """The names a decorated `?...` symbol spells, in order, each with whether it
+    belongs to the vendored STLport namespace: a qualified name whose outermost
+    scope resolves to `_STL` (spelled, or through a back-reference) is STLport's,
+    every element of it. Name back-references (a digit where a name is expected)
+    and argument-type back-references (a digit where a type is expected) are
+    resolved to what they refer to, so a name reached through one is a token in
+    its place too. Each template argument list has its own name table (the
+    template's name is entry 0) and type table. Outside the grammar the parser
+    reads (anonymous namespaces, nested symbols, template operators): Unparsed."""
+
+    def __init__(self, s):
+        self.s = s
+
+    def symbol(self, i, ctx):
+        s = self.s
+        if s[i] != "?":
+            raise ValueError(f"symbol expected at {i}")
+        i += 1
+        if s[i] == "?" and s[i + 1] != "$":
+            i += 1
+            if s[i] == "_":
+                if s.startswith(("__", "_R"), i):
+                    raise ValueError("special name")
+                i += 2
+            else:
+                i += 1
+        i, tokens = self.qualified(i, ctx)
+        i, more = self.header(i, ctx)
+        return i, tokens + more
+
+    def qualified(self, i, ctx):
+        """(index after the terminating `@`, tokens) of a qualified name."""
+        s = self.s
+        elements = []
+        while True:
+            c = s[i]
+            if c == "@":
+                i += 1
+                break
+            if c.isdigit():
+                elements.append(ctx["names"][int(c)])
+                i += 1
+            elif s.startswith("?$", i):
+                if s[i + 2] == "?":
+                    raise ValueError("template operator")
+                j = s.index("@", i + 2)
+                name = s[i + 2:j]
+                inner = {"names": [(name, [])], "types": []}
+                i, args = self.template_args(j + 1, inner)
+                element = (name, args)
+                elements.append(element)
+                if len(ctx["names"]) < 10:
+                    ctx["names"].append(element)
+            elif c.isalpha() or c == "_":
+                j = s.index("@", i)
+                element = (s[i:j], [])
+                elements.append(element)
+                if len(ctx["names"]) < 10:
+                    ctx["names"].append(element)
+                i = j + 1
+            else:
+                raise ValueError(f"scope at {i}")
+        stl = bool(elements) and elements[-1][0] == STL_NAMESPACE
+        tokens = []
+        for name, args in elements:
+            tokens.append((name, stl))
+            tokens += args
+        return i, tokens
+
+    def template_args(self, i, ctx):
+        tokens = []
+        while self.s[i] != "@":
+            start = i
+            i, these = self.type(i, ctx)
+            if i - start > 1 and len(ctx["types"]) < 10:
+                ctx["types"].append(these)
+            tokens += these
+        return i + 1, tokens
+
+    def function(self, i, ctx):
+        """Return type, arguments and throw spec, after the calling convention."""
+        s = self.s
+        tokens = []
+        if s[i] == "@":
+            i += 1
+        else:
+            i, tokens = self.type(i, ctx)
+        if s[i] == "X":
+            i += 1
+        else:
+            while s[i] not in "@Z":
+                start = i
+                i, these = self.type(i, ctx)
+                if i - start > 1 and len(ctx["types"]) < 10:
+                    ctx["types"].append(these)
+                tokens += these
+            i += 1
+        if s[i] != "Z":
+            raise ValueError(f"throw spec at {i}")
+        return i + 1, tokens
+
+    def type(self, i, ctx):
+        s = self.s
+        c = s[i]
+        if c in "PQRSAB" and s[i + 1] == "6":
+            return self.function(i + 3, ctx)
+        if c in "PQRSAB" and s[i + 1] == "8":
+            i, scope = self.qualified(i + 2, ctx)
+            i, sig = self.function(i + 2, ctx)
+            return i, scope + sig
+        if c in "PQRSAB":
+            i += 1
+            if s[i] == "E":
+                i += 1
+            if s[i] not in "ABCD":
+                raise ValueError(f"pointer cv at {i}")
+            return self.type(i + 1, ctx)
+        if c in "VUT":
+            return self.qualified(i + 1, ctx)
+        if c == "W" and s[i + 1].isdigit():
+            return self.qualified(i + 2, ctx)
+        if c == "?" and s[i + 1] in "AB":
+            return self.type(i + 2, ctx)
+        if c == "_" and s[i + 1].isalpha():
+            return i + 2, []
+        if s.startswith("$$C", i) and s[i + 3] in "ABCD":
+            return self.type(i + 4, ctx)
+        if s.startswith("$0", i):
+            return _parse_number(s, i + 2), []
+        if s.startswith(("$1", "$E"), i):
+            return self.symbol(i + 2, {"names": [], "types": []})
+        if c == "Y":
+            count, i = _number_value(s, i + 1)
+            for _ in range(count):
+                i = _parse_number(s, i)
+            return self.type(i, ctx)
+        if c.isdigit():
+            return i + 1, list(ctx["types"][int(c)])
+        if c in "CDEFGHIJKMNOXZ":
+            return i + 1, []
+        raise ValueError(f"type {c!r} at {i}")
+
+    def header(self, i, ctx):
+        s = self.s
+        if i == len(s):
+            return i, []
+        c = s[i]
+        if c in "01234":
+            i, tokens = self.type(i + 1, ctx)
+            if s[i] == "E":
+                i += 1
+            if s[i] not in "ABCD":
+                raise ValueError(f"data cv at {i}")
+            return i + 1, tokens
+        if c in "YZCDKLST":
+            return self.function(i + 2, ctx)
+        if c in "ABEFIJMNQRUV":
+            i += 1
+            if s[i] == "E":
+                i += 1
+            return self.function(i + 2, ctx)
+        if c in "GHOPWX":
+            return self.function(_parse_number(s, i + 1) + 2, ctx)
+        raise ValueError(f"header {c!r} at {i}")
+
+
+def name_tokens(mangled):
+    """[(name, from STLport)] of `mangled` in order (see _NameTokens). Raises Unparsed."""
     try:
-        spans = fragments(mangled)
-    except Unparsed:
-        return None
-    out, at = [], 0
-    for a, b in spans:
-        word = mangled[a:b]
-        out += [mangled[at:a], "\0" if name_metric.placeholder(word) and word not in kept else word]
-        at = b
-    return "".join(out + [mangled[at:]])
+        end, tokens = _NameTokens(mangled).symbol(0, {"names": [], "types": []})
+    except (IndexError, ValueError) as error:
+        raise Unparsed(f"{mangled}: {error}") from None
+    if end != len(mangled):
+        raise Unparsed(f"{mangled}: trailing {mangled[end:]!r}")
+    return tokens
+
+
+def identity_token_problem(old, new, canonical=frozenset()):
+    """None when `new` changes only what an identity respell may change against `old`:
+    placeholder names and names of the vendored STLport namespace (a qualified name under
+    `_STL`, judged from the decorated scope). Every other name -- project classes, global
+    types, scope and member identifiers -- must stay in place: compared position by
+    position among the names outside STLport, an old real name (or a registered canonical
+    class, whatever its spelling) must be the new name at that position, and only an old
+    placeholder may become something else. Else why not."""
+    try:
+        old_tokens, new_tokens = name_tokens(old), name_tokens(new)
+    except Unparsed as error:
+        return f"its names cannot be read ({error})"
+    ours_old = [name for name, stl in old_tokens if not stl]
+    ours_new = [name for name, stl in new_tokens if not stl]
+    if len(ours_old) != len(ours_new):
+        return (f"it spells {len(ours_new)} names outside STLport where {old} spells {len(ours_old)}: "
+                "only placeholder names and STLport's may change")
+    for index, (was, now) in enumerate(zip(ours_old, ours_new)):
+        if was == now:
+            continue
+        if was in canonical:
+            return f"it replaces the canonical class {was} with {now}"
+        if not name_metric.placeholder(was):
+            return f"it replaces the real name {was} with {now} (name {index + 1} outside STLport)"
+    return None
 
 
 def placeholder_types(mangled):
@@ -3820,16 +4014,12 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         if not placeholder_types(old_name):
             raise Refusal(f"{old_name} names no placeholder type (Rva.../Bfme...): an identity respell replaces "
                           "a placeholder-typed spelling only")
-        # token by token: only placeholder fragments change; every other name, code and
-        # back-reference stays in place, and a canonical class name is never replaced
+        # name by name: placeholders and STLport's names may change; the project's real
+        # names stay in place, and a canonical class is never replaced
         canonical = {r.get("class") for r in ctx.dicts(CANONICAL_CLASSES)} - {"", None}
-        masked_old, masked_new = placeholder_masked(old_name, canonical), placeholder_masked(new_name, canonical)
-        if masked_old is None or masked_new is None or masked_old != masked_new:
-            at = next((i for i, (a, b) in enumerate(zip(masked_old or "", masked_new or "")) if a != b),
-                      min(len(masked_old or ""), len(masked_new or "")))
-            raise Refusal(f"{new_name} changes more than the placeholder types of {old_name} (first difference at "
-                          f"character {at}): every other name -- scope, classes, types -- and every code and "
-                          "back-reference must stay in place, and a canonical class is never replaced")
+        why = identity_token_problem(old_name, new_name, canonical)
+        if why:
+            raise Refusal(f"{new_name} changes more than an identity respell may of {old_name}: {why}")
         # the primary row checks of plan_function, on every row
         function_identity_checks(ctx, at, old_name, old_name, owner)
         function_collision_checks(ctx, at, old_name, new_name, old_name, new_name, respell=True)

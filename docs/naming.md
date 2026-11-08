@@ -1121,12 +1121,16 @@ two review rounds set where the evidence ends:
   judgement: `--basis inferred --evidence 'agree:<id> ...'`, one approval per
   row: two blind votes on the row's own current key,
   `source|function|0xRVA|<whole old spelling>`. Votes under another unit's key
-  authorise nothing. Only placeholder fragments may change, compared token by
-  token: every other name (scope, classes, types), code and back-reference stays
-  in place, and a registered canonical class is never replaced. So a placeholder
-  parameter cannot unlock its real class, and a container's template name or
-  argument structure (`map` to `set`, `pair` to `_Identity`) cannot change
-  either. The code-identity checks are hard gates on top:
+  authorise nothing. Only placeholder names and the vendored STLport
+  namespace's names may change; the latter are any qualified name under `_STL`,
+  judged from the decorated scope, such as `map` to `set` or `pair`/`_Select1st`
+  to `_Identity`. Every other real name stays in place, compared name by name
+  outside STLport with back-references resolved: project classes, global types,
+  scope and member identifiers. A registered canonical class is never replaced.
+  So a placeholder parameter cannot unlock its real class, and a project class
+  inside an STLport template argument cannot be swapped for another. The
+  operator code or identifier must match too. The code-identity checks are hard
+  gates on top:
   - before: the scan shows a wrong binding;
   - after the build: every call binds retail's row directly (no alias, pin or
     ICF-marked callee);
