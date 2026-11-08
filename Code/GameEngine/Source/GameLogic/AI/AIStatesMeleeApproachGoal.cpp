@@ -87,25 +87,8 @@ public:
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-struct Rva003449C5AIData
-{
-	char m_pad00[0xD4];
-	float m_meleeOffset; // +0xD4
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	Rva003449C5AIData *getAiData() { return m_aiData; }
-
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	char m_pad14[4];
-	Rva003449C5AIData *m_aiData; // +0x18
-};
-
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
@@ -167,7 +150,7 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 	bool adjusted = false;
 	if (blocked && !canApproach)
 	{
-		float offset = source->m_radius + TheAI->getAiData()->m_meleeOffset;
+		float offset = source->m_radius + TheAI->getAiData()->m_castleSiegeStandBackDistance;
 		delta.normalize();
 		delta.scale(offset);
 		pos.sub(&delta);
@@ -273,7 +256,7 @@ bool AIMoveToStateSA::rva00344249(Coord3D *destination, Object *obj)
 	}
 	if (!found)
 		return false;
-	float clearance = TheAI->getAiData()->m_meleeOffset + obj->getBfmeRadiusB8();
+	float clearance = TheAI->getAiData()->m_castleSiegeStandBackDistance + obj->getBfmeRadiusB8();
 	direction.normalize();
 	direction.scale(clearance);
 	candidate.sub(reinterpret_cast<Coord3D*>(&direction));

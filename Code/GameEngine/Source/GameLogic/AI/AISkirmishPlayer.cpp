@@ -195,24 +195,8 @@ public:
 	void RemoveObjectFromPathfindMap(Object *obj);	// 0x002E718A
 	__declspec(dllimport) __forceinline void removeObjectFromPathfindMap(Object *obj) { RemoveObjectFromPathfindMap(obj); }
 };
-class AIData
-{
-public:
-	unsigned char m_pad00[0x66];
-	Bool m_rotateSkirmishBases;		// +0x66
-};
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const AIData *getAiData() const { return m_aiData; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;		// +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	AIData *m_aiData;			// +0x18
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 // BFME 2's canonical unit entry is 0x18 bytes.

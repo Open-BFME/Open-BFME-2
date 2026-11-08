@@ -62,10 +62,8 @@ int Rva005490D2::rva005490D2() const
 #include <deque>
 // Formation rows are 0x1C: count plus six unit pointers. Width clamp
 // 0x549237 and row stride in the formation builder independently prove this.
-// TheAI/data offsets are target facts; the original spacing names are unknown.
-struct FormationSpacingView {char pad[0xa0];float spacingA0,spacingA4,spacingA8;char padAC[8];int widthB4;};
-class AI {public:char pad[0x18];FormationSpacingView*data;};
-extern AI*TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 // cl: /DNDEBUG /MD
 // ?rva00549252@Rva00549252@@QAEXXZ, RVA 0x00549252, 243B
 // Zero slot counts at +8 stride 0x1c then nested loops over +0x120 array
@@ -207,11 +205,11 @@ public:
 // than this body, so the member's original name remains unknown.
 FormationDimensions FormationSquad::rva00549425(){
  if(!ready)reinterpret_cast<Rva00549252*>(this)->rva00549252();
- FormationSpacingView*data=TheAI->data;
- float height=totalHeight*data->spacingA0;
+ TAiData*data=TheAI->m_aiData;
+ float height=totalHeight*data->m_formationColumnWidth;
  int widthTotal=0;
  for(int rowIndex=0;rowIndex<rows;++rowIndex)widthTotal+=reinterpret_cast<Rva005490D2*>(rowStorage)[0].rva005490AE();
- return FormationDimensions(widthTotal*data->spacingA4,height);
+ return FormationDimensions(widthTotal*data->m_formationRowDepth,height);
 }
 
 // Retail's independent getters subtract two16B deque iterators over8B
@@ -234,7 +232,7 @@ int Rva00549493::get()const{return view.size();}
 // Existing neutral Bucket constructor clears precisely these seven words;
 // its 28B storage view preserves the provider declaration and original name
 // uncertainty. Width default is the target AI data field+B4 doubled.
-FormationSquad::FormationSquad():rows(0),width(TheAI->data->widthB4*2),unitCount(0),totalHeight(0),ready(false){
+FormationSquad::FormationSquad():rows(0),width(TheAI->m_aiData->m_formationColumns*2),unitCount(0),totalHeight(0),ready(false){
  for(int unitIndex=0;unitIndex<36;++unitIndex)units[unitIndex]=0;
 }
 
@@ -247,8 +245,8 @@ void Rva005490D2::rva005490F1(const Coord2D*origin,int formationId){
  int depth=0;
  for(int unitIndex=0;unitIndex<count;++unitIndex){
   int height=array[unitIndex]->leaf->field568;
-  FormationSpacingView*data=TheAI->data;
-  FormationPosition position(*origin);position.y+=(depth+height*0.5f)*data->spacingA0;position.x-=array[unitIndex]->leaf->field564*data->spacingA4*0.5f;
+  TAiData*data=TheAI->m_aiData;
+  FormationPosition position(*origin);position.y+=(depth+height*0.5f)*data->m_formationColumnWidth;position.x-=array[unitIndex]->leaf->field564*data->m_formationRowDepth*0.5f;
   array[unitIndex]->formationId=formationId;
   Mid005490D2*unit=array[unitIndex];
   if(unit->gate&&unit->gate->update&&unit->gate->update->data->kind==0){position.x*=0.5f;position.y*=0.5f;}
@@ -261,17 +259,17 @@ void Rva005490D2::rva005490F1(const Coord2D*origin,int formationId){
 // both floats live through the visible integer-only row sum; starting
 // columns before the row clamp preserves native initialization order.
 void FormationSquad::rva00549345(const Coord2D*origin,int formationId){
- float halfColumn=TheAI->data->spacingA4*0.5f;
- float height=totalHeight*TheAI->data->spacingA0;
+ float halfColumn=TheAI->m_aiData->m_formationRowDepth*0.5f;
+ float height=totalHeight*TheAI->m_aiData->m_formationColumnWidth;
  int columns=0;
  if(rows>10)rows=10;
  for(int rowIndex=0;rowIndex<rows;++rowIndex){
-  FormationSpacingView*data=TheAI->data;
+  TAiData*data=TheAI->m_aiData;
   Rva005490D2*row=reinterpret_cast<Rva005490D2*>(&rowStorage[rowIndex]);
   FormationPosition position(*origin);
-  position.x-=columns*data->spacingA4;
+  position.x-=columns*data->m_formationRowDepth;
   position.x+=halfColumn;
-  position.y+=(height-row->rva005490D2()*data->spacingA0)*0.5f;
+  position.y+=(height-row->rva005490D2()*data->m_formationColumnWidth)*0.5f;
   row->rva005490F1(&position,formationId);
   columns+=row->rva005490AE();
  }
@@ -391,7 +389,7 @@ void AIGroup::createFormation(int unused0,int unused1)
  int formationId=(int)((GameClient *)TheAI)->allocDrawableID();
  SimpleObjectIterator *ordered=new SimpleObjectIterator;
  SimpleObjectIterator *candidates=new SimpleObjectIterator;
- int squadWidth=TheAI->data->widthB4*2;
+ int squadWidth=TheAI->m_aiData->m_formationColumns*2;
  bool forceTwoSquads=false;
  int squadCapacity=squadWidth*6;
  FormationSquad squads[12];
@@ -433,12 +431,12 @@ void AIGroup::createFormation(int unused0,int unused1)
   Coord2D origin;
   if(i&1) {
    origin.x=right;
-   origin.y=TheAI->data->spacingA8*0.5f;
-   right+=dimensions.x+TheAI->data->spacingA8;
+   origin.y=TheAI->m_aiData->m_formationSquadSpacing*0.5f;
+   right+=dimensions.x+TheAI->m_aiData->m_formationSquadSpacing;
   } else {
    origin.x=left;
-   origin.y=0.0f-dimensions.y-TheAI->data->spacingA8*0.5f;
-   left+=dimensions.x;left+=TheAI->data->spacingA8;
+   origin.y=0.0f-dimensions.y-TheAI->m_aiData->m_formationSquadSpacing*0.5f;
+   left+=dimensions.x;left+=TheAI->m_aiData->m_formationSquadSpacing;
   }
   if(squadCount==1)origin.y=dimensions.y*-0.5f;
   squads[i].rva00549345(&origin,formationId);
@@ -450,7 +448,7 @@ void AIGroup::createFormation(int unused0,int unused1)
  direction.sub(start);direction.z=0.0f;
  direction.normalize();
  FormationVector halfStep(direction);
- halfStep.scaleValue(TheAI->data->spacingA4*0.5f);
+ halfStep.scaleValue(TheAI->m_aiData->m_formationRowDepth*0.5f);
  direction.scale((firstPosition.y-start.y)*direction.y+(firstPosition.x-start.x)*direction.x);
  direction.add(halfStep);
  anchor.add(direction);
@@ -508,9 +506,9 @@ void AIGroup::createFormation(int unused0,int unused1)
  if(front) {
   if(front->leaf->field568>1) {
    Coord2D offset=front->formationOffset;
-   shiftY=TheAI->data->spacingA0*0.25f-offset.y;
+   shiftY=TheAI->m_aiData->m_formationColumnWidth*0.25f-offset.y;
    if(offset.y==0.0f)shiftY=0.0f;
-   shiftX=0.0f-offset.x-TheAI->data->spacingA4*0.25f;
+   shiftX=0.0f-offset.x-TheAI->m_aiData->m_formationRowDepth*0.25f;
   } else {Coord2D offset=front->formationOffset;shiftY=0.0f-offset.y;}
  }
  for(Mid005490D2 *unit=(Mid005490D2 *)ordered->first();unit;unit=(Mid005490D2 *)ordered->next()) {

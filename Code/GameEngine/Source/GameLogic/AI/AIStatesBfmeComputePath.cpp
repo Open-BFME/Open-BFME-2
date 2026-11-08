@@ -694,26 +694,8 @@ class Rva002C9B80Owner;
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AIData
-{
-public:
-	unsigned char m_pad00[0x90];
-	Real m_bfme90; // +0x90
-	Real m_bfme94; // +0x94
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const AIData *getAiData() const { return m_aiData; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	const AIData *m_aiData; // +0x18
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 
 // Minimum frames between melee repaths (int global at 0x009BA4E4).
 extern int BfmeLogicFramesPerSecond;
@@ -969,7 +951,7 @@ Bool AIAttackMeleeApproachState::computePath()
 		delta.z = 0.0f;
 		Real dist = delta.length();
 		dist -= victim->getGeometryRadiusB8();
-		if (delta.length() < TheAI->getAiData()->m_bfme94 + TheAI->getAiData()->m_bfme90)
+		if (delta.length() < TheAI->getAiData()->m_meleeApproachDist + TheAI->getAiData()->m_meleeApproachTolerance)
 			return false;
 		if ((victim->getTemplate()->m_kindof[KINDOF_WALL_UPGRADE >> 5] & (1U << (KINDOF_WALL_UPGRADE & 0x1f))))
 			return false;

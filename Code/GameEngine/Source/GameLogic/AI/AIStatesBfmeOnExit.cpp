@@ -210,16 +210,7 @@ public:
 	Bool IsLineBlocked(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
 	Bool AdjustHordeMeleeDestination(Object *obj, void *arg, Coord3D *dest);
 };
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	static Bool rva002FE193(Object *owner, Object *nemesis);
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;

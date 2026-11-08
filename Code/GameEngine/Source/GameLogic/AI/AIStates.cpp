@@ -110,18 +110,7 @@ class LocomotorSet;
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	static Bool rva002FE193(Object *owner, Object *nemesis);
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const TAiData *getObservedAiData() { return m_aiData; }
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData; // +0x18
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 
 class Locomotor
 {
@@ -1127,7 +1116,7 @@ StateReturnType AIAttackPositionAimAtTargetState::updateInternal(Bool firstFrame
 // query on the owner or on any member ends the wait.
 Bool AIFollowPathAsTeamState::canMoveToNextFormationPathPoint()
 {
-	if (!TheAI->getObservedAiData()->m_waitForOthers)
+	if (!TheAI->getAiData()->m_waitForOthers)
 		return true;
 	Object *owner = getMachineOwner();
 	Object *volatile savedOwner = owner;

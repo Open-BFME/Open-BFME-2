@@ -192,7 +192,6 @@ TAiData::TAiData() :
 	m_artilleryMaxFriendlyFire = 1.0f;
 }
 
-#include "subsystem_interface.h"
 #include <list>
 
 // _List_iterator comparisons otherwise instantiate the base-class
@@ -210,29 +209,7 @@ namespace _STL {template<> _List_base<AIGroup *,allocator<AIGroup *> >::~_List_b
 // construction implementation is the separately rowed Pathfinder ctor.
 #include "../../../Include/GameLogic/AIPathfind.h"
 class INI;
-class AI : public SubsystemInterface, public Snapshot
-{
-public:
- AI(); virtual ~AI();
- __declspec(noinline) void newOverride();
- static void parseAiDataDefinition(INI *ini);
- static void parseSideInfo(INI *ini, void *instance, void *store, const void *userData);
- static void parseAttackPriority(INI *ini, void *instance, void *store, const void *userData);
- __declspec(noinline) void addSideInfo(Rva002FE620*);
- virtual void init(); virtual void reset(); virtual void update();
- virtual void loadPostProcess(); virtual const char *GetSnapshotName()const;
- virtual void xfer(Xfer *);
-private:
- Pathfinder *m_pathfinder;
- _STL::list<AIGroup *> m_groupList;
- TAiData *m_aiData;
- int m_nextGroupID,m_nextFormationID;
-};
-// ?AI::loadPostProcess present-unmatched
-void AI::loadPostProcess()
-{
-}
-
+#include "../../../Include/GameLogic/AI.h"
 // ?TAiData::loadPostProcess present-unmatched
 void TAiData::loadPostProcess()
 {

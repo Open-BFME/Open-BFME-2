@@ -72,15 +72,7 @@ public:
 	Real m_meleeApproachDist; // +0x94
 };
 
-class AI
-{
-public:
-	static Bool rva002FE193(Object *owner, Object *nemesis);
-	const TAiData *getAiDataRV() { return m_aiData; }
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -207,7 +199,7 @@ class AIAttackMeleeApproachState : public AIInternalMoveToState
 public:
 	virtual StateReturnType onEnter();
 private:
-	__forceinline Bool isCloseToVictim(const Object*source)const{MeleeCoordCopy raw(*source->getPosition());raw.sub(&m_50);float dx=raw.x,dy=raw.y;const TAiData*data=TheAI->getAiDataRV();MeleeCoordCopy delta(dx,dy,0.0f);return delta.length()<data->m_meleeApproachTolerance+data->m_meleeApproachDist;}
+	__forceinline Bool isCloseToVictim(const Object*source)const{MeleeCoordCopy raw(*source->getPosition());raw.sub(&m_50);float dx=raw.x,dy=raw.y;const TAiData*data=TheAI->getAiData();MeleeCoordCopy delta(dx,dy,0.0f);return delta.length()<data->m_meleeApproachTolerance+data->m_meleeApproachDist;}
 	Int m_4C; // +0x4C
 	Coord3D m_50; // +0x50
 	Int m_5C; // +0x5C
