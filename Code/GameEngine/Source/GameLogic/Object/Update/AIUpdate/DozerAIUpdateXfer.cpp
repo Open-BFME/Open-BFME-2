@@ -101,22 +101,14 @@ enum DozerBuildSubTask
 	DOZER_SELECT_BUILD_DOCK_LOCATION = 0
 };
 
-class AIUpdateInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x3E8 - 0x04 ];
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class DozerAIUpdate : public AIUpdateInterface
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
+	char m_unrecovered3E4[ 0x3E8 - sizeof(AIUpdateInterface) ];
 	struct DozerTaskInfo
 	{
 		ObjectID m_targetObjectID;

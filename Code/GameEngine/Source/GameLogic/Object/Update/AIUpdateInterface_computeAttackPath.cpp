@@ -103,15 +103,7 @@ private:
 
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 
-class LocomotorSet
-{
-public:
-	unsigned char m_pad00[0x10];
-	Int m_validSurfaces;
- __forceinline int getValidSurfaces() const{return m_validSurfaces;} // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	AsciiString m_name; // +0x18
-};
+
 
 struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
@@ -146,66 +138,7 @@ Int Rva002EDE5B(void *obj, Coord3D *pos);
 #include "../../../../Include/Common/StateMachineClass.h"
 
 
-class AIUpdateInterface
-{
-public:
-#define X1_V(n) virtual void slot##n();
-#define X1_V10(n) X1_V(n##0) X1_V(n##1) X1_V(n##2) X1_V(n##3) X1_V(n##4) X1_V(n##5) X1_V(n##6) X1_V(n##7) X1_V(n##8) X1_V(n##9)
-	X1_V10(10) X1_V10(11) X1_V10(12) X1_V10(13) X1_V10(14) X1_V10(15) X1_V10(16) X1_V10(17) X1_V10(18) X1_V10(19)
-	X1_V10(20) X1_V10(21) X1_V10(22)
-	X1_V(230)
-#undef X1_V10
-#undef X1_V
-	virtual void setLocomotorGoalPositionOnPath(); // +0x20C
-	virtual void slot233();
-	virtual void slot234();
-	virtual void slot235();
-	virtual void slot236();
-	virtual void setLocomotorGoalNone(); // +0x220
- virtual Bool isDoingGroundMovement();
-
-	Bool computePath(PathfindServicesInterface *pathServices, Coord3D *destination);
- Bool computeAttackPath(PathfindServicesInterface*,const Object*,const Coord3D*);
- void rva0026717B();
-	Bool computeQuickPath(const Coord3D *destination);
-	Bool canComputeQuickPath();
-	void destroyPath();
-	void setQueueForPathTime(Int frames);
-	void setGoalPositionClipped(const Coord3D *pos, CommandSourceType cmdSource);
-	Object *getObject() const { return m_object; }
-	StateMachine *getStateMachine() const { return m_stateMachine; }
-	void setFinalPosition(const Coord3D *pos) { m_finalPosition = *pos; m_doFinalPosition = false; }
-private:
-	unsigned char m_pad004[0x08 - 0x04];
-	Object *m_object; // +0x08
-	unsigned char m_pad00C[0x30 - 0x0C];
-	StateMachine *m_stateMachine; // +0x30
-	unsigned char m_pad034[0x140 - 0x34];
-	Path *m_path; // +0x140
-	unsigned char m_pad144[0x160 - 0x144];
-	UnsignedInt m_pathTimestamp; // +0x160
-	int m_ignoredObstacle;
- unsigned char m_pad168[0x16C-0x168];
-	Int m_blockedFrames; // +0x16C
-	unsigned char m_pad170[0x180 - 0x170];
-	Coord3D m_finalPosition; // +0x180
-	unsigned char m_pad18C[0x1CC - 0x18C];
-	LocomotorSet m_locomotorSet; // +0x1CC
-	unsigned char m_pad1E8[0x1F0 - 0x1E8];
-	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3B0 - 0x1F4];
-	Bool m_doFinalPosition; // +0x3B0
-	unsigned char m_pad3B1[0x3B3 - 0x3B1];
-	Bool m_isFinalGoal; // +0x3B3
-	unsigned char m_pad3B4[0x3B8 - 0x3B4];
-	Bool m_isBlockedAndStuck; // +0x3B8
-	unsigned char m_pad3B9[0x3BA - 0x3B9];
-	Bool m_canPathThrough; // +0x3BA
-	unsigned char m_pad3BB[0x3C0 - 0x3BB];
-	Bool m_retryPath; // +0x3C0
- char m_pad3c1[12];
- Bool m_attackFlag; //3cd
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

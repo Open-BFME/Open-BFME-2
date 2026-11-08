@@ -82,56 +82,17 @@ private:
 	GoalPathVector m_goalPath;				// +0x3C
 };
 
-struct LocomotorTemplateView
-{
-	unsigned char m_pad00[0x14];
-	Int m_surfaces;							// +0x14
-};
+#include "../../../../Include/GameLogic/LocomotorTemplate.h"
 
-struct LocomotorView
-{
-	unsigned char m_pad00[0x04];
-	LocomotorTemplateView *m_template;		// +0x04
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
-#define PAD_VIRTUALS10(p) \
-	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
-	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
 
-class AIUpdateInterface
-{
-public:
-	PAD_VIRTUALS10(a0) PAD_VIRTUALS10(a1) PAD_VIRTUALS10(a2) PAD_VIRTUALS10(a3)
-	PAD_VIRTUALS10(a4) PAD_VIRTUALS10(a5) PAD_VIRTUALS10(a6) PAD_VIRTUALS10(a7)
-	PAD_VIRTUALS10(a8) PAD_VIRTUALS10(a9) PAD_VIRTUALS10(b0) PAD_VIRTUALS10(b1)
-	PAD_VIRTUALS10(b2)
-	virtual void b30();
-	virtual void slot131();					// +0x20C
-
-	void rva002657CE();
-
-protected:
-	Object *getObject() const { return m_object; }
-
-private:
-	unsigned char m_pad04[0x08 - 0x04];
-	Object *m_object;						// +0x08
-	unsigned char m_pad0C[0x30 - 0x0C];
-	AIStateMachine *m_stateMachine;			// +0x30
-	unsigned char m_pad34[0x140 - 0x34];
-	Path *m_path;							// +0x140
-	unsigned char m_pad144[0x160 - 0x144];
-	unsigned int m_pathTimestamp;			// +0x160
-	unsigned char m_pad164[0x16C - 0x164];
-	Int m_blockedFrames;					// +0x16C
-	unsigned char m_pad170[0x1F0 - 0x170];
-	LocomotorView *m_curLocomotor;			// +0x1F0
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::rva002657CE()
 {
 	Object *obj = getObject();
-	LocomotorView *locomotor = m_curLocomotor;
+	Locomotor *locomotor = m_curLocomotor;
 	if (m_path)
 	{
 		delete m_path;
@@ -156,6 +117,6 @@ void AIUpdateInterface::rva002657CE()
 	obj->getUnitDirectionVector2D(dir);
 	m_path->rva00365E98(obj, &dir, locomotor->m_template->m_surfaces, false);
 	m_pathTimestamp = TheGameLogic->getFrame();
-	slot131();
+	setLocomotorGoalPositionOnPath();
 	m_blockedFrames = 0;
 }

@@ -17,29 +17,8 @@
 // HordeContain release movement does (copy position, subtract the original).
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
-#include "../../../../Include/GameLogic/LocomotorSet.h"
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/AIPathfind.h"
-template <int N> class Rva0046A10DAISlots : public Rva0046A10DAISlots<N - 1>
-{
-public:
-    virtual void gap(char (*)[N]) = 0;
-};
-template <> class Rva0046A10DAISlots<0> {};
-class AIUpdateInterfaceSlots : public Rva0046A10DAISlots<110>
-{
-public:
-    virtual bool gap110() = 0;
-    virtual bool slot111() = 0;
-};
-class AIUpdateInterface : public AIUpdateInterfaceSlots
-{
-public:
-    bool isMoving() const;
-    const LocomotorSet &hordeLocomotorSet() const
-    {
-        return *(const LocomotorSet *)((const char *)this + 0x1CC);
-    }
-};
 class Object
 {
 public:
@@ -121,7 +100,7 @@ void HordeContain::rva0046A10D()
 {
     Object *owner = m_object;
     AIUpdateInterface *ai = owner->m_ai;
-    if (ai->slot111())
+    if (ai->rva00262D8F())
     {
         m_290 = ((Rva0046A10DFrameView *)TheGameLogic)->m_frame;
         return;
@@ -146,7 +125,7 @@ void HordeContain::rva0046A10D()
         it->object->rva0028AD32();
     Pathfinder *pathfinder =
         *(Pathfinder **)((char *)TheAI + 0x10);
-    pathfinder->AdjustDestination(owner, ai->hordeLocomotorSet(), &original, 0);
+    pathfinder->AdjustDestination(owner, ai->getLocomotorSet(), &original, 0);
     {
         Coord3D delta;
         delta.x = owner->m_position.x;

@@ -33,45 +33,37 @@ class Rva0008BB38FloatField;
 #include "../../../../Include/GameLogic/PathfindPath.h"
 // Read the canonical +0x24 goal field directly; older getter copies use +0x28.
 #include "../../../../Include/Common/StateMachineClass.h"
-class AIUpdateInterface {public:
-#define SLOT(n) virtual void slot##n();
-#define TEN(n) SLOT(n##0) SLOT(n##1) SLOT(n##2) SLOT(n##3) SLOT(n##4) SLOT(n##5) SLOT(n##6) SLOT(n##7) SLOT(n##8) SLOT(n##9)
-TEN(0) TEN(1) TEN(2) TEN(3) TEN(4) TEN(5) TEN(6) TEN(7) TEN(8) TEN(9) TEN(10) TEN(11) TEN(12) TEN(13) TEN(14) SLOT(150)
-#undef TEN
-#undef SLOT
-virtual bool getTreatAsAircraftForLocoDistToGoal();
-float getLocomotorDistanceToGoal();
-char pad4[4];Object*owner;char padC[0x30-0xC];StateMachine*machine;char pad34[0x140-0x34];Path*path;char pad144[0x1F0-0x144];Locomotor*loco;char pad1F4[8];int goalType;Coord3D goal;
-};
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct Delta3 { float x,y,z; Delta3(const Coord3D &c):x(c.x),y(c.y),z(c.z){} void sub(const Coord3D &p){x-=p.x;y-=p.y;z-=p.z;} };
 float AIUpdateInterface::getLocomotorDistanceToGoal(){
  Coord3D goalPos;
- switch(goalType){
+ switch(m_field1FC){
  case 0:case 3:return 0.0f;
  case 2:case 4:{
-  const Coord3D *dest=&goal;const Coord3D *pos=owner->getPosition();
+  const Coord3D *dest=&m_field200;const Coord3D *pos=m_object->getPosition();
   Delta3 d(*dest);d.sub(*pos);_ReadWriteBarrier();goalPos.x=d.x;goalPos.y=d.y;goalPos.z=d.z;
   float len=goalPos.length();return len;
  }
  case 1:{
-  if(!path)return 100.0f;
-  if(!loco)break;
-  if(isCloseEnoughDist3D(loco)||(owner->templ->m_kindof[0] & 0x2000000U)){
-   const Object *obj=owner;PathNode *last=path->m_pathTail;const Coord3D *p=&machine->m_goalPosition;
+  if(!m_path)return 100.0f;
+  if(!m_curLocomotor)break;
+  if(isCloseEnoughDist3D(m_curLocomotor)||(m_object->templ->m_kindof[0] & 0x2000000U)){
+   const Object *obj=m_object;PathNode *last=m_path->m_pathTail;const Coord3D *p=&m_stateMachine->m_goalPosition;
    goalPos.x=p->x;goalPos.y=p->y;goalPos.z=p->z;
    if(last)goalPos=last->m_pos;
    return (float)sqrt(((const Gen_000E5A50*)obj)->Get3DCenterDistanceSquared((const BfmeVec3EJ*)&goalPos));
   } else {
-  if(loco->m_template->type==5)break;
+  if(m_curLocomotor->m_template->type==5)break;
   bool aircraft=getTreatAsAircraftForLocoDistToGoal();float dist;
-  Path *current=path;
-  if(aircraft){const Coord3D *pos=(owner ? owner : owner)->getPosition();dist=current->computeFlightDistToGoal(pos,goalPos);}
+  Path *current=m_path;
+  if(aircraft){const Coord3D *pos=(m_object ? m_object : m_object)->getPosition();dist=current->computeFlightDistToGoal(pos,goalPos);}
   else{
-   Rva003642DFResult info=current->rva00364521((const Rva0008BB38FloatField*)loco);
+   Rva003642DFResult info=current->rva00364521((const Rva0008BB38FloatField*)m_curLocomotor);
    goalPos=info.position;dist=((Rva00363D20*)&info)->rva00363D20();
   }
-  if(path->m_pathTail)goalPos=path->m_pathTail->m_pos;
-  float dx=goalPos.x-owner->getPosition()->x,dy=goalPos.y-owner->getPosition()->y;
+  if(m_path->m_pathTail)goalPos=m_path->m_pathTail->m_pos;
+  float dx=goalPos.x-m_object->getPosition()->x,dy=goalPos.y-m_object->getPosition()->y;
   float distanceSquared=dx*dx+dy*dy;
   if(aircraft){if(dist*dist>distanceSquared)return (float)sqrt(distanceSquared);else return dist;}
   if(dist<10.0f || dist*dist<distanceSquared)return sqrtf(distanceSquared);

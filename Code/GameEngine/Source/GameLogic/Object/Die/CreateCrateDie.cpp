@@ -126,15 +126,7 @@ private:
 	Team *m_defaultTeam;	// +0x2EC
 };
 
-class AIUpdateInterface
-{
-public:
-	void notifyCrate(ObjectID id) { m_crateCreated = id; }
-
-private:
-	unsigned char m_pad000[0x238];
-	ObjectID m_crateCreated;	// +0x238
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
@@ -468,7 +460,7 @@ void CreateCrateDie::onDie(const DamageInfo *damageInfo)
 						AIUpdateInterface *ai = killer->getAIUpdateInterface();
 						if (ai)
 						{
-							ai->notifyCrate(crate->getID());
+							ai->m_crateCreated = crate->getID();
 						}
 					}
 				}

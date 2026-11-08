@@ -45,24 +45,13 @@ struct Rva0046950DTemplate
 	unsigned char m_121;
 };
 
-struct Rva00468C37Template
-{
-	unsigned char m_pad000[0x150];
-	unsigned char m_150;
-};
 
-struct Rva00468C37Holder
-{
-	unsigned char m_pad000[4];
-	const Rva00468C37Template *m_4;
-};
 
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad000[0x1F0];
-	Rva00468C37Holder *m_1F0;
-};
+
+
+#include "../../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../../Include/GameLogic/LocomotorTemplate.h"
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object : public Thing
 {
@@ -92,7 +81,7 @@ void Rva0046950D24::rva0046950D(Object *obj, int, int)
 		|| obj->m_id == targetId)
 		return;
 	AIUpdateInterface *ai = owner()->m_ai;
-	if (!ai || !ai->m_1F0 || !ai->m_1F0->m_4->m_150)
+	if (!ai || !ai->m_curLocomotor || !ai->m_curLocomotor->m_template->m_scalesWalls)
 		return;
 	Coord3D ownerDirection;
 	{ const Coord3D *p = owner()->getUnitDirectionVector2D(); ownerDirection.x = p->x; ownerDirection.y = p->y; ownerDirection.z = p->z; }

@@ -25,11 +25,7 @@ struct Flags109
 	unsigned char m_flags;
 };
 
-struct HeightHolder
-{
-	char m_pad00[0x48];
-	float m_val;
-};
+#include "../../../../../Include/GameLogic/LocomotorClass.h"
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
@@ -48,18 +44,8 @@ static const float &float_max(const float &lhs, const float &rhs)
 	return (lhs > rhs) ? lhs : rhs;
 }
 
-class AIUpdateInterface
-{
-public:
-	void setGoalPositionClipped(const Coord3D *pos, float range, int flag);
-	void rva00265667(const Coord3D *pos, int flag);
-	char m_pad00[8];
-	Object *m_object; // +8
-	char m_pad0C[0x30 - 0x0C];
-	StateMachine *m_machine; // +0x30
-	char m_pad34[0x1F0 - 0x34];
-	HeightHolder *m_height; // +0x1F0
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setGoalPositionClipped(const Coord3D *pos, float range, int flag)
 {
@@ -73,8 +59,8 @@ void AIUpdateInterface::setGoalPositionClipped(const Coord3D *pos, float range, 
 			fudge = TheWritableGlobalData->m_partitionCellSize * 0.5f;
 			if ((m_object->m_flags109->m_flags & 0x10) != 0) {
 				if (m_object->isSignificantlyAboveTerrain()) {
-					if (m_height != 0) {
-						float v = m_height->m_val;
+					if (m_curLocomotor != 0) {
+						float v = m_curLocomotor->m_preferredHeight;
 						fudge = float_max(fudge, v);
 					}
 				}
@@ -93,12 +79,12 @@ void AIUpdateInterface::setGoalPositionClipped(const Coord3D *pos, float range, 
 			float hiY = mapRegion.hi.y - fudge;
 			if (local.y > hiY)
 				local.y = hiY;
-			m_machine->setGoalPosition(&local, range);
+			m_stateMachine->setGoalPosition(&local, range);
 		} else {
-			m_machine->setGoalPosition(&local, range);
+			m_stateMachine->setGoalPosition(&local, range);
 		}
 	} else {
-		m_machine->setGoalPosition(0, range);
+		m_stateMachine->setGoalPosition(0, range);
 	}
 }
 

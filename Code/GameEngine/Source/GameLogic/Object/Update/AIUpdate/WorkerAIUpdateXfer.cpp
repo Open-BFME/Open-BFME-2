@@ -59,22 +59,14 @@ struct AbilityMiscAudio;
 #include "../../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
-class AIUpdateInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-private:
-	char m_pad[0x3F0 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class WorkerAIUpdate : public AIUpdateInterface
 {
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
+	char m_unrecovered3E4[0x3F0 - sizeof(AIUpdateInterface)];
 	enum { DOZER_NUM_TASKS = 3, DOZER_NUM_DOCK_POINTS = 3 };
 
 	struct DozerTaskInfo

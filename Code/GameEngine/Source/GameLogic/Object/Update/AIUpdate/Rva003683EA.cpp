@@ -11,36 +11,29 @@
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
-class AIUpdateInterface
-{
-public:
-	void rva00265667(const Coord3D *pos, int flag);
-};
+
 
 class Waypoint;
 
 #include "../../../../../Include/GameLogic/AIStateMachineClass.h"
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva003683EA : public AIUpdateInterface
 {
 public:
 	void rva003683EA(const Coord3D *pos, int flag);
 private:
-	char m_pad10[0x30 - sizeof(AIUpdateInterface)];
-	StateMachine *m_machine; // +0x30
-	char m_pad34[0x3BD - 0x34];
-	unsigned char m_guard; // +0x3BD
-	char m_pad3BE[0x528 - 0x3BE];
+	char m_pad3E4[0x528 - sizeof(AIUpdateInterface)];
 	int m_done; // +0x528
 };
 
 void Rva003683EA::rva003683EA(const Coord3D *pos, int flag)
 {
-	if (m_guard != 0)
+	if (m_field3BD != 0)
 		return;
-	m_machine->clear();
+	m_stateMachine->clear();
 	rva00265667(pos, flag);
 	((AIStateMachine *)this)->setGoalWaypoint((const Waypoint *)flag);
-	m_machine->setState(0x3FB);
+	m_stateMachine->setState(0x3FB);
 	m_done = 1;
 }

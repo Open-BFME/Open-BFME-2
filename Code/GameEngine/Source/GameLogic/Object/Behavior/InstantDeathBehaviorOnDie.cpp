@@ -12,7 +12,7 @@
 #include "GameLogicObjectLookupView.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 class DamageInfo;struct Coord3D;class WeaponTemplate;
-class AIUpdateInterface { public:char pad[0x3BD];bool dead;void markAsDead();};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object{public:char pad[0x38];char position[12];char pad44[0x30];ObjectID id;char pad78[0x1e0];AIUpdateInterface*ai;};
 class FXList{public:static void doFXObj(const FXList*,const Object*,const Object*);};
 class ObjectCreationList {public:void create(void*,void*,void*);};
@@ -42,7 +42,7 @@ public:
 };
 void InstantDeathBehavior::onDie(const DamageInfo*damageInfo){
  if(!isDieApplicable(damageInfo))return;
- if(m_object->ai){if(m_object->ai->dead)return;m_object->ai->markAsDead();}
+ if(m_object->ai){if(m_object->ai->m_field3BD)return;m_object->ai->markAsDead();}
  const InstantDeathBehaviorModuleData*self=reinterpret_cast<const InstantDeathBehaviorModuleData*>(m_moduleData);
  char*file="C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Behavior\\InstantDeathBehavior.cpp";
  int count=self->fx.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,135);const FXList*fx=self->fx[n];Object*obj=m_object;FXList::doFXObj(fx,obj,0);}

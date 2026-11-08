@@ -42,6 +42,7 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 
 
