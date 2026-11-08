@@ -9,13 +9,7 @@
 
 typedef float Real;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_beforeKindFlags[0x108];
-	unsigned char m_otherKindFlags : 7;
-	unsigned char m_isBuilding : 1;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum NameKeyType
 {
@@ -56,7 +50,7 @@ public:
 Real Handicap::getHandicap(HandicapType type, const ThingTemplate *thingTemplate) const
 {
 	ThingType thingType;
-	if (thingTemplate->m_isBuilding)
+	if (thingTemplate->m_kindof[0] & 0x80)
 	{
 		thingType = BUILDINGS;
 	}

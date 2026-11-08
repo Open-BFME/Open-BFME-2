@@ -761,19 +761,7 @@ enum KindOfType
 	KINDOF_DO_NOT_CLASSIFY = 149
 };
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
-	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
-	Int calcTimeToBuild(const Player *player, Int builder, Int a3) const;
-private:
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	UnsignedInt m_kindOf[7]; // +0x108 (218 kind-of bits)
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -826,7 +814,7 @@ public:
 	void setBuilder(const Object *builder);
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	Bool isUsingAirborneLocomotor() const;
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->m_kindof[t >> 5] & (1U << (t & 31)); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	ObjectID getSoleHealingBenefactor() const;

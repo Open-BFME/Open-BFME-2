@@ -204,7 +204,7 @@ class PlayerList {public:Player*getNthPlayer(int);};
 
 extern PlayerList*ThePlayerList;
 
-class ThingTemplate {public:char pad[0x64];AsciiString name;};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Thing {public:void* vtable;ThingTemplate* m_template;const ThingTemplate*getTemplate()const{return m_template;}};
 
@@ -1450,14 +1450,14 @@ void RecorderClass::dumpCommandHistory(CommandDumpFile0037BE15* file,unsigned ma
      Object* object=TheGameLogic->findObjectByID((ObjectID)id);
      if (object) {
       int rel=player?player->getRelationship(read0037BE15<Team*>(object->getControllingPlayer(),0x2ec)):-1;
-      text.format("    %02d: Object:%s(%d) Relationship:%s",i,object->getTemplate()->name.str(),id,rel>=0?TheRelationshipNames[rel]:"N/A");
+      text.format("    %02d: Object:%s(%d) Relationship:%s",i,object->getTemplate()->getName().str(),id,rel>=0?TheRelationshipNames[rel]:"N/A");
      } else text.format("    %02d: Object:INVALID(%d)",i,id);
      break;
     }
     case ARG_DRAWABLE: {
      int id=message->getArgument(i)->integer;
      Drawable0037BE15* drawable=((Client0037BE15*)TheGameClient)->find(id);
-     if (drawable) text.format("    %02d: Drawable:%s(%d)",i,drawable->getTemplate()->name.str(),id);
+     if (drawable) text.format("    %02d: Drawable:%s(%d)",i,drawable->getTemplate()->getName().str(),id);
      else text.format("    %02d: Drawable:INVALID",i);
      break;
     }

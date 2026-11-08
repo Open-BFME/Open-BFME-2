@@ -38,24 +38,11 @@ enum KindOfType
 {
 	KINDOF_39 = 0x39
 };
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	Overridable *m_nextOverride;
-};
-class ThingTemplate : public Overridable
-{
-public:
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindof[t >> 5] & (1U << (t & 31)); }
-
-	unsigned char m_unmodelled_08[0x108 - 8];
-	UnsignedInt m_kindof[4];
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 class Thing
 {
 public:
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->m_kindof[t >> 5] & (1U << (t & 31)); }
 
 	virtual void slot00();
 	ThingTemplate *m_template;

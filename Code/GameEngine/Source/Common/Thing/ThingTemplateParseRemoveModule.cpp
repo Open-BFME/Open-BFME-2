@@ -31,41 +31,18 @@ enum ModuleParseMode
 	MODULEPARSE_OVERRIDEABLE_BY_LIKE_KIND
 };
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ThingTemplate.h
-class ThingTemplate
-{
-public:
-	// Native +0x64 name access is already inlined in these callers.
-	__declspec(dllimport) __forceinline const AsciiString &getName(void) const { return m_nameString; }
-
-protected:
-	static void __cdecl parseRemoveModule(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReplaceModule(INI *ini, void *instance, void *store, const void *userData);
-	Bool removeModuleInfo(const AsciiString &moduleToRemove, AsciiString &removedModuleName);
-
-	char m_unreconstructed00[0x64];
-	AsciiString m_nameString;				// +0x064
-	char m_unreconstructed24[0x94 - 0x68];
-	AsciiString m_moduleBeingReplacedName;			// +0x094
-	AsciiString m_moduleBeingReplacedTag;			// +0x098
-	char m_unreconstructed58[0x5F8 - 0x9C];
-	char m_moduleParsingMode;				// +0x5F8
-
-private:
-	static const FieldParse s_objectFieldParseTable[];
-	static const FieldParse *getFieldParse(void) { return s_objectFieldParseTable; }
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva0033C8E8 { public: bool removeModuleInfo(const AsciiString &,AsciiString &); };
 // ?parseRemoveModule@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z
 void __cdecl ThingTemplate::parseRemoveModule(INI *ini, void *instance, void *store, const void *userData)
 {
 	ThingTemplate *self = (ThingTemplate *)instance;
-	Int oldMode = (Int)self->m_moduleParsingMode;
+	Int oldMode = (Int)self->m5F8;
 	if (oldMode != 0)
 		throw INIException(3, "Expected oldMode to be MODULEPARSE_NORMAL");
 
-	self->m_moduleParsingMode = 1;
+	self->m5F8 = 1;
 	const char *modToRemove = ini->getNextToken();
 	AsciiString removedModuleName;
 	Bool removed = ((Rva0033C8E8 *)self)->removeModuleInfo(modToRemove, removedModuleName);
@@ -74,7 +51,7 @@ void __cdecl ThingTemplate::parseRemoveModule(INI *ini, void *instance, void *st
 		throw INIException(3, "RemoveModule %s was not found for %s.", modToRemove, self->getName().str());
 	}
 
-	self->m_moduleParsingMode = oldMode;
+	self->m5F8 = oldMode;
 }
 
 

@@ -70,32 +70,8 @@ class UnicodeString;
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-// The override chain head of a thing template (ZH's Overridable): the
-// getter at 0x001E35DF follows the next override at +4.
-class Rva001E35DFView
-{
-public:
-	const Rva001E35DFView *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
 
-	void *m_vtable;
-	Rva001E35DFView *m_nextOverride; // +0x04
-	bool m_isOverride;
-};
-
-class ThingTemplate : public Rva001E35DFView
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-
-private:
-	char m_pad00C[0x64 - 0x0C];
-	AsciiString m_name; // +0x64
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../Common/Thing/thing.h"
 

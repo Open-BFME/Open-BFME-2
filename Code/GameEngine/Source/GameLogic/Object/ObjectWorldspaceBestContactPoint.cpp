@@ -42,28 +42,11 @@ __forceinline Vector3 operator *(const Matrix3D &matrix, const Vector3 &input)
 			+ matrix.Row[2].Z * input.Z + matrix.Row[2].W);
 }
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const;
-	void *m_vtable;
-	Overridable *m_nextOverride;
-};
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
 #include "ascii_string.h"
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ThingTemplate.h
-class ThingTemplate : public Overridable
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-
-private:
-	unsigned char m_unreconstructed_008[0x64 - 0x08];
-	AsciiString m_name;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum BodyDamageType
 {

@@ -29,13 +29,8 @@ class Team;
 
 #include "../../../../Include/Common/Player.h"
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x354];
-	Real getPayloadSeconds() const { return m_payloadSeconds; }
-	Real m_payloadSeconds;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+static __forceinline Real templatePayloadSeconds(const ThingTemplate *t) { return t->m_buildFadeInOnCreateTime; }
 
 class Object;
 
@@ -122,7 +117,7 @@ void SiegeEngineContain::createPayload()
 			Object *payload = TheThingFactory->newObject( payloadTemplate, owner->getControllingPlayer()->getDefaultTeam(), &mask, (ObjectID)0 );
 			if( contain->isValidContainerFor( payload, true, false ) )
 			{
-				Int frames = (Int)( payloadTemplate->getPayloadSeconds() * (Real)BfmeLogicFramesPerSecond );
+				Int frames = (Int)( templatePayloadSeconds(payloadTemplate) * (Real)BfmeLogicFramesPerSecond );
 				if( frames > 0 )
 					payload->setSpecialModelConditionState( MODELCONDITION_0DA, frames );
 

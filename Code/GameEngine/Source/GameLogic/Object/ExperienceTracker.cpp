@@ -161,22 +161,15 @@ private:
 };
 struct ExperienceLevelHandle;
 #include "../../../Include/GameLogic/ExperienceLevelStore.h"
-class Overridable
+#include "../../../Include/Common/ThingTemplate.h"
+static __forceinline Overridable *finalOverride(Overridable *o)
 {
-public:
-	Overridable *friend_getFinalOverride();
-	Overridable *getFinalOverride()
-	{
-		return next ? next->friend_getFinalOverride() : this;
-	}
-private:
-	void *vptr;
-	Overridable *next;
-};
+	Overridable *next = o->friend_getNextOverride();
+	return next ? next->friend_getFinalOverride() : o;
+}
 class ExperienceLevel : public Overridable
 {
 public:
-	char unknown08[8];
 	AsciiString name;
 };
 struct ExperienceLevelNode
@@ -218,14 +211,6 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MultiPlayMults.h"
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class ThingTemplate
-{
-public:
-	bool isStructure() const { return (m_kindOf[0x108 - 0x100] & 0x80) != 0; }
-private:
-	unsigned char m_pad[0x100];
-	unsigned char m_kindOf[0x10];			// +0x100
-};
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_3E = 0x3E
@@ -888,7 +873,7 @@ void ExperienceTracker::rva0039B438(const AsciiString &name, bool feedback)
 	for (ExperienceLevelNode *node = list->sentinel->next;
 		node != list->sentinel; node = node->next)
 	{
-		ExperienceLevel *level = static_cast<ExperienceLevel *>(node->data.getFinalOverride());
+		ExperienceLevel *level = static_cast<ExperienceLevel *>(finalOverride(&node->data));
 		if (level->name.compare(name) != 0)
 			reinterpret_cast<Rva003BD306Target *>(this)->rva0039B28F(0);
 		if (level->name.compare(name) == 0)
@@ -925,7 +910,7 @@ mult:
 	if (reinterpret_cast < BfmeGlob939D*>(gameLogic)->bfmeCall939D())
 	{
 		const long player = ThePlayerList->rva002A7C0B(false);
-		if (tracker->m_parent->getTemplate()->isStructure())
+		if ((tracker->m_parent->getTemplate()->m_kindof[0] & 0x80))
 			mult = TheWritableGlobalData->m_multiPlayMults.getBuildingXPMult(player);
 		else
 			mult = TheWritableGlobalData->m_multiPlayMults.getUnitXPMult(player);

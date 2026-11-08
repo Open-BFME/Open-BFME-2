@@ -244,39 +244,8 @@ public:
 	Int m_maxShotCount;
 };
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const;
 
-	void *m_vtable;
-	Overridable *m_nextOverride;
-};
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ThingTemplate.h
-class ThingTemplate : public Overridable
-{
-public:
-	// BFME2 keeps the KindOf bitset at +0x108 as 32-bit words: privateHunt
-	// tests KINDOF_PROJECTILE (0x19) as bit 1 of byte +0x10B, the same layout
-	// Rva00290EFEGetGhostObject.cpp and Object_isAbleToAttack.cpp read, and
-	// privateMoveAwayFromUnit loads word +0x114 once to test two bits of it
-	// (0x6D, 0x7D). The test hands back the masked word rather than a Bool:
-	// cl then narrows a lone test to one byte and shares a loaded word, where
-	// a `!= 0` result is materialised with a shift. Retail folds the whole
-	// Thing -> template -> bitset chain; at /O1 the stand-in needs
-	// __forceinline to do the same.
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindof[t >> 5] & (1U << (t & 31)); }
-
-	unsigned char m_unmodelled_08[0x108 - 8];
-	UnsignedInt m_kindof[4];					// +0x108
-	unsigned char m_unmodelled_118[0x614 - 0x118];
-	// A template flag that lets privateMoveAwayFromUnit push allies aside
-	// whatever else holds; unnamed.
-	Bool m_bfmeFlag614;							// +0x614
-
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // 0x0033C259: a float per locomotor set, which chooseLocomotorSet stores at
 // AIUpdate +0x1F8. The matched body is rowed under this view's class name;
@@ -291,7 +260,7 @@ public:
 class Thing
 {
 public:
-	__forceinline UnsignedInt isTemplateKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__forceinline UnsignedInt isTemplateKindOf(KindOfType t) const { return m_template->m_kindof[t >> 5] & (1U << (t & 31)); }
 
 	virtual void slot00();
 	ThingTemplate *m_template;
@@ -2364,7 +2333,7 @@ void AIUpdateInterface::privateMoveAwayFromUnit(Object *unit, const Coord3D *pos
 			AI *ai = TheAI;
 			if (obj->isTemplateKindOf(BFME_KINDOF_6D) && !ai->getAiData()->m_hordesWaitForHordes)
 				moveAllies = false;
-			if (obj->m_template->m_bfmeFlag614 || obj->isTemplateKindOf(BFME_KINDOF_7D))
+			if (obj->m_template->m_crushAllies || obj->isTemplateKindOf(BFME_KINDOF_7D))
 				moveAllies = true;
 			if (obj->testStatus((ObjectStatusTypes)0x39) || obj->testStatus((ObjectStatusTypes)0x32) || obj->isKindOf((KindOfType)0x84))
 				moveAllies = false;

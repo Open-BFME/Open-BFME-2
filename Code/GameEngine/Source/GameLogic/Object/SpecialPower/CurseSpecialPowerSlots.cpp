@@ -91,12 +91,7 @@ public:
 		float speed, const Coord3D *secondary);	// 0x00094C29
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x110];
-	unsigned m_110;		// +0x110 (bit 26 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../object.h"
 
@@ -149,7 +144,7 @@ void CurseSpecialPower::rva004CCE85(Object *obj)
 	const CurseSpecialPowerModuleData *data = getCurseSpecialPowerModuleData();
 	if (obj == owner)
 		return;
-	if (!(obj->m_template->m_110 & 0x04000000))
+	if (!(obj->m_template->m_kindof[2] & 0x04000000))
 		return;
 	if (owner->getRelationship(obj) != ENEMIES)
 		return;

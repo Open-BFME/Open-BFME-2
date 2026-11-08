@@ -18,7 +18,8 @@ static __forceinline void releaseCastleStorage(void *storage)
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 class Player;
 class Team;
-class ThingTemplate {public:int getWeight() const{return weight;}char pad[0x618];int weight;};
+#include "../../../../Include/Common/ThingTemplate.h"
+static __forceinline int templateWeight(const ThingTemplate *t) { return t->m_commandPoints; }
 class Rva0028BAC0Host {public:void rva0028BAC0();};
 class Object {public:const ThingTemplate *getTemplate() const{return type;}void rva0028BAC0();Player *getControllingPlayer() const;void setTeam(Team*);void rva0028DCC4();void rva0028D253();char pad[4];ThingTemplate *type;char pad8[0x38-8];Coord3D pos;char pad44[0x304-0x44];Team *team;};
 enum Relationship {ENEMY=0,NEUTRAL=1,ALLY=2};
@@ -91,7 +92,7 @@ void CastleBehavior::rva00398E9A(){
   int index=player->getIndex();
   if(weights[index]<0)weights[index]=value;
   weights[index]+=value;
-  weights[index]+=candidate->getTemplate()->getWeight()*value;
+  weights[index]+=templateWeight(candidate->getTemplate())*value;
  }
  int largest=-1;int chosen=largest;
  for(int i=0;i<20;++i){if(weights[i]>largest){chosen=i;largest=weights[i];}}

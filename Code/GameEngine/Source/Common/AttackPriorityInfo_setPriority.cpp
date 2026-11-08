@@ -5,8 +5,8 @@
 // Evidence: cmp [esi+0x0C] null-check then push 0x0C new 0x0002FDA0 plus map ctor 0x0033C432
 // with EH state 0 to -1; mov ecx [edi+4] test je mov eax edi else call 0x001E35DF then
 // mov ecx [esi+0x0C] lea push subscript 0x002077D6 then store [ebp+0x0C]; ret 8 two args.
-// Row 0x001E35DF types as void but body uses eax result: declared here as
-// Overridable::getFinalOverride per its pin (row-type exception per taskfile).
+// Row 0x001E35DF types as void but body uses eax result: reached through
+// Overridable::getFinalOverride's inline recursion per its pin (row-type exception per taskfile).
 #include <map>
 
 #include "Common/Snapshot.h"
@@ -15,17 +15,7 @@
 
 class Image;
 
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const;
-
-public:
-	void *m_pad0;
-	Overridable *m_next;
-};
-
-class ThingTemplate : public Overridable {};
+#include "../../Include/Common/ThingTemplate.h"
 
 namespace _STL
 {
@@ -61,11 +51,6 @@ void AttackPriorityInfo::setPriority(const ThingTemplate *thingTemplate, int pri
 		return;
 	if (!m_tree)
 		m_tree = new MapIntVoid0033C432;
-	Overridable *nextOverride = thingTemplate->m_next;
-	Overridable *key;
-	if (nextOverride)
-		key = (Overridable *)nextOverride->getFinalOverride();
-	else
-		key = (Overridable *)thingTemplate;
+	const Overridable *key = thingTemplate->getFinalOverride();
 	((ImageSubscriptMap *)m_tree)->operator[]((unsigned int)key) = (Image *)priority;
 }

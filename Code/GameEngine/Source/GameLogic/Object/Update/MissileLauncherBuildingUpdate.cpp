@@ -82,12 +82,7 @@ namespace _STL {
 template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *first, ObjectID *last);	// 0x00532803
 template <> void vector<ObjectID, allocator<ObjectID> >::push_back(const ObjectID &value);	// 0x002E01C6
 }
-class ThingTemplate
-{
-public:
-	char m_pad000[0x114];
-	unsigned m_114;		// +0x114 (bit 13 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
@@ -332,7 +327,7 @@ void StoreObjectsSpecialPower::triggerAbilityEffect()
 	Object *other;
 	while ((other = hits.next()) != 0) {
 		Object *rider = TheGameLogic->findObjectByID(other->m_78);
-		if (rider && (rider->m_template->m_114 & 0x2000))
+		if (rider && (rider->m_template->m_kindof[3] & 0x2000))
 			continue;
 		if (other->testStatus(OBJECT_STATUS_RVA004CDA49_3))
 			continue;
