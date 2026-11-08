@@ -272,7 +272,9 @@ class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
-#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+// The class is ModelConditionUpgrade.h's, over the canonical UpgradeModule.h (retail's
+// table facts are there).
+#include "../../../../Include/GameLogic/Module/ModelConditionUpgrade.h"
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
@@ -288,15 +290,6 @@ class WeaponSetUpgradeModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ModelConditionUpgrade : public UpgradeModule
-{
-public:
-	ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData );
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@ModelConditionUpgrade@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp
@@ -409,3 +402,31 @@ ModelConditionUpgrade::ModelConditionUpgrade( Thing *thing, const ModuleData *mo
 // tu-skeleton: 0x004B6516 28B ??_GRva004B63BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@Rva004B65A5@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
+
+// The Xfer operand types.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+// ?xfer@ModelConditionUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C58658 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+void ModelConditionUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
+}
