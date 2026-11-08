@@ -13,11 +13,6 @@
 
 #include <stddef.h>
 
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
-
 // 4-byte zeroing member; default ctor is pinned to retail 0x003B31AD.
 class Rva003B31ADMember
 {
@@ -60,13 +55,14 @@ namespace _STL
 {
 
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
-{
-	if (p)
-		new (p) T1(value);
-}
-
-}
+void _Construct(T1 *p, const T2 &value);
 
 // ??$_Construct@UUpgrades@CashHackSpecialPowerModuleData@@U12@@_STL@@YAXPAUUpgrades@CashHackSpecialPowerModuleData@@ABU12@@Z @0x003FA3D3
-template void _STL::_Construct(CashHackSpecialPowerModuleData::Upgrades *, const CashHackSpecialPowerModuleData::Upgrades &);
+template <>
+void _Construct<CashHackSpecialPowerModuleData::Upgrades, CashHackSpecialPowerModuleData::Upgrades>(CashHackSpecialPowerModuleData::Upgrades *p, const CashHackSpecialPowerModuleData::Upgrades &value)
+{
+	if (p)
+		p->CashHackSpecialPowerModuleData::Upgrades::Upgrades(value);
+}
+
+}
