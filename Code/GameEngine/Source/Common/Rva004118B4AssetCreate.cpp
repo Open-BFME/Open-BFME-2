@@ -8,7 +8,7 @@
 // the Rva000427195 table at 0xA02FF8. Evidence: caller 0x004120D3 passes
 // path+params; strings _RenderObj _KeepAspectRatio _AnimMode; callees
 // bfmePathLeafAfterMarker GetParam find Create GetLevel SlashPath2DotPath
-// rva004112A0 releaseBuffer StringBase ctor; global g_00E02FF8;
+// rva004112A0 releaseBuffer StringBase ctor; global g_Va00E02FF8;
 // sbb-inc is unsigned char per shape guide.
 #include "ascii_string.h"
 
@@ -35,9 +35,8 @@ namespace AptUtils
 }
 
 #include "../../Include/GameLogic/Rva000427195.h"
-// g_00E02FF8 is loader-zeroed BSS (RVA 0xA02FF8 is zero-filled PE data);
-// it holds the Rva000427195 table pointer once runtime initializes it.
-unsigned int g_00E02FF8;
+// The hash map at 0x00E02FF8, built by Rva004121B2HashMapInits.cpp; Rva004110DCGet.cpp reads what this registers.
+extern unsigned g_Va00E02FF8;
 
 // The leaf-name key is a full-expression temporary (retail destroys it after the table
 // store and shares its stack slot with the other temporaries); the pointer view keeps it
@@ -62,6 +61,6 @@ void *Rva004118B4(const char *path, const char *params)
 	obj->f1();
 	obj->m_04 = AptUtils::LevelIndexFromTarget(path);
 	obj->f2(AptUtils::SlashPath2DotPath(path), renderObj, animMode);
-	*(void **)((Rva000427195 *)&g_00E02FF8)->rva004112A0(addressOf(AsciiString(leaf))) = obj;
+	*(void **)((Rva000427195 *)&g_Va00E02FF8)->rva004112A0(addressOf(AsciiString(leaf))) = obj;
 	return obj;
 }

@@ -240,6 +240,7 @@ address_global	Code/GameEngine/Source/Common/Rva003FEE43.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/Rva003FEECB.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/Rva003FEF80.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva003FF02EPowerCap.cpp	g_Va007C9260	3
+address_global	Code/GameEngine/Source/Common/Rva004118B4AssetCreate.cpp	g_Va00E02FF8	2
 address_global	Code/GameEngine/Source/Common/Rva004121B2HashMapInits.cpp	g_Va00E02FF8	2
 address_global	Code/GameEngine/Source/Common/Rva004121B2HashMapInits.cpp	g_Va00E0300C	2
 address_global	Code/GameEngine/Source/Common/Rva0041355DParse.cpp	g_Va00BBB8D8	4
