@@ -110,3 +110,11 @@ another worker: its cached getter bytes/literal pass read-only checks, but
 its full strict receipt remains absent. Full classes/tables, that receipt
 and next-image confirmation remain open; no image/runtime gain is claimed.
 [Operand, provider and scope evidence](../../reverse/attempt_support/particle-terrain-copy-bindings-20261108/README.md).
+
+Published as 93b020e848 on attempt two (39.7 seconds for that attempt).
+Required checks pass. The broader audit is INCONCLUSIVE: index c885072a48
+versus outgoing base 7f2a947b2b3921105c072485964426740fef0357, with the three
+removed char names reported as provisional loss candidates through an
+unread object and zero proven newly unresolved names. The scoped consumer
+proof found no outside live consumer. Carry those names and the held
+getter receipt into the next census/image; no full-link clearance is claimed.

@@ -627,3 +627,9 @@ binding the factory-witnessed compiler symbols instead. Both rows remain
 exact; bounded replay removes the three strong refusals with the same
 three bridges/nine slots. LINK-636 and the copy-binding packet retain the
 held ConstIntGetters4 receipt gap and full-class/table recovery boundary.
+
+Published as 93b020e848 (second attempt, 39.7 seconds). Required checks pass;
+the broader audit remains INCONCLUSIVE with three provisional old-char
+loss candidates through an unread object, despite no scoped outside live
+consumer and zero proven newly unresolved names. LINK-636 records the
+index/base and next-census/image follow-up; bridge counts are unchanged.

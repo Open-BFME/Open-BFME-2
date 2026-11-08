@@ -40,3 +40,12 @@ All other supporting sources have current receipts. Carry this receipt gap
 into the next census/image check; the bounded replay is not full current
 link closure. Full table/class recovery and real-image confirmation remain
 open. No donor path, coverage, census or runtime gain is claimed.
+
+Published as 93b020e848 on attempt two (39.7 seconds for the successful
+attempt). Required byte, EH, data and scoped-DIR32 checks pass. The broader
+audit remains INCONCLUSIVE against index c885072a48 and outgoing base
+7f2a947b2b3921105c072485964426740fef0357: it reports the three removed
+stand-ins as provisional loss candidates through an unread object. The
+scoped source/index consumer proof above found no outside live consumer;
+the old names and held getter receipt still require next-census/image
+confirmation. The hook reports zero proven newly unresolved names.
