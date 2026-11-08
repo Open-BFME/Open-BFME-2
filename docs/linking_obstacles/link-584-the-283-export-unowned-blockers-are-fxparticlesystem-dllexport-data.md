@@ -403,3 +403,63 @@ header's retail facts), and `v1` aliased to `__purecall` against `__purecall`. T
 Follow-up, the Link lane's next after landing unless the header's owner gets there first: reconcile
 `FXParticleSystem.cpp` with the shared 4-slot base. It needs the copy constructors written out, since an abstract
 category can no longer force them with `new (storage)`, and real `getClass`/`writeINI` on its concrete classes.
+
+**2026-11-08 the anchor patch above is superseded by `41719888fc` (LINK-636),** which adds the same constructor
+declarations in V02, V03 and V05. The patch file no longer applies and is kept only as the record of that measurement. A
+diagnostic link with that patch on `1e3153af8c` confirmed it with a real linker: 0 `LNK2005`, no `LNK1169`, image written.
+LINK-636 also took the three pure slots out of `FXModuleTemplateBase.h`, so the "4 slots" comparison in the note above no
+longer describes the header: its `CategoryModuleTemplate<N>` now has one `6BModuleTemplate` slot, while the retail facts at
+the top of that header still describe four.
+
+**2026-11-08 the vtable half: nested category shape landed (swarm Link lane).** Ten units take retail's
+`CategoryModuleTemplateBase<N> : ModuleTemplate, CategoryModuleInfo<N>` in place of `SecondaryModuleBase`, and
+`CategoryModuleTemplate<N>` loses its `v1`, so all 21 table names shared with `FXModuleTemplateBase.h` agree. The nine `?v1@`
+alternatenames go. `DefaultModuleTemplate<7>` and Hemispherical's constructors are real classes instead of stores of one-byte
+placeholder addresses.
+
+Measured with a real linker, one before/after pair on one tree (master `0fbd488b31` + the `p43-boot2` stack less its P36
+diagnostic, TEST ONLY images `97b1300eb4` and `265ef41f34`, path order):
+
+| | before | after |
+|---|---:|---:|
+| Stubbed names | 107 | **29** (exactly the 78 go; nothing new) |
+| Of the 78 `??_7` names | 78 | **0** |
+| `LNK2005` / `LNK1169` | 0 | 0 |
+| Bridged tables / already correct / refused | 5,075 / 602 / 240 | 5,078 / 618 / 238 |
+| Unindexed bindings | 19 | 23 |
+| `image_iso` defects | 1,559 | 1,576 (10 fixed, 27 new) |
+| Boot | crash dialog, "The ThingTemplate does not exist in AwardSystemManager" | the same dialog |
+
+The 29 left: 14 `$S` guards, 12 `ModuleTag` KEY/NAME, 2 `Matrix4D` and `??1Rva0022B12DSubsystem`. These stub counts are from
+diagnostic links; the next real link is the authoritative count.
+
+Which copy wins, read from the after image's map: every `CategoryModuleTemplate<N>::6BModuleTemplate` is provided by
+`retail_vtables.obj` (the bridge), so no table comes out short from the two shapes meeting. `Point`, `Box` and
+`SphereEmissionVolumeModuleTemplate::6B@` were `diagnostic_stubs.obj` before and are bridged after.
+
+*The 27 new `image_iso` entries.*
+- 24 `no_object_retail_nonzero`: ledger rows whose name no object has any more, 22 `ConcreteModuleTemplate` rows still spelled
+  `6B<Info>@1@@` plus `_DefaultModuleTemplate6_vtbl0` (0x0081BFA4) and `_HemisphericalEmissionVelocityModuleTemplate_cvtbl0`
+  (0x0081BC60). Expected to clear with a ledger refresh; `no_object_defines_it` should rise by about as many until then. On the
+  earlier after image, none of the 22 stopped being bridged (`vtable_bridge.discover_table_names` binds current names by
+  address). 0x0081BC60 and 0x0081BFA4 are newly unindexed and stay unbridged until the refresh, keeping their compiled table.
+- 3 `vtable_short` at 0x0081BAE0, 0x0081BB40 and 0x0081BB70. **This is a reading, shown here, not proven beyond it: the same
+  defect relabelled, not a new one.** The same three addresses are among the 10 fixed:
+
+| address | before: `image_iso` | after: `image_iso` | bridge refusal, both images | placeholder in the map, before / after |
+|---|---|---|---|---|
+| 0x0081BAE0 | `mapping_ambiguous` `??_7PointEmissionVolumeModuleTemplate…6BEmissionVolumeInfo@1@@` | `vtable_short` `_PointEmissionVolumeModuleTemplate_csub_vtbl` | `strong-definition`, 4 slots | 0x10BDB460 / 0x10BDB43C |
+| 0x0081BB40 | `mapping_ambiguous` `??_7BoxEmissionVolumeModuleTemplate…6BBoxEmissionVolumeInfo@1@@` | `vtable_short` `_BoxEmissionVolumeModuleTemplate_csub_vtbl` | `strong-definition`, 4 slots | 0x10BDB429 / 0x10BDB409 |
+| 0x0081BB70 | `mapping_ambiguous` `??_7SphereEmissionVolumeModuleTemplate…6BSphereEmissionVolumeInfo@1@@` | `vtable_short` `_SphereEmissionVolumeModuleTemplate_csub_vtbl` | `strong-definition`, 4 slots | 0x10BDB46F / 0x10BDB44B |
+
+  The three placeholders are one-byte `char`s in their `*CopyCtorThunk.cpp` units, untouched here, present and refused in both
+  images. With the old table name gone, `image_iso` maps each address to the placeholder alone and reports it short. The defect
+  under the label is real and older: those copy constructors install a one-byte address as a vtable pointer. Next: the same
+  conversion for Box, Point, Sphere and Butterfly (swarm Link lane, checking claims with Static defects).
+
+Bytes and startup on the tree it was rebased to: see the commits. Startup order for `FXParticleSystem.cpp` goes from 77 to 68 CRT
+actions, the 9 removed being the invented `g_categoryModuleTemplate<N>` objects' own, the other 68 unchanged in order, bytes
+and relocations; Modules (121) and Factories (55) unchanged.
+
+Not done: the 12 KEY/NAME (LINK-615: startup order) and 14 guards. Re-measure the KEY/NAME trial against this shape, as the note
+above asks.
