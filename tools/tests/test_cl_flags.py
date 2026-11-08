@@ -264,3 +264,33 @@ def test_build_passes_allowed_flags_through_unchanged(scratch):
                       encoding="utf-8")
     assert build.source_extra_flags(source) == ["-O1", "-Ob2", "-EHsc", "-MD", "-DNDEBUG",
                                                 "-Ireference/shims/include"]
+
+
+# ------------------------------------------------- reads a source directs itself (round 3)
+READ_DIRECTIVES = [
+    ('#import "Z:\\evil.tlb"', ["#import"]), ("  #  using <x.dll>", ["#using"]),
+    ('#pragma include_alias("a.h", "/etc/passwd")', ["#pragma include_alias"]),
+    ('__pragma(include_alias("a.h", "b.h"))', ["#pragma include_alias"]),
+    ('??=import "x.tlb"', ["#import"]),                         # a trigraph for #
+    ('#imp\\\nort "x.tlb"', ["#import"]),                      # a line splice inside the name
+    ('#\\\npragma include_alias("a.h", "b.h")', ["#pragma include_alias"]),
+    ('# /* comment */ import "x.tlb"', ["#import"]),            # a comment is whitespace
+    ('int x;\r#import "x.tlb"', ["#import"]),                   # a lone carriage return
+]
+NOT_READ_DIRECTIVES = ["using namespace std;", "// #import x", "/* #import y */", 'const char *s = "#import";',
+                       '#include "import.h"', "#pragma once", "int using_x;", "#pragma warning(disable: 4786)"]
+
+
+@pytest.mark.parametrize("text, names", READ_DIRECTIVES)
+def test_a_file_reading_directive_is_found_as_the_preprocessor_finds_it(text, names):
+    assert cl_flags.read_directives(text) == names
+
+
+@pytest.mark.parametrize("text", NOT_READ_DIRECTIVES)
+def test_lookalikes_are_not_read_directives(text):
+    assert cl_flags.read_directives(text) == []
+
+
+def test_master_s_sources_hold_no_read_directive():
+    import conversion_gate
+    assert conversion_gate.tree_read_directives("HEAD") == []

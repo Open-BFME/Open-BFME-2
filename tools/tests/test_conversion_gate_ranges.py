@@ -560,3 +560,25 @@ def test_rule_f_refuses_a_committed_symlink_and_a_stray_gitlink(repo, monkeypatc
     assert gate.main() == 1
     assert gate.link_kind("160000", "reference/open-bfme-1") is None
     assert gate.link_kind("160000", "reference/other") == "a gitlink"
+
+
+@pytest.mark.parametrize("line, code", [
+    ('#import "Z:\\\\evil.tlb"', 1), ("#using <evil.dll>", 1), ('#pragma include_alias("a.h", "/etc/passwd")', 1),
+    ('??=import "x.tlb"', 1), ("using namespace std;", 0), ('#include "../Include/import.h"', 0),
+])
+def test_rule_f_refuses_file_reading_directives(repo, monkeypatch, line, code):
+    # Round 3: #import, #using and include_alias read files a source names; master uses none.
+    git, write, commit, base = repo
+    write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
+    tip = commit()
+    assert check_main(monkeypatch, base, tip) == code
+    monkeypatch.setattr(sys, "argv", ["conversion_gate.py", "--cl-tree", tip])
+    assert gate.main() == code
+
+
+def test_rule_f_reads_a_spliced_directive_across_an_unchanged_line(repo, monkeypatch):
+    git, write, commit, base = repo
+    write("Code/Old.cpp", "#imp\\\nint old() { return 1; }\n")
+    first = commit()
+    write("Code/Old.cpp", '#imp\\\nort "x.tlb"\nint old() { return 1; }\n')
+    assert check_main(monkeypatch, first, commit()) == 1

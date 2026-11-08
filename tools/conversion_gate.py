@@ -50,7 +50,10 @@ Rule F: an added `// cl:` line under Code/ carries only the flags tools/cl_flags
         time, for every source, judged here or not. Rule F also refuses a commit adding a
         symlink anywhere, or a gitlink other than reference/open-bfme-1: Wine and cl.exe
         follow a link out of the checkout (an include path is walked on disk at compile
-        time too, cl_flags.walk). Master holds neither.
+        time too, cl_flags.walk). Master holds neither. And it refuses #import, #using and
+        #pragma include_alias (or __pragma) in a changed Code/ file, read as the
+        preprocessor reads it (cl_flags.read_directives): they make the compiler read files
+        a source names, #import writes .tlh/.tli files too, and master uses none of them.
 """
 
 from collections import Counter
@@ -206,6 +209,61 @@ def tree_links(commit):
             if kind:
                 found.append((path, kind))
     return found
+
+
+def _blobs(specs):
+    """The contents of git object specs (b"<commit>:<path>" or b":<path>"), read by one cat-file."""
+    batch = subprocess.run(["git", "cat-file", "--batch"], input=b"".join(spec + b"\n" for spec in specs),
+                           capture_output=True, check=True).stdout
+    out, at = [], 0
+    for _spec in specs:
+        header_end = batch.index(b"\n", at)
+        header = batch[at:header_end].split()
+        if len(header) < 3 or header[1] != b"blob":
+            out.append(None)
+            at = header_end + 1
+            continue
+        size = int(header[2])
+        out.append(batch[header_end + 1:header_end + 1 + size])
+        at = header_end + 1 + size + 1
+    return out
+
+
+def read_directive_refusals(specs):
+    """[(path, refusal)] for each Code/ text blob holding #import, #using or include_alias."""
+    import cl_flags
+    found = []
+    for spec, blob in zip(specs, _blobs(specs)):
+        if blob is None or b"\0" in blob[:8192]:
+            continue
+        names = cl_flags.read_directives(blob.decode("utf-8-sig", errors="replace"))
+        if names:
+            found.append((spec.decode("utf-8", "replace").split(":", 1)[1], ", ".join(names)))
+    return found
+
+
+def added_read_directives(old, new):
+    """read_directive_refusals over every Code/ file the change adds or changes, whole (a line
+    splice can assemble a directive from an unchanged line and an added one)."""
+    if old is None:
+        cmd = ["git", "diff-tree", "--root", "-r", "--name-only", "-z", "--diff-filter=ACMR", new, "--", "Code/"]
+    elif new == ":":
+        cmd = ["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR", old, "--", "Code/"]
+    else:
+        cmd = ["git", "diff", "--name-only", "-z", "--diff-filter=ACMR", old, new, "--", "Code/"]
+    names = [name for name in subprocess.run(cmd, capture_output=True, check=True).stdout.split(b"\0")
+             if name.startswith(b"Code/")]
+    prefix = b":" if new == ":" else new.encode() + b":"
+    return read_directive_refusals([prefix + name for name in names])
+
+
+def tree_read_directives(commit):
+    """read_directive_refusals over every Code/ file of `commit` that could hold one."""
+    listing = subprocess.run(["git", "grep", "-l", "-z", "-I", "-E", "import|using|include_alias|[?][?]",
+                              commit, "--", "Code/"], capture_output=True)
+    if listing.returncode not in (0, 1):
+        raise SystemExit("conversion gate: git grep failed: " + listing.stderr.decode(errors="replace"))
+    return read_directive_refusals([name for name in listing.stdout.split(b"\0") if name])
 
 
 def tree_cl_refusals(commit):
@@ -523,6 +581,8 @@ def main():
         found = tree_cl_refusals(sys.argv[2])
         found += [(path, f"{kind}: Wine and cl.exe follow a link out of the checkout")
                   for path, kind in tree_links(sys.argv[2])]
+        found += [(path, f"{names}: the compiler reads (and #import writes) files the source names")
+                  for path, names in tree_read_directives(sys.argv[2])]
         for path, refusal in found:
             print(f"conversion gate: {path}: a `// cl:` line tools/cl_flags.py refuses: {refusal}",
                   file=sys.stderr)
@@ -557,6 +617,11 @@ def main():
               "would run on every machine that builds this commit, and an include path must stay\n"
               "inside the checkout. A new code-generation flag is a reviewed edit to cl_flags.py."
               % (path, refusal), file=sys.stderr)
+    for path, names in by_trees("read-directives", old, new, lambda: added_read_directives(old, new)):
+        failed = True
+        print("conversion gate: %s: %s. These make the compiler read files the source names (#import\n"
+              "also writes .tlh/.tli files), which no `// cl:` allowlist governs; master uses none."
+              % (path, names), file=sys.stderr)
     for path, kind in by_trees("links", old, new, lambda: added_links(old, new)):
         failed = True
         print("conversion gate: %s: adds %s. Wine and cl.exe follow a link out of the checkout,\n"

@@ -180,3 +180,30 @@ def directive_split(text):
 
 def describe(found):
     return "; ".join(f"{token!r} {reason}" for token, reason in found)
+
+
+# Reads a source directs itself, which no flag governs: #import reads a type library (and writes
+# .tlh/.tli files beside the object), #using an assembly, include_alias reroutes an #include to any
+# path. Master's sources use none of them, so conversion_gate Rule F refuses all three in Code/.
+TRIGRAPHS = {"??=": "#", "??/": "\\", "??'": "^", "??(": "[", "??)": "]", "??!": "|", "??<": "{",
+             "??>": "}", "??-": "~"}
+COMMENT_OR_LITERAL = re.compile(r'"(?:\.|[^"\\n])*"|\'(?:\.|[^\'\\n])*\'|/\*[\s\S]*?\*/|//[^\n]*')
+READ_DIRECTIVE = re.compile(r"^[ \t]*#[ \t]*(import|using)\b|^[ \t]*#[ \t]*pragma[ \t]+(include_alias)\b"
+                            r"|\b__pragma[ \t]*\([ \t]*(include_alias)\b", re.M)
+
+
+def read_directives(text):
+    """The file-reading directives in source `text` (#import, #using, include_alias by #pragma or
+    __pragma), found as the preprocessor finds them: trigraphs replaced, line splices joined,
+    comments blanked (line breaks kept), any \r taken as a line break."""
+    for trigraph, char in TRIGRAPHS.items():
+        text = text.replace(trigraph, char)
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = re.sub(r"\\\n", "", text)
+    text = COMMENT_OR_LITERAL.sub(lambda m: m.group() if m.group()[0] in "\"'"
+                                  else "".join("\n" if c == "\n" else " " for c in m.group()), text)
+    found = []
+    for match in READ_DIRECTIVE.finditer(text):
+        name = next(group for group in match.groups() if group)
+        found.append("#pragma include_alias" if name == "include_alias" else f"#{name}")
+    return sorted(set(found))
