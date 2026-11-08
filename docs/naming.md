@@ -700,6 +700,10 @@ folds the placeholder into the name the class's vftable already carries:
 It takes no `--basis`: no name is invented, and retail is the evidence. It
 refuses unless all of these hold:
 
+  A compiled `??_E` of C also agrees with retail's word when C's own `??_G` row
+  sits at exactly that word and `??_E` has no row of its own: the compiler's table
+  names the vector deleting destructor where retail holds the scalar one. That
+  holds only within C's own table, so it is not a general equivalence of the names.
 - OLD is a placeholder (`tools/name_metric.py`). A readable name never folds:
   into a placeholder only a `restored` revert may go, and choosing between two
   readable names is a naming decision. NEW may be readable; it keeps its basis.

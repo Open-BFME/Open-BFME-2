@@ -875,3 +875,49 @@ def test_a_method_with_no_statics_leaves_the_ledger_alone(tree, monkeypatch):
     p = plan(tree)
     assert "reverse/data_ledger.csv" not in p.after
     assert "statics" not in p.to_class
+
+
+# ------------------------------------------------------------ a compiled ??_E against retail's ??_G row
+
+VECTOR = "??_EWidget@@UAEPAXI@Z"
+TWO_SLOTS = {TABLE: ([0x00403040, 0x00401000], {CTOR_STORE: 0})}
+
+
+def test_a_compiled_e_agrees_with_retails_g_row_of_its_class(tree, monkeypatch):
+    # P36's table: the deleting destructor and the moved slot, nothing else to agree with
+    retail(monkeypatch, TWO_SLOTS, compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [VECTOR, NEW]}})
+    assert plan(tree).to_class["slot"] == 1
+
+
+@pytest.mark.parametrize("slot_zero", [
+    "??_EOther@@UAEPAXI@Z",             # another class's
+    "??_EWidget@@QAEPAXI@Z",            # a different spelling: no ??_G row carries it
+])
+def test_an_e_that_is_not_this_classs_does_not_agree(tree, monkeypatch, slot_zero):
+    retail(monkeypatch, TWO_SLOTS, compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [slot_zero, NEW]}})
+    with pytest.raises(Refusal, match="does not prove the slot"):
+        plan(tree)
+
+
+def test_an_e_does_not_agree_when_its_g_row_is_elsewhere(tree, monkeypatch):
+    # retail's slot 0 holds some other body, not this class's ??_G row
+    tables = {TABLE: ([0x00405000, 0x00401000], {CTOR_STORE: 0})}
+    retail(monkeypatch, tables, compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [VECTOR, NEW]}})
+    with pytest.raises(Refusal, match="does not prove the slot"):
+        plan(tree)
+
+
+def test_an_e_with_its_own_row_is_judged_by_that_row(tree, monkeypatch):
+    # a rowed ??_E elsewhere is a clash, whatever the ??_G row says
+    functions = (tree / "reverse/functions.csv").read_text() + f"{VECTOR},,0x00405100,28,Code/Game/Widget.cpp,matched,\n"
+    (tree / "reverse/functions.csv").write_text(functions)
+    retail(monkeypatch, TWO_SLOTS, compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [VECTOR, NEW]}})
+    with pytest.raises(Refusal, match="does not prove the slot"):
+        plan(tree)
+
+
+def test_an_e_in_another_classs_table_is_not_judged(tree, monkeypatch):
+    compiled = {"Code/Game/Widget.cpp": {"??_7Other@@6B@": ["??_EOther@@UAEPAXI@Z", NEW]}}
+    retail(monkeypatch, TWO_SLOTS, compiled=compiled)
+    with pytest.raises(Refusal, match="does not prove the slot"):
+        plan(tree)

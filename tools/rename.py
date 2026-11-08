@@ -5581,6 +5581,17 @@ def _vtable_class(symbol):
     return match.group(1) if match else None
 
 
+def deleting_slot_agrees(name, cls, word, address):
+    """Does slot name `name` of class `cls`'s own compiled table agree with retail's slot `word`
+    because it is the deleting destructor? The compiler's table names the vector deleting
+    destructor ??_E, where retail's table holds the scalar one rowed ??_G (MSVC folds the two):
+    342 of 342 compiled tables sampled do so. That counts only for this class's own ??_E, unrowed,
+    with this class's ??_G row at exactly that word: no general equivalence of the two names."""
+    found = special_member(name)
+    return bool(found and found[0] == "_E" and found[1] == cls and name not in address
+                and address.get("??_G" + name[len("??_E"):]) == word)
+
+
 def to_class_slot_problems(ctx, check, *, current=True):
     """Why the vftable `check['cls']`'s installer units compile does not name
     `check['new']` in retail's slot `check['slot']`: [] when every installer
@@ -5608,7 +5619,10 @@ def to_class_slot_problems(ctx, check, *, current=True):
     A retail table of exactly one slot has no other slot to agree with: a
     compiled copy of exactly one slot that names the moved symbol in it is
     the matching table (the plan already proved the class's special member
-    installs that table and that no other table holds the address)."""
+    installs that table and that no other table holds the address).
+
+    A compiled ??_E of the class agrees with retail's ??_G row of that class in
+    its slot (deleting_slot_agrees)."""
     cls, retail = check["cls"], check["retail"]
     wanted = {int(k): v for k, v in (check.get("slots") or {check["slot"]: check["new"]}).items()}
     address = {}
@@ -5638,7 +5652,8 @@ def to_class_slot_problems(ctx, check, *, current=True):
             match = VTABLE_NAME.match(symbol)
             if not match or match.group(1) != cls:
                 continue
-            agree = {j for j, name in enumerate(names) if j < len(retail) and address.get(name) == retail[j]}
+            agree = {j for j, name in enumerate(names) if j < len(retail)
+                     and (address.get(name) == retail[j] or deleting_slot_agrees(name, cls, retail[j], address))}
             clash = {j for j, name in enumerate(names) if name in address
                      and (j >= len(retail) or not same_slot_body(ctx, address[name], retail[j]))}
             # each moved slot is judged by the slots other than itself
