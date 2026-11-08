@@ -98,3 +98,29 @@ the exit link's initializer bridge. When the merge becomes possible, it should d
 
 Then check that the image's `.CRT$XCU` puts the strings first, using link_check, the census or
 `tools/image_iso.py`'s initializer report.
+
+## Tooling measurements and decision (2026-11-07)
+
+Measured on the retail image with the map rebuilt in memory (base 7fd11cc6a2). Probe scripts
+are on srv1 in `~/bfme2-ops/seat5-tools/build/blockparse_probe.py` and `blockparse_order.py`.
+
+- **(a) The BlockParse-link rule fails its gate.**
+  - The `.CRT$XCU` table holds 1,166 initializers. 130 of them link a BlockParse node onto
+    theBlockParseList (one list head).
+  - 69 of those nodes' parse callbacks have an approved TU. None of the 130 initializers has a TU
+    of its own, so `--validate`'s leave-one-out over approved F/Z/S rows can never score the rule.
+  - Retail-intrinsic check: `.CRT$XCU` and `.text` are both in object order. The 69 anchored links,
+    sorted by table slot, keep the order of their TUs' `.text` spans in only 62 of 69 cases
+    (0.8986). The seven out of order are ControlBar.cpp, CrateSystem.cpp, DamageFX.cpp,
+    GlobalData.cpp, SpecialPower.cpp, Upgrade.cpp and Weapon.cpp.
+- **(b) The parser has no route.** No signal reaches any row in 0x003EE600..0x003EF800 (no
+  evidence row). Rva0022B0B8Subsystem (ctor 0x003EF5A3, vftable 0x00C363D8, built on
+  SubsystemInterface) is not LivingWorldRegionEffectsManager (ctor 0x003EEAFB, vftable 0x00C363C8),
+  so no class fold extends the provisional group over the parser. P32's own link 0x007AFC11 is
+  therefore not anchored either.
+- **(c) I bracketing cannot reach the strings.** Nothing anchors an initializer below them
+  (0x007AF8CD is unanchored, and other units' initializers precede it).
+
+Decision (orchestrator, 2026-11-07): no TU-approval exception for this run. The fix goes to the
+Link lane: order the exit link's objects by retail's `.CRT$XCU` sequence, which fixes initializer
+order in general.
