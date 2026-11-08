@@ -1266,6 +1266,10 @@ class Verifier:
                 errors = [TIMEOUT_REASON]     # the compile was killed: no diagnostics, and no acceptance
             else:
                 errors = [l.strip() for l in (msg or "").splitlines() if " error " in l]
+                # no ` error ` line (a crash, a Wine fault, a fatal message): its last lines, never
+                # nothing (Merge lane 2, 2026-11-07: an empty `compile:` reason)
+                errors = errors or [l.strip() for l in (msg or "").splitlines() if l.strip()][-3:] or [
+                    f"the compiler exited {code} with no output"]
             # attempt() uses redefinition diagnostics to choose its next text.
             # A cached failure must restore its own errors, not the last trial's.
             self.cache[key] = (obj if ok else None, errors)
@@ -2160,6 +2164,12 @@ def merge_plan_inputs(sk, don, mixed, refused):
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+# 2: rejection reasons carry the failing compile's own diagnostics (an earlier plan could hold an
+# empty `compile:` reason, Merge lane 2, 2026-11-07); plans saved before are searched again.
+PLAN_VERSION = 2
+EMPTY_REASON = re.compile(r"\s*(?:compile|bytes|link)\s*:\s*")
+
+
 def load_merge_plan(tu, state, inputs):
     return load_verified_plan(merge_plan_path(tu), state, inputs)
 
@@ -2173,7 +2183,15 @@ def load_verified_plan(path, state, inputs):
         return None
     if not isinstance(plan, dict):
         return None
-    if (plan.get("version"), plan.get("state"), plan.get("inputs")) != (1, state, inputs):
+    if (plan.get("version"), plan.get("state"), plan.get("inputs")) != (PLAN_VERSION, state, inputs):
+        return None
+    rejected = plan.get("rejected")
+    if isinstance(rejected, dict) and any(isinstance(why, str) and EMPTY_REASON.fullmatch(why)
+                                          for why in rejected.values()):
+        try:                 # a reason with no diagnostic: the plan is stale, drop it and search again
+            path.unlink()
+        except OSError:
+            pass
         return None
     return plan
 
@@ -2187,7 +2205,7 @@ def save_verified_plan(path, state, inputs, plan):
         return  # inputs changed during verification; a later apply must search again
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + f".{os.getpid()}.tmp")
-    temporary.write_text(json.dumps({"version": 1, "state": state, "inputs": inputs, **plan}),
+    temporary.write_text(json.dumps({"version": PLAN_VERSION, "state": state, "inputs": inputs, **plan}),
                          encoding="utf-8")
     temporary.replace(path)
 
@@ -2223,6 +2241,10 @@ def reuse_merge_plan(tu, don, report, plan, dry_run):
     carry = Carry(ROOT, tu, acc, texts, text, plan.get("verifier_flags"))
     if carry.problems:
         return None
+    why = map_regressions(tu, acc)
+    if why:                  # not a stale plan: today's map would lose an approval either way
+        report.update(accepted=acc, rejected=plan["rejected"], blocked=why)
+        return report
     if plan.get("state") and merge_plan_state() != plan["state"]:
         return None  # a source changed during the final check
     report.update(accepted=acc, rejected=plan["rejected"], flags=plan.get("flags", []),
@@ -2428,14 +2450,18 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
             flag_sets.append(fl)
 
     link_why = {}
+    failed_errors = []      # attempt()'s: the diagnostics of the compile that decided a "compile" result
 
     def attempt(files, flags):
+        nonlocal failed_errors
         best = None
+        failed_errors = []
         need = set().union(*(base[f] for f in files))
         rows = [r for f in files for r in don[f]]
         if fixed_text is not None:          # a prepared TU text: judged as it is, every baseline row in it
             got = v.matched(fixed_text, rows)
             if got is None:
+                failed_errors = list(v.errors)
                 return "compile"
             if not need <= got:
                 return "bytes"
@@ -2461,6 +2487,8 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 link_why[tuple(files)] = why
                 best = "link"   # matched, but a unit that links would stop linking
                 continue
+            if best is None and got is None:
+                failed_errors = list(v.errors)  # a later strategy's compile must not stand in for this one's
             best = best or ("compile" if got is None else "bytes")
         return best
 
@@ -2486,7 +2514,8 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         already compiled (a bisected chunk whose first half was accepted)."""
         key = (tuple(files), tuple(flags))
         if key not in tried:
-            tried[key] = (attempt(files, flags), list(v.errors))
+            res = attempt(files, flags)
+            tried[key] = (res, list(failed_errors) if res == "compile" else list(v.errors))
         return tried[key]
 
     def greedy(order, flags, floor=None):
@@ -2607,7 +2636,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
     if text in ("compile", "bytes", "link"):   # the accepted set no longer re-verifies (a flaky compile, an ICE):
         report["rejected"].update(rej)          # never write the failure token as the TU's text
         report["blocked"] = (f"the accepted donors did not re-verify ({text}"
-                             + (": " + " | ".join(v.errors)[:300] if text == "compile" else "")
+                             + (": " + " | ".join(failed_errors)[:300] if text == "compile" else "")
                              + (": " + "; ".join(link_why[tuple(acc)][:3])[:300] if text == "link" else "") + ")")
         return report
     if ov:   # the TU spells the override's flags (flag_defaults check)
@@ -2620,6 +2649,10 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         report.update(carry.report())
         if carry.problems:
             report["blocked"] = "protected registers: " + "; ".join(carry.problems[:5])
+            return report
+        why = map_regressions(tu, acc)
+        if why:
+            report["blocked"] = why
             return report
     if dry_run:
         if applier is None:
@@ -5645,6 +5678,42 @@ def refresh_reports(root, gone, tu, text):
     if changed:
         moved["reverse/ms_header_queue.tsv"] = 1
     return moved
+
+
+CONFIDENCE_RANK = {"approved": 3, "proposed": 2, "displaced": 1}
+
+
+def map_regressions(tu, accepted):
+    """Why merging `accepted` into `tu` would cost the map an approval, or None. The map is
+    rebuilt in memory (tu_map.build, a pure function of its inputs) over the ledger as the
+    merge leaves it, every row of an accepted file repointed to `tu`, and compared with the
+    current one (map_rows): N hints follow a file's directory, so moving one file of a
+    provisional group can leave a sibling with no interleaving cluster (Merge lane 2,
+    2026-11-07: relocating Upgrade/BaseUpgrade.cpp alone dropped 0x004B37CA from approved to
+    proposed, and its funclets stayed approved for the deleted path). Refuses when any code
+    row's confidence falls (approved > proposed > displaced > none), or when a row the
+    rebuilt map approves or proposes names a path the merge deletes."""
+    moved = set(accepted)
+    gone = {f.lower() for f in accepted if f.lower() != tu.lower()}
+    ledger = [dict(r, source=tu) if r.get("source") in moved else r
+              for r in tu_map.read_csv(LAYOUT.path("functions.csv"))]
+    before = {r["rva"].lower(): r for r in map_rows() if r["kind"].startswith("code")}
+    after = {str(r["rva"]).lower(): {k: str(v) for k, v in r.items()}
+             for r in tu_map.build(LAYOUT, ledger) if str(r["kind"]).startswith("code")}
+    lowered = []
+    for rva, b in sorted(before.items()):
+        a = after.get(rva) or {"confidence": "", "tu": ""}
+        if CONFIDENCE_RANK.get(a["confidence"], 0) < CONFIDENCE_RANK.get(b["confidence"], 0):
+            lowered.append(f"{rva} {b['confidence']} {b['tu'] or '-'} -> {a['confidence'] or 'none'} {a['tu'] or '-'}")
+    orphaned = sorted(f"{rva} {a['confidence']} {a['tu']}" for rva, a in after.items()
+                      if a["tu"] and a["tu"].lower() in gone and a["confidence"] in ("approved", "proposed"))
+    if not lowered and not orphaned:
+        return None
+    return ("the merge would cost the map approvals (rebuilt in memory after the move): "
+            + "; ".join(([f"{len(lowered)} lowered: " + ", ".join(lowered[:4])] if lowered else [])
+                        + ([f"{len(orphaned)} placed in a path the merge deletes: " + ", ".join(orphaned[:4])]
+                           if orphaned else []))
+            + " (move the group's files together)")[:600]
 
 
 def apply(tu, accepted, text, root=ROOT, carry=None):

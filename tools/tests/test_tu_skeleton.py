@@ -16,6 +16,16 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import tu_skeleton as T
 
+REAL_MAP_REGRESSIONS = T.map_regressions
+
+
+def setUpModule():
+    """A merge rebuilds the map in memory to judge its approvals (tu_map.build, about 40 s on the
+    real tree): stubbed to pass here; MergeMapRegressionTests drives the real one."""
+    patcher = patch.object(T, "map_regressions", return_value=None)
+    patcher.start()
+    unittest.addModuleCleanup(patcher.stop)
+
 HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
 
@@ -2446,6 +2456,185 @@ class StlStaticFlagTests(unittest.TestCase):
             self.assertEqual(T.stl_static(flags), flags)
 
 
+class MergeMapRegressionTests(unittest.TestCase):
+    """Merge lane 2 (2026-11-07, re_attempts 68ced52f6d): a merge must not cost the map an
+    approval or leave a row placed in a path it deletes; the map is rebuilt in memory after the move."""
+    TU, MOVED, SIBLING = "Code/Behavior/BaseUpgrade.cpp", "Code/Upgrade/BaseUpgrade.cpp", "Code/Upgrade/Impl.cpp"
+
+    def judge(self, before, after, accepted=None):
+        """REAL_MAP_REGRESSIONS over map rows `before`, with tu_map.build returning `after`; (why, ledger built)."""
+        ledger = [{"name": "?a@@YAXXZ", "target_rva": "0x00001000", "source": self.MOVED},
+                  {"name": "?b@@YAXXZ", "target_rva": "0x00002000", "source": self.SIBLING},
+                  {"name": "?c@@YAXXZ", "target_rva": "0x00003000", "source": "Code/Other.cpp"}]
+        built = []
+        row = lambda rva, conf, tu, kind="code": {"rva": rva, "size": "8", "kind": kind, "tu": tu, "confidence": conf,
+                                                  "by": "N", "evidence": "", "source": ""}
+        with patch.object(T, "map_rows", return_value=[row(*b) for b in before]), \
+                patch.object(T.tu_map, "read_csv", return_value=ledger), \
+                patch.object(T.tu_map, "build", side_effect=lambda layout, led: built.append(led) or [row(*a) for a in after]):
+            why = REAL_MAP_REGRESSIONS(self.TU, accepted or [self.MOVED])
+        return why, built[0]
+
+    def test_an_unchanged_map_passes_and_the_ledger_is_repointed_for_the_accepted_files_only(self):
+        rows = [("0x00001000", "approved", self.TU), ("0x00002000", "approved", self.TU)]
+        why, ledger = self.judge(rows, rows)
+        self.assertIsNone(why)
+        self.assertEqual([r["source"] for r in ledger], [self.TU, self.SIBLING, "Code/Other.cpp"])
+
+    def test_the_baseupgrade_repro_refuses(self):
+        # the sibling 0x004B37CA drops from approved to proposed for the path the move leaves; its funclets
+        # stay approved for the deleted path
+        before = [("0x00001000", "approved", self.TU), ("0x00002000", "approved", self.TU),
+                  ("0x00002100", "approved", self.TU, "code-interior")]
+        after = [("0x00001000", "approved", self.TU), ("0x00002000", "proposed", self.MOVED),
+                 ("0x00002100", "approved", self.MOVED, "code-interior")]
+        why, _ = self.judge(before, after)
+        self.assertIn("1 lowered: 0x00002000 approved", why)
+        self.assertIn("2 placed in a path the merge deletes", why)
+
+    def test_each_kind_of_loss_refuses(self):
+        cases = [([("0x00002000", "approved", self.TU)], [("0x00002000", "displaced", "")], "lowered"),
+                 ([("0x00002000", "proposed", self.TU)], [("0x00002000", "displaced", "")], "lowered"),
+                 ([("0x00002000", "displaced", "")], [("0x00002000", "", "")], "lowered"),
+                 ([("0x00002000", "approved", self.TU)], [], "lowered"),                    # gone from the map
+                 ([("0x00002000", "approved", self.TU)], [("0x00002000", "approved", self.MOVED)], "deletes"),
+                 ([("0x00002000", "proposed", self.SIBLING)], [("0x00002000", "proposed", self.MOVED.upper())],
+                  "deletes")]
+        for before, after, word in cases:
+            with self.subTest(before=before, after=after):
+                why, _ = self.judge(before, after)
+                self.assertIn(word, why)
+
+    def test_gains_and_untouched_paths_pass(self):
+        for before, after in (([("0x00002000", "proposed", self.SIBLING)], [("0x00002000", "approved", self.TU)]),
+                              ([("0x00002000", "", "")], [("0x00002000", "proposed", self.SIBLING)]),
+                              ([("0x00002000", "approved", self.SIBLING)], [("0x00002000", "approved", self.SIBLING)]),
+                              ([("0x00002000", "displaced", "")], [("0x00002000", "displaced", self.MOVED)])):
+            with self.subTest(before=before, after=after):
+                self.assertIsNone(self.judge(before, after)[0])
+
+    def test_a_merge_and_a_reused_plan_refuse_before_writing(self):
+        tu, donor = "Code/T.cpp", "Code/A.cpp"
+        texts = {tu: "seed", donor: "donor"}
+        don = {tu: [{"target_rva": "0x1000"}], donor: [{"target_rva": "0x1010"}]}
+
+        class Verifier:
+            fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: {})
+            errors, all_errors, flags = [], [], None
+
+            def __init__(self, *a, **k):
+                self.obj = "compiled.obj"
+
+            def matched(self, text, rows):
+                return {r["target_rva"] for r in rows}
+
+            def effective(self, text, rows):
+                return text
+
+        class Guard:
+            def __init__(self, *a):
+                pass
+
+            def load(self):
+                pass
+
+            def linked(self, files):
+                return []
+
+            def prepare(self, files):
+                return None
+
+            def judge(self, obj, files, text):
+                return []
+
+        carry = SimpleNamespace(report=lambda: {}, problems=[])
+        asked = []
+        for dry_run in (True, False):
+            with self.subTest(dry_run=dry_run), patch.object(T, "Verifier", Verifier), patch.object(T, "LinkGuard", Guard), \
+                    patch.object(T, "compose", return_value="composed"), patch.object(T, "Carry", return_value=carry), \
+                    patch.object(T, "map_regressions", side_effect=lambda t, acc: asked.append((t, list(acc))) or "lost"), \
+                    patch.object(T, "apply") as apply:
+                out = T._merge(tu, [], don, {"accepted": [], "rejected": {}}, dry_run, texts=texts)
+                self.assertEqual(out["blocked"], "lost")
+                self.assertNotIn("_plan", out)                    # nothing saved to reuse
+                apply.assert_not_called()
+        self.assertEqual(asked[-1], (tu, [tu, donor]))
+        plan = {"accepted": [donor], "text": "merged", "baseline": ["0x1010"], "rows": 1, "rejected": {},
+                "flags": [], "verifier_flags": None}
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)):
+            (Path(folder) / donor).parent.mkdir(parents=True)
+            (Path(folder) / donor).write_text("int a;\n")
+            with patch.object(T, "Verifier", Verifier), patch.object(T, "LinkGuard", Guard), \
+                    patch.object(T, "Carry", return_value=carry), \
+                    patch.object(T, "map_regressions", return_value="lost"), patch.object(T, "apply") as apply:
+                out = T.reuse_merge_plan(tu, {donor: don[donor]}, {}, plan, False)
+            self.assertEqual(out["blocked"], "lost")
+            apply.assert_not_called()
+
+
+class MergeDiagnosticReasonTests(unittest.TestCase):
+    """Merge lane 2 (2026-11-07): a reused or failed candidate reported `compile: ` with nothing after it."""
+
+    def test_the_reason_quotes_the_compile_that_failed_not_the_last_one(self):
+        # two composition strategies: the first fails to compile (C2011), the second compiles but loses bytes;
+        # the reason was read after the second, with no errors left
+        tu, donor = "Code/T.cpp", "Code/A.cpp"
+        texts = {tu: "seed", donor: "donor"}
+        don = {tu: [{"target_rva": "0x1000"}], donor: [{"target_rva": "0x1010"}]}
+
+        class Verifier:
+            fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: {})
+            errors, all_errors, flags = [], [], None
+
+            def matched(self, text, rows):
+                rvas = {r["target_rva"] for r in rows}
+                if "A.cpp" not in text:
+                    self.errors = self.all_errors = []
+                    return rvas
+                if text.endswith("FAIL"):
+                    self.errors = self.all_errors = ["t.cpp(3) : error C2011: 'BaseUpgrade' : 'class' type redefinition"]
+                    return None
+                self.errors = self.all_errors = []
+                return rvas - {"0x1010"}
+
+        def compose(tu_, sk, files, texts_, flags, st, *a):
+            return " ".join(files) + (" FAIL" if st == T.STRATEGIES[0] else f" {st}")
+
+        with patch.object(T, "Verifier", return_value=Verifier()), patch.object(T, "compose", side_effect=compose), \
+                patch.object(T, "apply") as apply:
+            out = T._merge(tu, [], don, {"accepted": [], "rejected": {}}, True, texts=texts)
+        self.assertIn("C2011", out["rejected"][donor])
+        apply.assert_not_called()
+
+    def plan_file(self, folder, rejected, version=None):
+        path = Path(folder) / "plan.json"
+        path.write_text(json.dumps({"version": T.PLAN_VERSION if version is None else version, "state": "s",
+                                    "inputs": "i", "accepted": ["Code/A.cpp"], "rejected": rejected}))
+        return path
+
+    def test_a_plan_with_an_empty_reason_is_dropped(self):
+        with tempfile.TemporaryDirectory() as folder:
+            for reason in ("compile: ", "compile:", "link:  ", " compile : "):
+                with self.subTest(reason=reason):
+                    path = self.plan_file(folder, {"Code/B.cpp": reason})
+                    self.assertIsNone(T.load_verified_plan(path, "s", "i"))
+                    self.assertFalse(path.exists())
+            for rejected in ({"Code/B.cpp": "compile: b.cpp(1) : error C2065"}, {"Code/B.cpp": "bytes"}, {}, ["odd"]):
+                with self.subTest(rejected=rejected):
+                    path = self.plan_file(folder, rejected)
+                    self.assertIsNotNone(T.load_verified_plan(path, "s", "i"))
+                    self.assertTrue(path.exists())
+
+    def test_a_plan_saved_before_the_fix_is_searched_again(self):
+        with tempfile.TemporaryDirectory() as folder:
+            self.assertIsNone(T.load_verified_plan(self.plan_file(folder, {}, version=1), "s", "i"))
+            path = Path(folder) / "saved.json"
+            with patch.object(T, "merge_plan_state", return_value="s"):
+                T.save_verified_plan(path, "s", "i", {"accepted": ["Code/A.cpp"], "rejected": {}})
+            self.assertEqual(json.loads(path.read_text())["version"], T.PLAN_VERSION)
+            self.assertIsNotNone(T.load_verified_plan(path, "s", "i"))
+
+
 class VerifierCacheTests(unittest.TestCase):
     ERRORS = {
         "type-A": ["a.cpp(1) : error C2011: 'A' : 'class' type redefinition"],
@@ -2477,6 +2666,20 @@ class VerifierCacheTests(unittest.TestCase):
         v.B = SimpleNamespace(try_compile_source=compile_source,
                               compile_function=compile_function)
         return v, calls
+
+    def test_a_compile_failing_without_an_error_line_still_says_why(self):
+        # Merge lane 2 (2026-11-07): only ` error ` lines were kept, so such a failure read `compile: `
+        with tempfile.TemporaryDirectory() as tmp:
+            v, _ = self.verifier(Path(tmp))
+            v.B.try_compile_source = lambda src, obj, timeout=None: (False, "cl.exe\nwine: Unhandled page fault\n", 3)
+            self.assertIsNone(v.matched("crash", self.ROWS))
+            self.assertEqual(v.errors, ["cl.exe", "wine: Unhandled page fault"])
+            v.B.try_compile_source = lambda src, obj, timeout=None: (False, "", 3)
+            self.assertIsNone(v.matched("silent", self.ROWS))
+            self.assertEqual(v.errors, ["the compiler exited 3 with no output"])
+            v.B.try_compile_source = lambda src, obj, timeout=None: (False, "noise\nb.cpp(1) : error C2065: x\n", 2)
+            self.assertIsNone(v.matched("real", self.ROWS))
+            self.assertEqual(v.errors, ["b.cpp(1) : error C2065: x"])
 
     def test_cached_failure_restores_its_own_redefinition_diagnostics(self):
         with tempfile.TemporaryDirectory() as tmp:
