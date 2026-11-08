@@ -80,21 +80,7 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UnpauseSpecialPowerUpgrade : public UpgradeModule
-{
-protected:
-	virtual void onCreate();
-protected:
-	virtual void upgradeRemovalImplementation();
-protected:
-	virtual void upgradeImplementation();
-private:
-	const UnpauseSpecialPowerUpgradeModuleData *getUnpauseSpecialPowerUpgradeModuleData() const { return (const UnpauseSpecialPowerUpgradeModuleData *)m_moduleData; }
-public:
-	virtual NameKeyType getModuleNameKey() const;
-public:
-	UnpauseSpecialPowerUpgrade( Thing *thing, const ModuleData *moduleData );
-};
+#include "../../../../Include/GameLogic/Module/UnpauseSpecialPowerUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/UnpauseSpecialPowerUpgrade.cpp
 
@@ -197,6 +183,33 @@ UnpauseSpecialPowerUpgrade::UnpauseSpecialPowerUpgrade(
 {
 }
 
-// tu-skeleton: 0x004B54BD 28B ??_GRva004B53DF@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B54BD 28B ??_GUnpauseSpecialPowerUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B554F 16B ?rva004B554F@Rva004B554FHolder@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// ?xfer@UnpauseSpecialPowerUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C57EA8 is
+// 0x004B8710, version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+class Snapshot;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+void UnpauseSpecialPowerUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
+}

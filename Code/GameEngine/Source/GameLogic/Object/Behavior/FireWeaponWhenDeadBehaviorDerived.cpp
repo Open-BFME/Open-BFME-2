@@ -113,13 +113,12 @@ Rva004B4CDF::~Rva004B4CDF()
 {
 }
 
-class Rva004B53DF : public UpgradeModule
-{
-public:
-	virtual ~Rva004B53DF();
-};
+// UnpauseSpecialPowerUpgrade's destructor 0x004B53DF: its constructor 0x004B548C
+// installs the same four tables. The class is UnpauseSpecialPowerUpgrade.h's, so
+// this unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/UnpauseSpecialPowerUpgrade.h"
 
-Rva004B53DF::~Rva004B53DF()
+UnpauseSpecialPowerUpgrade::~UnpauseSpecialPowerUpgrade()
 {
 }
 
