@@ -1,6 +1,6 @@
 // STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
 // Element spelling/layout is donor inference; opaque records have address-derived identity.
-// cl: /O1 /G7 /EHs /D_BFME_RETAIL_TREE_INSERT_LAYOUT /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /EHs /D_BFME_RETAIL_TREE_INSERT_LAYOUT /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
@@ -16,6 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma optimize("", on)
 
 #include <map>
+#include "ascii_string.h"
 
 // Preserve the native inline comparison and the verified external owner at 0x00626F90.
 namespace _STL {
@@ -26,7 +27,8 @@ bool less<int>::operator()(const int &left, const int &right) const
 
 
 
-struct Rva0046444ERecord {  char bytes[1]; };
+// The mapped value of retail's map<int, AsciiString>: its node copy 0x004634DC copies the key and then the string (0x000CF475).
+struct Rva0046444ERecord { AsciiString value; };
 
 
 // Instantiate the recovered member; retain only its required template dependencies.

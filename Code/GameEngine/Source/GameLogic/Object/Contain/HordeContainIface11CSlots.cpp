@@ -1152,7 +1152,8 @@ __declspec(noinline) inline Rva00469BEA::Rva00469BEA(const int &a, const Rva0046
 {
 }
 // The map is viewed through the rowed int-key instantiations, as in HordeContainIdMapGetOrInsert.cpp.
-struct Rva00470205Record { char bytes[1]; };
+// The mapped value is retail's 16-byte Rva00469155: node 0x0046AC30 allocates 0x24 bytes and 0x00469D33 copies 16 after the key.
+struct Rva00470205Record { char bytes[16]; };
 typedef _STL::map<int, Rva00470205Record, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00470205Record> > > Rva00470205Map;
 namespace _STL {
 template <> Rva00470205Map::iterator Rva00470205Map::insert(iterator, const value_type &);
