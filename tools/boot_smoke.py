@@ -25,9 +25,11 @@ Outcome (build/boot/smoke.json, also printed):
   title-splash          alive showing the game's title splash: nothing past it is proven
   loading-screen        alive with another picture, but the main menu's button bar
                         is not up yet (the shell map before the menu, say)
-  hang-on-<picture>     one of the pictures above with the main thread spinning: every
-                        sample 250 ms apart inside SPIN_WINDOW bytes (main_thread_spin).
-                        How far it ran is the picture; it is not still getting there
+  hang-on-<picture>     one of the pictures above with the main thread spinning: about
+                        a sample a second over the run's last 30 seconds, all inside
+                        SPIN_WINDOW bytes (main_thread_span). How far it ran is the
+                        picture; it is not still getting there. A run too short to
+                        sample that long never gets this label
   profile-redirect-failed  the appdata lie could not be installed (nothing ran)
   profile-changed       the owner's profile or HKCU EA keys changed
 
@@ -694,12 +696,18 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
     u = ctypes.WinDLL("user32")
     u.ShowWindowAsync.argtypes = [wt.HWND, ctypes.c_int]   # never wait on a thread stopped at a breakpoint
     t0 = time.time()
+    next_spin_sample = 0.0
     try:
         while True:
             left = timeout - (time.time() - t0)
             if left <= 0:
                 res["outcome"] = "timeout" if "pid" in res else "no-game-process"
                 break
+            if "main_thread" in res and left <= SPIN_SPAN and time.time() >= next_spin_sample:
+                next_spin_sample = time.time() + SPIN_EVERY
+                eip = thread_eip(k, res["main_thread"])
+                if eip is not None:
+                    res.setdefault("spin_samples", []).append((round(time.time() - t0, 1), eip))
             if defocus_at is not None and "pid" in res:
                 d = res.setdefault("defocus", {})
                 if "minimised" not in d and time.time() - t0 >= defocus_at:
@@ -934,17 +942,24 @@ def stack_words(k, hproc, tid, n=2048):
             "words": [int.from_bytes(data[i:i + 4], "little") for i in range(0, len(data) - 3, 4)]}
 
 
+def thread_eip(k, hthread):
+    """The thread's EIP, or None when it cannot be read."""
+    ctx = WOW64_CONTEXT()
+    ctx.flags = 0x10001
+    # Wine 9 has no Wow64SuspendThread; SuspendThread stops a 32-bit thread the same way here.
+    getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread))
+    eip = ctx.eip if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)) else None
+    k.ResumeThread(wt.HANDLE(hthread))
+    return eip
+
+
 def sample_eips(k, hthread, n=8):
     """EIPs of the game's main thread sampled 250 ms apart (where a hang spins)."""
     out = []
     for _ in range(n):
-        ctx = WOW64_CONTEXT()
-        ctx.flags = 0x10001
-        # Wine 9 has no Wow64SuspendThread; SuspendThread stops a 32-bit thread the same way here.
-        getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread))
-        if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)):
-            out.append(ctx.eip)
-        k.ResumeThread(wt.HANDLE(hthread))
+        eip = thread_eip(k, hthread)
+        if eip is not None:
+            out.append(eip)
         time.sleep(0.25)
     return out
 
@@ -998,17 +1013,26 @@ def title_splash(img):
     return sum(abs(a - b) for a, b in zip(grey, TITLE_SPLASH)) / len(TITLE_SPLASH) <= TITLE_SPLASH_DISTANCE
 
 
-SPIN_WINDOW = 64        # bytes: sample_eips' samples, 250 ms apart, all inside one tight loop
-SPIN_SAMPLES = 4
+# The hang test. run() samples the main thread about once a second over the run's last SPIN_SPAN seconds,
+# inside the timeout, so a run takes no longer for it. A copy or a decompression can sit in one loop for
+# seconds; nothing in a boot legitimately sits inside SPIN_WINDOW bytes for half a minute.
+SPIN_SPAN = 30.0
+SPIN_EVERY = 1.0
+SPIN_WINDOW = 64        # bytes: wider than one tight loop's few instructions, narrower than most functions
+SPIN_MIN_SECONDS = 25.0
+SPIN_MIN_SAMPLES = 20
 
 
-def main_thread_spin(eips):
-    """{"low", "high", "samples"} when the main thread's samples all fall inside SPIN_WINDOW bytes, else
-    None. Too few samples prove nothing. This reads about two seconds: a long copy could look the same,
-    so it reports where the thread sat, and only a picture short of the menu makes it a hang."""
-    if len(eips) < SPIN_SAMPLES or max(eips) - min(eips) >= SPIN_WINDOW:
+def main_thread_span(samples):
+    """What samples [(seconds into the run, eip)] say, or None when there are none: where the thread sat,
+    over how long, and `spinning` only when all of it fits SPIN_WINDOW over at least SPIN_MIN_SECONDS and
+    SPIN_MIN_SAMPLES. The numbers stay in the receipt either way, so a miss can be read."""
+    if not samples:
         return None
-    return {"low": hex(min(eips)), "high": hex(max(eips)), "samples": len(eips)}
+    times, eips = [t for t, _ in samples], [e for _, e in samples]
+    seconds, spread = round(times[-1] - times[0], 1), max(eips) - min(eips)
+    return {"low": hex(min(eips)), "high": hex(max(eips)), "spread": spread, "samples": len(samples), "seconds": seconds,
+            "spinning": spread < SPIN_WINDOW and seconds >= SPIN_MIN_SECONDS and len(samples) >= SPIN_MIN_SAMPLES}
 
 
 def classify_picture(shot):
@@ -1411,11 +1435,11 @@ def smoke(a, rows=None, tag="boot"):
             out["outcome"] = "crash-dialog"
         else:
             picture = classify_picture(shot)
-            spin = main_thread_spin(res.get("main_eips", []))
-            if spin:
-                out["main_thread_spin"] = spin
+            span = main_thread_span(res.get("spin_samples", []))
+            if span:
+                out["main_thread_span"] = span
             out["picture"] = picture
-            out["outcome"] = f"hang-on-{picture}" if spin and picture != "reached-menu" else picture
+            out["outcome"] = f"hang-on-{picture}" if span and span["spinning"] and picture != "reached-menu" else picture
     if res.get("quiet"):
         out["run"]["quiet"] = [dict({k: v for k, v in q.items() if k != "stack"},
                                     **({"frames": image_frames(q["stack"], loaded, ri, pieces_map, 4)}

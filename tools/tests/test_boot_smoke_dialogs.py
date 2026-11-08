@@ -182,11 +182,12 @@ class Classification(unittest.TestCase):
         self.assertNotIn("crash", out)
 
     SHOT = {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0}
-    SPINNING = [0x1085646D, 0x10856470, 0x10856470, 0x1085646A] * 2
+    SPINNING = [(270.0 + i, e) for i, e in enumerate([0x1085646D, 0x10856470, 0x1085646A] * 10)]
+    WORKING = [(270.0 + i, e) for i, e in enumerate([0x401000, 0x7A0000, 0x452000] * 10)]
 
-    def run_with(self, shot, eips):
+    def run_with(self, shot, samples):
         report = timeout_run([MAIN], shot)
-        report["main_eips"] = eips
+        report["spin_samples"] = samples
         return self.smoke(report)
 
     def test_a_spin_on_the_splash_is_a_hang_there(self):
@@ -194,13 +195,22 @@ class Classification(unittest.TestCase):
         out = self.run_with(dict(self.SHOT, title_splash=True), self.SPINNING)
         self.assertEqual(out["outcome"], "hang-on-title-splash")
         self.assertEqual(out["picture"], "title-splash")
-        self.assertEqual(out["main_thread_spin"]["samples"], 8)
+        self.assertEqual(out["main_thread_span"]["samples"], 30)
         self.assertEqual(out["receipt"]["result"], "hang-on-title-splash")
 
     def test_the_splash_with_a_working_thread_only_says_splash(self):
-        out = self.run_with(dict(self.SHOT, title_splash=True), [0x401000, 0x7A0000, 0x452000, 0x500000])
+        out = self.run_with(dict(self.SHOT, title_splash=True), self.WORKING)
         self.assertEqual(out["outcome"], "title-splash")
-        self.assertNotIn("main_thread_spin", out)
+        self.assertFalse(out["main_thread_span"]["spinning"])
+
+    def test_no_samples_leave_the_picture_alone(self):
+        out = self.run_with(dict(self.SHOT, title_splash=True), [])
+        self.assertEqual(out["outcome"], "title-splash")
+        self.assertNotIn("main_thread_span", out)
+
+    def test_a_spin_spread_just_over_the_window_is_not_a_hang(self):
+        wide = [(270.0 + i, 0x1000 + (i % 2) * bs.SPIN_WINDOW) for i in range(30)]
+        self.assertEqual(self.run_with(self.SHOT, wide)["outcome"], "loading-screen")
 
     def test_a_spin_on_another_picture_is_a_hang_there(self):
         self.assertEqual(self.run_with(self.SHOT, self.SPINNING)["outcome"], "hang-on-loading-screen")
@@ -211,7 +221,7 @@ class Classification(unittest.TestCase):
 
     def test_a_crash_box_outranks_a_spin(self):
         report = timeout_run([MAIN, GAME_CRASH], self.SHOT)
-        report["main_eips"] = self.SPINNING
+        report["spin_samples"] = self.SPINNING
         self.assertEqual(self.smoke(report)["outcome"], "crash-dialog")
 
     def test_result_of_keeps_crash_dialog(self):

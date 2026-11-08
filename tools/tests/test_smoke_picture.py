@@ -64,15 +64,40 @@ class Labels(unittest.TestCase):
         self.assertFalse(shot["title_splash"])
         self.assertEqual(outcome, "reached-menu")
 
-    def test_a_tight_loop_is_a_spin(self):
-        spin = bs.main_thread_spin([0x1085646D, 0x10856470, 0x10856470, 0x1085646A] * 2)
-        self.assertEqual(spin, {"low": "0x1085646a", "high": "0x10856470", "samples": 8})
+    @staticmethod
+    def over(eips, every=1.0, start=270.0):
+        return [(start + i * every, e) for i, e in enumerate(eips)]
 
-    def test_what_is_not_a_spin(self):
-        self.assertIsNone(bs.main_thread_spin([]))
-        self.assertIsNone(bs.main_thread_spin([0x1000, 0x1000, 0x1000]))                    # too few to say
-        self.assertIsNone(bs.main_thread_spin([0x1000] * 7 + [0x1000 + bs.SPIN_WINDOW]))    # left the window
-        self.assertIsNone(bs.main_thread_spin([0x1000, 0x5000, 0x9000, 0x2000, 0x7000]))    # a thread at work
+    def test_a_tight_loop_over_the_span_is_a_spin(self):
+        span = bs.main_thread_span(self.over([0x1085646D, 0x10856470, 0x1085646A] * 10))
+        self.assertTrue(span["spinning"])
+        self.assertEqual((span["low"], span["high"], span["spread"], span["samples"], span["seconds"]),
+                         ("0x1085646a", "0x10856470", 6, 30, 29.0))
+
+    def test_the_window_is_exact(self):
+        inside = self.over([0x1000] * 29 + [0x1000 + bs.SPIN_WINDOW - 1])
+        just_over = self.over([0x1000] * 29 + [0x1000 + bs.SPIN_WINDOW])
+        self.assertTrue(bs.main_thread_span(inside)["spinning"])
+        self.assertFalse(bs.main_thread_span(just_over)["spinning"])
+
+    def test_a_short_span_is_not_a_spin_however_tight(self):
+        # What two seconds of a long copy looks like: the reason the test is not over 2 s.
+        self.assertFalse(bs.main_thread_span(self.over([0x1000] * 8, every=0.25))["spinning"])
+        self.assertFalse(bs.main_thread_span(self.over([0x1000] * 25, every=1.0))["spinning"])    # 24 s
+        self.assertTrue(bs.main_thread_span(self.over([0x1000] * 26, every=1.0))["spinning"])     # 25 s
+
+    def test_too_few_samples_are_not_a_spin_however_long(self):
+        self.assertFalse(bs.main_thread_span(self.over([0x1000] * 19, every=2.0))["spinning"])
+        self.assertTrue(bs.main_thread_span(self.over([0x1000] * 20, every=2.0))["spinning"])
+
+    def test_a_thread_at_work_is_not_a_spin(self):
+        self.assertFalse(bs.main_thread_span(self.over([0x1000, 0x5000, 0x9000] * 10))["spinning"])
+
+    def test_no_samples_say_nothing(self):
+        self.assertIsNone(bs.main_thread_span([]))
+
+    def test_the_sampling_stays_inside_the_timeout(self):
+        self.assertLess(bs.SPIN_MIN_SECONDS, bs.SPIN_SPAN)
 
 
 class Frames(unittest.TestCase):
