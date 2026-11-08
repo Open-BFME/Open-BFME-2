@@ -89,3 +89,14 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
   retain bytes, flags and relocations. The normal two-source build passes
   nine code and two data rows. The final composition still needs provider
   selection checks, including its out-of-line list-constructor copy.
+
+- **2026-11-08 supported merge verified:** the cleaned 0x002A1B07 donor is
+  absorbed into InGameUI.cpp: nine code/two data rows remain exact, one source
+  file is removed, and the combined 266-byte preview is conserved. The indexed
+  first list-constructor provider remains retail's 18-byte GameLogicDispatch
+  copy ahead of the host's differing 19-byte copy. Seven prior strict host
+  provider twins and CRT order are preserved. The source-path, register,
+  header/MS-header and EH audit passes within its stated scope. The remaining
+  113 donors retain flag/header blockers; publication audit and new census
+  confirmation remain pending.
+  [Consolidation audit](../../reverse/attempt_support/ingameui-list-constructor-20261107/consolidation-audit.md).

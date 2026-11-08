@@ -100,6 +100,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #if defined(_DEBUG) || defined(_INTERNAL)
 #define AI_DEBUG_TOOLTIPS		1
@@ -328,12 +329,14 @@ const FieldParse InGameUI::s_fieldParseTable[] =
 #if defined(_DEBUG) || defined(_INTERNAL)
 inline Bool isClose(Real a, Real b) { return fabs(a-b) <= 1.0f; }
 
+
 inline Bool isClose(const Coord3D& a, const Coord3D& b) 
 {
 		return	isClose(a.x, b.x) && 
 			isClose(a.y, b.y) && 
 			isClose(a.z, b.z);
 }
+
 
 // ?InGameUI::DEBUG_addFloatingText present-unmatched
 void InGameUI::DEBUG_addFloatingText(const AsciiString& text, const Coord3D * pos, Color color)
@@ -536,6 +539,24 @@ private:
 	Rva002A463BMap m_map;
 };
 
+namespace _STL {
+template <> __declspec(noinline)
+_List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawable *> &);
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> list<Drawable *>::~list();
+template <> __declspec(noinline) _List_node<Drawable *> *
+list<Drawable *>::_M_create_node(Drawable *const &);
+}
+
+class Rva002A1B07
+{
+public:
+	Rva002A1B07();
+private:
+	int m_00;
+	_STL::list<Drawable *> m_list04;
+};
+
 // tu-skeleton: 0x0029A4CA 119B ?setFont@SuperweaponInfo@@QAEXABVAsciiString@@H_N@Z -- matched in Code/GameEngine/Source/GameClient/SuperweaponInfo.cpp (not merged yet)
 
 // tu-skeleton: 0x0029A541 68B ?drawName@SuperweaponInfo@@QAEXHHHH@Z -- matched in Code/GameEngine/Source/GameClient/SuperweaponInfo.cpp (not merged yet)
@@ -648,6 +669,8 @@ private:
 
 // tu-skeleton: 0x0029B0A9 137B ?IdleWorkerSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameClient/InGameUI.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/Rva0029B132Init.cpp
 
 Rva0029B132 *Rva0029B132::rva0029B132()
@@ -664,38 +687,6 @@ Rva0029B132 *Rva0029B132::rva0029B132()
 	m_20 = 0x20;
 	return this;
 }
-
-// tu-skeleton: 0x0029B16A 18B ?setMissionHelpText@Rva0029B16A@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B17C 11B ?clearMissionHelpText@Rva0029B17C@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B187 26B ?rva0029B187@Rva0029B187@@QAEXPAURva004E57E6Pair@@M@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B1A1 11B ?rva0029B1A1@Rva0029B1A1@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B1AC 22B ?assign@FormationPreviewPoolObject@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B1C2 22B ?dismiss@FormationPreviewPoolObject@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B1D8 9B ?get@Rva0029B1D8SarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B1E1 9B ??0Rva004E72C0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E7392Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B1EA 38B ?rva0029B1EA@Rva0029B1EA@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B210 9B ??E?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QAEAAU01@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B219 28B ??_GRva004E668E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B251 6B ?rva0029B251@Rva0029B251@@QAEPAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B260 27B ??0?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@QAE@ABW4NameKeyType@@ABVModuleTemplate@ModuleFactory@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B27B 28B ?allocate@?$allocator@UBfmePod60@@@_STL@@QBEPAUBfmePod60@@IPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B297 45B ??$_M_allocate_and_copy@PBUBfmeE12@@@?$vector@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEPAUBfmeE12@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0029B2C4 35B ??$__find@U?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@_STL@@W4ObjectID@@@_STL@@YA?AU?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@0@U10@0ABW4ObjectID@@ABUinput_iterator_tag@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva0029B2E7Zero.cpp
 
@@ -716,159 +707,82 @@ Rva0029B2E7 *Rva0029B2E7::rva0029B2E7()
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x0029B313 26B ?rva0029B313@Rva0029B313@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B313.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B32D 25B ??0Rva0029B32D@@QAE@II@Z -- matched in Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B346 5B ?rva0029B346@Rva0029B346@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B34B 53B ?rva0029B34B@Rva0029B380@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B380 65B ?rva0029B380@Rva0029B380@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B3C1 155B ?rva0029B3C1@InGameUI@@QBEMPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeadingQuery.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B45C 104B ?getPlacementPoints@InGameUI@@UAEXPAUICoord2D@@0@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B4C4 53B ?stopMovie@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_stopMovie.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B4F9 67B ?resetCamera@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_resetCamera.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B53C 28B ?rva0029B53C@Rva0029A407@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029A407Clear.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B558 11B ?rva0029B558@Rva0029B558@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B563 11B ?rva0029B563@Rva0029B558@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B56E 95B ?rva0029B56E@InGameUI@@UAEXABVUnicodeString@@ABVRva002217EA@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B5CD 11B ?rva0029B5CD@Rva0029B5CD@@QAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B5D8 11B ?rva0029B5D8@Rva0029B558@@UAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B5E3 26B ?clear@Rva0029B5E3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B5FD 35B ?reset@Rva0029B5FD@@QAEXPAVRva004E668E@@@Z -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B620 26B ?clear@Rva0029B620@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B63A 45B ?rva0029B63A@Rva0029B63A@@QAEXPAURva0029B63ANode@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B63AFree.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B667 45B ?rva0029B667@Rva0029B667@@QAEXPAURva0029B667Node@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B667Free.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B694 42B ??$find@U?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@H@_STL@@YA?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@0@U10@0ABH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B6BE 27B ?Rva00069940Assign@@YAPAURva00069940Value@@PAU1@PBU1@PBURva00069940Vector@@@Z -- matched in Code/gen_small/U3_tree_lookup.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B732 24B ?rva0029B732@Rva0029B732@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B732Check.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B74A 204B ??0Rva0029B816@@QAE@HH_N00ABVAsciiString@@H0HH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B816Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B816 98B ??1Rva0029B816@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B816Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B878 56B ?setText@SuperweaponInfo@@QAEXABVUnicodeString@@0@Z -- matched in Code/GameEngine/Source/GameClient/SuperweaponInfoSetText.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B967 126B ?evaluateSoloNexus@InGameUI@@IAEXPAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
 
-// tu-skeleton: 0x0029B9E5 67B ?rva0029B9E5@@YAPBVTerrainResourceBehaviorModuleData@@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp (not merged yet)
 
-// tu-skeleton: 0x0029BA28 48B ?rva0029BA28@Rva0029BA28@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029BA28.cpp (not merged yet)
 
-// tu-skeleton: 0x0029BA58 307B ?addMessageText@InGameUI@@IAEXABVUnicodeString@@PBURGBColor@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
 
-// tu-skeleton: 0x0029BB8B 561B ?placeBuildAvailable@InGameUI@@UAEXPBVThingTemplate@@PAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp (not merged yet)
 
-// tu-skeleton: 0x0029BDBC 73B ?deselectAllDrawables@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelection.cpp (not merged yet)
 
-// tu-skeleton: 0x0029BE05 657B ?rva0029BE05@InGameUI@@UAEX_NPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectAllAcrossMap.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C096 19B ?rva0029C096@Rva0029C096@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C0A9 45B ?rva0029C0A9@Rva0029C0A9@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C0D6 49B ?isAnySelectedKindOf@InGameUI@@UBE_NW4KindOfType@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelection.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C107 49B ?isAllSelectedKindOf@InGameUI@@UBE_NW4KindOfType@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelection.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C138 43B ?rva0029C138@Rva0029C138@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0029C138Reset.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C163 219B ?rva0029C163@Rva0029C138@@QAE_NABUICoord2D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029C138Reset.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C23E 43B ?createControlBar@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C269 40B ?createReplayControl@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C291 101B ?displayCantBuildMessage@InGameUI@@UAEXW4LegalBuildCode@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIDisplayCantBuild.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C2F6 89B ?militarySubtitle@InGameUI@@UAEXABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C34F 181B ?getLineWidth@@YAHPAVDisplayString@@PBVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C404 846B ?updateMilitarySubtitle@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C752 39B ?areSelectedObjectsControllable@InGameUI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_areSelectedObjectsControllable.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C779 170B ?getCanSelectedObjectsAttack@InGameUI@@QBE?AW4CanAttackResult@@W4ActionType@1@PBVObject@@W4SelectionRules@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp (not merged yet)
 
-// tu-skeleton: 0x0029C823 899B ?canSelectedObjectsDoAction@InGameUI@@QBE_NW4ActionType@1@PBVObject@@W4SelectionRules@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp (not merged yet)
 
-// tu-skeleton: 0x0029CBA6 115B ?canSelectedObjectsOverrideSpecialPowerDestination@InGameUI@@QBE_NPBUCoord3D@@W4SelectionRules@1@W4SpecialPowerType@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp (not merged yet)
 
-// tu-skeleton: 0x0029CC19 441B ?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp (not merged yet)
 
-// tu-skeleton: 0x0029CDD2 223B ?canSelectedObjectsEffectivelyUseWeapon@InGameUI@@QBE_NPBVCommandButton@@PBVObject@@PBUCoord3D@@W4SelectionRules@1@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp (not merged yet)
 
-// tu-skeleton: 0x0029CEB1 279B ?selectMatchingAcrossScreen@InGameUI@@UAEHXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp (not merged yet)
 
-// tu-skeleton: 0x0029CEBB 269B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x0029CFC8 285B ?selectMatchingAcrossMap@InGameUI@@UAEHXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D0E5 283B ?updateFloatingText@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_updateFloatingText.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D200 266B ?drawFloatingText@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D30A 72B ?rva0029D30A@Rva0029D30A@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D30AClear.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D352 94B ??0FloatingTextData@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D3B0 75B ??1FloatingTextData@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/FloatingTextData.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D3FB 83B ?rva0029D3FB@Rva0029D3FB@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D3FBClear.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D44E 452B ?updateAndDrawWorldAnimations@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIUpdateAndDrawWorldAnimations.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D612 61B ?findIdleWorker@InGameUI@@EAEPAVObject@@PAV2@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D64F 230B ?selectNextIdleWorker@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D735 66B ?hideIdleWorkerLayout@InGameUI@@EAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D777 75B ?resetIdleWorker@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_resetIdleWorker.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D7CA 83B ?rva0029D7CA@Rva0029D7CA@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D7CAClear.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D81D 39B ??0Rva0043FC20@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0043FC20Copy.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D844 130B ?rva0029D844@Rva0029D844@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D8C6 130B ?rva0029D8C6@Rva0029D844@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D948 130B ?rva0029D948@Rva0029D844@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D9CA 47B ?releaseAssets@FormationPreviewPoolObject@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D9CAClear.cpp (not merged yet)
 
-// tu-skeleton: 0x0029D9F9 360B ?rva0029D9F9@InGameUI@@QAE?AVCoord2D@@XZ -- matched in Code/GameEngine/Source/GameClient/InGameUIFormationFinalize.cpp (not merged yet)
 
-// tu-skeleton: 0x0029DB61 328B ?rva0029DB61@InGameUI@@UAE_NXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIFormationFinalize.cpp (not merged yet)
 
-// tu-skeleton: 0x0029DCA9 461B ?notifyHeroEarnedAward@InGameUI@@QAEXPAVCreateAHeroHero@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
 
-// tu-skeleton: 0x0029DE76 164B ?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029DE76Method.cpp (not merged yet)
 
-// tu-skeleton: 0x0029DF1A 171B ?ShowStuckAsObserverInStrategicRTSGameMessage@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
 
-// tu-skeleton: 0x0029DFC5 36B ?rva0029DFC5@Rva0029DFC5List@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@U23@@Z -- matched in Code/GameEngine/Source/Common/System/FormationBuildRow.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/InGameUI_RemoveRecycle0029DFE9.cpp
 
@@ -884,68 +798,6 @@ void __stdcall removeRecycleRva0029DFE9(void *outParam, void *nodeParam)
 	*(void **)outParam = prev;
 }
 
-// tu-skeleton: 0x0029E00D 8B ??1?$pair@$$CBHURva002A3FAFRecord@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002A3FAF.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E015 41B ?rva0029E015@Rva0029B63A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0029E015Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E03E 41B ?rva0029E03E@Rva0029B667@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0029E03EClear.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E067 127B ??0Rva0029E067@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva0029E067Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E0E6 24B ?rva0029E0E6@Rva0029E0E6@@QAEPAXIPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E0FE 28B ??_GRva0029E00D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0029E0FE.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E11A 34B ?_M_create_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@2@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E13C 29B ??0?$pair@$$CBHURva0029E067@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E159 150B ??0FormationPreviewDecal@InGameUI@@QAE@ABUSource0029E159@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029E159Audio.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E1EF 28B ??_GRva0029B816@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B816Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E20B 79B ?hideObjectSuperweaponDisplayByScript@InGameUI@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E25A 79B ?showObjectSuperweaponDisplayByScript@InGameUI@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E2A9 53B ??1Rva0029E2A9@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0029E2A9Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E2DE 888B ?init@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E656 257B ?rva0029E656@InGameUI@@UAAXVAsciiString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E757 239B ?message@InGameUI@@UAAXVAsciiString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E846 180B ?rva0029E846@InGameUI@@UAAXVUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E8FA 165B ?message@InGameUI@@UAAXVUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029E99F 181B ?rva0029E99F@InGameUI@@UAAXPBURGBColor@@VUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029EA54 166B ?messageColor@InGameUI@@UAAXPBURGBColor@@VUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029EAFA 232B ?rva0029EAFA@Rva0029EAFA@@QAEXPBVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029EAFA.cpp (not merged yet)
-
-// tu-skeleton: 0x0029EBE2 1901B ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F34F 136B ?deselectDrawable@InGameUI@@UAEXPAVDrawable@@@Z -- matched in Code/GameEngine/Source/Common/InGameUIDeselectDrawable.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F3D7 212B ?playCameoMovie@InGameUI@@UAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIPlayCameoMovie.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F4AB 133B ?stopCameoMovie@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/Common/InGameUI_stopCameoMovie.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F530 511B ?militarySubtitle@InGameUI@@UAEXVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F72F 51B ?canSelectedObjectsNonAttackInteractWithObject@InGameUI@@QBE_NPBVObject@@W4SelectionRules@1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F77E 74B ?removeIdleWorker@InGameUI@@UAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F7C8 34B ?getIdleWorkerCount@InGameUI@@EAEHXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F7EA 206B ?recreateControlBar@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x0029F8B8 130B ?rva0029F8B8@Rva0029F8B8@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_remove_guard.cpp
 
 // ?rva0029F93A@Rva0029F93A@@QAEXH@Z @0x0029F93A 26B
@@ -957,140 +809,6 @@ void Rva0029F93A::rva0029F93A(int v)
 	if (v != 0)
 		m_list.remove(v);
 }
-
-// tu-skeleton: 0x0029F954 350B ?notifyOfHeroSpawnEvent@InGameUI@@QAEXPAVObject@@PBDPBHM@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FAB2 5B ?rva0029FAB2@Rva0029FAB2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FAB7 56B ??1Rva0029B63A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FAEF 20B ?find@?$hash_map@IPAXU?$hash@I@_STL@@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@2@ABI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FB03 56B ??1Rva0029B667@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FB3B 40B ?init@Rva0029FB3BMember@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0029FB3BMemberInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FB63 29B ??0Rva0029FB63@@QAE@PBHABURva0029E067@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029FB63Init.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FB80 28B ?Rva0029FB80Store@@YGPAXPAPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FB9C 45B ?Rva0029FB9CConstruct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FBC9 136B ?insert@Rva0029FBC9Tree@@QAE?AURva0029FBC9Iterator@@PAU_Rb_tree_node_base@_STL@@0ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@4@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_modulefactory_map_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FC51 45B ??$_Construct@U?$pair@$$CBHURva0029E067@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva0029E067@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FC7E 9B ??$_Destroy@URva0029E00D@@@_STL@@YAXPAURva0029E00D@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FC87 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FCB4 32B ?rva0029FCB4@Rva0029FCB4@@QAE?AV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FCD4 5B ?rva0029FCD4@Rva0029FCD4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FCD9 66B ?rva0029FCD9@InGameUI@@QAE_NPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029FCD9HasKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FD1B 387B ?rva0029FD1B@InGameUI@@UAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIRva0029FD1B.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FE9E 29B ?rva0029FE9E@Rva0029BA28@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FEBB 324B ?rva0029FEBB@Rva0029FEBB@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029FEBBDragPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0029FFFF 354B ?rva0029FFFF@Rva0029C138@@QAEHP6AHPAVDrawable@@PAX@Z1@Z -- matched in Code/GameEngine/Source/Common/Rva0029C138Reset.cpp (not merged yet)
-
-// tu-skeleton: 0x002A0161 2854B ?postDraw@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIPostDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x002A0C87 133B ?removeMilitarySubtitle@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
-
-// tu-skeleton: 0x002A0D0C 5B ?rva002A0D0C@Rva002A0D0C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x002A0D11 8B ?rva002A0D11@Rva002A0D11@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x002A0D19 253B ?addFloatingText@InGameUI@@UAEXABVUnicodeString@@PBUCoord3D@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp (not merged yet)
-
-// tu-skeleton: 0x002A0E16 259B ?addWorldAnimation@InGameUI@@QAEXPAVAnim2DTemplate@@PBUCoord3D@@W4WorldAnimationOptions@@MM@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIAddWorldAnimation.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1111 71B ?rva002A1111@Rva002A1111@@QAEXW4ObjectID@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002A1111.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1158 231B ?updateLocalPhantomStructureDisplay@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIUpdateLocalPhantomStructureDisplay.cpp (not merged yet)
-
-// tu-skeleton: 0x002A123F 34B ?rva002A123F@InGameUI@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1261 34B ?rva002A1261@InGameUI@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1283 34B ?rva002A1283@InGameUI@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp (not merged yet)
-
-// tu-skeleton: 0x002A12A5 18B ??0Rva0029FB3BMember@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva004DF418Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x002A12B7 42B ?erase@?$list@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UCameraMarker@@U?$_Nonconst_traits@UCameraMarker@@@_STL@@@2@U32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_cameramarker_erase.cpp (not merged yet)
-
-// tu-skeleton: 0x002A12E1 53B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x002A1316 37B ?Rva002A1316Store@@YGPAXPAPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva002A1316.cpp (not merged yet)
-
-// tu-skeleton: 0x002A133B 38B ?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z -- matched in Code/GameEngine/Source/Common/Rva007D85C0FilterShutdown.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1361 34B ?_M_create_node@?$list@UTreeKey00242F5E@@V?$allocator@UTreeKey00242F5E@@@_STL@@@_STL@@IAEPAU?$_List_node@UTreeKey00242F5E@@@2@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treekey00242f5e_create_node.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1383 88B ??0?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_superweaponinfo_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x002A13DB 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A13DB.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1410 110B ?reserve@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp (not merged yet)
-
-// tu-skeleton: 0x002A147E 59B ?insert_equal@?$_Rb_tree@IU?$pair@$$CBIURva002A147EElement@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIURva002A147EElement@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@@2@ABU?$pair@$$CBIURva002A147EElement@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A147E.cpp (not merged yet)
-
-// tu-skeleton: 0x002A14B9 28B ??_G?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x002A14D5 37B ?_M_new_node@?$hashtable@U?$pair@$$CBHURva0029E067@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0029E067@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0029E067@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva0029E067@@@_STL@@@2@ABU?$pair@$$CBHURva0029E067@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067.cpp (not merged yet)
-
-// tu-skeleton: 0x002A14FA 28B ?Rva002A14FAFree@@YGXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva002A14FAFree.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1516 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1538 61B ??0?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1575 13B ??_F?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUICtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1582 1413B ?update@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1B07 22B ??0Rva002A1B07@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002A1B07Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1B1D 54B ?rva002A1B1D@Rva002A1B1D@@QAEXPBURva002A1B1DChunk@@000@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002A1B1D.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1B53 28B ?push_front@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAEXABQAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1B6F 26B ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z -- matched in Code/GameEngine/Source/Common/Rva002A1316.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1B89 20B ?insert@?$multimap@IURva002A147EElement@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIURva002A147EElement@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIURva002A147EElement@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@@2@ABU?$pair@$$CBIURva002A147EElement@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A147E.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1B9D 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A1B9D.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1BC6 37B ?insert@?$list@UTreeKey00242F5E@@V?$allocator@UTreeKey00242F5E@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UTreeKey00242F5E@@U?$_Nonconst_traits@UTreeKey00242F5E@@@_STL@@@2@U32@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treekey00242f5e_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1BEB 23B ??1?$_List_base@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_cameramarker_basedtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1C02 199B ?_M_insert_overflow@?$vector@UPrereqUnitRec@@V?$allocator@UPrereqUnitRec@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_prerequnitrec_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1CC9 57B ??0?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@ABVAsciiString@@ABUTreeHintOpaque002A484A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1D02 73B ?clear@Rva002A1D02@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedBucketChainClearO1.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1D4B 73B ?_M_insert@?$hashtable@U?$pair@$$CBHURva0029E067@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0029E067@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0029E067@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHURva0029E067@@@2@ABU32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067_deferred.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1D94 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@0@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1D9D 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1E31 151B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1EC8 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp (not merged yet)
-
-// tu-skeleton: 0x002A1EF5 655B ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingCallback.cpp (not merged yet)
-
-// tu-skeleton: 0x002A2184 93B ?loadPostProcess@InGameUI@@MAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x002A21E1 4212B ?handleBuildPlacements@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/InGameUI.cpp
 
@@ -2202,6 +1920,436 @@ void InGameUI::resetIdleWorker( void )
 
 // IdleWorkerSystem: defined in InGameUIIdleWorker.cpp (its row's unit); the unmatched Zero Hour copy here was a second, non-retail definition.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002A463BMapClear.cpp
+
+//
+// Clear the named-timer map at +0x750 through its rowed tree clear.
+// The owner class remains unrecovered.
+
+void Rva002A463B::rva002A463B()
+{
+	m_map.clear();
+}
+
+// tu-skeleton: 0x0029B16A 18B ?setMissionHelpText@Rva0029B16A@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B17C 11B ?clearMissionHelpText@Rva0029B17C@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B187 26B ?rva0029B187@Rva0029B187@@QAEXPAURva004E57E6Pair@@M@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B1A1 11B ?rva0029B1A1@Rva0029B1A1@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B1AC 22B ?assign@FormationPreviewPoolObject@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B1C2 22B ?dismiss@FormationPreviewPoolObject@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B1D8 9B ?get@Rva0029B1D8SarAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B1E1 9B ??0Rva004E72C0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E7392Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B1EA 38B ?rva0029B1EA@Rva0029B1EA@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B210 9B ??E?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QAEAAU01@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B219 28B ??_GRva004E668E@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B251 6B ?rva0029B251@Rva0029B251@@QAEPAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B260 27B ??0?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@QAE@ABW4NameKeyType@@ABVModuleTemplate@ModuleFactory@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B27B 28B ?allocate@?$allocator@UBfmePod60@@@_STL@@QBEPAUBfmePod60@@IPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B297 45B ??$_M_allocate_and_copy@PBUBfmeE12@@@?$vector@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@IAEPAUBfmeE12@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B2C4 35B ??$__find@U?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@_STL@@W4ObjectID@@@_STL@@YA?AU?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@0@U10@0ABW4ObjectID@@ABUinput_iterator_tag@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B313 26B ?rva0029B313@Rva0029B313@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B313.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B32D 25B ??0Rva0029B32D@@QAE@II@Z -- matched in Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B346 5B ?rva0029B346@Rva0029B346@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B34B 53B ?rva0029B34B@Rva0029B380@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B380 65B ?rva0029B380@Rva0029B380@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B3C1 155B ?rva0029B3C1@InGameUI@@QBEMPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeadingQuery.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B45C 104B ?getPlacementPoints@InGameUI@@UAEXPAUICoord2D@@0@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B4C4 53B ?stopMovie@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_stopMovie.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B4F9 67B ?resetCamera@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_resetCamera.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B53C 28B ?rva0029B53C@Rva0029A407@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029A407Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B558 11B ?rva0029B558@Rva0029B558@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B563 11B ?rva0029B563@Rva0029B558@@UAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B56E 95B ?rva0029B56E@InGameUI@@UAEXABVUnicodeString@@ABVRva002217EA@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B5CD 11B ?rva0029B5CD@Rva0029B5CD@@QAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B5D8 11B ?rva0029B5D8@Rva0029B558@@UAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B5E3 26B ?clear@Rva0029B5E3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B5FD 35B ?reset@Rva0029B5FD@@QAEXPAVRva004E668E@@@Z -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B620 26B ?clear@Rva0029B620@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OwnedPointerResets.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B63A 45B ?rva0029B63A@Rva0029B63A@@QAEXPAURva0029B63ANode@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B63AFree.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B667 45B ?rva0029B667@Rva0029B667@@QAEXPAURva0029B667Node@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B667Free.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B694 42B ??$find@U?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@H@_STL@@YA?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@0@U10@0ABH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B6BE 27B ?Rva00069940Assign@@YAPAURva00069940Value@@PAU1@PBU1@PBURva00069940Vector@@@Z -- matched in Code/gen_small/U3_tree_lookup.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B732 24B ?rva0029B732@Rva0029B732@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B732Check.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B74A 204B ??0Rva0029B816@@QAE@HH_N00ABVAsciiString@@H0HH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B816Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B816 98B ??1Rva0029B816@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva0029B816Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B878 56B ?setText@SuperweaponInfo@@QAEXABVUnicodeString@@0@Z -- matched in Code/GameEngine/Source/GameClient/SuperweaponInfoSetText.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B967 126B ?evaluateSoloNexus@InGameUI@@IAEXPAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x0029B9E5 67B ?rva0029B9E5@@YAPBVTerrainResourceBehaviorModuleData@@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp (not merged yet)
+
+// tu-skeleton: 0x0029BA28 48B ?rva0029BA28@Rva0029BA28@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029BA28.cpp (not merged yet)
+
+// tu-skeleton: 0x0029BA58 307B ?addMessageText@InGameUI@@IAEXABVUnicodeString@@PBURGBColor@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029BB8B 561B ?placeBuildAvailable@InGameUI@@UAEXPBVThingTemplate@@PAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp (not merged yet)
+
+// tu-skeleton: 0x0029BDBC 73B ?deselectAllDrawables@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelection.cpp (not merged yet)
+
+// tu-skeleton: 0x0029BE05 657B ?rva0029BE05@InGameUI@@UAEX_NPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectAllAcrossMap.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C096 19B ?rva0029C096@Rva0029C096@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C0A9 45B ?rva0029C0A9@Rva0029C0A9@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C0D6 49B ?isAnySelectedKindOf@InGameUI@@UBE_NW4KindOfType@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelection.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C107 49B ?isAllSelectedKindOf@InGameUI@@UBE_NW4KindOfType@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelection.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C138 43B ?rva0029C138@Rva0029C138@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0029C138Reset.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C163 219B ?rva0029C163@Rva0029C138@@QAE_NABUICoord2D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029C138Reset.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C23E 43B ?createControlBar@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C269 40B ?createReplayControl@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C291 101B ?displayCantBuildMessage@InGameUI@@UAEXW4LegalBuildCode@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIDisplayCantBuild.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C2F6 89B ?militarySubtitle@InGameUI@@UAEXABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C34F 181B ?getLineWidth@@YAHPAVDisplayString@@PBVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C404 846B ?updateMilitarySubtitle@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C752 39B ?areSelectedObjectsControllable@InGameUI@@QBE_NXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_areSelectedObjectsControllable.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C779 170B ?getCanSelectedObjectsAttack@InGameUI@@QBE?AW4CanAttackResult@@W4ActionType@1@PBVObject@@W4SelectionRules@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp (not merged yet)
+
+// tu-skeleton: 0x0029C823 899B ?canSelectedObjectsDoAction@InGameUI@@QBE_NW4ActionType@1@PBVObject@@W4SelectionRules@1@_N@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp (not merged yet)
+
+// tu-skeleton: 0x0029CBA6 115B ?canSelectedObjectsOverrideSpecialPowerDestination@InGameUI@@QBE_NPBUCoord3D@@W4SelectionRules@1@W4SpecialPowerType@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp (not merged yet)
+
+// tu-skeleton: 0x0029CC19 441B ?rva0029CC19@InGameUI@@QAE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp (not merged yet)
+
+// tu-skeleton: 0x0029CDD2 223B ?canSelectedObjectsEffectivelyUseWeapon@InGameUI@@QBE_NPBVCommandButton@@PBVObject@@PBUCoord3D@@W4SelectionRules@1@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp (not merged yet)
+
+// tu-skeleton: 0x0029CEB1 279B ?selectMatchingAcrossScreen@InGameUI@@UAEHXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp (not merged yet)
+
+// tu-skeleton: 0x0029CEBB 269B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0029CFC8 285B ?selectMatchingAcrossMap@InGameUI@@UAEHXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D0E5 283B ?updateFloatingText@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_updateFloatingText.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D200 266B ?drawFloatingText@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D30A 72B ?rva0029D30A@Rva0029D30A@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D30AClear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D352 94B ??0FloatingTextData@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D3B0 75B ??1FloatingTextData@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/FloatingTextData.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D3FB 83B ?rva0029D3FB@Rva0029D3FB@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D3FBClear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D44E 452B ?updateAndDrawWorldAnimations@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIUpdateAndDrawWorldAnimations.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D612 61B ?findIdleWorker@InGameUI@@EAEPAVObject@@PAV2@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D64F 230B ?selectNextIdleWorker@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D735 66B ?hideIdleWorkerLayout@InGameUI@@EAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D777 75B ?resetIdleWorker@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUI_resetIdleWorker.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D7CA 83B ?rva0029D7CA@Rva0029D7CA@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D7CAClear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D81D 39B ??0Rva0043FC20@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0043FC20Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D844 130B ?rva0029D844@Rva0029D844@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D8C6 130B ?rva0029D8C6@Rva0029D844@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D948 130B ?rva0029D948@Rva0029D844@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D9CA 47B ?releaseAssets@FormationPreviewPoolObject@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva0029D9CAClear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029D9F9 360B ?rva0029D9F9@InGameUI@@QAE?AVCoord2D@@XZ -- matched in Code/GameEngine/Source/GameClient/InGameUIFormationFinalize.cpp (not merged yet)
+
+// tu-skeleton: 0x0029DB61 328B ?rva0029DB61@InGameUI@@UAE_NXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIFormationFinalize.cpp (not merged yet)
+
+// tu-skeleton: 0x0029DCA9 461B ?notifyHeroEarnedAward@InGameUI@@QAEXPAVCreateAHeroHero@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
+
+// tu-skeleton: 0x0029DE76 164B ?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029DE76Method.cpp (not merged yet)
+
+// tu-skeleton: 0x0029DF1A 171B ?ShowStuckAsObserverInStrategicRTSGameMessage@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
+
+// tu-skeleton: 0x0029DFC5 36B ?rva0029DFC5@Rva0029DFC5List@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@U23@@Z -- matched in Code/GameEngine/Source/Common/System/FormationBuildRow.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E00D 8B ??1?$pair@$$CBHURva002A3FAFRecord@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002A3FAF.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E015 41B ?rva0029E015@Rva0029B63A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0029E015Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E03E 41B ?rva0029E03E@Rva0029B667@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0029E03EClear.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E067 127B ??0Rva0029E067@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva0029E067Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E0E6 24B ?rva0029E0E6@Rva0029E0E6@@QAEPAXIPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E0FE 28B ??_GRva0029E00D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0029E0FE.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E11A 34B ?_M_create_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@2@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E13C 29B ??0?$pair@$$CBHURva0029E067@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E159 150B ??0FormationPreviewDecal@InGameUI@@QAE@ABUSource0029E159@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029E159Audio.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E1EF 28B ??_GRva0029B816@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029B816Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E20B 79B ?hideObjectSuperweaponDisplayByScript@InGameUI@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E25A 79B ?showObjectSuperweaponDisplayByScript@InGameUI@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E2A9 53B ??1Rva0029E2A9@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0029E2A9Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E2DE 888B ?init@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E656 257B ?rva0029E656@InGameUI@@UAAXVAsciiString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E757 239B ?message@InGameUI@@UAAXVAsciiString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E846 180B ?rva0029E846@InGameUI@@UAAXVUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E8FA 165B ?message@InGameUI@@UAAXVUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029E99F 181B ?rva0029E99F@InGameUI@@UAAXPBURGBColor@@VUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029EA54 166B ?messageColor@InGameUI@@UAAXPBURGBColor@@VUnicodeString@@ZZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029EAFA 232B ?rva0029EAFA@Rva0029EAFA@@QAEXPBVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029EAFA.cpp (not merged yet)
+
+// tu-skeleton: 0x0029EBE2 1901B ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F34F 136B ?deselectDrawable@InGameUI@@UAEXPAVDrawable@@@Z -- matched in Code/GameEngine/Source/Common/InGameUIDeselectDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F3D7 212B ?playCameoMovie@InGameUI@@UAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIPlayCameoMovie.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F4AB 133B ?stopCameoMovie@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/Common/InGameUI_stopCameoMovie.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F530 511B ?militarySubtitle@InGameUI@@UAEXVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F72F 51B ?canSelectedObjectsNonAttackInteractWithObject@InGameUI@@QBE_NPBVObject@@W4SelectionRules@1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F77E 74B ?removeIdleWorker@InGameUI@@UAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F7C8 34B ?getIdleWorkerCount@InGameUI@@EAEHXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F7EA 206B ?recreateControlBar@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F8B8 130B ?rva0029F8B8@Rva0029F8B8@@QAE?AVRva0043FC20@@XZ -- matched in Code/GameEngine/Source/Common/Rva0029F8B8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029F954 350B ?notifyOfHeroSpawnEvent@InGameUI@@QAEXPAVObject@@PBDPBHM@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FAB2 5B ?rva0029FAB2@Rva0029FAB2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FAB7 56B ??1Rva0029B63A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FAEF 20B ?find@?$hash_map@IPAXU?$hash@I@_STL@@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@2@ABI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FB03 56B ??1Rva0029B667@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FB3B 40B ?init@Rva0029FB3BMember@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0029FB3BMemberInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FB63 29B ??0Rva0029FB63@@QAE@PBHABURva0029E067@@@Z -- matched in Code/GameEngine/Source/Common/Rva0029FB63Init.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FB80 28B ?Rva0029FB80Store@@YGPAXPAPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FB9C 45B ?Rva0029FB9CConstruct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FBC9 136B ?insert@Rva0029FBC9Tree@@QAE?AURva0029FBC9Iterator@@PAU_Rb_tree_node_base@_STL@@0ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@4@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_modulefactory_map_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FC51 45B ??$_Construct@U?$pair@$$CBHURva0029E067@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva0029E067@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FC7E 9B ??$_Destroy@URva0029E00D@@@_STL@@YAXPAURva0029E00D@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FC87 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FCB4 32B ?rva0029FCB4@Rva0029FCB4@@QAE?AV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FCD4 5B ?rva0029FCD4@Rva0029FCD4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FCD9 66B ?rva0029FCD9@InGameUI@@QAE_NPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029FCD9HasKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FD1B 387B ?rva0029FD1B@InGameUI@@UAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIRva0029FD1B.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FE9E 29B ?rva0029FE9E@Rva0029BA28@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FEBB 324B ?rva0029FEBB@Rva0029FEBB@@QAEXUICoord2D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0029FEBBDragPath.cpp (not merged yet)
+
+// tu-skeleton: 0x0029FFFF 354B ?rva0029FFFF@Rva0029C138@@QAEHP6AHPAVDrawable@@PAX@Z1@Z -- matched in Code/GameEngine/Source/Common/Rva0029C138Reset.cpp (not merged yet)
+
+// tu-skeleton: 0x002A0161 2854B ?postDraw@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIPostDraw.cpp (not merged yet)
+
+// tu-skeleton: 0x002A0C87 133B ?removeMilitarySubtitle@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIMessages.cpp (not merged yet)
+
+// tu-skeleton: 0x002A0D0C 5B ?rva002A0D0C@Rva002A0D0C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x002A0D11 8B ?rva002A0D11@Rva002A0D11@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x002A0D19 253B ?addFloatingText@InGameUI@@UAEXABVUnicodeString@@PBUCoord3D@@H@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp (not merged yet)
+
+// tu-skeleton: 0x002A0E16 259B ?addWorldAnimation@InGameUI@@QAEXPAVAnim2DTemplate@@PBUCoord3D@@W4WorldAnimationOptions@@MM@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIAddWorldAnimation.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1111 71B ?rva002A1111@Rva002A1111@@QAEXW4ObjectID@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002A1111.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1158 231B ?updateLocalPhantomStructureDisplay@InGameUI@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIUpdateLocalPhantomStructureDisplay.cpp (not merged yet)
+
+// tu-skeleton: 0x002A123F 34B ?rva002A123F@InGameUI@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1261 34B ?rva002A1261@InGameUI@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1283 34B ?rva002A1283@InGameUI@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp (not merged yet)
+
+// tu-skeleton: 0x002A12A5 18B ??0Rva0029FB3BMember@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva004DF418Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x002A12B7 42B ?erase@?$list@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UCameraMarker@@U?$_Nonconst_traits@UCameraMarker@@@_STL@@@2@U32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_cameramarker_erase.cpp (not merged yet)
+
+// tu-skeleton: 0x002A12E1 53B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x002A1316 37B ?Rva002A1316Store@@YGPAXPAPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva002A1316.cpp (not merged yet)
+
+// tu-skeleton: 0x002A133B 38B ?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z -- matched in Code/GameEngine/Source/Common/Rva007D85C0FilterShutdown.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1361 34B ?_M_create_node@?$list@UTreeKey00242F5E@@V?$allocator@UTreeKey00242F5E@@@_STL@@@_STL@@IAEPAU?$_List_node@UTreeKey00242F5E@@@2@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treekey00242f5e_create_node.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1383 88B ??0?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_superweaponinfo_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x002A13DB 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A13DB.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1410 110B ?reserve@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp (not merged yet)
+
+// tu-skeleton: 0x002A147E 59B ?insert_equal@?$_Rb_tree@IU?$pair@$$CBIURva002A147EElement@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIURva002A147EElement@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@@2@ABU?$pair@$$CBIURva002A147EElement@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A147E.cpp (not merged yet)
+
+// tu-skeleton: 0x002A14B9 28B ??_G?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x002A14D5 37B ?_M_new_node@?$hashtable@U?$pair@$$CBHURva0029E067@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0029E067@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0029E067@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva0029E067@@@_STL@@@2@ABU?$pair@$$CBHURva0029E067@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067.cpp (not merged yet)
+
+// tu-skeleton: 0x002A14FA 28B ?Rva002A14FAFree@@YGXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva002A14FAFree.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1516 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1538 61B ??0?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1575 13B ??_F?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUICtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1582 1413B ?update@InGameUI@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIUpdate.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002A1B07Ctor.cpp
+
+// ??0Rva002A1B07@@QAE@XZ @0x002A1B07 22B.
+// Default ctor constructing the Drawable-pointer list member at +4 through
+// the pinned List_base ctor with a stack allocator temp. Evidence: thiscall
+// no-arg ret; lea ecx [esi+4] plus lea-push temp allocator matching the
+// pinned List_base 0x00239BB0; caller at 0x002A3C1B; +0 left uninitialized.
+
+Rva002A1B07::Rva002A1B07()
+{
+}
+
+// tu-skeleton: 0x002A1B1D 54B ?rva002A1B1D@Rva002A1B1D@@QAEXPBURva002A1B1DChunk@@000@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002A1B1D.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1B53 28B ?push_front@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAEXABQAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1B6F 26B ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z -- matched in Code/GameEngine/Source/Common/Rva002A1316.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1B89 20B ?insert@?$multimap@IURva002A147EElement@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIURva002A147EElement@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIURva002A147EElement@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva002A147EElement@@@_STL@@@2@@2@ABU?$pair@$$CBIURva002A147EElement@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A147E.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1B9D 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002A1B9D.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1BC6 37B ?insert@?$list@UTreeKey00242F5E@@V?$allocator@UTreeKey00242F5E@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UTreeKey00242F5E@@U?$_Nonconst_traits@UTreeKey00242F5E@@@_STL@@@2@U32@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_treekey00242f5e_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1BEB 23B ??1?$_List_base@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_cameramarker_basedtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1C02 199B ?_M_insert_overflow@?$vector@UPrereqUnitRec@@V?$allocator@UPrereqUnitRec@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_prerequnitrec_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1CC9 57B ??0?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@ABVAsciiString@@ABUTreeHintOpaque002A484A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1D02 73B ?clear@Rva002A1D02@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedBucketChainClearO1.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1D4B 73B ?_M_insert@?$hashtable@U?$pair@$$CBHURva0029E067@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0029E067@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0029E067@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHURva0029E067@@@2@ABU32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_rva0029e067_deferred.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1D94 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@0@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1D9D 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1E31 151B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload002A1D9D@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a40c6.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1EC8 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp (not merged yet)
+
+// tu-skeleton: 0x002A1EF5 655B ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/InGameUI_selectMatchingCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x002A2184 93B ?loadPostProcess@InGameUI@@MAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x002A21E1 4212B ?handleBuildPlacements@InGameUI@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp (not merged yet)
+
 // tu-skeleton: 0x002A3273 1426B ?createCommandHint@InGameUI@@UAEXPBVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp (not merged yet)
 
 // tu-skeleton: 0x002A3805 259B ?selectDrawable@InGameUI@@UAEXPAVDrawable@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
@@ -2255,17 +2403,6 @@ void InGameUI::resetIdleWorker( void )
 // tu-skeleton: 0x002A4631 5B ??1?$map@VAsciiString@@PAVNamedTimerInfo@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@4@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/InGameUICtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002A4636 5B ?rva002A4636@Rva002A4636@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002A463BMapClear.cpp
-
-//
-// Clear the named-timer map at +0x750 through its rowed tree clear.
-// The owner class remains unrecovered.
-
-void Rva002A463B::rva002A463B()
-{
-	m_map.clear();
-}
 
 // tu-skeleton: 0x002A4646 201B ?rva002A4646@Rva002A4646BurstRecord@@QAEXVAsciiString@@I@Z -- matched in Code/GameEngine/Source/GameClient/Rva002A4646BurstEntries.cpp (not merged yet)
 

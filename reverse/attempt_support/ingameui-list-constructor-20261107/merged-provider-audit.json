@@ -1,0 +1,78 @@
+{
+  "borrowed_providers": [
+    {
+      "name": "??4AsciiString@@QAEAAV0@ABV0@@Z",
+      "before_twin": true,
+      "after_twin": true
+    },
+    {
+      "name": "??0AsciiString@@QAE@ABV0@@Z",
+      "before_twin": true,
+      "after_twin": true
+    },
+    {
+      "name": "?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@@Z",
+      "before_twin": false,
+      "after_twin": false
+    },
+    {
+      "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "before_twin": true,
+      "after_twin": true
+    },
+    {
+      "name": "??E?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QAEAAU01@XZ",
+      "before_twin": false,
+      "after_twin": false
+    },
+    {
+      "name": "??1AsciiString@@QAE@XZ",
+      "before_twin": true,
+      "after_twin": true
+    },
+    {
+      "name": "??1UnicodeString@@QAE@XZ",
+      "before_twin": false,
+      "after_twin": false
+    },
+    {
+      "name": "??0AsciiString@@QAE@XZ",
+      "before_twin": true,
+      "after_twin": true
+    },
+    {
+      "name": "?_M_incr@_List_iterator_base@_STL@@QAEXXZ",
+      "before_twin": true,
+      "after_twin": true
+    },
+    {
+      "name": "?getMouseStatus@Mouse@@QAEPBUMouseIO@@XZ",
+      "before_twin": false,
+      "after_twin": false
+    },
+    {
+      "name": "?clear@?$map@VAsciiString@@PAVNamedTimerInfo@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@4@@_STL@@QAEXXZ",
+      "before_twin": false,
+      "after_twin": false
+    },
+    {
+      "name": "??2@YAPAXIPAX@Z",
+      "before_twin": true,
+      "after_twin": true
+    }
+  ],
+  "crt_equal": true,
+  "selection": {
+    "index": "9c81acd297 2026-11-07 13:23",
+    "first_provider": "Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp",
+    "first_rank": 1638,
+    "ledger_owner_rank": 5223,
+    "host_rank": 6723,
+    "donor_old_rank": 6813,
+    "selected_constructor_bytes": 18,
+    "host_copy_bytes": 19,
+    "selection": "ANY (2)",
+    "canonical_provider_preserved": true,
+    "scope": "Indexed ordering with current inspected objects; fresh batch audit and census still required."
+  }
+}
