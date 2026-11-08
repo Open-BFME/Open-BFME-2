@@ -581,3 +581,8 @@ data allocations and external bindings unchanged. Preview still conserves
 LINKS/3,167 bytes. The complete Animal class, its donors and TU composition
 remain open; no current image or runtime clearance.
 [Receiver controls and object proof](../../reverse/attempt_support/animal-ai-interfaces-adoption-20261108/README.md).
+
+Published as 79e9193622 on the first attempt (54.1 seconds). Required
+checks pass; the broader audit remains INCONCLUSIVE against c885072a48
+because unchanged Common/AICommandInterface_aiMoveToPositionEvenIfSleeping.cpp
+lacks a current strict receipt. This does not establish current image closure.
