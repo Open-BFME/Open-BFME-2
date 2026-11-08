@@ -66,17 +66,20 @@ def definitions(objects, names, archives=()):
             section = sections[sym.sec - 1]
             end = min((value for value in starts[sym.sec] if value > sym.value),
                       default=section.size)
-            pointers = {}
+            pointers, weak = {}, {}
             for off, target, kind in section.relocs:
                 if sym.value <= off and off + 4 <= end:
                     pointers[off - sym.value] = (
                         symbols[target].name, kind,
                         struct.unpack_from("<I", raw, section.ptr + off)[0])
+                    if symbols[target].cls == WEAK_EXTERNAL:
+                        weak[off - sym.value] = weak_default(raw, symbols, symbols[target])
             found[sym.name].append(dict(
                 object=str(path), extent=end - sym.value, offset=sym.value,
                 comdat=bool(section.flags & COMDAT), selection=section.sel,
                 executable=bool(section.flags & EXECUTE), archive=False,
-                other_publics=sorted(publics[sym.sec] - {sym.name}), pointers=pointers))
+                other_publics=sorted(publics[sym.sec] - {sym.name}), pointers=pointers,
+                weak=weak))
     for archive in archives:
         for member, raw in coffar.read_archive(archive):
             origin = f"{archive}({member})"
@@ -333,21 +336,48 @@ def retail_slots(retail, row):
     return slots, None
 
 
-def matches(found, slots, addresses):
+def weak_resolutions(records, found):
+    """{weak name: (default, characteristics)} for the undefined weak externals the
+    link resolves to their default. `records` {name: {weak_default() of each kept
+    object's weak external of that name}}; `found` definitions() of those names over
+    the kept objects and archives.
+
+    MSVC 7.1 puts `??_EX@@UAEPAXI@Z` in a vftable's destructor slot. A unit that
+    never needs the vector deleting destructor emits it only as an undefined
+    IMAGE_SYM_CLASS_WEAK_EXTERNAL whose IMAGE_WEAK_EXTERN record names `??_GX` as
+    its default. The name is resolved once for the whole image: any definition
+    (strong, COMDAT, common, absolute or a possible archive member) wins over the
+    default, and kept copies whose records disagree leave the default unproven, so
+    either case keeps the plain name comparison."""
+    return {name: next(iter(defaults)) for name, defaults in records.items()
+            if len(defaults) == 1 and None not in defaults and not found.get(name)}
+
+
+def slot_matches(found, index, target, addresses, weak):
+    """The copy's slot `index` relocates, DIR32 without addend, to a name the ledger binds
+    only at `target`: its own name, or the default of a weak external weak_resolutions()
+    proves resolves to it (that copy's own weak record must name the same default)."""
+    pointer = found["pointers"].get(index * 4)
+    if pointer is None:
+        return False
+    name, kind, addend = pointer
+    if kind != link_cycle.DIR32 or addend:
+        return False
+    if addresses.get(name) == {target}:
+        return True
+    record = (weak or {}).get(name)
+    return record is not None and found.get("weak", {}).get(index * 4) == record         and addresses.get(record[0]) == {target}
+
+
+def matches(found, slots, addresses, weak=None):
     """Prove only the positive slot pointers, not the implementation or class layout."""
     if found["extent"] < 4 * len(slots):
         return False
-    for index, target in enumerate(slots):
-        pointer = found["pointers"].get(index * 4)
-        if pointer is None:
-            return False
-        name, kind, addend = pointer
-        if kind != link_cycle.DIR32 or addend or addresses.get(name) != {target}:
-            return False
-    return True
+    return all(slot_matches(found, index, target, addresses, weak)
+               for index, target in enumerate(slots))
 
 
-def source_slot_mismatches(found, slots, addresses):
+def source_slot_mismatches(found, slots, addresses, weak=None):
     """Keep the source copy's names and ledger RVAs, even when the bridge hides it."""
     result = []
     for index, expected in enumerate(slots):
@@ -355,7 +385,7 @@ def source_slot_mismatches(found, slots, addresses):
         if pointer is not None:
             name, kind, addend = pointer
             rvas = sorted(addresses.get(name, ()))
-            if kind == link_cycle.DIR32 and not addend and rvas == [expected]:
+            if slot_matches(found, index, expected, addresses, weak):
                 continue
             result.append(dict(slot=index, name=name, ledger_rvas=rvas,
                                relocation_kind=kind, addend=addend,
@@ -504,15 +534,20 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
                      unindexed=[binding for binding in bindings if binding["rva"] not in indexed])
     referenced = collections.defaultdict(list)
     native_names = set()
+    weak_records = collections.defaultdict(set)
     for path in objects.paths:
-        for sym in objects.get(path)[1].values():
+        _sections, symbols, raw = objects.get(path)
+        for sym in symbols.values():
+            if sym.cls == WEAK_EXTERNAL:
+                weak_records[sym.name].add(weak_default(raw, symbols, sym))
             if sym.cls == link_cycle.EXTERNAL and sym.name.startswith("??_7"):
                 native_names.add(sym.name)
             if sym.name in names and sym.cls == link_cycle.EXTERNAL and sym.sec == 0 and not sym.value:
                 referenced[sym.name].append(str(path))
     discovery["native_names_without_address_binding"] = sorted(native_names - addresses.keys())
     discovery["new_name_bindings"] = [binding for binding in bindings if binding["name"] not in ledger_names]
-    found = definitions(objects, names, archives)
+    found = definitions(objects, names | weak_records.keys(), archives)
+    weak = weak_resolutions(weak_records, found)
     sources = {str(Path(path).resolve()): str(source).replace(str(build.ROOT) + "/", "")
                for path, source in (source_of or {}).items()}
     for row in rows:
@@ -535,7 +570,8 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         entry["source"] = sources.get(previous["object"], "") if previous else row.get("source", "")
         if previous and slots:
             entry.update(previous_object=previous["object"], previous_extent=previous["extent"],
-                         source_slot_mismatches=source_slot_mismatches(previous, slots, targets.addresses))
+                         source_slot_mismatches=source_slot_mismatches(previous, slots, targets.addresses,
+                                                                       weak))
         return entry, copies, kept, active
 
     for row in tables:
@@ -584,7 +620,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
             continue
         for name in sorted(active):
             first = next((copy for candidate, copy in kept if candidate == name), None)
-            if first is not None and matches(first, slots, targets.addresses):
+            if first is not None and matches(first, slots, targets.addresses, weak):
                 correct.append({**entry, "name": name, "object": first["object"]})
                 continue
             origin = first["object"] if first else referenced[name][0]
@@ -594,7 +630,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
                 name_bindings=[binding for binding in bindings if binding["name"] == name],
                 previous_object=first["object"] if first else None,
                 previous_extent=first["extent"] if first else 0,
-                source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses)
+                source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses, weak)
                     if first else []))
     return dict(tables=len(generated), retail_tables=len({entry["rva"] for entry in generated}), slots=sum(len(entry["slots"]) for entry in generated),
                 twin_target_slots=sum(1 for entry in generated for slot in entry["slots"] if "twin_of" in slot),

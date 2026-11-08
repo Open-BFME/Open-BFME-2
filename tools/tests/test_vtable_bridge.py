@@ -860,3 +860,64 @@ def test_a_forwarded_target_that_fails_a_provider_check_stays_omitted(tmp_path):
                         {0x1020: jmp(0x1020, 0x1010)}, edit=unverify)
     assert result["tables"] == 0 and result["thunk_forwarded_slots"] == 0
     assert result["refusals"][0]["reason"] == "omitted-target"
+
+
+def weak_table_object(path, weak="_weak", default="_first", characteristics=2, name="_vtable"):
+    """A COMDAT table whose slot 0 relocates to an undefined weak external (`??_EX`) with an
+    IMAGE_WEAK_EXTERN default (`??_GX`) and slot 1 to `_second`."""
+    symbols = [(name, 1, 0, L.EXTERNAL), (weak, 0, 0, V.WEAK_EXTERNAL), ("_aux", 0, 0, 0),
+               (default, 0, 0, L.EXTERNAL)]
+    symbols += [("_second", 0, 0, L.EXTERNAL)] if default != "_second" else []
+    path = L.write_coff(path, [(".rdata", 0x40300040 | V.COMDAT, bytes(8), V.SELECT_ANY)], symbols,
+                        {1: [(0, weak, L.DIR32), (4, "_second", L.DIR32)]})
+    raw = bytearray(path.read_bytes())
+    symptr = struct.unpack_from("<I", raw, 8)[0]
+    _sections, syms = L.parse_coff(bytes(raw))
+    index = next(y.i for y in syms.values() if y.name == weak)
+    raw[symptr + 18 * (index + 1):symptr + 18 * (index + 2)] = \
+        struct.pack("<II", index + 2, characteristics) + bytes(10)
+    raw[symptr + 18 * index + 17] = 1
+    path.write_bytes(bytes(raw))
+    return path
+
+
+def weak_slot_plan(tmp_path, *extra, **kw):
+    code = code_object(tmp_path / "code.obj")
+    table = weak_table_object(tmp_path / "table.obj", **kw)
+    rows = [{"target_rva": hex(rva), "name": name, "source": "Code/code.cpp", "status": "matched"}
+            for rva, name in ((0x1000, "_first"), (0x1010, "_second"))]
+    data = [{"address": "0x3000", "size": "8", "name": "_vtable", "kind": "vtable"}]
+    return plan(code, [table, *extra], rows, data)
+
+
+def test_weak_destructor_slot_resolving_to_the_retail_default_is_correct(tmp_path):
+    # LINK-514 lk64/lk65: slot 0 relocates to the undefined weak ??_EX whose default ??_GX
+    # is the ledger row at retail's slot-0 address; nothing defines ??_EX, so the linker
+    # resolves the slot to ??_GX and the table is already right.
+    result = weak_slot_plan(tmp_path)
+    assert (result["tables"], result["already_correct"], result["refused_tables"]) == (0, 1, 0)
+
+
+@pytest.mark.parametrize("flags,selection", [(0x60500020, 0), (0x60501020, V.SELECT_ANY)])
+def test_weak_name_defined_anywhere_is_compared_by_its_own_name(tmp_path, flags, selection):
+    # A strong or COMDAT ??_EX in any kept object wins over every weak default.
+    strong = L.write_coff(tmp_path / "strong.obj", [(".text", flags, b"\xc3", selection)],
+                          [("_weak", 1, 0, L.EXTERNAL)])
+    result = weak_slot_plan(tmp_path, strong)
+    assert (result["tables"], result["already_correct"]) == (1, 0)
+    assert [item["slot"] for item in result["entries"][0]["source_slot_mismatches"]] == [0]
+
+
+@pytest.mark.parametrize("other", [dict(default="_second"), dict(characteristics=1)])
+def test_weak_records_that_disagree_leave_the_default_unproven(tmp_path, other):
+    # A later kept copy of the same weak name with another default or search rule.
+    disagreeing = weak_table_object(tmp_path / "other.obj", name="_other_vtable", **other)
+    result = weak_slot_plan(tmp_path, disagreeing)
+    assert (result["tables"], result["already_correct"]) == (1, 0)
+
+
+def test_weak_default_bound_to_another_retail_address_does_not_match(tmp_path):
+    # The default is a ledger row, but at 0x1010, not retail's slot-0 target 0x1000.
+    result = weak_slot_plan(tmp_path, default="_second")
+    assert (result["tables"], result["already_correct"]) == (1, 0)
+    assert result["entries"][0]["source_slot_mismatches"][0]["name"] == "_weak"
