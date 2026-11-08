@@ -501,6 +501,7 @@ def _wait_for(predicate, seconds=10):
     return predicate()
 
 
+@pytest.mark.skipif(os.name == "nt", reason="the audit refuses to run on Windows")
 def test_an_interrupt_kills_the_proof_process_and_what_it_started(tmp_path):
     # Review probe 1: child.kill() alone left the grandchild (a compiler) running.
     pidfile = tmp_path / "grandchild.pid"
@@ -529,3 +530,49 @@ def test_an_interrupt_kills_the_proof_process_and_what_it_started(tmp_path):
     grandchild = int(pidfile.read_text())
     assert _wait_for(lambda: not _alive(grandchild))
     assert list((tmp_path / "build").glob("pin-audit-*")) == []
+
+
+_MIDDLE = (
+    "import subprocess, sys\n"
+    "from pathlib import Path\n"
+    "grandchild = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)'])\n"
+    "Path(sys.argv[1]).write_text(str(grandchild.pid))\n")             # and exits at once
+_LEADER = (
+    "import subprocess, sys, time\n"
+    "from pathlib import Path\n"
+    "subprocess.Popen([sys.executable, sys.argv[1], sys.argv[2]]).wait()\n"
+    "Path(sys.argv[3]).write_text('ready')\n"
+    "time.sleep(120)\n")
+
+
+@pytest.mark.skipif(os.name == "nt", reason="the audit refuses to run on Windows")
+def test_a_grandchild_orphaned_by_an_exited_intermediate_is_killed_too(tmp_path):
+    # Review probe 4: the compiler driver has exited; its compiler must still die with the tree.
+    middle, leader = tmp_path / "middle.py", tmp_path / "leader.py"
+    middle.write_text(_MIDDLE)
+    leader.write_text(_LEADER)
+    pidfile, ready = tmp_path / "orphan.pid", tmp_path / "ready"
+    child = pin_consistency.start_child(
+        [sys.executable, str(leader), str(middle), str(pidfile), str(ready)], dict(os.environ))
+    try:
+        assert _wait_for(ready.exists)
+        orphan = int(pidfile.read_text())
+        assert _alive(orphan)
+        pin_consistency.kill_tree(child)
+        child.wait(timeout=10)
+        assert _wait_for(lambda: not _alive(orphan))
+    finally:
+        child.kill()
+        child.wait()
+
+
+def test_the_audit_refuses_to_run_on_windows(monkeypatch):
+    monkeypatch.setattr(pin_consistency, "on_windows", lambda: True)
+    monkeypatch.setattr(pin_consistency, "audit", lambda limit=None: (_ for _ in ()).throw(
+        AssertionError("nothing may be judged")))
+    for argv in (["--audit"], ["--audit-child", "r", "o", "s"]):
+        with pytest.raises(SystemExit) as refused:
+            pin_consistency.main(argv)
+        assert "srv1" in str(refused.value)
+    with pytest.raises(SystemExit):
+        pin_consistency.start_child([sys.executable, "-c", "pass"], dict(os.environ))

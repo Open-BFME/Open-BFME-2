@@ -988,31 +988,38 @@ def sweep_stale_scratch(parent=None, now=None, root=None):
     return swept
 
 
+def on_windows():
+    return os.name == "nt"
+
+
+def refuse_on_windows(what):
+    """The proofs compile, and lanes compile on srv1 (Wine), never on a Windows PC. Windows also
+    offers no group that outlives an exited intermediate process, so an interrupted proof could
+    leave a compiler running there: the audit's proofs run on POSIX only."""
+    if on_windows():
+        raise SystemExit(f"pin_consistency {what}: the proofs compile, so the audit runs on srv1 "
+                         "(Wine), not on Windows; run it there")
+
+
 def start_child(argv, env):
-    """The proof process, leading its own process group (a new session on POSIX, a new process
-    group on Windows), so kill_tree reaches the compilers it starts as well."""
-    if os.name == "nt":
-        child = subprocess.Popen(argv, env=env, cwd=str(ROOT),
-                                 creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-    else:
-        child = subprocess.Popen(argv, env=env, cwd=str(ROOT), start_new_session=True)
+    """The proof process, leading a new session (its own process group), so kill_tree reaches
+    every process it starts, even one whose own parent has already exited."""
+    refuse_on_windows("--audit")
+    child = subprocess.Popen(argv, env=env, cwd=str(ROOT), start_new_session=True)
     child.audit_group = True
     return child
 
 
 def kill_tree(child):
-    """Kill the proof process and everything it started. A child start_child made leads its
-    own group: SIGKILL to that group (it outlives its leader), or taskkill /T on Windows."""
+    """Kill the proof process and everything it started: SIGKILL to the group a start_child
+    process leads (the group outlives its leader and any exited intermediate)."""
     pid = getattr(child, "pid", None)
     if pid is not None and getattr(child, "audit_group", False):
-        if os.name == "nt":
-            subprocess.run(["taskkill", "/T", "/F", "/PID", str(pid)], capture_output=True)
-        else:
-            import signal
-            try:
-                os.killpg(pid, signal.SIGKILL)
-            except (ProcessLookupError, PermissionError):
-                pass
+        import signal
+        try:
+            os.killpg(pid, signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
     try:
         child.kill()
     except OSError:
@@ -1212,8 +1219,10 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     if args.audit_child:
+        refuse_on_windows("--audit-child")
         return audit_child(*args.audit_child)
     if args.audit:
+        refuse_on_windows("--audit")
         report_audit(audit(limit=args.audit_limit), args.audit_json)
         return 0
 
