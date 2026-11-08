@@ -316,9 +316,8 @@ that recipe); RunOffMapBehavior when it lands.
   It compares the name with exactly two strings: "Object" goes to the front of the post-process list, "Weapon" is left off it, the
   rest go to the back. A module that returns its base's name takes the same branch as under its own name.
 - **The two names that matter.** `Object`'s getter is rowed and its table holds it. `Weapon`'s is not: retail table 0x00C0214C holds
-  0x002CC2F6, rowed as the free function `?Rva002CC2F6Get@@YAHXZ`, and `??_7Weapon@@6B@` in WeaponCtor.cpp and WeaponDtor.cpp has
-  `__purecall` in slots 1-3 (`bfmeSnapshotSlot1..3`). Real link 0448c6d48c bridges that table from retail's slots, so today's image
-  returns "Weapon". Once the bridge retires it, the first Weapon a load reaches calls `__purecall`.
+  0x002CC2F6, rowed as the free function `?Rva002CC2F6Get@@YAHXZ`, and `??_7Weapon@@6B@` in WeaponCtor.cpp and WeaponDtor.cpp had
+  `__purecall` in slots 1-3, hidden by the bridge; retiring it would have crashed the first Weapon a load reaches. Repaired 2026-11-08 (below).
 - **The bridge.** The same applies to the module tables: where the bridge binds `??_7Class`, the image has retail's slot 2. This entry's
   repaired classes get that binding from the next ledger regeneration (their rows are still address-named `global`s).
 - **Not compared.** No save/load has been run. Other readers under other spellings are not excluded: a scan of retail's `call [reg+8]`
@@ -341,3 +340,29 @@ the class ("is already a member": the 96, and RunOffMapBehavior's `rva00462213`)
 it those two shapes, and letting its post-build check follow a `jmp` thunk (the DamageFieldUpdate false reject), would let a batch respell
 each class's getter as that class gains real tables. A class without an installer that compiles its table gains nothing yet, so this
 follows the family rather than replacing it.
+
+**2026-11-08: image_report's `with_wrong_pointers` (7 rows at real link afebf7e78c), read one by one.** Every row is a kept table with
+`__purecall` or a base's slot where retail has a body, and every row is bridged today, so none crashes in the current image. Each becomes
+a crash on its first virtual call **if the bridge retires that table first.** Report order, with the earliest boot-walk order of a store
+(`seat4/build/crashprev/scan3.tsv`; reachability, not a trace, and the bridge makes each store fine today):
+
+| table (retail) | order | conflicting slots | state |
+|---|---:|---:|---|
+| `??_7Rva0023DB34@@6B@` (0x00BEDAA8) | 25465, via LivingWorldLogic | 4 | **repaired**: the view declared the four slots pure; all four were rowed under the class. 4/4 resolve |
+| `??_7StancesBehavior@@6BUpdateModule@@@` (0x00C424DC) | 9960 | 2 | P42: slots 1 and 2 pure in the unit's private bases; adopt canonical UpdateModule.h |
+| `??_7Rva00481F82@@6BObjectModule@@@` (0x00C49408) | 10078 | 5 | P42: TerrainResourceBehavior's own table under a placeholder; `class --fold` refuses (the ledger names the table for the placeholder), and the unit carries hatches |
+| `??_7LargeGroupAudioUpdate@@6BUpdateModule@@@` (0x00C548F0) | 10669 | 1 | P42: `--to-class` for 0x004AB9D5 needs LargeGroupAudioUpdate.cpp prepared; the dtor's view is a scaffold, and the ctor unit hand-builds the table |
+| `??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@` (0x00C552A4) | 10579 | 8 | the SpecialAbilityUpdate base (below in this entry): the table is shared, and this class's scaffold is only the kept copy |
+| `??_7ChangeStanceGroupOrder@@6B@` (0x00C6A36C) | 22257 | 8 | P42: 15 slots against 14. `rva00546BED` is canonical GroupOrder's `slot04` under another identifier, a naming wall like `onObjectCreated` |
+| `??_7Rva003FA118@@6B@` (0x00C3789C) | not in the walk | 1 | P42: slot 0 is `?rva0056B613@Rva0056B613@@QAEXH@Z`, a non-virtual placeholder row |
+
+**Weapon was not among the seven** (the report sees only rows with a ledger name it can match), though it had the same defect, and an earlier reachable store
+than any of them (order 2116): **repaired.** Both `??_7Weapon@@6B@` copies are now the 4 slots retail holds in 0x00C0214C (the deleting destructor, an empty
+`loadPostProcess`, `GetSnapshotName` returning "Weapon", `xfer`), so `GameState::addPostProcessSnapshot` still leaves Weapons off its list with the bridge retired.
+Its getter row 0x002CC2F6 is still the free-function placeholder `Rva002CC2F6Get`, a name debt (P41) and no longer a trap.
+
+**Before retiring any bridged table: compare the kept copy's slots with retail's.** The image report's seven undercount this (Weapon), `pointers_unchecked` is 8,314, and a bridged image hides all of it.
+
+**For the header seats, so they need not re-read these** (each row of the status table above carries its blocker): SpecialPowerModule's slots are rowed under real names
+(pauseCountdown, getPowerName, doSpecialPower*, isReady, startPowerRecharge, ApplyPowerToObject and more) and need one canonical class in place of `Rva00493009` and the private views. HordeTransportContain's
+10 stores are 3 zero placeholders plus 7 folded tables under other classes' names (AODHordeContain, HordeSiegeEngineContain, TransportContain); its primary slots are nearly all rowed under OpenContain, TransportContain and the class.
