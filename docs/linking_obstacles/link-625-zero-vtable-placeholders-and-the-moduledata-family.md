@@ -283,7 +283,7 @@ engine init.
 | W3DTreeDraw, W3DDefaultDraw (267 and 94 INI uses, above) | walled above: the DrawModule fold |
 | UpgradeModule, UpgradeMux | LINK-218 |
 | DamageFieldUpdate (`g_00C4D970`, `g_00C4D964`) | **repaired**, below |
-| GloriousChargeUpdate, RousingSpeechUpdate, ArrowStormUpdate | open, base first. On the unit's private SpecialAbilityUpdate, removing `novtable` and the stores is 21/21 **byte-exact but wrong**: an 18-slot primary table against retail's 23, and 9 `__purecall`s at +0x20 where today's explicit store holds retail's real table 0x00C552A4. Check slots, not just bytes. On the canonical SpecialAbilityUpdate.h (with `// stlport` and /D_STLP_USE_STATIC_LIB) it is also 21/21 and the primary table is 23 slots, but the header's slot names have no rows: 7 at +0x20, slot 25 at +0x0C and `vslot14`, `vslot18`, `vslot20` on the primary sit under other names, many of them shared folds (`ret`-shaped bodies), so as it stands the table adds unresolved symbols. Next: row or fold-pin those names, then all three classes follow. 39 units still declare the class privately |
+| GloriousChargeUpdate, RousingSpeechUpdate, ArrowStormUpdate | **repaired** on canonical SpecialAbilityUpdate, compiler-installed tables: 71 of 82 slots resolve to retail's address on each, the rest are the base's inline bodies equal to retail's, slot 1's jmp and slot 2's name (P41). A byte-exact ctor was not enough: on its private base GloriousCharge was 21/21 with a short table and purecalls. See the notes below |
 | InvisibilitySpecialPower, SpecialPowerTimerRefreshSpecialPower | open, header lane: `SpecialPowerModule`'s slots are rowed under real names, but it has no canonical header, only the placeholder-named `Rva00493009` (Rva00493009.h), and about 53 units declare the class privately |
 | SpawnedModelConditionCreate | **repaired**: canonical CreateModule, compiler-installed tables; 55 of 63 slots resolve to retail's address, the other 8 are the same one-instruction shapes or the deleting destructor, except slot 2 (name getter, a non-virtual row) |
 | RunOffMapBehavior | open, needs a name: [ctor_real_view.txt](../../reverse/attempt_support/runoffmap_real_tables/ctor_real_view.txt) is 1/1 exact with an empty ctor body on BehaviorModule plus RunOffMapBehaviorInterface, and reproduces the first +0x10 store the unit keeps `volatile`. Its table is 12 slots, as retail's. Slot 5 (0x00462213) needs the identifier `onObjectCreated`, but the row is `?rva00462213@RunOffMapBehavior@@UAEXXZ`: `--to-class` refuses a row already on the class, and a slot position is only a hint in docs/naming.md, so it goes through the inferred lane. Landing without it would make retail's slot 5 the base's empty body. Slots 1-3 also need definitions: `loadPostProcess` (0x0058B03E, a `jmp` to the shared empty body), `GetSnapshotName` (0x004621AC, a free-function placeholder row) and `xfer` (0x004CE56D, an ICF fold rowed as `?xfer@DamageModule@@MAEXPAVXfer@@@Z`) |
@@ -352,7 +352,7 @@ a crash on its first virtual call **if the bridge retires that table first.** Re
 | `??_7StancesBehavior@@6BUpdateModule@@@` (0x00C424DC) | 9960 | 2 | P42: slots 1 and 2 pure in the unit's private bases; adopt canonical UpdateModule.h |
 | `??_7Rva00481F82@@6BObjectModule@@@` (0x00C49408) | 10078 | 5 | P42: TerrainResourceBehavior's own table under a placeholder; `class --fold` refuses (the ledger names the table for the placeholder), and the unit carries hatches |
 | `??_7LargeGroupAudioUpdate@@6BUpdateModule@@@` (0x00C548F0) | 10669 | 1 | P42: `--to-class` for 0x004AB9D5 needs LargeGroupAudioUpdate.cpp prepared; the dtor's view is a scaffold, and the ctor unit hand-builds the table |
-| `??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@` (0x00C552A4) | 10579 | 8 | the SpecialAbilityUpdate base (below in this entry): the table is shared, and this class's scaffold is only the kept copy |
+| `??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@` (0x00C552A4) | 10579 | 8 | the SpecialAbilityUpdate base (below in this entry): the table is shared, and this class's scaffold is only the kept copy; the base's slots are now all defined, so a class on canonical SpecialAbilityUpdate no longer emits these 8 |
 | `??_7ChangeStanceGroupOrder@@6B@` (0x00C6A36C) | 22257 | 8 | P42: 15 slots against 14. `rva00546BED` is canonical GroupOrder's `slot04` under another identifier, a naming wall like `onObjectCreated` |
 | `??_7Rva003FA118@@6B@` (0x00C3789C) | not in the walk | 1 | P42: slot 0 is `?rva0056B613@Rva0056B613@@QAEXH@Z`, a non-virtual placeholder row |
 
@@ -366,3 +366,22 @@ Its getter row 0x002CC2F6 is still the free-function placeholder `Rva002CC2F6Get
 **For the header seats, so they need not re-read these** (each row of the status table above carries its blocker): SpecialPowerModule's slots are rowed under real names
 (pauseCountdown, getPowerName, doSpecialPower*, isReady, startPowerRecharge, ApplyPowerToObject and more) and need one canonical class in place of `Rva00493009` and the private views. HordeTransportContain's
 10 stores are 3 zero placeholders plus 7 folded tables under other classes' names (AODHordeContain, HordeSiegeEngineContain, TransportContain); its primary slots are nearly all rowed under OpenContain, TransportContain and the class.
+
+**The SpecialAbilityUpdate family, notes for the next class.**
+
+- The list at +0x88 is a real member, not a missing one. `m_88(Rva0029FB3BAlloc())` calls the allocator constructor 0x0029FB3B;
+  the empty temporary is the spare `ebp+0xF` stack byte the old casts spelled as a "context". The allocator needs a user
+  constructor, or the temporary is zeroed (`xor eax,eax; stosb`). With `reset` and the destructor `throw()` no second EH state
+  appears. RousingSpeechUpdate and ArrowStormUpdate use this; GloriousChargeUpdate still has the older private list view and hand calls.
+- `Rva0044EF5E` stays as an intermediate class. The ledger's row at 0x0044EF5E carries that name, so `??0SpecialAbilityUpdate`
+  compiles byte-exact and is unresolved in the link. Renaming the owner reaches 38 units and is still to do.
+- Check slots against each class's own table. ArrowStormUpdate overrode primary slot 16 (0x00490628, now `continuePreparation`)
+  and +0x20 slot 8 (0x004906CD, now `vslot08`), both already byte-exact under placeholders; the byte gate could not see them
+  missing from the table.
+- `vslot08`'s parameter is spelled `int` across the family (0x0044EDA6, 0x004AE583, 0x0049C553, 0x004929D1, 0x00492E79).
+  ArrowStormUpdate's body uses it as a `const Coord3D *`, so the family's real signature is probably the pointer. Respelling it is one change over six rows.
+- `SpecialPowerUpdateInterface`'s slots 1-5 and the base's other inline bodies still show as different addresses because retail
+  folded them with unrelated one-instruction functions. They are equal in bytes, so this is not a defect.
+- RousingSpeechUpdate's TU merge is blocked only by the `RousingSpeechUpdateModuleDataCtor.cpp` donor's view. ArrowStormUpdate's is
+  blocked by the TU holding `Rva0029FB80Store` (0x0029FB80, approved for InGameUI.cpp). Its header-queue row for the ctor retires once
+  the SpecialAbilityUpdate units reach the census, since the hook judges that unit alone.
