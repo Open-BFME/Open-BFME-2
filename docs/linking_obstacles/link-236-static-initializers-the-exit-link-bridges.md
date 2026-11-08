@@ -39,7 +39,9 @@ AptMainMenu, AptOptions, AptCreateAHero and AptLanLobby copies, 548 -> 543, then
 inside or close their own unit's statics, 543 -> 529 (see "Round lk54"); halilkkaya-lk58: lk54's
 four settled leads (the LuaScriptEngine copy, the LivingWorldSound zoom region, the ScriptActions flash
 divisor, SidesList), then GameClient/DrawableFramesPerFlash.h, with which 31 copies of units that refuse the
-canonical Drawable.h registered, 529 -> 494 (see "Round lk58"); next seat continues).
+canonical Drawable.h registered, 529 -> 494 (see "Round lk58"); halilkkaya-lk60: BuildAssistant's two frame counts, 492 -> 490;
+halilkkaya-lk62: the SPAWN_UPDATE_RATE and SLAVED_UPDATE_RATE header constants and seven copies whose
+units were free again, 491 -> 475 (see "Round lk62"); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -1248,3 +1250,66 @@ touched object kept its `??_7` digests, link_check passed on the changed files (
 
 
 **2026-11-07 AptDate interpreter storage.** The data verifier independently confirms the 72-byte zero-filled allocation at VA 0x00E182E0. It belongs to AptDate.cpp alongside the matched initializer 0x007B67A0 and cleanup 0x007B9C50. The ledger addition does not edit the source or its startup actions.
+
+**Round lk62 (halilkkaya-lk62, 2026-11-08, bridged 491 -> 475).** Measured with
+`image_report.bridge_entries` over the kept objects (exit_link's rule) on `76e443517b`'s tree plus the
+round. Each entry was retracted (`reverse/deleted_rows.csv`) and readmitted by relocation target in the
+same commit. Every touched object kept every COMDAT digest (all `??_7` included), each unit's .CRT$XCU
+run is in retail's order, and bridge_entries removed exactly the named RVAs at each step.
+- *Two header constants (target facts, then donor facts).* The FrameRate grab-bag's `/ 2` and `/ 4`
+  entries are not one unknown constant.
+  - Twelve .CRT$XCU entries store `BfmeLogicFramesPerSecond / 2` (16 bytes), and each directly follows its
+    unit's Drawable.h copy, in .text$yc and in .bss. W3DDisplay's 0x007ABC6F is its own, read
+    START_CUMU_FRAME, and SpawnBehavior's 0x007B0C0F is the frame wait its update reloads. The other ten
+    are never read, so they are one header's constant. Zero Hour's SpawnBehavior.h defines
+    `SPAWN_UPDATE_RATE = LOGICFRAMES_PER_SECOND/2`, and its ActionManager.cpp includes Drawable.h and then
+    SpawnBehavior.h. Retail's SpawnBehavior builds its copy before its rate, while Zero Hour includes
+    SpawnBehavior.h first, so BFME 2's spawn header presumably reaches Drawable.h itself. The name is
+    inferred. `GameLogic/Module/SpawnUpdateRate.h` holds the one constant, the way
+    DrawableFramesPerFlash.h does.
+  - Three entries store `/ 4` (17 bytes): SlavedUpdate's read interval (0x007B1A27), and unread ones in the
+    ModuleFactory and SlowDeathBehavior runs. Zero Hour includes SlavedUpdate.h
+    (`SLAVED_UPDATE_RATE = LOGICFRAMES_PER_SECOND/4`) in exactly those three units, and SlowDeathBehavior.cpp
+    includes Drawable.h before it. `GameLogic/Module/SlavedUpdateRate.h` holds it.
+- *Taken (491 -> 475, 16 entries).*
+  - SPAWN_UPDATE_RATE after copies the units already row (491 -> 486): TacticalAI 0x007AE2CE `_$E3`,
+    ActionManagerSpecialPowerChecks 0x007B014F `_$E5`, GettingBuiltBehavior 0x007B08B2 `_$E3`,
+    RebuildHoleBehavior 0x007B1122 `_$E4`, RebuildHoleExposeDie 0x007B1328 `_$E3`. Each unit includes the
+    header right after its Drawable.h include.
+  - ModuleFactory (486 -> 483): copy 0x007ADCF8 `_$E17` (static right after TheModuleFactory), SPAWN
+    0x007ADD08 `_$E206` and SLAVED 0x007ADD72 `_$E208`, with the run's four ZeroInits masks still bridged
+    between them. The unit is built on Zero Hour's headers. So it takes the bfme2_drawable_flash shim first
+    on its include path, renames Zero Hour's compile-time SLAVED_UPDATE_RATE and SPAWN_UPDATE_RATE around
+    their two includes, and includes the two rate headers after SpawnBehavior.h.
+  - W3DCamTransform copy 0x007ACA9A `_$E1` through DrawableFramesPerFlash.h, ahead of its camera-mode string
+    (now `_$E3`, cleanup `_$E4`); round lk51's C2011 no longer applies (483 -> 482).
+  - Units free again (482 -> 475), each alone in its run after the unit's own guard (round lk54's rule
+    for a unit with no plain global): FloatUpdate 0x007B14E0 `_$E22` (bfme2_drawable_flash shim),
+    BoneFXDamage 0x007B24C0, InstantDeathBehavior 0x007B0B66, CreateObjectDie 0x007B1266 (after
+    CreateObjectDieIfEldestKindof::onDie's guard, approved to that TU), CrushDie 0x007B12AA, all `_$E1`.
+    SlowDeathBehavior also builds its copy 0x007B0B90 `_$E1` and SLAVED 0x007B0BA0 `_$E3`.
+  - link_check over every changed unit, the grab-bags and the units' fragments: all LINK except
+    CreateObjectDie.cpp, which already failed in the census (`reverse/link_status.csv`: no;
+    `??_7BehaviorModule@@6BObjectModule@@@` differs from the first copy; its COMDATs are unchanged).
+- *Held, not taken.*
+  - lk60's leftover (branch `lk60-leftover`, `402808daa07`): InGameUI.cpp 0x007AE0AD and
+    SpecialAbilityUpdate.cpp 0x007B07F5 stay in the FrameRate grab-bag. InGameUI.cpp is under a codex
+    tu_skeleton merge, with its copy 0x007AE087 claimed, and SpecialAbilityUpdate.cpp under ancalgonn's
+    class:SpecialAbilityUpdate claim. The commit needs its register partner, rowing `_$E120` and `_$E3`
+    as 77b98798335 did for BuildAssistant, in the same push. Rebase it onto the merged InGameUI.cpp
+    first.
+  - The other SPAWN pairs whose copy is still bridged: AIUpdate 0x007ADE78/0x007ADE88 (six fragments
+    compile a copy), Object 0x007AE033/0x007AE043 (the copy follows `g_Va00DFECD0` of a displaced Object
+    fragment, and Object.cpp has no Drawable.h include; Zero Hour's Object.cpp includes SpawnBehavior.h),
+    and 0x007AEE5B/0x007AEE6B and 0x007B041B/0x007B042B (no unit evidence yet). Zero Hour's other
+    SpawnBehavior.h includers (WeaponSet, StealthUpgrade, CommandXlat, AIGroup, HiveStructureBody,
+    MobMemberSlavedUpdate, StealthUpdate) are where to look.
+- *Next.*
+  - The FrameRate grab-bag's other entries. 0x007AD7F3 (`* 5`) sits in ScriptEngine's run, between its
+    copy and its nodes. 0x007AE27C (`* 4`), 0x007B3FCA (`* 60`) and 0x007B4316 (`* 120`) are alone in their
+    runs. 0x007B43BD (`* 10`) follows a bridged copy. Each global is read, so its readers name the unit
+    (lk60's method). 0x007B3B50 and 0x007B440F are client-rate copies whose statics ControlBar code reads.
+  - The remaining "TU claimed by N copies" rows of the handoff TSV (FadeAndDieOrnamentUpdate, AIStates,
+    AwardSystemManager, HordeSiegeEngineContain, ImmortalBody, ElvenWoodSpecialPower's five,
+    UnleashSpecialPower, ObjectGuardingHelper, AIPlayer, Made002CCAA1, ControlBarStructureInventory) need
+    their approvals settled before rowing. Use the guard rule above.
