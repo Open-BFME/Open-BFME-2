@@ -35,3 +35,20 @@
   combined test (master + P16 anchor); the receipt should get past ChildObject parsing of templates whose
   parent carries UnitSpecificSounds. Also worth a sweep: other `code_identity_gate` `wrong` findings on
   byte-matched rows that the baseline does not hold.
+
+**2026-11-08, crash-triage seat2 (P31): a second live case, a heap overrun.** The rowed
+`??4?$list@URva00289FBCRecord@@...` (0x00289FBC, ExperienceLevelSystem.cpp) is byte-identical to retail, but its
+calls bind to that unit's own `list<Rva00289FBCRecord>::insert`/`_M_create_node` COMDATs, compiled from an opaque
+element view of a vptr and one char (8 bytes, so 16-byte nodes). Retail's callees are the rowed `list<BfmePod264>`
+chain 0x00289F46 -> 0x00289ED7 -> `_M_create_node` 0x00289EB2, which allocates 0x110 (links + the 0x108-byte
+experience level). The unit's forced `_Construct<Rva00289FBCRecord>` forwards to `_Construct<BfmePod264>`, so every
+`ExperienceLevelStore::AddExperienceLevel` that assigns a new one-item list copies 0x108 bytes into a 16-byte node.
+- Runtime: the AV stack capture (e20616cbfd) on test-only image 05d517395d shows the general allocator following a
+  free-list link overwritten with `MenG` (`ExperienceLevel MenGenericLevel1`, ini.big:64012) under
+  `friend_parseExperienceLevelDefinition` -> `AddExperienceLevel` -> `list<Rva00289FBCRecord>::operator=` -> insert.
+- Interim fix 3c1ac4bfce: the view carries retail's 0x108-byte extent (vptr + `char bytes[0x104]`), so the local
+  COMDATs size nodes correctly; 53/53 exact, link_check LINKS 3,152 -> 3,152. The lasting fix is one element type for
+  both spellings, through the same code-identity respell route as P29.
+- Like P29, the shadow code-identity gate is the check that sees this shape; until it is enforced, a byte-matched
+  container member whose callees bind to local COMDATs of a differently sized placeholder element is the pattern to
+  sweep for.
