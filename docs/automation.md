@@ -111,6 +111,13 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   Retail on 2026-11-05: the intro movies run until about 2-3 minutes, `boot_smoke.py --retail
   --timeout 300` reports `reached-menu` (menu bar 0.74), and `game_smoke.py skirmish --retail`
   passes with a picture (225 logic frames).
+  Retail on 2026-11-08, one run per timeout: the title splash at 5 s, a black window at 10 s,
+  intro movies from 15 s to 180 s, the menu at 300 s. So `title-splash` past about 10 s is short of
+  retail, and `loading-screen` means only another picture short of the menu: it does not prove
+  loading. `hang-on-<picture>` is that picture with the main thread spinning in the game's own
+  code over the run's last 30 seconds, within 64 bytes (`main_thread_span` in smoke.json). A thread
+  parked outside the image is not a hang: retail waits in a system call for 29 s at a stretch while
+  a movie plays. Receipts before this change say `loading-screen` for all of these.
 - Retail on 2026-11-03: main menu reached; a seeded skirmish gives 30 distinct CRCs over frames
   25-750; the same seed twice gives identical CRCs; `--perturb-frame 300` is caught, with the 12
   earlier CRCs matching and all 18 later ones differing; `save` works.
