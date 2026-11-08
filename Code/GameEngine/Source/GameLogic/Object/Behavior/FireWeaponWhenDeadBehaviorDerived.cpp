@@ -239,13 +239,12 @@ ExperienceScalarUpgrade::~ExperienceScalarUpgrade()
 {
 }
 
-class Rva004B66B3 : public UpgradeModule
-{
-public:
-	virtual ~Rva004B66B3();
-};
+// AttributeModifierUpgrade's destructor 0x004B66B3: its constructor 0x004B6740
+// installs the same four tables. The class is AttributeModifierUpgrade.h's, so
+// this unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/AttributeModifierUpgrade.h"
 
-Rva004B66B3::~Rva004B66B3()
+AttributeModifierUpgrade::~AttributeModifierUpgrade()
 {
 }
 

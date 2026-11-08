@@ -52,20 +52,7 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class AttributeModifierUpgrade : public UpgradeModule
-{
-protected:
-	virtual void upgradeRemovalImplementation();
-protected:
-	virtual void upgradeImplementation();
-protected:
-	const AttributeModifierUpgradeModuleData *getData() const
-	{
-		return (const AttributeModifierUpgradeModuleData *)m_moduleData;
-	}
-public:
-	AttributeModifierUpgrade( Thing *thing, const ModuleData *moduleData );
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierUpgrade.h"
 
 // tu-skeleton: 0x004B671E 34B ?buildFieldParse@AttributeModifierUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataGetterBuildFieldParse.cpp (not merged yet)
 
@@ -79,7 +66,7 @@ AttributeModifierUpgrade::AttributeModifierUpgrade(
 {
 }
 
-// tu-skeleton: 0x004B6771 28B ??_GRva004B66B3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B6771 28B ??_GAttributeModifierUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AttributeModifierUpgradeMuxSlots.cpp
 
@@ -108,4 +95,32 @@ void AttributeModifierUpgrade::upgradeRemovalImplementation()
 		getObject()->removeAttributeModifierFromPool(getData()->m_name);
 		setUpgradeExecuted(false);
 	}
+}
+
+// ?xfer@AttributeModifierUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C587E8 is
+// 0x004B8710, version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+void AttributeModifierUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
 }
