@@ -1715,7 +1715,11 @@ class EmitMoveTests(unittest.TestCase):
                    'extern "C" void __identifier("??_G" "Rec@@UAEPAXI@Z")() {}\n',          # adjacent literals
                    'extern "C" void __identifier("\\x3f?_GRec@@UAEPAXI@Z")() {}\n',          # an escape
                    'extern "C" void __identifier(L"??_GRec@@UAEPAXI@Z")() {}\n',             # a prefix
-                   'extern "C" void __identifier("??_GRec@@UAEPAXI@Z"() {}\n')               # unbalanced
+                   'extern "C" void __identifier("??_GRec@@UAEPAXI@Z"() {}\n',               # unbalanced
+                   # review of f458166062: a parenthesized declarator
+                   'extern "C" inline void\n(__identifier("??_GRec@@UAEPAXI@Z"))() {}\n',
+                   'extern "C" inline void ((__identifier("??_GRec@@UAEPAXI@Z")))() {}\n',
+                   'extern "C" __declspec(naked) inline void (__identifier("??_GRec@@UAEPAXI@Z"))() { }\n')
         for text in refused:
             for unit in (self.TU, self.SOURCE):
                 with self.subTest(text=text, unit=unit):
@@ -1728,6 +1732,8 @@ class EmitMoveTests(unittest.TestCase):
                   'void (*p)() = &__identifier("??_GRec@@UAEPAXI@Z");\n',                      # its address
                   'extern "C" void __identifier("??_GRec@@UAEPAXI@Z")();\n'
                   'void g() { __identifier("??_GRec@@UAEPAXI@Z")(); }\n',                      # a call
+                  'extern "C" void (__identifier("??_GRec@@UAEPAXI@Z"))();\n'                  # parenthesized
+                  'const void *q = (const void *)&(__identifier("??_GRec@@UAEPAXI@Z"));\n',
                   'extern "C" void __identifier("??_GOther@@UAEPAXI@Z")() {}\n')               # another name
         for text in passed:
             with self.subTest(text=text):
@@ -1763,7 +1769,30 @@ class EmitMoveTests(unittest.TestCase):
                  'void __identifier("??_GOther@@UAEPAXI@Z")() {}': False,
                  'void __identifier("??_GRec@@UAEPAXI@Z" "")() {}': True,
                  'int __identifier("??_GRec@@UAEPAXI@Z") = 1;': False,                          # data: the object check
-                 'void f() {}': False}
+                 'void f() {}': False,
+                 # review of f458166062: parenthesized declarators, and what a declarator may carry
+                 'extern "C" inline void\n(__identifier("??_GRec@@UAEPAXI@Z"))() {}': True,
+                 'void ((__identifier("??_GRec@@UAEPAXI@Z")))() {}': True,
+                 'void (__identifier("??_GRec@@UAEPAXI@Z"))()\n#line 3 "x.h"\n{}': True,
+                 'void (__identifier("??_GRec@@UAEPAXI@Z"))() throw() {}': True,
+                 '__declspec(naked) void (__identifier("??_GRec@@UAEPAXI@Z"))() { }': True,
+                 'void (__identifier("??_GRec@@UAEPAXI@Z"))() __declspec(x) {}': True,
+                 'void __identifier("??_GRec@@UAEPAXI@Z")() try { } catch (...) { }': True,    # an unknown word
+                 'int (*(__identifier("??_GRec@@UAEPAXI@Z"))(int))[3] { return 0; }': True,
+                 'void (__identifier("??_GRec@@UAEPAXI@Z"))(': True,                           # unbalanced
+                 'void __identifier("??_GRec@@UAEPAXI@Z")() MACRO_LEFT {}': True,
+                 'void __identifier("??_GRec@@UAEPAXI@Z")() throw': True,                      # cut short
+                 'void __identifier("??_GRec@@UAEPAXI@Z")() : a(1) {}': True,                  # a lone `:`
+                 'void __identifier("??_GRec@@UAEPAXI@Z")() throw();': False,
+                 'void x = a ? __identifier("??_GRec@@UAEPAXI@Z")() :: b;': False,
+                 'void __identifier("??_GRec@@UAEPAXI@Z")()': True,                            # the text ends
+                 'void (__identifier("??_GRec@@UAEPAXI@Z"))();': False,
+                 'void (*p)() = (&__identifier("??_GRec@@UAEPAXI@Z"));': False,
+                 '(const void *)&(__identifier("??_GRec@@UAEPAXI@Z")),': False,
+                 'int x = __identifier("??_GRec@@UAEPAXI@Z")() + 1;': False,
+                 'void (__identifier("??_GRec@@UAEPAXI@Z"))() const;': False,
+                 'int (__identifier("??_GRec@@UAEPAXI@Z"))[2] = {1};': False,
+                 'void (__identifier("??_GOther@@UAEPAXI@Z"))() {}': False}
         for code, defined in cases.items():
             with self.subTest(code=code):
                 self.assertEqual(bool(T.identifier_definition(code, name)), defined)
@@ -1992,6 +2021,26 @@ class NativeDeletingDtorSelectionTests(unittest.TestCase):
         code = self.run_cl("macro_pp", text, preprocess=True)
         self.assertTrue(T.identifier_definition(code, self.NAME))
         self.assertTrue(T.identifier_definition(code, "??_ERec@@UAEPAXI@Z"))   # adjacent literals: unreadable
+
+    def test_a_parenthesized_declarator_is_read(self):
+        # review of f458166062: each compiles to exactly the name, selected ANY in code (the object check
+        # passes it), so the preprocessed text must show the definition
+        e = "??_ERec@@UAEPAXI@Z"
+        cases = {"paren_g": (f'extern "C" inline void\n(__identifier("{self.NAME}"))() {{}}\n', self.NAME),
+                 "paren_e": (f'extern "C" inline void (__identifier("{e}"))() {{}}\n', e),
+                 "paren_many": (f'extern "C" inline void (((__identifier("{self.NAME}"))))() {{}}\n', self.NAME),
+                 "paren_naked": (f'extern "C" __declspec(naked) inline void (__identifier("{self.NAME}"))() '
+                                 '{ __asm ret }\n', self.NAME)}
+        for stem, (text, name) in cases.items():
+            with self.subTest(stem=stem):
+                obj = self.run_cl(stem, text + f'void (*use)() = &__identifier("{name}");\n')
+                self.assertIn(name, T.comdat_symbols(obj))
+                self.assertIsNone(T.deleting_copy_problem(obj, name))          # ANY, in code: (a) cannot see it
+                code = self.run_cl(stem + "_pp", text, preprocess=True)
+                self.assertTrue(T.identifier_definition(code, name))
+                self.assertTrue(T.hand_written_problem(name, [obj], {"u.cpp": (code, None)}))
+        decl = f'extern "C" void (__identifier("{self.NAME}"))();\nvoid (*use)() = &(__identifier("{self.NAME}"));\n'
+        self.assertIsNone(T.identifier_definition(self.run_cl("paren_decl_pp", decl, preprocess=True), self.NAME))
 
 
 class FoldAliasSplitTests(unittest.TestCase):

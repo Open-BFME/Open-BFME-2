@@ -3762,38 +3762,98 @@ def deleting_copy_problem(obj, name):
     return None
 
 
-def _paren_end(text, at):
-    """The index after the parenthesis closing the one at `at`, or None."""
+def _group_end(text, at):
+    """The index after the bracket closing the `(` or `[` at `at`, or None."""
+    close = {"(": ")", "[": "]"}[text[at]]
     depth = 0
     for i in range(at, len(text)):
-        depth += {"(": 1, ")": -1}.get(text[i], 0)
+        depth += {text[at]: 1, close: -1}.get(text[i], 0)
         if depth == 0:
             return i + 1
     return None
 
 
+def _paren_end(text, at):
+    """The index after the parenthesis closing the one at `at`, or None."""
+    return _group_end(text, at)
+
+
+def _skip_blank(code, i):
+    """The index of the next character at or after `i` that is neither whitespace nor part of a
+    directive line cl -E left (`#line 5 "x.h"`, `#pragma ...`)."""
+    while i < len(code):
+        if code[i].isspace():
+            i += 1
+            continue
+        if code[i] == "#":
+            j = i - 1
+            while j >= 0 and code[j] in " \t":
+                j -= 1
+            if j < 0 or code[j] == "\n":                # `#` first on its line: a directive
+                nl = code.find("\n", i)
+                i = len(code) if nl < 0 else nl + 1
+                continue
+        break
+    return i
+
+
+GROUP_QUALIFIERS = ("throw", "__declspec", "__pragma")
+
+
+def _defines_after(code, i):
+    """Does the declarator around an `__identifier(...)` ending at `i` define a function? From
+    `i`: any number of `)` (a parenthesized declarator, review of f458166062:
+    `void (__identifier("??_G..."))() {}`); then, only if a parameter list `(...)` follows,
+    whatever a declarator may carry after it (`)`, `[...]`, `(...)`, `const`, `volatile`,
+    `throw(...)`, `__declspec(...)`, `__pragma(...)`, cl -E's directive lines) up to the first
+    token that decides: `{` (a body) or a lone `:` defines; `;`, `,`, `=` or an operator does not.
+    Anything else (an unknown word such as `try` or a leftover macro, an unbalanced bracket, the
+    end of the text) cannot be read: True."""
+    i = _skip_blank(code, i)
+    while i < len(code) and code[i] == ")":
+        i = _skip_blank(code, i + 1)
+    if i >= len(code) or code[i] != "(":
+        return False                       # a declaration, an initializer, an address: no parameter list
+    i = _group_end(code, i)
+    while i is not None:
+        i = _skip_blank(code, i)
+        if i >= len(code):
+            return True
+        c = code[i]
+        if c == "{" or (c == ":" and not code.startswith("::", i)):
+            return True
+        if c == ")":
+            i += 1
+        elif c in "([":
+            i = _group_end(code, i)
+        elif re.match(r"[A-Za-z_]", c):
+            word = re.match(r"[A-Za-z_]\w*", code[i:]).group(0)
+            i += len(word)
+            if word in GROUP_QUALIFIERS:
+                i = _skip_blank(code, i)
+                i = _group_end(code, i) if code[i:i + 1] == "(" else None
+            elif word not in ("const", "volatile"):
+                return True
+        else:
+            return False                   # `;`, `,`, `=` or an operator: a declaration or a use
+    return True
+
+
 def identifier_definition(code, name):
-    """The `__identifier(...)` definition in the preprocessed `code` that may define `name`, or
-    None: one whose argument is followed by a parameter list and then a `{` before any `;`, and
-    whose argument is `name`'s literal or is not one plain literal (an escape, adjacent literals,
-    a wide prefix: it cannot be read). Declarations, calls and address-of references pass; so
-    does a definition of another name. Unbalanced parentheses refuse."""
+    """The `__identifier(...)` in the preprocessed `code` that may define `name`, or None. Each one
+    whose argument is `name`'s literal, or is not one plain literal (an escape, adjacent literals,
+    a wide prefix: it cannot be read), is judged by _defines_after, parenthesized declarators
+    included; an unbalanced argument refuses. Declarations ending in `;`, initializers,
+    address-of uses and calls in statements pass; so does a definition of another name."""
     for m in re.finditer(r"\b__identifier\s*\(", code):
-        spelled = " ".join(code[m.start():m.start() + 120].split())
+        spelled = " ".join(code[max(0, m.start() - 30):m.start() + 120].split())
         end = _paren_end(code, m.end() - 1)
         if end is None:
             return spelled
-        rest = code[end:].lstrip()
-        if not rest.startswith("("):
-            continue
-        close = _paren_end(rest, 0)
-        if close is None:
-            return spelled
-        stop = re.search(r"[;{]", rest[close:])
-        if stop is None or stop.group(0) != "{":
-            continue
         literal = re.fullmatch(r'"([^"\\]*)"', code[m.end():end - 1].strip())
-        if literal is None or literal.group(1) == name:
+        if literal is not None and literal.group(1) != name:
+            continue
+        if _defines_after(code, end):
             return spelled
     return None
 
