@@ -7,27 +7,20 @@ namespace _STL {
 
 }
 
-// The one-word node table the holder installs at +0: retail RVA 0x007EDAA0
-// holds two code pointers, the shared scalar deleting destructor 0x005FAA31
-// and 0x0023DAF7 (the member call after the +0x08 object). No other unit owns
-// the word, so it is defined here beside its only writer.
-extern "C" {
-void __identifier("??_GRva004E84A4@@QAEPAXI@Z")();
-void __identifier("?rva0023DAF7@Rva0023DAF7@@QAEXMH@Z")();
-}
-extern "C" void *__identifier("?g_bfme5RefVtable@@3PAXA")[2] =
-{
-	(void *)&__identifier("??_GRva004E84A4@@QAEPAXI@Z"),
-	(void *)&__identifier("?rva0023DAF7@Rva0023DAF7@@QAEXMH@Z"),
-};
+// The refcounted node the holder allocates is Rva0023DAE8 (RvaSmallVtableCtors.cpp):
+// its table 0x007EDAA0 (slot 0 the shared scalar deleting destructor 0x005FAA31)
+// is the vptr retail stores here, after the inlined base clears the count at +4.
+// The holder inlines the constructor that unit rows out of line at 0x0023DAE8, so
+// this view expands it in place and never emits it.
+#include "../../Include/Common/Rva0007DF07.h"
 
-extern void *g_bfme5RefVtable;
-
-struct Bfme5RefNode
+class Rva0023DAE8 : public Rva0007DF07
 {
-	void *m_bfmeVptr;
-	int m_bfmeRefCount;
-	int m_bfmePad;
+public:
+	__declspec(dllimport) __forceinline Rva0023DAE8(int) {}
+	virtual ~Rva0023DAE8();
+
+	int m_08;		// the holder allocates 12 bytes
 };
 
 class Bfme5RefHolderA
@@ -35,26 +28,15 @@ class Bfme5RefHolderA
 public:
 	Bfme5RefHolderA(int unused);
 
-	Bfme5RefNode *m_bfmeNode;
+	Rva0023DAE8 *m_bfmeNode;
 };
 
 Bfme5RefHolderA::Bfme5RefHolderA(int unused)
 {
-	Bfme5RefNode *q = (Bfme5RefNode *)operator new(12);
-	Bfme5RefNode *p;
-
-	if (q) {
-		q->m_bfmeRefCount = 0;
-		q->m_bfmeVptr = &g_bfme5RefVtable;
-		p = q;
-	} else {
-		p = 0;
-	}
-
+	Rva0023DAE8 *p = new Rva0023DAE8(unused);
 	m_bfmeNode = p;
-
 	if (p)
-		++p->m_bfmeRefCount;
+		++p->m_04;
 }
 
 // ??0Rva0023FC10@@QAE@URva0023FC10Arg@@@Z, retail 0x0023FC10 (19B, RET4).
