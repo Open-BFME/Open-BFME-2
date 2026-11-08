@@ -31,3 +31,9 @@ definition. Prepare one complete class and its xfer/name/destructor/secondary
 interfaces before replacing the manual table; preserve every other provider
 in the mixed destructor TU. No full-link, table retirement or runtime clearance
 is claimed by this prerequisite.
+
+Published as 26b1726a2f; the first push attempt landed in 52.3 seconds.
+Required byte/data/EH/scoped-DIR32 checks pass after rebase. Broader batch
+audit remains INCONCLUSIVE: index eba83a23be versus outgoing base
+77d28e7325e2c045c4424ae280109e8f41709154, affected AIBaseBuilder.cpp lacks
+a current receipt. Preserve that consumer for the next census/image check.

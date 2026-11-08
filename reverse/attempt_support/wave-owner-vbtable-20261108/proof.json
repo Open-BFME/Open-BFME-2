@@ -1,0 +1,32 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva0030CAA9OwnerCtor.cpp",
+  "object_sha256": "c7a627bd704ff79371dd674413d6155b2120dcf30a4239a184b8678d6812490b",
+  "tables": [
+    {
+      "name": "??_8Rva0030CAA9Owner@@7BRva00330C50@@@",
+      "rva": "0x008089C8",
+      "size": 8,
+      "offsets": [
+        -4,
+        116
+      ],
+      "relocation_count": 0,
+      "compiled_hex": "fcffffff74000000",
+      "retail_hex": "fcffffff74000000",
+      "positive_slot_selector": true
+    },
+    {
+      "name": "??_8Rva0030CAA9Owner@@7BRva0053805DBase@@@",
+      "rva": "0x008089D0",
+      "size": 8,
+      "offsets": [
+        -24,
+        144
+      ],
+      "relocation_count": 0,
+      "compiled_hex": "e8ffffff90000000",
+      "retail_hex": "e8ffffff90000000",
+      "positive_slot_selector": true
+    }
+  ]
+}

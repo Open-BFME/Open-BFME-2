@@ -447,3 +447,11 @@ audit remains INCONCLUSIVE: index eba83a23be versus outgoing base
 25c2bd22038a7fe74ce5ed110b86d92d956f6df9, affected AIBaseBuilder.cpp lacks
 a current receipt. Carry this consumer into the next census/image check;
 no broader link clearance is claimed.
+
+**2026-11-08 second virtual-base-table false reject:**
+Rva0030CAA9OwnerCtor.cpp's two ??_8 offset tables contain exactly native's
+(-4,116) and (-24,144), with no relocations. All15 rows and its parent EH
+graph pass; the positive-slot selector still admits both and reports
+no-retail-slots. The tool remains claimed by another worker, so no verifier,
+data ledger or queue was edited. Its two real function tables remain separate
+bridge/interface work. [Exact offsets and next repair](../../reverse/attempt_support/wave-owner-vbtable-20261108/README.md).
