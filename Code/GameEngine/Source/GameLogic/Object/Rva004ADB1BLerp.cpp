@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ @0x004ADB1B 188B.
+// ?handlePackingProcessing@Rva004AD9B0@@UAE_NXZ @0x004ADB1B 188B.
 // When the gate passes, lerp the drawable float at +0xb0 between 1.0f
 // and the source float at +0xc8. Kind 2 uses the +0x88 denominator.
 // ?handlePackingProcessing@Rva004B0164@@UAE_NXZ @0x004B0348: slot 20 of the
@@ -27,23 +27,23 @@ public:
 
 #include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
-class Rva004ADB1B : public SpecialAbilityUpdate
+class Rva004AD9B0 : public SpecialAbilityUpdate
 {
 public:
-	bool handlePackingProcessing();
+	virtual bool handlePackingProcessing();
 
 protected:
 	char m_pad88[0x8C - 0x88];
 	float m_result8C;
 };
 
-class Rva004B0164 : public Rva004ADB1B
+class Rva004B0164 : public Rva004AD9B0
 {
 public:
 	virtual bool handlePackingProcessing();
 };
 
-bool Rva004ADB1B::handlePackingProcessing()
+bool Rva004AD9B0::handlePackingProcessing()
 {
 	bool ok = SpecialAbilityUpdate::handlePackingProcessing();
 	if (ok == 0)

@@ -660,7 +660,7 @@ public:
 	bool rva00450AE9();
 	bool rva0044E85E(Coord3D *pos, float range);
 protected:
-	bool handlePackingProcessing();
+	virtual bool handlePackingProcessing();
 public:
 	void rva0044EE07();
 	void rva0044EE80();

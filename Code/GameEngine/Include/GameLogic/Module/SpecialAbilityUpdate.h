@@ -68,14 +68,16 @@ public:
     virtual NameKeyType getModuleNameKey() const;
     virtual UpdateSleepTime update();
     virtual DisabledMaskType getDisabledTypesToProcess() const;
-    virtual void *slot25();
+    virtual void *slot25() { return 0; }
     virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *, const Object *,
         const Coord3D *, unsigned int, const Waypoint *);
-    virtual bool isSpecialAbility() const;
-    virtual bool isActive() const;
-    virtual CommandOption getCommandOption() const;
-    virtual bool doesSpecialPowerHaveOverridableDestinationActive() const;
-    virtual void setSpecialPowerOverridableDestination(const Coord3D *);
+    // Retail's one-instruction bodies at +0x20: 0x0050B5C6 (mov al,1), 0x005C4AE5 (the byte at +0x74),
+    // 0x000D43D0 (xor eax,eax), 0x0047A699 (xor al,al) and 0x0047A69C (ret 4), most of them folded with other classes'.
+    virtual bool isSpecialAbility() const { return true; }
+    virtual bool isActive() const { return m_active; }
+    virtual CommandOption getCommandOption() const { return (CommandOption)0; }
+    virtual bool doesSpecialPowerHaveOverridableDestinationActive() const { return false; }
+    virtual void setSpecialPowerOverridableDestination(const Coord3D *) {}
     virtual bool isPowerCurrentlyInUse(const CommandButton *) const;
     virtual bool vslot07(int);
     virtual bool vslot08(int);
@@ -87,10 +89,10 @@ public:
     virtual void startPreparation();
     virtual bool continuePreparation();
     virtual void triggerAbilityEffect();
-    virtual void vslot18();
+    virtual void vslot18() { m_2C = 0; } // 0x004C12CB: and [ecx+0x2c],0
     virtual void finishAbility();
 protected:
-    virtual bool vslot20();
+    virtual bool handlePackingProcessing(); // slot 20, 0x0044F0B3
 public:
     virtual void startPacking(bool);
     virtual void startUnpacking();
@@ -112,7 +114,6 @@ protected:
     virtual const char *GetSnapshotName() const;
 #endif
     virtual void xfer(Xfer *);
-    bool handlePackingProcessing();
     void validateSpecialObjects();
     void endPreparation();
     bool initLaser(Object *, Object *);
