@@ -287,7 +287,7 @@ engine init.
 | InvisibilitySpecialPower, SpecialPowerTimerRefreshSpecialPower | open, header lane: `SpecialPowerModule`'s slots are rowed under real names, but it has no canonical header, only the placeholder-named `Rva00493009` (Rva00493009.h), and about 53 units declare the class privately |
 | SpawnedModelConditionCreate | **repaired**: canonical CreateModule, compiler-installed tables; 55 of 63 slots resolve to retail's address, the other 8 are the same one-instruction shapes or the deleting destructor, except slot 2 (name getter, a non-virtual row) |
 | RunOffMapBehavior | open, needs a name: [ctor_real_view.txt](../../reverse/attempt_support/runoffmap_real_tables/ctor_real_view.txt) is 1/1 exact with an empty ctor body on BehaviorModule plus RunOffMapBehaviorInterface, and reproduces the first +0x10 store the unit keeps `volatile`. Its table is 12 slots, as retail's. Slot 5 (0x00462213) needs the identifier `onObjectCreated`, but the row is `?rva00462213@RunOffMapBehavior@@UAEXXZ`: `--to-class` refuses a row already on the class, and a slot position is only a hint in docs/naming.md, so it goes through the inferred lane. Landing without it would make retail's slot 5 the base's empty body. Slots 1-3 also need definitions: `loadPostProcess` (0x0058B03E, a `jmp` to the shared empty body), `GetSnapshotName` (0x004621AC, a free-function placeholder row) and `xfer` (0x004CE56D, an ICF fold rowed as `?xfer@DamageModule@@MAEXPAVXfer@@@Z`); 0x00462213's duplicate row is retracted (`bfmeGoBJ`, an over-claim: retail references the address once, primary slot 5 of 0x00C4307C), which is what kept the naming lane from serving the key. `onObjectCreated` has one vote and needs a second from another worker on the same text, so do not edit RunOffMapBehavior.cpp until it lands |
-| UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior | open: need a shared view of the 19-slot base Rva00252B68 |
+| UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior | **repaired** over a real 19-slot base (`Common/Rva00252B68.h`): empty ctor bodies, compiler-installed tables, all 3 interface slots and 17 of 19 primary slots resolve or equal retail's bytes. Slot 2 reads the base's name (P41). Slot 1 is `DrawableModule::loadPostProcess`, still Module.cpp's: retail's 0x000B3FD0 was claimed by another worker, so it is not rowed yet. See the notes below |
 | HordeTransportContain | open, large: its ctor stores 10 tables (OpenContain, TransportContain and Horde levels); nearly all 31 primary slots are rowed under real names, but no shared view of the chain exists |
 
 **Repaired: DamageFieldUpdate** (ctor 0x004912A9, dtor 0x0049122C). The HeightDieUpdate recipe, with FireWeaponUpdate on the
@@ -385,3 +385,18 @@ Its getter row 0x002CC2F6 is still the free-function placeholder `Rva002CC2F6Get
 - RousingSpeechUpdate's TU merge is blocked only by the `RousingSpeechUpdateModuleDataCtor.cpp` donor's view. ArrowStormUpdate's is
   blocked by the TU holding `Rva0029FB80Store` (0x0029FB80, approved for InGameUI.cpp). Its header-queue row for the ctor retires once
   the SpecialAbilityUpdate units reach the census, since the hook judges that unit alone.
+
+**The sound selectors, notes for the rest of this base.**
+
+- The "redundant first store" to +0x0C is an interface base's own constructor. Any ctor here that writes +0x0C twice in that order
+  wants a second base class with a vptr, not a volatile store.
+- Retail's selectors have no `??_G` of their own because theirs fold with `??_GRva00252B68`. Ours compile their own deleting destructors,
+  equal to retail's bytes outside relocations, with an implicit `??1` that is just a jump to the base's. The behaviour is the same.
+- `DrawableModule::xfer` is now rowed at 0x00560AE1 (retail's 0x00C07E54 slot 3, Version1 twice). Module.cpp held Zero Hour's different body.
+  Its other present-unmatched bodies, including `DrawableModule::loadPostProcess`, may be wrong the same way.
+- `??_7Rva00252B68@@6B@` itself is still short and bridged. Three units emit it, and all three must take the header together: `Rva00252B68Ctor.cpp`,
+  `Rva0049B47CDerived.cpp` and `AnimationSoundClientBehavior.cpp` (the copy ctor 0x004CA125, on a private `Rva004C9FBF` view). The first two
+  alone are 11/11 exact with 0 slots differing, but leave a COMDAT conflict that costs AnimationSound its 2,360 linked bytes. The table is
+  only live during construction and destruction.
+- Other classes on this base store real tables by hand, so they are not zero-vptr defects, and can take the header later:
+  TerrainResourceClientBehavior, ModelConditionAudioLoopClientBehavior, RandomSoundSelectorClientBehavior and AnimationSoundClientBehavior.
