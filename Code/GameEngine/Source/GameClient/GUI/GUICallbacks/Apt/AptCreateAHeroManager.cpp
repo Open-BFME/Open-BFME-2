@@ -14,6 +14,7 @@ namespace _STL { template <> _Vector_base<unsigned int,allocator<unsigned int> >
 namespace _STL { template <> _Vector_base<unsigned int,allocator<unsigned int> >::_Vector_base(unsigned int,allocator<unsigned int> const &); }
 namespace _STL { template <> void allocator<unsigned int>::deallocate(unsigned int *, unsigned int) const; }
 class GameWindow;
+#include "../../../../../Include/GameClient/ImageClass.h"
 #include "../../../../../Include/GameClient/Image.h"
 enum NameKeyType;
 #include "../../../../../Include/GameLogic/CreateAHeroData.h"

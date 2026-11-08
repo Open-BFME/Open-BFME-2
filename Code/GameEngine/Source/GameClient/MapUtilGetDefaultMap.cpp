@@ -113,6 +113,7 @@ AsciiString getDefaultMap(bool isMultiplayer)
 // Keep the real collector above this caller: its visibility separates the
 // selection-count constant from the scrolling minimum and reproduces retail.
 class GameWindow;
+#include "../../Include/GameClient/ImageClass.h"
 #include "../../Include/GameClient/Image.h"
 
 #include "../../Include/Common/UserPreferences.h"

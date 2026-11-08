@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // Clean reference: Open-BFME-1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
 // game/GameEngine/Source/GameClient/MapPreviewImage.cpp; ZH MapUtil purpose.
 // Target-specific evidence: WB C5EF20 preserves _art.tga UV inversion and
@@ -33,8 +34,7 @@ private: TextureClass *ptr;
 #include "../../../Libraries/Include/Lib/Region2D.h"
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../Include/GameClient/ImageClass.h"
-class ImageCollection {public: const Image *findImageByName(const AsciiString &); void addImage(Image *);};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 #include "../../Include/Common/XferException.h"
 // Native3007F1/300854 use the existing game array allocation operators.
 #include <new>

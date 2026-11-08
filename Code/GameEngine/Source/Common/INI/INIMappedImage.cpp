@@ -1,4 +1,5 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // INI::parseMappedImageDefinition @0x001ED63C (178B): Zero Hour
 // INIMappedImage.cpp's body. Identity from the INI block table: the
 // "MappedImage" token's entry names this address. The body reads the name
@@ -17,14 +18,7 @@ extern const FieldParse m_imageFieldParseTable[];
 
 #include "../../../Include/GameClient/ImageClass.h"
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-	void addImage(Image *image);
-};
-
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../Include/GameClient/Image.h"
 
 void INI::parseMappedImageDefinition(INI *ini)
 {

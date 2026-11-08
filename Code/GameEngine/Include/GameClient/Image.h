@@ -1,4 +1,4 @@
-// Canonical BFME2 Image and ImageCollection.
+// Canonical BFME2 ImageCollection; Image itself is defined in ImageClass.h, included below.
 // Target facts (code addresses are RVAs; vftable addresses are VAs):
 // Image ctor 0x002D8FE4 and dtor 0x002D91CC install 0x00C037B8, whose only slot is the deleting dtor 0x002D9262; the next word at 0x00C037BC is string data. No base constructor or base teardown occurs. Allocation 0x0057CE45 pushes 0x34 before new at 0x0057CE47 and the Image ctor call at 0x0057CE5A.
 // The ctor initializes strings at +4/+8, texture size at +0x0C/+0x10, UV coordinates at +0x14..+0x20, image size at +0x24/+0x28, holder at +0x2C and status at +0x30. The dtor releases the holder's texture through 0x0061ED10, frees the holder through 0x0002FD60 and destroys strings at +8/+4 through 0x00036410.
@@ -19,53 +19,12 @@
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
-#include "../../../Libraries/Include/Lib/ICoord2D.h"
-#include "../../../Libraries/Include/Lib/Region2D.h"
 #include <map>
 #ifndef _STLP_INTERNAL_MAP_H
 #error ImageCollection requires STLport headers; compile the unit with its stlport opt-in.
 #endif
 
-class INI;
-struct FieldParse;
-class BfmeMapPictureTexture;
-extern const FieldParse m_imageFieldParseTable[];
-
-class Image
-{
-public:
-    Image();
-    virtual ~Image();
-    void setName(const AsciiString &name) { m_name = name; }
-    const AsciiString &getName() const { return m_name; }
-    void setFilename(const AsciiString &filename) { m_filename = filename; }
-    const AsciiString &getFilename() const { return m_filename; }
-    void setUV(Region2D *uv) { if (uv) m_UVCoords = *uv; }
-    const Region2D *getUV() const { return &m_UVCoords; }
-    void setTextureWidth(int width) { m_textureSize.x = width; }
-    void setTextureHeight(int height) { m_textureSize.y = height; }
-    const ICoord2D *getTextureSize() const { return &m_textureSize; }
-    void setImageSize(ICoord2D *size);
-    const ICoord2D *getImageSize() const { return &m_imageSize; }
-    int getImageWidth() const { return m_imageSize.x; }
-    int getImageHeight() const { return m_imageSize.y; }
-    unsigned int setStatus(unsigned int bit);
-    unsigned int clearStatus(unsigned int bit);
-    unsigned int getStatus() const { return m_status; }
-    void bfmeSetTexture(const BfmeMapPictureTexture &texture);
-    void rva002D937E();
-    const FieldParse *getFieldParse() const { return m_imageFieldParseTable; }
-    static void parseImageCoords(INI *ini, void *instance, void *store, const void *userData);
-    static void parseImageStatus(INI *ini, void *instance, void *store, const void *userData);
-
-    AsciiString m_name;
-    AsciiString m_filename;
-    ICoord2D m_textureSize;
-    Region2D m_UVCoords;
-    ICoord2D m_imageSize;
-    BfmeMapPictureTexture *m_texture;
-    unsigned int m_status;
-};
+#include "ImageClass.h"
 
 class ImageCollection : public SubsystemInterface
 {

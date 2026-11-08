@@ -35,6 +35,7 @@
 #define COORD2D_VIEW_DTOR
 #include "../../../Libraries/Include/Lib/Coord2DCtorView.h"
 
+#include "../../Include/GameClient/ImageClass.h"
 #include "../../Include/GameClient/Image.h"
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"

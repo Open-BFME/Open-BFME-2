@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX
+// stlport
 // ?Rva00274E7DInit@@YAXXZ, retail 0x00274E7D (1147B): UI image table init.
 // Evidence: 4 literal finds via ImageCollection 0x002D92F6 into Drawable::s_fullAmmo/emptyAmmo/pipImage/pipOverlay,
 // new 0x38 array into Drawable::s_animationTemplates, 12 rva finds via 0x002D752D from g_00DBB660..694
@@ -8,12 +9,7 @@
 
 #include <new>
 
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../Include/GameClient/Image.h"
 
 struct Rva002D752DNode;
 class Rva002D752D
@@ -40,7 +36,6 @@ class Drawable {
     static Rva002D752DNode **s_animationTemplates;
 };
 
-extern ImageCollection *TheMappedImageCollection;
 class Rva002D752D; extern class Anim2DCollection *TheAnim2DCollection;
 extern const Image *g_00DFEB88;
 extern const Image *g_00DFEB8C;

@@ -50,6 +50,7 @@ __declspec(noinline) static void Rva0056C790(DisplayString *str,const Rva0043FC2
  str->slot10(font->m_0C,0);str->slot9(true);str->setFont(f);
 }
 class Rva0056D3FD;
+#include "../../../Include/GameClient/ImageClass.h"
 #include "../../../Include/GameClient/Image.h"
 struct AsciiStringPlusString {const AsciiString *first,*second;operator AsciiString();};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString p={&a,&b};return p;}

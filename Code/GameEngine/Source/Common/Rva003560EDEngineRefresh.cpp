@@ -32,6 +32,7 @@ class W3DDisplay
 public:
 	void rva0025D2F6();
 };
+#include "../../Include/GameClient/ImageClass.h"
 #include "../../Include/GameClient/Image.h"
 class GameFont;
 #include "../../Include/GameClient/FontLibrary.h"

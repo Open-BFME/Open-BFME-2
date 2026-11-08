@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // ?getButtonImage@ThingTemplate@@QAEPBVImage@@XZ @0x0033B580 56B.
 // ThingTemplate button-image resolver (ButtonImage slot +0x78/+0x48c).
 // BFME1 donor Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp resolveNames
@@ -13,16 +14,7 @@
 // Global TheMappedImageCollection at 0x00DFF078.
 #include "ascii_string.h"
 
-
-class Image;
-
-class ImageCollection
-{
-public:
-    const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
-
+#include "../../../Include/GameClient/Image.h"
 
 class ThingTemplate
 {
