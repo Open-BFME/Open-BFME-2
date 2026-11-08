@@ -3615,10 +3615,7 @@ class _TypeTree:
             args, i = ("ARGS", ("B", "X")), i + 1
         else:
             i, nodes = self.arguments(i, ctx, "@Z")
-            args = ("ARGS",) + nodes
-            i -= 1
-            if s[i] == "@":
-                i += 1
+            args = ("ARGS",) + nodes + ((("B", "..."),) if s[i - 1] == "Z" else ())
         if s[i] != "Z":
             raise ValueError(f"throw spec at {i}")
         return i + 1, ("F", ret, args)
@@ -3631,10 +3628,11 @@ class _TypeTree:
             j, fn = self.function(i + 3, ctx)
             return j, ("FP", code, fn)
         if c in "PQRSAB" and s[i + 1] == "8":
-            i, scope = self.qualified(i + 2, ctx)
-            code = s[i:i + 2]
-            i, fn = self.function(i + 2, ctx)
-            return i, ("MP", scope, code, fn)
+            pointer = s[i:i + 2]
+            j, scope = self.qualified(i + 2, ctx)
+            code = s[j:j + 2]
+            j, fn = self.function(j + 2, ctx)
+            return j, ("MP", pointer, scope, code, fn)
         if c in "PQRSAB":
             j = i + 1
             if s[j] == "E":
@@ -3715,19 +3713,46 @@ def type_tree(mangled):
     return node
 
 
+C_NOISE = re.compile(r'/\*.*?\*/|//[^\n]*|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
+# a class, struct or union declared or defined (`{`, `;`, a base clause or a specialization's
+# `<` follows the name; a template parameter's `class T` is followed by `,`, `>` or `=`)
+STLPORT_RECORD = re.compile(r"\b(?:class|struct|union)\s+(?:_STLP_\w+\s+)*([A-Za-z_]\w*)\s*(?=[{;:<])")
+STLPORT_TYPEDEF = re.compile(r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)?;")
+
+
+def stlport_names(text):
+    """The record and typedef names `text` declares, comments and string literals stripped."""
+    code = C_NOISE.sub(" ", text)
+    return set(STLPORT_RECORD.findall(code)) | set(STLPORT_TYPEDEF.findall(code))
+
+
 def stlport_declared(ctx):
-    """Every class, struct, union and typedef name the vendored STLport headers declare."""
+    """Every class, struct, union and typedef name the vendored STLport headers declare, read
+    from the tree as it is at the merge base with origin/master (git), never from the working
+    copy. Refusal when the vendored tree here differs from that base, or there is no base."""
     key = "_stlport_declared"
     if key not in ctx._cache:
+        base = ctx.git("merge-base", "HEAD", "origin/master").strip()
+        if not re.fullmatch(r"[0-9a-f]{40}", base):
+            raise Refusal(f"no merge base with origin/master to read {STLPORT_HEADERS} from")
+        drift = ctx.git("status", "--porcelain", "--untracked-files=all", "--", STLPORT_HEADERS).strip() or \
+            ctx.git("diff", "--name-only", base, "--", STLPORT_HEADERS).strip()
+        if drift:
+            raise Refusal(f"{STLPORT_HEADERS} differs from the merge base {base[:10]} "
+                          f"({drift.splitlines()[0].strip()}): the STLport index is read from the base")
+        paths = [p for p in ctx.git("ls-tree", "-r", "--name-only", base, "--", STLPORT_HEADERS).splitlines()
+                 if p.strip()]
         names = set()
-        root = ctx.path(STLPORT_HEADERS)
-        decl = re.compile(r"\b(?:class|struct|union)\s+(?:_STLP_CLASS_DECLSPEC\s+)?([A-Za-z_]\w*)|"
-                          r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*;")
-        if root.is_dir():
-            for path in sorted(root.rglob("*")):
-                if path.is_file():
-                    text = path.read_text(encoding="latin-1")
-                    names.update(a or b for a, b in decl.findall(text))
+        if paths:
+            batch = subprocess.run(["git", "-C", str(ctx.root), "cat-file", "--batch"],
+                                   input="".join(f"{base}:{p}\n" for p in paths).encode(),
+                                   capture_output=True, check=True).stdout
+            at = 0
+            for _ in paths:
+                header_end = batch.index(b"\n", at)
+                size = int(batch[at:header_end].split()[2])
+                names |= stlport_names(batch[header_end + 1:header_end + 1 + size].decode("latin-1"))
+                at = header_end + 1 + size + 1
         ctx._cache[key] = frozenset(names)
     return ctx._cache[key]
 
@@ -3799,10 +3824,15 @@ def identity_shape_problem(old, new, canonical=frozenset(), stlport=frozenset())
             if len(x[1]) != len(y[1]):
                 return f"the qualified name {describe(x)} at {where} changes its scope"
             stl = _tree_stl_scoped(x) and _tree_stl_scoped(y)
+            # from a protected name outward (its scopes), every element is its path
+            guarded = next((d for d, e in enumerate(x[1]) if protected(e[1], _tree_stl_scoped(x))), None)
             for depth, (e, f) in enumerate(zip(x[1], y[1])):
                 spot = f"{where} element {depth}"
                 if e[0] != f[0]:
                     return f"its shape differs at {spot} ({e[1]})"
+                if e[1] != f[1] and guarded is not None and depth > guarded:
+                    return (f"it changes the qualified path of the protected name {x[1][guarded][1]} "
+                            f"({e[1]} -> {f[1]}, {spot})")
                 if e[1] != f[1]:
                     if protected(e[1], stl):
                         kind = "canonical class" if e[1] in canonical else "real name"
@@ -4002,6 +4032,8 @@ def coff_layout_problem(data):
             return f"{what}'s name runs past the string table"
         return None
 
+    raw = []
+    sizes = []
     for index in range(count):
         header = table + 40 * index
         name = data[header:header + 8]
@@ -4014,14 +4046,28 @@ def coff_layout_problem(data):
                 return bad
         size_raw, pointer, relocs = struct.unpack_from("<III", data, header + 16)
         nrelocs = struct.unpack_from("<H", data, header + 32)[0]
+        flags = struct.unpack_from("<I", data, header + 36)[0]
+        sizes.append(size_raw)
         if pointer and pointer + size_raw > len(data):
             return f"section {index + 1}'s raw data runs past the end"
+        if pointer and size_raw:
+            raw.append((pointer, pointer + size_raw, index + 1))
+        if flags & 0x01000000:            # IMAGE_SCN_LNK_NRELOC_OVFL: the count is the first record's
+            if nrelocs != 0xFFFF or relocs + 10 > len(data):
+                return f"section {index + 1} flags a relocation overflow without its 0xFFFF marker and record"
+            nrelocs = struct.unpack_from("<I", data, relocs)[0]
+            if nrelocs < 2:
+                return f"section {index + 1}'s overflow relocation count is {nrelocs}"
         if nrelocs:
             if relocs + 10 * nrelocs > len(data):
                 return f"section {index + 1}'s relocations run past the end"
             for _offset, symbol, _type in struct.iter_unpack("<IIH", data[relocs:relocs + 10 * nrelocs]):
                 if symbol >= nsyms:
                     return f"section {index + 1} relocates against symbol {symbol}, past the symbol table"
+    raw.sort()
+    for (_a, end, one), (start, _b, two) in zip(raw, raw[1:]):
+        if start < end:
+            return f"sections {one} and {two} overlap in the file"
     index = 0
     while index < nsyms:
         record = symbols + 18 * index
@@ -4034,6 +4080,9 @@ def coff_layout_problem(data):
         section = struct.unpack_from("<H", data, record + 12)[0]
         if section > count and section < 0xFFFE:
             return f"symbol {index}'s section number {section} names no section"
+        value = struct.unpack_from("<I", data, record + 8)[0]
+        if 1 <= section <= count and value > sizes[section - 1]:
+            return f"symbol {index}'s value {value:#x} is past section {section}'s {sizes[section - 1]:#x} bytes"
         aux = data[record + 17]
         if index + aux >= nsyms:
             return f"symbol {index}'s {aux} auxiliary record(s) run past the symbol table"

@@ -1127,10 +1127,16 @@ two review rounds set where the evidence ends:
   - an `_STL`-scoped name whose `_STL` names the vendored STLport headers
     (`vendor/stlport-4.6/stlport`) declare, such as `map` to `set` or
     `pair`/`_Select1st` to `_Identity`. `_STL` is reopened in this codebase, so
-    the decoration alone does not prove STLport.
+    the decoration alone does not prove STLport. The declared names are the
+    class, struct, union and typedef declarations (comments, string literals and
+    template parameters stripped). They are read with git from the vendored tree
+    at the merge base with origin/master; a vendored tree that differs from that
+    base refuses.
   Neither kind may have a protected name inside it. Every other real name keeps
-  its exact qualified path and its place in the tree (argument index, nesting
-  depth): project classes, global types, scope and member identifiers. A
+  its exact qualified path, placeholder scopes around it included, and its place
+  in the tree (argument index, nesting depth): project classes, global types,
+  scope and member identifiers. Every qualifier and storage code stays, a member
+  pointer's `P8`/`Q8` among them. A
   registered canonical class is never replaced, wherever it appears, `_STL`
   scope included. So a placeholder parameter cannot unlock its real class, and
   a project class inside an STLport argument cannot be swapped or re-nested. The
@@ -1145,8 +1151,11 @@ two review rounds set where the evidence ends:
   own: function and data providers, less its placement-only objects. Each object
   is parsed whole (symbol table, weak externals, `/alternatename`, `/INCLUDE`):
   every section, relocation, symbol and auxiliary record is walked within its
-  declared counts, and every string-table offset is bounds-checked. A missing
-  object, or one with any inconsistency, refuses. A stale object whose source or an included header spells the pin or
+  declared counts, and every string-table offset is bounds-checked. Sections
+  must not overlap in the file, a symbol's value must lie inside its section, and
+  an overflowed relocation count (NRELOC_OVFL) is read from its first record,
+  with all of them walked. A missing object, or one with any inconsistency,
+  refuses. A stale object whose source or an included header spells the pin or
   its type is rebuilt with `./build.sh` first. The evidence records how many were
   rebuilt.
   Each `name_basis.csv` record is the approval alone (`agree:<id>`), so `revert`

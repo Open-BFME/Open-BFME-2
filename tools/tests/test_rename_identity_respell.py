@@ -157,6 +157,7 @@ def tree(tmp_path):
     agree(tmp_path, "nl-wrap", OLD_WRAP, NEW_WRAP, WRAP)
     _git(tmp_path, "init", "-q")
     commit(tmp_path, "seed")
+    _git(tmp_path, "update-ref", "refs/remotes/origin/master", "HEAD")
     return tmp_path
 
 
@@ -945,7 +946,6 @@ def test_an_stl_scoped_name_must_be_declared_by_the_vendored_headers():
 def test_the_vendored_stlport_names_are_read_from_the_tree(tree):
     declared = rename.stlport_declared(rename.Context(tree, object_scan=False))
     assert STLPORT <= declared
-    assert rename.stlport_declared(rename.Context(tree / "Code", object_scan=False)) == frozenset()
 
 
 def coff_with(symbols=(("dummy", 0, 1, 0x20, 2, 0),), relocs=()):
@@ -984,3 +984,130 @@ def test_a_symbol_in_no_section_is_unreadable():
     data = coff_with((("dummy", 0, 5, 0x20, 2, 0),))
     assert "names no section" in rename.coff_layout_problem(bytes(data))
     assert rename.coff_layout_problem(bytes(coff_with((("abs", 0, -1, 0, 2, 0),)))) is None
+
+
+
+# ------------------------------------------------- round 5 of the review (review-identity-respell-r5)
+
+def test_a_member_pointer_keeps_its_pointer_code():
+    """Finding 1 (r5_mp.py): Owner::* and Owner::* const differ."""
+    old = "?f@@YAXURva00123456@@P8Owner@@AEXVProject@@@Z@Z"
+    assert "MP: 'P8' -> 'Q8'" in rename.identity_shape_problem(old, old.replace("P8", "Q8"), set(), STLPORT)
+    template = "??$f@P8Owner@@AEXVProject@@@Z@@YAXXZ"
+    assert rename.identity_shape_problem(template, template.replace("P8", "Q8"), set(), STLPORT) is not None
+
+
+def test_the_member_pointer_probe_is_refused_by_the_planner(tree):
+    """r5_mp_plan.py: a placeholder template whose argument is a member pointer."""
+    old = "?f@?$Rva00123456@P8Owner@@AEXVProject@@@Z@@SAXXZ"
+    new = old.replace("P8", "Q8")
+    for rel in ("reverse/functions.csv", OWNER):
+        write(tree / rel, (tree / rel).read_text().replace(OLD_OP, old))
+    token = agree(tree, "r5-mp", old, new, OP)
+    commit(tree)
+    ctx, _ = context(tree, [dict(r, row=old) if r["row"] == OLD_OP else r for r in BEFORE])
+    with pytest.raises(Refusal, match="changes more than an identity respell may"):
+        plan(ctx, new=new, evidence=token, also=[], move_to=None,
+             prepared={OWNER: OWNER_SRC.replace(OLD_OP, new).encode()})
+
+
+def test_a_variadic_signature_is_read_and_differs():
+    fixed = "?f@@YAXURva00123456@@P6AXVProject@@@Z@Z"
+    variadic = fixed.replace("Project@@@Z", "Project@@ZZ")
+    rename.type_tree(variadic)                      # read, not refused as unreadable
+    assert "cannot be read" not in rename.identity_shape_problem(fixed, variadic, set(), STLPORT)
+
+
+SCOPED = "??4Project@Rva00123456@@QAEAAV01@ABV01@@Z"            # Rva00123456::Project
+
+
+def test_a_protected_name_keeps_its_placeholder_scopes():
+    """Finding 2 (r5_scope_plan.py): Rva00123456::Project -> NamedScope::Project moves Project."""
+    moved = SCOPED.replace("Rva00123456", "NamedScope")
+    assert "changes the qualified path of the protected name Project" in rename.identity_shape_problem(
+        SCOPED, moved, set(), STLPORT)
+    assert "changes the qualified path of the protected name Project" in rename.identity_shape_problem(
+        SCOPED, moved, {"Project"}, STLPORT)
+
+
+def test_a_placeholder_inside_a_protected_scope_may_be_named():
+    """Project::Rva00123456 -> Project::Named: the placeholder is not on Project's path."""
+    inner = "??4Rva00123456@Project@@QAEAAV01@ABV01@@Z"
+    assert rename.identity_shape_problem(inner, inner.replace("Rva00123456", "NamedThing"), set(), STLPORT) is None
+
+
+def test_the_scope_probe_is_refused_by_the_planner(tree):
+    moved = SCOPED.replace("Rva00123456", "NamedScope")
+    for rel in ("reverse/functions.csv", OWNER):
+        write(tree / rel, (tree / rel).read_text().replace(OLD_OP, SCOPED))
+    write(tree / "reverse/canonical_classes.csv", "class,header,notes\nProject,Code/Project.h,canonical\n")
+    token = agree(tree, "r5-scope", SCOPED, moved, OP)
+    commit(tree)
+    ctx, _ = context(tree, [dict(r, row=SCOPED) if r["row"] == OLD_OP else r for r in BEFORE])
+    with pytest.raises(Refusal, match="changes the qualified path of the protected name Project"):
+        plan(ctx, new=moved, evidence=token, also=[], move_to=None,
+             prepared={OWNER: OWNER_SRC.replace(OLD_OP, moved).encode()})
+
+
+def test_stlport_names_come_from_declarations_only():
+    """Finding 3: comments, string literals and template parameters declare nothing."""
+    text = """// class FakeComment;
+/* typedef int FakeAlias; */
+const char *s = "struct FakeString {";
+template <class _Tp, class _Alloc = allocator<_Tp> > class vector : protected _Vector_base<_Tp> {};
+struct _Identity : public unary_function<int, int> {};
+template <class _T1, class _T2> struct pair;
+typedef unsigned int size_type;
+template <> struct less<int> {};
+"""
+    assert rename.stlport_names(text) == {"vector", "_Identity", "pair", "size_type", "less"}
+
+
+def test_the_stlport_index_is_read_at_the_merge_base(tree):
+    """Finding 3: the working copy's vendored tree is not trusted; it must equal the base."""
+    header = tree / "vendor/stlport-4.6/stlport/stl/_tree.h"
+    write(header, header.read_text() + "class Injected {};\n")
+    with pytest.raises(Refusal, match="differs from the merge base"):
+        rename.stlport_declared(rename.Context(tree, object_scan=False))
+    commit(tree, "vendored change on the branch")
+    with pytest.raises(Refusal, match="differs from the merge base"):
+        rename.stlport_declared(rename.Context(tree, object_scan=False))
+
+
+def test_the_stlport_index_refuses_without_a_merge_base(tree):
+    _git(tree, "update-ref", "-d", "refs/remotes/origin/master")
+    with pytest.raises(Refusal):
+        rename.stlport_declared(rename.Context(tree, object_scan=False))
+
+
+def test_overlapping_sections_are_unreadable():
+    """Finding 4: two sections' raw data overlap."""
+    import struct
+    data = bytearray(coff([(".text", TEXT, b"\xc3", []), (".other", TEXT, b"\xc3", [])],
+                          [("dummy", 0, 1, 0x20, 2, 0)]))
+    struct.pack_into("<I", data, 20 + 40 + 20, struct.unpack_from("<I", data, 20 + 20)[0])
+    assert "overlap in the file" in rename.coff_layout_problem(bytes(data))
+
+
+def test_a_symbol_value_past_its_section_is_unreadable():
+    data = coff_with((("dummy", 9999, 1, 0x20, 2, 0),))
+    assert "is past section 1" in rename.coff_layout_problem(bytes(data))
+
+
+def test_a_relocation_overflow_with_no_count_is_unreadable():
+    data = bytearray(coff([(".text", TEXT | 0x01000000, b"\xc3", [])], [("dummy", 0, 1, 0x20, 2, 0)]))
+    assert "relocation overflow" in rename.coff_layout_problem(bytes(data))
+
+
+def test_every_relocation_of_an_overflowed_section_is_walked():
+    """r5_overflow.py: 65,537 relocations, the last against symbol 7 of 1."""
+    import struct
+    data = bytearray(coff([(".text", TEXT | 0x01000000, b"\xc3", [(65537, 0, 0)] + [(0, 0, 6)] * 65534)],
+                          [("dummy", 0, 1, 0x20, 2, 0)]))
+    symbols = struct.unpack_from("<I", data, 8)[0]
+    data[symbols:symbols] = struct.pack("<IIHIIH", 0, 0, 6, 0, 7, 6)
+    struct.pack_into("<I", data, 8, symbols + 20)
+    assert "relocates against symbol 7" in rename.coff_layout_problem(bytes(data))
+    data = bytearray(coff([(".text", TEXT | 0x01000000, b"\xc3", [(1, 0, 0)])], [("dummy", 0, 1, 0x20, 2, 0)]))
+    struct.pack_into("<H", data, 20 + 32, 0xFFFF)
+    assert "overflow relocation count is 1" in rename.coff_layout_problem(bytes(data))
