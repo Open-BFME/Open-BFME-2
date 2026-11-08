@@ -190,5 +190,54 @@ The ThingTemplate header seat (StarkillerHDX@fleet, note "header seat w14") hold
 that includes ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp. Moving
 ProductionPrerequisite.cpp to the BFME 2 AsciiString waits for that seat and for string_base.h.
 
+#### 2026-11-08: the PerTurnStats batch, steps 1-3 landed and 4-7 blocked
+
+**Landed, each verified on its own:**
+1. LivingWorldScoreKeeper.cpp spells PerTurnStats as retail did: three `short`s and an
+   implicit copy constructor. It instantiates `__uninitialized_copy`, `__uninitialized_fill_n`
+   and `_M_allocate_and_copy` for PerTurnStats (80/80).
+2. The rows for 0x004EE1A9 (copy constructor) and 0x004EE1D0 (`_Construct`) moved into
+   LivingWorldScoreKeeper.cpp, their approved TU (`add_match --replace-existing`). The
+   hand-written copy in V3PolyCopyCtors.cpp and the `throw()` `_Construct` specialization in
+   StlportConstructCopySiblings.cpp are gone (110/110 across the three units).
+3. `allocator<PerTurnStats>::allocate` is pinned to 0x00395928 through `pin_admission --add`,
+   with `fold-proof=` LivingWorldScoreKeeper.cpp. Pin consistency is OK.
+
+Checked after a census index refresh (index 2026-11-08 04:34 at a6dea28a09). Every
+checked unit links, including the callers that steps 4-7 would respell.
+
+| Unit | LINKED bytes |
+|---|---|
+| LivingWorldScoreKeeper.cpp | 3,425 -> 3,485 |
+| V3PolyCopyCtors.cpp | 667 -> 628 |
+| StlportConstructCopySiblings.cpp | 162 -> 144 |
+| Rva004EE6D0Insert.cpp | 241, unchanged |
+| Rva004EE233AllocateCopy.cpp | 45, unchanged |
+| StlVectorReserveProviderRepairs.cpp | 954, unchanged |
+| AptTimeLine.cpp (now also holds `operator=` 0x0051F7AD) | 10,032, unchanged |
+
+No row name changed, so no caller's resolution changed.
+
+**Stopped before step 4, the retractions.** The cause is the prerequisite recorded in
+`reverse/attempt_support/perturnstats-readmission-callers-20261104.md`, and it still holds:
+- Every respelled caller must name `LivingWorldScoreKeeper::PerTurnStats`.
+- `class_gate.py` refuses a private `class LivingWorldScoreKeeper`, so the caller must
+  include the canonical LivingWorldScoreKeeper.h instead.
+- StlVectorReserveProviderRepairs.cpp defines its own `_STL::vector`/`allocator`, which
+  clashes with the header's `<vector>`.
+- AptTimeLine.cpp's `Rva004EE501` sits on the 12-byte `_Vector_base<PrereqUnitRec>`; the
+  header's sits on `_Vector_base<int>`.
+
+Retracting 0x004EE1E2, 0x004EE20B and 0x004EE233 before the callers move would turn
+0x004EE55E, 0x004EE6D0, 0x0051ED0A and 0x0051F7AD red.
+
+Next: reconcile `vector<LivingWorldScoreKeeper::PerTurnStats>` in LivingWorldScoreKeeper.h:
+- the nested PerTurnStats goes in the header;
+- the `Rva004EE501` views fold onto `vector<PerTurnStats>` at +0x28, and its rows are renamed.
+
+Then steps 4-7 land as one commit: the retractions, the three rows in
+LivingWorldScoreKeeper.cpp under the PerTurnStats names (it already emits them
+byte-exact), the caller respellings, and retracting the `??0PrereqUnitRec` pin at 0x004EE1A9.
+
 Clearance: pending.
 Census confirmation: not claimed.
