@@ -20,6 +20,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+#include <string.h>
+#include <stdio.h>
 #include <vector>
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -35,12 +37,6 @@ namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *>::_Bit_i
 // Suppress this TU's non-retail copy of ??0?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> _Bvector_base<allocator<bool> >::_Bvector_base(const allocator<bool> &); }
-
-extern "C" int __cdecl strcmp(const char *left, const char *right);
-
-extern "C" char *__cdecl strcpy(char *destination, const char *source) throw();
-
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 // The objectives summary at +0x288: a count at +4 and up to eight
 // checked flags at +0x28.
