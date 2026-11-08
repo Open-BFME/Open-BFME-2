@@ -84,12 +84,7 @@ extern "C" void __cdecl VP6_GetYUVConfig(VP6Instance *instance, VP6YUVConfig *co
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // The YUV to 32-bit tables VideoPlayer 0x0009111B fills (VA 0x00DE2098 ..).
 extern unsigned int g_Va00DE3498[0x400];
