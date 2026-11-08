@@ -42,6 +42,7 @@ private:
 	char m_extra[0x50 - 0x20];
 };
 
+#include "../../Include/Common/StateMachine.h"
 #include "../../Include/Common/StateMachineClass.h"
 
 extern const void *const g_00C11D50[];

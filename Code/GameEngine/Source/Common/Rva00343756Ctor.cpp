@@ -44,6 +44,7 @@ public:
 	Rva0033F43D(StateMachine *machine);
 };
 
+#include "../../Include/Common/StateMachine.h"
 #include "../../Include/Common/StateMachineClass.h"
 
 class AttackContesterStateMachine : public StateMachine

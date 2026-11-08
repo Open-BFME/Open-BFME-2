@@ -13,12 +13,7 @@
 // temporary-state step, then the ZH override (current state id, rowed
 // StateMachine::setState 0x004D7ACD, AI notified when the id changed). The
 // current state is at machine+0x04 and its id at state+0x04.
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
 // The canonical header places the state-machine notification at slot 153.
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
@@ -29,19 +24,10 @@ private:
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
-typedef int StateID;
 enum
 {
 	MACHINE_DONE_STATE_ID = 999998,
 	INVALID_STATE_ID = 999999
-};
-class State
-{
-public:
-	StateID getID() const { return m_ID; }
-private:
-	void *m_vtbl;
-	StateID m_ID; // +0x04
 };
 class StateMachine
 {
@@ -50,7 +36,7 @@ public:
 	virtual StateReturnType resetToDefaultState();
 	virtual StateReturnType setState(unsigned int newStateID);
 	Object *getOwner() const { return m_owner; }
-	StateID getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
+	StateID getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
 private:
 	State *m_currentState; // +0x04
 	unsigned char m_pad08[0x14 - 0x08];

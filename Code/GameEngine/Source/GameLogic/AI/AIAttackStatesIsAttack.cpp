@@ -28,19 +28,7 @@ private:
 	unsigned char m_pad00[0x04];
 	State *m_currentState; // +0x04
 };
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void onEnter();
-	virtual void onExit();
-	virtual void update();
-	virtual Bool isIdle() const;
-	virtual Bool isAttack() const;
-};
+#include "../../../Include/Common/StateMachine.h"
 // ?StateMachine::isInAttackState absent-from-retail
 inline Bool StateMachine::isInAttackState() const
 {
@@ -51,7 +39,6 @@ class AIAttackAreaState : public State
 public:
 	virtual Bool isAttack() const;
 private:
-	unsigned char m_pad04[0x20 - 0x04];
 	StateMachine *m_attackMachine; // +0x20
 };
 class AIGuardState : public State
@@ -59,7 +46,6 @@ class AIGuardState : public State
 public:
 	virtual Bool isAttack() const;
 private:
-	unsigned char m_pad04[0x20 - 0x04];
 	StateMachine *m_guardMachine; // +0x20
 };
 class AIAttackState : public State
@@ -67,7 +53,7 @@ class AIAttackState : public State
 public:
 	virtual Bool isAttack() const;
 private:
-	unsigned char m_pad04[0x24 - 0x04];
+	unsigned char m_pad20[0x24 - 0x20];
 	StateMachine *m_attackMachine; // +0x24
 };
 
@@ -99,7 +85,7 @@ class AIFollowPathAsTeamState : public State
 public:
 	virtual Bool rva00340E39() const;
 private:
-	unsigned char m_pad04[0x5C - 0x04];
+	unsigned char m_pad20[0x5C - 0x20];
 	StateMachine *m_subMachine; // +0x5C
 };
 Bool AIFollowPathAsTeamState::rva00340E39() const

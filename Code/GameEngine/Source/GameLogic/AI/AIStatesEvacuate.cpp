@@ -68,6 +68,7 @@ void Rva0033FA64Do(const Object0033FA64 *obj);
 class Object0033FA79;
 void Rva0033FA79Do(const Object0033FA79 *obj);
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

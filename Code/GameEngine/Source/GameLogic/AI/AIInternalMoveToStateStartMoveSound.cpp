@@ -112,6 +112,7 @@ private:
 	BodyModuleInterface *m_body; // +0x254
 };
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

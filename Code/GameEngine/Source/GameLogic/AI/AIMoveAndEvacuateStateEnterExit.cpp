@@ -13,15 +13,7 @@
 // callees; the base onEnter/onExit are pinned AIInternalMoveToState bodies.
 typedef bool Bool;
 typedef float Real;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 struct FprintfTarget
 {
@@ -31,40 +23,7 @@ extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #include "../Object/object.h"
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-	void setGoalPosition(const Coord3D *pos);
-	__declspec(dllimport) __forceinline void lock(const char *msg) { m_locked = true; }
-	__declspec(dllimport) __forceinline void unlock() { m_locked = false; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-	unsigned char m_pad30[0x38 - 0x30];
-	Bool m_locked; // +0x38
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:
@@ -93,7 +52,6 @@ protected:
 		}
 		m_adjustsDestination = b;
 	}
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3D))];
 	Bool m_adjustsDestination; // +0x48
@@ -111,7 +69,7 @@ StateReturnType AIMoveAndEvacuateState::onEnter()
 {
 	Object *obj = getMachineOwner();
 
-	getMachine()->lock("AIMoveAndEvacuateState::onEnter");		// This state is not user interruptable.
+	getMachine()->m_locked = true;		// This state is not user interruptable.
 
 	m_origin = *obj->getPosition();
 	setAdjustsDestination(true);
@@ -120,13 +78,13 @@ StateReturnType AIMoveAndEvacuateState::onEnter()
 	if (getMachine()->getGoalObject())
 		m_goalPosition = *getMachine()->getGoalObject()->getPosition();
 	else
-		m_goalPosition = *getMachine()->locomotorGoalPosition();
+		m_goalPosition = *getMachine()->getGoalPosition();
 	return AIInternalMoveToState::onEnter();
 }
 
 void AIMoveAndEvacuateState::onExit( StateExitType status )
 {
-	getMachine()->unlock();
+	getMachine()->m_locked = false;
 	getMachine()->setGoalPosition(&m_origin); // In case we follow with a AIMoveAndDeleteState.
 	AIInternalMoveToState::onExit( status );
 }

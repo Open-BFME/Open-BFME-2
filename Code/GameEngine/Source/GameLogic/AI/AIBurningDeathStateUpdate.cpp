@@ -67,6 +67,7 @@ private:
 	void *m_ai; // +0x258
 };
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 extern GameLogic *TheGameLogic;

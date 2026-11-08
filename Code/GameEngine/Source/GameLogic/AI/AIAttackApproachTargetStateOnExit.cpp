@@ -99,6 +99,7 @@ extern GameLogic *TheGameLogic;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

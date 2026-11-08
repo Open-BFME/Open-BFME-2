@@ -25,7 +25,7 @@ class Snapshot; class Thing; class ModuleData;
 #include "../../../Include/Common/BfmeXfer.h"
 class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
 
-class State {public:virtual ~State();unsigned int id;};
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/GameLogic/Waypoint.h"
 class Squad {public:Squad()throw();virtual ~Squad();virtual void slot01();virtual void slot02();virtual void xfer(Xfer*);private:_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
 #include "../../../Include/GameLogic/TerrainLogic.h"
@@ -46,7 +46,7 @@ void AIStateMachine::xfer(Xfer *xfer)
  bool hasSquad=goalSquad!=0;*xfer==hasSquad;
  if(xfer->IsLoading()&&hasSquad&&goalSquad==0)goalSquad=new Squad;
  if(hasSquad)*xfer==(Snapshot&)*goalSquad;
- unsigned int id=0xF423F;if(temporaryState)id=temporaryState->id;*xfer==id;
+ unsigned int id=0xF423F;if(temporaryState)id=temporaryState->m_id;*xfer==id;
  if(xfer->IsLoading()&&id!=0xF423F)temporaryState=internalGetState(id);
  if(temporaryState)*xfer==(Snapshot&)*temporaryState;
  *xfer==temporaryStateFrameEnd;XferObjectID(xfer,&objectID58);

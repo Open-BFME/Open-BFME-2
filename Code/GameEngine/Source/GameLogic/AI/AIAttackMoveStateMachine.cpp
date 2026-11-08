@@ -40,6 +40,7 @@ typedef unsigned int UnsignedInt;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class AttackExitConditionsInterface;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum
 {
