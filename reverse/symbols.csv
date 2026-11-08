@@ -2976,7 +2976,6 @@ name,address,notes
 ??1Rva001F0409@@UAE@XZ,0x001F0409,"destructor the scalar deleting destructor 0x001F03ED calls (REL32 at 0x001F03F0; vtable 0x00BE09E8#0); opaque address name"
 ??1Rva001F097A@@QAE@XZ,0x001F077D,non-virtual dtor called directly by scalar deleting dtor 0x001F097A; owning class unproven
 ??1Rva001E7087Base@@UAE@XZ,0x0049B47C,Snapshot-shaped base dtor the 0x001E86D0 unwind funclet 0x0076A0C7 jumps to (ICF fold point)
-??1Rva001F3574Vec@@UAE@XZ,0x0049B47C,"destructor the vector deleting destructor 0x001F3574 calls and hands to the eh vector destructor iterator (DIR32 at 0x001F3583); opaque address name"
 ??1Rva001F4540Vec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x001F4540 calls and hands to the eh vector destructor iterator (DIR32 at 0x001F454F); opaque address name"
 ??1Rva001FBF4D@@UAE@XZ,0x001FBF4D,"destructor the vector deleting destructor 0x001FC052 calls and hands to the eh vector destructor iterator (DIR32 at 0x001FC061); opaque address name"
 ??1Rva001FC036@@QAE@XZ,0x001FBF4D,non-virtual dtor called directly by scalar deleting dtor 0x001FC036; owning class unproven

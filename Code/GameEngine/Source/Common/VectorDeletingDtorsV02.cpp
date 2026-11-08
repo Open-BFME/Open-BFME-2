@@ -47,13 +47,7 @@ private:
 };
 }
 
-class Rva001F3574Vec
-{
-public:
-	virtual ~Rva001F3574Vec();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
+#include "../../Include/GameClient/EmissionVolumeInfo.h"
 
 #include "../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem
@@ -65,6 +59,6 @@ void bfmeVectorDeleteAnchorV02()
 {
 	new FXParticleSystem::TerrainFireEmissionInfo[2];
 	new FXParticleSystem::CategoryModuleTemplate<8>[2];
-	new Rva001F3574Vec[2];
+	new FXParticleSystem::EmissionVolumeInfo[2];
 	new FXParticleSystem::WindModuleInfo[2];
 }
