@@ -24,4 +24,3 @@ Int scanInt(const char *source, Int &val)
 	return ret;
 }
 
-static const void *s_scanIntAnchor = (const void *)scanInt;
