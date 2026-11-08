@@ -1935,6 +1935,17 @@ class EmitTransactionTests(unittest.TestCase):
         out.update({n: (False, False, None) for n in self.names(text, "weak")})
         return out
 
+    def identity(self, obj, name):
+        """section_identity as the unit's text says: the unit's `//reloc NAME TARGET` lines; None when the
+        object is gone or `//garbage`, the unit defines no such row, or it says `//incomparable NAME`."""
+        try:
+            text = Path(obj).read_text(encoding="utf-8")
+        except (OSError, TypeError):
+            return None
+        if "//garbage" in text or f"//incomparable {name}" in text or name not in self.names(text, "comdat", "strong", "noduplicates", "data"):
+            return None
+        return tuple(line for line in text.splitlines() if line.startswith(f"//reloc {name} "))
+
     def transact(self, files=None, *, rvas=None, prepared=None, dry_run=True, claim=False, build_effect=None, undo=None,
                  definitions=None):
         """emit_move over `files` (default both donors) in the fixture's tree."""
@@ -1996,6 +2007,7 @@ class EmitTransactionTests(unittest.TestCase):
                 patch.object(T, "defined_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "strong", "noduplicates", "data")), \
                 patch.object(T, "comdat_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "noduplicates", "data")), \
                 patch.object(T, "coff_definitions", side_effect=definitions or self.definitions), \
+                patch.object(T, "section_identity", side_effect=self.identity), \
                 patch.object(T, "map_rows", side_effect=self.map_of), \
                 patch.object(T, "deleting_copy_problem", side_effect=lambda obj, name: "selects its COMDAT NODUPLICATES"
                              if name in this.names(text_of(obj), "noduplicates") else None), \
@@ -2403,6 +2415,86 @@ class EmitTransactionTests(unittest.TestCase):
         for rel, text in prepared.items():
             self.assertEqual(self.read(rel), text)
 
+    def test_the_proof_compares_the_body_not_only_its_bytes(self):
+        prepared = self.proof_case()
+        prepared[self.TU] += f"//reloc {self.INST} ?h@@3HA\n"
+        self.proof_refuses(prepared, "0x00002000", "differs from")
+        prepared = self.proof_case()                                                 # moved word for word: the same
+        self.write(self.A, self.read(self.A) + f"//reloc {self.INST} ?g@@3HA\n")
+        self.ledger()
+        prepared[self.TU] += f"//reloc {self.INST} ?g@@3HA\n"
+        self.assertNotIn("blocked", self.transact(prepared=prepared))
+        prepared[self.TU] = prepared[self.TU].replace("?g@@3HA", "?h@@3HA")
+        self.proof_refuses(prepared, "0x00002000", "differs from")
+
+    def test_a_body_that_cannot_be_compared_refuses(self):
+        prepared = self.proof_case()
+        prepared[self.TU] += f"//incomparable {self.INST}\n"
+        self.proof_refuses(prepared, "0x00002000", "cannot be compared")
+        prepared = self.proof_case()
+        self.write(self.A, self.read(self.A) + f"//incomparable {self.INST}\n")     # today's object, the old side
+        self.ledger()
+        self.proof_refuses(prepared, "0x00002000", "cannot be compared")
+
+    def test_the_rebuilt_objects_must_hold_the_same_body(self):
+        prepared = self.proof_case()
+
+        def built(sources):
+            for source in sources:
+                text = self.read(source) + (f"//reloc {self.INST} ?h@@3HA\n" if source == self.TU else "")
+                (self.root / "build" / f"real-{Path(source).stem}.obj").write_text(text, encoding="utf-8")
+            return True, "Functions: OK"
+        report = self.transact(prepared=prepared, dry_run=False, build_effect=built)
+        self.assertIn("fail the transfer proof", report["blocked"])
+        self.assertIn("differs from", report["blocked"])
+        self.unchanged()
+
+    def changed_after_the_build(self, rel, text):
+        prepared = self.proof_case()
+
+        def built(sources):
+            for source in sources:
+                (self.root / "build" / f"real-{Path(source).stem}.obj").write_text(self.read(source), encoding="utf-8")
+            self.write(rel, self.read(rel) + text)
+            return True, "Functions: OK"
+        report = self.transact(prepared=prepared, dry_run=False, build_effect=built)
+        self.assertIn("changed after the build read them", report["blocked"])
+        self.assertIn(rel, report["blocked"])
+        staged = subprocess.run(["git", "ls-files", "-s", "--", rel], cwd=self.root, capture_output=True, text=True).stdout
+        return staged, prepared
+
+    def test_a_prepared_text_edited_after_the_build_is_not_staged(self):
+        staged, _ = self.changed_after_the_build(self.TU, "#error UNCHECKED EDIT AFTER COMPILE\n")
+        self.assertEqual(staged, "")                                                 # nothing reached the index
+
+    def test_a_built_file_edited_after_the_build_is_not_staged(self):
+        self.changed_after_the_build(self.A, "//comdat ?extra@@YAXXZ\n")
+
+    def test_an_unprepared_source_edited_after_the_build_is_refused(self):
+        prepared = self.proof_case()
+        self.write(self.TU, prepared.pop(self.TU))                                   # the TU already emits both
+        self.ledger()
+
+        def built(sources):
+            for source in sources:
+                (self.root / "build" / f"real-{Path(source).stem}.obj").write_text(self.read(source), encoding="utf-8")
+            self.write(self.TU, self.read(self.TU) + "//edited\n")
+            return True, "Functions: OK"
+        report = self.transact(prepared=prepared, dry_run=False, build_effect=built)
+        self.assertIn("changed after the build read them", report["blocked"])
+        self.assertIn(self.TU, report["blocked"])
+
+    def test_a_ledger_edited_after_the_build_is_not_staged(self):
+        self.changed_after_the_build("reverse/functions.csv", "# edited\n")
+
+    def test_a_missing_hatch_checker_refuses(self):
+        prepared = self.proof_case()
+        with patch.dict(sys.modules, {"hatch_counters": None}):
+            self.assertIn("checker is unavailable", T.emit_hatches_grow({self.A: ""}, {self.A: "__declspec(selectany) int g;\n"}))
+            report = self.transact(prepared=prepared)
+        self.assertIn("checker is unavailable", report["blocked"])
+        self.unchanged()
+
     def test_the_proof_is_only_for_a_prepared_file(self):
         prepared = self.proof_case()
         report = self.transact(rvas=self.RVAS)                                       # no prepared text at all
@@ -2639,7 +2731,8 @@ class EmitTransactionTests(unittest.TestCase):
     @staticmethod
     def handover(donor_defs):
         with patch.object(T, "coff_definitions", side_effect=lambda obj: donor_defs if obj == "d" else {"_x": (True, True, 2)}):
-            return T.transfer_problem("_x", "d", "t", {"d": "d", "t": "t"})
+            with patch.object(T, "section_identity", return_value=("body",)):
+                return T.transfer_problem("_x", "d", "t", {"d": "d", "t": "t"}, {"_x": ("body",)})
 
     def test_what_a_transfer_requires_of_the_destination(self):
         # read directly: the byte gate refuses most of these first, on a less strict reading
@@ -2647,13 +2740,131 @@ class EmitTransactionTests(unittest.TestCase):
                  "no duplicates": ((True, True, 1), "selected NODUPLICATES"), "same size": ((True, True, 3), "selected SAME_SIZE"),
                  "data": ((True, False, 2), "outside a code section"), "weak": ((False, False, None), "outside a code section")}
         for label, (found, why) in cases.items():
-            with self.subTest(label=label), patch.object(T, "coff_definitions", side_effect=lambda obj: {"t": {"n": found}}.get(obj, {})):
-                got = T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"})
+            with self.subTest(label=label), patch.object(T, "coff_definitions", side_effect=lambda obj: {"t": {"n": found}}.get(obj, {})), \
+                    patch.object(T, "section_identity", return_value=("body",)):
+                got = T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, {"n": ("body",)})
                 self.assertIsNone(got) if why is None else self.assertIn(why, got)
         with patch.object(T, "coff_definitions", return_value={}):
-            self.assertIn("does not define it", T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}))
+            self.assertIn("does not define it", T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, {}))
             # a funclet is usually a local symbol: its absence among the externals is no refusal
-            self.assertIsNone(T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, companion=True))
+            self.assertIsNone(T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, {}, companion=True))
+
+    def test_the_old_body_is_required_and_compared(self):
+        with patch.object(T, "coff_definitions", side_effect=lambda obj: {"t": {"n": (True, True, 2)}}.get(obj, {})):
+            for old, new, why in ((None, ("body",), "cannot be compared"), (("body",), None, "cannot be compared"),
+                                  (("body",), ("other",), "differs from")):
+                with self.subTest(old=old, new=new), patch.object(T, "section_identity", return_value=new):
+                    self.assertIn(why, T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, {"n": old}))
+            with patch.object(T, "section_identity", return_value=("body",)):
+                self.assertIn("cannot be compared", T.transfer_problem("n", "d", "t", {"d": "d", "t": "t"}, {}))
+
+    @staticmethod
+    def built_coff(sections, symbols, strings=b""):
+        """A COFF object: `sections` [(name, flags, raw, [(offset, symbol index, type)])], `symbols`
+        [(name, value, section, storage, aux bytes or None)]; a name over 8 bytes goes to the string table."""
+        import struct
+        at = 20 + 40 * len(sections)
+        raws, headers = b"", b""
+        table = sum(18 * (2 if s[4] else 1) for s in symbols)
+        offset = at + table
+        strs = strings
+        records = b""
+        for name, value, section, storage, aux in symbols:
+            spelled = name.encode()
+            if len(spelled) > 8:
+                spelled = struct.pack("<II", 0, 4 + len(strs))
+                strs += name.encode() + b"\0"
+            records += struct.pack("<8sIhHBB", spelled, value, section, 0, storage, 1 if aux else 0) + (aux or b"")
+        tail = struct.pack("<I", 4 + len(strs)) + strs
+        offset += len(tail)
+        for name, flags, raw, relocs in sections:
+            packed = b"".join(struct.pack("<IIH", *r) for r in relocs)
+            headers += struct.pack("<8sIIIIIIHHI", name.encode(), 0, 0, len(raw), offset if raw else 0,
+                                   offset + len(raw) if relocs else 0, 0, len(relocs), 0, flags)
+            raws += raw + packed
+            offset += len(raw) + len(packed)
+        return struct.pack("<HHIIIHH", 0x14C, len(sections), 0, at, sum(2 if s[4] else 1 for s in symbols), 0, 0) + headers + records + tail + raws
+
+    COMDAT_AUX = b"\0" * 14 + bytes([2]) + b"\0" * 3
+
+    @staticmethod
+    def associative_aux(number):
+        return b"\0" * 12 + number.to_bytes(2, "little") + bytes([5]) + b"\0" * 3
+
+    def body(self, tmp, target="_g", child="_a", label="$L12", label_value=0, storage=2, raw=b"\xb8\0\0\0\0\xc3", extra=b""):
+        """`_f` in a COMDAT, one DIR32 to `target`, an associated `.xdata$x` with one to `child` and one to a local `label`."""
+        symbols = [(".text", 0, 1, 3, self.COMDAT_AUX), ("_f", 0, 1, 2, None), (".xdata$x", 0, 2, 3, self.associative_aux(1)),
+                   (label, label_value, 1, 6, None), (target, 0, 0, storage, None), (child, 0, 0, 2, None)]
+        path = Path(tmp) / f"o{len(list(Path(tmp).iterdir()))}.obj"
+        path.write_bytes(self.built_coff([(".text", 0x60001020, raw, [(1, 6, 6)]),
+                                          (".xdata$x", 0x40001040, b"\0" * 8, [(0, 7, 6), (4, 5, 6)])], symbols) + extra)
+        return path
+
+    def test_section_identity_sees_what_a_byte_mask_does_not(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            same = T.section_identity(self.body(tmp), "_f")
+            self.assertIsNotNone(same)
+            self.assertEqual(T.section_identity(self.body(tmp), "_f"), same)
+            self.assertEqual(T.section_identity(self.body(tmp, label="$L99"), "_f"), same)     # the compiler's own numbering
+            for label, kw in (("main target", {"target": "_h"}), ("associated target", {"child": "_b"}),
+                              ("where a label lands", {"label_value": 1}), ("a named local", {"label": "_named"}),
+                              ("bytes", {"raw": b"\xb8\0\0\0\0\x90"}),
+                              ("an alternate of the target", {"extra": b"/alternatename:_g=_other\0"})):
+                with self.subTest(label=label):
+                    self.assertNotEqual(T.section_identity(self.body(tmp, **kw), "_f"), same)
+
+    def test_section_identity_refuses_what_it_cannot_compare(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertIsNone(T.section_identity(self.body(tmp), "_missing"))
+            self.assertIsNone(T.section_identity(self.body(tmp, storage=105), "_f"))           # a weak target
+            self.assertIsNone(T.section_identity(Path(tmp) / "gone.obj", "_f"))
+            self.assertIsNone(T.section_identity(None, "_f"))
+            for index in (1, 99):                       # a relocation naming an aux record, or past the table
+                symbols = [(".text", 0, 1, 3, self.COMDAT_AUX), ("_f", 0, 1, 2, None)]
+                bad = Path(tmp) / f"bad{index}.obj"
+                bad.write_bytes(self.built_coff([(".text", 0x60001020, b"\xc3\0\0\0\0", [(1, index, 6)])], symbols))
+                self.assertIsNone(T.section_identity(bad, "_f"))
+
+    def test_a_malformed_object_is_not_an_empty_one(self):
+        import struct
+        with tempfile.TemporaryDirectory() as tmp:
+            good = self.body(tmp).read_bytes()
+            header = lambda sections, at, count, optional=0: struct.pack("<HHIIIHH", 0x14C, sections, 0, at, count, optional, 0)
+            cases = {"no section table": header(1, 20, 0), "no sections": header(0, 20, 1) + b"\0" * 22,
+                     "no symbols": header(1, 60, 0) + b"\0" * 44, "symbols past the end": header(1, 60, 999) + b"\0" * 60,
+                     "optional header past the end": good[:16] + struct.pack("<H", 0xFFFF) + good[18:],
+                     "no string table": good[:20 + 80 + 18 * 8],
+                     "cut in a section's data": good[:-3]}
+            for label, data in cases.items():
+                with self.subTest(label=label):
+                    bad = Path(tmp) / "bad.obj"
+                    bad.write_bytes(data)
+                    self.assertIsNone(T.coff_definitions(bad))
+                    self.assertIsNone(T.section_identity(bad, "_f"))
+                    self.assertEqual(T.transfer_problem("_f", "d", "t", {"d": bad, "t": self.body(tmp)}, {"_f": ("x",)}),
+                                     "d's object cannot be read: inconclusive")
+            # well formed in every table, and still no compile's output
+            symbols = [(".text", 0, 1, 3, self.COMDAT_AUX), ("_f", 0, 1, 2, None)]
+            text = (".text", 0x60001020, b"\xc3", [])
+            for label, data in (("no sections", self.built_coff([], [("_f", 0, 0, 2, None)])), ("no symbols", self.built_coff([text], [])),
+                                ("a local symbol past the sections", self.built_coff([text], symbols + [("$L1", 0, 9, 6, None)])),
+                                ("a string table past the end", self.built_coff([text], symbols)[:-5] + struct.pack("<I", 0xFFFF) + b"\xc3")):
+                with self.subTest(label=label):
+                    bad = Path(tmp) / "bad.obj"
+                    bad.write_bytes(data)
+                    self.assertIsNone(T.coff_definitions(bad))
+            good_small = Path(tmp) / "small.obj"
+            good_small.write_bytes(self.built_coff([text], symbols))
+            self.assertIn("_f", T.coff_definitions(good_small))                          # the cases above fail for their own reason
+            for label, offset in (("raw data", 20 + 20), ("relocations", 20 + 24), ("line numbers", 20 + 28)):
+                with self.subTest(label=label):
+                    bad = Path(tmp) / "bad.obj"
+                    data = bytearray(good)
+                    struct.pack_into("<I", data, offset, 0x7FFFFFF0)
+                    if label == "line numbers":
+                        struct.pack_into("<H", data, 20 + 34, 1)
+                    bad.write_bytes(data)
+                    self.assertIsNone(T.coff_definitions(bad))
 
     def test_fresh_compiles_turns_the_store_off_and_back(self):
         import build
@@ -3023,7 +3234,7 @@ class NativeTransferProofTests(NativeCompilerCase):
                 bad = good.with_name(stem + ".obj")
                 bad.write_bytes(data)
                 self.assertIsNone(T.coff_definitions(bad))
-                self.assertEqual(T.transfer_problem(self.INST, "d", "t", {"d": bad, "t": good}),
+                self.assertEqual(T.transfer_problem(self.INST, "d", "t", {"d": bad, "t": good}, {}),
                                  "d's object cannot be read: inconclusive")
 
     def test_the_handover_on_real_objects(self):
@@ -3032,11 +3243,41 @@ class NativeTransferProofTests(NativeCompilerCase):
         explicit = self.obj("donor_before", self.TEMPLATE + "template int f<int>(int);\n")
         plain = self.obj("plain", "int use(int a) { return a; }\n")
         self.assertIn(self.INST, T.coff_definitions(explicit))
-        self.assertIsNone(T.transfer_problem(self.INST, "d", "t", {"d": without, "t": with_use}))
-        self.assertIn("still defines", T.transfer_problem(self.INST, "d", "t", {"d": explicit, "t": with_use}))
-        self.assertIn("exactly one object", T.transfer_problem(self.INST, "d", "t", {"d": without, "x": explicit, "t": with_use}))
-        self.assertIn("does not define", T.transfer_problem(self.INST, "d", "t", {"d": without, "t": plain}))
-        self.assertIn("selected NODUPLICATES", T.transfer_problem("?use@@YAHH@Z", "d", "t", {"d": without, "t": plain}))
+        before = {self.INST: T.section_identity(with_use, self.INST)}
+        self.assertIsNone(T.transfer_problem(self.INST, "d", "t", {"d": without, "t": with_use}, before))
+        self.assertIn("still defines", T.transfer_problem(self.INST, "d", "t", {"d": explicit, "t": with_use}, before))
+        self.assertIn("exactly one object", T.transfer_problem(self.INST, "d", "t", {"d": without, "x": explicit, "t": with_use}, before))
+        self.assertIn("does not define", T.transfer_problem(self.INST, "d", "t", {"d": without, "t": plain}, before))
+        self.assertIn("selected NODUPLICATES", T.transfer_problem("?use@@YAHH@Z", "d", "t", {"d": without, "t": plain}, before))
+
+    ADDRESS = "??$a@H@@YAPAHXZ"
+
+    def address_of(self, stem, name, before=""):
+        return self.obj(stem, before + f"#pragma inline_depth(0)\nextern int {name};\ntemplate<class T> int *a() {{ return &{name}; }}\n"
+                                       "int *use() { return a<int>(); }\n")
+
+    def test_the_same_bytes_binding_another_global_refuse(self):
+        """The review's repro: both objects hold b8 00000000 c3; only the relocation names g or h."""
+        old, new = self.address_of("reloc_old", "g"), self.address_of("reloc_new", "h")
+        self.assertEqual(self.build.read_object_symbol_bytes(old, self.ADDRESS, code_only=True)[0],
+                         self.build.read_object_symbol_bytes(new, self.ADDRESS, code_only=True)[0])
+        donor = self.obj("reloc_donor", "int stay() { return 1; }\n")
+        before = {self.ADDRESS: T.section_identity(old, self.ADDRESS)}
+        self.assertIn("differs from", T.transfer_problem(self.ADDRESS, "d", "t", {"d": donor, "t": new}, before))
+        self.assertIsNone(T.transfer_problem(self.ADDRESS, "d", "t", {"d": donor, "t": old}, before))
+
+    EH = ("struct D { ~D(); };\nvoid g();\n"
+          "template<class T> T e(T a) { D d; g(); return a; }\n")
+    INSTANCE = "??$e@H@@YAHH@Z"
+
+    def test_a_moved_body_with_unwind_data_keeps_its_identity(self):
+        """A real funclet: the compiler renumbers $L labels with the unit, and the identity holds across that."""
+        use = "#pragma inline_depth(0)\n" + self.EH + "int use(int a) { return e<int>(a); }\n"
+        old = self.run_cl("eh_old", use)
+        new = self.run_cl("eh_new", "struct E { ~E(); };\nvoid g2();\nvoid other() { E a; g2(); E b; g2(); }\n" + use)
+        self.assertIn(self.INSTANCE, T.coff_definitions(old))
+        self.assertIsNotNone(T.section_identity(old, self.INSTANCE))
+        self.assertEqual(T.section_identity(old, self.INSTANCE), T.section_identity(new, self.INSTANCE))
 
 
 class FoldAliasSplitTests(unittest.TestCase):

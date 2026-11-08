@@ -117,6 +117,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import git_trust  # noqa: E402
 import tu_map  # noqa: E402
 import claims  # noqa: E402
 import rename  # noqa: E402
@@ -3988,17 +3989,112 @@ def fresh_compiles():
         build._objstore_root.cache_clear()
 
 
+def coff_layout(data):
+    """(sections, symbols {table index: record}) of the i386 COFF object `data`, every table and each
+    section's raw data and relocations held to the file's bounds whether or not anything goes on to
+    read them; ValueError or struct.error otherwise (unpack_from holds whatever it reads to the file).
+    cl always writes sections and symbols, so an object with none did not come from a compile: it is
+    malformed, never an empty object."""
+    import struct
+    if len(data) < 20 or data[:2] != b"\x4c\x01":
+        raise ValueError("not an i386 object")
+    _machine, count, _stamp, at, total, optional, _flags = struct.unpack_from("<HHIIIHH", data, 0)
+    table, strings = 20 + optional, at + total * 18
+    if not count or not total:
+        raise ValueError("no sections or no symbols")
+    size = struct.unpack_from("<I", data, strings)[0]
+    if size < 4 or strings + size > len(data):
+        raise ValueError("the string table lies outside the object")
+    sections = []
+    for i in range(count):
+        name, _vsize, _va, raw_size, raw_at, relocs_at, lines_at, relocs, lines, flags = struct.unpack_from(
+            "<8sIIIIIIHHI", data, table + i * 40)
+        if flags & 0x01000000:
+            raise ValueError("a relocation count that overflowed its field")
+        has_raw = not flags & 0x80                                       # uninitialized data has none
+        if (has_raw and raw_size and not raw_at) or (has_raw and raw_at + raw_size > len(data)) \
+                or lines_at + lines * 6 > len(data):
+            raise ValueError("a section lies outside the object")
+        sections.append({"name": name.rstrip(b"\0"), "size": raw_size, "raw": data[raw_at:raw_at + raw_size] if has_raw else b"",
+                         "relocs": [struct.unpack_from("<IIH", data, relocs_at + k * 10) for k in range(relocs)], "flags": flags})
+    symbols, i = {}, 0
+    while i < total:
+        raw, value, section, _type, storage, aux = struct.unpack_from("<8sIhHBB", data, at + i * 18)
+        if i + 1 + aux > total or section > count:
+            raise ValueError("a symbol lies outside the object")
+        if raw[:4] == b"\0\0\0\0":
+            offset = struct.unpack_from("<I", raw, 4)[0]
+            if offset >= size:
+                raise ValueError("a symbol name lies outside the string table")
+            name = data[strings + offset:data.index(b"\0", strings + offset)]
+        else:
+            name = raw.rstrip(b"\0")
+        symbols[i] = {"name": name.decode("latin-1"), "value": value, "section": section, "storage": storage,
+                      "association": None}
+        if aux and storage == 3 and not value and section > 0 and name == sections[section - 1]["name"] \
+                and data[at + (i + 1) * 18 + 14] == 5:                   # a section record, IMAGE_COMDAT_SELECT_ASSOCIATIVE
+            symbols[i]["association"] = struct.unpack_from("<H", data, at + (i + 1) * 18 + 12)[0]
+        i += 1 + aux
+    return sections, symbols
+
+
+COMPILER_NUMBERED = re.compile(r"^\$(?:L|SG|T)\d+$")                     # renumbered per unit
+
+
+def section_identity(obj, name):
+    """What the body defining `name` in the object at `obj` is beyond the bytes a mask reads: its
+    section's exact bytes, size and flags, each relocation's offset, type and target, and the same for
+    each section associated with it or reached through a local symbol, walked in order, so equal values
+    mean one body binding the same names. An external target is its name, and an `/alternatename` of
+    it; a local one is where it lands, with its name unless the compiler numbered it per unit.
+    None when that cannot be compared: an unreadable object, no such symbol, a weak or undefined local
+    target. A body in a section the unit shares, such as `.rdata`, compares as that whole section."""
+    import struct
+    try:
+        data = Path(obj).read_bytes()
+        sections, symbols = coff_layout(data)
+        alternates = {m.group(1).decode("latin-1").strip('"'): m.group(2) for m in
+                      re.finditer(rb"/alternatename:([^=\s]+)=(\S+)", data, re.I)}
+        associated = collections.defaultdict(list)
+        for s in symbols.values():
+            if s["association"]:
+                associated[s["association"]].append(s["section"])
+        order = {}
+
+        def section(number):
+            if number in order:
+                return ("seen", order[number])
+            order[number] = len(order)
+            this = sections[number - 1]
+            relocs = []
+            for offset, index, kind in this["relocs"]:
+                target = symbols[index]
+                if target["storage"] == 2:
+                    relocs.append((offset, kind, "external", target["name"], alternates.get(target["name"]),
+                                   0 if target["section"] else target["value"]))
+                elif target["section"] > 0 and target["storage"] != 105:
+                    relocs.append((offset, kind, "local", None if COMPILER_NUMBERED.match(target["name"]) else target["name"],
+                                   target["value"], section(target["section"])))
+                else:
+                    raise ValueError("a relocation target that cannot be compared")
+            return (this["name"], this["size"], this["flags"], this["raw"], tuple(relocs),
+                    tuple(section(n) for n in associated[number]))
+        found = next(s for s in symbols.values() if s["name"] == name and s["section"] > 0)
+        return (found["value"], section(found["section"]))
+    except (OSError, TypeError, ValueError, IndexError, KeyError, StopIteration, RecursionError, struct.error):
+        return None
+
+
 def coff_definitions(obj):
     """{symbol: (in a COMDAT, in code, COMDAT selection)} of what the COFF object at `obj` defines, or
-    None when it cannot be read: missing, not an i386 object, a section out of range. Unlike
-    defined_symbols, which reads a missing object as defining nothing, this never turns "unread" into
-    "absent". A weak external and an `/alternatename` count as defining: they can satisfy the name."""
+    None when it cannot be read: missing, not an i386 object, anything outside its bounds (coff_layout).
+    Unlike defined_symbols, which reads a missing object as defining nothing, this never turns "unread"
+    into "absent". A weak external and an `/alternatename` count as defining: they can satisfy the name."""
     import struct
     import link_census as LCe
     try:
         data = Path(obj).read_bytes()
-        if data[:2] != b"\x4c\x01":
-            return None
+        coff_layout(data)
         count = struct.unpack_from("<H", data, 2)[0]
         optional = struct.unpack_from("<H", data, 16)[0]
         selections = LCe._comdat_selections(data)
@@ -4034,12 +4130,16 @@ def map_approved_problem(r, key):
     return None
 
 
-def transfer_problem(name, donor, dest, objs, companion=False):
+def transfer_problem(name, donor, dest, objs, before, companion=False):
     """Why the objects `objs` {unit: object} do not show `name` handed from `donor` to `dest`, or None:
     the donor's object no longer defines it, the destination's defines it in a code COMDAT selected
-    ANY, and no other object defines it. An unreadable object refuses. A `companion` (a funclet
-    emitted with its parent, usually a local symbol) need not be an external of the destination,
-    and no other unit may define it either."""
+    ANY, no other object defines it, and the destination's body is the one `before` {name:
+    section_identity} read from the donor's object before the move: bytes alone mask every address, so
+    `return &g` and `return &h` compare equal without it. An unreadable object or a body that cannot be
+    compared refuses. A `companion` (a funclet emitted with its parent, usually a local symbol) need not
+    be an external of the destination, its parent's identity reaches it, and no other unit may define it
+    either. "No other" means the objects of this transaction only: the whole link is the pre-push batch
+    audit's and link_check's to judge."""
     defs = {}
     for unit, obj in objs.items():
         defs[unit] = coff_definitions(obj)
@@ -4059,6 +4159,11 @@ def transfer_problem(name, donor, dest, objs, companion=False):
     if not comdat or selection != 2:
         return (f"{dest} defines it {'outside a COMDAT' if not comdat else 'selected ' + str(SELECTION.get(selection, selection))}"
                 ": a real body goes through --split or --merge")
+    old, new = before.get(name), section_identity(objs[dest], name)
+    if old is None or new is None:
+        return f"its body in {donor} before the move and in {dest} cannot be compared: inconclusive"
+    if old != new:
+        return f"{dest}'s body differs from {donor}'s before the move, in its bytes, its relocations or an associated section"
     return None
 
 
@@ -4224,13 +4329,14 @@ def _emit_move(path, tu, rvas, dry_run, claim, prepared):
                                  else f"no row would remain in {f}: it is a whole donor, use --merge")
             return report
     now = {f: (ROOT / f).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n") for f in files + [dest]}
-    if prepared and emit_hatches_grow(now, prepared):
-        report["blocked"] = "the prepared texts would raise an escape-hatch total over these files"
+    hatches = emit_hatches_grow(now, prepared) if prepared else None
+    if hatches:
+        report["blocked"] = hatches
         return report
     # A file keeps its text, so it may keep a copy: an inline stand-in view compiles to a selectany
     # COMDAT, which links beside the TU's. A strong definition there would collide with the TU's copy:
     # refuse. Judged on the object its build compiles today (every row's flags), or on the prepared text.
-    vx, before_x, final_x, strong_was, comdat_was = {}, {}, {}, set(), set()
+    vx, before_x, final_x, strong_was, comdat_was, bodies = {}, {}, {}, set(), set(), {}
     for f in files:
         vx[f] = Verifier(f)
         final_x[f] = prepared.get(f, now[f])
@@ -4241,6 +4347,7 @@ def _emit_move(path, tu, rvas, dry_run, claim, prepared):
         if f in prepared:
             strong_was |= strong_symbols(vx[f].obj)
             comdat_was |= comdat_symbols(vx[f].obj)
+            bodies.update({r["name"]: section_identity(vx[f].obj, r["name"]) for r in moved[f]})   # today's text
             if vx[f].matched(prepared[f], [r for r in rows[f] if r not in moved[f]]) is None:
                 report["blocked"] = f"the prepared text of {f} does not compile: " + " | ".join(vx[f].errors)[:300]
                 return report
@@ -4311,7 +4418,7 @@ def _emit_move(path, tu, rvas, dry_run, claim, prepared):
             for r, is_companion in proof_rows(f):
                 if r["target_rva"] not in refused:
                     why = (map_approved_problem(r, key) if is_companion else None) or transfer_problem(
-                        r["name"], f, dest, units, companion=is_companion)
+                        r["name"], f, dest, units, bodies, companion=is_companion)
                     if why:
                         out[r["target_rva"]] = why
         return out
@@ -4401,7 +4508,7 @@ def _emit_move(path, tu, rvas, dry_run, claim, prepared):
         proofs = {f: [(r["name"], is_companion) for r, is_companion in proof_rows(f)] for f in files}
         try:
             result = _apply_emit(files, dest, movers, {f: [r["target_rva"] for r in moved[f]] for f in files},
-                                 acquired, tokens, prepared, proofs)
+                                 acquired, tokens, prepared, proofs, bodies)
         except BaseException as error:
             if claim and not getattr(error, "journalled", False):    # with a journal, undo_emit released them
                 give_back_after(error, report, held)
@@ -4421,12 +4528,13 @@ def _emit_move(path, tu, rvas, dry_run, claim, prepared):
 
 
 def emit_hatches_grow(now, prepared):
-    """Would the `prepared` texts raise an escape-hatch total over the files of `now` {path: text}
-    (hatch_counters rule 3)? Totals are over the whole transaction: a hatch may move, not grow."""
+    """Why the `prepared` texts may not stand against the escape-hatch totals over the files of `now`
+    {path: text} (hatch_counters rule 3), or None. Totals are over the whole transaction: a hatch may
+    move, not grow. A checker that cannot be imported has judged nothing, so it refuses."""
     try:
         import hatch_counters as H
-    except ImportError:
-        return False
+    except ImportError as error:
+        return f"the escape-hatch checker is unavailable ({error}): the prepared texts cannot be judged"
 
     def totals(texts):
         out = collections.Counter()
@@ -4435,17 +4543,21 @@ def emit_hatches_grow(now, prepared):
                 out[(hatch, token)] += n
         return out
     old, new = totals(now), totals({**now, **prepared})
-    return any(new[k] > old.get(k, 0) for k in new)
+    if any(new[k] > old.get(k, 0) for k in new):
+        return "the prepared texts would raise an escape-hatch total over these files"
+    return None
 
 
-def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None, proofs=None):
+def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None, proofs=None, bodies=None):
     """The write half of emit_move, under the ledger lock: {rel: rows repointed}, or why it
     was undone. The journal (before and after bytes of each ledger file and prepared text,
     their index entries, the claim keys with their fencing tokens) goes to disk, fsynced, before
     anything is touched; a SIGKILL or power loss leaves it for --recover-emit, and any other
     exit short of a verified, staged move undoes it here (undo_emit, row-level for the ledger,
     whole-file for a text), each step on its own. `proofs` {file: [(name, is a companion)]}: rows on the
-    transfer proof, judged on the real objects; both are deleted first, so the build must compile them."""
+    transfer proof, judged on the real objects against `bodies` {name: section_identity before the move};
+    both are deleted first, so the build must compile them. What is staged is what was compiled: every file
+    of the build and every staged file must still hold, after the build, the bytes it held before it."""
     import build
     proofs = {f: rows for f, rows in (proofs or {}).items() if rows}
     prepared = {rel: text.encode("utf-8") for rel, text in (prepared or {}).items()}
@@ -4479,6 +4591,7 @@ def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None, proo
         # the committed state: exactly these real files at their real paths, under the flags
         # their build picks from the repointed ledger (__FILE__, __LINE__ and region flags theirs)
         _CACHE.clear()
+        built = {rel: (ROOT / rel).read_bytes() for rel in {*sources, *repointed, *prepared}}
         stale = drop_objects(build, sources) if proofs else []
         ok, output = exact_build(sources) if not stale else (False, "could not delete an object to compile it afresh: " + "; ".join(stale))
         if ok:
@@ -4488,12 +4601,15 @@ def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None, proo
             units = {u: build.obj_path(ROOT / u) for u in sources}
             for f, named in proofs.items():
                 for name, is_companion in named:
-                    why = transfer_problem(name, f, dest, units, companion=is_companion)
+                    why = transfer_problem(name, f, dest, units, bodies or {}, companion=is_companion)
                     problem = problem or (f"the rebuilt objects fail the transfer proof of {name}: {why}" if why else None)
         else:
             problem = "the build did not pass the repointed rows: " + " | ".join(output.strip().splitlines()[-3:])[:400]
+        changed = sorted(rel for rel, raw in built.items() if not (ROOT / rel).is_file() or (ROOT / rel).read_bytes() != raw)
+        if changed and problem is None:
+            problem = "changed after the build read them, so what would be staged was not what was checked: " + ", ".join(changed)
         if problem is None:
-            subprocess.run(["git", "add", "--", *repointed, *prepared], cwd=ROOT, check=True)
+            subprocess.run(["git", "add", "--", *repointed, *prepared], cwd=ROOT, check=True, env=git_trust.trusted_env())
             done = True
     except BaseException as error:
         error.journalled = True
@@ -4636,7 +4752,8 @@ def remove_emit_journal(path):
 def index_entries(paths):
     """{path: (mode, blob) or None} of `paths` in the index."""
     out = {p: None for p in paths}
-    listed = subprocess.run(["git", "ls-files", "-s", "--", *paths], cwd=ROOT, capture_output=True, text=True).stdout
+    listed = subprocess.run(["git", "ls-files", "-s", "--", *paths], cwd=ROOT, capture_output=True, text=True,
+                            check=True, env=git_trust.trusted_env()).stdout
     for line in listed.splitlines():
         meta, _, rel = line.partition("\t")
         mode, blob, _stage = meta.split()
@@ -4647,7 +4764,7 @@ def index_entries(paths):
 def blob_of(data):
     """The blob id git would give `data`."""
     return subprocess.run(["git", "hash-object", "--stdin"], cwd=ROOT, input=data, capture_output=True,
-                          check=True).stdout.decode().strip()
+                          check=True, env=git_trust.trusted_env()).stdout.decode().strip()
 
 
 def undo_lines(current, before, after, keycol):
@@ -4730,10 +4847,11 @@ def undo_emit(record, release=True):
                 if entry is None:
                     # (not `git rm --cached`: with the working file already restored, the staged
                     # blob matches neither it nor HEAD, which git rm refuses without -f)
-                    subprocess.run(["git", "update-index", "--force-remove", "--", rel], cwd=ROOT, check=True)
+                    subprocess.run(["git", "update-index", "--force-remove", "--", rel], cwd=ROOT, check=True,
+                                   env=git_trust.trusted_env())
                 else:
                     subprocess.run(["git", "update-index", "--cacheinfo", f"{entry[0]},{entry[1]},{rel}"],
-                                   cwd=ROOT, check=True)
+                                   cwd=ROOT, check=True, env=git_trust.trusted_env())
         except (OSError, subprocess.CalledProcessError) as error:
             errors.append(f"could not restore {rel}: {error}")
     errors += drop_objects(build, record.get("sources") or [])

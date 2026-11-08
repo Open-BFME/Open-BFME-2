@@ -394,9 +394,14 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
   on the transfer proof, which reads objects and claims nothing about who wrote the
   body. All of it must hold, or the row is refused: the current map approves the
   TU for the row's own address; the file's rebuilt object no longer defines the
-  symbol; the TU's defines it byte-exact in a code COMDAT selected ANY; no other
-  object of the transaction defines it, a weak external or `/alternatename`
-  included. Under `/Gy` a plain function is a COMDAT section too, but selected
+  symbol; the TU's defines it byte-exact in a code COMDAT selected ANY; its body
+  there is the one the file's object held before the move, compared beyond the
+  masked bytes (`section_identity`: exact bytes and flags, each relocation's offset,
+  type and target, recursively for associated sections and local targets, with
+  anything it cannot compare refused); no other object of the transaction defines
+  it, a weak external or `/alternatename` included. That last check covers the
+  objects of the transaction only: the whole link is judged by the pre-push batch
+  audit and `link_check`, so a move is not cleared until those have run. Under `/Gy` a plain function is a COMDAT section too, but selected
   NODUPLICATES, so a real body still goes through `--split` or `--merge`. Every
   compile runs with the object store off, the real objects are deleted before the
   build, and anything that cannot be read (a failed compile, a missing object, an
