@@ -23,20 +23,7 @@ protected:
 // ?rva005DCAF4@AITacticSiege@@QAE_NXZ @ 0x005DCAF4 25B
 // Bool getter via pinned 0x005DCAE5 Object then bit0 at +0x438; caller v7 0x005A9BBF.
 class Team;
-class Object
-{
-public:
-	char m_pad00[0x4];
-	void *m_p4;
-	char m_pad08[0x38 - 8];
-	Coord3D position;
-	char m_pad44[0x74 - 0x44];
-	ObjectID id;
-	char m_pad78[0x304 - 0x78];
-	Team *m_304;
-	char m_pad308[0x438 - 0x308];
-	unsigned char m_438;
-};
+#include "../GameLogic/Object/object.h"
 
 class AITacticSiege : public AITacticOffensive
 {
@@ -132,7 +119,7 @@ AITacticSiege::AITacticSiege(const AsciiString &tacticName)
 bool AITacticSiege::rva005DCAF4()
 {
 	class Object *targetObject = rva005DCAE5();
-	return !targetObject || (targetObject->m_438 & 1);
+	return !targetObject || (targetObject->m_privateStatus & 1);
 }
 
 // tu-skeleton: 0x005DC87B 11B ??1AITacticSiege@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005DC73CDerived.cpp (not merged yet)
@@ -151,9 +138,9 @@ bool AITacticSiege::sideHasIdleSiegeWeapons()
 		Object *object = objects->rva0025BFF8((int)i);
 		if (!object)
 			continue;
-		if (object->m_304 != ((Player *)m_owner)->m_defaultTeam)
+		if (object->m_team != ((Player *)m_owner)->m_defaultTeam)
 			continue;
-		if (((Inner520 *)object->m_p4)->m_520 == 7)
+		if (((Inner520 *)object->m_template)->m_520 == 7)
 			return true;
 	}
 	return false;

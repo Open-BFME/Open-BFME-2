@@ -41,7 +41,7 @@ public:
 };
 enum DamageType { DeathDamage=8 }; enum DeathType { NormalDeath=0 };
 class Drawable;
-class Object {public:Drawable *getDrawable() const;void kill(DamageType,DeathType);};
+#include "../../object.h"
 #define V(n) virtual void s##n()=0;
 class RiderContain
 {

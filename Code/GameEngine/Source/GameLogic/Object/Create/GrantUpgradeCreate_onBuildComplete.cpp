@@ -24,12 +24,7 @@
 
 class Player;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	void rva00293077(const void *p);
-};
+#include "../object.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

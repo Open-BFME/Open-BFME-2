@@ -242,17 +242,7 @@ class Rva0028C197Provider
  
 }
 ;
-class Object
-
-{
- public:
- bool testStatus(ObjectStatusTypes status) const;
- bool rva0028AFBB() const;
- void *rva0028C197() const;
- bool rva0028C149(int attribute, float *value, int arg);
- 
-}
-;
+#include "../object.h"
 struct Rva004DD018Inner
 
 {

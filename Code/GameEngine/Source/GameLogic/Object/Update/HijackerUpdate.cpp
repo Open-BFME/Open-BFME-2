@@ -78,14 +78,7 @@ enum NameKeyType
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-    ObjectID getID() const { return m_id; }
-private:
-    char m_pad[0x74];
-    ObjectID m_id;
-};
+#include "../object.h"
 
 BFME_LITERAL_NAME_GETTER(Rva004A3FA4Named, "HijackerUpdate")
 

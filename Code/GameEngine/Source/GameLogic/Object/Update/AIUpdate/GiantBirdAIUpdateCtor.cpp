@@ -162,7 +162,7 @@ private:
 // as an AI command.
 #include "../../../../../Include/Common/Player.h"
 struct GiantBirdObjectView { unsigned char m_pad000[0x74]; Int m_id; };
-class Object { public: Player *getControllingPlayer() const; };
+#include "../../object.h"
 class Rva0023C6A4 { public: Bool rva00200084(); };
 class GameLogic;
 extern GameLogic *TheGameLogic;

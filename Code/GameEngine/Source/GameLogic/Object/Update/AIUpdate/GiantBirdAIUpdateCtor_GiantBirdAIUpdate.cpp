@@ -236,7 +236,7 @@ GiantBirdAIUpdate::~GiantBirdAIUpdate()
 // orders manager has no orders for it (0x003552C2), the bird is told to idle
 // as an AI command.
 #include "../../../../../Include/Common/Player.h"
-class Object { public: Player *getControllingPlayer() const; };
+#include "../../object.h"
 class GameLogic;
 extern GameLogic *TheGameLogic;
 enum NameKeyType { NAMEKEY_INVALID = 0 };

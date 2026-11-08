@@ -35,15 +35,7 @@ struct Coord3D;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Object : public Thing
-{
-public:
-    int rva0028B511() const;
-    void setLayer(PathfindLayerEnum layer);
-    AIUpdateInterface *getAI() { return m_ai; }
-    char m_beforeAI[0x258 - 0x60];
-    AIUpdateInterface *m_ai;
-};
+#include "../../object.h"
 
 // Only the exit-delay field is used here; native 0x004A0670 reads +0x20.
 struct QueueProductionExitUpdateDataView
