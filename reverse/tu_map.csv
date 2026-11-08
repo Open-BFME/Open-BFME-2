@@ -24800,7 +24800,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00315CFD,112,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00315D6D,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp
 0x00315D6D,68,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00315DB1,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x00315DB1,1089,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x003161F2,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp
-0x003161F2,355,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316355,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
+0x003161F2,355,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316355,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x00316355,71,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x0031639C,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp
 0x0031639C,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x003163E8,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseWinClass.cpp
 0x003163E8,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316434,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseSystemCallback.cpp
@@ -24808,7 +24808,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00316480,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x003164CC,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp
 0x003164CC,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316518,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp
 0x00316518,1722,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp C=0x00315ACC..0x00316BD2,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp
-0x00316BD2,294,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316CF8,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
+0x00316BD2,294,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316CF8,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x00316CF8,407,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp C=0x00315ACC..0x00316E8F,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x00316E8F,910,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp C=0x00315ACC..0x0031721D,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x0031721D,68,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00317261,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp
@@ -72837,11 +72837,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077A55D,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x00315BA3@FuncInfo0x00923000,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x0077A567,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x00315DB1@FuncInfo0x00923048,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp
 0x0077A56F,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x00315DB1@FuncInfo0x00923048,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp
-0x0077A579,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
-0x0077A581,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
-0x0077A589,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
-0x0077A591,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
-0x0077A599,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp
+0x0077A579,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+0x0077A581,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+0x0077A589,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+0x0077A591,8,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+0x0077A599,10,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x003161F2@FuncInfo0x00923084,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x0077A5A3,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp
 0x0077A5AB,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp
 0x0077A5B5,11,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,P,P=0x00316E8F@FuncInfo0x009230B0,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp

@@ -265,12 +265,6 @@
 ///        parsers.
 
 
-/// \file GUI/GameWindowManagerScript_setWindowText.cpp
-/// \ingroup grp_w1012_gui_wnd_script_parsers
-/// \brief setWindowText(), which shows a newly created window's translated
-///        text label.
-
-
 /// \fn void *getDataTemplate(char *type, Int *sizeOut)
 /// \brief Returns the scratch gadget-data structure for a window type, and
 ///        optionally its size.
