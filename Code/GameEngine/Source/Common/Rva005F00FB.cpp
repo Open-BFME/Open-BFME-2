@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 //
-// ??0Rva005F00FB@@QAE@XZ, retail 0x005F005B, 160 bytes.
+// ??0MappedImageCache@@QAE@XZ, retail 0x005F005B, 160 bytes.
 //
 // Evidence (retail body only; names are address-derived):
 //  5f005b: mov eax, FuncInfo / call __EH_prolog
@@ -29,11 +29,11 @@ private:
 	void *m_at4;
 };
 
-class Rva005F00FB : public Rva0022167C
+class MappedImageCache : public Rva0022167C
 {
 public:
-	Rva005F00FB();
-	virtual ~Rva005F00FB();
+	MappedImageCache();
+	virtual ~MappedImageCache();
 
 private:
 	AsciiString m_at8[5];  // +0x08, twenty bytes
@@ -42,7 +42,7 @@ private:
 	unsigned int m_at50[5]; // +0x50
 };
 
-Rva005F00FB::Rva005F00FB() : Rva0022167C(AsciiString("TypeImages"))
+MappedImageCache::MappedImageCache() : Rva0022167C(AsciiString("TypeImages"))
 {
 	unsigned int *p = m_at3c;
 	while (p != m_at50)

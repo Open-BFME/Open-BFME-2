@@ -5808,3 +5808,8 @@ __ehhandler$?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z,0x0079CBA3
 ?rva0007BEDA@Rva007C454@@UAE_NABVAABoxClass@@@Z,0x0007BEDA,"Renamed to ?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z by tools/rename.py (inferred)"
 ?onDie@Rva004581FD@@UAEXPBVDamageInfo@@@Z,0x004581FD,"Renamed to ?onDie@BridgeBehavior@@UAEXPBVDamageInfo@@@Z by tools/rename.py (to-class: retail vftable 0x00C408EC slot 0)"
 ??1Rva003EF14ABase@@QAE@XZ,0x002B221A,"Placeholder base of Rva003EF14A (LivingWorldRegionEffectsManager): the base is the canonical LivingWorldRegionObserver, whose table 0x007FDF68 the destructor restores; Rva003EF14ADtor.cpp now emits the already-rowed ??1LivingWorldRegionObserver@@QAE@XZ (same 7 bytes) at this address"
+??_GRva005F00FB@@UAEPAXI@Z,0x005F02C4,"Renamed to ??_GMappedImageCache@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C78A78)"
+??1Rva005F00FB@@UAE@XZ,0x005F00FB,"Renamed to ??1MappedImageCache@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"
+__ehhandler$??1Rva005F00FB@@UAE@XZ,0x007A4B35,"Renamed to __ehhandler$??1MappedImageCache@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"
+??0Rva005F00FB@@QAE@XZ,0x005F005B,"Renamed to ??0MappedImageCache@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"
+__ehhandler$??0Rva005F00FB@@QAE@XZ,0x007A4B0D,"Renamed to __ehhandler$??0MappedImageCache@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"

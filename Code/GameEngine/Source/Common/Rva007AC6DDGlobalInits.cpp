@@ -67,10 +67,10 @@ public:
 	Rva005E3DE8();
 };
 
-class Rva005F00FB
+class MappedImageCache
 {
 public:
-	Rva005F00FB();
+	MappedImageCache();
 };
 
 class Rva003B6831
@@ -174,7 +174,7 @@ void __cdecl rva007B99B5();
 // ?rva007B51EB@@YAXXZ @0x007B51EB 22B: ctor 0x005F005B on &Rva00A06858, atexit(0x007B99B5).
 void rva007B51EB()
 {
-	new (&Rva00A06858) Rva005F00FB;
+	new (&Rva00A06858) MappedImageCache;
 	atexit(rva007B99B5);
 }
 

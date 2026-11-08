@@ -6496,12 +6496,12 @@ void __cdecl rva007B9843()
 }
 
 // Opaque-class view for the thunk below. The destructor is declared only;
-// symbols.csv pins ??1Rva005F00FB@@UAE@XZ to 0x005F00FB
+// symbols.csv pins ??1MappedImageCache@@UAE@XZ to 0x005F00FB
 // (see OpaqueScalarDeletingDtorsB17.cpp).
-class Rva005F00FB
+class MappedImageCache
 {
 public:
-	virtual ~Rva005F00FB();
+	virtual ~MappedImageCache();
 };
 
 // Retail's object extends 112 bytes; the mangled name stays the one its other users declare.
@@ -6528,11 +6528,11 @@ void __cdecl rva007B9997()
 class MappedImageCache;
 extern MappedImageCache Rva00A06858;
 
-// ?rva007B99B5@@YAXXZ @ 0x007B99B5 (10B). Global Rva005F00FB dtor thunk: ecx=&Rva00A06858 then tail-jmp to pinned ??1Rva005F00FB@@UAE@XZ (0x005F00FB; scalar deleting dtor 0x005F02C4). No callers. Honest address name.
+// ?rva007B99B5@@YAXXZ @ 0x007B99B5 (10B). Global MappedImageCache dtor thunk: ecx=&Rva00A06858 then tail-jmp to pinned ??1MappedImageCache@@UAE@XZ (0x005F00FB; scalar deleting dtor 0x005F02C4). No callers. Honest address name.
 void __cdecl rva007B99B5()
 {
-	Rva005F00FB *receiver = (Rva005F00FB *)&Rva00A06858;
-	return receiver->Rva005F00FB::~Rva005F00FB();
+	MappedImageCache *receiver = (MappedImageCache *)&Rva00A06858;
+	return receiver->MappedImageCache::~MappedImageCache();
 }
 
 // Construction-thunk view for the six thunks below. MSVC emits no dynamic

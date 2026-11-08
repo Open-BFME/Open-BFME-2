@@ -19,10 +19,12 @@ extern ImageCollection *TheMappedImageCollection;
 class MappedImageCache
 {
 public:
+	MappedImageCache();
+	virtual ~MappedImageCache();
 	const Image *rva005F0152(int index);
 
 private:
-	char m_pad[8];
+	void *m_at4;
 	AsciiString m_names[13];
 	const Image *volatile m_images[13];
 };
@@ -39,7 +41,7 @@ const Image *MappedImageCache::rva005F0152(int index)
 	return *slot;
 }
 
-// Rva00A06858: matched references place it at VA 0xe06858 (zero-filled; a plain-data view).
+// Rva00A06858: VA 0xe06858, built by retail initializer 0x007B51EB with the rowed constructor 0x005F005B.
 MappedImageCache Rva00A06858;
 
 const Image *Rva005F01B8Get(int index)
