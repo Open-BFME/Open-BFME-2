@@ -25,16 +25,22 @@ public:
 	virtual void f1();
 };
 
+class Object;
+struct Coord3D;
+
+// The collide interface (+0x10): its only slot is onCollide.
 class Rva004BC4FC_B2
 {
 public:
-	virtual void f2();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
 class CrateCollide : public Rva004BC4FC_Root, public Rva004BC4FC_Mid, public Rva004BC4FC_B2
 {
 public:
 	virtual ~CrateCollide();
+	// Rowed at 0x004BC56D (CrateCollide.cpp); every crate's +0x10 table holds it.
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 };
 
 class Rva004BC83F : public CrateCollide
@@ -105,4 +111,3 @@ Rva004BD207::~Rva004BD207()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva004BC4FC_B2@@UAEXXZ=?onCollide@CrateCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z")

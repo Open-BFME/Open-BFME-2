@@ -57,16 +57,22 @@ Rva004BC325::~Rva004BC325()
 {
 }
 
+class Object;
+struct Coord3D;
+
+// The collide interface (+0x10): its only slot is onCollide.
 class Rva004BC4FC_B2
 {
 public:
-	virtual void f2();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
 class CrateCollide : public Rva004BB68E, public MiBase1, public Rva004BC4FC_B2
 {
 public:
 	virtual ~CrateCollide();
+	// Rowed at 0x004BC56D (CrateCollide.cpp); every crate's +0x10 table holds it.
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 };
 
 CrateCollide::~CrateCollide()
