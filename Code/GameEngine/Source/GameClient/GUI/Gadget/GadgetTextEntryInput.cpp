@@ -106,27 +106,8 @@ enum
 #define BitSet(x, i) ((x) |= (i))
 #define BitClear(x, i) ((x) &= ~(i))
 
-class WinInstanceData
-{
-public:
-	UnsignedInt getStyle() const { return m_style; }
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	UnsignedInt m_style;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindow
-{
-public:
-	Int winGetScreenPosition(Int *x, Int *y);
-	Int winGetSize(Int *width, Int *height);
-	GameWindow *winGetParent();
-	UnsignedInt winGetStyle();
-	GameWindow *winGetOwner();
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-};
 
 #include "../../../../Include/GameClient/DisplayString.h"
 

@@ -57,30 +57,8 @@ enum { KEY_STATE_UP = 0x01, KEY_STATE_DOWN = 0x02, KEY_STATE_LSHIFT = 0x10 };
 
 class GameWindow;
 
-class WinInstanceData
-{
-public:
-	UnsignedInt getStyle() { return m_style; }
-	UnsignedInt getState() { return m_state; }
-	GameWindow *getOwner() { return m_owner; }
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	UnsignedInt m_style;
-	UnsignedInt m_status;
-	GameWindow *m_owner;
-};
-
-class GameWindow
-{
-public:
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-	GameWindow *winGetParent();
-	UnsignedInt winGetStyle();
-	UnsignedInt winGetStatus();
-};
 
 struct PushButtonInputData
 {

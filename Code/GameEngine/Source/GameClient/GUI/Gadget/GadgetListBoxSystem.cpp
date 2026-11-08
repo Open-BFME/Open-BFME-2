@@ -116,21 +116,7 @@ class Image;
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class WinInstanceData
-{
-public:
-	void setText(UnicodeString text);
-	Int getTextLength();
-	GameFont *getFont() { return m_font; }
-	UnsignedInt getStyle() { return m_style; }
-
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	UnsignedInt m_style;
-	unsigned char m_pad10[0x184 - 0x10];
-	GameFont *m_font;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva00313D6CDwordField
 {
@@ -144,30 +130,10 @@ public:
 	Int get() const;
 };
 
-class GameWindow
-{
-public:
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-	Int winGetScreenPosition(Int *x, Int *y);
-	GameWindow *winGetOwner();
-	GameWindow *winGetParent();
-	UnsignedInt winGetStyle();
-	Int winGetWindowId();
-	Int winNextTab();
-	Int winGetSize(Int *width, Int *height);
-	Int winSetSize(Int width, Int height);
-	Int winSetPosition(Int x, Int y);
-	__declspec(dllimport) __forceinline GameWindow *winGetChild() { return (GameWindow *)((Rva003140C8DwordField *)this)->get(); }
-	UnsignedInt winGetStatus();	// declaration only: the rowed home copy
-					// (GameWindowStatusUserData.cpp) is strong; the inline
-					// body emits a select-any COMDAT that LNK2005s against
-					// it (mini-link proven). The call site binds the same
-					// folded address 0x30F45F.
-	__declspec(dllimport) __forceinline GameFont *winGetFont() { return (GameFont *)((Rva00313D6CDwordField *)this)->get(); }
-	// NOTE: declaration-only winGetChild breaks this TU's 3111B row (register
-	// allocation ripple); left inline. Its D is out of this row's scope.
-};
+// Retail inlines both getters here as calls to their folded one-load bodies.
+static __forceinline GameWindow *listBoxChildOf(GameWindow *window) { return (GameWindow *)((Rva003140C8DwordField *)window)->get(); }
+static __forceinline GameFont *listBoxFontOf(GameWindow *window) { return (GameFont *)((Rva00313D6CDwordField *)window)->get(); }
+
 
 #include "../../../../Include/GameClient/DisplayString.h"
 
@@ -470,7 +436,7 @@ static Int addEntry(UnicodeString *string, Int color, Int row, Int column, GameW
 	if ((window->winGetStatus() & WIN_STATUS_ONE_LINE) == 0)
 		displayString->setWordWrap(width);
 	displayString->setText(*string);
-	displayString->setFont(window->winGetFont());
+	displayString->setFont(listBoxFontOf(window));
 
 	if (overwrite)
 	{
@@ -581,8 +547,8 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			if (list->m_freeScroll)
 			{
 				Int scroll = 20;
-				if (window->winGetFont())
-					scroll = window->winGetFont()->height;
+				if (listBoxFontOf(window))
+					scroll = listBoxFontOf(window)->height;
 
 				if ((GameWindow *)mData1 == list->upButton)
 					Rva00324B39Add(window, -scroll, TRUE);
@@ -991,7 +957,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			if (list->slider)
 			{
 				list->slider->winGetSize(&sliderSize.x, &sliderSize.y);
-				child = list->slider->winGetChild();
+				child = listBoxChildOf(list->slider);
 				if (child)
 					child->winGetSize(&sliderChildSize.x, &sliderChildSize.y);
 			}

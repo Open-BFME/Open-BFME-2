@@ -69,32 +69,8 @@ enum { GWS_MOUSE_TRACK = 0x00000400 };
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class WinInstanceData
-{
-public:
-	UnsignedInt getStyle() const { return m_style; }
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	UnsignedInt m_style;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindow
-{
-public:
-	Int winSetPosition(Int x, Int y);
-	Int winSetSize(Int width, Int height);
-	Int winGetPosition(Int *x, Int *y);
-	Int winGetScreenPosition(Int *x, Int *y);
-	Int winGetSize(Int *width, Int *height);
-	GameWindow *winGetChild();
-	GameWindow *winGetOwner();
-	Int winGetWindowId();
-	Int winNextTab();
-	Int winPrevTab();
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-};
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 

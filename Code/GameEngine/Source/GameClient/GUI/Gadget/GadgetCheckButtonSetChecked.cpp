@@ -11,18 +11,8 @@
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 
-class WinInstanceData
-{
-public:
-	unsigned char m_pad[8];
-	UnsignedInt m_state;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindow
-{
-public:
-	UnsignedInt winGetStatus();
-};
 
 class Rva00314046LeaField
 {

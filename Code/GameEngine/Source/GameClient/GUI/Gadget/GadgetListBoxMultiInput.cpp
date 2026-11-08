@@ -111,31 +111,8 @@ template <> __declspec(dllimport) __forceinline unsigned short StringBase<unsign
 
 #include "../../../../Include/GameClient/GameFontClass.h"
 
-class WinInstanceData
-{
-public:
-	Int getTextLength();
-	GameFont *getFont() { return m_font; }
-	UnsignedInt getStyle() { return m_style; }
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	UnsignedInt m_style;
-	unsigned char m_pad10[0x184 - 0x10];
-	GameFont *m_font;
-};
-
-class GameWindow
-{
-public:
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-	Int winGetScreenPosition(Int *x, Int *y);
-	GameWindow *winGetOwner();
-	Int winNextTab();
-	GameFont *winGetFont();
-};
 
 // 0x003140AB, rowed by address: true when the argument is this window or
 // one of its descendants.

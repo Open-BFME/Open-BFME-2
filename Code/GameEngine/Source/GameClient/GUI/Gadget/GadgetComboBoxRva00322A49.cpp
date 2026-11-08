@@ -62,30 +62,8 @@ class GameFont;
 class GameWindow;
 class BfmeKeyLC;
 
-class WinInstanceData
-{
-public:
-	unsigned int getStyle() { return m_style; }
-	GameFont *getFont() { return m_font; }
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-	unsigned char m_pad00[0xC];
-	unsigned int m_style;
-	unsigned char m_pad10[0x184 - 0x10];
-	GameFont *m_font;
-};
-
-class GameWindow
-{
-public:
-	GameWindow *winGetOwner();
-	Bool winIsHidden();
-	Int winHide(Bool hide);
-	Int winGetSize(Int *width, Int *height);
-	Int winSetSize(Int width, Int height);
-	Int winSetPosition(Int x, Int y);
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-};
 
 struct ComboBoxData
 {

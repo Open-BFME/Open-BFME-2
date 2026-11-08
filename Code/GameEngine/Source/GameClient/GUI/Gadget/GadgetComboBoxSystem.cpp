@@ -85,42 +85,8 @@ class BfmeKeyLC;
 
 #include "../../../../Include/GameClient/WinDrawData.h"
 
-class WinInstanceData
-{
-public:
-	GameFont *getFont() { return m_font; }
-	void setText(UnicodeString text);
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	UnsignedInt m_style;
-	UnsignedInt m_status;
-	GameWindow *m_owner;
-	WinDrawData m_enabledDrawData[1];
-	unsigned char m_pad24[0x184 - 0x24];
-	GameFont *m_font;
-};
-
-class GameWindow
-{
-public:
-	UnsignedInt winGetStatus();
-	Int winGetWindowId();
-	GameWindow *winGetOwner();
-	Bool winIsHidden();
-	Int winHide(Bool hide);
-	Int winEnable(Bool enable);
-	Int winGetSize(Int *width, Int *height);
-	Int winSetSize(Int width, Int height);
-	Int winSetPosition(Int x, Int y);
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-	const Image *winGetEnabledImage(Int index) { return m_instData.m_enabledDrawData[index].image; }
-
-	unsigned char m_pad00[0x30];
-	WinInstanceData m_instData;
-};
 
 struct ComboBoxData
 {
@@ -415,7 +381,7 @@ WindowMsgHandledType GadgetComboBoxSystem(GameWindow *window, UnsignedInt msg,
 
 				if (comboData->dropDownButton)
 				{
-					const Image *image = comboData->dropDownButton->winGetEnabledImage(0);
+					const Image *image = comboData->dropDownButton->m_instData.m_enabledDrawData[0].image;
 					if (image)
 					{
 						Real scale = (Real)height;

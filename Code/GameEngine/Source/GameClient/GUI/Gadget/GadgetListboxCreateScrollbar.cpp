@@ -18,31 +18,8 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-class GameWindow
-{
-public:
-	void *winGetUserData(void);
-	UnsignedInt winGetStatus(void);
-	Int winGetSize(Int *width, Int *height);
-	Int winGetTextLength(void);
-	GameFont *winGetFont(void);
-	UnsignedInt winGetStyle(void);
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-	virtual ~WinInstanceData();
-	void init();
-
-	UnsignedInt m_id;			// +0x04
-	UnsignedInt m_state;		// +0x08
-	UnsignedInt m_style;		// +0x0C
-	UnsignedInt m_status;		// +0x10
-	GameWindow *m_owner;		// +0x14
-	unsigned char m_pad18[0x1A8 - 0x18];
-};
 
 #include "../../../../Include/GameClient/ListboxData.h"
 

@@ -15,8 +15,8 @@
 // readable body of ?winSetInstanceData@GameWindow@@QAEHPAVWinInstanceData@@@Z: game/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 // BFME's GameWindow instance-data member begins at +0x30; the vendored ZH
 // declaration places it at +0x2c.  Retail also uses the BFME DisplayString
-// vtable slot at +0x0c for getTextLength/getTooltipTextLength.  This narrow
-// ABI slice keeps those proven facts local to the recovered body.
+// vtable slot at +0x0c for getTextLength/getTooltipTextLength.  The canonical
+// header supplies the +0x30 member; the DisplayString slot view stays local.
 
 #include "Common/UnicodeString.h"
 
@@ -34,49 +34,23 @@ public:
 
 class GameWindow;
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/WinInstanceData.h
-class WinInstanceData
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
+
+// The donor's inline length tests; this unit emits the select-any copies.
+inline Int WinInstanceData::getTextLength(void)
 {
-public:
-	virtual ~WinInstanceData(void);
-	// Declared only: getText, getTooltipText and the copy assignment resolve to
-	// the shared WinInstanceData rows; the donor's inline bodies were emitted
-	// here as private COMDATs that are not retail's.
-	WinInstanceData &operator=(const WinInstanceData &);
+	if (m_text)
+		return m_text->getTextLength();
+	return 0;
+}
 
-	UnicodeString getText(void);
-	Int getTextLength(void)
-	{
-		if (m_text)
-			return m_text->getTextLength();
-		return 0;
-	}
-	UnicodeString getTooltipText(void);
-	Int getTooltipTextLength(void)
-	{
-		if (m_tooltip)
-			return m_tooltip->getTextLength();
-		return 0;
-	}
-	void setText(UnicodeString text);
-	void setTooltipText(UnicodeString text);
-
-	unsigned char m_bfmePrefix[0x198];
-	DisplayString *m_text;
-	DisplayString *m_tooltip;
-	void *m_videoBuffer;
-};
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
-class GameWindow
+inline Int WinInstanceData::getTooltipTextLength(void)
 {
-public:
-	Int winSetInstanceData(WinInstanceData *data);
-	UnicodeString winGetText(void);
+	if (m_tooltip)
+		return m_tooltip->getTextLength();
+	return 0;
+}
 
-	unsigned char m_bfmePrefix[0x30];
-	WinInstanceData m_instData;
-};
 
 Int GameWindow::winSetInstanceData(WinInstanceData *data)
 {

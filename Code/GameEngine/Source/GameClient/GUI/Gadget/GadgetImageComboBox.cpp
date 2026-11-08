@@ -76,45 +76,8 @@ class BfmeKeyLC;
 
 #include "../../../../Include/GameClient/ImageClass.h"
 
-class WinInstanceData
-{
-public:
-	unsigned int getStyle() { return m_style; }
-	GameFont *getFont() { return m_font; }
-	void setText(UnicodeString text);
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-	unsigned int m_style;
-	UnsignedInt m_status;
-	GameWindow *m_owner;
-	const Image *m_enabledImage;
-	unsigned char m_pad1C[0x184 - 0x1C];
-	GameFont *m_font;
-};
-
-class GameWindow
-{
-public:
-	const Image *winGetEnabledImage() { return m_instData.m_enabledImage; }
-
-	Int winGetWindowId();
-	GameWindow *winGetParent();
-	void winSetUserData(void *data);
-	GameWindow *winGetOwner();
-	Bool winIsHidden();
-	Int winHide(Bool hide);
-	Int winGetSize(Int *width, Int *height);
-	Int winSetSize(Int width, Int height);
-	Int winSetPosition(Int x, Int y);
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-	UnsignedInt winGetStyle();
-
-	unsigned char m_pad00[0x30];
-	WinInstanceData m_instData;
-};
 
 struct ImageComboBoxData
 {
@@ -508,7 +471,7 @@ WindowMsgHandledType GadgetImageComboBoxSystem(GameWindow *window, UnsignedInt m
 				listBox->winSetSize(mData1, mData2);
 				GameWindow *button = comboData->dropDownButton;
 				ICoord2D size;
-				const Image *image = button->winGetEnabledImage();
+				const Image *image = button->m_instData.m_enabledDrawData[0].image;
 				if (image)
 				{
 					size.x = image->getImageWidth();

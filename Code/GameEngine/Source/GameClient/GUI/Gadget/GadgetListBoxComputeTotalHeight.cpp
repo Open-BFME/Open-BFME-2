@@ -11,20 +11,8 @@
 class GameWindow;
 class WinInstanceData;
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-	WinInstanceData *winGetInstanceData();
-	unsigned int winGetStatus();
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class WinInstanceData
-{
-public:
-	char m_pad00[0x184];
-	void *m_font;
-};
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 

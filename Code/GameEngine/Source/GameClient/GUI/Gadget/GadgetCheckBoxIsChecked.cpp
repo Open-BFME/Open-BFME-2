@@ -9,18 +9,8 @@ typedef int Int;
 typedef short Short;
 typedef bool Bool;
 
-class WinInstanceData
-{
-public:
-	char unused00[0x08];
-	unsigned int m_state;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindow
-{
-public:
-	WinInstanceData *winGetInstanceData();
-};
 
 Bool GadgetCheckBoxIsChecked(GameWindow *gameWindow)
 {

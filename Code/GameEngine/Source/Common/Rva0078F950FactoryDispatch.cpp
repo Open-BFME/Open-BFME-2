@@ -39,22 +39,7 @@ class GameFont;
 
 #include "../../Include/GameClient/DisplayString.h"
 
-class WinInstanceData
-{
-public:
-	char m_gap00[0xc];
-	unsigned int m_style;
-	char m_gap10[0x174];
-	GameFont *m_font;
-	char m_gap188[0x14];
-	DisplayString *m_text;
-	inline int getTextLength()
-	{
-		if (m_text != 0)
-			return m_text->getTextLength();
-		return 0;
-	}
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 struct Rva0078F770ListboxData
 {
@@ -75,12 +60,6 @@ struct Rva0078F770ListboxData
 	char m_gap46[6];
 };
 
-class GameWindow
-{
-public:
-	void winSetUserData(void *data);
-	int winSetOwner(GameWindow *owner);
-};
 
 void j_00002e69();
 void j_000194a7();

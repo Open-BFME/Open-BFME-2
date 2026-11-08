@@ -32,21 +32,8 @@ struct PushButtonData
 	DisplayString *displayString30;
 };
 
-class WinInstanceData
-{
-public:
-	unsigned char m_pad[8];
-	unsigned int m_state;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindow
-{
-public:
-	void *winGetUserData();
-	WinInstanceData *winGetInstanceData();
-	unsigned int winSetStatus(unsigned int);
-	unsigned int winClearStatus(unsigned int);
-};
 
 // ?GadgetButtonGetData@@YAPAXPAVGameWindow@@@Z
 void *GadgetButtonGetData(GameWindow *button)

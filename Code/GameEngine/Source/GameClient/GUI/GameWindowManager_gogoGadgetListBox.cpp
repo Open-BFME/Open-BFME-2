@@ -18,20 +18,9 @@
 #include <string.h>
 #include "GameWindowManagerRecordView.h"
 
-class GameWindow { public: void winSetUserData(void *); };
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class Rva003140CF { public: int rva003140CF(int); };
 
-class WinInstanceData
-{
-public:
-	int getTextLength();
-	GameFont *getFont() { return m_font; }
-
-	unsigned char m_pad00[0xC];
-	unsigned int m_style;
-	unsigned char m_pad10[0x184 - 0x10];
-	GameFont *m_font;
-};
 
 enum { GWS_SCROLL_LISTBOX = 0x20 };
 

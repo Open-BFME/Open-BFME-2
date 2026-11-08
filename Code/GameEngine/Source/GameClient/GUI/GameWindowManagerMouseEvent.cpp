@@ -38,30 +38,9 @@ enum WindowMsgHandledType { MSG_IGNORED=0, MSG_HANDLED=1 };
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 class GameWindow;
-class WinInstanceData {
-public:
- char opaque00[0x0C]; UnsignedInt m_style; char opaque10[0x198-0x10];
- Int m_tooltipDelay; void *m_text, *m_tooltip, *m_videoBuffer;
- UnsignedInt getStyle() { return m_style; }
- UnicodeString getTooltipText(); Int getTooltipTextLength();
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class Rva002C027B { public: void *rva002C027B(); };
 class Rva003140AB { public: bool rva003140AB(Rva003140AB*); };
-class GameWindow {
-public:
- GameWindow *winPointInChild(int,int,bool=false,bool=false);
- virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
- virtual void invokeTooltip(WinInstanceData*, UnsignedInt);
- virtual void slot14(); virtual void slot18(); virtual void slot1C(); virtual void slot20(); virtual Bool hasTooltip();
- void *callback04; UnsignedInt m_status; ICoord2D m_size; IRegion2D m_region;
- char opaque24[0x30-0x24]; WinInstanceData m_instData;
- char opaque1D8[0x1F4-0x1D8]; Int bfmeLayer;
- GameWindow *m_next,*m_prev,*m_parent,*m_child;
- GameWindow *winGetParent(); WinInstanceData *winGetInstanceData();
- GameWindow *winPointInAnyChild(int,int,bool,bool);
- unsigned char winPointInWindow(int,int);
- Int winGetPosition(Int*,Int*); Int winGetSize(Int*,Int*); Int winSetPosition(Int,Int);
-};
 class ModalWindow
 {
 public:
@@ -121,7 +100,7 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 		m_grabWindow = NULL;
 
 		// what what window within the captured window are we in
-		window = m_mouseCaptor->winPointInChild( mousePos->x, mousePos->y );
+		window = m_mouseCaptor->winPointInChild( mousePos->x, mousePos->y, false );
 
 		//
 		// send buttons, drags, wheels to the windows, we don't continually
@@ -218,15 +197,15 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 
 							parent = m_grabWindow->winGetParent();
 
-							if( m_grabWindow->m_region.lo.x + dx < 0 )
-								dx = 0 - m_grabWindow->m_region.lo.x;
-							else if( m_grabWindow->m_region.hi.x + dx > parent->m_size.x )
-								dx = parent->m_size.x - m_grabWindow->m_region.hi.x;
+							if( m_grabWindow->m_regionLoX + dx < 0 )
+								dx = 0 - m_grabWindow->m_regionLoX;
+							else if( m_grabWindow->m_regionHiX + dx > parent->m_sizeX )
+								dx = parent->m_sizeX - m_grabWindow->m_regionHiX;
 
-							if( m_grabWindow->m_region.lo.y + dy < 0 )
-								dy = 0 - m_grabWindow->m_region.lo.y;
-							else if( m_grabWindow->m_region.hi.y + dy > parent->m_size.y )
-								dy = parent->m_size.y - m_grabWindow->m_region.hi.y;
+							if( m_grabWindow->m_regionLoY + dy < 0 )
+								dy = 0 - m_grabWindow->m_regionLoY;
+							else if( m_grabWindow->m_regionHiY + dy > parent->m_sizeY )
+								dy = parent->m_sizeY - m_grabWindow->m_regionHiY;
 						}
 
 						// Move the window, but keep it completely visible within screen boundaries
@@ -275,7 +254,7 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 
 			if( m_modalHead && m_modalHead->window )
 			{
-				window = m_modalHead->window->winPointInChild( mousePos->x, mousePos->y );
+				window = m_modalHead->window->winPointInChild( mousePos->x, mousePos->y, false );
 			}
 			else
 			{
@@ -285,11 +264,11 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 				for( window = m_windowList; window; window = window->m_next )
 				{
 					if( !BitTest(window->m_status, WIN_STATUS_HIDDEN) &&
-						window->bfmeLayer == m_unrecovered3C &&
-						mousePos->x >= window->m_region.lo.x &&
-						mousePos->x <= window->m_region.hi.x &&
-						mousePos->y >= window->m_region.lo.y &&
-						mousePos->y <= window->m_region.hi.y )
+						window->m_bfmeCallbackExtra2 == m_unrecovered3C &&
+						mousePos->x >= window->m_regionLoX &&
+						mousePos->x <= window->m_regionHiX &&
+						mousePos->y >= window->m_regionLoY &&
+						mousePos->y <= window->m_regionHiY )
 					{
 						if( BitTest(window->m_status, WIN_STATUS_ABOVE) ) break;
 						if( BitTest(window->m_status, WIN_STATUS_BELOW) )
@@ -303,9 +282,9 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 				if( window )
 				{
 					childWindow = window->winPointInAnyChild(mousePos->x, mousePos->y, TRUE, TRUE);
-					if( childWindow->hasTooltip() ||
+					if( childWindow->vslot9() ||
 						reinterpret_cast<Rva002C027B*>(&childWindow->m_instData)->rva002C027B() ) toolTipWindow = childWindow;
-					window = window->winPointInChild(mousePos->x, mousePos->y);
+					window = window->winPointInChild(mousePos->x, mousePos->y, false);
 				}
 
 			}  // end else, no modal head
@@ -405,8 +384,8 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 				if( toolTipWindow )
 				{
 					// do we have a callback to call for the tooltip
-					if( toolTipWindow->hasTooltip() )
-						toolTipWindow->invokeTooltip(
+					if( toolTipWindow->vslot9() )
+						toolTipWindow->tooltip(
                           &toolTipWindow->m_instData, packedMouseCoords );
 
 					// else, do we have a normal tooltip to set

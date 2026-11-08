@@ -50,23 +50,8 @@ enum
 #define BitSet(x, i) ((x) |= (i))
 #define BitClear(x, i) ((x) &= ~(i))
 
-class WinInstanceData
-{
-public:
-	void *m_vtable;
-	Int m_id;
-	UnsignedInt m_state;
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindow
-{
-public:
-	Int winGetWindowId();
-	GameWindow *winGetOwner();
-	Int winHide(Bool hide);
-	WinInstanceData *winGetInstanceData();
-	void *winGetUserData();
-};
 
 #include "../../../../Include/GameClient/DisplayString.h"
 
