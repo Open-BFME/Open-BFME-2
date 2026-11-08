@@ -11633,17 +11633,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScr
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	0ClosestKindOfData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp	body	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Science.cpp	callCreate@ScienceTreeExposer@@SAPAU?$_Rb_tree_node@U?$pair@$$CBW4ScienceType@@_N@_STL@@@_STL@@AAU1@ABU?$pair@$$CBW4ScienceType@@_N@3@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::ScoreKeeper	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::addObjectBuilt	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::addObjectCaptured	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::calculateScore	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::crc	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::getTotalObjectsBuilt	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::getTotalUnitsBuilt	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::removeObjectBuilt	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::xfer	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper::xferObjectCountMap	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp	BitFlags<116>::testSetAndClear	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp	1BfmePairEL@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamIterateTeamMemberList.cpp	0?$DLINK_ITERATOR@VObject@@@@QAE@PAVObject@@P81@BEPAV1@XZ@Z	1
