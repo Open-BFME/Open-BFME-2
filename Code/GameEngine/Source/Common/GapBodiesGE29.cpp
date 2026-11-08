@@ -126,11 +126,7 @@ class Rva0006614F;
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
-class WW3D
-{
-	friend class Rva0006614F;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva0006614F
 {
@@ -244,15 +240,14 @@ public:
 	TBuff *addBuff(Drawable *draw, const BuffInfoView *info);	// 0x000D3B27
 };
 
-class FXParticleSystem
+namespace FXParticleSystem
 {
-public:
 	class EmissionVelocityInfo
 	{
 	public:
 		virtual void DoXfer(Xfer &xfer);					// 0x0047A69C
 	};
-};
+}
 
 class Rva000664F4
 {

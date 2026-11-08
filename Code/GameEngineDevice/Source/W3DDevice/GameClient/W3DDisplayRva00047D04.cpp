@@ -45,13 +45,7 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class WW3D
-{
-public:
-	static bool Prepare_Render_New_Frame(void);
-	static bool Begin_Render(bool clear, bool clearz, const Vector3 &color, float destAlpha);
-	static bool End_Render(bool flipFrame);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 extern void *ApplicationHWnd;
 

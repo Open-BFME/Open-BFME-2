@@ -206,13 +206,7 @@ public:
 
 #include "DX8WrapperClass.h"
 
-class WW3D
-{
-public:
-	static __forceinline unsigned Read_NPatchesLevel() { return NPatchesLevel; }
-private:
-	static unsigned NPatchesLevel;		// ww3d.cpp's private static (@@0)
-};
+#include "WW3DClass.h"
 
 namespace Debug_Statistics
 {
@@ -560,7 +554,7 @@ void Debug_Statistics::Record_DX8_Polys_And_Vertices(int polys, int verts, const
 		const DX8Caps *caps = DX8Wrapper::Get_Current_Caps();
 		if (caps->SupportNPatches)
 		{
-			unsigned level = WW3D::Read_NPatchesLevel();
+			unsigned level = WW3D::Get_NPatches_Level();
 			n = (int)(level * level * (unsigned)polys);
 		}
 		else

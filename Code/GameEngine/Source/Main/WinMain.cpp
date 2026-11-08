@@ -834,7 +834,7 @@ void GameMain(int argc, char **argv)
 
 int BFME2WideToUtf8(const unsigned short *wide, int wideLength, char *utf8, int utf8Size);
 void Rva0005D6D0DisableImmTextFrameService();
-class WW3D { public: static bool Shutdown(); };
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class DebugStackwalk
 {

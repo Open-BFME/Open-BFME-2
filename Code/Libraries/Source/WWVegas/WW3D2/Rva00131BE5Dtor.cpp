@@ -12,15 +12,8 @@ public:
 
 class Rva00131BE5;
 
-class StringClass
-{
-public:
-    __forceinline ~StringClass(void) { Free_String(); }
-    char *m_Buffer;
-private:
-    void Free_String();
-    friend class Rva00131BE5;
-};
+#include "../WWLib/StringClassData.h"
+__forceinline StringClass::~StringClass(void) { Free_String(); }
 
 class Rva00131BE5M14
 {

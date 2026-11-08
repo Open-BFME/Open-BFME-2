@@ -148,7 +148,7 @@ void AnimDebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
 void NetworkDebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
 void SkirmishAIDebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
 void Rva00079985Clear();
-class WW3D {public:static void Sync(unsigned);};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class W3DDisplay {public:
 virtual void slot0();
 virtual void slot1();

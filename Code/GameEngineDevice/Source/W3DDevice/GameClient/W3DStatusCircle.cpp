@@ -16,13 +16,8 @@ class RenderInfoClass;
 class IndexBufferClass;
 class VertexBufferClass;
 class TextureBaseClass;
-class StringClass {
- char *m_Buffer; static char *m_EmptyString; static char m_NullChar;
- void Free_String();
-public:
- StringClass(int n=0,bool temporary=false);
- __forceinline ~StringClass() { Free_String(); }
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+__forceinline StringClass::~StringClass() { Free_String(); }
 class VertexMaterialClass
 {
 public:

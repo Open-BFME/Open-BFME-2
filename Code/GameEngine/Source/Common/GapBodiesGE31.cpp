@@ -88,11 +88,7 @@ GapRecord1C *Rva00078930::rva00078930(int recordIndex)
 // --- 0x0007B275 (10B): WW3D::IsCurrentlyRenderingShadowMap store.
 class Rva0007B275;
 
-class WW3D
-{
-	friend class Rva0007B275;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva0007B275
 {

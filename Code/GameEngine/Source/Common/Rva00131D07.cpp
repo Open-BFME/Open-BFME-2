@@ -17,15 +17,8 @@ public:
 	virtual void v00();
 };
 
-class StringClass
-{
-public:
-	char *m_Buffer;
-private:
-	void Free_String();
-	friend class Rva00131BE5;
-	friend class Rva00131D07;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+__forceinline StringClass::~StringClass() { Free_String(); }
 
 #include <new>
 
@@ -55,5 +48,4 @@ Rva00131D07::~Rva00131D07()
 		::operator delete[](m_50);
 		m_50 = 0;
 	}
-	m_3C.Free_String();
 }

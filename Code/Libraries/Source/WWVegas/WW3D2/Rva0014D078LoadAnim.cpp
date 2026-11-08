@@ -18,18 +18,9 @@
 typedef unsigned int uint32;
 typedef unsigned char uint8;
 
-class StringClass
-{
-public:
-	StringClass(const char *string, bool hint_temporary);
-	~StringClass() { Free_String(); }
-	const StringClass &operator+=(const char *string);
-	operator const char *() const { return m_Buffer; }
-
-private:
-	void Free_String();
-	char *m_Buffer;
-};
+#include "../WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
+inline StringClass::operator const char *() const { return m_Buffer; }
 
 
 #include "../../../../GameEngine/Include/Common/File.h"

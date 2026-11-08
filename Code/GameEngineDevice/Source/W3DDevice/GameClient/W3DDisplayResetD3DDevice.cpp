@@ -36,18 +36,7 @@ enum WW3DErrorType
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/ww3d.h
-class WW3D
-{
-public:
-	static bool Is_Initted(void) { return IsInitted; }
-	static int Get_Render_Device(void);
-	static void _Invalidate_Textures(void);
-	// BFME2 returns a plain success flag (row 0x00116F10, ww3d.cpp).
-	static bool Set_Render_Device(int dev = -1, int resx = -1, int resy = -1, int bits = -1, int windowed = -1, bool resize_window = false, bool reset_device = false, bool restore_assets = true);
-
-private:
-	static bool IsInitted;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 // ?Reset_D3D_Device@@YAX_N@Z
 void Reset_D3D_Device(bool active)

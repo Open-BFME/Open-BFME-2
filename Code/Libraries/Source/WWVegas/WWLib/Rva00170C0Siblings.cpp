@@ -75,18 +75,13 @@ __declspec(noinline) Rva00156750Dtor::~Rva00156750Dtor()
 // expression emits. Its destructor (0x001880D0, 5 bytes) is a bare tail
 // jump to StringClass::Free_String (0x00610A40): the class's only member is
 // a StringClass at +0 and the destructor is that member's inline teardown.
-class StringClass
-{
-	friend class Rva001880D0Dtor;
-
-private:
-	void Free_String(void);
-};
+#include "StringClassData.h"
+__forceinline StringClass::~StringClass() { Free_String(); }
 
 class Rva001880D0Dtor
 {
 public:
-	__declspec(noinline) ~Rva001880D0Dtor() { m_string.Free_String(); }
+	__declspec(noinline) ~Rva001880D0Dtor() {}
 
 private:
 	StringClass m_string;

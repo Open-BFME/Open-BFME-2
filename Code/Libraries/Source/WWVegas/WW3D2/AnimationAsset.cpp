@@ -60,8 +60,7 @@ public:
 // null), tears down the +0x18 StringClass via Free_String at 0x00610A40, then
 // delegates to the 0x0061ED80 base. Class view mirrors the sibling
 // Rva0014CDCBReleaseTree.cpp TU (PrototypeTreeRef + pad + m_tree); the
-// StringClass member is TU-local with a declared-only dtor so the call
-// resolves to the ledger address instead of capturing locally.
+// StringClass member's inline destructor calls the rowed Free_String.
 
 class PrototypeTreeRef
 {
@@ -70,14 +69,8 @@ public:
 	int m_refCount; // +0x04
 };
 
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-	~StringClass() { Free_String(); }
-private:
-	void Free_String();
-};
+#include "../WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
 
 class Rva0061ED80
 {

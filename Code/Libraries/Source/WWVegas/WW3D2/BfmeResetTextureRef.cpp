@@ -21,17 +21,8 @@
 bool __cdecl Render_Obj_Exists(const char *name);
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h
-class StringClass
-{
-private:
-	friend class Gen_dtor_00972460;
-	void Free_String();
-public:
-	~StringClass() { Free_String(); }
-	StringClass(const char *name, bool flag);
-private:
-	char *m_buffer; // +0x00
-};
+#include "../WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
 
 class Rva009EB810TailBase
 {

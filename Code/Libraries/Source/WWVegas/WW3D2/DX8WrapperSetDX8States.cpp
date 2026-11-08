@@ -25,14 +25,8 @@ typedef int Int;
 // (SetRenderState slot 57, SetTextureStageState slot 67).
 struct IDirect3DDevice8;
 
-class StringClass
-{
-public:
-	StringClass(int value, bool flag);
-	~StringClass() { Free_String(); }
-private:
-	void Free_String();
-};
+#include "../WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
 
 #include "DX8WrapperClass.h"
 

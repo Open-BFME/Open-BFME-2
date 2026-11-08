@@ -51,16 +51,9 @@ public:
 	T *Referent;
 };
 
-class StringClass
-{
-public:
-	~StringClass() { Free_String(); }
-	operator const char *() const { return m_Buffer; }
-	char *m_Buffer;
-private:
-	void Free_String();
-	static char m_EmptyString[];
-};
+#include "../WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
+inline StringClass::operator const char *() const { return m_Buffer; }
 
 
 class TextureFilterClass

@@ -45,7 +45,7 @@ unsigned W3DAptAux::s_syncTime0, W3DAptAux::s_syncTime1;
 
 unsigned long AptObservedPreviousElapsed;
 
-class WW3D {friend void Rva000A8F98();public:static void Sync(unsigned);private:static unsigned SyncTime,PreviousSyncTime;};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva00785FD0Renderer {public:Rva00785FD0Renderer();void rva00110FBF();private:char nativeStorage[0xe0];};
 

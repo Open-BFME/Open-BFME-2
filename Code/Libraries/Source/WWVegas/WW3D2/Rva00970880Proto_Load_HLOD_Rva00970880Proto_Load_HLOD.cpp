@@ -16,19 +16,9 @@
 // HLOD type and the adjacent name/delete slots, while the body below opens
 // the named file and constructs an HLodDefClass for chunk 0x700.
 
-class StringClass
-{
-public:
-	StringClass(const StringClass &string, bool hint_temporary = false);
-	~StringClass() { Free_String(); }
-	const StringClass &operator+=(const char *string);
-	operator const char *() const { return m_buffer; }
-
-private:
-	char *m_buffer;
-private:
-	void Free_String();
-};
+#include "../WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
+inline StringClass::operator const char *() const { return m_Buffer; }
 
 class BFMEChunkInput
 {
