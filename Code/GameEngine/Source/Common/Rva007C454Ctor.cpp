@@ -21,18 +21,7 @@
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 
-class Rva007C454 : public CameraClass
-{
-public:
-	Rva007C454();
-	virtual ~Rva007C454();	// Rva007C454Dtor.cpp (0x0007C454)
-	virtual RenderObjClass *Clone() const;
-	virtual bool Cull_Sphere(const SphereClass &sphere) const;
-	virtual bool Cull_Box(const AABoxClass &box) const;
-
-private:
-	_STL::vector<BfmeE16> m_3FC;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Rva007C454Camera.h"
 
 Rva007C454::Rva007C454()
 {
