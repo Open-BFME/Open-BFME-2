@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
+// stlport
 //
 // ?parseMappedImage@INI@@SAXPAV1@PAX1PBX@Z, retail 0x003390B2, 87 bytes.
 // Dedicated TU (same INI parser family as INI_parseFXList.cpp).
@@ -10,14 +11,7 @@ class Image;
 
 #include "ascii_string.h"
 
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../Include/GameClient/Image.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

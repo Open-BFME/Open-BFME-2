@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // WB15E01F0, StrategicInGameUIBattlePromptDialog.cpp assertions 49..62:
 // construct the local player's battle-prompt record. Native 005E9A5E..005E9B4A
 // supplies the side/player lookups, field offsets, six-word payload and calls.
@@ -79,13 +80,7 @@ public:
     Rva005E957C *rva005E957C(int, int, int, int, int, int);
     int words[6];
 };
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../Include/GameClient/Image.h"
 struct FactionView { char prefix[0x20]; AsciiString icon; };
 struct LivingWorldPlayer {
     char pad00[0x1C];

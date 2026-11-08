@@ -8,6 +8,7 @@
 // the naturally emitted handlers recorded with this unit. Each has one
 // primary owner and its full 10-byte extent.
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // Native5E38EB..5E3947 complete92B and WB15F6AA0. Owner from
 // admitted dtor5E362F and vtableC77BD0; Impl allocation16B from direct native call5E3753.
 #include "ascii_string.h"
@@ -61,8 +62,7 @@ class Image;
 #include "../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 Image *getMapPreviewImage(AsciiString);
-class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../Include/GameClient/Image.h"
 class Rva0020E89C { public: UnicodeString rva0020E89C(); };
 class Rva005F1B41 { public: void rva005F1B41(const Image *); };
 class Rva005F1CFEForwarder { public: void rva005F1CFE(const UnicodeString &); };

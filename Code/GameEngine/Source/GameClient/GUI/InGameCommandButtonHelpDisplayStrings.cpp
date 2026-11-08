@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // Native56C790..56C7F1 is a97B private helper consumed by250B
 // SetupDisplayStrings56D2E9..56D3E3. WB name lead/callgraph establishes
 // InGameCommandButtonHelp::Impl::SetupDisplayStrings; its five observed
@@ -49,9 +50,7 @@ __declspec(noinline) static void Rva0056C790(DisplayString *str,const Rva0043FC2
  str->slot10(font->m_0C,0);str->slot9(true);str->setFont(f);
 }
 class Rva0056D3FD;
-class Image{public:char pad[0x24];int width,height;};
-class ImageCollection{public:const Image*findImageByName(const AsciiString&);};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../Include/GameClient/Image.h"
 struct AsciiStringPlusString {const AsciiString *first,*second;operator AsciiString();};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString p={&a,&b};return p;}
 #include "../../../Include/GameClient/InGameCommandButtonHelp.h"
@@ -154,10 +153,10 @@ InGameCommandButtonHelp::Impl::Impl(Rva0056D3FD *o,const UnicodeString&unicodeSt
  m_30=TheMappedImageCollection->findImageByName(AsciiString("Resource_Icon"));
  m_34=0;
  m_14=Rva0056C89B(m_04);
- if(m_30&&(m_30->width<=0||m_30->height<=0))m_30=0;
+ if(m_30&&(m_30->m_imageSize.x<=0||m_30->m_imageSize.y<=0))m_30=0;
  if(!asciiString.isEmpty()){
   m_34=TheMappedImageCollection->findImageByName(AsciiString("ResourceBar_")+asciiString);
-  if(m_34&&(m_34->width<=0||m_34->height<=0))m_34=0;
+  if(m_34&&(m_34->m_imageSize.x<=0||m_34->m_imageSize.y<=0))m_34=0;
  }
  SetupDisplayStrings();
 }

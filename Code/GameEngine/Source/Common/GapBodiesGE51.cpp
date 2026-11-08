@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// stlport
 class FreelistPool;
 extern FreelistPool g_freelistPool00DB8FEC;
 // Small bodies from .text gaps no Ghidra function covers (fifty-first
@@ -222,12 +223,7 @@ const char *Rva001EDFCB::getCursorName(int i) const
 
 // --- 0x001EF05B (20B): two wide strings differ, through the rowed
 // StringBase<unsigned short>::compare 0x00006A7A.
-template <class T> class StringBase
-{
-public:
-	int compare(const StringBase<T> &that) const;
-};
-
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 bool stringsDiffer(const StringBase<unsigned short> &leftString, const StringBase<unsigned short> &rightString)
 {
 	return leftString.compare(rightString) != 0;
@@ -253,13 +249,7 @@ bool Rva001F34BF::rva001F34BF()
 
 // --- 0x001FD1E8 / 0x001FD20E (19B each): look up the +0x16C / +0x178 image
 // names through TheMappedImageCollection's rowed findImageByName.
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 
 class Rva001FD1E8
 {

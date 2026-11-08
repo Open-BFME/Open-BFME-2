@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD
+// stlport
 // W3DScriptedModelDraw::getButtonImage 0x000B9C8C 92B (WorldBuilder name,
 // W3DScriptedModelDraw.cpp line 3537: same compareNoCase/set/findImageByName
 // refresh of the cached +0x2E0 image); a virtual inherited by seven draw vtables.
@@ -6,14 +7,7 @@
 
 #include "ascii_string.h"
 
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-
-extern class ImageCollection *TheMappedImageCollection;
+#include "../../../Include/GameClient/Image.h"
 
 struct Rva000B9C8CData
 {

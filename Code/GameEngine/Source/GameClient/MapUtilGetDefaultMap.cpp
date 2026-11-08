@@ -113,19 +113,7 @@ AsciiString getDefaultMap(bool isMultiplayer)
 // Keep the real collector above this caller: its visibility separates the
 // selection-count constant from the scrolling minimum and reproduces retail.
 class GameWindow;
-class Image
-{
-public:
-	char gap[0x24];
-	int width;
-	int getImageWidth() const { return width; }
-};
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 
 #include "../../Include/Common/UserPreferences.h"
 #include "../../Include/GameClient/SkirmishPreferencesClass.h"

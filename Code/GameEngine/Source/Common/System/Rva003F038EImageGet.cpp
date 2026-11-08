@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
+// stlport
 // ?rva003F038E@Rva003F038E@@QAEPBVImage@@XZ, retail 0x003F038E, 43 bytes.
 // __thiscall cached image load via AsciiString at +0x70: returns NULL when empty
 // else TheMappedImageCollection->findImageByName stores to +0x19C and returns it.
@@ -6,15 +7,7 @@
 // 0x00DFF078 wrapper 0x003F03B9 cache check plus store.
 #include "ascii_string.h"
 
-
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &n);
-};
-extern ImageCollection *TheMappedImageCollection;
-
+#include "../../../Include/GameClient/Image.h"
 
 class Rva003F038E
 {

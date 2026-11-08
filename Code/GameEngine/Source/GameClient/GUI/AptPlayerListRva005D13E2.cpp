@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
+// stlport
 // ?SetupMovieClipPlayers@Impl@RegionAwardDialog@StrategicInGameUI@@QAEXXZ @ 0x005D13E2, 201 bytes.
 // Target evidence: PE RVA 0x005D13E2 begins with push ecx and returns at
 // 0x005D14AA; 0x005D14AB begins the next body. The method counts the pointer
@@ -15,13 +16,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../Include/GameClient/Image.h"
 
 class Rva0020E89C;
 namespace StrategicInGameUI {

@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 #include "ascii_string.h"
 #include "unicode_string.h"
 // WB15E11C0 assertions306..318 name OnClipLoaded. Native5E9D78..5E9E27
@@ -54,9 +55,7 @@ RvaCloneResult<Rva005E9742> Rva005E98FDCreate(const Rva005E9742::Payload *src);
 RvaCloneResult<Rva005E97B8> Rva005E992FCreate(const Rva005E97B8::Payload *src);
 RvaCloneResult<Rva005E982C> Rva005E9961Create(const Rva005E982C::Payload *src);
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
-class Image;
-class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../Include/GameClient/Image.h"
 struct FactionView { char prefix[0x20]; AsciiString icon; };
 class Rva002E071E { public: bool rva002E071E(const Rva002E071E *) const; };
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"

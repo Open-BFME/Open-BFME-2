@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
+// stlport
 // LivingWorldRegion::GetFortressPortrait (WorldBuilder name, LivingWorldRegion.cpp line 1470: findImageByName of the +0x120 name unless empty).
 // was ?rva003F0442@Rva003F0442@@QAEPBVImage@@XZ, retail 0x003F0442, 36 bytes.
 // __thiscall image getter via AsciiString at +0x120: returns NULL when empty
@@ -6,15 +7,7 @@
 // 0x00001E2F, rowed findImageByName 0x002D92F6, global 0x00DFF078, caller 0x005E2B45.
 #include "ascii_string.h"
 
-
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &n);
-};
-extern ImageCollection *TheMappedImageCollection;
-
+#include "../../../Include/GameClient/Image.h"
 
 class LivingWorldRegion
 {

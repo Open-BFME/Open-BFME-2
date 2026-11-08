@@ -22,13 +22,7 @@ private:
 	char m_opaque[12];
 };
 
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../Include/GameClient/Image.h"
 #include "../../../../Include/Common/SpawnArmy.h"
 
 struct QueueUnitButtonIds

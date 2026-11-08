@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// stlport
 // Hero power panel texts. Each builds a UnicodeString through a formatter
 // and hands it to the rowed bfmeSetText. Both formatters return a
 // UnicodeString by value through a hidden pointer; 0x005B2376 and
@@ -44,12 +45,7 @@ void __cdecl Rva005B24CDHeroPowerText(void *power, const char *widgetPrefix, int
 // twin 0x0157F330 is unnamed; the name is address-derived.
 class Image;
 #include "../../Include/GameClient/CommandButton.h"
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 class Rva00223A9F
 {
 public:

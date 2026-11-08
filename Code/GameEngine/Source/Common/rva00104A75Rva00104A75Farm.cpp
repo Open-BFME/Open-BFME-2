@@ -1,5 +1,6 @@
 // ?drawRadarViewBox@Rva0010461F@@QAEXXZ
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
+// stlport
 // ??0Rva0010461F@@QAE@XZ retail 0x0010461F..0x00104723 (260 bytes EH).
 // Constructor of the 0x88-byte object the factory 0x0008F32C creates and
 // stores in TheRva002D3627Host (0x009FF028). Base is Rva002D3573 (ctor
@@ -34,26 +35,7 @@
 #define COORD2D_VIEW_DTOR
 #include "../../../Libraries/Include/Lib/Coord2DCtorView.h"
 
-class Image
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	int getImageSize() const { return m_24; }
-
-private:
-	char m_pad00[8];
-	AsciiString m_name; // +0x08
-	char m_pad0C[0x24 - 0x0C];
-	int m_24; // +0x24
-};
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 

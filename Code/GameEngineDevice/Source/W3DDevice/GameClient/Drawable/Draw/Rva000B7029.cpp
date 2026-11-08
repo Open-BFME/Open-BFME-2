@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+// stlport
 //
 // ?rva000B7029@Rva000B7029@@QAEPBVImage@@XZ retail 0x000B7029 75 bytes.
 // Vslot 51 (0xCC) of Draw family sharing dirty flag at +0x2D9 with cached
@@ -11,14 +12,7 @@ class AsciiString;
 
 #include "ascii_string.h"
 
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../../../GameEngine/Include/GameClient/Image.h"
 
 struct DrawSub
 {

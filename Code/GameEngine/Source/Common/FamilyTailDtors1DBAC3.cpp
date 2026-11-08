@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+// stlport
 // Twelve derived destructors sharing one shape: clear the field at +0xC,
 // restore the class vtable, and tail-call the base destructor at 0x1DBAC3.
 // Unidentified owners keep address names. The base uses the rowed
@@ -194,16 +195,8 @@ void famgenDelete(Rva0035E60B *transition) { delete transition; }
 
 #include "ascii_string.h"
 
+#include "../../Include/GameClient/Image.h"
 
-class Image;
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-
-extern ImageCollection *TheMappedImageCollection;
 // TheMappedImageCollection: matched references place it at VA 0xdff078 (zero-filled .bss).
 ImageCollection * TheMappedImageCollection;
 

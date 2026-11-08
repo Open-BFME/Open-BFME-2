@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// stlport
 //
 // StrategicInGameUI::GetSelectionPortrait (WorldBuilder
 // StrategicInGameUIGetSelectionPortrait.cpp). Target facts for 0x005D23BB
@@ -8,13 +9,7 @@
 // for it; else NULL. The selection and player types are viewed by offset.
 #include "ascii_string.h"
 
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../Include/GameClient/Image.h"
 
 struct Rva005D23BBTemplate
 {

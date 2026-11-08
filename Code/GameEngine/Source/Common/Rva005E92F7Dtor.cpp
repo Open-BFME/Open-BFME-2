@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
+// stlport
 // Native destructor 005E92F7 (60B) and constructor 005E93FF (140B).
 // Measured prefixes: primary 8B; holder 20B at +8; copied record 12B at +1C.
 // Record base construction precedes final derived vtable stores.
@@ -70,12 +71,7 @@ Rva005E92F7::~Rva005E92F7()
 {
 }
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 const Image *__cdecl Rva005E936AGet(const void *p)
 {
     static const Image *fallback = TheMappedImageCollection->findImageByName(AsciiString("BuildingNoArt"));

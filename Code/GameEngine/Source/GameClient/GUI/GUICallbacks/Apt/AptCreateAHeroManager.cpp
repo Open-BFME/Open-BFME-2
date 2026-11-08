@@ -14,9 +14,7 @@ namespace _STL { template <> _Vector_base<unsigned int,allocator<unsigned int> >
 namespace _STL { template <> _Vector_base<unsigned int,allocator<unsigned int> >::_Vector_base(unsigned int,allocator<unsigned int> const &); }
 namespace _STL { template <> void allocator<unsigned int>::deallocate(unsigned int *, unsigned int) const; }
 class GameWindow;
-class Image {public:char prefix[0x24];int width;};
-class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../../Include/GameClient/Image.h"
 enum NameKeyType;
 #include "../../../../../Include/GameLogic/CreateAHeroData.h"
 class Rva0040A3F9 {public:unsigned *first,*last,*limit;bool rva0040A441(CreateAHeroData *);};
@@ -53,7 +51,7 @@ void AptCreateAHero::Manager::PopulateHeroList() {
   HeroListScratch heroes(*list);
   GadgetListBoxReset(heroWindow);
   const Image *image=TheMappedImageCollection->findImageByName(AsciiString("AptUserMapMaxConquered"));
-  int imageSize=(int)(image?(float)image->width*0.8f:0.0f);
+  int imageSize=(int)(image?(float)image->m_imageSize.x*0.8f:0.0f);
   const UnicodeString *selectedName=&screen->selectedName;
   int selectedIndex=0;
   _STL::sort(reinterpret_cast<void **>(heroes.first),reinterpret_cast<void **>(heroes.last),Rva005B61B3Less(order.key0,order.key1));

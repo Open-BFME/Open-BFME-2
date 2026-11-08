@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 //
 // BFME2's online quick match screen Apt callbacks, 0x005BA344 onward, and
 // the login screen's CancelLogin, bound by these names
@@ -15,9 +16,8 @@ void Rva00516E92Enable();
 
 #include "ascii_string.h"
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-class Image;
-class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../../Include/GameClient/Image.h"
+
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;

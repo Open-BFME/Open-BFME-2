@@ -2,6 +2,7 @@
 // the naturally emitted handlers recorded with this unit. Each has one
 // primary owner and its full 10-byte extent.
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /DNDEBUG /arch:SSE
+// stlport
 // WB 0x016150C0 names StrategicInGameUI::GetButtonImage and supplies its
 // template/hero image selection purpose (StrategicInGameUIGetButtonImage.cpp
 // assertions 36/39). Native 0x005F0383..0x005F0473 is the complete 240B cdecl
@@ -13,9 +14,7 @@
 // No compatible clean BFME1/ZH GetButtonImage implementation was available at
 // reference pointer 0bef414b52; target WB and retail supply this reconstruction.
 #include "ascii_string.h"
-class Image;
-class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../Include/GameClient/Image.h"
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;

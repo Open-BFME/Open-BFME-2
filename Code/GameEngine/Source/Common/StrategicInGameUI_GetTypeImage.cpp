@@ -4,13 +4,12 @@
 // ImageCollection::findImageByName via TheMappedImageCollection.
 // TU-local honest-address views; offsets prove operations not original names.
 // cl: /MD
+// stlport
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class Image;
-class ImageCollection { public: const Image *findImageByName(const AsciiString &n); };
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 class Rva002E2903Player { public: char pad[0x40]; void *p40; };
 struct Rva005F002CHolder { char pad[0x20]; AsciiString str; };
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"

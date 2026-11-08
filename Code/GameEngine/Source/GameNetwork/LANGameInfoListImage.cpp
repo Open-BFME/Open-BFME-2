@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// stlport
 //
 // LANGameInfo's override of GameInfo vtable slot 6, retail 0x00447BE0 (102
 // bytes): the game-list column image. Slot 6 of the LANGameInfo vtable
@@ -16,15 +17,7 @@ typedef bool Bool;
 
 #include "ascii_string.h"
 
-class Image;
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName( const AsciiString &name );
-};
-
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 
 class GameInfo
 {

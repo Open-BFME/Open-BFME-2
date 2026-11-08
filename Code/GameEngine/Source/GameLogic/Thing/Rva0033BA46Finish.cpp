@@ -1,5 +1,6 @@
 // ?rva0033BA46@ThingTemplate@@QAEPBVImage@@XZ
 // cl: /DNDEBUG /MD /EHsc
+// stlport
 //
 // ThingTemplate portrait-image resolver, retail 0x0033BA46, 190 bytes.
 // BFME1 donor GameEngine/Source/Common/Thing/ThingTemplate.cpp resolveNames
@@ -30,15 +31,7 @@
 //
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class Image;
-
-class ImageCollection
-{
-public:
-    const Image *findImageByName(const AsciiString &name);
-};
-
-extern class ImageCollection *TheMappedImageCollection;
+#include "../../../Include/GameClient/Image.h"
 
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);

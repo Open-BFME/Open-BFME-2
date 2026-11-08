@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // ?rva00355DF4@Rva003560ED@@UAEXH@Z @0x00355DF4 44B
 // ?rva00355E20@Rva003560ED@@UAEXHH@Z @0x00355E20 44B
 // ?rva00356889@Rva0035615D@@UAEXPAVGameInfo@@@Z @0x00356889 625B (SSE: /G7 /arch:SSE)
@@ -31,18 +32,7 @@ class W3DDisplay
 public:
 	void rva0025D2F6();
 };
-class Image
-{
-public:
-	unsigned char m_pad00[0x28];
-	int m_28; // +0x28 (height in 768-line units)
-};
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 class GameFont;
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
@@ -174,7 +164,7 @@ void Rva0035615D::rva00356889(GameInfo *)
 		const Image *image = TheMappedImageCollection->findImageByName(m_image);
 		if (image)
 			TheDisplay->SetMovieImage((int)image, 0, 0.0f, 0.1640625f, 1.0f,
-				image->m_28 / 768.0f + 0.1640625f);
+				image->m_imageSize.y / 768.0f + 0.1640625f);
 	}
 	setGameLogicFlag78();
 	TheDisplay->rva002B2466(0.46826171875f, 0.87565106f, 0.53076171875f, 0.958984375f);

@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+// stlport
 // ?GetSelectionPortrait@StrategicInGameUI@@YAPBVImage@@PAURva005D2355In@@@Z @0x005D2355 102B
 // Image lookup: non-empty +0x18 string goes through global 0x009FF000 rowed 0x002D06CA
 // then tail-jmps ThingTemplate 0x0033BA46 else falls back to LivingWorld find 0x002B51F8
@@ -9,12 +10,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
-class Image;
-class ImageCollection {
-public:
-    const Image *findImageByName(const AsciiString &n);
-};
-extern class ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 
 class Rva002E2903Player {
 public:

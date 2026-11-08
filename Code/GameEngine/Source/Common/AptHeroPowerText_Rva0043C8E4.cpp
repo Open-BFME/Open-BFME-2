@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// stlport
 // platformsdk
 // Ticker and spell-button display functions; the GameSpy response pump is
 // isolated in AptTickerGameSpyUpdate.cpp until its shared handler is matched.
@@ -35,13 +36,7 @@ UnicodeString __cdecl Rva005B2446Describe(void *power);
 // key changed; with no button the key is cleared. Callers: the level labeller
 // AptMyHero::rva005B0416 and the AptCreateAHero power panel. WorldBuilder's
 // twin 0x0157F330 is unnamed; the name is address-derived.
-class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 // ?rva005B9378@Rva005B9378@@QAEXHABVUnicodeString@@@Z @0x005B9378 178B: one
 // ticker row. The field text is the game-text label for the row's entry in
 // the label table at VA 0x00DD3B90, fetched through TheGameText's

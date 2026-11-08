@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // ShowStuckAsObserverInStrategicRTSGameMessage, retail 0x0029DF1A, 171B.
 // WorldBuilder 0x00DC5210 supplies the name, InGameUI.cpp lines 9047-9051,
 // Generic lookup and notification purpose. Retail proves GameText slot 0x3C,
@@ -119,9 +120,7 @@ struct BfmePod40;
 class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(int); };
 extern Rva0040AAD5 *TheAwardSystemManager;
 struct HeroAwardRecordView { char pad[0x10]; AsciiString label; unsigned word14; AsciiString image; };
-class Image;
-class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
-extern ImageCollection *TheMappedImageCollection;
+#include "../../Include/GameClient/Image.h"
 void InGameUI::notifyHeroEarnedAward(CreateAHeroHero *hero, int key)
 {
  if (!TheGameLogic->rva0042219() || ((AwardScriptEngineView *)TheScriptEngine)->suppressed >= 0) return;
