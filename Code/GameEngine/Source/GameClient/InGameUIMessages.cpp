@@ -53,6 +53,7 @@
 // lookup through TheWindowManager slot 60, m_idleWorkerWin at +0x978, and both
 // deletions run the virtual destructor in place before the global delete.
 
+#include <math.h>
 #include "unicode_string.h"
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
@@ -130,7 +131,6 @@ public:
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
-extern "C" __declspec(dllimport) double __cdecl floor( double );
 
 // BaseType.h's inline fld/fistp rounding; retail floors through msvcr71.
 __forceinline long fast_float2long_round( float f )

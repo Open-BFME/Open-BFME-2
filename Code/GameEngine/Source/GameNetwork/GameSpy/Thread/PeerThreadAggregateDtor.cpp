@@ -18,7 +18,6 @@
 // at 0x0038A5D1 is supplied by Rva0055011ACtor.cpp. Native parent accesses
 // and its complete EH graph independently constrain all member offsets.
 namespace _STL {
-extern "C" void __cdecl free(void *);
 template <class T> class char_traits {};
 template <class T> class allocator {};
 template <class Char, class Traits = char_traits<Char>, class Alloc = allocator<Char> >
@@ -47,6 +46,7 @@ public:
 typedef basic_string<char> string;
 }
 namespace std = _STL;
+#include <stdlib.h>
 #include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 struct BfmeOpaqueOwnedRecord492 { ~BfmeOpaqueOwnedRecord492(); char bytes[492]; };
 struct Rva00388EAE { ~Rva00388EAE(); char bytes[12]; };

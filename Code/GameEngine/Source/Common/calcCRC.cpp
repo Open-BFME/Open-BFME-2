@@ -9,8 +9,6 @@ class File;
 extern FileSystem *TheFileSystem;
 unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" void *__cdecl memset(void *dst, int c, unsigned int n);
-extern "C" __declspec(dllimport) char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 unsigned int __cdecl calcCRC(AsciiString a, AsciiString fileName)
 {
 	char buf1[260];

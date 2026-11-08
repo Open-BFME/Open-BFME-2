@@ -10,9 +10,9 @@
 // The per-player variables ("TimeLine:PlayerColor:%d" ...) are bound in a
 // loop of the same registration (0x0051FEF5-0x0051FFC1).
 
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
-extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <vector>
 

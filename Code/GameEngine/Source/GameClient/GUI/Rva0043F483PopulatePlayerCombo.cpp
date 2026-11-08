@@ -15,6 +15,7 @@
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -43,7 +44,6 @@ extern Mouse *TheMouse;
 
 void *bfmeGo925A(BfmeKeyLC *comboBox);
 
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 
 enum SlotState
 {

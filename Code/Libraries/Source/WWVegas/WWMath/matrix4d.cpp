@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+#include <math.h>
 
-extern "C" float __cdecl fabs(double value);
 
 class Coord3D
 {

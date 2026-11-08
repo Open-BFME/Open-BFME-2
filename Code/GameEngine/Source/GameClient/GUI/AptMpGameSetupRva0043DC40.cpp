@@ -27,6 +27,7 @@ namespace _STL
  }
  
 }
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -58,7 +59,6 @@ struct RGBColor;
 #include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 void *bfmeGo925A(BfmeKeyLC *comboBox);
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 enum SlotState
 
 {

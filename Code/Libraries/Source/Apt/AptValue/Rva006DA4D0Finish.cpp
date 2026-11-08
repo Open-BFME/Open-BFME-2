@@ -5,7 +5,7 @@
 // The rowed array-operation providers retain their older receiver spelling.
 // This call-only declaration does not assert their private class layout.
 // cl: /O2 /MD
-extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
+#include <string.h>
 class BfmeAptValue006DCD20 { public: void SetAt(int, BfmeAptValue006DCD20 *); };
 class Rva006D9500
 {

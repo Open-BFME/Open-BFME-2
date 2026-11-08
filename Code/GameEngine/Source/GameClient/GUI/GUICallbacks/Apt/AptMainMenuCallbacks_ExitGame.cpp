@@ -11,6 +11,7 @@
 // open next.
 
 
+#include <stdlib.h>
 #include <string.h>
 #include "unicode_string.h"
 
@@ -363,7 +364,6 @@ extern LinearCampaignManager *TheLinearCampaignManager;
 
 
 
-extern "C" int __cdecl abs(int value);
 
 
 // Native515359..515633 complete730B RET4; WB1459300 and the rowed

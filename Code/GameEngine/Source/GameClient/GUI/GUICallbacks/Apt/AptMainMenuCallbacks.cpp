@@ -9,6 +9,7 @@
 // open next.
 
 
+#include <stdlib.h>
 #include <string.h>
 #include "unicode_string.h"
 
@@ -649,7 +650,6 @@ int rva0051573A(float time, bool start)
 	return result;
 }
 
-extern "C" int __cdecl abs(int value);
 
 // Retail 0x00514950, 331 bytes: vslot 1 of the menu's vtable 0x00C65F10
 // (slot 0 is the deleting destructor 0x0051588B), the screen's message

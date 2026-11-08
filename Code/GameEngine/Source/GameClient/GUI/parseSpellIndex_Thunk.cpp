@@ -4,13 +4,12 @@
 // 0x00599180 and 0x005991E0, each of which spells the same test inline.
 // Nothing in the image calls this copy, so it keeps a descriptive free name.
 
+#include <stdlib.h>
+#include <string.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-extern "C" __declspec(dllimport) int __cdecl atoi( const char * );
-extern "C" __declspec(dllimport) int __cdecl strncmp(
-	const char *, const char *, unsigned int );
 
 // @?parseSpellIndex@@YAHPBD@Z 0x005990A0
 static __declspec(noinline) int parseSpellIndex( const char *name )

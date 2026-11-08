@@ -7,8 +7,8 @@
 // did not place, so only the placed body is defined here; the rest stay
 // declared-only.
 
+#include <stdlib.h>
 #include <vector>
-extern "C" void __cdecl free(void *);
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

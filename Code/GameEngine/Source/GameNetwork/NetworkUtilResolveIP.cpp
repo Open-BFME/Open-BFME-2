@@ -24,13 +24,13 @@ struct in_addr
 	unsigned long s_addr;
 };
 
-extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
 extern "C" __declspec(dllimport) unsigned long __stdcall inet_addr(const char *cp);
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long netlong);
 extern "C" __declspec(dllimport) struct hostent * __stdcall gethostbyname(const char *name);
 
 typedef unsigned int UnsignedInt;
 
+#include <ctype.h>
 #include "ascii_string.h"
 #pragma intrinsic(memcpy)
 // The canonical object contains one pointer. Copy its representation without

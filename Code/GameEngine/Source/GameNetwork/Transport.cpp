@@ -45,7 +45,6 @@ public:
 };
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long);
 extern "C" __declspec(dllimport) unsigned short __stdcall htons(unsigned short);
-extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 unsigned int ComputeCRC(const unsigned char *, unsigned int, unsigned int);
 #include "../../Include/GameNetwork/Transport.h"
 #define NULL 0

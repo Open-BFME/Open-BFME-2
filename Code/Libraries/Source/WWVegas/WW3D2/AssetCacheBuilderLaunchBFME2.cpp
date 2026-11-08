@@ -3,6 +3,7 @@
 // 12C907 texture builder launcher is the local semantic and import lead;
 // native uses assetCacheBuilder.exe and returns success after wait/close,
 // without checking the process exit code. Name remains address-derived.
+#include <string.h>
 typedef unsigned long DWORD;
 
 struct STARTUPINFOW
@@ -19,9 +20,7 @@ struct PROCESS_INFORMATION
 	DWORD dwThreadId;
 };
 
-extern "C" void *__cdecl memset(void *, int, unsigned int);
 
-extern "C" __declspec(dllimport) unsigned short *__cdecl wcscpy(unsigned short *dst, const unsigned short *src);
 extern "C" __declspec(dllimport) int __stdcall CreateProcessW(
 	const unsigned short *application, unsigned short *commandLine,
 	void *processAttributes, void *threadAttributes, int inheritHandles, DWORD creationFlags,

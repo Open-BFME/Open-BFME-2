@@ -43,11 +43,11 @@
 //   .text (release asserts compile out) — the vtable reference is what keeps
 //   the bodies alive. This TU leaves CheckBegin non-virtual like the BFME1
 //   TU: no body bytes depend on it.
+#include <string.h>
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTimeFormatA(
 	unsigned long, unsigned long, const void *, const char *, char *, int);
-extern "C" __declspec(dllimport) char *__cdecl strstr(const char *, const char *);
 
 struct DebugIOInterface
 {

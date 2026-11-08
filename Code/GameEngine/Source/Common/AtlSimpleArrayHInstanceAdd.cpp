@@ -5,6 +5,7 @@
 // VS2003 atlsimpcoll.h growth path for a pointer element.  InternalSetAtIndex
 // is already represented by the exact indexed pointer-slot body at
 // 0x009F6948, so this TU calls that recovered body by its landed source name.
+#include <string.h>
 
 typedef void *HINSTANCE;
 typedef int BOOL;
@@ -18,8 +19,6 @@ typedef unsigned long DWORD;
 // import thunk; the extern "C" spelling is claimed repo-wide by the static
 // DebugReAllocMemory wrapper row (see ?free@@ C++-linkage precedent).
 void *__cdecl realloc(void *memory, unsigned int size);
-extern "C" void *__cdecl memmove(void *destination, const void *source,
-	unsigned int bytes);
 extern "C" __declspec(dllimport) void __stdcall RaiseException(
 	DWORD code, DWORD flags, DWORD argumentCount, const DWORD *arguments);
 

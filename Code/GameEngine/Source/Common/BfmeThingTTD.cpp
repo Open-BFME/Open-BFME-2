@@ -3,6 +3,7 @@
 // applicationIsEnabled (0x005B7032) uses the compiler barrier intrinsic.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+#include <string.h>
 #include <new>
 
 struct Rva005B7032ComObject;
@@ -81,9 +82,7 @@ struct IThird
 	virtual HRESULT __stdcall GetFlag(unsigned short *out) = 0;
 };
 
-extern "C" __declspec(dllimport) unsigned int __cdecl wcslen(const unsigned short *s);
 
-extern "C" __declspec(dllimport) unsigned short *__cdecl wcscpy(unsigned short *dst, const unsigned short *src);
 
 extern "C" __declspec(dllimport) HRESULT __stdcall CoCreateInstance(const GUID &clsid, void *outer, DWORD ctx, const GUID &iid, void **out);
 
