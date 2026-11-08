@@ -21,21 +21,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Debug
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
-	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
-	virtual void slot30(); virtual void slot34();
-	virtual Debug &operator<<(const char *text);
-	virtual void slot3C(); virtual void slot40(); virtual void slot44(); virtual void slot48();
-	virtual void slot4C(int report);
-	virtual void slot50(); virtual void slot54(); virtual void slot58(); virtual void slot5C();
-	virtual void slot60();
-	virtual void slot64(); virtual void slot68();
-	virtual Debug &slot6C(int first, int second, int third);
-};
+#include "../../../Common/debug.h"
 template <class T> Debug &operator<<(Debug &debug, const StringBase<T> &text);
 extern Debug *theDebug;
 bool _bfme_debugReportingEnabled();
@@ -163,14 +149,14 @@ void AISpecialPowerUpdate::postInitAISpecialPower()
 		if (_bfme_debugReportingEnabled())
 		{
 			_bfme_debugRecordCallsite(1);
-			theDebug->slot60();
-			(theDebug->slot6C(0, 0, 0) << "AISpecialPower ("
+			theDebug->SkipNext();
+			(theDebug->CrashBegin(0, 0, 0) << "AISpecialPower ("
 				<< *(const StringBase<char> *)&TheNameKeyGenerator->keyToName(getModuleTagNameKey())
 				<< ") will not work for "
 				<< *(const StringBase<char> *)&getObject()->getTemplate()->getName()
 				<< ". Command button not found: "
 				<< *(const StringBase<char> *)&data->m_commandButtonName
-				<< "\n").slot4C(2);
+				<< "\n").CrashDone(2);
 		}
 	}
 
@@ -182,12 +168,12 @@ void AISpecialPowerUpdate::postInitAISpecialPower()
 			if (_bfme_debugReportingEnabled())
 			{
 				_bfme_debugRecordCallsite(1);
-				theDebug->slot60();
-				(theDebug->slot6C(0, 0, 0) << "Special power type is invalid for AISpecialPowerModule ("
+				theDebug->SkipNext();
+				(theDebug->CrashBegin(0, 0, 0) << "Special power type is invalid for AISpecialPowerModule ("
 					<< *(const StringBase<char> *)&TheNameKeyGenerator->keyToName(getModuleTagNameKey())
 					<< ") for "
 					<< *(const StringBase<char> *)&getObject()->getTemplate()->getName()
-					<< ".\n").slot4C(2);
+					<< ".\n").CrashDone(2);
 			}
 			m_hasCommandButton = false;
 		}

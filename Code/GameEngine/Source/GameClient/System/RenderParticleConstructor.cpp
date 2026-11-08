@@ -246,58 +246,7 @@ virtual void enabled(int);};
 class RefTree621 {public:virtual void destroy();int refs;};
 class RTS3DScene {public:virtual void v00();virtual void v04();virtual void add(RenderObjClass*);};
 class W3DDisplay {public:static RTS3DScene*m_3DScene;};
-class Debug {public:
-virtual void debug0();
-virtual void debug1();
-virtual void debug2();
-virtual void debug3();
-virtual void debug4();
-virtual void debug5();
-virtual void debug6();
-virtual void debug7();
-virtual void debug8();
-virtual void debug9();
-virtual void debug10();
-virtual void debug11();
-virtual void debug12();
-virtual void debug13();
-virtual Debug*message(const char*);
-virtual void debug15();
-virtual void debug16();
-virtual void debug17();
-virtual void debug18();
-virtual void finish(int);
-};
-class DebugManager621 {public:
-virtual void f0();
-virtual void f1();
-virtual void f2();
-virtual void f3();
-virtual void f4();
-virtual void f5();
-virtual void f6();
-virtual void f7();
-virtual void f8();
-virtual void f9();
-virtual void f10();
-virtual void f11();
-virtual void f12();
-virtual void f13();
-virtual void f14();
-virtual void f15();
-virtual void f16();
-virtual void f17();
-virtual void f18();
-virtual void f19();
-virtual void f20();
-virtual void f21();
-virtual void f22();
-virtual void f23();
-virtual void beginReport();
-virtual void f25();
-virtual void f26();
-virtual Debug*startReport(int,int,int);
-};
+#include "../../Common/debug.h"
 extern Debug *theDebug;
 bool bfmeRva000387C0();void _bfme_debugRecordCallsite(int);
 template<class T>Debug&operator<<(Debug&,const StringBase<T>&);
@@ -321,8 +270,8 @@ Rva001FC0F1::Rva001FC0F1(const RvaSmartPtr12&system,const Rva001F376E&info)
     ((RenderView621*)render)->enabled(1);
     rva0010E4F6(render,false);W3DDisplay::m_3DScene->add(render);
    }else if(bfmeRva000387C0()){
-    _bfme_debugRecordCallsite(1);((DebugManager621*)theDebug)->beginReport();
-    (*((DebugManager621*)theDebug)->startReport(0,0,0)->message("Particle system: could not create render object named '")<<*(StringBase<char>*)&name).message("'")->finish(2);
+    _bfme_debugRecordCallsite(1);theDebug->SkipNext();
+    ((theDebug->CrashBegin(0,0,0)<<"Particle system: could not create render object named '")<<*(StringBase<char>*)&name<<"'").CrashDone(2);
    }
   }
  }
