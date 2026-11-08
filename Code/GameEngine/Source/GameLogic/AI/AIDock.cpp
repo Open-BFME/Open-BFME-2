@@ -31,12 +31,7 @@ class Object;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../Include/Common/StateMachineClass.h"
 
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
+#include "../../../Include/Common/StateConditionInfo.h"
 
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -1193,7 +1188,7 @@ AIDockMachine::AIDockMachine(Object *owner) : StateMachine(owner, 0x2b638eb7u, f
 {
 	static const StateConditionInfo g_condC69C78[] =
 	{
-		{ (void *)ableToAdvance, 2, NULL },
+		{ ableToAdvance, 2, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 

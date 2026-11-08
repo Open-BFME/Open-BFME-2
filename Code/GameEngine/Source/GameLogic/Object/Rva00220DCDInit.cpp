@@ -14,7 +14,7 @@ public:
 
 #include "../../../Include/Common/Rva00575674.h"
 
-extern Rva00575674 g_00DFE490;
+extern void *g_00DFE490;
 
 class Rva00220CD4
 {
@@ -26,12 +26,11 @@ private:
 
 void Rva00220DCDInit()
 {
-	if (g_00DFE490.m_ptr == 0) {
+	Rva00575674 *holder = (Rva00575674 *)&g_00DFE490;
+	if (holder->m_ptr == 0) {
 		Rva00220CD4 *p = new Rva00220CD4;
-		g_00DFE490.rva00575674((Object *)p);
-		g_00DFE490.m_ptr->v01();
-		g_00DFE490.m_ptr->v02();
+		holder->rva00575674((Object *)p);
+		holder->m_ptr->v01();
+		holder->m_ptr->v02();
 	}
 }
-// ?g_00DFE490@@3VRva00575674@@A: the global at VA 0xdfe490 is ?g_00DFE490@@3PAXA.
-#pragma comment(linker, "/alternatename:?g_00DFE490@@3VRva00575674@@A=?g_00DFE490@@3PAXA")

@@ -21,12 +21,7 @@ typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
 class Object;
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
+#include "../../../Include/Common/StateConditionInfo.h"
 enum TurretStateType
 {
 	TURRETAI_IDLE = 0,
@@ -159,7 +154,7 @@ TurretStateMachine::TurretStateMachine(TurretAI *tai, Object *obj, UnsignedInt n
 {
 	static const StateConditionInfo fireConditions[] =
 	{
-		{ (void *)rva00343F8A, TURRETAI_AIM, NULL },
+		{ (bool (*)(State *, void *))rva00343F8A, TURRETAI_AIM, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 
