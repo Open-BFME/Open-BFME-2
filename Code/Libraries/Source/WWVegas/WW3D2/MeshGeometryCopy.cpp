@@ -53,13 +53,13 @@ public:
     virtual ~MeshGeometryClass();
     // The rest of the RefCountClass-side vtable, as meshgeometry.cpp emits it;
     // declared so this unit's ??_7 copy is the same table.
-    virtual WW3DErrorType Load_W3D(ChunkLoadClass &cload);
+    virtual bool Load_W3D(ChunkLoadClass &cload);
     MeshGeometryClass(const MeshGeometryClass &that);
     MeshGeometryClass &operator=(const MeshGeometryClass &that);
 
 protected:
     virtual void Compute_Plane_Equations(Vector4 *array);
-    virtual void Compute_Vertex_Normals(Vector3 *array);
+    virtual void Compute_Vertex_Normals(Vector3 *array, bool alternate);
     virtual void Compute_Bounds(Vector3 *verts);
 
 private:

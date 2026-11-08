@@ -1,9 +1,9 @@
 # P23: BaseHeightMapRenderObjClass's real tables, ready except for one claim
 
-**Status.** Landed, not closed, 2026-11-08: both installers on the canonical header, and all four compiled
-tables compared with retail by slot, with 0 differences outside the three listed below. The prepared
-texts here are history now. It closes only on a receipt that gets past the first terrain virtual call, with
-the file check. Not yet run in the game.
+**Status.** Closed, 2026-11-08: both installers on the canonical header, and all four compiled tables compared
+with retail by slot, with 0 differences outside the three listed below. The prepared texts here are history now.
+Receipt `2026-11-08T193111Z-boot_smoke-eaf7942ff6e7` got past the first terrain virtual call, and `blob_rule.py`
+passed against landed `2a50ce83ab`. That shows the call returns, not that terrain draws: the run has no screenshots.
 
 **The derived class came after.** BaseHeightMap's tables did not reach the boot stop by themselves: the object the
 game calls is the derived `Rva000E3B41` (flat height map, retail's table 0x00BCE788), whose compiled table had 129

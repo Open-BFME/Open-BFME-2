@@ -247,7 +247,11 @@ public:
 	const Vector3 *			Get_Vertex_Normal_Array(void);
 	const Vector4 *			Get_Plane_Array(bool create = true);
 	void							Compute_Plane(int pidx,PlaneClass * set_plane) const;
+#ifdef BFME_MESHGEOMETRY_RETAIL_SLOTS
+	const uint32 *				Get_Vertex_Shade_Index_Array(bool create = true);
+#else
 	const uint32 *				Get_Vertex_Shade_Index_Array(bool create = true)	{ return get_shade_indices(create); }
+#endif
 	const uint16 *				Get_Vertex_Bone_Links(void)								{ return get_bone_links(); }
 	uint8 *						Get_Poly_Surface_Type_Array(void)						{ WWASSERT(PolySurfaceType); return PolySurfaceType->Get_Array(); }
 	uint8							Get_Poly_Surface_Type(int poly_index) const;
@@ -282,7 +286,12 @@ public:
 	// W3D File Format support.  Note that derived classes have to override these functions completely
 	// so that they can handle their extra chunks.  Using these functions you could load mesh data out
 	// of a W3D file while ignoring all materials, textures, etc.
+#ifdef BFME_MESHGEOMETRY_RETAIL_SLOTS
+	// BFME 2: returns bool, row 0x0016D810. MeshModelClass's own header still overrides Zero Hour's.
+	virtual bool				Load_W3D(ChunkLoadClass & cload);
+#else
 	virtual WW3DErrorType	Load_W3D(ChunkLoadClass & cload);
+#endif
 
 	void							Scale(const Vector3 &sc);
 
@@ -310,7 +319,12 @@ protected:
 
 	// functions to recompute dirty normals and bounding volumes.
 	virtual void				Compute_Plane_Equations(Vector4 * array);
+#ifdef BFME_MESHGEOMETRY_RETAIL_SLOTS
+	// BFME 2: RET 8, row 0x0016CFC0.
+	virtual void				Compute_Vertex_Normals(Vector3 * array, bool alternate);
+#else
 	virtual void				Compute_Vertex_Normals(Vector3 * array);
+#endif
 	virtual void				Compute_Bounds(Vector3 * verts);
 	void							Generate_Culling_Tree(void);
 

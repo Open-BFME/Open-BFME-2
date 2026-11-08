@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/meshgeom /Ireference/shims/bfmerendobj /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+#define BFME_MESHGEOMETRY_RETAIL_SLOTS
 // Keep MSVC math.h float overloads local; matched operations already inline.
 #pragma push_macro("inline")
 #define inline static inline
@@ -108,7 +109,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   MeshGeometryClass::cast_obbox_brute_force -- brute force obbox cast                       *
  *   MeshGeometryClass::intersect_obbox_brute_force -- brute force intersection check          *
  *   MeshGeometryClass::Compute_Plane_Equations -- Recalculates the plane equations            *
- *   MeshGeometryClass::Compute_Vertex_Normals -- recompute the vertex normals                 *
  *   MeshGeometryClass::Compute_Bounds -- recomputes the bounding volumes                      *
  *   MeshGeometryClass::get_vert_normals -- get the vertex normal array                        *
  *   MeshGeometryClass::Get_Vertex_Normal_Array -- validates and returns the vertex normal arr *
@@ -116,7 +116,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   MeshGeometryClass::Get_Plane_Array -- validates and returns the array of plane equations  *
  *   MeshGeometryClass::Compute_Plane -- compute the plane equation of a single poly           *
  *   MeshGeometryClass::Generate_Culling_Tree -- Generate an AABTree for this mesh             *
- *   MeshGeometryClass::Load_W3D -- Load a mesh from a w3d                                     *
  *   MeshGeometryClass::read_chunks -- read w3d chunks                                         *
  *   MeshGeometryClass::read_vertices -- read the vertex chunk from a W3D file                 *
  *   MeshGeometryClass::read_vertex_normals -- read the vertex normals chunk from a w3d file   *
@@ -222,6 +221,13 @@ int MeshGeometryClass::Compute_Ram_Size(void)
 	return size;
 }
 
+
+
+// ?Get_Vertex_Shade_Index_Array@MeshGeometryClass@@QAEPBK_N@Z @0x0016CCB0: a tail jump to get_shade_indices.
+const uint32 *MeshGeometryClass::Get_Vertex_Shade_Index_Array(bool create)
+{
+	return get_shade_indices(create);
+}
 
 /***********************************************************************************************
  * MeshGeometryClass::MeshGeometryClass -- Constructor                                         *
@@ -1314,90 +1320,6 @@ void MeshGeometryClass::Compute_Plane_Equations(Vector4 * peq)
 
 
 /***********************************************************************************************
- * MeshGeometryClass::Compute_Vertex_Normals -- recompute the vertex normals                   *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *    This function should not normally be needed during run-time.                             *
- *		The array pointer must point to an array of Vector3's of size NumVerts                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   11/9/2000  gth : Created.                                                                 *
- *=============================================================================================*/
-// ?MeshGeometryClass::Compute_Vertex_Normals present-unmatched
-void MeshGeometryClass::Compute_Vertex_Normals(Vector3 * vnorm)
-{
-	WWASSERT(vnorm != NULL);
-	if ((PolyCount == 0)|| (VertexCount == 0)) {
-		return;
-	}
-
-	const Vector4 * peq = Get_Plane_Array();
-	TriIndex * poly = Poly->Get_Array();
-	const uint32 * shadeIx	= Get_Vertex_Shade_Index_Array(false);
-
-	// Two cases, with or without vertex shade indices.  The vertex shade indices
-	// implicitly contain the smoothing groups information from the original mesh.
-	// In their abscesnce, the entire mesh is smoothed.
-	if (!shadeIx) {
-
-		VectorProcessorClass::Clear(vnorm, VertexCount);
-
-		for(int pidx = 0; pidx < PolyCount; pidx++) {
-
-			vnorm[poly[pidx].I].X += peq[pidx].X;
-			vnorm[poly[pidx].I].Y += peq[pidx].Y;
-			vnorm[poly[pidx].I].Z += peq[pidx].Z;
-			
-			vnorm[poly[pidx].J].X += peq[pidx].X;
-			vnorm[poly[pidx].J].Y += peq[pidx].Y;
-			vnorm[poly[pidx].J].Z += peq[pidx].Z;
-			
-			vnorm[poly[pidx].K].X += peq[pidx].X;
-			vnorm[poly[pidx].K].Y += peq[pidx].Y;
-			vnorm[poly[pidx].K].Z += peq[pidx].Z;
-		}
-	
-	} else {
-	
-		VectorProcessorClass::Clear (vnorm, VertexCount);
-
-		for (int pidx = 0; pidx < PolyCount; pidx++)	{
-
-			vnorm[shadeIx[poly[pidx].I]].X += peq[pidx].X;
-			vnorm[shadeIx[poly[pidx].I]].Y += peq[pidx].Y;
-			vnorm[shadeIx[poly[pidx].I]].Z += peq[pidx].Z;
-
-			vnorm[shadeIx[poly[pidx].J]].X += peq[pidx].X;
-			vnorm[shadeIx[poly[pidx].J]].Y += peq[pidx].Y;
-			vnorm[shadeIx[poly[pidx].J]].Z += peq[pidx].Z;
-
-			vnorm[shadeIx[poly[pidx].K]].X += peq[pidx].X;
-			vnorm[shadeIx[poly[pidx].K]].Y += peq[pidx].Y;
-			vnorm[shadeIx[poly[pidx].K]].Z += peq[pidx].Z;
-		}
-
-		// normalize the "master" vertex normals and copy the smoothed ones
-		// (note: we always encounter the "master" ones first)
-		for (unsigned vidx = 0; vidx < (unsigned)VertexCount; vidx ++) {
-			if (shadeIx[vidx] == vidx) {
-				vnorm[vidx].Normalize();
-			} else {
-				vnorm[vidx] = vnorm[shadeIx[vidx]];
-			}
-		}
-	}
-
-	VectorProcessorClass::Normalize(vnorm, VertexCount);
-
-	Set_Flag(DIRTY_VNORMALS,false);
-}
-
-
-/***********************************************************************************************
  * MeshGeometryClass::Compute_Bounds -- recomputes the bounding volumes                        *
  *                                                                                             *
  * INPUT:                                                                                      *
@@ -1568,144 +1490,6 @@ void MeshGeometryClass::Generate_Culling_Tree(void)
 		CullTree = NEW_REF(AABTreeClass,(&builder));
 		CullTree->Set_Mesh(this);
 	}
-}
-
-
-/***********************************************************************************************
- * MeshGeometryClass::Load_W3D -- Load a mesh from a w3d file                                  *
- *                                                                                             *
- *    This function will extract just the geometry information from a W3D mesh.  It must       *
- *    be completely replaced by any derived classes that want to handle all of the chunks.     *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   11/9/2000  gth : Created.                                                                 *
- *=============================================================================================*/
-// ?MeshGeometryClass::Load_W3D present-unmatched
-WW3DErrorType MeshGeometryClass::Load_W3D(ChunkLoadClass & cload)
-{
-	/*
-	** This function will initialize this MeshGeometryClass from the contents of a W3D file.
-	** Note that derived classes need to completely replace this function; only re-using the individual
-	** chunk handling functions.  
-	*/
-
-	/*
-	**	Open the first chunk, it should be the mesh header
-	*/
-	cload.Open_Chunk();
-	
-	if (cload.Cur_Chunk_ID() != W3D_CHUNK_MESH_HEADER3) {
-		WWDEBUG_SAY(("Old format mesh mesh, no longer supported.\n"));
-		goto Error;
-	}
-	
-	W3dMeshHeader3Struct header;
-	if (cload.Read(&header,sizeof(W3dMeshHeader3Struct)) != sizeof(W3dMeshHeader3Struct)) {
-		goto Error;
-	}
-	cload.Close_Chunk();
-
-	/*
-	** Process the header
-	*/
-	char *	tmpname;
-	int		namelen;
-	
-	Reset_Geometry(header.NumTris,header.NumVertices);
-	
-	namelen = strlen(header.ContainerName);
-	namelen += strlen(header.MeshName);
-	namelen += 2;
-	W3dAttributes = header.Attributes;	
-	SortLevel = header.SortLevel;
-	tmpname = W3DNEWARRAY char[namelen];
-	memset(tmpname,0,namelen);
-
-	if (strlen(header.ContainerName) > 0) {
-		strcpy(tmpname,header.ContainerName);
-		strcat(tmpname,".");
-	}
-	strcat(tmpname,header.MeshName);
-
-	Set_Name(tmpname);
-
-	delete[] tmpname;
-	tmpname = NULL;
-
-	/*
-	** Set Bounding Info
-	*/
-	BoundBoxMin.Set(header.Min.X,header.Min.Y,header.Min.Z);
-	BoundBoxMax.Set(header.Max.X,header.Max.Y,header.Max.Z);
-
-	BoundSphereCenter.Set(header.SphCenter.X,header.SphCenter.Y,header.SphCenter.Z);
-	BoundSphereRadius = header.SphRadius;
-
-	/*
-	** Flags
-	*/
-	if (header.Version >= W3D_MAKE_VERSION(4,1)) {
-		int geometry_type = header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK;
-		switch (geometry_type) 
-		{
-			case W3D_MESH_FLAG_GEOMETRY_TYPE_NORMAL:
-				break;
-			case W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_ALIGNED:
-				Set_Flag(ALIGNED,true);
-				break;
-			case W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_ORIENTED:
-				Set_Flag(ORIENTED,true);
-				break;
-			case W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN:
-				Set_Flag(SKIN,true);
-				break;
-		} 
-	}
-
-	if (header.Attributes & W3D_MESH_FLAG_TWO_SIDED) {
-		Set_Flag(TWO_SIDED,true);
-	}
-
-	if (header.Attributes & W3D_MESH_FLAG_CAST_SHADOW) {
-		Set_Flag(CAST_SHADOW,true);
-	}
-
-	read_chunks(cload);
-
-	/*
-	** If this is a pre-3.0 mesh and it has vertex influences,
-	** fixup the bone indices to account for the new root node
-	*/
-	if ((header.Version < W3D_MAKE_VERSION(3,0)) && (Get_Flag(SKIN))) {
-
-		uint16 * links = get_bone_links();
-		WWASSERT(links);
-		
-		for (int bi = 0; bi < Get_Vertex_Count(); bi++) {
-			links[bi] += 1;
-		}
-	}
-
-	/*
-	** If this mesh is collideable and no AABTree was in the file, generate one now
-	*/
-	if (	(((W3dAttributes & W3D_MESH_FLAG_COLLISION_TYPE_MASK) >> W3D_MESH_FLAG_COLLISION_TYPE_SHIFT) != 0) &&
-			(CullTree == NULL)) 
-	{
-		Generate_Culling_Tree();
-	}
-
-	return WW3D_ERROR_OK;
-
-Error:
-
-	return WW3D_ERROR_LOAD_FAILED;
 }
 
 
