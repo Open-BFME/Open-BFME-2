@@ -91,9 +91,9 @@ Usage:
       other row. --prepared: TEXT (a file) is the TU's whole final text, written
       with the carve in one transaction; a donor left with no row is absorbed
   python3 tools/tu_skeleton.py --emit-move FILE --for TU [--rva 0xRVA,...] [--dry-run] [--no-claim]
-      repoint the implicit COMDAT rows (template instantiations, compiler-generated
-      special members) of a mixed FILE that the map approves for TU to the TU file,
-      once its own code emits each byte-exact (emit_move); no text moves
+      repoint the deleting-destructor rows (`??_G`/`??_E`, by decorated name) of a
+      mixed FILE that the map approves for TU to the TU file, once its own code
+      emits each byte-exact (emit_move); no text moves
 """
 import argparse
 import collections
@@ -3649,15 +3649,18 @@ class UnitKeyRefusal(Exception):
 
 
 # ---------------------------------------------------------------- emission move
-# The move counterpart of emission_held. An implicit COMDAT has no body a carve could move:
-# every object using it emits it. Once its approved TU's own code emits it byte-exact, the
-# row's source moves there and no text moves at all. P16: the LivingWorldCampaign Act chain
-# sits in mixed STLport and FXList files. Only two kinds of row qualify: a template instance
-# no explicit specialization or instantiation names, and a deleting destructor. A
+# The move counterpart of emission_held. A compiler-generated COMDAT has no body a carve could
+# move: every object using it emits it. Once its approved TU's own code emits it byte-exact,
+# the row's source moves there and no text moves at all. Only a deleting destructor
+# (`??_G`/`??_E`) qualifies, decided by its decorated name: no source can spell one. A
 # constructor, destructor or assignment never does: a hand-written one (`typedef Rec Alias;
-# Alias(Rec const &r) : a(r.a) {}`, `(Rec)(Rec const &r) ...`) compiles to the implicit
-# one's name, bytes and relocations, and six reviews showed no reading of the text proves
-# it implicit (review of 9459886c66). One would come back only with a compiler-backed proof.
+# Alias(Rec const &r) : a(r.a) {}`) compiles to the implicit one's name, bytes and relocations
+# (review of 9459886c66). Nor does a template instance (review of 0c8c510c89): eight rounds
+# showed text cannot prove one compiler-instantiated from vendored source (`typedef C<int>
+# Alias; void Alias::f() {}`, a project `#line` naming an STLport header, `namespace _STL`
+# reopened with a template of STLport's name), and `#line` rewrites the debug line info
+# CodeView could anchor on. Either may come back with a provenance proof that does not
+# depend on text.
 
 # `??_G` (scalar) / `??_E` (vector) deleting destructor of a plain class: no source spells one
 DELETING_DTOR = re.compile(r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$")
@@ -3670,296 +3673,16 @@ def deleting_class(name):
     return m.group(1) if m else None
 
 
-def preprocessed_unit(path):
-    """(cl -E output, None) or (None, why): `path` under its own build command
-    (rename.preprocess_unit, no object written), cached."""
-    cache = _CACHE.setdefault("preprocessed", {})
-    if path not in cache:
-        ctx = SimpleNamespace(root=ROOT, path=lambda rel: ROOT / rel)
-        cache[path] = rename.preprocess_unit(ctx, path)
-    return cache[path]
-
-
-def unit_text(path):
-    """(the unit's preprocessed text, None), or (None, why): so macros, includes and aliases are
-    what the compiler sees, in the form the rules read (flatten_preprocessed)."""
-    text, why = preprocessed_unit(path)
-    return (flatten_preprocessed(text), None) if text is not None else (None, why)
-
-
-def unit_own_text(path):
-    """unit_text without the lines the vendored STLport headers contribute (own_text)."""
-    text, why = preprocessed_unit(path)
-    return (flatten_preprocessed(own_text(text)), None) if text is not None else (None, why)
-
-
-def flatten_preprocessed(text):
-    """cl -E output with every directive line gone (`#line 10 "copy.h"`, `# 10 "semi;h.h"`,
-    `#pragma ...`), literals and comments masked (mask_literals), and all whitespace,
-    newlines included, collapsed to one space: a directive between `Rec` and `(Rec const &)`,
-    or a `;` in a #line file name between `template<>` and `_Construct(`, must not split
-    what the rules match (review of e81c016950)."""
-    kept = "\n".join(line for line in text.splitlines() if not line.lstrip().startswith("#"))
-    return " ".join(mask_literals(kept).split())
-
-
-# A string, character or raw-string literal (any prefix) or a comment, so that nothing
-# inside one is read as code.
-LITERAL = re.compile(r'(?:u8|[uUL])?R"(?P<delim>[^ ()\\\t\n]{0,16})\((?P<raw>.*?)\)(?P=delim)"'
-                     r'|(?:u8|[uUL])?"(?:[^"\\\n]|\\.)*"'
-                     r"|(?:u8|[uUL])?'(?:[^'\\\n]|\\.)*'"
-                     r"|/\*.*?\*/|//[^\n]*", re.S)
-MASKED = "\x02"          # a brace, paren, quote, backslash or `;` that was inside a literal or a comment
-UNREADABLE = "\x03"      # a quote no literal closes: nothing in the text can be trusted
-
-
-def mask_literals(text):
-    """`text` with every literal's characters that could read as code (`{}()"'\\;`) replaced by
-    MASKED, the literal kept as `"..."` or `'...'`, and every comment replaced by MASKED (review
-    of 90fdd5d03d: a `"}"` in a member function closed the class body early). A quote left
-    over that no literal closes prefixes the text with UNREADABLE."""
-    def mask(m):
-        token = m.group(0)
-        if token.startswith(("/*", "//")):
-            return f" {MASKED} "
-        if m.group("raw") is not None:
-            inner, quote = m.group("raw"), '"'
-        else:
-            quote = '"' if '"' in token else "'"
-            inner = token[token.index(quote) + 1:-1]
-        return quote + re.sub(r"[{}()\"'\\;]", MASKED, inner) + quote
-    out = LITERAL.sub(mask, text)
-    stray = re.sub(r'"[^"]*"|\'[^\']*\'', "", out)
-    return (UNREADABLE + out) if ('"' in stray or "'" in stray) else out
-
-
-def instance_tokens(owner):
-    """The identifier tokens an explicit specialization or instantiation of the row would name:
-    its member (`clear`, `operator`, `~Box` as `Box`) and, for a member, its class template, whose
-    explicit specialization or instantiation (`template class Box<int>;`) covers every member."""
-    cls, meth = owner
-    return {cls or meth} | ({"operator"} if meth == "operator" else {meth.lstrip("~")})
-
-
-def explicit_instance_problem(code, owner):
-    """Why the preprocessed `code` might spell row's instantiation itself, or None. Coarse and
-    fail-closed (review of 692da8fc04): any explicit specialization (`template<>`, deduced
-    arguments included) or explicit instantiation (`template` not followed by `<`) naming one of
-    instance_tokens(owner) in its declaration refuses, whatever its arguments."""
-    if UNREADABLE in code:
-        return "an unbalanced quote: the unit cannot be read"
-    words = "|".join(map(re.escape, sorted(instance_tokens(owner))))
-    m = (re.search(r"\btemplate\s*<\s*>[^;{]*?\b(?:" + words + r")\b", code)
-         or re.search(r"\btemplate\b(?!\s*<)[^;{]*?\b(?:" + words + r")\b[^;{]*;", code))
-    return " ".join(m.group(0).split())[:120] if m else None
-
-
-# A template instance moves by emission only when it is an instance of a vendored STLport
-# template: its decorated scope is `_STL` and the vendored STLport headers define the template
-# (review of 3bc60f1272: MSVC 7.1 takes `typedef C<int> Alias; void Alias::f() {}`, a
-# hand-written member with no `template<>`, and emits `?f@?$C@H@@QAEXXZ` with the implicit
-# instance's bytes). The decorated name is read by a small parser that refuses anything it
-# does not know (stl_template); the headers by a scan of their template declarations.
-PRIMITIVE = set("CDEFGHIJKMNOX")
-_STL_TEMPLATES = {}                       # include dir -> stlport_templates()
-
-
-def _skip_name(s, i):
-    """The index after the qualified name at `i` (fragments up to its terminating `@`)."""
-    while s[i] != "@":
-        i = _skip_fragment(s, i)
-    return i + 1
-
-
-def _skip_fragment(s, i):
-    if s[i].isdigit():                              # a back-reference to an earlier name
-        return i + 1
-    if s.startswith("?$", i):
-        return _skip_template(s, i)
-    j = s.index("@", i)
-    if not re.fullmatch(r"[A-Za-z_]\w*", s[i:j]):
-        raise ValueError(f"unknown name fragment at {i}")
-    return j + 1
-
-
-def _skip_template(s, i):
-    """The index after `?$name@args@` at `i`."""
-    j = s.index("@", i + 2)
-    if not re.fullmatch(r"[A-Za-z_]\w*", s[i + 2:j]):
-        raise ValueError(f"unknown template name at {i}")
-    i = j + 1
-    while s[i] != "@":
-        i = _skip_type(s, i)
-    return i + 1
-
-
-def _skip_type(s, i):
-    """The index after one template argument at `i`; ValueError for any shape not read here."""
-    c = s[i]
-    if c in PRIMITIVE:
-        return i + 1
-    if c == "_" and s[i + 1] in "DEFGHIJKNW":                # __int8 .. __int64, bool, wchar_t
-        return i + 2
-    if c in "PQRSAB" and s[i + 1] in "ABCD":                 # pointers and references, cv-qualified
-        return _skip_type(s, i + 2)
-    if c in "TUV":                                          # union, struct, class
-        return _skip_name(s, i + 1)
-    if s.startswith("W4", i):                                # enum
-        return _skip_name(s, i + 2)
-    if c.isdigit():                                         # a type back-reference
-        return i + 1
-    if s.startswith("$$C", i) and s[i + 3] in "ABCD":        # a cv-qualified type
-        return _skip_type(s, i + 4)
-    if s.startswith("$0", i):                                # an integer constant
-        j = i + 2 + (s[i + 2] == "?")
-        if s[j].isdigit():
-            return j + 1
-        k = s.index("@", j)
-        if not re.fullmatch(r"[A-P]+", s[j:k]):
-            raise ValueError(f"unknown constant at {i}")
-        return k + 1
-    raise ValueError(f"unknown template argument at {i}")
-
-
-def stl_template(name):
-    """The vendored STLport template whose instance `name` is, or None: a function template
-    (`??$_Construct@...@_STL@@`), a member (`?clear@?$list@...@_STL@@`) or a ctor, dtor or
-    operator (`??0?$list@...@_STL@@`) of a class template, whose scope after the template is
-    exactly `_STL`, and which stlport_templates() finds defined. None when the name cannot be
-    read: fail-closed."""
-    try:
-        if name.startswith("??$"):
-            start = 1
-        else:
-            m = re.match(r"^\?(?:\?_?[0-9A-Z]|[A-Za-z_]\w*@)(?=\?\$)", name)
-            if not m:
-                return None
-            start = m.end()
-        template = name[start + 2:name.index("@", start + 2)]
-        end = _skip_template(name, start)
-    except (ValueError, IndexError):
-        return None
-    if not name.startswith("_STL@@", end):
-        return None
-    return template if template in stlport_templates() else None
-
-
-def stlport_templates():
-    """The names of the class and function templates the vendored STLport headers
-    (build.stlport_include_dir()) declare."""
-    import build
-    root = build.stlport_include_dir()
-    if root not in _STL_TEMPLATES:              # the vendored headers do not change within a run
-        names = set()
-        for f in sorted(Path(root).rglob("*")) if root else ():
-            if f.is_file():
-                try:
-                    names |= template_names(strip(f.read_text(encoding="latin-1")))
-                except OSError:
-                    continue
-        _STL_TEMPLATES[root] = frozenset(names)
-    return _STL_TEMPLATES[root]
-
-
-def template_names(code):
-    """The names each `template <...>` in `code` declares: the class after `class`/`struct`,
-    else the function before the first `(` (operators skipped)."""
-    names = set()
-    for m in re.finditer(r"\btemplate\s*<", code):
-        depth, i = 1, m.end()
-        while depth and i < len(code):
-            depth += {"<": 1, ">": -1}.get(code[i], 0)
-            i += 1
-        rest = code[i:i + 600]
-        c = re.match(r"\s*(?:class|struct)\s+(?:\w+\s+)*?(\w+)\s*[:{;<]", rest)
-        if c:
-            names.add(c.group(1))
-            continue
-        head = re.split(r"[({;]", rest, 1)[0]
-        if "(" in rest[len(head):len(head) + 1] and not re.search(r"\boperator\b", head):
-            f = re.search(r"(\w+)\s*$", head)
-            if f:
-                names.add(f.group(1))
-    return names
-
-
-def qualified_token(owner):
-    """The pattern a hand-written definition of the row would spell after `::`: the member
-    (`::clear`), any operator (`::operator`), or for a ctor or dtor the class template
-    (`::list`, `::~list`); for a function template, its name."""
-    cls, meth = owner
-    if meth == "operator":
-        return r"::\s*operator\b"
-    if cls and meth.lstrip("~") == cls:
-        return r"::\s*~?\s*" + re.escape(cls) + r"\b"
-    return r"::\s*" + re.escape(meth) + r"\b"
-
-
-def own_text(raw):
-    """cl -E output `raw` without the lines `#line` attributes to the vendored STLport headers."""
-    import build
-    root = build.stlport_include_dir()
-    prefix = _norm_path(str(root)).rstrip("/") + "/" if root else None
-    keep, out = True, []
-    for line in raw.splitlines():
-        m = re.match(r'^\s*#\s*(?:line\s+)?\d+\s+"(.*)"', line)
-        if m:
-            path = _norm_path(m.group(1).replace("\\\\", "\\"))
-            if not re.match(r"^(?:[a-z]:)?/", path):
-                path = _norm_path(str(ROOT / path))
-            keep = prefix is None or not path.startswith(prefix)
-        if keep:
-            out.append(line)
-    return "\n".join(out)
-
-
-def _norm_path(path):
-    """`path` lower-cased with `/` separators; Wine's `z:` drive dropped off Windows."""
-    path = path.replace("\\", "/").lower()
-    return path[2:] if os.name != "nt" and path.startswith("z:/") else path
-
-
-def implicit_comdat(r, path, source=None):
-    """Why row `r` is not an implicit COMDAT the unit `path` leaves to the compiler, or None.
-    A deleting destructor (deleting_class) is decided by its decorated name alone. A template
-    instance must be one of a vendored STLport template (stl_template), and is then judged on
-    preprocessed text (unit_text; fail-closed when it cannot be made): `path`'s text may hold no
-    explicit specialization (`template<>`) or instantiation naming it
-    (explicit_instance_problem), and neither `path`'s nor `source`'s text outside the vendored
-    STLport headers may spell its member after `::` (qualified_token: `Alias::f`, `(Alias::f)`,
-    `C<int>::f`, macro-built spellings included; over-refusal is the price). Anything else, a
-    constructor, destructor or assignment included, is a body to carve (--split), not to move
-    by emission. emit_move asks it of the destination, with the file the row leaves."""
+def emission_problem(r):
+    """Why row `r` may not move by emission, or None: only a deleting destructor may, by its
+    decorated name (deleting_class); nothing is read from any text."""
     name = r["name"]
     if deleting_class(name):
         return None
-    if not TEMPLATE_INSTANCE.match(name):
-        return ("not an implicit COMDAT by its name: only a template instance or a deleting destructor "
-                "(??_G/??_E) moves by emission")
-    owner = instance_owner(name)
-    if owner is None:
-        return "its template owner cannot be read from the name"
-    if stl_template(name) is None:
-        return ("not an instance of a vendored STLport template (decorated scope `_STL`, defined in the "
-                "vendored STLport headers): a user template's member can be hand-written with no `template<>`")
-    code, why = unit_text(path)
-    if code is None:
-        return f"{path} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
-    found = explicit_instance_problem(code, owner)
-    if found:
-        return (f"{path} (preprocessed) has an explicit specialization or instantiation naming "
-                f"{'/'.join(sorted(instance_tokens(owner)))}: `{found}`")
-    for unit in [path] + ([source] if source else []):
-        code, why = unit_own_text(unit)
-        if code is None:
-            return f"{unit} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
-        if UNREADABLE in code:
-            return f"{unit} (preprocessed): an unbalanced quote: the unit cannot be read"
-        found = re.search(qualified_token(owner), code)
-        if found:
-            return (f"{unit} (preprocessed, outside the vendored STLport headers) spells `{found.group(0)}`: "
-                    "a hand-written definition of the row may be there")
-    return None
+    if TEMPLATE_INSTANCE.match(name):
+        return ("a template instance: whether it was instantiated from vendored source or written by hand "
+                "cannot be proved from text, so it does not move by emission")
+    return "not a deleting destructor (??_G/??_E) by its name: only those move by emission"
 
 
 OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
@@ -3999,15 +3722,15 @@ def identity_debt(path, names):
 
 
 def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
-    """Repoint the implicit COMDAT rows of mixed `path` the current map approves for `tu` to
-    the TU file, which must already emit each of them byte-exact. Fail-closed: every row
+    """Repoint the deleting-destructor rows of mixed `path` the current map approves for `tu`
+    to the TU file, which must already emit each of them byte-exact. Fail-closed: every row
     (an explicit `rvas` list, else every approved row) must be approved for `tu`, verified
-    under its own name (no `object-symbol=` binding it to another symbol), an implicit
-    COMDAT that the TU's preprocessed text leaves to the compiler (implicit_comdat), defined
-    by the TU's object in a COMDAT section and byte-exact, with no other row of `path` at its
-    address and no identity debt keyed to `path`. The file may keep a copy (the explicit
-    instantiations and stand-in views that host these rows today) only as a COMDAT, never a
-    strong definition. The TU's own rows and the residual's rows must keep every match.
+    under its own name (no `object-symbol=` binding it to another symbol), a `??_G`/`??_E`
+    by its decorated name (emission_problem), defined by the TU's object in a COMDAT section
+    and byte-exact, with no other row of `path` at its address and no identity debt keyed to
+    `path`. The file may keep a copy (the stand-in views that host these rows today) only as
+    a COMDAT, never a strong definition. The TU's own rows and the residual's rows must keep
+    every match.
 
     Two stages. A scratch compile beside each file (Verifier) screens the rows and is
     re-judged with exactly the rows that move, since region flags follow the row set. The
@@ -4066,7 +3789,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         why = (f"its bytes are verified as {other} (object-symbol=), not under its name: every check here must "
                "judge one symbol") if other else None
         if why is None:
-            why = implicit_comdat(r, dest, source=path)
+            why = emission_problem(r)
         if why is None and fold_alias(r):
             why = "an ICF alias: it lives where the bodies emitting its identity live"
         if why is None and sum(1 for o in rows if o["target_rva"].lower() == r["target_rva"].lower()) > 1:
@@ -5811,7 +5534,7 @@ def main(argv=None):
     g.add_argument("--merge", metavar="TU")
     g.add_argument("--split", metavar="FILE", help="carve the rows approved for --for TU out of a mixed FILE")
     g.add_argument("--emit-move", metavar="FILE",
-                   help="repoint FILE's implicit COMDAT rows approved for --for TU, which the TU emits byte-exact")
+                   help="repoint FILE's deleting-destructor rows approved for --for TU, which the TU emits byte-exact")
     g.add_argument("--recover-emit", action="store_true",
                    help="undo every --emit-move a killed run left (its journal under build/tu_skeleton/emit-journal)")
     g.add_argument("--shatter", metavar="FILE",

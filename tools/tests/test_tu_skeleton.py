@@ -1024,11 +1024,10 @@ class EmissionHeldTests(unittest.TestCase):
                 with self.subTest(name=name, text=text):
                     cache = {"map_by_rva": {0x1200: {"tu": "Code/XferSave.cpp", "by": "C",
                                                      "evidence": "C=0x00001100..0x00001300"}}}
-                    with patch.dict(T._CACHE, cache, clear=True), \
-                            patch.object(T, "preprocessed_unit", return_value=(text, None)):
+                    with patch.dict(T._CACHE, cache, clear=True):
                         self.assertFalse(T.emission_held({"name": name, "target_rva": "0x00001200", "source": self.TU}))
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), (self.COPY, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]
-        with patch.object(T, "preprocessed_unit", return_value=(clean, None)):
+        with patch.object(T, "spells_definition", return_value=False):
             _don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x1200: self.C})
         self.assertEqual(mixed, {self.TU: 1})                # it makes the TU file mixed, as before rule (a)
 
@@ -1073,11 +1072,11 @@ class EmissionHeldTests(unittest.TestCase):
 
 
 class EmitMoveTests(unittest.TestCase):
-    """--emit-move: an implicit COMDAT row (a template instance or a deleting destructor) moves
-    from a mixed file to its approved TU only when the TU's own code emits it byte-exact (P16,
-    the LivingWorldCampaign Act chain)."""
+    """--emit-move: a deleting-destructor row (`??_G`/`??_E`, by its decorated name) moves from a
+    mixed file to its approved TU only when the TU's own code emits it byte-exact (P16)."""
     SOURCE, TU, OTHER = "Code/Mixed.cpp", "Code/Campaign.cpp", "Code/Other.cpp"
-    CTOR = "??$_Construct@VRec@@V1@@_STL@@YAXPAVRec@@ABV1@@Z"        # a function template instantiation
+    INSTANCE = "??$_Construct@VRec@@V1@@_STL@@YAXPAVRec@@ABV1@@Z"    # a template instance: never moves by emission
+    VDTOR = "??_ERec@@UAEPAXI@Z"                                       # a vector deleting destructor
     COPY = "??0Rec@@QAE@ABV0@@Z"                                       # a copy ctor: never moves by emission
     DTOR = "??_GRec@@UAEPAXI@Z"                                        # a deleting destructor: always the compiler's
     STAY = "?stay@@YAXXZ"
@@ -1101,18 +1100,17 @@ class EmitMoveTests(unittest.TestCase):
                 "source": source or self.SOURCE, "status": "matched", "notes": notes}
 
     def move(self, *, rvas=None, approved=None, defined=None, comdat=None, exact=None, residual_lost=(),
-             rows=None, dry_run=True, file_defined=(), file_comdat=(), final_lost=(), preprocessed=None,
+             rows=None, dry_run=True, file_defined=(), file_comdat=(), final_lost=(),
              built=True, built_defined=None, built_comdat=None, build_effect=None, claim=False):
-        """emit_move over a file holding CTOR (0x2000), DTOR (0x2100) and STAY (0x3000). `approved`
+        """emit_move over a file holding VDTOR (0x2000), DTOR (0x2100) and STAY (0x3000). `approved`
         {rva: tu}; the TU's scratch object `defined`/`comdat` names and the rvas it matches `exact`
         (`final_lost` lost when judged with only the rows that finally move); the file's object
-        `file_defined`/`file_comdat`; `preprocessed` {path: text or None} (default: the file's text);
-        for the apply, ./build.sh passing (`built`) and the real TU object's `built_defined`/`built_comdat`."""
-        rows = rows if rows is not None else [self.row(self.CTOR, "0x00002000"), self.row(self.DTOR, "0x00002100"),
+        `file_defined`/`file_comdat`; for the apply, ./build.sh passing (`built`) and the real TU object's `built_defined`/`built_comdat`."""
+        rows = rows if rows is not None else [self.row(self.VDTOR, "0x00002000"), self.row(self.DTOR, "0x00002100"),
                                               self.row(self.STAY, "0x00003000")]
         approved = approved if approved is not None else {"0x00002000": self.TU, "0x00002100": self.TU,
                                                           "0x00003000": self.OTHER}
-        defined = {self.CTOR, self.DTOR} if defined is None else defined
+        defined = {self.VDTOR, self.DTOR} if defined is None else defined
         comdat = defined if comdat is None else comdat
         exact = {"0x00002000", "0x00002100"} if exact is None else exact
         groups = {}
@@ -1147,19 +1145,13 @@ class EmitMoveTests(unittest.TestCase):
                     return (rvas_ & exact) - lost
                 return rvas_ - (set(residual_lost) if len(judged) < len(rows) else set())
 
-        def unit(path):             # cl -E stands in: the file's own text, or `preprocessed`
-            if preprocessed is not None and path in preprocessed:
-                text = preprocessed[path]
-                return (text, None) if text is not None else (None, "cl -E failed")
-            return (self.root / path).read_text(encoding="utf-8"), None
-
         import build
         import name_dependents
         own = lambda p: rows if p == self.SOURCE else []
         with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
                 patch.object(T, "file_rows", side_effect=own), patch.object(T, "breakdown", return_value=groups), \
                 patch.object(T, "fold_alias", return_value=False), patch.object(T, "Verifier", Verifier), \
-                patch.object(T, "preprocessed_unit", side_effect=unit), \
+                patch.object(T.rename, "preprocess_unit", side_effect=AssertionError("no text is read")), \
                 patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats.get(Path(obj), set())), \
                 patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
                 patch.object(T, "exact_build", side_effect=build_effect if build_effect is not None
@@ -1184,7 +1176,7 @@ class EmitMoveTests(unittest.TestCase):
         rel = Path(source).relative_to(self.root).as_posix()
         return self.root / "build" / {self.TU: "real_t.obj", self.SOURCE: "real_x.obj"}[rel]
 
-    def test_an_emitted_instantiation_and_deleting_dtor_move(self):
+    def test_emitted_deleting_destructors_move(self):
         report = self.move()
         self.assertNotIn("blocked", report)
         self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
@@ -1197,77 +1189,32 @@ class EmitMoveTests(unittest.TestCase):
                                                           "0x00003000": self.OTHER})
         self.assertIn("0x00002000 not approved", report["blocked"])
 
-    def test_a_row_the_tu_spells_refuses(self):
-        # the TU must emit it from its own code: an explicit instantiation there is a stand-in, not
-        # an implicit COMDAT; and a member function is a body to carve
-        self.write(self.TU, "#include <memory>\nstruct Rec { int a; };\n"
-                            "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n")
-        report = self.move(rvas=["0x00002000"])
-        self.assertEqual(report["blocked"], "a requested row cannot move by emission")
-        self.assertIn("explicit specialization or instantiation naming", report["refused_rows"]["0x00002000"])
+    def test_a_template_instance_never_moves_by_emission(self):
+        # review of 0c8c510c89: a project `#line` naming an STLport header, or `namespace _STL` reopened
+        # with a template of STLport's name, defeats every text proof of provenance; the name refuses
+        for name in (self.INSTANCE, self.LIST_CLEAR, self.HASH_CLEAR, self.HASH_DELETE, "?f@?$C@H@@QAEXXZ",
+                     "?clear@?$list@H@_STL@@QAEXXZ", "??1?$list@HV?$allocator@H@_STL@@@_STL@@QAE@XZ",
+                     "??_G?$Box@H@@UAEPAXI@Z"):
+            with self.subTest(name=name):
+                self.assertIn("a template instance", T.emission_problem({"name": name}))
         report = self.move(rows=[self.row("?f@Rec@@QAEXXZ", "0x00002000"), self.row(self.STAY, "0x00003000")])
-        self.assertIn("not an implicit COMDAT by its name", report["refused_rows"]["0x00002000"])
+        self.assertIn("not a deleting destructor", report["refused_rows"]["0x00002000"])
 
-    HAND_WRITTEN = ("typedef Rec Alias; Alias(Rec const&r):a(r.a){}", "(Rec)(Rec const&r):a(r.a){}",
-                    "Rec(Rec const (((&r)))):a(r.a){}")
 
     def test_a_constructor_destructor_or_assignment_never_moves_by_emission(self):
-        # review of 9459886c66: `typedef Rec Alias; Alias(Rec const&r)` and `(Rec)(Rec const&r)`
-        # compile in VC7.1 to the implicit copy ctor's exact name, bytes and relocations; no reading
-        # of the text decides it, so the name alone refuses, and no text is read
-        special = (self.COPY, "??0Rec@@QAE@XZ", "??1Rec@@QAE@XZ", "??1Rec@@UAE@XZ", "??4Rec@@QAEAAU0@ABU0@@Z")
-        texts = ["struct Rec { int a; };\n"] + [f"class Rec {{ public: {b} int a; }};\n" for b in self.HAND_WRITTEN]
-        for name in special:
-            for text in texts:
-                with self.subTest(name=name, text=text), \
-                        patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
-                    why = T.implicit_comdat({"name": name, "target_rva": "0x00002100"}, "Code/u.cpp")
-                    self.assertIn("not an implicit COMDAT by its name", why)
+        # review of 9459886c66: `typedef Rec Alias; Alias(Rec const&r)` and `(Rec)(Rec const&r)` compile in
+        # VC7.1 to the implicit copy ctor's exact name, bytes and relocations; the name alone refuses
+        for name in (self.COPY, "??0Rec@@QAE@XZ", "??1Rec@@QAE@XZ", "??1Rec@@UAE@XZ", "??4Rec@@QAEAAU0@ABU0@@Z"):
+            with self.subTest(name=name):
+                self.assertIn("not a deleting destructor", T.emission_problem({"name": name}))
 
     def test_a_deleting_destructor_is_decided_by_its_name(self):
-        for name in (self.DTOR, "??_ERec@@UAEPAXI@Z", "??_GRec@@QAEPAXI@Z"):
-            with self.subTest(name=name), patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
-                self.assertIsNone(T.implicit_comdat({"name": name, "target_rva": "0x00002100"}, "Code/u.cpp"))
-        for name in ("??_GRec@@UAEPAXH@Z", "??_FRec@@QAEXXZ", "??_DRec@@QAEXXZ"):   # not a deleting dtor's shape
-            with self.subTest(name=name), patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
-                self.assertIn("not an implicit COMDAT", T.implicit_comdat({"name": name, "target_rva": "0x00002100"},
-                                                                          "Code/u.cpp"))
-
-    def test_the_coarse_rules_refuse_whatever_the_spelling(self):
-        # review of 692da8fc04: refuse on any explicit specialization (`template<>`, hand-written) or
-        # instantiation naming the member or its class, rather than read spellings; review of
-        # 3bc60f1272: only a vendored STLport template's instance moves, and never when the text
-        # outside the STLport headers spells its member after `::`
-        box_clear, box_call = "?clear@?$Box@H@@QAEXXZ", "??R?$Box@H@@QBEHXZ"
-        cases = [
-            ("template<> inline void _Construct(Rec *p, Rec const &v) { }\n", self.CTOR, True),
-            ("template <> void _Construct<Other, Other>(Other *, const Other &);\n", self.CTOR, True),  # over-refuses
-            ("typedef Rec R2;\ntemplate <> inline void _Construct<R2, R2>(R2 *, const R2 &) { }\n", self.CTOR, True),
-            ("template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n", self.CTOR, True),
-            ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
-             "void g(Rec *p, const Rec &v) { _Construct(p, v); }\n", self.CTOR, False),          # primary template, a use
-            ("void g(Rec *p, const Rec &v) { _STL::_Construct(p, v); }\n", self.CTOR, True),    # `::_Construct`: over-refuses
-            ('void g() { puts("ok); }\n', self.CTOR, True),                                       # unbalanced quote
-            # a user template's instance never moves, whatever the text (`void Alias::f() {}`)
-            ("template <class T> struct Box { void clear() { } };\nvoid g(Box<int> &b) { b.clear(); }\n", box_clear, True),
-            ("template class Box<int>;\n", box_clear, True),
-            ("template <class T> struct Box { int operator()() const { return 0; } };\n", box_call, True),
-            # review of e81c016950: a directive between the pieces, a `;` in a #line file name
-            ('template<>\n#line 10 "semi;header.h"\ninline void _Construct(Rec *p, const Rec &v) { }\n', self.CTOR, True),
-            # a special member refuses by name, whatever the text; a deleting destructor never does
-            ("struct Rec { int a; };\n", self.COPY, True),
-            ("struct Rec { int a; };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
-            ("struct Rec { ~Rec(); int a; };\n", "??1Rec@@QAE@XZ", True),
-            ("struct Rec { virtual ~Rec(); };\n", "??_GRec@@UAEPAXI@Z", False),
-            ("struct Other { int a; };\n", "??_ERec@@UAEPAXI@Z", False),
-        ]
-        for i, (text, name, refused) in enumerate(cases):
-            with self.subTest(text=text, name=name):
-                rel = f"Code/u{i}.cpp"
-                with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
-                        patch.object(T, "preprocessed_unit", return_value=(text, None)):
-                    why = T.implicit_comdat({"name": name, "target_rva": "0x00001200"}, rel)
-                self.assertEqual(bool(why), refused, why)
+        for name in (self.DTOR, self.VDTOR, "??_GRec@@QAEPAXI@Z", "??_GParticleSystemFXNugget@@UAEPAXI@Z"):
+            with self.subTest(name=name):
+                self.assertIsNone(T.emission_problem({"name": name}))
+        for name in ("??_GRec@@UAEPAXH@Z", "??_FRec@@QAEXXZ", "??_DRec@@QAEXXZ", "??_GRec@@UAEPAXI@Z?"):
+            with self.subTest(name=name):                   # not a deleting destructor's shape
+                self.assertIsNotNone(T.emission_problem({"name": name}))
 
     LIST_CLEAR = "?clear@?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXXZ"
     HASH_CLEAR = ("?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@"
@@ -1278,157 +1225,51 @@ class EmitMoveTests(unittest.TestCase):
                    "@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$p"
                    "air@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@Z")
 
-    def test_only_a_vendored_stlport_templates_instance_is_read_as_one(self):
-        # review of 3bc60f1272 (r7_probes.py): `typedef C<int> Alias; void Alias::f() {}` emits
-        # `?f@?$C@H@@QAEXXZ` with the implicit instance's bytes
-        accepted = {self.CTOR: "_Construct", self.LIST_CLEAR: "_List_base", self.HASH_CLEAR: "hashtable",
-                    self.HASH_DELETE: "hashtable", "??1?$list@HV?$allocator@H@_STL@@@_STL@@QAE@XZ": "list",
-                    "??$_Destroy@PAVFXNugget@@@_STL@@YAXPAPAVFXNugget@@@Z": "_Destroy",
-                    "??0?$allocator@PAVFXNugget@@@_STL@@QAE@XZ": "allocator",
-                    "?f@?$list@$0BA@@_STL@@QAEXXZ": "list", "?f@?$list@$0?3@_STL@@QAEXXZ": "list"}
-        for name, template in accepted.items():
-            with self.subTest(name=name):
-                self.assertEqual(T.stl_template(name), template)
-        for name in ("?f@?$C@H@@QAEXXZ",                                     # the probe's user template
-                     "?clear@?$list@H@ns@@QAEXXZ",                           # another namespace
-                     "?clear@?$list@H@_STL@ns@@QAEXXZ",                      # nested below _STL
-                     "?clear@?$list@H@@QAEXXZ",                              # the global namespace
-                     "?clear@?$NotInStlport@H@_STL@@QAEXXZ",                 # not defined by the headers
-                     "?clear@?$list@$1?g@@3HA@_STL@@QAEXXZ",                 # an argument shape not read
-                     "?clear@?$list@P6AXXZ@_STL@@QAEXXZ",                    # a function pointer argument
-                     "?clear@?$list@HV?$allocator@H@_STL@",                  # truncated
-                     "?clear@_Inner@?$list@H@_STL@@QAEXXZ",                  # a nested class's member
-                     "?clear@?$list@V?A0x1234@Foo@@@_STL@@QAEXXZ",           # an anonymous namespace's type
-                     "??$?9H@_STL@@YA_NXZ"):                                 # an operator function template
-            with self.subTest(name=name):
-                self.assertIsNone(T.stl_template(name))
-
-    def test_a_user_templates_member_never_moves_through_the_apply(self):
-        # review of 3bc60f1272 (r7_probes.py), each native case: none moves, whatever its spelling
+    def test_a_template_member_never_moves_through_the_apply(self):
+        # reviews of 3bc60f1272 and 0c8c510c89, each native case: none moves, whatever its spelling
         before = self.ledger()
-        name = "?f@?$C@H@@QAEXXZ"
-        rows = [self.row(name, "0x00002000"), self.row(self.STAY, "0x00003000")]
-        decl = "template<class T> struct C { __declspec(noinline) void f(); }; "
-        for body in ("void C<int>::f() {}", "typedef C<int> Alias; void Alias::f() {}", "template<> void C<int>::f() {}",
-                     "template<class T> void C<T>::f() {}"):
-            with self.subTest(body=body):
-                self.write(self.TU, decl + body + " void use(C<int>*p){p->f();}\n")
+        for name, text in (("?f@?$C@H@@QAEXXZ", "template<class T> struct C { void f(); }; "
+                                                 "typedef C<int> Alias; void Alias::f() {}\n"),
+                           ("?clear@?$list@H@_STL@@QAEXXZ", "namespace _STL { template<class T> struct list "
+                                                             "{ __declspec(noinline) void clear() {} }; }\n"),
+                           ("?clear@?$list@H@_STL@@QAEXXZ", '#line 1 "vendor/stlport/stl/_list.h"\n'
+                                                             "void Alias::clear() {}\n")):
+            with self.subTest(name=name, text=text):
+                self.write(self.TU, text)
+                rows = [self.row(name, "0x00002000"), self.row(self.STAY, "0x00003000")]
                 report = self.move(rows=rows, rvas=["0x00002000"], dry_run=False, defined={name}, comdat={name},
                                    exact={"0x00002000"})
                 self.assertEqual(report["blocked"], "a requested row cannot move by emission")
-                self.assertIn("not an instance of a vendored STLport template", report["refused_rows"]["0x00002000"])
+                self.assertIn("a template instance", report["refused_rows"]["0x00002000"])
                 self.exact.assert_not_called()
                 self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
 
-    def stl_line(self, header):
-        """A cl -E `#line` directive attributing what follows to a vendored STLport header, as Wine prints it."""
-        import build
-        path = str(build.stlport_include_dir() / "stl" / header)
-        spelled = ("Z:" + path).replace("/", "\\\\") if os.name != "nt" else path.replace("\\", "\\\\")
-        return f'#line 1 "{spelled}"\n'
-
-    def test_a_qualified_member_outside_the_stlport_headers_refuses_in_either_unit(self):
-        # rule (b) of the review of 3bc60f1272: `Alias::clear`, `(Alias::clear)`, `list<int>::clear` in the
-        # destination or the file the row leaves, outside the lines the vendored STLport headers contribute
-        rows = [self.row(self.LIST_CLEAR, "0x00002000"), self.row(self.STAY, "0x00003000")]
-        clean = "struct Rec { int a; };\nvoid campaign(_STL::list<int> &l) { l.clear(); }\n"
-        header = self.stl_line("_list.h") + "template <class T, class A> void _List_base<T, A>::clear() { }\n"
-        mine = '#line 9 "Code/Campaign.cpp"\n'
-        for spelled in ("typedef _STL::_List_base<FXNugget *, _STL::allocator<FXNugget *> > Alias;\n"
-                        "void Alias::clear() { }\n",
-                        "void (Alias::clear)() { }\n",
-                        "void _STL::_List_base<FXNugget *, _STL::allocator<FXNugget *> >:: clear() { }\n"):
-            for unit in (self.TU, self.SOURCE):
-                with self.subTest(spelled=spelled, unit=unit):
-                    texts = {self.TU: clean, self.SOURCE: "void stay() {}\n", unit: header + mine + spelled}
-                    report = self.move(rows=rows, rvas=["0x00002000"], preprocessed=texts,
-                                       defined={self.LIST_CLEAR}, exact={"0x00002000"})
-                    self.assertIn(f"{unit} (preprocessed, outside the vendored STLport headers) spells `::",
-                                  report["refused_rows"]["0x00002000"])
-        for source, why in (('void stay() { puts("ok); }\n', "unbalanced quote"), (None, "cannot be preprocessed")):
-            with self.subTest(source=source):                  # the file the row leaves must be readable too
-                report = self.move(rows=rows, rvas=["0x00002000"], preprocessed={self.TU: clean, self.SOURCE: source},
-                                   defined={self.LIST_CLEAR}, exact={"0x00002000"})
-                self.assertIn(f"{self.SOURCE}", report["refused_rows"]["0x00002000"])
-                self.assertIn(why, report["refused_rows"]["0x00002000"])
-        texts = {self.TU: header + mine + clean, self.SOURCE: header + mine + "void stay() {}\n"}
-        report = self.move(rows=rows, rvas=["0x00002000"], preprocessed=texts, defined={self.LIST_CLEAR},
-                           exact={"0x00002000"})
-        self.assertNotIn("blocked", report)                    # STLport's own `::clear` is not the unit's
-        self.assertEqual(report["moved"], ["0x00002000"])
-
-    def test_the_qualified_token_of_each_kind_of_instance(self):
-        cases = [(("list", "clear"), ("L::clear", "( L :: clear )", "_List_base<int>::clear"), ("L::clearer", "l.clear")),
-                 (("list", "list"), ("L::list", "_STL::list", ":: ~ list"), ("L::lister", "list(")),
-                 (("list", "~list"), ("L::~list", "L::list"), ("~list",)),
-                 (("list", "operator"), ("L::operator=", "L:: operator ()"), ("operator=",)),
-                 ((None, "_Construct"), ("_STL::_Construct",), ("_Construct(",))]
-        for owner, hits, misses in cases:
-            for text in hits + misses:
-                with self.subTest(owner=owner, text=text):
-                    self.assertEqual(bool(re.search(T.qualified_token(owner), text)), text in hits)
-
-    def test_own_text_drops_only_the_vendored_stlport_lines(self):
-        raw = ("int a;\n" + self.stl_line("_list.h") + "void x::clear();\n"
-               '#line 3 "reference/shims/bfmealloc\\\\stl/_alloc.h"\nvoid y::clear();\n'
-               + self.stl_line("_hashtable.h") + "void z::clear();\n" + '#line 4 "Code/u.cpp"\nint b;\n')
-        kept = T.own_text(raw)
-        self.assertIn("int a;", kept)
-        self.assertIn("y::clear", kept)                        # a shim beside STLport is the project's text
-        self.assertIn("int b;", kept)
-        self.assertNotIn("x::clear", kept)
-        self.assertNotIn("z::clear", kept)
-
-    def test_the_minimal_b_rows_qualify_by_name(self):
-        # P16 minimal B: the ??_G and the STL list and hashtable instances FXList.cpp emits
+    def test_of_the_minimal_b_rows_only_the_deleting_dtor_moves_by_emission(self):
+        # P16 minimal B: the ??_G rides (rule (b)); its STL list and hashtable rows stay where they are
+        self.assertIsNone(T.emission_problem({"name": "??_GParticleSystemFXNugget@@UAEPAXI@Z"}))
         for name in (self.LIST_CLEAR, self.HASH_CLEAR, self.HASH_DELETE):
-            with self.subTest(name=name), patch.object(T, "preprocessed_unit", return_value=("int a;\n", None)):
-                self.assertIsNone(T.implicit_comdat({"name": name, "target_rva": "0x00002000"}, "Code/u.cpp",
-                                                    source="Code/v.cpp"))
-        self.assertIsNone(T.implicit_comdat({"name": "??_GParticleSystemFXNugget@@UAEPAXI@Z"}, "Code/u.cpp"))
+            with self.subTest(name=name):
+                self.assertIn("a template instance", T.emission_problem({"name": name}))
 
-    def test_flattening_drops_every_directive_and_joins_lines(self):
-        text = '#line 1 "a.h"\nstruct Rec\n# 3 "semi;colon.h"\n{\n  #pragma once\n  int a;\n};\n'
-        self.assertEqual(T.flatten_preprocessed(text), "struct Rec { int a; };")
-
-    def test_mask_literals_keeps_code_and_blanks_what_could_read_as_code(self):
-        self.assertEqual(T.mask_literals('f("a{b", \'(\', R"d(x})d"); /* } */ g();'),
-                         'f("a\x02b", \'\x02\', "x\x02");  \x02  g();')
-        self.assertTrue(T.mask_literals('f("open);').startswith(T.UNREADABLE))
-
-    def test_the_rules_read_the_preprocessed_unit(self):
-        # a header (or a macro) spells the specialization; the raw text never shows it
-        report = self.move(rvas=["0x00002000"], preprocessed={self.TU: "template<> inline void Box<int>::f();\n"
-                                                                       "template<> inline void _Construct(Rec *, const Rec &) { }\n"})
-        self.assertIn("explicit specialization or instantiation", report["refused_rows"]["0x00002000"])
-        report = self.move(rvas=["0x00002000"], preprocessed={self.TU: None})
-        self.assertIn("cannot be preprocessed", report["refused_rows"]["0x00002000"])
-        report = self.move(rvas=["0x00002100"], preprocessed={self.TU: None})          # by name: no text needed
+    def test_no_text_is_read(self):
+        # the fixture fails any cl -E: the files' text, readable or not, decides nothing
+        self.write(self.TU, 'template<> void _Construct(Rec *, const Rec &) {} const char *s = "open;\n')
+        report = self.move()
         self.assertNotIn("blocked", report)
-        self.assertEqual(report["moved"], ["0x00002100"])
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
 
     def test_a_row_bound_to_another_object_symbol_refuses(self):
         # review of 3db7ced4b4: the byte check would follow object-symbol=, the COMDAT checks the name
-        rows = [self.row(self.CTOR, "0x00002000", notes="object-symbol=_standin"), self.row(self.STAY, "0x00003000")]
+        rows = [self.row(self.VDTOR, "0x00002000", notes="object-symbol=_standin"), self.row(self.STAY, "0x00003000")]
         report = self.move(rows=rows, rvas=["0x00002000"])
         self.assertIn("object-symbol=", report["refused_rows"]["0x00002000"])
 
-    def test_the_files_explicit_instantiation_stand_in_moves(self):
-        # stlport_construct_game_structs.cpp's shape: the file hosts the row through an explicit
-        # instantiation and a private view; both compile to COMDATs. Spelled `_STL::_Construct`, the
-        # file's own text names it after `::` and the move refuses (review of 3bc60f1272: over-refusal)
-        self.write(self.SOURCE, "struct Rec { int a; };\n"
-                                "namespace _STL { template void _Construct<Rec, Rec>(Rec *, const Rec &); }\n"
-                                "void stay() {}\n")
-        report = self.move(file_defined={self.CTOR, self.DTOR}, file_comdat={self.CTOR, self.DTOR})
+    def test_the_files_stand_in_copy_moves(self):
+        # FamilyDeletingDtors' shape: the file hosts the row through a stand-in that compiles to a COMDAT
+        self.write(self.SOURCE, "struct Rec { virtual ~Rec() {} int a; };\nvoid stay() { delete new Rec; }\n")
+        report = self.move(file_defined={self.VDTOR, self.DTOR}, file_comdat={self.VDTOR, self.DTOR})
         self.assertNotIn("blocked", report)
         self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
-        self.write(self.SOURCE, "struct Rec { int a; };\n"
-                                "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
-                                "void stay() {}\n")
-        report = self.move(file_defined={self.CTOR, self.DTOR}, file_comdat={self.CTOR, self.DTOR})
-        self.assertIn("spells `::_Construct`", report["refused_rows"]["0x00002000"])
-        self.assertEqual(report["moved"], ["0x00002100"])
 
     def test_a_strong_definition_in_the_file_refuses(self):
         report = self.move(rvas=["0x00002100"], file_defined={self.DTOR}, file_comdat=set())
@@ -1451,13 +1292,13 @@ class EmitMoveTests(unittest.TestCase):
         self.assertIn("blocked", report)
 
     def test_a_strong_definition_in_the_tu_refuses(self):
-        report = self.move(rvas=["0x00002100"], comdat={self.CTOR})
+        report = self.move(rvas=["0x00002100"], comdat={self.VDTOR})
         self.assertIn("outside a COMDAT", report["refused_rows"]["0x00002100"])
 
     def test_the_residual_keeping_its_matches_and_a_row_are_required(self):
         report = self.move(residual_lost=["0x00003000"])
         self.assertIn("remaining rows lose matches", report["blocked"])
-        report = self.move(rows=[self.row(self.CTOR, "0x00002000")], approved={"0x00002000": self.TU})
+        report = self.move(rows=[self.row(self.VDTOR, "0x00002000")], approved={"0x00002000": self.TU})
         self.assertIn("whole donor", report["blocked"])
 
     def test_a_missing_destination_refuses(self):
@@ -1469,7 +1310,7 @@ class EmitMoveTests(unittest.TestCase):
         reverse.mkdir(exist_ok=True)
         self.write("reverse/functions.csv",
                    "name,export_rva,target_rva,target_size,source,status,notes\n"
-                   f"{self.CTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.DTOR},,0x00002100,8,{self.SOURCE},matched,\n"
+                   f"{self.VDTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.DTOR},,0x00002100,8,{self.SOURCE},matched,\n"
                    f"{self.STAY},,0x00003000,8,{self.SOURCE},matched,\n")
         self.write("reverse/tu_map.csv",
                    "rva,size,kind,tu,confidence,by,evidence,source\n"
@@ -1487,7 +1328,7 @@ class EmitMoveTests(unittest.TestCase):
         self.exact.assert_called_once_with([self.SOURCE, self.TU])     # exact selection, no substring
         self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])          # journal gone once staged
         funcs = (self.root / "reverse/functions.csv").read_text()
-        self.assertIn(f"{self.CTOR},,0x00002000,8,{self.TU},matched", funcs)
+        self.assertIn(f"{self.VDTOR},,0x00002000,8,{self.TU},matched", funcs)
         self.assertIn(f"{self.DTOR},,0x00002100,8,{self.SOURCE},matched", funcs)       # not requested: stays
         self.assertIn(f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.TU}",
                       (self.root / "reverse/tu_map.csv").read_text())
@@ -1592,7 +1433,7 @@ class EmitMoveTests(unittest.TestCase):
         child = ("import os, sys\nfrom pathlib import Path\n"
                  f"sys.path[:0] = [{str(Path(__file__).resolve().parents[1])!r}, {str(Path(__file__).resolve().parent)!r}]\n"
                  "import test_tu_skeleton as M\n"
-                 "t = M.EmitMoveTests('test_an_emitted_instantiation_and_deleting_dtor_move')\n"
+                 "t = M.EmitMoveTests('test_emitted_deleting_destructors_move')\n"
                  "t.root = Path(sys.argv[1])\n"
                  "t.move(rvas=['0x00002000'], dry_run=False, claim=True, build_effect=lambda sources: os._exit(3))\n")
         result = subprocess.run([sys.executable, "-c", child, str(self.root)], capture_output=True, text=True)
@@ -1685,15 +1526,16 @@ class EmitMoveTests(unittest.TestCase):
     def test_the_hand_written_copy_ctor_repros_are_refused_through_the_apply(self):
         # review of 9459886c66 (byte_repro.py): both bodies match the implicit ctor byte for byte
         before = self.ledger()
-        rows = [self.row(self.CTOR, "0x00002000"), self.row(self.COPY, "0x00002100"), self.row(self.STAY, "0x00003000")]
-        for body in self.HAND_WRITTEN + ("",):
+        rows = [self.row(self.VDTOR, "0x00002000"), self.row(self.COPY, "0x00002100"), self.row(self.STAY, "0x00003000")]
+        for body in ("typedef Rec Alias; Alias(Rec const&r):a(r.a){}", "(Rec)(Rec const&r):a(r.a){}",
+                     "Rec(Rec const (((&r)))):a(r.a){}", ""):
             with self.subTest(body=body):
                 self.write(self.TU, "class Inner { public: Inner(Inner const&r):a(r.a){} int a; }; class Rec { public: "
                                     + body + " Inner a; }; Rec copy(Rec const&r){return Rec(r);}\n")
                 report = self.move(rows=rows, rvas=["0x00002100"], dry_run=False,
-                                   defined={self.CTOR, self.COPY}, exact={"0x00002000", "0x00002100"})
+                                   defined={self.VDTOR, self.COPY}, exact={"0x00002000", "0x00002100"})
                 self.assertEqual(report["blocked"], "a requested row cannot move by emission")
-                self.assertIn("not an implicit COMDAT by its name", report["refused_rows"]["0x00002100"])
+                self.assertIn("not a deleting destructor", report["refused_rows"]["0x00002100"])
                 self.exact.assert_not_called()
                 self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
 
@@ -1974,7 +1816,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
             "rva": r["target_rva"], "kind": "code", "tu": "", "confidence": "displaced", "by": "-", "evidence": ""}
             for r in rows}}
         with patch.dict(T._CACHE, cache, clear=True), \
-                patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
+                patch.object(T.rename, "preprocess_unit", side_effect=AssertionError("no text is read")):
             self.assertEqual([T.vtable_rider(r) for r in rows], [True, False, False, True, False, False])
 
     def test_a_refused_or_blocked_split_gives_back_only_what_it_acquired(self):

@@ -357,8 +357,40 @@ compatibility audit once over the batch).
 What it refuses: a vendored file, one another file `#include`s, one that
 expands `__FILE__` (each checked directly, not only through `rename_files`'
 first reason), a file every row of which is this TU's (use `--merge`), a carve
-after which no row would remain, a TU path holding rows the map places elsewhere
+after which no row would remain (unless `--prepared` absorbs the donor, below), a TU path holding rows the map places elsewhere
 (split that first), and anything another worker holds a claim on.
+
+### Prepared texts, vtable riders and emission moves
+
+    python3 tools/tu_skeleton.py --split FILE --for TU --prepared TU=TEXT [--dry-run]
+    python3 tools/tu_skeleton.py --emit-move FILE --for TU [--rva 0xRVA,...] [--dry-run]
+    python3 tools/tu_skeleton.py --recover-emit
+
+- `--prepared TU=TEXT` writes TEXT as the TU's whole final text in the same
+  transaction: the carved bodies are not appended, every moved row and every row
+  the TU matched before must match in TEXT, and a donor left with no row is
+  absorbed as a merge absorbs it (deleted, its path-keyed columns repointed)
+  instead of refused. Hatch totals over the TU and the file may not grow.
+- A deleting destructor (`??_G`/`??_E`) the map leaves displaced or homeless rides
+  with the carved body that emits its class's vtable, when it is the only ledger
+  row at its address, the destination's object emits the vtable and the
+  residual's does not.
+- `--emit-move` repoints a mixed file's deleting-destructor rows to their approved
+  TU once the TU's own code emits each byte-exact; no text moves. It moves only
+  `??_G`/`??_E`, decided by the decorated name, since no source can spell one.
+  Constructors, destructors and assignments never move this way: a hand-written
+  one compiles to the implicit one's name, bytes and relocations. Template
+  instances do not move either: whether an instance was instantiated from
+  vendored STLport or written in project code (a typedef'd member, a project
+  `#line` naming an STLport header, a reopened `namespace _STL`) cannot be proved
+  from text, and `#line` also rewrites the debug line info. Template moves can
+  return with a provenance proof that does not depend on text.
+- An emission move journals its before-state under
+  `build/tu_skeleton/emit-journal/` before touching the ledger and undoes itself
+  on any failure. A killed run leaves the journal; `--recover-emit` undoes it per
+  moved row (by numeric RVA), refuses a row edited since, and releases only the
+  claims the move acquired, each with its fencing token. Neither `rename.py` nor
+  another move starts while a journal is pending.
 
 ## Bulk merges (`--merge-all`)
 
