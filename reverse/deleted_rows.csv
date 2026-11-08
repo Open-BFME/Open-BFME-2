@@ -5935,3 +5935,6 @@ __ehhandler$?rva000E2FBD@FlatHeightMapRenderObjClass@@QAEXAAVRenderInfoClass@@@Z
 ?name@Rva0033F35ENamed@@QBEPBDXZ,0x0033F35E,"Renamed to ?GetSnapshotName@AIBackAwayAndCowerState@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C10EE0 slot 2)"
 ?queryVisible@Rva0013B6D0@@QAEHXZ,0x0013B6D0,"Retracted: retail table 0x00BD2F68 holds this body at RenderObjClass slot 98; rowed in the same change as ?queryVisible@RenderObjClass@@UAEHXZ, a placeholder name until its vote lands."
 ?queryVisible@RenderObjClass@@UAEHXZ,0x0013B6D0,"Retracted: no vote stood behind this as a name; rowed in the same change as the placeholder ?rva0013B6D0@RenderObjClass@@UAEHXZ until one does."
+?Recolor_Prototype@MeshClass@@QAEXABVRva0013101E@@@Z,0x0014B8C0,"Renamed to ?Recolor_Prototype@MeshClass@@UAEXABVRva0013101E@@@Z by tools/rename.py (virtual: retail vtable slot)"
+?bfmeSet@Gen_0092D450@@QAEX_N@Z,0x0014A090,"Retracted: retail table 0x00BD35A8 holds this body at MeshClass slot 95; rowed in the same change as ?Set_Sort_Level@MeshClass@@UAEXH@Z."
+?Set_Sort_Level@MeshGeometryClass@@QAEXH@Z,0x006BD4E0,"Retracted: retail writes +0x20 here, and MeshClass slots 94 and 95 put MeshGeometryClass's sort level at +0x1C; its only emitter was Zero Hour's MeshClass::Set_Sort_Level. Rowed in the same change as ?bfmeSet@Gen_006BD4E0@@QAEX_N@Z."

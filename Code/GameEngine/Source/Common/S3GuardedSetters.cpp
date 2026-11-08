@@ -38,21 +38,7 @@ private:
 	Gen_00750570Impl *m_bfmeImpl;					// +0x44
 };
 
-struct Gen_0092D450Impl
-{
-	char m_bfmeHead[0x1C];
-	Bool m_bfmeField;						// +0x1C
-};
 
-class Gen_0092D450
-{
-public:
-	void bfmeSet(Bool value);
-
-private:
-	char m_bfmeHead[0xC4];
-	Gen_0092D450Impl *m_bfmeImpl;					// +0xC4
-};
 
 // ?bfmeSet@Gen_00750550@@QAEX_N@Z
 void Gen_00750550::bfmeSet(Bool value)
@@ -68,9 +54,21 @@ void Gen_00750570::bfmeSet(Bool value)
 		m_bfmeImpl->m_bfmeField = value;
 }
 
-// ?bfmeSet@Gen_0092D450@@QAEX_N@Z
-void Gen_0092D450::bfmeSet(Bool value)
+
+// ?bfmeSet@Gen_006BD4E0@@QAEX_N@Z @0x006BD4E0 (10B). Target facts: it stores its byte argument at +0x20, and nothing in
+// .text or .rdata refers to it. MeshClass slots 94 and 95 put MeshGeometryClass's sort level at +0x1C, so it is not that
+// class's setter, whatever a Zero Hour-layout compile suggested. Owner unknown.
+class Gen_006BD4E0
 {
-	if (m_bfmeImpl)
-		m_bfmeImpl->m_bfmeField = value;
+public:
+	void bfmeSet(Bool value);
+
+private:
+	char m_bfmeHead[0x20];
+	Bool m_bfmeField;								// +0x20
+};
+
+void Gen_006BD4E0::bfmeSet(Bool value)
+{
+	m_bfmeField = value;
 }

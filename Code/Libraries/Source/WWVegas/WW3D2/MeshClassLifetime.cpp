@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2renderobj /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
+#define BFME_RENDOBJ_MESH_SLOTS
 //
 // BFME2 MeshClass lifetime: default ctor 0x001495A0, copy ctor 0x00149680,
 // destructor 0x0014A5B0, Clone 0x001498E0 (primary vtable slot 2) and the
@@ -62,6 +63,27 @@ public:
 	virtual RenderObjClass *Clone(void) const;
 	virtual void Render(RenderInfoClass &rinfo);
 	virtual float _bfme_get_factor_product(void) const;
+
+	// Retail's table 0x00BD35A8 holds these bodies. The view is a step: no canonical MeshClass header exists yet, with
+	// private copies across the units, and registering one and adopting it here is what retires this list.
+	virtual int Class_ID(void) const { return 0; }	// slot 3: the mesh class id, against the base's -1
+	virtual int _bfme_ro_v2(void) const { return (int)this; }	// slot 4, 0x00181450: returns this; the name is a placeholder
+	virtual int _bfme_ro_v3(void) const { return (int)this; }	// slot 5, 0x00181450: returns this; the name is a placeholder
+	virtual const char *Get_Name(void) const;
+	virtual void Set_Name(const char *name);
+	virtual int Get_Num_Polys(void) const;
+	virtual int _bfme_ro_v9(void) const;
+	virtual bool Cast_Ray(RayCollisionTestClass &raytest);
+	virtual bool Intersect_AABox(AABoxIntersectionTestClass &boxtest);
+	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;
+	virtual MaterialInfoClass *Get_Material_Info(void);
+	virtual void Scale(float scale);
+	virtual void Scale(float scalex, float scaley, float scalez);
+	virtual int Get_Sort_Level(void) const;
+	virtual void Set_Sort_Level(int level);
+	virtual void Replace_Texture(const RefCountPtr<TextureClass> &texture, const RefCountPtr<TextureClass> &replacement);
+	virtual void Recolor_Prototype(const Rva0013101E &options);
+	virtual void RecolorHouseColor(const Rva0013101E &options, const char *name);
 
 private:
 	MeshModelClass *Model;                  // +0x0C4
