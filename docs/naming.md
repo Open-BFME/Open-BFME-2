@@ -283,7 +283,10 @@ This binds `apply` only: `rename.py --evidence agree:<id>` used directly and
 The fingerprint covers the whole file, so any edit reopens a later record, including another
 approved name of that file landing first. One `apply` run checks all its records before any
 lands, so they go together. A record left waiting by `--limit`, `--key` or a block is
-reopened by the next run if a sibling landed in between, and needs fresh votes.
+reopened by the next run if a sibling landed in between, and needs fresh votes. Watch
+`status`'s `source-changed` count. If those become a stream, the known remedy is to accept a
+fingerprint when undoing the renames that landed from the same file restores the voted text
+exactly; it is not built.
 
 Blind votes from different checkouts land through separate pushes, so each submit can
 tally before the other vote exists and neither records the agreement. `status` and
