@@ -171,6 +171,19 @@ public:
 	virtual ~Rva003A8160Vec();
 };
 
+namespace FXParticleSystem
+{
+// RenderObjectUpdateModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
+// thunk (slot 0 at +8). The class is abstract, so its own constructor units
+// cannot new an array of it; this view keeps only the size and the +8
+// secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) RenderObjectUpdateModuleTemplate : public Rva003A8160VecBase0, public Rva003A8160VecBase8
+{
+public:
+	virtual ~RenderObjectUpdateModuleTemplate();
+};
+}
+
 class __declspec(novtable) Rva003A8ACBVecBase0
 {
 public:
@@ -278,6 +291,7 @@ void bfmeVectorDeleteAnchorV05Unresolved()
 	new Rva003A6D11Vec[2];
 	new FXParticleSystem::LightningEmissionModuleTemplate[2];
 	new Rva003A8160Vec[2];
+	new FXParticleSystem::RenderObjectUpdateModuleTemplate[2];
 	new Rva003A8ACBVec[2];
 	new Rva003A8B51Vec[2];
 	new Rva003A8D6DVec[2];
