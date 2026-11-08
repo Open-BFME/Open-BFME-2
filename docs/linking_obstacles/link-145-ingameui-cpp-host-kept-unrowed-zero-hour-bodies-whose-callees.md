@@ -100,3 +100,11 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
   113 donors retain flag/header blockers; publication audit and new census
   confirmation remain pending.
   [Consolidation audit](../../reverse/attempt_support/ingameui-list-constructor-20261107/consolidation-audit.md).
+
+  Publication: the four-commit batch landed at 2c603d524d on 2026-11-08,
+  first attempt in 28.0 seconds. Pre-push reverified nine code and two data
+  rows, scoped DIR32, EH and converged-data checks. The broader batch audit
+  is INCONCLUSIVE: index 9c81acd297 versus outgoing base
+  6b4cb578294968b2de232ab02a81048dcfc8b23e, with two source objects lacking
+  current receipts (first InGameUI.cpp). Carry these missing receipts and
+  provider selection into the next census; no real-image clearance is claimed.
