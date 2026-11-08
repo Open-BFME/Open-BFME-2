@@ -24,3 +24,9 @@ new real-link queue for the removed char-provider refusal and an actual
 image before runtime conclusions.
 
 [Target facts, consumer scope and bounded replay](../../reverse/attempt_support/terrain-particle-info-table-provider-20261108/README.md).
+
+Published as d171e84869: three code rows, two data rows, EH, scoped DIR32
+and converged data pass. Broader audit remains INCONCLUSIVE: index eba83a23be
+versus base 7dca11f4660bec78fb099d6b37cceb0c3a03d484, affected
+Common/ArmySummaryEntry.cpp lacks a current receipt. Carry that consumer,
+native table selection and the remaining bridge into the next census/image.

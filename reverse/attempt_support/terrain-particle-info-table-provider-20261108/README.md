@@ -34,3 +34,11 @@ the getter/xfer/destructor owners, then retire the temporary bridge. The two
 separate one-byte data owners at native 0x0081D390/0x0081D3A0 remain in this
 file; their registered rows require full containing-class/table recovery.
 They are not removed or relabeled to hide that work.
+
+Published as d171e84869, first attempt 34.2 seconds. Required gates pass
+all three code rows, both data rows, the exact parent EH graph, scoped DIR32
+for five symbols and converged data. Code-identity shadow reports no new
+finding. Broader audit is INCONCLUSIVE: index eba83a23be versus base
+7dca11f4660bec78fb099d6b37cceb0c3a03d484, affected
+Common/ArmySummaryEntry.cpp lacks a current receipt. Current consumer
+selection and the new real-link queue remain unverified.
