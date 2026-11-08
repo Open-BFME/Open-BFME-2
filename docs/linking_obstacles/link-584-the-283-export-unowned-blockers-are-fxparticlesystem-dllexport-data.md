@@ -368,3 +368,38 @@ link effect is expected at -24 and not yet measured.
 
 Nothing is planned around these 14. Expect them to be the last names standing. How they count toward the exit is a
 question for the owner, and no work here depends on the answer.
+
+**2026-11-08 `LNK1169` on the diagnostic link since `cdcfc30b16` (swarm Link lane).** The real link at
+`cdcfc30b16` (run 42475507882) went from 0 to 3 duplicates, and its diagnostic link stops with `fatal error LNK1169`,
+so that run wrote no image. `tools/exit_link.py` uses no `/FORCE`, and the local link's runs use the same tool, so a
+test stack based on current master should stop the same way. The three measured names are
+`??0?$DefaultModuleTemplate@$00@FXParticleSystem@@QAE@XZ`, `??0?$DefaultModuleTemplate@$01@...` and
+`??0LightningDrawModuleTemplate@FXParticleSystem@@QAE@XZ`.
+
+*Cause.* A `*CtorThunk.cpp` unit's out-of-line constructor compiles to a COMDAT with selection NODUPLICATES. The
+size-and-base views in `VectorDeletingDtorsV02/V03/V05_Unresolved.cpp` declare no constructor, so `new X[2]` makes the
+compiler generate an inline one under the same mangled name, selection ANY. The linker refuses that pair. Each unit is
+byte-exact on its own, so per-unit checks do not see it.
+
+*Scale, object level, at `a878db6e8e`.* 14 constructors have this pair: `DefaultModuleTemplate<N>` (`$00`, `$01`, `$02`,
+`$05`, `$0A`), `LightningDraw`, `LightningEmission`, `TerrainFire`, `QuadDraw`, `StreakDraw`, `Spherical`,
+`Cylindrical`, `Outward` and `Ortho`.
+
+*Candidate fix, not landed.* In each of those 14 views, declare the constructor without defining it, one line each (V02
+4, V03 7, V05 3), so `new[]` binds the thunk's definition. Patch against `a878db6e8e`:
+[dup_fix.patch](../../reverse/attempt_support/fx-anchor-view-ctor-duplicates-20261108/dup_fix.patch). Measured: 0
+NODUPLICATES pairs left, 75/75 rows exact across V01-V05, `link_check` keeps those five units' 2,588 bytes. With the
+nested category shape applied too: 784/784 rows, DIR32 OK, 12,548 linked bytes kept. **Untested by a real linker when
+this was written.** Those files are claimed by their current owner, so it is offered here and not applied; a test stack
+that needs current master can apply the patch on a never-land commit.
+
+**2026-11-08 the vtable half: nested category shape (swarm Link lane, not landed yet).** The 78 `??_7` names in the
+`(export unowned)` block need retail's `CategoryModuleTemplateBase<N> : ModuleTemplate, CategoryModuleInfo<N>`, which
+`SecondaryModuleBase` flattened. Ten units on that shape define all 78 at object level, with bytes, startup order
+(CRT actions 77, 121 and 55, 0 changed) and DIR32 unchanged; they await a link before landing. They overlap the shared
+`FXModuleTemplateBase.h` route on 21 table names, of which 14 differ: `CategoryModuleTemplate<N>` (N = 0 to 6) has 1 slot
+on `6BModuleTemplate@1@@` in `FXParticleSystem.cpp` against 4 in the header (deleting destructor and 3 pure calls, the
+header's retail facts), and `v1` aliased to `__purecall` against `__purecall`. The header's shape is the better one.
+Follow-up, the Link lane's next after landing unless the header's owner gets there first: reconcile
+`FXParticleSystem.cpp` with the shared 4-slot base. It needs the copy constructors written out, since an abstract
+category can no longer force them with `new (storage)`, and real `getClass`/`writeINI` on its concrete classes.

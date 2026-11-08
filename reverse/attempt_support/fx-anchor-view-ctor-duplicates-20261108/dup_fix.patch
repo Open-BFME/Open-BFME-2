@@ -1,0 +1,124 @@
+diff --git a/Code/GameEngine/Source/Common/VectorDeletingDtorsV02_Unresolved.cpp b/Code/GameEngine/Source/Common/VectorDeletingDtorsV02_Unresolved.cpp
+index 6e9d578cbb..5aafb4c802 100644
+--- a/Code/GameEngine/Source/Common/VectorDeletingDtorsV02_Unresolved.cpp
++++ b/Code/GameEngine/Source/Common/VectorDeletingDtorsV02_Unresolved.cpp
+@@ -64,6 +64,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) TerrainFireEmissionModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
+ {
+ public:
++	TerrainFireEmissionModuleTemplate();
+ 	virtual ~TerrainFireEmissionModuleTemplate();
+ };
+ }
+@@ -77,6 +78,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) LightningDrawModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
+ {
+ public:
++	LightningDrawModuleTemplate();
+ 	virtual ~LightningDrawModuleTemplate();
+ };
+ }
+@@ -114,6 +116,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) OutwardEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
+ {
+ public:
++	OutwardEmissionVelocityModuleTemplate();
+ 	virtual ~OutwardEmissionVelocityModuleTemplate();
+ };
+ }
+@@ -127,6 +130,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) CylindricalEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
+ {
+ public:
++	CylindricalEmissionVelocityModuleTemplate();
+ 	virtual ~CylindricalEmissionVelocityModuleTemplate();
+ };
+ }
+diff --git a/Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp b/Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp
+index 763a682505..b8177b8fca 100644
+--- a/Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp
++++ b/Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp
+@@ -134,6 +134,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) OrthoEmissionVelocityModuleTemplate : public Rva003A71D4VecBase0, public Rva003A71D4VecBase8
+ {
+ public:
++	OrthoEmissionVelocityModuleTemplate();
+ 	virtual ~OrthoEmissionVelocityModuleTemplate();
+ };
+ }
+@@ -172,6 +173,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) SphericalEmissionVelocityModuleTemplate : public Rva003A73ADVecBase0, public Rva003A73ADVecBase8
+ {
+ public:
++	SphericalEmissionVelocityModuleTemplate();
+ 	virtual ~SphericalEmissionVelocityModuleTemplate();
+ };
+ }
+@@ -214,6 +216,7 @@ template <>
+ class __declspec(novtable) DefaultModuleTemplate<3> : public Rva003A7853VecBase0, public Rva003A7853VecBase8
+ {
+ public:
++	DefaultModuleTemplate();
+ 	virtual ~DefaultModuleTemplate();
+ };
+ }
+@@ -255,6 +258,7 @@ template <>
+ class __declspec(novtable) DefaultModuleTemplate<2> : public Rva003A7A06VecBase0, public Rva003A7A06VecBase8
+ {
+ public:
++	DefaultModuleTemplate();
+ 	virtual ~DefaultModuleTemplate();
+ };
+ }
+@@ -290,6 +294,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) StreakDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
+ {
+ public:
++	StreakDrawModuleTemplate();
+ 	virtual ~StreakDrawModuleTemplate();
+ };
+ }
+@@ -303,6 +308,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) QuadDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
+ {
+ public:
++	QuadDrawModuleTemplate();
+ 	virtual ~QuadDrawModuleTemplate();
+ };
+ }
+@@ -319,6 +325,7 @@ template <>
+ class __declspec(novtable) DefaultModuleTemplate<6> : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
+ {
+ public:
++	DefaultModuleTemplate();
+ 	virtual ~DefaultModuleTemplate();
+ };
+ }
+diff --git a/Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp b/Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp
+index ca4089b6fa..ccc893888c 100644
+--- a/Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp
++++ b/Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp
+@@ -64,6 +64,7 @@ template <>
+ class __declspec(novtable) DefaultModuleTemplate<1> : public Rva003A628BVecBase0, public Rva003A628BVecBase8
+ {
+ public:
++	DefaultModuleTemplate();
+ 	virtual ~DefaultModuleTemplate();
+ };
+ }
+@@ -104,6 +105,7 @@ template <>
+ class __declspec(novtable) DefaultModuleTemplate<0> : public Rva003A63EEVecBase0, public Rva003A63EEVecBase8
+ {
+ public:
++	DefaultModuleTemplate();
+ 	virtual ~DefaultModuleTemplate();
+ };
+ }
+@@ -142,6 +144,7 @@ namespace FXParticleSystem
+ class __declspec(novtable) LightningEmissionModuleTemplate : public Rva003A6D11VecBase0, public Rva003A6D11VecBase8
+ {
+ public:
++	LightningEmissionModuleTemplate();
+ 	virtual ~LightningEmissionModuleTemplate();
+ };
+ }
