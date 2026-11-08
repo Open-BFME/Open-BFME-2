@@ -2031,20 +2031,10 @@ extern const void *const g_00BEDCB4[4] = {
 	(const void *)&__identifier("?rva0024003D@Rva0024003DForwarder@@QAEXXZ"), // slot 2 0x0024003D
 	(const void *)&__identifier("?rva00240045@Rva00240045Forwarder@@QAEXXZ"), // slot 3 0x00240045
 };
-// The retail table at RVA 0x007EDAA8: 4 slots, each a rowed code owner (the next
-// word is not a code address or starts another ledger datum).
-extern "C" {
-void __identifier("?slot00@Rva0023DB34@@UAEHPAXH@Z")();
-void __identifier("?slot04@Rva0023DB34@@UAEHXZ")();
-void __identifier("?slot08@Rva0023DB34@@UAE_NH@Z")();
-void __identifier("?slot0C@Rva0023DB34@@UAE_NXZ")();
-}
-extern const void *const g_00BEDAA8[4] = {
-	(const void *)&__identifier("?slot00@Rva0023DB34@@UAEHPAXH@Z"), // slot 0 0x00306C15
-	(const void *)&__identifier("?slot04@Rva0023DB34@@UAEHXZ"), // slot 1 0x00306C42
-	(const void *)&__identifier("?slot08@Rva0023DB34@@UAE_NH@Z"), // slot 2 0x00306C49
-	(const void *)&__identifier("?slot0C@Rva0023DB34@@UAE_NXZ"), // slot 3 0x00306C58
-};
+// The table at RVA 0x007EDAA8 is Rva0023DB34's (constructor 0x0023DB34,
+// RvaSmallVtableCtors.cpp, which emits it); 0x00240000 below inlines that
+// constructor's vptr store for its +0x10 member.
+extern "C" const void *const __identifier("??_7Rva0023DB34@@6B@")[];
 struct BfmeE12
 {
 	float x;
@@ -4410,7 +4400,7 @@ Rva00240000::Rva00240000()
 	m_14 = 0;
 	m_18 = 0;
 	m_1C = 0;
-	m_10 = (const void *)g_00BEDAA8;
+	m_10 = (const void *)__identifier("??_7Rva0023DB34@@6B@");
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00240C89Create.cpp
