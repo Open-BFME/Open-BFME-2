@@ -1167,14 +1167,44 @@ def _checkout_relative(source):
     return text[index + 1:] if index >= 0 else text
 
 
+def _source_spelling(name):
+    """The identifier a source spells to define NAME, or None when it cannot be
+    told from the name (compiler names such as `??_7X@@6B@`)."""
+    if name.startswith("??") or not name:
+        return None
+    if name.startswith("?"):
+        return name[1:].split("@", 1)[0] or None
+    return name[1:] if name.startswith("_") else name
+
+
+def _spelled_in_sources(tokens):
+    """The TOKENS some tracked Code/ file still spells (git grep -o), or None when
+    git cannot tell; a token inside a longer identifier counts as spelled."""
+    if not tokens:
+        return set()
+    args = ["git", "grep", "-h", "-o", "-F"]
+    for token in sorted(tokens):
+        args += ["-e", token]
+    got = subprocess.run(args + ["--", SOURCE_PREFIX], cwd=ROOT, env=trusted_git_env(),
+                         capture_output=True, text=True)
+    if got.returncode not in (0, 1):
+        return None
+    return set(got.stdout.split())
+
+
 def _drop_superseded_vtable_refusals(rows):
     """Keep the rows the current bridge would still plan. A queue is written by
-    the last real link; a no-retail-slots refusal whose names are all virtual-base
-    tables (`??_8`) is no table to vtable_bridge.is_table_row any more, so it has
-    no repair left in its source until the next real link rewrites the queue.
+    the last real link, and some refusals have no repair left until the next one:
+
+    - a no-retail-slots refusal whose names are all virtual-base tables (`??_8`)
+      is no table to vtable_bridge.is_table_row any more;
+    - a strong-definition refusal whose defining identifier no tracked source
+      spells any more: its hand-written array is gone (a comment or any other
+      mention keeps the row served).
+
     Every other refusal and every bridged row is kept."""
     import vtable_bridge
-    kept, superseded = [], []
+    kept, superseded, strong = [], [], {}
     for row in rows:
         if row.get("state") == "refused" and row.get("reason") == "no-retail-slots":
             try:
@@ -1185,8 +1215,22 @@ def _drop_superseded_vtable_refusals(rows):
             if not vtable_bridge.is_table_row({"kind": "vtable", "name": names[0], "names": ";".join(names)}):
                 superseded.append(row.get("table") or "")
                 continue
+        if row.get("state") == "refused" and row.get("reason") == "strong-definition":
+            token = _source_spelling(row.get("table") or "")
+            if token:
+                strong[id(row)] = token
         kept.append(row)
-    return kept, superseded
+    spelled = _spelled_in_sources(set(strong.values())) if strong else set()
+    if spelled is None:
+        return kept, superseded
+    still = []
+    for row in kept:
+        token = strong.get(id(row))
+        if token and token not in spelled:
+            superseded.append(row.get("table") or "")
+            continue
+        still.append(row)
+    return still, superseded
 
 
 def vtable_bridge_items(path=None):
@@ -1233,8 +1277,8 @@ def vtable_bridge_items(path=None):
                        "(neither state in reverse/vtable_bridge_queue.tsv); preserve their ledger coverage")))
     note = f"{len(items)} source file(s) for {len(rows)} vtable refusal/retirement rows, from {measured}"
     if superseded:
-        note += (f"; {len(superseded)} virtual-base table refusal(s) the current bridge no longer plans, "
-                 "not served: " + ", ".join(superseded[:3]))
+        note += (f"; {len(superseded)} refusal(s) with no repair left before the next real link "
+                 "(virtual-base tables, removed strong arrays), not served: " + ", ".join(superseded[:3]))
     if unowned:
         note += f"; {unowned} unowned or vanished-source table(s) served under file:reverse/data_ledger.csv"
     return items, note

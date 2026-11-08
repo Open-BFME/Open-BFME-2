@@ -3145,7 +3145,7 @@ def test_vtable_queue_reads_runner_paths_and_large_evidence(tmp_path, monkeypatc
     assert [item["source"] for item in items] == ["Code/A.cpp"] and "unowned" not in note
 
 
-def test_vtable_queue_skips_virtual_base_refusals_the_bridge_no_longer_plans(tmp_path):
+def test_vtable_queue_skips_virtual_base_refusals_the_bridge_no_longer_plans(tmp_path, monkeypatch):
     import csv
     rq, rev, _ = load(tmp_path, "bfme2", LEDGER, files=[("Code/A.cpp", ""), ("Code/B.cpp", ""), ("Code/C.cpp", "")])
     path = rev / "vtable_bridge_queue.tsv"
@@ -3162,11 +3162,45 @@ def test_vtable_queue_skips_virtual_base_refusals_the_bridge_no_longer_plans(tmp
         ["refused", "??_8C@@7B@", "", "strong-definition", "Code/C.cpp", "0x6000", "0", "{}"]]
     with path.open("w", newline="") as f:
         writer = csv.writer(f, delimiter="\t"); writer.writerow(fields); writer.writerows(rows)
+    monkeypatch.setattr(rq, "_spelled_in_sources", lambda tokens: set(tokens))
     items, note = rq.vtable_bridge_items()
     served = {item["source"]: [table["table"] for table in item["tables"]] for item in items}
     assert served == {"Code/A.cpp": ["??_7A@@6B@"], "Code/B.cpp": ["??_8B@@7B@"], "Code/C.cpp": ["??_8C@@7B@"]}
     assert not next(item for item in items if item["source"] == "Code/A.cpp")["urgent"]
-    assert "1 virtual-base table refusal(s) the current bridge no longer plans, not served: ??_8A@@7B@" in note
+    assert "1 refusal(s) with no repair left before the next real link" in note and note.endswith("??_8A@@7B@")
+
+
+def test_vtable_queue_skips_strong_refusals_whose_array_no_source_spells(tmp_path, monkeypatch):
+    import csv
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, files=[("Code/A.cpp", ""), ("Code/B.cpp", ""), ("Code/C.cpp", "")])
+    path = rev / "vtable_bridge_queue.tsv"
+    fields = ["state", "table", "class", "reason", "source", "retail_rva", "slots", "evidence"]
+    rows = [
+        ["refused", "?g_00C078DC@@3QBQBXB", "", "strong-definition", "Code/A.cpp", "0x3000", "5", "{}"],
+        ["refused", "_Gone_vtbl", "", "strong-definition", "Code/A.cpp", "0x3100", "1", "{}"],
+        ["refused", "_Kept_vtbl", "", "strong-definition", "Code/B.cpp", "0x3200", "1", "{}"],
+        # a compiler name cannot be judged from source text: always served
+        ["refused", "??_7C@@6B@", "C", "strong-definition", "Code/C.cpp", "0x3300", "1", "{}"]]
+    with path.open("w", newline="") as f:
+        writer = csv.writer(f, delimiter="	"); writer.writerow(fields); writer.writerows(rows)
+    asked = []
+    monkeypatch.setattr(rq, "_spelled_in_sources", lambda tokens: asked.append(set(tokens)) or {"Kept_vtbl"})
+    items, note = rq.vtable_bridge_items()
+    assert asked == [{"g_00C078DC", "Gone_vtbl", "Kept_vtbl"}]
+    assert {item["source"]: [t["table"] for t in item["tables"]] for item in items} == {
+        "Code/B.cpp": ["_Kept_vtbl"], "Code/C.cpp": ["??_7C@@6B@"]}
+    assert "2 refusal(s) with no repair left" in note and "?g_00C078DC@@3QBQBXB" in note
+    # git unable to answer: nothing is dropped
+    monkeypatch.setattr(rq, "_spelled_in_sources", lambda tokens: None)
+    items, _note = rq.vtable_bridge_items()
+    assert sum(len(item["tables"]) for item in items) == 4
+
+
+def test_source_spelling_of_strong_table_names():
+    import repair_queue as rq
+    assert rq._source_spelling("?g_00C078DC@@3QBQBXB") == "g_00C078DC"
+    assert rq._source_spelling("_vtbl_00BC6EC0") == "vtbl_00BC6EC0"
+    assert rq._source_spelling("??_7X@@6B@") is None and rq._source_spelling("") is None
 
 
 def test_vtable_queue_absent_is_no_work(tmp_path):
