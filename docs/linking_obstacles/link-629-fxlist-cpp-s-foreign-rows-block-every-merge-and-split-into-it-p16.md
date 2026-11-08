@@ -258,3 +258,21 @@ Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on
   `reverse/pin_consistency_baseline.csv` lists neither pin. `pin_admission.py` refuses a second real name
   on a named address only for newly added pins, so pins admitted earlier are never re-judged against the
   row at their address.
+
+## 2026-11-08: the small emitter (Harness; scratch evidence, nothing landed)
+
+- Route: reverse/attempt_support/p16_minimal_b/readme.md, "The small emitter". The act's copy ctor 0x0052D555 and its
+  16 funclets move into LivingWorldCampaign.cpp, then `rename.py --basis retail` respells the record family and moves
+  0x0052BD3A alone.
+- Applied on a scratch head at 1e3153af8c: 298/298 rows over all eight units, `check_csv`, `pin_consistency --check`
+  and `pin_admission` clean. Minimal B's dry run accepts FXList.cpp and ParticleSystemFXNuggetCtor.cpp, 15 rows, on a
+  census index copy from 07:03 today, with the `list<FXNugget*>` pin removed; with the pin it still refuses on that symbol.
+- Still open: the guard refuses the act's split over `??_7Rva0056616B@@6B@`, a false reject recorded in
+  re_attempts.log; the table is identical across the objects. The scratch run wrapped that one symbol, so the split does
+  not land until the check is fixed.
+- Prerequisites, in order: batch 2, the guard fix, the split, the respell, `retire identity FXList.cpp` in the next
+  commit (not run: it needs built ledger objects), the pin fix, minimal B.
+- Consumers of the old spellings are wider than the family's own files: SpawnArmy.cpp and W3DStreakDraw.cpp must be
+  prepared. The `name_dependents` hook found this class of unit; without cached objects it widens to about 4,700 units
+  on text, so land from a worktree with built objects.
+

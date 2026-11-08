@@ -122,6 +122,27 @@ Needed:
    `vector<BfmeE8>` (its `_Construct` 0x0052D355 calls `vector<BfmeE8>`'s copy 0x004334D7). A class rename
    cannot express that, and any class name for it is refused as a placeholder.
 
+## The small emitter (2026-11-08): replaces steps 2-5 of v2 below for P16
+
+Retail's only path to 0x0052BD3A inside LivingWorldCampaign.cpp is the act's copy ctor 0x0052D555 (retail scan: the
+record copy is called only by `_Construct` 0x0052C2F3; inside this unit that is reached only through vector copy
+0x0052CAC9, called only by 0x0052D555). That body already exists and the map approves this unit for it, so the
+emitter is real code moved, not a stand-in. The act's other element types stay placeholders; G1, G2, G3 and most of
+step 4 wait. An explicit instantiation of the vector copy was ruled out as a stand-in.
+
+1. `--split Glo012F1024Item.cpp --for LivingWorldCampaign.cpp --prepared ...`: 0x0052D555 and its 16 funclets, under
+   today's `FXList` spelling. The prepared TU declares every member's copy and destructor (rowed elsewhere) and adds
+   `~Rva0052C867()`, `~Rva0052C8AB()` and `~Rva0052CD81()` to this unit's views, as Glo012's views have them. 17/17
+   rows match. The guard refuses it over `??_7Rva0056616B@@6B@`: a false reject, recorded in re_attempts.log. The
+   table, its slot, its weak default and the `??_G` behind it are identical in all three objects and match retail.
+2. `rename.py function --rva 0x0052BD3A --new ??0EnableRegionRecord@@QAE@ABV0@@Z --respell --identity --basis retail
+   --evidence 'retail:0x0052BD48 stores=0x00C61A20' --prepared ... --move-to LivingWorldCampaign.cpp --move-rows
+   0x0052BD3A` (G4 and G8): the family's rows and 6 pins respelled, 0x0052BD3A moved alone. The prepared TU includes
+   LivingWorldCampaignAct.h and drops its declared record-vector copy, so the implicit chain emits there.
+3. `repair_queue.py retire identity FXList.cpp` in the next commit (it refuses while HEAD holds the row) on a
+   worktree with its ledger objects built. FXList.cpp still exists, so this is a retire, not a transfer.
+4. The pin fix, then minimal B.
+
 ## Minimal B v2: 0x0052BD3A moves with its real code (plan, 2026-11-07, not started)
 
 ### Why minimal B as written cannot land
