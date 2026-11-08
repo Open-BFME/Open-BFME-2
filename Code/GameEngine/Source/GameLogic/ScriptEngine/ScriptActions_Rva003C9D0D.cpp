@@ -5,7 +5,7 @@
 // A BFME2 script action: walking the kind-7 objects that relate to the
 // team's controlling player by flags 2 within the range of the team's
 // centre (0x0039DA2A) from near to far, at the first whose body reports
-// below 1 (body slot 5), every team member of kind 78 with an AI gets the
+// below 1 (body slot 5), every team member of kind bit 14 with an AI gets the
 // AI command 0x0036F19B on it.
 //
 // The filters are BFME2's partition filter chain (the view
@@ -65,21 +65,11 @@ enum CommandSourceType
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-struct ThingTemplate
-{
-	bool isKindOf(int bit) const { return (m_kindOf[bit >> 3] >> (bit & 7)) & 1; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isKindOf copy loses to the first-in-order copy. No flags touched.
-	bool bfme_isKindOf_72c56(int bit) const { return (m_kindOf[bit >> 3] >> (bit & 7)) & 1; }
-	char m_pad000[0x100];
-	unsigned char m_kindOf[28];	// +0x100
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
 public:
-	bool isKindOf(int bit) const { return m_template->isKindOf(bit); }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the Object::isKindOf copy loses to the first-in-order copy. No flags touched.
-	bool bfme_isKindOfObj_5d2a1(int bit) const { return m_template->bfme_isKindOf_72c56(bit); }
 	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getAIUpdateInterface copy loses to the first-in-order copy. No flags touched.
 	AIUpdateInterface *bfme_getAIUpdateInterface_de3c5() { return m_ai; }
@@ -135,7 +125,7 @@ void ScriptActions::rva003C9D0D(const AsciiString &teamName, float range)
 		if (body && body->getHealthRatio() < 1.0f) {
 			for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 				Object *member = it.cur();
-				if (member->bfme_isKindOfObj_5d2a1(78) && member->bfme_getAIUpdateInterface_de3c5())
+				if ((member->m_template->m_kindof[0] & (1u << 14)) && member->bfme_getAIUpdateInterface_de3c5())
 					member->bfme_getAIUpdateInterface_de3c5()->rva0036F19B(building, CMD_FROM_SCRIPT);
 			}
 			break;

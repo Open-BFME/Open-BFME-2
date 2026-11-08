@@ -58,7 +58,7 @@ class Object;
 
 #include "../../../Include/Common/Player.h"
 
-class ThingTemplate { public: unsigned char m_pad000[0x11F]; unsigned char m_kindOf11F; };
+#include "Common/ThingTemplate.h"
 
 #include "../../../Include/GameLogic/Module/ExitInterface.h"
 
@@ -122,7 +122,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 	copyCoord(&start, object->getPosition());
 
 	NameKeyType key;
-	if (object->m_template->m_kindOf11F & 0x10)
+	if (object->m_template->m_kindof[5] & 0x10000000)
 	{
 		key = TheNameKeyGenerator->nameToKey("LargeShipLocomotor");
 		if (exitInterface)
@@ -208,7 +208,7 @@ struct GlobalRallyPointData
 int Rva0037747CSetGlobalRallyPoint(Object *object, void *userData)
 {
 	GlobalRallyPointData *data = (GlobalRallyPointData *)userData;
-	if ((object->m_template->m_pad000[0x110] & 0x20) &&
+	if ((object->m_template->m_kindof[2] & 0x20) &&
 		Rva0037711ADoSetRallyPoint(object, &data->position, false, 0))
 		++data->changed;
 	return 1;

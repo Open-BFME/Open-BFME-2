@@ -73,21 +73,7 @@ class Rva0028E58E { public: Int rva0028E58E(); };
 enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED };
 enum ObjectStatusTypes { OBJECT_STATUS_BFME_17 = 0x11 };
 
-class ThingTemplate {
-public:
-	char m_pad000[0x108];
-	UnsignedInt m_108_lo : 17;
-	UnsignedInt m_108_bit17 : 1;
-	UnsignedInt m_108_hi : 14;
-	char m_pad10c[0x110 - 0x10c];
-	UnsignedInt m_110_lo : 26;
-	UnsignedInt m_110_bit26 : 1;
-	UnsignedInt m_110_hi : 5;
-	char m_pad114[0x11c - 0x114];
-	UnsignedInt m_11c_lo : 29;
-	UnsignedInt m_11c_bit29 : 1;
-	UnsignedInt m_11c_hi : 2;
-};
+#include "../../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 class Object {
 public:
@@ -381,10 +367,10 @@ void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot 
 			continue;
 
 		Object *obj = rObj->friend_getObject();
-		Bool drawRadius = obj->getTemplate()->m_108_bit17;
+		Bool drawRadius = (obj->getTemplate()->m_kindof[0] >> 17) & 1;
 		if (obj->getShroudStatusForPlayer(playerIndex) > CELLSHROUD_SHROUDED)
 			continue;
-		Bool drawFootprint = obj->getTemplate()->m_11c_bit29;
+		Bool drawFootprint = (obj->getTemplate()->m_kindof[5] >> 29) & 1;
 		if (!drawRadius && reinterpret_cast<Rva0028E58E *>(obj)->rva0028E58E() == 4 &&
 			obj->getControllingPlayer() != ThePlayerList->getLocalPlayer() &&
 			reinterpret_cast<Rva002A7DD0 *>(ThePlayerList)->rva002A7DD0())
@@ -401,7 +387,7 @@ void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot 
 		if (disguise && disguise->m_template && obj->getControllingPlayer() != ThePlayerList->getLocalPlayer())
 			thingTemplate = disguise->m_template;
 
-		if (thingTemplate->m_110_bit26)
+		if ((thingTemplate->m_kindof[2] >> 26) & 1)
 		{
 			if (!rva0004E704(obj, &c))
 				continue;

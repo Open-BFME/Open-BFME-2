@@ -22,17 +22,15 @@ typedef float Real;
 typedef bool Bool;
 
 #include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/ThingTemplate.h"
 
-class ThingTemplate : public Overridable
+// Retail inlines this walk: a next-override test, then the rowed friend_getFinalOverride.
+static inline const ThingTemplate *finalTemplateOverride(const ThingTemplate *thing)
 {
-public:
-	const ThingTemplate *getFinalOverride() const
-	{
-		if (getNextOverride())
-			return (const ThingTemplate *)((ThingTemplate *)this)->friend_getNextOverride()->friend_getFinalOverride();
-		return this;
-	}
-};
+	if (thing->getNextOverride())
+		return (const ThingTemplate *)((ThingTemplate *)thing)->friend_getNextOverride()->friend_getFinalOverride();
+	return thing;
+}
 
 class Object
 {
@@ -98,7 +96,7 @@ Real AttackPriorityInfo::getPriority(const Object *hunter, const Object *target,
 	if (rawTemplate == 0)
 		return (Real)priority;
 
-	const ThingTemplate *thingTemplate = rawTemplate->getFinalOverride();
+	const ThingTemplate *thingTemplate = finalTemplateOverride(rawTemplate);
 
 	AttackPriorityMapView *priorityMap = m_priorityMap;
 	if (priorityMap && priorityMap->m_size)
