@@ -389,3 +389,5 @@ contains `DefaultModuleTemplate<2>::writeINI` (ordinal 1937, RVA 0x0055FB37),
 All three were present in the previous authoritative list at `6e5fe55db8`.
 The new run reports 282 unresolved symbols, zero duplicates, and no image.
 It predates the Wind data-export repairs tracked in LINK-584.
+
+2026-11-08 recovery note on the `338e3016de` update above: that SHA never landed; upstream `b4218dcf89` defines the three-float RGBColor ctor (`RGBCOLOR_VIEW_FLOAT_CTOR`) and `bbcfd126d5` defines `ParticleSystemInfo::LoadPostProcess` as the empty B3FD0 fold in `FXParticleSystemEarlyInlines.cpp`. Only the now-redundant `/alternatename` at `ParticleSystemInfoCopyCtor.cpp:124` remains; drop it only after the link-wide proof that no object needs it.
