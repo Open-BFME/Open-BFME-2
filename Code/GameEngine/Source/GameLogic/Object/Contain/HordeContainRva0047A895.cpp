@@ -37,42 +37,30 @@ public:
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Set_Translation and Rotate_Z, which the canonical header leaves to units.
+static __forceinline void matrixSetTranslation(Matrix3D &m, const Vector3 &t)
+{ m.Row[0].W = t[0]; m.Row[1].W = t[1]; m.Row[2].W = t[2]; }
+static __forceinline void matrixRotateZ(Matrix3D &m, float theta)
 {
-public:
-	// Keep this identity body visible for inlining while the native constructor
-	// provider (0x0004C91A) remains the out-of-line owner.
-	__declspec(dllimport) __forceinline explicit Matrix3D(bool init) { if (init) Make_Identity(); }
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-	__forceinline void Set_Translation(const Vector3 &t) { Row[0].W = t[0]; Row[1].W = t[1]; Row[2].W = t[2]; }
-	__declspec(dllimport) __forceinline void Rotate_Z(float theta)
-	{
-		float tmp1, tmp2;
-		float cosTheta, s;
+	float tmp1, tmp2;
+	float cosTheta, s;
 
-		cosTheta = cosf(theta);
-		s = sinf(theta);
+	cosTheta = cosf(theta);
+	s = sinf(theta);
 
-		tmp1 = Row[0].X; tmp2 = Row[0].Y;
-		Row[0].X = (float)( cosTheta*tmp1 + s*tmp2);
-		Row[0].Y = (float)(-s*tmp1 + cosTheta*tmp2);
+	tmp1 = m.Row[0].X; tmp2 = m.Row[0].Y;
+	m.Row[0].X = (float)( cosTheta*tmp1 + s*tmp2);
+	m.Row[0].Y = (float)(-s*tmp1 + cosTheta*tmp2);
 
-		tmp1 = Row[1].X; tmp2 = Row[1].Y;
-		Row[1].X = (float)( cosTheta*tmp1 + s*tmp2);
-		Row[1].Y = (float)(-s*tmp1 + cosTheta*tmp2);
+	tmp1 = m.Row[1].X; tmp2 = m.Row[1].Y;
+	m.Row[1].X = (float)( cosTheta*tmp1 + s*tmp2);
+	m.Row[1].Y = (float)(-s*tmp1 + cosTheta*tmp2);
 
-		tmp1 = Row[2].X; tmp2 = Row[2].Y;
-		Row[2].X = (float)( cosTheta*tmp1 + s*tmp2);
-		Row[2].Y = (float)(-s*tmp1 + cosTheta*tmp2);
-	}
-private:
-	Vector4 Row[3];
-};
+	tmp1 = m.Row[2].X; tmp2 = m.Row[2].Y;
+	m.Row[2].X = (float)( cosTheta*tmp1 + s*tmp2);
+	m.Row[2].Y = (float)(-s*tmp1 + cosTheta*tmp2);
+}
 
 enum KindOfType { KINDOF_RVA0047A895_DA = 0xDA };
 
@@ -397,8 +385,8 @@ void HordeContain::rva0047A895(Object *obj, const Coord3D *pos, float angle, boo
 		}
 	}
 	Matrix3D mtx(true);
-	mtx.Set_Translation(Vector3(newPos.x, newPos.y, newPos.z));
-	mtx.Rotate_Z(angle);
+	matrixSetTranslation(mtx, Vector3(newPos.x, newPos.y, newPos.z));
+	matrixRotateZ(mtx, angle);
 	obj->setTransformMatrix(&mtx);
 	obj->setPosition(&newPos);
 	obj->m_1A6 = true;		// setNextPosition

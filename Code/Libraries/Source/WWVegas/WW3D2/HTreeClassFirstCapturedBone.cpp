@@ -152,12 +152,10 @@ inline void Quaternion::Rotate_Vector(const Vector3 & v, Vector3 * result) const
 	result->Z = W*z - w*Z + (X*y - Y*x);
 }
 
-class Matrix3D
-{
-public:
-	void Get_Translation(Vector3 * set) const { set->X = Row[0][3]; set->Y = Row[1][3]; set->Z = Row[2][3]; }
-	float Row[3][4];
-};
+#include "../WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Get_Translation(Vector3 *), which the canonical header leaves to units.
+static inline void matrixGetTranslation(const Matrix3D &m, Vector3 * set)
+{ set->X = m.Row[0][3]; set->Y = m.Row[1][3]; set->Z = m.Row[2][3]; }
 Quaternion Build_Quaternion(const Matrix3D & mat);
 
 class CompactTransform
@@ -168,7 +166,7 @@ public:
 	__forceinline CompactTransform & operator = (const Matrix3D & m)
 	{
 		Q = Build_Quaternion(m);
-		m.Get_Translation(&Position);
+		matrixGetTranslation(m, &Position);
 		return *this;
 	}
 	static void Multiply(const CompactTransform & compactTransform, const CompactTransform & b, CompactTransform * res)

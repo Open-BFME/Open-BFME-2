@@ -136,28 +136,14 @@ extern unsigned number_of_DX8_calls;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Set(x, y, z, pos), which the canonical header leaves to units.
+static __forceinline void matrixSet(Matrix3D &m, const Vector3 &x, const Vector3 &y, const Vector3 &z, const Vector3 &pos)
 {
-public:
-	__forceinline explicit Matrix3D(bool init)
-	{
-		if (init)
-		{
-			Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-			Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-			Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-		}
-	}
-
-	__forceinline Matrix3D(const Vector3 &x, const Vector3 &y, const Vector3 &z, const Vector3 &pos)
-	{
-		Row[0].Set(x.X, y.X, z.X, pos.X);
-		Row[1].Set(x.Y, y.Y, z.Y, pos.Y);
-		Row[2].Set(x.Z, y.Z, z.Z, pos.Z);
-	}
-
-	Vector4 Row[3];
-};
+	m.Row[0].Set(x.X, y.X, z.X, pos.X);
+	m.Row[1].Set(x.Y, y.Y, z.Y, pos.Y);
+	m.Row[2].Set(x.Z, y.Z, z.Z, pos.Z);
+}
 
 class Matrix4
 {
@@ -508,7 +494,8 @@ void WaterRenderObjClass::rva001014A9(RenderInfoClass &rinfo, bool depthOnly)
 		light->Set_Diffuse(Vector3(reinterpret_cast<const WaterGlobalLightView *>(TheWritableGlobalData)->m_diffuse[i].X,
 			reinterpret_cast<const WaterGlobalLightView *>(TheWritableGlobalData)->m_diffuse[i].Y,
 			reinterpret_cast<const WaterGlobalLightView *>(TheWritableGlobalData)->m_diffuse[i].Z));
-		Matrix3D tm(Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f),
+		Matrix3D tm;
+		matrixSet(tm, Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f),
 			Vector3(reinterpret_cast<const WaterGlobalLightView *>(TheWritableGlobalData)->m_lightPos[i]),
 			Vector3(0.0f, 0.0f, 0.0f));
 		light->Set_Transform(tm);

@@ -292,24 +292,7 @@ void Rva0009D55BProduct::rva0009BC17()
 // camera it sets the clip planes (10, 1.5 * distance + 2000) and a 50-degree
 // view plane, builds the camera transform from an identity matrix through
 // 0x0009B510, hands it to camera slot 21 and pokes TheAudio's slot 22.
-class Matrix3D
-{
-public:
-	__declspec(dllimport) __forceinline explicit Matrix3D(bool identity) { if (identity) Make_Identity(); }
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-private:
-	struct RowType
-	{
-		float X, Y, Z, W;
-		__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	};
-	RowType Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Rva0009BAA4CameraSlots
 {
 public:

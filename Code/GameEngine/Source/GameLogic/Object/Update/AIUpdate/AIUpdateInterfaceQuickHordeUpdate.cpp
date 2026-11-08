@@ -198,51 +198,30 @@ inline const T &maxOf(const T &a, const T &b)
 	return a < b ? b : a;
 }
 
-class Vector4R
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// The unit's Z rotation and Coord3D translation over the canonical Matrix3D, which the header leaves to units.
+static __forceinline void matrixRotateZ(Matrix3D &m, float theta)
 {
-public:
-	float X, Y, Z, W;
-	__forceinline float &operator[](int i) { return (&X)[i]; }
-	__forceinline const float &operator[](int i) const { return (&X)[i]; }
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-};
-class Matrix3D
+	float rowX, rowY;
+	float cosine, s;
+	cosine = cosf(theta);
+	s = sinf(theta);
+	rowX = m.Row[0].X; rowY = m.Row[0].Y;
+	m.Row[0].X = (float)( cosine*rowX + s*rowY);
+	m.Row[0].Y = (float)(-s*rowX + cosine*rowY);
+	rowX = m.Row[1].X; rowY = m.Row[1].Y;
+	m.Row[1].X = (float)( cosine*rowX + s*rowY);
+	m.Row[1].Y = (float)(-s*rowX + cosine*rowY);
+	rowX = m.Row[2].X; rowY = m.Row[2].Y;
+	m.Row[2].X = (float)( cosine*rowX + s*rowY);
+	m.Row[2].Y = (float)(-s*rowX + cosine*rowY);
+}
+static inline void matrixSetTranslation(Matrix3D &m, const Coord3D &translation)
 {
-public:
-	__declspec(dllimport) __forceinline Matrix3D(bool init)
-	{
-		if (init)
-		{
-			Row[0].X = 1.0f; Row[0].Y = 0.0f; Row[0].Z = 0.0f; Row[0].W = 0.0f;
-			Row[1].X = 0.0f; Row[1].Y = 1.0f; Row[1].Z = 0.0f; Row[1].W = 0.0f;
-			Row[2].X = 0.0f; Row[2].Y = 0.0f; Row[2].Z = 1.0f; Row[2].W = 0.0f;
-		}
-	}
-	__forceinline void rotateZ(float theta)
-	{
-		float rowX, rowY;
-		float cosine, s;
-		cosine = cosf(theta);
-		s = sinf(theta);
-		rowX = Row[0].X; rowY = Row[0].Y;
-		Row[0].X = (float)( cosine*rowX + s*rowY);
-		Row[0].Y = (float)(-s*rowX + cosine*rowY);
-		rowX = Row[1].X; rowY = Row[1].Y;
-		Row[1].X = (float)( cosine*rowX + s*rowY);
-		Row[1].Y = (float)(-s*rowX + cosine*rowY);
-		rowX = Row[2].X; rowY = Row[2].Y;
-		Row[2].X = (float)( cosine*rowX + s*rowY);
-		Row[2].Y = (float)(-s*rowX + cosine*rowY);
-	}
-	void setTranslation(const Coord3D &translation)
-	{
-		Row[0][3] = translation.x;
-		Row[1][3] = translation.y;
-		Row[2][3] = translation.z;
-	}
-private:
-	Vector4R Row[3];
-};
+	m.Row[0][3] = translation.x;
+	m.Row[1][3] = translation.y;
+	m.Row[2][3] = translation.z;
+}
 
 class ModelConditionFlags
 {
@@ -670,7 +649,7 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 			else
 				angle += PI;
 		}
-		mtx.rotateZ(angle);
+		matrixRotateZ(mtx, angle);
 		((Rva0028B525DwordSlot *)object)->set(TheTerrainLogic->getLayerForDestination(object, &pos));
 
 		if (m_locomotorGoalType != POSITION_EXPLICIT_HORDE || m_path == NULL)
@@ -691,7 +670,7 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 			}
 		}
 
-		mtx.setTranslation(pos);
+		matrixSetTranslation(mtx, pos);
 		object->setTransformMatrix(&mtx);
 		{
 			Coord3D movementDelta;

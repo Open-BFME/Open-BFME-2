@@ -20,11 +20,9 @@ typedef int Int;
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-struct Matrix3D
-{
-	Vector3 Get_Translation() const { return Vector3(Row[0][3], Row[1][3], Row[2][3]); }
-	Real Row[3][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Get_Translation, which the canonical header leaves to units.
+static inline Vector3 matrixGetTranslation(const Matrix3D &m) { return Vector3(m.Row[0][3], m.Row[1][3], m.Row[2][3]); }
 
 struct FrustumClass
 {
@@ -78,7 +76,7 @@ public:
 	virtual void cameraSlot48() = 0;
 	virtual void cameraSlot4C() = 0;
 	virtual void Validate_Transform() = 0;	// slot 0x50
-	__forceinline Vector3 Get_Position() { Validate_Transform(); return Transform.Get_Translation(); }
+	__forceinline Vector3 Get_Position() { Validate_Transform(); return matrixGetTranslation(Transform); }
 protected:
 	void Update_Frustum() const;
 	friend class W3DView;

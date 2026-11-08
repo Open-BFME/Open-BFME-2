@@ -39,27 +39,14 @@ public:
   m[3][0]=m41; m[3][1]=m42; m[3][2]=m43; m[3][3]=m44;
  }
 };
-class Matrix3D {
-public:
- float m[3][4];
- Matrix3D() {}
- __forceinline Matrix3D(
-  const Vector3 &xAxis, // xAxis-axis unit vector
-  const Vector3 &yAxis, // yAxis-axis unit vector
-  const Vector3 &zAxis, // zAxis-axis unit vector
-  const Vector3 &pos) // position
- {
-  m[0][0]=xAxis.X; m[0][1]=yAxis.X; m[0][2]=zAxis.X; m[0][3]=pos.X;
-  m[1][0]=xAxis.Y; m[1][1]=yAxis.Y; m[1][2]=zAxis.Y; m[1][3]=pos.Y;
-  m[2][0]=xAxis.Z; m[2][1]=yAxis.Z; m[2][2]=zAxis.Z; m[2][3]=pos.Z;
- }
- __forceinline const Vector4 &operator[](int i) const { return *(const Vector4*)m[i]; }
- __forceinline Matrix3D(const Matrix3D &matrix3D) {
-  m[0][0]=matrix3D.m[0][0]; m[0][1]=matrix3D.m[0][1]; m[0][2]=matrix3D.m[0][2]; m[0][3]=matrix3D.m[0][3];
-  m[1][0]=matrix3D.m[1][0]; m[1][1]=matrix3D.m[1][1]; m[1][2]=matrix3D.m[1][2]; m[1][3]=matrix3D.m[1][3];
-  m[2][0]=matrix3D.m[2][0]; m[2][1]=matrix3D.m[2][1]; m[2][2]=matrix3D.m[2][2]; m[2][3]=matrix3D.m[2][3];
- }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Set(x, y, z, pos), which the canonical header leaves to units.
+static __forceinline void matrixSet(Matrix3D &mtx, const Vector3 &xAxis, const Vector3 &yAxis, const Vector3 &zAxis, const Vector3 &pos)
+{
+ mtx.Row[0][0]=xAxis.X; mtx.Row[0][1]=yAxis.X; mtx.Row[0][2]=zAxis.X; mtx.Row[0][3]=pos.X;
+ mtx.Row[1][0]=xAxis.Y; mtx.Row[1][1]=yAxis.Y; mtx.Row[1][2]=zAxis.Y; mtx.Row[1][3]=pos.Y;
+ mtx.Row[2][0]=xAxis.Z; mtx.Row[2][1]=yAxis.Z; mtx.Row[2][2]=zAxis.Z; mtx.Row[2][3]=pos.Z;
+}
 __declspec(dllimport) __forceinline Matrix4::Matrix4(const Matrix3D &s) {
  Init(s);
 }
@@ -143,7 +130,7 @@ void Rva0007F0FBOwner::rva0007F0FB(CameraClass *source,bool clearOverride)
  DeviceLock guard;
   D3DXMATRIX inverse,projection;
  Vector4 transformedClipPlane;
- if (!_finite(source->Get_Transform().m[0][0]))return;
+ if (!_finite(source->Get_Transform().Row[0][0]))return;
  *camera=*source;
  Matrix4 old(source->Get_Transform());
  Vector3 waterNormal(0,0,1);
@@ -163,7 +150,8 @@ void Rva0007F0FBOwner::rva0007F0FB(CameraClass *source,bool clearOverride)
  axis_distance=Vector3::Dot_Product((Vector3&)full.m[3],waterNormal);
  axis_distance-=WaterPlane.W;
  rPos=(Vector3&)full.m[3]-(2.0f*axis_distance*waterNormal);
- Matrix3D reflected(reflectedRight,-rUp,rN,rPos);
+ Matrix3D reflected;
+ matrixSet(reflected,reflectedRight,-rUp,rN,rPos);
  camera->Set_Transform(reflected);
  {Vector2 minimum,maximum;
  maximum.X=maximum.Y=1.0f;

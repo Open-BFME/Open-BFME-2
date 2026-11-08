@@ -48,16 +48,12 @@ public:
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
-{
-public:
-	// Keep the original empty member initialization inline after Vector4 adoption.
-	__forceinline Matrix3D() {}
-	__forceinline Matrix3D &operator=(const Matrix3D &m) { Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; return *this; }
-	Vector3 Get_Translation() const { return Vector3(Row[0][3], Row[1][3], Row[2][3]); }
-	void Set_Translation(const Vector3 &t) { Row[0][3] = t[0]; Row[1][3] = t[1]; Row[2][3] = t[2]; }
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Get_Translation and Set_Translation, which the canonical header leaves to units.
+static inline Vector3 matrixGetTranslation(const Matrix3D &m)
+{ return Vector3(m.Row[0][3], m.Row[1][3], m.Row[2][3]); }
+static inline void matrixSetTranslation(Matrix3D &m, const Vector3 &t)
+{ m.Row[0][3] = t[0]; m.Row[1][3] = t[1]; m.Row[2][3] = t[2]; }
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -259,7 +255,7 @@ Bool Locomotor::rva001E9A00(Object *obj, Real goalSpeed, Real *pathDistance, Rva
 	Coord3D pos;
 	if (TheAerialPathfinder->rva00375A73(path, *pathDistance, (Rva00375A73Coord *)&pos))
 	{
-		m_transform.Set_Translation(Vector3(pos.x, pos.y, pos.z));
+		matrixSetTranslation(m_transform, Vector3(pos.x, pos.y, pos.z));
 		Bool isFar = (aerial->m_flags4B8 >> 7) & 1;
 		if (!isFar)
 		{
@@ -324,13 +320,13 @@ Bool Locomotor::rva001E9A00(Object *obj, Real goalSpeed, Real *pathDistance, Rva
 			speed = getMinSpeed(obj);
 		aerial->m_speed = speed;
 
-		Vector3 position = m_transform.Get_Translation();
+		Vector3 position = matrixGetTranslation(m_transform);
 		Real height = TheTerrainLogic->getGroundHeight(position[0], position[1], 0);
 		{
 			GeometryInfo geom(obj->getGeometryInfo());
 			Real minZ = geom.m_boundingSphereRadius * 0.25f + height;
 			position[2] = maxOf(position[2], minZ);
-			m_transform.Set_Translation(position);
+			matrixSetTranslation(m_transform, position);
 			if (pitch > 0.3f)
 				obj->clearAndSetModelConditionState(MODELCONDITION_72, MODELCONDITION_103);
 			else if (pitch < -0.6f)

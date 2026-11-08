@@ -43,32 +43,12 @@ static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=o
 
 #include "Coord3D.h"
 
-class Matrix3D
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Get_Translation, which the canonical header leaves to units.
+static inline Vector3 matrixGetTranslation(const Matrix3D &m)
 {
-public:
-	__forceinline Matrix3D() {}											///< 0x000458EF
-	__forceinline Matrix3D &operator=(const Matrix3D &other)
-	{
-		copyVector4(Row[0], other.Row[0]);
-		copyVector4(Row[1], other.Row[1]);
-		copyVector4(Row[2], other.Row[2]);
-		return *this;
-	}
-
-	Vector3 Get_Translation() const
-	{
-		return Vector3(Row[0].W, Row[1].W, Row[2].W);
-	}
-
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-
-	Vector4 Row[3];
-};
+	return Vector3(m.Row[0].W, m.Row[1].W, m.Row[2].W);
+}
 
 class RenderObjClass;
 class Object
@@ -240,7 +220,7 @@ Int Rva000C4069::getPristineBonePositionsForConditionState(
 	{
 		for (i = 0; i < posCount; ++i)
 		{
-			Vector3 pos = transforms[i].Get_Translation();
+			Vector3 pos = matrixGetTranslation(transforms[i]);
 			positions[i].x = pos.X;
 			positions[i].y = pos.Y;
 			positions[i].z = pos.Z;

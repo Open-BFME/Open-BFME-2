@@ -340,24 +340,12 @@ public:
 	float Z;
 };
 
-class Matrix3D
+#include "../WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Get_Translation(Vector3 *), which the canonical header leaves to units.
+static __forceinline void matrixGetTranslation(const Matrix3D &m, Vector3 *set)
 {
-public:
-	__forceinline Matrix3D() {}
-	__forceinline void Get_Translation(Vector3 *set) const
-	{
-		set->X = Row[0].W; set->Y = Row[1].W; set->Z = Row[2].W;
-	}
-	__forceinline Vector4 &operator[](int i) { return Row[i]; }
-	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
-	__forceinline Matrix3D &operator=(const Matrix3D &m)
-	{
-		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]);
-		return *this;
-	}
-
-	Vector4 Row[3];
-};
+	set->X = m.Row[0].W; set->Y = m.Row[1].W; set->Z = m.Row[2].W;
+}
 
 class Quaternion
 {
@@ -419,7 +407,7 @@ struct BoneTransform : public HTreePivotTransform
 	__forceinline void Set(const Matrix3D &matrix3D)
 	{
 		Rotation = Build_Quaternion(matrix3D);
-		matrix3D.Get_Translation(&Translation);
+		matrixGetTranslation(matrix3D, &Translation);
 	}
 
 	float m_unused;

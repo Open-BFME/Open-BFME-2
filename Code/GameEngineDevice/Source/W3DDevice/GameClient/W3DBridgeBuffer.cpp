@@ -246,32 +246,26 @@ public:
 	virtual float getHeightMapHeight(float x, float y, void *normal); // +0x244
 };
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Transform_Vector and Rotate_Vector, which the canonical header leaves to units.
+static __forceinline void matrixTransformVector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 {
-public:
-	__forceinline Vector4 &operator[](int i) { return Row[i]; }
-	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
-
-	static __forceinline void Transform_Vector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
-	{
-		Vector3 tmp;
-		Vector3 *v;
-		if (out == &in) { tmp = in; v = &tmp; } else { v = (Vector3 *)&in; }
-		out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z + matrix3D[0][3]);
-		out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z + matrix3D[1][3]);
-		out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z + matrix3D[2][3]);
-	}
-	static __forceinline void Rotate_Vector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
-	{
-		Vector3 tmp;
-		Vector3 *v;
-		if (out == &in) { tmp = in; v = &tmp; } else { v = (Vector3 *)&in; }
-		out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z);
-		out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z);
-		out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z);
-	}
-	Vector4 Row[3];
-};
+	Vector3 tmp;
+	Vector3 *v;
+	if (out == &in) { tmp = in; v = &tmp; } else { v = (Vector3 *)&in; }
+	out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z + matrix3D[0][3]);
+	out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z + matrix3D[1][3]);
+	out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z + matrix3D[2][3]);
+}
+static __forceinline void matrixRotateVector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
+{
+	Vector3 tmp;
+	Vector3 *v;
+	if (out == &in) { tmp = in; v = &tmp; } else { v = (Vector3 *)&in; }
+	out->X = (matrix3D[0][0] * v->X + matrix3D[0][1] * v->Y + matrix3D[0][2] * v->Z);
+	out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z);
+	out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z);
+}
 struct VertexFormatXYZDUV2
 {
 	Real x, y, z;
@@ -810,7 +804,7 @@ inline Int W3DBridge::getModelVertices(VertexFormatXYZNDUV1 *destination_vb, Int
 
 		Vector3 vLoc;
 		Vector3 vertex;
-		Matrix3D::Transform_Vector(mtx, pVert[i], &vertex);
+		matrixTransformVector(mtx, pVert[i], &vertex);
 		vLoc = (vertex.X + xOffset) * vec + vertex.Y * vecNormal + vertex.Z * vecZ;
 
 		vLoc.X += m_start.X;
@@ -827,7 +821,7 @@ inline Int W3DBridge::getModelVertices(VertexFormatXYZNDUV1 *destination_vb, Int
 		vb.z = vLoc.Z;
 
 		Vector3 normal;
-		Matrix3D::Rotate_Vector(mtx, pNormal[i], &normal);
+		matrixRotateVector(mtx, pNormal[i], &normal);
 		// The three named locals are load-bearing: they move cl's tie-break for
 		// the inlined Transform_Vector / Rotate_Vector sums to retail's.
 		Real nx = normal.X;

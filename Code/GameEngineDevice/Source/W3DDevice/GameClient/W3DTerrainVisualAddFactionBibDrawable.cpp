@@ -43,31 +43,25 @@ struct Coord3DSet : public Coord3D
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Transform_Vector, which the canonical header leaves to units.
+static __forceinline void matrixTransformVector(const Matrix3D &matrix, const Vector3 &in, Vector3 *out)
 {
-public:
-	const Vector4 &operator[](int row) const { return Row[row]; }
-
-	static __forceinline void Transform_Vector(const Matrix3D &matrix, const Vector3 &in, Vector3 *out)
+	Vector3 tmp;
+	Vector3 *v;
+	if (out == &in)
 	{
-		Vector3 tmp;
-		Vector3 *v;
-		if (out == &in)
-		{
-			tmp = in;
-			v = &tmp;
-		}
-		else
-		{
-			v = (Vector3 *)&in;
-		}
-		out->X = (matrix[0][0] * v->X + matrix[0][1] * v->Y + matrix[0][2] * v->Z + matrix[0][3]);
-		out->Y = (matrix[1][0] * v->X + matrix[1][1] * v->Y + matrix[1][2] * v->Z + matrix[1][3]);
-		out->Z = (matrix[2][1] * v->Y + matrix[2][0] * v->X + matrix[2][2] * v->Z + matrix[2][3]);
+		tmp = in;
+		v = &tmp;
 	}
-
-	Vector4 Row[3];
-};
+	else
+	{
+		v = (Vector3 *)&in;
+	}
+	out->X = (matrix[0][0] * v->X + matrix[0][1] * v->Y + matrix[0][2] * v->Z + matrix[0][3]);
+	out->Y = (matrix[1][0] * v->X + matrix[1][1] * v->Y + matrix[1][2] * v->Z + matrix[1][3]);
+	out->Z = (matrix[2][1] * v->Y + matrix[2][0] * v->X + matrix[2][2] * v->Z + matrix[2][3]);
+}
 
 class GeometryInfo
 {
@@ -177,10 +171,10 @@ void W3DTerrainVisual::addFactionBibDrawable(Drawable *factionBuilding, Bool hig
 		corners[3].Set(pos.x, pos.y, pos.z);
 		corners[3].X -= sizeX + extraWidth;
 		corners[3].Y += sizeY + extraWidth;
-		mtx->Transform_Vector(*mtx, corners[0], &corners[0]);
-		mtx->Transform_Vector(*mtx, corners[1], &corners[1]);
-		mtx->Transform_Vector(*mtx, corners[2], &corners[2]);
-		mtx->Transform_Vector(*mtx, corners[3], &corners[3]);
+		matrixTransformVector(*mtx, corners[0], &corners[0]);
+		matrixTransformVector(*mtx, corners[1], &corners[1]);
+		matrixTransformVector(*mtx, corners[2], &corners[2]);
+		matrixTransformVector(*mtx, corners[3], &corners[3]);
 		((Rva0006840A *)m_terrainRenderObject)->rva0006840A(corners, (DrawableID)((const Rva0055A88BDwordField *)factionBuilding)->get(), highlight);
 	}
 }
@@ -215,10 +209,10 @@ void W3DTerrainVisual::addFactionBib(Object *factionBuilding, Bool highlight, Re
 		corners[3].Set(pos.x, pos.y, pos.z);
 		corners[3].X -= sizeX + extraWidth;
 		corners[3].Y += sizeY + extraWidth;
-		mtx->Transform_Vector(*mtx, corners[0], &corners[0]);
-		mtx->Transform_Vector(*mtx, corners[1], &corners[1]);
-		mtx->Transform_Vector(*mtx, corners[2], &corners[2]);
-		mtx->Transform_Vector(*mtx, corners[3], &corners[3]);
+		matrixTransformVector(*mtx, corners[0], &corners[0]);
+		matrixTransformVector(*mtx, corners[1], &corners[1]);
+		matrixTransformVector(*mtx, corners[2], &corners[2]);
+		matrixTransformVector(*mtx, corners[3], &corners[3]);
 		((Rva000683FF *)m_terrainRenderObject)->rva000683FF(corners, factionBuilding->getID(), highlight);
 	}
 }

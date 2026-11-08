@@ -72,54 +72,42 @@ struct ListNode
 // (Rotate_X by -pi/2, then back along Z by the .data float 160.0 that only
 // this function reads), sets its viewport to the x/y/width/height pixel
 // rectangle over TheDisplay's size and a 50-degree view plane, then renders
-// it with the +0x14 owner through 0x00118660. The Matrix3D and Vector4
-// members are the WWMath donor's, forced inline as WWINLINE spells them (a
-// plain inline Matrix3D is called out of line at /O1); the bool constructor
-// and Translate_Z are dllimport so this unit emits no copy of either to
-// compete with retail's (0x0004C91A for the constructor). The display size is
+// it with the +0x14 owner through 0x00118660. Matrix3D is the canonical
+// header; Rotate_X and Translate_Z are file-local helpers with the WWMath
+// donor's bodies, forced inline as WWINLINE spells them (a plain inline is
+// called out of line at /O1). The display size is
 // one Vector2 built from getWidth() and getHeight(): its arguments run right
 // to left, which is retail's getHeight-first call order and float homes.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Rotate_X and Translate_Z, which the canonical header leaves to units.
+static WWINLINE void matrixRotateX(Matrix3D &m, float theta)
 {
-public:
-	__declspec(dllimport) __forceinline explicit Matrix3D(bool init) { if (init) Make_Identity(); }
-	WWINLINE void Make_Identity(void)
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-	WWINLINE void Rotate_X(float theta)
-	{
-		float tmp1, tmp2;
-		float sinTheta, c;
+	float tmp1, tmp2;
+	float sinTheta, c;
 
-		sinTheta = sinf(theta);
-		c = cosf(theta);
+	sinTheta = sinf(theta);
+	c = cosf(theta);
 
-		tmp1 = Row[0][1]; tmp2 = Row[0][2];
-		Row[0][1] = (float)( c*tmp1 + sinTheta*tmp2);
-		Row[0][2] = (float)(-sinTheta*tmp1 + c*tmp2);
+	tmp1 = m.Row[0][1]; tmp2 = m.Row[0][2];
+	m.Row[0][1] = (float)( c*tmp1 + sinTheta*tmp2);
+	m.Row[0][2] = (float)(-sinTheta*tmp1 + c*tmp2);
 
-		tmp1 = Row[1][1]; tmp2 = Row[1][2];
-		Row[1][1] = (float)( c*tmp1 + sinTheta*tmp2);
-		Row[1][2] = (float)(-sinTheta*tmp1 + c*tmp2);
+	tmp1 = m.Row[1][1]; tmp2 = m.Row[1][2];
+	m.Row[1][1] = (float)( c*tmp1 + sinTheta*tmp2);
+	m.Row[1][2] = (float)(-sinTheta*tmp1 + c*tmp2);
 
-		tmp1 = Row[2][1]; tmp2 = Row[2][2];
-		Row[2][1] = (float)( c*tmp1 + sinTheta*tmp2);
-		Row[2][2] = (float)(-sinTheta*tmp1 + c*tmp2);
-	}
-	__declspec(dllimport) __forceinline void Translate_Z(float z)
-	{
-		Row[0][3] += (float)(Row[0][2]*z);
-		Row[1][3] += (float)(Row[1][2]*z);
-		Row[2][3] += (float)(Row[2][2]*z);
-	}
-
-	Vector4 Row[3];
-};
+	tmp1 = m.Row[2][1]; tmp2 = m.Row[2][2];
+	m.Row[2][1] = (float)( c*tmp1 + sinTheta*tmp2);
+	m.Row[2][2] = (float)(-sinTheta*tmp1 + c*tmp2);
+}
+static __forceinline void matrixTranslateZ(Matrix3D &m, float z)
+{
+	m.Row[0][3] += (float)(m.Row[0][2]*z);
+	m.Row[1][3] += (float)(m.Row[1][2]*z);
+	m.Row[2][3] += (float)(m.Row[2][2]*z);
+}
 
 class CameraClass
 {
@@ -174,8 +162,8 @@ void Rva001040D5::rva0010473F(int viewportX, int viewportY, int width, int heigh
 	if (m_active)
 	{
 		Matrix3D transform(true);
-		transform.Rotate_X(-1.5707963705062866f);
-		transform.Translate_Z(s_cameraDistance);
+		matrixRotateX(transform, -1.5707963705062866f);
+		matrixTranslateZ(transform, s_cameraDistance);
 		m_camera->Set_Transform(transform);
 		Vector2 scale((float)TheDisplay->getWidth(), (float)TheDisplay->getHeight());
 		Vector2 inv(1.0f / scale.X, 1.0f / scale.Y);

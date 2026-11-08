@@ -103,19 +103,14 @@ struct IDirect3DDevice8
 };
 extern unsigned number_of_DX8_calls;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Set(x, y, z, pos), which the canonical header leaves to units.
+static __forceinline void matrixSet(Matrix3D &m, const Vector3 &x, const Vector3 &y, const Vector3 &z, const Vector3 &pos)
 {
-public:
-	__forceinline Matrix3D() {}
-	__declspec(dllimport) __forceinline void Set(const Vector3 &x, const Vector3 &y, const Vector3 &z, const Vector3 &pos)
-	{
-		Row[0].X = x.X; Row[0].Y = y.X; Row[0].Z = z.X; Row[0].W = pos.X;
-		Row[1].X = x.Y; Row[1].Y = y.Y; Row[1].Z = z.Y; Row[1].W = pos.Y;
-		Row[2].X = x.Z; Row[2].Y = y.Z; Row[2].Z = z.Z; Row[2].W = pos.Z;
-	}
-	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
-	Vector4 Row[3];
-};
+	m.Row[0].X = x.X; m.Row[0].Y = y.X; m.Row[0].Z = z.X; m.Row[0].W = pos.X;
+	m.Row[1].X = x.Y; m.Row[1].Y = y.Y; m.Row[1].Z = z.Y; m.Row[1].W = pos.Y;
+	m.Row[2].X = x.Z; m.Row[2].Y = y.Z; m.Row[2].Z = z.Z; m.Row[2].W = pos.Z;
+}
 class Matrix4x4
 {
 public:
@@ -691,7 +686,7 @@ void Rva000E3B41::Render(RenderInfoClass &rinfo)
 		light->Set_Diffuse(terrainDiffuse);
 		Matrix3D mtx;
 		Vector3 lightDir(TheGlobalLighting->m_terrainLightPos[0]);
-		mtx.Set(Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), lightDir, Vector3(0.0f, 0.0f, 0.0f));
+		matrixSet(mtx, Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), lightDir, Vector3(0.0f, 0.0f, 0.0f));
 		light->Set_Transform(mtx);
 		lightEnv.Add_Light(*light);
 		light->Release_Ref();

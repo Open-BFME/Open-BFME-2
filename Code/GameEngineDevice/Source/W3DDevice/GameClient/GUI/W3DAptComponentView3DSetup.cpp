@@ -21,58 +21,48 @@
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
-class Matrix3D
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Rotate_Y and Rotate_Z, which the canonical header leaves to units.
+static __forceinline void matrixRotateY(Matrix3D &m, float theta)
 {
-public:
-	__declspec(dllimport) __forceinline explicit Matrix3D( bool init ) { if (init) Make_Identity(); }
-	__forceinline void Make_Identity( void )
-	{
-		Row[0].Set(1.0f,0.0f,0.0f,0.0f);
-		Row[1].Set(0.0f,1.0f,0.0f,0.0f);
-		Row[2].Set(0.0f,0.0f,1.0f,0.0f);
-	}
-	__declspec(dllimport) __forceinline void Rotate_Y( float theta )
-	{
-		float tmp1,tmp2;
-		float s,c;
+	float tmp1,tmp2;
+	float s,c;
 
-		s = sinf(theta);
-		c = cosf(theta);
+	s = sinf(theta);
+	c = cosf(theta);
 
-		tmp1 = Row[0].X; tmp2 = Row[0].Z;
-		Row[0].X = (float)(c*tmp1 - s*tmp2);
-		Row[0].Z = (float)(s*tmp1 + c*tmp2);
+	tmp1 = m.Row[0].X; tmp2 = m.Row[0].Z;
+	m.Row[0].X = (float)(c*tmp1 - s*tmp2);
+	m.Row[0].Z = (float)(s*tmp1 + c*tmp2);
 
-		tmp1 = Row[1].X; tmp2 = Row[1].Z;
-		Row[1].X = (float)(c*tmp1 - s*tmp2);
-		Row[1].Z = (float)(s*tmp1 + c*tmp2);
+	tmp1 = m.Row[1].X; tmp2 = m.Row[1].Z;
+	m.Row[1].X = (float)(c*tmp1 - s*tmp2);
+	m.Row[1].Z = (float)(s*tmp1 + c*tmp2);
 
-		tmp1 = Row[2].X; tmp2 = Row[2].Z;
-		Row[2].X = (float)(c*tmp1 - s*tmp2);
-		Row[2].Z = (float)(s*tmp1 + c*tmp2);
-	}
-	__declspec(dllimport) __forceinline void Rotate_Z( float theta )
-	{
-		float tmp1,tmp2;
-		float c,s;
+	tmp1 = m.Row[2].X; tmp2 = m.Row[2].Z;
+	m.Row[2].X = (float)(c*tmp1 - s*tmp2);
+	m.Row[2].Z = (float)(s*tmp1 + c*tmp2);
+}
+static __forceinline void matrixRotateZ(Matrix3D &m, float theta)
+{
+	float tmp1,tmp2;
+	float c,s;
 
-		c = cosf(theta);
-		s = sinf(theta);
+	c = cosf(theta);
+	s = sinf(theta);
 
-		tmp1 = Row[0].X; tmp2 = Row[0].Y;
-		Row[0].X = (float)( c*tmp1 + s*tmp2);
-		Row[0].Y = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = m.Row[0].X; tmp2 = m.Row[0].Y;
+	m.Row[0].X = (float)( c*tmp1 + s*tmp2);
+	m.Row[0].Y = (float)(-s*tmp1 + c*tmp2);
 
-		tmp1 = Row[1].X; tmp2 = Row[1].Y;
-		Row[1].X = (float)( c*tmp1 + s*tmp2);
-		Row[1].Y = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = m.Row[1].X; tmp2 = m.Row[1].Y;
+	m.Row[1].X = (float)( c*tmp1 + s*tmp2);
+	m.Row[1].Y = (float)(-s*tmp1 + c*tmp2);
 
-		tmp1 = Row[2].X; tmp2 = Row[2].Y;
-		Row[2].X = (float)( c*tmp1 + s*tmp2);
-		Row[2].Y = (float)(-s*tmp1 + c*tmp2);
-	}
-	Vector4 Row[3];
-};
+	tmp1 = m.Row[2].X; tmp2 = m.Row[2].Y;
+	m.Row[2].X = (float)( c*tmp1 + s*tmp2);
+	m.Row[2].Y = (float)(-s*tmp1 + c*tmp2);
+}
 
 #define SLOT(n) virtual void slot##n();
 // Leading slots of retail vtable 0x008F1578 (27 slots): 0 Delete_This (0x6CE57),
@@ -132,7 +122,7 @@ void W3DAptComponentView3D::rva007402C0()
 	m_camera->Set_Clip_Planes(1.0f, 5000.0f);
 	m_camera->Set_View_Plane(0.87266463f, -1.0f);
 	Matrix3D transform(true);
-	transform.Rotate_Y(-3.1415927f);
-	transform.Rotate_Z(3.1415927f);
+	matrixRotateY(transform, -3.1415927f);
+	matrixRotateZ(transform, 3.1415927f);
 	m_camera->Set_Transform(transform);
 }

@@ -13,24 +13,20 @@
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Set(position) and Scale(Vector3), which the canonical header leaves to units.
+static __forceinline void matrixSetPosition(Matrix3D &m, const Vector3 &t)
 {
-public:
-	__forceinline explicit Matrix3D(const Vector3 &t)
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, t.X);
-		Row[1].Set(0.0f, 1.0f, 0.0f, t.Y);
-		Row[2].Set(0.0f, 0.0f, 1.0f, t.Z);
-	}
-	__forceinline void Scale(const Vector3 &scale)
-	{
-		Row[0][0] *= scale.X; Row[1][0] *= scale.X; Row[2][0] *= scale.X;
-		Row[0][1] *= scale.Y; Row[1][1] *= scale.Y; Row[2][1] *= scale.Y;
-		Row[0][2] *= scale.Z; Row[1][2] *= scale.Z; Row[2][2] *= scale.Z;
-	}
-
-	Vector4 Row[3];
-};
+	m.Row[0].Set(1.0f, 0.0f, 0.0f, t.X);
+	m.Row[1].Set(0.0f, 1.0f, 0.0f, t.Y);
+	m.Row[2].Set(0.0f, 0.0f, 1.0f, t.Z);
+}
+static __forceinline void matrixScale(Matrix3D &m, const Vector3 &scale)
+{
+	m.Row[0][0] *= scale.X; m.Row[1][0] *= scale.X; m.Row[2][0] *= scale.X;
+	m.Row[0][1] *= scale.Y; m.Row[1][1] *= scale.Y; m.Row[2][1] *= scale.Y;
+	m.Row[0][2] *= scale.Z; m.Row[1][2] *= scale.Z; m.Row[2][2] *= scale.Z;
+}
 
 class Matrix4
 {
@@ -118,8 +114,9 @@ void Rva0007DA23ResourceManager::rva0007C18E()
 	{
 		Rva0007671F projection;
 		m_camera->rva00134A80(&projection);
-		Matrix3D toTexture(Vector3(0.5f, 0.5f, 0.0f));
-		toTexture.Scale(Vector3(0.5f, -0.5f, 1.0f));
+		Matrix3D toTexture;
+		matrixSetPosition(toTexture, Vector3(0.5f, 0.5f, 0.0f));
+		matrixScale(toTexture, Vector3(0.5f, -0.5f, 1.0f));
 		Rva0007671F worldToShadow;
 		Matrix4::Multiply(toTexture, projection, &worldToShadow);
 		g_00DF36B4->SetShadowMapInfo(0, worldToShadow, rva0007BB4B());

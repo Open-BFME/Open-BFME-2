@@ -47,32 +47,28 @@ struct SailCoord3D : Coord3D
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// WWMath matrix3d.h's inline Rotate_Z, which the canonical header leaves to units.
+static __forceinline void matrixRotateZ(Matrix3D &m, float theta)
 {
-public:
-	__forceinline void Rotate_Z(float theta)
-	{
-		float tmp1, tmp2;
-		float c, s;
+	float tmp1, tmp2;
+	float c, s;
 
-		c = cosf(theta);
-		s = sinf(theta);
+	c = cosf(theta);
+	s = sinf(theta);
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][1];
-		Row[0][0] = (float)( c*tmp1 + s*tmp2);
-		Row[0][1] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = m.Row[0][0]; tmp2 = m.Row[0][1];
+	m.Row[0][0] = (float)( c*tmp1 + s*tmp2);
+	m.Row[0][1] = (float)(-s*tmp1 + c*tmp2);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][1];
-		Row[1][0] = (float)( c*tmp1 + s*tmp2);
-		Row[1][1] = (float)(-s*tmp1 + c*tmp2);
+	tmp1 = m.Row[1][0]; tmp2 = m.Row[1][1];
+	m.Row[1][0] = (float)( c*tmp1 + s*tmp2);
+	m.Row[1][1] = (float)(-s*tmp1 + c*tmp2);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][1];
-		Row[2][0] = (float)( c*tmp1 + s*tmp2);
-		Row[2][1] = (float)(-s*tmp1 + c*tmp2);
-	}
-
-	Vector4 Row[3];
-};
+	tmp1 = m.Row[2][0]; tmp2 = m.Row[2][1];
+	m.Row[2][0] = (float)( c*tmp1 + s*tmp2);
+	m.Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+}
 
 extern "C" const unsigned char __identifier("??_7Rva000CA119@@6BRva000CA119_B2@@@")[];
 extern "C" const unsigned char __identifier("??_7W3DTankDraw@@6BDrawInterfaceA@@@")[];
@@ -153,6 +149,6 @@ void W3DSailModelDraw::rva000D08C3(Matrix3D *mat)
 		}
 	}
 	m_lastAngle = angle;
-	mat->Rotate_Z(m_lastAngle);
+	matrixRotateZ(*mat, m_lastAngle);
 	m_hasLastAngle = true;
 }

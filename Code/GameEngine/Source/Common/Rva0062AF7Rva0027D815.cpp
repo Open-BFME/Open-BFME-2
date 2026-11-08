@@ -32,11 +32,7 @@ struct Rva0027D6DFRes
 	float m_spare;
 };
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class Matrix3D
-{
-public:
-	float m[16];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0,
@@ -385,6 +381,6 @@ PathfindLayerEnum W3DTerrainLogic::Rva002811DD(float angle, const Coord3D &pos, 
 		terrainAtPos += 2.5f;
 	alignToTerrain(angle, pos, terrainNormal, mtx);
 	if (stickToGround)
-		mtx.m[11] = terrainAtPos;
+		mtx.Row[2].W = terrainAtPos;
 	return layer;
 }
