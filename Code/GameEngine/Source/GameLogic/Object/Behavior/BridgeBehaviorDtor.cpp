@@ -86,6 +86,15 @@ public:
 	virtual void onHealing(DamageInfo *damageInfo);
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 	virtual void onDie(const DamageInfo *damageInfo);
+	// Retail's BehaviorModuleInterface table 0x00C40920 overrides the damage (slot 4,
+	// 0x003730FC), die (slot 7, 0x004523A9) and Zero Hour getBridgeBehaviorInterface
+	// (slot 12, 0x004543A9) getters, each converting the +0x0C receiver to its interface.
+	virtual DamageModuleInterface *getDamage() { return this; }
+	virtual DieModuleInterface *getDie() { return this; }
+	virtual void *slot12() { return static_cast<BridgeBehaviorInterface *>( this ); }
+	// Primary table 0x00C409DC: slot 1 is 0x00497805 (the base call) and slot 8 is
+	// 0x00456A3E (resets the +0x100 member); both are defined in BridgeBehaviorCtor.cpp.
+	virtual void onDelete();
 private:
 	char m_pad2C[0xFD - 0x2C];
 	bool m_FD;
@@ -100,6 +109,9 @@ protected:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+protected:
+	// retail vftable slot 1: the base call 0x00497805 (BridgeBehaviorCtor.cpp)
+	virtual void loadPostProcess();
 };
 
 BridgeBehavior::~BridgeBehavior()

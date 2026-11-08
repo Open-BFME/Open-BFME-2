@@ -14,35 +14,8 @@ class Object;
 #include "../../../Common/GameLogicObjectLookupView.h"
 enum BridgeTowerType { BRIDGE_TOWER_FROM_LEFT = 0, BRIDGE_MAX_TOWERS = 4 };
 
-// The retail table at RVA 0x008409DC: 13 slots, each a rowed code owner (the next
-// word is not a code address or starts another ledger datum).
-extern "C" {
-void __identifier("??_GBridgeBehavior@@UAEPAXI@Z")();
-void __identifier("?loadPostProcess@Rva00497805@@MAEXXZ")();
-void __identifier("?GetSnapshotName@BridgeBehavior@@MBEPBDXZ")();
-void __identifier("?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z")();
-void __identifier("?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ")();
-void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
-void __identifier("?rva00456A3E@Rva00456A3E@@QAEXXZ")();
-void __identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z")();
-void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
-void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
-}
-extern "C" const void *const vtbl_00C409DC[13] = {
-	(const void *)&__identifier("??_GBridgeBehavior@@UAEPAXI@Z"), // slot 0 0x00457536
-	(const void *)&__identifier("?loadPostProcess@Rva00497805@@MAEXXZ"), // slot 1 0x00497805
-	(const void *)&__identifier("?GetSnapshotName@BridgeBehavior@@MBEPBDXZ"), // slot 2 0x004571EE
-	(const void *)&__identifier("?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z"), // slot 3 0x00457E72
-	(const void *)&__identifier("?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ"), // slot 4 0x004571A9
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 5 0x000B3FD0
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 6 0x000B3FD0
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 7 0x000B3FD0
-	(const void *)&__identifier("?rva00456A3E@Rva00456A3E@@QAEXXZ"), // slot 8 0x00456A3E
-	(const void *)&__identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z"), // slot 9 0x0050B238
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11 0x000D43D0
-	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
-};
+// The primary table at RVA 0x008409DC (13 slots) is the compiler-emitted
+// ??_7BridgeBehavior@@6BObjectModule@@@: every slot names a rowed owner.
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 template <int NUMBITS> class BitFlags;
@@ -113,6 +86,15 @@ public:
 	virtual void onHealing(DamageInfo *damageInfo);
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 	virtual void onDie(const DamageInfo *damageInfo);
+	// Retail's BehaviorModuleInterface table 0x00C40920 overrides the damage (slot 4,
+	// 0x003730FC), die (slot 7, 0x004523A9) and Zero Hour getBridgeBehaviorInterface
+	// (slot 12, 0x004543A9) getters, each converting the +0x0C receiver to its interface.
+	virtual DamageModuleInterface *getDamage() { return this; }
+	virtual DieModuleInterface *getDie() { return this; }
+	virtual void *slot12() { return static_cast<BridgeBehaviorInterface *>( this ); }
+	// Primary table 0x00C409DC: slot 1 is 0x00497805 (the base call) and slot 8 is
+	// 0x00456A3E (resets the +0x100 member); both are defined in BridgeBehaviorCtor.cpp.
+	virtual void onDelete();
 
 	BridgeBehavior(Thing *thing, const ModuleData *moduleData);
 public:
@@ -124,6 +106,9 @@ protected:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+protected:
+	// retail vftable slot 1: the base call 0x00497805 (BridgeBehaviorCtor.cpp)
+	virtual void loadPostProcess();
 };
 
 BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)
@@ -145,4 +130,17 @@ BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)
 			m_aCC[i][j] = 0;
 		}
 	m_104 = 0;
+}
+
+// Slot 8 of the primary table 0x00C409DC, 0x00456A3E: Zero Hour's onDelete releases
+// the scaffold pool member at +0x100 (Rva0029FB3BMember::reset 0x0026549E).
+void BridgeBehavior::onDelete()
+{
+	m_free.reset();
+}
+
+// Slot 1 of the primary table 0x00C409DC, 0x00497805: the base call.
+void BridgeBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
 }

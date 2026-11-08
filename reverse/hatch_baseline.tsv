@@ -12240,8 +12240,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp	SidesLi
 present_unmatched	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	1BfmeWorkerDockPoint@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	ArmorTemplate::adjustDamage	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp	Rva001F0622Base::~Rva001F0622Base	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	loadPostProcess@BridgeBehavior@@MAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	onDelete@BridgeBehavior@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	onDie@BridgeBehavior@@UAEXPBVDamageInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::Rva0036CA00Str	1

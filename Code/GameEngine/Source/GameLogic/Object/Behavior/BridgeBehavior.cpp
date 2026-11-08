@@ -492,14 +492,7 @@ BridgeBehaviorInterface *BridgeBehavior::getBridgeBehaviorInterfaceFromObject(Ob
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?onDelete@BridgeBehavior@@UAEXXZ present-unmatched
-void BridgeBehavior::onDelete( void )
-{
-
-	// clear the list of scaffold objects
-	m_scaffoldObjectIDList.clear();
-
-}
+// BridgeBehavior::onDelete: defined in BridgeBehaviorCtor.cpp (retail 0x00456A3E resets the +0x100 scaffold pool member).
 
   // end onDelete
 
@@ -663,14 +656,7 @@ void BridgeBehavior::onDie( const DamageInfo *damageInfo )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@BridgeBehavior@@MAEXXZ present-unmatched
-void BridgeBehavior::loadPostProcess( void )
-{
-
-	// extend base class
-	UpdateModule::loadPostProcess();
-
-}
+// BridgeBehavior::loadPostProcess: defined in BridgeBehaviorCtor.cpp (retail 0x00497805).
 
   // end loadPostProcess
 
