@@ -85,3 +85,11 @@ INCONCLUSIVE: index d171e84869 versus outgoing base
 0292da473397a175f09d211b8414f863e409d73a; Common/AIBaseBuilder.cpp lacks a
 current receipt. Carry that consumer into the next census/image check;
 this publication does not establish full link closure or runtime progress.
+
+**2026-11-08, seat LeonardBuhl: Rva003AE1A7CopyCtor.cpp's two stand-ins replaced (`898bd40bda`).** The copy
+constructor 0x003AE1A7 now stores `??_7Rva003ACA93Object@@6BRva003AC8D7Slot0@@@` (VA 0x00C1CA40) and `...Slot2@@@`
+(0x00C1CA2C), the SELECT_ANY tables ModuleTemplateCloneSlots.cpp emits and the data ledger binds there, instead of the
+strong one-byte `Rva003AE1A7_v0`/`_v0C`. 1/1 row exact; link_check LINKS 38 -> 38. Expected next real link: the two
+strong-definition refusals at 0x0081CA40/0x0081CA2C go and those tables are bridged (short one-slot copies), like the
+`7efac5f6d8` cohort. Clearance: none claimed. The concrete class (ConcreteModuleTemplate over
+RenderObjectParticleUpdateModule, opaque here as Rva003ACA93Object) and its full tables remain.
