@@ -8,6 +8,9 @@
 class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/DieModule.h"
+// Retail's CreateObjectDie builds Drawable.h's flash constant: its copy 0x007B1266, alone in its
+// .text$yc run, static right after CreateObjectDieIfEldestKindof::onDie's guard (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 #include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/Common/INI/INI.h"

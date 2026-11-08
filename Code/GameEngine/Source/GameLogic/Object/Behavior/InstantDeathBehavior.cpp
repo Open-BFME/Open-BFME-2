@@ -23,6 +23,9 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
+// Retail's InstantDeathBehavior builds Drawable.h's flash constant: its copy 0x007B0B66, alone in its
+// .text$yc run, static right after its pool-key guard (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 // platformsdk
 //
 // InstantDeathBehaviorModuleData FieldParse procs, BFME 2 layout. The table

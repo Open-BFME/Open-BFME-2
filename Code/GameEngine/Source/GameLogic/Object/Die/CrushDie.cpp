@@ -39,6 +39,9 @@ class PowerPlantUpdateInterface;
 class SpawnBehaviorInterface;
 class CountermeasuresBehaviorInterface;
 #include "../../../../Include/GameLogic/Module/DieModule.h"
+// Retail's CrushDie builds Drawable.h's flash constant: its copy 0x007B12AA, alone in its
+// .text$yc run, static right after its getModuleNameKey guard (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 #include <string.h>
 #include "Common/BfmeAudioEventPrefix136.h"
 typedef float Real;
