@@ -3237,6 +3237,18 @@ class NativeTransferProofTests(NativeCompilerCase):
                 self.assertEqual(T.transfer_problem(self.INST, "d", "t", {"d": bad, "t": good}, {}),
                                  "d's object cannot be read: inconclusive")
 
+    def test_a_real_vftable_is_portable_through_its_weak_slot(self):
+        """What MSVC 7.1 writes for a class with an out-of-line virtual destructor and a ctor here."""
+        text = "class V { public: V(); virtual ~V(); int m; };\nV::V() : m(0) {}\n"
+        data = self.obj("real_table", "#pragma inline_depth(0)\n" + text).read_bytes()
+        found = {k[0]: v for k, v in T.portable_comdat_contexts(data).items()}
+        table = found["??_7V@@6B@"]
+        self.assertEqual(table[2], ((0, 6, "??_EV@@UAEPAXI@Z"),))
+        self.assertEqual(table[3][0][0], "??_EV@@UAEPAXI@Z")
+        self.assertEqual(table[3][0][1][0], "??_GV@@UAEPAXI@Z")
+        same = self.obj("real_table_again", "int other() { return 1; }\n#pragma inline_depth(0)\n" + text).read_bytes()
+        self.assertEqual({k[0]: v for k, v in T.portable_comdat_contexts(same).items()}["??_7V@@6B@"], table)
+
     def test_the_handover_on_real_objects(self):
         with_use = self.obj("dest", "#pragma inline_depth(0)\n" + self.TEMPLATE + self.USE)
         without = self.obj("donor_after", "int other() { return 1; }\n")
@@ -4804,6 +4816,48 @@ class LinkGuardTests(unittest.TestCase):
                 self.assertEqual(T.portable_comdat_contexts(self.context_object(**options)), {})
         self.assertEqual(T.portable_comdat_contexts(b"truncated"), {})
 
+    @staticmethod
+    def weak_table(default="??_Gx@@", selection=2, tag_at=None, alias=None, another_weak=False):
+        """A vftable's shape: a data COMDAT with one DIR32 to weak `??_Ex@@`, whose default is `default`,
+        a code COMDAT here selected `selection`."""
+        import struct
+        from test_gate_exploits import coff, TEXT
+        sections = [(".rdata", 0x40001040, b"\0\0\0\0", [(0, 6, 6)]),
+                    (".text", TEXT | 0x1000, b"\xc3", [])]
+        if alias:
+            sections.append((".drectve", 0x00100A00, f" /alternatename:{alias}=other".encode(), []))
+        symbols = [(".rdata", 0, 1, 0, 3, 1), ("??_7x@@", 0, 1, 0, 2, 0),
+                   (".text", 0, 2, 0, 3, 1), ("??_Gx@@", 0, 2, 0x20, 2, 0),
+                   ("??_Ex@@", 0, 0, 0x20, 105, 1)]
+        if another_weak:
+            symbols.append(("??_Ex@@", 0, 0, 0x20, 105, 1))
+        data = bytearray(coff(sections, symbols))
+        table = struct.unpack_from("<I", data, 8)[0]
+        data[table + 18 + 14] = 2
+        data[table + 18 * 4 + 14] = selection
+        struct.pack_into("<I", data, table + 18 * 7, 5 if tag_at is None else tag_at)
+        if another_weak:
+            struct.pack_into("<I", data, table + 18 * 9, 5)
+        return bytes(data)
+
+    def test_portable_context_names_a_compilers_weak_slot_and_its_default(self):
+        import link_census as LCe
+        data = self.weak_table()
+        found = T.portable_comdat_contexts(data)
+        table = [v for k, v in found.items() if k[0] == "??_7x@@"]
+        self.assertEqual(len(table), 1)
+        digest = next(d for s, _b, _r, d, _ in LCe._comdat_sections(data) if s["name"] == "??_Gx@@")
+        self.assertEqual(table[0][2], ((0, 6, "??_Ex@@"),))
+        self.assertEqual(table[0][3], (("??_Ex@@", ("??_Gx@@", digest)),))
+
+    def test_portable_context_refuses_a_weak_slot_it_cannot_follow(self):
+        for label, options in (("default selected otherwise", {"selection": 1}), ("default not a body here", {"tag_at": 0}),
+                               ("the slot redirected", {"alias": "??_Ex@@"}), ("the default redirected", {"alias": "??_Gx@@"}),
+                               ("two weak records of the slot", {"another_weak": True})):
+            with self.subTest(label=label):
+                found = T.portable_comdat_contexts(self.weak_table(**options))
+                self.assertEqual([k for k in found if k[0] == "??_7x@@"], [])
+
     def test_identical_digests_cannot_hide_changed_local_referents(self):
         import link_census as LCe
         old = self.context_object(storage=3, section=2, referent="$S1")
@@ -5427,10 +5481,11 @@ class SplitLinkGuardTests(unittest.TestCase):
         (self.root / "reverse").mkdir()
         self.truth = SimpleNamespace(verdict=lambda *args: None)
 
-    def obj(self, stem, defined=(), refs=(), copies=(), aliases=(), common=()):
+    def obj(self, stem, defined=(), refs=(), copies=(), aliases=(), common=(), tables=()):
+        """`tables`: (table, weak slot, its default, the default's body), a vftable's shape, each a COMDAT selected ANY."""
         import struct
         from test_gate_exploits import coff, TEXT
-        sections, symbols, aux_at = [], [], []
+        sections, symbols, aux_at, tags = [], [], [], []
         for name in defined:
             sections.append((".text", TEXT, b"\xc3", []))
             symbols.append((name, 0, len(sections), 0x20, 2, 0))
@@ -5439,6 +5494,17 @@ class SplitLinkGuardTests(unittest.TestCase):
             aux_at.append(sum(1 + s[-1] for s in symbols) + 1)
             symbols.extend([(".text", 0, len(sections), 0, 3, 1),
                             (name, 0, len(sections), 0x20, 2, 0)])
+        for table, slot, default, body in tables:
+            sections.append((".text", TEXT | 0x1000, body, []))
+            aux_at.append(sum(1 + s[-1] for s in symbols) + 1)
+            symbols.append((".text", 0, len(sections), 0, 3, 1))
+            target = sum(1 + s[-1] for s in symbols)
+            symbols.append((default, 0, len(sections), 0x20, 2, 0))
+            sections.append((".rdata", 0x40001040, b"\0\0\0\0", [(0, target + 4, 6)]))
+            aux_at.append(sum(1 + s[-1] for s in symbols) + 1)
+            symbols.extend([(".rdata", 0, len(sections), 0, 3, 1), (table, 0, len(sections), 0, 2, 0),
+                            (slot, 0, 0, 0x20, 105, 1)])
+            tags.append((target + 4, target))
         first = sum(1 + s[-1] for s in symbols)
         symbols.extend((name, 0, 0, 0x20, 2, 0) for name in refs)
         if refs:
@@ -5453,6 +5519,8 @@ class SplitLinkGuardTests(unittest.TestCase):
         table = struct.unpack_from("<I", raw, 8)[0]
         for at in aux_at:
             raw[table + 18 * at + 14] = 2
+        for weak, tag in tags:
+            struct.pack_into("<I", raw, table + 18 * (weak + 1), tag)
         path = self.root / "objects" / (stem + ".obj")
         path.parent.mkdir(exist_ok=True)
         path.write_bytes(raw)
@@ -5583,6 +5651,59 @@ class SplitLinkGuardTests(unittest.TestCase):
                              outside_options=dict(refs=("_fold",)))
             why = self.judge(destination_options=dict(copies=(("_fold", b"\xc3"),)))
         self.assertTrue(any("lacks matching private/weak-free context" in item for item in why))
+
+    TABLE = ("_tab", "_slot", "_del", b"\xc3")
+    REFUSED = "lacks matching private/weak-free context"
+
+    def table_guard(self, verdict="retail"):
+        self.truth.verdict = lambda symbol, *rest: verdict if symbol["name"] == "_del" else None
+        return self.setup_guard(source_options=dict(tables=(self.TABLE,)), outside_options=dict(refs=("_tab",)))
+
+    def test_a_moved_table_is_proven_through_its_weak_slot(self):
+        # The false reject on ??_7Rva0056616B@@6B@: one table, one default, its body proven retail.
+        self.table_guard()
+        self.assertEqual(self.judge(destination_options=dict(tables=(self.TABLE,))), [])
+
+    def test_a_moved_table_whose_default_is_not_proven_retail_refuses(self):
+        for verdict, label in ((None, "the default is not proven"), ("wrong", "the default is proven wrong")):
+            with self.subTest(label=label):
+                self.table_guard(verdict)
+                why = self.judge(destination_options=dict(tables=(self.TABLE,)))
+                self.assertTrue(any(self.REFUSED in item for item in why), why)
+
+    def test_a_moved_table_may_not_change_its_slots_route(self):
+        for label, table in (("another default", ("_tab", "_slot", "_other", b"\xc3")),
+                             ("another body of the default", ("_tab", "_slot", "_del", b"\x90\xc3"))):
+            with self.subTest(label=label):
+                self.table_guard()
+                why = self.judge(destination_options=dict(tables=(table,)))
+                self.assertTrue(any(self.REFUSED in item for item in why), why)
+
+    def test_a_changed_object_may_not_give_the_slot_another_default(self):
+        self.table_guard()
+        why = self.judge(residual_options=dict(tables=(("_tab2", "_slot", "_other", b"\xc3"),)),
+                         destination_options=dict(tables=(self.TABLE,)))
+        self.assertTrue(any(self.REFUSED in item for item in why), why)
+
+    def test_nothing_may_define_or_redirect_the_slot_or_its_default(self):
+        cases = {"strong": ("strong", "_slot", [1]), "comdat": ("comdat", "_slot", [(1, "s", None)]),
+                 "common": ("common", "_slot", [(1, 4)]), "an alias of the slot": ("alternates", "_slot", [(1, "_x")]),
+                 "an alias of the default": ("alternates", "_del", [(1, "_x")])}
+        for label, (table, name, entry) in cases.items():
+            with self.subTest(label=label):
+                g = self.table_guard()
+                g.guard.index[table][name] = entry
+                why = self.judge(destination_options=dict(tables=(self.TABLE,)))
+                self.assertTrue(any(self.REFUSED in item for item in why), why)
+
+    def test_an_object_the_context_cannot_read_refuses(self):
+        real = T.portable_comdat_contexts
+        for label, read in (("no context at all", lambda data: {}),
+                            ("a context with no weak record", lambda data: {k: v[:3] for k, v in real(data).items()})):
+            with self.subTest(label=label), patch.object(T, "portable_comdat_contexts", side_effect=read):
+                self.table_guard()
+                why = self.judge(destination_options=dict(tables=(self.TABLE,)))
+                self.assertTrue(any(self.REFUSED in item for item in why), why)
 
     def test_common_provider_can_move_and_resolve_a_cross_file_reference(self):
         self.setup_guard(source_options=dict(common=(("_data", 4),)), outside_options=dict(refs=("_data",)))

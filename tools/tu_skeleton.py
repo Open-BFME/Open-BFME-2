@@ -1311,7 +1311,10 @@ def portable_comdat_contexts(data):
     The census digest normalizes local labels and does not encode weak defaults.
     It is not enough for moving existing debt. Compare raw bodies and ordinary
     undefined external references, from both authenticated old and new objects.
-    Other kinds keep the existing refusal; this is deliberately a narrow proof.
+    A weak slot the compiler writes (a vftable's `??_E`) counts only with its
+    default: a body of this object selected ANY. Its context then ends with
+    ((weak name, (default, default's digest)), ...), for the guard to prove the
+    route. Other kinds keep the existing refusal; this is deliberately a narrow proof.
     """
     import struct
     import link_census as LCe
@@ -1319,19 +1322,38 @@ def portable_comdat_contexts(data):
         selections = LCe._comdat_selections(data)
         aliases = {m.group(1).decode("latin-1").strip('"')
                    for m in re.finditer(rb"/alternatename:([^=\s]+)=(\S+)", data, re.I)}
-        weaks = {name for name, _ in LCe._weak_externals(data)}
+        weak_pairs = LCe._weak_externals(data)
+        weaks = {name for name, _ in weak_pairs}
+        defaults = dict(weak_pairs)
         defined = {s["name"] for s in LCe._coff_symbols(data)
                    if s["storage"] == LCe.EXTERNAL and (s["section"] > 0 or s["value"] != 0)}
+        sections = list(LCe._comdat_sections(data))
+        selected_any = {symbol["name"]: digest for symbol, body, _relocs, digest, _ in sections
+                        if body is not None and selections.get(symbol["section"]) == 2}
+
+        def weak_slot(ref):
+            """(default, its digest) of a weak relocation target proven by this object, or None."""
+            default = defaults.get(ref["name"])
+            if (ref["storage"] != LCe.WEAK_EXTERNAL or ref["section"] != 0 or ref["value"] != 0
+                    or ref["name"] in aliases | defined or LCe._normal(ref["name"]) != ref["name"]
+                    or len([n for n, _ in weak_pairs if n == ref["name"]]) != 1
+                    or default not in selected_any or default in aliases or LCe._normal(default) != default):
+                return None
+            return default, selected_any[default]
         result = {}
-        for symbol, body, relocs, digest, _ in LCe._comdat_sections(data):
+        for symbol, body, relocs, digest, _ in sections:
             if body is None or selections.get(symbol["section"]) != 2:  # IMAGE_COMDAT_SELECT_ANY
                 continue
-            if any(ref["storage"] != LCe.EXTERNAL or ref["section"] != 0 or ref["value"] != 0
+            slots = {ref["name"]: weak_slot(ref) for _, _, ref in relocs if ref["storage"] != LCe.EXTERNAL}
+            if not all(slots.values()):
+                continue
+            if any(ref["name"] not in slots and (ref["section"] != 0 or ref["value"] != 0
                    or "definition" in ref or ref["name"] in aliases | weaks | defined
-                   or LCe._normal(ref["name"]) != ref["name"] for _, _, ref in relocs):
+                   or LCe._normal(ref["name"]) != ref["name"]) for _, _, ref in relocs):
                 continue
             result[(symbol["name"], digest)] = (symbol["value"], body,
-                tuple((offset, kind, ref["name"]) for offset, kind, ref in relocs))
+                tuple((offset, kind, ref["name"]) for offset, kind, ref in relocs),
+                *((tuple(sorted(slots.items())),) if slots else ()))
         return result
     except (ValueError, IndexError, KeyError, struct.error):
         return {}  # no proof from an unreadable object
@@ -2008,6 +2030,21 @@ class SplitLinkGuard:
                 return self.guard.census_contexts({position}).get(position, {}).get((name, body[1]))
             return None
 
+        def weak_slot_proven(slot, default, digest):
+            """Does weak `slot` land, before and after alike, on `default` with `digest`, the body the map
+            selects and retail truth proves? Nothing may define or redirect the slot or its default, and no
+            changed object may give the slot another default. Each read that fails refuses."""
+            for view in (before, after):
+                if (view["strong"].get(slot) or view["comdat"].get(slot) or view["common"].get(slot)
+                        or view["alternates"].get(slot) or view["alternates"].get(default)):
+                    return False
+                found = state(view, default)
+                if found[2] == "wrong" or found[3] != ("copy", digest, "retail"):
+                    return False
+            return not any(weak == slot and other != default
+                           for record in (*self.records.values(), *records.values())
+                           for weak, other in record["fact"][3])
+
         failures = []
         for name in sorted(names):
             old, new = state(before, name), state(after, name)
@@ -2028,7 +2065,11 @@ class SplitLinkGuard:
                     and LC.is_referenced(before, name) and not (old[2] == new[2] == "ok")):
                 old_context = context(before, old, name, self.records)
                 safe_routes = old_context is not None
+                slots = dict(old_context[3]) if old_context and len(old_context) > 3 else {}
                 for _, _, referent in old_context[2] if old_context else ():
+                    if referent in slots:
+                        safe_routes = safe_routes and weak_slot_proven(referent, *slots[referent])
+                        continue
                     # Raw relocation equality cannot prove a callee's route
                     # when another changed object defines or redirects it.
                     for record in (*self.records.values(), *records.values()):
