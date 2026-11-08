@@ -578,3 +578,10 @@ strong `_vtbl_` owner: the vbtable is neither refused nor queued, and the strong
 exit_link, link_batch_audit and gate-exploit suites pass (416 tests). Clearance: none claimed until the next real link's
 `vtable_bridge_queue.tsv` lists no `no-retail-slots` row (34 at `4a3033f245`). The `??_7` tables in the same units remain
 separate bridge work.
+
+**2026-11-08, seat LeonardBuhl: SimpleVecClass<Vector3> Uninitialised_Grow handed to its owner.** The two
+SimpleVecClass/SimpleDynVecClass<Vector3> tables (0x007C6F44 and neighbour) refused only slot 2, first emitted by
+Rva001684D6Ctor.obj (EH body, so no twin proof). Rva001684D6Ctor.cpp's decl-only block now declares
+`SimpleVecClass<Vector3>::Uninitialised_Grow`, so the unit references it; in path order SimpleVecVector3O1.obj (the row's
+owner) precedes the remaining copies in particle_buffer_render_line and shattersystem. 4/4 rows exact; link_check LINKS
+135 -> 135. Clearance: none claimed until the next real link.
