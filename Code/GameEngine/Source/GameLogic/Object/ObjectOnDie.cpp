@@ -153,20 +153,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 
-class Thing
-{
-public:
-	void setOrientation(float angle);
-	const ThingTemplate *getTemplate() const { return m_template; }
-	float getOrientation() const { return m_orientation; }
-	const Coord3D *getPosition() const { return &m_pos; }
-
-	void *m_vtbl;	// +0x00
-	const ThingTemplate *m_template;	// +0x04
-	char pad08[0x38 - 0x08];
-	Coord3D m_pos;	// +0x38
-	float m_orientation;	// +0x44
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -203,7 +190,7 @@ public:
 		}
 	}
 
-	char pad048[0x74 - 0x48];
+	char pad060[0x74 - 0x60];
 	ObjectID m_id;	// +0x74
 	char pad078[0x84 - 0x78];
 	Rva00275376 *m_drawable;	// +0x84
@@ -231,7 +218,7 @@ void Object::onDie(DamageInfo *damageInfo)
 		((Rva001E42F2 *)this)->rva001E42F2((const int *)Rva0028F59A(0, 0x45).m_bits);
 	}
 
-	if ((getTemplate()->m_kindof[190 >> 5] & (1u << (190 & 31))))
+	if ((m_template->m_kindof[190 >> 5] & (1u << (190 & 31))))
 		TheCreateAHeroManager->UnbindHeroFromObjectAndUpdate(this);
 
 	bool selfInflicted = (damageInfo->m_sourceID == getID());
@@ -259,7 +246,7 @@ void Object::onDie(DamageInfo *damageInfo)
 	{
 		container->m_contain->removeFromContain(this, false);
 		clearStatusBit(88);
-		if ((getTemplate()->m_kindof[55 >> 5] & (1u << (55 & 31))))
+		if ((m_template->m_kindof[55 >> 5] & (1u << (55 & 31))))
 			container->kill((DamageType)8, (DeathType)0);
 	}
 
@@ -279,7 +266,7 @@ void Object::onDie(DamageInfo *damageInfo)
 	DelayedLuaEventList events;
 	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(1, this, (BfmeDelayedLuaEventList *)&events);
 
-	if ((getTemplate()->m_kindof[144 >> 5] & (1u << (144 & 31))) || (getTemplate()->m_kindof[90 >> 5] & (1u << (90 & 31))))
+	if ((m_template->m_kindof[144 >> 5] & (1u << (144 & 31))) || (m_template->m_kindof[90 >> 5] & (1u << (90 & 31))))
 		((Rva0042638E *)TheEmotionSystem)->rva0042638E((const SearchArg0042638E *)this);
 
 	if (m_team)
@@ -287,7 +274,7 @@ void Object::onDie(DamageInfo *damageInfo)
 
 	if (!selfInflicted && damageInfo->m_deathType != 0x16)
 	{
-		const ThingTemplate *thingTemplate = getTemplate();
+		const ThingTemplate *thingTemplate = m_template;
 		if (thingTemplate)
 		{
 			int evaEvent;
@@ -307,10 +294,10 @@ void Object::onDie(DamageInfo *damageInfo)
 	int playerIndex = getControllingPlayer()->m_playerIndex;
 	TheInGameUI->removeIdleWorker(this, playerIndex);
 
-	if ((getTemplate()->m_kindof[8 >> 5] & (1u << (8 & 31))))
+	if ((m_template->m_kindof[8 >> 5] & (1u << (8 & 31))))
 	{
 		Object *killer = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
-		if (killer && (killer->getTemplate()->m_kindof[165 >> 5] & (1u << (165 & 31))))
+		if (killer && (killer->m_template->m_kindof[165 >> 5] & (1u << (165 & 31))))
 			setStatus((ObjectStatusTypes)0x47, true);
 	}
 

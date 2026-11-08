@@ -526,3 +526,14 @@ row/scoped-DIR32/data checks pass. Broader audit remains INCONCLUSIVE: index
 d171e84869 versus outgoing base e834581c00d638d23b569831da5d7be01f7c999f;
 Common/AICowerState_onEnter.cpp lacks a current receipt. No wider closure
 or runtime claim is made.
+
+**2026-11-08 Object death-handler Thing adoption:** ObjectOnDie.cpp replaces
+its private 0x48-byte Thing prefix with the canonical 0x60-byte class and
+shortens following padding to preserve Object offsets. All three rows and
+the parent EH graph pass; one owning-tool header debt is retired. Eleven
+retained code COMDAT facts/flags/policies and three data allocations agree.
+The omitted getTemplate copy retains an identical, strictly current earlier
+Recorder provider; the added iterator is native-exact. Strict preparation
+passes 142/142 across the two sources. Full Object/TU and image recovery
+remain open; no new coverage or runtime clearance.
+[Accessed offsets and provider proof](../../reverse/attempt_support/object-on-die-thing-adoption-20261108/README.md).
