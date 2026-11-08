@@ -195,7 +195,6 @@ static char *skipNonSeps(char *p, const char *seps);
 // Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCharSourceSet.cpp // cl: /O2
 // plus /EHsc for the handler 0x0075CD08 scope unwind of the stack source.
 
-// ?getLength@WideStrLenSource@@UBEHXZ present-unmatched
 template <>
 void StringBase<wchar_t>::set(const wchar_t *str, int len)
 {
@@ -521,7 +520,6 @@ void StringBase<WideChar>::trim()
 // Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp // cl: /O2 /EHsc
 // plus char-size bytes len+9 and capacity bytes-8 (no divide).
 
-// ?getLength@NarrowStrLenSource@@UBEHXZ present-unmatched
 // ??1NarrowStrLenSource@@QAE@XZ present-unmatched
 template <>
 void StringBase<char>::set(const char *str, int len)
