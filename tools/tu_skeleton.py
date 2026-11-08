@@ -3670,16 +3670,27 @@ def deleting_class(name):
     return m.group(1) if m else None
 
 
-def unit_text(path):
-    """(the unit's preprocessed text, None), or (None, why): `path` through cl -E under its
-    own build command (rename.preprocess_unit, no object written), so macros, includes and
-    aliases are what the compiler sees, in the form the rules read (flatten_preprocessed)."""
-    cache = _CACHE.setdefault("unit_text", {})
+def preprocessed_unit(path):
+    """(cl -E output, None) or (None, why): `path` under its own build command
+    (rename.preprocess_unit, no object written), cached."""
+    cache = _CACHE.setdefault("preprocessed", {})
     if path not in cache:
         ctx = SimpleNamespace(root=ROOT, path=lambda rel: ROOT / rel)
-        text, why = rename.preprocess_unit(ctx, path)
-        cache[path] = (flatten_preprocessed(text), None) if text is not None else (None, why)
+        cache[path] = rename.preprocess_unit(ctx, path)
     return cache[path]
+
+
+def unit_text(path):
+    """(the unit's preprocessed text, None), or (None, why): so macros, includes and aliases are
+    what the compiler sees, in the form the rules read (flatten_preprocessed)."""
+    text, why = preprocessed_unit(path)
+    return (flatten_preprocessed(text), None) if text is not None else (None, why)
+
+
+def unit_own_text(path):
+    """unit_text without the lines the vendored STLport headers contribute (own_text)."""
+    text, why = preprocessed_unit(path)
+    return (flatten_preprocessed(own_text(text)), None) if text is not None else (None, why)
 
 
 def flatten_preprocessed(text):
@@ -3743,15 +3754,182 @@ def explicit_instance_problem(code, owner):
     return " ".join(m.group(0).split())[:120] if m else None
 
 
-def implicit_comdat(r, path):
+# A template instance moves by emission only when it is an instance of a vendored STLport
+# template: its decorated scope is `_STL` and the vendored STLport headers define the template
+# (review of 3bc60f1272: MSVC 7.1 takes `typedef C<int> Alias; void Alias::f() {}`, a
+# hand-written member with no `template<>`, and emits `?f@?$C@H@@QAEXXZ` with the implicit
+# instance's bytes). The decorated name is read by a small parser that refuses anything it
+# does not know (stl_template); the headers by a scan of their template declarations.
+PRIMITIVE = set("CDEFGHIJKMNOX")
+_STL_TEMPLATES = {}                       # include dir -> stlport_templates()
+
+
+def _skip_name(s, i):
+    """The index after the qualified name at `i` (fragments up to its terminating `@`)."""
+    while s[i] != "@":
+        i = _skip_fragment(s, i)
+    return i + 1
+
+
+def _skip_fragment(s, i):
+    if s[i].isdigit():                              # a back-reference to an earlier name
+        return i + 1
+    if s.startswith("?$", i):
+        return _skip_template(s, i)
+    j = s.index("@", i)
+    if not re.fullmatch(r"[A-Za-z_]\w*", s[i:j]):
+        raise ValueError(f"unknown name fragment at {i}")
+    return j + 1
+
+
+def _skip_template(s, i):
+    """The index after `?$name@args@` at `i`."""
+    j = s.index("@", i + 2)
+    if not re.fullmatch(r"[A-Za-z_]\w*", s[i + 2:j]):
+        raise ValueError(f"unknown template name at {i}")
+    i = j + 1
+    while s[i] != "@":
+        i = _skip_type(s, i)
+    return i + 1
+
+
+def _skip_type(s, i):
+    """The index after one template argument at `i`; ValueError for any shape not read here."""
+    c = s[i]
+    if c in PRIMITIVE:
+        return i + 1
+    if c == "_" and s[i + 1] in "DEFGHIJKNW":                # __int8 .. __int64, bool, wchar_t
+        return i + 2
+    if c in "PQRSAB" and s[i + 1] in "ABCD":                 # pointers and references, cv-qualified
+        return _skip_type(s, i + 2)
+    if c in "TUV":                                          # union, struct, class
+        return _skip_name(s, i + 1)
+    if s.startswith("W4", i):                                # enum
+        return _skip_name(s, i + 2)
+    if c.isdigit():                                         # a type back-reference
+        return i + 1
+    if s.startswith("$$C", i) and s[i + 3] in "ABCD":        # a cv-qualified type
+        return _skip_type(s, i + 4)
+    if s.startswith("$0", i):                                # an integer constant
+        j = i + 2 + (s[i + 2] == "?")
+        if s[j].isdigit():
+            return j + 1
+        k = s.index("@", j)
+        if not re.fullmatch(r"[A-P]+", s[j:k]):
+            raise ValueError(f"unknown constant at {i}")
+        return k + 1
+    raise ValueError(f"unknown template argument at {i}")
+
+
+def stl_template(name):
+    """The vendored STLport template whose instance `name` is, or None: a function template
+    (`??$_Construct@...@_STL@@`), a member (`?clear@?$list@...@_STL@@`) or a ctor, dtor or
+    operator (`??0?$list@...@_STL@@`) of a class template, whose scope after the template is
+    exactly `_STL`, and which stlport_templates() finds defined. None when the name cannot be
+    read: fail-closed."""
+    try:
+        if name.startswith("??$"):
+            start = 1
+        else:
+            m = re.match(r"^\?(?:\?_?[0-9A-Z]|[A-Za-z_]\w*@)(?=\?\$)", name)
+            if not m:
+                return None
+            start = m.end()
+        template = name[start + 2:name.index("@", start + 2)]
+        end = _skip_template(name, start)
+    except (ValueError, IndexError):
+        return None
+    if not name.startswith("_STL@@", end):
+        return None
+    return template if template in stlport_templates() else None
+
+
+def stlport_templates():
+    """The names of the class and function templates the vendored STLport headers
+    (build.stlport_include_dir()) declare."""
+    import build
+    root = build.stlport_include_dir()
+    if root not in _STL_TEMPLATES:              # the vendored headers do not change within a run
+        names = set()
+        for f in sorted(Path(root).rglob("*")) if root else ():
+            if f.is_file():
+                try:
+                    names |= template_names(strip(f.read_text(encoding="latin-1")))
+                except OSError:
+                    continue
+        _STL_TEMPLATES[root] = frozenset(names)
+    return _STL_TEMPLATES[root]
+
+
+def template_names(code):
+    """The names each `template <...>` in `code` declares: the class after `class`/`struct`,
+    else the function before the first `(` (operators skipped)."""
+    names = set()
+    for m in re.finditer(r"\btemplate\s*<", code):
+        depth, i = 1, m.end()
+        while depth and i < len(code):
+            depth += {"<": 1, ">": -1}.get(code[i], 0)
+            i += 1
+        rest = code[i:i + 600]
+        c = re.match(r"\s*(?:class|struct)\s+(?:\w+\s+)*?(\w+)\s*[:{;<]", rest)
+        if c:
+            names.add(c.group(1))
+            continue
+        head = re.split(r"[({;]", rest, 1)[0]
+        if "(" in rest[len(head):len(head) + 1] and not re.search(r"\boperator\b", head):
+            f = re.search(r"(\w+)\s*$", head)
+            if f:
+                names.add(f.group(1))
+    return names
+
+
+def qualified_token(owner):
+    """The pattern a hand-written definition of the row would spell after `::`: the member
+    (`::clear`), any operator (`::operator`), or for a ctor or dtor the class template
+    (`::list`, `::~list`); for a function template, its name."""
+    cls, meth = owner
+    if meth == "operator":
+        return r"::\s*operator\b"
+    if cls and meth.lstrip("~") == cls:
+        return r"::\s*~?\s*" + re.escape(cls) + r"\b"
+    return r"::\s*" + re.escape(meth) + r"\b"
+
+
+def own_text(raw):
+    """cl -E output `raw` without the lines `#line` attributes to the vendored STLport headers."""
+    import build
+    root = build.stlport_include_dir()
+    prefix = _norm_path(str(root)).rstrip("/") + "/" if root else None
+    keep, out = True, []
+    for line in raw.splitlines():
+        m = re.match(r'^\s*#\s*(?:line\s+)?\d+\s+"(.*)"', line)
+        if m:
+            path = _norm_path(m.group(1).replace("\\\\", "\\"))
+            if not re.match(r"^(?:[a-z]:)?/", path):
+                path = _norm_path(str(ROOT / path))
+            keep = prefix is None or not path.startswith(prefix)
+        if keep:
+            out.append(line)
+    return "\n".join(out)
+
+
+def _norm_path(path):
+    """`path` lower-cased with `/` separators; Wine's `z:` drive dropped off Windows."""
+    path = path.replace("\\", "/").lower()
+    return path[2:] if os.name != "nt" and path.startswith("z:/") else path
+
+
+def implicit_comdat(r, path, source=None):
     """Why row `r` is not an implicit COMDAT the unit `path` leaves to the compiler, or None.
     A deleting destructor (deleting_class) is decided by its decorated name alone. A template
-    instance is judged on the unit's preprocessed text (unit_text; fail-closed when it cannot
-    be made) by explicit_instance_problem, which refuses any explicit specialization
-    (`template<>`, hand-written) or instantiation naming it, any argument types included.
-    Anything else, a constructor, destructor or assignment included, is a body to carve
-    (--split), not to move by emission. emit_move asks it of the destination, whose own code
-    must emit the row."""
+    instance must be one of a vendored STLport template (stl_template), and is then judged on
+    preprocessed text (unit_text; fail-closed when it cannot be made): `path`'s text may hold no
+    explicit specialization (`template<>`) or instantiation naming it
+    (explicit_instance_problem), and neither `path`'s nor `source`'s text outside the vendored
+    STLport headers may spell its member after `::` (qualified_token: `Alias::f`, `(Alias::f)`,
+    `C<int>::f`, macro-built spellings included; over-refusal is the price). Anything else, a
+    constructor, destructor or assignment included, is a body to carve (--split), not to move
+    by emission. emit_move asks it of the destination, with the file the row leaves."""
     name = r["name"]
     if deleting_class(name):
         return None
@@ -3761,12 +3939,27 @@ def implicit_comdat(r, path):
     owner = instance_owner(name)
     if owner is None:
         return "its template owner cannot be read from the name"
+    if stl_template(name) is None:
+        return ("not an instance of a vendored STLport template (decorated scope `_STL`, defined in the "
+                "vendored STLport headers): a user template's member can be hand-written with no `template<>`")
     code, why = unit_text(path)
     if code is None:
         return f"{path} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
     found = explicit_instance_problem(code, owner)
-    return (f"{path} (preprocessed) has an explicit specialization or instantiation naming "
-            f"{'/'.join(sorted(instance_tokens(owner)))}: `{found}`") if found else None
+    if found:
+        return (f"{path} (preprocessed) has an explicit specialization or instantiation naming "
+                f"{'/'.join(sorted(instance_tokens(owner)))}: `{found}`")
+    for unit in [path] + ([source] if source else []):
+        code, why = unit_own_text(unit)
+        if code is None:
+            return f"{unit} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
+        if UNREADABLE in code:
+            return f"{unit} (preprocessed): an unbalanced quote: the unit cannot be read"
+        found = re.search(qualified_token(owner), code)
+        if found:
+            return (f"{unit} (preprocessed, outside the vendored STLport headers) spells `{found.group(0)}`: "
+                    "a hand-written definition of the row may be there")
+    return None
 
 
 OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
@@ -3873,7 +4066,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         why = (f"its bytes are verified as {other} (object-symbol=), not under its name: every check here must "
                "judge one symbol") if other else None
         if why is None:
-            why = implicit_comdat(r, dest)
+            why = implicit_comdat(r, dest, source=path)
         if why is None and fold_alias(r):
             why = "an ICF alias: it lives where the bodies emitting its identity live"
         if why is None and sum(1 for o in rows if o["target_rva"].lower() == r["target_rva"].lower()) > 1:
@@ -4189,7 +4382,8 @@ def blob_of(data):
 def undo_lines(current, before, after, keycol):
     """`current` with the rows the move changed (before -> after) put back, or None: row-level,
     so an edit made since to any other row survives (review of 90fdd5d03d). Judged per moved
-    key (`keycol`, the RVA the move repointed): its rows now are exactly its after-state rows
+    key (`keycol`, the RVA the move repointed, read as a number in every state: `0x2000` and
+    `0x00002000` are one key, review of 3bc60f1272): its rows now are exactly its after-state rows
     (go back), or exactly its before-state rows (done already: a retry after a partial
     recovery, review of bfb856bfbf); any other combination, both states present, a copy
     duplicated or an edited row beside an original, refuses (review of 9459886c66)."""
@@ -4202,16 +4396,21 @@ def undo_lines(current, before, after, keycol):
     ki = header.index(keycol)
 
     def key(payload):
+        """The row's RVA as a number (None when blank); ValueError when it is not one."""
         text = payload.decode("utf-8", "replace")
         spans = rename.field_spans(text)
-        return text[spans[ki][0]:spans[ki][1]].strip('"').lower() if len(spans) > ki else None
+        value = text[spans[ki][0]:spans[ki][1]].strip().strip('"').strip() if len(spans) > ki else ""
+        return int(value, 16) if value else None
 
     def by_key(records):
         out = {}
         for payload, _term in records[1:]:
             out.setdefault(key(payload), []).append(payload)
         return out
-    b, a, c = by_key(split["before"]), by_key(split["after"]), by_key(split["current"])
+    try:
+        b, a, c = by_key(split["before"]), by_key(split["after"]), by_key(split["current"])
+    except ValueError:
+        return None                             # an RVA no number reads: nothing can be compared
     back = {}
     for k in set(b) | set(a):
         old, new = b.get(k, []), a.get(k, [])

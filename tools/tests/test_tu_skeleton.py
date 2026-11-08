@@ -1025,10 +1025,10 @@ class EmissionHeldTests(unittest.TestCase):
                     cache = {"map_by_rva": {0x1200: {"tu": "Code/XferSave.cpp", "by": "C",
                                                      "evidence": "C=0x00001100..0x00001300"}}}
                     with patch.dict(T._CACHE, cache, clear=True), \
-                            patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
+                            patch.object(T, "preprocessed_unit", return_value=(text, None)):
                         self.assertFalse(T.emission_held({"name": name, "target_rva": "0x00001200", "source": self.TU}))
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), (self.COPY, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]
-        with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(clean), None)):
+        with patch.object(T, "preprocessed_unit", return_value=(clean, None)):
             _don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x1200: self.C})
         self.assertEqual(mixed, {self.TU: 1})                # it makes the TU file mixed, as before rule (a)
 
@@ -1147,11 +1147,11 @@ class EmitMoveTests(unittest.TestCase):
                     return (rvas_ & exact) - lost
                 return rvas_ - (set(residual_lost) if len(judged) < len(rows) else set())
 
-        def unit_text(path):        # as the real one: the text flattened (directives, literals masked)
+        def unit(path):             # cl -E stands in: the file's own text, or `preprocessed`
             if preprocessed is not None and path in preprocessed:
                 text = preprocessed[path]
-                return (T.flatten_preprocessed(text), None) if text is not None else (None, "cl -E failed")
-            return T.flatten_preprocessed((self.root / path).read_text(encoding="utf-8")), None
+                return (text, None) if text is not None else (None, "cl -E failed")
+            return (self.root / path).read_text(encoding="utf-8"), None
 
         import build
         import name_dependents
@@ -1159,7 +1159,7 @@ class EmitMoveTests(unittest.TestCase):
         with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
                 patch.object(T, "file_rows", side_effect=own), patch.object(T, "breakdown", return_value=groups), \
                 patch.object(T, "fold_alias", return_value=False), patch.object(T, "Verifier", Verifier), \
-                patch.object(T, "unit_text", side_effect=unit_text), \
+                patch.object(T, "preprocessed_unit", side_effect=unit), \
                 patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats.get(Path(obj), set())), \
                 patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
                 patch.object(T, "exact_build", side_effect=build_effect if build_effect is not None
@@ -1220,40 +1220,40 @@ class EmitMoveTests(unittest.TestCase):
         for name in special:
             for text in texts:
                 with self.subTest(name=name, text=text), \
-                        patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+                        patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
                     why = T.implicit_comdat({"name": name, "target_rva": "0x00002100"}, "Code/u.cpp")
                     self.assertIn("not an implicit COMDAT by its name", why)
 
     def test_a_deleting_destructor_is_decided_by_its_name(self):
         for name in (self.DTOR, "??_ERec@@UAEPAXI@Z", "??_GRec@@QAEPAXI@Z"):
-            with self.subTest(name=name), patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+            with self.subTest(name=name), patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
                 self.assertIsNone(T.implicit_comdat({"name": name, "target_rva": "0x00002100"}, "Code/u.cpp"))
         for name in ("??_GRec@@UAEPAXH@Z", "??_FRec@@QAEXXZ", "??_DRec@@QAEXXZ"):   # not a deleting dtor's shape
-            with self.subTest(name=name), patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+            with self.subTest(name=name), patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
                 self.assertIn("not an implicit COMDAT", T.implicit_comdat({"name": name, "target_rva": "0x00002100"},
                                                                           "Code/u.cpp"))
 
     def test_the_coarse_rules_refuse_whatever_the_spelling(self):
         # review of 692da8fc04: refuse on any explicit specialization (`template<>`, hand-written) or
-        # instantiation naming the member or its class, rather than read spellings
+        # instantiation naming the member or its class, rather than read spellings; review of
+        # 3bc60f1272: only a vendored STLport template's instance moves, and never when the text
+        # outside the STLport headers spells its member after `::`
         box_clear, box_call = "?clear@?$Box@H@@QAEXXZ", "??R?$Box@H@@QBEHXZ"
         cases = [
             ("template<> inline void _Construct(Rec *p, Rec const &v) { }\n", self.CTOR, True),
             ("template <> void _Construct<Other, Other>(Other *, const Other &);\n", self.CTOR, True),  # over-refuses
             ("typedef Rec R2;\ntemplate <> inline void _Construct<R2, R2>(R2 *, const R2 &) { }\n", self.CTOR, True),
             ("template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n", self.CTOR, True),
-            ("template<> inline void Box<int>::clear() {}\n", box_clear, True),           # builtin arguments
-            ("template class Box<int>;\n", box_clear, True),
-            ("template <> class Box<int> { };\n", box_call, True),
-            ("template<> int Box<int>::operator()() const { return 7; }\n", box_call, True),
             ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
-             "void g(Rec *p, const Rec &v) { _STL::_Construct(p, v); }\n", self.CTOR, False),   # primary template, a use
-            ("template <class T> struct Box { void clear() { } };\nvoid g(Box<int> &b) { b.clear(); }\n", box_clear, False),
-            ("template <class T> struct Box { void clear() { } };\nvoid g() { puts(\"ok\"); }\n", box_clear, False),
-            ("template <class T> struct Box { void clear() { } };\nvoid g() { puts(\"ok); }\n", box_clear, True),  # unbalanced
+             "void g(Rec *p, const Rec &v) { _Construct(p, v); }\n", self.CTOR, False),          # primary template, a use
+            ("void g(Rec *p, const Rec &v) { _STL::_Construct(p, v); }\n", self.CTOR, True),    # `::_Construct`: over-refuses
+            ('void g() { puts("ok); }\n', self.CTOR, True),                                       # unbalanced quote
+            # a user template's instance never moves, whatever the text (`void Alias::f() {}`)
+            ("template <class T> struct Box { void clear() { } };\nvoid g(Box<int> &b) { b.clear(); }\n", box_clear, True),
+            ("template class Box<int>;\n", box_clear, True),
+            ("template <class T> struct Box { int operator()() const { return 0; } };\n", box_call, True),
             # review of e81c016950: a directive between the pieces, a `;` in a #line file name
             ('template<>\n#line 10 "semi;header.h"\ninline void _Construct(Rec *p, const Rec &v) { }\n', self.CTOR, True),
-            ('template <>\n# 12 "a;b.h"\nclass Box<int> { };\n', box_call, True),
             # a special member refuses by name, whatever the text; a deleting destructor never does
             ("struct Rec { int a; };\n", self.COPY, True),
             ("struct Rec { int a; };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
@@ -1265,9 +1265,127 @@ class EmitMoveTests(unittest.TestCase):
             with self.subTest(text=text, name=name):
                 rel = f"Code/u{i}.cpp"
                 with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
-                        patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
+                        patch.object(T, "preprocessed_unit", return_value=(text, None)):
                     why = T.implicit_comdat({"name": name, "target_rva": "0x00001200"}, rel)
                 self.assertEqual(bool(why), refused, why)
+
+    LIST_CLEAR = "?clear@?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXXZ"
+    HASH_CLEAR = ("?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@"
+                  "rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$"
+                  "allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@QAEXXZ")
+    HASH_DELETE = ("?_M_delete_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4Name"
+                   "KeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@U?$equal_to@W4NameKeyType"
+                   "@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$p"
+                   "air@$$CBW4NameKeyType@@VFXList@@@_STL@@@2@@Z")
+
+    def test_only_a_vendored_stlport_templates_instance_is_read_as_one(self):
+        # review of 3bc60f1272 (r7_probes.py): `typedef C<int> Alias; void Alias::f() {}` emits
+        # `?f@?$C@H@@QAEXXZ` with the implicit instance's bytes
+        accepted = {self.CTOR: "_Construct", self.LIST_CLEAR: "_List_base", self.HASH_CLEAR: "hashtable",
+                    self.HASH_DELETE: "hashtable", "??1?$list@HV?$allocator@H@_STL@@@_STL@@QAE@XZ": "list",
+                    "??$_Destroy@PAVFXNugget@@@_STL@@YAXPAPAVFXNugget@@@Z": "_Destroy",
+                    "??0?$allocator@PAVFXNugget@@@_STL@@QAE@XZ": "allocator",
+                    "?f@?$list@$0BA@@_STL@@QAEXXZ": "list", "?f@?$list@$0?3@_STL@@QAEXXZ": "list"}
+        for name, template in accepted.items():
+            with self.subTest(name=name):
+                self.assertEqual(T.stl_template(name), template)
+        for name in ("?f@?$C@H@@QAEXXZ",                                     # the probe's user template
+                     "?clear@?$list@H@ns@@QAEXXZ",                           # another namespace
+                     "?clear@?$list@H@_STL@ns@@QAEXXZ",                      # nested below _STL
+                     "?clear@?$list@H@@QAEXXZ",                              # the global namespace
+                     "?clear@?$NotInStlport@H@_STL@@QAEXXZ",                 # not defined by the headers
+                     "?clear@?$list@$1?g@@3HA@_STL@@QAEXXZ",                 # an argument shape not read
+                     "?clear@?$list@P6AXXZ@_STL@@QAEXXZ",                    # a function pointer argument
+                     "?clear@?$list@HV?$allocator@H@_STL@",                  # truncated
+                     "?clear@_Inner@?$list@H@_STL@@QAEXXZ",                  # a nested class's member
+                     "?clear@?$list@V?A0x1234@Foo@@@_STL@@QAEXXZ",           # an anonymous namespace's type
+                     "??$?9H@_STL@@YA_NXZ"):                                 # an operator function template
+            with self.subTest(name=name):
+                self.assertIsNone(T.stl_template(name))
+
+    def test_a_user_templates_member_never_moves_through_the_apply(self):
+        # review of 3bc60f1272 (r7_probes.py), each native case: none moves, whatever its spelling
+        before = self.ledger()
+        name = "?f@?$C@H@@QAEXXZ"
+        rows = [self.row(name, "0x00002000"), self.row(self.STAY, "0x00003000")]
+        decl = "template<class T> struct C { __declspec(noinline) void f(); }; "
+        for body in ("void C<int>::f() {}", "typedef C<int> Alias; void Alias::f() {}", "template<> void C<int>::f() {}",
+                     "template<class T> void C<T>::f() {}"):
+            with self.subTest(body=body):
+                self.write(self.TU, decl + body + " void use(C<int>*p){p->f();}\n")
+                report = self.move(rows=rows, rvas=["0x00002000"], dry_run=False, defined={name}, comdat={name},
+                                   exact={"0x00002000"})
+                self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+                self.assertIn("not an instance of a vendored STLport template", report["refused_rows"]["0x00002000"])
+                self.exact.assert_not_called()
+                self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+
+    def stl_line(self, header):
+        """A cl -E `#line` directive attributing what follows to a vendored STLport header, as Wine prints it."""
+        import build
+        path = str(build.stlport_include_dir() / "stl" / header)
+        spelled = ("Z:" + path).replace("/", "\\\\") if os.name != "nt" else path.replace("\\", "\\\\")
+        return f'#line 1 "{spelled}"\n'
+
+    def test_a_qualified_member_outside_the_stlport_headers_refuses_in_either_unit(self):
+        # rule (b) of the review of 3bc60f1272: `Alias::clear`, `(Alias::clear)`, `list<int>::clear` in the
+        # destination or the file the row leaves, outside the lines the vendored STLport headers contribute
+        rows = [self.row(self.LIST_CLEAR, "0x00002000"), self.row(self.STAY, "0x00003000")]
+        clean = "struct Rec { int a; };\nvoid campaign(_STL::list<int> &l) { l.clear(); }\n"
+        header = self.stl_line("_list.h") + "template <class T, class A> void _List_base<T, A>::clear() { }\n"
+        mine = '#line 9 "Code/Campaign.cpp"\n'
+        for spelled in ("typedef _STL::_List_base<FXNugget *, _STL::allocator<FXNugget *> > Alias;\n"
+                        "void Alias::clear() { }\n",
+                        "void (Alias::clear)() { }\n",
+                        "void _STL::_List_base<FXNugget *, _STL::allocator<FXNugget *> >:: clear() { }\n"):
+            for unit in (self.TU, self.SOURCE):
+                with self.subTest(spelled=spelled, unit=unit):
+                    texts = {self.TU: clean, self.SOURCE: "void stay() {}\n", unit: header + mine + spelled}
+                    report = self.move(rows=rows, rvas=["0x00002000"], preprocessed=texts,
+                                       defined={self.LIST_CLEAR}, exact={"0x00002000"})
+                    self.assertIn(f"{unit} (preprocessed, outside the vendored STLport headers) spells `::",
+                                  report["refused_rows"]["0x00002000"])
+        for source, why in (('void stay() { puts("ok); }\n', "unbalanced quote"), (None, "cannot be preprocessed")):
+            with self.subTest(source=source):                  # the file the row leaves must be readable too
+                report = self.move(rows=rows, rvas=["0x00002000"], preprocessed={self.TU: clean, self.SOURCE: source},
+                                   defined={self.LIST_CLEAR}, exact={"0x00002000"})
+                self.assertIn(f"{self.SOURCE}", report["refused_rows"]["0x00002000"])
+                self.assertIn(why, report["refused_rows"]["0x00002000"])
+        texts = {self.TU: header + mine + clean, self.SOURCE: header + mine + "void stay() {}\n"}
+        report = self.move(rows=rows, rvas=["0x00002000"], preprocessed=texts, defined={self.LIST_CLEAR},
+                           exact={"0x00002000"})
+        self.assertNotIn("blocked", report)                    # STLport's own `::clear` is not the unit's
+        self.assertEqual(report["moved"], ["0x00002000"])
+
+    def test_the_qualified_token_of_each_kind_of_instance(self):
+        cases = [(("list", "clear"), ("L::clear", "( L :: clear )", "_List_base<int>::clear"), ("L::clearer", "l.clear")),
+                 (("list", "list"), ("L::list", "_STL::list", ":: ~ list"), ("L::lister", "list(")),
+                 (("list", "~list"), ("L::~list", "L::list"), ("~list",)),
+                 (("list", "operator"), ("L::operator=", "L:: operator ()"), ("operator=",)),
+                 ((None, "_Construct"), ("_STL::_Construct",), ("_Construct(",))]
+        for owner, hits, misses in cases:
+            for text in hits + misses:
+                with self.subTest(owner=owner, text=text):
+                    self.assertEqual(bool(re.search(T.qualified_token(owner), text)), text in hits)
+
+    def test_own_text_drops_only_the_vendored_stlport_lines(self):
+        raw = ("int a;\n" + self.stl_line("_list.h") + "void x::clear();\n"
+               '#line 3 "reference/shims/bfmealloc\\\\stl/_alloc.h"\nvoid y::clear();\n'
+               + self.stl_line("_hashtable.h") + "void z::clear();\n" + '#line 4 "Code/u.cpp"\nint b;\n')
+        kept = T.own_text(raw)
+        self.assertIn("int a;", kept)
+        self.assertIn("y::clear", kept)                        # a shim beside STLport is the project's text
+        self.assertIn("int b;", kept)
+        self.assertNotIn("x::clear", kept)
+        self.assertNotIn("z::clear", kept)
+
+    def test_the_minimal_b_rows_qualify_by_name(self):
+        # P16 minimal B: the ??_G and the STL list and hashtable instances FXList.cpp emits
+        for name in (self.LIST_CLEAR, self.HASH_CLEAR, self.HASH_DELETE):
+            with self.subTest(name=name), patch.object(T, "preprocessed_unit", return_value=("int a;\n", None)):
+                self.assertIsNone(T.implicit_comdat({"name": name, "target_rva": "0x00002000"}, "Code/u.cpp",
+                                                    source="Code/v.cpp"))
+        self.assertIsNone(T.implicit_comdat({"name": "??_GParticleSystemFXNugget@@UAEPAXI@Z"}, "Code/u.cpp"))
 
     def test_flattening_drops_every_directive_and_joins_lines(self):
         text = '#line 1 "a.h"\nstruct Rec\n# 3 "semi;colon.h"\n{\n  #pragma once\n  int a;\n};\n'
@@ -1297,13 +1415,20 @@ class EmitMoveTests(unittest.TestCase):
 
     def test_the_files_explicit_instantiation_stand_in_moves(self):
         # stlport_construct_game_structs.cpp's shape: the file hosts the row through an explicit
-        # instantiation and a private view declaring the copy ctor; both compile to COMDATs
-        self.write(self.SOURCE, "struct Rec { Rec(const Rec &o) : a(o.a) {} int a; };\n"
-                                "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
+        # instantiation and a private view; both compile to COMDATs. Spelled `_STL::_Construct`, the
+        # file's own text names it after `::` and the move refuses (review of 3bc60f1272: over-refusal)
+        self.write(self.SOURCE, "struct Rec { int a; };\n"
+                                "namespace _STL { template void _Construct<Rec, Rec>(Rec *, const Rec &); }\n"
                                 "void stay() {}\n")
         report = self.move(file_defined={self.CTOR, self.DTOR}, file_comdat={self.CTOR, self.DTOR})
         self.assertNotIn("blocked", report)
         self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+        self.write(self.SOURCE, "struct Rec { int a; };\n"
+                                "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
+                                "void stay() {}\n")
+        report = self.move(file_defined={self.CTOR, self.DTOR}, file_comdat={self.CTOR, self.DTOR})
+        self.assertIn("spells `::_Construct`", report["refused_rows"]["0x00002000"])
+        self.assertEqual(report["moved"], ["0x00002100"])
 
     def test_a_strong_definition_in_the_file_refuses(self):
         report = self.move(rvas=["0x00002100"], file_defined={self.DTOR}, file_comdat=set())
@@ -1654,7 +1779,7 @@ class EmitMoveTests(unittest.TestCase):
     def test_undo_lines_is_idempotent_and_refuses_any_other_state(self):
         # per moved key: exactly its after-state rows go back, exactly its before-state rows are done,
         # anything else refuses (review of 9459886c66: both states present, or an edited row beside
-        # an appended original, passed)
+        # an appended original, passed); the key is a number (review of 3bc60f1272)
         hdr = b"name,target_rva,target_size,source\n"
         before = hdr + b"a,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\n"
         after = hdr + b"a,0x1,8,X\nb,0x2,8,Y\nc,0x3,8,X\n"
@@ -1663,18 +1788,38 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(undo(before), before)                                         # already back: done
         self.assertEqual(undo(hdr + b"z,0x1,8,X\nb,0x2,8,Y\nc,0x3,8,X\n"), hdr + b"z,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\n")
         self.assertEqual(undo(hdr + b"b,0x2,8,Y\nc,0x3,8,X\nn,0x9,8,X\n"), hdr + b"b,0x2,8,X\nc,0x3,8,X\nn,0x9,8,X\n")
+        self.assertEqual(undo(hdr + b"a,0x0001,8,X\nb,0x2,8,Y\nc,0x3,8,X\n"),          # another row respelled: kept
+                         hdr + b"a,0x0001,8,X\nb,0x2,8,X\nc,0x3,8,X\n")
         for third in (b"a,0x1,8,X\nb,0x2,8,Z\nc,0x3,8,X\n",                     # edited since
                       b"a,0x1,8,X\nc,0x3,8,X\n",                                # gone
                       b"a,0x1,8,X\nb,0x2,8,Y\nb,0x2,8,Y\nc,0x3,8,X\n",          # after-state twice
                       b"a,0x1,8,X\nb,0x2,8,X\nb,0x2,8,X\nc,0x3,8,X\n",          # before-state twice
                       b"a,0x1,8,X\nb,0x2,8,X\nb,0x2,8,Y\nc,0x3,8,X\n",          # both states
                       b"a,0x1,8,X\nb,0x2,9,Y\nc,0x3,8,X\nb,0x2,8,X\n",          # an edited extent beside the original
-                      b"a,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\nb2,0x2,8,Q\n"):        # another row at the moved key
+                      b"a,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\nb2,0x2,8,Q\n",         # another row at the moved key
+                      b"a,0x1,8,X\nb,0x00000002,9,Y\nc,0x3,8,X\nb,0x2,8,X\n",   # the same, the key respelled
+                      b"a,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\nb,0X02,8,Y\n",         # both states, the key respelled
+                      b"a,0x1,8,X\nb,0x00000002,8,X\nc,0x3,8,X\n",              # the before-state, respelled
+                      b"a,0x1,8,X\nb,0x2,8,Y\nc,0x3,8,X\nq,0xZZ,8,X\n"):        # an RVA no number reads
             with self.subTest(third=third):
                 self.assertIsNone(undo(hdr + third))
         self.assertIsNone(T.undo_lines(after, before, after, "rva"))                  # no such key column
         twins_before, twins_after = hdr + b"b,0x2,8,X\nb,0x2,8,Y\n", hdr + b"b,0x2,8,Y\nb,0x2,8,Y\n"
         self.assertIsNone(T.undo_lines(twins_after, twins_before, twins_after, "target_rva"))   # which goes back?
+
+    def test_recovery_refuses_a_respelled_rva_beside_the_original(self):
+        # review of 3bc60f1272 (r7_probes.py): an edited row spelled `0x2000` beside the original `0x00002000`
+        before = self.ledger()
+        self.kill_mid_verify()
+        funcs = self.root / "reverse/functions.csv"
+        old = next(line for line in before["reverse/functions.csv"].splitlines() if b"0x00002000" in line)
+        crafted = funcs.read_bytes().replace(b"0x00002000,8,", b"0x2000,9,") + old + b"\n"
+        funcs.write_bytes(crafted)
+        (restored, _busy, errors), _ = self.recover()
+        self.assertEqual(restored, [])
+        self.assertTrue(any("changed since the move" in e for e in errors), errors)
+        self.assertEqual(funcs.read_bytes(), crafted)
+        self.assertEqual(len(list((self.root / T.EMIT_JOURNAL).glob("*.json"))), 1)
 
     def test_recovery_refuses_an_edited_row_beside_its_original(self):
         # review of 9459886c66 (recovery_extra.py)
@@ -1829,7 +1974,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
             "rva": r["target_rva"], "kind": "code", "tu": "", "confidence": "displaced", "by": "-", "evidence": ""}
             for r in rows}}
         with patch.dict(T._CACHE, cache, clear=True), \
-                patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+                patch.object(T, "preprocessed_unit", side_effect=AssertionError("no text is read")):
             self.assertEqual([T.vtable_rider(r) for r in rows], [True, False, False, True, False, False])
 
     def test_a_refused_or_blocked_split_gives_back_only_what_it_acquired(self):
