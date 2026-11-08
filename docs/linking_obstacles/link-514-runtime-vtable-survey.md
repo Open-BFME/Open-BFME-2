@@ -928,3 +928,51 @@ Still bridged, with the slot-0 `??_E` as their only mismatch (325 tables; leads,
 - 8: the default is rowed at another address. `??_GImage@Gdiplus` sits at 0x2111 and `??_GBitmap@Gdiplus`
   at 0x1E43, but the Image (0x007BB524) and Bitmap (0x007BB548) tables point the other way. Either the two
   `??_G` rows or the two table names look swapped. This is a naming lead.
+
+**Slot-0 `??_G`/`??_E` names rowed as ICF twins (2026-11-08, seat halilkkaya-lk66, base `c2ca5f6f36`).**
+Follows lk65's weak-slot lead (the `tools/vtable_bridge.py` fix itself lands separately). Of the 325 tables
+whose only mismatch was slot 0, the 214 "default-unrowed" ones were checked against compiled objects with a
+scratch planner: the `??_GX` (or this-adjusting `??_EX` thunk) the table's providing unit emits must have a
+matched same-size row already at retail's slot-0 address, equal bytes with relocation fields masked, and
+every relocation naming a symbol rowed (code ledger or data-ledger table names) at exactly retail's target,
+or itself passing the same test (depth 3; weak externals through their default). Passing symbols were rowed
+callee-first with `tools/add_match.py --icf-owner` and `fold-proof=<owner source>`; no source changed.
+- Done: 140 twin rows (three commits) for 112 tables. 46 join the `0x00395A19` partition-filter fold
+  (four with their `~X` twins at `0x0049C38A`); others include
+  CImage@ATL (`0x00002926`), `__Named_exception`, CameraShakerClass, the FXShaderParameterSourceNamespace
+  family (`0x001F45C3` via `~` at `0x000E14BD`), the 16-class `0x0007E5EE` empty-base family (base table
+  `0x007C6F20`), the iterator, SimpleVec and List/Node templates, ObjectTracker and the
+  TerrainTracksRenderObjClass secondary thunk.
+- Offline A/B (lk65_ab.py over exit_link's inputs, no link; old = HEAD's rule, new = lk65's weak rule):
+  bridged tables with the weak rule 4,557 -> 4,445, slot-0-only mismatches 325 -> 213, already-correct
+  1,098 -> 1,210; with HEAD's rule 5,051 -> 5,050. Refusals identical; no table newly bridged or lost.
+  The gain needs lk65's fix to land.
+- Blocked by claims (planner passed, rows not added): Drawable and Object (`??_GDrawable` 0x00279FFC,
+  `??_GObject@@MAE` 0x0029A10F and their `@@WGA`/`@@OGA` thunks; Object held by Burachi-3D, class:Drawable
+  reported held), AABox/OBBox/Null3DObjClass (boxrobj.cpp and 0x001811A0-D0, a codex seat),
+  fxshadernamespacesas.cpp (ancalgonn-swarm-defects), SpawnArmy.cpp (ancalgonn-swarm-harness),
+  TeamUpdateState.cpp (dave-cons4-merge2), AptMapPreview.cpp and Rva0056AC26Constructor.cpp.
+- `??_GTerrainTracksRenderObjClass` (0x0008E533) is recorded blocked: with that row added, build.py verifies
+  a different W3DTerrainTracks.obj variant (`$L` labels shift by 7) in which Get_Obj_Space_Bounding_Box and
+  _Sphere differ; without it the file is 8/8 exact. Its thunk row landed alone.
+- Gdiplus (the 8 "default-rowed-elsewhere"): retail proves the two `??_G` rows swapped, not the tables.
+  Bitmap's constructors (0x00001368, 0x000013A2) store 0x00BBB548; ~Image (0x000012A3), Clone@Image
+  (0x00002639) and the 9-byte Image() (0x00001199, still the placeholder `??0Rva00001199`) store
+  0x00BBB524. So 0x007BB524 is Image's table (slot 0 0x00001E43: 36 bytes, ~Image inlined) and 0x007BB548
+  is Bitmap's (slot 0 0x00002111: 27 bytes, a call to ~Image). The split sources produce the swapped pair
+  (gdiplusbitmap.cpp makes ~Image `__declspec(noinline)`, gdiplusbitmap_dtor.cpp defines it in the class),
+  and link order keeps gdiplusbitmap.obj's 27-byte `??_GImage`. Retail's single TU matches MSVC's pattern
+  seen at Vector3Randomizer (0x007235D0): `??_GX` inlines ~X, but a derived class's implicit destructor
+  calls the base destructor out of line. Not changed: class:Image and gdiplusbitmap_dtor.cpp are held by
+  yasinschroeder-claudeb2.
+- Other rowed-elsewhere leads: Vector3Randomizer's own table 0x007D5E38 has slot 0 0x00191120 (31 bytes,
+  inline empty dtor), rowed as the placeholder `??_GRva00191120` whose `??0Rva00191120` (0x007230E0) is
+  Vector3Randomizer's default constructor; the `??_GVector3Randomizer` row at 0x007235D0 is the four derived
+  classes' fold. That needs a class fold plus v3_rnd.cpp work. The other four are placeholder shapes, not
+  names: 0x008615D4 slot 0 is a float getter (0x00094A94), 0x00862888 has `__purecall` at slot 0 and its
+  `??_G` at slot 2, 0x007E6BA4 slot 0 is 0x005D124D, and DebugCmdInterface's 0x007BE7EC carries the
+  placeholder alias `??_7Rva006C5930Dtor`.
+- Still open in the slot-0 set: 213 tables. Most need a real destructor body at the callee address (no
+  same-size row there, e.g. `??1AudioManager` 0x0005109D, `??1W3DStatusCircle` 0x0008E4EC,
+  `??1Line3DClass` 0x00166DE0) or are FXParticleSystem module templates (owned by others); 36 not-weak
+  FXParticleSystem tables point slot 0 at `__purecall`.
