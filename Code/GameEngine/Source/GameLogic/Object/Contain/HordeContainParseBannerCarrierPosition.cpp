@@ -21,20 +21,8 @@
 // the temporary is pushed to -0x14 (the 1-byte near miss in re_attempts.log).
 #include <vector>
 #include <string.h>
-template<class T> class StringBase {
-    void *data;
-public:
-    void set(const T *);
-};
+#include "../../../../Include/Common/INI/INI.h"
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
-class INI {
-public:
-    char unknown[0x420];
-    const char *sepsColon;
-    const char *getNextToken(const char *);
-    const char *getNextTokenOrNull(const char *);
-    static void parseCoord2D(INI *,void *,void *,const void *);
-};
 class HordeContainUnitSlot {
 public:
     StringBase<char> unitType;
@@ -53,10 +41,10 @@ void parseBannerCarrierPosition(INI *ini, void *instance, void *store, const voi
     {
       HordeBannerSlot value;
       value.value = slot;
-      const char *token = ini->getNextTokenOrNull(ini->sepsColon);
+      const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
       if (!token || strcmp(token,"UnitType") != 0) goto badUnit;
-      slot->unitType.set(ini->getNextToken(ini->sepsColon));
-      token = ini->getNextTokenOrNull(ini->sepsColon);
+      slot->unitType.set(ini->getNextToken(ini->m_sepsColon));
+      token = ini->getNextTokenOrNull(ini->m_sepsColon);
       if (!token || strcmp(token,"Pos") != 0) goto badPos;
       {
         Coord2D pos;

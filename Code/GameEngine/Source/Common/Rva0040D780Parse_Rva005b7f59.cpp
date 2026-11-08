@@ -1,13 +1,6 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc
 
-#include "StringInline.h"
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-class INI
-{
-public:
-	AsciiString getNextQuotedAsciiString();
-};
+#include "../../Include/Common/INI/INI.h"
 
 
 // 0x005B7E02 is rowed as CreditsManager::addText (343B, Credits.cpp; WB

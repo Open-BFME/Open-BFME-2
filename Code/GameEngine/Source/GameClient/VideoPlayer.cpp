@@ -239,16 +239,7 @@ class Xfer;
 
 enum INILoadType { INI_LOAD_INVALID=0, INI_LOAD_OVERWRITE=1 };
 
-class INI
-{
-public:
- INI();
- ~INI();
- void load(AsciiString,INILoadType,Xfer*,void (__cdecl *)(INI*));
- static void parseVideoDefinition(INI*);
-private:
- char storage[0x87c];
-};
+#include "../../Include/Common/INI/INI.h"
 
 extern void parseSubtitle(INI*,void*,void*,const void*);
 

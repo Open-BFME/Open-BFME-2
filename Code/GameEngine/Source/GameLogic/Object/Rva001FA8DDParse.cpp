@@ -2,25 +2,9 @@
 // ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z retail 0x001FA8DD 110B.
 // INI token dispatch via AsciiString temp, table at 0x9FDD5C, virtual create plus append to list at +0xC4.
 // Evidence: getNextToken 0x0002DF97, StringBase ctor 0x00037BA0, compare 0x000069B1, virtual slot 0, append 0x005A0B4C, releaseBuffer 0x00036410.
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct Rva002BA8F1Listener;
-
-template <typename T> class StringBase
-{
-	friend void Rva001FA8DDParse(INI *, void *);
-	StringBase(const char *s);
-	~StringBase() { releaseBuffer(); }
-	void releaseBuffer();
-public:
-	int compare(const char *s) const;
-private:
-	void *m_data;
-};
 
 struct TableEntry
 {
@@ -62,7 +46,7 @@ void Rva001FA8DDParse(INI *ini, void *instance)
 {
 	Rva001FA8DDHolder *holder = static_cast<Rva001FA8DDHolder *>(instance);
 	const char *token = ini->getNextToken(0);
-	StringBase<char> tmp(token);
+	AsciiString tmp(token);
 	// Retail reads VA 0x00DFDD5C, the category-8 getFirst() slot (RVA 0x001F4466).
 	TableEntry *entry = *(TableEntry * volatile *)&FXParticleSystem::CategoryModuleClass<8>::s_first;
 	while (tmp.compare(entry->m_name) != 0)

@@ -17,12 +17,7 @@
 #include "ascii_string.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
-class INI {
-public:
- const char *getNextToken(const char *separators=0);
- void initFromINI(void *,const FieldParse*);
- char pad[8]; int loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 class Rva0035BB4B { public: Rva0035BB4B(); virtual ~Rva0035BB4B(); };
 class Rva0031AB1ENode {
 public:
@@ -143,13 +138,13 @@ void ControlBar::parseCommandButtonDefinition(INI *ini) {
  Rva0031AB1ENode *button=(Rva0031AB1ENode*)((Rva0031BE07*)TheControlBar)->rva0031BE07(*(StringBase<char>*)&name);
  if(!button) {
   button=((Rva0031AB1EOwner*)TheControlBar)->rva0031AB1E(&name);
-  if(ini->loadType==2) button->bytes[8]=1;
- } else if(ini->loadType==5) {
+  if(ini->m_loadType==2) button->bytes[8]=1;
+ } else if(ini->m_loadType==5) {
   if(button->bytes[8]) TheControlBar->rva0031AB77SetFlag();
   ((Rva0031BF1B*)TheControlBar)->rva0031BF1B((ModuleData*)button);
   button=((Rva0031AB1EOwner*)TheControlBar)->rva0031AB1E(&name);
   *(int*)(button->bytes+12)=0;
- } else if(ini->loadType==2) {
+ } else if(ini->m_loadType==2) {
   button=((Rva0031EB96*)TheControlBar)->rva0031EB96(button);
  } else {
   Rva0031AB1ENode ignored;

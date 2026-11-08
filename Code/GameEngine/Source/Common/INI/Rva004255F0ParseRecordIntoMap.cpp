@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
+// cl: -DNDEBUG -MD -EHsc
 // Open-BFME7: INI block parser at 0x004255F0 (105 B): a zeroed (AsciiString
 // name + 4-byte value) record local is filled through INI::initFromINI with
 // the field table at VA 0x010F1B34 then inserted into the map the store
@@ -10,7 +10,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-#include "ascii_string.h"
+#include "../../../Include/Common/INI/INI.h"
 
 // The record is the rowed BfmeRecord001DD3BC (dtor 0x001DD1FF) and the store is
 // the set whose rowed insert is 0x001DE7B5 (stlport_set_record_001dd3bc_insert.cpp).
@@ -38,13 +38,6 @@ public:
 }
 typedef _STL::set<BfmeRecord001DD3BC> Rva004255F0Map;
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void parseAsciiString( INI *ini, void *instance, void *store, const void *userData );
-};
 
 
 // Retail VA 0x00BDC048: the record's two fields and the zero sentinel.

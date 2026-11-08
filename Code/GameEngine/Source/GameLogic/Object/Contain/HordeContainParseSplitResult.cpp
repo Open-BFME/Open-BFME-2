@@ -19,19 +19,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <vector>
-template<class T> class StringBase {
-    void *m_data;
-public:
-    StringBase() { m_data = 0; }
-    void set(const T *);
-};
-class INI {
-public:
-    char unknown[0x420];
-    const char *sepsColon;
-    const char *getNextToken(const char *);
-    const char *getNextTokenOrNull(const char *);
-};
+#define BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
+#include "../../../../Include/Common/INI/INI.h"
 class HordeContainSplitEntry {
 public:
     StringBase<char> splitResult;
@@ -48,15 +37,15 @@ void parseHordeContainSplitResult(INI *ini, void *instance, void *store, const v
   {
     HordeContainSplitEntry *entry = new HordeContainSplitEntry;
     const ModuleData *slot = (const ModuleData *)entry;
-    const char *token = ini->getNextTokenOrNull(ini->sepsColon);
+    const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (!token || strcmp(token, "SplitResult") != 0) goto invalidTarget;
-    entry->splitResult.set(ini->getNextToken(ini->sepsColon));
-    token = ini->getNextTokenOrNull(ini->sepsColon);
+    entry->splitResult.set(ini->getNextToken(ini->m_sepsColon));
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (!token || strcmp(token, "UnitType") != 0) goto invalidResult;
-    entry->unitType.set(ini->getNextToken(ini->sepsColon));
-    token = ini->getNextTokenOrNull(ini->sepsColon);
+    entry->unitType.set(ini->getNextToken(ini->m_sepsColon));
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (token && strcmp(token, "RankNumber") == 0)
-        entry->rankNumber = atoi(ini->getNextToken(ini->sepsColon));
+        entry->rankNumber = atoi(ini->getNextToken(ini->m_sepsColon));
     else
         entry->rankNumber = 0;
     ((_STL::vector<const ModuleData *> *)store)->push_back(slot);

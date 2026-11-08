@@ -14,24 +14,7 @@ enum INILoadType
 	INI_LOAD_CREATE_OVERRIDES,
 	INI_LOAD_MULTIFILE
 };
-class INI
-{
-public:
-	const char *getNextToken(const char *separators = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseWaterSettingDefinition(INI *ini);
-	INILoadType getLoadType(void) { return m_loadType; }
-	static void parseWaterTransparencyDefinition(INI *ini);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-private:
-	int m_00; // +0x00
-	int m_04; // +0x04
-	INILoadType m_loadType; // +0x08 +0x08
-};
+#include "../../../Include/Common/INI/INI.h"
 
 
 // Target: WaterSettingsArray.cpp's rowed initializer constructs six 0x7C-byte

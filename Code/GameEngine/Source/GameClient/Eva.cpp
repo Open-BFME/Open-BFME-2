@@ -284,26 +284,7 @@ typedef char EvaInfoRecordsWidth[(sizeof(EvaInfoRecords)==12)?1:-1];
 typedef char EvaListWidth[(sizeof(_STL::_List_base<int,_STL::allocator<int> >)==4)?1:-1];
 
 // Eva.ini parsing (iniParseNewEvaEvent).
-class INI
-
-{
- public:
- const char *getNextToken(const char *seps = 0);
-// 0x001DCFE5: the MiscEvaData block parser, registered by this unit's node.
- static void parseMiscEvaData( INI *ini );
-// 0x0002DF97
- int getLoadType() const
- {
-  return m_loadType;
-
- }
- private:
- unsigned char m_pad00[0x08];
- int m_loadType;
-// +0x08
-
-}
-;
+#include "../../Include/Common/INI/INI.h"
 enum
 {
  INI_LOAD_CREATE_OVERRIDES = 2

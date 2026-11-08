@@ -131,23 +131,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 class ModuleData;
 class INI;
 #include "../../Include/Common/INI/FieldParse.h"
-class INI {
-public:
- const char *getNextToken(const char *);
- void initFromINI(void *,const FieldParse *);
- static void parseBool(INI *,void *,void *,const void *);
- static void parseBitString32(INI *,void *,void *,const void *);
- static void parseIndexList(INI *,void *,void *,const void *);
- static void parseInt(INI *,void *,void *,const void *);
- static void parseReal(INI *,void *,void *,const void *);
- static void parseAngleReal(INI *,void *,void *,const void *);
- static void parsePercentToReal(INI *,void *,void *,const void *);
- static void parseAngularVelocityReal(INI *,void *,void *,const void *);
- static void parseDurationReal(INI *,void *,void *,const void *);
- static void parseDurationUnsignedInt(INI *,void *,void *,const void *);
- static void parseVelocityReal(INI *,void *,void *,const void *);
- char prefix[8]; int type;
-};
+#include "../../Include/Common/INI/INI.h"
 void parseCanMoveBackwards(INI *,void *,void *,const void *);
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../Include/Common/NameKeyGenerator.h"
@@ -285,11 +269,11 @@ void LocomotorStore::parseLocomotorTemplateDefinition(INI *ini) {
  LocomotorTemplate *original=store->findLocomotorTemplate(key);
  loco=original;
  if(loco) {
-  if(ini->type==2) {
+  if(ini->m_loadType==2) {
    LocomotorParserView *locomotorParserView=(LocomotorParserView *)loco;
    LocomotorTemplate *final=locomotorParserView->next ? (LocomotorTemplate *)locomotorParserView->next->friend_getFinalOverride() : loco;
    loco=store->newOverride(final);
-  } else if(ini->type==5) {
+  } else if(ini->m_loadType==5) {
    ((LocomotorParserView *)loco)->retired=1;
    Rva001E6731 *map=(Rva001E6731 *)&TheLocomotorStore->templates;
    map->eraseKey(key);
@@ -301,7 +285,7 @@ void LocomotorStore::parseLocomotorTemplateDefinition(INI *ini) {
   } else return;
  } else {
   loco=new LocomotorTemplate;
-  if(ini->type==2) ((LocomotorParserView *)loco)->overrideFlag=true;
+  if(ini->m_loadType==2) ((LocomotorParserView *)loco)->overrideFlag=true;
   TheLocomotorStore->templates[key]=(int)loco;
  }
  }
