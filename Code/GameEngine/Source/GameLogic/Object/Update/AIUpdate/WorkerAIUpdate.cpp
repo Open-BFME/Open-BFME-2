@@ -191,8 +191,9 @@ public:
 // source compiles to elsewhere (that TU keeps this in edx for 27B because the base body is visible there).
 class StateMachine;
 
-// Rva004A9947_vftable: retail vtable at VA 0x00854010; gate DIR32-fills the store like the StateCtor.cpp tables.
-extern "C" char Rva004A9947_vftable = -3;
+// The state's table at VA 0x00854010 is the one the twin constructor 0x004A992A
+// installs; AIStateHashCtorsMisc.cpp emits it as ??_7Rva004A992A@@6B@.
+extern "C" char __identifier("??_7Rva004A992A@@6B@");
 
 class __declspec(novtable) Rva004A9947 : public State
 {
@@ -1234,7 +1235,7 @@ void WorkerAIUpdate::removeBridgeScaffolding( Object *bridgeTower )
 
 Rva004A9947::Rva004A9947(StateMachine *machine) : State(machine, 0x83242288u)
 {
-	*reinterpret_cast<char **>(this) = &Rva004A9947_vftable;
+	*reinterpret_cast<char **>(this) = &__identifier("??_7Rva004A992A@@6B@");
 }
 
 // tu-skeleton: 0x004A9964 11B ??1WorkerStateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
