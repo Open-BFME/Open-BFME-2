@@ -31,3 +31,10 @@ matched copy constructors. Recover/rebind that containing cohort separately,
 preserving its complete file and consumers. Complete class/header recovery
 and automated real-link/runtime confirmation remain open under LINK-636 and
 LINK-619. No generated queue is edited or pass test declared cleared.
+
+Published as4f82f0c3ee; first attempt landed in35.3 seconds. Required
+byte/EH/scoped-DIR32 checks pass after rebase. Broader audit remains
+INCONCLUSIVE: index d171e84869 versus base
+155a1d23107357e01c7bc8836ac37840e5c75e53, affected Common/AIBaseBuilder.cpp
+lacks a current receipt. The earlier CreateAHero receipt gap was prepared
+locally; this is the next recorded consumer gap, not broader link clearance.

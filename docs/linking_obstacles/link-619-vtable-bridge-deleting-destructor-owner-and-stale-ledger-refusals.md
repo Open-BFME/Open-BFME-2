@@ -530,3 +530,8 @@ replay drops two strong-definition refusals to0, with the same two bridges
 and six slots. The +0x18 char provider in ParticleModuleTemplateCopyCtors.cpp
 and complete class recovery remain separate work. No runtime/image clearance.
 [Native operand proof and remaining cohort](../../reverse/attempt_support/particle-clone-table-bindings-20261108/README.md).
+
+Published as4f82f0c3ee; required checks pass. Broader audit remains
+INCONCLUSIVE: index d171e84869 versus base
+155a1d23107357e01c7bc8836ac37840e5c75e53; Common/AIBaseBuilder.cpp lacks a
+current receipt. Preserve that consumer for the next census/image pass.
