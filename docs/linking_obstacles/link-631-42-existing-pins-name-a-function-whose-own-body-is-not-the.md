@@ -239,5 +239,100 @@ Then steps 4-7 land as one commit: the retractions, the three rows in
 LivingWorldScoreKeeper.cpp under the PerTurnStats names (it already emits them
 byte-exact), the caller respellings, and retracting the `??0PrereqUnitRec` pin at 0x004EE1A9.
 
+#### Handoff for the fleet header seats: reconcile vector<LivingWorldScoreKeeper::PerTurnStats> (2026-11-08)
+
+This is false-match cleanup and is not on the boot path. Estimate: 6-10 hours.
+Make each stage green on its own, and push nothing that turns a matched row red.
+LivingWorldScoreKeeper.h has a single includer, LivingWorldScoreKeeper.cpp, so no
+stage needs the full gate.
+
+**Scratch evidence** (seat3, `build/scratch_defects/h1_probe.py`; nothing committed).
+The header got PerTurnStats as a nested class (vftable, then three `short`s, implicit
+copy constructor), with `m_28` spelled `_STL::vector<PerTurnStats>` and the unit's
+local PerTurnStats removed. LivingWorldScoreKeeper.cpp then emits:
+- `vector<PerTurnStats>::~vector` with retail's 0x004EE501 shape (63 B, EH frame,
+  `_Destroy` call, `free`);
+- `_Destroy<PerTurnStats*>` with retail's 0x0052C37A shape (24 B, calling `__destroy_aux`).
+
+With the destructor's name mapped to 0x004EE501, 72 of the unit's 80 row addresses stay
+exact, including ~LivingWorldScoreKeeper 0x004EED02. The other 8 are destructor funclets
+whose `$L` labels shifted: 0x00792A7A, 0x00792A8E, 0x00792AA2, 0x00792AB6, 0x00792ACA,
+0x00792ADE, 0x00792B51 and 0x00792B5F. Repoint each one only where `tools/eh_verify.py`
+finds the parent's EH graph EXACT.
+
+**The family.** These are retail direct calls with 12-byte stride; the helpers resolve
+to the PerTurnStats bodies at 0x004EE1A9..0x004EE233.
+
+| Address | Retail function | Ledger name and unit today | Approved unit (tu_map) |
+|---|---|---|---|
+| 0x004EE501 | `vector<PerTurnStats>::~vector` | `??1Rva004EE501@@QAE@XZ`, RvaVectorDtorFamily.cpp | LivingWorldScoreKeeper.cpp |
+| 0x00792959 / 0x00792951 | its `__ehhandler$` / `$L3386` | RvaVectorDtorFamily.cpp | (moves with 0x004EE501) |
+| 0x004EE540 | `clear` | placeholder (check the current owner) | LivingWorldScoreKeeper.cpp |
+| 0x004EE55E | `reserve` | `?reserve@Rva004EE55EVector@@QAEXI@Z`, StlVectorReserveProviderRepairs.cpp | LivingWorldScoreKeeper.cpp |
+| 0x004EE6D0 | `_M_insert_overflow` | `?rva004EE6D0@Rva004EE6D0@@...`, Rva004EE6D0Insert.cpp | LivingWorldScoreKeeper.cpp |
+| 0x004EE9B1 | `push_back` | `?push_back@Rva004EE6D0@@...`, Rva004EE6D0Insert.cpp | LivingWorldScoreKeeper.cpp |
+| 0x004EE9E9 | the `m_28` transfer | `?Rva004EE9E9XferVector@@...PAVRva004EE6D0@@@Z`, Rva004EE9E9XferVector.cpp | LivingWorldScoreKeeper.cpp |
+| 0x0051ED0A | copy constructor | `??0Rva004EE501@@QAE@ABV0@@Z`, AptTimeLine.cpp | AptTimeLine.cpp |
+| 0x0051F7AD | `operator=` | `??4?$vector@URva0051F7ADRecord@@...`, AptTimeLine.cpp | AptTimeLine.cpp |
+| 0x004EE1E2 / 0x004EE20B / 0x004EE233 | `__uninitialized_copy` / `_fill_n` / `_M_allocate_and_copy` | PrereqUnitRec names (ProductionPrerequisite.cpp, Rva004EE233AllocateCopy.cpp) | LivingWorldScoreKeeper.cpp |
+
+AptTimeLinePlayer's `m_20` is this vector: the time line's per-turn score graph.
+
+**Fold pins needed.** These are shared folded bodies, rowed under the `Rva0052BFB5Elem`
+placeholder in System/Rva0052BF33DestroyTagged.cpp; the approved unit for 0x0052C37A is
+LivingWorldCampaign.cpp. Admit each through `pin_admission.py --add` with
+`fold-proof=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp`, and
+`Verifier-Change:` the `hatch_baseline.tsv` line:
+- `??$_Destroy@PAVPerTurnStats@LivingWorldScoreKeeper@@@_STL@@YAXPAVPerTurnStats@LivingWorldScoreKeeper@@0@Z` -> 0x0052C37A
+- `??$__destroy_aux@PAVPerTurnStats@LivingWorldScoreKeeper@@@_STL@@...` -> 0x0052BFB5. Prove it as `_Destroy`'s callee in the same admission.
+
+**The `/alternatename` to keep consistent.** RvaVectorDtorFamily.cpp:757 carries
+`#pragma comment(linker, "/alternatename:??1Rva004EE501Subobject@@QAE@XZ=??1Rva004EE501@@QAE@XZ")`.
+It binds AptTimeLine.cpp's member spelling (`Rva004EE501Subobject`) to the destructor.
+Once stage 1 renames the destructor, the pragma's target must follow: move it with the
+row, retargeted to the vector destructor's name, through `hatch_counters.py --update`
+(a total-keeping move). Remove it, lowering the hatch count, only in stage 4, when
+AptTimeLine.cpp names the real destructor.
+
+**Stages:**
+1. **Header and destructor.** Nested PerTurnStats and `vector<PerTurnStats> m_28` in
+   LivingWorldScoreKeeper.h; delete the header's `struct Rva004EE501`; drop the unit's
+   local PerTurnStats.
+   - Retract `??1Rva004EE501@@QAE@XZ`, its handler and `$L3386` (deleted_rows.csv). In
+     the next commit, row the vector destructor and its EH rows in LivingWorldScoreKeeper.cpp.
+   - Retarget the `/alternatename`, and repoint the 8 funclets.
+   - Check the destructor's other callers first, with the E8/E9 scan of retail `.text`
+     (as in perturnstats-readmission-callers-20261104.md).
+2. **Fold pins** for `_Destroy` and `__destroy_aux<PerTurnStats*>`.
+3. **Move the rest into LivingWorldScoreKeeper.cpp:** `clear`, `reserve`, `_M_insert_overflow`,
+   `push_back` and the `m_28` transfer, under their real names, as retract-then-add pairs.
+   - Instantiate what the unit does not emit on its own.
+   - Retire the placeholder classes `Rva004EE55EVector`, `Rva004EE6D0` and `Elem003AF8C0`
+     with their files' views, and delete the files that empty out (deleted_rows.csv).
+4. **AptTimeLine.cpp.** Include LivingWorldScoreKeeper.h; respell 0x0051ED0A and 0x0051F7AD
+   as `vector<PerTurnStats>`'s copy constructor and `operator=`; remove the `/alternatename`;
+   fold AptTimeLinePlayer::m_20 and the `Rva004EE501` / `Rva0051F7ADRecord` views onto the
+   vector.
+5. **This entry's steps 4-7.** Retract the three PrereqUnitRec helper rows, row them as
+   PerTurnStats helpers (LivingWorldScoreKeeper.cpp already emits them byte-exact), drop
+   the callers' PrereqUnitRec spellings, and retract the `??0PrereqUnitRec` pin at
+   0x004EE1A9; then run `pin_consistency --check` and `hatch_counters --update`.
+
+**Risks:**
+- *Stage 4 is the largest.* AptTimeLine.cpp (2,674 lines, 136 rows) defines many private
+  views and explicit specializations (lines ~591-640, 704-724, 905-977, 1109) that may
+  clash with the header's includes (Snapshot.h, the observer headers, `<map>`). Dry-run the
+  adoption (`header_adopt_lane.py adopt --class LivingWorldScoreKeeper ...`) first, and
+  reconcile clashing views in their own verified commits.
+- *Between stages 1 and 4,* AptTimeLine's destructor call resolves only through the
+  `/alternatename`. Verify it with link_check after stage 1.
+- *`class_gate.py` refuses private `LivingWorldScoreKeeper` declarations,* so any caller
+  that cannot include the header must lose its rows to LivingWorldScoreKeeper.cpp (stage 3)
+  rather than be respelled.
+- *Each retraction turns its callers red until the matching add lands.* Keep each
+  retract/add pair adjacent, and push only once the stage is green.
+- *`rename.py class --fold` does not apply:* it needs a retail vftable naming the target,
+  and `vector` has none. Renames go through retraction plus `add_match`.
+
 Clearance: pending.
 Census confirmation: not claimed.
