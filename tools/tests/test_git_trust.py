@@ -21,7 +21,7 @@ sys.path[:0] = [str(TESTS.parent), str(TESTS)]
 import class_gate  # noqa: E402
 import git_trust  # noqa: E402
 import rename  # noqa: E402
-from test_hook_fail_closed import repo, run as run_hook  # noqa: E402,F401  (the fixture)
+from test_hook_fail_closed import _bash, repo, run as run_hook  # noqa: E402,F401  (the fixture)
 
 # the last four point git at another repository (a donor): the review's GIT_DIR probe
 CONDITIONS = ["shallow", "grafts", "replace", "GIT_GRAFT_FILE", "GIT_REPLACE_REF_BASE",
@@ -237,10 +237,126 @@ def test_the_hooks_accept_what_git_itself_exports(repo, hook, env):
     assert "local git state rewrites history" not in result.stderr, result.stderr
 
 
+def hook_guard(name):
+    """Everything a hook runs before its first check: the guard, as `git commit` will run it."""
+    text = (TESTS.parents[1] / ".githooks" / name).read_text()
+    return text.split("\n# shadow_cap" if name == "pre-commit" else "\n# stage NAME")[0]
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+@pytest.mark.parametrize("linked", [False, True])
+@pytest.mark.parametrize("mode", ["plain", "all", "partial", "gitdir"])
+def test_a_real_commit_passes_the_guard(tmp_path, hook, linked, mode):
+    """git's own exported environment, on whatever paths this host spells: a plain commit in a
+    Windows checkout was refused when git printed C:/x and realpath /c/x."""
+    base, _first, _second = history(tmp_path)
+    git(base, "config", "user.name", "t")
+    git(base, "config", "user.email", "t@example.invalid")
+    root = base
+    if linked:
+        root = tmp_path / "linked"
+        git(base, "worktree", "add", "-q", "-b", "linked", str(root))
+    hooks = tmp_path / "hooks"
+    hooks.mkdir()
+    (hooks / "pre-commit").write_text(hook_guard(hook) + "\n" + 'echo GUARD-PASSED >&2\n')
+    (hooks / "pre-commit").chmod(0o755)                # git skips a hook that is not executable
+    (root / "a.txt").write_text("three\n")
+    (root / "b.txt").write_text("three\n")
+    git(root, "add", "b.txt")
+    args = ["commit", "-m", mode]
+    if mode == "plain":
+        git(root, "add", "a.txt")
+    elif mode == "all":
+        args.append("-a")
+    elif mode == "partial":
+        args += ["--", "a.txt"]
+    else:
+        git(root, "add", "a.txt")
+        args = [f"--git-dir={git(root, 'rev-parse', '--git-dir')}", *args]
+    got = subprocess.run(["git", "-c", f"core.hooksPath={hooks.as_posix()}", *args], cwd=root,
+                         capture_output=True, text=True)
+    assert got.returncode == 0 and "GUARD-PASSED" in got.stderr, got.stderr
+
+
+@pytest.mark.skipif(os.name == "nt", reason="the real cygpath and realpath run in the real-commit test there")
+def test_the_hooks_compare_one_spelling_of_a_path(tmp_path):
+    """Git Bash's tools, stubbed for a host without them: git prints C:/x and realpath /c/x."""
+    stubs = tmp_path / "stubs"
+    stubs.mkdir()
+    (stubs / "cygpath").write_text('#!/bin/sh\nmode=$1; p=$3\n'
+                                   'case "$mode" in\n'
+                                   '  -u) case "$p" in [Cc]:/*) echo "/c/${p#??/}" ;; *) echo "$p" ;; esac ;;\n'
+                                   '  -m) case "$p" in /c/*) echo "C:/${p#/c/}" ;; *) echo "$p" ;; esac ;;\n'
+                                   'esac\n')
+    (stubs / "realpath").write_text('#!/bin/sh\necho "$3"\n')
+    for stub in stubs.iterdir():
+        stub.chmod(0o755)
+    text = hook_copy("pre-push")
+    function = text[:text.index("git_history_trusted() {")]
+    spelled = {}
+    for path in ("C:/Repo/.git", "/c/Repo/.git", "c:/repo/.git"):
+        got = subprocess.run([_bash(), "-c", f'{function}\ngit_path_form "{path}"'], capture_output=True, text=True,
+                             env=dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}"))
+        assert got.returncode == 0, got.stderr
+        spelled[path] = got.stdout.strip()
+    assert set(spelled.values()) == {"c:/repo/.git"}, spelled
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_both_variables_naming_a_donor_refuse_a_hook_started_here(repo, tmp_path, hook):
+    """The review's probe: GIT_DIR and GIT_WORK_TREE together move $ROOT before the guard runs."""
+    donor = tmp_path / "other"
+    donor.mkdir()
+    git(donor, "init", "-q")
+    got = subprocess.run([_bash(), "-c", hook_guard(hook) + '\necho "ACCEPTED $ROOT"\n'], cwd=repo,
+                         capture_output=True, text=True,
+                         env=dict(os.environ, GIT_DIR=str(donor / ".git"), GIT_WORK_TREE=str(donor)))
+    assert got.returncode != 0 and "local git state rewrites history" in got.stderr, (got.stdout, got.stderr)
+
+
+def test_rename_s_private_index_is_one_the_gates_accept(tmp_path, monkeypatch):
+    """rename's staged index lives in the git directory: under %TEMP% it was refused as another
+    repository's, which blocked rename's own gate checks. The trust rule stays as it is."""
+    root = history(tmp_path)[0]
+    commit(root, "Code/Plain.cpp", "int plain;\n", "a unit")
+    (root / "Code/Plain.cpp").write_text("int plain2;\n")
+    index_before = (root / ".git/index").read_bytes()
+    monkeypatch.setattr(class_gate, "ROOT", root)
+    monkeypatch.setattr(class_gate.class_views, "canonical_classes", lambda: {"Widget": "Code/Game/Widget.h"})
+    with rename.staged_index(SimpleNamespace(root=root), ["Code/Plain.cpp"]) as env:
+        private = Path(env["GIT_INDEX_FILE"])
+        assert private.parent.parent == root / ".git" and private.parent.name.startswith("rename-index-")
+        assert env["RENAME_SCRATCH"] == str(private.parent)
+        monkeypatch.setenv("GIT_INDEX_FILE", env["GIT_INDEX_FILE"])
+        assert git_trust.untrusted_history(root) == []
+        assert class_gate.staged_sources() == ["Code/Plain.cpp"]             # the private index, not the real one
+        assert class_gate.main(["--staged"]) == 0
+        monkeypatch.delenv("GIT_INDEX_FILE")
+    assert not private.parent.exists()
+    assert (root / ".git/index").read_bytes() == index_before
+
+
+def test_a_temp_index_stays_refused(tmp_path, monkeypatch):
+    root = history(tmp_path)[0]
+    monkeypatch.setenv("GIT_INDEX_FILE", str(tmp_path / "elsewhere" / "index"))
+    assert "outside this checkout's git directory" in git_trust.untrusted_history(root)[0]
+
+
+def test_rename_s_other_reads_ignore_the_callers_repository(tmp_path, monkeypatch):
+    root = history(tmp_path)[0]
+    donor = tmp_path / "donor"
+    subprocess.run(["git", "init", "-q", str(donor)], check=True, capture_output=True)
+    commit(donor, "a.txt", "donor\n", "donor")
+    monkeypatch.setenv("GIT_DIR", str(donor / ".git"))
+    assert rename._rev_lines(root, "HEAD", "a.txt") == ["two"]
+    assert rename._git_bytes(root, "show", "HEAD:a.txt") == b"two\n"
+
+
 def hook_copy(name):
     text = (TESTS.parents[1] / ".githooks" / name).read_text()
-    start = text.index("git_history_trusted() {")
-    return text[start:text.index("\n}\n", start)]
+    start = text.index("git_path_form() {")
+    end = text.index("\n}\n", text.index("git_history_trusted() {"))
+    return text[start:end]
 
 
 def test_both_hooks_carry_the_same_preflight():

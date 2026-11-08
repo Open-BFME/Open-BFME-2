@@ -22,24 +22,40 @@ export GIT_NO_REPLACE_OBJECTS=1
 # tools/git_trust.py's preflight, in shell so it runs before any tool: local state that
 # rewrites history (a shallow clone, info/grafts, refs/replace/, GIT_GRAFT_FILE or
 # GIT_REPLACE_REF_BASE) refuses outright. Keep the two hooks' copies and the tool alike.
+git_path_form() {
+    # One spelling of a path, to compare it: absolute, symlinks resolved. On Git Bash, where
+    # git prints C:/x and realpath /c/x, the mixed form in one case (the file system ignores it).
+    local path=$1
+    if command -v cygpath >/dev/null 2>&1; then
+        path=$(cygpath -u -- "$path") && path=$(realpath -m -- "$path") && path=$(cygpath -m -- "$path") || return 1
+        printf '%s\n' "${path,,}"
+    else
+        realpath -m -- "$path"
+    fi
+}
 git_history_trusted() {
-    local why="local git state rewrites history" own_git top gitdir common knob own shallow replaced
-    # This checkout's own repository, found from its top with every selection variable unset;
-    # one that is set must name exactly it (git exports GIT_INDEX_FILE, inside the git dir).
-    own_git=(env -u GIT_DIR -u GIT_WORK_TREE -u GIT_COMMON_DIR -u GIT_INDEX_FILE git)
+    local why="local git state rewrites history" own_git start top gitdir common knob own shallow replaced index
+    # The repository git finds from where this hook started (cd "$ROOT" left it in OLDPWD) with
+    # every selection variable unset; one that is set must name exactly it (git exports
+    # GIT_INDEX_FILE, inside the git dir).
+    start=$OLDPWD
+    own_git=(env -u GIT_DIR -u GIT_WORK_TREE -u GIT_COMMON_DIR -u GIT_INDEX_FILE git -C "$start")
     top=$("${own_git[@]}" rev-parse --show-toplevel) || fail "$why (cannot find $ROOT's own repository)"
     gitdir=$("${own_git[@]}" rev-parse --absolute-git-dir) || fail "$why (cannot find $ROOT's own repository)"
     common=$("${own_git[@]}" rev-parse --git-common-dir) || fail "$why (cannot find $ROOT's own repository)"
-    top=$(realpath -m "$top"); gitdir=$(realpath -m "$gitdir"); common=$(realpath -m "$common")
-    [ "$top" = "$(realpath -m "$ROOT")" ] || fail "$why ($ROOT is not its repository's top ($top))"
+    case "$common" in /*|[A-Za-z]:*) ;; *) common=$start/$common ;; esac
+    top=$(git_path_form "$top") && gitdir=$(git_path_form "$gitdir") && common=$(git_path_form "$common") \
+        || fail "$why (cannot resolve $ROOT's own repository)"
+    [ "$top" = "$(git_path_form "$ROOT")" ] || fail "$why ($ROOT is not its repository's top ($top))"
     for knob in GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR; do
         [ -n "${!knob+x}" ] || continue
         case $knob in GIT_DIR) own=$gitdir ;; GIT_WORK_TREE) own=$top ;; *) own=$common ;; esac
-        [ "$(realpath -m "${!knob}")" = "$own" ] || fail "$why ($knob names ${!knob}, not this checkout's $own)"
+        [ "$(git_path_form "${!knob}")" = "$own" ] || fail "$why ($knob names ${!knob}, not this checkout's $own)"
     done
     if [ -n "${GIT_INDEX_FILE+x}" ]; then
-        case "$(realpath -m "$GIT_INDEX_FILE")" in
-            "$gitdir"/*) export GIT_INDEX_FILE="$(realpath -m "$GIT_INDEX_FILE")" ;;
+        index=$(git_path_form "$GIT_INDEX_FILE") || fail "$why (cannot resolve GIT_INDEX_FILE $GIT_INDEX_FILE)"
+        case "$index" in
+            "$gitdir"/*) export GIT_INDEX_FILE="$index" ;;
             *) fail "$why (GIT_INDEX_FILE names $GIT_INDEX_FILE, outside this checkout's git directory $gitdir)" ;;
         esac
     fi

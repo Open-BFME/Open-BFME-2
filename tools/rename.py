@@ -6262,7 +6262,7 @@ def _tree_of(root, rev):
 
 def _rev_lines(root, rev, rel):
     """`rel`'s lines at revision `rev` ('' is the index), [] when absent."""
-    shown = subprocess.run(["git", "-C", str(root), "show", f"{rev}:{rel}"], capture_output=True)
+    shown = subprocess.run(["git", "-C", str(root), "show", f"{rev}:{rel}"], capture_output=True, env=trusted_env())
     return shown.stdout.decode("utf-8", "replace").splitlines() if shown.returncode == 0 else []
 
 
@@ -8922,7 +8922,7 @@ def _git_bytes(root, *args):
     times out. A caller treats None as no evidence (fail closed)."""
     try:
         result = subprocess.run(["git", "--no-replace-objects", "-C", str(root), *args], capture_output=True,
-                                timeout=GIT_TIMEOUT)
+                                timeout=GIT_TIMEOUT, env=trusted_env())
     except (OSError, subprocess.TimeoutExpired):
         return None
     return result.stdout if result.returncode == 0 else None
@@ -9966,18 +9966,21 @@ def staged_index(ctx, paths):
     `paths` staged (additions, edits and deletions alike); None when ctx.root
     is no git tree. A path git refuses to stage raises Refusal. This never
     writes the real index (a file rename's `git mv` has already staged its move
-    there, and a failed run undoes it)."""
+    there, and a failed run undoes it). The copy lives inside the git directory, where
+    git_trust accepts an index, and goes with the run."""
     found = subprocess.run(["git", "-C", str(ctx.root), "rev-parse", "--git-path", "index"],
-                           capture_output=True, text=True)
-    if found.returncode:
+                           capture_output=True, text=True, env=trusted_env())
+    git_dir = subprocess.run(["git", "-C", str(ctx.root), "rev-parse", "--absolute-git-dir"],
+                             capture_output=True, text=True, env=trusted_env())
+    if found.returncode or git_dir.returncode:
         yield None
         return
     source = ctx.root / found.stdout.strip()
-    with tempfile.TemporaryDirectory(prefix="rename-index-") as folder:
+    with tempfile.TemporaryDirectory(prefix="rename-index-", dir=git_dir.stdout.strip()) as folder:
         private = Path(folder) / "index"
         if source.exists():
             private.write_bytes(source.read_bytes())
-        env = dict(os.environ, GIT_INDEX_FILE=str(private), RENAME_SCRATCH=folder)
+        env = trusted_env({"GIT_INDEX_FILE": str(private), "RENAME_SCRATCH": folder})
         staged = subprocess.run(["git", "-C", str(ctx.root), "add", "-A", "--pathspec-from-file=-",
                                  "--pathspec-file-nul"], input="\0".join(paths) + "\0", env=env,
                                 capture_output=True, text=True)

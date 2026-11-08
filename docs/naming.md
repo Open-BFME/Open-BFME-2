@@ -837,7 +837,8 @@ Every history-dependent path first runs one preflight (`tools/git_trust.py`). Th
 repository it judges is the tool's own checkout, found from its root with `GIT_DIR`,
 `GIT_WORK_TREE`, `GIT_COMMON_DIR` and `GIT_INDEX_FILE` unset. Each of those that is
 set must resolve to exactly that repository's paths; `GIT_INDEX_FILE`, which git
-exports to hooks, must sit inside its git directory. Every trusted git call then runs
+exports to hooks, must sit inside its git directory, which is also where rename.py
+keeps its private staged index while it runs the gates. Every trusted git call then runs
 from the root with the three selection variables dropped, so it cannot read another
 repository. The preflight also refuses when local git state could rewrite what git
 reports as history: a shallow clone, an `info/grafts` file, any ref under
