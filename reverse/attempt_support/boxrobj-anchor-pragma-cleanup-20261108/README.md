@@ -28,3 +28,10 @@ does not resolve the served BoxRenderObj/AABox/OBBox table refusals. Their
 shared RenderObj bounding-getter provider/alignment boundary remains recorded
 in LINK-619 and renderobj-bounding-order-20261108. No check, alignment exception
 or bridge is changed, and no full-link or runtime clearance is claimed.
+
+Published as 3bb5c88960; first attempt landed in30.3 seconds. The push
+verified all57 rows,12 exact EH graphs and scoped DIR32 after rebase.
+Broader audit remains INCONCLUSIVE: index d171e84869 versus outgoing base
+4daa8e15ddd826c8c1956e08d4a1faff69a2190a, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Preserve that
+consumer for the next census/image verification.

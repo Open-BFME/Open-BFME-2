@@ -510,3 +510,9 @@ the RefCount optimization pair remains. Strict preparation passes and preview
 conserves LINKS/6,110 at d171e84869. The shared bounding-getter provider/alignment
 refusal still blocks its tables; no alignment exception or image clearance.
 [Whole-file evidence](../../reverse/attempt_support/boxrobj-anchor-pragma-cleanup-20261108/README.md).
+
+Published as 3bb5c88960; required row/EH/DIR32 checks pass. Broader audit
+remains INCONCLUSIVE: index d171e84869 versus base
+4daa8e15ddd826c8c1956e08d4a1faff69a2190a, affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry the
+consumer into the next census/image check; the RenderObj boundary stays open.
