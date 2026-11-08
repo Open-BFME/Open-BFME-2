@@ -16,10 +16,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
+// Retail's 40-byte element is the class whose dtor is the row at 0x0040B77E: a plain int at +0, not a vptr (its copy ctor 0x0040B707
+// copies +0 as an int), and retail's _M_clear 0x0040BEF9 -> _Destroy 0x0040BEA1 calls that dtor directly. Identity is still owed.
+class Rva0040B77E { public: ~Rva0040B77E(); private: int m_data[10]; };
 struct Rva0040C0C7Element
 {
-	virtual ~Rva0040C0C7Element();
-	int a[9];
+	Rva0040B77E m_value;
 };
 
 namespace _STL
