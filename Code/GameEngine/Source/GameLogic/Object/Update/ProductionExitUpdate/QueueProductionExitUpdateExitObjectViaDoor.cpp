@@ -177,10 +177,6 @@ private:
 	Real m_cachedAngle;																												///< 0x44
 };
 
-#define VM10(p) \
-	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
-	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
-
 // The rowed wrapper at 0x0047971C takes the exit path by reference; its
 // placeholder class is this vector of points.
 class Rva0035149F : public _STL::vector<Coord3D>
@@ -200,15 +196,7 @@ public:
 // HordeContain's interface at +0x11C (vftable 0x00C44C58).
 #include "../../../../../Include/GameLogic/Module/HordeContainInterface.h"
 
-class ContainModuleInterface
-{
-public:
-	VM10(v0_)
-	VM10(v1_)
-	VM10(v2_)
-	virtual void v30();
-	virtual HordeContainInterface *slot31();
-};
+#include "../../../../../Include/GameLogic/Module/ContainModule.h"
 
 // The +0x25C behavior; 0x003909FA takes the kick.
 class Rva003909FAObj

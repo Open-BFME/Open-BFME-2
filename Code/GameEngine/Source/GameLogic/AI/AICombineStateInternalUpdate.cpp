@@ -11,10 +11,9 @@
 typedef unsigned UnsignedInt;
 #include "../../../Include/Common/StateMachineClass.h"
 class Object;
-template<int N>class Slots:public Slots<N-1>{public:virtual void gap(char(*)[N]);};template<>class Slots<0>{};
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
-class ContainModuleInterface:public Slots<31>{public:virtual HordeContainInterface*getHordeContainInterface();};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 class Object{public:
  float rva00263763(const void*)const;
  bool cannotCombine()const{return (m_flags&1)!=0;}
@@ -35,7 +34,7 @@ StateReturnType AICombineState::internalUpdate(){
   if(2500.0f>distance){
    float height=(float)fabs(goal->m_position.z-owner->m_position.z);
    if(height<10.0f){
-HordeContainInterface *horde=0;Object *other=goal;ContainModuleInterface *contain=owner->m_contain;if(contain)horde=contain->getHordeContainInterface();if(!horde){ContainModuleInterface *otherContain=goal->m_contain;if(otherContain){horde=otherContain->getHordeContainInterface();other=owner;}}
+HordeContainInterface *horde=0;Object *other=goal;ContainModuleInterface *contain=owner->m_contain;if(contain)horde=contain->slot31();if(!horde){ContainModuleInterface *otherContain=goal->m_contain;if(otherContain){horde=otherContain->slot31();other=owner;}}
     if(horde){void *target=horde->getCombineTarget();if(target)horde->combine(other,target,false);}
    }
   }

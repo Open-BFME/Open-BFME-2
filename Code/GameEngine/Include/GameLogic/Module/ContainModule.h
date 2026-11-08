@@ -31,6 +31,16 @@
 // setter (0x00464810) takes true in GarrisonUpgrade (0x004B5886). Slot 81's
 // mask getter (0x003F3FCE) is compared with the player's mask in
 // Player::garrisonAllUnits (0x002AEEA7); slot 83 is 0x004647FD's byte setter.
+// HordeContain's constructor 0x0046F543 stores 0x00C44EC8 at +0x20 (0x0046F589).
+// Its slot 31 (0x0046F7B9) returns this+0xFC, the +0x11C HordeContainInterface,
+// or null; Object 0x0028C197 forwards it. OpenContain's slot 31 returns null.
+// Slot 43 is 0x0046274C (void*, int, void*; ret 0xC); slot 48 is 0x00462BFF
+// (const char query of two const Object*); slot 52 is 0x0050B5C6 (mov al,1).
+// ControlBar 0x0031D230 tests slot 54's byte (0x0031D38D) and compares slot
+// 56's pointer with the local player (0x0031D39B). Slot 59 takes Object* in
+// HordeContain's 0x0046731A (ret 4). Slot 66 is 0x00463191 (Object*, bool;
+// HordeContain's 0x0046BA56 row spells the flag int). Slot 79 is 0x00463291
+// (Object* from a Rva2225E0Filter*).
 // Donor facts: Zero Hour's ContainModule.h supplies the containment method
 // names and has no parent or destructor. BFME2's table and call sites,
 // rather than the donor's shorter slot order, place the named methods.
@@ -46,6 +56,7 @@ class Player;
 class ExitInterface;
 class Team;
 class Rva2225E0Filter;
+class HordeContainInterface;
 class ContainModuleInterface;
 struct Coord3D;
 enum ObjectEnterExitType;
@@ -93,7 +104,7 @@ public:
     virtual int getContainMax() const = 0;
     virtual ExitInterface *getContainExitInterface() = 0;
     virtual void slot30() = 0;
-    virtual void *slot31() = 0;
+    virtual HordeContainInterface *slot31() = 0;
     virtual void slot32() = 0;
     virtual void slot33() = 0;
     virtual void slot34() = 0;
@@ -105,30 +116,30 @@ public:
     virtual void addToContainList(Object *object) = 0;
     virtual void removeFromContain(Object *object, bool exposeStealthUnits = false) = 0;
     virtual void removeAllContained(bool exposeStealthUnits = false) = 0;
-    virtual void slot43() = 0;
+    virtual void slot43(void *, int, void *) = 0;
     virtual void slot44() = 0;
     virtual bool isPassengerAllowedToFire() const = 0;
     virtual void slot46() = 0;
     virtual void slot47() = 0;
-    virtual void slot48() = 0;
+    virtual char slot48(const Object *, const Object *) const = 0;
     virtual void slot49() = 0;
     virtual void slot50() = 0;
     virtual void slot51() = 0;
-    virtual void slot52() = 0;
+    virtual bool slot52() = 0;
     virtual float slot53() = 0;
-    virtual void slot54() = 0;
+    virtual bool slot54() const = 0;
     virtual void slot55() = 0;
-    virtual void slot56() = 0;
+    virtual const Player *slot56() const = 0;
     virtual void slot57() = 0;
     virtual bool slot58(int objectId) = 0;
-    virtual void slot59() = 0;
+    virtual void slot59(Object *object) = 0;
     virtual void slot60() = 0;
     virtual Object *getClosestRider(const Coord3D *position) = 0;
     virtual void slot62() = 0;
     virtual void slot63(bool flag) = 0;
     virtual void slot64() = 0;
     virtual void slot65() = 0;
-    virtual void slot66() = 0;
+    virtual void slot66(Object *object, bool flag) = 0;
     virtual void slot67() = 0;
     virtual void iterateContained(ContainIterateFunc func, void *userData, int flags) = 0;
     virtual unsigned int getContainCount(Rva2225E0Filter *filter = 0) = 0;
@@ -141,7 +152,7 @@ public:
     virtual bool calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D *targetPos) = 0;
     virtual void slot77() = 0;
     virtual void slot78() = 0;
-    virtual void slot79() = 0;
+    virtual Object *slot79(Rva2225E0Filter *filter) = 0;
     virtual void slot80() = 0;
     virtual unsigned int getPlayerWhoEntered() const = 0;
     virtual void slot82() = 0;

@@ -251,70 +251,7 @@ public:
 	unsigned char m_pad24[0x3CA - 0x24];
 	bool m_3ca; // +0x3CA
 };
-class ContainModuleInterface
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual void s19();
-	virtual void s20();
-	virtual void s21();
-	virtual void s22();
-	virtual void s23();
-	virtual void s24();
-	virtual void s25();
-	virtual void s26();
-	virtual void s27();
-	virtual void s28();
-	virtual void s29();
-	virtual void s30();
-	virtual void s31();
-	virtual void s32();
-	virtual void s33();
-	virtual void s34();
-	virtual void s35();
-	virtual void s36();
-	virtual void s37();
-	virtual void s38();
-	virtual void s39();
-	virtual void s40();
-	virtual void s41();
-	virtual void s42();
-	virtual void s43(Object *target, int value, Object *owner); // +0xAC (onExit)
-	virtual void s44();
-	virtual void s45();
-	virtual void s46();
-	virtual void s47();
-	virtual void s48();
-	virtual void s49();
-	virtual void s50();
-	virtual void s51();
-	virtual void s52();
-	virtual void s53();
-	virtual void s54();
-	virtual void s55();
-	virtual void s56();
-	virtual void s57();
-	virtual void s58();
-	virtual void useTarget(Object *target); // slot 59 (+0xEC)
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 // The rowed two-bit status mask (0x00391F4E) read as the status setter's mask.
 class Rva00346BC0;
@@ -1106,7 +1043,7 @@ void SpecialAbilityUpdate::onExit(bool cleanup, bool b)
 					Rva0045050A *c = obj->m_254;
 					if (containModule)
 					{
-						containModule->s43(target, data->m_2C, obj);
+						containModule->slot43(target, data->m_2C, obj);
 						float value = c->vslot05() * 100.0f + data->m_grabPassengerHealGainPercent;
 						if (value > 100.0f)
 							value = 100.0f;
@@ -1375,7 +1312,7 @@ void SpecialAbilityUpdate::startPreparation()
 		Object *target = TheGameLogic->findObjectByID(m_targetID);
 		ContainModuleInterface *contain = m_object->m_contain;
 		if (contain && target)
-			contain->useTarget(target);
+			contain->slot59(target);
 		Object *self = m_object;
 		Rva001E4912 clearMask;
 		self->rva0028CFB2((const int *)clearMask.rva001E4912(0, 0x60, 0x76), (const int *)&Rva0028F59A(0, 0x5f));

@@ -23,25 +23,9 @@ enum CommandSourceType
 {
 	CMD_FROM_AI = 2
 };
-template <int N> class Slots : public Slots<N - 1>
-{
-  public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Slots<0>
-{
-};
 class Object;
-class Rva002F3F7DHordeView : public Slots<6>
-{
-  public:
-	virtual bool contains(Object *) = 0;
-};
-class ContainModuleInterface : public Slots<31>
-{
-  public:
-	virtual Rva002F3F7DHordeView *getHordeContain() = 0;
-};
+#include "../../../Include/GameLogic/Module/HordeContainInterface.h"
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../Include/Common/ThingTemplate.h"
 class AICommandInterface
 {
@@ -171,8 +155,8 @@ int Rva002F3F7DInfo::cellCallback(PathfindCell *previous, PathfindCell *current,
 		Object *ignore = TheGameLogic->findObjectByID((ObjectID)m_ignoreID);
 		if (ignore && ((ignore->getTemplate()->m_kindof[3] & (1U << 13)) != 0) && ignore->getContain())
 		{
-			Rva002F3F7DHordeView *horde = ignore->getContain()->getHordeContain();
-			if (horde && horde->contains(other))
+			HordeContainInterface *horde = ignore->getContain()->slot31();
+			if (horde && horde->slot06(other))
 				continue;
 		}
 		if (other)

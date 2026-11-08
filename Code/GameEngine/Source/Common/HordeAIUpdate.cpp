@@ -53,8 +53,6 @@ typedef float Real;
 #include <windows.h>
 #include "GameLogicObjectLookupView.h"
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
-#define SLOT_GAP10(p, n) virtual void p##n##0(); virtual void p##n##1(); virtual void p##n##2(); virtual void p##n##3(); virtual void p##n##4(); \
-	virtual void p##n##5(); virtual void p##n##6(); virtual void p##n##7(); virtual void p##n##8(); virtual void p##n##9();
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \
 	{ \
@@ -242,19 +240,7 @@ class Object;
 
 #include "../../Include/GameLogic/Module/HordeContainInterface.h"
 
-class ContainModuleInterface
-{
-public:
-	SLOT_GAP10(c, 0) SLOT_GAP10(c, 1) SLOT_GAP10(c, 2)
-	virtual void c030();
-	virtual HordeContainInterface *getHordeContainInterface(); // slot 31
-	virtual void c032(); virtual void c033(); virtual void c034(); virtual void c035(); virtual void c036();
-	virtual void c037(); virtual void c038(); virtual void c039();
-	SLOT_GAP10(c, 4) SLOT_GAP10(c, 5)
-	virtual void c060(); virtual void c061(); virtual void c062(); virtual void c063(); virtual void c064();
-	virtual void c065(); virtual void c066(); virtual void c067(); virtual void c068();
-	virtual Object *getContainer(Int value); // slot 69
-};
+#include "../../Include/GameLogic/Module/ContainModule.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -626,14 +612,14 @@ bool HordeAIUpdate::isClearToApproach(int docker)
 UpdateSleepTime HordeAIUpdate::update( void )
 {
 	Object *obj = getObject();
-	HordeContainInterface *hordeContain = obj->getContain()->getHordeContainInterface();
+	HordeContainInterface *hordeContain = obj->getContain()->slot31();
 
 	if (hordeContain->slot75() == TRUE)
 		return AIUpdateInterface::update();
 
-	Object *container = obj->getContain()->getContainer(0);
+	UnsignedInt containCount = obj->getContain()->getContainCount(0);
 	Bool ready = hordeContain->isReady();
-	if (container == NULL && isIdle() && ready
+	if (containCount == 0 && isIdle() && ready
 		&& !obj->testStatus(OBJECT_STATUS_3) && !obj->testStatus(OBJECT_STATUS_5A))
 	{
 		hordeContain->notifyMember(obj);

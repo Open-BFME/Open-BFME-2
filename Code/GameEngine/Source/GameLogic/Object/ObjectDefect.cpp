@@ -80,23 +80,9 @@ enum CommandSourceType { CMD_FROM_AI = 2 };
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-#define SLOT(n) virtual void slot##n();
-
 #include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
-class ContainModuleInterface
-{
-public:
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
-	SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31)
-	SLOT(32) SLOT(33) SLOT(34) SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39)
-	SLOT(40) SLOT(41)
-	virtual void slot42(int value);
-	SLOT(43) SLOT(44) SLOT(45) SLOT(46) SLOT(47) SLOT(48) SLOT(49) SLOT(50) SLOT(51)
-	virtual bool slot52();
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/Common/MiscAudioClass.h"
 
@@ -215,5 +201,5 @@ void Object::defect(Team *newTeam, UnsignedInt detectionTime)
 
 	ContainModuleInterface *contain = m_contain;
 	if (contain && contain->slot52())
-		contain->slot42(1);
+		contain->removeAllContained(true);
 }
