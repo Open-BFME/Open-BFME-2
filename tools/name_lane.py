@@ -188,7 +188,9 @@ STATUS_RANK = {"agreed": 0, "source-changed": 0, "stale": 1, "blocked": 2, "land
 # source-changed record ranks with agreed, so a later agreement of the same id replaces it.
 REOPENED = ("disputed", "source-changed")
 # The first rows of name_agreed.csv predate vote fingerprints. They stand without a source check
-# (grandfathered, docs/naming.md); any later record needs fresh votes when apply lands it.
+# (grandfathered, docs/naming.md); any later record needs fresh votes when apply lands it. The file
+# is append-only, so those rows are pinned by hash: a moved or edited row earns no exemption.
+AGREED_CUTOFF_SHA256 = "d4601728085253f5220593b916182bdeb165dd0e35fb9cecc86ee4d243361b46"
 AGREED_CUTOFF_ROWS = 19215
 
 
@@ -556,6 +558,11 @@ class Lane:
         out = {}
         for key, ids in by_key.items():
             rows = list(ids.values())[-1]
+            # A source-changed row closes the record before it, a blocked attempt included, so the
+            # key reopens; a later agreement of the same id then replaces it. Not a landing or dispute.
+            closed = [i for i, row in enumerate(rows) if row["status"] == "source-changed"]
+            if closed and not any(row["status"] in ("landed", "disputed") for row in rows[:closed[-1]]):
+                rows = rows[closed[-1]:]
             best = rows[0]
             for row in rows[1:]:
                 if STATUS_RANK.get(row["status"], -1) >= STATUS_RANK.get(best["status"], -1):
@@ -564,8 +571,21 @@ class Lane:
         return out
 
     def grandfathered(self):
-        """The ids of agreement records from before vote fingerprints (AGREED_CUTOFF_ROWS)."""
+        """The ids of agreement records from before vote fingerprints (AGREED_CUTOFF_ROWS), or
+        none when the file's first rows are no longer the ones pinned (grandfather_fault)."""
+        if self.grandfather_fault():
+            return set()
         return {row["id"] for row in self.agreed_rows()[:AGREED_CUTOFF_ROWS]}
+
+    def grandfather_fault(self):
+        """Why name_agreed.csv's first AGREED_CUTOFF_ROWS rows are not the pinned ones, or None."""
+        if not AGREED_CUTOFF_ROWS:
+            return None
+        rows = self.agreed_rows()[:AGREED_CUTOFF_ROWS]
+        if len(rows) == AGREED_CUTOFF_ROWS and agreed_prefix_hash(rows) == AGREED_CUTOFF_SHA256:
+            return None
+        return (f"{AGREED}'s first {AGREED_CUTOFF_ROWS} rows do not hash to the pinned cutoff: the file is append-only, "
+                "so a row was moved, edited or removed; no record is grandfathered until that is put right")
 
     def disputed(self):
         """key -> canon spellings refused for it."""
@@ -1663,8 +1683,20 @@ def unrecorded_votes(lane, *, lead=2, min_models=1):
     return found
 
 
+def agreed_prefix_hash(rows):
+    """The sha256 of agreement rows by column, so line endings do not change it."""
+    digest_of = hashlib.sha256()
+    for row in rows:
+        digest_of.update(("\x1f".join(row.get(c) or "" for c in AGREED_COLUMNS) + "\n").encode("utf-8", "surrogateescape"))
+    return digest_of.hexdigest()
+
+
 def report_grandfathered(lane, state):
     """Say which pending records `apply` lands with no source check, so it is never silent."""
+    fault = lane.grandfather_fault()
+    if fault:
+        print(f"name_lane: {fault}")
+        return
     old = lane.grandfathered()
     waiting = sum(row["status"] == "agreed" and row["id"] in old for row in state.values())
     blocked = sum(row["status"] == "blocked" and row["id"] in old for row in state.values())
@@ -2544,6 +2576,10 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
     only = label_list(args.only_labels) if getattr(args, "only_labels", None) else None
     selected_keys = set(getattr(args, "key", None) or ())
+    fault = lane.grandfather_fault()
+    if fault:           # before any write: with no exemption, every old record would be reopened
+        print(f"name_lane: apply refused: {fault}")
+        return 1
     if not selected_keys:
         report_grandfathered(lane, state)
         report_unrecorded(lane, lead=args.lead, min_models=args.min_models)

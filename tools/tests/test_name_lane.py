@@ -1037,6 +1037,13 @@ def test_session_votes_once_and_bad_names_rejected(tree, tmp_path, capsys):
 
 # ---------------------------------------------------------------- apply
 
+def grandfather_all(tree, monkeypatch):
+    """Pin the ledger's rows as they stand as the grandfathered prefix."""
+    rows = lane_of(tree).agreed_rows()
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", len(rows))
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_SHA256", name_lane.agreed_prefix_hash(rows))
+
+
 def agree_on(tree, tmp_path, answers):
     inventory = {name_lane.answer_key(k, s, i): k for k, s, i, _ in lane_of(tree).owned(SOURCE)}
     scoped = {key: value for key, value in answers.items() if inventory[key] in name_lane.SCOPED_KINDS}
@@ -1972,8 +1979,8 @@ def test_invalid_submit_apply_limit_preserves_session_and_votes(tree, tmp_path):
 
 
 def test_apply_limit_composes_with_key_filter_and_drains_on_next_run(tree, tmp_path, monkeypatch):
-    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)     # the limit, not source freshness
     agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    grandfather_all(tree, monkeypatch)                                 # the limit, not source freshness
     args = SimpleNamespace(key=[FN_KEY], retry_blocked=False, lead=2, min_models=1,
                            claim=False, only_labels=None, limit=1)
     name_lane.cmd_apply(lane_of(tree), args, verify=ok_verify, checks=no_checks)
@@ -2162,8 +2169,8 @@ def test_apply_uses_compiler_source_to_retry_survivors_as_one_batch(tree, monkey
 def test_retry_blocked_skips_identical_fingerprint_then_retries_changed_source(tree, tmp_path, monkeypatch,
                                                                                capsys):
     monkeypatch.setattr(name_lane, "_missing_header_state", lambda *_: {"missing": True})
-    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)     # the blocker, not source freshness
     agree_on(tree, tmp_path, FN_ANSWER)
+    grandfather_all(tree, monkeypatch)                                 # the blocker, not source freshness
     lane = lane_of(tree)
     row = lane.state()[FN_KEY]
     lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS,
@@ -3359,8 +3366,8 @@ def existing_record_stands(tree):
 
 
 def test_an_existing_record_stands_and_still_lands(tree, monkeypatch):
-    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)
     existing_record_stands(tree)
+    grandfather_all(tree, monkeypatch)
     assert name_agreement.verify(lane_of(tree).votes(), lane_of(tree).agreed_rows(), MEMBER_KEY, "m_boxWidth") == []
     assert apply(tree) == 0
     assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
@@ -3438,8 +3445,8 @@ def test_apply_still_lands_when_the_source_did_not_change(tree, tmp_path):
 
 
 def test_a_grandfathered_record_lands_on_a_changed_source_and_says_so(tree, monkeypatch, capsys):
-    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)
     existing_record_stands(tree)
+    grandfather_all(tree, monkeypatch)
     change_box(tree)
     assert name_lane.main(["status"], lane=lane_of(tree)) == 0
     assert "1 waiting and 0 blocked record(s) predate vote fingerprints: grandfathered" in capsys.readouterr().out
@@ -3458,12 +3465,15 @@ def test_a_row_after_the_cutoff_gets_no_exemption(tree, capsys):
 
 def test_the_cutoff_is_a_row_count_within_the_real_ledger():
     """The miniature trees run with it at 0 (the seat fixture); the tool's own value is what counts."""
-    cutoff = int(re.search(r"^AGREED_CUTOFF_ROWS = (\d+)$", Path(name_lane.__file__).read_text(encoding="utf-8"),
-                           re.M).group(1))
+    tool = Path(name_lane.__file__).read_text(encoding="utf-8")
+    cutoff = int(re.search(r"^AGREED_CUTOFF_ROWS = (\d+)$", tool, re.M).group(1))
+    pinned = re.search(r'^AGREED_CUTOFF_SHA256 = "([0-9a-f]{64})"$', tool, re.M).group(1)
     assert cutoff > 19000
     real = Path(name_lane.__file__).resolve().parents[1] / name_lane.AGREED
     if real.exists():
-        assert cutoff <= len(real.read_bytes().splitlines())
+        with real.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        assert cutoff <= len(rows) and name_lane.agreed_prefix_hash(rows[:cutoff]) == pinned
 
 
 def test_a_spelled_disagreement_can_be_resolved(spelled_tree, tmp_path):
@@ -3511,3 +3521,73 @@ def test_a_sibling_left_by_a_key_filter_reopens_after_the_landing(tree, tmp_path
     assert apply(tree) == 0
     state = lane_of(tree).state()
     assert state[FN_KEY]["status"] == "landed" and state[MEMBER_KEY]["status"] == "source-changed"
+
+
+def test_a_row_moved_into_the_prefix_earns_nothing_and_apply_refuses(tree, tmp_path, monkeypatch, capsys):
+    """The review's repro: a later record with no fingerprints moved to just below the header."""
+    existing_record_stands(tree)
+    grandfather_all(tree, monkeypatch)
+    ledger = tree / name_lane.AGREED
+    lines = ledger.read_bytes().splitlines(keepends=True)
+    lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(
+        id="nl-moved", kind="function", old="rva00401000", new="sumBox", rva="0x00401000", agents="", key=FN_KEY,
+        status="agreed", detail="later record")])
+    moved = ledger.read_bytes().splitlines(keepends=True)[-1]
+    ledger.write_bytes(b"".join([lines[0], moved, *lines[1:]]))
+    change_box(tree)
+    before = ledger.read_bytes()
+    assert lane_of(tree).grandfathered() == set()
+    assert apply(tree) == 1
+    assert "do not hash to the pinned cutoff" in capsys.readouterr().out
+    assert ledger.read_bytes() == before                      # no record reopened, none landed
+    assert "m_x2C" in (tree / SOURCE).read_text()
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    assert "do not hash to the pinned cutoff" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("edit", ["changed", "removed"])
+def test_an_edited_or_shortened_prefix_is_refused(tree, monkeypatch, capsys, edit):
+    existing_record_stands(tree)
+    grandfather_all(tree, monkeypatch)
+    ledger = tree / name_lane.AGREED
+    data = ledger.read_bytes()
+    ledger.write_bytes(data.replace(b"older record", b"edited") if edit == "changed"
+                       else b"".join(data.splitlines(keepends=True)[:1]))
+    assert lane_of(tree).grandfather_fault()
+    assert apply(tree) == 1
+
+
+def test_the_prefix_hash_ignores_line_endings(tree, monkeypatch):
+    existing_record_stands(tree)
+    grandfather_all(tree, monkeypatch)
+    ledger = tree / name_lane.AGREED
+    ledger.write_bytes(ledger.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+    assert lane_of(tree).grandfather_fault() is None
+
+
+def test_a_blocked_record_reopens_on_a_source_change_and_lands_on_fresh_votes(tree, tmp_path, monkeypatch):
+    """The review's repro, the whole path: blocked, source change, reopened, two fresh votes, land."""
+    agreed_from_real_votes(tree, tmp_path)
+    row = lane_of(tree).state()[MEMBER_KEY]
+    lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, status="blocked", detail="a block")])
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "blocked"
+    change_box(tree)
+    assert apply(tree, retry_blocked=True) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+    served = serve(tree, "new1", worker="seat-new1")
+    assert [i for i in served["files"][SOURCE]["items"] if i[2] == "m_x2C"]
+    assert vote(tree, tmp_path, "new1", BOX_ANSWERS, worker="seat-new1") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+    assert vote(tree, tmp_path, "new2", BOX_ANSWERS, worker="seat-new2") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+
+
+def test_a_source_changed_row_never_reopens_a_landing_or_a_dispute(tree, tmp_path):
+    agreed_from_real_votes(tree, tmp_path)
+    row = lane_of(tree).state()[MEMBER_KEY]
+    for status in ("landed", "disputed"):
+        lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, status=status)])
+        lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, status="source-changed")])
+        assert lane_of(tree).state()[MEMBER_KEY]["status"] == status

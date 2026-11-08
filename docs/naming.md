@@ -277,6 +277,8 @@ None has vote fingerprints. Against the source when their votes landed, 210 had 
 gone (16 of those sources are missing), 29 were unchanged and 1 could not be told. That
 measures edits anywhere in the file, not wrong names. Re-voting 210 for file-wide drift
 is not worth it: a wrong name can be corrected, and the bytes are still verified at apply.
+Those rows are pinned by hash (`AGREED_CUTOFF_SHA256`). The file is append-only, so if a row
+was moved, edited or removed, no record is grandfathered and `apply` refuses before writing.
 This binds `apply` only: `rename.py --evidence agree:<id>` used directly and
 `data_rows.py --admit-agreed` do not check it.
 
