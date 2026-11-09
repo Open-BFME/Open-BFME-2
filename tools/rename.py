@@ -1492,6 +1492,8 @@ class Plan:
             slots = sorted(self.to_class["slots"])
             return (f"Move {len(slots)} members into {self.to_class['cls']} (retail vftable "
                     f"0x{self.to_class['table'] + IMAGE_BASE:08X} slots {', '.join(map(str, slots))})")
+        if self.to_class and self.to_class.get("where"):
+            return f"Move {self.old} into {self.to_class['cls']} as {self.new} ({self.to_class['where']})"
         if self.to_class:
             return (f"Move {self.old} into {self.to_class['cls']} as {self.new} "
                     f"(retail vftable 0x{self.to_class['table'] + IMAGE_BASE:08X} slot {self.to_class['slot']})")
@@ -6105,8 +6107,10 @@ def base_slot_evidence(ctx, rva, base, hits, tables, based, found):
                 records.append({"cls": other, "table": table, "retail": list(slots), "sources": [source]})
     if not records:
         raise Refusal(f"no live table holding 0x{rva:08X} has an installer unit to compile it")
+    name = next((key for key, value in vars(retail_identity).items() if value is base), "a BASE_SLOTS entry")
     if found is not None:
         found["bases"] = records
+        found["where"] = f"slot {base.slot} of the {len(base.tables)} tables in retail_identity.{name}"
     live = sorted({r["table"] for r in records})
     proof = (f"slot {base.slot} of {len(live)} retail tables of classes with no {base.cls} table between them; "
              f"{len(based) - len(base.dead)} related by retail_identity's reviewed base entry (each built by a data "
@@ -6505,7 +6509,7 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                                         {r["source"] for r in installers}, prepared)
     return {"rva": rva, "row": row, "name": name, "new_name": new_name, "table": table, "slot": slot,
             "retail": retail, "installers": installers, "proof": proof, "declared": declared,
-            "tombstoned": tombstoned, "statics": statics, "bases": found.get("bases")}
+            "tombstoned": tombstoned, "statics": statics, "bases": found.get("bases"), "where": found.get("where")}
 
 
 def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, max_files=25, also=None):
@@ -6545,6 +6549,7 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         check["moved"] = {m["new_name"]: m["rva"] for m in moves}
     if first["bases"]:
         check["bases"] = first["bases"]
+        check["where"] = first["where"]
     edited = set(prepared or {})
     early_check = dict(check, sources=[s for s in installer_sources if s not in edited])
     if check.get("bases"):
@@ -6607,8 +6612,9 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         # a funclet row renamed with a moved row tombstones under that row's
         # slot: the moved name it embeds decides which
         move = next((m for m in moves if m["name"] in old_row), first)
-        return (f"Renamed to {new_row} by tools/rename.py (to-class: retail vftable 0x{table + IMAGE_BASE:08X} "
-                f"slot {move['slot']}" + "".join(f"; return type: {d}" for d in move["declared"]) + ")")
+        where = check.get("where") or f"retail vftable 0x{table + IMAGE_BASE:08X} slot {move['slot']}"
+        return (f"Renamed to {new_row} by tools/rename.py (to-class: {where}"
+                + "".join(f"; return type: {d}" for d in move["declared"]) + ")")
     lines = [tombstone_line(old_row, at, reason_text(old_row, new_row))
              for old_row, new_row, at in plan.renamed_rows if (old_row, at) not in tombstoned]
     if lines:

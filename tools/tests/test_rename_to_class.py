@@ -1112,6 +1112,11 @@ def test_a_base_entry_relates_its_tables(tree, monkeypatch):
     done = plan(tree)
     assert done.to_class["bases"][0]["cls"] == "Other"
     assert "related by retail_identity's reviewed base entry" in str(vars(done))
+    # the subject and the tombstone name the entry, not the first table it lists
+    assert done.subject().endswith("(slot 1 of the 1 tables in retail_identity.a BASE_SLOTS entry)")
+    assert "0x00C10000" not in done.subject()
+    assert any("to-class: slot 1 of the 1 tables in retail_identity." in text.decode()
+               for rel, text in done.after.items() if rel.endswith("deleted_rows.csv"))
 
 
 def test_with_no_base_entry_the_move_is_refused(tree, monkeypatch):
