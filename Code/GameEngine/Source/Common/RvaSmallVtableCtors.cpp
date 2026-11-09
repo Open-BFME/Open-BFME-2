@@ -1010,6 +1010,12 @@ class Rva002D3347 : public RvaSmallVtableZeroBase
 public:
 	Rva002D3347();
 	virtual ~Rva002D3347() {}
+	// Retail table 0x00C02A84: slot 0 is the deleting destructor rowed at 0x002D3556,
+	// slots 1-3 are __purecall. The slots repeat the view of the base of Rva002D5333
+	// (RadarWindowOverrideCreatePing.cpp), whose destructor installs this table.
+	virtual void rva002D3D2A() = 0;
+	virtual void rva002D4AEF(float, float) = 0;
+	virtual void DoStartFade() = 0;
 };
 
 Rva002D3347::Rva002D3347()
