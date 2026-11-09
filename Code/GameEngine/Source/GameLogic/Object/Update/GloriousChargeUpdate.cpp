@@ -6,17 +6,17 @@ class Drawable;
 class Rva0010CConditionBits
 {
 public:
-	unsigned int test(int bit) const
+	unsigned int test(int bitIndex) const
 	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+		return m_words[bitIndex >> 5] & (1U << (bitIndex & 0x1f));
 	}
-	void set(int bit)
+	void set(int bitIndex)
 	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+		m_words[bitIndex >> 5] |= 1U << (bitIndex & 0x1f);
 	}
-	void clear(int bit)
+	void clear(int bitIndex)
 	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+		m_words[bitIndex >> 5] &= ~(1U << (bitIndex & 0x1f));
 	}
 private:
 	unsigned int m_words[20];
@@ -126,8 +126,8 @@ class Rva0029FB3BMember
 {
 public:
 	bool empty() const { return m_head->m_next == m_head; }
-	Rva004AD613Iterator begin() const { Rva004AD613Iterator it; it.m_node = m_head->m_next; return it; }
-	Rva004AD613Iterator end() const { Rva004AD613Iterator it; it.m_node = m_head; return it; }
+	Rva004AD613Iterator begin() const { Rva004AD613Iterator iterator; iterator.m_node = m_head->m_next; return iterator; }
+	Rva004AD613Iterator end() const { Rva004AD613Iterator iterator; iterator.m_node = m_head; return iterator; }
 	void init(void *context);
 	void reset() throw();
 	Rva004AD613Node *m_head;
@@ -140,6 +140,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
@@ -198,8 +199,8 @@ public:
 class Rva00260EB1Filter : public Rva000421C8
 {
 public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
+	Rva00260EB1Filter(const Object *object, int flags, bool match)
+		: m_obj(object), m_flags(flags), m_match(match) {}
 	virtual bool allow(Object *obj);
 	virtual int getPlayerMask();
 	const Object *m_obj;
@@ -210,7 +211,7 @@ public:
 class Rva002611BFFilter : public Rva000421C8
 {
 public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	Rva002611BFFilter(const Object *object) : m_obj(object) {}
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
@@ -250,32 +251,6 @@ Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 extern "C" const void *const __identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@")[];
 
   // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
-// The retail table at RVA 0x008552A4: 9 slots, each a rowed code owner (the next
-// word is not a code address or starts another ledger datum).
-extern "C" {
-void __identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z")();
-void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
-void __identifier("?get@Rva005C4AE5ByteField@@QBEEXZ")();
-void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
-void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
-void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
-void __identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z")();
-void __identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z")();
-void __identifier("?vslot08@SpecialAbilityUpdate@@UAE_NH@Z")();
-}
-
-extern "C" const void *const vtbl_00C552A4[9] = {
-	(const void *)&__identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z"), // slot 0 0x004500A3
-	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 1 0x0050B5C6
-	(const void *)&__identifier("?get@Rva005C4AE5ByteField@@QBEEXZ"), // slot 2 0x005C4AE5
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 3 0x000D43D0
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 4 0x0047A699
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5 0x0047A69C
-	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // slot 6 0x0044EECA
-	(const void *)&__identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z"), // slot 7 0x0044F09F
-	(const void *)&__identifier("?vslot08@SpecialAbilityUpdate@@UAE_NH@Z"), // slot 8 0x0044EDA6
-};
-
 class PoolMember
 {
 public:
@@ -283,7 +258,6 @@ public:
 };
 
   // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
-extern "C" const void *const vtbl_00C552A4[];
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp
 
@@ -329,20 +303,20 @@ GloriousChargeUpdateModuleData::GloriousChargeUpdateModuleData()
 // test/and for a clear). With the array based at +0x110 instead, a word-0 access
 // keeps the array address in a register (lea), which retail never does.
 
-static __forceinline void clearModelConditionBit(Object *object, int bit)
+static __forceinline void clearModelConditionBit(Object *object, int bitIndex)
 {
-	if (object->m_conditionBits.test(bit) != 0)
+	if (object->m_conditionBits.test(bitIndex) != 0)
 	{
-		object->m_conditionBits.clear(bit);
+		object->m_conditionBits.clear(bitIndex);
 		object->rva0028AE6D();
 	}
 }
 
-static __forceinline void setModelConditionBit(Object *object, int bit)
+static __forceinline void setModelConditionBit(Object *object, int bitIndex)
 {
-	if (object->m_conditionBits.test(bit) == 0)
+	if (object->m_conditionBits.test(bitIndex) == 0)
 	{
-		object->m_conditionBits.set(bit);
+		object->m_conditionBits.set(bitIndex);
 		object->rva0028AE6D();
 	}
 }
@@ -420,9 +394,9 @@ void GloriousChargeUpdate::rva004AD613()
 {
 	if (!m_88.empty())
 	{
-		for (Rva004AD613Iterator it = m_88.begin(); it != m_88.end(); ++it)
+		for (Rva004AD613Iterator objectIdIterator = m_88.begin(); objectIdIterator != m_88.end(); ++objectIdIterator)
 		{
-			Object *object = TheGameLogic->findObjectByID(*it);
+			Object *object = TheGameLogic->findObjectByID(*objectIdIterator);
 			if (object)
 			{
 				clearModelConditionBit(object, 6 * 32 + 9);
@@ -469,9 +443,9 @@ void GloriousChargeUpdate::rva004AD7B6()
 	for (Object *obj = hits.next(); obj; obj = hits.next()) {
 		if (obj == self)
 			continue;
-		const ObjectID id = obj->getID();
+		const ObjectID objectId = obj->getID();
 		reinterpret_cast<Rva002A1B6FNativeList *>(&m_88)->append(
-			reinterpret_cast<void *const &>(id));
+			reinterpret_cast<void *const &>(objectId));
 	}
 }
 
@@ -481,9 +455,9 @@ void GloriousChargeUpdate::triggerAbilityEffect()
 	rva004AD7B6();
 	if (!m_88.empty())
 	{
-		for (Rva004AD613Iterator it = m_88.begin(); it != m_88.end(); ++it)
+		for (Rva004AD613Iterator objectIdIterator = m_88.begin(); objectIdIterator != m_88.end(); ++objectIdIterator)
 		{
-			Object *object = TheGameLogic->findObjectByID(*it);
+			Object *object = TheGameLogic->findObjectByID(*objectIdIterator);
 			if (object)
 			{
 				object->addAttributeModifierToPool(AsciiString("RohanCharge"), -1);
@@ -528,9 +502,9 @@ void GloriousChargeUpdate::xfer(Xfer *xfer)
 // ??1GloriousChargeUpdate@@UAE@XZ @0x004AD58C
 GloriousChargeUpdate::~GloriousChargeUpdate()
 {
-	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
-	member->reset();
-	((PoolMember *)member)->Rva00268902();
+	Rva0029FB3BMember *objectIdList = (Rva0029FB3BMember *)((char *)this + 0x88);
+	objectIdList->reset();
+	((PoolMember *)objectIdList)->Rva00268902();
 }
 
 // tu-skeleton: 0x004AD5C8 6B ?name@GloriousChargeUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
@@ -547,12 +521,12 @@ GloriousChargeUpdate::~GloriousChargeUpdate()
 GloriousChargeUpdate::GloriousChargeUpdate(Thing *thing, const ModuleData *moduleData) :
 	Rva0044EF5E(thing, moduleData)
 {
-	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
+	Rva0029FB3BMember *objectIdList = (Rva0029FB3BMember *)((char *)this + 0x88);
 	void *context = (void *)((char *)&moduleData + 3);
-	member->init(context);
+	objectIdList->init(context);
 	m_8C &= 0;
 	m_90 = 0;
-	member->reset();
+	objectIdList->reset();
 }
 
 // tu-skeleton: 0x004AD6F4 28B ??_GGloriousChargeUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp (not merged yet)

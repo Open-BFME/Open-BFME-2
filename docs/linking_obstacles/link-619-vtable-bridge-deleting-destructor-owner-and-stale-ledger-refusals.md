@@ -15,6 +15,18 @@ the committed `data_ledger.csv`, it reproduces the published queue to within a f
 1,767 generated, 152 already correct, 1,523 refused (no-kept-definition 429, multiple-kept-names 402,
 target-not-winning-provider 526, strong-definition 134).
 
+2026-11-09, SpecialAbilityUpdate base secondary owner recovered: the
+canonical destructor emits native 0x008552A4 in full (36 B, nine verified
+relocations). It replaces GloriousChargeUpdate.cpp's unused strong array;
+ten shared destructor stores and one SpecialDisguise constructor store now
+name that same base compiler table. All 56 code rows, three data rows and
+five EH rows pass; five own link_check verdicts read LINKS, 2,505 -> 2,505 B
+against 5b5011469d. Two stale BehaviorModule header entries retired. The
+primary's independently exact getter remains placeholder-owned, and three
+Glorious list-header entries remain; no complete derived-table or measured
+bridge-retirement claim. The prior unrelated AICower receipt gap remains
+for the next census. [Verification, naming and path audit](../../reverse/attempt_support/special-ability-base-table-recovery-20261109.md).
+
 2026-11-09, SpecialAbilityUpdate post-load address repair: the existing
 SpecialAbilityUpdate::loadPostProcess row now owns native 0x00497805,
 the direct jump to UpdateModule::loadPostProcess (0x0058B03E) held by

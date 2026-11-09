@@ -20,7 +20,7 @@ class ModuleData;
 
 static int s_dummy0C;
 static int s_dummy10;
-extern "C" const void *const vtbl_00C552A4[9];
+extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9];
 
 // Opaque 0x88-byte UpdateModule-derived intermediate; dtor resolves to the
 // opaque pin at 0x00451F45. Protected slots mirror the retail stores.
@@ -49,7 +49,7 @@ OCLUpdate::~OCLUpdate()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 class CurseSpecialPower : public Rva0044EF5E
@@ -62,7 +62,7 @@ CurseSpecialPower::~CurseSpecialPower()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 class SupplyCenterDockUpdate : public Rva0044EF5E
@@ -75,7 +75,7 @@ SupplyCenterDockUpdate::~SupplyCenterDockUpdate()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 class Rva00490D3F : public Rva0044EF5E
@@ -88,7 +88,7 @@ Rva00490D3F::~Rva00490D3F()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 class Rva00492179 : public Rva0044EF5E
@@ -101,7 +101,7 @@ Rva00492179::~Rva00492179()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 extern "C" const void *const s_dummy20[9];
@@ -138,7 +138,7 @@ Rva00494F1B::~Rva00494F1B()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 // These two interface tables were previously represented by zero-filled
@@ -228,7 +228,7 @@ Rva004B0164::~Rva004B0164()
 {
 	m_p0C = &s_dummy62D8;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 	m_tail88 = &s_dummy62C8;
 }
 
@@ -242,7 +242,7 @@ Rva004B29BE::~Rva004B29BE()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 class Rva004CC9BF : public Rva0044EF5E
@@ -255,7 +255,7 @@ Rva004CC9BF::~Rva004CC9BF()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 class ActivateModuleSpecialPower : public Rva0044EF5E
@@ -268,7 +268,7 @@ ActivateModuleSpecialPower::~ActivateModuleSpecialPower()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 static int s_dummy52C8;

@@ -40,62 +40,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
-// Base view matching Common/Rva0024A797DeletingDtor.cpp: vptrs at +0, +0xC,
-// +0x10; 0x20 bytes.
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C() throw();
-
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class PrimaryP451F45 : public Rva0049B47C, public MiBase1
-{
-public:
-	~PrimaryP451F45() {}
-};
-
-#include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-class SpecialPowerTemplate;
-class Object;
-struct Coord3D;
-class Waypoint;
-
-// Slot 0 of the interface vftable at +0x20 (0x00C552A4, stored by this
-// dtor) is the rowed SpecialAbilityUpdate::initiateIntentToDoSpecialPower.
-class SpecialAbilityUpdateInterface
-{
-public:
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
-		const Waypoint *way) = 0;
-};
-
-class SpecialAbilityUpdate : public UpdateModule, public SpecialAbilityUpdateInterface
-{
-public:
-	virtual ~SpecialAbilityUpdate();
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
-		const Waypoint *way);
-
-protected:
-	virtual void onExit(bool, bool);	// 0x004502CE, SpecialAbilityUpdate.cpp
-
-private:
-	unsigned char m_pad24[0x64 - 0x24];
-	_STL::list<int> m_specialObjectIDList;	// +0x64
-	unsigned char m_pad6C[0x88 - 0x6C];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 SpecialAbilityUpdate::~SpecialAbilityUpdate()
 {

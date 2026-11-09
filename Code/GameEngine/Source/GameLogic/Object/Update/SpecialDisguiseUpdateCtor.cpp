@@ -26,7 +26,7 @@ extern "C" const void *const s_dummy62C8[4];
 static int s_vtable;
 extern "C" const void *const s_dummy62D8[47];
 static int s_secondary10;
-extern "C" const void *const vtbl_00C552A4[9];
+extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9];
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -68,7 +68,7 @@ SpecialDisguiseUpdate::SpecialDisguiseUpdate(Thing *thing, const ModuleData *mod
 	m_vtable = &s_vtable;
 	m_p0C = s_dummy62D8;
 	m_p10 = &s_secondary10;
-	m_p20 = vtbl_00C552A4;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 	m_8C = 0.0f;
 	m_90 = 0;
 }
