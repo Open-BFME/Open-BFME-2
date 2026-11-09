@@ -509,3 +509,327 @@ class NewSaves(unittest.TestCase):
         before = gs.saves_state(self.appdata)
         self.write("Auto Save for Udun.BfME2Skirmish", "new")
         self.assertEqual(self.names(before), ["Auto Save for Udun.BfME2Skirmish"])
+
+
+# --------------------------------------------------------------------------- G4/G5: the suite judge
+def run_file(folder, name, crcs, retail=True, seed=1, perturb=None, at=None, outcome="pass", until=100, kind="determinism",
+             setup=None, **extra):
+    """A record/reload/load result file as finish() writes one, with only what the suite judge reads."""
+    import json
+    scenario = {"kind": kind, "map": "maps\\m.map", "seed": seed, "players": 2, "player": False, "ai": True,
+                "difficulty": "easy", "fast": False, "mode": 2, "crc_every": 25, "until_frame": until,
+                **extra, "perturb_frame": perturb}
+    body = {"scenario": scenario, "outcome": outcome, "crcs": [[f, c] for f, c in crcs.items()],
+            "perturbed": {"frame": at} if at is not None else None,
+            "run": {"setup": setup or {"seed": seed, "players": "slot 0 observer, slot 1 easy AI, slot 2 easy AI"}},
+            "receipt": {"image_kind": "retail" if retail else "real", "image_sha256": "r" if retail else "i"}}
+    path = Path(folder) / f"{name}.json"
+    path.write_text(json.dumps(body))
+    return path
+
+
+SAME = {25: 1, 50: 2, 75: 3, 100: 4}
+
+
+class SuiteJudge(unittest.TestCase):
+    """G4/G5: a scenario's bar is what two retail runs repeat; every other run is held to it."""
+
+    def setUp(self):
+        import tempfile
+        self.dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.dir.cleanup)
+        self.d = Path(self.dir.name)
+
+    def judge(self, *paths, bar=None, target=None):
+        return gs.judge_suite([gs.suite_run(q) for q in paths], bar, target)
+
+    def base(self):
+        return [run_file(self.d, "a", SAME), run_file(self.d, "b", SAME),
+                run_file(self.d, "p", {25: 1, 50: 2, 75: 9, 100: 9}, perturb=60, at=62)]
+
+    def only_group(self, out):
+        (g,) = out["groups"].values()
+        return g
+
+    def test_retail_twice_and_a_caught_perturbation_pass(self):
+        out = self.judge(*self.base())
+        g = self.only_group(out)
+        self.assertEqual((out["verdict"], g["retail_repeat"], g["bar"]["through"], g["bar"]["frames"]),
+                         ("pass", "repeats", 100, 4))
+        self.assertEqual(g["judged"][0]["verdict"], "caught-at-75")
+        self.assertEqual(out["reductions"], [])
+
+    def test_without_a_perturbed_run_there_is_no_negative_control(self):
+        out = self.judge(*self.base()[:2])
+        self.assertEqual(out["verdict"], "fail")
+        self.assertIn("no perturbed run was caught: the suite has no negative control", out["problems"])
+
+    def test_a_perturbation_that_changes_nothing_is_missed(self):
+        out = self.judge(*self.base()[:2], run_file(self.d, "p", SAME, perturb=60, at=62))
+        self.assertEqual((out["verdict"], self.only_group(out)["judged"][0]["verdict"]), ("fail", "missed"))
+
+    def test_a_difference_before_the_perturbation_is_not_a_catch(self):
+        out = self.judge(*self.base()[:2], run_file(self.d, "p", {25: 1, 50: 7, 75: 9, 100: 9}, perturb=60, at=62))
+        self.assertEqual(self.only_group(out)["judged"][0]["verdict"], "differs-before-perturbation-at-50")
+        self.assertEqual(out["verdict"], "fail")
+
+    def test_a_perturbed_run_that_never_perturbed_is_no_control(self):
+        out = self.judge(*self.base()[:2], run_file(self.d, "p", {25: 1, 50: 2, 75: 9, 100: 9}, perturb=60))
+        self.assertEqual(self.only_group(out)["judged"][0]["verdict"], "not-perturbed")
+
+    def test_every_scheduled_sample_must_be_there(self):
+        hole = {25: 1, 50: 2, 100: 4}
+        out = self.judge(run_file(self.d, "a", SAME), run_file(self.d, "b", hole),
+                         run_file(self.d, "p", {25: 1, 50: 2, 75: 9, 100: 9}, perturb=60, at=62))
+        self.assertEqual(out["verdict"], "fail")                  # one complete retail run: no bar
+        self.assertEqual(self.only_group(out)["verdict"], "no-bar")
+        out = self.judge(*self.base(), run_file(self.d, "i", hole, retail=False))
+        self.assertIn("incomplete-from-75", [j["verdict"] for j in self.only_group(out)["judged"]])
+        self.assertEqual(out["verdict"], "fail")
+
+    def test_an_image_that_differs_fails_at_its_first_frame(self):
+        out = self.judge(*self.base(), run_file(self.d, "i", {25: 1, 50: 5, 75: 3, 100: 4}, retail=False))
+        self.assertIn("differs-at-50", [j["verdict"] for j in self.only_group(out)["judged"]])
+        self.assertEqual((out["verdict"], self.only_group(out)["verdict"]), ("fail", "fail"))
+
+    def test_an_image_that_matches_passes(self):
+        out = self.judge(*self.base(), run_file(self.d, "i", SAME, retail=False))
+        self.assertEqual(out["verdict"], "pass")
+
+    def test_metadata_the_run_had_must_match(self):
+        other = {"seed": 1, "players": "slot 0 observer, slot 1 easy AI"}
+        out = self.judge(*self.base(), run_file(self.d, "i", SAME, retail=False, setup=other))
+        self.assertIn("metadata-differs", [j["verdict"] for j in self.only_group(out)["judged"]])
+
+    def test_a_run_that_did_not_pass_is_not_judged_a_match(self):
+        out = self.judge(*self.base(), run_file(self.d, "i", SAME, retail=False, outcome="crash-at-x"))
+        self.assertIn("run-crash-at-x", [j["verdict"] for j in self.only_group(out)["judged"]])
+
+    def test_retail_differing_from_itself_shortens_the_bar_and_says_so(self):
+        out = self.judge(run_file(self.d, "a", SAME), run_file(self.d, "b", {25: 1, 50: 2, 75: 8, 100: 4}),
+                         run_file(self.d, "p", {25: 1, 50: 9, 75: 3, 100: 4}, perturb=40, at=40),
+                         run_file(self.d, "i", {25: 1, 50: 2, 75: 0, 100: 0}, retail=False))
+        g = self.only_group(out)
+        self.assertEqual((g["bar"]["through"], g["retail_repeat"]), (50, "differs-at-75"))
+        self.assertIn("retail differs from itself at frame 75", g["bar"]["reduction"])
+        self.assertEqual(out["verdict"], "pass")                  # held to the frames retail repeats
+        self.assertTrue(any("differs from itself" in r for r in out["reductions"]))
+
+    def test_a_run_is_held_to_the_whole_schedule_even_where_the_bar_is_short(self):
+        # Sol A1: completeness was checked over the bar's frames only, so a hole past a short bar passed.
+        out = self.judge(run_file(self.d, "a", SAME), run_file(self.d, "b", {25: 1, 50: 2, 75: 8, 100: 4}),
+                         run_file(self.d, "p", {25: 1, 50: 9, 75: 3, 100: 4}, perturb=40, at=40),
+                         run_file(self.d, "i", {25: 1, 50: 2, 75: 0}, retail=False))
+        self.assertEqual(self.only_group(out)["bar"]["through"], 50)
+        self.assertIn("incomplete-from-100", [j["verdict"] for j in self.only_group(out)["judged"]])
+        self.assertEqual(out["verdict"], "fail")
+
+    def test_a_retail_run_whose_setup_is_not_its_scenario_s_sets_no_bar(self):
+        # Sol A2: references were never checked against the setup they ran.
+        two_ais = {"seed": 1, "players": "slot 0 observer, slot 1 easy AI"}
+        out = self.judge(run_file(self.d, "a", SAME), run_file(self.d, "b", SAME, setup=two_ais),
+                         run_file(self.d, "p", {25: 1, 50: 2, 75: 9, 100: 9}, perturb=60, at=62))
+        self.assertEqual(self.only_group(out)["verdict"], "no-bar")
+        self.assertTrue(any("ran {'seed': 1, 'players': 'slot 0 observer, slot 1 easy AI', 'fps_limit': None}" in q
+                            for q in out["problems"]))
+        self.assertEqual(out["verdict"], "fail")
+
+    def test_an_explicit_bar_holds_today_s_retail_runs_too(self):
+        # Sol A4: two retail runs that agree with each other replaced the bar given; they must be judged by it.
+        bar = self.judge(*self.base())
+        drifted = {25: 1, 50: 2, 75: 3, 100: 5}
+        out = self.judge(run_file(self.d, "a2", drifted), run_file(self.d, "b2", drifted),
+                         run_file(self.d, "p2", {25: 1, 50: 2, 75: 9, 100: 9}, perturb=60, at=62), bar=bar)
+        self.assertEqual([j["verdict"] for j in self.only_group(out)["judged"]][:2], ["differs-at-100", "differs-at-100"])
+        self.assertEqual(out["verdict"], "fail")
+        out = self.judge(run_file(self.d, "s2", SAME, seed=2), bar=bar)
+        self.assertIn("not in the bar given", " ".join(out["problems"]))
+
+    def loads(self, name, setup, crcs=None, retail=True, perturb=None, at=None):
+        return run_file(self.d, name, crcs or {150: 5, 175: 6}, retail=retail, perturb=perturb, at=at, kind="load",
+                        until=175, saved_frame=125, save_sha256="s", setup=setup)
+
+    def test_two_retail_loads_that_agree_set_a_bar_and_one_that_does_not_is_reported(self):
+        # Sol A5: a load records no skirmish set-up, so A2's check left loads without a bar.
+        state = {"loaded_frame": 125, "base_seed": 7}
+        out = self.judge(self.loads("a", state), self.loads("b", state), self.loads("c", {"loaded_frame": 125, "base_seed": 8}),
+                         self.loads("i", state, retail=False), self.loads("p", state, {150: 5, 175: 9}, perturb=160, at=161))
+        g = self.only_group(out)
+        self.assertEqual((g["bar"]["through"], g["expected_setup"]), (175, state))
+        self.assertTrue(any("retail run" in q and "'base_seed': 8" in q for q in out["problems"]))
+        verdicts = {Path(j["file"]).stem: j["verdict"] for j in g["judged"]}
+        self.assertEqual((verdicts["i"], verdicts["p"], verdicts["c"]), ("matches", "caught-at-175", "metadata-differs"))
+        bar = self.judge(self.loads("a", state), self.loads("b", state), self.loads("p", state, {150: 5, 175: 9}, perturb=160, at=161))
+        out = self.judge(self.loads("i2", {"loaded_frame": 125, "base_seed": 9}, retail=False), bar=bar)
+        self.assertEqual(self.only_group(out)["judged"][0]["verdict"], "metadata-differs")
+        out = self.judge(self.loads("i3", state, retail=False), bar=bar)
+        self.assertEqual(self.only_group(out)["judged"][0]["verdict"], "matches")
+
+    def test_a_load_that_did_not_resume_at_its_save_sets_no_bar(self):
+        early = {"loaded_frame": 3, "base_seed": 7}
+        out = self.judge(self.loads("a", early), self.loads("b", early), self.loads("p", early, {150: 5, 175: 9}, perturb=160, at=161))
+        self.assertEqual(self.only_group(out)["verdict"], "no-bar")
+
+    def test_scenarios_are_judged_apart(self):
+        out = self.judge(*self.base(), run_file(self.d, "s2", SAME, seed=2))
+        self.assertEqual(len(out["groups"]), 2)
+        self.assertIn("1 complete retail run(s), no bar given", " ".join(out["problems"]))
+
+    def test_a_bar_from_an_earlier_suite_judges_image_runs_alone(self):
+        bar = self.judge(*self.base())
+        out = self.judge(run_file(self.d, "i", SAME, retail=False),
+                         run_file(self.d, "ip", {25: 1, 50: 2, 75: 0, 100: 0}, retail=False, perturb=60, at=60), bar=bar)
+        self.assertEqual(out["verdict"], "pass")
+        out = self.judge(run_file(self.d, "i", {25: 1, 50: 2, 75: 3, 100: 0}, retail=False), bar=bar)
+        self.assertIn("differs-at-100", [j["verdict"] for j in self.only_group(out)["judged"]])
+        out = self.judge(run_file(self.d, "s2", SAME, seed=2, retail=False), bar=bar)
+        self.assertTrue(any("in the bar, not run" in q for q in out["problems"]))
+
+    def test_an_unscheduled_run_is_a_problem(self):
+        out = self.judge(run_file(self.d, "a", SAME, until=None))
+        self.assertEqual(self.only_group(out)["verdict"], "unscheduled")
+        self.assertEqual(out["verdict"], "fail")
+
+    def test_the_target_reports_what_the_bar_does_not_cover(self):
+        out = self.judge(*self.base(), target={"maps": 3, "seeds": 5, "until": 5000})
+        self.assertEqual(out["verdict"], "pass")
+        self.assertIn("1 map(s) x 1 seed(s) with a bar, target 3 x 5", out["reductions"])
+        self.assertIn("bars end at [100], target frame 5000", out["reductions"])
+
+    def test_reload_and_load_are_scheduled_after_the_load(self):
+        self.assertEqual(gs.suite_schedule({"kind": "reload", "save_frame": 125, "crc_every": 25, "until_frame": 200}),
+                         [150, 175, 200])
+        self.assertEqual(gs.suite_schedule({"kind": "load", "saved_frame": 125, "crc_every": 25, "until_frame": 175}),
+                         [150, 175])
+        self.assertEqual(gs.suite_schedule({"kind": "determinism", "crc_every": 25, "until_frame": 75}), [25, 50, 75])
+        self.assertIsNone(gs.suite_schedule({"kind": "load", "saved_frame": None, "crc_every": 25, "until_frame": 75}))
+
+    def test_a_load_of_another_save_is_another_scenario(self):
+        one = run_file(self.d, "a", {150: 1}, kind="load", until=150, saved_frame=125, save_sha256="x")
+        two = run_file(self.d, "b", {150: 1}, kind="load", until=150, saved_frame=125, save_sha256="y")
+        self.assertEqual(len(self.judge(one, two)["groups"]), 2)
+
+    def test_the_command_reads_job_folders_and_skips_other_files(self):
+        import contextlib
+        import io
+        import json
+        self.base()
+        (self.d / "receipt.json").write_text("{}")
+        (self.d / "skirmish_retail.json").write_text(json.dumps({"outcome": "pass"}))
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            rc = gs.main(["suite", str(self.d), "--target", "1x1x100", "--out", str(self.d / "verdict.out")])
+        verdict = json.loads(out.getvalue())
+        self.assertEqual((rc, verdict["verdict"]), (0, "pass"))
+        self.assertEqual(verdict["not_scenario_runs"], [str(self.d / "skirmish_retail.json")])
+        self.assertEqual(json.loads((self.d / "verdict.out").read_text())["verdict"], "pass")
+
+
+class Perturbation(unittest.TestCase):
+    """Sol A3: the seed is xored at the frame breakpoint, labelled with the frame read there; a reload waits for its
+    loaded state."""
+
+    class FrameGame(FakeGame):
+        def __init__(self):
+            super().__init__({FakeGame.base + gs.RVA["theGameLogicSeed"]: 0x1234})
+            self.frame = 0
+
+        def logic(self):
+            return self.frame, 2
+
+        def seed(self):
+            return self.mem[self.va("theGameLogicSeed")]
+
+    def step(self, hook, game, frame):
+        game.frame = frame
+        return hook(game, 1, None)
+
+    def test_the_seed_changes_at_the_first_frame_at_or_past_it_and_says_which(self):
+        hook, game = gs.FrameHook(), self.FrameGame()
+        hook.perturb_at = 60
+        self.step(hook, game, 59)
+        self.assertEqual((hook.perturbed, game.seed()), ({}, 0x1234))
+        self.step(hook, game, 62)
+        self.assertEqual(hook.perturbed, {"frame": 62, "seed_before": "0x1234"})
+        self.assertEqual(game.seed(), 0x1234 ^ 0x5A5A5A5A)
+        self.step(hook, game, 63)
+        self.assertEqual(game.seed(), 0x1234 ^ 0x5A5A5A5A)        # once
+
+    def test_a_reload_is_perturbed_only_in_its_loaded_state(self):
+        hook, game = gs.FrameHook(), self.FrameGame()
+        hook.perturb_at, hook.load_at = 150, 175
+        hook.save, hook.load_name = {"frame": 125, "code": 0}, "x"
+        hook.load = {"from_frame": 175, "code": 0}                 # loaded, but no CRC of the loaded state yet
+        self.step(hook, game, 176)                                 # an engine frame still showing the old frame
+        self.assertEqual(hook.perturbed, {})
+        hook.load["first_crc"] = (126, 7)
+        self.step(hook, game, 150)
+        self.assertEqual(hook.perturbed["frame"], 150)
+
+
+class LoadSetup(unittest.TestCase):
+    """Sol A5: cmd_load records the loaded state's setup (a mocked launch, as Sol reproduced it)."""
+
+    def test_a_load_records_the_frame_it_resumed_at_and_its_base_seed(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            (d / "game").mkdir()
+            (d / "game" / "smoke.BfME2Skirmish").write_bytes(b"save")
+            a = SimpleNamespace(save=None, saved_frame=125, crc_every=25, mode=2, appdata=d / "appdata", game_dir=d / "game",
+                                save_name="smoke.BfME2Skirmish", perturb_frame=None, retail=True, image="boot",
+                                min_frames=100, until_frame=None, seconds=60, scenario="load")
+
+            def launch(a_, extra, handlers, tick):
+                hook = dict(handlers)["GameEngine::update"]
+                hook.crcs, hook.rng = [(125, 1), (150, 2)], [(125, "aa", 7), (150, "bb", 7)]
+                return None, {"run": {}, "profile_touched": False, "guard": {}}
+            with mock.patch.object(gs, "launch", launch), mock.patch.object(gs, "OUT", d), mock.patch("builtins.print"):
+                gs.cmd_load(a)
+            import json
+            kept = json.loads((d / "load_retail.json").read_text())
+        self.assertEqual(kept["run"]["setup"], {"loaded_frame": 125, "base_seed": 7})
+        self.assertEqual(kept["scenario"]["kind"], "load")
+        self.assertEqual(gs.loaded_setup(gs.FrameHook()), {"loaded_frame": None, "base_seed": None})
+
+
+class ScenarioBlock(unittest.TestCase):
+    def args(self, **kw):
+        base = dict(map="maps\\m.map", seed=3, players=2, player=False, no_ai=False, difficulty="easy", fast=False,
+                    mode=2, crc_every=25, until_frame=500, perturb_frame=None, save_frame=125, load_frame=175)
+        return SimpleNamespace(**(base | kw))
+
+    def test_record_and_its_perturbed_twin_share_a_key(self):
+        a = gs.scenario_of(self.args(), "record")
+        b = gs.scenario_of(self.args(perturb_frame=300), "record_perturbed")
+        self.assertEqual((a["kind"], b["perturb_frame"]), ("determinism", 300))
+        self.assertEqual(gs.suite_key(a), gs.suite_key(b))
+        self.assertIsNone(gs.scenario_of(self.args(), "skirmish"))
+
+    def test_finish_writes_it_into_the_result(self):
+        import json
+        import tempfile
+        a = self.args(retail=True, image="boot", scenario="record")
+        out = {"run": {}, "profile_touched": False, "guard": {}, "outcome": "pass", "crcs": [(25, 1)]}
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(gs, "OUT", Path(d)), mock.patch("builtins.print"):
+            gs.finish(a, "record", out)
+            kept = json.loads((Path(d) / "record_retail.json").read_text())
+        self.assertEqual(kept["scenario"], gs.scenario_of(a, "record"))
+        self.assertEqual(kept["scenario"]["seed"], 3)
+
+    def test_the_setup_a_scenario_implies(self):
+        sc = gs.scenario_of(self.args(), "record")
+        self.assertEqual(gs.expected_setup(sc), {"seed": 3, "players": "slot 0 observer, slot 1 easy AI, slot 2 easy AI",
+                                                 "fps_limit": None})
+        sc = gs.scenario_of(self.args(player=True, fast=True, difficulty="hard"), "reload")
+        self.assertEqual(gs.expected_setup(sc), {"seed": 3, "players": "slot 0 player, slot 1 hard AI", "fps_limit": "off"})
+        self.assertEqual(gs.expected_setup(gs.scenario_of(self.args(no_ai=True), "record"))["players"], "slot 0 observer, ")
+
+    def test_reload_and_load_carry_what_decides_their_simulation(self):
+        r = gs.scenario_of(self.args(), "reload")
+        self.assertEqual((r["kind"], r["save_frame"], r["load_frame"]), ("reload", 125, 175))
+        a = self.args()
+        a.loaded_save = {"sha256": "abc", "frame": 125}
+        s = gs.scenario_of(a, "load_perturbed")
+        self.assertEqual((s["kind"], s["saved_frame"], s["save_sha256"]), ("load", 125, "abc"))
+

@@ -39,7 +39,20 @@ drives it with the engine's own start-up switches, not clicks:
             as SANDBOX/<--save-name>.
   load      `-file <save>.BfME2Skirmish`: GameEngine::execute loads a save
             named on the command line (retail 0x22D290). pass = skirmish mode,
-            first frame >= the save's frame, then --min-frames more.
+            first frame >= the save's frame, then --min-frames more. --save PATH
+            (with --saved-frame) loads another run's save: a cross-build load.
+  reload    a --player skirmish saves at --save-frame, loads in game at --load-frame
+            and plays on; its CRCs after the load are kept, and so is the save
+            (build/game/reload_<image>.BfME2Skirmish), for another build to load.
+  suite     G4/G5's judge, run anywhere (no game): `suite RUN.json|JOBDIR... [--bar BAR]`.
+            Runs are grouped by their `scenario` (the arguments that decide what is
+            simulated); every CRC scheduled by it (every --crc-every frames up to
+            --until-frame, after the load for reload/load) must be present. Two
+            complete retail runs of a scenario set its bar: the frames retail repeats
+            against itself (any shortfall is the bar's reduction, reported). Every
+            other run must equal retail at every bar frame; a --perturb-frame run must
+            equal it before the perturbation and differ after (caught). --bar takes an
+            earlier suite's output, so an image can be judged against retail's bar.
 
 --real-image EXE runs a linked image (exit.exe, exit.map and image_receipt.json
 together) instead of a boot_image overlay: tools/real_image.py checks it, and every
@@ -62,14 +75,20 @@ The real profile is still snapshotted (names, sizes, mtimes,
 SHA-256 of Options.ini) before and after; any change fails the run with
 `profile-changed`, as does any change under HKCU\\Software\\Electronic Arts.
 
+record, reload and load runs carry a `scenario` block for the suite judge, and with
+--perturb-frame N each xors the logic random seed once at frame N (reload and load: after
+the load), named <scenario>_perturbed: the negative control.
+
 Outcomes (build/game/<scenario>.json, also printed): pass, desync, no-game,
 no-frames, no-picture, blank-window, crash-at-<row>, exit-<code>, profile-changed,
 guard-violation. skirmish and load need a picture at the end (boot_smoke.window_picture:
 PrintWindow on Windows, the Xvfb root under Wine); a black or missing one fails.
 """
 import argparse
+import collections
 import ctypes
 import ctypes.wintypes as wt
+import hashlib
 import json
 import re
 import shutil
@@ -262,6 +281,20 @@ class FrameHook:
         self.save_requested, self.save = False, {}
         self.load_name, self.load, self.after_load = None, {}, False
         self.save_at, self.load_at, self.find_save, self.before_load = None, None, None, []
+        self.perturb_at, self.perturbed = None, {}   # --perturb-frame: the negative control
+
+    def perturb(self, game, frame, mode):
+        """Xor the logic random seed once, at the first engine frame whose logic frame is at least perturb_at, and
+        record that frame as read here. In a reload only the loaded game is perturbed: once the first CRC after the
+        load has been taken, so the frame is the loaded state's own, never one from before the load."""
+        if self.perturb_at is None or self.perturbed or frame is None or mode not in self.modes or frame < self.perturb_at:
+            return
+        if self.load_at is not None and not self.load.get("first_crc"):
+            return
+        seed = game.va("theGameLogicSeed")
+        v = game.u32(seed)
+        game.write(seed, struct.pack("<I", v ^ 0x5A5A5A5A))
+        self.perturbed = {"frame": frame, "seed_before": hex(v)}
 
     def due(self, frame, mode):
         """None, "crc" or "save" for an engine frame at this logic frame/mode."""
@@ -287,6 +320,7 @@ class FrameHook:
 
     def __call__(self, game, tid, ctx):
         frame, mode = game.logic()
+        self.perturb(game, frame, mode)
         what = self.due(frame, mode)
         if what is None:
             return True
@@ -1198,8 +1232,39 @@ def short_of_frame(a, crcs=None):
     return None
 
 
+SCENARIO_KINDS = {"record": "determinism", "record_perturbed": "determinism", "determinism": "determinism",
+                  "determinism_perturbed": "determinism", "reload": "reload", "reload_perturbed": "reload",
+                  "load": "load", "load_perturbed": "load"}
+
+
+def scenario_of(a, name):
+    """What decides a run's simulation, for the suite judge to group equivalent runs by; None for other scenarios.
+    The image is not in it: comparing images is the point."""
+    kind = SCENARIO_KINDS.get(name)
+    if kind is None:
+        return None
+    arg = lambda name: getattr(a, name, None)        # noqa: E731
+    s = {"kind": kind, "map": arg("map"), "seed": arg("seed"), "players": arg("players"), "player": arg("player"),
+         "ai": not arg("no_ai"), "difficulty": arg("difficulty"), "fast": arg("fast"), "mode": arg("mode"),
+         "crc_every": arg("crc_every"), "until_frame": arg("until_frame")}
+    if kind == "reload":
+        s.update(save_frame=arg("save_frame"), load_frame=arg("load_frame"))
+    if kind == "load":
+        s.update(saved_frame=(arg("loaded_save") or {}).get("frame"), save_sha256=(arg("loaded_save") or {}).get("sha256"))
+    s["perturb_frame"] = arg("perturb_frame")
+    return s
+
+
+def file_sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for b in iter(lambda: f.read(1 << 20), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
 def finish(a, name, out):
-    short = short_of_frame(a, out.get("crcs") if name in ("record", "determinism", "determinism_perturbed") else None)
+    short = short_of_frame(a, out.get("crcs") if name in SCENARIO_KINDS else None)
     if short:
         out["until_frame"] = short
         if out["outcome"] == "pass":
@@ -1213,6 +1278,8 @@ def finish(a, name, out):
     if out["run"].get("stopped") == "debugger-error":
         out["outcome"] = "debugger-error"
     out["image"] = "retail" if a.retail else a.image
+    if scenario_of(a, name) is not None:
+        out["scenario"] = scenario_of(a, name)
     import real_image
     image = (real_image.summary(a.ri) if getattr(a, "ri", None) is not None else
              real_image.retail_summary() if a.retail else {"image_kind": "overlay", "image_commit": None})
@@ -1237,15 +1304,20 @@ def cmd_skirmish(a, keep_replay=None):
     hook = FrameHook(every=a.crc_every, modes=(a.mode,)) if keep_replay else None
     if hook:
         handlers.append(("GameEngine::update", hook))
+    if hook:
+        hook.perturb_at = a.perturb_frame
     game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode, hook))
     out["samples"] = samples
     if hook:
         out["crcs"], out["rng"], out["blocks"] = hook.crcs, hook.rng, hook.blocks
+        out["perturbed"] = hook.perturbed or None
     res = out["run"]
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if keep_replay:
         out["outcome"] = judge_record(out["outcome"], hook.crcs, a.min_crcs)
-    return finish(a, "record" if keep_replay else "skirmish", out)
+    if not keep_replay:
+        return finish(a, "skirmish", out)
+    return finish(a, "record_perturbed" if a.perturb_frame is not None else "record", out)
 
 
 def find_saves(appdata):
@@ -1303,12 +1375,23 @@ def cmd_save(a):
     return finish(a, "save", out)
 
 
+def loaded_setup(hook):
+    """A load has no skirmish set-up to record: its setup is the loaded state's own, read beside its first CRC (the
+    logic frame it resumed at and the logic RNG base seed), for the suite judge to hold equivalent loads to."""
+    first = hook.rng[0] if hook.rng else None
+    return {"loaded_frame": first[0] if first else None, "base_seed": first[2] if first else None}
+
+
 def cmd_load(a):
     """`-file <save>`: GameEngine::execute loads a .BfME2Skirmish save given on
     the command line (retail 0x22D290..0x22D3F1). pass = skirmish mode, the
     first logic frame seen is at or past the frame the save was taken at (a new
     game would start at 0) and the logic then advances --min-frames."""
     samples = []
+    if a.save is not None:                          # another run's save (a cross-build load), where `save` would put it
+        if a.saved_frame is None:
+            raise SystemExit("game_smoke: load --save needs --saved-frame, the logic frame the save was taken at")
+        shutil.copyfile(a.save, a.game_dir / a.save_name)
     rec = json.loads((OUT / f"save_{'retail' if a.retail else a.image}.json").read_text()) if a.saved_frame is None else None
     saved_frame = a.saved_frame if a.saved_frame is not None else rec["save"]["frame"]
     hook = FrameHook(every=a.crc_every, at_first=True, modes=(a.mode,))
@@ -1319,8 +1402,12 @@ def cmd_load(a):
     save_dir = sandbox_profile(a.appdata) / "Save"
     save_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(a.game_dir / a.save_name, save_dir / a.save_name)
-    game, out = launch(a, f"-file {a.save_name}", [("GameEngine::update", hook)], skirmish_tick(a, samples, a.mode))
+    a.loaded_save = {"sha256": file_sha256(a.game_dir / a.save_name), "frame": saved_frame}
+    hook.perturb_at = a.perturb_frame
+    game, out = launch(a, f"-file {a.save_name}", [("GameEngine::update", hook)], skirmish_tick(a, samples, a.mode, hook))
+    out["perturbed"] = hook.perturbed or None
     res = out["run"]
+    res["setup"] = loaded_setup(hook)
     game_frames = [f for t, f, m in samples if m == a.mode and f]
     out.update(samples=samples[::5], saved_frame=saved_frame, first_game_frame=game_frames[0] if game_frames else None,
                first_crc=hook.crcs[:1], crcs=hook.crcs, rng=hook.rng)
@@ -1329,7 +1416,7 @@ def cmd_load(a):
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if out["outcome"] == "pass" and game_frames[0] < saved_frame:
         out["outcome"] = "not-restored"
-    return finish(a, "load", out)
+    return finish(a, "load_perturbed" if a.perturb_frame is not None else "load", out)
 
 
 def cmd_reload(a):
@@ -1345,11 +1432,19 @@ def cmd_reload(a):
     hook = FrameHook(every=a.crc_every, modes=(a.mode,))
     hook.save_at, hook.load_at = a.save_frame, a.load_frame
     hook.find_save = lambda: ([q.name for q in new_saves(a.appdata, before)] or [None])[-1]
-    tick = skirmish_tick(a, samples, a.mode)
+    hook.perturb_at = a.perturb_frame               # the negative control perturbs the loaded game only
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
-    game, out = launch(a, f'-file "{a.map}"', handlers, tick)
+    game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode, hook))
     res = out["run"]
     load, save = hook.load, hook.save
+    out["perturbed"] = hook.perturbed or None
+    name = "reload_perturbed" if a.perturb_frame is not None else "reload"
+    written = sandbox_profile(a.appdata) / "Save" / hook.load_name if hook.load_name else None
+    if written is not None and written.is_file():   # kept beside the result, for another build to load (load --save)
+        kept = OUT / f"{name}_{'retail' if a.retail else a.image}{written.suffix}"
+        shutil.copyfile(written, kept)
+        out["save_file"] = {"name": hook.load_name, "kept_as": kept.name, "sha256": file_sha256(kept),
+                            "frame": save.get("frame")}
     after = [f for t, f, m in samples if load.get("seconds") and t > load["seconds"] and m == a.mode and f]
     first = load.get("first_crc")
     out.update(samples=samples[::5], save=save, load=load, crcs=hook.crcs, crcs_before_load=hook.before_load,
@@ -1380,11 +1475,11 @@ def cmd_reload(a):
         out["outcome"] = "no-frames-after-load"
     else:
         out["outcome"] = "pass"
-    return finish(a, "reload", out)
+    return finish(a, name, out)
 
 
 def perturb_tick(a, game, frame, perturbed):
-    """Positive control: xor the logic random seed once at --perturb-frame."""
+    """Positive control for playback: xor the logic random seed once at --perturb-frame (the others use FrameHook)."""
     if a.perturb_frame is not None and not perturbed and frame and frame >= a.perturb_frame:
         seed = game.va("theGameLogicSeed")
         v = game.u32(seed)
@@ -1400,18 +1495,15 @@ def cmd_determinism(a):
     retail 0x37D484..0x37D48E), so this is the replay check a skirmish allows.
     pass = at least --min-crcs common frames, none differ."""
     record = json.loads(Path(a.record_json or OUT / "record_retail.json").read_text())
-    samples, perturbed = [], {}
+    samples = []
     hook = FrameHook(every=a.crc_every, modes=(a.mode,))
-    base_tick = skirmish_tick(a, samples, a.mode, hook)
-
-    def tick(game):
-        perturb_tick(a, game, samples[-1][1] if samples else None, perturbed)
-        return base_tick(game)
+    hook.perturb_at = a.perturb_frame
+    tick = skirmish_tick(a, samples, a.mode, hook)
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     crc = pair_crcs([(f, c, False) for f, c in record.get("crcs", [])] + [(f, c, True) for f, c in hook.crcs])
     out["blocks_differ"] = block_diff(record.get("blocks", []), hook.blocks)
-    out.update(samples=samples[::5], crcs=hook.crcs, rng=hook.rng, blocks=hook.blocks, perturbed=perturbed or None, record_seed=record["run"].get(
+    out.update(samples=samples[::5], crcs=hook.crcs, rng=hook.rng, blocks=hook.blocks, perturbed=hook.perturbed or None, record_seed=record["run"].get(
         "setup", {}).get("seed"), crc=dict(crc, mismatches=crc["mismatches"][:10],
                                            unpaired_recorded=crc["unpaired_recorded"][:10],
                                            unpaired_computed=crc["unpaired_computed"][:10]))
@@ -1423,6 +1515,183 @@ def cmd_determinism(a):
     if out["outcome"] in ("pass", "desync") and (mine.get("players"), mine.get("fps_limit")) !=             (theirs.get("players"), theirs.get("fps_limit")):
         out["outcome"] = "setup-differs"              # players/difficulty must match the reference
     return finish(a, "determinism_perturbed" if a.perturb_frame is not None else "determinism", out)
+
+
+# --------------------------------------------------------------------------- the suite judge (G4, G5)
+def suite_run(path):
+    """One run's result file, as the suite judge reads it; None when it is not a scenario run."""
+    d = json.loads(Path(path).read_text())
+    if not isinstance(d, dict) or not isinstance(d.get("scenario"), dict):
+        return None
+    crcs = {}
+    for f, c in d.get("crcs") or []:
+        crcs.setdefault(f, c)
+    receipt = d.get("receipt") or {}
+    setup = (d.get("run") or {}).get("setup") or {}
+    keys = ("loaded_frame", "base_seed") if d["scenario"].get("kind") == "load" else ("seed", "players", "fps_limit")
+    return {"file": str(path), "scenario": d["scenario"], "outcome": d.get("outcome"), "crcs": crcs,
+            "retail": receipt.get("image_kind") == "retail", "image_sha256": receipt.get("image_sha256"),
+            "setup": {k: setup.get(k) for k in keys}, "perturbed": d.get("perturbed")}
+
+
+def suite_key(scenario):
+    return json.dumps({k: v for k, v in scenario.items() if k != "perturb_frame"}, sort_keys=True)
+
+
+def suite_schedule(scenario):
+    """The CRC frames a scenario's runs must all hold: every crc_every to until_frame, after the load for reload/load."""
+    start = {"reload": scenario.get("save_frame"), "load": scenario.get("saved_frame")}.get(scenario.get("kind"), 0)
+    every, until = scenario.get("crc_every"), scenario.get("until_frame")
+    if not every or not until or start is None:
+        return None
+    return [f for f in range(every, until + 1, every) if f > start]
+
+
+def expected_setup(scenario):
+    """The setup a run of this scenario reports (skirmish_setup's game.res["setup"]), for every run to be held to;
+    None for a load, whose setup is its loaded state's (loaded_setup), which only equivalent runs can vouch for."""
+    if scenario.get("kind") == "load":
+        return None
+    ais = range(1, 1 + ((1 if scenario.get("player") else scenario.get("players") or 0) if scenario.get("ai") else 0))
+    players = ("slot 0 player, " if scenario.get("player") else "slot 0 observer, ") + \
+        ", ".join(f"slot {i} {scenario.get('difficulty')} AI" for i in ais)
+    return {"seed": scenario.get("seed"), "players": players, "fps_limit": "off" if scenario.get("fast") else None}
+
+
+def suite_verdict(run, ref, frames, bar_frames, setup):
+    """One run: every scheduled frame present, then equal to the reference CRCs over the bar's frames."""
+    pf = run["scenario"].get("perturb_frame")
+    if pf is None and run["outcome"] != "pass":
+        return f"run-{run['outcome']}"
+    if run["setup"] != setup:
+        return "metadata-differs"
+    missing = [f for f in frames if f not in run["crcs"]]
+    if missing:
+        return f"incomplete-from-{missing[0]}"
+    diffs = [f for f in bar_frames if run["crcs"][f] != ref[f]]
+    if pf is None:
+        return f"differs-at-{diffs[0]}" if diffs else "matches"
+    at = (run["perturbed"] or {}).get("frame")
+    if at is None:
+        return "not-perturbed"
+    if any(f < at for f in diffs):
+        return f"differs-before-perturbation-at-{diffs[0]}"
+    if not any(f >= at for f in bar_frames):
+        return "perturbed-past-the-bar"
+    return f"caught-at-{diffs[0]}" if diffs else "missed"
+
+
+def judge_suite(runs, bar=None, target=None):
+    """G4/G5's verdict over result files (suite_run dicts). A scenario's bar is what its retail runs repeat (two
+    complete unperturbed retail runs, compared over the schedule), or the one `bar` (an earlier suite's output)
+    gives; every other run is judged against it."""
+    groups = collections.defaultdict(list)
+    for r in runs:
+        groups[suite_key(r["scenario"])].append(r)
+    out = {"groups": {}, "problems": []}
+    for key, members in sorted(groups.items()):
+        sc = json.loads(key)
+        frames = suite_schedule(sc)
+        g = {"scenario": sc, "runs": len(members)}
+        out["groups"][key] = g
+        if frames is None:
+            g["verdict"] = "unscheduled"           # no --until-frame or --crc-every: nothing says what must be there
+            out["problems"].append(f"{sc.get('kind')} {sc.get('map')} seed {sc.get('seed')}: unscheduled")
+            continue
+        g["scheduled"] = [frames[0], frames[-1], len(frames)]
+        expected = expected_setup(sc)
+        given = (bar or {}).get("groups", {}).get(key, {}).get("bar")
+        refs = [r for r in members if r["retail"] and r["scenario"].get("perturb_frame") is None and r["outcome"] == "pass"
+                and all(f in r["crcs"] for f in frames)]
+        if expected is None and bar is not None:   # a load: the loaded state the bar's references agreed on
+            expected = (given or {}).get("setup")
+        elif expected is None:                     # a load: the first reference that resumed at or past the save
+            resumed = [r for r in refs if r["setup"].get("base_seed") is not None
+                       and (r["setup"].get("loaded_frame") or -1) >= sc["saved_frame"]]
+            expected = resumed[0]["setup"] if resumed else None
+        g["expected_setup"] = expected
+        for r in [r for r in refs if r["setup"] != expected] if bar is None else []:
+            out["problems"].append(f"{sc['map']} seed {sc['seed']}: retail run {r['file']} ran {r['setup']}, not {expected}")
+            refs.remove(r)
+        if bar is not None:                        # an explicit bar wins: every run here, retail too, is held to it
+            if not given:
+                g["verdict"] = "not-in-the-bar"
+                out["problems"].append(f"{sc['map']} seed {sc['seed']}: not in the bar given")
+                continue
+            g["bar"] = given
+            judged = members
+        elif len(refs) >= 2:
+            ref = refs[0]
+            diffs = sorted({f for other in refs[1:] for f in frames if other["crcs"][f] != ref["crcs"][f]})
+            through = [f for f in frames if not diffs or f < diffs[0]]
+            if not through:
+                g["verdict"] = "no-bar"
+                out["problems"].append(f"{sc['map']} seed {sc['seed']}: retail differs from itself at {diffs[0]}")
+                continue
+            g["bar"] = {"through": through[-1], "frames": len(through), "reference": {str(f): ref["crcs"][f] for f in through},
+                        "setup": ref["setup"], "retail_runs": [r["file"] for r in refs]}
+            if diffs:
+                g["bar"]["reduction"] = f"retail differs from itself at frame {diffs[0]}; the bar ends at {through[-1]}"
+            judged = [r for r in members if r is not ref and r not in refs]
+            g["retail_repeat"] = "repeats" if not diffs else f"differs-at-{diffs[0]}"
+        else:
+            g["verdict"] = "no-bar"                # one retail run or none, and no bar given
+            out["problems"].append(f"{sc['map']} seed {sc['seed']}: {len(refs)} complete retail run(s), no bar given")
+            continue
+        bar_frames = [f for f in frames if f <= g["bar"]["through"]]
+        ref_crcs = {int(f): c for f, c in g["bar"]["reference"].items()}
+        g["judged"] = [{"file": r["file"], "retail": r["retail"], "perturb_frame": r["scenario"].get("perturb_frame"),
+                        "verdict": suite_verdict(r, ref_crcs, frames, bar_frames, expected)} for r in judged]
+        bad = [j for j in g["judged"] if j["verdict"] != "matches" and not j["verdict"].startswith("caught-at-")]
+        g["verdict"] = "pass" if not bad else "fail"
+        if bad:
+            out["problems"] += [f"{sc['map']} seed {sc['seed']}: {j['file']} {j['verdict']}" for j in bad]
+    for key in sorted(set((bar or {}).get("groups", {})) - set(groups)):
+        out["problems"].append(f"{json.loads(key).get('map')} seed {json.loads(key).get('seed')}: in the bar, not run")
+    caught = [j for g in out["groups"].values() for j in g.get("judged", []) if j["verdict"].startswith("caught-at-")]
+    if not caught:
+        out["problems"].append("no perturbed run was caught: the suite has no negative control")
+    reductions = [f"{json.loads(k)['map']} seed {json.loads(k)['seed']}: {g['bar']['reduction']}"
+                  for k, g in out["groups"].items() if g.get("bar", {}).get("reduction")]
+    if target:
+        cells = {(g["scenario"].get("map"), g["scenario"].get("seed")) for g in out["groups"].values() if g.get("bar")}
+        maps, seeds = {m for m, _ in cells}, {s for _, s in cells}
+        if len(maps) < target["maps"] or len(seeds) < target["seeds"]:
+            reductions.append(f"{len(maps)} map(s) x {len(seeds)} seed(s) with a bar, target {target['maps']} x {target['seeds']}")
+        short = sorted({g["bar"]["through"] for g in out["groups"].values() if g.get("bar")} - {target["until"]})
+        if short:
+            reductions.append(f"bars end at {short}, target frame {target['until']}")
+    out["reductions"] = reductions
+    out["verdict"] = "fail" if out["problems"] else "pass"
+    return out
+
+
+def suite_main(argv):
+    ap = argparse.ArgumentParser(prog="game_smoke.py suite", description="G4/G5's judge over record/reload/load results")
+    ap.add_argument("runs", nargs="+", type=Path, help="result files, or job folders holding them")
+    ap.add_argument("--bar", type=Path, help="an earlier suite's output: retail's bar, to judge image runs against")
+    ap.add_argument("--target", help="MAPSxSEEDSxUNTIL the bar should cover, e.g. 3x5x5000: any shortfall is reported")
+    ap.add_argument("--out", type=Path, help="write the verdict here too")
+    a = ap.parse_args(argv)
+    runs, skipped = [], []
+    for p in a.runs:
+        for f in (sorted(p.glob("*.json")) if p.is_dir() else [p]):
+            try:
+                r = suite_run(f)
+            except (OSError, ValueError):
+                r = None
+            (runs if r else skipped).append(r or str(f))
+    target = None
+    if a.target:
+        m, s, u = (int(x) for x in a.target.lower().split("x"))
+        target = {"maps": m, "seeds": s, "until": u}
+    out = judge_suite(runs, json.loads(a.bar.read_text()) if a.bar else None, target)
+    out["not_scenario_runs"] = [s for s in skipped if not s.endswith(("receipt.json", "job.json"))]
+    text = json.dumps(out, indent=1)
+    if a.out:
+        a.out.write_text(text)
+    print(text)
+    return 0 if out["verdict"] == "pass" else 1
 
 
 def desync_items(guilty, outcome, image_args):
@@ -1562,6 +1831,9 @@ def cmd_playback(a):
 
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else list(argv)
+    if argv[:1] == ["suite"]:
+        return suite_main(argv[1:])
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("scenario", choices=["skirmish", "record", "determinism", "playback", "save", "load", "reload", "bisect"])
     ap.add_argument("--game-dir", type=Path, required=True)
@@ -1607,6 +1879,7 @@ def main(argv=None):
     ap.add_argument("--load-frame", type=int, default=175, help="reload: logic frame to load at")
     ap.add_argument("--save-name", default="smoke.BfME2Skirmish", help="the save, kept in GAME_DIR")
     ap.add_argument("--saved-frame", type=int, help="load: frame the save was taken at (default: save run's)")
+    ap.add_argument("--save", type=Path, help="load: another run's save to load (a cross-build load); needs --saved-frame")
     ap.add_argument("--guard", type=Path, action="append", default=[])
     ap.add_argument("--no-focus-lie", action="store_true")
     ap.add_argument("--lock", type=Path, help="bisect: game_lock.py, which every bisection run goes through")
