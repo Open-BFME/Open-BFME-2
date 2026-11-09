@@ -6049,3 +6049,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C4DE9@@UAEPAXI@Z,0x004C4E47,"Renamed to ??_GDarknessSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D854)"
 ??1Rva004C3108@@UAE@XZ,0x004C3108,"Renamed to ??1OCLSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5CC74)"
 ??_GRva004C3108@@UAEPAXI@Z,0x004C318C,"Renamed to ??_GOCLSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5CC74)"
+?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z,0x00155690,"Respelled to ?Resize@?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAE_NHPBURendererDataStruct@Render2DSentenceClass@@@Z by tools/rename.py (retail identity)"
+__ehhandler$?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z,0x00766EDC,"Respelled to __ehhandler$?Resize@?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAE_NHPBURendererDataStruct@Render2DSentenceClass@@@Z by tools/rename.py (retail identity)"

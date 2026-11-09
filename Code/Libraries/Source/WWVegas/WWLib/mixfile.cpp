@@ -93,29 +93,27 @@ public:
 	};
 };
 
-// The native base resize at 0x00155690 is already owned by this vector
-// instantiation. Both views carry an eight-byte element with a reference-
-// counted surface at +4; keep the qualified base call bound to that owner.
-class EnumParameterClass
-{
-public:
-	struct _ENUM_VALUE;
-};
-template <> bool VectorClass<EnumParameterClass::_ENUM_VALUE>::operator==(
-	const VectorClass<EnumParameterClass::_ENUM_VALUE> &) const;
-template <> int VectorClass<EnumParameterClass::_ENUM_VALUE>::ID(
-	const EnumParameterClass::_ENUM_VALUE *);
-template <> int VectorClass<EnumParameterClass::_ENUM_VALUE>::ID(
-	const EnumParameterClass::_ENUM_VALUE &);
-template <> bool VectorClass<EnumParameterClass::_ENUM_VALUE>::Resize(
-	int newsize, const EnumParameterClass::_ENUM_VALUE *array);
+// The native base resize at 0x00155690 is owned by the renderer vector's
+// instantiation, Render2DSentenceClass::RendererDataStruct (P104; it was rowed
+// on EnumParameterClass::_ENUM_VALUE). Both views carry an eight-byte element
+// with a reference-counted surface at +4; keep the qualified base call bound
+// to that owner.
+#include "../WW3D2/Render2DSentenceClass.h"
+template <> bool VectorClass<Render2DSentenceClass::RendererDataStruct>::operator==(
+	const VectorClass<Render2DSentenceClass::RendererDataStruct> &) const;
+template <> int VectorClass<Render2DSentenceClass::RendererDataStruct>::ID(
+	const Render2DSentenceClass::RendererDataStruct *);
+template <> int VectorClass<Render2DSentenceClass::RendererDataStruct>::ID(
+	const Render2DSentenceClass::RendererDataStruct &);
+template <> bool VectorClass<Render2DSentenceClass::RendererDataStruct>::Resize(
+	int newsize, const Render2DSentenceClass::RendererDataStruct *array);
 template <> inline bool
 DynamicVectorClass<MixFileFactoryClass::AddInfoStruct>::Resize(
 	int newsize, const MixFileFactoryClass::AddInfoStruct *array)
 {
-	if (((VectorClass<EnumParameterClass::_ENUM_VALUE> *)this)
-		->VectorClass<EnumParameterClass::_ENUM_VALUE>::Resize(newsize,
-			(const EnumParameterClass::_ENUM_VALUE *)array))
+	if (((VectorClass<Render2DSentenceClass::RendererDataStruct> *)this)
+		->VectorClass<Render2DSentenceClass::RendererDataStruct>::Resize(newsize,
+			(const Render2DSentenceClass::RendererDataStruct *)array))
 	{
 		if (Length() < ActiveCount) ActiveCount = Length();
 		return true;

@@ -3,65 +3,20 @@
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.
 //
-// Named DynamicVectorClass<EnumParameterClass::_ENUM_VALUE>::Resize at
-// 0x0093E700 is a byte-true call to this VectorClass::Resize. The copy loop
-// addRef/releases the record's second word, which is why the element is not
-// spelled from parameter.h's StringClass+int layout.
+// The copy loop addRef/releases the record's second word. The element is
+// Render2DSentenceClass's renderer record: this body hands 0x00001E13, rowed
+// ??1RendererDataStruct@Render2DSentenceClass, to ??_L and ??_M, and
+// ~Render2DSentenceClass (0x00157C70) installs the table whose Resize slot is
+// this body (P104, tools/retail_identity.py RENDERER_VECTOR). It was rowed on
+// EnumParameterClass::_ENUM_VALUE, a donor label. The element ctor ??_L
+// receives (0x00155701 pushes VA 0x00554300) clears only +4, a body /OPT:ICF
+// folds with the rowed ??0TimeAndLocationInfo 0x00154300.
 
 #include <new.h>
 
 #include <new>
 
-class Rva0093E4D0SurfaceResource
-{
-public:
-	virtual void unused00();
-	virtual unsigned long __stdcall addRef();
-	virtual unsigned long __stdcall release();
-};
-
-class Rva0093E4D0Surface
-{
-public:
-	Rva0093E4D0Surface() : m_surface(0) {}
-	~Rva0093E4D0Surface();
-
-	Rva0093E4D0Surface &operator=(const Rva0093E4D0Surface &that)
-	{
-		if (that.m_surface)
-			that.m_surface->addRef();
-		if (m_surface)
-			m_surface->release();
-		m_surface = that.m_surface;
-		return *this;
-	}
-
-private:
-	Rva0093E4D0SurfaceResource *m_surface;
-};
-
-class EnumParameterClass
-{
-public:
-	struct _ENUM_VALUE
-	{
-		// The element ctor __ehvec_ctor receives (0x00155701 pushes VA
-		// 0x00554300): only the surface pointer at +4 is cleared, a body
-		// /OPT:ICF folds with the rowed ??0TimeAndLocationInfo 0x00154300.
-		_ENUM_VALUE() {}
-		~_ENUM_VALUE();
-
-		_ENUM_VALUE &operator=(const _ENUM_VALUE &that)
-		{
-			m_first = that.m_first;
-			m_surface = that.m_surface;
-			return *this;
-		}
-
-		void *m_first;
-		Rva0093E4D0Surface m_surface;
-	};
-};
+#include "../WW3D2/Render2DSentenceClass.h"
 
 template <class T>
 class VectorClass
@@ -138,5 +93,5 @@ bool VectorClass<T>::Resize(int newsize, T const *array)
 	return true;
 }
 
-template bool VectorClass<EnumParameterClass::_ENUM_VALUE>::Resize(
-	int, EnumParameterClass::_ENUM_VALUE const *);
+template bool VectorClass<Render2DSentenceClass::RendererDataStruct>::Resize(
+	int, Render2DSentenceClass::RendererDataStruct const *);

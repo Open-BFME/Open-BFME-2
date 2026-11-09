@@ -623,6 +623,9 @@ template<> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Resize
 template<> bool DynamicVectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Add(const Render2DSentenceClass::PendingSurfaceStruct &);
 template class VectorClass<Render2DSentenceClass::PendingSurfaceStruct>;
 template class DynamicVectorClass<Render2DSentenceClass::PendingSurfaceStruct>;
+// The renderer vector's Resize is the native 0x00155690 (P104): this donor
+// record has no destructor, so its own Resize would skip the elements' release.
+template<> bool VectorClass<Render2DSentenceClass::RendererDataStruct>::Resize(int,const Render2DSentenceClass::RendererDataStruct *);
 template class VectorClass<Render2DSentenceClass::RendererDataStruct>;
 template class VectorClass<Render2DSentenceClass::SentenceDataStruct>;
 
