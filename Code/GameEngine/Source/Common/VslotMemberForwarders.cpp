@@ -489,67 +489,40 @@ void Rva002A9F53Forwarder::rva002A9F53()
 	(*(Rva002034E9Host **)&TheGameLogic)->rva002034E9();
 }
 
-class Rva00513B94Target
-{
-public:
-	void rva00513B94();
-};
-
-class Rva002AADAEForwarder
-{
-public:
-	void rva002AADAE();
-private:
-	char m_lead[0x4];
-	Rva00513B94Target *m_member;
-};
-
-// vtable 0x00BFDC6C#0
-void Rva002AADAEForwarder::rva002AADAE()
-{
-	((Rva002226E5TextPlusString *)m_member)->length();
-}
-
-class Rva00222D9ATarget
-{
-public:
-	void rva00222D9A(Int firstValue);
-};
-
-class Rva002AC2BFForwarder
-{
-public:
-	void rva002AC2BF(Int firstValue);
-private:
-	char m_lead[0x4];
-	Rva00222D9ATarget *m_member;
-};
-
-// vtable 0x00BFDC6C#2
-void Rva002AC2BFForwarder::rva002AC2BF(Int firstValue)
-{
-	((Rva002226E5TextPlusString *)m_member)->write((char *)firstValue);
-}
-
 class Rva002AC2CFTarget
 {
 public:
 	void rva002AC2CF(Int firstValue, Int secondValue, Int thirdValue);
 };
 
-class Rva002AC2C7Forwarder
+// The three slots of Rva002AAD9C's table 0x00BFDC6C (constructor in
+// RvaSmallVtableCtors.cpp), each reaching the payload it stores at +4.
+class Rva002AAD9C
 {
 public:
-	void rva002AC2C7(Int firstValue, Int secondValue, Int thirdValue);
+	virtual void rva002AADAE();
+	virtual void rva002AC2C7(Int firstValue, Int secondValue, Int thirdValue);
+	virtual void rva002AC2BF(Int firstValue);
 private:
-	char m_lead[0x4];
-	Rva002AC2CFTarget *m_member;
+	void *m_member;
 };
 
-// vtable 0x00BFDC6C#1
-void Rva002AC2C7Forwarder::rva002AC2C7(Int firstValue, Int secondValue, Int thirdValue)
+// vtable 0x00BFDC6C#0
+void Rva002AAD9C::rva002AADAE()
 {
-	m_member->rva002AC2CF(firstValue, secondValue, thirdValue);
+	((Rva002226E5TextPlusString *)m_member)->length();
+}
+
+// vtable 0x00BFDC6C#2
+void Rva002AAD9C::rva002AC2BF(Int firstValue)
+{
+	((Rva002226E5TextPlusString *)m_member)->write((char *)firstValue);
+}
+
+// vtable 0x00BFDC6C#1
+void Rva002AAD9C::rva002AC2C7(Int firstValue, Int secondValue, Int thirdValue)
+{
+	((Rva002AC2CFTarget *)m_member)->rva002AC2CF(firstValue, secondValue, thirdValue);
 }
 
 class Rva003003C5Target

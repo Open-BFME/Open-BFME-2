@@ -75,11 +75,15 @@ Rva002AAD77::Rva002AAD77(void *payload) : m_04(payload)
 }
 
 // ??0Rva002AAD9C@@QAE@PAX@Z @0x002AAD9C 18B, vtable VA 0xbfdc6c
+// Retail's three-slot table holds the forwarders 0x002AADAE, 0x002AC2C7 and
+// 0x002AC2BF (VslotMemberForwarders.cpp), each reaching the +4 payload.
 class Rva002AAD9C
 {
 public:
 	Rva002AAD9C(void *payload);
-	virtual ~Rva002AAD9C() {}
+	virtual void rva002AADAE();
+	virtual void rva002AC2C7(int firstValue, int secondValue, int thirdValue);
+	virtual void rva002AC2BF(int firstValue);
 private:
 	void *m_04;
 };
