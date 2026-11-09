@@ -1592,7 +1592,6 @@ Code/GameEngine/Source/Common/RTS/PlayerListCtorBFME2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/PlayerListDoXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/PlayerListValidateTeam.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/RTS/PlayerList_Rva002A7A6F.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp,yes,0,0,0,0,0
@@ -2718,7 +2717,6 @@ Code/GameEngine/Source/Common/Rva0026E836Derived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0027000E.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00270190.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002701F4Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00271423.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00271547.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0027C208.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0027C36AAssign.cpp,yes,0,0,0,0,0
@@ -2951,7 +2949,6 @@ Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002C717EMethod.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002C7196Method.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002C7253.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002C8754.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002C9B80Array.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002CCD56Dtor.cpp,yes,0,0,0,0,0
@@ -5781,7 +5778,6 @@ Code/GameEngine/Source/Common/Rva007497BitSetters.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00749990MarkBits.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00751EFDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00758210Thunks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0075B1A0Bit.cpp,yes,0,0,0,0,0
@@ -6877,7 +6873,6 @@ Code/GameEngine/Source/Common/Thing/Thing_getUnitDirectionVector3D.cpp,yes,0,0,0
 Code/GameEngine/Source/Common/Thing/Thing_setPositionZ.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/UpgradeSoundSelectorDataFindName.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/dumpThingTemplates.cpp,yes,0,0,0,0,0
@@ -7138,7 +7133,6 @@ Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawRadius.cpp,yes,0
 Code/GameEngine/Source/GameClient/Drawable/VoiceObjectIndexTable.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/DrawableApplyPhysicsXform.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/DrawableCalcPhysicsXform.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/DrawableCaptionRva00277C42.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/DrawableConstructionNotifyEmpty.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/DrawableConstructor.cpp,yes,0,0,0,0,0
@@ -7524,6 +7518,7 @@ Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/CustomMatchPreferences_
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/CustomMatchPreferences_setUsesLongGameList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/LANPreferences_usesSystemMapDir.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/LanGameOptionsMenu.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/LanLobbyMenu.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu_Rva0050CF3C.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp,yes,0,0,0,0,0
@@ -9076,7 +9071,6 @@ Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Pathfinder_AdjustGroundPathPosition.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Pathfinder_MoveAlliesAwayFromDestination.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva0018B8B0Apply.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva002619C1FilterAllow.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva00265254Ctor.cpp,yes,0,0,0,0,0
@@ -10075,7 +10069,7 @@ Code/GameEngine/Source/GameLogic/Object/Damage/DamageModule.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDeletingDtors.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageEvacuationSum.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageRva004BAF55.cpp,yes,0,0,0,0,0
@@ -10501,7 +10495,6 @@ Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp,yes,0,0
 Code/GameEngine/Source/GameLogic/Object/PartitionManager_Rva002C9C37.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/PillageModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/PillageModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/PillageModuleFriendNew.cpp,yes,0,0,0,0,0
@@ -11351,7 +11344,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateXfer.cpp,yes,
 Code/GameEngine/Source/GameLogic/Object/Update/POWTruckAIUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/PanicUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
@@ -11431,8 +11423,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp,yes,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
