@@ -81,7 +81,7 @@ private:
 };
 struct FieldParse;
 enum NameKeyType { NAMEKEY_INVALID = -1 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *name); };
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 AttributeModifierStore *TheAttributeModifierStore = 0;
  // Native singleton at RVA 0x009FE1D4.

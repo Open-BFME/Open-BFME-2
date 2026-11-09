@@ -32,11 +32,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva00333B02 { public: void rva00333B02(AsciiString); };

@@ -75,14 +75,7 @@ extern const FieldParse BfmeAwardTriggerFields[3]={
  {BfmeAwardTriggerThresholdField,&INI::parseUnsignedInt,0,12},
  {0,0,0,0}
 };
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType);
-	NameKeyType nameToKey(const char *);
-	static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class INIException
 {
