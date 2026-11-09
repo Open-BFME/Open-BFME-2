@@ -44,21 +44,6 @@ private:
 	AsciiString m_fireWeapon; // +0x8C
 };
 
-//
-// DevastateSpecialPower's destructor 0x004C8213, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5E494 at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5E430 at +0x10), exactly what ??0DevastateSpecialPower
-// 0x004C81E3 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C8213 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C8213();
-};
-
 // tu-skeleton: 0x004C81C8 27B ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp
@@ -93,7 +78,8 @@ DevastateSpecialPower::DevastateSpecialPower( Thing *thing, const ModuleData *mo
 {
 }
 
-// ??1DevastateSpecialPower@@MAE@XZ present-unmatched
+// ??1DevastateSpecialPower@@MAE@XZ 0x004C8213: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 DevastateSpecialPower::~DevastateSpecialPower()
 {
 }
@@ -124,16 +110,6 @@ DevastateSpecialPowerModuleData::DevastateSpecialPowerModuleData()
 // 0x004C851B 28B ??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C820D 6B ?Rva004C820DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C8213::~Rva004C8213()
-{
-}
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C822C 68B ?doSpecialPower@DevastateSpecialPower@@UAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
 
