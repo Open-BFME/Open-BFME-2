@@ -1,0 +1,95 @@
+{
+  "bounded_eight_object_replay": {
+    "before": {
+      "tables": 1,
+      "slots": 4,
+      "refused_tables": 1,
+      "refusal_reasons": {
+        "strong-definition": 1
+      },
+      "already_correct": 0
+    },
+    "after": {
+      "tables": 1,
+      "slots": 4,
+      "refused_tables": 0,
+      "refusal_reasons": {},
+      "already_correct": 0
+    }
+  },
+  "generated_table": "??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@",
+  "same_four_selected_slots": true,
+  "scope_currency": {
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateClones.cpp": {
+      "strict": true,
+      "general": true
+    },
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ConcreteModuleTemplateCopyCtors.cpp": {
+      "strict": true,
+      "general": true
+    },
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA.cpp": {
+      "strict": true,
+      "general": true
+    },
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/WindModuleConstructor.cpp": {
+      "strict": true,
+      "general": true
+    },
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp": {
+      "strict": false,
+      "general": true
+    },
+    "Code/Libraries/Source/WWVegas/WWMath/region.cpp": {
+      "strict": false,
+      "general": true
+    },
+    "Code/GameEngine/Source/Common/ConstIntGetters4.cpp": {
+      "strict": false,
+      "general": false
+    },
+    "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp": {
+      "strict": true,
+      "general": true
+    }
+  },
+  "target_owners": {
+    "0x000B3FD0": {
+      "name": "??1Region2D@@QAE@XZ",
+      "export_rva": "0x000B3FD0",
+      "target_rva": "0x000B3FD0",
+      "target_size": "1",
+      "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    "0x003A59AD": {
+      "name": "?Rva003A59ADGet@@YAHXZ",
+      "export_rva": "",
+      "target_rva": "0x003A59AD",
+      "target_size": "6",
+      "source": "Code/GameEngine/Source/Common/ConstIntGetters4.cpp",
+      "status": "matched",
+      "notes": "B8-6 returner ret C1B5B8; prev C2-08-00 with 1 vtable ref and no callers; opaque name"
+    },
+    "0x003A59B3": {
+      "name": "??_ERva003ACB6F@@WBM@AEPAXI@Z",
+      "export_rva": "",
+      "target_rva": "0x003A59B3",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp",
+      "status": "matched",
+      "notes": "this-adjusting (-0x1C) deleting-dtor thunk of opaque class Rva003ACB6F"
+    },
+    "0x003A59BB": {
+      "name": "?rva003A5757@Rva003A5757@@WBM@AEXPAVXfer@@@Z",
+      "export_rva": "",
+      "target_rva": "0x003A59BB",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp",
+      "status": "matched",
+      "notes": "adjustor thunk (this-0x1C) to rowed virtual rva003A5757 at 0x003A5757 (WindModuleInfo subobject at +0x1C)"
+    }
+  },
+  "limits": "Fixed path order, private native-verified before/candidate objects and unchanged cached support. Stale support receipts are disclosed; this is not a current global plan, image or runtime result. The same four-slot bridge remains necessary."
+}

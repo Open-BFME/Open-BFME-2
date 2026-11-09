@@ -62,7 +62,7 @@ extern "C" char __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6B
 extern "C" char __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
 extern "C" char __identifier("?vftable_0112B89C@@3HA");
 // The compiler table the data ledger binds at this address:
-extern "C" char __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@");
+extern "C" const void *const __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@")[4];
 
 class Rva003AEB9C
 {
@@ -157,7 +157,7 @@ Rva003AED3E::Rva003AED3E(const Rva003AED3E &that)
 	*(void **)this = &__identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@");
 	*(void **)((char *)this + 0x14) = &__identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
 	*(void **)((char *)this + 0x18) = &__identifier("?vftable_0112B89C@@3HA");
-	*(void **)((char *)this + 0x1C) = &__identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@");
+	*(const void **)((char *)this + 0x1C) = __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@");
 }
 // _Rva003AED3E_v18: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
 

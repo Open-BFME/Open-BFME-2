@@ -65,13 +65,11 @@ Rva003AEB9C *Rva003AEB9C::clone() const
 extern "C" {
 void __identifier("??1Region2D@@QAE@XZ")();
 void __identifier("??_ERva003ABA4C@@WBI@AEPAXI@Z")();
-void __identifier("??_ERva003ACB6F@@WBM@AEPAXI@Z")();
 void __identifier("??_ERva003ACEF7@@WBI@AEPAXI@Z")();
 void __identifier("??_GRva003ABA4C@@UAEPAXI@Z")();
 void __identifier("??_GRva003ACB6F@@UAEPAXI@Z")();
 void __identifier("??_GRva003ACEF7@@UAEPAXI@Z")();
 void __identifier("?Rva003A5572@Rva003AED3E@@UAEXXZ")();
-void __identifier("?Rva003A59ADGet@@YAHXZ")();
 void __identifier("?Rva003ABBF5Get@@YAHXZ")();
 void __identifier("?clone@Rva003AE928@@QBEPAV1@XZ")();
 void __identifier("?clone@Rva003AECE6@@QBEPAV1@XZ")();
@@ -80,7 +78,6 @@ void __identifier("?get@Rva00094A98FloatField@@QBEMXZ")();
 void __identifier("?getData@NetWrapperCommandMsg@@QAEPAEXZ")();
 void __identifier("?getDataLength@NetWrapperCommandMsg@@QAEIXZ")();
 void __identifier("?rva003A5757@Rva003A5757@@UAEXPAVXfer@@@Z")();
-void __identifier("?rva003A5757@Rva003A5757@@WBM@AEXPAVXfer@@@Z")();
 void __identifier("?rva003AD03B@Rva003AD03BTemplate@@UAEPAVRva003AD03BModule@@I@Z")();
 void __identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ")();
 void __identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ")();
@@ -105,13 +102,9 @@ extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@
 // VA 0x00C1BFB4: the compiler table the FX units emit there (slot 0 is getClass).
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@")[];
 
-// VA 0x00C1CEE8
-extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@")[4] = {
-	(const void *)&__identifier("??_ERva003ACB6F@@WBM@AEPAXI@Z"), // slot 0, RVA 0x003A59B3
-	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
-	(const void *)&__identifier("?Rva003A59ADGet@@YAHXZ"), // slot 2, RVA 0x003A59AD
-	(const void *)&__identifier("?rva003A5757@Rva003A5757@@WBM@AEXPAVXfer@@@Z"), // slot 3, RVA 0x003A59BB
-};
+// Native Wind constructor operand0x003A58DC independently binds this
+// existing compiler table at0x0081CEE8. Its slot identities still need the bridge.
+extern "C" const void *const __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@")[4];
 
 // VA 0x00C1D588
 extern "C" const void *const g_gpuDrawBaseTable00[11] = {
@@ -183,7 +176,7 @@ public:
 		*(const void *const **)((char *)this + 0x00) = __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot0@@@");
 		*(const void *const **)((char *)this + 0x14) = __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
 		*(const void *const **)((char *)this + 0x18) = __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
-		*(const void *const **)((char *)this + 0x1C) = __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@");
+		*(const void *const **)((char *)this + 0x1C) = __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@");
 	}
 	Rva003AECE6 *clone() const;
 

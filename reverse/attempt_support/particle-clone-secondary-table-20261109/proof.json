@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateClones.cpp",
+      "strict_receipt": true,
+      "native_code_rows": 10
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ConcreteModuleTemplateCopyCtors.cpp",
+      "strict_receipt": true,
+      "native_code_rows": 4
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA.cpp",
+      "strict_receipt": true,
+      "native_code_rows": 16
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/WindModuleConstructor.cpp",
+      "strict_receipt": true,
+      "native_code_rows": 3
+    }
+  ],
+  "native_rows": 33,
+  "retained_code_data_flags_policies_equal_after_one_reference_substitution": true,
+  "removed_strong_arrays": 1,
+  "removed_strong_bytes": 16,
+  "existing_compiler_extent": 16,
+  "constructor_operand": "0x003A58DC -> 0x0081CEE8",
+  "no_new_function_rows_pins_aliases_or_data_owners": true,
+  "index_meta": {
+    "date": "2026-11-09 00:25",
+    "commit": "717b70f4ab",
+    "clean_tree": true,
+    "census_date": "2026-11-08 23:34",
+    "census_commit": "a46241d8d1"
+  },
+  "limits": "The existing four-slot secondary table still needs its bridge. Factory/clone-primary and four GPU runtime strong arrays remain; no global-image/runtime closure."
+}

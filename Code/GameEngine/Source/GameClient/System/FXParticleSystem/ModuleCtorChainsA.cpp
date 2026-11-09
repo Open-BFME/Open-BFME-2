@@ -216,7 +216,7 @@ extern const void *const g_00C1CE98[12] = {
 	(const void *)&__identifier("?get@Rva003EE704LeaField@@QBEPAXXZ"), // slot 10 0x003EE704
 	(const void *)&__identifier("?getSoundsVector@AudioEventInfo@@QBEABV?$vector@URvaPair001D9F62@@V?$allocator@URvaPair001D9F62@@@_STL@@@_STL@@XZ"), // slot 11 0x001D96EC
 };
-extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@")[];
+extern "C" const void *const __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@")[];
 extern "C" const void *const __identifier("??_7Rva003AEDE9@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot0@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AF47D@@6BDefaultModuleHeadBase@@@")[];
@@ -505,7 +505,7 @@ Rva003ABDC8::Rva003ABDC8(void *systemReference, void *moduleTemplate)
 	STAMP(0x00, __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@"));
 	STAMP(0x14, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@"));
 	STAMP(0x18, __identifier("??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"));
-	STAMP(0x1C, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@"));
+	STAMP(0x1C, __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@"));
 }
 
 // Native 0x003ABDF9..0x003ABE2A,49B RET8: forwards both arguments to the
@@ -601,7 +601,7 @@ Rva003AD094Module::Rva003AD094Module(void *systemReference, Rva003AD97FTemplate 
 	STAMP(0x00, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot0@@@"));
 	STAMP(0x14, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@"));
 	STAMP(0x18, __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@"));
-	STAMP(0x1C, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@"));
+	STAMP(0x1C, __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@"));
 }
 
 class Rva003ADB21Template;

@@ -305,3 +305,15 @@ compiled names (BfmeCtor001B3A20's, NotifyWeaponFiredInterface's, TurretAINotify
 **cleared**. VectorDeletingDtorsV02.cpp also left `reverse/exit_link_blockers.tsv`.
 
 2026-11-09, GPU info prerequisite: both info table emitters adopt the canonical header, with twelve native rows, seven exact EH graphs and one float preserved. Both 16B info tables have all four native slots; the two source previews are LINKS (663B). Two header rows retire. Rva003AECE6's three strong tables and four GPU runtime arrays are unchanged. Native bindings distinguish Wind's 81C60C/81C780 tables from the required factory/clone-primary addresses; the 81CEE8 alternative is still bridged and needs a separate verified rebind. [Proof and remaining scope](../../reverse/attempt_support/gpu-info-producer-adoption-20261109/README.md).
+
+2026-11-09, 81CEE8 rebind: the served clone source and both other live consumers
+now reference the existing Wind secondary compiler table. Native placement is
+independent of the deleted strong array. All 33 rows and seven EH graphs remain
+exact; five scoped link verdicts are clean. The bounded plan loses the one
+strong refusal and keeps the same four-slot bridge. Unchanged support-cache
+receipt gaps are explicit; this does not clear the startup crash or prove a
+current image. Factory/clone-primary and the four GPU runtime strong arrays
+remain. The next real link must confirm the old Slot3 strong name is absent
+and the Wind secondary remains correctly bridged, then the maintained image
+and queue decide runtime progress.
+[Evidence and next prerequisites](../../reverse/attempt_support/particle-clone-secondary-table-20261109/README.md).

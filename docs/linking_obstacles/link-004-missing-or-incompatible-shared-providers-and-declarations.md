@@ -1073,3 +1073,14 @@ were removed. Existing duplicate audio-start/EH ownership also remains open.
 2026-11-05 BfmeOwnVVD merge dry run: `BfmeOwnVVDTranslateGameMessage.cpp` fails combined-TU compilation beginning with C2143/C2501 for `TheGameClient`; `adopt_first` recommends the GameClient/InGameUI/Mouse/Shell and GameTextInterface/Mouse/View declarations. LinkGuard keeps both census-linked objects separate. [Exact evidence](../../reverse/attempt_support/bfme-own-vvd-consolidation-20261105-codex.md).
 
 2026-11-09, GPU info producers: ParticleModuleTemplateClones.cpp and GpuDrawModuleInfoCopyCtor.cpp adopt the canonical info header together, preserving twelve native rows, seven exact EH graphs and one float. Both compiler table copies now contain all four native slots; both own link verdicts are LINKS (663B total). The header lane retires two rows, leaving three other queued class users. The runtime hand tables remain for real class/member recovery; no real-image closure is claimed. [Proof and runtime-table prerequisites](../../reverse/attempt_support/gpu-info-producer-adoption-20261109/README.md).
+
+2026-11-09, Wind secondary consumers: all three live Slot3 consumers now bind
+the existing sixteen-byte compiler table independently placed at 0081CEE8 by
+the native constructor operand 003A58DC. One strong array disappears. Normal
+verification preserves 33 rows/four sources and seven exact EH graphs; the
+five-source preview, including the current GPU info-copy producer, is LINKS
+(1,856B). Bounded replay removes one strong-definition refusal while retaining
+the identical four-slot bridge. Three unchanged support caches lack strict
+receipts, so this is no global/image clearance. Factory 0081C608, clone-primary
+0081CEF8 and four GPU runtime arrays still need genuine producers and method
+identity recovery. [Proof, cache limits and remaining scope](../../reverse/attempt_support/particle-clone-secondary-table-20261109/README.md).
