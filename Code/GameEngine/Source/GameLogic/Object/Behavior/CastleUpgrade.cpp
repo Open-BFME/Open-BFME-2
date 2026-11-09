@@ -184,3 +184,10 @@ void CastleUpgrade::upgradeImplementation()
 // tu-skeleton: 0x0078EEB7 13B $L310 -- matched in Code/GameEngine/Source/Common/System/CastleUpgrade.cpp (not merged yet)
 
 // tu-skeleton: 0x0078EEC4 10B __ehhandler$?getModuleNameKey@CastleUpgrade@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/Common/System/CastleUpgrade.cpp (not merged yet)
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base call that
+// every module-family override without work of its own shares (ICF).
+void CastleUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}

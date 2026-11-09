@@ -79,3 +79,10 @@ void WeaponBonusUpgrade::xfer(Xfer *xfer)
 // tu-skeleton: 0x004B5680 11B ?upgradeImplementation@WeaponBonusUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // The 0x0078ED14 static-guard rollback is rowed from this parent's exact EH graph.
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base call that
+// every module-family override without work of its own shares (ICF).
+void WeaponBonusUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}

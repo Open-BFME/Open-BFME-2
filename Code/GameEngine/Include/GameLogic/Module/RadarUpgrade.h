@@ -9,7 +9,8 @@
 //    0x00C58790 at +0x18; its destructor 0x004B46F9 restores the same four tables and jumps to
 //    ??1UpgradeModule 0x0046089D.
 //  - 0x00C57890 (12 slots): deleting destructor 0x004B47BF, loadPostProcess 0x00497805
-//    (`jmp 0x0058B03E`, UpgradeModule's own body), GetSnapshotName 0x004B4719
+//    (`jmp 0x0058B03E`: the class's UpgradeModule base call, ICF-folded; UpgradeModule's own
+//    loadPostProcess is 0x0058B03E), GetSnapshotName 0x004B4719
 //    ("RadarUpgrade"), xfer 0x004B8710 (Version1, then UpgradeModule::xfer; a body retail folds
 //    with ArmorUpgrade::xfer), getModuleNameKey 0x004B4727, Module's empty slots 5-7, onDelete
 //    0x004B47DB, onCapture 0x004B4828, then BehaviorModule's two zero-returning slots.
@@ -41,6 +42,7 @@ public:
 	virtual void onCapture( Player *oldOwner, Player *newOwner );			// primary slot 9
 
 protected:
+	virtual void loadPostProcess();								// primary slot 1
 	virtual const char *GetSnapshotName() const;							// primary slot 2
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8

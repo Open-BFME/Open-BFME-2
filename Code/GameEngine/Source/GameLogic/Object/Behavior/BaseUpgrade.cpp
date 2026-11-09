@@ -405,3 +405,10 @@ void BaseUpgrade::upgradeImplementation()
 // tu-skeleton: 0x0078EA88 13B $L310 -- matched in Code/GameEngine/Source/Common/System/BaseUpgrade.cpp (not merged yet)
 
 // tu-skeleton: 0x0078EA95 10B __ehhandler$?getModuleNameKey@BaseUpgrade@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/Common/System/BaseUpgrade.cpp (not merged yet)
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base call that
+// every module-family override without work of its own shares (ICF).
+void BaseUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
