@@ -1178,11 +1178,14 @@ Rva000EF9F3::Rva000EF9F3(void *payload) : m_04(payload)
 }
 
 // ??0Rva002B29F8@@QAE@PAX@Z @0x002B29F8 18B, vtable VA 0x00bfe004
+// Retail's one-slot table holds 0x002B89BB (VslotSmallBodiesAB.cpp); the
+// visitor LivingWorldLogic::rva002B3833 builds inlines this constructor.
+struct Rva002B89BBArg;
 class Rva002B29F8
 {
 public:
 	Rva002B29F8(void *payload);
-	virtual ~Rva002B29F8() {}
+	virtual bool rva002B89BB(Rva002B89BBArg *arg);
 private:
 	void *m_04;
 };

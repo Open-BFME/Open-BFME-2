@@ -3001,15 +3001,15 @@ LivingWorldArmy *LivingWorldLogic::spawnArmy(SpawnArmy *spawn,Rva002B6A04Player 
 // alias, pin or guessed semantic callback name. Receiver is unused.
 struct Rva002B89BBArg;
 struct Rva002B89BBInfo;
-class Rva002B89BB {
+class Rva002B29F8 {
 public:
  virtual bool rva002B89BB(Rva002B89BBArg *);
- Rva002B89BB(Rva002B89BBInfo *value):m_info(value){}
- ~Rva002B89BB(){}
+ Rva002B29F8(Rva002B89BBInfo *value):m_info(value){}
+ ~Rva002B29F8(){}
  Rva002B89BBInfo *m_info;
 };
 void LivingWorldLogic::rva002B3833(LivingWorldBattle* battle,Rva002B89BBInfo* army){
- Rva002B89BB callback(army);
+ Rva002B29F8 callback(army);
  battle->rva003F498A((Rva003F498ACallback*)&callback);
 }
 
