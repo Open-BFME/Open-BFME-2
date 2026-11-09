@@ -38,16 +38,9 @@ enum
 {
 	AI_FOLLOW_EXITPRODUCTION_PATH = 7
 };
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct FprintfTarget
@@ -123,63 +116,15 @@ private:
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	void setGoalPosition(const Coord3D *pos);
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	__declspec(dllimport) __forceinline StateID getID() const { return m_ID; }
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	StateID m_ID; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine; // +0x18
-};
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-protected:
-	virtual Bool computePath();
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	Bool getAdjustsDestination() const;
-protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+
+
 class AIFollowPathState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
+protected:
+	void setAdjustsDestination(Bool b) { m_adjustDestinations = b; }
 private:
 	Int m_index; // +0x4C
 	Bool m_adjustFinal; // +0x50
@@ -208,10 +153,10 @@ StateReturnType AIFollowPathState::onEnter()
 	//determine which waypoints to plot in the waypoint renderer.
 	ai->friend_setCurrentGoalPathIndex( 0 );
 
-	if (getID() == AI_FOLLOW_EXITPRODUCTION_PATH) {
+	if (m_id == AI_FOLLOW_EXITPRODUCTION_PATH) {
 		ai->setCanPathThroughUnits(true);
 		CRITTER_LOG((log, "CritterDesync: setAdjustDestination(FALSE) 39"));
-		m_adjustsDestination = false;
+		m_adjustDestinations = false;
 		m_adjustFinal = true;
 	}
 	StateReturnType ret = AIInternalMoveToState::onEnter();
@@ -226,12 +171,12 @@ StateReturnType AIFollowPathState::onEnter()
 		ai->setPathExtraDistance(offset);
 		// We are in the middle of a path, so don't set the final goal location yet.
 		CRITTER_LOG((log, "CritterDesync: setAdjustDestination(FALSE) 40"));
-		m_adjustsDestination = false;
+		m_adjustDestinations = false;
 	}
 	else
 	{
 		CRITTER_LOG((log, "CritterDesync: setAdjustDestination(m_adjustFinal=%s) 41", m_adjustFinal ? "TRUE" : "FALSE"));
-		m_adjustsDestination = m_adjustFinal;
+		m_adjustDestinations = m_adjustFinal;
 		ai->setPathExtraDistance(0);
 
 		// urg. hacky. if we are a projectile on the last segment, turn on precise z-pos.
@@ -303,7 +248,7 @@ StateReturnType AIFollowPathState::update()
 			ai->setPathExtraDistance(offset);
 			// We are in the middle of a path, so don't set the final goal location yet.
 			CRITTER_LOG((log, "CritterDesync: setAdjustDestination(FALSE) 42"));
-			setAdjustsDestination(false);
+			m_adjustDestinations = false;
 		} 
 		else 
 		{

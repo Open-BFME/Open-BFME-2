@@ -16,22 +16,9 @@
 // Codegen: /EHs, not /EHsc - the inlined holder free must be able to throw so
 // retail's state -1 store before it is kept; testing the flag bit inline
 // (no named bool) keeps retail's test-byte form and its 0x20 frame.
-enum StateExitType
-
-{
- EXIT_NORMAL = 0
- 
-}
-;
-enum StateReturnType
-
-{
- STATE_CONTINUE = 0,
- STATE_SUCCESS = -1,
- STATE_FAILURE = -2
- 
-}
-;
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 #include "Coord3D.h"
 #include <vector>
 #include <list>
@@ -418,73 +405,8 @@ class Object0033FA64;
 void Rva0033FA64Do(const Object0033FA64 *obj);
 class Object0033FA79;
 void Rva0033FA79Do(const Object0033FA79 *obj);
-class StateMachine
 
-{
- public:
- Object *getOwner() const 
- 
- {
-  return m_owner;
-  
- }
- private:
- unsigned char m_pad00[0x14];
- Object *m_owner;
-// +0x14
- 
-}
-;
-class State
 
-{
- public:
- virtual ~State();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual StateReturnType onEnter();
- virtual void onExit(StateExitType status);
- virtual StateReturnType update();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual bool rva00354B2ESlot18();
- protected:
- StateMachine *getMachine() const 
- 
- {
-  return m_machine;
-  
- }
- Object *getMachineOwner() const 
- 
- {
-  return m_machine->getOwner();
-  
- }
- unsigned char m_pad04[0x18 - 0x04];
- StateMachine *m_machine;
-// +0x18
- 
-}
-;
-class AIInternalMoveToState : public State
-
-{
- public:
- virtual void onExit(StateExitType status);
- 
-}
-;
 class AIMoveToState : public AIInternalMoveToState
 
 {
@@ -520,7 +442,7 @@ class AIMoveForBoarding : public AIMoveToAndEvacuateState
 class AIFollowPathState : public AIInternalMoveToState
 
 {
- protected: char unknown1C[0x4C-0x1C];
+ protected:
  int m_pathIndex;
  public:
  virtual StateReturnType update();

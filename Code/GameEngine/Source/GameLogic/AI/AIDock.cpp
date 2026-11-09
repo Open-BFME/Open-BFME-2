@@ -131,23 +131,8 @@ protected:
 	virtual void xfer(Xfer *);
 };
 
-class AIInternalMoveToState : public State
-{
-public:
-	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
-	virtual ~AIInternalMoveToState();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-public:
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3D))];
-	Bool m_adjustsDestination; // +0x48
-	unsigned char m_pad49[0x4C - 0x49];
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva005447ED : public AIInternalMoveToState
 {
@@ -924,7 +909,7 @@ StateReturnType Rva0054484A::onEnter()
 				if (log != 0)
 					fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 1");
 			}
-			m_adjustsDestination = false;
+			m_adjustDestinations = false;
 		}
 	}
 	m_machine->m_locked = true;
@@ -1031,7 +1016,7 @@ StateReturnType Rva00544884::onEnter()
 				if (log != 0)
 					fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 2");
 			}
-			m_adjustsDestination = false;
+			m_adjustDestinations = false;
 		}
 	}
 	return AIInternalMoveToState::onEnter();

@@ -388,20 +388,7 @@ private:
 };
 
 // ------------------------------------------------------------------------------------------------
-class AIInternalMoveToState : public State
-{
-public:
-	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-protected:
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	Coord3D m_goalPosition; // +0x20
-	Real m_bfmeGoalRadius; // +0x2C
-	unsigned char m_pad30[0x48 - 0x30];
-	Bool m_adjustsDestination; // +0x48
-	unsigned char m_pad49[0x4C - 0x49];
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 // ------------------------------------------------------------------------------------------------
 class AIGuardReturnState : public AIInternalMoveToState
@@ -935,7 +922,7 @@ StateReturnType AIGuardReturnState::onEnter( void )
 	m_nextReturnScanTime = now + GetGameLogicRandomValue(0, TheAI->getAiData()->m_guardEnemyReturnScanRate, AIGUARD_FILE, 881);
 
 	m_goalPosition = getGuardMachine()->rva00543326();
-	m_bfmeGoalRadius = getGuardMachine()->getBfmeGuardRadius();
+	m_2C = getGuardMachine()->getBfmeGuardRadius();
 
 	Object *owner = getMachineOwner();
 	Bool near = false;
@@ -957,14 +944,14 @@ StateReturnType AIGuardReturnState::onEnter( void )
 			}
 			ai->destroyPath();
 		}
-		getMachine()->setGoalPosition(&m_goalPosition, m_bfmeGoalRadius);
+		getMachine()->setGoalPosition(&m_goalPosition, m_2C);
 		if (g_00E03745)
 		{
 			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 3");
 		}
-		setAdjustsDestination(true);
+		m_adjustDestinations = true;
 		return AIInternalMoveToState::onEnter();
 	}
 	return STATE_SUCCESS;

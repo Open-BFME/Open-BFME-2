@@ -105,12 +105,9 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 enum WhichTurretType
 {
 	TURRET_INVALID = -1
@@ -477,88 +474,7 @@ enum
 	INVALID_STATE_ID = 999999
 };
 
-class StateMachine : public StateMachineSlots<4>
-{
-public:
-	virtual StateReturnType updateStateMachine(); // slot 4
-	virtual void slot05();
-	virtual void slot06();
-	virtual StateReturnType initDefaultState(); // slot 7
-	virtual StateReturnType setState(UnsignedInt newStateID); // slot 8
-	virtual StateMachine *slot09(); // returns a new attack sub-machine (AIAttackSquadState::onEnter)
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void setGoalObject(const Object *obj);
-	Bool isGoalObjectDestroyed() const;
-	__declspec(dllimport) __forceinline UnsignedInt getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
-	inline Bool isInAttackState() const;
-	void setGoalPosition(const Coord3D *pos);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-private:
-	StateIdView *m_currentState; // +0x04
-	unsigned char m_pad08[0x14 - 0x08];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x20 - 0x18];
-public:
-	Int m_goalObjectID; // +0x20
-private:
-	Coord3D m_goalPosition; // +0x24
-	unsigned char m_pad30[0x38 - 0x30];
-public:
-	Bool m_locked; // +0x38 (ZH lock()/unlock() without the debug owner string)
-	unsigned char m_pad39[0x4C - 0x39];
-	class Gen_0018BC70 *m_goalSquad; // +0x4C
-};
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void slot05();
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	const Coord3D *getMachineGoalPosition() const { return m_machine->locomotorGoalPosition(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-protected:
-	virtual Bool computePath();
-	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-	Bool m_waitingForPath; // +0x49
-};
 
 class AIAttackApproachTargetState : public AIInternalMoveToState
 {
@@ -681,7 +597,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	AttackStateHost *m_att; // +0x20
 	Bool m_waitOddFrame; // +0x24
 };
@@ -730,7 +645,6 @@ public:
 	virtual StateReturnType onEnter();
 	StateReturnType rva0034A570(Bool firstFrame);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Bool m_canTurnInPlace; // +0x20
 	Bool m_setLocomotor; // +0x21
 };
@@ -765,7 +679,6 @@ class AIAttackAreaState : public State
 public:
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_attackMachine; // +0x20
 	UnsignedInt m_nextEnemyScanTime; // +0x24
 };
@@ -778,7 +691,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	UnsignedInt m_waitUntilFrame; // +0x20
 	Int m_bfmeValue24; // +0x24
 };
@@ -792,7 +704,6 @@ public:
 	virtual StateReturnType update();
 	Object *chooseVictim();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_attackSquadMachine; // +0x20
 	Bool m_sawStatus1C; // +0x24
 };
@@ -947,7 +858,7 @@ StateReturnType AIAttackSquadState::onEnter()
 	if (!owner)
 		return STATE_FAILURE;
 
-	m_attackSquadMachine = getMachine()->slot09();
+	m_attackSquadMachine = (StateMachine *)getMachine()->slot09();
 	AIUpdateInterface *ai = owner->getObservedAI();
 	Object *victim = chooseVictim();
 	Weapon *weapon = owner->getCurrentWeapon();
@@ -1053,9 +964,10 @@ public:
 	virtual Bool isAttack() const;
 };
 
-inline Bool StateMachine::isInAttackState() const
+// StateMachine::isInAttackState's body as this unit inlines it; the virtual's row is elsewhere.
+static __forceinline Bool machineInAttackState(const StateMachine *machine)
 {
-	return m_currentState ? ((const StateAttackView *)m_currentState)->isAttack() : true;
+	return machine->m_currentState ? ((const StateAttackView *)machine->m_currentState)->isAttack() : true;
 }
 
 // AIAttackMoveToState (vtable 0x00C13548, name slot 0x00345CFA) keeps its
@@ -1067,7 +979,7 @@ class AIAttackMoveToState : public State
 public:
 	virtual Bool rva00340F25() const;
 private:
-	unsigned char m_pad1C[0x54 - 0x1C];
+	unsigned char m_pad20[0x54 - 0x20];
 	StateMachine *m_attackMoveMachine; // +0x54
 };
 
