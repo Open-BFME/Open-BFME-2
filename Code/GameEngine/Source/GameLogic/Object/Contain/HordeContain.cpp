@@ -18,6 +18,11 @@ extern ThingFactory *TheThingFactory;
 
 void __cdecl ModuleFactoryHookAt00467564(void *owner, int value, void *context);
 
+// Declared as well as defined below: 0x0047A6A4's body is a tail jump to it, and
+// a carve of that row takes this file's declarations but never an
+// external-linkage definition (tu_skeleton.carve).
+void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context);
+
 class ModuleFactoryHookRange
 {
 public:
