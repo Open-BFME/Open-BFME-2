@@ -1012,7 +1012,13 @@ class Lane:
             return f"{new} is another file's stand-in, not a class any header declares"
         if rel is not None and kind in ("member", "function"):
             file_words = self.collision_words(rel, kind, scope, old, text)
-        if kind in NAMED and new in file_words:
+        # A prepared respell runs no identifier rewrite. Its final declarations
+        # and consumers go through rename.py together, so another scope already
+        # spelling this word is not a textual-rename collision. Do not expose
+        # the manifest's proposed spelling to the independent voter.
+        prepared = (kind == "function" and rel is not None and
+                    key_of(rel, kind, scope, old) in respell_bindings(self)[1])
+        if kind in NAMED and new in file_words and not prepared:
             return "collides with a name already in the file"
         return None
 
@@ -1828,6 +1834,149 @@ def spelling_problem(lane, rel, kind, scope, ident, rva, answer, file_words, tex
     return why
 
 
+RESPELL_BATCHES = "bfme-name-respell-batches.json"
+
+
+def respell_registry_path(lane):
+    """Intent outlives disposable build inputs and is shared by worktrees."""
+    cached = getattr(lane, "_respell_registry_path", None)
+    if cached is not None:
+        return cached
+    common = lane.git("rev-parse", "--git-common-dir").strip()
+    if not common:
+        raise rename.Refusal("prepared respell registry requires a Git common directory")
+    lane._respell_registry_path = (lane.root / common).resolve() / RESPELL_BATCHES
+    return lane._respell_registry_path
+
+
+def respell_bindings(lane):
+    """Local operation bindings, shared by submit, fresh reviewers and apply.
+
+    A missing/changed proposal is still registered: it must never fall through
+    to the ordinary identifier-only application path.
+    """
+    path = respell_registry_path(lane)
+    try:
+        data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {
+            "version": 1, "batches": {}}
+        if set(data) != {"version", "batches"} or data["version"] != 1 or not isinstance(data["batches"], dict):
+            raise ValueError("invalid registry")
+        batches = dict(data["batches"])
+        batches.update(getattr(lane, "_respell_preview", {}))
+        by_key = {}
+        for ident, batch in batches.items():
+            digest = hashlib.sha256(json.dumps(batch, sort_keys=True).encode()).hexdigest()
+            if ident != digest or set(batch) != {"manifest", "manifest_sha", "requests", "prepared"}:
+                raise ValueError("changed operation binding")
+            if not isinstance(batch["requests"], dict) or not batch["requests"] or not isinstance(batch["prepared"], dict):
+                raise ValueError("invalid operation binding")
+            for key in batch["requests"]:
+                if key in by_key:
+                    raise ValueError("a key belongs to two respell batches")
+                by_key[key] = ident
+        return batches, by_key
+    except (OSError, ValueError, TypeError, AttributeError) as exc:
+        raise rename.Refusal(f"prepared respell registry refuses application: {exc}") from exc
+
+
+def _respell_proposal_path(lane, value):
+    path = Path(value)
+    path = path if path.is_absolute() else lane.root / path
+    if path.is_symlink() or not path.resolve().is_relative_to(lane.path("build").resolve()):
+        raise rename.Refusal("respell manifests and proposed sources must be local files under build/")
+    return path.resolve()
+
+
+def _respell_inputs(lane, batch):
+    """Read exactly the operation/source snapshots registered before voting."""
+    try:
+        manifest = _respell_proposal_path(lane, batch["manifest"])
+        if hashlib.sha256(manifest.read_bytes()).hexdigest() != batch["manifest_sha"]:
+            raise ValueError("manifest changed")
+        prepared = {}
+        for rel, item in batch["prepared"].items():
+            proposed = _respell_proposal_path(lane, item["path"]).read_bytes()
+            current = lane.path(rel).read_bytes()
+            if (hashlib.sha256(proposed).hexdigest() != item["sha"] or
+                    hashlib.sha256(current).hexdigest() != item["source_sha"]):
+                raise ValueError(f"source or proposal changed: {rel}")
+            prepared[rel] = proposed
+        return prepared
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise rename.Refusal(f"prepared respell inputs are missing or stale: {exc}") from exc
+
+
+def register_respell_batch(lane, filename, served, *, preview=False):
+    """Bind a normal submission to an indivisible ordinary-function operation.
+
+    This records no vote or approval. Naming still uses independent identifier
+    proposals; only a complete, current approved group may consume the binding.
+    """
+    try:
+        path = _respell_proposal_path(lane, filename)
+        raw = path.read_bytes()
+        spec = json.loads(raw)
+        if (set(spec) != {"version", "requests", "prepared"} or spec["version"] != 1 or
+                not isinstance(spec["requests"], list) or not spec["requests"] or
+                not isinstance(spec["prepared"], dict) or not spec["prepared"]):
+            raise ValueError("expected version, requests and prepared")
+        served_keys = {key_of(rel, *item[:3]) for rel, entry in served["files"].items()
+                       for item in entry["items"]}
+        batch = dict(manifest=str(path), manifest_sha=hashlib.sha256(raw).hexdigest(), requests={}, prepared={})
+        for rel, proposal in spec["prepared"].items():
+            parsed = PurePosixPath(rel)
+            if (not rel.startswith("Code/") or not rel.endswith(".cpp") or ".." in parsed.parts or
+                    parsed.as_posix() != rel or "\\" in rel):
+                raise ValueError(f"not an existing Code C++ source: {rel}")
+            proposed = _respell_proposal_path(lane, proposal)
+            batch["prepared"][rel] = dict(path=str(proposed), sha=hashlib.sha256(proposed.read_bytes()).hexdigest(),
+                                            source_sha=hashlib.sha256(lane.path(rel).read_bytes()).hexdigest())
+        if len(batch["prepared"]) > getattr(lane.ctx, "max_prepared", rename.PREPARED_DEFAULT):
+            raise ValueError("too many prepared sources")
+        names, addresses = set(), set()
+        for request in spec["requests"]:
+            if set(request) != {"key", "new"}:
+                raise ValueError("requests take only key and new")
+            key, new = request["key"], request["new"]
+            rel, kind, scope, old = split_key(key)
+            if key not in served_keys or kind != "function" or compiler_spelled(old):
+                raise ValueError("each request must be an ordinary function key in this session")
+            at = int(scope, 16)
+            own = [row for row in lane.ledger().get(rel, ()) if rename._rva(row.get("target_rva")) == at]
+            if (len(own) != 1 or own[0].get("status") != "matched" or
+                    rename.split_function_name(own[0]["name"])[1] != old):
+                raise ValueError("a requested row no longer has its served identity")
+            if (rel not in batch["prepared"] or not new.startswith("?") or
+                    rename.split_function_name(new)[1] == old or key in batch["requests"] or
+                    new in names or at in addresses):
+                raise ValueError("each request needs its prepared owner and a distinct renamed full spelling")
+            names.add(new)
+            addresses.add(at)
+            batch["requests"][key] = dict(old=own[0]["name"], new=new)
+        _respell_inputs(lane, batch)
+        ident = hashlib.sha256(json.dumps(batch, sort_keys=True).encode()).hexdigest()
+        from portable_lock import lock, unlock
+        target = respell_registry_path(lane)
+        with target.with_suffix(".lock").open("a") as handle:
+            lock(handle, exclusive=True, wait_notice="name_lane: waiting for the lane lock...")
+            try:
+                batches, bound = respell_bindings(lane)
+                if any(key in bound and bound[key] != ident for key in batch["requests"]):
+                    raise ValueError("a key is already bound to a different prepared respell")
+                if preview:
+                    lane._respell_preview = {ident: batch}
+                else:
+                    batches[ident] = batch
+                    temporary = target.with_suffix(f".{os.getpid()}.{time.time_ns()}.tmp")
+                    temporary.write_text(json.dumps(dict(version=1, batches=batches), indent=2), encoding="utf-8")
+                    temporary.replace(target)
+            finally:
+                unlock(handle)
+        return ident
+    except (OSError, ValueError, TypeError, KeyError, AttributeError, rename.Refusal) as exc:
+        raise rename.Refusal(f"prepared respell registration refused: {exc}") from exc
+
+
 def agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, role=""):
     name = lane_spelling(lane, answer, kind)
     row = {"id": record_id(key, name, role), "kind": kind, "old": ident, "new": name,
@@ -2018,6 +2167,11 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     if served.get("worker") != worker:
         fail(f"session {session} was served to another worker; a vote counts only from the worker that "
              "`next` served (BFME_CLAIM_OWNER, BFME_RUN_ID or CLAUDE_CODE_SESSION_ID decide who you are)")
+    if getattr(args, "respell_batch", None):
+        try:
+            register_respell_batch(lane, args.respell_batch, served, preview=validate_only)
+        except rename.Refusal as exc:
+            fail(str(exc))
     answers = json.loads(Path(args.answer).read_text(encoding="utf-8"))
     files = served["files"]
     if len(files) == 1 and not any(k in files for k in answers):
@@ -2180,7 +2334,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     if agreed and (apply_ready is not None or auto_workflow):
         result = cmd_apply(lane, argparse.Namespace(
             key=[row["key"] for row in agreed], retry_blocked=False, only_labels=None,
-            lead=lead, min_models=min_models, claim=True, limit=apply_ready or len(agreed),
+            lead=lead, min_models=min_models, claim=True, limit=apply_ready,
             max_files=getattr(args, "max_files", 25)), verify=verify, checks=checks)
     if votes and not getattr(args, "no_auto_review", False) and not getattr(args, "propose_only", False):
         import name_review
@@ -2830,6 +2984,67 @@ def cmd_resolve(lane, args):
     return 0
 
 
+def apply_respell_batches(lane, todo, batches, bound, args, tally, refused, *, verify, checks, max_files):
+    """Consume complete prepared groups, withholding every other bound key.
+
+    The ordinary application/splitter never sees a registered key, including
+    when its manifest disappeared or only one of its approvals is ready.
+    """
+    selected = {row["key"]: row for rows in todo.values() for row in rows if row["key"] in bound}
+    for rel in list(todo):
+        todo[rel] = [row for row in todo[rel] if row["key"] not in bound]
+        if not todo[rel]:
+            del todo[rel]
+    landed = blocked = 0
+    changed_sources = set()
+    for ident in sorted({bound[key] for key in selected}):
+        batch = batches[ident]
+        if not set(batch["requests"]) <= set(selected):
+            print("name_lane: prepared respell batch waiting for all current approvals and selection constraints.",
+                  flush=True)
+            continue
+        rows = [selected[key] for key in batch["requests"]]
+        try:
+            prepared = _respell_inputs(lane, batch)
+            requests = []
+            for row in rows:
+                key = row["key"]
+                target = batch["requests"][key]
+                if row["new"] != rename.split_function_name(target["new"])[1]:
+                    raise rename.Refusal("prepared target identifier does not match the independent approval")
+                requests.append(("function", dict(
+                    rva=int(split_key(key)[2], 16), old=target["old"], new=target["new"], respell=True,
+                    prepared=prepared, basis="inferred", evidence=f"agree:{row['id']}", max_files=max_files)))
+            # source_edits makes a planner refusal abort the entire group.
+            # No partial application or per-key retry is valid for this operation.
+            result = rename.run_batch(lane.ctx, requests, claim=args.claim, verify=verify, checks=checks,
+                                      source_edits=prepared)
+            if result.failure is not None or result.refused or len(result.plans) != len(rows):
+                detail = result.failure or "; ".join(str(v) for v in result.refused.values()) or "incomplete plan"
+                raise rename.Refusal(str(detail))
+            plans = [plan for _index, plan in result.plans]
+            carry_verified_proposals(lane, plans)
+            carry_verified_votes(lane, plans, rows)
+            for row in rows:
+                lane.append(AGREED, AGREED_COLUMNS, [dict(
+                    row, status="landed", detail=approval_detail(tally, refused, row))])
+            landed += len(rows)
+            changed_sources.update(prepared)
+        except (rename.Refusal, rename.VerifyFailed) as exc:
+            # Leave the genuine naming approvals intact. A stale operation or
+            # missing input never authorizes an identifier-only fallback.
+            print(f"name_lane: prepared respell batch refused: {exc}", flush=True)
+            blocked += len(rows)
+        finally:
+            lane.ctx._cache.clear()
+    # Preparations may change more than spelling. Other approvals selected on
+    # the old text need their normal fingerprint check in a fresh apply pass.
+    for rel in changed_sources.intersection(todo):
+        del todo[rel]
+        print(f"name_lane: {rel}: other approvals left for a fresh source-fingerprint check.", flush=True)
+    return landed, blocked
+
+
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
     apply_started = time.perf_counter()
     limit = getattr(args, "limit", None)
@@ -2841,6 +3056,16 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
     only = label_list(args.only_labels) if getattr(args, "only_labels", None) else None
     selected_keys = set(getattr(args, "key", None) or ())
+    try:
+        respells, respell_keys = respell_bindings(lane)
+    except rename.Refusal as exc:
+        fail(str(exc))
+    # A newly approved key can complete a group whose other approvals were
+    # waiting already. Selection must include its siblings, even for a fresh
+    # reviewer process that was served only this last key.
+    if selected_keys:
+        for ident in {respell_keys[key] for key in selected_keys if key in respell_keys}:
+            selected_keys.update(respells[ident]["requests"])
     fault = lane.grandfather_fault()
     if fault:           # before any write: with no exemption, every old record would be reopened
         print(f"name_lane: apply refused: {fault}")
@@ -2924,13 +3149,20 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     if not pending:
         print("name_lane: nothing agreed is waiting to land.")
         return 0
+    prepared_landed, prepared_blocked = apply_respell_batches(
+        lane, todo, respells, respell_keys, args, tally, refused,
+        verify=verify, checks=checks, max_files=max_files)
+    landed += prepared_landed
+    blocked += prepared_blocked
     print(f"name_lane: selected {sum(map(len, todo.values()))} key(s) across {len(todo)} file(s).", flush=True)
     print(f"name_lane: apply selection {time.perf_counter() - apply_started:.3f}s", flush=True)
     if not todo:
         file_groups = []
     elif not getattr(args, "no_batch", False) and not getattr(args, "per_file", False):
-        landed, blocked, stale = _apply_run(lane, todo, args, tally, refused,
-                                           verify=verify, checks=checks, max_files=max_files)
+        ordinary_landed, ordinary_blocked, stale = _apply_run(lane, todo, args, tally, refused,
+                                                            verify=verify, checks=checks, max_files=max_files)
+        landed += ordinary_landed
+        blocked += ordinary_blocked
         file_groups = []
     else:
         file_groups = sorted(todo.items())
@@ -3180,6 +3412,8 @@ def main(argv=None, lane=None):
                              help="cap immediate application at N newly approved keys; default applies all new approvals")
     submit_mode.add_argument("--propose-only", action="store_true",
                              help="record proposals without applying names or dispatching an automatic reviewer")
+    s.add_argument("--respell-batch", metavar="MANIFEST",
+                   help="bind served ordinary-function keys to an atomic prepared respell manifest under build/")
     s.add_argument("--no-auto-review", action="store_true",
                    help="apply ready names but do not dispatch an automatic reviewer")
     s.add_argument("--max-files", type=int, default=25, help="maximum affected sources per rename plan")
@@ -3188,6 +3422,8 @@ def main(argv=None, lane=None):
     v.add_argument("--session", required=True)
     v.add_argument("--model", required=True)
     v.add_argument("--report", help="local JSON rejection report (default build/name_lane/validation/SESSION.json)")
+    v.add_argument("--respell-batch", metavar="MANIFEST",
+                   help="validate a prepared respell binding without registering it or recording votes")
     for p in (s,):
         p.add_argument("--lead", type=int, default=2, help="votes the name must lead every rival by")
         p.add_argument("--min-models", type=int, default=1, help="distinct models among the agreeing workers")

@@ -1266,6 +1266,60 @@ absorbed symbols, and a stale or missing one refuses unless the compiler cleared
 clearance holds only for what it read: if a cleared unit's source, an included file or its build
 command changed since the scan, the retype refuses and has to be run again.
 
+### Prepared ordinary-function respells through normal submission
+
+An ordinary placeholder method can need a different owner and signature as
+well as a readable identifier. `rename.py function --respell` accepts that
+full spelling with prepared C++; it is separate from `--identity`, whose
+compiler-spelled type-family rules remain unchanged. Do not first apply the
+identifier-only rename: the final change must be one verified operation.
+
+Serve all participating ordinary function keys with `name_lane.py next
+--files ... --key ...`. Put a manifest and the final proposed C++ under
+`build/`, for example:
+
+```json
+{
+  "version": 1,
+  "requests": [
+    {"key": "Code/Game/Forward.cpp|function|0x00401000|rva00401000",
+     "new": "?DoXfer@Base@Particle@@UAEXAAVXfer@@@Z"},
+    {"key": "Code/Game/Thunk.cpp|function|0x00401008|rva00401000",
+     "new": "?DoXfer@Base@Particle@@WBM@AEXAAVXfer@@@Z"}
+  ],
+  "prepared": {
+    "Code/Game/Forward.cpp": "build/forward.cpp.txt",
+    "Code/Game/Thunk.cpp": "build/thunk.cpp.txt"
+  }
+}
+```
+
+Submit normal identifier proposals with
+`python3 tools/name_lane.py submit ANSWER.json --session S --model M
+--respell-batch build/respell.json`. This keeps the normal blind reviewer
+and automatic application. A manifest records an operation, never a vote or
+approval; reviewers still propose identifiers independently, and every winning
+identifier must equal its target spelling's identifier. Prepared operation
+details are not added to the blind review packet.
+
+The local `<git common dir>/bfme-name-respell-batches.json` binds the manifest,
+proposed bytes and current source snapshots by hash. It survives ordinary
+`build/` cleanup; missing scratch inputs still withhold the registered group.
+Fresh reviewer processes read the same binding. All keys wait until every member has a valid current approval
+and passes selection/claim constraints, then one `rename.run_batch` applies
+the ordinary respells and all prepared sources with normal journal, byte,
+consumer and ledger checks. A planner or verification failure restores the
+whole group; neither per-file application nor failure isolation splits it.
+An explicit `--apply-ready`/`apply --limit` cap must accommodate the whole group.
+
+Missing or changed inputs, a different approved identifier and an incomplete
+group never fall back to identifier-only application. Operation bindings are
+immutable for their old keys: do not edit or delete the registry to retry a
+stale plan. Other approvals on prepared sources wait for a fresh fingerprint
+check after application. This mode moves no rows or files and grants no new
+identity, pin, alias or gate exception. `validate --respell-batch` checks a
+submission without registering its operation or writing votes.
+
 ### `rename.py function --respell`: `this` cv and code identity
 
 `--respell` takes the row's whole new mangled name and `--prepared` sources for

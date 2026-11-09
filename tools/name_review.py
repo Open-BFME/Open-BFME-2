@@ -818,7 +818,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
     # Source edits belong to the caller/integrator identity, never the reviewer.
     apply_limit = len(ready) if apply_new else apply_ready
     if ready and apply_limit is not None:
-        name_lane.cmd_apply(current, argparse.Namespace(key=ready, limit=apply_limit, max_files=25,
+        name_lane.cmd_apply(current, argparse.Namespace(key=ready, limit=None if apply_new else apply_limit, max_files=25,
             retry_blocked=False, only_labels=None, lead=2, min_models=1, claim=True), verify=verify, checks=checks)
     report = dict(status="complete", session=session, worker=config["worker"], model=config["model"], model_label=label,
         keys=list(answers), apply_selected=min(len(ready), apply_limit) if apply_limit else 0,
