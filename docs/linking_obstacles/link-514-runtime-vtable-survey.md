@@ -1382,3 +1382,91 @@ a sweep for tables whose every mismatching slot names `?m@Base@@TAIL` while reta
   defaults only) whose slot is a positional `?slotNN@BehaviorModule` at a cast fold (0x004543A9, 0x003730FC, 0x004B4A8C, 0x00485EE9) need
   the slot named first; (3) the Upgrade family's +0x0C and UpgradeMux tables (getDamage 0x0045875F) once
   class:UpgradeModule is free; (4) WorkerAIUpdateCtor.cpp's two-slot private UpdateModuleInterface.
+
+**Upgrade views, Zero Hour interface shims and BehaviorModule's slot names (2026-11-09, seat halilkkaya-lk76,
+base `e1463f9bcb`).** Method: lk74's one-pass snapshot (old = new = HEAD's `tools/vtable_bridge.py`) after
+every batch; per-slot retail overrides of the 47-slot interface read from every BehaviorModuleInterface
+table row, and `call [reg+disp]` slots read from rowed retail callers.
+- Done, three commits:
+  - `281f685c531`: LevelUpUpgrade.cpp and WeaponSetUpgrade.cpp drop their private UpgradeModule/UpgradeMux
+    copies for UpgradeModule.h (WeaponSetUpgrade.cpp includes it before Drawable.h, which selects the
+    capitalized Snapshot slots and turned loadPostProcess/xfer into new slots 12-13), declare
+    loadPostProcess/xfer (rows at 0x00497805 and 0x004B8710, `--icf-owner`) and LevelUpUpgrade's rowed
+    upgradeImplementation. Four tables off: both BehaviorModuleInterface tables (0x00C57328) and both
+    +0x18 tables (0x00C58790, now `@@6BUpgradeModuleInterface18@@@`).
+  - `26b417439af`: the per-unit shims `reference/shims/bfme2_bonefxupdate` and `bfme2_flammableupdate`
+    get the registered 47-slot interface (names and signatures as BehaviorModule.h spells them; the
+    seat's scratch `shimfix.py` does the rewrite mechanically); FlammableUpdate::getDamage rowed at the
+    0x004543A9 cast. Two tables off: BoneFXUpdate (0x00BEFF90) and FlammableUpdate (0x00C49800).
+  - `5bc0d3fbab7`: ObjectDefectionHelper and ObjectSMCHelper declare Zero Hour's DISABLEDMASK_ALL
+    getter (rows at 0x004DF396). BFME 2's ObjectHelper does not override the slot (0x00BFBCE4 and the
+    Recovery/Repulsor helpers hold 0x00253376), so ObjectHelper.h is untouched. Two tables off.
+- Offline plan, base -> after: bridged 4,099 -> 4,091, already correct 1,552 -> 1,560, mismatching
+  source slots 45,616 -> 45,489; refusals identical (104); no table newly bridged or lost. link_check on
+  every changed unit, owner and sibling emitter: all LINK, bytes equal or higher (FiringTrackerCtor.cpp and
+  FireWeaponWhenDeadBehaviorDerived.cpp fail only against the 01:24 census objects of units lk75 changed
+  later; with those units included they LINK).
+- Blocked:
+  - DeletionUpdate, FireSpreadUpdate, FloatUpdate and ProjectileStreamUpdate share
+    `reference/shims/update_modules_bfme2/GameLogic/Module/BehaviorModule.h` with 12 more units.
+    SlavedUpdate.h (same shim dir) overrides getSlavedUpdateInterface through it (class:SlavedUpdate is
+    held through class:Locomotor), and BridgeBehavior.cpp's getBridgeBehaviorInterfaceFromObject calls
+    getBridgeBehaviorInterface by name (retail slot 12). The same rewrite fixes the four tables once those
+    overrides and calls have names in the registered header (below) or spell slot12()/slot26().
+  - CashHack/DefectorSpecialPower compile against the pristine Zero Hour BehaviorModule.h
+    (`reference/open-bfme-1/inputs/...`, not editable) with no shim of their own; their tables also need
+    slots 43/44, so they wait on the slot names too.
+  - LevelUpUpgrade/WeaponSetUpgrade stay bridged on primary slots 0 and 2 and UpgradeMux slots 2/8/10.
+    `rename.py class --fold Rva004B3D3B --into LevelUpUpgrade --dry-run` is clean (2 rows in
+    FireWeaponWhenDeadBehaviorDerived.cpp), but that unit's view would then emit a second, different
+    `??_7LevelUpUpgrade@@6BObjectModule@@@` and a strong `??1LevelUpUpgrade` against the ctor unit's
+    implicit one (lk71 lead 1), so that view must adopt UpgradeModule.h first. The name getters
+    `Rva004B3D5BNamed`/`Rva004B56ABNamed` qualify for `function --to-class`. UpgradeMux slot 8 needs
+    0x000B3FD0 (held); WeaponSet's slots 8/10 are rowed under the placeholder WeaponSetUpgradeSecondary.
+  - Twelve simple Upgrade primary tables (Armor, LocomotorSet, DoCommand, Stealth, UnpauseSpecialPower,
+    Garrison, ExperienceScalar, MaxHealth, ModelCondition, ReplaceSelf, AttributeModifier,
+    RemoveUpgrade) are bridged only on slots 1 and 2: the 0x00497805 fold (as in 6d092563e4e) and
+    GetSnapshotName, whose bodies are rowed as non-virtual `?name@X@@QBEPBDXZ`. `rename.py function
+    --to-class` refuses a row already in X ("a readable class is a naming decision"), and `--new` needs a
+    basis, so they need the naming lane or a rename.py mode for a real class's vftable slot (tooling
+    lead). Single-emitter classes to start with: ArmorUpgrade, StealthUpgrade, RemoveUpgradeUpgrade.
+- BehaviorModule.h slot names (investigation only; no header edit). Target facts first, donor facts after:
+  - slot 12 getBridgeBehaviorInterface: retail getBridgeBehaviorInterfaceFromObject 0x00456556 calls
+    `[vtbl+0x30]`; BridgeBehavior overrides 12 (0x004543A9). Donor: Zero Hour BehaviorModule.h:119.
+  - slot 13 getBridgeTowerBehaviorInterface: 0x0045880B calls `+0x34`; BridgeTowerBehavior overrides 13.
+  - slot 14 getBridgeScaffoldBehaviorInterface: 0x004582F3 calls `+0x38`; Rva00458402 overrides 14.
+  - slot 20 getUpdateExitInterface: Object::getObjectExitInterface 0x0028B445 calls `+0x50`; the
+    Queue/SpawnPoint ProductionExitUpdate overrides are already rowed under that name.
+  - slot 22 getDockUpdateInterface: Object::getDockUpdateInterface 0x0028BCB4 calls `+0x58`;
+    SupplyWarehouseDockUpdate overrides 22.
+  - slot 28 getProductionUpdateInterface: 0x0049CEFC calls `+0x70`; ProductionUpdate overrides 28.
+  - slot 30 getSpawnBehaviorInterface: Object::getSpawnBehaviorInterface 0x0028BCD4 calls `+0x78`;
+    SpawnBehavior overrides 30.
+  - slot 45 `mapLoadPostProcess(const Dict *)`: four overrides rowed under that name and signature
+    (ThreatFinderUpdate 0x003ECE33, named from WorldBuilder; GettingBuiltBehavior 0x004543CA;
+    DynamicPortalBehaviour 0x00461284; AISpecialPowerUpdate 0x004B33EB). Two one-slot tables
+    (ThreatFinderUpdate, AISpecialPowerUpdate) wait only on this.
+  - slot 43 takes a float, not an int: both overrides (SpecialPowerModule 0x00251C11,
+    WeaponModeSpecialPowerUpdate 0x00494AC6) are `fld dword [esp+4]` and pass the float to slot 15 of a
+    sub-object. No name evidence: keep it positional as `slot43(float)`. Slot 44 (0x00251C24 forwards to
+    primary slot 12): no name evidence.
+  - Not provable now: 5, 6, 11, 18, 23-27, 29, 31-42, 46 (one overriding class each, no rowed caller).
+    The 27 one-slot cast-fold tables lk75 listed sit at slots 6, 11, 14, 20, 25-27, 29, 31, 33, 34, 36,
+    37, 40, 41 and 45; slots 14, 20 and 45 have names above.
+  - Units: about 920 objects include BehaviorModule.h; 198 emit tables naming `?slot43`/`?slot45`. Each
+    rename respells the default row (SupplyTruckAIUpdateCtor.cpp), every view that overrides the slot
+    positionally (BridgeBehaviorCtor.cpp `slot12`, BridgeTowerBehavior.cpp `slot13`) and the bridge
+    tables: a full-gate edit.
+  - rename.py cannot carry it. `function --rva 0x000D43D0 --old ?slot12@BehaviorModule@@UAEPAXXZ --new
+    getBridgeBehaviorInterface --basis canonical:zh --evidence <ZH BehaviorModule.h:119> --dry-run`
+    refuses: name_evidence.py has no zh-body candidate for a body every NULL getter folds into, and
+    `--virtual` keeps the identifier. The slot 43/45 signature changes are outside `function`'s respell.
+    The names need the naming lane's inferred basis, or a tooling mode that takes a rowed retail caller
+    plus an override as evidence. 0x000D43D0 (the default rows) is also held by ancalgonn-swarm-defects;
+    the edit was not made.
+- Next leads: (1) a rename.py mode for vftable-proven interface slots, then name slots 12, 13, 14, 20,
+  22, 28, 30 and 45 and set slot 43 to float; then rerun the shim rewrite on update_modules_bfme2 (four
+  tables) and declare the one-slot overrides (27 tables). (2) The twelve simple Upgrade primary tables
+  (fold row plus GetSnapshotName respell). (3) The LevelUp/WeaponSet folds after their
+  FireWeaponWhenDeadBehaviorDerived.cpp views adopt UpgradeModule.h. (4) AudioLoopUpgrade's interface
+  table (slots 7/10, casts 0x004523A9/0x004543A9) and ReplaceSelfUpgrade's (slot 3, 0x004B4A8C).
