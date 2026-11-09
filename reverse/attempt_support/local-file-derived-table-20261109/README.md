@@ -67,3 +67,11 @@ HEAD source using the tool's scan function proves the latter already had
 count zero before this repair; only the alias and pin had count one.
 hatch-audit.json records every key. A read-only independent review found
 no source blocker and confirmed those counts and the partial-view limit.
+
+Published as 5980fa928f on attempt one in 36.7 seconds (0.9 rebase,
+35.8 hook/push). All four strict receipts, the new-variant check and normal
+hooks pass; post-publication object/native proof passes with all four
+providers still strict-current. The batch audit remains INCONCLUSIVE at
+index 717b70f4ab/base 7a26bac182 because unchanged AIBuildable.cpp lacks a
+current receipt. The source's own four-file link verdict was clean and
+read before publication. This is not global image-selection closure.

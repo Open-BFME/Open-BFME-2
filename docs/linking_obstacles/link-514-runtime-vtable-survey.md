@@ -1843,6 +1843,12 @@ caught an unrelated retired name from stale objects; explicit data_rows
 owns the repaired table. No foreign cache change is published.
 [Complete slot, object, ownership and cache audits](../../reverse/attempt_support/local-file-derived-table-20261109/README.md).
 
+Published as 5980fa928f, first attempt in 36.7 seconds; four strict
+providers, new-variant checks and normal hooks pass, as does post-push
+proof. Broader selection remains INCONCLUSIVE: AIBuildable.cpp lacks a
+current receipt at index 717b70f4ab/base 7a26bac182. No global image gain
+is inferred from the bounded table result.
+
 **The split route over the Derived grab-bags: 2 clean of 71, the moved-copy context check blocks 29
 (2026-11-09, seat halilkkaya-lk82, base `edbf37dac3`).** Method: `tu_skeleton.py --split FILE` lists each
 grab-bag's approved TUs (the map rebuilt in memory), then `--split FILE --for TU --dry-run --no-claim` per
