@@ -6587,7 +6587,6 @@ __mbscat,0x0062988C,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IA
 __mbscpy,0x00629176,retail REL32 from INI getNextQuotedAsciiString 0x002E93F; IAT jmp to msvcr71 _mbscpy via 0x00BBA6D0
 __setjmp3,0x0075AC7A,address read from the REL32 displacement at a placed body
 __strcmpi,0x00629A2A,address read from the REL32 displacement in DirtySock Y4CommTickIdle Rva00813A50 at 0x0067F950; static CRT callee; body not yet converted
-__strdup,0x006C4C70
 _abs,0x0062909A,MSVCR71 import thunk identified by official ATL 7.1 call and retail target
 _abs,0x00629952,MSVCR71 abs import thunk variant called by E8 from accumulateOnlineMiscPrefs 0x00384A62; IAT slot 0x00BBA564 per rowed ?ji_00629952@@YAXXZ; twin of pinned 0x0062909A
 _acos,0x00629964,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
@@ -6658,7 +6657,6 @@ _pingerShutdown,0x006B25D0,address read from the REL32 displacement at placed _p
 _pingerThink,0x006B2B40,address read from the REL32 displacement at placed _piPingThink 0x006A3C20
 _printf,0x00629B14,printf import thunk; retail E8 at 0x0065CEA9 targets thunk rowed as ji_00629b14; CRT printf via msvcr71
 _read_number,0x00757200
-_realloc,0x0003E4B0,retail REL32 at both allocation sites in DebugLogTyped
 _rva0007E394CursorEqual,0x0007E394,Typed 8B cursor equality; full29B exact; byte-identical two-DWORD body already covered by dup_0007e394; original template identity unknown
 ?rva00286E33@Rva00286214@@QAE?AURva00287B2AResult@@PBVRva00285672@@@Z,0x00286E33,m_cellsOnFire insert_unique (thiscall hidden pair result) called from insert 0x287B2A with ecx forwarded
 _rva002f681_fill,0x0002F681,variadic INIException {msg;code} filler (vsnprintf into TLS buf + new[] + memcpy); throw-site helper for AI-kind and INI parsers; true name unknown

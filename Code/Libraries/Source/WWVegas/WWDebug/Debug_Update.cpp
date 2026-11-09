@@ -5,12 +5,13 @@
 #include <string.h>
 
 // Retail calls the game realloc wrapper at RVA 0x0003E4B0 directly.
-// Use the CRT declaration without importing MSVCR71's realloc instead.
+// A call to realloc binds to MSVCR71's in a /MD link, so this names the wrapper.
 #pragma push_macro("_CRTIMP")
 #undef _CRTIMP
 #define _CRTIMP
 #include <stdlib.h>
 #pragma pop_macro("_CRTIMP")
+void *DebugReAllocMemory(void *oldPtr, unsigned int newSize);
 
 class DebugIOInterface
 {
@@ -35,7 +36,7 @@ void Debug::Update(void)
         for (;;)
         {
             if (cur->inputAlloc-cur->inputUsed<64)
-                cur->input=(char *)realloc(
+                cur->input=(char *)DebugReAllocMemory(
                     cur->input,(cur->inputAlloc+=64)+1);
             int numChars=cur->io->Read(cur->input+cur->inputUsed,
                                        cur->inputAlloc-cur->inputUsed);
