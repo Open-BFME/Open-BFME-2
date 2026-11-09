@@ -156,7 +156,6 @@ address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DB5FA
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DB5FC8	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DC908C	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DEC40C	3
-address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DED5C0	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E063A4	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E17724	2
@@ -1656,7 +1655,6 @@ alternatename	Code/GameEngine/Source/Common/FunctorNotSetCtor.cpp	_vtbl_00BD3B54
 alternatename	Code/GameEngine/Source/Common/GameClient_addIconLayer.cpp	?pushBack@DrawableList@@QAEXAAPBVDrawable@@@Z	1
 alternatename	Code/GameEngine/Source/Common/GapForwardersSeat8.cpp	??1Rva003AA6BD@@UAE@XZ	2
 alternatename	Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	??1BfmeParserRegistrationVE@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	?bfmeChunkParserVE@@YAXXZ	1
 alternatename	Code/GameEngine/Source/Common/Gen_00942BC0.cpp	?bfmeSet1042@BfmeSub1042@@QAEXPADHH@Z	1
 alternatename	Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp	?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	??0Rva00565FC1Pair@@QAE@ABU0@@Z	1

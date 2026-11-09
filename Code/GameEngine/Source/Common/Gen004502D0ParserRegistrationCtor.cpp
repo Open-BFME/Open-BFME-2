@@ -9,8 +9,10 @@
 // exactly, so the store below references the defining name.
 extern "C" int __identifier("??_7BfmeParserBindingBaseVE@@6B@")[];
 
-// Retail 0x0041579E, recorded as ?bfmeChunkParserVE@@YAXXZ.
-extern void __cdecl bfmeChunkParserVE(void);
+// Retail 0x00306EDC, the callback the rowed DataChunkParser ctor 0x000ABB87 registers
+// (retail pushes it at 0x000ABB8F); it forwards a chunk to the parser's slot 1.
+class BfmeTargetCW;
+unsigned char bfmeAskCW(void *, void *, BfmeTargetCW *);
 
 class UserParser;
 class DataChunkInput;
@@ -28,7 +30,7 @@ public:
         m_vftable = __identifier("??_7BfmeParserBindingBaseVE@@6B@");
         m_table = table;
         m_parser = table->registerParser(*name, *label,
-            (BfmeParserCallback)bfmeChunkParserVE, this);
+            (BfmeParserCallback)&bfmeAskCW, this);
     }
     ~BfmeParserRegistrationVE();
 
@@ -50,10 +52,8 @@ extern void *g_010F5E78[2] =
 	(void *)&__identifier("?rva003028F1@Rva003028F1@@UAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z"),
 };
 
-// The registration callback is the matched row at RVA 0x0041579E, and the
-// constructor's EH cleanup destroys the base subobject whose matched dtor is
+// The constructor's EH cleanup destroys the base subobject whose matched dtor is
 // the one at RVA 0x003B241A (the class that installs this vtable).
-#pragma comment(linker, "/alternatename:?bfmeChunkParserVE@@YAXXZ=??0Rva0041579E@@QAE@ABV0@@Z")
 #pragma comment(linker, "/alternatename:??1BfmeParserRegistrationVE@@QAE@XZ=??1BfmeParserBindingBaseVE@@UAE@XZ")
 
 class Gen004502D0ParserRegistration : public BfmeParserRegistrationVE
