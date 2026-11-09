@@ -14,9 +14,10 @@
 // subscript). Target facts: LANAPI is 0x60 bytes with its ctor pinned at
 // 0x00449AB8; vslots reset 9 / init 1 / SetLocalIP 52 / RequestSetName 29 /
 // RequestLocations 15 / RequestGameCreate 27 come from the call sites; the
-// map setter 0x0044DD83 / write 0x0044D50D / user name 0x0044D330 and the
-// LANPreferences ctor 0x0044D2F5 are rowed in GameModePreferences.cpp; the
-// pending map is the AsciiString at TheWritableGlobalData+0xAC0.
+// map setter 0x0044DD83 / write 0x0044D50D / user name 0x0044D330 are rowed
+// in GameModePreferences.cpp and the LANPreferences ctor 0x0044D2F5 in
+// LanLobbyMenu.cpp (its approved TU; carved out of GameModePreferences.cpp);
+// the pending map is the AsciiString at TheWritableGlobalData+0xAC0.
 
 #include "ascii_string.h"
 #include "unicode_string.h"

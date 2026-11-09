@@ -466,18 +466,3 @@ public:
 
 	Bool loadFromIniFile(void);
 };
-
-// The destructor (0x0044D285) and its deleting form (0x0044D290) are defined
-// in Rva0044D56ADerived.cpp, on the same GameModePreferences base view.
-
-// ?loadFromIniFile@LANPreferences@@QAE_NXZ @0x44D2AC
-Bool LANPreferences::loadFromIniFile(void)
-{
-	return UserPreferences::load("NetworkPref.ini");
-}
-
-// ??0LANPreferences@@QAE@H@Z @0x44D2F5
-LANPreferences::LANPreferences(Int mode) : GameModePreferences(mode)
-{
-	loadFromIniFile();
-}
