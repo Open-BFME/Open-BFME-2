@@ -105,6 +105,10 @@ public:
 	// SupplyTruckAIUpdateCtor.cpp).
 	virtual CollideModuleInterface *getCollide();
 	virtual AIUpdateInterface *getAIUpdateInterface();
+	// UpdateModuleInterface slots (retail +0x10 tables, e.g. VA 0x00C53A98): AIUpdateInterface's
+	// update (0x0026E267) and getDisabledTypesToProcess (0x004A2D67), both rowed.
+	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
 	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
 	virtual ~AIUpdateInterface();

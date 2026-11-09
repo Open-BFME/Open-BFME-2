@@ -120,6 +120,9 @@ public:
     // SupplyTruckAIUpdateCtor.cpp).
     virtual CollideModuleInterface *getCollide();
     virtual AIUpdateInterface *getAIUpdateInterface();
+    // UpdateModuleInterface slots (retail +0x10 tables, e.g. VA 0x00C53A98): AIUpdateInterface's
+    // getDisabledTypesToProcess (0x004A2D67), rowed.
+    virtual DisabledMaskType getDisabledTypesToProcess() const;
     virtual void xfer(Xfer *xfer);
     virtual void aiDoCommand(const AICommandParms *parms);
     virtual UpdateSleepTime update();
