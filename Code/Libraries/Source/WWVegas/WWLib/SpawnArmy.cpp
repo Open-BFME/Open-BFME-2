@@ -1257,8 +1257,8 @@ void Rva004E2E58Value::rva004E20F7(bool force)
     bool again=flag21;
     if ((flag21 && flag21==again && flag21==again) || force) {
         for (unsigned i=0;i<(unsigned)(end18-begin14);++i) {
-            Rva00072F7CNode *node=begin14[i].container08.header00->left08;
-            while(node!=begin14[i].container08.header00) {
+            Rva00072F7CNode *node=static_cast<Rva00072F7CNode *>(begin14[i].container08.header00.m_ptr)->left08;
+            while(node!=static_cast<Rva00072F7CNode *>(begin14[i].container08.header00.m_ptr)) {
                 Rva003EE9F1Ref *value=begin14[i].ref04->slot78(node->value10);
                 if(value) {
                     value->slot194(1);

@@ -51,14 +51,7 @@ Rva00056CF8::~Rva00056CF8()
 }
 
 // ??1Rva00072FE6@@QAE@XZ @0x000730DE 56B -> Rva00072FE6::rva00072FE6
-class Rva00072FE6
-{
-public:
-	RvaTreeFamilyHolder m_header;
-	int m_flag;
-	void rva00072FE6();
-	~Rva00072FE6();
-};
+#include "../../Include/Common/Rva00072FE6.h"
 
 Rva00072FE6::~Rva00072FE6()
 {

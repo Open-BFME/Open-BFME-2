@@ -249,10 +249,10 @@ void Rva00072FE6::rva00072F7C(Rva00072F7CNode *node)
 void Rva00072FE6::rva00072FE6()
 {
     if (count04) {
-        rva00072F7C(header00->parent04);
-        header00->left08 = header00;
-        header00->parent04 = 0;
-        header00->right0C = header00;
+        rva00072F7C(static_cast<Rva00072F7CNode *>(header00.m_ptr)->parent04);
+        static_cast<Rva00072F7CNode *>(header00.m_ptr)->left08 = static_cast<Rva00072F7CNode *>(header00.m_ptr);
+        static_cast<Rva00072F7CNode *>(header00.m_ptr)->parent04 = 0;
+        static_cast<Rva00072F7CNode *>(header00.m_ptr)->right0C = static_cast<Rva00072F7CNode *>(header00.m_ptr);
         count04 = 0;
     }
 }

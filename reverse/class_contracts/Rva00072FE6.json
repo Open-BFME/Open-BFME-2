@@ -4,7 +4,7 @@
  "class": "Rva00072FE6",
  "evidence": {
   "bases_overruled": null,
-  "census": 24,
+  "census": 1,
   "inherited": {
    "base_views": 0,
    "inherited_slots": 0,
@@ -27,79 +27,55 @@
   "retail_vtables": {},
   "view_errors": 0,
   "view_sizes": {
-   "1": 10,
-   "8": 3,
-   "12": 5,
-   "24": 6
+   "12": 1
   },
-  "views": 24,
+  "views": 1,
   "witness_offsets": [],
   "zh": {}
  },
  "fields": [
   {
-   "decided_by": "retail-access",
+   "decided_by": "bytes",
    "kind": "S:RvaTreeFamilyHolder",
    "members": [
     {
      "kind": "P",
-     "name": "header00",
+     "name": "m_ptr",
      "offset": 0,
      "size": 4,
-     "type": "Rva00072F7CNode*"
+     "type": "void*"
     }
    ],
-   "name": "m_header",
+   "name": "header00",
    "name_by": "majority",
    "offset": 0,
    "retail_widths": {},
    "size": 4,
    "type": "RvaTreeFamilyHolder",
-   "views": 10,
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "count04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 1,
    "witness": null
   }
  ],
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
- "outliers": [
-  {
-   "offset": 4,
-   "sources": [
-    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
-    "Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp",
-    "Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp",
-    "Code/GameEngine/Source/GameNetwork/NetworkGetCommandsFromCommandList.cpp",
-    "Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp",
-    "Code/Libraries/Source/WWVegas/WWLib/Rva0054F434Dtor.cpp",
-    "Code/Libraries/Source/WWVegas/WWLib/Rva0054F434Vslot1.cpp",
-    "Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp"
-   ],
-   "views": 8
-  },
-  {
-   "offset": 8,
-   "sources": [
-    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
-    "Code/GameEngine/Source/GameNetwork/NetworkGetCommandsFromCommandList.cpp"
-   ],
-   "views": 2
-  }
- ],
- "queue": [
-  {
-   "attribute": "name@0x0",
-   "candidates": {
-    "_M_t._M_header._M_data": 1,
-    "header00": 3,
-    "m_data": 2,
-    "m_header": 3,
-    "m_header.m_ptr": 1
-   },
-   "class": "Rva00072FE6"
-  }
- ],
- "size": 24,
+ "outliers": [],
+ "queue": [],
+ "size": 12,
  "size_by": "majority",
  "vslots": {}
 }

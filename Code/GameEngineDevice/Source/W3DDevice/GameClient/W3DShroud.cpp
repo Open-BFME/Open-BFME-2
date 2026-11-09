@@ -839,8 +839,8 @@ W3DShroud::W3DShroud()
 void Rva00072FE6::rva0007300F(iterator first, iterator last) {
   typedef V VV;
   typedef _STL::_Rb_tree<int, VV, _STL::_Select1st<VV>, _STL::less<int>, _STL::allocator<VV> > Tree;
-  if (first._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(header00->left08) &&
-      last._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(header00))
+  if (first._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(static_cast<Rva00072F7CNode *>(header00.m_ptr)->left08) &&
+      last._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(static_cast<Rva00072F7CNode *>(header00.m_ptr)))
     rva00072FE6();
   else
     while (first != last)

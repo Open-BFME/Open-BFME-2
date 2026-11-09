@@ -5,6 +5,8 @@
 #ifndef BFME2_RVA00072FE6_H
 #define BFME2_RVA00072FE6_H
 
+#include "RvaTreeFamilyHolder.h"
+
 struct Rva00072F7CNode;
 
 namespace _STL
@@ -26,7 +28,7 @@ public:
     void rva0007300F(iterator first, iterator last);
     unsigned int rva000733D8(const int &key);
 
-    Rva00072F7CNode *header00;
+    RvaTreeFamilyHolder header00;
     unsigned int count04;
     unsigned char unknown08[4];
 };
