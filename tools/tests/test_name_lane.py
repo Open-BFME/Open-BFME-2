@@ -3926,6 +3926,90 @@ def test_a_real_acceptance_of_another_spelling_is_still_binding(tree, tmp_path):
                                                              reason="and now the second voter's reading"))
 
 
+# ---- the mirror: A votes X and accepts Y, B votes Y and accepts X
+
+def mirror_votes(tree, tmp_path):
+    assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0
+
+
+def agreements(tree):
+    return [r for r in rows(tree, name_lane.AGREED) if r["key"] == FN_KEY and r["status"] == "agreed"]
+
+
+def test_in_one_checkout_the_mirror_records_one_agreement(tree, tmp_path):
+    mirror_votes(tree, tmp_path)
+    be("seat-one")
+    assert name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="sumBox", reason="my own reading of it")) == 0
+    assert name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="addBoxWidth", reason="the other reading fits")) == 0
+    assert [r["new"] for r in agreements(tree)] == ["addBoxWidth"]
+    be("seat-two")
+    with pytest.raises(SystemExit):
+        name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="sumBox", reason="the other reading fits me too"))
+    assert [r["new"] for r in agreements(tree)] == ["addBoxWidth"]
+
+
+def mirror_state(tree, tmp_path, *moves):
+    """The votes, and resolution rows as two checkouts' union merge leaves them: (worker, spelling)."""
+    import hashlib
+    mirror_votes(tree, tmp_path)
+    sha = hashlib.sha256((tree / SOURCE).read_bytes()).hexdigest()
+    seats = {"sumBox": "seat-one", "addBoxWidth": "seat-two"}
+    workers = {}
+    for spelling, seat in seats.items():
+        be(seat)
+        workers[seat] = lane_of(tree).worker()
+    lane_of(tree).append(name_lane.RESOLUTIONS, name_lane.RESOLUTION_COLUMNS, [dict(
+        key=FN_KEY, hash=name_agreement.digest(FN_KEY, spelling), name=spelling, source_sha=sha, worker=workers[seat],
+        model="claude-opus-5-5", reason="a reason of at least twelve", date="2026-11-09") for seat, spelling in moves])
+    lane = lane_of(tree)
+    return lane, sha, workers
+
+
+def accepted_of(lane, sha, spelling):
+    _voters, accepted = name_agreement.resolved_workers(lane.votes(), lane.agreed_rows(), lane.resolutions(), FN_KEY, spelling, sha)
+    return accepted
+
+
+def test_a_worker_who_moved_no_longer_counts_for_its_own_vote(tree, tmp_path):
+    lane, sha, workers = mirror_state(tree, tmp_path, ("seat-one", "addBoxWidth"))
+    assert accepted_of(lane, sha, "addBoxWidth") == {workers["seat-one"], workers["seat-two"]}
+    assert accepted_of(lane, sha, "sumBox") == set()
+
+
+def test_a_reason_on_your_own_vote_does_not_move_you(tree, tmp_path):
+    lane, sha, workers = mirror_state(tree, tmp_path, ("seat-one", "sumBox"))
+    assert accepted_of(lane, sha, "sumBox") == {workers["seat-one"]}
+    assert accepted_of(lane, sha, "addBoxWidth") == {workers["seat-two"]}
+
+
+def test_no_worker_counts_for_both_spellings(tree, tmp_path):
+    lane, sha, workers = mirror_state(tree, tmp_path, ("seat-one", "sumBox"), ("seat-one", "addBoxWidth"),
+                                      ("seat-two", "addBoxWidth"), ("seat-two", "sumBox"))
+    assert accepted_of(lane, sha, "sumBox") & accepted_of(lane, sha, "addBoxWidth") == set()
+
+
+def test_two_checkouts_crossing_prove_neither_spelling(tree, tmp_path):
+    """Each accepted the other's in its own checkout, so neither saw the other's row. Once merged,
+    neither spelling has both voters, and verify_resolution, which every landing runs, says so."""
+    lane, sha, _workers = mirror_state(tree, tmp_path, ("seat-one", "addBoxWidth"), ("seat-two", "sumBox"))
+    for spelling in ("sumBox", "addBoxWidth"):
+        assert name_agreement.verify_resolution(lane.votes(), lane.agreed_rows(), lane.resolutions(), FN_KEY, spelling, sha)
+
+
+def test_two_merged_agreements_land_neither(tree, tmp_path):
+    import hashlib
+    lane, sha, workers = mirror_state(tree, tmp_path, ("seat-one", "addBoxWidth"), ("seat-two", "sumBox"))
+    before = (tree / SOURCE).read_bytes()
+    lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(
+        id="nr-" + hashlib.sha256(f"{FN_KEY}|{spelling}|{sha}".encode()).hexdigest()[:24], kind="function", old="rva00401000",
+        new=spelling, rva="0x00401000", agents="", key=FN_KEY, status="agreed", detail="reviewed resolution: crossing")
+        for spelling in ("addBoxWidth", "sumBox")])
+    assert apply(tree) == 0
+    assert (tree / SOURCE).read_bytes() == before
+    assert lane_of(tree).state()[FN_KEY]["status"] != "landed"
+
+
 def test_a_second_resolve_by_the_same_voter_adds_no_row(tree, tmp_path):
     assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
     assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0

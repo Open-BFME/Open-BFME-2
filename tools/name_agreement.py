@@ -322,19 +322,31 @@ def resolved_workers(votes, agreed_rows, resolutions, key, name, source_sha):
     A blind vote for the selected spelling is itself an acceptance. A later
     acceptance can only come from one of the original voters and binds to the
     unchanged source. Every voter must accept when more than two participated.
+    One worker stands behind one spelling: accepting another than its own vote
+    moves it off that vote, and two such acceptances count for neither. So two
+    checkouts that cross, each accepting the other's spelling before seeing the
+    other's row, prove neither once their rows merge, however they were recorded.
     """
     selected = digest(key, name)
     voters = {}
+    own = {}
     for row in votes:
         if row.get("key") == key and WORKER.fullmatch(row.get("worker") or "") \
                 and HASH.fullmatch(row.get("hash") or ""):
             voters.setdefault(row["worker"], row.get("model", ""))
-    accepted = {row["worker"] for row in votes if row.get("key") == key
-                and row.get("hash") == selected and row.get("worker") in voters}
-    accepted.update(row["worker"] for row in resolutions if row.get("key") == key
-                    and row.get("hash") == selected and row.get("name") == name
-                    and row.get("source_sha") == source_sha
-                    and row.get("worker") in voters and len((row.get("reason") or "").strip()) >= 12)
+            own.setdefault(row["worker"], set()).add(row["hash"])
+    moved = {}                                       # worker -> the spellings it accepted over its own vote
+    named = set()
+    for row in resolutions:
+        worker = row.get("worker")
+        if row.get("key") == key and row.get("source_sha") == source_sha and worker in voters \
+                and len((row.get("reason") or "").strip()) >= 12:
+            if row.get("hash") not in own[worker]:
+                moved.setdefault(worker, set()).add(row.get("hash"))
+            if row.get("hash") == selected and row.get("name") == name:
+                named.add(worker)
+    accepted = {worker for worker in voters
+                if (moved[worker] == {selected} and worker in named if worker in moved else selected in own[worker])}
     return voters, accepted
 
 
