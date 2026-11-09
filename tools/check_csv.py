@@ -427,6 +427,88 @@ def read_data_rows(spec):
     return out.stdout if out.returncode == 0 else b""
 
 
+RETIRED_ROW_HELP = """\
+The ledger is a cache derived from objects. This usually means it was regenerated from objects
+older than the retirement, such as a downloaded index. Your commit does not need this change.
+
+  Not changing the ledger on purpose: leave it out. Before committing:
+      git checkout HEAD -- reverse/data_ledger.csv
+  If it is already committed (a commit touching only the ledger first hears of this at push), restore
+  master's copy and commit that, or amend the commit that brought it:
+      git checkout refs/remotes/origin/master -- reverse/data_ledger.csv
+
+  Regenerating on purpose: rebuild your objects from this tree with ./build.sh and run
+  python3 tools/data_ledger.py on those fresh objects, not on a downloaded index.
+
+  Fresh objects still define the name: a source still spells it, so the retirement missed a unit,
+  which is not yours to fix here. Leave the ledger out as above, which clears this refusal, and tell
+  whoever retired it:
+      git log -S'<name>' --format='%h %an %s' -- reverse/deleted_rows.csv
+  and record it so a tooling seat picks it up:
+      python3 tools/re_log.py record '<name>' <address> <size> blocked "false-reject check_csv retired name: ..."
+
+  Bringing the name back on purpose: row it in reverse/data_rows.csv in the same commit.
+"""
+
+
+def ledger_rows(raw):
+    """{name: row} of a data_ledger.csv."""
+    text = raw.decode("utf-8", errors="replace")
+    return {row["name"]: row for row in csv.DictReader(io.StringIO(text))}
+
+
+def ledger_at(spec):
+    """data_ledger.csv's bytes at `spec` (None: working tree, "": index), b"" when that state has none."""
+    if spec is None:
+        path = ROOT / "reverse" / "data_ledger.csv"
+        return path.read_bytes() if path.exists() else b""
+    out = subprocess.run(["git", "-C", str(ROOT), "show", f"{spec}:reverse/data_ledger.csv"], capture_output=True)
+    return out.stdout if out.returncode == 0 else b""
+
+
+def ledger_base(spec):
+    """What `spec`'s ledger is new against, or None. A commit is judged from where its branch leaves master,
+    since pre-push passes only the tip and a ledger-only commit can take pre-commit's early exit. Without a
+    master to compare, or for what is not yet a commit (pre-commit's tree, the index), its parent."""
+    def git(*args):
+        out = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True)
+        return out.stdout.strip() if out.returncode == 0 else None
+    if spec is None or spec == "" or git("cat-file", "-t", spec) != "commit":
+        return git("rev-parse", "--verify", "--quiet", "HEAD")
+    return (git("merge-base", spec, "refs/remotes/origin/master")
+            or git("rev-parse", "--verify", "--quiet", f"{spec}^"))
+
+
+def check_retired_ledger_rows(spec):
+    """Refuse a ledger row newly carrying a name deleted_rows.csv retired, unless data_rows.csv rows that
+    name today. Only rows new against ledger_base: what is already there blocks nobody. Outside the
+    verdict because it needs a base, and verdict() is kept by tree. Returns [] when there is nothing to say."""
+    after = ledger_at(spec)
+    base = ledger_base(spec)
+    if not after or base is None:
+        return []
+    before = ledger_at(base)
+    if before == after:
+        return []
+    old = ledger_rows(before) if before else {}
+    added = {name: row for name, row in ledger_rows(after).items() if name not in old}
+    if not added:
+        return []
+    retired = {}
+    deleted = read_ledger(DELETED, spec)
+    for row in csv.DictReader(io.StringIO(deleted.decode("utf-8", errors="replace"))):
+        retired.setdefault(row.get("name"), row.get("reason") or "")
+    rowed = {row.get("name") for row in csv.DictReader(io.StringIO(read_data_rows(spec).decode("utf-8", errors="replace")))}
+    hits = sorted(name for name in added if name in retired and name not in rowed)
+    if not hits:
+        return []
+    print(f"check_csv: reverse/data_ledger.csv adds {len(hits)} row(s) for names reverse/deleted_rows.csv retired:", file=sys.stderr)
+    for name in hits:
+        print(f"  - {name} ({added[name]['address']}, {added[name]['size']} bytes): {retired[name][:120]}", file=sys.stderr)
+    print(RETIRED_ROW_HELP, file=sys.stderr)
+    raise SystemExit(1)
+
+
 def data_row_sources(raw):
     """Sources owning a matched data row (tools/data_rows.py): a data-only TU."""
     import data_rows
@@ -541,8 +623,10 @@ def main():
         # tree, the retail image data_rows checks against, and this code: kept by
         # tools/ledger_cache.py under those ids. A refusal is never kept.
         print(passing_verdict(args.ref))
+        check_retired_ledger_rows(args.ref)
         return
     print(verdict("" if args.staged else None))
+    check_retired_ledger_rows("" if args.staged else None)
 
 
 def passing_verdict(ref):
