@@ -10,7 +10,8 @@
 #include <string>
 
 struct Rva00056DEBElement { char bytes[1]; ~Rva00056DEBElement(); bool operator<(const Rva00056DEBElement&)const; bool operator==(const Rva00056DEBElement&)const; };
-struct Rva003B5603Element { _STL::basic_string<wchar_t> strings[1]; bool operator<(const Rva003B5603Element&)const; bool operator==(const Rva003B5603Element&)const; };
+// 4 bytes in retail: this deque's _M_decrement is 0x003B3EA8, a 0x80-byte node stepped by -4.
+struct Rva003B5603Element { void *value; bool operator<(const Rva003B5603Element&)const; bool operator==(const Rva003B5603Element&)const; };
 
 namespace _STL {
 template <> deque<Rva00056DEBElement>::~deque();
