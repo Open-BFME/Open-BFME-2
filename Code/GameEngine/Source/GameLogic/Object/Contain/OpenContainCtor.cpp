@@ -176,6 +176,11 @@ public:
 	virtual CreateModuleInterface *getCreate();		// slot 3: retail 0x0046644A, the +0x34 interface
 	virtual DamageModuleInterface *getDamage();		// slot 4: retail 0x004647C0, the +0x2C interface
 	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
+	// Primary table 0x00C435E8: the OpenContain overrides already rowed under these names.
+	virtual void onDelete();						// slot 8: retail 0x00464120 (OpenContainRva00464EE7.cpp)
+protected:
+	virtual void loadPostProcess();					// slot 1: retail 0x00463C6E (OpenContain.cpp)
+	virtual void xfer(Xfer *xfer);					// slot 3: retail 0x00465EF1 (OpenContainXfer.cpp)
 };
 
 // ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x004649F8
