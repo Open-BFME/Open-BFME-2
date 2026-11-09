@@ -753,3 +753,10 @@ slots with two already-correct tables. Full derived tables and actual
 next-image selection remain open; this is not recovered class signatures
 or a global image result.
 [Native tables, emitter reconciliation and identity barriers](../../reverse/attempt_support/fesl-base-tables-20261109/README.md).
+
+Published as cb44058863 on attempt one in 30.0 seconds; post-publication
+proof passes and all six claims release. Broader audit is INCONCLUSIVE
+at 717b70f4ab/base d87c66609e for unchanged Rva00801B70FeslAlloc.cpp missing
+a receipt. The two still-short owner tables are deferred with the actual
+shared/folded-member identity barriers; their old wrong-provider queue
+entries are not evidence that the landed provider repairs regressed.

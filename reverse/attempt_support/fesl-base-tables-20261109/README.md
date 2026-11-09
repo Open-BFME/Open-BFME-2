@@ -45,3 +45,13 @@ shared getters, a four-table folded handle return, proposed TU assignments
 and a mangled type-back-reference unsupported by the existing identity
 route. Do not add second real names from table membership alone. The
 current patch claims no full classes, census gain, image or runtime result.
+
+Published as cb44058863 on attempt one in 30.0 seconds (3.0 rebase, 26.9
+hook/push). Normal gates and post-publication object/native proofs pass;
+all six scope/table claims are released. The broader outgoing audit is
+INCONCLUSIVE: index 717b70f4ab versus base
+d87c66609e8194dea2f1f6a10f704eaa7d2b4957, with unchanged allocator
+Rva00801B70FeslAlloc.cpp lacking a current receipt. That consumer and actual
+image selection remain next-census/image prerequisites. The two owner-table
+identity barriers are recorded through re_log.py so the stale wrong-provider
+queue does not repeat this already-landed provider work as an untried repair.
