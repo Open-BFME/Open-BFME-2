@@ -30,18 +30,8 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class LevelUpUpgrade : public UpgradeModule
-{
-public:
-	LevelUpUpgrade( Thing *thing, const ModuleData *moduleData );
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@LevelUpUpgrade@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	virtual void loadPostProcess();								// primary slot 1
-	virtual void xfer( Xfer *xfer );										// primary slot 3
-	virtual void upgradeImplementation();									// UpgradeMux slot 10 (LevelUpUpgradeMuxSlots.cpp)
-};
+// The class is LevelUpUpgrade.h's, shared with its destructor's unit (FireWeaponWhenDeadBehaviorDerived.cpp).
+#include "../../../../Include/GameLogic/Module/LevelUpUpgrade.h"
 
 LevelUpUpgrade::LevelUpUpgrade( Thing *thing, const ModuleData *moduleData )
 	: UpgradeModule( thing, moduleData )

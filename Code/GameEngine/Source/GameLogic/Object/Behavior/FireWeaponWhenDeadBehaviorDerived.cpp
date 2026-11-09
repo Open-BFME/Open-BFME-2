@@ -63,13 +63,12 @@ DelayedUpgrade::~DelayedUpgrade()
 {
 }
 
-class Rva004B3D3B : public UpgradeModule
-{
-public:
-	virtual ~Rva004B3D3B();
-};
+// LevelUpUpgrade's destructor 0x004B3D3B: its constructor 0x004B3DC8 installs
+// the same four tables. The class is LevelUpUpgrade.h's, so this unit's copies
+// of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/LevelUpUpgrade.h"
 
-Rva004B3D3B::~Rva004B3D3B()
+LevelUpUpgrade::~LevelUpUpgrade()
 {
 }
 
