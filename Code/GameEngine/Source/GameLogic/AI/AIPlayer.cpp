@@ -1063,3 +1063,18 @@ inline __declspec(noinline) void DLINK_ITERATOR<Object>::advance() {
 inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const {
     return DLINK_ITERATOR<Object>(*(Object *const *)((const char *)this+0x38), &Object::dlink_next_TeamMemberList);
 }
+
+// AIPlayer's slots with one-line retail bodies, each folded with other code in retail (0x000B3FD0 ret,
+// 0x0047A699 xor al,al, 0x000D43D0 xor eax,eax, 0x0050B5F1 xor al,al; ret 8). 0x00210C87 stores to +0x30, the
+// skillset selector. The last tests table slot 22 and tail-calls 0x004F46A9.
+void AIPlayer::loadPostProcess() {}
+void AIPlayer::newMap() {}
+bool AIPlayer::isSkirmishAI() { return false; }
+Player *AIPlayer::getAiEnemy() { return 0; }
+bool AIPlayer::checkBridges(Object *unit, Waypoint *way) { return false; }
+void AIPlayer::selectSkillset(int skillset) { m_skillsetSelector = skillset; }
+void AIPlayer::vslot26()
+{
+    if (selectTeamToBuild())
+        queueUnits();
+}

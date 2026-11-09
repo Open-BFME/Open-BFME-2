@@ -41,7 +41,7 @@ public:
 
 void AIPlayer::prependTo_TeamReadyQueue(TeamInQueue *team)
 {
-    TeamInQueue **readyQueueHead = &m_teamReadyQueue;
+    TeamInQueue **readyQueueHead = &m_teamReadyQueue.m_head;
     if (!team->dlink_isInList_TeamReadyQueue(readyQueueHead))
         ((Rva00160620 *)team)->set((Rva00160620 **)readyQueueHead);
 }

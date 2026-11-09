@@ -28,6 +28,17 @@ class WorkOrder;
 enum GameDifficulty;
 enum ObjectID;
 
+// Target fact: the constructor writes the two queue heads after the vptr and before +0x30, which cl
+// schedules only for constructed subobjects; as plain pointers it hoists +0x30 above the vptr store.
+// Each head reads and assigns as the pointer it holds.
+struct AIPlayerQueueHead
+{
+    AIPlayerQueueHead() : m_head(0) {}
+    operator TeamInQueue *() const { return m_head; }
+    AIPlayerQueueHead &operator=(TeamInQueue *head) { m_head = head; return *this; }
+    TeamInQueue *m_head;
+};
+
 class AIPlayer : public Snapshot
 {
     friend class Player;
@@ -106,8 +117,8 @@ protected:
     Object *findSupplyCenter(int minSupplies);
     bool rva004F2BEE(int minSupplies);
 
-    TeamInQueue *m_teamBuildQueue;
-    TeamInQueue *m_teamReadyQueue;
+    AIPlayerQueueHead m_teamBuildQueue;
+    AIPlayerQueueHead m_teamReadyQueue;
     Player *m_player;
     bool m_readyToBuildTeam;
     bool m_readyToBuildStructure;
