@@ -43,7 +43,7 @@
      "name": "m_ptr",
      "offset": 0,
      "size": 4,
-     "type": "RvaTreeFamilyHeader*"
+     "type": "void*"
     }
    ],
    "name": "m_00Head",

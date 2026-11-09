@@ -4,6 +4,8 @@
 #ifndef BFME2_RVA003ED658_H
 #define BFME2_RVA003ED658_H
 
+#include "../Common/RvaTreeFamilyHolder.h"
+
 class Rva003ED658
 {
 public:
@@ -11,7 +13,9 @@ public:
     ~Rva003ED658();
 
 private:
-    unsigned int *m_field00;
+    // Owning begin pointer; the holder's legacy name does not assert a tree
+    // pointee. End and capacity remain unsigned-element pointers below.
+    RvaTreeFamilyHolder m_field00;
     unsigned int *m_field04;
     unsigned int *m_field08;
 };

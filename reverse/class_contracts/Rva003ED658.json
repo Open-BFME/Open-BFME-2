@@ -4,7 +4,7 @@
  "class": "Rva003ED658",
  "evidence": {
   "bases_overruled": null,
-  "census": 21,
+  "census": 1,
   "inherited": {
    "base_views": 0,
    "inherited_slots": 0,
@@ -31,25 +31,58 @@
   },
   "retail_member_rows": 0,
   "retail_vtables": {},
-  "view_errors": 12,
+  "view_errors": 0,
   "view_sizes": {
-   "12": 9
+   "12": 1
   },
-  "views": 9,
+  "views": 1,
   "witness_offsets": [],
   "zh": {}
  },
  "fields": [
   {
-   "decided_by": "majority",
-   "kind": "A",
-   "name": "m_storage",
+   "decided_by": "bytes",
+   "kind": "S:RvaTreeFamilyHolder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_field00",
    "name_by": "majority",
    "offset": 0,
    "retail_widths": {},
-   "size": 12,
-   "type": "char[12]",
-   "views": 6,
+   "size": 4,
+   "type": "RvaTreeFamilyHolder",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_field04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_field08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint*",
+   "views": 1,
    "witness": null
   }
  ],
@@ -59,24 +92,7 @@
   "class": 8
  },
  "outliers": [],
- "queue": [
-  {
-   "attribute": "field@0x4",
-   "candidates": {
-    "4:P": 1,
-    "4:i4": 1
-   },
-   "class": "Rva003ED658"
-  },
-  {
-   "attribute": "field@0x8",
-   "candidates": {
-    "4:A": 1,
-    "4:P": 1
-   },
-   "class": "Rva003ED658"
-  }
- ],
+ "queue": [],
  "size": 12,
  "size_by": "majority",
  "vslots": {}

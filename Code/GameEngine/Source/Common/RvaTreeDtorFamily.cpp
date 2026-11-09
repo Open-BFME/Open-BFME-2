@@ -1128,17 +1128,11 @@ Rva003ED94FDtor::~Rva003ED94FDtor()
 
 // ??1Rva003ED658@@QAE@XZ folds onto 0x003ED94F too: retail's unwind funclets
 // for the Rva003ED658 aggregates that LargeGroupAudio::rva0020D86C and
-// Rva0020DXXXElem::rva003EDD68 return call it there. It is that same tree
-// destructor (and needs this unit's /EHs: under /EHsc the state reset before
-// the header free drops out).
-class Rva003ED658
-{
-public:
-	RvaTreeFamilyHolder m_header;
-	int m_flag;
-	char m_unreconstructed08[4];
-	~Rva003ED658();
-};
+// Rva0020DXXXElem::rva003EDD68 return call it there. This descriptor cleans
+// its keys and releases its vector buffer, preserving all three pointer words.
+// The destructor needs this unit's /EHs: under /EHsc the state reset before
+// releasing the buffer drops out.
+#include "../../Include/GameLogic/Rva003ED658.h"
 
 // ?Rva003ED658::~Rva003ED658 present-unmatched (ICF-folded at 0x003ED94F; pinned)
 Rva003ED658::~Rva003ED658()
