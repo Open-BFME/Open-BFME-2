@@ -33,10 +33,6 @@ public:
 	short m_field10;
 };
 
-#pragma optimize("y", on)
-inline void *__cdecl operator new(unsigned int, void *p) { return p; }
-#pragma optimize("", on)
-
 Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &);
 Rva0039B893 *__cdecl Rva0039B8D8FillN(Rva0039B893 *first, unsigned int n, const Rva0039B893 &value, const _STL::__false_type &);
 
@@ -73,7 +69,7 @@ void Rva0039C1C3::rva0039C1C3(Rva0039B893 *pos, const Rva0039B893 &element, cons
 	if (count == 1)
 	{
 		if (new_finish != 0)
-			new (new_finish) Rva0039B893(element);
+			new_finish->Rva0039B893::Rva0039B893(element);
 		++new_finish;
 	}
 	else
@@ -102,7 +98,7 @@ void Rva0039C1C3::rva0039C27D(Rva0039B893 *element)
 	if (m_finish != m_end)
 	{
 		if (m_finish != 0)
-			new (m_finish) Rva0039B893(*element);
+			m_finish->Rva0039B893::Rva0039B893(*element);
 		m_finish++;
 	}
 	else

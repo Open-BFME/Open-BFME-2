@@ -10136,8 +10136,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva002AC340Xfer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva002AC340Xfer.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva002AC340Xfer.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp	"y",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva003F9004.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva003F9004.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva003F9004.cpp	"t",on	1
