@@ -1,0 +1,388 @@
+{
+  "queue_note": "1585 source file(s) for 4085 vtable refusal/retirement rows, from real link at dc49d835d7ed3c6dc88dd866112dabb95968385f: tools/exit_link.py --blockers; 1 refusal(s) with no repair left before the next real link (virtual-base tables, removed strong arrays), not served: ?g_00C7AAE0@@3QBQBXB",
+  "candidates_before": 1585,
+  "candidates_after": 1585,
+  "dropped_before": 0,
+  "dropped_after": 0,
+  "deferred_before": 84,
+  "deferred_after": 59,
+  "changed": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp",
+      "function": "??_7?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@6B@",
+      "rva": "0x007BB9D8",
+      "tables": 5,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+      "function": "??_7BaseHeightMapRenderObjClass@@6BRefCountClass@@@",
+      "rva": "0x007C5DB0",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWater.cpp",
+      "function": "??_7WaterRenderObjClass@@6BRefCountClass@@@",
+      "rva": "0x007C7108",
+      "tables": 8,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0008EF3FProductCtor_Unresolved.cpp",
+      "function": "_g_productInterface10Table",
+      "rva": "0x007C7A64",
+      "tables": 3,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+      "function": "??_7Rva000E3B41@@6BRefCountClass@@@",
+      "rva": "0x007CE788",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+      "function": "??_7?$VectorClass@PAVRva00155940Element@@@@6B@",
+      "rva": "0x007D3B98",
+      "tables": 3,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp",
+      "function": "??_7Line3DClass@@6BRefCountClass@@@",
+      "rva": "0x007D3FA8",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp",
+      "function": "??_7ParticleBufferClass@@6BRefCountClass@@@",
+      "rva": "0x007D7200",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp",
+      "function": "_Rva003AED6B_vsub",
+      "rva": "0x0081B598",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+      "function": "??_7Rva005FEA50Base@FXParticleSystem@@6B@",
+      "rva": "0x0081B598",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp",
+      "function": "_Rva003AE03D_v0C",
+      "rva": "0x0081B5D0",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A59C3Ctor.cpp",
+      "function": "??_7Rva003A59C3@@6B@",
+      "rva": "0x0081B5D0",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateClones.cpp",
+      "function": "??_7Rva003AECE6@@6BRva003AECE6Slot1@@@",
+      "rva": "0x0081C608",
+      "tables": 5,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp",
+      "function": "?vftable_0112B89C@@3HA",
+      "rva": "0x0081C780",
+      "tables": 3,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp",
+      "function": "??_7AptSpellStore@@6BGameWindow@@@",
+      "rva": "0x0083D7F8",
+      "tables": 11,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateConstructor.cpp",
+      "function": "_g_battlePlanTable0C",
+      "rva": "0x0084D640",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp",
+      "function": "_vtbl_00C4F838",
+      "rva": "0x0084F838",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp",
+      "function": "_vtbl_00C552A4",
+      "rva": "0x008552A4",
+      "tables": 5,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp",
+      "function": "?spawnArmyVtable@@3QBQBXB",
+      "rva": "0x00863398",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp",
+      "function": "_vtbl_00C6D160",
+      "rva": "0x0086D160",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0056ADF1Ctor.cpp",
+      "function": "_vtbl_00C6D200",
+      "rva": "0x0086D200",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp",
+      "function": "??_7AptScriptFunction1@@6B@",
+      "rva": "0x008EE938",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp",
+      "function": "??_7Rva000E59D3Base@@6B@",
+      "rva": "0x007BB554",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-06-25EFF1.cpp",
+      "function": "??_7Rva0025EF18@@6B@",
+      "rva": "0x007BB554",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/Libraries/Source/debug/DebugIOConConstructor.cpp",
+      "function": "??_7DebugIOConBase@@6B@",
+      "rva": "0x007C0990",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+      "function": "??_7RefCountClass@@6B@",
+      "rva": "0x007C650C",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0044BE39Dtor.cpp",
+      "function": "??_7Rva0044BE39Base@@6B@",
+      "rva": "0x007C6F20",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenuButtonShellConstructor.cpp",
+      "function": "??_7Rva00577FE2Base@@6B@",
+      "rva": "0x007C6F20",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Bfme/Rva005E8AAFDtor.cpp",
+      "function": "??_7Rva005E8AAFBase@@6B@",
+      "rva": "0x007C6F20",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva001505CDDtor.cpp",
+      "function": "??_7Gen_uw_000e14bd@@6B@",
+      "rva": "0x007C6F24",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp",
+      "function": "??_7Rva000B19A1@@6B@",
+      "rva": "0x007C9690",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/RTS/TeamRva003A2DBB.cpp",
+      "function": "??_7Rva002611BFFilter@@6B@",
+      "rva": "0x007F91BC",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+      "function": "??_7Rva00380200@@6B@",
+      "rva": "0x007FDC30",
+      "tables": 5,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0033FC42Dtor.cpp",
+      "function": "??_7Rva00341D26@@6B@",
+      "rva": "0x00811740",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp",
+      "function": "??_7Rva00575E4EBase2@@6B@",
+      "rva": "0x0083702C",
+      "tables": 6,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005E1BD5Destructor.cpp",
+      "function": "??_7Rva0083702CObserver@@6B@",
+      "rva": "0x0083702C",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp",
+      "function": "??_7Rva004DFED8@@6B@",
+      "rva": "0x008615D4",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/BattleResolverWaitForBattleUpdate.cpp",
+      "function": "??_7Rva005D0643Base8@@6B@",
+      "rva": "0x00862A14",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005D0C87Ctor.cpp",
+      "function": "??_7Rva005D06CBB2@@6B@",
+      "rva": "0x00862A14",
+      "tables": 5,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/System/Rva005D073ADtor.cpp",
+      "function": "??_7Rva005D073ASecondBase@@6B@",
+      "rva": "0x00862A14",
+      "tables": 4,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva00578C0EDerived.cpp",
+      "function": "??_7Rva00578C23@@6B@",
+      "rva": "0x0086EAC0",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUnitUpgrader/AIUnitUpgrader.cpp",
+      "function": "??_7Rva005990DF@@6BRva00506B1B@@@",
+      "rva": "0x00870D38",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005D1D38Dtor.cpp",
+      "function": "??_7Rva005D1D38Second@@6B@",
+      "rva": "0x00875284",
+      "tables": 3,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/Libraries/Source/Apt/AptArray.cpp",
+      "function": "??_7AptValueWithHash@@6B@",
+      "rva": "0x008EA228",
+      "tables": 3,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp",
+      "function": "??_7Rva006ED2A0Base@@6B@",
+      "rva": "0x008EC9CC",
+      "tables": 2,
+      "before_deferred": true,
+      "after_deferred": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva006F8460.cpp",
+      "function": "??_7Rva006F8460@@6B@",
+      "rva": "0x008EC9CC",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva006F8DA0Cluster.cpp",
+      "function": "??_7Rva006F8460Base@@6B@",
+      "rva": "0x008EC9CC",
+      "tables": 1,
+      "before_deferred": false,
+      "after_deferred": true
+    }
+  ],
+  "scope": "Read-only existing live queue replay. No claims, queue/ledger writes, compiler execution or verification admission. Every candidate retained; only fresh/deferred order differs."
+}

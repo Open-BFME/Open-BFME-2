@@ -979,6 +979,35 @@ def _print_boundary_verdicts(candidate, limit=3):
         print(f"         ... and {len(found) - limit} more at this address")
 
 
+def _vtable_deferred_attempts(candidate):
+    """Defer a file only when every queued native table has a standing wall.
+
+    A compiler table may change base-qualified spelling without changing its
+    native address. Unlike function-name hypotheses, those spellings share
+    one repair target. Keep them queued behind fresh work, never suppress
+    them, and do not defer a file that also contains an untried table.
+    """
+    tables = candidate.get("tables") or [dict(
+        table=candidate["function"], retail_rva=candidate.get("target_rva"))]
+    counts = []
+    for table in tables:
+        name = table.get("table", "")
+        try:
+            rva = int(table.get("retail_rva") or "", 16)
+        except (TypeError, ValueError):
+            return 0
+        names = {name}
+        if name.startswith("??_7"):
+            names.update(other for other, _status, _evidence in re_log.verdicts_at(rva)
+                         if other.startswith("??_7"))
+        count = max((re_log.attempts(other) for other in names
+                     if re_log.is_deferred(other, rva, boundary_moved=True)), default=0)
+        if not count:
+            return 0
+        counts.append(count)
+    return min(counts)
+
+
 def drop_logged(candidates):
     """Filter one queue, returning (kept, dropped_count). Never silent: main()
     reports the count so a shrunken queue is visibly explained, not mistaken
@@ -1003,7 +1032,12 @@ def drop_logged(candidates):
         if re_log.is_dead_end(candidate["function"], rva, boundary_moved=moved):
             dropped += 1
             continue
-        if re_log.is_deferred(candidate["function"], rva, boundary_moved=moved):
+        if candidate.get("check") == "vtable-bridge":
+            candidate.pop("deferred_attempts", None)
+            count = _vtable_deferred_attempts(candidate)
+            if count:
+                candidate["deferred_attempts"] = count
+        elif re_log.is_deferred(candidate["function"], rva, boundary_moved=moved):
             candidate["deferred_attempts"] = re_log.attempts(candidate["function"])
         kept.append(candidate)
     return kept, dropped

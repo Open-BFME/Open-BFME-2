@@ -407,6 +407,115 @@ def synthetic_log(*rows):
             re_log._reset()
 
 
+def _vtable_candidate(*tables):
+    return {"check": "vtable-bridge", "function": tables[0][0],
+            "target_rva": tables[0][1],
+            "tables": [{"table": name, "retail_rva": rva} for name, rva in tables]}
+
+
+def test_vtable_deferral_follows_same_native_table_under_new_base_spelling():
+    import next_work
+    with synthetic_log(("??_7Terrain@@6BRO0@@@", "0x007C5DB0", "blocked", "alignment wall")):
+        candidate = _vtable_candidate(("??_7Terrain@@6BRefCountClass@@@", "0x007C5DB0"))
+        assert next_work.drop_logged([candidate]) == ([candidate], 0)
+        assert candidate["deferred_attempts"] == 1
+
+
+def test_vtable_deferral_does_not_apply_another_function_hypothesis():
+    import next_work
+    with synthetic_log(("?old@@YAXXZ", "0x00401000", "blocked", "different hypothesis")):
+        candidate = {"function": "?new@@YAXXZ", "target_rva": "0x00401000"}
+        next_work.drop_logged([candidate])
+        assert "deferred_attempts" not in candidate
+
+
+def test_vtable_deferral_requires_same_address_and_table_verdict():
+    import next_work
+    rows = (("??_7Old@@6B@", "0x007C5000", "blocked", "elsewhere"),
+            ("?method@@YAXXZ", "0x007C5DB0", "blocked", "code hypothesis"),
+            ("??_7Wrong@@6B@", "0x007C5DB0", "refuted", "wrong table hypothesis"))
+    with synthetic_log(*rows):
+        for name in ("??_7New@@6B@", "??_7Old@@6B@"):
+            candidate = _vtable_candidate((name, "0x007C5DB0"))
+            assert next_work.drop_logged([candidate]) == ([candidate], 0)
+            assert "deferred_attempts" not in candidate
+
+
+def test_vtable_deferral_keeps_file_fresh_when_another_table_is_untried():
+    import next_work
+    with synthetic_log(("??_7First@@6B@", "0x007C5000", "blocked", "known wall")):
+        candidate = _vtable_candidate(("??_7First@@6B@", "0x007C5000"),
+                                      ("??_7Second@@6B@", "0x007C5100"))
+        assert next_work.drop_logged([candidate]) == ([candidate], 0)
+        assert "deferred_attempts" not in candidate
+
+
+def test_vtable_deferral_counts_all_tables_without_suppressing_them():
+    import next_work
+    rows = (("??_7First@@6BOld@@@", "0x007C5000", "blocked", "first attempt"),
+            ("??_7First@@6BOld@@@", "0x007C5000", "blocked", "second attempt"),
+            ("??_7Second@@6BOld@@@", "0x007C5100", "blocked", "one attempt"))
+    with synthetic_log(*rows):
+        candidate = _vtable_candidate(("??_7First@@6BNew@@@", "0x007C5000"),
+                                      ("??_7Second@@6BNew@@@", "0x007C5100"))
+        assert next_work.drop_logged([candidate]) == ([candidate], 0)
+        assert candidate["deferred_attempts"] == 1
+
+
+@pytest.mark.parametrize("final", ["void", "converted", "unblocked"])
+def test_vtable_deferral_respects_retracted_resolved_and_unblocked_walls(final):
+    import next_work
+    old = "??_7First@@6BOld@@@"
+    rows = [(old, "0x007C5000", "blocked", "blocked-on=0x00401000")]
+    if final != "unblocked":
+        rows.append((old, "0x007C5000", final, "new evidence"))
+    with synthetic_log(*rows) as log:
+        if final == "unblocked":
+            log._MATCHED = {0x00401000}
+        candidate = _vtable_candidate(("??_7First@@6BNew@@@", "0x007C5000"))
+        assert next_work.drop_logged([candidate]) == ([candidate], 0)
+        assert "deferred_attempts" not in candidate
+
+
+def test_vtable_deferral_leaves_unknown_table_boundaries_fresh():
+    import next_work
+    with synthetic_log(("??_7First@@6B@", "0x007C5000", "blocked", "known wall")):
+        for name, address in (("??_7First@@6B@", ""), ("??_7First@@6B@", "unknown"),
+                              ("??_8First@@7B@", "0x007C5000")):
+            candidate = _vtable_candidate((name, address))
+            next_work.drop_logged([candidate])
+            assert "deferred_attempts" not in candidate
+
+
+@pytest.mark.parametrize("name", ["_strongTable", "??_8First@@7B@"])
+def test_vtable_deferral_preserves_exact_name_standin_and_vbtable_walls(name):
+    import next_work
+    with synthetic_log((name, "0x007C5000", "blocked", "known wall")):
+        candidate = _vtable_candidate((name, "0x007C5000"))
+        assert next_work.drop_logged([candidate]) == ([candidate], 0)
+        assert candidate["deferred_attempts"] == 1
+
+
+def test_vtable_deferral_does_not_share_between_standin_names():
+    import next_work
+    with synthetic_log(("_oldTable", "0x007C5000", "blocked", "old binding"),
+                       ("??_7First@@6B@", "0x007C5000", "blocked", "compiler table")):
+        candidate = _vtable_candidate(("_newTable", "0x007C5000"))
+        next_work.drop_logged([candidate])
+        assert "deferred_attempts" not in candidate
+
+
+def test_vtable_deferral_clears_old_tag_when_reused_candidate_becomes_fresh():
+    import next_work
+    candidate = _vtable_candidate(("??_7First@@6BNew@@@", "0x007C5000"))
+    with synthetic_log(("??_7First@@6BOld@@@", "0x007C5000", "blocked", "known wall")):
+        next_work.drop_logged([candidate])
+        assert candidate["deferred_attempts"] == 1
+    with synthetic_log():
+        assert next_work.drop_logged([candidate]) == ([candidate], 0)
+        assert "deferred_attempts" not in candidate
+
+
 def test_a_verdict_with_no_boundary_is_not_released_by_a_snap(ranked):
     """Every drift candidate is snap-corrected by construction, so reading
     "the boundary moved" as "the verdict no longer applies" released every
