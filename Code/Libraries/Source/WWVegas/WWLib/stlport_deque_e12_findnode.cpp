@@ -17,12 +17,15 @@ struct Rva00422544List { Rva00422544Elem *m_head; };
 extern unsigned char g_00DC84F5;
 // g_00DC84F5: matched references place it at VA 0xdc84f5 (retail .data initial value 1).
 unsigned char g_00DC84F5 = 1;
-_STL::deque<BfmeE12>::iterator g_00E031A8;
-_STL::deque<BfmeE12>::iterator g_00E031B8;
+// The global deque<BfmeE12> (40 B): retail's rowed initializer and atexit thunk construct and destroy
+// it, so this is its extent. _M_start is at +0 and _M_finish at +0x10.
+unsigned int g_00E031A8[10];
+#define g_00E031A8Start (*reinterpret_cast<_STL::deque<BfmeE12>::iterator *>(g_00E031A8))
+#define g_00E031A8Finish (*reinterpret_cast<_STL::deque<BfmeE12>::iterator *>(g_00E031A8 + 4))
 
 int __stdcall Rva00422544Find(Rva00422544List *list)
 {
-	if (g_00DC84F5 != 0 && g_00E031B8 != g_00E031A8) {
+	if (g_00DC84F5 != 0 && g_00E031A8Finish != g_00E031A8Start) {
 	Rva00422544Elem *node = (Rva00422544Elem *)-1;
 	int count = 0;
 	Rva00422544Elem *head = list->m_head;
@@ -31,11 +34,11 @@ int __stdcall Rva00422544Find(Rva00422544List *list)
 		e = e->m_next;
 		count++;
 	}
-	_STL::deque<BfmeE12>::iterator first = g_00E031A8;
-	_STL::deque<BfmeE12>::iterator last = g_00E031B8;
+	_STL::deque<BfmeE12>::iterator first = g_00E031A8Start;
+	_STL::deque<BfmeE12>::iterator last = g_00E031A8Finish;
 	int idx = -1;
 	if (first != last) {
-		last = g_00E031B8;
+		last = g_00E031A8Finish;
 		do {
 			unsigned key = *(unsigned *)&first._M_cur->z;
 			if (key < (unsigned)idx && key > (unsigned)count) {
@@ -46,11 +49,11 @@ int __stdcall Rva00422544Find(Rva00422544List *list)
 		} while (first != last);
 	}
 	if ((int)node == -1) {
-		first = g_00E031A8;
+		first = g_00E031A8Start;
 		idx = 0;
-		last = g_00E031B8;
+		last = g_00E031A8Finish;
 		if (first != last) {
-			last = g_00E031B8;
+			last = g_00E031A8Finish;
 			do {
 				unsigned key = *(unsigned *)&first._M_cur->z;
 				if (key > (unsigned)idx) {

@@ -23,7 +23,7 @@ struct Rva00422544List { Rva00422544Elem *m_head; };
 extern unsigned char g_00DC84F5;
 // The ledger owns VA 0x00A031A8 as the deque's leading start iterator; the
 // deque is viewed through that global.
-extern _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > g_00E031A8;
+extern unsigned int g_00E031A8[10];
 #define g_00E031A8Deque (*(_STL::deque<BfmeE12> *)&g_00E031A8)
 int __stdcall Rva00422544Find(Rva00422544List *list);
 class Rva004233F5
