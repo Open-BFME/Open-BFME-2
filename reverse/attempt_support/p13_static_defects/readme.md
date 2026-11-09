@@ -117,3 +117,52 @@ Zero Hour. `?test@?$BitFlags@$0EF@@@QBE_NPBX@Z` is already on master at 0x002615
 
 Not tested: `./build.sh` on real units, a link, the other 7 units that spell these rows, and the choice between
 `throw()` and `/GX-` against the rest of KindGate's eventual translation unit.
+
+## Request 2 stopped by the coordinator, 2026-11-08: real, but not what the plan needs next
+
+Bridge lane. Nothing below landed; the row names and all 9 units are unchanged on master. Why it stopped: the spelling
+in the request is wrong on the bytes, the route needs a `name_lane` change, and the scope is really three placeholder
+classes. The coordinator's decisions, should this resume: an ordinary respell with votes for the name, no
+`--basis retail` family; `throw()` rather than `/GX-`, with the source and the row saying that retail's bytes do not
+distinguish them, and likewise that the `const &` form matches but is not proven as the original's spelling. If a voter
+disagrees or votes do not arrive, it waits: this scratch result does not choose the name.
+
+**The 9 units match through `./build.sh`, on a throwaway branch.** All 9 passed before as a control and all 9 passed
+with the two rows respelled as constructors (`Functions: OK 2/2` on `Rva002618A2.cpp`, ledger names changed to match,
+`Rva00261C89KindGate.cpp` on real statics). The class spelling was the request's, for the shape only. The edit is
+`try_ctor.py.txt` beside this readme. The consumers became temporaries, `&BitFlags<69>(BitFlags<69>::kInit, ...)`, each
+unit with a private view of the class, and `throw()` on the constructors. `CastleBehavior.cpp` and
+`Rva0039A1CADtor.cpp` declare `rva002618FA` and never call it, so they only lost the declaration. Not done: a link,
+`tools/rename.py`, or anything through the hooks.
+
+**`BitFlags<69>` is wrong on the bytes.**
+
+- Target facts: both constructors `memset` 0x1C bytes (7 dwords) and index by `bit >> 5`. Callers pass bit 191
+  (`rva0039BE95`'s caller: 109, 90, 10, 11, 191) and 0xAF (175). So N is at least 192, and a 7-dword store suggests at
+  most 224.
+- `BitFlags<69>` would be 3 dwords and could not hold those bits. `KINDOFMASK_NONE` is declared `BitFlags<116>`, also
+  too small. `?test@?$BitFlags@$0EF@@@QBE_NPBX@Z` (0x002615C0) is spelled 69 too, and `BitFlags69Test.cpp` says retail
+  walks seven words regardless. None of these N is established; that row's own spelling is in question as well.
+- Donor fact only: the names `BitFlags` and `BogusInitType` come from Zero Hour.
+
+**A voter brief must name no N.** It should give the facts above (0x1C storage, highest bit seen) and leave the spelling
+to the voters.
+
+**Three placeholder classes hold what looks like one retail class's constructors.** These are one shape; that they are one
+class is a structural inference.
+
+| Row | Today's spelling | Bits |
+|---|---|---|
+| 0x00045411 (44 bytes) | `??0Rva00045411BitSet@@QAE@HH@Z` | 1 |
+| 0x0006EE7A (66 bytes) | `??0Rva0006EE7A@@QAE@HHH@Z` | 2 |
+| 0x002618A2 (88 bytes) | `?rva002618A2@Rva002618A2@@QAEPAV1@HHHH@Z` | 3 |
+| 0x002618FA (129 bytes) | `?rva002618FA@Rva002618A2@@QAEPAV1@HHHHHH@Z` | 5 |
+
+`Rva00045411BitSet` has 229 mentions across the tree, and its header also declares 3-arg and 6-arg forms. Its 6-arg form
+is given a body in `CastleBehavior.cpp`, while retail's caller 0x0039A142 goes to 0x002618FA, so what provides that body in a
+link needs reading before any merge. Respelling only two rows would leave one retail class under three names.
+
+**The keys are not ready, and would need a `name_lane` change.** These rows are served as identifier keys, so a voter
+cannot answer with a constructor. `spelled_problem` refuses an answer that changes the row's member
+(`it must stay the same operator or member`). `rename.py function --respell` takes prepared C++, but changing a row's
+kind and scope through it was not tried.

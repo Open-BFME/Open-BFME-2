@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""Throwaway trial on branch try/bitflags-ctor, never committed or pushed: the 9 units with the two rows as real
+ctors. The class spelling is only the request's, to test the shape; it is not a claim about the name."""
+import re
+from pathlib import Path
+
+C = "Code/GameEngine/Source/"
+VIEW = ("template <int N> class BitFlags { public: enum BogusInitType { kInit = 0 }; BitFlags() {} "
+        "BitFlags(BogusInitType, int, int, int) throw(); BitFlags(BogusInitType, int, int, int, int, int) throw(); "
+        "unsigned words[7]; };")
+K = "BitFlags<69>::kInit"
+
+
+def edit(rel, *pairs):
+    path = Path(rel)
+    raw = path.read_bytes().decode("utf-8", errors="surrogateescape")
+    for old, new in pairs:
+        pattern = old if isinstance(old, re.Pattern) else re.compile(re.escape(old))
+        hits = pattern.findall(raw)
+        assert len(hits) == 1, (rel, len(hits), pattern.pattern[:70])
+        raw = pattern.sub(lambda _m: new, raw)
+    path.write_bytes(raw.encode("utf-8", errors="surrogateescape"))
+
+
+def body(*bits):
+    params = ", ".join(f"int {b}" for b in bits)
+    sets = "\n".join(f"\tm_words[(unsigned){b} >> 5] |= (1u << ({b} & 31));" for b in bits)
+    return f"template <int N>\nBitFlags<N>::BitFlags(BogusInitType, {params}) throw()\n{{\n\tmemset(this, 0, 0x1c);\n{sets}\n}}\n"
+
+
+Path(C + "Common/Rva002618A2.cpp").write_text(f"""// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ??0?$BitFlags@$0EF@@@QAE@W4BogusInitType@0@HHH@Z, retail 0x002618A2, 88 bytes.
+#include <string.h>
+template <int N>
+class BitFlags
+{{
+public:
+	enum BogusInitType {{ kInit = 0 }};
+	BitFlags(BogusInitType, int b1, int b2, int b3) throw();
+	BitFlags(BogusInitType, int b1, int b2, int b3, int b4, int b5) throw();
+private:
+	unsigned m_words[7];
+}};
+{body('b1', 'b2', 'b3')}{body('b1', 'b2', 'b3', 'b4', 'b5')}template class BitFlags<69>;
+""", newline="\n")
+
+gate = Path(C + "Common/Rva00261C89KindGate.cpp")
+raw = gate.read_bytes().decode("utf-8", errors="surrogateescape")
+start, end = raw.index("template <int N>"), raw.index("// Codegen: the bool result")
+gate.write_bytes((raw[:start] + """template <int N>
+class BitFlags
+{
+public:
+	enum BogusInitType { kInit = 0 };
+	BitFlags(BogusInitType, int b1, int b2, int b3) throw();
+	BitFlags(BogusInitType, int b1, int b2, int b3, int b4, int b5) throw();
+	bool test(const void *other) const;
+private:
+	unsigned m_words[7];
+};
+class Rva00261C89
+{
+public:
+	bool rva00261C89();
+private:
+	char m_pad[0x108];
+	unsigned m_kind[7];
+};
+bool Rva00261C89::rva00261C89()
+{
+	static const BitFlags<69> s_set(BitFlags<69>::kInit, 8, 9, 10, 11, 12);
+	static const BitFlags<69> s_clear(BitFlags<69>::kInit, 0x6d, 7, 0x59);
+	const BitFlags<69> &set = s_set;
+	const BitFlags<69> &clear = s_clear;
+	void *kind = m_kind;
+	return set.test(kind) && !clear.test(kind);
+}
+
+""" + raw[end:]).encode("utf-8", errors="surrogateescape"))
+
+edit(C + "Common/RTS/ActionManagerCanDoSpecialPowerAtLocation.cpp",
+     ("template<int N> class BitFlags { public: unsigned words[7]; };", VIEW),
+     (re.compile(r"class Rva002618A2 \{[^\n]*\n"), ""),
+     ("Rva002618A2().rva002618FA(0,0x59,0x1e,0x2f,0x88,0xaf)", f"&BitFlags<69>({K},0x59,0x1e,0x2f,0x88,0xaf)"))
+edit(C + "GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp",
+     ("template<int N>class BitFlags;", VIEW),
+     (re.compile(r"class Rva002618A2 \{public:[^\n]*\n"), ""),
+     (re.compile(r"[ \t]*Rva002618A2 kinds;\r?\n"), ""),
+     ("reinterpret_cast<const BitFlags<69>*>(kinds.rva002618FA(0,109,90,10,11,191))", f"&BitFlags<69>({K},109,90,10,11,191)"))
+edit(C + "GameLogic/AI/AIMeleeReAcquireStateOnEnter.cpp",
+     (re.compile(r"class Rva002618A2\r?\n\{\r?\npublic:\r?\n\tRva002618A2 \*rva002618A2\([^\n]*\n\tunsigned m_words\[7\];\r?\n\};\r?\n"), ""),
+     ("template <int N> class BitFlags;", VIEW),
+     (re.compile(r"[ \t]*Rva002618A2 kinds;\r?\n"), ""),
+     ("kinds.rva002618A2(0, 0x59, 0x82, 0x36)", f"&BitFlags<69>({K}, 0x59, 0x82, 0x36)"))
+edit(C + "GameLogic/Object/Behavior/CastleBehavior.cpp",
+     (re.compile(r"class Rva002618A2\r?\n\{\r?\npublic:\r?\n    Rva002618A2 \*rva002618FA\([^\n]*\n"), "class BitSetWords\n{\n"),
+     ("class Rva00045411BitSet : public Rva002618A2", "class Rva00045411BitSet : public BitSetWords"))
+edit(C + "GameLogic/Object/Behavior/Rva0039A1CADtor.cpp",
+     (re.compile(r"class Rva002618A2\r?\n\{\r?\npublic:\r?\n    Rva002618A2 \*rva002618FA\([^\n]*\nprotected:\r?\n    unsigned m_words\[7\];\r?\n\};\r?\n"), ""))
+edit(C + "GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp",
+     (re.compile(r"class Rva002618A2 \{public:[^\n]*\n"), ""),
+     ("template <int N> class BitFlags;", VIEW),
+     (re.compile(r"[ \t]*Rva002618A2 mask;\r?\n"), ""),
+     ("mask.rva002618A2(0,7,10,11)", f"&BitFlags<69>({K},7,10,11)"))
+edit(C + "GameLogic/Object/Update/AIUpdate/Rva0036CA3BGoalValidation.cpp",
+     ("template<int N>class BitFlags{public:unsigned words[7];};", VIEW),
+     (re.compile(r"class Rva002618A2\{public:[^\n]*\n"), ""),
+     ("Rva002618A2 mask;", ""),
+     ("mask.rva002618A2(0,7,10,11)", f"&BitFlags<69>({K},7,10,11)"))
+
+ledger = Path("reverse/functions.csv")
+raw = ledger.read_bytes()
+for old, new in ((b"?rva002618A2@Rva002618A2@@QAEPAV1@HHHH@Z,", b"??0?$BitFlags@$0EF@@@QAE@W4BogusInitType@0@HHH@Z,"),
+                 (b"?rva002618FA@Rva002618A2@@QAEPAV1@HHHHHH@Z,", b"??0?$BitFlags@$0EF@@@QAE@W4BogusInitType@0@HHHHH@Z,")):
+    assert raw.count(old) == 1, old
+    raw = raw.replace(old, new)
+ledger.write_bytes(raw)
+print("ok")
