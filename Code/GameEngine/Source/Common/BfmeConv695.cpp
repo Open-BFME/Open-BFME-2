@@ -1,7 +1,9 @@
+#include <new.h>
+
 class BfmeThingDGD
 {
 public:
-	BfmeThingDGD(void *a);
+	BfmeThingDGD(void *a) throw();
 };
 
 class Gen007F0130
@@ -9,11 +11,6 @@ class Gen007F0130
 public:
 	static void *operator new(unsigned int size);
 };
-
-inline void *operator new(unsigned int, void *p)
-{
-	return p;
-}
 
 BfmeThingDGD *bfmeGoDGD(void *a)
 {

@@ -1,3 +1,5 @@
+#include <new.h>
+
 class BfmeThingDGF;
 
 class Gen007F0130
@@ -11,13 +13,8 @@ class Rva007EAServiceList;
 class BfmeThingTWA
 {
 public:
-	BfmeThingTWA(Rva007EAServiceList *service);
+	BfmeThingTWA(Rva007EAServiceList *service) throw();
 };
-
-inline void *operator new(unsigned int, void *p)
-{
-	return p;
-}
 
 BfmeThingDGF *bfmeGoDGF(void *a)
 {
