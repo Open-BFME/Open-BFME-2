@@ -11890,15 +11890,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rv
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0035B03E.cpp	togglePurchaseScience@ControlBar@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0035B03E.cpp	update@ControlBar@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0035B03E.cpp	updateSlotExitImage@ControlBar@@QAEXPBVImage@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::InitGadgets	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnDeleteHero	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnMyPowerRollOut	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnMyPowerRollOver	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnPlayGame	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnSelectAward	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnSortIcon	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnSortName	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::OnSortType	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::~Rva005B6B93	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	1ThreadRestartObj@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1

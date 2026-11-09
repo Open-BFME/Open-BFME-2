@@ -10,6 +10,21 @@
 // rollover commands through the owner's command map adder (+0x21C) and
 // binds CahManager::InitGadgets. Callback targets are DIR32 references.
 // Pattern follows AptCreateAHeroClassConstructor.cpp.
+//
+// The nine callback DIR32s at 0x005B6B93's binding sites name these retail
+// bodies (read from retail's operands; ledger names as rowed):
+//   OnDeleteHero      0x005B6A5E ?rva005B6A5E@Manager@AptCreateAHero@@QAEXH@Z
+//   OnPlayGame        0x005B5B0C ?Run@Rva005B5B0CBox@@QAEXH@Z
+//   OnSelectAward     0x005B5E2D ?OnSelectAward@Manager@AptCreateAHero@@QAEXPBD@Z
+//   OnSortIcon        0x005B6A31 ?rva005B6A31@Manager@AptCreateAHero@@QAEXPAX@Z
+//   OnSortName        0x005B6A40 ?rva005B6A40@Manager@AptCreateAHero@@QAEXPAX@Z
+//   OnSortType        0x005B6A4F ?rva005B6A4F@Manager@AptCreateAHero@@QAEXPAX@Z
+//   OnMyPowerRollOver 0x005B5B39 ?OnMyPowerRollOver@Manager@AptCreateAHero@@QAEXPAD@Z
+//   OnMyPowerRollOut  0x005B5B92 ?rva005B5B92@Rva005B5B92@@QAEXPBD@Z
+//   InitGadgets       0x005B6967 ?InitGadgets@Manager@AptCreateAHero@@QAEXPADH0@Z
+// The relocations are masked, so empty local stand-ins matched the bytes while
+// every button did nothing in the image (P102). The views below declare only
+// those methods, so each binding resolves to the rowed body.
 #include "ascii_string.h"
 
 class Rva005B3676Owner;
@@ -42,7 +57,21 @@ template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateD
 void _bfme_setAptScreenRef(const AsciiString &, AptRef<AptScreenInitGadgets>);
 
 
-class AptCreateAHero;
+#include "../../../../../Include/Common/AptCreateAHero.h"
+
+class AptCreateAHero::Manager
+{
+public:
+	void rva005B6A5E(int);
+	void OnSelectAward(const char *);
+	void rva005B6A31(void *);
+	void rva005B6A40(void *);
+	void rva005B6A4F(void *);
+	void OnMyPowerRollOver(char *);
+	void InitGadgets(char *, int, char *);
+};
+class Rva005B5B92 {public: void rva005B5B92(const char *);};
+struct Rva005B5B0CBox {void Run(int);};
 
 class Rva005B6B93Base
 {
@@ -64,15 +93,6 @@ class Rva005B6B93 : public Rva005B6B93Base
 public:
 	Rva005B6B93(AptCreateAHero *owner);
 	virtual ~Rva005B6B93();
-	void OnDeleteHero(const char *);
-	void OnPlayGame(const char *);
-	void OnSelectAward(const char *);
-	void OnSortIcon(const char *);
-	void OnSortName(const char *);
-	void OnSortType(const char *);
-	void OnMyPowerRollOver(const char *);
-	void OnMyPowerRollOut(const char *);
-	void InitGadgets(const char *, void *, GameWindow *);
 private:
 	void *m_list08;
 	void *m_list0C;
@@ -87,36 +107,18 @@ private:
 Rva005B6B93::Rva005B6B93(AptCreateAHero *owner)
 	: Rva005B6B93Base(owner), m_list08(0), m_list0C(0), m_list10(0), m_flag14(true), m_flag15(false), m_flag16(false), m_selected24(-1)
 {
-#define BIND_COMMAND(handler, label) \
-	{ AsciiString name(label); ((AptCommandMapAdder *)((AptCreateAHeroCommandsView *)owner)->m_commands)->AddCommandMap(name, AptRef<AptCommandMap>(MakeDelegate(this, &Rva005B6B93::handler))); }
-	BIND_COMMAND(OnDeleteHero, "AptCreateAHero::Manager::OnDeleteHero")
-	BIND_COMMAND(OnPlayGame, "AptCreateAHero::Manager::OnPlayGame")
-	BIND_COMMAND(OnSelectAward, "AptCreateAHero::Manager::OnSelectAward")
-	BIND_COMMAND(OnSortIcon, "Mission::OnSortIcon")
-	BIND_COMMAND(OnSortName, "Mission::OnSortName")
-	BIND_COMMAND(OnSortType, "Mission::OnSortType")
-	BIND_COMMAND(OnMyPowerRollOver, "AptCreateAHero::OnMyPowerRollOver")
-	BIND_COMMAND(OnMyPowerRollOut, "AptCreateAHero::OnMyPowerRollOut")
-	{ AsciiString name("CahManager::InitGadgets"); _bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(MakeDelegate(this, &Rva005B6B93::InitGadgets))); }
+#define BIND_COMMAND(method, label) \
+	{ AsciiString name(label); ((AptCommandMapAdder *)((AptCreateAHeroCommandsView *)owner)->m_commands)->AddCommandMap(name, AptRef<AptCommandMap>(MakeDelegate(this, method))); }
+	BIND_COMMAND(&AptCreateAHero::Manager::rva005B6A5E, "AptCreateAHero::Manager::OnDeleteHero")
+	BIND_COMMAND(&Rva005B5B0CBox::Run, "AptCreateAHero::Manager::OnPlayGame")
+	BIND_COMMAND(&AptCreateAHero::Manager::OnSelectAward, "AptCreateAHero::Manager::OnSelectAward")
+	BIND_COMMAND(&AptCreateAHero::Manager::rva005B6A31, "Mission::OnSortIcon")
+	BIND_COMMAND(&AptCreateAHero::Manager::rva005B6A40, "Mission::OnSortName")
+	BIND_COMMAND(&AptCreateAHero::Manager::rva005B6A4F, "Mission::OnSortType")
+	BIND_COMMAND(&AptCreateAHero::Manager::OnMyPowerRollOver, "AptCreateAHero::OnMyPowerRollOver")
+	BIND_COMMAND(&Rva005B5B92::rva005B5B92, "AptCreateAHero::OnMyPowerRollOut")
+	{ AsciiString name("CahManager::InitGadgets"); _bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(MakeDelegate(this, &AptCreateAHero::Manager::InitGadgets))); }
 }
 
-// ?Rva005B6B93::OnDeleteHero present-unmatched
-void Rva005B6B93::OnDeleteHero(const char *) {}
-// ?Rva005B6B93::OnPlayGame present-unmatched
-void Rva005B6B93::OnPlayGame(const char *) {}
-// ?Rva005B6B93::OnSelectAward present-unmatched
-void Rva005B6B93::OnSelectAward(const char *) {}
-// ?Rva005B6B93::OnSortIcon present-unmatched
-void Rva005B6B93::OnSortIcon(const char *) {}
-// ?Rva005B6B93::OnSortName present-unmatched
-void Rva005B6B93::OnSortName(const char *) {}
-// ?Rva005B6B93::OnSortType present-unmatched
-void Rva005B6B93::OnSortType(const char *) {}
-// ?Rva005B6B93::OnMyPowerRollOver present-unmatched
-void Rva005B6B93::OnMyPowerRollOver(const char *) {}
-// ?Rva005B6B93::OnMyPowerRollOut present-unmatched
-void Rva005B6B93::OnMyPowerRollOut(const char *) {}
-// ?Rva005B6B93::InitGadgets present-unmatched
-void Rva005B6B93::InitGadgets(const char *, void *, GameWindow *) {}
 // ?Rva005B6B93::~Rva005B6B93 present-unmatched
 Rva005B6B93::~Rva005B6B93() {}
