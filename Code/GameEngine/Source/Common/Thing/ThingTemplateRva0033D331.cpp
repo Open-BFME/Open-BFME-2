@@ -43,24 +43,17 @@ class Rva002CF7B5
 public:
 	void rva002CF7B5();
 };
-class ThingTemplate
-{
-public:
-	char m_pad0[0x358];
-	_STL::vector<BfmeObject872, _STL::allocator<BfmeObject872> > m_vec358;
-	char m_pad1[0x5EA - 0x364];
-	unsigned char m_flag5EA;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 void Rva0033D331Parse(INI *ini, ThingTemplate *tt)
 {
-	if (tt->m_flag5EA == 1)
+	if (tt->m5EA == 1)
 	{
-		_STL::vector<BfmeObject872, _STL::allocator<BfmeObject872> > *pv = &tt->m_vec358;
-		tt->m_flag5EA = 0;
+		_STL::vector<BfmeObject872, _STL::allocator<BfmeObject872> > *pv = reinterpret_cast<_STL::vector<BfmeObject872, _STL::allocator<BfmeObject872> > *>(tt->m_armorTemplateSets);
+		tt->m5EA = 0;
 		pv->erase(pv->begin(), pv->end());
 	}
 	Rva002C752F tmp;
 	((WeaponTemplateSet *)&tmp)->parseWeaponTemplateSet(ini, tt);
-	tt->m_vec358.push_back(*(const BfmeObject872 *)&tmp);
-	((Rva002CF7B5 *)((char *)tt + 0x364))->rva002CF7B5();
+	reinterpret_cast<_STL::vector<BfmeObject872, _STL::allocator<BfmeObject872> > *>(tt->m_armorTemplateSets)->push_back(*(const BfmeObject872 *)&tmp);
+	reinterpret_cast<Rva002CF7B5 *>(tt->m_armorTemplateSetFinder)->rva002CF7B5();
 }

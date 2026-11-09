@@ -14,14 +14,7 @@ class ThingTemplate;
 #include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
 #include "../../../Include/Common/ModuleInfoClass.h"
-class ThingTemplate { protected:
- static void parseModuleName(INI *,void *,void *,const void *);
-private:
- char prefix[0x64]; AsciiString name;
- char pad68[0x94-0x68]; AsciiString replacedName,replacedTag;
- char pad9C[0x2E4-0x9C]; ModuleInfo infos[4];
- char pad314[0x5F8-0x314]; signed char mode;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 void ThingTemplate::parseModuleName(INI *ini,void *instance,void *store,const void *userData)
 {
  ThingTemplate *self=(ThingTemplate *)instance;
@@ -41,23 +34,23 @@ void ThingTemplate::parseModuleName(INI *ini,void *instance,void *store,const vo
    if ((mask&32)!=0) throw INIException(3,"No Body allowed here");
  }
  if (ini->getLoadType()==2) {
-   if (self->mode!=1) throw INIException(3,"You must use AddModule to add modules in override INI files.");
+   if (self->m5F8!=1) throw INIException(3,"You must use AddModule to add modules in override INI files.");
  } else {
    if (ini->getLoadType()!=4) {
-     self->infos[0].rva0033C84A(mask);
-     self->infos[1].rva0033C84A(mask);
-     self->infos[2].rva0033C84A(mask);
-     self->infos[3].rva0033C84A(mask);
+     reinterpret_cast<ModuleInfo *>(self->m_behaviorModuleInfo)->rva0033C84A(mask);
+     reinterpret_cast<ModuleInfo *>(self->m_drawModuleInfo)->rva0033C84A(mask);
+     reinterpret_cast<ModuleInfo *>(self->m_clientUpdateModuleInfo)->rva0033C84A(mask);
+     reinterpret_cast<ModuleInfo *>(self->m_clientBehaviorModuleInfo)->rva0033C84A(mask);
    }
  }
- if (self->mode==1 && !((const StringBase<char> *)&self->replacedName)->isEmpty() && self->replacedName!=tokenStr)
-   throw INIException(3,"ReplaceModule must replace modules with another module of the same type, but you are attempting to replace a %s with a %s for object %s.",self->replacedName.str(),tokenStr.str(),self->name.str());
- if (self->mode==1 && !((const StringBase<char> *)&self->replacedTag)->isEmpty() && self->replacedTag==moduleTagStr)
-   throw INIException(3,"ReplaceModule must specify a new unique tag for the replaced module, but you are not doing so for %s (%s) for object %s.",moduleTagStr.str(),self->replacedName.str(),self->name.str());
+ if (self->m5F8==1 && !((const StringBase<char> *)&self->m094)->isEmpty() && self->m094!=tokenStr)
+   throw INIException(3,"ReplaceModule must replace modules with another module of the same type, but you are attempting to replace a %s with a %s for object %s.",self->m094.str(),tokenStr.str(),self->m_nameString.str());
+ if (self->m5F8==1 && !((const StringBase<char> *)&self->m098)->isEmpty() && self->m098==moduleTagStr)
+   throw INIException(3,"ReplaceModule must specify a new unique tag for the replaced module, but you are not doing so for %s (%s) for object %s.",moduleTagStr.str(),self->m094.str(),self->m_nameString.str());
  ModuleData *data=TheModuleFactory->newModuleDataFromINI(ini,tokenStr,type,moduleTagStr);
  bool overrideFile=ini->getLoadType()==4;
  if (data->isAiModuleData()) mi->clearAiModuleInfo();
  if (data->slot07() && overrideFile) mi->rva0033C8B5();
- bool inheritable=self->mode==2;
+ bool inheritable=self->m5F8==2;
  mi->addModuleInfo(self,tokenStr,moduleTagStr,data,mask,inheritable,overrideFile);
 }

@@ -73,28 +73,20 @@ private:
 	int m_size;
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x370];
-	_STL::vector<BfmeContainerRecord002CF46E, _STL::allocator<BfmeContainerRecord002CF46E> > m_vec370;
-	Rva002CF7DE m_tree37c;
-	char m_pad384[0x5e9 - 0x384];
-	unsigned char m_flag5e9; // +0x5e9
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 void rva0033E102(void *arg1, ThingTemplate *thingTemplate)
 {
-	if (thingTemplate->m_flag5e9 == 1) {
-		_STL::vector<BfmeContainerRecord002CF46E, _STL::allocator<BfmeContainerRecord002CF46E> > *v = &thingTemplate->m_vec370;
-		thingTemplate->m_flag5e9 = 0;
+	if (thingTemplate->m5E9 == 1) {
+		_STL::vector<BfmeContainerRecord002CF46E, _STL::allocator<BfmeContainerRecord002CF46E> > *v = reinterpret_cast<_STL::vector<BfmeContainerRecord002CF46E, _STL::allocator<BfmeContainerRecord002CF46E> > *>(thingTemplate->m_weaponTemplateSets);
+		thingTemplate->m5E9 = 0;
 		v->erase(v->begin(), v->end());
 	}
 
 	MyRecord rec;
 	rec.rva0033C247(arg1);
-	thingTemplate->m_vec370.push_back((const BfmeContainerRecord002CF46E &)rec);
-	thingTemplate->m_tree37c.rva002CF7DE();
+	reinterpret_cast<_STL::vector<BfmeContainerRecord002CF46E, _STL::allocator<BfmeContainerRecord002CF46E> > *>(thingTemplate->m_weaponTemplateSets)->push_back((const BfmeContainerRecord002CF46E &)rec);
+	reinterpret_cast<Rva002CF7DE *>(thingTemplate->m_weaponTemplateSetFinder)->rva002CF7DE();
 }
 
 // Each retail call in this body reads an address the ledger already carries

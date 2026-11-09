@@ -37,39 +37,16 @@ private:
 	Nugget *m_storage;
 };
 
-class ThingTemplate
-{
-public:
-	void setCopiedFromDefault();
-    void copyFrom(const ThingTemplate *that);
-    ThingTemplate &operator=(const ThingTemplate &that);
-private:
-	char m_pad0[0x64];
-    AsciiString m_name;
-    char m_pad068[0x2E4-0x68];
-	ModuleInfo m_behaviorModuleInfo; // +0x2E4
-	ModuleInfo m_drawModuleInfo; // +0x2F0
-	ModuleInfo m_clientUpdateModuleInfo; // +0x2FC
-	ModuleInfo m_extraModuleInfo; // +0x308 measured retail fourth slot name unproven
-	char m_pad314[0x358-0x314];
-    TemplateOwnedArmorRecord *m_armorBegin, *m_armorEnd, *m_armorCapacity;
-    char m_pad364[0x484-0x364];
-    ThingTemplate *m_nextTemplate;
-    char m_pad488[0x5D8-0x488];
-    unsigned short m_templateID;
-    char m_pad5DA[0x5E9-0x5DA];
-	bool m_armorCopiedFromDefault; // +0x5E9
-	bool m_weaponsCopiedFromDefault; // +0x5EA
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 void ThingTemplate::setCopiedFromDefault()
 {
-	m_armorCopiedFromDefault = true;
-	m_weaponsCopiedFromDefault = true;
-	m_behaviorModuleInfo.setCopiedFromDefault(true);
-	m_drawModuleInfo.setCopiedFromDefault(true);
-	m_clientUpdateModuleInfo.setCopiedFromDefault(true);
-	m_extraModuleInfo.setCopiedFromDefault(true);
+	m5E9 = true;
+	m5EA = true;
+	reinterpret_cast<ModuleInfo *>(m_behaviorModuleInfo)->setCopiedFromDefault(true);
+	reinterpret_cast<ModuleInfo *>(m_drawModuleInfo)->setCopiedFromDefault(true);
+	reinterpret_cast<ModuleInfo *>(m_clientUpdateModuleInfo)->setCopiedFromDefault(true);
+	reinterpret_cast<ModuleInfo *>(m_clientBehaviorModuleInfo)->setCopiedFromDefault(true);
 }
 
 // Identity: WB ThingFactory::parseObjectDefinition calls its same template
@@ -81,15 +58,18 @@ void ThingTemplate::setCopiedFromDefault()
 void ThingTemplate::copyFrom(const ThingTemplate *that)
 {
     if (!that || this == that) return;
-    ThingTemplate *next = m_nextTemplate;
-    unsigned short id = m_templateID;
-    AsciiString name = m_name;
+    ThingTemplate *next = reinterpret_cast<ThingTemplate *&>(m484);
+    unsigned short id = m5D8;
+    AsciiString name = m_nameString;
     g_00E01EA8 = true;
     *this = *that;
-    for (TemplateRecordIterator<TemplateOwnedArmorRecord> record(m_armorBegin); record!=TemplateRecordIterator<TemplateOwnedArmorRecord>(m_armorEnd); ++record)
+    for (TemplateRecordIterator<TemplateOwnedArmorRecord> record(
+            reinterpret_cast<TemplateOwnedArmorRecord *const *>(m_armorTemplateSets)[0]);
+         record!=TemplateRecordIterator<TemplateOwnedArmorRecord>(reinterpret_cast<TemplateOwnedArmorRecord *const *>(m_armorTemplateSets)[1]);
+         ++record)
         record->owner = this;
     g_00E01EA8 = false;
-    m_nextTemplate = next;
-    m_templateID = id;
-    m_name = name;
+    reinterpret_cast<ThingTemplate *&>(m484) = next;
+    m5D8 = id;
+    m_nameString = name;
 }

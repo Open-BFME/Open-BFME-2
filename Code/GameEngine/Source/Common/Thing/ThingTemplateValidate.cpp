@@ -22,17 +22,7 @@
 // +0x38->+0x40. The wide members' true names are unknown; the mirror below
 // keeps measured offsets with role-describing names and claims no real header.
 
-template <typename T>
-class StringBase
-{
-public:
-	bool isEmpty() const;
-	void set(const char *text);
-	void set(const StringBase &other);
 
-private:
-	void *m_data;
-};
 
 class BfmeThingTemplateShadowSelector
 {
@@ -45,40 +35,28 @@ private:
 	const char *m_end;
 };
 
-class ThingTemplate
-{
-public:
-	void validate();
+#include "../../../Include/Common/ThingTemplate.h"
 
-private:
-	char m_pad0[0x30]; // +0x00
-	StringBase<unsigned short> m_wideSrcA; // +0x30
-	char m_pad34[0x4]; // +0x34
-	StringBase<unsigned short> m_wideSrcB; // +0x38
-	char m_pad3C[0x4]; // +0x3C
-	StringBase<unsigned short> m_wideDstB; // +0x40
-	char m_pad44[0x14]; // +0x44
-	StringBase<unsigned short> m_wideDstA; // +0x58
-	char m_pad5C[0x34]; // +0x5C
-	StringBase<char> m_shadowTextureName; // +0x90
-	char m_pad94[0xc]; // +0x94
-	BfmeThingTemplateShadowSelector m_shadowSelector; // +0xA0
-};
+template <typename Char> static __forceinline StringBase<Char> &templateStringView(void *storage)
+{
+	return *reinterpret_cast<StringBase<Char> *>(storage);
+}
+
 
 void ThingTemplate::validate()
 {
-	if (m_shadowTextureName.isEmpty())
+	if (templateStringView<char>(&m_shadowTextureName).isEmpty())
 	{
 		// no texture given, pick a default
-		if (m_shadowSelector.usePluralShadowName())
-			m_shadowTextureName.set("shadows");
+		if (reinterpret_cast<const BfmeThingTemplateShadowSelector *>(m_geometryInfo)->usePluralShadowName())
+			templateStringView<char>(&m_shadowTextureName).set("shadows");
 		else
-			m_shadowTextureName.set("shadow");
+			templateStringView<char>(&m_shadowTextureName).set("shadow");
 	}
 
-	if (m_wideDstA.isEmpty())
-		m_wideDstA.set(m_wideSrcA);
+	if (templateStringView<unsigned short>(m_displayNameStrategic + 4).isEmpty())
+		templateStringView<unsigned short>(m_displayNameStrategic + 4).set(templateStringView<unsigned short>(m_displayName + 4));
 
-	if (m_wideDstB.isEmpty())
-		m_wideDstB.set(m_wideSrcB);
+	if (templateStringView<unsigned short>(m_descriptionStrategic + 4).isEmpty())
+		templateStringView<unsigned short>(m_descriptionStrategic + 4).set(templateStringView<unsigned short>(m_description + 4));
 }

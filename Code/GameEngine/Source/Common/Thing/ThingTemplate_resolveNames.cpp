@@ -33,43 +33,35 @@ private:
 	ProductionPrerequisite *_M_end;
 };
 
-class ThingTemplate
-{
-public:
-	void resolveNames();
-	const Image *rva0033BA46();
-	const Image *getButtonImage();
-	static const int COMMANDCENTER_MASK = 2;
+#include "../../../Include/Common/ThingTemplate.h"
 
-private:
-	char m_pad00[0x10a];
-	unsigned char m_kindofByte;
-	char m_pad0B[0x324 - 0x10b];
-	ProductionPrerequisiteVector m_prereqInfo;
-	char m_pad30[0x5e6 - 0x330];
-	bool m_isBuildFacility;
-};
+static __forceinline ProductionPrerequisiteVector &prerequisiteView(unsigned char (&storage)[12])
+{
+	return *reinterpret_cast<ProductionPrerequisiteVector *>(storage);
+}
+
 
 void ThingTemplate::resolveNames()
 {
 	int i, j;
+	const int COMMANDCENTER_MASK = 2;
 
-	for (i = 0; i < m_prereqInfo.size(); i++) {
-		m_prereqInfo[i].resolveNames();
+	for (i = 0; i < prerequisiteView(m_prereqInfo).size(); i++) {
+		prerequisiteView(m_prereqInfo)[i].resolveNames();
 	}
 
 	const int MAX_BF = 32;
 	const ThingTemplate *thingTemplate[MAX_BF];
-	for (i = 0; i < m_prereqInfo.size(); i++) {
-		int count = m_prereqInfo.begin()[i].getAllPossibleBuildFacilityTemplates(thingTemplate, MAX_BF);
+	for (i = 0; i < prerequisiteView(m_prereqInfo).size(); i++) {
+		int count = prerequisiteView(m_prereqInfo).begin()[i].getAllPossibleBuildFacilityTemplates(thingTemplate, MAX_BF);
 		for (j = 0; j < count; j++) {
 			if (thingTemplate[j])
-				((ThingTemplate *)thingTemplate[j])->m_isBuildFacility = true;
+				((ThingTemplate *)thingTemplate[j])->m5E6 = true;
 		}
 	}
 
-	if ((m_kindofByte & COMMANDCENTER_MASK) != 0) {
-		m_isBuildFacility = true;
+	if ((reinterpret_cast<const unsigned char *>(m_kindof)[2] & COMMANDCENTER_MASK) != 0) {
+		m5E6 = true;
 	}
 
 	rva0033BA46();
