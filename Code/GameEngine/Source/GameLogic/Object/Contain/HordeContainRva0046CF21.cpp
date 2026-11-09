@@ -35,11 +35,7 @@ struct CreateMask
 	char m_data[0x10];
 };
 
-class Drawable
-{
-public:
-	void setFullyObscuredByShroud(bool fully);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 

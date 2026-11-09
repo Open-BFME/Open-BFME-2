@@ -97,11 +97,7 @@ public:
 	ObjectID m_38; // +0x38
 };
 
-class Drawable
-{
-public:
-	void rva00274176(Bool value);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 // The shared empty body 0x000B3FD0, called on the drawable.
 class Rva000B3FD0

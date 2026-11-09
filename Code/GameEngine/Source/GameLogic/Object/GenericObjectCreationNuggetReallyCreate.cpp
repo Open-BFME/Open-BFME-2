@@ -133,13 +133,7 @@ public:
 
 #include "../../../Include/Common/PlayerList.h"
 
-class Drawable
-{
-public:
-	void fadeIn(UnsignedInt frames);
-	void fadeOut(UnsignedInt frames);
-	void rva00274176(Bool b);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../Common/Thing/thing.h"
 static inline const ThingTemplate *thingGetTemplate(const Thing *thing) { return thing->m_template; }

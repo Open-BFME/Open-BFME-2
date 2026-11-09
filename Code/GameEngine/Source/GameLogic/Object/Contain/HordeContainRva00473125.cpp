@@ -9,11 +9,7 @@
 // toggle drawable selectability off/on around +0x20 slot39 call; notify
 // +0x2C8 slot2 with idx+1 and +0x11C slot12; finish via rva0046A893.
 
-class Drawable
-{
-public:
-	void setSelectable(bool selectable);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 
