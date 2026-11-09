@@ -715,23 +715,6 @@ private:
 	ConstructProbePair m_value;
 };
 
-//
-// SpecialPower destructors still under their placeholder names. Each
-// stores its class's three vptrs (the class's +0 table, SpecialPowerModule's
-// shared BehaviorModuleInterface table 0x00BEFCF8 at +0x0C and the class's
-// +0x10 table), exactly what the class's constructor stores after
-// ??0SpecialPowerModule 0x00493C5A, and tail-calls ??1SpecialPowerModule@@UAE@XZ
-// 0x00493DEF, so each derives from this unit's SpecialPowerModule view like
-// the real class (retail: the +0 table's slot 0 is the placeholder's ??_G and
-// its slot 4 the class's getModuleNameKey row).
-
-// Rva004C4DE9: ??0DarknessSpecialPower 0x004C4DB9 (42 B) stores 0x00C5D854 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D7F0 (+0x10)
-class Rva004C4DE9 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C4DE9();
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -1112,7 +1095,8 @@ DarknessSpecialPower::DarknessSpecialPower( Thing *thing, const ModuleData *modu
 {
 }
 
-// ??1DarknessSpecialPower@@MAE@XZ present-unmatched
+// ??1DarknessSpecialPower@@MAE@XZ 0x004C4DE9: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 DarknessSpecialPower::~DarknessSpecialPower()
 {
 }
@@ -1576,21 +1560,11 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
 // ??1ScavengerSpecialPower@@MAE@XZ 0x004C43A3: stores the class's three vptrs, then tail-calls
 // ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 ScavengerSpecialPower::~ScavengerSpecialPower()
 {
 }
-
-Rva004C4DE9::~Rva004C4DE9()
-{
-}
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C3ACC 38B ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp (not merged yet)
 

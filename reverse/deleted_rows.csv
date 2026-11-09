@@ -6045,3 +6045,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C48C6@@UAEPAXI@Z,0x004C4924,"Renamed to ??_GTaintSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D5CC)"
 ??1Rva004C4BD1@@UAE@XZ,0x004C4BD1,"Renamed to ??1FreezingRainSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D764)"
 ??_GRva004C4BD1@@UAEPAXI@Z,0x004C4C2F,"Renamed to ??_GFreezingRainSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D764)"
+??1Rva004C4DE9@@UAE@XZ,0x004C4DE9,"Renamed to ??1DarknessSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D854)"
+??_GRva004C4DE9@@UAEPAXI@Z,0x004C4E47,"Renamed to ??_GDarknessSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D854)"
