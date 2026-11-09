@@ -1580,7 +1580,7 @@ class PickerCache:
 
 
 @claims.pick_snapshot()
-def cmd_next(lane, args):
+def cmd_next(lane, args, *, _claim_snapshot=None):
     timing_start = time.perf_counter()
     registered = getattr(args, "registered", None)
     if registered:
@@ -1651,7 +1651,10 @@ def cmd_next(lane, args):
     # RVA/class claims and persisted locks to files, excluding our own claims
     # but retaining foreign namespaces and mirrors. Do this before choosing a
     # subsystem or scanning bodies so busy files cannot anchor/waste a batch.
-    busy = claims.busy_keys(lane.root)
+    # Independent reviewers keep their own voting identity, while the operator
+    # delegates read access to its claimed sources. Only the internal reviewer
+    # passes its caller's already-expanded snapshot; this grants no write claim.
+    busy = claims.busy_keys(lane.root) if _claim_snapshot is None else _claim_snapshot
     claims_done = time.perf_counter()
     available = [rel for rel in files if claims.file_key(rel) not in busy]
     skipped = len(files) - len(available)

@@ -365,6 +365,12 @@ source-based reason. `next --count N` prepares multiple files from one subsystem
 in a single picker call; `apply` verifies eligible approvals as a run-wide batch.
 For an explicit set, `next --files Code/.../A.cpp Code/.../B.cpp --session S
 --model M` serves them together, using one claim snapshot and one shared brief.
+An automatic review reads the submitting operator's standard claim snapshot
+before adopting its independent voting identity. Thus the operator's own
+reserved sources remain available to its reviewer; foreign file, RVA, class,
+persisted and namespace locks still exclude their sources. This delegation is
+only for packet reads. Application runs as the operator and checks claims
+again, so a foreign claim acquired during review still prevents editing.
 Blind shared-name proposals may include a role sentence in
 `{"name":"...","role":"..."}`; the reviewer records its own role description
 before seeing the first proposal. The comparison packet carries both roles so

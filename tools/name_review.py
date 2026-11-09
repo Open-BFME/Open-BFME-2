@@ -736,6 +736,11 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
     session = "review-" + uuid.uuid4().hex[:16]
     job = config_path(lane).parent / "reviews" / session
     job.mkdir(parents=True)
+    # The operator delegates packet reads, not its vote or its write authority.
+    # Switching BFME_CLAIM_OWNER first would hide the operator's own reserved
+    # sources as foreign. Preserve the standard foreign-claim fence unchanged.
+    with name_lane.claims.pick_snapshot():
+        source_claims = frozenset(name_lane.claims.busy_keys(lane.root))
     with identity(config["worker"]):
         attempts_path = config_path(lane).parent / "reviewer-attempts.json"
         all_attempts = json.loads(attempts_path.read_text(encoding="utf-8")) if attempts_path.exists() else {}
@@ -757,7 +762,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
         args = argparse.Namespace(session=session, model=label, count=file_limit,
             file=None, list_only=False, review_only=True, mixed=True, key=eligible,
             max_keys=config["max_keys"], max_chars=config["max_chars"])
-        name_lane.cmd_next(lane, args)
+        name_lane.cmd_next(lane, args, _claim_snapshot=source_claims)
         path = lane.path(f"{name_lane.LANE_DIR}/sessions/{session}.json")
         if not path.exists():
             return {"status": "empty", "reviewed": 0}
