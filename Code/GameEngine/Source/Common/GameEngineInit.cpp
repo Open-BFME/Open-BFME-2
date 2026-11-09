@@ -241,7 +241,8 @@ class Rva002E1F42 { public: Rva002E1F42(); char m_data[0x18]; };
 class Rva0022B043Subsystem;
 class Rva004209CC { public: Rva004209CC(); char m_data[0x18]; };
 class Rva0022B0B8Subsystem { public: Rva0022B0B8Subsystem(); char m_data[0x20]; };
-class Rva0022B12DSubsystem { public: Rva0022B12DSubsystem(); char m_data[0x2d8]; };
+#define BFME_LIVINGWORLDMANAGER_ALLOCATION_ONLY
+#include "../../Include/GameLogic/LivingWorldManager.h"
 class Rva0022B1A2Subsystem;
 class LivingWorldLogic { public: LivingWorldLogic(); char m_data[0x17c]; };
 class GameClient;
@@ -842,7 +843,7 @@ void GameEngine::init(Int argc, char *argv[])
 		initSubsystem((reinterpret_cast<Rva0022AFCESubsystem *&>(TheLivingWorldPlayerTemplateStore)), "TheLivingWorldPlayerTemplateStore", (Rva0022AFCESubsystem *)new Rva002E1F42, (Xfer *)&xferCRC);
 		initSubsystem((reinterpret_cast<Rva0022B043Subsystem *&>(TheLivingWorldAITemplateStore)), "TheLivingWorldAITemplateStore", (Rva0022B043Subsystem *)new Rva004209CC, (Xfer *)&xferCRC);
 		initSubsystem((reinterpret_cast<Rva0022B0B8Subsystem *&>(TheLivingWorldRegionEffectsManagerStore)), "TheLivingWorldRegionEffectsManagerStore", new Rva0022B0B8Subsystem, 0);
-		initSubsystem((reinterpret_cast<Rva0022B12DSubsystem *&>(TheLivingWorldManager)), "TheLivingWorldManager", new Rva0022B12DSubsystem, 0);
+		initSubsystem(TheLivingWorldManager, "TheLivingWorldManager", new LivingWorldManager, 0);
 		initSubsystem((reinterpret_cast<Rva0022B1A2Subsystem *&>(TheLivingWorldLogic)), "TheLivingWorldLogic", (Rva0022B1A2Subsystem *)new LivingWorldLogic, (Xfer *)&xferCRC);
 		initSubsystem((reinterpret_cast<GameClient *&>(TheGameClient)), "TheGameClient", createGameClient(), 0);
 		initSubsystem((reinterpret_cast<Rva0022B28CSubsystem *&>(TheLinearCampaignManager)), "TheLinearCampaignManager", (Rva0022B28CSubsystem *)new Rva001ED41B, (Xfer *)&xferCRC);

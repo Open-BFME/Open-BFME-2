@@ -5967,3 +5967,9 @@ __ehhandler$??0Rva001E3E43@@QAE@ABV0@@Z,0x00769F90,"Respelled to __ehhandler$??0
 ?name@Rva004B66D3Named@@QBEPBDXZ,0x004B66D3,"Renamed to ?GetSnapshotName@AttributeModifierUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C587E8 slot 2)"
 ?rva007B13C0@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B13C0,Retracted for readmission as _$E1 in AssistedTargetingUpdate.cpp: retail 0x007B13C0 is that unit's compiler-emitted Drawable.h copy initializer; the file already compiles it (LINK-236)
 ?rva007AEFA1@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AEFA1,Retracted for readmission as _$E1 in GameLogicDispatchDoSetRallyPoint.cpp: retail 0x007AEFA1 is that unit's compiler-emitted Drawable.h copy initializer; the file already compiles it (LINK-236)
+??$initSubsystem@VRva0022B12DSubsystem@@@@YAXAAPAVRva0022B12DSubsystem@@VAsciiString@@PAV0@PAVXfer@@PBD44@Z,0x0022B12D,"Renamed to ??$initSubsystem@VLivingWorldManager@@@@YAXAAPAVLivingWorldManager@@VAsciiString@@PAV0@PAVXfer@@PBD44@Z by tools/rename.py (fold: retail vftable 0x00BE5234)"
+??0?$SubsystemSlot@VRva0022B12DSubsystem@@@@QAE@PAPAVRva0022B12DSubsystem@@@Z,0x00228099,"Renamed to ??0?$SubsystemSlot@VLivingWorldManager@@@@QAE@PAPAVLivingWorldManager@@@Z by tools/rename.py (fold: retail vftable 0x00BE5234)"
+??_G?$SubsystemSlot@VRva0022B12DSubsystem@@@@UAEPAXI@Z,0x002280AB,"Renamed to ??_G?$SubsystemSlot@VLivingWorldManager@@@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE5234)"
+??1?$SubsystemSlot@VRva0022B12DSubsystem@@@@UAE@XZ,0x002280C7,"Renamed to ??1?$SubsystemSlot@VLivingWorldManager@@@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE5234)"
+??0Rva0022B12DSubsystem@@QAE@XZ,0x00213EEF,"Renamed to ??0LivingWorldManager@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00BE5234)"
+__ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$??0LivingWorldManager@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00BE5234)"
