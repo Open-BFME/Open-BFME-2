@@ -6015,19 +6015,24 @@ def class_installers(ctx, cls, stores, tables):
     return out
 
 
-def to_class_evidence(ctx, rva, cls, sources, reviewed=None):
+def to_class_evidence(ctx, rva, cls, sources, reviewed=None, base=None, found=None):
     """(table, slot, retail slots, [installer rows], proof) for the one slot of
     a table `cls`'s own special members install that holds `rva`; Refusal
     when there is none, more than one, or a table of an unrelated class holds
     it too. `reviewed` (function --to-class alone) is the code-owned entry in
     tools/retail_identity.py that relates the tables it names, at the slot it
-    names, once retail holds all of its facts."""
+    names, once retail holds all of its facts. `base` (function --to-class
+    alone) is a reviewed base-slot entry for a class with no retail table of
+    its own: it relates the tables it lists and its dead tables at its slot,
+    once retail holds its facts, and then `found['bases']` lists every live
+    table holding `rva` with its classes' installer units, whose compiled
+    tables to_class_slot_problems judges in place of `cls`'s own."""
     tables = retail_vtables(ctx)
     hits = [(table, index) for table, (slots, _stores) in sorted(tables.items())
             for index, target in enumerate(slots) if target == rva]
     if not hits:
         raise Refusal(f"no retail vftable slot holds 0x{rva:08X}: a class move needs one of {cls}'s slots")
-    own, foreign, cleared = [], [], []
+    own, foreign, cleared, based = [], [], [], []
     for table, index in hits:
         slots, stores = tables[table]
         installers = class_installers(ctx, cls, stores, tables)
@@ -6043,7 +6048,12 @@ def to_class_evidence(ctx, rva, cls, sources, reviewed=None):
             if reviewed and table + IMAGE_BASE in reviewed.tables and index == reviewed.slot:
                 cleared.append(table)
                 continue
+            if base and index == base.slot and (table + IMAGE_BASE in base.tables or table + IMAGE_BASE in base.dead):
+                based.append(table)
+                continue
             foreign.append(f"{where} belongs to {', '.join(sorted(classes)) or 'no class the ledger names'}")
+    if not own and base and based and not foreign:
+        return base_slot_evidence(ctx, rva, base, hits, tables, based, found)
     if not own:
         raise Refusal(f"no constructor, destructor or deleting destructor row of {cls} installs a retail table "
                       f"holding 0x{rva:08X} ({'; '.join(foreign[:3]) or 'only unowned tables hold it'})")
@@ -6068,6 +6078,65 @@ def to_class_evidence(ctx, rva, cls, sources, reviewed=None):
              + (f"; {len(cleared)} table(s) cleared by retail_identity's reviewed entry: "
                 + ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in cleared) if cleared else ""))
     return table, index, slots, installers, proof
+
+
+def base_slot_evidence(ctx, rva, base, hits, tables, based, found):
+    """to_class_evidence's answer under a reviewed base-slot entry (retail_identity.BASE_SLOTS): every table holding
+    `rva` is related by a view or listed, retail holds the entry's facts, and nothing reaches its dead tables. The
+    compiled check then reads each live table's own classes (`found['bases']`): `cls` has no table to compile."""
+    import retail_identity
+    wrong = retail_identity.base_slot_problems(base)
+    if wrong:
+        raise Refusal(f"retail_identity's reviewed base entry for 0x{rva:08X} does not hold: {wrong[0]}")
+    if {index for _table, index in hits} != {base.slot}:
+        raise Refusal(f"0x{rva:08X} sits outside slot {base.slot} of some table: the base entry names that slot alone")
+    records = []
+    for table, _index in hits:
+        if table + IMAGE_BASE in base.dead:
+            continue
+        slots, stores = tables[table]
+        classes = table_classes(ctx, table, stores, tables)
+        listed = base.tables.get(table + IMAGE_BASE)
+        if listed and listed[0] not in classes:
+            raise Refusal(f"retail_identity's base entry names table 0x{table + IMAGE_BASE:08X} {listed[0]}'s, but "
+                          f"its installers are {', '.join(sorted(classes)) or 'no class the ledger names'}'s")
+        for other, (_how, source) in sorted(classes.items()):
+            if source:
+                records.append({"cls": other, "table": table, "retail": list(slots), "sources": [source]})
+    if not records:
+        raise Refusal(f"no live table holding 0x{rva:08X} has an installer unit to compile it")
+    if found is not None:
+        found["bases"] = records
+    live = sorted({r["table"] for r in records})
+    proof = (f"slot {base.slot} of {len(live)} retail tables of classes with no {base.cls} table between them; "
+             f"{len(based) - len(base.dead)} related by retail_identity's reviewed base entry (each built by a data "
+             f"factory ModuleFactory registers), {len(base.dead)} dead: "
+             + ", ".join(f"0x{t:08X}" for t in sorted(base.dead)))
+    return live[0], base.slot, records[0]["retail"], [], proof
+
+
+def base_slot_compiled_problems(ctx, check, *, current=True):
+    """to_class_slot_problems under a base entry: each live table's classes' installer units compile that class's
+    table, and none names anything but `check['new']` at the slot. A copy that names it and agrees with retail
+    elsewhere proves the move; after ./build.sh at least one must."""
+    slot, new = check["slot"], check["new"]
+    problems, proved = [], 0
+    for record in check["bases"]:
+        for rel in record["sources"]:
+            compiled = compiled_vtables(ctx, rel, current=current) or {}
+            for symbol, names in sorted(compiled.items()):
+                if _vtable_class(symbol) == record["cls"] and slot < len(names) and names[slot] not in ("", new):
+                    problems.append(f"{rel}'s {symbol} slot {slot} names {names[slot]}, not {new}")
+        sub_check = {"cls": record["cls"], "table": record["table"], "slot": slot, "new": new,
+                     "retail": record["retail"], "sources": record["sources"]}
+        if any(_vtable_class(symbol) == record["cls"] for rel in record["sources"]
+               for symbol in (compiled_vtables(ctx, rel, current=current) or {})) \
+                and not to_class_slot_problems(ctx, sub_check, current=current):
+            proved += 1
+    if not current and not proved:
+        problems.append(f"no installer unit of a table holding slot {slot} compiles a copy that names {new} there "
+                        "and agrees with retail elsewhere")
+    return problems
 
 
 def _source_object(ctx, rel, current=True):
@@ -6215,7 +6284,12 @@ def to_class_slot_problems(ctx, check, *, current=True):
     installs that table and that no other table holds the address).
 
     A compiled ??_E of the class agrees with retail's ??_G row of that class in
-    its slot (deleting_slot_agrees)."""
+    its slot (deleting_slot_agrees).
+
+    Under a base entry (`check['bases']`, base_slot_evidence) the class has no
+    table: base_slot_compiled_problems judges the tables' own classes."""
+    if check.get("bases"):
+        return base_slot_compiled_problems(ctx, check, current=current)
     cls, retail = check["cls"], check["retail"]
     wanted = {int(k): v for k, v in (check.get("slots") or {check["slot"]: check["new"]}).items()}
     address = {}
@@ -6419,8 +6493,11 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
     statics = local_static_keys(ctx, name, row["source"])
 
     import retail_identity
+    found = {}
     table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]},
-                                                               reviewed=retail_identity.shared_slot_of(rva, cls, new_name))
+                                                               reviewed=retail_identity.shared_slot_of(rva, cls, new_name),
+                                                               base=retail_identity.base_slot_of(rva, cls, new_name),
+                                                               found=found)
     declared = []
     if return_enum is not None:
         # read from the installers: their view of cls compiles the table
@@ -6428,7 +6505,7 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                                         {r["source"] for r in installers}, prepared)
     return {"rva": rva, "row": row, "name": name, "new_name": new_name, "table": table, "slot": slot,
             "retail": retail, "installers": installers, "proof": proof, "declared": declared,
-            "tombstoned": tombstoned, "statics": statics}
+            "tombstoned": tombstoned, "statics": statics, "bases": found.get("bases")}
 
 
 def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, max_files=25, also=None):
@@ -6445,6 +6522,8 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     for extra_rva, extra_new in also or ():
         moves.append(_to_class_move(ctx, extra_rva, cls, extra_new, prepared=prepared))
     first = moves[0]
+    if len(moves) > 1 and any(m["bases"] for m in moves):
+        raise Refusal("a base-slot move (retail_identity.BASE_SLOTS) moves one slot; --also is not read with it")
     if len(moves) > 1:
         tables = sorted({m["table"] for m in moves})
         if len(tables) != 1:
@@ -6464,8 +6543,15 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     if len(moves) > 1:
         check["slots"] = {m["slot"]: m["new_name"] for m in moves}
         check["moved"] = {m["new_name"]: m["rva"] for m in moves}
+    if first["bases"]:
+        check["bases"] = first["bases"]
     edited = set(prepared or {})
-    early = to_class_slot_problems(ctx, dict(check, sources=[s for s in installer_sources if s not in edited]))
+    early_check = dict(check, sources=[s for s in installer_sources if s not in edited])
+    if check.get("bases"):
+        # a prepared installer unit is judged after ./build.sh, as an own installer is
+        early_check["bases"] = [dict(record, sources=[s for s in record["sources"] if s not in edited])
+                                for record in check["bases"]]
+    early = to_class_slot_problems(ctx, early_check)
     if early:
         raise Refusal("the vftable " + cls + "'s installers compile does not prove the slot: " + early[0])
 

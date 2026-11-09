@@ -704,6 +704,16 @@ A table holding the address that no view relates to C is a fold, and refused, un
 tables at exact addresses, and `shared_slot_problems` checks them against retail's bytes. A table it does not list
 stays a fold, and another class is another reviewed entry (`Verifier-Change`). Only this mode reads the entries.
 
+A class with no retail table of its own (ModuleData: its destructor stores the 4-slot Snapshot table) has no
+installer to prove a slot. A reviewed base entry (`BASE_SLOTS`) stands in for it: each table the view test refuses,
+stated as the body at the slot, the table's installer store, and the steps to a registration (for ModuleData, the push
+of a data factory's address and the call to 0x002573EE that every ModuleFactory registration makes). A table whose
+installer nothing reaches is listed as dead, by address: admission reads the whole image for a rel32 call or jump to
+the installer, a word equal to its VA, and a word equal to the table's VA other than its own store. The compiled check
+then reads each table's own class, since the class compiles no table: none may name another symbol at the slot, and one
+must agree with retail elsewhere. `--new` is the full mangled name when the declaration's `this` cv differs from the
+row's (`?slot14@ModuleData@@UBE?AVAsciiString@@H@Z`).
+
 `--new` is the member's identifier in C (the access code becomes the virtual
 form of the old one) or its full mangled name (to choose, say, protected
 `MBE`, or a `this` cv other than the placeholder's guess: the class's own

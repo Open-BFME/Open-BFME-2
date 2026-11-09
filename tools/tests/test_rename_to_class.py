@@ -3,6 +3,8 @@ placeholder-class member into the real class whose own retail vftable holds
 its address, as that class's virtual. The retail image (rename.retail_vtables)
 and the compiled installer objects (rename.compiled_vtables) are injected, and
 so is verification, as in test_rename_virtual.py."""
+import re
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -1051,3 +1053,196 @@ def test_the_real_entry_is_well_stated():
     for table, facts in entry.tables.items():
         assert facts[0] == retail_identity.word(table, 0, 0x0006CE57)
         assert facts[-1].kind == "stores" and facts[-1].value == 0x00BC650C and facts[-1].code in retail_identity.VPTR_STORES
+
+
+# ------------------------------------------------------------ a reviewed base slot
+# Widget installs no table holding the moved body: 0x00C10000, Other's, holds it at slot 1 and no view relates Other
+# to Widget. A base entry (retail_identity.BASE_SLOTS) relates the tables it lists, each ending at a factory's push and
+# a registration call, and its dead tables, which nothing in the image reaches.
+
+REGISTER = 0x00409000
+FACTORY = 0x00409800
+PUSH, REG_CALL = 0x00409900, 0x00409905
+DEAD_TABLE_VA = 0x00C20000
+DEAD_INSTALLER = 0x0040A000
+DEAD_STORE = 0x0040A002
+BASE_TABLES = {OTHER_TABLE_VA - retail_identity.IMAGE_BASE: ([0x00405000, 0x00401000], {OTHER_STORE: 0})}
+BASE_FACTS = (retail_identity.word(OTHER_TABLE_VA, 1, 0x00401000),
+              retail_identity.Fact("stores", OTHER_STORE, OTHER_TABLE_VA, "c701"),
+              retail_identity.Fact("stores", PUSH, FACTORY + retail_identity.IMAGE_BASE, "68"),
+              retail_identity.Fact("calls", REG_CALL, REGISTER))
+BASE = retail_identity.BaseSlot(rva=0x00401000, cls="Widget", new=NEW, slot=1, register=REGISTER,
+                                tables={OTHER_TABLE_VA: ("Other", BASE_FACTS)}, dead={})
+DEAD_FACTS = (retail_identity.word(DEAD_TABLE_VA, 1, 0x00401000),
+              retail_identity.Fact("stores", DEAD_STORE, DEAD_TABLE_VA, "c700"))
+OTHER_COMPILED = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", NEW]}}
+
+
+def _image(monkeypatch, extra=b"", at=0x0040B000):
+    """A miniature image whose file offsets are rvas: int3s with the dead installer's store, plus `extra` at `at`."""
+    data = bytearray(b"\xcc" * 0x00410000)
+    store = retail_identity.expected(DEAD_FACTS[1])
+    data[DEAD_STORE:DEAD_STORE + len(store)] = store
+    data[at:at + len(extra)] = extra
+    monkeypatch.setattr(retail_identity, "retail_image", lambda: (bytes(data), 0x00401000, 0x00410000, lambda rva: rva))
+
+
+def _base(monkeypatch, entries, facts=None, tables=None, compiled=None):
+    retail(monkeypatch, BASE_TABLES if tables is None else tables,
+           compiled=OTHER_COMPILED if compiled is None else compiled)
+    held = {}
+    for entry in entries:
+        for fact in retail_identity.base_slot_facts(entry) if facts is None else facts:
+            held[fact.site] = retail_identity.expected(fact)
+
+    def read(rva, size):
+        out = bytearray(b"\xcc" * size)
+        for site, data in held.items():
+            for i, byte in enumerate(data):
+                if rva <= site + i < rva + size:
+                    out[site + i - rva] = byte
+        return bytes(out)
+    monkeypatch.setattr(retail_identity, "read_retail", read)
+    monkeypatch.setattr(retail_identity, "BASE_SLOTS", tuple(entries))
+    monkeypatch.setattr(retail_identity, "SHARED_SLOTS", ())
+
+
+def test_a_base_entry_relates_its_tables(tree, monkeypatch):
+    _base(monkeypatch, [BASE])
+    done = plan(tree)
+    assert done.to_class["bases"][0]["cls"] == "Other"
+    assert "related by retail_identity's reviewed base entry" in str(vars(done))
+
+
+def test_with_no_base_entry_the_move_is_refused(tree, monkeypatch):
+    _base(monkeypatch, [])
+    with pytest.raises(Refusal, match="no constructor, destructor or deleting destructor row of Widget"):
+        plan(tree)
+
+
+def test_a_table_the_base_entry_does_not_name_stays_a_fold(tree, monkeypatch):
+    tables = dict(BASE_TABLES)
+    tables[0x00820000] = ([0x00405000, 0x00401000], {OTHER_STORE + 8: 0})
+    _base(monkeypatch, [BASE], tables=tables)
+    with pytest.raises(Refusal, match="no constructor, destructor or deleting destructor row of Widget"):
+        plan(tree)
+
+
+@pytest.mark.parametrize("dropped", range(4))
+def test_any_base_fact_retail_does_not_hold_refuses(tree, monkeypatch, dropped):
+    _base(monkeypatch, [BASE], facts=[f for i, f in enumerate(BASE_FACTS) if i != dropped])
+    with pytest.raises(Refusal, match="reviewed base entry"):
+        plan(tree)
+
+
+@pytest.mark.parametrize("facts,why", [
+    (BASE_FACTS[1:], "does not open with word"),
+    (BASE_FACTS[:1] + BASE_FACTS[2:], "states no store of itself"),
+    (BASE_FACTS[:-1], "does not end at a factory's push"),
+    (BASE_FACTS[:2] + (BASE_FACTS[3], BASE_FACTS[2]), "does not end at a factory's push"),
+])
+def test_a_badly_stated_base_table_is_a_problem(monkeypatch, facts, why):
+    entry = BASE._replace(tables={OTHER_TABLE_VA: ("Other", facts)})
+    _base(monkeypatch, [entry])
+    assert any(why in line for line in retail_identity.base_slot_problems(entry))
+
+
+def test_a_base_entry_naming_another_class_refuses(tree, monkeypatch):
+    _base(monkeypatch, [BASE._replace(tables={OTHER_TABLE_VA: ("Gadget", BASE_FACTS)})])
+    with pytest.raises(Refusal, match="names table 0x00C10000 Gadget's"):
+        plan(tree)
+
+
+def test_a_compiled_copy_naming_another_slot_refuses(tree, monkeypatch):
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(STOP)}"):
+        plan(tree)
+
+
+def test_a_prepared_installer_unit_is_judged_after_the_build(tree, monkeypatch):
+    # Other.cpp's object still names the placeholder at slot 1; --prepared corrects its view, so planning must not
+    # judge the old object (the post-build check reads it once rebuilt)
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", OLD]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    edits = {"Code/Game/Bits.cpp": BITS_PREPARED.encode(),
+             "Code/Game/Other.cpp": b"class Widget { public: virtual void spin(); };\n"
+                                    b"class Other : public Widget { public: Other(); };\nOther::Other() {}\n"}
+    done = rename.plan_rename("function", ctx=ctx_of(tree), rva=0x00401000, to_class="Widget", new="spin",
+                              prepared=edits)
+    assert done.to_class["bases"][0]["sources"] == ["Code/Game/Other.cpp"]
+
+
+def test_an_unprepared_installer_naming_the_placeholder_refuses(tree, monkeypatch):
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", OLD]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(OLD)}"):
+        plan(tree)
+
+
+def test_a_base_move_takes_no_also(tree, monkeypatch):
+    _base(monkeypatch, [BASE])
+    with pytest.raises(Refusal):
+        plan(tree, also=[(0x00404000, "stop")])
+
+
+def _with_dead(monkeypatch, extra=b"", at=0x0040B000):
+    tables = dict(BASE_TABLES)
+    tables[DEAD_TABLE_VA - retail_identity.IMAGE_BASE] = ([0x00405000, 0x00401000], {DEAD_STORE: 0})
+    entry = BASE._replace(dead={DEAD_TABLE_VA: (DEAD_INSTALLER, DEAD_FACTS)})
+    _base(monkeypatch, [entry], tables=tables)
+    _image(monkeypatch, extra, at)
+    return entry
+
+
+def test_a_dead_table_nothing_reaches_is_related(tree, monkeypatch):
+    _with_dead(monkeypatch)
+    assert "1 dead: 0x00C20000" in str(vars(plan(tree)))
+
+
+@pytest.mark.parametrize("opcode", [b"\xe8", b"\xe9"])
+def test_a_dead_table_whose_installer_a_rel32_reaches_refuses(tree, monkeypatch, opcode):
+    at = 0x0040B000
+    _with_dead(monkeypatch, opcode + struct.pack("<i", DEAD_INSTALLER - (at + 5)), at)
+    with pytest.raises(Refusal, match="is a rel32 to its installer"):
+        plan(tree)
+
+
+def test_a_dead_table_whose_installer_a_stored_pointer_names_refuses(tree, monkeypatch):
+    # a function table in .rdata holding the installer's VA, unaligned reads included
+    _with_dead(monkeypatch, struct.pack("<I", DEAD_INSTALLER + retail_identity.IMAGE_BASE), 0x0040C001)
+    with pytest.raises(Refusal, match="holds its installer's VA"):
+        plan(tree)
+
+
+def test_a_dead_table_referenced_elsewhere_refuses(tree, monkeypatch):
+    _with_dead(monkeypatch, b"\xc7\x06" + struct.pack("<I", DEAD_TABLE_VA), 0x0040D000)
+    with pytest.raises(Refusal, match="holds the table's VA"):
+        plan(tree)
+
+
+def test_an_unrelated_table_with_a_referenced_installer_stays_a_fold(tree, monkeypatch):
+    # only a listed dead table is judged by its references; another unrelated table stays a fold
+    tables = dict(BASE_TABLES)
+    tables[DEAD_TABLE_VA - retail_identity.IMAGE_BASE] = ([0x00405000, 0x00401000], {DEAD_STORE: 0})
+    _base(monkeypatch, [BASE], tables=tables)
+    _image(monkeypatch, b"\xe8" + struct.pack("<i", DEAD_INSTALLER - (0x0040B000 + 5)))
+    with pytest.raises(Refusal, match="no constructor, destructor or deleting destructor row of Widget"):
+        plan(tree)
+
+
+def test_the_base_entry_is_read_only_by_the_to_class_plan(tree, monkeypatch):
+    _base(monkeypatch, [BASE])
+    with pytest.raises(Refusal, match="no constructor, destructor or deleting destructor row of Widget"):
+        rename.to_class_evidence(ctx_of(tree), 0x00401000, "Widget", {"Code/Game/Bits.cpp"})
+
+
+def test_the_real_base_entry_is_well_stated():
+    # retail's bytes are checked by `python3 tools/retail_identity.py`; here, its shape
+    entry = retail_identity.MODULE_DATA_SLOT14
+    assert (entry.rva, entry.cls, entry.slot, entry.register) == (0x000B69A1, "ModuleData", 14, 0x002573EE)
+    assert len(entry.tables) == 107 and set(entry.dead) == {0x00C5AEB8}
+    assert entry.dead[0x00C5AEB8][0] == 0x004BDCA3
+    for table, (_cls, facts) in entry.tables.items():
+        assert facts[0] == retail_identity.word(table, 14, 0x000B69A1)
+        assert facts[-2].code == "68" and facts[-1].kind == "calls" and facts[-1].value == 0x002573EE
