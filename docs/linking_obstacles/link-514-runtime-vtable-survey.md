@@ -1747,3 +1747,53 @@ identity routes.
   AutoDepositUpdate.cpp and ProjectileStreamUpdate.cpp with class views on UpdateModule.h that declare the
   destructor. (4) SidesList's reader view, then Rva0032A3C6. Rva002AAD77/Rva0059B060 once VslotSmallBodiesAI.cpp
   is free.
+
+**The split link guard's false reject, fixed; the Rva0024A797Derived.cpp splits wait on a claim
+(2026-11-09, seat halilkkaya-lk81, base `96b069b35c`).** Method: `tu_skeleton.py --split ... --dry-run
+--no-claim`, with a temporary state dump of `outside_failures` (removed before the commit), the census
+index's `touches`, and per-section COFF reads of the before and after objects.
+- Guard verdict: a false reject, for both messages (lk80's `5c37881ba5a` row on 0x0049506E).
+  - `outside consumers lose provider` for the private tables. AutoFindHealingUpdate's three private tables
+    (`6BUpdateModule@@@`, `6BMiBase1@@@`, `6BRva0049506E_B2@@@`; the reason string shows only the first
+    three failures) are defined and touched only by Rva0024A797Derived.obj. The residual neither defines
+    nor references them, and no alias or ledger row names them. The fetched index (`d9f0e4778f`,
+    `--update-index`) has no per-object reference contributions. So `SplitLinkGuard.view` keeps the
+    aggregate graph, which still counts the carved destructor's own references.
+  - `selected implementation changes` for `??1AutoFindHealingUpdate@@UAE@XZ`. Its bytes are identical
+    before and after. Its four relocations sit at the same offsets with the same types. The three DIR32
+    stores move from the private tables to the TU's `6BObjectModule@@@`, `6BBehaviorModuleInterface@@@` and
+    `6B@` (the constructor's tables), and the tail jump to `??1UpdateModule@@UAE@XZ` is unchanged.
+    RetailTruth judges both copies `unknown`, so "both ok" could never pass. Only Derived.obj and
+    AutoFindHealingUpdate.obj (both replaced by the split) touch the name.
+  - lk80's "strong (no /Gy) -> /Gy COMDAT" reading was wrong: both copies are COMDATs (digests
+    `516b362fcc27` -> `4bb978049094`); only the relocation targets differ.
+- Fix `5a28dc34f87` (Verifier-Change). It reuses the merge guard's touches rule, `LinkGuard.referenced_outside`.
+  - A lost provider is refused only when something still reaches the name: an object outside the
+    replaced ones, the split's new objects, an alias, or a ledger owner.
+  - A changed selected implementation is waived only in two cases. Either the name has no definition left
+    and no such referrer. Or no outside object or alias reaches it, its one definition after the split is
+    its ledger owner's object, and that copy is not proven wrong.
+  - Five SplitLinkGuardTests cover both directions (the two accept cases fail on the old guard). The
+    tu_skeleton suites plus test_gate_exploits.py: 570 passed, 5 skipped.
+- Dry-runs with the fix: AutoFindHealingUpdate, AssistedTargetingUpdate, DemoTrapUpdate (GameLogic/Object/
+  Update/), EntEnragedUpdate, PickupStuffUpdate and OathbreakersFadeAwayBehavior (Common/) report "alone:
+  2/2", "accepted: [TU, Rva0024A797Derived.cpp]", "rejected: {}".
+- Splits done: none, so no tables have left the bridge yet (expected: 18, three private tables per class).
+  Rva0024A797Derived.cpp lies in ancalgonn-pc-hdr-c's `class:StealthUpdate` scope (`claims.py claim
+  --dry-run file:Code/GameEngine/Source/Common/Rva0024A797Derived.cpp` -> held by class:StealthUpdate). The
+  C2600 reconciliations are held too: `class:HeightDieUpdate` and `class:AutoDepositUpdate` (hdr-a's
+  class:AIGuardMachine and hdr-c), and `class:Rva0033EEC9` (hdr-c).
+- Still refused: BuildingBehavior -> Common/BuildingBehavior.cpp (the tu_map's GameLogic/Object/Behavior/
+  path is only proposed: "no row of that file is approved for that TU"). The refusal is `moved selected
+  COMDAT ??1BuildingBehavior@@UAE@XZ lacks matching private/weak-free context; moved selected COMDAT
+  ??_7BuildingBehavior@@6BRva004561A2_B2@@@ lacks matching private/weak-free context`. That is the
+  moved-copy context check, which this fix does not change.
+- Next leads:
+  1. When the StealthUpdate claim clears, run `tu_skeleton.py --split
+     Code/GameEngine/Source/Common/Rva0024A797Derived.cpp --for <TU>` for the six TUs above, one class per
+     commit. Verify each per docs/consolidation.md, and run lk74_snap/lk74_cmp (expect 3 tables off per
+     class).
+  2. Tooling: `SplitLinkGuard.view` never rebuilds the reference graph from per-object contributions, as
+     `LinkGuard.view` does. The published index carries none, so both guards rely on the touches fallback.
+  3. BuildingBehavior's moved-copy context.
+  4. The three C2600 TU views (lk80 lead 3), once their class scopes are free.
