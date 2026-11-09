@@ -61,6 +61,11 @@ private:
 	{
 		return (const UnitCrateCollideModuleData *)m_moduleData;
 	}
+public:
+	// ??0UnitCrateCollide 0x004BCC13 and this destructor 0x004BCC43 store the same three
+	// tables (0x00C5A914, 0x00C5A040, 0x00C5A600); it then jumps to ??1CrateCollide
+	// 0x004BC4FC. Its ??_G 0x004BCCA1 is slot 0 of 0x00C5A914.
+	virtual ~UnitCrateCollide();
 };
 class Player;
 class Team;
@@ -209,66 +214,15 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-//
-// Opaque single-inheritance destructors tail-calling CrateCollide::~
-// CrateCollide at 0x004BC4FC (matched opaque MI base dtor in
-// Rva004BB68EDerived.cpp; only declared here so each tail-call resolves to
-// the ledger address instead of a same-TU definition). Each class below
-// derives singly from the MI base (inheriting its +0x00/+0x0C/+0x10 vptr
-// layout, including the family-shared +0x0C secondary 0xC5A040) and
-// overrides all three vptrs before tail-calling the base destructor.
-// Owner identities are unproven (opaque Rva names). One ledger row per
-// destructor, landed one commit at a time.
-
-class Rva004BC4FC_Root
-{
-public:
-	virtual ~Rva004BC4FC_Root();
-
-private:
-	char m_pad04[8];
-};
-
-class Rva004BC4FC_Mid
-{
-public:
-	virtual void f1();
-};
-
-class Object;
-
-struct Coord3D;
-
-// The collide interface (+0x10): its only slot is onCollide.
-class Rva004BC4FC_B2
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
-
-class Rva004BCC43 : public CrateCollide
-{
-public:
-	virtual ~Rva004BCC43();
-};
-
 // tu-skeleton: 0x004BCC13 42B ??0UnitCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004BCC3D 6B ?Rva004BCC3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
 
-Rva004BCC43::~Rva004BCC43()
+UnitCrateCollide::~UnitCrateCollide()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp
 
