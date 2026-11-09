@@ -235,7 +235,9 @@ inline INILoadType retailLoadType( const INI *ini )
 // its two blur fields. The INI block starts from them.
 static FireEffect s_fireEffectSaved = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
 	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f };		// 0x12b5100
-static FireEffect s_fireEffectActive = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
+// extern "C" keeps the ledger's name, _s_fireEffectActive. Not static: Rva00309E7FGet returns its address from a unit with no TU yet, and it follows this block's copier in
+// retail, so retail compiled them together. It can be static again once a TU holds both.
+extern "C" FireEffect s_fireEffectActive = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
 	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f };		// 0x12b5158
 
 void parseFireEffect( INI *ini )

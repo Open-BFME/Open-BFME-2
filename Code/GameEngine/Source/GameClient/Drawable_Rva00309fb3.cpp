@@ -210,7 +210,9 @@ inline INILoadType retailLoadType( const INI *ini )
 // Retail's .data holds both at load (0x009BD7B8, 0x009BD7DC): GlowDiameter 17, GlowIntensity
 // 1.0, GlowTextureWidth 256, everything else zero; the INI block starts from them.
 static GlowEffect s_glowEffectSaved = { FALSE, 17, 1.0f, 256 };		// 0x12b4ff8
-static GlowEffect s_glowEffectActive = { FALSE, 17, 1.0f, 256 };		// 0x12b501c
+// extern "C" keeps the ledger's name, _s_glowEffectActive. Not static: Rva00309E4BGet returns its address from a unit with no TU yet, and it follows this block's copier in
+// retail, so retail compiled them together. It can be static again once a TU holds both.
+extern "C" GlowEffect s_glowEffectActive = { FALSE, 17, 1.0f, 256 };		// 0x12b501c
 Bool g_bfmeDirtyCU;					// 0x12f13fc; shared dirty flag (bfmeReset and the screen-filter preRenders)
 
 void parseGlowEffect( INI *ini )

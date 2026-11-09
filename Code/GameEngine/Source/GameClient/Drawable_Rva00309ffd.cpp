@@ -247,7 +247,9 @@ inline INILoadType retailLoadType( const INI *ini )
 // writes: the first and third m_unknown28 triples are zero. The INI block starts from them.
 static RingEffect s_ringEffectSaved = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
 	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f, 3, 1 };		// 0x12b5040
-static RingEffect s_ringEffectActive = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
+// extern "C" keeps the ledger's name, _s_ringEffectActive. Not static: Rva00309E65Get returns its address from a unit with no TU yet, and it follows this block's copier in
+// retail, so retail compiled them together. It can be static again once a TU holds both.
+extern "C" RingEffect s_ringEffectActive = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
 	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f, 3, 1 };		// 0x12b50a0
 
 void parseRingEffect( INI *ini )
