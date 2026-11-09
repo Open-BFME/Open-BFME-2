@@ -9,7 +9,7 @@
 //    UpgradeModule's 0x00C58790 at +0x18; its destructor 0x004B611C restores the same four tables
 //    and jumps to ??1UpgradeModule 0x0046089D.
 //  - 0x00C584E8 (12 slots): deleting destructor 0x004B61F7, loadPostProcess 0x00497805
-//    (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded), the name getter 0x004B613C, xfer 0x004B8710
+//    (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded), GetSnapshotName 0x004B613C ("ExperienceScalarUpgrade"), xfer 0x004B8710
 //    (Version1, then UpgradeModule::xfer; a body retail folds with ArmorUpgrade::xfer),
 //    getModuleNameKey 0x004B6142, then UpgradeModule's slots.
 //  - 0x00C584A0 (UpgradeMux, 18 slots) is UpgradeModule's except slot 8,
@@ -37,6 +37,7 @@ public:
 
 protected:
 	virtual void loadPostProcess();											// primary slot 1
+	virtual const char *GetSnapshotName() const;							// primary slot 2
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
 	virtual void upgradeImplementation();									// UpgradeMux slot 10
