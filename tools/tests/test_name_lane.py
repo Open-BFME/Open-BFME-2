@@ -3983,7 +3983,7 @@ def test_a_reason_on_your_own_vote_does_not_move_you(tree, tmp_path):
     assert accepted_of(lane, sha, "addBoxWidth") == {workers["seat-two"]}
 
 
-def test_no_worker_counts_for_both_spellings(tree, tmp_path):
+def test_no_worker_who_moved_counts_for_both_spellings(tree, tmp_path):
     lane, sha, workers = mirror_state(tree, tmp_path, ("seat-one", "sumBox"), ("seat-one", "addBoxWidth"),
                                       ("seat-two", "addBoxWidth"), ("seat-two", "sumBox"))
     assert accepted_of(lane, sha, "sumBox") & accepted_of(lane, sha, "addBoxWidth") == set()

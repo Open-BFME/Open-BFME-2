@@ -314,7 +314,7 @@ and stride, since two shapes can allocate the same size.
 spelling, and the agreement's detail holds every voter's reason. Such a reason records evidence and
 binds nothing new, so that voter can still accept another spelling afterwards, with its own row.
 Accepting a spelling that is not your vote still binds you for that source, and moves you off your
-own vote: one worker stands behind one spelling. So two checkouts that cross, each accepting the
+own vote: from then on you count for that one spelling and no other. So two checkouts that cross, each accepting the
 other's spelling before seeing the other's row, may each record an agreement, but once their rows
 merge neither spelling has both voters, and no landing proves either. No command settles such a
 key yet: `resolve` refuses it while an approval stands, and an edit to the source does not reopen it.

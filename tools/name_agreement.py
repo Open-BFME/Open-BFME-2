@@ -338,8 +338,9 @@ def resolved_workers(votes, agreed_rows, resolutions, key, name, source_sha):
     A blind vote for the selected spelling is itself an acceptance. A later
     acceptance can only come from one of the original voters and binds to the
     unchanged source. Every voter must accept when more than two participated.
-    One worker stands behind one spelling: accepting another than its own vote
-    moves it off that vote, and two such acceptances count for neither. So two
+    A worker that accepts a spelling other than its vote counts for that one
+    spelling and no other: it moves off its vote, and two such acceptances count
+    for neither. So two
     checkouts that cross, each accepting the other's spelling before seeing the
     other's row, prove neither once their rows merge, however they were recorded.
     """
