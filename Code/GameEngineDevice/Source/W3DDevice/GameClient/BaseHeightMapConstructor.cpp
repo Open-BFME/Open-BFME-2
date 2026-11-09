@@ -13,6 +13,8 @@
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+// First provider of RefCountClass::Delete_This in link order, as retail's 0x0006CE57 follows this constructor.
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #include <vector>
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU

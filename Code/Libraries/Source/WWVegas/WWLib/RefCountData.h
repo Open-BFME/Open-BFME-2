@@ -21,7 +21,8 @@ public:
     int Num_Refs() { return NumRefs; }
     // Retail keeps this body as a header COMDAT: 0x0006CE57 (every RefCountClass-derived table's slot 0)
     // and an identical unreferenced copy at 0x0030F466 in FXParticleSystem.cpp's region.
-    virtual void Delete_This() { delete this; }
+    // Global delete: retail calls slot 1 with flag 0, then ::operator delete on what it returns.
+    virtual void Delete_This() { ::delete this; }
 
 protected:
     virtual ~RefCountClass();
