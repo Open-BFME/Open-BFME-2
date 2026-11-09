@@ -34,23 +34,14 @@ typedef _STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const
 
 #include "../../Include/GameClient/ImageSubscriptMap.h"
 
-class AttackPriorityInfo : public Snapshot
-{
-public:
-	void setPriority(const ThingTemplate *thingTemplate, int priority);
-
-private:
-	AsciiString m_str;
-	int m_val;
-	MapIntVoid0033C432 *m_tree;
-};
+#include "../../Include/GameLogic/AttackPriorityInfo.h"
 
 void AttackPriorityInfo::setPriority(const ThingTemplate *thingTemplate, int priority)
 {
 	if (!thingTemplate)
 		return;
-	if (!m_tree)
-		m_tree = new MapIntVoid0033C432;
+	if (!m_priorityMap)
+		m_priorityMap = (AttackPriorityMap *)new MapIntVoid0033C432;
 	const Overridable *key = thingTemplate->getFinalOverride();
-	((ImageSubscriptMap *)m_tree)->operator[]((unsigned int)key) = (Image *)priority;
+	((ImageSubscriptMap *)m_priorityMap)->operator[]((unsigned int)key) = (Image *)priority;
 }

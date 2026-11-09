@@ -33,16 +33,7 @@ private:
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class AttackPriorityInfo
-{
-public:
-    void setPriority(const ThingTemplate *thing, Int priority);
-    void setDefaultPriority(Int priority) { m_defaultPriority = priority; }
-
-private:
-    char m_unknown[8];
-    Int m_defaultPriority;
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
@@ -55,7 +46,7 @@ void ScriptEngine::setPriorityDefault(ScriptAction *action)
         AppendDebugMessage(message, false);
         return;
     }
-    info->setDefaultPriority(action->getParameter(1)->getInt());
+    info->friend_setDefaultPriority(action->getParameter(1)->getInt());
 }
 
 // ZH ScriptEngine.cpp setPriorityKind and BFME 1 f98983a7d donor provide

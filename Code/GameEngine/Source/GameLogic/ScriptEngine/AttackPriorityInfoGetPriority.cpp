@@ -76,18 +76,7 @@ public:
 	Int m_size;
 };
 
-class AttackPriorityInfo
-{
-public:
-	Real getPriority(const Object *hunter, const Object *target, Bool adjust) const;
-	Real doModPriorityByCombatChain(Real priority, const Object *hunter, const Object *target) const;
-
-private:
-	void *m_snapshotVtable;
-	void *m_name;
-	Int m_defaultPriority;
-	AttackPriorityMapView *m_priorityMap;
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
 Real AttackPriorityInfo::getPriority(const Object *hunter, const Object *target, Bool adjust) const
 {
@@ -98,7 +87,7 @@ Real AttackPriorityInfo::getPriority(const Object *hunter, const Object *target,
 
 	const ThingTemplate *thingTemplate = finalTemplateOverride(rawTemplate);
 
-	AttackPriorityMapView *priorityMap = m_priorityMap;
+	AttackPriorityMapView *priorityMap = (AttackPriorityMapView *)m_priorityMap;
 	if (priorityMap && priorityMap->m_size)
 	{
 		AttackPriorityNode *found = (AttackPriorityNode *)((const PriorityTree *)priorityMap)->_M_find<unsigned int>((const unsigned int &)thingTemplate);
