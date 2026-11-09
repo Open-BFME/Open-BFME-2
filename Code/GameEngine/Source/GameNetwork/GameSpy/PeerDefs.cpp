@@ -253,22 +253,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 
 extern GameTextInterface *TheGameText;
 
-class GameSpyConfigInterface
-{
-public:
-	virtual ~GameSpyConfigInterface();
-	virtual void slot01(void) = 0;
-	virtual void slot02(void) = 0;
-	virtual void slot03(void) = 0;
-	virtual void slot04(void) = 0;
-	virtual void slot05(void) = 0;
-	virtual void slot06(void) = 0;
-	virtual void slot07(void) = 0;
-	virtual Int getQMChannel(void) = 0;
-	virtual void setQMChannel(Int channel) = 0;
-
-	static GameSpyConfigInterface *create(AsciiString config);
-};
+#include "../../../Include/GameNetwork/GameSpyConfigInterface.h"
 
 extern GameSpyConfigInterface *TheGameSpyConfig;
 

@@ -24,7 +24,7 @@
 #include "unicode_string.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
-class AptSaveLoad { public: static void OpenScreen(int mode, int screen, bool flag); };
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 class AptOptions { public: static void OpenScreen(bool a, bool b, bool c, bool d); };
 class AptCreateAHero { public: static void OpenScreen(int mode); };
 class AptSkirmish { public: static void OpenScreen(int mode); };
