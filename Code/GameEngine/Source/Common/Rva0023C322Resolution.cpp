@@ -3,7 +3,7 @@
 // ?rva0023C322@Rva0023C322@@QAEXXZ @0x0023C322 164B: clear flag at +0xCA then
 // store current resolution as "%d %d" into OptionPreferences map slot
 // "Resolution" and write it. Evidence: callee OptionPreferences ctor
-// 0x002E434E plus UserPreferences write 0x003B1BF3 plus Rva002E4272 dtor
+// 0x002E434E plus UserPreferences write 0x003B1BF3 plus OptionPreferences dtor
 // 0x002E4272; map subscript 0x002031FB plus AsciiString assign pin 0x000366F0
 // plus releaseBuffer 0x00036410 plus format 0x00038150; globals
 // TheWritableGlobalData 0x009FE758 with xRes +0x30 yRes +0x34; strings
@@ -38,12 +38,6 @@ template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, alloca
 }
 
 #include "../../Include/Common/UserPreferences.h"
-
-class Rva002E4272 : public UserPreferences
-{
-public:
-	virtual ~Rva002E4272();
-};
 
 #include "../../Include/Common/OptionPreferences.h"
 

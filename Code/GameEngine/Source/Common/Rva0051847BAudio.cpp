@@ -1,10 +1,11 @@
 // cl: /MD /EHsc
+// stlport
 // ?rva0051847B@Rva0051847B@@QAEXH@Z @0x0051847B 220B
 // Audio options apply: if m_27c==2 and m_284==0 set 1 and tail to rowed
 // rva00518359 else build OptionPreferences local, drive Display via 0x009FE9D8
 // slot 0x64, loop 5 volumes via getVolume/ftol/scale, then UseEAX3 slot 0x184
 // plus just-landed Rva00518262Enable. Evidence: callers in next TU; rowed
-// OptionPreferences ctor/getVolume/getUseEAX3 plus Rva002E4272 dtor; globals
+// OptionPreferences ctor/getVolume/getUseEAX3 plus OptionPreferences dtor; globals
 // 0x009FE758 0x009FE9D8 0x009FE6E8 0x007CF628; precedent Miles openDevice.
 class Rva00518359
 {
@@ -12,20 +13,7 @@ public:
 	void rva00518359();
 };
 void __cdecl Rva00518262Enable(void);
-class Rva002E4272
-{
-public:
-	virtual ~Rva002E4272();
-	char m_body[0x10];
-};
-class OptionPreferences : public Rva002E4272
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-	float getVolume(int index);
-	bool getUseEAX3();
-};
+#include "../../Include/Common/OptionPreferences.h"
 #include "../../Include/GameClient/Display.h"
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

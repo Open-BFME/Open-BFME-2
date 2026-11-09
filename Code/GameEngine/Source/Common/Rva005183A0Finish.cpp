@@ -3,26 +3,14 @@
 // ?rva005183A0@Rva005183A0@@QAE_NXZ
 // partial score=0.99 date=2026-09-30
 // cl: /MD /EHsc
+// stlport
 // ?rva005183A0@Rva005183A0@@QAE_NXZ, retail 0x005183A0, 90 bytes.
 // Unlock: if +0x310 null return false else if !=5 return true else
 // OptionPreferences forward via rowed ctor/forward/base-dtor returning
 // forward!=0. Evidence: unlock lane, callers 0x00518413 0x005197C4.
 // Improved: true UserPreferences size 0x14 not 0x20; inner block forces
 // int save across dtor (esi not bl); ==5 form places true at end.
-class Rva002E4272
-{
-public:
-	virtual ~Rva002E4272();
-	char m_pad[0x14 - 4];
-};
-class OptionPreferences : public Rva002E4272
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-	int Rva002E432EForward();
-	bool getAllHealthBars();
-};
+#include "../../Include/Common/OptionPreferences.h"
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetCheckBoxSetChecked(GameWindow *g, bool v);
 class Rva005183A0
