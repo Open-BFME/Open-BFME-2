@@ -6645,6 +6645,8 @@ public:
  template<class U> Rva002F0C32Allocator(const Rva002F0C32Allocator<U>&) throw() {}
 };
 
+// The rowed base (Rva002F0C32Helper.cpp) takes its head node from the pool; emit no copy here.
+namespace _STL { template <> _Rb_tree_base<int, Rva002F0C32Allocator<int> >::_Rb_tree_base(const allocator_type &); }
 typedef _STL::multiset<int, _STL::less<int>, Rva002F0C32Allocator<int> > FoldZoneTreeCtor;                         // 0x002F3039
 typedef _STL::map<int, Rva002F0B8AElement> FoldZoneTreeDtorMap;       // 0x002F0B8A
 typedef _STL::_Rb_tree<int, _STL::pair<const int, Rva002F0B8AElement >, _STL::_Select1st<_STL::pair<const int, Rva002F0B8AElement > >, _STL::less<int >, _STL::allocator<_STL::pair<const int, Rva002F0B8AElement > > > FoldZoneTreeDtor;
