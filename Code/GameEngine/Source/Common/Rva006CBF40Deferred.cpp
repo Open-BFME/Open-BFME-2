@@ -88,7 +88,15 @@ void deleteRva006D71B0(Rva006D71B0 *p)
 	delete p;
 }
 
-class Rva006D71E0 : public Rva006DE350
+// Retail's deleting helper calls ??1AptValueWithHash@@MAE@XZ at 0x006D63C0, rowed in its own unit.
+class AptValueWithHash
+{
+protected:
+	virtual ~AptValueWithHash();
+	friend class Rva006D71E0;
+};
+
+class Rva006D71E0
 {
 public:
 	virtual ~Rva006D71E0();
@@ -100,8 +108,9 @@ public:
 };
 
 // ?Rva006D71E0::~Rva006D71E0 present-unmatched
-Rva006D71E0::~Rva006D71E0()
+__declspec(noinline) Rva006D71E0::~Rva006D71E0()
 {
+	reinterpret_cast<AptValueWithHash *>(this)->AptValueWithHash::~AptValueWithHash();
 }
 
 void deleteRva006D71E0(Rva006D71E0 *p)
@@ -109,7 +118,14 @@ void deleteRva006D71E0(Rva006D71E0 *p)
 	delete p;
 }
 
-class Rva006E9B50 : public Rva006DE350
+// Retail's deleting helper calls ??1S4Dtor00587B30@@UAE@XZ at 0x006E96D0, rowed in its own unit.
+class S4Dtor00587B30
+{
+public:
+	virtual ~S4Dtor00587B30();
+};
+
+class Rva006E9B50
 {
 public:
 	virtual ~Rva006E9B50();
@@ -121,8 +137,9 @@ public:
 };
 
 // ?Rva006E9B50::~Rva006E9B50 present-unmatched
-Rva006E9B50::~Rva006E9B50()
+__declspec(noinline) Rva006E9B50::~Rva006E9B50()
 {
+	reinterpret_cast<S4Dtor00587B30 *>(this)->S4Dtor00587B30::~S4Dtor00587B30();
 }
 
 void deleteRva006E9B50(Rva006E9B50 *p)
@@ -151,7 +168,14 @@ void deleteRva006EC170(Rva006EC170 *p)
 	delete p;
 }
 
-class Rva006FE430 : public Rva006DE350
+// Retail's deleting helper calls ??1Rva006FE460@@UAE@XZ at 0x006FE460, rowed in its own unit.
+class Rva006FE460
+{
+public:
+	virtual ~Rva006FE460();
+};
+
+class Rva006FE430
 {
 public:
 	virtual ~Rva006FE430();
@@ -163,8 +187,9 @@ public:
 };
 
 // ?Rva006FE430::~Rva006FE430 present-unmatched
-Rva006FE430::~Rva006FE430()
+__declspec(noinline) Rva006FE430::~Rva006FE430()
 {
+	reinterpret_cast<Rva006FE460 *>(this)->Rva006FE460::~Rva006FE460();
 }
 
 void deleteRva006FE430(Rva006FE430 *p)
