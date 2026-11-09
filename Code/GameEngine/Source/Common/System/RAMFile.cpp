@@ -25,34 +25,7 @@ int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 
 extern FileSystem *TheFileSystem;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/LocalFile.h
-class LocalFile : public File
-{
-public:
-	virtual ~LocalFile();
-	virtual bool open( const char *filename, int access );
-	virtual void close( void );
-	virtual int read( void *buffer, int bytes );
-	virtual int write( const void *buffer, int bytes );
-	virtual int seek( int pos, seekMode mode );
-	virtual void nextLine( char *buf, int bufSize );
-	virtual bool scanInt( int &newInt );
-	virtual bool scanReal( float &newReal );
-	virtual bool scanString( AsciiString &newString );
-	virtual char *readEntireAndClose( void );
-	virtual File *convertToRAMFile( void );
-	// Retail slot 17 (0x44) is the wide-filename worker (0x00605D36, rowed as
-	// narrow-spelled open). Declared-only so gap's virtual call emits
-	// call [eax+0x44] with no extra row.
-	virtual bool wideOpenStub( const Wide *filename, int access );
-	// Retail slot 1 (0x04) narrow adapter 0x00605CFB 59B: Utf8->Wide then
-	// slot 17. Honest address name: vtable proves LocalFile slot 1, ret 8
-	// plus Utf8ToWide call proves (const char*,int)->bool.
-	virtual bool rva00605CFB( const char *filename, int access );
-
-protected:
-	int m_handle;			// +0x14, -1 when closed
-};
+#include "../../../Include/Common/LocalFile.h"
 
 class StreamingArchiveFile : public RAMFile
 {

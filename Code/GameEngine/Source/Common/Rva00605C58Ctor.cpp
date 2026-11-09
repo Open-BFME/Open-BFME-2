@@ -17,7 +17,7 @@ public:
 // word is not a code address or starts another ledger datum).
 extern "C" {
 void __identifier("??_GRva00605C6A@@UAEPAXI@Z")();
-void __identifier("?rva00605CFB@LocalFile@@UAE_NPBDH@Z")();
+void __identifier("?open@LocalFile@@UAE_NPBDH@Z")();
 void __identifier("?close@LocalFile@@UAEXXZ")();
 void __identifier("?read@LocalFile@@UAEHPAXH@Z")();
 void __identifier("?write@LocalFile@@UAEHPBXH@Z")();
@@ -33,11 +33,11 @@ void __identifier("?readEntireAndClose@LocalFile@@UAEPADXZ")();
 void __identifier("?convertToRAMFile@LocalFile@@UAEPAVFile@@XZ")();
 void __identifier("?lock@File@@UAEXXZ")();
 void __identifier("?unlock@File@@UAEXXZ")();
-void __identifier("?open@LocalFile@@UAE_NPBDH@Z")();
+void __identifier("?open@LocalFile@@UAE_NPBGH@Z")();
 }
 extern const void *const g_00C7AAE0[18] = {
 	(const void *)&__identifier("??_GRva00605C6A@@UAEPAXI@Z"), // slot 0 0x00605C75
-	(const void *)&__identifier("?rva00605CFB@LocalFile@@UAE_NPBDH@Z"), // slot 1 0x00605CFB
+	(const void *)&__identifier("?open@LocalFile@@UAE_NPBDH@Z"), // slot 1 0x00605CFB
 	(const void *)&__identifier("?close@LocalFile@@UAEXXZ"), // slot 2 0x00605A7D
 	(const void *)&__identifier("?read@LocalFile@@UAEHPAXH@Z"), // slot 3 0x00605DF7
 	(const void *)&__identifier("?write@LocalFile@@UAEHPBXH@Z"), // slot 4 0x00605E34
@@ -53,7 +53,7 @@ extern const void *const g_00C7AAE0[18] = {
 	(const void *)&__identifier("?convertToRAMFile@LocalFile@@UAEPAVFile@@XZ"), // slot 14 0x00605FDF
 	(const void *)&__identifier("?lock@File@@UAEXXZ"), // slot 15 0x006024CA
 	(const void *)&__identifier("?unlock@File@@UAEXXZ"), // slot 16 0x006024EE
-	(const void *)&__identifier("?open@LocalFile@@UAE_NPBDH@Z"), // slot 17 0x00605D36
+	(const void *)&__identifier("?open@LocalFile@@UAE_NPBGH@Z"), // slot 17 0x00605D36
 };
 
 class Rva00605C6A : public Rva00605C91

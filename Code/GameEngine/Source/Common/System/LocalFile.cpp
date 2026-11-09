@@ -77,34 +77,7 @@ int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 #include "../../../Include/Common/File.h"
 #include "../../../Include/Common/RAMFileClass.h"
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/LocalFile.h
-class LocalFile : public File
-{
-public:
-	virtual ~LocalFile();
-	virtual bool open( const char *filename, int access );
-	virtual void close( void );
-	virtual int read( void *buffer, int bytes );
-	virtual int write( const void *buffer, int bytes );
-	virtual int seek( int pos, seekMode mode );
-	virtual void nextLine( char *buf, int bufSize );
-	virtual bool scanInt( int &newInt );
-	virtual bool scanReal( float &newReal );
-	virtual bool scanString( AsciiString &newString );
-	virtual char *readEntireAndClose( void );
-	virtual File *convertToRAMFile( void );
-	// Retail slot 17 (0x44) is the wide-filename worker (0x00605D36, rowed as
-	// narrow-spelled open). Declared-only so gap's virtual call emits
-	// call [eax+0x44] with no extra row.
-	virtual bool wideOpenStub( const Wide *filename, int access );
-	// Retail slot 1 (0x04) narrow adapter 0x00605CFB 59B: Utf8->Wide then
-	// slot 17. Honest address name: vtable proves LocalFile slot 1, ret 8
-	// plus Utf8ToWide call proves (const char*,int)->bool.
-	virtual bool rva00605CFB( const char *filename, int access );
-
-protected:
-	int m_handle;			// +0x14, -1 when closed
-};
+#include "../../../Include/Common/LocalFile.h"
 
 class StreamingArchiveFile : public RAMFile
 {
@@ -277,15 +250,13 @@ int LocalFile::read( void *buffer, int bytes )
 // ?open@LocalFile@@UAE_NPBDH@Z
 // Opens a file using the standard C open() call. Access flags are mapped to the
 // appropriate open flags. Returns true if the file was opened successfully.
-// Retail takes a wide filename: it converts to narrow for File::open's
-// bookkeeping, then opens wide through _wopen. The TU keeps the narrow
-// override spelling (slot 1, same as File::open) and casts at the two wide
-// call sites, which fold to zero bytes.
-bool LocalFile::open( const char *filename, int access )
+// Slot 17: retail takes a wide filename, converts it to narrow for
+// File::open's bookkeeping, then opens wide through _wopen.
+bool LocalFile::open( const Wide *filename, int access )
 {
 	char narrowPath[0x410];
 
-	BFME2WideToUtf8( (const Wide *)filename, -1, narrowPath, 0x410 );
+	BFME2WideToUtf8( filename, -1, narrowPath, 0x410 );
 
 	if( !File::open( narrowPath, access) )
 	{
@@ -330,7 +301,7 @@ bool LocalFile::open( const char *filename, int access )
 		flags |= _O_RDONLY;
 	}
 
-	m_handle = _wopen( (const Wide *)filename, flags , _S_IREAD | _S_IWRITE);
+	m_handle = _wopen( filename, flags , _S_IREAD | _S_IWRITE);
 
 	if( m_handle == -1 )
 	{
@@ -541,18 +512,18 @@ bool LocalFile::scanReal( float &newReal )
 	return true;
 }
 
-// ?rva00605CFB@LocalFile@@UAE_NPBDH@Z @ 0x00605CFB (59B): narrow-to-wide open
-// adapter. Retail converts the narrow filename to a 260-wide stack buffer
-// via BFME2Utf8ToWide then tail-calls slot 17 (the wide worker rowed as
-// ?open@LocalFile). Vtable 0x0087AB28 slot 1 proves LocalFile; ret 8 plus the
-// Utf8ToWide call proves (const char*,int)->bool.
-bool LocalFile::rva00605CFB( const char *filename, int access )
+// ?open@LocalFile@@UAE_NPBDH@Z @ 0x00605CFB (59B): slot 1, File::open's
+// override. Retail converts the narrow filename to a 260-wide stack buffer
+// via BFME2Utf8ToWide, then calls slot 17, the wide worker. Vtable 0x0087AB28
+// slot 1 proves LocalFile; ret 8 plus the Utf8ToWide call proves
+// (const char*,int)->bool.
+bool LocalFile::open( const char *filename, int access )
 {
 	Wide widePath[0x104];
 
 	BFME2Utf8ToWide( filename, -1, widePath, 0x104 );
 
-	return wideOpenStub( widePath, access );
+	return open( widePath, access );
 }
 
 
@@ -593,8 +564,3 @@ int StreamingArchiveFile::read( void *buffer, int bytes )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1Rva00605CA7@@UAE@XZ=??1LocalFile@@UAE@XZ")
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?wideOpenStub@LocalFile@@UAE_NPBGH@Z=?open@LocalFile@@UAE_NPBDH@Z")
