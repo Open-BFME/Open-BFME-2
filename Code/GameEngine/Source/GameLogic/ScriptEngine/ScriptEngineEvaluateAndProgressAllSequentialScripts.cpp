@@ -177,15 +177,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class TeamPrototype
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-
-private:
-	char m_pad[0x14];
-	AsciiString m_name;	// +0x14
-};
+#include "../../../Include/Common/Team.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

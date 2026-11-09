@@ -771,17 +771,7 @@ int __cdecl Rva003BD46ESum(void *range);
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class TeamPrototype
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const;
-private:
-	unsigned char m_pad00[0x14];
-	AsciiString m_name; // +0x14
-	unsigned char m_pad18[0x334 - 0x18];
-	Team *m_dlinkhead_TeamInstanceList; // +0x334
-};
+#include "../../../Include/Common/Team.h"
 
 class Team : public MemoryPoolObject, public Snapshot
 {
