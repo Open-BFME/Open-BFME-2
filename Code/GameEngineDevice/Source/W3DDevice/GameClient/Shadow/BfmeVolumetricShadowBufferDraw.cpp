@@ -55,7 +55,6 @@ public:
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class VertexMaterialClass;
-extern VertexMaterialClass *ScreenMaterial;
 class DX8Wrapper
 {
 	friend class W3DVolumetricShadowManagerV2;
@@ -69,10 +68,10 @@ public:
 	static __forceinline void Set_Material(VertexMaterialClass *material)
 	{
 		if (material) material->Add_Ref();
-		// Same global the other Set_Material emitters name (ScreenMaterial), so
+		// Same global the other Set_Material emitters name (DX8Wrapper::render_state.material), so
 		// this COMDAT copy is identical to theirs.
-		if (ScreenMaterial) ScreenMaterial->Release_Ref();
-		ScreenMaterial = material;
+		if (DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
+		DX8Wrapper::render_state.material = material;
 		render_state_changed |= MATERIAL_CHANGED;
 	}
 	static __forceinline void Set_World_Identity()

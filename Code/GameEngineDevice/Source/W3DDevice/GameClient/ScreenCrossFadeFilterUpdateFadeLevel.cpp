@@ -109,7 +109,6 @@ struct BfmeDevice
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-extern VertexMaterialClass *ScreenMaterial;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
@@ -143,9 +142,9 @@ public:
 	{
 		if (material)
 			material->Add_Ref();
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = material;
+		if (DX8Wrapper::render_state.material)
+			DX8Wrapper::render_state.material->Release_Ref();
+		DX8Wrapper::render_state.material = material;
 		render_state_changed |= 0x4000;
 	}
 

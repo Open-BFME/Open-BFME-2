@@ -368,8 +368,14 @@ struct D3DXVECTOR4
 struct IDirect3DBaseTexture8 {};
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
 #define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8()))
+// The first fields of DX8Wrapper::render_state, which this unit's ShaderClass view can't take as the canonical struct.
+struct RenderStateStruct;
+struct RenderStateMaterialView { unsigned shader; VertexMaterialClass *material; };
+#define bfmeRenderStateMaterial (reinterpret_cast<RenderStateMaterialView *>(&DX8Wrapper::render_state)->material)
 class DX8Wrapper
 {
+protected:
+	static RenderStateStruct render_state;
 private:
 	friend class W3DShaderManager;
 private:
@@ -475,7 +481,6 @@ enum FilterTypes
 	FT_VIEW_DEFAULT
 };
 
-extern VertexMaterialClass *ScreenMaterial;
 
 union RenderTargetTemp
 {
@@ -1317,9 +1322,9 @@ void W3DShaderManager::startRenderToTexture()
 			VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 			if (vmat)
 				++vmat->NumRefs;
-			if (ScreenMaterial) ScreenMaterial->Release_Ref();
+			if (bfmeRenderStateMaterial) bfmeRenderStateMaterial->Release_Ref();
 			DX8Wrapper::Mark_Material_Changed();
-			ScreenMaterial = vmat;
+			bfmeRenderStateMaterial = vmat;
 			if (vmat)
 			{
 				--vmat->NumRefs;

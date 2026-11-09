@@ -26,7 +26,6 @@ class RenderInfoClass;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-extern VertexMaterialClass *ScreenMaterial;
 
 class DX8Caps
 {
@@ -42,8 +41,14 @@ struct IDirect3DDevice8;
 
 extern unsigned int number_of_DX8_calls;
 
+// The first fields of DX8Wrapper::render_state, which this unit's ShaderClass view can't take as the canonical struct.
+struct RenderStateStruct;
+struct RenderStateMaterialView { unsigned shader; VertexMaterialClass *material; };
+#define bfmeRenderStateMaterial (reinterpret_cast<RenderStateMaterialView *>(&DX8Wrapper::render_state)->material)
 class DX8Wrapper
 {
+protected:
+	static RenderStateStruct render_state;
 public:
 	static void Set_Shader(const ShaderClass &shader);
 	static void Apply_Render_State_Changes();
@@ -54,9 +59,9 @@ public:
 	{
 		if (material)
 			material->Add_Ref();
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = material;
+		if (bfmeRenderStateMaterial)
+			bfmeRenderStateMaterial->Release_Ref();
+		bfmeRenderStateMaterial = material;
 		render_state_changed |= 0x4000;
 	}
 protected:

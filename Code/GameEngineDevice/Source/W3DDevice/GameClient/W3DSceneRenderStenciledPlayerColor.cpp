@@ -26,12 +26,17 @@ ShaderClass g_00DB4248 = { 0x00105817u };
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-extern VertexMaterialClass *ScreenMaterial;
 
 struct IDirect3DDevice8;
 
+// The first fields of DX8Wrapper::render_state, which this unit's ShaderClass view can't take as the canonical struct.
+struct RenderStateStruct;
+struct RenderStateMaterialView { unsigned shader; VertexMaterialClass *material; };
+#define bfmeRenderStateMaterial (reinterpret_cast<RenderStateMaterialView *>(&DX8Wrapper::render_state)->material)
 class DX8Wrapper
 {
+protected:
+	static RenderStateStruct render_state;
 public:
 	enum { MATERIAL_CHANGED = 0x4000 };
 	static void Set_Shader(const ShaderClass &shader);
@@ -41,10 +46,10 @@ public:
 	{
 		if (material)
 			material->Add_Ref();
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
+		if (bfmeRenderStateMaterial)
+			bfmeRenderStateMaterial->Release_Ref();
 		render_state_changed |= MATERIAL_CHANGED;
-		ScreenMaterial = material;
+		bfmeRenderStateMaterial = material;
 	}
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 	static Bool _Is_Triangle_Draw_Enabled() { return _EnableTriangleDraw; }

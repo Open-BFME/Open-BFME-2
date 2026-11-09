@@ -187,6 +187,7 @@ struct SortingDeviceStateAccess : DX8Wrapper
 {
 	using DX8Wrapper::matrix_changes;
 	using DX8Wrapper::render_state_changed;
+	using DX8Wrapper::render_state;
 };
 
 // BFME stores the eight texture references in RenderStateStruct as owning
@@ -547,7 +548,6 @@ static void Apply_Render_State(RenderStateStruct& render_state)
 // BFME1 donor sortingrenderer.cpp Rva009391B0::apply loop+break shape.
 struct BFME2TextureRef { void *Ptr; };
 void BFME2Set_Texture(unsigned stage, const struct BFME2TextureRef &texture);
-extern class VertexMaterialClass *ScreenMaterial;
 extern unsigned number_of_DX8_calls;
 
 void Rva0012D4D0Apply(RenderStateStruct &render_state)
@@ -556,10 +556,10 @@ void Rva0012D4D0Apply(RenderStateStruct &render_state)
 	VertexMaterialClass *mat = render_state.material;
 	if (mat)
 		mat->Add_Ref();
-	if (ScreenMaterial)
-		ScreenMaterial->Release_Ref();
+	if (SortingDeviceStateAccess::render_state.material)
+		SortingDeviceStateAccess::render_state.material->Release_Ref();
 	SortingDeviceStateAccess::render_state_changed |= 0x4000;
-	ScreenMaterial = mat;
+	SortingDeviceStateAccess::render_state.material = mat;
 	for (int i = 0; i < *(const int *)((const unsigned char *)DX8Wrapper::Get_Current_Caps() + 0x2b0); ++i)
 		BFME2Set_Texture(i, reinterpret_cast<const struct BFME2TextureRef &>(render_state.Textures[i]));
 	if (render_state.material->Get_Lighting()) {

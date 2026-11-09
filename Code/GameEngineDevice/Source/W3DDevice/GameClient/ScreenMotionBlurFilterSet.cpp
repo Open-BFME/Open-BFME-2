@@ -41,7 +41,6 @@ public:
  ~TextureHandle() { if(p) p->Release_Ref(); }
 };
 void BoxSetTexture(unsigned int,TextureBaseClass*&);
-extern VertexMaterialClass *ScreenMaterial;
 extern unsigned number_of_DX8_calls;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
@@ -63,8 +62,8 @@ public:
  // Inline at the setter; the out-of-line body belongs to HeightMap.cpp.
  static __declspec(dllimport) __forceinline void Set_Material(const VertexMaterialClass *vmat) {
   if(vmat) ++vmat->refs;
-  if(ScreenMaterial) ScreenMaterial->Release_Ref();
-  ScreenMaterial=(VertexMaterialClass *)vmat;
+  if(DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
+  DX8Wrapper::render_state.material=(VertexMaterialClass *)vmat;
   render_state_changed |= 0x4000;
  }
  static __forceinline void Set_Shader(const ShaderClass &shader) {

@@ -28,7 +28,6 @@ enum FilterTypes { FT_NULL_FILTER=0 };
 extern View *TheTacticalView;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
-extern VertexMaterialClass *ScreenMaterial;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
@@ -58,6 +57,7 @@ class DX8Caps;
 
 class DX8Wrapper
 {
+	friend class Rva007DB820;
 public:
 	static DX8Caps *_Get_DX8_Caps() { return CurrentCaps; }
 	static void Set_DX8_Texture_Stage_State(unsigned, unsigned long, unsigned);
@@ -202,8 +202,8 @@ Int Rva007DB820::set(FilterModes mode) {
   }
   VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
   if (vmat) ++vmat->NumRefs;
-  if (ScreenMaterial) ScreenMaterial->Release_Ref();
-  ScreenMaterial = vmat;
+  if (DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
+  DX8Wrapper::render_state.material = vmat;
   DX8Wrapper::Mark_Material_Changed();
   REF_PTR_RELEASE(vmat);
   DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);
