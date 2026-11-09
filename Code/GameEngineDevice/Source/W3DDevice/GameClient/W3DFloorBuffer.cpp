@@ -68,15 +68,8 @@ struct Rva00131DFC : public CursorTextureSlot
 {
 	void rva00131DFC(void *a, void *b, void *c, void *d, int e, int f);
 };
-class BfmeDynamicVBRefCount
-{
-public:
-	virtual void DeleteThis();
-	virtual ~BfmeDynamicVBRefCount();
-	int references;
-	void Release_Ref() { if (--references == 0) DeleteThis(); }
-};
-class BfmeDynamicVBBase : public BfmeDynamicVBRefCount
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+class BfmeDynamicVBBase : public RefCountClass
 {
 public:
 	virtual ~BfmeDynamicVBBase();
@@ -92,7 +85,6 @@ public:
 	void *buffer;
 	BfmeDynamicNativeVB(unsigned a, unsigned short b, unsigned c, unsigned d);
 };
-#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 // The Xfer virtual declaration follows the already verified E5725 provider.

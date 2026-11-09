@@ -1,30 +1,13 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ, retail 0x0006ce57, 20 bytes. Banked partial (score 0.85) closed by tools/permute.py;
-// the body is the banked one up to statement/operand order and local types.
-#include <new>
+// ?Delete_This@RefCountClass@@UAEXXZ, retail 0x0006ce57, 20 bytes: the canonical header's COMDAT, slot 0 of every
+// RefCountClass-derived table. This unit compiles it alone, called outright so that no table comes with it.
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class BfmeDynamicVBRefCount
-{
-public:
-	virtual void DeleteThis();
-	virtual ~BfmeDynamicVBRefCount() {}
-	int references;
-};
+#pragma inline_depth(0)
 
-// Retail slot 1 is the scalar deleting destructor (flag 0 returns `this`).
-class BfmeDynamicVBDeleteView
+// ?<EmitRefCountClassDeleteThis> absent-from-retail
+void EmitRefCountClassDeleteThis(RefCountClass *object)
 {
-public:
-	virtual void slot0();
-	virtual void *scalarDeletingDestructor(unsigned flags);
-};
-
-void BfmeDynamicVBRefCount::DeleteThis()
-{
-	register unsigned int flags = 0;
-	void *object = reinterpret_cast<void *>(flags);
-	if (reinterpret_cast<unsigned int>(this) != flags)
-		object = reinterpret_cast<BfmeDynamicVBDeleteView *>(this)->scalarDeletingDestructor(flags);
-	::operator delete(object);
+	object->RefCountClass::Delete_This();
 }

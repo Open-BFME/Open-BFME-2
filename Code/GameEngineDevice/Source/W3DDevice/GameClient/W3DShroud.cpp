@@ -180,15 +180,7 @@ template<class T, class U> struct _Alloc_traits<T, Rva0054E8DCAllocator<U> > {
 };
 }
 class W3DShroud;
-class __declspec(novtable) BfmeDynamicVBRefCount
-{
-public:
-	__declspec(dllimport) __forceinline BfmeDynamicVBRefCount() : m_count(1) {}
-	virtual void DeleteThis();
-	virtual ~BfmeDynamicVBRefCount();
-	int m_count;
-};
-class Rva0072AED : public BfmeDynamicVBRefCount
+class Rva0072AED : public RefCountClass
 {
 public:
 	Rva0072AED() : m_ref(0) {}

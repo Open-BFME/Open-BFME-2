@@ -45,19 +45,12 @@ protected:
  static DX8Caps *CurrentCaps;
 };
 #define bfmeDynamicCaps ((BfmeDynamicCapsPrefix *)DX8Wrapper::Get_Current_Caps())
-class BfmeDynamicVBRefCount {
-public:
- BfmeDynamicVBRefCount():references(1) {}
- virtual void DeleteThis();
- // RefCountClass's destructor: the base constructor's unwind state 0 is this
- // subobject, finished before the vtable store, and every buffer destructor
- // ends by restoring this class's vtable (0x00BC650C).
- virtual ~BfmeDynamicVBRefCount() {}
- int references;
- void AddRef() { ++references; }
- void ReleaseRef() { --references; if(references==0) DeleteThis(); }
-};
-class BfmeDynamicVBBase:public BfmeDynamicVBRefCount {
+// RefCountClass's destructor: the base constructor's unwind state 0 is this
+// subobject, finished before the vtable store, and every buffer destructor
+// ends by restoring this class's vtable (0x00BC650C). Inline, as WWLib's refcount.h has it.
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
+class BfmeDynamicVBBase:public RefCountClass {
 public:
  // Retail's shared base constructor lives at 0x00139350 and both derived
  // constructors below reach it through a REL32; it is defined after them so
@@ -65,7 +58,7 @@ public:
  // not assumed -- the sorting buffer passes (1,0x252,count,0) and the native
  // one (0,fvf,count,fvf_size).
  BfmeDynamicVBBase(unsigned,unsigned,unsigned short,unsigned);
- // Declared after DeleteThis so it takes vtable slot 1 and leaves slot 0 where
+ // Declared after Delete_This so it takes vtable slot 1 and leaves slot 0 where
  // the already-matched bodies in this unit call it. Its presence is what gives
  // both constructors below retail's unwind frame: with no destructible base
  // there is nothing to unwind and MSVC emits no frame at all.
@@ -170,7 +163,7 @@ void DynamicVBAccessClass::Allocate_DX8_Dynamic_Buffer()
  bfmeDynamicVBInUse[formatIndex]=true;
  if(vertexCount>bfmeDynamicVBSizes[formatIndex]) {
   if(bfmeDynamicVBs[formatIndex]) {
-   ((BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex])->ReleaseRef();
+   ((BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex])->Release_Ref();
    bfmeDynamicVBs[formatIndex]=0;
   }
   bfmeDynamicVBSizes[formatIndex]=vertexCount;
@@ -184,8 +177,8 @@ void DynamicVBAccessClass::Allocate_DX8_Dynamic_Buffer()
  }
  ((BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex])->usesDeclaration=declaration!=0;
  if((unsigned(vertexCount)+bfmeDynamicVBOffsets[formatIndex])>bfmeDynamicVBSizes[formatIndex]) bfmeDynamicVBOffsets[formatIndex]=0;
- if(bfmeDynamicVBs[formatIndex]) ((BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex])->AddRef();
- if(buffer) buffer->ReleaseRef();
+ if(bfmeDynamicVBs[formatIndex]) ((BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex])->Add_Ref();
+ if(buffer) buffer->Release_Ref();
  buffer=(BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex];
  vertexOffset=bfmeDynamicVBOffsets[formatIndex];
 }

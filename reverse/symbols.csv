@@ -1799,7 +1799,6 @@ name,address,notes
 ??1BfmeAudioEventPrefix136@@UAE@XZ,0x002D9A43,Native136-byte alias of rowed common-prefix virtual destructor128; call sites2AA9C2 and3141BC destroy136-byte locals; header linker alias binds existing provider and no duplicate body is claimed
 ??1BfmeBaseCH@@QAE@XZ,0x0032C36B,callee read from retail REL32 at 0x0032C655 in ~BfmeTmpACH 0x0032C632: base-class dtor; body unrowed
 ??1BfmeC994@@UAE@XZ,0x00655780
-??1BfmeDynamicVBRefCount@@UAE@XZ,0x00072892,TU-private view (bfmedynamicvertexbuffer.cpp) of the RefCountClass base: its unwind funclet destroys that base through the RefCountClass destructor at this address
 ??1BfmeEmotionName@@QAE@XZ,0x00036410,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??1BfmeHandleCX@@QAE@XZ,0x0017098D,TU-private view (MaterialCollector/MeshModel units) of the same texture reference; their unwind funclets destroy it through the ICF-folded release-if-non-null body at this address
 ??1BfmeItemERE@@QAE@XZ,0x002154BE,callee of ?bfmeResizeERE@BfmeVecERE@@QAEXIUBfmeItemERE@@@Z at retail 0x00215AE1 read from its REL32 displacement; donor-named alias of the rowed element dtor at 0x002154BE

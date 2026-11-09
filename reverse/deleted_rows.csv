@@ -6011,3 +6011,4 @@ _$E242,0x007B3EB4,Retracted for readmission under the same unit's new compiler l
 _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler label: removing the class-static s_instance (LINK-615) renumbers the unit's _$E initializers; retail's second DefaultModuleTag<6>::s_name initializer
 ??1Rva004BD207@@UAE@XZ,0x004BD207,"Renamed to ??1SalvageCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A9C0)"
 ??_GRva004BD207@@UAEPAXI@Z,0x004BD265,"Renamed to ??_GSalvageCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A9C0)"
+?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ,0x0006CE57,"Renamed to ?Delete_This@RefCountClass@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BC650C slot 0)"

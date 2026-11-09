@@ -12,15 +12,7 @@
 
 class W3DShroud;
 
-class __declspec(novtable) BfmeDynamicVBRefCount
-{
-public:
-	__declspec(dllimport) __forceinline BfmeDynamicVBRefCount() : m_count(1) {}
-	virtual void DeleteThis();
-	virtual ~BfmeDynamicVBRefCount();
-	int m_count;
-};
-
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class Rva00073320Ref
 {
 public:
@@ -31,7 +23,7 @@ public:
 
 // The counted reference at +8 belongs to the intermediate class
 // (Rva00072AEDDtor.cpp's Rva0072AED), so it is initialised after the count.
-class __declspec(novtable) Rva0072AED : public BfmeDynamicVBRefCount
+class __declspec(novtable) Rva0072AED : public RefCountClass
 {
 public:
 	virtual ~Rva0072AED();

@@ -867,3 +867,14 @@ slots). The refusal should become a bridge at the next real link; the
 13 missing source slots (OpaqueScalarDeletingDtorsB10.cpp defines a
 4-byte table) remain open: AptSpellStore.cpp must provide the full
 14-slot `??_7AptSpellStore@@6BGameWindow@@@`.
+**Cluster 4, repaired: `0x0006CE57`, slot 0 of every RefCountClass-derived table (bridge lane, 2026-11-09).**
+- The address was rowed `?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ`, so `?Delete_This@RefCountClass@@UAEXXZ` had no row and
+  every compiled table holding it read as a slot mismatch. In the queue of real link `1a6707e43c`, 87 bridged tables held the
+  slot, and for 37 of them it was the only mismatch, each with a compiled copy of retail's length.
+- Retail's body is `::delete this` (slot 1 with flag 0, then `::operator delete` on the result), 20 bytes. `delete this` is 12.
+  The canonical `RefCountData.h` now says so. The pinned donor `refcount.h` copies cannot change and stay at 12 bytes, so
+  `BaseHeightMapConstructor.cpp`, the COMDAT's first provider, includes the canonical header first. If link order changes,
+  a 12-byte copy can win: the bridge then reports target-not-winning-provider on this slot, since those copies are no twins.
+- The row stays in `BfmeDynamicVBRefCountRva0006CE57.cpp` (the map only proposes a unit for it), which emits the COMDAT alone,
+  a twin of the winner's.
+- Unverified: no real link has run on this yet, so no table has retired. `tools/vtable_bridge.py` decides that.

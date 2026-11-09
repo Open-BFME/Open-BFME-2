@@ -63,16 +63,8 @@ Rva000411BC::Rva000411BC(EmitVtableTag *)
 {
 }
 
-class __declspec(novtable) BfmeDynamicVBRefCount
-{
-public:
-	__declspec(dllimport) __forceinline BfmeDynamicVBRefCount() : m_count(1) {}
-	virtual void DeleteThis();
-	virtual ~BfmeDynamicVBRefCount();
-	int m_count;
-};
-
-class Rva0072AED : public BfmeDynamicVBRefCount
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+class Rva0072AED : public RefCountClass
 {
 public:
 	__declspec(dllimport) __forceinline Rva0072AED() : m_ref(0) {}
@@ -115,7 +107,6 @@ Rva000416E7::Rva000416E7(EmitVtableTag *)
 // (Delete_This, deleting dtor, Install_Materials, UnInstall_Materials) so
 // both units emit one vftable instead of competing copies.
 // The canonical MaterialPassClass supplies the inherited slots and layout.
-#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 
 class W3DShroudMaterialPassClass : public MaterialPassClass

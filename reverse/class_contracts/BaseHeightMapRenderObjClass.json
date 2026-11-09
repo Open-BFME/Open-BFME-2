@@ -383,7 +383,7 @@
       "listed_agrees": null,
       "slots": [
        {
-        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "name": "?Delete_This@RefCountClass@@UAEXXZ",
         "slot": 0,
         "target": "0x6ce57"
        },
@@ -1144,7 +1144,7 @@
     "end": "non-code",
     "offset": 0,
     "slots": {
-     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "0": "?Delete_This@RefCountClass@@UAEXXZ",
      "1": "??_GBaseHeightMapRenderObjClass@@UAEPAXI@Z",
      "2": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
      "3": "?UnknownSlot2@BFME2Encoding0MotionChannel@@UAEHXZ",
