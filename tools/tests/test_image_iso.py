@@ -1996,7 +1996,7 @@ def test_review_writable_retail_string_is_not_a_poolable_literal():
     c.retail.put(0x3200, b"English\0")
     # An actual PE32 .data section, with a writable initialized buffer.
     from types import SimpleNamespace
-    c.retail.sections = [SimpleNamespace(VirtualAddress=0x3000, Misc_VirtualSize=0x1000,
+    c.retail.sections = [SimpleNamespace(Name=b".data", VirtualAddress=0x3000, Misc_VirtualSize=0x1000,
                                          SizeOfRawData=0x1000, Characteristics=0xC0000040)]
     c.retail.readonly = lambda rva, size=1: iso.Image.readonly(c.retail, rva, size)
     c.retail_literals = {0x3200: (8, 1)}
@@ -2031,3 +2031,73 @@ def test_review_data_location_ambiguity_does_not_increment_code_counter(tmp_path
     counts = iso.attach_objects([dict(public("g", 0x2000), object="g.obj")], manifest)
     assert counts["data_symbol_locations_ambiguous"] == 1
     assert counts["code_symbol_locations_ambiguous"] == 0
+
+
+@pytest.mark.parametrize("unresolved", ["branch", "imm", "mem"])
+@pytest.mark.parametrize("difference", ["byte", "branch", "pointer"])
+def test_final_review_unresolved_operand_cannot_hide_later_difference(unresolved, difference):
+    c = checker([public("f", 0x300, 16), public("right", 0x600), public("wrong", 0x700)],
+                {"f": {0x100}, "right": {0x200}, "wrong": {0x300}})
+    if unresolved == "branch":
+        a = b"\xe8" + struct.pack("<i", 0x900 - 0x305)
+        b = b"\xe8" + struct.pack("<i", 0x800 - 0x105)
+    else:
+        opcode = b"\xb8" if unresolved == "imm" else b"\xa1"
+        a = opcode + struct.pack("<I", c.ours.base + 0x4000)
+        b = opcode + struct.pack("<I", c.retail.base + 0x4000)
+        c.ours.relocations.add(0x301)
+    if difference == "byte":
+        aa, bb, equal = b"\x90", b"\xc3", b"\xc3"
+    elif difference == "branch":
+        aa = b"\xe8" + struct.pack("<i", 0x700 - 0x30a)
+        bb = b"\xe8" + struct.pack("<i", 0x200 - 0x10a)
+        equal = b"\xe8" + struct.pack("<i", 0x600 - 0x30a)
+    else:
+        aa = b"\xb9" + struct.pack("<I", c.ours.base + 0x700)
+        bb = b"\xb9" + struct.pack("<I", c.retail.base + 0x200)
+        equal = b"\xb9" + struct.pack("<I", c.ours.base + 0x600)
+        c.ours.relocations.add(0x306)
+    c.ours.put(0x300, a + aa); c.retail.put(0x100, b + bb)
+    assert c.code_comparison(0x300, 0x100, len(a + aa)) == (False, "body-mismatch")
+    c.ours.put(0x305, equal)
+    assert c.code_comparison(0x300, 0x100, len(a + aa)) == (None, "code-equal-unresolved-operand")
+
+
+@pytest.mark.parametrize("name,allowed", [(b".rdata", True), (b".data", False)])
+def test_final_review_retail_section_name_controls_literal_credit(name, allowed):
+    from types import SimpleNamespace
+    c = checker([public("??_C@_0English", 0x3000, 8)], {})
+    c.ours.put(0x3000, b"English\0"); c.retail.put(0x3200, b"English\0")
+    c.retail.sections = [SimpleNamespace(Name=name, VirtualAddress=0x3000, Misc_VirtualSize=0x1000,
+                                         SizeOfRawData=0x1000, Characteristics=0xC0000040)]
+    c.retail.readonly = lambda rva, size=1: iso.Image.readonly(c.retail, rva, size)
+    c.retail_literals = {0x3200: (8, 1)}
+    assert c.ledger_literal(0x3000, 0x3200) is allowed
+
+
+def test_final_review_one_past_array_is_reported_even_at_another_global():
+    c = checker([public("g", 0x2800), public("array", 0x2000, 16), public("following", 0x2010)],
+                {"g": {0x2900}, "array": {0x2100}, "following": {0x3100}})
+    c.ours.pointer(0x2800, 0x2010); c.retail.pointer(0x2900, 0x2110)
+    c.ledger([row("g", 0x2900)], {})
+    assert c.counts["wrong_pointers"] == 0
+    assert c.counts["pointers_end_equal"] == 1
+    assert c.pointer_words[0]["verdict"] == "equal"
+    assert c.pointer_words[0]["reason"] == "proven-end-pointer"
+    assert c.pointer(c.ours.base + 0x2011, c.retail.base + 0x2111) == "wrong"
+
+
+def test_final_review_different_decoded_lengths_are_a_body_mismatch():
+    c = checker([], {})
+    c.ours.put(0x300, b"\x90\x0f"); c.retail.put(0x100, b"\x90\xc3")
+    assert c.code_comparison(0x300, 0x100, 2) == (False, "body-mismatch")
+
+
+@pytest.mark.parametrize("opcode", [b"\x3d", b"\xa1"])
+def test_final_review_named_storage_operand_cannot_borrow_array_end_identity(opcode):
+    c = checker([public("array", 0x2000, 16), public("following", 0x2010), public("wanted", 0x4000)],
+                {"array": {0x2100}, "following": {0x3100}, "wanted": {0x2110}})
+    c.ours.put(0x300, opcode + struct.pack("<I", c.ours.base + 0x2010))
+    c.retail.put(0x100, opcode + struct.pack("<I", c.retail.base + 0x2110))
+    c.ours.relocations.add(0x301)
+    assert c.code_comparison(0x300, 0x100, 5) == (False, "body-mismatch")

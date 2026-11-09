@@ -69,7 +69,8 @@ class Image:
                    s.VirtualAddress + s.Misc_VirtualSize for s in self.sections)
 
     def readonly(self, rva, size=1):
-        return any(not sec.Characteristics & 0x80000000 and
+        # Retail marks even .rdata writable; literal pooling is section-scoped.
+        return any(sec.Name.rstrip(b"\0") == b".rdata" and
                    sec.VirtualAddress <= rva and rva + size <= sec.VirtualAddress +
                    max(sec.Misc_VirtualSize, sec.SizeOfRawData) for sec in self.sections)
 
@@ -554,6 +555,13 @@ class Checker:
             for target in self.mapping.targets_for(p):
                 self.by_retail[target].append(p)
         self.retail_addresses = sorted(self.by_retail)
+        self.end_targets = collections.defaultdict(set)
+        for p in publics:
+            targets = self.mapping.targets_for(p)
+            if (p["extent"] and len(targets) == 1 and
+                    not ours.in_text(ours.base + p["rva"]) and
+                    self.mapping.resolve(p["rva"]) == next(iter(targets))):
+                self.end_targets[p["rva"] + p["extent"]].add(next(iter(targets)) + p["extent"])
 
     def defect(self, family, rva, p, evidence):
         self.counts[family] += 1
@@ -569,9 +577,19 @@ class Checker:
             return max(found, key=lambda p: p["extent"] or 0)
         return None
 
-    def pointer(self, actual, expected, *, proven=False):
+    def end_pointer(self, actual, expected):
+        targets = self.end_targets.get(actual - self.ours.base, set())
+        if expected - self.retail.base in targets:
+            return "equal" if len(targets) == 1 else "unchecked"
+        return None
+
+    def pointer(self, actual, expected, *, proven=False, allow_end=True):
         if actual == expected == 0:
             return "equal"
+        end = self.end_pointer(actual, expected) if allow_end else None
+        if end is not None:
+            self.counts["pointers_end_equal" if end == "equal" else "pointers_end_unchecked"] += 1
+            return end
         # A proven pointer to ledger-backed image storage cannot be null or
         # outside the linked image when retail points at that storage.
         if proven and self.by_retail.get(expected - self.retail.base):
@@ -665,10 +683,11 @@ class Checker:
             return False, "body-mismatch"
         aa, bb = list(md.disasm(a, actual)), list(md.disasm(b, expected))
         complete = bool(aa and bb) and sum(i.size for i in aa) == size and sum(i.size for i in bb) == size
-        if not complete and not partial:
-            return None, "code-equal-decode-incomplete"
+        if sum(i.size for i in aa) != sum(i.size for i in bb):
+            return False, "body-mismatch"
         if complete and len(aa) != len(bb):
             return False, "body-mismatch"
+        unresolved = None
         for x, y in zip(aa, bb):
             if x.id != y.id or x.size != y.size or len(x.operands) != len(y.operands):
                 return False, "body-mismatch"
@@ -683,28 +702,33 @@ class Checker:
                     if actual <= xo.imm < actual + (row_size or size):
                         got = expected + xo.imm - actual
                     if got is None:
-                        return None, "code-equal-unresolved-operand"
-                    if got != want:
+                        unresolved = unresolved or "code-equal-unresolved-operand"
+                    elif got != want:
                         return False, "body-mismatch"
                     masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
                 elif xo.type == X86_OP_IMM and x.address + x.imm_offset in self.ours.relocations:
-                    verdict = self.pointer(xo.imm & 0xffffffff, yo.imm & 0xffffffff)
+                    # A named storage operand is not proof of an array bound.
+                    verdict = self.pointer(xo.imm & 0xffffffff, yo.imm & 0xffffffff,
+                        allow_end=not self.by_retail.get((yo.imm & 0xffffffff) - self.retail.base))
                     if verdict == "unchecked":
-                        return None, "code-equal-unresolved-operand"
+                        unresolved = unresolved or "code-equal-unresolved-operand"
                     if verdict == "wrong":
                         return False, "body-mismatch"
                     masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
                 elif xo.type == X86_OP_MEM and x.address + x.disp_offset in self.ours.relocations:
-                    verdict = self.pointer(xo.mem.disp & 0xffffffff, yo.mem.disp & 0xffffffff)
+                    verdict = self.pointer(xo.mem.disp & 0xffffffff, yo.mem.disp & 0xffffffff,
+                        allow_end=not self.by_retail.get((yo.mem.disp & 0xffffffff) - self.retail.base))
                     if verdict == "unchecked":
-                        return None, "code-equal-unresolved-operand"
+                        unresolved = unresolved or "code-equal-unresolved-operand"
                     if verdict == "wrong":
                         return False, "body-mismatch"
                     masked.update(range(x.disp_offset, x.disp_offset + x.disp_size))
             if any(x.bytes[k] != y.bytes[k] for k in range(x.size) if k not in masked):
                 return False, "body-mismatch"
         if not complete:
-            return None, "code-equal-decode-incomplete"
+            unresolved = unresolved or "code-equal-decode-incomplete"
+        if unresolved:
+            return None, unresolved
         return True, "row-identity-and-abi-equal"
 
     def forwarder(self, image, rva):
@@ -843,7 +867,9 @@ class Checker:
                 self.pointer_words.append(dict(name=p["name"], retail_rva=hex(br), image_rva=hex(ar),
                     actual=hex(actual), expected=hex(expected), verdict=result,
                     evidence="COFF DIR32" if offset in fields else "PE HIGHLOW",
-                    reason=("target correspondence unresolved" if result == "unchecked" else
+                    reason=("proven-end-pointer" if self.end_pointer(actual, expected) == "equal" else
+                            "end-pointer-ambiguous" if self.end_pointer(actual, expected) == "unchecked" else
+                            "target correspondence unresolved" if result == "unchecked" else
                             "bounded pooled literal equivalence" if result == "equal" and
                             self.mapping.resolve(actual - self.ours.base, expected - self.retail.base) is None else
                             "mapped target identity")))
