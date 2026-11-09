@@ -123,20 +123,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-protected:
-	__declspec(dllimport) __forceinline void setAdjustsDestination(Bool b)
-	{
-		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 57");
-		m_adjustsDestination = b;
-	}
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIEnterState : public AIInternalMoveToState
 {
@@ -192,6 +179,7 @@ StateReturnType AIEnterState::onEnter()
 	if (ai->getCurLocomotor())
 		ai->getCurLocomotor()->setAllowInvalidPosition(true);
 
-	setAdjustsDestination(false);
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 57");
+	m_adjustDestinations = false;
 	return AIInternalMoveToState::onEnter();
 }

@@ -25,12 +25,9 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 enum WeaponSlotType
 {
 	WEAPONSLOT_PRIMARY = 0
@@ -121,31 +118,6 @@ static __forceinline void coordSub(Coord3D *dest, const Coord3D *src)
 	dest->z -= src->z;
 }
 
-class StateMachine
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual StateReturnType setState(Int newStateID);
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void setGoalObject(const Object *obj);
-	Object *getOwner() const { return m_owner; }
-	Bool isGoalObjectDestroyed() const;
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
-
 // StateMachine::getGoalObject (0x004D7726), rowed under this name.
 class TurretStateMachine
 {
@@ -153,45 +125,6 @@ public:
 	Object *getGoalObject();
 };
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void slot05();
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObjectRV() const { return ((TurretStateMachine *)m_machine)->getGoalObject(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-protected:
-	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
-	unsigned char m_pad1C[0x48 - 0x1C];
-	Bool m_adjustsDestination; // +0x48
-	Bool m_waitingForPath; // +0x49
-};
 
 struct MeleeCoordCopy:Coord3D{__forceinline MeleeCoordCopy(float X,float Y,float Z){x=X;y=Y;z=Z;}__forceinline MeleeCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;} __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
 class AIAttackMeleeApproachState : public AIInternalMoveToState
@@ -213,7 +146,7 @@ StateReturnType AIAttackMeleeApproachState::onEnter()
 	if (getMachine()->isGoalObjectDestroyed())
 		return STATE_FAILURE;
 
-	Object *victim = getMachineGoalObjectRV();
+	Object *victim = getMachineGoalObject();
 	if (victim && victim->rva002943B2(source->getControllingPlayer()))
 	{
 		getMachine()->setGoalObject(0);
@@ -241,7 +174,7 @@ StateReturnType AIAttackMeleeApproachState::onEnter()
 
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 31");
 	m_4C = 0;
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	if (!victim)
 		return STATE_FAILURE;
 
@@ -283,6 +216,6 @@ StateReturnType AIAttackMeleeApproachState::onEnter()
 
 	StateReturnType ret = AIInternalMoveToState::onEnter();
 	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 32");
-	setAdjustsDestination(true);
+	m_adjustDestinations = true;
 	return ret;
 }

@@ -24,12 +24,9 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 enum WeaponSlotType
 {
 	WEAPONSLOT_PRIMARY = 0
@@ -117,30 +114,6 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class StateMachine
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void setGoalObject(const Object *obj);
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
-
 // StateMachine::getGoalObject (0x004D7726), rowed under this name.
 class TurretStateMachine
 {
@@ -148,47 +121,6 @@ public:
 	Object *getGoalObject();
 };
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void slot05();
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineGoalObject() const { return ((TurretStateMachine *)m_machine)->getGoalObject(); }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getMachineGoalObject copy loses to the first-in-order
-	// copy (no retail address); the updateInternal call below inlines it but
-	// still emits the loser COMDAT. Rebinding there emits only this unique
-	// (trivially kept) copy. No flags touched.
-	Object *bfme_machine_goal() const { return ((TurretStateMachine *)m_machine)->getGoalObject(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType update();
-protected:
-	unsigned char m_pad1C[0x4C - 0x1C];
-};
 
 class AIAttackFireDuringApproachState : public AIInternalMoveToState
 {
@@ -223,7 +155,7 @@ StateReturnType AIAttackFireDuringApproachState::updateInternal()
 		m_victimID = victim->getID();
 	}
 
-	Object *goal = bfme_machine_goal();
+	Object *goal = getMachineGoalObject();
 	WeaponSlotType slot;
 	Weapon *weapon = source->getCurrentWeapon(&slot);
 	if (weapon == 0)

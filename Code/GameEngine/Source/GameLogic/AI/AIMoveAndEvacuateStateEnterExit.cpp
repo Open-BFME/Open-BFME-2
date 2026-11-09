@@ -24,38 +24,7 @@ extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #include "../Object/object.h"
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	__declspec(dllimport) __forceinline void setAdjustsDestination(Bool b)
-	{
-		if (b)
-		{
-			if (g_00E03745)
-			{
-				FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
-				if (log)
-					fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 49");
-			}
-		}
-		else
-		{
-			if (g_00E03745)
-			{
-				FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
-				if (log)
-					fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 56");
-			}
-		}
-		m_adjustsDestination = b;
-	}
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3D))];
-	Bool m_adjustsDestination; // +0x48
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIMoveAndEvacuateState : public AIInternalMoveToState
 {
 public:
@@ -72,7 +41,14 @@ StateReturnType AIMoveAndEvacuateState::onEnter()
 	getMachine()->m_locked = true;		// This state is not user interruptable.
 
 	m_origin = *obj->getPosition();
-	setAdjustsDestination(true);
+	// The inlined setAdjustsDestination(TRUE) logs first.
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		if (log)
+			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 49");
+	}
+	m_adjustDestinations = true;
 
 	// if we have a goal object, move to it, otherwise move to goal position
 	if (getMachine()->getGoalObject())

@@ -60,40 +60,7 @@ extern AI *TheAI;
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-protected:
-	__forceinline void setAdjustsDestination(Bool b)
-	{
-		if (g_00E03745)
-		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
-			if (log)
-				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 37");
-		}
-		m_adjustsDestination = b;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's setAdjustsDestination copy loses to the first-in-order
-	// copy (no retail address); the onEnter call below inlines it but still
-	// emits the loser COMDAT. Rebinding there emits only this unique
-	// (trivially kept) copy. No flags touched.
-	__forceinline void bfme_set_adjusts_destination(Bool b)
-	{
-		if (g_00E03745)
-		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
-			if (log)
-				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 37");
-		}
-		m_adjustsDestination = b;
-	}
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva0034DE21 : public AIInternalMoveToState
 {
@@ -121,6 +88,12 @@ StateReturnType Rva0034DE21::onEnter()
 		return STATE_FAILURE;
 	}
 	m_goalPosition = *obj->getPosition();
-	bfme_set_adjusts_destination(true);
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		if (log)
+			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 37");
+	}
+	m_adjustDestinations = true;
 	return AIInternalMoveToState::onEnter();
 }
