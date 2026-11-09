@@ -225,8 +225,9 @@ void ObjectFilter::DoTemplatesXfer(Xfer *xfer,
         (*xfer == (*it)->m_nameString);
 }
 int Rva00361790(Rva00360F55*);
-extern unsigned char*g_validityBegin;
-extern unsigned char*g_validityEnd;
+extern unsigned int g_validityBegin[3];
+#define g_validityFirst (*reinterpret_cast<unsigned char **>(g_validityBegin))
+#define g_validityLast (*reinterpret_cast<unsigned char **>(g_validityBegin + 1))
 // ?DoXfer@ObjectFilter@@QAEXPAVXfer@@@Z
 // WB ED5470 names DoXfer; native362255..3623E5 supplies the record fields,
 // save/load sequence, conditional version-2 field, and registry scan. The old
@@ -242,7 +243,7 @@ void ObjectFilter::DoXfer(Xfer *xfer)
     {
         if (m_objectFilterSlot00 == -1)
             m_objectFilterSlot00 = Rva00361790(&Rva00360F55());
-        data = reinterpret_cast<Rva00360F55 *>(g_validityBegin) + m_objectFilterSlot00;
+        data = reinterpret_cast<Rva00360F55 *>(g_validityFirst) + m_objectFilterSlot00;
     }
     else
         data = &temp;
@@ -265,10 +266,10 @@ void ObjectFilter::DoXfer(Xfer *xfer)
         DoNamesXfer(xfer, &data->m_inclusionNames);
         DoNamesXfer(xfer, &data->m_exclusionNames);
         rva003611EFResolveNames(reinterpret_cast<ObjectFilter *>(data));
-        int count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360F55);
+        int count = (g_validityLast - g_validityFirst) / (int)sizeof(Rva00360F55);
         for (int i = 0; i < count; ++i)
         {
-            if (reinterpret_cast<Rva00360F55 *>(g_validityBegin)[i].rva00360E64(*data))
+            if (reinterpret_cast<Rva00360F55 *>(g_validityFirst)[i].rva00360E64(*data))
             {
                 m_objectFilterSlot00 = i;
                 break;
@@ -319,9 +320,8 @@ struct ValidityTableRecord
 	char m_pad[0x94];
 };
 
-extern unsigned char *g_validityBegin;
+extern unsigned int g_validityBegin[3];
 
-extern unsigned char *g_validityEnd;
 
 namespace _STL
 {
@@ -429,9 +429,9 @@ private:
 bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player, const Player *context)
 {
  if(!kindOf) return false;
- if(m_objectFilterSlot00 >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
+ if(m_objectFilterSlot00 >= (g_validityLast-g_validityFirst)/(int)sizeof(Rva00360F55)) return false;
  if(m_objectFilterSlot00 == -1) m_objectFilterSlot00=Rva00361790(&Rva00360F55());
- Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
+ Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityFirst)+m_objectFilterSlot00;
  int alignment=data->m_alignment;
  if(alignment) {
   bool flag=reinterpret_cast<const FilterPlayerTemplateView *>(player->getPlayerTemplate())->alignment;
@@ -470,9 +470,9 @@ bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player,
 bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player *player, const Player *context)
 {
  if(!thingTemplate) return false;
- if(m_objectFilterSlot00 >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
+ if(m_objectFilterSlot00 >= (g_validityLast-g_validityFirst)/(int)sizeof(Rva00360F55)) return false;
  if(m_objectFilterSlot00 == -1) m_objectFilterSlot00=Rva00361790(&Rva00360F55());
- Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
+ Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityFirst)+m_objectFilterSlot00;
  int alignment=data->m_alignment;
  if(alignment) {
   bool flag=reinterpret_cast<const FilterPlayerTemplateView *>(player->getPlayerTemplate())->alignment;
@@ -724,13 +724,13 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 
 void Rva00361439Resolve()
 {
-	if ((g_validityEnd - g_validityBegin) / (int)sizeof(ValidityTableRecord) <= 0)
+	if ((g_validityLast - g_validityFirst) / (int)sizeof(ValidityTableRecord) <= 0)
 		return;
 	int offset = 0;
-	int count = (g_validityEnd - g_validityBegin) / (int)sizeof(ValidityTableRecord);
+	int count = (g_validityLast - g_validityFirst) / (int)sizeof(ValidityTableRecord);
 	do
 	{
-		ObjectFilter *filter = (ObjectFilter *)(g_validityBegin + offset);
+		ObjectFilter *filter = (ObjectFilter *)(g_validityFirst + offset);
 		ObjectFilter::rva003611EFResolveNames(filter);
 		offset += 0x94;
 	} while (--count != 0);
@@ -954,7 +954,7 @@ Rva0036105B *Rva00361594Assign(Rva0036105B *first, Rva0036105B *last, Rva0036105
 
 void bfmeGoEBL()
 {
-	((Rva00361624 *)&g_validityBegin)->rva00361624((Rva0036105B *)g_validityBegin, (Rva0036105B *)g_validityEnd);
+	((Rva00361624 *)g_validityBegin)->rva00361624((Rva0036105B *)g_validityFirst, (Rva0036105B *)g_validityLast);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectFilterIntern.cpp
@@ -962,18 +962,18 @@ void bfmeGoEBL()
 // ?Rva00361790@@YAHPAVRva00360F55@@@Z
 int Rva00361790(Rva00360F55 *record)
 {
-	int count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360F55);
+	int count = (g_validityLast - g_validityFirst) / (int)sizeof(Rva00360F55);
 	for (int index = 0; index < count; ++index)
 	{
-		if (((Rva00360F55 *)g_validityBegin)[index].rva00360E64(*record))
+		if (((Rva00360F55 *)g_validityFirst)[index].rva00360E64(*record))
 		{
-			((Rva00360F55 *)g_validityBegin)[index].m_useCount++;
+			((Rva00360F55 *)g_validityFirst)[index].m_useCount++;
 			return index;
 		}
 	}
 	record->m_useCount = 1;
-	((_STL::vector<BfmePod148, _STL::allocator<BfmePod148> > *)&g_validityBegin)->push_back((const BfmePod148 &)*record);
-	count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360F55);
+	((_STL::vector<BfmePod148, _STL::allocator<BfmePod148> > *)g_validityBegin)->push_back((const BfmePod148 &)*record);
+	count = (g_validityLast - g_validityFirst) / (int)sizeof(Rva00360F55);
 	return count - 1;
 }
 
@@ -1118,11 +1118,12 @@ void Rva003623E5Filter::applyFilter(BfmeFixedStorage0004543D storage)
 
 bool ObjectFilter::isForbidden(KindOfType kind)
 {
-    if (m_objectFilterSlot00>=(g_validityEnd-g_validityBegin)/static_cast<int>(sizeof(Rva00360F55))) return true;
+    if (m_objectFilterSlot00>=(g_validityLast-g_validityFirst)/static_cast<int>(sizeof(Rva00360F55))) return true;
     if (m_objectFilterSlot00==-1) {
         m_objectFilterSlot00=Rva00361790(&Rva00360F55());
     }
-    BfmeFixedStorage0004543D forbidden(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&reinterpret_cast<Rva00360F55 *>(g_validityBegin)[m_objectFilterSlot00].m_secondPlain));
+    Rva00360F55 *first = reinterpret_cast<Rva00360F55 *>(g_validityFirst);
+    BfmeFixedStorage0004543D forbidden(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&first[m_objectFilterSlot00].m_secondPlain));
     unsigned bit=static_cast<unsigned>(kind);
     return (reinterpret_cast<const unsigned *>(forbidden.m_bytes)[bit>>5]&(1U<<(bit&31)))!=0;
 }

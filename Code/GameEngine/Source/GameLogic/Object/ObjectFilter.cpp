@@ -33,9 +33,10 @@ struct ValidityRecord
     char m_pad89[0x94 - 0x89];
 };
 
-extern unsigned char *g_validityBegin;
+extern unsigned int g_validityBegin[3];
+#define g_validityFirst (*reinterpret_cast<unsigned char **>(g_validityBegin))
+#define g_validityLast (*reinterpret_cast<unsigned char **>(g_validityBegin + 1))
 
-extern unsigned char *g_validityEnd;
 
 struct Rva00360D2ENamed
 {
@@ -74,10 +75,10 @@ Bool ObjectFilter::isValid() const
     int index = m_objectFilterSlot00;
     if (index >= 0)
     {
-        int count = (g_validityEnd - g_validityBegin) / (int)sizeof(ValidityRecord);
+        int count = (g_validityLast - g_validityFirst) / (int)sizeof(ValidityRecord);
         if (index < count)
         {
-            const ValidityRecord *table = (const ValidityRecord *)g_validityBegin;
+            const ValidityRecord *table = (const ValidityRecord *)g_validityFirst;
             Bool valid = table[index].m_validFlag != 0;
             return valid;
         }
@@ -101,10 +102,10 @@ Bool ObjectFilter::isValid() const
 void ObjectFilter::rva00360D2E(AsciiString &out) const
 {
     int index = m_objectFilterSlot00;
-    int count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360D2ERecord);
+    int count = (g_validityLast - g_validityFirst) / (int)sizeof(Rva00360D2ERecord);
     if (index < count && index != -1)
     {
-        Rva00360D2ERecord *record = (Rva00360D2ERecord *)g_validityBegin + index;
+        Rva00360D2ERecord *record = (Rva00360D2ERecord *)g_validityFirst + index;
         for (Rva00360D2ENamed **it = record->m_firstBegin; it != record->m_firstEnd; ++it)
             out += (*it)->m_name;
         for (Rva00360D2ENamed **it2 = record->m_secondBegin; it2 != record->m_secondEnd; ++it2)

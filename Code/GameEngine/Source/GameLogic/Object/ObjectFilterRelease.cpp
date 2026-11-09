@@ -16,22 +16,21 @@ struct ValidityRecord148
     char m_pad90[0x94 - 0x90];
 };
 
-extern unsigned char *g_validityBegin;
-// g_validityBegin: matched references place it at VA 0xe01e68 (zero-filled .bss).
-unsigned char * g_validityBegin;
-extern unsigned char *g_validityEnd;
-// g_validityEnd: matched references place it at VA 0xe01e6c (zero-filled .bss).
-unsigned char * g_validityEnd;
+extern unsigned int g_validityBegin[3];
+#define g_validityFirst (*reinterpret_cast<unsigned char **>(g_validityBegin))
+#define g_validityLast (*reinterpret_cast<unsigned char **>(g_validityBegin + 1))
+// One vector at VA 0xe01e68 (zero-filled .bss): begin, end at +4, capacity at +8.
+unsigned int g_validityBegin[3]; // vector header: begin, end, capacity
 
 void Rva00360CB0Release(int *indexHolder)
 {
     int index = *indexHolder;
     if (index == -1)
         return;
-    int count = (g_validityEnd - g_validityBegin) / (int)sizeof(ValidityRecord148);
+    int count = (g_validityLast - g_validityFirst) / (int)sizeof(ValidityRecord148);
     if ((unsigned int)index > (unsigned int)count)
         return;
-    ValidityRecord148 *table = (ValidityRecord148 *)g_validityBegin;
+    ValidityRecord148 *table = (ValidityRecord148 *)g_validityFirst;
     table[index].m_refCount--;
     *indexHolder = -1;
 }

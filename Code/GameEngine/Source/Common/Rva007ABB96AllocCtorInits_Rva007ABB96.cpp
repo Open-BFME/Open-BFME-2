@@ -82,7 +82,7 @@ struct RvaVector;
 extern RvaVector g_00E04484;
 // RVA 0x00A01E68: the vector whose begin pointer ObjectFilterRelease.cpp defines
 // as g_validityBegin (the data ledger's owner of the address).
-extern unsigned char *g_validityBegin;
+extern unsigned int g_validityBegin[3];
 
 struct Rva007ABB96AllocCtorInits
 {
@@ -160,7 +160,7 @@ void Rva007ABB96AllocCtorInits::rva007B31A8()
 // 0x007AED2A (29B): vector<BfmeE16> allocator ctor 0x004F710A on VA 0x00E01E68, atexit(0x007B7CAF -> 0x003615E5)
 void Rva007ABB96AllocCtorInits::rva007AED2A()
 {
-	( (E16Vector *)&g_validityBegin )->E16Vector::vector();
+	( (E16Vector *)g_validityBegin )->E16Vector::vector();
 	atexit( rva007B7CAF );
 }
 

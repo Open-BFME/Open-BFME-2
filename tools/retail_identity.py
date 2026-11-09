@@ -470,6 +470,13 @@ EXTENTS = (
            facts=(C("stores", 0x007B02DF, 0x00E031A8, "b9"), C("calls", 0x007B02E4, 0x004226CE),
                   C("stores", 0x007B82E7, 0x00E031A8, "b9"), C("jumps", 0x007B82EC, 0x005858F3),
                   C("stores", 0x00422557, 0x00E031B8, "a1"))),
+    # P65: one vector of 0x94-byte records the rowed initializer constructs and the atexit thunk destroys. Its
+    # destructor 0x003615E5 reads begin +0 and end +4, and its push_back 0x00361756 compares end with capacity at +8
+    Extent(old="?g_validityBegin@@3PAEA", new="?g_validityBegin@@3PAIA", start=0x00A01E68, size=12,
+           absorbs=(("?g_validityEnd@@3PAEA", 0x00A01E6C),),
+           facts=(C("stores", 0x007AED30, 0x00E01E68, "b9"), C("calls", 0x007AED35, 0x004F710A),
+                  C("stores", 0x007B7CAF, 0x00E01E68, "b9"), C("jumps", 0x007B7CB4, 0x003615E5),
+                  C("stores", 0x00360CBC, 0x00E01E6C, "a1"), C("offset", 0x0036175F, 8, "3b4608"))),
 )
 
 

@@ -7154,14 +7154,14 @@ void __cdecl rva007B7824()
 
 struct Rva003615E5Record;
 
-// 0x00A01E68: defined elsewhere as ?g_validityBegin@@3PAEA.
-extern unsigned char *g_validityBegin;
+// 0x00A01E68: defined elsewhere as ?g_validityBegin@@3PAIA.
+extern unsigned int g_validityBegin[3];
 
 // ?rva007B7CAF@@YAXXZ @ 0x007B7CAF (10B). Global validity-record vector dtor thunk: ecx=&g_validityBegin then tail-jmp to the rowed vector destructor (0x003615E5). No callers. Honest address name.
 void __cdecl rva007B7CAF()
 {
 	_STL::vector<Rva003615E5Record, _STL::allocator<Rva003615E5Record> > *receiver =
-		(_STL::vector<Rva003615E5Record, _STL::allocator<Rva003615E5Record> > *)&g_validityBegin;
+		(_STL::vector<Rva003615E5Record, _STL::allocator<Rva003615E5Record> > *)g_validityBegin;
 	return receiver->~vector();
 }
 
