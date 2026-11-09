@@ -70,7 +70,7 @@ bool HLodDefClass::read_header(ChunkLoadClass & cload)
 	if (Name != NULL) {
 		free(Name);
 	}
-	Name = ::_strdup(header.Name);
+	Name = ::strdup(header.Name);
 	HierarchyTreeName = ::strdup(header.HierarchyName);
 	LodCount = header.LodCount;
 	Lod = W3DNEWARRAY SubObjectArrayClass[LodCount];

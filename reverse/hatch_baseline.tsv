@@ -3965,7 +3965,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_wide_fstream.cpp	??4locale@_STL@@QAEABV01@ABV01@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_default_ctor.cpp	?allocate@?$allocator@G@_STL@@SAPAGIPBX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_reserve.cpp	?allocate@?$allocator@G@_STL@@SAPAGIPBX@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/strdup.cpp	__strdup	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base.cpp	?bfmeTry1033@BfmeSub1033@@QAEHPAVBfmeF1033@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base.cpp	?clear@AsciiString@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base.cpp	?set@AsciiString@@QAEXPBD@Z	1

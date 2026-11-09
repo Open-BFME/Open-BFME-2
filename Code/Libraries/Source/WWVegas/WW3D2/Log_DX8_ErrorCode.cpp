@@ -4,7 +4,9 @@
 // Dedicated TU. Retail is a typed crash dump (fourcc DXER plus the HRESULT)
 // followed by the same SkipNext / CrashBegin / CrashDone arm as DebugAllocMemory.
 
-extern "C" void *__cdecl realloc(void *block, unsigned size);
+// Retail's two allocation sites call the game's realloc wrapper at 0x0003E4B0; a call to realloc
+// binds to MSVCR71's in a /MD link, so this names the wrapper.
+void *DebugReAllocMemory(void *oldPtr, unsigned int newSize);
 #include <string.h>
 #pragma intrinsic(memcpy)
 
@@ -28,14 +30,14 @@ void DebugLogTyped(unsigned tag, void *data, unsigned size)
 	if (index == g_debugTypedLogCount)
 	{
 		++g_debugTypedLogCount;
-		g_debugTypedLogs = static_cast<DebugTypedLog *>(realloc(
+		g_debugTypedLogs = static_cast<DebugTypedLog *>(DebugReAllocMemory(
 			g_debugTypedLogs, g_debugTypedLogCount * sizeof(DebugTypedLog)));
 		g_debugTypedLogs[index].tag = tag;
 		g_debugTypedLogs[index].data = 0;
 		g_debugTypedLogs[index].size = 0;
 	}
 
-	g_debugTypedLogs[index].data = realloc(g_debugTypedLogs[index].data, size);
+	g_debugTypedLogs[index].data = DebugReAllocMemory(g_debugTypedLogs[index].data, size);
 	memcpy(g_debugTypedLogs[index].data, data, size);
 	g_debugTypedLogs[index].size = size;
 }

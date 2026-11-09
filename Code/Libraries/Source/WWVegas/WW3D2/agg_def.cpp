@@ -27,7 +27,11 @@ void __cdecl operator delete[](void *) throw();
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+// agg_def.h's inline Set_Name spells ::_strdup, which a /MD link binds to MSVCR71's. Retail's three
+// copies here call the game's strdup at 0x006C4C70, as Load_W3D's ::strdup below does.
+#define _strdup strdup
 #include "agg_def.h"
+#undef _strdup
 #include "htree.h"
 #include "w3derr.h"
 #include "chunkio.h"
