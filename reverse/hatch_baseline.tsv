@@ -2020,7 +2020,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C48
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C4BD1_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C4DE9_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C67A0_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C87F4_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C8A16_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp	??1CollideModule@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp	?f2@Rva004B96E5_B2@@UAEXXZ	1
@@ -12176,7 +12175,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackS
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	CashHackSpecialPower::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	CashHackSpecialPower::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp	CashHackSpecialPower::~CashHackSpecialPower	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower.cpp	1CombineHordeSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::crc	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::doSpecialPowerAtLocation	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::doSpecialPowerAtObject	1
