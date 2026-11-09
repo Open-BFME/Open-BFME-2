@@ -129,6 +129,10 @@ inline locale::~locale() _STLP_NOTHROW { _M_impl->_M_decr(); }
 // Keep the two-argument range helper visible for call-side analysis without
 // inlining it into the constructor. Both pointer instantiations have been
 // independently reproduced at 0x8D00 with their complete 84-byte bodies.
+// NON-RETAIL in the image (P72, open): these forwarders win the COMDAT over the owner's 84-byte row at 0x00008D00,
+// so the map does not hold retail's bytes here. The owner cannot bind them: with either definition removed the compiler
+// fails with C1001 on the call in the range constructor (12 spellings, re_attempts.log). The allocator specialization
+// above keeps the kept path on the game's table.
 namespace _STL {
 template <> template <> inline __declspec(noinline) void
 basic_string<char>::_M_range_initialize(char* first, char* last) {
