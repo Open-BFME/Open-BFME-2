@@ -14,17 +14,7 @@ static __forceinline int moduleRecordCount(const ModuleInfo *info)
     return ((const char *)info->m_end - (const char *)info->m_begin) / 20;
 }
 
-class ThingTemplate
-{
-	char m_pad[0x2E4];
-	ModuleInfo m_behaviorModuleInfo;
-
-public:
-	AIUpdateModuleData *friend_getAIModuleInfo();
-	int rva0033B479() const;
-	const ModuleData *rva0033B3D7() const;
-	const ModuleData *rva0033B427(int unused) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 inline const ModuleData *ModuleInfo::getNthData(int i) const
 {
@@ -41,11 +31,12 @@ inline const ModuleData *ModuleInfo::getNthData(int i) const
 
 AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 {
-	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
+	const ModuleInfo &info = *reinterpret_cast<const ModuleInfo *>(m_behaviorModuleInfo);
+	int numModInfos = moduleRecordCount(&info);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->isAiModuleData())
-			return (AIUpdateModuleData *)m_behaviorModuleInfo.getNthData(j);
+		if (info.getNthData(j) && info.getNthData(j)->isAiModuleData())
+			return (AIUpdateModuleData *)info.getNthData(j);
 	}
 	return 0;
 }
@@ -56,11 +47,12 @@ AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 // +0x2C float as the query filter's range; the predicate is unnamed.
 const ModuleData *ThingTemplate::rva0033B3D7() const
 {
-	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
+	const ModuleInfo &info = *reinterpret_cast<const ModuleInfo *>(m_behaviorModuleInfo);
+	int numModInfos = moduleRecordCount(&info);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot05())
-			return m_behaviorModuleInfo.getNthData(j);
+		if (info.getNthData(j) && info.getNthData(j)->slot05())
+			return info.getNthData(j);
 	}
 	return 0;
 }
@@ -70,11 +62,12 @@ const ModuleData *ThingTemplate::rva0033B3D7() const
 // the same scan testing virtual slot +18; its int argument is never read.
 const ModuleData *ThingTemplate::rva0033B427(int unused) const
 {
-	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
+	const ModuleInfo &info = *reinterpret_cast<const ModuleInfo *>(m_behaviorModuleInfo);
+	int numModInfos = moduleRecordCount(&info);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot06())
-			return m_behaviorModuleInfo.getNthData(j);
+		if (info.getNthData(j) && info.getNthData(j)->slot06())
+			return info.getNthData(j);
 	}
 	return 0;
 }
@@ -86,11 +79,12 @@ const ModuleData *ThingTemplate::rva0033B427(int unused) const
 // and field remain unnamed target facts; no module subtype is inferred.
 int ThingTemplate::rva0033B479() const
 {
-	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
+	const ModuleInfo &info = *reinterpret_cast<const ModuleInfo *>(m_behaviorModuleInfo);
+	int numModInfos = moduleRecordCount(&info);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot09())
-			return *(const int *)((const char *)m_behaviorModuleInfo.getNthData(j) + 8);
+		if (info.getNthData(j) && info.getNthData(j)->slot09())
+			return *(const int *)((const char *)info.getNthData(j) + 8);
 	}
 	return 1;
 }

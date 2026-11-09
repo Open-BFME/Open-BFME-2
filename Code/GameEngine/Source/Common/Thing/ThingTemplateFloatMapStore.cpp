@@ -33,16 +33,9 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-class ThingTemplate
-{
-	char m_pad[0x3A0];
-	_STL::map<int, float> m_floatMap;
-
-public:
-	void Rva0033D396StoreFloat(int key, float value);
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 void ThingTemplate::Rva0033D396StoreFloat(int key, float value)
 {
-	m_floatMap[key] = value;
+	(*reinterpret_cast<_STL::map<int, float> *>(m3A0))[key] = value;
 }

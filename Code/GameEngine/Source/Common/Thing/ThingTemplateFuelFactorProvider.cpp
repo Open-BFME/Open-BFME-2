@@ -67,12 +67,7 @@ extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
 
 #include "../../../Include/Common/ModuleInfoClass.h"
 
-class ThingTemplate
-{
-	char m_pad[0x2E4];
-public:
-	ModuleInfo m_behaviorModuleInfo;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // ?rva0033B677@@YAXPAVINI@@PAX1PBX@Z
 void __cdecl rva0033B677(INI *ini, void * /*instance*/, void *store, const void *userData)
@@ -81,7 +76,7 @@ void __cdecl rva0033B677(INI *ini, void * /*instance*/, void *store, const void 
 	// the ThrowInfo unwind. Sized from the canonical decl, not an invented struct.
 	char exc[sizeof(INIException)];
 	const ThingTemplate *parent = (const ThingTemplate *)userData;
-	const ModuleInfo *info = &parent->m_behaviorModuleInfo;
+	const ModuleInfo *info = reinterpret_cast<const ModuleInfo *>(parent->m_behaviorModuleInfo);
 	int idx = 0;
 	if (((const char *)info->m_end - (const char *)info->m_begin) / 20 > 0) {
 		do {

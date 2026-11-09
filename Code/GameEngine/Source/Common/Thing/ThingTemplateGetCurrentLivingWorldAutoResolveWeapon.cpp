@@ -32,21 +32,12 @@ public:
 
 extern class Rva0041811D *TheLivingWorldAutoResolveWeaponStore;
 
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *context) const;
-
-private:
-	unsigned char m_pad000[0x3F8];
-	Rva0033A8D9 *m_autoResolveWeaponsBegin; // +0x3F8
-	Rva0033A8D9 *m_autoResolveWeaponsEnd; // +0x3FC
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 void *ThingTemplate::getCurrentLivingWorldAutoResolveWeapon(const void *context) const
 {
-	const Rva0033A8D9 *end = m_autoResolveWeaponsEnd;
-	for (const Rva0033A8D9 *it = m_autoResolveWeaponsBegin; it != end; ++it)
+	const Rva0033A8D9 *end = reinterpret_cast<Rva0033A8D9 *const *>(m_autoResolveWeapon)[1];
+	for (const Rva0033A8D9 *it = reinterpret_cast<Rva0033A8D9 *const *>(m_autoResolveWeapon)[0]; it != end; ++it)
 	{
 		if (it->rva0033A8D9(context))
 			return it->getWeapon();
