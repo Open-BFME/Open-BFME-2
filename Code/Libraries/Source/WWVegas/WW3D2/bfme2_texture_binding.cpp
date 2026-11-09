@@ -15,21 +15,23 @@ struct BFME2TextureRef {
  ~BFME2TextureRef() { if(Ptr) Ptr->Release_Ref(); }
 };
 
-// BFME2CurrentTextures: matched references place it at VA 0xdee5e0 (zero-filled).
-BFME2TextureResource *BFME2CurrentTextures[16] = { 0 };
+#include "RenderStateStruct.h"
 struct BFME2TextureRef;
 void BFME2Set_Texture(unsigned stage,const BFME2TextureRef& texture);
-// The dirty mask at 0x00DEC4F4 is DX8Wrapper's protected render_state_changed
-// (defined in dx8wrapper.cpp); this view lets the setter mark its stage.
+// The stage pointers at VA 0x00DEE5E0 are render_state's, read by Apply_Render_State_Changes, and the
+// dirty mask at 0x00DEC4F4 is render_state_changed: both are DX8Wrapper's protected statics, defined
+// in dx8wrapper.cpp. This view lets the setter reach them.
 class DX8Wrapper {
  friend void BFME2Set_Texture(unsigned stage,const BFME2TextureRef& texture);
 protected:
  static unsigned render_state_changed;
+ static RenderStateStruct render_state;
 };
 void BFME2Set_Texture(unsigned stage,const BFME2TextureRef& texture) {
- if(texture.Ptr==BFME2CurrentTextures[stage]) return;
+ BFME2TextureResource *&current=reinterpret_cast<BFME2TextureResource *&>(DX8Wrapper::render_state.Textures[stage]);
+ if(texture.Ptr==current) return;
  if(texture.Ptr) ++texture.Ptr->Refs;
- if(BFME2CurrentTextures[stage]) BFME2CurrentTextures[stage]->Release_Ref();
- BFME2CurrentTextures[stage]=texture.Ptr;
+ if(current) current->Release_Ref();
+ current=texture.Ptr;
  DX8Wrapper::render_state_changed|=0x40<<stage;
 }
