@@ -197,21 +197,21 @@ int Rva0052B7F8Owner::fwd(int resultAddress, int entryAddress)
 #include "ascii_string.h"
 extern "C" const void *const __identifier("??_7Rva0052B668@@6B@")[];
 extern Rva0052B7F8Owner *rva0052B84F();
-class Rva0052B894Registration
+class Rva0052B668
 {
 public:
-    Rva0052B894Registration(const AsciiString &name);
+    Rva0052B668(const AsciiString &name);
 private:
     const void *const *m_vtable;
 };
 struct Rva0052B894Entry
 {
     AsciiString name;
-    Rva0052B894Registration *registration;
-    Rva0052B894Entry(const AsciiString &key, Rva0052B894Registration *value)
+    Rva0052B668 *registration;
+    Rva0052B894Entry(const AsciiString &key, Rva0052B668 *value)
         : name(key), registration(value) {}
 };
-Rva0052B894Registration::Rva0052B894Registration(const AsciiString &name)
+Rva0052B668::Rva0052B668(const AsciiString &name)
 {
     m_vtable = __identifier("??_7Rva0052B668@@6B@");
     Rva0052B894Entry entry(name, this);

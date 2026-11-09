@@ -8,23 +8,23 @@
 // table's slot 0 is the shared deleting destructor 0x005C43E7, as for
 // Rva004FA623RegistrationCtor.cpp, so the views declare empty virtual dtors.
 class AsciiString;
-class Rva0052B894Registration
+class Rva0052B668
 {
 public:
-	Rva0052B894Registration(const AsciiString &name);		// 0x0052B894
+	Rva0052B668(const AsciiString &name);		// 0x0052B894
 	// Empty: retail's 0x0052B588 only stores this class's vtable.
-	virtual ~Rva0052B894Registration() {}
+	virtual ~Rva0052B668() {}
 };
 
 #define SEAT5_REGISTRATION_CTOR(RVA) \
-class Rva##RVA##Registration : public Rva0052B894Registration \
+class Rva##RVA##Registration : public Rva0052B668 \
 { \
 public: \
 	Rva##RVA##Registration(const AsciiString &name); \
 	virtual ~Rva##RVA##Registration() {} \
 }; \
 Rva##RVA##Registration::Rva##RVA##Registration(const AsciiString &name) \
-	: Rva0052B894Registration(name) \
+	: Rva0052B668(name) \
 { \
 }
 

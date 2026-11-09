@@ -28,3 +28,24 @@ fold with `fold-proof=` through `tools/pin_admission.py --add`; then rename the
 data rows to the emitted `??_7` names and confirm the four initializers still
 byte-match with the derived constructor inlined. Not attempted: no source change
 landed.
+
+2026-11-09 prerequisite recovery: the supported class-fold transaction
+reconciled `Rva0052B894Registration` with the table's existing `Rva0052B668`
+identity across all four consumers, including constructor 0x0052B894 and its
+EH handler 0x007970C2. All 32 rows, four data rows and five literals verify;
+each source's own link verdict is LINKS (1,133 bytes unchanged against census
+5b5011469d). See
+`reverse/attempt_support/registration-base-identity-20261109.md`.
+
+The original hierarchy suggestion above needs correction: the 4-byte base has
+table 0x008686BC with slots [0x0052B668, purecall 0x0003B810]. The common
+0x005C47A3 destructor is shared code for the four derived registrations, not
+an evidenced intermediate base. Reconcile the existing 0x0052B588 setter-shaped
+owner as the base destructor; extend the base's short compiler table with its
+pure factory slot. All four derived factories must override one compatible
+identifier/signature. Their dispatcher `Rva0052B634ArmyActionPrime.cpp` is a
+mandatory additional consumer; migrate its three helper pins and alternatenames
+with the factory identities. Free/stdcall rows need reviewed prepared ordinary
+respells. Genuine 5-byte derived-destructor folds can use `add_match.py
+--icf-owner`; they do not meet fold-pin admission's concrete-byte threshold.
+The four strong tables remain unresolved; no bridge or image gain is claimed.

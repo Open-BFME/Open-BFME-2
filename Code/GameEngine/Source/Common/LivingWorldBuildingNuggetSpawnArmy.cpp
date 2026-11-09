@@ -29,15 +29,15 @@ struct LivingWorldBuildingNuggetSpawnArmy
     Rva002E2903Player *rva004FA618();
 };
 
-class Rva0052B894Registration
+class Rva0052B668
 {
 public:
-	Rva0052B894Registration(const AsciiString &name);
+	Rva0052B668(const AsciiString &name);
 	// Empty: retail's 0x0052B588 only stores this class's vtable.
-	virtual ~Rva0052B894Registration() {}
+	virtual ~Rva0052B668() {}
 };
 
-class Rva004FA623 : public Rva0052B894Registration
+class Rva004FA623 : public Rva0052B668
 {
 public:
 	Rva004FA623(const AsciiString &name);
@@ -82,7 +82,7 @@ Rva002E2903Player *LivingWorldBuildingNuggetSpawnArmy::rva004FA618()
 // the name is address-derived.
 
 Rva004FA623::Rva004FA623(const AsciiString &name)
-	: Rva0052B894Registration(name)
+	: Rva0052B668(name)
 {
 }
 

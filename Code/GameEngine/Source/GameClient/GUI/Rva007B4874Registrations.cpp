@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // Two startup initializers of named registrations (the counted-note family
-// of Rva0052B894Registration, whose rowed constructor 0x0052B894 registers
+// of Rva0052B668, whose rowed constructor 0x0052B894 registers
 // the name and writes the base vptr): each builds the label, constructs the
 // global over it, installs the derived vtable and registers the rowed atexit
 // thunk that runs the shared destructor 0x005C47A3.
@@ -19,10 +19,10 @@
 #include "ascii_string.h"
 #include <stdlib.h>
 
-class Rva0052B894Registration
+class Rva0052B668
 {
 public:
-	Rva0052B894Registration(const AsciiString &name);
+	Rva0052B668(const AsciiString &name);
 	const void *const *m_vtable;
 };
 
@@ -67,8 +67,8 @@ void registerStrengthenArmy()
 {
 	{
 		AsciiString label("StrengthenArmy");
-		Rva0052B894Registration &registration = *(Rva0052B894Registration *)&g_Va00E065B8;
-		registration.Rva0052B894Registration::Rva0052B894Registration(label);
+		Rva0052B668 &registration = *(Rva0052B668 *)&g_Va00E065B8;
+		registration.Rva0052B668::Rva0052B668(label);
 		registration.m_vtable = strengthenArmyVtable;
 	}
 	atexit(rva007B96F8);
@@ -78,8 +78,8 @@ void registerUpgradeTroops()
 {
 	{
 		AsciiString label("UpgradeTroops");
-		Rva0052B894Registration &registration = *(Rva0052B894Registration *)&g_Va00E065BC;
-		registration.Rva0052B894Registration::Rva0052B894Registration(label);
+		Rva0052B668 &registration = *(Rva0052B668 *)&g_Va00E065BC;
+		registration.Rva0052B668::Rva0052B668(label);
 		registration.m_vtable = upgradeTroopsVtable;
 	}
 	atexit(rva007B9702);
@@ -89,8 +89,8 @@ void registerSpawnArmy()
 {
 	{
 		AsciiString label("SpawnArmy");
-		Rva0052B894Registration &registration = *(Rva0052B894Registration *)&g_Va00E04500;
-		registration.Rva0052B894Registration::Rva0052B894Registration(label);
+		Rva0052B668 &registration = *(Rva0052B668 *)&g_Va00E04500;
+		registration.Rva0052B668::Rva0052B668(label);
 		registration.m_vtable = spawnArmyVtable;
 	}
 	atexit(rva007B9035);
@@ -100,8 +100,8 @@ void registerIncreaseCommandPoints()
 {
 	{
 		AsciiString label("IncreaseCommandPoints");
-		Rva0052B894Registration &registration = *(Rva0052B894Registration *)&g_Va00E065B4;
-		registration.Rva0052B894Registration::Rva0052B894Registration(label);
+		Rva0052B668 &registration = *(Rva0052B668 *)&g_Va00E065B4;
+		registration.Rva0052B668::Rva0052B668(label);
 		registration.m_vtable = increaseCommandPointsVtable;
 	}
 	atexit(rva007B96EE);
