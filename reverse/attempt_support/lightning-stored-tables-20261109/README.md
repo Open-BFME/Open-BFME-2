@@ -79,3 +79,13 @@ ConstIntGetters4.cpp lacks a current receipt. It was not compiled or edited.
 Carry that gap and the remaining short-table debt into the next census and
 image; both table addresses have blocked handoffs rather than a claim of
 finished class recovery. All six scope/address claims are released.
+
+Recheck on 2026-11-09: the picker served the retired V3Slot2 strong name
+again. The real-link queue is still based on 687433edd9, whose ancestry
+excludes e51aeb84af. The refreshed 717b70f4ab index does contain the repair.
+The wrapper is strict-current and its 28 bytes still match; neither retired
+name occurs in any symbol of its object or in either raw data-index row.
+The native 16/44-byte bounds remain unchanged. This is stale queue evidence,
+not a source regression or another array-removal opportunity. Both exact
+queued names receive deferrals; complete compiler-table identity work remains
+as described above. See stale-queue-recheck-20261109.json.

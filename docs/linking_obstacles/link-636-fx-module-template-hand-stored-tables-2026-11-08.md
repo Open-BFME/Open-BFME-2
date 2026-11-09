@@ -183,3 +183,13 @@ stays INCONCLUSIVE at c885072a48/base 7c6a144ce2 for unchanged
 ConcreteModuleTemplateCopyCtors.cpp's missing receipt. The two Wind method
 addresses lack an approved TU too, so future rehome needs that evidence.
 These remain next-census/image and identity/class prerequisites.
+
+2026-11-09, stale LightningDraw queue recheck: the served V3Slot2/V3Slot0
+names were retired by e51aeb84af. Queue 687433edd9 excludes that repair;
+the refreshed 717b70f4ab index contains it. The strict-current 28-byte
+wrapper's whole symbol inventory and both raw index rows contain neither
+retired name; native 16/44-byte bounds remain. No source change is needed.
+Exact queued names are deferred without removing the queue. Full table
+identity and next-image verification remain open, rather than repeating
+the strong-array removal.
+[Recheck evidence](../../reverse/attempt_support/lightning-stored-tables-20261109/stale-queue-recheck-20261109.json).

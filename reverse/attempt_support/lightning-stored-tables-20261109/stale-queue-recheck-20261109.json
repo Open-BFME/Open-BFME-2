@@ -1,0 +1,50 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561527.cpp",
+  "source_sha256": "9569a68134af52158c64240bd6b00edb5b8acba9dc171fc9e9582302579a21ea",
+  "object_sha256": "b9d260bf2f56f3ef8d20f5c33fa5bfa645e3aa848178e1c1bed374cb16f8f022",
+  "strict_current": true,
+  "native_wrapper_bytes": 28,
+  "retired_names": [
+    "??_7Rva005EBCC0Object@@6BV3Slot0@@@",
+    "??_7Rva005EBCC0Object@@6BV3Slot2@@@"
+  ],
+  "retired_names_absent_from_all_object_symbols_and_raw_data_index": true,
+  "native_bounds_preserved": [
+    {
+      "address": "0x0081CD40",
+      "size": "16",
+      "section": ".rdata",
+      "kind": "vtable",
+      "name": "??_7Rva005EBCC0Object@@6B@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "3"
+    },
+    {
+      "address": "0x0081CD54",
+      "size": "44",
+      "section": ".rdata",
+      "kind": "vtable",
+      "name": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "2"
+    }
+  ],
+  "queue_head": "# real link at 687433edd9a14a5ee360f2641bac84a135429a94: tools/exit_link.py --blockers",
+  "repair_commit": "e51aeb84af",
+  "queue_contains_repair": false,
+  "index_meta": {
+    "date": "2026-11-09 00:25",
+    "commit": "717b70f4ab",
+    "clean_tree": true,
+    "census_date": "2026-11-08 23:34",
+    "census_commit": "a46241d8d1"
+  },
+  "index_contains_repair": true,
+  "scope": "Stale retired-name recheck only. No source, ledger, verifier or coverage change; complete real-class tables remain the separately recorded identity work."
+}
