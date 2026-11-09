@@ -5,7 +5,7 @@
 extern "C" const void *const __identifier("??_7HordeWorkerAIUpdate@@6BDBaseM1@@@")[];  // folded vftable 0x00C50538 (2 classes), by its data-ledger name
 extern "C" const void *const __identifier("??_7DozerAIUpdate@@6BAIUpdateInterface24@@@")[];  // folded vftable 0x00C52F88 (12 classes), by its data-ledger name
 
-#pragma comment(linker, "/alternatename:??1Rva0026E9BDBase@@UAE@XZ=??1Rva0026E9BDBase@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva0026E9BDBase@@UAE@XZ=??1AIUpdateInterface@@MAE@XZ")
 
 //
 // ??0HordeAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0049A7F3,
