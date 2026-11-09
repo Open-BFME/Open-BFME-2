@@ -6066,3 +6066,6 @@ __ehhandler$?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_E
 ??0Rva0052B894Registration@@QAE@ABVAsciiString@@@Z,0x0052B894,"Renamed to ??0Rva0052B668@@QAE@ABVAsciiString@@@Z by tools/rename.py (fold: retail vftable 0x00C686BC)"
 __ehhandler$??0Rva0052B894Registration@@QAE@ABVAsciiString@@@Z,0x007970C2,"Renamed to __ehhandler$??0Rva0052B668@@QAE@ABVAsciiString@@@Z by tools/rename.py (fold: retail vftable 0x00C686BC)"
 ?rva0056B7A0@Rva003F9FE6@@QAEEH@Z,0x0056B7A0,"Renamed to ?rva0056B7A0@Rva003F9FE6@@UAEEH@Z by tools/rename.py (virtual: retail vtable slot)"
+??1Rva004134AE@@QAE@XZ,0x004134AE,"Renamed to ??1Rva004134AE@@UAE@XZ by tools/rename.py (virtual: retail vtable slot)"
+__ehhandler$??1Rva004134AE@@QAE@XZ,0x00785F39,"Renamed to __ehhandler$??1Rva004134AE@@UAE@XZ by tools/rename.py (virtual: retail vtable slot)"
+??_GRva004134AE@@QAEPAXI@Z,0x00413492,"Renamed to ??_GRva004134AE@@UAEPAXI@Z by tools/rename.py (virtual: retail vtable slot)"

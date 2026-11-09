@@ -60,7 +60,7 @@ change to make, and the refresh alone would trade InGameUI's tables for the subs
    fresh: bridged(20). FXParticleSystem cluster: other owners.
 3. **TheLocomotorStore** (#139, `??0Rva001E72B4`): kept `??_7Rva001E72B4@@6B@` 1/14 (OpaqueScalarDeletingDtorsB03.cpp).
    rl4: unindexed; fresh: bridged(14). Source fix: give the placeholder its class (`reset@LocomotorStore` is slot 9).
-4. **TheLivingWorldAutoResolveHandicapStore** (#183, `??0Rva004134AE`): kept 1/14. Unindexed; fresh: bridged(14).
+4. **TheLivingWorldAutoResolveHandicapStore** (#183, `??0Rva004134AE`): kept 1/14. Unindexed; fresh: bridged(14). (2026-11-09: `??1Rva004134AE` / `??_GRva004134AE` respelled to virtual `UAE` across ctor/dtor/deleting-dtor units; bounded simulation shows 14/14 slots `already_correct`; next real link confirms bridge retirement.)
 5. **Object INI load** (TheThingFactory, #195; ModuleFactory registers the factories at #95). ThingTemplate's AI query
    (0x0033B387) calls slot 4 of every module data.
    - Repaired here: the shared 0x00C4ED70 table. About 30 module-data constructors (DestroyDie, Lifetime, AIGate,
@@ -346,3 +346,24 @@ producer/EH prerequisites remain, with no boot or image clearance claimed.
   after ./build.sh of both units writes 16B vtable rows owned by
   Rva003A53C4Finish.cpp with no alias; only those two rows are applied.
   Clearance still needs the next real link's vtable_bridge_queue.tsv.
+
+- 2026-11-09, item #4 `??_7Rva004134AE@@6B@` (`0x008399B8` / `0x00C399B8`, 14
+  slots): `reverse/vtable_bridge_queue.tsv` kept the 56-byte table bridged on
+  one mismatch at slot 0 (`??_ERva004134AE@@UAEPAXI@Z` vs non-virtual
+  `??_GRva004134AE@@QAEPAXI@Z` at `0x00413492`). Respelled `0x004134AE`
+  (`??1Rva004134AE@@QAE@XZ` -> `UAE@XZ`), its deleting dtor (`0x00413492`), and
+  its `__ehhandler$`/`$L1184` EH rows via `rename.py function --rva 0x004134AE
+  --virtual` across `Rva004134AEDtor.cpp` (`__declspec(novtable) Rva004134AE :
+  public SubsystemInterface`), `FamilyDeletingDtors_Rva004134AE.cpp` (full
+  14-slot `BFME_SUBSYSTEM_SLOTS` shape with `EmitVtableTag` ctor marked
+  `absent-from-retail` so both providers emit identical 56-byte tables), and
+  `Rva004134AECtor.cpp` (`virtual ~Rva004134AE();`). Verified 8/8 matched across
+  the 3 edited units, `GameEngineInit.cpp` 110/110 + 1 data row, `eh_verify.py`
+  2/2 exact, `find_declared_unmatched.py` / `class_gate.py` / `data_check.py` /
+  `hatch_counters.py` clean, `link_check` 4/4 (`9,561 -> 9,561 B`, index
+  `001bd86fc0`), and bounded `vtable_bridge.plan()` over the 3 rebuilt objects,
+  `GameEngineInit.obj`, and 189 provider `.obj`s (`SubsystemInterface.cpp`
+  rebuilt 30/30): `??_7Rva004134AE@@6B@` has 0 slot mismatches, 0 bridged
+  entries, and 0 refusals (`already_correct`) in both `fam_first` and
+  `ctor_first` link orders. Next real link confirms retirement of the
+  `reverse/vtable_bridge_queue.tsv` bridge entry.
