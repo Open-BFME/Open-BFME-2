@@ -57,6 +57,7 @@ enum CommandSourceType
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
+
 class Object
 {
 public:
@@ -71,6 +72,7 @@ public:
 	unsigned char m_pad78[0x258 - 0x78];
 	AIUpdateInterface *m_ai; // +0x258
 };
+
 extern GameLogic *TheGameLogic;
 
 class RepairSpecialPowerModuleData
@@ -78,6 +80,47 @@ class RepairSpecialPowerModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
+
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C86E4_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C86E4 : public Rva00493DEF, public MiBase1, public Rva004C86E4_B2
+{
+public:
+	virtual ~Rva004C86E4();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp
 
@@ -127,12 +170,6 @@ NameKeyType RepairSpecialPower::getModuleNameKey() const
 	return TheRepairSpecialPowerPoolKey;
 }
 
-// tu-skeleton: 0x004C86DE 6B ?Rva004C86DEGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C86E4 25B ??1Rva004C86E4@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8742 28B ??_GRva004C86E4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPowerAtObject.cpp
 
 //
@@ -157,3 +194,15 @@ void RepairSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int option
 			ai->rva0036F19B(TheGameLogic->findObjectByID(obj->m_id), CMD_FROM_PLAYER);
 	}
 }
+
+// tu-skeleton: 0x004C86DE 6B ?Rva004C86DEGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
+
+Rva004C86E4::~Rva004C86E4()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
