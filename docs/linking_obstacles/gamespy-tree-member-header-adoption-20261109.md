@@ -25,3 +25,14 @@ row, leaving this consumer file with no header-debt rows. The provider's
 holder-lifetime repair remains open. Broad tree-package audit: INCONCLUSIVE
 for unchanged AIRingHeroTactic.cpp's missing current receipt; actual next
 census/image confirmation remains pending.
+
+Provider follow-up: a shared4B RvaTreeFamilyHolder is now the actual first
+member of canonical Rva0038404A, with its original inline destructor defined
+in the provider. This preserves sizeof12 and offsets0/4/8; six clear-provider
+expressions now read its pointer explicitly. The second holder declaration
+in StlportPod248ElementDtor.cpp is reconciled too. The full18-source header
+closure passes855 bodies,32 data rows and140 exact EH graphs; all18 sources
+preview LINKS34306->34306. The previous action77FA57 is exact. Owning
+acceptance retires the final Rva0038404A header row. Its local header/lifetime
+obstacle is cleared within this scope; normal census/image confirmation and
+the distinct LINK-249/LINK-614 provider classes remain open.

@@ -59,3 +59,38 @@ pass; link_check again says LINKS386->386. The owning acceptance tool retires
 one GameSpyStagingRoom queue row. No header-debt rows remain for this file.
 Neither shared header changed. The tree destructor provider and its one-byte
 unwind mismatch remain the separate follow-up described above.
+
+## Owning member lifetime recovered
+
+The provider follow-up restores the actual cleanup-bearing first member.
+RvaTreeFamilyHolder now has one shared four-byte declaration; its existing
+inline destructor definition stays in RvaTreeDtorFamily.cpp, preserving the
+native14B provider at7FAB3. Rva0038404A keeps its field name m_00Head, but its
+type is now the holder. Count+4, opaque+8 and sizeof12 are unchanged. The
+clear provider's six pointer expressions use m_00Head.m_ptr. The other holder
+declaration in StlportPod248ElementDtor.cpp is reconciled with the shared
+declaration too. Its enclosing tree destructor was already out of line.
+
+This is a real member lifetime, with no overlay or local cleanup surrogate.
+The private provider preserves218/218 bodies and all79 EH graphs, including
+the previously differing action77FA57. Applied normal verification over the
+header tool's entire18-source closure passes855/855 bodies,32 data rows,
+77 string references,14 floats,11 imports and140 EXACT EH graphs. Its own
+link preview reports18/18 LINKS,34306->34306 authored bytes. Frozen checks
+are clean. Owning acceptance retires Rva0038404A's final provider queue row;
+no header-debt row remains for that class.
+
+The old contract recorded size8 from historical private copies. The default
+contract CLI now finds no compiled private view and was restored after its
+empty proposal. class_contract.decide's explicit-source API reads a scratch
+probe containing the exact canonical declaration instead. Its compiler-backed
+contract records class/sizeof12, the holder+0 and count+4, with one view and no
+undecided attribute; those counts describe the probe, not recovered retail TUs.
+The existing native stride/offset evidence in the canonical header independently
+supports the extent. No original container identity or member spelling is claimed.
+
+Scratch receipts and probe inputs: build/tree-gamespy-header-20261109/member-lifetime/.
+The earlier reference-guard patch remains historical failed-attempt evidence.
+The three other queued provider classes in RvaTreeDtorFamily remain separate
+work; this repair does not clear their lifetime/constructor prerequisites or
+claim a new image/runtime result.

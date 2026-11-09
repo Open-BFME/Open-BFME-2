@@ -12,16 +12,13 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct RvaTreeFamilyHeader;
-struct RvaTreeFamilyHolder
+#include "../../Include/Common/RvaTreeFamilyHolder.h"
+
+inline RvaTreeFamilyHolder::~RvaTreeFamilyHolder()
 {
-	RvaTreeFamilyHeader *m_ptr;
-	~RvaTreeFamilyHolder()
-	{
-		if (m_ptr != 0)
-			free(m_ptr);
-	}
-};
+	if (m_ptr != 0)
+		free(m_ptr);
+}
 
 // ??1Rva00053DC5@@QAE@XZ @0x000554FA 56B -> Rva00053DC5::rva00054B9A
 class Rva00053DC5
@@ -456,14 +453,7 @@ Rva00372F00::~Rva00372F00()
 }
 
 // ??1Rva0038404A@@QAE@XZ @0x00385BE1 56B -> Rva0038404A::rva00384E8E
-class Rva0038404A
-{
-public:
-	RvaTreeFamilyHolder m_header;
-	int m_flag;
-	void rva00384E8E();
-	~Rva0038404A();
-};
+#include "../../Include/Common/Rva0038404A.h"
 
 Rva0038404A::~Rva0038404A()
 {

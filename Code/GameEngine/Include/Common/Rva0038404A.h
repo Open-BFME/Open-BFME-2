@@ -5,6 +5,8 @@
 #ifndef BFME2_RVA0038404A_H
 #define BFME2_RVA0038404A_H
 
+#include "RvaTreeFamilyHolder.h"
+
 struct Rva0038404ANode;
 
 class Rva0038404A
@@ -14,7 +16,7 @@ public:
     void rva0038404A(Rva0038404ANode *node);
     void rva00384E8E();
 
-    void *m_00Head;
+    RvaTreeFamilyHolder m_00Head;
     int m_04Flag;
     unsigned char unknown08[4];
 };

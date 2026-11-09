@@ -1179,11 +1179,11 @@ void Rva0038404A::rva00384E8E()
 {
 	if (m_04Flag == 0)
 		return;
-	RvaTreeFamilyHead *head = (RvaTreeFamilyHead *)m_00Head;
+	RvaTreeFamilyHead *head = (RvaTreeFamilyHead *)m_00Head.m_ptr;
 	rva0038404A((Rva0038404ANode *)head->m_first);
-	((RvaTreeFamilyHead *)m_00Head)->m_next = (RvaTreeFamilyHead *)m_00Head;
-	((RvaTreeFamilyHead *)m_00Head)->m_first = 0;
-	((RvaTreeFamilyHead *)m_00Head)->m_child = (RvaTreeFamilyHead *)m_00Head;
+	((RvaTreeFamilyHead *)m_00Head.m_ptr)->m_next = (RvaTreeFamilyHead *)m_00Head.m_ptr;
+	((RvaTreeFamilyHead *)m_00Head.m_ptr)->m_first = 0;
+	((RvaTreeFamilyHead *)m_00Head.m_ptr)->m_child = (RvaTreeFamilyHead *)m_00Head.m_ptr;
 	m_04Flag = 0;
 }
 

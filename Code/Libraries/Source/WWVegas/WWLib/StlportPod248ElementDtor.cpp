@@ -86,7 +86,7 @@ struct Rva000C6D44Slot12
 	~Rva000C6D44Slot12();
 };
 
-struct RvaTreeFamilyHolder { void *m_ptr; };
+#include "../../../../GameEngine/Include/Common/RvaTreeFamilyHolder.h"
 class Rva000B646B
 {
 public:
