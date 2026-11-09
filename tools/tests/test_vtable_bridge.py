@@ -954,3 +954,21 @@ def test_weak_default_bound_to_another_retail_address_does_not_match(tmp_path):
     result = weak_slot_plan(tmp_path, default="_second")
     assert (result["tables"], result["already_correct"]) == (1, 0)
     assert result["entries"][0]["source_slot_mismatches"][0]["name"] == "_weak"
+
+
+def test_retail_slots_stop_at_a_word_inside_a_function_body():
+    # 0x0083D7F8: the word past AptSpellStore's 14 slots is the string "dds",
+    # which reads as an address inside a retail function, not a function start
+    import image_report
+
+    class Spanned(Retail):
+        def mid_function(self, value):
+            return image_report.Retail.mid_function(self, value)
+
+    retail = Spanned((0x1000, 0x1010, 0x1024))
+    retail.function_spans = ([(0x1000, 16), (0x1010, 0x40)], {0x1000, 0x1010})
+    assert V.retail_slots(retail, {"address": "0x3000", "size": "12"}) == ([0x1000, 0x1010], None)
+    retail.function_spans[1].add(0x1024)
+    assert V.retail_slots(retail, {"address": "0x3000", "size": "12"}) == ([0x1000, 0x1010, 0x1024], None)
+    retail.function_spans = None
+    assert V.retail_slots(retail, {"address": "0x3000", "size": "12"}) == ([0x1000, 0x1010, 0x1024], None)

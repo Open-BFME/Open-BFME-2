@@ -1086,7 +1086,7 @@ def link_setup(rows, present):
     import vtable_bridge
     vtables, vtable_info = vtable_bridge.build_bridge(
         rows, inputs, omitted, libs, OUT,
-        image_report.Retail(build.EXE.read_bytes()), objects=objects,
+        image_report.Retail(build.EXE.read_bytes(), image_report.retail_function_spans()), objects=objects,
         source_of=census._object_sources(rows))
     metadata["vtable_bridge"] = vtable_info
     return ([vtables] if vtables else []) + [table] + inputs + ([late] if late else []) + libs + [absolute], metadata

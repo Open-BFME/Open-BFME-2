@@ -854,3 +854,16 @@ not a fresh proof. No Code/header/ledger/check change, alignment mask or
 full-table clearance is claimed. Actual provider recovery or the already
 recorded sound position-observation proof remains prerequisite.
 [Current bounded result](../../reverse/attempt_support/base-height-map-bounding-recheck-20261109.json).
+
+2026-11-09, AptSpellStore table extent (0x0083D7F8): retail's table has
+14 slots; the 15th word (0x0083D830) is the string "dds" read as
+0x00736464, strictly inside FUN_00736434, so the ledger's 60-byte extent
+made slot 14 an `unrowed-target` refusal. `vtable_bridge.retail_slots` now
+stops at a word that lands strictly inside a known retail function
+(Ghidra spans; any Ghidra or ledger start still counts as a slot), via
+`image_report.Retail(..., retail_function_spans())` in `exit_link.py`.
+Over all 3,827 ledger table rows only this table changes (15 -> 14
+slots). The refusal should become a bridge at the next real link; the
+13 missing source slots (OpaqueScalarDeletingDtorsB10.cpp defines a
+4-byte table) remain open: AptSpellStore.cpp must provide the full
+14-slot `??_7AptSpellStore@@6BGameWindow@@@`.

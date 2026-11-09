@@ -24,6 +24,7 @@ Duplicates: strong data defined twice, and one retail address with several defin
 Usage: image_report.py [--out DIR]
 """
 import argparse
+import bisect
 import collections
 import csv
 import json
@@ -45,9 +46,29 @@ OUT = Path("build/exit_link")
 CONSTRUCTED = re.compile(r"new\s*\(\s*&\s*(g_\w+)\s*\)|\(\s*(\w+)\s*\*\s*\)\s*&?\s*(g_\w+)\s*\)\s*->\s*\2::\2\s*\(")
 
 
+def retail_function_spans(root=None):
+    """(sorted [(start rva, size)] of Ghidra's retail functions, {every known start rva}).
+
+    Starts are Ghidra's plus every ledger row's target, so a row that splits a
+    Ghidra function still counts as a start."""
+    root = Path(root or build.ROOT)
+    spans, starts = [], set()
+    with (root / "reverse/ghidra_functions.csv").open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            start = int(row["rva"], 16)
+            spans.append((start, int(row["size"], 0)))
+            starts.add(start)
+    with (root / "reverse/functions.csv").open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            if (row.get("target_rva") or "").startswith("0x"):
+                starts.add(int(row["target_rva"], 16))
+    return sorted(spans), starts
+
+
 class Retail:
-    def __init__(self, data):
+    def __init__(self, data, function_spans=None):
         self.data = data
+        self.function_spans = function_spans
         pe = struct.unpack_from("<I", data, 0x3C)[0]
         count = struct.unpack_from("<H", data, pe + 6)[0]
         optional = struct.unpack_from("<H", data, pe + 20)[0]
@@ -71,6 +92,19 @@ class Retail:
 
     def in_text(self, value):
         return self.text[1] <= value - self.base < self.text[1] + self.text[2]
+
+    def mid_function(self, value):
+        """Does the VA `value` land strictly inside a known retail function, never a
+        function start? No vftable slot can; it is the next datum (a string that
+        reads as a .text address). False when no function spans were supplied."""
+        if not self.function_spans:
+            return False
+        spans, starts = self.function_spans
+        rva = value - self.base
+        if rva in starts:
+            return False
+        index = bisect.bisect_right(spans, (rva, float("inf"))) - 1
+        return index >= 0 and spans[index][0] < rva < spans[index][0] + spans[index][1]
 
     def initializers(self):
         """Function RVAs of the largest table a `push z; push a; call` pair names (`_initterm`)."""

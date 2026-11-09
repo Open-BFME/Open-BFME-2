@@ -336,6 +336,11 @@ def retail_slots(retail, row):
         value = struct.unpack("<I", raw)[0]
         if not retail.in_text(value):
             break
+        # a word inside a retail function body is the next datum, not a slot:
+        # 0x0083D830's "dds" reads as 0x00736464, mid FUN_00736434
+        mid_function = getattr(retail, "mid_function", None)
+        if mid_function is not None and mid_function(value):
+            break
         slots.append(value - retail.base)
     if not slots:
         return None, "no-retail-slots"
