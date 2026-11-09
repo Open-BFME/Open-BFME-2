@@ -878,3 +878,11 @@ slots). The refusal should become a bridge at the next real link; the
 - The row stays in `BfmeDynamicVBRefCountRva0006CE57.cpp` (the map only proposes a unit for it), which emits the COMDAT alone,
   a twin of the winner's.
 - Unverified: no real link has run on this yet, so no table has retired. `tools/vtable_bridge.py` decides that.
+- `bfmedynamicvertexbuffer.cpp` (2026-11-09): with the canonical class it compiles its own `?Delete_This@RefCountClass@@UAEXXZ`
+  and `??_GRefCountClass@@MAEPAXI@Z`. They are the O2 region's forms, not retail's bytes, which no flag change can fix. Its
+  private view used to keep them under another name. `link_check` against the 16:41 index (`594960feaf`) reported
+  "does not link" for both: that index predates the row and the `??_7RefCountClass@@6B@` data row, so it held no proven copy
+  to excuse them. `keep_rule` on current objects finds 41 proven `Delete_This` copies and 73 proven `??_G` copies, and this unit
+  loses neither (retail-truth-3). The census of 2026-11-09 17:55 UTC at `9b9d058303` (published `26347b3d52`), which includes
+  `c43751b992` and `02815937a9`, measures it linked: `bfmedynamicvertexbuffer.cpp,yes,0,0,0,0,0`. Not a regression; no source
+  change. Which copy an image keeps is `image_iso --kept-copies-only`'s to say.
