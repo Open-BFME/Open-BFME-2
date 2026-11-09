@@ -169,6 +169,9 @@ class CollideModule : public BehaviorModule, public CollideModuleInterface
 public:
 	CollideModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~CollideModule();
+	// BehaviorModuleInterface slot 1 (retail VA 0x00C5A040): CollideModule's override,
+	// rowed at 0x002533D3 (header-inline in CollideModule.h; SquishCollideCtor.cpp).
+	virtual CollideModuleInterface *getCollide();
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
