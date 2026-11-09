@@ -8,35 +8,13 @@
 // Shard (not graft): the UpgradeMux home TU carries the novtable leaf
 // ctor, and same-TU virtuals would collide with its explicit vtable.
 
-class UpgradeMux
-{
-public:
-	void giveSelfUpgrade();
-
-private:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09(int flag);
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 // ?giveSelfUpgrade@UpgradeMux@@QAEXXZ @0x45230C
 void UpgradeMux::giveSelfUpgrade()
 {
-	slot12();
-	slot15();
-	slot10();
-	slot09(1);
+	performUpgradeFX();
+	processUpgradeRemoval();
+	upgradeImplementation();
+	setUpgradeExecuted(true);
 }

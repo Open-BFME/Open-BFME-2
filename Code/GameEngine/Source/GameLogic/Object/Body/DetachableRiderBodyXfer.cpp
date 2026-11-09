@@ -33,24 +33,12 @@ class Object;
 
 #include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
-class DetachableRiderBody;
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
-class UpgradeMux
-{
-	friend class DetachableRiderBody;
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-private:
-	bool m_upgradeExecuted;
-};
-
-class DetachableRiderBody : public ActiveBody
+class DetachableRiderBody : public ActiveBody, public UpgradeMux
 {
 protected:
 	virtual void xfer(Xfer *xfer);
-
-private:
-	UpgradeMux m_100;
 };
 
 // ?xfer@DetachableRiderBody@@MAEXPAVXfer@@@Z @0x004C1D0B
@@ -62,5 +50,5 @@ void DetachableRiderBody::xfer(Xfer *xfer)
 	ActiveBody::xfer(xfer);
 
 	if (version.m_minimum >= 2)
-		m_100.UpgradeMux::upgradeMuxXfer(xfer);
+		UpgradeMux::upgradeMuxXfer(xfer);
 }

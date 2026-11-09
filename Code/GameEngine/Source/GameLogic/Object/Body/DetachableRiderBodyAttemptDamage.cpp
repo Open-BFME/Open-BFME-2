@@ -75,11 +75,7 @@ private:
 	unsigned char m_1C8;		// +0x1C8
 };
 
-class UpgradeMux
-{
-public:
-	virtual bool isUpgradeActive() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class ModuleBase
 {
@@ -110,7 +106,7 @@ void DetachableRiderBody::attemptDamage(DamageInfo *damageInfo)
 {
 	Object *obj = m_object;
 	const DetachableRiderBodyModuleData *detachableRiderBodyModuleData = data();
-	bool active = isUpgradeActive();
+	bool active = isAlreadyUpgraded();
 	bool keepRider = GetGameLogicRandomValueReal(0.0f, 1.0f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Body\\DetachableRiderBody.cpp", 94) < detachableRiderBodyModuleData->m_riderlessDeathChance;
 	if (obj->test114Bit8())
 		keepRider = true;
