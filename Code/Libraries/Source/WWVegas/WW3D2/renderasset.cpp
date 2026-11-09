@@ -24,6 +24,7 @@ typedef bool Bool;
 typedef int Int;
 #include "../../../../GameEngine/Include/Common/BfmeStringData.h"
 #include "../WWLib/TreeKey00242F5E.h"
+
 // ?rva001364AC@Rva001364AC@@QAEPAXPBUTreeKey00242F5E@@@Z @0x001364AC 34B.
 // RB-tree create_node for the unsigned-key/string map: allocates 0x18 via
 // rowed byte allocator 0x000307F0 and constructs its 8-byte value at +0x10
@@ -294,7 +295,6 @@ struct RvaOut13657F {
 	bool inserted;
 };
 
-
 struct Rva001364F7
 {
 public:
@@ -324,6 +324,23 @@ typedef _STL::pair<const unsigned int, AsciiString> UnsignedAsciiPair;
 
 class Rva001364AC { public: void *rva001364AC(const TreeKey00242F5E *src); };
 
+// map<unsigned> internals otherwise emit the less<unsigned>::operator()
+// COMDAT in a register shape retail's 0x00758C50 does not have. The compare
+// is inlined into the map's _M_find (retail's 0x00357180 compares in place),
+// so an inline-only specialization keeps it there and emits no copy; a
+// declaration-only one would turn this TU's _M_find into a call.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const { return a < b; }
+}
+
+// The unsigned-to-pointer map at 0x00DF29B4 is defined once, by its global
+// dtor thunk's unit, as g_Va00DF29B4; read it through the map view.
+extern unsigned int g_Va00DF29B4;
+
+typedef _STL::map<unsigned int, void *> Rva001363A1Map;
+
+typedef Rva001364F7Iter (Rva001364F7::*Rva001364F7IterFn)(RvaNode1364F7 *, RvaNode1364F7 *, const TreeKey00242F5E *, RvaNode1364F7 *);
+
 // tu-skeleton: 0x00136032 94B ?Get@RenderAsset@@SA?AVRva00136001@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
 
 // tu-skeleton: 0x00136090 90B ?Rva00136090MeshHold@@YA?AURva00136090MeshHolder@@PAVMeshModelClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp (not merged yet)
@@ -331,6 +348,8 @@ class Rva001364AC { public: void *rva001364AC(const TreeKey00242F5E *src); };
 // tu-skeleton: 0x001360EA 122B ?rva001360EA@Rva0013101E@@QBE?AVAsciiString@@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderAssetParseBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x00136164 17B ?get@Rva00136164NullAdjustGlobalField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Create_Render_Obj.cpp
 
@@ -355,16 +374,6 @@ RenderObjClass *Create_Render_Obj(const char *name)
 	return 0;
 }
 
-// tu-skeleton: 0x0013623C 45B ??$_Construct@U?$pair@$$CBIVAsciiString@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBIVAsciiString@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
-
-// tu-skeleton: 0x00136269 312B ?CreateMangledName@@YAXAAVAsciiString@@PBDMABVRva0013101E@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@33@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderAssetParseBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001363A1 43B ?Rva001363A1Get@@YAPBDI@Z -- matched in Code/GameEngine/Source/Common/Rva001363A1Get.cpp (not merged yet)
-
-// tu-skeleton: 0x001363CC 53B ?rva001363CC@Rva001363CC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00136401 171B ??$__find@PAVAsciiString@@PBD@_STL@@YAPAVAsciiString@@PAV1@0ABQBDABUrandom_access_iterator_tag@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_find.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001364ACCreateNode.cpp
 
 void *Rva001364AC::rva001364AC(const TreeKey00242F5E *src)
@@ -373,16 +382,6 @@ void *Rva001364AC::rva001364AC(const TreeKey00242F5E *src)
 	_STL::_Construct((UnsignedAsciiPair *)(block + 0x10), *(const UnsignedAsciiPair *)src);
 	return block;
 }
-
-// tu-skeleton: 0x001364CE 41B ?rva001364CE@Rva001363CC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x001364F7 136B ?rva001364F7@Rva001364F7@@QAE?AURva001364F7Iter@@PAURvaNode1364F7@@0PBUTreeKey00242F5E@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001364F7Insert.cpp (not merged yet)
-
-// tu-skeleton: 0x0013657F 134B ?rva0013657F@Rva001364F7@@QAEPAURvaOut13657F@@PAU2@PBUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0013657FFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x00136605 5B ?rva00136605@Rva00136605@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0013660A 56B ??1Rva001363CC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00136642HintInsert.cpp
 
@@ -475,7 +474,157 @@ Rva00136768Dtor::~Rva00136768Dtor()
 	((Rva001363CC *)this)->~Rva001363CC();
 }
 
-// tu-skeleton: 0x0013676D 10B ?Rva0013676D@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0013676DClear.cpp (not merged yet)
+// WWMath::Fabs from BFME1 34f59164f6: clear the IEEE-754 sign bit.
+inline float renderAbs(float val) { int bits = *(int *)&val; bits &= 0x7fffffff; return *(float *)&bits; }
+
+void RenderAsset::ModifiedRenderFactory::PostLoad()
+{
+    rendObj = Create_Render_Obj(baseName.str());
+    if (!rendObj) return;
+    ((Rva00136F5BRenderView *)rendObj)->setName(getName());
+    bool scaled = renderAbs(scale - 1.0f) > 0.01f;
+    bool colored = g_Va00DB6218 && (options.enabledValue() || options.colorValue() > 0);
+    bool textured = !textures.empty();
+    if (scaled || colored || textured) {
+        if (scaled) ((Rva00136F5BRenderView *)rendObj)->scale(scale);
+        if (textured) {
+            Rva00135F6CMakeUnique(rendObj);
+            rva00136E95(rendObj, &first, &textures, &excluded);
+        }
+        if (colored) {
+            Rva00135F6CMakeUnique(rendObj);
+            ((Rva00136F5BRenderView *)rendObj)->applyOptions(&options);
+        }
+    }
+}
+
+// tu-skeleton: 0x0013623C 45B ??$_Construct@U?$pair@$$CBIVAsciiString@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBIVAsciiString@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+
+// tu-skeleton: 0x00136269 312B ?CreateMangledName@@YAXAAVAsciiString@@PBDMABVRva0013101E@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@33@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderAssetParseBFME2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001363A1Get.cpp
+
+// ?Rva001363A1Get@@YAPBDI@Z @0x001363A1 43B
+// Unlock map unsigned-to-ptr lookup plus empty-string fallback plus data-plus-8. Evidence: callee 0x00357180 rowed map find; globals 0x00DF29B4 no name yet 0x007BAC1C empty in use; callers 0x0014C85F 0x0014CBB0 unclaimed; prev 0x0013623C next 0x001363CC.
+
+const char *Rva001363A1Get(unsigned int key)
+{
+	Rva001363A1Map &map = *(Rva001363A1Map *)&g_Va00DF29B4;
+	Rva001363A1Map::iterator it = map.find(key);
+	if (it == map.end())
+		return 0;
+	void *p = it->second;
+	return p != 0 ? (const char *)p + 8 : "";
+}
+
+// tu-skeleton: 0x001363CC 53B ?rva001363CC@Rva001363CC@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00136401 171B ??$__find@PAVAsciiString@@PBD@_STL@@YAPAVAsciiString@@PAV1@0ABQBDABUrandom_access_iterator_tag@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_find.cpp (not merged yet)
+
+// tu-skeleton: 0x001364CE 41B ?rva001364CE@Rva001363CC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001364F7Insert.cpp
+
+// ?rva001364F7@Rva001364F7@@QAE?AURva001364F7Iter@@PAURvaNode1364F7@@0PBUTreeKey00242F5E@@0@Z @0x001364F7 136B.
+// Tree insert worker over set<TreeKey00242F5E> nodes (base 0x10 plus 8-byte
+// key at +0x10): picks the right-child path unless y is the root, the
+// sibling is empty with no hint, or the unsigned key id compares below;
+// creates the node through rowed 0x001364AC, links it, rebalances through
+// rowed _Rebalance 0x00025490, bumps the count at +4 and returns the node
+// through the out reference. Evidence: caller 0x0013657F (hinted insert,
+// unsigned id compare with setb plus _M_decrement) passes out/A/B/value/0;
+// this then unblocks 0x0013657F and 0x00136642. Pattern follows manual worker
+// Rva00418C33Insert.cpp (create call through the rowed factory name,
+// _Rb_global<bool>::_Rebalance with the parent-slot cast).
+
+Rva001364F7Iter Rva001364F7::rva001364F7(RvaNode1364F7 *left, RvaNode1364F7 *parent, const TreeKey00242F5E *key, RvaNode1364F7 *right)
+{
+	RvaNode1364F7 *node;
+	if (parent != m_root && (right != 0 || (left == 0 && key->field00 >= parent->_key.field00))) {
+		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(key);
+		parent->_right = node;
+		RvaNode1364F7 *root = m_root;
+		if (parent == root->_right)
+			root->_right = node;
+	} else {
+		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(key);
+		parent->_left = node;
+		RvaNode1364F7 *root = m_root;
+		if (parent == root) {
+			root->_parent = node;
+			m_root->_right = node;
+		} else if (parent == root->_left) {
+			root->_left = node;
+		}
+	}
+	node->_left = 0;
+	node->_right = 0;
+	node->_parent = parent;
+	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node, (_STL::_Rb_tree_node_base *&)m_root->_parent);
+	++m_count;
+	return Rva001364F7Iter(node);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0013657FFinish.cpp
+
+// ?rva0013657F@Rva001364F7@@QAEPAURvaOut13657F@@PAU2@PBUTreeKey00242F5E@@@Z @0x0013657F 134B
+//
+// Finish draft for the banked near miss reverse/attempts/0x0013657f.cpp.
+// Same hidden-return wall as the sibling landed at 0x003992B0 (see
+// Code/GameEngine/Source/Common/System/Rva003992B0Finish.cpp): the rowed
+// tree worker 0x001364F7 spells the iterator return slot as an explicit
+// `RvaNode1364F7 *&out` and returns void, so a plain call reloads the value
+// parameter instead of reading the inserted node straight back out of the
+// hidden slot. Calling the same rowed symbol through a member-function pointer
+// recast to the iterator-returning ABI restores the hidden-return call at the
+// call site while still naming the rowed void symbol for the REL32 relocation;
+// the compiler folds the constant pointer to a direct call.
+
+RvaOut13657F *Rva001364F7::rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v)
+{
+	RvaNode1364F7 *header = m_root;
+	RvaNode1364F7 *x = header->_parent;
+	RvaNode1364F7 *y = header;
+	bool comp = true;
+	while (x != 0) {
+		y = x;
+		comp = v->field00 < x->_key.field00;
+		x = comp ? x->_left : x->_right;
+	}
+	RvaNode1364F7 *j = y;
+	Rva001364F7IterFn insert = (Rva001364F7IterFn)&Rva001364F7::rva001364F7;
+	if (comp) {
+		if (y == header->_left) {
+			out->node = (((Rva001364F7 *)this)->*insert)(y, y, v, 0).m_node;
+			out->inserted = true;
+			return out;
+		}
+		j = (RvaNode1364F7 *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)j);
+	}
+	if (j->_key.field00 < v->field00) {
+		out->node = (((Rva001364F7 *)this)->*insert)(x, y, v, 0).m_node;
+		out->inserted = true;
+		return out;
+	}
+	out->node = j;
+	out->inserted = false;
+	return out;
+}
+
+// tu-skeleton: 0x00136605 5B ?rva00136605@Rva00136605@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0013660A 56B ??1Rva001363CC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0013676DClear.cpp
+
+//
+// Tail-jumps the 0x00DF29B4 map object (unsigned to pointer) to the tree
+// clear rowed at 0x001364CE; the tree view is address-derived.
+
+void Rva0013676D()
+{
+	((Rva001363CC *)&g_Va00DF29B4)->rva001364CE();
+}
 
 // tu-skeleton: 0x00136777 29B ?rva00136777@Rva00136A21@@QAE?AURva001364F7Iter@@U2@ABVRva00523DB7@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00136A21MapSubscript.cpp (not merged yet)
 
@@ -580,27 +729,3 @@ Rva00136768Dtor::~Rva00136768Dtor()
 // tu-skeleton: 0x00765B95 8B Unwind@00b65b95 -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderAssetSwitchTexturesBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x00765B9D 10B __ehhandler$?SwitchTextureOnMesh@@YAXPAVSwitchMeshView@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@1@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/RenderAssetSwitchTexturesBFME2.cpp (not merged yet)
-
-// WWMath::Fabs from BFME1 34f59164f6: clear the IEEE-754 sign bit.
-inline float renderAbs(float val) { int bits = *(int *)&val; bits &= 0x7fffffff; return *(float *)&bits; }
-
-void RenderAsset::ModifiedRenderFactory::PostLoad()
-{
-    rendObj = Create_Render_Obj(baseName.str());
-    if (!rendObj) return;
-    ((Rva00136F5BRenderView *)rendObj)->setName(getName());
-    bool scaled = renderAbs(scale - 1.0f) > 0.01f;
-    bool colored = g_Va00DB6218 && (options.enabledValue() || options.colorValue() > 0);
-    bool textured = !textures.empty();
-    if (scaled || colored || textured) {
-        if (scaled) ((Rva00136F5BRenderView *)rendObj)->scale(scale);
-        if (textured) {
-            Rva00135F6CMakeUnique(rendObj);
-            rva00136E95(rendObj, &first, &textures, &excluded);
-        }
-        if (colored) {
-            Rva00135F6CMakeUnique(rendObj);
-            ((Rva00136F5BRenderView *)rendObj)->applyOptions(&options);
-        }
-    }
-}

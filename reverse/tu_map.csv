@@ -9049,18 +9049,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00136175,199,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x0013623C provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 0x0013623C,45,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136269 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
 0x00136269,312,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,W=Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp C=0x00136032..0x001363A1 provisional,Code/Libraries/Source/WWVegas/WW3D2/RenderAssetParseBFME2.cpp
-0x001363A1,43,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x001363CC provisional,Code/GameEngine/Source/Common/Rva001363A1Get.cpp
+0x001363A1,43,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x001363CC provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 0x001363CC,53,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136401 provisional,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
 0x00136401,171,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x001364AC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_find.cpp
 0x001364AC,34,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x001364CE provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 0x001364CE,41,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x001364F7 provisional,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
-0x001364F7,136,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x0013657F provisional,Code/Libraries/Source/WWVegas/WWLib/Rva001364F7Insert.cpp
-0x0013657F,134,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136605 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0013657FFinish.cpp
+0x001364F7,136,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x0013657F provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
+0x0013657F,134,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136605 provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 0x00136605,5,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x0013660A provisional,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
 0x0013660A,56,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136642 provisional,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x00136642,294,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136768 provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 0x00136768,5,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x0013676D provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
-0x0013676D,10,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136777 provisional,Code/GameEngine/Source/Common/Rva0013676DClear.cpp
+0x0013676D,10,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136777 provisional,Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp
 0x00136777,29,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136794 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00136A21MapSubscript.cpp
 0x00136794,145,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x00136825 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp
 0x00136825,6,code,Code/Libraries/Source/WWVegas/WW3D2/RenderAsset.cpp,approved,C,C=0x00136032..0x0013682B provisional,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
