@@ -66,7 +66,9 @@ public:
 	void rva003192B1();					// 0x003192B1
 };
 
-class Rva002BA392ArmyVisitor
+// The army visitor of retail's one-slot table 0x00BFE000 (constructor
+// 0x002B29D8 in RvaSmallVtableCtors.cpp).
+class Rva002B29D8
 {
 public:
 	virtual bool visit(LivingWorldArmy *army);
@@ -74,7 +76,7 @@ public:
 	LivingWorldBattle *m_battle;				// +0x04
 };
 
-bool Rva002BA392ArmyVisitor::visit(LivingWorldArmy *army)
+bool Rva002B29D8::visit(LivingWorldArmy *army)
 {
 	LivingWorldBattle *battle = m_battle;
 	if (battle->m_side >= 0)

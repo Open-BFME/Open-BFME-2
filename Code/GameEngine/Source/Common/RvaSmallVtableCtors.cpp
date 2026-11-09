@@ -98,11 +98,15 @@ Rva002AAD9C::Rva002AAD9C(void *payload) : m_04(payload)
 }
 
 // ??0Rva002B29D8@@QAE@PAX@Z @0x002B29D8 18B, vtable VA 0xbfe000
+// Retail's one-slot table holds the army visitor 0x002BA392
+// (LivingWorldLogicArmyVisitorRva002BA392.cpp); LivingWorldLogic::rva002B37FF
+// inlines this constructor.
+struct LivingWorldArmy;
 class Rva002B29D8
 {
 public:
 	Rva002B29D8(void *payload);
-	virtual ~Rva002B29D8() {}
+	virtual bool visit(LivingWorldArmy *army);
 private:
 	void *m_04;
 };

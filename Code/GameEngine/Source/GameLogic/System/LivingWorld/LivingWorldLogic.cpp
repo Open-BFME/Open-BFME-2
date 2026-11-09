@@ -3016,15 +3016,15 @@ void LivingWorldLogic::rva002B3833(LivingWorldBattle* battle,Rva002B89BBInfo* ar
 // Native2B37FF..2B3833 complete52B RET4; WB D87520 builds
 // the post-battle visitor whose real96B provider owns BFE000 slot0.
 // Borrow the actual visitor declaration; its payload4 is the battle.
-class Rva002BA392ArmyVisitor {
+class Rva002B29D8 {
 public:
  virtual bool visit(LivingWorldArmy*);
- Rva002BA392ArmyVisitor(LivingWorldBattle *battle):m_battle(battle){}
- ~Rva002BA392ArmyVisitor(){}
+ Rva002B29D8(LivingWorldBattle *battle):m_battle(battle){}
+ ~Rva002B29D8(){}
  LivingWorldBattle *m_battle;
 };
 void LivingWorldLogic::rva002B37FF(LivingWorldBattle* battle){
- Rva002BA392ArmyVisitor callback(battle);
+ Rva002B29D8 callback(battle);
  battle->rva003F498A((Rva003F498ACallback*)&callback);
 }
 
