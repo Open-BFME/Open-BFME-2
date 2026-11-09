@@ -6022,3 +6022,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C7C33@@UAEPAXI@Z,0x004C7C91,"Renamed to ??_GPlayerUpgradeSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E184)"
 ??1Rva004C8213@@UAE@XZ,0x004C8213,"Renamed to ??1DevastateSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E494)"
 ??_GRva004C8213@@UAEPAXI@Z,0x004C82B5,"Renamed to ??_GDevastateSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E494)"
+??1Rva004C85A4@@UAE@XZ,0x004C85A4,"Renamed to ??1SplitHordeSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E5FC)"
+??_GRva004C85A4@@UAEPAXI@Z,0x004C8602,"Renamed to ??_GSplitHordeSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E5FC)"

@@ -93,21 +93,6 @@ public:
 	virtual void doSpecialPower(unsigned int);
 };
 
-//
-// SplitHordeSpecialPower's destructor 0x004C85A4, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5E5FC at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5E598 at +0x10), exactly what ??0SplitHordeSpecialPower
-// 0x004C8574 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C85A4 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C85A4();
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp
@@ -123,7 +108,8 @@ SplitHordeSpecialPower::SplitHordeSpecialPower( Thing *thing, const ModuleData *
 {
 }
 
-// ??1SplitHordeSpecialPower@@MAE@XZ present-unmatched
+// ??1SplitHordeSpecialPower@@MAE@XZ 0x004C85A4: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 SplitHordeSpecialPower::~SplitHordeSpecialPower()
 {
 }
@@ -167,12 +153,6 @@ void SplitHordeSpecialPower::doSpecialPower(unsigned int)
 }
 
 // tu-skeleton: 0x004C859E 6B ?Rva004C859EGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C85A4::~Rva004C85A4()
-{
-}
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in

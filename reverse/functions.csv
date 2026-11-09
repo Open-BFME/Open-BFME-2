@@ -6190,7 +6190,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1PlayerUpgradeSpecialPower@@MAE@XZ,,0x004C7C33,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C7EAE@@UAE@XZ,,0x004C7EAE,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp,matched,opaque MI dtor
 ??1DevastateSpecialPower@@MAE@XZ,,0x004C8213,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp,matched,opaque MI dtor
-??1Rva004C85A4@@UAE@XZ,,0x004C85A4,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp,matched,opaque MI dtor
+??1SplitHordeSpecialPower@@MAE@XZ,,0x004C85A4,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C86E4@@UAE@XZ,,0x004C86E4,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C87F4@@UAE@XZ,,0x004C87F4,25,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,opaque MI dtor
 ??1Rva004C8A16@@UAE@XZ,,0x004C8A16,25,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,opaque MI dtor
@@ -9834,7 +9834,7 @@ _read_chars,,0x0074A910,145,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,obj
 ?get@Rva000B28C8AddDwordField@@QBEHXZ,,0x000B28C8,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 _math_asin,,0x00748460,43,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.asin via check_number + CIasin + pushnumber; callees pinned
 ?name@ScriptEngine@@QBEPBDXZ,,0x002086B7,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning ScriptEngine; vtable ref in .rdata; address-derived placeholder name
-??_GRva004C85A4@@UAEPAXI@Z,,0x004C8602,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GSplitHordeSpecialPower@@MAEPAXI@Z,,0x004C8602,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C86E4@@UAEPAXI@Z,,0x004C8742,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 _math_acos,,0x00748490,43,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.acos via check_number + CIacos + pushnumber; callees pinned
 ?get@Rva002B236EAddDwordField@@QBEHXZ,,0x002B236E,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
