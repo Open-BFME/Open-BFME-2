@@ -6135,7 +6135,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva0048D742@@UAE@XZ,,0x0048D742,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1HeightDieUpdate@@UAE@XZ,,0x0048FBBA,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva0049188D@@UAE@XZ,,0x0049188D,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1PickupStuffUpdate@@UAE@XZ,,0x00491DD3,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
+??1PickupStuffUpdate@@UAE@XZ,,0x00491DD3,25,Code/GameEngine/Source/Common/PickupStuffUpdate.cpp,matched,opaque MI dtor
 ??1AutoFindHealingUpdate@@UAE@XZ,,0x0049506E,25,Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdate.cpp,matched,opaque MI dtor
 ??1DemoTrapUpdate@@UAE@XZ,,0x00495916,25,Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp,matched,opaque MI dtor
 ??1BoredUpdate@@UAE@XZ,,0x0049669A,25,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,matched,opaque MI dtor
@@ -9852,7 +9852,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva0048B671@@UAEPAXI@Z,,0x0048B7BD,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GHeightDieUpdate@@UAEPAXI@Z,,0x0048FCFF,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0049188D@@UAEPAXI@Z,,0x00491A68,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GPickupStuffUpdate@@UAEPAXI@Z,,0x00491ECA,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GPickupStuffUpdate@@UAEPAXI@Z,,0x00491ECA,28,Code/GameEngine/Source/Common/PickupStuffUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GAutoFindHealingUpdate@@UAEPAXI@Z,,0x00495167,28,Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GDemoTrapUpdate@@UAEPAXI@Z,,0x004959E3,28,Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GBoredUpdate@@UAEPAXI@Z,,0x004967F3,28,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact

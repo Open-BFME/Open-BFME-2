@@ -61,11 +61,6 @@ public:
 class Xfer;
 class Thing;
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
 enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0,
@@ -107,18 +102,13 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
 #include "GameLogicObjectLookupView.h"
-
 extern PartitionManager *ThePartitionManager;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Rva00360D26Member
 {
 public:
@@ -127,15 +117,10 @@ public:
 private:
 	unsigned char m_data[4];
 };
-
 class ModuleData;
-
 class AIUpdateInterface;
-
 #include "../../Include/GameLogic/Module/UpdateModule.h"
-
 #include "../../Include/Common/XferVersion.h"
-
 // The Object's AI as these units use it: slot 110 (+0x1B8) answers whether
 // it is busy, the command interface sits at +0x20 and +0x34 is tested before
 // 0x0026331C.
@@ -262,22 +247,16 @@ public:
 	void *m_30;			// +0x30
 	void *m_34;			// +0x34
 };
-
 extern GameLogic *TheGameLogic;
-
 extern int BfmeLogicFramesPerSecond;
-
 struct PickupStuffAI
 {
 	unsigned char m_pad00[0x34];
 	int m_34;
 };
-
 #include "Thing/thing.h"
 #include "../GameLogic/Object/object.h"
-
 struct Rva002A8AB1Record;
-
 #include "../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -303,6 +282,44 @@ protected:
 	Object *m_object;		// +0x08
 };
 
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+// StealthUpdate (retail module class, module_factory_registrations.csv): its
+// constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,
+// the shared 0x007EFF90 at +0xC, 0x00817F14 at +0x10) as this destructor,
+// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Rva00491DD3_B2
+{
+public:
+	virtual void f2();
+};
 
 // +0x20 is set once moveToStuff sends the AI after a find and cleared by
 // 0x00491EE6 when the AI is idle again; +0x24 is the frame of the last scan.
@@ -331,9 +348,29 @@ private:
 	unsigned int m_lastScanFrame;	// +0x24
 };
 
-// tu-skeleton: 0x00491DD3 25B ??1PickupStuffUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+// ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
+
+PickupStuffUpdate::~PickupStuffUpdate()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00491DEC 6B ?name@PickupStuffUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/PickupStuffUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/PickupStuffUpdate.cpp
 
@@ -453,10 +490,6 @@ UpdateSleepTime PickupStuffUpdate::update()
 	return UPDATE_SLEEP_FOREVER;
 }
 
-// tu-skeleton: 0x00491E37 80B ??0PickupStuffUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491E87 17B ?buildFieldParse@PickupStuffUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateCtor.cpp
 
 //
@@ -477,6 +510,8 @@ PickupStuffUpdate::PickupStuffUpdate(Thing *thing, const ModuleData *moduleData)
 	m_20 = false;
 }
 
-// tu-skeleton: 0x00491ECA 28B ??_GPickupStuffUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x00491E37 80B ??0PickupStuffUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00491E87 17B ?buildFieldParse@PickupStuffUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x00491F5A 28B ??_GPickupStuffUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-p7z-f52d.cpp (not merged yet)

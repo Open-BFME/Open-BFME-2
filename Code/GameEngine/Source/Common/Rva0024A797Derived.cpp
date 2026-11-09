@@ -255,21 +255,7 @@ Rva0049188D::~Rva0049188D()
 {
 }
 
-class Rva00491DD3_B2
-{
-public:
-	virtual void f2();
-};
 
-class PickupStuffUpdate : public UpdateModule, public MiBase1, public Rva00491DD3_B2
-{
-public:
-	virtual ~PickupStuffUpdate();
-};
-
-PickupStuffUpdate::~PickupStuffUpdate()
-{
-}
 
 
 
