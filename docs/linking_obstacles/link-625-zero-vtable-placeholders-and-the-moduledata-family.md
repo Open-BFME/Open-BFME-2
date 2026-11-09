@@ -453,3 +453,20 @@ base's instead. They are now virtual overrides on `Rva000E3B41`, with both insta
 - Still differ: Composite slot 11, and Animatable slots 6, 11, 53 and 59. Slots 11, 53 and 59 are rowed overrides (0x001A5F00 `Get_Num_Verts`, 0x001A4E70, 0x001A5460) whose names and, at 59, signature do not match the base slots `_bfme_ro_v9`, `_v50` and `_v56`, so the tables compile the base defaults. Slot 6 has no row at 0x0015E600.
 
 **`Rva003F9FE6` base slot 0 (`0x00C37898` / RVA `0x00837898` and `0x00C3789C` / RVA `0x0083789C`), 2026-11-09.** Respelled `0x0056B7A0` via `rename.py function --rva 0x0056B7A0 --virtual` from non-virtual `?rva0056B7A0@Rva003F9FE6@@QAEEH@Z` to virtual `?rva0056B7A0@Rva003F9FE6@@UAEEH@Z` across 5 files (`Rva0056B613Forward.cpp`, `Rva003F9FE6CopyCtor.cpp`, `Rva003F9FE6Dtor.cpp`, `Rva00402F28ItemDtor.cpp`, `Rva0056B7E4Ctor.cpp`, removing `Rva0056B7E4`'s synthetic `??_ERva0056B7E4@@UAEPAXI@Z` slot 0 into `reverse/deleted_rows.csv`). Verified 15/15 matched across the 5 edited units plus 41/41 matched + 1 data row across the 7 cohort siblings, `eh_verify.py` exact, `class_gate.py` / `data_check.py` / `hatch_counters.py` / `find_declared_unmatched.py` clean, `link_check` 12/12 (`2,377 -> 2,377 B`, index `001bd86fc0`), and bounded `vtable_bridge.plan()` simulation over the 12 cohort objects in both `CopyCtor_first` and `B7E4Ctor_first` link orders: all three `0x00837898` tables (`??_7Rva003F9FE6@@6B@`, `??_7Rva00402C0F@@6B@`, `??_7Rva0056B7E4@@6B@`) land in `correct` (0 mismatches) in both orders. `??_7Rva003FA118@@6B@` (`0x0083789C`, 1 slot) now carries `?rva0056B7A0@Rva003F9FE6@@UAEEH@Z` at slot 0 instead of `__purecall` and remains bridged until `0x0056B613` (`?rva0056B613@Rva0056B613@@QAEXH@Z`) is respelled from `void` to `unsigned char` (`ret 4` leaves `al` set) and overrides `rva0056B7A0` on `Rva003FA118 : public Rva003F9FE6`.
+
+**2026-11-09, crash triage (P115): the first one a game run reached.** D1's skirmish on image 22121599ec (base
+0x2000000, receipt `2026-11-09T220829Z-game_smoke-2e79729c5691`) stops in `GameLogic::loadAllObjects` ->
+`ThingFactory::newObject` -> `Object::Object`+0xAA5, a call through slot 0 of the new module's +0x0C table that jumps to
+address 0. Registers (unlanded harness 2ba264c947, job `20261109T221529Z-3118663-1794262529359209419-game_smoke`): `edi` is
+the module's +0x0C, holding 0x02BFD1A8, a zero data word, not a table. It is `TemporarilyDefectUpdate`'s `_s_prison0C`
+(`PrisonDockUpdateCtor.cpp`), listed above as open, with `_s_prison10` beside it. Fixed by storing the real tables by name,
+`??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@` (retail VA 0x00BEFF90) and
+`??_7Rva004CC63A@@6BRva004CC63A_B2@@@` (VA 0x00C5F594); both are in the image. Rows 3/3, `link_check` 107 -> 107; the two
+ledger names that tied the statics to those addresses are removed. Not yet run.
+
+A broader read of the same image from the code side (crash triage's `p115_family.py`, rows whose retail immediate is a
+ledger vtable and whose kept copy stores an address inside no `??_7`) finds 186 such stores in 84 rows. Each is a
+virtual call waiting to fail like this one. It overlaps this inventory and reaches beyond it (copy constructors and
+create functions, not only constructors and placeholders with zero bytes):
+[vptr-placeholder-stores](../../reverse/attempt_support/vptr-placeholder-stores-20261109/stores_22121599ec.tsv).
+
