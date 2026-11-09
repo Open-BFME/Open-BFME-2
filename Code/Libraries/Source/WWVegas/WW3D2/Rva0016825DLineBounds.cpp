@@ -34,18 +34,29 @@ struct Rva0016825DBox {
         Extent=(maximum-minimum)*0.5f;
     }
 };
-struct Rva0016825DLineView {
-    char unknown00[0xc8];
+class AABoxClass;
+class SphereClass;
+// Slots 10, 67 and 68 of retail's table 0x00BD41C8. The class's other units declare the whole table; this view reads only these fields.
+class Rva001684D6 {
+public:
+    virtual int Get_Num_Polys(void) const;
+    virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &out) const;
+    virtual void Get_Obj_Space_Bounding_Box(AABoxClass &out) const;
+    char unknown04[0xc8-4];
     const Rva0016825DPoint *points;
     unsigned unknownCC;
     unsigned count;
     char unknownD4[0x18];
     float width;
-    void bounds(Rva0016825DBox &box) const;
-    void sphere(struct Rva001681EDSphere &sphere) const;
 };
-void Rva0016825DLineView::bounds(Rva0016825DBox &box) const
+// ?Get_Num_Polys@Rva001684D6@@UBEHXZ @0x0016814C: twice the count, less 2.
+int Rva001684D6::Get_Num_Polys(void) const
 {
+    return (int)count * 2 - 2;
+}
+void Rva001684D6::Get_Obj_Space_Bounding_Box(AABoxClass &out) const
+{
+    Rva0016825DBox &box = reinterpret_cast<Rva0016825DBox &>(out);
     unsigned num=count;
     if (num>=2) {
         Rva0016825DPoint maximum=points[0];
@@ -80,10 +91,11 @@ struct Rva001681EDSphere {
 // The complete body dispatches the box accessor through slot110, copies its
 // center, and takes the length of its extent. BF1 ba7 segline.cpp supplies
 // the same algorithm; it does not establish the original owner name.
-void Rva0016825DLineView::sphere(Rva001681EDSphere &sphere) const
+void Rva001684D6::Get_Obj_Space_Bounding_Sphere(SphereClass &out) const
 {
+    Rva001681EDSphere &sphere = reinterpret_cast<Rva001681EDSphere &>(out);
     Rva0016825DBox box;
-    typedef void (Rva0016825DLineView::*BoundsFn)(Rva0016825DBox &) const;
+    typedef void (Rva001684D6::*BoundsFn)(Rva0016825DBox &) const;
     union { void *address; BoundsFn member; } fn;
     fn.address=(*reinterpret_cast<void *const *const *>(this))[0x110/4];
     (this->*fn.member)(box);

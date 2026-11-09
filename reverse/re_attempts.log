@@ -102653,3 +102653,10 @@ tu-merge:Code/GameEngine/Source/Common/RTS/Player.cpp	0x0	0	blocked	forward decl
 ?_bfme_ro_v3@MeshClass@@UBEHXZ	0x00181450	3	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp 3B; slot 5 of retail table 0x00BD35A8: returns this
 ?Set_Sort_Level@MeshClass@@UAEXH@Z	0x0014A090	20	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/MeshClassCollision.cpp 20B; slot 95 of retail table 0x00BD35A8: writes the byte slot 94 reads
 ?bfmeSet@Gen_006BD4E0@@QAEX_N@Z	0x006BD4E0	10	landed	add_match verified Code/GameEngine/Source/Common/S3GuardedSetters.cpp 10B; stores its byte argument at +0x20; no reference in .text or .rdata; owner unknown
+?Get_Num_Polys@Rva001684D6@@UBEHXZ	0x0016814C	11	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp 11B; slot 10 of retail table 0x00BD41C8
+?Get_Obj_Space_Bounding_Box@Rva001684D6@@UBEXAAVAABoxClass@@@Z	0x0016825D	330	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp 330B; slot 68 of retail table 0x00BD41C8
+?Get_Obj_Space_Bounding_Sphere@Rva001684D6@@UBEXAAVSphereClass@@@Z	0x001681ED	112	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp 112B; slot 67 of retail table 0x00BD41C8
+?Class_ID@Rva001684D6@@UBEHXZ	0x0058C484	4	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp 4B; slot 3 of retail table 0x00BD41C8: returns 0x1C
+?Prepare_LOD@Rva001684D6@@UAEXAAVCameraClass@@@Z	0x0047A69C	3	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp 3B; slot 72 of retail table 0x00BD41C8: empty
+?Get_Cost@Rva001684D6@@UBEMXZ	0x00167F48	17	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp 17B; slot 76 of retail table 0x00BD41C8: slot 10 as a float
+?Get_LOD_Count@Rva001684D6@@UBEHXZ	0x000D43D0	3	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp 3B; slot 81 of retail table 0x00BD41C8: returns 0
