@@ -66,6 +66,13 @@ AttributeModifierUpgrade::AttributeModifierUpgrade(
 {
 }
 
+// Primary slot 1 of 0x00C587E8, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void AttributeModifierUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // tu-skeleton: 0x004B6771 28B ??_GAttributeModifierUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AttributeModifierUpgradeMuxSlots.cpp

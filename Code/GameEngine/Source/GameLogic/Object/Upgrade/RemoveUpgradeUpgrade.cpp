@@ -123,6 +123,13 @@ RemoveUpgradeUpgrade::RemoveUpgradeUpgrade(Thing *thing, const ModuleData *modul
 {
 }
 
+// Primary slot 1 of 0x00C58E20, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void RemoveUpgradeUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // tu-skeleton: 0x004B7FF1 67B ??0RemoveUpgradeUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RemoveUpgradeUpgradeModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B8034 28B ??_GRemoveUpgradeUpgradeModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RemoveUpgradeUpgradeModuleDataCtor.cpp (not merged yet)

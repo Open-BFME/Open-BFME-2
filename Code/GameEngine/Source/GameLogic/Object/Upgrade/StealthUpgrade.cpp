@@ -7,7 +7,7 @@
 // and UpgradeModule's 0x00C58790 at +0x18; dtor 0x004B530D restores the same
 // four and jumps to ??1UpgradeModule 0x0046089D.
 //  - 0x00C57E30 (12 slots): ??_G 0x004B53A9, loadPostProcess 0x00497805
-//    (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter 0x004B532D
+//    (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded), the name getter 0x004B532D
 //    (rowed non-virtual ?name@StealthUpgrade, so slot 2 stays UpgradeModule's),
 //    xfer 0x004B8710 (Version1 then UpgradeModule::xfer, the body retail folds
 //    with ArmorUpgrade::xfer), getModuleNameKey 0x004B5333, then
@@ -53,6 +53,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual ~StealthUpgrade();
+	virtual void loadPostProcess();											// primary slot 1
 	virtual void xfer( Xfer *xfer );								// primary slot 3
 	virtual void upgradeRemovalImplementation();					// UpgradeMux slot 8
 	virtual void upgradeImplementation();							// UpgradeMux slot 10
@@ -77,6 +78,13 @@ StealthUpgrade::StealthUpgrade(
 	Thing *thing, const ModuleData *moduleData )
 	: UpgradeModule( thing, moduleData )
 {
+}
+
+// Primary slot 1 of 0x00C57E30, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void StealthUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
 }
 
 // ??1StealthUpgrade@@MAE@XZ @0x004B530D 32B: four vptr stores at

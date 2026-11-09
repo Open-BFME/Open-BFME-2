@@ -108,6 +108,13 @@ DoCommandUpgrade::DoCommandUpgrade(Thing *thing, const ModuleData *moduleData)
 {
 }
 
+// Primary slot 1 of 0x00C57B58, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void DoCommandUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp
 
 // ?upgradeRemovalImplementation@DoCommandUpgrade@@UAEXXZ @0x004B4C7B

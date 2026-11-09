@@ -37,6 +37,13 @@ LocomotorSetUpgrade::LocomotorSetUpgrade(
 {
 }
 
+// Primary slot 1 of 0x00C57530, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void LocomotorSetUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // ?xfer@LocomotorSetUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C57530 is 0x004B8710, version 1 then
 // UpgradeModule's xfer; retail folds the body with ArmorUpgrade::xfer
 // (ArmorUpgradeXfer.cpp).

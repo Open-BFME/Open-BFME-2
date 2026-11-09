@@ -183,6 +183,13 @@ UnpauseSpecialPowerUpgrade::UnpauseSpecialPowerUpgrade(
 {
 }
 
+// Primary slot 1 of 0x00C57EA8, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void UnpauseSpecialPowerUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // tu-skeleton: 0x004B54BD 28B ??_GUnpauseSpecialPowerUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B554F 16B ?rva004B554F@Rva004B554FHolder@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)

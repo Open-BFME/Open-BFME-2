@@ -374,6 +374,13 @@ ModelConditionUpgrade::ModelConditionUpgrade( Thing *thing, const ModuleData *mo
 {
 }
 
+// Primary slot 1 of 0x00C58658, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void ModelConditionUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // tu-skeleton: 0x004B6516 28B ??_GModelConditionUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@ModelConditionUpgrade@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)

@@ -205,6 +205,13 @@ MaxHealthUpgrade::MaxHealthUpgrade(
 {
 }
 
+// Primary slot 1 of 0x00C58590, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void MaxHealthUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // ??0MaxHealthUpgradeModuleData@@QAE@XZ owned by MaxHealthUpgradeModuleDataCtor.cpp; declared in-class above.
 
 // tu-skeleton: 0x004B633B 28B ??_GMaxHealthUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)

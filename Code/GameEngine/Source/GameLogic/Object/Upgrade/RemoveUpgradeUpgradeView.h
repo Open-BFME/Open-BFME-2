@@ -5,7 +5,7 @@
 // store 0x00C58E20 at +0, UpgradeModule's 0x00C57328 at +0x0C, 0x00C58DD8 at
 // +0x10 and UpgradeModule's 0x00C58790 at +0x18 (size 0x1C).
 //  - 0x00C58E20 (12 slots): ??_G 0x004B7FD5, loadPostProcess 0x00497805
-//    (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter 0x004B7F21
+//    (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded), the name getter 0x004B7F21
 //    (rowed as the non-virtual ?name@RemoveUpgradeUpgrade, so slot 2 stays
 //    UpgradeModule's here), xfer 0x004B8710 (Version1 then UpgradeModule::xfer,
 //    the body retail folds with ArmorUpgrade::xfer), getModuleNameKey
@@ -74,6 +74,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual ~RemoveUpgradeUpgrade();
+	virtual void loadPostProcess();											// primary slot 1
 	virtual void xfer(Xfer *xfer);											// primary slot 3
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
 	virtual void upgradeImplementation();									// UpgradeMux slot 10

@@ -9,7 +9,7 @@
 //    0x00C58790 at +0x18; its destructor 0x004B4BA1 restores the same four tables and jumps to
 //    ??1UpgradeModule 0x0046089D.
 //  - 0x00C57B58 (12 slots): deleting destructor 0x004B4C5F, loadPostProcess 0x00497805
-//    (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter 0x004B4BC1 ("DoCommandUpgrade";
+//    (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded), the name getter 0x004B4BC1 ("DoCommandUpgrade";
 //    rowed as the non-virtual ?name@DoCommandUpgrade, so slot 2 stays UpgradeModule's here), xfer
 //    0x004B8710 (Version1, then UpgradeModule::xfer; a body retail folds with
 //    ArmorUpgrade::xfer), getModuleNameKey 0x004B4BC7, then UpgradeModule's slots.
@@ -38,6 +38,7 @@ public:
 
 protected:
 	virtual ~DoCommandUpgrade();
+	virtual void loadPostProcess();											// primary slot 1
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 };
 

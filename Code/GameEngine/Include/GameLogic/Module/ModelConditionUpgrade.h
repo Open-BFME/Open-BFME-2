@@ -9,7 +9,7 @@
 //    UpgradeModule's 0x00C58790 at +0x18; its destructor 0x004B63BD restores the same four tables
 //    and jumps to ??1UpgradeModule 0x0046089D.
 //  - 0x00C58658 (12 slots): deleting destructor 0x004B6516, loadPostProcess 0x00497805
-//    (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter 0x004B63DD
+//    (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded), the name getter 0x004B63DD
 //    ("ModelConditionUpgrade"), xfer 0x004B8710 (Version1, then UpgradeModule::xfer; a body
 //    retail folds with ArmorUpgrade::xfer), getModuleNameKey 0x004B63E3, then UpgradeModule's
 //    slots.
@@ -36,6 +36,7 @@ public:
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
 
 protected:
+	virtual void loadPostProcess();											// primary slot 1
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeImplementation();									// UpgradeMux slot 10
 };

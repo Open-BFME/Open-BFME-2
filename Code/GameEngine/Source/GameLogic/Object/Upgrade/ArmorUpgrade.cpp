@@ -141,6 +141,7 @@ protected:
 public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
+	virtual void loadPostProcess();											// primary slot 1
 	// retail slot 3: the rowed ?xfer@ArmorUpgrade@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
 	virtual void upgradeRemovalImplementation();
@@ -165,6 +166,13 @@ ArmorUpgrade::ArmorUpgrade(
 	Thing *thing, const ModuleData *moduleData )
 	: UpgradeModule( thing, moduleData )
 {
+}
+
+// Primary slot 1 of 0x00C570A0, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void ArmorUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
 }
 
 // ---- from Code/GameEngine/Source/Common/System/ArmorUpgradePoolKey.cpp

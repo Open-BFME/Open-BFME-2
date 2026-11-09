@@ -169,6 +169,13 @@ ExperienceScalarUpgrade::ExperienceScalarUpgrade(
 {
 }
 
+// Primary slot 1 of 0x00C584E8, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void ExperienceScalarUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
 // tu-skeleton: 0x004B61F7 28B ??_GExperienceScalarUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ?xfer@ExperienceScalarUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C584E8 is
