@@ -6,9 +6,16 @@
 // deleting dtor 0x002CEEE6. Flags /O1 /MD /EHsc for EH frame.
 #include "ascii_string.h"
 
+// The array's element (0x1C bytes). Retail's ??_M at 0x00629110 is given
+// 0x000B3FD0, a bare ret, as the element destructor: an element owns nothing
+// it releases. RayEffectSystem::addRayEffect (0x002CED84) fills the slots.
+// An AsciiString at +0 here had the image release each slot's first word
+// at teardown (P102).
 struct Elem002CEE1B
 {
-	AsciiString m_str;
+	~Elem002CEE1B() {}
+
+	void *m_word00;
 	char m_pad[24];
 };
 
