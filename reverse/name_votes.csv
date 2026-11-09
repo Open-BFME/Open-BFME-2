@@ -24262,3 +24262,7 @@ Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp|global||g_Va0130A58C,55cfb
 Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp|global||g_Va0130A58D,ef877b27f914b24395ac1158,gpt-6.1-sol,voter-codex-shutdown-20261109,w-8ec2693f00b5,2026-11-09
 Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp|global||g_Va0130A58C,e38b9be30e2491efc613b935,claude-opus-5-5,vote-opus55-9a35f394,w-16069cba4b11,2026-11-09
 Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp|global||g_Va0130A58D,eecda2085fc6997a6228d829,claude-opus-5-5,vote-opus55-9a35f394,w-16069cba4b11,2026-11-09
+Code/GameEngine/Source/Common/VslotMemberForwarders.cpp|function|0x003A5896|rva003A5896,2ef5cd4873ee2680b93ea441,gpt-6.1-sol,wind-native-pair-20261109,w-60cf5ecad7a2,2026-11-09
+Code/GameEngine/Source/Common/GapForwardersSeat8.cpp|function|0x003A589E|rva003A5896,2aa2350ade81bf607f1b449e,gpt-6.1-sol,wind-native-pair-20261109,w-60cf5ecad7a2,2026-11-09
+Code/GameEngine/Source/Common/GapForwardersSeat8.cpp|function|0x003A589E|rva003A5896,2aa2350ade81bf607f1b449e,gpt-6.1-sol,review-52f2d5c352594720,w-70c965bf7665,2026-11-09
+Code/GameEngine/Source/Common/VslotMemberForwarders.cpp|function|0x003A5896|rva003A5896,2ef5cd4873ee2680b93ea441,gpt-6.1-sol,review-52f2d5c352594720,w-70c965bf7665,2026-11-09
