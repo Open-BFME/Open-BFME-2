@@ -500,3 +500,21 @@ not an identity claim for the behaviour units that store it. 277/277 rows exact,
 (Factories already at 0), no old names referenced. `data_check`: 15 findings, the same 15 as before this change. The census is the
 pass test: it should give these units back. Not moved, no link lost: `Rva0055BCF1ColorModuleCtor.cpp`'s private view and the unused
 `FX_MODULE_TEMPLATE` macro in a shared header.
+
+**2026-11-09 four more units on the old `SecondaryModuleBase` spellings.** LeonardBuhl's `1a08478afc`, `a05bf4a06d`, `67008267eb`, `5185a78115` and
+`4f2acf744d` store these names and landed about four hours after `e82daa0fe0` retired them. Their messages cite master's data ledger, which still bound the
+retired names: the ledger was stale, and each name then also stays in a regeneration through these stores. Likely cause, not proven per commit. Re-measured at `717b70f4ab`: `ParticleModuleTemplateClones.cpp` 3 unresolved, `ConcreteModuleTemplateCopyCtors.cpp` 2,
+`Rva003AEADDCopyCtor.cpp` 1, `T1Base005F3750Ctor.cpp` 1. No object defined any of them. Each store now names the table emitted at the same
+retail address: `6BSecondaryModuleBase@1@@` becomes `6B?$CategoryModuleInfo@$0N@1@@`, and the bare name becomes
+`??_7?$CategoryModuleInfo@$00@…6B@` as in the 23-unit move, which is the address's name, not an identity claim. Rows byte-match and the
+three units' `link_check` says LINKS (781 bytes). The census is the pass test.
+
+Remaining: `T1Base005F3750Ctor.cpp` still does not link: its private `FXParticleSystem::DefaultDrawModuleInfo` emits a table differing from
+the canonical copy (`??_7DefaultDrawModuleInfo@FXParticleSystem@@6B@`). One try at the canonical header (`GameClient/DefaultDrawModuleInfo.h`)
+failed: 2 of 5 rows differ and `??0DefaultDrawModuleInfo@FXParticleSystem@@QAE@XZ` goes unresolved, since that unit rows the inline
+constructor. Not landed; it needs that row's owner settled first.
+
+**2026-11-09 measurement, for whoever next needs this time.** `link_check.py --update-index` with no object stale took 348 s under cProfile
+(load about 15), 285 s of it in `build.stale_sources`' worker pool, and 130-305 s unprofiled whatever moved (29 to 309 objects). It is the
+largest fixed cost of a ledger refresh pass after the A/B. Scoping that check by the moved paths has not been tried; a header edit would have
+to widen it, and that needs its own proof.
