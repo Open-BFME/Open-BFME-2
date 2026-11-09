@@ -72,39 +72,9 @@ extern "C" void __identifier("??_GStructureBodyModuleData@@UAEPAXI@Z")();
 extern "C" void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 extern "C" void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
 extern "C" void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
-extern "C" const void *const vtbl_00BF4028[] = {
-	(const void *)&__identifier("??_GStructureBodyModuleData@@UAEPAXI@Z"),
-	(const void *)&__identifier("??1Coord2D@@QAE@XZ"),
-	(const void *)&__identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ"),
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
-};
+// VA 0x00BF4028 carries the compiler table FamilyDeletingDtors.cpp emits as
+// StructureBodyModuleData's (the data ledger binds that name there).
+extern "C" const void *const __identifier("??_7StructureBodyModuleData@@6B@")[];
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ActiveBody.h
 class ActiveBody : public BodyModule
@@ -308,7 +278,7 @@ PorcupineFormationBodyModuleData::PorcupineFormationBodyModuleData()
 	m_reactionWeapon = 0;
 	m_weapon = 0;
 	m_level = 0;
-	*(unsigned int *)this = ((unsigned int)vtbl_00BF4028);
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7StructureBodyModuleData@@6B@"));
 }
 
 // tu-skeleton: 0x0078FCC7 13B $L2707 -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp (not merged yet)
