@@ -187,6 +187,56 @@ template <> const WeaponTemplateSet *&
 map<const BitFlags<17>, const WeaponTemplateSet *, SparseMatchFinder<WeaponTemplateSet, BitFlags<17> >::MapHelper, allocator<pair<const BitFlags<17>, const WeaponTemplateSet *> > >::operator[](const BitFlags<17> &);
 }
 
+// KNOWN MISNAME (P120; the family's respell is packet P121). Row 0x0033D4EA is spelled
+// SparseMatchFinder<WeaponTemplateSet, BitFlags<17> >::findBestInfo, but retail's body is the armor-set finder: its
+// only caller is 0x0033DCB8 (ThingTemplate::findArmorTemplateSet, from Armor::adjustDamage and
+// ActiveBody::validateArmorAndDamageFX), and its slow path calls 0x0033BE70, rowed
+// SparseMatchFinder<ArmorTemplateSet, BitFlags<11> >::findBestInfoSlow (12-byte elements). Compiled from the weapon
+// template it called the weapon slow path instead (84-byte elements), which read past the armor-set vector. The weapon
+// spelling stays for now because the map and tree rows it calls (0x0033AF5F, 0x0033D19B) carry it too; only the slow
+// path is named for the armor finder. That function is private, and an explicit instantiation may name it.
+namespace {
+template <class Tag, typename Tag::type Member>
+struct BfmeArmorSlowAccess
+{
+	friend typename Tag::type bfmeArmorSlow(Tag) { return Member; }
+};
+struct BfmeArmorSlowTag
+{
+	typedef const ArmorTemplateSet *(SparseMatchFinder<ArmorTemplateSet, BitFlags<11> >::*type)(
+		const std::vector<ArmorTemplateSet> &, const BitFlags<11> &) const;
+	friend type bfmeArmorSlow(BfmeArmorSlowTag);
+};
+template struct BfmeArmorSlowAccess<BfmeArmorSlowTag, &SparseMatchFinder<ArmorTemplateSet, BitFlags<11> >::findBestInfoSlow>;
+}
+
+template <>
+const WeaponTemplateSet *SparseMatchFinder<WeaponTemplateSet, BitFlags<17> >::findBestInfo(
+	const std::vector<WeaponTemplateSet> &v, const BitFlags<17> &bits) const
+{
+	MatchMap::const_iterator it = m_bestMatches.find(bits);
+
+	const WeaponTemplateSet *first = NULL;
+	if (it != m_bestMatches.end())
+	{
+		first = (*it).second;
+	}
+	if (first != NULL) {
+		return first;
+	}
+
+	const SparseMatchFinder<ArmorTemplateSet, BitFlags<11> > *armor =
+		reinterpret_cast<const SparseMatchFinder<ArmorTemplateSet, BitFlags<11> > *>(this);
+	const WeaponTemplateSet *info = reinterpret_cast<const WeaponTemplateSet *>((armor->*bfmeArmorSlow(BfmeArmorSlowTag()))(
+		reinterpret_cast<const std::vector<ArmorTemplateSet> &>(v), reinterpret_cast<const BitFlags<11> &>(bits)));
+
+	if (info != NULL) {
+		m_bestMatches[bits] = info;
+	}
+
+	return info;
+}
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
