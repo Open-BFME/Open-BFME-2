@@ -1802,7 +1802,6 @@ alternatename	Code/GameEngine/Source/Common/RTS/Science.cpp	?lookupScience@Scien
 alternatename	Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp	?getShroudStatusForPlayer@ShroudManager@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp	?revealMapForPlayerPermanently@ShroudManager@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00029F80Cluster.cpp	?rva00078c0@Rva00029F80@@AAEXPBD0PAX@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp	?handle@Gen0003AC38@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00072A08Ctor.cpp	??1RenderingMethodDelegate@FXShader@@MAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00072A08Ctor.cpp	?rva00072A08@RenderingMethodDelegate@FXShader@@UAE_NHH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00072A94Assign.cpp	?Rva000E1860Copy@@YAPAVRva00072A94@@PAV1@00PAXH@Z	1
@@ -3204,6 +3203,7 @@ alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown22@G
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown23@GameEngine@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown24@GameEngine@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?setIsActive@GameEngine@@UAEX_N@Z	1
+alternatename	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	?handle@Gen0003AC38@@QAEXPAX@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2FallbackTextures_BfmeReleaseQueuedDeviceInterfaces_Rva0013331A.cpp	?vecPushBack@Rva0020FB8BVec20@@QAEXAAPAX@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	??0Q1ReceiverTreeStorage@@QAE@ABV?$set@UGen_t_009ee8e0_k4@@U?$less@UGen_t_009ee8e0_k4@@@_STL@@V?$allocator@UGen_t_009ee8e0_k4@@@3@@_STL@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	?bfmeSay1025@BfmeP1025@@QAEDPAD@Z	1
@@ -12562,14 +12562,15 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/Rva0066F5F0ForwardersFinish
 present_unmatched	Code/GameEngine/Source/GameNetwork/Rva0066F5F0ForwardersFinish.cpp	Rva0066F5F0Secondary::forward3	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp	1Rva00803890Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	clear@Rva007F7860Block@@QAEXXZ	1
+present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	0Elem4@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	MilesAliasTable::_M_delete_node	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	Rva00059068Tree::~Rva00059068Tree	1
+present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp	slot23@MilesAudioManager@@	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	Rva00054AFA::~Rva00054AFA	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	record	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	subtitleFirstChar	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	subtitleIsEmpty	1
-present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp	0Elem4@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	getSurfaceLevel@W3DRadarResetTexture@@QAE?AVW3DRadarResetSurface@@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	renderObjectList@W3DRadar@@IAEXPBVRadarObject@@PAVTextureClass@@_N@Z	1
@@ -13322,7 +13323,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	0Signatu
 present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	1DebugStackwalk@@AAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	GetSymbol@Signature@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP	Rva00885980Class::d_00885980	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp	bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp	bfmeEmitBadAllocDestructor@@YAXPAVbad_alloc@std@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/INIClassShutdown.cpp	verbatim	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp	anchorDeleteLightPoint@@YAXPAVLightPoint@@@Z	1

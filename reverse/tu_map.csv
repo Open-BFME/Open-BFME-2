@@ -2985,7 +2985,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000517F1,42,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp
 0x0005181B,37,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp
 0x00051840,6,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp
-0x00051846,24,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesPreferenceProduct.cpp
+0x00051846,24,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0005185E,42,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp
 0x00051888,14,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005185E..0x00051896,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x00051896,7,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngine/Source/Common/MilesAudioManager.cpp,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
@@ -2993,9 +2993,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000518A4,14,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngine/Source/Common/MilesAudioManager.cpp,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
 0x000518B2,6,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngine/Source/Common/MilesAudioManager.cpp,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
 0x000518B8,40,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
-0x000518E0,12,code,,,-,,Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp
-0x000518EC,20,code,,,-,,Code/GameEngine/Source/Common/Rva006963B0VirtualSlot5.cpp
-0x00051900,20,code,,,-,,Code/GameEngine/Source/Common/Rva006963D0VirtualSlot3.cpp
+0x000518E0,12,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+0x000518EC,20,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+0x00051900,20,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051914,29,code,Code/GameEngine/Source/Common/Thing/AudioEventInfoRef.cpp,proposed,N,N=Code/GameEngine/Source/Common/Thing/AudioEventInfoRef.cpp,Code/GameEngine/Source/Common/Thing/AudioEventInfoRefConstructor.cpp
 0x00051931,31,code,Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x00051950,33,code,Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
@@ -3009,17 +3009,17 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00051A2A,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp
 0x00051A46,37,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/LatchRestoreCtor.cpp
 0x00051A6B,14,code,,,-,,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
-0x00051A79,31,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod144_allocator.cpp
+0x00051A79,31,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051A98,43,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp
-0x00051AC3,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva00051AC3.cpp
+0x00051AC3,23,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051ADA,31,code,,,-,W=Code/GameEngine/Source/Common/Audio/AudioEventInfo.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp
 0x00051AF9,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00051AF9FillN.cpp
 0x00051B1E,34,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WWLib/OpaqueRefElement4.cpp,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp
 0x00051B40,45,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WWLib/BfmeStringTailRecord144.cpp,Code/Libraries/Source/WWVegas/WWLib/Rva00051B40Copy.cpp
 0x00051B6D,28,code,,displaced,-,N=Code/GameEngine/Source/Common/BfmeStringTailRecord144.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors2.cpp
-0x00051B89,24,code,,,-,,Code/GameEngine/Source/Common/Rva00051B89Mod.cpp
+0x00051B89,24,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051BA1,36,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDeque.cpp
-0x00051BC5,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00051BC5Call.cpp
+0x00051BC5,28,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051BE1,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00051C10Copy.cpp
 0x00051C10,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00051C10Copy.cpp
 0x00051C3F,45,code,,,-,,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp
@@ -3027,9 +3027,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00051C89,17,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00051C89IteratorSteps.cpp
 0x00051C9A,8,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
 0x00051CA2,24,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioArray0005276C.cpp
-0x00051CBA,38,code,,,-,,Code/GameEngine/Source/Common/Rva00051CBAEquals.cpp
-0x00051CE0,17,code,,,-,,Code/GameEngine/Source/Common/Rva00051CBAEquals.cpp
-0x00051CF1,49,code,,,-,,Code/GameEngine/Source/Common/Rva00051CF1Equals.cpp
+0x00051CBA,38,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+0x00051CE0,17,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+0x00051CF1,49,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051D22,53,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,proposed,K,K=Rva0051D93,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
 0x00051D57,11,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,proposed,K,K=Rva0051D93,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
 0x00051D62,49,code,Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,proposed,K,K=Rva0051D93,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
@@ -3048,15 +3048,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0005202C,28,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
 0x00052048,80,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
 0x00052098,27,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
-0x000520B3,19,code,,,-,,Code/GameEngine/Source/Common/Rva006994F0Fill.cpp
+0x000520B3,19,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x000520C6,46,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
 0x000520F4,74,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/Rva000520F4.cpp
 0x0005213E,182,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x000521F4,235,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
 0x000522DF,46,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
-0x0005230D,147,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005230D.cpp
+0x0005230D,147,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x000523A0,137,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
-0x00052429,33,code,,,-,,Code/GameEngine/Source/Common/BfmeConv1744.cpp
+0x00052429,33,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0005244A,48,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
 0x0005247A,48,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE25.cpp
 0x000524AA,44,code,,,-,,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp
@@ -3079,7 +3079,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0005286A,173,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00052917,51,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00052917.cpp
 0x0005294A,499,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getScreenToTerrainPositions.cpp
-0x00052B3D,22,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005294A..0x00052B53,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp
+0x00052B3D,22,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005294A..0x00052B53,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00052B53,971,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp W=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00052F1E,46,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00052F4C,84,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getGlobalReverbMultiplier.cpp
@@ -3108,7 +3108,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00053CE1,69,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00053CE1.cpp
 0x00053D26,41,code,Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x00053D4F,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp
-0x00053D66,35,code,,,-,,Code/GameEngine/Source/Common/Rva00053D66Assign.cpp
+0x00053D66,35,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00053D89,26,code,,,-,,Code/GameEngine/Source/Common/Rva00053D89Clear.cpp
 0x00053DA3,34,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp
 0x00053DC5,45,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,proposed,K,K=Rva00053DC5,Code/Libraries/Source/WWVegas/WWLib/Rva00053DC5.cpp
@@ -3213,14 +3213,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000557BB,86,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055811,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000557BB.cpp
 0x00055811,20,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055825,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00054EBE.cpp
 0x00055825,63,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055864,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_owned_copy_backward.cpp
-0x00055864,28,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055880,Code/Libraries/Source/WWVegas/WWLib/Rva00055864Free.cpp
+0x00055864,28,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055880,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00055880,45,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000558AD,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00055880.cpp
 0x000558AD,65,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000558EE,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000558AD.cpp
 0x000558EE,45,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x0005591B,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x0005591B,9,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055924,Code/GameEngine/Source/Common/DestroyInstances.cpp
 0x00055924,45,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x00055951,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00058ead.cpp
 0x00055951,59,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x0005598C,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
-0x0005598C,23,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000559A3,Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp
+0x0005598C,23,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000559A3,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x000559A3,19,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000559B6,Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp
 0x000559B6,21,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000559CB,Code/GameEngine/Source/GameClient/GUI/AptScreenClose.cpp
 0x000559CB,5,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00055426..0x000559D0,Code/GameEngine/Source/GameClient/GUI/AptScreenClose.cpp
@@ -3294,7 +3294,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00057948,76,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00057994,63,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x000579D3,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferred.cpp
 0x000579D3,11,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x000579DE,Code/GameEngine/Source/Common/GapBodiesGE29.cpp
-0x000579DE,87,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x00057A35,Code/Libraries/Source/WWVegas/WWLib/StlportDequeSweepRva00056DEB.cpp
+0x000579DE,87,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x00057A35,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00057A35,180,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x00057AE9,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp
 0x00057AE9,5,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x00057AEE,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x00057AEE,57,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00057948..0x00057B27,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp
@@ -3378,14 +3378,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00059DF5,103,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngine/Source/Common/MilesAudioManager.cpp,Code/GameEngine/Source/Common/Rva00059DF5Method.cpp
 0x00059E5C,82,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngine/Source/Common/MilesAudioManager.cpp,Code/GameEngine/Source/Common/Rva00059DF5Method.cpp
 0x00059EAE,206,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp
-0x00059F7C,63,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x00059FBB,Code/Libraries/Source/WWVegas/WWLib/StlportUnicodeStringVectorDtor.cpp
+0x00059F7C,63,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x00059FBB,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00059FBB,121,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A034,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp
 0x0005A034,20,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A048,Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplay.cpp
 0x0005A048,55,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A07F,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0036ca00_pushback.cpp
 0x0005A07F,5,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A084,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x0005A084,55,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A0BB,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00058BBD.cpp
 0x0005A0BB,51,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A0EE,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_erase.cpp
-0x0005A0EE,36,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A112,Code/Libraries/Source/WWVegas/WWLib/Rva00058D4AReserveInsert.cpp
+0x0005A0EE,36,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A112,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0005A112,64,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A152,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005A112.cpp
 0x0005A152,30,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A170,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_reserve.cpp
 0x0005A170,241,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x00059EAE..0x0005A261,Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp
@@ -3418,7 +3418,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0005B505,31,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B524,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_hash_bodies.cpp
 0x0005B524,20,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B538,Code/GameEngine/Source/Common/GapBodiesGE29.cpp
 0x0005B538,178,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B5EA,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_fill.cpp
-0x0005B5EA,73,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B633,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005B5EA.cpp
+0x0005B5EA,73,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B633,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0005B633,73,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B67C,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp
 0x0005B67C,128,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B6FC,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp
 0x0005B6FC,12,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005B256..0x0005B708,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp
@@ -3443,7 +3443,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0005CB39,87,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp
 0x0005CB90,87,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,S,S=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp N=Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp
 0x0005CBE7,55,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005CB90..0x0005CC1E,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_push_back.cpp
-0x0005CC1E,5,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005CB90..0x0005CC23,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005B5EA.cpp
+0x0005CC1E,5,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005CB90..0x0005CC23,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0005CC23,5,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005CB90..0x0005CC28,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x0005CC28,281,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005CB90..0x0005CD41,Code/Libraries/Source/xfer/Rva0005CC28XferAsciiStringRealMap.cpp
 0x0005CD41,241,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x0005CB90..0x0005CE32,Code/GameEngine/Source/Common/System/XferUnicodeStringVector.cpp
@@ -61788,8 +61788,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075D9C7,10,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0075D9D1,11,code,,,-,,Code/gen_small/uw_gen_009.cpp
 0x0075D9DC,10,code,,,-,,Code/GameEngine/Source/GameClient/Rva000588DADtor.cpp
-0x0075D9E6,8,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x000579DE@FuncInfo0x008FFCB4,Code/Libraries/Source/WWVegas/WWLib/StlportDequeSweepRva00056DEB.cpp
-0x0075D9EE,10,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x000579DE@FuncInfo0x008FFCB4,Code/Libraries/Source/WWVegas/WWLib/StlportDequeSweepRva00056DEB.cpp
+0x0075D9E6,8,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x000579DE@FuncInfo0x008FFCB4,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+0x0075D9EE,10,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x000579DE@FuncInfo0x008FFCB4,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x0075D9F8,8,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x0005813E@FuncInfo0x008FFCD8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
 0x0075DA00,10,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x0005813E@FuncInfo0x008FFCD8,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp
 0x0075DA0A,8,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,P,P=0x000587C6@FuncInfo0x008FFD30,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
