@@ -10,9 +10,6 @@ class Xfer;
 #include "../../Include/GameLogic/Module/CreateModuleClass.h"
 #include "../../Include/GameLogic/Module/LockWeaponCreate.h"
 
-LockWeaponCreate::~LockWeaponCreate()
-{
-}
 
 class Rva004B8DB1 : public CreateModule
 {

@@ -6221,7 +6221,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva006FC120@@UAE@XZ,,0x006FC120,11,Code/GameEngine/Source/Common/Rva006D6470Derived.cpp,matched,opaque derived dtor
 ??1Rva006FC1C0@@UAE@XZ,,0x006FC1C0,11,Code/GameEngine/Source/Common/Rva006D6470Derived.cpp,matched,opaque derived dtor
 ??1Rva00709B80@@UAE@XZ,,0x00709B80,11,Code/GameEngine/Source/Common/Rva006D6470Derived.cpp,matched,opaque derived dtor
-??1LockWeaponCreate@@UAE@XZ,,0x004B8C3E,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor three vptrs tail-jmp opaque base
+??1LockWeaponCreate@@UAE@XZ,,0x004B8C3E,25,Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp,matched,opaque MI dtor three vptrs tail-jmp opaque base
 ??1Rva004B8DB1@@UAE@XZ,,0x004B8DB1,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
 ??1Rva004B8EA8@@UAE@XZ,,0x004B8EA8,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
 ??1Rva004B8F92@@UAE@XZ,,0x004B8F92,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
@@ -9984,7 +9984,7 @@ _math_rad,,0x00748740,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GActionManager@@UAEPAXI@Z,,0x0041BBC8,28,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva00485983@@UAEPAXI@Z,,0x00485B80,28,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GDozerPrimaryStateMachine@@UAEPAXI@Z,,0x00488EE0,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GLockWeaponCreate@@UAEPAXI@Z,,0x004B8CAD,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GLockWeaponCreate@@UAEPAXI@Z,,0x004B8CAD,28,Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004B8DB1@@UAEPAXI@Z,,0x004B8E0F,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004B8EA8@@UAEPAXI@Z,,0x004B8F06,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004B8F92@@UAEPAXI@Z,,0x004B9001,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
