@@ -6979,13 +6979,13 @@ void __cdecl rva007B7AE1()
 	return receiver->~Rva0030A0FCDtor();
 }
 
-extern unsigned g_Va00E032DC;
-unsigned int g_Va00E032DC;
+extern unsigned theBriefingList;
+unsigned int theBriefingList;
 
 // ?rva007B839B@@YAXXZ @ 0x007B839B (10B). Global UnicodeString list dtor thunk: ecx=&g_Va00E032DC then tail-jmp to the rowed list destructor (0x002B905D). No callers. Honest address name.
 void __cdecl rva007B839B()
 {
-	_STL::list<UnicodeString> *receiver = (_STL::list<UnicodeString> *)&g_Va00E032DC;
+	_STL::list<UnicodeString> *receiver = (_STL::list<UnicodeString> *)&theBriefingList;
 	return receiver->~list();
 }
 

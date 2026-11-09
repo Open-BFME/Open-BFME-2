@@ -6032,3 +6032,4 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C7EAE@@UAEPAXI@Z,0x004C7F40,"Renamed to ??_GPlayerHealSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E36C)"
 ??1Rva004C87F4@@UAE@XZ,0x004C87F4,"Renamed to ??1CombineHordeSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E76C)"
 ??_GRva004C87F4@@UAEPAXI@Z,0x004C8852,"Renamed to ??_GCombineHordeSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E76C)"
+?g_Va00E032DC@@3IA,0x00A032DC,"Renamed to ?theBriefingList@@3IA by tools/rename.py (inferred)"

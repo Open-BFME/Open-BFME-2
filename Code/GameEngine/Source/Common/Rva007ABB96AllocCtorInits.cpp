@@ -77,7 +77,7 @@ extern unsigned g_Va00E0657C;
 extern unsigned g_Va00E06654[3];
 extern unsigned g_Va00E06670;
 extern unsigned g_Va00DE6194;
-extern unsigned g_Va00E032DC;
+extern unsigned theBriefingList;
 extern unsigned g_Va00E0362C;
 
 struct Rva007ABB96AllocCtorInits
@@ -175,7 +175,7 @@ void Rva007ABB96AllocCtorInits::rva007AC2FA()
 // 0x007B05DE (29B): list<int> allocator ctor 0x002C5309 on VA 0x00E032DC, atexit(0x007B839B -> 0x002B905D)
 void Rva007ABB96AllocCtorInits::rva007B05DE()
 {
-	( (IntList *)&g_Va00E032DC )->IntList::list();
+	( (IntList *)&theBriefingList )->IntList::list();
 	atexit( rva007B839B );
 }
 
