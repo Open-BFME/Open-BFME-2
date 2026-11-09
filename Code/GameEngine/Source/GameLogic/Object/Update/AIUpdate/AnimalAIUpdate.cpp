@@ -33,7 +33,6 @@ enum CommandSourceType
 	{ \
 		return TEXT; \
 	}
-
 // BFME-only AnimalAIUpdate::update, retail 0x0047EDC9..0x0047F92D (2916 B).
 // No Zero Hour twin. The update interface is the +0x10 secondary of the
 // object installed by the constructor (0x0047ECA8, vtable VA 0x00C47B8C
@@ -50,17 +49,12 @@ enum CommandSourceType
 // Donor semantic guide: BFME1 revision 9cbfb551 attempt 0x002B32A0.
 
 class Object;
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
-
 #include "../../../../../Include/Common/ThingTemplate.h"
-
 #include "../../../../Common/Thing/thing.h"
-
-
 class Object : public Thing
 {
 public:
@@ -71,14 +65,11 @@ public:
 	char m_pad78[0x1ac - 0x78];
 	float m_fleeDistance;
 };
-
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 struct AnimalAIUpdateModuleDataView
 {
 	unsigned char m_beforeFleeRange[0x64];
@@ -89,39 +80,22 @@ struct AnimalAIUpdateModuleDataView
 	int m_maxWanderRadius;
 	unsigned int m_updateTimer;
 };
-
 struct AnimalStateView { void *m_vtbl; int m_id; };
-
 struct AnimalStateMachineView { void *m_vtbl; AnimalStateView *m_currentState; };
-
 extern GameLogic *TheGameLogic;
-
 extern PartitionManager *ThePartitionManager;
-
 extern bool g_bfmeCritterDesyncLog;
-
 extern "C" void *theLogicRandomLogFile;
-
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
-
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-
 float Sin(float radians);
-
 float Cos(float radians);
-
 template<int N> class BitFlags { public: unsigned int bits[7]; };
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 #include "../../../../../Include/Common/BfmeFixedStorage0004543D.h"
-
 #include "../../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
-
 struct Rva0006EE7A { unsigned m_bits[7]; Rva0006EE7A(int unused, int b1, int b2, int b3, int b4); };
-
 #include "../../../../../Include/GameLogic/PartitionFilter.h"
-
 // Alive filter: vftable 0x00BFAD10, allow 0x0026119D.
 class Rva0026119DFilter : public Rva000421C8
 {
@@ -129,7 +103,6 @@ public:
 	virtual ~Rva0026119DFilter() {}
 	virtual bool allow(Object *obj);
 };
-
 // Relationship filter: vftable 0x00BFBC90, allow 0x00260EB1.
 class Rva00260EB1Filter : public Rva000421C8
 {
@@ -143,7 +116,6 @@ public:
 	int m_flags;
 	bool m_match;
 };
-
 // Any-kind filter (ctor 0x003959FA).
 class Rva003959FA : public Rva000421C8
 {
@@ -153,7 +125,6 @@ public:
 	virtual ~Rva003959FA() {}
 	virtual bool allow(Object *obj);
 };
-
 // Accept by kind (ctor 0x0004584D).
 class Rva0004584D : public Rva000421C8
 {
@@ -164,30 +135,22 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
-
 class Rva000CBA20Point
 {
 public:
 	float x;
 	float y;
 };
-
 static const char *const kAnimalSource =
 	"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AIUpdate\\AnimalAIUpdate.cpp";
-
 struct Coord3D;
-
 enum PathfindLayerEnum
 {
 	LAYER_GROUND = 0,
 	LAYER_WATER = 1
 };
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
 #include "../../../../../Include/GameLogic/TerrainLogic.h"
-
 extern TerrainLogic *TheTerrainLogic;
-
 class AnimalAIUpdateDestinationLayer
 {
 public:
@@ -197,16 +160,13 @@ private:
 	unsigned char m_beforeObject[8];
 	Object *m_object;
 };
-
 #include "../../../../../Include/GameLogic/AICommandParms.h"
-
 // Native destructor 0x001E7E9F frees the coordinate storage without other teardown.
 inline AICommandParms::~AICommandParms()
 {
 	if (m_coords.field00)
 		free(m_coords.field00);
 }
-
 class Rva0047ED64
 {
 public:
@@ -216,16 +176,49 @@ public:
 private:
 	int m_pad;
 };
-
 #include "../../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
+//
+// ?xfer@AnimalAIUpdate@@MAEXPAVXfer@@@Z, retail 0x0047EBAF, 107 bytes.
+// Slot 3 of the vftable 0x00C47B98 whose slot-2 name getter returns
+// "AnimalAIUpdate" (installed by the rowed dtor 0x0047EB78 and the rowed
+// ctor 0x0047ECA8). Version(1,1) through Xfer slot 0x28, the ObjectID at
+// +0x3E8 through the rowed XferObjectID, a bool at +0x3F8 (slot 0x90), a
+// Coord3D at +0x3EC (slot 0x60), a bool at +0x3F9, then the rowed
+// AIUpdateInterface::xfer 0x00267EDD. Member names not recovered.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+#include "../../../../../Include/Common/BfmeXfer.h"
+#include "../../../../../Include/Common/XferVersion.h"
+#include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
+void XferObjectID(Xfer *xfer, ObjectID *id);
 
 BFME_LITERAL_NAME_GETTER(Rva0047EBA9Named, "AnimalAIUpdate")
 
 // tu-skeleton: 0x0047EB78 49B ??1AnimalAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters2.cpp
 
@@ -243,7 +236,6 @@ BFME_LITERAL_NAME_GETTER(Rva0047EBA9Named, "AnimalAIUpdate")
 // No // cl: line (defaults match the frameless 6-byte shape, same as the
 // ModuleNameGetters.cpp precedent).
 
-// tu-skeleton: 0x0047EBAF 107B ?xfer@AnimalAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp
 
@@ -605,6 +597,22 @@ Coord3D destination;
 			"CritterDesync:  animal %s(%d) finished update.", animalDebugName(animal), animalID(animal));
 
 	return UPDATE_SLEEP_NONE;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateXfer.cpp
+
+// ?xfer@AnimalAIUpdate@@MAEXPAVXfer@@@Z @0x0047EBAF
+void AnimalAIUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+
+	XferObjectID(xfer, &m_3E8);
+	*xfer == m_3F8;
+	*xfer == m_3EC;
+	*xfer == m_3F9;
+
+	AIUpdateInterface::xfer(xfer);
 }
 
 // tu-skeleton: 0x0047EC5F 10B ?rva0047EC5F@AnimalAIUpdate@@UBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp (not merged yet)
