@@ -772,3 +772,16 @@ strong-definition 154 -> 62, bridged 5,075 -> 4,034. The 22-table bounding-gette
 
 **2026-11-09, seven unrowed `strong-definition` table stand-ins (`0x007FE008`, `0x00811DB0`, `0x00879EA8`, `0x00879EB4`, `0x00879EC4`, `0x008EA228`, `0x008EB150`):**
 Four constructor/clone units defined strong vtable stand-ins with no `reverse/data_rows.csv` owner (`Rva0033FC42_vftable` at `0x00811DB0` in `Rva0033FC42Ctor.cpp`, `??_7BfmeBaseVNH@@6B@[8]` at `0x007FE008` in `Rva003BBAF0Ctor_Rva003FD199.cpp`, `g_payloadCloneTable0/1/2` at `0x00879EA8`/`0x00879EB4`/`0x00879EC4` in `RvaPayloadValueReturnsUnresolved.cpp`, and `g_aptValueBaseTable`/`g_aptValueHashTable` at `0x008EA228`/`0x008EB150` in `Rva006DE1A0Finish.cpp`). Each now references the `SELECT_ANY` compiler table bound by `reverse/data_ledger.csv` (`??_7Rva0033FC42@@6B@` from `Rva0033FC42Dtor.cpp`, `??_7Rva002B3092@@6B@` from `GapBodiesGE01.cpp`, `??_7Rva005FAAA1@@6B@`/`??_7Rva005FAB16@@6B@`/`??_7Rva005FAB9E@@6B@` from `Rva005CE259Ctor.cpp`/`Rva005FAB16Ctor.cpp`/`Rva005FAB9ECtor.cpp`, and `??_7AptValueWithHash@@6B@`/`??_7Rva006DE2B0@@6B@` from `AptArray.cpp`/`AptValue.cpp`). Verified: `./build.sh` 8/8 matched across the 4 edited files (1 funclet pin verified); `find_declared_unmatched` and `data_check` clean; `link_check` over the 11-unit linking cohort is 11/11 LINKS (`3,056 -> 3,056` B); `vtable_bridge.definitions()` confirms only `SELECT_ANY` COMDAT definitions remain at all 7 addresses. Next real-link and census confirmation remain open.
+
+**2026-11-09, `0x007FE008` follow-up (`??_7BfmeBaseVNH@@6B@` refusal, then the `??_7Rva002B3092@@6B@` bridge):**
+The queue at `c033b9032c` still lists the `strong-definition` refusal, but that measurement predates
+`52c8626a4d`. `./build.sh Code/GameEngine/Source/Common/Rva003BBAF0Ctor_Rva003FD199.cpp` is 1/1 matched and
+its object only references `??_7Rva002B3092@@6B@`; it no longer defines `??_7BfmeBaseVNH@@6B@`. The next
+published real link should drop the refusal. Still open: the same address stays `bridged` because
+`GapBodiesGE01.cpp`'s `Rva002B3092` view declares one slot and retail's table has seven: slot 0 `0x004A10FD`
+(the shared 28 B deleting dtor that calls `0x0049B47C`), 1 `0x000B3FD0` (bare `ret`), 2/4/6 `__purecall`
+`0x0003B810`, 3 `0x003FD1C5` (`Rva003FD1C5::rva003FD1C5(Xfer *)`: uint at +0x04, bool at +0x08), and 5
+`0x005CB9FF` (`bool (int)` returning false). Structural inference only, no donor claim: the `0x002B3092`
+default ctor, `BfmeBaseVNH`'s `0x003FD199` ctor (sets +0x04/+0x08) and `Rva003FD1C5` look like one class
+under three spellings. Slot 3 is a unique body, so it cannot be ICF-twinned. Retiring this bridge means
+unifying those views into one declaration with the seven slots, not adding per-file slot stubs.
