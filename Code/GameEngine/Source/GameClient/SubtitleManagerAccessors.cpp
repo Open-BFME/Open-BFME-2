@@ -1,4 +1,14 @@
 // cl: /Ireference/shims/bfmealloc_alloconly /Ireference/shims/iniexception /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB
+// NON-RETAIL shim for the allocator family (P78), a labelled step and not a recovered form. This unit's kept STL copies
+// allocate from the game's table, so they must free there too, and /D_CRTIMP= would also rebind the imports its rows
+// need. While the STL headers parse, free names a local inline to that table; those copies call it directly where
+// retail's call _free. Retired when the real allocator headers give this unit retail's _free binding, or when these
+// copies are no longer kept from this unit (P75). If anything odd happens under the STL headers, look here first.
+#include <malloc.h>
+#include <stdlib.h>
+extern "C" void (__cdecl *__gameMemFreePtr)(void *, int);
+inline void bfmeGameFree(void *block) { __gameMemFreePtr(block, 3); }
+#define free bfmeGameFree
 // stlport
 // ?addSubtitle@SubtitleManager@@QAEXABVAsciiString@@IHHHHH@Z, retail 0x00688AA0 (105B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
@@ -179,6 +189,7 @@ public:
 extern VideoPlayerInterface *TheVideoPlayer;
 
 #include "Common/INIException.h"
+#undef free
 
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
 
