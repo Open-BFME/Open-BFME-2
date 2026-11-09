@@ -13,6 +13,7 @@
 class W3DShroud;
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 class Rva00073320Ref
 {
 public:
