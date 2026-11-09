@@ -5,6 +5,7 @@
 // Rva0036CA00Str copy 0xA8C7C at +14 FixedStorage copy 0x2CF0F0 at +18 Region2D copy
 // 0x4254E at +1C m_2c=1 plus bytes +30/+31/+32 src m_2c>=5 with new referent gating rva003FAB93.
 #include "ascii_string.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 #include "../../Include/Common/Rva0036CA00Str.h"
@@ -23,6 +24,9 @@ public:
     Rva003FAFB9(const Rva003FAFB9 &src);
     virtual ~Rva003FAFB9();
 protected:
+	// Retail's table 0x00C37A08: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name getter.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer); // Rva003FAFB9Dtor.cpp; slot 3 of every copy of this vtable
 private:
     AsciiString m_str04;

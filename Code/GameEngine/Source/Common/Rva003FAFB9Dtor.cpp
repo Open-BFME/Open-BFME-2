@@ -3,6 +3,7 @@
 // Dtor: stores 0x00C37A08, calls rowed rva003FAC3F, holder Release_Ref at +0x14,
 // StringBase releaseBuffer at +4, restores 0x00BBB554. Evidence: EH prolog,
 // states 2/1/0, Release_Ref row, StringBase row, base BBB554.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 class Rva003FAC3F {
 public:
@@ -89,6 +90,9 @@ class Rva003FAFB9 : public Snapshot {
 public:
     virtual ~Rva003FAFB9();
 protected:
+	// Retail's table 0x00C37A08: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name getter.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer);
 private:
     StringBase<char> m_str04;

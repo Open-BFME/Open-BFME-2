@@ -616,14 +616,6 @@ int Rva003F24D0Get(void)
 	return (int)"LivingWorldRegionConnection";
 }
 
-// ?Rva003FAB8DGet@@YAHXZ @ 0x003fab8d (6B): returns 0x00C379F4.
-// Follows a ret-4 (prev C2-04-00), carried by 2 .rdata vtable slots,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva003FAB8DGet(void)
-{
-	return (int)"LivingWorldSound";
-}
-
 // ?Rva0040C586Get@@YAHXZ @ 0x0040c586 (6B): returns 0x00C39460.
 // Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.

@@ -10,6 +10,7 @@
 #include <float.h>
 #include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
 #include "../../../../Libraries/Include/Lib/Region2D.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include <string.h>
 
@@ -190,6 +191,9 @@ public:
     Rva003FAFB9(const AsciiString &name);
     virtual ~Rva003FAFB9();
 protected:
+	// Retail's table 0x00C37A08: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name getter.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *);
 private:
     AsciiString m_name;
@@ -345,3 +349,12 @@ struct BlockParse
 };
 
 BlockParse theLivingWorldSoundBlockParse( "LivingWorldSound", LivingWorldSound::ParseSound );
+
+void Rva003FAFB9::loadPostProcess()
+{
+}
+
+const char *Rva003FAFB9::GetSnapshotName() const
+{
+	return "LivingWorldSound";
+}
