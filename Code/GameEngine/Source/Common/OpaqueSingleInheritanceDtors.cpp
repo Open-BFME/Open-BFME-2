@@ -1,9 +1,10 @@
 // cl: /O1 /MD
 #include "../../Include/Common/Rva00041004Lock.h"
+#include "../../Include/Common/LocalFile.h"
 //
 // Opaque single-inheritance destructors tail-calling SEH bases pinned
 // elsewhere. Each class below stores its own vtable and tail-calls its base
-// destructor; every base is only declared here (defined nowhere -- it
+// destructor; the opaque bases are only declared here (defined nowhere -- each
 // resolves via its pin), because a same-TU definition would capture the call
 // locally instead of at the ledger address. Vtable values are DIR32
 // auto-patches. Owner identities are unproven (opaque Rva names). One ledger
@@ -183,13 +184,9 @@ inline W3DTerrainLogic::~W3DTerrainLogic()
 {
 }
 
-class Rva00605CA7
-{
-public:
-	virtual ~Rva00605CA7();
-};
-
-class Rva00605C6A : public Rva00605CA7
+// Native 0x00605C6A restores the derived table, then calls LocalFile
+// teardown at 0x00605CA7. The inherited interface supplies its 18 slots.
+class Rva00605C6A : public LocalFile
 {
 public:
 	virtual ~Rva00605C6A();

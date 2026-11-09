@@ -1,0 +1,106 @@
+[
+  {
+    "kind": "alternatename",
+    "path": "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp",
+    "token": "?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "alternatename",
+    "path": "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp",
+    "token": "?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "alternatename",
+    "path": "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp",
+    "token": "?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "alternatename",
+    "path": "Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp",
+    "token": "?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "alternatename",
+    "path": "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "token": "??1Rva00605CA7@@UAE@XZ",
+    "registered": 1,
+    "HEAD_actual": 1,
+    "repair": true
+  },
+  {
+    "kind": "alternatename",
+    "path": "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "token": "?wideOpenStub@LocalFile@@UAE_NPBGH@Z",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "pin",
+    "path": "reverse/symbols.csv",
+    "token": "0x00605CA7",
+    "registered": 1,
+    "HEAD_actual": 1,
+    "repair": true
+  },
+  {
+    "kind": "present_unmatched",
+    "path": "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "token": "isInIdleState@StateMachine@@",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "present_unmatched",
+    "path": "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "token": "attackMachineIdle@StateMachine@@",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "present_unmatched",
+    "path": "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "token": "attackMachineIdle@StateMachine@@",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "present_unmatched",
+    "path": "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "token": "attackMachineIdle@StateMachine@@",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "present_unmatched",
+    "path": "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "token": "attackMachineIdle@StateMachine@@",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  },
+  {
+    "kind": "present_unmatched",
+    "path": "Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp",
+    "token": "StateMachine::getCurrentStateID",
+    "registered": 1,
+    "HEAD_actual": 0,
+    "repair": false
+  }
+]

@@ -1827,3 +1827,18 @@ proof passes and all six claims release. Broader audit is INCONCLUSIVE at
 717b70f4ab/base 96d5aca753 for this source's missing wider-view receipt.
 Its own link_check verdict was clean and read before pushing. Remaining
 table/class work and next-census/image selection are still unverified.
+
+2026-11-09, LocalFile-derived 87AAE0: the 18-byte constructor now emits
+its table naturally through the existing LocalFile interface. The derived
+destructor view adopts that interface too, making both compiler copies
+the full native 72B/18 slots. The strong array, unused base alias/pin and
+an unused five-byte helper are removed; the explicit data owner transfers
+at the same range. Normal 77 code/one data, 22 imports and seven EXACT
+EH graphs pass. Own link_check preserves four LINKS/3,235 bytes. A bounded
+four-provider replay changes one 18-slot bridge plus one strong refusal
+to zero and one already-correct table; global census/image selection is
+still pending. Original names and the common hierarchy remain unrecovered
+partial views. The full cache refresh was held back after the normal gate
+caught an unrelated retired name from stale objects; explicit data_rows
+owns the repaired table. No foreign cache change is published.
+[Complete slot, object, ownership and cache audits](../../reverse/attempt_support/local-file-derived-table-20261109/README.md).

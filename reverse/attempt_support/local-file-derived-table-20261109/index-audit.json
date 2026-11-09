@@ -1,0 +1,2384 @@
+{
+  "addresses_before": 34425,
+  "addresses_after": 34413,
+  "added_records": {
+    "0x00A01E6C": {
+      "address": "0x00A01E6C",
+      "size": "8",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_validityEnd@@3PAEA",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "11"
+    }
+  },
+  "removed_records": {
+    "0x00A1F2AC": {
+      "address": "0x00A1F2AC",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?shader@?4??rva0073FA10@W3DGlowOutlineMaterialPassClass@@QAEXXZ@4VShaderClass@@A",
+      "source": "Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "2"
+    },
+    "0x00837D88": {
+      "address": "0x00837D88",
+      "size": "24",
+      "section": ".rdata",
+      "kind": "string",
+      "name": "??_C@_0BG@CPMPIFDC@LivingWorldAnimObject?$AA@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x00A1F29C": {
+      "address": "0x00A1F29C",
+      "size": "16",
+      "section": ".data",
+      "kind": "global",
+      "name": "?parameters@?CL@??rva0073FA10@W3DGlowOutlineMaterialPassClass@@QAEXXZ@4PAMA",
+      "source": "Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "2"
+    },
+    "0x008F1544": {
+      "address": "0x008F1544",
+      "size": "16",
+      "section": ".rdata",
+      "kind": "vtable",
+      "name": "??_7W3DGlowOutlineMaterialPassClass@@6B@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "2"
+    },
+    "0x00A1F298": {
+      "address": "0x00A1F298",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_bfmeObj2AtE1F298@@3PAXA",
+      "source": "Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "5"
+    },
+    "0x007FDDB4": {
+      "address": "0x007FDDB4",
+      "size": "16",
+      "section": ".rdata",
+      "kind": "vtable",
+      "name": "??_7Rva002AE5EB@@6B@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x007D37B0": {
+      "address": "0x007D37B0",
+      "size": "12",
+      "section": ".rdata",
+      "kind": "string",
+      "name": "??_C@_0L@BDPLOFKC@HOUSECOLOR?$AA@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x008F1554": {
+      "address": "0x008F1554",
+      "size": "36",
+      "section": ".rdata",
+      "kind": "string",
+      "name": "??_C@_0CB@NIKPLOKI@shaders?2unlitnormalextrusion?4vso@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x00A1F290": {
+      "address": "0x00A1F290",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_bfmeCountAtE1F290@@3HA",
+      "source": "Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "2"
+    },
+    "0x00A1F294": {
+      "address": "0x00A1F294",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_bfmeObj1AtE1F294@@3PAXA",
+      "source": "Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "4"
+    },
+    "0x00836E58": {
+      "address": "0x00836E58",
+      "size": "56",
+      "section": ".rdata",
+      "kind": "string",
+      "name": "??_C@_0BM@CCJANPLM@LivingWorldRegionConnection?$AA@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x00A1F2B0": {
+      "address": "0x00A1F2B0",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?$S28@?4??rva0073FA10@W3DGlowOutlineMaterialPassClass@@QAEXXZ@4IA",
+      "source": "Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "2"
+    },
+    "0x008379F4": {
+      "address": "0x008379F4",
+      "size": "20",
+      "section": ".rdata",
+      "kind": "string",
+      "name": "??_C@_0BB@GNEGIOAJ@LivingWorldSound?$AA@",
+      "source": "",
+      "status": "literal",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    }
+  },
+  "bounds_changes": {
+    "0x00837938": {
+      "before": {
+        "address": "0x00837938",
+        "size": "188",
+        "section": ".rdata",
+        "kind": "global",
+        "name": "?g_00C37938@@3QBUFieldParse@@B",
+        "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSound.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x00837938",
+        "size": "208",
+        "section": ".rdata",
+        "kind": "global",
+        "name": "?g_00C37938@@3QBUFieldParse@@B",
+        "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSound.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      }
+    },
+    "0x00836E48": {
+      "before": {
+        "address": "0x00836E48",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldRegionConnection@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00836E48",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldRegionConnection@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x0083702C": {
+      "before": {
+        "address": "0x0083702C",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005E626DListener@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp",
+        "status": "provisional",
+        "names": "??_7LivingWorldBattleListener@@6B@;??_7Rva0056B218B2@@6B@;??_7Rva0056B2DDB2@@6B@;??_7Rva00575E4EBase2@@6B@;??_7Rva005E5FObserver@@6B@;??_7Rva005E626DListener@@6B@;??_7Rva0083702CObserver@@6B@;??_7SecondBase005D2111@@6B@",
+        "defs": "0",
+        "refs": "25"
+      },
+      "after": {
+        "address": "0x0083702C",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005E626DListener@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp",
+        "status": "provisional",
+        "names": "??_7LivingWorldBattleListener@@6B@;??_7Rva0056B218B2@@6B@;??_7Rva0056B2DDB2@@6B@;??_7Rva00575E4EBase2@@6B@;??_7Rva005E5FObserver@@6B@;??_7Rva005E626DListener@@6B@;??_7Rva0083702CObserver@@6B@;??_7SecondBase005D2111@@6B@",
+        "defs": "0",
+        "refs": "25"
+      }
+    },
+    "0x00837D78": {
+      "before": {
+        "address": "0x00837D78",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva003FD789@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00837D78",
+        "size": "40",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva003FD789@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x00A09FA9": {
+      "before": {
+        "address": "0x00A09FA9",
+        "size": "3",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_Va0130A58D@@3EA",
+        "source": "Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x00A09FA9",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_createdDefaultDiagReporter@@3EA",
+        "source": "Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp",
+        "status": "provisional",
+        "names": "?g_Va0130A58D@@3EA;?g_createdDefaultDiagReporter@@3EA",
+        "defs": "1",
+        "refs": "3"
+      }
+    },
+    "0x007D37AC": {
+      "before": {
+        "address": "0x007D37AC",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@426b21ad",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x007D37AC",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@426b21ad",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x007FDDA0": {
+      "before": {
+        "address": "0x007FDDA0",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BC@EICGOPMF@PlayerRelationMap?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x007FDDA0",
+        "size": "36",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BC@EICGOPMF@PlayerRelationMap?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    }
+  },
+  "changed": {
+    "0x009B621C": {
+      "before": {
+        "address": "0x009B621C",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?ShaderDirty@ShaderClass@@1_NA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ShaderClassApply.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "77"
+      },
+      "after": {
+        "address": "0x009B621C",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?ShaderDirty@ShaderClass@@1_NA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ShaderClassApply.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "75"
+      }
+    },
+    "0x007BAEAC": {
+      "before": {
+        "address": "0x007BAEAC",
+        "size": "708",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@00000000",
+        "source": "",
+        "status": "literal",
+        "names": "?BfmeZeroRange@@3MB;__real@00000000;_kFlashStart@Code/GameEngine/Source/Common/Rva005C6CCC.cpp",
+        "defs": "2",
+        "refs": "709"
+      },
+      "after": {
+        "address": "0x007BAEAC",
+        "size": "708",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@00000000",
+        "source": "",
+        "status": "literal",
+        "names": "?BfmeZeroRange@@3MB;__real@00000000;_kFlashStart@Code/GameEngine/Source/Common/Rva005C6CCC.cpp",
+        "defs": "2",
+        "refs": "707"
+      }
+    },
+    "0x007E5114": {
+      "before": {
+        "address": "0x007E5114",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldObserver@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LivingWorldObserver@@6B@;??_7Rva00210CC5@@6B@;_vtbl_00BE5114",
+        "defs": "1",
+        "refs": "4"
+      },
+      "after": {
+        "address": "0x007E5114",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldObserver@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LivingWorldObserver@@6B@;_vtbl_00BE5114",
+        "defs": "1",
+        "refs": "3"
+      }
+    },
+    "0x00857328": {
+      "before": {
+        "address": "0x00857328",
+        "size": "188",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7ArmorUpgrade@@6BBehaviorModuleInterface@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7AllowBannerSpawnUpgrade@@6BBehaviorModuleInterface@@@;??_7ArmorUpgrade@@6BBehaviorModuleInterface@@@;??_7AttributeModifierUpgrade@@6BBehaviorModuleInterface@@@;??_7BaseUpgrade@@6BBehaviorModuleInterface@@@;??_7BuildableHeroListUpgrade@@6BBehaviorModuleInterface@@@;??_7CastleUpgrade@@6BBehaviorModuleInterface@@@;??_7CommandPointsUpgrade@@6BBehaviorModuleInterface@@@;??_7CommandSetUpgrade@@6BBehaviorModuleInterface@@@;??_7DelayedUpgrade@@6BBehaviorModuleInterface@@@;??_7DoCommandUpgrade@@6BBehaviorModuleInterface@@@;??_7ExperienceScalarUpgrade@@6BBehaviorModuleInterface@@@;??_7GarrisonUpgrade@@6BBehaviorModuleInterface@@@;??_7GeometryUpgrade@@6BBehaviorModuleInterface@@@;??_7LevelUpUpgrade@@6BBehaviorModuleInterface@@@;??_7LocomotorSetUpgrade@@6BBehaviorModuleInterface@@@;??_7MaxHealthUpgrade@@6BBehaviorModuleInterface@@@;??_7ModelConditionUpgrade@@6BBehaviorModuleInterface@@@;??_7RadarUpgrade@@6BBehaviorModuleInterface@@@;??_7RemoveUpgradeUpgrade@@6BBehaviorModuleInterface@@@;??_7Rva004B3D3B@@6BBehaviorModuleInterface@@@;??_7Rva004B4CDF@@6BBehaviorModuleInterface@@@;??_7Rva004B568B@@6BBehaviorModuleInterface@@@;??_7Rva004B82A5@@6BBehaviorModuleInterface@@@;??_7StatusBitsUpgrade@@6BBehaviorModuleInterface@@@;??_7StealthUpgrade@@6BBehaviorModuleInterface@@@;??_7TooltipUpgrade@@6BBehaviorModuleInterface@@@;??_7UnpauseSpecialPowerUpgrade@@6BBehaviorModuleInterface@@@;??_7WeaponBonusUpgrade@@6BBehaviorModuleInterface@@@;??_7WeaponSetUpgrade@@6BBehaviorModuleInterface@@@",
+        "defs": "0",
+        "refs": "52"
+      },
+      "after": {
+        "address": "0x00857328",
+        "size": "188",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7ArmorUpgrade@@6BBehaviorModuleInterface@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7AllowBannerSpawnUpgrade@@6BBehaviorModuleInterface@@@;??_7ArmorUpgrade@@6BBehaviorModuleInterface@@@;??_7AttributeModifierUpgrade@@6BBehaviorModuleInterface@@@;??_7BaseUpgrade@@6BBehaviorModuleInterface@@@;??_7BuildableHeroListUpgrade@@6BBehaviorModuleInterface@@@;??_7CastleUpgrade@@6BBehaviorModuleInterface@@@;??_7CommandPointsUpgrade@@6BBehaviorModuleInterface@@@;??_7CommandSetUpgrade@@6BBehaviorModuleInterface@@@;??_7DelayedUpgrade@@6BBehaviorModuleInterface@@@;??_7DoCommandUpgrade@@6BBehaviorModuleInterface@@@;??_7ExperienceScalarUpgrade@@6BBehaviorModuleInterface@@@;??_7GarrisonUpgrade@@6BBehaviorModuleInterface@@@;??_7GeometryUpgrade@@6BBehaviorModuleInterface@@@;??_7LevelUpUpgrade@@6BBehaviorModuleInterface@@@;??_7LocomotorSetUpgrade@@6BBehaviorModuleInterface@@@;??_7MaxHealthUpgrade@@6BBehaviorModuleInterface@@@;??_7ModelConditionUpgrade@@6BBehaviorModuleInterface@@@;??_7RadarUpgrade@@6BBehaviorModuleInterface@@@;??_7RemoveUpgradeUpgrade@@6BBehaviorModuleInterface@@@;??_7Rva004B4CDF@@6BBehaviorModuleInterface@@@;??_7Rva004B82A5@@6BBehaviorModuleInterface@@@;??_7StatusBitsUpgrade@@6BBehaviorModuleInterface@@@;??_7StealthUpgrade@@6BBehaviorModuleInterface@@@;??_7TooltipUpgrade@@6BBehaviorModuleInterface@@@;??_7UnpauseSpecialPowerUpgrade@@6BBehaviorModuleInterface@@@;??_7WeaponBonusUpgrade@@6BBehaviorModuleInterface@@@;??_7WeaponSetUpgrade@@6BBehaviorModuleInterface@@@",
+        "defs": "0",
+        "refs": "50"
+      }
+    },
+    "0x00837938": {
+      "before": {
+        "address": "0x00837938",
+        "size": "188",
+        "section": ".rdata",
+        "kind": "global",
+        "name": "?g_00C37938@@3QBUFieldParse@@B",
+        "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSound.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x00837938",
+        "size": "208",
+        "section": ".rdata",
+        "kind": "global",
+        "name": "?g_00C37938@@3QBUFieldParse@@B",
+        "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSound.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      }
+    },
+    "0x00857460": {
+      "before": {
+        "address": "0x00857460",
+        "size": "76",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LevelUpUpgrade@@6BObjectModule@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LevelUpUpgrade@@6BObjectModule@@@;??_7Rva004B3D3B@@6BObjectModule@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00857460",
+        "size": "76",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LevelUpUpgrade@@6BObjectModule@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x009FE78C": {
+      "before": {
+        "address": "0x009FE78C",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheGameLogic@@3PAVGameLogic@@A",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "2555"
+      },
+      "after": {
+        "address": "0x009FE78C",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheGameLogic@@3PAVGameLogic@@A",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "2553"
+      }
+    },
+    "0x007BAC1C": {
+      "before": {
+        "address": "0x007BAC1C",
+        "size": "656",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_00CNPNBAHC@?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva007F01B0@@6B@;??_C@_00CNPNBAHC@?$AA@;?TheNullChr@?1??str@?$StringBase@D@@QBEPBDXZ@4DB;?g_Rva0107301CEmptyString@@3QBDB;?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A;_WaterNoShaderSuffix@Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp;_dummyTableAnchor@Code/GameEngine/Source/Common/Rva007F0210Set.cpp;_s_noFaction@Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+        "defs": "4",
+        "refs": "2283"
+      },
+      "after": {
+        "address": "0x007BAC1C",
+        "size": "656",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_00CNPNBAHC@?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva007F01B0@@6B@;??_C@_00CNPNBAHC@?$AA@;?TheNullChr@?1??str@?$StringBase@D@@QBEPBDXZ@4DB;?g_Rva0107301CEmptyString@@3QBDB;?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A;_WaterNoShaderSuffix@Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp;_dummyTableAnchor@Code/GameEngine/Source/Common/Rva007F0210Set.cpp;_s_noFaction@Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+        "defs": "4",
+        "refs": "2282"
+      }
+    },
+    "0x007C26F0": {
+      "before": {
+        "address": "0x007C26F0",
+        "size": "8",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@3f000000",
+        "source": "",
+        "status": "literal",
+        "names": "?g_Va007C26F0@@3MA;?g_Va00BC26F0@@3MA;__real@3f000000",
+        "defs": "1",
+        "refs": "702"
+      },
+      "after": {
+        "address": "0x007C26F0",
+        "size": "8",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@3f000000",
+        "source": "",
+        "status": "literal",
+        "names": "?g_Va007C26F0@@3MA;?g_Va00BC26F0@@3MA;__real@3f000000",
+        "defs": "1",
+        "refs": "701"
+      }
+    },
+    "0x009EDA98": {
+      "before": {
+        "address": "0x009EDA98",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?number_of_DX8_calls@@3IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "707"
+      },
+      "after": {
+        "address": "0x009EDA98",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?number_of_DX8_calls@@3IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "699"
+      }
+    },
+    "0x00A03158": {
+      "before": {
+        "address": "0x00A03158",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheLightPointSystem@@3PAVRva00421520@@A",
+        "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "8"
+      },
+      "after": {
+        "address": "0x00A03158",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheLightPointSystem@@3PAVRva00421520@@A",
+        "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "0",
+        "refs": "6"
+      }
+    },
+    "0x00836E48": {
+      "before": {
+        "address": "0x00836E48",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldRegionConnection@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00836E48",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldRegionConnection@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x009EDA34": {
+      "before": {
+        "address": "0x009EDA34",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "837"
+      },
+      "after": {
+        "address": "0x009EDA34",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "828"
+      }
+    },
+    "0x00857FE0": {
+      "before": {
+        "address": "0x00857FE0",
+        "size": "64",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva004B568B@@6BObjectModule@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva004B568B@@6BObjectModule@@@;??_7WeaponSetUpgrade@@6BObjectModule@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00857FE0",
+        "size": "64",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7WeaponSetUpgrade@@6BObjectModule@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x007BB8D8": {
+      "before": {
+        "address": "0x007BB8D8",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@3f800000",
+        "source": "",
+        "status": "literal",
+        "names": "?g_007BB8D8@@3MA;?g_00BBB8D8@@3MA;?g_Va00BBB8D8@@3MA;?g_Va00BBB8D8@@3MB;?one@?N@??triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z@4MB@Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp;?rva00094B08One@@3MB;_IdentityDiagonal@Code/GameEngine/Source/GameLogic/System/GameLogic.cpp;__real@3f800000;_g_bfmeDefaultBU@Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp;_kDefaultDimension@Code/GameEngine/Source/Common/System/GeometryInfoCalcBoundingStuff.cpp;_kOne@Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp",
+        "defs": "7",
+        "refs": "1932"
+      },
+      "after": {
+        "address": "0x007BB8D8",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@3f800000",
+        "source": "",
+        "status": "literal",
+        "names": "?g_007BB8D8@@3MA;?g_00BBB8D8@@3MA;?g_Va00BBB8D8@@3MA;?g_Va00BBB8D8@@3MB;?one@?N@??triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z@4MB@Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp;?rva00094B08One@@3MB;_IdentityDiagonal@Code/GameEngine/Source/GameLogic/System/GameLogic.cpp;__real@3f800000;_g_bfmeDefaultBU@Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp;_kDefaultDimension@Code/GameEngine/Source/Common/System/GeometryInfoCalcBoundingStuff.cpp;_kOne@Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp",
+        "defs": "7",
+        "refs": "1928"
+      }
+    },
+    "0x009FEF18": {
+      "before": {
+        "address": "0x009FEF18",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheLivingWorld@@3PAVLivingWorld@@A",
+        "source": "Code/GameEngine/Source/Common/System/Rva002D3627Check.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "151"
+      },
+      "after": {
+        "address": "0x009FEF18",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheLivingWorld@@3PAVLivingWorld@@A",
+        "source": "Code/GameEngine/Source/Common/System/Rva002D3627Check.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "150"
+      }
+    },
+    "0x007E5224": {
+      "before": {
+        "address": "0x007E5224",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldManager@@6BSnapshot@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LivingWorldManager@@6BSnapshot@@@;??_7Rva0022B12DSubsystem@@6BSnapshot@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x007E5224",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldManager@@6BSnapshot@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x009FEDF0": {
+      "before": {
+        "address": "0x009FEDF0",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheInGameUI@@3PAVInGameUI@@A",
+        "source": "Code/GameEngine/Source/GameClient/InGameUI.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "695"
+      },
+      "after": {
+        "address": "0x009FEDF0",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheInGameUI@@3PAVInGameUI@@A",
+        "source": "Code/GameEngine/Source/GameClient/InGameUI.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "694"
+      }
+    },
+    "0x009FDCA0": {
+      "before": {
+        "address": "0x009FDCA0",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheMouse@@3PAVMouse@@A",
+        "source": "Code/GameEngine/Source/GameClient/Input/Mouse.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "201"
+      },
+      "after": {
+        "address": "0x009FDCA0",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheMouse@@3PAVMouse@@A",
+        "source": "Code/GameEngine/Source/GameClient/Input/Mouse.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "200"
+      }
+    },
+    "0x0083702C": {
+      "before": {
+        "address": "0x0083702C",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005E626DListener@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp",
+        "status": "provisional",
+        "names": "??_7LivingWorldBattleListener@@6B@;??_7Rva0056B218B2@@6B@;??_7Rva0056B2DDB2@@6B@;??_7Rva00575E4EBase2@@6B@;??_7Rva005E5FObserver@@6B@;??_7Rva005E626DListener@@6B@;??_7Rva0083702CObserver@@6B@;??_7SecondBase005D2111@@6B@",
+        "defs": "0",
+        "refs": "25"
+      },
+      "after": {
+        "address": "0x0083702C",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005E626DListener@@6B@",
+        "source": "Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp",
+        "status": "provisional",
+        "names": "??_7LivingWorldBattleListener@@6B@;??_7Rva0056B218B2@@6B@;??_7Rva0056B2DDB2@@6B@;??_7Rva00575E4EBase2@@6B@;??_7Rva005E5FObserver@@6B@;??_7Rva005E626DListener@@6B@;??_7Rva0083702CObserver@@6B@;??_7SecondBase005D2111@@6B@",
+        "defs": "0",
+        "refs": "25"
+      }
+    },
+    "0x007F4CDC": {
+      "before": {
+        "address": "0x007F4CDC",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BB@EILKNGJ@MaxHealthUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4CDC",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BB@EILKNGJ@MaxHealthUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x009EC4F4": {
+      "before": {
+        "address": "0x009EC4F4",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?render_state_changed@DX8Wrapper@@1IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "318"
+      },
+      "after": {
+        "address": "0x009EC4F4",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?render_state_changed@DX8Wrapper@@1IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "315"
+      }
+    },
+    "0x009EC3FD": {
+      "before": {
+        "address": "0x009EC3FD",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?SnapshotActivated@WW3D@@0_NA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "318"
+      },
+      "after": {
+        "address": "0x009EC3FD",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?SnapshotActivated@WW3D@@0_NA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "315"
+      }
+    },
+    "0x00A02038": {
+      "before": {
+        "address": "0x00A02038",
+        "size": "8",
+        "section": ".data",
+        "kind": "global",
+        "name": "_s_rva007AEFA1",
+        "source": "Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x00A02038",
+        "size": "8",
+        "section": ".data",
+        "kind": "global",
+        "name": "_DRAWABLE_FRAMES_PER_FLASH",
+        "source": "Code/GameEngine/Source/GameLogic/System/GameLogicDispatchDoSetRallyPoint.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      }
+    },
+    "0x009FEF10": {
+      "before": {
+        "address": "0x009FEF10",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+        "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "675"
+      },
+      "after": {
+        "address": "0x009FEF10",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+        "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "672"
+      }
+    },
+    "0x007BB554": {
+      "before": {
+        "address": "0x007BB554",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Snapshot@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Base001F4C67@@6B@;??_7BfmeSnapshotBase@@6B@;??_7GpuDrawModuleInfoBase@FXParticleSystem@@6B@;??_7ModuleDataBase@@6B@;??_7ResourceGatheringManagerBase@@6B@;??_7Rva000E59D3Base@@6B@;??_7Rva001E7087Base@@6B@;??_7Rva0022CE19SnapshotBase@@6B@;??_7Rva0025EF18@@6B@;??_7Rva003B4100@@6B@;??_7Rva00426745SnapshotBase@@6B@;??_7Snapshot@@6B@;??_7W3DTreeDrawModuleDataBase@@6B@",
+        "defs": "0",
+        "refs": "423"
+      },
+      "after": {
+        "address": "0x007BB554",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Snapshot@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Base001F4C67@@6B@;??_7BfmeSnapshotBase@@6B@;??_7GpuDrawModuleInfoBase@FXParticleSystem@@6B@;??_7ModuleDataBase@@6B@;??_7ResourceGatheringManagerBase@@6B@;??_7Rva000E59D3Base@@6B@;??_7Rva001E7087Base@@6B@;??_7Rva0022CE19SnapshotBase@@6B@;??_7Rva0025EF18@@6B@;??_7Rva003B4100@@6B@;??_7Rva00426745SnapshotBase@@6B@;??_7Snapshot@@6B@;??_7W3DTreeDrawModuleDataBase@@6B@",
+        "defs": "0",
+        "refs": "422"
+      }
+    },
+    "0x007DE888": {
+      "before": {
+        "address": "0x007DE888",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva001E3E43@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Locomotor@@6B@;??_7Rva001E3E43@@6B@",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007DE888",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Locomotor@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x00837D78": {
+      "before": {
+        "address": "0x00837D78",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva003FD789@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00837D78",
+        "size": "40",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva003FD789@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x007BB8F0": {
+      "before": {
+        "address": "0x007BB8F0",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@3b808081",
+        "source": "",
+        "status": "literal",
+        "names": "?Inv255@?1???0BoxRenderObjClass@@QAE@ABUW3dBoxStruct@@@Z@4MB@Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp;__real@3b808081",
+        "defs": "1",
+        "refs": "92"
+      },
+      "after": {
+        "address": "0x007BB8F0",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@3b808081",
+        "source": "",
+        "status": "literal",
+        "names": "?Inv255@?1???0BoxRenderObjClass@@QAE@ABUW3dBoxStruct@@@Z@4MB@Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp;__real@3b808081",
+        "defs": "1",
+        "refs": "89"
+      }
+    },
+    "0x007FDC6C": {
+      "before": {
+        "address": "0x007FDC6C",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002AAD9C@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007FDC6C",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002AAD9C@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x00862E34": {
+      "before": {
+        "address": "0x00862E34",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_08FLFOKABB@AIPlayer?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00862E34",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_08FLFOKABB@AIPlayer?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x009A60E8": {
+      "before": {
+        "address": "0x009A60E8",
+        "size": "24",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_freelistPool@@3VFreelistPool@@A",
+        "source": "Code/GameEngine/Source/Common/Rva007AB800PoolInits.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1443"
+      },
+      "after": {
+        "address": "0x009A60E8",
+        "size": "24",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_freelistPool@@3VFreelistPool@@A",
+        "source": "Code/GameEngine/Source/Common/Rva007AB800PoolInits.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1441"
+      }
+    },
+    "0x009ED5F8": {
+      "before": {
+        "address": "0x009ED5F8",
+        "size": "1024",
+        "section": ".data",
+        "kind": "global",
+        "name": "?RenderStates@DX8Wrapper@@1PAIA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "324"
+      },
+      "after": {
+        "address": "0x009ED5F8",
+        "size": "1024",
+        "section": ".data",
+        "kind": "global",
+        "name": "?RenderStates@DX8Wrapper@@1PAIA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "322"
+      }
+    },
+    "0x009E0878": {
+      "before": {
+        "address": "0x009E0878",
+        "size": "8",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheEmptyString@AsciiString@@2V1@B",
+        "source": "Code/GameEngine/Source/Common/Rva00380200Getter.cpp",
+        "status": "provisional",
+        "names": "?TheDefaultArmorTemplateName@@3VAsciiString@@A;?TheEmptyString@AsciiString@@2V1@A;?TheEmptyString@AsciiString@@2V1@B;?g_Va00DE0878@@3IA;?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A;?g_str009E0878@@3V?$StringBase@D@@A",
+        "defs": "1",
+        "refs": "320"
+      },
+      "after": {
+        "address": "0x009E0878",
+        "size": "8",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheEmptyString@AsciiString@@2V1@B",
+        "source": "Code/GameEngine/Source/Common/Rva00380200Getter.cpp",
+        "status": "provisional",
+        "names": "?TheDefaultArmorTemplateName@@3VAsciiString@@A;?TheEmptyString@AsciiString@@2V1@A;?TheEmptyString@AsciiString@@2V1@B;?g_Va00DE0878@@3IA;?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A;?g_str009E0878@@3V?$StringBase@D@@A",
+        "defs": "1",
+        "refs": "319"
+      }
+    },
+    "0x00A030D0": {
+      "before": {
+        "address": "0x00A030D0",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?DISABLEDMASK_ALL@@3V?$BitFlags@$0L@@@A",
+        "source": "Code/GameEngine/Source/Common/System/BitFlags11Any.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "4"
+      },
+      "after": {
+        "address": "0x00A030D0",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?DISABLEDMASK_ALL@@3V?$BitFlags@$0L@@@A",
+        "source": "Code/GameEngine/Source/Common/System/BitFlags11Any.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "5"
+      }
+    },
+    "0x009BD4B0": {
+      "before": {
+        "address": "0x009BD4B0",
+        "size": "24",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_IntKeyedTreeNodePool@@3VRva002E8548@@A",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "5"
+      },
+      "after": {
+        "address": "0x009BD4B0",
+        "size": "24",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_IntKeyedTreeNodePool@@3VRva002E8548@@A",
+        "source": "Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "4"
+      }
+    },
+    "0x007E5234": {
+      "before": {
+        "address": "0x007E5234",
+        "size": "56",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldManager@@6BSubsystemInterface@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LivingWorldManager@@6BSubsystemInterface@@@;??_7Rva0022B12DSubsystem@@6BSubsystemInterface@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x007E5234",
+        "size": "56",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldManager@@6BSubsystemInterface@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x00A09FA9": {
+      "before": {
+        "address": "0x00A09FA9",
+        "size": "3",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_Va0130A58D@@3EA",
+        "source": "Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x00A09FA9",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_createdDefaultDiagReporter@@3EA",
+        "source": "Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp",
+        "status": "provisional",
+        "names": "?g_Va0130A58D@@3EA;?g_createdDefaultDiagReporter@@3EA",
+        "defs": "1",
+        "refs": "3"
+      }
+    },
+    "0x007F4CF0": {
+      "before": {
+        "address": "0x007F4CF0",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BI@CDJDCLBB@ExperienceScalarUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4CF0",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BI@CDJDCLBB@ExperienceScalarUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x009FF028": {
+      "before": {
+        "address": "0x009FF028",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?theRadarWindowOverrideSource@@3PAVRadarWindowOverrideSource@@A",
+        "source": "Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "59"
+      },
+      "after": {
+        "address": "0x009FF028",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?theRadarWindowOverrideSource@@3PAVRadarWindowOverrideSource@@A",
+        "source": "Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "57"
+      }
+    },
+    "0xFFC00000": {
+      "before": {
+        "address": "0xFFC00000",
+        "size": "0",
+        "section": "",
+        "kind": "global",
+        "name": "__except_list",
+        "source": "",
+        "status": "unowned",
+        "names": "",
+        "defs": "0",
+        "refs": "14702"
+      },
+      "after": {
+        "address": "0xFFC00000",
+        "size": "0",
+        "section": "",
+        "kind": "global",
+        "name": "__except_list",
+        "source": "",
+        "status": "unowned",
+        "names": "",
+        "defs": "0",
+        "refs": "14692"
+      }
+    },
+    "0x009EDA64": {
+      "before": {
+        "address": "0x009EDA64",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?render_state_changes@DX8Wrapper@@1IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "164"
+      },
+      "after": {
+        "address": "0x009EDA64",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?render_state_changes@DX8Wrapper@@1IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "163"
+      }
+    },
+    "0x009ECA38": {
+      "before": {
+        "address": "0x009ECA38",
+        "size": "2048",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TextureStageStates@DX8Wrapper@@1PAY0CA@IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "294"
+      },
+      "after": {
+        "address": "0x009ECA38",
+        "size": "2048",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TextureStageStates@DX8Wrapper@@1PAY0CA@IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "290"
+      }
+    },
+    "0x007D37AC": {
+      "before": {
+        "address": "0x007D37AC",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@426b21ad",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x007D37AC",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@426b21ad",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x007F4CA8": {
+      "before": {
+        "address": "0x007F4CA8",
+        "size": "28",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BJ@KBPJMFFP@AttributeModifierUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4CA8",
+        "size": "28",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BJ@KBPJMFFP@AttributeModifierUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x007F4DF4": {
+      "before": {
+        "address": "0x007F4DF4",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0P@EDGPDABO@LevelUpUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4DF4",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0P@EDGPDABO@LevelUpUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x007F4C64": {
+      "before": {
+        "address": "0x007F4C64",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BA@DPFKDABF@GarrisonUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4C64",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BA@DPFKDABF@GarrisonUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x007BAB60": {
+      "before": {
+        "address": "0x007BAB60",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "import",
+        "name": "__imp__AIL_get_preference@4",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "4"
+      },
+      "after": {
+        "address": "0x007BAB60",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "import",
+        "name": "__imp__AIL_get_preference@4",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      }
+    },
+    "0x00A038BC": {
+      "before": {
+        "address": "0x00A038BC",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "_s_rva007B13C0",
+        "source": "Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x00A038BC",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "_DRAWABLE_FRAMES_PER_FLASH",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      }
+    },
+    "0x00858790": {
+      "before": {
+        "address": "0x00858790",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7AODHordeContain@@6BIface2C@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7AODHordeContain@@6BIface2C@@@;??_7AllowBannerSpawnUpgrade@@6BUpgradeModuleInterface18@@@;??_7ArmorUpgrade@@6BUpgradeModuleInterface18@@@;??_7AttributeModifierUpgrade@@6BUpgradeModuleInterface18@@@;??_7BaseUpgrade@@6BUpgradeModuleInterface18@@@;??_7BuildableHeroListUpgrade@@6BUpgradeModuleInterface18@@@;??_7CastleUpgrade@@6BUpgradeModuleInterface18@@@;??_7CaveContain@@6BB6@@@;??_7CommandPointsUpgrade@@6BUpgradeModuleInterface18@@@;??_7CommandSetUpgrade@@6BUpgradeModuleInterface18@@@;??_7CostModifierUpgrade@@6BModuleInterface@@@;??_7DelayedUpgrade@@6BUpgradeModuleInterface18@@@;??_7DoCommandUpgrade@@6BUpgradeModuleInterface18@@@;??_7DynamicPortalBehaviour@@6BModuleInterface@@@;??_7ExperienceScalarUpgrade@@6BUpgradeModuleInterface18@@@;??_7GarrisonUpgrade@@6BUpgradeModuleInterface18@@@;??_7GeometryUpgrade@@6BUpgradeTail@@@;??_7HordeContain@@6BB6@@@;??_7HordeSiegeEngineContain@@6BIface2C@@@;??_7HorseHordeContain@@6BB6@@@;??_7LevelUpUpgrade@@6BModuleInterface@@@;??_7LocomotorSetUpgrade@@6BUpgradeModuleInterface18@@@;??_7MaxHealthUpgrade@@6BUpgradeModuleInterface18@@@;??_7ModelConditionUpgrade@@6BUpgradeModuleInterface18@@@;??_7OpenContain@@6BContainIface2C@@@;??_7RadarUpgrade@@6BUpgradeModuleInterface18@@@;??_7RemoveUpgradeUpgrade@@6BUpgradeModuleInterface18@@@;??_7ReplaceSelfUpgrade@@6BUpgradeModuleInterface18@@@;??_7Rva00220240FlatDtor@@6BRva00220240FlatDtorM5@@@;??_7Rva004B3D3B@@6BUpgradeModuleInterface18@@@;??_7Rva004B4CDF@@6BUpgradeModuleInterface18@@@;??_7Rva004B568B@@6BUpgradeModuleInterface18@@@;??_7Rva004B5982@@6BUpgradeModuleInterface18@@@;??_7Rva004B5D0B@@6BUpgradeModuleInterface18@@@;??_7Rva004B82A5@@6BUpgradeModuleInterface18@@@;??_7SiegeEngineContain@@6BIface2C@@@;??_7StatusBitsUpgrade@@6BUpgradeModuleInterface18@@@;??_7StealthUpgrade@@6BUpgradeModuleInterface18@@@;??_7TooltipUpgrade@@6BUpgradeModuleInterface18@@@;??_7TransportContain@@6BB6@@@;??_7UnpauseSpecialPowerUpgrade@@6BUpgradeModuleInterface18@@@;??_7UpgradeModule@@6BModuleInterface@@@;??_7WeaponBonusUpgrade@@6BUpgradeModuleInterface18@@@;??_7WeaponSetUpgrade@@6BModuleInterface@@@;_s_secondary18@Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgradeCtor.cpp;_s_secondary2C@Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp;_s_secondary2C@Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainCtor.cpp",
+        "defs": "3",
+        "refs": "81"
+      },
+      "after": {
+        "address": "0x00858790",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7AODHordeContain@@6BIface2C@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7AODHordeContain@@6BIface2C@@@;??_7AllowBannerSpawnUpgrade@@6BUpgradeModuleInterface18@@@;??_7ArmorUpgrade@@6BUpgradeModuleInterface18@@@;??_7AttributeModifierUpgrade@@6BUpgradeModuleInterface18@@@;??_7BaseUpgrade@@6BUpgradeModuleInterface18@@@;??_7BuildableHeroListUpgrade@@6BUpgradeModuleInterface18@@@;??_7CastleUpgrade@@6BUpgradeModuleInterface18@@@;??_7CaveContain@@6BB6@@@;??_7CommandPointsUpgrade@@6BUpgradeModuleInterface18@@@;??_7CommandSetUpgrade@@6BUpgradeModuleInterface18@@@;??_7CostModifierUpgrade@@6BModuleInterface@@@;??_7DelayedUpgrade@@6BUpgradeModuleInterface18@@@;??_7DoCommandUpgrade@@6BUpgradeModuleInterface18@@@;??_7DynamicPortalBehaviour@@6BModuleInterface@@@;??_7ExperienceScalarUpgrade@@6BUpgradeModuleInterface18@@@;??_7GarrisonUpgrade@@6BUpgradeModuleInterface18@@@;??_7GeometryUpgrade@@6BUpgradeTail@@@;??_7HordeContain@@6BB6@@@;??_7HordeSiegeEngineContain@@6BIface2C@@@;??_7HorseHordeContain@@6BB6@@@;??_7LevelUpUpgrade@@6BModuleInterface@@@;??_7LocomotorSetUpgrade@@6BUpgradeModuleInterface18@@@;??_7MaxHealthUpgrade@@6BUpgradeModuleInterface18@@@;??_7ModelConditionUpgrade@@6BUpgradeModuleInterface18@@@;??_7OpenContain@@6BContainIface2C@@@;??_7RadarUpgrade@@6BUpgradeModuleInterface18@@@;??_7RemoveUpgradeUpgrade@@6BUpgradeModuleInterface18@@@;??_7ReplaceSelfUpgrade@@6BUpgradeModuleInterface18@@@;??_7Rva00220240FlatDtor@@6BRva00220240FlatDtorM5@@@;??_7Rva004B4CDF@@6BUpgradeModuleInterface18@@@;??_7Rva004B5982@@6BUpgradeModuleInterface18@@@;??_7Rva004B5D0B@@6BUpgradeModuleInterface18@@@;??_7Rva004B82A5@@6BUpgradeModuleInterface18@@@;??_7SiegeEngineContain@@6BIface2C@@@;??_7StatusBitsUpgrade@@6BUpgradeModuleInterface18@@@;??_7StealthUpgrade@@6BUpgradeModuleInterface18@@@;??_7TooltipUpgrade@@6BUpgradeModuleInterface18@@@;??_7TransportContain@@6BB6@@@;??_7UnpauseSpecialPowerUpgrade@@6BUpgradeModuleInterface18@@@;??_7UpgradeModule@@6BModuleInterface@@@;??_7WeaponBonusUpgrade@@6BUpgradeModuleInterface18@@@;??_7WeaponSetUpgrade@@6BModuleInterface@@@;_s_secondary18@Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgradeCtor.cpp;_s_secondary2C@Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp;_s_secondary2C@Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainCtor.cpp",
+        "defs": "3",
+        "refs": "79"
+      }
+    },
+    "0x007FDDA0": {
+      "before": {
+        "address": "0x007FDDA0",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BC@EICGOPMF@PlayerRelationMap?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "after": {
+        "address": "0x007FDDA0",
+        "size": "36",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BC@EICGOPMF@PlayerRelationMap?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x007BA618": {
+      "before": {
+        "address": "0x007BA618",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "import",
+        "name": "__imp__strchr",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "76"
+      },
+      "after": {
+        "address": "0x007BA618",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "import",
+        "name": "__imp__strchr",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "75"
+      }
+    },
+    "0x009FE6E8": {
+      "before": {
+        "address": "0x009FE6E8",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheAudio@@3PAVAudioManager@@A",
+        "source": "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "570"
+      },
+      "after": {
+        "address": "0x009FE6E8",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheAudio@@3PAVAudioManager@@A",
+        "source": "Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "569"
+      }
+    },
+    "0x00A01E68": {
+      "before": {
+        "address": "0x00A01E68",
+        "size": "12",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_validityBegin@@3PAIA",
+        "source": "Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "34"
+      },
+      "after": {
+        "address": "0x00A01E68",
+        "size": "12",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_validityBegin@@3PAIA",
+        "source": "Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp",
+        "status": "provisional",
+        "names": "?g_validityBegin@@3PAEA;?g_validityBegin@@3PAIA",
+        "defs": "1",
+        "refs": "23"
+      }
+    },
+    "0x007F4D08": {
+      "before": {
+        "address": "0x007F4D08",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BB@COJJGIFG@WeaponSetUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4D08",
+        "size": "20",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BB@COJJGIFG@WeaponSetUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x009EDBF0": {
+      "before": {
+        "address": "0x009EDBF0",
+        "size": "64",
+        "section": ".data",
+        "kind": "global",
+        "name": "?DeviceProjectionMatrix@DX8Wrapper@@1VMatrix4@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "435"
+      },
+      "after": {
+        "address": "0x009EDBF0",
+        "size": "64",
+        "section": ".data",
+        "kind": "global",
+        "name": "?DeviceProjectionMatrix@DX8Wrapper@@1VMatrix4@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "419"
+      }
+    },
+    "0x009BBD2C": {
+      "before": {
+        "address": "0x009BBD2C",
+        "size": "24",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_freelistPool009BBD2C@@3VFreelistPool@@A",
+        "source": "Code/GameEngine/Source/Common/Rva007AD348PoolInits.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "17"
+      },
+      "after": {
+        "address": "0x009BBD2C",
+        "size": "24",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_freelistPool009BBD2C@@3VFreelistPool@@A",
+        "source": "Code/GameEngine/Source/Common/Rva007AD348PoolInits.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "9"
+      }
+    },
+    "0x0087AAE0": {
+      "before": {
+        "address": "0x0087AAE0",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "global",
+        "name": "?g_00C7AAE0@@3QBQBXB",
+        "source": "Code/GameEngine/Source/Common/Rva00605C58Ctor.cpp",
+        "status": "provisional",
+        "names": "??_7Rva00605C6A@@6B@;?g_00C7AAE0@@3QBQBXB",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x0087AAE0",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva00605C6A@@6B@",
+        "source": "Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x009EE5D8": {
+      "before": {
+        "address": "0x009EE5D8",
+        "size": "656",
+        "section": ".data",
+        "kind": "global",
+        "name": "?render_state@DX8Wrapper@@1URenderStateStruct@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "2547"
+      },
+      "after": {
+        "address": "0x009EE5D8",
+        "size": "656",
+        "section": ".data",
+        "kind": "global",
+        "name": "?render_state@DX8Wrapper@@1URenderStateStruct@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "2513"
+      }
+    },
+    "0x009FDC64": {
+      "before": {
+        "address": "0x009FDC64",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_Va00DFDC64@@3HA",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x009FDC64",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_Va00DFDC64@@3HA",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "1"
+      }
+    },
+    "0x009EDFA8": {
+      "before": {
+        "address": "0x009EDFA8",
+        "size": "1536",
+        "section": ".data",
+        "kind": "global",
+        "name": "?Vertex_Shader_Constants@DX8Wrapper@@1PAVVector4@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "9"
+      },
+      "after": {
+        "address": "0x009EDFA8",
+        "size": "1536",
+        "section": ".data",
+        "kind": "global",
+        "name": "?Vertex_Shader_Constants@DX8Wrapper@@1PAVVector4@@A",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "7"
+      }
+    },
+    "0x00A09FA8": {
+      "before": {
+        "address": "0x00A09FA8",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_Va0130A58C@@3EA",
+        "source": "Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x00A09FA8",
+        "size": "1",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_createdDefaultAllocator@@3EA",
+        "source": "Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp",
+        "status": "provisional",
+        "names": "?g_Va0130A58C@@3EA;?g_createdDefaultAllocator@@3EA",
+        "defs": "1",
+        "refs": "3"
+      }
+    },
+    "0x00857F98": {
+      "before": {
+        "address": "0x00857F98",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva004B568B@@6BUpgradeMux@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva004B568B@@6BUpgradeMux@@@;??_7WeaponSetUpgrade@@6BUpgradeMux@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00857F98",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7WeaponSetUpgrade@@6BUpgradeMux@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x009EDA68": {
+      "before": {
+        "address": "0x009EDA68",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?texture_stage_state_changes@DX8Wrapper@@1IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "230"
+      },
+      "after": {
+        "address": "0x009EDA68",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?texture_stage_state_changes@DX8Wrapper@@1IA",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "228"
+      }
+    },
+    "0x007FDD6C": {
+      "before": {
+        "address": "0x007FDD6C",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002AC340@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x007FDD6C",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002AC340@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x00857418": {
+      "before": {
+        "address": "0x00857418",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LevelUpUpgrade@@6BUpgradeMux@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LevelUpUpgrade@@6BUpgradeMux@@@;??_7Rva004B3D3B@@6BUpgradeMux@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00857418",
+        "size": "72",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LevelUpUpgrade@@6BUpgradeMux@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x00A03138": {
+      "before": {
+        "address": "0x00A03138",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheVictoryConditions@@3PAVVictoryConditionsInterface@@A",
+        "source": "Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "51"
+      },
+      "after": {
+        "address": "0x00A03138",
+        "size": "4",
+        "section": ".data",
+        "kind": "global",
+        "name": "?TheVictoryConditions@@3PAVVictoryConditionsInterface@@A",
+        "source": "Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "50"
+      }
+    },
+    "0x007C26EC": {
+      "before": {
+        "address": "0x007C26EC",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@4f800000",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "748"
+      },
+      "after": {
+        "address": "0x007C26EC",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "float",
+        "name": "__real@4f800000",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "746"
+      }
+    },
+    "0x007F4CC4": {
+      "before": {
+        "address": "0x007F4CC4",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BG@IOIFGFBJ@ModelConditionUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007F4CC4",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BG@IOIFGFBJ@ModelConditionUpgrade?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x007FDC60": {
+      "before": {
+        "address": "0x007FDC60",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002AAD77@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "4"
+      },
+      "after": {
+        "address": "0x007FDC60",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002AAD77@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      }
+    },
+    "0x007FE008": {
+      "before": {
+        "address": "0x007FE008",
+        "size": "28",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7BfmeBaseVNH@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7BfmeBaseVNH@@6B@;??_7Rva002B3092@@6B@",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x007FE008",
+        "size": "28",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva002B3092@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x007BA540": {
+      "before": {
+        "address": "0x007BA540",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "import",
+        "name": "__imp___strnicmp",
+        "source": "",
+        "status": "literal",
+        "names": "__imp___strnicmp;__imp__strnicmp",
+        "defs": "0",
+        "refs": "24"
+      },
+      "after": {
+        "address": "0x007BA540",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "import",
+        "name": "__imp___strnicmp",
+        "source": "",
+        "status": "literal",
+        "names": "__imp___strnicmp;__imp__strnicmp",
+        "defs": "0",
+        "refs": "23"
+      }
+    },
+    "0x007E5220": {
+      "before": {
+        "address": "0x007E5220",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldManager@@6BLivingWorldObserver@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7LivingWorldManager@@6BLivingWorldObserver@@@;??_7Rva0022B12DSubsystem@@6BRva00210CC5@@@",
+        "defs": "0",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x007E5220",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7LivingWorldManager@@6BLivingWorldObserver@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      }
+    },
+    "0x007E7344": {
+      "before": {
+        "address": "0x007E7344",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7?$SubsystemSlot@VRva0022B12DSubsystem@@@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x007E7344",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7?$SubsystemSlot@VLivingWorldManager@@@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      }
+    }
+  },
+  "explicit_owners_verified": 2357,
+  "repair_address": "0x0087AAE0",
+  "metadata_followups": [
+    "0x009B621C",
+    "0x007BAEAC",
+    "0x007E5114",
+    "0x00857328",
+    "0x00837938",
+    "0x00857460",
+    "0x009FE78C",
+    "0x007BAC1C",
+    "0x007C26F0",
+    "0x009EDA98",
+    "0x00A03158",
+    "0x00836E48",
+    "0x009EDA34",
+    "0x00857FE0",
+    "0x007BB8D8",
+    "0x009FEF18",
+    "0x007E5224",
+    "0x009FEDF0",
+    "0x009FDCA0",
+    "0x0083702C",
+    "0x007F4CDC",
+    "0x009EC4F4",
+    "0x009EC3FD",
+    "0x00A02038",
+    "0x009FEF10",
+    "0x007BB554",
+    "0x007DE888",
+    "0x00837D78",
+    "0x007BB8F0",
+    "0x007FDC6C",
+    "0x00862E34",
+    "0x009A60E8",
+    "0x009ED5F8",
+    "0x009E0878",
+    "0x00A030D0",
+    "0x009BD4B0",
+    "0x007E5234",
+    "0x00A09FA9",
+    "0x007F4CF0",
+    "0x009FF028",
+    "0xFFC00000",
+    "0x009EDA64",
+    "0x009ECA38",
+    "0x007D37AC",
+    "0x007F4CA8",
+    "0x007F4DF4",
+    "0x007F4C64",
+    "0x007BAB60",
+    "0x00A038BC",
+    "0x00858790",
+    "0x007FDDA0",
+    "0x007BA618",
+    "0x009FE6E8",
+    "0x00A01E68",
+    "0x007F4D08",
+    "0x009EDBF0",
+    "0x009BBD2C",
+    "0x009EE5D8",
+    "0x009FDC64",
+    "0x009EDFA8",
+    "0x00A09FA8",
+    "0x00857F98",
+    "0x009EDA68",
+    "0x007FDD6C",
+    "0x00857418",
+    "0x00A03138",
+    "0x007C26EC",
+    "0x007F4CC4",
+    "0x007FDC60",
+    "0x007FE008",
+    "0x007BA540",
+    "0x007E5220",
+    "0x007E7344"
+  ],
+  "hatch_update_removed": [
+    "alternatename\tCode/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp\t?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ\t1",
+    "alternatename\tCode/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp\t?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ\t1",
+    "alternatename\tCode/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp\t?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ\t1",
+    "alternatename\tCode/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp\t?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ\t1",
+    "alternatename\tCode/GameEngine/Source/Common/System/LocalFile.cpp\t??1Rva00605CA7@@UAE@XZ\t1",
+    "alternatename\tCode/GameEngine/Source/Common/System/LocalFile.cpp\t?wideOpenStub@LocalFile@@UAE_NPBGH@Z\t1",
+    "pin\treverse/symbols.csv\t0x00605CA7\t1",
+    "present_unmatched\tCode/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp\tisInIdleState@StateMachine@@\t1",
+    "present_unmatched\tCode/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp\tattackMachineIdle@StateMachine@@\t1",
+    "present_unmatched\tCode/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp\tattackMachineIdle@StateMachine@@\t1",
+    "present_unmatched\tCode/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp\tattackMachineIdle@StateMachine@@\t1",
+    "present_unmatched\tCode/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp\tattackMachineIdle@StateMachine@@\t1",
+    "present_unmatched\tCode/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp\tStateMachine::getCurrentStateID\t1"
+  ],
+  "scope": "Full cache regeneration; foreign-object metadata deltas are not independently verified source/global recovery. This repair recovers one native72B compiler table and retires one alias and one pin; other hatch deletions were already absent from Code before this repair and were removed by the mandated --update tool.",
+  "no_explicit_owner_retired": true,
+  "only_explicit_owner_change": "0x0087AAE0: same72B native range, strongarray to existing compiler table",
+  "bounds_changes_note": "Six non-owned heuristic extents change as cached observations disappear; one raw byte-global extent becomes its existing explicit one-byte owner. These are cache metadata, not new verified allocations; removed records are not canonical data_rows owners. Carry foreign selections/observations into the next census/image.",
+  "publication_status": "REJECTED REFRESH, NOT PUBLISHED. Normal check_csv correctly refused retired g_validityEnd from unrelated cached object; raw reverse/data_ledger.csv restored to HEAD exactly per gate guidance.",
+  "retirement_commit": "82a4e90dfc"
+}

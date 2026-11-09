@@ -3196,7 +3196,6 @@ name,address,notes
 ??1Rva0060263EBase@@UAE@XZ,0x0060263E,Call-only base-destructor view aliases full7B rowed vptr reset C7A84C; target604465 cleanup calls it after tree teardown; original base identity unknown
 ??1Rva00604396TreeView@@QAE@XZ,0x00604396,Call-only12B tree-prefix destructor view aliases full56B rowed RB tree cleanup; receiver604465+4; payload type not asserted by this view
 ??1Rva00604A68@@QAE@XZ,0x00604A68,destructor called by the vtable-referenced scalar deleting dtor 0x00604A6F (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva00605CA7@@UAE@XZ,0x00605CA7,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xC7AB28); tail-called by single-inheritance dtor at 0x605C6A; identity unproven, address-derived name
 ??1Rva0060CC99Member@@QAE@XZ,0x0060CC99,Target direct call from XferSave field at +0x2C; opaque helper identity
 ??1Rva0060FE2@@UAE@XZ,0x0060FE2,opaque SEH dtor (mov-eax-cookie prologue, sub esp frame); called by scalar-deleting-dtor at 0x61AA1; identity unproven, address-derived name
 ??1Rva006109C0@@UAE@XZ,0x006109C0,"destructor the scalar deleting destructor 0x000657E6 calls (REL32 at 0x000657E9; vtable 0x00BC5C6C#0); opaque address name"
