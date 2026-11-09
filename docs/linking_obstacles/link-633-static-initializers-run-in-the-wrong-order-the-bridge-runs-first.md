@@ -164,3 +164,17 @@ call, probably the same shape one level down, but that is unproven. Worth settli
 Retail order stays non-default until the worse count is zero, and it is not a priority against the real link.
 A separate false reject is recorded in `re_attempts.log`: `identity_shape_problem` reports `allocate` as a changed
 `_STL`-scoped name when only the template argument changes.
+
+*Scaffolding fix for P32 (2026-11-09, swarm crash triage; coordinator-approved, Codex-reviewed).* `exit_link`'s
+`INITIALIZERS_AFTER_OBJECTS` moves one bridge entry, 0x007AF9D6, into `retail_initializers_after_objects.obj`, input after
+every object and before the libraries. Every other entry stays in `retail_initializers.obj`, first, in its order;
+`initializers_bridged` still counts them all. The link refuses a listed address outside the bridge, and one whose extent
+a retail initializer can reach a reader of through direct edges (`static_init_readers`). On retail that finds no reader, across
+the table's whole extent 0x00DC14C8..0x00DC15C0; the search cannot see virtual calls, pointers held in data or computed
+addresses, so it is evidence, not proof.
+
+**This is not recovered order.** The entry still runs from a generated table, later than retail's slot 557. The true fix is
+still one retail TU with the strings, the table and its compiler-emitted initializer, which is blocked twice: no approved unit
+for these addresses, and the compiler keeps the entries' parse pointers static (3340a03cf5), so retail's source form is unknown.
+Follow-up: option (b) above, the bridge split by retail slot under `--order retail`, for any other entry of this shape.
+Verification on the first image after landing is owed: see P32's packet. Clearance: pending.

@@ -38,7 +38,7 @@ Clearance: pending.
 Census confirmation: not claimed.
 
 Update (2026-11-06, swarm crash-triage, base 4b2bb61eb1 + nullrobj trial): removing the
-non-retail `NullLoaderClass _NullLoader` static (owner-approved) builds clean (`./build.sh` 3/3,
+non-retail `NullLoaderClass _NullLoader` static (coordinator-approved) builds clean (`./build.sh` 3/3,
 find_declared_unmatched passes, nullrobj.obj then emits no `_$E1`/`_$E2`) but does not bridge
 0x007ABBB3. `image_report.bridge_entries` over the ledger and seat2's 17,973 current objects: 672
 bridged entries with the old nullrobj object, 673 without `_$E1`, 0x007ABBB3 in neither. The
