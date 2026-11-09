@@ -2095,3 +2095,68 @@ after the fold; the objects' symbol tables, lk83's object diff, consumer link_ch
      introduces xfer where retail has executeCrateBehavior), and 0x0085A9A8 `??_7SalvageCrateCollide@@6B@` (5 missing
      source slots).
   4. `claims.py release` with class:, file: and RVA keys in one call released 0; separate calls per kind work.
+
+**Eight SpecialPower placeholders reconciled and folded: 24 placeholder tables gone, 18 off the bridge (2026-11-09,
+seat halilkkaya-lk86, base `522bdc5dc9f`).** Method: per class, retail first (the constructor and the placeholder's
+destructor store the same three tables; the destructor tail-calls `??1SpecialPowerModule` 0x00493DEF; its `??_G` is slot
+0 of the +0 table), then the placeholder's view reconciled onto the TU's SpecialPowerModule view in its own commit, then
+`rename.py class --fold OLD --into NEW --prepared TU=FILE --access protected` (dry run first). Each step: build exact,
+find_declared_unmatched, lk83's object diff, consumer link_check, scoped DIR32 and lk74_snap/lk74_cmp (old = new = HEAD's
+`vtable_bridge.py`).
+- Retail settles every class in the family the same way: `??0X` (42 B) calls `??0SpecialPowerModule` 0x00493C5A and
+  stores X's +0 table, 0x00BEFCF8 at +0x0C and X's +0x10 table; the destructor stores the same three; the +0 table has
+  14 slots with `??_G` in slot 0 and getModuleNameKey in slot 4. lk85's "disagree on the layout" refusals were the
+  placeholder's opaque bases (Rva00493DEF/MiBase1/`_B2`), not a real difference.
+- Reconciled and folded (commits "<TU>: derive placeholder <OLD> from SpecialPowerModule" / "...: put both views of the
+  class on SpecialPowerModule", then "Fold class <OLD> into <NEW> ..."): GrabPassenger Rva004C5019, PlayerUpgrade
+  Rva004C7C33, Devastate Rva004C8213, SplitHorde Rva004C85A4, Repair Rva004C86E4, UntamedAllegiance Rva004C7B36, PlayerHeal
+  Rva004C7EAE, and CombineHorde Rva004C87F4 after its split ("Split 2 rows of Rva00493DEFDerived.cpp into
+  CombineHordeSpecialPower.cpp").
+  - The six TUs with a BehaviorModule-based view needed only the placeholder's bases changed. The fold keeps NEW's own
+    present-unmatched destructor definition (already the same body) and drops the placeholder's.
+  - UntamedAllegiance's real view was a 4-byte stub (no base): grown onto SpecialPowerModule on the retail evidence above.
+    PlayerHeal's view sat on a TU-local `ModuleBase` that put getModuleNameKey at slot 1: rebased onto BehaviorModule
+    (m_moduleData +4 and m_object +8 come from Module/ObjectModule); all 15 rows kept their bytes.
+  - New refusal, solved: for UntamedAllegiance and PlayerHeal the fold refused "nothing ties NEW to T": the data ledger
+    names their +0 tables only for the placeholder, and the constructor units stored the addresses of TU-local dummy
+    ints (attempt_support's dummy-vptr list, "needs-identity"). Each constructor unit now declares the class's TU view
+    and stores the class's tables (42 B kept; .bss 12 -> 0); its select-any table and `??_G` copies have the TU's
+    digests. Constructor unit and fold land in one commit (the tables reference `??1NEW`, which only the fold defines).
+- Bridge, base -> after: tables 3,949 -> 3,931, slots 56,910 -> 56,394, mismatching source slots 42,034 -> 41,411,
+  already correct 1,664 -> 1,664; refusals identical, no correct table lost. Off: the 24 placeholder tables
+  (`6BRva00493DEF@@@`, `6BMiBase1@@@`, `6B<OLD>_B2@@@` of each class). Newly bridged under their own names: 6 tables of
+  UntamedAllegiance and PlayerHeal, which had none before. Each class's ObjectModule table now has slots 0 and 4 right
+  (5 left: slots 1-3, 12, 13); the +0x10 tables keep 22-25 `__purecall` mismatches (the unit's SpecialPowerModule view
+  overrides none of SpecialPowerModuleInterface's slots).
+- Hatches: alternatename 2,689 -> 2,681 (eight dead `?f2@<OLD>_B2` lines in Rva00493DEFDerived.cpp, each proven dead: no
+  COFF symbol in any built object, only the grab-bag's .drectve string; control `?f2@Rva004C29BB_B2` is live), and
+  present_unmatched 2,135 -> 2,129 (six destructor markers became rowed bodies). Commits "Rva00493DEFDerived.cpp: drop
+  seven dead /alternatename hatches; ..." and "...: drop CombineHorde's dead /alternatename hatch; ..." (Verifier-Change).
+- link_check: every changed unit and every unit touching the classes LINKS (FriendNew, member, Ctor, Slot13 units,
+  ModuleFactoryInit.cpp, ConstIntGetters4.cpp, ModuleDataFriendNewFactories.cpp, the grab-bag). Grab-bag bytes 633 -> 580
+  with CombineHorde's split, conserved in the TU. No initializer, .CRT or .bss change except the constructor units'
+  dummies.
+- Refused (re_attempts.log, 0x004C2656): CashHack. Retail gives it the family's shape (constructor stores only the three
+  tables; destructor in slot 0), so the TU's ZH-header view (bfme2_specialpower_layout shim: Snapshot-primary, destructor
+  at slot 3, 36 B) is the wrong one; putting the placeholder on it would make its tables worse. `?f2@Rva004C2656_B2` stays.
+- Tooling compatibility audit (`522bdc5dc9f..HEAD`): no path added, renamed or deleted (one split into an existing TU).
+  `rename.py check --range`: 0 renames, 0 problems (folds write no record). Old placeholder spellings remain only in
+  generated or historical records: data_ledger.csv (17, tool-written; data_ledger.py regenerates it), vtable_bridge_queue.tsv
+  (67, the next real-link publish), name_tiers.csv (16) and wb_name_leads.csv (8), deleted_rows.csv (the folds'
+  tombstones), re_attempts.log and attempt_support. tools/, .githooks/ and .github/ name neither the classes nor the
+  changed paths (tu_skeleton.py and its test name the grab-bag in comments only). The header-queue entries for
+  GrabPassengerSpecialPower.cpp and PlayerHealSpecialPower.cpp key other RVAs and still hold.
+- Next leads:
+  1. CashHack: rebuild CashHackSpecialPower's view on BehaviorModule.h + SpecialPowerModule.h (its constructor,
+     rva004C266F and the present-unmatched crc/xfer/loadPostProcess/doSpecialPowerAtLocation re-checked), then this recipe.
+  2. The +0x10 tables (22-25 mismatches each): declare SpecialPowerModule's rowed SpecialPowerModuleInterface overrides
+     (isReady 0x004934DE, getPercentReady, getPowerName, onSpecialPowerCreation, pauseCountdown, doSpecialPowerAt*,
+     markSpecialPowerTriggered, startPowerRecharge ...) in the shared SpecialPowerModule view once SpecialPowerModule.h
+     may change; one header fix would correct every SpecialPower table at once.
+  3. The ObjectModule tables' slots 1-3 (`__purecall` where retail has 0x004C8A2F, the name getter, 0x004C8A95 xfer) and
+     12/13 (SpecialPowerModule's rva00493805 and ApplyPowerToObject): Snapshot's slots in the shared view.
+  4. The grab-bag's eleven remaining Rva00493DEF placeholders: Defector 0x004C29BB, OCL 0x004C3108, StopSpecialPower
+     0x004C67A0 (lk83: its constructor unit stores the table, so split it with that unit), HordeDispatch 0x004C8A16
+     (proposed TU), and seven tu_map assigns to ElvenWoodSpecialPower.cpp (0x004C3905..0x004C4DE9; check that
+     assignment against retail before splitting). Each would follow split, reconcile, fold.
+  5. Tooling: rename.py's "nothing ties NEW to T" refusal could name the dummy-store constructor row that blocks it.
