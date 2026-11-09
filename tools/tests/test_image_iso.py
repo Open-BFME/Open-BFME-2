@@ -2081,9 +2081,9 @@ def test_final_review_one_past_array_is_reported_even_at_another_global():
     c.ours.pointer(0x2800, 0x2010); c.retail.pointer(0x2900, 0x2110)
     c.ledger([row("g", 0x2900)], {})
     assert c.counts["wrong_pointers"] == 0
-    assert c.counts["pointers_end_equal"] == 1
-    assert c.pointer_words[0]["verdict"] == "equal"
-    assert c.pointer_words[0]["reason"] == "proven-end-pointer"
+    assert c.counts["pointers_end_equal"] == 0
+    assert c.pointer_words[0]["verdict"] == "unchecked"
+    assert c.pointer_words[0]["reason"] == "end-pointer-conflict"
     assert c.pointer(c.ours.base + 0x2011, c.retail.base + 0x2111) == "wrong"
 
 
@@ -2101,3 +2101,59 @@ def test_final_review_named_storage_operand_cannot_borrow_array_end_identity(opc
     c.retail.put(0x100, opcode + struct.pack("<I", c.retail.base + 0x2110))
     c.ours.relocations.add(0x301)
     assert c.code_comparison(0x300, 0x100, 5) == (False, "body-mismatch")
+
+
+
+def test_round4_code_our_mapped_start_cannot_borrow_an_unnamed_end():
+    c = checker([public("array", 0x2000, 16), public("following", 0x2010)],
+                {"array": {0x2100}, "following": {0x3100}})
+    c.ours.put(0x300, b"\xa1" + struct.pack("<I", c.ours.base + 0x2010))
+    c.retail.put(0x100, b"\xa1" + struct.pack("<I", c.retail.base + 0x2110))
+    c.ours.relocations.add(0x301)
+    assert c.code_comparison(0x300, 0x100, 5) == (None, "code-equal-unresolved-operand")
+    assert c.counts["pointers_end_equal"] == 0
+
+
+@pytest.mark.parametrize("proof", [False, True])
+def test_round4_data_retail_mapped_start_cannot_borrow_an_end(proof):
+    c = checker([public("g", 0x2800), public("array", 0x2000, 16), public("wanted", 0x4000)],
+                {"g": {0x2900}, "array": {0x2100}, "wanted": {0x2110}})
+    c.ours.pointer(0x2800, 0x2010); c.retail.pointer(0x2900, 0x2110)
+    if proof:
+        c.publics[0]["data_coff"] = dict(offset=0, section=dict(body=struct.pack("<I", 16),
+            relocations=[(0, iso.link_cycle.DIR32)], relocation_targets={0:dict(name="array")}))
+    c.ledger([row("g", 0x2900)], {})
+    assert c.pointer_words[0]["verdict"] == "unchecked"
+    assert c.pointer_words[0]["reason"] == "end-pointer-conflict"
+    assert c.counts["wrong_pointers"] == c.counts["pointers_end_equal"] == 0
+
+
+@pytest.mark.parametrize("proof", [False, True])
+def test_round4_data_end_requires_dir32_symbol_and_exact_addend(proof):
+    c = checker([public("g", 0x2800), public("array", 0x2000, 16)],
+                {"g": {0x2900}, "array": {0x2100}})
+    c.ours.pointer(0x2800, 0x2010); c.retail.pointer(0x2900, 0x2110)
+    if proof:
+        c.publics[0]["data_coff"] = dict(offset=0, section=dict(body=struct.pack("<I", 16),
+            relocations=[(0, iso.link_cycle.DIR32)], relocation_targets={0:dict(name="array")}))
+    c.ledger([row("g", 0x2900)], {})
+    assert c.pointer_words[0]["verdict"] == ("equal" if proof else "unchecked")
+    assert c.pointer_words[0]["reason"] == ("proven-end-pointer" if proof else "end-pointer-unproven")
+    assert c.counts["pointers_end_equal"] == int(proof)
+
+
+def test_round4_already_mapped_equal_is_not_end_credit():
+    c = checker([public("g", 0x2800), public("array", 0x2000, 16), public("following", 0x2010)],
+                {"g": {0x2900}, "array": {0x2100}, "following": {0x2110}})
+    c.ours.pointer(0x2800, 0x2010); c.retail.pointer(0x2900, 0x2110)
+    c.ledger([row("g", 0x2900)], {})
+    assert c.pointer_words[0]["verdict"] == "equal"
+    assert c.pointer_words[0]["reason"] == "mapped target identity"
+    assert c.counts["pointers_end_equal"] == 0
+
+
+def test_round4_wrong_interior_mapping_is_not_overridden_by_an_end():
+    c = checker([public("array", 0x2000, 16), public("overlap", 0x2008, 16)],
+                {"array": {0x2100}, "overlap": {0x3100}})
+    assert c.pointer(c.ours.base + 0x2010, c.retail.base + 0x2110) == "wrong"
+    assert c.counts["pointers_end_equal"] == 0

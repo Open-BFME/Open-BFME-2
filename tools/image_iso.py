@@ -584,29 +584,61 @@ class Checker:
         return None
 
     def pointer(self, actual, expected, *, proven=False, allow_end=True):
+        return self.pointer_result(actual, expected, proven=proven, allow_end=allow_end)[0]
+
+    def pointer_result(self, actual, expected, *, proven=False, allow_end=True, end_proof=True):
         if actual == expected == 0:
-            return "equal"
+            return "equal", "mapped target identity"
+        a, b = actual - self.ours.base, expected - self.retail.base
+        got = self.mapping.resolve(a, b)
+        # Decide ordinary correspondence before considering any end inference.
+        if proven and self.by_retail.get(b) and (actual == 0 or self.ours.read(a, 1) is None):
+            result, reason = "wrong", "pointer outside linked image"
+        elif got == b:
+            return "equal", "mapped target identity"
+        elif got is None:
+            if self.ledger_literal(a, b):
+                self.counts["pointers_ledger_literal_aliases"] += 1
+                return "equal", "bounded pooled literal equivalence"
+            result, reason = "unchecked", "target correspondence unresolved"
+        else:
+            if self.literal_alias(a, got, b):
+                self.counts["pointers_literal_aliases"] += 1
+                return "equal", "bounded pooled literal equivalence"
+            result, reason = "wrong", "mapped target mismatch"
         end = self.end_pointer(actual, expected) if allow_end else None
         if end is not None:
-            self.counts["pointers_end_equal" if end == "equal" else "pointers_end_unchecked"] += 1
-            return end
-        # A proven pointer to ledger-backed image storage cannot be null or
-        # outside the linked image when retail points at that storage.
-        if proven and self.by_retail.get(expected - self.retail.base):
-            if actual == 0 or self.ours.read(actual - self.ours.base, 1) is None:
-                return "wrong"
-        got = self.mapping.resolve(actual - self.ours.base, expected - self.retail.base)
-        if got is None:
-            if self.ledger_literal(actual - self.ours.base, expected - self.retail.base):
-                self.counts["pointers_ledger_literal_aliases"] += 1
-                return "equal"
-            return "unchecked"
-        if got == expected - self.retail.base:
-            return "equal"
-        if self.literal_alias(actual - self.ours.base, got, expected - self.retail.base):
-            self.counts["pointers_literal_aliases"] += 1
-            return "equal"
-        return "wrong"
+            conflict = any(self.mapping.targets_for(p) and self.mapping.targets_for(p) != {b}
+                           for p in self.by_image.get(a, ())) or any(
+                           p["rva"] != a for p in self.by_retail.get(b, ()))
+            if conflict:
+                self.counts["pointers_end_unchecked"] += 1
+                return "unchecked", "end-pointer-conflict"
+            if result == "unchecked":
+                if end == "equal" and end_proof:
+                    self.counts["pointers_end_equal"] += 1
+                    return "equal", "proven-end-pointer"
+                self.counts["pointers_end_unchecked"] += 1
+                return "unchecked", "end-pointer-unproven" if not end_proof else "end-pointer-ambiguous"
+        return result, reason
+
+    def data_end_proof(self, public, offset, actual, expected):
+        """A winning DIR32 field must name the array and encode its exact extent."""
+        coff = public.get("data_coff") or public.get("coff")
+        if not coff:
+            return False
+        section, field = coff["section"], coff["offset"] + offset
+        target = section.get("relocation_targets", {}).get(field)
+        if not target or field < 0 or field + 4 > len(section["body"]):
+            return False
+        owners = self.by_name.get(target["name"], [])
+        if len({p["rva"] for p in owners}) != 1:
+            return False
+        addend = struct.unpack_from("<I", section["body"], field)[0]
+        return any(addend == p["extent"] and addend > 0 and
+                   actual == self.ours.base + p["rva"] + addend and
+                   self.mapping.resolve(p["rva"]) == expected - self.retail.base - addend
+                   for p in owners)
 
     def ledger_literal(self, actual, expected):
         """A MAP string literal can select a ledger-typed retail string by value.
@@ -863,16 +895,12 @@ class Checker:
                     continue
                 masked.update(range(offset, offset + 4))
                 actual, expected = struct.unpack_from("<I", ours, offset)[0], struct.unpack_from("<I", retail, offset)[0]
-                result = self.pointer(actual, expected, proven=True)
+                result, reason = self.pointer_result(actual, expected, proven=True,
+                    end_proof=offset in fields and self.data_end_proof(p, offset, actual, expected))
                 self.pointer_words.append(dict(name=p["name"], retail_rva=hex(br), image_rva=hex(ar),
                     actual=hex(actual), expected=hex(expected), verdict=result,
                     evidence="COFF DIR32" if offset in fields else "PE HIGHLOW",
-                    reason=("proven-end-pointer" if self.end_pointer(actual, expected) == "equal" else
-                            "end-pointer-ambiguous" if self.end_pointer(actual, expected) == "unchecked" else
-                            "target correspondence unresolved" if result == "unchecked" else
-                            "bounded pooled literal equivalence" if result == "equal" and
-                            self.mapping.resolve(actual - self.ours.base, expected - self.retail.base) is None else
-                            "mapped target identity")))
+                    reason=reason))
                 if offset in fields and ar not in self.ours.relocations and br not in self.retail.relocations:
                     self.counts["coff_pointer_words_checked"] += 1
                 self.counts[{"equal": "pointers_equal", "wrong": "wrong_pointers", "unchecked": "pointers_unchecked"}[result]] += 1
