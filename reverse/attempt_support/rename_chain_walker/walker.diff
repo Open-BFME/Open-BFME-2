@@ -1,0 +1,695 @@
+diff --git a/docs/naming.md b/docs/naming.md
+index c90dd808c6..b41061a738 100644
+--- a/docs/naming.md
++++ b/docs/naming.md
+@@ -693,6 +693,16 @@ the row into C as its virtual member:
+     python3 tools/rename.py function --rva 0x00550B4C --to-class GameSpyBuddyMessageQueue \
+         --new endThread --prepared Code/.../BuddyThread.cpp=build/endThread.cpp --dry-run
+ 
++A table holding the address that no view relates to C is a fold, and refused, unless retail's own bytes
++relate it: at the same slot, the table's destructor or constructor chain reaches the store of C's vptr through
++`this`. The chain starts at a row that stores the table through `this`, or at the slot of C's deleting destructor when
++that row tests its flag, calls the global operator delete and returns `ret 4`; ledger names do not count. Each function
++is read following its forward control flow, and a store or step counts only when it always runs: no branch can skip
++it and no return came before it. Only direct calls and tail jumps with `this` still in ecx are followed, so a member's
++destructor does not count, and a value written at some offset proves nothing. A canonical header that declares a complete chain without C still refuses, unless every
++store of the table by that class is proved to be on a newly allocated object; a store that cannot be read keeps the
++refusal. The plan's evidence lists each table so cleared with its path. Only this mode reads the chain.
++
+ `--new` is the member's identifier in C (the access code becomes the virtual
+ form of the old one) or its full mangled name (to choose, say, protected
+ `MBE`, or a `this` cv other than the placeholder's guess: the class's own
+diff --git a/tools/rename.py b/tools/rename.py
+index 4ff6073d63..9865bb2325 100644
+--- a/tools/rename.py
++++ b/tools/rename.py
+@@ -6014,17 +6014,270 @@ def class_installers(ctx, cls, stores, tables):
+     return out
+ 
+ 
+-def to_class_evidence(ctx, rva, cls, sources):
++RETAIL_CHAIN_DEPTH = 7
++GLOBAL_NEW = "??2@YAPAXI@Z"
++GLOBAL_DELETE = "??3@YAXPAX@Z"
++RETAIL_PATH_ENDS = ("hlt", "ud2", "jmp")
++
++
++def retail_row_instructions(rva, size):
++    """Retail's instructions in address order from `rva`, decoded with details."""
++    import capstone
++    import build
++    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
++    md.detail = True
++    try:
++        code = build.read_target_bytes(rva, size)
++    except (OSError, ValueError):
++        return
++    yield from md.disasm(code, rva)
++
++
++def retail_row_path(rva, size):
++    """Retail's instructions from `rva`, decoded with details, as one execution path: a conditional branch falls
++    through, and the path ends at a return, an interrupt or an unconditional jump, whatever its target. What follows
++    those in the row's bytes is not on this path, so it is never read."""
++    import capstone
++    for ins in retail_row_instructions(rva, size):
++        yield ins
++        if ins.mnemonic in RETAIL_PATH_ENDS or any(ins.group(g) for g in (capstone.CS_GRP_RET, capstone.CS_GRP_IRET,
++                                                                          capstone.CS_GRP_INT)):
++            return
++
++
++def _row_starting_at(ctx, rva):
++    row = row_at(ctx, rva)
++    return row if row and _rva(row.get("target_rva")) == rva else None
++
++
++def _direct_target(ins):
++    """The rva a direct call or jump lands on, else None."""
++    from capstone import x86
++    ops = ins.operands
++    return ops[0].imm & 0xFFFFFFFF if ops and ops[0].type == x86.X86_OP_IMM else None
++
++
++def _copied_register(ins, tracked):
++    """The destination of a `mov reg, reg` whose source is in `tracked`, else None."""
++    from capstone import x86
++    ops = ins.operands
++    if ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_REG and ops[1].type == x86.X86_OP_REG \
++            and ins.reg_name(ops[0].reg) in REG32 and ins.reg_name(ops[1].reg) in tracked:
++        return ins.reg_name(ops[0].reg)
++    return None
++
++
++def _stored_through(ins, value=None):
++    """The base register of a `mov dword ptr [reg], imm32` at no displacement, of `value` when given, else None."""
++    from capstone import x86
++    ops = ins.operands
++    if ins.mnemonic != "mov" or len(ops) != 2 or ops[0].type != x86.X86_OP_MEM or ops[1].type != x86.X86_OP_IMM:
++        return None
++    mem = ops[0].mem
++    if mem.index or mem.segment or mem.disp or not mem.base or ops[0].size != 4:
++        return None
++    if value is not None and ops[1].imm & 0xFFFFFFFF != value:
++        return None
++    return ins.reg_name(mem.base)
++
++
++def retail_chain_store(ctx, root, vptr):
++    """[rva, ...] from the function at `root` to a `mov dword ptr [this], vptr` in retail's bytes, or None. `this` is
++    ecx at entry or a register copied from it: any other write drops it, and a call drops eax, ecx and edx whatever it
++    does, even one inside the row, except that __EH_prolog leaves ecx. Within a row, control flow is followed forward:
++    code after a return or unconditional jump is dead until a branch lands on it, and where branches land, only what
++    is `this` on every way in stays so. A store or a step to another row counts only when it always runs: no pending
++    branch can skip it and no return or tail jump came before it. Only a direct call or tail jump to the start of
++    another row, made with `this` still in ecx, is followed, so a member's destructor (`lea ecx,[esi+8]`) or any other
++    object's never counts. A branch landing inside an instruction leaves its row uncertain, and an indirect jump ends it."""
++    import capstone
++    eh_prolog = eh_prolog_rva(ctx)
++    seen, queue = set(), [(root, (root,))]
++    while queue:
++        rva, path = queue.pop(0)
++        if rva in seen or len(path) > RETAIL_CHAIN_DEPTH:
++            continue
++        seen.add(rva)
++        row = _row_starting_at(ctx, rva)
++        if not row:
++            continue
++        size = int(row.get("target_size") or 0)
++        this, merges, live, ended = {"ecx"}, {}, True, False
++        for ins in retail_row_instructions(rva, size):
++            incoming = merges.pop(ins.address, None)
++            if incoming is not None:
++                this = set.intersection(*incoming, *([this] if live else []))
++                live = True
++            if not live:
++                continue
++            certain = not ended and not merges
++            if certain and _stored_through(ins, vptr) in this:
++                return list(path)
++            call = ins.group(capstone.CS_GRP_CALL)
++            if call or ins.group(capstone.CS_GRP_JUMP):
++                target = _direct_target(ins)
++                inside = target is not None and rva <= target < rva + size
++                if call:
++                    if target == eh_prolog:
++                        continue
++                    if target is not None and not inside and certain and "ecx" in this:
++                        queue.append((target, path + (target,)))
++                    this -= {"eax", "ecx", "edx"}
++                    continue
++                if target is None:
++                    break                      # an indirect jump: nothing after it can be read
++                if inside and target > ins.address:
++                    merges.setdefault(target, []).append(set(this))
++                elif not inside:
++                    if ins.mnemonic == "jmp" and certain and "ecx" in this:
++                        queue.append((target, path + (target,)))
++                    ended = True
++                if ins.mnemonic == "jmp":
++                    live = False
++                continue
++            if ins.mnemonic in RETAIL_PATH_ENDS or any(ins.group(g) for g in (capstone.CS_GRP_RET, capstone.CS_GRP_IRET,
++                                                                              capstone.CS_GRP_INT)):
++                ended, live = True, False
++                continue
++            copied = _copied_register(ins, this)
++            if copied:
++                this.add(copied)
++                continue
++            _read, written = ins.regs_access()
++            for reg in written:
++                this.discard(FULL_REG.get(ins.reg_name(reg), ins.reg_name(reg)))
++    return None
++
++
++def retail_scalar_deleting(ctx, rva):
++    """True when the row at `rva` does what a scalar deleting destructor does along its path in retail's bytes: it
++    tests bit 0 of its one stack argument, branches on it, calls the global operator delete, and returns with `ret 4`.
++    Its name says nothing, and neither does a byte shape: an ordinary method can have both."""
++    import capstone
++    from capstone import x86
++    row = _row_starting_at(ctx, rva)
++    delete = next((r for r in ctx.rows() if r["name"] == GLOBAL_DELETE), None)
++    if not row or not delete:
++        return False
++    flag = branch = freed = False
++    for ins in retail_row_path(rva, int(row.get("target_size") or 0)):
++        ops = ins.operands
++        if ins.mnemonic == "test" and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM and ops[1].type == x86.X86_OP_IMM \
++                and ops[1].imm == 1 and ops[0].mem.base and ins.reg_name(ops[0].mem.base) == "esp":
++            flag = True
++        elif flag and ins.group(capstone.CS_GRP_JUMP) and ins.mnemonic != "jmp":
++            branch = True
++        elif branch and ins.group(capstone.CS_GRP_CALL) and _direct_target(ins) == _rva(delete["target_rva"]):
++            freed = True
++        elif ins.group(capstone.CS_GRP_RET):
++            return freed and len(ops) == 1 and ops[0].type == x86.X86_OP_IMM and ops[0].imm == 4
++    return False
++
++
++def retail_store_on_new_object(ctx, row, store):
++    """True only when `store` writes through a register holding the global operator new's return, along one path from
++    the row's start: the table belongs to the object allocated there, not to the row's class. Anything less is unknown,
++    not proof of another receiver."""
++    import capstone
++    new = next((r for r in ctx.rows() if r["name"] == GLOBAL_NEW), None)
++    start = _rva(row.get("target_rva"))
++    if not new or start is None:
++        return False
++    fresh = set()
++    for ins in retail_row_path(start, store - start + 16):
++        if ins.address == store:
++            return _stored_through(ins) in fresh
++        if ins.address > store or ins.mnemonic == "jmp":
++            return False
++        if ins.group(capstone.CS_GRP_CALL):
++            fresh -= {"eax", "ecx", "edx"}
++            if _direct_target(ins) == _rva(new["target_rva"]):
++                fresh.add("eax")
++            continue
++        copied = _copied_register(ins, fresh)
++        if copied:
++            fresh.add(copied)
++            continue
++        _read, written = ins.regs_access()
++        for reg in written:
++            fresh.discard(FULL_REG.get(ins.reg_name(reg), ins.reg_name(reg)))
++    return False
++
++
++def retail_chain_roots(ctx, slots, stores, deleting_index):
++    """The destructor and constructors of a table, as retail's bytes show them: its slot at the candidate's deleting
++    destructor index when that does what one does, and the rows that store the table through `this` at +0."""
++    roots = []
++    if deleting_index is not None and deleting_index < len(slots) and retail_scalar_deleting(ctx, slots[deleting_index]):
++        roots.append(slots[deleting_index])
++    for store, disp in sorted(stores.items()):
++        row = row_at(ctx, store)
++        if not disp and row and INSTALLER_CLASS.match(row["name"]) and this_store_problem(ctx, row, store) is None:
++            roots.append(_rva(row["target_rva"]))
++    return list(dict.fromkeys(roots))
++
++
++def canonical_view_disagrees(ctx, classes, stores, cls):
++    """The first of `classes` whose registered canonical header declares a complete base chain without `cls`: a
++    record of the real class, which retail's bytes do not overrule here. A unit's own stand-in view says nothing, and
++    a class is excused only when every store of the table its rows make is proved to be on a newly allocated object
++    (retail_store_on_new_object: retail's W3DShroud constructor). A store that cannot be read keeps the veto."""
++    registered = {}
++    for row in ctx.dicts(CANONICAL_CLASSES):
++        if row.get("class") and row.get("header"):
++            registered.setdefault(row["class"], row["header"])
++    excused = {}
++    for store in sorted(stores):
++        row = row_at(ctx, store)
++        match = INSTALLER_CLASS.match(row["name"]) if row else None
++        if match:
++            excused[match.group(1)] = excused.get(match.group(1), True) and retail_store_on_new_object(ctx, row, store)
++    for other in sorted(classes):
++        if other in registered and not excused.get(other, False):
++            chain, known = class_chain(class_base_map(ctx, registered[other]), other)
++            if known and cls not in chain:
++                return other
++    return None
++
++
++def retail_chain_clears(ctx, cls, own, unviewed, tables):
++    """([still foreign], [(table, path)] proved) for the tables no view relates to `cls`. A table clears only at the
++    slot `own` holds, when its own destructor or constructor chain reaches the store of `cls`'s vptr through `this`
++    (retail_chain_store), and no canonical header says otherwise. Sharing a body, or a value written at some offset,
++    proves nothing. The first table that fails ends the walking: the move is refused, and a body folded across
++    thousands of tables would take minutes to judge."""
++    own_table, own_index, own_slots = own
++    vptr = own_table + IMAGE_BASE
++    deleting_index = next((index for index, target in enumerate(own_slots) if retail_scalar_deleting(ctx, target)), None)
++    foreign, proved = [], []
++    for table, index, classes, where in unviewed:
++        path = None
++        slots, stores = tables[table]
++        if not foreign and index == own_index and not canonical_view_disagrees(ctx, classes, stores, cls):
++            for root in retail_chain_roots(ctx, slots, stores, deleting_index):
++                path = retail_chain_store(ctx, root, vptr)
++                if path:
++                    break
++        if path:
++            proved.append((table, path))
++        else:
++            foreign.append(where)
++    return foreign, proved
++
++
++def to_class_evidence(ctx, rva, cls, sources, retail_chain=False):
+     """(table, slot, retail slots, [installer rows], proof) for the one slot of
+     a table `cls`'s own special members install that holds `rva`; Refusal
+     when there is none, more than one, or a table of an unrelated class holds
+-    it too."""
++    it too. With `retail_chain` (function --to-class alone), a table no view
++    relates to `cls` is related when retail's own bytes show it
++    (retail_chain_clears)."""
+     tables = retail_vtables(ctx)
+     hits = [(table, index) for table, (slots, _stores) in sorted(tables.items())
+             for index, target in enumerate(slots) if target == rva]
+     if not hits:
+         raise Refusal(f"no retail vftable slot holds 0x{rva:08X}: a class move needs one of {cls}'s slots")
+-    own, foreign = [], []
++    own, foreign, unviewed = [], [], []
+     for table, index in hits:
+         slots, stores = tables[table]
+         installers = class_installers(ctx, cls, stores, tables)
+@@ -6038,11 +6291,16 @@ def to_class_evidence(ctx, rva, cls, sources):
+                       for rel in sorted({source, *sources} - {""}))
+         if not derived:
+             foreign.append(f"{where} belongs to {', '.join(sorted(classes)) or 'no class the ledger names'}")
++            unviewed.append((table, index, classes, foreign[-1]))
+     if not own:
+         raise Refusal(f"no constructor, destructor or deleting destructor row of {cls} installs a retail table "
+                       f"holding 0x{rva:08X} ({'; '.join(foreign[:3]) or 'only unowned tables hold it'})")
++    proved = []
++    if foreign and retail_chain and len({(table, index) for table, index, _s, _r, _w in own}) == 1:
++        foreign, proved = retail_chain_clears(ctx, cls, (own[0][0], own[0][1], own[0][2]), unviewed, tables)
+     if foreign:
+-        raise Refusal(f"0x{rva:08X} is also in a table of a class unrelated to {cls} ({'; '.join(foreign[:3])}): "
++        raise Refusal(f"0x{rva:08X} is also in a table of a class unrelated to {cls} ({'; '.join(foreign[:3])}"
++                      f"{f'; and {len(foreign) - 3} more' if len(foreign) > 3 else ''}): "
+                       "a shared (folded) body proves no one class's member")
+     if len({(table, index) for table, index, _s, _r, _w in own}) != 1:
+         raise Refusal(f"0x{rva:08X} sits in {len(own)} slots of {cls}'s own tables "
+@@ -6050,7 +6308,10 @@ def to_class_evidence(ctx, rva, cls, sources):
+     table, index, slots, installers, where = own[0]
+     first = installers[0]
+     proof = (f"{where}, installed by {first['name']} at 0x{_rva(first['target_rva']):08X}"
+-             + (f" and {len(installers) - 1} more {cls} special member(s)" if len(installers) > 1 else ""))
++             + (f" and {len(installers) - 1} more {cls} special member(s)" if len(installers) > 1 else "")
++             + (f"; {len(proved)} table(s) no view relates to {cls} reach its vptr through `this` in retail, as "
++                + ", ".join(f"0x{t + IMAGE_BASE:08X} by " + ">".join(f"0x{p:08X}" for p in path)
++                            for t, path in proved) if proved else ""))
+     return table, index, slots, installers, proof
+ 
+ 
+@@ -6402,7 +6663,7 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
+         raise Refusal(f"{name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
+     statics = local_static_keys(ctx, name, row["source"])
+ 
+-    table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]})
++    table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]}, retail_chain=True)
+     declared = []
+     if return_enum is not None:
+         # read from the installers: their view of cls compiles the table
+diff --git a/tools/tests/test_rename_to_class.py b/tools/tests/test_rename_to_class.py
+index e593d4213d..006c5cb053 100644
+--- a/tools/tests/test_rename_to_class.py
++++ b/tools/tests/test_rename_to_class.py
+@@ -3,6 +3,7 @@ placeholder-class member into the real class whose own retail vftable holds
+ its address, as that class's virtual. The retail image (rename.retail_vtables)
+ and the compiled installer objects (rename.compiled_vtables) are injected, and
+ so is verification, as in test_rename_virtual.py."""
++import struct
+ import subprocess
+ import sys
+ from pathlib import Path
+@@ -921,3 +922,344 @@ def test_an_e_in_another_classs_table_is_not_judged(tree, monkeypatch):
+     retail(monkeypatch, TWO_SLOTS, compiled=compiled)
+     with pytest.raises(Refusal, match="does not prove the slot"):
+         plan(tree)
++
++
++# ------------------------------------------------------------ the retail chain
++# 0x00810000 holds the moved body at slot 1, as Widget's table does, and no view relates its class to Widget. The
++# Other row's bytes decide. It stores its table through `this` at OTHER_STORE (16 bytes in), and what follows is each
++# test's. Widget's vptr is TABLE + the image base, and its ctor row stores it through `this`.
++
++OTHER_TABLE = 0x00810000
++VPTR = struct.pack("<I", TABLE + rename.IMAGE_BASE)
++OTHER_VPTR = struct.pack("<I", OTHER_TABLE + rename.IMAGE_BASE)
++OTHER_START = 0x00408000
++AFTER_STORE = OTHER_STORE + 6
++WIDGET_CTOR = 0x00402000
++GADGET_COUNT = 0x00405000
++SHARED = {TABLE: ([0x00403040, 0x00401000, 0x00404000], {CTOR_STORE: 0}),
++          OTHER_TABLE: ([GADGET_COUNT, 0x00401000], {OTHER_STORE: 0})}
++WIDGET_STORES = b"\xc7\x01" + VPTR + b"\xc3"      # mov dword ptr [ecx], vptr; ret
++OWN_STORE = b"\x90" * 16 + b"\xc7\x01" + OTHER_VPTR
++
++
++def _call(frm, to):
++    return b"\xe8" + struct.pack("<i", to - (frm + 5))
++
++
++def retail_code(monkeypatch, code):
++    """Retail's bytes: {rva: bytes} over int3s."""
++    import build
++
++    def read(rva, size):
++        out = bytearray(b"\xcc" * size)
++        for start, data in code.items():
++            for at, byte in enumerate(data):
++                if rva <= start + at < rva + size:
++                    out[start + at - rva] = byte
++        return bytes(out)
++    monkeypatch.setattr(build, "read_target_bytes", read)
++
++
++def other_row(monkeypatch, after, tables=None):
++    """The Other ctor: its own store through `this`, then `after`."""
++    retail(monkeypatch, tables or SHARED)
++    retail_code(monkeypatch, {OTHER_START: OWN_STORE + after, WIDGET_CTOR: WIDGET_STORES})
++
++
++def refused(tree):
++    with pytest.raises(Refusal, match="unrelated to Widget"):
++        plan(tree)
++
++
++def test_a_chain_to_the_vptr_through_this_relates_a_table(tree, monkeypatch):
++    other_row(monkeypatch, _call(AFTER_STORE, WIDGET_CTOR) + b"\xc3")
++    done = plan(tree)
++    assert "1 table(s) no view relates to Widget reach its vptr through `this`" in str(vars(done))
++    assert f"0x{OTHER_TABLE + rename.IMAGE_BASE:08X} by 0x{OTHER_START:08X}>0x{WIDGET_CTOR:08X}" in str(vars(done))
++
++
++def test_a_table_sharing_the_slot_with_no_chain_to_the_vptr_is_refused(tree, monkeypatch):
++    other_row(monkeypatch, b"\xc3")
++    refused(tree)
++
++
++def test_a_member_objects_destructor_is_no_chain(tree, monkeypatch):
++    # lea ecx,[ecx+8]; call: the vptr store is on a member, not on this object
++    other_row(monkeypatch, b"\x8d\x49\x08" + _call(AFTER_STORE + 3, WIDGET_CTOR) + b"\xc3")
++    refused(tree)
++
++
++def test_a_vptr_stored_through_another_pointer_is_no_chain(tree, monkeypatch):
++    # mov eax,[ecx+4]; mov dword ptr [eax], vptr: a pointer member's object, not this one
++    other_row(monkeypatch, b"\x8b\x41\x04\xc7\x00" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_vptr_stored_at_a_displacement_is_no_chain(tree, monkeypatch):
++    # mov dword ptr [ecx+8], vptr: a secondary or member vptr
++    other_row(monkeypatch, b"\xc7\x41\x08" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_one_written_at_plus_four_is_no_chain(tree, monkeypatch):
++    # mov dword ptr [ecx+4],1: what a reference count's constructor writes, and many others
++    other_row(monkeypatch, b"\xc7\x41\x04\x01\x00\x00\x00\xc3")
++    refused(tree)
++
++
++def test_a_chain_at_another_slot_is_refused(tree, monkeypatch):
++    # a derived class inherits at the base's slot; the body at slot 0 here is another function
++    tables = dict(SHARED)
++    tables[OTHER_TABLE] = ([0x00401000, GADGET_COUNT], {OTHER_STORE: 0})
++    other_row(monkeypatch, _call(AFTER_STORE, WIDGET_CTOR) + b"\xc3", tables)
++    refused(tree)
++
++
++def test_this_copied_to_a_preserved_register_survives_a_call(tree, monkeypatch):
++    # push esi; mov esi,ecx; call elsewhere; mov dword ptr [esi], vptr; pop esi; ret
++    other_row(monkeypatch, b"\x56\x8b\xf1" + _call(AFTER_STORE + 3, GADGET_COUNT) + b"\xc7\x06" + VPTR + b"\x5e\xc3")
++    plan(tree)
++
++
++# Linear decoding is not control flow: each of these once read `this` across a transfer it never takes.
++
++def test_code_after_an_unconditional_jump_is_not_on_the_path(tree, monkeypatch):
++    # mov esi,ecx; mov ecx,[ecx+4]; jmp store; mov ecx,esi (unreachable); store: mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x8b\xf1\x8b\x49\x04\xeb\x02\x8b\xce\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_store_after_a_return_is_not_on_the_path(tree, monkeypatch):
++    other_row(monkeypatch, b"\xc3\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_store_after_a_tail_jump_is_not_on_the_path(tree, monkeypatch):
++    # jmp elsewhere; mov dword ptr [ecx], vptr
++    other_row(monkeypatch, b"\xe9" + struct.pack("<i", GADGET_COUNT - (AFTER_STORE + 5)) + b"\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_call_inside_the_row_clobbers_ecx(tree, monkeypatch):
++    # call +7; mov dword ptr [ecx], vptr (ecx now [ecx+4]); ret; helper: mov ecx,[ecx+4]; ret
++    other_row(monkeypatch, _call(AFTER_STORE, AFTER_STORE + 12) + b"\xc7\x01" + VPTR + b"\xc3\x8b\x49\x04\xc3")
++    refused(tree)
++
++
++def test_a_store_a_branch_can_skip_is_no_chain(tree, monkeypatch):
++    # test ecx,ecx; je over the store; mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x85\xc9\x74\x06\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_call_a_branch_can_skip_is_no_chain(tree, monkeypatch):
++    # test ecx,ecx; je over the call; call the base; ret
++    other_row(monkeypatch, b"\x85\xc9\x74\x05" + _call(AFTER_STORE + 4, WIDGET_CTOR) + b"\xc3")
++    refused(tree)
++
++
++def test_a_store_after_a_branch_that_rejoins_always_runs(tree, monkeypatch):
++    # retail's ~MaterialPassClass shape: cmp eax,1; je +1; nop; mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x83\xf8\x01\x74\x01\x90\xc7\x01" + VPTR + b"\xc3")
++    plan(tree)
++
++
++def test_a_copy_of_this_made_on_one_side_of_a_branch_does_not_survive_it(tree, monkeypatch):
++    # xor esi,esi; cmp eax,1; je +2; mov esi,ecx; mov dword ptr [esi], vptr; ret
++    other_row(monkeypatch, b"\x33\xf6\x83\xf8\x01\x74\x02\x8b\xf1\xc7\x06" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_clobber_on_one_side_of_a_branch_counts_after_it(tree, monkeypatch):
++    # cmp eax,1; je +3; mov ecx,[ecx+4]; mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x83\xf8\x01\x74\x03\x8b\x49\x04\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_an_early_return_makes_what_follows_conditional(tree, monkeypatch):
++    # cmp eax,1; jne +1; ret; mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x83\xf8\x01\x75\x01\xc3\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_an_if_else_that_rejoins_keeps_this_on_both_arms(tree, monkeypatch):
++    # cmp eax,1; je +2; jmp +0; mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x83\xf8\x01\x74\x02\xeb\x00\xc7\x01" + VPTR + b"\xc3")
++    plan(tree)
++
++
++def test_a_branch_into_an_instruction_leaves_the_row_uncertain(tree, monkeypatch):
++    # cmp eax,1; je into the store's bytes; mov dword ptr [ecx], vptr; ret
++    other_row(monkeypatch, b"\x83\xf8\x01\x74\x01\xc7\x01" + VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_tail_jump_with_this_in_ecx_is_followed(tree, monkeypatch):
++    other_row(monkeypatch, b"\xe9" + struct.pack("<i", WIDGET_CTOR - (AFTER_STORE + 5)))
++    plan(tree)
++
++
++def test_the_chain_proof_is_off_outside_the_to_class_plan(tree, monkeypatch):
++    # function --respell's this-cv route reads the same evidence function and keeps the view-only test
++    other_row(monkeypatch, _call(AFTER_STORE, WIDGET_CTOR) + b"\xc3")
++    with pytest.raises(Refusal, match="unrelated to Widget"):
++        rename.to_class_evidence(ctx_of(tree), 0x00401000, "Widget", {"Code/Game/Bits.cpp"})
++
++
++# A canonical header that says otherwise keeps its veto unless the store is proved to be on another object.
++
++NEW_AT = 0x00409000
++
++
++def _registered_other(tree):
++    (tree / "reverse/canonical_classes.csv").write_text("class,header,evidence\nOther,Code/Game/OtherClass.h,x\n")
++    (tree / "Code/Game/OtherClass.h").write_text("class Plain {};\nclass Other : public Plain {};\n")
++    functions = tree / "reverse/functions.csv"
++    functions.write_text(functions.read_text() + f"??2@YAPAXI@Z,,0x{NEW_AT:08X},8,Code/Game/Other.cpp,matched,new\n")
++
++
++def _chain_by_the_deleting_slot(monkeypatch, other_start):
++    # A real chain through Other's deleting destructor, so only the canonical veto can refuse: without the veto, each
++    # of these is accepted.
++    tables = dict(SHARED)
++    tables[OTHER_TABLE] = ([0x00403060, 0x00401000], {OTHER_STORE: 0})
++    retail(monkeypatch, tables)
++    retail_code(monkeypatch, {OTHER_START: other_start, WIDGET_CTOR: WIDGET_STORES,
++                              0x00403040: _delete_body(0x00403040, WIDGET_CTOR),
++                              0x00403060: _delete_body(0x00403060, WIDGET_CTOR)})
++
++
++def test_the_chain_by_the_deleting_slot_is_accepted_with_no_header(tree, monkeypatch):
++    # the control for the three vetoes below
++    _deleting_tree(tree)
++    _chain_by_the_deleting_slot(monkeypatch, OWN_STORE + b"\xc3")
++    assert "0x00403060>0x00402000" in str(vars(plan(tree)))
++
++
++def test_a_canonical_header_with_a_complete_other_chain_still_refuses(tree, monkeypatch):
++    _deleting_tree(tree)
++    _registered_other(tree)
++    _chain_by_the_deleting_slot(monkeypatch, OWN_STORE + b"\xc3")
++    refused(tree)
++
++
++def test_a_branch_before_the_install_keeps_the_canonical_veto(tree, monkeypatch):
++    # test ecx,ecx; jne +0 ahead of the genuine install: the receiver cannot be read, which is not another receiver
++    _deleting_tree(tree)
++    _registered_other(tree)
++    _chain_by_the_deleting_slot(monkeypatch, b"\x85\xc9\x75\x00" + b"\x90" * 12 + b"\xc7\x01" + OTHER_VPTR + b"\xc3")
++    refused(tree)
++
++
++def test_a_store_through_a_loaded_pointer_keeps_the_canonical_veto(tree, monkeypatch):
++    # mov eax,[ecx+4]; mov dword ptr [eax], table: some other object, but nothing proves a new one
++    _deleting_tree(tree)
++    _registered_other(tree)
++    _chain_by_the_deleting_slot(monkeypatch, b"\x8b\x41\x04" + b"\x90" * 13 + b"\xc7\x00" + OTHER_VPTR + b"\xc3")
++    refused(tree)
++
++
++def _new_then_store():
++    # push 0x10; call new; cmp eax,ebx; pop ecx; je over; mov dword ptr [eax], table: retail's W3DShroud ctor at 0x73391
++    body = b"\x90" * 4 + b"\x6a\x10" + _call(OTHER_START + 6, NEW_AT) + b"\x3b\xc3\x59\x74\x06"
++    assert OTHER_START + len(body) == OTHER_STORE
++    return body + b"\xc7\x00" + OTHER_VPTR + b"\xc3"
++
++
++def test_a_table_stored_on_a_new_object_does_not_veto(tree, monkeypatch):
++    # retail's W3DShroud: the header says no base, but its ctor stores the table on the object it allocated
++    _deleting_tree(tree)
++    _registered_other(tree)
++    _chain_by_the_deleting_slot(monkeypatch, _new_then_store())
++    assert "0x00403060>0x00402000" in str(vars(plan(tree)))
++
++
++def test_a_store_on_a_new_object_starts_no_chain(tree, monkeypatch):
++    # with no deleting destructor to start from, that store is no constructor of the table
++    _registered_other(tree)
++    other = {TABLE: SHARED[TABLE], OTHER_TABLE: ([GADGET_COUNT, 0x00401000], {OTHER_STORE: 0})}
++    retail(monkeypatch, other)
++    retail_code(monkeypatch, {OTHER_START: _new_then_store(), WIDGET_CTOR: WIDGET_STORES})
++    refused(tree)
++
++
++# A deleting destructor is read by what it does.
++
++DELETE_AT = 0x0040A000
++
++
++def _delete_body(at, destructor, delete=None):
++    # push esi; mov esi,ecx; call ~X; test byte ptr [esp+8],1; je +7; push esi; call delete; pop ecx; mov eax,esi; pop esi; ret 4
++    head = b"\x56\x8b\xf1" + _call(at + 3, destructor) + b"\xf6\x44\x24\x08\x01\x74\x07\x56"
++    return head + _call(at + len(head), delete or DELETE_AT) + b"\x59\x8b\xc6\x5e\xc2\x04\x00"
++
++
++def _deleting_tree(tree):
++    functions = tree / "reverse/functions.csv"
++    functions.write_text(functions.read_text() + "??_GOther@@UAEPAXI@Z,,0x00403060,32,Code/Game/Other.cpp,matched,d\n"
++                         "?method@Other@@QAEPAXI@Z,,0x00403080,32,Code/Game/Other.cpp,matched,m\n"
++                         f"??3@YAXPAX@Z,,0x{DELETE_AT:08X},8,Code/Game/Other.cpp,matched,delete\n"
++                         "?free@Other@@QAEXXZ,,0x0040A010,8,Code/Game/Other.cpp,matched,not delete\n")
++
++
++def _deleting_tables(slot):
++    # no installer of Other's table at all: only the deleting slot can start a chain
++    return {TABLE: ([0x00403040, 0x00401000, 0x00404000], {CTOR_STORE: 0}), OTHER_TABLE: ([slot, 0x00401000], {})}
++
++
++def test_a_deleting_destructor_starts_a_chain_whatever_its_row_is_called(tree, monkeypatch):
++    _deleting_tree(tree)
++    retail(monkeypatch, _deleting_tables(0x00403080))
++    retail_code(monkeypatch, {WIDGET_CTOR: WIDGET_STORES, 0x00403040: _delete_body(0x00403040, WIDGET_CTOR),
++                              0x00403080: _delete_body(0x00403080, WIDGET_CTOR)})
++    assert "0x00403080>0x00402000" in str(vars(plan(tree)))
++
++
++def test_a_method_with_a_deleting_shape_that_frees_nothing_starts_no_chain(tree, monkeypatch):
++    # the same bytes, but its second call is an ordinary function, not the global operator delete
++    _deleting_tree(tree)
++    retail(monkeypatch, _deleting_tables(0x00403080))
++    retail_code(monkeypatch, {WIDGET_CTOR: WIDGET_STORES, 0x00403040: _delete_body(0x00403040, WIDGET_CTOR),
++                              0x00403080: _delete_body(0x00403080, WIDGET_CTOR, 0x0040A010)})
++    refused(tree)
++
++
++def test_a_row_named_deleting_destructor_that_does_not_delete_starts_no_chain(tree, monkeypatch):
++    # the ledger's name proves nothing: this ??_G row only calls the base ctor
++    _deleting_tree(tree)
++    retail(monkeypatch, _deleting_tables(0x00403060))
++    retail_code(monkeypatch, {WIDGET_CTOR: WIDGET_STORES, 0x00403040: _delete_body(0x00403040, WIDGET_CTOR),
++                              0x00403060: _call(0x00403060, WIDGET_CTOR) + b"\xc2\x04\x00"})
++    refused(tree)
++
++
++def test_a_deleting_destructor_with_no_chain_relates_nothing(tree, monkeypatch):
++    # it deletes, and its destructor stores no vptr of Widget's: the chain has to carry the proof
++    _deleting_tree(tree)
++    retail(monkeypatch, _deleting_tables(0x00403060))
++    retail_code(monkeypatch, {WIDGET_CTOR: WIDGET_STORES, 0x00403040: _delete_body(0x00403040, WIDGET_CTOR),
++                              0x00403060: _delete_body(0x00403060, GADGET_COUNT), GADGET_COUNT: b"\xc3"})
++    refused(tree)
++
++
++def test_the_refusal_counts_the_tables_it_does_not_print(tree, monkeypatch):
++    tables = dict(SHARED)
++    for extra in range(4):
++        tables[0x00820000 + extra * 0x100] = ([GADGET_COUNT, 0x00401000], {OTHER_STORE + 8 + extra: 0})
++    other_row(monkeypatch, b"\xc3", tables)
++    with pytest.raises(Refusal, match=r"and 2 more"):
++        plan(tree)
++
++
++def test_the_first_failing_table_ends_the_walking(tree, monkeypatch):
++    tables = dict(SHARED)
++    for extra in range(4):
++        tables[0x00820000 + extra * 0x100] = ([GADGET_COUNT, 0x00401000], {OTHER_STORE + 8 + extra: 0})
++    other_row(monkeypatch, b"\xc3", tables)
++    walked = []
++    real = rename.retail_chain_store
++    monkeypatch.setattr(rename, "retail_chain_store",
++                        lambda ctx, root, vptr: walked.append(root) or real(ctx, root, vptr))
++    with pytest.raises(Refusal, match="unrelated to Widget"):
++        plan(tree)
++    assert walked == [OTHER_START]
