@@ -64,21 +64,7 @@ public:
 
 // Native string copy-outs use the same shared four-byte AsciiString contract.
 class ModuleData;
-struct ModuleInfoNugget
-{
-    unsigned char m_bytes[0x14];
-};
-class ModuleInfo
-{
-public:
-    AsciiString getNthName(int index) const;
-    const ModuleData *getNthData(int index) const;
-    __declspec(dllimport) __forceinline int getCount() const { return m_finish - m_start; }
-private:
-    ModuleInfoNugget *m_start;
-    ModuleInfoNugget *m_finish;
-    ModuleInfoNugget *m_end;
-};
+#include "../../Include/Common/ModuleInfoClass.h"
 
 class Rva0050C807
 {
