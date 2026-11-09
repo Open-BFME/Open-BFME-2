@@ -20,23 +20,7 @@ std::wstring MultiByteToWideCharSingleLine(const char*);
 class GameFont;
 #include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
-class DisplayString {
-public:
- virtual ~DisplayString();
- virtual void setText(UnicodeString text);
- virtual UnicodeString getText();
- virtual int getTextLength();
- virtual void notifyTextChanged();
- virtual void reset();
- virtual void setFont(GameFont*);
- virtual GameFont *getFont();
- virtual void setWordWrap(int);
- virtual void setWordWrapCentered(bool);
- virtual void slot28();virtual void slot2C();virtual void slot30();virtual void slot34();virtual void slot38();
- virtual void getSize(int*,int*);
- virtual void slot40();virtual void slot44();
- virtual void slot48(int,int);
-};
+#include "../../../../../GameEngine/Include/GameClient/DisplayString.h"
 class DisplayStringManager {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
