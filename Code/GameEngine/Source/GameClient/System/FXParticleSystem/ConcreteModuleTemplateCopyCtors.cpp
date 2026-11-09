@@ -35,7 +35,7 @@ extern "C" char Rva003AEB9C_v0 = -9;
 // Rva003AEB9C_v14 gives way to the compiler table the data ledger binds there.
 extern "C" char __identifier("??_7Rva003ABD20@@6BRva003AEEB3Slot14@@@");
 // Rva003AEB9C_v18 gives way to the compiler table the data ledger binds there.
-extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$02@1@@");
 // Rva003AEB9C_v1c gives way to the compiler table the data ledger binds there.
 extern "C" char __identifier("??_7Rva003ABD20@@6B@");
 
@@ -44,7 +44,7 @@ extern "C" char Rva003AEC5E_v0 = -9;
 // Rva003AEC5E_v14 gives way to the compiler table the data ledger binds there.
 extern "C" char __identifier("??_7Rva003ABD81@@6BRva003AEEB3Slot14@@@");
 // Rva003AEC5E_v18 gives way to the compiler table the data ledger binds there.
-extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
 // Rva003AEC5E_v1c gives way to the compiler table the data ledger binds there.
 extern "C" char __identifier("??_7Rva003ABD81@@6B@");
 
@@ -84,7 +84,7 @@ Rva003AEB9C::Rva003AEB9C(const Rva003AEB9C &that)
 	((Rva003AEBC9 *)this)->Rva003AEBC9::Rva003AEBC9(*(const Rva003AEBC9 *)src);
 	*(void **)this = &Rva003AEB9C_v0;
 	*(void **)((char *)this + 0x14) = &__identifier("??_7Rva003ABD20@@6BRva003AEEB3Slot14@@@");
-	*(void **)((char *)this + 0x18) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	*(void **)((char *)this + 0x18) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$02@1@@");
 	*(void **)((char *)this + 0x1C) = &__identifier("??_7Rva003ABD20@@6B@");
 }
 
@@ -108,7 +108,7 @@ Rva003AEC5E::Rva003AEC5E(const Rva003AEC5E &that)
 	((Rva003AEC8B *)this)->Rva003AEC8B::Rva003AEC8B(*(const Rva003AEC8B *)src);
 	*(void **)this = &Rva003AEC5E_v0;
 	*(void **)((char *)this + 0x14) = &__identifier("??_7Rva003ABD81@@6BRva003AEEB3Slot14@@@");
-	*(void **)((char *)this + 0x18) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	*(void **)((char *)this + 0x18) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
 	*(void **)((char *)this + 0x1C) = &__identifier("??_7Rva003ABD81@@6B@");
 }
 

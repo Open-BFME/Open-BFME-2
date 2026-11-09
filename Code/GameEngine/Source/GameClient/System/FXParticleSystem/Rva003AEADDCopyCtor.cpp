@@ -15,7 +15,7 @@ extern "C" char Rva003AEADD_v0 = -9;
 // Rva003AEADD_v14: matched references place it at VA 0xc1c538 (retail .rdata value 62).
 extern "C" char Rva003AEADD_v14 = 62;
 // Rva003AEADD_v18 gives way to the compiler table the data ledger binds there.
-extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
 // Rva003AEADD_v1c gives way to the compiler table the data ledger binds there.
 extern "C" char __identifier("??_7Rva003ABCB5@@6BSnapshot@@@");
 
@@ -40,6 +40,6 @@ Rva003AEADD::Rva003AEADD(const Rva003AEADD &that)
 	((Rva003AEB0A *)this)->Rva003AEB0A::Rva003AEB0A(*(const Rva003AEB0A *)src);
 	*(void **)this = &Rva003AEADD_v0;
 	*(void **)((char *)this + 0x14) = &Rva003AEADD_v14;
-	*(void **)((char *)this + 0x18) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	*(void **)((char *)this + 0x18) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
 	*(void **)((char *)this + 0x1C) = &__identifier("??_7Rva003ABCB5@@6BSnapshot@@@");
 }

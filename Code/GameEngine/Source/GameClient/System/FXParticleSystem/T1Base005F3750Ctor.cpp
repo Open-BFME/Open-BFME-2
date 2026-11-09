@@ -137,9 +137,9 @@ extern Rva009EB960 *Rva0134FAA0;
 // The three stored tables are compiler tables other FX units emit at retail's
 // addresses (the data ledger binds each name there): +0x00 VA 0x00C1D3F4 and
 // +0x18 VA 0x00C1D3E4 are Rva003AE465's (ParticleModuleInfoCopyCtors.cpp), +0x14
-// VA 0x00C1C780 is the shared one-pure-slot SecondaryModuleBase table.
+// VA 0x00C1C780 is the shared one-pure-slot CategoryModuleInfo table.
 extern "C" const void *const __identifier("??_7Rva003AE465@@6BDefaultModuleHeadBase@@@")[];
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva003AE465@@6B@")[];
 
 class __declspec(novtable) T1Base_005F3750
@@ -156,7 +156,7 @@ T1Base_005F3750::T1Base_005F3750(
     : ::ParticleModule005F2CA0(first, second)
     , FXParticleSystem::DefaultDrawModuleInfo() {
     *(const void *const **)this = __identifier("??_7Rva003AE465@@6BDefaultModuleHeadBase@@@");
-    *(const void *const **)((char *)this + 0x14) = __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@");
+    *(const void *const **)((char *)this + 0x14) = __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
     *(const void *const **)((char *)this + 0x18) = __identifier("??_7Rva003AE465@@6B@");
     if (Rva0134FAA0 != 0) {
         AssetList assets;
