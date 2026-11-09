@@ -6028,3 +6028,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C86E4@@UAEPAXI@Z,0x004C8742,"Renamed to ??_GRepairSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E6A4)"
 ??1Rva004C7B36@@UAE@XZ,0x004C7B36,"Renamed to ??1UntamedAllegianceSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E0E4)"
 ??_GRva004C7B36@@UAEPAXI@Z,0x004C7B94,"Renamed to ??_GUntamedAllegianceSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E0E4)"
+??1Rva004C7EAE@@UAE@XZ,0x004C7EAE,"Renamed to ??1PlayerHealSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E36C)"
+??_GRva004C7EAE@@UAEPAXI@Z,0x004C7F40,"Renamed to ??_GPlayerHealSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E36C)"

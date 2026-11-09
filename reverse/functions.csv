@@ -6188,7 +6188,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004C67A0@@UAE@XZ,,0x004C67A0,25,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,opaque MI dtor
 ??1UntamedAllegianceSpecialPower@@MAE@XZ,,0x004C7B36,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPower.cpp,matched,opaque MI dtor
 ??1PlayerUpgradeSpecialPower@@MAE@XZ,,0x004C7C33,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPower.cpp,matched,opaque MI dtor
-??1Rva004C7EAE@@UAE@XZ,,0x004C7EAE,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp,matched,opaque MI dtor
+??1PlayerHealSpecialPower@@MAE@XZ,,0x004C7EAE,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp,matched,opaque MI dtor
 ??1DevastateSpecialPower@@MAE@XZ,,0x004C8213,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp,matched,opaque MI dtor
 ??1SplitHordeSpecialPower@@MAE@XZ,,0x004C85A4,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp,matched,opaque MI dtor
 ??1RepairSpecialPower@@MAE@XZ,,0x004C86E4,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp,matched,opaque MI dtor
@@ -10974,7 +10974,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ??_GSupplyWarehouseDockUpdate@@UAEPAXI@Z,,0x004A7E27,28,Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4A7D55 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva004C3108@@UAEPAXI@Z,,0x004C318C,28,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C3108 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GGrabPassengerSpecialPower@@MAEPAXI@Z,,0x004C5032,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C5019 plus operator delete 0x2FD60; /O1 pop-ecx shape
-??_GRva004C7EAE@@UAEPAXI@Z,,0x004C7F40,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C7EAE plus operator delete 0x2FD60; /O1 pop-ecx shape
+??_GPlayerHealSpecialPower@@MAEPAXI@Z,,0x004C7F40,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x4C7EAE plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005DCBE3@@UAEPAXI@Z,,0x005DCBEE,28,Code/GameEngine/Source/Common/Rva004EDCE9Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5DCBE3 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005DCC24@@UAEPAXI@Z,,0x005DCC2F,28,Code/GameEngine/Source/Common/Rva004EDCE9Derived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5DCC24 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005EE2A0@@UAEPAXI@Z,,0x005EE2AB,28,Code/GameEngine/Source/Common/Rva005EE30CChain.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5EE2A0 plus operator delete 0x2FD60; /O1 pop-ecx shape
