@@ -1797,3 +1797,15 @@ index's `touches`, and per-section COFF reads of the before and after objects.
      `LinkGuard.view` does. The published index carries none, so both guards rely on the touches fallback.
   3. BuildingBehavior's moved-copy context.
   4. The three C2600 TU views (lk80 lead 3), once their class scopes are free.
+
+2026-11-09, 8615D4 float-slot investigation: the served Rva00283081Dtor
+file remains strict 3/3 (84B destructor, 28B deleting wrapper, 10B handler).
+A private nonvirtual-destructor/virtual-getter hypothesis emits the correct
+4B table and matches the native destructor and float getter, but loses
+natural deleting-wrapper emission here. No supported UAE-to-QAE family
+route carries the destructor/G/EH identities; no live source is changed.
+Neither deleting address appears as an aligned .rdata/.data pointer word,
+which supports but does not establish that hypothesis. Real delete callers,
+base/derived identity and legitimate wrapper ownership need investigation
+before a separately reviewed tooling family and all-emitter reconciliation.
+[Native/private proof and prerequisites](../../reverse/attempt_support/ai-stat-float-table-20261109/README.md).

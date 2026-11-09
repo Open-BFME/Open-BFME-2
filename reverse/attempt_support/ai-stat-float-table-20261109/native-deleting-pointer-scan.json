@@ -1,0 +1,7 @@
+{
+  "aligned_rdata_data_pointer_words": {
+    "0x283246": [],
+    "0x4e005e": []
+  },
+  "limitation": "Absence of direct pointer words supports a nonvirtual-deleting hypothesis but does not by itself prove original access, class identity or every possible indirect reference."
+}
