@@ -6178,7 +6178,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004C29BB@@UAE@XZ,,0x004C29BB,25,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,opaque MI dtor
 ??1Rva004C3108@@UAE@XZ,,0x004C3108,25,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,opaque MI dtor
 ??1ElvenWoodSpecialPower@@MAE@XZ,,0x004C3905,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
-??1Rva004C4044@@UAE@XZ,,0x004C4044,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
+??1WeaponChangeSpecialPowerModule@@MAE@XZ,,0x004C4044,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C43A3@@UAE@XZ,,0x004C43A3,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C4508@@UAE@XZ,,0x004C4508,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C48C6@@UAE@XZ,,0x004C48C6,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
@@ -9893,7 +9893,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004C2656@@UAEPAXI@Z,,0x004C26B4,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C29BB@@UAEPAXI@Z,,0x004C2A19,28,Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GElvenWoodSpecialPower@@MAEPAXI@Z,,0x004C3963,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004C4044@@UAEPAXI@Z,,0x004C4028,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GWeaponChangeSpecialPowerModule@@MAEPAXI@Z,,0x004C4028,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C43A3@@UAEPAXI@Z,,0x004C4387,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C4508@@UAEPAXI@Z,,0x004C4566,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C48C6@@UAEPAXI@Z,,0x004C4924,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact

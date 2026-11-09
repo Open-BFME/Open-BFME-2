@@ -722,13 +722,6 @@ private:
 // the real class (retail: the +0 table's slot 0 is the placeholder's ??_G and
 // its slot 4 the class's getModuleNameKey row).
 
-// Rva004C4044: ??0WeaponChangeSpecialPowerModule 0x004C3FF8 (42 B) stores 0x00C5D1B4 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D150 (+0x10)
-class Rva004C4044 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C4044();
-};
-
 // Rva004C43A3: ??0ScavengerSpecialPower 0x004C4353 (46 B) stores 0x00C5D304 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D2A0 (+0x10) and clears the byte at +0x34
 class Rva004C43A3 : public SpecialPowerModule
 {
@@ -1023,7 +1016,8 @@ WeaponChangeSpecialPowerModule::WeaponChangeSpecialPowerModule( Thing *thing, co
 {
 }
 
-// ??1WeaponChangeSpecialPowerModule@@MAE@XZ present-unmatched
+// ??1WeaponChangeSpecialPowerModule@@MAE@XZ 0x004C4044: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 WeaponChangeSpecialPowerModule::~WeaponChangeSpecialPowerModule()
 {
 }
@@ -1607,10 +1601,6 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 // tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C4044::~Rva004C4044()
-{
-}
 
 Rva004C43A3::~Rva004C43A3()
 {

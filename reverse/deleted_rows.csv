@@ -6035,3 +6035,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ?g_Va00E032DC@@3IA,0x00A032DC,"Renamed to ?theBriefingList@@3IA by tools/rename.py (inferred)"
 ??1Rva004C3905@@UAE@XZ,0x004C3905,"Renamed to ??1ElvenWoodSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5CE8C)"
 ??_GRva004C3905@@UAEPAXI@Z,0x004C3963,"Renamed to ??_GElvenWoodSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5CE8C)"
+??1Rva004C4044@@UAE@XZ,0x004C4044,"Renamed to ??1WeaponChangeSpecialPowerModule@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D1B4)"
+??_GRva004C4044@@UAEPAXI@Z,0x004C4028,"Renamed to ??_GWeaponChangeSpecialPowerModule@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D1B4)"
