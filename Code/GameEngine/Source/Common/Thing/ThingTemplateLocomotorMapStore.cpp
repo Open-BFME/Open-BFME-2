@@ -42,11 +42,8 @@ template<> void BfmeLocomotorTemplateVector::push_back(const value_type&);
 // The caller at1EA390 passes the result of LocomotorStore name lookup directly.
 // Target receiver has same ThingTemplate map+3AC as its separately observed refill.
 // Original member name unknown.
-class ThingTemplate {
-public: void rva0033E17D(LocomotorSetType key, const LocomotorTemplate *value);
-private: unsigned char unknown00[0x3ac]; BfmeLocomotorSetMap locomotors;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 void ThingTemplate::rva0033E17D(LocomotorSetType key, const LocomotorTemplate *value) {
- locomotors[key].clear();
- locomotors[key].push_back(value);
+ (*reinterpret_cast<BfmeLocomotorSetMap *>(m_locomotorSets))[key].clear();
+ (*reinterpret_cast<BfmeLocomotorSetMap *>(m_locomotorSets))[key].push_back(value);
 }

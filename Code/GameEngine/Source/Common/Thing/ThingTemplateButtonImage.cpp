@@ -16,23 +16,14 @@
 
 #include "../../../Include/GameClient/Image.h"
 
-class ThingTemplate
-{
-public:
-    const Image *getButtonImage();
-private:
-    char m_pad0[0x78];
-    AsciiString m_buttonImageName;
-    char m_pad7C[0x48c - 0x7c];
-    const Image *m_buttonImage;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 const Image *ThingTemplate::getButtonImage()
 {
     if (!m_buttonImageName.isEmpty() && TheMappedImageCollection)
     {
-        m_buttonImage = TheMappedImageCollection->findImageByName(m_buttonImageName);
+        reinterpret_cast<const Image *&>(m48C) = TheMappedImageCollection->findImageByName(m_buttonImageName);
         m_buttonImageName.clear();
     }
-    return m_buttonImage;
+    return reinterpret_cast<const Image *>(m48C);
 }

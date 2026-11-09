@@ -45,32 +45,21 @@ static const char *strOf(const AsciiString &asciiString)
     return asciiString.str();
 }
 
-class ThingTemplate
-{
-public:
-    const Image *rva0033BA46();
-private:
-    char m_pad0[0x64];
-    AsciiString m_name;
-    char m_pad68[0x74 - 0x68];
-    AsciiString m_portraitName;
-    char m_pad78[0x488 - 0x78];
-    const Image *m_portraitImage;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 const Image *ThingTemplate::rva0033BA46()
 {
-    if (!((const StringBase<char> *)&m_portraitName)->isEmpty() && TheMappedImageCollection != 0)
+    if (!((const StringBase<char> *)&m_selectedPortraitImageName)->isEmpty() && TheMappedImageCollection != 0)
     {
-        m_portraitImage = TheMappedImageCollection->findImageByName(m_portraitName);
+        reinterpret_cast<const Image *&>(m488) = TheMappedImageCollection->findImageByName(m_selectedPortraitImageName);
         if (bfmeRva000387C0())
         {
             _bfme_debugRecordCallsite(1);
             theDebug->SkipNext();
             Debug &dbg = theDebug->CrashBegin(0, 0, 0);
-            (dbg << strOf(m_name) << " is looking for Portrait " << strOf(m_portraitName) << " but can't find it. Skipping...").CrashDone(2);
+            (dbg << strOf(m_nameString) << " is looking for Portrait " << strOf(m_selectedPortraitImageName) << " but can't find it. Skipping...").CrashDone(2);
         }
-        ((StringBase<char> *)&m_portraitName)->clear();
+        ((StringBase<char> *)&m_selectedPortraitImageName)->clear();
     }
-    return m_portraitImage;
+    return reinterpret_cast<const Image *>(m488);
 }
