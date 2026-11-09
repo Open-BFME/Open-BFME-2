@@ -28,19 +28,13 @@ public:
 	Rva00752630(const Rva00752630 &other);
 };
 
-inline void *__cdecl operator new(unsigned, void *p) throw()
-{
-	return p;
-}
-
 Rva00752630 *Rva000791EDCopy(Rva00752630 *first, Rva00752630 *last, Rva00752630 *result)
 {
 	int n = last - first;
 	if (n > 0) {
 		int count = n;
 		do {
-			__assume(result != 0);
-			new (result) Rva00752630(*first);
+			result->Rva00752630::Rva00752630(*first);
 			++first;
 			++result;
 			--count;
