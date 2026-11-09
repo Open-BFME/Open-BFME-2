@@ -3,6 +3,7 @@ retail's own bytes (tools/retail_identity.py), with one row moved alone into its
 
 The real family's table is the fixture: its facts are served from an image the test writes, each
 one breakable alone, and its rows and pins are ledger rows at their real addresses."""
+import hashlib
 import struct
 import subprocess
 import sys
@@ -621,3 +622,445 @@ def test_the_table_reads_retail():
         pytest.skip("no retail image here")
     assert R.facts_problems(F.facts()) == []
     assert struct.unpack("<I", R.read_retail(F.copy + F.copy_store, 4))[0] == F.table
+
+
+# ---- P69: a family that spells its members out, a slot fact, and the table's name by the owner's fact
+
+def test_the_existing_familys_spellings_are_unchanged():
+    pairs = sorted((old, F.respell(old)) for old, _facts in [*F.rows.values(), *F.pins.values()])
+    assert F.spellings is None
+    assert hashlib.sha256(repr(pairs).encode()).hexdigest() == "07c2439204df7910aa8c72235ecf26b3a9f370e793bb311d916336a1e4689dc2"
+    assert NEW_COPY == "??0EnableRegionRecord@@QAE@ABV0@@Z"
+
+
+def spelled(**overrides):
+    args = dict(old="Old", new="New", table=0x00C00000, copy=0x1000, copy_store=0, owner=dict(name="??0New@@QAE@XZ", rva=0x2000, facts=()),
+                rows={0x1000: ("??0Old@@QAE@ABV0@@Z", ()), 0x1100: ("?xfer@Old@@MAEXPAVXfer@@@Z", ())},
+                pins={}, spellings={"??0Old@@QAE@ABV0@@Z": "??0New@@QAE@ABV0@@Z", "?xfer@Old@@MAEXPAVXfer@@@Z": "?xfer@New@@MAEXPAVXfer@@@Z"})
+    args.update(overrides)
+    return R.Family(**args)
+
+
+def test_a_spelled_family_writes_each_member_out():
+    family = spelled()
+    assert family.respell("?xfer@Old@@MAEXPAVXfer@@@Z") == "?xfer@New@@MAEXPAVXfer@@@Z"
+    assert family.respell("?other@Old@@QAEXXZ") == "?other@Old@@QAEXXZ"
+
+
+def test_a_row_the_spellings_leave_out_refuses():
+    with pytest.raises(ValueError, match="needs a spelling"):
+        spelled(spellings={"??0Old@@QAE@ABV0@@Z": "??0New@@QAE@ABV0@@Z"})
+
+
+def test_a_pin_the_spellings_leave_out_refuses():
+    with pytest.raises(ValueError, match="needs a spelling"):
+        spelled(pins={0x1200: ("?pinned@Old@@QAEXXZ", ())})
+
+
+def test_a_spelling_to_itself_refuses():
+    with pytest.raises(ValueError, match="needs a spelling"):
+        spelled(spellings={"??0Old@@QAE@ABV0@@Z": "??0New@@QAE@ABV0@@Z", "?xfer@Old@@MAEXPAVXfer@@@Z": "?xfer@Old@@MAEXPAVXfer@@@Z"})
+
+
+def test_a_spelling_of_no_row_refuses():
+    with pytest.raises(ValueError, match="no row or pin"):
+        spelled(spellings={"??0Old@@QAE@ABV0@@Z": "??0New@@QAE@ABV0@@Z", "?xfer@Old@@MAEXPAVXfer@@@Z": "?xfer@New@@MAEXPAVXfer@@@Z",
+                           "?stray@Old@@QAEXXZ": "?stray@New@@QAEXXZ"})
+
+
+TABLE = 0x00C00000
+WORDS = {0x00800000: 0x00401000, 0x00800004: 0x00402000, 0x00800008: 0x41414141}
+
+
+@pytest.fixture
+def table_image(monkeypatch):
+    words = dict(WORDS)
+
+    def read(rva, size):
+        assert size == 4
+        return struct.pack("<I", words[rva])
+    monkeypatch.setattr(R, "read_retail", read)
+    monkeypatch.setattr(R, "section_name", lambda rva: ".text" if rva < 0x00700000 else ".rdata" if rva < 0x00900000 else ".data")
+    return words
+
+
+def test_a_slot_retail_holds_is_no_problem(table_image):
+    assert R.expected(R.slot(TABLE, 1, 2, 0x2000)) == struct.pack("<I", 0x00402000)
+    assert R.facts_problems([R.slot(TABLE, 0, 2, 0x1000), R.slot(TABLE, 1, 2, 0x2000)]) == []
+    assert R.record([R.slot(TABLE, 1, 2, 0x2000)]) == "retail:0x00800004 slot=0x00402000"
+    assert R.well_formed(R.record([R.slot(TABLE, 1, 2, 0x2000)]))
+
+
+def test_a_slot_pointing_elsewhere_refuses(table_image):
+    assert "holds" in R.facts_problems([R.slot(TABLE, 1, 2, 0x3000)])[0]
+
+
+def test_a_slot_past_the_tables_count_refuses(table_image):
+    fact = R.Fact("slot", 0x00800008, 0x41414141, (TABLE, 2, 2))
+    assert "outside" in R.facts_problems([fact])[0]
+
+
+def test_a_slot_off_its_table_refuses(table_image):
+    fact = R.Fact("slot", 0x00800004, 0x00402000, (TABLE, 0, 2))
+    assert "is not slot" in R.facts_problems([fact])[0]
+
+
+def test_a_table_outside_rdata_refuses(table_image, monkeypatch):
+    monkeypatch.setattr(R, "section_name", lambda rva: ".text" if rva < 0x00700000 else ".data")
+    assert ".rdata" in R.facts_problems([R.slot(TABLE, 0, 2, 0x1000)])[0]
+
+
+def test_a_target_outside_text_refuses(table_image):
+    table_image[0x00800000] = 0x00C00000
+    assert "not in .text" in R.facts_problems([R.Fact("slot", 0x00800000, 0x00C00000, (TABLE, 0, 2))])[0]
+
+
+def test_a_table_longer_than_its_count_refuses(table_image):
+    table_image[0x00800008] = 0x00403000
+    assert "more than 2 slots" in R.facts_problems([R.slot(TABLE, 0, 2, 0x1000)])[0]
+
+
+def test_an_unreadable_slot_is_a_problem(table_image):
+    del table_image[0x00800008]
+    assert "cannot be read" in R.facts_problems([R.slot(TABLE, 0, 2, 0x1000)])[0]
+
+
+def aliased(**overrides):
+    row = dict(name=f"??_7{F.old}@@6B@", names=f"{F.table_name};??_7{F.old}@@6B@")
+    row.update(overrides)
+    return row
+
+
+def test_the_name_column_is_enough_as_before(image):
+    assert R.table_named(F, dict(name=F.table_name, names=""), 0x100)
+
+
+def test_an_alias_with_the_owners_store_names_the_table(image):
+    assert R.table_named(F, aliased(), 0x100)
+
+
+def test_an_alias_needs_the_stand_ins_table(image):
+    assert not R.table_named(F, aliased(name="??_7Stranger@@6B@"), 0x100)
+
+
+def test_no_alias_names_nothing(image):
+    assert not R.table_named(F, aliased(names=f"??_7{F.old}@@6B@"), 0x100)
+
+
+def test_an_alias_whose_family_has_no_table_fact_refuses(image):
+    family = R.Family(F.old, F.new, F.table, F.copy, F.copy_store, dict(F.owner, facts=()), F.rows, F.pins)
+    assert not R.table_named(family, aliased(), 0x100)
+
+
+def test_an_alias_whose_store_is_another_table_refuses(image):
+    other = dict(F.owner, facts=(R.Fact("stores", F.owner["rva"], F.table + 4, "c701"),))
+    family = R.Family(F.old, F.new, F.table, F.copy, F.copy_store, other, F.rows, F.pins)
+    assert not R.table_named(family, aliased(), 0x100)
+
+
+def test_an_alias_whose_store_is_outside_the_owner_refuses(image):
+    assert not R.table_named(F, aliased(), 0)
+
+
+def test_an_alias_whose_store_retail_does_not_hold_refuses(image):
+    site = F.owner["facts"][0].site
+    image[site] = (image[site] + 1) & 0xFF
+    assert not R.table_named(F, aliased(), 0x100)
+
+
+def owner_fact(image, monkeypatch, code):
+    """F's owner holding one stores fact of the table at its first byte, and retail holding it."""
+    at = F.owner["rva"]
+    fact = R.C("stores", at, F.table, code)
+    for i, byte in enumerate(R.expected(fact)):
+        image[at + i] = byte
+    monkeypatch.setattr(F, "owner", dict(F.owner, facts=(fact,)))
+    return fact
+
+
+def test_an_alias_backed_by_a_load_refuses(image, monkeypatch):
+    owner_fact(image, monkeypatch, "b8")
+    assert not R.table_named(F, aliased(), 0x100)
+
+
+def test_an_alias_backed_by_a_store_into_another_field_refuses(image, monkeypatch):
+    owner_fact(image, monkeypatch, "c74104")
+    assert not R.table_named(F, aliased(), 0x100)
+
+
+def test_an_alias_needs_the_whole_store_inside_the_owner(image, monkeypatch):
+    owner_fact(image, monkeypatch, "c701")
+    assert R.table_named(F, aliased(), 6)
+    assert not R.table_named(F, aliased(), 5)
+    assert not R.table_named(F, aliased(), 1)
+
+
+def test_the_plan_takes_the_alias_only_at_the_tables_address(tree):
+    ledger = (tree / "reverse/data_ledger.csv").read_text()
+    aliased_row = ledger.replace(f",{F.table_name},", f",??_7{F.old}@@6B@,", 1)
+    assert aliased_row != ledger
+    fields = [line for line in aliased_row.splitlines() if line.startswith(f"0x{TABLE_RVA:08X},")][0].split(",")
+    fields[7] = f"{F.table_name};??_7{F.old}@@6B@"
+    good = "\n".join([aliased_row.splitlines()[0], ",".join(fields)]) + "\n"
+    write(tree / "reverse/data_ledger.csv", good)
+    ctx, _ = context(tree)
+    plan(ctx)
+    wrong = good.replace(f"0x{TABLE_RVA:08X},", f"0x{TABLE_RVA + 16:08X},")
+    write(tree / "reverse/data_ledger.csv", wrong)
+    ctx, _ = context(tree)
+    with pytest.raises(Refusal, match="does not name"):
+        plan(ctx)
+
+
+# ---- a declared leaf: no reference can show its binding survived, so retail and the rebuilt body must show there is none
+
+LEAF = 0x00566527
+
+
+def row_size(tree, at):
+    for line in (tree / "reverse/functions.csv").read_text().splitlines():
+        fields = line.split(",")
+        if len(fields) > 3 and fields[2].startswith("0x") and int(fields[2], 16) == at:
+            return int(fields[3])
+    raise AssertionError(hex(at))
+
+
+@pytest.fixture
+def leaf(tree, image, monkeypatch):
+    """F with one row declared a leaf, and retail's body there a plain leaf of the row's size."""
+    size = row_size(tree, LEAF)
+    saved = {at: image[at] for at in image if LEAF <= at < LEAF + size}
+    for at in range(LEAF, LEAF + size):
+        image[at] = 0x90
+    image[LEAF + size - 1] = 0xC3
+    monkeypatch.setattr(F, "leaves", {LEAF: size})
+    monkeypatch.setattr(R, "section_name", lambda rva: ".text" if rva < 0x00700000 else ".rdata" if rva < 0x00900000 else None)
+    monkeypatch.setattr(R, "image_size", lambda: 0x00900000)
+    # the row's own facts sit in the body this fixture replaced: the leaf checks are what is under test here
+    monkeypatch.setattr(R, "facts_problems", lambda facts: [])
+    return size, saved
+
+
+def leaf_context(tree, relocs=()):
+    ctx, state = context(tree)
+    new = F.respell(F.rows[LEAF][0])
+    ctx.object_symbol_relocs = lambda source, name: list(relocs) if name == new else GOOD_RELOCS
+    return ctx, state
+
+
+def without_leaf():
+    return [r for r in after_refs() if r["rva"] != LEAF]
+
+
+def test_a_declared_leaf_with_no_relocations_lands(tree, leaf):
+    ctx, state = leaf_context(tree)
+    apply(ctx, plan(ctx), state, refs=without_leaf())
+
+
+def test_a_declared_leaf_that_gains_a_relocation_is_undone(tree, leaf):
+    ctx, state = leaf_context(tree, relocs=[(1, rename.REL32, "?target@@YAXXZ")])
+    with pytest.raises(VerifyFailed, match="declared leaf .* has 1 relocation"):
+        apply(ctx, plan(ctx), state, refs=without_leaf())
+
+
+def test_a_declared_leaf_that_cannot_be_read_is_undone(tree, leaf):
+    ctx, state = leaf_context(tree)
+    ctx.object_symbol_relocs = lambda source, name: None if name == F.respell(F.rows[LEAF][0]) else GOOD_RELOCS
+    with pytest.raises(VerifyFailed, match="declared leaf .* cannot be read"):
+        apply(ctx, plan(ctx), state, refs=without_leaf())
+
+
+def test_an_undeclared_row_with_no_references_is_still_undone(tree, leaf):
+    ctx, state = leaf_context(tree)
+    missing = [r for r in without_leaf() if r["rva"] != F.copy]
+    with pytest.raises(VerifyFailed, match="no references"):
+        apply(ctx, plan(ctx), state, refs=missing)
+
+
+@pytest.mark.parametrize("label, body, message", [
+    ("a call out", bytes.fromhex("e800010000"), "branches out"),
+    ("a jump out", bytes.fromhex("e900010000"), "branches out"),
+    ("an address loaded", bytes.fromhex("b800104000"), "image address"),
+    ("an address read", bytes.fromhex("a100104000"), "image address"),
+    ("the image's first byte, in no section", bytes.fromhex("b800004000"), "image address"),
+    ("the image's last byte", bytes.fromhex("b8ffffcf00"), "image address"),
+])
+def test_a_body_retail_shows_referencing_something_is_no_leaf(tree, leaf, image, label, body, message):
+    for i, byte in enumerate(body):
+        image[LEAF + i] = byte
+    ctx, _ = leaf_context(tree)
+    with pytest.raises(Refusal, match=message):
+        plan(ctx)
+
+
+def test_a_jump_inside_the_body_is_still_a_leaf(tree, leaf, image):
+    image[LEAF], image[LEAF + 1] = 0xEB, 0x00
+    ctx, _ = leaf_context(tree)
+    plan(ctx)
+
+
+def test_a_small_constant_is_not_an_address(tree, leaf, image):
+    for i, byte in enumerate(bytes.fromhex("b810000000")):
+        image[LEAF + i] = byte
+    ctx, _ = leaf_context(tree)
+    plan(ctx)
+
+
+def test_a_value_past_the_image_is_not_an_address(tree, leaf, image):
+    for i, byte in enumerate(bytes.fromhex("b80000d000")):
+        image[LEAF + i] = byte
+    ctx, _ = leaf_context(tree)
+    plan(ctx)
+
+
+def test_a_body_that_does_not_decode_is_no_leaf(tree, leaf, image):
+    size, _ = leaf
+    image[LEAF + size - 1] = 0xE8
+    ctx, _ = leaf_context(tree)
+    with pytest.raises(Refusal, match="no leaf"):
+        plan(ctx)
+
+
+def test_an_unreadable_body_is_no_leaf(tree, leaf, image):
+    del image[LEAF]
+    ctx, _ = leaf_context(tree)
+    with pytest.raises(Refusal, match="no leaf: it cannot be read"):
+        plan(ctx)
+
+
+# ---- a row proved by its store of the table: its references are data, which the scan does not read
+
+def store_row(image, monkeypatch, code="c701", offset=2, value=None, site=LEAF):
+    """F with the row at LEAF holding one stores fact, retail holding it too, and that store declared."""
+    old, _facts = F.rows[LEAF]
+    fact = R.C("stores", site, F.table if value is None else value, code)
+    for i, byte in enumerate(R.expected(fact)):
+        image[site + i] = byte
+    monkeypatch.setattr(F, "rows", {**F.rows, LEAF: (old, (fact,))})
+    monkeypatch.setattr(F, "table_stores", {LEAF: offset})
+    return fact
+
+
+def store_context(tree, relocs):
+    ctx, state = context(tree)
+    new = F.respell(F.rows[LEAF][0])
+    ctx.object_symbol_relocs = lambda source, name: relocs if name == new else GOOD_RELOCS
+    return ctx, state
+
+
+def test_a_row_binding_the_table_at_its_store_lands(tree, image, monkeypatch):
+    store_row(image, monkeypatch)
+    ctx, state = store_context(tree, [(2, rename.DIR32, F.table_name)])
+    apply(ctx, plan(ctx), state, refs=without_leaf())
+
+
+@pytest.mark.parametrize("label, relocs", [
+    ("another table", [(2, rename.DIR32, "??_7Other@@6B@")]),
+    ("another offset", [(8, rename.DIR32, F.table_name)]),
+    ("another reference kind", [(2, rename.REL32, F.table_name)]),
+    ("nothing", []),
+])
+def test_a_row_that_stops_binding_the_table_is_undone(tree, image, monkeypatch, label, relocs):
+    store_row(image, monkeypatch)
+    ctx, state = store_context(tree, relocs)
+    with pytest.raises(VerifyFailed, match="does not store"):
+        apply(ctx, plan(ctx), state, refs=without_leaf())
+
+
+def test_a_store_that_cannot_be_read_is_undone(tree, image, monkeypatch):
+    store_row(image, monkeypatch)
+    ctx, state = store_context(tree, None)
+    with pytest.raises(VerifyFailed, match="cannot be read"):
+        apply(ctx, plan(ctx), state, refs=without_leaf())
+
+
+def only_the_store_is_read(monkeypatch):
+    """The whole family's facts pass, so a refusal can only come from the store's own read."""
+    real = R.facts_problems
+    monkeypatch.setattr(R, "facts_problems", lambda facts: real(facts) if len(facts) == 1 else [])
+
+
+def test_a_table_store_retail_does_not_hold_refuses(tree, image, monkeypatch):
+    store_row(image, monkeypatch)
+    only_the_store_is_read(monkeypatch)
+    image[LEAF + 2] ^= 0xFF
+    ctx, _ = store_context(tree, [(2, rename.DIR32, F.table_name)])
+    with pytest.raises(Refusal, match="does not store the table: retail at .* holds"):
+        plan(ctx)
+
+
+def test_a_table_store_retail_cannot_read_refuses(tree, image, monkeypatch):
+    store_row(image, monkeypatch)
+    only_the_store_is_read(monkeypatch)
+    del image[LEAF + 2]
+    ctx, _ = store_context(tree, [(2, rename.DIR32, F.table_name)])
+    with pytest.raises(Refusal, match="does not store the table: .* cannot be read"):
+        plan(ctx)
+
+
+@pytest.mark.parametrize("label, kwargs", [
+    ("a load, not a store", dict(code="b8", offset=1)),
+    ("a store into another field", dict(code="c74104", offset=3)),
+    ("a store of another table", dict(value=F.table + 4)),
+    ("a store declared at the wrong offset", dict(offset=3)),
+])
+def test_a_row_whose_fact_is_not_the_table_store_refuses(tree, image, monkeypatch, label, kwargs):
+    store_row(image, monkeypatch, **kwargs)
+    ctx, _ = store_context(tree, [(kwargs.get("offset", 2), rename.DIR32, F.table_name)])
+    with pytest.raises(Refusal, match="declares no store"):
+        plan(ctx)
+
+
+def test_a_row_declaring_a_store_without_its_fact_refuses(tree, monkeypatch):
+    monkeypatch.setattr(F, "table_stores", {LEAF: 2})
+    ctx, _ = store_context(tree, [(2, rename.DIR32, F.table_name)])
+    with pytest.raises(Refusal, match="declares no store"):
+        plan(ctx)
+
+
+def test_a_store_past_the_row_refuses(tree, image, monkeypatch):
+    store_row(image, monkeypatch, site=LEAF + 6, offset=8)
+    ctx, _ = store_context(tree, [(8, rename.DIR32, F.table_name)])
+    with pytest.raises(Refusal, match="past its row"):
+        plan(ctx)
+
+
+def stored_rows(code="c701"):
+    return {0x1000: ("??0Old@@QAE@ABV0@@Z", ()),
+            0x1100: ("?xfer@Old@@MAEXPAVXfer@@@Z", (R.C("stores", 0x1100, 0x00C00000, code),))}
+
+
+def test_a_store_starting_before_its_row_refuses():
+    rows = stored_rows()
+    rows[0x1100] = (rows[0x1100][0], (R.C("stores", 0x10FE, 0x00C00000, "c701"),))
+    with pytest.raises(ValueError, match="declares no store"):
+        spelled(rows=rows, table_stores={0x1100: 0})
+
+
+def test_a_family_may_declare_its_table_store():
+    assert spelled(rows=stored_rows(), table_stores={0x1100: 2}).table_stores == {0x1100: 2}
+    assert spelled().table_stores == {}
+
+
+@pytest.mark.parametrize("label, kwargs, message", [
+    ("no row", dict(table_stores={0x9999: 2}), "no row of the family"),
+    ("no fact", dict(table_stores={0x1100: 2}), "declares no store"),
+    ("a leaf too", dict(rows=stored_rows(), table_stores={0x1100: 2}, leaves={0x1100: 8}), "both a leaf and a store"),
+    ("another opcode", dict(rows=stored_rows("b8"), table_stores={0x1100: 1}), "declares no store"),
+])
+def test_a_family_declaring_a_bad_table_store_refuses(label, kwargs, message):
+    with pytest.raises(ValueError, match=message):
+        spelled(**kwargs)
+
+
+def test_a_leaf_at_the_wrong_size_refuses(tree, leaf, monkeypatch):
+    size, _ = leaf
+    monkeypatch.setattr(F, "leaves", {LEAF: size + 1})
+    ctx, _ = leaf_context(tree)
+    with pytest.raises(Refusal, match="declared"):
+        plan(ctx)
+
+
+def test_a_leaf_that_is_no_row_refuses():
+    with pytest.raises(ValueError, match="no row of the family"):
+        spelled(leaves={0x9999: 3})

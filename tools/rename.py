@@ -4567,8 +4567,32 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(f"{owner['name']} is not rowed at 0x{owner['rva']:08X}: the table proves no class without its member")
         table_row = [r for r in ctx.dicts("reverse/data_ledger.csv")
                      if _rva(r.get("address")) == family.table - retail_identity.IMAGE_BASE]
-        if not table_row or table_row[0].get("name") != family.table_name:
+        owner_size = next(int(r["target_size"]) for r in rows
+                          if r["name"] == owner["name"] and _rva(r.get("target_rva")) == owner["rva"])
+        if not table_row or not retail_identity.table_named(family, table_row[0], owner_size):
             raise Refusal(f"the data ledger does not name 0x{family.table:08X} {family.table_name}")
+    leaves = getattr(family, "leaves", {})
+    for at, size in sorted(leaves.items()):
+        found = [r for r in rows if r["name"] == family.rows[at][0] and _rva(r.get("target_rva")) == at]
+        if len(found) != 1 or int(found[0]["target_size"]) != size:
+            raise Refusal(f"leaf 0x{at:08X} is not rowed at its declared {size} bytes")
+        try:
+            problem = retail_identity.leaf_problem(at, size)
+        except Exception as error:                     # noqa: BLE001 - an unread body is no leaf
+            problem = f"it cannot be read: {error}"
+        if problem:
+            raise Refusal(f"retail's 0x{at:08X} is no leaf: {problem}")
+    table_stores = getattr(family, "table_stores", {})
+    for at, offset in sorted(table_stores.items()):
+        fact = retail_identity.table_store_fact(family, at)
+        if fact is None:
+            raise Refusal(f"0x{at:08X} declares no store of 0x{family.table:08X} at +{offset}")
+        found = [r for r in rows if r["name"] == family.rows[at][0] and _rva(r.get("target_rva")) == at]
+        if len(found) != 1 or int(found[0]["target_size"]) < offset + 4:
+            raise Refusal(f"0x{at:08X}'s store of the table at +{offset} is past its row")
+        problems = retail_identity.facts_problems([fact])
+        if problems:
+            raise Refusal(f"retail's 0x{at:08X} does not store the table: {problems[0]}")
     entries = []
     for at, (old_name, facts) in sorted(family.rows.items()):
         found = [r for r in rows if r["name"] == old_name and _rva(r.get("target_rva")) == at]
@@ -4715,7 +4739,10 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
         plan.identity["retired"] = sorted((name, at, family.members[at]) for at, (name, _f) in retired.items())
     else:
-        plan.identity.update(table_name=family.table_name, copy_store=family.copy_store)
+        plan.identity.update(table_name=family.table_name, copy_store=family.copy_store,
+                             leaves={at: (source_of[at], family.respell(family.rows[at][0])) for at in leaves},
+                             table_stores={at: (source_of[at], family.respell(family.rows[at][0]), offset)
+                                           for at, offset in table_stores.items()})
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
         [f"file:{s}" for s in sorted(owner_sources | ({move_to} if move_to else set()))]
     done = set(plan.after) | {"reverse/re_attempts.log"}
@@ -4743,6 +4770,19 @@ def object_symbol_relocs(ctx, source, name):
         return []
 
 
+def object_symbol_relocs_or_none(ctx, source, name):
+    """As object_symbol_relocs, but None when the body cannot be read: a leaf's empty list is a finding, so an
+    unread body must not look like one."""
+    hook = getattr(ctx, "object_symbol_relocs", None)
+    if hook:
+        return hook(source, name)
+    import build
+    try:
+        return list(build.read_object_symbol_bytes(build.obj_path(ctx.path(source)), name, code_only=True)[1])
+    except (OSError, SystemExit, ValueError, KeyError, IndexError):
+        return None
+
+
 def retail_identity_problems(ctx, identity):
     """What the rebuilt objects say against a retail respell: the copy no longer binding the class's
     table, a respelled row with no references, or a wrong binding new to a touched source."""
@@ -4752,7 +4792,24 @@ def retail_identity_problems(ctx, identity):
     except allowed_symbols.UnverifiedFunclet as error:
         return [f"the code-identity scan cannot read the rebuilt units: {error}"]
     problems = []
+    leaves = identity.get("leaves", {})
+    table_stores = identity.get("table_stores", {})
     for at, _old, new in identity["rows"]:
+        if at in table_stores:
+            source, name, offset = table_stores[at]
+            relocs = object_symbol_relocs_or_none(ctx, source, name)
+            if relocs is None:
+                problems.append(f"{new} (0x{at:08X}), which stores the table, cannot be read after the respell")
+            elif (offset, DIR32, identity["table_name"]) not in relocs:
+                problems.append(f"{new} (0x{at:08X}) does not store {identity['table_name']} at +{offset} after the respell")
+            continue
+        if at in leaves:
+            relocs = object_symbol_relocs_or_none(ctx, leaves[at][0], leaves[at][1])
+            if relocs is None:
+                problems.append(f"the declared leaf {new} (0x{at:08X}) cannot be read after the respell")
+            elif relocs:
+                problems.append(f"the declared leaf {new} (0x{at:08X}) has {len(relocs)} relocation(s) after the respell")
+            continue
         if not any(r["row"] == new and r["rva"] == at for r in refs):
             problems.append(f"{new} (0x{at:08X}) has no references after the respell")
     if "bindings" in identity:

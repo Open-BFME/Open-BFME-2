@@ -34,8 +34,16 @@ RECORD_RE = re.compile(r"retail:0x[0-9A-F]{8}(?: [a-z][a-z0-9-]*=\S+)+")
 IMAGE_BASE = 0x00400000
 
 # kind: stores (a dword store of `value` through opcode `code`), calls or jumps (E8/E9 rel32
-# to `value`), stride or offset (the instruction `code`, whose operand is `value`).
+# to `value`), stride or offset (the instruction `code`, whose operand is `value`), slot (one word of a
+# vftable: `site` is the word, `value` the VA it holds, `code` (table VA, index, slot count); build it with slot()).
 Fact = collections.namedtuple("Fact", "kind site value code", defaults=(None,))
+# mov dword ptr [reg], imm32: the opcodes that write an object's first word, its vftable pointer
+VPTR_STORES = ("c700", "c701", "c702", "c703", "c706", "c707")
+
+
+def slot(table, index, count, target_rva):
+    """The fact that retail's `count`-slot vftable at VA `table` holds the body at `target_rva` at `index`."""
+    return Fact("slot", table - IMAGE_BASE + 4 * index, target_rva + IMAGE_BASE, (table, index, count))
 
 
 def expected(fact):
@@ -46,6 +54,8 @@ def expected(fact):
         return opcode + struct.pack("<i", fact.value - (fact.site + 5))
     if fact.kind in ("stride", "offset"):
         return bytes.fromhex(fact.code)
+    if fact.kind == "slot":
+        return struct.pack("<I", fact.value)
     raise ValueError(f"unknown retail fact {fact.kind!r}")
 
 
@@ -78,6 +88,86 @@ def read_retail(rva, size):
     return build.read_target_bytes(rva, size)
 
 
+def section_name(rva):
+    """The name of the image section holding `rva`, or None; tests replace this."""
+    problem = image_problem()
+    if problem:
+        raise ValueError(problem)
+    for section in build.exe_image()[1]:
+        if section["rva"] <= rva < section["rva"] + section["size"]:
+            return section["name"]
+    return None
+
+
+def slot_problem(fact):
+    """Why `fact` is not a word of the table it names, or None: the site is that table's word for that index,
+    the whole table is in .rdata, the target is in .text, and the word after the table is not code, so the
+    count is the table's. A slot fact says what a table holds; a dword in the wrong place proves nothing."""
+    table, index, count = fact.code
+    start = table - IMAGE_BASE
+    if not 0 <= index < count:
+        return f"slot {index} is outside the {count}-slot table 0x{table:08X}"
+    if fact.site != start + 4 * index:
+        return f"0x{fact.site:08X} is not slot {index} of table 0x{table:08X}"
+    if section_name(start) != ".rdata" or section_name(start + 4 * count - 1) != ".rdata":
+        return f"table 0x{table:08X} is not all in .rdata"
+    if section_name(fact.value - IMAGE_BASE) != ".text":
+        return f"slot {index} of table 0x{table:08X} names 0x{fact.value:08X}, which is not in .text"
+    after = struct.unpack("<I", read_retail(start + 4 * count, 4))[0]
+    if IMAGE_BASE <= after and section_name(after - IMAGE_BASE) == ".text":
+        return f"table 0x{table:08X} has more than {count} slots: the next word is code"
+    return None
+
+
+def image_size():
+    """The bytes the image spans, its headers to its last section's end; tests replace this."""
+    problem = image_problem()
+    if problem:
+        raise ValueError(problem)
+    return max(section["rva"] + section["size"] for section in build.exe_image()[1])
+
+
+def leaf_problem(rva, size):
+    """Why retail's `size` bytes at `rva` are not a leaf, or None. The image is fixed-base with no relocation table,
+    so a would-be relocation is read from the code: a branch out of the body, or an immediate or displacement that
+    is an address in the image. The whole body must decode, since an undecoded tail would hide one."""
+    from capstone import CS_ARCH_X86, CS_MODE_32, Cs
+    from capstone.x86 import X86_OP_IMM, X86_OP_MEM
+    md = Cs(CS_ARCH_X86, CS_MODE_32)
+    md.detail = True
+    start = rva + IMAGE_BASE
+    decoded = 0
+    for ins in md.disasm(read_retail(rva, size), start):
+        decoded += ins.size
+        branch = ins.mnemonic == "call" or ins.mnemonic.startswith(("j", "loop"))
+        for op in ins.operands:
+            value = None
+            if op.type == X86_OP_IMM:
+                value = op.imm & 0xFFFFFFFF
+                if branch:
+                    if not start <= value < start + size:
+                        return f"0x{ins.address - IMAGE_BASE:08X} branches out of the body, to 0x{value:08X}"
+                    continue
+            elif op.type == X86_OP_MEM:
+                value = op.mem.disp & 0xFFFFFFFF
+            if value is not None and IMAGE_BASE <= value < IMAGE_BASE + image_size():
+                return f"0x{ins.address - IMAGE_BASE:08X} names the image address 0x{value:08X}"
+    if decoded != size:
+        return f"only {decoded} of {size} bytes decode at 0x{rva:08X}"
+    return None
+
+
+def table_store_fact(family, at):
+    """The row's own `stores` fact that writes the family's table as this object's vftable pointer, its dword at the
+    declared offset; None when it declares no such fact. facts_problems reads the fact against retail."""
+    offset = family.table_stores[at]
+    for fact in family.rows[at][1]:
+        if (fact.kind == "stores" and fact.value == family.table and fact.code in VPTR_STORES
+                and at <= fact.site and fact.site + len(bytes.fromhex(fact.code)) == at + offset):
+            return fact
+    return None
+
+
 def facts_problems(facts):
     """Why retail does not hold `facts`, one line each; [] when it holds them all. An unreadable
     site is a problem, never a pass."""
@@ -91,6 +181,14 @@ def facts_problems(facts):
             continue
         if bytes(got) != want:
             out.append(f"retail at 0x{fact.site:08X} holds {bytes(got).hex()}, not {want.hex()} ({fact.kind})")
+            continue
+        if fact.kind == "slot":
+            try:
+                problem = slot_problem(fact)
+            except Exception as error:                 # noqa: BLE001 - whatever the read raises refuses
+                problem = f"slot at 0x{fact.site:08X} cannot be read: {error}"
+            if problem:
+                out.append(problem)
     return out
 
 
@@ -113,12 +211,43 @@ class Family:
     stores, `copy` the row with that VA as its dword `copy_store` bytes in, `owner` {name, rva, facts} the
     class's own rowed member installing the same table."""
 
-    def __init__(self, old, new, table, copy, copy_store, owner, rows, pins):
+    def __init__(self, old, new, table, copy, copy_store, owner, rows, pins, spellings=None, leaves=None,
+                 table_stores=None):
         self.old, self.new, self.table, self.copy, self.copy_store = old, new, table, copy, copy_store
         self.owner, self.rows, self.pins = owner, rows, pins
+        self.spellings = spellings
+        # {rva: size}: rows with nothing to bind, so no reference can show the binding survived. Each is a reviewed
+        # read of one body: leaf_problem holds it against retail, and the rebuilt body must have no relocations.
+        self.leaves = leaves or {}
+        strangers = sorted(set(self.leaves) - set(rows))
+        if strangers:
+            raise ValueError(f"0x{strangers[0]:08X} is a leaf but no row of the family")
+        # {rva: offset}: rows whose only references are data, which the code-reference scan cannot see. Each must bind
+        # the table at that offset, in retail (its own stores fact, table_store_fact) and in the rebuilt body.
+        self.table_stores = table_stores or {}
+        strangers = sorted(set(self.table_stores) - set(rows))
+        if strangers:
+            raise ValueError(f"0x{strangers[0]:08X} stores the table but is no row of the family")
+        both = sorted(set(self.leaves) & set(self.table_stores))
+        if both:
+            raise ValueError(f"0x{both[0]:08X} cannot be both a leaf and a store of the table")
+        for at in sorted(self.table_stores):
+            if table_store_fact(self, at) is None:
+                raise ValueError(f"0x{at:08X} declares no store of the table at +{self.table_stores[at]}")
+        if spellings is not None:
+            claimed = [old_name for old_name, _facts in [*rows.values(), *pins.values()]]
+            for old_name in claimed:
+                if spellings.get(old_name, old_name) == old_name:
+                    raise ValueError(f"{old_name} needs a spelling of its own: a row left out would respell to itself")
+            strangers = sorted(set(spellings) - set(claimed))
+            if strangers:
+                raise ValueError(f"{strangers[0]} is spelled but is no row or pin of the family")
 
     def respell(self, name):
-        """`name` under the new class: its whole `V<old>@@` class fragments, and the head of its copy ctor."""
+        """`name` under the new class: its written-out spelling when the family spells its members out, since a
+        member's scope is no class fragment; else its whole `V<old>@@` class fragments and the head of its copy ctor."""
+        if self.spellings is not None:
+            return self.spellings.get(name, name)
         name = name.replace(f"V{self.old}@@", f"V{self.new}@@")
         return name.replace(f"??0{self.old}@@", f"??0{self.new}@@")
 
@@ -331,6 +460,21 @@ def extent_problems(extent):
     problems += [f"no fact names 0x{IMAGE_BASE + rva:08X}, where {name} is absorbed" for name, rva in extent.absorbs
                  if IMAGE_BASE + rva not in addresses]
     return problems
+
+
+def table_named(family, row, owner_size):
+    """Does the data ledger's `row`, at the family's table, name the family's class? Its `name` column says so
+    outright. An alias in `names` says so only on the stand-in's own table and only when retail backs it: the
+    owner's own write of this exact table as a vftable pointer, the whole instruction inside the owner's body. An
+    alias alone proves nothing, and neither does a load of the table's address."""
+    if row.get("name") == family.table_name:
+        return True
+    if row.get("name") != f"??_7{family.old}@@6B@" or family.table_name not in (row.get("names") or "").split(";"):
+        return False
+    start, end = family.owner["rva"], family.owner["rva"] + owner_size
+    stores = [f for f in family.owner["facts"] if f.kind == "stores" and f.value == family.table
+              and f.code in VPTR_STORES and start <= f.site and f.site + len(expected(f)) <= end]
+    return bool(stores) and not facts_problems(stores)
 
 
 def family_of(rva, new):
