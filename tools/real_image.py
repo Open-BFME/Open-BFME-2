@@ -593,7 +593,11 @@ def crash_fields(ri, address, loaded, words, exception):
             if len(frames) < 12:
                 sym, off = ri.map.holding(ri.base + rva)
                 frames.append([hex(ri.base + rva), f"{'|'.join(ri.map.names_at(sym))}+{off:#x}" if sym else None])
-    out = {"exception": exception} | ri.where(address - loaded + ri.base, ret)
+    if 0 <= address - loaded < size:
+        out = {"exception": exception} | ri.where(address - loaded + ri.base, ret)
+    else:       # not in the image, so the rebase does not move it: eip 0 stays 0, at any base
+        out = {"exception": exception, "address_image": hex(address), "return_address_image": hex(ret) if ret else None,
+               "map_symbol": None, "stubbed_name": None, "retail_rva": None, "note": "outside the image"}
     out["stack_frames"] = frames
     if loaded != ri.base:
         out["loaded_at"] = hex(loaded)

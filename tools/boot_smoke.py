@@ -194,6 +194,8 @@ def k32():
     k.CreateProcessW.argtypes = [wt.LPCWSTR, wt.LPWSTR, ctypes.c_void_p, ctypes.c_void_p, wt.BOOL, wt.DWORD,
                                  ctypes.c_void_p, wt.LPCWSTR, ctypes.c_void_p, ctypes.c_void_p]
     k.CreateProcessW.restype = wt.BOOL
+    k.VirtualAllocEx.argtypes = [wt.HANDLE, ctypes.c_void_p, ctypes.c_size_t, wt.DWORD, wt.DWORD]
+    k.VirtualAllocEx.restype = ctypes.c_void_p
     return k
 
 
@@ -652,7 +654,7 @@ def main_window(pid):
 
 
 def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None,
-        int3_faults=False, *, appdata, shots_at=()):
+        int3_faults=False, *, appdata, shots_at=(), trap_retail_data=False):
     """Start `launcher` (retail's lotrbfme2.exe, which hands game.dat its start-up
     token; game.dat started directly exits 0 at once) under a debugger that
     follows children; the child whose image is game.dat is the one classified.
@@ -777,6 +779,10 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                         debugger_error("CREATE_PROCESS:multiple-game", pid)
                     else:
                         res.update(pid=pid, image_base=procs[pid][2], started=round(time.time() - t0, 1))
+                        if trap_retail_data:
+                            res["retail_trap"] = trap_retail_range(k, h)
+                            if res["retail_trap"]["got"] != hex(RETAIL_DATA[0]):
+                                debugger_error("VirtualAllocEx:retail-trap", res["retail_trap"]["error"])
                         duplicated = wt.HANDLE()
                         current = k.GetCurrentProcess()
                         if not k.DuplicateHandle(current, wt.HANDLE(h), current, ctypes.byref(duplicated),
@@ -1048,6 +1054,19 @@ def sample_eips(k, hthread, n=8):
             out.append(eip)
         time.sleep(0.25)
     return out
+
+
+# Retail's .rdata and .data, on allocation boundaries. Under Wine this range is mapped at nearly any base, so a stale
+# retail address reads whatever is there and hides: reserved here, it faults. Measured with Rva00309E4BGet: without the
+# trap the boot runs past that read at 0x2000000; with it, both 0x2000000 and 0x14000000 fault on 0xDBD7E8.
+RETAIL_DATA = (0xBB0000, 0xE30000)
+
+
+def trap_retail_range(k, hprocess):
+    """Reserve RETAIL_DATA with no access in the game, before it runs: what --trap-retail-data does."""
+    low, high = RETAIL_DATA
+    got = k.VirtualAllocEx(wt.HANDLE(hprocess), low, high - low, 0x2000, 0x01)      # MEM_RESERVE, PAGE_NOACCESS
+    return {"low": hex(low), "high": hex(high), "got": hex(got or 0), "error": 0 if got else ctypes.get_last_error()}
 
 
 SHOT_WAIT = 5.0     # seconds run() waits, after the run is over, for captures still in flight
@@ -1508,7 +1527,7 @@ def smoke(a, rows=None, tag="boot"):
         out["focus_lie"] = "WM_ACTIVATEAPP arm not found (no lie)"
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
               sorted(moved) if a.probes else (), focus_rva, a.defocus, a.int3_faults or a.relayout or ri is not None,
-              appdata=a.appdata, shots_at=a.shots_at)
+              appdata=a.appdata, shots_at=a.shots_at, trap_retail_data=a.trap_retail_data)
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
     if authored:
@@ -1771,6 +1790,9 @@ def main(argv=None):
                          "while the window lacks focus)")
     ap.add_argument("--defocus", type=float, metavar="SECONDS",
                     help="minimise the game window SECONDS after launch, show it unfocused 15 s before the end")
+    ap.add_argument("--trap-retail-data", action="store_true",
+                    help="reserve retail's data range in the game, so a stale retail data address faults at any base "
+                         "instead of reading whatever is mapped there")
     ap.add_argument("--shots-at", type=shot_times, default=(), metavar="SECONDS,...",
                     help="also picture the window at these times into the run (run.timed_shots in the report, a PNG each); "
                          "the outcome still comes from the last picture alone")
@@ -1789,6 +1811,8 @@ def main(argv=None):
         raise SystemExit("boot_smoke: --real-image runs the linked image alone (no --retail, overlay or relayout)")
     if a.shots_at and a.shots_at[-1] >= a.timeout:
         ap.error(f"--shots-at {a.shots_at[-1]:g} is not before --timeout {a.timeout:g}")
+    if a.trap_retail_data and a.retail:
+        ap.error("--trap-retail-data: retail's own data lives in that range")
     if a.rebase and not a.real_image:
         raise SystemExit("boot_smoke: --rebase needs --real-image")
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()

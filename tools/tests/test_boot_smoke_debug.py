@@ -64,7 +64,8 @@ class FakeKernel:
                  fail_duplicate=False, emit_exit=True, fail_suspend=False, resume_failures=0, resume_fail_from=0,
                  resume_raises=0, raises=(), other_suspend_on=0, other_resume_on=0, fail_context=False, sampler_cost=0.0,
                  context_cost=0.0, suspended=0, spinning=False, thread_exit_at=None, timed_events=(), wait_late=0.0,
-                 stream_from=None, look_cost=0.0, wait_error_on=0):
+                 stream_from=None, look_cost=0.0, wait_error_on=0, fail_reserve=False):
+        self.fail_reserve, self.reservations = fail_reserve, []
         # The main thread: it only moves while its suspend count is zero, as a real one does, and the count
         # persists, so a suspend left outstanding reads as identical EIPs, exactly what a spin looks like.
         self.fail_suspend = fail_suspend
@@ -148,6 +149,13 @@ class FakeKernel:
         if not self.suspended and not self.spinning and not self.gone():
             self.moved += self.clock.now - self.ticked
         self.ticked = self.clock.now
+
+    def VirtualAllocEx(self, handle, address, size, kind, protect):
+        self.reservations.append((handle.value, address, size, kind, protect))
+        if self.fail_reserve:
+            self.last_error = 487
+            return None
+        return address
 
     def SuspendThread(self, handle):
         self.tick()
@@ -260,7 +268,7 @@ class RunnerDebugTests(unittest.TestCase):
         exports = type("Exports", (), {})()
         for name in ("WaitForDebugEvent", "ContinueDebugEvent", "CloseHandle",
                      "TerminateProcess", "WaitForSingleObject", "CreateProcessW",
-                     "GetCurrentProcess", "DuplicateHandle"):
+                     "GetCurrentProcess", "DuplicateHandle", "VirtualAllocEx"):
             setattr(exports, name, lambda *args: 1)
         with mock.patch.object(runner.ctypes, "WinDLL", return_value=exports, create=True):
             kernel = runner.k32()
@@ -269,8 +277,9 @@ class RunnerDebugTests(unittest.TestCase):
             self.assertIs(getattr(kernel, name).restype, runner.wt.BOOL)
         self.assertIs(kernel.WaitForSingleObject.restype, runner.wt.DWORD)
         self.assertIs(kernel.GetCurrentProcess.restype, runner.wt.HANDLE)
+        self.assertIs(kernel.VirtualAllocEx.restype, runner.ctypes.c_void_p)
 
-    def run_case(self, events, *, timeout=2, real_samples=False, shots_at=(), shot_cost=0.0, **failures):
+    def run_case(self, events, *, timeout=2, real_samples=False, shots_at=(), shot_cost=0.0, trap_retail_data=False, **failures):
         clock = FakeClock()
         kernel = FakeKernel(clock, events, **failures)
         self.captured_at = None
@@ -300,7 +309,8 @@ class RunnerDebugTests(unittest.TestCase):
               mock.patch.object(runner, "screenshot", side_effect=capture),
               mock.patch.object(runner, "stack_words", return_value=None)):
             result = runner.run(Path("launcher.exe"), Path("/mock-game"), "-win", timeout,
-                                version_lie=False, appdata=Path("/mock-sandbox-appdata"), shots_at=shots_at)
+                                version_lie=False, appdata=Path("/mock-sandbox-appdata"), shots_at=shots_at,
+                                trap_retail_data=trap_retail_data)
         return kernel, result
 
     def test_normal_exit_requires_continuation_and_bounded_cleanup(self):
@@ -434,7 +444,7 @@ class RunnerDebugTests(unittest.TestCase):
     def test_smoke_preserves_debugger_error_classification(self):
         options = SimpleNamespace(retail=True, base=0x400000, args="-win", overlay=None,
                                   appdata=Path("/mock-sandbox-appdata"), game_dir=Path("/mock-game"),
-                                  guard=[], compat=None, no_focus_lie=True, shots_at=(), no_version_lie=True,
+                                  guard=[], compat=None, no_focus_lie=True, shots_at=(), trap_retail_data=False, no_version_lie=True,
                                   timeout=2, probes=False, defocus=None, int3_faults=False,
                                   relayout=False)
         report = {"outcome": "debugger-error", "first_chance": [], "probes_hit": [],
@@ -752,6 +762,38 @@ class MainThreadSamplerTests(unittest.TestCase):
         read.assert_called_once_with(kernel, 21, 201, n=1024)
 
 
+class RetailDataTrapTests(unittest.TestCase):
+    """--trap-retail-data: a stale retail data address must fault, not read whatever is mapped there."""
+    GAME = [debug_event(3, file_handle=31)]
+    run_case = RunnerDebugTests.run_case
+
+    def test_off_by_default_it_reserves_nothing(self):
+        kernel, result = self.run_case(self.GAME, timeout=2)
+        self.assertEqual(kernel.reservations, [])
+        self.assertNotIn("retail_trap", result)
+
+    def test_it_reserves_the_range_with_no_access_in_the_game(self):
+        kernel, result = self.run_case(self.GAME, timeout=2, trap_retail_data=True)
+        self.assertEqual(kernel.reservations, [(21, 0xBB0000, 0xE30000 - 0xBB0000, 0x2000, 0x01)])
+        self.assertEqual(result["retail_trap"]["got"], "0xbb0000")
+        self.assertEqual(result["outcome"], "timeout")
+
+    def test_a_trap_that_could_not_be_set_is_no_clean_run(self):
+        kernel, result = self.run_case(self.GAME, timeout=2, trap_retail_data=True, fail_reserve=True)
+        self.assertEqual(result["outcome"], "debugger-error")
+        self.assertIn({"operation": "VirtualAllocEx:retail-trap", "error": 487}, result["debugger_errors"])
+
+    def test_the_range_covers_retails_data_sections(self):
+        import pefile
+        pe = pefile.PE(str(runner.boot_image.build.EXE), fast_load=True)
+        base = pe.OPTIONAL_HEADER.ImageBase
+        for section in pe.sections:
+            if section.Name.rstrip(b"\0") in (b".rdata", b".data"):
+                self.assertLessEqual(runner.RETAIL_DATA[0], base + section.VirtualAddress)
+                self.assertGreaterEqual(runner.RETAIL_DATA[1], base + section.VirtualAddress + section.Misc_VirtualSize)
+        self.assertEqual([v % 0x10000 for v in runner.RETAIL_DATA], [0, 0])     # allocation granularity
+
+
 class TimedShotTests(unittest.TestCase):
     """--shots-at pictures the window through a run and decides nothing."""
     GAME = [debug_event(3, file_handle=31)]
@@ -973,7 +1015,7 @@ class FaultStackTests(unittest.TestCase):
     STACK = {"esp": 0x0019F000, "ebp": 0x0019F040, "regs": {"edx": "0x476e654d", "eip": "0x101696df"},
              "words": [0x476E654D, 0x1023F4AF, 0x0019F0A0]}
     OPTS = dict(retail=True, base=0x400000, args="-win", overlay=None, appdata=Path("/mock-sandbox-appdata"),
-                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, shots_at=(), no_version_lie=True,
+                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, shots_at=(), trap_retail_data=False, no_version_lie=True,
                 timeout=2, probes=False, defocus=None, int3_faults=False, relayout=False)
 
     def smoke(self, report, **opts):

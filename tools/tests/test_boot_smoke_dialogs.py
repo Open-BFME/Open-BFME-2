@@ -149,18 +149,24 @@ def timeout_run(dialogs, shot):
 
 class Classification(unittest.TestCase):
     OPTS = dict(retail=True, base=0x400000, args="-win", overlay=None, appdata=Path("/mock-sandbox-appdata"),
-                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, shots_at=(), no_version_lie=True,
+                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, shots_at=(), trap_retail_data=False, no_version_lie=True,
                 timeout=2, probes=False, defocus=None, int3_faults=False, relayout=False)
 
     def smoke(self, report):
         with (mock.patch.object(bs, "prepare_sandbox_profile"),
               mock.patch.object(bs.real_image, "install_game_dat", return_value="0" * 64),
-              mock.patch.object(bs, "run", return_value=report),
+              mock.patch.object(bs, "run", return_value=report) as self.ran,
               mock.patch.object(bs, "address_label", side_effect=lambda va, *a: f"row+{va & 0xFF:#x}"),
               mock.patch.object(bs, "image_frames", return_value=[["0x401234", "WinMain+0x34"]]),
               mock.patch.object(bs, "ProfileGuard") as guard):
             guard.return_value.check.return_value = ({"changed": []}, False)
             return bs.smoke(SimpleNamespace(**self.OPTS))
+
+    def test_the_harness_options_reach_the_run(self):
+        self.OPTS = dict(self.OPTS, trap_retail_data=True, shots_at=[1.0])
+        self.smoke(timeout_run([MAIN], {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0}))
+        self.assertIs(self.ran.call_args.kwargs["trap_retail_data"], True)
+        self.assertEqual(self.ran.call_args.kwargs["shots_at"], [1.0])
 
     def test_crash_box_is_crash_dialog_not_loading_screen(self):
         out = self.smoke(timeout_run([MAIN, GAME_CRASH], {"path": "x.png", "black": False, "stddev": 42,

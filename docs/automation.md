@@ -42,6 +42,31 @@ scheduled `real-link.yml` ran 8 hours after its first slot. Their `schedule:` li
 `bfme2-dispatch.timer` on srv1 is what starts them on time. Do not put anything that matters on a
 GitHub schedule alone.
 
+## Which base an image links at
+
+Real and diagnostic links use `/BASE:0x2000000` (`exit_link.BASE`). What limits the choice is measured under Wine on srv1, with one
+0xD00000-byte image rebased through the queue:
+
+| Base | First `D3DLOCK_DISCARD` of the dynamic vertex buffer |
+|---|---|
+| up to 0xF200000 | real pointer |
+| 0xF400000 to 0x11C00000, including the old 0x10000000 | S_OK with null (0x11800000 crashed before it, cause not read) |
+| from 0x12000000 to 0x1C000000 | real pointer |
+
+The game reserves 256 MB twice at start-up, retail too. An image in that band leaves no such run in Wine's low area, so the second
+reservation lands at 0x40000000, where Mesa would allocate. Mesa's 64 MB buffer then fails (`posix_memalign` returns NULL,
+`GL_OUT_OF_MEMORY`) and wined3d's `Lock` still returns S_OK. An allocation logger shows that call failing at 0x10000000 and succeeding
+at 0x800000 and in retail. Windows has no Mesa and no such split, so this constraint is Wine's; no Windows run has measured it.
+
+**A second base** (`boot_smoke --rebase`) should do more than differ. 0x1000000 clears retail's range, sits a full image away from
+0x2000000 while the image stays under 16 MB, and leaves a third of retail's `.data` unmapped, so a stale retail data address can
+fault. Avoid bases that overlap retail's range (under about 0xE30000): a stale address then reads the image's own bytes.
+
+**`boot_smoke --trap-retail-data`** is stronger: it reserves retail's `.rdata` and `.data` in the game before it runs, so such an
+address faults at any base. Most bases hide them otherwise: at 0x2000000 all of retail's `.data` is mapped at runtime. It does not
+cover retail's code range. `crash-at-` on a rebased image names real image addresses by their map; an address outside the image is
+reported as it is, so a null call reads `crash-at-0x0` at any base.
+
 ## Reading the real link
 
 `tools/exit_link.py --link` links every kept object with no `/FORCE`, stubs or fillers at a

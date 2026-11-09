@@ -248,6 +248,14 @@ def test_index_prediction_subtracts_the_exclusive_unresolved_names():
     assert measurement["prediction"]["census"]["commit"] == "8716fcf38f"
 
 
+def test_the_base_stays_clear_of_retail_and_of_the_wine_limit():
+    # Literal on purpose: every image changes with this. Retail's range ends under 0xE30000. Measured under Wine with a
+    # 0xD00000-byte image: up to 0xF200000 and from 0x12000000 the game's 256 MB reservations leave Mesa its room.
+    assert E.BASE == 0x2000000
+    assert E.BASE >= 0xE30000 and E.BASE % 0x10000 == 0
+    assert E.BASE + 0xD00000 <= 0xFF00000
+
+
 def test_link_options_carry_no_force_and_no_scaffold():
     options = E.link_arguments(E.ROOT / "build/exit_link/exit.exe",
                                E.ROOT / "build/exit_link/exit.rsp")
@@ -368,7 +376,7 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
     receipt = json.loads((tmp_path / "image_receipt.json").read_text())
     assert receipt == {
         "kind": "diagnostic" if diagnostic else "real", "commit": "a" * 40,
-        "base": "0x10000000", "image_sha256": E.digest(image),
+        "base": f"0x{E.BASE:X}", "image_sha256": E.digest(image),
         "map_sha256": E.digest(image.with_suffix(".map")), "stubbed": names,
         "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF",
         "authoritative": False, "omission_proof": "not-run",
@@ -864,7 +872,7 @@ def test_report_shows_generated_vtable_retirement_count(tmp_path, monkeypatch, c
     import json
     monkeypatch.setattr(E, "OUT", tmp_path)
     (tmp_path / "result.json").write_text(json.dumps({
-        "when": "now", "commit": "a" * 40, "base": "0x10000000",
+        "when": "now", "commit": "a" * 40, "base": f"0x{E.BASE:X}",
         "objects": {"linked": 3, "omitted_count": 17},
         "link": {"exit": 96, "image_written": False},
         "errors": {"unresolved": 7, "duplicates": 0, "total": 8, "unresolved_classes": {},

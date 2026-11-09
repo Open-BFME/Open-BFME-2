@@ -278,6 +278,22 @@ class Crashes(unittest.TestCase):
         self.assertEqual(ri.crash_name(c), MISS)
         self.assertEqual(c["loaded_at"], hex(loaded))
 
+    def test_an_address_outside_the_image_is_not_moved_by_a_rebase(self):
+        # A null call on a rebased image read crash-at-0xf800000: eip 0 mapped through the rebase's delta.
+        img = build()
+        img.img.pe = SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(SizeOfImage=0x9000))
+        for loaded, address in ((0x800000, 0), (0x20000000, 0x7BBBB0B7), (0x20000000, 0x20000000 - 1), (0x20000000, 0x20009000)):
+            c = ri.crash_fields(img, address, loaded, [loaded + 0x2100 + 25], "0xc0000005")
+            self.assertEqual(ri.crash_name(c), hex(address))
+            self.assertEqual((c["map_symbol"], c["retail_rva"], c["note"]), (None, None, "outside the image"))
+            self.assertEqual(c["return_address_image"], hex(IB + 0x2119))
+
+    def test_the_image_ends_are_still_the_image(self):
+        img = build()
+        img.img.pe = SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(SizeOfImage=0x9000))
+        for offset in (0, 0x8FFF):
+            self.assertEqual(ri.crash_fields(img, 0x20000000 + offset, 0x20000000, [], "0xc0000005")["address_image"], hex(IB + offset))
+
 
 GOOD = {"machine": 0x14C, "base": IB, "relocs_stripped": False, "reloc_sites": 9, "export_names": 1964,
         "resource_dir": 0x55C8, "entry": IB + 0x1000, "map_base": IB, "map_entry": IB + 0x1000,

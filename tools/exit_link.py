@@ -89,8 +89,10 @@ import link_cycle  # noqa: E402
 
 OUT = ROOT / "build" / "exit_link"
 # Retail links at 0x400000. The exit test needs a base retail never used, so a
-# stale 0x400000 literal in our code cannot pass as a working image.
-BASE = 0x10000000
+# stale 0x400000 literal in our code cannot pass as a working image. It must also clear retail's
+# range and leave room under Wine: the game reserves 256 MB twice at start-up, and an image at
+# 0xF400000-0x11C00000 leaves no such run in Wine's low area, which starves Mesa (docs/automation.md).
+BASE = 0x2000000
 ENTRY = "WinMainCRTStartup"
 # The harness patches these IAT slots before entering the image.
 HARNESS_IMPORTS = {"SHGetSpecialFolderPathW": 16, "GetVersion": 0, "GetVersionExA": 4}
