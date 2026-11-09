@@ -15,6 +15,17 @@ the committed `data_ledger.csv`, it reproduces the published queue to within a f
 1,767 generated, 152 already correct, 1,523 refused (no-kept-definition 429, multiple-kept-names 402,
 target-not-winning-provider 526, strong-definition 134).
 
+2026-11-09, SpecialAbilityUpdate post-load address repair: the existing
+SpecialAbilityUpdate::loadPostProcess row now owns native 0x00497805,
+the direct jump to UpdateModule::loadPostProcess (0x0058B03E) held by
+base primary 0x0083FBA8 slot 1. Its former 0x00483CEF placement is an
+extra forwarding jump to that body and remains covered by other rows.
+The emitter stays in ArrowStormUpdateBehaviorCtor.cpp; normal verification
+passes 12/12 bodies and link_check reads LINKS, 233 -> 233 B against
+index 5b5011469d. No new override, pin or source move. The independent
+0x008552A4 base-table producer/consumer cleanup and primary getter identity
+remain pending. [Evidence and scope](../../reverse/attempt_support/special-ability-base-table-recovery-20261109.md).
+
 **Cluster 1, repaired: deleting destructors rowed outside the approved TU that emits them first.**
 - Shape: exactly one blocked slot, slot 0 (the scalar deleting destructor, once a `??_E` adjustor thunk).
   Its row sits in a donor unit: a destructor file, a constructor file, or an `EmitVtableTag` scaffold in a

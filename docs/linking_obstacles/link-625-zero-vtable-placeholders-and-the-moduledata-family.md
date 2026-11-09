@@ -369,6 +369,17 @@ Its getter row 0x002CC2F6 is still the free-function placeholder `Rva002CC2F6Get
 
 **The SpecialAbilityUpdate family, notes for the next class.**
 
+2026-11-09, SpecialAbilityUpdate post-load address repair: the existing
+SpecialAbilityUpdate::loadPostProcess row now owns native 0x00497805,
+the direct jump to UpdateModule::loadPostProcess (0x0058B03E) held by
+base primary 0x0083FBA8 slot 1. Its former 0x00483CEF placement is an
+extra forwarding jump to that body and remains covered by other rows.
+The emitter stays in ArrowStormUpdateBehaviorCtor.cpp; normal verification
+passes 12/12 bodies and link_check reads LINKS, 233 -> 233 B against
+index 5b5011469d. No new override, pin or source move. The independent
+0x008552A4 base-table producer/consumer cleanup and primary getter identity
+remain pending. [Evidence and scope](../../reverse/attempt_support/special-ability-base-table-recovery-20261109.md).
+
 - The list at +0x88 is a real member, not a missing one. `m_88(Rva0029FB3BAlloc())` calls the allocator constructor 0x0029FB3B;
   the empty temporary is the spare `ebp+0xF` stack byte the old casts spelled as a "context". The allocator needs a user
   constructor, or the temporary is zeroed (`xor eax,eax; stosb`). With `reset` and the destructor `throw()` no second EH state
