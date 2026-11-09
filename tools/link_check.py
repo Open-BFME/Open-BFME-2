@@ -856,6 +856,11 @@ def resolve(argument, index):
     return source, outputs[ROOT / source]
 
 
+# Which copy "first" means here is the census's link order (retail address), which the real link does not use.
+CENSUS_ORDER_NOTE = ("  note        these verdicts use the census's link order (retail address); the real link uses path order "
+                     "and may keep another copy (image_iso --kept-copies-only reads what an image kept)")
+
+
 def report(source, obj, result, index, now_bytes):
     census = index["blockers"].get(source or "", {})
     before = index["bytes"].get(source, 0) if census.get("linked") else 0
@@ -874,6 +879,8 @@ def report(source, obj, result, index, now_bytes):
         print(f"  comdat      {name}  ({rule}: {why})")
     for name in result["selected"]:
         print(f"  selected    {name}  (the definition the link keeps is not retail's)")
+    if result["comdat"] or result["selected"]:
+        print(CENSUS_ORDER_NOTE)
     if result["addresses"]:
         print(f"  addresses   {len(result['addresses'])} hard-coded image address(es), e.g. {result['addresses'][0]}")
     for entry in result.get("unreferenced_differs", ()):

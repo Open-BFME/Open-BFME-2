@@ -797,3 +797,39 @@ def test_deleted_source_second_copies_are_dropped_but_real_duplicates_and_sole_p
     assert not C.duplicate("moved", 0, True, 0, ix)          # no longer a duplicate of its leftover
     assert C.duplicate("real", 2, True, 2, ix)               # a real second definition is still charged
     assert C.in_census(ix, "b.obj")
+
+
+def order_note_case(capsys, **found):
+    result = dict(unresolved=[], duplicates=[], comdat=[], addresses=[], selected=[], **found)
+    index = dict(blockers={}, bytes={}, meta={})
+    clean = C.report("Code/a.cpp", Path("a.obj"), result, index, 10)
+    return clean, capsys.readouterr().out
+
+
+def test_the_order_note_goes_with_a_comdat_or_selected_verdict(capsys):
+    for found in (dict(comdat=[("?f@@YAXXZ", "first", None)]), dict(selected=["?f@@YAXXZ"])):
+        base = dict(comdat=[], selected=[])
+        base.update(found)
+        result = dict(unresolved=[], duplicates=[], addresses=[], **base)
+        assert C.report("Code/a.cpp", Path("a.obj"), result, dict(blockers={}, bytes={}, meta={}), 10) is False
+        out = capsys.readouterr().out
+        assert out.count("census's link order") == 1 and "kept-copies-only" in out
+
+
+def test_the_order_note_changes_no_verdict_and_stays_off_a_clean_file(capsys):
+    clean, out = order_note_case(capsys)
+    assert clean is True and "census's link order" not in out and "LINKS" in out
+
+
+def test_the_order_note_stays_off_other_blockers(capsys):
+    result = dict(unresolved=["_x"], duplicates=["_y"], comdat=[], addresses=["0x400000"], selected=[])
+    assert C.report("Code/a.cpp", Path("a.obj"), result, dict(blockers={}, bytes={}, meta={}), 10) is False
+    assert "census's link order" not in capsys.readouterr().out
+
+
+def test_the_summary_line_other_tools_parse_is_unchanged(capsys):
+    result = dict(unresolved=[], duplicates=[], comdat=[("?f@@YAXXZ", "first", None)], addresses=[], selected=[])
+    C.report("Code/a.cpp", Path("a.obj"), result, dict(blockers={}, bytes={}, meta=dict(date="d", commit="c")), 10)
+    first = capsys.readouterr().out.splitlines()[0]
+    assert first == "Code/a.cpp: does not link  LINKED 0 -> 0 bytes (census d at c; file's own bytes 10)"
+
