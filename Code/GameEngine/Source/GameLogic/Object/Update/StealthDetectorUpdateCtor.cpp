@@ -32,6 +32,8 @@ class Xfer;
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+// BitFlags<11> by value (the mask AIUpdate.h builds): the update-interface getter below.
+#include "../../../../Include/Common/BitFlags11.h"
 
 enum NameKeyType;
 
@@ -58,6 +60,12 @@ public:
 
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	// Update-interface slot 1 (retail table 0x00C51FB4): Zero Hour's held-only mask
+	// (DISABLED_HELD, bit 3), ICF-folded with AIUpdateInterface's at 0x004A2D67.
+	virtual DisabledMaskType getDisabledTypesToProcess() const
+	{
+		return DisabledMaskType(DisabledMaskType::kInit, 3);
+	}
 
 protected:
 	virtual void xfer(Xfer *xfer);
