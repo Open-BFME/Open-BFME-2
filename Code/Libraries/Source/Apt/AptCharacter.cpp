@@ -191,8 +191,7 @@ private:
 // AptCharacter.cpp workers. Native entries and ret12 prove complete148B
 // BD30..BDC3 and125B BDD0..BE4C extents. WB1780C70 guides dispatch semantics.
 // Type values, ID+18 and rectangle+8 are target accesses; no class name
-// or full layout is claimed. The callback is a private view of one gAptFuncs
-// slot at VA E177A8 whose retail initial word is zero, not its original owner.
+// or full layout is claimed. The callback is gAptFuncs' slot at VA E177A8.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
@@ -203,7 +202,7 @@ class BfmeThingDXH {public:void bfmeGoDXH(void*);};
 
 class BfmeThingXS {public:void bfmeApplyXS(void*,void*);};
 
-static void (__cdecl *drawShapeCallback)(unsigned int,void*)=0;
+extern void *g_aptDrawRenderingUnitSlot; // gAptFuncs.pfnDrawRenderingUnit at 0x00E177A8, filled by rva000ABA2F.
 
 struct Rva006EBD30 {int type;char unknown04[0x14];unsigned int shapeId;
  void render(AptRenderingContext*,void*,void*);
@@ -807,7 +806,7 @@ static __forceinline void aptAssert(const char*test,int line){g_bfmeAptAssertAtE
 void Rva006EBD30::render(AptRenderingContext *context,void *argument,void *matrix){
  if(matrix){context->pushVertexMatrix();((BfmeThingDXH*)context)->bfmeGoDXH(matrix);}
  switch(type){
- case 1:if(!shapeId)aptAssert("shape.zID",0x46);drawShapeCallback(shapeId,argument);break;
+ case 1:if(!shapeId)aptAssert("shape.zID",0x46);((void (__cdecl *)(unsigned int,void*))g_aptDrawRenderingUnitSlot)(shapeId,argument);break;
  case 11:break;
  default:aptAssert("NOT_REACHED",0x53);break;
  }
