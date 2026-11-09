@@ -51,3 +51,13 @@ The downloaded index's only users of the retired names are the repaired
 file; current Code contains none. The broader outgoing audit and newest
 real image must still establish global consumer and selection closure. No
 bridge retirement, headline linked-byte gain or game-running claim follows.
+
+Published as ec7c59c38f on attempt one in 33.5 seconds (3.0 rebase,
+30.5 hook/push). Normal publication gates and the post-publication native/
+object proof pass; all six claims are released. The broader audit remains
+INCONCLUSIVE at index 717b70f4ab/base
+cc83955e6f14216bc633356eef8b7298038cd9c8: unchanged consumer
+AptOnlineShellScreens.cpp lacks a current receipt. Carry it and the complete
+class/table work into the next census/image. The exact retired queue names
+receive deferred records so an old real-link queue does not repeat the
+landed array removal as untried work.

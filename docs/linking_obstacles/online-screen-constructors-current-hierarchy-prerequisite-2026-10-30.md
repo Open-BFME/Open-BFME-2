@@ -23,3 +23,8 @@ close the actual hierarchy/member-identity prerequisites above. Full index
 regeneration preserves all existing in-image bounds and explicit owners;
 its other cache metadata changes are not source recovery.
 [Native bindings, object proof and scope](../../reverse/attempt_support/custom-match-screen-tables-20261109/README.md).
+
+Published as ec7c59c38f, first attempt in 33.5 seconds. Post-publication
+proof passes and all six claims release. Broader audit is INCONCLUSIVE at
+717b70f4ab/base cc83955e6f because unchanged AptOnlineShellScreens.cpp lacks
+a current receipt. Actual image selection and full hierarchy remain open.
