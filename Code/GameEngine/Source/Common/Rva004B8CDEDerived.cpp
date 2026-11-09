@@ -11,15 +11,6 @@ class Xfer;
 #include "../../Include/GameLogic/Module/LockWeaponCreate.h"
 
 
-class Rva004B8DB1 : public CreateModule
-{
-public:
-	virtual ~Rva004B8DB1();
-};
-
-Rva004B8DB1::~Rva004B8DB1()
-{
-}
 
 class Rva004B8EA8 : public CreateModule
 {
