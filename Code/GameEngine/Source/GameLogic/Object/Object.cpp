@@ -462,7 +462,7 @@ class Rva00395F57 { public: bool canUnpack(bool flag); };
 
 class Rva00395686 { public: bool rva00395686(Player *player, ThingTemplate *tt); };
 
-class StancesBehavior { public: bool changeStance(int stance); };
+#include "../../../Include/GameLogic/StancesBehavior.h"
 
 NameKeyType Rva0045EE2CGet();
 
