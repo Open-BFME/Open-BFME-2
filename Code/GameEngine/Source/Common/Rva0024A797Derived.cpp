@@ -285,21 +285,7 @@ PickupStuffUpdate::~PickupStuffUpdate()
 {
 }
 
-class Rva0049506E_B2
-{
-public:
-	virtual void f2();
-};
 
-class AutoFindHealingUpdate : public UpdateModule, public MiBase1, public Rva0049506E_B2
-{
-public:
-	virtual ~AutoFindHealingUpdate();
-};
-
-AutoFindHealingUpdate::~AutoFindHealingUpdate()
-{
-}
 
 class Rva00495916_B2
 {

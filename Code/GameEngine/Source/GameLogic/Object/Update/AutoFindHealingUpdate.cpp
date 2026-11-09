@@ -274,6 +274,65 @@ private:
 	float m_alwaysHeal; // +0x14
 };
 
+class Rva00495183
+{
+public:
+	Object *rva00495183();
+};
+
+class Thing;
+
+class ModuleData;
+
+class Xfer;
+
+extern PartitionManager *ThePartitionManager;
+
+struct NearestQuerySettings {char prefix[0xC];float radius;};
+
+struct NearestQueryObjectHead {char prefix[4]; char *definition;};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+// StealthUpdate (retail module class, module_factory_registrations.csv): its
+// constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,
+// the shared 0x007EFF90 at +0xC, 0x00817F14 at +0x10) as this destructor,
+// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Rva0049506E_B2
+{
+public:
+	virtual void f2();
+};
+
 class AutoFindHealingUpdate : public UpdateModule
 {
 public:
@@ -289,12 +348,6 @@ private:
 	int m_20; // +0x20
 };
 
-class Rva00495183
-{
-public:
-	Object *rva00495183();
-};
-
 // UpdateModuleInterface::update's return type (UpdateModule.h): an int-sized
 // enum, returned in eax like an int.
 enum UpdateSleepTime
@@ -302,21 +355,23 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class Thing;
+// ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 
-class ModuleData;
+AutoFindHealingUpdate::~AutoFindHealingUpdate()
+{
+}
 
-class Xfer;
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
 
-extern PartitionManager *ThePartitionManager;
-
-struct NearestQuerySettings {char prefix[0xC];float radius;};
-
-struct NearestQueryObjectHead {char prefix[4]; char *definition;};
-
-// tu-skeleton: 0x0049506E 25B ??1AutoFindHealingUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00495087 6B ?GetSnapshotName@AutoFindHealingUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdate.cpp
 
@@ -363,8 +418,6 @@ AutoFindHealingUpdate::AutoFindHealingUpdate(Thing *thing, const ModuleData *mod
 {
 	m_20 = 0;
 }
-
-// tu-skeleton: 0x00495128 17B ?buildFieldParse@AutoFindHealingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva0049520BGate.cpp
 
@@ -422,3 +475,5 @@ Object *Rva00495183::rva00495183()
  }
  return best;
 }
+
+// tu-skeleton: 0x00495128 17B ?buildFieldParse@AutoFindHealingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
