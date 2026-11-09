@@ -5,7 +5,6 @@
 // BehaviorModule declaration it needs (BehaviorModule.h).
 #define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
-#pragma comment(linker, "/alternatename:??0ExperienceLevelCreateBase@@QAE@PAVThing@@PBVModuleData@@@Z=??0CreateModule@@QAE@PAVThing@@PBVModuleData@@@Z")
 //
 // Retail's BehaviorModule destructor is inline and empty: ~CreateModule 0x004B8CDE
 // keeps only the +0x10 store of CreateModule's own table, then restores

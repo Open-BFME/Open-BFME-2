@@ -1352,7 +1352,6 @@ name,address,notes
 ??0ElvenWoodSpecialPowerModuleData@@QAE@XZ,0x004C3DA9,frameless 75B ctor over pinned SpecialPower base 0x4930A0 with vtable 0xC5CF38 and vector member at +0x7C via 0x211E58 and float at +0x90 and zeros matching own table 0x85D018; sole raw caller is ModuleData factory 0x251CB4 which news 0x9C
 ??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B2516,(Thing*;ModuleData*) ctor called by EntEnragedUpdate::friend_newModuleInstance (0x0024FB47); class from the ModuleFactory registration literal
 ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B917B,(Thing*;ModuleData*) ctor called by ExperienceLevelCreate::friend_newModuleInstance (0x00250B92); class from the ModuleFactory registration literal
-??0ExperienceLevelCreateBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B8CF7,callee of 0ExperienceLevelCreate (0x004B917B) at the site its BFME1 donor calls it; may be an ICF alias
 ??0ExperienceScalarUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B61C6,(Thing*;ModuleData*) ctor called by ExperienceScalarUpgrade::friend_newModuleInstance (0x002503F6); class from the ModuleFactory registration literal
 ??0FXListDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x004865DD,(Thing*;ModuleData*) ctor called by FXListDie::friend_newModuleInstance (0x0024CAA8); class from the ModuleFactory registration literal
 ??0FakePathfindPortalBehaviourModuleData@@QAE@XZ,0x00372DB8,ctor call in the byte-true FakePathfindPortalBehaviour data factory (ModuleFactory registers it under "FakePathfindPortalBehaviour")

@@ -2821,7 +2821,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b6@B6@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b7@B7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b8@B8@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	??0ExperienceLevelCreateBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	?f1@Rva0048593D_Mid@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	?f2@Rva0048593D_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp	?f2@Rva0045CE6D_B2@@UAEXXZ	1
@@ -7812,7 +7811,6 @@ pin	reverse/symbols.csv	0x004B7CBC	1
 pin	reverse/symbols.csv	0x004B7F82	1
 pin	reverse/symbols.csv	0x004B87E3	1
 pin	reverse/symbols.csv	0x004B8C0E	1
-pin	reverse/symbols.csv	0x004B8CF7	1
 pin	reverse/symbols.csv	0x004B8D81	1
 pin	reverse/symbols.csv	0x004B8E78	1
 pin	reverse/symbols.csv	0x004B8F62	1
