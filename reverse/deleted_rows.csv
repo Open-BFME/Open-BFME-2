@@ -5988,3 +5988,4 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?rva003FD1C5@Rva003FD1C5@@MAEXPAVXfer@@@Z,0x003FD1C5,"Renamed to ?xfer@Rva002B3092@@MAEXPAVXfer@@@Z by tools/rename.py (to-class: retail vftable 0x00BFE008 slot 3)"
 ?rva0020E39D@Rva0020E39D@@QAE_NPAVRva003F409F@@@Z,0x0020E39D,"Renamed to ?rva0020E39D@Rva0020E394@@UAE_NPAVRva003F409F@@@Z by tools/rename.py (to-class: retail vftable 0x00BE4320 slot 0)"
 ?rva003F82F4@Rva003F82F4@@QAE_NPAVRva003F409F@@@Z,0x003F82F4,"Renamed to ?rva003F82F4@Rva003F82E2@@UAE_NPAVRva003F409F@@@Z by tools/rename.py (to-class: retail vftable 0x00C37310 slot 0)"
+?shouldExit@Rva00545B72@@QAE_NH@Z,0x00545B72,"Renamed to ?shouldExit@Rva00545D43@@UAE_NH@Z by tools/rename.py (to-class: retail vftable 0x00C6A13C slot 0)"

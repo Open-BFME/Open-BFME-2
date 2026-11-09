@@ -99,15 +99,15 @@ void Rva005277BA::rva005277BA()
 
 // slot at VA 0x00C6A13C: true once TheGameLogic's frame reaches +0x04; the
 // argument is unused.
-class Rva00545B72
+// Slot 0 of Rva00545D43's one-slot table 0x00C6A13C (constructor in RvaSmallVtableCtors.cpp).
+class Rva00545D43
 {
 public:
-	Bool shouldExit(Int unused);
+	virtual Bool shouldExit(Int unused);
 private:
-	char m_pad00[0x04];
 	UnsignedInt m_04;
 };
-Bool Rva00545B72::shouldExit(Int unused)
+Bool Rva00545D43::shouldExit(Int unused)
 {
 	if (TheGameLogic->getFrame() < m_04)
 		return false;

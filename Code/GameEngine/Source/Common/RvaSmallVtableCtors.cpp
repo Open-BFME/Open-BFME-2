@@ -1049,11 +1049,12 @@ Rva004103DA::Rva004103DA()
 }
 
 // ??0Rva00545D43@@QAE@XZ @0x00545D43 13B, vtable VA 0x00c6a13c
+// Retail's one-slot table holds 0x00545B72 (VslotSmallBodiesF.cpp).
 class Rva00545D43 : public RvaSmallVtableZeroBase
 {
 public:
 	Rva00545D43();
-	virtual ~Rva00545D43() {}
+	virtual bool shouldExit(int unused);
 };
 
 Rva00545D43::Rva00545D43()
