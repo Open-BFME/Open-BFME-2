@@ -233,3 +233,5 @@ ModuleDataBuildFieldParse.cpp references the real table in the approved Assisted
 TU, replacing the dummy char. Reuses TheWeaponSlotTypeNamesLookupList at C00698;
 no second list or pins. Both sources retain95/95 rows,11 data rows,3EXACT EH
 and63 native table slots. [Proof and remaining move](../../reverse/attempt_support/assisted-fieldparse-native-20261106/README.md).
+
+Update (2026-11-09, static-defects P7b): the three effect getters (0x00309E4B, 0x00309E65, 0x00309E7F) now return their real globals through a relocation, and the blocks are defined `extern "C"` under the ledger's names. Remaining census blocker in this file: 1 hard-coded image address, 0x00E032DC in `Rva00433B18Get`, whose `g_Va00E032DC` has a ledger owner and no data row, so no naming route reaches it until P13's tool request 1 (`reverse/attempt_support/p13_static_defects/readme.md`).

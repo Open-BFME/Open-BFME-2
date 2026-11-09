@@ -169,30 +169,33 @@ extern const int g_emptyFieldParseTable[4];
 // Follows the rep-movsd table copier at 0x309E30 (9 dwords
 // 0xDBD7B8->0xDBD7DC, ret at 0x309E4A) and returns the filled table's
 // address; a larger push-style function starts at 0x309E51. 28 direct E8
-// callers, Ghidra-6, no branch sources. The value is carried as a plain
-// integer literal (no relocation slot exists here), so no pin is needed.
+// callers, Ghidra-6, no branch sources. The value is the
+// address of s_glowEffectActive (Drawable_Rva00309fb3.cpp), through a relocation.
 // Opaque address-derived name.
+extern "C" char s_glowEffectActive;
 int Rva00309E4BGet(void)
 {
-	return 0x00DBD7DC;
+	return reinterpret_cast<int>(&s_glowEffectActive);
 }
 
 // ?Rva00309E65Get@@YAHXZ @ 0x00309E65 (6B): returns 0x00DBD860.
 // Same copier/getter pair shape as 0x309E4B (rep movsd into 0xDBD860,
 // ret at 0x309E64, larger function follows at 0x309E6B). 13 direct E8
 // callers, Ghidra-6, no branch sources. Opaque address-derived name.
+extern "C" char s_ringEffectActive;
 int Rva00309E65Get(void)
 {
-	return 0x00DBD860;
+	return reinterpret_cast<int>(&s_ringEffectActive);
 }
 
 // ?Rva00309E7FGet@@YAHXZ @ 0x00309E7F (6B): returns 0x00DBD918.
 // Third copier/getter pair in the run (rep movsd into 0xDBD918, ret at
 // 0x309E7E). 11 direct E8 callers, Ghidra-6, no branch sources.
 // Opaque address-derived name.
+extern "C" char s_fireEffectActive;
 int Rva00309E7FGet(void)
 {
-	return 0x00DBD918;
+	return reinterpret_cast<int>(&s_fireEffectActive);
 }
 
 
