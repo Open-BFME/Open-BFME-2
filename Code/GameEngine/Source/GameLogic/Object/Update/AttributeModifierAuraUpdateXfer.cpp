@@ -31,27 +31,8 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-#include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-class AttributeModifierAuraUpdate;
-
-class UpgradeMux
-{
-	friend class AttributeModifierAuraUpdate;
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-private:
-	bool m_upgradeExecuted;
-};
-
-class AttributeModifierAuraUpdate : public UpdateModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	UpgradeMux m_20;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdate.h"
 
 // ?xfer@AttributeModifierAuraUpdate@@MAEXPAVXfer@@@Z @0x0049B66B
 void AttributeModifierAuraUpdate::xfer(Xfer *xfer)
@@ -65,5 +46,5 @@ void AttributeModifierAuraUpdate::xfer(Xfer *xfer)
 	*xfer == version;
 
 	if (version.m_minimum >= 2)
-		m_20.UpgradeMux::upgradeMuxXfer(xfer);
+		UpgradeMux::upgradeMuxXfer(xfer);
 }

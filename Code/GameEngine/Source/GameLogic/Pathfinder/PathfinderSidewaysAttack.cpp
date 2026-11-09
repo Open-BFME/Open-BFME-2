@@ -281,13 +281,7 @@ void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
 class Rva001E46E1 { public: float rva001E46E1(Object *); };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class Bridge {
-public:
-bool isPointOnBridge(const Coord3D *pos);
-float getBridgeHeight(const Coord3D *pos, Coord3D *normal);
-void *m_00;
-Bridge *m_next;
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 struct Rva002ED236Pos {
 float x, y, z;
 Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }

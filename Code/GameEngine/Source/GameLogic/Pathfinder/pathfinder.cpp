@@ -567,13 +567,7 @@ struct PathCollisionInfo {
 struct PathCollisionCell { PathCollisionInfo *info; };
 // Native bridge list links at +4; height and containment use existing
 // independently admitted Bridge providers from the terrain-logic family.
-class Bridge {
-public:
-    bool isPointOnBridge(const Coord3D *pos);
-    float getBridgeHeight(const Coord3D *pos, Coord3D *normal);
-    void *m_00;
-    Bridge *m_next;
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 struct Rva002ED236Pos {
     float x, y, z;
     Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
