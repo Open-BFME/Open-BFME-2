@@ -242,6 +242,7 @@ public:
 };
 
 // These virtual members use the existing container providers.
+template <> bool VectorClassWide<TextureStatisticsStructWide>::Resize(int, const TextureStatisticsStructWide *);
 template <> int VectorClassWide<TextureStatisticsStructWide>::ID(const TextureStatisticsStructWide &);
 template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::operator==(const VectorClass &) const;
 template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Resize(int, const Render2DSentenceClass::PendingSurfaceStruct *);
