@@ -1159,16 +1159,18 @@ def test_a_base_entry_naming_another_class_refuses(tree, monkeypatch):
 
 
 def test_a_compiled_copy_naming_another_slot_refuses(tree, monkeypatch):
+    # slot 0 agrees with retail and slot 1 reaches another body: a wrong identity, bridged or not
     compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP]}}
     _base(monkeypatch, [BASE], compiled=compiled)
-    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(STOP)}"):
+    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(STOP)}.*a wrong identity"):
         plan(tree)
 
 
 def test_a_prepared_installer_unit_is_judged_after_the_build(tree, monkeypatch):
-    # Other.cpp's object still names the placeholder at slot 1; --prepared corrects its view, so planning must not
+    # Other.cpp's object still names another body at slot 1; --prepared corrects its view, so planning must not
     # judge the old object (the post-build check reads it once rebuilt)
-    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", OLD]}}
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP]}}
     _base(monkeypatch, [BASE], compiled=compiled)
     edits = {"Code/Game/Bits.cpp": BITS_PREPARED.encode(),
              "Code/Game/Other.cpp": b"class Widget { public: virtual void spin(); };\n"
@@ -1178,10 +1180,59 @@ def test_a_prepared_installer_unit_is_judged_after_the_build(tree, monkeypatch):
     assert done.to_class["bases"][0]["sources"] == ["Code/Game/Other.cpp"]
 
 
-def test_an_unprepared_installer_naming_the_placeholder_refuses(tree, monkeypatch):
+def test_an_unprepared_installer_naming_another_body_refuses(tree, monkeypatch):
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(STOP)}"):
+        plan(tree)
+
+
+def test_a_copy_naming_the_placeholder_names_the_moved_body(tree, monkeypatch):
+    # the old spelling is the moved row itself, which the rename respells in every source that names it
     compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", OLD]}}
     _base(monkeypatch, [BASE], compiled=compiled)
-    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(OLD)}"):
+    plan(tree)
+
+
+def test_a_copy_reaching_the_body_through_an_alternatename_names_it(tree, monkeypatch):
+    alias = "?alias@Other@@UAEXXZ"
+    (tree / "Code/Game/Other.cpp").write_text(
+        OTHER + f'#pragma comment(linker, "/alternatename:{alias}={OLD}")\n')
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", alias]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    plan(tree)
+
+
+BROKEN = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP, STOP]}}
+
+
+def test_a_copy_broken_elsewhere_passes_with_a_report_while_its_table_is_bridged(tree, monkeypatch):
+    _base(monkeypatch, [BASE], compiled=BROKEN)
+    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    done = plan(tree)
+    assert any("already differs from retail table 0x00C10000 at slot(s) 2" in w and "reported, not refused" in w
+               for w in done.warnings)
+
+
+def test_a_copy_broken_elsewhere_refuses_when_its_table_is_not_bridged(tree, monkeypatch):
+    _base(monkeypatch, [BASE], compiled=BROKEN)
+    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {0x00820000}))
+    with pytest.raises(Refusal, match="real link abc does not bridge it"):
+        plan(tree)
+
+
+def test_a_copy_broken_elsewhere_refuses_when_the_bridge_queue_cannot_be_read(tree, monkeypatch):
+    _base(monkeypatch, [BASE], compiled=BROKEN)
+    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: None)
+    with pytest.raises(Refusal, match="bridge queue could not be read"):
+        plan(tree)
+
+
+def test_a_copy_where_nothing_else_resolves_refuses(tree, monkeypatch):
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?a@Other@@UAEXXZ", "?b@Other@@UAEXXZ"]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    with pytest.raises(Refusal, match="nothing else in it resolves"):
         plan(tree)
 
 
