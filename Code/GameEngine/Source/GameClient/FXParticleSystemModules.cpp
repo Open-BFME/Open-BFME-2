@@ -535,17 +535,19 @@ public:
     virtual typename TAG::TemplateType *createTemplate() const;
     virtual typename TAG::TemplateType *createTemplate(::INI *ini) const;
 
-private:
-    // Private, and its only caller is the class's own single instance - which is
-    // how a self-registering singleton is written, and the only way a private
-    // constructor gets called at all.
-    ConcreteModuleClass();
+    // Retail's instance is a function-local static in getInstance
+    // (NamedModuleClassInstances.cpp), whose atexit thunk calls this.
+    ~ConcreteModuleClass();
 
-    static ConcreteModuleClass<TAG> s_instance;
+private:
+    // Private: its callers are getInstance's, built lazily from staticInitModules.
+    ConcreteModuleClass();
 };
 
 template <class TAG>
-ConcreteModuleClass<TAG> ConcreteModuleClass<TAG>::s_instance;
+ConcreteModuleClass<TAG>::~ConcreteModuleClass()
+{
+}
 
 template <class TAG>
 ConcreteModuleClass<TAG>::ConcreteModuleClass()
