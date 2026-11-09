@@ -58881,7 +58881,7 @@ __ehhandler$?rva00072A51@Rva00072A51@@UAEXVRva00072A94@@@Z,,0x0075EDA5,10,Code/G
 ?rva00391A70@BuildAssistant@@UAE_NPBVThingTemplate@@PBVObject@@@Z,,0x00391A70,49,Code/GameEngine/Source/Common/System/BuildAssistant.cpp,matched,BuildAssistant vslot 23 checking whether both whatToBuild and builder have kind 156
 ?rva003A262C@TeamFactory@@QAEXXZ,,0x003A262C,45,Code/GameEngine/Source/Common/RTS/Team.cpp,matched,TeamFactory iteration invoking TeamPrototype::rva003A21E7 across all prototype entries
 ?rva003AFDF1@Rva003AFDAA@@QAEXXZ,,0x003AFDF1,51,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,Drains singly-linked CPUParticle free list at +4 via virtual dtor + operator delete
-?rva003F82F4@Rva003F82F4@@QAE_NPAVRva003F409F@@@Z,,0x003F82F4,27,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,Compares m_val (+4) against Rva003F409F::rva003F409F result when non-null
+?rva003F82F4@Rva003F82E2@@UAE_NPAVRva003F409F@@@Z,,0x003F82F4,27,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,Compares m_val (+4) against Rva003F409F::rva003F409F result when non-null
 ?hasBeenDefeated@VictoryConditions@@UAE_NPAVPlayer@@@Z,,0x0041FF6E,63,Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp,matched,VictoryConditions::hasBeenDefeated checking player mask against VictoryConditions::update result
 ?rva00421749@@YAXPAVINI@@PAX1PBX@Z,,0x00421749,27,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,INI FieldParse callback reading IndexList via INI::parseIndexList into vector::push_back
 ?rva00426572@EmotionSystem@@QAEXXZ,,0x00426572,14,Code/GameEngine/Source/Common/EmotionSystem.cpp,matched,EmotionSystem wrapper forwarding this + 4 to Rva00425BA5::rva00425BA5

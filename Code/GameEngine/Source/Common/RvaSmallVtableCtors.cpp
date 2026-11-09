@@ -193,11 +193,13 @@ Rva003F424F::Rva003F424F(void *payload) : m_04(payload)
 }
 
 // ??0Rva003F82E2@@QAE@PAX@Z @0x003F82E2 18B, vtable VA 0xc37310
+// Retail's one-slot table holds 0x003F82F4 (VslotSmallBodiesAG.cpp).
+class Rva003F409F;
 class Rva003F82E2
 {
 public:
 	Rva003F82E2(void *payload);
-	virtual ~Rva003F82E2() {}
+	virtual bool rva003F82F4(Rva003F409F *arg);
 private:
 	void *m_04;
 };

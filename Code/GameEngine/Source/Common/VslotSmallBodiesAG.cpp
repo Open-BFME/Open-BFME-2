@@ -248,15 +248,15 @@ struct Rva003F82F4Sub04
 	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
 	virtual bool v12(Rva003F409F *arg);
 };
-class Rva003F82F4
+// Slot 0 of Rva003F82E2's one-slot table 0x00C37310 (constructor in RvaSmallVtableCtors.cpp).
+class Rva003F82E2
 {
 public:
-	bool rva003F82F4(Rva003F409F *arg);
+	virtual bool rva003F82F4(Rva003F409F *arg);
 private:
-	Int m_00;
 	Rva003F82F4Sub04 *m_04;
 };
-bool Rva003F82F4::rva003F82F4(Rva003F409F *arg)
+bool Rva003F82E2::rva003F82F4(Rva003F409F *arg)
 {
 	arg->rva003F409F(m_04->v12(arg));
 	return true;
