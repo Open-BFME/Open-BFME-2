@@ -17,3 +17,8 @@ preserve its67-byte operation before removing that private view. Other class
 lifetimes, accessors and static-table identity work are still open. The prior
 BfmeConv975.cpp receipt gap is carried forward; census/image confirmation is
 pending and this source cleanup establishes no new runtime outcome.
+
+2026-11-09 follow-up: the separate ModuleInfo provider in SetCopiedFromDefault
+now adopts its canonical header while preserving the67B inline provider,
+unsigned loop, three native rows and exact EH. Its header queue row is retired;
+the consumer preview retains306 bytes. [Provider adoption and remaining class scope](moduleinfo-copied-provider-header-adoption-20261109.md).

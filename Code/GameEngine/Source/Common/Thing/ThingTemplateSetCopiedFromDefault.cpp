@@ -12,30 +12,13 @@ struct TemplateOwnedArmorRecord { ThingTemplate *owner; char m_opaque[0x368-4]; 
 // vector (copiedFromDefault at +0x10, idiv-by-20 size per iteration); this unit's four calls are
 // its only retail callers, so it is emitted here rather than by ThingTemplate.cpp.
 class ModuleData;
-class ModuleInfo
+#include "../../../Include/Common/ModuleInfoClass.h"
+
+inline void ModuleInfo::setCopiedFromDefault(bool value)
 {
-public:
-	struct Nugget
-	{
-		AsciiString first;
-		AsciiString m_moduleTag;
-		const ModuleData *second;
-		int interfaceMask;
-		bool copiedFromDefault;
-		bool inheritable;
-		bool overrideableByLikeKind;
-	};
-	unsigned int size() const { return m_end - m_begin; }
-	void setCopiedFromDefault(bool v)
-	{
-		for (int i = 0; i < size(); i++)
-			m_begin[i].copiedFromDefault = v;
-	}
-private:
-	Nugget *m_begin;
-	Nugget *m_end;
-	Nugget *m_storage;
-};
+	for (int i = 0; i < static_cast<unsigned int>(getCount()); ++i)
+		m_begin[i].copiedFromDefault = value;
+}
 
 #include "../../../Include/Common/ThingTemplate.h"
 
