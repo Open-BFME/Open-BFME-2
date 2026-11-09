@@ -6230,7 +6230,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1InheritUpgradeCreate@@UAE@XZ,,0x004B9458,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
 ??1HighlanderBody@@UAE@XZ,,0x004C07B1,25,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,matched,HighlanderBody destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085B390 slot 0 is the rowed HighlanderBody::attemptDamage 0x004C082B; was opaque Rva004C07B1
 ??1Rva004C089E@@UAE@XZ,,0x004C089E,25,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,opaque MI dtor
-??1Rva004C0988@@UAE@XZ,,0x004C0988,25,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,opaque MI dtor
+??1Rva004C0988@@UAE@XZ,,0x004C0988,25,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,matched,opaque MI dtor
 ??1Rva004C0A4C@@UAE@XZ,,0x004C0A4C,25,Code/GameEngine/Source/Common/Rva004BF951Derived.cpp,matched,opaque MI dtor odd secondary
 ??1Rva004C131B@@UAE@XZ,,0x004C131B,25,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,opaque MI dtor
 ??1OathbreakerBody@@UAE@XZ,,0x004C1EF7,25,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBody.cpp,matched,OathbreakerBody destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085C180 slot 0 is the rowed OathbreakerBody::attemptDamage 0x004C1F71; was opaque Rva004C1EF7
@@ -11182,7 +11182,7 @@ _VP6_DeletePBInstance,,0x001B56A0,66,Code/Libraries/Source/VP6/PbInstanceTeardow
 ??1ProgressIndicator@@UAE@XZ,,0x00355C77,23,Code/GameEngine/Source/Common/ProgressIndicator.cpp,matched,BFME1 donor trimmed to dtor; b1 0x004902A0; list head at 0xE01E1C
 ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x0018B4F0,245,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,BFME1 meshmdlio port as bool reader family with inline 16B MatInfo Read plus CurMatDesc PassCount store and 3 switch-case pins same commit
 ?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ,,0x00620870,63,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,BFME1 byte-identical donor; b1 0x009EDD30
-??_GRva004C0988@@UAEPAXI@Z,,0x004C09FA,28,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
+??_GRva004C0988@@UAEPAXI@Z,,0x004C09FA,28,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva004DF324@@UAEPAXI@Z,,0x004DF480,28,Code/GameEngine/Source/Common/Rva004DF324Dtor.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva005D7C17@@UAEPAXI@Z,,0x005D7C22,28,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva005D7531@@UAEPAXI@Z,,0x005D753C,28,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH

@@ -47,21 +47,7 @@ Rva004C089E::~Rva004C089E()
 {
 }
 
-class Rva004C0988_B2
-{
-public:
-	virtual void f2() = 0;
-};
 
-class Rva004C0988 : public Rva004BF951, public MiBase1, public Rva004C0988_B2
-{
-public:
-	virtual ~Rva004C0988();
-};
-
-Rva004C0988::~Rva004C0988()
-{
-}
 
 class Rva004C131B_B2
 {
