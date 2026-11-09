@@ -289,6 +289,7 @@ public:
 	void Rva0048BDF8Helper();
 
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	UpdateSleepTime rva0048BA3E();
@@ -302,6 +303,13 @@ private:
 	_STL::list<int> m_entries; // +0x24
 	Bool m_entriesReady; // +0x28
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void FireWeaponUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 struct Rva0048B95FTracked;
 // The watch-list value; its dtor is rowed at 0x0048B95F (Rva0048B95FDtor.cpp).
 class Rva0048B95F

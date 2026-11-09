@@ -30,6 +30,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
@@ -41,6 +42,13 @@ private:
 	float m_2C;
 	int m_30;
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void HeightDieUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 // ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x48FCB2
 HeightDieUpdate::HeightDieUpdate(Thing *thing, const ModuleData *moduleData)

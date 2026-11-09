@@ -57,10 +57,18 @@ public:
 	// retail slot 4: the rowed ?getModuleNameKey@BloodthirstyUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void BloodthirstyUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 BloodthirstyUpdate::~BloodthirstyUpdate()
 {

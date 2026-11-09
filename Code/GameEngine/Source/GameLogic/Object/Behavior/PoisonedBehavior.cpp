@@ -181,6 +181,7 @@ public:
 	void rva00483083(); // stopPoisonedEffects
 protected:
 	virtual ~PoisonedBehavior();
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	void startPoisonedEffects(const DamageInfo *damageInfo);
@@ -193,6 +194,13 @@ private:
 	float m_poisonDamageAmount;		// +0x2C
 	int m_deathType;			// +0x30
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void PoisonedBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

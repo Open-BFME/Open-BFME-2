@@ -66,6 +66,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
@@ -74,6 +75,13 @@ private:
 	bool m_awardInitialCaptureBonus; // +0x24
 	bool m_initialized; // +0x25
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void AutoDepositUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 // ??0AutoDepositUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x49A20F
 AutoDepositUpdate::AutoDepositUpdate(Thing *thing, const ModuleData *moduleData)

@@ -166,7 +166,7 @@ private:
 };
 
 // Retail 0x00C406D4 (13 slots): deleting dtor 0x00456270, loadPostProcess
-// 0x00497805 (`jmp 0x0058B03E`, UpdateModule's own; inherited here), the name
+// 0x00497805 (`jmp 0x0058B03E`, the class's UpdateModule base call), the name
 // getter 0x004561BB ("BuildingBehavior"), xfer 0x004562C0, getModuleNameKey
 // 0x004561C1, then UpdateModule's slots. 0x00C406C8: update 0x004562F8, then
 // UpdateModule's.
@@ -181,6 +181,7 @@ public:
 	void rva0045628C(const BuildingWindowList *names, Drawable *draw, int state);
 
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
@@ -188,6 +189,13 @@ private:
 	bool m_field20; // +0x20
 	bool m_field21; // +0x21
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every UpdateModule-family override without work of its own shares (ICF).
+void BuildingBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 

@@ -48,9 +48,17 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the CollideModule base call that
+// every module-family override without work of its own shares (ICF).
+void SquishCollide::loadPostProcess()
+{
+	CollideModule::loadPostProcess();
+}
 
 // ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z @0x4BB9CF
 SquishCollide::SquishCollide(Thing *thing, const ModuleData *moduleData)

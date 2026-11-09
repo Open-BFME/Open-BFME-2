@@ -111,12 +111,20 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
 	virtual ~CritterEmitterUpdate();
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 private:
 	bool m_24;
 	bool m_25;
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void CritterEmitterUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 const char *CritterEmitterUpdate::GetSnapshotName() const
 {

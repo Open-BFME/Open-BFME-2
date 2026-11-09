@@ -186,10 +186,18 @@ private:
 	bool loaded;
 	unsigned char enabled;
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
 };
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
+// every module-family override without work of its own shares (ICF).
+void AIGateUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 const char *AIGateUpdate::GetSnapshotName() const
 {
