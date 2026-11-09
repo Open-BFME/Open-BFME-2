@@ -16,7 +16,6 @@ typedef bool Bool;
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 #include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-
 // ?getModuleNameKey@ExperienceLevelCreate@@UBE?AW4NameKeyType@@XZ @0x4B91AB
 // (69B): cached pool-name key for ExperienceLevelCreate. The class
 // identity comes from the pool-name string the body pushes
@@ -31,24 +30,9 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-//
-// ??0ExperienceLevelCreateModuleData@@QAE@XZ, retail 0x004B9220, 17 bytes.
-// Trivial frameless ctor: or -1 into +8 first, then the compiler's store
-// of the 31-slot table 0x00C595E8, then false at +0xC. Table 0xC595B4
-// holds LevelToGrant@8 MPOnly@C; factory 0x250BCA news 0x10. The class
-// derives from the canonical ModuleData (module tag at +4); retail's table
-// differs from ModuleData's 0x00C4ED70 only in slot 9 (0x0050B5C6, true),
-// which GrantUpgradeCreateModuleData's 0x00C594E0 leaves false, so the
-// override is this class's. Slot 0 is the generic deleting destructor
-// 0x004A10FD (an ICF fold), which the implicit destructor reproduces.
-
 #include "../../../../Include/Common/ModuleData.h"
-
 class ExperienceLevelCreateModuleData : public ModuleData
 {
 public:
@@ -59,11 +43,8 @@ public:
 	int m_levelToGrant;		// +0x08
 	unsigned char m_mpOnly;		// +0x0C
 };
-
 class ModuleData;
-
 class Object;
-
 class ModuleBase
 {
 public:
@@ -72,23 +53,12 @@ protected:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
+// Open-BFME5: ExperienceLevelCreate module ctor.
+// Out-of-line base MI, then three most-derived vtbls at +0/+0xC/+0x10.
 
-
-class ExperienceLevelCreate : public CreateModule
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void onBuildComplete();
-	void rva004B9201();
-	const ExperienceLevelCreateModuleData *getData() const
-	{
-		return (const ExperienceLevelCreateModuleData *)m_moduleData;
-	}
-};
+class Thing;
 
 extern GameLogic *TheGameLogic;
 
@@ -102,9 +72,51 @@ public:
 	char bfmeCall939D();
 };
 
-// tu-skeleton: 0x004B917B 42B ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreateCtorThunk.cpp (not merged yet)
+class ExperienceLevelCreate : public CreateModule
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+public:
+	virtual void onBuildComplete();
+public:
+	void rva004B9201();
+public:
+	const ExperienceLevelCreateModuleData *getData() const
+	{
+		return (const ExperienceLevelCreateModuleData *)m_moduleData;
+	}
+public:
+	ExperienceLevelCreate(Thing *thing, const ModuleData *moduleData);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreateCtorThunk.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
+
+// ExperienceLevelCreate derives from CreateModule (as in ExperienceLevelCreate.cpp): its
+// getCreate fills behavior-interface slot 3 (0x002533D3) and its +0x10 table is
+// CreateModuleInterface's.
+
+// ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z
+ExperienceLevelCreate::ExperienceLevelCreate(Thing *thing, const ModuleData *moduleData)
+	: CreateModule(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x004B91A5 6B ?Rva004B91A5Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp
+
+//
+// ??0ExperienceLevelCreateModuleData@@QAE@XZ, retail 0x004B9220, 17 bytes.
+// Trivial frameless ctor: or -1 into +8 first, then the compiler's store
+// of the 31-slot table 0x00C595E8, then false at +0xC. Table 0xC595B4
+// holds LevelToGrant@8 MPOnly@C; factory 0x250BCA news 0x10. The class
+// derives from the canonical ModuleData (module tag at +4); retail's table
+// differs from ModuleData's 0x00C4ED70 only in slot 9 (0x0050B5C6, true),
+// which GrantUpgradeCreateModuleData's 0x00C594E0 leaves false, so the
+// override is this class's. Slot 0 is the generic deleting destructor
+// 0x004A10FD (an ICF fold), which the implicit destructor reproduces.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp
 
@@ -127,8 +139,6 @@ ExperienceLevelCreateModuleData::ExperienceLevelCreateModuleData()
 	m_mpOnly = 0;
 }
 
-// tu-skeleton: 0x004B91F0 17B ?buildFieldParse@ExperienceLevelCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreateOnBuildComplete.cpp
 
 void ExperienceLevelCreate::rva004B9201()
@@ -142,3 +152,5 @@ void ExperienceLevelCreate::onBuildComplete()
 	if (!getData()->m_mpOnly || ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D())
 		rva004B9201();
 }
+
+// tu-skeleton: 0x004B91F0 17B ?buildFieldParse@ExperienceLevelCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
