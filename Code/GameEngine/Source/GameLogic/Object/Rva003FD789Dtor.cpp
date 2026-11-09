@@ -4,6 +4,7 @@
 // Same recipe as PillageModuleDataDtor, using the shared Snapshot base header
 // and an empty derived body.
 // Unblocks ??_G at 0x003FD82D.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 #include "ascii_string.h"
@@ -18,10 +19,22 @@ private:
 	char m_pad10[12];
 	AsciiString m_1c;
 protected:
+	// Retail's table 0x00C37D78: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name getter.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	// retail slot 3: the rowed ?xfer@Rva003FD789@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
 };
 
 Rva003FD789::~Rva003FD789()
 {
+}
+
+void Rva003FD789::loadPostProcess()
+{
+}
+
+const char *Rva003FD789::GetSnapshotName() const
+{
+	return "LivingWorldAnimObject";
 }

@@ -5982,3 +5982,4 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?g_Va0130A58D@@3EA,0x00A09FA9,"Renamed to ?g_createdDefaultDiagReporter@@3EA by tools/rename.py (inferred)"
 ?Rva004F05BAGet@@YAHXZ,0x004F05BA,"Respelled as ?GetSnapshotName@AIPlayer@@MBEPBDXZ: retail vtable 0x00C62DC8 slot 2 holds this 6-byte getter, which returns the class name literal at VA 0x00C62E34. The real member is rowed in AIPlayerCtor.cpp."
 ?rva00605CFB@LocalFile@@UAE_NPBDH@Z,0x00605CFB,"Respelled as ?open@LocalFile@@UAE_NPBDH@Z: retail table 0x0087AB28 slot 1 holds this body and File.h declares open at slot 1."
+?Rva003FD783Get@@YAHXZ,0x003FD783,"Respelled as ?GetSnapshotName@Rva003FD789@@MBEPBDXZ: retail vtable 0x00C37D78 slot 2 holds this 6-byte getter, which returns the class name literal at VA 0x00C37D88."
