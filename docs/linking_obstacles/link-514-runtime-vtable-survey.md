@@ -2045,3 +2045,53 @@ lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`) before the first spli
   3. AutoDepositUpdate, HeightDieUpdate and ProjectileStreamUpdate: declare the destructor in the TU's view (its
      class-scope claim first), then split; StealthUpdate and HijackerUpdate need their `bytes` cause read.
   4. CombineHorde's clean split; the `--split` carry of unused private views and blank lines (lk83 lead 3).
+
+**The prepared fold into an unregistered class: SalvageCrateCollide folded, five dead hatches gone (2026-11-09, seat
+halilkkaya-lk85, base `38ca5372077`).** Method: lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`) before and
+after the fold; the objects' symbol tables, lk83's object diff, consumer link_check and scoped DIR32 for each change.
+- Hatches (commit "Rva0024A797Derived.cpp: drop five dead /alternatename hatches"): the five `?f2@` lines of
+  Rva00486E18/00491DD3/0049506E/00495916/004B89C4 `_B2` were dead. No object in a full build has a COFF symbol for any
+  target (the grab-bag's only copy is its .drectve string; control: the live `?f2@Rva0033EEC9_B2` is a symbol there),
+  and the census index (`8757e1736a`) shows only the pre-split grab-bag touching them. alternatename 2,694 -> 2,689;
+  object unchanged but .drectve; the grab-bag and the six receiving TUs: 7 of 7 LINK.
+- rename.py verdict (commit "rename.py class --fold: a prepared unit may fold two views into an unregistered NEW (layout
+  held)"): lk84's refusal was false for a unit whose two views are one class. The `--prepared` limit was a scope choice
+  (ea1cc82ec28, 6221facaeb5), not a protection. An unregistered global NEW may now come prepared: every unit spelling
+  OLD prepared, OLD spelled nowhere, no prepared unit spelling no OLD, no body of a registered class added, and the
+  compiler's record (`view_layouts`: sizeof, vfptr, bases, fields, introduced slots) equal for OLD's and NEW's views
+  before the fold and for NEW's after the build (every file restored otherwise). 13 new or rewritten cases in
+  test_rename_fold.py (131 pass); the rename suite's other 28 failures fail identically with HEAD's rename.py;
+  test_gate_exploits.py passes.
+- Fold (commit "Fold class Rva004BD207 into SalvageCrateCollide (retail vftable 0x00C5A9C0)"): retail re-read
+  (??0SalvageCrateCollide 0x004BD1D7 and 0x004BD207 store the same three tables; 0x004BD265 is slot 0). Both views
+  compile as {CrateCollide@0, 24 B, slot 0 the deleting destructor}. 21/21 exact; 6 of 6 units LINK, 19,294 bytes kept.
+  Bridge: tables 3,953 -> 3,951, slots 56,938 -> 56,918, mismatching source slots 42,542 -> 42,530; refusals
+  identical, nothing newly bridged. Off: `??_7Rva004BD207@@6B@` and `@@6BObjectModule@@@`; SalvageCrateCollide's
+  ObjectModule table now has slot 0 right. Already correct 1,664 -> 1,663 only because the name
+  `??_7Rva004BD207@@6BBehaviorModuleInterface@@@` is gone; 0x0085A040 keeps SalvageCrateCollide's correct copy.
+- Refused (re_attempts.log):
+  - Rva004B8DB1 -> SupplyCenterCreate (0x004B8DB1): identity proven, the fold verifies (with `--access protected`, and
+    the constructor unit's unrowed present-unmatched `??1SupplyCenterCreate@@MAE@XZ` dropped), but SupplyCenterCreate.cpp
+    goes LINKS -> does not link: its new table copies (CreateModuleClass.h, slots 1-3 real) differ from the first copy
+    in link order, SupplyCenterCreateConstructor.cpp's private-view copies (`__purecall` slots 1-3, a one-slot
+    ModuleInterface table). Reverted.
+  - Twelve moved placeholders: their view and the TU's real view disagree on the layout (0x004C2656 row). CashHack's
+    real view puts the destructor at slot 3 (36 B against 20 B); the six SpecialPower views GrabPassenger,
+    PlayerUpgrade, PlayerHeal, Devastate, SplitHorde and Repair agree on size (20 B) and slot 0 but name opaque bases
+    (Rva00493DEF/MiBase1/_B2) against SpecialPowerModule; UntamedAllegiance, StructureBody, SpecialPowerCreate,
+    DelayedDeathBody and GiantBirdSlowDeathBehavior differ in size or bases.
+- Tooling compatibility audit (`38ca5372077..HEAD`): no path added, renamed or deleted. Old spellings of
+  Rva004BD207 remain only in generated or historical records: data_ledger.csv (3 alias names, tool-written;
+  data_ledger.py regenerates it), vtable_bridge_queue.tsv (the next real-link publish), name_tiers.csv and
+  wb_name_leads.csv (two rows each), deleted_rows.csv (the fold's tombstones), re_attempts.log, attempt_support and
+  this entry. tools/, .githooks/ and .github/ name neither class; test_rename_fold.py names it in a comment only.
+- Next leads:
+  1. SupplyCenterCreate: merge SupplyCenterCreateConstructor.cpp into SupplyCenterCreate.cpp (its approved TU) or move
+     its view onto CreateModuleClass.h (class:CreateModule is held by Burachi-3D), then fold and drop the duplicate body.
+  2. The six 20-B SpecialPower placeholders: a "NEW keeps its layout" rule (OLD's rows byte-checked against NEW's view)
+     would admit them. That is a tooling decision, not taken here. Folding them also kills 8 of the 20 `?f2@..._B2`
+     alternatename lines in Rva00493DEFDerived.cpp, which today serve the moved TUs' placeholder tables (still live).
+  3. SalvageCrateCollide's five remaining mismatches: slots 1-3 `__purecall` and 12/13 (the TU's CrateCollide view
+     introduces xfer where retail has executeCrateBehavior), and 0x0085A9A8 `??_7SalvageCrateCollide@@6B@` (5 missing
+     source slots).
+  4. `claims.py release` with class:, file: and RVA keys in one call released 0; separate calls per kind work.
