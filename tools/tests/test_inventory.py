@@ -18,6 +18,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 TOOLS = Path(__file__).resolve().parents[1]
 ROOT = TOOLS.parent
 INVENTORY = ROOT / "reverse" / "ghidra_functions.csv"
@@ -68,20 +70,21 @@ def test_inventory_rows_are_well_formed():
 def test_a_jmp_leaving_text_is_not_an_incremental_link_thunk():
     """The bound on the displacement is what tells a thunk from a coincidence.
 
-    0xA5E88E begins with 0xE9 and is not a thunk: it is the tail of a `mov`
-    immediate inside a d3dx9 body, reached only because the linear decode read
-    the 0xE8 of `89 65 e8` (mov [ebp-0x18], esp) as a call opcode. Following it
-    unbounded yields RVA -0x2AD9506D, which is in no section at all, and that
-    address passed every unknown/unclaimed filter and crashed the boundary scan.
-    Junk targets are the decode working as designed; each one has to reach
-    is_boundary to be rejected, so resolving one must never raise.
+    0x29E9 begins with 0xE9 and is not a thunk: it is the third byte of a call's
+    displacement (`e8 2e e9 ff ff`), so reading it as a jmp yields RVA -0x773D613,
+    which is in no section at all. In Open-BFME-1, where this test came from, the
+    same thing at 0xA5E88E passed every unknown/unclaimed filter and crashed the
+    boundary scan. Junk targets are the decode working as designed; each one has
+    to reach is_boundary to be rejected, so resolving one must never raise.
     """
     data, sections = build.exe_image()
     text = next(section for section in sections if section["name"] == ".text")
     low, high = text["rva"], text["rva"] + text["size"]
 
-    assert data[build.rva_to_file_offset(sections, 0xA5E88E)] == 0xE9
-    assert build.follow_thunk(data, sections, 0xA5E88E, low, high) == 0xA5E88E
+    offset = build.rva_to_file_offset(sections, 0x29E9)
+    assert data[offset - 2:offset + 3] == bytes.fromhex("e82ee9ffff")
+    assert 0x29E9 + 5 + struct.unpack_from("<i", data, offset + 1)[0] == -0x773D613
+    assert build.follow_thunk(data, sections, 0x29E9, low, high) == 0x29E9
     body, thunks = next(iter(build.build_call_thunks().items()))
     assert build.follow_thunk(data, sections, thunks[0], low, high) == body
     print("PASS a jmp whose displacement leaves .text stays its own address")
@@ -113,6 +116,11 @@ def test_call_derived_starts_stay_derivable():
 
 
 CLOSURE_SEEDS = "reverse/game_end/seeds.json"
+# The game_end checks below are Open-BFME-1's (its addresses and figures), carried over at the
+# bootstrap; BFME 2 has never had a reverse/game_end inventory.
+# BFME-1 inherited: do not enable them without BFME 2 baselines, or they check BFME 1's figures.
+NEEDS_GAME_END = pytest.mark.skipif(not (ROOT / "reverse" / "game_end").is_dir(),
+                                    reason="no reverse/game_end: an Open-BFME-1 inventory BFME 2 does not have")
 # `callers_of.py --closure` per (group, tier), regenerated for every cell in
 # Phase 2 when the E_leave vcall seed moved from 0x012F76F0 to the live
 # TheNetwork global 0x012F7714 (the old global matched no call site) and again
@@ -191,6 +199,7 @@ def _closure_table(stdout):
     return table
 
 
+@NEEDS_GAME_END
 def test_game_end_closure_coverage_never_regresses():
     proc = subprocess.run(
         [sys.executable, str(TOOLS / "callers_of.py"), "--closure", CLOSURE_SEEDS],
@@ -285,6 +294,7 @@ def _claim_observed(kind, address, expected, image, md):
     raise AssertionError(f"unknown claim kind {kind!r}")
 
 
+@NEEDS_GAME_END
 def test_game_end_claims_hold_against_retail():
     try:
         import capstone
@@ -338,6 +348,7 @@ def _ledgered_addresses():
     return known
 
 
+@NEEDS_GAME_END
 def test_game_end_findings_cite_only_ledgered_addresses():
     text = FINDINGS.read_text(encoding="utf-8")
     cited = {}
@@ -354,6 +365,7 @@ def test_game_end_findings_cite_only_ledgered_addresses():
 PATCH_SCRATCH = build.PATCH_DIR / "lotrbfme.game_end_patch_check.exe"
 
 
+@NEEDS_GAME_END
 def test_game_end_patch_rows_apply_to_a_copy():
     """Each `patch` claim is applied to a fresh copy of the baseline under
     build/: the site must then decode to the expected instruction, the

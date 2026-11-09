@@ -28,7 +28,7 @@ COUNT = 1500
 STUBS = ("check_case_collisions", "conversion_gate", "link_debt", "class_gate", "tu_ownership",
          "hatch_counters", "code_identity_gate", "data_check", "ledger_guard", "check_csv",
          "flag_defaults", "pin_consistency", "pin_admission", "header_dependents",
-         "name_dependents")
+         "name_dependents", "obstacle_ids")
 RECORD_BUILD = """import json, sys
 with open("build-calls.jsonl", "a", encoding="utf-8") as out:
     out.write(json.dumps(sys.argv[1:]) + "\\n")

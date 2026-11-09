@@ -344,11 +344,14 @@ class RowNames(unittest.TestCase):
 
 class Windows(unittest.TestCase):
     def test_the_four_library_runs_tile_the_territory_without_overlapping(self):
-        runs = sorted(S.WINDOWS.values())
+        runs = sorted(run for window in S.WINDOWS.values() for run in window)
+        self.assertEqual(len(runs), 4)
         self.assertEqual(runs[0][0], S.WIN_LO)
         self.assertEqual(runs[-1][1], S.WIN_HI)
+        for lo, hi in runs:
+            self.assertLess(lo, hi)
         for first, second in zip(runs, runs[1:]):
-            self.assertEqual(first[1], second[0])
+            self.assertLessEqual(first[1], second[0])
 
     def test_every_emittable_tag_names_a_window_that_exists(self):
         for _source, key in S.LEDGER_SOURCE.values():

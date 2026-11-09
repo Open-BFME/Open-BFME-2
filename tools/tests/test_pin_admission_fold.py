@@ -1069,7 +1069,7 @@ LIVE_REPROS = [
      "Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp", 0x0033F8CA),
 ]
 
-TACTIC = "Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp"
+TACTIC = "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"     # Rva00506B74Tactic.cpp until c059868674 merged it
 SPT_PUSH_BACK = ("?push_back@?$vector@PBVSpecialPowerTemplate@@V?$allocator@PBVSpecialPower"
                  "Template@@@_STL@@@_STL@@QAEXABQBVSpecialPowerTemplate@@@Z")
 LIVE_FOLDS = [

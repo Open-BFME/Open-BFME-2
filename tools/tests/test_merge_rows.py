@@ -559,6 +559,12 @@ def test_the_registered_driver_removes_what_the_unregistered_clone_resurrected(t
 # git's built-in union ran before.
 
 NOTICE = "is not in this checkout; using git merge-file --union for"
+# The fallback's `git merge-file --diff-algorithm` is git 2.44's; an older git leaves a conflict and says so (plain
+# merge-file would lay rows out with myers and lose one: test_a_fallback_that_cannot_run_histogram_merge_file_is_a_conflict).
+_HELP = subprocess.run(["git", "merge-file", "-h"], capture_output=True, text=True)
+HISTOGRAM = "--diff-algorithm" in _HELP.stdout + _HELP.stderr
+NEEDS_HISTOGRAM = pytest.mark.skipif(not HISTOGRAM, reason="git merge-file has no --diff-algorithm before git 2.44: "
+                                     "the fallback conflicts instead (test_an_old_git_s_fallback_is_a_conflict_that_says_why)")
 RETRACT_AND_EDIT = (H + b"S,2\nM,3\n", H + b"R,1\nS,3\n")      # ours retracts R; theirs edits S
 MISSING = pytest.mark.parametrize("missing", [("tools/merge_rows.py",), (".githooks/run-python3",),
                                               ("tools/merge_rows.py", ".githooks/run-python3")],
@@ -582,6 +588,7 @@ def unregistered_result(tmp_path, how, ours, theirs):
 
 @MISSING
 @BOTH
+@NEEDS_HISTOGRAM
 def test_a_checkout_missing_a_driver_file_merges_as_built_in_union_and_says_so(tmp_path, how, missing):
     git, ledger = clone(spaced(tmp_path))
     for rel in missing:
@@ -595,6 +602,7 @@ def test_a_checkout_missing_a_driver_file_merges_as_built_in_union_and_says_so(t
     assert b"R,1\n" in ledger.read_bytes()                     # built-in union's resurrected row, as before
 
 
+@NEEDS_HISTOGRAM
 def test_the_fallback_lays_rows_out_as_built_in_union_does_where_plain_merge_file_would_not(tmp_path):
     """git's merge diffs with histogram, `git merge-file` with myers unless told; here they disagree."""
     base, ours, theirs = (H + b"A,0\nA,0\nB,1\nG,6\n", H + b"A,0\nA,0\nG,6\n",
@@ -618,6 +626,7 @@ def test_the_fallback_lays_rows_out_as_built_in_union_does_where_plain_merge_fil
     assert results[0] == results[1] == H + b"A,0\nA,0\nG,6\nB,1\nA,0\nG,6\nC,2\n"
 
 
+@NEEDS_HISTOGRAM
 def test_edits_far_apart_merge_cleanly_in_a_checkout_without_the_driver(tmp_path):
     """Rows a plain text merge joins without a conflict must not start conflicting."""
     git, ledger = clone(spaced(tmp_path), driver_files=False)
@@ -681,6 +690,7 @@ def old_branches(git, old):
 
 
 @pytest.mark.parametrize("operation", ["merge", "cherry-pick", "rebase", "stash-pop"])
+@NEEDS_HISTOGRAM
 def test_an_old_worktree_keeps_merging_after_a_sibling_registers_the_driver(tmp_path, operation):
     git, new, old = linked_worktrees(tmp_path)
     ledger = old_branches(git, old)
@@ -740,6 +750,7 @@ def test_the_first_rebase_of_a_branch_from_before_the_driver_onto_one_with_it_us
 
 
 @pytest.mark.parametrize("autostash", [False, True], ids=["clean", "autostash"])
+@NEEDS_HISTOGRAM
 def test_pull_rebase_onto_an_upstream_without_the_driver_files(tmp_path, autostash):
     """A registered clone whose upstream branch predates the files (Sol's pull-rebase-old cases)."""
     upstream = spaced(tmp_path, "upstream repo")
@@ -935,6 +946,20 @@ def test_a_fallback_that_cannot_run_histogram_merge_file_is_a_conflict(tmp_path,
     assert git("status", "--porcelain").stdout.startswith("UU reverse/functions.csv")
 
 
+@pytest.mark.skipif(HISTOGRAM, reason="this git's merge-file has --diff-algorithm")
+def test_an_old_git_s_fallback_is_a_conflict_that_says_why(tmp_path):
+    """What the shim above stands in for, on a git that really is older than 2.44 (srv1's 2.43)."""
+    git, ledger = layout_branches(tmp_path)
+    done = subprocess.run(["git", "merge", "-q", "--no-edit", "side"], cwd=ledger.parent.parent,
+                          capture_output=True, text=True)
+    assert done.returncode != 0 and "CONFLICT" in done.stdout, done.stdout + done.stderr
+    assert ("git merge-file --union --diff-algorithm=histogram failed (it needs git 2.44 or newer); "
+            "leaving a conflict in reverse/functions.csv") in done.stderr, done.stderr
+    assert ledger.read_bytes() == LAYOUT[1]
+    assert git("status", "--porcelain").stdout.startswith("UU reverse/functions.csv")
+
+
+@NEEDS_HISTOGRAM
 def test_the_shim_itself_changes_nothing_when_it_refuses_nothing(tmp_path):
     """The same environment, shim on the driver's PATH, with a git that has the option."""
     git, ledger = layout_branches(tmp_path)
