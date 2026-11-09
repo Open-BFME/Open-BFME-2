@@ -76,20 +76,17 @@ public:
 	float m_280; // +0x280
 };
 class ModuleData;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
-	public SpecialPowerModuleInterface
+// Retail: ??0PlayerHealSpecialPower 0x004C7E7E calls ??0SpecialPowerModule
+// 0x00493C5A and stores 0x00C5E36C (+0), 0x00BEFCF8 (+0x0C) and 0x00C5E308
+// (+0x10); getModuleNameKey is slot 4 of 0x00C5E36C. The base is the
+// sibling units' BehaviorModule view (m_moduleData at +4, m_object at +8).
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
 	virtual void doSpecialPower(unsigned int options);					// 0x0049490F
 	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);		// 0x0049495B
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
@@ -133,6 +130,8 @@ enum NameKeyType
 };
 class PlayerHealSpecialPower : public SpecialPowerModule
 {
+protected:
+	virtual ~PlayerHealSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void doSpecialPower(unsigned int options);
@@ -220,39 +219,15 @@ struct Inner
 };
 
 //
-// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
-// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
-// including the shared 0xBEFCF8 secondary; identity unproven). Each class
-// below derives (in order) from the opaque base, a shared empty polymorphic
-// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
-// the empty bases have implicit trivial destructors, so the derived
-// destructor stores all three vptrs and tail-calls the base destructor. The
-// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
-// are unproven (opaque Rva names). One ledger row per destructor, landed one
-// commit at a time.
+// PlayerHealSpecialPower's destructor 0x004C7EAE, still under its
+// placeholder name: it stores the class's three vptrs (0x00C5E36C at +0,
+// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
+// +0x0C, 0x00C5E308 at +0x10), exactly what ??0PlayerHealSpecialPower
+// 0x004C7E7E stores after ??0SpecialPowerModule, and tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
+// SpecialPowerModule view like the real class.
 
-class Rva00493DEF
-{
-public:
-	virtual ~Rva00493DEF();
-
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class Rva004C7EAE_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C7EAE : public Rva00493DEF, public MiBase1, public Rva004C7EAE_B2
+class Rva004C7EAE : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C7EAE();
