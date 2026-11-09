@@ -6014,17 +6014,19 @@ def class_installers(ctx, cls, stores, tables):
     return out
 
 
-def to_class_evidence(ctx, rva, cls, sources):
+def to_class_evidence(ctx, rva, cls, sources, reviewed=None):
     """(table, slot, retail slots, [installer rows], proof) for the one slot of
     a table `cls`'s own special members install that holds `rva`; Refusal
     when there is none, more than one, or a table of an unrelated class holds
-    it too."""
+    it too. `reviewed` (function --to-class alone) is the code-owned entry in
+    tools/retail_identity.py that relates the tables it names, at the slot it
+    names, once retail holds all of its facts."""
     tables = retail_vtables(ctx)
     hits = [(table, index) for table, (slots, _stores) in sorted(tables.items())
             for index, target in enumerate(slots) if target == rva]
     if not hits:
         raise Refusal(f"no retail vftable slot holds 0x{rva:08X}: a class move needs one of {cls}'s slots")
-    own, foreign = [], []
+    own, foreign, cleared = [], [], []
     for table, index in hits:
         slots, stores = tables[table]
         installers = class_installers(ctx, cls, stores, tables)
@@ -6037,20 +6039,33 @@ def to_class_evidence(ctx, rva, cls, sources):
                       for other, (_how, source) in classes.items()
                       for rel in sorted({source, *sources} - {""}))
         if not derived:
+            if reviewed and table + IMAGE_BASE in reviewed.tables and index == reviewed.slot:
+                cleared.append(table)
+                continue
             foreign.append(f"{where} belongs to {', '.join(sorted(classes)) or 'no class the ledger names'}")
     if not own:
         raise Refusal(f"no constructor, destructor or deleting destructor row of {cls} installs a retail table "
                       f"holding 0x{rva:08X} ({'; '.join(foreign[:3]) or 'only unowned tables hold it'})")
     if foreign:
-        raise Refusal(f"0x{rva:08X} is also in a table of a class unrelated to {cls} ({'; '.join(foreign[:3])}): "
+        raise Refusal(f"0x{rva:08X} is also in a table of a class unrelated to {cls} ({'; '.join(foreign[:3])}"
+                      f"{f'; and {len(foreign) - 3} more' if len(foreign) > 3 else ''}): "
                       "a shared (folded) body proves no one class's member")
+    if reviewed and cleared:
+        import retail_identity
+        wrong = retail_identity.shared_slot_problems(reviewed)
+        if not any(table + IMAGE_BASE == reviewed.table and index == reviewed.slot for table, index, _s, _r, _w in own):
+            wrong.insert(0, f"it names table 0x{reviewed.table:08X} slot {reviewed.slot}, which is not {cls}'s own")
+        if wrong:
+            raise Refusal(f"retail_identity's reviewed entry for 0x{rva:08X} does not hold: {wrong[0]}")
     if len({(table, index) for table, index, _s, _r, _w in own}) != 1:
         raise Refusal(f"0x{rva:08X} sits in {len(own)} slots of {cls}'s own tables "
                       f"({', '.join(w for *_x, w in own)}): which member it is is not read here")
     table, index, slots, installers, where = own[0]
     first = installers[0]
     proof = (f"{where}, installed by {first['name']} at 0x{_rva(first['target_rva']):08X}"
-             + (f" and {len(installers) - 1} more {cls} special member(s)" if len(installers) > 1 else ""))
+             + (f" and {len(installers) - 1} more {cls} special member(s)" if len(installers) > 1 else "")
+             + (f"; {len(cleared)} table(s) cleared by retail_identity's reviewed entry: "
+                + ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in cleared) if cleared else ""))
     return table, index, slots, installers, proof
 
 
@@ -6402,7 +6417,9 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
         raise Refusal(f"{name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
     statics = local_static_keys(ctx, name, row["source"])
 
-    table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]})
+    import retail_identity
+    table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]},
+                                                               reviewed=retail_identity.shared_slot_of(rva, cls, new_name))
     declared = []
     if return_enum is not None:
         # read from the installers: their view of cls compiles the table

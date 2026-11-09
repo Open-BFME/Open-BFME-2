@@ -35,7 +35,8 @@ IMAGE_BASE = 0x00400000
 
 # kind: stores (a dword store of `value` through opcode `code`), calls or jumps (E8/E9 rel32
 # to `value`), stride or offset (the instruction `code`, whose operand is `value`), slot (one word of a
-# vftable: `site` is the word, `value` the VA it holds, `code` (table VA, index, slot count); build it with slot()).
+# vftable: `site` is the word, `value` the VA it holds, `code` (table VA, index, slot count); build it with slot()),
+# word (one word of a vftable, its length not stated; build it with word()).
 Fact = collections.namedtuple("Fact", "kind site value code", defaults=(None,))
 # mov dword ptr [reg], imm32: the opcodes that write an object's first word, its vftable pointer
 VPTR_STORES = ("c700", "c701", "c702", "c703", "c706", "c707")
@@ -54,7 +55,7 @@ def expected(fact):
         return opcode + struct.pack("<i", fact.value - (fact.site + 5))
     if fact.kind in ("stride", "offset"):
         return bytes.fromhex(fact.code)
-    if fact.kind == "slot":
+    if fact.kind in ("slot", "word"):
         return struct.pack("<I", fact.value)
     raise ValueError(f"unknown retail fact {fact.kind!r}")
 
@@ -454,6 +455,195 @@ LOCOMOTOR = Family(
     table_stores={0x001E3E43: 2})
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR)
 
+# One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
+# treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at
+# exact addresses for a reader to check by hand: word 0 holds the shared body, word 1 the table's deleting destructor,
+# then each direct step in order, ending at the store of the class's vptr. Nothing here generalizes from these
+# shapes, and a table not listed stays a fold. Another class is another reviewed entry (Verifier-Change).
+# A store of the vptr shows an install at that address, which is why this is a reviewed list and not a rule.
+SharedSlot = collections.namedtuple("SharedSlot", "rva cls new table slot vptr own tables notes")
+
+
+def word(table, index, target_rva):
+    """The fact that the dword `index` words into the table at VA `table` holds the body at `target_rva`. It says
+    nothing of the table's length: some of these tables abut the next, which a slot fact's count refuses."""
+    return Fact("word", table - IMAGE_BASE + 4 * index, target_rva + IMAGE_BASE)
+
+
+REFCOUNT_DELETE_THIS = SharedSlot(
+    rva=0x0006CE57, cls="RefCountClass", new="?Delete_This@RefCountClass@@UAEXXZ", table=0x00BC650C, slot=0, vptr=0x00BC650C,
+    # RefCountClass's own table, its constructor and its destructor
+    own=(word(0x00BC650C, 0, 0x0006CE57), word(0x00BC650C, 1, 0x00072899),
+         C("stores", 0x00072884, 0x00BC650C, "c700"), C("stores", 0x00072892, 0x00BC650C, "c701")),
+    tables={
+    # Rva006DD51/W3DDynamicLight: slot 1 ??_GRva006DD51@@UAEPAXI@Z
+    0x00BC6038: (word(0x00BC6038, 0, 0x0006CE57),
+                 word(0x00BC6038, 1, 0x0006DE21),
+                 C("calls", 0x0006DE24, 0x0006DD51),
+                 C("jumps", 0x0006DD5E, 0x00130E80),
+                 C("jumps", 0x00130E8D, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # W3DShroudMaterialPassClass: slot 1 ??_GW3DShroudMaterialPassClass@@UAEPAXI@Z
+    0x00BC6244: (word(0x00BC6244, 0, 0x0006CE57),
+                 word(0x00BC6244, 1, 0x0006F1DD),
+                 C("calls", 0x0006F1E0, 0x0006F1F9),
+                 C("jumps", 0x0006F1F9, 0x0013EE40),
+                 C("stores", 0x0013EE9E, 0x00BC650C, "c706")),
+    # RenderingMethodDelegate: slot 1 ??_GRva0072AED@@UAEPAXI@Z
+    0x00BC6540: (word(0x00BC6540, 0, 0x0006CE57),
+                 word(0x00BC6540, 1, 0x00072FA9),
+                 C("calls", 0x00072FAC, 0x00072AED),
+                 C("stores", 0x00072B15, 0x00BC650C, "c706")),
+    # Rva00072FE1/W3DShroud: slot 1 ??_GRva00072FE1@@UAEPAXI@Z
+    0x00BC6568: (word(0x00BC6568, 0, 0x0006CE57),
+                 word(0x00BC6568, 1, 0x00072FC5),
+                 C("calls", 0x00072FC8, 0x00072FE1),
+                 C("jumps", 0x00072FE1, 0x00072AED),
+                 C("stores", 0x00072B15, 0x00BC650C, "c706")),
+    # Rva0007DC01ShadowMethod: slot 1 ??_GRva00072FE1@@UAEPAXI@Z
+    0x00BC6C24: (word(0x00BC6C24, 0, 0x0006CE57),
+                 word(0x00BC6C24, 1, 0x00072FC5),
+                 C("calls", 0x00072FC8, 0x00072FE1),
+                 C("jumps", 0x00072FE1, 0x00072AED),
+                 C("stores", 0x00072B15, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@VVector2@@@@UAEPAXI@Z
+    0x00BCE328: (word(0x00BCE328, 0, 0x0006CE57),
+                 word(0x00BCE328, 1, 0x000D1E50),
+                 C("calls", 0x000D1E53, 0x000D1DC8),
+                 C("stores", 0x000D1DDA, 0x00BC650C, "c706")),
+    # UVBufferClass: slot 1 ??_GUVBufferClass@@UAEPAXI@Z
+    0x00BCE338: (word(0x00BCE338, 0, 0x0006CE57),
+                 word(0x00BCE338, 1, 0x000D20FC),
+                 C("calls", 0x000D20FF, 0x000D2118),
+                 C("jumps", 0x000D2118, 0x000D1DC8),
+                 C("stores", 0x000D1DDA, 0x00BC650C, "c706")),
+    # BfmeDynamicNativeVB/BfmeDynamicSortingVB/BfmeDynamicVBBase: slot 1 ??_GBfmeDynamicVBBase@@UAEPAXI@Z
+    0x00BD2F40: (word(0x00BD2F40, 0, 0x0006CE57),
+                 word(0x00BD2F40, 1, 0x0013ABC0),
+                 C("calls", 0x0013ABC3, 0x00139410),
+                 C("stores", 0x00139442, 0x00BC650C, "c706")),
+    # BfmeDynamicSortingVB: slot 1 ??_GBfmeDynamicSortingVB@@UAEPAXI@Z
+    0x00BD2F48: (word(0x00BD2F48, 0, 0x0006CE57),
+                 word(0x00BD2F48, 1, 0x0013ABE0),
+                 C("calls", 0x0013ABE3, 0x001396D0),
+                 C("stores", 0x00139711, 0x00BC650C, "c706")),
+    # BfmeDynamicNativeVB: slot 1 ??_GBfmeDynamicNativeVB@@UAEPAXI@Z
+    0x00BD2F50: (word(0x00BD2F50, 0, 0x0006CE57),
+                 word(0x00BD2F50, 1, 0x0013AC70),
+                 C("calls", 0x0013AC73, 0x00139720),
+                 C("stores", 0x0013979D, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@VShaderClass@@@@UAEPAXI@Z
+    0x00BD3CEC: (word(0x00BD3CEC, 0, 0x0006CE57),
+                 word(0x00BD3CEC, 1, 0x0015CEF0),
+                 C("calls", 0x0015CEF3, 0x0015CF10),
+                 C("stores", 0x0015CF25, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@VVector3i16@@@@UAEPAXI@Z
+    0x00BD43E8: (word(0x00BD43E8, 0, 0x0006CE57),
+                 word(0x00BD43E8, 1, 0x00169CC0),
+                 C("calls", 0x00169CC3, 0x00169CE0),
+                 C("stores", 0x00169CF5, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@K@@UAEPAXI@Z
+    0x00BD4400: (word(0x00BD4400, 0, 0x0006CE57),
+                 word(0x00BD4400, 1, 0x00169D80),
+                 C("calls", 0x00169D83, 0x00169DA0),
+                 C("stores", 0x00169DB5, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@G@@UAEPAXI@Z
+    0x00BD4408: (word(0x00BD4408, 0, 0x0006CE57),
+                 word(0x00BD4408, 1, 0x00169DC0),
+                 C("calls", 0x00169DC3, 0x00169DE0),
+                 C("stores", 0x00169DF5, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@D@@UAEPAXI@Z
+    0x00BD4410: (word(0x00BD4410, 0, 0x0006CE57),
+                 word(0x00BD4410, 1, 0x00169E00),
+                 C("calls", 0x00169E03, 0x00169E20),
+                 C("stores", 0x00169E35, 0x00BC650C, "c706")),
+    # no class the ledger names: slot 1 ??_G?$ShareBufferClass@VVector4@@@@UAEPAXI@Z
+    0x00BD4420: (word(0x00BD4420, 0, 0x0006CE57),
+                 word(0x00BD4420, 1, 0x00169E80),
+                 C("calls", 0x00169E83, 0x00169EA0),
+                 C("stores", 0x00169EB5, 0x00BC650C, "c706")),
+    # BoxRenderObjClass: slot 1 ??_GOBBoxRenderObjClass@@UAEPAXI@Z
+    0x00BD4740: (word(0x00BD4740, 0, 0x0006CE57),
+                 word(0x00BD4740, 1, 0x001811B0),
+                 C("calls", 0x001811B3, 0x001811D0),
+                 C("jumps", 0x001811D0, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # AABoxRenderObjClass: slot 1 ??_GOBBoxRenderObjClass@@UAEPAXI@Z
+    0x00BD4950: (word(0x00BD4950, 0, 0x0006CE57),
+                 word(0x00BD4950, 1, 0x001811B0),
+                 C("calls", 0x001811B3, 0x001811D0),
+                 C("jumps", 0x001811D0, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # OBBoxRenderObjClass: slot 1 ??_GOBBoxRenderObjClass@@UAEPAXI@Z
+    0x00BD4B60: (word(0x00BD4B60, 0, 0x0006CE57),
+                 word(0x00BD4B60, 1, 0x001811B0),
+                 C("calls", 0x001811B3, 0x001811D0),
+                 C("jumps", 0x001811D0, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # Null3DObjClass: slot 1 ??_GOBBoxRenderObjClass@@UAEPAXI@Z
+    0x00BD50D0: (word(0x00BD50D0, 0, 0x0006CE57),
+                 word(0x00BD50D0, 1, 0x001811B0),
+                 C("calls", 0x001811B3, 0x001811D0),
+                 C("jumps", 0x001811D0, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # AABTreeClass: slot 1 ?rva00198170@BfmeThingVJS@@QAEPAXI@Z
+    0x00BD5F00: (word(0x00BD5F00, 0, 0x0006CE57),
+                 word(0x00BD5F00, 1, 0x00198170),
+                 C("calls", 0x00198173, 0x00197F30),
+                 C("stores", 0x00197F6B, 0x00BC650C, "c706")),
+    # HLodClass: slot 1 ??_GHLodClass@@UAEPAXI@Z
+    0x00BD6780: (word(0x00BD6780, 0, 0x0006CE57),
+                 word(0x00BD6780, 1, 0x0019F990),
+                 C("calls", 0x0019F993, 0x0019EF70),
+                 C("calls", 0x0019EFF2, 0x001A54F0),
+                 C("calls", 0x001A554C, 0x001A5DD0),
+                 C("calls", 0x001A5E27, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # CompositeRenderObjClass: slot 1 ??_GCompositeRenderObjClass@@UAEPAXI@Z
+    0x00BD6F30: (word(0x00BD6F30, 0, 0x0006CE57),
+                 word(0x00BD6F30, 1, 0x001A6150),
+                 C("calls", 0x001A6153, 0x001A5DD0),
+                 C("calls", 0x001A5E27, 0x0013BE20),
+                 C("stores", 0x0013BE5D, 0x00BC650C, "c706")),
+    # CullableClass: slot 1 ??_GScreenMapperClass@@UAEPAXI@Z
+    0x00CEFD58: (word(0x00CEFD58, 0, 0x0006CE57),
+                 word(0x00CEFD58, 1, 0x00184150),
+                 C("calls", 0x00184153, 0x00724510),
+                 C("stores", 0x00724510, 0x00BC650C, "c701")),
+    },
+    notes={
+        # ??0W3DShroud's rows also store this table, but on the object it allocates (a call to the global operator new at 0x00073391), so the header
+        # that gives W3DShroud no base is not contradicted: the table is the allocated object's own.
+        0x00BC6568: (C("calls", 0x00073391, 0x0002FDA0), C("stores", 0x000733A5, 0x00BC6568, "c700")),
+    })
+SHARED_SLOTS = (REFCOUNT_DELETE_THIS,)
+
+
+def shared_slot_of(rva, cls, new):
+    """The reviewed entry for moving the body at `rva` into `cls` as `new`, or None."""
+    for entry in SHARED_SLOTS:
+        if (entry.rva, entry.cls, entry.new) == (rva, cls, new):
+            return entry
+    return None
+
+
+def shared_slot_facts(entry):
+    """Every fact of `entry`, in order."""
+    return [*entry.own, *[f for facts in entry.tables.values() for f in facts], *[f for facts in entry.notes.values() for f in facts]]
+
+
+def shared_slot_problems(entry):
+    """Why `entry` does not hold, one line each: each listed table must state the shared body at its slot and end at a
+    store of the vptr, and retail must hold every fact (facts_problems: an unreadable site is a problem)."""
+    out = []
+    for table, facts in entry.tables.items():
+        if not facts or facts[0] != word(table, entry.slot, entry.rva):
+            out.append(f"table 0x{table:08X} does not open with word {entry.slot} holding 0x{entry.rva:08X}")
+        last = facts[-1] if facts else None
+        if not last or last.kind != "stores" or last.value != entry.vptr or last.code not in VPTR_STORES:
+            out.append(f"table 0x{table:08X} does not end at a store of the vptr 0x{entry.vptr:08X}")
+    return out + facts_problems(shared_slot_facts(entry))
+
 # One global's bounds: `old` becomes `new` at the RVA `start`, `size` bytes, taking the rows `absorbs`
 # ((name, rva), ...). A `stores` fact names an address the object holds, an `offset` one its code indexes.
 Extent = collections.namedtuple("Extent", "old new start size absorbs facts")
@@ -567,6 +757,13 @@ if __name__ == "__main__":
     for each, problems, facts in [(f, facts_problems(f.facts()), f.facts()) for f in FAMILIES] + \
             [(e, extent_problems(e), e.facts) for e in EXTENTS]:
         print(f"{each.old} -> {each.new}: {len(facts)} facts, {len(problems)} problem(s)")
+        for line in problems:
+            print("  " + line)
+        failed = failed or bool(problems)
+    for entry in SHARED_SLOTS:
+        problems = shared_slot_problems(entry)
+        print(f"0x{entry.rva:08X} -> {entry.new}: {len(entry.tables)} tables, {len(shared_slot_facts(entry))} facts, "
+              f"{len(problems)} problem(s)")
         for line in problems:
             print("  " + line)
         failed = failed or bool(problems)

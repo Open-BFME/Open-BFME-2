@@ -13,6 +13,7 @@ TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 
 import rename  # noqa: E402
+import retail_identity  # noqa: E402
 from rename import Refusal, VerifyFailed  # noqa: E402
 
 OLD = "?rva00401000@Rva00401000@@QAEXXZ"
@@ -921,3 +922,132 @@ def test_an_e_in_another_classs_table_is_not_judged(tree, monkeypatch):
     retail(monkeypatch, TWO_SLOTS, compiled=compiled)
     with pytest.raises(Refusal, match="does not prove the slot"):
         plan(tree)
+
+
+# ------------------------------------------------------------ a reviewed shared slot
+# 0x00810000 holds the moved body at slot 1, as Widget's table does, and no view relates its class to Widget. Only a
+# reviewed entry in tools/retail_identity.py can, and only for the tables it names, at the facts it states.
+
+OTHER_TABLE_VA = 0x00C10000
+VPTR_VA = TABLE + retail_identity.IMAGE_BASE
+SHARED = {TABLE: ([0x00403040, 0x00401000, 0x00404000], {CTOR_STORE: 0}),
+          OTHER_TABLE_VA - retail_identity.IMAGE_BASE: ([0x00405000, 0x00401000], {OTHER_STORE: 0})}
+ENTRY = retail_identity.SharedSlot(
+    rva=0x00401000, cls="Widget", new=NEW, table=VPTR_VA, slot=1, vptr=VPTR_VA,
+    own=(retail_identity.word(VPTR_VA, 1, 0x00401000),),
+    tables={OTHER_TABLE_VA: (retail_identity.word(OTHER_TABLE_VA, 1, 0x00401000),
+                             retail_identity.Fact("calls", 0x00405000, 0x00408000),
+                             retail_identity.Fact("stores", 0x00408000, VPTR_VA, "c701"))},
+    notes={})
+
+
+def _holds(monkeypatch, entries, facts=None):
+    """Retail holds exactly `facts` (default: every fact of the entries), over int3s."""
+    held = {}
+    for entry in entries:
+        for fact in retail_identity.shared_slot_facts(entry) if facts is None else facts:
+            held[fact.site] = retail_identity.expected(fact)
+
+    def read(rva, size):
+        out = bytearray(b"\xcc" * size)
+        for site, data in held.items():
+            for at, byte in enumerate(data):
+                if rva <= site + at < rva + size:
+                    out[site + at - rva] = byte
+        return bytes(out)
+    monkeypatch.setattr(retail_identity, "read_retail", read)
+    monkeypatch.setattr(retail_identity, "SHARED_SLOTS", tuple(entries))
+
+
+def test_a_listed_table_with_its_facts_holding_is_related(tree, monkeypatch):
+    retail(monkeypatch, SHARED)
+    _holds(monkeypatch, [ENTRY])
+    done = plan(tree)
+    assert "1 table(s) cleared by retail_identity's reviewed entry: 0x00C10000" in str(vars(done))
+
+
+def test_with_no_entry_a_shared_slot_stays_a_fold(tree, monkeypatch):
+    retail(monkeypatch, SHARED)
+    _holds(monkeypatch, [])
+    with pytest.raises(Refusal, match="unrelated to Widget"):
+        plan(tree)
+
+
+def test_a_table_the_entry_does_not_name_stays_a_fold(tree, monkeypatch):
+    tables = dict(SHARED)
+    tables[0x00820000] = ([0x00405000, 0x00401000], {OTHER_STORE + 8: 0})
+    retail(monkeypatch, tables)
+    _holds(monkeypatch, [ENTRY])
+    with pytest.raises(Refusal, match="unrelated to Widget"):
+        plan(tree)
+
+
+def test_a_listed_table_at_another_slot_stays_a_fold(tree, monkeypatch):
+    tables = dict(SHARED)
+    tables[OTHER_TABLE_VA - retail_identity.IMAGE_BASE] = ([0x00401000, 0x00405000], {OTHER_STORE: 0})
+    retail(monkeypatch, tables)
+    _holds(monkeypatch, [ENTRY])
+    with pytest.raises(Refusal, match="unrelated to Widget"):
+        plan(tree)
+
+
+@pytest.mark.parametrize("missing", ["calls", "stores", "word"])
+def test_any_fact_retail_does_not_hold_refuses(tree, monkeypatch, missing):
+    retail(monkeypatch, SHARED)
+    facts = [f for f in retail_identity.shared_slot_facts(ENTRY) if f.kind != missing]
+    _holds(monkeypatch, [ENTRY], facts)
+    with pytest.raises(Refusal, match="reviewed entry"):
+        plan(tree)
+
+
+def test_an_entry_for_another_class_or_name_does_not_apply(tree, monkeypatch):
+    retail(monkeypatch, SHARED)
+    _holds(monkeypatch, [ENTRY._replace(cls="Gadget"), ENTRY._replace(new="?other@Widget@@UAEXXZ")])
+    with pytest.raises(Refusal, match="unrelated to Widget"):
+        plan(tree)
+
+
+def test_an_entry_naming_another_own_table_refuses(tree, monkeypatch):
+    retail(monkeypatch, SHARED)
+    _holds(monkeypatch, [ENTRY._replace(table=VPTR_VA + 0x100)])
+    with pytest.raises(Refusal, match="reviewed entry"):
+        plan(tree)
+
+
+def test_the_entry_is_read_only_by_the_to_class_plan(tree, monkeypatch):
+    # function --respell's this-cv route reads the same evidence function and keeps the view-only test
+    retail(monkeypatch, SHARED)
+    _holds(monkeypatch, [ENTRY])
+    with pytest.raises(Refusal, match="unrelated to Widget"):
+        rename.to_class_evidence(ctx_of(tree), 0x00401000, "Widget", {"Code/Game/Bits.cpp"})
+
+
+@pytest.mark.parametrize("change,why", [
+    (lambda e: e._replace(tables={OTHER_TABLE_VA: e.tables[OTHER_TABLE_VA][1:]}), "does not open with word"),
+    (lambda e: e._replace(tables={OTHER_TABLE_VA: e.tables[OTHER_TABLE_VA][:-1]}), "does not end at a store"),
+    (lambda e: e._replace(vptr=VPTR_VA + 4), "does not end at a store"),
+])
+def test_a_badly_stated_table_is_a_problem(monkeypatch, change, why):
+    entry = change(ENTRY)
+    _holds(monkeypatch, [entry])
+    assert any(why in line for line in retail_identity.shared_slot_problems(entry))
+
+
+def test_the_refusal_counts_the_tables_it_does_not_print(tree, monkeypatch):
+    tables = dict(SHARED)
+    for extra in range(4):
+        tables[0x00820000 + extra * 0x100] = ([0x00405000, 0x00401000], {OTHER_STORE + 8 + extra: 0})
+    retail(monkeypatch, tables)
+    _holds(monkeypatch, [])
+    with pytest.raises(Refusal, match=r"and 2 more"):
+        plan(tree)
+
+
+def test_the_real_entry_is_well_stated():
+    # every table opens at slot 0 with the shared body and ends at RefCountClass's vptr; retail's bytes are checked
+    # by `python3 tools/retail_identity.py`, which the image's seats run
+    entry = retail_identity.REFCOUNT_DELETE_THIS
+    assert len(entry.tables) == 24
+    for table, facts in entry.tables.items():
+        assert facts[0] == retail_identity.word(table, 0, 0x0006CE57)
+        assert facts[-1].kind == "stores" and facts[-1].value == 0x00BC650C and facts[-1].code in retail_identity.VPTR_STORES

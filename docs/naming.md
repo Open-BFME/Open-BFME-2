@@ -693,6 +693,11 @@ the row into C as its virtual member:
     python3 tools/rename.py function --rva 0x00550B4C --to-class GameSpyBuddyMessageQueue \
         --new endThread --prepared Code/.../BuddyThread.cpp=build/endThread.cpp --dry-run
 
+A table holding the address that no view relates to C is a fold, and refused, unless a reviewed entry in
+`tools/retail_identity.py` (`SHARED_SLOTS`) names that table for this address, class and name. Each entry states its
+tables at exact addresses, and `shared_slot_problems` checks them against retail's bytes. A table it does not list
+stays a fold, and another class is another reviewed entry (`Verifier-Change`). Only this mode reads the entries.
+
 `--new` is the member's identifier in C (the access code becomes the virtual
 form of the old one) or its full mangled name (to choose, say, protected
 `MBE`, or a `this` cv other than the placeholder's guess: the class's own
