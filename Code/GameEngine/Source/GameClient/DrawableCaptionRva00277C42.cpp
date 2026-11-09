@@ -57,18 +57,7 @@ public:
 	const Coord3D *rva00276470() const;
 };
 
-class DisplayString
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09();
-	virtual void setColor(Color color, Color dropColor); // +0x28
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void draw(Int x, Int y, Int scaleX, Int scaleY); // +0x38
-	virtual void getSize(Int *width, Int *height); // +0x3C
-	virtual Int getWidth(Int line); // +0x40
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 #include "../../Include/GameClient/Display.h"
 
@@ -113,6 +102,6 @@ void Rva00277C42Host::rva00277C42()
 	TheDisplay->drawFillRect(xPos, yPos, width + 2, height + 2, 0x7d000000);
 	TheDisplay->drawOpenRect(xPos, yPos, width + 2, height + 2, 1.0f, 0xff141414);
 
-	m_captionDisplayString->setColor(TheInGameUI->m_drawableCaptionColor, 0xff000000);
+	m_captionDisplayString->setColors(TheInGameUI->m_drawableCaptionColor, 0xff000000);
 	m_captionDisplayString->draw(screen.x, screen.y, 1, 1);
 }
