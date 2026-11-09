@@ -50,7 +50,6 @@ void BoxSetTexture(unsigned int, TextureBaseClass *&);
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (SetRenderState, vtable slot 57).
 struct IDirect3DDevice8;
-extern VertexMaterialClass *ScreenMaterial;
 extern unsigned number_of_DX8_calls;
 class ShaderClass { unsigned bits; protected: static bool ShaderDirty; public:
  unsigned Get_Bits() const {return bits;}
@@ -62,7 +61,7 @@ class ShaderClass { unsigned bits; protected: static bool ShaderDirty; public:
 // shader word, then Zero Hour's material, Textures[16], Lights[4] and
 // LightEnable[4] (0x1E8 bytes, bfmestages/dx8wrapper.h), then world at +0x1EC
 // (0x00DEE7C4) and view at +0x22C (0x00DEE804).
-struct RenderStateStruct { unsigned shader; char m_pad04[0x1E8]; Matrix4 world; };
+struct RenderStateStruct { unsigned shader; VertexMaterialClass *material; char m_pad08[0x1E4]; Matrix4 world; };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 struct Rva00726290Matrix3D;
 __forceinline void Rva00726290SetWorld(const Rva00726290Matrix3D &);
@@ -210,9 +209,9 @@ void W3DStatusCircle::Render(RenderInfoClass &)
 		VertexMaterialClass *vmat = *(VertexMaterialClass **)((char *)this + 0xdc);
 		if (vmat)
 			++vmat->refs;
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = vmat;
+		if (DX8Wrapper::render_state.material)
+			DX8Wrapper::render_state.material->Release_Ref();
+		DX8Wrapper::render_state.material = vmat;
 		DX8Wrapper::render_state_changed |= 0x4000;
 		SetShader(*(ShaderClass*)((char*)this+0xd8));
 		{
@@ -253,9 +252,9 @@ void W3DStatusCircle::Render(RenderInfoClass &)
 		VertexMaterialClass *vmat = *(VertexMaterialClass **)((char *)this + 0xdc);
 		if (vmat)
 			++vmat->refs;
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = vmat;
+		if (DX8Wrapper::render_state.material)
+			DX8Wrapper::render_state.material->Release_Ref();
+		DX8Wrapper::render_state.material = vmat;
 		DX8Wrapper::render_state_changed |= 0x4000;
 		DX8Wrapper::Set_Index_Buffer(indexBuffer, 0);
 		{

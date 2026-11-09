@@ -65,7 +65,6 @@ public:
 	}
 };
 
-extern VertexMaterialClass *ScreenMaterial;
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (SetTransform slot 44, SetRenderState slot 57).
@@ -1065,9 +1064,9 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 	VertexMaterialClass *material = m_material;
 	if (material)
 		++material->refs;
-	if (ScreenMaterial)
-		ScreenMaterial->Release_Ref();
-	ScreenMaterial = material;
+	if (DX8Wrapper::render_state.material)
+		DX8Wrapper::render_state.material->Release_Ref();
+	DX8Wrapper::render_state.material = material;
 	DX8Wrapper::render_state_changed |= 0x4000;
 	m_buffBuffer->rva000D28FA(*(RenderInfoClass *)rinfo, *(bool *)&b);
 }

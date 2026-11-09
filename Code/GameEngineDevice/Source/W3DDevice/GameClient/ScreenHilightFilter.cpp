@@ -57,7 +57,6 @@ public:
 	}
 	int NumRefs;
 };
-extern VertexMaterialClass *ScreenMaterial;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 class TextureBaseClass
 {
@@ -217,9 +216,9 @@ public:
 	{
 		if (material)
 			material->Add_Ref();
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = material;
+		if (DX8Wrapper::render_state.material)
+			DX8Wrapper::render_state.material->Release_Ref();
+		DX8Wrapper::render_state.material = material;
 		render_state_changed |= 0x4000;
 	}
 

@@ -27,7 +27,7 @@
 // filter mode the fade value is stepped as Zero Hour's ScreenBWFilter::set
 // does (the frame counter only advances on a new logic frame), then the
 // quad state is set: the PRELIT_DIFFUSE preset material (rowed Get_Preset
-// 0x0013D230, swapped into ScreenMaterial with the material-changed bit),
+// 0x0013D230, swapped into DX8Wrapper::render_state.material with the material-changed bit),
 // ShaderClass::_PresetOpaqueShader (rowed Set_Shader 0x000662E5), the
 // filter's texture (+0x08) on stage 0 (rowed BFME2Set_Texture 0x0011F4B0),
 // Apply_Render_State_Changes 0x0011D930, ZFUNC ALWAYS and ZWRITEENABLE off
@@ -78,7 +78,6 @@ extern GameClient *TheGameClient;
 extern View *TheTacticalView;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
-extern VertexMaterialClass *ScreenMaterial;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
@@ -112,6 +111,9 @@ class DX8Caps;
 
 class DX8Wrapper
 {
+	friend class Rva000FC63DFilter;
+	friend class Rva000FCF54Filter;
+	friend class Rva000FC34FFilter;
 public:
 	static DX8Caps *_Get_DX8_Caps() { return CurrentCaps; }
 	static void Set_DX8_Texture_Stage_State(unsigned, unsigned long, unsigned);
@@ -322,8 +324,8 @@ Int Rva000FC63DFilter::set(FilterModes mode)
 
 		VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 		if (vmat) ++vmat->NumRefs;
-		if (ScreenMaterial) ScreenMaterial->Release_Ref();
-		ScreenMaterial = vmat;
+		if (DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
+		DX8Wrapper::render_state.material = vmat;
 		DX8Wrapper::Mark_Material_Changed();
 		REF_PTR_RELEASE(vmat);
 		DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);
@@ -675,8 +677,8 @@ Int Rva000FCF54Filter::set(FilterModes mode) {
   }
   VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
   if (vmat) ++vmat->NumRefs;
-  if (ScreenMaterial) ScreenMaterial->Release_Ref();
-  ScreenMaterial = vmat;
+  if (DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
+  DX8Wrapper::render_state.material = vmat;
   DX8Wrapper::Mark_Material_Changed();
   REF_PTR_RELEASE(vmat);
   DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);
@@ -744,8 +746,8 @@ Int Rva000FC34FFilter::set(FilterModes mode) {
   }
   VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
   if (vmat) ++vmat->NumRefs;
-  if (ScreenMaterial) ScreenMaterial->Release_Ref();
-  ScreenMaterial = vmat;
+  if (DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
+  DX8Wrapper::render_state.material = vmat;
   DX8Wrapper::Mark_Material_Changed();
   REF_PTR_RELEASE(vmat);
   DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);

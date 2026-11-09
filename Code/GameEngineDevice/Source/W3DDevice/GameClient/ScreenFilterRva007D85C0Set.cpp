@@ -10,7 +10,6 @@ class TextureClass { public: void Release_Ref(); };
 class TextureBaseClass;
 class TextureHandle { public: TextureClass *p; TextureHandle():p(0){} ~TextureHandle(){if(p)p->Release_Ref();} };
 void BoxSetTexture(unsigned int,TextureBaseClass*&);
-extern VertexMaterialClass *ScreenMaterial;
 class Rva007D85C0;
 // ShaderClass / DX8Wrapper statics under the names shader.cpp, ShaderClassApply.cpp and
 // dx8wrapper.cpp define (data ledger 0x009B6228, 0x009B621C, 0x009EE5D8, 0x009EC4F4):
@@ -50,8 +49,8 @@ int Rva007D85C0::set(FilterModes mode) {
  if(mode>FM_NULL_MODE){
  VertexMaterialClass *vmat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
  if(vmat)++vmat->NumRefs;
- if(ScreenMaterial)ScreenMaterial->Release_Ref();
- ScreenMaterial=vmat;
+ if(DX8Wrapper::render_state.material)DX8Wrapper::render_state.material->Release_Ref();
+ DX8Wrapper::render_state.material=vmat;
  DX8Wrapper::render_state_changed|=0x4000;
  if(vmat)vmat->Release_Ref();
  if(ShaderClass::ShaderDirty||ShaderClass::_PresetOpaqueShader.ShaderBits!=DX8Wrapper::render_state.shader.ShaderBits){DX8Wrapper::render_state.shader.ShaderBits=ShaderClass::_PresetOpaqueShader.ShaderBits;DX8Wrapper::render_state_changed|=0x8000;StringClass s;}
