@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 class Rva004DFC20 { public: void clear(); };
@@ -71,7 +72,10 @@ protected:
 
 	BfmeTeamRelationMapMember m_map;
 protected:
-	// retail slot 3: the rowed ?xfer@TeamRelationMap@@MAEXPAVXfer@@@Z
+	// Retail's table 0x00C1ADFC: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name
+	// getter 0x003A25AB, slot 3 the rowed xfer.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 };
 

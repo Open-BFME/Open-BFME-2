@@ -24,15 +24,19 @@ public:
 protected:
 	virtual ~TeamRelationMap();
 public:
-	virtual void bfmeVtSlot1() = 0; // __purecall in every copy of this vtable
-	virtual void bfmeVtSlot2() = 0; // __purecall in every copy of this vtable
 protected:
-	// retail slot 3: the rowed ?xfer@TeamRelationMap@@MAEXPAVXfer@@@Z, as in
-	// TeamRelationMapDtor_Rva003A2563.cpp's copy of this vtable
+	// Retail's table 0x00C1ADFC: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name
+	// getter 0x003A25AB, slot 3 the rowed xfer, as in TeamRelationMapDtor_Rva003A2563.cpp's copy.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 };
 
 // ?<TeamRelationMap::TeamRelationMap> absent-from-retail
 TeamRelationMap::TeamRelationMap(EmitVtableTag *)
+{
+}
+
+void TeamRelationMap::loadPostProcess()
 {
 }
