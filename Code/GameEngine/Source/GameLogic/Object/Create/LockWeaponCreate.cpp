@@ -26,12 +26,16 @@ class Snapshot;
 #include "../../../../Include/GameLogic/Module/LockWeaponCreate.h"
 class Xfer;
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
+enum WeaponLockType { LOCKED_PERMANENTLY = 2 };
+#include "../object.h"
 
 // Zero Hour's order: the module data defaults to the primary slot.
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp
 
@@ -65,19 +69,25 @@ void LockWeaponCreate::xfer( Xfer *xfer )
 	CreateModule::xfer( xfer );
 }
 
-// tu-skeleton: 0x004B8C38 6B ?Rva004B8C38Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp
 
 LockWeaponCreate::~LockWeaponCreate()
 {
 }
 
+// tu-skeleton: 0x004B8C38 6B ?Rva004B8C38Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x004B8C57 69B ?rva004B8C57@LockWeaponCreate@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/LockWeaponCreatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x004B8C9C 17B ?buildFieldParse@LockWeaponCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004B8CC9 21B ?onBuildComplete@LockWeaponCreate@@UAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv940.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeConv940.cpp
+
+void LockWeaponCreate::onBuildComplete()
+{
+	CreateModule::onBuildComplete();
+	getObject()->setWeaponLock( getLockWeaponCreateModuleData()->m_slotToLock, LOCKED_PERMANENTLY );
+}
 
 // tu-skeleton: 0x0078F1D8 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/LockWeaponCreatePoolKey.cpp (not merged yet)
 

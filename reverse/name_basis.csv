@@ -7452,7 +7452,7 @@ local,PSPlayerAllStats::incorporate#3::v,PSPlayerAllStats::incorporate#3::id,inf
 local,PSPlayerAllStats::incorporate#4::v,PSPlayerAllStats::incorporate#4::id,inferred,agree:nl-1e1a5a36ff95-m33298c22ef4ffadb98e4cefe,Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp,
 function,?Rva002223E8LevelPath@@YAXAAVAsciiString@@H@Z,?buildLevelPath@@YAXAAVAsciiString@@H@Z,inferred,agree:nl-2a98acca3ac0,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp,0x002223E8
 member,Rva001E34B2Node::m_p08,Rva001E34B2Node::m_next,inferred,agree:nl-8027d3d26070,Code/GameEngine/Source/Common/Rva001E34B2.cpp,
-local,BfmeThing940G::bfmeGo940G::v,BfmeThing940G::bfmeGo940G::weaponSlot,inferred,agree:nl-17c750de1afe,Code/GameEngine/Source/Common/BfmeConv940.cpp,0x004B8CC9
+local,BfmeThing940G::bfmeGo940G::v,BfmeThing940G::bfmeGo940G::weaponSlot,inferred,agree:nl-17c750de1afe,Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp,0x004B8CC9
 function,?rva005424C4@XmlNameSlotList@@QAEHXZ,?scanElement@XmlNameSlotList@@QAEHXZ,inferred,agree:nl-ec48e60c5703,Code/GameEngine/Source/Common/Rva00542425Skip.cpp,0x005424C4
 function,?Rva004126A6SkipPastEquals@@YAXPAPBD@Z,?skipPastEquals@@YAXPAPBD@Z,inferred,agree:nl-2a6151483af0,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126A6
 carry,Rva004126A6SkipPastEquals::queryCursor,skipPastEquals::queryCursor,inferred,scope renamed by Rename Rva004126A6SkipPastEquals to skipPastEquals (inferred),Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126A6
