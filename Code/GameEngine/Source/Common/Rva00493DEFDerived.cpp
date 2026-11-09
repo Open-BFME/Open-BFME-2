@@ -26,21 +26,7 @@ public:
 	virtual void f1();
 };
 
-class Rva004C2656_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C2656 : public Rva00493DEF, public MiBase1, public Rva004C2656_B2
-{
-public:
-	virtual ~Rva004C2656();
-};
-
-Rva004C2656::~Rva004C2656()
-{
-}
 
 class Rva004C29BB_B2
 {

@@ -86,6 +86,47 @@ void (*g_keepCashHackParseForUpgrades)(INI*, void*, void*, const void*) = parseC
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C2656_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C2656 : public Rva00493DEF, public MiBase1, public Rva004C2656_B2
+{
+public:
+	virtual ~Rva004C2656();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp
 
 // This donor Object view does not use native disabled-mask +0x1C8.
@@ -208,8 +249,6 @@ void CashHackSpecialPower::doSpecialPowerAtLocation( const Coord3D *loc, Real an
 	return;
 }
 
-
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // Target action is recovered in CashHackSpecialPowerAction.cpp.
@@ -270,9 +309,7 @@ void CashHackSpecialPower::loadPostProcess( void )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x004C2650 6B ?Rva004C2650Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C2656 25B ??1Rva004C2656@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPowerPoolKey.cpp
 
@@ -284,7 +321,17 @@ NameKeyType CashHackSpecialPower::rva004C266F()
 	return TheCashHackSpecialPowerPoolKey;
 }
 
-// tu-skeleton: 0x004C26B4 28B ??_GRva004C2656@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+// tu-skeleton: 0x004C2650 6B ?Rva004C2650Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
+
+Rva004C2656::~Rva004C2656()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C26D0 430B ?doSpecialPowerAtObject@CashHackSpecialPower@@UAEXPAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPowerAction.cpp (not merged yet)
 
