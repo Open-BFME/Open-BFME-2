@@ -1162,7 +1162,7 @@ def test_a_compiled_copy_naming_another_slot_refuses(tree, monkeypatch):
     # slot 0 agrees with retail and slot 1 reaches another body: a wrong identity, bridged or not
     compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP]}}
     _base(monkeypatch, [BASE], compiled=compiled)
-    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
     with pytest.raises(Refusal, match=f"slot 1 names {re.escape(STOP)}.*a wrong identity"):
         plan(tree)
 
@@ -1187,6 +1187,9 @@ def test_an_unprepared_installer_naming_another_body_refuses(tree, monkeypatch):
         plan(tree)
 
 
+BROKEN = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP, STOP]}}
+
+
 def test_a_copy_naming_the_placeholder_names_the_moved_body(tree, monkeypatch):
     # the old spelling is the moved row itself, which the rename respells in every source that names it
     compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", OLD]}}
@@ -1194,36 +1197,114 @@ def test_a_copy_naming_the_placeholder_names_the_moved_body(tree, monkeypatch):
     plan(tree)
 
 
-def test_a_copy_reaching_the_body_through_an_alternatename_names_it(tree, monkeypatch):
-    alias = "?alias@Other@@UAEXXZ"
-    (tree / "Code/Game/Other.cpp").write_text(
-        OTHER + f'#pragma comment(linker, "/alternatename:{alias}={OLD}")\n')
-    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", alias]}}
-    _base(monkeypatch, [BASE], compiled=compiled)
+ALIAS = "?alias@Other@@UAEXXZ"
+ALIASED = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", ALIAS]}}
+
+
+def _link(bridged, commit="abc", run=42):
+    return {"commit": commit, "run": run, "bridged": set(bridged)}
+
+
+def _aliased(monkeypatch, emitted, mapped, tree=None):
+    if tree is not None:
+        # the source spells the pragma, which a text-reading rule would follow
+        (tree / "Code/Game/Other.cpp").write_text(OTHER + f'#pragma comment(linker, "/alternatename:{ALIAS}={OLD}")\n')
+    _base(monkeypatch, [BASE], compiled=ALIASED)
+    monkeypatch.setattr(rename, "object_alternates", lambda ctx, rel, current=True: emitted)
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link(set()))
+    monkeypatch.setattr(rename, "real_link_map", lambda ctx, link: mapped)
+
+
+def test_an_alternatename_the_link_resolved_to_the_fallback_names_the_body(tree, monkeypatch):
+    _aliased(monkeypatch, {ALIAS: OLD}, {ALIAS: 0x02001000, OLD: 0x02001000})
     plan(tree)
 
 
-BROKEN = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", STOP, STOP]}}
+def test_an_alternatename_another_object_overrode_does_not(tree, monkeypatch):
+    # the link put the left-hand name at another body: a definition beat the fallback
+    _aliased(monkeypatch, {ALIAS: OLD}, {ALIAS: 0x02005000, OLD: 0x02001000}, tree)
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}"):
+        plan(tree)
+
+
+def test_an_alternatename_without_the_links_map_does_not(tree, monkeypatch):
+    _aliased(monkeypatch, {ALIAS: OLD}, None, tree)
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}"):
+        plan(tree)
+
+
+def test_a_pragma_the_object_does_not_emit_is_not_followed(tree, monkeypatch):
+    # an inactive or commented-out pragma in the text emits no directive
+    (tree / "Code/Game/Other.cpp").write_text(
+        OTHER + f'#if 0\n#pragma comment(linker, "/alternatename:{ALIAS}={OLD}")\n#endif\n')
+    _aliased(monkeypatch, {}, {ALIAS: 0x02001000, OLD: 0x02001000})
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}"):
+        plan(tree)
+
+
+def test_the_bridge_is_read_again_after_the_build(tree, monkeypatch):
+    _base(monkeypatch, [BASE], compiled=BROKEN)
+    calls = []
+    monkeypatch.setattr(rename, "newest_real_link",
+                        lambda ctx: calls.append(1) or _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    done = plan(tree)
+    before = len(calls)
+    # a newer real link no longer bridges the table: the rebuilt admission refuses
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: calls.append(1) or _link({0x00820000}, commit="def"))
+    problems = rename.to_class_slot_problems(ctx_of(tree), done.to_class, current=False)
+    assert len(calls) > before and any("real link def does not bridge it" in p for p in problems)
+
+
+GADGET_TABLE_VA, GADGET_STORE = 0x00C11000, 0x0040C010
+GADGET_FACTS = (retail_identity.word(GADGET_TABLE_VA, 1, 0x00401000),
+                retail_identity.Fact("stores", GADGET_STORE, GADGET_TABLE_VA, "c701"),
+                retail_identity.Fact("stores", PUSH + 0x20, FACTORY + 0x20 + retail_identity.IMAGE_BASE, "68"),
+                retail_identity.Fact("calls", REG_CALL + 0x20, REGISTER))
+
+
+def test_the_final_reports_are_warned_and_kept_in_the_tombstone(tree, monkeypatch, capsys):
+    # planning reads sound copies; after the rebuild Other's copy is broken elsewhere (its table bridged) while
+    # Gadget's still proves the move
+    functions = (tree / "reverse/functions.csv").read_text() + "??0Gadget@@QAE@XZ,,0x0040C000,64,Code/Game/Gadget.cpp,matched,ctor\n"
+    (tree / "reverse/functions.csv").write_text(functions)
+    tables = dict(BASE_TABLES)
+    tables[GADGET_TABLE_VA - retail_identity.IMAGE_BASE] = ([0x00405000, 0x00401000], {GADGET_STORE: 0})
+    entry = BASE._replace(tables={OTHER_TABLE_VA: ("Other", BASE_FACTS), GADGET_TABLE_VA: ("Gadget", GADGET_FACTS)})
+    gadget = {"??_7Gadget@@6B@": ["?count@Gadget@@QAEXXZ", NEW]}
+    good = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", NEW]}, "Code/Game/Gadget.cpp": gadget}
+    rebuilt = dict(BROKEN, **{"Code/Game/Gadget.cpp": gadget})
+    _base(monkeypatch, [entry], tables=tables, compiled=good)
+    monkeypatch.setattr(rename, "compiled_vtables",
+                        lambda ctx, rel, current=True: (good if current else rebuilt).get(rel))
+    monkeypatch.setattr(rename, "newest_real_link",
+                        lambda ctx: _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}, commit="c0ffee1234", run=77))
+    done = plan(tree)
+    assert not any("reported" in w for w in done.warnings)
+    rename.apply_rename(done, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    assert "rename: warning:" in capsys.readouterr().out
+    deleted = (tree / "reverse/deleted_rows.csv").read_text()
+    assert "; reported: Code/Game/Other.cpp's ??_7Other@@6B@ slot 1 names" in deleted
+    assert "real link run 77 at c0ffee1234 bridges that table" in deleted and "at slot(s) 2" in deleted
 
 
 def test_a_copy_broken_elsewhere_passes_with_a_report_while_its_table_is_bridged(tree, monkeypatch):
     _base(monkeypatch, [BASE], compiled=BROKEN)
-    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
     done = plan(tree)
     assert any("already differs from retail table 0x00C10000 at slot(s) 2" in w and "reported, not refused" in w
-               for w in done.warnings)
+               and "run 42 at abc" in w for w in done.warnings)
 
 
 def test_a_copy_broken_elsewhere_refuses_when_its_table_is_not_bridged(tree, monkeypatch):
     _base(monkeypatch, [BASE], compiled=BROKEN)
-    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {0x00820000}))
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({0x00820000}))
     with pytest.raises(Refusal, match="real link abc does not bridge it"):
         plan(tree)
 
 
 def test_a_copy_broken_elsewhere_refuses_when_the_bridge_queue_cannot_be_read(tree, monkeypatch):
     _base(monkeypatch, [BASE], compiled=BROKEN)
-    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: None)
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: None)
     with pytest.raises(Refusal, match="bridge queue could not be read"):
         plan(tree)
 
@@ -1231,7 +1312,7 @@ def test_a_copy_broken_elsewhere_refuses_when_the_bridge_queue_cannot_be_read(tr
 def test_a_copy_where_nothing_else_resolves_refuses(tree, monkeypatch):
     compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?a@Other@@UAEXXZ", "?b@Other@@UAEXXZ"]}}
     _base(monkeypatch, [BASE], compiled=compiled)
-    monkeypatch.setattr(rename, "bridged_tables_now", lambda ctx: ("abc", {OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
     with pytest.raises(Refusal, match="nothing else in it resolves"):
         plan(tree)
 

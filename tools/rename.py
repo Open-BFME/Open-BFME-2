@@ -6183,49 +6183,100 @@ def base_slot_evidence(ctx, rva, base, hits, tables, based, found):
 
 
 REAL_LINK_REPO = "Open-BFME/Open-BFME-2"
+DRECTVE_ALTERNATENAME = re.compile(r'/alternatename:"?([^="\s]+)=([^"\s]+)"?', re.I)
 
 
-def bridged_tables_now(ctx):
-    """(commit, {retail table rva}) that the newest successful real link on master bridges, read from that run's
-    own vtable_bridge_queue.tsv at admission time, or None when it cannot be read (and then no copy is excused).
-    The download is kept under build/rename/bridge_queue/<commit>/ and reused only for that same newest commit.
-    Tests replace this."""
-    key = "_bridged_tables_now"
-    if key not in ctx._cache:
+def _gh(*args, timeout=120):
+    return subprocess.run(["gh", *args], capture_output=True, text=True, timeout=timeout)
+
+
+def newest_real_link(ctx):
+    """{'commit', 'run', 'bridged': {retail table rva}} for the newest successful real link on master, listed afresh
+    at every call (each admission: planning and again after ./build.sh), or None when it cannot be read, which
+    excuses nothing. Its own vtable_bridge_queue.tsv is downloaded under build/rename/real_link/<commit>/ and reused
+    only while that commit is still the newest. Tests replace this."""
+    try:
+        import csv
+        listed = _gh("run", "list", "--repo", REAL_LINK_REPO, "--workflow", "real-link.yml", "--branch", "master",
+                     "--status", "success", "--limit", "1", "--json", "databaseId,headSha")
+        runs = json.loads(listed.stdout or "[]") if listed.returncode == 0 else []
+        if not runs:
+            return None
+        commit, run = runs[0]["headSha"], runs[0]["databaseId"]
+        cached = ctx._cache.get("_newest_real_link")
+        if cached and cached["commit"] == commit:
+            return cached
+        where = ctx.path(f"build/rename/real_link/{commit}")
+        queue = where / "vtable_bridge_queue.tsv"
+        if not queue.exists():
+            got = _gh("run", "download", str(run), "--repo", REAL_LINK_REPO, "-n", f"real-link-{commit}",
+                      "-D", str(where), timeout=1800)
+            if got.returncode:
+                return None
+        csv.field_size_limit(2 ** 31 - 1)
+        with open(queue, encoding="utf-8", newline="") as handle:
+            bridged = {int(row["retail_rva"], 16) for row in csv.DictReader(handle, delimiter="\t")
+                       if row.get("state") == "bridged"}
+        link = {"commit": commit, "run": run, "bridged": bridged}
+        ctx._cache["_newest_real_link"] = link
+        return link
+    except Exception:                                   # noqa: BLE001 - an unreadable link excuses nothing
+        return None
+
+
+def real_link_map(ctx, link):
+    """{public symbol: image address} from `link`'s own exit.map (its diagnostic-link artifact), or None when it
+    cannot be read. Tests replace this."""
+    key = ("_real_link_map", link["commit"])
+    if key in ctx._cache:
+        return ctx._cache[key]
+    ctx._cache[key] = None
+    try:
+        where = ctx.path(f"build/rename/real_link/{link['commit']}/diagnostic")
+        found = list(where.glob("**/exit.map")) if where.exists() else []
+        if not found:
+            got = _gh("run", "download", str(link["run"]), "--repo", REAL_LINK_REPO, "-n",
+                      f"diagnostic-link-{link['commit']}", "-D", str(where), timeout=1800)
+            found = list(where.glob("**/exit.map")) if got.returncode == 0 else []
+        if len(found) == 1:
+            out = {}
+            for line in found[0].read_text(encoding="utf-8", errors="replace").splitlines():
+                parts = line.split()
+                if len(parts) >= 3 and ":" in parts[0] and re.fullmatch(r"[0-9a-fA-F]{8}", parts[2]):
+                    out.setdefault(parts[1], int(parts[2], 16))
+            ctx._cache[key] = out
+    except Exception:                                   # noqa: BLE001 - an unreadable map resolves nothing
         ctx._cache[key] = None
-        try:
-            import csv
-            listed = subprocess.run(["gh", "run", "list", "--repo", REAL_LINK_REPO, "--workflow", "real-link.yml",
-                                     "--branch", "master", "--status", "success", "--limit", "1",
-                                     "--json", "databaseId,headSha"], capture_output=True, text=True, timeout=120)
-            runs = json.loads(listed.stdout or "[]") if listed.returncode == 0 else []
-            if runs:
-                sha, run = runs[0]["headSha"], runs[0]["databaseId"]
-                where = ctx.path(f"build/rename/bridge_queue/{sha}")
-                queue = where / "vtable_bridge_queue.tsv"
-                if not queue.exists():
-                    subprocess.run(["gh", "run", "download", str(run), "--repo", REAL_LINK_REPO, "-n",
-                                    f"real-link-{sha}", "-D", str(where)], capture_output=True, timeout=1800,
-                                   check=True)
-                csv.field_size_limit(2 ** 31 - 1)
-                with open(queue, encoding="utf-8", newline="") as handle:
-                    bridged = {int(row["retail_rva"], 16) for row in csv.DictReader(handle, delimiter="\t")
-                               if row.get("state") == "bridged"}
-                ctx._cache[key] = (sha, bridged)
-        except Exception:                               # noqa: BLE001 - an unreadable queue excuses nothing
-            ctx._cache[key] = None
     return ctx._cache[key]
+
+
+def object_alternates(ctx, rel, current=True):
+    """{left: right} of the /alternatename directives the object of ledger source `rel` emits in its .drectve
+    (what the linker reads, not the source text), or {} with no object. Tests replace this."""
+    import link_cycle
+    path = _source_object(ctx, rel, current)
+    if path is None:
+        return {}
+    raw = path.read_bytes()
+    sections, _symbols = link_cycle.parse_coff(raw)
+    out = {}
+    for section in sections:
+        if section.name == ".drectve":
+            text = raw[section.ptr:section.ptr + section.size].decode("latin-1")
+            out.update(DRECTVE_ALTERNATENAME.findall(text))
+    return out
 
 
 def base_slot_compiled_problems(ctx, check, *, current=True):
     """to_class_slot_problems under a base entry: each live table's classes' installer units compile that class's
-    table. A copy's name at the slot must reach the moved body (`check['rva']`), directly or through the unit's own
-    /alternatename pragmas, which the link resolves. A copy whose name there reaches something else refuses when it
+    table. A copy's name at the slot must reach the moved body (`check['rva']`): its own row, pin or the moved name,
+    or an /alternatename its object emits, followed only when the newest real link's map puts the name at the
+    fallback's address (no object overrode it there). A copy whose name there reaches anything else refuses when it
     agrees with retail elsewhere (a wrong identity) or when nothing else in it resolves. One that already differs
-    from retail at another slot is reported and does not refuse, but only while the newest real link bridges its
-    table (bridged_tables_now, read at admission); otherwise it refuses too. A copy that names the moved body and
-    agrees with retail elsewhere proves the move; after ./build.sh at least one must."""
-    slot, new = check["slot"], check["new"]
+    from retail at another slot is reported and does not refuse, but only while the newest real link, read again at
+    this admission, bridges its table; otherwise it refuses too. Each call's reports replace `check['reports']`. A
+    copy that names the moved body and agrees with retail elsewhere proves the move; after ./build.sh one must."""
+    slot, new, moved = check["slot"], check["new"], check["rva"]
     address = {}
     for row in ctx.rows():
         at = _rva(row.get("target_rva"))
@@ -6235,22 +6286,43 @@ def base_slot_compiled_problems(ctx, check, *, current=True):
         at = _rva(pin.get("address"))
         if at is not None:
             address.setdefault(pin.get("name", ""), at)
-    address[new] = check["rva"]
-    reports = check.setdefault("reports", [])
+    address[new] = moved
+    reports = check["reports"] = []
+    state = {}
+
+    def link():
+        if "link" not in state:
+            state["link"] = newest_real_link(ctx)
+        return state["link"]
+
+    def linked_map():
+        if "map" not in state:
+            state["map"] = real_link_map(ctx, link()) if link() else None
+        return state["map"]
     problems, proved = [], 0
     for record in check["bases"]:
         retail = record["retail"]
         for rel in record["sources"]:
             compiled = compiled_vtables(ctx, rel, current=current) or {}
-            text = (ctx.read(rel) or b"").decode("utf-8", errors="replace")
-            alias = {m.group("a"): m.group("b") for m in ALTERNATENAME.finditer(text)}
+            alias = None
 
             def reach(name):
-                return address.get(name, address.get(alias.get(name, "")))
+                nonlocal alias
+                if name in address:
+                    return address[name]
+                if alias is None:
+                    alias = object_alternates(ctx, rel, current=current)
+                target = alias.get(name)
+                if target not in address:
+                    return None
+                # the map predates this rename: the moved name's body is the old row's there
+                mapped = linked_map()
+                there = mapped and mapped.get(check["old"] if target == new else target)
+                return address[target] if there and mapped.get(name) == there else None
             for symbol, names in sorted(compiled.items()):
                 if _vtable_class(symbol) != record["cls"] or slot >= len(names) or not names[slot]:
                     continue
-                if reach(names[slot]) == check["rva"]:
+                if reach(names[slot]) == moved:
                     continue
                 agree = {j for j, name in enumerate(names) if j != slot and j < len(retail)
                          and (reach(name) == retail[j] or deleting_slot_agrees(name, record["cls"], retail[j], address))}
@@ -6263,13 +6335,13 @@ def base_slot_compiled_problems(ctx, check, *, current=True):
                     continue
                 table = f"0x{record['table'] + IMAGE_BASE:08X}"
                 differs = f"it already differs from retail table {table} at slot(s) {', '.join(map(str, clash))}"
-                bridged = bridged_tables_now(ctx)
-                if bridged and record["table"] in bridged[1]:
-                    reports.append(f"{what}: {differs}, and real link {bridged[0][:10]} bridges that table; "
-                                   "reported, not refused")
+                now = link()
+                if now and record["table"] in now["bridged"]:
+                    reports.append(f"{what}: {differs}, and real link run {now['run']} at {now['commit'][:10]} "
+                                   "bridges that table; reported, not refused")
                     continue
-                problems.append(f"{what} ({differs}, and " + (f"real link {bridged[0][:10]} does not bridge it"
-                                if bridged else "the newest real link's bridge queue could not be read") + ")")
+                problems.append(f"{what} ({differs}, and " + (f"real link {now['commit'][:10]} does not bridge it"
+                                if now else "the newest real link's bridge queue could not be read") + ")")
         sub_check = {"cls": record["cls"], "table": record["table"], "slot": slot, "new": new,
                      "retail": record["retail"], "sources": record["sources"]}
         if any(_vtable_class(symbol) == record["cls"] for rel in record["sources"]
@@ -6280,6 +6352,27 @@ def base_slot_compiled_problems(ctx, check, *, current=True):
         problems.append(f"no installer unit of a table holding slot {slot} compiles a copy that names {new} there "
                         "and agrees with retail elsewhere")
     return problems
+
+
+def record_base_reports(ctx, plan):
+    """After the rebuilt check of a base-slot move: print its final reports as warnings and write each into the
+    move's tombstones in deleted_rows.csv, the record of the move."""
+    reports = plan.to_class.get("reports") or []
+    for report in reports:
+        print(f"rename: warning: {report}")
+        if report not in plan.warnings:
+            plan.warnings.append(report)
+    if not reports:
+        return
+    raw = ctx.read(DELETED) or b""
+    for old_row, at, reason in plan.to_class.get("tombstones") or ():
+        before = tombstone_line(old_row, at, reason)
+        after = tombstone_line(old_row, at, reason[:-1] + "; reported: " + " | ".join(reports) + ")")
+        if raw.count(before) != 1:
+            raise VerifyFailed(f"the tombstone of {old_row} is not where the move wrote it; every file restored")
+        raw = raw.replace(before, after)
+    ctx.path(DELETED).write_bytes(raw)
+    plan.after[DELETED] = raw
 
 
 def _source_object(ctx, rel, current=True):
@@ -6690,6 +6783,7 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         check["bases"] = first["bases"]
         check["where"] = first["where"]
         check["rva"] = first["rva"]
+        check["old"] = first["name"]
     edited = set(prepared or {})
     early_check = dict(check, sources=[s for s in installer_sources if s not in edited])
     if check.get("bases"):
@@ -6758,6 +6852,9 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
                 + "".join(f"; return type: {d}" for d in move["declared"]) + ")")
     lines = [tombstone_line(old_row, at, reason_text(old_row, new_row))
              for old_row, new_row, at in plan.renamed_rows if (old_row, at) not in tombstoned]
+    if check.get("bases"):
+        check["tombstones"] = [(old_row, at, reason_text(old_row, new_row))
+                               for old_row, new_row, at in plan.renamed_rows if (old_row, at) not in tombstoned]
     if lines:
         plan.edit(ctx, DELETED, appended(ctx.read(DELETED), lines, header="name,target_rva,reason"))
     records = current_records(ctx)
@@ -13968,6 +14065,8 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if slot_problems:
                 raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
                                    f"{slot_problems[0][:300]}; every file restored")
+            if plan.to_class.get("bases"):
+                record_base_reports(ctx, plan)
             static_problems = to_class_static_problems(ctx, plan.to_class)
             if static_problems:
                 raise VerifyFailed(f"the rebuilt object does not prove {plan.old} -> {plan.new}: "
