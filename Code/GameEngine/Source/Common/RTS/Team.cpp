@@ -691,9 +691,7 @@ class Rva0020D451Engine
 public:
 	void rva0020D451(const AsciiString &scope, void *action, void *script, void *scriptName, Team *team);	// rowed 0x0020D451
 };
-class ScriptEngine
-{
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 // The production condition and execute-actions flag of the prototype's team
 // template (+0x12C), as the Team.cpp seed's TeamTemplateInfo names them.
