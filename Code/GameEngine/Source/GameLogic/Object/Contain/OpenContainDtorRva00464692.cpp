@@ -64,7 +64,9 @@ struct ContainIface24 { virtual void containIface24() = 0; };
 // The +0x28 base is the die interface: getDie (slot 7, 0x004523A9) returns it and retail
 // table 0x00C46F78 holds one slot, OpenContain::onDie 0x004641B1.
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
-struct ContainIface2C { virtual void containIface2C() = 0; };
+// The +0x2C base is the damage interface: getDamage (slot 4, 0x004647C0) returns it, and
+// retail table 0x00C58790 holds OpenContain's three empty overrides (0x0047A69C x2, 0x000D1407).
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 struct ContainIface30 { virtual void containIface30() = 0; };
 // The +0x34 base is the create interface: getCreate (slot 3, 0x0046644A) returns it, the
 // constructor stores its four-slot construction table 0x00C4EF80 there first, and retail
@@ -108,7 +110,7 @@ class OpenContain
 	, public ContainIface20
 	, public ContainIface24
 	, public DieModuleInterface
-	, public ContainIface2C
+	, public DamageModuleInterface
 	, public ContainIface30
 	, public CreateModuleInterface
 {
@@ -158,6 +160,10 @@ public:
 	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
 	// The +0x28 DieModuleInterface table 0x00C46F78, slot 0: rowed in OpenContainOnDie.cpp.
 	virtual void onDie(const DamageInfo *damageInfo);
+	// The +0x2C DamageModuleInterface table 0x00C58790: three empty bodies retail shares (ICF).
+	virtual void onDamage(DamageInfo *damageInfo);
+	virtual void onHealing(DamageInfo *damageInfo);
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 	// The +0x34 CreateModuleInterface table 0x00C48B28: nothing to do on creation or build
 	// completion (the shared empty body 0x000B3FD0 and false 0x0047A699, ICF).
 	virtual void onCreate();
