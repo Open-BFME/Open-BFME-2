@@ -73,15 +73,11 @@ public:
 protected:
 	virtual void xfer(Xfer *xfer);
 	virtual bool executeCrateBehavior(Object *other);
-};
-
-// HealCrateCollide's destructor rows under their placeholder name: ??0HealCrateCollide
-// 0x004BC80F and 0x004BC83F store the same three tables (0x00C5A868, 0x00C5A040,
-// 0x00C5A600); 0x004BC83F then jumps to ??1CrateCollide 0x004BC4FC.
-class Rva004BC83F : public CrateCollide
-{
 public:
-	virtual ~Rva004BC83F();
+	// ??0HealCrateCollide 0x004BC80F and this destructor 0x004BC83F store the
+	// same three tables (0x00C5A868, 0x00C5A040, 0x00C5A600); it then jumps to
+	// ??1CrateCollide 0x004BC4FC. Its ??_G 0x004BC89D is slot 0 of 0x00C5A868.
+	virtual ~HealCrateCollide();
 };
 
 // tu-skeleton: 0x004BC80F 42B ??0HealCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollideCtor.cpp (not merged yet)
@@ -90,7 +86,7 @@ public:
 
 // ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
 
-Rva004BC83F::~Rva004BC83F()
+HealCrateCollide::~HealCrateCollide()
 {
 }
 
