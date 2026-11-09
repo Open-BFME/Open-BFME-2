@@ -62,18 +62,7 @@ enum AICommandType
 
 // The 0xC0 command block: opaque constructor 0x00351BD0, inline
 // coordinate-buffer free on teardown.
-struct AICommandParms
-{
-	AICommandParms(AICommandType cmd, CommandSourceType cmdSource);
-	~AICommandParms() { if (m_coordsStart) free(m_coordsStart); }
-
-	AICommandType m_cmd; // +0x00
-	CommandSourceType m_cmdSource; // +0x04
-	Coord3D m_pos; // +0x08
-	char m_pad14[0x20 - 0x14];
-	void *m_coordsStart; // +0x20
-	char m_pad24[0xC0 - 0x24];
-};
+#include "../../../Include/GameLogic/AICommandParms.h"
 
 class Player;
 class Rva001EB130Holder;
