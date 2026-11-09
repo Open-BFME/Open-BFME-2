@@ -811,3 +811,15 @@ unverified rather than a clean table-selection result. No Code or ledger
 change is needed to repeat the retired strong-definition repair. Actual
 next-image selection and class folding remain open.
 [Bounded recheck and provider currency](../../reverse/attempt_support/vnh-table-recheck-20261109.json).
+
+2026-11-09, BaseHeightMap RefCount-table recheck (7C5DB0): the current
+constructor file passes thirty strict rows, four strings, five floats
+and 28 funclet bindings. The two 22-byte bounding getters still equal
+native and the cached hlod copies in bytes/relocations, while section
+flags remain 0x60101020 versus 0x60501020. Current Targets.resolve in path
+order still refuses both as target-not-winning-provider. The cached owner
+is not strict-current and was not compiled here; the old 193-row scope is
+not a fresh proof. No Code/header/ledger/check change, alignment mask or
+full-table clearance is claimed. Actual provider recovery or the already
+recorded sound position-observation proof remains prerequisite.
+[Current bounded result](../../reverse/attempt_support/base-height-map-bounding-recheck-20261109.json).

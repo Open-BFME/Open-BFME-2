@@ -1,0 +1,40 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+  "owner": "Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp",
+  "index_meta": {
+    "date": "2026-11-09 00:25",
+    "commit": "717b70f4ab",
+    "clean_tree": true,
+    "census_date": "2026-11-08 23:34",
+    "census_commit": "a46241d8d1"
+  },
+  "current_source_checks": "30 rows, four strings, five floats, 28 funclet bindings; strict reusable source receipt",
+  "object_currency": {
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp": true,
+    "Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp": false
+  },
+  "checks": [
+    {
+      "name": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+      "native_rva": "0x0006D03E",
+      "size": "22",
+      "source_flags": "0x60101020",
+      "owner_flags": "0x60501020",
+      "bytes_and_relocations_equal": true,
+      "both_native_bytes_exact": true,
+      "reason": "target-not-winning-provider"
+    },
+    {
+      "name": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+      "native_rva": "0x0006D028",
+      "size": "22",
+      "source_flags": "0x60101020",
+      "owner_flags": "0x60501020",
+      "bytes_and_relocations_equal": true,
+      "both_native_bytes_exact": true,
+      "reason": "target-not-winning-provider"
+    }
+  ],
+  "prior": "reverse/attempt_support/renderobj-bounding-order-20261108/README.md",
+  "verdict": "Same alignment-only barrier. Source/current table unchanged, no new Code/header/row/pin/check edit. Cached owner is not compiled or claimed here. Earlier193-row scope is not re-claimed as fresh. Real provider recovery or separately reviewed position-observation proof is still prerequisite; no blanket flag mask or fulltable closure."
+}
