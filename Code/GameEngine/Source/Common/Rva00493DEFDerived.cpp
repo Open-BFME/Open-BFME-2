@@ -113,6 +113,5 @@ Rva004C8A16::~Rva004C8A16()
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?f2@Rva004C2656_B2@@UAEXXZ=?eq@Rva002687D0@@QBE_NH@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004C29BB_B2@@UAEXXZ=?eq@Rva002687D0@@QBE_NH@Z")
-#pragma comment(linker, "/alternatename:?f2@Rva004C3108_B2@@UAEXXZ=?eq@Rva002687D0@@QBE_NH@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004C67A0_B2@@UAEXXZ=?eq@Rva002687D0@@QBE_NH@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004C8A16_B2@@UAEXXZ=?eq@Rva002687D0@@QBE_NH@Z")
