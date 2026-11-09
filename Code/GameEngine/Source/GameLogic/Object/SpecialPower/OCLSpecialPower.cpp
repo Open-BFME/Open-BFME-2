@@ -164,24 +164,10 @@ public:
 	virtual void doSpecialPower( unsigned commandOptions );
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
 	virtual bool rva0049466D( const Coord3D *loc );
+
+protected:
+	virtual ~OCLSpecialPower();
 };
-
-//
-// OCLSpecialPower's destructor 0x004C3108, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5CC74 at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5CC10 at +0x10), exactly what ??0OCLSpecialPower
-// 0x004C30D8 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C3108 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C3108();
-};
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
 
@@ -212,8 +198,7 @@ public:
 // disabled check and angle argument are not BFME 2's.
 //
 // The constructor stores the class's own three tables: the compiler emits
-// them here (the destructor 0x004C3108 stores the same three, still under its
-// placeholder name Rva004C3108 in Rva00493DEFDerived.cpp).
+// them here, and the destructor 0x004C3108 stores the same three.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // First: BehaviorModule.h selects the Snapshot name-slot surface that
@@ -418,15 +403,11 @@ unsigned Rva004C31A8ScienceSelector::select()const
 
 // tu-skeleton: 0x004C3102 6B ?Rva004C3102Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C3108::~Rva004C3108()
+// ??1OCLSpecialPower@@MAE@XZ 0x004C3108: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
+OCLSpecialPower::~OCLSpecialPower()
 {
 }
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C3121 38B ??$__uninitialized_copy@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
 
