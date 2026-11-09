@@ -37,9 +37,7 @@
 
 extern "C" const void *const __identifier("??_7CombineHordeSpecialPowerModuleData@@6B@")[];
 #include <string.h>
-
 class Player;
-
 template<int N>
 class BitFlags
 {
@@ -47,18 +45,14 @@ public:
 	bool any() const;
 	unsigned int m_bits[(N + 31) / 32];
 };
-
 enum Relationship
 {
 	REL_0 = 0,
 	REL_1 = 1,
 	REL_2 = 2
 };
-
 struct Tmpl;
-
 class Mult;
-
 class Object
 {
 public:
@@ -81,9 +75,7 @@ public:
 	char m_pad258[0x28];
 	float m_280; // +0x280
 };
-
 class ModuleData;
-
 class ModuleBase
 {
 public:
@@ -92,11 +84,8 @@ protected:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-
 class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
 	public SpecialPowerModuleInterface
 {
@@ -105,15 +94,12 @@ public:
 	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);		// 0x0049495B
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
 };
-
 class ObjectCreationList;
-
 class SpecialPowerModuleData
 {
 public:
 	SpecialPowerModuleData();
 };
-
 class Rva0024C7B3Member
 {
 public:
@@ -121,7 +107,6 @@ public:
 
 	unsigned char m_data[0x1C];
 };
-
 // Module data offsets read by the heal: radius +0x84, dispatch OCL +0xA8.
 struct PlayerHealSpecialPowerModuleData : public SpecialPowerModuleData
 {
@@ -142,12 +127,10 @@ private:
 public:
 	ObjectCreationList *m_dispatchList;					// +0xA8
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class PlayerHealSpecialPower : public SpecialPowerModule
 {
 public:
@@ -162,18 +145,14 @@ public:
 		return (const PlayerHealSpecialPowerModuleData *)m_moduleData;
 	}
 };
-
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-
 // vftable 0x00BFAD10, allow 0x0026119D.
 class Rva0026119DFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
 };
-
 extern PartitionManager *ThePartitionManager;
-
 class ObjectCreationList
 {
 public:
@@ -187,30 +166,22 @@ public:
 public:
 	void rva001F0410(void *a, void *b);
 };
-
 class Rva001E11F8
 {
 public:
 	void rva001E11F8(int a, int b);
 };
-
 struct Rva004C7EC7Holder
 {
 	char m_pad[0xA4];
 	Rva001E11F8 *m_a4;
 	ObjectCreationList *m_a8;
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Object;
-
 struct Coord3D;
-
 struct PlayerHealSpecialPowerModuleData;
-
 #include "../../../Common/Thing/thing.h"
 
 struct Tmpl
@@ -248,13 +219,62 @@ struct Inner
 	FXList *m_a4;
 };
 
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C7EAE_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C7EAE : public Rva00493DEF, public MiBase1, public Rva004C7EAE_B2
+{
+public:
+	virtual ~Rva004C7EAE();
+};
+
 // tu-skeleton: 0x004C7E63 27B ?buildFieldParse@PlayerHealSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004C7E7E 42B ??0PlayerHealSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPowerCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C7EA8 6B ?Rva004C7EA8Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C7EAE 25B ??1Rva004C7EAE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
+
+Rva004C7EAE::~Rva004C7EAE()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerHealSpecialPower.cpp
 
@@ -329,8 +349,6 @@ NameKeyType PlayerHealSpecialPower::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("PlayerHealSpecialPower");
 	return ThePlayerHealSpecialPowerPoolKey;
 }
-
-// tu-skeleton: 0x004C7F40 28B ??_GRva004C7EAE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004C7F5C.cpp
 
