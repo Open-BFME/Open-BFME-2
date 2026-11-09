@@ -218,6 +218,7 @@ private:
 	void doMoney(Object *other);
 public:
 	SalvageCrateCollide(Thing *thing, const ModuleData *moduleData);
+	virtual ~SalvageCrateCollide();
 };
 
 class HealCrateCollide : public CrateCollide
@@ -261,12 +262,6 @@ class Rva004BC4FC_B2
 {
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
-
-class Rva004BD207 : public CrateCollide
-{
-public:
-	virtual ~Rva004BD207();
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp
@@ -435,7 +430,7 @@ void HealCrateCollide::xfer(Xfer *xfer)
 
 // ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
 
-Rva004BD207::~Rva004BD207()
+SalvageCrateCollide::~SalvageCrateCollide()
 {
 }
 

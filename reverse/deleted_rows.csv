@@ -6009,3 +6009,5 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?rva00575DF2@Rva00575DF2@@QAEXXZ,0x00575DF2,"Renamed to ?rva00575DF2@Rva00575EEA@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C6E6B0 slot 1)"
 _$E242,0x007B3EB4,Retracted for readmission under the same unit's new compiler label: removing the class-static s_instance (LINK-615) renumbers the unit's _$E initializers; retail's second DefaultModuleTag<6>::s_key initializer
 _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler label: removing the class-static s_instance (LINK-615) renumbers the unit's _$E initializers; retail's second DefaultModuleTag<6>::s_name initializer
+??1Rva004BD207@@UAE@XZ,0x004BD207,"Renamed to ??1SalvageCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A9C0)"
+??_GRva004BD207@@UAEPAXI@Z,0x004BD265,"Renamed to ??_GSalvageCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A9C0)"
