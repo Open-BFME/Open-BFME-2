@@ -12,6 +12,17 @@ TOOLS = Path(__file__).resolve().parents[1]
 
 
 def _load(name):
+    """The tools module `name`, loaded by path, reusing the one already imported.
+
+    One module object per name or pickling breaks: ProcessPoolExecutor sends a
+    function by qualified name and the receiver compares identity against
+    `sys.modules[module].<name>`, so a second copy of exit_link makes its
+    parallel path raise PicklingError. Loading unconditionally clobbered
+    `sys.modules` for whichever file pytest imported first, which failed
+    test_exit_link.py's test_parallel_currency_keeps_the_serial_answer_and_order
+    whenever it ran in the same process as this file."""
+    if name in sys.modules:
+        return sys.modules[name]
     spec = importlib.util.spec_from_file_location(name, TOOLS / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
     sys.modules[name] = module
@@ -83,6 +94,24 @@ def test_an_object_takes_its_lowest_slot(monkeypatch):
     paths = [obj("One"), obj("Two")]
     got = order(rows, paths, [0x9000, 0x9010, 0x9030], {"One": (0, 0x1), "Two": (0, 0x2)}, monkeypatch)
     assert got == ["Two", "One"]
+
+
+def test_one_module_object_per_tool_so_its_functions_stay_picklable():
+    """Regression: a second copy of a tool module breaks exit_link's parallel path.
+
+    ProcessPoolExecutor pickles a function by qualified name, and unpickling
+    checks that `sys.modules[module].<name>` IS the object sent. With two copies
+    of exit_link the check fails with "not the same object as
+    exit_link._stale_chunk" -- which is what test_exit_link.py saw whenever
+    pytest imported both files into one process (false-reject record
+    tool:test_exit_link). Pin that `_load` hands back the imported module.
+    """
+    import exit_link as imported_normally
+
+    assert _load("exit_link") is imported_normally
+    assert sys.modules["exit_link"] is exit_link
+    assert sys.modules["build"] is build
+    assert getattr(sys.modules["exit_link"], "_stale_chunk") is exit_link._stale_chunk
 
 
 def test_path_order_stays_the_default(monkeypatch):
