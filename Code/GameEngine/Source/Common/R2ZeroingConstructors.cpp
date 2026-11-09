@@ -4,10 +4,8 @@
 // The R2Data externs are address-derived placeholders (DIR32 sites the patcher
 // fills from retail) and carry no type information, per the donor's own notes.
 
-extern int R2Data010EC760;
-extern int R2Data01085DBC;
-// R2Data01085DBC: matched references place it at VA 0xc61c30 (retail .rdata value 9313558).
-int R2Data01085DBC = 9313558;
+extern "C" const void *const __identifier("??_7Rva004E14E1FlashRecord@@6B@")[];
+extern "C" const void *const __identifier("??_7Rva004E18A2@@6B@")[];
 
 class Rva003B7160
 {
@@ -21,7 +19,7 @@ public:
 };
 Rva003B7160::Rva003B7160()
 {
-	m_at00 = &R2Data010EC760;
+	m_at00 = (void *)__identifier("??_7Rva004E14E1FlashRecord@@6B@");
 	m_at04 = 0;
 	m_at08 = 0;
 	m_at0C = 0;
@@ -55,7 +53,7 @@ public:
 };
 Rva000EC1E0::Rva000EC1E0()
 {
-	m_at00 = &R2Data01085DBC;
+	m_at00 = (void *)__identifier("??_7Rva004E18A2@@6B@");
 	m_at04 = 0;
 	m_at08 = 0;
 	m_at0C = 0;

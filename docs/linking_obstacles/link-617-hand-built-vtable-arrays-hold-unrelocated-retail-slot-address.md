@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Partly repaired (5 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162 and 10748c0b80c.
+Status: Partly repaired (6 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-09; inspected revision: 5b0f8a1f5fe (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162, 10748c0b80c and da227633903.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -14,7 +14,7 @@ rowed under a different placeholder class in another file, so no one class owns 
 | Common/Rva000A217FCtor.cpp | g_00BC9020 (0x00BC9020) | 11 | FIXED 2026-11-07 (below). GameWindow-family slots (??_GRva0008FF3E, Rva000A260AWindow::input/system, Rva000A261CWindow::draw, GameWindow::vslot6/8/9, Xfer::IsCRC twin, ...) |
 | Common/Rva004F599EClear.cpp | g_00C63254 (0x00C63254) | 4 | FIXED 2026-11-07 (below). ??_GObjectModule twin 0x4A10FD, ~Region2D twin 0xB3FD0, Rva004F59ACNamed::name, Rva004F599E::xfer |
 | Common/Rva005C44A3Ctor.cpp | g_00C745D4 (0x00C745D4, char blob with trailing strings) | 4 | FIXED 2026-11-07 (below). 0x5C4537 (rowed ??_GRva004FA830), Rva005C44DF, Rva005C44C3::getName, Rva005C4352 |
-| Common/R2ZeroingConstructors.cpp | R2Data010EC784 (0x00C61CA8), R2Data01085DBC (0x00C61C30) | 2 | ??_GRva004E194E, ??_GRva004E18A2; the ledger already lists ??_7Rva004E194E and ??_7Rva003B8610Record at 0x00C61CA8 |
+| Common/R2ZeroingConstructors.cpp | R2Data010EC784 (0x00C61CA8), R2Data01085DBC (0x00C61C30) | 2 | FIXED 2026-11-09 (da227633903 for 0x00C61CA8 in SpawnArmy.cpp; below for 0x00C61C30 and 0x00C619A0). ??_GRva004E194E, ??_GRva004E18A2; the ledger already lists ??_7Rva004E194E and ??_7Rva003B8610Record at 0x00C61CA8 |
 | Common/R3ScalarFieldConstructors1.cpp | Gen00C1F470 (0x00C1F470) | 1 | FIXED 2026-11-07 (below). ScriptGroup; retail's table has 4 slots: ??_GRva003B4100, shared `ret` 0x4B3FD0, getter 0x3B40FA, ScriptGroup::xfer |
 | Common/Rva007EB310Destroy.cpp | vftable_01129CB4 (0x00CE1514) | 1 | Rva007EB310Owner::destroy (ledger: ??_7Rva007EB2C0Object) |
 | GameNetwork/Rva007EBAA0Create.cpp | g_bfmeVftTDA (0x00CE157C) | 1 | Rva007EB8B0Log::setFields_007EB760 |
@@ -100,9 +100,24 @@ Not fixed this pass, with what each needs:
   (VideoPlayer.cpp's approved span, a remove-from-list shape): a lead that CZ is that unit's stream
   class, not proof. Its `??_G` 0x0068A160 inlines the dtor, so both must share a TU. CZ is abstract (16
   `__purecall` slots): the array is live only during base construction and destruction.
-- R2ZeroingConstructors.cpp (0x00C61CA8, 0x00C61C30): the classes' rows and approved TU are in
-  SpawnArmy.cpp, file-claimed by another contributor on 2026-11-07; skipped. `??_7Rva003B8610Record`
-  on 0x00C61CA8 is a stale data_ledger name (no unit defines it).
+- R2ZeroingConstructors.cpp (0x00C61CA8, 0x00C61C30): CLEARED in source 2026-11-09. `da227633903`
+  moved `??0Rva004E194E@@QAE@XZ` (0x004E1937) into its approved TU `SpawnArmy.cpp` and dropped the
+  1-slot `int R2Data010EC784 = 9313638` array (0x00C61CA8). Follow-up (base `5b0f8a1f5fe`): removed
+  the remaining 1-slot `int R2Data01085DBC = 9313558` array (0x00C61C30) and the external `R2Data010EC760`
+  (0x00C619A0) reference/alternatename in `R2ZeroingConstructors.cpp` and `LivingWorldCampaign.cpp`,
+  binding `Rva000EC1E0::Rva000EC1E0()` (0x004E188E), `Rva003B7160::Rva003B7160()` (0x004E14CD) and
+  `Rva003A6360Record::Rva003A6360Record` (0x0052BB9A) directly to the 1-slot `SELECT_ANY` compiler
+  tables `??_7Rva004E18A2@@6B@` (slot 0 -> `0x004E1D16` `??_GRva004E18A2@@UAEPAXI@Z`) and
+  `??_7Rva004E14E1FlashRecord@@6B@` (slot 0 -> `0x004E19E7` `??_GRva004E14E1FlashRecord@@UAEPAXI@Z`)
+  already emitted by `SpawnArmy.obj`. Verified: 102/102 code rows, 2 data rows, 32 funclet pins and 14
+  EH graphs exact across `R2ZeroingConstructors.cpp` and `LivingWorldCampaign.cpp`; `link_check` over
+  the 5-unit cohort (`R2ZeroingConstructors.cpp`, `LivingWorldCampaign.cpp`, `SpawnArmy.cpp`,
+  `ParseAudioEventBlock.cpp`, `Disp0DwordImmSettersAddr.cpp`) is 5/5 LINKS (7,915 -> 7,916 B); bounded
+  `vtable_bridge.plan()` on the cohort reports `refused_tables=0, tables=0, already_correct=3`;
+  `LivingWorldCampaign.cpp`'s `?R2Data010EC760@@3HA` `/alternatename` hatch is retired. Pass test: the
+  next `image_iso` run no longer lists 0x00C61CA8 or 0x00C61C30 in `defects.tsv`, and the next real
+  link drops 0x00861C30 and 0x008619A0 from `vtable_bridge_queue.tsv`. Not claimed until those runs.
+  `??_7Rva003B8610Record` on 0x00C61CA8 remains a stale data_ledger name (no unit defines it).
 - g_bfmeVftTDA (FESL debug reporter): retail 0x00CE157C has 6 slots (setFields, the callback runner
   0x00658710, the variadic logger 0x00658820, assertFailed 0x00658890, errorFrom 0x00658930, a deleting
   destructor 0x006587E0 freeing 0x14 bytes); our array has one word, so slot-3 asserts read past it.

@@ -81,7 +81,6 @@ extern GameInfo *TheGameInfo;
 class SkirmishGameInfo;
  extern SkirmishGameInfo *TheSkirmishGameInfo;
 #include "Common/GameLogicObjectLookupView.h"
-#pragma comment(linker, "/alternatename:?R2Data010EC760@@3HA=??_7Rva004E14E1FlashRecord@@6B@")
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -231,7 +230,7 @@ private:
 // Retail 0x003A6360 copies a 12-byte polymorphic record and installs vtable
 // 0x010EC760. No evidence proves the semantic class name, so the type keeps the address.
 
-extern int R2Data010EC760;
+extern "C" const void *const __identifier("??_7Rva004E14E1FlashRecord@@6B@")[];
 class Rva003A6360Record
 {
 public:
@@ -756,7 +755,7 @@ Rva004E18A2::Rva004E18A2(const Rva004E18A2 &other) : m_04(other.m_04), m_08(othe
 
 Rva003A6360Record::Rva003A6360Record(const Rva003A6360Record &other) throw()
 {
-	m_vtable = (int)&R2Data010EC760;
+	m_vtable = (int)__identifier("??_7Rva004E14E1FlashRecord@@6B@");
 	m_word04 = other.m_word04;
 	m_byte08 = other.m_byte08;
 	m_word0C = other.m_word0C;
