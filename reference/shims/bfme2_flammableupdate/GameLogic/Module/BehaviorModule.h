@@ -108,43 +108,56 @@ class BehaviorModuleInterface
 {
 public:
 
-	virtual BodyModuleInterface* getBody() = 0;
-	virtual CollideModuleInterface* getCollide() = 0;
-	virtual ContainModuleInterface* getContain() = 0;
-	virtual CreateModuleInterface* getCreate() = 0;
-	virtual DamageModuleInterface* getDamage() = 0;
-	virtual DestroyModuleInterface* getDestroy() = 0;
-	virtual DieModuleInterface* getDie() = 0;
-	virtual SpecialPowerModuleInterface* getSpecialPower() = 0;
-	virtual UpdateModuleInterface* getUpdate() = 0;
-	virtual UpgradeModuleInterface* getUpgrade() = 0;
-
-	// interface acquisition
-	virtual ParkingPlaceBehaviorInterface* getParkingPlaceBehaviorInterface() = 0;
-	virtual RebuildHoleBehaviorInterface* getRebuildHoleBehaviorInterface() = 0;
-	virtual BridgeBehaviorInterface* getBridgeBehaviorInterface() = 0;
-	virtual BridgeTowerBehaviorInterface* getBridgeTowerBehaviorInterface() = 0;
-	virtual BridgeScaffoldBehaviorInterface* getBridgeScaffoldBehaviorInterface() = 0;
-	virtual OverchargeBehaviorInterface* getOverchargeBehaviorInterface() = 0;
-	virtual TransportPassengerInterface* getTransportPassengerInterface() = 0;
-	virtual CaveInterface* getCaveInterface() = 0;
-	virtual LandMineInterface* getLandMineInterface() = 0;
-	virtual DieModuleInterface* getEjectPilotDieInterface() = 0;
-	// move from UpdateModuleInterface (srj)
-	virtual ProjectileUpdateInterface* getProjectileUpdateInterface() = 0;
-	virtual AIUpdateInterface* getAIUpdateInterface() = 0;
-	virtual ExitInterface* getUpdateExitInterface() = 0;
-	virtual DockUpdateInterface* getDockUpdateInterface() = 0;
-	virtual RailedTransportDockUpdateInterface *getRailedTransportDockUpdateInterface( void ) = 0;
-	virtual SlowDeathBehaviorInterface* getSlowDeathBehaviorInterface() = 0;
-	virtual SpecialPowerUpdateInterface* getSpecialPowerUpdateInterface() = 0;
-	virtual SlavedUpdateInterface* getSlavedUpdateInterface() = 0;
-	virtual ProductionUpdateInterface* getProductionUpdateInterface() = 0;
-	virtual HordeUpdateInterface* getHordeUpdateInterface() = 0;
-	virtual PowerPlantUpdateInterface* getPowerPlantUpdateInterface() = 0;
-	virtual SpawnBehaviorInterface* getSpawnBehaviorInterface() = 0;
-	virtual CountermeasuresBehaviorInterface* getCountermeasuresBehaviorInterface() = 0;
-	virtual const CountermeasuresBehaviorInterface* getCountermeasuresBehaviorInterface() const = 0;
+	// BFME 2: the 47 slots of the registered interface (Code/GameEngine/Include/GameLogic/Module/
+	// BehaviorModule.h; retail 0x00BEE900), names and signatures as it spells them. Zero Hour's
+	// 34-slot order put getDie, getSpecialPower, getUpdate and getUpgrade one slot early.
+	virtual BodyModuleInterface *getBody() = 0;			// 0
+	virtual CollideModuleInterface *getCollide() = 0;			// 1
+	virtual ContainModuleInterface *getContain() = 0;			// 2
+	virtual CreateModuleInterface *getCreate() = 0;			// 3
+	virtual DamageModuleInterface *getDamage() = 0;			// 4
+	virtual void *slot05() = 0;			// 5
+	virtual void *slot06() = 0;			// 6
+	virtual DieModuleInterface *getDie() = 0;			// 7
+	virtual SpecialPowerModuleInterface *getSpecialPower() = 0;			// 8
+	virtual UpdateModuleInterface *getUpdate() = 0;			// 9
+	virtual UpgradeModuleInterface *getUpgrade() = 0;			// 10
+	virtual void *slot11() = 0;			// 11
+	virtual void *slot12() = 0;			// 12
+	virtual void *slot13() = 0;			// 13
+	virtual void *slot14() = 0;			// 14
+	virtual void *slot15() = 0;			// 15
+	virtual void *slot16() = 0;			// 16
+	virtual void *slot17() = 0;			// 17
+	virtual void *slot18() = 0;			// 18
+	virtual AIUpdateInterface *getAIUpdateInterface() = 0;			// 19
+	virtual void *slot20() = 0;			// 20
+	virtual void *slot21() = 0;			// 21
+	virtual void *slot22() = 0;			// 22
+	virtual void *slot23() = 0;			// 23
+	virtual void *slot24() = 0;			// 24
+	virtual void *slot25() = 0;			// 25
+	virtual void *slot26() = 0;			// 26
+	virtual void *slot27() = 0;			// 27
+	virtual void *slot28() = 0;			// 28
+	virtual void *slot29() = 0;			// 29
+	virtual void *slot30() = 0;			// 30
+	virtual void *slot31() = 0;			// 31
+	virtual void *slot32() = 0;			// 32
+	virtual void *slot33() = 0;			// 33
+	virtual void *slot34() = 0;			// 34
+	virtual void *slot35() = 0;			// 35
+	virtual void *slot36() = 0;			// 36
+	virtual void *slot37() = 0;			// 37
+	virtual void *slot38() = 0;			// 38
+	virtual void *slot39() = 0;			// 39
+	virtual void *slot40() = 0;			// 40
+	virtual void *slot41() = 0;			// 41
+	virtual void *slot42() = 0;			// 42
+	virtual void slot43(int) = 0;			// 43
+	virtual void slot44() = 0;			// 44
+	virtual void slot45(int) = 0;			// 45
+	virtual void slot46(int) = 0;			// 46
 
 };
 
@@ -162,44 +175,59 @@ public:
 	static Int getInterfaceMask() { return 0; }
 	static ModuleType getModuleType() { return MODULETYPE_BEHAVIOR; }
 
-	virtual BodyModuleInterface* getBody() { return NULL; }
-	virtual CollideModuleInterface* getCollide() { return NULL; }
-	virtual ContainModuleInterface* getContain() { return NULL; }
-	virtual CreateModuleInterface* getCreate() { return NULL; }
-	virtual DamageModuleInterface* getDamage() { return NULL; }
-	virtual DestroyModuleInterface* getDestroy() { return NULL; }
-	virtual DieModuleInterface* getDie() { return NULL; }
-	virtual SpecialPowerModuleInterface* getSpecialPower() { return NULL; }
-	virtual UpdateModuleInterface* getUpdate() { return NULL; }
-	virtual UpgradeModuleInterface* getUpgrade() { return NULL; }
+	// BFME 2: the defaults of the registered interface (Code/GameEngine/Include/GameLogic/Module/
+	// BehaviorModule.h; retail 0x00BEE900), names and signatures as it spells them. Zero Hour's
+	// 34-slot order put getDie, getSpecialPower, getUpdate and getUpgrade one slot early.
+	virtual BodyModuleInterface *getBody() { return NULL; }			// 0
+	virtual CollideModuleInterface *getCollide() { return NULL; }			// 1
+	virtual ContainModuleInterface *getContain() { return NULL; }			// 2
+	virtual CreateModuleInterface *getCreate() { return NULL; }			// 3
+	virtual DamageModuleInterface *getDamage() { return NULL; }			// 4
+	virtual void *slot05() { return NULL; }			// 5
+	virtual void *slot06() { return NULL; }			// 6
+	virtual DieModuleInterface *getDie() { return NULL; }			// 7
+	virtual SpecialPowerModuleInterface *getSpecialPower() { return NULL; }			// 8
+	virtual UpdateModuleInterface *getUpdate() { return NULL; }			// 9
+	virtual UpgradeModuleInterface *getUpgrade() { return NULL; }			// 10
+	virtual void *slot11() { return NULL; }			// 11
+	virtual void *slot12() { return NULL; }			// 12
+	virtual void *slot13() { return NULL; }			// 13
+	virtual void *slot14() { return NULL; }			// 14
+	virtual void *slot15() { return NULL; }			// 15
+	virtual void *slot16() { return NULL; }			// 16
+	virtual void *slot17() { return NULL; }			// 17
+	virtual void *slot18() { return NULL; }			// 18
+	virtual AIUpdateInterface *getAIUpdateInterface() { return NULL; }			// 19
+	virtual void *slot20() { return NULL; }			// 20
+	virtual void *slot21() { return NULL; }			// 21
+	virtual void *slot22() { return NULL; }			// 22
+	virtual void *slot23() { return NULL; }			// 23
+	virtual void *slot24() { return NULL; }			// 24
+	virtual void *slot25() { return NULL; }			// 25
+	virtual void *slot26() { return NULL; }			// 26
+	virtual void *slot27() { return NULL; }			// 27
+	virtual void *slot28() { return NULL; }			// 28
+	virtual void *slot29() { return NULL; }			// 29
+	virtual void *slot30() { return NULL; }			// 30
+	virtual void *slot31() { return NULL; }			// 31
+	virtual void *slot32() { return NULL; }			// 32
+	virtual void *slot33() { return NULL; }			// 33
+	virtual void *slot34() { return NULL; }			// 34
+	virtual void *slot35() { return NULL; }			// 35
+	virtual void *slot36() { return NULL; }			// 36
+	virtual void *slot37() { return NULL; }			// 37
+	virtual void *slot38() { return NULL; }			// 38
+	virtual void *slot39() { return NULL; }			// 39
+	virtual void *slot40() { return NULL; }			// 40
+	virtual void *slot41() { return NULL; }			// 41
+	virtual void *slot42() { return NULL; }			// 42
+	virtual void slot43(int) { }			// 43
+	virtual void slot44() { }			// 44
+	virtual void slot45(int) { }			// 45
+	virtual void slot46(int) { }			// 46
+
   virtual StealthUpdate* getStealth() { return NULL; }
 	virtual SpyVisionUpdate* getSpyVisionUpdate() { return NULL; }
-
-	virtual ParkingPlaceBehaviorInterface* getParkingPlaceBehaviorInterface() { return NULL; }
-	virtual RebuildHoleBehaviorInterface* getRebuildHoleBehaviorInterface() { return NULL; }
-	virtual BridgeBehaviorInterface* getBridgeBehaviorInterface() { return NULL; }
-	virtual BridgeTowerBehaviorInterface* getBridgeTowerBehaviorInterface() { return NULL; }
-	virtual BridgeScaffoldBehaviorInterface* getBridgeScaffoldBehaviorInterface() { return NULL; }
-	virtual OverchargeBehaviorInterface* getOverchargeBehaviorInterface() { return NULL; }
-	virtual TransportPassengerInterface* getTransportPassengerInterface() { return NULL; }
-	virtual CaveInterface* getCaveInterface() { return NULL; }
-	virtual LandMineInterface* getLandMineInterface() { return NULL; }
-	virtual DieModuleInterface* getEjectPilotDieInterface() { return NULL; }
-	// interface acquisition (moved from UpdateModule)
-	virtual ProjectileUpdateInterface* getProjectileUpdateInterface() { return NULL; }
-	virtual AIUpdateInterface* getAIUpdateInterface() { return NULL; }
-	virtual ExitInterface* getUpdateExitInterface() { return NULL; }
-	virtual DockUpdateInterface* getDockUpdateInterface() { return NULL; }
-	virtual RailedTransportDockUpdateInterface *getRailedTransportDockUpdateInterface( void ) { return NULL; }
-	virtual SlowDeathBehaviorInterface* getSlowDeathBehaviorInterface() { return NULL; }
-	virtual SpecialPowerUpdateInterface* getSpecialPowerUpdateInterface() { return NULL; }
-	virtual SlavedUpdateInterface* getSlavedUpdateInterface() { return NULL; }
-	virtual ProductionUpdateInterface* getProductionUpdateInterface() { return NULL; }
-	virtual HordeUpdateInterface* getHordeUpdateInterface() { return NULL; }
-	virtual PowerPlantUpdateInterface* getPowerPlantUpdateInterface() { return NULL; }
-	virtual SpawnBehaviorInterface* getSpawnBehaviorInterface() { return NULL; }
-	virtual CountermeasuresBehaviorInterface* getCountermeasuresBehaviorInterface() { return NULL; }
-	virtual const CountermeasuresBehaviorInterface* getCountermeasuresBehaviorInterface() const { return NULL; }
 
 protected:
 
