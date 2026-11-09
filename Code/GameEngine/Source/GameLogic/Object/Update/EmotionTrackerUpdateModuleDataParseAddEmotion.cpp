@@ -1,4 +1,14 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// NON-RETAIL shim for the allocator family (P78), a labelled step and not a recovered form. This unit's kept STL copies
+// allocate from the game's table, so they must free there too, and /D_CRTIMP= would also rebind the imports its rows
+// need. While the STL headers parse, free names a local inline to that table; those copies call it directly where
+// retail's call _free. Retired when the real allocator headers give this unit retail's _free binding, or when these
+// copies are no longer kept from this unit (P75). If anything odd happens under the STL headers, look here first.
+#include <malloc.h>
+#include <stdlib.h>
+extern "C" void (__cdecl *__gameMemFreePtr)(void *, int);
+inline void bfmeGameFree(void *block) { __gameMemFreePtr(block, 3); }
+#define free bfmeGameFree
 // stlport
 // Clean BFME1 semantic guide: 9e3be919b10ae956e3c8a13995e0d62f2be1d016,
 // EmotionTrackerUpdateModuleDataParseAddEmotion.cpp (RVA 00290520).
@@ -20,6 +30,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class BfmeEmotionName;
 class EmotionNugget;
 #include "../../../../Include/GameLogic/EmotionSystem.h"
+#undef free
 extern EmotionSystem *TheEmotionSystem;
 
 // The verified ctor/copy own this record; only its name and override flag
