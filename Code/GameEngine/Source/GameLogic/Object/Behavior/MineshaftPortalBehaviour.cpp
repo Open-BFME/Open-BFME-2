@@ -213,11 +213,7 @@ class BehaviorModuleOther
 {
 	virtual void unused();
 };
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 class UpdateModuleInterface
 {
