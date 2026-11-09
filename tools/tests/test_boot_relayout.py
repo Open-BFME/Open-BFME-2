@@ -1005,3 +1005,12 @@ class KnownAccesses(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AddressesAtTheNewBase(unittest.TestCase):
+    def test_publics_read_from_a_map_at_the_new_base(self):
+        base = boot_image.real_image.IMAGE_BASE
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "a.map"
+            path.write_text(f" 0001:00000010       _boot_entry                {base + 0x1010:08x} f   a.obj\n")
+            self.assertEqual(boot_image.read_publics(path, base), {"_boot_entry": 0x1010})

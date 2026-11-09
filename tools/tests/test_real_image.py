@@ -11,6 +11,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -78,7 +79,7 @@ def build(tamper=None, call_to=None, stub_shared=True, drop_reloc=False, dup_nam
                               0x8000: bytes(0x20)},
                          relocs={0x2100 + s for s in isites[(1 if drop_reloc else 0):]},
                          code=((0x2000, 0x1000),))
-    lines = [" Preferred load address is 10000000", "", " entry point at        0001:00001000", ""]
+    lines = [f" Preferred load address is {IB:08x}", "", " entry point at        0001:00001000", ""]
     syms = [(0x2000, F2, "a.obj"), (0x2100, F1, "a.obj"), (0x2200, MISS, "stubs.obj"), (0x2300, F3, "b.obj"),
             (0x8000, "?g@@3HA", "a.obj"), (0x8010, "?g2@@3EA", "a.obj")]
     if stub_shared:
@@ -352,6 +353,15 @@ class Receipts(unittest.TestCase):
         self.assertEqual(ri.result_of("debugger-error"), "inconclusive")
         self.assertEqual(ri.result_of("reached-menu"), "reached-menu")
 
+    def test_a_trapped_run_says_so_and_carries_the_reservation(self):
+        image = {"image_kind": "real", "base": "0x2000000"}
+        plain = ri.receipt_fields("boot_smoke", "boot", "reached-menu", image, None, "t", 1)
+        self.assertEqual((plain["mode"], plain["trap_retail_data"], plain["retail_trap"]), ("boot", False, None))
+        trap = {"low": "0xbb0000", "high": "0xe30000", "got": "0xbb0000", "error": 0}
+        got = ri.receipt_fields("boot_smoke", "boot", "reached-menu", image, None, "t", 1,
+                                trap_retail_data=True, retail_trap=trap)
+        self.assertEqual((got["mode"], got["trap_retail_data"], got["retail_trap"]), ("boot+retail-trap", True, trap))
+
     def test_fields(self):
         r = ri.receipt_fields("boot_smoke", "boot", "no-picture", {"image_kind": "real", "base": "0x10000000"},
                               None, "2026-11-05T00:00:00Z", 12.4)
@@ -422,3 +432,32 @@ class Rebase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AtTheNewBase(unittest.TestCase):
+    """The shared fixtures keep the old preferred base; addresses derive the same way at the one images now link at."""
+
+    def setUp(self):
+        patch = mock.patch.dict(globals(), {"IB": ri.IMAGE_BASE})
+        patch.start()
+        self.addCleanup(patch.stop)
+        self.img = build()
+        self.img.img.pe = SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(SizeOfImage=0x9000))
+
+    def test_the_map_and_the_crash_read_it(self):
+        self.assertEqual(self.img.base, 0x2000000)
+        c = ri.crash_fields(self.img, 0x2000000 + 0x2200, 0x2000000, [0x2000000 + 0x2119], "0x80000003")
+        self.assertEqual((c["address_image"], c["return_address_image"], c["stubbed_name"]),
+                         (hex(0x2002200), hex(0x2002119), MISS))
+
+    def test_a_rebased_run_still_names_the_image_address(self):
+        c = ri.crash_fields(self.img, 0x1000000 + 0x2200, 0x1000000, [0x1000000 + 0x2119], "0x80000003")
+        self.assertEqual((c["address_image"], c["stubbed_name"], c["loaded_at"]), (hex(0x2002200), MISS, "0x1000000"))
+
+    def test_null_stays_null(self):
+        c = ri.crash_fields(self.img, 0, 0x2000000, [], "0xc0000005")
+        self.assertEqual((ri.crash_name(c), c["note"]), ("0x0", "outside the image"))
+
+    def test_the_old_preferred_base_in_a_map_is_noticed(self):
+        facts = dict(GOOD, base=0x2000000, entry=0x2001000, map_base=0x10000000, map_entry=0x10001000)
+        self.assertTrue(any("preferred base" in p for p in ri.judge(facts, dict(RECEIPT, base="0x2000000"))))

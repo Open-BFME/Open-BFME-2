@@ -73,6 +73,13 @@ class Labels(unittest.TestCase):
     def span(self, samples, failures=0):
         return bs.main_thread_span(samples, self.LOW, self.HIGH, failures)
 
+    def test_a_spin_is_read_inside_the_image_at_the_new_base(self):
+        low = bs.real_image.IMAGE_BASE
+        span = bs.main_thread_span(self.over([low + 0x85646D, low + 0x856470] * 15), low, low + 0xD00000, 0)
+        self.assertTrue(span["spinning"])
+        outside = bs.main_thread_span(self.over([0x1085646D, 0x10856470] * 15), low, low + 0xD00000, 0)
+        self.assertFalse(outside["spinning"])                       # the old base's addresses are not the image's
+
     def test_a_tight_loop_over_the_span_is_a_spin(self):
         span = self.span(self.over([0x1085646D, 0x10856470, 0x1085646A] * 10))
         self.assertTrue(span["spinning"])

@@ -32,7 +32,7 @@ The scaffold is retail bytes. It is never progress: no row is credited here.
 The overlay's authored share is what the image runs of the tree's own code.
 
   python3 tools/boot_image.py relocs [--validate]
-  python3 tools/boot_image.py link [--base 0x10000000] [--out build/boot] [--tag boot]
+  python3 tools/boot_image.py link [--base 0x2000000] [--out build/boot] [--tag boot]
   python3 tools/boot_image.py link --overlay Code/Libraries/Source/profile/   # a tree path prefix
   python3 tools/boot_image.py link --overlay closed [--status build/link_cycle/link_status.csv]
   python3 tools/boot_image.py link --overlay shift-safe | --overlay rows:FILE
@@ -59,6 +59,7 @@ import pefile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
+import real_image  # noqa: E402
 
 RETAIL_BASE = 0x400000
 OUT = ROOT / "build" / "boot"
@@ -1428,7 +1429,7 @@ def provenance(r, units, exe, rows_csv=None, start=None, specs=(), status=LINK_S
     return out
 
 
-def build_image(base=0x10000000, out=OUT, tag="boot", overlay=(), status=LINK_STATUS, rows=None):
+def build_image(base=real_image.IMAGE_BASE, out=OUT, tag="boot", overlay=(), status=LINK_STATUS, rows=None):
     """Link (and check) the image; `overlay` specs (or explicit ledger `rows`) put
     authored units in it."""
     # Paths passed to Wine link.exe must remain valid when cwd is changed to out.
@@ -1497,7 +1498,7 @@ def main(argv=None):
     p = sub.add_parser("relocs")
     p.add_argument("--validate", action="store_true")
     p = sub.add_parser("link")
-    p.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
+    p.add_argument("--base", type=lambda v: int(v, 0), default=real_image.IMAGE_BASE)
     p.add_argument("--out", type=Path, default=OUT)
     p.add_argument("--tag", default="boot")
     p.add_argument("--overlay", action="append", default=[], metavar="SET",

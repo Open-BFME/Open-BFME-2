@@ -1036,6 +1036,23 @@ class FaultStackTests(unittest.TestCase):
         self.assertEqual(stack["frames"], [["0x1023f4af", "?g@@YAXXZ+0x1f"]])
         self.assertIs(out["receipt"]["crash"]["stack"], stack)     # the queue copies the receipt's crash
 
+    def test_labels_and_frames_derive_from_the_new_base(self):
+        base = runner.real_image.IMAGE_BASE
+        holding = mock.Mock(return_value=("?f@@YAXXZ", 0x10))
+        image = SimpleNamespace(code=lambda rva: 0x1000 <= rva < 0x2000,
+                                pe=SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(SizeOfImage=0x3000)))
+        ri = SimpleNamespace(base=base, img=image, map=SimpleNamespace(holding=holding, names_at=lambda s: [s]))
+        self.assertEqual(runner.address_label(base + 0x1010, base, ri, None), "?f@@YAXXZ+0x10")
+        holding.assert_called_with(base + 0x1010)
+        rebased = 0x1000000                                            # a rebased run maps back to the linked address
+        self.assertEqual(runner.address_label(rebased + 0x1010, rebased, ri, None), "?f@@YAXXZ+0x10")
+        holding.assert_called_with(base + 0x1010)
+        self.assertIsNone(runner.address_label(0, base, ri, None))
+        with mock.patch.object(runner.real_image, "follows_call", return_value=True):
+            self.assertEqual(runner.image_frames([0x10001010, base + 0x1010], base, ri, None, 4),
+                             [[hex(base + 0x1010), "?f@@YAXXZ+0x10"]])     # the old base's address is not a frame
+        self.assertEqual(runner.to_retail(base + 0x1010, base, [("p", 0x5000, 0x1000, 0x100)]), (0x5010, "p"))
+
     def test_real_image_crash_keeps_the_raw_stack(self):
         ri = SimpleNamespace(base=0x10000000)
         report = {"outcome": "exit", "exit_code": 666, "fault": 0x101696DF, "first_chance":

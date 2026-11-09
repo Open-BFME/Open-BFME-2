@@ -1592,7 +1592,7 @@ def main(argv=None):
     ap.add_argument("--no-focus-lie", action="store_true")
     ap.add_argument("--lock", type=Path, help="bisect: game_lock.py, which every bisection run goes through")
     ap.add_argument("--status", type=Path, default=boot_smoke.boot_image.LINK_STATUS)
-    ap.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
+    ap.add_argument("--base", type=lambda v: int(v, 0), default=boot_smoke.real_image.IMAGE_BASE)
     a = ap.parse_args(argv)
     if a.real_image:
         if a.retail or a.coverage or a.scenario == "bisect":

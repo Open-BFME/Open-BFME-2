@@ -918,7 +918,7 @@ def admit(r, sites, lost, rows, objs, own_data, banned_data):
     return live, refused, names, opts["ctx"], owned, nb, nd
 
 
-def build_image(base=0x10000000, out=bi.OUT, tag="boot", overlay=(), status=bi.LINK_STATUS, rows=None,
+def build_image(base=bi.real_image.IMAGE_BASE, out=bi.OUT, tag="boot", overlay=(), status=bi.LINK_STATUS, rows=None,
                 relayout=True, own_data=False, seed=0, rounds=3, objs=None):
     """Link and check a relaid (and/or own-data) overlay image; the report has
     boot_image.build_image's keys (`check` holds the semantic check) plus `relayout`

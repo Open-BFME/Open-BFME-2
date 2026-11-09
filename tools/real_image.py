@@ -43,6 +43,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 RETAIL_BASE = 0x400000
+# Where our images link, real, diagnostic and overlay alike. Retail's image ends at 0xEDA000, so a stale retail address
+# cannot pass as ours. The game reserves 256 MB twice at start-up, and under Wine an image too high leaves no such run
+# in the low area, which starves Mesa (docs/automation.md, "Which base an image links at").
+IMAGE_BASE = 0x2000000
+IMAGE_END_LIMIT = 0xFF00000     # the highest image end measured good: base 0xF200000, 0xD00000 bytes
+BASE_ROOM_WARN = 0x4000000      # warn with this much left, while there is still time to choose another base
+SECOND_BASE = 0x1000000         # G3's second run; an image larger than the gap overlaps the first run's addresses
 FUNCTIONS = ROOT / "reverse" / "functions.csv"
 
 
@@ -651,11 +658,19 @@ def result_of(outcome):
     return outcome
 
 
-def receipt_fields(tool, mode, outcome, image, crash, started, seconds):
+def receipt_fields(tool, mode, outcome, image, crash, started, seconds, trap_retail_data=False, retail_trap=None):
     """The harness's part of a run receipt (contract): the game queue adds harness_sha,
-    harness_on_master and isolation itself, and names the file."""
-    return {"tool": tool, "mode": mode, **image, "result": result_of(outcome), "outcome": outcome,
-            "crash": crash, "started": started, "seconds": round(seconds)}
+    harness_on_master and isolation itself, and names the file. A trapped run says so in its mode, which the queue
+    keeps: the trap changes the address space, so its pass does not stand for an untrapped one."""
+    return {"tool": tool, "mode": mode + "+retail-trap" if trap_retail_data else mode, **image,
+            "result": result_of(outcome), "outcome": outcome, "crash": crash, "started": started,
+            "seconds": round(seconds), "trap_retail_data": trap_retail_data, "retail_trap": retail_trap}
+
+
+def base_room(size, base=IMAGE_BASE):
+    """Bytes left between an image's end and IMAGE_END_LIMIT; negative once past it. One image size was measured, so
+    whether Wine's limit follows the base or the end is not known: this takes the end, the stricter reading."""
+    return IMAGE_END_LIMIT - (base + size)
 
 
 def retail_summary():

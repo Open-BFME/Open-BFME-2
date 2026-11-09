@@ -168,6 +168,18 @@ class Classification(unittest.TestCase):
         self.assertIs(self.ran.call_args.kwargs["trap_retail_data"], True)
         self.assertEqual(self.ran.call_args.kwargs["shots_at"], [1.0])
 
+    def test_the_receipt_shows_the_trap_and_its_result(self):
+        trap = {"low": "0xbb0000", "high": "0xe30000", "got": "0xbb0000", "error": 0}
+        self.OPTS = dict(self.OPTS, trap_retail_data=True)
+        out = self.smoke(dict(timeout_run([MAIN], {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0}),
+                              retail_trap=trap))
+        self.assertEqual((out["receipt"]["mode"], out["receipt"]["trap_retail_data"], out["receipt"]["retail_trap"]),
+                         ("boot+retail-trap", True, trap))
+        self.OPTS = dict(self.OPTS, trap_retail_data=False)
+        out = self.smoke(timeout_run([MAIN], {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0}))
+        self.assertEqual((out["receipt"]["mode"], out["receipt"]["trap_retail_data"], out["receipt"]["retail_trap"]),
+                         ("boot", False, None))
+
     def test_crash_box_is_crash_dialog_not_loading_screen(self):
         out = self.smoke(timeout_run([MAIN, GAME_CRASH], {"path": "x.png", "black": False, "stddev": 42,
                                                          "menu_bar": 0.0}))

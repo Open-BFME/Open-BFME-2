@@ -1868,3 +1868,15 @@ def test_main_hands_the_check_every_row_of_a_name(tmp_path, monkeypatch):
 def test_kept_copies_only_excludes_the_other_modes(tmp_path, monkeypatch):
     with pytest.raises(SystemExit):
         iso.main(["--image", "a", "--map", "b", "--kept-copies-only", "--vptr-stores"])
+
+
+def test_map_and_pointers_at_the_new_base(tmp_path):
+    base = 0x2000000
+    path = tmp_path / "exit.map"
+    path.write_text(f" 0001:00000000 _foo {base + 0x1000:08x} f provider.obj\n")
+    assert [(e["name"], e["rva"]) for e in iso.read_map(path, base)] == [("_foo", 0x1000)]
+    c = iso.Checker(Memory(base), Memory(0x400000), [public("array", 0x2000, 16), public("other", 0x3000)],
+                    {"array": {0x2100}, "other": {0x3100}})
+    assert c.pointer(base + 0x2008, 0x400000 + 0x2108) == "equal"
+    assert c.pointer(base + 0x3000, 0x400000 + 0x2108) == "wrong"
+    assert c.pointer(0x10000000 + 0x2008, 0x400000 + 0x2108) == "unchecked"    # an address at the old base is not ours

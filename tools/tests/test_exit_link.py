@@ -248,12 +248,95 @@ def test_index_prediction_subtracts_the_exclusive_unresolved_names():
     assert measurement["prediction"]["census"]["commit"] == "8716fcf38f"
 
 
-def test_the_base_stays_clear_of_retail_and_of_the_wine_limit():
-    # Literal on purpose: every image changes with this. Retail's range ends under 0xE30000. Measured under Wine with a
-    # 0xD00000-byte image: up to 0xF200000 and from 0x12000000 the game's 256 MB reservations leave Mesa its room.
-    assert E.BASE == 0x2000000
-    assert E.BASE >= 0xE30000 and E.BASE % 0x10000 == 0
-    assert E.BASE + 0xD00000 <= 0xFF00000
+REAL_IMAGE_ROOM = E.image_room
+
+
+@pytest.fixture(autouse=True)
+def fake_images_have_no_room_to_read(monkeypatch):
+    # Most tests write a few bytes as the image. The tests of the room itself call the real function.
+    monkeypatch.setattr(E, "image_room", lambda image: {})
+
+
+def test_the_base_stays_clear_of_retail():
+    # Literal on purpose: every image changes with this. Retail's image ends at 0xEDA000; image_room checks the top.
+    assert E.BASE == E.real_image.IMAGE_BASE == 0x2000000
+    assert E.BASE >= 0xEDA000 and E.BASE % 0x10000 == 0
+
+
+def pe_image(tmp_path, size):
+    image = tmp_path / "exit.exe"
+    head = bytearray(0x200)
+    head[0x3C:0x40] = struct.pack("<I", 0x80)
+    head[0x80:0x84] = b"PE\0\0"
+    head[0x80 + 24 + 56:0x80 + 24 + 60] = struct.pack("<I", size)
+    image.write_bytes(bytes(head))
+    return image
+
+
+def test_image_room_reads_the_image_itself(tmp_path, capsys):
+    # The limit, literal on purpose: base 0xF200000 with 0xD00000 bytes passed, base 0xF400000 did not.
+    assert E.real_image.IMAGE_END_LIMIT == 0xFF00000
+    room = REAL_IMAGE_ROOM(pe_image(tmp_path, 0xCFC000))
+    assert room == {"size_of_image": "0xcfc000", "base_room": hex(0xFF00000 - 0x2CFC000)}
+    assert capsys.readouterr().out == ""
+
+
+def test_image_room_refuses_past_the_limit_and_nothing_at_it(tmp_path, capsys):
+    top = 0xFF00000 - E.BASE
+    assert REAL_IMAGE_ROOM(pe_image(tmp_path, top))["base_room"] == "0x0"
+    assert "WARNING" in capsys.readouterr().out
+    with pytest.raises(SystemExit, match="starves Mesa"):
+        REAL_IMAGE_ROOM(pe_image(tmp_path, top + 1))
+
+
+def test_image_room_warns_as_the_image_nears_the_limit(tmp_path, capsys):
+    top = 0xFF00000 - E.BASE
+    assert E.real_image.BASE_ROOM_WARN == 0x4000000
+    REAL_IMAGE_ROOM(pe_image(tmp_path, top - E.real_image.BASE_ROOM_WARN))
+    assert "bytes left" not in capsys.readouterr().out
+    REAL_IMAGE_ROOM(pe_image(tmp_path, top - E.real_image.BASE_ROOM_WARN + 1))
+    assert "bytes left" in capsys.readouterr().out
+
+
+def test_image_room_warns_when_the_second_base_stops_clearing_the_first(tmp_path, capsys):
+    gap = E.BASE - E.real_image.SECOND_BASE
+    assert gap == 0x1000000
+    REAL_IMAGE_ROOM(pe_image(tmp_path, gap))
+    assert "second base" not in capsys.readouterr().out
+    REAL_IMAGE_ROOM(pe_image(tmp_path, gap + 1))
+    assert "second base" in capsys.readouterr().out
+
+
+def test_image_room_refuses_a_file_with_no_pe_header(tmp_path):
+    image = tmp_path / "exit.exe"
+    image.write_bytes(bytes(0x200))
+    with pytest.raises(SystemExit, match="no PE header"):
+        REAL_IMAGE_ROOM(image)
+
+
+def test_the_room_counts_the_base_it_is_given():
+    assert E.real_image.base_room(0x100, 0x1000000) == 0xFF00000 - 0x1000000 - 0x100
+
+
+def test_a_link_notices_a_change_to_the_tool_that_holds_its_base():
+    assert "real_image.py" in E.TOOL_FILES
+
+
+def test_the_receipt_carries_the_room_and_no_receipt_escapes_it(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setattr(E, "image_room", REAL_IMAGE_ROOM)
+    monkeypatch.setattr(E, "image_commit", lambda: "a" * 40)
+    image = pe_image(tmp_path, 0xCFC000)
+    image.with_suffix(".map").write_bytes(b"map")
+    E.image_receipt(image, False, [])
+    receipt = json.loads((tmp_path / "image_receipt.json").read_text())
+    assert (receipt["size_of_image"], receipt["base_room"]) == ("0xcfc000", hex(0xFF00000 - 0x2CFC000))
+    (tmp_path / "image_receipt.json").unlink()
+    image = pe_image(tmp_path, 0xFF00000 - E.BASE + 1)
+    image.with_suffix(".map").write_bytes(b"map")
+    with pytest.raises(SystemExit, match="starves Mesa"):
+        E.image_receipt(image, False, [])
+    assert not (tmp_path / "image_receipt.json").exists()
 
 
 def test_link_options_carry_no_force_and_no_scaffold():

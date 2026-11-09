@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build, link and launch the boot image in a sandbox; classify how far startup gets.
 
-  python3 tools/boot_smoke.py --game-dir SANDBOX [--retail] [--timeout 90] [--base 0x10000000]
+  python3 tools/boot_smoke.py --game-dir SANDBOX [--retail] [--timeout 90] [--base 0x2000000]
 
 SANDBOX is a copy of the game's data files (never the install itself: this tool
 writes game.dat into it). The image under test is `tools/boot_image.py link` at
@@ -1056,7 +1056,8 @@ def sample_eips(k, hthread, n=8):
     return out
 
 
-# Retail's .rdata and .data, on allocation boundaries. Under Wine this range is mapped at nearly any base, so a stale
+# Retail's .rdata and .data, on allocation boundaries, so also .text's last 39 KiB and the small sections after .data.
+# Under Wine this range is mapped at nearly any base, so a stale
 # retail address reads whatever is there and hides: reserved here, it faults. Measured with Rva00309E4BGet: without the
 # trap the boot runs past that read at 0x2000000; with it, both 0x2000000 and 0x14000000 fault on 0xDBD7E8.
 RETAIL_DATA = (0xBB0000, 0xE30000)
@@ -1649,7 +1650,8 @@ def smoke(a, rows=None, tag="boot"):
              {"image_kind": "overlay", "image_sha256": real_image.sha256_file(exe), "image_commit": None})
     image["base"] = hex(loaded)
     out["receipt"] = real_image.receipt_fields("boot_smoke", "boot", out["outcome"], image, out.get("crash"),
-                                               started, time.time() - t_start)
+                                               started, time.time() - t_start,
+                                               trap_retail_data=a.trap_retail_data, retail_trap=res.get("retail_trap"))
     return out
 
 
@@ -1773,7 +1775,7 @@ def main(argv=None):
                          "mapped through its map and stubs; an int3 the harness did not plant is a fault")
     ap.add_argument("--rebase", type=lambda v: int(v, 0), metavar="BASE",
                     help="with --real-image: run a copy relocated to BASE (a second non-retail base)")
-    ap.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
+    ap.add_argument("--base", type=lambda v: int(v, 0), default=real_image.IMAGE_BASE)
     ap.add_argument("--timeout", type=float, default=90)
     ap.add_argument("--args", default="-win")
     ap.add_argument("--guard", type=Path, action="append", default=[])

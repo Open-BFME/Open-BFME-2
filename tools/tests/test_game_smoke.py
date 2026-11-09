@@ -5,9 +5,12 @@ The profile redirect and guard are boot_smoke's: tests/test_boot_smoke_profile.p
 No game is started; the debugger itself is exercised by the retail control runs
 (`python3 tools/game_smoke.py ... --retail`), not here.
 """
+import argparse
 import sys
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -411,3 +414,48 @@ class UntilFrame(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OneBase(unittest.TestCase):
+    """Overlay boots hit the same Mesa failure at the old base: every default comes from one definition."""
+
+    @staticmethod
+    def base_default(main, argv):
+        seen = []
+        add = argparse.ArgumentParser.add_argument
+
+        def spy(self, *names, **options):
+            if "--base" in names:
+                seen.append(options["default"])
+            return add(self, *names, **options)
+
+        def stop(self, *a, **k):
+            raise SystemExit(0)
+
+        with mock.patch.object(argparse.ArgumentParser, "add_argument", spy), \
+                mock.patch.object(argparse.ArgumentParser, "parse_args", stop):
+            try:
+                main(argv)
+            except SystemExit:
+                pass
+        return seen
+
+    def test_every_overlay_default_is_the_image_base(self):
+        import inspect
+        import boot_image
+        import boot_relayout
+        import boot_smoke
+        import exit_link
+        import real_image
+        self.assertEqual(real_image.IMAGE_BASE, 0x2000000)
+        self.assertEqual(exit_link.BASE, real_image.IMAGE_BASE)
+        for build_image in (boot_image.build_image, boot_relayout.build_image):
+            self.assertEqual(inspect.signature(build_image).parameters["base"].default, real_image.IMAGE_BASE)
+        for main in (boot_image.main, boot_smoke.main, gs.main):
+            self.assertEqual(self.base_default(main, []), [real_image.IMAGE_BASE], main.__module__)
+
+    def test_where_names_an_address_at_the_new_base(self):
+        import real_image
+        base = real_image.IMAGE_BASE
+        game = SimpleNamespace(base=base, size=0x1000, dlls=[])
+        self.assertEqual(gs.Game.where(game, base + 0x234), "image+0x234")

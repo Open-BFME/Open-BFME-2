@@ -44,28 +44,43 @@ GitHub schedule alone.
 
 ## Which base an image links at
 
-Real and diagnostic links use `/BASE:0x2000000` (`exit_link.BASE`). What limits the choice is measured under Wine on srv1, with one
-0xD00000-byte image rebased through the queue:
+Real, diagnostic and overlay links use `/BASE:0x2000000` (`real_image.IMAGE_BASE`). What limits the choice is measured under Wine on
+srv1, with one 0xD00000-byte image rebased through the queue, at sampled bases:
 
 | Base | First `D3DLOCK_DISCARD` of the dynamic vertex buffer |
 |---|---|
-| up to 0xF200000 | real pointer |
+| 0x800000 to 0xF200000 | real pointer, except 0x1000000: it stops earlier on a stale literal (`Rva00309E4BGet`) and never reached the lock |
 | 0xF400000 to 0x11C00000, including the old 0x10000000 | S_OK with null (0x11800000 crashed before it, cause not read) |
-| from 0x12000000 to 0x1C000000 | real pointer |
+| 0x12000000 to 0x1C000000 | real pointer |
 
 The game reserves 256 MB twice at start-up, retail too. An image in that band leaves no such run in Wine's low area, so the second
 reservation lands at 0x40000000, where Mesa would allocate. Mesa's 64 MB buffer then fails (`posix_memalign` returns NULL,
 `GL_OUT_OF_MEMORY`) and wined3d's `Lock` still returns S_OK. An allocation logger shows that call failing at 0x10000000 and succeeding
-at 0x800000 and in retail. Windows has no Mesa and no such split, so this constraint is Wine's; no Windows run has measured it.
+at 0x800000 and in retail. The failure goes through Mesa and Wine's reservation of the low area, so we reason that it is Wine's
+alone, but that is reasoned and unmeasured: no Windows run has tested any base.
 
-**A second base** (`boot_smoke --rebase`) should do more than differ. 0x1000000 clears retail's range, sits a full image away from
-0x2000000 while the image stays under 16 MB, and leaves a third of retail's `.data` unmapped, so a stale retail data address can
-fault. Avoid bases that overlap retail's range (under about 0xE30000): a stale address then reads the image's own bytes.
+`exit_link.py` reads the linked image's `SizeOfImage` and records `size_of_image` and `base_room` in `image_receipt.json`. It refuses
+an image ending past 0xFF00000, the last end measured good, and warns with under 64 MiB left. Today's image has 210 MiB, and 212 MiB
+to the first end measured bad (0x10100000). Only one image size was measured, so whether the limit follows the base or the end is not
+known; the check takes the end, the stricter reading.
 
-**`boot_smoke --trap-retail-data`** is stronger: it reserves retail's `.rdata` and `.data` in the game before it runs, so such an
-address faults at any base. Most bases hide them otherwise: at 0x2000000 all of retail's `.data` is mapped at runtime. It does not
-cover retail's code range. `crash-at-` on a rebased image names real image addresses by their map; an address outside the image is
-reported as it is, so a null call reads `crash-at-0x0` at any base.
+**A second base** (`boot_smoke --rebase`) should do more than differ. 0x1000000 clears retail's image (which ends at 0xEDA000), sits
+a full image away from 0x2000000 while the image stays under 16 MiB (`exit_link.py` warns past that), and leaves a third of retail's
+`.data` unmapped, so a stale retail data address can fault. Avoid bases that overlap retail's image: a stale address then reads the
+image's own bytes.
+
+**`boot_smoke --trap-retail-data`** is stronger: it reserves 0xBB0000-0xE30000 in the game before it runs, so a stale address there
+faults at any base. Most bases hide them otherwise: at 0x2000000 all of retail's `.data` is mapped at runtime. That range is
+`.rdata`, `.data` and the small sections after it, plus, because a reservation rounds down to 64 KiB, the last 39 KiB of `.text`. The
+rest of `.text` and retail's image above 0xE30000 are not trapped. A trapped run's receipt says mode `boot+retail-trap` and carries
+the reservation's result.
+
+**A trapped pass does not stand for an untrapped one.** The reservation changes the address space, so an equal result needs both runs
+of the image: the trap finds stale addresses, and only the plain run shows how the game behaves without it.
+
+**Comparing runs.** `crash-at-` on a rebased image names real image addresses by their map; an address outside the image is reported
+as it is, so a null call reads `crash-at-0x0` at any base. A symbol label says nothing about the base: read the receipt's `base`, and
+compare runs only at the same one. Images linked before this base carry 0x10000000 in their receipts.
 
 ## Reading the real link
 

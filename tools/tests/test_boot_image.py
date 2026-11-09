@@ -466,10 +466,10 @@ class OverlayCheck(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = Path(tempfile.mkdtemp())
-        cls.rep = boot_image.build_image(0x10000000, cls.tmp, "ov", [PILOT])
+        cls.base = boot_image.real_image.IMAGE_BASE
+        cls.rep = boot_image.build_image(cls.base, cls.tmp, "ov", [PILOT])
         cls.r = boot_image.Retail()
         cls.pieces = boot_image.layout(cls.r, [PILOT])[0]
-        cls.base = 0x10000000
         cls.publics = boot_image.read_publics(cls.tmp / "ov.map", cls.base)
 
     @classmethod
@@ -504,7 +504,7 @@ class OverlayCheck(unittest.TestCase):
         """Past MAX_SECTIONS the scaffold and the overlay split into several objects."""
         saved, boot_image.MAX_SECTIONS = boot_image.MAX_SECTIONS, 20
         try:
-            rep = boot_image.build_image(0x10000000, self.tmp / "split", "sp", [PILOT])
+            rep = boot_image.build_image(self.base, self.tmp / "split", "sp", [PILOT])
         finally:
             boot_image.MAX_SECTIONS = saved
         self.assertTrue(boot_image.image_ok(rep), rep.get("check_bad"))

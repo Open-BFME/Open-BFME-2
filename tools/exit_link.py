@@ -86,13 +86,12 @@ sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 import link_census as census  # noqa: E402
 import link_cycle  # noqa: E402
+import real_image  # noqa: E402
 
 OUT = ROOT / "build" / "exit_link"
 # Retail links at 0x400000. The exit test needs a base retail never used, so a
-# stale 0x400000 literal in our code cannot pass as a working image. It must also clear retail's
-# range and leave room under Wine: the game reserves 256 MB twice at start-up, and an image at
-# 0xF400000-0x11C00000 leaves no such run in Wine's low area, which starves Mesa (docs/automation.md).
-BASE = 0x2000000
+# stale 0x400000 literal in our code cannot pass as a working image.
+BASE = real_image.IMAGE_BASE
 ENTRY = "WinMainCRTStartup"
 # The harness patches these IAT slots before entering the image.
 HARNESS_IMPORTS = {"SHGetSpecialFolderPathW": 16, "GetVersion": 0, "GetVersionExA": 4}
@@ -107,7 +106,7 @@ EXPECTED_PLACEMENT_SOURCES = len(PLACEMENT_BASENAMES)
 PLACEMENT_PATTERN = re.compile(
     rf"^{re.escape(PLACEMENT_DIR)}/(uw_gen_\d+\.cpp|gthunks_\d+_admitted\.cpp|thunks_\d+_admitted\.cpp)$")
 TOOL_FILES = ("exit_link.py", "link_census.py", "link_cycle.py", "build.py", "eh_verify.py",
-              "vtable_bridge.py", "image_report.py", "coffar.py")
+              "vtable_bridge.py", "image_report.py", "coffar.py", "real_image.py")
 
 
 def is_placement_source(source):
@@ -760,6 +759,28 @@ def omission_status(proof):
     return "failed" if failed else "passed"
 
 
+def image_room(image):
+    """{size_of_image, base_room} from the linked image's own header. Refuses an image past the end measured good under
+    Wine, so growth cannot quietly walk the base into the band that starves Mesa (real_image.base_room)."""
+    head = image.read_bytes()[:0x1000]
+    at = struct.unpack_from("<I", head, 0x3C)[0]
+    if head[at:at + 4] != b"PE\0\0":
+        raise SystemExit(f"exit_link: {image} has no PE header; nothing recorded")
+    size = struct.unpack_from("<I", head, at + 24 + 56)[0]
+    room = real_image.base_room(size, BASE)
+    if room < 0:
+        raise SystemExit(f"exit_link: an image of {size:#x} bytes at {BASE:#x} ends {-room:#x} past "
+                         f"{real_image.IMAGE_END_LIMIT:#x}, where Wine starves Mesa: choose a new base "
+                         "(docs/automation.md); nothing recorded")
+    if room < real_image.BASE_ROOM_WARN:
+        print(f"exit_link: WARNING: {room:#x} bytes left before the image reaches {real_image.IMAGE_END_LIMIT:#x}, "
+              "where Wine starves Mesa (docs/automation.md)")
+    if size > BASE - real_image.SECOND_BASE:
+        print(f"exit_link: WARNING: an image of {size:#x} bytes overlaps itself at the second base "
+              f"{real_image.SECOND_BASE:#x}: choose another for G3 (docs/automation.md)")
+    return {"size_of_image": hex(size), "base_room": hex(room)}
+
+
 def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None, seed=None):
     """Only an image and its fresh map can receive a receipt; a diagnostic one says whether
     its first pass started from a stub seed (`seed`, seed_summary's)."""
@@ -786,6 +807,7 @@ def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None, seed=Non
     }
     if diagnostic:
         fields["stub_seed"] = seed
+    fields.update(image_room(image))
     receipt.write_text(json.dumps(fields, indent=1) + "\n", encoding="utf-8")
 
 
