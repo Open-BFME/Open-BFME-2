@@ -1,4 +1,14 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// NON-RETAIL shim for the allocator family (P78), a labelled step and not a recovered form. This unit's kept STL copies
+// allocate from the game's table, so they must free there too, and /D_CRTIMP= would also rebind the imports its rows
+// need. While the STL headers parse, free names a local inline to that table; those copies call it directly where
+// retail's call _free. Retired when the real allocator headers give this unit retail's _free binding, or when these
+// copies are no longer kept from this unit (P75). If anything odd happens under the STL headers, look here first.
+#include <malloc.h>
+#include <stdlib.h>
+extern "C" void (__cdecl *__gameMemFreePtr)(void *, int);
+inline void bfmeGameFree(void *block) { __gameMemFreePtr(block, 3); }
+#define free bfmeGameFree
 // platformsdk
 // stlport
 //
@@ -645,6 +655,7 @@ class DelegateTarget
 };
 
 #include "../../../../GameEngine/Include/Common/DelegateDesc.h"
+#undef free
 
 typedef void (*FXShaderParameterCallback)(ID3DXEffect *effect, D3DXHANDLE parameter);
 
