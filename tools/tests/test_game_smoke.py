@@ -459,3 +459,53 @@ class OneBase(unittest.TestCase):
         base = real_image.IMAGE_BASE
         game = SimpleNamespace(base=base, size=0x1000, dlls=[])
         self.assertEqual(gs.Game.where(game, base + 0x234), "image+0x234")
+
+
+class NewSaves(unittest.TestCase):
+    """The autosave's name is fixed: in a profile with an earlier save, reload found nothing new and never loaded."""
+
+    def setUp(self):
+        import tempfile
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.appdata = Path(self.tmp.name)
+        self.saves = gs.sandbox_profile(self.appdata) / "Save"
+        self.saves.mkdir(parents=True)
+
+    def write(self, name, text, when=None):
+        import os
+        path = self.saves / name
+        path.write_text(text)
+        if when:
+            os.utime(path, (when, when))
+        return path
+
+    def names(self, before):
+        return [q.name for q in gs.new_saves(self.appdata, before)]
+
+    def test_nothing_written_is_nothing_new(self):
+        self.write("Auto Save for Udun.BfME2Skirmish", "old", 1000)
+        self.assertEqual(self.names(gs.saves_state(self.appdata)), [])
+
+    def test_a_new_name_is_new(self):
+        before = gs.saves_state(self.appdata)
+        self.write("other.BfME2Skirmish", "new")
+        self.assertEqual(self.names(before), ["other.BfME2Skirmish"])
+
+    def test_the_fixed_name_rewritten_is_new(self):
+        self.write("Auto Save for Udun.BfME2Skirmish", "old", 1000)
+        before = gs.saves_state(self.appdata)
+        self.write("Auto Save for Udun.BfME2Skirmish", "old", 2000)       # same size, later
+        self.assertEqual(self.names(before), ["Auto Save for Udun.BfME2Skirmish"])
+
+    def test_the_fixed_name_at_another_size_is_new(self):
+        self.write("Auto Save for Udun.BfME2Skirmish", "old", 1000)
+        before = gs.saves_state(self.appdata)
+        self.write("Auto Save for Udun.BfME2Skirmish", "longer", 1000)    # same time, larger
+        self.assertEqual(self.names(before), ["Auto Save for Udun.BfME2Skirmish"])
+
+    def test_an_old_neighbour_is_not_new(self):
+        self.write("map mp tournament udun.map", "keep", 1000)
+        before = gs.saves_state(self.appdata)
+        self.write("Auto Save for Udun.BfME2Skirmish", "new")
+        self.assertEqual(self.names(before), ["Auto Save for Udun.BfME2Skirmish"])

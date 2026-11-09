@@ -1245,13 +1245,24 @@ def find_saves(appdata):
     return sorted(d.glob("*.*"), key=lambda q: q.stat().st_mtime) if d.exists() else []
 
 
+def saves_state(appdata):
+    """{name: (mtime, size)} of the profile's saves, to tell later which this run wrote."""
+    return {q.name: (q.stat().st_mtime_ns, q.stat().st_size) for q in find_saves(appdata)}
+
+
+def new_saves(appdata, before):
+    """The saves written since `before`, oldest first. By content too: autoSave's name is fixed ("Auto Save for <map>"),
+    so in a profile that kept an earlier run's save the name alone says nothing was written."""
+    return [q for q in find_saves(appdata) if before.get(q.name) != (q.stat().st_mtime_ns, q.stat().st_size)]
+
+
 def cmd_save(a):
     """Skirmish vs AI; --save-after seconds in, GameState::autoSave() runs at the
     top of the next engine frame (GameEngine::update entry). The save is kept as
     GAME_DIR/<--save-name> for the load run. pass = autoSave returned 0, a new
     save file appeared and the game kept simulating afterwards."""
     samples = []
-    before = {q.name for q in find_saves(a.appdata)}
+    before = saves_state(a.appdata)
     hook = FrameHook(modes=(a.mode,))
     saved = hook.save
     base_tick = skirmish_tick(a, samples, a.mode)
@@ -1265,7 +1276,7 @@ def cmd_save(a):
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     res = out["run"]
-    new = [q for q in find_saves(a.appdata) if q.name not in before]
+    new = new_saves(a.appdata, before)
     after = [f for t, f, m in samples if saved.get("seconds") and t > saved["seconds"] + 2 and m == a.mode]
     out.update(samples=samples[::5], save=saved, new_saves=[q.name for q in new])
     crash = crash_outcome(res)
@@ -1322,10 +1333,10 @@ def cmd_reload(a):
     back, and the game kept simulating. crc_matches_save is reported, not judged: retail's own run
     resumes at the saved frame with a different CRC."""
     samples = []
-    before = {q.name for q in find_saves(a.appdata)}
+    before = saves_state(a.appdata)
     hook = FrameHook(every=a.crc_every, modes=(a.mode,))
     hook.save_at, hook.load_at = a.save_frame, a.load_frame
-    hook.find_save = lambda: ([q.name for q in find_saves(a.appdata) if q.name not in before] or [None])[-1]
+    hook.find_save = lambda: ([q.name for q in new_saves(a.appdata, before)] or [None])[-1]
     tick = skirmish_tick(a, samples, a.mode)
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
