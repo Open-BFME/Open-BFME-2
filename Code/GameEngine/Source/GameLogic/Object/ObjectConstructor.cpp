@@ -143,11 +143,7 @@ class AIUpdateInterface;
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class ModuleFactory
-{
-public:
-	Module *newModule(Thing *thing, const AsciiString &name, const ModuleData *data, ModuleType type);
-};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
 
 class ObjectSMCHelper { public: ObjectSMCHelper(Thing *thing, const ModuleData *data); unsigned char m_data[0x24]; };

@@ -332,11 +332,7 @@ class __declspec(novtable) Rva004905B0 : public TransportAIUpdateModuleData
 public:
 	virtual ~Rva004905B0();
 };
-class RespawnBodyModuleData
-{
-public:
-	virtual ~RespawnBodyModuleData();
-};
+#include "../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 class __declspec(novtable) Rva004C1B7B : public RespawnBodyModuleData
 {
 public:
