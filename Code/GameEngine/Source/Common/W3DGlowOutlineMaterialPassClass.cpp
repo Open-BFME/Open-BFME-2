@@ -200,7 +200,6 @@ struct GlowShaderOps : ShaderClass {
  } \
 } while(0)
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-
 #include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 #include "../../Include/Common/W3DGlowOutlineMaterialPassClass.h"
 
@@ -216,6 +215,26 @@ void * g_bfmeObj1AtE1F294;
 
 // g_bfmeObj2AtE1F298: matched references place it at VA 0xe1f298 (zero-filled .bss).
 void * g_bfmeObj2AtE1F298;
+
+void bfmeStepTDB(void);
+
+// ---- from Code/GameEngine/Source/Common/Rva0073F96ACtor.cpp
+
+// ??0W3DGlowOutlineMaterialPassClass@@QAE@HM@Z @0x0073F85D 56B.
+// Ctor of W3DGlowOutlineMaterialPassClass: base ctor row 0x0013EDD0
+// then int +0x38, float +0x3C, zero +0x40/+0x44, inc g_bfmeCountAtE1F290.
+// Evidence: unlock lane packet; vtable 0x008F1544; callers 0x00362C1E/0x00362C75.
+
+W3DGlowOutlineMaterialPassClass::W3DGlowOutlineMaterialPassClass(int color, float extrusion)
+{
+    m_base = color;
+    m_extrusion = extrusion;
+    m_state = 0;
+    m_fade = 0.0f;
+    ++g_bfmeCountAtE1F290;
+}
+
+// ---- from Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0073F895Fade.cpp
 
@@ -331,8 +350,6 @@ W3DGlowOutlineMaterialPassClass::~W3DGlowOutlineMaterialPassClass()
         g_bfmeObj2AtE1F298 = 0;
     }
 }
-
-void bfmeStepTDB(void);
 
 // RVA 0x0073F9D1 35B: slot 3 of the table at VA 0x00CF1544.
 void W3DGlowOutlineMaterialPassClass::UnInstall_Materials() const
