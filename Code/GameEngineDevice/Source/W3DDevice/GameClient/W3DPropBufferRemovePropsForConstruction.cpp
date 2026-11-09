@@ -17,11 +17,7 @@ typedef bool Bool;
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-struct SphereClass
-{
-	Vector3 Center;
-	Real Radius;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/SphereClass.h"
 
 #include "Common/Snapshot.h"
 #include "../../../../GameEngine/Include/Common/Geometry.h"
