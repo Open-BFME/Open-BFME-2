@@ -96,16 +96,7 @@ public:
 	bool m_match;
 };
 
-class DamageInfo
-{
-public:
-	DamageInfo();		// 0x00263895
-	char m_pad00[0x08];
-	ObjectID m_sourceID;	// +0x08
-	char m_pad0C[0x24 - 0x0C];
-	bool m_24;		// +0x24
-	char m_pad25[0x7C - 0x25];
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 // The AI command entry at AIUpdateInterface +0x20 (0x0047ED64).
 enum CommandSourceType

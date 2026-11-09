@@ -15,19 +15,7 @@ typedef float Real;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class DamageInfo
-{
-public:
-	DamageInfo();
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;
-	unsigned char m_pad0C[0x10 - 0x0C];
-	int m_damageType;
-	unsigned char m_pad14[0x1C - 0x14];
-	int m_deathType;
-	Real m_amount;
-	unsigned char m_pad24[0x7C - 0x24];
-};
+#include "../../../../Include/GameLogic/Damage.h"
 class Rva00263895Member
 {
 public:
