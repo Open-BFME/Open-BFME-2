@@ -1593,6 +1593,7 @@ public:
 };
 #pragma pack(pop)
 #include "../../../Include/GameLogic/Rva000427195.h"
+#include "../../../Include/Common/INI/INI.h"
 
 BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
 
@@ -1846,11 +1847,51 @@ private:
 	Rva001F9060 m_04;
 };
 
+struct Rva002BA8F1Listener;
+
+struct TableEntry
+{
+	virtual Rva002BA8F1Listener *create(INI *ini);
+	const char *m_name;
+	int m_08;
+	TableEntry *m_next;
+};
+
+struct Rva002BA8F1Listener
+{
+};
+
+void Rva001FA8DDParse(INI *ini, void *instance);
+
+namespace FXParticleSystem
+{
+template <int CATEGORY> class CategoryModuleClass
+{
+private:
+	friend void ::Rva001FA8DDParse(INI *, void *);
+	static const CategoryModuleClass<CATEGORY> *s_first;
+};
+}
+
+class Rva005A0B4CList
+{
+public:
+	void append(Rva002BA8F1Listener *listener);
+};
+
+struct Rva001FA8DDHolder
+{
+	char _pad[0xC4];
+	Rva005A0B4CList m_list;
+};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -3020,6 +3061,34 @@ void Rva001FA7CE::rva001FA7CE(int a, int b)
     m_next.rva001FA4C6(a, b);
 }
 
+// ---- from Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp
+
+// ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z retail 0x001F93A3 36 bytes.
+// Hashtable insert with grow: loads count at +0x10 inc calls pinned grow
+// rva00212858 at 0x00212858 then tail-returns rowed insert rva001F8F2A at
+// 0x001F8F2A with the same hidden return and key. Class proven by +0x10
+// count and both callee owners. Callers at 0x001FA467 0x001FC2DF 0x001FCFC6.
+// Evidence: callees 0x00212858 pinned 0x001F8F2A rowed ret 8 struct-return.
+// Precedent: Code/GameEngine/Source/GameClient/Rva0041557AInsert.cpp.
+
+InsertRet001F8F2A Rva000427195::insertWithGrow(const void *key)
+{
+	rva00212858(m_numElements + 1);
+	return rva001F8F2A(key);
+}
+
+InsertRet001F8F2A Rva001FA45F::rva001FA45F(const void *key)
+{
+	return m_table.insertWithGrow(key);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001F9CB8Ctor.cpp
+
+Rva001F9CB8::Rva001F9CB8()
+	: m_00(0)
+{
+}
+
 // tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
@@ -3148,27 +3217,6 @@ void Rva001FA7CE::rva001FA7CE(int a, int b)
 
 // tu-skeleton: 0x001F9363 64B ??0?$hashtable@U?$pair@$$CBHURva001F9363Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001F9363.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp
-
-// ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z retail 0x001F93A3 36 bytes.
-// Hashtable insert with grow: loads count at +0x10 inc calls pinned grow
-// rva00212858 at 0x00212858 then tail-returns rowed insert rva001F8F2A at
-// 0x001F8F2A with the same hidden return and key. Class proven by +0x10
-// count and both callee owners. Callers at 0x001FA467 0x001FC2DF 0x001FCFC6.
-// Evidence: callees 0x00212858 pinned 0x001F8F2A rowed ret 8 struct-return.
-// Precedent: Code/GameEngine/Source/GameClient/Rva0041557AInsert.cpp.
-
-InsertRet001F8F2A Rva000427195::insertWithGrow(const void *key)
-{
-	rva00212858(m_numElements + 1);
-	return rva001F8F2A(key);
-}
-
-InsertRet001F8F2A Rva001FA45F::rva001FA45F(const void *key)
-{
-	return m_table.insertWithGrow(key);
-}
-
 // tu-skeleton: 0x001F93C7 36B ?str@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x001F93EB 23B ?rva001F93EB@Rva001F93EB@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001F93EB.cpp (not merged yet)
@@ -3209,16 +3257,9 @@ InsertRet001F8F2A Rva001FA45F::rva001FA45F(const void *key)
 
 // tu-skeleton: 0x001F9C73 69B ??0Rva001F9C73@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001F9CB8Ctor.cpp
-
-Rva001F9CB8::Rva001F9CB8()
-	: m_00(0)
-{
-}
-
 // tu-skeleton: 0x001F9CCA 41B ??4Rva001F9CCA@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
 
-// tu-skeleton: 0x001F9CF3 165B ?rva001F9CF3@ParticleSystemTemplate@FXParticleSystem@@QBE?AVBfmeParticleSystemHandle@@_N@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemTemplateCreateSlave.cpp (not merged yet)
+// tu-skeleton: 0x001F9CF3 165B ?createSlaveSystem@ParticleSystemTemplate@FXParticleSystem@@QBE?AV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@_N@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemTemplateCreateSlave.cpp (not merged yet)
 
 // tu-skeleton: 0x001F9EAF 89B ?bfmeStopCW@ParticleSystemManager@@QAEXABVBFMERetailAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp (not merged yet)
 
@@ -3256,7 +3297,24 @@ Rva001F9CB8::Rva001F9CB8()
 
 // tu-skeleton: 0x001FA85C 129B ??0?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x001FA8DD 110B ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp
+
+// ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z retail 0x001FA8DD 110B.
+// INI token dispatch via AsciiString temp, table at 0x9FDD5C, virtual create plus append to list at +0xC4.
+// Evidence: getNextToken 0x0002DF97, StringBase ctor 0x00037BA0, compare 0x000069B1, virtual slot 0, append 0x005A0B4C, releaseBuffer 0x00036410.
+
+void Rva001FA8DDParse(INI *ini, void *instance)
+{
+	Rva001FA8DDHolder *holder = static_cast<Rva001FA8DDHolder *>(instance);
+	const char *token = ini->getNextToken(0);
+	AsciiString tmp(token);
+	// Retail reads VA 0x00DFDD5C, the category-8 getFirst() slot (RVA 0x001F4466).
+	TableEntry *entry = *(TableEntry * volatile *)&FXParticleSystem::CategoryModuleClass<8>::s_first;
+	while (tmp.compare(entry->m_name) != 0)
+		entry = entry->m_next;
+	Rva002BA8F1Listener *listener = entry->create(ini);
+	holder->m_list.append(listener);
+}
 
 // tu-skeleton: 0x001FA94B 15B ??0Rva001FA94B@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp (not merged yet)
 

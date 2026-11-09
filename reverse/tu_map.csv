@@ -13986,7 +13986,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001FA831,5,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA836,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x001FA836,38,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA85C,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 0x001FA85C,129,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA8DD,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_ctor.cpp
-0x001FA8DD,110,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA94B,Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp
+0x001FA8DD,110,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA94B,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 0x001FA94B,15,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA95A,Code/GameEngine/Source/GameLogic/Object/Rva001FA584Ctor.cpp
 0x001FA95A,23,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,C=0x001F9F66..0x001FA971,Code/GameEngine/Source/Common/BigChainBaseDtors.cpp
 0x001FA971,284,code,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,approved,C,W=Code/GameEngine/Source/GameClient/System/FXParticleSystem.cpp C=0x001F9F66..0x001FAA8D,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp
@@ -66984,8 +66984,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076B557,10,code,,,-,,Code/GameEngine/Source/Common/Rva001F73D5ParticlePhysicsUpdateBinder.cpp
 0x0076B561,8,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp
 0x0076B569,10,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp
-0x0076B573,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp
-0x0076B57B,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp
+0x0076B573,8,code,,,-,,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
+0x0076B57B,10,code,,,-,,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 0x0076B585,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
 0x0076B58D,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
 0x0076B597,8,code,,,-,,Code/GameEngine/Source/GameClient/Rva001F8A38ModuleCollect.cpp
