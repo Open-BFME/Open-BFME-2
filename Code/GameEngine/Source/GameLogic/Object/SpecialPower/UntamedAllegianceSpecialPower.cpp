@@ -10,14 +10,32 @@
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
+class Thing;
+class ModuleData;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
+};
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class UntamedAllegianceSpecialPower
+// Retail: ??0UntamedAllegianceSpecialPower 0x004C7B06 calls
+// ??0SpecialPowerModule 0x00493C5A and stores 0x00C5E0E4 (+0), 0x00BEFCF8
+// (+0x0C) and 0x00C5E080 (+0x10), like every SpecialPowerModule subclass of
+// this family; getModuleNameKey is slot 4 of 0x00C5E0E4.
+class UntamedAllegianceSpecialPower : public SpecialPowerModule
 {
+protected:
+	virtual ~UntamedAllegianceSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
@@ -47,39 +65,15 @@ public:
 };
 
 //
-// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
-// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
-// including the shared 0xBEFCF8 secondary; identity unproven). Each class
-// below derives (in order) from the opaque base, a shared empty polymorphic
-// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
-// the empty bases have implicit trivial destructors, so the derived
-// destructor stores all three vptrs and tail-calls the base destructor. The
-// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
-// are unproven (opaque Rva names). One ledger row per destructor, landed one
-// commit at a time.
+// UntamedAllegianceSpecialPower's destructor 0x004C7B36, still under its
+// placeholder name: it stores the class's three vptrs (0x00C5E0E4 at +0,
+// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
+// +0x0C, 0x00C5E080 at +0x10), exactly what ??0UntamedAllegianceSpecialPower
+// 0x004C7B06 stores after ??0SpecialPowerModule, and tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
+// SpecialPowerModule view like the real class.
 
-class Rva00493DEF
-{
-public:
-	virtual ~Rva00493DEF();
-
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class Rva004C7B36_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C7B36 : public Rva00493DEF, public MiBase1, public Rva004C7B36_B2
+class Rva004C7B36 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C7B36();
