@@ -605,6 +605,8 @@ def crash_fields(ri, address, loaded, words, exception):
     else:       # not in the image, so the rebase does not move it: eip 0 stays 0, at any base
         out = {"exception": exception, "address_image": hex(address), "return_address_image": hex(ret) if ret else None,
                "map_symbol": None, "stubbed_name": None, "retail_rva": None, "note": "outside the image"}
+        if ret:     # the fault is in a system DLL: name the game code that called into it, apart from the fault's own fields
+            out["caller"] = ri.where(ret)
     out["stack_frames"] = frames
     if loaded != ri.base:
         out["loaded_at"] = hex(loaded)

@@ -289,6 +289,18 @@ class Crashes(unittest.TestCase):
             self.assertEqual((c["map_symbol"], c["retail_rva"], c["note"]), (None, None, "outside the image"))
             self.assertEqual(c["return_address_image"], hex(IB + 0x2119))
 
+    def test_a_fault_outside_the_image_names_its_caller_apart(self):
+        # D1 faulted in a Wine DLL under a string copy: every field was null, and the caller's row only in a frame list.
+        img = build()
+        img.img.pe = SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(SizeOfImage=0x9000))
+        c = ri.crash_fields(img, 0x7BBB605D, 0x20000000, [0x20000000 + 0x2100 + 25], "0xc0000005")
+        self.assertEqual(c["caller"], img.where(IB + 0x2119))
+        self.assertEqual((c["caller"]["map_symbol"], c["caller"]["offset"]), (F1, "0x19"))
+        self.assertEqual((c["map_symbol"], c["stubbed_name"], c["retail_rva"]), (None, None, None))
+        self.assertEqual(ri.crash_name(c), "0x7bbb605d")
+        self.assertNotIn("caller", ri.crash_fields(img, 0x7BBB605D, 0x20000000, [0x1234], "0xc0000005"))
+        self.assertNotIn("caller", ri.crash_fields(img, 0x20000000 + 0x2200, 0x20000000, [0x20000000 + 0x2119], "0x80000003"))
+
     def test_the_image_ends_are_still_the_image(self):
         img = build()
         img.img.pe = SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(SizeOfImage=0x9000))
