@@ -6054,3 +6054,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 __ehhandler$?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ,0x00791041,"Renamed to __ehhandler$?getContentsAsAsciiString@NetCommandMsg@@UAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
 ??1Rva004BC83F@@UAE@XZ,0x004BC83F,"Renamed to ??1HealCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A868)"
 ??_GRva004BC83F@@UAEPAXI@Z,0x004BC89D,"Renamed to ??_GHealCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A868)"
+??1Rva004BC96F@@UAE@XZ,0x004BC96F,"Renamed to ??1MoneyCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A8A0)"
+??_GRva004BC96F@@UAEPAXI@Z,0x004BC9CD,"Renamed to ??_GMoneyCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A8A0)"
