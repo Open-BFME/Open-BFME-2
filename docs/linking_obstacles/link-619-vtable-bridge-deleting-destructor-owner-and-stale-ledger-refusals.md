@@ -15,6 +15,17 @@ the committed `data_ledger.csv`, it reproduces the published queue to within a f
 1,767 generated, 152 already correct, 1,523 refused (no-kept-definition 429, multiple-kept-names 402,
 target-not-winning-provider 526, strong-definition 134).
 
+2026-11-10, GloriousChargeUpdate canonical ObjectID list member: replace
+the private Rva0029FB3BMember and PoolMember views, manual init/free calls
+and stack context cast with real member construction/destruction. All22
+bodies, two strings and four EH rows pass; own link_check reads LINKS,
+1,196 -> 1,196 B against5b5011469d. The owning header lane retires all
+three remaining queue rows for this source (5,641 -> 5,638). The stale
+index's old-array loss appears identically on the baseline and candidate;
+actual image selection and the primary getter identity remain pending.
+Carry forward the prior publication's six-object baseline receipt gap,
+first ParticleSys.cpp, for the next census. [Evidence and scope](../../reverse/attempt_support/glorious-list-member-adoption-20261110.md).
+
 2026-11-09, SpecialAbilityUpdate base secondary owner recovered: the
 canonical destructor emits native 0x008552A4 in full (36 B, nine verified
 relocations). It replaces GloriousChargeUpdate.cpp's unused strong array;

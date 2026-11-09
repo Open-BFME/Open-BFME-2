@@ -122,16 +122,19 @@ struct Rva004AD613Iterator
 // element into a 12-byte list node; they never dereference the word as a
 // pointer. Reuse that existing owner for these ObjectID payloads.
 class Rva002A1B6FNativeList { public: void append(void *const &value); };
-class Rva0029FB3BMember
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
+static inline Rva004AD613Iterator affectedBegin(const Rva0029FB3BMember &list)
 {
-public:
-	bool empty() const { return m_head->m_next == m_head; }
-	Rva004AD613Iterator begin() const { Rva004AD613Iterator iterator; iterator.m_node = m_head->m_next; return iterator; }
-	Rva004AD613Iterator end() const { Rva004AD613Iterator iterator; iterator.m_node = m_head; return iterator; }
-	void init(void *context);
-	void reset() throw();
-	Rva004AD613Node *m_head;
-};
+    Rva004AD613Iterator iterator;
+    iterator.m_node = ((Rva004AD613Node *)list.m_head)->m_next;
+    return iterator;
+}
+static inline Rva004AD613Iterator affectedEnd(const Rva0029FB3BMember &list)
+{
+    Rva004AD613Iterator iterator;
+    iterator.m_node = (Rva004AD613Node *)list.m_head;
+    return iterator;
+}
 class Thing;
 class ModuleData;
 class Xfer;
@@ -238,24 +241,16 @@ public:
 
 Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 
-// ??1GloriousChargeUpdate@@UAE@XZ, retail 0x004AD58C, 60 bytes. Virtual dtor
-// shard over the TU's class view (novtable, so the four vtable stores
-// are explicit).
-//
-// Shape follows the RousingSpeechUpdate dtor precedent: explicit 4 vtable
-// installs plus freelist-node member at +0x88 via pinned reset plus
-// pool-free via 0x268902 pin plus implicit Rva0044EF5E base-dtor tail call.
-// The class is proven by the poolkey, name getter, ModuleData and instance
-// factories plus the ctor installing these same 4 vtables. Zero new pins.
+// ??1GloriousChargeUpdate@@UAE@XZ, retail 0x004AD58C, 60 bytes.
+// The compiler restores the four derived tables, then the ObjectID list
+// is reset and its real member destructor frees the sentinel through
+// 0x00268902. The implicit Rva0044EF5E base destructor follows.
+// The module's factories, name getter and pool key establish the class.
 
 extern "C" const void *const __identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@")[];
 
   // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
-class PoolMember
-{
-public:
-	void Rva00268902() throw();
-};
+
 
   // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
 
@@ -394,7 +389,7 @@ void GloriousChargeUpdate::rva004AD613()
 {
 	if (!m_88.empty())
 	{
-		for (Rva004AD613Iterator objectIdIterator = m_88.begin(); objectIdIterator != m_88.end(); ++objectIdIterator)
+		for (Rva004AD613Iterator objectIdIterator = affectedBegin(m_88); objectIdIterator != affectedEnd(m_88); ++objectIdIterator)
 		{
 			Object *object = TheGameLogic->findObjectByID(*objectIdIterator);
 			if (object)
@@ -455,7 +450,7 @@ void GloriousChargeUpdate::triggerAbilityEffect()
 	rva004AD7B6();
 	if (!m_88.empty())
 	{
-		for (Rva004AD613Iterator objectIdIterator = m_88.begin(); objectIdIterator != m_88.end(); ++objectIdIterator)
+		for (Rva004AD613Iterator objectIdIterator = affectedBegin(m_88); objectIdIterator != affectedEnd(m_88); ++objectIdIterator)
 		{
 			Object *object = TheGameLogic->findObjectByID(*objectIdIterator);
 			if (object)
@@ -502,12 +497,17 @@ void GloriousChargeUpdate::xfer(Xfer *xfer)
 // ??1GloriousChargeUpdate@@UAE@XZ @0x004AD58C
 GloriousChargeUpdate::~GloriousChargeUpdate()
 {
-	Rva0029FB3BMember *objectIdList = (Rva0029FB3BMember *)((char *)this + 0x88);
-	objectIdList->reset();
-	((PoolMember *)objectIdList)->Rva00268902();
+	m_88.reset();
 }
 
 // tu-skeleton: 0x004AD5C8 6B ?name@GloriousChargeUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// The canonical member overload takes this empty allocator-reference
+// temporary; its user constructor avoids adding a zero store.
+struct Rva0029FB3BAlloc
+{
+    Rva0029FB3BAlloc() {}
+};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorCtor.cpp
 
@@ -519,14 +519,12 @@ GloriousChargeUpdate::~GloriousChargeUpdate()
 
 // ??0GloriousChargeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x004AD680
 GloriousChargeUpdate::GloriousChargeUpdate(Thing *thing, const ModuleData *moduleData) :
-	Rva0044EF5E(thing, moduleData)
+	Rva0044EF5E(thing, moduleData),
+	m_88(Rva0029FB3BAlloc())
 {
-	Rva0029FB3BMember *objectIdList = (Rva0029FB3BMember *)((char *)this + 0x88);
-	void *context = (void *)((char *)&moduleData + 3);
-	objectIdList->init(context);
 	m_8C &= 0;
 	m_90 = 0;
-	objectIdList->reset();
+	m_88.reset();
 }
 
 // tu-skeleton: 0x004AD6F4 28B ??_GGloriousChargeUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp (not merged yet)
