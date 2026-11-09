@@ -1,11 +1,10 @@
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG /Ireference/shims/moduledata
 //
-// ??0Rva0022B12DSubsystem@@QAE@XZ, retail 0x00213EEF..0x00214052 (355 bytes,
+// ??0LivingWorldManager@@QAE@XZ, retail 0x00213EEF..0x00214052 (355 bytes,
 // EH, RET 0): the constructor of the 0x2D8-byte TheLivingWorldManager
 // subsystem GameEngine::init (0x0022E2E4) allocates. Its methods are rowed
 // as LivingWorldManager (vtable 0x00BE5234 slot 0 is the rowed ??_G of the
-// 0x00214405 destructor); the constructor keeps the address name the init
-// site already pins.
+// 0x00214405 destructor).
 //
 // Three bases: SubsystemInterface at +0x00, Snapshot at +0x0C and a one-slot
 // listener at +0x10 (vtable 0x00BE5114, inline constructor, out-of-line
@@ -29,14 +28,6 @@ class Rva00210CC5DwordImmSetter
 {
 public:
 	void apply();
-};
-
-class Rva00210CC5
-{
-public:
-	Rva00210CC5() {}
-	__declspec(noinline) ~Rva00210CC5() { ((Rva00210CC5DwordImmSetter *)this)->apply(); }
-	virtual void OnSwapArmyMembers(ArmySwapView *swap, const ArmyMemberRangeView &range, ArmySwapView *a, ArmySwapView *b) = 0;
 };
 
 class GameWindow;
@@ -170,40 +161,37 @@ public:
 	void rva00211DD2();
 };
 
-class Rva0022B12DSubsystem : public SubsystemInterface, public Snapshot, public Rva00210CC5
-{
-public:
-	Rva0022B12DSubsystem();
-	virtual ~Rva0022B12DSubsystem();
-	virtual void OnSwapArmyMembers(ArmySwapView *swap, const ArmyMemberRangeView &range, ArmySwapView *a, ArmySwapView *b) = 0;
-protected:
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-	virtual void loadPostProcess(void) = 0;
-private:
-	Rva00212ED3 m_14;						// +0x014
-	Rva002130CA m_204;						// +0x204
-	Rva00212379 m_218;						// +0x218
-	Rva0010F149Handle m_22C;				// +0x22C
-	void *m_230;							// +0x230
-	_STL::vector<Rva00390729Element> m_234;	// +0x234
-	_STL::vector<Rva00390729Element> m_240;	// +0x240
-	_STL::vector<Rva00390729Element> m_24C;	// +0x24C
-	_STL::vector<Rva00390729Element> m_258;	// +0x258
-	int m_264;								// +0x264
-	void *m_268;							// +0x268
-	Rva002130CA m_26C;						// +0x26C
-	Rva002130CA m_280;						// +0x280
-	Rva002130CA m_294;						// +0x294
-	Rva0021397C m_2A8;						// +0x2A8
-	Rva00211FA3 m_2B4;						// +0x2B4
-	bool m_2C0;								// +0x2C0
-	void *m_2C4;							// +0x2C4
-	bool m_2C8;								// +0x2C8
-	_STL::vector<Rva00390729Element> m_2CC;	// +0x2CC
-};
+// The members are these opaque types here alone (see LivingWorldManager.h).
+#define BFME_LIVINGWORLDMANAGER_CTOR_MEMBERS \
+	Rva00212ED3 m_14;						/* +0x014 */ \
+	Rva002130CA m_204;						/* +0x204 */ \
+	Rva00212379 m_218;						/* +0x218 */ \
+	Rva0010F149Handle m_22C;				/* +0x22C */ \
+	void *m_230;							/* +0x230 */ \
+	_STL::vector<Rva00390729Element> m_234;	/* +0x234 */ \
+	_STL::vector<Rva00390729Element> m_240;	/* +0x240 */ \
+	_STL::vector<Rva00390729Element> m_24C;	/* +0x24C */ \
+	_STL::vector<Rva00390729Element> m_258;	/* +0x258 */ \
+	int m_264;								/* +0x264 */ \
+	void *m_268;							/* +0x268 */ \
+	Rva002130CA m_26C;						/* +0x26C */ \
+	Rva002130CA m_280;						/* +0x280 */ \
+	Rva002130CA m_294;						/* +0x294 */ \
+	Rva0021397C m_2A8;						/* +0x2A8 */ \
+	Rva00211FA3 m_2B4;						/* +0x2B4 */ \
+	bool m_2C0;								/* +0x2C0 */ \
+	void *m_2C4;							/* +0x2C4 */ \
+	bool m_2C8;								/* +0x2C8 */ \
+	_STL::vector<Rva00390729Element> m_2CC;	/* +0x2CC */
+#define BFME_LIVINGWORLDMANAGER_CTOR_PURE = 0
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 
-Rva0022B12DSubsystem::Rva0022B12DSubsystem()
+__declspec(noinline) inline Rva00210CC5::~Rva00210CC5()
+{
+	((Rva00210CC5DwordImmSetter *)this)->apply();
+}
+
+LivingWorldManager::LivingWorldManager()
 	: m_264(0),
 	  m_268(0),
 	  m_2C0(false),
