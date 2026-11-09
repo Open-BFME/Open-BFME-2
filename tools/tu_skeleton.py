@@ -2115,6 +2115,45 @@ class SplitLinkGuard:
             return (len(definers) == 1 and holder is not None
                     and holder in view["selection"]["owners"].get(name, ()))
 
+        # The moved-copy check proves a moved copy's relocations for the outside objects that select it.
+        # A copy with a private context (a referent its own object defines, or a NODUPLICATES function)
+        # never has that proof, so a class that moved whole, destructor and tables byte-identical, was
+        # always refused (lk83: Rva00493DEFDerived.cpp -> CashHackSpecialPower.cpp, Rva004BC4FCDerived.cpp
+        # -> HealCrateCollide.cpp), though nothing else reached it. Such a copy answers to no outside
+        # object when none (and no outside alias) reaches it, the destination's object is its only
+        # definer after the split, no ledger row places it elsewhere, and it is not proven wrong; the
+        # split objects that use it are judged by findings(). Its weak slots keep their route for every
+        # other object: none reaches a slot, nothing defines or redirects a slot or its default, and the
+        # changed objects give each slot the defaults they gave it before.
+        destination = records[self.tu]["obj"].name if self.tu in records else None
+        weak_before, weak_after = collections.defaultdict(set), collections.defaultdict(set)
+        for weak, group in ((weak_before, self.records.values()), (weak_after, records.values())):
+            for record in group:
+                for slot, default in record["fact"][3]:
+                    weak[slot].add(default)
+
+        def moved_privately(name, new):
+            definers = {after["objects"][at(e)] for table, at in LINK_TABLES[:3] for e in after[table].get(name, ())}
+            owners = after["selection"]["owners"].get(name, set())
+            if (name in outsiders or new[2] == "wrong" or destination is None or new[4] != destination
+                    or definers != {destination} or not owners <= {destination}):
+                return False
+            slots = set()
+            for record in (*self.records.values(), *records.values()):
+                if name in {n for n, _, _, _ in record["fact"][0]} | set(record["fact"][1]):
+                    roots, edges = record["references"]
+                    # a kept section is a root: every root's references, a superset
+                    slots |= set(edges[name] if name in edges else roots) & (weak_before.keys() | weak_after.keys())
+            for slot in slots:
+                if slot in outsiders or weak_before.get(slot) != weak_after.get(slot):
+                    return False
+                routed = {slot} | weak_before.get(slot, set()) | weak_after.get(slot, set())
+                for view in (before, after):
+                    if (view["strong"].get(slot) or view["comdat"].get(slot) or view["common"].get(slot)
+                            or any(view["alternates"].get(n) for n in routed)):
+                        return False
+            return True
+
         failures = []
         for name in sorted(names):
             old, new = state(before, name), state(after, name)
@@ -2152,7 +2191,8 @@ class SplitLinkGuard:
                                | {before["objects"][i] for i, _, _ in before["comdat"].get(referent, ())}
                                | {before["objects"][i] for i, _ in before["common"].get(referent, ())})):
                         safe_routes = False
-                if not safe_routes or old_context != context(after, new, name, records):
+                if ((not safe_routes or old_context != context(after, new, name, records))
+                        and not moved_privately(name, new)):
                     failures.append(f"moved selected COMDAT {name} lacks matching private/weak-free context")
             if name in self.guard.index["selection"]["exceptions"]:
                 signature = lambda v: [(table, v["objects"][at(e)], *(() if table == "strong" else e[1:]))

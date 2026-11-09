@@ -5491,15 +5491,19 @@ class SplitLinkGuardTests(unittest.TestCase):
         self.truth = SimpleNamespace(verdict=lambda *args: None)
 
     def obj(self, stem, defined=(), refs=(), copies=(), aliases=(), common=(), tables=(), characteristics=2):
-        """`tables`: (table, weak slot, its default, the default's body), a vftable's shape, each a COMDAT selected ANY."""
+        """`tables`: (table, weak slot, its default, the default's body), a vftable's shape, each a COMDAT selected ANY.
+        A copy (name, body, referents) stores a DIR32 to each referent, this object's own definition when it has one."""
         import struct
         from test_gate_exploits import coff, TEXT
-        sections, symbols, aux_at, tags = [], [], [], []
+        sections, symbols, aux_at, tags, stores = [], [], [], [], []
         for name in defined:
             sections.append((".text", TEXT, b"\xc3", []))
             symbols.append((name, 0, len(sections), 0x20, 2, 0))
-        for name, body in copies:
-            sections.append((".text", TEXT | 0x1000, body, []))
+        for name, body, *referents in copies:
+            referents = referents[0] if referents else ()
+            sections.append((".text", TEXT | 0x1000, b"\0" * (4 * len(referents)) + body, []))
+            if referents:
+                stores.append((len(sections) - 1, referents))
             aux_at.append(sum(1 + s[-1] for s in symbols) + 1)
             symbols.extend([(".text", 0, len(sections), 0, 3, 1),
                             (name, 0, len(sections), 0x20, 2, 0)])
@@ -5521,6 +5525,20 @@ class SplitLinkGuardTests(unittest.TestCase):
             sections[0] = (name, flags, b"\0" * (4 * len(refs)) + body,
                            [(4 * i, first + i, 6) for i in range(len(refs))])
         symbols.extend((name, size, 0, 0, 2, 0) for name, size in common)
+        for at, referents in stores:
+            relocs = []
+            for i, referent in enumerate(referents):
+                index, found = 0, None
+                for symbol in symbols:
+                    if symbol[0] == referent and symbol[4] == 2 and symbol[2] > 0 and found is None:
+                        found = index
+                    index += 1 + symbol[-1]
+                if found is None:
+                    found = index
+                    symbols.append((referent, 0, 0, 0x20, 2, 0))
+                relocs.append((4 * i, found, 6))
+            name, flags, body, _ = sections[at]
+            sections[at] = (name, flags, body, relocs)
         if aliases:
             sections.append((".drectve", 0x00100A00,
                              " ".join(f"/alternatename:{a}={b}" for a, b in aliases).encode(), []))
@@ -5536,13 +5554,14 @@ class SplitLinkGuardTests(unittest.TestCase):
         return path
 
     def setup_guard(self, source_options=None, target_options=None, outside_options=None, existing=True, move=None):
-        """`move`: the carved row _move's body as a COMDAT copy (default: an ordinary section)."""
+        """`move`: the carved row _move's body as a COMDAT copy (default: an ordinary section), or (body, referents)."""
         import build
         import link_check as LC
         import link_census as LCe
         source_options, target_options, outside_options = source_options or {}, target_options or {}, outside_options or {}
         if move is not None:
-            source_options["copies"] = (("_move", move), *source_options.get("copies", ()))
+            source_options["copies"] = (("_move", *(move if isinstance(move, tuple) else (move,))),
+                                        *source_options.get("copies", ()))
         (self.root / self.SOURCE).write_text("void move(){}\nvoid stay(){}\n")
         if existing:
             (self.root / self.TU).write_text("void target(){}\n")
@@ -5583,7 +5602,8 @@ class SplitLinkGuardTests(unittest.TestCase):
     def judge(self, residual_options=None, destination_options=None, existing=True, move=None):
         residual_options, destination_options = residual_options or {}, destination_options or {}
         if move is not None:
-            destination_options["copies"] = (("_move", move), *destination_options.get("copies", ()))
+            destination_options["copies"] = (("_move", *(move if isinstance(move, tuple) else (move,))),
+                                             *destination_options.get("copies", ()))
         self.guard.residual_obj = self.obj("residual", defined=("_stay", *residual_options.pop("extra", ())), **residual_options)
         obj = self.obj("destination", defined=(*(() if move is not None else ("_move",)), *(("_target",) if existing else ()),
                                               *destination_options.pop("extra", ())), **destination_options)
@@ -5674,6 +5694,74 @@ class SplitLinkGuardTests(unittest.TestCase):
         self.truth.verdict = lambda symbol, body, *rest: "wrong" if body == b"\x90\xc3" else None
         self.setup_guard(move=b"\xc3")
         self.assertIn("selected implementation changes for _move", self.judge(move=b"\x90\xc3"))
+
+    # lk83, Rva00493DEFDerived.cpp -> CashHackSpecialPower.cpp: a placeholder class moves whole. Its
+    # destructor stores the class's private table, whose slot holds the destructor, both COMDATs of the
+    # one object; they move byte-identical with the same copy digest. Neither has a portable context
+    # (each reaches a definition of its own object), so the moved-copy check refused the split though no
+    # object outside the replaced ones references either name and nothing else can be selected for them.
+    CLASS = ("_tab", b"\xc3", ("_move",))
+    DTOR = (b"\xc3", ("_tab",))
+
+    def class_guard(self, truth=None, **setup):
+        if truth is not None:
+            self.truth.verdict = truth
+        setup["source_options"] = dict(setup.get("source_options", {}), copies=(self.CLASS,))
+        return self.setup_guard(move=self.DTOR, **setup)
+
+    def judge_class(self, table=CLASS, residual_options=None):
+        return self.judge(residual_options, dict(copies=(table,)), move=self.DTOR)
+
+    def test_a_class_no_outside_object_reaches_may_move_whole(self):
+        self.class_guard()
+        self.assertEqual(self.judge_class(), [])
+
+    def test_a_moved_class_copy_another_object_can_reach_or_select_is_refused(self):
+        cases = {"an outside reference": dict(outside_options=dict(refs=("_tab",))),
+                 "an outside alias": dict(outside_options=dict(aliases=(("_alias", "_tab"),))),
+                 "an outside copy": dict(outside_options=dict(copies=(self.CLASS,)))}
+        for label, setup in cases.items():
+            with self.subTest(label=label):
+                self.class_guard(**setup)
+                why = self.judge_class()
+                self.assertTrue(any(item.endswith(" _tab") or " _tab " in item for item in why), why)
+        with self.subTest(label="defined twice after the split"):
+            self.class_guard()
+            why = self.judge_class(residual_options=dict(copies=(self.CLASS,)))
+            self.assertIn("moved selected COMDAT _tab lacks matching private/weak-free context", why)
+        with self.subTest(label="a ledger row places it in another unit"):
+            g = self.class_guard()
+            g.rows.append(dict(name="_tab", target_rva="0x5000", target_size="1", source=self.OUTSIDE,
+                               status="matched", notes=""))
+            self.assertIn("moved selected COMDAT _tab lacks matching private/weak-free context", self.judge_class())
+
+    def test_a_moved_class_copy_whose_bytes_differ_or_are_proven_wrong_is_refused(self):
+        with self.subTest(label="the bytes differ"):
+            self.class_guard()
+            self.assertIn("selected implementation changes for _tab",
+                          self.judge_class(table=("_tab", b"\x90\xc3", ("_move",))))
+        with self.subTest(label="proven wrong"):
+            self.class_guard(truth=lambda symbol, *rest: "wrong" if symbol["name"] == "_tab" else None)
+            self.assertIn("moved selected COMDAT _tab lacks matching private/weak-free context", self.judge_class())
+
+    def test_a_moved_table_keeps_its_weak_slot_route_for_other_objects(self):
+        # The table's default is unproven, so only the waiver can accept the move; it may not change
+        # what the slot means to any object outside the split.
+        slot, default = "??_Ex@@", "??_Gx@@"
+        table = ("_tab", slot, default, b"\xc3")
+        cases = {"no object outside the split reaches the slot": (None, {}, True),
+                 "an outside reference to the slot": (dict(refs=(slot,)), {}, False),
+                 "an outside alias of the slot": (dict(aliases=((slot, "_outside"),)), {}, False),
+                 "the residual gives the slot another default":
+                     (None, dict(tables=(("_tab2", slot, "_other", b"\xc3"),)), False)}
+        for label, (outside, residual, accepted) in cases.items():
+            with self.subTest(label=label):
+                self.setup_guard(source_options=dict(tables=(table,)), outside_options=outside, move=self.DTOR)
+                why = self.judge(dict(residual), dict(tables=(table,)), move=self.DTOR)
+                if accepted:
+                    self.assertEqual(why, [])
+                else:
+                    self.assertIn("moved selected COMDAT _tab lacks matching private/weak-free context", why)
 
     def test_a_removed_alias_cannot_unresolve_an_outside_consumer(self):
         self.setup_guard(source_options=dict(aliases=(("_alias", "_outside"),)), outside_options=dict(refs=("_alias",)))
