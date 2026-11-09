@@ -583,10 +583,10 @@ class Checker:
             return "equal" if len(targets) == 1 else "unchecked"
         return None
 
-    def pointer(self, actual, expected, *, proven=False, allow_end=True):
-        return self.pointer_result(actual, expected, proven=proven, allow_end=allow_end)[0]
+    def pointer(self, actual, expected, *, proven=False, allow_end=True, end_proof=False):
+        return self.pointer_result(actual, expected, proven=proven, allow_end=allow_end, end_proof=end_proof)[0]
 
-    def pointer_result(self, actual, expected, *, proven=False, allow_end=True, end_proof=True):
+    def pointer_result(self, actual, expected, *, proven=False, allow_end=True, end_proof=False):
         if actual == expected == 0:
             return "equal", "mapped target identity"
         a, b = actual - self.ours.base, expected - self.retail.base
@@ -608,7 +608,7 @@ class Checker:
             result, reason = "wrong", "mapped target mismatch"
         end = self.end_pointer(actual, expected) if allow_end else None
         if end is not None:
-            conflict = any(self.mapping.targets_for(p) and self.mapping.targets_for(p) != {b}
+            conflict = any(self.mapping.targets_for(p) != {b}
                            for p in self.by_image.get(a, ())) or any(
                            p["rva"] != a for p in self.by_retail.get(b, ()))
             if conflict:
@@ -639,6 +639,22 @@ class Checker:
                    actual == self.ours.base + p["rva"] + addend and
                    self.mapping.resolve(p["rva"]) == expected - self.retail.base - addend
                    for p in owners)
+
+    def code_end_proof(self, row_rva, operand_rva, actual, expected):
+        """Only the row's unique .text COFF DIR32 can prove a code operand's end."""
+        owners = [p for p in self.by_image.get(row_rva, ()) if p.get("coff")]
+        locations = {(id(p["coff"]["section"]), p["coff"]["offset"]) for p in owners}
+        if len(locations) != 1:
+            return False
+        owner = owners[0]
+        offset = operand_rva - row_rva
+        if not owner["extent"] or offset < 0 or offset + 4 > owner["extent"]:
+            return False
+        coff = owner["coff"]
+        field = coff["offset"] + offset
+        if (field, link_cycle.DIR32) not in coff["section"]["relocations"]:
+            return False
+        return self.data_end_proof(owner, offset, actual, expected)
 
     def ledger_literal(self, actual, expected):
         """A MAP string literal can select a ledger-typed retail string by value.
@@ -741,7 +757,9 @@ class Checker:
                 elif xo.type == X86_OP_IMM and x.address + x.imm_offset in self.ours.relocations:
                     # A named storage operand is not proof of an array bound.
                     verdict = self.pointer(xo.imm & 0xffffffff, yo.imm & 0xffffffff,
-                        allow_end=not self.by_retail.get((yo.imm & 0xffffffff) - self.retail.base))
+                        allow_end=not self.by_retail.get((yo.imm & 0xffffffff) - self.retail.base),
+                        end_proof=self.code_end_proof(actual, x.address + x.imm_offset,
+                            xo.imm & 0xffffffff, yo.imm & 0xffffffff))
                     if verdict == "unchecked":
                         unresolved = unresolved or "code-equal-unresolved-operand"
                     if verdict == "wrong":
@@ -749,7 +767,9 @@ class Checker:
                     masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
                 elif xo.type == X86_OP_MEM and x.address + x.disp_offset in self.ours.relocations:
                     verdict = self.pointer(xo.mem.disp & 0xffffffff, yo.mem.disp & 0xffffffff,
-                        allow_end=not self.by_retail.get((yo.mem.disp & 0xffffffff) - self.retail.base))
+                        allow_end=not self.by_retail.get((yo.mem.disp & 0xffffffff) - self.retail.base),
+                        end_proof=self.code_end_proof(actual, x.address + x.disp_offset,
+                            xo.mem.disp & 0xffffffff, yo.mem.disp & 0xffffffff))
                     if verdict == "unchecked":
                         unresolved = unresolved or "code-equal-unresolved-operand"
                     if verdict == "wrong":

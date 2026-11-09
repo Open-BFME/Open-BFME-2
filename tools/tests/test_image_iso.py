@@ -2157,3 +2157,37 @@ def test_round4_wrong_interior_mapping_is_not_overridden_by_an_end():
                 {"array": {0x2100}, "overlap": {0x3100}})
     assert c.pointer(c.ours.base + 0x2010, c.retail.base + 0x2110) == "wrong"
     assert c.counts["pointers_end_equal"] == 0
+
+
+@pytest.mark.parametrize("repeated", [False, True])
+def test_round5_unmapped_or_ambiguous_public_blocks_unproven_code_end(repeated):
+    ps = [public("array", 0x2000, 16), public("following", 0x2010)]
+    if repeated:
+        ps.append(public("following", 0x3000))
+    c = checker(ps, {"array": {0x2100}})
+    assert c.pointer_result(c.ours.base + 0x2010, c.retail.base + 0x2110) == (
+        "unchecked", "end-pointer-conflict")
+    c.ours.put(0x300, b"\xa1" + struct.pack("<I", c.ours.base + 0x2010))
+    c.retail.put(0x100, b"\xa1" + struct.pack("<I", c.retail.base + 0x2110))
+    c.ours.relocations.add(0x301)
+    assert c.code_comparison(0x300, 0x100, 5) == (None, "code-equal-unresolved-operand")
+    assert c.counts["pointers_end_equal"] == 0
+
+
+@pytest.mark.parametrize("opcode", [b"\xa1", b"\xb8"])
+@pytest.mark.parametrize("proof", ["missing", "valid", "wrong-symbol", "wrong-addend", "wrong-kind"])
+def test_round5_code_end_requires_its_text_dir32_symbol_and_addend(proof, opcode):
+    c = checker([public("f", 0x300, 5), public("array", 0x2000, 16), public("other", 0x3000, 16)],
+                {"f": {0x100}, "array": {0x2100}, "other": {0x3100}})
+    c.ours.put(0x300, opcode + struct.pack("<I", c.ours.base + 0x2010))
+    c.retail.put(0x100, opcode + struct.pack("<I", c.retail.base + 0x2110))
+    c.ours.relocations.add(0x301)
+    if proof != "missing":
+        kind = iso.link_cycle.REL32 if proof == "wrong-kind" else iso.link_cycle.DIR32
+        addend = 15 if proof == "wrong-addend" else 16
+        symbol = "other" if proof == "wrong-symbol" else "array"
+        c.publics[0]["coff"] = dict(offset=0, section=dict(body=opcode + struct.pack("<I", addend),
+            relocations=[(1, kind)], relocation_targets={1:dict(name=symbol)}))
+    expected = (True, "row-identity-and-abi-equal") if proof == "valid" else (None, "code-equal-unresolved-operand")
+    assert c.code_comparison(0x300, 0x100, 5) == expected
+    assert c.counts["pointers_end_equal"] == int(proof == "valid")
