@@ -159,11 +159,7 @@ template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(Asc
 }
 #include "../../../Include/Common/ModuleData.h"
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 #include "../../../Include/GameLogic/ObjectFilter.h"
 // Retail Version stores minimum/current bytes and has an inline constructor;

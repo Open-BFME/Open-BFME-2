@@ -8,13 +8,7 @@
 // three BlockParse nodes below, then the pool-init marker 0x007AD4A2.
 #include "../../../Include/GameClient/Drawable.h"
 
-class ThingFactory
-{
-public:
-	static void parseObjectDefinition( INI *ini, const AsciiString &name,
-									   const AsciiString &reskinFrom,
-									   const AsciiString &childOf );	// 0x00139D00
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 // ---- from Code/GameEngine/Source/Common/INI/INI_parseObjectDefinition.cpp
 
