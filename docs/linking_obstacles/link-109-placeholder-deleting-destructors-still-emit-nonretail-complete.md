@@ -29,3 +29,11 @@ keys; do not add the finding to the shrink-only register. No source trial,
 new match or linking gain in this follow-up.
 Clearance: none for this unit; current-provider preview still reports L10/S10.
 Census confirmation: pending; no census gain claimed.
+
+Follow-up (2026-11-09): the real link at `a7a3c4d962` (after the 0x00155330
+retraction `36efc6df39`) still refused `??_7?$VectorClass@PAVRva00155940Element@@@@6B@`
+(0x007D3B98) and `??_7?$VectorClass@VModelNodeClass@HLodClass@@@@6B@` (0x007D6720)
+as ambiguous-table-name: no object binding remained, but the committed
+`reverse/data_ledger.csv` row 0x007D3B98 still listed the ModelNodeClass table as an
+alias. A local `tools/data_ledger.py --out` run drops that alias (refs 6 -> 5); only
+that row was applied. Clearance: pending the next real link's vtable_bridge_queue.

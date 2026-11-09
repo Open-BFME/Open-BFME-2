@@ -3198,7 +3198,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007D3B80,4,.rdata,float,__real@3e000000,,literal,,0,3
 0x007D3B84,8,.rdata,string,??_C@_05MPFIAJAP@Arial?$AA@,,literal,,0,8
 0x007D3B8C,12,.rdata,string,??_C@_08PNOJLJKJ@Generals?$AA@,,literal,,0,1
-0x007D3B98,24,.rdata,vtable,??_7?$VectorClass@PAVRva00155940Element@@@@6B@,,literal,??_7?$VectorClass@PAVRva00155940Element@@@@6B@;??_7?$VectorClass@VModelNodeClass@HLodClass@@@@6B@,0,6
+0x007D3B98,24,.rdata,vtable,??_7?$VectorClass@PAVRva00155940Element@@@@6B@,,literal,,0,5
 0x007D3BB0,24,.rdata,vtable,??_7?$VectorClassWide@UTextureStatisticsStructWide@@@@6B@,,literal,,0,4
 0x007D3BC8,24,.rdata,vtable,??_7?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@6B@,,literal,??_7?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@6B@;??_7?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@6B@,0,4
 0x007D3BE0,8,.rdata,string,??_C@_04EEFHOPMO@?$CFs?$CFf?$AA@,,literal,,0,1
