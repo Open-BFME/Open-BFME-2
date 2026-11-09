@@ -131,13 +131,7 @@ unsigned bfmeDynamicFVFs[15] = {
 		BFME_D3DFVF_TEXCOORDSIZE3(1) | BFME_D3DFVF_TEXCOORDSIZE3(2) | BFME_D3DFVF_TEXCOORDSIZE3(3),
 	0xb0312u, 0x52u, 0x344u, 0x444u,
 };
-// The sorting-buffer size and in-use flag are the data ledger's globals
-// (DynamicVBAccessClassDeinit.cpp, BoxDynamicVBAccessClassDestructor.cpp).
-extern bool BfmeDynamicSortingVertexArrayInUse;
-#define bfmeSortingVBInUse BfmeDynamicSortingVertexArrayInUse
-static BfmeDynamicSortingVB *bfmeSortingVB;
-extern unsigned short bfmeSortingVBSize;
-static unsigned short bfmeSortingVBOffset;
+// The sorting buffer's allocator and its statics are in dx8vertexbuffer.cpp, with _Deinit and the destructor.
 extern void BFME_DX8_Thread_Lock();
 extern bool BFME_DX8_Thread_Assert();
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
@@ -194,32 +188,6 @@ void DynamicVBAccessClass::Allocate_DX8_Dynamic_Buffer()
  if(buffer) buffer->ReleaseRef();
  buffer=(BfmeDynamicNativeVB *)bfmeDynamicVBs[formatIndex];
  vertexOffset=bfmeDynamicVBOffsets[formatIndex];
-}
-void DynamicVBAccessClass::Allocate_Sorting_Dynamic_Buffer()
-{
- unsigned newCount=bfmeSortingVBOffset+vertexCount;
- bfmeSortingVBInUse=true;
- if(newCount>bfmeSortingVBSize) {
-  if(bfmeSortingVB) { bfmeSortingVB->ReleaseRef();bfmeSortingVB=0; }
-  bfmeSortingVBSize=newCount;
-  if(bfmeSortingVBSize<5000) bfmeSortingVBSize=5000;
- }
- if(!bfmeSortingVB) {
-  bfmeSortingVB=new BfmeDynamicSortingVB(bfmeSortingVBSize);
-  bfmeSortingVBOffset=0;
- }
- if(bfmeSortingVB) bfmeSortingVB->AddRef();
- if(buffer) buffer->ReleaseRef();
- buffer=bfmeSortingVB;
- vertexOffset=bfmeSortingVBOffset;
-}
-// Zero Hour's DynamicVBAccessClass::_Reset with BFME's fifteen native pools:
-// the sorting offset always rewinds, the per-format offsets only on a new
-// frame -- one 30-byte clear, seven dword stores and a word.
-void DynamicVBAccessClass::_Reset(bool frame_changed)
-{
- bfmeSortingVBOffset=0;
- if(frame_changed) memset(bfmeDynamicVBOffsets,0,sizeof(bfmeDynamicVBOffsets));
 }
 
 // Retail multiplies the vertex count by 44 with a lea/add/sub chain rather than
