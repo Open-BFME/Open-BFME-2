@@ -6026,3 +6026,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C85A4@@UAEPAXI@Z,0x004C8602,"Renamed to ??_GSplitHordeSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E5FC)"
 ??1Rva004C86E4@@UAE@XZ,0x004C86E4,"Renamed to ??1RepairSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E6A4)"
 ??_GRva004C86E4@@UAEPAXI@Z,0x004C8742,"Renamed to ??_GRepairSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E6A4)"
+??1Rva004C7B36@@UAE@XZ,0x004C7B36,"Renamed to ??1UntamedAllegianceSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E0E4)"
+??_GRva004C7B36@@UAEPAXI@Z,0x004C7B94,"Renamed to ??_GUntamedAllegianceSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E0E4)"

@@ -64,21 +64,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-//
-// UntamedAllegianceSpecialPower's destructor 0x004C7B36, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5E0E4 at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5E080 at +0x10), exactly what ??0UntamedAllegianceSpecialPower
-// 0x004C7B06 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C7B36 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C7B36();
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp
@@ -120,14 +105,10 @@ NameKeyType UntamedAllegianceSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C7B30 6B ?Rva004C7B30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C7B36::~Rva004C7B36()
+// ??1UntamedAllegianceSpecialPower@@MAE@XZ 0x004C7B36: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
+UntamedAllegianceSpecialPower::~UntamedAllegianceSpecialPower()
 {
 }
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C7BB0 83B ?ApplyPowerToObject@UntamedAllegianceSpecialPower@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerSlot13.cpp (not merged yet)
