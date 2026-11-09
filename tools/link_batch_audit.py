@@ -6,9 +6,14 @@ the pushed base supplies the before state; the byte gate supplies current object
 
 import argparse
 import collections
+import contextlib
 import csv
+import functools
+import io
+import json
 import os
 import re
+import signal
 import struct
 import subprocess
 import sys
@@ -20,6 +25,7 @@ import link_census
 import link_cycle
 import link_check
 import exit_link
+import shadow_budget
 
 
 # A batch that leaves a referenced name with no definition anywhere costs the real link one
@@ -766,10 +772,337 @@ def audit(base, tip, verified):
     return 0 if exact_base else 2
 
 
+# ------------------------------------------------- the shadow verdict (LINK-651)
+# What the audit would say if it could judge against an older index, logged beside what it did say: audit() alone sets the
+# exit. Nearly every push has an older index, so audit() never judges it. This narrows `touched` to the names the batch
+# really changes, and allows a verdict only when everything between the index and the base is proven not to bear on them;
+# anything it cannot prove is `unknown` with a reason, never clean. It also gives the base rate of real losses, whatever
+# the verdict: possible_losses and real_link.
+SHADOW_SPARE = 5.0      # seconds of the budget kept back to write the log line
+HEADER = re.compile(r"\.(h|hpp|hh|hxx|inl|inc|ipp|tcc)$", re.I)
+IDENTITY_LEDGERS = {"reverse/functions.csv", "reverse/symbols.csv", "reverse/dir32_addresses.csv", "reverse/data_rows.csv"}
+
+
+class OutOfBudget(BaseException):
+    """Not an Exception: the readers the shadow calls catch Exception (an unreadable object is a
+    finding), and the timer firing inside one must not be read as one, or the run goes on past it."""
+
+
+def gap_paths(commit, base):
+    """(paths the census reads or its own tools that differ from the index to the base, those added or deleted)."""
+    changed = git("diff", "--name-only", "--no-renames", commit, base, "--", *link_census.CENSUS_INPUTS,
+                  *("tools/" + name for name in link_census.TOOL_FILES))
+    added = git("diff", "--name-only", "--no-renames", "--diff-filter=AD", commit, base, "--", *link_census.CENSUS_INPUTS)
+    return set(changed.splitlines()), set(added.splitlines())
+
+
+def entries(index, name):
+    """One name's definitions, by object name, so two indexes compare whatever their object numbering."""
+    objects = index["objects"]
+    return (sorted((objects[i], digest, verdict) for i, digest, verdict in index["comdat"].get(name, ())),
+            sorted(objects[i] for i in index["strong"].get(name, ())),
+            sorted((objects[e[0]], *map(str, e[1:])) for e in index["common"].get(name, ())))
+
+
+def changed_names(index, updated, touched, before_rank, after_rank):
+    """Of `touched`, the names whose definitions or selected provider differ. A consumer of any other name links as it did."""
+    return {name for name in touched
+            if entries(index, name) != entries(updated, name)
+            or selected(index, name, before_rank) != selected(updated, name, after_rank)}
+
+
+def recorded_deps(obj):
+    """The lower-cased paths a compile recorded reading, or None when its sidecar cannot say."""
+    try:
+        return {path.replace("\\", "/").lower() for path in json.loads(build._deps_sidecar(obj).read_text(encoding="utf-8"))["deps"]}
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def object_proven(source, obj, index, gap):
+    """Is this object what the audit may read for an unchanged source? Either the census read these very bytes and nothing
+    it rests on changed since, or it has a strict receipt for the tree as it is."""
+    if not obj.is_file():
+        return False
+    if index.get("digests", {}).get(obj.name) == link_check.object_digest(obj):
+        deps = recorded_deps(obj)
+        if deps is not None and source.lower() not in gap and not deps & gap:
+            return True
+    return link_census.object_current(link_check.ROOT / source, obj)
+
+
+def dependents_of(headers, sources, folder, in_time):
+    """(units whose recorded compile read one of `headers`, sources with no record to tell by)."""
+    found, seen = set(), set()
+    for count, sidecar in enumerate(folder.glob("*.deps.json")):
+        if not count % 500:
+            in_time()
+        try:
+            record = json.loads(sidecar.read_text(encoding="utf-8"))
+            source, deps = record["path"], record["deps"]
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
+        seen.add(source)
+        if headers & {path.replace("\\", "/").lower() for path in deps}:
+            found.add(source)
+    return found & sources, sources - seen
+
+
+def shadow_verdict(base, tip, verified, deadline, out):
+    """Fill `out`: would_be clean, failed or unknown (None: nothing to judge), reasons, and what was measured."""
+    out.update(would_be="unknown", reasons=[])
+    reasons = out["reasons"]
+    # 38 of 55 s on srv1 went to computing the same paths twice. It only runs after audit(), at the process's end.
+    build.obj_path = functools.lru_cache(maxsize=None)(build.obj_path)
+
+    def in_time():
+        if time.monotonic() > deadline:
+            raise OutOfBudget
+
+    in_time()
+    changes, identities = changed_sources(base, tip), changed_identities(base, tip)
+    if not changes and not verified and not identities:
+        out.update(would_be=None, reasons=["nothing-to-judge"])
+        return
+    if git("diff", "--name-only", tip, "--", *link_census.CENSUS_INPUTS):
+        reasons.append("tree-differs-from-the-push")
+        return
+    if not link_check.INDEX.exists():
+        reasons.append("no-index")
+        return
+    index = link_check.load_index()
+    in_time()
+    meta = index.get("meta", {})
+    link_check.require_common_index(index)
+    if not meta.get("commit") or not meta.get("clean_tree", True):
+        reasons.append("index-not-clean")
+        return
+    changed, added = gap_paths(meta["commit"], base)
+    tools = sorted(path for path in changed if path.startswith("tools/"))
+    gap = {path.lower() for path in changed if not path.startswith("tools/")}
+    gap_headers = {path for path in gap if HEADER.search(path) or path.startswith(("vendor/", "reference/"))}
+    out["gap"] = {"paths": len(gap), "headers": len(gap_headers), "added_or_deleted": len(added), "census_tools": tools}
+    if tools:
+        reasons.append("census-tool-in-gap")
+    if gap & IDENTITY_LEDGERS:
+        reasons.append("gap-identity-ledger")      # a name's row or address moved under units the gap never lists
+    rows = link_census.ledger()
+    truth = link_census.RetailTruth(rows)
+    sources = {row["source"] for row in rows} | {row["source"] for row in link_census.data_ledger()}
+    scope = (changes | set(verified)) & sources
+    if identities:
+        scope |= affected_sources(index, identities) & sources
+    out["scope"] = len(scope)
+    old_by_source = {source: entry["object"] for source, entry in index["blockers"].items() if "object" in entry}
+    removed = {old_by_source[source] for source in changes if source in old_by_source and source not in sources}
+    current_objects = {build.obj_path(link_check.ROOT / source).name for source in sources}
+    removed |= {obj for source, obj in old_by_source.items() if source not in sources and obj not in current_objects}
+    replacements, missing = [], 0
+    verified_here = set(verified)
+    for source in sorted(scope):
+        in_time()
+        obj, path = build.obj_path(link_check.ROOT / source), link_check.ROOT / source
+        if source in verified_here:
+            good = obj.is_file() and build.compile_is_current(path, obj)       # the hook byte-verified it in this push
+        elif source in changes:
+            good = obj.is_file() and link_census.object_current(path, obj)
+        else:
+            good = object_proven(source, obj, index, gap)
+        if good:
+            replacements.append(obj)
+        else:
+            missing += 1
+    if missing:
+        out["batch_objects_missing"] = missing
+        reasons.append("batch-object")
+        return
+    before_rank = {name: i for i, name in enumerate(index["objects"]) if name not in index.get("forgotten", ())}
+    after_rank = link_check.link_rank(rows)
+    updated = overlay(index, replacements, removed, truth)
+    updated["selection"] = {**index["selection"], "owners": dict(link_census.ledger_owners(rows))}
+    in_time()
+    changed_objects = removed | {obj.name for obj in replacements}
+    touched = set()
+    for table in (index["comdat"], index["common"]):
+        for name, found in table.items():
+            if any(index["objects"][entry[0]] in changed_objects for entry in found):
+                touched.add(name)
+    for name, found in index["strong"].items():
+        if any(index["objects"][i] in changed_objects for i in found):
+            touched.add(name)
+    for obj in replacements:
+        copies, strong, _, _ = link_census.object_facts(obj, truth)
+        touched.update(name for name, _, _, _ in copies)
+        touched.update(strong)
+        touched.update(link_census.common_definitions(obj))
+    names = changed_names(index, updated, touched, before_rank, after_rank) | identities
+    out.update(names_touched=len(touched), names_changed=len(names))
+    in_time()
+    retired = {entry["object"]: source for source, entry in index["blockers"].items()
+               if source not in sources and entry.get("linked")}
+    inherited = collections.defaultdict(set)
+    if retired:
+        for row in rows:
+            for owner in index["selection"]["owners"].get(row.get("name"), ()):
+                if owner in retired:
+                    inherited[row["source"]].add(retired[owner])
+    losses = []
+    out["possible_losses"] = {"count": 0, "first": [], "sources_read": 0}
+    ordered = dict(updated)         # reorder() replaces tables, so `updated` keeps the order real_link_losses reads
+    reorder(ordered, after_rank)
+
+    def read_losses(batch):
+        for source in sorted(batch):
+            in_time()
+            prior = index["blockers"].get(source, {})
+            if not prior.get("linked") and not inherited[source]:
+                continue
+            obj = build.obj_path(link_check.ROOT / source)
+            if not obj.is_file():
+                continue
+            result = link_check.check_object(obj, ordered, truth, source)
+            out["possible_losses"]["sources_read"] += 1
+            for kind in ("unresolved", "duplicates", "comdat", "selected", "addresses"):
+                for entry in result.get(kind, ()):
+                    losses.append(f"{kind} in {source}: {entry[0] if isinstance(entry, (tuple, list)) else entry}")
+            out["possible_losses"].update(count=len(losses), first=losses[:20])
+
+    read_losses(scope)
+    in_time()
+    try:
+        paths = object_paths(index, replacements, sources)
+        real = real_link_losses(index, updated, names, before_rank, after_rank,
+                                {path.name for path in exit_link.placement_objects(rows)},
+                                weak_reader(index, replacements, sources), bridged_names(),
+                                include_reader(index, replacements, sources), {obj.name for obj in replacements},
+                                (index.get("references") or {}).get("referenced"), reference_reader(paths),
+                                False, bridge_copy_reader(paths),
+                                import_request_reader(paths, (index.get("excuses") or {}).get("imported", {})))
+        out["real_link"] = {"loss": sum(entry[3] == "loss" for entry in real), "candidate": sum(entry[3] != "loss" for entry in real),
+                            "first": [f"{entry[3]} {entry[0]}" for entry in real[:20]]}
+    except OutOfBudget:
+        raise
+    except Exception as error:  # noqa: BLE001 - measured, never a verdict
+        out["real_link"] = {"error": f"{type(error).__name__}: {error}"[:200]}
+    consumers = (affected_sources(index, names) & sources) - scope if names else set()
+    out["consumers"] = len(consumers)
+    unproven = 0
+    for source in sorted(consumers):
+        in_time()
+        if not object_proven(source, build.obj_path(link_check.ROOT / source), index, gap):
+            unproven += 1
+    if unproven:
+        out["consumers_unproven"] = unproven
+        reasons.append("consumer-unproven")
+    in_time()
+    reach = scope | consumers
+    deps_of_reach = set()
+    no_record = 0
+    for source in sorted(reach):
+        deps = recorded_deps(build.obj_path(link_check.ROOT / source))
+        if deps is None:
+            no_record += 1
+        else:
+            deps_of_reach |= deps
+    if no_record:
+        out["no_dependency_record"] = no_record
+        reasons.append("no-dependency-record")
+    if {source.lower() for source in reach} & gap or deps_of_reach & gap:
+        reasons.append("gap-reaches-the-batch")
+    new_or_gone = {Path(path).name.lower() for path in added if HEADER.search(path)}
+    if new_or_gone & {Path(path).name for path in deps_of_reach}:
+        reasons.append("gap-header-added-or-deleted")      # it could shadow a recorded header, or lose one
+    holders = {index["objects"][entry[0]] for name in names for table in (index["comdat"], index["common"])
+               for entry in table.get(name, ())} | {index["objects"][i] for name in names for i in index["strong"].get(name, ())}
+    by_lower = {source.lower(): source for source in set(index["blockers"]) | sources}
+    units = {by_lower[path] for path in gap if path in by_lower}
+    unknown_units = set()
+    if gap_headers:
+        folder = build.obj_path(link_check.ROOT / sorted(sources)[0]).parent
+        dependents, unknown_units = dependents_of(gap_headers, sources, folder, in_time)
+        units |= dependents
+    out["gap_units"] = len(units)
+    unavailable, defines, refers = len(unknown_units), 0, 0
+    asked = touched | names
+    for source in sorted(units):
+        in_time()
+        if old_by_source.get(source) in holders:
+            defines += 1
+        if source not in sources:
+            continue
+        obj, path = build.obj_path(link_check.ROOT / source), link_check.ROOT / source
+        if not obj.is_file() or not build.compile_is_current(path, obj):
+            unavailable += 1
+            continue
+        copies, strong, _, _ = link_census.object_facts(obj, truth)
+        if names & ({name for name, _, _, _ in copies} | set(strong) | set(link_census.common_definitions(obj))):
+            defines += 1
+        try:
+            roots, edges = link_census.object_references(obj)
+            alternates = link_check.alternate_names(obj)
+        except Exception:  # noqa: BLE001 - unread, so not ruled out
+            unavailable += 1
+            continue
+        named = set(roots).union(*edges.values()) | set(alternates) | set(alternates.values())
+        if asked & named:
+            refers += 1
+    out["gap_units_unavailable"] = unavailable
+    if refers:
+        out["gap_units_referring"] = refers
+        reasons.append("gap-references-a-touched-name")
+    if defines:
+        out["gap_units_defining"] = defines
+        reasons.append("gap-defines-a-changed-name")
+    if unavailable:
+        reasons.append("gap-object-unavailable")
+    read_losses(consumers)
+    if not reasons:
+        out["would_be"] = "failed" if losses else "clean"
+
+
+def shadow_record(args, started):
+    """The shadow verdict for the log, however it ends: it prints nothing, and nothing it does reaches the exit."""
+    try:
+        return shadow_measure(args, started)
+    except OutOfBudget:             # the timer can fire between shadow_measure's own handlers
+        if hasattr(signal, "setitimer"):
+            signal.setitimer(signal.ITIMER_REAL, 0)
+        return {"would_be": "unknown", "reasons": ["out-of-budget"]}
+
+
+def shadow_measure(args, started):
+    out = {}
+    begun = time.monotonic()
+    budget = shadow_budget.seconds()
+    deadline = started + budget - SHADOW_SPARE if budget else float("inf")
+    def out_of_time(*_):
+        raise OutOfBudget
+
+    # Where the platform has it (not Windows): the clock checks alone let one long step overrun by 25 s on srv1.
+    alarm = hasattr(signal, "setitimer") and deadline != float("inf")
+    try:
+        if alarm:
+            signal.signal(signal.SIGALRM, out_of_time)
+            signal.setitimer(signal.ITIMER_REAL, max(deadline - time.monotonic(), 0.001))
+        verified = [part.decode("utf-8") for part in Path(args.sources_from).read_bytes().split(b"\0") if part]
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            shadow_verdict(args.base, args.tip, verified, deadline, out)
+    except OutOfBudget:
+        out.update(would_be="unknown", reasons=out.get("reasons", []) + ["out-of-budget"])
+    except (Exception, SystemExit) as error:  # noqa: BLE001 - the shadow must not change the audit
+        out.update(would_be="unknown", reasons=out.get("reasons", []) + [f"crashed: {type(error).__name__}: {error}"[:200]])
+    finally:
+        if alarm:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+    out["seconds"] = round(time.monotonic() - begun, 1)
+    return out
+
+
 # One JSON line per run, appended to <git common dir>/link_audit_verdicts.jsonl (as class_gate's
 # shadow log): the before/after measurement for strict receipts (docs/strict_receipts_design.md,
 # step 0). It never changes what the audit prints or returns. A run the hook's time cap kills
-# writes no line; one that crashes is logged as "crashed" and still crashes (its traceback gains
+# writes no verdict line, but each run first writes a "started" line, so a started tip with no verdict after it is a run the
+# cap killed; one that crashes is logged as "crashed" and still crashes (its traceback gains
 # the run() frame, which is harmless: only stdout and the exit code reach the hook's verdict).
 VERDICT_LOG = "link_audit_verdicts.jsonl"
 VERDICT_REASONS = (("census index missing", "no-index"), ("lack current receipts", "missing-receipts"),
@@ -852,6 +1185,9 @@ def main():
     except OSError:
         pass
     EVIDENCE.update(exact_base=None, judged=False)
+    started = time.monotonic()
+    log_verdict({"utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "base": args.base, "tip": args.tip,
+                 "verdict": "started", "sources": sources})
     tee = _Tee(sys.stdout)
     sys.stdout = tee
     try:
@@ -861,7 +1197,7 @@ def main():
         log_verdict(verdict_record("crashed", tee.lines, args.base, args.tip, sources))
         raise
     sys.stdout = tee.stream
-    log_verdict(verdict_record(code, tee.lines, args.base, args.tip, sources))
+    log_verdict(dict(verdict_record(code, tee.lines, args.base, args.tip, sources), shadow=shadow_record(args, started)))
     return code
 
 

@@ -53,7 +53,7 @@ Step 0 describes what landed. Steps 1 to 5 are the unscheduled proposal.
      for an inconclusive run (`missing-receipts`, `consumer-receipt`, `no-index`,
      `non-exact-base`, else `other`), `exit`, `sources` (the scope), `exact_base`
      (null when the run returned before comparing), `judged` (the batch's objects
-     were read through to a verdict),
+     were read through to a verdict), `shadow` (below),
      `real_link_findings`, and `lines` (the first 12 output lines, each cut to 300
      characters). There is no missing-count field; that count is only in the text
      of `lines`.
@@ -61,6 +61,12 @@ Step 0 describes what landed. Steps 1 to 5 are the unscheduled proposal.
      a failing write loses the line, never the push. A run the hook's time cap
      kills writes no line. One clone's file is that clone's pushes; the seats on
      srv1 share one common dir, so they share one log.
+   - **Started lines:** each run first writes a line with `verdict: started`. A started tip with no verdict line after
+     it is a run the hook's cap killed, so count those as lost, not as absent.
+   - **`shadow`:** what a gap-aware audit would say, measured beside the exit, which only `audit()` decides. `would_be` is
+     `clean`, `failed`, `unknown` with `reasons`, or null when there is nothing to judge. `possible_losses` and `real_link`
+     count losses even when `unknown`, and those counts are the base rate. Its objects are the seat's, so a cold seat reads
+     `gap-object-unavailable`. It never prints and runs inside the hook's budget (`out-of-budget`).
    - **Reading it:** drop lines with `"base": "a"` and `"tip": "b"`. They are
      fixtures `tools/tests/test_link_batch_audit.py` wrote into real logs
      (2026-11-07 on; 6 of srv1's first 8 lines), and a clone running the suite from

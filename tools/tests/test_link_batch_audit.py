@@ -1,4 +1,7 @@
 """Outgoing link regressions: identity, provider removal and class declarations."""
+import json
+import time
+from types import SimpleNamespace
 import sys
 import copy
 import shutil
@@ -14,6 +17,15 @@ import link_batch_audit as A
 @pytest.fixture(autouse=True)
 def no_real_git(monkeypatch):
     monkeypatch.setattr(A, "git", lambda *args: "Code/intervening.cpp" if "c" * 40 in args else "")
+
+
+REAL_SHADOW_RECORD = A.shadow_record
+
+
+@pytest.fixture(autouse=True)
+def no_real_shadow(monkeypatch):
+    # A run of main() would read a real index and real objects; the tests of the shadow itself call it by name.
+    monkeypatch.setattr(A, "shadow_record", lambda args, started: {})
 
 
 @pytest.fixture(autouse=True)
@@ -1384,8 +1396,8 @@ def test_each_run_logs_its_verdict_and_changes_no_output_or_exit(monkeypatch, tm
     got, logged = _run_main(monkeypatch, tmp_path, audit)
     assert got == code
     assert capsys.readouterr().out == "  some detail line\n" + "".join(line + "\n" for line in printed)
-    assert len(logged) == 1
-    record = logged[0]
+    assert [line["verdict"] for line in logged] == ["started", verdict]
+    record = logged[-1]
     assert (record["verdict"], record["reason"], record["exit"], record["sources"]) == (verdict, reason, code, 2)
     assert record["lines"] == printed and record["base"] == "b" * 40 and record["tip"] == "t" * 40
     assert record["exact_base"] is None and record["judged"] is False      # this stand-in audit established neither
@@ -1414,7 +1426,7 @@ def test_crash_record_names_the_crash(monkeypatch, tmp_path):
                                       str(sources)])
     with pytest.raises(RuntimeError):
         A.main()
-    assert [record["verdict"] for record in logged] == ["crashed"]
+    assert [record["verdict"] for record in logged] == ["started", "crashed"]
 
 
 def test_the_log_is_appended_in_the_git_common_dir_and_a_failing_write_is_silent(monkeypatch, tmp_path):
@@ -1524,4 +1536,376 @@ def test_each_run_starts_with_no_evidence(monkeypatch, tmp_path):
         return 0
     got, logged = _run_main(monkeypatch, tmp_path, audit)
     assert got == 0
-    assert (logged[0]["exact_base"], logged[0]["judged"]) == (None, False)
+    assert (logged[-1]["exact_base"], logged[-1]["judged"]) == (None, False)
+
+# ------------------------------------------------- the shadow verdict (LINK-651)
+@pytest.fixture
+def shadow(batch, monkeypatch, tmp_path):
+    """The batch fixture with the hook's byte-verified object current, and an empty gap unless a test sets one."""
+    saved, facts, changes, paths = batch
+    gap = {"changed": set(), "added": set()}
+    monkeypatch.setattr(A.build, "compile_is_current", lambda source, obj: True)
+    monkeypatch.setattr(A, "gap_paths", lambda commit, base: (set(gap["changed"]), set(gap["added"])))
+    for obj in paths.values():
+        obj.with_suffix(".deps.json").write_text(json.dumps({"path": "Code/x.cpp", "deps": {}}))
+    return saved, facts, changes, paths, gap, tmp_path
+
+
+def judged(verified=("Code/provider.cpp",), deadline=float("inf")):
+    out = {}
+    A.shadow_verdict("a" * 40, "b" * 40, list(verified), deadline, out)
+    return out
+
+
+def test_shadow_nothing_to_judge(shadow):
+    shadow[2].clear()
+    out = judged(())
+    assert (out["would_be"], out["reasons"]) == (None, ["nothing-to-judge"])
+
+
+def test_shadow_a_disjoint_gap_is_clean(shadow):
+    _, _, _, _, gap, _ = shadow
+    gap["changed"] = {"Code/elsewhere.cpp"}
+    out = judged()
+    assert (out["would_be"], out["reasons"]) == ("clean", [])
+    assert out["possible_losses"]["count"] == 0
+
+
+def test_shadow_a_loss_with_nothing_unknown_is_failed(shadow):
+    shadow[1]["provider.obj"] = ([], [], [], [])
+    out = judged()
+    assert out["would_be"] == "failed"
+    assert out["possible_losses"]["count"] >= 1
+    assert any("unresolved in Code/caller.cpp: api" in line for line in out["possible_losses"]["first"])
+
+
+def test_shadow_a_loss_behind_an_unknown_stays_unknown_and_is_still_counted(shadow):
+    _, facts, _, _, gap, _ = shadow
+    facts["provider.obj"] = ([], [], [], [])
+    gap["changed"] = {"tools/build.py"}
+    out = judged()
+    assert (out["would_be"], out["reasons"]) == ("unknown", ["census-tool-in-gap"])
+    assert out["possible_losses"]["count"] >= 1
+
+
+def test_shadow_a_census_tool_in_the_gap_is_unknown(shadow):
+    shadow[4]["changed"] = {"tools/link_census.py"}
+    out = judged()
+    assert out["would_be"] == "unknown" and "census-tool-in-gap" in out["reasons"]
+    assert out["gap"]["census_tools"] == ["tools/link_census.py"]
+
+
+def test_shadow_no_index_is_unknown(shadow, monkeypatch, tmp_path):
+    monkeypatch.setattr(A.link_check, "INDEX", tmp_path / "absent.pkl")
+    assert judged()["reasons"] == ["no-index"]
+
+
+def test_shadow_a_dirty_index_is_unknown(shadow):
+    shadow[0]["meta"]["clean_tree"] = False
+    assert judged()["reasons"] == ["index-not-clean"]
+
+
+def test_shadow_a_batch_object_it_cannot_prove_is_unknown(shadow, monkeypatch):
+    monkeypatch.setattr(A.build, "compile_is_current", lambda source, obj: False)
+    out = judged()
+    assert (out["would_be"], out["reasons"], out["batch_objects_missing"]) == ("unknown", ["batch-object"], 1)
+
+
+def test_shadow_an_unverified_change_needs_a_strict_receipt(shadow, monkeypatch):
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    assert judged(())["reasons"] == ["batch-object"]
+
+
+def test_shadow_a_consumer_with_no_proof_is_unknown(shadow, monkeypatch):
+    # The provider's name really changes, so the caller must be read, and it has no strict receipt or digest.
+    shadow[1]["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    out = judged()
+    assert (out["would_be"], out["consumers"], out["consumers_unproven"]) == ("unknown", 1, 1)
+    assert "consumer-unproven" in out["reasons"]
+
+
+def test_shadow_a_consumer_is_proven_by_the_census_having_read_those_bytes(shadow, monkeypatch):
+    saved, facts, _, paths, _, _ = shadow
+    facts["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    saved["digests"]["caller.obj"] = A.link_check.object_digest(paths["caller.obj"])
+    out = judged()
+    assert "consumer-unproven" not in out["reasons"]
+
+
+def test_shadow_a_digest_does_not_prove_a_consumer_the_gap_touched(shadow, monkeypatch):
+    saved, facts, _, paths, gap, _ = shadow
+    facts["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    saved["digests"]["caller.obj"] = A.link_check.object_digest(paths["caller.obj"])
+    paths["caller.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/caller.cpp", "deps": {"code/h.h": "x"}}))
+    gap["changed"] = {"Code/h.h"}
+    assert "consumer-unproven" in judged()["reasons"]
+
+
+def test_a_digest_does_not_prove_a_consumer_whose_own_source_the_gap_changed(shadow, monkeypatch):
+    saved, facts, _, paths, gap, _ = shadow
+    facts["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    saved["digests"]["caller.obj"] = A.link_check.object_digest(paths["caller.obj"])
+    gap["changed"] = {"Code/caller.cpp"}
+    assert "consumer-unproven" in judged()["reasons"]
+
+
+def test_shadow_only_the_names_that_change_bring_consumers(shadow):
+    # The provider is rebuilt with the same definition: nothing to reread, whatever it defines.
+    out = judged()
+    assert (out["names_touched"], out["names_changed"], out["consumers"]) == (1, 0, 0)
+    assert out["would_be"] == "clean"
+
+
+def test_shadow_a_changed_copy_is_a_changed_name(shadow):
+    shadow[1]["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    out = judged()
+    assert (out["names_changed"], out["consumers"]) == (1, 1)
+
+
+def test_shadow_a_gap_on_the_batch_itself_is_unknown(shadow):
+    shadow[4]["changed"] = {"Code/provider.cpp"}
+    assert "gap-reaches-the-batch" in judged()["reasons"]
+
+
+def test_shadow_a_gap_header_the_batch_read_is_unknown(shadow):
+    _, _, _, paths, gap, _ = shadow
+    paths["provider.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/provider.cpp", "deps": {"code/h.h": "x"}}))
+    gap["changed"] = {"Code/h.h"}
+    assert "gap-reaches-the-batch" in judged()["reasons"]
+
+
+def test_shadow_no_record_of_what_a_unit_read_is_unknown(shadow):
+    shadow[3]["provider.obj"].with_suffix(".deps.json").unlink()
+    assert "no-dependency-record" in judged()["reasons"]
+
+
+def test_shadow_a_header_added_in_the_gap_with_a_name_the_batch_reads_is_unknown(shadow):
+    _, _, _, paths, gap, _ = shadow
+    paths["provider.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/provider.cpp", "deps": {"code/sub/h.h": "x"}}))
+    gap["added"] = {"Code/other/H.h"}
+    assert "gap-header-added-or-deleted" in judged()["reasons"]
+
+
+def test_shadow_a_header_added_that_nobody_reads_is_not(shadow):
+    shadow[4]["added"] = {"Code/other/unrelated.h"}
+    assert "gap-header-added-or-deleted" not in judged()["reasons"]
+
+
+def test_shadow_a_gap_unit_defining_a_changed_name_is_unknown(shadow, monkeypatch):
+    saved, facts, _, paths, gap, tmp_path = shadow
+    facts["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    other = tmp_path / "other.obj"
+    other.touch()
+    paths["other.obj"] = other
+    facts["other.obj"] = (["unused"], [], [], [])
+    facts["other.obj"] = ([("api", "x", 4, "retail")], [], [], [])
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": s} for s in ("Code/provider.cpp", "Code/caller.cpp", "Code/other.cpp")])
+    gap["changed"] = {"Code/other.cpp"}
+    out = judged()
+    assert "gap-defines-a-changed-name" in out["reasons"] and out["would_be"] == "unknown"
+
+
+def test_shadow_a_gap_unit_that_held_a_changed_name_in_the_index_is_unknown(shadow):
+    # Its object in the index defined the name: the before state may already be wrong.
+    saved, facts, _, _, gap, _ = shadow
+    facts["provider.obj"] = ([("api", "other", 10, "retail")], [], [], [])
+    saved["blockers"]["Code/gone.cpp"] = {"object": "provider.obj", "linked": False}
+    gap["changed"] = {"Code/gone.cpp"}
+    assert "gap-defines-a-changed-name" in judged()["reasons"]
+
+
+def test_shadow_a_gap_unit_it_cannot_read_is_unknown(shadow, monkeypatch):
+    saved, facts, _, paths, gap, tmp_path = shadow
+    other = tmp_path / "other.obj"
+    paths["other.obj"] = other                                  # never written
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": s} for s in ("Code/provider.cpp", "Code/caller.cpp", "Code/other.cpp")])
+    gap["changed"] = {"Code/other.cpp"}
+    out = judged()
+    assert "gap-object-unavailable" in out["reasons"] and out["gap_units_unavailable"] == 1
+
+
+def test_shadow_a_gap_header_brings_its_dependents(shadow, monkeypatch):
+    saved, facts, _, paths, gap, tmp_path = shadow
+    other = tmp_path / "other.obj"
+    paths["other.obj"] = other                                  # a dependent, not built here
+    other.with_suffix(".deps.json").write_text(json.dumps({"path": "Code/other.cpp", "deps": {"code/far.h": "x"}}))
+    paths["provider.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/provider.cpp", "deps": {}}))
+    paths["caller.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/caller.cpp", "deps": {}}))
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": s} for s in ("Code/provider.cpp", "Code/caller.cpp", "Code/other.cpp")])
+    gap["changed"] = {"Code/far.h"}
+    out = judged()
+    assert (out["gap_units"], out["gap_units_unavailable"]) == (1, 1)
+    assert "gap-object-unavailable" in out["reasons"]
+
+
+def test_shadow_a_source_with_no_record_cannot_be_ruled_out_of_a_gap_header(shadow, monkeypatch):
+    saved, facts, _, paths, gap, tmp_path = shadow
+    paths["other.obj"] = tmp_path / "other.obj"                 # no sidecar at all
+    paths["provider.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/provider.cpp", "deps": {}}))
+    paths["caller.obj"].with_suffix(".deps.json").write_text(json.dumps({"path": "Code/caller.cpp", "deps": {}}))
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": s} for s in ("Code/provider.cpp", "Code/caller.cpp", "Code/other.cpp")])
+    gap["changed"] = {"Code/far.h"}
+    assert "gap-object-unavailable" in judged()["reasons"]
+
+
+def test_the_timer_is_not_an_unreadable_object_to_a_reader(monkeypatch, tmp_path):
+    # Readers catch Exception; the timer firing inside one used to read as unreadable, and the scan went on unarmed.
+    def fires(path):
+        raise A.OutOfBudget
+    monkeypatch.setattr(A.link_census, "object_symbols", fires)
+    with pytest.raises(A.OutOfBudget):
+        A.reference_reader({"x.obj": tmp_path / "x.obj"})("x.obj")
+
+
+def test_shadow_reads_losses_in_the_batch_s_link_order(shadow, monkeypatch):
+    # check_object compares positions: in the index's order a wrong copy the batch puts first is not seen first.
+    seen = []
+    monkeypatch.setattr(A.link_check, "link_rank", lambda rows: {"caller.obj": 0, "provider.obj": 1})
+    monkeypatch.setattr(A.link_check, "check_object", lambda obj, ix, truth, source: seen.append(ix["objects"]) or {})
+    judged()
+    assert seen and all(objects == ["caller.obj", "provider.obj"] for objects in seen)
+
+
+@pytest.mark.parametrize("how", ["reference", "comdat-edge", "alternatename"])
+def test_shadow_a_gap_unit_referring_to_a_touched_name_is_unknown(shadow, monkeypatch, how):
+    saved, facts, _, paths, gap, tmp_path = shadow
+    other = tmp_path / "other.obj"
+    other.touch()
+    paths["other.obj"] = other
+    facts["other.obj"] = ([], [], ["api"] if how == "reference" else [], [])
+    if how == "alternatename":
+        monkeypatch.setattr(A.link_check, "alternate_names", lambda obj: {"alias": "api"} if obj.name == "other.obj" else {})
+    if how == "comdat-edge":                                 # referred to only from a discardable COMDAT
+        refs = A.link_census.object_references
+        monkeypatch.setattr(A.link_census, "object_references",
+                            lambda obj: (set(), {"f": {"api"}}) if obj.name == "other.obj" else refs(obj))
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": s} for s in ("Code/provider.cpp", "Code/caller.cpp", "Code/other.cpp")])
+    gap["changed"] = {"Code/other.cpp"}
+    out = judged()
+    assert "gap-references-a-touched-name" in out["reasons"] and out["would_be"] == "unknown"
+
+
+@pytest.mark.parametrize("ledger", ["reverse/functions.csv", "reverse/symbols.csv", "reverse/dir32_addresses.csv",
+                                    "reverse/data_rows.csv"])
+def test_shadow_an_identity_ledger_in_the_gap_is_unknown(shadow, ledger):
+    shadow[4]["changed"] = {ledger}
+    out = judged()
+    assert "gap-identity-ledger" in out["reasons"] and out["would_be"] == "unknown"
+
+
+def test_shadow_past_its_deadline_stops(shadow):
+    with pytest.raises(A.OutOfBudget):
+        judged(deadline=0.0)
+
+
+def _args(tmp_path):
+    sources = tmp_path / "shadow-sources"
+    sources.write_bytes(b"Code/provider.cpp\0")
+    return SimpleNamespace(base="a" * 40, tip="b" * 40, sources_from=str(sources))
+
+
+def test_shadow_record_says_when_it_ran_out(shadow, monkeypatch):
+    monkeypatch.setattr(A.shadow_budget, "seconds", lambda: 1.0)
+    out = REAL_SHADOW_RECORD(_args(shadow[5]), time.monotonic() - 100)
+    assert (out["would_be"], out["reasons"]) == ("unknown", ["out-of-budget"])
+
+
+@pytest.mark.skipif(not hasattr(A.signal, "setitimer"), reason="no interval timer on this platform")
+def test_shadow_record_stops_a_step_that_never_checks_the_clock(shadow, monkeypatch):
+    def endless(base, tip, verified, deadline, out):
+        out.update(would_be="unknown", reasons=[], scope=7)
+        while True:
+            time.sleep(0.01)
+    monkeypatch.setattr(A, "shadow_verdict", endless)
+    monkeypatch.setattr(A.shadow_budget, "seconds", lambda: 60.0)
+    begun = time.monotonic()
+    out = REAL_SHADOW_RECORD(_args(shadow[5]), begun - 54.8)        # 0.2 s of the 55 left
+    assert time.monotonic() - begun < 5
+    assert (out["reasons"], out["scope"]) == (["out-of-budget"], 7)  # and what it had measured is kept
+    assert A.signal.getitimer(A.signal.ITIMER_REAL)[0] == 0          # nothing left armed for the rest of the run
+
+
+@pytest.mark.skipif(not hasattr(A.signal, "setitimer"), reason="no interval timer on this platform")
+def test_a_shadow_that_finishes_leaves_no_timer_for_the_log_line(shadow, monkeypatch):
+    monkeypatch.setattr(A, "shadow_verdict", lambda base, tip, verified, deadline, out: out.update(would_be="clean"))
+    monkeypatch.setattr(A.shadow_budget, "seconds", lambda: 60.0)
+    assert REAL_SHADOW_RECORD(_args(shadow[5]), time.monotonic())["would_be"] == "clean"
+    assert A.signal.getitimer(A.signal.ITIMER_REAL)[0] == 0
+
+
+def test_the_base_rate_survives_running_out_on_the_consumers(shadow, monkeypatch):
+    # The batch's own losses and the real link are measured before the consumer proofs that can use up the budget.
+    _, facts, _, _, _, _ = shadow
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A.link_check, "check_object", lambda obj, ix, truth, source: {"unresolved": ["api"]})
+
+    def out_of_time(*args):
+        raise A.OutOfBudget
+    monkeypatch.setattr(A, "object_proven", out_of_time)
+    out = {}
+    with pytest.raises(A.OutOfBudget):
+        A.shadow_verdict("a" * 40, "b" * 40, ["Code/provider.cpp"], float("inf"), out)
+    assert out["possible_losses"]["count"] == 1 and "Code/provider.cpp" in out["possible_losses"]["first"][0]
+    assert "real_link" in out
+
+
+def test_shadow_record_keeps_the_budget_spare(shadow, monkeypatch):
+    seen = {}
+    monkeypatch.setattr(A, "shadow_verdict", lambda base, tip, verified, deadline, out: seen.update(deadline=deadline, verified=verified))
+    monkeypatch.setattr(A.shadow_budget, "seconds", lambda: 60.0)
+    REAL_SHADOW_RECORD(_args(shadow[5]), 1000.0)
+    assert seen == {"deadline": 1055.0, "verified": ["Code/provider.cpp"]}
+
+
+def test_shadow_record_survives_a_crash_and_a_refusal(shadow, monkeypatch):
+    for failure in (RuntimeError("boom"), SystemExit("no")):
+        def bad(*args, error=failure):
+            raise error
+        monkeypatch.setattr(A, "shadow_verdict", bad)
+        out = REAL_SHADOW_RECORD(_args(shadow[5]), time.monotonic())
+        assert out["would_be"] == "unknown" and out["reasons"][0].startswith("crashed: ")
+
+
+def test_shadow_prints_nothing(shadow, monkeypatch, capsys):
+    def noisy(base, tip, verified, deadline, out):
+        print("to stdout")
+        print("to stderr", file=sys.stderr)
+    monkeypatch.setattr(A, "shadow_verdict", noisy)
+    REAL_SHADOW_RECORD(_args(shadow[5]), time.monotonic())
+    captured = capsys.readouterr()
+    assert (captured.out, captured.err) == ("", "")
+
+
+@pytest.mark.parametrize("code", [0, 1, 2])
+def test_the_shadow_never_changes_the_exit(monkeypatch, tmp_path, capsys, code):
+    def audit(base, tip, verified):
+        print("link batch audit: the audit's own line")
+        return code
+    monkeypatch.setattr(A, "shadow_record", lambda args, started: {"would_be": "failed" if code == 0 else "clean"})
+    got, logged = _run_main(monkeypatch, tmp_path, audit)
+    assert got == code
+    assert capsys.readouterr().out == "link batch audit: the audit's own line\n"
+    assert logged[-1]["exit"] == code and logged[-1]["shadow"]["would_be"] in ("failed", "clean")
+
+
+def test_a_run_logs_that_it_started_before_anything_can_kill_it(monkeypatch, tmp_path):
+    order = []
+    monkeypatch.setattr(A, "shadow_record", lambda args, started: {})
+
+    def audit(base, tip, verified):
+        order.append(("audit", list(logged)))
+        return 0
+    logged = []
+    sources = tmp_path / "sources"
+    sources.write_bytes(b"Code/a.cpp\0")
+    monkeypatch.setattr(A, "audit", audit)
+    monkeypatch.setattr(A, "log_verdict", logged.append)
+    monkeypatch.setattr(sys, "argv", ["link_batch_audit.py", "--base", "b" * 40, "--tip", "t" * 40, "--sources-from", str(sources)])
+    A.main()
+    assert [r["verdict"] for r in order[0][1]] == ["started"]
+    assert [r["verdict"] for r in logged] == ["started", "clean"]
+    assert logged[0]["tip"] == logged[1]["tip"] == "t" * 40
