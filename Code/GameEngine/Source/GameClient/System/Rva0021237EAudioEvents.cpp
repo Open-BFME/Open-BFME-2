@@ -50,7 +50,6 @@ class Rva0021237E
 
 public:
 	void rva0021237E();
-	void rva002123BE();
 	void rva0021246D(Rva0021246DInput *input);
 	void rva002126BB();
 };
@@ -80,7 +79,7 @@ struct UpdateSlot21123 { virtual void v00();virtual void v04();virtual void v08(
 struct Rva00211494 { void rva00211494(); };
 struct Rva002112A9 { void rva002112A9(); };
 struct Rva003EEAB7 { void rva003EEAB7(); };
-class LivingWorldEyeTower { friend struct Rva0021237E; void updateState(); };
+class LivingWorldEyeTower { friend class LivingWorldManager; void updateState(); };
 struct Rva002B5073 { bool rva002B5073(int); };
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 // LINK: rva002C004F's rowed home is Rva002BFF5A (Rva002C004FErase.cpp, 0x2C004F);
@@ -111,7 +110,9 @@ struct UpdateReceiverView21123 {
  LivingWorldEyeTower *m_eyeTower;
 
 };
-void Rva0021237E::rva002123BE()
+#include "../../../Include/GameLogic/LivingWorldManager.h"
+
+void LivingWorldManager::update()
 {
  UpdateReceiverView21123 *view=(UpdateReceiverView21123*)this;
  ((Rva00211494*)this)->rva00211494();

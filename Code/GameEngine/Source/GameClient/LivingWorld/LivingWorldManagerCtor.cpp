@@ -19,6 +19,7 @@
 // the +0x2B4 tree, the +0x218 table and the +0x2CC vector.
 #include "Common/Snapshot.h"
 
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 struct ArmySwapView;
@@ -178,6 +179,17 @@ public:
 #include "../../../Include/GameLogic/LivingWorldManager.h"
 
 __declspec(noinline) inline Rva00210CC5::~Rva00210CC5() {}
+
+// init and reset are one ICF-folded body (retail slots 1 and 9 both hold 0x00210D0D).
+void LivingWorldManager::init()
+{
+	m_2C0 = false;
+}
+
+void LivingWorldManager::reset()
+{
+	m_2C0 = false;
+}
 
 LivingWorldManager::LivingWorldManager()
 	: m_264(0),

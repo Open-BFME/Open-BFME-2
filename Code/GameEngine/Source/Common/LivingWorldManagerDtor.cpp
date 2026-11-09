@@ -148,6 +148,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // Its one slot is the 16-byte-argument no-op 0x001F01E8 (`ret 0x10`, ICF-folded).
@@ -275,6 +276,9 @@ class LivingWorldManager : public SubsystemInterface, public Snapshot, public Li
 {
 public:
 	virtual ~LivingWorldManager();
+	virtual void init();
+	virtual void reset();
+	virtual void update();
 	void rva0021427A();
 
 private:

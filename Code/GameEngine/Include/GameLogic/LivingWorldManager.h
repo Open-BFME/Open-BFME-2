@@ -51,8 +51,8 @@ class Rva00402BE3;
 class Rva00402EFA;
 class LivingWorldRegionEffectsManager;
 
-// Empty for every consumer. The constructor unit defines it as `= 0`: its tables are the bridge's to
-// supply, so they name no virtual body (LINK-073).
+// Empty for every consumer. The constructor unit defines it as `= 0`: its Snapshot and listener
+// tables are still the bridge's to supply, so they name no virtual body (LINK-073).
 #ifndef BFME_LIVINGWORLDMANAGER_CTOR_PURE
 #define BFME_LIVINGWORLDMANAGER_CTOR_PURE
 #endif
@@ -69,9 +69,9 @@ class LivingWorldManager : public SubsystemInterface, public Snapshot, public Rv
 public:
     LivingWorldManager();
     virtual ~LivingWorldManager();
-    virtual void init() BFME_LIVINGWORLDMANAGER_CTOR_PURE;
-    virtual void reset() BFME_LIVINGWORLDMANAGER_CTOR_PURE;
-    virtual void update() BFME_LIVINGWORLDMANAGER_CTOR_PURE;
+    virtual void init();
+    virtual void reset();
+    virtual void update();
     virtual void slot00(ArmySwapView *, const ArmyMemberRangeView &, ArmySwapView *, const ArmyMemberRangeView &) BFME_LIVINGWORLDMANAGER_CTOR_PURE;
 
     void SetUpRegionEffectsManager();
