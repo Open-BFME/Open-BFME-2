@@ -17,6 +17,8 @@ template<class T>class RefCountPtr{public:~RefCountPtr();private:T*ptr;};
 class Rva00126314 {public:Rva00126314();__forceinline Rva00126314(const Rva00126314&r){((Rva00126350*)this)->Rva00126350::Rva00126350((const Rva00126350&)r);}__forceinline ~Rva00126314(){((RefCountPtr<TextureClass>*)this)->~RefCountPtr<TextureClass>();}private:char storage[36];};
 class Rva001684D6:public RenderObjClass {
 public: Rva001684D6();Rva001684D6(const Rva001684D6&);virtual ~Rva001684D6();virtual Rva001684D6 *Clone() const;virtual void Render(RenderInfoClass&);
+// Retail's table 0x00BD41C8.
+virtual int Class_ID(void) const;virtual int Get_Num_Polys(void) const;virtual bool Cast_Ray(RayCollisionTestClass&);virtual void Get_Obj_Space_Bounding_Sphere(SphereClass&) const;virtual void Get_Obj_Space_Bounding_Box(AABoxClass&) const;virtual void Prepare_LOD(CameraClass&);virtual float Get_Cost(void) const;virtual int Get_LOD_Count(void) const;
 private: SimpleDynVecClass<Vector3> points;SimpleDynVecClass<float> widths;Rva00126314 renderer;
 };
 
