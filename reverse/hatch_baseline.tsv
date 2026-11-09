@@ -12840,8 +12840,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	Transform@AABo
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Cast_AABox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Cast_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Cast_Ray	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Create_Decal	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Delete_Decal	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Get_Name	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Get_Num_Polys	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	CompositeRenderObjClass::Intersect_AABox	1

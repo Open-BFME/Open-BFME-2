@@ -114,6 +114,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // and dynamesh.cpp emit); this unit's vtables bind to those copies.
 #define Set_Native_Screen_Size(screensize) Set_Native_Screen_Size(screensize); void Bfme1_Inline_Set_Native_Screen_Size(screensize)
 #define Get_Native_Screen_Size(v) Get_Native_Screen_Size(v) const; float Bfme1_Inline_Get_Native_Screen_Size(v)
+// distlod.h's quoted include finds the reference composite.h beside it, whose decal overrides retail doesn't have, so
+// the BFME 2 header takes the guard first, in distlod.h's order.
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/proto.h"
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/rendobj.h"
+#include "composite.h"
 #include "distlod.h"
 #undef Get_Native_Screen_Size
 #undef Set_Native_Screen_Size

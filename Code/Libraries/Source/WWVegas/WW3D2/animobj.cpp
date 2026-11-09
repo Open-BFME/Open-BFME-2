@@ -15,7 +15,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #pragma optimize("s", on)
 #include "rendobj.h"	// the verified BFME2 base object must win the include guard
-#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/composite.h"
+#include "composite.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
