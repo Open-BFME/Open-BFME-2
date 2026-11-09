@@ -265,13 +265,15 @@ int Rva000A8F5EGet(void)
 }
 
 
-// ?Rva00433B18Get@@YAHXZ @ 0x00433B18 (6B): returns 0x00E032DC.
+// ?Rva00433B18Get@@YAHXZ @ 0x00433B18 (6B): returns the address of
+// theBriefingList (VA 0x00E032DC, Rva007B6880Thunks.cpp), through a relocation.
 // Follows a leave/ret (0x433B16-17) with a push-style function after.
 // 1 direct E8 caller (0x23B65A), no Ghidra entry (dead emission), no
 // branch sources. Opaque address-derived name.
+extern unsigned int theBriefingList;
 int Rva00433B18Get(void)
 {
-	return 0x00E032DC;
+	return reinterpret_cast<int>(&theBriefingList);
 }
 
 
