@@ -3,12 +3,12 @@
 // /O2 copies that compete with retail's owners (0x000692B3, 0x0006924F, 0x006CD510, 0x00066382, 0x0007DFB3).
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
+// Include canonical RefCountData.h first so RefCountClass::Delete_This compiles
+// retail's 20B ::delete this body (0x0006CE57) instead of Zero Hour's 12B copy;
+// multilist.h's inline members also compile for size here.
 #pragma optimize("s", on)
-// multilist.h's inline members are retail's size-optimised bodies: compile
-// them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
-#pragma optimize("s", on)
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #include "multilist.h"
-#pragma optimize("", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
@@ -86,7 +86,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "W3DDevice/GameClient/W3DShadow.h"
 #include "W3DDevice/GameClient/W3DStatusCircle.h"
 #include "W3DDevice/GameClient/W3DCustomScene.h"
+// W3DShroudMaterialPassClass's deleting dtor (0x0006F1DD, 28B) is /O1 size-optimised.
+#pragma optimize("s", on)
 #include "W3DDevice/GameClient/W3DShroud.h"
+#pragma optimize("", on)
 #include "WW3D2/camera.h"
 #include "WW3D2/dx8renderer.h"
 #include "WW3D2/sortingrenderer.h"
