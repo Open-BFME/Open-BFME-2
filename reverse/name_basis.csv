@@ -6532,7 +6532,7 @@ member,Rva002B52CE::m_begin8C,Rva002B52CE::m_playerBegin,inferred,agree:nl-e6fa7
 member,Rva002B52CE::m_end90,Rva002B52CE::m_playerEnd,inferred,agree:nl-4ebb2bcedfe6,Code/GameEngine/Source/Common/Rva002B52CE.cpp,
 param,Rva002B4CED::rva002B4CED::p,Rva002B4CED::rva002B4CED::removedItem,inferred,agree:nl-0f071bd7852f,Code/GameEngine/Source/Common/Rva002B4CEDMethod.cpp,0x002B4CED
 param,Rva002B8817::rva002B8817::b,Rva002B8817::rva002B8817::matchedElements,inferred,agree:nl-fe474c706f93-m88c618d4a7cc0f9a9f9586a4,Code/GameEngine/Source/Common/Rva002B8817Filter.cpp,0x002B8817
-function,?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,?copyFrom@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,inferred,agree:nl-1ac866348fc3,Code/GameEngine/Source/Common/Rva002C943BCopy.cpp,0x002C943B
+function,?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,?copyFrom@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,inferred,agree:nl-1ac866348fc3,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,0x002C943B
 member,Rva0030F3BFSpec::m_1c,Rva0030F3BFSpec::m_maxValue,inferred,agree:nl-35155ec83379,Code/GameEngine/Source/Common/Rva0030F3BFMethod.cpp,
 param,Rva002ED7B6::rva002ED7B6::b,Rva002ED7B6::rva002ED7B6::sourceBuffer,inferred,agree:nl-caac4e7ade51-m34121bfbdbe128a23cf998e7,Code/GameEngine/Source/Common/Rva002ED7B6Finish.cpp,0x002ED7B6
 param,realToIntFloor::f,realToIntFloor::realValue,inferred,agree:nl-62fc01087d4f-m082d5219a2aa4fc58f6b9251,Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp,

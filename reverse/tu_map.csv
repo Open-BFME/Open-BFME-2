@@ -22125,8 +22125,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C940E,7,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C9415,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x002C9415,7,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C941C,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x002C941C,8,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C9424,Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp
-0x002C9424,23,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C943B,Code/GameEngine/Source/Common/Rva002C9424.cpp
-0x002C943B,39,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C9462,Code/GameEngine/Source/Common/Rva002C943BCopy.cpp
+0x002C9424,23,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C943B,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
+0x002C943B,39,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C9462,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
 0x002C9462,147,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C93F7..0x002C94F5,Code/GameEngine/Source/GameLogic/Object/WeaponAssign.cpp
 0x002C94F5,15,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/Common/Weapon.cpp,Code/GameEngine/Source/Common/WeaponGetStatus.cpp
 0x002C9504,7,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp C=0x002C94F5..0x002C950B,Code/GameEngine/Source/Common/Disp8BinarySubGetters.cpp
@@ -22161,9 +22161,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C9AFE,63,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp
 0x002C9B3D,67,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp
 0x002C9B80,67,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C9B3D..0x002C9BC3,Code/GameEngine/Source/Common/Rva002C9B80Array.cpp
-0x002C9BC3,33,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C9B3D..0x002C9BE4,Code/GameEngine/Source/Common/Rva002C9BC3Forward.cpp
+0x002C9BC3,33,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002C9B3D..0x002C9BE4,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
 0x002C9BE4,20,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/PartitionManager_Rva002C9C37.cpp
-0x002C9BF8,63,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/Weapon_Weapon_getAttackRange.cpp
+0x002C9BF8,63,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
 0x002C9C37,75,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp W=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/PartitionManager_Rva002C9C37.cpp
 0x002C9C82,185,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/WeaponIsWithinTargetPitch.cpp
 0x002C9D3B,12,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/WeaponTemplatePreAttackDelay.cpp
@@ -22176,7 +22176,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002CA82C,29,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA849,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002CA82C.cpp
 0x002CA849,37,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA86E,Code/GameEngine/Source/Common/Coord3DUninitializedFillN.cpp
 0x002CA86E,29,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA88B,Code/GameEngine/Source/Common/Rva0055A7DBTess.cpp
-0x002CA88B,93,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA8E8,Code/GameEngine/Source/GameLogic/Object/Rva002CA88BParse.cpp
+0x002CA88B,93,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA8E8,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
 0x002CA8E8,90,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA942,Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp
 0x002CA942,46,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp C=0x002CA81C..0x002CA970,Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp
 0x002CA970,90,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,C,C=0x002CA81C..0x002CA9CA,Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp
@@ -71515,8 +71515,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00776FAC,10,code,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,approved,P,P=0x002C8872@FuncInfo0x0091EA5C,Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp
 0x00776FB6,13,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002C9D47@FuncInfo0x0091EA80,Code/GameEngine/Source/GameLogic/Object/WeaponRva002C9DF5.cpp
 0x00776FC3,10,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002C9D47@FuncInfo0x0091EA80,Code/GameEngine/Source/GameLogic/Object/WeaponRva002C9DF5.cpp
-0x00776FCD,10,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CA88B@FuncInfo0x0091EAA4,Code/GameEngine/Source/GameLogic/Object/Rva002CA88BParse.cpp
-0x00776FD7,10,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CA88B@FuncInfo0x0091EAA4,Code/GameEngine/Source/GameLogic/Object/Rva002CA88BParse.cpp
+0x00776FCD,10,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CA88B@FuncInfo0x0091EAA4,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
+0x00776FD7,10,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CA88B@FuncInfo0x0091EAA4,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
 0x00776FE1,8,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CC39E@FuncInfo0x0091EAD0,Code/GameEngine/Source/GameLogic/Object/WeaponDtor.cpp
 0x00776FE9,11,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CC39E@FuncInfo0x0091EAD0,Code/GameEngine/Source/GameLogic/Object/WeaponDtor.cpp
 0x00776FF4,10,code,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,approved,P,P=0x002CC39E@FuncInfo0x0091EAD0,Code/GameEngine/Source/GameLogic/Object/WeaponDtor.cpp
