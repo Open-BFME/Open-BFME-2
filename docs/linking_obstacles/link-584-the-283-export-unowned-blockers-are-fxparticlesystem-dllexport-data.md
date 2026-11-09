@@ -551,6 +551,10 @@ constructors, in each unit, and none is reachable from that unit's start-up init
 start-up. `link_check`: Modules LINKED 3,878 -> 3,878; Factories 0 -> 0, out before and after. Real-link effect expected at -12 (28 -> 16), not yet measured.
 Not done: the 12 initializer rows keep their `??__E?s_key@?$DefaultModuleTag@...` names (their `object-symbol=` pins bind them), and `data_ledger.csv` still spells
 the twelve addresses `s_key`/`s_name`; both are follow-up respellings.
+Same-base initializer bridge: replaying `image_report.bridge_entries` on `b0bf5b59e4`'s own object snapshot gives 470 entries as built and 470 with the
+two FX objects replaced by their `ead50a8cce` builds, the same set, none unreachable (`functions.csv` is identical at both). Boot at 0x2000000 reached the menu,
+`menu_check: matches-retail` (receipt `2026-11-09T171433Z-boot_smoke-97133fae9f0a`), stubs 29 -> 17, exactly these twelve.
+Reviewed with sol-loop: 1 round with gpt-6.1-sol. Sol verdict: approved.
 
 **2026-11-09 the 14 guards: the owner chose option 1, for now (via the swarm coordinator).** A counted export alias from each retail guard name to our own guard
 word, kept as visible debt that a later source recovery can retire. No supported admission path exists today: `tools/exit_link.py`'s `export_definition` writes one
