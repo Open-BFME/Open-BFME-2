@@ -436,3 +436,25 @@ def test_a_constructor_on_a_private_static_is_its_own_storage():
     entry = ("Obj.obj", "_$E1", body, set(), [(1, "_s", link_cycle.DIR32, 0), (6, "??0C@@QAE@XZ", link_cycle.REL32, 0)], frozenset({"_s"}), None)
     assert ir.builds_private_static(entry)
     assert not ir.builds_private_static(entry[:5] + (frozenset(),) + entry[6:])
+
+
+def test_vtable_run_does_not_read_partial_or_unknown_extent():
+    class Image:
+        def read(self, rva, size):
+            return (0x401000).to_bytes(4, "little")
+        def in_text(self, value):
+            return True
+    for extent, words in ((0, 0), (3, 0), (4, 1), (5, 1), (8, 2)):
+        assert ir.Retail.vtable_words(Image(), 0x2000, extent) == words
+
+
+def test_unknown_retail_vtable_extent_is_never_same_length(tmp_path, monkeypatch):
+    import csv
+    (tmp_path / "reverse").mkdir()
+    path = tmp_path / "reverse/data_ledger.csv"
+    path.write_text("kind,address,size,name,names\nvtable,0x2000,0,vt,\n")
+    monkeypatch.setattr(ir.build, "ROOT", tmp_path)
+    tables, *_ = ir.ledger_report(None, {}, {})
+    assert tables["retail_extent_unanalyzed"] == 1
+    assert tables["no_object_defines_it"] == 1
+    assert tables.get("same_length", 0) == 0

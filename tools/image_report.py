@@ -125,7 +125,7 @@ class Retail:
     def vtable_words(self, rva, limit):
         """Length of the run of code pointers at rva, within the ledger's extent."""
         words = 0
-        while words * 4 < max(limit, 4):
+        while (words + 1) * 4 <= limit:
             raw = self.read(rva + words * 4, 4)
             if raw is None or not self.in_text(struct.unpack("<I", raw)[0]):
                 break
@@ -601,6 +601,12 @@ def ledger_report(retail, definitions, addresses, constructed=frozenset()):
             names = {n for n in {row["name"], *(row.get("names") or "").split(";")} if n}
             found = [(n, d) for n in sorted(names) for d in definitions.get(n, ())]
             if kind == "vtable":
+                if size < 4 or size % 4:
+                    vtables["retail_extent_unanalyzed"] += 1
+                    if not found:
+                        vtables["no_object_defines_it"] += 1
+                    vtable_rows.append([hex(rva), row["name"], "retail_extent_unanalyzed", 0, 0, 0])
+                    continue
                 if not found:
                     vtables["no_object_defines_it"] += 1
                     continue
@@ -651,7 +657,7 @@ def ledger_report(retail, definitions, addresses, constructed=frozenset()):
 
 def summary(report):
     keys = {"initializers": ("retail", "registered_retail_entries", "not_registered", "registered_twice", "credit_conflicts"),
-            "vtables": ("same_length", "ours_shorter", "ours_longer", "no_object_defines_it"),
+            "vtables": ("same_length", "ours_shorter", "ours_longer", "no_object_defines_it", "retail_extent_unanalyzed"),
             "globals": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",
                         "pointers_unchecked", "no_object_retail_nonzero", "constructed_undersized"),
             "fieldparse": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",

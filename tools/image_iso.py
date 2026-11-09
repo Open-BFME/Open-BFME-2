@@ -136,9 +136,10 @@ def attach_objects(publics, manifest, mapfile=None):
             definitions = collections.defaultdict(list)
             section_evidence = {}
             for sec in sections:
-                if sec.name.startswith(".text"):
+                if sec.name.startswith((".text", ".data", ".rdata")):
                     section_evidence[sec.idx] = dict(
                         body=raw[sec.ptr:sec.ptr + sec.size], size=sec.size, flags=sec.flags,
+                        is_code=sec.name.startswith(".text"),
                         relocations=tuple((offset, kind) for offset, _index, kind in sec.relocs),
                         relocation_targets={offset: dict(name=symbols[index].name, cls=symbols[index].cls,
                             section=symbols[index].sec) for offset, index, _kind in sec.relocs if index in symbols})
@@ -167,7 +168,8 @@ def attach_objects(publics, manifest, mapfile=None):
             if len(records) == 1:
                 _length, section, offset = next(iter(records))
                 if section in section_evidence:
-                    public["coff"] = dict(section=section_evidence[section], offset=offset)
+                    public["coff" if section_evidence[section]["is_code"] else "data_coff"] = dict(
+                        section=section_evidence[section], offset=offset)
             elif any(section in section_evidence for _length, section, _offset in records):
                 counts["code_symbol_locations_ambiguous"] += 1
         else:
@@ -523,14 +525,20 @@ class Checker:
             "storage_unanalyzed", "initializers_unanalyzed")})
         self.counts["ambiguous_map_locations"] = len(self.mapping.ambiguous)
         self.defects = []
+        self.pointer_words = []
+        self.vtable_slots = []
         self.by_name = collections.defaultdict(list)
+        self.by_image = collections.defaultdict(list)
         self.literal_widths = collections.defaultdict(set)
         self.literal_cache = {}
+        self.retail_literals = {}
+        self.ledger_literal_cache = {}
         for p in publics:
             literal = re.match(r"\?\?_C@_([01])", p["name"])
             if literal:
                 self.literal_widths[p["rva"]].add(2 if literal[1] == "1" else 1)
             self.by_name[p["name"]].append(p)
+            self.by_image[p["rva"]].append(p)
         self.by_retail = collections.defaultdict(list)
         for p in publics:
             for target in self.mapping.targets_for(p):
@@ -551,11 +559,19 @@ class Checker:
             return max(found, key=lambda p: p["extent"] or 0)
         return None
 
-    def pointer(self, actual, expected):
+    def pointer(self, actual, expected, *, proven=False):
         if actual == expected == 0:
             return "equal"
+        # A proven pointer to ledger-backed image storage cannot be null or
+        # outside the linked image when retail points at that storage.
+        if proven and self.by_retail.get(expected - self.retail.base):
+            if actual == 0 or self.ours.read(actual - self.ours.base, 1) is None:
+                return "wrong"
         got = self.mapping.resolve(actual - self.ours.base, expected - self.retail.base)
         if got is None:
+            if self.ledger_literal(actual - self.ours.base, expected - self.retail.base):
+                self.counts["pointers_ledger_literal_aliases"] += 1
+                return "equal"
             return "unchecked"
         if got == expected - self.retail.base:
             return "equal"
@@ -563,6 +579,35 @@ class Checker:
             self.counts["pointers_literal_aliases"] += 1
             return "equal"
         return "wrong"
+
+    def ledger_literal(self, actual, expected):
+        """A MAP string literal can select a ledger-typed retail string by value.
+        This is pooled string equivalence, never a general data/code alias.
+        Both complete terminated values must fit their own bounded extents.
+        """
+        key = (actual, expected)
+        if key in self.ledger_literal_cache:
+            return self.ledger_literal_cache[key]
+        self.ledger_literal_cache[key] = False
+        typed = self.retail_literals.get(expected)
+        widths = self.literal_widths.get(actual, set())
+        if typed is None or len(widths) != 1:
+            return False
+        size, width = typed
+        if widths != {width} or self.retail.in_text(self.retail.base + expected):
+            return False
+        owners = [p for p in self.by_image.get(actual, ()) if p["name"].startswith("??_C@_")]
+        if not owners or any(p["extent"] is None for p in owners):
+            return False
+        limit = min(size, min(p["extent"] for p in owners), 4096)
+        for offset in range(0, limit - width + 1, width):
+            a, b = self.ours.read(actual + offset, width), self.retail.read(expected + offset, width)
+            if a is None or a != b:
+                return False
+            if a == bytes(width):
+                self.ledger_literal_cache[key] = True
+                return True
+        return False
 
     def literal_alias(self, actual, mapped, expected):
         """Only a uniquely mapped MSVC literal can prove a pooled-copy alias.
@@ -659,6 +704,8 @@ class Checker:
         return rva + offset + 5 + struct.unpack_from("<i", raw, offset + 1)[0], adjustment
 
     def slot(self, actual, expected, sizes):
+        if not self.ours.in_text(actual):
+            return False
         a, b = actual - self.ours.base, expected - self.retail.base
         af, bf = self.forwarder(self.ours, a), self.forwarder(self.retail, b)
         if af or bf:
@@ -676,9 +723,16 @@ class Checker:
         if mapped != b:
             return False
         size = sizes.get(b)
-        return self.code_equal(a, b, size) if size else None
+        owners = self.by_image.get(a, ())
+        extents = {p["extent"] for p in owners if p["extent"] is not None}
+        if not size or not extents or min(extents) < size:
+            return None
+        return self.code_equal(a, b, size)
 
     def ledger(self, rows, sizes):
+        self.retail_literals = {int(r["address"], 16): (int(r["size"] or 0), 2 if r["kind"] == "wstring" else 1)
+                                for r in rows if r["kind"] in ("string", "wstring")}
+        self.ledger_literal_cache.clear()
         self.mapping.prove_folds(self.retail, sizes)
         self.counts["proven_exact_byte_fold_groups"] = len(self.mapping.proven_folds)
         for row in rows:
@@ -699,6 +753,8 @@ class Checker:
                     self.counts["absent_zero_globals_unanalyzed"] += 1
                 continue
             if row["kind"] == "vtable":
+                if size < 4 or size % 4:
+                    self.counts["vtable_retail_extent_unanalyzed"] += 1
                 words = image_report.Retail.vtable_words(self.retail, rva, size)
                 self.counts["vtable_slots_expected"] += words
                 if p["extent"] is None:
@@ -707,11 +763,19 @@ class Checker:
                     self.defect("vtable_short", rva, p, f"Winning extent {p['extent']} < retail code-pointer run {words * 4}; run is bounded by ledger extent")
                 for offset in range(0, words * 4, 4):
                     a, b = self.ours.read(p["rva"] + offset, 4), self.retail.read(rva + offset, 4)
-                    if a is None or b is None or p["extent"] is not None and offset + 4 > p["extent"]:
+                    if a is None or b is None or p["extent"] is None or offset + 4 > p["extent"]:
                         self.counts["vtable_slots_unanalyzed"] += 1
+                        self.vtable_slots.append(dict(name=p["name"], retail_rva=hex(rva + offset),
+                            image_rva=hex(p["rva"] + offset), verdict="unanalyzed", reason="unreadable or unproven table extent"))
                         continue
                     result = self.slot(struct.unpack("<I", a)[0], struct.unpack("<I", b)[0], sizes)
                     self.counts["vtable_slots_" + ("equal" if result is True else "wrong" if result is False else "unanalyzed")] += 1
+                    self.vtable_slots.append(dict(name=p["name"], retail_rva=hex(rva + offset),
+                        image_rva=hex(p["rva"] + offset), actual=hex(struct.unpack("<I", a)[0]),
+                        expected=hex(struct.unpack("<I", b)[0]),
+                        verdict="equal" if result is True else "wrong" if result is False else "unanalyzed",
+                        reason="row identity and instruction/ABI comparison" if result is not None else
+                               "target correspondence, code extent or instruction comparison unproven"))
                     if result is False:
                         self.defect("vtable_slot", rva + offset, p, f"slot +{offset}: target/body/this-adjustment differs")
                 continue
@@ -732,13 +796,27 @@ class Checker:
                     self.defect(kind + "_contents", rva, p, f"Bytes differ over retail ledger extent {size}")
                 continue
             masked = set()
+            coff = p.get("data_coff") or p.get("coff")
+            fields = set()
+            if coff:
+                fields = {at - coff["offset"] for at, kind in coff["section"]["relocations"]
+                          if kind == link_cycle.DIR32 and 0 <= at - coff["offset"] <= size - 4}
             for offset in range(size - 3):
                 ar, br = p["rva"] + offset, rva + offset
-                if ar not in self.ours.relocations and br not in self.retail.relocations:
+                if ar not in self.ours.relocations and br not in self.retail.relocations and offset not in fields:
                     continue
                 masked.update(range(offset, offset + 4))
                 actual, expected = struct.unpack_from("<I", ours, offset)[0], struct.unpack_from("<I", retail, offset)[0]
-                result = self.pointer(actual, expected)
+                result = self.pointer(actual, expected, proven=True)
+                self.pointer_words.append(dict(name=p["name"], retail_rva=hex(br), image_rva=hex(ar),
+                    actual=hex(actual), expected=hex(expected), verdict=result,
+                    evidence="COFF DIR32" if offset in fields else "PE HIGHLOW",
+                    reason=("target correspondence unresolved" if result == "unchecked" else
+                            "bounded pooled literal equivalence" if result == "equal" and
+                            self.mapping.resolve(actual - self.ours.base, expected - self.retail.base) is None else
+                            "mapped target identity")))
+                if offset in fields and ar not in self.ours.relocations and br not in self.retail.relocations:
+                    self.counts["coff_pointer_words_checked"] += 1
                 self.counts[{"equal": "pointers_equal", "wrong": "wrong_pointers", "unchecked": "pointers_unchecked"}[result]] += 1
                 if result == "wrong":
                     self.defect("global_pointer", rva + offset, p, f"+{offset}: {hex(actual)} versus retail {hex(expected)}")
@@ -749,6 +827,14 @@ class Checker:
                 if self.retail.read(value - self.retail.base, 1) is not None:
                     self.counts["pointers_unchecked"] += 1
                     self.counts["untyped_pointer_candidates"] += 1
+                    actual = struct.unpack_from("<I", ours, offset)[0]
+                    candidate = self.mapping.resolve(actual - self.ours.base, value - self.retail.base)
+                    self.pointer_words.append(dict(name=p["name"], retail_rva=hex(rva + offset),
+                        image_rva=hex(p["rva"] + offset), actual=hex(actual), expected=hex(value),
+                        verdict="unchecked", evidence="untyped aligned word",
+                        candidate_correspondence=("unchecked" if candidate is None else
+                            "equal" if candidate == value - self.retail.base else "wrong"),
+                        reason="image-range value alone does not prove pointer type; raw bytes still compared"))
             differing = [k for k in range(size) if k not in masked and ours[k] != retail[k]]
             self.counts["globals_compared"] += 1
             if differing:
@@ -803,13 +889,16 @@ class Checker:
 
     def report(self):
         return dict(schema_version=1, complete=False, g2_pass=False, counts=dict(self.counts),
-                    defects=self.defects,
+                    defects=self.defects, pointer_words=self.pointer_words, vtable_slots=self.vtable_slots,
                     defect_attribution_missing=dict(
                         object=sum(not d["object"] for d in self.defects),
                         source=sum(not d["source"] for d in self.defects)) ,
                     limitations=["Static tables do not prove initializer execution.",
                                  "Retail data extents and vtable runs are ledger-bounded, not recovered layouts.",
                                  "Unknown pointer correspondence fails analysis; no shape-only alias credit.",
+                                 "Unmapped MAP string literals receive pooled-value credit only against ledger-typed retail strings, with both full terminated values bounded by their own extents.",
+                                 "Global pointer fields require PE HIGHLOW or winning COFF DIR32 evidence; untyped candidates stay unchecked and unmasked.",
+                                 "Vtable slot equality requires complete table and target-code extents; equal length alone earns no credit.",
                                  "Storage scan proves only straight-line ECX stores before first control transfer.",
                                  "No reachability census, indirect calls, inherited constructors or shared-field ownership proof."])
 

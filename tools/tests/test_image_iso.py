@@ -1880,3 +1880,99 @@ def test_map_and_pointers_at_the_new_base(tmp_path):
     assert c.pointer(base + 0x2008, 0x400000 + 0x2108) == "equal"
     assert c.pointer(base + 0x3000, 0x400000 + 0x2108) == "wrong"
     assert c.pointer(0x10000000 + 0x2008, 0x400000 + 0x2108) == "unchecked"    # an address at the old base is not ours
+
+
+@pytest.mark.parametrize("target,verdict", [(0x3000, "equal"), (0x3100, "wrong"), (0x4000, "unchecked"), (None, "wrong")])
+def test_coff_global_pointer_words_without_pe_fixups(target, verdict):
+    c = checker([public("global", 0x2000), public("right", 0x3000), public("wrong", 0x3100)],
+                {"global": {0x2200}, "right": {0x3200}, "wrong": {0x3300}})
+    c.publics[0]["coff"] = dict(offset=0, section=dict(relocations=[(0, iso.link_cycle.DIR32)]))
+    c.retail.put(0x2200, struct.pack("<I", c.retail.base + 0x3200))
+    c.ours.put(0x2000, struct.pack("<I", c.ours.base + target if target is not None else 0))
+    c.ledger([row("global", 0x2200)], {})
+    assert c.pointer_words[0]["verdict"] == verdict
+    assert c.counts["coff_pointer_words_checked"] == 1
+    assert c.counts["pointers_unchecked"] == (verdict == "unchecked")
+    assert c.counts["global_pointer"] == (verdict == "wrong")
+    assert c.counts["global_contents"] == 0
+
+
+def test_untyped_address_word_keeps_scalar_check_and_explains_unknown():
+    c = checker([public("g", 0x2000), public("target", 0x3000)],
+                {"g": {0x2200}, "target": {0x3200}})
+    c.retail.put(0x2200, struct.pack("<I", c.retail.base + 0x3200))
+    c.ours.put(0x2000, struct.pack("<I", c.ours.base + 0x3000))
+    c.ledger([row("g", 0x2200)], {})
+    assert c.counts["pointers_unchecked"] == 1
+    assert c.counts["global_contents"] == 1
+    assert c.pointer_words[0]["candidate_correspondence"] == "equal"
+    assert c.pointer_words[0]["verdict"] == "unchecked"
+
+
+def test_data_coff_pointer_fields_survive_manifest_attachment(tmp_path):
+    obj = tmp_path / "g.obj"
+    iso.link_cycle.write_coff(obj, [(".data", 0xC0000040, bytes(4), 0)],
+        [("g", 1, 0, iso.link_cycle.EXTERNAL), ("target", 0, 0, iso.link_cycle.EXTERNAL)],
+        {1: [(0, "target", iso.link_cycle.DIR32)]})
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path=obj.name, sha256=iso.digest(obj), source="Code/g.cpp")]))
+    p = dict(public("g", 0x2000), object="g.obj")
+    iso.attach_objects([p], manifest)
+    assert "coff" not in p  # code audits must never decode data as instructions
+    assert p["data_coff"]["section"]["relocations"] == ((0, iso.link_cycle.DIR32),)
+
+
+@pytest.mark.parametrize("extent", [None, 0, 3])
+def test_vtable_equal_target_needs_full_table_extent(extent):
+    c = checker([public("vt", 0x2000, extent), public("f", 0x300)],
+                {"vt": {0x2100}, "f": {0x100}})
+    c.ours.pointer(0x2000, 0x300)
+    c.retail.pointer(0x2100, 0x100)
+    c.ours.put(0x300, b"\xc3")
+    c.retail.put(0x100, b"\xc3")
+    c.ledger([row("vt", 0x2100, 4, "vtable")], {0x100: 1})
+    assert c.counts["vtable_slots_equal"] == 0
+    assert c.counts["vtable_slots_unanalyzed"] == 1
+    assert c.vtable_slots[0]["verdict"] == "unanalyzed"
+
+
+def test_vtable_body_cannot_borrow_neighbour_bytes():
+    c = checker([public("f", 0x300, 1)], {"f": {0x100}})
+    c.ours.put(0x300, b"\xc2\x04\x00")
+    c.retail.put(0x100, b"\xc2\x04\x00")
+    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x100, {0x100: 3}) is None
+
+
+def test_null_and_data_vtable_targets_are_defects():
+    c = checker([public("f", 0x300)], {"f": {0x100}})
+    assert c.slot(0, c.retail.base + 0x100, {0x100: 1}) is False
+    assert c.slot(c.ours.base + 0x2000, c.retail.base + 0x100, {0x100: 1}) is False
+
+
+@pytest.mark.parametrize("wide", [False, True])
+def test_unmapped_literal_pointer_uses_complete_ledger_typed_string(wide):
+    width = 2 if wide else 1
+    data = "hello\0".encode("utf-16le" if wide else "ascii")
+    name = "??_C@_1literal" if wide else "??_C@_0literal"
+    c = checker([public("g", 0x2000), public(name, 0x3000, len(data))], {"g": {0x2200}})
+    c.ours.pointer(0x2000, 0x3000)
+    c.retail.put(0x2200, struct.pack("<I", c.retail.base + 0x3200))
+    c.ours.put(0x3000, data)
+    c.retail.put(0x3200, data)
+    c.ledger([row("g", 0x2200), row("retail_literal", 0x3200, len(data), "wstring" if wide else "string")], {})
+    assert c.counts["pointers_unchecked"] == 0
+    assert c.counts["pointers_ledger_literal_aliases"] == 1
+    assert c.counts["pointers_equal"] == 1
+    for actual, expected in ((data[:-width], data), (data, data[:-width]), (data, b"x" * len(data))):
+        c.ledger_literal_cache.clear()
+        c.ours.put(0x3000, actual + b"x" * (len(data) - len(actual)))
+        c.retail.put(0x3200, expected + b"x" * (len(data) - len(expected)))
+        assert not c.ledger_literal(0x3000, 0x3200)
+    c.ours.put(0x3000, data); c.retail.put(0x3200, data)
+    c.ledger_literal_cache.clear(); c.publics[1]["extent"] = len(data) - width
+    assert not c.ledger_literal(0x3000, 0x3200)
+    c.ledger_literal_cache.clear(); c.publics[1]["extent"] = None
+    assert not c.ledger_literal(0x3000, 0x3200)
+    c.ledger_literal_cache.clear(); c.publics[1]["extent"] = len(data)
+    c.retail_literals.clear()
+    assert not c.ledger_literal(0x3000, 0x3200)
