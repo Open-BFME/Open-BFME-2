@@ -167,12 +167,7 @@ extern Display *TheDisplay;
 
 // TheMouse's call here lands on the shared empty body 0x000B3FD0 (name
 // unknown, pinned by address).
-class Mouse
-{
-public:
-	void rva000B3FD0();
-	void _bfme_setEngineVisibility(bool visible);	// rowed 0x001EE5BE
-};
+#include "../../../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 
