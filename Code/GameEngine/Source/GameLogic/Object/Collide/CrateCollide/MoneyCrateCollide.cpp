@@ -18,9 +18,6 @@ class Thing;
 class ModuleData;
 class Xfer;
 struct Coord3D;
-// Before PlayerList.h: that header selects Snapshot's capitalized slot names
-// when it is the first to include Snapshot.h, and CrateCollide's xfer would
-// then open a new slot instead of overriding slot 3.
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -126,11 +123,12 @@ private:
 	bool m_everExecuted;			// +0x14, right after the three module bases
 };
 #include "../../../../../Include/Common/NameKeyGenerator.h"
+class Object;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-// Target facts: MoneyCrateCollide's primary table 0x00C5A8A0 has slot 4
-// getModuleNameKey 0x004BC988 and slot 12 executeCrateBehavior 0x004BC9E9.
+ 
+ 
 class MoneyCrateCollide : public CrateCollide
 {
 public:
@@ -143,15 +141,26 @@ private:
 		return (const MoneyCrateCollideModuleData *)m_moduleData;
 	}
 public:
-	// ??0MoneyCrateCollide 0x004BC93F and this destructor 0x004BC96F store the same three
-	// tables (0x00C5A8A0, 0x00C5A040, 0x00C5A600); it then jumps to ??1CrateCollide
-	// 0x004BC4FC. Its ??_G 0x004BC9CD is slot 0 of 0x00C5A8A0.
 	virtual ~MoneyCrateCollide();
+public:
+	MoneyCrateCollide(Thing *thing, const ModuleData *moduleData);
 };
 
-// tu-skeleton: 0x004BC93F 42B ??0MoneyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollideCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollideCtor.cpp
+
+// ??0MoneyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z
+MoneyCrateCollide::MoneyCrateCollide(Thing *thing, const ModuleData *moduleData)
+	: CrateCollide(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x004BC969 6B ?Rva004BC969Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp
+
+// Before PlayerList.h: that header selects Snapshot's capitalized slot names
+// when it is the first to include Snapshot.h, and CrateCollide's xfer would
+// then open a new slot instead of overriding slot 3.
 
 // ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
 
