@@ -18,8 +18,9 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
-// Array deallocation is nonthrowing; preserve the retail unwind lifetimes.
-void operator delete[](void *) throw();
+// Array deallocation is nonthrowing; preserve the retail unwind lifetimes via <new>.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 
 #include "simplevec.h"
 

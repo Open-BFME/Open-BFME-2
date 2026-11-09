@@ -18,8 +18,9 @@
 // delete nonthrowing, as in the existing scalar VectorClass resize unit,
 // removes that four-byte difference without changing the allocation logic.
 
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "vector3.h"
-void __cdecl operator delete[](void *) throw();
 #include "vector.h"
 
 template bool VectorClass<Vector3>::Resize(int, const Vector3 *);

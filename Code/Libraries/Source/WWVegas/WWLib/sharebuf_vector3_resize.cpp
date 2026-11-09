@@ -17,10 +17,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Target extension of the donor ShareBuffer layout. The matched Vector3
 // constructor at 0x169780 establishes raw/aligned pointers and alignment.
 // Mesh geometry readers at 0x16AF80 and 0x16AFD0 call this resize operation.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "refcount.h"
 #include <string.h>
-
-void __cdecl operator delete[](void *) throw();
 
 #include "../WWMath/Vector3Data.h"
 

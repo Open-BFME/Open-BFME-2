@@ -39,9 +39,7 @@
 // int is the representative instantiation and any four-byte POD emits these
 // same bytes.
 
-void *__cdecl operator new[](unsigned int);
-void __cdecl operator delete[](void *) throw();
-inline void *__cdecl operator new[](unsigned int, void *p) { return p; }
+#include <new>
 
 template <class T>
 class VectorClass

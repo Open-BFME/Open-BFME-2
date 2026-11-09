@@ -6,9 +6,10 @@
 // earlier opaque owners; they add no unique retail coverage.
 // Copy construction reads only pointer/count words and cannot throw under
 // the retail /EHsc contract. It remains shallow, as the target39B proves.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "always.h"
 #include <string.h>
-void __cdecl operator delete[](void*) throw();
 #include "../WWMath/Vector3Data.h"
 template<class T>class SimpleVecClass {
 public:

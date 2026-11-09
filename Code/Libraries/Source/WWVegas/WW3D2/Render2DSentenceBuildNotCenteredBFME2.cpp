@@ -5,7 +5,8 @@
 // builder at 0x00158E90 and centers each finished line. Evidence and earlier rounds:
 // reverse/attempt_support/159700-claude3-20261020.md and sentence-159700-20261019/.
 
-void __cdecl operator delete[](void *) throw();
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "vector.h"
 #include "vector2i.h"
 #include "vector2.h"

@@ -9,7 +9,8 @@
 // Its element's application identity is unknown: this is not evidence for
 // the 20-byte HLodClass::ModelNodeClass used by an earlier candidate.
 
-void __cdecl operator delete[](void *) throw();
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "vector.h"
 
 class Rva00155940Element;

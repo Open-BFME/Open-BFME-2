@@ -13,7 +13,8 @@
 // Length() register).
 // Flags and layouts follow the matched Render2DSentenceAllocateSurfaceBFME2.cpp.
 
-void __cdecl operator delete[](void *) throw();
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 // math.h's inline floorf gets internal linkage (the mapper.cpp form): this
 // /G7 unit's public copy is not retail's, and WWMath::Floor inlines it anyway.
 extern "C" { static float __cdecl floorf(float); }

@@ -1,6 +1,7 @@
 // cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 
-void __cdecl operator delete[](void *) throw();
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "vector.h"
 #include "vector2i.h"
 

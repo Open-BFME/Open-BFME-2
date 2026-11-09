@@ -6,8 +6,9 @@
 // (0x0007E99E, call site 0x0007EEB5) with size 0 and returns this. The
 // declaration-only specialisation keeps that call out of line, as retail
 // does. The owner is not recovered; its name is address-derived.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "always.h"
-void __cdecl operator delete[](void *) throw();
 #include "simplevec.h"
 
 #include "../WWMath/Vector3Data.h"
