@@ -73,6 +73,8 @@ class Snapshot;
 #include "../../../../Include/Common/XferVersion.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+// BitFlags<11> by value (the mask AIUpdate.h builds): the update-interface getter below.
+#include "../../../../Include/Common/BitFlags11.h"
 class UpgradeMux
 {
 public:
@@ -320,6 +322,12 @@ public:
 	virtual ~ReplenishUnitsBehavior();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	// Update-interface slot 1 (retail table 0x00C49F68) is 0x004A2D67, the held-only mask
+	// (bit 3) AIUpdateInterface returns, so the class overrides it with that body.
+	virtual DisabledMaskType getDisabledTypesToProcess() const
+	{
+		return DisabledMaskType(DisabledMaskType::kInit, 3);
+	}
 	void rva004842DD(Object *target);
 
 protected:
