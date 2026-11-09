@@ -44,15 +44,6 @@ public:
 };
 
 
-class Rva004BC96F : public CrateCollide
-{
-public:
-	virtual ~Rva004BC96F();
-};
-
-Rva004BC96F::~Rva004BC96F()
-{
-}
 
 class Rva004BCB0D : public CrateCollide
 {

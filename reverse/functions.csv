@@ -6305,7 +6305,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva0006EE6F@@UAE@XZ,,0x0006EE6F,11,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneDerivedDtors.cpp,matched,opaque SimpleScene-derived dtor; vptr 0xBC6310; tail-jmp matched SimpleSceneClass dtor 0x141DF0
 ??1Rva000647D4@@UAE@XZ,,0x000647D4,18,Code/GameEngine/Source/GameLogic/Object/LocomotorDerivedDtors.cpp,matched,opaque GODupBase-derived MI dtor; vptrs 0xBC5A5C/0xBC5A24 at +0/+4; tail-jmp matched GODupBase dtor 0x3067D2
 ??1HealCrateCollide@@UAE@XZ,,0x004BC83F,25,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp,matched,opaque MI-grandchild dtor; vptrs 0xC5A868/+0xC shared 0xC5A040/+0x10 0xC5A600; tail-jmp opaque base 0x4BC4FC
-??1Rva004BC96F@@UAE@XZ,,0x004BC96F,25,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,opaque MI-grandchild dtor; tail-jmp opaque base 0x4BC4FC
+??1Rva004BC96F@@UAE@XZ,,0x004BC96F,25,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp,matched,opaque MI-grandchild dtor; tail-jmp opaque base 0x4BC4FC
 ??1Rva004BCB0D@@UAE@XZ,,0x004BCB0D,25,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,opaque MI-grandchild dtor; tail-jmp opaque base 0x4BC4FC
 ??1Rva004BCC43@@UAE@XZ,,0x004BCC43,25,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,opaque MI-grandchild dtor; tail-jmp opaque base 0x4BC4FC
 ??1Rva004BCE62@@UAE@XZ,,0x004BCE62,25,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,opaque MI-grandchild dtor; tail-jmp opaque base 0x4BC4FC
@@ -9998,7 +9998,7 @@ _math_rad,,0x00748740,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004BC325@@UAEPAXI@Z,,0x004BC3B3,28,Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GCrateCollide@@UAEPAXI@Z,,0x004BC551,28,Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GHealCrateCollide@@UAEPAXI@Z,,0x004BC89D,28,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004BC96F@@UAEPAXI@Z,,0x004BC9CD,28,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GRva004BC96F@@UAEPAXI@Z,,0x004BC9CD,28,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004BCB0D@@UAEPAXI@Z,,0x004BCBF7,28,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004BCC43@@UAEPAXI@Z,,0x004BCCA1,28,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004BCE62@@UAEPAXI@Z,,0x004BCEC0,28,Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
