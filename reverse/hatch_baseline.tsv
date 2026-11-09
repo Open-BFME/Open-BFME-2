@@ -2012,13 +2012,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0048C200StringOwnerCtor.cpp	??1Rv
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C2656_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C29BB_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C3108_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C3905_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C4044_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C43A3_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C4508_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C48C6_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C4BD1_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C4DE9_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C67A0_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C8A16_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp	??1CollideModule@@UAE@XZ	1
@@ -12182,12 +12175,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorS
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp	DefectorSpecialPower::~DefectorSpecialPower	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp	DominateEnemySpecialPower::~DominateEnemySpecialPower	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1CloudBreakSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1DarknessSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1ElvenWoodSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1FreezingRainSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1TaintSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	1WeaponChangeSpecialPowerModule@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	SpecialPowerModule::getRequiredScience	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	SpecialPowerModule::getSpecialPowerTemplate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	crc@SpecialPowerModule@@MAEXPAVXfer@@@Z	1
