@@ -1,5 +1,5 @@
 ### LINK-615: FX module classes are built by eager class-static initializers; retail builds them lazily in `getInstance()`
-Status: Open. Updated: 2026-11-06; inspected revision: 72226319b0.
+Status: Open. Updated: 2026-11-09; inspected revision: f6dcdf1ce5.
 Evidence / affected units: `Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp` (and,
 until P5's fix, `FXParticleSystemFactories.cpp`) declares `ConcreteModuleClass<TAG>::s_instance` as
 a class static and explicitly instantiates the class per tag, so every tag gets a dynamic
@@ -33,3 +33,15 @@ Clearance: pending.
 Census confirmation: not claimed.
 
 **2026-11-07 reference export dependency.** A default-tag export trial kept the same ordered CRT labels but changed the actions those labels referred to. Compare each target thunk's bytes and relocated symbols as well as the labels before any follow-up. The trial changed 36 actions in each particle unit and was reverted. [Object comparison and DIR32 example](../../reverse/attempt_support/particle-tag-startup-order-20261107.md).
+
+**2026-11-09 the category lists hold every class twice; no behaviour change found (swarm Bridge lane; static reading of image
+`80921682e8bc` at `f6dcdf1ce5` and retail, no run).** In the image 27 of 28 `ConcreteModuleClass<TAG>` constructors have two direct
+callers, a `_$E` start-up registration and `getInstance`; retail's 27 rows have `getInstance` alone, and no retail `.CRT$XCU` entry
+reaches them (`Rva001F3FEA::init` -> `staticInitModules` -> `getInstance`). Each constructor pushes onto its category's `s_first`, so
+each list holds every class twice, as two separate objects. The 28th is an extra `ModuleTag<1, RENDEROBJECT_UPDATE...>` class with the
+`_$E` caller only, which retail does not have, leaving category 1 with 3 constructors against retail's 2; the other categories compared
+equal (category 0x0A not compared). The readers are the nine `Rva001F*Parse` functions, which walk from the head until a key matches:
+one read in source, the others known only by their sites. `staticInitModules` reaches all 27 `getInstance` in both images, and lazy
+nodes are pushed later, so a valid token finds the same class retail would, provided the lazy path runs before any parse. The eager
+copies sit in the tail, reached only by a token no class matches, where the walker read runs off the list in retail too. So this is a
+retail difference with no behaviour change found, not a crash lead. It does not settle who owns the conversion.
