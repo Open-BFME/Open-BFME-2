@@ -37,6 +37,16 @@ __forceinline Rva00330757Member::~Rva00330757Member()
     if (field00) free(field00);
 }
 struct BfmePod128 { ~BfmePod128(); int a[32]; };
+// A castle build-list entry is the 0x80-byte record with a virtual destructor.
+// Retail's vector destructor 0x0032BE80 destroys it through the rowed range
+// destroy 0x0032B580; the kept POD _Destroy<BfmePod128 *> is a bare ret that
+// skips each entry's destructor, so this unit's ~vector calls the row.
+class Rva0032A3A9Element;
+namespace _STL {
+template <> void _Destroy<Rva0032A3A9Element *>(Rva0032A3A9Element *, Rva0032A3A9Element *);
+template <> inline vector<BfmePod128, allocator<BfmePod128> >::~vector()
+{ _Destroy((Rva0032A3A9Element *)this->_M_start, (Rva0032A3A9Element *)this->_M_finish); }
+}
 struct BfmeE8 { int a[2]; };
 class SidesInfo {
 public:
