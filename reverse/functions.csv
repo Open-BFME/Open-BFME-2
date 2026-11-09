@@ -100456,3 +100456,4 @@ __ehhandler$?Render@Rva000E3B41@@UAEXAAVRenderInfoClass@@@Z,,0x00763248,10,Code/
 ?Prepare_LOD@Rva001684D6@@UAEXAAVCameraClass@@@Z,,0x0047A69C,3,Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp,matched,slot 72 of retail table 0x00BD41C8: empty
 ?Get_Cost@Rva001684D6@@UBEMXZ,,0x00167F48,17,Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp,matched,slot 76 of retail table 0x00BD41C8: slot 10 as a float
 ?Get_LOD_Count@Rva001684D6@@UBEHXZ,,0x000D43D0,3,Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp,matched,slot 81 of retail table 0x00BD41C8: returns 0
+?Read_Size_Keyframe@ParticleEmitterDefClass@@MAE_NAAVChunkLoadClass@@PAM1@Z,,0x001B0680,94,Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp,matched,slot 59 of retail table 0x00BD74E8: folded with Read_Opacity_Keyframe

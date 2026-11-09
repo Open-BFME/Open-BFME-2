@@ -53,7 +53,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 
 #include "shader.h"
-#include "part_ldr.h"
+#include "./part_ldr.h"	// this directory's: the plain spelling reads the reference copy in this unit
 #include "part_emt.h"
 #include "w3derr.h"
 #include "chunkio.h"
