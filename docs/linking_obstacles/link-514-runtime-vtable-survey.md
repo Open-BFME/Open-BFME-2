@@ -1591,3 +1591,69 @@ lk74_definers to find every emitter of a touched table.
   0x00C49408, and the scaffold binds its update slot to `TerrainResourceBehavior::update`); proving and
   folding that identity first lets its getCreate/getDie casts (0x003730FC, 0x004543A9) land under the
   real name.
+
+**Abstract placeholder views in RvaSmallVtableCtors.cpp and lk78's leftovers (2026-11-09, seat
+halilkkaya-lk79, base `06c0b727c0`).** Method: lk74's one-pass snapshot (old = new = HEAD's
+`tools/vtable_bridge.py`) after every batch; each retail slot word read from the image; per-unit
+`??_7` and symbol diffs; `rename.py class --fold` and `function --to-class` dry runs for the
+identity routes.
+- Done, 4 code commits (`458364fabd5` .. `c889ce74779`), all in RvaSmallVtableCtors.cpp: 17 views
+  whose retail table is all `__purecall` (abstract tables retail folds across classes, 1 to 94
+  slots, 256 slots in all) now declare retail's slot count of positional pure virtuals instead of an
+  invented inline virtual destructor; four two-slot views (Rva0007DFE9, Rva003A538E, Rva005754ED,
+  Rva005D1023: slot 0 their own rowed `??_G`, slot 1 `__purecall`) gained the pure slot 1; and
+  Rva002D3347's view gained the three pure slots of the Rva002D3556 view (the fold below needs it;
+  no count change alone). The pilot was 5 tables (`458364fabd5`), then 12 and 4.
+- Tables off the bridge: 21. Offline plan, base -> after: bridged 4,057 -> 4,036, already correct
+  1,582 -> 1,603, bridged slots 58,186 -> 57,904, mismatching source slots 45,401 -> 45,120;
+  refusals identical (104); nothing newly bridged; no correct table lost. link_check over the unit
+  (and, for `c889ce74779`, InlineDtorDeletingDtorsC01.cpp and RadarWindowOverrideCreatePing.cpp):
+  all LINK, bytes unchanged (2,958 B for the unit). The changed classes appear in no other unit;
+  the only symbol change is 17 unrowed `??_G` bodies leaving the object.
+- RvaSmallVtableCtors classification (lk79 snapshot; 149 tables at base, 128 left). The `names`
+  evidence is `data_ledger.csv`'s cache of relocation bindings (139 `literal`, 10 `provisional`),
+  not a name basis: of the 71 tables that carry a readable co-name, the translator family
+  (HotKeyTranslator, HintSpyTranslator, GameClientMessageDispatcher, WindowTranslator,
+  UserInputTranslator) refuses the fold because `??1X` at 0x00429191 installs 0x00BDBA74, not the
+  bound table; S3Money and PartitionFilterFlammable refuse the same way. Left in the file by slot
+  shape: 98 tables hold rows of other classes (slot bodies rowed under other address placeholders or
+  ICF-shared bodies: `o`/`o+` 37, `d o+` 35, mixed 26); 23 hold another class's deleting destructor
+  in slot 0 and `__purecall` after it; 5 hold own-class rows; Rva005EEE6B and Rva0028AB0D are all
+  `__purecall` too (8 and 10 slots) but object.h declares other views of them (Object's +0x6C/+0x70
+  bases), so they wait on that shared header.
+- Fold dry runs (`rename.py class --fold OLD --into NEW --dry-run`): clean for Rva0007829C ->
+  FileClass, Rva003889DF -> GameSpyPeerMessageQueueInterface, Rva005EA1D5 -> UnitCountCollector,
+  Rva002D3556 -> Rva002D3347, Rva0059675ABase -> Rva0059667D, Rva003E3C39 -> Rva003E3C22. Not
+  applied for the three readable ones: the fold would leave a one-slot private copy of the real class
+  in this unit, a second `??_7` beside the correct one, so each needs its full slot list (or the real
+  header) in the same commit. Refused: MultiListObjectClass (registered canonical: adopt its header
+  first), ObjectTracker, TotalHealthCollector/UnitHealthCollector, LivingWorldPhaseObserver and
+  the 0x00CE.... Gen* tables (`a third name for the table`), Rva0020E20C and Rva00285635
+  (registered: class-reconciliation commit), Rva004318D8, Rva004E179A, Rva005E9FA4 (ICF-folded
+  tables or deleting destructors of distinct classes), Rva005D10D6 (no own table),
+  Rva00666E10 (the constructor installs another table).
+- Blocked (re_attempts rows in `7acd4922ea7`):
+  - Rva002D3556 -> Rva002D3347 fold: rename.py verified it and the plan took the table off
+    (4,036 -> 4,035), but link_check then refused RadarWindowOverrideCreatePing.cpp: its inline view's
+    `__forceinline` constructor is emitted as a COMDAT `??0`, which after the fold duplicates this
+    unit's strong `??0Rva002D3347@@QAE@XZ` row. Retail's 0x002D3CA5 inlines the base, so the view
+    must stay inline. Reverted.
+  - OpenContain's +0x24 slot 0 (lk78 lead 4): the `--to-class OpenContain --new onCollide` dry run
+    needs prepared views (OpenContainCtor.cpp compiles no table matching 0x00C46064); the move keeps
+    the placeholder's (Object*, int, int) tail, which cannot override CollideModule.h's
+    `onCollide(Object*, const Coord3D*, const Coord3D*)`, and no rename.py route respells `H` to
+    `PBVCoord3D@@`; class:OpenContain is held through class:Drawable's footprint
+    (ancalgonn-pc-hdr-c). The +0x20/+0x30 tables were not attempted.
+  - CostModifier/SpellRechargeModifierUpgrade: not attempted (lk78's plan stands). New finding:
+    slot 9 of 0x00C581CC is rowed as `?onCapture@Rva004B5AC0_Primary@@QAIXHPAVPlayer@@0@Z` (a
+    __fastcall spelling with a dummy int), so a to-class move cannot reach ObjectModule::onCapture
+    until the body is rewritten as thiscall.
+- Next leads: (1) the 13 one-slot `o` tables and the 24 `o+` tables are `function --to-class` moves
+  of address-named slot bodies (e.g. 0x0037DE70 `?rva0037DE70@Rva0037DE70@@UAEHH@Z` into
+  Rva0037DE63, a one-slot table, which the docs' one-slot rule proves alone), each with prepared
+  views of this unit and the body's unit. (2) The Rva002D3556 fold, once RadarWindowOverrideCreatePing's
+  inline view stops emitting the constructor COMDAT. (3) The 23 "other class's deleting destructor
+  plus pure" tables: the two clean placeholder folds above, then the rest as their third names
+  clear. (4) Tooling: rename.py's fold check could compile-test the folded unit set for duplicate
+  strong/COMDAT definitions (link_check found what its own gates passed); and a `--to-class`
+  parameter respell proven by a registered header's declaration (OpenContain onCollide).
