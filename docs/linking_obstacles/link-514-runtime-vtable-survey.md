@@ -1530,3 +1530,64 @@ after every batch; lk56's per-class Upgrade header recipe; `rename.py class --fo
   same addresses (Rva0048180C, Rva00499934, Rva004A4214, Rva004A4C19, Rva004839D3, Rva004AB246,
   Rva0049BFB7, Rva004A8091, Rva0045232D in Rva0024A797Grandchildren.cpp) fold into their real classes
   through the same recipe.
+
+**Freed Upgrade slots, FireWeaponWhenDead's casts and OpenContain's interfaces (2026-11-09, seat
+halilkkaya-lk78, base `98eb5d8c17`).** Method: lk74's one-pass snapshot (old = new = HEAD's
+`tools/vtable_bridge.py`) after every batch; lk75/lk77's override recipe (declare what the view lacks,
+row retail's body with `add_match --icf-owner` and `fold-proof=`); per-unit `??_7` and symbol diffs;
+lk74_definers to find every emitter of a touched table.
+- Done, 8 code commits (`d2e013aae38` .. `9c3bbbbdce7`):
+  - LevelUpUpgrade UpgradeMux slot 8: `upgradeRemovalImplementation` in LevelUpUpgrade.h, rowed at
+    0x000B3FD0 (both emitters agree).
+  - ReplaceSelfUpgrade: the 0x00497805 `loadPostProcess` fold (primary slot 1) and the 0x004B4A8C
+    `getCreate` cast (BehaviorModuleInterface slot 3), declared in both emitters (ReplaceSelfUpgrade.cpp,
+    FamilyDeletingDtors_muse-b1dd.cpp, which land in one commit).
+  - FireWeaponWhenDeadBehavior: `UpdateModule::getUpdate` declared in both private UpdateModule views
+    (FireWeaponWhenDeadBehavior.cpp, Rva00589079Derived.cpp; lk75's f271d361784 precedent) plus the
+    getDie/getUpgrade casts (0x004523A9, 0x004543A9). Rva00481F82 and Rva00589079 share the scaffold's
+    view and gain slot 9 too. Full UpdateModule.h adoption in the scaffold was not taken: it merges the
+    separate +0x10 bases, which turns Rva00481F82's alternatename-bound update slot into `__purecall`
+    and renames three placeholder tables.
+  - OpenContain (only OpenContainCtor.cpp and OpenContainDtorRva00464692.cpp emit its tables; the
+    ten-plus derived views do not): the five BehaviorModuleInterface casts (slots 1-4, 7), declarations
+    of the rowed loadPostProcess/xfer/onDelete (primary slots 1/3/8), and the +0x28/+0x34/+0x2C
+    placeholder bases replaced by the registered DieModuleInterface, CreateModuleInterface and
+    DamageModuleInterface (each proven by the getter that returns it and by the retail table's shape;
+    onDie was rowed, the seven create/damage overrides are rowed as ICF twins of 0x000B3FD0,
+    0x0047A699, 0x0047A69C and 0x000D1407).
+- Tables off the bridge: ReplaceSelfUpgrade, FireWeaponWhenDeadBehavior and OpenContain
+  BehaviorModuleInterface; OpenContain's die, create and damage tables (now correct under their real
+  names); the placeholder `??_7ContainIface34@@6B@`/`??_7ContainIface2C@@6B@` leave the plan. Offline plan,
+  base -> after: bridged 4,065 -> 4,057, already correct 1,577 -> 1,582, mismatching source slots
+  45,430 -> 45,401; refusals identical (104); nothing newly bridged. The one "correct lost" is the
+  deleted placeholder name `??_7ContainIface28@@6B@`; its address 0x00C1C780 keeps the correct real
+  name `??_7DieModuleInterface@@6B@`. link_check over the 34 changed, owner and sibling-emitter units
+  (with the Upgrade units lk77 rowed after the 05:57 census): all LINK, 23,991 -> 24,167 B. Emitter
+  pairs fail alone against stale census objects and must land together (they share each commit).
+- Blocked (re_attempts rows in `8dbba505b13`):
+  - DamageModule fold (`Rva004B96CC -> DamageModule`): a rename.py false reject. inlined_base_restores
+    accepts the old destructor rows, then the own-table loop runs own_table over the existing
+    `??1DamageModule` ICF twin at the same 0x004B96CC and reads the same inlined BehaviorModule restore
+    (0x00BEEA7C) as a second own table. rename.py is held by ancalgonn-swarm-seat2.
+  - ReplaceSelfUpgrade primary slot 2: the name getter 0x004B7084 is the free function
+    `?Rva004B7084Get@@YAHXZ`; `function --to-class` refuses ("not a method ... this mode can respell").
+  - CostModifier/SpellRechargeModifierUpgrade folds: not attempted. Both constructors (0x004B5A06,
+    0x004B5D7D) are byte-for-byte ReplaceSelfUpgrade's 0x004B7045 shape plus `mov byte [esi+0x20],1`,
+    so ReplaceSelfUpgrade.cpp's view is the template; but SpellRechargeModifierUpgradeCtor.cpp builds
+    hand-array tables (`_s_vtable` ... in data_ledger aliases) and CostModifierUpgrade.cpp's private
+    UpgradeModule emits all-`__purecall` copies, so each constructor unit must move onto
+    UpgradeModule.h with every slot declared (fold 0x00497805, name getters, the shared xfer
+    0x004B5E06, onDelete, onCapture, mux 8/10, the +0x1C CreateModuleInterface slots) before the
+    scaffold folds.
+- Next leads: (1) rename.py: skip NEW's own ICF-twin destructor row in the fold's own-table test (the
+  DamageModule fold), and a `--to-class` route for free-function placeholder getters (ReplaceSelfUpgrade
+  slot 2). (2) The CostModifier/SpellRecharge constructor rewrite above. (3) ReplaceSelfUpgrade's and
+  CostModifierUpgrade's +0x1C interface is CreateModuleInterface (getCreate returns it; four slots of its
+  shape), so the same base swap fixes 0x00C58AB8 once `rva004B70F0` is renamed `onBuildComplete`.
+  (4) OpenContain's +0x24 table is CollideModuleInterface (CollideModule.h): slot 0 is rowed as
+  `?rva004628D1@Rva004628D1@@UAEXPAVObject@@HH@Z`, which needs a `--to-class OpenContain` respell to
+  onCollide first; +0x20 (94 slots) and +0x30 (12) stay placeholders. (5) Rva00481F82 looks like
+  TerrainResourceBehavior (TerrainResourceBehavior.cpp owns the data row of its ObjectModule table
+  0x00C49408, and the scaffold binds its update slot to `TerrainResourceBehavior::update`); proving and
+  folding that identity first lets its getCreate/getDie casts (0x003730FC, 0x004543A9) land under the
+  real name.
