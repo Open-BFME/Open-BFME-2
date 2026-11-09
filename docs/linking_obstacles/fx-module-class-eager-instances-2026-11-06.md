@@ -45,3 +45,12 @@ one read in source, the others known only by their sites. `staticInitModules` re
 nodes are pushed later, so a valid token finds the same class retail would, provided the lazy path runs before any parse. The eager
 copies sit in the tail, reached only by a token no class matches, where the walker read runs off the list in retail too. So this is a
 retail difference with no behaviour change found, not a crash lead. It does not settle who owns the conversion.
+
+**2026-11-09 second instances, and who has this.** The bridge lane measured the `f6dcdf1ce5` image: 27 of 28 `ConcreteModuleClass<TAG>` constructors have
+two direct callers, `getInstance` and a `_$E` start-up registration from the `s_instance` scaffolding; retail's 27 rows have one, `getInstance`, built lazily from
+`Rva001F3FEA::init` through `staticInitModules`, and no `.CRT$XCU` entry reaches them. Each constructor pushes onto its category's `s_first` list, so a module class
+can get two instances. Category `$01` also has a third `ModuleTag<1, RENDEROBJECT_UPDATE...>` constructor retail lacks, reached only from `_$E`. Whether the walkers
+behave differently was still being read by that lane; not established here. Also `(export unowned)`'s 12 `ModuleTag` KEY/NAME wait on this (LINK-584).
+
+The swarm coordinator assigned the conversion to the Link lane, after LINK-073 is settled. The re-pins go through the admission tools only, and the bridge lane's claims
+are checked first. Pass test: a before-and-after link measure and a boot comparison.
