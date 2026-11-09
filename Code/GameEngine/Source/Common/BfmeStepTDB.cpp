@@ -22,37 +22,36 @@ struct BfmeStateTDB
 	char m_bfmeBusyTDB;
 };
 
-extern BfmeStateTDB *g_bfmeStateTDB;
-// g_bfmeStateTDB: matched references place it at VA 0xdee858 (zero-filled .bss).
-BfmeStateTDB * g_bfmeStateTDB;
-extern int g_bfmeModeTDB;
-// g_bfmeModeTDB: matched references place it at VA 0xdee844 (zero-filled .bss).
-int g_bfmeModeTDB;
 // The ledger's DX8Wrapper device (0x9EDA34, a protected static read through a
 // derived view) and DX8 call counter (0x9EDA98). The device keeps its D3D8
 // type name but is a Direct3D 9 device.
 struct IDirect3DDevice8;
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+#include "../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 extern unsigned number_of_DX8_calls;
 
+// Retail reads the render state's first vertex buffer and its type (0x00DEE858, 0x00DEE844). This body once
+// defined its own two globals there, which nothing set, so it always returned early (P82).
 struct BfmeDeviceTDB : DX8Wrapper
 {
 	static IDirect3DDevice9 *get() { return reinterpret_cast<IDirect3DDevice9 *>(D3DDevice); }
+	static BfmeStateTDB *state() { return reinterpret_cast<BfmeStateTDB *>(render_state.vertex_buffers[0]); }
+	static unsigned mode() { return render_state.vertex_buffer_types[0]; }
 };
 
 // ?bfmeStepTDB@@YAXXZ
 void bfmeStepTDB(void)
 {
-	if (g_bfmeStateTDB == 0)
+	if (BfmeDeviceTDB::state() == 0)
 		return;
 
-	if (g_bfmeModeTDB != 0 && g_bfmeModeTDB != 2)
+	if (BfmeDeviceTDB::mode() != 0 && BfmeDeviceTDB::mode() != 2)
 		return;
 
-	if (g_bfmeStateTDB->m_bfmeBusyTDB)
+	if (BfmeDeviceTDB::state()->m_bfmeBusyTDB)
 		return;
 
-	BfmeDeviceTDB::get()->SetFVF((DWORD)*g_bfmeStateTDB->m_bfmeSourceTDB);
+	BfmeDeviceTDB::get()->SetFVF((DWORD)*BfmeDeviceTDB::state()->m_bfmeSourceTDB);
 
 	++number_of_DX8_calls;
 }
