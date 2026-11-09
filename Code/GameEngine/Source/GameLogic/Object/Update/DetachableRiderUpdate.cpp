@@ -61,11 +61,6 @@ class DetachableRiderUpdateUpdateReceiver {
 public:UpdateSleepTime update();char pad[0x10];bool active;unsigned char index;
 };
 extern GameLogic*TheGameLogic;
-//
-// WeaponTemplateSet copy ctor, retail 0x004AE811, 33 bytes.
-// Dedicated TU so WeaponTemplateSetConstruct.cpp cannot see this body.
-// Copies a 0x4C-byte head via its copy ctor then two trailing dwords.
-
 #include "../../../../Include/Common/WeaponTemplateSetHead.h"
 //
 // ??0Rva004AE877@@QAE@XZ, retail 0x004AE877, 12 bytes.
@@ -132,11 +127,9 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 	{ \
 		return scale * IMM + m_value; \
 	}
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
+#include <stddef.h>
 
 class DetachableRiderUpdate : public UpdateModule
 {
@@ -152,6 +145,28 @@ private:
 };
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva004AE909ImulAddField, 0x54)
+
+namespace _STL
+{
+
+template <class T1, class T2>
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<WeaponTemplateSet, WeaponTemplateSet>(WeaponTemplateSet *p, const WeaponTemplateSet &value)
+{
+	if (p)
+		p->WeaponTemplateSet::WeaponTemplateSet(value);
+}
+
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp
+
+//
+// WeaponTemplateSet copy ctor, retail 0x004AE811, 33 bytes.
+// Dedicated TU so WeaponTemplateSetConstruct.cpp cannot see this body.
+// Copies a 0x4C-byte head via its copy ctor then two trailing dwords.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp
 
@@ -262,14 +277,6 @@ NameKeyType DetachableRiderUpdate::getModuleNameKey() const
 	return TheDetachableRiderUpdatePoolKey;
 }
 
-// tu-skeleton: 0x004AE7F5 28B ?allocate@?$allocator@VWeaponTemplateSet@@@_STL@@QBEPAVWeaponTemplateSet@@IPBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderDataRva004AEB84.cpp (not merged yet)
-
-// tu-skeleton: 0x004AE883 91B ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp (not merged yet)
-
-// tu-skeleton: 0x004AE8DE 28B ??_GRva004AE78E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x004AE8FA 15B ?rva004AE8FA@DetachableRiderUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -285,7 +292,20 @@ NameKeyType DetachableRiderUpdate::getModuleNameKey() const
 // (/O1 alone strength-reduces them to lea sequences). Identity is not
 // recovered: every name is derived from its address.
 
-// tu-skeleton: 0x004AE915 18B ??$_Construct@VWeaponTemplateSet@@V1@@_STL@@YAXPAVWeaponTemplateSet@@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp (not merged yet)
+// tu-skeleton: 0x004AE7F5 28B ?allocate@?$allocator@VWeaponTemplateSet@@@_STL@@QBEPAVWeaponTemplateSet@@IPBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderDataRva004AEB84.cpp (not merged yet)
+
+// tu-skeleton: 0x004AE883 91B ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp (not merged yet)
+
+// tu-skeleton: 0x004AE8DE 28B ??_GRva004AE78E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x004AE8FA 15B ?rva004AE8FA@DetachableRiderUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Thing/WeaponTemplateSetConstruct.cpp
+
+//
+// _STL::_Construct<WeaponTemplateSet, WeaponTemplateSet>, retail 0x004AE915,
+// 18 bytes. Dedicated TU so ThingTemplate.cpp cannot see this body.
+// Null-checks the destination then thiscall-copy-constructs into it.
 
 // tu-skeleton: 0x004AE927 38B ??$__uninitialized_copy@PAVWeaponTemplateSet@@PAV1@@_STL@@YAPAVWeaponTemplateSet@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp (not merged yet)
 
