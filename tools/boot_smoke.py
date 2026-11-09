@@ -1170,6 +1170,44 @@ TITLE_SPLASH = bytes.fromhex(
 TITLE_SPLASH_DISTANCE = 6
 
 
+# Is the menu retail's? menu_bar sees only the green bar, so a menu with blank buttons reached it. At 1024x768 under the
+# queue's capture, each of the six buttons is pixel-identical on every kept run of retail and of retail's code (10 runs,
+# 2026-11-09; only the animated triangles above them move, rows 669-682), so the check is exact and one wrong letter fails.
+# A renderer change would fail retail too, which is why a retail control comes first. MENU_TEXT_* only say what kind of
+# difference it is: the share of pixels well above a button's mean grey is at least 0.057 with text, at most 0.040 blank.
+MENU_BUTTONS = ((14, 690, 174, 734), (198, 690, 358, 734), (384, 690, 544, 734),
+                (572, 690, 730, 734), (758, 690, 882, 734), (904, 690, 1008, 734))
+RETAIL_MENU_BUTTONS = ("290834b37be54c8a",
+                       "e333ea99a44378a6",
+                       "0bd7b165ef4fb29d",
+                       "003e26c46a8e6f10",
+                       "0dc035be3b81b95e",
+                       "a2135fe2f4075086")
+MENU_TEXT_ABOVE = 45
+MENU_TEXT_MIN = 0.048
+
+
+def menu_check(img):
+    """{"verdict", "buttons_matching", "fractions"}. verdict: matches-retail (all six buttons exactly retail's), no-text
+    (a button shows none), differs-from-retail (text, but not retail's), or unmeasured at another size, since the
+    rectangles are 1024x768's. Pure. It decides no outcome: result stays reached-menu, and readers take this beside it."""
+    if img.size != (1024, 768):
+        return {"verdict": "unmeasured", "size": list(img.size)}
+    import hashlib
+    from PIL import ImageStat
+    rgb, grey = img.convert("RGB"), img.convert("L")
+    matching, fractions = [], []
+    for rect, want in zip(MENU_BUTTONS, RETAIL_MENU_BUTTONS):
+        matching.append(hashlib.sha256(rgb.crop(rect).tobytes()).hexdigest()[:16] == want)
+        crop = grey.crop(rect)
+        counts = crop.histogram()
+        above = int(ImageStat.Stat(crop).mean[0] + MENU_TEXT_ABOVE)
+        fractions.append(round(sum(counts[above + 1:]) / sum(counts), 4))
+    verdict = ("matches-retail" if all(matching) else
+               "no-text" if any(f < MENU_TEXT_MIN for f in fractions) else "differs-from-retail")
+    return {"verdict": verdict, "buttons_matching": matching, "fractions": fractions}
+
+
 def title_splash(img):
     """Is `img` the game's title splash? Coarse on purpose: a capture's scale varies, the picture does not."""
     grey = img.convert("L").resize((16, 12)).tobytes()
@@ -1263,6 +1301,7 @@ def window_picture(pid, path):
     out = {"path": str(path), "capture": how} | picture_stats(img)
     out["menu_bar"] = menu_bar(img)
     out["title_splash"] = title_splash(img)
+    out["menu_check"] = menu_check(img)
     if how == "xvfb-root":
         out["display"] = os.environ.get("DISPLAY")
         out["display_private"] = "declared by the queue (BFME_PRIVATE_DISPLAY); native X windows not checked"
@@ -1630,6 +1669,8 @@ def smoke(a, rows=None, tag="boot"):
             if span:
                 out["main_thread_span"] = span
             out["picture"] = picture
+            if picture == "reached-menu":
+                out["menu_check"] = (shot or {}).get("menu_check") or {"verdict": "unmeasured"}
             out["outcome"] = f"hang-on-{picture}" if span and span["spinning"] and picture != "reached-menu" else picture
     if res.get("quiet"):
         out["run"]["quiet"] = [dict({k: v for k, v in q.items() if k != "stack"},
@@ -1651,7 +1692,8 @@ def smoke(a, rows=None, tag="boot"):
     image["base"] = hex(loaded)
     out["receipt"] = real_image.receipt_fields("boot_smoke", "boot", out["outcome"], image, out.get("crash"),
                                                started, time.time() - t_start,
-                                               trap_retail_data=a.trap_retail_data, retail_trap=res.get("retail_trap"))
+                                               trap_retail_data=a.trap_retail_data, retail_trap=res.get("retail_trap"),
+                                               menu_check=(out.get("menu_check") or {}).get("verdict"))
     return out
 
 

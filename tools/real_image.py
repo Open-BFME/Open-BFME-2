@@ -658,13 +658,16 @@ def result_of(outcome):
     return outcome
 
 
-def receipt_fields(tool, mode, outcome, image, crash, started, seconds, trap_retail_data=False, retail_trap=None):
+def receipt_fields(tool, mode, outcome, image, crash, started, seconds, trap_retail_data=False, retail_trap=None,
+                   menu_check=None):
     """The harness's part of a run receipt (contract): the game queue adds harness_sha,
     harness_on_master and isolation itself, and names the file. A trapped run says so in its mode, which the queue
-    keeps: the trap changes the address space, so its pass does not stand for an untrapped one."""
+    keeps: the trap changes the address space, so its pass does not stand for an untrapped one. menu_check is the verdict
+    on a reached-menu picture against retail's buttons, None for any other run; result stays reached-menu either way."""
     return {"tool": tool, "mode": mode + "+retail-trap" if trap_retail_data else mode, **image,
             "result": result_of(outcome), "outcome": outcome, "crash": crash, "started": started,
-            "seconds": round(seconds), "trap_retail_data": trap_retail_data, "retail_trap": retail_trap}
+            "seconds": round(seconds), "trap_retail_data": trap_retail_data, "retail_trap": retail_trap,
+            "menu_check": menu_check}
 
 
 def base_room(size, base=IMAGE_BASE):

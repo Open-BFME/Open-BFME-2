@@ -48,6 +48,86 @@ def splash():
     return img
 
 
+def with_glyphs(img, share, skip=None):
+    """Each button a flat face with `share` of its pixels bright, as text on a button."""
+    out = img.copy()
+    d = ImageDraw.Draw(out)
+    for i, (x0, y0, x1, y1) in enumerate(bs.MENU_BUTTONS):
+        d.rectangle((x0, y0, x1 - 1, y1 - 1), fill=(20, 160, 30))
+        if i != skip and share:
+            d.rectangle((x0, y0, x0 + int((x1 - x0) * share) - 1, y1 - 1), fill=(240, 240, 200))
+    return out
+
+
+def retails_hashes(img):
+    import hashlib
+    return tuple(hashlib.sha256(img.convert("RGB").crop(r).tobytes()).hexdigest()[:16] for r in bs.MENU_BUTTONS)
+
+
+class MenuCheck(unittest.TestCase):
+    def setUp(self):
+        self.retail = with_glyphs(menu(), 0.07)
+        patch = mock.patch.object(bs, "RETAIL_MENU_BUTTONS", retails_hashes(self.retail))
+        patch.start()
+        self.addCleanup(patch.stop)
+
+    def verdict(self, img):
+        return bs.menu_check(img)["verdict"]
+
+    def test_the_limits_are_these(self):
+        # Literal on purpose: read from the kept menus, so a change is a reviewed change.
+        self.assertEqual((bs.MENU_TEXT_MIN, bs.MENU_TEXT_ABOVE), (0.048, 45))
+
+    def test_retails_buttons_match(self):
+        got = bs.menu_check(self.retail)
+        self.assertEqual((got["verdict"], got["buttons_matching"]), ("matches-retail", [True] * 6))
+
+    def test_one_wrong_pixel_is_not_retail(self):
+        for button in range(6):
+            x0, y0, x1, y1 = bs.MENU_BUTTONS[button]
+            for x, y in ((x0, y0), (x1 - 1, y1 - 1)):
+                wrong = self.retail.copy()
+                r, g, b = wrong.getpixel((x, y))
+                wrong.putpixel((x, y), (r ^ 1, g, b))
+                got = bs.menu_check(wrong)
+                self.assertEqual(got["verdict"], "differs-from-retail", (button, x, y))
+                self.assertEqual(got["buttons_matching"], [i != button for i in range(6)])
+
+    def test_the_animated_triangles_above_do_not_count(self):
+        moved = self.retail.copy()
+        ImageDraw.Draw(moved).rectangle((0, 669, 1023, 689), fill=(9, 9, 9))
+        ImageDraw.Draw(moved).rectangle((0, 734, 1023, 767), fill=(9, 9, 9))
+        self.assertEqual(self.verdict(moved), "matches-retail")
+
+    def test_blank_buttons_are_no_text(self):
+        self.assertEqual(self.verdict(with_glyphs(menu(), 0.0)), "no-text")
+
+    def test_one_blank_button_is_no_text(self):
+        for skip in (0, 5):
+            self.assertEqual(self.verdict(with_glyphs(menu(), 0.07, skip)), "no-text", skip)
+
+    def test_other_text_is_not_retails(self):
+        self.assertEqual(self.verdict(with_glyphs(menu(), 0.09)), "differs-from-retail")
+
+    def test_swapped_buttons_are_not_retails(self):
+        swapped = self.retail.copy()
+        a, b = bs.MENU_BUTTONS[1], bs.MENU_BUTTONS[2]
+        left, right = self.retail.crop(a), self.retail.crop(b)
+        ImageDraw.Draw(left).point((0, 0), fill=(1, 2, 3))         # the fixture's buttons are alike: make them differ
+        swapped.paste(right, a[:2])
+        swapped.paste(left, b[:2])
+        self.assertEqual(self.verdict(swapped), "differs-from-retail")
+
+    def test_only_at_the_size_the_rectangles_are_for(self):
+        self.assertEqual(bs.menu_check(Image.new("RGB", (800, 600), (40, 40, 40))),
+                         {"verdict": "unmeasured", "size": [800, 600]})
+
+    def test_it_decides_no_outcome(self):
+        shot, outcome = judged(with_glyphs(menu(), 0.0))
+        self.assertEqual(shot["menu_check"]["verdict"], "no-text")
+        self.assertEqual(outcome, "reached-menu")
+
+
 class Labels(unittest.TestCase):
     def test_the_title_splash_is_not_loading(self):
         shot, outcome = judged(splash())

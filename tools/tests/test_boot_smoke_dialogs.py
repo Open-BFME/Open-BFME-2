@@ -180,6 +180,25 @@ class Classification(unittest.TestCase):
         self.assertEqual((out["receipt"]["mode"], out["receipt"]["trap_retail_data"], out["receipt"]["retail_trap"]),
                          ("boot", False, None))
 
+    def test_a_menu_carries_the_check_and_keeps_its_label(self):
+        check = {"verdict": "no-text", "buttons_matching": [False] * 6, "fractions": [0.0] * 6}
+        out = self.smoke(timeout_run([MAIN], {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.8,
+                                              "menu_check": check}))
+        self.assertEqual((out["outcome"], out["receipt"]["result"]), ("reached-menu", "reached-menu"))
+        self.assertEqual((out["menu_check"], out["receipt"]["menu_check"]), (check, "no-text"))
+
+    def test_a_menu_with_no_figures_is_unmeasured(self):
+        out = self.smoke(timeout_run([MAIN], {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.8}))
+        self.assertEqual(out["receipt"]["menu_check"], "unmeasured")
+
+    def test_only_a_menu_gets_a_verdict(self):
+        check = {"verdict": "no-text", "buttons_matching": [False] * 6, "fractions": [0.0] * 6}
+        out = self.smoke(timeout_run([MAIN], {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0,
+                                              "menu_check": check}))
+        self.assertEqual(out["outcome"], "loading-screen")
+        self.assertIsNone(out["receipt"]["menu_check"])
+        self.assertNotIn("menu_check", out)
+
     def test_crash_box_is_crash_dialog_not_loading_screen(self):
         out = self.smoke(timeout_run([MAIN, GAME_CRASH], {"path": "x.png", "black": False, "stddev": 42,
                                                          "menu_bar": 0.0}))

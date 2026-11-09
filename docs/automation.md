@@ -160,6 +160,10 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   Retail on 2026-11-05: the intro movies run until about 2-3 minutes, `boot_smoke.py --retail
   --timeout 300` reports `reached-menu` (menu bar 0.74), and `game_smoke.py skirmish --retail`
   passes with a picture (225 logic frames).
+  `reached-menu` sees only the green button bar, so a menu with blank buttons reaches it, and `result` stays that label.
+  Read `menu_check` beside it, in the receipt: `matches-retail` means all six buttons are exactly retail's at 1024x768, and
+  anything else (`differs-from-retail`, `no-text`, `unmeasured`) is not retail's menu. It is exact, since those buttons are
+  pixel-identical across 10 kept runs, so a renderer change fails retail too: run a retail control first.
   Retail on 2026-11-08, one run per timeout: the title splash at 5 s, a black window at 10 s,
   intro movies from 15 s to 180 s, the menu at 300 s. So `title-splash` past about 10 s is short of
   retail, and `loading-screen` means only another picture short of the menu: it does not prove
