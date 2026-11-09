@@ -134,6 +134,11 @@ public:
 	BfmeFixedStorage002CF0F0 *getDisabledTypesToProcess(BfmeFixedStorage002CF0F0 *out);
 	// Rowed in AudioLoopUpgradeRva004B7E3C.cpp: slot 0 of retail table 0x00C58C68.
 	virtual void rva004B7E3C(int);
+	// BehaviorModuleInterface table 0x00C496F8 (+0x0C) slots 7 and 10: the +0x0C receiver
+	// converted to the +0x28 interface (retail 0x004523A9) and to the +0x20 UpgradeMux
+	// (retail 0x004543A9), the null-preserving casts retail folds across the module family.
+	virtual DieModuleInterface *getDie();
+	virtual UpgradeModuleInterface *getUpgrade();
 
 protected:
 	virtual ~AudioLoopUpgrade();
@@ -433,6 +438,18 @@ AudioLoopUpgrade::AudioLoopUpgrade(Thing *thing, const ModuleData *moduleData)
 {
 	m_soundHandle = 1;
 	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
+
+// Slot 7 of the BehaviorModuleInterface table: retail 0x004523A9, the +0x28 interface.
+DieModuleInterface *AudioLoopUpgrade::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<ALU_Iface4 *>(this));
+}
+
+// Slot 10 of the BehaviorModuleInterface table: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *AudioLoopUpgrade::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
 }
 
 // tu-skeleton: 0x004B7D53 141B ?upgradeImplementation@AudioLoopUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeUpgradeImplementation.cpp (not merged yet)
