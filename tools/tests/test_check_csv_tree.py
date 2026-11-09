@@ -16,6 +16,11 @@ GOOD = HEADER + "?f@@YAXXZ,,0x00001000,4,Code/A.cpp,matched,\n"
 BAD = HEADER + "?f@@YAXXZ,,0x00001000,4,Code/A.cpp,maybe,\n"
 
 
+LF_RULES = "".join(f"reverse/{name} text eol=lf\n" for name in (
+    "functions.csv", "symbols.csv", "deleted_rows.csv", "re_attempts.log", "body_owners.csv", "data_rows.csv",
+    "forced_row_moves.csv"))
+
+
 def git(root, *args):
     return subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True,
                           text=True).stdout.strip()
@@ -30,7 +35,7 @@ def repo(tmp_path, monkeypatch):
     git(root, "config", "core.autocrlf", "false")
     files = {"reverse/functions.csv": GOOD, "reverse/symbols.csv": "name,address,notes\n",
              "reverse/deleted_rows.csv": "name,target_rva,reason\n", "reverse/re_attempts.log": "",
-             "Code/A.cpp": "void f() {}\n"}
+             "Code/A.cpp": "void f() {}\n", ".gitattributes": LF_RULES}
     for rel, text in files.items():
         (root / rel).write_bytes(text.encode())
     git(root, "add", "-A")
@@ -281,3 +286,69 @@ def test_the_verdict_runs_the_register_check(repo):
     (repo / "reverse/forced_row_moves.csv").write_bytes((FM_HEADER + FM_LINE.replace("0x005DFF76", "0x00123456")).encode())
     git(repo, "add", "-A")
     assert verdicts(repo) == ["refused", "refused"]
+
+
+def commit_rules(root, text):
+    (root / ".gitattributes").write_text(text)
+    git(root, "add", ".gitattributes")
+    git(root, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "rules")
+
+
+@pytest.mark.parametrize("rule", ["", "reverse/forced_row_moves.csv text\n", "reverse/forced_row_moves.csv -text\n",
+                                  "reverse/forced_row_moves.csv text eol=crlf\n"])
+def test_a_ledger_without_eol_lf_is_refused_as_committed(repo, capsys, rule):
+    # 2026-11-09: the register passed on Linux and failed on the Windows runner alone.
+    others = "".join(line + "\n" for line in LF_RULES.splitlines() if "forced_row_moves" not in line)
+    commit_rules(repo, others + rule)
+    with pytest.raises(SystemExit):
+        check_csv.verdict("HEAD")
+    assert "reverse/forced_row_moves.csv must stay LF" in capsys.readouterr().err
+
+
+def test_the_rule_is_read_from_the_tree_being_judged(repo, capsys):
+    tree_with_rule = git(repo, "rev-parse", "HEAD^{tree}")
+    commit_rules(repo, "")                                # the worktree and HEAD have no rules now
+    check_csv.verdict(tree_with_rule)
+    with pytest.raises(SystemExit):
+        check_csv.verdict("HEAD")
+    capsys.readouterr()
+
+
+def test_the_index_and_the_worktree_are_judged_as_themselves(repo, capsys):
+    (repo / ".gitattributes").write_text("")
+    check_csv.verdict("")                                 # the index still has the rules
+    with pytest.raises(SystemExit):
+        check_csv.verdict(None)
+    git(repo, "add", ".gitattributes")
+    with pytest.raises(SystemExit):
+        check_csv.verdict("")
+    capsys.readouterr()
+
+
+def test_a_new_register_needs_no_list_entry_to_be_held_to_it(repo, capsys):
+    problems = []
+    check_csv.LF_READ.clear()
+    check_csv.check_lf_ledger(b"", "brand_new.csv", problems, allow_empty=True)
+    assert problems == []
+    check_csv.check_lf_rules("HEAD", problems)
+    assert len(problems) == 1 and "reverse/brand_new.csv must stay LF" in problems[0]
+    check_csv.LF_READ.clear()
+
+
+def test_rules_that_cannot_be_read_are_a_problem_not_a_pass(repo):
+    problems = []
+    check_csv.LF_READ.clear()
+    check_csv.LF_READ.add("functions.csv")
+    check_csv.check_lf_rules("no-such-ref", problems)
+    check_csv.LF_READ.clear()
+    assert len(problems) == 1 and "cannot read the eol rules" in problems[0]
+
+
+def test_every_rule_on_master_holds():
+    # The real .gitattributes: what the commit gate will now require of every push.
+    root = Path(__file__).resolve().parents[2]
+    out = subprocess.run(["git", "-C", str(root), "check-attr", "eol", "--", *(
+        f"reverse/{n}" for n in ("functions.csv", "symbols.csv", "deleted_rows.csv", "re_attempts.log",
+                                 "body_owners.csv", "data_rows.csv", "forced_row_moves.csv"))],
+                         capture_output=True, text=True, check=True)
+    assert all(line.endswith(": eol: lf") for line in out.stdout.splitlines())

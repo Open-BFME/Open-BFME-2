@@ -57,8 +57,12 @@ def placeholder_row(name, source, notes):
             or re.match(r"^(?:\??(?:dup_|d_[0-9a-fA-F]|Gen_)|\?\?[01]Gen_)", name) is not None)
 
 
+LF_READ = set()     # what check_lf_ledger was given in this verdict, so a new register cannot miss check_lf_rules
+
+
 def check_lf_ledger(raw, label, problems, *, allow_empty=False):
     """Require canonical LF framing for one union-merged ledger."""
+    LF_READ.add(label)
     if allow_empty and not raw:
         return
     try:
@@ -75,6 +79,26 @@ def check_lf_ledger(raw, label, problems, *, allow_empty=False):
     problems.append(
         f"{label} must use LF line terminators: {detail}. It is union-merged, "
         "so differently terminated rows duplicate on the next rebase.")
+
+
+def check_lf_rules(spec, problems):
+    """Every ledger check_lf_ledger read must have eol=lf in .gitattributes at `spec`. Without it a Windows checkout
+    turns the file CRLF and check_lf_ledger fails there alone, which no Linux check can see (2026-11-09: master was red
+    for an hour over forced_row_moves.csv)."""
+    rels = [f"reverse/{label}" for label in sorted(LF_READ)]
+    if not rels:
+        return
+    where = [] if spec is None else ["--cached"] if spec == "" else [f"--source={spec}"]
+    out = subprocess.run(["git", "-C", str(ROOT), "check-attr", *where, "eol", "--", *rels],
+                         capture_output=True, text=True)
+    if out.returncode:
+        problems.append(f"cannot read the eol rules of {', '.join(rels)}: {out.stderr.strip()}")
+        return
+    rules = dict(line.split(": eol: ", 1) for line in out.stdout.splitlines())
+    for rel in rels:
+        if rules.get(rel) != "lf":
+            problems.append(f"{rel} must stay LF, but .gitattributes gives it eol={rules.get(rel)}: a Windows checkout "
+                            f"would turn it CRLF and fail there alone. Add `{rel} text eol=lf merge=union`.")
 
 
 def read_ledger(path, spec):
@@ -738,6 +762,7 @@ def verdict(spec):
     """The OK line for the ledgers at `spec` (None: working tree, "": index,
     else a ref or tree); SystemExit(1) after printing every problem."""
     problems = []
+    LF_READ.clear()
     deleted_raw = read_ledger(DELETED, spec)
     sources_ok = known_sources(spec)
     n_funcs = check_functions(read_ledger(FUNCTIONS, spec), problems, sources_ok,
@@ -759,6 +784,7 @@ def verdict(spec):
     check_lf_ledger(read_optional(FORCED_MOVES_REL, spec), "forced_row_moves.csv", problems, allow_empty=True)
     check_forced_moves(read_optional(FORCED_MOVES_REL, spec), read_ledger(FUNCTIONS, spec),
                        read_optional(TU_MAP_REL, spec), problems, retail_identity.forced_move_table(), sources_ok)
+    check_lf_rules(spec, problems)
 
     if problems:
         print(f"check_csv: {len(problems)} problem(s):", file=sys.stderr)
