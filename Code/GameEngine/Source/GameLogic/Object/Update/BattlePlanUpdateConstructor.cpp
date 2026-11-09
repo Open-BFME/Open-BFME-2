@@ -104,121 +104,19 @@ public:
 	Rva0024C7B3Member m_invalidMemberKindOf; // +0x70
 };
 
-// Retail's tables, each slot the ledger row at the native address.
+namespace
+{
 extern "C" {
-void __identifier("??1Region2D@@QAE@XZ")();
-void __identifier("??_GBattlePlanUpdate@@UAEPAXI@Z")();
-void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
-void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
-void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
-void __identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")();
-void __identifier("?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z")();
-void __identifier("?bfmeTransition@Gen_002854E0@@QAEXHHHIH@Z")();
-void __identifier("?cleanUp@SpectreGunshipUpdate@@QAEXXZ")();
-void __identifier("?equals@Rva002857B0Object@@QAE_NH@Z")();
-void __identifier("?get@Rva004543A9LeaNegSbbField@@UBEHXZ")();
-void __identifier("?get@Rva00497960CmpBoolField@@QBE_NXZ")();
-void __identifier("?getCommandOption@BattlePlanUpdate@@UBE?AW4CommandOption@@XZ")();
-void __identifier("?getDie@DieModule@@UAEPAVDieModuleInterface@@XZ")();
-void __identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ")();
-void __identifier("?getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ")();
-void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
-void __identifier("?loadPostProcess@Rva00497805@@MAEXXZ")();
-void __identifier("?name@Rva0049795ANamed@@QBEPBDXZ")();
-void __identifier("?onObjectCreated@BattlePlanUpdate@@UAEXXZ")();
-void __identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")();
-void __identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")();
-void __identifier("?update@Rva0049862B@@QAEHXZ")();
-void __identifier("?xfer@BattlePlanUpdate@@MAEXPAVXfer@@@Z")();
+extern const void *const __identifier("??_7BattlePlanUpdate@@6BObjectModule@@@")[];
+extern const void *const __identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@")[];
+extern const void *const __identifier("??_7BattlePlanUpdate@@6BUpdateModule@@@")[];
+extern const void *const __identifier("??_7BattlePlanUpdate@@6BSecondBase004978A3@@@")[];
 }
-
-// VA 0x00C4FBAC
-extern "C" const void *const g_battlePlanTable00[13] = {
-	(const void *)&__identifier("??_GBattlePlanUpdate@@UAEPAXI@Z"), // slot 0, RVA 0x00497FD7
-	(const void *)&__identifier("?loadPostProcess@Rva00497805@@MAEXXZ"), // slot 1, RVA 0x00497805
-	(const void *)&__identifier("?name@Rva0049795ANamed@@QBEPBDXZ"), // slot 2, RVA 0x0049795A
-	(const void *)&__identifier("?xfer@BattlePlanUpdate@@MAEXPAVXfer@@@Z"), // slot 3, RVA 0x00498517
-	(const void *)&__identifier("?getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ"), // slot 4, RVA 0x00497915
-	(const void *)&__identifier("?onObjectCreated@BattlePlanUpdate@@UAEXXZ"), // slot 5, RVA 0x0049797F
-	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 6, RVA 0x000B3FD0
-	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 7, RVA 0x000B3FD0
-	(const void *)&__identifier("?cleanUp@SpectreGunshipUpdate@@QAEXXZ"), // slot 8, RVA 0x004984CC
-	(const void *)&__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z"), // slot 9, RVA 0x0050B238
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11, RVA 0x000D43D0
-	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12, RVA 0x0022C4CB
-};
-
-// VA 0x00C4D640
-extern "C" const void *const g_battlePlanTable0C[47] = {
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 0, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 1, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 2, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 3, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 4, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 5, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 6, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 7, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 8, RVA 0x000D43D0
-	(const void *)&__identifier("?getDie@DieModule@@UAEPAVDieModuleInterface@@XZ"), // slot 9, RVA 0x002533D3
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 12, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 13, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 14, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 15, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 16, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 17, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 18, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 19, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 20, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 21, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 22, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 23, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 24, RVA 0x000D43D0
-	(const void *)&__identifier("?get@Rva004543A9LeaNegSbbField@@UBEHXZ"), // slot 25, RVA 0x004543A9
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 26, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 27, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 28, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 29, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 30, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 31, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 32, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 33, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 34, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 35, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 36, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 37, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 38, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 39, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 40, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 41, RVA 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 42, RVA 0x000D43D0
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 43, RVA 0x0047A69C
-	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 44, RVA 0x000B3FD0
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 45, RVA 0x0047A69C
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 46, RVA 0x0047A69C
-};
-
-// VA 0x00C4FBA0
-extern "C" const void *const g_battlePlanTable10[3] = {
-	(const void *)&__identifier("?update@Rva0049862B@@QAEHXZ"), // slot 0, RVA 0x0049862B
-	(const void *)&__identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ"), // slot 1, RVA 0x00253376
-	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z"), // slot 2, RVA 0x0044DF8D
-};
-
-// VA 0x00C4FB7C
-extern "C" const void *const g_battlePlanTable20[9] = {
-	(const void *)&__identifier("?bfmeTransition@Gen_002854E0@@QAEXHHHIH@Z"), // slot 0, RVA 0x004976DB
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 1, RVA 0x0047A699
-	(const void *)&__identifier("?get@Rva00497960CmpBoolField@@QBE_NXZ"), // slot 2, RVA 0x00497960
-	(const void *)&__identifier("?getCommandOption@BattlePlanUpdate@@UBE?AW4CommandOption@@XZ"), // slot 3, RVA 0x0049771E
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 4, RVA 0x0047A699
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5, RVA 0x0047A69C
-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 6, RVA 0x005CB9FF
-	(const void *)&__identifier("?equals@Rva002857B0Object@@QAE_NH@Z"), // slot 7, RVA 0x00497969
-	(const void *)&__identifier("?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z"), // slot 8, RVA 0x005CB9FA
-};
+inline const void *const *battlePlanTable00() { return __identifier("??_7BattlePlanUpdate@@6BObjectModule@@@"); }
+inline const void *const *battlePlanTable0C() { return __identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@"); }
+inline const void *const *battlePlanTable10() { return __identifier("??_7BattlePlanUpdate@@6BUpdateModule@@@"); }
+inline const void *const *battlePlanTable20() { return __identifier("??_7BattlePlanUpdate@@6BSecondBase004978A3@@@"); }
+}
 
 class __declspec(novtable) BattlePlanUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
@@ -244,10 +142,10 @@ private:
 
 BattlePlanUpdate::BattlePlanUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
-	, m_bonuses((*(const void *const **)this = g_battlePlanTable00,
-		*(const void *const **)((char *)this + 0x0C) = g_battlePlanTable0C,
-		*(const void *const **)((char *)this + 0x10) = g_battlePlanTable10,
-		*(const void *const **)((char *)this + 0x20) = g_battlePlanTable20,
+	, m_bonuses((*(const void *const **)this = battlePlanTable00(),
+		*(const void *const **)((char *)this + 0x0C) = battlePlanTable0C(),
+		*(const void *const **)((char *)this + 0x10) = battlePlanTable10(),
+		*(const void *const **)((char *)this + 0x20) = battlePlanTable20(),
 		(Rva002AA14DBonuses *)NULL))
 	, m_84(1)
 {

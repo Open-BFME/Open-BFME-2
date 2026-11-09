@@ -893,3 +893,21 @@ slots). The refusal should become a bridge at the next real link; the
   loses neither (retail-truth-3). The census of 2026-11-09 17:55 UTC at `9b9d058303` (published `26347b3d52`), which includes
   `c43751b992` and `02815937a9`, measures it linked: `bfmedynamicvertexbuffer.cpp,yes,0,0,0,0,0`. Not a regression; no source
   change. Which copy an image keeps is `image_iso --kept-copies-only`'s to say.
+
+2026-11-09, unrowed strong-definition batch 2 (BattlePlanUpdate and the
+W3D InGameUI product): BattlePlanUpdateConstructor.cpp no longer defines
+g_battlePlanTable00/0C/10/20 (0x0084FBAC, 0x0084D640, 0x0084FBA0,
+0x0084FB7C); it stores the four SELECT_ANY compiler tables
+BattlePlanUpdateRva004978A3Dtor.cpp emits (??_7BattlePlanUpdate@@6B
+ObjectModule/BehaviorModuleInterface/UpdateModule/SecondBase004978A3@@@).
+Rva0008EF3FProductCtor_Unresolved.cpp no longer defines
+g_productPrimaryTable/SnapshotTable/Interface10Table (0x007C7A88,
+0x007C7A78, 0x007C7A64); it stores Rva0008F00DDtor.cpp's ledger-bound
+??_7Rva008F00D@@6BInGameUIPrimary/Second/Third@@@ tables, so constructor
+and destructor share one table per address. Those COMDAT tables are still
+short and remain bridge-retirement work; no bridge was added (each address
+already carried the COMDAT). Evidence: ./build.sh 2/2 matched;
+find_declared_unmatched and data_check clean; link_check over both
+constructors and both destructors 4/4 LINKS (693 -> 693 B). The three
+ParticleModuleTemplateClones.cpp strong tables (0x0081C608, 0x0081CEE8,
+0x0081CEF8) were left: that file is the only provider of those names.
