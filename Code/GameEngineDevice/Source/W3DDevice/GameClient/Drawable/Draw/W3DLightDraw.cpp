@@ -13,6 +13,7 @@
 // ??_7 pin at 0x00BCD820.
 
 class Xfer;
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include "BfmeModuleData.h"
 // Vtable 0x00BCD820 is the shared 31-slot ModuleData table; teardown restores
@@ -60,22 +61,9 @@ private:
 	float m_farAttenStart; // +0x100
 	float m_farAttenEnd; // +0x104
 };
-class DrawableModule
-{
-protected:
-	virtual ~DrawableModule();
-
-	void *m_moduleData; // +0x04
-	void *m_drawable; // +0x08
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 class Thing;
-class DrawModule : public DrawableModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~DrawModule() {}
-};
 class W3DLightDraw : public DrawModule
 {
 public:

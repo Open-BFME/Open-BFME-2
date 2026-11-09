@@ -19,18 +19,8 @@
 class Thing;
 class ModuleData;
 
-class DrawableModule
-{
-protected:
- virtual ~DrawableModule();
- void *m_moduleData;
- void *m_drawable;
-};
-class DrawModule : public DrawableModule
-{
-protected:
- virtual ~DrawModule() {}
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 
 class TextureBaseClass
 {

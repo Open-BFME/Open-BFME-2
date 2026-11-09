@@ -87,23 +87,7 @@ public:
 	OrnamentData m_params;
 };
 
-class DrawableModule
-{
-protected:
-	virtual ~DrawableModule();
-
-	W3DLaserDrawModuleData *m_moduleData;
-	Int m_bfmeField;
-};
-
-class DrawModule : public DrawableModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~DrawModule();
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class LaserDrawInterface
 {
@@ -309,9 +293,9 @@ W3DLaserDraw::W3DLaserDraw( Thing *thing, const ModuleData* moduleData ) :
 	m_selfDirty(TRUE),
 	m_field28(0),
 	m_field2c(1.0f),
-	m_field30(m_moduleData->valueAtUnmodelled0048())
+	m_field30(((W3DLaserDrawModuleData *)m_moduleData)->valueAtUnmodelled0048())
 {
-	const W3DLaserDrawModuleData *data = m_moduleData;
+	const W3DLaserDrawModuleData *data = (const W3DLaserDrawModuleData *)m_moduleData;
 	const std::vector<AsciiString> *textureNames = &data->m_textureNames;
 
 	m_params = data->m_params;
@@ -396,5 +380,5 @@ W3DLaserDraw::W3DLaserDraw( Thing *thing, const ModuleData* moduleData ) :
 // semantics; native BC26F0 supplies the exact 0.5f constant.
 Real W3DLaserDraw::getLaserTemplateWidth() const
 {
-	return m_moduleData->m_outerBeamWidth * 0.5f;
+	return ((const W3DLaserDrawModuleData *)m_moduleData)->m_outerBeamWidth * 0.5f;
 }

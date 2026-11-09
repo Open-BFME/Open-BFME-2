@@ -12,20 +12,8 @@ public:
 	unsigned int m_segments;
 };
 
-class DrawableModule
-{
-	protected:
-	virtual ~DrawableModule();
-
-	W3DLaserDrawModuleData *m_moduleData;
-	int m_bfmeField;
-};
-
-class DrawModule : public DrawableModule
-{
-protected:
-	virtual ~DrawModule() {}
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 
 // Same slot views as W3DLaserDrawBfmeConstructor.cpp, so both units emit one pair of
 // W3DLaserDraw tables.

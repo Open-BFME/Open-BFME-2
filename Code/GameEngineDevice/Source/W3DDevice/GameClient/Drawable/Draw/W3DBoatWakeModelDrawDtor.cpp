@@ -40,20 +40,8 @@ void Rva00082C88Host::rva00082C88(int key)
 	m_registry.rva00082536(key);
 }
 
-class DrawableModule
-{
-protected:
-	virtual ~DrawableModule();
-
-	const void *m_moduleData; // +0x04
-	int m_bfmeField; // +0x08
-};
-
-class DrawModule : public DrawableModule
-{
-protected:
-	virtual ~DrawModule() {}
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 
 class W3DBoatWakeModelDraw : public DrawModule
 {

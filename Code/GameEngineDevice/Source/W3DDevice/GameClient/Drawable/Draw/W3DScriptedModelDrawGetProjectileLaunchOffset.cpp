@@ -193,16 +193,7 @@ public:
 	void *m_bones;										///< +0x364
 };
 
-class DrawModule
-{
-public:
-	virtual void drawModuleSlot00();
-	const W3DModelDrawModuleData *getModuleData() const { return m_moduleData; }
-	Drawable *getDrawable() const { return m_drawable; }
-
-	const W3DModelDrawModuleData *m_moduleData;		///< +0x04
-	Drawable *m_drawable;								///< +0x08
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class ObjectDrawInterface
 {
@@ -219,7 +210,7 @@ public:
 		Int specificBarrelToUse, Matrix3D *launchPos, WhichTurretType tur, Coord3D *turretRotPos,
 		Coord3D *turretPitchPos) const;
 
-	const W3DModelDrawModuleData *getW3DModelDrawModuleData() const { return getModuleData(); }
+	const W3DModelDrawModuleData *getW3DModelDrawModuleData() const { return (const W3DModelDrawModuleData *)getModuleData(); }
 	const ModelConditionInfo *findBestInfo(const ModelConditionFlags &modelConditionFlags) const
 	{
 		return getW3DModelDrawModuleData()->findBestInfo(modelConditionFlags);

@@ -198,17 +198,13 @@ public:
 	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
 	virtual void s32(); virtual void s33(); virtual void s34();
 	virtual void setSlot8C(bool value);
-	virtual void clearSlot90();
+	virtual void vslot36();
 protected:
 	void *m_moduleData;
 	void *m_object;
 };
 
-class DrawModule : public ObjectModule
-{
-protected:
-	virtual void xfer(Xfer *);
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class Rva000C5C04SecondBase
 {
@@ -420,7 +416,7 @@ void W3DScriptedModelDraw::xfer(Xfer *xfer)
 
 	if (xfer->IsLoading())
 	{
-		clearSlot90();
+		vslot36();
 		int count;
 		(*xfer == count);
 		for (int i = 0; i < count; ++i)
@@ -557,7 +553,7 @@ void W3DScriptedModelDraw::xfer(Xfer *xfer)
 	}
 	if (xfer->IsLoading())
 	{
-		setSlot8C(value49);
+		setFullyObscuredByShroud(value49);
 		slot74();
 	}
 }

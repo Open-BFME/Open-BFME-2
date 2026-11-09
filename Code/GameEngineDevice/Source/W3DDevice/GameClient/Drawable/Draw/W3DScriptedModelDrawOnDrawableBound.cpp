@@ -111,16 +111,7 @@ int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
-class DrawModule
-{
-public:
-	SLOTS16(s0) SLOTS16(s1) SLOTS16(s2) SLOTS16(s3)
-	virtual void setModelState(const ModelConditionInfo *info, int unk, const ModelConditionInfo *boneState);	// +0x100
-	const W3DScriptedModelDrawModuleData *getW3DModelDrawModuleData() const { return m_moduleData; }
-	Drawable *getDrawable() const { return m_drawable; }
-	const W3DScriptedModelDrawModuleData *m_moduleData;
-	Drawable *m_drawable;
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class Rva000BFDFE { public: void rva000C0386(); };
 extern const char *animationModeNames[];
@@ -167,6 +158,10 @@ public:
 class W3DScriptedModelDraw : public DrawModule, public ObjectDrawInterface, public W3DScriptedModelDrawInterface10
 {
 public:
+	virtual void scriptedSlot62();
+	virtual void scriptedSlot63();
+	virtual void setModelState(const ModelConditionInfo *info, int unk, const ModelConditionInfo *boneState); // slot 64
+	const W3DScriptedModelDrawModuleData *getW3DModelDrawModuleData() const { return (const W3DScriptedModelDrawModuleData *)getModuleData(); }
 	virtual void onDrawableBoundToObject();
 	virtual void buildPlayingAnimationStringInfo(int index, AsciiString *animInfo, AsciiString *stateInfo);
 	const ModelConditionInfo *findBestInfo(const ModelConditionFlags &modelConditionFlags) const

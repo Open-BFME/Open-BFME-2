@@ -22,19 +22,8 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 struct BfmePod16 { int a[4]; };
 
-class DrawableModule
-{
-protected:
-	virtual ~DrawableModule();
-	void *m_moduleData;
-	void *m_drawable;
-};
-
-class DrawModule : public DrawableModule
-{
-protected:
-	virtual ~DrawModule() {}
-};
+#include "../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 
 struct RGBColor;
 

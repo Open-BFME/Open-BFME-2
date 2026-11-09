@@ -109,18 +109,7 @@ private:
 
 // Opaque 12-byte ClientUpdate-derived intermediate; ctor resolves to the
 // opaque pin at 0x000B19A1. Single vptr plus pad to the list at +0x0C.
-class DrawModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~DrawModule();
-public:
-
-protected:
-	unsigned char m_pad04[4];
-	Drawable *m_ropeDrawable;
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class Xfer;
 class RadiusDecal
@@ -203,7 +192,7 @@ void W3DTornadoDraw::rva000D17EF(int oldMtx, int oldPos, int oldAngle)
 {
 	for (_STL::list<int>::iterator it = m_boneIndices.begin(); it != m_boneIndices.end(); ++it) {
 		RadiusDecal *decal = reinterpret_cast<RadiusDecal *>(*it);
-		decal->setPosition(*m_ropeDrawable->getPosition());
+		decal->setPosition(*m_drawable->getPosition());
 	}
 }
 
@@ -211,7 +200,7 @@ void W3DTornadoDraw::rva000D17BA(int dummy)
 {
 	for (_STL::list<int>::iterator it = m_boneIndices.begin(); it != m_boneIndices.end(); ++it) {
 		RadiusDecal *decal = reinterpret_cast<RadiusDecal *>(*it);
-		decal->setPosition(*m_ropeDrawable->getPosition());
+		decal->setPosition(*m_drawable->getPosition());
 		decal->update();
 	}
 }

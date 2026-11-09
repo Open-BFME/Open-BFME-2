@@ -19,23 +19,7 @@
 class Thing;
 class ModuleData;
 
-class DrawableModule
-{
-public:
-	DrawableModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~DrawableModule();
-};
-
-class DrawModule : public DrawableModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-
-// Protected, as Zero Hour and W3DBoatWakeModelDrawDtor.cpp (first in link order)
-// declare it: the vtable slot names the protected scalar-deleting dtor.
-protected:
-	virtual ~DrawModule();
-};
+#include "../../../../Include/GameLogic/Module/DrawModule.h"
 
 // ??0DrawModule@@QAE@PAVThing@@PBVModuleData@@@Z
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
@@ -48,5 +32,7 @@ __declspec(noinline) inline DrawModule::DrawModule(Thing *thing, const ModuleDat
 // ?bfmeAnchorDrawModuleCtor absent-from-retail
 void *bfmeAnchorDrawModuleCtor(void *where, Thing *thing, const ModuleData *moduleData)
 {
-	return ::new (where) DrawModule(thing, moduleData);
+	// DrawModule is abstract in the canonical header, so call the constructor on the storage.
+	((DrawModule *)where)->DrawModule::DrawModule(thing, moduleData);
+	return where;
 }

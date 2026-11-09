@@ -104,16 +104,7 @@ class W3DModelDrawModuleData {public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define NAMEKEY(s) TheNameKeyGenerator->nameToKey(s)
 
-class DrawModule
-{
-public:
-	virtual void drawModuleSlot00();
-	const W3DModelDrawModuleData *getModuleData() const { return m_moduleData; }
-	Drawable *getDrawable() const { return m_drawable; }
-
-	const W3DModelDrawModuleData *m_moduleData;		///< +0x04
-	Drawable *m_drawable;								///< +0x08
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class ObjectDrawInterface
 {
@@ -136,7 +127,7 @@ public:
 		const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms,
 		Int maxBones, Int *boneIndices) const;
 
-	const W3DModelDrawModuleData *getW3DModelDrawModuleData() const { return getModuleData(); }
+	const W3DModelDrawModuleData *getW3DModelDrawModuleData() const { return (const W3DModelDrawModuleData *)getModuleData(); }
 	const ModelConditionInfo *findBestInfo(const ModelConditionFlags &modelConditionFlags) const
 	{
 		return getW3DModelDrawModuleData()->findBestInfo(modelConditionFlags);

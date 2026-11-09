@@ -19,21 +19,8 @@ struct BfmePod16 { int a[4]; };
 class Thing;
 class ModuleData;
 
-class DrawableModule
-{
-protected:
-	virtual ~DrawableModule();
-	void *m_moduleData;
-	void *m_drawable;
-};
-
-class DrawModule : public DrawableModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~DrawModule() {}
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 
 class RopeDrawInterface
 {
