@@ -526,3 +526,13 @@ not re-run: nothing it depends on moved. LINK-615 is the next step. Guards: the 
 through the swarm coordinator.
 
 2026-11-09, GPU producer follow-up: the served clone unit and earlier info-copy producer now share the canonical GpuDrawModuleInfo table with all four native slots. Twelve rows/seven EH graphs pass; both source previews are clean, and two header queue rows retire. This reconciles their private COMDAT copies without a new data owner or alias. Runtime factory/clone-primary tables still need genuine producers, while the Wind secondary alternative remains bridged. [Current copies and remaining identity gaps](../../reverse/attempt_support/gpu-info-producer-adoption-20261109/README.md).
+**2026-11-09 the 28 are not a regression from 11 (Link lane; real links `f9b8b46525` run 42489542040 and `1a6707e43c` run 42624991783).** The
+figure of 11 at `50ff761bcd` (2026-11-04) predates the real link requesting retail's exported names. The published series is 11 at `50ff761bcd`,
+8 at `6b74b10f48`, then 383 at `4f0e20847d` (the scoreboards' unique count), the first report with an `(export unowned)` row: 283, sampling
+this same `?$S128@?1??GetValue@?$DefaultModuleKey@$00@...`. `dc2ca44291` began exporting all 1,964 retail names in the /DEF, and `541abc6d4a`
+("Keep unresolved exports in the real-link error TSV") is in the same range. Since then the series falls, apart from one-off rises of 1 at
+`e3760a5c6c` and `1d4eb4c3a2`.
+`cb902c5af6` and `0a55ac9ced` raised nothing: `f9b8b46525` contains neither and reports 107 unresolved, and every symbol in `errors.tsv` at
+`1a6707e43c` is already in `errors.tsv` at `f9b8b46525`. So there is no commit to revert. The 28 are this entry's 14 `$S` guards and 12
+`ModuleTag` KEY/NAME, plus LINK-018's two `Matrix4D` names. What moves them is unchanged: LINK-615 for KEY/NAME, then a re-run of the 2026-11-08
+base-class trial; the owner's decision on the guard options.
