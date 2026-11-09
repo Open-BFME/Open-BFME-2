@@ -235,3 +235,16 @@ UnsignedInt NetDisconnectScreenOffCommandMsg::getNewFrame() {
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?count@XmlNameSlotList@@QAEHXZ=?getTotalDataLength@NetWrapperCommandMsg@@QAEIXZ")
 
+// The folded 28-byte empty-string body at 0x0028F940. No retail vftable holds it, and
+// NetCommandMsg's own table holds 0x004D5B4C at slot 3, so it is not NetCommandMsg's
+// getContentsAsAsciiString. Its owner is unknown: the class and name are address-derived.
+class Rva0028F940
+{
+public:
+ AsciiString rva0028F940();
+};
+AsciiString Rva0028F940::rva0028F940()
+{
+ return AsciiString::TheEmptyString;
+}
+

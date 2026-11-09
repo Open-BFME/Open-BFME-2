@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ, retail 0x004D5B4C, 223 bytes.
+// ?getContentsAsAsciiString@NetCommandMsg@@UAE?AVAsciiString@@XZ, retail 0x004D5B4C, 223 bytes.
 // NetCommandMsg contents formatter: when DoesCommandRequireACommandID says the
 // type needs an id, formats "<sessionID=%d, frame=%d, player=%d, id=%d>, %s"
 // with the Rva type name, else "<sessionID=%d, frame=%d, player=%d>, %s".
@@ -33,7 +33,7 @@ __forceinline const char *GetStr004D5B4C(const AsciiString &asciiString)
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-AsciiString NetCommandMsg::rva004D5B4C()
+AsciiString NetCommandMsg::getContentsAsAsciiString()
 {
 	AsciiString result;
 	if (DoesCommandRequireACommandID(m_commandType))

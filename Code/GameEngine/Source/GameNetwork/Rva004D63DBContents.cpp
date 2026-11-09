@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?getContentsAsAsciiString@Rva004D63DB@@UAE?AVAsciiString@@XZ, retail 0x004D63DB, 141 bytes.
 // Rva004D63DB (dwords +0x1c/+0x20) contents: base
-// NetCommandMsg::rva004D5B4C plus ", leavePlayer=%d, reason = %d".
+// NetCommandMsg::getContentsAsAsciiString plus ", leavePlayer=%d, reason = %d".
 // Identity from same-shape sibling Rva004D59D1 0x004D634E (141B), callee base
 // 0x004D5B4C, format "%s, leavePlayer=%d, reason = %d" at 0x008604CC,
 // format 0x00038150, and empty fallback g_Rva0107301CEmptyString.
@@ -39,6 +39,6 @@ private:
 AsciiString Rva004D63DB::getContentsAsAsciiString()
 {
 	AsciiString result;
-	result.format("%s, leavePlayer=%d, reason = %d", GetStr004D63DB(((NetCommandMsg *)this)->rva004D5B4C()), m_leavePlayer, m_reason);
+	result.format("%s, leavePlayer=%d, reason = %d", GetStr004D63DB(((NetCommandMsg *)this)->NetCommandMsg::getContentsAsAsciiString()), m_leavePlayer, m_reason);
 	return result;
 }

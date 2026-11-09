@@ -32,7 +32,6 @@ public:
     NetCommandType getNetCommandType() { return m_commandType; }
     void attach();
     void detach();
-    AsciiString rva004D5B4C();
 
 protected:
     virtual ~NetCommandMsg();

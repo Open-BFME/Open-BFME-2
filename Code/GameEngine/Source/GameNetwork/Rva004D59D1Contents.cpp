@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?getContentsAsAsciiString@Rva004D59D1@@UAE?AVAsciiString@@XZ, retail 0x004D634E, 141 bytes.
 // Rva004D59D1 (type 8, dwords +0x1c/+0x20) contents: base
-// NetCommandMsg::rva004D5B4C plus ", leavePlayer=%d playerLeaveFrame=%d".
+// NetCommandMsg::getContentsAsAsciiString plus ", leavePlayer=%d playerLeaveFrame=%d".
 // Identity from vtable slot 3 of 0x00860274, format at 0x008604A4, callee base
 // 0x004D5B4C, format 0x00038150, and empty fallback g_Rva0107301CEmptyString.
 // Push order is base then +0x20 then +0x1c (retail pushes +0x1c first).
@@ -39,6 +39,6 @@ private:
 AsciiString Rva004D59D1::getContentsAsAsciiString()
 {
 	AsciiString result;
-	result.format("%s, leavePlayer=%d playerLeaveFrame=%d", GetStr004D634E(((NetCommandMsg *)this)->rva004D5B4C()), m_20, m_1c);
+	result.format("%s, leavePlayer=%d playerLeaveFrame=%d", GetStr004D634E(((NetCommandMsg *)this)->NetCommandMsg::getContentsAsAsciiString()), m_20, m_1c);
 	return result;
 }

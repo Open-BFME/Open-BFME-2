@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?getContentsAsAsciiString@NetAckStage1CommandMsg@@UAE?AVAsciiString@@XZ, retail 0x004D5E86, 151 bytes.
 // NetAckStage1CommandMsg contents slot 3 of 0x00860204: base
-// NetCommandMsg::rva004D5B4C plus ", commandID=%d, origPlayer=%d, origExeSID=%d, origExecFrame=%d".
+// NetCommandMsg::getContentsAsAsciiString plus ", commandID=%d, origPlayer=%d, origExeSID=%d, origExecFrame=%d".
 // Identity from vtable slot 3, ctor 0x004D56E6 layout +0x1c word +0x1e byte +0x20 +0x24,
 // format 0x008603A0, callee base 0x004D5B4C, format 0x00038150,
 // and empty fallback g_Rva0107301CEmptyString.
@@ -48,7 +48,7 @@ private:
 AsciiString NetAckStage1CommandMsg::getContentsAsAsciiString()
 {
 	AsciiString result;
-	result.format("%s, commandID=%d, origPlayer=%d, origExeSID=%d, origExecFrame=%d", GetStr004D5E86(((NetCommandMsg *)this)->rva004D5B4C()), m_commandID, m_originalPlayerID, m_20, m_24);
+	result.format("%s, commandID=%d, origPlayer=%d, origExeSID=%d, origExecFrame=%d", GetStr004D5E86(((NetCommandMsg *)this)->NetCommandMsg::getContentsAsAsciiString()), m_commandID, m_originalPlayerID, m_20, m_24);
 	return result;
 }
 

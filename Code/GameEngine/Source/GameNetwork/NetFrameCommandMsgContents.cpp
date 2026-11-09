@@ -1,6 +1,6 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?getContentsAsAsciiString@NetFrameCommandMsg@@UAE?AVAsciiString@@XZ, retail 0x004D5C2B, 147 bytes.
-// NetFrameCommandMsg contents slot 3: base NetCommandMsg::rva004D5B4C plus
+// NetFrameCommandMsg contents slot 3: base NetCommandMsg::getContentsAsAsciiString plus
 // ", logicFrame=%d, clientFrame=%d, totalCommands=%d" over the three dwords at
 // +0x1C/+0x20/+0x24 (the frame command's frame, player frame and command
 // count, as NetPacket's frame arm and sendFrameInfo name them).
@@ -34,6 +34,6 @@ __forceinline const char *GetStr004D5C2B(const AsciiString &asciiString)
 AsciiString NetFrameCommandMsg::getContentsAsAsciiString()
 {
 	AsciiString result;
-	result.format("%s, logicFrame=%d, clientFrame=%d, totalCommands=%d", GetStr004D5C2B(((NetCommandMsg *)this)->rva004D5B4C()), getFrame(), getPlayerFrame(), getCommandCount());
+	result.format("%s, logicFrame=%d, clientFrame=%d, totalCommands=%d", GetStr004D5C2B(((NetCommandMsg *)this)->NetCommandMsg::getContentsAsAsciiString()), getFrame(), getPlayerFrame(), getCommandCount());
 	return result;
 }

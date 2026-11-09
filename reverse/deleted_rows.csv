@@ -6050,3 +6050,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??1Rva004C3108@@UAE@XZ,0x004C3108,"Renamed to ??1OCLSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5CC74)"
 ??_GRva004C3108@@UAEPAXI@Z,0x004C318C,"Renamed to ??_GOCLSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5CC74)"
 ?getContentsAsAsciiString@NetCommandMsg@@UAE?AVAsciiString@@XZ,0x0028F940,"Retracted: no retail vftable holds 0x0028F940, and NetCommandMsg's own table (slot 3) and 7 subclass tables hold 0x004D5B4C, the formatting body. This 28-byte empty-string body is not NetCommandMsg's getContentsAsAsciiString; its owner is unknown."
+?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ,0x004D5B4C,"Renamed to ?getContentsAsAsciiString@NetCommandMsg@@UAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
+__ehhandler$?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ,0x00791041,"Renamed to __ehhandler$?getContentsAsAsciiString@NetCommandMsg@@UAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
