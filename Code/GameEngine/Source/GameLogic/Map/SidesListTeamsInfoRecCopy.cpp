@@ -25,6 +25,14 @@ namespace _STL { template <> _Rb_tree<pair<AsciiString, AsciiString>, pair<pair<
 class Dict
 {
 public:
+	// A copy shares the pair data and takes a reference, as retail's team
+	// record copy 0x0032A304 does (inc word ptr [data]); without it, growing
+	// the team vector freed data the new records still held (P106).
+	Dict(const Dict &src) : m_data(src.m_data)
+	{
+		if (m_data)
+			++*(unsigned short *)m_data;
+	}
 	~Dict() { releaseData(); }
 	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
 
