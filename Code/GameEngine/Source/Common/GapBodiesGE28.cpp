@@ -208,16 +208,18 @@ struct Rva005279C7Holder
 	Rva005279C7Outer *m_outer;
 };
 
-class Rva005279C7
+// Slot 0 of Rva0052787E's table 0x00C6805C (constructor in RvaSmallVtableCtors.cpp).
+class Rva0052787E
 {
 public:
-	int rva005279C7() const;
+	virtual int rva005279C7() const;
+	virtual void rva00527B9A(int firstValue, int secondValue, int thirdValue);
+	virtual int rva00527B81(char *outputBuffer);
 private:
-	int m_00;
 	Rva005279C7Holder *m_holder;
 };
 
-int Rva005279C7::rva005279C7() const
+int Rva0052787E::rva005279C7() const
 {
 	Rva005279C7Record *record = m_holder->m_outer->m_record;
 	if (record)

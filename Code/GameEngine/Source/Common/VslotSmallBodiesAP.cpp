@@ -49,15 +49,17 @@ public:
 	void Rva00527BA2(char *firstValue, Int secondValue, Int thirdValue);
 };
 typedef Holder00527BA2 Rva00527BA2;
-class Rva00527B9A
+// Slot 1 of Rva0052787E's table 0x00C6805C (constructor in RvaSmallVtableCtors.cpp).
+class Rva0052787E
 {
 public:
-	void rva00527B9A(Int firstValue, Int secondValue, Int thirdValue);
+	virtual int rva005279C7() const;
+	virtual void rva00527B9A(int firstValue, int secondValue, int thirdValue);
+	virtual int rva00527B81(char *outputBuffer);
 private:
-	char m_pad00[0x04];
 	Rva00527BA2 *m_04;
 };
-void Rva00527B9A::rva00527B9A(Int firstValue, Int secondValue, Int thirdValue)
+void Rva0052787E::rva00527B9A(Int firstValue, Int secondValue, Int thirdValue)
 {
 	m_04->Rva00527BA2((char *)firstValue, secondValue, thirdValue);
 }

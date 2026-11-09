@@ -5998,3 +5998,6 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?rva00222A2B@Rva00222A2B@@QAEHXZ,0x00222A2B,"Renamed to ?rva00222A2B@Rva00222A19@@UAEHXZ by tools/rename.py (to-class: retail vftable 0x00BE6D5C slot 0)"
 ?rva00222D3F@Rva00222D3FForwarder@@QAEXHHH@Z,0x00222D3F,"Renamed to ?rva00222D3F@Rva00222A19@@UAEXHHH@Z by tools/rename.py (to-class: retail vftable 0x00BE6D5C slot 1)"
 ?rva00222D26@Rva00222D26@@QAEHPAD@Z,0x00222D26,"Renamed to ?rva00222D26@Rva00222A19@@UAEHPAD@Z by tools/rename.py (to-class: retail vftable 0x00BE6D5C slot 2)"
+?rva005279C7@Rva005279C7@@QBEHXZ,0x005279C7,"Renamed to ?rva005279C7@Rva0052787E@@UBEHXZ by tools/rename.py (to-class: retail vftable 0x00C6805C slot 0)"
+?rva00527B9A@Rva00527B9A@@QAEXHHH@Z,0x00527B9A,"Renamed to ?rva00527B9A@Rva0052787E@@UAEXHHH@Z by tools/rename.py (to-class: retail vftable 0x00C6805C slot 1)"
+?rva00527B81@Rva00527B81@@QAEHPAD@Z,0x00527B81,"Renamed to ?rva00527B81@Rva0052787E@@UAEHPAD@Z by tools/rename.py (to-class: retail vftable 0x00C6805C slot 2)"

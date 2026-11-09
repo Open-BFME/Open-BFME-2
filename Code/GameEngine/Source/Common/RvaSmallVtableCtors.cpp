@@ -1206,11 +1206,16 @@ Rva00306A36::Rva00306A36(void *payload) : m_04(payload)
 }
 
 // ??0Rva0052787E@@QAE@PAX@Z @0x0052787E 18B, vtable VA 0x00c6805c
+// Retail's three-slot table holds 0x005279C7 (GapBodiesGE28.cpp), 0x00527B9A
+// (VslotSmallBodiesAP.cpp) and 0x00527B81 (Bfme/Rva00527827Constructor.cpp),
+// each reaching the +4 payload.
 class Rva0052787E
 {
 public:
 	Rva0052787E(void *payload);
-	virtual ~Rva0052787E() {}
+	virtual int rva005279C7() const;
+	virtual void rva00527B9A(int firstValue, int secondValue, int thirdValue);
+	virtual int rva00527B81(char *outputBuffer);
 private:
 	void *m_04;
 };

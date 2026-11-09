@@ -158,17 +158,19 @@ struct Rva00527B81Node
 	AsciiStringRef m_ref;
 };
 
-class Rva00527B81
+// Slot 2 of Rva0052787E's table 0x00C6805C (constructor in RvaSmallVtableCtors.cpp).
+class Rva0052787E
 {
 public:
-	int rva00527B81(char *outputBuffer);
+	virtual int rva005279C7() const;
+	virtual void rva00527B9A(int firstValue, int secondValue, int thirdValue);
+	virtual int rva00527B81(char *outputBuffer);
 private:
-	void *m_vtable;
 	Rva00527B81Node *m_node;
 };
 
-// ?rva00527B81@Rva00527B81@@QAEHPAD@Z @0x00527B81 (25B)
-int Rva00527B81::rva00527B81(char *outputBuffer)
+// ?rva00527B81@Rva0052787E@@UAEHPAD@Z @0x00527B81 (25B)
+int Rva0052787E::rva00527B81(char *outputBuffer)
 {
 	Rva00527B81Node *node = m_node;
 	*outputBuffer = node->m_char;
