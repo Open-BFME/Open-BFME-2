@@ -9,15 +9,10 @@ class ModuleData;
 class Object;
 class Xfer;
 struct Coord3D;
-// Before Drawable.h: that header selects Snapshot's capitalized slot names
-// when it is the first to include Snapshot.h, and CrateCollide's xfer would
-// then open a new slot instead of overriding slot 3.
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../../../../../Include/GameClient/Drawable.h"
 class UnitCrateCollideModuleData;
-
-
 // The class views SalvageCrateCollide.cpp compiles for the family.
 // The collide interface at +0x10: retail's crate tables there (0x00C5A600
 // for UnitCrateCollide) have six slots; slot 0 is CrateCollide::onCollide
@@ -27,7 +22,6 @@ class CollideModuleInterface
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
-
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
 class CollideModule : public BehaviorModule, public CollideModuleInterface
 {
@@ -38,7 +32,6 @@ public:
 	// rowed at 0x002533D3 (header-inline in CollideModule.h; SquishCollideCtor.cpp).
 	virtual CollideModuleInterface *getCollide();
 };
-
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
 class CrateCollide : public CollideModule
 {
@@ -54,7 +47,6 @@ protected:
 private:
 	bool m_everExecuted;			// +0x14, right after the three module bases
 };
-
 // Target facts: UnitCrateCollide's primary table 0x00C5A914 has slot 4
 // getModuleNameKey 0x004BCC5C and slot 12 executeCrateBehavior 0x004BCCBD.
 class UnitCrateCollide : public CrateCollide
@@ -70,12 +62,10 @@ private:
 		return (const UnitCrateCollideModuleData *)m_moduleData;
 	}
 };
-class Object;
 class Player;
 class Team;
 class ThingTemplate;
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
-
 struct FindPositionOptions
 {
 	unsigned int flags;
@@ -87,49 +77,32 @@ struct FindPositionOptions
 	const void *sourceToPathToDest;
 	const void *relationshipObject;
 };
-
 struct CreateMask
 {
 	char m_pad[0x10];
 };
-
 #include "../../../../Common/Thing/thing.h"
-
 #include "../../object.h"
-
 #include "../../../../../Include/Common/Player.h"
-
 enum ObjectID;
-
  extern class ThingFactory *TheThingFactory;
-
-// memset is msvcr71's, called through its import thunk at 0x006291AE
-// rather than expanded inline: <string.h>'s memset with
-// #pragma function(memset).
 #include <string.h>
 #pragma function(memset)
-
 #include "../../../../../Include/Common/ThingFactory.h"
-
 #include "../../../../Common/PartitionRangeQueryCallView.h"
-
 // Retail's value at RVA 0x0085A910 (.rdata, four bytes): the bytes there are
 // f3 4f c3 c7, i.e. the float -99999.9f. The rowed crate-collide body passes it
 // straight to FindPositionOptions::startAngle. `extern` on the definition keeps
 // the const object external (otherwise MSVC gives it internal linkage and the
 // reference in this very TU is unresolved).
 extern const float g_00C5A910 = -99999.9f;
-
 class AudioManager;
-
 extern AudioManager *TheAudio;
-
 struct UnitCrateMiscView
 {
 	char _pad[0x5C];
 	OpaqueRefElement4 crateFreeUnit;	// +0x5C
 };
-
 class UnitCrateAudioView
 {
 public:
@@ -213,13 +186,11 @@ public:
 	virtual void slot77();
 	virtual const UnitCrateMiscView *getMiscAudio();
 };
-
 class Rva002D9531
 {
 public:
 	void rva002D9531(int v);	// 0x002D9531
 };
-
 class CrateCollideModuleData
 {
 public:
@@ -228,23 +199,86 @@ public:
 private:
 	unsigned char m_pad[0x5C - 4];
 };
-
 class UnitCrateCollideModuleData : public CrateCollideModuleData
 {
 public:
 	unsigned int m_unitCount;	// +0x5C
 	AsciiString m_unitType;	// +0x60
 };
-
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
+
+//
+// Opaque single-inheritance destructors tail-calling CrateCollide::~
+// CrateCollide at 0x004BC4FC (matched opaque MI base dtor in
+// Rva004BB68EDerived.cpp; only declared here so each tail-call resolves to
+// the ledger address instead of a same-TU definition). Each class below
+// derives singly from the MI base (inheriting its +0x00/+0x0C/+0x10 vptr
+// layout, including the family-shared +0x0C secondary 0xC5A040) and
+// overrides all three vptrs before tail-calling the base destructor.
+// Owner identities are unproven (opaque Rva names). One ledger row per
+// destructor, landed one commit at a time.
+
+class Rva004BC4FC_Root
+{
+public:
+	virtual ~Rva004BC4FC_Root();
+
+private:
+	char m_pad04[8];
+};
+
+class Rva004BC4FC_Mid
+{
+public:
+	virtual void f1();
+};
+
+class Object;
+
+struct Coord3D;
+
+// The collide interface (+0x10): its only slot is onCollide.
+class Rva004BC4FC_B2
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+class Rva004BCC43 : public CrateCollide
+{
+public:
+	virtual ~Rva004BCC43();
+};
 
 // tu-skeleton: 0x004BCC13 42B ??0UnitCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004BCC3D 6B ?Rva004BCC3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004BCC43 25B ??1Rva004BCC43@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
+
+Rva004BCC43::~Rva004BCC43()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp
+
+// Before Drawable.h: that header selects Snapshot's capitalized slot names
+// when it is the first to include Snapshot.h, and CrateCollide's xfer would
+// then open a new slot instead of overriding slot 3.
+
+// memset is msvcr71's, called through its import thunk at 0x006291AE
+// rather than expanded inline: <string.h>'s memset with
+// #pragma function(memset).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/UnitCrateCollidePoolKey.cpp
 
@@ -265,8 +299,6 @@ NameKeyType UnitCrateCollide::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("UnitCrateCollide");
 	return TheUnitCrateCollidePoolKey;
 }
-
-// tu-skeleton: 0x004BCCA1 28B ??_GRva004BCC43@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideExecute.cpp
 
