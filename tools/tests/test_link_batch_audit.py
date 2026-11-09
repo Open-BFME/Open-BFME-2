@@ -1388,7 +1388,7 @@ def test_each_run_logs_its_verdict_and_changes_no_output_or_exit(monkeypatch, tm
     record = logged[0]
     assert (record["verdict"], record["reason"], record["exit"], record["sources"]) == (verdict, reason, code, 2)
     assert record["lines"] == printed and record["base"] == "b" * 40 and record["tip"] == "t" * 40
-    assert record["exact_base"] is not any("baseline" in line for line in printed)
+    assert record["exact_base"] is None and record["judged"] is False      # this stand-in audit established neither
 
 
 def test_a_crashing_audit_is_logged_and_still_crashes(monkeypatch, tmp_path):
@@ -1470,3 +1470,58 @@ def test_concurrent_writers_never_interleave_a_line(tmp_path, locked):
         assert sorted((r["writer"], r["n"]) for r in whole) == expected
     else:
         assert len(whole) < len(expected)                                 # the control does interleave
+
+
+def test_the_log_says_a_batch_was_judged_at_an_exact_base(batch):
+    A.EVIDENCE.update(exact_base=None, judged=False)
+    A.audit("a" * 40, "b" * 40, [])
+    assert A.EVIDENCE == {"exact_base": True, "judged": True}
+    record = A.verdict_record(0, [], "a", "b", 1)
+    assert (record["exact_base"], record["judged"]) == (True, True)
+
+
+def test_the_log_says_a_batch_was_judged_on_an_older_index(batch):
+    A.EVIDENCE.update(exact_base=None, judged=False)
+    assert A.audit("c" * 40, "b" * 40, []) == 2
+    assert A.EVIDENCE == {"exact_base": False, "judged": True}
+
+
+def test_missing_receipts_compare_the_base_but_judge_nothing(batch, monkeypatch):
+    A.EVIDENCE.update(exact_base=None, judged=False)
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    assert A.audit("a" * 40, "b" * 40, []) == 2
+    assert A.EVIDENCE == {"exact_base": True, "judged": False}
+
+
+def test_an_early_return_compares_nothing(batch):
+    _, _, changes, _ = batch
+    changes.clear()
+    A.EVIDENCE.update(exact_base=None, judged=False)
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert A.EVIDENCE == {"exact_base": None, "judged": False}
+    assert A.verdict_record(0, ["link batch audit: no changed source objects"], "a", "b", 0)["exact_base"] is None
+
+
+def test_a_missing_index_compares_nothing(batch, monkeypatch, tmp_path):
+    monkeypatch.setattr(A.link_check, "INDEX", tmp_path / "absent.pkl")
+    A.EVIDENCE.update(exact_base=None, judged=False)
+    assert A.audit("a" * 40, "b" * 40, ["Code/provider.cpp"]) == 2
+    assert A.EVIDENCE == {"exact_base": None, "judged": False}
+
+
+def test_an_omitted_reference_refusal_counts_as_judged(batch, monkeypatch):
+    monkeypatch.setattr(A, "omitted_references", lambda rows, objects: [("provider.obj", "name")])
+    A.EVIDENCE.update(exact_base=None, judged=False)
+    assert A.audit("c" * 40, "b" * 40, []) == 1                # refuses at an older index too
+    assert A.EVIDENCE == {"exact_base": False, "judged": True}
+
+
+def test_each_run_starts_with_no_evidence(monkeypatch, tmp_path):
+    A.EVIDENCE.update(exact_base=True, judged=True)            # as a previous run in this process left it
+
+    def audit(base, tip, verified):
+        print("link batch audit: no changed source objects")
+        return 0
+    got, logged = _run_main(monkeypatch, tmp_path, audit)
+    assert got == 0
+    assert (logged[0]["exact_base"], logged[0]["judged"]) == (None, False)

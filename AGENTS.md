@@ -259,7 +259,10 @@ verified and easy to rebase. Detail for the hook rules:
   batch, including ledger/pin identity edits, removed providers and changed
   class declarations. It checks affected consumers and refuses proven losses
   of previously linking units, even when changed bodies byte-match. Read its
-  report; inconclusive means unverified, not clean. Carry those cases into the
+  report; inconclusive means unverified, not clean. In practice most pushes are
+  inconclusive, so the census and the real link are what catch a link loss, and
+  a landing script must read `link_check.py`'s own verdict before pushing rather
+  than rely on the audit. Carry those cases into the
   next census and record link obstacles in `docs/linking_obstacles/` (one file per entry,
   `docs/linking_obstacles.md`).
 - Never start, re-run or approve `tools/nightly_measure.py`, the nightly

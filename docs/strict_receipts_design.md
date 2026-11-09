@@ -3,7 +3,8 @@
 Status: only step 0, the verdict logger, has landed (e2b22f90d4, 104cd6d6a8).
 Steps 1 to 5 are not scheduled. The owner will revisit them once the log has a
 real sample of INCONCLUSIVE rates to judge them by; on 2026-11-08 it held 9 real
-lines, 3 of them inconclusive, which is too few. If scheduled, they change
+lines, 3 of them inconclusive, which is too few; on 2026-11-09 it held 233, none
+of them a judged batch, and receipts are not the only wall (LINK-651). If scheduled, they change
 `tools/build.py` and what the hooks' compiles write, so they land as their own
 reviewed `Verifier-Change` commit. Revised 2026-11-07 after the Link lane's
 review; checked against master at 3b141964e7 on 2026-11-08. Evidence:
@@ -50,7 +51,9 @@ Step 0 describes what landed. Steps 1 to 5 are the unscheduled proposal.
    - **Fields:** `utc`, `base`, `tip`, `verdict` (`clean`, `failed`,
      `inconclusive`, `crashed`, or `exit-N` for any other exit code), `reason`
      for an inconclusive run (`missing-receipts`, `consumer-receipt`, `no-index`,
-     `non-exact-base`, else `other`), `exit`, `sources` (the scope), `exact_base`,
+     `non-exact-base`, else `other`), `exit`, `sources` (the scope), `exact_base`
+     (null when the run returned before comparing), `judged` (the batch's objects
+     were read through to a verdict),
      `real_link_findings`, and `lines` (the first 12 output lines, each cut to 300
      characters). There is no missing-count field; that count is only in the text
      of `lines`.

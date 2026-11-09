@@ -498,6 +498,11 @@ def bridged_names():
     return found
 
 
+# What this run established, for its log line: exact_base stays None when it returned before comparing the index with
+# the base, and judged stays False unless it read the batch's objects through to a verdict.
+EVIDENCE = {"exact_base": None, "judged": False}
+
+
 def report_real_link_losses(losses, exact_base):
     """Print the real-link findings; (exit code or None). Only a `loss` on an exact base refuses,
     and only in refuse mode."""
@@ -602,6 +607,7 @@ def audit(base, tip, verified):
     exact_base = bool(meta.get("commit") and meta.get("clean_tree", True) and not git(
         "diff", "--name-only", meta["commit"], base, "--", *link_census.CENSUS_INPUTS,
         *("tools/" + name for name in link_census.TOOL_FILES)))
+    EVIDENCE["exact_base"] = exact_base
     if not exact_base:
         print(f"link batch audit: INCONCLUSIVE baseline: index at {meta.get('commit', '?')}, "
               f"outgoing base {base}; findings below are provisional since-index changes")
@@ -634,6 +640,7 @@ def audit(base, tip, verified):
     built = {build.obj_path(link_check.ROOT / source) for source in sorted(scope & set(verified))} | set(replacements)
     refused = omitted_references(rows, sorted(obj for obj in built if obj.is_file()))
     if refused:
+        EVIDENCE["judged"] = True
         for obj, name in refused[:20]:
             print(f"  OMITTED {obj} references {name}, defined in a placement object the real link leaves out")
         print(f"link batch audit: FAILED: {len(refused)} reference(s) to omitted objects; "
@@ -727,6 +734,7 @@ def audit(base, tip, verified):
                     index["bytes"].get(s, 0) for s in credited)
     print(f"link batch audit: {len(replacements)} current object(s), {len(removed)} retired; "
           f"index {meta.get('date', '?')} at {base}")
+    EVIDENCE["judged"] = True
     for name, before, after, reason in findings:
         print(f"  REVIEW {reason}: {name}; selected {before or '(none)'} -> {after or '(none)'}; "
               "affected consumer bytes require census confirmation")
@@ -793,7 +801,7 @@ def verdict_record(code, lines, base, tip, sources):
         reason = next((name for marker, name in VERDICT_REASONS if marker in text), "other")
     return {"utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "base": base, "tip": tip,
             "verdict": verdict, "reason": reason, "exit": code, "sources": sources,
-            "exact_base": not any("INCONCLUSIVE baseline" in line for line in lines),
+            "exact_base": EVIDENCE["exact_base"], "judged": EVIDENCE["judged"],
             "real_link_findings": any("real link would no longer resolve" in line for line in lines),
             "lines": [line[:300] for line in lines[:12]]}
 
@@ -843,6 +851,7 @@ def main():
         sources = len([part for part in Path(args.sources_from).read_bytes().split(b"\0") if part])
     except OSError:
         pass
+    EVIDENCE.update(exact_base=None, judged=False)
     tee = _Tee(sys.stdout)
     sys.stdout = tee
     try:
