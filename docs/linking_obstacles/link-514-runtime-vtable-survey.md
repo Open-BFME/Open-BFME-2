@@ -90,7 +90,8 @@ placeholder class (`RvaXXXXXXXXNamed`), 64 off a readable class (`?name@DockUpda
   BattlePlanUpdate, BloodthirstyUpdate, CritterEmitterUpdate, FireWeaponUpdate, PoisonedBehavior
   and others.
 - Wall 4, an installer without a table: PartTheHeavensUpdate (0x004AC93C; the kept copy is
-  otherwise 12/13 equal) is refused because PartTheHeavensUpdateCtor.cpp stores dummies, not a
+  otherwise 12/13 equal) is refused because PartTheHeavensUpdateCtor.cpp (merged into
+  PartTheHeavensUpdate.cpp on 2026-11-09) stores dummies, not a
   `??_7` (see the next item).
 - Held at the time (skipped): SubsystemNameGetters.cpp (class claims of yasinschroeder-claude),
   and SubsystemNameGetters2/4.cpp and ModuleNameGetters3.cpp (lk28).
