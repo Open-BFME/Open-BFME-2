@@ -1470,3 +1470,63 @@ table row, and `call [reg+disp]` slots read from rowed retail callers.
   (fold row plus GetSnapshotName respell). (3) The LevelUp/WeaponSet folds after their
   FireWeaponWhenDeadBehaviorDerived.cpp views adopt UpgradeModule.h. (4) AudioLoopUpgrade's interface
   table (slots 7/10, casts 0x004523A9/0x004543A9) and ReplaceSelfUpgrade's (slot 3, 0x004B4A8C).
+
+**Upgrade folds, slot-1 rows, cast slots and GetSnapshotName moves (2026-11-09, seat halilkkaya-lk77,
+base `ab05313adb`).** Method: lk74's one-pass snapshot (old = new = HEAD's `tools/vtable_bridge.py`)
+after every batch; lk56's per-class Upgrade header recipe; `rename.py class --fold` and
+`function --to-class` (run, not edited); per-unit `??_7` diffs before and after each change.
+- Done, 14 commits (`d4a137741a1` .. `43017abced0`):
+  - LevelUpUpgrade.h and WeaponSetUpgrade.h over UpgradeModule.h, adopted by the ctor units and by
+    FireWeaponWhenDeadBehaviorDerived.cpp, with the folds Rva004B3D3B -> LevelUpUpgrade and
+    Rva004B568B -> WeaponSetUpgrade (the scaffold now owns the only strong `??1`, and its four table
+    copies equal the ctor units') and `--to-class` of both name getters into GetSnapshotName. This
+    was lk76's lead 3; the scaffold already included UpgradeModule.h, and the missing piece was a
+    shared per-class header.
+  - 0x00497805 `loadPostProcess` rows for eleven simple Upgrade classes (lk76 lead 2, slot 1).
+  - `--to-class` GetSnapshotName for the five of those whose getter was still a placeholder
+    (Garrison, ExperienceScalar, MaxHealth, ModelCondition, AttributeModifier).
+  - Cast-slot overrides rowed as ICF twins (0x004523A9, 0x004543A9, 0x00485EE9, 0x003730FC):
+    AudioLoopUpgrade (slots 7/10, lk76 lead 4), PropagandaTowerBehavior, PoisonedBehavior,
+    BroadcastStealthUpdate, RadiateFearUpdate, ReplenishUnitsBehavior, AttributeModifierAuraUpdate,
+    FireWeaponWhenDamagedBehavior, CritterEmitterUpdate, DamageFilteredCreateObjectDie,
+    FakePathfindPortalBehaviour and StructureToppleUpdate (whose ctor unit and
+    Rva0024A797Grandchildren.cpp must land together).
+- Tables off the bridge: LevelUp and WeaponSet primary, the five GetSnapshotName tables, and 12
+  BehaviorModuleInterface tables. Offline plan, base -> after: bridged 4,090 -> 4,067, already correct
+  1,561 -> 1,576, mismatching source slots 45,483 -> 45,435; refusals identical (104); nothing newly
+  bridged. The four "correct lost" are the deleted placeholder names `??_7Rva004B3D3B`/`Rva004B568B`
+  on the shared 0x00C57328/0x00C58790 tables; the LevelUp/WeaponSet names there stay correct.
+  link_check: every changed unit, sibling emitter and ICF owner LINKs, bytes equal or higher. The
+  scaffold and UpgradeModuleTailDtors.cpp link only together with the Upgrade units rowed after the
+  02:17 census (the eight 6d092563e4e class units, WeaponSet, LevelUp, ModuleNameGetters3,
+  AllowBannerSpawnUpgradeCtor). Before that census is refreshed, stale index objects report duplicates.
+- Blocked (re_attempts rows):
+  - Slot 2 of ArmorUpgrade, LocomotorSetUpgrade, DoCommandUpgrade, StealthUpgrade and
+    RemoveUpgradeUpgrade: the getters are `?name@X@@QBEPBDXZ` under the real class (hand-named
+    `663fb9f2970`, so `revert` has nothing to restore). `function --to-class` refuses ("already a
+    member of X" / "a readable name"); `--virtual --access protected` keeps the identifier `name` and
+    refuses on the macro view ("no body of class X there declares name to make virtual"); `--new
+    GetSnapshotName --basis inferred` refuses ("a real name, not a placeholder"). The naming lane
+    serves only placeholders, so no supported route exists.
+  - UnpauseSpecialPowerUpgrade slot 2: `--to-class` refuses because the compiled 0x00C57EA8 copy is 13
+    slots: `?onCreate@UnpauseSpecialPowerUpgrade@@MAEXXZ` (0x004B54D9) is declared as a new virtual,
+    while retail holds it in slot 5 (Module::onObjectCreated). The fix needs that row respelled first.
+  - LevelUpUpgrade UpgradeMux slot 2: 0x004B3E7F is rowed as
+    `?rva004CE2B0@LevelUpUpgrade@@UAE_NPAVRva00406F9C@@@Z`; the slot needs `wouldUpgrade(const
+    BitFlags<128>&) const`, a signature respell no rename mode makes. Slot 8 needs 0x000B3FD0
+    (held). WeaponSetUpgrade UpgradeMux 8/10: WeaponSetUpgradeSecondary is readable, and both
+    `class --fold` and `--to-class` refuse.
+  - ReplaceSelfUpgrade (slot 1 fold, getCreate 0x004B4A8C): FamilyDeletingDtors_muse-b1dd.cpp, a
+    second emitter of its tables, is held by ancalgonn-swarm-defects.
+  - Not attempted: the DamageModule fold (lk74's note stands), OpenContain's five cast slots (10+
+    private views), FireWeaponWhenDeadBehavior/Rva00481F82 (their getUpdate slot needs UpdateModule.h),
+    and CostModifier/SpellRechargeModifierUpgrade (folding Rva004B5982/Rva004B5D0B needs headers over
+    their private UpgradeModule copies first).
+- Next leads: (1) a rename.py mode that respells a readable-class row into the base virtual
+  its retail vftable slot proves (identifier plus access, and for 0x004B3E7F the signature), using
+  the registered base declaration as evidence. It clears five getter tables and unblocks
+  UnpauseSpecialPower and the LevelUp UpgradeMux slot. (2) The CostModifier/SpellRechargeModifier
+  header and fold. (3) ReplaceSelfUpgrade once its holder releases it. (4) The placeholder copies at the
+  same addresses (Rva0048180C, Rva00499934, Rva004A4214, Rva004A4C19, Rva004839D3, Rva004AB246,
+  Rva0049BFB7, Rva004A8091, Rva0045232D in Rva0024A797Grandchildren.cpp) fold into their real classes
+  through the same recipe.
