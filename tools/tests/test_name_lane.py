@@ -3604,6 +3604,114 @@ def test_submit_refuses_a_spelled_key_the_ledger_no_longer_spells(spelled_tree, 
     assert len([v for v in lane_of(spelled_tree).votes() if v["key"] == SPELLED_KEY]) == 1
 
 
+# ---- the brief for a compiler-spelled row (crash triage's P29 and P51)
+
+def spelled_brief(root, monkeypatch, retail):
+    import build
+
+    def read(rva, size):
+        if rva not in retail:
+            raise ValueError(f"no bytes at 0x{rva:08X}")
+        return retail[rva].ljust(size, b"\x90")
+    monkeypatch.setattr(build, "read_target_bytes", read)
+    serve_key(root, "brief", "seat-brief")
+    return (root / "build/name_lane/briefs/brief.txt").read_text()
+
+
+def rel32(at, target):
+    return (target - (at + 5)).to_bytes(4, "little", signed=True)
+
+
+CREATE_NODE = "?_M_create_node@?$_Rb_tree@UBfmeRecord@@@@IAEPAUnode@@ABUBfmeRecord@@@Z"
+
+
+def with_callees(root):
+    with open(root / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{CREATE_NODE},,0x00404000,16,{SOURCE},matched,\n??0Element@@QAE@ABU0@@Z,,0x00403000,10,{SOURCE},matched,\n")
+    _git(root, "add", "-A")
+
+
+def test_the_brief_lists_a_spelled_rows_retail_callees_by_row_name(spelled_tree, monkeypatch):
+    """P29: the file only says the placeholder, so the brief must say what retail's bytes reach."""
+    with_callees(spelled_tree)
+    brief = spelled_brief(spelled_tree, monkeypatch, {
+        0x00401100: b"\xe8" + rel32(0x00401100, 0x00404000),
+        0x00404000: b"\x6a\x1c\xe8" + rel32(0x00404002, 0x00403000) + b"\xe8" + rel32(0x00404007, 0x00409000),
+        0x00403000: b"\x83\xc7\x08\x83\xc4\x0c\xe9" + rel32(0x00403006, 0x00404000),
+    })
+    assert f"RETAIL CALLEES of {SPELLED_OLD} at 0x00401100" in brief
+    assert f"calls 0x00404000 {CREATE_NODE}" in brief              # by its row name
+    assert "pushes 0x1c" in brief                                  # the allocation P29 turned on
+    assert "calls 0x00403000 ??0Element@@QAE@ABU0@@Z" in brief     # the element copy P51 turned on
+    assert "adds edi, 8" in brief                                  # a stride
+    assert "adds esp" not in brief                                 # stack cleanup is no stride
+    assert "calls 0x00409000 (no row)" in brief                    # named nothing, said so
+    assert brief.count(f"0x00404000 {CREATE_NODE}") == 3           # a callee, its expansion, the jump back: and listed once
+
+
+def test_a_jump_inside_the_body_is_no_callee_and_cycles_end(spelled_tree, monkeypatch):
+    with_callees(spelled_tree)
+    brief = spelled_brief(spelled_tree, monkeypatch, {
+        0x00401100: b"\xe9" + rel32(0x00401100, 0x00401108) + b"\xe8" + rel32(0x00401105, 0x00402000),
+        0x00402000: b"\xe8" + rel32(0x00402000, 0x00401100),
+    })
+    assert "jmps 0x00401108" not in brief
+    assert f"calls 0x00401100 {SPELLED_OLD}" in brief
+
+
+def test_the_brief_says_the_container_shape_is_unproven_and_what_settles_it(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {})
+    assert "container shape is itself unproven" in brief and "`_M_create_node`'s allocation" in brief
+    assert "element copy's calls and stride" in brief and "Allocation alone does not settle it" in brief
+
+
+def test_unreadable_retail_is_said_and_serves_the_brief(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {})
+    assert "retail's bytes cannot be read" in brief
+
+
+def test_a_plain_function_gets_no_callee_listing(tree, monkeypatch):
+    serve(tree, "plain")
+    brief = (tree / "build/name_lane/briefs/plain.txt").read_text()
+    assert "RETAIL CALLEES" not in brief and "container shape" not in brief
+
+
+def test_a_listing_stops_at_its_limit_and_says_so(spelled_tree, monkeypatch):
+    monkeypatch.setattr(name_lane, "CALLEE_FUNCTIONS", 2)
+    with_callees(spelled_tree)
+    brief = spelled_brief(spelled_tree, monkeypatch, {
+        0x00401100: b"\xe8" + rel32(0x00401100, 0x00402000) + b"\xe8" + rel32(0x00401105, 0x00403000) +
+        b"\xe8" + rel32(0x0040110A, 0x00404000)})
+    assert "stopped at 2 functions" in brief
+
+
+def test_a_fresh_blind_voters_resolve_keeps_its_evidence(tree, tmp_path):
+    """P29: the deciding evidence was in the chosen voter's --reason, and it was thrown away."""
+    assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0
+    be("seat-one")
+    reason = "retail pushes 0x1C, a 0x10 header plus the 12-byte record"
+    assert name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="sumBox", reason=reason)) == 0
+    recorded = [r for r in rows(tree, name_lane.RESOLUTIONS) if r["key"] == FN_KEY]
+    assert [r["reason"] for r in recorded] == [reason] and recorded[0]["worker"] == lane_of(tree).worker()
+    assert FN_KEY not in lane_of(tree).state()                      # the other voter has still to accept it
+    be("seat-two")
+    assert name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="sumBox",
+                                                                reason="the first voter's allocation holds up")) == 0
+    detail = lane_of(tree).state()[FN_KEY]["detail"]
+    assert reason in detail and "the first voter's allocation holds up" in detail
+
+
+def test_a_second_resolve_by_the_same_voter_adds_no_row(tree, tmp_path):
+    assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0
+    be("seat-one")
+    args = SimpleNamespace(key=FN_KEY, name="sumBox", reason="retail pushes 0x1C for this node")
+    assert name_lane.cmd_resolve(lane_of(tree), args) == 0
+    assert name_lane.cmd_resolve(lane_of(tree), args) == 0
+    assert len([r for r in rows(tree, name_lane.RESOLUTIONS) if r["key"] == FN_KEY]) == 1
+
+
 def test_records_of_one_file_land_together(tree, tmp_path, monkeypatch):
     """Freshness is per file, and one run checks every record before any lands."""
     agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})

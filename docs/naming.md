@@ -298,6 +298,14 @@ the rows must run from the file before that commit to the file after it, and the
 be exactly renames it records as landed, in any file it touches. So commit a landing's sources, `name_agreed.csv` and
 `name_vote_sources.csv` together. Watch `status`'s `source-changed` count.
 
+A brief for a compiler-spelled row lists what retail's bytes reach from that row, down the call
+tree: each direct call and jump with its row name, with the pushes and additions a container's
+shape shows in, because the file only says the placeholder. It also says the old spelling's
+container shape is unproven: check `_M_create_node`'s allocation against the element's size and the
+element copy's calls and stride, since two shapes can allocate the same size. `resolve` keeps a
+voter's `--reason` even when that voter's own fresh blind vote is the chosen spelling, and the
+agreement's detail holds every voter's reason.
+
 Blind votes from different checkouts land through separate pushes, so each submit can
 tally before the other vote exists and neither records the agreement. `status` and
 `apply` list such keys. Votes hold only hashes, so someone who knows the spelling records

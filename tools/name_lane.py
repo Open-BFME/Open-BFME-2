@@ -1256,6 +1256,64 @@ def registered_brief(lane, cls):
     return "\n".join(lines)
 
 
+CALLEE_DEPTH, CALLEE_FUNCTIONS = 6, 40
+
+
+def retail_callee_lines(lane, rva):
+    """What retail's own bytes say a row reaches, for a voter whose file only names a placeholder:
+    each direct call and jump with the row name there, down the call tree, with the constants a
+    container's shape shows in (pushes, and additions a stride walks by). Names are this ledger's
+    and may themselves be placeholders; nothing here comes from a vote. What cannot be read says so."""
+    try:
+        import capstone
+        sys.path.insert(0, str(lane.root / "tools"))
+        import build
+    except ImportError as error:
+        return [f"  (retail's callees cannot be listed here: {error})"]
+    rows = {}
+    for row in lane.ctx.rows():
+        at = rename._rva(row.get("target_rva"))
+        if at is not None:
+            rows.setdefault(at, row)
+    pins = {rename._rva(pin.get("address")): pin.get("name", "") for pin in lane.ctx.pins()}
+    decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    decoder.detail = False
+    lines, seen, frontier = [], {rva}, [(rva, 0)]
+    while frontier and len(seen) <= CALLEE_FUNCTIONS:
+        at, depth = frontier.pop(0)
+        row = rows.get(at)
+        size = int((row or {}).get("target_size") or 0)
+        indent = "  " * (depth + 1)
+        if not size:
+            continue
+        try:
+            code = build.read_target_bytes(at, size)
+        except (Exception, SystemExit) as error:     # no retail image here: say so, and list nothing
+            lines.append(f"{indent}0x{at:08X}: retail's bytes cannot be read: {error}")
+            continue
+        facts = []
+        for instruction in decoder.disasm(bytes(code), at):
+            operands = instruction.op_str
+            if instruction.mnemonic in ("call", "jmp") and re.fullmatch(r"0x[0-9a-f]+", operands):
+                target = int(operands, 16)
+                if at <= target < at + size:         # a jump inside the body is not a callee
+                    continue
+                named = (rows.get(target) or {}).get("name") or pins.get(target) or "(no row)"
+                facts.append(f"{instruction.mnemonic}s 0x{target:08X} {named}")
+                if target not in seen and depth + 1 < CALLEE_DEPTH:
+                    seen.add(target)
+                    frontier.append((target, depth + 1))
+            elif instruction.mnemonic == "push" and re.fullmatch(r"(0x[0-9a-f]+|\d+)", operands):
+                facts.append(f"pushes {operands}")
+            elif instruction.mnemonic == "add" and re.fullmatch(r"e(?:[a-d]x|[sd]i|bp), (0x[0-9a-f]+|\d+)", operands):
+                facts.append(f"adds {operands}")
+        lines.append(f"{indent}0x{at:08X} {(row or {}).get('name', '')}")
+        lines += [f"{indent}  {fact}" for fact in facts]
+    if frontier:
+        lines.append(f"  (stopped at {CALLEE_FUNCTIONS} functions; {len(frontier)} more not listed)")
+    return lines
+
+
 def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_review=False):
     rows = lane.ledger().get(rel, [])
     lines = text.splitlines()
@@ -1286,6 +1344,16 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
         evidence.append("COMPILER-SPELLED ROWS: a key starting with ? is the row's whole mangled spelling. Answer "
                         "its whole new mangled spelling, the same operator or member with the placeholder type "
                         "replaced by the one the row's retail callees prove; \"skip\" when they do not.")
+        evidence.append("The old spelling's container shape is itself unproven: `map<X,int>` and `set<X>` can hold "
+                        "the same element type, and two voters must answer byte for byte. Check `_M_create_node`'s "
+                        "allocation against the element's size (a node is a 0x10 header plus the element) and the "
+                        "element copy's calls and stride. Allocation alone does not settle it: two shapes can "
+                        "allocate the same size and differ only in what the element copy does.")
+        for kind, _scope, ident, rva in items:
+            if kind == "function" and compiler_spelled(ident) and rva is not None:
+                evidence.append(f"RETAIL CALLEES of {ident} at 0x{rva:08X} (from retail's bytes; names are this "
+                                "ledger's and may be placeholders):")
+                evidence += retail_callee_lines(lane, rva)
     for kind, scope, ident, rva in items:
         if kind == "function":
             found = callers(lane, rel, ident)
@@ -2600,7 +2668,8 @@ def cmd_resolve(lane, args):
     chosen_hash = digest(key, chosen)
     blind = {v["worker"]: v["model"] for v in original if v["hash"] == chosen_hash}
     fresh_blind = fresh_voters(lane, key, chosen_hash, blind, text)
-    if not previous and voter not in fresh_blind:
+    # a fresh blind vote already accepts this spelling; the row still keeps the voter's evidence
+    if not previous:
         lane.append(RESOLUTIONS, RESOLUTION_COLUMNS, [dict(key=key, hash=digest(key, chosen),
             name=chosen, source_sha=source_sha, worker=voter, model=own[0]["model"],
             reason=args.reason.strip(), date=datetime.date.today().isoformat())])
@@ -2623,7 +2692,9 @@ def cmd_resolve(lane, args):
     row = dict(id=rid, kind=kind, old=old, new=agreed_name,
                rva=f"0x{rva:08X}" if rva is not None else "",
                agents=";".join(f"{worker}@{model}" for worker, model in sorted(voters.items())),
-               key=key, status="agreed", detail="reviewed resolution: " + args.reason.strip())
+               key=key, status="agreed", detail="reviewed resolution: " + "; ".join(dict.fromkeys(
+                   [r["reason"].strip() for r in resolutions if r["key"] == key and r["hash"] == chosen_hash
+                    and r["source_sha"] == source_sha] or [args.reason.strip()])))
     if not any(r["id"] == rid for r in lane.agreed_rows()):
         lane.append(AGREED, AGREED_COLUMNS, [row])
     print(f"name_lane: RESOLVED {key} -> {agreed_name} ({len(voters)} original voters)")
