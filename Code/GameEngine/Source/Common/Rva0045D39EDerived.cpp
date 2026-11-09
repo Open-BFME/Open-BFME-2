@@ -64,15 +64,6 @@ ShipSlowDeathBehavior::~ShipSlowDeathBehavior()
 {
 }
 
-class Rva00461EEB : public Rva0045D39E
-{
-public:
-	virtual ~Rva00461EEB();
-};
-
-Rva00461EEB::~Rva00461EEB()
-{
-}
 
 class ClearanceTestingSlowDeathBehavior : public Rva0045D39E
 {

@@ -38,35 +38,23 @@ class Object { public:
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
-
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
-
-
-
 class DieModuleInterface { public: virtual void dieSlot(); };
-
 class SlowDeathBehaviorInterface { public: virtual void beginSlowDeath(const DamageInfo *)=0; };
-
 class SlowDeathBehavior : public UpdateModule,public DieModuleInterface,public SlowDeathBehaviorInterface { public:
  virtual UpdateSleepTime update(); virtual void beginSlowDeath(const DamageInfo *);
  char gap[0x3c-0x28]; unsigned flags; bool needsLanding;
  char gap41[0x50-0x41];
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class BfmeFixedStorage0004543D { public:
  char bytes[28]; ~BfmeFixedStorage0004543D() {} __declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
 };
-
 struct GiantBirdDeathData { char pad[0x19c]; BfmeFixedStorage0004543D mask; float range; };
-
 class CrashData { public: char prefix[0x538]; float speed; };
-
 class AIUpdateInterface { public:
 #define SLOT(N) virtual void unused##N();
  SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08) SLOT(09)
@@ -83,24 +71,19 @@ class AIUpdateInterface { public:
  virtual const CrashData *getCrashData();
  bool findMeACrashSite(float,const Coord3D *,Coord3D *,BfmeFixedStorage0004543D);
 };
-
 #include "../../../../Include/GameLogic/TerrainLogic.h"
-
 extern TerrainLogic *TheTerrainLogic;
-
 class SlowDeathBehaviorModuleData
 {
 public:
 	SlowDeathBehaviorModuleData();
 };
-
 class Rva0024C7B3Member
 {
 public:
 	Rva0024C7B3Member();
 	unsigned char m_data[0x1C];
 };
-
 class GiantBirdSlowDeathBehaviorModuleData : public SlowDeathBehaviorModuleData
 {
 public:
@@ -117,7 +100,6 @@ private:
 	float m_crashAvoidStrength; // +0x1BC
 	bool m_needToMaintainFlailingHeight; // +0x1C0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -131,7 +113,72 @@ public:
 
 BFME_LITERAL_NAME_GETTER(Rva00461EE5Named, "GiantBirdSlowDeathBehavior")
 
+//
+// Opaque single-inheritance destructors tail-calling Rva0045D39E::~
+// Rva0045D39E at 0x0045D39E (matched opaque MI-grandchild dtor in
+// Rva0024A797Grandchildren.cpp: middle plus two extra bases, vptrs
+// +0x00/+0x0C/+0x10/+0x20/+0x24; only declared in full here so each
+// tail-call resolves to the ledger address instead of a same-TU definition).
+// Each class below derives singly from it (inheriting the five-vptr layout)
+// and overrides every vptr before tail-calling the base destructor. Vtable
+// values are DIR32 auto-patches. Owner identities are unproven (opaque Rva
+// names). One ledger row per destructor, landed one commit at a time.
+
+extern "C" const void *const __identifier("??_7ClearanceTestingSlowDeathBehavior@@6B@")[];
+
+  // vftable 0x00C49D70
+
+class Rva0045D39E_Root
+{
+public:
+	virtual ~Rva0045D39E_Root();
+
+private:
+	char m_pad04[8];
+};
+
+class Rva0045D39E_Mid
+{
+public:
+	virtual void f1();
+};
+
+class Rva0045D39E_B2
+{
+public:
+	virtual void f2();
+
+private:
+	char m_pad08[12];
+};
+
+class Rva0045D39E_E1
+{
+public:
+	virtual void fe();
+};
+
+class Rva0045D39E_E2
+{
+public:
+	virtual void ff();
+};
+
+class Rva0045D39E : public Rva0045D39E_Root, public Rva0045D39E_Mid, public Rva0045D39E_B2, public Rva0045D39E_E1, public Rva0045D39E_E2
+{
+public:
+	virtual ~Rva0045D39E();
+};
+
+class Rva00461EEB : public Rva0045D39E
+{
+public:
+	virtual ~Rva00461EEB();
+};
+
 // tu-skeleton: 0x00461E58 72B ??0GiantBirdSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp
 
@@ -238,10 +285,20 @@ GiantBirdSlowDeathBehaviorModuleData::GiantBirdSlowDeathBehaviorModuleData()
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x00461EEB 39B ??1Rva00461EEB@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp
+
+Rva00461EEB::~Rva00461EEB()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00461F34 75B ?xfer@GiantBirdSlowDeathBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00461FED 5B ??1GiantBirdSlowDeathBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00461FF2 28B ??_GRva00461EEB@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
