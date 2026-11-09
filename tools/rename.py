@@ -6183,7 +6183,6 @@ def base_slot_evidence(ctx, rva, base, hits, tables, based, found):
 
 
 REAL_LINK_REPO = "Open-BFME/Open-BFME-2"
-DRECTVE_ALTERNATENAME = re.compile(r'/alternatename:"?([^="\s]+)=([^"\s]+)"?', re.I)
 
 
 def _gh(*args, timeout=120):
@@ -6224,57 +6223,13 @@ def newest_real_link(ctx):
         return None
 
 
-def real_link_map(ctx, link):
-    """{public symbol: image address} from `link`'s own exit.map (its diagnostic-link artifact), or None when it
-    cannot be read. Tests replace this."""
-    key = ("_real_link_map", link["commit"])
-    if key in ctx._cache:
-        return ctx._cache[key]
-    ctx._cache[key] = None
-    try:
-        where = ctx.path(f"build/rename/real_link/{link['commit']}/diagnostic")
-        found = list(where.glob("**/exit.map")) if where.exists() else []
-        if not found:
-            got = _gh("run", "download", str(link["run"]), "--repo", REAL_LINK_REPO, "-n",
-                      f"diagnostic-link-{link['commit']}", "-D", str(where), timeout=1800)
-            found = list(where.glob("**/exit.map")) if got.returncode == 0 else []
-        if len(found) == 1:
-            out = {}
-            for line in found[0].read_text(encoding="utf-8", errors="replace").splitlines():
-                parts = line.split()
-                if len(parts) >= 3 and ":" in parts[0] and re.fullmatch(r"[0-9a-fA-F]{8}", parts[2]):
-                    out.setdefault(parts[1], int(parts[2], 16))
-            ctx._cache[key] = out
-    except Exception:                                   # noqa: BLE001 - an unreadable map resolves nothing
-        ctx._cache[key] = None
-    return ctx._cache[key]
-
-
-def object_alternates(ctx, rel, current=True):
-    """{left: right} of the /alternatename directives the object of ledger source `rel` emits in its .drectve
-    (what the linker reads, not the source text), or {} with no object. Tests replace this."""
-    import link_cycle
-    path = _source_object(ctx, rel, current)
-    if path is None:
-        return {}
-    raw = path.read_bytes()
-    sections, _symbols = link_cycle.parse_coff(raw)
-    out = {}
-    for section in sections:
-        if section.name == ".drectve":
-            text = raw[section.ptr:section.ptr + section.size].decode("latin-1")
-            out.update(DRECTVE_ALTERNATENAME.findall(text))
-    return out
-
-
 def base_slot_compiled_problems(ctx, check, *, current=True):
     """to_class_slot_problems under a base entry: each live table's classes' installer units compile that class's
-    table. A copy's name at the slot must reach the moved body (`check['rva']`): its own row, pin or the moved name,
-    or an /alternatename its object emits, followed only when the newest real link's map puts the name at the
-    fallback's address (no object overrode it there). A copy whose name there reaches anything else refuses when it
-    agrees with retail elsewhere (a wrong identity) or when nothing else in it resolves. One that already differs
-    from retail at another slot is reported and does not refuse, but only while the newest real link, read again at
-    this admission, bridges its table; otherwise it refuses too. Each call's reports replace `check['reports']`. A
+    table. A copy's name at the slot must be the moved body (`check['rva']`): its row, pin or the moved name; an
+    /alternatename is never followed. A copy naming anything else there refuses when it agrees with retail at its
+    other resolved slots (a wrong identity), bridged or not. One that already differs from retail at another slot,
+    or where nothing else resolves, is reported and does not refuse, but only while the newest real link, read again
+    at this admission, bridges its table; otherwise it refuses too. Each call's reports replace `check['reports']`. A
     copy that names the moved body and agrees with retail elsewhere proves the move; after ./build.sh one must."""
     slot, new, moved = check["slot"], check["new"], check["rva"]
     address = {}
@@ -6294,31 +6249,12 @@ def base_slot_compiled_problems(ctx, check, *, current=True):
         if "link" not in state:
             state["link"] = newest_real_link(ctx)
         return state["link"]
-
-    def linked_map():
-        if "map" not in state:
-            state["map"] = real_link_map(ctx, link()) if link() else None
-        return state["map"]
+    reach = address.get
     problems, proved = [], 0
     for record in check["bases"]:
         retail = record["retail"]
         for rel in record["sources"]:
             compiled = compiled_vtables(ctx, rel, current=current) or {}
-            alias = None
-
-            def reach(name):
-                nonlocal alias
-                if name in address:
-                    return address[name]
-                if alias is None:
-                    alias = object_alternates(ctx, rel, current=current)
-                target = alias.get(name)
-                if target not in address:
-                    return None
-                # the map predates this rename: the moved name's body is the old row's there
-                mapped = linked_map()
-                there = mapped and mapped.get(check["old"] if target == new else target)
-                return address[target] if there and mapped.get(name) == there else None
             for symbol, names in sorted(compiled.items()):
                 if _vtable_class(symbol) != record["cls"] or slot >= len(names) or not names[slot]:
                     continue
@@ -6329,12 +6265,12 @@ def base_slot_compiled_problems(ctx, check, *, current=True):
                 clash = sorted(j for j, name in enumerate(names) if j != slot and reach(name) is not None
                                and (j >= len(retail) or not same_slot_body(ctx, reach(name), retail[j])))
                 what = f"{rel}'s {symbol} slot {slot} names {names[slot]}, not {new}"
-                if not clash:
-                    problems.append(what + (" (it agrees with retail elsewhere: a wrong identity)" if agree
-                                            else " (nothing else in it resolves)"))
+                if agree and not clash:
+                    problems.append(what + " (it agrees with retail elsewhere: a wrong identity)")
                     continue
                 table = f"0x{record['table'] + IMAGE_BASE:08X}"
-                differs = f"it already differs from retail table {table} at slot(s) {', '.join(map(str, clash))}"
+                differs = (f"it already differs from retail table {table} at slot(s) {', '.join(map(str, clash))}"
+                           if clash else f"nothing else in it resolves against retail table {table}")
                 now = link()
                 if now and record["table"] in now["bridged"]:
                     reports.append(f"{what}: {differs}, and real link run {now['run']} at {now['commit'][:10]} "
@@ -6783,7 +6719,6 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         check["bases"] = first["bases"]
         check["where"] = first["where"]
         check["rva"] = first["rva"]
-        check["old"] = first["name"]
     edited = set(prepared or {})
     early_check = dict(check, sources=[s for s in installer_sources if s not in edited])
     if check.get("bases"):

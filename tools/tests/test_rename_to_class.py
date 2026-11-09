@@ -1198,47 +1198,23 @@ def test_a_copy_naming_the_placeholder_names_the_moved_body(tree, monkeypatch):
 
 
 ALIAS = "?alias@Other@@UAEXXZ"
-ALIASED = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", ALIAS]}}
 
 
 def _link(bridged, commit="abc", run=42):
     return {"commit": commit, "run": run, "bridged": set(bridged)}
 
 
-def _aliased(monkeypatch, emitted, mapped, tree=None):
-    if tree is not None:
-        # the source spells the pragma, which a text-reading rule would follow
-        (tree / "Code/Game/Other.cpp").write_text(OTHER + f'#pragma comment(linker, "/alternatename:{ALIAS}={OLD}")\n')
-    _base(monkeypatch, [BASE], compiled=ALIASED)
-    monkeypatch.setattr(rename, "object_alternates", lambda ctx, rel, current=True: emitted)
-    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link(set()))
-    monkeypatch.setattr(rename, "real_link_map", lambda ctx, link: mapped)
-
-
-def test_an_alternatename_the_link_resolved_to_the_fallback_names_the_body(tree, monkeypatch):
-    _aliased(monkeypatch, {ALIAS: OLD}, {ALIAS: 0x02001000, OLD: 0x02001000})
-    plan(tree)
-
-
-def test_an_alternatename_another_object_overrode_does_not(tree, monkeypatch):
-    # the link put the left-hand name at another body: a definition beat the fallback
-    _aliased(monkeypatch, {ALIAS: OLD}, {ALIAS: 0x02005000, OLD: 0x02001000}, tree)
-    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}"):
-        plan(tree)
-
-
-def test_an_alternatename_without_the_links_map_does_not(tree, monkeypatch):
-    _aliased(monkeypatch, {ALIAS: OLD}, None, tree)
-    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}"):
-        plan(tree)
-
-
-def test_a_pragma_the_object_does_not_emit_is_not_followed(tree, monkeypatch):
-    # an inactive or commented-out pragma in the text emits no directive
-    (tree / "Code/Game/Other.cpp").write_text(
-        OTHER + f'#if 0\n#pragma comment(linker, "/alternatename:{ALIAS}={OLD}")\n#endif\n')
-    _aliased(monkeypatch, {}, {ALIAS: 0x02001000, OLD: 0x02001000})
-    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}"):
+def test_an_alias_never_makes_a_wrong_identity_pass(tree, monkeypatch):
+    # slot 0 agrees with retail; slot 1 names an alias whose pragma points at the moved body: the alias is not
+    # followed (it could reach a stub or another body), so the copy is a wrong identity and refuses, bridged or not
+    (tree / "Code/Game/Other.cpp").write_text(OTHER + f'#pragma comment(linker, "/alternatename:{ALIAS}={OLD}")\n')
+    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?count@Gadget@@QAEXXZ", ALIAS]}}
+    _base(monkeypatch, [BASE], compiled=compiled)
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
+    # even were the object to emit it and a link map put both names at one address (an int3 stub can share it)
+    monkeypatch.setattr(rename, "object_alternates", lambda ctx, rel, current=True: {ALIAS: OLD}, raising=False)
+    monkeypatch.setattr(rename, "real_link_map", lambda ctx, link: {ALIAS: 0x02001000, OLD: 0x02001000}, raising=False)
+    with pytest.raises(Refusal, match=f"slot 1 names {re.escape(ALIAS)}.*a wrong identity"):
         plan(tree)
 
 
@@ -1309,11 +1285,21 @@ def test_a_copy_broken_elsewhere_refuses_when_the_bridge_queue_cannot_be_read(tr
         plan(tree)
 
 
-def test_a_copy_where_nothing_else_resolves_refuses(tree, monkeypatch):
-    compiled = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?a@Other@@UAEXXZ", "?b@Other@@UAEXXZ"]}}
-    _base(monkeypatch, [BASE], compiled=compiled)
+UNRESOLVED = {"Code/Game/Other.cpp": {"??_7Other@@6B@": ["?a@Other@@UAEXXZ", "?b@Other@@UAEXXZ"]}}
+
+
+def test_an_unresolvable_copy_passes_with_a_report_while_its_table_is_bridged(tree, monkeypatch):
+    _base(monkeypatch, [BASE], compiled=UNRESOLVED)
     monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({OTHER_TABLE_VA - retail_identity.IMAGE_BASE}))
-    with pytest.raises(Refusal, match="nothing else in it resolves"):
+    done = plan(tree)
+    assert any("nothing else in it resolves against retail table 0x00C10000" in w and "reported, not refused" in w
+               for w in done.warnings)
+
+
+def test_an_unresolvable_copy_refuses_when_its_table_is_not_bridged(tree, monkeypatch):
+    _base(monkeypatch, [BASE], compiled=UNRESOLVED)
+    monkeypatch.setattr(rename, "newest_real_link", lambda ctx: _link({0x00820000}))
+    with pytest.raises(Refusal, match="nothing else in it resolves.*does not bridge it"):
         plan(tree)
 
 

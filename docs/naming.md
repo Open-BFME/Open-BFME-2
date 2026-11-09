@@ -710,12 +710,11 @@ stated as the body at the slot, the table's installer store, and the steps to a 
 of a data factory's address and the call to 0x002573EE that every ModuleFactory registration makes). A table whose
 installer nothing reaches is listed as dead, by address: admission reads the whole image for a rel32 call or jump to
 the installer, a word equal to its VA, and a word equal to the table's VA other than its own store. The compiled check
-then reads each table's own class, since the class compiles no table. A copy's name at the slot must reach the moved
-body: its row or pin, or an `/alternatename` the object's own `.drectve` emits, followed only when the newest real
-link's map puts the name at the fallback's address. One that reaches another body refuses when it agrees with retail
-elsewhere (a wrong identity) or nothing else in it resolves; one that already differs from retail at another slot is
-reported and passes only while the newest real link's own `vtable_bridge_queue.tsv`, read again at each admission,
-bridges its table. The final reports go into the move's tombstones. One copy must name the body and agree with retail
+then reads each table's own class, since the class compiles no table. A copy's name at the slot must be the moved
+body's row, pin or new name; an `/alternatename` is never followed. One naming anything else refuses when it agrees
+with retail at its other resolved slots (a wrong identity), bridged or not. One that already differs from retail at
+another slot, or where nothing else resolves, is reported and passes only while the newest real link's own
+`vtable_bridge_queue.tsv`, read again at each admission, bridges its table. The final reports go into the move's tombstones. One copy must name the body and agree with retail
 elsewhere. `--new` is the full mangled name when the declaration's `this` cv differs from the
 row's (`?slot14@ModuleData@@UBE?AVAsciiString@@H@Z`).
 
