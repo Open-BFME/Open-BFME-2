@@ -21,12 +21,7 @@ class GameFont;
 #include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 #include "../../../../../GameEngine/Include/GameClient/DisplayString.h"
-class DisplayStringManager {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();
- virtual DisplayString *newDisplayString();
-};
+#include "../../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 #include "../../../../../GameEngine/Include/GameClient/GameText.h"
 class AptTextListener;
