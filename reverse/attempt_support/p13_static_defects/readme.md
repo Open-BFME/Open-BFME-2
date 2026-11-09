@@ -166,3 +166,18 @@ link needs reading before any merge. Respelling only two rows would leave one re
 cannot answer with a constructor. `spelled_problem` refuses an answer that changes the row's member
 (`it must stay the same operator or member`). `rename.py function --respell` takes prepared C++, but changing a row's
 kind and scope through it was not tried.
+
+## Request 1 needed no tool change, 2026-11-09
+
+Bridge lane. Both refusals above came from one missing thing: `name_lane` serves a `global` from its data row, and
+`rename.py global` plans from one. So the route is a data row under the global's current address-derived name, which
+asserts nothing. With the row, `next --file` serves the key as eligible, and `rename.py global` plans the consumers: 3 units
+for `g_Va00E032DC`, including the macro-hidden `Rva00433C18Pool` and the `IntList` view, and 3 each for `g_Va0130A58C/D`.
+`register-data` and `--admit-agreed` are for data with no definition yet, and are not this route.
+
+Traps: the size is what the build proves by `sizeof`, not the ledger's, which is a next-address bound (`g_Va0130A58D` is 1,
+not 3). A key is not served while another worker holds the source's file claim. `rename.py`'s plan does not list
+`reverse/hatch_baseline.tsv`, so the rename's commit runs `hatch_counters --update` for the `address_global` lines that fall.
+
+The same route is open to the other owned, address-named globals with no row (475 at this writing, these three included);
+none of the others is rowed here. The plan above was run past the agreement check only, with a stand-in name; no vote exists yet.
