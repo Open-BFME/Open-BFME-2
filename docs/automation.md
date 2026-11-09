@@ -35,6 +35,8 @@ rows at addresses outside the image (0xD8058B24, 0xC141F04D and others; packet P
 tool, and the committed file keeps them until then. They cost nothing live, so a diff removing them is
 expected. `___ImageBase` and `__except_list` stay: they are pseudo-symbols.
 
+Regenerate from objects built from your tree, not a downloaded index: `tools/check_csv.py` refuses a new ledger row for a name `reverse/deleted_rows.csv` retired, and its message says what to do.
+
 GitHub's scheduler is not dependable here: a `*/5` job fires every five to seven hours, and the first
 scheduled `real-link.yml` ran 8 hours after its first slot. Their `schedule:` lines stay, but
 `bfme2-dispatch.timer` on srv1 is what starts them on time. Do not put anything that matters on a
