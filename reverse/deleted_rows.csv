@@ -6060,3 +6060,5 @@ __ehhandler$?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ,0x00791041,"Rename
 ??_GRva004BCE62@@UAEPAXI@Z,0x004BCEC0,"Renamed to ??_GVeterancyCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A954)"
 ??1Rva004BCC43@@UAE@XZ,0x004BCC43,"Renamed to ??1UnitCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A914)"
 ??_GRva004BCC43@@UAEPAXI@Z,0x004BCCA1,"Renamed to ??_GUnitCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A914)"
+?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z,0x00155690,"Respelled to ?Resize@?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAE_NHPBURendererDataStruct@Render2DSentenceClass@@@Z by tools/rename.py (retail identity)"
+__ehhandler$?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z,0x00766EDC,"Respelled to __ehhandler$?Resize@?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAE_NHPBURendererDataStruct@Render2DSentenceClass@@@Z by tools/rename.py (retail identity)"

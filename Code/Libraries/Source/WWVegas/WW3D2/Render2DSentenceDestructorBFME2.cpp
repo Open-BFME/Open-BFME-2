@@ -75,21 +75,6 @@ struct TextureStatisticsStructWide
 	char m_pad[0x20];
 };
 
-class EnumParameterClass
-{
-public:
-	// Renderer element. The vector vtable 0x007D3BC8 carries the rowed
-	// VectorClass<_ENUM_VALUE>::Resize (0x00155690), and retail destroys the
-	// 8-byte elements through 0x00001E13 (add ecx,4: the surface at +4).
-	struct _ENUM_VALUE
-	{
-		~_ENUM_VALUE();						// retail 0x00001E13
-
-		void *m_name;
-		int m_value;
-	};
-};
-
 template<class T>
 class VectorClass
 {
@@ -210,13 +195,26 @@ public:
 		DynamicVectorClass<int> m_renderers;	// +0x04 (size filler: 0x18)
 	};
 
+	// Renderer element. Retail destroys the 8-byte elements through 0x00001E13
+	// (add ecx,4: the surface at +4), rowed ??1RendererDataStruct; the vector's
+	// Resize slot is 0x00155690 (P104). Named as the element it is: an
+	// EnumParameterClass::_ENUM_VALUE here bound WWSaveLoad's real destructor,
+	// a string free on +0.
+	struct RendererDataStruct
+	{
+		~RendererDataStruct();					// retail 0x00001E13
+
+		void *m_renderer;
+		void *m_surface;
+	};
+
 	Render2DSentenceClass();
 	~Render2DSentenceClass();
 	virtual void Reset();						// retail 0x0093EA60
 
 	DynamicVectorClassWide<TextureStatisticsStructWide> m_sentenceData;
 	DynamicVectorClass<PendingSurfaceStruct> m_pendingSurfaces;
-	DynamicVectorClass<EnumParameterClass::_ENUM_VALUE> m_renderers;
+	DynamicVectorClass<RendererDataStruct> m_renderers;
 	FontCharsClass *m_font;						// +0x4C
 	float m_baseLocation[2];					// +0x50
 	float m_location[2];						// +0x58
@@ -248,7 +246,10 @@ template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::opera
 template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Resize(int, const Render2DSentenceClass::PendingSurfaceStruct *);
 template <> int VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::ID(const Render2DSentenceClass::PendingSurfaceStruct &);
 template <> int VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::ID(const Render2DSentenceClass::PendingSurfaceStruct *);
-template <> bool VectorClass<EnumParameterClass::_ENUM_VALUE>::Resize(int, const EnumParameterClass::_ENUM_VALUE *);
+template <> bool VectorClass<Render2DSentenceClass::RendererDataStruct>::operator==(const VectorClass &) const;
+template <> bool VectorClass<Render2DSentenceClass::RendererDataStruct>::Resize(int, const Render2DSentenceClass::RendererDataStruct *);
+template <> int VectorClass<Render2DSentenceClass::RendererDataStruct>::ID(const Render2DSentenceClass::RendererDataStruct &);
+template <> int VectorClass<Render2DSentenceClass::RendererDataStruct>::ID(const Render2DSentenceClass::RendererDataStruct *);
 
 // ??1Render2DSentenceClass@@QAE@XZ
 Render2DSentenceClass::~Render2DSentenceClass()
