@@ -7,35 +7,6 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class Rva0055B0CC
-{
-public:
-	Rva0055B0CC();
-	virtual ~Rva0055B0CC();
-private:
-	float m_04;
-	ObjectID m_08;
-	AsciiString m_0C;
-	unsigned int m_10;
-	int m_pad14;
-	float m_18;
-	int m_pad1C;
-	bool m_20;
-	bool m_21;
-	ObjectID m_24;
-	bool m_28;
-};
-
-class AIUpgrade : public Rva0055B0CC
-{
-public:
-	AIUpgrade();
-	virtual ~AIUpgrade();
-private:
-	int m_2C;
-	int m_30;
-};
-
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes) whose float code is SSE (movss/comiss), so they need
@@ -84,6 +55,37 @@ protected:
 	char m_pad08[0x18];
 };
 
+class Rva0055B0CC
+{
+public:
+	Rva0055B0CC();
+	virtual ~Rva0055B0CC();
+private:
+	float m_04;
+	ObjectID m_08;
+	AsciiString m_0C;
+	unsigned int m_10;
+	int m_pad14;
+	float m_18;
+	int m_pad1C;
+	bool m_20;
+	bool m_21;
+	ObjectID m_24;
+	bool m_28;
+};
+
+class AIUpgrade : public Rva0055B0CC
+{
+public:
+	AIUpgrade();
+	virtual ~AIUpgrade();
+private:
+	int m_2C;
+	int m_30;
+};
+
+// ---- from Code/GameEngine/Source/Common/AIUpgrade.cpp
+
 // 0x005D9D81: whether the two arguments' +0x38/+0x3C positions are more than
 // 100 apart (squared distance against 10000).
 // 0x004624C1: zeroes the Real and the three Reals out; answers false.
@@ -111,8 +113,6 @@ AIUpgrade::AIUpgrade()
 {
 }
 
-// tu-skeleton: 0x0059734B 11B ??1AIUpgrade@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp (not merged yet)
-
 // 0x00597356 28B ??_GAIUpgrade@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp
@@ -122,6 +122,12 @@ void Rva00597372::rva00597372(Rva00597372Triple *outputTriple)
 	outputTriple->x = 0.0f;
 	outputTriple->y = 0.0f;
 	outputTriple->z = 0.0f;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp
+
+AIUpgrade::~AIUpgrade()
+{
 }
 
 // tu-skeleton: 0x0059738A 78B ?build@AIUpgrade@@UAE_NPAX@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeBuild.cpp (not merged yet)
