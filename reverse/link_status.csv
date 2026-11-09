@@ -756,7 +756,7 @@ Code/GameEngine/Source/Common/ConstIntGetters6.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters8.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters8Addr.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters9.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,no,0,0,0,4,0
+Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,no,0,0,0,1,0
 Code/GameEngine/Source/Common/Containers/BfmeVectorRecord000BDF17Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Containers/Rva00311974SplineGet.cpp,yes,0,0,0,0,0
