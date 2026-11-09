@@ -554,28 +554,7 @@ public:
 	virtual void begin(CameraClass *camera); // 22
 	virtual void end(void); // 23
 };
-class Display
-{
-public:
-	virtual void d00();
-	virtual void d01();
-	virtual void d02();
-	virtual void d03();
-	virtual void d04();
-	virtual void d05();
-	virtual void d06();
-	virtual void d07();
-	virtual void d08();
-	virtual void d09();
-	virtual void d10();
-	virtual void d11();
-	virtual void d12();
-	virtual void d13();
-	virtual void d14();
-	virtual void d15();
-	virtual unsigned getWidth();
-	virtual unsigned getHeight();
-};
+#include "../../Include/GameClient/Display.h"
 extern Display *TheDisplay;
 class ParticleSystemManager
 {
