@@ -6989,12 +6989,35 @@ def paste_reach(ctx, word):
     return {rel for rel in units if rel.endswith(SOURCE_SUFFIXES)}
 
 
+def file_digest(path):
+    """A file's sha256, None when it cannot be read."""
+    try:
+        with open(path, "rb") as handle:
+            return hashlib.sha256(handle.read()).hexdigest()
+    except OSError:
+        return None
+
+
+def unit_command_fingerprint(ctx, rel):
+    """The build's own fingerprint of a unit's command and include path, None when it has none."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    source = ctx.path(rel)
+    try:
+        command, env = build.compiler_command(source, ctx.root / "build" / "retype_pp" / (source.stem + ".obj"))
+    except (Exception, SystemExit):                  # no command now is a changed command
+        return None
+    return build._cmd_fingerprint(command, env)
+
+
 def compiler_scan(ctx, words, *, workers=RETYPE_SCAN_WORKERS):
     """Ask the compiler which units spell `words`: every unit that can reach a `##`, and every unit
     whose object is stale or missing, preprocessed under its own build command with no cache.
     {"spelled": units that spell one and join the rebuild, "asm": stale or missing objects no
-    preprocessor can read and that rebuild instead, "cleared": the rest, for this source state}. A
-    unit that fails to preprocess never counts as not spelling it: the retype refuses."""
+    preprocessor can read and that rebuild instead, "cleared": the rest, {unit: (its command's
+    fingerprint, the files it read)}, "hashes": {file: its sha256 when read}, which hold a clearance
+    to the source state it was reached on (cleared_input_problems)}. A unit that fails to
+    preprocess never counts as not spelling it: the retype refuses."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import build
     import name_dependents
@@ -7011,16 +7034,26 @@ def compiler_scan(ctx, words, *, workers=RETYPE_SCAN_WORKERS):
     print(f"rename: asking the compiler whether {len(units)} units spell {', '.join(words)} "
           f"({len(stale)} with stale or missing objects, {workers} at a time)", flush=True)
 
+    hashes = {}
+
     def asked(rel):
-        text, why = preprocess_unit(ctx, rel)
-        return rel, None if text is None else preprocessed_spells(text, words), why
-    spelled, failed = set(), {}
+        command = unit_command_fingerprint(ctx, rel)
+        read = []
+        text, why = preprocess_unit(ctx, rel, read)
+        files = tuple(sys.intern(str(each)) for each in dict.fromkeys([str(ctx.path(rel))] + [str(r) for r in read]))
+        for each in files:                           # at first read: a later edit shows as a difference
+            if each not in hashes:
+                hashes[each] = file_digest(each)
+        return rel, None if text is None else preprocessed_spells(text, words), why, command, files
+    spelled, failed, cleared = set(), {}, {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        for rel, spells, why in pool.map(asked, units):
+        for rel, spells, why, command, files in pool.map(asked, units):
             if spells is None:
                 failed[rel] = why
             elif spells:
                 spelled.add(rel)
+            else:
+                cleared[rel] = (command, files)
     print(f"rename: the compiler asked in {time.time() - started:.0f} s: {len(spelled)} spell it, "
           f"{len(failed)} failed", flush=True)
     for rel in sorted(spelled)[:40]:
@@ -7030,7 +7063,7 @@ def compiler_scan(ctx, words, *, workers=RETYPE_SCAN_WORKERS):
             print(f"rename: did not preprocess: {rel}: {' '.join(str(why).split())[:200]}", flush=True)
         raise Refusal(f"{len(failed)} unit(s) did not preprocess, so nothing says they do not spell {words[0]}: "
                       f"{', '.join(sorted(failed)[:3])}")
-    return {"spelled": spelled, "asm": asm, "cleared": set(units) - spelled}
+    return {"spelled": spelled, "asm": asm, "cleared": cleared, "hashes": hashes}
 
 
 def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, prepared=None, max_files=25,
@@ -7302,7 +7335,7 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
     plan.retype = {"word": word, "old": old_name, "new": new, "type": new_type.strip(), "size": size,
                    "owner": source, "row": new_row, "sources": sorted(plan.verify), "removed": removed,
                    "start": rva, "absorbed": [(row["word"], row["name"]) for row in absorbed],
-                   "cleared": scan["cleared"]}
+                   "cleared": scan["cleared"], "hashes": scan["hashes"]}
     plan.mentions = sorted(set(ctx.grep_files(old_name, roots=("docs", "reverse"))) - set(plan.after))
     return plan
 
@@ -7767,21 +7800,53 @@ def preprocessed_problems(text, word, new_type):
     return problems
 
 
+def linker_directives(data):
+    """The text of an object's .drectve sections: references no symbol table has to show."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import reloc_ledger
+    sections, _symbols = reloc_ledger.parse_coff(data)
+    return "".join(s["body"].decode("latin-1") for s in sections if s["name"] == ".drectve" and s["body"])
+
+
+def cleared_input_problems(ctx, retype):
+    """Why a clearance no longer holds: the source, an included file or the command a cleared unit
+    was read with has changed since the scan, so the scan's answer was about other text. Refusing
+    is enough: a retype is rare, and re-running it asks again. A unit this retype rebuilds is
+    judged on its object, not its clearance."""
+    cleared, hashes = retype.get("cleared") or {}, retype.get("hashes") or {}
+    changed = {each for each, digest in hashes.items() if file_digest(each) != digest}
+    problems = []
+    for rel, (command, files) in sorted(cleared.items()):
+        if rel in retype["sources"]:
+            continue
+        moved = sorted(changed.intersection(files))
+        if moved:
+            problems.append(f"{rel} was cleared by the compiler scan but {moved[0]} changed since: re-run the retype")
+        elif unit_command_fingerprint(ctx, rel) != command:
+            problems.append(f"{rel} was cleared by the compiler scan but its build command changed since: re-run the retype")
+    return problems
+
+
 def outside_references(ctx, retype, objects):
     """Why an object outside the rebuilt set may still name the old, new or absorbed symbols: it
-    does, or it is stale or missing and compiler_scan did not clear its unit. A current object is
-    read by its own symbol table, and nothing falls back to a source's text."""
+    does, in its symbol table or its linker directives, or it is stale or missing and compiler_scan
+    did not clear its unit. Nothing falls back to a source's text."""
     import build
     import name_dependents
     names = {retype["old"], retype["new"]} | {name for _word, name in retype["absorbed"]}
+    words = [retype["word"]] + [word for word, _name in retype["absorbed"]]
     problems = []
     for rel, paths in sorted(objects.items()):
         if rel in retype["sources"]:
             continue
         library = rel.lower().endswith(build.LIB_SUFFIX)
         if paths and all(p.exists() and (library or build.compile_is_current(ctx.path(rel), p)) for p in paths):
-            if any(names & name_dependents.coff_symbol_names(p.read_bytes(), include_local=False) for p in paths):
+            datas = [p.read_bytes() for p in paths]
+            if any(names & name_dependents.coff_symbol_names(data, include_local=False) for data in datas):
                 problems.append(f"{rel} references {retype['word']} but this retype did not rebuild it")
+            for word in words:
+                if any(word.encode() in data and word in linker_directives(data) for data in datas):
+                    problems.append(f"{rel}'s linker directives name {word} but this retype did not rebuild it")
         elif rel not in retype.get("cleared", ()):
             problems.append(f"{rel}'s object is stale or missing and the compiler scan did not clear it")
     return problems
@@ -7804,6 +7869,7 @@ def retype_reference_problems(ctx, retype):
     end, sources, statics, problems = start + retype["size"], set(retype["sources"]), {}, []
     rows, datas = build.load_function_rows(), data_rows.load()
     objects = name_dependents.merged(name_dependents._row_objects(rows), name_dependents._data_row_objects(datas))
+    problems += cleared_input_problems(ctx, retype)
     problems += outside_references(ctx, retype, objects)
     spans = collections.defaultdict(list)            # {source: [(symbol, size, data row or None)]}
     for row in rows:
@@ -7883,8 +7949,12 @@ def retype_object_problems(ctx, retype):
         if not obj.exists():
             problems.append(f"{rel} has no object after the build")
             continue
-        _sections, symbols = reloc_ledger.parse_coff(obj.read_bytes())
+        data = obj.read_bytes()
+        _sections, symbols = reloc_ledger.parse_coff(data)
         names = [s["name"] for s in symbols.values()]
+        directives = linker_directives(data)
+        problems += [f"{rel}'s linker directives still name {gone}, retired by this retype"
+                     for gone in [old] + [word for word, _name in retype["absorbed"]] if gone in directives]
         if old in names:
             problems.append(f"{rel}'s object still names {old} (a second symbol for 0x{retype['row']['address']})")
         problems += [f"{rel}'s object still names {symbol}, absorbed into {word}" for gone, _name in retype["absorbed"]

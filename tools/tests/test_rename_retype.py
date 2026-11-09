@@ -18,7 +18,10 @@ sys.path.insert(0, str(TOOLS))
 import rename  # noqa: E402
 from rename import Refusal, VerifyFailed  # noqa: E402
 
+import build as real_build  # noqa: E402
+
 REAL_SCAN = rename.compiler_scan
+REAL_CURRENT = real_build.compile_is_current
 
 OWNER = "Code/Game/ThunksRva00401000.cpp"
 USER = "Code/Game/Register.cpp"
@@ -91,7 +94,7 @@ def tree(tmp_path, monkeypatch):
     _git(tmp_path, "add", "-A")
     monkeypatch.setattr(rename, "retail_extent", lambda ctx, rva, size: (".data", ".data", bytes(size)))
     monkeypatch.setattr(rename, "retail_relocated", lambda ctx, rva, size: [])
-    monkeypatch.setattr(rename, "compiler_scan", lambda ctx, words: {"spelled": set(), "asm": set(), "cleared": set()})
+    monkeypatch.setattr(rename, "compiler_scan", lambda ctx, words: {"spelled": set(), "asm": set(), "cleared": {}, "hashes": {}})
     return tmp_path
 
 
@@ -726,11 +729,13 @@ def scanning(tree, tmp_path, monkeypatch):
     `stale` the units whose objects are not current; `asked` the units it preprocessed."""
     import build
     import name_dependents
-    state = {"texts": {}, "stale": set(), "missing": set(), "asked": []}
+    state = {"texts": {}, "stale": set(), "missing": set(), "asked": [], "includes": {}, "commands": {}}
 
-    def preprocess(ctx, rel):
+    def preprocess(ctx, rel, includes=None):
         state["asked"].append(rel)
         text = state["texts"].get(rel, "")
+        if includes is not None:
+            includes.extend(str(tree / each) for each in state["includes"].get(rel, ()))
         return (None, "the preprocessor refused it") if text is None else (text, None)
     obj = tmp_path / "current.obj"
     obj.write_bytes(b"")
@@ -740,6 +745,7 @@ def scanning(tree, tmp_path, monkeypatch):
                 for r in rows if r.get("status") == "matched"}
     monkeypatch.setattr(rename, "compiler_scan", REAL_SCAN)
     monkeypatch.setattr(rename, "preprocess_unit", preprocess)
+    monkeypatch.setattr(rename, "unit_command_fingerprint", lambda ctx, rel: state["commands"].get(rel, "flags"))
     monkeypatch.setattr(name_dependents, "_row_objects", objects)
     monkeypatch.setattr(name_dependents, "_data_row_objects", lambda rows: {})
     monkeypatch.setattr(build, "compile_is_current",
@@ -1644,6 +1650,161 @@ def test_a_source_with_no_object_mapped_is_not_read_as_clean(tree):
     assert problems and "stale or missing" in problems[0]
 
 
+# ---- linker directives: a reference no symbol table shows (Codex's re-check, finding 1)
+
+def with_directive(tmp, name, directive, symbols=(("?f@@YAXXZ", 1, 0),)):
+    return object_with(tmp / name, [(".text", CODE_FLAGS, bytes(16)), (".drectve", 0x00100A00, directive.encode("latin-1"))],
+                       list(symbols))
+
+
+@pytest.mark.parametrize("directive", [f"/include:{OLD} ", f"/include:{NEW} ", f"/alternatename:_x={OLD} ",
+                                       " /EXPORT:?g_00A01000@@3IA,DATA "])
+def test_a_current_object_naming_it_in_a_linker_directive_refuses(outside, directive):
+    tree, tmp, _state = outside
+    path = with_directive(tmp, "drectve.obj", directive)
+    problems = rename.outside_references(ctx_of(tree), retype_record([OWNER]), {OUTSIDE: [path]})
+    assert len(problems) == 1 and f"{OUTSIDE}'s linker directives name g_00A01000" in problems[0]
+
+
+def test_an_archive_member_naming_it_in_a_linker_directive_refuses(outside):
+    tree, tmp, state = outside
+    state["stale"] = True                                         # currency does not apply to a library's member
+    path = with_directive(tmp, "member.obj", f"/include:{OLD} ")
+    problems = rename.outside_references(ctx_of(tree), retype_record([OWNER]), {"Code/Game/Vendor.lib": [path]})
+    assert problems and "Code/Game/Vendor.lib's linker directives name" in problems[0]
+
+
+def test_a_directive_naming_an_absorbed_row_refuses(outside):
+    tree, tmp, _state = outside
+    path = with_directive(tmp, "absorbed.obj", f"/include:{INNER} ")
+    problems = rename.outside_references(ctx_of(tree), dict(retype_record([OWNER]), absorbed=[("g_00A01008", INNER)]),
+                                         {OUTSIDE: [path]})
+    assert problems and "linker directives name g_00A01008" in problems[0]
+
+
+def test_unrelated_linker_directives_and_other_text_pass(outside):
+    tree, tmp, _state = outside
+    path = object_with(tmp / "plain.obj", [(".text", CODE_FLAGS, b"g_00A01000\0" + bytes(5)),
+                                           (".drectve", 0x00100A00, b" /DEFAULTLIB:LIBCMT ")], [("?f@@YAXXZ", 1, 0)])
+    assert rename.outside_references(ctx_of(tree), retype_record([OWNER]), {OUTSIDE: [path]}) == []
+
+
+def test_a_rebuilt_object_whose_directive_keeps_the_old_symbol_refuses(tree, objects):
+    made, tmp = objects
+    made["ThunksRva00401000.cpp"] = with_directive(tmp, "owner.obj", f"/include:{OLD} ", symbols=((NEW, 1, 0),))
+    problems = rename.retype_object_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and f"linker directives still name {OLD}" in problems[0]
+
+
+def test_a_rebuilt_object_whose_directive_names_the_new_symbol_passes(tree, objects):
+    made, tmp = objects
+    made["ThunksRva00401000.cpp"] = with_directive(tmp, "owner.obj", f"/include:{NEW} ", symbols=((NEW, 1, 0),))
+    assert rename.retype_object_problems(ctx_of(tree), retype_record([OWNER])) == []
+
+
+# ---- what a clearance rested on (Codex's re-check, finding 2)
+
+@pytest.fixture
+def cleared(scanning):
+    """A plan that cleared STALE, which includes HELD, and the cleared unit's state."""
+    tree, state = scanning
+    unit, header = "Code/Game/Stale.cpp", "Code/Game/Held.h"
+    write(tree, header, "int held;\n")
+    add_unit(tree, unit, '#include "Held.h"\nint s;\n', 0x00405000)
+    state["stale"].add(unit)
+    state["includes"][unit] = [header]
+    p = plan(tree)
+    assert unit in p.retype["cleared"]
+    return tree, state, p, unit, header
+
+
+def test_unchanged_inputs_keep_the_clearance(cleared):
+    tree, _state, p, _unit, _header = cleared
+    assert rename.cleared_input_problems(ctx_of(tree), p.retype) == []
+
+
+def test_a_changed_header_refuses_the_clearance(cleared):
+    tree, _state, p, unit, header = cleared
+    write(tree, header, "extern unsigned int g_00A01000;\n")
+    problems = rename.cleared_input_problems(ctx_of(tree), p.retype)
+    assert problems and unit in problems[0] and header in problems[0] and "re-run the retype" in problems[0]
+
+
+def test_a_changed_source_refuses_the_clearance(cleared):
+    tree, _state, p, unit, _header = cleared
+    write(tree, unit, '#include "Held.h"\nextern unsigned int g_00A01000;\n')
+    problems = rename.cleared_input_problems(ctx_of(tree), p.retype)
+    assert problems and unit in problems[0]
+
+
+def test_a_removed_header_refuses_the_clearance(cleared):
+    tree, _state, p, unit, header = cleared
+    (tree / header).unlink()
+    problems = rename.cleared_input_problems(ctx_of(tree), p.retype)
+    assert problems and unit in problems[0]
+
+
+def test_a_changed_command_refuses_the_clearance(cleared):
+    tree, state, p, unit, _header = cleared
+    state["commands"][unit] = "other flags"
+    problems = rename.cleared_input_problems(ctx_of(tree), p.retype)
+    assert problems and unit in problems[0] and "build command" in problems[0]
+
+
+def test_a_cleared_unit_this_retype_rebuilds_needs_no_clearance(cleared):
+    tree, _state, p, unit, header = cleared
+    write(tree, header, "int changed;\n")
+    retype = dict(p.retype, sources=sorted(set(p.retype["sources"]) | {unit}))
+    assert rename.cleared_input_problems(ctx_of(tree), retype) == []
+
+
+def test_the_reference_check_holds_clearances_to_their_inputs(references, monkeypatch):
+    tree, _pairs, _made, _tmp = references
+    monkeypatch.setattr(rename, "cleared_input_problems", lambda ctx, retype: ["its inputs changed"])
+    assert "its inputs changed" in rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+
+
+def test_the_preprocess_retry_is_the_builds(tree, tmp_path, monkeypatch):
+    """preprocess_unit mirrors try_compile_source's sweep retry: this fails if the two drift apart."""
+    import subprocess as sp
+    import build
+    sweep = tmp_path / "sweep"
+    other = tmp_path / "shims"
+    sweep.mkdir()
+    other.mkdir()
+    monkeypatch.setattr(build, "ROOT", tree)
+    monkeypatch.setattr(build, "_SWEEP_INCLUDE_DIRS", [sweep, other, tmp_path / "absent"])
+    monkeypatch.setattr(build, "compiler_command", lambda source, output: (
+        ["cl", "-nologo", "-c", "-O2", "-Fox.obj", "unit.cpp"], {"INCLUDE": "base"}))
+    monkeypatch.setattr(build, "check_command_includes", lambda source, command: None)
+    monkeypatch.setattr(build, "_restore_object", lambda source, output, fingerprint: False)
+    built = []
+
+    def run_compile(command, env, log, timeout=None):
+        built.append((list(command), dict(env)))
+        log.write("x.cpp(1) : fatal error C1083: Cannot open include file: 'w.h': No such file or directory\n")
+        log.flush()
+        return sp.CompletedProcess(command, 2)
+    monkeypatch.setattr(build, "_run_compile", run_compile)
+    ok, _text, _code = build.try_compile_source(tree / OWNER, tmp_path / "x.obj")
+    assert not ok and len(built) == 2
+    preprocessed = []
+
+    def run_preprocessor(command, env, cwd, module, timeout):
+        preprocessed.append((list(command), dict(env)))
+        return 1, b"", b"x.cpp(1) : fatal error C1083: Cannot open include file: 'w.h': No such file or directory\n"
+    monkeypatch.setattr(rename, "run_preprocessor", run_preprocessor)
+    text, why = rename.preprocess_unit(ctx_of(tree), OWNER)
+    assert text is None and "C1083" in why and len(preprocessed) == 2
+
+    def added(command):
+        return [part for part in command if part.startswith("-I")]
+    assert added(built[0][0]) == added(preprocessed[0][0]) == []
+    assert added(built[1][0]) == added(preprocessed[1][0]) != []
+    assert built[0][1]["INCLUDE"] == preprocessed[0][1]["INCLUDE"] == "base"
+    assert built[1][1]["INCLUDE"] == preprocessed[1][1]["INCLUDE"] != "base"
+
+
 def test_a_rebuilt_source_is_not_outside(outside):
     tree, tmp, _state = outside
     path = object_with(tmp / "owner.obj", [(".text", CODE_FLAGS, bytes(16))], [(NEW, 1, 0)])
@@ -1733,11 +1894,13 @@ def live(tree, monkeypatch):
             command, env = build.compiler_command(source, build.obj_path(source))
             done = sp.run(command, capture_output=True, env=env, cwd=str(tree), timeout=300)
             assert done.returncode == 0, done.stdout.decode("latin-1")[-600:]
-    rows = [dict(zip(("name", "export_rva", "target_rva", "target_size", "source", "status", "notes"), line.split(",")))
-            for line in (tree / "reverse/functions.csv").read_text().splitlines()[1:]]
-    monkeypatch.setattr(build, "load_function_rows", lambda: rows)
+    def current_rows():
+        return [dict(zip(("name", "export_rva", "target_rva", "target_size", "source", "status", "notes"), line.split(",")))
+                for line in (tree / "reverse/functions.csv").read_text().splitlines()[1:]]
+    rows = current_rows()
+    monkeypatch.setattr(build, "load_function_rows", current_rows)
     monkeypatch.setattr(name_dependents, "_row_objects",
-                        lambda given: {r["source"]: [build.obj_path(tree / r["source"])] for r in rows})
+                        lambda given: {r["source"]: [build.obj_path(tree / r["source"])] for r in current_rows()})
     monkeypatch.setattr(name_dependents, "_data_row_objects", lambda given: {})
     monkeypatch.setattr(build, "compile_is_current", lambda source, output: output.exists())
     monkeypatch.setattr(data_rows, "load", lambda: [])
@@ -1747,7 +1910,7 @@ def live(tree, monkeypatch):
     retail = {"?read@@YAHXZ": 4}
 
     def read_target_bytes(rva, size):
-        row = next(r for r in rows if int(r["target_rva"], 16) == rva)
+        row = next(r for r in current_rows() if int(r["target_rva"], 16) == rva)
         body, relocs = build.read_object_symbol_bytes(build.obj_path(tree / row["source"]), row["name"], size)
         held = bytearray(body[:size].ljust(size, b"\0"))
         for offset, kind, symbol in relocs:
@@ -1907,9 +2070,76 @@ def test_the_scan_refuses_on_a_unit_that_timed_out_and_prints_it(scanning, monke
     unit = "Code/Game/Hangs.cpp"
     add_unit(tree, unit, "int h;\n", 0x00405000)
     state["stale"].add(unit)
-    monkeypatch.setattr(rename, "preprocess_unit", lambda ctx, rel: (
+    monkeypatch.setattr(rename, "preprocess_unit", lambda ctx, rel, includes=None: (
         (None, "the preprocessor timed out twice, 300 s each") if rel == unit else ("", None)))
     with pytest.raises(Refusal, match=r"1 unit\(s\) did not preprocess.*Code/Game/Hangs.cpp"):
         plan(tree)
     assert "did not preprocess: Code/Game/Hangs.cpp: the preprocessor timed out twice" in capsys.readouterr().out
+
+
+def live_unit(tree, verify, rel, text, rva):
+    """A unit of the live tree, built, whose object is current and which reaches no `##`."""
+    write(tree, rel, text)
+    with open(tree / "reverse/functions.csv", "a", newline="\n") as f:
+        f.write(f"?f{rva:x}@@YAHXZ,,0x{rva:08X},6,{rel},matched,\n")
+    _git(tree, "add", "-A")
+    verify(None, [rel])
+
+
+def test_live_a_linker_directive_in_a_current_object_with_no_paste_is_refused(live):
+    """Codex's repro, with the real compiler: nothing here reaches a `##`, so nothing asks about this
+    unit, the name is spelled through escapes, and only the object's .drectve shows it."""
+    tree, _retail, verify = live
+    unit = "Code/Game/Directive.cpp"
+    live_unit(tree, verify, unit, '#pragma comment(linker, "/include:?g_\\060\\060A01000@@3IA")\nint d() { return 0; }\n',
+              0x00407000)
+    p = live_plan(tree)
+    assert unit not in p.verify and unit not in p.retype["cleared"]    # neither asked nor rebuilt
+    before = sources_of(tree)
+    with pytest.raises(VerifyFailed, match=r"Directive.cpp's linker directives name g_00A01000"):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=verify, checks=None)
+    assert sources_of(tree) == before
+
+
+def test_live_a_header_edited_after_the_scan_refuses_the_clearance(live):
+    tree, _retail, verify = live
+    unit, header = "Code/Game/Cleared.cpp", "Code/Game/Held.h"
+    write(tree, header, "int held;\n")
+    live_unit(tree, verify, unit, '#include "Held.h"\nint c() { return held; }\n', 0x00408000)
+    import build
+    build.obj_path(tree / unit).unlink()                           # stale or missing, so the scan asks about it
+    p = live_plan(tree)
+    assert unit in p.retype["cleared"] and str(tree / header) in p.retype["cleared"][unit][1]
+
+    def edits_while_verifying(ctx, sources):
+        write(tree, header, "extern unsigned int g_00A01000;\nint held;\n")
+        return verify(ctx, sources)
+    with pytest.raises(VerifyFailed, match=r"Cleared.cpp was cleared .* changed"):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=edits_while_verifying, checks=None)
+
+
+def test_live_stale_detection_is_the_builds_own(live, monkeypatch):
+    """No stub on currency: a real compile leaves its real sidecar, and a real header edit makes the
+    object stale, which is what sends the unit to the compiler."""
+    import build
+    tree, _retail, verify = live
+    unit, header = "Code/Game/Sidecar.cpp", "Code/Game/Sidecar.h"
+    write(tree, header, "int sidecar;\n")
+    live_unit(tree, verify, unit, '#include "Sidecar.h"\nint r() { return sidecar; }\n', 0x00409000)
+    monkeypatch.setenv("BFME_OBJSTORE", "off")
+    build._objstore_root.cache_clear()
+    monkeypatch.setattr(build, "compile_is_current", REAL_CURRENT)
+    source, obj = tree / unit, build.obj_path(tree / unit)
+    try:
+        ok, text, _code = build.try_compile_source(source, obj)
+        assert ok, text
+        assert REAL_CURRENT(source, obj)
+        p = live_plan(tree)
+        assert unit not in p.retype["cleared"] and unit not in p.verify    # current, no `##`: its object speaks
+        write(tree, header, "extern unsigned int g_00A01000;\nint sidecar;\n")
+        _git(tree, "add", "-A")
+        assert not REAL_CURRENT(source, obj)
+        assert unit in live_plan(tree).verify                              # stale: the compiler is asked, and it spells it
+    finally:
+        build._objstore_root.cache_clear()
 
