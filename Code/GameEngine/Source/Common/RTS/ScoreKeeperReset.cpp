@@ -31,10 +31,12 @@ template <int Bits> class ScoreMask {
  _STL::bitset<Bits> bits;
  public:void set(int bit){bits._Unchecked_set(bit);}
 };
-static ScoreMask<223> scoringBuildingMask;
-static ScoreMask<223> scoringBuildingDestroyMask;
-static ScoreMask<223> scoringBuildingCreateMask;
-static ScoreMask<223> scoringMask17;
+// Retail's one set of masks, owned by Rva007ADC9CMaskInits.cpp; ScoreKeeper.cpp reads the same ones.
+extern unsigned char g_00E0284C[28], g_00E02868[28], g_00E02884[28], g_00E028A0[28];
+#define scoringBuildingMask (*reinterpret_cast<ScoreMask<223> *>(g_00E0284C))
+#define scoringBuildingDestroyMask (*reinterpret_cast<ScoreMask<223> *>(g_00E02868))
+#define scoringBuildingCreateMask (*reinterpret_cast<ScoreMask<223> *>(g_00E02884))
+#define scoringMask17 (*reinterpret_cast<ScoreMask<223> *>(g_00E028A0))
 // This storage-compatible clear provider never observes key/value payloads.
 // Native tree nodes carry four-byte key/value slots; their semantics are
 // still taken from the ScoreKeeper donor only where independently supported.

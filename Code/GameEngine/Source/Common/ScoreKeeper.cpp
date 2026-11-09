@@ -139,8 +139,10 @@ struct ScoreKeeper
 	void addObjectsDestroyed(unsigned int key, Player *player, unsigned int count);
 };
 
-static KindOfMaskType scoringBuildingMask;
-static KindOfMaskType scoringBuildingDestroyMask;
+// Retail's one set of masks, owned by Rva007ADC9CMaskInits.cpp and set by ScoreKeeper::reset.
+extern unsigned char g_00E0284C[28], g_00E02868[28];
+#define scoringBuildingMask (*reinterpret_cast<KindOfMaskType *>(g_00E0284C))
+#define scoringBuildingDestroyMask (*reinterpret_cast<KindOfMaskType *>(g_00E02868))
 
 void ScoreKeeper::addObjectLost( const Object *object )
 {
