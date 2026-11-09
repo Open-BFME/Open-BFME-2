@@ -104,24 +104,55 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class CrateCollide
+class Thing;
+class ModuleData;
+class Xfer;
+struct Coord3D;
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+// The class views SalvageCrateCollide.cpp compiles for the family.
+// The collide interface at +0x10: retail's crate tables there (0x00C5A600
+// for MoneyCrateCollide) have six slots; slot 0 is CrateCollide::onCollide
+// 0x004BC56D. Only that slot carries a name yet.
+class CollideModuleInterface
 {
 public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
+class CollideModule : public BehaviorModule, public CollideModuleInterface
+{
+public:
+	CollideModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~CollideModule();
+	// BehaviorModuleInterface slot 1 (retail VA 0x00C5A040): CollideModule's override,
+	// rowed at 0x002533D3 (header-inline in CollideModule.h; SquishCollideCtor.cpp).
+	virtual CollideModuleInterface *getCollide();
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
+class CrateCollide : public CollideModule
+{
+public:
+	CrateCollide(Thing *thing, const ModuleData *moduleData);
+	// Out of line: retail 0x004BC4FC (Rva004BB68EDerived.cpp).
 	virtual ~CrateCollide();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
-	virtual bool executeCrateBehavior(Object *other);
-	// Partial primary prefix only; the cached name key is slot 4.
-	// No constructor/vtable is emitted through this receiver declaration.
-	virtual void primarySlot2();
-	virtual void primarySlot3();
-	const void *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
+	virtual void xfer(Xfer *xfer);
+	virtual bool executeCrateBehavior(Object *other) = 0;
+	virtual bool isValidToExecute(const Object *other) const;
+private:
+	bool m_everExecuted;			// +0x14, right after the three module bases
 };
 
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+// Target facts: MoneyCrateCollide's primary table 0x00C5A8A0 has slot 4
+// getModuleNameKey 0x004BC988 and slot 12 executeCrateBehavior 0x004BC9E9.
 class MoneyCrateCollide : public CrateCollide
 {
 public:
