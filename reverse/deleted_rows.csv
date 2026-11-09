@@ -6018,3 +6018,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004969FF@@UAEPAXI@Z,0x00496AC2,"Renamed to ??_GBannerCarrierUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4F838)"
 ??1Rva004C5019@@UAE@XZ,0x004C5019,"Renamed to ??1GrabPassengerSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D93C)"
 ??_GRva004C5019@@UAEPAXI@Z,0x004C5032,"Renamed to ??_GGrabPassengerSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D93C)"
+??1Rva004C7C33@@UAE@XZ,0x004C7C33,"Renamed to ??1PlayerUpgradeSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E184)"
+??_GRva004C7C33@@UAEPAXI@Z,0x004C7C91,"Renamed to ??_GPlayerUpgradeSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E184)"

@@ -57,21 +57,6 @@ private:
 	_STL::vector<AsciiString> m_upgradeNames;	// +0x7C UpgradeName
 };
 
-//
-// PlayerUpgradeSpecialPower's destructor 0x004C7C33, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5E184 at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5E120 at +0x10), exactly what ??0PlayerUpgradeSpecialPower
-// 0x004C7C03 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C7C33 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C7C33();
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPower.cpp
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -85,7 +70,8 @@ PlayerUpgradeSpecialPower::PlayerUpgradeSpecialPower( Thing *thing, const Module
 {
 }
 
-// ??1PlayerUpgradeSpecialPower@@MAE@XZ present-unmatched
+// ??1PlayerUpgradeSpecialPower@@MAE@XZ 0x004C7C33: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 PlayerUpgradeSpecialPower::~PlayerUpgradeSpecialPower()
 {
 }
@@ -127,16 +113,6 @@ PlayerUpgradeSpecialPowerModuleData::PlayerUpgradeSpecialPowerModuleData()
 // 0x004C7DB8 28B ??_GPlayerUpgradeSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C7C2D 6B ?Rva004C7C2DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C7C33::~Rva004C7C33()
-{
-}
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C7CAD 187B ?doSpecialPower@PlayerUpgradeSpecialPower@@UAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPowerDoSpecialPower.cpp (not merged yet)
 
