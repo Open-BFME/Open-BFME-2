@@ -25,3 +25,12 @@ Scratch before/candidate objects, provider proof and normal build/link/accept
 receipts use the moduleinfo-army-upgrades prefix under
 build/thingtemplate-header-cohort-20261109/. Broader batch audit and actual
 image/runtime verification are separate from this scoped link verdict.
+
+Published as 8541635d74 with the registration-base fold and two independent
+handoffs. The four-commit batch landed on attempt three (86.9 seconds after
+two lost races). All 38 bodies, six data rows and six EH graphs passed normal
+push checks. Each of its five sources' own link verdicts was LINKS, preserving
+1,998 bytes. The broader audit was INCONCLUSIVE: unchanged
+Common/AICowerState_onEnter.cpp lacked a current receipt against index
+5b5011469d and outgoing base d41f8690fa. Carry that evidence gap into the next
+census; this scoped package does not close it.

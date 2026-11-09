@@ -116,16 +116,7 @@ extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 
 class Rva0040C598 { public: void bitAnd(const int *); void rva0040C5B1(const int *); };
 
-class ModuleData;
-
-struct WorldMapModuleRecordView { char name[8]; const ModuleData *data; int flags, unknown; };
-
-class ModuleInfo {
-public:
- const ModuleData *getNthData(int) const;
- int count() const { return end-begin; }
- const WorldMapModuleRecordView *begin, *end, *capacity;
-};
+#include "../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate;
 

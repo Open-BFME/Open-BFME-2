@@ -15,3 +15,9 @@ row, leaving 19 ModuleInfo entries locally and none for this source. This
 clears only this header adoption, not the other army/template/module views,
 the broader outgoing-batch audit or a game-image exit test. Evidence:
 reverse/attempt_support/moduleinfo-army-upgrades-header-adoption-20261109.md.
+
+Publication receipt: 8541635d74, four-commit batch, attempt three. Normal push
+checks verified 38 bodies, six data rows and six exact EH graphs. Broader audit
+remains INCONCLUSIVE on unchanged AICowerState_onEnter.cpp's missing current
+receipt (index 5b5011469d, outgoing base d41f8690fa); all five directly checked
+sources retained their own LINKS verdicts. The consumer audit remains open.
