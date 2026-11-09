@@ -113,6 +113,10 @@ private:
 protected:
 	// retail slot 3: the rowed ?xfer@DamageFilteredCreateObjectDie@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
+public:
+	// BehaviorModuleInterface table 0x00C4AA98 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual DamageModuleInterface *getDamage();			// slot 4: retail 0x00485EE9, the +0x14 damage interface
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp
@@ -221,3 +225,9 @@ void DamageFilteredCreateObjectDie::onHealing(void *arg)
 // tu-skeleton: 0x00485FE3 50B ?xfer@DamageFilteredCreateObjectDie@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00486015 212B ?onDie@DamageFilteredCreateObjectDie@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp (not merged yet)
+
+// Slot 4 of DamageFilteredCreateObjectDie's BehaviorModuleInterface table 0x00C4AA98: retail 0x00485EE9, the +0x14 damage interface.
+DamageModuleInterface *DamageFilteredCreateObjectDie::getDamage()
+{
+	return reinterpret_cast<DamageModuleInterface *>(static_cast<Rva00C4AA84Iface *>(this));
+}

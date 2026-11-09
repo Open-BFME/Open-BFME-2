@@ -53,6 +53,11 @@ public:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+public:
+	// BehaviorModuleInterface table 0x00C42B60 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual CreateModuleInterface *getCreate();			// slot 3: retail 0x003730FC, the +0x24 create interface
+	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004543A9, the +0x20 die interface
 };
 
 FakePathfindPortalBehaviour::~FakePathfindPortalBehaviour()
@@ -163,3 +168,15 @@ BehaviorModule *findFakePathfindPortalBehaviour(FakePortalObjectView *obj)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
+
+// Slot 3 of FakePathfindPortalBehaviour's BehaviorModuleInterface table 0x00C42B60: retail 0x003730FC, the +0x24 create interface.
+CreateModuleInterface *FakePathfindPortalBehaviour::getCreate()
+{
+	return reinterpret_cast<CreateModuleInterface *>(static_cast<FakePathfindPortalBehaviour_B4 *>(this));
+}
+
+// Slot 7 of FakePathfindPortalBehaviour's BehaviorModuleInterface table 0x00C42B60: retail 0x004543A9, the +0x20 die interface.
+DieModuleInterface *FakePathfindPortalBehaviour::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<FakePathfindPortalBehaviour_B3 *>(this));
+}

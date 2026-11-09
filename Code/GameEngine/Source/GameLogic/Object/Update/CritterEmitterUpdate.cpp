@@ -117,6 +117,10 @@ protected:
 private:
 	bool m_24;
 	bool m_25;
+public:
+	// BehaviorModuleInterface table 0x00C5A260 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual CollideModuleInterface *getCollide();			// slot 1: retail 0x004543A9, the +0x20 collide interface
 };
 
 // Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
@@ -336,3 +340,9 @@ CritterEmitterUpdateModuleData::CritterEmitterUpdateModuleData()
 // scalar deleting destructor (vtable 0x00C5E988 slot 0), emitted here with the vtable.
 
 // tu-skeleton: 0x004C8FD7 17B ?buildFieldParse@CritterEmitterUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// Slot 1 of CritterEmitterUpdate's BehaviorModuleInterface table 0x00C5A260: retail 0x004543A9, the +0x20 collide interface.
+CollideModuleInterface *CritterEmitterUpdate::getCollide()
+{
+	return reinterpret_cast<CollideModuleInterface *>(static_cast<CritterEmitterUpdateIface *>(this));
+}
