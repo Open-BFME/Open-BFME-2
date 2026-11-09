@@ -4,6 +4,7 @@
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "Lib/Coord3D.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #include <vector>
@@ -111,6 +112,8 @@ public:
 	AsciiString m_upgradeRequired; // +0x40
 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../Common/System/XferVectorTypes.h"
+#include "../../../../Include/Common/BfmeXfer.h"
 class Rva0042526Member
 {
 public:
@@ -337,36 +340,8 @@ extern BitFlags<116> KINDOFMASK_NONE;
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
   // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
 
-extern "C" const void *const __identifier("??_7Rva004969FF@@6BRva004969FF_B2@@@")[];
+extern "C" const void *const __identifier("??_7BannerCarrierUpdate@@6BRva004969FF_B2@@@")[];
   // vftable 0x00C4F82C
-// The retail table at RVA 0x0084F838: 13 slots, each a rowed code owner (the next
-// word is not a code address or starts another ledger datum).
-extern "C" {
-void __identifier("??_GRva004969FF@@UAEPAXI@Z")();
-void __identifier("?loadPostProcess@Rva00497805@@MAEXXZ")();
-void __identifier("?name@Rva00496A18Named@@QBEPBDXZ")();
-void __identifier("?xfer@Rva0047F94C@@QAEXPAVXfer@@@Z")();
-void __identifier("?getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ")();
-void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
-void __identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z")();
-void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
-void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
-}
-extern "C" const void *const vtbl_00C4F838[13] = {
-	(const void *)&__identifier("??_GRva004969FF@@UAEPAXI@Z"), // slot 0 0x00496AC2
-	(const void *)&__identifier("?loadPostProcess@Rva00497805@@MAEXXZ"), // slot 1 0x00497805
-	(const void *)&__identifier("?name@Rva00496A18Named@@QBEPBDXZ"), // slot 2 0x00496A18
-	(const void *)&__identifier("?xfer@Rva0047F94C@@QAEXPAVXfer@@@Z"), // slot 3 0x0047F94C
-	(const void *)&__identifier("?getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ"), // slot 4 0x00496A1E
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 5 0x000B3FD0
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 6 0x000B3FD0
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 7 0x000B3FD0
-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 8 0x000B3FD0
-	(const void *)&__identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z"), // slot 9 0x0050B238
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10 0x000D43D0
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11 0x000D43D0
-	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
-};
 class Thing;
 
 extern PartitionManager *ThePartitionManager;
@@ -397,10 +372,15 @@ public:
 class BannerCarrierUpdate : public UpdateModule {
 public:
  BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData);
+ virtual ~BannerCarrierUpdate();
  virtual UpdateSleepTime update();
  void rva004973CF(); bool rva00496BD2(Object *); void rva00496E05(void *entry, bool playFX);
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+ virtual const char *GetSnapshotName() const;
+ virtual void xfer(Xfer *xfer);
+ virtual void loadPostProcess();
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp
@@ -851,11 +831,27 @@ void BannerCarrierUpdate::rva004973CF()
 BannerCarrierUpdate::BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData) :
 	UpdateModule(thing, moduleData)
 {
-	*(unsigned int *)this = ((unsigned int)vtbl_00C4F838);
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004969FF@@6BRva004969FF_B2@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7BannerCarrierUpdate@@6BRva004969FF_B2@@@"));
 }
 
-// tu-skeleton: 0x00496AC2 28B ??_GRva004969FF@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x00496AC2 28B ??_GBannerCarrierUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x004976CA 17B ?buildFieldParse@BannerCarrierUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// Native slot3 is shared with CivilianSpawnUpdate: version bytes {1,2},
+// then qualified base transfer when the second byte remains at least2.
+void BannerCarrierUpdate::xfer(Xfer *xfer)
+{
+ unsigned char version[2];
+ version[0]=1;
+ version[1]=2;
+ *xfer == *reinterpret_cast<Xfer::Version *>(version);
+ if(version[1]>=2) UpdateModule::xfer(xfer);
+}
+
+// The native slot points to the shared5B post-load wrapper at497805.
+void BannerCarrierUpdate::loadPostProcess()
+{
+ UpdateModule::loadPostProcess();
+}

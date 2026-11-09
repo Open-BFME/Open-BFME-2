@@ -267,13 +267,13 @@ public:
 	virtual void f2();
 };
 
-class Rva004969FF : public UpdateModule, public MiBase1, public Rva004969FF_B2
+class BannerCarrierUpdate : public UpdateModule, public MiBase1, public Rva004969FF_B2
 {
 public:
-	virtual ~Rva004969FF();
+	virtual ~BannerCarrierUpdate();
 };
 
-Rva004969FF::~Rva004969FF()
+BannerCarrierUpdate::~BannerCarrierUpdate()
 {
 }
 

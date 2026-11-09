@@ -1,0 +1,60 @@
+{
+  "native_rows": 200,
+  "banner_rows": 50,
+  "data_bytes": 52,
+  "data_relocations": 13,
+  "string_references": 114,
+  "eh_exact": 9,
+  "frozen": "all defined functions matched",
+  "link_verdicts": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp: LINKS  LINKED 3,331 -> 3,386 bytes (census 2026-11-09 16:08 at 138c18d3c9; file's own bytes 3,386)",
+    "Code/GameEngine/Source/Common/ModuleNameGetters3.cpp: LINKS  LINKED 605 -> 605 bytes (census 2026-11-09 16:08 at 138c18d3c9; file's own bytes 605)",
+    "Code/GameEngine/Source/Common/Rva0024A797Derived.cpp: LINKS  LINKED 1,562 -> 1,272 bytes (census 2026-11-09 16:08 at 138c18d3c9; file's own bytes 1,272)",
+    "Code/GameEngine/Source/Common/Rva0047F94CXfer.cpp: LINKS  LINKED 50 -> 50 bytes (census 2026-11-09 16:08 at 138c18d3c9; file's own bytes 50)"
+  ],
+  "source_objects": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp": {
+      "source_sha256": "1130fb31eca130978e696f40f12d3723f64221c31700cd58af8b085a3b97349f",
+      "object_sha256": "0a4c1beee4a00a8fc026d69554fcc4052e1f13620750a2537b59c687c81c7d42"
+    },
+    "Code/GameEngine/Source/Common/ModuleNameGetters3.cpp": {
+      "source_sha256": "d3c3b6ee960603d5089140f47557153f965fa44bfd13603c1ca31bd6e3d1bac4",
+      "object_sha256": "15894158cdf8ad306a6b64c697f1e9db3640ee03a53261fde02e3cfa37c80726"
+    },
+    "Code/GameEngine/Source/Common/Rva0024A797Derived.cpp": {
+      "source_sha256": "4d4fadb8b573c34c5f740caf08c95dc354a4470e1d0fb368632b2d077e7f6d1f",
+      "object_sha256": "025ab018f9a722ca4c7d126c0f79951f5db0d6ee8d77c85b0af78856796bcfb0"
+    },
+    "Code/GameEngine/Source/Common/Rva0047F94CXfer.cpp": {
+      "source_sha256": "8a199b4f6d12f68e785020d22e1a110c7f1c3b1f19160df83df1a3d4d0fc280f",
+      "object_sha256": "11e406ff3fc8a3ac0666c39f9d5f3bf6d9682b2a7199babc45285d20824256e3"
+    }
+  },
+  "bounded_replay_results": {
+    "before": {
+      "tables": 1,
+      "slots": 13,
+      "refused_tables": 1,
+      "already_correct": 1,
+      "correct_names": [
+        "??_7BannerCarrierUpdate@@6BObjectModule@@@"
+      ]
+    },
+    "after": {
+      "tables": 1,
+      "slots": 13,
+      "refused_tables": 0,
+      "already_correct": 1,
+      "correct_names": [
+        "??_7BannerCarrierUpdate@@6BObjectModule@@@"
+      ]
+    }
+  },
+  "bounded_replay_limits": [
+    "Response order is the old census index's order restricted to these inputs, not a new global selection proof.",
+    "Cached support currency and the private candidate's separate provenance are reported, not upgraded by replay.",
+    "The after table metadata models the proposed owner transfer only in memory; no ledger or index is written.",
+    "No compilation, source change, whole-image link or runtime closure follows."
+  ],
+  "limits": "Local verification and six-object replay only; Common four-byte primary alias still needs a thirteen-slot bridge; no image or runtime result."
+}

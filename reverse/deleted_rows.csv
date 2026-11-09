@@ -6013,3 +6013,6 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004BD207@@UAEPAXI@Z,0x004BD265,"Renamed to ??_GSalvageCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A9C0)"
 ?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ,0x0006CE57,"Renamed to ?Delete_This@RefCountClass@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BC650C slot 0)"
 ??1?$VectorClass@VModelNodeClass@HLodClass@@@@UAE@XZ,0x00155330,"Misidentified masked-byte placement: retail 0x00155330 stores table 0x007D3B98 (VectorClass<Rva00155940Element*>), its callers are ??_G DynamicVectorClass<Rva00155940Element*> 0x00156840 and unwinds 0x00766FF3/0x00767063; ModelNodeClass table 0x007D6720 appears only in other hlod rows with the destructor inlined. FontCharsClassConstructorBFME.cpp owns 0x00155330."
+?name@Rva00496A18Named@@QBEPBDXZ,0x00496A18,"Renamed to ?GetSnapshotName@BannerCarrierUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4F838 slot 2)"
+??1Rva004969FF@@UAE@XZ,0x004969FF,"Renamed to ??1BannerCarrierUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4F838)"
+??_GRva004969FF@@UAEPAXI@Z,0x00496AC2,"Renamed to ??_GBannerCarrierUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4F838)"

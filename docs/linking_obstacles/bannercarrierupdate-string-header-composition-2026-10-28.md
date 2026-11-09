@@ -32,3 +32,20 @@ before fixing the verifier separately, preserving the full dependency scope.
 Real destructor/shared-slot providers and the proposed TU placements remain
 prerequisites; no complete table, class fold or image clearance is claimed.
 [Private experiments, transport case and next steps](../../reverse/attempt_support/banner-primary-bootstrap-20261109/README.md).
+
+2026-11-09 follow-up: the supported getter and destructor identity operations
+now pass after normal cache refresh of the full585-source dependent scope;
+the transport case remains recorded, with no gate change. Genuine folded
+transfer50B and post-load5B members complete the compiler primary's13 native
+referents. The unused52B strong array is removed with explicit user approval,
+and its existing data row names the compiler primary at the same RVA84F838,
+extent52 and source. Constructor operand496AAA independently binds it. Normal
+verification passes200 bodies, the52B data row,114 string refs and9 exact EH
+rows; all four affected sources preview LINKS for5313 authored bytes and have
+strict reusable receipts. The bounded six-object replay removes its one strong
+refusal and retains the correct full primary; Common's separate4B destructor
+view still needs one13-slot bridge. Some unchanged replay support objects are
+not strict-current; this is not global object selection or image closure.
+Secondary tables, shared class composition, proposed TU placements and normal
+census/image confirmation remain open. See the linked packet's applied-recovery
+section and final-proof.json for the evidence and scope.
