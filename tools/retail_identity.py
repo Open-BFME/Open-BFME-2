@@ -274,10 +274,14 @@ class BodyFamily:
     `old_element` and `old_members` are the same for the old class, so the two are told apart by what each
     copies; `members` {rva: name} are the new class's other rows, and `member_facts` show their bodies reach
     the same element copy; `bindings` [(row rva, offset, target name)] are the REL32s each rebuilt row must
-    hold, the check the rebuilt copy's table store is for a Family. `copy` is the row the plan is keyed on."""
+    hold, the check the rebuilt copy's table store is for a Family. `copy` is the row the plan is keyed on.
+
+    `forced_moves` {rva: (row name, source)} are the only rows `rename.py --forced-move` may take out of
+    `source` for this family, under the owner's exception of 2026-11-09 (docs/consolidation.md): each is
+    reviewed here, so each new one needs its own Verifier-Change, and its name must spell the old class."""
 
     def __init__(self, old, new, copy, spellings, element, old_element, old_members, members, member_facts, bindings,
-                 rows, pins, retired=None):
+                 rows, pins, retired=None, forced_moves=None):
         for label, value in (("element", element), ("old_element", old_element), ("old_members", old_members),
                              ("members", members), ("member_facts", member_facts), ("bindings", bindings)):
             if not value:
@@ -296,6 +300,12 @@ class BodyFamily:
         self.element, self.old_element, self.old_members = tuple(element), tuple(old_element), old_members
         self.members, self.member_facts, self.bindings = members, tuple(member_facts), tuple(bindings)
         self.rows, self.pins, self.retired = rows, pins, retired or {}
+        for at, (name, _source) in (forced_moves or {}).items():
+            if not re.search(rf"[UV]{re.escape(old)}@@", name):
+                raise ValueError(f"forced move 0x{at:08X} {name} does not spell the old class {old}")
+            if at in rows or at in pins:
+                raise ValueError(f"forced move 0x{at:08X} is the family's own row")
+        self.forced_moves = forced_moves or {}
 
     def respell(self, name):
         """`name`'s written-out spelling; a name the family does not spell stays as it is, and so proves nothing."""
@@ -369,6 +379,8 @@ _RECORD_TREE_COPY = f"??0{_RECORD_TREE}QAE@ABV01@@Z"
 # size says nothing; the element copies differ: a dword and three narrow strings against wide, narrow, word, dword.
 HERO_RECORD_SET = BodyFamily(
     old="LadderPref", new="BfmeStringRecord0021A940", copy=0x0021DBBA,
+    # map<long,LadderPref>'s destructor stays what it is; the respell stops the sub-class copy's unit emitting it.
+    forced_moves={0x005DFF76: (f"??1{_LADDER_MAP}QAE@XZ", "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp")},
     spellings={
         f"??0{_LADDER_TREE}QAE@ABV01@@Z": _RECORD_TREE_COPY,
         f"??0{_LADDER_MAP}QAE@ABV01@@Z": f"??0{_RECORD_SET}QAE@ABV01@@Z",
@@ -504,6 +516,11 @@ def table_named(family, row, owner_size):
     stores = [f for f in family.owner["facts"] if f.kind == "stores" and f.value == family.table
               and f.code in VPTR_STORES and start <= f.site and f.site + len(expected(f)) <= end]
     return bool(stores) and not facts_problems(stores)
+
+
+def forced_move_table():
+    """{rva: (row name, source)}: every row any family may force-move (BodyFamily.forced_moves)."""
+    return {at: entry for family in FAMILIES for at, entry in getattr(family, "forced_moves", {}).items()}
 
 
 def family_of(rva, new):

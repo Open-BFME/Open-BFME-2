@@ -370,3 +370,493 @@ def test_empty_bindings_are_a_problem(tmp_path):
     ctx.identity_refs = lambda sources: []
     ctx.object_symbol_relocs = lambda source, name: []
     assert any("no bindings" in p for p in rename.retail_identity_problems(ctx, identity))
+
+
+# ------------------------------------------------------------------ --forced-move, the owner's exception
+
+HOMELESS = 0x005DFF76
+HOMELESS_NAME = F.forced_moves[HOMELESS][0]
+TREE_DTOR = 0x005DFE18
+TREE_DTOR_NAME = "??1tree@@QAE@XZ"
+PLACED = "Code/Lib/Placed.cpp"
+JMP = bytes.fromhex("e900000000")
+BODY = ("the body", 0)
+
+
+@pytest.fixture
+def forced(tree, monkeypatch, image):
+    """A tree with one row the rename forces out of UNIT, and objects the test states: the first
+    coff_definitions and section_identity read the state before the rename, then `after` applies."""
+    import build
+    import tu_map
+    import tu_skeleton
+    monkeypatch.setattr(F, "forced_moves", {HOMELESS: (HOMELESS_NAME, UNIT)})
+    rows = tree / "reverse/functions.csv"
+    rows.write_bytes(rows.read_bytes() + (
+        f"{HOMELESS_NAME},,0x{HOMELESS:08X},5,{UNIT},matched,placed\n"
+        f"{TREE_DTOR_NAME},,0x{TREE_DTOR:08X},56,Code/Lib/Member.cpp,matched,tree\n"
+        f"?placed@@YAXXZ,,0x00700100,8,{PLACED},matched,a row of the destination\n").encode())
+    write(tree / "reverse/forced_row_moves.csv", "target_rva,name,moved_from,placed_in,evidence,statement\n")
+    write(tree / PLACED, "// a unit that emits the row\n")
+    write(tree / "reverse/tu_map.csv", "rva,size,kind,tu,confidence,by,evidence,source\n"
+          f"0x{HOMELESS:08X},5,code,,,-,,{UNIT}\n")
+    git(tree, "add", "-A")
+    git(tree, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "forced")
+    jump = bytes.fromhex("e99dfeffff")
+    for i, byte in enumerate(jump):
+        image[HOMELESS + i] = byte
+    state = {
+        "units": {HOMELESS: ("", ""), COPY: ("", "")}, "stale": False,
+        "defs": {UNIT: {HOMELESS_NAME: (True, True, 2)}, PLACED: {HOMELESS_NAME: (True, True, 2)}},
+        "bodies": {UNIT: BODY, PLACED: BODY},
+        "code": JMP, "relocs": [(1, rename.REL32, TREE_DTOR_NAME)], "current": True,
+        "named_after": False,
+    }
+
+    def current_rows(layout):
+        return ([dict(rva=f"0x{at:08X}", tu=tu, confidence=confidence) for at, (tu, confidence) in state["units"].items()],
+                state["stale"])
+    monkeypatch.setattr(tu_map, "current_rows", current_rows)
+    monkeypatch.setattr(tu_skeleton, "coff_definitions", lambda obj: state["defs"].get(obj))
+    monkeypatch.setattr(tu_skeleton, "section_identity", lambda obj, name: state["bodies"].get(obj))
+    monkeypatch.setattr(build, "read_object_symbol_bytes", lambda path, name, **kw: (state["code"], state["relocs"]))
+    monkeypatch.setattr(rename, "forced_move_references", lambda path, name: state["named_after"])
+    return state
+
+
+FORCED_STATE = {}
+
+
+def forced_context(root, forced_state=None):
+    ctx, state = context(root)
+    ctx.forced_move_object = lambda source: source
+    ctx.forced_move_current = lambda source: FORCED_STATE["current"]
+    return ctx, state
+
+
+def forced_plan(ctx, **overrides):
+    return plan(ctx, forced_moves=[(HOMELESS, PLACED)], **overrides)
+
+
+def land_forced(ctx, got, state, forced_state, *, old_still_defines=False):
+    def verify(c, sources):
+        state["refs"] = after_refs()
+        if not old_still_defines:
+            forced_state["defs"][UNIT] = {}
+        return True
+    return rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+
+
+def register(root):
+    return (root / "reverse/forced_row_moves.csv").read_text()
+
+
+@pytest.fixture(autouse=True)
+def forced_state_link(request):
+    if "forced" in request.fixturenames:
+        FORCED_STATE.clear()
+        FORCED_STATE["current"] = True
+    yield
+
+
+def test_the_real_family_lists_only_the_row_the_owner_approved():
+    assert list(R.HERO_RECORD_SET.forced_moves) == [0x005DFF76]
+    assert R.HERO_RECORD_SET.forced_moves[0x005DFF76][1] == "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp"
+    assert R.forced_move_table() == R.HERO_RECORD_SET.forced_moves
+
+
+def test_the_constructor_refuses_a_forced_row_that_does_not_spell_the_old_class():
+    with pytest.raises(ValueError, match="does not spell the old class"):
+        R.BodyFamily(**{**good_kwargs(), "old": "Old"}, forced_moves={9: ("??1Other@@QAE@XZ", "Code/A.cpp")})
+    with pytest.raises(ValueError, match="family's own row"):
+        R.BodyFamily(**{**good_kwargs(), "old": "Old"}, forced_moves={1: ("??1?$map@VOld@@@@QAE@XZ", "Code/A.cpp")})
+
+
+def test_a_forced_move_lands_with_its_record_and_no_approval(tree, forced):
+    ctx, state = forced_context(tree)
+    got = forced_plan(ctx)
+    land_forced(ctx, got, state, forced)
+    rows = (tree / "reverse/functions.csv").read_text()
+    assert f"{HOMELESS_NAME},,0x{HOMELESS:08X},5,{PLACED},matched" in rows
+    lines = register(tree).splitlines()
+    assert len(lines) == 2 and f"0x{HOMELESS:08X}" in lines[1] and "not in its true unit" in lines[1]
+    assert UNIT in lines[1] and PLACED in lines[1]
+    mapped = (tree / "reverse/tu_map.csv").read_text().splitlines()[1].split(",")
+    assert mapped[3:5] == ["", ""]
+    assert mapped[7] == PLACED
+    assert PLACED in got.verify and UNIT in got.verify
+
+
+def test_an_approved_unit_refuses_the_exception(tree, forced):
+    forced["units"][HOMELESS] = ("Code/Lib/True.cpp", "approved")
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="has a unit"):
+        forced_plan(ctx)
+
+
+def test_a_provisional_unit_refuses_the_exception(tree, forced):
+    forced["units"][HOMELESS] = ("Code/Lib/True.cpp", "provisional")
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="has a unit"):
+        forced_plan(ctx)
+
+
+def test_a_row_the_map_does_not_list_refuses(tree, forced):
+    del forced["units"][HOMELESS]
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="cannot show"):
+        forced_plan(ctx)
+
+
+def test_the_map_is_the_one_the_current_inputs_build(tree, forced):
+    # The committed file lists the row with no unit; the rebuilt map gives it one, and that is the answer.
+    forced["stale"] = True
+    forced["units"][HOMELESS] = ("Code/Lib/True.cpp", "approved")
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="has a unit"):
+        forced_plan(ctx)
+
+
+def test_a_row_no_family_lists_refuses(tree, forced, monkeypatch):
+    # an identical homeless COMDAT the rename could be made to suppress: the rename alone cannot move it
+    monkeypatch.setattr(F, "forced_moves", {})
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="reviewed forced_moves"):
+        forced_plan(ctx)
+
+
+def test_a_row_that_is_not_the_reviewed_one_refuses(tree, forced, monkeypatch):
+    ctx, _state = forced_context(tree)
+    monkeypatch.setattr(F, "forced_moves", {HOMELESS: (HOMELESS_NAME, "Code/Lib/Other.cpp")})
+    with pytest.raises(Refusal, match="the family reviewed"):
+        forced_plan(ctx)
+    monkeypatch.setattr(F, "forced_moves", {HOMELESS: ("??1?$map@VLadderPref@@@@QAE@XZ", UNIT)})
+    with pytest.raises(Refusal, match="the family reviewed"):
+        forced_plan(ctx)
+
+
+def test_no_rename_forcing_it_refuses(tree, forced, monkeypatch):
+    monkeypatch.setattr(F, "forced_moves", {HOMELESS: (HOMELESS_NAME, "Code/Lib/Member.cpp")})
+    rows = tree / "reverse/functions.csv"
+    rows.write_bytes(rows.read_bytes().replace(f"0x{HOMELESS:08X},5,{UNIT}".encode(),
+                                               f"0x{HOMELESS:08X},5,Code/Lib/Member.cpp".encode()))
+    git(tree, "add", "-A")
+    git(tree, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "elsewhere")
+    with pytest.raises(Refusal, match="no rename forces"):
+        forced_plan(_fresh(tree))
+
+
+def _fresh(root):
+    ctx, _state = forced_context(root)
+    return ctx
+
+
+@pytest.fixture
+def receipted(tmp_path, monkeypatch):
+    """A real census-grade sidecar over a real source and object, as test_build_include_inventory writes one."""
+    import build
+    root = tmp_path / "receipted"
+    source = root / "Code" / "Unit.cpp"
+    source.parent.mkdir(parents=True)
+    source.write_text("// the unit\n")
+    output = root / "Unit.obj"
+    output.write_bytes(b"the object the compiler wrote")
+    command, env = ["cl"], {}
+    monkeypatch.setattr(build, "ROOT", root)
+    monkeypatch.setattr(build, "compiler_command", lambda *_: (command, env))
+    monkeypatch.setattr(build, "_cmd_fingerprint", lambda *_: "command")
+    inventory = build.search_inventory(source, command, env)
+    build._write_deps_sidecar(source, output, "command", "", True, command, env, inventory, [])
+    assert build.compile_is_current(source, output)
+    return source, output
+
+
+def test_the_receipt_holds_for_the_object_it_recorded(receipted):
+    assert rename.object_receipt_holds(*receipted)
+
+
+def test_replaced_object_bytes_with_the_receipt_kept_refuse(receipted):
+    import build
+    source, output = receipted
+    output.write_bytes(b"other bytes in the same object")
+    # what the plan used to rely on still says current: only the recorded hash catches this
+    assert build.compile_is_current(source, output)
+    assert not rename.object_receipt_holds(source, output)
+
+
+def test_a_receipt_with_no_object_hash_refuses(receipted):
+    import build
+    import json
+    source, output = receipted
+    sidecar = build._deps_sidecar(output)
+    meta = json.loads(sidecar.read_text())
+    del meta["object"]
+    sidecar.write_text(json.dumps(meta))
+    assert not rename.object_receipt_holds(source, output)
+
+
+def test_a_plain_sidecar_is_not_census_grade(receipted, monkeypatch):
+    import build
+    import json
+    source, output = receipted
+    sidecar = build._deps_sidecar(output)
+    meta = json.loads(sidecar.read_text())
+    assert meta.pop("version") == 2
+    meta["deps"] = {"Code/Unit.cpp": build._hash_file(str(source))}
+    sidecar.write_text(json.dumps(meta))
+    assert build.compile_is_current(source, output)
+    assert not rename.object_receipt_holds(source, output)
+
+
+def test_an_old_object_with_no_current_receipt_refuses(tree, forced):
+    FORCED_STATE["current"] = False
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="census-grade"):
+        forced_plan(ctx)
+
+
+def test_a_batch_refuses_the_exception(tree, forced):
+    ctx, _state = forced_context(tree)
+    request = dict(rva=COPY, new=NEW_COPY, respell=True, identity=True, basis="retail", evidence=F.evidence(),
+                   prepared=dict(PREPARED), forced_moves=[(HOMELESS, PLACED)])
+    result = rename.run_batch(ctx, [("function", request)], claim=False, verify=lambda *_: True, checks=lambda *_: [])
+    assert "does not take --forced-move" in result.refused[0]
+    assert not result.plans
+    assert f"{HOMELESS_NAME},,0x{HOMELESS:08X},5,{UNIT}," in (tree / "reverse/functions.csv").read_text()
+    assert len(register(tree).splitlines()) == 1
+
+
+@pytest.mark.parametrize("basis, evidence", [("retail", F.evidence()), ("inferred", "agree:x")])
+def test_a_batch_refuses_every_identity_respell(tree, forced, basis, evidence):
+    ctx, _state = forced_context(tree)
+    before = (tree / "reverse/functions.csv").read_bytes()
+    request = dict(rva=COPY, new=NEW_COPY, respell=True, identity=True, basis=basis, evidence=evidence,
+                   prepared=dict(PREPARED))
+    result = rename.run_batch(ctx, [("function", request)], claim=False, verify=lambda *_: True, checks=lambda *_: [])
+    assert "does not take an identity respell" in result.refused[0]
+    assert not result.plans
+    assert (tree / "reverse/functions.csv").read_bytes() == before
+
+
+def test_a_batch_refuses_a_plan_carrying_identity_however_it_was_asked_for(tree, forced, monkeypatch):
+    ctx, _state = forced_context(tree)
+    real = rename.plan_rename
+
+    def carrying(kind, *, ctx=None, **kwargs):
+        got = real("function", ctx=ctx, rva=COPY, new=NEW_COPY, respell=True, identity=True, basis="retail",
+                   evidence=F.evidence(), prepared=dict(PREPARED))
+        assert got.identity
+        return got
+    monkeypatch.setattr(rename, "plan_rename", carrying)
+    result = rename.run_batch(ctx, [("function", dict(rva=COPY, new="unused"))], claim=False,
+                              verify=lambda *_: True, checks=lambda *_: [])
+    assert "does not take an identity plan" in result.refused[0]
+    assert not result.plans
+
+
+def test_a_row_its_old_file_does_not_define_today_refuses(tree, forced):
+    forced["defs"][UNIT] = {}
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="nothing is forced"):
+        forced_plan(ctx)
+
+
+def test_the_familys_own_row_refuses(tree, forced):
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="family's own row"):
+        plan(ctx, forced_moves=[(COPY, PLACED)])
+
+
+def test_a_weak_destination_refuses(tree, forced):
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="missing or outside"):
+        plan(ctx, forced_moves=[(HOMELESS, "Code/Lib/Nowhere.cpp")])
+    with pytest.raises(Refusal, match="already in"):
+        plan(ctx, forced_moves=[(HOMELESS, UNIT)])
+    for dest in ("reverse/attempts/00000001.cpp", "Code/../Code/Lib/Placed.cpp", "Code/Lib/Placed.asm", "Code/Lib/Placed.h"):
+        with pytest.raises(Refusal, match="existing Code C\\+\\+ source"):
+            plan(ctx, forced_moves=[(HOMELESS, dest)])
+    for dest, message in (("Code/gen_small/x.cpp", "generated"), ("Code/gen_asm/x.cpp", "generated"),
+                          ("Code/Lib/NoRows.cpp", "no matched rows")):
+        write(tree / dest, "// here\n")
+        git(tree, "add", "-A")
+        git(tree, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", dest)
+        with pytest.raises(Refusal, match=message):
+            plan(_fresh(tree), forced_moves=[(HOMELESS, dest)])
+    write(tree / "Code/Lib/Loose.cpp", "// not tracked\n")
+    rows = tree / "reverse/functions.csv"
+    rows.write_bytes(rows.read_bytes() + b"?loose@@YAXXZ,,0x00700200,8,Code/Lib/Loose.cpp,matched,loose\n")
+    git(tree, "add", "reverse/functions.csv")
+    git(tree, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "loose")
+    with pytest.raises(Refusal, match="untracked"):
+        plan(_fresh(tree), forced_moves=[(HOMELESS, "Code/Lib/Loose.cpp")])
+
+
+def test_an_old_object_still_naming_the_symbol_restores_everything(tree, forced):
+    ctx, state = forced_context(tree)
+    before = (tree / "reverse/functions.csv").read_bytes()
+    got = forced_plan(ctx)
+    forced["named_after"] = True
+    with pytest.raises(VerifyFailed, match="still refers to"):
+        land_forced(ctx, got, state, forced)
+    assert (tree / "reverse/functions.csv").read_bytes() == before
+    forced["named_after"] = None
+    forced["defs"][UNIT] = {HOMELESS_NAME: (True, True, 2)}
+    got = forced_plan(ctx)
+    with pytest.raises(VerifyFailed, match="inconclusive"):
+        land_forced(ctx, got, state, forced)
+
+
+# The proof on the real objects of the P51 respell: nothing about them is mocked but the retail read, the map
+# and the row table. Built by ./build.sh from Rva0021E85ACopy.cpp before and after the respell (424095f914)
+# and OnlinePreferences_Unresolved.cpp, which the respell did not change.
+REAL = Path(__file__).resolve().parent / "fixtures" / "forced_move"
+REAL_NAME = F.forced_moves[HOMELESS][0]
+REAL_OLD, REAL_NEW = "Code/Common/Copy.cpp", "Code/Net/Prefs.cpp"
+
+
+@pytest.fixture
+def real_objects(tmp_path, monkeypatch):
+    import build
+    import tu_skeleton
+    before = REAL / "rva0021e85acopy_before.obj"
+    after = REAL / "rva0021e85acopy_after.obj"
+    dest = REAL / "onlinepreferences_unresolved.obj"
+    relocs = build.read_object_symbol_bytes(dest, REAL_NAME, code_only=True)[1]
+    assert [(offset, kind) for offset, kind, _target in relocs] == [(1, rename.REL32)]
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(
+        "name,export_rva,target_rva,target_size,source,status,notes\n"
+        f"{relocs[0][2]},,0x{TREE_DTOR:08X},56,Code/Tree.cpp,matched,tree\n")
+    monkeypatch.setattr(R, "read_retail", lambda rva, size: bytes.fromhex("e99dfeffff")[:size])
+    monkeypatch.setattr(rename, "map_units", lambda ctx: {HOMELESS: ("", "")})
+    files = {REAL_OLD: after, REAL_NEW: dest}
+
+    class Ctx:
+        root = tmp_path
+
+        @staticmethod
+        def path(rel):
+            return tmp_path / rel
+
+        @staticmethod
+        def forced_move_object(source):
+            return files[source]
+
+    identity = dict(forced=[dict(rva=HOMELESS, name=REAL_NAME, size=5, old=REAL_OLD, dest=REAL_NEW,
+                                 before=tu_skeleton.section_identity(before, REAL_NAME))],
+                    units_before={HOMELESS: ("", "")})
+    return Ctx, identity, files, before
+
+
+def test_the_real_objects_pass_the_proof(real_objects):
+    ctx, identity, _files, before = real_objects
+    assert identity["forced"][0]["before"] is not None
+    assert rename.forced_move_references(before, REAL_NAME) is True
+    assert rename.forced_move_references(REAL / "rva0021e85acopy_after.obj", REAL_NAME) is False
+    assert rename.forced_move_problems(ctx, identity) == []
+
+
+def test_the_real_old_object_before_the_respell_is_refused(real_objects):
+    ctx, identity, files, before = real_objects
+    files[REAL_OLD] = before
+    assert "still defines" in rename.forced_move_problems(ctx, identity)[0]
+
+
+def test_a_real_destination_with_a_changed_body_is_refused(real_objects, tmp_path):
+    import build
+    import struct
+    ctx, identity, files, _before = real_objects
+    data = bytearray((REAL / "onlinepreferences_unresolved.obj").read_bytes())
+    detail = build.read_object_symbol_bytes(
+        REAL / "onlinepreferences_unresolved.obj", REAL_NAME, code_only=True, detail=True)[2]
+    section, value = detail["section"], detail["value"]
+    pointer = struct.unpack_from("<I", data, 20 + (section - 1) * 40 + 20)[0]
+    assert data[pointer + value] == 0xE9
+    data[pointer + value] = 0xE8
+    changed = tmp_path / "changed.obj"
+    changed.write_bytes(data)
+    files[REAL_NEW] = changed
+    assert "body differs" in rename.forced_move_problems(ctx, identity)[0]
+
+
+def test_a_real_destination_without_the_body_is_refused(real_objects):
+    ctx, identity, files, _before = real_objects
+    files[REAL_NEW] = REAL / "rva0021e85acopy_after.obj"
+    assert "define" in rename.forced_move_problems(ctx, identity)[0]
+
+
+def test_a_real_body_retail_does_not_hold_is_refused(real_objects, monkeypatch):
+    ctx, identity, _files, _before = real_objects
+    monkeypatch.setattr(R, "read_retail", lambda rva, size: bytes.fromhex("e89dfeffff")[:size])
+    assert "differ from retail" in rename.forced_move_problems(ctx, identity)[0]
+    monkeypatch.setattr(R, "read_retail", lambda rva, size: bytes.fromhex("e900000000")[:size])
+    assert "no row of that name" in rename.forced_move_problems(ctx, identity)[0]
+
+
+def test_a_row_with_funclets_refuses(tree, forced):
+    rows = tree / "reverse/functions.csv"
+    rows.write_bytes(rows.read_bytes() + f"$L1,,0x00700000,8,{UNIT},matched,parent={HOMELESS_NAME}\n".encode())
+    git(tree, "add", "-A")
+    git(tree, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "funclet")
+    with pytest.raises(Refusal, match="funclets"):
+        forced_plan(_fresh(tree))
+
+
+def test_the_old_file_still_defining_it_restores_everything(tree, forced):
+    ctx, state = forced_context(tree)
+    before = (tree / "reverse/functions.csv").read_bytes()
+    got = forced_plan(ctx)
+    with pytest.raises(VerifyFailed, match="still defines"):
+        land_forced(ctx, got, state, forced, old_still_defines=True)
+    assert (tree / "reverse/functions.csv").read_bytes() == before
+    assert len(register(tree).splitlines()) == 1
+
+
+@pytest.mark.parametrize("change, message", [
+    ({"bodies": {PLACED: ("another body", 0)}}, "body differs"),
+    ({"defs": {PLACED: {}}}, "define"),
+    ({"code": bytes.fromhex("e800000000")}, "differ from retail"),
+    ({"code": bytes.fromhex("e9000000")}, "bytes, its row"),
+    ({"relocs": [(1, rename.REL32, "??1other@@QAE@XZ")]}, "no row of that name"),
+    ({"relocs": [(1, 7, TREE_DTOR_NAME)]}, "cannot compare"),
+])
+def test_a_new_body_that_is_not_retails_restores_everything(tree, forced, change, message):
+    ctx, state = forced_context(tree)
+    before = (tree / "reverse/functions.csv").read_bytes()
+    got = forced_plan(ctx)
+    for key, value in change.items():
+        if isinstance(value, dict):
+            forced[key].update(value)
+        else:
+            forced[key] = value
+    with pytest.raises(VerifyFailed, match=message):
+        land_forced(ctx, got, state, forced)
+    assert (tree / "reverse/functions.csv").read_bytes() == before
+    assert len(register(tree).splitlines()) == 1
+
+
+@pytest.mark.parametrize("at, unit", [(HOMELESS, ("Code/Lib/Placed.cpp", "approved")), (COPY, ("Code/Lib/X.cpp", "approved"))])
+def test_a_move_that_would_change_the_map_restores_everything(tree, forced, at, unit):
+    ctx, state = forced_context(tree)
+    before = (tree / "reverse/functions.csv").read_bytes()
+    got = forced_plan(ctx)
+    forced["units"] = {**forced["units"], at: unit}
+    with pytest.raises(VerifyFailed, match="approves nothing"):
+        land_forced(ctx, got, state, forced)
+    assert (tree / "reverse/functions.csv").read_bytes() == before
+
+
+def test_the_exception_is_for_the_retail_route_only(tree, forced):
+    ctx, _state = forced_context(tree)
+    with pytest.raises(Refusal, match="--basis retail only"):
+        rename.plan_rename("function", ctx=ctx, rva=COPY, new=NEW_COPY, respell=True, identity=True, basis="inferred",
+                           evidence="agree:x", prepared=dict(PREPARED), forced_moves=[(HOMELESS, PLACED)])
+
+
+def test_a_missing_register_refuses(tree, forced):
+    (tree / "reverse/forced_row_moves.csv").unlink()
+    git(tree, "add", "-A")
+    git(tree, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "gone")
+    with pytest.raises(Refusal, match="every forced move is recorded"):
+        forced_plan(_fresh(tree))

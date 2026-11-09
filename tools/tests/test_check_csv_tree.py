@@ -199,3 +199,85 @@ def test_restoring_masters_ledger_clears_a_committed_refusal(repo):
 
 def test_a_tree_without_a_ledger_is_nobodys_problem(repo):
     assert check_csv.check_retired_ledger_rows(git(repo, "write-tree")) == []
+
+
+# ---- reverse/forced_row_moves.csv against the families' reviewed table
+
+FM_NAME = "??1?$map@JVOld@@@@QAE@XZ"
+FM_TABLE = {0x005DFF76: (FM_NAME, "Code/Old.cpp")}
+FM_HEADER = "target_rva,name,moved_from,placed_in,evidence,statement\n"
+FM_LINE = f'0x005DFF76,{FM_NAME},Code/Old.cpp,Code/New.cpp,retail:x,"not in its true unit: placement evidence"\n'
+MAP_HEADER = "rva,size,kind,tu,confidence,by,evidence,source\n"
+FM_SOURCES = {"Code/Old.cpp", "Code/New.cpp", "Code/Other.cpp"}
+
+
+def fm_problems(register, source, unit="", confidence="", table=FM_TABLE):
+    functions = HEADER + f"{FM_NAME},,0x005DFF76,5,{source},matched,\n"
+    map_csv = MAP_HEADER + f"0x005DFF76,5,code,{unit},{confidence},-,,{source}\n"
+    problems = []
+    check_csv.check_forced_moves(register.encode(), functions.encode(), map_csv.encode(), problems, table, FM_SOURCES)
+    return problems
+
+
+def test_a_reviewed_row_still_in_its_file_needs_no_line():
+    assert fm_problems(FM_HEADER, "Code/Old.cpp") == []
+    assert fm_problems("", "Code/Old.cpp") == []
+
+
+def test_a_moved_row_with_its_line_passes():
+    assert fm_problems(FM_HEADER + FM_LINE, "Code/New.cpp") == []
+
+
+def test_a_deleted_line_is_refused_while_the_row_sits_outside_an_approved_unit():
+    assert "with no line" in fm_problems(FM_HEADER, "Code/New.cpp")[0]
+    assert "with no line" in fm_problems(FM_HEADER, "Code/New.cpp", "Code/Other.cpp", "approved")[0]
+    assert "with no line" in fm_problems(FM_HEADER, "Code/New.cpp", "Code/New.cpp", "provisional")[0]
+
+
+def test_the_line_goes_once_the_row_is_in_its_approved_unit():
+    assert fm_problems(FM_HEADER, "Code/New.cpp", "Code/New.cpp", "approved") == []
+    assert "delete the line" in fm_problems(FM_HEADER + FM_LINE, "Code/New.cpp", "Code/New.cpp", "approved")[0]
+
+
+@pytest.mark.parametrize("line, message", [
+    (FM_LINE.replace("0x005DFF76", "0x00123456"), "reviewed forced_moves"),
+    (FM_LINE.replace(FM_NAME, "??1Other@@QAE@XZ"), "the family reviewed"),
+    (FM_LINE.replace("Code/Old.cpp", "Code/Elsewhere.cpp"), "the family reviewed"),
+    (FM_LINE.replace("not in its true unit", "placed"), "not in its true unit"),
+    ("nonsense,,,,,\n", "unparseable"),
+])
+def test_a_hand_edited_line_is_refused(line, message):
+    assert any(message in p for p in fm_problems(FM_HEADER + line, "Code/New.cpp"))
+
+
+def test_a_line_for_a_row_that_never_moved_or_is_gone_is_refused():
+    assert "still in" in fm_problems(FM_HEADER + FM_LINE, "Code/Old.cpp")[0]
+    problems = []
+    check_csv.check_forced_moves((FM_HEADER + FM_LINE).encode(), HEADER.encode(), MAP_HEADER.encode(), problems, FM_TABLE,
+                                 FM_SOURCES)
+    assert "no matched row" in problems[0]
+    assert any("listed twice" in p for p in fm_problems(FM_HEADER + FM_LINE + FM_LINE, "Code/New.cpp"))
+
+
+def test_a_hand_repoint_with_the_line_kept_is_refused():
+    assert "the ledger has it in Code/Other.cpp" in fm_problems(FM_HEADER + FM_LINE, "Code/Other.cpp")[0]
+    # the same repoint to an unapproved unit the map names is no better
+    assert "the ledger has it in Code/Other.cpp" in fm_problems(FM_HEADER + FM_LINE, "Code/Other.cpp", "Code/True.cpp", "approved")[0]
+
+
+def test_a_destination_this_revision_does_not_track_is_refused():
+    line = FM_LINE.replace("Code/New.cpp", "Code/Gone.cpp")
+    assert any("does not track" in p for p in fm_problems(FM_HEADER + line, "Code/Gone.cpp"))
+    assert any("does not track" in p for p in fm_problems(FM_HEADER + FM_LINE.replace("Code/New.cpp", ""), "Code/New.cpp"))
+
+
+def test_empty_evidence_is_refused():
+    for evidence in ("", "   "):
+        line = FM_LINE.replace("retail:x", evidence)
+        assert any("no evidence" in p for p in fm_problems(FM_HEADER + line, "Code/New.cpp"))
+
+
+def test_the_verdict_runs_the_register_check(repo):
+    (repo / "reverse/forced_row_moves.csv").write_bytes((FM_HEADER + FM_LINE.replace("0x005DFF76", "0x00123456")).encode())
+    git(repo, "add", "-A")
+    assert verdicts(repo) == ["refused", "refused"]

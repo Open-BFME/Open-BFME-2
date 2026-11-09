@@ -598,6 +598,93 @@ def check_body_owners(raw, functions_raw, problems):
                             f"at 0x{address:08X}; reconcile the audit evidence")
 
 
+FORCED_MOVES_REL = "reverse/forced_row_moves.csv"
+TU_MAP_REL = "reverse/tu_map.csv"
+
+
+def read_optional(rel, spec):
+    """A ledger an older revision may not have: empty when absent."""
+    if spec is None:
+        path = ROOT / rel
+        return path.read_bytes() if path.exists() else b""
+    exists = subprocess.run(["git", "-C", str(ROOT), "cat-file", "-e", f"{spec}:{rel}"], capture_output=True)
+    return read_ledger(ROOT / rel, spec) if exists.returncode == 0 else b""
+
+
+def _csv_rows(raw):
+    return list(csv.DictReader(io.StringIO(raw.decode("utf-8", "surrogateescape"))))
+
+
+def check_forced_moves(register_raw, functions_raw, map_raw, problems, table, sources):
+    """reverse/forced_row_moves.csv against the families' reviewed forced_moves `table` {rva: (name, source)}
+    (tools/retail_identity.py): a line is a real, reviewed move of its row to the tracked file it names, and
+    a reviewed row that has left its source and sits outside an approved unit keeps its line. `sources` are
+    the paths the revision tracks (known_sources). Nothing else reads the register, so without this a
+    hand-edited line proves nothing and a deleted one goes unnoticed."""
+    lines = _csv_rows(register_raw)
+    at = {}
+    for row in _csv_rows(functions_raw):
+        if row.get("target_rva", "").startswith("0x"):
+            try:
+                at.setdefault(int(row["target_rva"], 16), []).append(row)
+            except ValueError:
+                pass
+    units = {}
+    if lines or any(r["source"] != source for rva, (_name, source) in table.items() for r in at.get(rva, ())):
+        for row in _csv_rows(map_raw):
+            try:
+                units[int(row["rva"], 16)] = row
+            except (KeyError, TypeError, ValueError):
+                pass
+
+    def in_approved_unit(rva, source):
+        unit = units.get(rva) or {}
+        return unit.get("confidence") == "approved" and (unit.get("tu") or "").lower() == source.lower()
+
+    seen = set()
+    for line in lines:
+        try:
+            rva = int(line["target_rva"], 16)
+        except (KeyError, TypeError, ValueError):
+            problems.append(f"forced_row_moves.csv: unparseable address {line.get('target_rva')!r}")
+            continue
+        label = f"forced_row_moves.csv: 0x{rva:08X}"
+        if rva in seen:
+            problems.append(f"{label} is listed twice")
+        seen.add(rva)
+        entry = table.get(rva)
+        if entry is None:
+            problems.append(f"{label} is in no family's reviewed forced_moves (tools/retail_identity.py)")
+            continue
+        if line.get("name") != entry[0] or line.get("moved_from") != entry[1]:
+            problems.append(f"{label} records {line.get('name')} from {line.get('moved_from')}; "
+                            f"the family reviewed {entry[0]} from {entry[1]}")
+        if "not in its true unit" not in (line.get("statement") or ""):
+            problems.append(f"{label} does not say the row is not in its true unit")
+        if not (line.get("evidence") or "").strip():
+            problems.append(f"{label} has no evidence")
+        placed = line.get("placed_in") or ""
+        if placed not in sources:
+            problems.append(f"{label} is placed in {placed or 'nothing'}, which this revision does not track")
+        rows = [r for r in at.get(rva, ()) if r.get("name") == entry[0] and r.get("status") == "matched"]
+        if not rows:
+            problems.append(f"{label} has no matched row named {entry[0]}")
+        elif rows[0]["source"] == entry[1]:
+            problems.append(f"{label} says the row moved, and it is still in {entry[1]}")
+        elif in_approved_unit(rva, rows[0]["source"]):
+            problems.append(f"{label}: the row is in its approved unit {rows[0]['source']}: delete the line")
+        elif rows[0]["source"] != placed:
+            problems.append(f"{label} says the row is in {placed}, and the ledger has it in {rows[0]['source']}, "
+                            "which is not its approved unit")
+    for rva, (name, source) in sorted(table.items()):
+        for row in at.get(rva, ()):
+            if row.get("name") == name and row["source"] != source and rva not in seen \
+                    and not in_approved_unit(rva, row["source"]):
+                problems.append(f"forced_row_moves.csv: 0x{rva:08X} left {source} for {row['source']}, outside an "
+                                "approved unit, with no line: rename.py --forced-move records it, and the line "
+                                "stays until the row is in its approved unit")
+
+
 def read_body_owners(spec):
     """An absent registry is valid only for revisions predating its introduction."""
     if spec is None:
@@ -668,6 +755,10 @@ def verdict(spec):
         check_lf_ledger(data_raw, "data_rows.csv", problems)
         n_data = data_rows.check(data_raw, problems, sources_ok)
     n_orphans = check_orphans(spec, problems, data_raw=data_raw)
+    import retail_identity
+    check_lf_ledger(read_optional(FORCED_MOVES_REL, spec), "forced_row_moves.csv", problems, allow_empty=True)
+    check_forced_moves(read_optional(FORCED_MOVES_REL, spec), read_ledger(FUNCTIONS, spec),
+                       read_optional(TU_MAP_REL, spec), problems, retail_identity.forced_move_table(), sources_ok)
 
     if problems:
         print(f"check_csv: {len(problems)} problem(s):", file=sys.stderr)

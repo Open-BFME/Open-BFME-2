@@ -929,6 +929,38 @@ During the audit before pushing, check the complete consolidation batch:
 - Confirm active ledgers, registers, queues and fold proofs resolve to current
   owners. Record verification results and remaining prerequisites in the handoff.
 
+## A row a rename forces out (`rename.py --forced-move`)
+
+The owner's exception of 2026-11-09, and its whole extent. A row may move with no approved
+unit only when a `--respell --identity --basis retail` rename forces it, because the file it
+is in stops defining it, and the current map really has no unit for that row. It is not a
+path for any other move or for homeless rows generally.
+
+Only a row its family lists in `forced_moves` (`tools/retail_identity.py`) can move: the entry
+names the row and the file it leaves, and must spell the class the family retires, so every new
+use needs its own `Verifier-Change` and review.
+
+`--forced-move RVA:SOURCE` refuses any other row, a row of the family itself, a file the rename
+does not rewrite, a row the map gives a unit (use `--move-to`), a row with funclets, an old
+object with no census-grade receipt recording its bytes (`link_check.py --prepare-current` writes
+one), and a destination that is not a tracked, hand-written Code C++
+unit with matched rows. A run batch refuses it, and every identity respell, because a batch's
+union carries no `plan.identity`, so none of their object checks would run. "The
+map" is the one the current inputs build in memory, not the committed file, which can lag.
+After `./build.sh` the rebuilt objects must prove it, or every file is restored: the old file
+no longer defines the symbol or refers to it, the new file defines the same body in a COMDAT selected ANY
+(`tu_skeleton.transfer_problem`), that body is retail's in its bytes and in each relocation's
+target row (`retail_body_problem`), and the map gives every row the `tu` and `confidence` it
+gave before.
+
+`reverse/forced_row_moves.csv` records every use, and `tools/check_csv.py` holds it to the
+families' table: a line must be a real move of a listed row to the tracked file the ledger has
+it in, with its evidence, and a listed row that has left its
+file and sits outside an approved unit must keep its line. A row there is **not in its true unit**: its
+`placed_in` is placement evidence, not proof of retail's unit, and it is no approval. Only the
+map's bookkeeping `source` column follows the row, so TU-APPROVED does not rise. A later pass
+places these rows when the map has a unit for them; delete the line in that commit.
+
 ## Tooling compatibility audit before pushing
 
 Run this audit once before each push across **all pending path changes**, so a

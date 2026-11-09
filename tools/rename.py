@@ -3207,7 +3207,7 @@ def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, 
 
 def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
                   to_class=None, prepared=None, access=None, also=None, respell=False, identity=False,
-                  move_to=None, move_rows=()):
+                  move_to=None, move_rows=(), forced_moves=()):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
     (plan_virtual: no new identifier, no basis, retail evidence); with
@@ -3223,9 +3223,12 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
             raise Refusal("--identity and --move-to go with --respell --identity only")
         if basis == "retail":
             return plan_retail_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
-                                       move_rows=move_rows, evidence=evidence, max_files=max_files)
+                                       move_rows=move_rows, forced_moves=forced_moves, evidence=evidence,
+                                       max_files=max_files)
         if move_rows:
             raise Refusal("--move-rows goes with --basis retail only")
+        if forced_moves:
+            raise Refusal("--forced-move goes with --basis retail only")
         return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
                                      basis=basis, evidence=evidence, max_files=max_files)
     if also and not respell:
@@ -4528,15 +4531,142 @@ def repoint_row_source(raw, label, keycol, rva, old, new):
 
 ROW_KEYED_LEDGERS = ((FUNCTIONS, "target_rva"), (TU_MAP, "rva"), ("reverse/body_owners.csv", "target_rva"))
 
+# The owner's exception of 2026-11-09 (docs/consolidation.md, "A row a rename forces out"): the record of
+# each row moved with no approved unit, so a later pass can place it. It approves nothing.
+FORCED_MOVES = "reverse/forced_row_moves.csv"
+FORCED_MOVE_STATEMENT = ("not in its true unit: a rename forced it out and the map has no approved unit; "
+                         "placed_in is placement evidence, no approval")
 
-def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(), evidence="",
-                        max_files=25):
+
+def forced_move_object(ctx, source):
+    hook = getattr(ctx, "forced_move_object", None)
+    if hook:
+        return hook(source)
+    import build
+    return build.obj_path(ctx.path(source))
+
+
+def forced_move_is_current(ctx, source, path):
+    hook = getattr(ctx, "forced_move_current", None)
+    if hook:
+        return hook(source)
+    import build
+    return object_receipt_holds(ctx.path(source), Path(path))
+
+
+def object_receipt_holds(source, path):
+    """The census-grade receipt (strict: include search directories too) for `source`, and the object at
+    `path` is the one that receipt recorded: compile_is_current reads neither the bytes nor, unless
+    strict, the search path, so a replaced object would pass it."""
+    import build
+    if not build.compile_is_current(source, path, strict=True):
+        return False
+    try:
+        recorded = json.loads(build._deps_sidecar(path).read_text()).get("object")
+        return bool(recorded) and recorded == hashlib.md5(path.read_bytes()).hexdigest()
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
+def forced_move_references(path, name):
+    """Whether the COFF object at `path` names `name` at all, defined or not; None when it cannot be read."""
+    import link_census
+    try:
+        return any(s["name"] == name for s in link_census._coff_symbols(Path(path).read_bytes()))
+    except (OSError, ValueError, IndexError, KeyError, TypeError, struct.error):
+        return None
+
+
+def forced_destination_problem(ctx, dest):
+    """Why `dest` cannot take a forced row, or None: as strict as a prepared source, since it must already be
+    an owned, tracked, hand-written Code C++ unit with matched rows."""
+    parsed = PurePosixPath(dest)
+    if (not dest.startswith("Code/") or not dest.endswith(".cpp") or ".." in parsed.parts
+            or parsed.as_posix() != dest or "\\" in dest):
+        return f"--forced-move needs an existing Code C++ source, not {dest}"
+    path = ctx.path(dest)
+    if (path.is_symlink() or not path.is_file()
+            or not path.resolve().is_relative_to((ctx.root / "Code").resolve())):
+        return f"--forced-move destination is missing or outside the Code tree: {dest}"
+    if is_generated(dest):
+        return f"--forced-move cannot place a row in generated source {dest}"
+    if dest not in ctx.ledger_sources():
+        return f"--forced-move destination has no matched rows: {dest}"
+    if dest not in ctx.git("ls-files", "--", dest).splitlines():
+        return f"--forced-move destination is untracked: {dest}"
+    return None
+
+
+def map_units(ctx):
+    """{rva: (tu, confidence)} of the map as the current inputs build it, whether or not the committed
+    file has caught up: that is the current map, before the move and after it."""
+    import tu_map
+    try:
+        map_rows, _stale = tu_map.current_rows(tu_map.Layout(ctx.root))
+    except tu_map.NoZhTree as error:
+        raise Refusal(f"cannot rebuild {TU_MAP} from current inputs: {error}") from None
+    units = {}
+    for row in map_rows:
+        units.setdefault(_rva(row.get("rva")), (row.get("tu", ""), row.get("confidence", "")))
+    return units
+
+
+def plan_forced_move(ctx, rows, family, at, dest, prepared, units):
+    """The refusals of one --forced-move before anything is written: the family's reviewed table names this
+    row from this file, this rename rewrites that file, the map has no unit for it, and a current object
+    shows it there today. Whether the rewrite really stops defining and naming it is the rebuilt objects'
+    answer (forced_move_problems)."""
+    import tu_skeleton
+    if at in family.rows or at in family.pins:
+        raise Refusal(f"0x{at:08X} is the family's own row: --forced-move is for a row the rename forces out")
+    entry = getattr(family, "forced_moves", {}).get(at)
+    if entry is None:
+        raise Refusal(f"0x{at:08X} is not in the family's reviewed forced_moves (tools/retail_identity.py)")
+    held = [r for r in rows if _rva(r.get("target_rva")) == at]
+    if len(held) != 1 or held[0].get("status") != "matched":
+        raise Refusal(f"0x{at:08X} must be exactly one matched row, not {len(held)}")
+    row = held[0]
+    old = row["source"]
+    if (row["name"], old) != tuple(entry):
+        raise Refusal(f"0x{at:08X} is {row['name']} in {old}; the family reviewed {entry[0]} in {entry[1]}")
+    if old not in prepared:
+        raise Refusal(f"no rename forces 0x{at:08X} out: this respell does not change {old}")
+    if dest == old:
+        raise Refusal(f"0x{at:08X} is already in {dest}")
+    why = forced_destination_problem(ctx, dest)
+    if why:
+        raise Refusal(why)
+    if at not in units:
+        raise Refusal(f"0x{at:08X} is not in {TU_MAP}: cannot show it has no approved unit")
+    tu, confidence = units[at]
+    if tu or confidence == "approved":
+        raise Refusal(f"0x{at:08X} has a unit in {TU_MAP} ({tu or 'no TU'}, {confidence}): "
+                      "rows move only into their approved unit, --move-to")
+    carried = [r["name"] for r in rows if f"parent={row['name']}" in r.get("notes", "")]
+    if carried:
+        raise Refusal(f"0x{at:08X} has funclets ({carried[0]}): a row with funclets does not move alone")
+    path = forced_move_object(ctx, old)
+    if not forced_move_is_current(ctx, old, path):
+        raise Refusal(f"{old}'s object has no current census-grade receipt, so it proves nothing about the row "
+                      f"before the move: python3 tools/link_check.py --prepare-current {old} first")
+    defined = tu_skeleton.coff_definitions(path)
+    before = tu_skeleton.section_identity(path, row["name"])
+    if defined is None or row["name"] not in defined or before is None:
+        raise Refusal(f"{old}'s object does not show {row['name']} before the move: nothing is forced, or "
+                      f"./build.sh {old} first")
+    return dict(rva=at, name=row["name"], size=int(row["target_size"]), old=old, dest=dest, before=before)
+
+
+def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(),
+                        forced_moves=(), evidence="", max_files=25):
     """--respell --identity --basis retail: the whole family tools/retail_identity.py spells out, from
     its stand-in class to the class retail proves, on retail's own bytes and no vote: every fact is read
     from the image, the class's own rowed member installs the same table, and the data ledger names that
     table for the class. After ./build.sh the rebuilt copy must bind the class's table, and no touched
     row may gain a wrong binding (retail_identity_problems). `move_rows` moves those rows alone into
-    `move_to`, the unit the map approves, because retail reached them from its code; their owner stays."""
+    `move_to`, the unit the map approves, because retail reached them from its code; their owner stays.
+    `forced_moves` are rows outside the family that the rename forces out of a file it rewrites, with no
+    unit in the map: plan_forced_move and forced_move_problems hold the owner's terms."""
     import retail_identity
     family = retail_identity.family_of(rva, new)
     if family is None:
@@ -4645,6 +4775,14 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
                 raise Refusal(f"0x{at:08X} has funclets ({carried[0]}): a row with funclets does not move alone")
     elif move_to:
         raise Refusal("--basis retail moves the rows --move-rows names, and only those")
+    forced = []
+    units_before = None
+    if forced_moves:
+        units_before = map_units(ctx)
+        if len({at for at, _dest in forced_moves}) != len(forced_moves):
+            raise Refusal("--forced-move names one row twice")
+        forced = [plan_forced_move(ctx, rows, family, at, dest, prepared, units_before)
+                  for at, dest in sorted(forced_moves)]
 
     primary = next(e for e in entries if e["rva"] == family.copy)
     plan = Plan("function", primary["old"], primary["new"], retail_identity.BASIS, family.evidence(),
@@ -4693,6 +4831,13 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
                 continue
             data, _count = repoint_row_source(data, rel, keycol, at, next(e["source"] for e in entries if e["rva"] == at), move_to)
             edited[rel] = data
+    for move in forced:
+        for rel, keycol in ROW_KEYED_LEDGERS:
+            data = edited.get(rel, ctx.read(rel))
+            if data is None:
+                continue
+            data, _count = repoint_row_source(data, rel, keycol, move["rva"], move["old"], move["dest"])
+            edited[rel] = data
     for rel, data in edited.items():
         if data != ctx.read(rel):
             plan.edit(ctx, rel, data)
@@ -4705,6 +4850,14 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
         ["function", e["old"], e["new"], retail_identity.BASIS, retail_identity.record(e["facts"]),
          source_of[e["rva"]], f"0x{e['rva']:08X}"]) for e in entries], header=NAME_BASIS_HEADER))
+
+    if forced:
+        register = ctx.read(FORCED_MOVES)
+        if register is None:
+            raise Refusal(f"{FORCED_MOVES} is missing: every forced move is recorded there")
+        plan.edit(ctx, FORCED_MOVES, appended(register, [csv_line(
+            [f"0x{m['rva']:08X}", m["name"], m["old"], m["dest"], family.evidence(), FORCED_MOVE_STATEMENT])
+            for m in forced]))
 
     # Sources: the prepared C++ is the whole change; nothing may still spell an old name.
     _batch_source_edits(ctx, plan, prepared)
@@ -4720,6 +4873,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     owner_sources = {e["source"] for e in entries}
     verify = set(prepared) | owner_sources
     verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    verify |= {m["dest"] for m in forced}
     plan.verify = sorted(v for v in verify if not is_generated(v))
     if len(plan.verify) > max_files:
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
@@ -4734,6 +4888,8 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         retail=True, rows=[(e["rva"], e["old"], e["new"]) for e in entries], sources=sorted(set(plan.verify)),
         wrong_before=sorted({_identity_key(r, renames) for r in identity_wrong(before)}),
         copy=family.copy, copy_name=primary["new"], copy_source=source_of[family.copy], retired=[], moved=moved)
+    if forced:
+        plan.identity.update(forced=forced, units_before=units_before)
     if no_table:
         by_rva = {e["rva"]: e["new"] for e in entries}
         plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
@@ -4745,6 +4901,8 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
                                            for at, offset in table_stores.items()})
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
         [f"file:{s}" for s in sorted(owner_sources | ({move_to} if move_to else set()))]
+    plan.claims += sorted(m["rva"] for m in forced) + \
+        [f"file:{s}" for s in sorted({m["old"] for m in forced} | {m["dest"] for m in forced})]
     done = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))} - done)
     if any(CODE_IDENTITY_BASELINE in ctx.grep_files(e["old"], roots=FROZEN_KEYED) for e in entries):
@@ -4783,15 +4941,88 @@ def object_symbol_relocs_or_none(ctx, source, name):
         return None
 
 
+def retail_body_problem(name, at, size, code, relocs, rows):
+    """Why the body `code` with `relocs` is not retail's at `at`, or None: its bytes outside the relocated
+    words, and each relocated word's retail target a row of the relocation's own symbol. A target with no
+    row or a kind this cannot read refuses: unread never passes."""
+    import retail_identity
+    if len(code) < size:
+        return f"{name} is {len(code)} bytes, its row {size}"
+    if len(code) > size and any(code[size:]):
+        return f"{name} runs past its row's {size} bytes"
+    retail = bytearray(retail_identity.read_retail(at, size))
+    ours = bytearray(code[:size])
+    for offset, kind, target in relocs:
+        if offset + 4 > size:
+            return f"{name} has a relocation past its row at +{offset}"
+        word = int.from_bytes(retail[offset:offset + 4], "little", signed=kind == REL32)
+        if kind == REL32:
+            want = at + offset + 4 + word
+        elif kind == DIR32:
+            want = word - 0x400000
+        else:
+            return f"{name} has a relocation of type {kind} at +{offset} this cannot compare"
+        if not any(r["name"] == target and _rva(r.get("target_rva")) == want for r in rows):
+            return f"{name} binds {target} at +{offset}, and no row of that name is retail's 0x{want:08X}"
+        retail[offset:offset + 4] = ours[offset:offset + 4] = b"\0\0\0\0"
+    if retail != ours:
+        return f"{name}'s bytes differ from retail at 0x{at:08X}"
+    return None
+
+
+def forced_move_problems(ctx, identity):
+    """The owner's mechanical proof of each --forced-move on the rebuilt objects: the old file no longer
+    defines the symbol or refers to it, the new file defines the same body (tu_skeleton.transfer_problem),
+    that body is retail's, and the map still gives every row the unit it gave before: a move never
+    approves anything."""
+    import build
+    import tu_skeleton
+    moves = identity.get("forced", ())
+    if not moves:
+        return []
+    problems = []
+    written = ctx.path(FUNCTIONS).read_bytes().decode("utf-8", "surrogateescape")
+    rows = list(csv.DictReader(io.StringIO(written)))
+    for m in moves:
+        objects = {m["old"]: forced_move_object(ctx, m["old"]), m["dest"]: forced_move_object(ctx, m["dest"])}
+        why = tu_skeleton.transfer_problem(m["name"], m["old"], m["dest"], objects, {m["name"]: m["before"]})
+        if why:
+            problems.append(f"0x{m['rva']:08X} {m['name']} forced from {m['old']}: {why}")
+            continue
+        named = forced_move_references(objects[m["old"]], m["name"])
+        if named is None:
+            problems.append(f"{m['old']}'s rebuilt object cannot be read for {m['name']}: inconclusive")
+            continue
+        if named:
+            problems.append(f"{m['old']}'s rebuilt object still refers to {m['name']}: the rename has not retired it there")
+            continue
+        try:
+            code, relocs = build.read_object_symbol_bytes(objects[m["dest"]], m["name"], code_only=True)[:2]
+        except (OSError, SystemExit, ValueError, KeyError, IndexError) as error:
+            problems.append(f"{m['dest']}'s body of {m['name']} cannot be read: {error}")
+            continue
+        why = retail_body_problem(m["name"], m["rva"], m["size"], bytes(code), list(relocs), rows)
+        if why:
+            problems.append(f"0x{m['rva']:08X} forced to {m['dest']}: {why}")
+    units = map_units(ctx)
+    changed = sorted(at for at in set(units) | set(identity["units_before"])
+                     if units.get(at) != identity["units_before"].get(at))
+    if changed:
+        problems.append(f"the map would change at 0x{changed[0]:08X} ({len(changed)} row(s)): {identity['units_before'].get(changed[0])} "
+                        f"-> {units.get(changed[0])}; a forced move approves nothing")
+    return problems
+
+
 def retail_identity_problems(ctx, identity):
     """What the rebuilt objects say against a retail respell: the copy no longer binding the class's
-    table, a respelled row with no references, or a wrong binding new to a touched source."""
+    table, a respelled row with no references, a wrong binding new to a touched source, or a forced
+    move its objects do not prove."""
     import allowed_symbols
     try:
         refs = identity_refs(ctx, identity["sources"])
     except allowed_symbols.UnverifiedFunclet as error:
         return [f"the code-identity scan cannot read the rebuilt units: {error}"]
-    problems = []
+    problems = forced_move_problems(ctx, identity)
     leaves = identity.get("leaves", {})
     table_stores = identity.get("table_stores", {})
     for at, _old, new in identity["rows"]:
@@ -14105,6 +14336,13 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                         reads.clear()
                         searches.clear()
                         git_searches.clear()
+                        # The batch's union carries no plan.identity, so apply_rename would run none of
+                        # an identity respell's object checks, and nothing would prove a forced move.
+                        if kwargs.get("forced_moves"):
+                            raise Refusal("a run batch does not take --forced-move")
+                        if kwargs.get("identity"):
+                            raise Refusal("a run batch does not take an identity respell: "
+                                          "tools/rename.py function --respell --identity, on its own")
                         valid = bool(kwargs.get("basis") == "inferred" and cached)
                         if valid:
                             plan, expected_reads, expected_searches, expected_git, object_queries, generation = cached
@@ -14136,6 +14374,8 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                             raise Refusal("a run batch may not move source files")
                         if plan.to_class:
                             raise Refusal("a run batch does not take function --to-class moves")
+                        if plan.identity:
+                            raise Refusal("a run batch does not take an identity plan: its object checks would not run")
                         # Reject a pin conflict before it contaminates the union
                         # and forces clean proposals through a restored retry.
                         if SYMBOLS in plan.after:
@@ -14854,6 +15094,11 @@ def main(argv=None):
     function.add_argument("--move-rows", default="", metavar="RVA[,RVA...]",
                           help="with --basis retail and --move-to: move only these rows of the family, each "
                                "approved for that TU; their owner source stays")
+    function.add_argument("--forced-move", action="append", default=[], metavar="RVA:SOURCE",
+                          help="with --basis retail: a row the family's reviewed forced_moves names, which this "
+                               "respell forces out of a file it rewrites, with no unit in reverse/tu_map.csv, moves "
+                               "to SOURCE on the objects' proof and is recorded in reverse/forced_row_moves.csv; "
+                               "it approves nothing (docs/consolidation.md)")
     data = kinds.add_parser("global", parents=[common],
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
@@ -15074,7 +15319,9 @@ def main(argv=None):
         kwargs["also"] = also
     if identity:
         kwargs.update(identity=True, move_to=args.move_to,
-                      move_rows=[int(x, 16) for x in args.move_rows.split(",") if x.strip()])
+                      move_rows=[int(x, 16) for x in args.move_rows.split(",") if x.strip()],
+                      forced_moves=[(int(at, 16), dest) for at, _colon, dest in
+                                    (item.partition(":") for item in args.forced_move)])
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)
