@@ -203,6 +203,10 @@ symbols (no unit changed status). The simulation after each: target-not-winning-
   x2 (stlport_money_get.cpp first), 0x007BBD50 `basic_filebuf::seekoff`
   (FstreamDefaultProtectionNameCtors.cpp first). The same decl-only specialization would hand them to
   their owners.
+  2026-11-09 recheck of 0x007BB9D8: the decl-only fix stops stlport_money_get.cpp (/Od) emitting its rows
+  0x00019690 `moneypunct<char,1>::neg_format` and 0x000196B0 `numeric_limits<long double>::max`; their
+  TU `_STL.cpp` is still only `proposed` in reverse/tu_map.csv, so they cannot move to their callers.
+  Prerequisite: approve that TU (or the STLport TU merge), then move both rows and declare do_get decl-only.
 - Different bodies, not repaired: 0x008394CC `??_GRva0040DB52` (the constructor unit is built /Oy- for
   its own row and emits a framed copy; retail's 0x0040E09B follows that constructor directly, approved
   TU only proposed: ArmySummary.cpp), 0x008E3D14/0x008E3D28 Fesl browser owners (the constructor units'
