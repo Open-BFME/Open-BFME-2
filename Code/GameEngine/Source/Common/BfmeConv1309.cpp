@@ -42,21 +42,3 @@ struct IDirect3DDevice8;
 #include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern unsigned number_of_DX8_calls;
 
-struct BfmeDeviceTDB : DX8Wrapper
-{
-	static IDirect3DDevice9 *get() { return reinterpret_cast<IDirect3DDevice9 *>(D3DDevice); }
-};
-struct BfmeShaderTDB : ShaderClass
-{
-	static void setDirty() { ShaderDirty = true; }
-};
-
-void bfmeStepTDB(void);
-
-void bfmeGoTDB(void)
-{
-	BfmeDeviceTDB::get()->SetVertexShader(0);
-	++number_of_DX8_calls;
-	bfmeStepTDB();
-	BfmeShaderTDB::setDirty();
-}

@@ -28396,7 +28396,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008F1524,16,.rdata,string,??_C@_0O@GFAEDMOI@Geometry?5for?5?$AA@,,literal,,0,4
 0x008F1534,4,.rdata,global,?g_00CF1534@@3QBQBXB,Code/GameEngine/Source/Common/RTS/Rva0073EE21Ctor.cpp,owned,,1,1
 0x008F1538,12,.rdata,global,?g_00CF1538@@3QBQBXB,Code/GameEngine/Source/Common/RTS/Rva0073EE21Ctor.cpp,owned,,1,1
-0x008F1544,16,.rdata,vtable,??_7Rva0073F96A@@6B@,,literal,,0,2
+0x008F1544,16,.rdata,vtable,??_7W3DGlowOutlineMaterialPassClass@@6B@,,literal,,0,2
 0x008F1554,36,.rdata,string,??_C@_0CB@NIKPLOKI@shaders?2unlitnormalextrusion?4vso@,,literal,,0,1
 0x008F1578,112,.rdata,vtable,??_7Rva00740555@@6B@,,literal,,0,2
 0x008F15E8,24,.rdata,vtable,??_7Rva007401F6@@6B@,,literal,,0,1

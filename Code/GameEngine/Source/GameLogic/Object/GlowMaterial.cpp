@@ -95,17 +95,7 @@ public:
 // Layout and constructor are independently recovered at 73F85D. Allocation
 // extent 48 and fields 38/3C/40 are also proved by native 362BD2. The +4
 // reference count is read by the existing releaseReferences body.
-#include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
-class Rva0073F96A : public MaterialPassClass
-{
-public:
-	Rva0073F96A(int color, float value);
-	virtual ~Rva0073F96A();
-	int m_key;
-	float m_value;
-	int m_flag;
-	float m_extra;
-};
+#include "../../../Include/Common/W3DGlowOutlineMaterialPassClass.h"
 // PE exports identify the Snapshot base; only its used lifetime interface is declared here.
 class Xfer;
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
@@ -1022,18 +1012,18 @@ void Rva0040AD80ReferenceState::rva00362BD2(int key, float value)
 	_STL::_Rb_tree_node<RegistryValue> *found = registry->_M_find(reinterpret_cast<const unsigned int &>(key));
 	if (found == registry->header)
 	{
-		Rva0073F96A *material = new Rva0073F96A(key, value);
+		W3DGlowOutlineMaterialPassClass *material = new W3DGlowOutlineMaterialPassClass(key, value);
 		m_secondReferent = reinterpret_cast<ReferenceStateReferent *>(material);
 		registry->insert_unique(RegistryValue(static_cast<unsigned int>(key), reinterpret_cast<Image *>(material)));
-		reinterpret_cast<Rva0073F96A *>(m_secondReferent)->m_flag = 1;
+		reinterpret_cast<W3DGlowOutlineMaterialPassClass *>(m_secondReferent)->m_state = 1;
 	}
 	else
 	{
 		m_secondReferent = reinterpret_cast<ReferenceStateReferent *>(found->value.second);
 		++m_secondReferent->m_referenceCount;
 	}
-	m_firstReferent = reinterpret_cast<ReferenceStateReferent *>(new Rva0073F96A(key, value));
-	reinterpret_cast<Rva0073F96A *>(m_firstReferent)->m_flag = 0;
+	m_firstReferent = reinterpret_cast<ReferenceStateReferent *>(new W3DGlowOutlineMaterialPassClass(key, value));
+	reinterpret_cast<W3DGlowOutlineMaterialPassClass *>(m_firstReferent)->m_state = 0;
 	m_field0C = 0;
 }
 

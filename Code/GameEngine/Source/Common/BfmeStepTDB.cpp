@@ -4,7 +4,7 @@
 // Open-BFME5 conversions.
 //
 // ?bfmeStepTDB@@YAXXZ, retail 0x0011DC20 (58B). Called once by the rowed
-// bfmeGoTDB in BfmeConv1309.cpp. The bfme1 sweep maps that call to BFME1
+// W3DGlowOutlineMaterialPassClass::UnInstall_Materials. The bfme1 sweep maps that call to BFME1
 // 0x904720 where bfmeApplyBQ and bfmeStepTDB are ICF twins, so this
 // transcribes reference/open-bfme-1/Code/GameEngine/Source/Common/
 // BfmeConv1753.cpp bfmeApplyBQ with BQ names swapped for TDB ones.

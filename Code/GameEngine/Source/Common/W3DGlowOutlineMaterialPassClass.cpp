@@ -168,6 +168,7 @@ struct GlowDXOps : DX8Wrapper {
 };
 struct GlowShaderOps : ShaderClass {
  static __forceinline bool Dirty() { return ShaderDirty; }
+ static __forceinline void SetDirty() { ShaderDirty = true; }
 };
 #define GLOW_STAGE(state,value) do { \
  if(GlowDXOps::StageState(0,state)!=(value)) { \
@@ -200,26 +201,10 @@ struct GlowShaderOps : ShaderClass {
 } while(0)
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class W3DGlowOutlineMaterialPassClass {
-    char _pad[0x38];
-    int m_base;
-    float m_extrusion;
-    int m_state;
-    float m_fade;
-public:
-    int UpdateFadeState();
-    void rva0073FA10();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
+#include "../../Include/Common/W3DGlowOutlineMaterialPassClass.h"
 
-// ??1Rva0073F96A@@UAE@XZ @0x0073F96A 103B.
-// Derived dtor releasing refcounted statics then base MaterialPassClass.
-// Evidence: unlock lane packet; vtable store; globals E1F290/294/298.
-class MaterialPassClass {
-public:
-    virtual ~MaterialPassClass();
-};
-
-typedef void (__stdcall *Rva0073F96ARel)(void *obj);
+typedef void (__stdcall *GlowReleaseSlot)(void *obj);
 
 extern int g_bfmeCountAtE1F290;
 
@@ -231,11 +216,6 @@ void * g_bfmeObj1AtE1F294;
 
 // g_bfmeObj2AtE1F298: matched references place it at VA 0xe1f298 (zero-filled .bss).
 void * g_bfmeObj2AtE1F298;
-
-class Rva0073F96A : public MaterialPassClass {
-public:
-    virtual ~Rva0073F96A();
-};
 
 // ---- from Code/GameEngine/Source/Common/Rva0073F895Fade.cpp
 
@@ -285,9 +265,9 @@ int W3DGlowOutlineMaterialPassClass::UpdateFadeState()
     return m_base;
 }
 
-// Complete native B3FA10..B4011F / 1807B. Address-owned method spelling;
-// the WB inline DXWrapper labels identify operations, not this method name.
-void W3DGlowOutlineMaterialPassClass::rva0073FA10()
+// Complete native B3FA10..B4011F / 1807B: slot 2 of the table at VA 0x00CF1544.
+// The WB inline DXWrapper labels identify operations, not this method name.
+void W3DGlowOutlineMaterialPassClass::Install_Materials() const
 {
  if(!g_bfmeObj2AtE1F298) {
   D3DVERTEXELEMENT9 elements[3];
@@ -304,7 +284,7 @@ void W3DGlowOutlineMaterialPassClass::rva0073FA10()
   Rva00077C19Load("shaders\\unlitnormalextrusion.vso",reinterpret_cast<unsigned *>(&g_bfmeObj1AtE1F294));
  }
  static ShaderClass shader(0x105833);
- int colour=UpdateFadeState();
+ int colour=const_cast<W3DGlowOutlineMaterialPassClass *>(this)->UpdateFadeState();
  if(GlowShaderOps::Dirty() || (unsigned&)shader!=(unsigned&)GlowDXOps::Shader()) {
   GlowDXOps::Shader()=shader;
   GlowDXOps::ChangeFlags()|=0x8000;
@@ -338,18 +318,27 @@ void W3DGlowOutlineMaterialPassClass::rva0073FA10()
 
 // ---- from Code/GameEngine/Source/Common/Rva0073F96ADtor.cpp
 
-Rva0073F96A::~Rva0073F96A()
+W3DGlowOutlineMaterialPassClass::~W3DGlowOutlineMaterialPassClass()
 {
     if (--g_bfmeCountAtE1F290 == 0) {
         void *o1 = g_bfmeObj1AtE1F294;
         if (o1)
-            (*(Rva0073F96ARel **)o1)[2](o1);
+            (*(GlowReleaseSlot **)o1)[2](o1);
         g_bfmeObj1AtE1F294 = 0;
         void *o2 = g_bfmeObj2AtE1F298;
         if (o2)
-            (*(Rva0073F96ARel **)o2)[2](o2);
+            (*(GlowReleaseSlot **)o2)[2](o2);
         g_bfmeObj2AtE1F298 = 0;
     }
 }
 
-// tu-skeleton: 0x0073F9D1 35B ?bfmeGoTDB@@YAXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv1309.cpp (not merged yet)
+void bfmeStepTDB(void);
+
+// RVA 0x0073F9D1 35B: slot 3 of the table at VA 0x00CF1544.
+void W3DGlowOutlineMaterialPassClass::UnInstall_Materials() const
+{
+    GlowDXOps::Device()->SetVertexShader(0);
+    ++number_of_DX8_calls;
+    bfmeStepTDB();
+    GlowShaderOps::SetDirty();
+}
