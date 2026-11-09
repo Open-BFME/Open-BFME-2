@@ -25,7 +25,8 @@ public:
 #include "../../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 // Vtable 0x00BF4028, defined in PorcupineFormationBodyModuleDataCtor.cpp.
-extern "C" const void *const vtbl_00BF4028[];
+// VA 0x00BF4028: StructureBodyModuleData's compiler table (FamilyDeletingDtors.cpp).
+extern "C" const void *const __identifier("??_7StructureBodyModuleData@@6B@")[];
 
 class DetachableRiderBodyModuleData : public ActiveBodyModuleData
 {
@@ -44,7 +45,7 @@ private:
 
 // ??0DetachableRiderBodyModuleData@@QAE@XZ
 DetachableRiderBodyModuleData::DetachableRiderBodyModuleData()
-	: m_vtable(vtbl_00BF4028)
+	: m_vtable(__identifier("??_7StructureBodyModuleData@@6B@"))
 {
 	m_ropes.construct();
 	m_riderlessDeathChance = 0.0f;
