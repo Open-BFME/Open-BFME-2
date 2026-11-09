@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // Small GameEngine bodies from .text gaps no Ghidra function covers (each
 // begins after its neighbour's padding and ends in its own ret). Retail bytes
@@ -50,11 +50,29 @@ int Rva002B3080::rva002B3080() const
 }
 
 // ??0Rva002B3092@@QAE@XZ @ 0x002B3092 (9B): vtable VA 0x00BFE008 only.
-class Rva002B3092
+// Retail's seven-slot table 0x007FE008 over Snapshot: slot 0 the shared 28B
+// deleting dtor 0x004A10FD (calls Snapshot's 0x0049B47C), 1 the empty
+// loadPostProcess 0x000B3FD0, 2/4/6 __purecall, 3 the +0x04 uint / +0x08 bool
+// transfer 0x003FD1C5 and 5 the false predicate 0x005CB9FF. The 0x003FD199
+// constructor (+0x04/+0x08) installs the same table; the original class name
+// is not recovered.
+class Xfer;
+#include "Common/Snapshot.h"
+
+class Rva002B3092 : public Snapshot
 {
 public:
 	Rva002B3092();
 	virtual ~Rva002B3092() {}
+protected:
+	virtual void loadPostProcess() {}
+	virtual void xfer(Xfer *xfer);
+	virtual void slot4() = 0;
+	virtual bool slot5(int) { return false; }
+	virtual void slot6() = 0;
+private:
+	unsigned int m_04;
+	bool m_08;
 };
 
 Rva002B3092::Rva002B3092()
