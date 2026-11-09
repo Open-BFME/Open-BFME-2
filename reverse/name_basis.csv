@@ -3326,9 +3326,9 @@ carry,WaterTracksRenderSystem::rva000FE207::end,WaterTracksRenderSystem::findTra
 carry,WaterTracksRenderSystem::rva000FE207::type,WaterTracksRenderSystem::findTrack::type,inferred,scope renamed by Rename rva000FE207 to findTrack (inferred),Code/GameEngine/Source/Common/Rva000FE207Find.cpp,0x000FE207
 param,Rva001F5496::rva001F5496::arg,Rva001F5496::rva001F5496::slave,inferred,agree:nl-cb98c56eb637,Code/GameEngine/Source/Common/Rva001F5496.cpp,0x001F5496
 param,Rva00216787Free::p,Rva00216787Free::node,inferred,agree:nl-050496107d22,Code/GameEngine/Source/Common/Rva00216787Free.cpp,0x00216787
-local,Rva002A9F17::rva002A9F17::p,Rva002A9F17::rva002A9F17::lightPointSystem,inferred,agree:nl-df508981a358,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp,0x002A9F17
-local,Rva002A9F17::rva002A9F35::p,Rva002A9F17::rva002A9F35::lightPointSystem,inferred,agree:nl-97bfe4e087b4,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp,0x002A9F35
-global,?g_00E03158@@3PAVRva00421520@@A,?TheLightPointSystem@@3PAVRva00421520@@A,inferred,agree:nl-f561a8a0d8b3,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp,0x00A03158
+local,Rva002A9F17::rva002A9F17::p,Rva002A9F17::rva002A9F17::lightPointSystem,inferred,agree:nl-df508981a358,Code/GameEngine/Source/Common/RTS/Player.cpp,0x002A9F17
+local,Rva002A9F17::rva002A9F35::p,Rva002A9F17::rva002A9F35::lightPointSystem,inferred,agree:nl-97bfe4e087b4,Code/GameEngine/Source/Common/RTS/Player.cpp,0x002A9F35
+global,?g_00E03158@@3PAVRva00421520@@A,?TheLightPointSystem@@3PAVRva00421520@@A,inferred,agree:nl-f561a8a0d8b3,Code/GameEngine/Source/Common/RTS/Player.cpp,0x00A03158
 param,Rva002C7492::rva002C760B::v1,Rva002C7492::rva002C760B::idx1,inferred,agree:nl-ac6c2679e9f6,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,0x002C760B
 param,Rva002C7492::rva002C760B::v2,Rva002C7492::rva002C760B::idx2,inferred,agree:nl-4cf865802a89,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,0x002C760B
 param,Rva002C7492::rva002C760B::v3,Rva002C7492::rva002C760B::idx3,inferred,agree:nl-60a7254e5ac5,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,0x002C760B

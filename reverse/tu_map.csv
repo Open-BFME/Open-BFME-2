@@ -20786,7 +20786,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002A991D,82,code,,,-,,Code/GameEngine/Source/Common/Rva002A991DCtor.cpp
 0x002A996F,37,code,,,-,,Code/GameEngine/Source/Common/Rva002A996FMethod.cpp
 0x002A9994,62,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerAccumulateBattleStats.cpp
-0x002A99D2,40,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9994..0x002A99FA,Code/GameEngine/Source/Common/Rva002A99D2Set.cpp
+0x002A99D2,40,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9994..0x002A99FA,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002A99FA,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002A99FAForward.cpp
 0x002A9A18,180,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerSetPlayerType.cpp
 0x002A9ACC,105,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9A18..0x002A9B35,Code/GameEngine/Source/Common/Rva002A9ACCDict.cpp
@@ -20794,7 +20794,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002A9B58,35,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/Rva002A9ACCDict.cpp
 0x002A9B7B,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerAiQueries.cpp
 0x002A9B92,43,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerAIDelegates.cpp
-0x002A9BBD,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9B92..0x002A9BD4,Code/GameEngine/Source/Common/Rva002A9BBDGet.cpp
+0x002A9BBD,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9B92..0x002A9BD4,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002A9BD4,15,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9B92..0x002A9BE3,Code/GameEngine/Source/Common/RTS/PlayerAIDelegates.cpp
 0x002A9BE3,15,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9B92..0x002A9BF2,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002A9BF2,27,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9B92..0x002A9C0D,Code/GameEngine/Source/Common/RTS/Rva002A9BF2Get.cpp
@@ -20812,26 +20812,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002A9D98,13,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9D89..0x002A9DA5,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
 0x002A9DA5,7,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9D89..0x002A9DAC,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
 0x002A9DAC,12,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/Player.cpp,Code/GameEngine/Source/Common/Player_getSupplyBoxValue.cpp
-0x002A9DB8,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9DAC..0x002A9DCF,Code/GameEngine/Source/Common/Rva002A9DB8Forward.cpp
-0x002A9DCF,29,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9DAC..0x002A9DEC,Code/GameEngine/Source/Common/Rva002A9DCFForward.cpp
+0x002A9DB8,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9DAC..0x002A9DCF,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002A9DCF,29,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9DAC..0x002A9DEC,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002A9DEC,18,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9DAC..0x002A9DFE,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp
-0x002A9DFE,39,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,W=Code/GameEngine/Source/Common/RTS/Player.cpp C=0x002A9DAC..0x002A9E25,Code/GameEngine/Source/Common/Rva002A9DFEForward.cpp
+0x002A9DFE,39,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,W=Code/GameEngine/Source/Common/RTS/Player.cpp C=0x002A9DAC..0x002A9E25,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002A9E25,17,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/Player.cpp,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp
 0x002A9E36,118,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_ScaleMoney.cpp
 0x002A9EAC,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_hasPrereqsForScience.cpp
 0x002A9ECA,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9EAC..0x002A9ED2,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp
 0x002A9ED2,7,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9EAC..0x002A9ED9,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 0x002A9ED9,34,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp
-0x002A9EFB,20,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F0F,Code/GameEngine/Source/Common/Rva002A9EFBSub.cpp
+0x002A9EFB,20,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F0F,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002A9F0F,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F17,Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp
-0x002A9F17,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F35,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp
-0x002A9F35,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F53,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp
+0x002A9F17,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F35,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002A9F35,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F53,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002A9F53,11,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9F5E,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x002A9F5E,66,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002A9FA0,Code/GameEngine/Source/Common/Rva002A9F5EMethod.cpp
 0x002A9FA0,108,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002A9ED9..0x002AA00C,Code/GameEngine/Source/Common/RTS/PlayerRva002A9FA0.cpp
 0x002AA00C,37,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/Player.cpp,Code/GameEngine/Source/Common/PlayerRva002AA00C.cpp
 0x002AA031,27,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/Player.cpp,Code/GameEngine/Source/Common/Player_findUpgrade.cpp
-0x002AA04C,66,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA031..0x002AA08E,Code/GameEngine/Source/Common/RTS/PlayerRva002AA04C.cpp
+0x002AA04C,66,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA031..0x002AA08E,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AA08E,35,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_Radar.cpp
 0x002AA0B1,7,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA08E..0x002AA0B8,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp
 0x002AA0B8,7,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA08E..0x002AA0BF,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
@@ -20839,8 +20839,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AA0C6,7,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA08E..0x002AA0CD,Code/GameEngine/Source/Common/Disp32DwordFieldIncDec.cpp
 0x002AA0CD,17,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA08E..0x002AA0DE,Code/GameEngine/Source/Common/Disp32FloatFieldSetters.cpp
 0x002AA0DE,69,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_doesObjectQualifyForBattlePlan.cpp
-0x002AA123,42,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA0DE..0x002AA14D,Code/GameEngine/Source/GameLogic/Object/Update/Rva002AA123Get.cpp
-0x002AA14D,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA0DE..0x002AA164,Code/GameEngine/Source/GameLogic/Object/Update/Rva002AA14DBonuses.cpp
+0x002AA123,42,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA0DE..0x002AA14D,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AA14D,23,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA0DE..0x002AA164,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AA164,18,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerGetCurrentSelectionAsAIGroup.cpp
 0x002AA176,27,code,,,-,,Code/GameEngine/Source/Common/Rva002AA191Find.cpp
 0x002AA191,46,code,,,-,,Code/GameEngine/Source/Common/Rva002AA191Find.cpp
@@ -20856,12 +20856,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AA257,13,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA264,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 0x002AA264,22,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA27A,Code/GameEngine/Source/Common/RTS/PlayerRva002ABAA6.cpp
 0x002AA27A,24,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA292,Code/GameEngine/Source/Common/RTS/PlayerRva002ABAB3.cpp
-0x002AA292,41,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA2BB,Code/GameEngine/Source/Common/RTS/Rva002AA292Check.cpp
+0x002AA292,41,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA2BB,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AA2BB,14,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA2C9,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002AA2C9,6,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA2CF,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
 0x002AA2CF,42,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA2F9,Code/GameEngine/Source/Common/Rva0028C6FB.cpp
 0x002AA2F9,54,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA32F,Code/GameEngine/Source/Common/KindOfGetSingleBitFromName.cpp
-0x002AA32F,45,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA39B,Code/GameEngine/Source/Common/Rva002AA32FEqual.cpp
+0x002AA32F,45,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA39B,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AA35C,63,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp
 0x002AA39B,20,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA3AF,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x002AA3AF,6,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA3B5,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
@@ -20871,7 +20871,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AA41A,64,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA45A,Code/GameEngine/Source/Common/RTS/PlayerRva002AA41ABest.cpp
 0x002AA45A,61,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA497,Code/GameEngine/Source/Common/RTS/PlayerRva002AC629.cpp
 0x002AA497,132,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA51B,Code/GameEngine/Source/Common/RTS/PlayerRva002ABCF0.cpp
-0x002AA51B,22,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA531,Code/GameEngine/Source/Common/Rva000CBDA0Set.cpp
+0x002AA51B,22,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA531,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AA531,40,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA245..0x002AA559,Code/GameEngine/Source/Common/RTS/PlayerRva002ABD1D.cpp
 0x002AA559,136,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002ABD1D.cpp
 0x002AA5E1,253,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerAddSkillPointsForDamage.cpp
@@ -20880,8 +20880,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AA7E6,92,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x002AA842,21,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA7E6..0x002AA857,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002AA857,104,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002AA857.cpp
-0x002AA8BF,37,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA857..0x002AA8E4,Code/GameEngine/Source/GameLogic/Object/RvaBitTestTwins.cpp
-0x002AA8E4,11,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA857..0x002AA8EF,Code/GameEngine/Source/Common/RTS/Rva002AA292Check.cpp
+0x002AA8BF,37,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA857..0x002AA8E4,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AA8E4,11,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AA857..0x002AA8EF,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AA8EF,48,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp
 0x002AA91F,163,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_Radar.cpp
 0x002AA9C2,163,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_Radar.cpp
@@ -20889,26 +20889,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AAAF9,148,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_Radar.cpp
 0x002AAB8D,47,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AAAF9..0x002AABBC,Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp
 0x002AABBC,50,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002AABBC.cpp
-0x002AABEE,64,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC2E,Code/GameEngine/Source/Common/RTS/Rva002AABEELevelValue.cpp
+0x002AABEE,64,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC2E,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AAC2E,15,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC3D,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002AAC3D,24,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC55,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002AAC55,31,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC74,Code/Libraries/Source/WWVegas/WWLib/stlport_list_s_o1.cpp
-0x002AAC74,42,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC9E,Code/GameEngine/Source/Common/RTS/Rva002AAC74PoolListClear.cpp
-0x002AAC9E,61,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AACDB,Code/Libraries/Source/WWVegas/WWLib/Rva002AAC9EEqual.cpp
-0x002AACDB,72,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAD23,Code/Libraries/Source/WWVegas/WWLib/Rva002AACDBPopcount.cpp
+0x002AAC74,42,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAC9E,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AAC9E,61,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AACDB,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AACDB,72,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAD23,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AAD23,47,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAD52,Code/GameEngine/Source/Common/Rva002AAD23Set.cpp
 0x002AAD52,37,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAD77,Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp
 0x002AAD77,18,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAD89,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x002AAD89,19,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAD9C,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp
 0x002AAD9C,18,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AADAE,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x002AADAE,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AADB6,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
-0x002AADB6,135,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAE46,Code/GameEngine/Source/Common/Rva002AADB6Compare.cpp
+0x002AADB6,135,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAE46,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AAE3D,9,code,,displaced,-,S=Code/GameEngine/Source/Common/RTS/SpecialPower.cpp N=Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
 0x002AAE46,9,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAE4F,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp
 0x002AAE4F,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAE59,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp
 0x002AAE59,20,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAE6D,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002AAE6D,20,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAE81,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
-0x002AAE81,52,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAEB5,Code/GameEngine/Source/Common/RTS/Rva002AAE81Set.cpp
+0x002AAE81,52,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAEB5,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AAEB5,16,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AABBC..0x002AAEC5,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002AAEC5,173,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x002AAF72,170,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
@@ -20945,15 +20945,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002ABA9B,11,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002ABA9B.cpp
 0x002ABAA6,13,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002ABAA6.cpp
 0x002ABAB3,13,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002ABAB3.cpp
-0x002ABAC0,36,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABAE4,Code/Libraries/Source/WWVegas/WWLib/Rva002ABAC0Free.cpp
+0x002ABAC0,36,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABAE4,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002ABAE4,60,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB20,Code/Libraries/Source/WWVegas/WWLib/stlport_list_s_o1.cpp
-0x002ABB20,36,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB44,Code/Libraries/Source/WWVegas/WWLib/Rva002ABB20PoolFree.cpp
-0x002ABB44,29,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB61,Code/GameEngine/Source/Common/RTS/Rva002AAC74PoolListClear.cpp
+0x002ABB20,36,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB44,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002ABB44,29,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB61,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002ABB61,37,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB86,Code/Libraries/Source/WWVegas/WWLib/stlport_list_s_insert.cpp
 0x002ABB86,24,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABB9E,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002ABB9E,32,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABBBE,Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp
-0x002ABBBE,100,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABC22,Code/Libraries/Source/WWVegas/WWLib/Rva002ABBBEBitCopy.cpp
-0x002ABC22,84,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABC76,Code/GameEngine/Source/Common/Rva002ABC22Compare.cpp
+0x002ABBBE,100,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABC22,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002ABC22,84,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABC76,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002ABC76,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABAB3..0x002ABC7E,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp
 0x002ABC7E,114,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerSetDefaultTeam.cpp
 0x002ABCF0,45,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002ABCF0.cpp
@@ -20968,22 +20968,22 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002ABFC3,58,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002ABFFD,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp
 0x002ABFFD,5,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC002,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x002AC002,5,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC007,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
-0x002AC007,5,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC00C,Code/GameEngine/Source/Common/RTS/Rva002AAC74PoolListClear.cpp
+0x002AC007,5,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC00C,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AC00C,26,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC026,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002AC00C.cpp
-0x002AC026,40,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC04E,Code/GameEngine/Source/Common/Rva002AC026MemberInit.cpp
-0x002AC04E,28,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC06A,Code/GameEngine/Source/Common/Rva002AC04EAlloc.cpp
+0x002AC026,40,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC04E,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AC04E,28,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC06A,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AC06A,319,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC1A9,Code/GameEngine/Source/Common/System/BitFlagsXfer.cpp
 0x002AC1A9,200,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC271,Code/GameEngine/Source/Common/Rva002AC1A9XferList.cpp
 0x002AC271,31,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC290,Code/GameEngine/Source/Common/Rva002AC271Compare.cpp
 0x002AC290,47,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC2BF,Code/GameEngine/Source/Common/GapBodiesGE04.cpp
 0x002AC2BF,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC2C7,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x002AC2C7,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC2CF,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
-0x002AC2CF,113,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC340,Code/GameEngine/Source/Common/Rva002AC2CFCopy.cpp
-0x002AC340,32,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC360,Code/GameEngine/Source/Common/Rva002AC340Ctor.cpp
+0x002AC2CF,113,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC340,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AC340,32,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC360,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AC360,6,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC366,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
 0x002AC366,60,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC3A2,Code/GameEngine/Source/Common/Rva002AC340Dtor.cpp
 0x002AC3A2,28,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC3BE,Code/GameEngine/Source/Common/Rva002AC340Dtor.cpp
-0x002AC3BE,34,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC3E0,Code/GameEngine/Source/Common/Rva002AC3BECtor.cpp
+0x002AC3BE,34,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ABEF1..0x002AC3E0,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AC3E0,69,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp
 0x002AC425,26,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerScienceAssign.cpp
 0x002AC43F,149,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerSkirmishNameFind.cpp
@@ -21010,11 +21010,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002ACE2B,161,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp
 0x002ACECC,19,code,Code/GameEngine/Source/Common/RTS/Player.cpp,proposed,C,C=0x002ACE2B..0x002ACEDF,Code/GameEngine/Source/Common/RTS/Rva002ACECCRemove.cpp
 0x002ACEDF,35,code,Code/GameEngine/Source/Common/RTS/Player.cpp,proposed,K,K=Rva002ABFA0,Code/GameEngine/Source/Common/RTS/Rva002ABFA0Remove.cpp
-0x002ACF02,79,code,,,-,,Code/GameEngine/Source/Common/RTS/Rva002ACF02StringFilter.cpp
+0x002ACF02,79,code,,,-,,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002ACF51,57,code,Code/GameEngine/Source/Common/RTS/PlayerRelationHashMap.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/PlayerRelationHashMap.cpp,Code/GameEngine/Source/Common/RTS/PlayerRelationMapDtor_Rva002AD078.cpp
 0x002ACF8A,18,code,Code/GameEngine/Source/Common/RTS/Player.cpp,proposed,K,K=Rva002AC026Member,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
-0x002ACF9C,37,code,,,-,,Code/GameEngine/Source/Common/Rva002ACF9CInsert.cpp
-0x002ACFC1,21,code,,,-,,Code/GameEngine/Source/Common/Rva002ACFC1Equal.cpp
+0x002ACF9C,37,code,,,-,,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002ACFC1,21,code,,,-,,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002ACFD6,37,code,,,-,,Code/GameEngine/Source/Common/Rva002ACFD6NewNode.cpp
 0x002ACFFB,44,code,,,-,,Code/GameEngine/Source/Common/Rva002ACFFBEqual.cpp
 0x002AD027,48,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002AD027.cpp
@@ -21045,8 +21045,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002ADC82,69,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerUpgradeDiscount.cpp
 0x002ADCC7,26,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADCE1,Code/GameEngine/Source/Common/RTS/PlayerAddTeamToList.cpp
 0x002ADCE1,80,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADD31,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarVideoMapErase.cpp
-0x002ADD31,68,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADD75,Code/GameEngine/Source/Common/Rva002ADD31Insert.cpp
-0x002ADD75,61,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADDB2,Code/GameEngine/Source/Common/Rva002ADD75Equal.cpp
+0x002ADD31,68,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADD75,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002ADD75,61,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADDB2,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002ADDB2,30,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADDD0,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002ADDB2.cpp
 0x002ADDD0,9,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADDD9,Code/GameEngine/Source/Common/DestroyInstances.cpp
 0x002ADDD9,124,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002ADC82..0x002ADE71,Code/GameEngine/Source/Common/System/Rva002AE71DXfer.cpp
@@ -21061,15 +21061,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AE2ED,43,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002AE252.cpp
 0x002AE318,17,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE2ED..0x002AE329,Code/GameEngine/Source/Common/RTS/Rva002AE318.cpp
 0x002AE329,203,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/Player_addUpgrade.cpp
-0x002AE3F4,65,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE329..0x002AE435,Code/Libraries/Source/WWVegas/WWLib/Rva002AE3F4Finish.cpp
+0x002AE3F4,65,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE329..0x002AE435,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AE435,64,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE329..0x002AE475,Code/GameEngine/Source/GameLogic/Object/Rva002AE435.cpp
 0x002AE475,17,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002AE252.cpp
 0x002AE486,63,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE4C5,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
 0x002AE4C5,121,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE53E,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp
 0x002AE53E,57,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE577,Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp
 0x002AE577,88,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE5CF,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002AE577.cpp
-0x002AE5CF,28,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE5EB,Code/Libraries/Source/WWVegas/WWLib/StlportDestroyAuxFamily28.cpp
-0x002AE5EB,54,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE621,Code/GameEngine/Source/Common/Rva002AE5EBCtor.cpp
+0x002AE5CF,28,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE5EB,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x002AE5EB,54,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE621,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AE621,6,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE627,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
 0x002AE627,48,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE475..0x002AE71D,Code/GameEngine/Source/Common/Rva002AE627Dtor.cpp
 0x002AE657,92,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AICommandInterface.cpp,Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceAttackCommands.cpp
@@ -21079,7 +21079,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AE770,351,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerUpdate.cpp
 0x002AE8CF,97,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerProductionSpeedRva002AE8CF.cpp
 0x002AE930,91,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerProductionSpeedRva002AE930.cpp
-0x002AE98B,45,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE930..0x002AE9B8,Code/GameEngine/Source/GameClient/Rva002AE98B.cpp
+0x002AE98B,45,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AE930..0x002AE9B8,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AE9B8,231,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerHuntCommands.cpp
 0x002AEA9F,1032,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp
 0x002AEEA7,400,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerTeamCommands.cpp
@@ -21101,21 +21101,21 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002AF614,17,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerRva002AF614.cpp
 0x002AF625,31,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF644,Code/GameEngine/Source/Common/RTS/PlayerRelationMapCtor.cpp
 0x002AF644,45,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF671,Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp
-0x002AF671,9,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF67A,Code/GameEngine/Source/Common/System/Rva002AF6C5CopyLoop.cpp
+0x002AF671,9,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF67A,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AF67A,38,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF6A0,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x002AF6A0,37,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF6C5,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
-0x002AF6C5,50,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF6F7,Code/GameEngine/Source/Common/System/Rva002AF6C5CopyLoop.cpp
+0x002AF6C5,50,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002AF614..0x002AF6F7,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002AF6F7,50,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/PlayerRelationMap.cpp,Code/GameEngine/Source/Common/RTS/PlayerRelationMapCtor.cpp
 0x002AF729,1462,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x002AFCDF,2762,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x002B07A9,604,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp
-0x002B0A05,301,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B07A9..0x002B0B32,Code/GameEngine/Source/Common/RTS/PlayerRecordTransfer.cpp
+0x002B0A05,301,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B07A9..0x002B0B32,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002B0B32,63,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B07A9..0x002B0B71,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
 0x002B0B71,29,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B07A9..0x002B0B8E,Code/GameEngine/Source/Common/System/GeometryInfoRva002B0E55.cpp
 0x002B0B8E,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B07A9..0x002B0B96,Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp
 0x002B0B96,282,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,S,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp
 0x002B0CB0,55,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B0B96..0x002B0CE7,Code/GameEngine/Source/Common/System/GeometryInfoRva002B0E55.cpp
-0x002B0CE7,25,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B0B96..0x002B0D00,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002B0CE7.cpp
+0x002B0CE7,25,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B0B96..0x002B0D00,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x002B0D00,341,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Player.cpp S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/Common/RTS/Player.cpp W=Code/GameEngine/Source/Common/RTS/Player.cpp,Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp
 0x002B0E55,138,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B0D00..0x002B0EDF,Code/GameEngine/Source/Common/System/GeometryInfoRva002B0E55.cpp
 0x002B0EDF,63,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,C,C=0x002B0D00..0x002B0F1E,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
@@ -36747,7 +36747,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00470222,217,code,,,-,,Code/GameEngine/Source/Common/Rva00470222Xfer.cpp
 0x004702FB,88,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,approved,E,"E=0x0078B161..0x0078B1B9@0x0046F901,0x004708BC provisional",Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp
 0x00470353,69,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp
-0x00470398,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportDestroyAuxFamily28.cpp
+0x00470398,25,code,,,-,,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x004703B1,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp
 0x004703E0,78,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,approved,E,"E=0x0078B161..0x0078B1B9@0x0046F901,0x004708BC provisional",Code/GameEngine/Source/Common/Rva004703E0Finish.cpp
 0x0047042E,25,code,Code/GameEngine/Source/Common/BfmeThingDSU.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingDSU.cpp,Code/GameEngine/Source/Common/BfmeConv776.cpp
@@ -70971,8 +70971,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00775939,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002A9A18@FuncInfo0x0091CE08,Code/GameEngine/Source/Common/RTS/PlayerSetPlayerType.cpp
 0x00775943,11,code,,,-,,Code/GameEngine/Source/Common/RTS/PlayerRva002AA756.cpp
 0x0077594E,10,code,,,-,,Code/GameEngine/Source/Common/RTS/PlayerRva002AA756.cpp
-0x00775958,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AAE81@FuncInfo0x0091CE50,Code/GameEngine/Source/Common/RTS/Rva002AAE81Set.cpp
-0x00775960,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AAE81@FuncInfo0x0091CE50,Code/GameEngine/Source/Common/RTS/Rva002AAE81Set.cpp
+0x00775958,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AAE81@FuncInfo0x0091CE50,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x00775960,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AAE81@FuncInfo0x0091CE50,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x0077596A,10,code,,,-,,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x00775974,10,code,,,-,,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x0077597E,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AB63D@FuncInfo0x0091CE98,Code/GameEngine/Source/Common/RTS/PlayerDoBountyForKill.cpp
@@ -70981,7 +70981,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00775998,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AB8FB@FuncInfo0x0091CEBC,Code/GameEngine/Source/Common/RTS/PlayerRva002AB8FB.cpp
 0x007759A2,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002ABC22@FuncInfo0x0091CEE8,Code/gen_small/uw_gen_006.cpp
 0x007759AA,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002ABC22@FuncInfo0x0091CEE8,Code/gen_small/uw_gen_006.cpp
-0x007759B2,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002ABC22@FuncInfo0x0091CEE8,Code/GameEngine/Source/Common/Rva002ABC22Compare.cpp
+0x007759B2,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002ABC22@FuncInfo0x0091CEE8,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x007759BC,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AC06A@FuncInfo0x0091CF38,Code/GameEngine/Source/Common/System/BitFlagsXfer.cpp
 0x007759C4,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AC06A@FuncInfo0x0091CF38,Code/GameEngine/Source/Common/System/BitFlagsXfer.cpp
 0x007759CC,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002AC06A@FuncInfo0x0091CF38,Code/GameEngine/Source/Common/System/BitFlagsXfer.cpp
@@ -71062,8 +71062,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00775C91,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B07A9@FuncInfo0x0091D384,Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp
 0x00775C99,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B07A9@FuncInfo0x0091D384,Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp
 0x00775CA1,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B07A9@FuncInfo0x0091D384,Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp
-0x00775CAB,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B0A05@FuncInfo0x0091D3A8,Code/GameEngine/Source/Common/RTS/PlayerRecordTransfer.cpp
-0x00775CB3,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B0A05@FuncInfo0x0091D3A8,Code/GameEngine/Source/Common/RTS/PlayerRecordTransfer.cpp
+0x00775CAB,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B0A05@FuncInfo0x0091D3A8,Code/GameEngine/Source/Common/RTS/Player.cpp
+0x00775CB3,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B0A05@FuncInfo0x0091D3A8,Code/GameEngine/Source/Common/RTS/Player.cpp
 0x00775CBD,8,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B0B96@FuncInfo0x0091D3CC,Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp
 0x00775CC5,10,code,Code/GameEngine/Source/Common/RTS/Player.cpp,approved,P,P=0x002B0B96@FuncInfo0x0091D3CC,Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp
 0x00775CCF,8,code,,,-,,Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp

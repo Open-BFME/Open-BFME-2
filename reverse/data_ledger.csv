@@ -32135,7 +32135,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03148,4,.data,global,_DRAWABLE_FRAMES_PER_FLASH,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,owned,,1,1
 0x00A0314C,4,.data,global,?key@?BB@??rva00420C8E@DelayedExperienceLevelGrantSystem@@QAEXPAUExperienceLevelView@@PAVObject@@_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,owned,,1,2
 0x00A03150,8,.data,global,?$S3@?BB@??rva00420C8E@DelayedExperienceLevelGrantSystem@@QAEXPAUExperienceLevelView@@PAVObject@@_N@Z@4IA,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,owned,,1,2
-0x00A03158,4,.data,global,?TheLightPointSystem@@3PAVRva00421520@@A,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp,owned,,1,8
+0x00A03158,4,.data,global,?TheLightPointSystem@@3PAVRva00421520@@A,Code/GameEngine/Source/Common/RTS/Player.cpp,owned,,1,8
 0x00A03160,4,.data,global,?TheFormationAssistant@@3PAVRva0022AD10Subsystem@@A,Code/GameEngine/Source/Common/System/SubsystemSingletonPointers.cpp,owned,,0,24
 0x00A03164,4,.data,global,_s_rva007B0280,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03168,12,.data,global,?g_Va00E03168@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,9

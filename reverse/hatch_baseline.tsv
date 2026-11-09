@@ -5688,7 +5688,6 @@ pin	reverse/symbols.csv	0x0021D305	1
 pin	reverse/symbols.csv	0x0021D31C	1
 pin	reverse/symbols.csv	0x0021D435	1
 pin	reverse/symbols.csv	0x0021D517	1
-pin	reverse/symbols.csv	0x0021D7CF	1
 pin	reverse/symbols.csv	0x0021D993	1
 pin	reverse/symbols.csv	0x0021D9E0	1
 pin	reverse/symbols.csv	0x0021DA13	1
@@ -6737,7 +6736,7 @@ pin	reverse/symbols.csv	0x0033A82D	1
 pin	reverse/symbols.csv	0x0033AEAC	1
 pin	reverse/symbols.csv	0x0033B1DE	1
 pin	reverse/symbols.csv	0x0033B427	1
-pin	reverse/symbols.csv	0x0033B758	2	allow=058326b3f3148090290f63b00ce07ab026d6f1b6
+pin	reverse/symbols.csv	0x0033B758	2
 pin	reverse/symbols.csv	0x0033BB04	1
 pin	reverse/symbols.csv	0x0033BE70	1
 pin	reverse/symbols.csv	0x0033BF10	1
@@ -11573,6 +11572,7 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::preTeamDe
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setAttackedBy	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setTeamDelaySeconds	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z	1
+present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	append@Rva002A1B6FNativeList@@QAEXABQAX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefense@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseStructure@Player@@QAEXABVAsciiString@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificBuilding@Player@@QAEXABVAsciiString@@@Z	1
@@ -13330,7 +13330,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C26
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C4A9Result::Rva0018C4A9Result	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva001EBAEACtor.cpp	0Rva001EAE6FHelper@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp	RvaMapCacheEmptyAllocator::RvaMapCacheEmptyAllocator	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002AE3F4Finish.cpp	append@Rva002A1B6FNativeList@@QAEXABQAX@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00383BACFinish.cpp	_M_insert@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHH@2@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Iter@@QAE@PAURva004D1C81Node@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Pair@@QAE@PAURva004D1C81Node@@_N@Z	1
