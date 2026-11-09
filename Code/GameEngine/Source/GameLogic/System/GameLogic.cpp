@@ -780,7 +780,8 @@ public:
 // constructs it and Rva007B6A00AtexitThunks.cpp destroys it, so the storage is
 // a plain uninitialised definition (StringBase's default ctor only zeroes
 // m_data, which is already what .bss gives it).
-UnicodeString g_Va00E032E8;
+// Retail's one save-message string at 0x00E032E8; Rva007ABBB3CtorInits.cpp owns it and retail's initializer constructs it.
+extern unsigned g_Va00E032E8;
 void __cdecl Rva004341D8(int button);
 void __cdecl Rva00435CCC(void);
 // TheGameState's rowed save-directory free-space check and save-exists test.
@@ -3493,7 +3494,7 @@ void __cdecl Rva0024080FAdd(void *object, _STL::list<int> *ids)
 // setter's original name is unknown; address-named.
 void rva0023C552(const UnicodeString &text)
 {
-	g_Va00E032E8 = text;
+	*reinterpret_cast<UnicodeString *>(&g_Va00E032E8) = text;
 }
 
 // The retail callee 0x0023D32D is a plain cdecl getter reached with a member-call shape.
@@ -3554,7 +3555,7 @@ void GameLogic::ProcessSaveGameCommand(Rva0023E928 *msg, bool frozen)
 					name = UnicodeString(name, 0, name.reverseFind('.') - name.str());
 				text.format(&text, name.str());
 			}
-			g_Va00E032E8 = msg->rva0023E928();
+			*reinterpret_cast<UnicodeString *>(&g_Va00E032E8) = msg->rva0023E928();
 			{
 				Rva00240866Answer answer = Rva004341D8;
 				Rva00437F61(2, TheGameText->fetch("APT:SaveGameMultiplayerConfirmationTitle"), text,
