@@ -125,7 +125,46 @@ private:
 	int m_prerequisite; // +0x7C
 };
 
+//
+// Opaque multiple-inheritance destructors tail-calling Rva004C131B::~
+// Rva004C131B at 0x004C131B (row in Rva00493DEFDerived.cpp). Each class below
+// derives (in order) from the base, a shared empty polymorphic base, and its
+// own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10; the empty
+// bases have implicit trivial destructors, so the derived destructor stores
+// all three vptrs and tail-calls the base destructor. The +0x0C secondary is
+// shared (0xC5AD78). Owner identities are unproven (opaque Rva names). One
+// ledger row per destructor, landed one commit at a time.
+
+class Rva004C131B
+{
+public:
+	virtual ~Rva004C131B();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C1604_B2
+{
+public:
+	virtual void f2() = 0;
+};
+
+class Rva004C1604 : public Rva004C131B, public MiBase1, public Rva004C1604_B2
+{
+public:
+	virtual ~Rva004C1604();
+};
+
 // tu-skeleton: 0x004C159E 27B ?buildFieldParse@DelayedDeathBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedDeathBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyCtor.cpp
 
@@ -140,20 +179,6 @@ DelayedDeathBody::DelayedDeathBody(Thing *thing, const ModuleData *moduleData) :
 	m_b101 = 0;
 }
 
-// tu-skeleton: 0x004C15F1 6B ?Rva004C15F1Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C15F7 13B ?set@Rva004C15F7ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004C1604 25B ??1Rva004C1604@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004C131BDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C161D 69B ?getModuleNameKey@DelayedDeathBody@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp (not merged yet)
-
-// tu-skeleton: 0x004C1662 28B ??_GRva004C1604@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004C131BDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C167E 334B ?internalChangeHealth@DelayedDeathBody@@QAEXMPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyApply.cpp (not merged yet)
-
-// tu-skeleton: 0x004C17CC 62B ?xfer@DelayedDeathBody@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedDeathBodyModuleDataCtor.cpp
 
 // ??0DelayedDeathBodyModuleData@@QAE@XZ @0x4C180A
@@ -167,6 +192,22 @@ DelayedDeathBodyModuleData::DelayedDeathBodyModuleData()
 	m_immortal = 1;
 	m_doHealthCheck = 1;
 }
+
+// tu-skeleton: 0x004C15F1 6B ?Rva004C15F1Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C15F7 13B ?set@Rva004C15F7ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004C131BDerived.cpp
+
+Rva004C1604::~Rva004C1604()
+{
+}
+
+// tu-skeleton: 0x004C161D 69B ?getModuleNameKey@DelayedDeathBody@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp (not merged yet)
+
+// tu-skeleton: 0x004C167E 334B ?internalChangeHealth@DelayedDeathBody@@QAEXMPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyApply.cpp (not merged yet)
+
+// tu-skeleton: 0x004C17CC 62B ?xfer@DelayedDeathBody@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0078FC42 13B $L2667 -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp (not merged yet)
 
