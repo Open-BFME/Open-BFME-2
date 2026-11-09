@@ -28,9 +28,9 @@
 ** NOTE: If _TheFileFactory is ever changed to point to an object of a different class which does
 ** not derive from SimpleFileFactoryClass, _TheSimpleFileFactory should be set to NULL.
 */
-SimpleFileFactoryClass		_DefaultFileFactory;
-FileFactoryClass *			_TheFileFactory = &_DefaultFileFactory;
-SimpleFileFactoryClass *			_TheSimpleFileFactory = &_DefaultFileFactory;
+extern SimpleFileFactoryClass	_SimpleFileFactory;	// mixfile.cpp defines it: retail builds one, at 0x00E08D48
+FileFactoryClass *			_TheFileFactory = &_SimpleFileFactory;
+SimpleFileFactoryClass *			_TheSimpleFileFactory = &_SimpleFileFactory;
 
 RawFileFactoryClass		_DefaultWritingFileFactory;
 RawFileFactoryClass *			_TheWritingFileFactory = &_DefaultWritingFileFactory;
