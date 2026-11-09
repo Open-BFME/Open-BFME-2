@@ -724,3 +724,15 @@ proof passes and all three claims release. Broader audit remains
 INCONCLUSIVE at c885072a48/base aaf7727eee because the unchanged
 Rva00801B70FeslAlloc.cpp consumer lacks a current receipt; next census/image
 verification must include it. No global link clearance follows.
+
+2026-11-09, sibling FESL 8E3D28 provider repair: Rva00802640FeslCtor.cpp's
+inline cleanup now emits the native 72-byte deleting wrapper, identical in
+all code/relocation/selection facts to the existing Y2 provider. Constructor
+51B and its initialization helpers remain exact; normal/strict 21 rows and
+paired LINKS 671 pass. Y2 source and all its object facts are unchanged.
+No row or identity moves. The partial flat ABI view is explicitly not full
+inheritance/lifetime recovery. Bounded replay clears its one wrong-provider
+refusal, but temporary bridges rise from one/nine to two/eighteen slots.
+Both native tables are 36B versus compiler 4B; four support receipts are
+not current. Full tables and next-census/image verification remain open.
+[Scope, native proof and remaining work](../../reverse/attempt_support/fesl-block-provider-20261109/README.md).

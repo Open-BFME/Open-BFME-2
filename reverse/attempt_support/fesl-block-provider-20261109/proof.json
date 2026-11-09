@@ -1,0 +1,810 @@
+{
+  "source": "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp",
+  "provider": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+  "rows_verified": 21,
+  "native_verified": [
+    {
+      "name": "??0Rva00802680Owner@@QAE@XZ",
+      "rva": "0x0066E880",
+      "size": "51"
+    },
+    {
+      "name": "??_GRva00802680Owner@@UAEPAXI@Z",
+      "rva": "0x0066E960",
+      "size": "72"
+    },
+    {
+      "name": "??_GRva00802680Base@@UAEPAXI@Z",
+      "rva": "0x0066E690",
+      "size": "31"
+    }
+  ],
+  "retained_constructor_helpers_data_flags_policies_unchanged": true,
+  "changed_wrapper_body_relocations_flags_policy_equal_to_existing_provider": true,
+  "only_added_definitions": [
+    "??_GRva00802680Base@@UAEPAXI@Z",
+    "??_7Rva00802680Base@@6B@"
+  ],
+  "added_definitions_equal_to_existing_provider": true,
+  "original_provider_source_and_all_object_facts_unchanged": true,
+  "undefined_added": [
+    "??_GRva00802680Base@@UAEPAXI@Z",
+    "?clear@Rva007F78E0Block@@QAEXXZ",
+    "?reset@Rva00800290Buffer@@QAEXXZ"
+  ],
+  "undefined_removed": [
+    "??1Rva00802680Owner@@UAE@XZ"
+  ],
+  "object_sha256": "ee74832a1100ab892691cf392ae37ada50956a476bf782963af069dd13a33360",
+  "before": {
+    "summary": {
+      "tables": 1,
+      "slots": 9,
+      "refused_tables": 1,
+      "refusal_reasons": {
+        "target-not-winning-provider": 1
+      },
+      "already_correct": 0
+    },
+    "native_tables": {
+      "0x8e3cdc": [
+        "0x66e690",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810"
+      ],
+      "0x8e3d28": [
+        "0x66e960",
+        "0x66d590",
+        "0x66d810",
+        "0x66e560",
+        "0x13e9f0",
+        "0x66e6b0",
+        "0x66e6f0",
+        "0x143d80",
+        "0x66d5b0",
+        "-0x400000"
+      ]
+    },
+    "refusals": [
+      {
+        "rva": 9321768,
+        "name": "??_7Rva00802680Owner@@6B@",
+        "names": [
+          "??_7Rva00802680Owner@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp",
+            "row_rva": 6744192,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\fesl-block-provider-20261109\\0-before.obj",
+            "names": [
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 6,
+            "name": "??_7Rva00802680Owner@@6B@",
+            "rva": 9321768
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744256,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva00802680Owner@@6B@",
+            "rva": 9321768
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744416,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva00802680Owner@@6B@",
+            "rva": 9321768
+          }
+        ],
+        "name_addresses": {
+          "??_7Rva00802680Owner@@6B@": [
+            9321768
+          ]
+        },
+        "slots": 9,
+        "source": "",
+        "previous_object": "build\\fesl-block-provider-20261109\\0-before.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6739344,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6739984,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6743392,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 1305072,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6743728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6743792,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 1326464,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6739376,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": "target-not-winning-provider",
+        "blocked": [
+          {
+            "slot": 0,
+            "target_rva": 6744416,
+            "reason": "target-not-winning-provider",
+            "providers": [
+              {
+                "name": "??_GRva00802680Owner@@UAEPAXI@Z",
+                "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+                "ledger_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+                "first_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\fesl-block-provider-20261109\\0-before.obj"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "rva": 9321692,
+        "name": "??_7Rva00802680Base@@6B@",
+        "names": [
+          "??_7Rva00802680Base@@6B@"
+        ],
+        "slots": [
+          {
+            "name": "??_GRva00802680Base@@UAEPAXI@Z",
+            "rva": 6743696,
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          }
+        ],
+        "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+        "referenced_by": [],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744256,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 46,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744416,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 51,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6743696,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6743296,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@"
+            ],
+            "offset": 4,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6743312,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@"
+            ],
+            "offset": 2,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          }
+        ],
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          }
+        ]
+      }
+    ],
+    "supporting_object_currency": {
+      "Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp": false,
+      "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp": true,
+      "Code/GameEngine/Source/Common/BfmeSlot1173.cpp": true,
+      "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp": true,
+      "Code/Libraries/Source/debug/debug_purecall.cpp": false,
+      "Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp": true,
+      "Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp": false,
+      "Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp": false
+    },
+    "index_commit": {
+      "date": "2026-11-09 00:25",
+      "commit": "717b70f4ab",
+      "clean_tree": true,
+      "census_date": "2026-11-08 23:34",
+      "census_commit": "a46241d8d1"
+    }
+  },
+  "after": {
+    "summary": {
+      "tables": 2,
+      "slots": 18,
+      "refused_tables": 0,
+      "refusal_reasons": {},
+      "already_correct": 0
+    },
+    "native_tables": {
+      "0x8e3cdc": [
+        "0x66e690",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810",
+        "0x3b810"
+      ],
+      "0x8e3d28": [
+        "0x66e960",
+        "0x66d590",
+        "0x66d810",
+        "0x66e560",
+        "0x13e9f0",
+        "0x66e6b0",
+        "0x66e6f0",
+        "0x143d80",
+        "0x66d5b0",
+        "-0x400000"
+      ]
+    },
+    "refusals": [],
+    "entries": [
+      {
+        "rva": 9321692,
+        "name": "??_7Rva00802680Base@@6B@",
+        "names": [
+          "??_7Rva00802680Base@@6B@"
+        ],
+        "slots": [
+          {
+            "name": "??_GRva00802680Base@@UAEPAXI@Z",
+            "rva": 6743696,
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^rva00802640^fesl^ctor.obj",
+            "twin_of": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          },
+          {
+            "name": "__purecall",
+            "rva": 243728,
+            "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_debug_debug_purecall.obj"
+          }
+        ],
+        "source": "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp",
+        "referenced_by": [],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744256,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 46,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744416,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 51,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6743696,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6743296,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@"
+            ],
+            "offset": 4,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6743312,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@"
+            ],
+            "offset": 2,
+            "name": "??_7Rva00802680Base@@6B@",
+            "rva": 9321692
+          }
+        ],
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^rva00802640^fesl^ctor.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 243728,
+            "reason": "missing-source-slot"
+          }
+        ]
+      },
+      {
+        "rva": 9321768,
+        "name": "??_7Rva00802680Owner@@6B@",
+        "names": [
+          "??_7Rva00802680Owner@@6B@"
+        ],
+        "slots": [
+          {
+            "name": "??_GRva00802680Owner@@UAEPAXI@Z",
+            "rva": 6744416,
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^rva00802640^fesl^ctor.obj",
+            "twin_of": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj"
+          },
+          {
+            "name": "?get@Rva0066D590DwordField@@QBEHXZ",
+            "rva": 6739344,
+            "source": "Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^disp8^dword^field^getters.obj"
+          },
+          {
+            "name": "?rva0066D810@Rva0066D810@@QBE?AURva0066D810Handle@@XZ",
+            "rva": 6739984,
+            "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^n.obj"
+          },
+          {
+            "name": "?rva0066E560@Rva0066E4C0@@QBE_JXZ",
+            "rva": 6743392,
+            "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^k.obj"
+          },
+          {
+            "name": "?Get_File_Handle@RawFileClass@@UAEPAXXZ",
+            "rva": 1305072,
+            "source": "Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_rawfile.obj"
+          },
+          {
+            "name": "?get@Rva00802470Get@@QAEHPBD@Z",
+            "rva": 6743728,
+            "source": "Code/GameEngine/Source/Common/BfmeSlot1173.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^bfme^slot1173.obj"
+          },
+          {
+            "name": "?bfmeAddFP@BfmeHostFP@@QAEHPBD0@Z",
+            "rva": 6743792,
+            "source": "Code/GameEngine/Source/Common/BfmeSlot1173.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^bfme^slot1173.obj"
+          },
+          {
+            "name": "?get@Rva00143D80DwordField@@QBEHXZ",
+            "rva": 1326464,
+            "source": "Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^disp8^dword^field^getters.obj"
+          },
+          {
+            "name": "?get@Rva0066D5B0DwordField@@QBEHXZ",
+            "rva": 6739376,
+            "source": "Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp",
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^disp8^dword^field^getters.obj"
+          }
+        ],
+        "source": "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp",
+        "referenced_by": [],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp",
+            "row_rva": 6744192,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^rva00802640^fesl^ctor.obj",
+            "names": [
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 6,
+            "name": "??_7Rva00802680Owner@@6B@",
+            "rva": 9321768
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744256,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva00802680Owner@@6B@",
+            "rva": 9321768
+          },
+          {
+            "source": "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp",
+            "row_rva": 6744416,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^y2^fesl^browser^destructors.obj",
+            "names": [
+              "??_7Rva00802680Base@@6B@",
+              "??_7Rva00802680Owner@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva00802680Owner@@6B@",
+            "rva": 9321768
+          }
+        ],
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^rva00802640^fesl^ctor.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6739344,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6739984,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6743392,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 1305072,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6743728,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6743792,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 1326464,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6739376,
+            "reason": "missing-source-slot"
+          }
+        ]
+      }
+    ],
+    "supporting_object_currency": {
+      "Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp": false,
+      "Code/GameEngine/Source/GameNetwork/Rva00802640FeslCtor.cpp": true,
+      "Code/GameEngine/Source/Common/BfmeSlot1173.cpp": true,
+      "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp": true,
+      "Code/Libraries/Source/debug/debug_purecall.cpp": false,
+      "Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp": true,
+      "Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp": false,
+      "Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp": false
+    },
+    "index_commit": {
+      "date": "2026-11-09 00:25",
+      "commit": "717b70f4ab",
+      "clean_tree": true,
+      "census_date": "2026-11-08 23:34",
+      "census_commit": "a46241d8d1"
+    }
+  },
+  "scope": "Partial ABI-view provider repair only; no complete inheritance/lifetime or original identity recovery, no table debt retired, no census/image/runtime claim."
+}

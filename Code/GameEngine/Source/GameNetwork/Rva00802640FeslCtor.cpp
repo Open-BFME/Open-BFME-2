@@ -1,7 +1,8 @@
 // cl: /GX-
 // Rva00802680Owner ctor: vtable, V2ZeroInt field8, zero-pair block at +0x20,
 // two Gen_dtor_007f6d20 members at +0x28/+0x30, then field4/C/8 in body.
-// Sibling of matched ??1Rva00802680Owner@@UAE@XZ at 0x00802680.
+// The inline cleanup and explicit base-view teardown preserve the native
+// deleting wrapper; the flat constructor view preserves member initialization.
 
 struct V2ZeroInt
 {
@@ -25,11 +26,47 @@ public:
 	int m_size;
 };
 
+// Private ABI views shared with the verified destructor owner. The complete
+// inheritance/lifetime model and original class identities remain unrecovered.
+class Rva00800290Buffer
+{
+public:
+    void reset();
+    char *m_ptr;
+    int m_size;
+};
+
+class Rva007F78E0Block
+{
+public:
+    void clear();
+    Gen_dtor_007f6d20 *m_data;
+    int m_count;
+};
+
+class Rva00802680Base
+{
+public:
+    virtual ~Rva00802680Base() {}
+    int m_field4;
+    int m_field8;
+    int m_fieldC;
+};
+
 class Rva00802680Owner
 {
 public:
 	__declspec(noinline) Rva00802680Owner();
-	virtual ~Rva00802680Owner();
+	virtual __forceinline ~Rva00802680Owner()
+	{
+		m_field4 = 0;
+		m_fieldC = 0;
+		m_field8.m_value = 0;
+		reinterpret_cast<Rva00800290Buffer *>(&m_c)->reset();
+		reinterpret_cast<Rva00800290Buffer *>(&m_b)->reset();
+		reinterpret_cast<Rva007F78E0Block *>(&m_block)->clear();
+		reinterpret_cast<Rva00802680Base *>(this)->Rva00802680Base::~Rva00802680Base();
+	}
 
 	int m_field4;
 	V2ZeroInt m_field8;
