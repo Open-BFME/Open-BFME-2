@@ -151,32 +151,41 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-// Target facts: VeterancyCrateCollide's primary table 0x00C5A954 has slot 4
-// getModuleNameKey 0x004BCE7B, slot 12 executeCrateBehavior 0x004BCFF0 and
-// slot 13 isValidToExecute 0x004BCEF0.
+ 
+ 
+ 
 class VeterancyCrateCollide : public CrateCollide
 {
 protected:
 	virtual bool executeCrateBehavior(Object *other);
+protected:
 	virtual bool isValidToExecute(const Object *other) const;
 private:
 	const VeterancyCrateCollideModuleData *getVeterancyCrateCollideModuleData() const
 	{
 		return (const VeterancyCrateCollideModuleData *)m_moduleData;
 	}
+private:
 	int getLevelsToGain() const;
 public:
 	virtual NameKeyType getModuleNameKey() const;
 public:
-	// ??0VeterancyCrateCollide 0x004BCE32 and this destructor 0x004BCE62 store the same three
-	// tables (0x00C5A954, 0x00C5A040, 0x00C5A600); it then jumps to ??1CrateCollide
-	// 0x004BC4FC. Its ??_G 0x004BCEC0 is slot 0 of 0x00C5A954.
 	virtual ~VeterancyCrateCollide();
+public:
+	VeterancyCrateCollide(Thing *thing, const ModuleData *moduleData);
 };
 
-// tu-skeleton: 0x004BCE32 42B ??0VeterancyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollideCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollideCtor.cpp
+
+// ??0VeterancyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z
+VeterancyCrateCollide::VeterancyCrateCollide(Thing *thing, const ModuleData *moduleData)
+	: CrateCollide(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x004BCE5C 6B ?Rva004BCE5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
 
