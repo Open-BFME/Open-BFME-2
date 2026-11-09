@@ -109,32 +109,8 @@ struct Rva005AA860Unit
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(Rva005AA860Unit *unit, void *unused);
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	unsigned char rva004ED169();
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x20 - 4];
-	Rva005AA860Record *m_record;	// +0x20
-	void *m_owner;			// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../../../../../Include/Common/AITactic.h"
+#include "../../../../../../Include/Common/AITacticOffensive.h"
 
 // The stage-1 step at 0x005AA663 is ICF-folded with the byte-identical
 // AISimpleAttackTactic::run (row in Rva005AA647Tactic.cpp); it is called by that
@@ -162,8 +138,8 @@ private:
 
 void AISimpleExpansionTactic::startCreateNewBase()
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	record->m_layout.rva0050722A(&m_record->m_position);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(((void *)m_field24));
+	record->m_layout.rva0050722A(&((Rva005AA860Record *)m_field20)->m_position);
 }
 
 void AISimpleExpansionTactic::cleanUp()
@@ -171,7 +147,7 @@ void AISimpleExpansionTactic::cleanUp()
 	Rva00573B23 *order = m_order;
 	if (order) {
 		if (!((Rva004E9378 *)order)->rva004E9378())
-			((Rva00506FE9Hit *)order)->unRegisterWithBuilder(m_owner);
+			((Rva00506FE9Hit *)order)->unRegisterWithBuilder(((void *)m_field24));
 		::delete m_order;
 		m_order = 0;
 	}
@@ -193,10 +169,10 @@ void AISimpleExpansionTactic::xfer(Xfer *xfer)
 	bool hasOrder = m_order != 0;
 	*xfer == hasOrder;
 	if (xfer->IsStoring() && hasOrder) {
-		m_order->xfer(xfer, m_owner);
+		m_order->xfer(xfer, ((void *)m_field24));
 	} else if (xfer->IsLoading() && hasOrder) {
 		m_order = new Rva00573B23;
-		m_order->xfer(xfer, m_owner);
+		m_order->xfer(xfer, ((void *)m_field24));
 	}
 	unsigned int stage = m_stage;
 	*xfer == stage;
@@ -207,10 +183,10 @@ void AISimpleExpansionTactic::startConstruction()
 {
 	m_order = new Rva00573B23;
 	m_order->setName(AsciiString("MenFortress"));
-	((Rva00573A00 *)m_order)->rva00573A00(&m_record->m_position);
+	((Rva00573A00 *)m_order)->rva00573A00(&((Rva005AA860Record *)m_field20)->m_position);
 	m_order->m_radius = 3000.0f;
 	m_order->m_20 = false;
-	m_order->start(m_owner, 0);
+	m_order->start(((void *)m_field24), 0);
 }
 
 void AISimpleExpansionTactic::update()

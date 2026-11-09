@@ -84,35 +84,8 @@ struct Rva005A990BUnit
 	TacticKindMask m_2E0, m_2FC;
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(Rva005A990BUnit *unit, void *unused);
-	virtual void v4(); virtual void v5();
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	unsigned char rva004ED169();
-	void rva004ED372(const struct Coord3D *point);	// row 0x004ED372 spelling
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	unsigned char checkTarget(void *request);
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x20 - 0x11];
-	Rva005A990BRecord *m_record;	// +0x20
-	void *m_owner;			// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIBasePenetrationTroopsTactic : public AITacticOffensive
 {
@@ -128,19 +101,19 @@ public:
 
 void AIBasePenetrationTroopsTactic::cleanUp()
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(((void *)m_field24));
 	if (record)
 		record->rva002C717E(AIBasePenetrationTroopsTactic_IsRunning, 0);
 }
 
 void AIBasePenetrationTroopsTactic::run()
 {
-	rva004ED372((const struct Coord3D *)m_record->m_point0C);
+	rva004ED372((const struct Coord3D *)((Rva005A990BRecord *)m_field20)->m_point0C);
 }
 
 void AIBasePenetrationTroopsTactic::update()
 {
-	if (m_running && (m_record->m_18 || rva004ED169()))
+	if (m_field10 && (((Rva005A990BRecord *)m_field20)->m_18 || rva004ED169()))
 		end(1, 0);
 }
 
@@ -155,7 +128,7 @@ bool AIBasePenetrationTroopsTactic::initializeTeamTemplate(Rva005A990BUnit *unit
 	unit->m_2E0.set(9);
 	unit->m_2FC.set(90);
 	unit->m_2D4 = 5;
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(((void *)m_field24));
 	if (record)
 		record->rva002C717E(AIBasePenetrationTroopsTactic_IsRunning, 1);
 	return true;

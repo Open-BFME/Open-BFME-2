@@ -109,37 +109,8 @@ public:
 	_STL::vector<Coord3D> m_points;	// +0x04
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual void initializeTeamTemplate();
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	Team *rva004ECECD(int index);
-	unsigned char rva004ED169();
-	void rva004ED342(void *point);
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	unsigned char checkTarget(void *request);
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x20 - 0x11];
-	Rva005AA55DRecord *m_record;	// +0x20
-	void *m_owner;			// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../../../../../Include/Common/AITactic.h"
+#include "../../../../../../Include/Common/AITacticOffensive.h"
 
 class AIFlankAttackTactic : public AITacticOffensive
 {
@@ -198,7 +169,7 @@ bool AIFlankAttackTactic::canRun(void *request)
 				return false;
 		}
 	}
-	Rva004EBF4B *record = (Rva004EBF4B *)TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva004EBF4B *record = (Rva004EBF4B *)TheSkirmishAIManager->rva002A8AB1(((void *)m_field24));
 	Coord3D base = record->rva004EBF4B();
 	base.x -= target->m_0C.x;
 	base.y -= target->m_0C.y;
@@ -298,8 +269,8 @@ void AIFlankAttackTactic::xfer(Xfer *xfer)
 // before the increment store; no runtime branch or barrier is emitted.
 void AIFlankAttackTactic::update()
 {
- if (!m_running) return;
- if (!rva004ED169() && !m_record->m_18) return;
+ if (!m_field10) return;
+ if (!rva004ED169() && !((Rva005AA55DRecord *)m_field20)->m_18) return;
  if (m_route->done()) { end(true,false); return; }
  rva004ED342(m_route->next());
 }
@@ -337,10 +308,10 @@ void AIFlankAttackTactic::run()
 		Coord3D from;
 		team->rva0039DA2A(&from);
 		Coord3D to;
-		to.x = m_record->m_point0C.x;
-		to.y = m_record->m_point0C.y;
-		to.z = m_record->m_point0C.z;
-		m_route->rva005AA2D9(m_record, &from, &to);
+		to.x = ((Rva005AA55DRecord *)m_field20)->m_point0C.x;
+		to.y = ((Rva005AA55DRecord *)m_field20)->m_point0C.y;
+		to.z = ((Rva005AA55DRecord *)m_field20)->m_point0C.z;
+		m_route->rva005AA2D9(((Rva005AA55DRecord *)m_field20), &from, &to);
 	} else {
 		end(0, 0);
 	}

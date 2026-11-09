@@ -59,38 +59,8 @@ struct Rva005A9ACDUnit
 	unsigned int m_30C;	// +0x30C
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(Rva005A9ACDUnit *unit, void *unused);
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	Team *rva004ECECD(int index);
-	unsigned char rva004ED169();
-	void teamAttackObject(int a, Object *target);
-	void rva004ED342(void *point);
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	unsigned char checkTarget(void *request);
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x20 - 0x11];
-	Rva005A9ACDRecord *m_record;	// +0x20
-	void *m_owner;			// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AITacticSiege : public AITacticOffensive
 {
@@ -146,7 +116,7 @@ private:
 
 bool AISiegeGatesTactic::canRun(void *request)
 {
-	if (TheSkirmishAIManager->rva002A8AB1(m_owner)->rva002C6ACB()
+	if (TheSkirmishAIManager->rva002A8AB1(((void *)m_field24))->rva002C6ACB()
 		&& checkTarget(request)
 		&& !((Rva005A9ACDRequest *)request)->m_04)
 		return !sideHasIdleSiegeWeapons();
@@ -193,7 +163,7 @@ void AISiegeGatesTactic::run()
 
 void AISiegeGatesTactic::update()
 {
-	if (!m_running)
+	if (!m_field10)
 		return;
 	if (!rva004ECECD(0)) {
 		end(0, 0);
@@ -201,7 +171,7 @@ void AISiegeGatesTactic::update()
 	}
 	if (!m_reached) {
 		if (isWallBreached()) {
-			rva004ED342(m_record->m_point0C);
+			rva004ED342(((Rva005A9ACDRecord *)m_field20)->m_point0C);
 			m_reached = true;
 		} else if (rva005DCAF4() || rva004ED169()) {
 			rva005A9B20();

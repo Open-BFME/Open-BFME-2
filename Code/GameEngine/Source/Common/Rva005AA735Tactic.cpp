@@ -63,24 +63,8 @@ struct Rva005AA735Record
 	int m_kind;			// +0x2C
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(Rva0039D7A6Setter *team, void *unused);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x20 - 4];
-	Rva005AA735Record *m_record;	// +0x20
-	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class Rva005AA735 : public AITacticOffensive
 {
@@ -91,8 +75,8 @@ public:
 
 bool Rva005AA735::initializeTeamTemplate(Rva0039D7A6Setter *team, void *)
 {
-	team->set(&m_record->m_point0C);
-	switch (m_record->m_kind) {
+	team->set(&((Rva005AA735Record *)m_field20)->m_point0C);
+	switch (((Rva005AA735Record *)m_field20)->m_kind) {
 	case 0:
 		team->m_2D0 = 1;
 		break;
@@ -100,7 +84,7 @@ bool Rva005AA735::initializeTeamTemplate(Rva0039D7A6Setter *team, void *)
 		team->m_2D0 = 3;
 		break;
 	case 2: {
-		unsigned int count = (*(IntMap **)TheSkirmishAIManager->rva002A8F24(m_owner))->bucket_count();
+		unsigned int count = (*(IntMap **)TheSkirmishAIManager->rva002A8F24(((Player *)m_field24)))->bucket_count();
 		if (count > 1)
 			team->m_2D0 = (int)(count * 0.5f);
 		break;
