@@ -60,117 +60,19 @@ Rva004C3108::~Rva004C3108()
 {
 }
 
-class Rva004C3905_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C3905 : public Rva00493DEF, public MiBase1, public Rva004C3905_B2
-{
-public:
-	virtual ~Rva004C3905();
-};
 
-Rva004C3905::~Rva004C3905()
-{
-}
 
-class Rva004C4044_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C4044 : public Rva00493DEF, public MiBase1, public Rva004C4044_B2
-{
-public:
-	virtual ~Rva004C4044();
-};
 
-Rva004C4044::~Rva004C4044()
-{
-}
 
-class Rva004C43A3_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C43A3 : public Rva00493DEF, public MiBase1, public Rva004C43A3_B2
-{
-public:
-	virtual ~Rva004C43A3();
-};
 
-Rva004C43A3::~Rva004C43A3()
-{
-}
 
-class Rva004C4508_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C4508 : public Rva00493DEF, public MiBase1, public Rva004C4508_B2
-{
-public:
-	virtual ~Rva004C4508();
-};
 
-Rva004C4508::~Rva004C4508()
-{
-}
 
-class Rva004C48C6_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C48C6 : public Rva00493DEF, public MiBase1, public Rva004C48C6_B2
-{
-public:
-	virtual ~Rva004C48C6();
-};
-
-Rva004C48C6::~Rva004C48C6()
-{
-}
-
-class Rva004C4BD1_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C4BD1 : public Rva00493DEF, public MiBase1, public Rva004C4BD1_B2
-{
-public:
-	virtual ~Rva004C4BD1();
-};
-
-Rva004C4BD1::~Rva004C4BD1()
-{
-}
-
-class Rva004C4DE9_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C4DE9 : public Rva00493DEF, public MiBase1, public Rva004C4DE9_B2
-{
-public:
-	virtual ~Rva004C4DE9();
-};
-
-Rva004C4DE9::~Rva004C4DE9()
-{
-}
 
 
 

@@ -25,7 +25,6 @@ class Object;
 class Player;
 class Team;
 struct Coord3D;
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class ModuleInterface
 {
@@ -295,25 +294,10 @@ template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(Const
 template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
 template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
 #include "../../../../Include/Common/Rva0007DF07.h"
-
  extern class ThingFactory *TheThingFactory;
-
-// ?getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ @0x4C4075
-// (68B): cached pool-name key for WeaponChangeSpecialPowerModule. The class
-// identity comes from the pool-name string the body pushes
-// ("WeaponChangeSpecialPowerModule"); the body guards a function-local static
-// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
-// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
-// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
-// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
-// from retail, no pins; nameToKey resolves via its matched row).
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 struct WeaponChangeData;
-
 class WeaponChangeSpecialPowerModule : public SpecialPowerModule
 {
 public:
@@ -326,13 +310,11 @@ public:
 protected:
 	virtual ~WeaponChangeSpecialPowerModule();
 };
-
 struct ToggleFlags
 {
 	unsigned long m_words[4];
 	ToggleFlags() { ((_STL::bitset<128> *)m_words)->reset(); }
 };
-
 class WeaponChangeSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
@@ -346,13 +328,11 @@ private:
 	AsciiString m_nameA; // +0x94
 	AsciiString m_nameB; // +0x98
 };
-
 struct ScavengerSpecialPowerModuleData
 {
 	unsigned char m_pad00[0x7C];
 	float m_7C;			// +0x7C
 };
-
 class ScavengerSpecialPower : public SpecialPowerModule
 {
 public:
@@ -367,9 +347,7 @@ public:
 private:
 	bool m_34; // +0x34
 };
-
 #include "../../../../Include/Common/XferVersion.h"
-
 #include "../../../../Include/GameLogic/Rva00493009.h"
 
 class Rva004C447D : public Rva00493009
@@ -699,16 +677,6 @@ template <> Rva00501E3FElement *vector<Rva00501E3FElement>::erase(Rva00501E3FEle
 template <> ParticleSystemID *vector<ParticleSystemID>::erase(ParticleSystemID *, ParticleSystemID *);
 }
 
-template void _STL::vector<Gen_p12pod>::clear();
-
-template void _STL::vector<Rva004758F4Element>::clear();
-
-template void _STL::vector<Rva004F6352>::clear();
-
-template void _STL::vector<Rva00501E3FElement>::clear();
-
-template void _STL::vector<ParticleSystemID>::clear();
-
 // 0x004C3F40 (8B): a member push_back over a vector embedded at +0x7C
 // (add ecx, 0x7C; jmp vector<Rva004C3F09Element>::push_back 0x004C3F09, the
 // element reference passed through); the member-forward shape of
@@ -742,6 +710,141 @@ public:
 private:
 	ConstructProbePair m_value;
 };
+
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C3905_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C3905 : public Rva00493DEF, public MiBase1, public Rva004C3905_B2
+{
+public:
+	virtual ~Rva004C3905();
+};
+
+class Rva004C4044_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C4044 : public Rva00493DEF, public MiBase1, public Rva004C4044_B2
+{
+public:
+	virtual ~Rva004C4044();
+};
+
+class Rva004C43A3_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C43A3 : public Rva00493DEF, public MiBase1, public Rva004C43A3_B2
+{
+public:
+	virtual ~Rva004C43A3();
+};
+
+class Rva004C4508_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C4508 : public Rva00493DEF, public MiBase1, public Rva004C4508_B2
+{
+public:
+	virtual ~Rva004C4508();
+};
+
+class Rva004C48C6_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C48C6 : public Rva00493DEF, public MiBase1, public Rva004C48C6_B2
+{
+public:
+	virtual ~Rva004C48C6();
+};
+
+class Rva004C4BD1_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C4BD1 : public Rva00493DEF, public MiBase1, public Rva004C4BD1_B2
+{
+public:
+	virtual ~Rva004C4BD1();
+};
+
+class Rva004C4DE9_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C4DE9 : public Rva00493DEF, public MiBase1, public Rva004C4DE9_B2
+{
+public:
+	virtual ~Rva004C4DE9();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
+
+// ?getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ @0x4C4075
+// (68B): cached pool-name key for WeaponChangeSpecialPowerModule. The class
+// identity comes from the pool-name string the body pushes
+// ("WeaponChangeSpecialPowerModule"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+template void _STL::vector<Gen_p12pod>::clear();
+
+template void _STL::vector<Rva004758F4Element>::clear();
+
+template void _STL::vector<Rva004F6352>::clear();
+
+template void _STL::vector<Rva00501E3FElement>::clear();
+
+template void _STL::vector<ParticleSystemID>::clear();
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
 
@@ -1517,12 +1620,6 @@ void Rva004C3F40::rva004C3F40(const Rva004C3F09Element &element)
 	m_7C.push_back(element);
 }
 
-// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 
 //
@@ -1550,6 +1647,55 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
     ::new (dest) ConstructProbePair(*static_cast<const ConstructProbePair *>(source));
 }
 
+// 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
+
+
+
+
+
+
+
+
+
+
+// 0x004C42D2 28B ??_GWeaponChangeSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
+
+// tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
+
+Rva004C3905::~Rva004C3905()
+{
+}
+
+Rva004C4044::~Rva004C4044()
+{
+}
+
+Rva004C43A3::~Rva004C43A3()
+{
+}
+
+Rva004C4508::~Rva004C4508()
+{
+}
+
+Rva004C48C6::~Rva004C48C6()
+{
+}
+
+Rva004C4BD1::~Rva004C4BD1()
+{
+}
+
+Rva004C4DE9::~Rva004C4DE9()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
 // tu-skeleton: 0x004C3ACC 38B ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp (not merged yet)
 
 // tu-skeleton: 0x004C3AF2 37B ??$__uninitialized_fill_n@PAURva004C3AF2Element@@IU1@@_STL@@YAPAURva004C3AF2Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva004C3AF2.cpp (not merged yet)
@@ -1562,8 +1708,6 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C3DF4 178B ?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
 
-// 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
-
 // tu-skeleton: 0x004C3EC2 71B ??1ElvenWoodSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C3F09 55B ?push_back@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@QAEXABURva004C3F09Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
@@ -1574,15 +1718,9 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C4022 6B ?Rva004C4022Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4028 28B ??_GRva004C4044@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4044 25B ??1Rva004C4044@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // tu-skeleton: 0x004C405D 12B ?rva004C405D@WeaponChangeSpecialPowerModule@@UAEXPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4069 12B ?doSpecialPowerUsingWaypoints@WeaponChangeSpecialPowerModule@@UAEXPAXMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
-
-// 0x004C42D2 28B ??_GWeaponChangeSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C42EE 74B ??1WeaponChangeSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDataDtor.cpp (not merged yet)
 
@@ -1590,17 +1728,9 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C4381 6B ?Rva004C4381Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4387 28B ??_GRva004C43A3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C43A3 25B ??1Rva004C43A3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // tu-skeleton: 0x004C44BD 27B ?buildFieldParse@CloudBreakSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4502 6B ?Rva004C4502Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4508 25B ??1Rva004C4508@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4566 28B ??_GRva004C4508@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004C47D7 28B ??_GCloudBreakSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
@@ -1610,10 +1740,6 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C48C0 6B ?Rva004C48C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C48C6 25B ??1Rva004C48C6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4924 28B ??_GRva004C48C6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // tu-skeleton: 0x004C4AEB 28B ??_GTaintSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4B07 53B ??1TaintSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerModuleDataDtor.cpp (not merged yet)
@@ -1622,17 +1748,9 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C4BCB 6B ?Rva004C4BCBGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C4BD1 25B ??1Rva004C4BD1@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4C2F 28B ??_GRva004C4BD1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // tu-skeleton: 0x004C4D9E 27B ?buildFieldParse@DarknessSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4DE3 6B ?Rva004C4DE3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4DE9 25B ??1Rva004C4DE9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C4E47 28B ??_GRva004C4DE9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x0078FF6C 8B $L5255 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerChoice.cpp (not merged yet)
 
