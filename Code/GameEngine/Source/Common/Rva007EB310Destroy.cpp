@@ -16,8 +16,8 @@ public:
 };
 
 extern T_007ea120 *g_Va0130A588;
-extern unsigned char g_Va0130A58D;
-extern unsigned char g_Va0130A58C;
+extern unsigned char g_createdDefaultDiagReporter;
+extern unsigned char g_createdDefaultAllocator;
 // The stored table (VA 0x00CE1514) is Rva007EB2C0Object's: its one slot is this
 // body, and Rva007EB2C0ObjectDestructor.cpp emits the compiler table there.
 extern "C" char __identifier("??_7Rva007EB2C0Object@@6B@");
@@ -38,9 +38,9 @@ void *Rva007EB310Owner::destroy(unsigned int flags)
 			p->release(1);
 		g_Va0130A588 = 0;
 	}
-	if (g_Va0130A58D)
+	if (g_createdDefaultDiagReporter)
 		Rva007EB830Release();
-	if (g_Va0130A58C)
+	if (g_createdDefaultAllocator)
 		Rva007F0060();
 	if (flags & 1)
 		operator delete(this);

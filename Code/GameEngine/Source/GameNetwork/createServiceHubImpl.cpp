@@ -22,8 +22,8 @@ void Rva007EBAA0(void);
 
 class T_007ea120;
 extern T_007ea120 *g_Va0130A588;
-extern unsigned char g_Va0130A58C;
-extern unsigned char g_Va0130A58D;
+extern unsigned char g_createdDefaultAllocator;
+extern unsigned char g_createdDefaultDiagReporter;
 
 ServiceHubImpl *createServiceHubImpl(void *a, void *b, void *c, void *d, void *e, void *f)
 {
@@ -31,12 +31,12 @@ ServiceHubImpl *createServiceHubImpl(void *a, void *b, void *c, void *d, void *e
 	if (allocator == 0)
 	{
 		Rva007F0120(allocator, allocator);
-		g_Va0130A58C = 1;
+		g_createdDefaultAllocator = 1;
 	}
 	if (Rva007EB810Get() == 0)
 	{
 		Rva007EBAA0();
-		g_Va0130A58D = 1;
+		g_createdDefaultDiagReporter = 1;
 	}
 	if (g_Va0130A588)
 		Rva007EB810Get()->fail(
