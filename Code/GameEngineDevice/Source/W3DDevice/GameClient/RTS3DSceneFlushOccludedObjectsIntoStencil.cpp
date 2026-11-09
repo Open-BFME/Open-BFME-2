@@ -172,16 +172,7 @@ extern PlayerList *ThePlayerList;
 
 #include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
-class Drawable
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
-	void *m_vtbl;
-	const ThingTemplate *m_template;
-	char m_pad008[0xFC - 8];
-	Object *m_object;
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 #include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 

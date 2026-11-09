@@ -101,16 +101,7 @@ public:
     int get() const;
 };
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	const ThingTemplate *getTemplate() const { return m_template; }
-
-private:
-	void *m_vtable;
-	const ThingTemplate *m_template;	// +0x04
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 // BFME 2 Object: template +0x04, inline transform +0x08, ID +0x74 and its
 // own geometry info +0xA8 (retail 0x00092DD8 reads them directly).
