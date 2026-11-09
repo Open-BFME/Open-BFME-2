@@ -143,14 +143,7 @@ public:
  virtual const WorldMapUpgradeDataView *worldMapUpgradeData() const;
 #undef V
 };
-class ModuleData;
-struct WorldMapModuleRecordView { char name[8]; const ModuleData *data; int flags, unknown; };
-class ModuleInfo {
-public:
- const ModuleData *getNthData(int) const;
- int count() const { return end-begin; }
- const WorldMapModuleRecordView *begin, *end, *capacity;
-};
+#include "../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate;
 struct ArmyUpgradeTemplateView {
  char pad[0x2E4];
@@ -182,7 +175,7 @@ void ArmySummaryEntry::ApplyWorldMapUpgrades() {
   const ArmyUpgradeTemplateView *view = (const ArmyUpgradeTemplateView *)thing;
   carry->upgrades._M_do_or(view->upgrades);
   const ModuleInfo *modules = &view->modules;
-  for (int i=0; i<modules->count(); ++i) {
+  for (int i=0; i<modules->getCount(); ++i) {
    const WorldMapModuleDataView *data = (const WorldMapModuleDataView *)modules->getNthData(i);
    if (!data || !data->isWorldMapUpgrade()) continue;
    const WorldMapUpgradeDataView *upgrade = data->worldMapUpgradeData();
@@ -242,7 +235,7 @@ bool Rva0040C804Target::check()
 				missing.m_bits[i] = ~missing.m_bits[i];
 			((Rva0040C598 *)&missing)->bitAnd((const int *)&view->upgrades);
 			const ModuleInfo *modules = &view->modules;
-			for (int i = 0; i < modules->count(); ++i)
+			for (int i = 0; i < modules->getCount(); ++i)
 			{
 				const WorldMapModuleDataView *data = (const WorldMapModuleDataView *)modules->getNthData(i);
 				if (!data || !data->isWorldMapUpgrade())
