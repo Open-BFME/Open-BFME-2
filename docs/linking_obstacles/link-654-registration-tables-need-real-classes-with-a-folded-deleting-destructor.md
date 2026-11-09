@@ -49,3 +49,17 @@ with the factory identities. Free/stdcall rows need reviewed prepared ordinary
 respells. Genuine 5-byte derived-destructor folds can use `add_match.py
 --icf-owner`; they do not meet fold-pin admission's concrete-byte threshold.
 The four strong tables remain unresolved; no bridge or image gain is claimed.
+
+Further 2026-11-09 probe: a clean out-of-class base destructor and prepared
+shared caller verify all 49 current rows in their two sources. The first-step
+candidates preserve the existing table and deleting-destructor payloads; a
+separate pure-slot probe also matches the native two-slot base table exactly.
+The existing retail_identity.Family API can admit the ordinary setter-shaped
+row as the real destructor through one reviewed exact family entry, without
+changing rename.py. Both tools are currently foreign-held by
+ancalgonn-swarm-seat6. Banked candidates, native facts, required tests and
+consumer closure are in
+`reverse/attempt_support/registration-base-destructor-admission-20261109.md`.
+No source/ledger migration was applied and no second pin added. The preceding
+fold's registry shadow findings are independently reproduced unchanged from
+its saved pre-fold source; they remain open prerequisites.
