@@ -4361,7 +4361,6 @@ _DeletePostProcInstance,,0x001B68D0,36,Code/Libraries/Source/VP6/PostProcInstanc
 ?Clone@StepLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x00183FB0,31,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,ported from BFME1; exact target-side structural candidate
 ?Clone@SineLinearOffsetTextureMapperClass@@UBEPAVTextureMapperClass@@XZ,,0x00183F90,31,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GTimeCodedMotionChannelClass@@QAEPAXI@Z,,0x0018F1A0,30,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,ported from BFME1; exact target-side structural candidate
-??_G?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_G?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@UAEPAXI@Z,,0x001A3B90,71,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,ported from BFME1; exact folded-body identity
 ??_GSortingNodeStruct@@QAEPAXI@Z,,0x001303F0,30,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,matched,ported from BFME1; exact target-side structural candidate
 ??_GIndexBufferClass@@MAEPAXI@Z,,0x001390A0,30,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,ported from BFME1; exact target-side structural candidate
