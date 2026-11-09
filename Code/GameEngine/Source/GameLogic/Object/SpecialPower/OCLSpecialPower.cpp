@@ -112,20 +112,28 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "Coord3D.h"
+
 class ObjectCreationList;
+
 enum ScienceType { SCIENCE_INVALID = -1 };
+
 struct Rva004C31A8ScienceWord { ScienceType science; unsigned value; };
+
 struct Rva004C31A8DataWords {
  char prefix[0x7C];
  Rva004C31A8ScienceWord *begin,*end,*capacity;
  unsigned fallback;
 };
+
 template<int N> class BitFlags {public:bool any()const;};
+
 class Object { public: char pad[0x38]; Coord3D pos; Player *getControllingPlayer() const; };
+
 class ObjectCreationList {public:void create(void*,void*,void*,int);void create(void*,void*,void*,void*,int);
  static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *a, const Coord3D *b,int c) { if(ocl)ocl->create(owner,a,(void*)b,c); }
  static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *primary, const Coord3D *secondary,void *c,int d) { if(ocl)ocl->create(owner,primary,(void*)secondary,c,d); }
 };
+
 int __cdecl Rva004C30BC(ObjectCreationList*,void*,void*);
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -157,6 +165,47 @@ public:
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
 	virtual bool rva0049466D( const Coord3D *loc );
 };
+
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C3108_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C3108 : public Rva00493DEF, public MiBase1, public Rva004C3108_B2
+{
+public:
+	virtual ~Rva004C3108();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
 
@@ -344,14 +393,6 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
  }
 }
 
-// tu-skeleton: 0x004C3102 6B ?Rva004C3102Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3108 25B ??1Rva004C3108@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3121 38B ??$__uninitialized_copy@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x004C318C 28B ??_GRva004C3108@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerFindOCL.cpp
 
 // ZH OCLSpecialPower.cpp at BF1 2f243e26d is the semantic guide.
@@ -397,9 +438,23 @@ unsigned Rva004C31A8ScienceSelector::select()const
  return data->fallback;
 }
 
-// tu-skeleton: 0x004C31EC 24B ?doSpecialPowerAtObject@Rva004C31EC@@QAEXPAURva004C31ECArg@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
-
 // 0x004C37A4 28B ??_GOCLSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
+
+// tu-skeleton: 0x004C3102 6B ?Rva004C3102Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
+
+Rva004C3108::~Rva004C3108()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x004C3121 38B ??$__uninitialized_copy@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x004C31EC 24B ?doSpecialPowerAtObject@Rva004C31EC@@QAEXPAURva004C31ECArg@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
 
 // tu-skeleton: 0x004C37C0 92B ??1OCLSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataDtor.cpp (not merged yet)
 

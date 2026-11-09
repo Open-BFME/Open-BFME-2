@@ -44,21 +44,7 @@ Rva004C29BB::~Rva004C29BB()
 {
 }
 
-class Rva004C3108_B2
-{
-public:
-	virtual void f2();
-};
 
-class Rva004C3108 : public Rva00493DEF, public MiBase1, public Rva004C3108_B2
-{
-public:
-	virtual ~Rva004C3108();
-};
-
-Rva004C3108::~Rva004C3108()
-{
-}
 
 
 
