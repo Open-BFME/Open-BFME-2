@@ -133,7 +133,7 @@ extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 
 extern "C" char *GetChallenge(void *game);
 extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
-extern "C" int strcmp(const char *a, const char *b);
+#include <string.h>
 extern "C" char *strdup(const char *text);
 void free(void *memory);
 
