@@ -381,15 +381,7 @@ static __forceinline void evaInsertName(Rva001DE556 &map, const NocasePair &entr
  map.rva001DE84F(&result, entry);
 
 }
-class Rva00056F61
-
-{
- public:
- void *rva00056F61(const AsciiString *key);
-// 0x00056F61, the node or null
-
-}
-;
+#include "../../Include/GameClient/Rva00056F61.h"
 
 class Eva
 {
