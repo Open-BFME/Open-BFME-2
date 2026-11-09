@@ -213,11 +213,15 @@ Rva003F82E2::Rva003F82E2(void *payload) : m_04(payload)
 }
 
 // ??0Rva003FC428@@QAE@PAX@Z @0x003FC428 18B, vtable VA 0xc37c20
+// Retail's three-slot table holds 0x003FCE30, 0x003FD056 (VslotMemberForwarders.cpp)
+// and 0x003FD02E (Rva003FD02EWrite.cpp), each reaching the +4 payload.
 class Rva003FC428
 {
 public:
 	Rva003FC428(void *payload);
-	virtual ~Rva003FC428() {}
+	virtual void rva003FCE30();
+	virtual void rva003FD056(int firstValue, int secondValue, int thirdValue);
+	virtual int rva003FD02E(char *dst);
 private:
 	void *m_04;
 };

@@ -715,44 +715,33 @@ void Rva003ED1B6Forwarder::rva003ED1B6()
 	m_member.clear();
 }
 
-class Rva0020F0D3Target
-{
-public:
-	void rva0020F0D3();
-};
-
-class Rva003FCE30Forwarder
-{
-public:
-	void rva003FCE30();
-private:
-	char m_lead[0x4];
-	Rva0020F0D3Target *m_member;
-};
-
-// vtable 0x00C37C20#0
-void Rva003FCE30Forwarder::rva003FCE30()
-{
-	((Rva0020F58E *)m_member)->length();
-}
-
 class Rva003FD05ETarget
 {
 public:
 	void rva003FD05E(Int firstValue, Int secondValue, Int thirdValue);
 };
 
-class Rva003FD056Forwarder
+// Two slots of Rva003FC428's table 0x00C37C20 (constructor in
+// RvaSmallVtableCtors.cpp; slot 2 is in Rva003FD02EWrite.cpp), each reaching
+// the payload it stores at +4.
+class Rva003FC428
 {
 public:
-	void rva003FD056(Int firstValue, Int secondValue, Int thirdValue);
+	virtual void rva003FCE30();
+	virtual void rva003FD056(Int firstValue, Int secondValue, Int thirdValue);
+	virtual int rva003FD02E(char *dst);
 private:
-	char m_lead[0x4];
-	Rva003FD05ETarget *m_member;
+	void *m_member;
 };
 
-// vtable 0x00C37C20#1
-void Rva003FD056Forwarder::rva003FD056(Int firstValue, Int secondValue, Int thirdValue)
+// vtable 0x00C37C20#0
+void Rva003FC428::rva003FCE30()
 {
-	m_member->rva003FD05E(firstValue, secondValue, thirdValue);
+	((Rva0020F58E *)m_member)->length();
+}
+
+// vtable 0x00C37C20#1
+void Rva003FC428::rva003FD056(Int firstValue, Int secondValue, Int thirdValue)
+{
+	((Rva003FD05ETarget *)m_member)->rva003FD05E(firstValue, secondValue, thirdValue);
 }

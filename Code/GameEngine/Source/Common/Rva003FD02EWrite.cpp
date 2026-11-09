@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva003FD02E@Rva003FD02E@@QAEHPAD@Z @0x003FD02E 40B:
+// ?rva003FD02E@Rva003FC428@@UAEHPAD@Z @0x003FD02E 40B:
 // vtable slot 2 of table at 0x00837C20; two-call narrow concat write via
 // rowed ?write@AsciiStringPlusText@@QAEHPAD@Z @0x000BBD41 and
 // ?write@AsciiStringRef@@QAEHPAD@Z @0x0002C5B1; member pointer at [ecx+4]
@@ -21,18 +21,21 @@ struct Rva003FD02ETarget
 	AsciiStringRef m_second;
 };
 
-class Rva003FD02E
+// Slot 2 of Rva003FC428's table (constructor in RvaSmallVtableCtors.cpp;
+// slots 0 and 1 are in VslotMemberForwarders.cpp).
+class Rva003FC428
 {
 public:
-	int rva003FD02E(char *dst);
+	virtual void rva003FCE30();
+	virtual void rva003FD056(int firstValue, int secondValue, int thirdValue);
+	virtual int rva003FD02E(char *dst);
 
 private:
-	char m_lead[4];
 	Rva003FD02ETarget *m_member;
 };
 
 // vtable 0x00837C20#2
-int Rva003FD02E::rva003FD02E(char *dst)
+int Rva003FC428::rva003FD02E(char *dst)
 {
 	Rva003FD02ETarget *target = m_member;
 	int n = target->m_first.write(dst);

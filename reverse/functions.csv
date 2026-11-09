@@ -33685,8 +33685,8 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva003922B7@Rva003922B7Forwarder@@QAEXXZ,,0x003922B7,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C1A088#1 slot forwarder (sub hop)
 ?rva003A5896@Rva003A5896Forwarder@@UAEXH@Z,,0x003A5896,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C1B5A8#3 slot forwarder (sub hop)
 ?rva003ED1B6@Rva003ED1B6Forwarder@@QAEXXZ,,0x003ED1B6,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C36100#9 slot forwarder (sub hop)
-?rva003FCE30@Rva003FCE30Forwarder@@QAEXXZ,,0x003FCE30,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C37C20#0 slot forwarder (ptr hop)
-?rva003FD056@Rva003FD056Forwarder@@QAEXHHH@Z,,0x003FD056,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C37C20#1 slot forwarder (ptr hop)
+?rva003FCE30@Rva003FC428@@UAEXXZ,,0x003FCE30,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C37C20#0 slot forwarder (ptr hop)
+?rva003FD056@Rva003FC428@@UAEXHHH@Z,,0x003FD056,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00C37C20#1 slot forwarder (ptr hop)
 ?removeFromRayEffects@GameClient@@UAEXPAVDrawable@@@Z,,0x00238F34,11,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,matched,game client vtable 0x00BC4738 slot 19: ZH removeFromRayEffects (TheRayEffects->deleteRayEffect)
 ?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z,,0x00238F29,11,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,matched,game client vtable 0x00BC4738 slot 20: ZH getRayEffectData pass-through
 ??__EAIStructureCreep_IsRunning@@YAXXZ,,0x007B458D,27,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp,matched,object-symbol=_$E1;TU-local dynamic initializer constructing the AIStructureCreep_IsRunning AsciiString key at 0x00E06418 through AsciiString(const char *) 0x0000654A and registering the rowed atexit cleanup 0x007B9644
@@ -45851,7 +45851,7 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva00528FE0@Rva00528FE0@@QAE_NXZ,,0x00528FE0,6,Code/GameEngine/Source/Common/Rva00528FE0Getter.cpp,matched,ptr-chase byte at +0x2D caller 0x002D66A2
 ?rva004E0CB6@Rva004E0B60@@QAEXXZ,,0x004E0CB6,21,Code/GameEngine/Source/Common/LivingWorldBuilding.cpp,matched,caller 0x004FC437 tail to rowed rva004E0C49 via m_2C Holder0052B003
 ?rva003F7465@Rva003F7478@@QAEXM@Z,,0x003F7465,19,Code/GameEngine/Source/Common/Rva003F7478Scale.cpp,matched,SSE scale of plus20 float same class as rowed plus24
-?rva003FD02E@Rva003FD02E@@QAEHPAD@Z,,0x003FD02E,40,Code/GameEngine/Source/Common/Rva003FD02EWrite.cpp,matched,vtable slot 2 at 0x00837C20 via two rowed writes
+?rva003FD02E@Rva003FC428@@UAEHPAD@Z,,0x003FD02E,40,Code/GameEngine/Source/Common/Rva003FD02EWrite.cpp,matched,vtable slot 2 at 0x00837C20 via two rowed writes
 ?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z,,0x002C5FBA,17,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp,matched,null-checked tail forwarder (see source header)
 ?reset@Rva0042C1BC@@QAEXPAVRva0057417E@@@Z,,0x0042C1BC,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,leaf reset same pointee as clear 0x0042C1DF via 2 callers in 0x0042C342
 ?onContaining@Rva0047BEF8@@UAEXPAVObject@@_N@Z,,0x0047BEF8,75,Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContain.cpp,matched,Range22 virtual-list callback address label; target vtable and +0xFC view support identity but exact class this adjustment remains inferred
