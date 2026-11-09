@@ -11,6 +11,7 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include <vector>
+
 template <int N> class BitFlags
 {
 public:
@@ -18,15 +19,19 @@ public:
 private:
 	unsigned int m_words[(N + 31) / 32];
 };
+
 template <int N> class Rva004C861ESlots : public Rva004C861ESlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
+
 template <> class Rva004C861ESlots<0>
 {
 };
+
 class Object;
+
 // The contain interface returned by the matched Object::rva0028C197: slot 125
 // is a bool query, slot 126 fills a vector<Object *>.
 class Rva004C861EContain : public Rva004C861ESlots<125>
@@ -35,6 +40,7 @@ public:
 	virtual bool rva004C861ESlot125() = 0;
 	virtual void rva004C861ESlot126(_STL::vector<Object *> *out) = 0;
 };
+
 class Object
 {
 public:
@@ -87,6 +93,47 @@ public:
 	virtual void doSpecialPower(unsigned int);
 };
 
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C85A4_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C85A4 : public Rva00493DEF, public MiBase1, public Rva004C85A4_B2
+{
+public:
+	virtual ~Rva004C85A4();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -115,12 +162,6 @@ NameKeyType SplitHordeSpecialPower::getModuleNameKey() const
 	return TheSplitHordeSpecialPowerPoolKey;
 }
 
-// tu-skeleton: 0x004C859E 6B ?Rva004C859EGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C85A4 25B ??1Rva004C85A4@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C8602 28B ??_GRva004C85A4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower_doSpecialPower.cpp
 
 //
@@ -148,3 +189,15 @@ void SplitHordeSpecialPower::doSpecialPower(unsigned int)
 	_STL::vector<Object *> items;
 	contain->rva004C861ESlot126(&items);
 }
+
+// tu-skeleton: 0x004C859E 6B ?Rva004C859EGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
+
+Rva004C85A4::~Rva004C85A4()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
