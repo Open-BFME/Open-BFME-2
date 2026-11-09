@@ -1,0 +1,100 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp",
+  "sources": [
+    "Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005BA2CBDtor.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp"
+  ],
+  "code_rows": 20,
+  "retained_constructor_bytes": 110,
+  "native_bindings": [
+    {
+      "operand_rva": "0x5ba2cd",
+      "old": "g_customMatchScreenTable00",
+      "name": "??_7Rva005BA2CB@@6BRva005A0009@@@",
+      "native_rva": "0x873dcc",
+      "native_extent": 44,
+      "compiler_extent": 4
+    },
+    {
+      "operand_rva": "0x5ba2d4",
+      "old": "g_customMatchScreenTable60",
+      "name": "??_7Rva005BA2CB@@6BRva005BA2CBBase60@@@",
+      "native_rva": "0x873d70",
+      "native_extent": 92,
+      "compiler_extent": 4
+    },
+    {
+      "operand_rva": "0x5ba2db",
+      "old": "g_customMatchScreenTable6C",
+      "name": "??_7Rva005BA2CB@@6BRva005BA2CBBase6C@@@",
+      "native_rva": "0x873d60",
+      "native_extent": 12,
+      "compiler_extent": 4
+    }
+  ],
+  "all_retained_code_bytes_relocation_positions_flags_policies_equal": true,
+  "only_code_referent_changes": {
+    "_g_customMatchScreenTable00": "??_7Rva005BA2CB@@6BRva005A0009@@@",
+    "_g_customMatchScreenTable60": "??_7Rva005BA2CB@@6BRva005BA2CBBase60@@@",
+    "_g_customMatchScreenTable6C": "??_7Rva005BA2CB@@6BRva005BA2CBBase6C@@@"
+  },
+  "only_removed_definitions": [
+    "_g_customMatchScreenTable00",
+    "_g_customMatchScreenTable60",
+    "_g_customMatchScreenTable6C"
+  ],
+  "added_definitions": [],
+  "all_retained_data_equal": true,
+  "undefined_changes_only_removed_array_targets_and_new_proved_table_names": true,
+  "candidate_sha256": "459ba8e5673d10b3e6e7fbf2e6e402ed4198b0eeee41f097ef1dd99498c70bd4",
+  "normal_and_strict_checks": "20 matched rows, no string/float/import/EH obligations",
+  "providers_unchanged": true,
+  "all_three_proved_compiler_tables_still_short": true,
+  "replay_before": {
+    "tables": 3,
+    "slots": 37,
+    "refused_tables": 3,
+    "refusal_reasons": {
+      "strong-definition": 3
+    }
+  },
+  "replay_after": {
+    "tables": 3,
+    "slots": 37,
+    "refused_tables": 0,
+    "refusal_reasons": {}
+  },
+  "generated_entries_and_bindings_unchanged": true,
+  "supporting_currency": {
+    "Code/Libraries/Source/WWVegas/WWMath/region.cpp": false,
+    "Code/GameEngine/Source/Common/ConstIntGetters4.cpp": false,
+    "Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp": false,
+    "Code/GameEngine/Source/Common/VtableConstantPredicates.cpp": false,
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp": true,
+    "Code/GameEngine/Source/Common/Rva005BA2CBDtor.cpp": true,
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_MpOwnerSelectStrategicScenario.cpp": false,
+    "Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp": true,
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp": false,
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp": false,
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp": false,
+    "Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp": false,
+    "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp": true,
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp": false,
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp": false,
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp": false,
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp": false,
+    "Code/Libraries/Source/WWVegas/WW3D2/LightClassCopyCtor.cpp": false,
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp": false,
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/UnpauseSpecialPowerUpgrade.cpp": false,
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainModuleDataCtor.cpp": false
+  },
+  "index_meta": {
+    "date": "2026-11-09 00:25",
+    "commit": "717b70f4ab",
+    "clean_tree": true,
+    "census_date": "2026-11-08 23:34",
+    "census_commit": "a46241d8d1"
+  },
+  "current_object_sha256": "5745d89b3d9a348e42d9db01144e0a6eeb5225823e54b5259b1e504ff4335b2b"
+}

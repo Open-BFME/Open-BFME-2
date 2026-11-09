@@ -1,0 +1,326 @@
+{
+  "addresses_before": 34432,
+  "addresses_after": 34426,
+  "added_records": {
+    "0x00A23100": {
+      "address": "0x00A23100",
+      "size": "512",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_bfmeClampTable@@3QBEB",
+      "source": "Code/Libraries/Source/VP6/FilteringC.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "101"
+    },
+    "0x00A031B8": {
+      "address": "0x00A031B8",
+      "size": "28",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_00E031B8@@3U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@A",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_findnode.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "3"
+    }
+  },
+  "removed_invalid_records": {
+    "0xD8058B24": {
+      "address": "0xD8058B24",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "?g_Va00E18198@@3PAVAcac0Releaseable@@A",
+      "source": "Code/Libraries/Source/Apt/AptCharacter.cpp",
+      "status": "provisional",
+      "names": "?g_Va00E18198@@3PAVAcac0Releaseable@@A;?g_Va00E1819C@@3PAVAcac0Releaseable@@A;?g_Va00E181D8@@3PAVAcac0Releaseable@@A",
+      "defs": "3",
+      "refs": "3"
+    },
+    "0xC141F04D": {
+      "address": "0xC141F04D",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "??1CursorInfo@@QAE@XZ",
+      "source": "",
+      "status": "unowned",
+      "names": "??1CursorInfo@@QAE@XZ;??1Rva000C6D44Slot12@@QAE@XZ",
+      "defs": "0",
+      "refs": "2"
+    },
+    "0xC3BFE9CE": {
+      "address": "0xC3BFE9CE",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "??1Coord3D@@QAE@XZ",
+      "source": "",
+      "status": "unowned",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0xE4931EE9": {
+      "address": "0xE4931EE9",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "??1CursorInfo@@QAE@XZ",
+      "source": "",
+      "status": "unowned",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x5DA9D04D": {
+      "address": "0x5DA9D04D",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "??1?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@XZ",
+      "source": "",
+      "status": "unowned",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0x04058B24": {
+      "address": "0x04058B24",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "?g_rva008A48D0_0@@3PAVRva008A48D0Item@@A",
+      "source": "Code/GameEngine/Source/Common/Rva008A48D0ReleaseGlobals.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "1"
+    },
+    "0x4FDCC083": {
+      "address": "0x4FDCC083",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "??1?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@XZ",
+      "source": "",
+      "status": "unowned",
+      "names": "",
+      "defs": "0",
+      "refs": "1"
+    },
+    "0xC2C8C483": {
+      "address": "0xC2C8C483",
+      "size": "0",
+      "section": "",
+      "kind": "global",
+      "name": "?g_pChainBlockAllocatorF4@@3PAVRva006D2A60@@A",
+      "source": "Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "4"
+    }
+  },
+  "all_existing_in_image_addresses_bounds_and_sections_preserved": true,
+  "explicit_owners_preserved": 2354,
+  "array_retirement_addresses": [
+    "0x00873D60",
+    "0x00873D70",
+    "0x00873DCC"
+  ],
+  "changed": {
+    "0x00A23000": {
+      "before": {
+        "address": "0x00A23000",
+        "size": "768",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_bfmeClampTable@@3PAEA",
+        "source": "Code/Libraries/Source/VP6/FilteringC.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "101"
+      },
+      "after": {
+        "address": "0x00A23000",
+        "size": "768",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_bfmeClampTable@@3PAEA",
+        "source": "Code/Libraries/Source/VP6/FilteringC.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "0",
+        "refs": "0"
+      }
+    },
+    "0x007F5A4C": {
+      "before": {
+        "address": "0x007F5A4C",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BA@IFKDBEPH@StancesBehavior?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "6"
+      },
+      "after": {
+        "address": "0x007F5A4C",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "string",
+        "name": "??_C@_0BA@IFKDBEPH@StancesBehavior?$AA@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "5"
+      }
+    },
+    "0x008424DC": {
+      "before": {
+        "address": "0x008424DC",
+        "size": "52",
+        "section": ".rdata",
+        "kind": "global",
+        "name": "_vtbl_00C424DC",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp",
+        "status": "provisional",
+        "names": "??_7StancesBehavior@@6BUpdateModule@@@;_vtbl_00C424DC",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x008424DC",
+        "size": "52",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7StancesBehavior@@6BObjectModule@@@",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp",
+        "status": "provisional",
+        "names": "??_7StancesBehavior@@6BObjectModule@@@;??_7StancesBehavior@@6BUpdateModule@@@;_vtbl_00C424DC",
+        "defs": "1",
+        "refs": "2"
+      }
+    },
+    "0x00873D60": {
+      "before": {
+        "address": "0x00873D60",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005BA2CB@@6BRva005BA2CBBase6C@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva005BA2CB@@6BRva005BA2CBBase6C@@@;_g_customMatchScreenTable6C",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00873D60",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005BA2CB@@6BRva005BA2CBBase6C@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x00873D70": {
+      "before": {
+        "address": "0x00873D70",
+        "size": "92",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005BA2CB@@6BRva005BA2CBBase60@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva005BA2CB@@6BRva005BA2CBBase60@@@;_g_customMatchScreenTable60",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00873D70",
+        "size": "92",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005BA2CB@@6BRva005BA2CBBase60@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x00873DCC": {
+      "before": {
+        "address": "0x00873DCC",
+        "size": "52",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005BA2CB@@6BRva005A0009@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva005BA2CB@@6BRva005A0009@@@;_g_customMatchScreenTable00",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x00873DCC",
+        "size": "52",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005BA2CB@@6BRva005A0009@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    },
+    "0x00A031A8": {
+      "before": {
+        "address": "0x00A031A8",
+        "size": "40",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_00E031A8@@3PAIA",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_findnode.cpp",
+        "status": "owned",
+        "names": "",
+        "defs": "1",
+        "refs": "13"
+      },
+      "after": {
+        "address": "0x00A031A8",
+        "size": "40",
+        "section": ".data",
+        "kind": "global",
+        "name": "?g_00E031A8@@3PAIA",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_findnode.cpp",
+        "status": "provisional",
+        "names": "?g_00E031A8@@3PAIA;?g_00E031A8@@3U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@A",
+        "defs": "1",
+        "refs": "10"
+      }
+    }
+  },
+  "metadata_followups": [
+    "0x00A23000",
+    "0x007F5A4C",
+    "0x008424DC",
+    "0x00A031A8"
+  ],
+  "scope": "Array retirement is exactly three native addresses. Full regeneration also removes eight zero-size out-of-image cache records and adds two .data records from existing bindings; these and other metadata changes are not independent source/global recovery or validated foreign-object closure."
+}

@@ -1,0 +1,31 @@
+{
+  "index_meta": {
+    "date": "2026-11-09 00:25",
+    "commit": "717b70f4ab",
+    "clean_tree": true,
+    "census_date": "2026-11-08 23:34",
+    "census_commit": "a46241d8d1"
+  },
+  "indexed_users": {
+    "_g_customMatchScreenTable00": [
+      {
+        "object": "^code_^game^engine_^source_^common_^rva005^b^a1^f^d^ctor.obj",
+        "source": "Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp"
+      }
+    ],
+    "_g_customMatchScreenTable60": [
+      {
+        "object": "^code_^game^engine_^source_^common_^rva005^b^a1^f^d^ctor.obj",
+        "source": "Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp"
+      }
+    ],
+    "_g_customMatchScreenTable6C": [
+      {
+        "object": "^code_^game^engine_^source_^common_^rva005^b^a1^f^d^ctor.obj",
+        "source": "Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp"
+      }
+    ]
+  },
+  "current_Code_text_occurrences": 0,
+  "scope": "Index graph and current Code text. Broad unread-object and directive gaps remain subject to the normal batch audit and next census."
+}
