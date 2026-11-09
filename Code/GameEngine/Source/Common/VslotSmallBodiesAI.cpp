@@ -1162,17 +1162,18 @@ void Rva00575DE6::rva00575DE6()
 {
 	m_04->rva0057590E(m_0C);
 }
-class Rva00575DF2
+class Rva00575EEA
 {
+protected:
+	virtual ~Rva00575EEA();
 public:
-	void rva00575DF2();
+	virtual void rva00575DF2();
 private:
-	Int m_00;
 	Rva005759A5 *m_04;
 	Int m_08;
 	Int m_0C;
 };
-void Rva00575DF2::rva00575DF2()
+void Rva00575EEA::rva00575DF2()
 {
 	m_04->rva005759A5(m_0C);
 }

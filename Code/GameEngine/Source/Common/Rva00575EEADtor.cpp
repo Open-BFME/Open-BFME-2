@@ -30,6 +30,8 @@ class Rva00575EEA : public Rva00575EEABase1, public LivingWorldLogicObserver {
 public:
     Rva00575EEA(int value, Parent00575EEA *parent);
     virtual ~Rva00575EEA();
+    // Retail's table: slot 1 of the primary base, 0x00575DF2.
+    virtual void rva00575DF2();
 private:
     Parent00575EEA *m_parentC;
 };
