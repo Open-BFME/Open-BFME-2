@@ -273,21 +273,7 @@ PickupStuffUpdate::~PickupStuffUpdate()
 
 
 
-class Rva00495916_B2
-{
-public:
-	virtual void f2();
-};
 
-class DemoTrapUpdate : public UpdateModule, public MiBase1, public Rva00495916_B2
-{
-public:
-	virtual ~DemoTrapUpdate();
-};
-
-DemoTrapUpdate::~DemoTrapUpdate()
-{
-}
 
 class Rva004969FF_B2
 {

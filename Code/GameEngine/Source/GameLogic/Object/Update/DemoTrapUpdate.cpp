@@ -73,37 +73,10 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class DemoTrapUpdate : public UpdateModule
-{
-public:
-	DemoTrapUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~DemoTrapUpdate();				// 0x00495916, out of line
-	virtual void objectModuleAnchor();
-	virtual void behaviorAnchor();
-protected:
-	virtual void xfer(Xfer *xfer);				// slot 3
-public:
-	virtual NameKeyType getModuleNameKey() const;		// slot 4
-	virtual void onObjectCreated();				// slot 5
-	virtual UpdateSleepTime update();
-	const DemoTrapUpdateModuleData *getDemoTrapUpdateModuleData() const
-	{
-		return (const DemoTrapUpdateModuleData *)m_moduleData;
-	}
-	Object *getObject() const { return m_object; }
-private:
-	int m_nextScanFrames;					// +0x20
-	bool m_detonated;					// +0x24
-};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class WeaponTemplate;
@@ -131,7 +104,93 @@ enum WeaponLockType
 	LOCKED_PERMANENTLY = 2
 };
 
-// tu-skeleton: 0x00495916 25B ??1DemoTrapUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+// StealthUpdate (retail module class, module_factory_registrations.csv): its
+// constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,
+// the shared 0x007EFF90 at +0xC, 0x00817F14 at +0x10) as this destructor,
+// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Rva00495916_B2
+{
+public:
+	virtual void f2();
+};
+
+class DemoTrapUpdate : public UpdateModule
+{
+public:
+	DemoTrapUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DemoTrapUpdate();				// 0x00495916, out of line
+	virtual void objectModuleAnchor();
+	virtual void behaviorAnchor();
+protected:
+	virtual void xfer(Xfer *xfer);				// slot 3
+public:
+	virtual NameKeyType getModuleNameKey() const;		// slot 4
+	virtual void onObjectCreated();				// slot 5
+	virtual UpdateSleepTime update();
+	const DemoTrapUpdateModuleData *getDemoTrapUpdateModuleData() const
+	{
+		return (const DemoTrapUpdateModuleData *)m_moduleData;
+	}
+	Object *getObject() const { return m_object; }
+private:
+	int m_nextScanFrames;					// +0x20
+	bool m_detonated;					// +0x24
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+// ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
+
+DemoTrapUpdate::~DemoTrapUpdate()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp
 
