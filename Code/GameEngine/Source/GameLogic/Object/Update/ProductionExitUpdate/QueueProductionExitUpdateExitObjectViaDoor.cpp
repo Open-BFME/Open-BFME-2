@@ -252,11 +252,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../../../Include/GameLogic/AI.h"
 
-class ModuleData
-{
-private:
-	char m_unrecovered00[0x08];
-};
+#include "../../../../../Include/Common/ModuleData.h"
 
 class QueueProductionExitUpdateModuleData : public ModuleData
 {

@@ -46,11 +46,7 @@ typedef bool Bool;
 
 typedef float Real;
 
-class ModuleData
-{
-private:
-	char m_unrecovered00[0x08];
-};
+#include "../../../../../Include/Common/ModuleData.h"
 
 #include "../../../../Common/Thing/thing.h"
 
