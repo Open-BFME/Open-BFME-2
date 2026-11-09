@@ -34,13 +34,13 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // Retail's RefCountClass inline copies (Release_Ref 0x005D1A7D, scalar deleting
 // dtor 0x00072899) are the size form: compile refcount.h for size, as hlod.cpp does.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "sharebuf.h"
-
-extern void __cdecl operator delete[](void *) throw();
 
 // ShareBufferClass<float> owns a raw float array (the FX draw-category
 // particle sizes); the destructor frees it. The 0x1A7B80 constructor

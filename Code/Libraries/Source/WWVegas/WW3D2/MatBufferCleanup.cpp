@@ -6,9 +6,10 @@
 // BFME1 MatBufferClass destructor adapted to the target's raw pointer array.
 // MatBuffer constructor 0x15B1A0 installs vtable 0xBD3C9C; its deleting
 // destructor at 0x15D040 calls this body at 0x15B300.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "always.h"
 #include <string.h>
-extern void __cdecl operator delete[](void *) throw();
 
 // Retail's out-of-line RefCountClass copies (Release_Ref, deleting dtor) are the
 // small form; this TU builds /G7 which emits add/esp forms instead. Compile just

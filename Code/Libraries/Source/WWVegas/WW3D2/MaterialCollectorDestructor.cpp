@@ -35,7 +35,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // RET at 0x009311F7 ends before INT3 padding at 0x009311F8.
 // The former claim at 0x00C5C6A8 was retracted: it joined an array-deallocation
 // unwind funclet and a separate C++ exception handler, neither this body.
-void __cdecl operator delete[](void *) throw();
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 // LINK-COMDAT: ShaderClass inline copies (ctor, Reset, 4 Set_*) differ from
 // the kept copies in decalmsh.cpp (ZH shifts: Cull 19, detail 20/24) while
 // this TU used BFME2 shifts (Cull 20, detail 21/25, default 0x10441b). Declare

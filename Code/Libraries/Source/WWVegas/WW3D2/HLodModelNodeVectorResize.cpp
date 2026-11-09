@@ -14,8 +14,8 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
-void __cdecl operator delete[](void *) throw();
-
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "vector.h"
 #include "vector3.h"
 

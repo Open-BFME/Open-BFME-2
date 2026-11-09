@@ -25,10 +25,9 @@
 // - TextureCategoryList must be 0x18 bytes (vptr + 5-pointer Head) so the
 //   FVF member sits at +0x34; a 0x14 replica shifts it to +0x30.
 
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "simplevec.h"
-
-void __cdecl operator delete(void *) throw();
-void __cdecl operator delete[](void *) throw();
 
 class CameraClass;
 class DecalMeshClass;
