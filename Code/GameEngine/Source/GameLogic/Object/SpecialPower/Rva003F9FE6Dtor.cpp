@@ -29,7 +29,7 @@ private:
 class __declspec(novtable) Rva003F9FE6
 {
 public:
-	virtual void v00() = 0;
+	virtual unsigned char rva0056B7A0(int id);
 	~Rva003F9FE6();
 private:
 	AsciiString m_04;

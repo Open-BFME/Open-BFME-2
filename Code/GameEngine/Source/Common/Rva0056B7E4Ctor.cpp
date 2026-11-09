@@ -31,13 +31,17 @@ namespace _STL { template <> _Vector_base<int,allocator<int> >::~_Vector_base();
 namespace _STL { template <> vector<int, allocator<int> >::~vector(); }
 // bfme link decl-only end
 
-class Rva0056B7E4
+class Rva003F9FE6
+{
+public:
+	// Retail vtable 0x00837898 slot 0 holds Rva003F9FE6::rva0056B7A0.
+	virtual unsigned char rva0056B7A0(int id);
+};
+
+class Rva0056B7E4 : public Rva003F9FE6
 {
 public:
 	Rva0056B7E4(const AsciiString &name);
-	// Compiler-generated destruction (members, then the rowed base dtor), the
-	// body retail's vtable slot 0 reaches.
-	virtual ~Rva0056B7E4() {}
 
 private:
 	AsciiString m_4;         // +0x04, default-constructed

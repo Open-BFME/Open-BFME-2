@@ -30,7 +30,7 @@ private:
 class Rva003F9FE6
 {
 public:
-	virtual void v00() = 0;
+	virtual unsigned char rva0056B7A0(int id);
 	Rva003F9FE6(const Rva003F9FE6 &src);
 private:
 	AsciiString m_04;
@@ -90,7 +90,7 @@ Rva003F9FE6::Rva003F9FE6(const Rva003F9FE6 &src)
 class Rva003FA118 : public Rva003F9FE6
 {
 public:
-	virtual void v00() = 0;
+	// Slot 0 overrides to 0x0056B613 (currently non-virtual placeholder row).
 	Rva003FA118(const Rva003FA118 &src);
 private:
 	int m_58;
@@ -115,7 +115,6 @@ Rva003FA118::Rva003FA118(const Rva003FA118 &src)
 class Rva00402C0F : public Rva003F9FE6
 {
 public:
-	virtual void v00() = 0;
 	Rva00402C0F(const Rva00402C0F &src);
 private:
 	int m_58;

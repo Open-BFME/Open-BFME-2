@@ -17,9 +17,9 @@ public:
 class Rva003F9FE6
 {
 public:
-	unsigned char rva0056B7A0(int id);
+	virtual unsigned char rva0056B7A0(int id);
 private:
-	char m_pad55[0x55];
+	char m_pad51[0x51];	// +0x04..+0x54 (past +0x00 vptr)
 	unsigned char m_55;	// +0x55, gates the +0x14 id check
 	unsigned char m_56;	// +0x56, gates the helper getter
 };
@@ -45,10 +45,10 @@ void Rva0056B613::rva0056B613(int arg)
 		if (!(*(Rva002B269E **)&TheLivingWorldLogic)->rva002B269E(arg))
 			return;
 	}
-	((Rva003F9FE6 *)this)->rva0056B7A0(arg);
+	((Rva003F9FE6 *)this)->Rva003F9FE6::rva0056B7A0(arg);
 }
 
-// ?rva0056B7A0@Rva003F9FE6@@QAEEH@Z @0x0056B7A0 62B.
+// ?rva0056B7A0@Rva003F9FE6@@UAEEH@Z @0x0056B7A0 62B.
 // Slot 0 of vtable 0x00837898: flag/id-gated helper predicate. Byte +0x55
 // gates an id check at +0x14 of the Logic+0x98 object against the int arg;
 // byte +0x56 gates the pinned Helper getter with the arg. The +0x98 object is

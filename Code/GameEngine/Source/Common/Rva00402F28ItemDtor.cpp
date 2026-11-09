@@ -10,7 +10,7 @@
 class __declspec(novtable) Rva003F9FE6
 {
 public:
-	virtual void v00() = 0;
+	virtual unsigned char rva0056B7A0(int id);
 	~Rva003F9FE6();
 private:
 	char m_04[0x58 - 4];
@@ -19,7 +19,6 @@ private:
 class __declspec(novtable) Rva00402F28Item : public Rva003F9FE6
 {
 public:
-	virtual void v00();
 	~Rva00402F28Item();
 private:
 	unsigned char m_58;
