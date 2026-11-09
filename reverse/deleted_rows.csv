@@ -6056,3 +6056,5 @@ __ehhandler$?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ,0x00791041,"Rename
 ??_GRva004BC83F@@UAEPAXI@Z,0x004BC89D,"Renamed to ??_GHealCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A868)"
 ??1Rva004BC96F@@UAE@XZ,0x004BC96F,"Renamed to ??1MoneyCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A8A0)"
 ??_GRva004BC96F@@UAEPAXI@Z,0x004BC9CD,"Renamed to ??_GMoneyCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A8A0)"
+??1Rva004BCE62@@UAE@XZ,0x004BCE62,"Renamed to ??1VeterancyCrateCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A954)"
+??_GRva004BCE62@@UAEPAXI@Z,0x004BCEC0,"Renamed to ??_GVeterancyCrateCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A954)"
