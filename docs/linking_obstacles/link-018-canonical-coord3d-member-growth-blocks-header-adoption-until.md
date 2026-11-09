@@ -245,3 +245,7 @@ rename path). Once that lands, the swarm Link lane takes the two `Matrix4D` expo
 respell `Snapshot.cpp`'s row to the export spelling `??0Matrix4D@@QAE@ABVCoord3D@@M@Z`, then give `Set`
 its name with an `--icf-owner` twin row (fold-proof) at 0x00004079. Real link `f98a8da771` still lists
 both as unresolved.
+
+**2026-11-09 status (swarm Link lane).** `Coord3D` is still `struct` and the real link at `26501393cb` still lists both `Matrix4D` exports. The follow-up
+stays waiting on the class-key flip: a row respell alone would not compile to the export spelling. Dave Razidlo's last Coord3D commit is 2026-11-06, and no
+`Coord3D` claim or branch was found, so whether that work is active needs asking.

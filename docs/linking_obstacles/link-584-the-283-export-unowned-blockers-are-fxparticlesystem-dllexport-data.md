@@ -518,3 +518,9 @@ constructor. Not landed; it needs that row's owner settled first.
 (load about 15), 285 s of it in `build.stale_sources`' worker pool, and 130-305 s unprofiled whatever moved (29 to 309 objects). It is the
 largest fixed cost of a ledger refresh pass after the A/B. Scoping that check by the moved paths has not been tried; a header edit would have
 to widen it, and that needs its own proof.
+
+**2026-11-09 the 26 re-measured (real link `26501393cb`: 29 unresolved, 0 duplicates, no image).** Still 14 `$S` guards and 12 `ModuleTag`
+KEY/NAME, at the addresses above. KEY/NAME: `e82daa0fe0` changed no `s_key`, `s_name`, `s_instance` or `DefaultModuleTag` line in
+`FXParticleSystemModules.cpp`, and the class-static `s_instance` is still there, so the 2026-11-08 base-class trial's startup-order result was
+not re-run: nothing it depends on moved. LINK-615 is the next step. Guards: the options above still stand, and the decision is with the owner
+through the swarm coordinator.
