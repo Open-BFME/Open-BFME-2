@@ -72,14 +72,12 @@ struct Rva004AD613Iterator
 // pointer. Reuse that existing owner for these ObjectID payloads.
 class Rva002A1B6FNativeList { public: void append(void *const &value); };
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
-
 static inline Rva004AD613Iterator affectedBegin(const Rva0029FB3BMember &list)
 {
 	Rva004AD613Iterator it;
 	it.m_node = ((Rva004AD613Node *)list.m_head)->m_next;
 	return it;
 }
-
 static inline Rva004AD613Iterator affectedEnd(const Rva0029FB3BMember &list)
 {
 	Rva004AD613Iterator it;
@@ -103,9 +101,6 @@ enum UpdateSleepTime
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
-// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
-// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
-// own members.
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
@@ -164,6 +159,11 @@ public:
 #include <hash_map>
 #include "../../../../Include/GameClient/Drawable.h"
 #pragma intrinsic(_ReadWriteBarrier)
+//
+// ??1RousingSpeechUpdate@@UAE@XZ, retail 0x004ACE96, 60 bytes. The compiler's four table installs, a
+// clear of the list, then the member's destructor 0x00268902 and the base destructor's tail call.
+
+class RousingSpeechUpdateModuleData;
 
 extern PartitionManager *ThePartitionManager;
 
@@ -270,6 +270,7 @@ public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
 };
+
 // Retail's tables: 0x00C54FE8 (23 slots), 0x00C4D640 at +0x0C, 0x00C54FD8 at +0x10 and 0x00C552A4 at +0x20.
 class RousingSpeechUpdate : public Rva0044EF5E
 {
@@ -296,7 +297,18 @@ private:
 	float m_98; // +0x98
 };
 
+struct Rva0029FB3BAlloc
+{
+	Rva0029FB3BAlloc() {}
+};
+
 // tu-skeleton: 0x004ACD73 27B ?buildFieldParse@RousingSpeechUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp
+
+// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
+// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
+// own members.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateUpdate.cpp
 
@@ -407,10 +419,6 @@ void RousingSpeechUpdate::startPreparation()
 	}
 }
 
-// tu-skeleton: 0x004ACE96 60B ??1RousingSpeechUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004ACED2 6B ?name@RousingSpeechUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp
 
 // ?getModuleNameKey@RousingSpeechUpdate@@UBE?AW4NameKeyType@@XZ @0x4ACED8
@@ -506,12 +514,6 @@ void RousingSpeechUpdate::rva004ACF1D()
 	}
 }
 
-// tu-skeleton: 0x004ACF76 135B ??0RousingSpeechUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004ACFFD 28B ??_GRousingSpeechUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004AD0EE 136B ??0RousingSpeechUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateXfer.cpp
 
 // ?xfer@RousingSpeechUpdate@@MAEXPAVXfer@@@Z @0x004AD2AF
@@ -535,13 +537,37 @@ void RousingSpeechUpdate::xfer(Xfer *xfer)
 	}
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp
+
+// ??1RousingSpeechUpdate@@UAE@XZ @0x004ACE96
+RousingSpeechUpdate::~RousingSpeechUpdate()
+{
+	m_88.reset();
+}
+
+// tu-skeleton: 0x004ACED2 6B ?name@RousingSpeechUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp
+
+// ??0RousingSpeechUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x004ACF76
+RousingSpeechUpdate::RousingSpeechUpdate(Thing *thing, const ModuleData *moduleData) :
+	Rva0044EF5E(thing, moduleData),
+	m_88(Rva0029FB3BAlloc())
+{
+	m_8C &= 0;
+	m_90 = 0;
+	m_94 = 0.0f;
+	m_98 = 0.0f;
+	m_88.reset();
+}
+
+// tu-skeleton: 0x004AD0EE 136B ??0RousingSpeechUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x004AD333 28B ??_GRousingSpeechUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004AD399 345B ?triggerAbilityEffect@RousingSpeechUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E43D 8B uw_0078e43d -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E445 10B __ehhandler$??0RousingSpeechUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E44F 8B uw_0078e44f -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
 
