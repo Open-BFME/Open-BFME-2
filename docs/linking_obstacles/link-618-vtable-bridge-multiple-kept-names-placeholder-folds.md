@@ -110,7 +110,8 @@ them.
   bytes, for every commit.
 - Rva000647D4Xfer.cpp calls the ICF body 0x00341E2D through a private base view. That body is rowed
   twice, as AIGoingIdleState::xfer and Locomotor::xfer, so the view now spells AIGoingIdleState with a
-  note that it proves no AIGoingIdleState base.
+  note that it proves no AIGoingIdleState base. (P69, 2026-11-09, retracted the Locomotor::xfer row: that
+  body is AIGoingIdleState::xfer alone now.)
 - Follow-up, not done: several placeholder-class rows keep `int` signatures that cannot override State's
   virtuals (`?onExit@AIHarvestState@@UAEXH@Z`, `?update@AIGuardRetaliateState@@UAEHXZ`,
   `?onEnter@AIHuntState@@UAEHXZ`, `?onEnter@AIAttackAreaState@@UAEHXZ`, `?rva00342120@...`), and three

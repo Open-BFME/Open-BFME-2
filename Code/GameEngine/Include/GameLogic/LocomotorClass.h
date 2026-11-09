@@ -10,10 +10,10 @@
 //    the live counter VA 0x00DFDC64; the dtor 0x001E3E43 stores VA 0x00BDE888, lowers the
 //    counter, then stores Snapshot's VA 0x00BBB554. One Snapshot base at +0. The copy ctor,
 //    the dtor, the deleting dtor and the assignment 0x001E3CF4 (called at 0x001E4679) are
-//    rowed under the placeholder class Rva001E3E43.
+//    rowed on this class.
 //  - Table VA 0x00BDE888 has four slots: 0 deleting dtor 0x001E4625, 1 the shared empty body
 //    0x000B3FD0, 2 0x001E3E56 returning "Locomotor" (VA 0x00BDE898), 3 xfer 0x001E525A.
-//    0x00341E2D, rowed as Locomotor::xfer, is slot 3 of table VA 0x00C11798 instead.
+//    0x00341E2D is AIGoingIdleState::xfer, slot 3 of table VA 0x00C11798 instead.
 //  - Ctor stores: +0x04 the template's final override (inline getFinalOverride over
 //    0x001E35DF), +0x08 and +0x14 zeroed triples, +0x20 1.0, +0x24/+0x28/+0x30/+0x34/+0x38
 //    BIGNUM, +0x2C -1.0, +0x3C template +0xC4, +0x40 0.0, +0x44 0, +0x48/+0x4C/+0x50 template

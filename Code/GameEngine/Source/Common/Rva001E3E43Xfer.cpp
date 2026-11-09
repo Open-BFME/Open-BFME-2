@@ -1,7 +1,7 @@
 // cl: /MD
 //
-// ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z, retail 0x001E525A 382B. Slot 3 (offset 0xC)
-// of vtable 0x007DE888 (class of ??1Rva001E3E43 rowed at 0x001E3E43).
+// ?xfer@Locomotor@@MAEXPAVXfer@@@Z, retail 0x001E525A 382B. Slot 3 (offset 0xC)
+// of vtable 0x007DE888 (the class's dtor is rowed at 0x001E3E43).
 // No base xfer call. IsLightCRC early-out via Xfer slot 0x10. Version(1 3)
 // via Xfer slot 0x28 with minor in second byte gating 0x9A (minor>1) and
 // stack uint (minor>=3). Floats via 0x70 uints via 0x78 bools via 0x90
@@ -41,45 +41,9 @@ public:
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
-#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../Include/GameLogic/LocomotorClass.h"
 
-class Rva001E3E43 : public Snapshot
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	unsigned char m_pad04[4];
-	Coord3DBase m_08;
-	Coord3DBase m_14;
-	float m_20;
-	float m_24;
-	float m_28;
-	unsigned char m_pad2C[4];
-	float m_30;
-	float m_34;
-	float m_38;
-	float m_3C;
-	float m_40;
-	unsigned int m_44;
-	float m_48;
-	float m_4C;
-	float m_50;
-	float m_54;
-	float m_58;
-	float m_5C;
-	unsigned int m_60;
-	unsigned int m_64;
-	unsigned char m_pad68[48];
-	bool m_98;
-	bool m_99;
-	bool m_9A;
-	unsigned char m_pad9B[1];
-	int m_9C;
-	float m_A0;
-	float m_A4;
-};
-
-void Rva001E3E43::xfer(Xfer *xfer)
+void Locomotor::xfer(Xfer *xfer)
 {
 	if (xfer->IsLightCRC())
 		return;
@@ -87,25 +51,25 @@ void Rva001E3E43::xfer(Xfer *xfer)
 	ver.m_major = 1;
 	ver.m_minor = 3;
 	*xfer == ver;
-	*xfer == m_08;
-	*xfer == m_20;
-	*xfer == m_24;
-	*xfer == m_28;
-	*xfer == m_30;
-	*xfer == m_34;
-	*xfer == m_38;
-	*xfer == m_3C;
+	*xfer == reinterpret_cast<Coord3DBase &>(m_maintainPos);
+	*xfer == m_brakingFactor;
+	*xfer == m_maxLift;
+	*xfer == m_maxSpeed;
+	*xfer == m_maxAccel;
+	*xfer == m_maxBraking;
+	*xfer == m_maxTurnRate;
+	*xfer == m_closeEnoughDist;
 	*xfer == m_40;
-	*xfer == m_44;
-	*xfer == m_48;
+	*xfer == m_flags;
+	*xfer == m_preferredHeight;
 	*xfer == m_4C;
-	*xfer == m_50;
-	*xfer == m_54;
-	*xfer == m_58;
+	*xfer == m_preferredHeightDamping;
+	*xfer == m_angleOffset;
+	*xfer == m_offsetIncrement;
 	*xfer == m_98;
 	*xfer == m_A0;
 	*xfer == m_A4;
-	*xfer == m_14;
+	*xfer == reinterpret_cast<Coord3DBase &>(m_14);
 	*xfer == m_5C;
 	*xfer == m_60;
 	*xfer == m_64;

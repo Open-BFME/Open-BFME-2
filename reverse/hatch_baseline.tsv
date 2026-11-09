@@ -12210,8 +12210,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::dispatchSlot	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::setPositions	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::setTargetFlag	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomotor::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomotor::~Locomotor	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	bfmeEmitGenericObjectCreationNuggetAnimSetCopy@@YAXPAUAnimSet@GenericObjectCreationNugget@@PBU12@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	clear@ObjectCreationList@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	create@ObjectCreationNugget@@UBEXPBVObject@@PBUCoord3D@@1_NI@Z	1
@@ -13091,7 +13089,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Inters
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Replace_VertexMaterial	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Scale	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Set_Name	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Set_Sort_Level	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	bfmeEmitLineSegClassCtor@@YAXPAVLineSegClass@@ABV0@ABVMatrix3D@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh_get_shade_indices.cpp	emit@BfmeMeshShadeIndicesEmitter@@SAXPAU1@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Cast_AABox	1

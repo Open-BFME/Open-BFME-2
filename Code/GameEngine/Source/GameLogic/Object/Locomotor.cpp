@@ -223,12 +223,19 @@ private:
     float m_20;
 };
 
-class Rva001E3E43 : public Snapshot
+class Object;
+
+class Locomotor : public Snapshot
 {
 public:
-	~Rva001E3E43();	// rowed out of line; this view must not emit its own
-	Rva001E3E43(const Rva001E3E43 &rhs);
-	Rva001E3E43 &operator=(const Rva001E3E43 &rhs);
+	virtual ~Locomotor();	// rowed out of line; this view must not emit its own
+	Locomotor(const Locomotor &rhs);
+	Locomotor &operator=(const Locomotor &rhs);
+	int getLegalSurfaces() const;
+	bool rva001E4194(Object *object);
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void loadPostProcess();
 private:
 	int m_04;
 	struct Vec12 { int a, b, c; } m_08, m_14;
@@ -239,7 +246,7 @@ private:
 	unsigned char m_98, m_99, m_9A;
 	int m_9C, m_A0, m_A4, m_A8, m_AC;
 protected:
-	// retail slot 3: the rowed ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z
+	// retail slot 3: the rowed ?xfer@Locomotor@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
 };
 
@@ -488,25 +495,6 @@ class Object { public: char pad00[0x25c]; Rva001E4194Component *component; };
 
  
  
-class Locomotor : public Snapshot
-{
-public:
-	int getLegalSurfaces() const;
-protected:
-	virtual ~Locomotor();
-protected:
-	virtual const char *GetSnapshotName() const;
-protected:
-	virtual void xfer(Xfer *xfer);
-protected:
-	virtual void loadPostProcess();
-private:
-	char m_pad04[0x08 - 0x04];
-public:
-	OVERRIDE<LocomotorTemplate> m_template;
-public:
-	bool rva001E4194(Object *object);
-};
 
 //
 // ?rva001E48E8@Rva001E48E8@@QAEPAXI@Z @0x001E48E8 42B
@@ -682,18 +670,18 @@ template LocomotorMap::map();
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
-__declspec(noinline) inline Rva001E3E43::~Rva001E3E43()
+__declspec(noinline) inline Locomotor::~Locomotor()
 {
 	--g_Va00DFDC64;
 }
 
 // ?bfmeAnchorRva001E3E43Dtor absent-from-retail
-void bfmeAnchorRva001E3E43Dtor(Rva001E3E43 *p)
+void bfmeAnchorRva001E3E43Dtor(Locomotor *p)
 {
-	p->Rva001E3E43::~Rva001E3E43();
+	p->Locomotor::~Locomotor();
 }
 
-Rva001E3E43 &Rva001E3E43::operator=(const Rva001E3E43 &rhs)
+Locomotor &Locomotor::operator=(const Locomotor &rhs)
 {
 	if (this != &rhs) {
 		m_04 = rhs.m_04;
@@ -906,7 +894,7 @@ void Rva001E41D3::rva001E41AC(const Rva001E41D3Result &position)
 // ---- from Code/GameEngine/Source/Common/Rva001E3E43CopyCtor.cpp
 
 //
-// ??0Rva001E3E43@@QAE@ABV0@@Z, retail 0x001E4641, 78 bytes.
+// ??0Locomotor@@QAE@ABV0@@Z, retail 0x001E4641, 78 bytes.
 // Copy ctor: default-constructs a 3x0x10 element array at +0x68 via rowed
 // vector iterator then stores vtable 0x00BDE888 plus inc global 0x009FDC64
 // plus rowed copy assignment 0x001E3CF4.
@@ -916,7 +904,7 @@ void Rva001E41D3::rva001E41AC(const Rva001E41D3Result &position)
 // element emits that empty ctor here, rowed as a genuine ICF fold.
 //
 
-Rva001E3E43::Rva001E3E43(const Rva001E3E43 &rhs)
+Locomotor::Locomotor(const Locomotor &rhs)
 {
 	++g_Va00DFDC64;
 	*this = rhs;
@@ -997,7 +985,7 @@ bool Rva001E4A4E::rva001E4A4E(int bit)
 
 // tu-skeleton: 0x001E520C 78B ?newOverride@LocomotorStore@@QAEPAVLocomotorTemplate@@PAV2@@Z -- matched in Code/GameEngine/Source/Common/LocomotorStore_newOverride.cpp (not merged yet)
 
-// tu-skeleton: 0x001E525A 382B ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E3E43Xfer.cpp (not merged yet)
+// tu-skeleton: 0x001E525A 382B ?xfer@Locomotor@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E3E43Xfer.cpp (not merged yet)
 
 // tu-skeleton: 0x001E53D8 103B ?rva001E53D8@Rva001E46E1@@QAEXMPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
 
@@ -1349,20 +1337,15 @@ Rva001E7087::~Rva001E7087() { rvaClear(); }
 
 // tu-skeleton: 0x0076A160 10B __ehhandler$??A?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEAAV?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@1@ABW4LocomotorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
 
-// ?Locomotor::~Locomotor present-unmatched
-Locomotor::~Locomotor()
-{
-}
-
 // ?GetSnapshotName@Locomotor@@MBEPBDXZ @0x001E3E56: slot 2 of retail's table 0x00BDE888.
 const char *Locomotor::GetSnapshotName() const
 {
 	return "Locomotor";
 }
 
-// Locomotor::xfer is rowed in LocomotorXfer.cpp (0x00341E2D).
+// Locomotor::xfer is rowed in Rva001E3E43Xfer.cpp (0x001E525A), slot 3 of retail's table 0x00BDE888.
 
-// ?Locomotor::loadPostProcess present-unmatched
+// ?loadPostProcess@Locomotor@@MAEXXZ, slot 1 of retail's table 0x00BDE888: the shared empty body at 0x000B3FD0.
 void Locomotor::loadPostProcess()
 {
 }
@@ -1372,7 +1355,9 @@ void Locomotor::loadPostProcess()
 // (ecx+8, the override resolver, then +0x10).
 int Locomotor::getLegalSurfaces() const
 {
-	return m_template->m_surfaces;
+	// The class's +8 is a position, not an override: retail's 0x002BEDBE is not this class's method, and its owner is
+	// still unproven (LocomotorClass.h). The row keeps its name and its exact bytes until that owner is found.
+	return reinterpret_cast<const OVERRIDE<LocomotorTemplate> &>(m_08)->m_surfaces;
 }
 
 // INI block registration (LINK-236). BFME's INI keeps its block types on a
