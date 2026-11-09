@@ -47,26 +47,6 @@ protected:
 private:
 	bool m_everExecuted;			// +0x14, right after the three module bases
 };
-// Target facts: UnitCrateCollide's primary table 0x00C5A914 has slot 4
-// getModuleNameKey 0x004BCC5C and slot 12 executeCrateBehavior 0x004BCCBD.
-class UnitCrateCollide : public CrateCollide
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	virtual bool executeCrateBehavior(Object *other);
-private:
-	// Execute reads the module data at +0x04 (Module's m_moduleData).
-	const UnitCrateCollideModuleData *getUnitCrateCollideModuleData() const
-	{
-		return (const UnitCrateCollideModuleData *)m_moduleData;
-	}
-public:
-	// ??0UnitCrateCollide 0x004BCC13 and this destructor 0x004BCC43 store the same three
-	// tables (0x00C5A914, 0x00C5A040, 0x00C5A600); it then jumps to ??1CrateCollide
-	// 0x004BC4FC. Its ??_G 0x004BCCA1 is slot 0 of 0x00C5A914.
-	virtual ~UnitCrateCollide();
-};
 class Player;
 class Team;
 class ThingTemplate;
@@ -214,9 +194,36 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-// tu-skeleton: 0x004BCC13 42B ??0UnitCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideCtor.cpp (not merged yet)
+ 
+ 
+class UnitCrateCollide : public CrateCollide
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual bool executeCrateBehavior(Object *other);
+private:
+	const UnitCrateCollideModuleData *getUnitCrateCollideModuleData() const
+	{
+		return (const UnitCrateCollideModuleData *)m_moduleData;
+	}
+public:
+	virtual ~UnitCrateCollide();
+public:
+	UnitCrateCollide(Thing *thing, const ModuleData *moduleData);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideCtor.cpp
+
+// ??0UnitCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z
+UnitCrateCollide::UnitCrateCollide(Thing *thing, const ModuleData *moduleData)
+	: CrateCollide(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x004BCC3D 6B ?Rva004BCC3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
 
