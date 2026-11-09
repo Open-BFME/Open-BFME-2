@@ -45,12 +45,7 @@ public:
 
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
-class GameEngine
-{
-public:
-	char m_pad[0x3c];
-	float m_3c;
-};
+#include "../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 
@@ -75,7 +70,7 @@ Matrix3D *Rva00271423::rva00271423()
 	if (m_378 <= ((ClientFrameSubsystem *)TheGameClient)->GetTime())
 		return &m_1a0;
 	if (m_204 != ((ClientFrameSubsystem *)TheGameClient)->GetTime()) {
-		Matrix3D::Lerp(m_170, m_1a0, TheGameEngine->m_3c, m_1d0);
+		Matrix3D::Lerp(m_170, m_1a0, TheGameEngine->m_3C, m_1d0);
 		m_204 = ((ClientFrameSubsystem *)TheGameClient)->GetTime();
 	}
 	return &m_1d0;
