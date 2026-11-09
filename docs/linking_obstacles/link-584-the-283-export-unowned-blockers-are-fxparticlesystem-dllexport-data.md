@@ -563,3 +563,13 @@ work is packet P105 (Link lane), after the 12 KEY/NAME: an alias source the `/DE
 tool, and named zero words for `$S22`/`$S26`. Those two need words of their own, not aliases: retail keeps them apart at 0x00A0609C/A0, in `.data`'s zero tail,
 and nothing retail kept reads them; aliasing them to `$S24`/`$S28` (0x00A0294C/58, our `$S9`/`$S21` in `FXParticleSystemDefaults.cpp`) would export two retail
 addresses as one. Nothing is admitted until P105 lands and is reviewed.
+
+**2026-11-09 the 14 guards, step 1 of 3 (Link lane; P105 landed).** `tools/pin_admission.py --alias` admitted the first four export aliases under the
+existing hatch freeze (a new kind starts from 0, so 4, then 8 the next day, then 14): `$S24` -> our `$S9` (0x00A0294C) and `$S28` -> `$S21`
+(0x00A02958), the category-6 guards, and `$S128` -> `$S3` (0x00A029F0) and `$S132` -> `$S15` (0x00A029FC), category 1's. Each is the same local
+static's guard (only the per-TU counter differs), our word is the data ledger's owner of retail's address, and each target is an external defined by
+`FXParticleSystemDefaults.obj`. They are counted debt, `export_alias` in `reverse/hatch_baseline.tsv`, which a source recovery of the two retail
+TUs retires. Expected real-link effect: 4 fewer unresolved, not yet measured. Next: the other eight on 2026-11-10, then `$S22`/`$S26` (named zero
+words, ZERO_WORD_EXPORTS) and the last two on 2026-11-11.
+Tool note for `fdd0d06a74` (LeonardBuhl): it made `exit_link.link_setup` build `image_report.Retail(raw, spans)`, and the P105 batch updated
+`tools/tests/test_exit_link.py`'s fake `Retail` to that signature, which master's test run had been failing on.
