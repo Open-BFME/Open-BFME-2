@@ -43,15 +43,6 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 };
 
-class Rva004BC83F : public CrateCollide
-{
-public:
-	virtual ~Rva004BC83F();
-};
-
-Rva004BC83F::~Rva004BC83F()
-{
-}
 
 class Rva004BC96F : public CrateCollide
 {
