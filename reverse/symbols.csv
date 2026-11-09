@@ -8567,9 +8567,6 @@ _D3DXCheckTextureRequirements@28,0x0062AF86,Named d3dx9_27.dll PE import thunk F
 ??1VBase00C6EE28@@QAE@XZ,0x0057A243,destructor of the all-__purecall interface (vtable 0x00C6EE28): retail unwind funclet 0x00797832 of ctor 0x005380A8 jumps here with ECX=this+0x30 (the virtual-base subobject) and the body only stores 0x00C6EE28 at [ECX]
 ?SetUpAutoResolveBattle@LivingWorldLogic@@QAEXABV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAX0PAVRva003F287F@@HH@Z,0x002BC971,WorldBuilder LivingWorldLogic::SetUpAutoResolveBattle (wb_name_leads callgraph); called from 0x002BCCFB rva002BCCFB
 ?erase@?$vector@EV?$allocator@E@_STL@@@_STL@@QAEPAEPAE0@Z,0x0031BD55,Native byte resize B0565 shrink branch; complete34 byte-and-relocation twin of every owner; fold-proof=Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainByteVectorResize.cpp
-??0Rva002130CA@@QAE@XZ,0x00213E11,callee of ??0LivingWorldManager@@QAE@XZ
-??0Rva00212379@@QAE@XZ,0x00213E11,callee of ??0LivingWorldManager@@QAE@XZ
-??0Rva00211FA3@@QAE@XZ,0x0033C432,callee of ??0LivingWorldManager@@QAE@XZ
 ??1Rva00210CC5@@QAE@XZ,0x00210CC5,callee of ??0LivingWorldManager@@QAE@XZ
 ?rva005DBC2E@Rva005A69C0Sub@@QAE_NHH@Z,0x005DBC2E,callee of ?rva005A6D47@NAT@@QAEXXZ
 ??1Rva004C7878Record@@QAE@XZ,0x000796BC,fold-proof=Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPower.cpp; Native4C799B iterates Object plus member-vector entries16 and frees copy buffer at+4; actual push_back record view now compiles complete15B teardown25B loop63B vector dtor; same target ownership semantics; original record name unknown

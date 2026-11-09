@@ -10,9 +10,10 @@
 // listener at +0x10 (vtable 0x00BE5114, inline constructor, out-of-line
 // vptr-reset destructor 0x00210CC5) whose slot LivingWorldManager overrides
 // with OnSwapArmyMembers. The members are opaque here: each is named after
-// the destructor its unwind state calls, and the four constructors with no
-// matching row are pinned (0x00212AEF, the hash_map constructor 0x00213E11 and
-// the map constructor 0x0033C432). The vector members build through the
+// the destructor its unwind state calls. The hash table members have no
+// constructor of their own: retail calls the rowed hash_map constructor
+// 0x00213E11 directly, and the +0x2B4 tree the rowed map constructor
+// 0x0033C432. 0x00212AEF is pinned. The vector members build through the
 // folded _Vector_base constructor 0x00211E58, which cannot throw (retail
 // keeps no unwind store between them). The body clears +0x230, then empties
 // the +0x2B4 tree, the +0x218 table and the +0x2CC vector.
@@ -99,7 +100,6 @@ typedef _STL::map<unsigned char, int, _STL::less<unsigned char>,
 class Rva002130CA
 {
 public:
-	__declspec(noinline) Rva002130CA() {}
 	~Rva002130CA();
 private:
 	Rva00213E11Map m_data;
@@ -108,7 +108,6 @@ private:
 class Rva00212379
 {
 public:
-	__declspec(noinline) Rva00212379() {}
 	~Rva00212379();
 private:
 	Rva00213E11Map m_data;
@@ -142,7 +141,6 @@ public:
 class Rva00211FA3
 {
 public:
-	__declspec(noinline) Rva00211FA3() {}
 	~Rva00211FA3();
 private:
 	Rva0033C432Map m_data;
