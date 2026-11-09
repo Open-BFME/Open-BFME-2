@@ -117,6 +117,7 @@ struct Rva002A7E42Client { Rva002A7E42ClientVTable *vtable; };
 class Rva002A7E42 { public: void rva002A7E42(Player *player); };
 #include "../../../Include/Common/Rva0036CA00Str.h"
 #include <windows.h>
+
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
@@ -191,6 +192,8 @@ public:
 };
 
 // tu-skeleton: 0x002A79A9 122B ??1PlayerList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerList.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList.cpp
 
@@ -416,8 +419,6 @@ Player *PlayerList::createClonedAllyFor(void *data)
 	return 0;
 }
 
-// tu-skeleton: 0x002A7A29 24B ?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp
 
 // ?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z
@@ -432,8 +433,6 @@ Player *PlayerList::findPlayerWithNameKey(NameKeyType key)
 	}
 	return NULL;
 }
-
-// tu-skeleton: 0x002A7A6F 49B ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_Rva002A7A6F.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerListRva002A7AFE.cpp
 
@@ -453,6 +452,23 @@ void PlayerList::rva002A7AFE(void *arg)
 		((Rva002AD19E *)*slot)->rva002AD19E(arg);
 		++slot;
 	} while (--count != 0);
+}
+
+// tu-skeleton: 0x002A7A29 24B ?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerList_Rva002A7A6F.cpp
+
+// ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z
+Player *PlayerList::Rva002A7A6F(Int key)
+{
+	for (Int i = 0; i < m_playerCount; i++)
+	{
+		if (m_players[i]->m_3AC == key)
+		{
+			return m_players[i];
+		}
+	}
+	return NULL;
 }
 
 // tu-skeleton: 0x002A7B91 56B ?getPlayerFromMask@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
