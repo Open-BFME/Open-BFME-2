@@ -5964,3 +5964,4 @@ __ehhandler$??0Rva001E3E43@@QAE@ABV0@@Z,0x00769F90,"Respelled to __ehhandler$??0
 ?name@Rva004B613CNamed@@QBEPBDXZ,0x004B613C,"Renamed to ?GetSnapshotName@ExperienceScalarUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C584E8 slot 2)"
 ?name@Rva004B6279Named@@QBEPBDXZ,0x004B6279,"Renamed to ?GetSnapshotName@MaxHealthUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C58590 slot 2)"
 ?name@Rva004B63DDNamed@@QBEPBDXZ,0x004B63DD,"Renamed to ?GetSnapshotName@ModelConditionUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C58658 slot 2)"
+?name@Rva004B66D3Named@@QBEPBDXZ,0x004B66D3,"Renamed to ?GetSnapshotName@AttributeModifierUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C587E8 slot 2)"
