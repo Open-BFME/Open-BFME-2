@@ -1842,3 +1842,69 @@ partial views. The full cache refresh was held back after the normal gate
 caught an unrelated retired name from stale objects; explicit data_rows
 owns the repaired table. No foreign cache change is published.
 [Complete slot, object, ownership and cache audits](../../reverse/attempt_support/local-file-derived-table-20261109/README.md).
+
+**The split route over the Derived grab-bags: 2 clean of 71, the moved-copy context check blocks 29
+(2026-11-09, seat halilkkaya-lk82, base `edbf37dac3`).** Method: `tu_skeleton.py --split FILE` lists each
+grab-bag's approved TUs (the map rebuilt in memory), then `--split FILE --for TU --dry-run --no-claim` per
+pair; lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`) before and after each split.
+- Survey of the nine named files (held and walled files excluded): 38 approved destructor pairs, all "alone:
+  N/N" (the carved rows match beside the TU), 1 clean, 37 refused:
+  - 18: `moved selected COMDAT X lacks matching private/weak-free context` (HealCrateCollide, GiantBirdSlowDeath,
+    ten Rva00493DEF SpecialPower classes, SupplyCenter/SpecialPower/Preorder/LockWeapon/InheritUpgradeCreate,
+    AssaultTransportAIUpdate);
+  - 11 compile: the carved body or class is written against the grab-bag's private view (C2011 against the
+    TU's real headers, C2504 base undefined, C2373 against an `extern "C" __identifier` vftable declaration,
+    C2065 private members `m_extra03E4`/`m_extra0050`, C2600 for AISpellBookTreeKiller);
+  - 3 link, the receiving AIUpdate TU views are incomplete: the destructor makes the TU emit its tables, whose
+    slots are undefined (Animal/Siege/TransportAIUpdate: `new unresolved GetSnapshotName/...`);
+  - 3 `bytes` from the merge verifier (WanderAIUpdate, ShipSlowDeathBehavior, UnitCrateCollide);
+  - 2 "split it first": StructureToppleUpdate.cpp holds 0x001814D0 (`__uninitialized_fill_n<AngleFXInfo>`,
+    mapped to dx8fvf.cpp), DefectorSpecialPower.cpp an overridable.cpp row.
+  - Held: Rva0024A797Derived.cpp (class:StealthUpdate, hdr-c), Rva004D759CDerived.cpp (class:AIGuardMachine,
+    hdr-a, until 13:14 UTC), ElvenWoodSpecialPower.cpp (class:ModuleData, hdr-b). No approved TU: 120 rows
+    (Grandchildren 36, Rva005EE30C 44, Rva0024A797Derived 34, Rva004B8CDE 2, Rva00493DEF 2, Rva004D759C 12).
+  - Rva004D759CDerived.cpp once free (7 pairs, all refused): moved-copy context for AIDockMachine,
+    SupplyTruckStateMachine and TurretStateMachine (real names, so the table names stay the same and the copy
+    digest is unchanged), `bytes` for AIGuard/AIGuardRetaliate/AITNGuardMachine, and AIStates.cpp holds rows
+    of three state TUs (split it first).
+- The 30 other Derived files (not in the brief): 26 free pairs, 1 clean, 25 refused (8 moved-copy context, 8
+  compile, 6 bytes, 1 "split it first", 1 `selected implementation changes for ??1CrateCollide@@UAE@XZ`, which
+  the six crate destructors tail-call from outside, so the guard is right). Rva00145000Derived.cpp is not mixed:
+  every row is dx8renderer.cpp's (`use --merge`). Held: the AI tactic family (hdr-a), SupplyWarehouseDockUpdate
+  (class:AIGuardMachine), PillageModule (class:BodyModule).
+- Splits done:
+  - `faa28ef43ee` Rva004BC4FCDerived.cpp -> SalvageCrateCollide.cpp (0x004BD207 and its ??_G). Inside the TU the
+    class derives from the TU's CrateCollide view, so the destructor stores `??_7Rva004BD207@@6B@`,
+    `6BBehaviorModuleInterface@@@` and `6BObjectModule@@@` instead of the three private names. Bridge: 3,998 ->
+    3,997 tables, 57,714 -> 57,667 slots, already correct 1,637 -> 1,638 (0x0085A040), mismatching source slots
+    44,717 -> 44,663, refusals identical, no correct table lost. 0x0085A9A8 and 0x0085A9C0 stay bridged under the
+    new names because the class keeps its placeholder name (its ??_G is slot 0 of SalvageCrateCollide's
+    0x00C5A9C0).
+  - `95e87db74bd` Rva0055B0CCDerived.cpp -> AIUpgrade.cpp (0x0059734B). Bridge unchanged: `??_7AIUpgrade@@6B@`
+    was already AIUpgrade.cpp's copy. Both: build exact, find_declared_unmatched clean, link_check LINKS for both
+    units and every unit spelling the class, scoped DIR32 OK, no initializer or .bss change.
+- Tooling compatibility audit (`edbf37dac3..HEAD`): no path added, renamed or deleted; the tool repointed
+  functions.csv and tu_map.csv (3 rows) and the doxygen list. body_owners.csv, the code-identity and data-check
+  baselines hold none of the moved RVAs; the header queue's SalvageCrateCollide.cpp entry (Player) is untouched;
+  Rva004BC4FCDerived.cpp keeps its one counted `/alternatename`; the gen-uw pin at 0x0059734B is address-keyed;
+  no tools/, .githooks/ or .github/ reference names either grab-bag.
+- Tooling lead (false-reject candidate, re_log row on 0x004C2656): the moved-copy branch of
+  `SplitLinkGuard` refuses whenever a changed object defines a relocation referent. A placeholder class moves
+  whole (destructor, ??_G, private tables, byte-identical, same copy digest), so its referents are always defined
+  by the replaced objects and the split is always refused, even when no source outside the grab-bag spells the
+  class (Rva004C2656: only CashHackSpecialPower.cpp's tu-skeleton comments). lk81's
+  `referenced_outside`/`own_row` waiver covers only the `selected implementation changes` branch; the same
+  test (no outside referrer, one definition after the split in the ledger owner's object, copy not proven wrong)
+  is not enough: an in-memory probe (tools/ untouched, its split plan deleted) waived the destructor but still
+  refused `??_7Rva004C2656@@6BRva004C2656_B2@@@`, which has no ledger owner. Waiving on "no outside referrer,
+  one definition after the split, not proven wrong" made the CashHack dry run pass ("accepted: [TU, residual]",
+  "rejected: {}"); the 28 other pairs refused this way were not probed. A class whose table names change in
+  the TU (lk81's six, SalvageCrateCollide) takes the `selected implementation changes` branch instead, which
+  is why those pass; a real name whose tables keep their names (AIDockMachine, TurretStateMachine) does not.
+- Next leads: (1) the moved-copy waiver above (tooling seat). (2) Fold Rva004BD207 into SalvageCrateCollide:
+  `rename.py class --fold Rva004BD207 --into SalvageCrateCollide --dry-run` refuses because the unit now
+  declares both views (`reconcile the two views in that unit first`), and the TU's SalvageCrateCollide view
+  declares no destructor (the compiler emits an unrowed `??1SalvageCrateCollide@@UAE@XZ`); a fold that accepts
+  a prepared unit would turn 0x0085A9A8/0x0085A9C0 correct. (3) lk81's six Rva0024A797Derived.cpp splits once
+  class:StealthUpdate is free. (4) Rva00145000Derived.cpp -> dx8renderer.cpp is a `--merge` candidate, but
+  the merge dry run is blocked: dx8renderer.cpp holds rows of another TU (split it first).
