@@ -410,22 +410,7 @@ Rva004AE78E::~Rva004AE78E()
 // EntEnragedUpdateCtorThunk.cpp uses, so the shared vftable copies agree.
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class EntEnragedUpdate : public UpdateModule, public MiBase1, public UpdateModuleInterface
-{
-public:
-	virtual ~EntEnragedUpdate();
-	virtual UpdateSleepTime update();
-};
-
-EntEnragedUpdate::~EntEnragedUpdate()
-{
-}
 
 class Rva004B89C4_B2
 {

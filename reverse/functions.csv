@@ -6148,7 +6148,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1StealthDetectorUpdate@@UAE@XZ,,0x004A2BD1,25,Code/GameEngine/Source/GameLogic/Object/Update/StealthDetectorUpdateCtor.cpp,matched,opaque MI dtor
 ??1Rva004A3F8B@@UAE@XZ,,0x004A3F8B,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva004AE78E@@UAE@XZ,,0x004AE78E,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1EntEnragedUpdate@@UAE@XZ,,0x004B237B,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,EntEnragedUpdate dtor: stores the three vftables its ctor 0x004B2516 stores (0x00856948/0x007EFF90/0x0085693C) then tail-jumps UpdateModule dtor
+??1EntEnragedUpdate@@UAE@XZ,,0x004B237B,25,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,matched,EntEnragedUpdate dtor: stores the three vftables its ctor 0x004B2516 stores (0x00856948/0x007EFF90/0x0085693C) then tail-jumps UpdateModule dtor
 ??1OathbreakersFadeAwayBehavior@@UAE@XZ,,0x004B89C4,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva004CC63A@@UAE@XZ,,0x004CC63A,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1ObjectHelper@@UAE@XZ,,0x004DF7C2,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
@@ -9865,7 +9865,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GStealthDetectorUpdate@@UAEPAXI@Z,,0x004A2D2D,28,Code/GameEngine/Source/GameLogic/Object/Update/StealthDetectorUpdateCtor.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004A3F8B@@UAEPAXI@Z,,0x004A409F,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004AE78E@@UAEPAXI@Z,,0x004AE8DE,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GEntEnragedUpdate@@UAEPAXI@Z,,0x004B2593,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GEntEnragedUpdate@@UAEPAXI@Z,,0x004B2593,28,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004CC63A@@UAEPAXI@Z,,0x004CC710,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GObjectHelper@@UAEPAXI@Z,,0x0028C939,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GBackAwayAndCowerStateMachine@@UAEPAXI@Z,,0x0034457C,28,Code/GameEngine/Source/GameLogic/AI/BackAwayAndCowerStateMachine.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact

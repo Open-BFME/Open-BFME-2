@@ -79,35 +79,12 @@ enum NameKeyType
 };
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 class Thing;
 class Object;
 class ModuleData;
 class BodyModuleInterface;
 class Xfer;
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
-class EntEnragedUpdate : public UpdateModule
-{
-public:
-	EntEnragedUpdate(Thing *, const ModuleData *);
-	virtual NameKeyType getModuleNameKey() const;
-	// Rowed below: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
-	virtual UpdateSleepTime update();
-	bool rva004B25C9();
-	bool rva004B266D();
-	virtual ~EntEnragedUpdate();
-	virtual void rva004B23C5(Xfer *xfer); // slot 3 of 0x00C56948
-private:
-	unsigned int m_20; // +0x20
-	unsigned int m_24; // +0x24
-	unsigned int m_28; // +0x28
-	bool m_2C; // +0x2C
-	bool m_2D; // +0x2D
-	bool m_2E; // +0x2E
-	bool m_2F; // +0x2F
-	bool m_30; // +0x30
-	char m_pad31[0x3];
-};
 // Open-BFME: conditional flag reset reconstructed from retail RVA 0x002918E0.
 
 class Rva002918E0Object
@@ -256,7 +233,9 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary = 0);
 };
 #include "GameLogicObjectLookupView.h"
+
 extern GameLogic *TheGameLogic;
+
 class EntEnragedUpdateModuleData : public UpdateModuleData
 {
 public:
@@ -277,6 +256,7 @@ private:
 	const FXList *m_onBuffFX; // +0x28
 	const FXList *m_offBuffFX; // +0x2C
 };
+
 class PB_DeepBase
 {
 public:
@@ -299,7 +279,52 @@ public:
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-// tu-skeleton: 0x004B237B 25B ??1EntEnragedUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+
+class EntEnragedUpdate : public UpdateModule
+{
+public:
+	EntEnragedUpdate(Thing *, const ModuleData *);
+	virtual NameKeyType getModuleNameKey() const;
+	// Rowed below: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
+	virtual UpdateSleepTime update();
+	bool rva004B25C9();
+	bool rva004B266D();
+	virtual ~EntEnragedUpdate();
+	virtual void rva004B23C5(Xfer *xfer); // slot 3 of 0x00C56948
+private:
+	unsigned int m_20; // +0x20
+	unsigned int m_24; // +0x24
+	unsigned int m_28; // +0x28
+	bool m_2C; // +0x2C
+	bool m_2D; // +0x2D
+	bool m_2E; // +0x2E
+	bool m_2F; // +0x2F
+	bool m_30; // +0x30
+	char m_pad31[0x3];
+};
+
+// ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
+
+EntEnragedUpdate::~EntEnragedUpdate()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
@@ -436,16 +461,6 @@ bool EntEnragedUpdate::rva004B266D()
 	return ThePartitionManager->getClosestObject(&ownerObject->m_pos, enragedData->m_scanDistance, 1, &player) != 0;
 }
 
-// tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B2593 28B ??_GEntEnragedUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x004B25AF 26B ?bfmeTick@Gen_00291BB0@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004B2706 28B ??_GEntEnragedUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp (not merged yet)
-
-// tu-skeleton: 0x004B2722 63B ??1EntEnragedUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateModuleDataDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateUpdate.cpp
 
 // The constructor installs the shared 0x007EFF90 table at +0x0C. Its
@@ -539,3 +554,11 @@ UpdateSleepTime EntEnragedUpdate::update()
 
 	return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004B25AF 26B ?bfmeTick@Gen_00291BB0@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004B2706 28B ??_GEntEnragedUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp (not merged yet)
+
+// tu-skeleton: 0x004B2722 63B ??1EntEnragedUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateModuleDataDtor.cpp (not merged yet)
