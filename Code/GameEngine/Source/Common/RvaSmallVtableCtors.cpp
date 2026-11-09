@@ -1703,7 +1703,20 @@ class Rva0024A788
 {
 public:
 	Rva0024A788();
-	virtual ~Rva0024A788() {}
+	// Retail table 0x00BEE900 holds 47 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 47 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0;
+	virtual void slot08() = 0; virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0; virtual void slot15() = 0;
+	virtual void slot16() = 0; virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
+	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
+	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0; virtual void slot27() = 0;
+	virtual void slot28() = 0; virtual void slot29() = 0; virtual void slot30() = 0; virtual void slot31() = 0;
+	virtual void slot32() = 0; virtual void slot33() = 0; virtual void slot34() = 0; virtual void slot35() = 0;
+	virtual void slot36() = 0; virtual void slot37() = 0; virtual void slot38() = 0; virtual void slot39() = 0;
+	virtual void slot40() = 0; virtual void slot41() = 0; virtual void slot42() = 0; virtual void slot43() = 0;
+	virtual void slot44() = 0; virtual void slot45() = 0; virtual void slot46() = 0;
 };
 
 Rva0024A788::Rva0024A788()
@@ -1855,7 +1868,10 @@ class Rva0045B4B7
 {
 public:
 	Rva0045B4B7();
-	virtual ~Rva0045B4B7() {}
+	// Retail table 0x00C40818 holds 6 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 6 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0;
 };
 
 Rva0045B4B7::Rva0045B4B7()
@@ -1879,7 +1895,32 @@ class Rva004626A6
 {
 public:
 	Rva004626A6();
-	virtual ~Rva004626A6() {}
+	// Retail table 0x00C430E8 holds 94 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 94 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0;
+	virtual void slot08() = 0; virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0; virtual void slot15() = 0;
+	virtual void slot16() = 0; virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
+	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
+	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0; virtual void slot27() = 0;
+	virtual void slot28() = 0; virtual void slot29() = 0; virtual void slot30() = 0; virtual void slot31() = 0;
+	virtual void slot32() = 0; virtual void slot33() = 0; virtual void slot34() = 0; virtual void slot35() = 0;
+	virtual void slot36() = 0; virtual void slot37() = 0; virtual void slot38() = 0; virtual void slot39() = 0;
+	virtual void slot40() = 0; virtual void slot41() = 0; virtual void slot42() = 0; virtual void slot43() = 0;
+	virtual void slot44() = 0; virtual void slot45() = 0; virtual void slot46() = 0; virtual void slot47() = 0;
+	virtual void slot48() = 0; virtual void slot49() = 0; virtual void slot50() = 0; virtual void slot51() = 0;
+	virtual void slot52() = 0; virtual void slot53() = 0; virtual void slot54() = 0; virtual void slot55() = 0;
+	virtual void slot56() = 0; virtual void slot57() = 0; virtual void slot58() = 0; virtual void slot59() = 0;
+	virtual void slot60() = 0; virtual void slot61() = 0; virtual void slot62() = 0; virtual void slot63() = 0;
+	virtual void slot64() = 0; virtual void slot65() = 0; virtual void slot66() = 0; virtual void slot67() = 0;
+	virtual void slot68() = 0; virtual void slot69() = 0; virtual void slot70() = 0; virtual void slot71() = 0;
+	virtual void slot72() = 0; virtual void slot73() = 0; virtual void slot74() = 0; virtual void slot75() = 0;
+	virtual void slot76() = 0; virtual void slot77() = 0; virtual void slot78() = 0; virtual void slot79() = 0;
+	virtual void slot80() = 0; virtual void slot81() = 0; virtual void slot82() = 0; virtual void slot83() = 0;
+	virtual void slot84() = 0; virtual void slot85() = 0; virtual void slot86() = 0; virtual void slot87() = 0;
+	virtual void slot88() = 0; virtual void slot89() = 0; virtual void slot90() = 0; virtual void slot91() = 0;
+	virtual void slot92() = 0; virtual void slot93() = 0;
 };
 
 Rva004626A6::Rva004626A6()
@@ -1939,7 +1980,15 @@ class Rva00492FB9
 {
 public:
 	Rva00492FB9();
-	virtual ~Rva00492FB9() {}
+	// Retail table 0x00C4E2B0 holds 25 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 25 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0;
+	virtual void slot08() = 0; virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0; virtual void slot15() = 0;
+	virtual void slot16() = 0; virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
+	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
+	virtual void slot24() = 0;
 };
 
 Rva00492FB9::Rva00492FB9()
@@ -1951,7 +2000,13 @@ class Rva0049A642
 {
 public:
 	Rva0049A642();
-	virtual ~Rva0049A642() {}
+	// Retail table 0x00C52EE8 holds 20 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 20 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0;
+	virtual void slot08() = 0; virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0; virtual void slot15() = 0;
+	virtual void slot16() = 0; virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
 };
 
 Rva0049A642::Rva0049A642()
@@ -1963,7 +2018,19 @@ class Rva004BD75A
 {
 public:
 	Rva004BD75A();
-	virtual ~Rva004BD75A() {}
+	// Retail table 0x00C5AB68 holds 43 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 43 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0;
+	virtual void slot08() = 0; virtual void slot09() = 0; virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0; virtual void slot15() = 0;
+	virtual void slot16() = 0; virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
+	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
+	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0; virtual void slot27() = 0;
+	virtual void slot28() = 0; virtual void slot29() = 0; virtual void slot30() = 0; virtual void slot31() = 0;
+	virtual void slot32() = 0; virtual void slot33() = 0; virtual void slot34() = 0; virtual void slot35() = 0;
+	virtual void slot36() = 0; virtual void slot37() = 0; virtual void slot38() = 0; virtual void slot39() = 0;
+	virtual void slot40() = 0; virtual void slot41() = 0; virtual void slot42() = 0;
 };
 
 Rva004BD75A::Rva004BD75A()
@@ -2011,7 +2078,9 @@ class Rva004C9DC0
 {
 public:
 	Rva004C9DC0();
-	virtual ~Rva004C9DC0() {}
+	// Retail table 0x00C6FFFC holds 2 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 2 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0;
 };
 
 Rva004C9DC0::Rva004C9DC0()
@@ -2179,7 +2248,10 @@ class Rva005D248C
 {
 public:
 	Rva005D248C();
-	virtual ~Rva005D248C() {}
+	// Retail table 0x00C078DC holds 5 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 5 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0;
 };
 
 Rva005D248C::Rva005D248C()
@@ -2239,7 +2311,10 @@ class Rva006586C0
 {
 public:
 	Rva006586C0();
-	virtual ~Rva006586C0() {}
+	// Retail table 0x00C078DC holds 5 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 5 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0;
 };
 
 Rva006586C0::Rva006586C0()
@@ -2251,7 +2326,10 @@ class Rva0065CE40
 {
 public:
 	Rva0065CE40();
-	virtual ~Rva0065CE40() {}
+	// Retail table 0x00C40818 holds 6 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 6 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0;
 };
 
 Rva0065CE40::Rva0065CE40()
@@ -2335,7 +2413,9 @@ class Rva00661E90
 {
 public:
 	Rva00661E90();
-	virtual ~Rva00661E90() {}
+	// Retail table 0x00C6FFFC holds 2 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 2 pure slots.
+	virtual void slot00() = 0; virtual void slot01() = 0;
 };
 
 Rva00661E90::Rva00661E90()
@@ -2347,7 +2427,9 @@ class Rva00664D90
 {
 public:
 	Rva00664D90();
-	virtual ~Rva00664D90() {}
+	// Retail table 0x00C1C780 holds 1 __purecall slot (an abstract table that
+	// retail folds across classes), so the view declares 1 pure slot.
+	virtual void slot00() = 0;
 };
 
 Rva00664D90::Rva00664D90()
