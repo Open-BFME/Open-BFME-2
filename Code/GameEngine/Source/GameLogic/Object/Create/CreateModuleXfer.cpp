@@ -35,21 +35,8 @@ class Object;
 #define BFME_BEHAVIORMODULE_XFER
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class CreateModuleInterface
-{
-public:
-	virtual void createModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
-class CreateModule : public BehaviorModule,
-	public CreateModuleInterface
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	bool m_needToRunOnBuildComplete;
-};
 
 void CreateModule::xfer(Xfer *xfer)
 {

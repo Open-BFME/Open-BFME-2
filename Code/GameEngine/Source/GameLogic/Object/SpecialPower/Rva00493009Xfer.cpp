@@ -41,29 +41,7 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-class Rva00493009 : public BehaviorModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad10[0x04];
-
-public:
-	unsigned int m_14;
-	unsigned int m_18;
-	int m_1c;
-	unsigned int m_20;
-	float m_24;
-	bool m_28;
-
-private:
-	unsigned char m_pad29[3];
-
-public:
-	ObjectID m_2c;
-	bool m_30;
-};
+#include "../../../../Include/GameLogic/Rva00493009.h"
 
 void Rva00493009::xfer(Xfer *xfer)
 {
