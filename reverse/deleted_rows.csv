@@ -6007,3 +6007,5 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?rva003A5896@Rva003A5896Forwarder@@WBM@AEXH@Z,0x003A589E,"Renamed to ?DoXfer@Rva005FEA50Base@FXParticleSystem@@WBM@AEXAAVXfer@@@Z by tools/rename.py (inferred)"
 ?rva00575DDA@Rva00575DDA@@QAEXXZ,0x00575DDA,"Renamed to ?rva00575DDA@Rva00575E4E@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C6E688 slot 1)"
 ?rva00575DF2@Rva00575DF2@@QAEXXZ,0x00575DF2,"Renamed to ?rva00575DF2@Rva00575EEA@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C6E6B0 slot 1)"
+_$E242,0x007B3EB4,Retracted for readmission under the same unit's new compiler label: removing the class-static s_instance (LINK-615) renumbers the unit's _$E initializers; retail's second DefaultModuleTag<6>::s_key initializer
+_$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler label: removing the class-static s_instance (LINK-615) renumbers the unit's _$E initializers; retail's second DefaultModuleTag<6>::s_name initializer
