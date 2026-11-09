@@ -21,7 +21,7 @@ void Rva00516E92Enable();
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
-class QuickMatchPreferences {public:int getColor();};
+#include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
 #include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva00323619 {public:void rva00323642();void rva00323619(int);};
