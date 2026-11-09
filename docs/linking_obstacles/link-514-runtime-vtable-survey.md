@@ -1914,3 +1914,74 @@ pair; lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`) before and afte
   a prepared unit would turn 0x0085A9A8/0x0085A9C0 correct. (3) lk81's six Rva0024A797Derived.cpp splits once
   class:StealthUpdate is free. (4) Rva00145000Derived.cpp -> dx8renderer.cpp is a `--merge` candidate, but
   the merge dry run is blocked: dx8renderer.cpp holds rows of another TU (split it first).
+
+**The moved-copy split guard, fixed: 19 of lk82's 29 pairs clean, ten split (2026-11-09, seat halilkkaya-lk83,
+base `4eb5ed5d3d`).** Method: an in-memory probe of `SplitLinkGuard.outside_failures` printing each moved-copy
+refusal's referrers, definers, contexts and weak pairs; lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`)
+before the first split, after three, six and ten.
+- Guard verdict: a false reject for copies that nothing outside the split reaches; right for the rest.
+  - The moved-copy branch proves a moved copy through its raw relocation context, which exists only for a
+    selected-ANY COMDAT whose relocations all name undefined externals. A NODUPLICATES function never has one,
+    and neither does a table that reaches a definition of its own object, so a class moved whole was always
+    refused. CashHack, for example: `??1Rva004C2656@@UAE@XZ` (digest 0563fd409377) and
+    `??_7Rva004C2656@@6BRva004C2656_B2@@@` (73a32fa98144) move unchanged, no object outside the two replaced
+    ones touches them, and the TU's object is their only definer after the split.
+  - Fix `963272c54a1` (Verifier-Change): the branch is waived when no object or alias outside the replaced
+    ones reaches the copy (`referenced_outside(..., owned=False)`); the destination's object is its only
+    definer and its holder; no ledger row places it elsewhere; it is not proven wrong; and every weak slot
+    its section reaches keeps its route. Byte identity (same digest) stays the branch's precondition.
+  - Four new SplitLinkGuardTests: the whole-class move is accepted, and both refusal directions are kept
+    (an outside reference, alias or copy, a second definer, a ledger row elsewhere, changed bytes, a proven-wrong
+    copy, and a weak slot reached, aliased or re-defaulted). Removing any one waiver condition fails a test.
+    The tu_skeleton suites plus test_gate_exploits.py: 574 passed, 5 skipped.
+- The 29 pairs, re-run as dry runs:
+  - 19 clean: nine Rva00493DEF SpecialPowers (CashHack, GrabPassenger, UntamedAllegiance, PlayerUpgrade,
+    PlayerHeal, Devastate, SplitHorde, Repair, CombineHorde), HealCrate, GiantBirdSlowDeath,
+    LockWeapon/SpecialPower/SupplyCenterCreate, AssaultTransportAIUpdate, StructureBody, DelayedDeathBody, AIDock,
+    SupplyTruckAIUpdate.
+  - 8 still refused by the moved-copy check, correctly; each has a real outside referrer:
+    - a sibling constructor unit that stores the table: StopSpecialPower, DetachableRiderBody,
+      HordeTransportContainDamage, TurretAI (TurretStateMachineCtor.obj also becomes the table's holder);
+    - other emitters of the table: W3DQuadrupedDraw (four W3D draw objects), W3DTreeDraw (`??_7Rva00252B68@@6B@`);
+    - RespawnBody: Rva004C131BDerived.obj's derived destructors call `??1Rva004C131B`;
+    - AptScriptColour: AptFactoryConstructors.obj aliases `??1AptScriptColour` to `??1Rva006F25D0`.
+  - 2 refused for a new reason, `selected implementation changes` (InheritUpgradeCreate, PreorderCreate):
+    the grab-bag's and the TU's class views emit different tables, and a table has no ledger owner.
+- Splits done (one class per commit, `tu_skeleton.py --split`): LockWeaponCreate `3af7f216ab8`,
+  SpecialPowerCreate `73fe94f720c`, SupplyCenterCreate `1baea78d352`, CashHack `3bebe90960e`, GiantBirdSlowDeath
+  `eaccd93b912`, StructureBody `bdaf57d4de5`, DelayedDeathBody `f3dba20b532`, GrabPassenger `716780e1432`,
+  UntamedAllegiance `78a813d68ba`, PlayerUpgrade `57d6731c5bb`.
+  - Verification for each: build exact; find_declared_unmatched clean on both files; `class_gate.py --staged`
+    clean; link_check over the residual, the TU and every census unit touching the class (all LINK, totals
+    conserved across each grab-bag's splits); scoped DIR32 OK; no initializer, .CRT or .bss change.
+  - Every moved destructor, `??_G` and table copy is byte-identical (same digest) to the residual's old one.
+- Bridge: unchanged, as expected for byte-identical moves. 3,996 tables, 57,649 slots, already correct 1,639,
+  mismatching source slots 44,644 before and after; refusals identical, nothing newly bridged, no correct table
+  lost. The placeholder tables keep their names and bytes in the TU.
+  - Their B2 slots (`?f2@Rva004C2656_B2@@UAEXXZ` ...) still resolve through the residual's counted
+    `/alternatename` (hatch_baseline is file-keyed and unchanged), so that alias must outlive the moved tables.
+- Not committed:
+  - AIDock and SupplyTruckAIUpdate (Rva004D759CDerived.cpp). Each split passed the guard, built exact and linked,
+    but the written TU carried the grab-bag's neighbouring private StateMachine views, and pre-commit's class
+    gate refused the new private copies of AIGuardMachine, AITNGuardMachine and TurretStateMachine. Both were
+    reverted (re_log on 0x005440BC). The AIDock state also predicted `??_7AIDockMachine@@6B@` moving from bridged
+    to refused (`target-not-external`).
+  - AssaultTransportAIUpdate and HealCrate were not tried: their grab-bags declare registered classes (HordeAIUpdate,
+    TransportAIUpdate, AnimalAIUpdate, Coord3D), the same class-gate risk, and Coord3D is LINK-018's key.
+- Tooling compatibility audit (`4eb5ed5d3d..57d6731c5bb`): no path added, renamed or deleted. The tool repointed
+  functions.csv and tu_map.csv (20 rows each) and the doxygen list. None of the 20 moved RVAs is in
+  body_owners.csv, the code-identity, data-check, gate or pin-consistency baselines, symbols.csv or
+  data_rows.csv. The header-queue entries for GiantBirdSlowDeathBehavior.cpp, CashHackSpecialPower.cpp and
+  GrabPassengerSpecialPower.cpp predate the splits and still hold. No tools/, .githooks/ or .github/ consumer
+  names these paths.
+- Next leads:
+  1. Fold each moved placeholder class into the TU's real class (`rename.py class --fold`; lk82 lead 2). Tables
+     leave the bridge only through that step: the split itself moves them unchanged.
+  2. The nine remaining clean pairs (PlayerHeal, Devastate, SplitHorde, Repair, CombineHorde, HealCrate,
+     AssaultTransportAIUpdate; AIDock and SupplyTruckAIUpdate once the carry is fixed).
+  3. Tooling: `--split` should carry only the class views the carved rows need, or refuse a carry of a
+     registered class before writing; the dry run cannot see the class gate today.
+  4. Tooling: proving a moved copy that has an outside referrer would need each referent defined by a changed
+     object to keep an identical selected body, recursively. A digest alone is not enough.
+  5. InheritUpgradeCreate/PreorderCreate: reconcile the grab-bag's class view with the TU's, or prove the TU's
+     table slots against retail (0x008596E4 / 0x00859664), before splitting.
