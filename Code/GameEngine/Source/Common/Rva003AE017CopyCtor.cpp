@@ -13,8 +13,8 @@ public:
 
 // Rva003AE017_v0: matched references place it at VA 0xc1ced8 (retail .rdata value 112).
 extern "C" char Rva003AE017_v0 = 112;
-// Rva003AE017_v8: matched references place it at VA 0xc1bfb4 (retail .rdata value -59).
-extern "C" char Rva003AE017_v8 = -59;
+// Rva003AE017_v8 gives way to the compiler table the data ledger binds there.
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
 // Rva003AE017_v0C: matched references place it at VA 0xc1cec8 (retail .rdata value 72).
 extern "C" char Rva003AE017_v0C = 72;
 
@@ -35,6 +35,6 @@ Rva003AE017::Rva003AE017(const Rva003AE017 &that)
 	const void *src = &that;
 	((Rva003AE03D *)this)->Rva003AE03D::Rva003AE03D(*(const Rva003AE03D *)src);
 	*(void **)this = &Rva003AE017_v0;
-	*(void **)((char *)this + 8) = &Rva003AE017_v8;
+	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
 	*(void **)((char *)this + 0x0C) = &Rva003AE017_v0C;
 }
