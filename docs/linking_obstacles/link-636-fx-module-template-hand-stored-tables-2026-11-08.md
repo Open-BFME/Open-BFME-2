@@ -163,3 +163,16 @@ is still sixteen, normal twenty code/two data rows pass, and the scoped
 planner reports correct=1 with no bridge or refusal. Source is unchanged;
 recorded a blocked measurement handoff to avoid repeating the landed fix.
 The alpha packet's recheck receipt retains the newer-image requirement.
+
+2026-11-09, DefaultModuleTemplateCopyCtors.cpp: sixteen pure-table linker
+aliases retire in favor of independently placed compiler symbols, keeping
+construction stages and +14/+18 names distinct. Normal 25 code/21 data rows
+and three EH graphs pass, with all retained object facts equal after the
+exact mapping. Two final RenderObject aliases and four one-byte registered
+owners remain. Wind's two 16-byte compiler tables differ at slot3: native
+3A5896/3A589E require an own DoXfer(Xfer&) override, but existing rows guess
+an int parameter under a global placeholder. The current identity route
+cannot express its namespace/reference transition. No owner extent is
+raised over those wrong slots. Next: reviewed identity transition, then
+normal complete-table owner verification; RenderObject needs class recovery.
+[Native operands, exact alias retirement and blockers](../../reverse/attempt_support/default-module-pure-bindings-20261109/README.md).

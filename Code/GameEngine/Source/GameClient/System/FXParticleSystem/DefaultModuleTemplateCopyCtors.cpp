@@ -32,39 +32,43 @@ public:
 
 }
 
+// Pure secondary tables below are bound by native constructor operands.
+// Keep construction stages and +0x14/+0x18 symbols distinct even where retail
+// folded their one-purecall data. Wind/RenderObject byte owners remain below.
+
 extern "C" char __identifier("??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEB0A_v14a;
-extern "C" char Rva003AEB0A_v18a;
+extern "C" const void *const __identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@")[1];
 // VA 0xc1d628: the compiler table the owning class's unit emits there.
 extern "C" char __identifier("??_7Rva0055BF4B@@6B@");
 // VA 0xc1d60c: the compiler table the owning class's unit emits there.
 extern "C" char __identifier("??_7Rva0055BF4B@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEB0A_v14b;
-extern "C" char Rva003AEB0A_v18b;
+extern "C" const void *const __identifier("??_7Rva0055BF4B@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055BF4B@@6BRva003AEEB3Slot18@@@")[1];
 
 extern "C" char __identifier("??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEBC9_v14a;
-extern "C" char Rva003AEBC9_v18a;
+extern "C" const void *const __identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@")[1];
 // VA 0xc1d678: the compiler table the owning class's unit emits there.
 extern "C" char __identifier("??_7Rva0055F197@@6B@");
 // VA 0xc1d654: the compiler table the owning class's unit emits there.
 extern "C" char __identifier("??_7Rva0055F197@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEBC9_v14b;
-extern "C" char Rva003AEBC9_v18b;
+extern "C" const void *const __identifier("??_7Rva0055F197@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055F197@@6BRva003AEEB3Slot18@@@")[1];
 
 extern "C" char __identifier("??_7Rva0055F98A@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEC8B_v14a;
-extern "C" char Rva003AEC8B_v18a;
+extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@")[1];
 // VA 0xc1d6b8: the compiler table the owning class's unit emits there.
 extern "C" char __identifier("??_7Rva0055F9B4@@6B@");
 // VA 0xc1d688: the compiler table the owning class's unit emits there.
 extern "C" char __identifier("??_7Rva0055F9B4@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEC8B_v14b;
-extern "C" char Rva003AEC8B_v18b;
+extern "C" const void *const __identifier("??_7Rva0055F9B4@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055F9B4@@6BRva003AEEB3Slot18@@@")[1];
 
 extern "C" char __identifier("??_7Rva0055F98A@@6BDefaultModuleHeadBase@@@");
-extern "C" char Rva003AEF9B_v14a;
-extern "C" char Rva003AEF9B_v18a;
+extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@")[1];
 // Rva003AEF9B_vsub: matched references place it at VA 0xc1d758 (retail .rdata value -114).
 extern "C" char Rva003AEF9B_vsub = -114;
 // Rva003AEF9B_v0b: matched references place it at VA 0xc1d728 (retail .rdata value -10).
@@ -94,14 +98,14 @@ Rva003AEB0A::Rva003AEB0A(const Rva003AEB0A &that)
 	FXParticleSystem::DefaultColorModuleInfo *sub =
 		(FXParticleSystem::DefaultColorModuleInfo *)((char *)this + 0x1C);
 	*(void **)this = &__identifier("??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEB0A_v14a;
-	*(void **)((char *)this + 0x18) = &Rva003AEB0A_v18a;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@");
 	sub->DefaultColorModuleInfo::DefaultColorModuleInfo(
 		*(const FXParticleSystem::DefaultColorModuleInfo *)sub_src);
 	*(void **)sub = &__identifier("??_7Rva0055BF4B@@6B@");
 	*(void **)this = &__identifier("??_7Rva0055BF4B@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEB0A_v14b;
-	*(void **)((char *)this + 0x18) = &Rva003AEB0A_v18b;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055BF4B@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055BF4B@@6BRva003AEEB3Slot18@@@");
 }
 
 class Rva003AEBC9
@@ -126,14 +130,14 @@ Rva003AEBC9::Rva003AEBC9(const Rva003AEBC9 &that)
 	FXParticleSystem::DefaultPhysicsModuleInfo *sub =
 		(FXParticleSystem::DefaultPhysicsModuleInfo *)((char *)this + 0x1C);
 	*(void **)this = &__identifier("??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEBC9_v14a;
-	*(void **)((char *)this + 0x18) = &Rva003AEBC9_v18a;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@");
 	sub->DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(
 		*(const FXParticleSystem::DefaultPhysicsModuleInfo *)sub_src);
 	*(void **)sub = &__identifier("??_7Rva0055F197@@6B@");
 	*(void **)this = &__identifier("??_7Rva0055F197@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEBC9_v14b;
-	*(void **)((char *)this + 0x18) = &Rva003AEBC9_v18b;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055F197@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055F197@@6BRva003AEEB3Slot18@@@");
 }
 
 class Rva003AEC8B
@@ -158,14 +162,14 @@ Rva003AEC8B::Rva003AEC8B(const Rva003AEC8B &that)
 	FXParticleSystem::DefaultUpdateModuleInfo *sub =
 		(FXParticleSystem::DefaultUpdateModuleInfo *)((char *)this + 0x1C);
 	*(void **)this = &__identifier("??_7Rva0055F98A@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEC8B_v14a;
-	*(void **)((char *)this + 0x18) = &Rva003AEC8B_v18a;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@");
 	sub->DefaultUpdateModuleInfo::DefaultUpdateModuleInfo(
 		*(const FXParticleSystem::DefaultUpdateModuleInfo *)sub_src);
 	*(void **)sub = &__identifier("??_7Rva0055F9B4@@6B@");
 	*(void **)this = &__identifier("??_7Rva0055F9B4@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEC8B_v14b;
-	*(void **)((char *)this + 0x18) = &Rva003AEC8B_v18b;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055F9B4@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055F9B4@@6BRva003AEEB3Slot18@@@");
 }
 
 class Rva003AEF9B
@@ -190,8 +194,8 @@ Rva003AEF9B::Rva003AEF9B(const Rva003AEF9B &that)
 	FXParticleSystem::RenderObjectUpdateModuleInfo *sub =
 		(FXParticleSystem::RenderObjectUpdateModuleInfo *)((char *)this + 0x1C);
 	*(void **)this = &__identifier("??_7Rva0055F98A@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEF9B_v14a;
-	*(void **)((char *)this + 0x18) = &Rva003AEF9B_v18a;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@");
 	sub->RenderObjectUpdateModuleInfo::RenderObjectUpdateModuleInfo(
 		*(const FXParticleSystem::RenderObjectUpdateModuleInfo *)sub_src);
 	*(void **)sub = &Rva003AEF9B_vsub;
@@ -202,8 +206,8 @@ Rva003AEF9B::Rva003AEF9B(const Rva003AEF9B &that)
 
 // Rva003AED6B_v0: matched references place it at VA 0xc1b5a8 (retail .rdata value -10).
 extern "C" char Rva003AED6B_v0 = -10;
-extern "C" char Rva003AED6B_v14;
-extern "C" char Rva003AED6B_v18;
+extern "C" const void *const __identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@")[1];
 // Rva003AED6B_vsub: matched references place it at VA 0xc1b598 (retail .rdata value -114).
 extern "C" char Rva003AED6B_vsub = -114;
 
@@ -232,45 +236,13 @@ Rva003AED6B::Rva003AED6B(const Rva003AED6B &that)
 		*(const FXParticleSystem::WindModuleInfo *)sub_src);
 	*(void **)sub = &Rva003AED6B_vsub;
 	*(void **)this = &Rva003AED6B_v0;
-	*(void **)((char *)this + 0x14) = &Rva003AED6B_v14;
-	*(void **)((char *)this + 0x18) = &Rva003AED6B_v18;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@");
 }
-// _Rva003AEC8B_v14a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEC8B_v14a=?vftable_0112B89C@@3HA")
-// _Rva003AEB0A_v14a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEB0A_v14a=?vftable_0112B89C@@3HA")
-// _Rva003AEBC9_v14a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEBC9_v14a=?vftable_0112B89C@@3HA")
-// _Rva003AEBC9_v18a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEBC9_v18a=?vftable_0112B89C@@3HA")
-// _Rva003AEC8B_v18a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEC8B_v18a=?vftable_0112B89C@@3HA")
-// _Rva003AEB0A_v18a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEB0A_v18a=?vftable_0112B89C@@3HA")
 // _Rva003AEF9B_v14b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
 #pragma comment(linker, "/alternatename:_Rva003AEF9B_v14b=?vftable_0112B89C@@3HA")
-// _Rva003AEBC9_v18b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEBC9_v18b=?vftable_0112B89C@@3HA")
-// _Rva003AED6B_v14: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AED6B_v14=?vftable_0112B89C@@3HA")
-// _Rva003AEB0A_v18b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEB0A_v18b=?vftable_0112B89C@@3HA")
-// _Rva003AEC8B_v18b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEC8B_v18b=?vftable_0112B89C@@3HA")
-// _Rva003AEF9B_v14a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEF9B_v14a=?vftable_0112B89C@@3HA")
 // _Rva003AEF9B_v18b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
 #pragma comment(linker, "/alternatename:_Rva003AEF9B_v18b=?vftable_0112B89C@@3HA")
-// _Rva003AEF9B_v18a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEF9B_v18a=?vftable_0112B89C@@3HA")
-// _Rva003AEB0A_v14b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEB0A_v14b=?vftable_0112B89C@@3HA")
-// _Rva003AED6B_v18: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AED6B_v18=?vftable_0112B89C@@3HA")
-// _Rva003AEC8B_v14b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEC8B_v14b=?vftable_0112B89C@@3HA")
-// _Rva003AEBC9_v14b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEBC9_v14b=?vftable_0112B89C@@3HA")
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

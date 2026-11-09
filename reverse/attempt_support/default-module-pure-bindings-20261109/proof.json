@@ -1,0 +1,194 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp",
+  "normal_code_rows": 25,
+  "own_rows": 5,
+  "normal_data_rows": 21,
+  "aliases_before": 18,
+  "aliases_after": 2,
+  "hatch_allowances_retired": 16,
+  "code_bytes_relocations_flags_policies_equal_after_exact_map": true,
+  "all_data_definitions_equal": true,
+  "defined_symbols_equal": true,
+  "link_directives_only_sixteen_aliases_removed": true,
+  "unchanged_provider_objects": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp",
+    "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+    "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp"
+  ],
+  "mapping": {
+    "Rva003AEB0A_v14a": "??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEB0A_v18a": "??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@",
+    "Rva003AEBC9_v14a": "??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEBC9_v18a": "??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@",
+    "Rva003AEB0A_v14b": "??_7Rva0055BF4B@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEB0A_v18b": "??_7Rva0055BF4B@@6BRva003AEEB3Slot18@@@",
+    "Rva003AEC8B_v14a": "??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEC8B_v18a": "??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@",
+    "Rva003AEF9B_v14a": "??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEF9B_v18a": "??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@",
+    "Rva003AEBC9_v14b": "??_7Rva0055F197@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEBC9_v18b": "??_7Rva0055F197@@6BRva003AEEB3Slot18@@@",
+    "Rva003AEC8B_v14b": "??_7Rva0055F9B4@@6BRva003AEEB3Slot14@@@",
+    "Rva003AEC8B_v18b": "??_7Rva0055F9B4@@6BRva003AEEB3Slot18@@@",
+    "Rva003AED6B_v14": "??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@",
+    "Rva003AED6B_v18": "??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@"
+  },
+  "native_operands": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "row": "??0Rva0055BF21@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55bf3a",
+      "name": "??_7Rva0055BF21@@6BRva003AEEB3Slot14@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "row": "??0Rva0055BF21@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55bf41",
+      "name": "??_7Rva0055BF21@@6BRva003AEEB3Slot18@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp",
+      "row": "??0Rva0055BF4B@@QAE@ABVRvaSmartPtr12@@PBURva0055BF4BSrc@@@Z",
+      "operand_rva": "0x55bf87",
+      "name": "??_7Rva0055BF4B@@6BRva003AEEB3Slot14@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp",
+      "row": "??0Rva0055BF4B@@QAE@ABVRvaSmartPtr12@@PBURva0055BF4BSrc@@@Z",
+      "operand_rva": "0x55bf8e",
+      "name": "??_7Rva0055BF4B@@6BRva003AEEB3Slot18@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "row": "??0Rva0055F98A@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55f9a3",
+      "name": "??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "row": "??0Rva0055F98A@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55f9aa",
+      "name": "??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "row": "??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55f1d3",
+      "name": "??_7Rva0055F197@@6BRva003AEEB3Slot14@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "row": "??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55f1da",
+      "name": "??_7Rva0055F197@@6BRva003AEEB3Slot18@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp",
+      "row": "??0Rva0055F9B4@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55f9f6",
+      "name": "??_7Rva0055F9B4@@6BRva003AEEB3Slot14@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp",
+      "row": "??0Rva0055F9B4@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "operand_rva": "0x55f9fd",
+      "name": "??_7Rva0055F9B4@@6BRva003AEEB3Slot18@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+      "row": "??0Rva005FEA50Base@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBX@Z",
+      "operand_rva": "0x3a5877",
+      "name": "??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+      "row": "??0Rva005FEA50Base@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBX@Z",
+      "operand_rva": "0x3a587e",
+      "name": "??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@",
+      "target_rva": "0x0081C780"
+    }
+  ],
+  "hashes": {
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp": "a3ed06ce83b3573c4f61ad84f87b7c99668c715c262e4236305fa58fdf0c2754",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp": "6645396e33f6d9d365fefbb5abde2652a9b3f59b10fa1003e0f2fdca5579818f",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp": "468827bd80d57220cd8a96d093bf4f97b60dfa6e0780d277ef10652e953b0dba",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp": "3ec54c0e08ecff203db062db7a1603edd01dec1f73917613a58df4cbc18700f2",
+    "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp": "e8991e0732fc25d480b4754c70f7fb282d872341d5a8a74a8023aeec5fa389b3",
+    "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp": "fb42dadfd33e7e9b22110640ea28f5974e01252bed986770669695523d9d21d9"
+  },
+  "strict_currency": {
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp": true,
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp": true,
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp": true,
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp": true,
+    "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp": true,
+    "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp": true
+  },
+  "wind_owner_blocker": {
+    "native_tables": {
+      "0x81b598": [
+        "0x3a588e",
+        "0xb3fd0",
+        "0x1f35d9",
+        "0x3a589e"
+      ],
+      "0x81b5a8": [
+        "0x3aeff6",
+        "0x3b810",
+        "0x3b810",
+        "0x3a5896"
+      ]
+    },
+    "current_tables": {
+      "??_7Rva005FEA50Base@FXParticleSystem@@6B@": {
+        "size": 16,
+        "slot3": "?DoXfer@WindModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+      },
+      "??_7Rva005FEA50Base@FXParticleSystem@@6BDefaultModuleHeadBase@@@": {
+        "size": 16,
+        "slot3": "__purecall"
+      }
+    },
+    "missing_override": "FXParticleSystem::Rva005FEA50Base::DoXfer(Xfer&)",
+    "primary_bytes": "83c11ce9e0fbffff",
+    "adjustor_bytes": "83e91ce9f0ffffff",
+    "existing_rows": [
+      {
+        "name": "?rva003A5896@Rva003A5896Forwarder@@UAEXH@Z",
+        "export_rva": "",
+        "target_rva": "0x003A5896",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/VslotMemberForwarders.cpp",
+        "status": "matched",
+        "notes": "vtable 0x00C1B5A8#3 slot forwarder (sub hop)"
+      },
+      {
+        "name": "?rva003A5896@Rva003A5896Forwarder@@WBM@AEXH@Z",
+        "export_rva": "",
+        "target_rva": "0x003A589E",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp",
+        "status": "matched",
+        "notes": "adjustor thunk (this-0x1C) to rowed virtual rva003A5896 at 0x003A5896; vftable entry 0x0081B5A4"
+      }
+    ],
+    "route_refusals": [
+      "?DoXfer@Rva005FEA50Base@FXParticleSystem@@UAEXAAVXfer@@@Z is not a method of the global class Rva005FEA50Base",
+      "?DoXfer@Rva005FEA50Base@@UAEXAAVXfer@@@Z changes the convention, return type or parameters of ?rva003A5896@Rva003A5896Forwarder@@UAEXH@Z"
+    ]
+  },
+  "scope": "Sixteen actual aliases retired. Four one-byte Wind/RenderObject owners and two final RenderObject pure aliases remain. No original class-name, class-layout, transfer-identity or runtime claim."
+}

@@ -220,6 +220,16 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   held getters receipt. Retain that gap and both short-table blocked handoffs
   for the next census/image. Claims are released; boot clearance is not claimed.
 
+  2026-11-09 Wind-owner investigation: both compiler tables at B598/B5A8
+  already span 16B, but slot3 is wrong (info DoXfer/purecall instead of the
+  native 3A589E adjustor and 3A5896 primary override). A plain extent/owner
+  transfer would be incorrect. The proper DoXfer(Xfer&) transition is blocked
+  by the current global-class/int-signature naming route. Four Wind/Render
+  byte owners remain; sixteen independent pure-table linker aliases retire
+  with normal 25 code/21 data rows and three EH graphs verified. This is
+  hatch retirement, not boot-path or table-owner clearance.
+  [Native mismatch and supported cleanup](../../reverse/attempt_support/default-module-pure-bindings-20261109/README.md).
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing

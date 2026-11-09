@@ -1,0 +1,110 @@
+{
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "indexed_users": {
+    "_Rva003AEB0A_v14a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEC8B_v14b": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEF9B_v14a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEF9B_v18a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEBC9_v14b": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEBC9_v18b": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEB0A_v18b": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEB0A_v18a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEC8B_v18b": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEB0A_v14b": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEC8B_v18a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AED6B_v14": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEBC9_v18a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEBC9_v14a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AEC8B_v14a": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ],
+    "_Rva003AED6B_v18": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^default^module^template^copy^ctors.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp"
+      }
+    ]
+  },
+  "current_Code_text_occurrences": 0,
+  "no_indexed_outside_consumers": true,
+  "scope": "Downloaded index graph and current Code text; global unread-object/directive audit remains separate."
+}

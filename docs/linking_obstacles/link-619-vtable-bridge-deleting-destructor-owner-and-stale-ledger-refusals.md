@@ -691,3 +691,13 @@ post-publication native/object proof pass. Broader audit is INCONCLUSIVE:
 c885072a48 versus b7f4e5d3b0, with held unchanged ConstIntGetters4.cpp missing
 a current receipt. No global provider or image clearance follows; CD40/CD54
 full-table recovery remains in the blocked handoffs. All six claims released.
+
+2026-11-09, default-module copy cohort: sixteen pure-table aliases retire
+using independently verified, distinct construction-stage compiler names.
+Normal 25 code/21 data rows and three EH graphs pass; retained object facts
+are equal after only the sixteen bindings. Two RenderObject final-stage
+aliases and four registered byte owners remain. Both Wind compiler tables
+are 16B but wrong at slot3, requiring the native 3A5896/3A589E override pair;
+the current namespace/reference identity route is unsupported. No owner is
+transferred over that mismatch. LINK-636 and its new packet record native
+sites, exact hatch retirement and the remaining class/identity prerequisites.
