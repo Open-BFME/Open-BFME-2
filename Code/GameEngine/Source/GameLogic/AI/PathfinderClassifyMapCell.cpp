@@ -79,15 +79,7 @@ enum PathfindLayerEnum {GROUND_LAYER=1};
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 class PolygonTrigger {public: void getBounds(IRegion2D*); bool pointInTrigger(const ICoord3D&);};
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Pathfinder
-{
-public:
-	static void classifyMapCell(Int i, Int j, PathfindCell *cell);
- PathfindCell *getCell(PathfindLayerEnum,int,int);
- void rva0052E3E6(PolygonTrigger*,bool);
- char m_prefix[0x460];
- PathfindZoneManager m_zones;
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
 {
@@ -178,7 +170,7 @@ void Pathfinder::rva0052E3E6(PolygonTrigger *area,bool value)
    point.y=y*10+5;
    if(area->pointInTrigger(point)) {
     PathfindCell *cell=getCell(GROUND_LAYER,x,y);
-    if(cell && ((Rva0052E05D*)cell)->rva0052E05D(value)) m_zones.MarkDirty(x,y);
+    if(cell && ((Rva0052E05D*)cell)->rva0052E05D(value)) m_zoneManager.MarkDirty(x,y);
    }
   }
  }
