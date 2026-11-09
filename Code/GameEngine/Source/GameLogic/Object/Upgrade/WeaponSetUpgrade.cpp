@@ -44,6 +44,22 @@
 // clsmd::buildFieldParse to INI::initFromINIMultiProc, and each landed
 // friend_newModuleData factory pushes its class proc immediate.
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Thing;
+
+class ModuleData;
+
+// The registered UpgradeModule view (canonical_classes.csv; it brings BehaviorModule.h and
+// UpgradeMux.h) goes before Drawable.h: Drawable.h selects the capitalized Snapshot slots
+// (LoadPostProcess/DoXfer), under which UpgradeModule's loadPostProcess and xfer would be new
+// virtuals instead of primary slots 1 and 3.
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+
 class MultiIniFieldParse;
 
 class INI;
@@ -121,46 +137,30 @@ extern const FieldParse BfmeWeaponSetUpgradeFields[] = {
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Thing;
 
-class ModuleData;
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-private:
-	bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule( Thing *thing, const ModuleData *moduleData );
-protected:
-	virtual ~UpgradeModule();
-};
+// BfmeXfer.h leaves its value types for the unit to declare with its own class-keys.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/WeaponSetUpgrade.h
 class WeaponSetUpgrade : public UpgradeModule
@@ -168,6 +168,9 @@ class WeaponSetUpgrade : public UpgradeModule
 public:
 	WeaponSetUpgrade( Thing *thing, const ModuleData *moduleData );
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void loadPostProcess();								// primary slot 1
+	virtual void xfer( Xfer *xfer );										// primary slot 3
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp
@@ -206,4 +209,19 @@ WeaponSetUpgrade::WeaponSetUpgrade(
 	Thing *thing, const ModuleData *moduleData )
 	: UpgradeModule( thing, moduleData )
 {
+}
+
+// Primary slot 1 of 0x00C57FE0, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void WeaponSetUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
+// Primary slot 3 of 0x00C57FE0, retail 0x004B8710: Version1, then the UpgradeModule base call,
+// the body retail folds with ArmorUpgrade::xfer and the other simple Upgrades.
+void WeaponSetUpgrade::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
 }
