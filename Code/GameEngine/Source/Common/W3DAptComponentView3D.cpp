@@ -542,13 +542,7 @@ public:
 private:
 	char m_data[0x228];
 };
-class W3DShadowManager
-{
-public:
-	void queueShadows(bool state) { m_isShadowScene = state; }
-private:
-	bool m_isShadowScene;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 class DisplayPass
 {
