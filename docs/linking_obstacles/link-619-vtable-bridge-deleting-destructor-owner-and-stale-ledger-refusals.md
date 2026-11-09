@@ -785,3 +785,18 @@ published real link should drop the refusal. Still open: the same address stays 
 default ctor, `BfmeBaseVNH`'s `0x003FD199` ctor (sets +0x04/+0x08) and `Rva003FD1C5` look like one class
 under three spellings. Slot 3 is a unique body, so it cannot be ICF-twinned. Retiring this bridge means
 unifying those views into one declaration with the seven slots, not adding per-file slot stubs.
+
+**2026-11-09, `0x007FE008` seven-slot bridge repaired pending measurement (`??_7Rva002B3092@@6B@`):**
+`GapBodiesGE01.cpp`'s `Rva002B3092` now derives from the canonical `Snapshot` and declares retail's seven
+slots (`loadPostProcess`, inherited name slot, `xfer`, pure, `slot5(int)` false, pure). The `0x003FD1C5`
+transfer moved into the class with `rename.py function --to-class` (`?xfer@Rva002B3092@@MAEXPAVXfer@@@Z`),
+and `add_match.py --icf-owner` rowed the twins `??1Rva002B3092` (`0x0049B47C`), `??_GRva002B3092`
+(`0x004A10FD`), `?loadPostProcess@Rva002B3092` (`0x000B3FD0`) and `?slot5@Rva002B3092` (`0x005CB9FF`).
+Verified: the compiled table's seven DIR32 slots each name a symbol the ledger binds only at retail's word
+(slot 0 through the `??_E` weak default `??_G`); `./build.sh` 37/37 across the five touched units;
+`link_check` GapBodiesGE01 LINKS `409 -> 450` B. Still open: the next published real link must show the
+table neither bridged nor refused; `BfmeBaseVNH` (ctor `0x003FD199`) and the derived `rva003FD1C5`
+overrides (`0x003FD1FA`, `0x003FD219`, `0x003FD321`, `0x003FD37A`) still spell this class separately
+(`rename.py class --fold` refuses because `??1BfmeBaseVNH` is the Snapshot destructor alias).
+`VslotSmallBodiesAE.cpp` predicts unresolved `?rva0053F915@Rva0053FADE@@...` (provider
+`Rva0053F915Read.cpp`), unrelated to this change.
