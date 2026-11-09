@@ -6100,3 +6100,38 @@ class SeedFlagSearchTests(unittest.TestCase):
         self.assertIn("the seed itself fails", out["blocked"])
         self.assertTrue(out["rejected"][self.TU].startswith("link:"))
         self.assertTrue(all(f[1] == [self.TU] for f in compiled))
+
+class ComposeNamedFunctionTests(unittest.TestCase):
+    """A file-scope object initialized with a function this file defines must not be hoisted above it."""
+    NL = chr(10)
+    FN = NL.join(["static int helper(int value)", "{", "    return value;", "}"])
+    ANCHOR = NL.join(["int (*helper_anchor)(int) =", "    &helper;"])
+
+    def compose(self, *parts):
+        text = self.NL.join(parts) + self.NL
+        return T.compose("Seed.cpp", [], ["Seed.cpp"], {"Seed.cpp": text}, [], "first")
+
+    def test_an_anchor_stays_after_the_function_it_names(self):
+        out = self.compose("int other;", self.FN, self.ANCHOR)
+        self.assertLess(out.index("static int helper(int value)"), out.index("helper_anchor"))
+        self.assertEqual(out.count("helper_anchor"), 1)
+
+    def test_a_prototype_above_keeps_the_anchor_among_the_declarations(self):
+        proto = "static int helper(int value);"
+        out = self.compose(proto, self.FN, self.ANCHOR)
+        self.assertLess(out.index(proto), out.index("helper_anchor"))
+        self.assertLess(out.index("helper_anchor"), out.index("return value"))
+
+    def test_other_objects_are_still_hoisted(self):
+        out = self.compose(self.FN, "int value_after = 3;", "int later()", "{", "    return 5;", "}")
+        self.assertLess(out.index("value_after"), out.index("return value"))
+
+    def test_a_qualified_name_is_left_alone(self):
+        chunks = T.composition_chunks(self.NL.join([
+            "class C { public: int get(); };", "int C::get()", "{", "    return 1;", "}",
+            "int (C::*get_anchor)() = &C::get;"]) + self.NL)
+        self.assertTrue(any(kind == "decl" and "get_anchor" in text for kind, text in chunks))
+
+    def test_an_object_above_the_function_is_left_alone(self):
+        chunks = T.composition_chunks(self.NL.join(["int (*early)(int) = helper;", self.FN]) + self.NL)
+        self.assertTrue(any(kind == "decl" and "early" in text for kind, text in chunks))

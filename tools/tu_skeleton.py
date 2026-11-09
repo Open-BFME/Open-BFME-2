@@ -895,6 +895,34 @@ def distinct_strategies(first_text, strategies=STRATEGIES):
 RESET_PRAGMA = re.compile(r'#\s*pragma\s+optimize\s*\(\s*""\s*,\s*on\s*\)')
 
 
+def after_named_functions(parsed):
+    """A file-scope object initialized with a free function this file defines, and declares nowhere
+    above it, stays after that function: compose writes declarations first, and hoisted above the
+    definition the name is unknown (C2065, then C2365: Player.cpp's bfme_force_ScienceVec_erase_anchor,
+    which failed alone though the file builds as written). A prototype above it, or a qualified name
+    a class declares, already gives compose the name, and that object is hoisted as before."""
+    defined = {}
+    for at, (kind, text) in enumerate(parsed):
+        if kind == "def":
+            head = re.match(r"[^(]*?\b([A-Za-z_]\w*)\s*\(", strip(text))
+            if head and "::" not in head.group(0):
+                defined.setdefault(head.group(1), at)
+    out = list(parsed)
+    for at, (kind, text) in enumerate(parsed):
+        if kind != "decl" or "=" not in text:
+            continue
+        code = strip(text)
+        if re.match(r"\s*(class|struct|union|enum|typedef|template|namespace)\b", code):
+            continue
+        named = re.search(r"=\s*&?\s*([A-Za-z_]\w*)\s*;\s*$", code)
+        if not named or defined.get(named.group(1), at) >= at:
+            continue
+        call = re.compile(r"\b%s\s*\(" % re.escape(named.group(1)))
+        if not any(k == "decl" and call.search(strip(c)) for k, c in parsed[:at]):
+            out[at] = ("body-decl", text)
+    return out
+
+
 def composition_chunks(text):
     """Keep conditional regions opaque and optimization directives with bodies.
 
@@ -960,7 +988,7 @@ def composition_chunks(text):
                 continue
         scoped.append(out[at])
         at += 1
-    return scoped
+    return after_named_functions(scoped)
 
 
 LITERAL = re.compile(r"\"|'|\b\d")
