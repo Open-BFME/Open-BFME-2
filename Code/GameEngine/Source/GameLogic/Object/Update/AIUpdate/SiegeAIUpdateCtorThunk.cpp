@@ -9,16 +9,9 @@ class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
+// The +0x10 update interface and the +0x14..+0x1F fields are UpdateModule's.
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-
-class SiegeAIUpdateIface2
-{
-public:
-	virtual void siegeAIUpdateIface2Anchor();
-
-private:
-	unsigned char m_pad[0xC];
-};
 
 class SiegeAIUpdateIface3
 {
@@ -32,10 +25,15 @@ public:
 	virtual void siegeAIUpdateIface4Anchor();
 };
 
-class AIUpdateInterface : public BehaviorModule, public SiegeAIUpdateIface2, public SiegeAIUpdateIface3, public SiegeAIUpdateIface4
+class AIUpdateInterface : public UpdateModule, public SiegeAIUpdateIface3, public SiegeAIUpdateIface4
 {
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	// BehaviorModuleInterface slots 1 and 19 (retail VA 0x00BFA3C0): AIUpdateInterface's
+	// overrides, rowed at 0x003730FC and 0x004FA5F4 (header-inline in AIUpdate.h;
+	// SupplyTruckAIUpdateCtor.cpp).
+	virtual CollideModuleInterface *getCollide();
+	virtual AIUpdateInterface *getAIUpdateInterface();
 protected:
 	virtual ~AIUpdateInterface();
 };
