@@ -1991,3 +1991,57 @@ before the first split, after three, six and ten.
      object to keep an identical selected body, recursively. A digest alone is not enough.
   5. InheritUpgradeCreate/PreorderCreate: reconcile the grab-bag's class view with the TU's, or prove the TU's
      table slots against retail (0x008596E4 / 0x00859664), before splitting.
+
+**Six Rva0024A797Derived.cpp splits: 18 tables off the bridge; the fold pilot refused (2026-11-09, seat
+halilkkaya-lk84, base `8757e1736a6`).** Method: `tu_skeleton.py --split ... --dry-run --no-claim` per pair, the real
+split (one class per commit, the tool claims), lk83's object diff, consumer link_check and scoped DIR32, and
+lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`) before the first split, after it, after six and after ten.
+- Rva0024A797Derived.cpp survey, 13 approved pairs (34 rows have no approved TU):
+  - 6 clean, all split: AutoFindHealingUpdate `e5e164e8949`, AssistedTargetingUpdate `b90855a3f07`, DemoTrapUpdate
+    `817be25ce59`, EntEnragedUpdate `21b2fff089b`, PickupStuffUpdate `d4ef0cdeff3`, OathbreakersFadeAwayBehavior
+    `bca88f1bcc0` (its `??_G` was already rowed in the TU). In each TU the destructor is declared by the TU's own view on
+    UpdateModule.h, so it stores the canonical tables; every changed object keeps its COMDAT digests, initializers,
+    .CRT and .bss.
+  - 2 moved-copy context, correctly (real outside referrers): BuildingBehavior (GameLogic/Object/Behavior/
+    BuildingBehavior.obj, a second unit of the class, references `??1BuildingBehavior` and emits its `??_G`) and
+    ObjectHelper (its helper family's derived destructors and Object.obj call `??1ObjectHelper`).
+  - 3 compile C2600, the TU's view declares no destructor: AutoDepositUpdate, HeightDieUpdate (HeightDieUpdateView.h)
+    and Rva0033EEC9 -> ProjectileStreamUpdate.cpp.
+  - 2 `bytes` from the merge verifier: StealthUpdate, Rva004A3F8B -> HijackerUpdate.cpp (as lk80 found).
+- Bridge, base -> after six splits: tables 3,976 -> 3,958, slots 57,329 -> 56,951, mismatching source slots 42,921 ->
+  42,550, already correct 1,659 -> 1,659, retail addresses 2,812 -> 2,807; refusals identical, nothing newly bridged,
+  no correct table lost. Off: each class's `6BMiBase1@@@`, `6BUpdateModule@@@` and private `_B2` table
+  (EntEnragedUpdate: `6BUpdateModuleInterface@@@`). The canonical `6BObjectModule@@@` copies of five of these TUs
+  (and OathbreakersFadeAwayBehavior's `6B@`) stay bridged with 1-3 mismatching slots each.
+- Four placeholder SpecialPower splits from Rva00493DEFDerived.cpp (`class_gate.py --staged` clean before each):
+  PlayerHeal `a7692e8c4c2`, Devastate `1d6151ab184`, SplitHorde `0194f6c5ab9`, Repair `caba527f4ed`. Byte-identical
+  moves; bridge unchanged, as lk83 measured. CombineHorde is still clean and not done.
+- link_check over the 14 changed units and every census unit touching the ten classes: 23 of 23 LINK. Bytes are
+  conserved: Rva0024A797Derived.cpp's 290 move to its six TUs; Rva00493DEFDerived.cpp's 424 are these four (212) plus
+  lk83's four post-census splits. Scoped DIR32: OK.
+- Fold pilot, not landed (re_log on 0x004BD207). Retail proves Rva004BD207 is SalvageCrateCollide:
+  `??0SalvageCrateCollide` 0x004BD1D7 calls CrateCollide's constructor and stores 0x00C5A9C0 (+0), 0x00C5A040 (+0x0C)
+  and 0x00C5A9A8 (+0x10); 0x004BD207 stores the same three and jumps to `CrateCollide::~CrateCollide` 0x004BC4FC; slot 0
+  of 0x00C5A9C0 is `??_GRva004BD207` 0x004BD265 and slots 4, 12 and 13 are SalvageCrateCollide's own rows.
+  `rename.py class --fold Rva004BD207 --into SalvageCrateCollide --dry-run` refuses "would declare class
+  SalvageCrateCollide twice: reconcile the two views in that unit first", and so does Rva004C2656 ->
+  CashHackSpecialPower. No byte-exact intermediate unit exists: the placeholder's rows need a class body spelled with
+  its name until the fold, the token rewrite then always yields two bodies, and `--prepared` is refused for a NEW that
+  is neither registered in canonical_classes.csv nor nested. A false reject; tools/ untouched.
+- Tooling compatibility audit (`8757e1736a6..caba527f4ed`): no path added, renamed or deleted. The tool repointed
+  functions.csv and tu_map.csv (19 rows each) and added five doxygen entries. None of the 19 moved RVAs is in
+  body_owners.csv, symbols.csv, data_rows.csv, the header or ms-header queues, forced_row_moves.csv, or the
+  code-identity, data-check, gate or pin-consistency baselines. The header-queue entries keyed to the residual and the
+  receiving TUs name other RVAs and still hold. tools/ and its tests name the two grab-bags only in comments; no
+  .githooks/ or .github/ consumer names a changed path.
+- Next leads:
+  1. Tooling: let `rename.py class --fold` take `--prepared REL=FILE` for an unregistered NEW whose unit declares both
+     views. That unblocks SalvageCrateCollide (0x0085A9A8/0x0085A9C0), CashHackSpecialPower and probably
+     Rva0033EEC9 -> ProjectileStreamUpdate (0x0033EEC9 sits between the class's constructor and its own rows, and
+     ProjectileStreamUpdate.cpp keeps a present-unmatched marker for its destructor).
+  2. Five `/alternatename` lines in Rva0024A797Derived.cpp are now dead (`?f2@` of the `_B2` placeholders
+     Rva00486E18, Rva00491DD3, Rva0049506E, Rva00495916 and Rva004B89C4; the residual object no longer references
+     them): remove them and lower the register with `hatch_counters.py --update` (Verifier-Change).
+  3. AutoDepositUpdate, HeightDieUpdate and ProjectileStreamUpdate: declare the destructor in the TU's view (its
+     class-scope claim first), then split; StealthUpdate and HijackerUpdate need their `bytes` cause read.
+  4. CombineHorde's clean split; the `--split` carry of unused private views and blank lines (lk83 lead 3).
