@@ -31,11 +31,6 @@ public:
 };
 }
 
-inline void *__cdecl operator new(unsigned int, void *__p)
-{
-	return __p;
-}
-
 typedef unsigned int ProxyUInt;
 
 class Rva004C9D93Cmp
@@ -184,11 +179,10 @@ AnimationSoundTree::~AnimationSoundTree()
 AnimationSoundTree *AnimationSoundTree::rva004CA018(void const *unusedContext)
 {
 	(void)unusedContext;
+	typedef _STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > ProxyType;
 	_STL::allocator<ProxyUInt> tmp;
-	_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *proxy =
-		(_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *)this;
-	__assume(proxy != 0);
-	new (proxy) _STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> >(tmp, (ProxyUInt *)0);
+	ProxyType *proxy = (ProxyType *)this;
+	proxy->ProxyType::_STLP_alloc_proxy(tmp, (ProxyUInt *)0);
 	*(char **)this = _STL::allocator<char>::allocate(0xb8, 0);
 	return this;
 }
@@ -225,7 +219,7 @@ void __cdecl Rva004CA048Construct(void *destination, const Rva004C9E94 &source)
 {
 	if (!destination)
 		return;
-	new (destination) Rva004C9E94(source);
+	((Rva004C9E94 *)destination)->Rva004C9E94::Rva004C9E94(source);
 }
 
 // ?rva004CA19C@AnimationSoundTree@@QAEPAXPBX@Z, retail 0x004CA19C, 37 bytes.
