@@ -82,17 +82,20 @@ def test_initializer_table_is_an_object_of_named_slots(tmp_path, monkeypatch):
     import exit_link
     import link_cycle
     monkeypatch.setattr(exit_link, "OUT", tmp_path)
-    monkeypatch.setattr(ir, "bridge_entries", lambda rows, inputs: ([(0x20, "?b@@YAXXZ"), (0x10, "?a@@YAXXZ")], ["0x30"]))
-    path, bridge = exit_link.initializer_table([], [])
-    assert bridge["entries"] == 2 and bridge["unreachable"] == ["0x30"]
-    sections, symbols = link_cycle.parse_coff(path.read_bytes())
-    assert sections[0].name == ".CRT$XCU" and sections[0].size == 8
+    monkeypatch.setattr(exit_link, "after_objects_problems", lambda rows, listed: [])
+    monkeypatch.setattr(ir, "bridge_entries", lambda rows, inputs: (
+        [(0x20, "?b@@YAXXZ"), (0x7AF9D6, "?fill@@YAXXZ"), (0x10, "?a@@YAXXZ")], ["0x30"]))
+    path, late, bridge = exit_link.initializer_table([], [])
+    assert bridge["entries"] == 3 and bridge["unreachable"] == ["0x30"]
     # VC7.1 native .CRT$XCU slots are read/write, initialized data, aligned to 4.
     # P2: a read-only bridge split off into .data outside __xc_a..__xc_z.
     # Match native attributes so every emitted bridge slot remains in that range.
-    assert sections[0].flags == 0xC0300040
-    slots = [(offset, symbols[index].name, kind) for offset, index, kind in sections[0].relocs]
-    assert slots == [(0, "?b@@YAXXZ", link_cycle.DIR32), (4, "?a@@YAXXZ", link_cycle.DIR32)]
+    for table, size, wanted in ((path, 8, [(0, "?b@@YAXXZ"), (4, "?a@@YAXXZ")]), (late, 4, [(0, "?fill@@YAXXZ")])):
+        sections, symbols = link_cycle.parse_coff(table.read_bytes())
+        assert sections[0].name == ".CRT$XCU" and sections[0].size == size
+        assert sections[0].flags == 0xC0300040
+        slots = [(offset, symbols[index].name, kind) for offset, index, kind in sections[0].relocs]
+        assert slots == [(offset, name, link_cycle.DIR32) for offset, name in wanted]
 
 
 

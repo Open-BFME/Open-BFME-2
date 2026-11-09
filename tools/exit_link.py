@@ -65,6 +65,7 @@ authoritative for LINKING or recovery credit; only the census records those.
 # --stub-seed (diagnostic only) starts from an earlier link's stubbed.tsv: a pass
 # costs ~12 minutes on srv1, and each round of new names was another pass.
 import argparse
+import bisect
 import collections
 import concurrent.futures
 import csv
@@ -865,26 +866,140 @@ def scaffold_free(inputs, omitted):
     return bad, leaked
 
 
+# Bridge entries that run after every object's initializers instead of before them, each spelled out:
+# retail's address, why, and the extents (VAs) it fills. The table goes after the objects because the
+# entry reads globals the objects' own initializers build. It is still a bridge entry and still counted;
+# a real static registration replaces it. Nothing else moves. This is scaffolding, not recovered order.
+INITIALIZERS_AFTER_OBJECTS = {
+    0x007AF9D6: {
+        "reason": "P32: initializeRegionEffectFields copies nine effect-name strings (slots 548-556, built by "
+                  "their objects' own initializers) into LivingWorldRegionEffects' FieldParse table (slot 557); "
+                  "first in the image, it copied empty names. It makes no calls.",
+        "writes": ((0x00DC14C8, 0x00DC15C0),),
+    },
+}
+
+
+def static_init_readers(retail, rows, entry, extents):
+    """[{row, where}] of what could read `extents` during static initialization, other than `entry`.
+
+    Reads retail. A code reference counts when its row is reached from a retail initializer through
+    direct calls and jumps or code that names an address, into a row's interior as well as its start
+    (the whole row then counts as reached), not passing through `entry`. Bytes are scanned, not decoded,
+    so a false edge can only make this refuse more. A word in any other section that names an extent is
+    reported whatever reaches it (where "data").
+    It cannot see: virtual calls, calls through pointers held in data, addresses computed at run time
+    (a base plus an index reaches the extent only if the base is itself in it), or a reader in code no
+    row covers. So an empty result is evidence, not proof."""
+    sizes = {}
+    for row in rows:
+        if str(row.get("target_rva", "")).startswith("0x"):
+            rva = int(row["target_rva"], 16)
+            sizes[rva] = max(sizes.get(rva, 1), int(row.get("target_size") or 1))
+    starts = sorted(sizes)
+
+    def owner(rva):
+        at = bisect.bisect_right(starts, rva) - 1
+        return starts[at] if at >= 0 else None
+
+    def covering(rva):
+        """The row whose extent holds `rva`, so a branch into a row's interior counts as reaching it."""
+        row = owner(rva)
+        return row if row is not None and rva < row + sizes[row] else None
+
+    _name, text_rva, text_size, raw, raw_size = retail.text
+    code = retail.data[raw:raw + min(text_size, raw_size)]
+    edges = collections.defaultdict(set)
+    for match in re.finditer(rb"[\xE8\xE9]", code):
+        at = match.start()
+        if at + 5 > len(code):
+            continue
+        target = covering(text_rva + at + 5 + struct.unpack_from("<i", code, at + 1)[0])
+        if target is not None:
+            edges[owner(text_rva + at)].add(target)
+    high = (retail.base + text_rva) >> 24
+    for match in re.finditer(rb"(?=.{3}" + re.escape(bytes([high])) + rb")", code, re.S):
+        at = match.start()
+        if at + 4 > len(code):
+            continue
+        target = covering(struct.unpack_from("<I", code, at)[0] - retail.base)
+        if target is not None:
+            edges[owner(text_rva + at)].add(target)
+    reached, stack = set(), [rva for rva in retail.initializers() if rva != entry]
+    while stack:
+        rva = stack.pop()
+        if rva in reached or rva == entry:
+            continue
+        reached.add(rva)
+        stack.extend(edges.get(rva, ()))
+    found = []
+    for name, va, size, section_raw, section_size in retail.sections:
+        body = retail.data[section_raw:section_raw + min(section_size, max(size, section_size))]
+        is_code = (name, va) == (retail.text[0], retail.text[1])
+        for at in range(0, len(body) - 3, 1 if is_code else 4):
+            # the extents share their upper bytes with almost nothing: test the top byte first
+            if body[at + 3] != (extents[0][0] >> 24):
+                continue
+            word = struct.unpack_from("<I", body, at)[0]
+            if not any(low <= word < high_end for low, high_end in extents):
+                continue
+            if not is_code:
+                found.append({"row": va + at, "where": "data"})
+                continue
+            row = owner(va + at)
+            if row != entry and row in reached:
+                found.append({"row": row, "where": "code"})
+    unique = {(item["row"], item["where"]): item for item in found}
+    return [unique[key] for key in sorted(unique)]
+
+
+def after_objects_problems(rows, listed):
+    """Why a listed entry may not leave its slot: something can read what it fills during static init."""
+    import image_report
+    retail = image_report.Retail(build.EXE.read_bytes())
+    problems = []
+    for rva in listed:
+        for reader in static_init_readers(retail, rows, rva, INITIALIZERS_AFTER_OBJECTS[rva]["writes"]):
+            problems.append(f"0x{reader['row']:08X} ({reader['where']}) may read what 0x{rva:08X} fills during static init")
+    return problems
+
+
+def initializer_object(name, entries):
+    names = sorted({symbol for _rva, symbol in entries})
+    return link_cycle.write_coff(
+        OUT / name,
+        [(".CRT$XCU", INITIALIZER_SECTION, bytes(4 * len(entries)), 0)],
+        [(symbol, 0, 0, link_cycle.EXTERNAL) for symbol in names],
+        {1: [(4 * slot, symbol, link_cycle.DIR32) for slot, (_rva, symbol) in enumerate(entries)]})
+
+
 def initializer_table(rows, inputs):
-    """An object registering retail's initializers that no kept object registers, in retail's order.
+    """(first, after, info): objects registering retail's initializers that no kept object registers.
 
     A body that exists only as a plain function links and never runs, so its globals are never
-    built. The table lets an image start; it is not the source. Its count is published with each
-    link and must reach 0 for the exit test, as real statics replace it. It goes first, so these run
-    before the initializers objects register themselves; their order against those is not retail's.
+    built. The tables let an image start; they are not the source. Their count is published with each
+    link and must reach 0 for the exit test, as real statics replace it. `first` goes first, in retail's
+    order, so these run before the initializers objects register themselves; their order against those
+    is not retail's. `after` (None when nothing is listed) holds INITIALIZERS_AFTER_OBJECTS and goes
+    after every object, for an entry that reads what objects build.
     """
     import image_report
     entries, unreachable = image_report.bridge_entries(rows, inputs)
-    names = sorted({name for _rva, name in entries})
-    number = {name: index for index, name in enumerate(names)}
-    path = link_cycle.write_coff(
-        OUT / "retail_initializers.obj",
-        [(".CRT$XCU", INITIALIZER_SECTION, bytes(4 * len(entries)), 0)],
-        [(name, 0, 0, link_cycle.EXTERNAL) for name in names],
-        {1: [(4 * slot, name, link_cycle.DIR32) for slot, (_rva, name) in enumerate(entries)]})
-    assert len(number) == len(names)
-    return path, {"entries": len(entries), "unreachable": unreachable,
-                  "note": "generated from retail's table; must reach 0 for the exit test"}
+    present = {rva for rva, _symbol in entries}
+    absent = sorted(set(INITIALIZERS_AFTER_OBJECTS) - present)
+    if absent:
+        raise SystemExit("exit_link: INITIALIZERS_AFTER_OBJECTS names what the bridge does not hold, so remove it: " +
+                         ", ".join(f"0x{rva:08X}" for rva in absent))
+    listed = [rva for rva, _symbol in entries if rva in INITIALIZERS_AFTER_OBJECTS]
+    problems = after_objects_problems(rows, listed)
+    if problems:
+        raise SystemExit("exit_link: a bridge entry may not run after the objects: " + "; ".join(problems[:8]))
+    first = initializer_object("retail_initializers.obj", [e for e in entries if e[0] not in INITIALIZERS_AFTER_OBJECTS])
+    after = [e for e in entries if e[0] in INITIALIZERS_AFTER_OBJECTS]
+    late = initializer_object("retail_initializers_after_objects.obj", after) if after else None
+    return first, late, {"entries": len(entries), "after_objects": [f"0x{rva:08X}" for rva in listed],
+                         "unreachable": unreachable,
+                         "note": "generated from retail's table; must reach 0 for the exit test"}
 
 
 def harness_import_roots(requests):
@@ -941,7 +1056,7 @@ def link_setup(rows, present):
         "crt_absolute_symbols": {name: value for name, value in link_cycle.ABSOLUTE.items()},
         "object_order": ORDER,
     }
-    table, bridge = initializer_table(rows, inputs)
+    table, late, bridge = initializer_table(rows, inputs)
     metadata["initializer_bridge"] = bridge
     import image_report
     import vtable_bridge
@@ -950,7 +1065,7 @@ def link_setup(rows, present):
         image_report.Retail(build.EXE.read_bytes()), objects=objects,
         source_of=census._object_sources(rows))
     metadata["vtable_bridge"] = vtable_info
-    return ([vtables] if vtables else []) + [table] + inputs + libs + [absolute], metadata
+    return ([vtables] if vtables else []) + [table] + inputs + ([late] if late else []) + libs + [absolute], metadata
 
 
 def expected_objects(rows):

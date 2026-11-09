@@ -1,5 +1,6 @@
 """The exit-link mode: the 17 placement-only objects are proved dead, and the
 link itself carries no /FORCE, stub, alias or filler (tools/exit_link.py)."""
+import csv
 import struct
 import sys
 from pathlib import Path
@@ -840,8 +841,9 @@ def test_link_setup_puts_vtable_bridge_first_without_changing_original_order(tmp
     monkeypatch.setattr(E.link_cycle, "defined_externals", lambda objects: set())
     monkeypatch.setattr(E, "runtime_data_imports", lambda libraries: set())
     monkeypatch.setattr(E, "make_import_libs", lambda *args: [])
+    late = tmp_path / "retail_initializers_after_objects.obj"
     monkeypatch.setattr(E, "initializer_table", lambda rows, inputs: (
-        initializer, {"entries": 7, "unreachable": []}))
+        initializer, late, {"entries": 7, "unreachable": []}))
     retail = tmp_path / "retail.exe"
     retail.write_bytes(b"retail")
     monkeypatch.setattr(E.build, "EXE", retail)
@@ -853,7 +855,7 @@ def test_link_setup_puts_vtable_bridge_first_without_changing_original_order(tmp
         return vtables, {"object": vtables.name, "tables": 2, "slots": 9}
     monkeypatch.setattr(vtable_bridge, "build_bridge", generated)
     inputs, metadata = E.link_setup([], original)
-    assert inputs[:4] == [vtables, initializer] + original
+    assert inputs[:5] == [vtables, initializer] + original + [late]
     assert metadata["initializer_bridge"]["entries"] == 7
     assert metadata["vtable_bridge"]["slots"] == 9
 
@@ -1092,3 +1094,151 @@ def test_a_seeded_diagnostic_receipt_says_so_and_a_real_one_has_no_seed_field(tm
     assert json.loads((tmp_path / "image_receipt.json").read_text())["stub_seed"] is None
     E.image_receipt(image, False, set())
     assert "stub_seed" not in json.loads((tmp_path / "image_receipt.json").read_text())
+
+
+# ---- bridge entries that run after every object (P32, LINK-633)
+
+FILL = 0x007AF9D6
+
+
+def bridge(monkeypatch, tmp_path, entries, unreachable=()):
+    import image_report
+    written = {}
+
+    def write_coff(path, sections, symbols, relocations=None):
+        written[Path(path).name] = [name for _offset, name, _type in relocations[1]]
+        return path
+    monkeypatch.setattr(E, "OUT", tmp_path)
+    monkeypatch.setattr(E.link_cycle, "write_coff", write_coff)
+    monkeypatch.setattr(image_report, "bridge_entries", lambda rows, inputs: (entries, list(unreachable)))
+    monkeypatch.setattr(E, "after_objects_problems", lambda rows, listed: [])
+    return written
+
+
+def test_a_listed_entry_leaves_the_first_table_and_stays_counted(monkeypatch, tmp_path):
+    written = bridge(monkeypatch, tmp_path, [(0x100, "?a@@YAXXZ"), (FILL, "?fill@@YAXXZ"), (0x200, "?b@@YAXXZ")])
+    first, late, info = E.initializer_table([], [])
+    assert first.name == "retail_initializers.obj" and late.name == "retail_initializers_after_objects.obj"
+    assert written["retail_initializers.obj"] == ["?a@@YAXXZ", "?b@@YAXXZ"]        # the others keep their order
+    assert written["retail_initializers_after_objects.obj"] == ["?fill@@YAXXZ"]
+    assert info["entries"] == 3                                                    # initializers_bridged does not fall
+    assert info["after_objects"] == [f"0x{FILL:08X}"]
+
+
+def test_every_listed_entry_says_why_and_names_what_it_fills():
+    assert E.INITIALIZERS_AFTER_OBJECTS
+    for rva, entry in E.INITIALIZERS_AFTER_OBJECTS.items():
+        assert len(entry["reason"]) >= 40 and entry["writes"]
+        for low, high in entry["writes"]:
+            assert low < high
+
+
+def test_a_listed_address_outside_the_bridge_is_refused(monkeypatch, tmp_path):
+    bridge(monkeypatch, tmp_path, [(0x100, "?a@@YAXXZ")])
+    with pytest.raises(SystemExit, match="0x007AF9D6"):
+        E.initializer_table([], [])
+
+
+def test_a_listed_address_the_bridge_cannot_reach_is_refused(monkeypatch, tmp_path):
+    bridge(monkeypatch, tmp_path, [(0x100, "?a@@YAXXZ")], unreachable=[f"0x{FILL:08X}"])
+    with pytest.raises(SystemExit, match="0x007AF9D6"):
+        E.initializer_table([], [])
+
+
+def test_a_static_init_reader_refuses_the_link(monkeypatch, tmp_path):
+    written = bridge(monkeypatch, tmp_path, [(FILL, "?fill@@YAXXZ")])
+    monkeypatch.setattr(E, "after_objects_problems", lambda rows, listed: ["0x00001010 reads it"])
+    with pytest.raises(SystemExit, match="0x00001010"):
+        E.initializer_table([], [])
+    assert not written
+
+
+class FakeRetail:
+    """.text at RVA 0x1000, base 0x400000; .data holds `data`."""
+
+    def __init__(self, code, data=b"", initializers=()):
+        self.base = 0x400000
+        self.data = bytes(code) + bytes(data)
+        self.sections = [(".text", 0x1000, len(code), 0, len(code)), (".data", 0x2000, len(data), len(code), len(data))]
+        self.text = self.sections[0]
+        self._initializers = list(initializers)
+
+    def initializers(self):
+        return self._initializers
+
+
+def code(*pieces):
+    """{rva: bytes} laid out from RVA 0x1000, padded with int3."""
+    out = bytearray(b"\xCC" * 0x100)
+    for rva, raw in pieces:
+        out[rva - 0x1000:rva - 0x1000 + len(raw)] = raw
+    return out
+
+
+def call(site, target):
+    return bytes([0xE8]) + struct.pack("<i", target - (site + 5))
+
+
+ROWS = [{"target_rva": f"0x{rva:08X}", "target_size": "16", "name": f"?f{rva:x}@@YAXXZ"}
+        for rva in (0x1000, 0x1010, 0x1020, 0x1030, 0x1040)]
+TABLE = (0x402000, 0x402010)
+READ = b"\xA1" + struct.pack("<I", 0x402004) + b"\xC3"
+
+
+def readers(fake):
+    return E.static_init_readers(fake, ROWS, 0x1020, [TABLE])
+
+
+def test_a_reader_reached_from_an_initializer_is_found():
+    fake = FakeRetail(code((0x1000, call(0x1000, 0x1010)), (0x1010, READ), (0x1020, READ), (0x1030, READ)), initializers=[0x1000, 0x1020])
+    assert [r["row"] for r in readers(fake)] == [0x1010]                           # not the entry, not the run-time 0x1030
+
+
+def test_a_reader_reached_through_two_calls_is_found():
+    fake = FakeRetail(code((0x1000, call(0x1000, 0x1040)), (0x1040, call(0x1040, 0x1010)), (0x1010, READ), (0x1020, READ)), initializers=[0x1000])
+    assert [r["row"] for r in readers(fake)] == [0x1010]
+
+
+def test_a_call_into_the_middle_of_a_row_reaches_its_reader():
+    # the initializer enters 0x1010 past its start, and that suffix reads the table
+    fake = FakeRetail(code((0x1000, call(0x1000, 0x1014)), (0x1010, b"\x90" * 4 + READ), (0x1020, READ)), initializers=[0x1000])
+    assert [r["row"] for r in readers(fake)] == [0x1010]
+
+
+def test_an_absolute_address_into_the_middle_of_a_row_reaches_its_reader():
+    naming = b"\x68" + struct.pack("<I", 0x401014) + b"\xC3"                       # push the suffix's address
+    fake = FakeRetail(code((0x1000, naming), (0x1010, b"\x90" * 4 + READ), (0x1020, READ)), initializers=[0x1000])
+    assert [r["row"] for r in readers(fake)] == [0x1010]
+
+
+def test_a_target_past_every_row_extent_reaches_no_row():
+    # 0x1050 is in .text, past the last row's 16 bytes: no row owns it, so it adds no edge
+    fake = FakeRetail(code((0x1000, call(0x1000, 0x1050)), (0x1050, READ), (0x1020, READ)), initializers=[0x1000])
+    assert readers(fake) == []
+
+
+def test_a_reader_only_the_entry_reaches_does_not_count():
+    fake = FakeRetail(code((0x1020, call(0x1020, 0x1010)), (0x1010, READ)), initializers=[0x1020])
+    assert readers(fake) == []
+
+
+def test_run_time_readers_alone_are_clean():
+    fake = FakeRetail(code((0x1000, b"\xC3"), (0x1030, READ), (0x1020, READ)), initializers=[0x1000, 0x1020])
+    assert readers(fake) == []
+
+
+def test_a_word_in_data_naming_the_extent_is_reported_not_trusted():
+    fake = FakeRetail(code((0x1000, b"\xC3"), (0x1020, READ)), data=struct.pack("<I", 0x402008) + b"\0" * 12, initializers=[0x1000])
+    found = readers(fake)
+    assert [r["where"] for r in found] == ["data"]
+
+
+def test_the_real_entry_on_retail_has_no_static_init_reader():
+    if not E.build.EXE.exists():
+        pytest.skip("no retail image here")
+    import image_report
+    retail = image_report.Retail(E.build.EXE.read_bytes())
+    slots = retail.initializers()
+    assert slots.index(FILL) == 557 and slots.index(0x007AF8E3) == 548
+    rows = list(csv.DictReader(open(E.build.ROOT / "reverse/functions.csv", newline="", encoding="utf-8", errors="surrogateescape")))
+    assert E.after_objects_problems(rows, [FILL]) == []
