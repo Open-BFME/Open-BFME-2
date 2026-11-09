@@ -106,6 +106,114 @@ the extreme case: **648 approved rows and 208 donor files behind one 6-byte
 So the single highest-leverage item the merge lane has is not a merge or a split.
 It is settling one row's TU placement.
 
+## Worked end to end: HordeContain.cpp, and the census dependency
+
+The first case was taken through the whole chain the same day, which found a step
+the plan above does not mention.
+
+1. **The carve needed a declaration the tool will not carry.** `--split --for`
+   refused with `C3861: 'ModuleFactoryHookAt00469B9F': identifier not found`.
+   `carve()` keeps a file's declarations but never carries an external-linkage
+   *definition*, and `HordeContain.cpp` only ever defined `0x00469B9F`, so the
+   carved tail-jump reached the destination with no declaration of its callee.
+   Editing the destination does nothing: without `--prepared`, carved rows are
+   compiled against the **donor's** text (`alone = vt.matched(donor_text,
+   carved)`), not the destination's. Declaring `0x00469B9F` in the *donor's*
+   preamble -- the idiom that file already used for a sibling callback -- fixed
+   it. `./build.sh`: 2/2 matched. Landed as `b79aa07ffbf`.
+2. **The split then applied cleanly.** `carved: ['0x0047A6A4']`, nothing refused,
+   no copies, no externs, no hatch moved, link guard compared residual and
+   destination together. `./build.sh` on both files: 32/32 matched.
+   `find_declared_unmatched.py`: all defined functions matched. Landed as
+   `f8c4581efaf`, audit in `hordecontain-split-tooling-audit-20261109.md`.
+3. **The TU appeared in the queue, exactly as predicted:**
+   `73 files 179 rows mixed 28 refused 1 ... HordeContain.cpp`.
+4. **And the merge is now blocked on the census, not on the queue:**
+
+       blocked: ... the seed itself fails under every merged flag set: link:
+       HordeContain.cpp links at the census; the merged object would not: no
+       longer defines ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z, which the
+       census still references
+
+   The link guard judges against the **last published census**, which still
+   expects the old file to define the row the split just moved. Nothing is wrong;
+   the guard is correct about a tree it has not seen yet.
+
+So `docs/consolidation.md`'s "batch splits with the merges they unblock" cannot
+be taken literally when the split moves a row the census references: **the merge
+has to wait for a census that includes the split.** Censuses ran 10:07 and 12:52
+on 2026-11-09, so the wait is hours, not days, and `link_check.py --fetch-index`
+does not shorten it -- the newest published index is still older than the split.
+A split and its merge are therefore two sessions' work, not one, and the split
+should be published immediately rather than held for its merge.
+
+Every other TU in the tables below whose blocking row the census references will
+behave the same way.
+
+## Four attempted, one landed, and every refusal is a different wall
+
+The split-shaped list is not a to-do list of 16 wins. Measured by attempting the
+four largest:
+
+| TU | donors | destination | verdict |
+| --- | ---: | --- | --- |
+| `Contain/HordeContain.cpp` | 73 | `AODHordeContain.cpp` | **landed** (`f8c4581efaf`), after a declaration fix |
+| `Common/RTS/ScoreKeeper.cpp` | 35 | `CollisionManagerImpl.cpp` | not a split at all; its merge route is view-blocked |
+| `LivingWorld/LivingWorldRegion.cpp` | 31 | `LivingWorldLogic.cpp` | refused: the destination is itself blocked |
+| `AIUpdate/DozerAIUpdate.cpp` | 15 | `WorkerAIUpdate.cpp` | refused by the split link guard |
+
+**`ScoreKeeper.cpp` is not split-shaped despite sitting in that column.**
+`--split --for` answers `every row is this TU's (funclets included): use
+--merge`: the file at TU `RTS/ScoreKeeper.cpp`'s own path holds *only* two rows,
+both approved for `CollisionManagerImpl.cpp` (`_STL::map<ThingTemplate*,int>`
+`operator[]` and `insert`). Carving them out would leave nothing, so the correct
+move is to absorb the file into `CollisionManagerImpl.cpp`, which would delete
+it and free the TU path.
+
+That merge was tried and is blocked too: `CollisionManagerImpl.cpp`'s queue entry
+is 2 files / 67 rows, both donors rejected on compile errors (`C2079: 'key' uses
+undefined struct 'Rva009A3300Node'`), with `reconcile_classes:
+['CollisionManagerImpl', 'Rva009A3300HashTable', 'Rva009A3300Node',
+'Rva009A45A0CollisionData']`. So `ScoreKeeper.cpp`'s 35-donor TU sits behind a
+`tu_views.py` reconciliation job on a *different* TU in a different tree.
+
+The lesson for the table above: a one-row blocker approved elsewhere does **not**
+imply a split is the move. Check whether any row would remain first.
+
+The other two refusals are different in kind again, and neither is a fixable
+oversight:
+
+- **`DozerAIUpdate.cpp`:** the carve is sound -- `alone: 1/1 carved rows match
+  beside the TU under its flags`, `residual_keeps: 15`, nothing refused, no hatch
+  moved -- but the guard says `moved selected COMDAT
+  ?privateRepair@WorkerAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z lacks
+  matching private/weak-free context`. The census selects this copy as the
+  provider and the destination object does not reproduce its weak-free context.
+  This is COMDAT selection, not bytes -- the same class of problem as LINK-120.
+  Recorded in `reverse/re_attempts.log` at 0x004A9BDE.
+- **`LivingWorldRegion.cpp`:** `blocked: TU path exists and holds rows the map
+  places in another TU (split it first): attackorders.cpp 1`. You cannot carve
+  into a destination that is itself blocked. `LivingWorldLogic.cpp`'s own blocker
+  is `?GetMaxHeroLeaderRank@AttackOrders@@QAEHXZ`, and it sits in the **proposed**
+  column, so the chain `LivingWorldRegion -> LivingWorldLogic -> AttackOrders`
+  cannot be cleared by splitting at all; its middle link needs TU approval first.
+
+How common is that chaining? **Only 2 of the 30 one-row TUs have a blocked
+destination** (38 donors): `LivingWorldRegion.cpp` and `LanguageFilter.cpp`. So
+the set is mostly independent by that measure, and 14 of the 16 split-shaped
+cases have a free destination.
+
+But "free destination" is not "attemptable". Of the four tried, **one landed**:
+one was not a split, one hit the link guard, one had a blocked destination. Four
+distinct walls in four attempts is the real finding here -- there is no single
+remedy for this blocker, and the 259 donors behind the 16 should be read as an
+upper bound on a lane that will mostly refuse.
+
+Untried, largest first: `GameState.cpp` 25, `matinfo.cpp` 15, `AptCIH.cpp` 13,
+`mesh.cpp` 13 (by=S), `ArrowStormUpdate.cpp` 10, `AIBuilder.cpp` 7 (by=N), then
+five cases of 2-6 donors. Check each for "would any row remain" before planning
+a split, and expect the link guard on any row the census selects as a provider.
+
 ## What this does not claim
 
 - **1586 donor files is not 1586 removable files.** It is what a complete merge
