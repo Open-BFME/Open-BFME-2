@@ -189,6 +189,12 @@ private:
 struct Rva005E626DListener
 {
 	virtual void notify(void *);
+	// Retail's table 0x00C3702C has four more slots, all empty defaults: slot 1
+	// 'ret 8' (0x0050B238), slots 2-4 'ret 4' (0x0047A69C), both ICF-shared bodies.
+	virtual void slot1(int, int);
+	virtual void slot2(int);
+	virtual void slot3(int);
+	virtual void slot4(int);
 	~Rva005E626DListener() {}
 };
 struct Rva002BA8F1Listener;
@@ -781,6 +787,10 @@ class Rva005E5FFB :public Rva005E5FObserver {public:
 // The base table 0x00C3702C's slot 0 is 0x0047A69C, the shared folded
 // 'ret 4': the listener's default notify is empty.
 void Rva005E626DListener::notify(void *) {}
+void Rva005E626DListener::slot1(int, int) {}
+void Rva005E626DListener::slot2(int) {}
+void Rva005E626DListener::slot3(int) {}
+void Rva005E626DListener::slot4(int) {}
 
 Rva005E626D::Rva005E626D(Rva005E626DOwner *owner, Rva0057C394 *source, Rva005E626DListOwner *listOwner, void *extra)
 	: Rva005F566A(source, owner->m_18, owner->m_1C, listOwner, &(Rva005F2381 &)Rva005F2381(), extra),
