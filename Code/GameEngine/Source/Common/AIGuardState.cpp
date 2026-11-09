@@ -11,8 +11,8 @@ class StateMachine;
 
 #include "../../Include/Common/StateMachine.h"
 
-// Rva0033F6DA_vftable: matched references place it at VA 0xc11740 (retail .rdata value 37).
-extern "C" char Rva0033F6DA_vftable = 37;
+// Rva0033F6DA_vftable gives way to the compiler table the data ledger binds there.
+extern "C" char __identifier("??_7Rva00341D26@@6B@");
 
 class __declspec(novtable) AIGuardState : public State
 {
@@ -26,5 +26,5 @@ private:
 AIGuardState::AIGuardState(StateMachine *machine) : State(machine, 0xEBE7A650u)
 {
 	m_20 = 0;
-	*reinterpret_cast<char **>(this) = &Rva0033F6DA_vftable;
+	*reinterpret_cast<char **>(this) = &__identifier("??_7Rva00341D26@@6B@");
 }
