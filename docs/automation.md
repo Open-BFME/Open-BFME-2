@@ -169,3 +169,8 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   request, so match a result to its request by the receipt's `ref` and `image_commit`, never by which is
   newest. Its `local-*` images are deleted only once they have a receipt and are outside both the newest 50 and the
   last 72 hours, and can be rebuilt from their commit and branch; receipts are kept.
+- A diagnostic link does not fail on an unresolved name: `diagnostic_stubs.obj` defines it as a trap in `.text`. So a run-time
+  hook or counter with a wrong symbol links cleanly, then measures nothing, or stops in a way that looks like the game's.
+  Inside `extern "C"`, `__identifier("__imp__free")` decorates to `___imp__free`, a stub, not the slot. Before reading such a
+  run, look each hooked name up in its `exit.map`: `diagnostic_stubs.obj` means that hook is void, and a receipt's
+  `stubbed_name` means the stop is at a stub. Give a counter a planted positive control, or a zero means nothing.
