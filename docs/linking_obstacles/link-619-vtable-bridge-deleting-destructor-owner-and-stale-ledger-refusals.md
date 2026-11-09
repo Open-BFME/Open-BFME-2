@@ -717,6 +717,15 @@ existing exclusive-definition collisions. The two byte-sized owners remain
 for separate full-table verification; broader image/TU work is still open.
 [Source proof and explicit limits](../../reverse/attempt_support/wind-transfer-overrides-20261109/README.md).
 
+Wind's follow-up ownership repair removes both strong byte stand-ins and
+registers the existing full sixteen-byte compiler tables. All 122 code/21
+data rows pass; four owned sources retain LINKS 1,708B. Cached six-object
+replay has zero strong/unbounded refusals and two already-correct tables.
+The unchanged FXParticleSystem.cpp getter's receipt and AIBuildable.cpp's
+broader audit receipt remain explicit next-census/image gaps; RenderObject
+and complete source/TU recovery are not cleared.
+[Ownership proof and replay scope](../../reverse/attempt_support/wind-native-table-owners-20261109/README.md).
+
 2026-11-09, FESL 8E3D14 provider repair: Rva00802330FeslCtor.cpp now emits
 the same 56-byte deleting wrapper as the verified Y2 destructor owner,
 including the final base teardown. The constructor's 37-byte body and all

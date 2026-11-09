@@ -245,6 +245,16 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   transition prerequisite, not the boot-path or real-image scope.
   [Proof and remaining owner work](../../reverse/attempt_support/wind-transfer-overrides-20261109/README.md).
 
+  The two Wind one-byte definitions are now removed in the follow-up, and
+  their explicit owners become the existing complete sixteen-byte compiler
+  tables. Normal 122 code/21 data rows and four scoped LINKS verdicts pass.
+  Cached replay has no strong/unbounded refusal and two correct tables; the
+  unchanged FXParticleSystem.cpp support receipt remains missing. The method
+  pair b7d3808f37 passed post-publication strict proof but its broader audit
+  also needs AIBuildable.cpp. Carry both gaps to the next maintained image;
+  this clears the source stand-ins without asserting boot-path clearance.
+  [Full Wind ownership evidence](../../reverse/attempt_support/wind-native-table-owners-20261109/README.md).
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing

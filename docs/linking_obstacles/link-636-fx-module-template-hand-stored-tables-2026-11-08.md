@@ -195,6 +195,17 @@ Two one-byte explicit Wind owners still need their separately verified
 complete-table transfer. RenderObject, approved-TU and next-image work remain.
 [Native methods, table operands and provider limits](../../reverse/attempt_support/wind-transfer-overrides-20261109/README.md).
 
+The method pair published as b7d3808f37; post-publication strict proof passes.
+The next Wind-owner repair removes both one-byte strong definitions and
+transfers their explicit rows to the complete sixteen-byte compiler tables.
+All 122 code/21 data rows and four scoped LINKS verdicts (1,708B) pass.
+Bounded cached replay changes two strong and two unbounded-row refusals to
+zero, with both tables already correct. The unchanged FXParticleSystem.cpp
+getter lacks a strict-current receipt, and the broader method audit needs
+AIBuildable.cpp. These remain next-census/image scopes. RenderObject's two
+byte owners and final aliases still need actual class/table recovery.
+[Complete Wind ownership proof](../../reverse/attempt_support/wind-native-table-owners-20261109/README.md).
+
 2026-11-09, stale LightningDraw queue recheck: the served V3Slot2/V3Slot0
 names were retired by e51aeb84af. Queue 687433edd9 excludes that repair;
 the refreshed 717b70f4ab index contains it. The strict-current 28-byte

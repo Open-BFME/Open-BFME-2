@@ -46,3 +46,11 @@ complete image or game behaviour. Carry broader audit gaps into the next
 maintained census and real image run. Local reproducible evidence: trial.py,
 selection.py, link-trial.py, verify.py and the corresponding logs/proofs in
 build/wind-prepared-respell-20261109/.
+
+Published as b7d3808f37 on push attempt two (46.9 seconds after a 52.0-second
+lost race). Normal hooks and post-publication strict/object proof pass. The
+authentic vote records precede the source repair in their own commit, so
+their append-only fingerprints remain bound to the original reviewed text.
+The broad audit is INCONCLUSIVE at index 717b70f4ab/base 9012dfde9b because
+unchanged AIBuildable.cpp lacks a current receipt. The three owned sources'
+own link verdicts remain clean; next-image confirmation is still required.

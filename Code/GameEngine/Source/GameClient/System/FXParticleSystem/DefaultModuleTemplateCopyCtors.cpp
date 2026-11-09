@@ -204,12 +204,12 @@ Rva003AEF9B::Rva003AEF9B(const Rva003AEF9B &that)
 	*(void **)((char *)this + 0x18) = &Rva003AEF9B_v18b;
 }
 
-// Rva003AED6B_v0: matched references place it at VA 0xc1b5a8 (retail .rdata value -10).
-extern "C" char Rva003AED6B_v0 = -10;
+// Native constructor operands bind this complete compiler table.
+extern "C" const void *const __identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BDefaultModuleHeadBase@@@")[4];
 extern "C" const void *const __identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@")[1];
 extern "C" const void *const __identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@")[1];
-// Rva003AED6B_vsub: matched references place it at VA 0xc1b598 (retail .rdata value -114).
-extern "C" char Rva003AED6B_vsub = -114;
+// Native constructor operands bind this complete compiler table.
+extern "C" const void *const __identifier("??_7Rva005FEA50Base@FXParticleSystem@@6B@")[4];
 
 class Rva003AED6B
 {
@@ -234,8 +234,8 @@ Rva003AED6B::Rva003AED6B(const Rva003AED6B &that)
 		(FXParticleSystem::WindModuleInfo *)((char *)this + 0x1C);
 	sub->WindModuleInfo::WindModuleInfo(
 		*(const FXParticleSystem::WindModuleInfo *)sub_src);
-	*(void **)sub = &Rva003AED6B_vsub;
-	*(void **)this = &Rva003AED6B_v0;
+	*(void **)sub = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6B@");
+	*(void **)this = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BDefaultModuleHeadBase@@@");
 	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@");
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@");
 }
