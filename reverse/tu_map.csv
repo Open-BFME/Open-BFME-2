@@ -35583,8 +35583,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0044DD1E,101,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/GameModePreferences.cpp
 0x0044DD83,120,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/GameModePreferences.cpp
 0x0044DDFB,95,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/GameModePreferences.cpp
-0x0044DE5A,103,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/Rva0044DEC1Finish.cpp
-0x0044DEC1,103,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/Rva0044DEC1Finish.cpp
+0x0044DE5A,103,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/GameModePreferences.cpp
+0x0044DEC1,103,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,N,N=Code/GameEngine/Source/Common/GameModePreferences.cpp provisional,Code/GameEngine/Source/Common/GameModePreferences.cpp
 0x0044DF28,51,code,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp
 0x0044DF5B,22,code,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp
 0x0044DF71,28,code,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp
@@ -79109,8 +79109,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007899C9,10,code,Code/GameEngine/Source/Common/GameModePreferences.cpp,approved,P,P=0x0044DD83@FuncInfo0x00937CF0 provisional,Code/GameEngine/Source/Common/GameModePreferences.cpp
 0x007899D3,8,code,,,-,,Code/GameEngine/Source/Common/GameModePreferences.cpp
 0x007899DB,10,code,,,-,,Code/GameEngine/Source/Common/GameModePreferences.cpp
-0x007899E5,8,code,,,-,,Code/GameEngine/Source/Common/Rva0044DEC1Finish.cpp
-0x007899ED,10,code,,,-,,Code/GameEngine/Source/Common/Rva0044DEC1Finish.cpp
+0x007899E5,8,code,,,-,,Code/GameEngine/Source/Common/GameModePreferences.cpp
+0x007899ED,10,code,,,-,,Code/GameEngine/Source/Common/GameModePreferences.cpp
 0x007899F7,13,code,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp,approved,P,P=0x0044E054@FuncInfo0x00937D5C provisional,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp
 0x00789A04,10,code,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp,approved,P,P=0x0044E054@FuncInfo0x00937D5C provisional,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp
 0x00789A0E,8,code,Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp,approved,P,P=0x0044E0AA@FuncInfo0x00937D80 provisional,Code/gen_small/uw_gen_011.cpp
