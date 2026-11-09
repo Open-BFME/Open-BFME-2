@@ -34,21 +34,6 @@ public:
 	virtual void doSpecialPower(unsigned int);
 };
 
-//
-// CombineHordeSpecialPower's destructor 0x004C87F4, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5E76C at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5E708 at +0x10), exactly what ??0CombineHordeSpecialPower
-// 0x004C87C4 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C87F4 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C87F4();
-};
-
 // tu-skeleton: 0x004C87A9 27B ?buildFieldParse@CombineHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower.cpp
@@ -64,7 +49,8 @@ CombineHordeSpecialPower::CombineHordeSpecialPower( Thing *thing, const ModuleDa
 {
 }
 
-// ??1CombineHordeSpecialPower@@MAE@XZ present-unmatched
+// ??1CombineHordeSpecialPower@@MAE@XZ 0x004C87F4: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 CombineHordeSpecialPower::~CombineHordeSpecialPower()
 {
 }
@@ -80,16 +66,6 @@ NameKeyType CombineHordeSpecialPower::getModuleNameKey() const
 }
 
 // tu-skeleton: 0x004C87EE 6B ?Rva004C87EEGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C87F4::~Rva004C87F4()
-{
-}
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C888D 318B ?doSpecialPower@CombineHordeSpecialPower@@UAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower_doSpecialPower.cpp (not merged yet)
 
