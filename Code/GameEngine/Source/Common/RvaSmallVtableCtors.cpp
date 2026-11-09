@@ -122,6 +122,9 @@ class Rva003A538E
 public:
 	Rva003A538E(void *payload);
 	virtual ~Rva003A538E();
+	// Retail table 0x00C1B320: slot 0 is this class's rowed deleting destructor and
+	// slot 1 is __purecall.
+	virtual void slot01() = 0;
 private:
 	void *m_04;
 };
@@ -1214,6 +1217,9 @@ class Rva005754ED
 public:
 	Rva005754ED(void *payload);
 	virtual ~Rva005754ED() {}
+	// Retail table 0x00C6E60C: slot 0 is this class's rowed deleting destructor and
+	// slot 1 is __purecall.
+	virtual void slot01() = 0;
 private:
 	void *m_04;
 };
@@ -1256,6 +1262,9 @@ class Rva005D1023
 public:
 	Rva005D1023(void *payload);
 	virtual ~Rva005D1023() {}
+	// Retail table 0x00C7559C: slot 0 is this class's rowed deleting destructor and
+	// slot 1 is __purecall.
+	virtual void slot01() = 0;
 private:
 	void *m_04;
 };
@@ -1368,6 +1377,9 @@ class Rva0007DFE9
 public:
 	Rva0007DFE9();
 	virtual ~Rva0007DFE9() {}
+	// Retail table 0x00BC6F24: slot 0 is this class's rowed deleting destructor and
+	// slot 1 is __purecall.
+	virtual void slot01() = 0;
 };
 
 Rva0007DFE9::Rva0007DFE9()
