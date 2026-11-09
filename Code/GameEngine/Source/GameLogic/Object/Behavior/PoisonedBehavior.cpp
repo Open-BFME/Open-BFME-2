@@ -209,6 +209,10 @@ private:
 	unsigned int m_poisonOverallStopFrame;	// +0x28
 	float m_poisonDamageAmount;		// +0x2C
 	int m_deathType;			// +0x30
+public:
+	// BehaviorModuleInterface table 0x00C49800 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual DamageModuleInterface *getDamage();			// slot 4: retail 0x004543A9, the +0x20 DamageModuleInterface
 };
 
 // Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
@@ -407,3 +411,9 @@ void PoisonedBehavior::xfer(Xfer *xfer)
 // No // cl: line (defaults match the frameless 6-byte shape).
 
 // tu-skeleton: 0x00482F6C 17B ?buildFieldParse@PoisonedBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// Slot 4 of PoisonedBehavior's BehaviorModuleInterface table 0x00C49800: retail 0x004543A9, the +0x20 DamageModuleInterface.
+DamageModuleInterface *PoisonedBehavior::getDamage()
+{
+	return this;
+}

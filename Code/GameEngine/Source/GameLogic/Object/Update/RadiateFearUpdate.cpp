@@ -181,6 +181,10 @@ private:
 	{
 		return (const RadiateFearUpdateModuleData *)m_moduleData;
 	}
+public:
+	// BehaviorModuleInterface table 0x00C49F78 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 };
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
@@ -528,3 +532,9 @@ UpdateSleepTime RadiateFearUpdate::update()
 // tu-skeleton: 0x0078D7F5 8B Unwind@00b8d7f5 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D7FD 10B __ehhandler$??1RadiateFearUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
+
+// Slot 10 of RadiateFearUpdate's BehaviorModuleInterface table 0x00C49F78: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *RadiateFearUpdate::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
+}

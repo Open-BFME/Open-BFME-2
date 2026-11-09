@@ -82,6 +82,10 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+public:
+	// BehaviorModuleInterface table 0x00C49F78 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 };
 
 AttributeModifierAuraUpdate::~AttributeModifierAuraUpdate()
@@ -99,3 +103,9 @@ AttributeModifierAuraUpdate::~AttributeModifierAuraUpdate()
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?updateSlot@UpdateModuleInterface@@UAEXXZ=?update@AttributeModifierAuraUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?upgradeSlot@UpgradeMux@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
+
+// Slot 10 of AttributeModifierAuraUpdate's BehaviorModuleInterface table 0x00C49F78: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *AttributeModifierAuraUpdate::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
+}

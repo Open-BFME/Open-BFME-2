@@ -338,6 +338,10 @@ private:
 	{
 		return (const ReplenishUnitsBehaviorModuleData *)m_moduleData;
 	}
+public:
+	// BehaviorModuleInterface table 0x00C49F78 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp
@@ -499,3 +503,9 @@ void ReplenishUnitsBehavior::xfer(Xfer *xfer)
 }
 
 // tu-skeleton: 0x0078BD23 8B uw_0078bd23 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// Slot 10 of ReplenishUnitsBehavior's BehaviorModuleInterface table 0x00C49F78: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *ReplenishUnitsBehavior::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
+}

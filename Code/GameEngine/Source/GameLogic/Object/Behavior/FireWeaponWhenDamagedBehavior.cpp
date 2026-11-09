@@ -475,3 +475,15 @@ void FireWeaponWhenDamagedBehavior::onDamage(DamageInfo *damageInfo)
 			m_reactionWeaponPristine->forceFireWeapon(obj, obj->getPosition());
 	}
 }
+
+// Slot 4 of FireWeaponWhenDamagedBehavior's BehaviorModuleInterface table 0x00C495A0: retail 0x004523A9, the +0x28 DamageModuleInterface.
+DamageModuleInterface *FireWeaponWhenDamagedBehavior::getDamage()
+{
+	return this;
+}
+
+// Slot 10 of FireWeaponWhenDamagedBehavior's BehaviorModuleInterface table 0x00C495A0: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *FireWeaponWhenDamagedBehavior::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
+}

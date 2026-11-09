@@ -224,6 +224,10 @@ private:
 		return (const BroadcastStealthUpdateModuleData *)m_moduleData;
 	}
 	BridgeBehaviorObjectIDList m_28; // +0x28
+public:
+	// BehaviorModuleInterface table 0x00C49F78 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 typedef bool Bool;
@@ -429,3 +433,9 @@ BroadcastStealthUpdate::~BroadcastStealthUpdate()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
+
+// Slot 10 of BroadcastStealthUpdate's BehaviorModuleInterface table 0x00C49F78: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *BroadcastStealthUpdate::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
+}

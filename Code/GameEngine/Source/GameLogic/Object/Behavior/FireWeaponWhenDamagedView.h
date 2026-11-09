@@ -121,4 +121,9 @@ private:
 	Weapon *m_continuousWeaponDamaged;
 	Weapon *m_continuousWeaponReallyDamaged;
 	Weapon *m_continuousWeaponRubble;
+public:
+	// BehaviorModuleInterface table 0x00C495A0 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual DamageModuleInterface *getDamage();			// slot 4: retail 0x004523A9, the +0x28 DamageModuleInterface
+	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 };

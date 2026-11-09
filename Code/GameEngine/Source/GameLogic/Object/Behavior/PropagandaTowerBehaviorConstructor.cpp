@@ -61,6 +61,10 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+public:
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C): the receiver converted to the
+	// class's own interface, the null-preserving casts retail folds across the module family.
+	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004543A9, the +0x20 die interface
 };
 
 // ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -79,3 +83,9 @@ PropagandaTowerBehavior::PropagandaTowerBehavior(Thing *thing, const ModuleData 
 #pragma comment(linker, "/alternatename:?slot@PB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?slot@PB_Iface2@@UAEXXZ=?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?slot@PropagandaTowerBehaviorIface@@UAEXXZ=?rva00481837@Rva00481837@@UAEXH@Z")
+
+// Slot 7 of PropagandaTowerBehavior's BehaviorModuleInterface table 0x00C49188: retail 0x004543A9, the +0x20 die interface.
+DieModuleInterface *PropagandaTowerBehavior::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<PropagandaTowerBehaviorIface *>(this));
+}
