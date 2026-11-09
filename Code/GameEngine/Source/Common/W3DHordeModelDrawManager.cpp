@@ -965,6 +965,8 @@ struct Rva000796CBPair
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
+
 template _STL::_Rb_tree_node<_STL::pair<int const, Rva0007989CRecord> > * _STL::_Rb_tree<int, _STL::pair<int const, Rva0007989CRecord>, _STL::_Select1st<_STL::pair<int const, Rva0007989CRecord> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0007989CRecord> > >::_M_create_node(_STL::pair<int const, Rva0007989CRecord> const &);
 
 template _STL::vector<NarrowStr12, _STL::allocator<NarrowStr12> >::vector(const _STL::vector<NarrowStr12, _STL::allocator<NarrowStr12> > &);
@@ -1788,6 +1790,19 @@ void W3DHordeModelDrawManager::rva00079911()
 	m_list.clear();
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva000796CBPairInit.cpp
+
+//
+// Shared pair initializer for LocomotorSetType maps (AIUpdate parse cluster).
+// Layout-identical non-const view of the map node pair; constructs from a
+// key pointer plus a template vector. The vector copy folds to the rowed
+// unsigned-int spelling (twin pin).
+
+Rva000796CBPair::Rva000796CBPair(const int *key, const LocomotorTemplateVector &vec)
+	: first(*key), second(vec)
+{
+}
+
 // tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00078B7D 6B ?name@Rva00078B7DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
@@ -1802,7 +1817,22 @@ void W3DHordeModelDrawManager::rva00079911()
 
 // tu-skeleton: 0x000791E5 8B ?rva000791E5@Rva000791E5Forwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x000791ED 50B ?Rva000791EDCopy@@YAPAVRva00752630@@PAV1@00@Z -- matched in Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp
+
+Rva00752630 *Rva000791EDCopy(Rva00752630 *first, Rva00752630 *last, Rva00752630 *result)
+{
+	int n = last - first;
+	if (n > 0) {
+		int count = n;
+		do {
+			result->Rva00752630::Rva00752630(*first);
+			++first;
+			++result;
+			--count;
+		} while (count != 0);
+	}
+	return result;
+}
 
 // tu-skeleton: 0x000793FA 53B ??1ShadowTypeInfo@Shadow@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp (not merged yet)
 
@@ -1813,19 +1843,6 @@ void W3DHordeModelDrawManager::rva00079911()
 // tu-skeleton: 0x0007961D 28B ??_G?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
 
 // tu-skeleton: 0x000796BC 15B ??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Rva000796CBPairInit.cpp
-
-//
-// Shared pair initializer for LocomotorSetType maps (AIUpdate parse cluster).
-// Layout-identical non-const view of the map node pair; constructs from a
-// key pointer plus a template vector. The vector copy folds to the rowed
-// unsigned-int spelling (twin pin).
-
-Rva000796CBPair::Rva000796CBPair(const int *key, const LocomotorTemplateVector &vec)
-	: first(*key), second(vec)
-{
-}
 
 // tu-skeleton: 0x000796E8 45B ??$_Construct@V?$vector@IV?$allocator@I@_STL@@@_STL@@V12@@_STL@@YAXPAV?$vector@IV?$allocator@I@_STL@@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
