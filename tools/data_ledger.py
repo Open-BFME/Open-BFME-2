@@ -192,7 +192,14 @@ def collect_uncached(rows=None):
         except (ValueError, OSError, SystemExit):
             continue
         local = local_names(obj)
+        # past the first non-relocation difference nothing lines up with retail,
+        # so the retail dword at a later site is not an address
+        masked = {at for offset, _kind, _symbol in relocs for at in range(offset, offset + 4)}
+        first_difference = next((at for at in range(min(size, len(body), len(target)))
+                                 if at not in masked and body[at] != target[at]), None)
         for offset, kind, symbol in relocs:
+            if first_difference is not None and offset > first_difference:
+                continue
             if kind != DIR32 or offset + 4 > min(size, len(body), len(target)) or symbol.startswith(("$", "__ehhandler$")):
                 continue
             base = (struct.unpack_from("<I", target, offset)[0] - struct.unpack_from("<I", body, offset)[0]
