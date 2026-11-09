@@ -51,27 +51,7 @@ public:
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-struct Mask76 { unsigned char m_bytes[0x4C]; };
-
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-	virtual void doFXPos(const Coord3D *primary, const Matrix3D *primaryMtx, float primarySpeed, const Coord3D *secondary) const = 0;
-	virtual void doFXObj(const Object *primary, const Object *secondary) const;
-	virtual void slot3() const = 0;
-	virtual bool rva001DFF5D(Object *primary, Object *secondary);
-
-	int m_field04;
-	Rva2225E0Filter m_filter08;
-	Rva2225E0Filter m_filter0C;
-	Mask76 m_mask10;
-	Mask76 m_mask5C;
-	Mask76 m_maskA8;
-	Mask76 m_maskF4;
-	int m_140;
-	bool m_144;
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 void Rva001DFEAABase::doFXObj(const Object *primary, const Object *secondary) const
 {
@@ -85,9 +65,9 @@ bool Rva001DFEAABase::rva001DFF5D(Object *primary, Object *secondary)
 {
 	if (primary)
 	{
-		if (!m_filter08.accepts(primary, 0))
+		if (!reinterpret_cast<Rva2225E0Filter &>(m_08).accepts(primary, 0))
 			return false;
-		if (!primary->m_modelConditions.rva001DFE56(&m_mask10, &m_mask5C))
+		if (!primary->m_modelConditions.rva001DFE56(&m_10, &m_5C))
 			return false;
 		Drawable *draw = primary->getDrawable();
 		if (draw && draw->m_stealthLook == 5)
@@ -95,9 +75,9 @@ bool Rva001DFEAABase::rva001DFF5D(Object *primary, Object *secondary)
 	}
 	if (secondary)
 	{
-		if (!m_filter0C.accepts(secondary, 0))
+		if (!reinterpret_cast<Rva2225E0Filter &>(m_0C).accepts(secondary, 0))
 			return false;
-		if (!secondary->m_modelConditions.rva001DFE56(&m_maskA8, &m_maskF4))
+		if (!secondary->m_modelConditions.rva001DFE56(&m_A8, &m_F4))
 			return false;
 	}
 	if (m_140 != 2 && TheWritableGlobalData->m_weather != m_140)

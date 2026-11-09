@@ -4,7 +4,7 @@
  "class": "Rva001DFEAABase",
  "evidence": {
   "bases_overruled": null,
-  "census": 30,
+  "census": 16,
   "inherited": {
    "base_views": 0,
    "inherited_slots": 0,
@@ -138,11 +138,10 @@
   },
   "view_errors": 0,
   "view_sizes": {
-   "4": 2,
-   "16": 1,
-   "328": 27
+   "4": 1,
+   "328": 15
   },
-  "views": 30,
+  "views": 16,
   "witness_offsets": [],
   "zh": {}
  },
@@ -156,11 +155,11 @@
    "retail_widths": {},
    "size": 4,
    "type": "void*",
-   "views": 28,
+   "views": 16,
    "witness": null
   },
   {
-   "decided_by": "majority",
+   "decided_by": "bytes",
    "kind": "i4",
    "name": "m_nuggetType",
    "name_by": "majority",
@@ -168,49 +167,133 @@
    "retail_widths": {},
    "size": 4,
    "type": "int",
-   "views": 21,
+   "views": 15,
    "witness": null
   },
   {
-   "decided_by": "majority",
+   "decided_by": "bytes",
    "kind": "S:Rva003623E5Member",
    "members": [
     {
      "kind": "i4",
-     "name": "m_val",
+     "name": "m_x",
      "offset": 0,
      "size": 4,
      "type": "int"
     }
    ],
-   "name": "m_filter08",
+   "name": "m_08",
    "name_by": "majority",
    "offset": 8,
    "retail_widths": {},
    "size": 4,
    "type": "Rva003623E5Member",
-   "views": 3,
+   "views": 2,
    "witness": null
   },
   {
-   "decided_by": "majority",
-   "kind": "S:Rva003623E5Filter",
+   "decided_by": "bytes",
+   "kind": "S:Rva003623E5Member",
    "members": [
     {
      "kind": "i4",
-     "name": "m_val",
+     "name": "m_x",
      "offset": 0,
      "size": 4,
      "type": "int"
     }
    ],
-   "name": "m_filter0C",
+   "name": "m_0C",
    "name_by": "majority",
    "offset": 12,
    "retail_widths": {},
    "size": 4,
-   "type": "Rva003623E5Filter",
-   "views": 3,
+   "type": "Rva003623E5Member",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0042526Member",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_bytes",
+     "offset": 0,
+     "size": 76,
+     "type": "uchar[76]"
+    }
+   ],
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 76,
+   "type": "Rva0042526Member",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0042526Member",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_bytes",
+     "offset": 0,
+     "size": 76,
+     "type": "uchar[76]"
+    }
+   ],
+   "name": "m_5C",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 76,
+   "type": "Rva0042526Member",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0042526Member",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_bytes",
+     "offset": 0,
+     "size": 76,
+     "type": "uchar[76]"
+    }
+   ],
+   "name": "m_A8",
+   "name_by": "majority",
+   "offset": 168,
+   "retail_widths": {},
+   "size": 76,
+   "type": "Rva0042526Member",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0042526Member",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_bytes",
+     "offset": 0,
+     "size": 76,
+     "type": "uchar[76]"
+    }
+   ],
+   "name": "m_F4",
+   "name_by": "majority",
+   "offset": 244,
+   "retail_widths": {},
+   "size": 76,
+   "type": "Rva0042526Member",
+   "views": 2,
    "witness": null
   },
   {
@@ -242,58 +325,7 @@
  "key_by": "majority",
  "ledger_keys": {},
  "outliers": [],
- "queue": [
-  {
-   "attribute": "name@0x8",
-   "candidates": {
-    "m_08": 1,
-    "m_filter08.m_index": 1,
-    "m_filter08.m_val": 1
-   },
-   "class": "Rva001DFEAABase"
-  },
-  {
-   "attribute": "name@0xc",
-   "candidates": {
-    "m_0C": 1,
-    "m_filter0C.m_index": 1,
-    "m_filter0C.m_val": 1
-   },
-   "class": "Rva001DFEAABase"
-  },
-  {
-   "attribute": "field@0x10",
-   "candidates": {
-    "76:A": 1,
-    "76:S:Rva0042526Member": 1
-   },
-   "class": "Rva001DFEAABase"
-  },
-  {
-   "attribute": "field@0x5c",
-   "candidates": {
-    "76:A": 1,
-    "76:S:Rva0042526Member": 1
-   },
-   "class": "Rva001DFEAABase"
-  },
-  {
-   "attribute": "field@0xa8",
-   "candidates": {
-    "76:A": 1,
-    "76:S:Rva0042526Member": 1
-   },
-   "class": "Rva001DFEAABase"
-  },
-  {
-   "attribute": "field@0xf4",
-   "candidates": {
-    "76:A": 1,
-    "76:S:Rva0042526Member": 1
-   },
-   "class": "Rva001DFEAABase"
-  }
- ],
+ "queue": [],
  "size": 328,
  "size_by": "majority",
  "vslots": {
@@ -311,7 +343,7 @@
   },
   "3": {
    "decided_by": "bytes",
-   "member": "slot3()"
+   "member": "slot03(AssetList*,int)"
   },
   "4": {
    "decided_by": "bytes",

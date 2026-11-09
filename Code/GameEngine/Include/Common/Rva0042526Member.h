@@ -8,7 +8,7 @@
 class Rva0042526Member
 {
 public:
-    Rva0042526Member();
+    Rva0042526Member() throw();     // retail's base ctor keeps no unwind state across it
 
     unsigned char m_bytes[0x4C];
 };
