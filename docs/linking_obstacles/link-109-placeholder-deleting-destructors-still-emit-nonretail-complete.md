@@ -7,7 +7,7 @@ Completed: inspected every deleting row's native call and its current callee row
 | Native deleting row | Complete-destructor target | Existing row owner and home |
 | --- | --- | --- |
 | 0x00122110 | 0x00120FB0 | VectorClass<FontCharsBuffer*>::~VectorClass, WW3D2/render2dsentence.cpp; the earlier naming attempt separately records conflicting ResolutionDesc vtable neighbors. |
-| 0x00156840 | 0x00155330 | VectorClass<HLodClass::ModelNodeClass>::~VectorClass, WW3D2/hlod.cpp. |
+| 0x00156840 | 0x00155330 | DynamicVectorClass<Rva00155940Element*>::~DynamicVectorClass, WW3D2/FontCharsClassConstructorBFME.cpp (2026-11-09: hlod.cpp's VectorClass<ModelNodeClass> placement retracted; retail stores table 0x007D3B98 there and inlines ModelNodeClass's destructor). |
 | 0x00157110 | 0x00156750 | VectorClass<MixFileFactoryClass::AddInfoStruct>::~VectorClass, WWLib/mixfile.cpp. |
 | 0x00157E60 | 0x00157C20 | VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::~VectorClass, WW3D2/render2dsentence.cpp. |
 | 0x00188320 | 0x001880D0 | Rva001880D0StringCleanupForward::cleanup, WWLib/wwstring_free_string.cpp; the five-byte body jumps to StringClass::Free_String at 0x00610A40. |

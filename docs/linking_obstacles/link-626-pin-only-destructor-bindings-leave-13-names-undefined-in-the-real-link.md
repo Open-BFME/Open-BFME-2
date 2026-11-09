@@ -17,7 +17,7 @@ destructor has no definition.
 | `??1Rva006C5930Dtor@@UAE@XZ` | `WWLib/Rva00170C0Siblings.cpp` (`??_G` 0x00118640) | 0x006C5930 | `?apply@Rva0006C5930DwordImmSetter@@QAEXXZ` (7 B; `??1DebugCmdInterface@@MAE@XZ` is pinned there too) |
 | `??1Rva00120FB0Dtor@@UAE@XZ` | same (`??_G` 0x00122110) | 0x00120FB0 | `??1?$VectorClass@PAVFontCharsBuffer@@@@UAE@XZ` (render2dsentence.cpp) |
 | `??1Rva00141C30Dtor@@UAE@XZ` | same (`??_G` 0x00141C10) | 0x00141C30 | `??1Rva00140C00@@UAE@XZ` (InlineDtorDeletingDtorsC03.cpp) |
-| `??1Rva00155330Dtor@@UAE@XZ` | same (`??_G` 0x00156840) | 0x00155330 | `??1?$VectorClass@VModelNodeClass@HLodClass@@@@UAE@XZ` (hlod.cpp) and a folded `DynamicVectorClass` row |
+| `??1Rva00155330Dtor@@UAE@XZ` | same (`??_G` 0x00156840) | 0x00155330 | `??1?$DynamicVectorClass@PAVRva00155940Element@@@@UAE@XZ` (FontCharsClassConstructorBFME.cpp; 2026-11-09 the misplaced hlod.cpp `VectorClass<ModelNodeClass>` row there was retracted) |
 | `??1Rva00156750Dtor@@UAE@XZ` | same (`??_G` 0x00157110) | 0x00156750 | `??1?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@UAE@XZ` (mixfile.cpp) |
 | `??1Rva00625800Dtor@@UAE@XZ` | same (`??_G` 0x00626D90) | 0x00625800 | `?bfmeUnhookZU@BfmeThingZU@@QAEXXZ` (BfmeOneHundredSixtyTwo.cpp) |
 | `??1Rva0066C730Dtor@@UAE@XZ` | same (`??_G` 0x00663410) | 0x0066C730 | `?reset@Rva00800290Buffer@@QAEXXZ` (Fesl/util.cpp, 35 B) |
