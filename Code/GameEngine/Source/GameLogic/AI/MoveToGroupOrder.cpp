@@ -52,11 +52,7 @@ enum NameKeyType
 	NAMEKEY_MAX = 1 << 23,
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
-class ArmorTemplate
-{
-public:
-	float m_damageCoefficient[38];
-};
+#include "../../../Include/GameLogic/Armor.h"
 #include "RtsHashView.h"
 #pragma optimize("s", off)
 #pragma optimize("t", on)

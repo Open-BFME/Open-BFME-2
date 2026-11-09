@@ -17,7 +17,7 @@ namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *
 struct Rva0014918DElement {char bytes[8];};
 enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 namespace rts { template<class T>struct hash {unsigned operator()(const T&v)const{return (unsigned)v;} }; }
-class ArmorTemplate {float values[38];};
+#include "../../../../GameEngine/Include/GameLogic/Armor.h"
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmorPair;
 typedef _STL::hashtable<ArmorPair,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmorPair>,_STL::equal_to<NameKeyType>,_STL::allocator<ArmorPair> > ArmorTable;
 namespace _STL {template<> void ArmorTable::clear();}
