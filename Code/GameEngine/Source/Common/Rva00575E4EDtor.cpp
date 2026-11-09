@@ -29,6 +29,8 @@ class Rva00575E4E : public Rva00575E4EBase1, public LivingWorldBattleListener {
 public:
     Rva00575E4E(int value, Parent00575E4E *parent);
     virtual ~Rva00575E4E();
+    // Retail's table: slot 1 of the primary base, 0x00575DDA.
+    virtual void rva00575DDA();
 private:
     Parent00575E4E *m_parentC;
 };

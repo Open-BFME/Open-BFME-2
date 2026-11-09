@@ -1133,17 +1133,18 @@ struct Rva005757F9Value;
 class Rva005757F9 { public: void rva005757F9(Rva005757F9Value *value); };
 class Rva0057590E { public: void rva0057590E(Int value); };
 class Rva005759A5 { public: void rva005759A5(Int value); };
-class Rva00575DDA
+class Rva00575E4E
 {
+protected:
+	virtual ~Rva00575E4E();
 public:
-	void rva00575DDA();
+	virtual void rva00575DDA();
 private:
-	Int m_00;
 	Rva005757F9 *m_04;
 	Int m_08;
 	Rva005757F9Value *m_0C;
 };
-void Rva00575DDA::rva00575DDA()
+void Rva00575E4E::rva00575DDA()
 {
 	m_04->rva005757F9(m_0C);
 }
