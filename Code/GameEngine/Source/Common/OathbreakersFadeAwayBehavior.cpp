@@ -92,6 +92,7 @@ enum CommandSourceType
 };
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../GameLogic/Object/object.h"
+
 //
 // ??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x004B8A8A, 59 bytes. Dedicated TU: the behavior ctor runs the
@@ -109,9 +110,78 @@ enum CommandSourceType
 // OathbreakersFadeAwayBehavior class.
 
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];
+
   // folded vftable 0x00BEFF90 (80 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7OathbreakersFadeAwayBehavior@@6BRva004B89C4_B2@@@")[];
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+// StealthUpdate (retail module class, module_factory_registrations.csv): its
+// constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,
+// the shared 0x007EFF90 at +0xC, 0x00817F14 at +0x10) as this destructor,
+// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// EntEnragedUpdate: its constructor 0x004B2516 stores the same three vftables
+// (0x00856948 at +0, the shared 0x007EFF90 at +0xC, 0x0085693C at +0x10) that
+// this destructor stores; slot 0 of 0x0085693C is the rowed
+// EntEnragedUpdate::update. The +0x10 interface is the one-slot view
+// EntEnragedUpdateCtorThunk.cpp uses, so the shared vftable copies agree.
+enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
+
+class Rva004B89C4_B2
+{
+public:
+	virtual void f2();
+};
 
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
@@ -130,7 +200,21 @@ private:
 	float m_24;
 };
 
-// tu-skeleton: 0x004B89C4 25B ??1OathbreakersFadeAwayBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
+
+OathbreakersFadeAwayBehavior::~OathbreakersFadeAwayBehavior()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/Common/OathbreakersFadeAwayBehavior.cpp
 
 // ---- from Code/GameEngine/Source/Common/OathbreakersFadeAwayBehavior.cpp
 
@@ -197,8 +281,6 @@ void OathbreakersFadeAwayBehavior::rva004B8B0F()
 	obj->setSelectable(false);
 }
 
-// tu-skeleton: 0x004B8A79 17B ?buildFieldParse@OathbreakersFadeAwayBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorCtor.cpp
 
 // Opaque UpdateModule base; ctor resolves to its row. Single inheritance
@@ -214,6 +296,8 @@ OathbreakersFadeAwayBehavior::OathbreakersFadeAwayBehavior(Thing *thing, const M
 }
 
 // 0x004B8AC5 28B ??_GOathbreakersFadeAwayBehavior@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
+
+// tu-skeleton: 0x004B8A79 17B ?buildFieldParse@OathbreakersFadeAwayBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004B8AE1 46B ?calcSleepTime@OathbreakersFadeAwayBehavior@@QAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/Common/Rva004B89C4Update.cpp (not merged yet)
 

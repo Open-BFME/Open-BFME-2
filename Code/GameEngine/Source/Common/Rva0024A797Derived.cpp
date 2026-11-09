@@ -398,21 +398,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
 
 
-class Rva004B89C4_B2
-{
-public:
-	virtual void f2();
-};
 
-class OathbreakersFadeAwayBehavior : public UpdateModule, public MiBase1, public Rva004B89C4_B2
-{
-public:
-	virtual ~OathbreakersFadeAwayBehavior();
-};
-
-OathbreakersFadeAwayBehavior::~OathbreakersFadeAwayBehavior()
-{
-}
 
 class Rva004CC63A_B2
 {
