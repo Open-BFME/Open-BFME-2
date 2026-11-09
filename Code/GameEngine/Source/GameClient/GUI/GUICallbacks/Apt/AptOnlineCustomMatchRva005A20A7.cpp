@@ -104,11 +104,7 @@ public:
 };
 
 
-class GameSpyStagingRoom : public GameInfo
-{
-public:
-	GameSpyGameSlot *getGameSpySlot(int index);
-};
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 extern GameSpyStagingRoom *TheGameSpyGame;
 

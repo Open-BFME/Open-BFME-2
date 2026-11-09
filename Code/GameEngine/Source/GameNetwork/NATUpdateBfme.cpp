@@ -54,7 +54,8 @@ template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 #include "../../Include/GameNetwork/GameInfo.h"
 class GameSpyGameSlot:public GameSlot{public:int profile;};
-class GameSpyStagingRoom{public:GameSpyGameSlot *getGameSpySlot(int);};extern GameSpyStagingRoom *TheGameSpyGame;
+#include "../../Include/GameNetwork/GameSpyStagingRoom.h"
+extern GameSpyStagingRoom *TheGameSpyGame;
 class PSPlayerAllStats{public:int id;char rest[0x544];~PSPlayerAllStats();};
 class GameSpyPSMessageQueueInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual PSPlayerAllStats findPlayerStatsByID(int);};extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 struct Rva00A063B0Obj;extern Rva00A063B0Obj *g_a063b0;

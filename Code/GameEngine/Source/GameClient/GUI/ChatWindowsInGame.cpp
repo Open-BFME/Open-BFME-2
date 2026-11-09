@@ -117,7 +117,7 @@ extern GameInfo *TheGameInfo;
 
 class GameSpyGameSlot { public: char unknown00[0x1ac]; int profile1AC; };
 
-class GameSpyStagingRoom { public: GameSpyGameSlot *getGameSpySlot(int); };
+#include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 extern GameSpyStagingRoom *TheGameSpyGame;
 
