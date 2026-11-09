@@ -22,29 +22,18 @@ private:
 	iterator m_endOfStorage;
 };
 }
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		char m_pad0[8];
-		ModuleData *second;
-		char m_pad1[0x14 - 8 - 4];
-	};
-	bool clearAiModuleInfo();
-	bool rva0033C8B5();
-private:
-	_STL::vector<Nugget, _STL::allocator<Nugget> > m_info;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
+typedef _STL::vector<ModuleInfo::Nugget, _STL::allocator<ModuleInfo::Nugget> > ModuleInfoNuggetVector;
 bool ModuleInfo::rva0033C8B5()
 {
+	ModuleInfoNuggetVector &info = *reinterpret_cast<ModuleInfoNuggetVector *>(this);
 	bool ret = false;
-	_STL::vector<Nugget, _STL::allocator<Nugget> >::iterator it = m_info.begin();
-	while (it != m_info.end())
+	ModuleInfoNuggetVector::iterator it = info.begin();
+	while (it != info.end())
 	{
 		if (it->second->slot07())
 		{
-			it = m_info.erase(it);
+			it = info.erase(it);
 			ret = true;
 		}
 		else
@@ -57,13 +46,14 @@ bool ModuleInfo::rva0033C8B5()
 
 bool ModuleInfo::clearAiModuleInfo()
 {
+	ModuleInfoNuggetVector &info = *reinterpret_cast<ModuleInfoNuggetVector *>(this);
 	bool ret = false;
-	_STL::vector<Nugget, _STL::allocator<Nugget> >::iterator it = m_info.begin();
-	while (it != m_info.end())
+	ModuleInfoNuggetVector::iterator it = info.begin();
+	while (it != info.end())
 	{
 		if (it->second->isAiModuleData())
 		{
-			it = m_info.erase(it);
+			it = info.erase(it);
 			ret = true;
 		}
 		else

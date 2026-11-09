@@ -20,30 +20,18 @@ private:
 	iterator m_endOfStorage;
 };
 }
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		char m_pad0[0xC];
-		int m_interfaceMask;
-		unsigned char m_flag10;
-		unsigned char m_flag11;
-		char m_pad2[0x14 - 0x12];
-	};
-	bool rva0033C84A(int mask);
-private:
-	_STL::vector<Nugget, _STL::allocator<Nugget> > m_info;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
+typedef _STL::vector<ModuleInfo::Nugget, _STL::allocator<ModuleInfo::Nugget> > ModuleInfoNuggetVector;
 bool ModuleInfo::rva0033C84A(int mask)
 {
+	ModuleInfoNuggetVector &info = *reinterpret_cast<ModuleInfoNuggetVector *>(this);
 	bool ret = false;
-	_STL::vector<Nugget, _STL::allocator<Nugget> >::iterator it = m_info.begin();
-	while (it != m_info.end())
+	ModuleInfoNuggetVector::iterator it = info.begin();
+	while (it != info.end())
 	{
-		if ((it->m_interfaceMask & mask) != 0 && it->m_flag10 != 0 && it->m_flag11 == 0)
+		if ((it->interfaceMask & mask) != 0 && it->copiedFromDefault != 0 && it->inheritable == 0)
 		{
-			it = m_info.erase(it);
+			it = info.erase(it);
 			ret = true;
 		}
 		else

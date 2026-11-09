@@ -13,27 +13,7 @@
 
 #include "../../../Include/Common/ModuleData.h"
 
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		AsciiString m_first;
-		AsciiString m_tag;
-		const ModuleData *m_data;
-		int m_interfaceMask;
-		unsigned char m_a;
-		unsigned char m_b;
-		unsigned char m_c;
-		unsigned char m_pad;
-	};
-	bool clearModuleDataWithTag(const AsciiString &tag, AsciiString &out);
-
-private:
-	Nugget *m_start;
-	Nugget *m_finish;
-	Nugget *m_end;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 namespace _STL
 {
@@ -53,11 +33,11 @@ public:
 bool ModuleInfo::clearModuleDataWithTag(const AsciiString &tag, AsciiString &out)
 {
 	bool found = false;
-	for (ModuleInfo::Nugget *it = m_start; it != m_finish;)
+	for (ModuleInfo::Nugget *it = m_begin; it != m_end;)
 	{
-		if (it->m_tag.compare(tag) == 0)
+		if (it->m_moduleTag.compare(tag) == 0)
 		{
-			out = it->m_first;
+			out = it->first;
 			it = reinterpret_cast<_STL::vector<ModuleInfo::Nugget> *>(this)->erase(it);
 			found = true;
 		}

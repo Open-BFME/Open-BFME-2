@@ -12,29 +12,15 @@
 
 #include "../../../Include/Common/ModuleData.h"
 
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		Nugget &operator=(const Nugget &other);
-
-		AsciiString m_first;
-		AsciiString m_moduleTag;
-		const ModuleData *m_data;
-		int m_interfaceMask;
-		unsigned char m_copiedFromDefault;
-		unsigned char m_inheritable;
-	};
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 ModuleInfo::Nugget &ModuleInfo::Nugget::operator=(const Nugget &other)
 {
-	m_first = other.m_first;
+	first = other.first;
 	m_moduleTag = other.m_moduleTag;
-	m_data = other.m_data;
-	m_interfaceMask = other.m_interfaceMask;
-	m_copiedFromDefault = other.m_copiedFromDefault;
-	m_inheritable = other.m_inheritable;
+	second = other.second;
+	interfaceMask = other.interfaceMask;
+	copiedFromDefault = other.copiedFromDefault;
+	inheritable = other.inheritable;
 	return *this;
 }
