@@ -25,19 +25,7 @@ class PB_Iface1 { public: virtual void slot(); };
 class EvacuateDamageInterface { public: virtual void slot() = 0; };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h
-class DamageModule : public PB_DeepBase,
-                     public PB_Iface1,
-                     public EvacuateDamageInterface
-{
-public:
-    // Retail 0x004BAE1D calls the one linked base ctor, DamageModule's row at
-    // 0x004B9704; an inline body here emitted a second, wrong copy first in
-    // link order.
-    DamageModule(Thing *thing, const ModuleData *moduleData);
-    // Out of line: DamageModuleCtor.cpp defines it (retail 0x004B96CC). The implicit one here was the
-    // tree's only ??1DamageModule, and it called this view's ~PB_DeepBase, which nothing defines.
-    virtual ~DamageModule();
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
 struct EvacuationRecord
 {
