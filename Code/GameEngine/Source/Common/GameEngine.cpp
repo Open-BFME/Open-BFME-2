@@ -8,7 +8,6 @@
 #include "../../Include/GameClient/Drawable.h"
 extern "C" __declspec(dllimport) char *__stdcall GetEnvironmentStrings(void);
 extern "C" void __cdecl free(void *);
-extern "C" void *__cdecl memset(void *,int,unsigned int);
 #pragma function(memset)
 namespace _STL { template<class T> class allocator { public: static T *allocate(unsigned int,const void *); }; }
 extern float g_Va00BBB8D8;

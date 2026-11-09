@@ -10,9 +10,9 @@ float __cdecl atan2(float y, float x);
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../../reference/shims/bfme_matrix3d_copy_link/matrix3d_copy_link.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include <string.h>
 #pragma function(memset)
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round((float)floor(x)))
-extern "C" void *memset(void *,int,unsigned);
 float normalizeAngle(float);
 float Cos(float);
 float Sin(float);
