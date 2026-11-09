@@ -355,3 +355,84 @@ def test_the_body_reader_compares_outside_relocations(tmp_path, monkeypatch):
     assert same("??0Local@@QAE@XZ", 0x600) is None     # our body is shorter than retail's row
     assert same("??0Missing@@QAE@XZ", 0x500) is None
 
+
+# registered_twice: a private static of the registering object is its own storage, never another object's global.
+def twice_retail():
+    """Two retail entries of one shape: `mov eax, [0x1000]; mov [g], eax; ret`, g at 0x2000 and 0x2004."""
+    class Retail:
+        base = 0x400000
+        bodies = {0x100: bytes.fromhex("A1") + (0x401000).to_bytes(4, "little") + bytes.fromhex("A3") + (0x402000).to_bytes(4, "little") + b"\xC3",
+                  0x200: bytes.fromhex("A1") + (0x401000).to_bytes(4, "little") + bytes.fromhex("A3") + (0x402004).to_bytes(4, "little") + b"\xC3"}
+
+        def initializers(self):
+            return [0x100, 0x200]
+
+        def read(self, rva, size):
+            for start, body in self.bodies.items():
+                if start <= rva < start + len(body):
+                    return (body[rva - start:] + bytes(4096))[:size]
+            return bytes(size)
+    return Retail()
+
+
+def copy_entry(obj, symbol, stored, *, private=False):
+    """`mov eax, [rate]; mov [stored], eax; ret` as an object registers it."""
+    import link_cycle
+    body = bytes.fromhex("A100000000A300000000C3")
+    masked = {1, 2, 3, 4, 6, 7, 8, 9}
+    relocs = [(1, "_rate", link_cycle.DIR32, 0), (6, stored, link_cycle.DIR32, 0)]
+    return (obj, symbol, body, masked, relocs, frozenset({stored}) if private else frozenset(), None)
+
+
+def twice_rows():
+    return [{"name": "_$E1", "target_rva": "0x00000100", "target_size": "11", "source": "Code/First.cpp", "status": "matched", "notes": ""},
+            {"name": "_$E1", "target_rva": "0x00000200", "target_size": "11", "source": "Code/Second.cpp", "status": "matched", "notes": ""}]
+
+
+def object_names(monkeypatch):
+    import build
+    monkeypatch.setattr(build, "row_object", lambda row: Path(row["source"]).with_suffix(".obj"))
+
+
+def test_a_private_static_under_a_ledger_name_is_no_double_registration(monkeypatch):
+    """The 2026-11-07 ledger regeneration named 198 addresses `_flash`, so every other object's own `_flash`
+    agreed with a taken entry: registered_twice went from 5 to 213 with no change in the image."""
+    object_names(monkeypatch)
+    addresses = {"_rate": {0x1000}, "_flash": {0x2000, 0x2004}}
+    registered = [copy_entry("First.obj", "_$E1", "_flash", private=True), copy_entry("Second.obj", "_$E1", "_flash", private=True),
+                  copy_entry("Third.obj", "_$E1", "_flash", private=True)]
+    report = ir.initializer_report(twice_retail(), twice_rows(), registered, addresses)
+    assert report["registered_twice"] == 0
+    assert report["twice"] == []
+
+
+def test_a_second_build_of_an_external_global_still_counts(monkeypatch):
+    """The control: two objects really building one global must stay visible."""
+    object_names(monkeypatch)
+    addresses = {"_rate": {0x1000}, "_shared": {0x2000}, "_other": {0x2004}}
+    registered = [copy_entry("First.obj", "_$E1", "_shared"), copy_entry("Second.obj", "_$E1", "_other"),
+                  copy_entry("Third.obj", "_$E1", "_shared")]
+    report = ir.initializer_report(twice_retail(), twice_rows(), registered, addresses)
+    assert report["twice"] == [["Third.obj", "_$E1", "0x100"]]
+
+
+def test_reading_a_private_static_does_not_hide_a_second_build(monkeypatch):
+    """The fix must look at what is built: `mov eax, [private]; mov [shared], eax` builds the shared global."""
+    import link_cycle
+    object_names(monkeypatch)
+    addresses = {"_rate": {0x1000}, "_shared": {0x2000}, "_other": {0x2004}}
+    reader = list(copy_entry("Third.obj", "_$E1", "_shared"))
+    reader[4] = [(1, "_private", link_cycle.DIR32, 0), (6, "_shared", link_cycle.DIR32, 0)]
+    reader[5] = frozenset({"_private"})
+    registered = [copy_entry("First.obj", "_$E1", "_shared"), copy_entry("Second.obj", "_$E1", "_other"), tuple(reader)]
+    report = ir.initializer_report(twice_retail(), twice_rows(), registered, addresses)
+    assert report["twice"] == [["Third.obj", "_$E1", "0x100"]]
+
+
+def test_a_constructor_on_a_private_static_is_its_own_storage():
+    """`mov ecx, offset s` passes the static as `this`: that site builds it."""
+    import link_cycle
+    body = bytes.fromhex("B900000000E800000000C3")
+    entry = ("Obj.obj", "_$E1", body, set(), [(1, "_s", link_cycle.DIR32, 0), (6, "??0C@@QAE@XZ", link_cycle.REL32, 0)], frozenset({"_s"}), None)
+    assert ir.builds_private_static(entry)
+    assert not ir.builds_private_static(entry[:5] + (frozenset(),) + entry[6:])

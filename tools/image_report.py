@@ -298,6 +298,39 @@ def credit_conflicts(retail, credits, places, addresses, code_bodies=None):
     return found
 
 
+def reads_operand(body, offset):
+    """True when the instruction whose absolute operand sits at `offset` only reads that address.
+
+    Anything not recognised counts as building it, so a rare read form can only excuse a registration,
+    the safe direction for a count of false doubles; `push offset s` and `mov ecx, offset s` hand the
+    address on, which is how a constructor or memset builds it.
+    """
+    if offset >= 1 and body[offset - 1] in (0xA0, 0xA1):                  # mov al/eax, [m]
+        return True
+    if offset < 2 or body[offset - 1] & 0xC7 != 0x05:                     # not an absolute ModRM operand
+        return False
+    opcode, reg = body[offset - 2], body[offset - 1] >> 3 & 7
+    if opcode in (0x02, 0x03, 0x0A, 0x0B, 0x12, 0x13, 0x1A, 0x1B, 0x22, 0x23, 0x2A, 0x2B, 0x32, 0x33,
+                  0x38, 0x39, 0x3A, 0x3B, 0x84, 0x85, 0x8A, 0x8B, 0xD8, 0xDC):
+        return True
+    if opcode in (0xD9, 0xDB, 0xDD):                                      # fld, fild: the store forms have another /reg
+        return reg == 0
+    if opcode in (0xF6, 0xF7):                                            # test [m], imm
+        return reg == 0
+    if opcode == 0xFF:                                                    # push [m]
+        return reg == 6
+    return offset >= 3 and body[offset - 3] == 0x0F and opcode in (0xB6, 0xB7, 0xBE, 0xBF)
+
+
+def builds_private_static(entry):
+    """True when a registration builds storage only its own object can name. That is its own, whatever
+    the ledger calls some other object's copy: a name is not an address, and 198 ledger rows share
+    `_DRAWABLE_FRAMES_PER_FLASH`. Only reading a private static says nothing about what it builds."""
+    _obj, _symbol, body, _masked, relocs, *rest = entry
+    local = rest[0] if rest else frozenset()
+    return any(target in local and not reads_operand(body, offset) for offset, target, *_kind in relocs)
+
+
 def initializer_report(retail, rows, registered, addresses=None, code_bodies=None):
     addresses = addresses or {}
     in_order = retail.initializers()
@@ -397,11 +430,11 @@ def initializer_report(retail, rows, registered, addresses=None, code_bodies=Non
         pending = waiting
     unmapped = [[obj, symbol] for obj, symbol, *_rest in pending]
     # One left over whose relocations agree with an entry another registration already took builds
-    # that entry's global a second time. One that builds its own unplaced static builds no other's.
+    # that entry's global a second time. One that builds its own static builds no other's.
     twice = []
     for entry in pending:
         obj, symbol, body, masked, relocs, *_local = entry
-        if unplaced_local(entry):
+        if builds_private_static(entry):
             continue
         for rva in shaped(body, masked, taken=True):
             agree, disagree = relocation_votes(retail, rva, relocs, places(obj))
