@@ -112,7 +112,9 @@ template <int NUMBITS> class BitFlags;
 
 struct ContainIface20 { virtual void containIface20() = 0; };
 struct ContainIface24 { virtual void containIface24() = 0; };
-struct ContainIface28 { virtual void containIface28() = 0; };
+// The +0x28 base is the die interface: getDie (slot 7, 0x004523A9) returns it and retail
+// table 0x00C46F78 holds one slot, OpenContain::onDie 0x004641B1.
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 struct ContainIface2C { virtual void containIface2C() = 0; };
 struct ContainIface30 { virtual void containIface30() = 0; };
 struct ContainIface34 { virtual void containIface34() = 0; };
@@ -130,7 +132,7 @@ private:
 // AITargetHeuristicEnemyStructure::findBestTarget 0x005735C6 keys it by object ID).
 enum ObjectID { INVALID_ID = 0 };
 typedef _STL::map<ObjectID, int> ObjectIDIntMap;
-class OpenContain : public UpdateModule, public ContainIface20, public ContainIface24, public ContainIface28, public ContainIface2C, public ContainIface30, public ContainIface34
+class OpenContain : public UpdateModule, public ContainIface20, public ContainIface24, public DieModuleInterface, public ContainIface2C, public ContainIface30, public ContainIface34
 {
 public:
 	OpenContain(Thing *thing, const ModuleData *moduleData);
@@ -176,6 +178,8 @@ public:
 	virtual CreateModuleInterface *getCreate();		// slot 3: retail 0x0046644A, the +0x34 interface
 	virtual DamageModuleInterface *getDamage();		// slot 4: retail 0x004647C0, the +0x2C interface
 	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
+	// The +0x28 DieModuleInterface table 0x00C46F78, slot 0: rowed in OpenContainOnDie.cpp.
+	virtual void onDie(const DamageInfo *damageInfo);
 	// Primary table 0x00C435E8: the OpenContain overrides already rowed under these names.
 	virtual void onDelete();						// slot 8: retail 0x00464120 (OpenContainRva00464EE7.cpp)
 protected:
@@ -245,5 +249,5 @@ DamageModuleInterface *OpenContain::getDamage()
 // Slot 7 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x004523A9, the +0x28 interface.
 DieModuleInterface *OpenContain::getDie()
 {
-	return reinterpret_cast<DieModuleInterface *>(static_cast<ContainIface28 *>(this));
+	return this;
 }
