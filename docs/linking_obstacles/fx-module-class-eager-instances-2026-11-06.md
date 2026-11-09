@@ -72,3 +72,4 @@ The initializer bridge rises by one, 468 -> 469. Two causes, both read by replay
   0x007AB81A (`CAtlWinModule`) and `distlod.obj`'s `_$E1` to 0x007AB830; with `_$E167` gone, `distlod.obj`'s `_$E1` takes 0x007AB81A. That credit is by shape only, so
   whether anything really registers `CAtlWinModule` was not established; it was not registered by `_$E167` in the base either.
 Clearance: pending landing. Census confirmation: not claimed.
+Reviewed with sol-loop: 1 round with gpt-6.1-sol. Sol verdict: approved.
