@@ -68,6 +68,11 @@ class Image:
                    s.VirtualAddress <= value - self.base <
                    s.VirtualAddress + s.Misc_VirtualSize for s in self.sections)
 
+    def readonly(self, rva, size=1):
+        return any(not sec.Characteristics & 0x80000000 and
+                   sec.VirtualAddress <= rva and rva + size <= sec.VirtualAddress +
+                   max(sec.Misc_VirtualSize, sec.SizeOfRawData) for sec in self.sections)
+
     def initializers(self):
         # Existing retail heuristic, explicitly reported as static table discovery.
         if self._initializers is None:
@@ -170,8 +175,13 @@ def attach_objects(publics, manifest, mapfile=None):
                 if section in section_evidence:
                     public["coff" if section_evidence[section]["is_code"] else "data_coff"] = dict(
                         section=section_evidence[section], offset=offset)
-            elif any(section in section_evidence for _length, section, _offset in records):
-                counts["code_symbol_locations_ambiguous"] += 1
+            else:
+                kinds = {section_evidence[section]["is_code"] for _length, section, _offset in records
+                         if section in section_evidence}
+                if True in kinds:
+                    counts["code_symbol_locations_ambiguous"] += 1
+                if False in kinds:
+                    counts["data_symbol_locations_ambiguous"] += 1
         else:
             counts["symbol_unresolved"] += 1
     return counts
@@ -594,7 +604,7 @@ class Checker:
         if typed is None or len(widths) != 1:
             return False
         size, width = typed
-        if widths != {width} or self.retail.in_text(self.retail.base + expected):
+        if widths != {width} or self.retail.in_text(self.retail.base + expected) or not self.retail.readonly(expected):
             return False
         owners = [p for p in self.by_image.get(actual, ()) if p["name"].startswith("??_C@_")]
         if not owners or any(p["extent"] is None for p in owners):
@@ -604,7 +614,7 @@ class Checker:
             a, b = self.ours.read(actual + offset, width), self.retail.read(expected + offset, width)
             if a is None or a != b:
                 return False
-            if a == bytes(width):
+            if a == bytes(width) and self.retail.readonly(expected, offset + width):
                 self.ledger_literal_cache[key] = True
                 return True
         return False
@@ -634,6 +644,9 @@ class Checker:
         return same
 
     def code_equal(self, actual, expected, size):
+        return self.code_comparison(actual, expected, size)[0]
+
+    def code_comparison(self, actual, expected, size, *, partial=False, row_size=None):
         """Whole row instruction comparison preserves ret immediates and ECX adjustment.
         Address operands are translated only with unique correspondence. Unrowed
         forwarders are followed only for a single direct JMP with identical ECX
@@ -645,47 +658,54 @@ class Checker:
         md.detail = True
         a, b = self.ours.read(actual, size), self.retail.read(expected, size)
         if a is None or b is None:
-            return None
+            return None, "code-equal-unreadable"
+        # The first opcode byte is never an address operand. It can prove a
+        # mismatch even when a short extent truncates the first instruction.
+        if partial and a and b and a[0] != b[0]:
+            return False, "body-mismatch"
         aa, bb = list(md.disasm(a, actual)), list(md.disasm(b, expected))
-        if not aa or sum(i.size for i in aa) != size or sum(i.size for i in bb) != size:
-            return None
-        if len(aa) != len(bb):
-            return False
+        complete = bool(aa and bb) and sum(i.size for i in aa) == size and sum(i.size for i in bb) == size
+        if not complete and not partial:
+            return None, "code-equal-decode-incomplete"
+        if complete and len(aa) != len(bb):
+            return False, "body-mismatch"
         for x, y in zip(aa, bb):
             if x.id != y.id or x.size != y.size or len(x.operands) != len(y.operands):
-                return False
+                return False, "body-mismatch"
             masked = set()
             for xo, yo in zip(x.operands, y.operands):
                 if xo.type != yo.type:
-                    return False
+                    return False, "body-mismatch"
                 if xo.type == X86_OP_IMM and (x.group(capstone.CS_GRP_JUMP) or x.group(capstone.CS_GRP_CALL)):
                     # capstone reports RVA for relative branches.
                     want = yo.imm
                     got = self.mapping.resolve(xo.imm, want)
-                    if actual <= xo.imm < actual + size:
+                    if actual <= xo.imm < actual + (row_size or size):
                         got = expected + xo.imm - actual
                     if got is None:
-                        return None
+                        return None, "code-equal-unresolved-operand"
                     if got != want:
-                        return False
+                        return False, "body-mismatch"
                     masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
                 elif xo.type == X86_OP_IMM and x.address + x.imm_offset in self.ours.relocations:
                     verdict = self.pointer(xo.imm & 0xffffffff, yo.imm & 0xffffffff)
                     if verdict == "unchecked":
-                        return None
+                        return None, "code-equal-unresolved-operand"
                     if verdict == "wrong":
-                        return False
+                        return False, "body-mismatch"
                     masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
                 elif xo.type == X86_OP_MEM and x.address + x.disp_offset in self.ours.relocations:
                     verdict = self.pointer(xo.mem.disp & 0xffffffff, yo.mem.disp & 0xffffffff)
                     if verdict == "unchecked":
-                        return None
+                        return None, "code-equal-unresolved-operand"
                     if verdict == "wrong":
-                        return False
+                        return False, "body-mismatch"
                     masked.update(range(x.disp_offset, x.disp_offset + x.disp_size))
             if any(x.bytes[k] != y.bytes[k] for k in range(x.size) if k not in masked):
-                return False
-        return True
+                return False, "body-mismatch"
+        if not complete:
+            return None, "code-equal-decode-incomplete"
+        return True, "row-identity-and-abi-equal"
 
     def forwarder(self, image, rva):
         """Strict x86 this-adjustor: optional add/sub ecx, imm; direct jmp rel32."""
@@ -705,7 +725,7 @@ class Checker:
 
     def slot(self, actual, expected, sizes):
         if not self.ours.in_text(actual):
-            return False
+            return False, "non-text-target"
         a, b = actual - self.ours.base, expected - self.retail.base
         af, bf = self.forwarder(self.ours, a), self.forwarder(self.retail, b)
         if af or bf:
@@ -713,21 +733,32 @@ class Checker:
             bt, adjust_b = bf if bf else (b, 0)
             mapped = self.mapping.resolve(at, bt)
             if mapped is None:
-                return None
-            if mapped != bt or adjust_a != adjust_b:
-                return False
+                return None, "forwarder-unmapped"
+            if mapped != bt:
+                return False, "forwarder-target-mismatch"
+            if adjust_a != adjust_b:
+                return False, "this-adjustment-mismatch"
             a, b = at, bt
         mapped = self.mapping.resolve(a, b)
         if mapped is None:
-            return None
+            return None, "unmapped"
         if mapped != b:
-            return False
+            return False, "target-mismatch"
         size = sizes.get(b)
+        if not size:
+            return None, "retail-extent-missing"
         owners = self.by_image.get(a, ())
         extents = {p["extent"] for p in owners if p["extent"] is not None}
-        if not size or not extents or min(extents) < size:
-            return None
-        return self.code_equal(a, b, size)
+        # Extents limit positive credit, never suppress an observable mismatch.
+        limit = min(size, min(extents)) if extents else size
+        result, reason = self.code_comparison(a, b, limit, partial=True, row_size=size)
+        if result is not True:
+            return result, reason
+        if not extents:
+            return None, "extent-missing"
+        if limit < size:
+            return None, "extent-short"
+        return result, reason
 
     def ledger(self, rows, sizes):
         self.retail_literals = {int(r["address"], 16): (int(r["size"] or 0), 2 if r["kind"] == "wstring" else 1)
@@ -764,18 +795,19 @@ class Checker:
                 for offset in range(0, words * 4, 4):
                     a, b = self.ours.read(p["rva"] + offset, 4), self.retail.read(rva + offset, 4)
                     if a is None or b is None or p["extent"] is None or offset + 4 > p["extent"]:
+                        reason = ("table-unreadable" if a is None or b is None else
+                                  "table-extent-missing" if p["extent"] is None else "table-extent-short")
                         self.counts["vtable_slots_unanalyzed"] += 1
                         self.vtable_slots.append(dict(name=p["name"], retail_rva=hex(rva + offset),
-                            image_rva=hex(p["rva"] + offset), verdict="unanalyzed", reason="unreadable or unproven table extent"))
+                            image_rva=hex(p["rva"] + offset), verdict="unanalyzed", reason=reason))
                         continue
-                    result = self.slot(struct.unpack("<I", a)[0], struct.unpack("<I", b)[0], sizes)
+                    result, reason = self.slot(struct.unpack("<I", a)[0], struct.unpack("<I", b)[0], sizes)
                     self.counts["vtable_slots_" + ("equal" if result is True else "wrong" if result is False else "unanalyzed")] += 1
                     self.vtable_slots.append(dict(name=p["name"], retail_rva=hex(rva + offset),
                         image_rva=hex(p["rva"] + offset), actual=hex(struct.unpack("<I", a)[0]),
                         expected=hex(struct.unpack("<I", b)[0]),
                         verdict="equal" if result is True else "wrong" if result is False else "unanalyzed",
-                        reason="row identity and instruction/ABI comparison" if result is not None else
-                               "target correspondence, code extent or instruction comparison unproven"))
+                        reason=reason))
                     if result is False:
                         self.defect("vtable_slot", rva + offset, p, f"slot +{offset}: target/body/this-adjustment differs")
                 continue
@@ -1991,7 +2023,7 @@ def _vptr_slot(checker, slot_rva, actual, expected, end, sizes, by_rva):
     for p in here:
         targets |= set(checker.addresses.get(p["name"], ()))
     nominated = b in targets and (targets == {b} or frozenset(targets) in checker.mapping.proven_folds)
-    verdict = checker.slot(actual, expected, sizes)
+    verdict, _reason = checker.slot(actual, expected, sizes)
     # Whatever names the target, its image body must be the expected retail body:
     # bytes when they decide, else at least the same return/stack-cleanup forms.
     size = sizes.get(b)

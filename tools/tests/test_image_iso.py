@@ -31,6 +31,9 @@ class Memory:
     def in_text(self, va):
         return 0x100 <= va - self.base < 0x1000
 
+    def readonly(self, rva, size=1):
+        return self.read(rva, size) is not None
+
     def initializers(self):
         return self.inits
 
@@ -99,9 +102,9 @@ def test_unrowed_forwarder_adjustment_is_checked():
     for image, start, target in ((c.ours, 0x500, 0x300), (c.retail, 0x600, 0x100)):
         image.put(start, b"\x83\xe9\x08\xe9" + struct.pack("<i", target - start - 8))
         image.put(target, b"\xc3")
-    assert c.slot(c.ours.base + 0x500, c.retail.base + 0x600, {0x100: 1}) is True
+    assert c.slot(c.ours.base + 0x500, c.retail.base + 0x600, {0x100: 1})[0] is True
     c.ours.put(0x502, b"\x04")
-    assert c.slot(c.ours.base + 0x500, c.retail.base + 0x600, {0x100: 1}) is False
+    assert c.slot(c.ours.base + 0x500, c.retail.base + 0x600, {0x100: 1})[0] is False
 
 
 def test_constructor_seed_proves_undersized_and_split_without_ledger_gap():
@@ -262,7 +265,7 @@ def test_fold_requires_whole_retail_byte_proof_and_keeps_expected_alias():
     c.ours.put(0x300, b"\xc2\x04\x00")
     c.mapping.prove_folds(c.retail, {0x100: 3, 0x200: 3})
     assert c.pointer(c.ours.base + 0x300, c.retail.base + 0x200) == "equal"
-    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x100, {0x100: 3}) is True
+    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x100, {0x100: 3})[0] is True
     bad = checker([public("f", 0x300), public("g", 0x300)], {"f": {0x100}, "g": {0x200}})
     bad.retail.put(0x100, b"\xc2\x04\x00")
     bad.retail.put(0x200, b"\xc2\x08\x00")
@@ -322,11 +325,11 @@ def test_one_sided_adjustor_is_wrong_and_plain_forwarder_is_equal():
     c.ours.put(0x300, b"\xc3")
     c.retail.put(0x100, b"\xc3")
     c.retail.put(0x600, b"\x83\xe9\x08\xe9" + struct.pack("<i", 0x100 - 0x608))
-    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x600, {0x100: 1}) is False
+    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x600, {0x100: 1})[0] is False
     c.ours.put(0x500, b"\x83\xc1\x04\xe9" + struct.pack("<i", 0x300 - 0x508))
-    assert c.slot(c.ours.base + 0x500, c.retail.base + 0x100, {0x100: 1}) is False
+    assert c.slot(c.ours.base + 0x500, c.retail.base + 0x100, {0x100: 1})[0] is False
     c.retail.put(0x600, b"\xe9" + struct.pack("<i", 0x100 - 0x605))
-    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x600, {0x100: 1}) is True
+    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x600, {0x100: 1})[0] is True
 
 
 def test_interval_index_matches_exhaustive_overlap_reference():
@@ -1940,13 +1943,13 @@ def test_vtable_body_cannot_borrow_neighbour_bytes():
     c = checker([public("f", 0x300, 1)], {"f": {0x100}})
     c.ours.put(0x300, b"\xc2\x04\x00")
     c.retail.put(0x100, b"\xc2\x04\x00")
-    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x100, {0x100: 3}) is None
+    assert c.slot(c.ours.base + 0x300, c.retail.base + 0x100, {0x100: 3})[0] is None
 
 
 def test_null_and_data_vtable_targets_are_defects():
     c = checker([public("f", 0x300)], {"f": {0x100}})
-    assert c.slot(0, c.retail.base + 0x100, {0x100: 1}) is False
-    assert c.slot(c.ours.base + 0x2000, c.retail.base + 0x100, {0x100: 1}) is False
+    assert c.slot(0, c.retail.base + 0x100, {0x100: 1})[0] is False
+    assert c.slot(c.ours.base + 0x2000, c.retail.base + 0x100, {0x100: 1})[0] is False
 
 
 @pytest.mark.parametrize("wide", [False, True])
@@ -1976,3 +1979,55 @@ def test_unmapped_literal_pointer_uses_complete_ledger_typed_string(wide):
     c.ledger_literal_cache.clear(); c.publics[1]["extent"] = len(data)
     c.retail_literals.clear()
     assert not c.ledger_literal(0x3000, 0x3200)
+
+
+@pytest.mark.parametrize("extent", [None, 1])
+def test_review_wrong_body_survives_missing_or_short_extent(extent):
+    c = checker([public("f", 0x300, extent)], {"f": {0x100}})
+    c.ours.put(0x300, b"\xc3\x90\x90")
+    c.retail.put(0x100, b"\xc2\x04\x00")
+    result = c.slot(c.ours.base + 0x300, c.retail.base + 0x100, {0x100: 3})
+    assert (result[0] if isinstance(result, tuple) else result) is False
+
+
+def test_review_writable_retail_string_is_not_a_poolable_literal():
+    c = checker([public("g", 0x2000), public("??_C@_0English", 0x3000, 8)], {"g": {0x2200}})
+    c.ours.put(0x3000, b"English\0")
+    c.retail.put(0x3200, b"English\0")
+    # An actual PE32 .data section, with a writable initialized buffer.
+    from types import SimpleNamespace
+    c.retail.sections = [SimpleNamespace(VirtualAddress=0x3000, Misc_VirtualSize=0x1000,
+                                         SizeOfRawData=0x1000, Characteristics=0xC0000040)]
+    c.retail.readonly = lambda rva, size=1: iso.Image.readonly(c.retail, rva, size)
+    c.retail_literals = {0x3200: (8, 1)}
+    assert not c.ledger_literal(0x3000, 0x3200)
+
+
+def test_review_slot_reports_each_unanalyzed_cause_in_the_report():
+    c = checker([public("vt", 0x2000, 24), public("f", 0x300, None),
+                 public("g", 0x400, 1), public("h", 0x500, 5)],
+                {"vt": {0x2100}, "f": {0x100}, "g": {0x200}, "h": {0x250}})
+    c.ours.put(0x300, b"\xc3"); c.retail.put(0x100, b"\xc3")
+    c.ours.put(0x400, b"\x90\xc3"); c.retail.put(0x200, b"\x90\xc3")
+    c.ours.put(0x500, b"\xe8" + struct.pack("<i", 0x900 - 0x505) + b"\x90")
+    c.retail.put(0x250, b"\xe8" + struct.pack("<i", 0x800 - 0x255) + b"\x90")
+    c.ours.put(0x600, b"\xe9" + struct.pack("<i", 0x700 - 0x605))
+    for k, (a, b) in enumerate(((0x300, 0x100), (0x400, 0x200), (0x500, 0x250),
+                               (0x600, 0x100), (0x800, 0x100), (0x3000, 0x100))):
+        c.ours.pointer(0x2000 + 4*k, a); c.retail.pointer(0x2100 + 4*k, b)
+    c.ledger([row("vt", 0x2100, 24, "vtable")], {0x100: 1, 0x200: 2, 0x250: 6})
+    assert [s["reason"] for s in c.vtable_slots] == [
+        "extent-missing", "extent-short", "code-equal-unresolved-operand", "forwarder-unmapped",
+        "unmapped", "non-text-target"]
+
+
+def test_review_data_location_ambiguity_does_not_increment_code_counter(tmp_path):
+    obj = tmp_path / "g.obj"
+    iso.link_cycle.write_coff(obj,
+        [(".data$a", 0xC0000040, bytes(4), 0), (".data$b", 0xC0000040, bytes(4), 0)],
+        [("g", 1, 0, iso.link_cycle.STATIC), ("g", 2, 0, iso.link_cycle.STATIC)])
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path=obj.name, sha256=iso.digest(obj), source="Code/g.cpp")]))
+    counts = iso.attach_objects([dict(public("g", 0x2000), object="g.obj")], manifest)
+    assert counts["data_symbol_locations_ambiguous"] == 1
+    assert counts["code_symbol_locations_ambiguous"] == 0
