@@ -83,16 +83,9 @@
 // set, AI state 0x47 scales the repath delay by the int at 0x009BFA3C and
 // repaths only past the float at 0x009BFA38, and an arrival hands the
 // machine's goal angle (+0x30, FLT_MAX when unset) to the turn.
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 typedef bool Bool;
 typedef unsigned int StateID;
 enum
@@ -404,84 +397,12 @@ void Rva0033FA79Do(const Object0033FA79 *obj);
 class StateMachine;
 void rva003532BF(Object *owner, StateMachine *machine, bool flag);
 class State;
-class StateMachine
+
+// The inlined machine test this state makes: slot 8 of the current state, true with none.
+static __forceinline Bool machineInAttackState(const StateMachine *machine)
 {
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual StateReturnType updateStateMachine();
-	virtual void clear();
-	virtual void slot06();
-	virtual void slot07();
-	virtual StateReturnType setState(StateID newStateID);
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual void setGoalObject(Object *object);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-	void setGoalPosition(const Coord3D *pos);
-	Bool isInIdleState() const;
-private:
-	State *m_currentState; // +0x4
-	unsigned char m_pad08[0x14 - 8];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-public:
-	Real m_goalAngle; // +0x30 (FLT_MAX when unset)
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual Bool isIdle() const;
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void slot15(); virtual void slot16();
-	virtual Bool computePath();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	StateMachine *getMachine() const { return m_machine; }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-// ?isInIdleState@StateMachine@@ present-unmatched
-inline Bool StateMachine::isInIdleState() const
-{
-	return m_currentState ? m_currentState->isIdle() : true;
+	return machine->m_currentState ? machine->m_currentState->isAttack() : true;
 }
-class AIInternalMoveToState : public State
-{
-public:
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Bool getAdjustsDestination() const;
-	void forceRepath()
-	{
-		m_pathGoalPosition.x = m_pathGoalPosition.y = m_pathGoalPosition.z = -100.0f;
-		m_pathTimestamp = -LOGICFRAMES_PER_SECOND;
-	}
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	Real m_goalAngle; // +0x2C
-	Int m_goalLayer; // +0x30 (PathfindLayerEnum)
-	Coord3D m_pathGoalPosition; // +0x34
-	unsigned char m_pad40[0x44 - 0x40];
-	UnsignedInt m_pathTimestamp; // +0x44
-	Bool m_adjustsDestination; // +0x48
-	Bool m_waitingForPath; // +0x49
-	Bool m_tryOneMoreRepath; // +0x4A
-	Bool m_turningToGoalAngle; // +0x4B
-};
 class AIMoveToState : public AIInternalMoveToState
 {
 public:
@@ -577,16 +498,16 @@ StateReturnType AIInternalMoveToState::update()
 	Object *obj = getMachineOwner();
 	AIUpdateInterface *ai = obj->getAI();
 
-	if (m_turningToGoalAngle)
+	if (m_4B)
 	{
 		Real angle = obj->getOrientation();
-		Real goalAngle = m_goalAngle;
+		Real goalAngle = m_2C;
 		if (normalizeAngle(goalAngle - angle) < 0.31415927f)
 		{
-			obj->setOrientation(m_goalAngle);
+			obj->setOrientation(m_2C);
 			return STATE_SUCCESS;
 		}
-		ai->setLocomotorGoalOrientation(m_goalAngle);
+		ai->setLocomotorGoalOrientation(m_2C);
 		return STATE_CONTINUE;
 	}
 
@@ -737,11 +658,11 @@ StateReturnType AIInternalMoveToState::update()
 		if (getAdjustsDestination())
 			ai->setLocomotorGoalNone();
 		ai->clearBfme160();
-		if (getMachine()->m_goalAngle != FLT_MAX)
+		if (getMachine()->m_goalRange != FLT_MAX)
 		{
-			m_goalAngle = getMachine()->m_goalAngle;
-			m_turningToGoalAngle = true;
-			ai->setLocomotorGoalOrientation(m_goalAngle);
+			m_2C = getMachine()->m_goalRange;
+			m_4B = true;
+			ai->setLocomotorGoalOrientation(m_2C);
 			return STATE_CONTINUE;
 		}
 		return STATE_SUCCESS;

@@ -22,7 +22,7 @@
 //    (clear vslot 5, setState vslot 8), m_frameToSleepUntil +0x58,
 //    m_retryCount +0x5C; getLastCommandSource is AI vslot 143.
 //  - AIMoveAndDeleteState::onEnter, retail 0x0034ECDB (160 bytes): slot 4 of
-//    0x00C12C88. ZH body (setAdjustsDestination(false) with the CritterDesync
+//    0x00C12C88. ZH body (m_adjustDestinations = false with the CritterDesync
 //    log, lock, goal object or goal position, m_appendGoalPosition +0x4C);
 //    BFME 2 then sets owner model conditions 1*32+29 and 7*32+28 (the
 //    Object+0x10C condition words, as in AIAttackStateOnExit.cpp), each
@@ -49,16 +49,9 @@ typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
 #define NULL 0
 #define ATTACK_RETRY_COUNT 5
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 enum
 {
 	EXIT_MACHINE_WITH_SUCCESS = 999998,
@@ -122,91 +115,8 @@ private:
 class State;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual StateReturnType updateStateMachine();
-	virtual void clear();
-	virtual void slot06(); virtual StateReturnType initDefaultState();
-	virtual StateReturnType setState(StateID newStateID);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	__declspec(dllimport) __forceinline const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-	__declspec(dllimport) __forceinline void lock(const char *msg) { m_locked = true; }
-	__declspec(dllimport) __forceinline void unlock() { m_locked = false; }
-	__declspec(dllimport) __forceinline StateID getCurrentStateID() const;
-	State *m_currentState; // +0x04
-	UnsignedInt m_pad08[3];
-	Object *m_owner; // +0x14
-	UnsignedInt m_pad18[2];
-	UnsignedInt m_goalObjectID; // +0x20
-	Coord3D m_goalPosition; // +0x24
-	UnsignedInt m_pad30[2];
-	Bool m_locked; // +0x38
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	StateID getID() const { return m_ID; }
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-// StateMachine::getCurrentStateID reads m_ID directly (retail inlines the
-// one-instruction getID here); m_ID is public in this TU-local view.
-public:
-	StateID m_ID; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine; // +0x18
-};
 
-// ?StateMachine::getCurrentStateID present-unmatched
-// Retail carries the direct-load shape (mov [ecx+4] / test / mov [eax+4] /
-// mov 999999) once at 0x00260DDC; the getID call is inlined there, so this
-// TU spells the direct form.
-__declspec(dllimport) __forceinline StateID StateMachine::getCurrentStateID() const
-{
-	return m_currentState ? m_currentState->m_ID : INVALID_STATE_ID;
-}
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	__forceinline void setAdjustsDestinationFalse50()
-	{
-		if (g_00E03745)
-		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
-			if (log)
-				fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 50");
-		}
-		m_adjustsDestination = false;
-	}
-	__forceinline void setAdjustsDestinationFalse60()
-	{
-		if (g_00E03745)
-		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
-			if (log)
-				fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 60");
-		}
-		m_adjustsDestination = false;
-	}
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+
 class AIMoveToState : public AIInternalMoveToState
 {
 public:
@@ -237,7 +147,6 @@ class AIAttackAreaState : public State
 public:
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_attackMachine; // +0x20
 };
 class AIHuntState : public State
@@ -245,7 +154,6 @@ class AIHuntState : public State
 public:
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_huntMachine; // +0x20
 };
 // The back-away sub-machine BackAwayAndCowerStateMachine (rowed constructor
@@ -262,7 +170,6 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_backAwayMachine; // +0x20
 };
 class AIAttackPursueTargetState : public AIInternalMoveToState
@@ -289,8 +196,14 @@ private:
 
 StateReturnType AIMoveAndDeleteState::onEnter()
 {
-	setAdjustsDestinationFalse50();
-	getMachine()->lock("AIMoveAndDeleteState::onEnter");
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		if (log)
+			fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 50");
+	}
+	m_adjustDestinations = false;
+	getMachine()->m_locked = true;
 	// if we have a goal object, move to it, otherwise move to goal position
 	if (getMachine()->getGoalObject())
 		m_goalPosition = *getMachine()->getGoalObject()->getPosition();
@@ -399,8 +312,14 @@ StateReturnType AIBackAwayAndCowerState::update()
 
 StateReturnType AIMoveToPositionAndDieState::onEnter()
 {
-	setAdjustsDestinationFalse60();
-	getMachine()->lock("AIMoveToPositionAndDieState::onEnter");
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		if (log)
+			fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 60");
+	}
+	m_adjustDestinations = false;
+	getMachine()->m_locked = true;
 	// if we have a goal object, move to it, otherwise move to goal position
 	if (getMachine()->getGoalObject())
 		m_goalPosition = *getMachine()->getGoalObject()->getPosition();

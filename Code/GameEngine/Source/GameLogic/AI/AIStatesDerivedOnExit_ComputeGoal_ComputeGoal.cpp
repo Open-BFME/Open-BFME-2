@@ -97,16 +97,9 @@
 // carried from Zero Hour's AIStates.cpp computeGoal as reshaped by BFME 1's
 // matched 0x0017A600 (prior/next waypoint rotate, no wall or clamp code);
 // the dest/near/far copies are member-wise as the movss stores show.
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 typedef bool Bool;
 typedef unsigned int StateID;
 enum
@@ -394,89 +387,12 @@ void Rva0033FA79Do(const Object0033FA79 *obj);
 class StateMachine;
 void rva003532BF(Object *owner, StateMachine *machine, bool flag);
 class State;
-class StateMachine
+
+// The inlined machine test these states make: slot 8 of the current state, true with none.
+static __forceinline Bool machineInAttackState(const StateMachine *machine)
 {
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual StateReturnType updateStateMachine();
-	virtual void clear();
-	virtual void slot06();
-	virtual void slot07();
-	virtual StateReturnType setState(StateID newStateID);
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual void setGoalObject(Object *object);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-	void setGoalPosition(const Coord3D *pos);
-	// Local +0x04 state and slot-8 query; keep this implementation distinct
-	// from the indexed +0x20 state and slot-5 idle-check helper.
-	Bool attackMachineIdle() const;
-private:
-	State *m_currentState; // +0x4
-	unsigned char m_pad08[0x14 - 8];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual Bool isIdle() const;
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void slot15(); virtual void slot16();
-	virtual Bool computePath();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	StateMachine *getMachine() const { return m_machine; }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-// ?attackMachineIdle@StateMachine@@ present-unmatched
-inline Bool StateMachine::attackMachineIdle() const
-{
-	return m_currentState ? m_currentState->isIdle() : true;
+	return machine->m_currentState ? machine->m_currentState->isAttack() : true;
 }
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Bool getAdjustsDestination() const;
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	void forceRepath()
-	{
-		m_pathGoalPosition.x = m_pathGoalPosition.y = m_pathGoalPosition.z = -100.0f;
-		m_pathTimestamp = -LOGICFRAMES_PER_SECOND;
-	}
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x30 - 0x2C];
-	Int m_goalLayer; // +0x30 (PathfindLayerEnum)
-	Coord3D m_pathGoalPosition; // +0x34
-	AudioHandle m_ambientPlayingHandle; // +0x40
-	UnsignedInt m_pathTimestamp; // +0x44
-	Bool m_adjustsDestination; // +0x48
-	Bool m_waitingForPath; // +0x49
-	Bool m_tryOneMoreRepath; // +0x4A
-	unsigned char m_pad4B[0x4C - 0x4B];
-private:
-	void startMoveSound();
-};
 class AIMoveToState : public AIInternalMoveToState
 {
 public:
@@ -567,7 +483,7 @@ StateReturnType AIAttackFollowWaypointPathState::update()
 	Bool shouldRepath = false;
 	Object *victim = 0;
 
-	if (!m_attackFollowMachine->attackMachineIdle())
+	if (!machineInAttackState(m_attackFollowMachine))
 	{
 		ai->setLocomotorGoalNone();
 
@@ -576,14 +492,14 @@ StateReturnType AIAttackFollowWaypointPathState::update()
 
 		m_attackFollowMachine->updateStateMachine();
 
-		if (m_attackFollowMachine == 0 || !m_attackFollowMachine->attackMachineIdle())
+		if (m_attackFollowMachine == 0 || !machineInAttackState(m_attackFollowMachine))
 			return STATE_CONTINUE;
 
 		forceRetarget = true;
 		shouldRepath = true;
 	}
 
-	if (m_attackFollowMachine->attackMachineIdle())
+	if (machineInAttackState(m_attackFollowMachine))
 	{
 		Object *crate = ai->checkForCrateToPickup();
 		if (crate != 0)
@@ -756,12 +672,12 @@ void AIFollowWaypointPathState::computeGoal(Bool useGroupOffsets)
 	{
 		// We are in the middle of a path, so don't set the final goal location yet.
 		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 51");
-		setAdjustsDestination(false);
+		m_adjustDestinations = false;
 	}
 	else
 	{
 		critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 52");
-		setAdjustsDestination(true);
+		m_adjustDestinations = true;
 		// urg. hacky. if we are a projectile on the last segment, turn on precise z-pos.
 		if (obj->isKindOf(KINDOF_PROJECTILE))
 		{
@@ -807,7 +723,7 @@ void AIFollowWaypointPathState::computeGoal(Bool useGroupOffsets)
 	if (!extent.isInRegionNoZ(&m_goalPosition))
 	{
 		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 53");
-		setAdjustsDestination(false); // moving off the map.
+		m_adjustDestinations = false; // moving off the map.
 		ai->getCurLocomotor()->setAllowInvalidPosition(true); // allow it to move off the map.
 		m_appendGoalPosition = true; // Moving off the map.
 	}
