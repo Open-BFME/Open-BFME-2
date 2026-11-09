@@ -81,55 +81,17 @@ extern "C" void bfmeDisp0Slot_Purecall(void);
 
 #define BFME_DISP0_SLOT(FUNCTION) reinterpret_cast<const void *>(FUNCTION)
 
-extern "C" const void *const vtbl_00BFDF8C[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z")),
-	BFME_DISP0_SLOT(__identifier("?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"))
-};
-extern "C" const void *const vtbl_00BC6F04[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z"))
-};
-extern "C" const void *const vtbl_00BC6EC0[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"))
-};
-extern "C" const void *const vtbl_00C62A20[] = {
-	BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")), BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z"))
-};
-extern "C" const void *const vtbl_00BC6F34[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")),
-	BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")), BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z"))
-};
-extern "C" const void *const vtbl_00C77BE8[] = {
-	BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")), BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")),
-	BFME_DISP0_SLOT(__identifier("?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z"))
-};
-extern "C" const void *const vtbl_00BE5114[] = {
-	BFME_DISP0_SLOT(__identifier("?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z"))
-};
-extern "C" const void *const vtbl_00C0DB24[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?rva001FF3A9@Rva001FF3A9@@UAEXXZ")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?rva005CC208@Rva005CC208@@UAEXXZ"))
-};
-extern "C" const void *const vtbl_00C37E18[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?rva001FF3A9@Rva001FF3A9@@UAEXXZ")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?rva005CC208@Rva005CC208@@UAEXXZ")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?rva005CB26A@Rva005CB26A@@QAEHXZ"))
-};
-extern "C" const void *const vtbl_00C6CE84[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z"))
-};
-extern "C" const void *const vtbl_00C79428[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"))
-};
+extern "C" const void *const __identifier("??_7LivingWorldPlayerObserver@@6B@")[];  // VA 0x00BFDF8C
+extern "C" const void *const __identifier("??_7Rva008291DSecond@@6B@")[];  // VA 0x00BC6F04
+extern "C" const void *const __identifier("??_7Rva0081FDDSecond@@6B@")[];  // VA 0x00BC6EC0
+extern "C" const void *const __identifier("??_7RegionTurnObserverView@@6B@")[];  // VA 0x00C62A20
+extern "C" const void *const __identifier("??_7TerrainLogicListenerRootA@@6B@")[];  // VA 0x00BC6F34
+extern "C" const void *const __identifier("??_7Rva005E4AE2Base@@6B@")[];  // VA 0x00C77BE8
+extern "C" const void *const __identifier("??_7LivingWorldObserver@@6B@")[];  // VA 0x00BE5114
+extern "C" const void *const __identifier("??_7Rva003304A4AnimationVisitor@@6B@")[];  // VA 0x00C0DB24
+extern "C" const void *const __identifier("??_7Rva003FE20FBase@@6B@")[];  // VA 0x00C37E18
+extern "C" const void *const __identifier("??_7Rva0086CE84Observer@@6B@")[];  // VA 0x00C6CE84
+extern "C" const void *const __identifier("??_7Rva005F3EE3@@6B@")[];  // VA 0x00C79428
 extern "C" const void *const vtbl_00C75908[] = {
 	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
 	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
@@ -138,18 +100,8 @@ extern "C" const void *const vtbl_00C75908[] = {
 	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
 	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall)
 };
-extern "C" const void *const vtbl_00C6E344[] = {
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")), BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")),
-	BFME_DISP0_SLOT(__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"))
-};
-extern "C" const void *const vtbl_00C79760[] = {
-	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
-	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
-	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
-	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
-	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
-	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall)
-};
+extern "C" const void *const __identifier("??_7Rva00574CC1Base10@@6B@")[];  // VA 0x00C6E344
+extern "C" const void *const __identifier("??_7PalantirBase0@@6B@")[];  // VA 0x00C79760
 
 #undef BFME_DISP0_SLOT
 
@@ -163,7 +115,7 @@ public:
 
 void Rva002B228DDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BFDF8C);
+	m_value = ((unsigned int)__identifier("??_7LivingWorldPlayerObserver@@6B@"));
 }
 
 class Rva0007DEA1DwordImmSetter
@@ -189,7 +141,7 @@ public:
 
 void Rva0007DEA8DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC6F04);
+	m_value = ((unsigned int)__identifier("??_7Rva008291DSecond@@6B@"));
 }
 
 class Rva0007DE9ADwordImmSetter
@@ -202,7 +154,7 @@ public:
 
 void Rva0007DE9ADwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC6EC0);
+	m_value = ((unsigned int)__identifier("??_7Rva0081FDDSecond@@6B@"));
 }
 
 class Rva004EDFF8DwordImmSetter
@@ -228,7 +180,7 @@ public:
 
 void Rva004EDFFFDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C62A20);
+	m_value = ((unsigned int)__identifier("??_7RegionTurnObserverView@@6B@"));
 }
 
 class Rva004EE006DwordImmSetter
@@ -241,7 +193,7 @@ public:
 
 void Rva004EE006DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BC6F34);
+	m_value = ((unsigned int)__identifier("??_7TerrainLogicListenerRootA@@6B@"));
 }
 
 class Rva0057A235DwordImmSetter
@@ -306,7 +258,7 @@ public:
 
 void Rva005E394EDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C77BE8);
+	m_value = ((unsigned int)__identifier("??_7Rva005E4AE2Base@@6B@"));
 }
 
 class Rva000723C0DwordImmSetter
@@ -332,7 +284,7 @@ public:
 
 void Rva00210CC5DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00BE5114);
+	m_value = ((unsigned int)__identifier("??_7LivingWorldObserver@@6B@"));
 }
 
 class Rva00330440DwordImmSetter
@@ -345,7 +297,7 @@ public:
 
 void Rva00330440DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C0DB24);
+	m_value = ((unsigned int)__identifier("??_7Rva003304A4AnimationVisitor@@6B@"));
 }
 
 class Rva00468A3FDwordImmSetter
@@ -397,7 +349,7 @@ public:
 
 void Rva0052AF77DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C37E18);
+	m_value = ((unsigned int)__identifier("??_7Rva003FE20FBase@@6B@"));
 }
 
 class Rva005676F4DwordImmSetter
@@ -410,7 +362,7 @@ public:
 
 void Rva005676F4DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C6CE84);
+	m_value = ((unsigned int)__identifier("??_7Rva0086CE84Observer@@6B@"));
 }
 
 class Rva0059EB3ADwordImmSetter
@@ -475,7 +427,7 @@ public:
 
 void Rva0005F3EE3DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C79428);
+	m_value = ((unsigned int)__identifier("??_7Rva005F3EE3@@6B@"));
 }
 
 class Rva0005EA2ABDwordImmSetter
@@ -585,7 +537,7 @@ void Rva0005D387BDwordImmSetter::apply()
 // Seven more vptr stores returning this, the 0x005D3882 shape: each writes
 // one of this file's tables at this (the same table the named setter
 // sibling stores) and returns this, the constructor shape of that base.
-// 0x0007E0BD (9B): vtbl_00BC6F04, setter sibling 0x0007DEA8.
+// 0x0007E0BD (9B): table VA 0x00BC6F04, setter sibling 0x0007DEA8.
 class Rva0007E0BDAbstractBase
 {
 public:
@@ -596,11 +548,11 @@ public:
 
 Rva0007E0BDAbstractBase *Rva0007E0BDAbstractBase::rva0007E0BD()
 {
-	m_value = ((unsigned int)vtbl_00BC6F04);
+	m_value = ((unsigned int)__identifier("??_7Rva008291DSecond@@6B@"));
 	return this;
 }
 
-// 0x0007E0D9 (9B): vtbl_00BC6EC0, setter sibling 0x0007DE9A.
+// 0x0007E0D9 (9B): table VA 0x00BC6EC0, setter sibling 0x0007DE9A.
 class Rva0007E0D9AbstractBase
 {
 public:
@@ -611,11 +563,11 @@ public:
 
 Rva0007E0D9AbstractBase *Rva0007E0D9AbstractBase::rva0007E0D9()
 {
-	m_value = ((unsigned int)vtbl_00BC6EC0);
+	m_value = ((unsigned int)__identifier("??_7Rva0081FDDSecond@@6B@"));
 	return this;
 }
 
-// 0x00210CE8 (9B): vtbl_00BE5114, setter sibling 0x00210CC5.
+// 0x00210CE8 (9B): table VA 0x00BE5114, setter sibling 0x00210CC5.
 class Rva00210CE8AbstractBase
 {
 public:
@@ -626,11 +578,11 @@ public:
 
 Rva00210CE8AbstractBase *Rva00210CE8AbstractBase::rva00210CE8()
 {
-	m_value = ((unsigned int)vtbl_00BE5114);
+	m_value = ((unsigned int)__identifier("??_7LivingWorldObserver@@6B@"));
 	return this;
 }
 
-// 0x002B252C (9B): vtbl_00BFDF8C, setter sibling 0x002B228D.
+// 0x002B252C (9B): table VA 0x00BFDF8C, setter sibling 0x002B228D.
 class Rva002B252CAbstractBase
 {
 public:
@@ -641,11 +593,11 @@ public:
 
 Rva002B252CAbstractBase *Rva002B252CAbstractBase::rva002B252C()
 {
-	m_value = ((unsigned int)vtbl_00BFDF8C);
+	m_value = ((unsigned int)__identifier("??_7LivingWorldPlayerObserver@@6B@"));
 	return this;
 }
 
-// 0x005743B7 (9B): vtbl_00C6E344, setter sibling 0x00574265.
+// 0x005743B7 (9B): table VA 0x00C6E344, setter sibling 0x00574265.
 class Rva005743B7AbstractBase
 {
 public:
@@ -656,11 +608,11 @@ public:
 
 Rva005743B7AbstractBase *Rva005743B7AbstractBase::rva005743B7()
 {
-	m_value = ((unsigned int)vtbl_00C6E344);
+	m_value = ((unsigned int)__identifier("??_7Rva00574CC1Base10@@6B@"));
 	return this;
 }
 
-// 0x005F3EEA (9B): vtbl_00C79428, setter sibling 0x005F3EE3.
+// 0x005F3EEA (9B): table VA 0x00C79428, setter sibling 0x005F3EE3.
 class Rva005F3EEAAbstractBase
 {
 public:
@@ -671,11 +623,11 @@ public:
 
 Rva005F3EEAAbstractBase *Rva005F3EEAAbstractBase::rva005F3EEA()
 {
-	m_value = ((unsigned int)vtbl_00C79428);
+	m_value = ((unsigned int)__identifier("??_7Rva005F3EE3@@6B@"));
 	return this;
 }
 
-// 0x005F687A (9B): vtbl_00C79760, setter sibling 0x0057851B.
+// 0x005F687A (9B): table VA 0x00C79760, setter sibling 0x0057851B.
 class Rva005F687AAbstractBase
 {
 public:
@@ -686,7 +638,7 @@ public:
 
 Rva005F687AAbstractBase *Rva005F687AAbstractBase::rva005F687A()
 {
-	m_value = ((unsigned int)vtbl_00C79760);
+	m_value = ((unsigned int)__identifier("??_7PalantirBase0@@6B@"));
 	return this;
 }
 
@@ -754,7 +706,7 @@ public:
 
 void Rva000574265DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C6E344);
+	m_value = ((unsigned int)__identifier("??_7Rva00574CC1Base10@@6B@"));
 }
 
 class Rva0002B221ADwordImmSetter
@@ -792,7 +744,7 @@ public:
 
 void Rva0057851BDwordImmSetter::apply()
 {
-	m_value = ((unsigned int)vtbl_00C79760);
+	m_value = ((unsigned int)__identifier("??_7PalantirBase0@@6B@"));
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
