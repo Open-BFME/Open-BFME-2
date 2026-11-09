@@ -1809,3 +1809,15 @@ which supports but does not establish that hypothesis. Real delete callers,
 base/derived identity and legitimate wrapper ownership need investigation
 before a separately reviewed tooling family and all-emitter reconciliation.
 [Native/private proof and prerequisites](../../reverse/attempt_support/ai-stat-float-table-20261109/README.md).
+
+2026-11-09, timeline 8675DC partial override recovery: Rva005202C8 now
+implements the native slot3 draw and slot4 tooltip return-one bodies.
+Both six-byte methods are verified ICF owners with explicit fold proofs;
+no new pins or unique bytes. All existing object code/helpers and other
+data are unchanged; the 44-byte table changes only those two referents.
+Normal 138 code/one data, literals/floats/imports and fourteen EXACT EH
+graphs pass; current scoped LINKS predicts 10,032 to 10,044. The native
+table remains 56B and other overrides/tail slots still need class-owner
+and container-view reconciliation. Input/factory targets held by others
+were not touched. No bridge retirement or actual image result is claimed.
+[Native words, complete object comparison and remaining scope](../../reverse/attempt_support/apt-timeline-window-slots-20261109/README.md).

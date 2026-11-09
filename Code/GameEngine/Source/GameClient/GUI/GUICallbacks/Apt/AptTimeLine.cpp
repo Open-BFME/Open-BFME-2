@@ -514,6 +514,8 @@ public:
 	enum { PS_VICTORIOUS, PS_DEFEATED, PS_DISCONNECTED, PS_COUNT = 4 };
 	Rva005202C8(void *context);
 	virtual ~Rva005202C8();
+	virtual int draw(void *) { return 1; }
+	virtual int tooltip(WinInstanceData *, unsigned int) { return 1; }
 	static Rva005202C8 *s_instance;
 private:
 	int m_27C;

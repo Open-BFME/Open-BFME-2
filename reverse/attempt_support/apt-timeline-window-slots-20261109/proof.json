@@ -1,0 +1,35 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+  "rows": 138,
+  "cases": [
+    {
+      "slot": 3,
+      "name": "?draw@Rva005202C8@@UAEHPAX@Z",
+      "rva": "0xa12f8",
+      "size": 6,
+      "notes": "ICF twin; fold-proof=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp; native constructor5202C8 installs8675DC and slot3 holds A12F8. Canonical GameWindow draw signature; complete6B return-one body and all relocations equal owner. Neutral receiver identity retained; no original-name claim or new pin; zero unique bytes"
+    },
+    {
+      "slot": 4,
+      "name": "?tooltip@Rva005202C8@@UAEHPAVWinInstanceData@@I@Z",
+      "rva": "0x444680",
+      "size": 6,
+      "notes": "ICF twin; fold-proof=Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp; native constructor5202C8 installs8675DC and slot4 holds444680. Canonical GameWindow tooltip signature; complete6B return-one body and all relocations equal owner. Neutral receiver identity retained; no original-name claim or new pin; zero unique bytes"
+    }
+  ],
+  "old_code_helpers_bytes_relocations_flags_policies_equal": true,
+  "old_non_table_data_equal": true,
+  "only_added_definitions": [
+    "?draw@Rva005202C8@@UAEHPAX@Z",
+    "?tooltip@Rva005202C8@@UAEHPAVWinInstanceData@@I@Z"
+  ],
+  "removed_definitions": [],
+  "table_size_unchanged": 44,
+  "native_table_size": 56,
+  "only_table_referent_changes": {
+    "?draw@GameWindow@@UAEHPAX@Z": "?draw@Rva005202C8@@UAEHPAX@Z",
+    "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z": "?tooltip@Rva005202C8@@UAEHPAVWinInstanceData@@I@Z"
+  },
+  "object_sha256": "5378623a9f07942dc2f22990958ed74613e5cf26adc3787f29bb3533b3334126",
+  "scope": "Two actual timeline virtual override bodies admitted as ICF owners. Zero unique bytes. Slots3/4 corrected; remaining inherited/wrong/missing slots and whole-class identity remain. No bridge/image clearance claimed."
+}
