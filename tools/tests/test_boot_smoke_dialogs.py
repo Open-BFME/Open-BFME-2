@@ -149,7 +149,7 @@ def timeout_run(dialogs, shot):
 
 class Classification(unittest.TestCase):
     OPTS = dict(retail=True, base=0x400000, args="-win", overlay=None, appdata=Path("/mock-sandbox-appdata"),
-                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, no_version_lie=True,
+                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, shots_at=(), no_version_lie=True,
                 timeout=2, probes=False, defocus=None, int3_faults=False, relayout=False)
 
     def smoke(self, report):

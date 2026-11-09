@@ -97,11 +97,14 @@ import ctypes
 import ctypes.wintypes as wt
 import functools
 import json
+import math
 import os
+import queue
 import re
 import shutil
 import struct
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -649,7 +652,7 @@ def main_window(pid):
 
 
 def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None,
-        int3_faults=False, *, appdata):
+        int3_faults=False, *, appdata, shots_at=()):
     """Start `launcher` (retail's lotrbfme2.exe, which hands game.dat its start-up
     token; game.dat started directly exits 0 at once) under a debugger that
     follows children; the child whose image is game.dat is the one classified.
@@ -707,6 +710,7 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
 
     t0 = time.time()
     next_spin_sample = 0.0
+    shots = TimedShots(shots_at, t0)
     try:
         # The event boundary. A run ends at the first look that finds nothing pending at or past the deadline,
         # so what is already delivered is served before every sample and before calling the run out of time:
@@ -736,6 +740,8 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 if left <= 0:
                     res["outcome"] = "timeout" if "pid" in res else "no-game-process"
                     break
+                if "pid" in res:
+                    shots.ask(res["pid"], time.time() - t0)
                 if "main_thread" in res and left <= SPIN_SPAN and time.time() >= next_spin_sample:
                     next_spin_sample = time.time() + SPIN_EVERY
                     try:
@@ -873,6 +879,8 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
             res["dialogs"] = window_texts(res["pid"])
             res["screenshot"] = screenshot(res["pid"])
     finally:
+        if shots.asked:
+            res["timed_shots"] = shots.finish()
         cleanup_targets = {pid: h for pid, (h, *_rest) in procs.items() if pid not in exited}
         if pi.pid not in cleanup_targets:
             if pi.pid not in exited:
@@ -1042,6 +1050,63 @@ def sample_eips(k, hthread, n=8):
     return out
 
 
+SHOT_WAIT = 5.0     # seconds run() waits, after the run is over, for captures still in flight
+
+
+class TimedShots:
+    """--shots-at pictures, for reading how a run's window changes. They decide nothing: the outcome comes from the
+    last picture alone. The event loop only asks; a worker thread captures, so a slow capture cannot delay an event,
+    a hang sample or the deadline. That matters on Windows too, where PrintWindow sends the game a message and can
+    wait on a target stopped at a debug event. A capture that never returns is recorded as not finished.
+
+    Limits. Captures run one at a time, so a stuck one blocks later timed shots: those are recorded as skipped. The last
+    picture is still taken on the event loop's thread, through PrintWindow on Windows, so SHOT_WAIT bounds neither it
+    nor the whole shutdown. How this behaves on native Windows is reasoned, not run: every measurement is under Wine."""
+
+    def __init__(self, times, t0):
+        self.due, self.t0 = sorted(times), t0
+        self.asked, self.results, self.requests, self.worker = [], {}, queue.Queue(), None
+        self.lock, self.started, self.ended = threading.Lock(), set(), False
+
+    def ask(self, pid, elapsed):
+        """On the event loop: never waits. A late look asks for everything that has fallen due."""
+        while self.due and elapsed >= self.due[0]:
+            at = self.due.pop(0)
+            self.requests.put((len(self.asked), pid, at))
+            self.asked.append(dict(at=at, asked=round(elapsed, 1)))
+            if self.worker is None:
+                self.worker = threading.Thread(target=self.work, daemon=True)
+                self.worker.start()
+
+    def work(self):
+        while (request := self.requests.get()) is not None:
+            number, pid, at = request
+            with self.lock:
+                if self.ended:              # the run is over: its game is going away, and nobody reads the result
+                    return
+                self.started.add(number)
+            try:
+                picture = window_picture(pid, OUT / f"smoke_{pid}_at{number:02d}_{at:g}.png")
+            except Exception as error:      # this thread's last stop: anything raised is that picture's record
+                picture = {"capture": "none", "why": str(error)}
+            self.results[number] = dict(picture if picture is not None else {"capture": "none", "why": "no window"},
+                                        taken=round(time.time() - self.t0, 1))
+
+    def finish(self):
+        """Every picture asked for, in order, waiting at most SHOT_WAIT for those in flight. From here the worker
+        takes no more: one past a stuck capture is recorded as skipped, not taken during teardown."""
+        if self.worker is not None:
+            self.requests.put(None)
+            self.worker.join(SHOT_WAIT)
+        with self.lock:
+            self.ended = True
+            started = set(self.started)
+        late = {"capture": "none", "why": "not finished when the run ended"}
+        skipped = {"capture": "none", "why": "skipped: an earlier capture had not finished when the run ended"}
+        return [dict(self.results.get(number, late if number in started else skipped), **asked)
+                for number, asked in enumerate(self.asked)]
+
+
 def screenshot(pid):
     """The game window's own picture (window_picture), with the menu-bar share and,
     when a retail control exists, the distance from its picture."""
@@ -1105,6 +1170,14 @@ SPIN_MIN_SAMPLES = 20
 SPIN_MAX_FAILURES = 2   # reads over the span that proved nothing
 SPIN_MAX_GAP = 3.0      # seconds between two good samples
 EVENT_GRACE = 2.0       # seconds past the deadline that a stream of events can keep the run open: run()'s boundary
+
+
+def shot_times(text):
+    """--shots-at's value: ascending seconds, each finite and above zero."""
+    times = {float(part) for part in text.split(",")}
+    if not times or not all(math.isfinite(value) and value > 0 for value in times):
+        raise ValueError(text)
+    return sorted(times)
 
 
 def main_thread_span(samples, image_low, image_high, failures):
@@ -1435,7 +1508,7 @@ def smoke(a, rows=None, tag="boot"):
         out["focus_lie"] = "WM_ACTIVATEAPP arm not found (no lie)"
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
               sorted(moved) if a.probes else (), focus_rva, a.defocus, a.int3_faults or a.relayout or ri is not None,
-              appdata=a.appdata)
+              appdata=a.appdata, shots_at=a.shots_at)
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
     if authored:
@@ -1698,6 +1771,9 @@ def main(argv=None):
                          "while the window lacks focus)")
     ap.add_argument("--defocus", type=float, metavar="SECONDS",
                     help="minimise the game window SECONDS after launch, show it unfocused 15 s before the end")
+    ap.add_argument("--shots-at", type=shot_times, default=(), metavar="SECONDS,...",
+                    help="also picture the window at these times into the run (run.timed_shots in the report, a PNG each); "
+                         "the outcome still comes from the last picture alone")
     ap.add_argument("--probes", action="store_true",
                     help="one-shot breakpoints at authored unit starts: which authored code ran (each hit is a "
                          "debugger round trip; 9,001 hits delayed a boot past 150 s)")
@@ -1711,6 +1787,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.real_image and (a.retail or a.overlay or a.relayout or a.own_data or a.no_build or a.bisect):
         raise SystemExit("boot_smoke: --real-image runs the linked image alone (no --retail, overlay or relayout)")
+    if a.shots_at and a.shots_at[-1] >= a.timeout:
+        ap.error(f"--shots-at {a.shots_at[-1]:g} is not before --timeout {a.timeout:g}")
     if a.rebase and not a.real_image:
         raise SystemExit("boot_smoke: --rebase needs --real-image")
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()

@@ -3,6 +3,7 @@
 import contextlib
 import ctypes
 import sys
+import threading
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -269,13 +270,25 @@ class RunnerDebugTests(unittest.TestCase):
         self.assertIs(kernel.WaitForSingleObject.restype, runner.wt.DWORD)
         self.assertIs(kernel.GetCurrentProcess.restype, runner.wt.HANDLE)
 
-    def run_case(self, events, *, timeout=2, real_samples=False, **failures):
+    def run_case(self, events, *, timeout=2, real_samples=False, shots_at=(), shot_cost=0.0, **failures):
         clock = FakeClock()
         kernel = FakeKernel(clock, events, **failures)
         self.captured_at = None
+        self.clock, self.shot_threads = clock, []
 
         def capture(pid):
             self.captured_at = clock.now
+
+        def timed_capture(pid, path):
+            # A slow capture blocks whichever thread runs it: on the event loop that is the run's own clock.
+            self.shot_threads.append(threading.current_thread())
+            if threading.current_thread() is threading.main_thread():
+                clock.now += shot_cost
+            return {"black": False, "path": str(path)}
+        patches = [mock.patch.object(runner, "window_picture", side_effect=timed_capture)] if shot_cost else []
+        for patch in patches:
+            patch.start()
+            self.addCleanup(patch.stop)
         sampled = {} if real_samples else {"return_value": []}
         with (mock.patch.object(runner, "k32", return_value=kernel),
               mock.patch.object(runner.ctypes, "WinDLL", return_value=FakeUser(), create=True),
@@ -287,7 +300,7 @@ class RunnerDebugTests(unittest.TestCase):
               mock.patch.object(runner, "screenshot", side_effect=capture),
               mock.patch.object(runner, "stack_words", return_value=None)):
             result = runner.run(Path("launcher.exe"), Path("/mock-game"), "-win", timeout,
-                                version_lie=False, appdata=Path("/mock-sandbox-appdata"))
+                                version_lie=False, appdata=Path("/mock-sandbox-appdata"), shots_at=shots_at)
         return kernel, result
 
     def test_normal_exit_requires_continuation_and_bounded_cleanup(self):
@@ -421,7 +434,7 @@ class RunnerDebugTests(unittest.TestCase):
     def test_smoke_preserves_debugger_error_classification(self):
         options = SimpleNamespace(retail=True, base=0x400000, args="-win", overlay=None,
                                   appdata=Path("/mock-sandbox-appdata"), game_dir=Path("/mock-game"),
-                                  guard=[], compat=None, no_focus_lie=True, no_version_lie=True,
+                                  guard=[], compat=None, no_focus_lie=True, shots_at=(), no_version_lie=True,
                                   timeout=2, probes=False, defocus=None, int3_faults=False,
                                   relayout=False)
         report = {"outcome": "debugger-error", "first_chance": [], "probes_hit": [],
@@ -739,6 +752,175 @@ class MainThreadSamplerTests(unittest.TestCase):
         read.assert_called_once_with(kernel, 21, 201, n=1024)
 
 
+class TimedShotTests(unittest.TestCase):
+    """--shots-at pictures the window through a run and decides nothing."""
+    GAME = [debug_event(3, file_handle=31)]
+    CRASH = debug_event(1, exception=0xC0000005, first_chance=0)
+    run_case = RunnerDebugTests.run_case
+
+    def shots(self, picture=None, **case):
+        seen = []
+
+        def capture(pid, path):
+            seen.append(path.name)
+            if isinstance(picture, Exception):
+                raise picture
+            return picture if picture is None or picture else {"black": False}
+        with mock.patch.object(runner, "window_picture", side_effect=capture):
+            kernel, result = self.run_case(self.GAME, **case)
+        return kernel, result, seen
+
+    def test_each_time_gets_its_own_picture_in_order(self):
+        kernel, result, seen = self.shots({"black": True}, timeout=5, shots_at=[1.0, 3.0])
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual([s["at"] for s in result["timed_shots"]], [1.0, 3.0])
+        self.assertEqual(seen, ["smoke_200_at00_1.png", "smoke_200_at01_3.png"])
+        self.assertTrue(all(s["black"] for s in result["timed_shots"]))
+        self.assertEqual([s["asked"] for s in result["timed_shots"]], [1.0, 3.0])
+
+    def test_two_times_in_one_second_get_two_files(self):
+        # The review's case: int(at) named both smoke_<pid>_at1.png, and the second overwrote the first.
+        kernel, result, seen = self.shots({"black": True}, timeout=5, shots_at=[1.1, 1.9])
+        self.assertEqual(len(set(seen)), 2)
+        self.assertEqual([s["at"] for s in result["timed_shots"]], [1.1, 1.9])
+
+    # The review's three scenarios: the flag may not change a run's outcome, last picture or hang evidence.
+    def test_a_slow_shot_does_not_take_a_late_crash_into_the_run(self):
+        kernel, result = self.run_case(self.GAME, timeout=5, shots_at=[4.0], shot_cost=1.5, timed_events=[(5.2, self.CRASH)])
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(self.captured_at, 5.0)
+
+    def test_a_slow_shot_does_not_move_the_last_picture(self):
+        kernel, result = self.run_case(self.GAME, timeout=5, shots_at=[4.0], shot_cost=4.0)
+        self.assertEqual(self.captured_at, 5.0)
+
+    def test_a_slow_shot_leaves_the_hang_evidence_alone(self):
+        def span(result):
+            return runner.main_thread_span(result["spin_samples"], 0x400000, 0x80000000, result.get("spin_sample_failures", 0))
+        _, plain = self.run_case(self.GAME, timeout=40, spinning=True)
+        _, shot = self.run_case(self.GAME, timeout=40, spinning=True, shots_at=[15.0], shot_cost=4.0)
+        self.assertTrue(span(plain)["spinning"])
+        self.assertTrue(span(shot)["spinning"])
+        self.assertEqual(span(shot)["largest_gap"], span(plain)["largest_gap"])
+        self.assertEqual(shot["spin_samples"], plain["spin_samples"])
+
+    def test_the_capture_runs_off_the_event_loop(self):
+        self.run_case(self.GAME, timeout=3, shots_at=[1.0], shot_cost=0.5)
+        self.assertEqual(len(self.shot_threads), 1)
+        self.assertIsNot(self.shot_threads[0], threading.main_thread())
+        self.assertTrue(self.shot_threads[0].daemon)       # a capture stuck for good may not keep the tool alive
+
+    def test_a_capture_that_never_returns_cannot_hold_the_run(self):
+        # PrintWindow can wait on a target stopped at a debug event, for good.
+        stuck = threading.Event()
+        self.addCleanup(stuck.set)
+
+        def capture(pid, path):
+            stuck.wait(30)
+            return {"black": False}
+        with mock.patch.object(runner, "window_picture", side_effect=capture), mock.patch.object(runner, "SHOT_WAIT", 0.05):
+            kernel, result = self.run_case(self.GAME, timeout=3, shots_at=[1.0, 2.0])
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(self.captured_at, 3.0)
+        self.assertEqual([s["at"] for s in result["timed_shots"]], [1.0, 2.0])
+        self.assertIn("not finished", result["timed_shots"][0]["why"])
+        self.assertIn("skipped", result["timed_shots"][1]["why"])
+
+    def test_after_the_run_the_worker_takes_nothing_more(self):
+        # The re-check's case: past the wait, a queued shot would run during or after teardown.
+        stuck, calls = threading.Event(), []
+        self.addCleanup(stuck.set)
+
+        def capture(pid, path):
+            calls.append(threading.current_thread())
+            stuck.wait(30)
+            return {"black": False}
+        with mock.patch.object(runner, "window_picture", side_effect=capture), mock.patch.object(runner, "SHOT_WAIT", 0.05):
+            kernel, result = self.run_case(self.GAME, timeout=4, shots_at=[1.0, 2.0, 3.0])
+            self.assertEqual([s["why"][:7] for s in result["timed_shots"]], ["not fin", "skipped", "skipped"])
+            stuck.set()                                   # still patched: a worker that went on would be counted
+            calls[0].join(10)
+        self.assertFalse(calls[0].is_alive())
+        self.assertEqual(len(calls), 1)
+
+    def test_a_shot_that_finished_before_the_stuck_one_keeps_its_picture(self):
+        stuck, calls = threading.Event(), []
+        self.addCleanup(stuck.set)
+
+        def capture(pid, path):
+            calls.append(path)
+            if len(calls) == 2:
+                stuck.wait(30)
+            return {"black": False}
+        with mock.patch.object(runner, "window_picture", side_effect=capture), mock.patch.object(runner, "SHOT_WAIT", 0.2):
+            kernel, result = self.run_case(self.GAME, timeout=4, shots_at=[1.0, 2.0, 3.0])
+        self.assertEqual(result["timed_shots"][0]["black"], False)
+        self.assertIn("not finished", result["timed_shots"][1]["why"])
+        self.assertIn("skipped", result["timed_shots"][2]["why"])
+
+    def test_any_error_in_a_capture_is_recorded_and_later_shots_still_run(self):
+        calls = []
+
+        def capture(pid, path):
+            calls.append(path)
+            if len(calls) == 1:
+                raise ValueError("a picture PIL refused")
+            return {"black": False}
+        with mock.patch.object(runner, "window_picture", side_effect=capture):
+            kernel, result = self.run_case(self.GAME, timeout=4, shots_at=[1.0, 2.0])
+        self.assertIn("refused", result["timed_shots"][0]["why"])
+        self.assertEqual(result["timed_shots"][1]["black"], False)
+
+    def test_a_shot_named_after_a_late_look_is_still_asked_for_once(self):
+        kernel, result, seen = self.shots({"black": True}, timeout=5, sampler_cost=3.0, shots_at=[1.0, 2.0])
+        self.assertEqual(sorted(s["at"] for s in result["timed_shots"]), [1.0, 2.0])
+        self.assertEqual(len(seen), 2)
+
+    def test_a_time_before_the_game_exists_waits_for_it(self):
+        with mock.patch.object(runner, "window_picture", return_value={"black": False}) as capture:
+            kernel, result = self.run_case([], timeout=4, shots_at=[1.0], timed_events=[(2.0, self.GAME[0])])
+        self.assertEqual(capture.call_args[0][0], 200)     # the game's pid, not a placeholder
+        self.assertEqual([s["asked"] for s in result["timed_shots"]], [2.0])
+
+    def test_no_times_no_pictures(self):
+        kernel, result, seen = self.shots({"black": True}, timeout=3)
+        self.assertEqual(seen, [])
+        self.assertNotIn("timed_shots", result)
+
+    def test_a_time_past_the_end_is_not_taken(self):
+        kernel, result, seen = self.shots({"black": True}, timeout=2, shots_at=[1.0, 9.0])
+        self.assertEqual([s["at"] for s in result["timed_shots"]], [1.0])
+
+    def test_no_window_and_a_failed_capture_are_recorded_and_the_run_goes_on(self):
+        kernel, result, seen = self.shots(None, timeout=3, shots_at=[1.0])
+        self.assertEqual((result["outcome"], result["timed_shots"][0]["why"]), ("timeout", "no window"))
+        kernel, result, seen = self.shots(OSError("no display"), timeout=3, shots_at=[1.0])
+        self.assertEqual((result["outcome"], result["timed_shots"][0]["why"]), ("timeout", "no display"))
+
+    def test_a_crash_after_a_shot_still_counts_and_stops_the_shots(self):
+        kernel, result, seen = self.shots({"black": True}, timeout=5, shots_at=[1.0, 3.0], timed_events=[(2.0, self.CRASH)])
+        self.assertEqual(result["outcome"], "crash")
+        self.assertEqual([s["at"] for s in result["timed_shots"]], [1.0])
+
+    def test_a_delivered_event_is_served_before_a_shot(self):
+        # A debug event holds the game: a picture taken with one pending would show a stopped game.
+        # The sample runs the clock to 1.25, past both: the event is pending when the shot falls due.
+        kernel, result, seen = self.shots({"black": True}, timeout=3, sampler_cost=1.25, shots_at=[1.0], timed_events=[(1.0, self.CRASH)])
+        self.assertEqual(result["outcome"], "crash")
+        self.assertEqual(seen, [])
+
+    def test_the_final_picture_stays_the_timeouts_own(self):
+        kernel, result, seen = self.shots({"black": True}, timeout=3, shots_at=[1.0])
+        self.assertIsNone(result["screenshot"])                  # the fixture's mock of the last picture, untouched
+
+    def test_the_value_parses_sorted_and_refuses_nonsense(self):
+        self.assertEqual(runner.shot_times("120,60,60"), [60.0, 120.0])
+        self.assertEqual(runner.shot_times("1.1,1.9"), [1.1, 1.9])
+        for bad in ("", "0", "-1,5", "x", "nan", "5,nan", "inf", "1,-inf"):
+            with self.assertRaises(ValueError):
+                runner.shot_times(bad)
+
+
 class StackKernel:
     """OpenThread, Wow64GetThreadContext and ReadProcessMemory over `memory` (a readable
     range [lo, hi) of dwords); a read past hi fails the way one across a stack's top does."""
@@ -791,7 +973,7 @@ class FaultStackTests(unittest.TestCase):
     STACK = {"esp": 0x0019F000, "ebp": 0x0019F040, "regs": {"edx": "0x476e654d", "eip": "0x101696df"},
              "words": [0x476E654D, 0x1023F4AF, 0x0019F0A0]}
     OPTS = dict(retail=True, base=0x400000, args="-win", overlay=None, appdata=Path("/mock-sandbox-appdata"),
-                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, no_version_lie=True,
+                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, shots_at=(), no_version_lie=True,
                 timeout=2, probes=False, defocus=None, int3_faults=False, relayout=False)
 
     def smoke(self, report, **opts):
