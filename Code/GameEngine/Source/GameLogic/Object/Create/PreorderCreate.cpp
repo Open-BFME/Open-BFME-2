@@ -123,6 +123,9 @@ class CreateModule : public BehaviorModule, public ModuleInterface
 {
 public:
 	CreateModule( Thing *thing, const ModuleData *moduleData );
+	// BehaviorModuleInterface slot 3 (retail VA 0x00BEF9C0): CreateModule's override,
+	// rowed at 0x002533D3 (header-inline in CreateModuleClass.h; Rva004B8CDEDerived.cpp).
+	virtual CreateModuleInterface *getCreate();
 protected:
 	virtual ~CreateModule();
 };
