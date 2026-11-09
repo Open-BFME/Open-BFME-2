@@ -1,1 +1,2 @@
 target_rva,name,moved_from,placed_in,evidence,statement
+0x005DFF76,??1?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@3@@_STL@@QAE@XZ,Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences_Unresolved.cpp,retail:0x0021E912 offset=84 calls=0x0021DBBA calls=0x0021D7CF,"not in its true unit: a rename forced it out and the map has no approved unit; placed_in is placement evidence, no approval"

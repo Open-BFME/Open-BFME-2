@@ -42,9 +42,15 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
+// Retail builds no copy or assignment of this map: the copy ctor once rowed here is the record tree's below.
+namespace _STL {
+template <> map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > >::map(const map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > > &);
+template <> map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > > &map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > >::operator=(const map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > > &);
+}
+
 template class _STL::map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > >;
 
-// The record the hero sub-class's member at +0x54 holds (Rva0021E85ACopy.cpp); its tree's base ctor folds with 0x0033B758.
+// 0x0021DBBA, the member at +0x54 of the hero sub-class record (Rva0021E85ACopy.cpp).
 #include <set>
 struct BfmeStringRecord00219B0B
 {
@@ -60,4 +66,9 @@ struct BfmeStringRecord0021A940
 	BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
 	~BfmeStringRecord0021A940();
 };
-template _STL::_Rb_tree_base<BfmeStringRecord0021A940, _STL::allocator<BfmeStringRecord0021A940> >::_Rb_tree_base(const _STL::allocator<BfmeStringRecord0021A940> &);
+typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > Rva0021E85ARecordTree;
+namespace _STL {
+template <> Rva0021E85ARecordTree::_Link_type Rva0021E85ARecordTree::_M_copy(Rva0021E85ARecordTree::_Link_type, Rva0021E85ARecordTree::_Link_type);
+template <> void Rva0021E85ARecordTree::_M_erase(Rva0021E85ARecordTree::_Link_type);
+}
+template Rva0021E85ARecordTree::_Rb_tree(const Rva0021E85ARecordTree &);

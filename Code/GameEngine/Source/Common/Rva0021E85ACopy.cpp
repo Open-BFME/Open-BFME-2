@@ -21,13 +21,28 @@ enum ScienceType
 	SCIENCE_INVALID = 0
 };
 
-#include "../../Include/GameNetwork/LadderPref.h"
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> _Rb_tree<long,pair<long const ,LadderPref>,_Select1st<pair<long const ,LadderPref> >,less<long>,allocator<pair<long const ,LadderPref> > >::~_Rb_tree(); }
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> void _Destroy<pair<long const ,LadderPref> >(pair<long const ,LadderPref> *); }
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> void _Construct<pair<long const ,LadderPref>,pair<long const ,LadderPref> >(pair<long const ,LadderPref> *,pair<long const ,LadderPref> const &); }
+// Retail's member at +0x54 is a set of this record: 0x0021DBBA calls _M_copy 0x0021D7CF, whose nodes copy through 0x0021AAE1,
+// and the dtor at 0x0021E50F tears it down through 0x0021D61F.
+#include <set>
+struct BfmeStringRecord00219B0B
+{
+	unsigned int word0;
+	AsciiString text0, text1, text2;
+	BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
+	~BfmeStringRecord00219B0B();
+};
+struct BfmeStringRecord0021A940
+{
+	unsigned int word0;
+	BfmeStringRecord00219B0B rec;
+	BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
+	~BfmeStringRecord0021A940();
+};
+typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > Rva0021E85ARecordTree;
+namespace _STL {
+template <> Rva0021E85ARecordTree::_Rb_tree(const Rva0021E85ARecordTree &);
+template <> Rva0021E85ARecordTree::~_Rb_tree();
+}
 
 #include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
@@ -54,7 +69,7 @@ private:
 	_STL::vector<ScienceType> m_30;
 	_STL::vector<ScienceType> m_3c;
 	_STL::map<int, int> m_48;
-	_STL::map<long, LadderPref> m_54;
+	_STL::set<BfmeStringRecord0021A940> m_54;
 	unsigned char m_60;
 	char m_pad61[3];
 	int m_64;
@@ -83,3 +98,5 @@ Rva0021E85A::Rva0021E85A(const Rva0021E85A &other)
 	, m_6c(other.m_6c)
 {
 }
+
+template _STL::set<BfmeStringRecord0021A940>::set(const _STL::set<BfmeStringRecord0021A940> &);
