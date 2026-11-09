@@ -75,19 +75,7 @@ class Snapshot;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 // BitFlags<11> by value (the mask AIUpdate.h builds): the update-interface getter below.
 #include "../../../../Include/Common/BitFlags11.h"
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual bool isUpgradeActive() const = 0;
-	void giveSelfUpgrade();
-
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
@@ -469,7 +457,7 @@ UpdateSleepTime ReplenishUnitsBehavior::update()
 	Object *obj = m_object;
 	const ReplenishUnitsBehaviorModuleData *data = getReplenishUnitsBehaviorModuleData();
 	ReplenishUnitsBehavior *self = this;
-	if (self->isUpgradeActive() && !obj->isEffectivelyDead()) {
+	if (self->isAlreadyUpgraded() && !obj->isEffectivelyDead()) {
 		void *subject = 0;
 		if (data->m_139) {
 			Rva0048438AInterface *provider = obj->m_250;
