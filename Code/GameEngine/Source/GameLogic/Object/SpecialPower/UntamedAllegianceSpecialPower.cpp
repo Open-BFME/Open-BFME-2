@@ -28,17 +28,6 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-// Retail: ??0UntamedAllegianceSpecialPower 0x004C7B06 calls
-// ??0SpecialPowerModule 0x00493C5A and stores 0x00C5E0E4 (+0), 0x00BEFCF8
-// (+0x0C) and 0x00C5E080 (+0x10), like every SpecialPowerModule subclass of
-// this family; getModuleNameKey is slot 4 of 0x00C5E0E4.
-class UntamedAllegianceSpecialPower : public SpecialPowerModule
-{
-protected:
-	virtual ~UntamedAllegianceSpecialPower();
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 //
 // SpecialPower-side ModuleData::buildFieldParse procs.
 //
@@ -63,6 +52,22 @@ class UntamedAllegianceSpecialPowerModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
+
+ 
+ 
+ 
+ 
+class UntamedAllegianceSpecialPower : public SpecialPowerModule
+{
+protected:
+	virtual ~UntamedAllegianceSpecialPower();
+public:
+	virtual NameKeyType getModuleNameKey() const;
+public:
+	UntamedAllegianceSpecialPower( Thing *thing, const ModuleData *moduleData );
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPower.cpp
 
@@ -101,14 +106,19 @@ NameKeyType UntamedAllegianceSpecialPower::getModuleNameKey() const
 	return TheUntamedAllegianceSpecialPowerPoolKey;
 }
 
-// tu-skeleton: 0x004C7B06 42B ??0UntamedAllegianceSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C7B30 6B ?Rva004C7B30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ??1UntamedAllegianceSpecialPower@@MAE@XZ 0x004C7B36: stores the class's three vptrs, then tail-calls
 // ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 UntamedAllegianceSpecialPower::~UntamedAllegianceSpecialPower()
 {
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerCtor.cpp
+
+UntamedAllegianceSpecialPower::UntamedAllegianceSpecialPower( Thing *thing, const ModuleData *moduleData )
+	: SpecialPowerModule( thing, moduleData )
+{
+}
+
+// tu-skeleton: 0x004C7B30 6B ?Rva004C7B30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004C7BB0 83B ?ApplyPowerToObject@UntamedAllegianceSpecialPower@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerSlot13.cpp (not merged yet)
