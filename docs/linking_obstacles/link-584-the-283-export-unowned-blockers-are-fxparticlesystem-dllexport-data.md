@@ -536,3 +536,26 @@ this same `?$S128@?1??GetValue@?$DefaultModuleKey@$00@...`. `dc2ca44291` began e
 `1a6707e43c` is already in `errors.tsv` at `f9b8b46525`. So there is no commit to revert. The 28 are this entry's 14 `$S` guards and 12
 `ModuleTag` KEY/NAME, plus LINK-018's two `Matrix4D` names. What moves them is unchanged: LINK-615 for KEY/NAME, then a re-run of the 2026-11-08
 base-class trial; the owner's decision on the guard options.
+
+**2026-11-09 the 12 default KEY/NAME: the base-class shape holds after LINK-615 (Link lane; `b0bf5b59e4`, branch
+`swarm/link/keyname-review-20261109`).** `DefaultModuleTag<N>` derives from retail's
+`ModuleTag<N, DefaultModuleKey<N>::VALUE, DefaultModuleName<N>::VALUE, DefaultModule<N>, DefaultModuleTemplate<N>, DefaultParticleModule<N> >`,
+named through a per-category `DefaultModuleTagBase<N>`, because MSVC 7.1 refuses the dependent `DefaultModuleKey<CATEGORY>::VALUE` (C2143, as on 2026-11-08).
+Both FX units change together. The 2026-11-08 table's "primary template, base named through a non-dependent helper" moved 36 actions, and with LINK-615 landed it
+moves none. Each ordered CRT action was followed to its initializer's bytes and relocated symbols, allowing only the twelve `s_key`/`s_name` -> `KEY`/`NAME`
+respellings and compiler-local labels. Modules: 93 of 93 actions unchanged, 0 positions moved. Factories: 55 of 55 unchanged, 0 moved. Each object defines the 12
+export spellings, no `s_key`/`s_name` is left, and 306/306 rows are exact with no re-pin. Negative control: swapping two default wrappers reads as 2 positions
+changed. The twelve storage addresses in `data_ledger.csv` (0x00A02C48..0x00A02CCC) are the retail export RVAs of these names, ordinals 1266..1347.
+Why the order no longer matters, from the `36ed6970eb` image's objects: the only readers of these keys are the six `ConcreteModuleClass<DefaultModuleTag<N> >`
+constructors, in each unit, and none is reachable from that unit's start-up initializers. Before LINK-615 the eager `s_instance` constructors read them during
+start-up. `link_check`: Modules LINKED 3,878 -> 3,878; Factories 0 -> 0, out before and after. Real-link effect expected at -12 (28 -> 16), not yet measured.
+Not done: the 12 initializer rows keep their `??__E?s_key@?$DefaultModuleTag@...` names (their `object-symbol=` pins bind them), and `data_ledger.csv` still spells
+the twelve addresses `s_key`/`s_name`; both are follow-up respellings.
+
+**2026-11-09 the 14 guards: the owner chose option 1, for now (via the swarm coordinator).** A counted export alias from each retail guard name to our own guard
+word, kept as visible debt that a later source recovery can retire. No supported admission path exists today: `tools/exit_link.py`'s `export_definition` writes one
+plain `name @ordinal [DATA]` line per `exports.csv` row, `reverse/hatch_baseline.tsv` has no kind for an export alias, and no admission tool covers one. The tool
+work is packet P105 (Link lane), after the 12 KEY/NAME: an alias source the `/DEF` writer reads, a counted shrink-only hatch kind, an admission command in an existing
+tool, and named zero words for `$S22`/`$S26`. Those two need words of their own, not aliases: retail keeps them apart at 0x00A0609C/A0, in `.data`'s zero tail,
+and nothing retail kept reads them; aliasing them to `$S24`/`$S28` (0x00A0294C/58, our `$S9`/`$S21` in `FXParticleSystemDefaults.cpp`) would export two retail
+addresses as one. Nothing is admitted until P105 lands and is reviewed.
