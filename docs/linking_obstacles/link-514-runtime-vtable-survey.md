@@ -1657,3 +1657,93 @@ identity routes.
   clear. (4) Tooling: rename.py's fold check could compile-test the folded unit set for duplicate
   strong/COMDAT definitions (link_check found what its own gates passed); and a `--to-class`
   parameter respell proven by a registered header's declaration (OpenContain onCollide).
+
+**One- and three-slot placeholder tables in RvaSmallVtableCtors.cpp, and the Rva0024A797 UpdateModule family
+(2026-11-09, seat halilkkaya-lk80, base `a8efeedc18e`).** Method: lk74's one-pass snapshot (old = new = HEAD's
+`tools/vtable_bridge.py`) after every batch; `rename.py function --to-class` with prepared views (and
+`--also` when no slot of the table resolved yet); per-object `??_7` and symbol diffs; `tu_skeleton.py --split
+--dry-run` for the Derived.cpp destructors.
+- Done, 9 code commits (`16cf6c36a78` .. `b0aa71bbba0`): each table's constructor view in
+  RvaSmallVtableCtors.cpp now declares retail's slots instead of an invented inline virtual destructor, and
+  each slot body is respelled into the constructor's class:
+  - one-slot tables (the docs' one-slot rule proves each alone): Rva0020E394 (0x0020E39D,
+    VslotSmallBodiesAB.cpp), Rva003F82E2 (0x003F82F4, VslotSmallBodiesAG.cpp), Rva00545D43 (0x00545B72
+    `shouldExit`, VslotSmallBodiesF.cpp), Rva002B29F8 (0x002B89BB) and Rva002B29D8 (0x002BA392 `visit`), the
+    last two also renaming LivingWorldLogic.cpp's inline visitor views (their inline constructors take a typed
+    pointer, so the COMDAT `??0` cannot collide with the strong `(void *)` row);
+  - three-slot "+4 payload" tables (`--also`): Rva002AAD9C (3 forwarders, VslotMemberForwarders.cpp),
+    Rva003FC428 (VslotMemberForwarders.cpp + Rva003FD02EWrite.cpp), Rva00222A19 (VtableSlotBodiesR3.cpp,
+    VslotMemberForwarders.cpp, VslotSmallBodiesR.cpp), Rva0052787E (GapBodiesGE28.cpp, VslotSmallBodiesAP.cpp,
+    Bfme/Rva00527827Constructor.cpp).
+- Tables off the bridge: 9. Offline plan, base -> after: bridged 4,034 -> 4,025, already correct 1,603 ->
+  1,610, bridged slots 57,886 -> 57,869, mismatching source slots 45,072 -> 45,055; refusals identical (86);
+  nothing newly bridged. The plan lists two "correct lost" names, `??_7Rva002B89BB@@6B@` and
+  `??_7Rva002BA392ArmyVisitor@@6B@`: these are LivingWorldLogic.cpp's second names for 0x00BFE004 and
+  0x00BFE000, deleted by the renames; both addresses keep a correct table under the constructor's name
+  (`??_7Rva002B29F8@@6B@`, `??_7Rva002B29D8@@6B@`), so no correct table is lost. link_check over
+  RvaSmallVtableCtors.cpp, every body unit and every unit storing a table by name (AITNGuard.cpp,
+  Rva003F830F.cpp, Rva003FCD04Finish.cpp, Rva00222C93Concat.cpp, Rva0052798FConcat.cpp,
+  LivingWorldRegionManagerUpdateBattleMarkers.cpp, W3DVideoBuffer.cpp): all LINK, bytes unchanged.
+- Blocked (re_attempts rows in `5c37881ba5a`):
+  - Rva0037DE63 (0x0037DE70, CarryoverUnit.cpp): link_check refuses a duplicate `??0Rva0037DE63@@QAE@XZ`.
+    The visitor's inline constructor takes no argument, so its ANY COMDAT (MSVC 7.1 emits every referenced
+    inline function, even when every call is inlined) has the strong `/Gy` row's name. The same trap stops
+    lk79's two clean folds: FadeInTextRender.obj emits `??0Rva0059675ABase@@QAE@XZ` (implicit base
+    constructor) and ScriptConditions_evaluateTeamStateIs.obj emits `??0Rva003E3C39@@QAE@XZ` (the
+    TransportStatus view), each a duplicate of the target's strong row after the fold.
+  - Rva0032A3C6 (0x0032AF9C, 0x0032AFCC, 0x0032AFA4): the prepared SidesList.cpp does not compile. Its
+    ReaderB0032AF02 view stores the table through `extern "C" __identifier("??_7Rva0032A3C6@@6B@")`, probably
+    clashing with the polymorphic class in the same TU. Rewrite that reader onto the class first.
+  - Rva002AAD77 and Rva0059B060 (same three-slot shape): one slot body each lives in VslotSmallBodiesAI.cpp,
+    held by ancalgonn-pc-bridge.
+  - Rva0056AC9C: Rva0056AC26Constructor.cpp's visitor carries two `present-unmatched` markers keyed to
+    its class name and derives from PendingBattleVisitor. Rva005CDCDC: Rva005CDDA4Ctor.cpp spells the
+    body's mangled name in a counted `/alternatename`. Rva005EA1D5 -> UnitCountCollector: `class --fold`
+    takes no prepared view, and the fold alone leaves a one-slot `??_E` copy beside the correct
+    `??_7UnitCountCollector@@6B@` of StrategicInGameUIDynamicAutoResolveDialogImpl.cpp.
+- Rva0024A797 family classification (lk80 snapshot):
+  - Rva0024A797Derived.cpp: 30 classes, one 25-byte destructor row and one `??_G` each, all written against a
+    private `UpdateModule` (destructor only, a private copy of the registered class), `MiBase1` and a per-class
+    `_B2`. Their three tables are retail's ObjectModule (+0), BehaviorModuleInterface (+0x0C, the shared
+    0x007EFF90) and UpdateModuleInterface (+0x10) tables. 11 readable classes: AssistedTargetingUpdate,
+    AutoDepositUpdate, AutoFindHealingUpdate, BuildingBehavior, DemoTrapUpdate, EntEnragedUpdate,
+    HeightDieUpdate, ObjectHelper, OathbreakersFadeAwayBehavior, PickupStuffUpdate and StealthUpdate (the only
+    one registered: StealthUpdate.h). 19 are `Rva...` placeholders. 13 destructors have an approved TU (the 11
+    named ones plus Rva0033EEC9 -> ProjectileStreamUpdate.cpp and Rva004A3F8B -> HijackerUpdate.cpp). The other
+    17 (34 rows) have none.
+    ObjectHelper's TU (Helper/ObjectHelper.cpp) has no file yet. Six ctor units already emit the
+    canonical tables. Five of them include UpdateModule.h: AutoFindHealingUpdate.cpp, DemoTrapUpdate.cpp,
+    EntEnragedUpdate.cpp, OathbreakersFadeAwayBehavior.cpp and PickupStuffUpdate.cpp. The sixth,
+    Object.cpp, emits ObjectHelper's. In these units only the `6BObjectModule@@@` copy is bridged (15 of
+    retail's 22 slots for AutoFindHealingUpdate), plus OathbreakersFadeAwayBehavior's `6B@`. Their
+    `6BBehaviorModuleInterface@@@` and `6B@` (UpdateModuleInterface) copies are correct.
+  - Rva0024A797Grandchildren.cpp: 21 classes one level deeper (a middle with three vptrs plus 1 or 2 own
+    bases), 36 rows with no approved TU. Only BridgeScaffoldBehavior, StructureToppleUpdate and
+    WallUpgradeUpdate have one.
+  - Route tried: `tu_skeleton.py --split Rva0024A797Derived.cpp --for <approved TU> --dry-run`. That moves the
+    destructor into the class's approved ctor TU, where it stores the canonical tables; the TU already
+    emits them, so the class's three private bridged tables would leave. Each carved destructor
+    byte-matches beside its TU ("alone: 2/2"), but every split is refused:
+    - the link guard, for AutoFindHealingUpdate, AssistedTargetingUpdate, DemoTrapUpdate, EntEnragedUpdate,
+      PickupStuffUpdate and OathbreakersFadeAwayBehavior: `selected implementation changes for ??1X@@UAE@XZ;
+      outside consumers lose provider ??_7X@@6BMiBase1@@@; selected implementation changes for
+      ??_7X@@6BMiBase1@@@`. Only Derived.obj (the carved destructor itself) references the private tables.
+      This is recorded as a false-reject candidate (`5c37881ba5a`);
+    - the link guard, for BuildingBehavior: `moved selected COMDAT ??1BuildingBehavior@@UAE@XZ lacks matching
+      private/weak-free context` (and its `_B2` table);
+    - `bytes` for StealthUpdate and Rva004A3F8B (HijackerUpdate.cpp);
+    - compile (C2600: the TU's class view declares no destructor) for HeightDieUpdate, AutoDepositUpdate and
+      Rva0033EEC9 (ProjectileStreamUpdate.cpp). HeightDieUpdate.cpp and AutoDepositUpdate.cpp hold no class
+      view with tables at all.
+    The in-place route (Derived.cpp onto UpdateModule.h) has to replace the private `UpdateModule` for all 30
+    classes in one change, with every override that the six ctor units declare, so the COMDAT copies agree.
+    Not attempted.
+- Next leads: (1) tooling: `tu_skeleton.py` `outside_failures` should test whether the name is still
+  referenced after the split (the census graph counts the cohort's own references). It should also accept a
+  strong -> `/Gy` COMDAT move of byte-identical code whose relocations reach the same ledger addresses. That
+  unblocks six Derived.cpp destructors (18 tables). (2) The COMDAT-constructor trap (Rva0037DE63,
+  Rva0059667D, Rva003E3C22, lk79's Rva002D3556): move the strong constructor row into the approved TU of the
+  unit that inlines it, so the inline definition is the row's provider. (3) Reconcile HeightDieUpdate.cpp,
+  AutoDepositUpdate.cpp and ProjectileStreamUpdate.cpp with class views on UpdateModule.h that declare the
+  destructor. (4) SidesList's reader view, then Rva0032A3C6. Rva002AAD77/Rva0059B060 once VslotSmallBodiesAI.cpp
+  is free.
