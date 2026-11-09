@@ -67,11 +67,7 @@ public:
  virtual void loadPostProcess(); virtual void crc(Xfer *); virtual void xfer(Xfer *);
 };
 #include "../../../../Include/Common/StateMachineClass.h"
-class Path {
-public:
- Path(); void DoXfer(Xfer *);
- char m_data[0x28];
-};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 class Locomotor;
 class Rva001E7E25 { public: void rva001E7E25(); };
 class LocomotorSet {
