@@ -3622,7 +3622,7 @@ def rel32(at, target):
     return (target - (at + 5)).to_bytes(4, "little", signed=True)
 
 
-CREATE_NODE = "?_M_create_node@?$_Rb_tree@UBfmeRecord@@@@IAEPAUnode@@ABUBfmeRecord@@@Z"
+CREATE_NODE = "?_M_create_node@?$_Rb_tree@UBfmeRecord@@@_STL@@IAEPAUnode@@ABUBfmeRecord@@@Z"
 
 
 def with_callees(root):
@@ -3631,32 +3631,228 @@ def with_callees(root):
     _git(root, "add", "-A")
 
 
-def test_the_brief_lists_a_spelled_rows_retail_callees_by_row_name(spelled_tree, monkeypatch):
-    """P29: the file only says the placeholder, so the brief must say what retail's bytes reach."""
+def with_evidence(root, name, rva, tier="evidence", cited="vendored"):
+    path = root / "reverse/name_tiers.csv"
+    head = "" if path.exists() else "name,target_rva,name_tier,evidence\n"
+    with open(path, "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{head}{name},0x{rva:08X},{tier},{cited}\n")
+    _git(root, "add", "-A")
+
+
+def with_vote_record(root, new, rva, old="?placeholder@@YAXXZ"):
+    path = root / "reverse/name_basis.csv"
+    head = "" if path.exists() else "kind,old,new,basis,evidence,source,rva\n"
+    with open(path, "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{head}function,{old},{new},inferred,agree:nl-1,{SOURCE},0x{rva:08X}\n")
+    _git(root, "add", "-A")
+
+
+TREE_CALLS = {
+    0x00401100: b"\xe8" + rel32(0x00401100, 0x00404000),
+    0x00404000: b"\x6a\x1c\xe8" + rel32(0x00404002, 0x00403000) + b"\xe8" + rel32(0x00404007, 0x00409000) + b"\xc3",
+    0x00403000: b"\x83\xc7\x08\x83\xc4\x0c\xc3",
+}
+
+
+def test_the_listing_shows_structure_and_constants(spelled_tree, monkeypatch):
     with_callees(spelled_tree)
-    brief = spelled_brief(spelled_tree, monkeypatch, {
-        0x00401100: b"\xe8" + rel32(0x00401100, 0x00404000),
-        0x00404000: b"\x6a\x1c\xe8" + rel32(0x00404002, 0x00403000) + b"\xe8" + rel32(0x00404007, 0x00409000),
-        0x00403000: b"\x83\xc7\x08\x83\xc4\x0c\xe9" + rel32(0x00403006, 0x00404000),
-    })
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
     assert f"RETAIL CALLEES of {SPELLED_OLD} at 0x00401100" in brief
-    assert f"calls 0x00404000 {CREATE_NODE}" in brief              # by its row name
-    assert "pushes 0x1c" in brief                                  # the allocation P29 turned on
-    assert "calls 0x00403000 ??0Element@@QAE@ABU0@@Z" in brief     # the element copy P51 turned on
-    assert "adds edi, 8" in brief                                  # a stride
+    assert "calls 0x00404000" in brief and "calls 0x00403000" in brief and "calls 0x00409000 (no row)" in brief
+    assert "pushes 0x1c" in brief and "adds edi, 8" in brief
     assert "adds esp" not in brief                                 # stack cleanup is no stride
-    assert "calls 0x00409000 (no row)" in brief                    # named nothing, said so
-    assert brief.count(f"0x00404000 {CREATE_NODE}") == 3           # a callee, its expansion, the jump back: and listed once
 
 
-def test_a_jump_inside_the_body_is_no_callee_and_cycles_end(spelled_tree, monkeypatch):
+# ---- blindness: a ledger name is not independent evidence (review of 0b72f87a72, finding 1)
+
+def test_a_type_spelling_with_no_independent_tier_is_withheld(spelled_tree, monkeypatch):
+    """P51's element type would be the answer, in the row name of its copy ctor."""
+    with_callees(spelled_tree)
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
+    assert "Element" not in brief
+    assert "calls 0x00403000 (name withheld)" in brief
+    assert "UBfmeRecord" not in brief.split("RETAIL CALLEES", 1)[1]
+
+
+def test_an_stl_template_member_shows_its_member_and_no_types(spelled_tree, monkeypatch):
+    with_callees(spelled_tree)
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
+    assert "calls 0x00404000 _M_create_node (a template member; its types withheld)" in brief
+
+
+def test_a_voted_name_is_withheld_even_for_an_stl_member(spelled_tree, monkeypatch):
+    with_callees(spelled_tree)
+    with_vote_record(spelled_tree, CREATE_NODE, 0x00404000)
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
+    assert "_M_create_node (a template" not in brief and "calls 0x00404000 (name withheld)" in brief
+
+
+def test_an_independently_established_name_is_shown_whole(spelled_tree, monkeypatch):
+    with_callees(spelled_tree)
+    with_evidence(spelled_tree, "??0Element@@QAE@ABU0@@Z", 0x00403000)
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
+    assert "calls 0x00403000 ??0Element@@QAE@ABU0@@Z" in brief
+
+
+def test_a_voted_record_outranks_a_stale_evidence_tier(spelled_tree, monkeypatch):
+    with_callees(spelled_tree)
+    with_evidence(spelled_tree, "??0Element@@QAE@ABU0@@Z", 0x00403000)
+    with_vote_record(spelled_tree, "??0Element@@QAE@ABU0@@Z", 0x00403000)
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
+    assert "Element" not in brief
+
+
+def test_an_evidence_name_sharing_a_type_with_the_row_is_withheld(spelled_tree, monkeypatch):
+    """Any family or type spelling on the row under vote stays out, whatever its tier."""
+    name = "?helper@Rva00401000Box@@QAEXXZ"
+    with open(spelled_tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{name},,0x00403000,10,{SOURCE},matched,\n")
+    with_evidence(spelled_tree, name, 0x00403000)
+    brief = spelled_brief(spelled_tree, monkeypatch, {0x00401100: b"\xe8" + rel32(0x00401100, 0x00403000) + b"\xc3"})
+    listing = brief.split("RETAIL CALLEES", 1)[1]
+    assert "helper" not in listing and "calls 0x00403000 (name withheld)" in listing
+
+
+def test_the_brief_no_longer_claims_names_are_vote_free(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, TREE_CALLS)
+    assert "may be placeholders" not in brief and "comes from a vote" not in brief
+    assert "only where independently established" in brief
+
+
+# ---- reachable code (finding 2)
+
+def test_unreachable_bytes_after_a_return_are_not_read(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {
+        0x00401100: b"\xc3\xe8" + rel32(0x00401101, 0x00404000) + b"\x6a\x1c"})
+    listing = brief.split("RETAIL CALLEES", 1)[1]
+    assert "0x00404000" not in listing and "pushes 0x" not in listing
+
+
+def test_a_branch_is_followed_on_both_sides(spelled_tree, monkeypatch):
+    """je over a call: the fall-through and the target are both reachable."""
+    with_callees(spelled_tree)
+    code = b"\x74\x05\xe8" + rel32(0x00401102, 0x00404000) + b"\x6a\x1c\xc3"
+    listing = spelled_brief(spelled_tree, monkeypatch, {0x00401100: code, 0x00404000: b"\xc3"}).split("RETAIL CALLEES", 1)[1]
+    assert "calls 0x00404000" in listing and "pushes 0x1c" in listing
+
+
+def test_a_recursive_call_is_kept(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {0x00401100: b"\xe8" + rel32(0x00401100, 0x00401100) + b"\xc3"})
+    assert "calls 0x00401100 (this row)" in brief
+
+
+def test_a_local_jump_is_no_callee(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {0x00401100: b"\xeb\x00\xc3"})
+    assert "jmps 0x00401102" not in brief
+
+
+def test_an_indirect_jump_says_decoding_stopped(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {0x00401100: b"\xff\x24\x85\x00\x10\x40\x00\x6a\x1c"})
+    listing = brief.split("RETAIL CALLEES", 1)[1]
+    assert "decoding stops at 0x00401100: an indirect jump" in listing and "pushes 0x" not in listing
+
+
+def test_bytes_that_do_not_decode_are_said(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {0x00401100: b"\x90" * 17 + b"\x0f"})
+    assert "decoding stops at 0x00401111: bytes that do not decode" in brief
+
+
+# ---- limits (finding 3)
+
+def chain(depth):
+    """A row at 0x00500000 + i per level, each calling the next."""
+    rows, retail = "", {0x00401100: b"\xe8" + rel32(0x00401100, 0x00500000) + b"\xc3"}
+    for i in range(depth):
+        at = 0x00500000 + i * 0x10
+        rows += f"?f{i}@@YAXXZ,,0x{at:08X},8,{SOURCE},matched,\n"
+        retail[at] = b"\xe8" + rel32(at, at + 0x10) + b"\xc3"
+    return rows, retail
+
+
+def test_a_deep_chain_says_where_it_stopped(spelled_tree, monkeypatch):
+    rows, retail = chain(9)
+    with open(spelled_tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(rows)
+    _git(spelled_tree, "add", "-A")
+    monkeypatch.setattr(name_lane, "CALLEE_DEPTH", 3)
+    listing = spelled_brief(spelled_tree, monkeypatch, retail).split("RETAIL CALLEES", 1)[1]
+    assert "1 callee(s) below depth 3 not expanded" in listing
+
+
+def test_the_function_limit_counts_expansions_and_says_what_is_left(spelled_tree, monkeypatch):
+    rows, retail = "", {}
+    code = b""
+    for i in range(5):
+        at = 0x00500000 + i * 0x10
+        rows += f"?f{i}@@YAXXZ,,0x{at:08X},8,{SOURCE},matched,\n"
+        retail[at] = b"\xc3"
+        code += b"\xe8" + rel32(0x00401100 + len(code), at)
+    retail[0x00401100] = code + b"\xc3"
+    with open(spelled_tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(rows.replace(",8,", ",1,"))
+    _git(spelled_tree, "add", "-A")
+    monkeypatch.setattr(name_lane, "CALLEE_FUNCTIONS", 3)
+    listing = spelled_brief(spelled_tree, monkeypatch, retail).split("RETAIL CALLEES", 1)[1]
+    assert "stopped after expanding 3 function(s); 3 more found and not expanded" in listing
+
+
+def test_a_call_with_no_row_is_listed_and_not_counted_as_expanded(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {0x00401100: b"\xe8" + rel32(0x00401100, 0x00409000) + b"\xc3"})
+    assert "calls 0x00409000 (no row)" in brief and "stopped after" not in brief
+
+
+# ---- aliases (finding 4)
+
+def aliased(root, first, second):
+    with open(root / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{first},,0x00403000,8,{SOURCE},matched,\n{second},,0x00403000,8,{SOURCE},matched,\n")
+    _git(root, "add", "-A")
+
+
+ALIAS_A, ALIAS_B = "?aliasA@@YAXXZ", "?aliasB@@YAXXZ"
+ALIAS_CALLS = {0x00401100: b"\xe8" + rel32(0x00401100, 0x00403000) + b"\xc3", 0x00403000: b"\xc3"}
+
+
+def test_two_rows_at_an_address_are_reported_whatever_the_csv_order(spelled_tree, monkeypatch):
+    aliased(spelled_tree, ALIAS_A, ALIAS_B)
+    with_evidence(spelled_tree, ALIAS_A, 0x00403000)
+    with_evidence(spelled_tree, ALIAS_B, 0x00403000)
+    listing = spelled_brief(spelled_tree, monkeypatch, ALIAS_CALLS).split("RETAIL CALLEES", 1)[1]
+    assert f"calls 0x00403000 {ALIAS_A} and {ALIAS_B} (2 rows name this address)" in listing
+
+
+def test_the_order_of_the_csv_does_not_change_the_listing(spelled_tree, monkeypatch):
+    aliased(spelled_tree, ALIAS_B, ALIAS_A)
+    with_evidence(spelled_tree, ALIAS_A, 0x00403000)
+    with_evidence(spelled_tree, ALIAS_B, 0x00403000)
+    listing = spelled_brief(spelled_tree, monkeypatch, ALIAS_CALLS).split("RETAIL CALLEES", 1)[1]
+    assert f"calls 0x00403000 {ALIAS_A} and {ALIAS_B} (2 rows name this address)" in listing
+
+
+def test_a_withheld_alias_is_counted_and_not_named(spelled_tree, monkeypatch):
+    aliased(spelled_tree, ALIAS_A, ALIAS_B)
+    with_evidence(spelled_tree, ALIAS_A, 0x00403000)
+    listing = spelled_brief(spelled_tree, monkeypatch, ALIAS_CALLS).split("RETAIL CALLEES", 1)[1]
+    assert f"calls 0x00403000 {ALIAS_A} (2 rows name this address, 1 withheld)" in listing and ALIAS_B not in listing
+
+
+# ---- what the listing says of itself (the review's last point)
+
+def test_the_listing_says_absence_proves_nothing_and_lists_copies(spelled_tree, monkeypatch):
     with_callees(spelled_tree)
     brief = spelled_brief(spelled_tree, monkeypatch, {
-        0x00401100: b"\xe9" + rel32(0x00401100, 0x00401108) + b"\xe8" + rel32(0x00401105, 0x00402000),
-        0x00402000: b"\xe8" + rel32(0x00402000, 0x00401100),
-    })
-    assert "jmps 0x00401108" not in brief
-    assert f"calls 0x00401100 {SPELLED_OLD}" in brief
+        0x00401100: b"\xe8" + rel32(0x00401100, 0x00404000) + b"\xc3",
+        # lea esi,[edi+8]; sub edi,4; mov eax,[edi]; mov [esi+8],eax; rep movsd; ret
+        0x00404000: b"\x8d\x77\x08\x83\xef\x04\x8b\x07\x89\x46\x08\xf3\xa5\xc3"})
+    assert "A constant missing here proves nothing" in brief
+    listing = brief.split("RETAIL CALLEES", 1)[1]
+    assert "lea esi, [edi + 8]" in listing and "subs edi, 4" in listing
+    assert "mov dword ptr [esi + 8], eax" in listing and "mov eax, dword ptr [edi]" in listing and "rep movsd" in listing
+
+
+def test_unreadable_retail_is_said_and_serves_the_brief(spelled_tree, monkeypatch):
+    brief = spelled_brief(spelled_tree, monkeypatch, {})
+    assert "retail's bytes cannot be read" in brief
 
 
 def test_the_brief_says_the_container_shape_is_unproven_and_what_settles_it(spelled_tree, monkeypatch):
@@ -3665,24 +3861,25 @@ def test_the_brief_says_the_container_shape_is_unproven_and_what_settles_it(spel
     assert "element copy's calls and stride" in brief and "Allocation alone does not settle it" in brief
 
 
-def test_unreadable_retail_is_said_and_serves_the_brief(spelled_tree, monkeypatch):
-    brief = spelled_brief(spelled_tree, monkeypatch, {})
-    assert "retail's bytes cannot be read" in brief
-
-
 def test_a_plain_function_gets_no_callee_listing(tree, monkeypatch):
     serve(tree, "plain")
     brief = (tree / "build/name_lane/briefs/plain.txt").read_text()
     assert "RETAIL CALLEES" not in brief and "container shape" not in brief
 
 
-def test_a_listing_stops_at_its_limit_and_says_so(spelled_tree, monkeypatch):
-    monkeypatch.setattr(name_lane, "CALLEE_FUNCTIONS", 2)
-    with_callees(spelled_tree)
-    brief = spelled_brief(spelled_tree, monkeypatch, {
-        0x00401100: b"\xe8" + rel32(0x00401100, 0x00402000) + b"\xe8" + rel32(0x00401105, 0x00403000) +
-        b"\xe8" + rel32(0x0040110A, 0x00404000)})
-    assert "stopped at 2 functions" in brief
+def test_a_listing_on_the_production_ledger_withholds_and_reads_real_bytes():
+    """A real row with both a map-style and a set-style spelling nearby (0x002CF6CF's tree)."""
+    import build
+    root = name_lane.ROOT if hasattr(name_lane, "ROOT") else rename.ROOT
+    if not build.EXE.exists() or not (Path(root) / "reverse/functions.csv").exists():
+        pytest.skip("no retail image or ledger here")
+    lane = name_lane.Lane(Path(root), rename.Context(Path(root), object_scan=False))
+    if not any(rename._rva(r.get("target_rva")) == 0x002CF6CF for r in lane.ctx.rows()):
+        pytest.skip("this ledger has no such row")
+    lines = name_lane.retail_callee_lines(lane, 0x002CF6CF, "?_M_copy@@placeholder")
+    text = "\n".join(lines)
+    assert "calls 0x002CF6B1" in text and "pushes 0x14" in text
+    assert "_Identity" not in text and "$pair" not in text           # no container family reaches the voter
 
 
 def test_a_fresh_blind_voters_resolve_keeps_its_evidence(tree, tmp_path):
@@ -3700,6 +3897,33 @@ def test_a_fresh_blind_voters_resolve_keeps_its_evidence(tree, tmp_path):
                                                                 reason="the first voter's allocation holds up")) == 0
     detail = lane_of(tree).state()[FN_KEY]["detail"]
     assert reason in detail and "the first voter's allocation holds up" in detail
+
+
+def test_a_kept_reason_does_not_freeze_the_voter_out_of_the_other_spelling(tree, tmp_path, capsys):
+    """Review of 0b72f87a72, finding 5: A's reason for A's own vote is no irreversible acceptance."""
+    assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0
+    be("seat-one")
+    own = SimpleNamespace(key=FN_KEY, name="sumBox", reason="my first reading of this body")
+    assert name_lane.cmd_resolve(lane_of(tree), own) == 0
+    other = SimpleNamespace(key=FN_KEY, name="addBoxWidth", reason="the other voter's reading fits it better")
+    assert name_lane.cmd_resolve(lane_of(tree), other) == 0
+    recorded = [r["name"] for r in rows(tree, name_lane.RESOLUTIONS) if r["key"] == FN_KEY]
+    assert recorded == ["sumBox", "addBoxWidth"]
+    assert lane_of(tree).state()[FN_KEY]["new"] == "addBoxWidth"
+
+
+def test_a_real_acceptance_of_another_spelling_is_still_binding(tree, tmp_path):
+    """Three voters, so accepting a spelling that is not your own vote stays one decision."""
+    assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0
+    assert vote(tree, tmp_path, "three", {"rva00401000": "boxWidthSum"}, worker="seat-three") == 0
+    be("seat-three")
+    accept = SimpleNamespace(key=FN_KEY, name="sumBox", reason="the first voter's reading fits this body")
+    assert name_lane.cmd_resolve(lane_of(tree), accept) == 0
+    with pytest.raises(SystemExit):
+        name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="addBoxWidth",
+                                                             reason="and now the second voter's reading"))
 
 
 def test_a_second_resolve_by_the_same_voter_adds_no_row(tree, tmp_path):

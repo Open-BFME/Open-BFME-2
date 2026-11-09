@@ -298,13 +298,22 @@ the rows must run from the file before that commit to the file after it, and the
 be exactly renames it records as landed, in any file it touches. So commit a landing's sources, `name_agreed.csv` and
 `name_vote_sources.csv` together. Watch `status`'s `source-changed` count.
 
-A brief for a compiler-spelled row lists what retail's bytes reach from that row, down the call
-tree: each direct call and jump with its row name, with the pushes and additions a container's
-shape shows in, because the file only says the placeholder. It also says the old spelling's
-container shape is unproven: check `_M_create_node`'s allocation against the element's size and the
-element copy's calls and stride, since two shapes can allocate the same size. `resolve` keeps a
-voter's `--reason` even when that voter's own fresh blind vote is the chosen spelling, and the
-agreement's detail holds every voter's reason.
+A brief for a compiler-spelled row lists what control flow reaches in retail's bytes from that row,
+down the call tree, because the file only says the placeholder: each direct call and jump, with the
+pushes, additions, subtractions, `lea`s and memory moves a container's shape shows in. It lists no
+other instruction, so a constant missing from it proves nothing. It says where decoding stopped and
+how far it expanded. A ledger name can be an earlier vote's inference, so it keeps votes blind: a
+callee's name appears whole only with an evidence tier in `reverse/name_tiers.csv`, no vote's record
+in `name_basis.csv`, and no type in common with the spelling under vote. An STL template member keeps
+its member name without its types, and everything else is an address. Several rows at one address
+are counted and shown in a fixed order. The brief also says the old spelling's container shape is
+unproven: check `_M_create_node`'s allocation against the element's size and the element copy's calls
+and stride, since two shapes can allocate the same size.
+
+`resolve` keeps a voter's `--reason` even when that voter's own fresh blind vote is the chosen
+spelling, and the agreement's detail holds every voter's reason. Such a reason records evidence and
+binds nothing new, so that voter can still accept another spelling afterwards, with its own row.
+Accepting a spelling that is not your vote still binds you for that source.
 
 Blind votes from different checkouts land through separate pushes, so each submit can
 tally before the other vote exists and neither records the agreement. `status` and

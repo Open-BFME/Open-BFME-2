@@ -1257,60 +1257,160 @@ def registered_brief(lane, cls):
 
 
 CALLEE_DEPTH, CALLEE_FUNCTIONS = 6, 40
+STL_MEMBER = re.compile(r"\?(_M_[a-z_]+)@\?\$\w+@.*@_STL@@")
+STL_FUNCTION = re.compile(r"\?\?\$(_Construct|_Destroy|__uninitialized_[a-z_]+)@")
+TYPE_TOKEN = re.compile(r"[A-Za-z_]\w{3,}")
+ENDS_FLOW = ("ret", "retn", "retf", "int3", "hlt", "iret")
 
 
-def retail_callee_lines(lane, rva):
-    """What retail's own bytes say a row reaches, for a voter whose file only names a placeholder:
-    each direct call and jump with the row name there, down the call tree, with the constants a
-    container's shape shows in (pushes, and additions a stride walks by). Names are this ledger's
-    and may themselves be placeholders; nothing here comes from a vote. What cannot be read says so."""
+def reachable_instructions(decoder, code, at):
+    """(the instructions control can reach from `at`, in address order; why decoding stopped, if
+    it did). Bytes after a return or an unconditional jump are not code until a branch says so."""
+    seen, work, stops = {}, [0], []
+    while work:
+        offset = work.pop()
+        while offset not in seen:
+            if not 0 <= offset < len(code):
+                break
+            instruction = next(iter(decoder.disasm(code[offset:offset + 16], at + offset, count=1)), None)
+            if instruction is None:
+                stops.append(f"0x{at + offset:08X}: bytes that do not decode")
+                break
+            seen[offset] = instruction
+            if instruction.mnemonic in ENDS_FLOW:
+                break
+            if instruction.mnemonic.startswith(("j", "loop")):
+                direct = re.fullmatch(r"0x[0-9a-f]+", instruction.op_str)
+                if not direct:
+                    stops.append(f"0x{at + offset:08X}: an indirect jump, {instruction.op_str}")
+                    break
+                target = int(instruction.op_str, 16) - at
+                if 0 <= target < len(code):
+                    work.append(target)
+                if instruction.mnemonic == "jmp":
+                    break
+            offset += instruction.size
+    return [seen[offset] for offset in sorted(seen)], stops
+
+
+def callee_names(lane, under_vote):
+    """{rva: [ledger names]} and the function saying what a voter may read of one name. A ledger
+    name can be an earlier vote's inference, so a name is shown whole only when an independent
+    record establishes it (reverse/name_tiers.csv's evidence tier) and no vote's record names it,
+    and never when it shares a type with the spelling under vote. An STL template member keeps its
+    fixed member name without its types. Anything else is an address: when unsure, withhold."""
+    by_rva = collections.defaultdict(set)
+    for row in lane.ctx.rows():
+        at = rename._rva(row.get("target_rva"))
+        if at is not None:
+            by_rva[at].add(row.get("name", ""))
+    for pin in lane.ctx.pins():
+        at = rename._rva(pin.get("address"))
+        if at is not None:
+            by_rva[at].add(pin.get("name", ""))
+    voted = {r.get("new") for r in lane.ctx.dicts(rename.NAME_BASIS)
+             if (r.get("basis") or "").startswith("inferred") or r.get("kind") == "class"}
+    voted_words = {r.get("new") for r in lane.ctx.dicts(rename.NAME_BASIS) if r.get("kind") == "class"}
+    evidence = {(r.get("name"), rename._rva(r.get("target_rva"))) for r in lane.ctx.dicts(rename.NAME_TIERS)
+                if r.get("name_tier") == "evidence"}
+
+    def shown(name, rva):
+        # substrings, because a mangled type carries a prefix (URva00401000Box): a false hit only withholds
+        if name in voted or any(word and word in name for word in voted_words):
+            return None
+        if (name, rva) in evidence and not any(token in under_vote for token in TYPE_TOKEN.findall(name)):
+            return name
+        for pattern in (STL_MEMBER, STL_FUNCTION):
+            match = pattern.match(name)
+            if match:
+                return f"{match.group(1)} (a template member; its types withheld)"
+        return None
+    return by_rva, shown
+
+
+def retail_callee_lines(lane, rva, under_vote=""):
+    """What control flow reaches in retail's own bytes from a row, for a voter whose file only
+    names a placeholder: each direct call and jump, down the call tree, with the constants and
+    memory moves a container's shape shows in. Names follow callee_names, so an address is all a
+    voter sees of most callees. What cannot be read or was not followed says so."""
     try:
         import capstone
         sys.path.insert(0, str(lane.root / "tools"))
         import build
     except ImportError as error:
         return [f"  (retail's callees cannot be listed here: {error})"]
-    rows = {}
+    by_rva, shown = callee_names(lane, under_vote)
+    sizes = {}
     for row in lane.ctx.rows():
         at = rename._rva(row.get("target_rva"))
         if at is not None:
-            rows.setdefault(at, row)
-    pins = {rename._rva(pin.get("address")): pin.get("name", "") for pin in lane.ctx.pins()}
+            sizes[at] = max(sizes.get(at, 0), int(row.get("target_size") or 0))
     decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
-    decoder.detail = False
-    lines, seen, frontier = [], {rva}, [(rva, 0)]
-    while frontier and len(seen) <= CALLEE_FUNCTIONS:
+
+    def named(target, start):
+        if target == start:
+            return "(this row)"
+        names = sorted(by_rva.get(target, ()))
+        if not names:
+            return "(no row)"
+        visible = sorted({each for each in (shown(name, target) for name in names) if each})
+        withheld = len(names) - sum(1 for name in names if shown(name, target))
+        if not visible:
+            label = "(name withheld)"
+        else:
+            label = " and ".join(visible)
+        if len(names) > 1:
+            label += f" ({len(names)} rows name this address" + (f", {withheld} withheld)" if withheld else ")")
+        return label
+    lines, seen, frontier, expanded, deep = [], {rva}, [(rva, 0)], 0, 0
+    while frontier and expanded < CALLEE_FUNCTIONS:
         at, depth = frontier.pop(0)
-        row = rows.get(at)
-        size = int((row or {}).get("target_size") or 0)
         indent = "  " * (depth + 1)
+        size = sizes.get(at, 0)
         if not size:
             continue
+        expanded += 1
         try:
-            code = build.read_target_bytes(at, size)
+            code = bytes(build.read_target_bytes(at, size))
         except (Exception, SystemExit) as error:     # no retail image here: say so, and list nothing
             lines.append(f"{indent}0x{at:08X}: retail's bytes cannot be read: {error}")
             continue
+        instructions, stops = reachable_instructions(decoder, code, at)
         facts = []
-        for instruction in decoder.disasm(bytes(code), at):
-            operands = instruction.op_str
-            if instruction.mnemonic in ("call", "jmp") and re.fullmatch(r"0x[0-9a-f]+", operands):
+        for instruction in instructions:
+            mnemonic, operands = instruction.mnemonic, instruction.op_str
+            direct = re.fullmatch(r"0x[0-9a-f]+", operands)
+            if (mnemonic == "call" or mnemonic.startswith("j")) and direct:
                 target = int(operands, 16)
-                if at <= target < at + size:         # a jump inside the body is not a callee
-                    continue
-                named = (rows.get(target) or {}).get("name") or pins.get(target) or "(no row)"
-                facts.append(f"{instruction.mnemonic}s 0x{target:08X} {named}")
-                if target not in seen and depth + 1 < CALLEE_DEPTH:
-                    seen.add(target)
-                    frontier.append((target, depth + 1))
-            elif instruction.mnemonic == "push" and re.fullmatch(r"(0x[0-9a-f]+|\d+)", operands):
+                if mnemonic != "call" and at <= target < at + size:
+                    continue                         # a jump inside the body is no callee
+                facts.append(f"{'calls' if mnemonic == 'call' else mnemonic + 's'} 0x{target:08X} {named(target, rva)}")
+                if target not in seen and target in sizes:
+                    if depth + 1 < CALLEE_DEPTH:
+                        seen.add(target)
+                        frontier.append((target, depth + 1))
+                    else:
+                        seen.add(target)
+                        deep += 1
+            elif mnemonic == "call":
+                facts.append(f"calls indirectly: {operands}")
+            elif mnemonic == "push" and re.fullmatch(r"(0x[0-9a-f]+|\d+)", operands):
                 facts.append(f"pushes {operands}")
-            elif instruction.mnemonic == "add" and re.fullmatch(r"e(?:[a-d]x|[sd]i|bp), (0x[0-9a-f]+|\d+)", operands):
-                facts.append(f"adds {operands}")
-        lines.append(f"{indent}0x{at:08X} {(row or {}).get('name', '')}")
+            elif mnemonic in ("add", "sub") and re.fullmatch(r"e(?:[a-d]x|[sd]i|bp), (0x[0-9a-f]+|\d+)", operands):
+                facts.append(f"{mnemonic}s {operands}")
+            elif mnemonic == "lea" and "ebp" not in operands.split(",", 1)[-1]:
+                facts.append(f"lea {operands}")
+            elif mnemonic.startswith(("mov", "rep")) and ("[e" in operands or mnemonic.startswith("rep")) \
+                    and "ebp" not in operands and "esp" not in operands:
+                facts.append(f"{mnemonic} {operands}".rstrip())
+        lines.append(f"{indent}0x{at:08X}" + ("" if at == rva else f" {named(at, rva)}"))
         lines += [f"{indent}  {fact}" for fact in facts]
-    if frontier:
-        lines.append(f"  (stopped at {CALLEE_FUNCTIONS} functions; {len(frontier)} more not listed)")
+        lines += [f"{indent}  decoding stops at {stop}" for stop in stops]
+    if deep:
+        lines.append(f"  ({deep} callee(s) below depth {CALLEE_DEPTH} not expanded)")
+    waiting = sum(1 for at, _depth in frontier if sizes.get(at))
+    if waiting:
+        lines.append(f"  (stopped after expanding {expanded} function(s); {waiting} more found and not expanded)")
     return lines
 
 
@@ -1351,9 +1451,11 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
                         "allocate the same size and differ only in what the element copy does.")
         for kind, _scope, ident, rva in items:
             if kind == "function" and compiler_spelled(ident) and rva is not None:
-                evidence.append(f"RETAIL CALLEES of {ident} at 0x{rva:08X} (from retail's bytes; names are this "
-                                "ledger's and may be placeholders):")
-                evidence += retail_callee_lines(lane, rva)
+                evidence.append(f"RETAIL CALLEES of {ident} at 0x{rva:08X}, by control flow from retail's bytes. A "
+                                "name appears only where independently established; the rest are addresses. Only "
+                                "calls, jumps, pushes, add/sub/lea and memory moves are listed. A constant missing "
+                                "here proves nothing:")
+                evidence += retail_callee_lines(lane, rva, ident)
     for kind, scope, ident, rva in items:
         if kind == "function":
             found = callers(lane, rel, ident)
@@ -2663,13 +2765,15 @@ def cmd_resolve(lane, args):
         fail("resolution needs two independent, competing proposals")
     previous = [r for r in lane.resolutions() if r["key"] == key and r["worker"] == voter
                 and r["source_sha"] == source_sha]
-    if previous and any(r["hash"] != digest(key, chosen) for r in previous):
+    # a reason for this worker's own blind vote records evidence, and binds it to nothing new
+    own_hashes = {v["hash"] for v in own}
+    if any(r["hash"] != digest(key, chosen) and r["hash"] not in own_hashes for r in previous):
         fail("this worker already accepted a different spelling for this source")
     chosen_hash = digest(key, chosen)
     blind = {v["worker"]: v["model"] for v in original if v["hash"] == chosen_hash}
     fresh_blind = fresh_voters(lane, key, chosen_hash, blind, text)
     # a fresh blind vote already accepts this spelling; the row still keeps the voter's evidence
-    if not previous:
+    if not any(r["hash"] == chosen_hash for r in previous):
         lane.append(RESOLUTIONS, RESOLUTION_COLUMNS, [dict(key=key, hash=digest(key, chosen),
             name=chosen, source_sha=source_sha, worker=voter, model=own[0]["model"],
             reason=args.reason.strip(), date=datetime.date.today().isoformat())])
