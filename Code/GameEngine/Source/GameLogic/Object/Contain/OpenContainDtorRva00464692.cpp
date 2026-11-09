@@ -66,7 +66,10 @@ struct ContainIface24 { virtual void containIface24() = 0; };
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 struct ContainIface2C { virtual void containIface2C() = 0; };
 struct ContainIface30 { virtual void containIface30() = 0; };
-struct ContainIface34 { virtual void containIface34() = 0; };
+// The +0x34 base is the create interface: getCreate (slot 3, 0x0046644A) returns it, the
+// constructor stores its four-slot construction table 0x00C4EF80 there first, and retail
+// table 0x00C48B28 holds OpenContain's four overrides (0x000B3FD0 x3, 0x0047A699).
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 struct Rva00462D08Mapped { unsigned int m_bits; };
 struct Rva00462D35Mapped { unsigned int m_bits; };
@@ -107,7 +110,7 @@ class OpenContain
 	, public DieModuleInterface
 	, public ContainIface2C
 	, public ContainIface30
-	, public ContainIface34
+	, public CreateModuleInterface
 {
 public:
 	OpenContain(Thing *thing, const ModuleData *moduleData);
@@ -155,6 +158,12 @@ public:
 	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
 	// The +0x28 DieModuleInterface table 0x00C46F78, slot 0: rowed in OpenContainOnDie.cpp.
 	virtual void onDie(const DamageInfo *damageInfo);
+	// The +0x34 CreateModuleInterface table 0x00C48B28: nothing to do on creation or build
+	// completion (the shared empty body 0x000B3FD0 and false 0x0047A699, ICF).
+	virtual void onCreate();
+	virtual void onBuildComplete();
+	virtual void slot02();
+	virtual bool shouldDoOnBuildComplete() const;
 	// Primary table 0x00C435E8: the OpenContain overrides already rowed under these names.
 	virtual void onDelete();						// slot 8: retail 0x00464120 (OpenContainRva00464EE7.cpp)
 protected:

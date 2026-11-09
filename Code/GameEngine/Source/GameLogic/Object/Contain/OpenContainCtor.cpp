@@ -117,7 +117,10 @@ struct ContainIface24 { virtual void containIface24() = 0; };
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 struct ContainIface2C { virtual void containIface2C() = 0; };
 struct ContainIface30 { virtual void containIface30() = 0; };
-struct ContainIface34 { virtual void containIface34() = 0; };
+// The +0x34 base is the create interface: getCreate (slot 3, 0x0046644A) returns it, the
+// constructor stores its four-slot construction table 0x00C4EF80 there first, and retail
+// table 0x00C48B28 holds OpenContain's four overrides (0x000B3FD0 x3, 0x0047A699).
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 class Rva0042526Member
 {
@@ -132,7 +135,7 @@ private:
 // AITargetHeuristicEnemyStructure::findBestTarget 0x005735C6 keys it by object ID).
 enum ObjectID { INVALID_ID = 0 };
 typedef _STL::map<ObjectID, int> ObjectIDIntMap;
-class OpenContain : public UpdateModule, public ContainIface20, public ContainIface24, public DieModuleInterface, public ContainIface2C, public ContainIface30, public ContainIface34
+class OpenContain : public UpdateModule, public ContainIface20, public ContainIface24, public DieModuleInterface, public ContainIface2C, public ContainIface30, public CreateModuleInterface
 {
 public:
 	OpenContain(Thing *thing, const ModuleData *moduleData);
@@ -180,6 +183,12 @@ public:
 	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
 	// The +0x28 DieModuleInterface table 0x00C46F78, slot 0: rowed in OpenContainOnDie.cpp.
 	virtual void onDie(const DamageInfo *damageInfo);
+	// The +0x34 CreateModuleInterface table 0x00C48B28: nothing to do on creation or build
+	// completion (the shared empty body 0x000B3FD0 and false 0x0047A699, ICF).
+	virtual void onCreate();
+	virtual void onBuildComplete();
+	virtual void slot02();
+	virtual bool shouldDoOnBuildComplete() const;
 	// Primary table 0x00C435E8: the OpenContain overrides already rowed under these names.
 	virtual void onDelete();						// slot 8: retail 0x00464120 (OpenContainRva00464EE7.cpp)
 protected:
@@ -237,7 +246,7 @@ ContainModuleInterface *OpenContain::getContain()
 // Slot 3 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x0046644A, the +0x34 interface.
 CreateModuleInterface *OpenContain::getCreate()
 {
-	return reinterpret_cast<CreateModuleInterface *>(static_cast<ContainIface34 *>(this));
+	return this;
 }
 
 // Slot 4 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x004647C0, the +0x2C interface.
@@ -250,4 +259,23 @@ DamageModuleInterface *OpenContain::getDamage()
 DieModuleInterface *OpenContain::getDie()
 {
 	return this;
+}
+
+// CreateModuleInterface table 0x00C48B28 (+0x34): slots 0-2 are retail's shared empty body
+// 0x000B3FD0 and slot 3 its shared `return false` 0x0047A699 (ICF).
+void OpenContain::onCreate()
+{
+}
+
+void OpenContain::onBuildComplete()
+{
+}
+
+void OpenContain::slot02()
+{
+}
+
+bool OpenContain::shouldDoOnBuildComplete() const
+{
+	return false;
 }
