@@ -10753,7 +10753,6 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva0038374DGet@@YAHXZ,,0x0038374D,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C194A0; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva003ECCD0Get@@YAHXZ,,0x003ECCD0,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret BF4E94; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?GetSnapshotName@RegionBonusInfo@@MBEPBDXZ,,0x003EFD37,6,Code/GameEngine/Source/Common/RegionBonusInfo.cpp,matched,B8-6 returner ret C36BA8; prev C2-04-00 with 1 vtable ref and no callers; opaque name; reconciled complete player member owner and native table; whole body exact t=100 model=gpt-6-astra
-?Rva003F24D0Get@@YAHXZ,,0x003F24D0,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C36E58; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva0040C586Get@@YAHXZ,,0x0040C586,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C39460; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva0041431FGet@@YAHXZ,,0x0041431F,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C3A068; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva00436846Get@@YAHXZ,,0x00436846,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret 6D20D3; prev C2-08-00 with 1 vtable ref and no callers; opaque name
@@ -100582,3 +100581,5 @@ _$E1,,0x007AEFA1,16,Code/GameEngine/Source/GameLogic/System/GameLogicDispatchDoS
 ?GetSnapshotName@Rva003FD789@@MBEPBDXZ,,0x003FD783,6,Code/GameEngine/Source/GameLogic/Object/Rva003FD789Dtor.cpp,matched,retail table 0x00C37D78 slot 2; returns the class name literal VA 0x00C37D88
 ?loadPostProcess@Rva003FAFB9@@MAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSound.cpp,matched,retail table 0x00C37A08 slot 1; empty body; ICF twin of the shared ret; fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
 ?GetSnapshotName@Rva003FAFB9@@MBEPBDXZ,,0x003FAB8D,6,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSound.cpp,matched,retail table 0x00C37A08 slot 2; returns the class name literal VA 0x00C379F4
+?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp,matched,retail table 0x00C36E48 slot 1; empty body; ICF twin of the shared ret; fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
+?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ,,0x003F24D0,6,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp,matched,retail table 0x00C36E48 slot 2; returns the class name literal VA 0x00C36E58

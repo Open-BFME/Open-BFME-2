@@ -14,6 +14,10 @@
 // Serves the Connection (0x003F348F) and ConnectsTo (0x003F341E) entries
 // of the Region map table at 0x00836560 (sub-table 0x00C36FD4).
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #include "Common/Snapshot.h"
 
 class Xfer;
@@ -67,8 +71,12 @@ LivingWorldRegionConnection::LivingWorldRegionConnection()
 {
 }
 
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ=?Rva003F24D0Get@@YAHXZ")
+// Retail's table 0x00C36E48: slot 1 an empty body (0x000B3FD0, folded), slot 2 the name getter 0x003F24D0.
+void LivingWorldRegionConnection::LoadPostProcess()
+{
+}
+
+const char *LivingWorldRegionConnection::GetSnapshotName()
+{
+	return "LivingWorldRegionConnection";
+}

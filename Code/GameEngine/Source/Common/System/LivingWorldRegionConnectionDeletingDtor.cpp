@@ -12,6 +12,10 @@
 // the rowed 0x0002FD60. The Snapshot base and the remaining virtuals repeat
 // LivingWorldRegionConnectionCtor.cpp's view (vtable 0x00C36E48), so this
 // unit's vtable copy is the one every other unit emits.
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #include "Common/Snapshot.h"
 
 class LivingWorldRegionConnection : public Snapshot
