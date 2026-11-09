@@ -12,16 +12,10 @@
 // TimedOperationRef TU keeps its own address-derived spelling through
 // the standing alias pin.
 
+#include <exception>
+
 extern "C" const void *const vtbl_00BD3B54[];  // ??_7FunctorNotSet@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BD3B54=??_7FunctorNotSet@@6B@")
-
-inline void *operator new(unsigned int, void *p) { return p; }
-class __declspec(dllimport) exception
-{
-public:
-	exception();
-	virtual ~exception();
-};
 
 class __declspec(novtable) FunctorNotSet : public exception
 {
@@ -42,7 +36,8 @@ __declspec(noinline) inline FunctorNotSet::FunctorNotSet()
 // ?bfmeAnchorFunctorNotSetCtor absent-from-retail
 void *bfmeAnchorFunctorNotSetCtor(void *where)
 {
-	return ::new (where) FunctorNotSet();
+	((FunctorNotSet *)where)->FunctorNotSet::FunctorNotSet();
+	return where;
 }
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
