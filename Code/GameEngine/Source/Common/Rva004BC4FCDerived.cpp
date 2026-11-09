@@ -93,15 +93,6 @@ Rva004BCE62::~Rva004BCE62()
 {
 }
 
-class Rva004BD207 : public CrateCollide
-{
-public:
-	virtual ~Rva004BD207();
-};
-
-Rva004BD207::~Rva004BD207()
-{
-}
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

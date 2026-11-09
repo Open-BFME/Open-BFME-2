@@ -55,8 +55,6 @@ extern PartitionManager *ThePartitionManager;
 extern float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 	// 0x00234092
 extern int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-	// 0x00233FF4
-
 #include "../../../../../Include/GameClient/GameText.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 //
@@ -150,8 +148,11 @@ class Rva004BCF92 { public: void rva004BCF92(const Object *obj, int arg); };
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 struct Coord3D;
+
 struct SalvageCrateCollideModuleData;
+
 struct BfmeWideResult;
 
 // The collide interface at +0x10. Retail's SalvageCrateCollide table there
@@ -227,6 +228,51 @@ protected:
     virtual void xfer(Xfer *xfer);
 };
 
+//
+// Opaque single-inheritance destructors tail-calling CrateCollide::~
+// CrateCollide at 0x004BC4FC (matched opaque MI base dtor in
+// Rva004BB68EDerived.cpp; only declared here so each tail-call resolves to
+// the ledger address instead of a same-TU definition). Each class below
+// derives singly from the MI base (inheriting its +0x00/+0x0C/+0x10 vptr
+// layout, including the family-shared +0x0C secondary 0xC5A040) and
+// overrides all three vptrs before tail-calling the base destructor.
+// Owner identities are unproven (opaque Rva names). One ledger row per
+// destructor, landed one commit at a time.
+
+class Rva004BC4FC_Root
+{
+public:
+	virtual ~Rva004BC4FC_Root();
+
+private:
+	char m_pad04[8];
+};
+
+class Rva004BC4FC_Mid
+{
+public:
+	virtual void f1();
+};
+
+class Object;
+
+// The collide interface (+0x10): its only slot is onCollide.
+class Rva004BC4FC_B2
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+class Rva004BD207 : public CrateCollide
+{
+public:
+	virtual ~Rva004BD207();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp
+
+	// 0x00233FF4
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollideCtor.cpp
 
 // ??0SalvageCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -234,10 +280,6 @@ SalvageCrateCollide::SalvageCrateCollide(Thing *thing, const ModuleData *moduleD
 	: CrateCollide(thing, moduleData)
 {
 }
-
-// tu-skeleton: 0x004BD201 6B ?Rva004BD201Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004BD207 25B ??1Rva004BD207@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp
 
@@ -389,4 +431,18 @@ void HealCrateCollide::xfer(Xfer *xfer)
     CrateCollide::xfer(xfer);
 }
 
-// tu-skeleton: 0x004BD265 28B ??_GRva004BD207@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
+// tu-skeleton: 0x004BD201 6B ?Rva004BD201Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp
+
+Rva004BD207::~Rva004BD207()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
