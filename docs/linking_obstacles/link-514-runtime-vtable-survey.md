@@ -2160,3 +2160,77 @@ find_declared_unmatched, lk83's object diff, consumer link_check, scoped DIR32 a
      (proposed TU), and seven tu_map assigns to ElvenWoodSpecialPower.cpp (0x004C3905..0x004C4DE9; check that
      assignment against retail before splitting). Each would follow split, reconcile, fold.
   5. Tooling: rename.py's "nothing ties NEW to T" refusal could name the dummy-store constructor row that blocks it.
+
+**Eight more SpecialPower placeholders folded (seven ElvenWood classes, OCL): 21 tables off the bridge, eight dead
+hatches (2026-11-09, seat halilkkaya-lk87, base `a7a3c4d962b`).** Method: lk86's recipe per class (retail first, split
+with `tu_skeleton.py --split`, the placeholder reconciled onto the TU's SpecialPowerModule view, then `rename.py class
+--fold OLD --into NEW --prepared TU=FILE --access protected`, dry run first). Each step: build exact,
+find_declared_unmatched, lk83's object diff, consumer link_check, scoped DIR32 and lk74_snap/lk74_cmp (old = new =
+HEAD's `vtable_bridge.py`).
+- Identity (retail; tu_map is placement only, so each pair was read): every constructor calls `??0SpecialPowerModule`
+  0x00493C5A and stores the class's +0 table, 0x00BEFCF8 and its +0x10 table; the placeholder destructor stores the
+  same three and jumps to 0x00493DEF; its `??_G` is slot 0 of the +0 table, whose slot 4 is the class's name-key row.
+  Rva004C3905 ElvenWoodSpecialPower (ctor 0x004C38D5), Rva004C4044 WeaponChangeSpecialPowerModule (0x004C3FF8),
+  Rva004C43A3 ScavengerSpecialPower (0x004C4353, 46 B: also clears the bool at +0x34), Rva004C4508 CloudBreakSpecialPower
+  (0x004C44D8), Rva004C48C6 TaintSpecialPower (0x004C4896), Rva004C4BD1 FreezingRainSpecialPower (0x004C4BA1),
+  Rva004C4DE9 DarknessSpecialPower (0x004C4DB9), Rva004C3108 OCLSpecialPower (0x004C30D8).
+- ElvenWoodSpecialPower.cpp (commits "Split 14 rows of Rva00493DEFDerived.cpp into ElvenWoodSpecialPower.cpp ...",
+  "ElvenWoodSpecialPower.cpp: derive its seven placeholders from SpecialPowerModule", then seven "Fold class <OLD> into
+  <NEW> ..."): one split for the seven (14/14 rows alone-clean, both units accepted), one homogeneous reconciliation
+  (all seven pairs AGREE in `fold_layout_shape`; Scavenger's placeholder carries the class's `bool m_34`), one fold per
+  class. The TU's views were already right (SpecialPowerModule@0, 0x34 B, dtor slot 0); six classes kept their own
+  present-unmatched destructor definition. ScavengerSpecialPower declared no destructor (slot 0 held an implicit,
+  unrowed `??_G...UAEPAXI@Z`): its fold adds the protected destructor its siblings declare.
+- OCLSpecialPower.cpp (commits "OCLSpecialPower.cpp: let the constructor store the class's own tables", "Split 2 rows of
+  Rva00493DEFDerived.cpp into OCLSpecialPower.cpp ...", "OCLSpecialPower.cpp: derive placeholder Rva004C3108 from
+  SpecialPowerModule", "Fold class Rva004C3108 into OCLSpecialPower ..."): new obstacle, solved. The class was
+  `__declspec(novtable)` and its constructor stored the placeholder's tables through `extern "C"` `__identifier`
+  declarations, so the split failed to compile (C2373: the moved class defines those vftable symbols). Dropping
+  novtable, the externs and the explicit stores keeps the constructor's 42 bytes (compiler stores) and the split then
+  passes. OCL had no tables of its own before, so its four commits net zero tables (+3, 0, 0, -3) but move its +0/+0x10
+  tables onto the class's own overrides.
+- Bridge, base -> after (HEAD's `vtable_bridge.py`, old = new): tables 3,876 -> 3,855, slots 56,094 -> 55,492,
+  mismatching source slots 41,111 -> 40,455, already correct 1,719 -> 1,719; refusals identical, no correct table lost.
+  Off (24): the 21 ElvenWood-family placeholder tables (`6BObjectModule@@@`, `6BBehaviorModuleInterface@@@`, `6B@` of
+  each, after the reconciliation renamed them from `6BRva00493DEF`/`6BMiBase1`/`6B<OLD>_B2`); OCL's three placeholder
+  tables replaced by the class's own three (the 3 newly bridged). Each folded class's ObjectModule table now has slot 0
+  (the rowed `??_G`) and slot 4 right.
+- Hatches: alternatename 2,681 -> 2,673 (the eight `?f2@<OLD>_B2` lines of the folded placeholders, each proven dead: no
+  COFF symbol in any built object, only the grab-bag's .drectve string; control `?f2@Rva004C29BB_B2` is live), and
+  present_unmatched 2,118 -> 2,112 (six ElvenWood destructor markers became rowed bodies). Commits
+  "Rva00493DEFDerived.cpp: drop seven dead /alternatename hatches; ..." and "...: drop OCLSpecialPower's dead
+  /alternatename hatch" (Verifier-Change). `hatch_counters.py --update` also lowers `pin reverse/symbols.csv 0x00072892`
+  3 -> 2 (slack from LINK-619's RefCountClass move, not this pass): left for its owner.
+- link_check: every changed unit, the grab-bag and their consumers LINK (13 of 13 for ElvenWood: Choice, Slots,
+  ConstIntGetters4, ModuleFactoryInit and the seven FriendNew units; 11 of 11 for OCL: its FriendNew, ModuleDataFriendNew
+  and ModuleDataDtor units, ModuleFactory, ModuleFactoryInit, INI_Rva004C381CParseUpgradeOCL and two siblings). Grab-bag
+  bytes 580 -> 159, conserved in the TUs. No initializer, .CRT or .bss change.
+- Refused (re_attempts.log):
+  - StopSpecialPower 0x004C67A0: StopSpecialPowerCtor.cpp stores the placeholder's tables by name, which blocks the
+    split (lk83). Rewritten onto StopSpecialPower.cpp's view it keeps its 46 bytes and links, but class_gate refuses it:
+    that view carries the TU's private SpecialPowerModuleInterface (gap slots, `isReady()` non-const,
+    `doSpecialPower(int)`), a registered class. Reverted.
+  - DefectorSpecialPower 0x004C29BB: not attempted; DefectorSpecialPower.cpp compiles the ZH-header view (lk86's CashHack
+    reason).
+  - HordeDispatch 0x004C8A16: not split; tu_map has its destructor only "proposed" (`K=Rva004C8A16`), its `??_G`
+    0x004C8A79 approved.
+- Tooling compatibility audit (`a7a3c4d962b..HEAD`): no path added, renamed or deleted (two splits into existing TUs;
+  the tool added OCLSpecialPower.cpp to docs/doxygen/sources.cfg). `rename.py check --range`: 0 renames, 0 problems
+  (folds write no record). Code/ spells none of the eight placeholders; old spellings remain only in generated or
+  historical records: data_ledger.csv (17, tool-written; data_ledger.py regenerates it), vtable_bridge_queue.tsv (68,
+  the next real-link publish), name_tiers.csv and wb_name_leads.csv (16 each), deleted_rows.csv (the folds' tombstones),
+  re_attempts.log, attempt_support and LINK-073/this entry. tools/, .githooks/ and .github/ name neither the classes nor
+  the changed paths (tu_skeleton.py and its test name the grab-bag in comments only). The header-queue entries for
+  ElvenWoodSpecialPower.cpp and OCLSpecialPower.cpp key other RVAs and still hold.
+- Next leads:
+  1. StopSpecialPower: move StopSpecialPower.cpp's view onto the canonical SpecialPowerModule.h interface (renames of
+     `?isReady@StopSpecialPower@@UAE_NXZ` 0x004C683C to the const form and `?doSpecialPower@...@UAEXH@Z` 0x004C67B9 to
+     `UAEXI@Z`), or merge StopSpecialPowerCtor.cpp into StopSpecialPower.cpp; then the constructor rewrite (kept in
+     lk87 scratch, 1/1 matched), split, reconcile (the TU view must declare `virtual ~SpecialPowerModule();`, or the
+     placeholder's destructor inlines the base, and the placeholder needs `m_34`) and fold.
+  2. Defector and CashHack: rebuild each TU's view on BehaviorModule.h + SpecialPowerModule.h (both still ZH ports with
+     PreRTS.h; CashHack's module data keeps STLport vector rows), then this recipe.
+  3. OCL's static `?rva0004C3147@OCLSpecialPower@@SA?AW4NameKeyType@@XZ` is slot 4 of 0x00C5CC74: a member rename to the
+     virtual const `getModuleNameKey` would make that slot right too.
+  4. lk86 leads 2 and 3 (SpecialPowerModule's interface overrides and Snapshot slots in the shared view) still hold for
+     every folded class's +0x10 and ObjectModule tables.
