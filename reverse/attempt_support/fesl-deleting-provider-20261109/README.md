@@ -53,3 +53,11 @@ Remaining work: recover the full class and both five-slot tables, resolve
 the proposed-TU/emission prerequisite for a complete inheritance view,
 and remeasure the newest real image. No bridge retirement, headline link
 gain, game-start or runtime clearance is claimed by this package.
+
+Published as e4246d8907 on the first attempt in 29.9 seconds (3.6 seconds
+rebase, 26.3 hook/push). Normal publication gates and post-publication native
+and object proofs pass; all three claims are released. The broader batch
+audit remains INCONCLUSIVE: index c885072a48 versus outgoing base
+aaf7727eee2bdbfbd2b686e07d1f6f34bab13cd1, with unchanged consumer
+Rva00801B70FeslAlloc.cpp lacking a current receipt. Carry that consumer into
+the next census/image pass; the bounded repair does not prove global closure.

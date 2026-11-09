@@ -718,3 +718,9 @@ slots to two/ten slots: both native tables remain 20B versus compiler 4B.
 Four support objects lack strict receipts. Full class/table recovery and
 next-census/image verification remain open; this does not clear 8E3D28.
 [Native/object proof and rejected full-view prerequisites](../../reverse/attempt_support/fesl-deleting-provider-20261109/README.md).
+
+Published as e4246d8907 in 29.9 seconds on attempt one. Post-publication
+proof passes and all three claims release. Broader audit remains
+INCONCLUSIVE at c885072a48/base aaf7727eee because the unchanged
+Rva00801B70FeslAlloc.cpp consumer lacks a current receipt; next census/image
+verification must include it. No global link clearance follows.
