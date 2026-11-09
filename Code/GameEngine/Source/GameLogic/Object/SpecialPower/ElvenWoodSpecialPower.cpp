@@ -345,6 +345,9 @@ public:
 		return (const ScavengerSpecialPowerModuleData *)m_moduleData;
 	}
 
+protected:
+	virtual ~ScavengerSpecialPower();
+
 private:
 	bool m_34; // +0x34
 };
@@ -721,15 +724,6 @@ private:
 // 0x00493DEF, so each derives from this unit's SpecialPowerModule view like
 // the real class (retail: the +0 table's slot 0 is the placeholder's ??_G and
 // its slot 4 the class's getModuleNameKey row).
-
-// Rva004C43A3: ??0ScavengerSpecialPower 0x004C4353 (46 B) stores 0x00C5D304 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D2A0 (+0x10) and clears the byte at +0x34
-class Rva004C43A3 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C43A3();
-private:
-	bool m_34; // +0x34
-};
 
 // Rva004C4508: ??0CloudBreakSpecialPower 0x004C44D8 (42 B) stores 0x00C5D42C (+0), 0x00BEFCF8 (+0x0C), 0x00C5D3C8 (+0x10)
 class Rva004C4508 : public SpecialPowerModule
@@ -1602,7 +1596,9 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
 
-Rva004C43A3::~Rva004C43A3()
+// ??1ScavengerSpecialPower@@MAE@XZ 0x004C43A3: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
+ScavengerSpecialPower::~ScavengerSpecialPower()
 {
 }
 
