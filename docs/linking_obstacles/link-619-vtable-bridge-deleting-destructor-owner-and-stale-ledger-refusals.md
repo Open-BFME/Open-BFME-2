@@ -701,3 +701,8 @@ are 16B but wrong at slot3, requiring the native 3A5896/3A589E override pair;
 the current namespace/reference identity route is unsupported. No owner is
 transferred over that mismatch. LINK-636 and its new packet record native
 sites, exact hatch retirement and the remaining class/identity prerequisites.
+
+Published as 362b6b1740, second attempt in 37.5 seconds; post-publication
+proof passes and all eight claims release. Broader audit is INCONCLUSIVE
+at c885072a48/base 7c6a144ce2 for unchanged ConcreteModuleTemplateCopyCtors.cpp
+missing a current receipt. No new image/global closure is claimed.

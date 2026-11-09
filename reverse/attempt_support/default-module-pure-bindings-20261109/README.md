@@ -73,3 +73,18 @@ replacement table; native widths are 48/16 bytes. Its two final-stage pure
 aliases stay with that class-recovery pass. These blockers are not a source
 regression, and no full table, bridge-retirement, image or runtime clearance
 is claimed here.
+
+Published as 362b6b1740 on attempt two (37.5 seconds; rebase 5.8,
+hook/push 31.7), after the first lost race at 47.1 seconds. Normal push
+checks pass. Post-publication object proof passes again, comparing the
+hatch register to the published commit's actual parent so unrelated
+upstream retirements are not attributed to this change. All eight claims
+are released.
+
+The broader outgoing audit remains INCONCLUSIVE: index c885072a48 versus
+base 7c6a144ce2699e6667c8de330e4a56923fac44f3; unchanged
+ConcreteModuleTemplateCopyCtors.cpp lacks a current receipt. Carry that
+consumer into the next census/image rather than claiming global link
+closure. Wind's two method addresses also have no approved TU in the map
+inspected for this pass; any future row rehome needs actual TU approval,
+in addition to the namespace/signature identity transition.

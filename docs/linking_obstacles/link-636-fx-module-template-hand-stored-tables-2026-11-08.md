@@ -176,3 +176,10 @@ cannot express its namespace/reference transition. No owner extent is
 raised over those wrong slots. Next: reviewed identity transition, then
 normal complete-table owner verification; RenderObject needs class recovery.
 [Native operands, exact alias retirement and blockers](../../reverse/attempt_support/default-module-pure-bindings-20261109/README.md).
+
+Published as 362b6b1740 (second attempt, 37.5 seconds). Post-publication
+object/register proof passes; all eight claims are released. Broad audit
+stays INCONCLUSIVE at c885072a48/base 7c6a144ce2 for unchanged
+ConcreteModuleTemplateCopyCtors.cpp's missing receipt. The two Wind method
+addresses lack an approved TU too, so future rehome needs that evidence.
+These remain next-census/image and identity/class prerequisites.

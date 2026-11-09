@@ -230,6 +230,12 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   hatch retirement, not boot-path or table-owner clearance.
   [Native mismatch and supported cleanup](../../reverse/attempt_support/default-module-pure-bindings-20261109/README.md).
 
+  Published as 362b6b1740; sixteen hatch retirements and the object proof
+  pass after publication. Broader audit remains INCONCLUSIVE for unchanged
+  ConcreteModuleTemplateCopyCtors.cpp's receipt at c885072a48/base 7c6a144ce2.
+  All eight claims release. Wind/Render byte-owner and boot-path clearance
+  are still open; future Wind rehome additionally needs approved TU evidence.
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing
