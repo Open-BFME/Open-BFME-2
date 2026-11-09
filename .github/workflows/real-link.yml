@@ -251,6 +251,9 @@ jobs:
                   if os.path.exists(f'{folder}/image_report.json'):
                       with open(f'{folder}/image_report.json', encoding='utf-8') as handle:
                           result['image_report'] = json.load(handle)['summary']
+                  if os.path.exists(f'{folder}/linked_report/report.json'):
+                      with open(f'{folder}/linked_report/report.json', encoding='utf-8') as handle:
+                          result['kept_copies'] = json.load(handle).get('kept_copies', {}).get('counts')
                   return result
 
 
@@ -278,6 +281,9 @@ jobs:
                        f"{seen['vtables']['ours_shorter']} vtables with a short copy, "
                        f"{seen['fieldparse']['contents_differ']} parse tables differ, "
                        f"{seen['globals']['contents_differ'] + seen['globals']['ours_zero_retail_not']} globals differ.")
+          if now.get('kept_copies') is not None:
+              line += (f"\n{now['kept_copies'].get('kept_copy_differs', 0)} rowed names keep a copy that differs from retail "
+                       f"(bytes only; callees unproved).")
           line += f" <{os.environ['GITHUB_SERVER_URL']}/{os.environ['GH_REPO']}/actions/runs/{RUN}>"
           print(line)
           if os.environ.get('DISCORD_POSTS') != 'true':

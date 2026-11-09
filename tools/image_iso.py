@@ -9,6 +9,8 @@ write_object_manifest(rsp, mapfile, out, cwd=link_worktree) writes immutable
 content-named snapshots and a MAP-bound manifest for --objects.
 The Wave 0 receipt format is unchanged. Exit 1 means defects OR incomplete
 analysis, 2 invalid inputs. This is not a G2 census or a runtime receipt.
+kept_copies in the report and kept_copies.tsv list rowed names whose kept copy differs from
+retail: byte-level with masked relocations, so not proof of the callees, and report only.
 """
 import argparse
 import bisect
@@ -19,6 +21,8 @@ import json
 import os
 import re
 import struct
+import subprocess
+import sys
 from pathlib import Path
 
 import build
@@ -126,7 +130,7 @@ def attach_objects(publics, manifest, mapfile=None):
             try:
                 sections, symbols = link_cycle.parse_coff(raw)
             except (ValueError, struct.error, IndexError):
-                parsed[path] = ({}, {})
+                parsed[path] = ({}, {}, frozenset())
                 counts["coff_objects_unanalyzed"] += 1
                 continue
             definitions = collections.defaultdict(list)
@@ -151,8 +155,10 @@ def attach_objects(publics, manifest, mapfile=None):
                 following = bisect.bisect_right(values, sym.value)
                 end = values[following] if following < len(values) else sec.size
                 definitions[sym.name].append((end - sym.value, sym.sec, sym.value))
-            parsed[path] = (definitions, section_evidence)
-        definitions, section_evidence = parsed[path]
+            external = frozenset(sym.name for sym in symbols.values() if sym.sec > 0 and sym.cls == link_cycle.EXTERNAL)
+            parsed[path] = (definitions, section_evidence, external)
+        definitions, section_evidence, external = parsed[path]
+        public["external"] = public["name"] in external
         records = set(definitions.get(public["name"], []))
         lengths = {record[0] for record in records}
         if len(lengths) == 1:
@@ -168,6 +174,146 @@ def attach_objects(publics, manifest, mapfile=None):
             counts["symbol_unresolved"] += 1
     return counts
 
+
+
+def kept_copies(ours, retail, publics, ledger):
+    """Report only: rowed names whose copy in this image differs from retail, read from the linked image.
+    A row is byte-verified in its owner's object, but the linker keeps the first COMDAT definition on its
+    command line, so the image can run another unit's copy under the row's name. The census cannot see
+    this, because it models another object order than the real link's. Masked by the kept copy's own
+    relocation fields, trailing padding aside; equal bytes do not prove the callees. `ledger` is
+    {symbol: [rows]}. Only external symbols are shared copies: a label such as $L10008 is named per object.
+    A name with rows at several addresses is judged against all of them and recorded, whatever their order. A copy matching
+    any of its rows is not in `names`, which does not show it suits every retail occurrence: one matching only some is
+    listed in `matches_only_some_rows`.
+    What cannot be judged is counted, never passed. Nothing here feeds counts, defects or a gate."""
+    shared = [public for public in publics if public.get("external") is not False and public["name"] in ledger]
+    seen = collections.Counter(public["name"] for public in shared)
+    counts = collections.Counter()
+    differ, several, some = [], [], []
+    for public in shared:
+        rows = sorted({int(row["target_rva"], 16): row for row in ledger[public["name"]]}.items())
+        coff = public.get("coff")
+        if seen[public["name"]] > 1:
+            counts["unanalyzed_repeated_name"] += 1
+            continue
+        if coff is None:
+            counts["unanalyzed_no_object_evidence"] += 1
+            continue
+        section = coff["section"]
+        if not section["flags"] & link_cycle.COMDAT:
+            continue
+        counts["rowed_comdats_checked"] += 1
+        offset = coff["offset"]
+        length = section["size"] - offset
+        fields = [(where - offset, kind) for where, kind in section["relocations"] if where >= offset]
+        if any(kind not in _COFF_WIDTH for _where, kind in fields):
+            counts["unanalyzed_relocation_kind"] += 1
+            continue
+        mine = ours.read(public["rva"], length)
+        bodies = [retail.read(rva, int(row["target_size"])) for rva, row in rows]
+        if mine is None or any(body is None for body in bodies):
+            counts["unanalyzed_unreadable"] += 1
+            continue
+        verdicts = [same_copy(mine, body, fields) for body in bodies]
+        if len(rows) > 1:
+            counts["names_with_several_rows"] += 1
+            several.append(dict(name=public["name"], retail_rvas=[f"0x{rva:08X}" for rva, _row in rows],
+                                verdicts=verdicts, kept_source=public["source"]))
+        if True in verdicts:
+            if not all(verdict is True for verdict in verdicts):
+                counts["kept_copy_matches_only_some_rows"] += 1
+                some.append(several[-1])
+            continue
+        if None in verdicts:
+            counts["unanalyzed_padding_unproved"] += 1
+            continue
+        owners = [source_key(row.get("source") or "") for _rva, row in rows]
+        own = bool(public["source"]) and source_key(public["source"]) in owners
+        counts["kept_copy_differs"] += 1
+        counts["kept_copy_differs_owner_unit" if own else "kept_copy_differs_other_unit"] += 1
+        rva, row = rows[0]
+        differ.append(dict(retail_rva=f"0x{rva:08X}", size=int(row["target_size"]), name=public["name"],
+                           owner_source=row.get("source") or "", kept_source=public["source"],
+                           kept_object=public["object"], kept_is_owner=own,
+                           other_retail_rvas=" ".join(f"0x{other:08X}" for other, _row in rows[1:])))
+    return dict(counts=dict(counts), names=sorted(differ, key=lambda entry: entry["retail_rva"]), several_rows=several,
+                matches_only_some_rows=some, scope="report only: not in counts, defects or any gate")
+
+
+def _masked(body, fields):
+    """`body` with these relocation fields zeroed; every kind is in _COFF_WIDTH, the caller checks."""
+    out = bytearray(body)
+    for where, kind in fields:
+        for at in range(where, min(where + _COFF_WIDTH[kind], len(out))):
+            out[at] = 0
+    return bytes(out)
+
+
+def same_copy(mine, theirs, fields):
+    """True when the two copies are the same code, False when they are not, None when that cannot be shown.
+    Bytes past the shorter one's end count as padding only if they are all CC or 90 and nothing can run them:
+    stripping them blindly would make the short jumps EB 90 and EB CC equal, and a copy that is only the start of a
+    longer row must not pass."""
+    a, b = _masked(mine, fields), _masked(theirs, fields)
+    shorter, longer = sorted((a, b), key=len)
+    if longer[:len(shorter)] != shorter or longer[len(shorter):].strip(b"\xcc\x90"):
+        return False
+    if len(a) == len(b):
+        return True
+    return True if tail_cannot_run(shorter, len(longer), fields) else None
+
+
+def tail_cannot_run(body, end, fields):
+    """Whether the bytes from len(body) up to `end` cannot execute: `body` decodes to its last byte and ends in an
+    unconditional transfer, and no direct branch in it lands there. A branch with a relocation in its operand goes
+    elsewhere: masked to zero, it would only seem to land on the next byte."""
+    import capstone
+    relocated = {at for where, kind in fields for at in range(where, where + _COFF_WIDTH[kind])}
+    reached, last = 0, None
+    for address, size, mnemonic, operands in capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32).disasm_lite(body, 0):
+        reached, last = address + size, mnemonic
+        if (mnemonic == "call" or mnemonic.startswith(("j", "loop"))) and re.fullmatch(r"0x[0-9a-f]+|[0-9]+", operands) \
+                and not relocated.intersection(range(address, reached)) and len(body) <= int(operands, 0) < end:
+            return False
+    return reached == len(body) and last in ("ret", "retf", "jmp", "ljmp")
+
+
+def ledger_identity(root, image_commit):
+    """Which functions.csv the check read, and whether it is the image's own. A newer ledger read against an older
+    image names copies that are no fault of the image's, so a difference is said plainly; it changes nothing else."""
+    path = Path(root) / "reverse/functions.csv"
+    sha = digest(path)
+
+    def git(*args):
+        done = subprocess.run(["git", *args], cwd=root, capture_output=True)
+        return done.stdout if done.returncode == 0 else None
+
+    revision = git("rev-parse", "HEAD")
+    theirs = git("show", f"{image_commit}:reverse/functions.csv") if image_commit else None
+    same = None if theirs is None else hashlib.sha256(theirs).hexdigest() == sha
+    warning = None
+    if same is False:
+        warning = (f"reverse/functions.csv here is not image commit {image_commit}'s: kept copies are judged against the wrong rows, "
+                   "so some names listed may be no fault of the image. Use a checkout of that commit")
+    elif same is None:
+        warning = (f"could not read reverse/functions.csv at image commit {image_commit}: nothing shows this ledger is the image's, "
+                   "so some names listed may be no fault of the image")
+    return dict(sha256=sha, revision=revision.decode().strip() if revision else None, image_commit=image_commit,
+                same_as_image=same, warning=warning)
+
+
+def write_kept_copies(out, kept):
+    with (out / "kept_copies_some_rows.tsv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["name", "retail_rvas", "verdicts", "kept_source"], delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(dict(entry, retail_rvas=" ".join(entry["retail_rvas"]), verdicts=" ".join(map(str, entry["verdicts"])))
+                         for entry in kept["matches_only_some_rows"])
+    with (out / "kept_copies.tsv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["retail_rva", "size", "name", "owner_source", "kept_source", "kept_object",
+                                               "kept_is_owner", "other_retail_rvas"], delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(kept["names"])
 
 
 def response_inputs(response, cwd):
@@ -1958,10 +2104,12 @@ def main(argv=None):
                         help="only audit object-relative relocation bounds")
     parser.add_argument("--vptr-stores", action="store_true",
                         help="only judge retail vptr stores against the tables the image installs")
+    parser.add_argument("--kept-copies-only", action="store_true",
+                        help="only report rowed names whose kept copy differs from retail")
     parser.add_argument("--boot-order", type=Path,
                         help="with --vptr-stores: boot walk TSV (func_rva, insn_off, order) to rank stores")
     args = parser.parse_args(argv)
-    if sum((args.address_only,args.relocation_bounds_only,args.data_pointers_only,args.vptr_stores))>1:
+    if sum((args.address_only,args.relocation_bounds_only,args.data_pointers_only,args.vptr_stores,args.kept_copies_only))>1:
         parser.error("analysis-only modes are mutually exclusive")
     if args.boot_order and not args.vptr_stores:
         parser.error("--boot-order needs --vptr-stores")
@@ -1982,6 +2130,7 @@ def main(argv=None):
         rows = list(csv.DictReader(f))
     addresses = collections.defaultdict(set)
     sizes = {}
+    ledger = {}
     qualified = collections.defaultdict(set)
     names = {p["name"] for p in publics}
     for row in rows:
@@ -1999,12 +2148,26 @@ def main(argv=None):
                 rva, size = int(row["target_rva"], 16), int(row["target_size"])
             except ValueError:
                 continue
+            ledger.setdefault(symbol, []).append(row)
             addresses[symbol].add(rva)
             addresses[row["name"]].add(rva)
             sizes[rva] = size
             if row.get("source"):
                 for name in (symbol, row["name"]):
                     qualified[(name, source_key(row["source"]))].add(rva)
+    kept = kept_copies(ours, retail, publics, ledger)
+    kept["ledger"] = ledger_identity(build.ROOT, receipt.get("commit"))
+    if kept["ledger"]["warning"]:
+        print(f"image_iso: WARNING: {kept['ledger']['warning']}", file=sys.stderr)
+    if args.kept_copies_only:
+        args.out.mkdir(parents=True, exist_ok=True)
+        (args.out / "report.json").write_text(json.dumps(dict(
+            kept_copies=kept, analysis_scope="kept copies only; report mode", complete=False,
+            inputs=dict(tool_sha256=tool_sha256, image_sha256=digest(args.image), map_sha256=digest(args.map),
+                        retail_sha256=digest(args.retail)), object_analysis=dict(object_counts)), indent=2) + "\n")
+        write_kept_copies(args.out, kept)
+        print(json.dumps(kept["counts"], indent=2))
+        return 1
     checker = Checker(ours, retail, publics, addresses, qualified)
     if args.vptr_stores:
         return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))
@@ -2027,6 +2190,7 @@ def main(argv=None):
     report["defined_data_pointers"] = pointers
     report["relocation_bounds"] = bounds
     report["unrelocated_retail_addresses"] = absolute
+    report["kept_copies"] = kept
     report["analysis_scope"] = "absolute address code/data audit only" if args.address_only else "bounded image comparison"
     if args.data_pointers_only:
         report["analysis_scope"]="defined data pointer evidence only; report mode"
@@ -2044,6 +2208,7 @@ def main(argv=None):
                   object_analysis=dict(object_counts), map_symbols=len(publics))
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    write_kept_copies(args.out, kept)
     with (args.out / "defects.tsv").open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["family", "retail_rva", "name", "object", "source", "evidence"], delimiter="\t")
         writer.writeheader()

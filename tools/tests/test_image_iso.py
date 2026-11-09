@@ -1,5 +1,6 @@
 """Seeded static-image defects; no compiler, linker or game required."""
 import json
+import pytest
 import struct
 import sys
 from pathlib import Path
@@ -1479,3 +1480,391 @@ def test_alias_without_a_fold_cannot_settle_an_undecided_body():
     store = judge(c, stores, {0x200: 7, 0x300: 1, 0x360: 6, 0x370: 3})[0]
     assert store["slots"] == {"match": 1, "unk": 1} and store["verdict"] == "unanalyzed-slots"
     assert not c.defects
+
+
+class KeptCopyMemory:
+    def __init__(self, base, words):
+        self.base, self.words = base, words
+
+    def read(self, rva, size):
+        body = self.words.get(rva)
+        return None if body is None else (body + bytes(size))[:size]
+
+
+COMDAT_CODE = 0x60001020
+BODY = b"\x8b\x41\x04\xe8\x00\x00\x00\x00\xc3"
+ROW = dict(target_rva="0x00001000", target_size="9", source="Code/Owner.cpp")
+
+
+def kept_public(body=BODY, relocs=((4, 0x14),), flags=COMDAT_CODE, source="Code/Rival.cpp", offset=0, name="?f@@YAXXZ"):
+    return dict(name=name, rva=0x5000, object="rival.obj", source=source, extent=len(body), external=True,
+                coff=dict(offset=offset, section=dict(body=body, size=len(body), flags=flags, relocations=relocs)))
+
+
+def judged(public, image=BODY, retail=BODY, ledger=None):
+    return iso.kept_copies(KeptCopyMemory(0x10000000, {0x5000: image}), KeptCopyMemory(0x400000, {0x1000: retail}),
+                           public if isinstance(public, list) else [public], ledger if ledger is not None else {"?f@@YAXXZ": [ROW]})
+
+
+def test_kept_copy_equal_to_retail_is_not_listed():
+    kept = judged(kept_public())
+    assert kept["counts"] == {"rowed_comdats_checked": 1} and kept["names"] == []
+
+
+def test_a_rival_units_different_copy_is_listed_with_who_kept_it():
+    other = BODY[:1] + b"\x51" + BODY[2:]              # isKindOf's shape: another field offset under the row's name
+    kept = judged(kept_public(), image=other)
+    assert kept["counts"]["kept_copy_differs"] == kept["counts"]["kept_copy_differs_other_unit"] == 1
+    entry = kept["names"][0]
+    assert (entry["retail_rva"], entry["size"], entry["owner_source"], entry["kept_source"], entry["kept_is_owner"]) == (
+        "0x00001000", 9, "Code/Owner.cpp", "Code/Rival.cpp", False)
+
+
+def test_the_owners_own_differing_copy_is_counted_apart():
+    kept = judged(kept_public(source="Code/Owner.cpp"), image=BODY[:1] + b"\x51" + BODY[2:])
+    assert kept["counts"]["kept_copy_differs_owner_unit"] == 1 and kept["names"][0]["kept_is_owner"] is True
+
+
+def test_relocation_fields_are_masked_and_only_they_are():
+    linked = BODY[:4] + b"\x11\x22\x33\x44" + BODY[8:]
+    assert judged(kept_public(), image=linked)["names"] == []
+    assert judged(kept_public(relocs=()), image=linked)["counts"]["kept_copy_differs"] == 1
+
+
+def test_a_section_relocation_masks_two_bytes():
+    assert iso._masked(b"\x01\x02\x03\x04\xc3", [(0, 0xA)]) == b"\x00\x00\x03\x04\xc3"
+    assert iso._masked(b"\x01\x02\x03\x04\xc3", [(0, 0x14)]) == b"\x00\x00\x00\x00\xc3"
+
+
+def test_a_relocation_kind_of_unknown_width_is_counted_never_guessed():
+    # DIR16 is 2 bytes, not the 4 every kind but SECTION used to be given.
+    kept = judged(kept_public(relocs=((4, 1),)), image=b"\xff" * 9)
+    assert kept["counts"] == {"rowed_comdats_checked": 1, "unanalyzed_relocation_kind": 1} and kept["names"] == []
+
+
+def test_a_copy_that_is_only_the_start_of_a_longer_row_differs():
+    # The review's case: a nine-byte retail row and a three-byte kept prefix compared equal.
+    short = BODY[:3]
+    kept = judged(kept_public(body=short, relocs=()), image=short)
+    assert kept["counts"]["kept_copy_differs"] == 1
+
+
+def test_short_jumps_to_different_places_are_different_copies():
+    # The review's case: EB 90 and EB CC both stripped to EB.
+    row = {"?f@@YAXXZ": [dict(ROW, target_size="2")]}
+    kept = judged(kept_public(body=b"\xeb\x90", relocs=()), image=b"\xeb\x90", retail=b"\xeb\xcc", ledger=row)
+    assert kept["counts"]["kept_copy_differs"] == 1
+
+
+def test_a_tail_that_is_padding_on_an_instruction_boundary_is_no_difference():
+    for extra in (b"\xcc", b"\x90", b"\xcc\x90\xcc"):
+        assert judged(kept_public(body=BODY + extra), image=BODY + extra)["names"] == []          # the copy is longer
+        row = {"?f@@YAXXZ": [dict(ROW, target_size=str(9 + len(extra)))]}
+        assert judged(kept_public(), retail=BODY + extra, ledger=row)["names"] == []              # the row is longer
+
+
+def test_padding_not_on_an_instruction_boundary_is_counted_never_passed():
+    # EB alone does not decode: nothing shows the CC after it is padding.
+    row = {"?f@@YAXXZ": [dict(ROW, target_size="2")]}
+    kept = judged(kept_public(body=b"\xeb", relocs=()), image=b"\xeb", retail=b"\xeb\xcc", ledger=row)
+    assert kept["counts"]["unanalyzed_padding_unproved"] == 1 and kept["names"] == []
+
+
+def test_a_jump_onto_the_tail_means_it_is_not_padding():
+    # The re-check's case: EB 00 lands on the CC, so those bytes can execute.
+    assert iso.same_copy(bytes.fromhex("eb00"), bytes.fromhex("eb00cc"), []) is None
+    assert iso.same_copy(bytes.fromhex("eb00cc"), bytes.fromhex("eb00"), []) is None
+
+
+def test_a_prefix_that_can_fall_through_leaves_the_tail_unproved():
+    for body in ("90", "7400c3"[:4], "e800000000", "33c0"):               # nop, je, call, xor: none of them stops
+        assert iso.same_copy(bytes.fromhex(body), bytes.fromhex(body) + b"\xcc", []) is None, body
+
+
+def test_any_branch_into_the_tail_means_it_is_not_padding():
+    # je +1 lands past the ret, on the tail, though the body ends in a ret.
+    assert iso.same_copy(bytes.fromhex("7401c3"), bytes.fromhex("7401c3cc"), []) is None
+    assert iso.same_copy(bytes.fromhex("e801000000c3"), bytes.fromhex("e801000000c3cc90"), []) is None
+
+
+def test_a_branch_inside_the_body_does_not_touch_the_tail():
+    assert iso.same_copy(bytes.fromhex("740190c3"), bytes.fromhex("740190c3cc"), []) is True
+
+
+def test_a_tail_after_each_unconditional_transfer_is_padding():
+    for body in ("c3", "c20400", "ffe0", "ff2500000000"):                  # ret, ret 4, jmp eax, jmp [mem]
+        assert iso.same_copy(bytes.fromhex(body), bytes.fromhex(body) + b"\xcc\x90", []) is True, body
+
+
+def test_a_body_that_stops_decoding_proves_nothing_even_after_a_ret():
+    assert iso.same_copy(bytes.fromhex("c30f"), bytes.fromhex("c30fcc"), []) is None
+
+
+def test_a_relocated_tail_jump_goes_out_of_the_copy_not_onto_its_tail():
+    # E9 rel32 to another function: masked to zero it would decode as a jump to the next byte.
+    body = bytes.fromhex("e911223344")
+    assert iso.same_copy(body, body + b"\xcc", [(1, 0x14)]) is True
+    assert iso.same_copy(body[:1] + bytes(4), body[:1] + bytes(4) + b"\xcc", []) is None    # not relocated, it does land there
+
+
+def test_same_copy_says_true_false_or_unknown():
+    assert iso.same_copy(b"\xc3", b"\xc3", []) is True
+    assert iso.same_copy(b"\xc3", b"\xc3\xcc", []) is True
+    assert iso.same_copy(b"\xc3\xcc", b"\xc3", []) is True
+    assert iso.same_copy(b"\xc3", b"\xc2", []) is False
+    assert iso.same_copy(b"\xc3", b"\xc3\x55", []) is False
+    assert iso.same_copy(b"\xeb", b"\xeb\xcc", []) is None
+
+
+TWO_ROWS = [dict(ROW), dict(ROW, target_rva="0x00002000", source="Code/Second.cpp")]
+
+
+def judged_two(first, second, image=BODY, rows=TWO_ROWS):
+    return iso.kept_copies(KeptCopyMemory(0x10000000, {0x5000: image}), KeptCopyMemory(0x400000, {0x1000: first, 0x2000: second}),
+                           [kept_public()], {"?f@@YAXXZ": rows})
+
+
+def test_a_name_with_several_rows_is_judged_against_all_and_recorded():
+    other = b"\x90" * 9
+    kept = judged_two(other, BODY)                    # it matches only the second row
+    assert kept["names"] == [] and kept["counts"]["names_with_several_rows"] == 1
+    assert kept["several_rows"][0]["retail_rvas"] == ["0x00001000", "0x00002000"]
+    assert kept["several_rows"][0]["verdicts"] == [False, True]
+
+
+def test_the_order_of_several_rows_cannot_change_the_result():
+    other = b"\x55" * 9
+    assert judged_two(other, BODY)["names"] == judged_two(other, BODY, rows=TWO_ROWS[::-1])["names"] == []
+    one = judged_two(other, other)
+    two = judged_two(other, other, rows=TWO_ROWS[::-1])
+    assert one == two and one["counts"]["kept_copy_differs"] == 1
+    assert one["names"][0]["retail_rva"] == "0x00001000" and one["names"][0]["other_retail_rvas"] == "0x00002000"
+
+
+def test_a_row_repeated_at_one_address_is_not_several_rows():
+    assert "names_with_several_rows" not in judged(kept_public(), ledger={"?f@@YAXXZ": [ROW, dict(ROW)]})["counts"]
+
+
+def test_the_owner_is_any_row_of_a_name_with_several():
+    kept = iso.kept_copies(KeptCopyMemory(0x10000000, {0x5000: b"\xff" * 9}), KeptCopyMemory(0x400000, {0x1000: BODY, 0x2000: BODY}),
+                           [kept_public(source="Code/Second.cpp")], {"?f@@YAXXZ": TWO_ROWS})
+    assert kept["names"][0]["kept_is_owner"] is True
+
+
+def test_a_copy_longer_than_the_row_differs():
+    longer = kept_public(body=BODY + b"\x90\x55")
+    assert judged(longer, image=BODY + b"\x90\x55")["counts"]["kept_copy_differs"] == 1
+
+
+def test_a_symbol_inside_a_section_starts_at_its_offset():
+    section = b"\xcc\xcc\xcc\xcc" + BODY
+    public = kept_public(body=section, relocs=((8, 0x14),), offset=4)
+    assert judged(public, image=BODY[:4] + b"\x11\x22\x33\x44" + BODY[8:])["names"] == []
+
+
+def test_only_comdats_are_judged():
+    kept = judged(kept_public(flags=0x60000020), image=b"\xff" * 9)
+    assert kept["counts"] == {} and kept["names"] == []
+
+
+def test_a_per_object_label_is_no_shared_copy():
+    # Found on a real image: 2,688 funclet labels such as $L10008 read as kept copies, each named per object.
+    label = dict(kept_public(), external=False)
+    found = judged(label, image=b"\xff" * 9)
+    assert (found["counts"], found["names"], found["several_rows"]) == ({}, [], [])
+    # A label sharing an external's name does not make the external ambiguous.
+    assert judged([label, kept_public()], image=BODY)["counts"] == {"rowed_comdats_checked": 1}
+
+
+def test_a_name_without_a_row_is_skipped():
+    assert judged(kept_public(), image=b"\xff" * 9, ledger={})["counts"] == {}
+
+
+def test_what_it_cannot_read_is_counted_never_passed():
+    public = kept_public()
+    del public["coff"]
+    assert judged(public)["counts"] == {"unanalyzed_no_object_evidence": 1}
+    assert judged([kept_public(), kept_public()])["counts"] == {"unanalyzed_repeated_name": 2}
+    unreadable = iso.kept_copies(KeptCopyMemory(0x10000000, {}), KeptCopyMemory(0x400000, {0x1000: BODY}), [kept_public()], {"?f@@YAXXZ": [ROW]})
+    assert unreadable["counts"]["unanalyzed_unreadable"] == 1
+
+
+def kept_copy_cli(tmp_path, monkeypatch, wrong):
+    root = tmp_path / "repo"
+    (root / "reverse").mkdir(parents=True)
+    monkeypatch.setattr(iso.build, "ROOT", root)
+    (root / "reverse/data_ledger.csv").write_text("address,size,kind,name,source,names\n")
+    (root / "reverse/functions.csv").write_text("name,target_rva,target_size,notes,source\n?f@@YAXXZ,0x1020,1,,Code/owner.cpp\n")
+    ours, retail = tmp_path / "exit.exe", tmp_path / "retail.exe"
+    write_pe(ours, 0x10000000)
+    write_pe(retail, 0x400000)
+    if wrong:
+        raw = bytearray(ours.read_bytes())
+        raw[0x220] = 0xc2
+        ours.write_bytes(raw)
+    mapfile = tmp_path / "exit.map"
+    mapfile.write_text(" Preferred load address is 10000000\n 0001:00000020 ?f@@YAXXZ 10001020 f rival.obj\n")
+    obj = tmp_path / "rival.obj"
+    iso.link_cycle.write_coff(obj, [(".text", COMDAT_CODE, b"\xc3", 0)], [("?f@@YAXXZ", 1, 0, iso.link_cycle.EXTERNAL)])
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path=obj.name, sha256=iso.digest(obj), source="Code/rival.cpp")]))
+    (tmp_path / "image_receipt.json").write_text(json.dumps(dict(kind="diagnostic", base="0x10000000", stubbed=[],
+                                                                 image_sha256=iso.digest(ours), map_sha256=iso.digest(mapfile))))
+    return ours, mapfile, retail, manifest, tmp_path / "report"
+
+
+def test_kept_copies_only_writes_the_list_from_the_real_map(tmp_path, monkeypatch):
+    ours, mapfile, retail, manifest, out = kept_copy_cli(tmp_path, monkeypatch, wrong=True)
+    assert iso.main(["--image", str(ours), "--map", str(mapfile), "--retail", str(retail), "--objects", str(manifest),
+                     "--out", str(out), "--kept-copies-only"]) == 1
+    report = json.loads((out / "report.json").read_text())
+    assert report["kept_copies"]["counts"]["kept_copy_differs_other_unit"] == 1
+    assert "counts" not in report and "defects" not in report
+    assert report["object_analysis"]["extents_attached"] == 1
+    lines = (out / "kept_copies.tsv").read_text().splitlines()
+    assert lines[0].startswith("retail_rva\tsize\tname") and "?f@@YAXXZ" in lines[1] and "Code/rival.cpp" in lines[1]
+
+
+def test_kept_copies_feed_no_count_and_no_defect(tmp_path, monkeypatch):
+    # Report only: whatever the check finds, the rest of the report is the same, key for key.
+    ours, mapfile, retail, manifest, out = kept_copy_cli(tmp_path, monkeypatch, wrong=True)
+    argv = ["--image", str(ours), "--map", str(mapfile), "--retail", str(retail), "--objects", str(manifest)]
+    real = iso.kept_copies
+    empty = dict(counts={}, names=[], several_rows=[], matches_only_some_rows=[], scope="stub")
+    results, codes = [], []
+    for label, stub in (("found", real), ("none", lambda *a: empty)):
+        monkeypatch.setattr(iso, "kept_copies", stub)
+        folder = tmp_path / label
+        codes.append(iso.main(argv + ["--out", str(folder)]))
+        report = json.loads((folder / "report.json").read_text())
+        results.append(report)
+        for name in ("defects.tsv", "ambiguous.tsv", "relocation_leads.tsv", "data_pointer_leads.tsv"):
+            assert (folder / name).read_bytes() == (tmp_path / "found" / name).read_bytes()
+    assert len(results[0]["kept_copies"]["names"]) == 1 and results[1]["kept_copies"]["names"] == []
+    assert codes[0] == codes[1]
+    for report in results:
+        del report["kept_copies"]
+    assert results[0]["counts"] == results[1]["counts"]
+    assert results[0]["defects"] == results[1]["defects"]
+    assert results[0] == results[1]
+    assert (tmp_path / "found" / "kept_copies.tsv").exists()
+
+
+def test_the_real_object_reader_tells_a_shared_copy_from_a_label(tmp_path):
+    # The label is static and rowed, and the bytes differ: only the external symbol may be judged.
+    obj = tmp_path / "rival.obj"
+    iso.link_cycle.write_coff(obj, [(".text", COMDAT_CODE, b"\xc3\xc3", 0)],
+                              [("?f@@YAXXZ", 1, 0, iso.link_cycle.EXTERNAL), ("$L1", 1, 1, iso.link_cycle.STATIC)])
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path=obj.name, sha256=iso.digest(obj), source="Code/rival.cpp")]))
+    publics = [dict(name=n, rva=r, object="rival.obj", source="", extent=None) for n, r in (("?f@@YAXXZ", 0x5000), ("$L1", 0x5001))]
+    iso.attach_objects(publics, manifest)
+    assert [p["external"] for p in publics] == [True, False]
+    ledger = {"?f@@YAXXZ": [dict(ROW, target_size="2")], "$L1": [dict(ROW, target_size="1")]}
+    kept = iso.kept_copies(KeptCopyMemory(0x10000000, {0x5000: b"\xc2\xc3", 0x5001: b"\xc2"}), KeptCopyMemory(0x400000, {0x1000: b"\xc3\xc3"}), publics, ledger)
+    assert [entry["name"] for entry in kept["names"]] == ["?f@@YAXXZ"] and kept["counts"]["rowed_comdats_checked"] == 1
+
+
+def test_a_name_matching_only_some_rows_is_surfaced_not_only_suppressed():
+    kept = judged_two(b"\x55" * 9, BODY)
+    assert kept["names"] == [] and kept["counts"]["kept_copy_matches_only_some_rows"] == 1
+    assert [entry["name"] for entry in kept["matches_only_some_rows"]] == ["?f@@YAXXZ"]
+    assert "matches_only_some_rows" in kept and judged_two(BODY, BODY)["matches_only_some_rows"] == []
+
+
+def test_the_some_rows_names_reach_their_own_file(tmp_path, monkeypatch):
+    kept = judged_two(b"\x55" * 9, BODY)
+    iso.write_kept_copies(tmp_path, kept)
+    lines = (tmp_path / "kept_copies_some_rows.tsv").read_text().splitlines()
+    assert lines[0].split("\t")[:2] == ["name", "retail_rvas"] and "?f@@YAXXZ" in lines[1] and "0x00002000" in lines[1]
+
+
+def git_tree(tmp_path, text):
+    import subprocess
+    root = tmp_path / "tree"
+    (root / "reverse").mkdir(parents=True)
+    (root / "reverse/functions.csv").write_text(text)
+    for command in (["init", "-q"], ["add", "."], ["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "x"]):
+        subprocess.run(["git", *command], cwd=root, check=True)
+    return root, subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, check=True, capture_output=True, text=True).stdout.strip()
+
+
+def test_the_ledger_is_identified_and_matches_the_images_commit(tmp_path):
+    root, commit = git_tree(tmp_path, "name\n")
+    identity = iso.ledger_identity(root, commit)
+    assert identity["sha256"] == iso.digest(root / "reverse/functions.csv")
+    assert (identity["revision"], identity["image_commit"], identity["same_as_image"], identity["warning"]) == (commit, commit, True, None)
+
+
+def test_a_ledger_other_than_the_images_is_warned_of(tmp_path):
+    # The trap behind the false Locomotor::xfer and _Rb_tree_base entries: a newer ledger read against an older image.
+    root, commit = git_tree(tmp_path, "name\n")
+    (root / "reverse/functions.csv").write_text("name\nmoved\n")
+    identity = iso.ledger_identity(root, commit)
+    assert identity["same_as_image"] is False and commit in identity["warning"] and "functions.csv" in identity["warning"]
+
+
+def test_a_later_commit_with_the_same_ledger_is_no_warning(tmp_path):
+    import subprocess
+    root, commit = git_tree(tmp_path, "name\n")
+    (root / "other").write_text("x")
+    subprocess.run(["git", "add", "."], cwd=root, check=True)
+    subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "y"], cwd=root, check=True)
+    identity = iso.ledger_identity(root, commit)
+    assert identity["same_as_image"] is True and identity["warning"] is None and identity["revision"] != commit
+
+
+def test_an_image_commit_this_checkout_lacks_cannot_be_called_the_same(tmp_path):
+    root, commit = git_tree(tmp_path, "name\n")
+    for missing in ("f" * 40, None):
+        identity = iso.ledger_identity(root, missing)
+        assert identity["same_as_image"] is None and "could not" in identity["warning"]
+
+
+def test_no_repository_is_said_not_assumed(tmp_path):
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text("name\n")
+    identity = iso.ledger_identity(tmp_path, "a" * 40)
+    assert identity["revision"] is None and identity["same_as_image"] is None and identity["warning"]
+
+
+def test_the_ledger_warning_is_recorded_printed_and_changes_nothing_else(tmp_path, monkeypatch, capsys):
+    ours, mapfile, retail, manifest, out = kept_copy_cli(tmp_path, monkeypatch, wrong=True)
+    argv = ["--image", str(ours), "--map", str(mapfile), "--retail", str(retail), "--objects", str(manifest)]
+    calm = dict(sha256="a", revision="b", image_commit="b", same_as_image=True, warning=None)
+    loud = dict(calm, same_as_image=False, warning="the ledger is not the image's")
+    results = []
+    for label, identity in (("calm", calm), ("loud", loud)):
+        monkeypatch.setattr(iso, "ledger_identity", lambda *a: identity)
+        code = iso.main(argv + ["--out", str(tmp_path / label)])
+        results.append((code, json.loads((tmp_path / label / "report.json").read_text()), capsys.readouterr()))
+    assert results[0][0] == results[1][0]
+    assert "the ledger is not the image's" in results[1][2].err and "the ledger" not in results[0][2].err
+    assert results[1][1]["kept_copies"]["ledger"] == loud
+    for _code, report, _out in results:
+        del report["kept_copies"]
+    assert results[0][1] == results[1][1]
+    monkeypatch.setattr(iso, "ledger_identity", lambda *a: loud)
+    assert iso.main(argv + ["--out", str(tmp_path / "only"), "--kept-copies-only"]) == 1
+    only = json.loads((tmp_path / "only" / "report.json").read_text())
+    assert only["kept_copies"]["ledger"] == loud and "the ledger is not the image's" in capsys.readouterr().err
+
+
+def test_main_hands_the_check_every_row_of_a_name(tmp_path, monkeypatch):
+    # The rows come from the ledger's stream in main(): the copy matches only the second, later in the file.
+    ours, mapfile, retail, manifest, out = kept_copy_cli(tmp_path, monkeypatch, wrong=True)
+    functions = iso.build.ROOT / "reverse/functions.csv"
+    functions.write_text(functions.read_text() + "?f@@YAXXZ,0x1030,1,,Code/second.cpp\n")
+    raw = bytearray(retail.read_bytes())
+    raw[0x230] = 0xc2                     # the image's copy, wrong for the first row, is retail's at the second
+    retail.write_bytes(raw)
+    assert iso.main(["--image", str(ours), "--map", str(mapfile), "--retail", str(retail), "--objects", str(manifest),
+                     "--out", str(out), "--kept-copies-only"]) == 1
+    kept = json.loads((out / "report.json").read_text())["kept_copies"]
+    assert kept["names"] == [] and kept["counts"]["names_with_several_rows"] == 1
+    assert kept["several_rows"][0]["retail_rvas"] == ["0x00001020", "0x00001030"]
+
+
+def test_kept_copies_only_excludes_the_other_modes(tmp_path, monkeypatch):
+    with pytest.raises(SystemExit):
+        iso.main(["--image", "a", "--map", "b", "--kept-copies-only", "--vptr-stores"])

@@ -81,6 +81,20 @@ Open-BFME-1's rules:
   the object is one (LINK-133). Before then a folded row at a low address could
   move a unit megabytes ahead and make its non-retail COMDAT copies the kept ones.
 
+That order is the census's, not the real link's: real links use path order (`exit_link --order`, default `path`), so
+`link_check`, `tu_skeleton`, `allowed_symbols` and `dup_defs` can name a different kept copy from the one an image runs.
+On 2026-11-08's measure the two orders pick different bytes for 656 of 1,590 names with differing copies, and for 254 rowed
+names the census's order picks retail's copy while the image runs another. What an image really kept is in `kept_copies` in
+its `linked_report/report.json` and in `kept_copies.tsv` (`tools/image_iso.py`, or `--kept-copies-only` for that alone, under a
+minute). This check is byte-level: the kept copy, its own relocation fields masked, against retail's bytes at the row's
+address, ignoring a tail only when it is all padding after an instruction boundary. It does not prove the callees are right. What
+it cannot judge it counts as `unanalyzed_*`; a name with rows at several addresses is judged against all of them and listed in
+`several_rows`. A copy matching any of its rows is left out of `kept_copy_differs` and `kept_copies.tsv`, so that count does not show
+a copy suits every retail occurrence: one matching only some is in `matches_only_some_rows` and `kept_copies_some_rows.tsv`. Read the
+list with the ledger of the image's own commit: `kept_copies.ledger` records the `functions.csv` read, its hash and revision, and
+warns when it is not the image's, because a newer ledger names copies that are no fault of the image. It is report only: it feeds
+no count, defect, gate or exit code. Moving objects to change the winner was measured and parked (P75): both orders tried reach less far.
+
 The census counts only objects proven current by census receipts and records
 nothing if objects, inputs or tools move during the run. Each
 `reverse/link_census_history.csv` row names its `rules`; a rule change is recorded
