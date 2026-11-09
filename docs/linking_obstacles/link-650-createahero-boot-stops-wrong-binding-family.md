@@ -29,3 +29,22 @@ The master form also owes one thing the test form does not do: `Rva0021E85ACopy.
 **P67 (open, not a code binding).** The first 2D draw's dynamic vertex buffer `Lock` returns S_OK with a null pointer at base 0x10000000. Retail makes the same call with the same flags. Harness's Wine trace: `GL_OUT_OF_MEMORY` on wined3d's 64 MB chunk. The game's second 256 MB reservation lands at 0x40000000-0x50000000 at that base, where retail has Mesa's memory, on Harness's reading of the two address maps. The same image at `--rebase 0x800000` passes the lock. The default base is undecided. Runs at different bases are not comparable. A later stop at the same site at the rebased base reads address 0, and is unexplained so far.
 
 **P51's route, update.** The coordinator directed `--basis retail` instead of votes; the no-table family landed as 0a7a80d0d2 and respells no row yet. Blocked on row 0x005DFF76, which has no approved unit: `tu_skeleton --emit-move` refuses it (`map_approved_problem`), and the block is displaced to `Common/UserPreferences.cpp`, which never approves. A form that keeps it in `Rva0021E85ACopy.cpp` needs an invented carrier function that survives `/OPT:NOREF` into the image, so it was not landed. Decision with the owner.
+
+**P51, the owner's exception (2026-11-09).** The real respell needs row 0x005DFF76
+(`map<long,LadderPref>`'s destructor) out of `Rva0021E85ACopy.cpp`, and the map has no unit for it. The owner
+approved a narrow tool exception: `rename.py --forced-move`, limited to rows a family lists in `forced_moves`
+(`docs/consolidation.md`, "A row a rename forces out"). The row goes to `OnlinePreferences_Unresolved.cpp`.
+That is placement evidence only: its row 0x005DFF7B follows this one in retail and calls the same tree
+destructor 0x005DFE18, and it proves nothing about retail's unit. Fifteen objects emit the same 5-byte body. On
+the test image `4117d11fb2` (base 0x10000000), `Rva004134AECtor.obj` won that COMDAT, not the destination, and
+`link_check` still counts the row's bytes with the destination. The respell lands after the tool; its pass test
+is recorded on the packet.
+
+**P81 (closed).** `AptCharacter.cpp` held a private, never-set draw callback; retail's one slot is 0x00E177A8.
+Landed `835eb9fc81`. Same family as P55: a second object for one retail global.
+
+**P86 (open), the same family.** `bfme2_texture_binding.cpp` writes `BFME2CurrentTextures`, while retail's one
+array at 0x00DEE5E0 is `render_state.Textures`. A test diagnostic measured no texture at stage 0 on any of
+31,867 draws, and the game rendered untextured quads as white. The fix is not landed or run at the time of this
+note. Retail's 0x00DEE5DC is split the same way, `render_state+4` against `ScreenMaterial`, 38 sites, unfixed.
+
