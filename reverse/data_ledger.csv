@@ -8197,8 +8197,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0081B568,16,.rdata,vtable,??_7Rva003AE07D@@6B@,,literal,??_7Rva003A59C3B3@@6B@;??_7Rva003AE07D@@6B@,0,3
 0x0081B578,24,.rdata,string,??_C@_0BH@IIAILLNM@ParticleWindModuleInfo?$AA@,,literal,,0,1
 0x0081B590,8,.rdata,vtable,??_7DefaultModuleHeadBase@@6B@,,literal,,0,4
-0x0081B598,1,.rdata,global,_Rva003AED6B_vsub,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp,provisional,??_7Rva005FEA50Base@FXParticleSystem@@6B@;_Rva003AED6B_vsub,1,2
-0x0081B5A8,1,.rdata,global,_Rva003AED6B_v0,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp,provisional,??_7Rva005FEA50Base@FXParticleSystem@@6BDefaultModuleHeadBase@@@;_Rva003AED6B_v0,1,2
+0x0081B598,16,.rdata,vtable,??_7Rva005FEA50Base@FXParticleSystem@@6B@,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp,owned,,0,2
+0x0081B5A8,16,.rdata,vtable,??_7Rva005FEA50Base@FXParticleSystem@@6BDefaultModuleHeadBase@@@,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp,owned,,0,2
 0x0081B5B8,24,.rdata,string,??_C@_0BI@HIPOBND@DefaultModule?$DMCAT_WIND?$DO?$AA@,,literal,,0,1
 0x0081B5D0,1,.rdata,global,_Rva003AE03D_v0C,Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,provisional,??_7Rva003A59C3@@6B@;_Rva003AE03D_v0C,1,2
 0x0081B5E0,1,.rdata,global,_Rva003AE03D_v0,Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,provisional,??_7Rva003A59C3@@6BRva003A59C3B0A@@@;_Rva003AE03D_v0,1,2

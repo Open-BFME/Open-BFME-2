@@ -336,3 +336,13 @@ all five current info users have clean scoped previews (820B). This closes
 the queued header-debt scope only. The six runtime strong arrays and their
 producer/EH prerequisites remain, with no boot or image clearance claimed.
 [Verification and remaining scope](../../reverse/attempt_support/gpu-info-destructor-adopt-20261109/README.md).
+
+- 2026-11-09, Rva003AED6B tables 0x0081B598/0x0081B5A8: the real link
+  at 3aaf490c96 still refused both as unbounded-retail-row although
+  239be033c2 moved their data_rows owners to 16B compiler tables in
+  Rva003A53C4Finish.cpp. vtable_bridge reads extents from the committed
+  data_ledger.csv, whose two rows were still the 1-byte
+  `_Rva003AED6B_vsub`/`_v0` stand-ins. tools/data_ledger.py regenerated
+  after ./build.sh of both units writes 16B vtable rows owned by
+  Rva003A53C4Finish.cpp with no alias; only those two rows are applied.
+  Clearance still needs the next real link's vtable_bridge_queue.tsv.
