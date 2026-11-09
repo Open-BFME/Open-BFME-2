@@ -251,13 +251,14 @@ int WW3D::Get_Texture_Reduction(void)
 
 // ?Rva0011F1B0Get@@YAHXZ @ 0x0011F1B0 (6B) over 0x00DED5C0.
 
-extern int g_Va00DED5C0;
-// g_Va00DED5C0: matched references place it at VA 0xded5c0 (zero-filled .bss).
-int g_Va00DED5C0;
+// Retail's one object: this is _PresentParameters.BackBufferFormat, +8 of dx8wrapper.cpp's D3DPRESENT_PARAMETERS. A view
+// of the fields this unit reads; the D3D header isn't otherwise needed here.
+struct _D3DPRESENT_PARAMETERS { unsigned BackBufferWidth, BackBufferHeight; int BackBufferFormat; };
+extern _D3DPRESENT_PARAMETERS _PresentParameters;
 
 int Rva0011F1B0Get(void)
 {
-	return g_Va00DED5C0;
+	return _PresentParameters.BackBufferFormat;
 }
 
 // ?Rva00129590Get@@YAHXZ @ 0x00129590 (6B) over 0x00DEE8E4.
