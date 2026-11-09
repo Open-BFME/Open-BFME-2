@@ -1138,7 +1138,7 @@ class Rva0036CA00Str {public:
 
 class Rva004333C0 {public:virtual ~Rva004333C0();Rva004333C0(int);char unknown[0xD0-4];};
 
-struct OpaqueRefElement4 { OpaqueRefCounted *referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &); };
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 class Rva0027974B
 {

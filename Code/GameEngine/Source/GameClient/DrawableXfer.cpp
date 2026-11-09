@@ -79,11 +79,7 @@ extern const char *TheDrawableIconNames[];
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // Counted four-byte owners (target-neutral views; see OpaqueRefOwnership.cpp).
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 class Rva000A8C9B
 {

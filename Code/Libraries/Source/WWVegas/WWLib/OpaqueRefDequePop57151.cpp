@@ -13,11 +13,7 @@
 
 #include "OpaqueRefCounted.h"
 
-struct OpaqueRefElement4 {
-    OpaqueRefCounted *referent;
-    ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 namespace _STL {
 template<> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<unsigned int,OpaqueRefElement4,allocator<OpaqueRefElement4> >::deallocate(OpaqueRefElement4* p,size_t n) {
