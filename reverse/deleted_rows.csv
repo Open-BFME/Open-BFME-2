@@ -6041,3 +6041,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C43A3@@UAEPAXI@Z,0x004C4387,"Renamed to ??_GScavengerSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D304)"
 ??1Rva004C4508@@UAE@XZ,0x004C4508,"Renamed to ??1CloudBreakSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D42C)"
 ??_GRva004C4508@@UAEPAXI@Z,0x004C4566,"Renamed to ??_GCloudBreakSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D42C)"
+??1Rva004C48C6@@UAE@XZ,0x004C48C6,"Renamed to ??1TaintSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D5CC)"
+??_GRva004C48C6@@UAEPAXI@Z,0x004C4924,"Renamed to ??_GTaintSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D5CC)"
