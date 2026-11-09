@@ -4,7 +4,8 @@
 // (0x001A7F20, pinned) then rowed operator delete at 0x0002FD60; StreakLine donor
 // virtual dtor. Retail's destructor has no unwind frame: its array frees are
 // nonthrowing, so this unit declares operator delete[] that way.
-void operator delete[](void *) throw();
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
 #include "simplevec.h"
 
 // Instantiating the destructor emits the class's vtable and with it the deleting
