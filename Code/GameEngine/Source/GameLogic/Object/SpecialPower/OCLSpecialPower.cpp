@@ -70,12 +70,6 @@ const char* TheOCLCreateLocTypeNames[] =
 	0
 };
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-// The constructor's three tables, by their data-ledger names.
-extern "C" const void *const __identifier("??_7Rva004C3108@@6BRva00493DEF@@@")[];
-				// 0x00C5CC74
-extern "C" const void *const __identifier("??_7Rva004C3108@@6BMiBase1@@@")[];
-					// 0x00BEFCF8
-extern "C" const void *const __identifier("??_7Rva004C3108@@6BRva004C3108_B2@@@")[];
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
 namespace _STL {
@@ -151,10 +145,8 @@ public:
 
 class Rva004C31A8ScienceSelector { public: unsigned select() const; private: void *vtable; Rva004C31A8DataWords *m_data; Object *m_object; };
 
-			// 0x00C5CC10
-
 //-------------------------------------------------------------------------------------------------
-class __declspec(novtable) OCLSpecialPower : public SpecialPowerModule
+class OCLSpecialPower : public SpecialPowerModule
 {
 public:
 	OCLSpecialPower( Thing *thing, const ModuleData *moduleData );
@@ -194,11 +186,9 @@ public:
 // placement names. Zero Hour's ModuleData, xfer/crc/loadPostProcess bodies,
 // disabled check and angle argument are not BFME 2's.
 //
-// No vtable is emitted here: most of the three tables' slots still carry
-// placeholder owners, so the class is novtable and the constructor stores the
-// tables by their data-ledger names, each defined by a census object
-// (StopSpecialPowerCtor.cpp precedent). All three names are the ledger aliases
-// that the destructor's current owner Rva004C3108 (0x004C3108) defines.
+// The constructor stores the class's own three tables: the compiler emits
+// them here (the destructor 0x004C3108 stores the same three, still under its
+// placeholder name Rva004C3108 in Rva00493DEFDerived.cpp).
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // First: BehaviorModule.h selects the Snapshot name-slot surface that
@@ -209,9 +199,6 @@ public:
 OCLSpecialPower::OCLSpecialPower( Thing *thing, const ModuleData *moduleData )
 							 : SpecialPowerModule( thing, moduleData )
 {
-	*(unsigned int *)this = (unsigned int)__identifier("??_7Rva004C3108@@6BRva00493DEF@@@");
-	*(unsigned int *)((char *)this + 0x0C) = (unsigned int)__identifier("??_7Rva004C3108@@6BMiBase1@@@");
-	*(unsigned int *)((char *)this + 0x10) = (unsigned int)__identifier("??_7Rva004C3108@@6BRva004C3108_B2@@@");
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerPoolKey.cpp
