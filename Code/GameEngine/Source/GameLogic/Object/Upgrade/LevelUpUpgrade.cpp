@@ -52,3 +52,10 @@ void LevelUpUpgrade::xfer( Xfer *xfer )
 	xfer->Version1();
 	UpgradeModule::xfer(xfer);
 }
+
+// UpgradeMux slot 8 of 0x00C57418, retail 0x000B3FD0 (a bare `ret`): LevelUpUpgrade has nothing
+// to undo when the upgrade is removed; UpgradeMux leaves the slot pure, and retail folds the empty
+// body with every other empty void method (ICF).
+void LevelUpUpgrade::upgradeRemovalImplementation()
+{
+}
