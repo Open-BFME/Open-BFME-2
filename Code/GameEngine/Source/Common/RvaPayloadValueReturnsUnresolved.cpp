@@ -13,39 +13,17 @@
 
 #include "BattlePromptCallbackPayloadView.h"
 
+namespace
+{
 extern "C" {
-void __identifier("??_GRva004E84A4@@QAEPAXI@Z")();
-void __identifier("?clone@Rva005FAAA1@@UBE?AV?$RvaCloneResult@VRva005FAAA1@@@@XZ")();
-void __identifier("?clone@Rva005FAB16@@UBE?AV?$RvaCloneResult@VRva005FAB16@@@@XZ")();
-void __identifier("?clone@Rva005FAB9E@@UBE?AV?$RvaCloneResult@VRva005FAB9E@@@@XZ")();
-void __identifier("?rva005FAABF@Rva005FAABF@@QAE?AURva005FAABFResult@@HH@Z")();
-void __identifier("?rva005FAB34@Rva005FAAA1@@QAE?AV?$Rva005F4C8ERef@VRva005E6ED6Second@@@@HH@Z")();
-void __identifier("?rva005FABBC@Rva005FABBC@@QBEPBDXZ")();
-void __identifier("?rva005FABC1@Rva005FABC1@@QAE?AURva005FABC1Handle@@HABVAsciiString@@@Z")();
+extern const void *const __identifier("??_7Rva005FAAA1@@6B@")[];
+extern const void *const __identifier("??_7Rva005FAB16@@6B@")[];
+extern const void *const __identifier("??_7Rva005FAB9E@@6B@")[];
 }
-
-// Retail table at VA 0x00C79EA8.
-extern "C" const void *const g_payloadCloneTable0[3] = {
-	(const void *)&__identifier("??_GRva004E84A4@@QAEPAXI@Z"), // slot 0, RVA 0x005FAA31
-	(const void *)&__identifier("?clone@Rva005FAAA1@@UBE?AV?$RvaCloneResult@VRva005FAAA1@@@@XZ"), // slot 1, RVA 0x005FACC1
-	(const void *)&__identifier("?rva005FAABF@Rva005FAABF@@QAE?AURva005FAABFResult@@HH@Z"), // slot 2, RVA 0x005FAABF
-};
-
-// Retail table at VA 0x00C79EB4.
-extern "C" const void *const g_payloadCloneTable1[4] = {
-	(const void *)&__identifier("??_GRva004E84A4@@QAEPAXI@Z"), // slot 0, RVA 0x005FAA31
-	(const void *)&__identifier("?clone@Rva005FAB16@@UBE?AV?$RvaCloneResult@VRva005FAB16@@@@XZ"), // slot 1, RVA 0x005FAD05
-	(const void *)&__identifier("?rva005FAB34@Rva005FAAA1@@QAE?AV?$Rva005F4C8ERef@VRva005E6ED6Second@@@@HH@Z"), // slot 2, RVA 0x005FAB34
-	(const void *)&__identifier("?rva005FABBC@Rva005FABBC@@QBEPBDXZ"), // slot 3, RVA 0x005FABBC
-};
-
-// Retail table at VA 0x00C79EC4.
-extern "C" const void *const g_payloadCloneTable2[4] = {
-	(const void *)&__identifier("??_GRva004E84A4@@QAEPAXI@Z"), // slot 0, RVA 0x005FAA31
-	(const void *)&__identifier("?clone@Rva005FAB9E@@UBE?AV?$RvaCloneResult@VRva005FAB9E@@@@XZ"), // slot 1, RVA 0x005FAD49
-	(const void *)&__identifier("?rva005FABC1@Rva005FABC1@@QAE?AURva005FABC1Handle@@HABVAsciiString@@@Z"), // slot 2, RVA 0x005FABC1
-	(const void *)&__identifier("?rva005FABBC@Rva005FABBC@@QBEPBDXZ"), // slot 3, RVA 0x005FABBC
-};
+inline const void *const *payloadCloneTable0() { return __identifier("??_7Rva005FAAA1@@6B@"); }
+inline const void *const *payloadCloneTable1() { return __identifier("??_7Rva005FAB16@@6B@"); }
+inline const void *const *payloadCloneTable2() { return __identifier("??_7Rva005FAB9E@@6B@"); }
+}
 
 class __declspec(novtable) Rva005FAAA1
 {
@@ -54,7 +32,7 @@ public:
  Rva005FAAA1(const Payload *src) throw();
  __forceinline Rva005FAAA1(const Rva005FAAA1 &rhs)
  {
-  *(const void *const **)this = g_payloadCloneTable0;
+  *(const void *const **)this = payloadCloneTable0();
   m_ref = 0;
   m_data = rhs.m_data;
  }
@@ -70,7 +48,7 @@ public:
  Rva005FAB16(const Payload005FAB16 &src) throw();
  __forceinline Rva005FAB16(const Rva005FAB16 &rhs)
  {
-  *(const void *const **)this = g_payloadCloneTable1;
+  *(const void *const **)this = payloadCloneTable1();
   m_ref = 0;
   m_data = rhs.m_data;
  }
@@ -86,7 +64,7 @@ public:
  Rva005FAB9E(const Payload005FAB9E &src) throw();
  __forceinline Rva005FAB9E(const Rva005FAB9E &rhs)
  {
-  *(const void *const **)this = g_payloadCloneTable2;
+  *(const void *const **)this = payloadCloneTable2();
   m_ref = 0;
   m_data = rhs.m_data;
  }
@@ -96,8 +74,6 @@ public:
  Payload005FAB9E m_data;
 };
 
-// The classes are novtable and the clones' copy constructors store retail's tables,
-// so no destructor is needed here. Kept apart from the independently linked factories.
 RvaCloneResult<Rva005FAAA1> Rva005FAAA1::clone() const
 {
  return RvaCloneResult<Rva005FAAA1>(new Rva005FAAA1(*this));

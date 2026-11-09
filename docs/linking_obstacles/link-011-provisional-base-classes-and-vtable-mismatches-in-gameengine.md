@@ -14,7 +14,7 @@
   - `EmotionSystem.cpp` (59 B): adopted canonical `SubsystemInterface` directly.
   - `PolygonTriggerCtor.cpp` (157 B): replaced ad-hoc secondary base with `Rva002E3EB8Base`
     declaring pure virtual `slot() = 0`.
-  - `Rva003BBAF0Ctor_Rva003FD199.cpp` (44 B): defined `BfmeBaseVNH` vtable symbol.
+  - `Rva003BBAF0Ctor_Rva003FD199.cpp` (44 B): defined `BfmeBaseVNH` vtable symbol (updated 2026-11-09: replaced the strong 8-pointer zeroed `??_7BfmeBaseVNH@@6B@` definition with an extern reference to the `SELECT_ANY` compiler table `??_7Rva002B3092@@6B@` from `GapBodiesGE01.cpp` at `0x007FE008`, clearing the real-link `strong-definition` vtable bridge refusal while keeping `link_check` 44 -> 44 B).
   - Verification: `./build.sh` byte-matches all 4 units (5/5 rows); `tools/link_check.py`
     confirms all 4 link cleanly (`LINKED 0 -> 297` bytes).
 - **Remaining / next check:** await confirmation in the maintainer's next link census run.

@@ -6,8 +6,8 @@
 // This declaration view represents its vptr explicitly. Return-this precedes
 // the <1 clamp, just as in the former donor-guided initializer.
 
-extern "C" const void *const __identifier("??_7BfmeBaseVNH@@6B@")[8] = { 0 };
-#define g_bfmeVtaVNE __identifier("??_7BfmeBaseVNH@@6B@")
+extern "C" const void *const __identifier("??_7Rva002B3092@@6B@")[];
+#define g_bfmeVtaVNE __identifier("??_7Rva002B3092@@6B@")
 
 // Retail 0x003BB860 (31 bytes): the scaling as its own file static. The
 // constructors inline it, but VC7.1 still emits a copy that takes w in EAX.

@@ -13,8 +13,15 @@ class StateMachine;
 
 #include "../../Include/Common/StateMachine.h"
 
-// Rva0033FC42_vftable: matched references place it at VA 0xc11db0 (retail .rdata value -70).
-extern "C" char Rva0033FC42_vftable = -70;
+// Rva0033FC42_vftable gives way to the compiler table the data ledger binds there.
+namespace
+{
+extern "C" char __identifier("??_7Rva0033FC42@@6B@");
+inline char *rva0033FC42Vtable()
+{
+	return &__identifier("??_7Rva0033FC42@@6B@");
+}
+}
 
 class __declspec(novtable) Rva0033FC42 : public State
 {
@@ -28,5 +35,5 @@ private:
 Rva0033FC42::Rva0033FC42(StateMachine *machine) : State(machine, 0x7E4CE41Fu)
 {
 	m_20 = 0;
-	*reinterpret_cast<char **>(this) = &Rva0033FC42_vftable;
+	*reinterpret_cast<char **>(this) = rva0033FC42Vtable();
 }
