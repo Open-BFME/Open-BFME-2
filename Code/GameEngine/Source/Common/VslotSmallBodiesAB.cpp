@@ -55,15 +55,15 @@ void Rva003F409F::rva003F409F(bool b)
 	if (target)
 		target->v12(b);
 }
-class Rva0020E39D
+// Slot 0 of Rva0020E394's one-slot table 0x00BE4320 (constructor in RvaSmallVtableCtors.cpp).
+class Rva0020E394
 {
 public:
-	bool rva0020E39D(Rva003F409F *arg);
+	virtual bool rva0020E39D(Rva003F409F *arg);
 private:
-	Int m_00;
 	Rva003F409F *m_04;
 };
-bool Rva0020E39D::rva0020E39D(Rva003F409F *arg)
+bool Rva0020E394::rva0020E39D(Rva003F409F *arg)
 {
 	arg->rva003F409F(false);
 	return true;

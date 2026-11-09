@@ -1633,11 +1633,13 @@ Rva0020E38B::Rva0020E38B()
 }
 
 // ??0Rva0020E394@@QAE@XZ @0x0020E394 9B, vtable VA 0x00be4320
+// Retail's one-slot table holds 0x0020E39D (VslotSmallBodiesAB.cpp).
+class Rva003F409F;
 class Rva0020E394
 {
 public:
 	Rva0020E394();
-	virtual ~Rva0020E394() {}
+	virtual bool rva0020E39D(Rva003F409F *arg);
 };
 
 Rva0020E394::Rva0020E394()
