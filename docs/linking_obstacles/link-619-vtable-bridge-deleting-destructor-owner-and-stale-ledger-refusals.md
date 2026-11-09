@@ -736,3 +736,20 @@ refusal, but temporary bridges rise from one/nine to two/eighteen slots.
 Both native tables are 36B versus compiler 4B; four support receipts are
 not current. Full tables and next-census/image verification remain open.
 [Scope, native proof and remaining work](../../reverse/attempt_support/fesl-block-provider-20261109/README.md).
+
+Published as 5e7ae92736, first attempt in 30.4 seconds; post-publication
+proof passes and its three claims released. Broader audit remains
+INCONCLUSIVE at index 717b70f4ab/base f354b4a790 for unchanged allocator
+Rva00801BD0FeslAlloc.cpp missing a current receipt.
+
+2026-11-09, both FESL base tables recovered across all three emitters:
+8E3CC8 is 20B (G66E5A0 plus four pure slots), 8E3CDC is 36B (G66E690 plus
+eight pure slots). All four copies now agree with native. Reconciled Y2
+flat cleanup views keep every function body and the standalone base rows
+unchanged; derived tables do not acquire invented pure slots. Normal and
+strict 23 rows/770 bytes, the _purecall literal, new-variant and paired
+LINKS770 checks pass. Four-current-object replay replaces two bridges/14
+slots with two already-correct tables. Full derived tables and actual
+next-image selection remain open; this is not recovered class signatures
+or a global image result.
+[Native tables, emitter reconciliation and identity barriers](../../reverse/attempt_support/fesl-base-tables-20261109/README.md).

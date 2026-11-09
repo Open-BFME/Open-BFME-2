@@ -31,6 +31,11 @@ class Rva00802380Base
 {
 public:
     virtual ~Rva00802380Base() {}
+    // Neutral declarations encode native pure-slot count; signatures are unknown.
+    virtual void slot1() = 0;
+    virtual void slot2() = 0;
+    virtual void slot3() = 0;
+    virtual void slot4() = 0;
     int m_field4;
     int m_field8;
 };

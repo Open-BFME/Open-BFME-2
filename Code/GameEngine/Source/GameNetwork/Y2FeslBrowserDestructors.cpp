@@ -176,6 +176,11 @@ class Rva00802380Base
 public:
 	Rva00802380Base();
 	virtual ~Rva00802380Base();
+	// Neutral declarations record only the native pure-slot count.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 
 	int m_field4;
 	int m_field8;
@@ -194,10 +199,14 @@ Rva00802380Base::Rva00802380Base()
 {
 }
 
-class Rva00802380Owner : public Rva00802380Base
+class Rva00802380Owner
 {
 public:
 	virtual ~Rva00802380Owner();
+
+	// Partial flat ABI view; original inheritance remains unrecovered.
+	int m_field4;
+	int m_field8;
 
 	char              m_pad00C[ 0x0C ];
 	Rva008003C0Owner  m_owner;      // +0x18
@@ -211,6 +220,7 @@ Rva00802380Owner::~Rva00802380Owner()
 	m_field24 = 0;
 	m_field28 = 0;
 	m_owner.clear();
+	reinterpret_cast<Rva00802380Base *>(this)->Rva00802380Base::~Rva00802380Base();
 }
 
 // ------------------------------- 0x00802680, a stride-8 block and two buffers
@@ -219,6 +229,15 @@ class Rva00802680Base
 public:
 	Rva00802680Base();
 	virtual ~Rva00802680Base();
+	// Neutral declarations record only the native pure-slot count.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
 
 	int m_field4;
 	int m_field8;
@@ -238,10 +257,15 @@ Rva00802680Base::Rva00802680Base()
 {
 }
 
-class Rva00802680Owner : public Rva00802680Base
+class Rva00802680Owner
 {
 public:
 	virtual ~Rva00802680Owner();
+
+	// Partial flat ABI view; original inheritance remains unrecovered.
+	int m_field4;
+	int m_field8;
+	int m_fieldC;
 
 	char              m_pad010[ 0x10 ];
 	Rva007F78E0Block  m_block;      // +0x20
@@ -257,4 +281,5 @@ Rva00802680Owner::~Rva00802680Owner()
 	m_c.reset();
 	m_b.reset();
 	m_block.clear();
+	reinterpret_cast<Rva00802680Base *>(this)->Rva00802680Base::~Rva00802680Base();
 }

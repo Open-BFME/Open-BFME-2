@@ -47,3 +47,11 @@ application. No nonmatching trial is left in Code/.
 Remaining: complete both nine-slot tables and actual class recovery, then
 verify their selection in the next census/real image. No bridge retirement,
 headline linked-byte gain, game-start or runtime clearance is claimed.
+
+Published as 5e7ae92736 on the first attempt in 30.4 seconds (3.3 seconds
+rebase, 27.2 hook/push). Normal gates and post-publication native/object
+proof pass; all three original claims were released. The broader audit is
+INCONCLUSIVE at index 717b70f4ab/base f354b4a7907448ccbe0a3d98f6ca9bc31f96f5f4:
+unchanged Rva00801BD0FeslAlloc.cpp lacks a current receipt. It remains a
+next-census/image prerequisite. The separately verified base-table follow-up
+is recorded in ../fesl-base-tables-20261109/README.md.
