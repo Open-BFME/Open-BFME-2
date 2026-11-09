@@ -32,7 +32,7 @@ typedef _STL::pair<AsciiString,int> HordeMember;
 typedef _STL::list<HordeMember> HordeMembers;
 class HordeModuleData {public:char pad[0xA4];HordeMembers members;};
 #include "../../Include/Common/ModuleData.h"
-class ModuleInfo {public:char *begin,*end,*storage;const ModuleData *getNthData(int)const;};
+#include "../../Include/Common/ModuleInfoClass.h"
 struct CarryoverTemplate {char pad[0x115];unsigned char flag;char pad116[0x2E4-0x116];ModuleInfo modules;};
 class Rva0037DCA5 {public:
  void *GetThingTemplate();int rva0037DF8D(Rva002206F9Sink *sink);
@@ -44,7 +44,7 @@ int Rva0037DCA5::rva0037DF8D(Rva002206F9Sink *sink) {
  if(!type)return 1;
  if(!(type->flag&0x20))return IterateTemplates(sink,type,count);
  ModuleInfo &mods=type->modules;
- int n=(mods.end-mods.begin)/20;
+ int n=(reinterpret_cast<const char *>(mods.m_end)-reinterpret_cast<const char *>(mods.m_begin))/20;
  for(int i=0;i<n;++i) {
   if(mods.getNthData(i)) {
    const HordeModuleData *horde=mods.getNthData(i)->getHordeModuleData();

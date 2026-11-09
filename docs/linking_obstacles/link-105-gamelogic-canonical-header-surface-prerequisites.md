@@ -30,3 +30,10 @@ Remaining / next check: ObjectSetTriggerAreaFlagsForChangeInPosition needs Queue
 Clearance: retained adoptions preserve their existing byte and ordinary-preview link results only. Census confirmation: pending; no new linked-byte or headline gain claimed.
 
 2026-11-05: GameLogicInit's ContainModuleInterface adoption byte-verifies but remains blocked by unresolved `?rva0023C8DA@GameLogic@@QAEXE@Z` in both trial and restored-original previews; verify the already-rowed provider's current object/index receipt before retrying acceptance ([evidence](../../reverse/attempt_support/contain-header-script-consumers-20261105-codex4.md)).
+
+2026-11-09: GapThunksSeat8.cpp now has a current strict receipt after its
+ModuleInfo/StringBase adoption. All17 rows and every provider payload/selection
+policy are preserved; the paired carryover preview retains443 bytes against
+index5b5011469d. This clears only that source's receipt gap for the current tree.
+The wider historical GameLogic/header consumer closure remains open.
+[Current scope and proofs](../../reverse/attempt_support/moduleinfo-carryover-thunks-header-adoption-20261109.md).
