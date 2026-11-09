@@ -43,3 +43,21 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 
 template class _STL::map<long, LadderPref, _STL::less<long>, _STL::allocator<_STL::pair<const long, LadderPref> > >;
+
+// The record the hero sub-class's member at +0x54 holds (Rva0021E85ACopy.cpp); its tree's base ctor folds with 0x0033B758.
+#include <set>
+struct BfmeStringRecord00219B0B
+{
+	unsigned int word0;
+	AsciiString text0, text1, text2;
+	BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
+	~BfmeStringRecord00219B0B();
+};
+struct BfmeStringRecord0021A940
+{
+	unsigned int word0;
+	BfmeStringRecord00219B0B rec;
+	BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
+	~BfmeStringRecord0021A940();
+};
+template _STL::_Rb_tree_base<BfmeStringRecord0021A940, _STL::allocator<BfmeStringRecord0021A940> >::_Rb_tree_base(const _STL::allocator<BfmeStringRecord0021A940> &);
