@@ -2234,3 +2234,85 @@ HEAD's `vtable_bridge.py`).
      virtual const `getModuleNameKey` would make that slot right too.
   4. lk86 leads 2 and 3 (SpecialPowerModule's interface overrides and Snapshot slots in the shared view) still hold for
      every folded class's +0x10 and ObjectModule tables.
+
+**Four CrateCollide placeholders folded (Heal, Money, Unit, Veterancy): 12 opaque-base tables gone, four tables off the
+bridge; the AIUpdate real-name splits refused (2026-11-09, seat halilkkaya-lk88, base `5c6ddfa8056`).** Method: per
+class, retail first, then lk85/lk86's recipe (split with `tu_skeleton.py --split`, the TU's views reconciled, the
+constructor unit rewritten onto the TU's view, `rename.py class --fold OLD --into NEW --prepared TU=FILE`, dry runs
+first). Each step: build exact, find_declared_unmatched, lk83's object diff, consumer link_check, scoped DIR32,
+class_gate --staged and lk74_snap/lk74_cmp (old = new = HEAD's `vtable_bridge.py`).
+- Identity (retail): each `??0X` calls `??0CrateCollide` 0x004BC523 and stores X's +0 table, the family's 0x00C5A040
+  (+0x0C) and 0x00C5A600 (+0x10); the placeholder destructor stores the same three and jumps to `??1CrateCollide`
+  0x004BC4FC; its `??_G` is slot 0 of the +0 table, whose slots 4 and 12 are X's getModuleNameKey and
+  executeCrateBehavior rows. Rva004BC83F HealCrateCollide (ctor 0x004BC80F, table 0x00C5A868), Rva004BC96F
+  MoneyCrateCollide (0x004BC93F, 0x00C5A8A0), Rva004BCC43 UnitCrateCollide (0x004BCC13, 0x00C5A914), Rva004BCE62
+  VeterancyCrateCollide (0x004BCE32, 0x00C5A954; slot 13 is its own isValidToExecute 0x004BCEF0).
+- Commits, per class: HealCrateCollide.cpp had no CrateCollide view, so its split came first and the reconcile after
+  ("Split 2 rows of Rva004BC4FCDerived.cpp into HealCrateCollide.cpp ...", "HealCrateCollide.cpp: derive the class and
+  placeholder Rva004BC83F from CrateCollide"). Money, Veterancy and Unit had private one-vptr CrateCollide views, so
+  the reconcile came first ("<TU>: put the class on CrateCollide's real view"; UnitCrateCollide.cpp also drops
+  UnitCrateCollideView.h, which only it included), then the split. Each fold commit ("Fold class <OLD> into <NEW>
+  (retail vftable ...); its constructor stores the class's tables") carries the constructor unit: it stored three
+  TU-local dummy ints, so rename.py refused "nothing ties NEW to T" (Heal's dry run) until the unit declared the TU's
+  views (42 B kept, .bss 12 -> 0; its table and `??_G` copies have the TU's digests).
+- New obstacle, solved: Snapshot's slot names depend on include order. PlayerList.h, Drawable.h and ScriptEngine.h
+  define BFME_SNAPSHOT_CAPITALIZED_SLOTS when they are the first to include Snapshot.h; CrateCollide's
+  `virtual void xfer(Xfer *)` then overrides nothing and opens slot 12 (a 15-slot +0 table, executeCrateBehavior and
+  isValidToExecute pushed to 13/14), while the constructor unit's copy of the same table had xfer at slot 3. Money's
+  split showed it (commit "MoneyCrateCollide.cpp: include BehaviorModule.h before PlayerList.h": one changed COMDAT,
+  the table now 14 slots); Veterancy and Unit include BehaviorModule.h first from their reconcile on. Check a crate
+  TU's +0 table slot 3 after any include change.
+- Bridge, base -> after (HEAD's `vtable_bridge.py`, old = new): tables 3,854 -> 3,850, slots 55,484 -> 55,296,
+  mismatching source slots 40,446 -> 40,217, already correct 1,720 -> 1,724; refusals identical, no correct table lost.
+  Off: the 12 `6BRva004BC4FC_Root/_Mid/_B2@@@` tables of the four placeholders. Each class's +0x0C table
+  (`6BBehaviorModuleInterface@@@`) is already correct; its +0 and +0x10 tables stay bridged under the class's name
+  (8 "newly bridged" at the same addresses). Left per class: +0 slots 1-3 (Heal: 1-2, as its view declares the
+  `?xfer@HealCrateCollide` alias SalvageCrateCollide.cpp defines) and +0x10 slots 1-5.
+- link_check: the four TUs, the four constructor units, their FriendNew units, Heal's Execute unit, Shroud's TU and
+  constructor, SalvageCrateCollide, CrateCollide, the residual grab-bag, Rva004BB68EDerived, ConstIntGetters4 and
+  ModuleFactoryInit: 21 of 21 LINK, 23,251 bytes kept. Grab-bag bytes 265 -> 53 (only Shroud's placeholder left),
+  conserved in the TUs. No initializer, .CRT or .bss change except the constructor units' dummies.
+- Hatches: none removed. Neither grab-bag has a `?f2@<placeholder>_B2` line; their one alternatename each
+  (`?f1@Rva004BC4FC_Mid`, `?f1@Rva0026E836_M1`) is still live: the residual objects reference it (Shroud's
+  placeholder; the six AIUpdate destructors).
+- Refused (re_attempts.log):
+  - AIUpdate real-name splits (row 0x00490544, naming all three): Siege, Animal and Horde are fully approved and their
+    rows match in the TUs (2/2), but the link guard refuses new unresolved symbols: the TUs' canonical-header views
+    first emit the class's tables, which name declared virtuals no object defines
+    (`?GetSnapshotName@AIUpdateInterface`, `?vslot094@AIUpdateInterface`; `GetSnapshotName` and `loadPostProcess` of
+    AnimalAIUpdate and HordeAIUpdate, whose retail slots are rowed under other names, e.g. 0x0049A7EE
+    `?loadPostProcess@WorkerAIUpdate`). Horde also needs a prepared TU (HordeAIUpdate.h models +0x3E4 as a base, so
+    the grab-bag's hand store into `m_extra03E4` does not compile). Assault, Transport and Wander: `??_G` displaced
+    in tu_map, not tried.
+  - ShroudCrateCollide 0x004BCB0D: `??_G` 0x004BCBF7 only proposed in tu_map; not split.
+  - StopSpecialPower 0x004C676C, false reject: merging StopSpecialPowerCtor.cpp into StopSpecialPower.cpp with
+    `--split --prepared` (whole-donor absorb; the TU view gains the constructor and `virtual ~SpecialPowerModule();`)
+    matches 1/1, but the link guard reports a duplicate `??0StopSpecialPower` whose only other definer is the donor
+    being absorbed.
+- Tooling compatibility audit (`5c6ddfa8056..HEAD`): one path deleted (UnitCrateCollideView.h; no tool, doc, register
+  or doxygen config spells it, only re_attempts.log and two attempt_support notes); four splits into existing TUs
+  (the tool repointed functions.csv, tu_map.csv and docs/doxygen/sources.cfg). `rename.py check --range`: 0 renames,
+  0 problems (folds write no record). Code/ spells none of the four placeholders; old spellings remain only in
+  generated or historical records: data_ledger.csv (tool-written; data_ledger.py regenerates it),
+  vtable_bridge_queue.tsv (the next real-link publish), name_tiers.csv, wb_name_leads.csv, deleted_rows.csv (the
+  folds' tombstones), re_attempts.log, attempt_support and this entry. tools/, .githooks/ and .github/ name neither
+  the classes nor the changed paths (tu_skeleton.py names the grab-bag in a comment). The header-queue entries for
+  MoneyCrateCollide.cpp and VeterancyCrateCollide.cpp key other classes (Player, InGameUI) and still hold; the
+  grab-bag's hatch_baseline line still matches its live hatch.
+- Next leads:
+  1. ShroudCrateCollide: approve `??_G` 0x004BCBF7 (slot 0 of its +0 table), then the Money/Veterancy order
+     (reconcile with BehaviorModule.h first, split, fold with the constructor unit); that also kills
+     `?f1@Rva004BC4FC_Mid` and empties the grab-bag.
+  2. The crate +0x10 tables (slots 1-5 of 0x00C5A600: 0x004BC51B, rowed `?forward@Rva004BC51B`, and the folded
+     0x0047A699, rowed as Xfer's `Is*` getters) and +0 slots 1-2 (0x00483CEF, rowed under several loadPostProcess
+     names; each class's name getter, e.g. 0x004BC839, rowed as a free `Rva...Get` in ConstIntGetters4.cpp): naming
+     those slots in the family's views would correct every crate table at once.
+  3. SalvageCrateCollide.cpp includes PlayerList.h before BehaviorModule.h: the include-order fix above would fix its
+     slots 12/13 (lk85 lead 3); not in this seat's scope.
+  4. AIUpdate: define or alias the canonical headers' unrowed virtuals (GetSnapshotName, vslot094, loadPostProcess)
+     before splitting; header-adoption territory.
+  5. StopSpecialPower: fix the `--split --prepared` absorb guard (tooling), or lk87's route 1 (the canonical
+     SpecialPowerModule.h interface: `isReady() const` with a `mutable m_34`, `doSpecialPower(unsigned int)`).
+  6. Tooling: claim pushes fail under `MSYS_NO_PATHCONV=1` (tu_skeleton's split reported "claim push failed" three
+     times; the same command without it claimed at once). Run claiming tools without it.
+  7. The four constructor units now compile their TU's views; each can merge into its approved TU (consolidation).
