@@ -5980,3 +5980,4 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?rva002123BE@Rva0021237E@@QAEXXZ,0x002123BE,"Renamed to ?update@LivingWorldManager@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BE5234 slot 10)"
 ?g_Va0130A58C@@3EA,0x00A09FA8,"Renamed to ?g_createdDefaultAllocator@@3EA by tools/rename.py (inferred)"
 ?g_Va0130A58D@@3EA,0x00A09FA9,"Renamed to ?g_createdDefaultDiagReporter@@3EA by tools/rename.py (inferred)"
+?Rva004F05BAGet@@YAHXZ,0x004F05BA,"Respelled as ?GetSnapshotName@AIPlayer@@MBEPBDXZ: retail vtable 0x00C62DC8 slot 2 holds this 6-byte getter, which returns the class name literal at VA 0x00C62E34. The real member is rowed in AIPlayerCtor.cpp."
