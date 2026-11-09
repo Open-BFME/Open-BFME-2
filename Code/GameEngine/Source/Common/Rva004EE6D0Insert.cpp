@@ -50,10 +50,6 @@ ForwardIter __uninitialized_fill_n(ForwardIter first, Size n, const Value &value
 
 typedef char Elem003AF8C0SizeCheck[sizeof(Elem003AF8C0) == 0xC ? 1 : -1];
 
-#pragma optimize("y", on)
-inline void *__cdecl operator new(unsigned int, void *p) { return p; }
-#pragma optimize("", on)
-
 typedef ProductionPrerequisite::PrereqUnitRec PrereqRec;
 
 struct Rva0052BFB5Elem;
@@ -94,7 +90,7 @@ void Rva004EE6D0::rva004EE6D0(Elem003AF8C0 *pos, const Elem003AF8C0 &x, const _S
 	if (n == 1)
 	{
 		if (new_finish != 0)
-			new (new_finish) LivingWorldScoreKeeper::PerTurnStats(*(const LivingWorldScoreKeeper::PerTurnStats *)&x);
+			((LivingWorldScoreKeeper::PerTurnStats *)new_finish)->LivingWorldScoreKeeper::PerTurnStats::PerTurnStats(*(const LivingWorldScoreKeeper::PerTurnStats *)&x);
 		++new_finish;
 	}
 	else
@@ -118,7 +114,7 @@ void Rva004EE6D0::rva004EE6D0(Elem003AF8C0 *pos, const Elem003AF8C0 &x, const _S
 void Rva004EE6D0::push_back(const Elem003AF8C0 &x)
 {
     if(m_finish != m_end) {
-        if(m_finish) new(m_finish) LivingWorldScoreKeeper::PerTurnStats(*(const LivingWorldScoreKeeper::PerTurnStats *)&x);
+        if(m_finish) ((LivingWorldScoreKeeper::PerTurnStats *)m_finish)->LivingWorldScoreKeeper::PerTurnStats::PerTurnStats(*(const LivingWorldScoreKeeper::PerTurnStats *)&x);
         ++m_finish;
     } else {
         rva004EE6D0(m_finish,x,_STL::__false_type(),1,true);
