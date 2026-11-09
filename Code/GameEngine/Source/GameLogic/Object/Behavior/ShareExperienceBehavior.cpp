@@ -119,11 +119,6 @@ class ShareExperienceBehaviorModuleDataBase
 public:
 	virtual ~ShareExperienceBehaviorModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 };
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
 class Rva00480093Iface20
 {
 public:
@@ -158,19 +153,27 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "Common/Snapshot.h"
-
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-class ShareExperienceBehavior : public UpdateModule,
-	public Rva00480093Iface20
+class Thing;
+class ModuleData;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+class ShareExperienceBehaviorIface1
 {
 public:
-	float GetDropOffValue(Coord3D *a, Pos0047FFFE *recipient);
-	virtual UpdateSleepTime update();
-	virtual void rva00480093(float amount);
-public:
-	virtual NameKeyType getModuleNameKey() const;
+    virtual void slot();
 };
+class ShareExperienceBehaviorIface2
+{
+public:
+    virtual void slot();
+};
+#pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorIface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorIface2@@UAEXXZ=?update@ShareExperienceBehavior@@UAE?AW4UpdateSleepTime@@XZ")
+
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 // The existing constructor/destructor owners supply this polymorphic layout.
 // The filter's storage is still passed through the existing call view below.
@@ -184,6 +187,30 @@ public:
 	float m_percentage;		// +0x10 the share
 	Rva003623E5Filter m_objectFilter;	// +0x14 the object filter
 };
+
+class ShareExperienceBehaviorInterface
+{
+public:
+    // Retail's own table for this interface holds __purecall; the class overrides it.
+    virtual void rva00480093(float value) = 0;
+};
+
+class ShareExperienceBehavior : public UpdateModule,
+    public ShareExperienceBehaviorInterface
+{
+public:
+	ShareExperienceBehavior(Thing *, const ModuleData *);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+public:
+	virtual UpdateSleepTime update();
+public:
+	virtual void rva00480093(float value);
+public:
+	float GetDropOffValue(Coord3D *a, Pos0047FFFE *recipient);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 
@@ -324,10 +351,19 @@ void constructShareExperienceBehaviorModuleDataCtor(void *storage)
 
 // tu-skeleton: 0x0047FEDC 17B ?buildFieldParse@ShareExperienceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0047FEED 98B ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
+
+// ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
+ShareExperienceBehavior::ShareExperienceBehavior(Thing *thing, const ModuleData *moduleData)
+    : UpdateModule(thing, moduleData)
+{
+    setWakeFrame(getObject(), (UpdateSleepTime)0x3fffffff);
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x0047FF4F 28B ??_GRva0047FE25@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x0078B913 8B Unwind@00b8b913 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0078B91B 10B __ehhandler$??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
