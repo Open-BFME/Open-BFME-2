@@ -51,11 +51,3 @@ void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context)
 		element += 4;
 	}
 }
-
-// 0x0047A6A4: the HorseHordeContain and AODHordeContain registrations in
-// ModuleFactory::init pass this callback; retail is the 5-byte tail jump that
-// forwards all three arguments to 0x00469B9F above.
-void __cdecl ModuleFactoryHookAt0047A6A4(void *owner, int value, void *context)
-{
-	ModuleFactoryHookAt00469B9F(owner, value, context);
-}
