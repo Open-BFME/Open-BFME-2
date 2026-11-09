@@ -800,3 +800,14 @@ overrides (`0x003FD1FA`, `0x003FD219`, `0x003FD321`, `0x003FD37A`) still spell t
 (`rename.py class --fold` refuses because `??1BfmeBaseVNH` is the Snapshot destructor alias).
 `VslotSmallBodiesAE.cpp` predicts unresolved `?rva0053F915@Rva0053FADE@@...` (provider
 `Rva0053F915Read.cpp`), unrelated to this change.
+
+2026-11-09, current queue recheck: the queue still predates e5166bc40d.
+The caller and GapBodiesGE01 emitter pass twenty strict rows; the retired
+strong name is absent from the caller's whole symbol inventory, and the
+compiler table has all seven slots (28B). Rva003FD1C5Xfer.cpp is held by
+another worker and its local object is not current; it was not compiled.
+Cached replay reports target-not-external for that provider, so it is
+unverified rather than a clean table-selection result. No Code or ledger
+change is needed to repeat the retired strong-definition repair. Actual
+next-image selection and class folding remain open.
+[Bounded recheck and provider currency](../../reverse/attempt_support/vnh-table-recheck-20261109.json).

@@ -1,0 +1,154 @@
+{
+  "sources": [
+    "Code/GameEngine/Source/Common/Rva003BBAF0Ctor_Rva003FD199.cpp",
+    "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+    "Code/GameEngine/Source/Common/Rva003FD1C5Xfer.cpp"
+  ],
+  "strict_rows": 20,
+  "cached_scope_rows": 23,
+  "retired_strong_name": "??_7BfmeBaseVNH@@6B@",
+  "complete_compiler_table_bytes": 28,
+  "complete_positive_slots": 7,
+  "plan": {
+    "tables": 0,
+    "retail_tables": 0,
+    "slots": 0,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 1,
+    "refusal_reasons": {
+      "target-not-external": 1
+    },
+    "already_correct": 0,
+    "entries": [],
+    "refusals": [
+      {
+        "rva": 8380424,
+        "name": "??_7BfmeBaseVNH@@6B@",
+        "names": [
+          "??_7Rva002B3092@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/Common/Rva003BBAF0Ctor_Rva003FD199.cpp",
+            "row_rva": 4182425,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva003^b^b^a^f0^ctor_^rva003^f^d199.obj",
+            "names": [
+              "??_7Rva002B3092@@6B@"
+            ],
+            "offset": 16,
+            "name": "??_7Rva002B3092@@6B@",
+            "rva": 8380424
+          },
+          {
+            "source": "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+            "row_rva": 2830482,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^gap^bodies^g^e01.obj",
+            "names": [
+              "??_7Rva002B3092@@6B@"
+            ],
+            "offset": 4,
+            "name": "??_7Rva002B3092@@6B@",
+            "rva": 8380424
+          }
+        ],
+        "name_addresses": {
+          "??_7Rva002B3092@@6B@": [
+            8380424
+          ]
+        },
+        "slots": 7,
+        "source": "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^gap^bodies^g^e01.obj",
+        "previous_extent": 28,
+        "source_slot_mismatches": [],
+        "reason": "target-not-external",
+        "blocked": [
+          {
+            "slot": 3,
+            "target_rva": 4182469,
+            "reason": "target-not-external"
+          }
+        ]
+      }
+    ],
+    "correct": [],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/GameEngine/Source/Common/Rva003BBAF0Ctor_Rva003FD199.cpp",
+          "row_rva": 4182425,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva003^b^b^a^f0^ctor_^rva003^f^d199.obj",
+          "names": [
+            "??_7Rva002B3092@@6B@"
+          ],
+          "offset": 16,
+          "name": "??_7Rva002B3092@@6B@",
+          "rva": 8380424
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+          "row_rva": 2830482,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^gap^bodies^g^e01.obj",
+          "names": [
+            "??_7Rva002B3092@@6B@"
+          ],
+          "offset": 4,
+          "name": "??_7Rva002B3092@@6B@",
+          "rva": 8380424
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+          "row_rva": 4830332,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^gap^bodies^g^e01.obj",
+          "names": [
+            "??_7Snapshot@@6B@"
+          ],
+          "offset": 2,
+          "name": "??_7Snapshot@@6B@",
+          "rva": 8107348
+        }
+      ],
+      "rejected": [],
+      "names": 2,
+      "unindexed": [
+        {
+          "source": "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+          "row_rva": 4830332,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^gap^bodies^g^e01.obj",
+          "names": [
+            "??_7Snapshot@@6B@"
+          ],
+          "offset": 2,
+          "name": "??_7Snapshot@@6B@",
+          "rva": 8107348
+        }
+      ],
+      "native_names_without_address_binding": [],
+      "new_name_bindings": [
+        {
+          "source": "Code/GameEngine/Source/Common/GapBodiesGE01.cpp",
+          "row_rva": 4830332,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^gap^bodies^g^e01.obj",
+          "names": [
+            "??_7Snapshot@@6B@"
+          ],
+          "offset": 2,
+          "name": "??_7Snapshot@@6B@",
+          "rva": 8107348
+        }
+      ]
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  },
+  "queue_head": "# real link at fb270751195c79adc9a332dc3846eebb785aabe5: tools/exit_link.py --blockers",
+  "full_table_repair_commit": "e5166bc40d",
+  "queue_contains_full_table_repair": false,
+  "currency": {
+    "Code/GameEngine/Source/Common/Rva003FD1C5Xfer.cpp": false,
+    "Code/Libraries/Source/debug/debug_purecall.cpp": true,
+    "Code/GameEngine/Source/Common/Rva003BBAF0Ctor_Rva003FD199.cpp": true,
+    "Code/GameEngine/Source/Common/GapBodiesGE01.cpp": true
+  },
+  "scope": "Already-landed source recheck: caller and complete table emitter strict-current; xfer provider held by another worker and not compiled here. Cached replay is unverified when that provider lacks a current object. No Code, ledger or verifier change; actual image selection and class fold remain open."
+}
