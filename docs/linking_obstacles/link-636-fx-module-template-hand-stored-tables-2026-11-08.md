@@ -206,6 +206,24 @@ AIBuildable.cpp. These remain next-census/image scopes. RenderObject's two
 byte owners and final aliases still need actual class/table recovery.
 [Complete Wind ownership proof](../../reverse/attempt_support/wind-native-table-owners-20261109/README.md).
 
+The ownership repair published as 239be033c2, first attempt in 29.3 seconds.
+Post-publication proof passes with four strict-current owned sources.
+The broad audit still needs unchanged AIBuildable.cpp (index 717b70f4ab,
+base b7d3808f37). Seven completed Wind claims release; the copy-source scope
+remains reserved while the RenderObject pair is investigated.
+
+RenderObject follow-up: its runtime constructor now adopts the canonical
+RenderObjectUpdateModuleInfo header, retaining composition and all native
+copy/EH bytes through explicit intrinsic bulk copies. Three rows and one
+EXACT EH graph pass; the own link verdict stays LINKS 241B. The header lane
+retires exactly one row, leaving two other queued users of this class.
+No complete runtime compiler table pair exists at D728/D758. The native
+map records the twelve/four inspected words and independent constructor
+operands; the empty primary override, transfer/name prototypes and three
+repeated getter identities still need evidence. Neither one-byte owner nor
+the two final RenderObject pure aliases is transferred over those gaps.
+[Canonical adoption and native handoff](../../reverse/attempt_support/render-info-constructor-adopt-20261109/README.md).
+
 2026-11-09, stale LightningDraw queue recheck: the served V3Slot2/V3Slot0
 names were retired by e51aeb84af. Queue 687433edd9 excludes that repair;
 the refreshed 717b70f4ab index contains it. The strict-current 28-byte

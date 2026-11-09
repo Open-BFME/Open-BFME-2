@@ -1,0 +1,260 @@
+{
+  "constructor_rva": "0x005624DE",
+  "native_operand_bindings": [
+    {
+      "operand_rva": "0x0056250D",
+      "target_rva": "0x0081D758"
+    },
+    {
+      "operand_rva": "0x00562516",
+      "target_rva": "0x0081D728"
+    },
+    {
+      "operand_rva": "0x0056251D",
+      "target_rva": "0x0081C780"
+    },
+    {
+      "operand_rva": "0x00562524",
+      "target_rva": "0x0081C780"
+    }
+  ],
+  "native_words": [
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 0,
+      "target_rva": "0x003AEFF6",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z",
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+          "target_size": "28",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 1,
+      "target_rva": "0x000B3FD0",
+      "ledger_rows": 207,
+      "examples": [
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+          "target_size": "1",
+          "status": "matched"
+        },
+        {
+          "name": "??1Region3D@@QAE@XZ",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+          "target_size": "1",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 2,
+      "target_rva": "0x0003B810",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "__purecall",
+          "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+          "target_size": "62",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 3,
+      "target_rva": "0x00562233",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?rva00562233@Rva00562233@@UAEXPAVXfer@@@Z",
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00562233Xfer.cpp",
+          "target_size": "28",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 4,
+      "target_rva": "0x003EE704",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva003EE704LeaField@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp",
+          "target_size": "4",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 5,
+      "target_rva": "0x0030BBA5",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva0030BBA5LeaField@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp",
+          "target_size": "4",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 6,
+      "target_rva": "0x00308156",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva00308156LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp",
+          "target_size": "7",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 7,
+      "target_rva": "0x003ABE71",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva003ABE71LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp",
+          "target_size": "7",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 8,
+      "target_rva": "0x003ABE78",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva003ABE78LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp",
+          "target_size": "7",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 9,
+      "target_rva": "0x00308156",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva00308156LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp",
+          "target_size": "7",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 10,
+      "target_rva": "0x003ABE71",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva003ABE71LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp",
+          "target_size": "7",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D728",
+      "slot": 11,
+      "target_rva": "0x003ABE78",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?get@Rva003ABE78LeaGetter@@QBEPAXXZ",
+          "source": "Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp",
+          "target_size": "7",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D758",
+      "slot": 0,
+      "target_rva": "0x003A588E",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z",
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+          "target_size": "8",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D758",
+      "slot": 1,
+      "target_rva": "0x000B3FD0",
+      "ledger_rows": 207,
+      "examples": [
+        {
+          "name": "??1Region2D@@QAE@XZ",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+          "target_size": "1",
+          "status": "matched"
+        },
+        {
+          "name": "??1Region3D@@QAE@XZ",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+          "target_size": "1",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D758",
+      "slot": 2,
+      "target_rva": "0x003ABE7F",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?name@Rva003ABE7FNamed@@QBEPBDXZ",
+          "source": "Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp",
+          "target_size": "6",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "inspected_table_rva": "0x0081D758",
+      "slot": 3,
+      "target_rva": "0x003ABE85",
+      "ledger_rows": 1,
+      "examples": [
+        {
+          "name": "?rva00562233@Rva00562233@@WBM@AEXPAVXfer@@@Z",
+          "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp",
+          "target_size": "8",
+          "status": "matched"
+        }
+      ]
+    }
+  ],
+  "limits": "Inspected native 48B primary and16B Snapshot ranges, not proof of original method names, prototypes, full allocation identity or current link/provider correctness. Repeated getter words at primary9..11 require independent identity/boundary evidence. No retail pointer to a hypothetical separate head at C1D74C was found by the bounded review. Unique current ledger rows are ownership facts, not fresh compilation proof."
+}

@@ -726,6 +726,14 @@ broader audit receipt remain explicit next-census/image gaps; RenderObject
 and complete source/TU recovery are not cleared.
 [Ownership proof and replay scope](../../reverse/attempt_support/wind-native-table-owners-20261109/README.md).
 
+The next RenderObject prerequisite adopts the canonical info header in
+RenderObjectUpdateModuleConstructor.cpp. Three native rows, the exact EH
+graph and own LINKS 241B verdict pass; one header row retires, with two
+other queued class users left. The runtime table stores and byte owners
+are unchanged. No complete replacement tables exist, and repeated primary
+getter slots plus the empty/transfer/name identities remain blocked.
+[Exact source and native-slot handoff](../../reverse/attempt_support/render-info-constructor-adopt-20261109/README.md).
+
 2026-11-09, FESL 8E3D14 provider repair: Rva00802330FeslCtor.cpp now emits
 the same 56-byte deleting wrapper as the verified Y2 destructor owner,
 including the final base teardown. The constructor's 37-byte body and all

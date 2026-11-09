@@ -255,6 +255,15 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   this clears the source stand-ins without asserting boot-path clearance.
   [Full Wind ownership evidence](../../reverse/attempt_support/wind-native-table-owners-20261109/README.md).
 
+  RenderObject's runtime constructor adopts canonical RenderObjectUpdateModuleInfo
+  with all three native rows and its EH graph exact. One header queue debt
+  retires; this retains the existing composition and all four table stores.
+  The two strong runtime byte owners remain: no complete emitted table pair
+  replaces them, and primary slot1, transfer/name prototypes and repeated
+  getter identities still need proof. The native map and exact adoption are
+  [banked together](../../reverse/attempt_support/render-info-constructor-adopt-20261109/README.md).
+  Boot-path clearance still requires the maintained real image and run.
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing

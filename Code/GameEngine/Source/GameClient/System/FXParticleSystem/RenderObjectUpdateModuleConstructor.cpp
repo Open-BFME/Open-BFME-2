@@ -23,17 +23,11 @@ struct RandomRange624DE
     float low, high;
 };
 
-namespace FXParticleSystem
-{
-class RenderObjectUpdateModuleInfo
-{
-public:
-    RenderObjectUpdateModuleInfo();
-    virtual ~RenderObjectUpdateModuleInfo();
-    RandomRange624DE values[12];
-    unsigned rotation;
-};
-}
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
+#include <string.h>
+#pragma intrinsic(memcpy)
 
 struct RenderModuleInput624DE
 {
@@ -63,17 +57,17 @@ Rva003AEF9B::Rva003AEF9B(const RvaSmartPtr12 &smart, int input)
     *(void **)this = &Rva003AEF9B_v0b;
     *(void **)((char *)this + 0x14) = &Rva003AEF9B_v14b;
     *(void **)((char *)this + 0x18) = &Rva003AEF9B_v18b;
-    info.values[0] = ((const RenderModuleInput624DE *)input)->values[0];
-    info.values[1] = ((const RenderModuleInput624DE *)input)->values[1];
-    info.values[2] = ((const RenderModuleInput624DE *)input)->values[2];
-    info.values[3] = ((const RenderModuleInput624DE *)input)->values[3];
-    info.values[4] = ((const RenderModuleInput624DE *)input)->values[4];
-    info.values[5] = ((const RenderModuleInput624DE *)input)->values[5];
-    info.values[6] = ((const RenderModuleInput624DE *)input)->values[6];
-    info.values[7] = ((const RenderModuleInput624DE *)input)->values[7];
-    info.values[8] = ((const RenderModuleInput624DE *)input)->values[8];
-    info.values[9] = ((const RenderModuleInput624DE *)input)->values[9];
-    info.values[10] = ((const RenderModuleInput624DE *)input)->values[10];
-    info.values[11] = ((const RenderModuleInput624DE *)input)->values[11];
-    info.rotation = ((const RenderModuleInput624DE *)input)->rotation;
+    memcpy(&info.m_var0, &((const RenderModuleInput624DE *)input)->values[0], sizeof(info.m_var0));
+    memcpy(&info.m_var1, &((const RenderModuleInput624DE *)input)->values[1], sizeof(info.m_var1));
+    memcpy(&info.m_var2, &((const RenderModuleInput624DE *)input)->values[2], sizeof(info.m_var2));
+    memcpy(&info.m_var3, &((const RenderModuleInput624DE *)input)->values[3], sizeof(info.m_var3));
+    memcpy(&info.m_var4, &((const RenderModuleInput624DE *)input)->values[4], sizeof(info.m_var4));
+    memcpy(&info.m_var5, &((const RenderModuleInput624DE *)input)->values[5], sizeof(info.m_var5));
+    memcpy(&info.m_var6, &((const RenderModuleInput624DE *)input)->values[6], sizeof(info.m_var6));
+    memcpy(&info.m_var7, &((const RenderModuleInput624DE *)input)->values[7], sizeof(info.m_var7));
+    memcpy(&info.m_var8, &((const RenderModuleInput624DE *)input)->values[8], sizeof(info.m_var8));
+    memcpy(&info.m_var9, &((const RenderModuleInput624DE *)input)->values[9], sizeof(info.m_var9));
+    memcpy(&info.m_var10, &((const RenderModuleInput624DE *)input)->values[10], sizeof(info.m_var10));
+    memcpy(&info.m_var11, &((const RenderModuleInput624DE *)input)->values[11], sizeof(info.m_var11));
+    info.m_mode = ((const RenderModuleInput624DE *)input)->rotation;
 }

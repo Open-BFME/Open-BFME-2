@@ -40,3 +40,10 @@ in LINK-636; their current producer emits no complete replacement table.
 Local evidence is in build/wind-prepared-respell-20261109/: owner-trial.py,
 apply-owners.py, verify.py --owner, owners-replay.py and their logs. Broader
 audit receipt gaps must be carried into the next maintained census/image.
+
+Published as 239be033c2 on the first attempt in 29.3 seconds. Normal hooks
+and post-publication whole-object/native proofs pass; all four owned sources
+retain strict receipts. The broader audit is INCONCLUSIVE at 717b70f4ab/base
+b7d3808f37 for unchanged AIBuildable.cpp's missing receipt. Seven completed
+Wind claims are released; the copy-source scope stays reserved for the
+two remaining RenderObject owners. No global or runtime clearance is implied.
