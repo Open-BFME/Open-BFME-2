@@ -327,3 +327,12 @@ four-byte synthetic table proves a runtime producer. Preserve the native
 563CAF constructor/EH shape while recovering the complete runtime virtuals.
 No startup or next-image clearance follows from these header adoptions.
 [Current prerequisites and verification](../../reverse/attempt_support/gpu-info-sibling-adoption-20261109/README.md).
+
+2026-11-09, GPU info teardown: the final queued info unit now uses the complete
+canonical class and real Snapshot base. Its existing TU novtable property is
+retained on a forward declaration; native destructor48/EH1 and Snapshot
+helpers7/29 pass. The base compiler table grows4B to the native16B/four slots;
+all five current info users have clean scoped previews (820B). This closes
+the queued header-debt scope only. The six runtime strong arrays and their
+producer/EH prerequisites remain, with no boot or image clearance claimed.
+[Verification and remaining scope](../../reverse/attempt_support/gpu-info-destructor-adopt-20261109/README.md).

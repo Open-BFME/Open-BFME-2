@@ -1095,3 +1095,13 @@ synthetic helpers without native producer bindings. Constructor store order
 and the recorded 563CAF cleanup constraint remain. No runtime class recovery,
 new linked-byte gain or image clearance is claimed.
 [Native map, helper limits and next prerequisite](../../reverse/attempt_support/gpu-info-sibling-adoption-20261109/README.md).
+
+2026-11-09, GPU info destructor: canonical-header adoption removes the last
+queued private view and fictitious base. A local forward declaration retains
+the TU's existing novtable property, preserving the native 48B destructor and
+exact EH graph without changing the shared header. Real Snapshot teardown
+helpers are native (7B/29B); its compiler table is now the complete native
+16B/four slots. Own LINKS48 and the five-source family LINKS820 are conserved.
+The owning header tool retires the final row; no queued users remain for this
+class. Runtime producer recovery and actual-image confirmation remain open.
+[Whole-object proof and code-generation boundary](../../reverse/attempt_support/gpu-info-destructor-adopt-20261109/README.md).
