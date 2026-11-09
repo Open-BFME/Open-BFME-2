@@ -12,11 +12,6 @@
 #include "../GameLogic/LargeGroupAudio/LargeGroupAudioKeyTreeStorage.h"
 #include <stdlib.h>
 
-inline void *operator new(unsigned int, void *where)
-{
-	return where;
-}
-
 class DamageFX;
 enum NameKeyType {};
 struct BfmePod8;
@@ -79,7 +74,7 @@ void __cdecl rva007B70D3();
 // ?rva007ACDE1@@YAXXZ @0x007ACDE1 22B: map ctor 0x0033C432 on &g_Va00DF29B4, atexit(0x007B70D3).
 void rva007ACDE1()
 {
-	new (&g_Va00DF29B4) Rva0033C432Map;
+	((Rva0033C432Map *)&g_Va00DF29B4)->Rva0033C432Map::map();
 	atexit(rva007B70D3);
 }
 
@@ -89,7 +84,7 @@ void __cdecl rva007B82DD();
 // ?rva007B02C3@@YAXXZ @0x007B02C3 22B: map ctor 0x0033C432 on g_Va00E0319C, atexit(0x007B82DD).
 void rva007B02C3()
 {
-	new (g_Va00E0319C) Rva0033C432Map;
+	((Rva0033C432Map *)g_Va00E0319C)->Rva0033C432Map::map();
 	atexit(rva007B82DD);
 }
 
@@ -98,7 +93,7 @@ void __cdecl rva007B80F1();
 // ?rva007AF8CD@@YAXXZ @0x007AF8CD 22B: map ctor 0x0024613C on g_lgaKeyRecords, atexit(0x007B80F1).
 void rva007AF8CD()
 {
-	new (g_lgaKeyRecords) Rva0024613CMap;
+	((Rva0024613CMap *)g_lgaKeyRecords)->Rva0024613CMap::map();
 	atexit(rva007B80F1);
 }
 
@@ -108,7 +103,7 @@ void __cdecl rva007B82D3();
 // ?rva007B0290@@YAXXZ @0x007B0290 22B: map ctor 0x0024613C on &g_Va00E03168, atexit(0x007B82D3).
 void rva007B0290()
 {
-	new (&g_Va00E03168) Rva0024613CMap;
+	((Rva0024613CMap *)&g_Va00E03168)->Rva0024613CMap::map();
 	atexit(rva007B82D3);
 }
 
@@ -118,7 +113,7 @@ void __cdecl rva007B91F8();
 // ?rva007B3945@@YAXXZ @0x007B3945 22B: hash_map ctor 0x00524ED5 on &g_Va00E04938, atexit(0x007B91F8).
 void rva007B3945()
 {
-	new (&g_Va00E04938) Rva00524ED5Map;
+	((Rva00524ED5Map *)&g_Va00E04938)->Rva00524ED5Map::hash_map();
 	atexit(rva007B91F8);
 }
 
@@ -128,7 +123,7 @@ void __cdecl rva007B7AE1();
 // ?rva007AE6E6@@YAXXZ @0x007AE6E6 22B: hash_map ctor 0x0030A101 on &g_Va00DFF494, atexit(0x007B7AE1).
 void rva007AE6E6()
 {
-	new (&g_Va00DFF494) Rva0030A101Map;
+	((Rva0030A101Map *)&g_Va00DFF494)->Rva0030A101Map::hash_map();
 	atexit(rva007B7AE1);
 }
 
@@ -149,20 +144,20 @@ void __cdecl rva007B7A91();
 // ?rva007B02A6@@YAXXZ @0x007B02A6 29B: deque ctor 0x002F0BE0 on &g_Va00E03174, atexit(0x007B82C9).
 void rva007B02A6()
 {
-	new (&g_Va00E03174) _STL::deque<BfmeWordValue4>(_STL::allocator<BfmeWordValue4>());
+	((_STL::deque<BfmeWordValue4> *)&g_Va00E03174)->_STL::deque<BfmeWordValue4>::deque(_STL::allocator<BfmeWordValue4>());
 	atexit(rva007B82C9);
 }
 
 // ?rva007AE5DA@@YAXXZ @0x007AE5DA 29B: list<Coord3D> ctor 0x0073F451 on &m_supplyPositions (MapUtil's supply positions), atexit(0x007B7A87).
 void rva007AE5DA()
 {
-	new (&m_supplyPositions) _STL::list<Coord3D>(_STL::allocator<Coord3D>());
+	((_STL::list<Coord3D> *)&m_supplyPositions)->_STL::list<Coord3D>::list(_STL::allocator<Coord3D>());
 	atexit(rva007B7A87);
 }
 
 // ?rva007AE5F7@@YAXXZ @0x007AE5F7 29B: list<Coord3D> ctor 0x0073F451 on &m_techPositions (MapUtil's tech positions), atexit(0x007B7A91).
 void rva007AE5F7()
 {
-	new (&m_techPositions) _STL::list<Coord3D>(_STL::allocator<Coord3D>());
+	((_STL::list<Coord3D> *)&m_techPositions)->_STL::list<Coord3D>::list(_STL::allocator<Coord3D>());
 	atexit(rva007B7A91);
 }
