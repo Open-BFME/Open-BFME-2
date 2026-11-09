@@ -18,57 +18,66 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class HealCrateCollide
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
-//
-// Opaque single-inheritance destructors tail-calling CrateCollide::~
-// CrateCollide at 0x004BC4FC (matched opaque MI base dtor in
-// Rva004BB68EDerived.cpp; only declared here so each tail-call resolves to
-// the ledger address instead of a same-TU definition). Each class below
-// derives singly from the MI base (inheriting its +0x00/+0x0C/+0x10 vptr
-// layout, including the family-shared +0x0C secondary 0xC5A040) and
-// overrides all three vptrs before tail-calling the base destructor.
-// Owner identities are unproven (opaque Rva names). One ledger row per
-// destructor, landed one commit at a time.
-
-class Rva004BC4FC_Root
-{
-public:
-	virtual ~Rva004BC4FC_Root();
-
-private:
-	char m_pad04[8];
-};
-
-class Rva004BC4FC_Mid
-{
-public:
-	virtual void f1();
-};
-
+class Thing;
+class ModuleData;
 class Object;
-
+class Xfer;
 struct Coord3D;
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-// The collide interface (+0x10): its only slot is onCollide.
-class Rva004BC4FC_B2
+// The class views SalvageCrateCollide.cpp compiles for the family.
+// The collide interface at +0x10: retail's crate tables there (0x00C5A600
+// for HealCrateCollide) have six slots; slot 0 is CrateCollide::onCollide
+// 0x004BC56D. Only that slot carries a name yet.
+class CollideModuleInterface
 {
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
-class CrateCollide : public Rva004BC4FC_Root, public Rva004BC4FC_Mid, public Rva004BC4FC_B2
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
+class CollideModule : public BehaviorModule, public CollideModuleInterface
 {
 public:
-	virtual ~CrateCollide();
-	// Rowed at 0x004BC56D (CrateCollide.cpp); every crate's +0x10 table holds it.
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+	CollideModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~CollideModule();
+	// BehaviorModuleInterface slot 1 (retail VA 0x00C5A040): CollideModule's override,
+	// rowed at 0x002533D3 (header-inline in CollideModule.h; SquishCollideCtor.cpp).
+	virtual CollideModuleInterface *getCollide();
 };
 
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
+class CrateCollide : public CollideModule
+{
+public:
+	CrateCollide(Thing *thing, const ModuleData *moduleData);
+	// Out of line: retail 0x004BC4FC (Rva004BB68EDerived.cpp).
+	virtual ~CrateCollide();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual bool executeCrateBehavior(Object *other) = 0;
+	virtual bool isValidToExecute(const Object *other) const;
+private:
+	bool m_everExecuted;			// +0x14, right after the three module bases
+};
+
+// Target facts: HealCrateCollide's primary table 0x00C5A868 has slot 3 the
+// family's folded xfer 0x004BD2F9 (?xfer@HealCrateCollide, defined in
+// SalvageCrateCollide.cpp), slot 4 getModuleNameKey 0x004BC858 and slot 12
+// executeCrateBehavior 0x004BC8B9 (HealCrateCollideExecute.cpp).
+class HealCrateCollide : public CrateCollide
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual bool executeCrateBehavior(Object *other);
+};
+
+// HealCrateCollide's destructor rows under their placeholder name: ??0HealCrateCollide
+// 0x004BC80F and 0x004BC83F store the same three tables (0x00C5A868, 0x00C5A040,
+// 0x00C5A600); 0x004BC83F then jumps to ??1CrateCollide 0x004BC4FC.
 class Rva004BC83F : public CrateCollide
 {
 public:
@@ -84,14 +93,6 @@ public:
 Rva004BC83F::~Rva004BC83F()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp
 
