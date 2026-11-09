@@ -877,7 +877,14 @@ slots). The refusal should become a bridge at the next real link; the
   a 12-byte copy can win: the bridge then reports target-not-winning-provider on this slot, since those copies are no twins.
 - The row stays in `BfmeDynamicVBRefCountRva0006CE57.cpp` (the map only proposes a unit for it), which emits the COMDAT alone,
   a twin of the winner's.
-- Unverified: no real link has run on this yet, so no table has retired. `tools/vtable_bridge.py` decides that.
+- Verified on real link `2721022119` (run 42664078475, 17:57 UTC), the first with these commits: all 37 tables left the
+  bridge, and each kept table's every slot holds the image address of the row at retail's word (slot 1 is `??_E`, the weak
+  name at the same address as the rowed `??_G`). Bridged tables 3,997 -> 3,901 between `1a6707e43c` and this link, other
+  lanes' work included. `image_iso --kept-copies-only` lists neither `?Delete_This@RefCountClass@@UAEXXZ` (kept from
+  BaseHeightMapConstructor.obj) nor `??_GRefCountClass@@MAEPAXI@Z` among copies that differ from retail.
+- Five bridged tables still have 0x0006CE57 as a mismatch, all private views with a wrong slot 0 (a `??_E` or `__purecall`)
+  and every slot wrong: Rva006ED6F and Rva001040D5 (28 slots), Rva0072AEDBase, BfmeBaseVVE and BfmeOwnVVE (2). They need their
+  views fixed, not this row.
 - `bfmedynamicvertexbuffer.cpp` (2026-11-09): with the canonical class it compiles its own `?Delete_This@RefCountClass@@UAEXXZ`
   and `??_GRefCountClass@@MAEPAXI@Z`. They are the O2 region's forms, not retail's bytes, which no flag change can fix. Its
   private view used to keep them under another name. `link_check` against the 16:41 index (`594960feaf`) reported
