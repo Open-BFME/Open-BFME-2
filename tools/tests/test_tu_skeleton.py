@@ -4537,7 +4537,8 @@ class MergeDiagnosticsTests(unittest.TestCase):
         self.assertTrue(out["blocked"].startswith("no verified merge of two or more donors"))
         self.assertEqual(out["accepted"], [])
         self.assertEqual(set(out["rejected"]), {tu, donor})
-        self.assertTrue(all("C2065" in reason for reason in out["rejected"].values()))
+        self.assertIn("C2065", out["rejected"][tu])
+        self.assertEqual(out["rejected"][donor], T.SEED_NOT_TRIED)
         apply.assert_not_called()
 
     def test_a_seed_that_fails_under_its_donors_flags_is_retried_with_its_own(self):
@@ -4667,7 +4668,7 @@ class MergeDiagnosticsTests(unittest.TestCase):
                 patch.object(T, "compose", return_value="composed"), \
                 patch.object(T, "apply") as apply:
             out = T._merge(tu, [], don, {"accepted": [], "rejected": {}}, True, texts=texts)
-        self.assertEqual(out["rejected"], {tu: "compile timeout", donor: "compile timeout"})
+        self.assertEqual(out["rejected"], {tu: "compile timeout", donor: T.SEED_NOT_TRIED})
         self.assertEqual(out["accepted"], [])
         apply.assert_not_called()
 
@@ -5962,3 +5963,140 @@ class LinkGuardPlacementTests(unittest.TestCase):
         self.assertEqual(sorted(guard.rank, key=guard.rank.get), order)
         import build
         self.assertEqual(order, [build.obj_path(build.ROOT / f"Code/{s}.cpp").name for s in ("Owner", "Mid", "Mover")])
+
+class SeedFlagSearchTests(unittest.TestCase):
+    """_merge's flag search: a set whose seed is rejected tries no donor, the seed's own set is tried as well as
+    the popular ones, and the byte and link checks still decide (Player.cpp, Weapon.cpp, MilesAudioManager.cpp)."""
+    TU, A, B, C = "Code/T.cpp", "Code/A.cpp", "Code/B.cpp", "Code/C.cpp"
+
+    def search(self, passes, spec=None, guard=None):
+        """`spec` {file: (flag, rows)}; `passes(flags, files)` gives the files whose rows miss, or None for a compile error."""
+        spec = spec or {self.TU: ("/DSEED", 1), self.A: ("/DDONOR", 2), self.B: ("/DDONOR", 2)}
+        texts = {f: "// cl: " + flag + chr(10) + f for f, (flag, _) in spec.items()}
+        don = {f: [{"target_rva": hex(0x1000 + 0x10 * i + j)} for j in range(rows)]
+               for i, (f, (_, rows)) in enumerate(spec.items())}
+        compiled = []
+
+        class Verifier:
+            fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: {})
+            errors = ["fixture.cpp(1) : error C2065: 'missing' : undeclared identifier"]
+            all_errors = errors
+            flags = None
+
+            def matched(self, text, rows):
+                if text in texts.values():
+                    return {r["target_rva"] for r in rows}
+                flags, files = json.loads(text)
+                compiled.append((flags, files))
+                missing = passes(flags, files)
+                if missing is None:
+                    return None
+                return {r["target_rva"] for f in files if f not in missing for r in don[f]}
+
+        def compose(_tu, _sk, files, _texts, flags, _strategy, drop=frozenset(), drop_all=frozenset()):
+            return json.dumps([list(flags), list(files)])
+
+        with patch.object(T, "Verifier", return_value=Verifier()):
+            with patch.object(T, "compose", side_effect=compose):
+                with patch.object(T, "apply") as apply:
+                    out = T._merge(self.TU, [], don, {"accepted": [], "rejected": {}}, True, texts=texts, guard=guard)
+        apply.assert_not_called()
+        return out, compiled
+
+    def weighted(self):
+        return {self.TU: ("/DSEED", 1), self.A: ("/DF1", 4), self.B: ("/DF2", 3), self.C: ("/DF3", 2)}
+
+    def test_a_set_whose_seed_is_rejected_tries_no_donor(self):
+        out, compiled = self.search(lambda flags, files: None if "/DDONOR" in flags else ())
+        self.assertEqual([f for f in compiled if "/DDONOR" in f[0] and f[1] != [self.TU]], [])
+        self.assertEqual(set(out["accepted"]), {self.TU, self.A, self.B})
+
+    def test_the_seeds_own_set_is_tried_first(self):
+        # the donors carry more rows, so the popular order alone tries their flags first
+        out, compiled = self.search(lambda flags, files: ())
+        self.assertIn("/DSEED", compiled[0][0])
+        self.assertEqual(out["accepted"][0], self.TU)
+
+    def test_the_seeds_set_displaces_no_popular_set(self):
+        # F3 is the third most popular and the only set that keeps every donor; the others keep the seed and A
+        def passes(flags, files):
+            if "/DF3" in flags:
+                return ()
+            return None if set(files) - {self.TU, self.A} else ()
+        out, compiled = self.search(passes, self.weighted())
+        self.assertEqual(set(out["accepted"]), set(self.weighted()))
+        self.assertEqual(out["rows"], 10)
+        self.assertIn("/DF3", out["flags"])
+
+    def test_a_merge_only_the_seeds_set_finds_is_reached_past_a_seed_only_best(self):
+        # the three popular sets accept the seed alone, so `best` is set and the fallback below them never runs
+        def passes(flags, files):
+            if "/DSEED" in flags:
+                return ()
+            return None if set(files) - {self.TU} else ()
+        out, _ = self.search(passes, self.weighted())
+        self.assertNotIn("blocked", out)
+        self.assertEqual(set(out["accepted"]), set(self.weighted()))
+        self.assertEqual(out["rows"], 10)
+        self.assertIn("/DSEED", out["flags"])
+
+    def test_a_donor_the_seeds_flags_break_stays_out_and_loses_no_row(self):
+        def passes(flags, files):
+            if "/DDONOR" in flags:
+                return None
+            return (self.B,) if self.B in files else ()
+        out, _ = self.search(passes)
+        self.assertEqual(set(out["accepted"]), {self.TU, self.A})
+        self.assertEqual(out["rejected"][self.B], "bytes")
+        self.assertEqual(out["rows"], 3)
+
+    def test_nothing_is_accepted_when_the_seed_passes_under_no_set(self):
+        out, compiled = self.search(lambda flags, files: None)
+        self.assertEqual(out["accepted"], [])
+        self.assertTrue(out["blocked"].startswith("no verified merge"))
+        self.assertTrue(all(f[1] == [self.TU] for f in compiled))
+        self.assertEqual(out["rejected"][self.A], T.SEED_NOT_TRIED)
+
+    def test_a_link_guard_refusal_of_the_seed_stops_that_set(self):
+        # Player.cpp: 12/12 rows under the popular flags, and the guard refuses the seed there
+        tu = self.TU
+
+        class Guard:
+            text = None
+
+            def load(self):
+                pass
+
+            def linked(self, files):
+                return list(files)
+
+            def prepare(self, files):
+                return None
+
+            def judge(self, obj, files, text):
+                return ["unresolved ?x@@YAXXZ"] if "/DDONOR" in json.loads(text)[0] else []
+
+        out, compiled = self.search(lambda flags, files: (), guard=Guard())
+        self.assertEqual([f for f in compiled if "/DDONOR" in f[0] and f[1] != [tu]], [])
+        self.assertEqual(set(out["accepted"]), {tu, self.A, self.B})
+        self.assertIn("/DSEED", out["flags"])
+
+    def test_a_link_guard_refusal_under_every_set_blocks_and_names_the_seed(self):
+        class Guard:
+            def load(self):
+                pass
+
+            def linked(self, files):
+                return list(files)
+
+            def prepare(self, files):
+                return None
+
+            def judge(self, obj, files, text):
+                return ["unresolved ?x@@YAXXZ"]
+
+        out, compiled = self.search(lambda flags, files: (), guard=Guard())
+        self.assertEqual(out["accepted"], [])
+        self.assertIn("the seed itself fails", out["blocked"])
+        self.assertTrue(out["rejected"][self.TU].startswith("link:"))
+        self.assertTrue(all(f[1] == [self.TU] for f in compiled))

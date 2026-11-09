@@ -1133,6 +1133,7 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
 # compile and well short of the shortest observed hang.
 COMPILE_TIMEOUT = 600.0   # seconds; BFME_COMPILE_TIMEOUT overrides it
 TIMEOUT_REASON = "compile timeout"   # a candidate whose compile was killed is refused, never accepted
+SEED_NOT_TRIED = "not tried: the seed is rejected under every flag set"
 
 
 def compile_timeout():
@@ -2683,6 +2684,15 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
     def trial(flags_list):
         nonlocal best, seed_error, rejected_seed
         for flags in flags_list:
+            if tu in good:
+                # a set whose seed is rejected cannot produce a merge (`tu not in acc` below):
+                # stop before any donor is tried
+                res, errors = tried_attempt([tu], flags)
+                if res in ("compile", "bytes", "link"):
+                    reason = reject_reason(res, errors, [tu], tu)
+                    seed_error = seed_error or reason
+                    rejected_seed = rejected_seed or (0, {tu: reason, **{f: SEED_NOT_TRIED for f in good if f != tu}})
+                    continue
             out = {}
             screen(flags, suspects, out)
             for o in orders:
@@ -2704,7 +2714,13 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 if best is None or score > best[0]:
                     best = (score, acc, rej, flags)
 
-    trial(flag_sets[:3])
+    first_sets = flag_sets[:3]
+    if tu in good:      # the seed's own set first, as well as the three most popular: every accepted set holds the seed
+        own = flags_of(texts[tu])
+        seed_set = stl_static([x for x in own if not x.lower().startswith(("/i", "-i"))
+                               and not v.fd.MANAGED.match(x.replace("/", "-", 1) if x.startswith("/") else x)] + incs)
+        first_sets = [seed_set] + [f for f in first_sets if f != seed_set]
+    trial(first_sets)
     if best is None and tu in good:
         # The popular flag sets are a donor majority's, and a donor's include dir
         # (a shim such as bfmealloc, which needs /D_STLP_USE_STATIC_LIB) can break
