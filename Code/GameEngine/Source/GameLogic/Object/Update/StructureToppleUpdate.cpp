@@ -197,7 +197,6 @@ static void buildNonDupRandomIndexList(Int range, Int count, Int idxList[])
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?StructureToppleUpdate::loadPostProcess present-unmatched
 void StructureToppleUpdate::loadPostProcess( void )
 {
 

@@ -46,3 +46,10 @@ void AllowBannerSpawnUpgrade::xfer(Xfer *xfer)
 	xfer->Version1();
 	UpgradeModule::xfer(xfer);
 }
+
+// Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base call that
+// every module-family override without work of its own shares (ICF).
+void AllowBannerSpawnUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}

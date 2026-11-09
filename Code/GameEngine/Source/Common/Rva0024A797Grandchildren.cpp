@@ -287,6 +287,7 @@ public:
 	// retail slot 4: the rowed ?getModuleNameKey@StructureToppleUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
 protected:
+	virtual void loadPostProcess();	// primary slot 1 (0x00497805; StructureToppleUpdate.cpp)
 	// retail vftable slot: the rowed override
 	virtual const char * GetSnapshotName() const;
 protected:
