@@ -235,11 +235,3 @@ UnsignedInt NetDisconnectScreenOffCommandMsg::getNewFrame() {
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?count@XmlNameSlotList@@QAEHXZ=?getTotalDataLength@NetWrapperCommandMsg@@QAEIXZ")
 
-// BFME1 874e38488c moved this virtual out of NetCommandMsg.h. BFME2's
-// existing folded 28B body at 0x0028F940 must still be emitted by this TU;
-// preserve the old header's empty-string copy, rather than importing a
-// BFME1 provider address. Same target body and shared AsciiString layout.
-AsciiString NetCommandMsg::getContentsAsAsciiString()
-{
- return AsciiString::TheEmptyString;
-}
