@@ -140,3 +140,32 @@ merged, 150 files needing a split. Without the 2 contradicted runs: 621 rows, 18
 **0x005DFF76 under the rule, read from the rules and not rebuilt.** Probably approved by C between 0x005DFAB3 and
 0x005DFF7B, 0x4C8 apart. It needs more than the rule: an exemption from the contradiction rule, and one name for the group,
 because the rows' `N` hints disagree.
+
+## Addendum: `Player.cpp` after the forward declaration (2026-11-08)
+
+`bfme_force_ScienceVec_erase` now has a forward declaration, so the seed passes alone on the real compose path: 12/12
+rows, no vtables, `link_check` 112 -> 112 bytes. The false reject on `compose` stays recorded: the donors among the 32
+pattern files are untested and the tool is unchanged.
+
+**A bounded `--merge --dry-run` verified 0 donors with the seed.** 3 hours of real running (5 hours wall clock, load
+guard pauses included), 2,566 compiles, stopped by the box with no report. Nothing merged, nothing written, no rows lost.
+
+**Don't read the search's row counts as progress.** Its best sets (81 rows from 37 files, 79 rows from 38) don't contain
+the seed. Measured:
+
+- Only 2 of the 2,566 compiles include `Player.cpp`, both of the seed by itself.
+- Under the search's first three flag sets (donor-majority; the seed's own rank 7th of 52), the composed seed matches
+  12/12 rows but `LinkGuard.judge` refuses it, 4 findings: unresolved `?freeBytes@AsciiString@@AAEXXZ`; selected
+  `?erase@?$vector@W4ScienceType...`; breaks another unit's `?releaseBuffer@AsciiString@@IAEXXZ` and that `erase`.
+- Under the seed's own flags the composed seed matches 12/12 and the guard has 0 findings.
+
+**Why the box ran out (read from `_merge`).** `trial` keeps accreting after the seed is rejected, then discards the result
+because `tu not in acc`. The seed's own flags are tried only after three flag sets and three orders have all failed, so the
+one trial that can succeed was never reached. Nearly all of the 2,566 compiles were in trials that could not count.
+
+**Second tool finding, reported and not fixed.** A flag set whose seed is rejected could stop at once. For `Player.cpp`,
+that alone would reach the seed's-own-flags trial in minutes rather than hours.
+
+**Still open, inference.** The pairwise test used the seed's own flags: 10 of 40 sampled donors passed with the seed, about
+39 of 157 on that rate. It remains unconfirmed by any merge search. A rerun that reaches the seed's own flags is the test.
+In the seedless trials, 792 of 2,231 failed compiles hit C2146 before `nameToKey`, which may be an obstacle there too.
