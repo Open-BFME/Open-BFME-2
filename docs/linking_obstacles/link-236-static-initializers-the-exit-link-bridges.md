@@ -1377,3 +1377,24 @@ RVAs at each step.
     the ScriptEngine run: 0x007AD7C0, 0x007AD7DD and 0x007AD7F3 between the copy `_$E1` and the nodes
     `_$E4`/`_$E6`. ScriptEngine.cpp would have to renumber its nodes, and 0x007AD7DD is already registered by
     `Rva007AB81ACtorInits_Rva007ACC20.cpp`.
+
+**Round bridge-1 (swarm Bridge lane, 2026-11-09, bridged 470 -> 468).** Measured with `image_report.initializer_report` over image
+`80921682e8bc`'s objects (`f6dcdf1ce5`), this tree's rows against master's: exactly these two left the bridge, none joined, and
+unidentified fell 494 -> 492 by the same two. Each compiled `_$E1` matched retail's 16 bytes with relocations masked, and
+`exit_link.static_init_readers` finds nothing reading either static during start-up. Run it on each conversion: an entry that goes native loses
+its bridge-first position.
+- *Taken.* 0x007B13C0 (static 0x00E038BC) directly follows `makeFeedbackLaser`'s guard, and the object's only non-COMDAT `.bss`
+  symbol is the copy, so the unit has no plain global (lk54's layout): AssistedTargetingUpdate.cpp's `_$E1`, its approved TU, no copy rowed. 0x007AEFA1
+  (static 0x00E02038) directly follows GameLogicDispatch.cpp's plain `_thePlanSubjectCount` and comes before `rallyPointSet`'s local, the layout of
+  a unit with plain globals: GameLogicDispatchDoSetRallyPoint.cpp's `_$E1`, TU GameLogicDispatch.cpp approved, no copy rowed.
+- *Rejected, so nobody repeats them.* 0x007AED61: LaserUpdate.cpp's copy is already rowed (0x007AEDA1), and a run holds one; its neighbours are placeholders.
+  0x007AC635: no function-local neighbour. Both point at SnapshotXfersBfme.cpp, which is no unit fact. 0x007B3A2E follows `ClassifyWall`'s
+  statics, but that function's `tu_map` row is `displaced` (AIPathfind.cpp or Pathfinder.cpp), so the unit is unsettled.
+- *Leads, not taken.* 0x007AE120 (static 0x00DFEEEC) directly follows `ThePlayerList`; InGameUI.cpp's copy is already rowed (0x007AE087), so it
+  is not that unit's. No PlayerList file compiles a copy, so this needs a header include, then its readers and donor checked. 0x007ACE30 and
+  0x007B6830 build two `SegLineRendererClass` statics (`g_Va009F6F30`, `g_Va00A1F4E8`), and segline.cpp and streak.cpp each compile a private
+  `_LineRenderer` with no row. Two entries and two units, but which is which is not shown, and the definitions sit in Rva007B6880Thunks.cpp.
+  Sorting the 235 same-callee hits: `_Loc_init` (4 entries, 55 objects) and `Init` (4 entries, 1 object) name no unit from shape alone.
+- *What the rest is.* The 465 bridged entries in the initializer region fall in 236 marker runs; 133 runs hold only a rate copy (138 entries), and 174 of the
+  178 rate copies have no reader. registered_twice's jump to about 220 was a counting artefact (a TU-local name read across objects, fixed in
+  `3a38963e87`), and no global is built twice on a decoded image beyond the 3 retail shares.
