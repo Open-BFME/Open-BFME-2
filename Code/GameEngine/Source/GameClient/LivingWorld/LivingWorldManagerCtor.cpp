@@ -23,13 +23,6 @@
 struct ArmySwapView;
 struct ArmyMemberRangeView;
 
-// The vptr-reset body at 0x00210CC5 is rowed under this placeholder.
-class Rva00210CC5DwordImmSetter
-{
-public:
-	void apply();
-};
-
 class GameWindow;
 struct Rva00390729Element;
 namespace _STL
@@ -186,10 +179,7 @@ public:
 #define BFME_LIVINGWORLDMANAGER_CTOR_PURE = 0
 #include "../../../Include/GameLogic/LivingWorldManager.h"
 
-__declspec(noinline) inline Rva00210CC5::~Rva00210CC5()
-{
-	((Rva00210CC5DwordImmSetter *)this)->apply();
-}
+__declspec(noinline) inline Rva00210CC5::~Rva00210CC5() {}
 
 LivingWorldManager::LivingWorldManager()
 	: m_264(0),
