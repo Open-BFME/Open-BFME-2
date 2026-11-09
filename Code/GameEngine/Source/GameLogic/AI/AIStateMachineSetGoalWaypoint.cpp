@@ -6,15 +6,10 @@
 // 0x0026BA33 and 0x0026D478. This supersedes a gen-alias that used
 // RenderObjClass::Set_ObjectScale; its kept copy uses SSE float stores at +0x48.
 class Waypoint;
-class AIStateMachine {
-    char prefix[0x48];
-    const Waypoint *goalWaypoint;
-public:
-    void setGoalWaypoint(const Waypoint *);
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 void AIStateMachine::setGoalWaypoint(const Waypoint *waypoint)
 {
-    goalWaypoint = waypoint;
+    m_goalWaypoint = waypoint;
 }
 // ?rva003E3BFB@Pathfinder@@QAEXW4ObjectID@@@Z @0x003E3BFB (10B): the same
 // 10-byte store serves Pathfinder callers with obstacle IDs (retail
