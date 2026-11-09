@@ -1,3 +1,5 @@
+// BFME 2: retail's Load_W3D, Save_W3D and their Read_ and Save_ helpers return bool, not Zero Hour's WW3DErrorType
+// (each body is rowed with an _N return; Load_W3D 0x001AF910 ends mov al,bl). Table 0x00BD74E8 holds them at slots 1, 2, 47 to 56, 60 to 63 and 65 to 68.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -119,7 +121,7 @@ class ParticleEmitterDefClass
 		//	Public methods
 		//		
 		virtual bool	Load_W3D (ChunkLoadClass &chunk_load);
-		virtual WW3DErrorType	Save_W3D (ChunkSaveClass &chunk_save);
+		virtual bool	Save_W3D (ChunkSaveClass &chunk_save);
 		const char *				Get_Name (void) const					{ return m_pName; }
 		virtual void				Set_Name (const char *pname);
 
@@ -256,15 +258,15 @@ class ParticleEmitterDefClass
 		//
 		//	Saving methods
 		//
-		virtual WW3DErrorType	Save_Header (ChunkSaveClass &chunk_save);
-		virtual WW3DErrorType	Save_User_Data (ChunkSaveClass &chunk_save);
-		virtual WW3DErrorType	Save_Info (ChunkSaveClass &chunk_save);
-		virtual WW3DErrorType	Save_InfoV2 (ChunkSaveClass &chunk_save);
+		virtual bool	Save_Header (ChunkSaveClass &chunk_save);
+		virtual bool	Save_User_Data (ChunkSaveClass &chunk_save);
+		virtual bool	Save_Info (ChunkSaveClass &chunk_save);
+		virtual bool	Save_InfoV2 (ChunkSaveClass &chunk_save);
 		virtual bool				Save_Props (ChunkSaveClass &chunk_save);
-		virtual WW3DErrorType	Save_Line_Properties (ChunkSaveClass &chunk_save);
-		virtual WW3DErrorType	Save_Frame_Keyframes (ChunkSaveClass & chunk_save);
-		virtual WW3DErrorType	Save_Rotation_Keyframes (ChunkSaveClass & chunk_save);
-		virtual WW3DErrorType	Save_Blur_Time_Keyframes (ChunkSaveClass & chunk_save);
+		virtual bool	Save_Line_Properties (ChunkSaveClass &chunk_save);
+		virtual bool	Save_Frame_Keyframes (ChunkSaveClass & chunk_save);
+		virtual bool	Save_Rotation_Keyframes (ChunkSaveClass & chunk_save);
+		virtual bool	Save_Blur_Time_Keyframes (ChunkSaveClass & chunk_save);
 		virtual bool				Save_Extra_Info (ChunkSaveClass & chunk_save);
 
 		virtual bool				Save_Color_Keyframes (ChunkSaveClass &chunk_save);

@@ -58,7 +58,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "wwdebug.h"
 #include "ww3d.h"
 #include "assetmgr.h"
-#include "part_ldr.h"
+#include "./part_ldr.h"	// this directory's: the plain spelling reads the reference copy in this unit
 #include "w3derr.h"
 #include "scene.h"
 #include "texture.h"
@@ -66,7 +66,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <limits.h>
 #include "gcd_lcm.h"
 #include "texture.h"
-#include "part_ldr.h"
+#include "./part_ldr.h"
 
 
 #define BFME2_PARTICLE_INLINE_ASSIGNMENT
