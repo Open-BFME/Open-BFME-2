@@ -1064,3 +1064,45 @@ def test_a_leaf_at_the_wrong_size_refuses(tree, leaf, monkeypatch):
 def test_a_leaf_that_is_no_row_refuses():
     with pytest.raises(ValueError, match="no row of the family"):
         spelled(leaves={0x9999: 3})
+
+
+def test_locomotor_spells_every_row_under_the_class():
+    family = R.LOCOMOTOR
+    assert family.copy in family.rows and family.pins == {}
+    for _old, _facts in family.rows.values():
+        assert "Rva001E3E43" not in family.respell(_old) and "Locomotor" in family.respell(_old)
+    assert family.evidence() == "retail:0x001E4663 stores=0x00BDE888"
+    assert R.family_of(family.copy, "??0Locomotor@@QAE@ABV0@@Z") is family
+
+
+def test_locomotors_slot_facts_name_its_table():
+    kinds = [f for f in R.LOCOMOTOR.facts() if f.kind == "slot"]
+    assert sorted(f.code for f in kinds) == [(0x00BDE888, 0, 4), (0x00BDE888, 3, 4)]
+    assert {f.value for f in kinds} == {0x005E4625, 0x005E525A}
+
+
+def test_locomotors_alias_is_backed_by_its_owner(monkeypatch):
+    held = {f.site: R.expected(f) for f in R.LOCOMOTOR.owner["facts"]}
+    monkeypatch.setattr(R, "read_retail", lambda rva, size: held[rva])
+    row = dict(name="??_7Rva001E3E43@@6B@", names="??_7Locomotor@@6B@;??_7Rva001E3E43@@6B@")
+    assert R.table_named(R.LOCOMOTOR, row, 395)
+    assert not R.table_named(R.LOCOMOTOR, dict(row, names="??_7Rva001E3E43@@6B@"), 395)
+    assert not R.table_named(R.LOCOMOTOR, dict(row, name="??_7Locomotor2@@6B@"), 395)
+
+
+def test_only_locomotor_declares_exceptions_and_only_these():
+    assert R.LOCOMOTOR.leaves == {0x001E3CF4: 335, 0x001E525A: 382}
+    assert R.LOCOMOTOR.table_stores == {0x001E3E43: 2}
+    assert [f.new for f in R.FAMILIES if getattr(f, "leaves", None) or getattr(f, "table_stores", None)] == ["Locomotor"]
+
+
+def test_locomotors_exceptions_hold_in_retail():
+    if not Path(R.build.EXE).exists():
+        pytest.skip("no retail image here")
+    assert R.leaf_problem(0x001E3CF4, 335) is None
+    assert R.leaf_problem(0x001E525A, 382) is None
+    assert R.facts_problems([R.table_store_fact(R.LOCOMOTOR, 0x001E3E43)]) == []
+    # the destructor stores the table, so it could not have passed as a leaf
+    assert R.leaf_problem(0x001E3E43, 19) is not None
+    # the copy ctor beside it references plenty, so the check can tell them apart
+    assert R.leaf_problem(0x001E4641, 78) is not None

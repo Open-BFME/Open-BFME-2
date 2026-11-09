@@ -411,7 +411,36 @@ HERO_RECORD_SET = BodyFamily(
                        (C("calls", 0x0021DBD7, 0x0021983A),))},
     retired={0x0021D7CF: (f"?_M_copy@{_LADDER_TREE}AAEPAU?$_Rb_tree_node@{_LADDER_PAIR}@2@PAU32@0@Z",
                           (C("calls", 0x0021DC15, 0x0021D7CF),))})
-FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET)
+_LOCO = "Rva001E3E43"
+# One class rowed under two names. Both constructors store the table; the destructor stores it first; its deleting
+# destructor is slot 0 and reaches the destructor; the copy ctor reaches the assignment; xfer is slot 3.
+# The assignment only copies fields and xfer only calls through its Xfer argument's vftable, so neither binds anything:
+# the copy ctor's call and slot 3 are their facts. The destructor's references are data: its store of the table is its fact.
+LOCOMOTOR = Family(
+    old=_LOCO, new="Locomotor", table=0x00BDE888, copy=0x001E4641, copy_store=0x24,
+    owner={"name": "??0Locomotor@@QAE@PBVLocomotorTemplate@@_N@Z", "rva": 0x001E449A,
+           "facts": (C("stores", 0x001E44B2, 0x00BDE888, "c706"),)},
+    rows={
+        0x001E4641: (f"??0{_LOCO}@@QAE@ABV0@@Z", (C("stores", 0x001E4663, 0x00BDE888, "c706"),)),
+        # the copy ctor loads its own handler, whose funclet's notes the respell carries
+        0x00769F90: (f"__ehhandler$??0{_LOCO}@@QAE@ABV0@@Z", (C("stores", 0x001E4641, 0x00B69F90, "b8"),)),
+        0x001E3E43: (f"??1{_LOCO}@@UAE@XZ", (C("stores", 0x001E3E43, 0x00BDE888, "c701"),)),
+        0x001E4625: (f"??_G{_LOCO}@@UAEPAXI@Z", (slot(0x00BDE888, 0, 4, 0x001E4625), C("calls", 0x001E4628, 0x001E3E43))),
+        0x001E3CF4: (f"??4{_LOCO}@@QAEAAV0@ABV0@@Z", (C("calls", 0x001E4679, 0x001E3CF4),)),
+        0x001E525A: (f"?xfer@{_LOCO}@@MAEXPAVXfer@@@Z", (slot(0x00BDE888, 3, 4, 0x001E525A),)),
+    },
+    pins={},
+    spellings={
+        f"??0{_LOCO}@@QAE@ABV0@@Z": "??0Locomotor@@QAE@ABV0@@Z",
+        f"__ehhandler$??0{_LOCO}@@QAE@ABV0@@Z": "__ehhandler$??0Locomotor@@QAE@ABV0@@Z",
+        f"??1{_LOCO}@@UAE@XZ": "??1Locomotor@@UAE@XZ",
+        f"??_G{_LOCO}@@UAEPAXI@Z": "??_GLocomotor@@UAEPAXI@Z",
+        f"??4{_LOCO}@@QAEAAV0@ABV0@@Z": "??4Locomotor@@QAEAAV0@ABV0@@Z",
+        f"?xfer@{_LOCO}@@MAEXPAVXfer@@@Z": "?xfer@Locomotor@@MAEXPAVXfer@@@Z",
+    },
+    leaves={0x001E3CF4: 335, 0x001E525A: 382},
+    table_stores={0x001E3E43: 2})
+FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR)
 
 # One global's bounds: `old` becomes `new` at the RVA `start`, `size` bytes, taking the rows `absorbs`
 # ((name, rva), ...). A `stores` fact names an address the object holds, an `offset` one its code indexes.
