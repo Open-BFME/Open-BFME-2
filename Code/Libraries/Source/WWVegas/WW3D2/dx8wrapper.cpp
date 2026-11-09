@@ -279,7 +279,7 @@ extern int G00DEDAC0;
 
 static D3DDISPLAYMODE DesktopMode;
 
-static D3DPRESENT_PARAMETERS								_PresentParameters;
+D3DPRESENT_PARAMETERS								_PresentParameters; // read by the getters at 0x0011F1B0 and 0x0011CDB0
 static DynamicVectorClass<StringClass>					_RenderDeviceNameTable;
 static DynamicVectorClass<StringClass>					_RenderDeviceShortNameTable;
 static DynamicVectorClass<RenderDeviceDescClass>	_RenderDeviceDescriptionTable;
