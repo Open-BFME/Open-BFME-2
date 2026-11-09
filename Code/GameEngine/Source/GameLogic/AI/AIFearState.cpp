@@ -172,18 +172,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIFearState : public AIInternalMoveToState
 {
@@ -203,7 +192,7 @@ protected:
 StateReturnType AIFearState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 13");
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	Object *obj = getMachineOwner();
 	Object *enemy = getMachineGoalObject();
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
@@ -276,7 +265,7 @@ StateReturnType AIFearState::update()
 		{
 			m_goalPosition = *thePath->getLastNode()->getPosition();
 			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 14");
-			setAdjustsDestination(false);
+			m_adjustDestinations = false;
 			m_checkForPath = false;
 		}
 	}

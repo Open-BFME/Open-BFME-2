@@ -458,19 +458,8 @@ enum
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-protected:
-	virtual Bool computePath();
-	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-	Bool m_waitingForPath; // +0x49
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIAttackApproachTargetState : public AIInternalMoveToState
 {
@@ -946,10 +935,10 @@ __declspec(noinline) inline StateReturnType AIAttackApproachTargetState::onEnter
 		return STATE_CONTINUE;
 
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 21");
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	StateReturnType ret = AIInternalMoveToState::onEnter();
 	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 22");
-	setAdjustsDestination(true);
+	m_adjustDestinations = true;
 	return ret;
 }
 
@@ -1192,7 +1181,7 @@ Bool AIAttackApproachTargetState::computePath()
   Weapon *weapon=source->getCurrentWeapon();if(!weapon)return false;
   Object *victim=getMachineGoalObject();m_prevVictimPos=*victim->getPosition();
   critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 18");
-  setAdjustsDestination(true);
+  m_adjustDestinations = true;
   Bool usePathfinder=false;
   if(!(source->m_template->m_kindof[1] & (1U << 27)))usePathfinder=true;
   m_goalPosition=m_prevVictimPos;
@@ -1201,7 +1190,7 @@ Bool AIAttackApproachTargetState::computePath()
   if(weapon->getTemplate()->isContactWeapon()) {
    ai->ignoreObstacle(victim);
    critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 19");
-   setAdjustsDestination(false);ai->setPathExtraDistance(100.0f);
+   m_adjustDestinations = false;ai->setPathExtraDistance(100.0f);
    TheAI->pathfinder()->AdjustDestination(getMachineOwner(),*(LocomotorSet*)ai->m_locomotorSet,&m_goalPosition,0);
   } else if(ai->getPath() && ai->rva00262BEC())return true;
   Coord3D pos;victim->rva0028C2DD(&pos);
@@ -1216,7 +1205,7 @@ Bool AIAttackApproachTargetState::computePath()
   m_waitingForPath=ai->isWaitingForPath();m_stopIfInRange=false;return true;
  }
  critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 20");
- setAdjustsDestination(true);m_stopIfInRange=false;m_goalPosition=*getMachine()->getGoalPosition();
+ m_adjustDestinations = true;m_stopIfInRange=false;m_goalPosition=*getMachine()->getGoalPosition();
  if(!forceRepath)return true;
  ai->requestAttackPath(INVALID_OBJECT_ID,&m_goalPosition);m_waitingForPath=ai->isWaitingForPath();return true;
 }

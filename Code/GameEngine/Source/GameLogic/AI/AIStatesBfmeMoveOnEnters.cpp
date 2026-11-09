@@ -122,18 +122,7 @@ extern AI *TheAI;
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIMoveOutOfTheWayState : public AIInternalMoveToState
 {
@@ -176,7 +165,7 @@ protected:
 StateReturnType AIMoveOutOfTheWayState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 6");
-	setAdjustsDestination(true);
+	m_adjustDestinations = true;
 	Object *obj = getMachineOwner();
 	AIUpdateInterface *ai = obj->getAI();
 
@@ -192,7 +181,7 @@ StateReturnType AIMoveOutOfTheWayState::onEnter()
 StateReturnType AIMoveAndTightenState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 7");
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	Object *obj = getMachineOwner();
 	AIUpdateInterface *ai = obj->getAI();
 	m_okToRepathTimes = 1;
@@ -206,7 +195,7 @@ StateReturnType AIMoveAndTightenState::onEnter()
 StateReturnType AIMoveAwayPanicState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 9");
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	Object *obj = getMachineOwner();
 	Object *enemy = getMachineGoalObject();
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
@@ -225,7 +214,7 @@ StateReturnType AIMoveAwayPanicState::onEnter()
 StateReturnType AIMoveAwayFromRepulsorsState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 11");
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	Object *obj = getMachineOwner();
 	Object *enemy = TheAI->findClosestRepulsor(getMachineOwner(), obj->getVisionRange());
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
@@ -252,7 +241,7 @@ StateReturnType AIMoveAwayPanicState::update()
 		{
 			m_goalPosition = *thePath->getLastNode()->getPosition();
 			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 10");
-			setAdjustsDestination(false);
+			m_adjustDestinations = false;
 			m_checkForPath = false;
 		}
 	}
@@ -278,7 +267,7 @@ StateReturnType AIMoveAwayFromRepulsorsState::update()
 		{
 			m_goalPosition = *thePath->getLastNode()->getPosition();
 			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 12");
-			setAdjustsDestination(false);
+			m_adjustDestinations = false;
 			m_checkForPath = false;
 		}
 	}
