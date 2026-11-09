@@ -6226,7 +6226,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004B8EA8@@UAE@XZ,,0x004B8EA8,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
 ??1Rva004B8F92@@UAE@XZ,,0x004B8F92,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
 ??1Rva004B9287@@UAE@XZ,,0x004B9287,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
-??1Rva004B9375@@UAE@XZ,,0x004B9375,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
+??1Rva004B9375@@UAE@XZ,,0x004B9375,25,Code/GameEngine/Source/GameLogic/Object/Create/SpecialPowerCreate.cpp,matched,opaque MI dtor
 ??1InheritUpgradeCreate@@UAE@XZ,,0x004B9458,25,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,opaque MI dtor
 ??1HighlanderBody@@UAE@XZ,,0x004C07B1,25,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,matched,HighlanderBody destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085B390 slot 0 is the rowed HighlanderBody::attemptDamage 0x004C082B; was opaque Rva004C07B1
 ??1Rva004C089E@@UAE@XZ,,0x004C089E,25,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,opaque MI dtor
@@ -9989,7 +9989,7 @@ _math_rad,,0x00748740,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004B8EA8@@UAEPAXI@Z,,0x004B8F06,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004B8F92@@UAEPAXI@Z,,0x004B9001,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004B9287@@UAEPAXI@Z,,0x004B92E5,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004B9375@@UAEPAXI@Z,,0x004B93D3,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GRva004B9375@@UAEPAXI@Z,,0x004B93D3,28,Code/GameEngine/Source/GameLogic/Object/Create/SpecialPowerCreate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GInheritUpgradeCreate@@UAEPAXI@Z,,0x004B94C7,28,Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GBoneFXDamage@@UAEPAXI@Z,,0x004B97C6,28,Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GReflectDamage@@UAEPAXI@Z,,0x004BABDE,28,Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact

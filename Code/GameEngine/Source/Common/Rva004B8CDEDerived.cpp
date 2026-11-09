@@ -51,15 +51,6 @@ Rva004B9287::~Rva004B9287()
 {
 }
 
-class Rva004B9375 : public CreateModule
-{
-public:
-	virtual ~Rva004B9375();
-};
-
-Rva004B9375::~Rva004B9375()
-{
-}
 
 class InheritUpgradeCreate : public CreateModule
 {
