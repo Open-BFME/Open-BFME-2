@@ -41,6 +41,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 
 
+
 #endif
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 #include <string.h>
@@ -263,6 +264,37 @@ private:
 	unsigned char m_364;
 };
 
+//-------------------------------------------------------------------------------------------------
+// WeaponTemplateSet::parseWeapon, parseAutoChoose and parsePreferredAgainst:
+// defined in WeaponTemplateSetParse.cpp (their rows' unit, BFME 2 slot layout).
+
+//-------------------------------------------------------------------------------------------------
+// BFME 2's weapon choice criteria names (DefaultWeaponChoiceCritera), retail .data
+// 0x00DBC29C. Retail's six names have no null: the list runs on into the unit's next
+// list, the command source names at 0x00DBC2B4 (FROM_PLAYER, FROM_SCRIPT, FROM_AI and a
+// null), and INI::parseIndexList reads all nine. This copy spells that run-on, so the
+// parser accepts the same tokens as retail.
+static const char *TheWeaponChoiceCriteriaNames[] =
+{
+	"PREFER_MOST_DAMAGE",
+	"PREFER_LONGEST_RANGE",
+	"PREFER_GRAB_OVER_DAMAGE",
+	"PREFER_LEAST_MOVEMENT",
+	"SELECT_AT_RANDOM",
+	"USE_WEAPONSET_DEFAULT_CRITERIA",
+	"FROM_PLAYER",
+	"FROM_SCRIPT",
+	"FROM_AI",
+	NULL
+};
+
+// OnlyAgainst and OnlyInCondition parse through two BFME 2 statics of the class
+// (rowed at 0x002C8C47 and 0x002C883E); Zero Hour's header does not declare them.
+extern "C" {
+void __identifier("?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z")();
+}
+
 // tu-skeleton: 0x002C726C 51B ?parseWeapon@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
 // tu-skeleton: 0x002C729F 54B ?parseAutoChoose@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
@@ -286,6 +318,8 @@ private:
 // tu-skeleton: 0x002C745A 15B ?rva002C745A@Rva002C71CA@@QAEXH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // tu-skeleton: 0x002C7474 30B ?rva002C7474@Rva002C7474@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva002C7474Loop.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva002C7492Or.cpp
 
@@ -484,37 +518,6 @@ Bool WeaponTemplateSet::hasAnyWeapons() const
 			return true;
 	}
 	return false;
-}
-
-//-------------------------------------------------------------------------------------------------
-// WeaponTemplateSet::parseWeapon, parseAutoChoose and parsePreferredAgainst:
-// defined in WeaponTemplateSetParse.cpp (their rows' unit, BFME 2 slot layout).
-
-//-------------------------------------------------------------------------------------------------
-// BFME 2's weapon choice criteria names (DefaultWeaponChoiceCritera), retail .data
-// 0x00DBC29C. Retail's six names have no null: the list runs on into the unit's next
-// list, the command source names at 0x00DBC2B4 (FROM_PLAYER, FROM_SCRIPT, FROM_AI and a
-// null), and INI::parseIndexList reads all nine. This copy spells that run-on, so the
-// parser accepts the same tokens as retail.
-static const char *TheWeaponChoiceCriteriaNames[] =
-{
-	"PREFER_MOST_DAMAGE",
-	"PREFER_LONGEST_RANGE",
-	"PREFER_GRAB_OVER_DAMAGE",
-	"PREFER_LEAST_MOVEMENT",
-	"SELECT_AT_RANDOM",
-	"USE_WEAPONSET_DEFAULT_CRITERIA",
-	"FROM_PLAYER",
-	"FROM_SCRIPT",
-	"FROM_AI",
-	NULL
-};
-
-// OnlyAgainst and OnlyInCondition parse through two BFME 2 statics of the class
-// (rowed at 0x002C8C47 and 0x002C883E); Zero Hour's header does not declare them.
-extern "C" {
-void __identifier("?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z")();
-void __identifier("?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z")();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -761,26 +764,12 @@ Bool WeaponSet::isSharedReloadTime() const
 	return false;
 }
 
-// tu-skeleton: 0x002C74C0 11B ?rva002C74C0@Rva002C74C0@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002C74CB 14B ?rva002C74CB@Rva002C71CA@@QAEPAURva002C74CBRecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00751B90Get.cpp
 
 void *Rva00751B90::get(int i)
 {
 	return &m_slots[i];
 }
-
-// tu-skeleton: 0x002C74EA 17B ?rva002C74EA@Rva002C71CA@@QAEPAURva002C74EARecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002C74FB 6B ?Rva002C74FBGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x002C7501 20B ?any@?$BitFlags@$0NK@@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/BitFlags218Any.cpp (not merged yet)
-
-// tu-skeleton: 0x002C7515 9B ?Rva002C7515Any@@YA_NPBV?$BitFlags@$0NK@@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002C751E 17B ?Rva002C751E@@YAXPAURva002C74CBRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp
 
@@ -809,12 +798,6 @@ void Rva002C752F::clear()
 		memset(&m_c[i], 0, 0x4C);
 	}
 }
-
-// tu-skeleton: 0x002C75B5 28B ??_GWeaponSet@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp (not merged yet)
-
-// tu-skeleton: 0x002C75D1 41B ?rva002C75D1@WeaponSet@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp (not merged yet)
-
-// tu-skeleton: 0x002C75FA 17B ?rva002C75FA@Rva002C71CA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp
 
@@ -846,7 +829,68 @@ WeaponTemplateSetHead *__cdecl Rva002C76B2Build(WeaponTemplateSetHead *out, int 
 	return out;
 }
 
-// tu-skeleton: 0x002C777E 257B ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002C777EBuild.cpp (not merged yet)
+// tu-skeleton: 0x002C74C0 11B ?rva002C74C0@Rva002C74C0@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74CB 14B ?rva002C74CB@Rva002C71CA@@QAEPAURva002C74CBRecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74EA 17B ?rva002C74EA@Rva002C71CA@@QAEPAURva002C74EARecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7501 20B ?any@?$BitFlags@$0NK@@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/BitFlags218Any.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7515 9B ?Rva002C7515Any@@YA_NPBV?$BitFlags@$0NK@@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002C751E 17B ?Rva002C751E@@YAXPAURva002C74CBRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75B5 28B ??_GWeaponSet@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75D1 41B ?rva002C75D1@WeaponSet@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75FA 17B ?rva002C75FA@Rva002C71CA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva002C777EBuild.cpp
+
+//
+// ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z @0x002C777E 257B:
+// Head builder (cdecl, out ptr + index, returns out). Memsets the 0x4C head,
+// switch on idx builds one of five 19-dword masks through the pinned
+// 0x002C760B bit-setter (thiscall, zero + 7 bit ids, returns this) and
+// OR-merges it via the landed 0x002C7492 row, then copy-constructs out
+// through the landed 0x00045455 copy ctor. Per-case build+merge tails are
+// shared by the compiler (single build call site); the default path
+// re-memsets and skips the merge. Buffers are one 5-entry array; indices
+// chosen so each lea hits its retail ebp offset. Head/mask share the 0x4C
+// layout (Rva002C7492 int[19] view for merge/build, WeaponTemplateSetHead
+// for out/copy); exact function identity unproven.
+
+WeaponTemplateSetHead *__cdecl rva002C777E(WeaponTemplateSetHead *out, int idx)
+{
+	__assume(out != 0);
+	Rva002C7492 head;
+	memset(&head, 0, 0x4C);
+	Rva002C7492 bufs[5];
+	switch (idx) {
+	case 0:
+		head.rva002C7492(bufs[0].rva002C760B(0, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x28, 0x7b));
+		break;
+	case 1:
+		head.rva002C7492(bufs[2].rva002C760B(0, 0x2f, 0x30, 0x31, 0x32, 0x33, 0x2e, 0x7c));
+		break;
+	case 2:
+		head.rva002C7492(bufs[3].rva002C760B(0, 0x35, 0x36, 0x37, 0x38, 0x39, 0x34, 0x7d));
+		break;
+	case 3:
+		head.rva002C7492(bufs[4].rva002C760B(0, 0x212, 0x21c, 0x21e, 0x214, 0x216, 0x218, 0x21a));
+		break;
+	case 4:
+		head.rva002C7492(bufs[1].rva002C760B(0, 0x213, 0x21d, 0x21f, 0x215, 0x217, 0x219, 0x21b));
+		break;
+	default:
+		memset(&head, 0, 0x4C);
+		break;
+	}
+	out->WeaponTemplateSetHead::WeaponTemplateSetHead((const WeaponTemplateSetHead &)head);
+	return out;
+}
 
 // tu-skeleton: 0x002C787F 136B ?getVictimAntiMask@@YAHPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
 

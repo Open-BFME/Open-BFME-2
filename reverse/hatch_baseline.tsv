@@ -344,7 +344,6 @@ address_global	Code/GameEngine/Source/Common/Rva007AB8D0StringInits.cpp	g_Va00DD
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00DE6194	2
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00DF29A8	2
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00DFF134	2
-address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00E032DC	2
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00E0362C	2
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00E04920	2
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00E0657C	2
@@ -504,7 +503,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E03020	
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E03168	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E03174	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E0319C	2
-address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E032DC	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E032EC	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E0362C	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E04500	3
@@ -1372,7 +1370,6 @@ address_global	Code/Libraries/Source/WWVegas/WWLib/Rva004119F3.cpp	g_Va00E0300C	
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva00422D1CFind.cpp	g_Va00E0319C	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva0055C0E1.cpp	g_Va007C26F0	4
 address_global	Code/Libraries/Source/WWVegas/WWLib/simpledynvec_vector3_clip.cpp	g_Va00BCF628	3
-address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_list_unicodestring_add_if_missing_00433C18.cpp	g_Va00E032DC	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp	g_Va00DDEEFC	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp	g_Va00DDEF08	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp	g_Va00DDEF38	2
@@ -4094,10 +4091,10 @@ class_gate_allow	Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp	GameLo
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009C18ACameraBounds.cpp	Region3D	1
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp	GameLogic	1
 class_gate_allow	Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp	AptScriptFunctionBase	1
-export_alias	reverse/export_aliases.csv	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA	1	allow=a056ff62977ff1ea61be1207858e686db6308afb
-export_alias	reverse/export_aliases.csv	?$S132@?1??GetValue@?$DefaultModuleName@$00@FXParticleSystem@@CAPBDXZ@4IA	1	allow=a056ff62977ff1ea61be1207858e686db6308afb
-export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1	allow=a056ff62977ff1ea61be1207858e686db6308afb
-export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1	allow=a056ff62977ff1ea61be1207858e686db6308afb
+export_alias	reverse/export_aliases.csv	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S132@?1??GetValue@?$DefaultModuleName@$00@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 object_symbol	reverse/functions.csv	0x000240E0	1
 object_symbol	reverse/functions.csv	0x00024160	1
 object_symbol	reverse/functions.csv	0x00025090	1
@@ -4509,7 +4506,7 @@ pin	reverse/symbols.csv	0x0006F7BD	1
 pin	reverse/symbols.csv	0x0006FB2F	1
 pin	reverse/symbols.csv	0x0006FB50	1
 pin	reverse/symbols.csv	0x000723C0	1
-pin	reverse/symbols.csv	0x00072892	3
+pin	reverse/symbols.csv	0x00072892	2
 pin	reverse/symbols.csv	0x00072A94	1
 pin	reverse/symbols.csv	0x000730DE	1
 pin	reverse/symbols.csv	0x00073116	3
