@@ -41,6 +41,9 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+	// BehaviorModuleInterface slot 9 (retail VA 0x00BEFF90): UpdateModule's override,
+	// rowed at 0x002533D3 (header-inline in UpdateModule.h; SupplyTruckAIUpdateCtor.cpp).
+	virtual UpdateModuleInterface *getUpdate();
 	virtual BitFlags<11> getDisabledTypesToProcess() const;
 };
 
