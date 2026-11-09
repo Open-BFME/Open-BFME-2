@@ -81,21 +81,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-//
-// RepairSpecialPower's destructor 0x004C86E4, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5E6A4 at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5E640 at +0x10), exactly what ??0RepairSpecialPower
-// 0x004C86B4 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C86E4 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C86E4();
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp
@@ -131,7 +116,8 @@ RepairSpecialPower::RepairSpecialPower( Thing *thing, const ModuleData *moduleDa
 {
 }
 
-// ??1RepairSpecialPower@@MAE@XZ present-unmatched
+// ??1RepairSpecialPower@@MAE@XZ 0x004C86E4: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 RepairSpecialPower::~RepairSpecialPower()
 {
 }
@@ -172,12 +158,6 @@ void RepairSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int option
 }
 
 // tu-skeleton: 0x004C86DE 6B ?Rva004C86DEGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C86E4::~Rva004C86E4()
-{
-}
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
