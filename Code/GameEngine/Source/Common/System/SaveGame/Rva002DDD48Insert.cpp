@@ -43,10 +43,6 @@ public:
 
 typedef char SaveMapPreviewSizeCheck[sizeof(SaveMapPreview) == 0x14 ? 1 : -1];
 
-#pragma optimize("y", on)
-inline void *__cdecl operator new(unsigned int, void *p) { return p; }
-#pragma optimize("", on)
-
 class Rva00565A42
 {
 public:
@@ -81,7 +77,7 @@ void Rva002DDD48::rva002DDD48(SaveMapPreview *pos, const SaveMapPreview &saveMap
 	if (n == 1)
 	{
 		if (new_finish != 0)
-			new (new_finish) SaveMapPreview(saveMapPreview);
+			new_finish->SaveMapPreview::SaveMapPreview(saveMapPreview);
 		++new_finish;
 	}
 	else
@@ -107,7 +103,8 @@ void Rva002DDD48::push_back(const SaveMapPreview &saveMapPreview)
 {
 	if (m_finish != m_end)
 	{
-		new (m_finish) SaveMapPreview(saveMapPreview);
+		if (m_finish != 0)
+			m_finish->SaveMapPreview::SaveMapPreview(saveMapPreview);
 		++m_finish;
 	}
 	else

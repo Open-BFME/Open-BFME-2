@@ -10165,8 +10165,6 @@ pragma_optimize	Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp	"s",on	
 pragma_optimize	Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp	"t",off	1
 pragma_optimize	Code/GameEngine/Source/Common/System/INI_getNextToken.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/INI_getNextToken.cpp	"y",on	1
-pragma_optimize	Code/GameEngine/Source/Common/System/SaveGame/Rva002DDD48Insert.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/System/SaveGame/Rva002DDD48Insert.cpp	"y",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/TBuff.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/TBuff.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/XferUnicodeStringVector.cpp	"",on	1
