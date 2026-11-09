@@ -1302,3 +1302,45 @@ clean; 143 need a freed key.
   LivingWorldBattleListener); read re_attempts first (`setRenderingMode` was withdrawn on a gen-alias
   owner). (5) The single-class ElvenWood destructors (0x004C3905, 0x004C4028, 0x004C4508, ...) are
   folds into their Rva placeholders, not twins.
+
+**The getUpdate default and six named tables (2026-11-09, seat halilkkaya-lk74, base `0dabbd0a8a`).**
+Method: a one-pass snapshot of HEAD's `tools/vtable_bridge.py` plan over exit_link's inputs (lk65_ab.py's
+plan call without the duplicate old/new run), lk67_shapes.py, lk68's kept-copy twin planner.
+- Done, rows only (`tools/add_match.py --icf-owner`, `fold-proof=<owner source>`), two commits:
+  - 3 rows, 51 tables: `?getUpdate@BehaviorModule` at 0x000D43D0, kept in FamilyDeletingDtors_muse-b1dd.cpp
+    (owner `?ControlBarInput`), plus `getDamage@DamageModule` (BoneFXDamage.cpp) and `getCollide@CollideModule`
+    (SquishCollideCtor.cpp) at 0x002533D3 (owner `getDie@DieModule`). The tables are the
+    BehaviorModuleInterface tables of BehaviorModule, BodyModule, DieModule, CreateModule, DamageModule,
+    BoneFXDamage, SquishCollide, WargBehavior, nine Die classes, 26 Upgrade classes and eight Create classes.
+  - 13 rows, 6 tables: SimpleVecClass<float> and SimpleDynVecClass<float> (StreakVectorConstructorsBFME2.cpp),
+    DynamicVectorClass<BfmeHandleCX> (4 rows), LivingWorldBattleListener, RebuildHoleBehavior's
+    RebuildHoleBehaviorInterface table (4 rows) and BoneFXDamage's primary table (2 rows). Three
+    FXParticleSystem owners were swapped for other matched rows at the same address: 0x0047A69C
+    `SubsystemInterfaceList::addSubsystem`, 0x0030F45F `GameWindow::winGetStatus`, and 0x001DB0A8
+    `FrameDataManager::getQuitFrame`.
+- Offline plan, base -> after: bridged 4,234 -> 4,177, already correct 1,437 -> 1,494, mismatching source
+  slots 45,858 -> 45,749; refusals identical (110); no table newly bridged or lost. link_check (31 and 24
+  units: changed, owner and table-emitting units): every unit that linked still links, with more bytes
+  (10,088 -> 10,117 and 23,114 -> 23,306). Three units fail identically before and after:
+  BridgeTowerBehavior.cpp and CreateObjectDie.cpp (`??_7BehaviorModule@@6BObjectModule@@@` differs from
+  the first copy), and streak.cpp (unresolved `?queryVisible@RenderObjClass`, held class).
+- Not rowed (verdicts in re_attempts): `??_GDamageModule` at 0x004B973B, the last slot of
+  `??_7DamageModule@@6BObjectModule@@@`, is a body only DamageModule's table reaches, so it needs a fold. The
+  fold `Rva004B96CC -> DamageModule` refuses because the `??1DamageModule` ICF-twin row at 0x004B96CC starts
+  with an inlined base restore (0x00BEEA7C) while `??0DamageModule` installs 0x00C598E4. The ElvenWood folds
+  (Rva004C3905, Rva004C4044 and Rva004C4508 into ElvenWoodSpecialPower, WeaponChangeSpecialPowerModule and
+  CloudBreakSpecialPower) pass `--dry-run` but clear no table: each ObjectModule table keeps three or more
+  `__purecall` slots. Also left: the BridgeTowerBehavior/RunOffMapBehavior tables (positional `slot13`/`slot35`),
+  GameFileClass and Weapon (held by ancalgonn-swarm-defects), setRenderingMode (gen-alias owner only) and
+  BFME2Encoding1/2MotionChannel (lk72's flag override).
+- Twin-clean tables are now exhausted outside positional slot names (147 tables) and excluded scopes (13).
+  Next leads: (1) 37 getUpdate tables stay bridged on slots whose class view lacks the family override:
+  15 SpecialPower tables name BehaviorModule's `getSpecialPower`/`slot43`/`slot44`, plus `getCreate` (8),
+  `getBody` (6), `getDamage` (4), `getCollide` (4) and `getUpgrade` (3), where retail has the 0x002533D3-shape
+  cast; 26 are also table-short. (2) Twelve tables point slot 9 (CashHack/Defector: slot 8) at
+  `getUpdate@BehaviorModule` where retail has 0x002533D3: the UpdateModule view itself,
+  Siege/Transport/WorkerAIUpdate, FireWeaponWhenDeadBehavior, ClearanceTestingSlowDeathBehavior,
+  WeaponModeSpecialPowerUpdate, GiveOrRestoreUpgradeSpecialPower, Rva00481F82 and Rva00589079. Those views
+  miss `UpdateModule::getUpdate` (an UpdateModule header fix, outside this lane). (3)
+  `??_7BehaviorModule@@6BObjectModule@@@` differs from its first copy and blocks two units. (4) Naming the
+  positional SubsystemInterface/ModuleData slots (lk73 lead 3).
