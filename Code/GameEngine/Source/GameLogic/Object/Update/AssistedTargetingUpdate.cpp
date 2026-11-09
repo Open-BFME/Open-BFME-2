@@ -50,17 +50,11 @@ struct CreateMask {unsigned words[4];};
 #define BFME_SNAPSHOT_NAME_SLOT
 #pragma inline_depth(0)
 #pragma inline_depth()
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class ClientUpdateModule {};
-
 class LaserUpdate:public ClientUpdateModule {public:void initLaser(const Object *,const Coord3D *,const Coord3D *,int);};
-
 extern GameLogic *TheGameLogic;
-
 class AsciiString;
-
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct BfmeAssistedLaserTemplates {
@@ -107,12 +101,53 @@ public:
     static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+// StealthUpdate (retail module class, module_factory_registrations.csv): its
+// constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,
+// the shared 0x007EFF90 at +0xC, 0x00817F14 at +0x10) as this destructor,
+// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D.
+
+
+
+
+
+
+
+
+
+
+
+class Rva00486E18_B2
+{
+public:
+	virtual void f2();
+};
+
+// ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
+
+AssistedTargetingUpdate::~AssistedTargetingUpdate()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
+
 void AssistedTargetingUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
     parse.add(reinterpret_cast<const FieldParse *>(AssistedTargetingUpdateModuleDataFieldParse), 0);
 }
-
-// tu-skeleton: 0x00486E18 25B ??1AssistedTargetingUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
 

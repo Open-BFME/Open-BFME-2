@@ -173,21 +173,7 @@ Rva0047F92D::~Rva0047F92D()
 {
 }
 
-class Rva00486E18_B2
-{
-public:
-	virtual void f2();
-};
 
-class AssistedTargetingUpdate : public UpdateModule, public MiBase1, public Rva00486E18_B2
-{
-public:
-	virtual ~AssistedTargetingUpdate();
-};
-
-AssistedTargetingUpdate::~AssistedTargetingUpdate()
-{
-}
 
 class Rva00488338_B2
 {
