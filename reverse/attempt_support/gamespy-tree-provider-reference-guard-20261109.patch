@@ -1,0 +1,20 @@
+--- a/Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
++++ b/Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
+@@ -459,7 +459,6 @@
+-class Rva0038404A
+-{
+-public:
+-	RvaTreeFamilyHolder m_header;
+-	int m_flag;
+-	void rva00384E8E();
+-	~Rva0038404A();
++#include "../../Include/Common/Rva0038404A.h"
++
++struct HeadSlotCleanup
++{
++ void *&slot;
++ ~HeadSlotCleanup() { if (slot != 0) free(slot); }
+@@ -470 +469,2 @@
+-	rva00384E8E();
++ HeadSlotCleanup cleanup = { m_00Head };
++ rva00384E8E();

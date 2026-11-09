@@ -60,10 +60,7 @@ struct Rva00383AFF
 {
 	~Rva00383AFF();
 };
-struct Rva0038404A
-{
-	~Rva0038404A();
-};
+#include "../../../Include/Common/Rva0038404A.h"
 struct Rva003820A4
 {
 	~Rva003820A4();
@@ -115,9 +112,7 @@ private:
 	Rva003820A4 m_24;
 	char m_pad25[0x34 - 0x25];
 	Rva0038404A m_34;
-	char m_pad35[0x40 - 0x35];
 	Rva0038404A m_40;
-	char m_pad41[0x4C - 0x41];
 	PlayerInfoMap m_4C;
 	Rva00383AFF m_58;
 	char m_pad59[0x60 - 0x59];
