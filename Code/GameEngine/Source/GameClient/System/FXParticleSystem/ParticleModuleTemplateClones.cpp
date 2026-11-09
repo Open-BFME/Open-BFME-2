@@ -246,22 +246,8 @@ public:
 	virtual ~ParticleModule005F2CA0();
 };
 
-namespace FXParticleSystem
-{
-class GpuDrawModuleInfo
-{
-public:
-    __declspec(noinline) GpuDrawModuleInfo();
-	GpuDrawModuleInfo( const GpuDrawModuleInfo &other );
-	virtual ~GpuDrawModuleInfo();
-
-private:
-public:
-    int frames, framesPerRow;
-    AsciiString detail;
-    float speed;
-};
-}
+#define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+#include "../../../../Include/GameClient/GpuDrawModuleInfo.h"
 
 class __declspec(novtable) Rva003AE94E : public ParticleModule005F2CA0, public FXParticleSystem::GpuDrawModuleInfo
 {
@@ -305,10 +291,10 @@ Rva003AE94E::Rva003AE94E(void *first,void *second):ParticleModule005F2CA0(first,
  *(const void *const **)((char *)this + 0x14) = __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
  *(const void *const **)((char *)this + 0x18) = g_gpuDrawBaseTable18;
  const GpuInput3CAF &input=*(const GpuInput3CAF *)second;
- frames=input.frames;
- framesPerRow=input.framesPerRow;
- detail=input.detail;
- speed=input.speed;
+ m_04=input.frames;
+ m_08=input.framesPerRow;
+ m_0C=input.detail;
+ m_10=input.speed;
 }
 
-FXParticleSystem::GpuDrawModuleInfo::GpuDrawModuleInfo():frames(1),framesPerRow(1){speed=1.0f;}
+__declspec(noinline) FXParticleSystem::GpuDrawModuleInfo::GpuDrawModuleInfo():m_04(1),m_08(1){m_10=1.0f;}

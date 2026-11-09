@@ -1843,6 +1843,12 @@ caught an unrelated retired name from stale objects; explicit data_rows
 owns the repaired table. No foreign cache change is published.
 [Complete slot, object, ownership and cache audits](../../reverse/attempt_support/local-file-derived-table-20261109/README.md).
 
+Measured LocalFile confirmation: real-link run42624991783 at 1a6707e43c9
+contains 5980fa928f. Its 0087AAE0 record is already correct over18slots/72B,
+with no bridge or strong refusal; run42616556172 still needed the bridge
+and refused the old array. Overall28unresolved/0duplicates/noimage remain.
+This clears the scoped table-input gap, not full-image/gameplay requirements.
+
 Published as 5980fa928f, first attempt in 36.7 seconds; four strict
 providers, new-variant checks and normal hooks pass, as does post-push
 proof. Broader selection remains INCONCLUSIVE: AIBuildable.cpp lacks a

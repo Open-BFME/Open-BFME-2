@@ -524,3 +524,5 @@ KEY/NAME, at the addresses above. KEY/NAME: `e82daa0fe0` changed no `s_key`, `s_
 `FXParticleSystemModules.cpp`, and the class-static `s_instance` is still there, so the 2026-11-08 base-class trial's startup-order result was
 not re-run: nothing it depends on moved. LINK-615 is the next step. Guards: the options above still stand, and the decision is with the owner
 through the swarm coordinator.
+
+2026-11-09, GPU producer follow-up: the served clone unit and earlier info-copy producer now share the canonical GpuDrawModuleInfo table with all four native slots. Twelve rows/seven EH graphs pass; both source previews are clean, and two header queue rows retire. This reconciles their private COMDAT copies without a new data owner or alias. Runtime factory/clone-primary tables still need genuine producers, while the Wind secondary alternative remains bridged. [Current copies and remaining identity gaps](../../reverse/attempt_support/gpu-info-producer-adoption-20261109/README.md).

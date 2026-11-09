@@ -75,3 +75,11 @@ providers still strict-current. The batch audit remains INCONCLUSIVE at
 index 717b70f4ab/base 7a26bac182 because unchanged AIBuildable.cpp lacks a
 current receipt. The source's own four-file link verdict was clean and
 read before publication. This is not global image-selection closure.
+
+The maintained real-link receipt 42624991783 at 1a6707e43c9 (14:01 UTC)
+contains 5980fa928f and confirms this table's source recovery: 0087AAE0 is
+already correct over 18 slots/72B, with no bridge or strong-definition refusal.
+The earlier 42616556172 receipt required one 18-slot bridge and refused the
+old strong array. The saved small confirmation records both scopes. The
+newer run still has 28 unresolved symbols, zero duplicates and no image;
+this is input-table confirmation, not gameplay or whole-image clearance.

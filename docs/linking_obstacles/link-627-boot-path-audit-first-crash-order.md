@@ -303,3 +303,5 @@ rowed in `Rva005F9364Region.cpp`). Clearance: none claimed until the next real l
 **2026-11-09, real link `f1c6a663f4`:** `?g_00C078DC@@3QBQBXB` no longer appears; 0x008078DC now carries only bridged
 compiled names (BfmeCtor001B3A20's, NotifyWeaponFiredInterface's, TurretAINotifyBase's). The strong-array refusal is
 **cleared**. VectorDeletingDtorsV02.cpp also left `reverse/exit_link_blockers.tsv`.
+
+2026-11-09, GPU info prerequisite: both info table emitters adopt the canonical header, with twelve native rows, seven exact EH graphs and one float preserved. Both 16B info tables have all four native slots; the two source previews are LINKS (663B). Two header rows retire. Rva003AECE6's three strong tables and four GPU runtime arrays are unchanged. Native bindings distinguish Wind's 81C60C/81C780 tables from the required factory/clone-primary addresses; the 81CEE8 alternative is still bridged and needs a separate verified rebind. [Proof and remaining scope](../../reverse/attempt_support/gpu-info-producer-adoption-20261109/README.md).
