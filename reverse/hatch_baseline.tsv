@@ -2908,7 +2908,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp	?slot@SESU_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/StanceTemplateUpdateModuleDataFriendNew.cpp	??0StancesBehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdate.cpp	??0TeleportSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp	?rva00451B92@SpecialAbilityUpdate@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateCtor.cpp	_vtbl_00C40818	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp	?getGoalObject@StateMachine@@QAEPAVObject@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp	?xfer@UpdateModule@@MAEXPAVXfer@@@Z	1

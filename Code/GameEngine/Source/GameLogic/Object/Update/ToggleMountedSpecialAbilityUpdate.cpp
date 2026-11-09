@@ -6,7 +6,6 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/GameEngine/Source/Common/Thing/thing.h"
-#pragma comment(linker, "/alternatename:?rva00451B92@SpecialAbilityUpdate@@UAEXXZ=??_GSpecialAbilityUpdate@@UAEPAXI@Z")
 // Shared ToggleMountedSpecialAbilityUpdate unit view: one declaration of each
 // class for every body retail built into this unit.
 
@@ -257,7 +256,7 @@ public:
 	// 0x004500A3 is rowed as SpecialAbilityUpdate::initiateIntentToDoSpecialPower
 	// (555B; slot 0); same five-word shape.
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *a, const Object *b, const Coord3D *c, unsigned int d, const Waypoint *e);
-	virtual void rva00451B92();
+	virtual void finishAbility();
 
 protected:
 	virtual void onExit(bool a, bool b);
@@ -651,7 +650,7 @@ void Rva004ADC88::rva004AD9E0()
 
 void Rva004ADC88::finishAbility()
 {
-	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::rva00451B92();
+	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::finishAbility();
 	void *other = m_other;
 	if ((*(Object *volatile *)&m_obj)->getDrawable() != 0)
 		(*(Object *volatile *)&m_obj)->getDrawable()->field_0b0 = 1.0f;
