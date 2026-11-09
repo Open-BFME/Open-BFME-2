@@ -11,26 +11,7 @@
 
 #include <new>
 
-class StateMachine
-{
-public:
-	virtual void *destroy(int flag);
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void halt();
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AttackExitConditionsInterface;
 class Team;
 #include "../../../Include/Common/StateMachine.h"
@@ -74,12 +55,19 @@ public:
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
+// Slot 0 of the machine, called directly: the scalar deleting destructor with flag 0.
+class StateMachineDeleteSlot
+{
+public:
+	virtual void *destroy(int flag);
+};
+
 __declspec(noinline) inline AIAttackState::~AIAttackState()
 {
 	if (m_attackMachine)
 	{
 		m_attackMachine->halt();
-		operator delete(m_attackMachine ? m_attackMachine->destroy(0) : 0);
+		operator delete(m_attackMachine ? ((StateMachineDeleteSlot *)m_attackMachine)->destroy(0) : 0);
 		m_attackMachine = 0;
 	}
 }

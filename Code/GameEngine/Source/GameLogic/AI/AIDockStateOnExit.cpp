@@ -21,15 +21,7 @@
 class DockUpdateInterface;
 class Object;
 #include "../Object/object.h"
-class StateMachine
-{
-public:
-	virtual void slot00();
-	Object *getOwner() { return m_owner; }
-	Object *getGoalObject();
-	unsigned char m_machineFields04[0x10];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AsciiString;
 class UnicodeString;
 class PooledString;

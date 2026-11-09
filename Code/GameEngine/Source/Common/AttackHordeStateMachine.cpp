@@ -32,26 +32,21 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Include/Common/StateMachine.h"
+#include "../../Include/Common/StateMachineClass.h"
 
 class AttackHordeStateMachine : public StateMachine
 {
 public:
 	virtual ~AttackHordeStateMachine();
 
-private:
-	char m_pad04[0x14 - 0x04];
-	Object *m_ptr14;
 };
 
 AttackHordeStateMachine::~AttackHordeStateMachine()
 {
-	if (m_ptr14 != 0) {
-		Ret250 *p = (Ret250 *)m_ptr14->rva0028C197();
+	if (m_owner != 0) {
+		Ret250 *p = (Ret250 *)m_owner->rva0028C197();
 		if (p != 0) {
 			p->method250();
 		}

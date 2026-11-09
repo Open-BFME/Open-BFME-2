@@ -20,19 +20,12 @@
 // at +0x04.
 typedef bool Bool;
 class State;
-class StateMachine
-{
-public:
-	inline Bool isInAttackState() const;
-private:
-	unsigned char m_pad00[0x04];
-	State *m_currentState; // +0x04
-};
+#include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/Common/StateMachine.h"
-// ?StateMachine::isInAttackState absent-from-retail
-inline Bool StateMachine::isInAttackState() const
+// StateMachine::isInAttackState's body as these slots inline it; the virtual's row is elsewhere.
+static __forceinline Bool machineInAttackState(const StateMachine *machine)
 {
-	return m_currentState ? m_currentState->isAttack() : true; // stateless things are considered 'idle'
+	return machine->m_currentState ? machine->m_currentState->isAttack() : true;
 }
 class AIAttackAreaState : public State
 {
@@ -57,14 +50,15 @@ private:
 	StateMachine *m_attackMachine; // +0x24
 };
 
+
 Bool AIAttackAreaState::isAttack() const
 {
-	return m_attackMachine ? m_attackMachine->isInAttackState() : false;
+	return m_attackMachine ? machineInAttackState(m_attackMachine) : false;
 }
 
 Bool AIAttackState::isAttack() const
 {
-	return m_attackMachine ? m_attackMachine->isInAttackState() : false;
+	return m_attackMachine ? machineInAttackState(m_attackMachine) : false;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -72,7 +66,7 @@ Bool AIGuardState::isAttack() const
 {
 	if( m_guardMachine )
 	{
-		return m_guardMachine->isInAttackState();
+		return machineInAttackState(m_guardMachine);
 	}
 	return true;
 }
@@ -90,7 +84,7 @@ private:
 };
 Bool AIFollowPathAsTeamState::rva00340E39() const
 {
-	if (m_subMachine && !m_subMachine->isInAttackState())
+	if (m_subMachine && !machineInAttackState(m_subMachine))
 		return true;
 	return false;
 }

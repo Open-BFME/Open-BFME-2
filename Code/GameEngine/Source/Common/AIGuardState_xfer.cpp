@@ -33,20 +33,8 @@ public:
 	virtual void c08(); virtual void c09();
 	virtual Snapshot *createSnapshot();
 };
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	SnapshotCreator *m_machine;
-	bool m_tail1C;
-	char m_pad1D[0x20 - 0x1D];
-};
+#include "../../Include/Common/StateMachine.h"
+#include "../../Include/Common/StateMachineClass.h"
 class AIGuardState : public State
 {
 protected:
@@ -63,7 +51,7 @@ void AIGuardState::xfer(Xfer *xfer)
 	*xfer == hasSnapshot;
 	if (hasSnapshot) {
 		if (m_20 == 0)
-			m_20 = m_machine->createSnapshot();
+			m_20 = (Snapshot *)m_machine->slot10();
 		if (hasSnapshot)
 			*xfer == *m_20;
 	}

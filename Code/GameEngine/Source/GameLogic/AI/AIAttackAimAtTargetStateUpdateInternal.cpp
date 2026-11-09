@@ -25,12 +25,8 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
 enum WhichTurretType
 {
 	TURRET_INVALID = -1
@@ -139,48 +135,12 @@ private:
 	unsigned char m_438; // +0x438
 };
 Bool Rva0034311ECheck(Object *victim); // 0x0034311E
-class StateMachine
-{
-public:
-	Object *getOwner() const
-	{
-		return m_owner;
-	}
-	Object *getGoalObject(); // 0x004D7726
-	const Coord3D *getGoalPosition() const
-	{
-		return &m_goalPosition;
-	}
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
-class State
-{
-protected:
-	Object *getMachineOwner() const
-	{
-		return m_machine->getOwner();
-	}
-	Object *getMachineGoalObject() const
-	{
-		return m_machine->getGoalObject();
-	}
-	const Coord3D *getMachineGoalPosition() const
-	{
-		return m_machine->getGoalPosition();
-	}
-	void *m_vtable;
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+
 class AIAttackAimAtTargetState : public State
 {
 public:
+	const Coord3D *getMachineGoalPosition() const { return m_machine->getGoalPosition(); }
 	StateReturnType updateInternal(Bool stopBeforeAim);
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Bool m_isAttackingObject; // +0x20
 	Bool m_canTurnInPlace; // +0x21
 	Bool m_setLocomotor; // +0x22

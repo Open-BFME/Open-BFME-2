@@ -18,53 +18,54 @@ typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
 #include "../../../Include/Common/StateConditionInfo.h"
-class State
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+// The pure State slots of the states this unit only constructs; each state's rows are elsewhere.
+class ConstructedState : public State
 {
 public:
-	virtual ~State();
+	ConstructedState(StateMachine *machine, unsigned int hash);
+	virtual StateReturnType update();
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+	virtual const char *GetSnapshotName() const;
+#else
+	virtual void crc(Xfer *xfer);
+#endif
+	virtual void xfer(Xfer *xfer);
 };
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
- virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-protected:
-	unsigned char m_pad04[0x3C - 0x04];
-};
-class Rva0033F3EF : public State
+
+class Rva0033F3EF : public ConstructedState
 {
 public:
 	Rva0033F3EF(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x24 - 0x04];
+	unsigned char m_pad20[0x24 - 0x20];
 };
-class Rva0033F4B1 : public State
+class Rva0033F4B1 : public ConstructedState
 {
 public:
 	Rva0033F4B1(StateMachine *machine, int a0);
 private:
-	unsigned char m_pad04[0x28 - 0x04];
+	unsigned char m_pad20[0x28 - 0x20];
 };
-class Rva0033F43D : public State
+class Rva0033F43D : public ConstructedState
 {
 public:
 	Rva0033F43D(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x20 - 0x04];
 };
-class Rva004D7491 : public State
+class Rva004D7491 : public ConstructedState
 {
 public:
 	Rva004D7491(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x20 - 0x04];
 };
 // The host passed in: its +0x20 base is what the 0x0033F4B1 state gets.
 class Rva003438C7HostHead
 {
 public:
 	virtual void v00();
+private:
 	unsigned char m_pad04[0x20 - 0x04];
 };
 class Rva003438C7HostInterface
@@ -75,8 +76,8 @@ public:
 class Rva003438C7Host : public Rva003438C7HostHead, public Rva003438C7HostInterface
 {
 };
-class Rva004D74AC : public State { public: Rva004D74AC(StateMachine*); private: char pad[0x20-4]; };
-class AIAttackApproachTargetState00C12678 : public State { public: AIAttackApproachTargetState00C12678(StateMachine*); private: char pad[0x64-4]; };
+class Rva004D74AC : public ConstructedState { public: Rva004D74AC(StateMachine*); };
+class AIAttackApproachTargetState00C12678 : public ConstructedState { public: AIAttackApproachTargetState00C12678(StateMachine*); private: char pad[0x64-0x20]; };
 struct AttackKindPrefixView { char before108[0x108]; unsigned char kind108; char gap[6]; unsigned char kind10F; };
 struct AttackOwnerPrefixView { char first[4]; AttackKindPrefixView *thing; };
 class AttackPositionStateMachine : public StateMachine
