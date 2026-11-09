@@ -82,6 +82,11 @@ class Locomotor;
 class AIUpdateInterface : public UpdateModule, public AIUpdateInterfaceFourth, public AIUpdateInterfaceFifth
 {
 public:
+	// BehaviorModuleInterface slots 1 and 19 (retail VA 0x00BFA3C0): AIUpdateInterface's
+	// overrides, rowed at 0x003730FC and 0x004FA5F4 (header-inline in AIUpdate.h;
+	// SupplyTruckAIUpdateCtor.cpp).
+	virtual CollideModuleInterface *getCollide();
+	virtual AIUpdateInterface *getAIUpdateInterface();
 	void destroyPath();
 	virtual bool chooseLocomotorSet(int wst);
 protected:

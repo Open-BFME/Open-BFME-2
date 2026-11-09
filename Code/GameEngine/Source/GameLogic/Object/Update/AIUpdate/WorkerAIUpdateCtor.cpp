@@ -282,6 +282,10 @@ public:
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	// BehaviorModuleInterface slot 9 (retail VA 0x00BFA3C0): UpdateModule's override,
+	// rowed at 0x002533D3 (header-inline in UpdateModule.h).
+	virtual UpdateModuleInterface *getUpdate();
 private:
 	UnsignedInt m_nextCallFrameAndPhase; // +0x14
 	Int m_indexInLogic; // +0x18
@@ -324,6 +328,11 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface, public
 {
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	// BehaviorModuleInterface slots 1 and 19 (retail VA 0x00BFA3C0): AIUpdateInterface's
+	// overrides, rowed at 0x003730FC and 0x004FA5F4 (header-inline in AIUpdate.h;
+	// SupplyTruckAIUpdateCtor.cpp).
+	virtual CollideModuleInterface *getCollide();
+	virtual AIUpdateInterface *getAIUpdateInterface();
 	virtual void onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal);
 	// Primary vtable slots 1-8 (slot 0 is the destructor).
 protected:
