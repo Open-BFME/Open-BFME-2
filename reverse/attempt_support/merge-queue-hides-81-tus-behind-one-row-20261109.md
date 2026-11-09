@@ -1,5 +1,17 @@
 # 81 mergeable TUs never reach the queue, and 30 are one row away
 
+> **The framing of this note is superseded; its figures stand.** Read
+> `merge-blocker-remedy-is-unreachable-20261109.md` first. Measured later the
+> same day at `592396ae2c7`, the population is unchanged (139 blocked, 80 with
+> 2+ donors, 1,513 donor files), but it is not the split lane this note takes it
+> for. Screened against the walls, **47 of the 80 TUs (1,013 donor files) are
+> blocked by a row whose destination the map only `proposes`**, so AGENTS.md
+> forbids the move and the work is TU-approval, not carving. Of the 19 that are
+> attemptable, **all 19 dry runs refuse and nothing can be carved**: for 11 of
+> them the blocking row has no definition span in its file at all, so the
+> blocker's "split it first" cannot be performed at any price. Where this note
+> says "one row away", read "one row away from a verdict nobody can reach yet".
+
 Measured 2026-11-09 at `1650aa94c47`, using `tu_skeleton.py`'s own predicates.
 `tools/tu_skeleton.py --queue` lists **493** TUs with donors to absorb. It is not
 the whole lane: another **81 TUs holding 1586 donor files** are refused before a
@@ -254,3 +266,10 @@ Two over-claims were caught before this note was published, both the same shape:
 
 The recurring lesson, now three times in this lane: **use the lane's own
 predicates, and read the confidence column before pricing any row move.**
+
+A fourth correction, from the follow-up that supersedes this note's framing: a
+free, approved destination still is not an attemptable split. Every one of the 19
+that passed this note's screen was then refused by a dry run, and for 11 the
+blocking row is a compiler-emitted COMDAT with no body in the file -- there is
+nothing to carve. The screen should have asked whether a definition exists, not
+only where the map points.
