@@ -25,9 +25,6 @@
 #include "ascii_string.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 
-
-inline void *operator new(unsigned int, void *where) throw() { return where; }
-
 class INI;
 typedef void (*Parser)(INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/INI.h"
@@ -83,7 +80,7 @@ public:
 };
 template <class T> inline void _Construct(T *p, const T &value)
 {
-	new (p) T(value);
+	*p = value;
 }
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
