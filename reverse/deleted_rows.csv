@@ -5950,3 +5950,4 @@ __ehhandler$?rva000E2FBD@FlatHeightMapRenderObjClass@@QAEXAAVRenderInfoClass@@@Z
 ??0Rva001E3E43@@QAE@ABV0@@Z,0x001E4641,"Respelled to ??0Locomotor@@QAE@ABV0@@Z by tools/rename.py (retail identity)"
 __ehhandler$??0Rva001E3E43@@QAE@ABV0@@Z,0x00769F90,"Respelled to __ehhandler$??0Locomotor@@QAE@ABV0@@Z by tools/rename.py (retail identity)"
 ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z,0x001E525A,"Respelled to ?xfer@Locomotor@@MAEXPAVXfer@@@Z by tools/rename.py (retail identity)"
+?helper@Rva002F1C5F@@AAEPAV1@H@Z,0x002F0C32,Placeholder retired: this body is the tree base constructor ??0?$_Rb_tree_base@HV?$Rva002F0C32Allocator@H@@@_STL@@QAE@ABV?$Rva002F0C32Allocator@H@@@Z
