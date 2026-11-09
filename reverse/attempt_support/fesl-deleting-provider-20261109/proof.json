@@ -1,0 +1,49 @@
+{
+  "sources": [
+    "Code/GameEngine/Source/GameNetwork/Rva00802330FeslCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp"
+  ],
+  "owned_rows": 21,
+  "ctor_bytes": 37,
+  "changed_code": [
+    "??_GRva00802380Owner@@UAEPAXI@Z"
+  ],
+  "new_deleting_destructor_bytes": 56,
+  "new_deleting_destructor_body_relocations_flags_policy_equal_to_verified_owner": true,
+  "original_provider_retained_comdat_data_reference_and_definition_facts_unchanged": true,
+  "retained_constructor_and_V2ZeroInt_facts_unchanged": true,
+  "added_inline_base_definitions": [
+    "??_7Rva00802380Base@@6B@",
+    "??_GRva00802380Base@@UAEPAXI@Z"
+  ],
+  "native_verified_added_and_changed": [
+    {
+      "name": "??0Rva00802380Owner@@QAE@XZ",
+      "rva": "0x0066E570",
+      "size": "37"
+    },
+    {
+      "name": "??_GRva00802380Owner@@UAEPAXI@Z",
+      "rva": "0x0066E750",
+      "size": "56"
+    },
+    {
+      "name": "??_GRva00802380Base@@UAEPAXI@Z",
+      "rva": "0x0066E5A0",
+      "size": "31"
+    }
+  ],
+  "undefined_added": [
+    "??_GRva00802380Base@@UAEPAXI@Z",
+    "?clear@Rva008003C0Owner@@QAEXXZ"
+  ],
+  "undefined_removed": [
+    "??1Rva00802380Owner@@UAE@XZ"
+  ],
+  "object_sha256": [
+    "21131858a13d6d124289b90599c90d88a27c97969c52453e2fce65b4a881a6de",
+    "bff423884dc429f81c6b1d25f03473b261b93b3d650793ddd919266aa88ffd1e"
+  ],
+  "provenance": "Existing flat constructor and 12-byte base teardown views are preserved. No original layout, complete C++ inheritance/lifetime model or class identity is claimed.",
+  "remaining": "Native base and owner tables are 20 bytes; current compiler tables are still 4 bytes. No full table or real-image recovery claimed."
+}

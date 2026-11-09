@@ -706,3 +706,15 @@ Published as 362b6b1740, second attempt in 37.5 seconds; post-publication
 proof passes and all eight claims release. Broader audit is INCONCLUSIVE
 at c885072a48/base 7c6a144ce2 for unchanged ConcreteModuleTemplateCopyCtors.cpp
 missing a current receipt. No new image/global closure is claimed.
+
+2026-11-09, FESL 8E3D14 provider repair: Rva00802330FeslCtor.cpp now emits
+the same 56-byte deleting wrapper as the verified Y2 destructor owner,
+including the final base teardown. The constructor's 37-byte body and all
+original Y2 object facts remain unchanged; normal 21/21 and paired LINKS
+657 pass. No rows or identities move. The partial flat ABI view explicitly
+does not recover inheritance or lifetime. Bounded cached replay clears
+one target-not-winning-provider refusal, while bridges rise from one/five
+slots to two/ten slots: both native tables remain 20B versus compiler 4B.
+Four support objects lack strict receipts. Full class/table recovery and
+next-census/image verification remain open; this does not clear 8E3D28.
+[Native/object proof and rejected full-view prerequisites](../../reverse/attempt_support/fesl-deleting-provider-20261109/README.md).
