@@ -379,19 +379,21 @@ public:
 	void rva00222D47(Int firstValue, Int secondValue, Int thirdValue);
 };
 
-class Rva00222D3FForwarder
+// Slot 1 of Rva00222A19's table 0x00BE6D5C (constructor in RvaSmallVtableCtors.cpp).
+class Rva00222A19
 {
 public:
-	void rva00222D3F(Int firstValue, Int secondValue, Int thirdValue);
+	virtual int rva00222A2B();
+	virtual void rva00222D3F(Int firstValue, Int secondValue, Int thirdValue);
+	virtual Int rva00222D26(char *buf);
 private:
-	char m_lead[0x4];
-	Rva00222D47Target *m_member;
+	void *m_member;
 };
 
 // vtable 0x00BE6D5C#1
-void Rva00222D3FForwarder::rva00222D3F(Int firstValue, Int secondValue, Int thirdValue)
+void Rva00222A19::rva00222D3F(Int firstValue, Int secondValue, Int thirdValue)
 {
-	m_member->rva00222D47(firstValue, secondValue, thirdValue);
+	((Rva00222D47Target *)m_member)->rva00222D47(firstValue, secondValue, thirdValue);
 }
 
 class Rva0022C9D2Forwarder

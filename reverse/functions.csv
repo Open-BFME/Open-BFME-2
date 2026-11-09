@@ -33667,7 +33667,7 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0009AD42@Rva0009AD42Forwarder@@QAEXXZ,,0x0009AD42,11,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BC89C8#12 slot forwarder (global hop)
 ?rva000B1974@Rva000B1974Forwarder@@QAEXHH@Z,,0x000B1974,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BC95B8#1 slot forwarder (ptr hop)
 ?rva001B4CD0@Rva001B4CD0Forwarder@@QAEXXZ,,0x001B4CD0,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BD7678#1 slot forwarder (sub hop)
-?rva00222D3F@Rva00222D3FForwarder@@QAEXHHH@Z,,0x00222D3F,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BE6D5C#1 slot forwarder (ptr hop)
+?rva00222D3F@Rva00222A19@@UAEXHHH@Z,,0x00222D3F,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BE6D5C#1 slot forwarder (ptr hop)
 ?rva0022C9D2@Rva0022C9D2Forwarder@@QAEXXZ,,0x0022C9D2,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BE74F0#9 slot forwarder (sub hop)
 ?rva0025DC30@Rva0025DC30Forwarder@@QAEXXZ,,0x0025DC30,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BF6040#31 slot forwarder (ptr hop)
 ?rva0025DC56@Rva0025DC56Forwarder@@QAEXHHHH@Z,,0x0025DC56,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BF6040#34 slot forwarder (ptr hop)
@@ -33978,7 +33978,7 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00135E60@Rva00135E60@@QAEHXZ,,0x00135E60,13,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
 ?rva0015140A@Rva0015140A@@QAEHXZ,,0x0015140A,11,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
 ?rva00216239@Rva00216239@@QAEXH@Z,,0x00216239,12,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
-?rva00222A2B@Rva00222A2B@@QAEHXZ,,0x00222A2B,8,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
+?rva00222A2B@Rva00222A19@@UAEHXZ,,0x00222A2B,8,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
 ?rva00251C08@Rva00251C08@@QAE_NXZ,,0x00251C08,9,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
 ?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z,,0x001F01E8,3,Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
 ?rva0025EF07@Rva001F01E8@@QAEXHHHHHH@Z,,0x0025EF07,3,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,unclaimed straight-line vtable slot body (vftable_map); address-named owner; types inferred from register use
@@ -39080,7 +39080,7 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva003FD1C5@Rva003FD37A@@MAEXPAVXfer@@@Z,,0x003FD37A,30,Code/GameEngine/Source/Common/Rva003FD1C5Xfer.cpp,matched,vtable slot after name 0x003FD374: rowed base xfer 0x003FD1C5 then Xfer slot 0x78 (unsigned int) on +0x0C; no Ghidra entry
 ?rva0017FAFB@Rva0017FAFB@@QBEIXZ,,0x0017FAFB,20,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; 0x58 per +0x14 object's +0x10 count plus 0x34 (0 without it); no Ghidra entry
 ?rva00200BD9@WaterTransparencySetting@@UAEXXZ,,0x00200BD9,18,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; tail call of pinned 0x001E35DF on the +0x04 member of the object at VA 0x00DFF488 when non-NULL; no Ghidra entry
-?rva00222D26@Rva00222D26@@QAEHPAD@Z,,0x00222D26,25,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; leading byte of the +0x04 object then rowed Rva000B3F84Pair::write of its +0x04; returns count+1; no Ghidra entry
+?rva00222D26@Rva00222A19@@UAEHPAD@Z,,0x00222D26,25,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; leading byte of the +0x04 object then rowed Rva000B3F84Pair::write of its +0x04; returns count+1; no Ghidra entry
 ?rva0033F504@Rva0033F504@@QAEHXZ,,0x0033F504,19,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; rowed bfmeQuery932C of the +0x20 object widened to int or 0; no Ghidra entry
 ?rva003413A1@Rva003413A1@@QAE_NXZ,,0x003413A1,17,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; virtual slot 11 (bool) of the +0x24 object or false; no Ghidra entry
 ?rva0034143C@Rva003413A1@@QAEXXZ,,0x0034143C,15,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,matched,vtable slot; virtual slot 6 of the +0x24 object when non-NULL; no Ghidra entry

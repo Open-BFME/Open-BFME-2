@@ -455,16 +455,18 @@ struct Rva00222A2BTarget
 	int m_value08;
 };
 
-class Rva00222A2B
+// Slot 0 of Rva00222A19's table 0x00BE6D5C (constructor in RvaSmallVtableCtors.cpp).
+class Rva00222A19
 {
 public:
-	int rva00222A2B();
+	virtual int rva00222A2B();
+	virtual void rva00222D3F(int firstValue, int secondValue, int thirdValue);
+	virtual int rva00222D26(char *buf);
 private:
-	char m_pad00[4];
 	Rva00222A2BTarget *m_target04;
 };
 
-int Rva00222A2B::rva00222A2B()
+int Rva00222A19::rva00222A2B()
 {
 	return m_target04->m_value08 + 1;
 }

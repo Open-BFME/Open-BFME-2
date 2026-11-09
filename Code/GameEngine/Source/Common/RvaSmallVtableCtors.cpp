@@ -33,11 +33,16 @@ Rva000ABD56::Rva000ABD56(void *payload) : m_04(payload)
 }
 
 // ??0Rva00222A19@@QAE@PAX@Z @0x00222A19 18B, vtable VA 0xbe6d5c
+// Retail's three-slot table holds 0x00222A2B (VtableSlotBodiesR3.cpp), 0x00222D3F
+// (VslotMemberForwarders.cpp) and 0x00222D26 (VslotSmallBodiesR.cpp), each
+// reaching the +4 payload.
 class Rva00222A19
 {
 public:
 	Rva00222A19(void *payload);
-	virtual ~Rva00222A19() {}
+	virtual int rva00222A2B();
+	virtual void rva00222D3F(int firstValue, int secondValue, int thirdValue);
+	virtual int rva00222D26(char *buf);
 private:
 	void *m_04;
 };

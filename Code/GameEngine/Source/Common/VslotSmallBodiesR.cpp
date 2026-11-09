@@ -85,15 +85,17 @@ struct Rva00222D26Data
 	char m_pad01[3];
 	Rva000B3F84Pair m_pair04;
 };
-class Rva00222D26
+// Slot 2 of Rva00222A19's table 0x00BE6D5C (constructor in RvaSmallVtableCtors.cpp).
+class Rva00222A19
 {
 public:
-	Int rva00222D26(char *buf);
+	virtual int rva00222A2B();
+	virtual void rva00222D3F(Int firstValue, Int secondValue, Int thirdValue);
+	virtual Int rva00222D26(char *buf);
 private:
-	Int m_00;
 	Rva00222D26Data *m_04;
 };
-Int Rva00222D26::rva00222D26(char *buf)
+Int Rva00222A19::rva00222D26(char *buf)
 {
 	Rva00222D26Data *sourceData = m_04;
 	buf[0] = sourceData->m_00;
