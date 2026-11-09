@@ -4,46 +4,10 @@
 #include "GameLogicObjectLookupView.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-extern "C" const void *const __identifier("??_7Rva0007DF07@@6B@")[];
-  // folded vftable 0x00BC6F20 (7 classes), by its data-ledger name
-extern "C" const unsigned char __identifier("??_7ArmySummaryEntry@@6BCarryoverUnit@@@");
-extern "C" const unsigned char __identifier("??_7ArmySummaryEntry@@6BRva0007DF07@@@");
-class Player;
-class Object;
-class CarryoverUnit
-{
-public:
-	CarryoverUnit();
-	CarryoverUnit(const CarryoverUnit &o);
-	Object *createSingleObject(Player *player);
-private:
-	char m_pad[0xac];
-};
-struct MemberAC
-{
-	MemberAC() : m_vtable((void *)((unsigned int)__identifier("??_7Rva0007DF07@@6B@"))), m_04(0) {}
-	void *m_vtable;
-	int m_04;
-};
-class ArmySummaryEntry : public CarryoverUnit
-{
-public:
-	ArmySummaryEntry();
-	ArmySummaryEntry(const ArmySummaryEntry &o);
-	void Parse(class INI *ini);
-	void MarkForUpgrades(const class Rva004E0632 *a);
-	void CancelUpgrades();
-	void ApplyWorldMapUpgrades();
-	Object *rva0040C495(class Player *player, int handle);
-private:
-	MemberAC m_ac;
-	int m_b4;
-	int m_b8;
-	int m_bc;
-	int m_c0;
-	unsigned char m_c4;
-	unsigned char m_c5;
-};
+#include "../../Include/GameLogic/CarryoverUnit.h"
+#include "../../Include/Common/Rva0007DF07.h"
+#include "../../Include/Common/ArmySummaryEntry.h"
+
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
@@ -52,34 +16,29 @@ class Rva004E0632
 public:
 	int rva004E0632() const;
 };
-ArmySummaryEntry::ArmySummaryEntry() : CarryoverUnit()
+ArmySummaryEntry::ArmySummaryEntry() : CarryoverUnit(), Rva0007DF07()
 {
-	MemberAC *memberAC = &m_ac;
-	memberAC->m_vtable = (void *)&__identifier("??_7ArmySummaryEntry@@6BRva0007DF07@@@");
-	*(unsigned int *)this = (unsigned int)&__identifier("??_7ArmySummaryEntry@@6BCarryoverUnit@@@");
-	m_b4 = 0;
-	m_b8 = 0;
-	m_bc = 0;
-	m_c0 = 0;
-	m_c4 = 0;
-	m_c5 = 0;
+    m_b4 = 0;
+    m_b8 = 0;
+    m_bc = 0;
+    m_c0 = 0;
+    m_c4 = 0;
+    m_c5 = 0;
 }
 // ??0ArmySummaryEntry@@QAE@ABV0@@Z retail 0x0040D688 121B. Copy ctor of ArmySummaryEntry:
 // base copy 0x001EB79E then same dual-vtable member pattern as default ctor
 // (m_ac() gives base 0xBC6F20 plus 0 which body overwrites with 0xC3945C,
 // this gets 0xC3944C), ints/bytes copied from source. Callers in unclaimed
 // 0x0040E96D 0x0040EAED 0x0040F34E 0x004E0BDC 0x004F7B6B 0x0059B1EC.
-ArmySummaryEntry::ArmySummaryEntry(const ArmySummaryEntry &armySummaryEntry) : CarryoverUnit(armySummaryEntry), m_ac()
+ArmySummaryEntry::ArmySummaryEntry(const ArmySummaryEntry &armySummaryEntry)
+    : CarryoverUnit(armySummaryEntry), Rva0007DF07()
 {
-	*(const void **)this = &__identifier("??_7ArmySummaryEntry@@6BCarryoverUnit@@@");
-	MemberAC *memberAC = &m_ac;
-	memberAC->m_vtable = (void *)&__identifier("??_7ArmySummaryEntry@@6BRva0007DF07@@@");
-	m_b4 = armySummaryEntry.m_b4;
-	m_b8 = armySummaryEntry.m_b8;
-	m_bc = armySummaryEntry.m_bc;
-	m_c0 = armySummaryEntry.m_c0;
-	m_c4 = armySummaryEntry.m_c4;
-	m_c5 = armySummaryEntry.m_c5;
+    m_b4 = armySummaryEntry.m_b4;
+    m_b8 = armySummaryEntry.m_b8;
+    m_bc = armySummaryEntry.m_bc;
+    m_c0 = armySummaryEntry.m_c0;
+    m_c4 = armySummaryEntry.m_c4;
+    m_c5 = armySummaryEntry.m_c5;
 }
 // ?CancelUpgrades@ArmySummaryEntry@@QAEXXZ @0x0040C45C 57B.
 // Clear-on-null lookup-and-notify over m_bc: Logic id lookup rowed via pin
@@ -111,7 +70,6 @@ static inline const int &min(const int &a, const int &b)
 #include <vector>
 #include "ascii_string.h"
 extern "C" const void *const __identifier("??_7ArmySummary@@6B@")[];
-extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 
 class Rva0040C598 { public: void bitAnd(const int *); void rva0040C5B1(const int *); };
@@ -211,7 +169,7 @@ private:
 // vptr as ArmySummary's first member, so the restore is spelled by hand.
 Rva0040E3EEBase::~Rva0040E3EEBase()
 {
-	*(const void *const **)this = __identifier("??_7Snapshot@@6B@");
+    ((Snapshot *)this)->Snapshot::~Snapshot();
 }
 
 ArmySummary::ArmySummary()
