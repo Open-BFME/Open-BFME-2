@@ -422,21 +422,6 @@ int Rva0015140A::rva0015140A()
 	return m_value14 ? 0x28 : 0;
 }
 
-// 0x0016814C: twice the word at +0xD0, less 2.
-class Rva0016814C
-{
-public:
-	int rva0016814C();
-private:
-	char m_pad00[0xD0];
-	int m_valueD0;
-};
-
-int Rva0016814C::rva0016814C()
-{
-	return m_valueD0 * 2 - 2;
-}
-
 // The shared true predicate188170 now belongs to Rva0073BAA0Base
 // in RTS/Rva0073BAA0.cpp; CF139C establishes its updater relationship.
 

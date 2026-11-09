@@ -5951,3 +5951,6 @@ __ehhandler$?rva000E2FBD@FlatHeightMapRenderObjClass@@QAEXAAVRenderInfoClass@@@Z
 __ehhandler$??0Rva001E3E43@@QAE@ABV0@@Z,0x00769F90,"Respelled to __ehhandler$??0Locomotor@@QAE@ABV0@@Z by tools/rename.py (retail identity)"
 ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z,0x001E525A,"Respelled to ?xfer@Locomotor@@MAEXPAVXfer@@@Z by tools/rename.py (retail identity)"
 ?helper@Rva002F1C5F@@AAEPAV1@H@Z,0x002F0C32,Placeholder retired: this body is the tree base constructor ??0?$_Rb_tree_base@HV?$Rva002F0C32Allocator@H@@@_STL@@QAE@ABV?$Rva002F0C32Allocator@H@@@Z
+?rva0016814C@Rva0016814C@@QAEHXZ,0x0016814C,"Retracted: retail table 0x00BD41C8 holds this body at Rva001684D6 slot 10; rowed in the same change as ?Get_Num_Polys@Rva001684D6@@UBEHXZ."
+?bounds@Rva0016825DLineView@@QBEXAAURva0016825DBox@@@Z,0x0016825D,"Retracted: retail table 0x00BD41C8 holds this body at Rva001684D6 slot 68; rowed in the same change as ?Get_Obj_Space_Bounding_Box@Rva001684D6@@UBEXAAVAABoxClass@@@Z."
+?sphere@Rva0016825DLineView@@QBEXAAURva001681EDSphere@@@Z,0x001681ED,"Retracted: retail table 0x00BD41C8 holds this body at Rva001684D6 slot 67; rowed in the same change as ?Get_Obj_Space_Bounding_Sphere@Rva001684D6@@UBEXAAVSphereClass@@@Z."
