@@ -6003,3 +6003,5 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?rva00527B81@Rva00527B81@@QAEHPAD@Z,0x00527B81,"Renamed to ?rva00527B81@Rva0052787E@@UAEHPAD@Z by tools/rename.py (to-class: retail vftable 0x00C6805C slot 2)"
 ?rva002B89BB@Rva002B89BB@@UAE_NPAURva002B89BBArg@@@Z,0x002B89BB,"Renamed to ?rva002B89BB@Rva002B29F8@@UAE_NPAURva002B89BBArg@@@Z by tools/rename.py (to-class: retail vftable 0x00BFE004 slot 0)"
 ?visit@Rva002BA392ArmyVisitor@@UAE_NPAULivingWorldArmy@@@Z,0x002BA392,"Renamed to ?visit@Rva002B29D8@@UAE_NPAULivingWorldArmy@@@Z by tools/rename.py (to-class: retail vftable 0x00BFE000 slot 0)"
+?rva003A5896@Rva003A5896Forwarder@@UAEXH@Z,0x003A5896,"Renamed to ?DoXfer@Rva005FEA50Base@FXParticleSystem@@UAEXAAVXfer@@@Z by tools/rename.py (inferred)"
+?rva003A5896@Rva003A5896Forwarder@@WBM@AEXH@Z,0x003A589E,"Renamed to ?DoXfer@Rva005FEA50Base@FXParticleSystem@@WBM@AEXAAVXfer@@@Z by tools/rename.py (inferred)"

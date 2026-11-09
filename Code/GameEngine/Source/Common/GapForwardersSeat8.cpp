@@ -267,16 +267,19 @@ void Rva00566557::rva00566557(const Rva004E194E &v) { m_6c.push_back(v); }
 
 struct EmitVtableTag;
 
-#define DEFINE_THUNK_UAE(Cls, Meth, Off, ArgDecl) \
+#define DEFINE_THUNK_UAE_TAG(Cls, Meth, Off, ArgDecl, Tag) \
 	struct Cls##_BaseA { virtual void Meth ArgDecl = 0; char m_pad[(Off) - 4]; }; \
 	struct Cls##_BaseB { virtual void Meth ArgDecl = 0; }; \
 	class Cls : public Cls##_BaseA, public Cls##_BaseB \
 	{ \
 	public: \
-		Cls(EmitVtableTag *); \
+		Cls(Tag *); \
 		virtual void Meth ArgDecl; \
 	}; \
-	Cls::Cls(EmitVtableTag *) {}
+	Cls::Cls(Tag *) {}
+
+#define DEFINE_THUNK_UAE(Cls, Meth, Off, ArgDecl) \
+	DEFINE_THUNK_UAE_TAG(Cls, Meth, Off, ArgDecl, EmitVtableTag)
 
 #define DEFINE_THUNK_MAE(Cls, Meth, Off, ArgDecl) \
 	struct Cls##_BaseA { protected: virtual void Meth ArgDecl = 0; char m_pad[(Off) - 4]; }; \
@@ -371,8 +374,13 @@ DEFINE_THUNK_UAE(Rva005E6B8F, rva005E6B8F, 0x08, ())
 DEFINE_THUNK_UAE(Rva0047E33F, rva0047E33F, 0x20, (int, int))
 // ?<Rva005E5554::Rva005E5554> absent-from-retail
 DEFINE_THUNK_UAE(Rva005E5554, step, 0x08, ())
-// ?<Rva003A5896Forwarder::Rva003A5896Forwarder> absent-from-retail
-DEFINE_THUNK_UAE(Rva003A5896Forwarder, rva003A5896, 0x1C, (int))
+namespace FXParticleSystem {
+// Keep this emission-only constructor distinct from the deleting-dtor view.
+struct WindTransferEmitTag;
+// ?<Rva005FEA50Base::Rva005FEA50Base> absent-from-retail
+// This emission-only constructor emits the adjusting wrapper.
+DEFINE_THUNK_UAE_TAG(Rva005FEA50Base, DoXfer, 0x1C, (Xfer &), WindTransferEmitTag)
+}
 // ?<Rva00085947::Rva00085947> absent-from-retail
 DEFINE_THUNK_UAE(Rva00085947, rva00085947, 0xB4, ())
 // W3DView's secondary base at +0xB4 (vtable 0x007C7530) also declares init.

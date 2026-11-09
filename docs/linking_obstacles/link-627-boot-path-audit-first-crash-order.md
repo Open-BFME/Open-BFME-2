@@ -236,6 +236,15 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   All eight claims release. Wind/Render byte-owner and boot-path clearance
   are still open; future Wind rehome additionally needs approved TU evidence.
 
+  2026-11-09 Wind method follow-up: the native primary and adjusting
+  DoXfer(Xfer&) overrides are recovered through genuine independent naming
+  and one prepared transaction. All 117 code/17 data rows and the scoped
+  three-source LINKS verdict pass; both sixteen-byte compiler tables now
+  hold the correct four native slots. The two byte-sized explicit owners
+  remain until a separate complete-table transfer. This clears the method
+  transition prerequisite, not the boot-path or real-image scope.
+  [Proof and remaining owner work](../../reverse/attempt_support/wind-transfer-overrides-20261109/README.md).
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing

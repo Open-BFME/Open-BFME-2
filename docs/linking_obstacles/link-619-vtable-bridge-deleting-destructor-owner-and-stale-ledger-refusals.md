@@ -707,6 +707,16 @@ proof passes and all eight claims release. Broader audit is INCONCLUSIVE
 at c885072a48/base 7c6a144ce2 for unchanged ConcreteModuleTemplateCopyCtors.cpp
 missing a current receipt. No new image/global closure is claimed.
 
+2026-11-09 Wind method follow-up: genuine independent naming and ordinary
+prepared respells recover the native 3A5896 primary/3A589E adjusting transfer
+pair. All 117 code/17 data rows pass and three explicit link verdicts retain
+LINKS 1,273B; both compiler tables now have four correct native slots.
+No row moves, pin or alias is added. The constructor primary is declaration
+only, and the adjusting-wrapper emitter uses a distinct dummy tag to avoid
+existing exclusive-definition collisions. The two byte-sized owners remain
+for separate full-table verification; broader image/TU work is still open.
+[Source proof and explicit limits](../../reverse/attempt_support/wind-transfer-overrides-20261109/README.md).
+
 2026-11-09, FESL 8E3D14 provider repair: Rva00802330FeslCtor.cpp now emits
 the same 56-byte deleting wrapper as the verified Y2 destructor owner,
 including the final base teardown. The constructor's 37-byte body and all

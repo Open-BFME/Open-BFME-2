@@ -184,6 +184,17 @@ ConcreteModuleTemplateCopyCtors.cpp's missing receipt. The two Wind method
 addresses lack an approved TU too, so future rehome needs that evidence.
 These remain next-census/image and identity/class prerequisites.
 
+2026-11-09 Wind transfer follow-up: a genuine independent naming agreement
+and prepared ordinary respell recover the native 3A5896/3A589E DoXfer(Xfer&)
+pair under the existing namespaced base view, without moving their rows.
+Both compiler tables now have all four correct slots. Normal 117 code and
+17 data rows pass; all three scoped link verdicts remain LINKS (1,273B).
+The primary is out of line to avoid an exclusive duplicate; a distinct
+emission-only constructor tag avoids the destructor view's helper collision.
+Two one-byte explicit Wind owners still need their separately verified
+complete-table transfer. RenderObject, approved-TU and next-image work remain.
+[Native methods, table operands and provider limits](../../reverse/attempt_support/wind-transfer-overrides-20261109/README.md).
+
 2026-11-09, stale LightningDraw queue recheck: the served V3Slot2/V3Slot0
 names were retired by e51aeb84af. Queue 687433edd9 excludes that repair;
 the refreshed 717b70f4ab index contains it. The strict-current 28-byte

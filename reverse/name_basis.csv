@@ -9208,3 +9208,5 @@ function,??0?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@U?$pair@$$CBJVLadde
 global,?g_Va0130A58C@@3EA,?g_createdDefaultAllocator@@3EA,inferred,agree:nr-87ef223954d9b44dd08a479a,Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp,0x00A09FA8
 global,?g_Va0130A58D@@3EA,?g_createdDefaultDiagReporter@@3EA,inferred,agree:nr-e59f39ce43f2ef6d3507eb3b,Code/GameEngine/Source/Common/Rva007EB270Shutdown.cpp,0x00A09FA9
 carry,?shouldExit@Rva00545B72@@QAE_NH@Z,?shouldExit@Rva00545D43@@UAE_NH@Z,inferred,"class move by tools/rename.py: retail table 0x00C6A13C slot 0, installed by ??0Rva00545D43@@QAE@XZ at 0x00545D43",Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp,0x00545B72
+function,?rva003A5896@Rva003A5896Forwarder@@UAEXH@Z,?DoXfer@Rva005FEA50Base@FXParticleSystem@@UAEXAAVXfer@@@Z,inferred,agree:nl-e420c4ebb007,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,0x003A5896
+function,?rva003A5896@Rva003A5896Forwarder@@WBM@AEXH@Z,?DoXfer@Rva005FEA50Base@FXParticleSystem@@WBM@AEXAAVXfer@@@Z,inferred,agree:nl-7feca31c7a6e,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp,0x003A589E

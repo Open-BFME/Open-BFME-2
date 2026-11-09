@@ -674,26 +674,21 @@ void Rva003922B7Forwarder::rva003922B7()
 	m_member.rva00392092();
 }
 
-class Rva003A547ETarget
+// Native 0x003A5896 forwards the +0x1C WindModuleInfo subobject.
+// This is a partial forwarding view; the constructor TU owns the full bases.
+namespace FXParticleSystem {
+class Rva005FEA50Base
 {
 public:
-	void rva003A547E(Int firstValue);
-};
-
-class Rva003A5896Forwarder
-{
-public:
-	// virtual: also reached through the this-0x1C thunk 0x003A589E.
-	virtual void rva003A5896(Int firstValue);
+	virtual void DoXfer(Xfer &xfer);
 private:
 	char m_lead[0x1C - 4];
-	Rva003A547ETarget m_member;
+	WindModuleInfo m_windInfo;
 };
-
-// vtable 0x00C1B5A8#3
-void Rva003A5896Forwarder::rva003A5896(Int firstValue)
+void Rva005FEA50Base::DoXfer(Xfer &xfer)
 {
-	((FXParticleSystem::WindModuleInfo *)&m_member)->FXParticleSystem::WindModuleInfo::DoXfer(*(Xfer *)firstValue);
+	m_windInfo.WindModuleInfo::DoXfer(xfer);
+}
 }
 
 class Rva004DFC20

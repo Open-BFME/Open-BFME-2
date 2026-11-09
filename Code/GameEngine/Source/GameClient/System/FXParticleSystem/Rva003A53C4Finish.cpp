@@ -124,6 +124,7 @@ class Rva005FEA50Base : public Rva003AEEB3, public WindModuleInfo
 public:
 	Rva005FEA50Base(TrackingPtr<ParticleSystem> &system, const void *source);
 	virtual ~Rva005FEA50Base();
+	virtual void DoXfer(Xfer &xfer);
 };
 
 Rva005FEA50Base::Rva005FEA50Base(TrackingPtr<ParticleSystem> &system, const void *source)
