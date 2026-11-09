@@ -271,3 +271,7 @@ claimed.
 present-unmatched copy of BattlePromptMovieClip's constructor in `Rva005FA393Dtor.cpp`, was removed (the constructor is
 rowed in `Rva005F9364Region.cpp`). Clearance: none claimed until the next real link's bridge queue no longer refuses
 0x008078DC.
+
+**2026-11-09, real link `f1c6a663f4`:** `?g_00C078DC@@3QBQBXB` no longer appears; 0x008078DC now carries only bridged
+compiled names (BfmeCtor001B3A20's, NotifyWeaponFiredInterface's, TurretAINotifyBase's). The strong-array refusal is
+**cleared**. VectorDeletingDtorsV02.cpp also left `reverse/exit_link_blockers.tsv`.

@@ -51,3 +51,6 @@ strong `_vtbl_` owner: the vbtable is neither refused nor queued, and the strong
 exit_link, link_batch_audit and gate-exploit suites pass (416 tests). Clearance: none claimed until the next real link's
 `vtable_bridge_queue.tsv` lists no `no-retail-slots` row (34 at `4a3033f245`). The `??_7` tables in the same units remain
 separate bridge work.
+
+**2026-11-09, real link `f1c6a663f4`:** the queue has no `no-retail-slots` row, so the ??_8 refusals at 0x00877C94 and
+0x00879488 are **cleared**. The eight-slot ??_7 tables remain separate work.
