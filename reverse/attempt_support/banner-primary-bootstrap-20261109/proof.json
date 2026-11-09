@@ -1,0 +1,45 @@
+{
+  "private_primary_extent": 52,
+  "private_missing_existing_rows": [],
+  "native_bound_slots": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "unadmitted_slots": [
+    {
+      "slot": 0,
+      "compiler_name": "??_EBannerCarrierUpdate@@UAEPAXI@Z",
+      "native_rva": "0x00496AC2"
+    },
+    {
+      "slot": 1,
+      "compiler_name": "?loadPostProcess@BannerCarrierUpdate@@MAEXXZ",
+      "native_rva": "0x00497805"
+    },
+    {
+      "slot": 2,
+      "compiler_name": "?GetSnapshotName@BannerCarrierUpdate@@MBEPBDXZ",
+      "native_rva": "0x00496A18"
+    },
+    {
+      "slot": 3,
+      "compiler_name": "?xfer@BannerCarrierUpdate@@MAEXPAVXfer@@@Z",
+      "native_rva": "0x0047F94C"
+    }
+  ],
+  "external_definitions_before": 148,
+  "external_definitions_after": 157,
+  "removed_external_definitions": [],
+  "local_rows_byte_verified": 149,
+  "extra_sources_not_started": 585,
+  "windows_command_characters": 40360,
+  "failure": "CreateProcess WinError206; transaction restored; normal149-row baseline rerun passed.",
+  "limits": "Private proposed address mapping and unresolved provider declarations; no native table/identity admission or source/ledger change."
+}

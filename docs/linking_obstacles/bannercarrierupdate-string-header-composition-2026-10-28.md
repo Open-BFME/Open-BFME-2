@@ -21,3 +21,14 @@ conflicts, and confirm consumer selection in the next normal census.
 
 2026-11-05: canonical UpdateModule adoption clears the constructor's base/declaration conflict; its merge now previews successfully ([evidence](../../reverse/attempt_support/banner-carrier-base-chain-20261105-codex3.md)).
 2026-11-05: constructor merged into the approved TU (one fewer source); 47 rows, data/EH and provider union preserved, 3,315 bytes still preview LINKS; mixed donors and normal census confirmation remain ([audit](../../reverse/attempt_support/banner-carrier-constructor-merge-20261105-codex3.md)).
+
+2026-11-09: a private canonical primary-table experiment preserves all48
+current rows and emits52B, with nine of thirteen slots already native-bound.
+The supported unique-name-getter transaction passes149 local rows and the
+existing data/string checks, then rolls back when585 dependent source paths
+exceed Windows' command-line limit (WinError206). The restored normal build
+passes149 again; Code and ledgers are unchanged. Record transport failure
+before fixing the verifier separately, preserving the full dependency scope.
+Real destructor/shared-slot providers and the proposed TU placements remain
+prerequisites; no complete table, class fold or image clearance is claimed.
+[Private experiments, transport case and next steps](../../reverse/attempt_support/banner-primary-bootstrap-20261109/README.md).
