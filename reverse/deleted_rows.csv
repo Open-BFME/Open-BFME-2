@@ -6033,3 +6033,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??1Rva004C87F4@@UAE@XZ,0x004C87F4,"Renamed to ??1CombineHordeSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5E76C)"
 ??_GRva004C87F4@@UAEPAXI@Z,0x004C8852,"Renamed to ??_GCombineHordeSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5E76C)"
 ?g_Va00E032DC@@3IA,0x00A032DC,"Renamed to ?theBriefingList@@3IA by tools/rename.py (inferred)"
+??1Rva004C3905@@UAE@XZ,0x004C3905,"Renamed to ??1ElvenWoodSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5CE8C)"
+??_GRva004C3905@@UAEPAXI@Z,0x004C3963,"Renamed to ??_GElvenWoodSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5CE8C)"
