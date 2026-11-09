@@ -866,7 +866,14 @@ refuses unless all of these hold:
   the fold would create a private copy of it, unless every unit that spells
   OLD (text or object) comes `--prepared REL=FILE` on NEW's shared header and
   spells OLD nowhere (class_gate and the byte gate judge those units); no unit
-  may end up declaring NEW twice or deriving NEW from itself.
+  may end up declaring NEW twice or deriving NEW from itself. An unregistered
+  global NEW is a token rewrite, or, when a unit declares both views (which the
+  rewrite would turn into two bodies of NEW), comes prepared the same way: every
+  unit spelling OLD, OLD spelled nowhere. Each prepared unit may then add no body
+  of a registered class, and the compiler's record of the class (`view_layouts`:
+  sizeof, vfptr, bases, fields, introduced virtual slots) must agree for OLD's
+  and NEW's views before the fold and equal NEW's after the build; anything it
+  cannot compile or read refuses.
 - With prepared units, `--access public|protected|private` respells the folded
   virtual destructor family (`??1`, `??_G`, `??_E` and their adjustor thunks,
   with their `__ehhandler$` rows) to that access, where NEW's shared header

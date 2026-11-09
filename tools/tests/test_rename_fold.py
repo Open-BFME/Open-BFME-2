@@ -796,9 +796,11 @@ def test_nested_fold_refused_when_a_prepared_unit_still_spells_old(tmp_path, mon
         n_plan(root, prepared={"Code/Game/IconDtor.cpp": N_DTOR_SRC.encode("utf-8")})
 
 
-def test_prepared_needs_a_nested_new(tree, monkeypatch):
+def test_prepared_units_of_a_global_new_are_every_unit_spelling_old(tree, monkeypatch):
+    # an unregistered global NEW may come prepared, but then every unit that
+    # spells OLD does: one prepared unit beside a token rewrite is no route
     retail(monkeypatch)
-    with pytest.raises(Refusal, match="--prepared goes with a nested --into"):
+    with pytest.raises(Refusal, match="Code/Game/DerivedCtor.cpp spells BfmeWidgetBase: the fold comes prepared"):
         plan(tree, prepared={"Code/Game/BaseCtor.cpp": BASE_CTOR.encode("utf-8")})
 
 
@@ -1514,11 +1516,168 @@ def test_access_goes_with_a_fold_only(tmp_path):
                            evidence="x", access="protected")
 
 
-def test_prepared_units_still_need_a_nested_or_registered_new(tmp_path, monkeypatch):
+def test_prepared_units_of_an_unregistered_new_need_a_readable_layout(tmp_path, monkeypatch):
+    # the prepared route of an unregistered NEW proves the layout from the
+    # compiler's record; a unit it cannot compile refuses
     root = make_dtor_tree(tmp_path)
     d_retail(monkeypatch)
-    with pytest.raises(Refusal, match="an unregistered global NEW is a token rewrite"):
+    p_layouts(monkeypatch, broken="error C2011")
+    with pytest.raises(Refusal, match="Code/Game/Dtor.cpp's class layouts cannot be read before the fold"):
         r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")})
+
+
+# ------------------------------------------------------------ prepared units into an unregistered NEW
+#
+# SalvageCrateCollide.cpp declares two views of one class: placeholder
+# Rva004BD207, which its destructor rows compile against, and
+# SalvageCrateCollide, which its constructor and retail's vftable name. A token
+# rewrite would declare the class twice, so the unit comes prepared with the
+# real class's view alone. What the rewrite kept by construction is checked
+# instead: OLD spelled nowhere, every unit spelling OLD prepared, no registered
+# class copied, and the compiler's record of the class kept (view_layouts,
+# injected as -Z7 would report it): the unit's two views agree before the fold
+# and NEW equals them after the build.
+P_LAYOUT = {"fwd": False, "size": 8, "vfptr": True, "bases": [], "unparsed": None,
+            "fields": [[4, "m_04", "unsigned char", 1]], "vslots": {"0": f"~{OLD}"}}
+P_BOTH = BASE_CTOR + f"class {NEW}\n{{\npublic:\n\tvirtual ~{NEW}();\n}};\n"
+P_BASE = f"""// cl: /O2
+// ??0{NEW}@@QAE@XZ @ 0x00401000
+class {NEW}
+{{
+public:
+\t{NEW}();
+\tvirtual ~{NEW}();
+private:
+\tunsigned char m_pad[4];
+\tunsigned char m_04;
+}};
+
+{NEW}::{NEW}()
+{{
+\tm_04 = 0;
+}}
+"""
+P_DERIVED = DERIVED_CTOR.replace(OLD, NEW)
+P_UNITS = {"Code/Game/BaseCtor.cpp": P_BASE, "Code/Game/DerivedCtor.cpp": P_DERIVED}
+
+
+def p_tree(root):
+    make_tree(root)
+    write(root, "Code/Game/BaseCtor.cpp", P_BOTH)
+    _git(root, "add", "-A")
+    return root
+
+
+def p_layouts(monkeypatch, before=None, after=None, broken=None):
+    """view_layouts as -Z7 would report it: every class the unit's text declares
+    has P_LAYOUT, or before[name] while the unit spells OLD and after[name] once it
+    does not; `broken` fails the compile. Returns the units compiled, in order."""
+    seen = []
+
+    def fake(ctx, rel):
+        seen.append(rel)
+        if broken:
+            raise RuntimeError(f"{rel}: compile failed: {broken}")
+        text = rename.name_metric.strip(ctx.path(rel).read_text(encoding="utf-8"))
+        state = (before if OLD in text else after) or {}
+        return {n: dict(state.get(n, P_LAYOUT)) for n in (OLD, NEW) if rename.declares_type(text, n)}
+    monkeypatch.setattr(rename, "view_layouts", fake)
+    return seen
+
+
+def p_plan(root, units=None):
+    units = P_UNITS if units is None else units
+    return plan(root, prepared={rel: text.encode("utf-8") for rel, text in units.items()})
+
+
+def test_a_unit_declaring_both_views_folds_prepared_into_an_unregistered_new(tmp_path, monkeypatch):
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    seen = p_layouts(monkeypatch)
+    with pytest.raises(Refusal, match=f"would declare class {NEW} twice"):
+        plan(root)                                       # the token rewrite: two bodies of NEW
+    p = p_plan(root)
+    assert p.fold == TABLE and sorted(p.fold_layouts["units"]) == sorted(P_UNITS)
+    assert all(shape is not None for shape in p.fold_layouts["units"].values())
+    assert set(P_UNITS) <= set(p.verify) and seen == sorted(P_UNITS)
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    assert seen == sorted(P_UNITS) * 2                   # before the fold, then the rebuilt units
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??0{NEW}@@QAE@XZ,,0x00401000,13,Code/Game/BaseCtor.cpp,matched," in fns
+    assert f"??0{OLD}@" not in fns
+    for rel, text in P_UNITS.items():
+        assert (root / rel).read_text() == text
+
+
+def test_a_prepared_unregistered_fold_refuses_a_unit_still_spelling_old(tmp_path, monkeypatch):
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    p_layouts(monkeypatch)
+    with pytest.raises(Refusal, match=f"prepared Code/Game/BaseCtor.cpp still spells {OLD}"):
+        p_plan(root, dict(P_UNITS, **{"Code/Game/BaseCtor.cpp": P_BOTH}))
+
+
+def test_a_prepared_unregistered_fold_refuses_a_missing_unit(tmp_path, monkeypatch):
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    p_layouts(monkeypatch)
+    with pytest.raises(Refusal, match=f"Code/Game/DerivedCtor.cpp spells {OLD}: the fold comes prepared"):
+        p_plan(root, {"Code/Game/BaseCtor.cpp": P_BASE})
+
+
+def test_a_prepared_unregistered_fold_refuses_a_unit_spelling_no_old(tmp_path, monkeypatch):
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    p_layouts(monkeypatch)
+    with pytest.raises(Refusal, match=f"prepared Code/Game/Other.cpp spells no {OLD}"):
+        p_plan(root, dict(P_UNITS, **{"Code/Game/Other.cpp": OTHER + "// prepared\n"}))
+
+
+def test_a_prepared_unregistered_fold_refuses_a_copy_of_a_registered_class(tmp_path, monkeypatch):
+    root = p_tree(tmp_path)
+    write(root, "reverse/canonical_classes.csv", "class,header,notes\nShared,Code/Game/Shared.h,shared\n")
+    _git(root, "add", "-A")
+    retail(monkeypatch)
+    p_layouts(monkeypatch)
+    copied = P_BASE + "class Shared\n{\npublic:\n\tint m_x;\n};\n"
+    with pytest.raises(Refusal, match="prepared Code/Game/BaseCtor.cpp declares a body of Shared.*private copy"):
+        p_plan(root, dict(P_UNITS, **{"Code/Game/BaseCtor.cpp": copied}))
+
+
+def test_a_prepared_unregistered_fold_refuses_views_that_disagree_on_the_layout(tmp_path, monkeypatch):
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    p_layouts(monkeypatch, before={NEW: dict(P_LAYOUT, size=12)})
+    with pytest.raises(Refusal, match=f"BaseCtor.cpp's {OLD} view and its {NEW} view disagree on the class layout"):
+        p_plan(root)
+
+
+@pytest.mark.parametrize("after", [
+    dict(P_LAYOUT, size=12, fields=P_LAYOUT["fields"] + [[8, "m_08", "int", 4]]),   # a field added
+    dict(P_LAYOUT, fields=[[4, "m_04", "signed char", 1]]),                        # a field retyped
+    dict(P_LAYOUT, bases=[["Base", 0]]),                                           # a base added
+    dict(P_LAYOUT, vslots={"0": f"~{NEW}", "1": "extra()"}),                       # a virtual introduced
+])
+def test_a_prepared_unregistered_fold_refuses_a_layout_change(tmp_path, monkeypatch, after):
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    p_layouts(monkeypatch, after={NEW: after})
+    p = p_plan(root)
+    before = snapshot(root)
+    with pytest.raises(VerifyFailed, match="the prepared unit changes the class layout"):
+        rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    assert snapshot(root) == before
+
+
+def test_a_prepared_unregistered_fold_refuses_a_unit_that_gains_a_body(tmp_path, monkeypatch):
+    # DerivedCtor.cpp's prepared text declares NEW, but the compiler reported no
+    # complete record of either view before: no shape to keep, so none may appear
+    root = p_tree(tmp_path)
+    retail(monkeypatch)
+    p_layouts(monkeypatch, before={OLD: {"fwd": True}, NEW: {"fwd": True}})
+    p = p_plan(root)
+    with pytest.raises(VerifyFailed, match="changes the class layout"):
+        rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
 
 
 # ------------------------------------------------------------ a NEW rowed only through virtual methods

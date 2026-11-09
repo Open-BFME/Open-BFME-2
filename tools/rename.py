@@ -1451,6 +1451,7 @@ class Plan:
     virtual: bool = False                             # function --virtual: the decoration, not the name
     fold: int = None                                  # class --fold: the retail vftable rva proving one class
     fold_tie: dict = None                             # class --fold by retail's initializer: what the build must prove
+    fold_layouts: dict = None                         # class --fold, prepared unregistered NEW: each unit's layout
     dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
     to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
     retype: dict = None                               # global --retype: what the rebuilt objects must prove
@@ -11501,6 +11502,79 @@ def fold_access_respell(mangled_new, access):
     return post
 
 
+# A prepared fold into an unregistered global NEW. A unit that declares both
+# views (OLD's, which its placeholder rows compile against, and NEW's) cannot be
+# token-rewritten: it would declare NEW twice. Its caller writes the unit with
+# NEW's view alone, and what the token rewrite kept by construction is checked
+# instead: the unit spells OLD nowhere and every unit spelling OLD comes
+# prepared (plan_fold), it declares no body of a registered class it did not
+# declare before (class_gate's private copy), and the compiler's own record of
+# the class (view_layouts: sizeof, vfptr, bases with offsets, fields with
+# offsets and types, introduced virtual slots) is the same before and after.
+# Before, OLD's and NEW's complete records in the unit must agree (OLD spelled
+# NEW where it named itself); after, NEW's must equal them. A unit with no
+# complete record before may not gain one. The rows' bytes stay the build's.
+
+def fold_layout_shape(layout, old, new):
+    """The class shape a prepared fold keeps, with OLD's own spelling read as NEW's;
+    None for no complete record (absent, forward-only or unparsed)."""
+    if not layout or layout.get("fwd") or layout.get("unparsed") is not None or not layout.get("size"):
+        return None
+    shape = {"size": layout.get("size"), "vfptr": bool(layout.get("vfptr")),
+             "bases": [list(b) for b in layout.get("bases", [])],
+             "fields": [list(f) for f in layout.get("fields", [])],
+             "vslots": sorted([str(k), v] for k, v in (layout.get("vslots") or {}).items())}
+    return word_re(old).sub(new, json.dumps(shape, sort_keys=True))
+
+
+def fold_layout_baseline(ctx, old, new, prepared, touched, registered):
+    """{"old", "new", "units": {rel: shape or None}}: each prepared unit's class shape
+    before the fold, read from the unit as committed. Refuses a prepared unit that
+    spells no OLD, declares a registered class's body it did not declare before, or
+    whose two views already disagree on the layout."""
+    units = {}
+    for rel, data in sorted(prepared.items()):
+        if rel not in touched:
+            raise Refusal(f"prepared {rel} spells no {old}: a fold prepares only the units that spell it")
+        before = name_metric.strip((ctx.read(rel) or b"").decode("utf-8", errors="surrogateescape"))
+        after = name_metric.strip(data.decode("utf-8", errors="surrogateescape"))
+        copied = sorted(c for c in registered if c and IDENT.fullmatch(c)
+                        and declares_type(after, c) and not declares_type(before, c))
+        if copied:
+            raise Refusal(f"prepared {rel} declares a body of {copied[0]}, which {CANONICAL_CLASSES} registers: "
+                          "a private copy (class_gate); include its shared header instead")
+        try:
+            layouts = view_layouts(ctx, rel)
+        except Exception as error:                       # a compile failure or an unreadable record
+            raise Refusal(f"{rel}'s class layouts cannot be read before the fold: {str(error)[:200]}") from None
+        shapes = {name: fold_layout_shape(layouts.get(name), old, new) for name in (old, new)}
+        complete = {name: shape for name, shape in shapes.items() if shape is not None}
+        if len(set(complete.values())) > 1:
+            raise Refusal(f"{rel}'s {old} view and its {new} view disagree on the class layout ({shapes[old]} "
+                          f"against {shapes[new]}): one class has one layout; reconcile the two views first")
+        units[rel] = next(iter(complete.values()), None)
+    return {"old": old, "new": new, "units": units}
+
+
+def fold_layout_problems(ctx, baseline):
+    """After ./build.sh, each prepared unit's NEW against its shape before the fold."""
+    old, new, problems = baseline["old"], baseline["new"], []
+    for rel, want in sorted(baseline["units"].items()):
+        try:
+            layouts = view_layouts(ctx, rel)
+        except Exception as error:
+            problems.append(f"{rel}'s class layouts cannot be read after the fold: {str(error)[:200]}")
+            continue
+        if old in layouts:
+            problems.append(f"{rel} still compiles a class {old}")
+            continue
+        got = fold_layout_shape(layouts.get(new), old, new)
+        if got != want:
+            problems.append(f"{rel}: the prepared unit changes the class layout: its {new} compiles as {got}, "
+                            f"its views before the fold as {want}")
+    return problems
+
+
 def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access=None):
     """Plan `class --fold`: respell placeholder class `old` as `new`, the class
     retail's vftable already names (fold_evidence); see the section comment.
@@ -11527,9 +11601,6 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     if access is not None and not prepared:
         raise Refusal("--access goes with prepared units: a token rewrite keeps each view's own access, "
                       "so only units prepared on NEW's header compile the respelled destructor family")
-    # A registered NEW has one shared header: a token rewrite would turn each
-    # unit's OLD view into a private copy of it, so its units come prepared.
-    by_hand = nested or (bool(prepared) and registered_new)
     if not is_placeholder(old, "class"):
         raise Refusal(f"{old} is a readable name: class --fold folds only a placeholder (docs/naming.md: a "
                       "placeholder never replaces a readable name except by a `restored` revert, and choosing "
@@ -11542,10 +11613,14 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
                       "and class_gate allowances move in a class-reconciliation commit, not here")
     tie = {}
     table, proof = fold_evidence(ctx, old, new, tie)
-    if prepared and not nested and not registered_new and not tie:
-        raise Refusal("--prepared goes with a nested --into (A::B::C) or a NEW registered in "
-                      f"{CANONICAL_CLASSES}; an unregistered global NEW is a token rewrite, unless a retail "
-                      "initializer ties it (then its global's owner alone comes prepared)")
+    # A registered NEW has one shared header: a token rewrite would turn each
+    # unit's OLD view into a private copy of it, so its units come prepared.
+    # An unregistered global NEW is a token rewrite, unless its units come
+    # prepared: a unit declaring both views cannot be token-rewritten (it would
+    # declare NEW twice), so it comes declaring NEW's view alone, and the fold
+    # holds it to OLD's compiled layout (fold_layout_baseline).
+    by_layout = bool(prepared) and not nested and not registered_new and not tie
+    by_hand = nested or (bool(prepared) and registered_new) or by_layout
     if tie and set(prepared or ()) != {tie["owner"]}:
         raise Refusal(f"the initializer route needs exactly the global's owner {tie['owner']} prepared: its view "
                       f"must declare {new}'s retail layout and constructor, so its initializer runs the row")
@@ -11707,13 +11782,17 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
         why = (f"a nested {new} needs its enclosing scopes declared in each unit, which a token rewrite cannot do"
                if nested else
                f"{new} is registered in {CANONICAL_CLASSES}, so each unit adopts its header instead of a "
-               "token rewrite")
+               "token rewrite" if registered_new else
+               f"the fold comes prepared, so each unit spelling {old} declares {new}'s view in place of its "
+               f"{old} view (a token rewrite of one unit beside a prepared one is no single route)")
         if missing:
             raise Refusal(f"{', '.join(missing[:5])} spell{'s' if len(missing) == 1 else ''} {old}: {why}; "
                           "pass each as --prepared REL=FILE")
         for rel, data in sorted(prepared.items()):
             if token.search(data.decode("utf-8", errors="surrogateescape")):
                 raise Refusal(f"prepared {rel} still spells {old}: the fold leaves no {old} behind")
+        if by_layout:
+            plan.fold_layouts = fold_layout_baseline(ctx, old, new, prepared, touched, registered)
         _batch_source_edits(ctx, plan, prepared)
     if tie:
         data = prepared[tie["owner"]]
@@ -13681,6 +13760,11 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if tie_problems:
                 raise VerifyFailed(f"the rebuilt owner does not prove {plan.old} -> {plan.new}: "
                                    f"{tie_problems[0][:300]}; every file restored")
+        if plan.fold_layouts:
+            layout_problems = fold_layout_problems(ctx, plan.fold_layouts)
+            if layout_problems:
+                raise VerifyFailed(f"the rebuilt units do not keep {plan.old}'s layout as {plan.new}: "
+                                   f"{layout_problems[0][:300]}; every file restored")
         if plan.retype:
             retype_problems = retype_object_problems(ctx, plan.retype)
             if retype_problems:
