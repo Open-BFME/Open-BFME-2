@@ -5960,3 +5960,4 @@ __ehhandler$??0Rva001E3E43@@QAE@ABV0@@Z,0x00769F90,"Respelled to __ehhandler$??0
 ??1Rva004B568B@@UAE@XZ,0x004B568B,"Renamed to ??1WeaponSetUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57FE0)"
 ??_GRva004B568B@@UAEPAXI@Z,0x004B5749,"Renamed to ??_GWeaponSetUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57FE0)"
 ?name@Rva004B56ABNamed@@QBEPBDXZ,0x004B56AB,"Renamed to ?GetSnapshotName@WeaponSetUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C57FE0 slot 2)"
+?name@Rva004B57EENamed@@QBEPBDXZ,0x004B57EE,"Renamed to ?GetSnapshotName@GarrisonUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C58088 slot 2)"
