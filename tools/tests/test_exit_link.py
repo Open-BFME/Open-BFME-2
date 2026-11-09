@@ -431,10 +431,43 @@ def test_every_export_is_a_linker_root(tmp_path):
     import csv
     rows = list(csv.DictReader((E.ROOT / "reverse/exports.csv").open()))
     text = E.export_definition(tmp_path / "retail.def").read_text()
+    aliases = E.export_aliases()
     assert len(rows) == 1964
     assert len(text.splitlines()) == len(rows) + 1
     for row in rows:
-        assert f'{row["name"]} @{row["ordinal"]}' in text
+        alias = f'={aliases[row["name"]]}' if row["name"] in aliases else ""
+        assert f'  {row["name"]}{alias} @{row["ordinal"]}' in text
+
+
+def _alias_tree(tmp_path, monkeypatch, aliases):
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/exports.csv").write_text(
+        "ordinal,rva,target_rva,section,kind,name\n"
+        "1,0x00A029F0,,.data,data,?$S128@?1??GetValue@@4IA\n"
+        "2,0x00001000,,.text,code,?f@@YAXXZ\n", newline="\n")
+    if aliases is not None:
+        (tmp_path / "reverse/export_aliases.csv").write_text("export,target,notes\n" + aliases, newline="\n")
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+
+
+def test_an_admitted_alias_exports_retail_name_from_its_target(tmp_path, monkeypatch):
+    _alias_tree(tmp_path, monkeypatch, "?$S128@?1??GetValue@@4IA,?$S3@?1??GetValue@@4IA,LINK-584\n")
+    lines = E.export_definition(tmp_path / "retail.def").read_text().splitlines()
+    assert lines == ["EXPORTS", "  ?$S128@?1??GetValue@@4IA=?$S3@?1??GetValue@@4IA @1 DATA", "  ?f@@YAXXZ @2"]
+    assert E.export_aliases() == {"?$S128@?1??GetValue@@4IA": "?$S3@?1??GetValue@@4IA"}
+
+
+def test_no_alias_file_means_plain_exports(tmp_path, monkeypatch):
+    _alias_tree(tmp_path, monkeypatch, None)
+    lines = E.export_definition(tmp_path / "retail.def").read_text().splitlines()
+    assert lines == ["EXPORTS", "  ?$S128@?1??GetValue@@4IA @1 DATA", "  ?f@@YAXXZ @2"]
+    assert E.export_aliases() == {}
+
+
+def test_an_alias_for_a_name_retail_does_not_export_stops_the_link(tmp_path, monkeypatch):
+    _alias_tree(tmp_path, monkeypatch, "?invented@@3HA,?ours@@3HA,\n")
+    with pytest.raises(SystemExit, match="aliases names retail does not export"):
+        E.export_definition(tmp_path / "retail.def")
 
 
 def test_diagnostic_traps_have_distinct_offsets(tmp_path):

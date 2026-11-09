@@ -32,7 +32,10 @@ Link setup is the census's own inputs, without the scaffolds: every matched
 row's object (code and data), import libraries generated from retail's import
 table for the `__imp_` names the objects reference, the /MD runtime libraries,
 and the CRT's own absolute `__except_list` (exsup.asm defines it 0; it is not a
-stub). No `/FORCE`, no `stubs.obj`, no `alias.obj`, no filler objects.
+stub). No `/FORCE`, no `stubs.obj`, no `alias.obj`, no filler objects. The one
+alias it takes is in the /DEF: a retail export reverse/export_aliases.csv answers
+with the symbol owning its address (`export=target`), each a counted hatch that
+`tools/pin_admission.py --alias` admits, and `result.json` reports how many.
 
 Objects must be prepared OUTSIDE this tool. `python3 tools/link_census.py
 --build` (or `./build.sh`) writes `build/match`; the published census's objects
@@ -146,6 +149,7 @@ def tool_digests():
     return {**{name: digest(ROOT / "tools" / name) for name in TOOL_FILES},
             "reverse/exports.csv": digest(ROOT / "reverse/exports.csv"),
             "reverse/data_ledger.csv": digest(ROOT / "reverse/data_ledger.csv"),
+            **({EXPORT_ALIASES: digest(ROOT / EXPORT_ALIASES)} if (ROOT / EXPORT_ALIASES).exists() else {}),
             "retail": digest(build.EXE)}
 
 
@@ -463,6 +467,7 @@ def index_measurement(index, omitted_names, previous=None):
 
 # ---------------------------------------------------------------- link
 EXPORT_UNOWNED = "(export unowned)"
+EXPORT_ALIASES = "reverse/export_aliases.csv"
 
 
 def export_sources(rows):
@@ -619,13 +624,30 @@ def export_names():
         return {row["name"] for row in csv.DictReader(handle)}
 
 
+def export_aliases():
+    """{export: target} from reverse/export_aliases.csv: retail exports the tree cannot spell,
+    each answered by the symbol that owns its retail address. A counted hatch
+    (hatch_counters.py `export_alias`), written only by `tools/pin_admission.py --alias`."""
+    import hatch_counters
+    path = ROOT / EXPORT_ALIASES
+    if not path.exists():
+        return {}
+    return dict(hatch_counters.export_aliases(path.read_text(encoding="utf-8")))
+
+
 def export_definition(path):
-    """Keep every retail export, including data; exports are linker roots."""
+    """Keep every retail export, including data; exports are linker roots. An aliased export
+    is written `export=target`, so the link exports retail's name from the target's definition."""
     with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
+    aliases = export_aliases()
+    unknown = sorted(set(aliases) - {row["name"] for row in rows})
+    if unknown:
+        raise SystemExit(f"exit_link: {EXPORT_ALIASES} aliases names retail does not export: " +
+                         ", ".join(unknown[:8]))
     path.write_text("EXPORTS\n" + "".join(
-        f'  {row["name"]} @{row["ordinal"]}' +
-        (" DATA" if row["kind"] == "data" else "") + "\n" for row in rows),
+        f'  {row["name"]}' + (f'={aliases[row["name"]]}' if row["name"] in aliases else "") +
+        f' @{row["ordinal"]}' + (" DATA" if row["kind"] == "data" else "") + "\n" for row in rows),
         encoding="utf-8")
     return path
 
@@ -1347,6 +1369,7 @@ def run_link(rows, diagnostic=False, stub_seed=None):
         "force": False,
         "stubs": diagnostic,
         "aliases": False,
+        "export_aliases": len(export_aliases()),
         "fillers": False,
         "tools": tool_digests(),
         "currency": {"rule": "build.compile_is_current (source + recorded headers)",

@@ -189,3 +189,157 @@ def test_the_enforced_commit_gate_passes_the_tool_path_and_says_what_to_do_other
     err = capsys.readouterr().err
     assert "REFUSED" in err and "pin +1 in reverse/symbols.csv: 0x00003000" in err
     assert "tools/pin_admission.py --add NAME 0xRVA" in err             # the way in it names
+
+
+# ---------------------------------------------------------------- export aliases (--alias)
+
+KEY_GUARD = "?$S128@?1??GetValue@?$K@$00@@CAPBDXZ@4IA"
+OUR_GUARD = "?$S3@?1??GetValue@?$K@$00@@CAPBDXZ@4IA"
+S22 = "?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA"    # in ZERO_WORD_EXPORTS
+WIDE = "?$S30@?1??GetValue@?$K@$09@@CAPBDXZ@4IA"
+GUARDED = "?$S41@?1??GetValue@?$K@$0C@@CAPBDXZ@4IA"
+THIRD = "?$S50@?1??GetValue@?$K@$0E@@CAPBDXZ@4IA"
+EXPORTS = ("ordinal,rva,target_rva,section,kind,name\n"
+           f"1,0x00A029F0,,.data,data,{KEY_GUARD}\n"
+           f"2,0x00A0609C,,.data,data,{S22}\n"
+           "3,0x00A02C88,,.data,data,?KEY@?$T@$00@@2ABQBDB\n"
+           "4,0x00A03000,,.data,data,?$S5@?1??GetValue@?$K@$01@@CAPBDXZ@4IA\n"
+           "5,0x00A03004,,.data,data,?owned@@3HA\n"
+           "6,0x00A03008,,.data,data,?nobody@@3HA\n"
+           f"8,0x00A03010,,.data,data,{WIDE}\n"
+           f"9,0x00A03018,,.data,data,{GUARDED}\n"
+           f"10,0x00A0301C,,.data,data,{THIRD}\n")
+DATA_LEDGER = ("address,size,section,kind,name,source,status,names,defs,refs\n"
+               f"0x00A029F0,4,.data,global,{OUR_GUARD},Code/d.cpp,owned,,0,2\n"
+               "0x00A0609C,4,.data,global,?keyGuardCopy@@3IA,Code/d.cpp,owned,,0,0\n"
+               "0x00A02C88,4,.data,global,?s_key@?$T@$00@@2ABQBDB,Code/m.cpp,owned,,0,2\n"
+               "0x00A03000,4,.data,global,?$S9@?1??GetValue@?$K@$02@@CAPBDXZ@4IA,Code/d.cpp,owned,,0,2\n"
+               "0x00A03004,4,.data,global,?owned@@3HA,Code/d.cpp,owned,,0,1\n"
+               "0x00A03010,8,.data,global,?wideCopy@@3_JA,Code/d.cpp,owned,,0,0\n"
+               "0x00A03018,4,.data,global,?$S2@?1??GetValue@?$K@$0D@@CAPBDXZ@4IA,Code/d.cpp,owned,,0,0\n"
+               "0x00A0301C,4,.data,global,?thirdCopy@@3IA,Code/d.cpp,owned,,0,0\n")
+
+
+@pytest.fixture
+def atree(tree, monkeypatch):
+    (tree / "reverse/exports.csv").write_text(EXPORTS, newline="\n")
+    (tree / "reverse/data_ledger.csv").write_text(DATA_LEDGER, newline="\n")
+    git(tree, "add", ".")
+    git(tree, "commit", "-qm", "alias inputs")
+    monkeypatch.setattr(pin_admission, "retail_bytes", lambda rva, size: bytes(size))
+    monkeypatch.setattr(pin_admission, "retail_references", lambda rva: 0)
+    return tree
+
+
+def aliases(tree):
+    path = tree / "reverse/export_aliases.csv"
+    return path.read_text() if path.exists() else None
+
+
+def test_a_guard_alias_is_written_admitted_and_passes_both_gates(atree):
+    assert pin_admission.add_aliases([(KEY_GUARD, OUR_GUARD)], "LINK-584 owner option 1") == []
+    assert aliases(atree) == f"export,target,notes\n{KEY_GUARD},{OUR_GUARD},LINK-584 owner option 1\n"
+    assert f"export_alias\treverse/export_aliases.csv\t{KEY_GUARD}\t1\tallow=" in \
+        (atree / "reverse/hatch_baseline.tsv").read_text()
+    assert staged(atree) == []
+    assert pin_admission.judge_aliases("", aliases(atree)) == []
+
+
+def test_a_listed_zero_word_export_may_be_answered_by_a_named_word(atree):
+    assert pin_admission.add_aliases([(S22, "?keyGuardCopy@@3IA")]) == []
+    assert "retail-scan: no word names VA 0x00E0609C or its bytes; 4 zero bytes" in aliases(atree)
+    assert staged(atree) == []
+
+
+def test_a_third_guard_export_with_an_unnamed_zero_word_is_refused(atree):
+    # Zero, 4 bytes, no retail word names it, a named word owns it: a scan proves no non-use, so only
+    # the reviewed ZERO_WORD_EXPORTS may take this route.
+    problems = pin_admission.add_aliases([(THIRD, "?thirdCopy@@3IA")])
+    assert problems and "ZERO_WORD_EXPORTS" in problems[0]
+    assert aliases(atree) is None
+
+
+@pytest.mark.parametrize("export,target,refs", [
+    (S22, "?keyGuardCopy@@3IA", 1),                                    # a retail word names it
+    (WIDE, "?wideCopy@@3_JA", 0),                                      # not a 4-byte word
+    (GUARDED, "?$S2@?1??GetValue@?$K@$0D@@CAPBDXZ@4IA", 0),            # answered by another guard
+])
+def test_a_listed_zero_word_export_still_needs_the_scan_a_word_and_no_guard(atree, monkeypatch,
+                                                                            export, target, refs):
+    monkeypatch.setitem(pin_admission.ZERO_WORD_EXPORTS, WIDE, 0x00A03010)
+    monkeypatch.setitem(pin_admission.ZERO_WORD_EXPORTS, GUARDED, 0x00A03018)
+    monkeypatch.setattr(pin_admission, "retail_references", lambda rva: refs)
+    problems = pin_admission.add_aliases([(export, target)])
+    assert problems and "only a guard of the same local static" in problems[0]
+    assert aliases(atree) is None
+
+
+def test_the_gate_reads_the_ledger_at_the_commit_not_the_work_tree(atree):
+    wrong = "?$S4@?1??GetValue@?$K@$00@@CAPBDXZ@4IA"
+    (atree / "reverse/export_aliases.csv").write_text(f"export,target,notes\n{KEY_GUARD},{wrong},typed\n",
+                                                      newline="\n")
+    git(atree, "add", "reverse/export_aliases.csv")
+    # unstaged: in the work tree WRONG would own the address
+    (atree / "reverse/data_ledger.csv").write_text(DATA_LEDGER.replace(OUR_GUARD, wrong), newline="\n")
+    problems = pin_admission.judge_alias_range("HEAD", "")
+    assert problems and "is not the owner" in problems[0]
+
+
+def test_a_word_retail_holds_nonzero_is_refused(atree, monkeypatch):
+    monkeypatch.setattr(pin_admission, "retail_bytes", lambda rva, size: b"\x01" + bytes(size - 1))
+    problems = pin_admission.add_aliases([(S22, "?keyGuardCopy@@3IA")])
+    assert problems and "holds at zero" in problems[0]
+    assert aliases(atree) is None
+
+
+@pytest.mark.parametrize("export,target,why", [
+    ("?invented@@3HA", OUR_GUARD, "not a retail export"),
+    (KEY_GUARD, KEY_GUARD, "the export itself"),
+    (KEY_GUARD, "?$S4@?1??GetValue@?$K@$00@@CAPBDXZ@4IA", "is not the owner"),     # right shape, wrong word
+    ("?$S5@?1??GetValue@?$K@$01@@CAPBDXZ@4IA", "?$S9@?1??GetValue@?$K@$02@@CAPBDXZ@4IA",
+     "only a guard of the same local static"),                                     # another static's guard
+    ("?KEY@?$T@$00@@2ABQBDB", "?s_key@?$T@$00@@2ABQBDB", "only a guard of the same local static"),  # read: refs 2
+    ("?owned@@3HA", "?other@@3HA", "already names 0x00A03004 by the export's own spelling"),
+    ("?nobody@@3HA", "?ours@@3HA", "no reverse/data_ledger.csv row owns"),
+])
+def test_refused_aliases_write_nothing(atree, export, target, why):
+    before = (atree / "reverse/hatch_baseline.tsv").read_bytes()
+    problems = pin_admission.add_aliases([(export, target)])
+    assert problems and why in problems[0], problems
+    assert aliases(atree) is None
+    assert (atree / "reverse/hatch_baseline.tsv").read_bytes() == before
+
+
+def test_an_export_the_ledger_already_names_needs_no_alias(atree):
+    (atree / "reverse/symbols.csv").write_text(f"name,address,notes\n{KEY_GUARD},0x00001010,x\n", newline="\n")
+    problems = pin_admission.add_aliases([(KEY_GUARD, OUR_GUARD)])
+    assert problems and "already names the export itself" in problems[0]
+
+
+def test_one_export_aliased_once(atree):
+    assert pin_admission.add_aliases([(KEY_GUARD, OUR_GUARD)]) == []
+    problems = pin_admission.add_aliases([(KEY_GUARD, "?keyGuardCopy@@3IA")])
+    assert problems and "already aliased" in problems[0]
+    typed = aliases(atree) + f"{KEY_GUARD},?keyGuardCopy@@3IA,by hand\n"
+    assert any("aliased more than once" in p for p in pin_admission.judge_aliases("", typed))
+
+
+def test_a_typed_alias_is_refused_by_the_register_and_named(atree, capsys):
+    (atree / "reverse/export_aliases.csv").write_text(
+        f"export,target,notes\n{KEY_GUARD},{OUR_GUARD},by hand\n", newline="\n")
+    git(atree, "add", ".")
+    capsys.readouterr()
+    assert hatch_counters.main(["--staged"]) == 1
+    err = capsys.readouterr().err
+    assert f"export_alias +1 in reverse/export_aliases.csv: {KEY_GUARD}" in err
+    assert "tools/pin_admission.py --alias EXPORT TARGET" in err
+
+
+def test_a_retargeted_alias_is_judged_again(atree):
+    assert pin_admission.add_aliases([(KEY_GUARD, OUR_GUARD)]) == []
+    git(atree, "add", ".")
+    git(atree, "commit", "-qm", "admitted")
+    wrong = aliases(atree).replace(OUR_GUARD, "?$S4@?1??GetValue@?$K@$00@@CAPBDXZ@4IA")
+    problems = pin_admission.judge_aliases(aliases(atree), wrong)
+    assert problems and "is not the owner" in problems[0]
+    assert pin_admission.judge_aliases(aliases(atree), "export,target,notes\n") == []    # removal shrinks

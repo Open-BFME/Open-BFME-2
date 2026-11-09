@@ -249,6 +249,7 @@ baseline_changed=0
 attempts_changed=0
 data_rows_changed=0
 history_changed=0
+aliases_changed=0
 capture staged_out "listing staged files" git diff --cached --name-only --diff-filter=ACMRT
 while IFS= read -r path; do
     case "$path" in
@@ -266,6 +267,8 @@ while IFS= read -r path; do
         # Region flags decide how every Code/ TU compiles (tools/flag_defaults.py).
         reverse/retail_inventory/flag_regions.csv|reverse/flag_overrides.csv) flags_changed=1 ;;
         reverse/functions.csv|reverse/symbols.csv|reverse/deleted_rows.csv|reverse/re_attempts.log) ledger_changed=1 ;;
+        # An export alias (tools/pin_admission.py --alias) builds nothing; it is judged before the early exit.
+        reverse/export_aliases.csv) aliases_changed=1 ;;
         # A data row (tools/data_rows.py) is a claim like a function row: without
         # this a data_rows.csv-only commit took the early exit below unverified.
         # delta_sources names the row's source and the build byte-verifies it.
@@ -299,6 +302,7 @@ while IFS= read -r path; do
         reverse/data_check_baseline.txt|reverse/code_identity_baseline.tsv|reverse/header_queue.tsv) baseline_changed=1 ;;
         reverse/retail_inventory/flag_regions.csv|reverse/flag_overrides.csv) flags_changed=1 ;;
         reverse/functions.csv|reverse/symbols.csv|reverse/deleted_rows.csv|reverse/re_attempts.log) ledger_changed=1 ;;
+        reverse/export_aliases.csv) aliases_changed=1 ;;
         reverse/data_rows.csv) data_rows_changed=1 ;;
         reverse/attempts/*) attempts_changed=1 ;;
         Code/*) deleted_source=1 ;;
@@ -354,6 +358,11 @@ converged_base=()
 git rev-parse -q --verify HEAD > /dev/null && converged_base=(--converged-base HEAD)   # none before the first commit
 printf '' | python3 tools/data_check.py --converged --ref : "${converged_base[@]}" --sources-from - \
     || fail "data identity: reverse/data_converged.csv is unreadable or lost an address (see above)"
+# An alias-only commit (a retarget keeps the hatch count) takes the early exit below, so its
+# admission runs here; with a ledger change it runs once, in step 1b.
+if [ "$aliases_changed" -ne 0 ] && [ "$ledger_changed" -eq 0 ]; then
+    python3 tools/pin_admission.py --staged || fail "export alias admission (see above)"
+fi
 
 if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
    && [ "$wide_change" -eq 0 ] && [ "$flags_changed" -eq 0 ] && [ "$baseline_changed" -eq 0 ] \

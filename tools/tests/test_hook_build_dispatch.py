@@ -118,6 +118,15 @@ def test_non_windows_fallback_is_retained_without_executing_a_shell_file(hook):
     assert '*) ./build.sh "$@" ;;' in definition
 
 
+def test_pre_commit_judges_an_alias_only_commit_before_its_early_exit():
+    text = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
+    assert text.count("reverse/export_aliases.csv) aliases_changed=1 ;;") == 2   # changed and deleted
+    gate = ('if [ "$aliases_changed" -ne 0 ] && [ "$ledger_changed" -eq 0 ]; then\n'
+            "    python3 tools/pin_admission.py --staged")
+    early_exit = 'if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ]'
+    assert gate in text and text.index(gate) < text.index(early_exit)
+
+
 def test_pre_commit_routes_all_union_ledgers_through_the_staged_gate():
     text = (ROOT / ".githooks/pre-commit").read_text(encoding="utf-8")
     trigger = (

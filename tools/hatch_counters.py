@@ -5,7 +5,9 @@ Each hatch below lets a row match without the source saying what retail's
 source said: a selectany definition, a hand `/alternatename`, a symbols.csv
 pin, an `object-symbol=` alias row, a global named after its address, a
 `class-gate: allow`, a `present-unmatched` marker, a `#pragma optimize`, an
-`__emit` line, a `db` byte in an .asm dump. None is wrong on its own; growth
+`__emit` line, a `db` byte in an .asm dump, and one that lets the real link
+export a retail name the tree cannot spell: an export alias
+(reverse/export_aliases.csv, keyed by the export). None is wrong on its own; growth
 of any of them is how a fleet routes around a check it cannot pass.
 
 The baseline (BASELINE below) has one line per occurrence key:
@@ -97,7 +99,7 @@ Usage:
                                                         only PATH (what tools call)
 
 Tools that write a hatch after checking it call admit() themselves (BFME2:
-pin_admission.py --add, add_match.py --pin; BFME1: add_match.py for a verified
+pin_admission.py --add and --alias, add_match.py --pin; BFME1: add_match.py for a verified
 row whose object-symbol= names a compiler label), so a checked, tool-written
 hatch passes and a hand-written one is refused once the register is enforced.
 admit() records each admission (the occurrences it saw, the allow= stamps it wrote)
@@ -131,6 +133,7 @@ if (ROOT / "targets" / "game" / "reverse").is_dir():      # Open-BFME-1
     SOURCE_ROOTS = ("game/", "worldbuilder/")
     PIN_FILE = re.compile(r"^targets/[^/]+/reverse/symbols\.csv$")
     LEDGER_FILE = re.compile(r"^targets/[^/]+/reverse/functions\.csv$")
+    ALIAS_FILE = re.compile(r"^targets/[^/]+/reverse/export_aliases\.csv$")
     INVENTORY_DIR = "targets/game/reverse/retail_inventory/"
     CODE_IDENTITY = "targets/game/reverse/code_identity_baseline.tsv"
     DATA_LEDGER = "targets/game/reverse/data_ledger.csv"
@@ -140,6 +143,7 @@ else:                                                       # Open-BFME-2
     SOURCE_ROOTS = ("Code/", "reference/shims/")
     PIN_FILE = re.compile(r"^reverse/symbols\.csv$")
     LEDGER_FILE = re.compile(r"^reverse/functions\.csv$")
+    ALIAS_FILE = re.compile(r"^reverse/export_aliases\.csv$")
     INVENTORY_DIR = "reverse/retail_inventory/"
     CODE_IDENTITY = "reverse/code_identity_baseline.tsv"
     DATA_LEDGER = "reverse/data_ledger.csv"
@@ -151,7 +155,8 @@ FREEZE_MIN = 5
 LIFT = re.compile(r"^Verifier-Change:[ \t]*hatch-freeze-lift[ \t]+(\S+)", re.MULTILINE)
 
 HATCHES = ("selectany", "alternatename", "pin", "object_symbol", "address_global",
-           "class_gate_allow", "present_unmatched", "pragma_optimize", "emit", "asm_bytes")
+           "class_gate_allow", "present_unmatched", "pragma_optimize", "emit", "asm_bytes",
+           "export_alias")
 # rule 8: judged per file, not per token (a rename respells the token, not the count), once
 # the code-identity register is enforced (STATE["respellable"]; per token until then)
 RESPELLABLE = frozenset(("alternatename", "present_unmatched", "selectany"))
@@ -176,7 +181,7 @@ def git(*args, binary=False, check=False):
 
 
 def relevant(path):
-    if PIN_FILE.match(path) or LEDGER_FILE.match(path):
+    if PIN_FILE.match(path) or LEDGER_FILE.match(path) or ALIAS_FILE.match(path):
         return True
     return path.startswith(SOURCE_ROOTS) and path.lower().endswith(CODE_EXT + (".asm",))
 
@@ -243,9 +248,24 @@ CLONE_LOCAL = re.compile(r"\?A0x[0-9A-Fa-f]{8}")                       # build.C
 DUP_PLACEHOLDER = re.compile(r"^\?dup_([0-9A-Fa-f]{8})@@YAXXZ$")       # build.DUP_ALIAS_ANYCASE_RE
 
 
+def export_aliases(text):
+    """[(export, target)] of an export-alias file (`export,target,notes`): each row answers a
+    retail export with another symbol the link defines, written `export=target` in the /DEF
+    (tools/exit_link.py). Only tools/pin_admission.py --alias writes one, through admit()."""
+    rows = csv.reader(io.StringIO(text))
+    next(rows, None)
+    return [(cells[0].strip(), cells[1].strip()) for cells in rows
+            if len(cells) >= 2 and cells[0].strip() and cells[1].strip()]
+
+
 def scan(path, text):
     """Counter of (hatch, path, token) for one file's text."""
     out = collections.Counter()
+    if ALIAS_FILE.match(path):
+        # keyed by the retail export it answers: the /DEF entry the alias spells
+        for export, _target in export_aliases(text):
+            out[("export_alias", path, export)] += 1
+        return out
     if PIN_FILE.match(path) or LEDGER_FILE.match(path):
         pin = bool(PIN_FILE.match(path))
         rows = csv.reader(io.StringIO(text))
@@ -294,7 +314,13 @@ def occurrences(path, text):
     counts add up to scan()'s). A pin is keyed by its address alone, so its detail is the name
     it pins; an object-symbol= row's is its name and alias. Every other hatch's token already
     says what it is. admit() keeps an earlier admission for the details it saw, so a pin renamed
-    or added at an admitted address is not one it admitted."""
+    or added at an admitted address is not one it admitted. An export alias's detail is the
+    symbol it binds, so a retargeted alias is not one admit() saw either."""
+    if ALIAS_FILE.match(path):
+        out = collections.defaultdict(collections.Counter)
+        for export, target in export_aliases(text):
+            out[("export_alias", path, export)]["%s -> %s" % (export, target)] += 1
+        return dict(out)
     if not (PIN_FILE.match(path) or LEDGER_FILE.match(path)):
         return {key: collections.Counter({key[2]: n}) for key, n in scan(path, text).items()}
     pin = bool(PIN_FILE.match(path))
@@ -1284,6 +1310,8 @@ REMEDY = {
            "... --pin NAME=0xRVA`) checks it and admits it.",
     "object_symbol": "an object-symbol= alias row binds a real name to another symbol's bytes and is refused "
                      "(pin_admission). Name the row after the symbol it compiles, or row the owner.",
+    "export_alias": "never type an export alias: `python3 tools/pin_admission.py --alias EXPORT TARGET` checks "
+                    "that TARGET owns the export's retail address and admits it.",
     "alternatename": "a vftable or global literal: `python3 tools/name_globals.py PATH` writes and admits it. "
                      "Any other alias must be exactly what `python3 tools/allowed_symbols.py --alternatenames` "
                      "emits (code_identity_gate refuses any other); admit that one with " + ADMIT + ".",

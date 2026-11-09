@@ -68,11 +68,23 @@ functions.csv, per ADDED row:
     those still resolve callers (build.load_symbol_map). A tool-generated ICF
     fold list is the only future way in.
 
+reverse/export_aliases.csv, per ADDED row (the real link's /DEF answers a retail
+export with another symbol; see "export aliases" below):
+  * the export is a retail export the ledgers do not already name, aliased once;
+  * the target is the data ledger's owner, with a source, of its retail address;
+  * the two are one compiler guard (`?$S<n>@<tail>`, only the counter differs),
+    or the export is one ZERO_WORD_EXPORTS lists with its reviewed non-use evidence,
+    answered by a named word that is zero in retail (the admission's retail scan is
+    supporting evidence; the row's notes record it).
+The gate reads every input at the commit it judges (the index, or --range's NEW),
+never the work tree. Write them with `--alias EXPORT TARGET`.
+
 Existing violations are reported by --report and not re-judged per commit.
 
   python3 tools/pin_admission.py --staged          # pre-commit: index vs HEAD
   python3 tools/pin_admission.py --range OLD NEW   # pre-push
   python3 tools/pin_admission.py --report          # every current violation
+  python3 tools/pin_admission.py --alias EXPORT TARGET [EXPORT TARGET ...]
 """
 import argparse
 import csv
@@ -954,6 +966,227 @@ def add_pins(pins, notes="", reason=None):
     return []
 
 
+# ---------------------------------------------------------------- export aliases
+#
+# reverse/export_aliases.csv answers a retail export the tree cannot spell with a symbol it
+# does define; tools/exit_link.py writes `export=target` in the /DEF. It is a counted hatch
+# (hatch_counters.py `export_alias`): only --alias writes one, and only when the target is
+# the data ledger's owner of the export's retail address, in a source, and either
+#   * a compiler guard of the same local static: both are `?$S<n>@<tail>` with one tail, only
+#     the per-TU counter differs (LINK-584: retail's $S128 is our $S3); or
+#   * a word retail keeps and never reads, for an export in ZERO_WORD_EXPORTS only, at its
+#     listed address. A scan cannot prove non-use (a computed pointer, an interior byte), so the
+#     list holds each case's reviewed evidence; the retail scan still runs at admission and its
+#     result goes in the row's notes. Any other export asking for a zero word is refused.
+ALIASES = "reverse/export_aliases.csv"
+ALIAS_HEADER = "export,target,notes"
+EXPORTS = "reverse/exports.csv"
+DATA_LEDGER = "reverse/data_ledger.csv"
+DATA_ROWS = "reverse/data_rows.csv"
+GUARD = re.compile(r"\?\$S\d+@(.+)")
+# Reviewed exports a named zero word may answer, by retail RVA (P105 round 3, LINK-584). Target facts:
+# each is a 4-byte word in .data's zero-filled tail, zero, as are 8 bytes either side; no literal in
+# the retail image names it or any of its interior bytes (VA-3..VA+3); and the category-6 accessors
+# use the other guard pair instead: GetValue of DefaultModuleKey<6> (0x003AA25E, 0x003AA26D) and
+# funclet $L1830 (0x00781D50, 0x00781D57) name 0x00E0294C ($S24), GetValue of DefaultModuleName<6>
+# (0x003AA2DD, 0x003AA2EC) and $L1944 (0x00781D67, 0x00781D6E) name 0x00E02958 ($S28).
+# Inference, not proven: a second compilation of these templates folded away and left both words.
+ZERO_WORD_EXPORTS = {
+    "?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA": 0x00A0609C,   # VA 0x00E0609C
+    "?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA": 0x00A060A0,  # VA 0x00E060A0
+}
+
+
+@functools.lru_cache(maxsize=1)
+def _raw_sections():
+    data = build.EXE.read_bytes()
+    pe = build.u32(data, 0x3C)
+    coff = pe + 4
+    table = coff + 20 + build.u16(data, coff + 16)
+    return data, [(build.u32(data, at + 12), max(build.u32(data, at + 8), build.u32(data, at + 16)),
+                   build.u32(data, at + 20), build.u32(data, at + 16))
+                  for at in (table + i * 40 for i in range(build.u16(data, coff + 2)))]
+
+
+def retail_bytes(rva, size):
+    """SIZE bytes of the retail image at RVA as loaded (past a section's raw data, zero), or None."""
+    data, sections = _raw_sections()
+    for start, span, pointer, raw in sections:
+        if start <= rva and rva + size <= start + span:
+            offset = rva - start
+            got = data[pointer + offset:pointer + min(offset + size, raw)] if offset < raw else b""
+            return got + bytes(size - len(got))
+    return None
+
+
+def retail_references(rva):
+    """How many places in the retail image hold, as a little-endian word, the VA of the 4-byte
+    word at RVA or of one of its interior bytes. Supporting evidence only: see ZERO_WORD_EXPORTS."""
+    data, _sections = _raw_sections()
+    count = 0
+    for k in range(4):
+        needle = struct.pack("<I", IMAGE_BASE + rva + k)
+        at = data.find(needle)
+        while at != -1:
+            count += 1
+            at = data.find(needle, at + 1)
+    return count
+
+
+def alias_state(spec=None, rows=None):
+    """What an alias is judged against: the work tree for --alias, which writes into it; for
+    the gate, SPEC's blobs (":" the index, "REV:" a revision) and ROWS its functions.csv, so an
+    unstaged edit cannot make a committed alias pass."""
+    def text(path):
+        if spec is None:
+            return (ROOT / path).read_text(encoding="utf-8") if (ROOT / path).exists() else ""
+        return git_text(spec + path)
+    exports = {r["name"]: r for r in csv_rows(text(EXPORTS))}
+    owners = {}
+    for row in csv_rows(text(DATA_LEDGER)):
+        try:
+            owners[int(row["address"], 16)] = row
+        except (KeyError, TypeError, ValueError):
+            continue
+    rows = build.load_all_function_rows() if rows is None else rows
+    named = {r["name"] for r in rows}
+    named |= {r["name"] for r in csv_rows(text(PINS))}
+    named |= {r["name"] for r in csv_rows(text(DATA_ROWS))}
+    return {"exports": exports, "owners": owners, "named": named}
+
+
+def unread_zero_word(rva, owner):
+    """The scan note when the 4-byte word at RVA is one retail holds at zero and never names."""
+    if owner.get("size") != "4" or retail_bytes(rva, 4) != bytes(4):
+        return None
+    if retail_references(rva):
+        return None
+    return f"retail-scan: no word names VA 0x{IMAGE_BASE + rva:08X} or its bytes; 4 zero bytes"
+
+
+def alias_problems(export, target, state, aliased=()):
+    """Why EXPORT may not be answered by TARGET ([] = admissible)."""
+    row = state["exports"].get(export)
+    if row is None:
+        return [f"not a retail export ({EXPORTS})"]
+    if target == export:
+        return ["the target is the export itself; there is nothing to alias"]
+    if export in aliased:
+        return [f"already aliased in {ALIASES}"]
+    if export in state["named"]:
+        return ["the ledger already names the export itself; an alias would hide that definition"]
+    try:
+        rva = int(row.get("rva") or "", 16)
+    except ValueError:
+        return ["the export has no retail address"]
+    owner = state["owners"].get(rva)
+    if owner is None:
+        return [f"no {DATA_LEDGER} row owns its retail address 0x{rva:08X}"]
+    if owner.get("name") == export:
+        return [f"{DATA_LEDGER} already names 0x{rva:08X} by the export's own spelling"]
+    if owner.get("name") != target or owner.get("status") != "owned" or not owner.get("source"):
+        return [f"{target} is not the owner {DATA_LEDGER} records, with a source, at 0x{rva:08X} "
+                f"(it names {owner.get('name') or 'nothing'}, {owner.get('status') or 'no status'})"]
+    guard, ours = GUARD.fullmatch(export), GUARD.fullmatch(target)
+    if guard and ours and guard.group(1) == ours.group(1):
+        return []
+    if ZERO_WORD_EXPORTS.get(export) == rva and not ours and unread_zero_word(rva, owner):
+        return []                                               # a named word, never another guard
+    return ["only a guard of the same local static (`?$S<n>@<same tail>`), or for an export in "
+            "ZERO_WORD_EXPORTS a named word retail holds at zero, may answer an export "
+            f"(0x{rva:08X}: size {owner.get('size') or '?'}, {retail_references(rva)} retail word(s) "
+            "name it or its bytes)"]
+
+
+def alias_note(export, target, state):
+    """The evidence an admitted alias's row records: the retail scan for a zero word."""
+    if GUARD.fullmatch(target) and GUARD.fullmatch(target).group(1) == GUARD.fullmatch(export).group(1):
+        return ""
+    rva = int(state["exports"][export]["rva"], 16)
+    return unread_zero_word(rva, state["owners"][rva]) or ""
+
+
+def judge_aliases(old_text, new_text, state=None, spec=None, rows=None):
+    """Problems with the rows NEW_TEXT adds to the alias file over OLD_TEXT, judged against
+    STATE, else alias_state(SPEC, ROWS) (ROWS may be a callable, read only when needed)."""
+    import hatch_counters
+    old = set(hatch_counters.export_aliases(old_text))
+    new = hatch_counters.export_aliases(new_text)
+    added = [pair for pair in new if pair not in old]
+    if not added:
+        return []
+    state = state or alias_state(spec, rows() if callable(rows) else rows)
+    exports = [export for export, _target in new]
+    problems = []
+    for export, target in added:
+        if exports.count(export) > 1:
+            problems.append(f"{ALIASES}: {export}: aliased more than once")
+            continue
+        problems += [f"{ALIASES}: {export} -> {target}: {why}"
+                     for why in alias_problems(export, target, state)]
+    return problems
+
+
+def add_aliases(pairs, notes="", reason=None):
+    """The tool path for export aliases: [(export, target)] -> problems ([] = written), as
+    add_pins does for pins: every alias judged, nothing written if one fails, and the
+    register admits exactly these exports."""
+    import hatch_counters
+    path = ROOT / ALIASES
+    raw = path.read_bytes() if path.exists() else (ALIAS_HEADER + "\n").encode("utf-8")
+    eol = b"\r\n" if raw.split(b"\n", 1)[0].endswith(b"\r") else b"\n"
+    current = hatch_counters.export_aliases(raw.decode("utf-8"))
+    state = alias_state()
+    aliased = {export for export, _target in current}
+    notes = (notes or "").replace(",", ";").replace("\n", " ").strip()
+    problems, new = [], []
+    for export, target in pairs:
+        if (export, target) in current:
+            continue
+        why = alias_problems(export, target, state, aliased)
+        problems += [f"{export} -> {target}: {w}" for w in why]
+        aliased.add(export)
+        if not why:
+            new.append((export, target, "; ".join(n for n in (notes, alias_note(export, target, state)) if n)))
+    if problems or not new:
+        return problems
+    register = ROOT / hatch_counters.BASELINE
+    register_before = register.read_bytes() if register.exists() else None
+    owed = (hatch_counters.ungranted(ALIASES, raw, register_before.decode("utf-8"), earlier=True)
+            if register_before is not None and path.exists() else {})
+    original = path.read_bytes() if path.exists() else None
+    if raw and not raw.endswith(b"\n"):
+        raw += eol
+    path.write_bytes(raw + b"".join(f"{e},{t},{n}".encode("utf-8") + eol for e, t, n in new))
+    hatch_counters.admit(ALIASES, reason or f"pin_admission --alias: {len(new)} checked export alias(es)",
+                         tokens={e for e, _t, _n in new},
+                         before=hatch_counters.blob_id(ALIASES, original) if original is not None else None)
+    added = {e for e, _t, _n in new}
+    after = hatch_counters.ungranted(ALIASES) if register_before is not None else {}
+    lost = {key: got for key, got in after.items()
+            if key[2] in added or key not in owed or got[1] < owed[key][1]}
+    if lost:
+        if original is None:
+            path.unlink()
+        else:
+            path.write_bytes(original)
+        register.write_bytes(register_before)
+        return [f"HATCH REGISTER DOES NOT GRANT export alias {key[2]} after admission ({ALIASES} "
+                f"carries {carried}, {hatch_counters.BASELINE} grants {granted}); both are restored -- "
+                "a tools/hatch_counters.py admit() defect, report it"
+                for key, (carried, granted) in sorted(lost.items())]
+    for export, target, _note in new:
+        print(f"pin admission: aliased {export} -> {target}")
+    return []
+
+
+def judge_alias_range(old, new):
+    """The gate's alias check between revisions OLD and NEW ("" the index): the alias file, the
+    data ledger, exports and every name are read at NEW, never from the work tree."""
+    return judge_aliases(git_text(f"{old}:{ALIASES}"), git_text(f"{new}:{ALIASES}"), spec=f"{new}:",
+                         rows=lambda: csv_rows(git_text(f"{new}:{LEDGER}")))
+
+
 def report():
     pins =csv_rows((ROOT / PINS).read_text(encoding="utf-8"))
     rows = build.load_all_function_rows()
@@ -979,10 +1212,10 @@ def report():
 
 
 def unchanged(old, new):
-    """Whether symbols.csv and functions.csv are the same blobs at both commits:
-    then no pin and no row is added, and every problem judge() reports is about
-    an added pin or row."""
-    out = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", old, new, "--", PINS, LEDGER])
+    """Whether symbols.csv, functions.csv and the export aliases are the same blobs at both
+    commits: then no pin, row or alias is added, and every problem judge() and
+    judge_aliases() report is about an added one."""
+    out = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", old, new, "--", PINS, LEDGER, ALIASES])
     return out.returncode == 0
 
 
@@ -995,12 +1228,16 @@ def main():
     mode.add_argument("--report", action="store_true")
     mode.add_argument("--add", nargs="+", metavar="NAME ADDRESS",
                       help="append checked pins (pairs) and admit them in the hatch register")
-    parser.add_argument("--notes", default="", help="--add: notes column for the new lines")
+    mode.add_argument("--alias", nargs="+", metavar="EXPORT TARGET",
+                      help=f"append checked export aliases (pairs) to {ALIASES} and admit them")
+    parser.add_argument("--notes", default="", help="--add/--alias: notes column for the new lines")
     args = parser.parse_args()
-    if args.add:
-        if len(args.add) % 2:
-            parser.error("--add takes NAME ADDRESS pairs")
-        problems = add_pins(list(zip(args.add[::2], args.add[1::2])), args.notes)
+    if args.add or args.alias:
+        pairs = args.add or args.alias
+        if len(pairs) % 2:
+            parser.error("--add takes NAME ADDRESS pairs, --alias EXPORT TARGET pairs")
+        write = add_pins if args.add else add_aliases
+        problems = write(list(zip(pairs[::2], pairs[1::2])), args.notes)
         if problems:
             print(f"pin admission: REFUSED {len(problems)}; nothing written")
             for line in problems[:20]:
@@ -1016,6 +1253,7 @@ def main():
         return
     problems = judge(csv_rows(git_text(f"{old}:{PINS}")), csv_rows(git_text(f"{new}:{PINS}")),
                      csv_rows(git_text(f"{old}:{LEDGER}")), csv_rows(git_text(f"{new}:{LEDGER}")))
+    problems += judge_alias_range(old, new)
     if problems:
         print(f"pin admission: FAIL {len(problems)}")
         for line in problems[:20]:
