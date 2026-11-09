@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleInfoDoXfer.cpp",
+      "native_rows": 1,
+      "strict_receipt": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleInfoOpAssign.cpp",
+      "native_rows": 1,
+      "strict_receipt": true
+    }
+  ],
+  "all_code_data_relocations_flags_policies_external_and_weak_bindings_and_directives_equal": true,
+  "header_queue_rows_retired": 2,
+  "remaining_header_user": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleInfoDtor.cpp",
+  "no_new_rows_pins_aliases_or_shared_header_edits": true,
+  "index_meta": {
+    "date": "2026-11-09 00:25",
+    "commit": "717b70f4ab",
+    "clean_tree": true,
+    "census_date": "2026-11-08 23:34",
+    "census_commit": "a46241d8d1"
+  },
+  "limits": "Header-debt retirement with conserved native bytes and scoped LINKS109. Runtime strong arrays and destructor adoption remain; no image or runtime closure."
+}

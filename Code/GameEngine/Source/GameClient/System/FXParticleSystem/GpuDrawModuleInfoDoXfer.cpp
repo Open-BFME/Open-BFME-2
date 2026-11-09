@@ -1,11 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 
-// GpuDrawModuleInfo::DoXfer, retail 0x0056390A (64B). BFME2-new class (no
-// BFME1 donor). Member semantics from the writeINI field strings at
-// 0x00563D3F: TotalFrames, FramesPerRow, DetailTexture, SpeedMultiplier,
-// matching the default ctor's 1, 1, 0, 1.0f. Occupies the GpuDraw vtable
-// (0xC1C1E8) slots 0xC/0x2C. Xfer declaration is the UpdateModuleXfer-proven
-// spelling; Version1 resolves to the rowed 0x53EE.
+// GpuDrawModuleInfo::DoXfer, retail 0x0056390A (64B). The native
+// transfer addresses are +0x04/+0x08 for the integer fields, +0x0C
+// for the string and +0x10 for the float. The canonical header names
+// these fields by offset; Version1 resolves to the rowed 0x53EE.
 
 class AsciiString;
 class UnicodeString;
@@ -32,30 +30,19 @@ class Snapshot;
 // slot with no out-of-line call, and the member transfers via ==AsciiString.
 #include "ascii_string.h"
 
+#include "../../../../Include/GameClient/GpuDrawModuleInfo.h"
+
 namespace FXParticleSystem
 {
-
-class GpuDrawModuleInfo
-{
-public:
-    virtual void DoXfer(Xfer &xfer);
-    virtual ~GpuDrawModuleInfo();
-
-private:
-    int m_totalFrames;
-    int m_framesPerRow;
-    AsciiString m_detailTexture;
-    float m_speedMultiplier;
-};
 
 // ?DoXfer@GpuDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z
 void GpuDrawModuleInfo::DoXfer(Xfer &xfer)
 {
     xfer.Version1();
-    xfer == m_totalFrames;
-    xfer == m_framesPerRow;
-    xfer == m_detailTexture;
-    xfer == m_speedMultiplier;
+    xfer == m_04;
+    xfer == m_08;
+    xfer == m_0C;
+    xfer == m_10;
 }
 
 }

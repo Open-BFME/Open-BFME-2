@@ -1084,3 +1084,14 @@ the identical four-slot bridge. Three unchanged support caches lack strict
 receipts, so this is no global/image clearance. Factory 0081C608, clone-primary
 0081CEF8 and four GPU runtime arrays still need genuine producers and method
 identity recovery. [Proof, cache limits and remaining scope](../../reverse/attempt_support/particle-clone-secondary-table-20261109/README.md).
+
+2026-11-09, remaining GPU info siblings: DoXfer and assignment adopt the
+canonical header with both complete bodies (109B) and all object binding facts
+unchanged. Their own previews remain LINKS; the header tool retires two rows,
+leaving only the destructor queued. The six remaining arrays in the served
+clone file have current blocked handoffs: Wind alternatives bind different
+addresses; all apparent GPU deleting/transfer table alternatives are short
+synthetic helpers without native producer bindings. Constructor store order
+and the recorded 563CAF cleanup constraint remain. No runtime class recovery,
+new linked-byte gain or image clearance is claimed.
+[Native map, helper limits and next prerequisite](../../reverse/attempt_support/gpu-info-sibling-adoption-20261109/README.md).

@@ -11,29 +11,18 @@
 #include "ascii_string.h"
 
 
+#include "../../../../Include/GameClient/GpuDrawModuleInfo.h"
+
 namespace FXParticleSystem
 {
-
-class GpuDrawModuleInfo
-{
-public:
-	virtual ~GpuDrawModuleInfo();
-	GpuDrawModuleInfo &operator=(const GpuDrawModuleInfo &that);
-
-private:
-	int m_totalFrames;
-	int m_framesPerRow;
-	AsciiString m_detailTexture;
-	float m_speedMultiplier;
-};
 
 // ??4GpuDrawModuleInfo@FXParticleSystem@@QAEAAV01@ABV01@@Z @0x3A7EF0
 GpuDrawModuleInfo &GpuDrawModuleInfo::operator=(const GpuDrawModuleInfo &that)
 {
-	m_totalFrames = that.m_totalFrames;
-	m_framesPerRow = that.m_framesPerRow;
-	m_detailTexture = that.m_detailTexture;
-	m_speedMultiplier = that.m_speedMultiplier;
+	m_04 = that.m_04;
+	m_08 = that.m_08;
+	m_0C = that.m_0C;
+	m_10 = that.m_10;
 	return *this;
 }
 

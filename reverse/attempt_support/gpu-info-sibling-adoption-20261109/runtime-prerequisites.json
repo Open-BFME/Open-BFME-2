@@ -1,0 +1,97 @@
+{
+  "target_facts": [
+    {
+      "rva": "0x0081D588",
+      "ledger_extent": 44,
+      "strong_name": "_g_gpuDrawBaseTable00",
+      "native_slots": [
+        "0x003AE9BF",
+        "0x000B3FD0",
+        "0x0003B810",
+        "0x00563965",
+        "0x005639A4",
+        "0x00560ABA",
+        "0x0056394A",
+        "0x0055C44F",
+        "0x0030F2C7",
+        "0x0030D377",
+        "0x00094A98"
+      ],
+      "cached_helper": {
+        "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp",
+        "name": "??_7Rva003ABA4C@@6BRva003AF50D@@@",
+        "extent": 4,
+        "relocation": "??_ERva003ABA4C@@UAEPAXI@Z",
+        "strict_receipt": false
+      },
+      "conclusion": "No independently bound complete compiler table established. The short synthetic constructor helper cannot substitute for the runtime table."
+    },
+    {
+      "rva": "0x0081D5B4",
+      "ledger_extent": 16,
+      "strong_name": "_g_gpuDrawBaseTable18",
+      "native_slots": [
+        "0x003AE9B7",
+        "0x000B3FD0",
+        "0x003ABBF5",
+        "0x003ABBFB"
+      ],
+      "cached_helper": {
+        "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp",
+        "name": "??_7Rva003ABA4C@@6BGpuDrawModuleInfo@FXParticleSystem@@@",
+        "extent": 4,
+        "relocation": "??_ERva003ABA4C@@WBI@AEPAXI@Z",
+        "strict_receipt": false
+      },
+      "conclusion": "No independently bound complete compiler table established. The short synthetic constructor helper cannot substitute for the runtime table."
+    },
+    {
+      "rva": "0x0081CD90",
+      "ledger_extent": 44,
+      "strong_name": "_g_gpuDrawTable00",
+      "native_slots": [
+        "0x003ACEDB",
+        "0x000B3FD0",
+        "0x003AE8F1",
+        "0x00563965",
+        "0x005639A4",
+        "0x00560ABA",
+        "0x0056394A",
+        "0x0055C44F",
+        "0x0030F2C7",
+        "0x0030D377",
+        "0x00094A98"
+      ],
+      "cached_helper": {
+        "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp",
+        "name": "??_7Rva003ACEF7@@6BRva003ACEF7Base0@@@",
+        "extent": 4,
+        "relocation": "??_ERva003ACEF7@@UAEPAXI@Z",
+        "strict_receipt": false
+      },
+      "conclusion": "No independently bound complete compiler table established. The short synthetic constructor helper cannot substitute for the runtime table."
+    },
+    {
+      "rva": "0x0081CD80",
+      "ledger_extent": 16,
+      "strong_name": "_g_gpuDrawTable18",
+      "native_slots": [
+        "0x003ABC03",
+        "0x000B3FD0",
+        "0x003ABBF5",
+        "0x003ABBFB"
+      ],
+      "cached_helper": {
+        "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp",
+        "name": "??_7Rva003ACEF7@@6BRva003ACEF7Base18@@@",
+        "extent": 4,
+        "relocation": "??_ERva003ACEF7@@WBI@AEPAXI@Z",
+        "strict_receipt": false
+      },
+      "conclusion": "No independently bound complete compiler table established. The short synthetic constructor helper cannot substitute for the runtime table."
+    }
+  ],
+  "provenance": "Native slot words and current ledger ranges are target facts. Cached helper shape is a compiler observation, not proof of original class names, complete layout or native placement.",
+  "remaining_prerequisites": "Recover genuine runtime virtual declarations/overrides and producer bindings while preserving constructor store order and EH cleanup. Prior re_attempts entry82384 describes the 563CAF cleanup constraint. The canonical info table at81C1E8 is a distinct table, not a substitute.",
+  "scope": "Read-only bounded investigation; no source trial, new row, alias, pin or bridge admission."
+}

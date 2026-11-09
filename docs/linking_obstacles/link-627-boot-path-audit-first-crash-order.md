@@ -317,3 +317,13 @@ remain. The next real link must confirm the old Slot3 strong name is absent
 and the Wind secondary remains correctly bridged, then the maintained image
 and queue decide runtime progress.
 [Evidence and next prerequisites](../../reverse/attempt_support/particle-clone-secondary-table-20261109/README.md).
+
+2026-11-09, GPU follow-up: two further canonical info consumers (transfer and
+assignment) retain their native 109B and clean scoped previews, retiring two
+header queue rows. This removes private info views but does not replace any
+runtime array. The six remaining served-file arrays are documented against
+native targets and actual short helper tables; neither a similar name nor a
+four-byte synthetic table proves a runtime producer. Preserve the native
+563CAF constructor/EH shape while recovering the complete runtime virtuals.
+No startup or next-image clearance follows from these header adoptions.
+[Current prerequisites and verification](../../reverse/attempt_support/gpu-info-sibling-adoption-20261109/README.md).
