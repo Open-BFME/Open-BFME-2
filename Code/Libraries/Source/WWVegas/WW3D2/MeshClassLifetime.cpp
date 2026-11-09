@@ -40,9 +40,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 typedef char RenderObjSizeMatchesRetail[(sizeof(RenderObjClass) == 0xC4) ? 1 : -1];
 
-class MeshModelClass : public RefCountClass
-{
-};
+#include "MeshModelClass.h"
 
 class DecalMeshClass;
 
