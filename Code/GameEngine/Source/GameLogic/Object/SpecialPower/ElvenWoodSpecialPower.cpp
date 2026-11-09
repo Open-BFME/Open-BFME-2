@@ -725,13 +725,6 @@ private:
 // the real class (retail: the +0 table's slot 0 is the placeholder's ??_G and
 // its slot 4 the class's getModuleNameKey row).
 
-// Rva004C4508: ??0CloudBreakSpecialPower 0x004C44D8 (42 B) stores 0x00C5D42C (+0), 0x00BEFCF8 (+0x0C), 0x00C5D3C8 (+0x10)
-class Rva004C4508 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C4508();
-};
-
 // Rva004C48C6: ??0TaintSpecialPower 0x004C4896 (42 B) stores 0x00C5D5CC (+0), 0x00BEFCF8 (+0x0C), 0x00C5D568 (+0x10)
 class Rva004C48C6 : public SpecialPowerModule
 {
@@ -1032,7 +1025,8 @@ CloudBreakSpecialPower::CloudBreakSpecialPower( Thing *thing, const ModuleData *
 {
 }
 
-// ??1CloudBreakSpecialPower@@MAE@XZ present-unmatched
+// ??1CloudBreakSpecialPower@@MAE@XZ 0x004C4508: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 CloudBreakSpecialPower::~CloudBreakSpecialPower()
 {
 }
@@ -1599,10 +1593,6 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 // ??1ScavengerSpecialPower@@MAE@XZ 0x004C43A3: stores the class's three vptrs, then tail-calls
 // ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 ScavengerSpecialPower::~ScavengerSpecialPower()
-{
-}
-
-Rva004C4508::~Rva004C4508()
 {
 }
 

@@ -6180,7 +6180,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1ElvenWoodSpecialPower@@MAE@XZ,,0x004C3905,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1WeaponChangeSpecialPowerModule@@MAE@XZ,,0x004C4044,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1ScavengerSpecialPower@@MAE@XZ,,0x004C43A3,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
-??1Rva004C4508@@UAE@XZ,,0x004C4508,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
+??1CloudBreakSpecialPower@@MAE@XZ,,0x004C4508,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C48C6@@UAE@XZ,,0x004C48C6,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C4BD1@@UAE@XZ,,0x004C4BD1,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
 ??1Rva004C4DE9@@UAE@XZ,,0x004C4DE9,25,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,opaque MI dtor
@@ -9895,7 +9895,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GElvenWoodSpecialPower@@MAEPAXI@Z,,0x004C3963,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GWeaponChangeSpecialPowerModule@@MAEPAXI@Z,,0x004C4028,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GScavengerSpecialPower@@MAEPAXI@Z,,0x004C4387,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004C4508@@UAEPAXI@Z,,0x004C4566,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GCloudBreakSpecialPower@@MAEPAXI@Z,,0x004C4566,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C48C6@@UAEPAXI@Z,,0x004C4924,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C4BD1@@UAEPAXI@Z,,0x004C4C2F,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C4DE9@@UAEPAXI@Z,,0x004C4E47,28,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact

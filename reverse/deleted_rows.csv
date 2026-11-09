@@ -6039,3 +6039,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ??_GRva004C4044@@UAEPAXI@Z,0x004C4028,"Renamed to ??_GWeaponChangeSpecialPowerModule@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D1B4)"
 ??1Rva004C43A3@@UAE@XZ,0x004C43A3,"Renamed to ??1ScavengerSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D304)"
 ??_GRva004C43A3@@UAEPAXI@Z,0x004C4387,"Renamed to ??_GScavengerSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D304)"
+??1Rva004C4508@@UAE@XZ,0x004C4508,"Renamed to ??1CloudBreakSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D42C)"
+??_GRva004C4508@@UAEPAXI@Z,0x004C4566,"Renamed to ??_GCloudBreakSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D42C)"
