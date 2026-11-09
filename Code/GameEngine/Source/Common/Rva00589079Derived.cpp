@@ -31,6 +31,9 @@ class UpdateModule : public BehaviorModule
 {
 public:
 	virtual ~UpdateModule();
+	// BehaviorModuleInterface slot 9 (retail 0x002533D3 in every UpdateModule's table):
+	// UpdateModule's override (header-inline in UpdateModule.h; rowed in SupplyTruckAIUpdateCtor.cpp).
+	virtual UpdateModuleInterface *getUpdate();
 protected:
     virtual SleepyUpdatePhase getUpdatePhase() const;
 public:
@@ -198,6 +201,10 @@ public:
 	// as FireWeaponWhenDeadBehavior.cpp declares it: both units emit this vtable and must
 	// emit the same copy.
 	virtual NameKeyType getModuleNameKey() const;
+	// BehaviorModuleInterface table 0x00C496F8 slots 7 and 10 (retail 0x004523A9 and 0x004543A9),
+	// as FireWeaponWhenDeadBehavior.cpp declares and defines them.
+	virtual DieModuleInterface *getDie();
+	virtual UpgradeModuleInterface *getUpgrade();
 private:
 	Member2C m_m2C;
 	char m_pad30[0x78];

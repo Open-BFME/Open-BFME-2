@@ -62,6 +62,9 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+	// BehaviorModuleInterface slot 9: UpdateModule's override, rowed at 0x002533D3
+	// (header-inline in UpdateModule.h; SupplyTruckAIUpdateCtor.cpp).
+	virtual UpdateModuleInterface *getUpdate();
     virtual DisabledMaskType getDisabledTypesToProcess() const;
     virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
 protected:
@@ -191,6 +194,10 @@ protected:
 public:
 	// Primary vtable slot 4, already rowed at 0x00482E51.
 	virtual NameKeyType getModuleNameKey() const;
+	// BehaviorModuleInterface table 0x00C496F8 (+0x0C): the receiver converted to the
+	// class's own interfaces, the null-preserving casts retail folds across the module family.
+	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 die interface
+	virtual UpgradeModuleInterface *getUpgrade();	// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 private:
 	const FireWeaponWhenDeadBehaviorModuleData *getFireWeaponWhenDeadBehaviorModuleData() const { return (const FireWeaponWhenDeadBehaviorModuleData *)m_moduleData; }
 
@@ -256,6 +263,18 @@ NameKeyType FireWeaponWhenDeadBehavior::getModuleNameKey() const
 	static NameKeyType TheFireWeaponWhenDeadBehaviorPoolKey =
 		TheNameKeyGenerator->nameToKey("FireWeaponWhenDeadBehavior");
 	return TheFireWeaponWhenDeadBehaviorPoolKey;
+}
+
+// Slot 7 of FireWeaponWhenDeadBehavior's BehaviorModuleInterface table 0x00C496F8: retail 0x004523A9, the +0x28 die interface.
+DieModuleInterface *FireWeaponWhenDeadBehavior::getDie()
+{
+	return this;
+}
+
+// Slot 10 of FireWeaponWhenDeadBehavior's BehaviorModuleInterface table 0x00C496F8: retail 0x004543A9, the +0x20 UpgradeMux.
+UpgradeModuleInterface *FireWeaponWhenDeadBehavior::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
 }
 
 // tu-skeleton: 0x00482E96 39B ??1FireWeaponWhenDeadBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00589079Derived.cpp (not merged yet)
