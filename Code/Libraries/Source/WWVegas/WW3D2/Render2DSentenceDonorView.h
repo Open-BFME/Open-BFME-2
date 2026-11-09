@@ -252,7 +252,8 @@ private:
 	};
 
 	// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
-	private:
+	// Public, as PendingSurfaceStruct is: render2dsentence.cpp declares the renderer vector's Resize specialization (P104).
+	public:
  struct RendererDataStruct {
 		Render2DClass *	Renderer;
 		SurfaceClass *		Surface;
@@ -260,6 +261,7 @@ private:
 		bool operator== (const RendererDataStruct &src)	{ return false; }
 		bool operator!= (const RendererDataStruct &src)	{ return true; }
 	};
+	private:
 
 	//
 	//	Private methods
