@@ -43,18 +43,11 @@ template <> __declspec(dllimport) __forceinline
 size_t hash<NameKeyType>::operator()(const NameKeyType &value) const { return (size_t)value; }
 }
 
-class ArmorTemplate
-{
-public:
-	void *m_ptr;
-	char m_pad4[4];
-	int m_check;
-	char m_padC[0x70];
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 typedef std::hash_map<
 	NameKeyType,
-	ArmorTemplate,
+	ArmorTemplate *,
 	rts::hash<NameKeyType>,
 	std::equal_to<NameKeyType> > ArmorTemplateMap;
 
@@ -80,5 +73,5 @@ const ArmorTemplate *Rva00355B61::rva00355155(NameKeyType key) const
 	ArmorTemplateMap::const_iterator it = m_map1.find(key);
 	if (it == m_map1.end())
 		return 0;
-	return (const ArmorTemplate *)it->second.m_ptr;
+	return it->second;
 }

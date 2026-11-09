@@ -40,21 +40,14 @@ namespace rts
 template <> __declspec(dllimport) __forceinline
 size_t hash<NameKeyType>::operator()(const NameKeyType &value) const { return (size_t)value; }
 }
-class ArmorTemplate
-{
-public:
-	void *m_ptr;
-	char m_pad4[4];
-	int m_check;
-	char m_padC[0x70];
-};
+#include "../../../Include/GameLogic/Armor.h"
 #include "ascii_string.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 typedef std::hash_map<
 	NameKeyType,
-	ArmorTemplate,
+	ArmorTemplate *,
 	rts::hash<NameKeyType>,
 	std::equal_to<NameKeyType> > ArmorTemplateMap;
 class ArmorStore : public SubsystemInterface
@@ -71,5 +64,5 @@ const ArmorTemplate *ArmorStore::rva0041F474(const AsciiString &name) const
 {
 	NameKeyType key = TheNameKeyGenerator->nameToKey(name);
 	ArmorTemplateMap::const_iterator it = m_map.find(key);
-	return it != m_map.end() ? (const ArmorTemplate *)it->second.m_ptr : 0;
+	return it != m_map.end() ? it->second : 0;
 }
