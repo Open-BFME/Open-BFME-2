@@ -1078,7 +1078,12 @@ class Rva005F252A : public RvaSmallVtableZeroBase
 {
 public:
 	Rva005F252A();
-	virtual ~Rva005F252A() {}
+	// Retail table 0x00C4EF80 holds 4 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 4 pure slots.
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
 };
 
 Rva005F252A::Rva005F252A()
@@ -1308,7 +1313,11 @@ class Rva00035830
 {
 public:
 	Rva00035830();
-	virtual ~Rva00035830() {}
+	// Retail table 0x00BE2B78 holds 3 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 3 pure slots.
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
 };
 
 Rva00035830::Rva00035830()
@@ -1813,7 +1822,11 @@ class Rva0045954A
 {
 public:
 	Rva0045954A();
-	virtual ~Rva0045954A() {}
+	// Retail table 0x00BE2B78 holds 3 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 3 pure slots.
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
 };
 
 Rva0045954A::Rva0045954A()
@@ -1825,7 +1838,12 @@ class Rva004598C3
 {
 public:
 	Rva004598C3();
-	virtual ~Rva004598C3() {}
+	// Retail table 0x00C4EF80 holds 4 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 4 pure slots.
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
 };
 
 Rva004598C3::Rva004598C3()
@@ -2353,7 +2371,12 @@ class Rva006656D0
 {
 public:
 	Rva006656D0();
-	virtual ~Rva006656D0() {}
+	// Retail table 0x00C4EF80 holds 4 __purecall slots (an abstract table that
+	// retail folds across classes), so the view declares 4 pure slots.
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
 };
 
 Rva006656D0::Rva006656D0()
