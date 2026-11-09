@@ -495,45 +495,7 @@ public:
  TCreateUnitsInfo m_unitsInfo[7];Int m_numUnitsInfo;Coord3D m_homeLocation;Bool m_hasHomeLocation;
  char m_padBD[0xE7-0xBD];Bool m_automaticallyReinforce;char m_padE8[0xEC-0xE8];Int m_maxInstances;mutable Int m_productionPriority;
 };
-class TeamPrototype
-{
-public:
-	const TeamTemplateInfo *getTemplateInfo()const{return (const TeamTemplateInfo *)((const char *)this+0x12c);}
-	Bool evaluateProductionCondition();
-	Int countTeamInstances();
-	const AsciiString &getName() const { return m_name; }
-	Bool getIsSingleton() const { return (m_flags & 1) != 0; }
-	void rva0039D761();		// clears m_numUnitsInfo
-
-	const AsciiString &getOwnerName() const { return m_owner; }
-	const AsciiString &getProductionCondition() const { return m_productionCondition; }
-	Bool getExecuteActions() const { return m_executeActions; }
-
-	char m_pad000[0x10];
-	AsciiString m_owner;			// +0x10
-	AsciiString m_name;			// +0x14
-	Int m_flags;				// +0x18
-	char m_pad01C[0x130 - 0x1C];
-	TCreateUnitsInfo m_unitsInfo[7];	// +0x130
-	Int m_numUnitsInfo;			// +0x1D8
-	Coord3D m_homeLocation;			// +0x1DC
-	Bool m_hasHomeLocation;			// +0x1E8
-	char m_pad1E9[0x210 - 0x1E9];
-	Bool m_bfme210;				// +0x210
-	char m_pad211[2];
-	Bool m_automaticallyReinforce; // +0x213
-	char m_pad214[0x218 - 0x214];
-	Int m_maxInstances;			// +0x218
-	Int m_productionPriority;		// +0x21C
-	char m_pad220[0x23C - 0x220];
-	AsciiString m_productionCondition;	// +0x23C
-	Bool m_executeActions;			// +0x240
-	char m_pad241[0x31C - 0x241];
-	Bool m_bfme31C;				// +0x31C
-	Bool m_bfme31D;				// +0x31D
-	char m_pad31E[0x334-0x31E];Team *m_teamInstances;
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const;
-};
+#include "../../../Include/Common/Team.h"
 
 template <class OBJCLASS> class DLINK_ITERATOR
 {
@@ -669,7 +631,7 @@ private:
 
 enum { DOZER_TASK_BUILD = 0 };
 
-inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(m_teamInstances,&Team::dlink_next_TeamInstanceList);}
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList,&Team::dlink_next_TeamInstanceList);}
 
 
 #include "../../../Include/GameLogic/PartitionFilter.h"

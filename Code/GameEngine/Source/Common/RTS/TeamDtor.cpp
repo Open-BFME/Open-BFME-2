@@ -117,17 +117,7 @@ struct Rva002EE9B7Node
 
 #include "../../../Include/GameLogic/Rva002EE9B7.h"
 
-class TeamPrototype
-{
-public:
-	void removeFrom_TeamInstanceList(Team *o);
-private:
-	char m_00[8];
-	void *m_owner;					// +0x08
-	char m_0C[0x334 - 0x0C];
-	Team *m_dlinkhead_TeamInstanceList;	// +0x334
-	friend class Team;
-};
+#include "../../../Include/Common/Team.h"
 
 class RelationMapBase
 {
@@ -233,7 +223,7 @@ Team::~Team()
 
 	if (TheSkirmishAIManager)
 	{
-		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(m_proto->m_owner);
+		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(m_proto->m_owningPlayer);
 		if (rec)
 			((SkirmishAI *)rec)->UnRegister(this);
 	}
