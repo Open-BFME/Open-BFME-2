@@ -535,40 +535,25 @@ struct Coord3D;
 #include "../Common/Thing/thing.h"
 typedef unsigned short UnsignedShort;
 #include "../../Include/Common/Module.h"
-
 // Access to the existing +4 data pointer; no additional state or helper body.
 class Rva002786D9ModuleDataAccess : public Module
 {
 public:
     using Module::getModuleData;
 };
-
 class Snapshot;
-
 struct Coord3DBase;
-
 struct ICoord3D;
-
 struct Region3D;
-
 struct IRegion3D;
-
 class Coord2D;
-
 struct ICoord2D;
-
 struct Region2D;
-
 struct IRegion2D;
-
 struct RealRange;
-
 struct RGBColor;
-
 struct RGBAColorReal;
-
 struct RGBAColorInt;
-
 // Native 00271B5C..00271BCC lazily allocates the 0x26C-byte manager
 // at Drawable +0x450 then forwards five arguments to 003627F9. WB names
 // the wrapper TurnOnBuff; the target parameter enum/name remain unproven.
@@ -583,7 +568,6 @@ private:
     unsigned char pad000[0x450];
     BuffManager *manager;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva00270025@@QAE@XZ @0x00270025 28B
 // ?rva00270041@Rva00270025@@QAEXXZ @0x00270041 43B
@@ -595,7 +579,6 @@ struct Rva00270025Item
 {
 	virtual void *get(int x);
 };
-
 // ?Rva00270619Clear@Rva00270619@@QAEXH@Z @0x00270619 43B
 // Clears bit in dword at +0x118; when bit is 0x10 also inits +0x68 subobject (+0x34 to 10 and +0x38 to 2).
 // Evidence: callers at 0x004830A3 and 0x004AD669 and 0x004AD797 and 0x00291E7A; no donor; honest Rva name.
@@ -605,7 +588,6 @@ struct Rva00270619Sub
 	int m_34;
 	unsigned char m_38;
 };
-
 class Rva00270619
 {
 public:
@@ -617,15 +599,12 @@ private:
 	unsigned char m_pad6C[0x118 - 0x6C];
 	int m_118;
 };
-
 // ?rva00270644@Rva00270644@@QAEXMM@Z @0x00270644 52B
 // Honest 2-float setter with frame via holder 0x00DFE77C slot 0x7C.
 // Evidence: movss at +0xD8 +0xDC plus frame at +0x380; holder same as DrawableFade slot1F;
 // callers at 0x0027530C 0x0045DF43 0x0046DAE3 0x0046DB53 0x0048578B.
 class ClientFrameSubsystem;
-
  extern class GameClient *TheGameClient;
-
 class Rva00DFE77CHolder
 {
 public:
@@ -638,7 +617,6 @@ public:
 	virtual void slot18(); virtual void slot19(); virtual void slot1A(); virtual void slot1B();
 	virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual int slot1F();
 };
-
 class Rva00270644
 {
 public:
@@ -650,7 +628,6 @@ private:
 	char m_padE0[0x2A0];
 	int m_380; // +0x380
 };
-
 //
 // ?rva0027070C@Rva0027070C@@QAEPAURva0027070CData@@XZ, retail 0x0027070C, 74 bytes.
 // Unlock lane: returns &m_90 (12B at +0x90) or 0. Guards on global TheCloudEffectManager
@@ -665,7 +642,6 @@ struct Rva0027070CData
 	int b;
 	int c;
 };
-
 class Rva0027070CGlobal
 {
 public:
@@ -677,10 +653,8 @@ public:
 	virtual void slot40(); virtual void slot44();
 	virtual Rva0027070CData *slot48(Rva0027070CData *out);
 };
-
 // TheCloudEffectManager: matched references place it at VA 0xdfe1e4 (retail .data initial value 0).
 Rva0027070CGlobal * TheCloudEffectManager = 0;
-
 class Rva0027070C
 {
 public:
@@ -689,7 +663,6 @@ private:
 	unsigned char m_pad00[0x90];
 	Rva0027070CData m_90;
 };
-
 //
 // ?rva002707FA@Rva002707FA@@QAEXE@Z, retail 0x002707FA, 29 bytes. Chain lane:
 // calls 0x003626CE (rowed Rva003626CE::rva003626CE in Rva00409930SlotArray.cpp)
@@ -704,7 +677,6 @@ class Rva003626CE
 public:
 	void rva003626CE(unsigned char value);
 };
-
 class Rva002707FA
 {
 public:
@@ -715,7 +687,6 @@ private:
 	unsigned char m_pad442[0x450 - 0x441 - 1];
 	Rva003626CE *m_450;
 };
-
 class Rva00270BA8
 {
 public:
@@ -724,7 +695,6 @@ public:
 private:
 	Rva00270025 *m_354; // +0x354
 };
-
 // Rva002710AE::rva002710AE at RVA 0x002710AE, 57B. Unlock lane: all callees rowed (slot 0x14 bool,
 // getDesiredGatherers 0x005508E2). Caller at 0x004A1B0C in 0x004A1A69.
 // Guard virtual bool at +0x14 on arg2, then resolve gatherer pointer via
@@ -735,7 +705,6 @@ class BuildListInfo
 public:
 	int getDesiredGatherers();
 };
-
 class Arg2
 {
 public:
@@ -746,7 +715,6 @@ public:
 	virtual void v4();
 	virtual bool v5();
 };
-
 class Rva002710AE
 {
 public:
@@ -757,7 +725,6 @@ private:
 	unsigned char m_445;
 	unsigned char m_446;
 };
-
 // ?rva002710EC@Rva002710EC@@QAEXXZ @0x002710EC (28B): pointer-array loop
 // calling vslot 39. Retail: esi=[ecx+0x14C]; jmp inc; call [eax+0x9C];
 // inc: esi+=4; ecx=[esi]; test; jne call; pop esi; ret. No E8; single
@@ -807,7 +774,6 @@ public:
 	virtual void v38();
 	virtual void v39();
 };
-
 class Rva002710EC
 {
 public:
@@ -816,7 +782,6 @@ private:
 	char m_pad[0x14C];
 	Rva002710ECInner **m_array;
 };
-
 //
 // ?rva002714E6@Rva002714E6@@QAEXPAPAV1@@Z retail 0x002714E6 36 bytes.
 // Doubly-linked push-front with next +0x104 prev +0x108 via head pointer.
@@ -833,7 +798,6 @@ private:
 	Rva002714E6 *m_next;
 	Rva002714E6 *m_prev;
 };
-
 // Rva002716 broadcast family: 5 homogeneous thiscall helpers iterating NULL-terminated
 // Rva002716Entry array at holder+0x14c, calling virtual 0xA8 to get Rva002716Target then
 // virtual 0x1C/0x20/0x40/0x48/0x4C with 3/2/1/0/1 int args. Honest address names; identity unproven.
@@ -865,7 +829,6 @@ struct Rva002716Target {
   virtual void do48();
   virtual void m4c_1(int a);
 };
-
 struct Rva002716Entry {
   virtual void w00();
   virtual void w01();
@@ -911,7 +874,6 @@ struct Rva002716Entry {
   virtual void w41();
   virtual Rva002716Target* getTarget();
 };
-
 struct Rva002716Holder {
   void Rva00271619Broadcast(int a, int b, int c);
   void Rva0027164EBroadcast(int a, int b);
@@ -921,7 +883,6 @@ struct Rva002716Holder {
   unsigned char m_pad[0x14c];
   Rva002716Entry** m_array;
 };
-
 //
 // ?rva00271779@Rva00271779@@QAEXURGBColor00271779@@HHHMM@Z retail 0x00271779 67B
 // Evidence: unlock lane; callers 0x001E0A30 plus 0x002EBDF8 plus 0x000D1A70; TintDrawableFXNugget 0x001E09D8 source RGBColor at +0x148 plus times plus freq plus amp; dest +0x6C contiguous 0x20B via movsd x3 plus mov plus movss; ret 0x20.
@@ -930,7 +891,6 @@ struct RGBColor00271779 {
 	float green;
 	float blue;
 };
-
 class Rva00271779 {
 public:
 	void rva00271779(RGBColor00271779 color, int pre, int post, int sustained, float freq, float amp);
@@ -943,24 +903,19 @@ private:
 	float m_amp;
 	float m_freq;
 };
-
 class GameLogic;
-
  extern GameLogic *TheGameLogic;
-
 struct Rva00271898Logic
 {
 	char m_pad00[0x40];
 	unsigned int m_frame; // +0x40
 };
-
 struct Rva00271898Color
 {
 	float red;
 	float green;
 	float blue;
 };
-
 class Rva00271826
 {
 public:
@@ -975,7 +930,6 @@ private:
 	float m_40;
 	Rva00271898Color m_44;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271AEA@Rva00271AEA@@QAEXXZ retail 0x00271AEA 25 bytes.
@@ -1003,7 +957,6 @@ public:
 	virtual void s38();
 	virtual void slot3C();
 };
-
 class Rva00271AEA
 {
 public:
@@ -1013,7 +966,6 @@ private:
 	unsigned char m_pre[0x14C];
 	LoopElem **m_array;
 };
-
 class Rva00271B03
 {
 public:
@@ -1024,7 +976,6 @@ private:
 	unsigned char m_mid[0x388 - 0x08]; // +0x08
 	int m_388; // +0x388
 };
-
 class Rva00271C1C
 {
 public:
@@ -1036,7 +987,6 @@ private:
 	unsigned char m_mid[0x384 - 0x08];
 	int m_384;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271C68@Rva00271C68@@QAEXH@Z retail 0x00271C68 17 bytes.
@@ -1054,7 +1004,6 @@ private:
 	unsigned char m_pre[0x118];
 	int m_118;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271C8A@Rva00271C8A@@QAEXPBH0@Z retail 0x00271C8A 44 bytes.
@@ -1076,13 +1025,11 @@ class Rva002722AA
 public:
 	void *get() const;
 };
-
 class Rva002722BD
 {
 public:
 	void *get() const;
 };
-
 class Rva00412FC0
 {
 	unsigned char m_pad[0x1C];
@@ -1091,7 +1038,6 @@ class Rva00412FC0
 public:
 	void set(const Vector3 *p);
 };
-
 //
 // ?rva002747B8@Rva002747B8@@QAEXMMM@Z @0x002747B8 65B
 // Subobject at caller+0x8c (0x50B alloc at 0x00276BBD via ctor 0x00271826):
@@ -1115,19 +1061,7 @@ private:
 	unsigned char m_38; // +0x38
 	char m_pad39[0x3];
 };
-
-// Native274DD4..274E5B135B lazily creates a static counted owner.
-// Native27974B..27979776B initializes its receiver, then assigns that
-// owner to the handle at10C. Provider433390 proves a polymorphic D0-byte
-// object with one int constructor argument; its remaining layout is opaque.
-// Existing A8CE5 setter/A8C7C copy/239099 assignment and50ED3 release prove
-// the four-byte handle and atomic counted-object ABI.
-// Guard9FEBE8 bit1, holder9FEBE4 and registered cleanup7B77EC are target
-// facts. The compiler-local callback independently matches all16B; its
-// generic _$E2 name already belongs to another TU, so no extra row is claimed.
-// Original factory/receiver names unknown; addresses remain honest names.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-
 class Rva0036CA00Str {public:
  __declspec(nothrow) Rva0036CA00Str():item(0){}
  __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str&);
@@ -1135,11 +1069,8 @@ class Rva0036CA00Str {public:
  void assign(const Rva0036CA00Str&);
  OpaqueRefCounted*item;
 };
-
 class Rva004333C0 {public:virtual ~Rva004333C0();Rva004333C0(int);char unknown[0xD0-4];};
-
 #include "../../Include/Common/OpaqueRefElement4.h"
-
 class Rva0027974B
 {
 public:
@@ -1147,7 +1078,6 @@ public:
 	char m_pad00[0x10C];
 	Rva0036CA00Str held; // +0x10C
 };
-
 // ?Rva00275D9FGet@@YA_NPBVRva00263546@@@Z @0x00275D9F 47B: one-time init global mask then overlap test.
 // Evidence: chain of 0x001E4912 you landed; callers at 0x00277585 0x00279294 0x002792A0; globals 0xDFEBF0 0xDFEC3C.
 class Rva001E4912
@@ -1156,26 +1086,21 @@ public:
 	Rva001E4912 *rva001E4912(int a, unsigned int b, unsigned int c);
 	unsigned m_bits[19];
 };
-
 class Rva00263546
 {
 public:
 	bool rva00263546(const Rva00263546 *other) const;
 	int m_mask[19]; // +0x00
 };
-
 struct Rva00275D9FMaskStorage
 {
 	unsigned int m_bits[19];
 };
-
 // g_Va00DFEBF0: VA 0x00DFEBF0 (.data/bss); the shared 19-dword mask view is
 // 0x4C bytes and zero-filled in game.dat.
 Rva00275D9FMaskStorage g_Va00DFEBF0;
-
 // g_Va00DFEC3C: VA 0x00DFEC3C (.data/bss); the one-time-init flag is zero-filled.
 int g_Va00DFEC3C;
-
 class Rva002784AFVirt
 {
 public:
@@ -1189,14 +1114,12 @@ public:
 	virtual void v1C();
 	virtual int v20();
 };
-
 struct Rva002784AFInner
 {
 	Rva002784AFVirt *m_vtab;
 	unsigned char m_pad[0x254 - 4];
 	Rva002784AFVirt *m_254holder;
 };
-
 // Actually inner at +0xFC points to struct with m_254 at +0x254? No.
 // Simplify: Mid is at +0xFC, Inner is Mid->m_254? Let's define directly:
 struct Rva002784AFMid
@@ -1204,13 +1127,11 @@ struct Rva002784AFMid
 	unsigned char m_pad[0x254];
 	Rva002784AFVirt *m_254obj;
 };
-
 class Rva00278440Host
 {
 public:
 	void rva00278440(int v);
 };
-
 class Rva002784AFHost : public Rva00278440Host
 {
 public:
@@ -1224,7 +1145,6 @@ private:
 	unsigned char m_449;
 	unsigned char m_44A;
 };
-
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take
 // those calls inline so this TU emits no external copies.
@@ -1234,13 +1154,11 @@ void **vector<void *>::begin() { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
-
 class RvaVecElem
 {
 public:
 	virtual void *func0(int arg);
 };
-
 class Rva00279677
 {
 public:
@@ -1249,7 +1167,6 @@ private:
 	char m_pad[0x36c];
 	_STL::vector<void *> m_vec;
 };
-
 //
 // Twenty-three keyed Drawable lookups, each 25 bytes: forward the hidden
 // return pointer and a constant key (0x21..0x37) to the Drawable member at
@@ -1270,7 +1187,6 @@ public:
 private:
 	char m_pad[8];
 };
-
 class Rva002722F4NullForwarder
 {
 public:
@@ -1279,11 +1195,8 @@ private:
 	char m_lead[0x354];
 	Rva00270025 *m_member;
 };
-
 class Thing;
-
 class RenderInfoClass;
-
 // Two more with a ret 4 tail: 0x000B22E4 +0x4 -> rowed Shadow::setColor
 // (1 arg); 0x004FC176 +0x20 -> 0x004E0D19 (1 arg, address-derived pin).
 class Shadow
@@ -1291,19 +1204,14 @@ class Shadow
 public:
 	void setColor(Int a0);
 };
-
 // Three more null-checked direct forwarders from the wide family scan. The
 // wrapper identities and the two unrowed callees remain address-derived; the
 // third callee is the already-rowed AITargetChooser::rva00505408. Field offsets
 // and return/argument shapes come from each retail body.
 class AsciiString;
-
 class Gen_uw_000e5033;
-
 typedef float Real;
-
 float __cdecl GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
-
 struct TWheelInfo
 {
 	Real m_frontLeftHeightOffset;
@@ -1314,7 +1222,6 @@ struct TWheelInfo
 	Int m_framesAirborneCounter;
 	Int m_framesAirborne;
 };
-
 class DrawableLocoInfo
 {
 public:
@@ -1336,7 +1243,6 @@ public:
 	Real m_pitchModulator;
 	TWheelInfo m_wheelInfo;
 };
-
 // ?rva00270260@Rva00270260@@QAE_NXZ @0x00270260 22B
 // Returns byte at +0x43d OR byte at +0x43e.
 // Evidence: callers test al at 0x000CE0A9 0x0007896B 0x000B6EFA; no donor; honest Rva name.
@@ -1349,7 +1255,6 @@ private:
 	bool m_43d; // +0x43D
 	bool m_43e; // +0x43E
 };
-
 //
 // ?rva002706A8@Rva002706A8@@QAEXXZ, retail 0x002706A8, 72 bytes. Unlock lane.
 // Sets byte at +0x445 to 1, then walks null-terminated Elem* array at
@@ -1359,9 +1264,7 @@ private:
 // (/O1 /DNDEBUG /MD /arch:SSE) whose flags are copied here.
 
 class Object;
-
 class Drawable;
-
 // The byte the parent sets on itself at +0x445; the callback sets it on each
 // visited object's drawable.
 struct Rva00270689Drawable
@@ -1369,15 +1272,12 @@ struct Rva00270689Drawable
 	unsigned char m_pad[0x445];
 	bool m_445;
 };
-
 typedef int (__cdecl *Rva00270689Func)(Object *obj, void *userData);
-
 class Rva002706A8Ret
 {
 public:
 	virtual void slot00(Rva00270689Func func, bool *b);
 };
-
 class Rva002706A8Mid
 {
 public:
@@ -1394,19 +1294,16 @@ public:
 	virtual void slotA0(); virtual void slotA4();
 	virtual Rva002706A8Ret *slotA8();
 };
-
 struct Rva002706A8Elem
 {
 	unsigned char m_pad[0xC];
 	Rva002706A8Mid m_mid;
 };
-
 struct Rva002706A8Holder
 {
 	unsigned char m_pad[0x244];
 	Rva002706A8Elem **m_244;
 };
-
 class Rva002706A8
 {
 public:
@@ -1418,7 +1315,6 @@ private:
 	unsigned char m_445; // +0x445
 	char m_pad446[0x2];
 };
-
 // ?rva00270FEE@Rva00270FEE@@QAEPADXZ @0x00270FEE 26B
 // If ptr at +0xFC is set returns its dword at +0x104 else returns ptr at +0x04 plus 0xA0.
 // Evidence: caller at 0x0027100C uses return plus 0x14 as float; no donor; honest Rva name.
@@ -1433,7 +1329,6 @@ struct Rva00270FEEInner
 	unsigned char m_pad[0x104];
 	char *m_104;
 };
-
 class BfmeFloatModule
 {
 public:
@@ -1489,9 +1384,7 @@ public:
 	virtual void slot49();
 	virtual float getC8(); // +0xC8
 };
-
 struct Rva00290EABElem;
-
 class Rva00270FEE
 {
 public:
@@ -1506,21 +1399,17 @@ private:
 	char m_pad100[0x4C];
 	BfmeFloatModule **m_14c; // +0x14C
 };
-
 class Rva0055A88BDwordField;
-
 class Rva00239C38
 {
 public:
 	void rva00239C38(const Rva0055A88BDwordField *arg);
 };
-
 class Rva00239FA0
 {
 public:
 	void rva00239FA0(const Rva0055A88BDwordField *arg);
 };
-
 class DrawModuleInterfaceForRva271C38
 {
 public:
@@ -1574,7 +1463,6 @@ public:
 	virtual void sBC() = 0;
 	virtual void sC0(int value) = 0;
 };
-
 class DrawModuleForRva271095
 {
 public:
@@ -1587,7 +1475,6 @@ public:
 	virtual void s18() = 0;
 	virtual void s1C() = 0;
 };
-
 class DrawModuleForRva271C38
 {
 public:
@@ -1634,7 +1521,6 @@ public:
 	virtual void sA0() = 0;
 	virtual DrawModuleInterfaceForRva271C38 *sA4() = 0;
 };
-
 //
 // ?rva00271496@Rva00271496@@QAEXXZ retail 0x00271496 30 bytes.
 // If handle at +0x344 non-null call DisplayStringManager slot 0x3C free then
@@ -1642,11 +1528,8 @@ public:
 // Evidence: callers 0x00278083 0x0037A58D plus manager 0x00DFEAD8 plus slot 0x3C.
 
 class DisplayString;
-
 #include "../../Include/GameClient/DisplayStringManager.h"
-
 extern DisplayStringManager *TheDisplayStringManager;
-
 class Rva00271496
 {
 public:
@@ -1655,7 +1538,6 @@ private:
 	unsigned char m_pre[0x344]; // +0x00
 	DisplayString *m_ptr; // +0x344
 };
-
 //
 // ?rva002714CA@Rva002714CA@@QAEXXZ retail 0x002714CA 28 bytes.
 // TheAudio slot 0x6c removeAudioEvent with handle at +0x148 then set to 1.
@@ -1663,11 +1545,8 @@ private:
 // Evidence: caller 0x00274412 plus TheAudio 0x009FE6E8 plus slot 0x6c.
 
 typedef unsigned int AudioHandle;
-
 #include "../../Include/Common/GameAudio.h"
-
 extern AudioManager *TheAudio;
-
 class Rva002714CA
 {
 public:
@@ -1676,21 +1555,15 @@ private:
 	unsigned char m_pre[0x148]; // +0x00
 	unsigned int m_handle; // +0x148
 };
-
 #include "../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 class Rva002717BCModule {
 public:
 	virtual void slot0() = 0;
 	virtual void slot4() = 0;
 };
-
 #include "../../Include/Common/XferVersion.h"
-
 void Rva0030612AXfer(Xfer *xfer, float *vals);
-
 class Rva00271A0F
 {
 public:
@@ -1703,19 +1576,16 @@ private:
 	char m_38;
 	Bool m_39;
 };
-
 enum KindOfType
 {
 	KINDOF_0x25 = 0x25
 };
-
 // The frame counter at +0x40 (the shared GameLogic view keeps it private).
 struct GameLogicFrameView
 {
 	unsigned char m_pre[0x40];
 	unsigned int m_frame;
 };
-
 class Rva00271BDE
 {
 public:
@@ -1727,7 +1597,6 @@ private:
 	unsigned char m_mid[0x384 - 0x100];
 	unsigned int m_384;
 };
-
 // ?rva002723C0@Drawable@@QAEXH@Z — RVA 0x002723C0, 45B.
 // Draw-module walk at this+0x14C via slot 0xA8, forwarding int arg to
 // slot 0x68 targets. Evidence: same walk/flags as setAnimationLoopDuration above in
@@ -1750,7 +1619,6 @@ public:
 	virtual void slot60() = 0; virtual void slot64() = 0;
 	virtual void rva002723C0Target(int arg) = 0;
 };
-
 class BfmeDrawModuleForRva2723C0
 {
 public:
@@ -1777,7 +1645,6 @@ public:
 	virtual void slotA0() = 0; virtual void slotA4() = 0;
 	virtual BfmeObjectDrawForRva2723C0 *getObjectDrawInterface() = 0;
 };
-
 class ClientItem
 {
 public:
@@ -1792,7 +1659,6 @@ public:
     virtual void slot40() = 0; virtual void slot44() = 0;
     virtual void slot48() = 0;
 };
-
 class BfmeObjectDrawForPristine
 {
 public:
@@ -1803,7 +1669,6 @@ public:
 		const void *conditionState, const char *boneNamePrefix, Int startIndex,
 		Coord3D *positions, Matrix3D *transforms, Int maxBones, Int extra) const = 0;
 };
-
 class BfmeDrawModuleForPristine
 {
 public:
@@ -1830,7 +1695,6 @@ public:
 	virtual void slotA0() = 0;
 	virtual BfmeObjectDrawForPristine *getObjectDrawInterface() = 0;
 };
-
 class BfmeObjectDrawForCurrent
 {
 public:
@@ -1842,7 +1706,6 @@ public:
 		Int startIndex, Coord3D *positions, Matrix3D *transforms,
 		Int maxBones) const = 0;
 };
-
 class BfmeDrawModuleForCurrent
 {
 public:
@@ -1869,7 +1732,6 @@ public:
 	virtual void slotA0() = 0;
 	virtual BfmeObjectDrawForCurrent *getObjectDrawInterface() = 0;
 };
-
 class DrawModuleForRva272971
 {
 public:
@@ -1894,7 +1756,6 @@ public:
 	virtual void slot80(int value) = 0;
 	virtual void slot84(int a, float b, int c) = 0;
 };
-
 // Retail 0x00272C42..0x00272C5B, a 25-byte RET4 forwarder on the Drawable
 // returned by Thing::getDrawable. Native +14C is the pointer to its null-ended
 // module array. Forwarding to slot +D4 of its first module is target evidence;
@@ -1905,15 +1766,12 @@ template <int N> class Rva00272C42Slots : public Rva00272C42Slots<N - 1>
 public:
     virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class Rva00272C42Slots<0> {};
-
 class Rva00272C42Module : public Rva00272C42Slots<53>
 {
 public:
     virtual void forward(const char *text) = 0;
 };
-
 class Rva00272C42
 {
 public:
@@ -1922,7 +1780,6 @@ private:
     char pad[0x14C];
     Rva00272C42Module **modules;
 };
-
 // Retail 0x00272C5B..0x00272C74, the RET8 sibling directly after it: the same
 // first-module load, forwarding two dword arguments to slot +D8 instead.
 // Argument meaning and the method name remain unresolved.
@@ -1931,7 +1788,6 @@ class Rva00272C5BModule : public Rva00272C42Slots<54>
 public:
     virtual void forward(int a, int b) = 0;
 };
-
 class Rva00272C5B
 {
 public:
@@ -1940,11 +1796,8 @@ private:
     char pad[0x14C];
     Rva00272C5BModule **modules;
 };
-
 extern GameClient *TheGameClient;
-
 enum KindOfType;
-
 class Rva00270025
 {
 public:
@@ -1956,36 +1809,27 @@ private:
 	Rva00270025Item *m_04[14];
 	int m_3c[14];
 };
-
 enum ObjectStatusTypes { RvaStatus2 = 2 };
-
 struct Rva0027411FTemplateView
 {
     char unknown00[0x108];
     unsigned char flags;
 };
-
 struct Rva0027411FObjectView
 {
     void *unknown00;
     Rva0027411FTemplateView *data;
 };
-
 void Rva00271CB6(void *state, void *out, float time);
-
 void Rva00271EAD(void *state, void *out, float time);
-
 void Rva002720A4(void *state, void *out, float time);
-
 class OpaqueRefCounted;
-
 class ElemB274401
 {
 public:
 	virtual void _00() = 0;
 	virtual void slot1() = 0;
 };
-
 class ElemA274401
 {
 public:
@@ -2003,12 +1847,10 @@ public:
 	virtual void _11() = 0;
 	virtual ElemB274401 *slot12() = 0;
 };
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-
 class ClientUpdateModule
 {
 public:
@@ -2018,7 +1860,6 @@ public:
 	virtual void v3();
 	virtual NameKeyType getModuleNameKey() const;
 };
-
 // ?rva0027532F@Rva0027532F@@QAE_N_N@Z 0x0027532F 71B. Predicate on the object at
 // +0xFC: a disabled-mask test (bit 2 of +0x437 when the flag is set), then the
 // BitFlags any() at +0x1C8 pinned to 0x0023C58B, then bits 0x24 / 0x40 of the mask word.
@@ -2029,7 +1870,6 @@ public:
 	bool any() const;
 	unsigned int m_words[(N + 31) / 32];
 };
-
 class Rva00275327Obj
 {
 public:
@@ -2038,7 +1878,6 @@ public:
 	unsigned char m_pad1CC[0x437 - 0x1CC];
 	unsigned char m_flags437; // +0x437
 };
-
 class Rva0027532F
 {
 public:
@@ -2047,7 +1886,6 @@ private:
 	unsigned char m_pad00[0xFC];
 	Rva00275327Obj *m_obj; // +0xFC
 };
-
 class Rva00276223Result
 {
 public:
@@ -2088,7 +1926,6 @@ public:
 	virtual void d34();
 	virtual void v35(AsciiString s, bool a, int b);
 };
-
 class Rva00276223Element
 {
 public:
@@ -2136,7 +1973,6 @@ public:
 	virtual void e41();
 	virtual Rva00276223Result *v42();
 };
-
 class Rva00276223
 {
 public:
@@ -2146,11 +1982,8 @@ private:
 	char m_pad[0x14C];
 	Rva00276223Element **m_items;
 };
-
 class Rva0027653ADisplayString {public:virtual ~Rva0027653ADisplayString();virtual void setText(UnicodeString);virtual UnicodeString getText();};
-
 class Rva0027653A {public:UnicodeString rva0027653A();private:char pad[0x344];Rva0027653ADisplayString * volatile text;};
-
 class BfmeObjectDrawFor27656F
 {
 public:
@@ -2165,7 +1998,6 @@ public:
 	virtual void slot40() = 0;
 	virtual void rva27656FTarget(int a1, AsciiString a2) = 0;
 };
-
 class BfmeDrawModuleFor27656F
 {
 public:
@@ -2192,17 +2024,13 @@ public:
 	virtual void slotA0() = 0; virtual void slotA4() = 0;
 	virtual BfmeObjectDrawFor27656F *getObjectDrawInterface() = 0;
 };
-
 #include "../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 struct Rva00276B32Inner
 {
 	unsigned char m_pad[0x74];
 	int m_74;
 };
-
 struct Rva00276B32Elem
 {
 	unsigned char m_pad[4];
@@ -2210,14 +2038,12 @@ struct Rva00276B32Elem
 	unsigned char m_tail[0x1F0 - 8];
 	void *m_1F0holder;
 };
-
 // Actually +0x1F0 holds the elem pointer; +0x258 holds this struct.
 struct Rva00276B32Mid
 {
 	unsigned char m_pad[0x258];
 	Rva00276B32Elem *m_258;
 };
-
 class Rva00276B32Host
 {
 public:
@@ -2226,11 +2052,8 @@ private:
 	unsigned char m_pad[0xFC];
 	Rva00276B32Mid *m_FC;
 };
-
 class Rva00263546;
-
 bool __cdecl Rva00275D9FGet(const Rva00263546 *a);
-
 class Image
 {
 public:
@@ -2242,24 +2065,17 @@ private:
 	Int m_width; // +0x24
 	Int m_height; // +0x28
 };
-
 #include "../../Include/GameClient/Display.h"
-
 #include "../../Include/GameClient/View.h"
-
 extern Display *TheDisplay;
-
 extern View *TheTacticalView;
-
 // The two veterancy icon slots the report draws, both owned and rowed by
 // Code/GameEngine/Source/Common/System/Rva00274E7DInit.cpp - which fills them
 // from the mapped-image collection - so they are spelled the way that unit
 // defines them. The extra `const` on the pointer would make these a second
 // symbol for addresses retail has one object each at.
 extern const Image *g_00DFEB88;
-
 extern const Image *g_00DFEB90;
-
 //
 // ?rva002783F6@Rva002783F6Host@@QAEXH@Z, retail 0x002783F6, 74B: a Drawable
 // member (this goes straight to the rowed Drawable::stopAmbientSound), rowed
@@ -2274,15 +2090,12 @@ class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>
 public:
 	virtual void unused(char (*)[N]) = 0;
 };
-
 template <> class BfmeVirtualSlots<0> {};
-
 class Rva002783F6Module : public BfmeVirtualSlots<8>
 {
 public:
 	virtual int rva002783F6Query();		// slot 8 (+0x20)
 };
-
 class Object
 {
 public:
@@ -2302,7 +2115,6 @@ public:
 public:
 	bool testStatus(ObjectStatusTypes status) const;
 };
-
 class Rva002783F6Host
 {
 public:
@@ -2318,7 +2130,6 @@ private:
 	unsigned char m_x44A; // +0x44A
 	char m_pad44B[0x1];
 };
-
 class Rva00278341Host
 {
 public:
@@ -2336,7 +2147,6 @@ public:
 	unsigned char flag44A; // +0x44A
 	unsigned char flag44B; // +0x44B
 };
-
 class Rva00278644Item
 {
 public:
@@ -2345,22 +2155,74 @@ public:
 #undef V
 	virtual void *slot12();
 };
-
 class Rva00278644Inner
 {
 public:
 	virtual void slot0();
 };
-
 #include "../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../Include/Common/ModuleData.h"
-
 #include "../../Include/Common/WeaponTemplateSetHead.h"
-
 #include "../../Include/GameClient/ModelConditionFlags.h"
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+class ClientFrameSubsystem
+{
+public:
+	virtual void f00();
+	virtual void f04();
+	virtual void f08();
+	virtual void f0C();
+	virtual void f10();
+	virtual void f14();
+	virtual void f18();
+	virtual void f1C();
+	virtual void f20();
+	virtual void f24();
+	virtual void f28();
+	virtual void f2C();
+	virtual void f30();
+	virtual void f34();
+	virtual void f38();
+	virtual void f3C();
+	virtual void f40();
+	virtual void f44();
+	virtual void f48();
+	virtual void f4C();
+	virtual void f50();
+	virtual void f54();
+	virtual void f58();
+	virtual void f5C();
+	virtual void f60();
+	virtual void f64();
+	virtual void f68();
+	virtual void f6C();
+	virtual void f70();
+	virtual void f74();
+	virtual void f78();
+	virtual unsigned int GetTime();
+};
+#include "../../Include/Common/GameEngine.h"
+typedef unsigned int Color;
+struct Rva0087DC00Vec
+{
+	int x;
+	int y;
+	int z;
+};
+class Rva0087DC00
+{
+public:
+	void get(Rva0087DC00Vec *out);
+};
+struct Rva00270FEEInner;
+class BfmeFloatModule;
+class Rva00276470Drawable
+{
+public:
+	const Coord3D *rva00276470() const;
+};
+#include "../../Include/GameClient/DisplayString.h"
 
 struct Rva0027930FFC
 {
@@ -2493,6 +2355,37 @@ private:
 	unsigned char m_pad[0xFC];
 	Rva0027937BMid *m_fc;
 };
+
+extern GameEngine *TheGameEngine;
+
+class Rva00271423
+{
+public:
+	Matrix3D *rva00271423();
+
+private:
+	char m_pre[0x170];
+	Matrix3D m_170;
+	Matrix3D m_1a0;
+	Matrix3D m_1d0;
+	char m_pad200[0x4];
+	unsigned int m_204;
+	char m_pad208[0x170];
+	unsigned int m_378;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable.cpp
+
+// Native274DD4..274E5B135B lazily creates a static counted owner.
+// Native27974B..27979776B initializes its receiver, then assigns that
+// owner to the handle at10C. Provider433390 proves a polymorphic D0-byte
+// object with one int constructor argument; its remaining layout is opaque.
+// Existing A8CE5 setter/A8C7C copy/239099 assignment and50ED3 release prove
+// the four-byte handle and atomic counted-object ABI.
+// Guard9FEBE8 bit1, holder9FEBE4 and registered cleanup7B77EC are target
+// facts. The compiler-local callback independently matches all16B; its
+// generic _$E2 name already belongs to another TU, so no extra row is claimed.
+// Original factory/receiver names unknown; addresses remain honest names.
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable.cpp
 
@@ -4522,6 +4415,42 @@ void Rva002796D9Host::drawIconLayer(int v)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva00279354.cpp
+
+// ?rva00279354@Rva00279354Host@@QAEX_N@Z
+void Rva00279354Host::rva00279354(bool v)
+{
+	((Drawable *)this)->stopAmbientSound();
+	m_10C.clear();
+	if (v != 0)
+		((Rva002783F6Host *)this)->rva002783F6(0);
+}
+
+void Rva00279354Host::setCustomSoundAmbientInfo(const OpaqueRefElement4 &opaqueRefElement4)
+{
+	rva00279354(false);
+	*(OpaqueRefElement4 *)((char *)this + 0x10C) = opaqueRefElement4;
+	((Rva002783F6Host *)this)->rva002783F6(0);
+}
+
+Rva0036CA00Str Rva0027937BHost::rva0027937B()
+{
+	int selector = 0;
+	Rva0027937BMid *mid = m_fc;
+	if (mid != 0)
+		selector = mid->m_254->v20();
+	return ((Drawable *)this)->rva0027824D(selector);
+}
+
+// ?getID@Drawable@@QBE?AW4DrawableID@@XZ @0x0055A88B 7B
+// `mov eax,[ecx+100h]; ret`: retail calls it out of line (LaserUpdate's
+// initFromDrawables at 0x00363853). Identical-code fold with the rowed
+// disp32 dword getter ?get@Rva0055A88BDwordField@@QBEHXZ at the same address.
+DrawableID Drawable::getID() const
+{
+	return m_id;
+}
+
 // tu-skeleton: 0x00270158 7B ?apply@Rva00270158DwordImmSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0027015F 8B ?drawableIconIndexToName@@YAPBDH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp (not merged yet)
@@ -4556,7 +4485,23 @@ void Rva002796D9Host::drawIconLayer(int v)
 
 // tu-skeleton: 0x002711C6 605B ?setInstanceMatrix@Drawable@@QAEXPBVMatrix3D@@_N@Z -- matched in Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp (not merged yet)
 
-// tu-skeleton: 0x00271423 115B ?rva00271423@Rva00271423@@QAEPAVMatrix3D@@XZ -- matched in Code/GameEngine/Source/Common/Rva00271423.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00271423.cpp
+
+// ?rva00271423@Rva00271423@@QAEPAVMatrix3D@@XZ retail 0x00271423 115B.
+// Time-gated Matrix3D interpolate: if m_378 <= GetTime return m_1a0, if m_204 == GetTime return m_1d0,
+// else Lerp(m_170, m_1a0, TheGameEngine+0x3c, m_1d0), cache time, return m_1d0.
+// Evidence: callers 0x0027BF32 in 0x0027BED0, callee Lerp rowed 0x00713AB0, TheGameClient slot 0x7c GetTime, TheGameEngine float +0x3c.
+
+Matrix3D *Rva00271423::rva00271423()
+{
+	if (m_378 <= ((ClientFrameSubsystem *)TheGameClient)->GetTime())
+		return &m_1a0;
+	if (m_204 != ((ClientFrameSubsystem *)TheGameClient)->GetTime()) {
+		Matrix3D::Lerp(m_170, m_1a0, TheGameEngine->m_3C, m_1d0);
+		m_204 = ((ClientFrameSubsystem *)TheGameClient)->GetTime();
+	}
+	return &m_1d0;
+}
 
 // tu-skeleton: 0x002714B4 22B ?rva002714B4@Rva002714B4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
@@ -4720,7 +4665,49 @@ void Rva002796D9Host::drawIconLayer(int v)
 
 // tu-skeleton: 0x002779CE 628B ?drawConstructPercent@Rva002779CEHost@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp (not merged yet)
 
-// tu-skeleton: 0x00277C42 370B ?rva00277C42@Rva00277C42Host@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableCaptionRva00277C42.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/DrawableCaptionRva00277C42.cpp
+
+// ?rva00277C42@Rva00277C42Host@@QAEXXZ retail 0x00277C42..0x00277DB4
+// (370 bytes). Drawable::drawCaption: the name plate over a drawable.
+// Called from the Drawable draw-phase switch 0x002796D9 case 0 (already
+// pinned under this host name). BFME 1 donor DrawableCaptionAndAmbient.cpp
+// (drawCaption 0x00420150) and the WorldBuilder twin 0x00CACFB0 share the
+// shape: skip without a caption display string (+0x344 here) take the
+// geometry centre (0x00270FEE then Rva0087DC00::get 0x006BD470) plus the
+// drawable position (0x00276470) project it through TheTacticalView
+// (vtable +0x160) centre by the caption width (DisplayString +0x40 of -1)
+// draw a filled rect 0x7D000000 (Display +0xE4) and an open rect 0xFF141414
+// width 1 (Display +0xE0) one pixel around the string size (+0x3C) then
+// set the caption colour from TheInGameUI +0x7A8 (drop colour black +0x28)
+// and draw the string (+0x38).
+
+void Rva00277C42Host::rva00277C42()
+{
+	if (m_captionDisplayString == 0)
+		return;
+
+	Coord3D center;
+	ICoord2D screen;
+	reinterpret_cast<Rva0087DC00 *>(reinterpret_cast<Rva00270FEE *>(this)->rva00270FEE())
+		->get(reinterpret_cast<Rva0087DC00Vec *>(&center));
+	const Coord3D *pos = reinterpret_cast<Rva00276470Drawable *>(this)->rva00276470();
+	center.x += pos->x;
+	center.y += pos->y;
+	center.z += pos->z;
+
+	TheTacticalView->worldToScreenTriReturn(&center, &screen);
+	screen.x += m_captionDisplayString->getWidth(-1) / -2;
+
+	Int width, height;
+	m_captionDisplayString->getSize(&width, &height);
+	Int xPos = screen.x - 1;
+	Int yPos = screen.y - 1;
+	TheDisplay->drawFillRect(xPos, yPos, width + 2, height + 2, 0x7d000000);
+	TheDisplay->drawOpenRect(xPos, yPos, width + 2, height + 2, 1.0f, 0xff141414);
+
+	m_captionDisplayString->setColors(TheInGameUI->m_drawableCaptionColor, 0xff000000);
+	m_captionDisplayString->draw(screen.x, screen.y, 1, 1);
+}
 
 // tu-skeleton: 0x00278064 300B ?setCaptionText@Drawable@@QAEXABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_setCaptionText.cpp (not merged yet)
 
@@ -4760,44 +4747,17 @@ void Rva002796D9Host::drawIconLayer(int v)
 
 // tu-skeleton: 0x002791E7 296B ?rva002791E7@Drawable@@QAEXABVModelConditionFlags@@II@Z -- matched in Code/GameEngine/Source/GameClient/DrawableRva002791E7.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00279354.cpp
-
-// ?rva00279354@Rva00279354Host@@QAEX_N@Z
-void Rva00279354Host::rva00279354(bool v)
-{
-	((Drawable *)this)->stopAmbientSound();
-	m_10C.clear();
-	if (v != 0)
-		((Rva002783F6Host *)this)->rva002783F6(0);
-}
-
-void Rva00279354Host::setCustomSoundAmbientInfo(const OpaqueRefElement4 &opaqueRefElement4)
-{
-	rva00279354(false);
-	*(OpaqueRefElement4 *)((char *)this + 0x10C) = opaqueRefElement4;
-	((Rva002783F6Host *)this)->rva002783F6(0);
-}
-
-Rva0036CA00Str Rva0027937BHost::rva0027937B()
-{
-	int selector = 0;
-	Rva0027937BMid *mid = m_fc;
-	if (mid != 0)
-		selector = mid->m_254->v20();
-	return ((Drawable *)this)->rva0027824D(selector);
-}
-
 // tu-skeleton: 0x002793F0 633B ??1Drawable@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/DrawableDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x00279669 6B ?GetSnapshotName@Drawable@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
 
-// tu-skeleton: 0x0027966F 8B ??_ERva002793F0@@WGA@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp (not merged yet)
+// tu-skeleton: 0x0027966F 8B ??_EDrawable@@WGA@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/DrawableConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x002796B8 33B ?rva002796B8@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp (not merged yet)
 
 // tu-skeleton: 0x002797BD 2111B ??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00279FFC 28B ??_GRva002793F0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp (not merged yet)
+// tu-skeleton: 0x00279FFC 28B ??_GDrawable@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/DrawableConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0027A018 513B ?createEmbeddedPortals@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableXfer.cpp (not merged yet)
 
@@ -4810,15 +4770,6 @@ Rva0036CA00Str Rva0027937BHost::rva0027937B()
 // tu-skeleton: 0x0027BA95 208B ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableCalcPhysicsXform.cpp (not merged yet)
 
 // tu-skeleton: 0x0027BB65 875B ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableApplyPhysicsXform.cpp (not merged yet)
-
-// ?getID@Drawable@@QBE?AW4DrawableID@@XZ @0x0055A88B 7B
-// `mov eax,[ecx+100h]; ret`: retail calls it out of line (LaserUpdate's
-// initFromDrawables at 0x00363853). Identical-code fold with the rowed
-// disp32 dword getter ?get@Rva0055A88BDwordField@@QBEHXZ at the same address.
-DrawableID Drawable::getID() const
-{
-	return m_id;
-}
 
 // tu-skeleton: 0x007732D5 19B ?rva007732d5@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp (not merged yet)
 
@@ -4847,6 +4798,10 @@ DrawableID Drawable::getID() const
 // tu-skeleton: 0x0077334F 10B $L1294 -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
 
 // tu-skeleton: 0x00773359 10B __ehhandler$?rva002739D1@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00273755.cpp (not merged yet)
+
+// tu-skeleton: 0x00773363 10B $L1171 -- matched in Code/GameEngine/Source/GameClient/DrawableRva00273F74.cpp (not merged yet)
+
+// tu-skeleton: 0x0077336D 10B __ehhandler$?rva00273F74@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva00273F74.cpp (not merged yet)
 
 // tu-skeleton: 0x00773377 8B Unwind@00b73377 -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
 
@@ -4902,6 +4857,10 @@ DrawableID Drawable::getID() const
 
 // tu-skeleton: 0x007734AB 10B __ehhandler$?rva0027675F@Drawable@@QAE?AVRva002390CB@@H@Z -- matched in Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp (not merged yet)
 
+// tu-skeleton: 0x007734B5 10B $L1372 -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformWheels.cpp (not merged yet)
+
+// tu-skeleton: 0x007734BF 10B __ehhandler$?calcPhysicsXformWheels@Drawable@@IAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z -- matched in Code/GameEngine/Source/GameClient/DrawablePhysicsXformWheels.cpp (not merged yet)
+
 // tu-skeleton: 0x007734C9 8B Unwind@00b734c9 -- matched in Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp (not merged yet)
 
 // tu-skeleton: 0x007734D1 8B Unwind@00b734d1 -- matched in Code/GameEngine/Source/GameClient/DrawableConstructPercentRva002779CE.cpp (not merged yet)
@@ -4941,6 +4900,10 @@ DrawableID Drawable::getID() const
 // tu-skeleton: 0x0077358B 11B Unwind@00b7358b -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
 
 // tu-skeleton: 0x00773596 10B __ehhandler$?rva002784EB@Drawable@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/DrawableRva0027824D.cpp (not merged yet)
+
+// tu-skeleton: 0x007735B2 10B $L365 -- matched in Code/GameEngine/Source/GameClient/DrawableLazyHelper.cpp (not merged yet)
+
+// tu-skeleton: 0x007735BC 10B __ehhandler$?rva002788C7@Drawable@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameClient/DrawableLazyHelper.cpp (not merged yet)
 
 // tu-skeleton: 0x007735C6 13B $L13620 -- matched in Code/GameEngine/Source/GameClient/DrawableShroud.cpp (not merged yet)
 
