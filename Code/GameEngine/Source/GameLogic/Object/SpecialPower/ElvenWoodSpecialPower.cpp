@@ -712,111 +712,61 @@ private:
 };
 
 //
-// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
-// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
-// including the shared 0xBEFCF8 secondary; identity unproven). Each class
-// below derives (in order) from the opaque base, a shared empty polymorphic
-// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
-// the empty bases have implicit trivial destructors, so the derived
-// destructor stores all three vptrs and tail-calls the base destructor. The
-// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
-// are unproven (opaque Rva names). One ledger row per destructor, landed one
-// commit at a time.
+// SpecialPower destructors still under their placeholder names. Each
+// stores its class's three vptrs (the class's +0 table, SpecialPowerModule's
+// shared BehaviorModuleInterface table 0x00BEFCF8 at +0x0C and the class's
+// +0x10 table), exactly what the class's constructor stores after
+// ??0SpecialPowerModule 0x00493C5A, and tail-calls ??1SpecialPowerModule@@UAE@XZ
+// 0x00493DEF, so each derives from this unit's SpecialPowerModule view like
+// the real class (retail: the +0 table's slot 0 is the placeholder's ??_G and
+// its slot 4 the class's getModuleNameKey row).
 
-class Rva00493DEF
-{
-public:
-	virtual ~Rva00493DEF();
-
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class Rva004C3905_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C3905 : public Rva00493DEF, public MiBase1, public Rva004C3905_B2
+// Rva004C3905: ??0ElvenWoodSpecialPower 0x004C38D5 (42 B) stores 0x00C5CE8C (+0), 0x00BEFCF8 (+0x0C), 0x00C5CE28 (+0x10)
+class Rva004C3905 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C3905();
 };
 
-class Rva004C4044_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C4044 : public Rva00493DEF, public MiBase1, public Rva004C4044_B2
+// Rva004C4044: ??0WeaponChangeSpecialPowerModule 0x004C3FF8 (42 B) stores 0x00C5D1B4 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D150 (+0x10)
+class Rva004C4044 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C4044();
 };
 
-class Rva004C43A3_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C43A3 : public Rva00493DEF, public MiBase1, public Rva004C43A3_B2
+// Rva004C43A3: ??0ScavengerSpecialPower 0x004C4353 (46 B) stores 0x00C5D304 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D2A0 (+0x10) and clears the byte at +0x34
+class Rva004C43A3 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C43A3();
+private:
+	bool m_34; // +0x34
 };
 
-class Rva004C4508_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C4508 : public Rva00493DEF, public MiBase1, public Rva004C4508_B2
+// Rva004C4508: ??0CloudBreakSpecialPower 0x004C44D8 (42 B) stores 0x00C5D42C (+0), 0x00BEFCF8 (+0x0C), 0x00C5D3C8 (+0x10)
+class Rva004C4508 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C4508();
 };
 
-class Rva004C48C6_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C48C6 : public Rva00493DEF, public MiBase1, public Rva004C48C6_B2
+// Rva004C48C6: ??0TaintSpecialPower 0x004C4896 (42 B) stores 0x00C5D5CC (+0), 0x00BEFCF8 (+0x0C), 0x00C5D568 (+0x10)
+class Rva004C48C6 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C48C6();
 };
 
-class Rva004C4BD1_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C4BD1 : public Rva00493DEF, public MiBase1, public Rva004C4BD1_B2
+// Rva004C4BD1: ??0FreezingRainSpecialPower 0x004C4BA1 (42 B) stores 0x00C5D764 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D700 (+0x10)
+class Rva004C4BD1 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C4BD1();
 };
 
-class Rva004C4DE9_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004C4DE9 : public Rva00493DEF, public MiBase1, public Rva004C4DE9_B2
+// Rva004C4DE9: ??0DarknessSpecialPower 0x004C4DB9 (42 B) stores 0x00C5D854 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D7F0 (+0x10)
+class Rva004C4DE9 : public SpecialPowerModule
 {
 public:
 	virtual ~Rva004C4DE9();
