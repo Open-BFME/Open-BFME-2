@@ -10,6 +10,18 @@ class BfmeGlob939D
 public:
 	char bfmeCall939D();	// 0x0023C6FD
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Thing;
+class ModuleData;
+class Xfer;
+struct Coord3D;
+// Before PlayerList.h: that header selects Snapshot's capitalized slot names
+// when it is the first to include Snapshot.h, and CrateCollide's xfer would
+// then open a new slot instead of overriding slot 3.
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../../../Include/Common/MultiPlayMults.h"
@@ -79,15 +91,6 @@ struct MoneyCrateCollideModuleData
 	char m_pad00[0x5C];
 	unsigned int m_moneyProvided;	// +0x5C
 };
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-class Thing;
-class ModuleData;
-class Xfer;
-struct Coord3D;
-#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 // The class views SalvageCrateCollide.cpp compiles for the family.
 // The collide interface at +0x10: retail's crate tables there (0x00C5A600
 // for MoneyCrateCollide) have six slots; slot 0 is CrateCollide::onCollide
