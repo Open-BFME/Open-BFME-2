@@ -215,7 +215,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-extern "C" void *memset(void *dst, int val, unsigned size);
+#include <string.h>
 
 namespace _STL
 {
