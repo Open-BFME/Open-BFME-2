@@ -1,6 +1,6 @@
 ### LINK-073: LivingWorldManager constructor uses opaque names for existing container and lifetime owners
 
-Status: Blocked on constructor-class and member-type reconciliation. Updated: 2026-11-08; inspected revision: `1c063dfbf49`.
+Status: Class folded 2026-11-09; constructor members and the pure-slot table remain, see the end of this entry. Earlier notes describe the state before the fold.
 
 Evidence / affected unit: `LivingWorld/LivingWorldManagerCtor.cpp` remains U5 against `d1f046749a`. Native calls reach the existing 31-byte `hash_map<int,Rva00213E11Element>` constructor at 0x00213E11 and 25-byte map constructor at 0x0033C432; the private member types instead reference `Rva002130CA`, `Rva00212379` and `Rva00211FA3` constructors. Its 0x0076DE66 cleanup reaches the seven-byte 0x00210CC5 setter under a destructor spelling. Native primary table slot 0 reaches the deleting destructor whose 691-byte lifetime owner is already `LivingWorldManager` at 0x00214405, while the constructor row retains `Rva0022B12DSubsystem`.
 
@@ -85,3 +85,18 @@ Remaining: a decision on how the canonical header may express STLport member typ
 consumers, for example a `// stlport` marker policy for LivingWorldManager.h consumers. Alternatively,
 row the wrapper constructors as fold-proved twins of 0x00213E11 and 0x0033C432 compiled in the
 constructor unit, which retires the three pins. Then the slot renames, then the prepared fold.
+
+**2026-11-09 the fold (swarm Link lane; reviewed by Codex for the swarm coordinator).** What it did: `Rva0022B12DSubsystem` folds into `LivingWorldManager` through `rename.py class --fold`, with `GameEngineInit.cpp`,
+`LivingWorldManagerCtor.cpp` and `SubsystemInterface.cpp` prepared; `GameEngine::init` allocates the canonical class. It removes the real link's `??1Rva0022B12DSubsystem@@UAE@XZ`. Retail evidence: constructor 0x00213EEF and
+destructor 0x00214405 install the same three tables, `GameEngine` allocates 0x2D8 and calls that constructor, and the name getter returns LivingWorldManager. 503/503 rows match.
+
+Measured, images `afe630c454` and its exact base `3c5d07b6ca`: stubs 29 -> 28, bridged tables 4,088 -> 4,086, both stop at retail 0x37078. `image_iso` `vtable_slot` 150 -> 153 and unanalyzed slots 4,169 -> 4,166. Those 3 (`ParticleBufferClass` +48,
+`HordeAIUpdate` +0, `Rva004C3108` +48) are not from the fold: with relocations masked each body has 0 differing bytes against the base. The verdict moved from unchecked to wrong because `code_equal` decodes inline jump tables as instructions, whose relocated
+low bytes change with layout (`HordeAIUpdate` +0x10C holds 0x1048CDAF in one image and 0x1048CDDF in the other; `ParticleBufferClass` the same at +0xA0). `Rva004C3108` +48's body also calls retail-unmatched targets at +0x226, +0x25A and +0x28E in both images: that mismatch predates the fold.
+
+**What it leaves, and what must not be removed first.** The constructor's own `??_7LivingWorldManager@@6BSubsystemInterface@@@` is 16 bytes against retail's 56, with `__purecall` in its last three entries. It is safe only while the vtable bridge wins. On the fold's image the constructor stores VA
+0x109A3120, provided by `retail_vtables.obj`, 14 slots, none `__purecall` (0x10915B40); `exit_link.py` puts generated bridges before source objects. **So removing this bridge needs the class fixed first: bridge lane, read this before touching LivingWorldManager.** Suggested endpoint from the review: one
+stable class definition with out-of-line construction wrappers and named overrides; byte match unproven. The two macros in the canonical header (`BFME_LIVINGWORLDMANAGER_CTOR_MEMBERS`, `BFME_LIVINGWORLDMANAGER_CTOR_PURE`) and its allocation-only form are accepted by the swarm coordinator as temporary on that basis.
+`LivingWorldManagerCtor.cpp` stays out of the census on COMDAT differences (0 -> 0).
+
+Stale until a regeneration, not to be hand-edited: `reverse/data_ledger.csv` rows `0x007E5220`, `0x007E5224`, `0x007E5234` and `0x007E7344` (the last gives one `image_iso` `no_object_retail_nonzero` entry), and `reverse/name_tiers.csv`.
