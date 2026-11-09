@@ -1081,14 +1081,54 @@ private:
 extern Rva002872BA *TheTriggerManager;
 #include "Lib/Coord3D.h"
 #include "../../../Include/GameClient/Drawable.h"
-static __forceinline char cellLayerByte(const PathfindCell *cell) {return (char)((cell->m_0C>>4)&0x3F);}
-void *rva002EBC59(void *,void *,int,int,int);
-
-class Rva002F52A7Query;
-
+#include "../../../Include/GameLogic/BridgeClass.h"
 // Native 0x002F3392 uses a two-word callback context and PathNode +0x0C position.
 // The layer value is witnessed as 1; its original enumerator spelling is unknown.
 enum PathfindLayerEnum { PathfindLayerNativeOne = 1 };
+#include "../../../Include/GameLogic/PathfindPath.h"
+struct Rva002EDEABSrcNode
+{
+	char m_pad00[8];
+	Rva002EDEABSrcNode *m_next;
+	Coord3D m_pos;
+	PathfindLayerEnum m_layer;
+};
+struct Rva002EDEABArg
+{
+	char m_pad00[4];
+	Rva002EDEABSrcNode *m_head;
+};
+class Rva00E02EECObj
+{
+public:
+	virtual void virt00() = 0;
+	virtual void virt01() = 0;
+	virtual void virt02() = 0;
+	virtual void virt03() = 0;
+	virtual void virt04() = 0;
+	virtual void virt05() = 0;
+	virtual void virt06() = 0;
+	virtual void virt07() = 0;
+	virtual void virt08() = 0;
+	virtual void virt09() = 0;
+	virtual void virt10() = 0;
+	virtual void virt11() = 0;
+	virtual void virt12() = 0;
+	virtual void virt13() = 0;
+	virtual void virt14() = 0;
+	virtual void virt15() = 0;
+	virtual void virt16() = 0;
+	virtual void virt17() = 0;
+	virtual void virt18() = 0;
+	virtual void virt19() = 0;
+};
+#include "../../../Include/Common/GlobalData.h"
+extern class GameInfo *TheGameInfo;
+extern GlobalData *TheWritableGlobalData;
+
+void *rva002EBC59(void *,void *,int,int,int);
+
+class Rva002F52A7Query;
 
 struct Rva002F600CInfo;
 
@@ -1398,6 +1438,10 @@ public:
 	Bool flag20; // +0x20
 	char m_pad21[0x3];
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+
+static __forceinline char cellLayerByte(const PathfindCell *cell) {return (char)((cell->m_0C>>4)&0x3F);}
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 
@@ -2573,6 +2617,124 @@ int Rva002F600CInfo::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
     return 0;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002ED15ACellCallback.cpp
+
+// The body after the blocked test is that test's else block (retail block order).
+// Reference lead: Open-BFME-1 f98983a7d LinePassableStruct_linePassableCallback.cpp,
+// with Zero Hour AIPathfind.cpp::linePassableCallback. Native callback 002ED15A
+// keeps its existing address-derived payload identity; retail extends the
+// query with a one-pinched-cell allowance at +38/+58. Layout comes from target
+// accesses, not a donor class-layout claim.
+
+int Rva002ED15AInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y) {
+ info.cell.x=x; info.cell.y=y; info.layer=(PathfindLayerEnum)to->getLayer();
+ if(from) { if(!pathfinder->rva002EA658(object,info,&previous)) return 1; }
+ else { if(!pathfinder->checkForMovement(object,info)) return 1; }
+ if(info.blocked) return 1;
+ else
+ {
+  if(info.pinched && ++pinchedCount>1) return 1;
+  previous.x=x; previous.y=y;
+  if(from) {
+   unsigned int bits=to->m_0C; int layer=(bits>>4)&0x3f;
+   if(Rva001E3679(layer) && from->getLayer()==layer && (bits&0xf)==0) return 0;
+  }
+  return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(valid,to);
+ }
+}
+
+int Rva002ED01EInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y) {
+ info.cell.x=x; info.cell.y=y; info.layer=(PathfindLayerEnum)to->getLayer();
+ if(from) { if(!pathfinder->rva002EA658(object,info,&previous)) return 1; }
+ else { if(!pathfinder->checkForMovement(object,info)) return 1; }
+ if(info.blocked) return 1;
+ else {
+  previous.x=x; previous.y=y;
+  if(from) {
+   unsigned int bits=to->m_0C; int layer=(bits>>4)&0x3f;
+   if(Rva001E3679(layer) && from->getLayer()==layer && (bits&0xf)==0) return 0;
+  }
+  return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(valid,to);
+ }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F4491CellCallback.cpp
+
+// ?cellCallback@Rva002F4491Info@@QAEHPAVPathfindCell@@0HH@Z retail
+// 0x002F4491..0x002F462C (411 bytes) RET 0x10. Line-walk callback (called
+// with previous cell then current cell then x and y from the rowed walk at
+// 0x002F69E3) of a BFME 2 descendant of Zero Hour's
+// Pathfinder::examineCellsCallback; WB twin 0x00D69330 (callgraph 2.0) keeps
+// the same order with GetCostSoFar SetCostSoFar SetParentCell SetTotalCost
+// and AddToOpenList. Without a previous cell it returns 0; a current cell
+// already open or closed (rowed getters 0x002E6AF3 and 0x002E6B06) aborts
+// as does a cell whose world point (x*10 y*10) lies on a burning grid cell
+// of TheTriggerManager (inline grid at +0x70 sized +0x78/+0x7C with a
+// 0x14-byte cell counter at +6) or one whose achieved clearance (pinned
+// Pathfinder 0x002E7749) is not the requested one at +0xC. Otherwise the
+// cell info is allocated from TheMixFileInfoPool (rowed 0x0052DBCD and
+// 0x002E8B7A) or its +0xC cleared and the +0x2C bit 0 dropped; its cost so
+// far becomes the previous cell's plus 2 (bit 21 set) or 5 and its total
+// adds the rowed Pathfinder 0x002F0A72 estimate to the goal at +0x8 before
+// the rowed SetParentCell 0x0052DAC4 and AddToOpenList 0x002F436F.
+
+int Rva002F4491Info::cellCallback(PathfindCell *from, PathfindCell *to, int x, int y)
+{
+	if (!from)
+		return 0;
+	if (cellOpen(to) || cellClosed(to))
+		return 1;
+	{
+		Coord3D pos;
+		pos.x = (Real)(x * 10);
+		pos.y = (Real)(y * 10);
+		if (TheTriggerManager->isBurning(pos))
+			return 1;
+	}
+	if (pathfinder->rva002E7749(0, x, y, to->getLayer(), clearance, true) != clearance)
+		return 1;
+	{
+		In002E6BA1 coord;
+		coord.m_00 = x;
+		coord.m_04 = y;
+		cellAllocateInfo(to, &coord);
+	}
+	cellInfo(to)->m_flags &= ~1u;
+	unsigned int newCostSoFar = cellInfo(from)->field12 + (cellBit21(to) ? 2 : 5);
+	Int costRemaining = pathfinder->rva002F0A72(to, goalCell);
+	cellInfo(to)->field12 = (unsigned short)newCostSoFar;
+	to->SetParentCell((int *)from);
+	cellInfo(to)->field10 = (unsigned short)(cellInfo(to)->field12 + costRemaining);
+	pathfinder->AddToOpenList(to);
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F4D8BCellCallback.cpp
+
+// Native2F4D8B..2F4E54 RET16 full201; callback address independently
+// recovered from caller2F6C22. Layer/type bits at cell+C and opaque state
+// bytes1C..20 are target-observed. Existing QuickDoesPathExist pin owns
+// the four-argument target2F477E. No original names asserted for state bits.
+// WB debug shape: the two zero exits are separate return sites, not one ||
+// test, which is what keeps retail's single inline exit block.
+
+int Rva002F4D8BInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
+{
+ unsigned flags=to->m_0C;
+ if(((unsigned char)((flags>>17)&1)!=0 || (char)((flags>>4)&0x3F)>1) && !flag1D && !flag1E && flag1F)return 1;
+ if((flags&0xF)==4)return 0;
+ if((char)((flags>>4)&0x3F)>1 && !flag1D && flag1E)return 0;
+ flag1E=false;
+ if(!((Rva002E6DC4 *)pathfinder)->rva002E6DC4(&position,to))return 0;
+ Coord3D point;rva002EBC59(&point,object,x,y,cellLayerByte(to));
+ if(pathfinder->QuickDoesPathExist(object,&((LayerProbeObjectView *)object)->position,&point,0)) {
+  flag1C=true;return 1;
+ }
+ flag1F=true;
+ if(flag20)return 1;
+ return flag1D!=0;
+}
+
 // tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
@@ -2609,7 +2771,19 @@ int Rva002F600CInfo::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
 
 // tu-skeleton: 0x002E7569 20B ?IS_IMPASSABLE@@YA_NW4CellType@PathfindCell@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellObjectQuery.cpp (not merged yet)
 
-// tu-skeleton: 0x002E757D 38B ?IsPointOnRamp@Pathfinder@@QAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp
+
+// ?IsPointOnRamp@Pathfinder@@QAE_NPBUCoord3D@@@Z @0x002E757D 38B
+// Evidence: chain from Bridge::isPointOnBridge 0x0027EEAD; walks Bridge list head +0x5C next +0x04; callers 0x002803A3 0x002EF6C5.
+
+bool Pathfinder::IsPointOnRamp(const Coord3D *p)
+{
+	for (Bridge *bridge = m_field5C; bridge; bridge = bridge->getNext()) {
+		if (bridge->isPointOnBridge(p))
+			return true;
+	}
+	return false;
+}
 
 // tu-skeleton: 0x002E75A3 304B ?clip@Pathfinder@@QAEXPAUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
@@ -2791,47 +2965,6 @@ int Rva002F600CInfo::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
 
 // tu-skeleton: 0x002ECE6A 436B ?cellCallback@Rva002ECE6AInfo@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002ED15ACellCallback.cpp
-
-// The body after the blocked test is that test's else block (retail block order).
-// Reference lead: Open-BFME-1 f98983a7d LinePassableStruct_linePassableCallback.cpp,
-// with Zero Hour AIPathfind.cpp::linePassableCallback. Native callback 002ED15A
-// keeps its existing address-derived payload identity; retail extends the
-// query with a one-pinched-cell allowance at +38/+58. Layout comes from target
-// accesses, not a donor class-layout claim.
-
-int Rva002ED15AInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y) {
- info.cell.x=x; info.cell.y=y; info.layer=(PathfindLayerEnum)to->getLayer();
- if(from) { if(!pathfinder->rva002EA658(object,info,&previous)) return 1; }
- else { if(!pathfinder->checkForMovement(object,info)) return 1; }
- if(info.blocked) return 1;
- else
- {
-  if(info.pinched && ++pinchedCount>1) return 1;
-  previous.x=x; previous.y=y;
-  if(from) {
-   unsigned int bits=to->m_0C; int layer=(bits>>4)&0x3f;
-   if(Rva001E3679(layer) && from->getLayer()==layer && (bits&0xf)==0) return 0;
-  }
-  return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(valid,to);
- }
-}
-
-int Rva002ED01EInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y) {
- info.cell.x=x; info.cell.y=y; info.layer=(PathfindLayerEnum)to->getLayer();
- if(from) { if(!pathfinder->rva002EA658(object,info,&previous)) return 1; }
- else { if(!pathfinder->checkForMovement(object,info)) return 1; }
- if(info.blocked) return 1;
- else {
-  previous.x=x; previous.y=y;
-  if(from) {
-   unsigned int bits=to->m_0C; int layer=(bits>>4)&0x3f;
-   if(Rva001E3679(layer) && from->getLayer()==layer && (bits&0xf)==0) return 0;
-  }
-  return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(valid,to);
- }
-}
-
 // tu-skeleton: 0x002ED0CC 142B ?init@Rva002ED15AInfo@@QAEPAU1@PAX00@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderLineContexts.cpp (not merged yet)
 
 // tu-skeleton: 0x002ED219 29B ?IsGroundLineOnly@Pathfinder@@QAE_NPBUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
@@ -2848,7 +2981,19 @@ int Rva002ED01EInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
 
 // tu-skeleton: 0x002EDDA9 178B ?AdjustToNearestValidCell@Pathfinder@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// tu-skeleton: 0x002EDEAB 153B ?SetDebugPath@Pathfinder@@QAEXPAURva002EDEABArg@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp
+
+void Pathfinder::SetDebugPath(Rva002EDEABArg *nodeList)
+{
+	if (TheGameInfo != 0)
+		(*(Rva00E02EECObj **)&TheGameInfo)->virt19();
+	if (TheWritableGlobalData->field09B8 == 0)
+		return;
+	delete m_field58;
+	m_field58 = new Path;
+	for (Rva002EDEABSrcNode *node = nodeList->m_head; node != 0; node = node->m_next)
+		m_field58->appendNode(&node->m_pos, node->m_layer, 0x7FFFFFFF);
+}
 
 // tu-skeleton: 0x002EDF44 56B ?Rva002EDF44@Pathfinder@@QAEPAVPathfindCell@@PAUObjWithPos@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EDF44.cpp (not merged yet)
 
@@ -3050,57 +3195,6 @@ int Rva002ED01EInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
 
 // tu-skeleton: 0x002F4391 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F4491CellCallback.cpp
-
-// ?cellCallback@Rva002F4491Info@@QAEHPAVPathfindCell@@0HH@Z retail
-// 0x002F4491..0x002F462C (411 bytes) RET 0x10. Line-walk callback (called
-// with previous cell then current cell then x and y from the rowed walk at
-// 0x002F69E3) of a BFME 2 descendant of Zero Hour's
-// Pathfinder::examineCellsCallback; WB twin 0x00D69330 (callgraph 2.0) keeps
-// the same order with GetCostSoFar SetCostSoFar SetParentCell SetTotalCost
-// and AddToOpenList. Without a previous cell it returns 0; a current cell
-// already open or closed (rowed getters 0x002E6AF3 and 0x002E6B06) aborts
-// as does a cell whose world point (x*10 y*10) lies on a burning grid cell
-// of TheTriggerManager (inline grid at +0x70 sized +0x78/+0x7C with a
-// 0x14-byte cell counter at +6) or one whose achieved clearance (pinned
-// Pathfinder 0x002E7749) is not the requested one at +0xC. Otherwise the
-// cell info is allocated from TheMixFileInfoPool (rowed 0x0052DBCD and
-// 0x002E8B7A) or its +0xC cleared and the +0x2C bit 0 dropped; its cost so
-// far becomes the previous cell's plus 2 (bit 21 set) or 5 and its total
-// adds the rowed Pathfinder 0x002F0A72 estimate to the goal at +0x8 before
-// the rowed SetParentCell 0x0052DAC4 and AddToOpenList 0x002F436F.
-
-int Rva002F4491Info::cellCallback(PathfindCell *from, PathfindCell *to, int x, int y)
-{
-	if (!from)
-		return 0;
-	if (cellOpen(to) || cellClosed(to))
-		return 1;
-	{
-		Coord3D pos;
-		pos.x = (Real)(x * 10);
-		pos.y = (Real)(y * 10);
-		if (TheTriggerManager->isBurning(pos))
-			return 1;
-	}
-	if (pathfinder->rva002E7749(0, x, y, to->getLayer(), clearance, true) != clearance)
-		return 1;
-	{
-		In002E6BA1 coord;
-		coord.m_00 = x;
-		coord.m_04 = y;
-		cellAllocateInfo(to, &coord);
-	}
-	cellInfo(to)->m_flags &= ~1u;
-	unsigned int newCostSoFar = cellInfo(from)->field12 + (cellBit21(to) ? 2 : 5);
-	Int costRemaining = pathfinder->rva002F0A72(to, goalCell);
-	cellInfo(to)->field12 = (unsigned short)newCostSoFar;
-	to->SetParentCell((int *)from);
-	cellInfo(to)->field10 = (unsigned short)(cellInfo(to)->field12 + costRemaining);
-	pathfinder->AddToOpenList(to);
-	return 0;
-}
-
 // tu-skeleton: 0x002F462C 338B ?rva002F462C@Pathfinder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp (not merged yet)
 
 // tu-skeleton: 0x002F477E 835B ?QuickDoesPathExist@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@1H@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
@@ -3108,32 +3202,6 @@ int Rva002F4491Info::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
 // tu-skeleton: 0x002F4AC1 114B ?rva002F4AC1@Pathfinder@@QAE_NPBUICoord2D@@HHPAVObject@@W4PathfindLayerEnum@@HPAURva002E7261Info@@PAX4@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002F4B33 600B ?QuickDoesPathExistToStructure@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderQuickStructure.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F4D8BCellCallback.cpp
-
-// Native2F4D8B..2F4E54 RET16 full201; callback address independently
-// recovered from caller2F6C22. Layer/type bits at cell+C and opaque state
-// bytes1C..20 are target-observed. Existing QuickDoesPathExist pin owns
-// the four-argument target2F477E. No original names asserted for state bits.
-// WB debug shape: the two zero exits are separate return sites, not one ||
-// test, which is what keeps retail's single inline exit block.
-
-int Rva002F4D8BInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
-{
- unsigned flags=to->m_0C;
- if(((unsigned char)((flags>>17)&1)!=0 || (char)((flags>>4)&0x3F)>1) && !flag1D && !flag1E && flag1F)return 1;
- if((flags&0xF)==4)return 0;
- if((char)((flags>>4)&0x3F)>1 && !flag1D && flag1E)return 0;
- flag1E=false;
- if(!((Rva002E6DC4 *)pathfinder)->rva002E6DC4(&position,to))return 0;
- Coord3D point;rva002EBC59(&point,object,x,y,cellLayerByte(to));
- if(pathfinder->QuickDoesPathExist(object,&((LayerProbeObjectView *)object)->position,&point,0)) {
-  flag1C=true;return 1;
- }
- flag1F=true;
- if(flag20)return 1;
- return flag1D!=0;
-}
 
 // tu-skeleton: 0x002F4E54 462B ?CheckChangeLayers@Pathfinder@@QAEXPAVPathfindCell@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp (not merged yet)
 
