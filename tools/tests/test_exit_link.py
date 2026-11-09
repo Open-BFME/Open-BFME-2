@@ -971,7 +971,7 @@ def test_link_setup_puts_vtable_bridge_first_without_changing_original_order(tmp
     retail = tmp_path / "retail.exe"
     retail.write_bytes(b"retail")
     monkeypatch.setattr(E.build, "EXE", retail)
-    monkeypatch.setattr(image_report, "Retail", lambda raw: object())
+    monkeypatch.setattr(image_report, "Retail", lambda raw, *spans: object())
     sources = {original[0]: "Code/A.cpp", original[1]: "Code/B.cpp"}
     monkeypatch.setattr(E.census, "_object_sources", lambda rows: sources)
     def generated(rows, inputs, omitted, libraries, out, retail, objects=None, source_of=None):
