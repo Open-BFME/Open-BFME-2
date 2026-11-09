@@ -1344,3 +1344,41 @@ plan call without the duplicate old/new run), lk67_shapes.py, lk68's kept-copy t
   miss `UpdateModule::getUpdate` (an UpdateModule header fix, outside this lane). (3)
   `??_7BehaviorModule@@6BObjectModule@@@` differs from its first copy and blocks two units. (4) Naming the
   positional SubsystemInterface/ModuleData slots (lk73 lead 3).
+
+**Module-family overrides missing from class views (2026-11-09, seat halilkkaya-lk75, base `83eecb709b`).**
+Method: lk74's one-pass snapshot (old = new = HEAD's `tools/vtable_bridge.py`) after every batch, plus
+a sweep for tables whose every mismatching slot names `?m@Base@@TAIL` while retail's target is rowed as
+`?m@C@@TAIL` (same method and signature in another class: an override the view lacks).
+- Done, 18 commits (`ee55ff5b145` .. `9b0806aa60a`):
+  - declarations only, in existing views (no rows): `UpdateModule::getUpdate` (UpdateModuleCtor.cpp),
+    `BodyModule::getBody` (ActiveBodyConstructor, InactiveBodyCtor), `CollideModule::getCollide`
+    (FireWeaponCollide, CrateCollide, SalvageCrateCollide), `CreateModule::getCreate` (Preorder,
+    SpecialPower, SupplyCenter Create), AIUpdateInterface's getCollide/getAIUpdateInterface (six views)
+    and update/getDisabledTypesToProcess (seven views; AIUpdateInterfaceDestructor.cpp emits a second
+    copy of two AIUpdateInterface tables and must agree, or link_check refuses AIUpdateInterfaceCtor.cpp);
+  - base swaps: four ActiveBody views onto the registered BodyModuleClass.h, the Siege/Transport
+    AIUpdateInterface views onto UpdateModule.h (the +0x10 placeholder XIface2 becomes
+    `??_7X@@6BUpdateModule@@@`), ExperienceLevelCreate's ctor unit onto CreateModuleClass.h (which
+    retired CreateModule.cpp's `??0ExperienceLevelCreateBase` /alternatename and its pin);
+  - rows (`add_match --icf-owner`): 0x00497805, the `X::loadPostProcess() { Base::loadPostProcess(); }`
+    fold (0x0058B03E is the bases' own body; several headers had this backwards), for 19 classes
+    (9 module units, 8 Upgrade headers, StructureToppleUpdate's present-unmatched ZH body,
+    AllowBannerSpawnUpgrade); 0x004DF396 (DISABLEDMASK_ALL) for FireWeaponWhenDeadBehavior,
+    PropagandaTowerBehavior, PoisonedBehavior and FiringTracker; 0x004A2D67 (held-only mask) for
+    StealthDetectorUpdate and ReplenishUnitsBehavior. Hatches: alternatename -1, pin -1,
+    present_unmatched -1.
+- Offline plan, base -> after: bridged 4,177 -> 4,124, already correct 1,494 -> 1,547, mismatching
+  source slots 45,749 -> 45,675; refusals identical (110); no table newly bridged or lost (two
+  Siege/Transport +0x10 names were renamed, and the new names are correct). link_check on every changed
+  unit, owner and sibling table emitter: all LINK, bytes equal or higher.
+- Not done: the 15 SpecialPowerModule tables (slots 8/43/44): slot 43's body 0x00251C11 takes a float,
+  but BehaviorModule.h spells the interface slot `slot43(int)` (a 301-unit header fix first);
+  LevelUpUpgrade/WeaponSetUpgrade (class:UpgradeModule held); BoneFXUpdate, DeletionUpdate,
+  FireSpreadUpdate, FloatUpdate, ProjectileStreamUpdate, CashHack/DefectorSpecialPower (Zero Hour ports
+  whose shim BehaviorModuleInterface is one slot short: 38 shifted slots each); MissileLauncherBuilding,
+  StoreObjectsSpecialPower, ArrowStorm, GloriousCharge, RousingSpeech (SpecialAbilityUpdate scope).
+- Next leads: (1) ObjectDefectionHelper/ObjectSMCHelper update tables want ObjectHelper's
+  DISABLEDMASK_ALL getter (ObjectHelper.h, a shared header); (2) 27 one-slot tables (56 with BehaviorModule
+  defaults only) whose slot is a positional `?slotNN@BehaviorModule` at a cast fold (0x004543A9, 0x003730FC, 0x004B4A8C, 0x00485EE9) need
+  the slot named first; (3) the Upgrade family's +0x0C and UpgradeMux tables (getDamage 0x0045875F) once
+  class:UpgradeModule is free; (4) WorkerAIUpdateCtor.cpp's two-slot private UpdateModuleInterface.
