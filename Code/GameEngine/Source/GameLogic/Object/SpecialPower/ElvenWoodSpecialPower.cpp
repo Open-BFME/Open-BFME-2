@@ -725,13 +725,6 @@ private:
 // the real class (retail: the +0 table's slot 0 is the placeholder's ??_G and
 // its slot 4 the class's getModuleNameKey row).
 
-// Rva004C4BD1: ??0FreezingRainSpecialPower 0x004C4BA1 (42 B) stores 0x00C5D764 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D700 (+0x10)
-class Rva004C4BD1 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C4BD1();
-};
-
 // Rva004C4DE9: ??0DarknessSpecialPower 0x004C4DB9 (42 B) stores 0x00C5D854 (+0), 0x00BEFCF8 (+0x0C), 0x00C5D7F0 (+0x10)
 class Rva004C4DE9 : public SpecialPowerModule
 {
@@ -1094,7 +1087,8 @@ FreezingRainSpecialPower::FreezingRainSpecialPower( Thing *thing, const ModuleDa
 {
 }
 
-// ??1FreezingRainSpecialPower@@MAE@XZ present-unmatched
+// ??1FreezingRainSpecialPower@@MAE@XZ 0x004C4BD1: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 FreezingRainSpecialPower::~FreezingRainSpecialPower()
 {
 }
@@ -1587,10 +1581,6 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 // ??1ScavengerSpecialPower@@MAE@XZ 0x004C43A3: stores the class's three vptrs, then tail-calls
 // ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 ScavengerSpecialPower::~ScavengerSpecialPower()
-{
-}
-
-Rva004C4BD1::~Rva004C4BD1()
 {
 }
 
