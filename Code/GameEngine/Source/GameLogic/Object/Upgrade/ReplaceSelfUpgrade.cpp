@@ -237,12 +237,13 @@ enum NameKeyType
 // Target facts (vftables are VAs): the ctor first stores the +0x1C
 // interface's own table 0x00C4EF80 (four __purecall slots; retail folds it
 // with other all-pure interface tables), then the class's tables 0x00C58B10
-// at +0, UpgradeModule's 0x00C58110 at +0x0C, 0x00C58AC8 (UpgradeMux) at
-// +0x10, UpgradeModule's 0x00C58790 at +0x18 and 0x00C58AB8 at +0x1C. The
+// at +0, 0x00C58110 at +0x0C (UpgradeModule's 0x00C57328 except slot 3,
+// getCreate 0x004B4A8C, which returns the +0x1C interface), 0x00C58AC8
+// (UpgradeMux) at +0x10, UpgradeModule's 0x00C58790 at +0x18 and 0x00C58AB8 at +0x1C. The
 // class is declared over the canonical UpgradeModule.h with a +0x1C
 // interface, so the compiler stores the vptrs in that order.
 //  - 0x00C58B10 (12 slots): deleting dtor 0x004B70CF, loadPostProcess
-//    0x00497805 (`jmp 0x0058B03E`, UpgradeModule's own body; inherited here),
+//    0x00497805 (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded),
 //    the name getter 0x004B7084 (rowed as the free-function scaffold
 //    ?Rva004B7084Get@@YAHXZ, so slot 2 stays UpgradeModule's), xfer 0x004B6FF7,
 //    getModuleNameKey 0x004B708A, then UpgradeModule's slots.
@@ -286,11 +287,29 @@ public:
 	virtual void i1C_2() { }												// +0x1C slot 2
 	virtual bool i1C_3() { return true; }									// +0x1C slot 3
 
+	// BehaviorModuleInterface table 0x00C58110 (+0x0C) slot 3: retail 0x004B4A8C, the receiver
+	// converted to the +0x1C interface (the null-preserving cast retail folds across the family).
+	virtual CreateModuleInterface *getCreate();
+
 protected:
 	virtual ~ReplaceSelfUpgrade();
+	virtual void loadPostProcess();										// primary slot 1
 	virtual void xfer(Xfer *xfer);											// primary slot 3
 	virtual void upgradeRemovalImplementation() { }						// UpgradeMux slot 8
 };
+
+// Primary slot 1 of 0x00C58B10, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
+// call that every module-family override without work of its own shares (ICF).
+void ReplaceSelfUpgrade::loadPostProcess()
+{
+	UpgradeModule::loadPostProcess();
+}
+
+// Slot 3 of ReplaceSelfUpgrade's BehaviorModuleInterface table 0x00C58110: retail 0x004B4A8C, the +0x1C interface.
+CreateModuleInterface *ReplaceSelfUpgrade::getCreate()
+{
+	return reinterpret_cast<CreateModuleInterface *>(static_cast<Rva004B70F0Iface1C *>(this));
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp
 

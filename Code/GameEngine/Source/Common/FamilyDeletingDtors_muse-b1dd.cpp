@@ -41,8 +41,11 @@ public:
 	virtual void i1C_2() { }
 	virtual bool i1C_3() { return true; }
 
+	virtual CreateModuleInterface *getCreate();
+
 protected:
 	virtual ~ReplaceSelfUpgrade();
+	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 	virtual void upgradeRemovalImplementation() { }
 };
