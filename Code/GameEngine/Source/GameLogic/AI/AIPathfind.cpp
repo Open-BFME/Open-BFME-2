@@ -910,6 +910,8 @@ public:
  Rva002F0C32Allocator(const Rva002F0C32Allocator&) throw() {}
  template<class U> Rva002F0C32Allocator(const Rva002F0C32Allocator<U>&) throw() {}
 };
+// The rowed base (Rva002F0C32Helper.cpp) takes its head node from the pool; emit no copy here.
+namespace _STL { template <> _Rb_tree_base<int, Rva002F0C32Allocator<int> >::_Rb_tree_base(const allocator_type &); }
 template _STL::multiset<int, _STL::less<int>, Rva002F0C32Allocator<int> >::multiset();
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
@@ -2932,7 +2934,7 @@ int Rva002ED01EInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
 
 // tu-skeleton: 0x002F0C1E 20B ?upper_bound@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Const_traits@U?$pair@$$CBHH@_STL@@@2@@2@ABH@Z -- matched in Code/GameEngine/Source/Common/Rva004FD448.cpp (not merged yet)
 
-// tu-skeleton: 0x002F0C32 35B ?helper@Rva002F1C5F@@AAEPAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002F0C32Helper.cpp (not merged yet)
+// tu-skeleton: 0x002F0C32 35B ??0?$_Rb_tree_base@HV?$Rva002F0C32Allocator@H@@@_STL@@QAE@ABV?$Rva002F0C32Allocator@H@@@Z -- matched in Code/GameEngine/Source/Common/Rva002F0C32Helper.cpp (not merged yet)
 
 // tu-skeleton: 0x002F0C55 35B ?helper@Rva002F1CB3@@AAEPAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002F0C55Helper.cpp (not merged yet)
 

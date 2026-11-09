@@ -97,8 +97,8 @@ Rva004152BC *Rva004152BC::rva004152BC(int a0, int a1)
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below. Bind the donor spelling to that owner so one
 // address keeps one definition and the unit links.
-//   0x002F0C32 reads ?helper@Rva002F1C5F@@AAEPAV1@H@Z
-#pragma comment(linker, "/alternatename:?helper@Rva002F1C5F@@AAEXH@Z=?helper@Rva002F1C5F@@AAEPAV1@H@Z")
+//   0x002F0C32 reads ??0?$_Rb_tree_base@HV?$Rva002F0C32Allocator@H@@@_STL@@QAE@ABV?$Rva002F0C32Allocator@H@@@Z
+#pragma comment(linker, "/alternatename:?helper@Rva002F1C5F@@AAEXH@Z=??0?$_Rb_tree_base@HV?$Rva002F0C32Allocator@H@@@_STL@@QAE@ABV?$Rva002F0C32Allocator@H@@@Z")
 //   0x002F0C55 reads ?helper@Rva002F1CB3@@AAEPAV1@H@Z
 #pragma comment(linker, "/alternatename:?helper@Rva002F1CB3@@AAEXH@Z=?helper@Rva002F1CB3@@AAEPAV1@H@Z")
 //   0x004151C4 reads ??0?$_Rb_tree_base@U?$pair@$$CBHURva004151C4Record@@@_STL@@V?$allocator@U?$pair@$$CBHURva004151C4Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHURva004151C4Record@@@_STL@@@1@@Z
