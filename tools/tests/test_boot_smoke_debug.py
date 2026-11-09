@@ -387,6 +387,16 @@ class RunnerDebugTests(unittest.TestCase):
         self.assertEqual(len(kernel.continued), len(kernel.delivered))
         self.assertEqual(set(result["cleanup"]["exit_events"]), {100, 200})
 
+    def test_a_crash_keeps_the_register_capture(self):
+        # P106: both fault points record fault_capture's registers and memory, not bare stack words.
+        captured = {"regs": {"eax": "0x190100"}, "memory": {"eax": "00ff"}, "words": [1]}
+        for events in ([debug_event(3), debug_event(1, exception=0xC0000005)],
+                       [debug_event(3), debug_event(1, exception=0xC0000005, first_chance=1)]):
+            with mock.patch.object(runner, "fault_capture", return_value=captured) as capture:
+                _, result = self.run_case(events)
+            capture.assert_called_once()
+            self.assertIs(result["stack"], captured)
+
     def test_second_chance_breakpoint_is_not_swallowed(self):
         kernel, result = self.run_case([debug_event(3), debug_event(1, exception=0x80000003)])
         self.assertEqual(result["outcome"], "crash")
@@ -989,6 +999,53 @@ class StackKernel:
         ctypes.memmove(buf, data, size)
         got._obj.value = size
         return 1
+
+
+class PointerKernel(StackKernel):
+    """StackKernel with registers set: eax and edi in readable memory, esi 16 bytes below its end,
+    ebx past it, ecx null."""
+
+    def Wow64GetThreadContext(self, handle, ref):
+        super().Wow64GetThreadContext(handle, ref)
+        ctx = ref._obj
+        ctx.eax = ctx.edi = 0x00190100
+        ctx.esi, ctx.ebx, ctx.ecx, ctx.eip = self.hi - 16, self.hi + 0x100, 0, 0x00190200
+        return 1
+
+
+class RegisterMemoryTests(unittest.TestCase):
+    """P106: a fault's registers and what they point at, beside the stack."""
+
+    def test_each_readable_register_gets_its_bytes(self):
+        k = PointerKernel(esp=0x0019F000, lo=0x00190000, hi=0x001A0000)
+        st = runner.fault_capture(k, 5, 201)
+        mem = st["memory"]
+        self.assertEqual(bytes.fromhex(mem["eax"]), b"".join((w).to_bytes(4, "little") for w in range(0x00190100 // 4, 0x00190140 // 4)))
+        self.assertEqual(mem["edi"], mem["eax"])
+        self.assertEqual(len(bytes.fromhex(mem["esi"])), 16)                  # readable memory ends 16 bytes on
+        self.assertNotIn("ebx", mem)                                           # points at nothing readable
+        self.assertNotIn("ecx", mem)                                           # null is never read
+        self.assertNotIn("esp", mem)                                           # the stack words have it
+        self.assertEqual(len(bytes.fromhex(mem["eip"])), 64)                   # the faulting code, in a DLL too
+        self.assertEqual(st["regs"]["eax"], "0x190100")
+        self.assertEqual(len(st["words"]), 1024)                              # esp to the end of readable memory
+
+    def test_one_address_is_read_once_and_null_not_at_all(self):
+        k = PointerKernel(esp=0x0019F000, lo=0x00190000, hi=0x001A0000)
+        st = runner.stack_words(k, 5, 201)
+        k.reads.clear()
+        runner.register_memory(k, 5, st["regs"])
+        self.assertEqual(sum(at == 0x00190100 for at, _ in k.reads), 1)
+        self.assertFalse(any(at < 0x10000 for at, _ in k.reads))
+
+    def test_the_crash_record_carries_the_memory(self):
+        st = {"esp": 0x19F000, "ebp": 0x19F040, "regs": {"eax": "0x190100"}, "memory": {"eax": "00ff"}, "words": []}
+        with mock.patch.object(runner, "image_frames", return_value=[]):
+            self.assertEqual(runner.fault_stack(st, 0x400000, None, None)["memory"], {"eax": "00ff"})
+
+    def test_an_unreadable_thread_captures_nothing(self):
+        with mock.patch.object(runner, "stack_words", return_value=None):
+            self.assertIsNone(runner.fault_capture(None, 5, 201))
 
 
 class FaultStackTests(unittest.TestCase):

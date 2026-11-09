@@ -634,8 +634,8 @@ class Game:
                         if first:
                             res["first_chance"].append([hex(exc), hex(addr)])
                             if "fault" not in res:
-                                res.update(fault=addr, fault_code=hex(exc), fault_where=self.where(addr),
-                                           fault_words=self.stack_words(tid))
+                                res.update(fault=addr, fault_code=hex(exc), fault_where=self.where(addr))
+                                self.capture_fault(tid, res)
                         else:
                             res.update(stopped="crash", code=hex(exc), address=res.get("fault", addr),
                                        seconds=self.seconds())
@@ -650,7 +650,7 @@ class Game:
                                     res["fault_code"] = hex(exc)
                                     res["fault_where"] = self.where(addr)
                                     res["fault_stack"] = self.stack_frames(tid)
-                                    res["fault_words"] = self.stack_words(tid)
+                                    self.capture_fault(tid, res)
                         elif not first and game:
                             status = DBG_NOT_HANDLED
                             res.update(stopped="crash", code=hex(exc), address=res.get("fault", addr),
@@ -742,14 +742,12 @@ class Game:
             return f"{n}+{va - b:#x}"
         return hex(va)
 
-    def stack_words(self, tid, n=256):
-        """The dwords from tid's esp (return-address candidates, for a real image's map)."""
-        h, ctx = self._context(tid)
-        if ctx is None:
-            return []
-        self.k.CloseHandle(h)
-        stack = self.read(ctx.esp, 4 * n) or b""
-        return [struct.unpack_from("<I", stack, i)[0] for i in range(0, len(stack) - 3, 4)]
+    def capture_fault(self, tid, res, n=256):
+        """boot_smoke's fault capture: fault_words, the dwords from esp (return-address candidates,
+        for a real image's map), and fault_context, the registers and what each points at."""
+        st = boot_smoke.fault_capture(self.k, self.hproc, tid, n) or {}
+        res["fault_words"] = st.get("words", [])
+        res["fault_context"] = {key: st[key] for key in ("esp", "ebp", "regs", "memory") if key in st}
 
     def stack_frames(self, tid, n=24):
         """Return-address candidates in the image on tid's stack, as image RVAs."""
@@ -1129,9 +1127,7 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
         loaded = int(res["image_base"], 16) if res.get("image_base") else a.ri.base
         if res.get("stopped") == "crash" or (res.get("stopped") == "exit" and res.get("fault") and res.get("exit_code")):
             import real_image
-            out["crash"] = real_image.crash_fields(a.ri, res["address"] if res["stopped"] == "crash" else res["fault"],
-                                                   loaded, res.get("fault_words", []),
-                                                   res.get("code") or res.get("fault_code"))
+            out["crash"] = crash_record(a.ri, res, loaded)
             res["crash_name"] = real_image.crash_name(out["crash"])
     if a.coverage:
         out["coverage"] = coverage_report(game.probe_units, game.covered)
@@ -1143,6 +1139,18 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
         after = boot_smoke.snapshot(Path(g))
         out["guard"][g] = sorted(set(after) ^ set(snap) | {p for p in snap if p in after and after[p] != snap[p]})[:20]
     return game, out
+
+
+def crash_record(ri, res, loaded):
+    """The contract's crash dict for a real image's fault, with boot_smoke's `stack` (the
+    registers, what they point at, the stack words and frames) when the fault was captured."""
+    import real_image
+    crash = real_image.crash_fields(ri, res["address"] if res["stopped"] == "crash" else res["fault"],
+                                    loaded, res.get("fault_words", []), res.get("code") or res.get("fault_code"))
+    if res.get("fault_context"):
+        crash["stack"] = boot_smoke.fault_stack(dict(res["fault_context"], words=res.get("fault_words", [])),
+                                                loaded, ri, None)
+    return crash
 
 
 def crash_outcome(res):

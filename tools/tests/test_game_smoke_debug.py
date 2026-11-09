@@ -187,5 +187,55 @@ class GameRunLifecycle(unittest.TestCase):
         self.assertEqual(report["outcome"], "debugger-error")
 
 
+class FaultCaptureTests(unittest.TestCase):
+    """P106: a skirmish's crash keeps the fault's registers, through boot_smoke's capture."""
+
+    def test_the_fault_is_captured_by_boot_smoke_s_path(self):
+        game = SimpleNamespace(k=object(), hproc=9)
+        st = {"esp": 0x19F000, "ebp": 0x19F040, "regs": {"eax": "0x190100", "esp": "0x19f000"},
+              "memory": {"eax": "0011"}, "words": [1, 2, 3]}
+        res = {}
+        with mock.patch.object(runner.boot_smoke, "fault_capture", return_value=st) as capture:
+            runner.Game.capture_fault(game, 77, res)
+        capture.assert_called_once_with(game.k, 9, 77, 256)
+        self.assertEqual(res["fault_words"], [1, 2, 3])                       # the field crash_fields reads, as before
+        self.assertEqual(res["fault_context"], {"esp": 0x19F000, "ebp": 0x19F040, "regs": st["regs"], "memory": {"eax": "0011"}})
+
+    run_case = GameRunLifecycle.run_case
+
+    def test_a_first_chance_fault_in_the_game_is_captured(self):
+        crash = GameRunLifecycle.natural_events()[:2] + [event(runner.EXCEPTION, exception=0xC0000005, first_chance=1),
+                                                         event(runner.EXCEPTION, exception=0xC0000005)]
+        with mock.patch.object(runner.Game, "stack_frames", return_value=[]), \
+                mock.patch.object(runner.Game, "capture_fault", autospec=True,
+                                  side_effect=lambda game, tid, res: res.update(fault_words=[7])) as capture:
+            _, result = self.run_case(crash)
+        capture.assert_called_once()
+        self.assertEqual((result["stopped"], result["fault_words"]), ("crash", [7]))
+
+    def test_an_unreadable_thread_keeps_the_old_empty_words(self):
+        res = {}
+        with mock.patch.object(runner.boot_smoke, "fault_capture", return_value=None):
+            runner.Game.capture_fault(SimpleNamespace(k=None, hproc=None), 77, res)
+        self.assertEqual((res["fault_words"], res["fault_context"]), ([], {}))
+
+    def test_the_real_image_crash_record_has_boot_smoke_s_stack(self):
+        res = {"stopped": "crash", "address": 0x2004319, "code": "0xc0000005", "fault_words": [5, 6],
+               "fault_context": {"esp": 0x19F000, "ebp": 0x19F040, "regs": {"eax": "0x1"}, "memory": {}}}
+        with mock.patch("real_image.crash_fields", return_value={"map_symbol": "f"}) as fields, \
+                mock.patch.object(runner.boot_smoke, "fault_stack", return_value={"regs": {"eax": "0x1"}}) as stack:
+            crash = runner.crash_record("ri", res, 0x2000000)
+        fields.assert_called_once_with("ri", 0x2004319, 0x2000000, [5, 6], "0xc0000005")
+        stack.assert_called_once_with(dict(res["fault_context"], words=[5, 6]), 0x2000000, "ri", None)
+        self.assertEqual(crash, {"map_symbol": "f", "stack": {"regs": {"eax": "0x1"}}})
+
+    def test_a_crash_with_no_capture_keeps_the_contract_fields_alone(self):
+        res = {"stopped": "exit", "fault": 0x2004319, "fault_code": "0xc0000005", "exit_code": 1}
+        with mock.patch("real_image.crash_fields", return_value={"map_symbol": "f"}) as fields:
+            crash = runner.crash_record("ri", res, 0x2000000)
+        fields.assert_called_once_with("ri", 0x2004319, 0x2000000, [], "0xc0000005")
+        self.assertEqual(crash, {"map_symbol": "f"})
+
+
 if __name__ == "__main__":
     unittest.main()

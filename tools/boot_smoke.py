@@ -808,7 +808,7 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                     status = DBG_NOT_HANDLED
                     res.update(outcome="crash", code=hex(exc), address=res.get("fault", addr), info=info,
                                seconds=round(time.time() - t0, 1))
-                    res.setdefault("stack", stack_words(k, procs[pid][0], tid))
+                    res.setdefault("stack", fault_capture(k, procs[pid][0], tid))
                     stop_after_continue = True
                 else:
                     hit = next((a for a in (addr, addr - 1) if a in armed), None) if exc in BREAKPOINTS and game else None
@@ -862,7 +862,7 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                         if exc not in QUIET and len(res["first_chance"]) < 10:
                             res["first_chance"].append([hex(exc), addr, info])
                             if (exc == 0xC0000005 or stray) and "stack" not in res:   # the fault, not the rethrow
-                                res["stack"] = stack_words(k, procs[pid][0], tid)
+                                res["stack"] = fault_capture(k, procs[pid][0], tid)
                                 res["fault"] = addr
             if not k.ContinueDebugEvent(pid, tid, status):
                 debugger_error("ContinueDebugEvent", ctypes.get_last_error())
@@ -963,6 +963,50 @@ class WOW64_CONTEXT(ctypes.Structure):
                 ("esp", wt.DWORD), ("ss", wt.DWORD), ("ext", ctypes.c_byte * 512)]
 
 
+def read_pages(k, hproc, at, n):
+    """Up to n bytes from at, a page at a time, stopping at the first page that cannot be read:
+    one read across into an unreadable page would return nothing."""
+    data, end = b"", at + n
+    buf, got = ctypes.create_string_buffer(0x1000), ctypes.c_size_t()
+    while at < end:
+        size = min(end, (at & ~0xFFF) + 0x1000) - at
+        got.value = 0
+        ok = k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(at), buf, size, ctypes.byref(got))
+        data += buf.raw[:min(got.value, size)]
+        if not ok or got.value != size:
+            break
+        at += size
+    return data
+
+
+REGISTER_BYTES = 64
+POINTER_REGISTERS = ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "eip")   # esp's are the stack words
+
+
+def register_memory(k, hproc, regs):
+    """{register: hex of the REGISTER_BYTES bytes it points at} for each register whose address
+    is readable (fewer bytes where readable memory ends); registers that point nowhere are left out."""
+    out, seen = {}, {}
+    for r in POINTER_REGISTERS:
+        if r not in (regs or {}):
+            continue
+        va = int(regs[r], 16)
+        if va not in seen:
+            seen[va] = read_pages(k, hproc, va, REGISTER_BYTES).hex() if va >= 0x10000 else ""
+        if seen[va]:
+            out[r] = seen[va]
+    return out
+
+
+def fault_capture(k, hproc, tid, n=2048):
+    """stack_words at a fault, plus `memory`: what each register points at (P106: a heap
+    corruption's object, read as P31's writer was from the stack)."""
+    st = stack_words(k, hproc, tid, n)
+    if st:
+        st["memory"] = register_memory(k, hproc, st.get("regs"))
+    return st
+
+
 def stack_words(k, hproc, tid, n=2048):
     """(esp, [dwords from esp]) of the faulting WOW64 thread: return-address candidates.
     The n dwords (8 KB by default) are read a page at a time: a thread near its stack's
@@ -974,16 +1018,7 @@ def stack_words(k, hproc, tid, n=2048):
     if not h or not k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(ctx)):
         return None
     k.CloseHandle(h)
-    data, at, end = b"", ctx.esp, ctx.esp + n * 4
-    buf, got = ctypes.create_string_buffer(0x1000), ctypes.c_size_t()
-    while at < end:
-        size = min(end, (at & ~0xFFF) + 0x1000) - at
-        got.value = 0
-        ok = k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(at), buf, size, ctypes.byref(got))
-        data += buf.raw[:min(got.value, size)]
-        if not ok or got.value != size:
-            break
-        at += size
+    data = read_pages(k, hproc, ctx.esp, n * 4)
     return {"esp": ctx.esp, "ebp": ctx.ebp, "regs": {r: hex(getattr(ctx, r)) for r in
                                                       ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp",
                                                        "eip", "eflags")},
@@ -1733,7 +1768,7 @@ def fault_stack(st, loaded, ri, pieces_map):
         return None
     words = st.get("words") or []
     return {"esp": hex(st.get("esp", 0)), "ebp": hex(st.get("ebp", 0)), "regs": st.get("regs"),
-            "words": [hex(w) for w in words],
+            "memory": st.get("memory"), "words": [hex(w) for w in words],
             "frames": image_frames(words, loaded, ri, pieces_map, FAULT_FRAMES)}
 
 
