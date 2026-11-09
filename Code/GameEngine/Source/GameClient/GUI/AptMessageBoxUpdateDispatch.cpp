@@ -10,7 +10,7 @@ class AptStrategicMessageBox { private: static AptStrategicMessageBox *s_instanc
 class Rva0038076DInterface {
 public: virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void update();
 };
-class AptMessenger { public: static AptMessenger *s_instance; };
+#include "../../../Include/GameClient/AptMessenger.h"
 extern int g_Va00E032FC,g_Va00E04478;
 void Rva0038076DUpdate() {
  Rva0054CBF7Target *first=(Rva0054CBF7Target *)g_Va00E032FC;

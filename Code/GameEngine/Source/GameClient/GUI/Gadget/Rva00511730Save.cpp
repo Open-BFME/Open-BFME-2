@@ -34,13 +34,7 @@ struct Rva00511730State
 	GameWindow * volatile m_window298;
 };
 
-class AptMessenger
-{
-public:
- static AptMessenger *s_instance;
-public:
-	static void OpenScreen();
-};
+#include "../../../../Include/GameClient/AptMessenger.h"
 
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;

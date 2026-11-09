@@ -183,7 +183,7 @@ void HandleBuddyResponses()
 
 // Chat.cpp owns the colour array at VA 0x00DB9198; index/addend unchanged.
 extern int GameSpyColor[];
-class AptMessenger { public: static AptMessenger *s_instance; };
+#include "../../../Include/GameClient/AptMessenger.h"
 void Rva00381C82AddChatText(int,const UnicodeString &,int);
 // ?Rva00416589@@YAXUBfmeStringRecord00415F34@@@Z retail416589338B
 // Target-specific ZH insertChat equivalent; GameSpyColor baseDB9198 index8.

@@ -31,7 +31,7 @@ struct Rva00511730State
 };
 
 extern int g_Va00E046BC;
-class AptMessenger { public: static AptMessenger *s_instance; };
+#include "../../../../Include/GameClient/AptMessenger.h"
 extern UnicodeString g_Va00E048C0;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva00381C2DClear(unsigned int idx);

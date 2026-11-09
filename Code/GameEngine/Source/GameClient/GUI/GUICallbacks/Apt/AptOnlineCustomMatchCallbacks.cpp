@@ -231,7 +231,7 @@ extern int GameSpyColor[];
 // Unrowed 0x0044C0A8 (pinned; as AptLanLobby::MpOwnerPrintMessage uses it)
 // and the flag it is skipped under.
 void MessageBoxOk(UnicodeString title, UnicodeString text, void (*callback)());
-class AptMessenger { public: static AptMessenger *s_instance; };
+#include "../../../../../Include/GameClient/AptMessenger.h"
 
 // TheWritableGlobalData's version block at +0xB08 copies itself into a
 // creation request (rowed 0x00237E28).

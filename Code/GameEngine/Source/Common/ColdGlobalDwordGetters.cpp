@@ -192,7 +192,7 @@ int Rva0038071EGet(void)
 	return g_Va00E032FC;
 }
 
-class AptMessenger { public: static AptMessenger *s_instance; };
+#include "../../Include/GameClient/AptMessenger.h"
 
 // ?Rva00380724Get@@YAHXZ @ 0x00380724 (6B) over 0x00E046B8.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,

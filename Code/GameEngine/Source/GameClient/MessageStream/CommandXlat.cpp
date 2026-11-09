@@ -781,7 +781,7 @@ extern GameSpyBuddyMessageQueueInterface*TheGameSpyBuddyMessageQueue;
 // WB AptMessenger.cpp:263 identifies the native E046B8 singleton.
 class AptPlayerTribute {public:static void OpenScreen();};
 
-class AptMessenger {public:static AptMessenger *s_instance; static void OpenScreen();};
+#include "../../../Include/GameClient/AptMessenger.h"
 
 class AptInGameChat {public:static void OpenScreen(int);};
 

@@ -246,7 +246,7 @@ void Rva00437E9C(int value);
 void MessageBoxOk(UnicodeString title, UnicodeString text, void (*callback)());
 
 struct Rva00511730State;
-class AptMessenger { public: static AptMessenger *s_instance; };
+#include "../../../../../Include/GameClient/AptMessenger.h"
 
 class Rva0043DB47DoubleSetter
 {
