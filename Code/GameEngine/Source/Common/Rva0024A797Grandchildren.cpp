@@ -296,6 +296,10 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+public:
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C) slot 7: retail 0x004543A9, the
+	// +0x0C receiver converted to the +0x20 DieModuleInterface (the cast retail folds).
+	virtual DieModuleInterface *getDie();
 };
 
 StructureToppleUpdate::~StructureToppleUpdate()

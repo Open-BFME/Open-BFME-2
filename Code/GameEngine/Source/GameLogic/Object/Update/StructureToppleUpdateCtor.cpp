@@ -98,6 +98,10 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+public:
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C) slot 7: retail 0x004543A9, the
+	// +0x0C receiver converted to the +0x20 DieModuleInterface (the cast retail folds).
+	virtual DieModuleInterface *getDie();
 };
 
 // ??0StructureToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x004A5556
@@ -116,4 +120,11 @@ StructureToppleUpdate::StructureToppleUpdate(Thing *thing, const ModuleData *mod
 	setWakeFrame(const_cast<Object*>(getObject()), (UpdateSleepTime)UPDATE_SLEEP_FOREVER);
 	Object *building = const_cast<Object*>(getObject());
 	m_buildingHeight = building->getGeometryInfo().getMaxHeightAbovePosition();
+}
+
+// Slot 7 of StructureToppleUpdate's BehaviorModuleInterface table 0x00C49188: retail 0x004543A9,
+// the +0x20 DieModuleInterface.
+DieModuleInterface *StructureToppleUpdate::getDie()
+{
+	return this;
 }
