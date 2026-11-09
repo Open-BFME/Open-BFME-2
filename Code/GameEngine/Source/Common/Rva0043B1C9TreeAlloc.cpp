@@ -23,11 +23,6 @@ public:
 };
 }
 
-inline void *__cdecl operator new(unsigned int, void *__p)
-{
-	return __p;
-}
-
 typedef unsigned int ProxyUInt;
 
 class Rva0043B1C9HeaderHandle
@@ -57,10 +52,10 @@ Rva0043B1C9Tree *Rva0043B1C9Tree::rva0043B1C9(void const *dummy)
 {
 	(void)dummy;
 	_STL::allocator<ProxyUInt> tmp;
-	_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *proxy =
-		(_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *)this;
+	typedef _STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > ProxyType;
+	ProxyType *proxy = (ProxyType *)this;
 	__assume(proxy != 0);
-	new (proxy) _STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> >(tmp, (ProxyUInt *)0);
+	proxy->ProxyType::_STLP_alloc_proxy(tmp, (ProxyUInt *)0);
 	*(char **)this = _STL::allocator<char>::allocate(0x9c, 0);
 	return this;
 }
