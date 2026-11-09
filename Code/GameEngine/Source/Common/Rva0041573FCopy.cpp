@@ -24,7 +24,7 @@ namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class Rva002390CB { void *a; void *b; public: __declspec(nothrow) Rva002390CB(const Rva002390CB &o); ~Rva002390CB(); };
+#include "../../Include/Common/Rva002390CB.h"
 struct BfmeStringRecord002CF550 {
 	~BfmeStringRecord002CF550();
 	AsciiString text;

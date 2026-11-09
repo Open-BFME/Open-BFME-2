@@ -12,13 +12,7 @@
 // AsciiString mapped type is unused by this key-only algorithm. No new pins.
 #include "ascii_string.h"
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-class Rva002390CB {
-public:
- __declspec(nothrow) Rva002390CB();
- __declspec(nothrow) Rva002390CB(const Rva002390CB &);
- ~Rva002390CB() { if (ref) ref->Release_Ref(); }
- int id; OpaqueRefCounted *ref;
-};
+#include "../../Include/Common/Rva002390CB.h"
 class Rva00239435;
 namespace _STL {
 template<class A,class B> struct pair {};
