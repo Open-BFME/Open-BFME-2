@@ -101,12 +101,13 @@ int Rva00139470Get(void)
 // ?Rva0011CDB0Get@@YAHXZ @ 0x0011CDB0 (6B): returns global at 0x9ED5EC.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-extern int G009ED5EC;
-// G009ED5EC: matched references place it at VA 0xded5ec (zero-filled .bss).
-int G009ED5EC;
+// Retail's one object: this is _PresentParameters.PresentationInterval, +0x34 of dx8wrapper.cpp's D3DPRESENT_PARAMETERS,
+// which Set_Swap_Interval writes.
+struct _D3DPRESENT_PARAMETERS { char m_00[0x34]; int PresentationInterval; };
+extern _D3DPRESENT_PARAMETERS _PresentParameters;
 int Rva0011CDB0Get(void)
 {
-	return G009ED5EC;
+	return _PresentParameters.PresentationInterval;
 }
 
 // ?Rva00120130Get@@YAHXZ @ 0x00120130 (6B): returns global at 0x9EE5D0.
