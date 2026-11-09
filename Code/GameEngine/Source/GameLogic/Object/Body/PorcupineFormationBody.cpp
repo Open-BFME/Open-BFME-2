@@ -45,6 +45,9 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
+// ActiveBody derives from BodyModule (constructor 0x004BF6A1 calls 0x004BD7FD), whose
+// getBody and vslot12 fill behavior-interface slot 0 and primary slot 12.
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 //
@@ -104,7 +107,7 @@ extern "C" const void *const vtbl_00BF4028[] = {
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ActiveBody.h
-class ActiveBody : public BehaviorModule, public BodyModuleInterface
+class ActiveBody : public BodyModule
 {
 public:
 	ActiveBody( Thing *thing, const ModuleData *moduleData );
