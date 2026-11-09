@@ -21,22 +21,7 @@
 typedef bool Bool;
 typedef int Int;
 
-template <typename T>
-class StringBase
-{
-public:
-	int compareNoCase(const StringBase<T> &that) const;
-
-private:
-	struct Header
-	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-	Header *m_data;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // TU-scoped ABI view for the exact14-byte getter at0x001E35DF.
 // Separate spelling avoids incompatible shared Overridable getter COMDATs;
@@ -58,19 +43,20 @@ public:
 	Bool m_isOverride;
 };
 
-class ThingTemplate : public Rva001E35DFView
-{
-public:
-	const StringBase<char> &getName() const { return m_name; }
-	Bool isEquivalentTo(const ThingTemplate *tt) const;
+typedef std::vector<StringBase<char> > ThingTemplateStringVector;
 
-private:
-	char m_pad0c[0x64 - 0x0c];
-	StringBase<char> m_name; // +0x64
-	char m_pad68[0x330 - 0x68];
-	std::vector<StringBase<char> > m_buildVariations; // +0x330
-	std::vector<StringBase<char> > m_equivalentTo; // +0x33c
-};
+// Non-owning views keep the existing StringBase comparison ABI and vector
+// element representation; no strings or containers are constructed here.
+static __forceinline const StringBase<char> &stringNameView(const AsciiString &name)
+{
+	return reinterpret_cast<const StringBase<char> &>(name);
+}
+
+static __forceinline const ThingTemplateStringVector &stringVectorView(const unsigned char (&storage)[12])
+{
+	return *reinterpret_cast<const ThingTemplateStringVector *>(storage);
+}
+
 
 Bool ThingTemplate::isEquivalentTo(const ThingTemplate *tt) const
 {
@@ -78,36 +64,37 @@ Bool ThingTemplate::isEquivalentTo(const ThingTemplate *tt) const
 		return false;
 	if (this == tt)
 		return true;
-	if (getFinalOverride() == tt->getFinalOverride())
+	if (reinterpret_cast<const Rva001E35DFView *>(this)->getFinalOverride() ==
+	    reinterpret_cast<const Rva001E35DFView *>(tt)->getFinalOverride())
 		return true;
 
-	const StringBase<char> &thisName = getName();
-	const StringBase<char> *thisEnd = &*m_equivalentTo.end();
+	const StringBase<char> &thisName = stringNameView(m_nameString);
+	const StringBase<char> *thisEnd = &*stringVectorView(m_equivalentTo).end();
 	std::vector<StringBase<char> >::const_iterator it;
-	for (it = m_equivalentTo.begin(); it != thisEnd; ++it)
-		if (it->compareNoCase(tt->getName()) == 0)
+	for (it = stringVectorView(m_equivalentTo).begin(); it != thisEnd; ++it)
+		if (it->compareNoCase(stringNameView(tt->m_nameString)) == 0)
 			return true;
 
-	std::vector<StringBase<char> >::const_iterator jt = tt->m_equivalentTo.begin();
-	const StringBase<char> *otherEnd = &*tt->m_equivalentTo.end();
+	std::vector<StringBase<char> >::const_iterator jt = stringVectorView(tt->m_equivalentTo).begin();
+	const StringBase<char> *otherEnd = &*stringVectorView(tt->m_equivalentTo).end();
 	for (; jt != otherEnd; ++jt)
 	{
 		if (jt->compareNoCase(thisName) == 0)
 			return true;
-		for (it = m_equivalentTo.begin(); it != thisEnd; ++it)
+		for (it = stringVectorView(m_equivalentTo).begin(); it != thisEnd; ++it)
 			if (it->compareNoCase(*jt) == 0)
 				return true;
 	}
 
 	Int i;
-	Int numVariations = (Int)m_buildVariations.size();
+	Int numVariations = (Int)stringVectorView(m_buildVariations).size();
 	for (i = 0; i < numVariations; ++i)
-		if (m_buildVariations[i].compareNoCase(tt->getName()) == 0)
+		if (stringVectorView(m_buildVariations)[i].compareNoCase(stringNameView(tt->m_nameString)) == 0)
 			return true;
 
-	numVariations = (Int)tt->m_buildVariations.size();
+	numVariations = (Int)stringVectorView(tt->m_buildVariations).size();
 	for (i = 0; i < numVariations; ++i)
-		if (tt->m_buildVariations[i].compareNoCase(thisName) == 0)
+		if (stringVectorView(tt->m_buildVariations)[i].compareNoCase(thisName) == 0)
 			return true;
 
 	return false;
