@@ -176,17 +176,7 @@ public:
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../../Libraries/Include/Lib/Region3D.h"
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return &m_location; }
-	Waypoint *getNext() const { return m_next; }
-private:
-	unsigned char m_pad00[0x0C];
-	Coord3D m_location;			// +0x0C
-	unsigned char m_pad18[0x1C - 0x18];
-	Waypoint *m_next;			// +0x1C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 class Pathfinder
 {
 public:

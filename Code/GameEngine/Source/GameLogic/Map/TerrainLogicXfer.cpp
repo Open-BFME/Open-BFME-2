@@ -222,20 +222,7 @@ class ModuleData;
 typedef _STL::vector<void *> FoldedEraseVector;
 typedef _STL::vector<const ModuleData *> FoldedAppendVector;
 
-class Waypoint
-{
-public:
-	Waypoint(UnsignedInt id, AsciiString name, const Coord3D *pLoc, AsciiString label1,
-		AsciiString label2, AsciiString label3, Bool biDirectional, Int extraField,
-		AsciiString extraLabel);
-	void xfer(Xfer *xfer);
-	void rva0027C330();
-	Waypoint *getNext() const { return m_next; }
-private:
-	char m_pad00[0x1C];
-	Waypoint *m_next; // +0x1C
-	char m_pad20[0xC0 - 0x20];
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 extern Waypoint *g_waypointListHead;
 
 // TerrainLogic's waypoint id cache (a map) cleared by 0x00280AB6.

@@ -408,22 +408,7 @@ public:
 	int rva002E6B06();
 };
 class Rva003F69C0Object { public: void set(int *,int); };
-class Waypoint
-{
-public:
-	bool isValidUnitType(Object *);
-	Waypoint *getLink(int) const;
-	Int word0; // +0x00
-	Int id; // +0x04
-	void *name; // +0x08
-	Coord3D m_location; // +0x0C
-	char m_pad18[0x4];
-	Waypoint *m_next; // +0x1C
-	char m_pad20[0x24];
-	Waypoint *chainNext; // +0x44
-	Int word48; // +0x48
-	Int linkCount; // +0x4C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 struct PathChangeInfoView {
     int x,y;
     void *parent;
@@ -534,8 +519,8 @@ void Pathfinder::CheckChangeLayers(PathfindCell *parent,Object *object)
     }
     Waypoint *waypoint=from->waypoint;
     if (waypoint && object && waypoint->isValidUnitType(object)) {
-        if (!m_1C1CC.empty() && m_1C1CC.back().m_zone==waypoint->id) m_1C1CC.pop_back();
-        for (int i=0;i<waypoint->linkCount;++i) {
+        if (!m_1C1CC.empty() && m_1C1CC.back().m_zone==waypoint->m_id) m_1C1CC.pop_back();
+        for (int i=0;i<waypoint->m_numLinks;++i) {
             Waypoint *linked=waypoint->getLink(i);
             if (linked) {
                 PathfindCell *cell=static_cast<PathfindCell *>(rva001E3647Pos(1,&linked->m_location));
