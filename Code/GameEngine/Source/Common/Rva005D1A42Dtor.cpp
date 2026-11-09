@@ -13,6 +13,8 @@ class Rva005D19F8
 {
 public:
     virtual ~Rva005D19F8();
+    virtual void bfmePureSlot1() = 0; // retail table slot 1 is __purecall
+    virtual void bfmePureSlot2() = 0; // retail table slot 2 is __purecall
 private:
     Rva005D18C8 m_04;
 };

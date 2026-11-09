@@ -48,6 +48,7 @@ class Rva005CD1A9
 public:
 	Rva005CD1A9();
 	virtual ~Rva005CD1A9();
+	virtual void bfmePureSlot1() = 0; // retail table slot 1 is __purecall
 
 private:
 	Rva005CD0FEElem *m_elem; // +4

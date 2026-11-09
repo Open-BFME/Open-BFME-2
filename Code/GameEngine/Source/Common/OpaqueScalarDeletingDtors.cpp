@@ -405,6 +405,7 @@ class Rva005CD1A9
 {
 public:
 	virtual ~Rva005CD1A9();
+	virtual void bfmePureSlot1() = 0; // retail table slot 1 is __purecall
 
 private:
 	Rva005CD14D m_member04;
