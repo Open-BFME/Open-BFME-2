@@ -1643,9 +1643,10 @@ class LinkGuard:
         mine = {build.obj_path(build.ROOT / f).name for f in files}
         return any(o in self.rank and o not in mine for o in self.owners.get(name, ()))
 
-    def referenced_outside(self, names, places, merged):
+    def referenced_outside(self, names, places, merged, owned=True):
         """The `names` that an object other than the census objects at `places`
-        (the ones this merge replaces) may still reference.
+        (the ones this merge replaces) may still reference. `owned` False drops
+        the ledger-owner rule: the names an outside object or alias reaches.
 
         view() drops the replaced objects' references only with per-object
         census provenance. An index --update-index refreshed keeps the
@@ -1669,7 +1670,7 @@ class LinkGuard:
         touches = index.get("touches")
         if not isinstance(touches, dict):
             return names
-        owners = index["selection"].get("owners", {})
+        owners = index["selection"].get("owners", {}) if owned else {}
         found = {n for n in names if n in owners}
         routes = collections.defaultdict(set)   # target -> aliases of a replaced object's directives
         for alias, entries in index["alternates"].items():
@@ -2095,10 +2096,30 @@ class SplitLinkGuard:
                            for record in (*self.records.values(), *records.values())
                            for weak, other in record["fact"][3])
 
+        # The split view's reference graph is the census aggregate, which still
+        # counts every reference the replaced objects made, the carved bodies'
+        # own included: Rva0024A797Derived.cpp's destructors were refused over
+        # private tables only they stored. Judge by the referrers the merge
+        # guard uses: `consumers` keep a referrer outside the replaced objects,
+        # in the split's own objects or among the ledger owners; `outsiders`
+        # are reached by an object or alias outside the replaced objects.
+        places = {self.guard.position(f) for f in self.files} - {None}
+        merged = set().union(*(set(r["fact"][2]) | {n for pair in r["fact"][3] for n in pair}
+                               | set(r["aliases"].values()) for r in records.values()))
+        consumers = self.guard.referenced_outside(names, places, merged)
+        outsiders = self.guard.referenced_outside(names, places, set(), owned=False)
+
+        def own_row(view, name, holder):
+            """The name's one definition after the split is its ledger owner's object."""
+            definers = {at(e) for table, at in LINK_TABLES[:3] for e in view[table].get(name, ())}
+            return (len(definers) == 1 and holder is not None
+                    and holder in view["selection"]["owners"].get(name, ()))
+
         failures = []
         for name in sorted(names):
             old, new = state(before, name), state(after, name)
-            if LC.is_referenced(before, name) and resolves(before, name) and not resolves(after, name):
+            if (LC.is_referenced(before, name) and name in consumers and resolves(before, name)
+                    and not resolves(after, name)):
                 failures.append(f"outside consumers lose provider {name}")
             if new[0] - old[0]:
                 failures.append(f"new outside COMDAT losers for {name}")
@@ -2138,7 +2159,12 @@ class SplitLinkGuard:
                                        for table, at in LINK_TABLES[:2] for e in v[table].get(name, ())]
                 if signature(before) != signature(after):
                     failures.append(f"changed /MAP selection for {name} needs measured evidence")
-            elif old[3] is not None and old[3] != new[3] and LC.is_referenced(before, name) and not (old[2] == new[2] == "ok"):
+            elif (old[3] is not None and old[3] != new[3] and LC.is_referenced(before, name)
+                  and not (old[2] == new[2] == "ok")
+                  # a definition no one is left to reference, or a row whose only
+                  # referrers and definers are the split's own objects
+                  and not (new[3] is None and name not in consumers)
+                  and not (name not in outsiders and new[2] != "wrong" and own_row(after, name, new[4]))):
                 failures.append(f"selected implementation changes for {name}")
         return failures
 

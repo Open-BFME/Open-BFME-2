@@ -5535,11 +5535,14 @@ class SplitLinkGuardTests(unittest.TestCase):
         path.write_bytes(raw)
         return path
 
-    def setup_guard(self, source_options=None, target_options=None, outside_options=None, existing=True):
+    def setup_guard(self, source_options=None, target_options=None, outside_options=None, existing=True, move=None):
+        """`move`: the carved row _move's body as a COMDAT copy (default: an ordinary section)."""
         import build
         import link_check as LC
         import link_census as LCe
         source_options, target_options, outside_options = source_options or {}, target_options or {}, outside_options or {}
+        if move is not None:
+            source_options["copies"] = (("_move", move), *source_options.get("copies", ()))
         (self.root / self.SOURCE).write_text("void move(){}\nvoid stay(){}\n")
         if existing:
             (self.root / self.TU).write_text("void target(){}\n")
@@ -5548,7 +5551,8 @@ class SplitLinkGuardTests(unittest.TestCase):
                      row("_outside", "0x2000", self.OUTSIDE)]
         if existing:
             self.rows.append(row("_target", "0x4000", self.TU))
-        objects = {self.SOURCE: self.obj("original", defined=("_move", "_stay", *source_options.pop("extra", ())), **source_options),
+        objects = {self.SOURCE: self.obj("original", defined=(*(() if move is not None else ("_move",)), "_stay",
+                                                            *source_options.pop("extra", ())), **source_options),
                    self.OUTSIDE: self.obj("outside", defined=("_outside",), **outside_options)}
         if existing:
             objects[self.TU] = self.obj("target", defined=("_target",), **target_options)
@@ -5576,10 +5580,12 @@ class SplitLinkGuardTests(unittest.TestCase):
         self.guard = g
         return g
 
-    def judge(self, residual_options=None, destination_options=None, existing=True):
+    def judge(self, residual_options=None, destination_options=None, existing=True, move=None):
         residual_options, destination_options = residual_options or {}, destination_options or {}
+        if move is not None:
+            destination_options["copies"] = (("_move", move), *destination_options.get("copies", ()))
         self.guard.residual_obj = self.obj("residual", defined=("_stay", *residual_options.pop("extra", ())), **residual_options)
-        obj = self.obj("destination", defined=("_move", *(("_target",) if existing else ()),
+        obj = self.obj("destination", defined=(*(() if move is not None else ("_move",)), *(("_target",) if existing else ()),
                                               *destination_options.pop("extra", ())), **destination_options)
         return self.guard.judge(obj, [self.SOURCE, self.TU] if existing else [self.SOURCE], "destination")
 
@@ -5628,6 +5634,46 @@ class SplitLinkGuardTests(unittest.TestCase):
     def test_moving_the_same_provider_to_the_destination_preserves_outside_consumers(self):
         self.setup_guard(source_options=dict(extra=("_helper",)), outside_options=dict(refs=("_helper",)))
         self.assertEqual(self.judge(destination_options=dict(extra=("_helper",))), [])
+
+    # lk81, Rva0024A797Derived.cpp -> AutoFindHealingUpdate.cpp: the carved destructor was the only
+    # object storing its private ??_7X@@6BMiBase1@@@ tables, and its bytes were unchanged; only its
+    # relocations moved to the destination's own tables. The census graph still counted the carved
+    # body's references, so the guard refused names no object is left to reference.
+    def test_a_private_table_only_the_carved_body_referenced_may_leave_with_it(self):
+        self.setup_guard(source_options=dict(copies=(("_tab", b"\xc3"),), refs=("_tab",)))
+        self.assertEqual(self.judge(), [])
+
+    def test_a_vanished_table_something_still_references_is_refused(self):
+        cases = {"an outside object": (dict(outside_options=dict(refs=("_tab",))), {}),
+                 "the residual": ({}, dict(residual_options=dict(refs=("_tab",)))),
+                 "an outside alias": (dict(outside_options=dict(aliases=(("_alias", "_tab"),))), {})}
+        for label, (setup, judged) in cases.items():
+            with self.subTest(label=label):
+                setup = dict(setup)
+                setup["source_options"] = dict(copies=(("_tab", b"\xc3"),), refs=("_tab",))
+                self.setup_guard(**setup)
+                why = self.judge(**judged)
+                self.assertIn("outside consumers lose provider _tab", why)
+                self.assertIn("selected implementation changes for _tab", why)
+
+    def test_a_carved_row_only_the_split_objects_use_may_change_its_relocations(self):
+        self.setup_guard(move=b"\xc3")
+        self.assertEqual(self.judge(move=b"\x90\xc3"), [])
+
+    def test_a_carved_row_whose_new_body_others_may_select_is_refused(self):
+        cases = {"an outside caller": (dict(outside_options=dict(refs=("_move",))), {}),
+                 "an outside copy": (dict(outside_options=dict(copies=(("_move", b"\xc3"),))), {}),
+                 "a second copy in the residual": ({}, dict(residual_options=dict(copies=(("_move", b"\xc3"),))))}
+        for label, (setup, judged) in cases.items():
+            with self.subTest(label=label):
+                self.setup_guard(move=b"\xc3", **setup)
+                why = self.judge(move=b"\x90\xc3", **judged)
+                self.assertIn("selected implementation changes for _move", why)
+
+    def test_a_carved_row_whose_new_body_is_proven_wrong_is_refused(self):
+        self.truth.verdict = lambda symbol, body, *rest: "wrong" if body == b"\x90\xc3" else None
+        self.setup_guard(move=b"\xc3")
+        self.assertIn("selected implementation changes for _move", self.judge(move=b"\x90\xc3"))
 
     def test_a_removed_alias_cannot_unresolve_an_outside_consumer(self):
         self.setup_guard(source_options=dict(aliases=(("_alias", "_outside"),)), outside_options=dict(refs=("_alias",)))
