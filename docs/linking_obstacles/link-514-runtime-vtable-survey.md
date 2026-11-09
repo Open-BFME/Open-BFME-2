@@ -1821,3 +1821,9 @@ table remains 56B and other overrides/tail slots still need class-owner
 and container-view reconciliation. Input/factory targets held by others
 were not touched. No bridge retirement or actual image result is claimed.
 [Native words, complete object comparison and remaining scope](../../reverse/attempt_support/apt-timeline-window-slots-20261109/README.md).
+
+Published as 7a26bac182 on attempt one in 52.3 seconds; post-publication
+proof passes and all six claims release. Broader audit is INCONCLUSIVE at
+717b70f4ab/base 96d5aca753 for this source's missing wider-view receipt.
+Its own link_check verdict was clean and read before pushing. Remaining
+table/class work and next-census/image selection are still unverified.

@@ -42,3 +42,12 @@ The downloaded index and broad outgoing audit remain separate from these
 current-object checks. The newest real image must confirm selection and
 the rest of the source class still needs recovery. No global provider,
 image, menu, skirmish or runtime clearance follows from this partial pass.
+
+Published as 7a26bac182 on attempt one in 52.3 seconds (11.8 rebase,
+40.4 hook/push), together with the earlier investigation handoffs. Normal
+publication checks and post-publication complete object proof pass; all
+six claims release. The broader audit is INCONCLUSIVE at index 717b70f4ab
+versus base 96d5aca7533ab2d5591669ff117ba088abba681c, reporting that this
+source lacks a current receipt in its wider view. Its own link verdict was
+read and clean before publication. Carry broad consumer/selection closure
+to the next census/image rather than treating that audit as verified.
