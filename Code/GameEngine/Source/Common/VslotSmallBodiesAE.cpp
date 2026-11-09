@@ -71,17 +71,17 @@ class ControlPointBlock
 public:
 	void DoXfer(Xfer *xfer);
 };
-class Rva003FD1C5
+class Rva002B3092
 {
 public:
-	virtual ~Rva003FD1C5();
+	virtual ~Rva002B3092();
 protected:
-	virtual void rva003FD1C5(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 private:
 	UnsignedInt m_04;
 	bool m_08;
 };
-class Rva003FD1FA : public Rva003FD1C5
+class Rva003FD1FA : public Rva002B3092
 {
 protected:
 	virtual void rva003FD1C5(Xfer *xfer);
@@ -90,10 +90,10 @@ private:
 };
 void Rva003FD1FA::rva003FD1C5(Xfer *xfer)
 {
-	Rva003FD1C5::rva003FD1C5(xfer);
+	Rva002B3092::xfer(xfer);
 	Rva0030662AXfer(xfer, *(const Rva0036CA00Str *)&m_0C);
 }
-class Rva003FD321 : public Rva003FD1C5
+class Rva003FD321 : public Rva002B3092
 {
 protected:
 	virtual void rva003FD1C5(Xfer *xfer);
@@ -104,7 +104,7 @@ private:
 };
 void Rva003FD321::rva003FD1C5(Xfer *xfer)
 {
-	Rva003FD1C5::rva003FD1C5(xfer);
+	Rva002B3092::xfer(xfer);
 	m_0C.DoXfer(xfer);
 	*xfer == m_18;
 }

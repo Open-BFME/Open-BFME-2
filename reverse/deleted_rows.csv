@@ -5985,3 +5985,4 @@ __ehhandler$??0Rva0022B12DSubsystem@@QAE@XZ,0x0076DF32,"Renamed to __ehhandler$?
 ?Rva003FD783Get@@YAHXZ,0x003FD783,"Respelled as ?GetSnapshotName@Rva003FD789@@MBEPBDXZ: retail vtable 0x00C37D78 slot 2 holds this 6-byte getter, which returns the class name literal at VA 0x00C37D88."
 ?Rva003FAB8DGet@@YAHXZ,0x003FAB8D,"Respelled as ?GetSnapshotName@Rva003FAFB9@@MBEPBDXZ: retail vtable 0x00C37A08 slot 2 holds this 6-byte getter, which returns the class name literal at VA 0x00C379F4."
 ?Rva003F24D0Get@@YAHXZ,0x003F24D0,"Respelled as ?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ: retail vtable 0x00C36E48 slot 2 holds this 6-byte getter, which returns the class name literal at VA 0x00C36E58."
+?rva003FD1C5@Rva003FD1C5@@MAEXPAVXfer@@@Z,0x003FD1C5,"Renamed to ?xfer@Rva002B3092@@MAEXPAVXfer@@@Z by tools/rename.py (to-class: retail vftable 0x00BFE008 slot 3)"

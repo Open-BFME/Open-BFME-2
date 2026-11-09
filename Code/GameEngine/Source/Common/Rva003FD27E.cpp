@@ -36,12 +36,12 @@ class DamageInfo;
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
-class Rva003FD1C5
+class Rva002B3092
 {
 public:
-	virtual ~Rva003FD1C5();
+	virtual ~Rva002B3092();
 protected:
-	virtual void rva003FD1C5(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 private:
 	unsigned int m_04;
 	bool m_08;
@@ -68,7 +68,7 @@ public:
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class Rva003FD2C2 : public Rva003FD1C5
+class Rva003FD2C2 : public Rva002B3092
 {
 public:
 	bool rva003FD27E();

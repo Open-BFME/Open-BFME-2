@@ -32,18 +32,18 @@ class DamageInfo;
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
-class Rva003FD1C5
+class Rva002B3092
 {
 public:
-	virtual ~Rva003FD1C5();
+	virtual ~Rva002B3092();
 protected:
-	virtual void rva003FD1C5(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 private:
 	unsigned int m_04;
 	bool m_08;
 };
 
-class Rva003FD2C2 : public Rva003FD1C5
+class Rva003FD2C2 : public Rva002B3092
 {
 protected:
 	virtual void rva003FD2C2(Xfer *xfer);
@@ -55,7 +55,7 @@ private:
 
 void Rva003FD2C2::rva003FD2C2(Xfer *xfer)
 {
-	Rva003FD1C5::rva003FD1C5(xfer);
+	Rva002B3092::xfer(xfer);
 	*xfer == m_0c;
 	*xfer == m_18;
 	*xfer == m_1c;

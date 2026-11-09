@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva003FD1C5@Rva003FD1C5@@MAEXPAVXfer@@@Z, retail 0x003FD1C5, 38 bytes.
+// ?xfer@Rva002B3092@@MAEXPAVXfer@@@Z, retail 0x003FD1C5, 38 bytes.
 // Unlock: persists uint at +0x04 via Xfer slot 0x78 and bool at +0x08 via
 // Xfer slot 0x90. Same minimal two-persist shape as Rva003FD789::xfer
 // (no base/Version in retail). Owner unknown so honest address names.
@@ -30,18 +30,18 @@ class DamageInfo;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-class Rva003FD1C5
+class Rva002B3092
 {
 public:
-	virtual ~Rva003FD1C5();
+	virtual ~Rva002B3092();
 protected:
-	virtual void rva003FD1C5(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 private:
 	unsigned int m_04;
 	bool m_08;
 };
 
-void Rva003FD1C5::rva003FD1C5(Xfer *xfer)
+void Rva002B3092::xfer(Xfer *xfer)
 {
 	*xfer == m_04;
 	*xfer == m_08;
@@ -51,7 +51,7 @@ void Rva003FD1C5::rva003FD1C5(Xfer *xfer)
 // ?rva003FD1C5@Rva003FD37A@@MAEXPAVXfer@@@Z @0x003FD37A 30B: derived
 // overrides of the slot above that chain to it and then persist the word at
 // +0x0C, an AsciiString (Xfer slot 0x6C) resp. an unsigned int (slot 0x78).
-class Rva003FD219 : public Rva003FD1C5
+class Rva003FD219 : public Rva002B3092
 {
 protected:
 	virtual void rva003FD1C5(Xfer *xfer);
@@ -61,11 +61,11 @@ private:
 
 void Rva003FD219::rva003FD1C5(Xfer *xfer)
 {
-	Rva003FD1C5::rva003FD1C5(xfer);
+	Rva002B3092::xfer(xfer);
 	*xfer == *reinterpret_cast<AsciiString *>(&m_0c);
 }
 
-class Rva003FD37A : public Rva003FD1C5
+class Rva003FD37A : public Rva002B3092
 {
 protected:
 	virtual void rva003FD1C5(Xfer *xfer);
@@ -75,6 +75,6 @@ private:
 
 void Rva003FD37A::rva003FD1C5(Xfer *xfer)
 {
-	Rva003FD1C5::rva003FD1C5(xfer);
+	Rva002B3092::xfer(xfer);
 	*xfer == m_0c;
 }
