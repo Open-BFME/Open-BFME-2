@@ -162,16 +162,8 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/WeaponSetUpgrade.h
-class WeaponSetUpgrade : public UpgradeModule
-{
-public:
-	WeaponSetUpgrade( Thing *thing, const ModuleData *moduleData );
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	virtual void loadPostProcess();								// primary slot 1
-	virtual void xfer( Xfer *xfer );										// primary slot 3
-};
+// The class is WeaponSetUpgrade.h's, shared with its destructor's unit (FireWeaponWhenDeadBehaviorDerived.cpp).
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp
 
