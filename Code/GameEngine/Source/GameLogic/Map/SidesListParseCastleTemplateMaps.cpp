@@ -78,21 +78,7 @@ public:
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Dict;
-class DataChunkInput
-{
-public:
-	explicit DataChunkInput(ChunkInputStream *stream); // 0x00307316
-	~DataChunkInput(); // 0x00306F01
-	int readInt(); // 0x00306E78
-	float readReal(); // 0x00306E56
-	unsigned char readByte(); // 0x00306E9A
-	NameKeyType readNameKey(); // 0x003077E0
-	AsciiString readAsciiString(); // 0x0030750A
-	Dict readDict(); // 0x00307833
-	bool parse(void *userData); // 0x00307AC0
-private:
-	char m_data[0x28]; // +0x00
-};
+#include "../../../Include/Common/DataChunk.h"
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
 // rowed under its address-era spelling.

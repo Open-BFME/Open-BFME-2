@@ -77,15 +77,7 @@ public:
 
 struct DataChunkInfo;
 
-class DataChunkInput
-{
-public:
-	explicit DataChunkInput(ChunkInputStream *stream);	// 0x00307316
-	~DataChunkInput();					// 0x00306F01
-	bool parse(void *userData);			// 0x00307AC0
-private:
-	char m_data[0x28];
-};
+#include "../../../../Include/Common/DataChunk.h"
 
 class Q1Forwardee0000871A
 {

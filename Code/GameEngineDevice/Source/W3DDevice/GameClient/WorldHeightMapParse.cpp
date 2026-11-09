@@ -35,24 +35,7 @@ class BfmeParserRegistryVE;
 
 class Dict;
 class ChunkInputStream;
-class DataChunkInput
-{
-public:
-	typedef bool (*Parser)(DataChunkInput &file, DataChunkInfo *info, void *userData);
-	Dict readDict();
-	float readReal();
-	unsigned char readByte();
-	AsciiString readAsciiString();
-	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel, Parser parser, void *userData);
-	bool parse(void *userData);
-	DataChunkInput(ChunkInputStream *stream);
-	~DataChunkInput();
-	int readInt();
-	void readArrayOfBytes(char *, int);
-	bool atEndOfChunk();
-private:
-	unsigned char m_data[0x28]; // +0x00 +0x00
-};
+#include "../../../../GameEngine/Include/Common/DataChunk.h"
 
 class Q1Forwardee0000871A
 {

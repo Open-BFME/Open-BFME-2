@@ -44,17 +44,7 @@ private:
 	unsigned char m_data[0x20];
 };
 
-class DataChunkInput
-{
-public:
-	DataChunkInput(ChunkInputStream *stream);	// 0x00307316
-	~DataChunkInput();				// 0x00306F01
-	UserParser *registerParser(const AsciiString &label, const AsciiString &parentLabel,
-		Bool (*parser)(DataChunkInput &file, DataChunkInfo *info, void *userData), void *userData = 0);	// 0x00307779
-	Bool parse(void *userData);			// 0x00307AC0
-private:
-	unsigned char m_data[0x28];
-};
+#include "../../Include/Common/DataChunk.h"
 
 Bool ParseSizeOnlyInChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);	// 0x00302F1B
 Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);	// 0x00300075
