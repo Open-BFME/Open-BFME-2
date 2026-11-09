@@ -23,18 +23,10 @@
 #include "../../AI/WorkOrder.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../AI/TeamInQueue.h"
-
 class Thing;
-
 class ModuleData;
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-
-
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
@@ -44,12 +36,10 @@ public:
 	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
 	virtual ~SpecialPowerModule();
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -108,7 +98,52 @@ private:
 
 BFME_LITERAL_NAME_GETTER(Rva004C5013Named, "GrabPassengerSpecialPower")
 
+//
+// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
+// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
+// including the shared 0xBEFCF8 secondary; identity unproven). Each class
+// below derives (in order) from the opaque base, a shared empty polymorphic
+// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
+// the empty bases have implicit trivial destructors, so the derived
+// destructor stores all three vptrs and tail-calls the base destructor. The
+// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
+// are unproven (opaque Rva names). One ledger row per destructor, landed one
+// commit at a time.
+
+class Rva00493DEF
+{
+public:
+	virtual ~Rva00493DEF();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva004C5019_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva004C5019 : public Rva00493DEF, public MiBase1, public Rva004C5019_B2
+{
+public:
+	virtual ~Rva004C5019();
+};
+
 // tu-skeleton: 0x004C4F89 27B ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp
 
@@ -162,9 +197,15 @@ GrabPassengerSpecialPowerModuleData::GrabPassengerSpecialPowerModuleData()
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x004C5019 25B ??1Rva004C5019@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
 
-// tu-skeleton: 0x004C5032 28B ??_GRva004C5019@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+Rva004C5019::~Rva004C5019()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C504E 338B ?doSpecialPowerAtObject@GrabPassengerSpecialPower@@UAEXPAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerDoAtObject.cpp (not merged yet)
 
