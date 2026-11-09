@@ -44,3 +44,18 @@ Its own four sources passed LINKS. Keep those consumer-selection gaps for the
 next maintained census/image. Its shadow identity check also reports two
 pre-existing-shaped vector-base bindings in BannerCarrierUpdateModuleData's
 constructor at211E58; no identity clearance is inferred from the byte gate.
+
+## Same-file GameSpyStagingRoom follow-up
+
+The tree consumer landed as1e0712eda9 on attempt3; its broad audit remains
+INCONCLUSIVE for unchanged AIRingHeroTactic.cpp's missing current receipt
+(index138c18d3c9; the final outgoing base was3009b2d4fc). No image claim.
+
+The consumer's final queued class is now adopted too. GameSpyStagingRoom.h
+replaces its four-byte destructor-only view. The actual member starts at5E4
+and occupies1020 bytes, ending at1604; retaining four padding bytes keeps the
+following member at1608. Normal25/25, the exact EH graph and frozen checks
+pass; link_check again says LINKS386->386. The owning acceptance tool retires
+one GameSpyStagingRoom queue row. No header-debt rows remain for this file.
+Neither shared header changed. The tree destructor provider and its one-byte
+unwind mismatch remain the separate follow-up described above.

@@ -85,11 +85,7 @@ struct Gen_uw_00385371
 {
 	~Gen_uw_00385371();
 };
-class GameSpyStagingRoom
-{
-public:
-	virtual ~GameSpyStagingRoom();
-};
+#include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 extern "C" const void *const __identifier("??_7Rva00381D78@@6B@")[];
 
@@ -126,7 +122,7 @@ private:
 	Gen_uw_00385371 m_84;
 	char m_pad85[0x5E4 - 0x85];
 	GameSpyStagingRoom m_5E4;
-	char m_pad5E8[0x1608 - 0x5E8];
+	char m_pad1604[0x1608 - 0x1604];
 	FactionSetTree m_1608;
 	Rva00383A28 m_1614;
 	char m_pad1615[0x1620 - 0x1615];
