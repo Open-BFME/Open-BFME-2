@@ -157,6 +157,19 @@ public:
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
+// BitFlags<11> by value, as FireWeaponWhenDeadBehavior.cpp spells it: retail's DISABLEDMASK_ALL
+// getter 0x004DF396 copies the mask with a memcpy call.
+#pragma function(memcpy)
+#include <string.h>
+template <int NUM_BITS> class BitFlags
+{
+public:
+    __forceinline BitFlags(const BitFlags &other) { memcpy(m_bits, other.m_bits, sizeof(m_bits)); }
+private:
+    unsigned int m_bits[(NUM_BITS + 31) / 32];
+};
+extern DisabledMaskType DISABLEDMASK_ALL;
+
 
 class DamageModuleInterface
 {
@@ -172,6 +185,9 @@ class PoisonedBehavior : public UpdateModule, public DamageModuleInterface
 {
 public:
 	PoisonedBehavior(Thing *thing, const ModuleData *moduleData);
+	// Update-interface slot 1 (retail table 0x00C497F4): Zero Hour's inline override,
+	// ICF-folded at 0x004DF396.
+	virtual DisabledMaskType getDisabledTypesToProcess() const { return DISABLEDMASK_ALL; }
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	virtual void onDamage(DamageInfo *damageInfo);

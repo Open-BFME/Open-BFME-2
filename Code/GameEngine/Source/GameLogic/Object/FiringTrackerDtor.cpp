@@ -28,6 +28,9 @@ class FiringTracker : public UpdateModule
 {
 public:
 	virtual ~FiringTracker();
+	// Update-interface slot 1 (retail table 0x00C61524): defined inline in
+	// FiringTrackerCtor.cpp (0x004DF396).
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
 
 private:
 	unsigned char m_unreconstructed_20[0x38];
