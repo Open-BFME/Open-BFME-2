@@ -14,9 +14,9 @@ public:
 extern "C" char Rva003AEADD_v0 = -9;
 // Rva003AEADD_v14: matched references place it at VA 0xc1c538 (retail .rdata value 62).
 extern "C" char Rva003AEADD_v14 = 62;
-// Rva003AEADD_v18 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
-// Rva003AEADD_v1c gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003ABCB5@@6BSnapshot@@@");
 
 class Rva003AEADD

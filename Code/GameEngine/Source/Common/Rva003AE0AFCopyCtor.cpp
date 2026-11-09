@@ -10,7 +10,7 @@ private: char m_pad[0x20 - 4];
 
 // Rva003AE0AF_v0: matched references place it at VA 0xc1ca04 (retail .rdata value 60).
 extern "C" char Rva003AE0AF_v0 = 60;
-// Rva003AE0AF_v8 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003AEDE9@@6BRva003AEEB3Slot18@@@");
 // Rva003AE0AF_v10: matched references place it at VA 0xc1c9f0 (retail .rdata value -117).
 extern "C" char Rva003AE0AF_v10 = -117;

@@ -11,7 +11,7 @@ class StateMachine;
 
 #include "../../Include/Common/StateMachine.h"
 
-// Rva0033F6DA_vftable gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva00341D26@@6B@");
 
 class __declspec(novtable) AIGuardState : public State

@@ -32,20 +32,20 @@ public:
 
 // Rva003AEB9C_v0: matched references place it at VA 0xc1ce64 (retail .rdata value -9).
 extern "C" char Rva003AEB9C_v0 = -9;
-// Rva003AEB9C_v14 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003ABD20@@6BRva003AEEB3Slot14@@@");
-// Rva003AEB9C_v18 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$02@1@@");
-// Rva003AEB9C_v1c gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003ABD20@@6B@");
 
 // Rva003AEC5E_v0: matched references place it at VA 0xc1ce98 (retail .rdata value -9).
 extern "C" char Rva003AEC5E_v0 = -9;
-// Rva003AEC5E_v14 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003ABD81@@6BRva003AEEB3Slot14@@@");
-// Rva003AEC5E_v18 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
-// Rva003AEC5E_v1c gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003ABD81@@6B@");
 
 // Rva003AEF6E_v0: matched references place it at VA 0xc1cf38 (retail .rdata value -9).
@@ -56,12 +56,12 @@ extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RE
 // Rva003AEF6E_v1c: matched references place it at VA 0xc1cf28 (retail .rdata value -64).
 extern "C" char Rva003AEF6E_v1c = -64;
 
-// Rva003AED3E_v0 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@");
-// Rva003AED3E_v14 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
 extern "C" char __identifier("?vftable_0112B89C@@3HA");
-// Rva003AED3E_v1c gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@");
 
 class Rva003AEB9C

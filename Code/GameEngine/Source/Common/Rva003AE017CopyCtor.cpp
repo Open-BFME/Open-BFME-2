@@ -13,7 +13,7 @@ public:
 
 // Rva003AE017_v0: matched references place it at VA 0xc1ced8 (retail .rdata value 112).
 extern "C" char Rva003AE017_v0 = 112;
-// Rva003AE017_v8 gives way to the compiler table the data ledger binds there.
+// The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
 // Rva003AE017_v0C: matched references place it at VA 0xc1cec8 (retail .rdata value 72).
 extern "C" char Rva003AE017_v0C = 72;
