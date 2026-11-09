@@ -7064,7 +7064,7 @@ Code/GameEngine/Source/Common/VtableSlotBodiesR4.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/W3DQuadrupedDrawModuleData.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/W3DShadowMapManager_RenderPostProcess.cpp,yes,0,0,0,0,0
@@ -7277,7 +7277,7 @@ Code/GameEngine/Source/GameClient/FXListStoreHashStorage.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXListStoreParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXListVectorInsertOverflow.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/FXNuggetBaseCtor_muse-8c42.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameClient/FXNuggetBaseCtor_muse-8c42.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXNuggetBaseSlots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXNuggetDeletingDtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXNuggetSlotBodies.cpp,yes,0,0,0,0,0
@@ -8147,7 +8147,7 @@ Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIconCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyLine.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldEyeTower.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldEyeTowerXfer.cpp,yes,0,0,0,0,0
@@ -10259,7 +10259,6 @@ Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.
 Code/GameEngine/Source/GameLogic/Object/LocomotorTemplateValidate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/LocomotorTerrainHeight.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/LocomotorXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Made002CC5E1DamageScalar.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Parse.cpp,yes,0,0,0,0,0
