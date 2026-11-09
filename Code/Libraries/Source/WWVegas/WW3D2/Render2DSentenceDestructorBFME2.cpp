@@ -75,19 +75,29 @@ struct TextureStatisticsStructWide
 	char m_pad[0x20];
 };
 
-class EnumParameterClass
+// TEST ONLY P104 (never lands): retail destroys these 8-byte renderer
+// elements through 0x00001E13, which releases +4 through its table's slot 2.
+// Spelled as EnumParameterClass::_ENUM_VALUE, the reference bound WWSaveLoad's
+// real ~_ENUM_VALUE, a StringClass free on +0. This test element does what
+// 0x00001E13 does, under a name no other unit uses.
+class P104TestSurface
 {
 public:
-	// Renderer element. The vector vtable 0x007D3BC8 carries the rowed
-	// VectorClass<_ENUM_VALUE>::Resize (0x00155690), and retail destroys the
-	// 8-byte elements through 0x00001E13 (add ecx,4: the surface at +4).
-	struct _ENUM_VALUE
-	{
-		~_ENUM_VALUE();						// retail 0x00001E13
+	virtual void unused00();
+	virtual unsigned long __stdcall addRef();
+	virtual unsigned long __stdcall release();
+};
 
-		void *m_name;
-		int m_value;
-	};
+struct P104TestRendererElement
+{
+	~P104TestRendererElement()
+	{
+		if (m_surface)
+			m_surface->release();
+	}
+
+	void *m_renderer;
+	P104TestSurface *m_surface;
 };
 
 template<class T>
@@ -216,7 +226,7 @@ public:
 
 	DynamicVectorClassWide<TextureStatisticsStructWide> m_sentenceData;
 	DynamicVectorClass<PendingSurfaceStruct> m_pendingSurfaces;
-	DynamicVectorClass<EnumParameterClass::_ENUM_VALUE> m_renderers;
+	DynamicVectorClass<P104TestRendererElement> m_renderers;
 	FontCharsClass *m_font;						// +0x4C
 	float m_baseLocation[2];					// +0x50
 	float m_location[2];						// +0x58
@@ -248,7 +258,6 @@ template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::opera
 template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Resize(int, const Render2DSentenceClass::PendingSurfaceStruct *);
 template <> int VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::ID(const Render2DSentenceClass::PendingSurfaceStruct &);
 template <> int VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::ID(const Render2DSentenceClass::PendingSurfaceStruct *);
-template <> bool VectorClass<EnumParameterClass::_ENUM_VALUE>::Resize(int, const EnumParameterClass::_ENUM_VALUE *);
 
 // ??1Render2DSentenceClass@@QAE@XZ
 Render2DSentenceClass::~Render2DSentenceClass()
