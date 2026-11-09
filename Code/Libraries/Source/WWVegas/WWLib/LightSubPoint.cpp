@@ -258,9 +258,9 @@ void sort<_Deque_iterator<BfmeE12, _Nonconst_traits<BfmeE12> >, BfmeE12Cmp004222
 
 extern unsigned char g_00DC84F5;
 
-extern _STL::deque<BfmeE12>::iterator g_00E031A8;
-
-extern _STL::deque<BfmeE12>::iterator g_00E031B8;
+extern unsigned int g_00E031A8[10];
+#define g_00E031A8Start (*reinterpret_cast<_STL::deque<BfmeE12>::iterator *>(g_00E031A8))
+#define g_00E031A8Finish (*reinterpret_cast<_STL::deque<BfmeE12>::iterator *>(g_00E031A8 + 4))
 
 enum INILoadType
 {
@@ -344,7 +344,7 @@ void Rva00425CE2::init()
 	{
 		INI ini;
 		ini.loadFile(AsciiString("Data\\INI\\FormationAssistant.ini"), INI_LOAD_OVERWRITE, 0);
-		_STL::sort(g_00E031A8, g_00E031B8, BfmeE12Cmp00422291());
+		_STL::sort(g_00E031A8Start, g_00E031A8Finish, BfmeE12Cmp00422291());
 	}
 }
 
