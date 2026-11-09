@@ -507,7 +507,7 @@ public:
 private:
     // Private. Retail builds the one instance lazily, as getInstance()'s local
     // static (0x003AB3AA for the point volume), never from a static initializer:
-    // a class-static instance here ran ahead of the tag's s_key/s_name
+    // a class-static instance here ran ahead of the tag's KEY/NAME
     // initializers and read them while still null.
     ConcreteModuleClass();
 };
@@ -741,28 +741,41 @@ struct DefaultModuleName
 };
 
 template <int CATEGORY>
-class DefaultModuleTag
+class DefaultModule;
+
+// A default tag's key and name are the plain ModuleTag's over the category's default key and
+// name, from the accessors in FXParticleSystemDefaults.cpp: retail exports them as that
+// ModuleTag's KEY and NAME (LINK-584). MSVC 7.1 refuses DefaultModuleKey<CATEGORY>::VALUE as a
+// dependent template argument, so each category names its base.
+template <int CATEGORY>
+struct DefaultModuleTagBase;
+
+#define FX_DEFAULT_TAG_BASE(CATEGORY)                                                              \
+    template <>                                                                                    \
+    struct DefaultModuleTagBase<CATEGORY>                                                          \
+    {                                                                                              \
+        typedef ModuleTag<CATEGORY, DefaultModuleKey<CATEGORY>::VALUE,                             \
+            DefaultModuleName<CATEGORY>::VALUE, DefaultModule<CATEGORY>,                           \
+            DefaultModuleTemplate<CATEGORY>, DefaultParticleModule<CATEGORY> > Type;               \
+    };
+
+FX_DEFAULT_TAG_BASE(0)
+FX_DEFAULT_TAG_BASE(1)
+FX_DEFAULT_TAG_BASE(2)
+FX_DEFAULT_TAG_BASE(3)
+FX_DEFAULT_TAG_BASE(6)
+FX_DEFAULT_TAG_BASE(7)
+
+template <int CATEGORY>
+class DefaultModuleTag : public DefaultModuleTagBase<CATEGORY>::Type
 {
 public:
-    // The default tag of a category, and the one whose registration flag is set:
-    // its key and name come from the pair of accessors in
-    // FXParticleSystemDefaults.cpp rather than from a string literal.
+    // The default tag of a category, and the one whose registration flag is set.
     enum { IS_DEFAULT = 1 };
 
     typedef DefaultModuleTemplate<CATEGORY> TemplateType;
     typedef CategoryModuleClass<CATEGORY> ClassBase;
-
-    static const char *const &s_key;
-    static const char *const &s_name;
-    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
-    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
 };
-
-template <int CATEGORY>
-const char *const &DefaultModuleTag<CATEGORY>::s_key = DefaultModuleKey<CATEGORY>::VALUE;
-
-template <int CATEGORY>
-const char *const &DefaultModuleTag<CATEGORY>::s_name = DefaultModuleName<CATEGORY>::VALUE;
 
 #define FX_DEFAULT_WRAPPER(CATEGORY)                                                                   typedef ConcreteModuleTemplate<DefaultModuleTag<CATEGORY> > DefaultConcrete##CATEGORY;                                                                                                                template <> DefaultModuleTemplate<CATEGORY> *DefaultConcrete##CATEGORY::clone() const; extern DefaultConcrete##CATEGORY g_defaultConcrete##CATEGORY;                                                                                                                                                              template class ConcreteModuleClass<DefaultModuleTag<CATEGORY> >;
 

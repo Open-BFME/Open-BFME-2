@@ -584,7 +584,7 @@ typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
 // the factory unit's copies are the only ones linked. Each declaration sits
 // right before its class's explicit instantiation: declaring a member
 // instantiates ConcreteModuleClass<TAG> there, and that order is the order of
-// the s_instance and s_key/s_name dynamic initializers (_$E<n>, which the
+// the tags' KEY/NAME dynamic initializers (_$E<n>, which the
 // ledger binds by number).
 #define FX_FACTORY_ELSEWHERE(CATEGORY, KEY, MOD, TMPL, DFLT)                                    \
     extern const char *const KEY##_MODULE_KEY;                                                  \
@@ -758,28 +758,41 @@ struct DefaultModuleName
 };
 
 template <int CATEGORY>
-class DefaultModuleTag
+class DefaultModule;
+
+// A default tag's key and name are the plain ModuleTag's over the category's default key and
+// name, from the accessors in FXParticleSystemDefaults.cpp: retail exports them as that
+// ModuleTag's KEY and NAME (LINK-584). MSVC 7.1 refuses DefaultModuleKey<CATEGORY>::VALUE as a
+// dependent template argument, so each category names its base.
+template <int CATEGORY>
+struct DefaultModuleTagBase;
+
+#define FX_DEFAULT_TAG_BASE(CATEGORY)                                                              \
+    template <>                                                                                    \
+    struct DefaultModuleTagBase<CATEGORY>                                                          \
+    {                                                                                              \
+        typedef ModuleTag<CATEGORY, DefaultModuleKey<CATEGORY>::VALUE,                             \
+            DefaultModuleName<CATEGORY>::VALUE, DefaultModule<CATEGORY>,                           \
+            DefaultModuleTemplate<CATEGORY>, DefaultParticleModule<CATEGORY> > Type;               \
+    };
+
+FX_DEFAULT_TAG_BASE(0)
+FX_DEFAULT_TAG_BASE(1)
+FX_DEFAULT_TAG_BASE(2)
+FX_DEFAULT_TAG_BASE(3)
+FX_DEFAULT_TAG_BASE(6)
+FX_DEFAULT_TAG_BASE(7)
+
+template <int CATEGORY>
+class DefaultModuleTag : public DefaultModuleTagBase<CATEGORY>::Type
 {
 public:
-    // The default tag of a category, and the one whose registration flag is set:
-    // its key and name come from the pair of accessors in
-    // FXParticleSystemDefaults.cpp rather than from a string literal.
+    // The default tag of a category, and the one whose registration flag is set.
     enum { IS_DEFAULT = 1 };
 
     typedef DefaultModuleTemplate<CATEGORY> TemplateType;
     typedef CategoryModuleClass<CATEGORY> ClassBase;
-
-    static const char *const &s_key;
-    static const char *const &s_name;
-    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
-    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
 };
-
-template <int CATEGORY>
-const char *const &DefaultModuleTag<CATEGORY>::s_key = DefaultModuleKey<CATEGORY>::VALUE;
-
-template <int CATEGORY>
-const char *const &DefaultModuleTag<CATEGORY>::s_name = DefaultModuleName<CATEGORY>::VALUE;
 
 #define FX_DEFAULT_WRAPPER(CATEGORY)                                                                   typedef ConcreteModuleTemplate<DefaultModuleTag<CATEGORY> > DefaultConcrete##CATEGORY;                                                                                                                template <> __declspec(noinline) DefaultConcrete##CATEGORY::~ConcreteModuleTemplate(); DefaultConcrete##CATEGORY g_defaultConcrete##CATEGORY;                                                                                                                                                              template class ConcreteModuleClass<DefaultModuleTag<CATEGORY> >;
 
@@ -882,7 +895,7 @@ FX_CLASS_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemp
 // Their factory specializations are declared here, beside each explicit
 // instantiation, not with the wrappers above: declaring a member of
 // ConcreteModuleClass<TAG> instantiates the class, and that point fixes where
-// its s_instance and its tag's s_key/s_name dynamic initializers fall in the
+// its tag's KEY/NAME dynamic initializers fall in the
 // unit's _$E sequence (retail: after the three FX_CLASS_WRAPPER tags).
 template <> RenderObjectUpdateModuleTemplate *
 ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>::createTemplate() const;
