@@ -38,14 +38,7 @@ private:
 	char m_body[0x04];
 };
 
-class ScriptConditions : public SubsystemInterface
-{
-public:
-	ScriptConditions();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 extern ScriptActions *TheScriptActions;
 // TheScriptActions: matched references place it at VA 0xe02d98 (zero-filled .bss).

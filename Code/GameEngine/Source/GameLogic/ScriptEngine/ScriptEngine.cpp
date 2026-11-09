@@ -44,15 +44,7 @@ class Player;
 #include "../../../Include/Common/TeamBFME2.h"
 // TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types
 // (Zero Hour's ScriptConditionsInterface::evaluateCondition).
-class ScriptConditions
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual bool evaluateCondition(Condition *pCondition);	// +0x38
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 extern ScriptConditions *TheScriptConditions;
 #include "../../../Include/GameLogic/ScriptCounter.h"
 #include "../../../Include/GameLogic/ScriptAction.h"
