@@ -143,6 +143,14 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// BehaviorModuleInterface table 0x00C43528 (+0x0C): the receiver converted to the
+	// class's own interfaces, the null-preserving casts retail folds across the module family.
+	virtual CollideModuleInterface *getCollide();	// slot 1: retail 0x003730FC, the +0x24 interface
+	virtual ContainModuleInterface *getContain();	// slot 2: retail 0x004543A9, the +0x20 interface
+	virtual CreateModuleInterface *getCreate();		// slot 3: retail 0x0046644A, the +0x34 interface
+	virtual DamageModuleInterface *getDamage();		// slot 4: retail 0x004647C0, the +0x2C interface
+	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
 };
 
 OpenContain::~OpenContain()

@@ -168,6 +168,14 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// BehaviorModuleInterface table 0x00C43528 (+0x0C): the receiver converted to the
+	// class's own interfaces, the null-preserving casts retail folds across the module family.
+	virtual CollideModuleInterface *getCollide();	// slot 1: retail 0x003730FC, the +0x24 interface
+	virtual ContainModuleInterface *getContain();	// slot 2: retail 0x004543A9, the +0x20 interface
+	virtual CreateModuleInterface *getCreate();		// slot 3: retail 0x0046644A, the +0x34 interface
+	virtual DamageModuleInterface *getDamage();		// slot 4: retail 0x004647C0, the +0x2C interface
+	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004523A9, the +0x28 interface
 };
 
 // ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x004649F8
@@ -203,4 +211,34 @@ OpenContain::OpenContain(Thing *thing, const ModuleData *moduleData)
 	m_bfmeEC = 0;
 	m_bfmeE8 = 0;
 	m_bfmeDE = m_moduleData ? *(const unsigned char *)((const char *)m_moduleData + 0x84) : 0;
+}
+
+// Slot 1 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x003730FC, the +0x24 interface.
+CollideModuleInterface *OpenContain::getCollide()
+{
+	return reinterpret_cast<CollideModuleInterface *>(static_cast<ContainIface24 *>(this));
+}
+
+// Slot 2 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x004543A9, the +0x20 interface.
+ContainModuleInterface *OpenContain::getContain()
+{
+	return reinterpret_cast<ContainModuleInterface *>(static_cast<ContainIface20 *>(this));
+}
+
+// Slot 3 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x0046644A, the +0x34 interface.
+CreateModuleInterface *OpenContain::getCreate()
+{
+	return reinterpret_cast<CreateModuleInterface *>(static_cast<ContainIface34 *>(this));
+}
+
+// Slot 4 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x004647C0, the +0x2C interface.
+DamageModuleInterface *OpenContain::getDamage()
+{
+	return reinterpret_cast<DamageModuleInterface *>(static_cast<ContainIface2C *>(this));
+}
+
+// Slot 7 of OpenContain's BehaviorModuleInterface table 0x00C43528: retail 0x004523A9, the +0x28 interface.
+DieModuleInterface *OpenContain::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<ContainIface28 *>(this));
 }
