@@ -1662,7 +1662,7 @@ Code/GameEngine/Source/Common/RTS/Player_hasPrereqsForScience.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/Player_initPlayerUpgrades.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/Player_processCreateTeamGameMessage.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/Player_removeUpgrade.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp,no,0,0,5,0,3
+Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp,no,0,0,3,0,3
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteResolveNames.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/RTS/RelationMapXfer.cpp,yes,0,0,0,0,0
@@ -8492,7 +8492,7 @@ Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleDoP
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCopyCtorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCtorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleLoadPostProcess.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/ConcreteModuleTemplateCopyCtors.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/ConcreteModuleTemplateCopyCtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylinderEmissionVolumeModuleTemplateCopyCtorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylindricalEmissionVelocityModuleSample.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/CylindricalEmissionVelocityModuleTemplateCopyCtorThunk.cpp,yes,0,0,0,0,0
@@ -8583,7 +8583,7 @@ Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleLifePredicate.
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoDerivedCopies.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateClones.cpp,no,3,0,0,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateClones.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateCopyCtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCtor.cpp,yes,0,0,0,0,0
@@ -8675,7 +8675,7 @@ Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cp
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE928Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEA15CopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEAA3Clone.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEADDCopyCtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEADDCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEC24Clone.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9Clone.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9CopyCtor.cpp,yes,0,0,0,0,0
@@ -8754,7 +8754,7 @@ Code/GameEngine/Source/GameClient/System/FXParticleSystem/SphericalEmissionVeloc
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/StreakDrawModuleDoParticles.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/StreakDrawModuleTemplateCopyCtorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/StreakDrawModuleTemplateCtorThunk.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp,no,1,0,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleInfoCopyCtorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleInfoDefaultCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleInfoXfer.cpp,yes,0,0,0,0,0
