@@ -4010,6 +4010,53 @@ def test_two_merged_agreements_land_neither(tree, tmp_path):
     assert lane_of(tree).state()[FN_KEY]["status"] != "landed"
 
 
+def crossed_approvals(tree, tmp_path):
+    import hashlib
+    lane, sha, _workers = mirror_state(tree, tmp_path, ("seat-one", "addBoxWidth"), ("seat-two", "sumBox"))
+    lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(
+        id="nr-" + hashlib.sha256(f"{FN_KEY}|{spelling}|{sha}".encode()).hexdigest()[:24], kind="function", old="rva00401000",
+        new=spelling, rva="0x00401000", agents="", key=FN_KEY, status="agreed", detail="reviewed resolution: crossing")
+        for spelling in ("addBoxWidth", "sumBox")])
+
+
+def test_status_names_a_crossed_key_and_both_its_spellings(tree, tmp_path, capsys):
+    crossed_approvals(tree, tmp_path)
+    capsys.readouterr()
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert f"CROSSED, no spelling can land and no command settles it: {FN_KEY}: addBoxWidth / sumBox" in out
+    assert "no longer prove" not in out                          # one line for the one key
+
+
+def test_status_names_a_crossing_with_no_approval_recorded(tree, tmp_path, capsys):
+    mirror_state(tree, tmp_path, ("seat-one", "addBoxWidth"), ("seat-two", "sumBox"))
+    capsys.readouterr()
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    assert "CROSSED" in capsys.readouterr().out
+
+
+def test_status_names_an_approval_its_source_left_behind(tree, tmp_path, capsys):
+    """Changing the source ends the crossing, whose rows bind the old text, but the approval still holds the key."""
+    crossed_approvals(tree, tmp_path)
+    with open(tree / SOURCE, "a", newline="\n") as f:
+        f.write("// an unrelated edit\n")
+    capsys.readouterr()
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "CROSSED" not in out
+    assert "1 reviewed approval(s) no longer prove their spelling" in out and f"{FN_KEY} -> sumBox" in out
+
+
+def test_status_is_quiet_about_a_resolution_that_proves(tree, tmp_path, capsys):
+    mirror_votes(tree, tmp_path)
+    be("seat-one")
+    assert name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=FN_KEY, name="addBoxWidth", reason="the other reading fits")) == 0
+    capsys.readouterr()
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "CROSSED" not in out and "no longer prove" not in out
+
+
 def test_a_second_resolve_by_the_same_voter_adds_no_row(tree, tmp_path):
     assert vote(tree, tmp_path, "one", FN_ANSWER, worker="seat-one") == 0
     assert vote(tree, tmp_path, "two", {"rva00401000": "addBoxWidth"}, worker="seat-two") == 0

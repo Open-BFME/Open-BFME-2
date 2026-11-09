@@ -316,6 +316,22 @@ def verify(votes, agreed_rows, key, name, *, lead=1, meaning_votes=(), meaning=N
     return problems
 
 
+def moved_spellings(votes, resolutions, key, source_sha):
+    """Each original voter -> the spellings it accepted over its own vote for this source."""
+    own = {}
+    for row in votes:
+        if row.get("key") == key and WORKER.fullmatch(row.get("worker") or "") \
+                and HASH.fullmatch(row.get("hash") or ""):
+            own.setdefault(row["worker"], set()).add(row["hash"])
+    moved = {}
+    for row in resolutions:
+        worker = row.get("worker")
+        if row.get("key") == key and row.get("source_sha") == source_sha and worker in own \
+                and len((row.get("reason") or "").strip()) >= 12 and row.get("hash") not in own[worker]:
+            moved.setdefault(worker, set()).add(row.get("hash"))
+    return moved
+
+
 def resolved_workers(votes, agreed_rows, resolutions, key, name, source_sha):
     """Original voters who accepted a spelling after seeing the disagreement.
 
@@ -335,16 +351,10 @@ def resolved_workers(votes, agreed_rows, resolutions, key, name, source_sha):
                 and HASH.fullmatch(row.get("hash") or ""):
             voters.setdefault(row["worker"], row.get("model", ""))
             own.setdefault(row["worker"], set()).add(row["hash"])
-    moved = {}                                       # worker -> the spellings it accepted over its own vote
-    named = set()
-    for row in resolutions:
-        worker = row.get("worker")
-        if row.get("key") == key and row.get("source_sha") == source_sha and worker in voters \
-                and len((row.get("reason") or "").strip()) >= 12:
-            if row.get("hash") not in own[worker]:
-                moved.setdefault(worker, set()).add(row.get("hash"))
-            if row.get("hash") == selected and row.get("name") == name:
-                named.add(worker)
+    moved = moved_spellings(votes, resolutions, key, source_sha)
+    named = {row["worker"] for row in resolutions if row.get("key") == key and row.get("source_sha") == source_sha
+             and row.get("worker") in voters and len((row.get("reason") or "").strip()) >= 12
+             and row.get("hash") == selected and row.get("name") == name}
     accepted = {worker for worker in voters
                 if (moved[worker] == {selected} and worker in named if worker in moved else selected in own[worker])}
     return voters, accepted

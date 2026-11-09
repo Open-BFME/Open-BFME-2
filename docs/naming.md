@@ -318,6 +318,7 @@ own vote: one worker stands behind one spelling. So two checkouts that cross, ea
 other's spelling before seeing the other's row, may each record an agreement, but once their rows
 merge neither spelling has both voters, and no landing proves either. No command settles such a
 key yet: `resolve` refuses it while an approval stands, and an edit to the source does not reopen it.
+`status` names such keys, and any approval that no longer proves its spelling for the source.
 
 Blind votes from different checkouts land through separate pushes, so each submit can
 tally before the other vote exists and neither records the agreement. `status` and

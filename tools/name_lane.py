@@ -1899,6 +1899,31 @@ def report_grandfathered(lane, state):
               "they land with no check that the source still reads as voted (docs/naming.md)")
 
 
+def report_unsettled(lane, state):
+    """The keys no command moves on: voters who accepted different spellings for the source as it
+    reads now, and an approval that no longer proves its spelling, which holds its key shut."""
+    votes, resolutions = lane.votes(), lane.resolutions()
+    crossed = {}
+    for key in sorted({row["key"] for row in resolutions}):
+        source = lane.ctx.read(split_key(key)[0])
+        if source is None:
+            continue
+        moved = name_agreement.moved_spellings(votes, resolutions, key, hashlib.sha256(source).hexdigest())
+        spellings = set().union(*moved.values())
+        if len(spellings) > 1:
+            crossed[key] = sorted(row["name"] for row in resolutions if row["key"] == key and row["hash"] in spellings)
+    for key, names in crossed.items():
+        print(f"name_lane: CROSSED, no spelling can land and no command settles it: {key}: "
+              f"{' / '.join(dict.fromkeys(names))}")
+    held = [row for key, row in sorted(state.items()) if key not in crossed and row["status"] == "agreed"
+            and row["id"].startswith("nr-") and not resolution_support(lane, row)[1]]
+    if held:
+        print(f"name_lane: {len(held)} reviewed approval(s) no longer prove their spelling for this source; "
+              "apply leaves them, resolve refuses their keys and no command settles them:")
+        for row in held:
+            print(f"  {row['key']} -> {row['new']}")
+
+
 def report_unrecorded(lane, *, lead=2, min_models=1, limit=10):
     """Print the keys `agree` can record. The others are only counted: votes for a source that has
     changed since, or with no fingerprint, need fresh votes; a key whose file or placeholder has
@@ -3088,6 +3113,7 @@ def cmd_status(lane, args):
         print(f"name_lane: {count['source-changed']} record(s) reopened because their source changed since the votes; "
               "each needs fresh votes")
     report_grandfathered(lane, state)
+    report_unsettled(lane, state)
     report_unrecorded(lane, lead=args.lead, min_models=args.min_models)
     import name_review
     problem = name_review.runtime_problem(lane)
