@@ -4660,6 +4660,53 @@ def plan_forced_move(ctx, rows, family, at, dest, prepared, units):
     return dict(rva=at, name=row["name"], size=int(row["target_size"]), old=old, dest=dest, before=before)
 
 
+def slot_operand_problem(rows, family):
+    """Why the ledger does not tie a SlotOperandFamily's retail facts to its rows, or None: the table's writer, the
+    element's destructor and each iterator rowed (matched) at their addresses under exactly those names, the writer's
+    stores inside its row, and every push, call and handler load inside the copy's row. The table's name is not read."""
+    import retail_identity
+
+    def row(name, at):
+        found = [r for r in rows if r["name"] == name and _rva(r.get("target_rva")) == at and r.get("status") == "matched"]
+        return found[0] if len(found) == 1 else None
+
+    def inside(fact, start, size):
+        return start <= fact.site and fact.site + len(retail_identity.expected(fact)) <= start + size
+
+    writer = family.writer
+    got = row(writer["name"], writer["rva"])
+    if got is None:
+        return f"{writer['name']} is not rowed at 0x{writer['rva']:08X}: the table's writer ties it to the element's class"
+    for fact in writer["facts"]:
+        if not inside(fact, writer["rva"], int(got["target_size"])):
+            return f"0x{fact.site:08X} is outside {writer['name']}'s row"
+    dtor = family.element_dtor
+    if row(dtor["name"], dtor["rva"]) is None:
+        return f"{dtor['name']} is not rowed at 0x{dtor['rva']:08X}: the element is proved by its destructor's row"
+    for at, name in sorted(family.iterators.items()):
+        if row(name, at) is None:
+            return f"{name} is not rowed at 0x{at:08X}"
+    copy_name = family.rows[family.copy][0]
+    got = row(copy_name, family.copy)
+    if got is None:
+        return f"{copy_name} is not rowed at 0x{family.copy:08X}"
+    size = int(got["target_size"])
+    loads = [f for at, (_name, facts) in family.rows.items() if at != family.copy for f in facts]
+    for fact in [f for push, call in family.operands for f in (push, call)] + loads:
+        if not inside(fact, family.copy, size):
+            return f"0x{fact.site:08X} is outside {copy_name}'s row"
+    return None
+
+
+def slot_operand_bindings(family, source, name):
+    """[(source, name, offset, type, target)]: what the rebuilt copy must bind for a SlotOperandFamily."""
+    out = []
+    for push, call in family.operands:
+        out.append((source, name, push.site + 1 - family.copy, DIR32, family.element_dtor["name"]))
+        out.append((source, name, call.site + 1 - family.copy, REL32, family.iterators[call.value]))
+    return out
+
+
 def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(),
                         forced_moves=(), evidence="", max_files=25):
     """--respell --identity --basis retail: the whole family tools/retail_identity.py spells out, from
@@ -4686,7 +4733,12 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         raise Refusal(f"retail does not state {family.old} -> {family.new}: {problems[0]}")
     rows = ctx.rows()
     no_table = isinstance(family, retail_identity.BodyFamily)
-    if no_table:
+    slot_kind = isinstance(family, retail_identity.SlotOperandFamily)
+    if slot_kind:
+        problem = slot_operand_problem(rows, family)
+        if problem:
+            raise Refusal(problem)
+    elif no_table:
         for label, members in (("new", family.members), ("old", family.old_members)):
             for at, name in sorted(members.items()):
                 if not any(r["name"] == name and _rva(r.get("target_rva")) == at and r.get("status") == "matched"
@@ -4893,7 +4945,9 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         copy=family.copy, copy_name=primary["new"], copy_source=source_of[family.copy], retired=[], moved=moved)
     if forced:
         plan.identity.update(forced=forced, units_before=units_before)
-    if no_table:
+    if slot_kind:
+        plan.identity["operands"] = slot_operand_bindings(family, source_of[family.copy], primary["new"])
+    elif no_table:
         by_rva = {e["rva"]: e["new"] for e in entries}
         plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
         plan.identity["retired"] = sorted((name, at, family.members[at]) for at, (name, _f) in retired.items())
@@ -5046,7 +5100,16 @@ def retail_identity_problems(ctx, identity):
             continue
         if not any(r["row"] == new and r["rva"] == at for r in refs):
             problems.append(f"{new} (0x{at:08X}) has no references after the respell")
-    if "bindings" in identity:
+    if "operands" in identity:
+        if not identity["operands"]:
+            problems.append("a slot-and-operand family has no operands to check")
+        for source, name, offset, kind, target in identity["operands"]:
+            relocs = object_symbol_relocs_or_none(ctx, source, name)
+            if relocs is None:
+                problems.append(f"{name}, whose operands prove the element, cannot be read after the respell ({source})")
+            elif (offset, kind, target) not in relocs:
+                problems.append(f"{name} does not bind {target} at +{offset} after the respell ({source})")
+    elif "bindings" in identity:
         if not identity["bindings"]:
             problems.append("a family with no table has no bindings to check")
         for source, name, offset, target in identity["bindings"]:

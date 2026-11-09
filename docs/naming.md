@@ -1386,6 +1386,12 @@ two review rounds set where the evidence ends:
   ledger objects are built. Every unit that names an old spelling must be prepared. The
   `name_dependents` hook judges a unit with no cached object on its text, and names
   like `push_back` match widely, so expect a wide build where objects are missing.
+  A row whose table `/OPT:ICF` shares between instantiations is a `SlotOperandFamily`: the
+  table's name proves nothing and is not read. The row fills a slot of a table that a rowed
+  constructor or destructor of the class enclosing the new element writes, its own body passes
+  that element's rowed destructor to `??_L` or `??_M`, and the rebuilt row must bind that
+  destructor at each push and the iterator at each call. Its spellings swap the element and
+  nothing else. The one entry is Render2DSentenceClass's renderer vector (P104).
 - **code identity** (`--identity`): a placeholder-typed operator, special member
   or template member whose bytes match while its calls bind the wrong
   instantiation. A callee's class does not prove the caller's (`mov

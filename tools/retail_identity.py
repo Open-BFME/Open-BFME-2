@@ -322,6 +322,91 @@ class BodyFamily:
         return record(self.rows[self.copy][1])
 
 
+# The CRT's vector iterators (ehvecctr.cpp, ehvecdtr.cpp): the only calls a SlotOperandFamily's operand may feed.
+ITERATOR_NAMES = ("??_L@YGXPAXIHP6EX0@Z1@Z", "??_M@YGXPAXIHP6EX0@Z@Z")
+
+
+def _special_member_class(name):
+    """The class `name` is a constructor or destructor of (`??0X@@...` / `??1X@@...`), or None."""
+    if not name.startswith(("??0", "??1")) or "@@" not in name:
+        return None
+    return name[3:name.index("@@")]
+
+
+class SlotOperandFamily:
+    """A row rowed under the wrong element type, where the table it fills cannot name the class: /OPT:ICF shares the
+    table between instantiations, so its name says only which one the ledger chose, and that name is never read here.
+    Retail states the element another way: the row's own body passes a rowed destructor of the element to the CRT's
+    vector iterator (??_L or ??_M), and that destructor's row names the element.
+
+    `old_element` and `new_element` are element types as mangled after `U` (`RendererDataStruct@Render2DSentenceClass`);
+    every spelling swaps exactly `U<old_element>@@` for `U<new_element>@@` and nothing else. `slot` is the copy row's
+    word in the table. `writer` {name, rva, facts} is a rowed constructor or destructor of the class enclosing the new
+    element whose facts write that table as a vftable pointer: the container of these elements uses this table.
+    `element_dtor` {name, rva} is the new element's rowed destructor. `operands` [(push, call)] are the copy's pushes of
+    that destructor (`68` imm32), each followed in the row by a call to a rowed iterator of `iterators` {rva: name}.
+    Every row other than the copy is proved by the copy loading its address (its handler: `68` or `b8` imm32).
+
+    After the build the rebuilt copy must bind the element destructor at each push (DIR32) and the iterator at each
+    call (REL32): retail_identity_problems reads both. Another family of this kind is another reviewed entry."""
+
+    def __init__(self, old_element, new_element, copy, spellings, slot, writer, element_dtor, operands, iterators,
+                 rows, pins=None):
+        if copy not in rows:
+            raise ValueError(f"0x{copy:08X} is not a row of the family")
+        if slot.kind != "slot" or slot.value != copy + IMAGE_BASE:
+            raise ValueError("the slot fact must be the copy's word in the table")
+        old_frag, new_frag = f"U{old_element}@@", f"U{new_element}@@"
+        if old_frag == new_frag:
+            raise ValueError("the element does not change")
+        for old_name, _facts in rows.values():
+            want = old_name.replace(old_frag, new_frag)
+            if old_frag not in old_name or spellings.get(old_name) != want:
+                raise ValueError(f"{old_name} must respell by the element swap alone, to {want}")
+        if set(spellings) != {old_name for old_name, _facts in rows.values()}:
+            raise ValueError("every spelling is a row's and every row has one")
+        if element_dtor["name"] != f"??1{new_element}@@QAE@XZ":
+            raise ValueError(f"{element_dtor['name']} is not the destructor of {new_element}")
+        scope = new_element.split("@", 1)[1] if "@" in new_element else None
+        if not scope or _special_member_class(writer["name"]) != scope:
+            raise ValueError(f"{writer['name']} is no constructor or destructor of {scope}, the class enclosing the element")
+        stores = [f for f in writer["facts"] if f.kind == "stores" and f.value == slot.code[0] and f.code in VPTR_STORES]
+        if not stores or len(stores) != len(writer["facts"]):
+            raise ValueError("the writer's facts are its stores of the table as a vftable pointer, and nothing else")
+        if not operands:
+            raise ValueError("a family of this kind needs the copy's operands")
+        copy_facts = set(rows[copy][1])
+        if slot not in copy_facts:
+            raise ValueError("the slot fact is one of the copy's facts")
+        for push, call in operands:
+            if not (push.kind == "stores" and push.code == "68" and push.value == element_dtor["rva"] + IMAGE_BASE):
+                raise ValueError(f"0x{push.site:08X} must push {element_dtor['name']}")
+            if not (call.kind == "calls" and call.site > push.site and iterators.get(call.value) in ITERATOR_NAMES):
+                raise ValueError(f"0x{call.site:08X} must call a vector iterator after the push")
+            if push not in copy_facts or call not in copy_facts:
+                raise ValueError("each operand is one of the copy's facts")
+        strangers = sorted(set(iterators) - {call.value for _push, call in operands})
+        if strangers:
+            raise ValueError(f"0x{strangers[0]:08X} is an iterator no operand calls")
+        for at, (old_name, facts) in rows.items():
+            if at != copy and (len(facts) != 1 or facts[0].kind != "stores" or facts[0].code not in ("68", "b8")
+                               or facts[0].value != at + IMAGE_BASE):
+                raise ValueError(f"0x{at:08X} must be proved by the copy loading its address, and by nothing else")
+        self.old, self.new, self.copy, self.spellings = old_element, new_element, copy, spellings
+        self.slot, self.writer, self.element_dtor = slot, writer, element_dtor
+        self.operands, self.iterators = tuple(operands), dict(iterators)
+        self.rows, self.pins = rows, pins or {}
+
+    def respell(self, name):
+        return self.spellings.get(name, name)
+
+    def facts(self):
+        return [f for _name, facts in self.rows.values() for f in facts] + list(self.writer["facts"])
+
+    def evidence(self):
+        return record(self.rows[self.copy][1])
+
+
 C = Fact
 _VECTOR = "?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@"
 ENABLE_REGION_RECORD = Family(
@@ -453,7 +538,40 @@ LOCOMOTOR = Family(
     },
     leaves={0x001E3CF4: 335, 0x001E525A: 382},
     table_stores={0x001E3E43: 2})
-FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR)
+_ENUM = "_ENUM_VALUE@EnumParameterClass"
+_RENDERER = "RendererDataStruct@Render2DSentenceClass"
+
+
+def _resize(element):
+    return f"?Resize@?$VectorClass@U{element}@@@@UAE_NHPBU{element}@@@Z"
+
+
+# Render2DSentenceClass's renderer vector (P104). Its Resize 0x00155690 was rowed on EnumParameterClass::_ENUM_VALUE,
+# a donor label; the element the body copies and destroys is the one 0x00001E13 destroys, rowed
+# ??1RendererDataStruct@Render2DSentenceClass (a reference to the other name bound WWSaveLoad's real _ENUM_VALUE
+# destructor, a StringClass free on +0). The table 0x007D3BC8 whose word 2 is this Resize is /OPT:ICF-shared: the
+# AddInfoStruct vector's ctor 0x00154DA0, dtor 0x00156750 and ??_G 0x00156930 write it too, and its words mix
+# AddInfoStruct, RenderDeviceDescClass and Vector2 instantiations, so its name is no evidence for the class and is
+# not read. What ties the table to this element's container is ~Render2DSentenceClass writing it at 0x00157D06.
+RENDERER_VECTOR = SlotOperandFamily(
+    old_element=_ENUM, new_element=_RENDERER, copy=0x00155690,
+    spellings={_resize(_ENUM): _resize(_RENDERER), "__ehhandler$" + _resize(_ENUM): "__ehhandler$" + _resize(_RENDERER)},
+    slot=slot(0x00BD3BC8, 2, 6, 0x00155690),
+    writer={"name": "??1Render2DSentenceClass@@QAE@XZ", "rva": 0x00157C70,
+            "facts": (C("stores", 0x00157D06, 0x00BD3BC8, "c707"),)},
+    element_dtor={"name": f"??1{_RENDERER}@@QAE@XZ", "rva": 0x00001E13},
+    # the new vector's EH unwind (??_L) and the old vector's delete[] (??_M), each handed 0x00001E13
+    operands=((C("stores", 0x001556FC, 0x00401E13, "68"), C("calls", 0x0015570A, 0x00629512)),
+              (C("stores", 0x001557BD, 0x00401E13, "68"), C("calls", 0x001557C6, 0x00629110))),
+    iterators={0x00629512: "??_L@YGXPAXIHP6EX0@Z1@Z", 0x00629110: "??_M@YGXPAXIHP6EX0@Z@Z"},
+    rows={
+        0x00155690: (_resize(_ENUM), (slot(0x00BD3BC8, 2, 6, 0x00155690),
+                                      C("stores", 0x001556FC, 0x00401E13, "68"), C("calls", 0x0015570A, 0x00629512),
+                                      C("stores", 0x001557BD, 0x00401E13, "68"), C("calls", 0x001557C6, 0x00629110))),
+        # the copy pushes its own handler
+        0x00766EDC: ("__ehhandler$" + _resize(_ENUM), (C("stores", 0x00155698, 0x00B66EDC, "68"),)),
+    })
+FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR)
 
 # One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
 # treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at
