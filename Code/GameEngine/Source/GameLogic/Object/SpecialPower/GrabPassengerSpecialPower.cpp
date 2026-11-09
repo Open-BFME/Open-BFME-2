@@ -98,21 +98,6 @@ private:
 
 BFME_LITERAL_NAME_GETTER(Rva004C5013Named, "GrabPassengerSpecialPower")
 
-//
-// GrabPassengerSpecialPower's destructor 0x004C5019, still under its
-// placeholder name: it stores the class's three vptrs (0x00C5D93C at +0,
-// SpecialPowerModule's shared BehaviorModuleInterface table 0x00BEFCF8 at
-// +0x0C, 0x00C5D8D8 at +0x10), exactly what ??0GrabPassengerSpecialPower
-// 0x004C4FA4 stores after ??0SpecialPowerModule, and tail-calls
-// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF, so it derives from this unit's
-// SpecialPowerModule view like the real class.
-
-class Rva004C5019 : public SpecialPowerModule
-{
-public:
-	virtual ~Rva004C5019();
-};
-
 // tu-skeleton: 0x004C4F89 27B ?buildFieldParse@GrabPassengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp
@@ -130,7 +115,8 @@ GrabPassengerSpecialPower::GrabPassengerSpecialPower( Thing *thing, const Module
 {
 }
 
-// ??1GrabPassengerSpecialPower@@MAE@XZ present-unmatched
+// ??1GrabPassengerSpecialPower@@MAE@XZ 0x004C5019: stores the class's three vptrs, then tail-calls
+// ??1SpecialPowerModule@@UAE@XZ 0x00493DEF
 GrabPassengerSpecialPower::~GrabPassengerSpecialPower()
 {
 }
@@ -172,16 +158,6 @@ GrabPassengerSpecialPowerModuleData::GrabPassengerSpecialPowerModuleData()
 // this tree's address-derived convention (identity unrecoverable from 6
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
-
-// ---- from Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp
-
-Rva004C5019::~Rva004C5019()
-{
-}
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004C504E 338B ?doSpecialPowerAtObject@GrabPassengerSpecialPower@@UAEXPAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerDoAtObject.cpp (not merged yet)
 

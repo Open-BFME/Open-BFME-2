@@ -6016,3 +6016,5 @@ _$E244,0x007B3EBF,Retracted for readmission under the same unit's new compiler l
 ?name@Rva00496A18Named@@QBEPBDXZ,0x00496A18,"Renamed to ?GetSnapshotName@BannerCarrierUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4F838 slot 2)"
 ??1Rva004969FF@@UAE@XZ,0x004969FF,"Renamed to ??1BannerCarrierUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4F838)"
 ??_GRva004969FF@@UAEPAXI@Z,0x00496AC2,"Renamed to ??_GBannerCarrierUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4F838)"
+??1Rva004C5019@@UAE@XZ,0x004C5019,"Renamed to ??1GrabPassengerSpecialPower@@MAE@XZ by tools/rename.py (fold: retail vftable 0x00C5D93C)"
+??_GRva004C5019@@UAEPAXI@Z,0x004C5032,"Renamed to ??_GGrabPassengerSpecialPower@@MAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5D93C)"
