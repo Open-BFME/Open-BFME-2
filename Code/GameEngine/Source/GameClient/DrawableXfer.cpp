@@ -134,16 +134,7 @@ extern AudioManager *TheAudio;
 #define COORD3D_VIEW_EXTERN_DTOR
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class Waypoint
-{
-public:
-	Waypoint(unsigned int id, AsciiString name, const Coord3D *loc, AsciiString label1,
-		AsciiString label2, AsciiString label3, bool biDirectional, int extra, AsciiString extraLabel);
-	void addLink(Waypoint *other);
-	void *m_vtable;
-	int m_id;
-	char m_pad08[0xc0 - 8];
-};
+#include "../../Include/GameLogic/Waypoint.h"
 
 // TheTerrainLogic's slot 35.
 class DrawableXferTerrainView

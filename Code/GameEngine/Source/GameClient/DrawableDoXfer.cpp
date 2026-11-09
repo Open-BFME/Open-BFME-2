@@ -207,13 +207,7 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class Waypoint
-{
-public:
-	int getID() const { return m_id; }
-	void *m_vtbl;
-	int m_id;						// +0x04
-};
+#include "../../Include/GameLogic/Waypoint.h"
 #include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
