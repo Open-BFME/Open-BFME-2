@@ -128,7 +128,7 @@ class Rva005F422C { public: virtual ~Rva005F422C(); };
 class Rva005E3A76 { public: virtual ~Rva005E3A76(); };
 class Rva005F3F73 { public: Rva005F3F73(void *, void *) throw(); private: char storage[0x18]; };
 class Rva005F4096 { public: void clear(); Rva005F4096(Rva005F3F73 *p) : p(p) {} private: Rva005F3F73 *p; };
-class Rva005F4179Base { public: Rva005F4179Base() : count(0) {} virtual ~Rva005F4179Base() {} protected: int count; };
+#include "../../../../Include/Common/Rva005F4179Base.h"
 class Rva005F4179 : public Rva005F4179Base {
 public:
  Rva005F4179(void *clip); virtual ~Rva005F4179();

@@ -36,14 +36,7 @@ private:
 
 #include "../../../../Include/Common/Rva005F4096.h"
 
-class Rva005F4179Base
-{
-public:
-	Rva005F4179Base() : m_04(0) {}
-	virtual ~Rva005F4179Base() {}
-protected:
-	int m_04;
-};
+#include "../../../../Include/Common/Rva005F4179Base.h"
 
 // The slots in retail's order: the constructors below install tables built from them.
 class Rva005F4179 : public Rva005F4179Base
