@@ -213,7 +213,7 @@ public:
 // Target 0x003B0344 takes the existing device mutex, releases the +1C
 // counted object, drains two rowed priority queues, then unlocks before
 // their storage and the now-recovered 0x003B00D6 base are destroyed.
-struct Rva003B02F4Entry { float key; unsigned int a, b; };
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva003B02F4Entry.h"
 struct Rva003B02F4Greater {};
 namespace _STL {
 template <class T> struct greater {};

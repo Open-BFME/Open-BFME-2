@@ -13,12 +13,7 @@
 #include <queue>
 #include <vector>
 
-struct Rva003B02F4Entry
-{
-	float key;
-	unsigned int a;
-	unsigned int b;
-};
+#include "Rva003B02F4Entry.h"
 
 struct Rva003B02F4Greater
 {

@@ -29,12 +29,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // only call (0x003AFFE5) goes to the rowed __push_heap<Rva003B02F4Entry *, int,
 // Rva003B02F4Entry, Rva003B02F4Greater> at 0x003AFE48 (stlport_priority_queue_rva003b02f4.cpp),
 // declared only here. Only the rowed __push_heap_aux is instantiated.
-struct Rva003B02F4Entry
-{
-	float key;
-	unsigned int a;
-	unsigned int b;
-};
+#include "Rva003B02F4Entry.h"
 struct Rva003B02F4Greater
 {
 	bool operator()(const Rva003B02F4Entry &x, const Rva003B02F4Entry &y) const
