@@ -45,7 +45,7 @@ public:
 void HideControlBar(bool);
 class GameWindow;
 void MessageBoxOk(UnicodeString title,UnicodeString text,void (*callback)());
-class BfmeDfe6e4 { public: void _M_rva00625699(); };
+#include "../../../../Include/Common/BfmeDfe6e4.h"
 extern BfmeDfe6e4 *theBfmeDfe6e4;
 class Rva0023D46F {
  BfmeDfe6e4 *counter;

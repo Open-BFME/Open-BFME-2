@@ -6,7 +6,7 @@
 #include "Code/GameEngine/Include/GameClient/Mouse.h"
 #include "Code/GameEngine/Include/GameClient/Shell.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
-class BfmeDfe6e4 { public: void _M_rva00625699(); };
+#include "../../../Include/Common/BfmeDfe6e4.h"
 class Rva0023D46F {
 public:
     Rva0023D46F(BfmeDfe6e4*);

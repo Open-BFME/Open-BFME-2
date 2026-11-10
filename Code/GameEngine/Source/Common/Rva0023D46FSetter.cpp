@@ -4,11 +4,7 @@
 // ecx=[esp+8]; [esi]=ecx; je skip; call BfmeDfe6e4::_M_rva00625476 (0x225476)
 // on the stored pointer; eax=esi; pop esi; ret 4. Single rowed callee;
 // address-derived outer name, shared BfmeDfe6e4 view for the mangling.
-class BfmeDfe6e4
-{
-public:
-	void _M_rva00625476();
-};
+#include "../../Include/Common/BfmeDfe6e4.h"
 
 class Rva0023D46F
 {

@@ -307,13 +307,7 @@ class RecorderClass;
 extern RecorderClass *TheRecorder;
 #include "../../Include/Common/Rva000B3FD0.h"
 #include "../../Include/Common/RecorderClass.h"
-class BfmeDfe6e4 
-
-{
- public: void rva00225492();
- 
-}
-;
+#include "../../Include/Common/BfmeDfe6e4.h"
 extern BfmeDfe6e4 *theBfmeDfe6e4;
 class Watchdog 
 

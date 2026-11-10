@@ -20,11 +20,7 @@ public:
 	int addTeam(const Dict *d);
 };
 
-class BfmeDfe6e4
-{
-public:
-	void _M_rva00625476();
-};
+#include "../../Include/Common/BfmeDfe6e4.h"
 
 // --- 0x00219435 (11B): +0x174 then the rowed 0x0040A59B.
 class Rva00219435

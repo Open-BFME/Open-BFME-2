@@ -2154,11 +2154,7 @@ public:
 	virtual void slot190(void);                                          // +0x190
 };
 
-class BfmeDfe6e4
-{
-public:
-	void _M_rva00625699(void);
-};
+#include "../../../Include/Common/BfmeDfe6e4.h"
 
 // Holds a reference on the 0x009FE6E4 counter: the constructor (0x0023D46F)
 // stores the pointer and counts it up, the destructor counts it down.

@@ -27,7 +27,8 @@ extern Mouse*TheMouse;
 class GameWindowTransitionsHandler:public MovieSlots<9>{public:virtual void reset()=0;virtual void pump()=0;};extern GameWindowTransitionsHandler*TheTransitionHandler;
 class Keyboard:public MovieSlots<10>{public:virtual void pump()=0;};extern Keyboard*TheKeyboard;
 class GameEngine:public MovieSlots<23>{public:virtual void pump()=0;};extern GameEngine*TheGameEngine;
-class BfmeDfe6e4{public:void rva00225492();};extern BfmeDfe6e4*theBfmeDfe6e4;
+#include "../../Include/Common/BfmeDfe6e4.h"
+extern BfmeDfe6e4*theBfmeDfe6e4;
 class VideoStreamInterface:public MovieSlots<6>{public:virtual unsigned advance(int)=0;};
 #include "../../Include/GameClient/Display.h"
 // Current master owns the rectangle helper at0025C3AA under its neutral ABI view.

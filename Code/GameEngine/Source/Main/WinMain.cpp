@@ -281,12 +281,7 @@ public:
 // defining a second variable the rest of the game never sees.
 extern class AudioManager *TheAudio;
 
-class BfmeDfe6e4
-{
-public:
-	void _M_rva00625476();
-	void _M_rva00625699();
-};
+#include "../../Include/Common/BfmeDfe6e4.h"
 
 BfmeDfe6e4 *theBfmeDfe6e4;
 

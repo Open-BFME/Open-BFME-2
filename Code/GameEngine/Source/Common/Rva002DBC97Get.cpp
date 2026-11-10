@@ -143,12 +143,7 @@ public:
 extern GameInfo *TheGameInfo;
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 
-class BfmeDfe6e4
-{
-public:
-	void _M_rva00625699(void);
-	void _M_rva00625476();
-};
+#include "../../Include/Common/BfmeDfe6e4.h"
 class Rva0023D46F
 {
 public:
