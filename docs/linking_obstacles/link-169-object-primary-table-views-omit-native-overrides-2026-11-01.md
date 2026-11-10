@@ -41,3 +41,18 @@ alone keeps the identifier and would add a ninth slot instead. The four secondar
 tables (0x007FC2D8 6 slots, 5 missing; 0x007FC2B8 8, 7 missing; 0x007FC290 10, 9
 missing; 0x007FC27C 5, 4 missing: 25 wrong of 29) still emit only slot 0 each and
 stay bridged.
+Update (2026-11-10, ancalgonn-swarm-class-object): secondary tables, declarations
+only. Both lifetime units now declare the +0x64 base's six slots as the registered
+ObjectShroudClient spells them, and the +0x70 base's slot 1; Object declares its
+already-rowed overrides rva002941EA, ShroudGetValueRangeAndMask, ShroudHideIfFogged
+(0x007FC2D8 slots 3-5) and rva0028C08D (0x007FC290 slot 1). No row renamed. Emitted
+tables: 0x007FC2D8 six slots with 3-5 equal to retail and 1-2 `__purecall` (retail:
+the empty 0x000B3FD0 and getGhostObject 0x00290EFE, still rowed under placeholder
+Rva00290EFE); 0x007FC290 two of ten slots, both equal to retail. Wrong secondary slots
+25 -> 21. `./build.sh` 74/74 and the data row; `link_check` 3,684 and 972 bytes. Not
+taken: renaming the +0x6C/+0x70 bases to Rva005EEE6B/Rva0028AB0D. Both base tables
+(0x007FBC9C, 8 slots; 0x007FBCBC, 10 slots) are all `__purecall`, so the 9-byte
+constructors 0x005EEE6B/0x0028AB0D that store them can be any same-length pure
+interface's (the ledger names 3 and 5 classes there), and the rename made
+ObjectConstructor.cpp duplicate RvaSmallVtableCtors.cpp's base constructors and tables
+(`link_check` 3,681 -> 0); reverted.

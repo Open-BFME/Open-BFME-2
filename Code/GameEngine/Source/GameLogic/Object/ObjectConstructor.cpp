@@ -208,10 +208,19 @@ extern GlobalData *TheWritableGlobalData;
 
 #include "../../Common/Thing/thing.h"
 
+// Retail table 0x00BFC2D8 has six slots; spelled as the registered ObjectShroudClient spells them.
 class BfmeCtorFirstBase001B3A20
 {
 public:
 	virtual AsciiString rva00290EE0() = 0;
+protected:
+	// Empty native slot (0x000B3FD0); return type and name unknown.
+	virtual void opaqueSlot1() = 0;
+public:
+	virtual void *getGhostObject() = 0;
+	virtual void rva002941EA(int *, float *, float *, float *) = 0;
+	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const = 0;
+	virtual bool ShroudHideIfFogged(int) const = 0;
 };
 class BfmeCtorVirtualBase001B3A20
 {
@@ -225,7 +234,7 @@ public:
 };
 class GeometryInfo;
 struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const = 0; };
-struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; };
+struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; virtual Coord3D rva0028C08D() = 0; };
 
 template <int N> class BitFlags;
 struct CreateMask;
@@ -419,6 +428,12 @@ protected:
 	// retail vftable slots 1 and 2 (0x00BFC300) both hold 0x0047A6A9, `return this`
 	virtual Object *asObjectMeth() { return this; }
 	virtual const Object *asObjectMeth() const { return this; }
+public:
+	// retail vftable 0x00BFC2D8 slots 3-5 and 0x00BFC290 slot 1: the rowed overrides
+	virtual void rva002941EA(int *, float *, float *, float *);
+	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const;
+	virtual bool ShroudHideIfFogged(int) const;
+	virtual Coord3D rva0028C08D();
 };
 
 Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, ObjectID id) :

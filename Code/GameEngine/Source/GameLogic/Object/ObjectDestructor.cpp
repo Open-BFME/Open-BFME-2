@@ -71,10 +71,19 @@ struct Rva00299CE4Template
 class Rva00739770 { public: void rva00739770(void *obj); };
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
+// Retail table 0x00BFC2D8 has six slots; spelled as the registered ObjectShroudClient spells them.
 class BfmeCtorFirstBase001B3A20
 {
 public:
 	virtual AsciiString rva00290EE0() = 0;
+protected:
+	// Empty native slot (0x000B3FD0); return type and name unknown.
+	virtual void opaqueSlot1() = 0;
+public:
+	virtual void *getGhostObject() = 0;
+	virtual void rva002941EA(int *, float *, float *, float *) = 0;
+	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const = 0;
+	virtual bool ShroudHideIfFogged(int) const = 0;
 };
 class BfmeCtorVirtualBase001B3A20
 {
@@ -89,7 +98,7 @@ public:
 class GeometryInfo;
 struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const; };
 struct Coord3D;
-struct Rva00BFC290Base { virtual Coord3D rva0028C037(); };
+struct Rva00BFC290Base { virtual Coord3D rva0028C037(); virtual Coord3D rva0028C08D(); };
 
 // Owned objects deleted through their virtual destructor (slot 0).
 struct Rva00299CE4Owned { virtual ~Rva00299CE4Owned(); };
@@ -263,6 +272,12 @@ protected:
 	// retail vftable slots 1 and 2 (0x00BFC300) both hold 0x0047A6A9, `return this`
 	virtual Object *asObjectMeth() { return this; }
 	virtual const Object *asObjectMeth() const { return this; }
+public:
+	// retail vftable 0x00BFC2D8 slots 3-5 and 0x00BFC290 slot 1: the rowed overrides
+	virtual void rva002941EA(int *, float *, float *, float *);
+	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const;
+	virtual bool ShroudHideIfFogged(int) const;
+	virtual Coord3D rva0028C08D();
 };
 
 // ??1Object@@MAE@XZ
