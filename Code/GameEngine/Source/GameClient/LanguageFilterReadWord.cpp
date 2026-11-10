@@ -8,12 +8,7 @@ typedef unsigned short UnsignedShort;
 
 #include "../../Include/Common/File.h"
 
-class LanguageFilter
-{
-
-protected:
-	Bool readWord(File *file1, UnsignedShort *buf);
-};
+#include "../../Include/GameClient/LanguageFilterClass.h"
 
 Bool LanguageFilter::readWord(File *file, UnsignedShort *buf)
 {

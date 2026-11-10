@@ -63,11 +63,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class LanguageFilter
-{
-public:
-	void filterLine(UnicodeString &line);
-};
+#include "../../../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 
 #include "../../../../Include/Common/MessageStream.h"

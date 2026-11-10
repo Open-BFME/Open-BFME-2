@@ -67,11 +67,7 @@ void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 void Rva00060820(const char *command);
 #include "../../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
-class LanguageFilter
-{
-public:
-	void filterLine(UnicodeString &line);
-};
+#include "../../../../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 #include "../../../../../Include/GameNetwork/NetworkInterfaceClass.h"
 extern NetworkInterface *TheNetwork;

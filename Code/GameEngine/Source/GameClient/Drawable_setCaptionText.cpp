@@ -22,7 +22,7 @@ class GameFont;
 #include "../../Include/GameClient/DisplayString.h"
 #include "../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
-class LanguageFilter { public: void filterLine(UnicodeString &line); };
+#include "../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 #include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;

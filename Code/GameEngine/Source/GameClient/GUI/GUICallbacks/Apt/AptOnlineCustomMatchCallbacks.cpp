@@ -1523,7 +1523,7 @@ void AptOnlineCustomMatch::Update()
 		UpdatePings();
 }
 
-class LanguageFilter { public: void filterLine(UnicodeString &line); }; // rowed 0x00388102
+#include "../../../../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 class GameSpyConfigInterface
 {

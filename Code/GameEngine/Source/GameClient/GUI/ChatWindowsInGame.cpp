@@ -139,7 +139,7 @@ UnicodeString GadgetTextEntryGetText(GameWindow *);
 
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
 
-class LanguageFilter { public: void filterLine(UnicodeString &); };
+#include "../../../Include/GameClient/LanguageFilterClass.h"
 
 extern LanguageFilter *TheLanguageFilter;
 

@@ -15,7 +15,7 @@ class UnicodeString;
 // One-character append, expanded in place: retail pushes the character's
 // address and a length of 1 to concat(const WideChar *, Int).
 inline void appendChar(UnicodeString &text, WideChar c) { text.concat(&c, 1); }
-class LanguageFilter { protected: void unHaxor(UnicodeString &word); };
+#include "../../Include/GameClient/LanguageFilterClass.h"
 // Target RVA 0x9C0728 contains these five ignored characters and terminator.
 WideChar ignoredChars[] = L"-_*'\"";
 void LanguageFilter::unHaxor(UnicodeString &word)

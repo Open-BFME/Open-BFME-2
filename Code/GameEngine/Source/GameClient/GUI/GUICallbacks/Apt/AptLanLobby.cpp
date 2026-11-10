@@ -67,11 +67,7 @@ public:
 	void *m_04;
 	GameWindow *m_owner; // +0x08
 };
-class LanguageFilter
-{
-public:
-	void filterLine(UnicodeString &line);
-};
+#include "../../../../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 // Other units' views of this same screen object, called by address name.

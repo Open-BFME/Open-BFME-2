@@ -7,7 +7,8 @@ class AptLanLobby { static AptLanLobby *s_instance; public: static AptLanLobby *
 class LANAPI;extern LANAPI *TheLAN;
 #include "unicode_string.h"
 #include <ctype.h>
-class LanguageFilter {public:void filterLine(UnicodeString&);};extern LanguageFilter*TheLanguageFilter;
+#include "../../Include/GameClient/LanguageFilterClass.h"
+extern LanguageFilter*TheLanguageFilter;
 #include "../../Include/Common/GameModePreferences.h"
 struct ChatMenuPreferenceView {char pad[0x684];GameModePreferences preferences;};
 template<int N>class ChatLANSlots:public ChatLANSlots<N-1>{public:virtual void pad(char(*)[N]);};

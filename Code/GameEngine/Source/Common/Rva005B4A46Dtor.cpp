@@ -32,7 +32,8 @@ class GameWindow;
 
 UnicodeString GadgetTextEntryGetText(GameWindow*);
 void GadgetTextEntrySetText(GameWindow*,UnicodeString);
-class LanguageFilter {public:void filterLine(UnicodeString&);};extern LanguageFilter*TheLanguageFilter;
+#include "../../Include/GameClient/LanguageFilterClass.h"
+extern LanguageFilter*TheLanguageFilter;
 class CreateAHeroData;
 struct AppearanceHeroNameView {char unknown00[8];UnicodeString name;};
 #include "../../Include/Common/Rva0040A3F9.h"

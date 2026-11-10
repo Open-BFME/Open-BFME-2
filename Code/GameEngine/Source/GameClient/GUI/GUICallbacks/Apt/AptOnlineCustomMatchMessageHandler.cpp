@@ -732,7 +732,7 @@ void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)()
 // except the state-14 launch which returns at once.
 // AptOnlineCustomMatch::Update is rowed in its home unit; this copy was a duplicate definition.
 
-class LanguageFilter { public: void filterLine(UnicodeString &line); }; // rowed 0x00388102
+#include "../../../../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 class GameSpyConfigInterface
 {
