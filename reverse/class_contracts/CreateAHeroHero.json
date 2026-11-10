@@ -1,0 +1,477 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "CreateAHeroHero",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 36,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x134": {
+    "4": 1
+   },
+   "0x138": {
+    "4": 1
+   },
+   "0x13c": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x3c": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x48": {
+    "1": 1
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 3
+   },
+   "0x70": {
+    "1": 1
+   },
+   "0x71": {
+    "1": 2
+   },
+   "0x74": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 24,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 20,
+   "4": 2,
+   "12": 1,
+   "20": 2,
+   "44": 1,
+   "60": 1,
+   "68": 2,
+   "128": 2,
+   "308": 1,
+   "320": 2
+  },
+  "views": 34,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 12,
+   "type": "char[12]",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 10
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/OldSchoolHelpBoxContentSource.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroClassFindByUpgrade.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroHero_SetDefaultColors.cpp",
+    "Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroBlingList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroClassFindByUpgrade.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroHero_SetDefaultColors.cpp",
+    "Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroBlingList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroHero_SetDefaultColors.cpp",
+    "Code/GameEngine/Source/Common/Rva00407C6BClear.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00407C6BClear.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00407C6BClear.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00407C6BClear.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00407C6BClear.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00407C6BClear.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroHero_SetDefaultColors.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroBlingList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroHeroRva00409EB3.cpp",
+    "Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroHeroRva00409EB3.cpp",
+    "Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 113,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroBlingList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroBlingList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroBlingList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/Common/CreateAHeroHero_ClearSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHeroHeroReset.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 20,
+    "4": 2,
+    "12": 1,
+    "20": 2,
+    "44": 1,
+    "60": 1,
+    "68": 2,
+    "128": 2,
+    "308": 1,
+    "320": 2
+   },
+   "class": "CreateAHeroHero"
+  }
+ ],
+ "size": 12,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "slot00()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot04()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot08()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot0c()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot14()"
+  }
+ }
+}
