@@ -162,11 +162,7 @@ struct Rva002BA8F1Listener
 	char opaque[4];
 };
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 
 // 0x00E02E88, defined in Rva003EF14ADtor.cpp.
 class Rva002B7250;

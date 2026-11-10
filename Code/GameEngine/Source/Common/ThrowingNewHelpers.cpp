@@ -76,7 +76,7 @@ struct Rva005CF37DCommandUI {
     virtual void createButton(int slot, const RvaCloneResult<Rva005CEA74> &);
 };
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../Include/Common/Rva005A0B4CList.h"
 class Rva005CE8F5 {
 public:
     Rva005CE8F5(Rva005CF22CBig *owner) : m_owner(owner) {}

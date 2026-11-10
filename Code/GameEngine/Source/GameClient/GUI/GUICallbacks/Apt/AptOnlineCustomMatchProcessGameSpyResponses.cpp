@@ -496,11 +496,7 @@ struct Rva002BA8F1Listener
 	virtual void v00();
 };
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *listener);
-};
+#include "../../../../../Include/Common/Rva005A0B4CList.h"
 
 // The NAT negotiator object (0x974 bytes; its constructor is rowed under an
 // address name).

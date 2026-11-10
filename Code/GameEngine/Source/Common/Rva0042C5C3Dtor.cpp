@@ -18,7 +18,7 @@ class Rva0042C1B7Item;
 class Rva002D3627Host;
 class Rva0042D8D4;
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../Include/Common/Rva005A0B4CList.h"
 namespace StrategicHUD { class HUD { public: void Show(); }; }
 
 class Rva002B7250

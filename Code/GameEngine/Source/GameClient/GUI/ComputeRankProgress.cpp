@@ -98,7 +98,7 @@ class Rva005F6306 {public:void hideLeaderRankProgress();};
 class Rva005F601BByteChaseField {public:unsigned char get() const;};
 class Rva001FF3A9 {public:void rva001FF3A9(const TreeHintRef00217D4C &);};
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener *);};
+#include "../../../Include/Common/Rva005A0B4CList.h"
 struct HeroDetailsInput;
 class CreateAHeroData;
 

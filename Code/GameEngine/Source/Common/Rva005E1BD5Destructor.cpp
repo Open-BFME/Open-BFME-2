@@ -36,7 +36,7 @@ Rva005E1BD5::~Rva005E1BD5(){
 }
 
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
+#include "../../Include/Common/Rva005A0B4CList.h"
 Rva005E1BD5::Rva005E1BD5(Rva005E1BD5Owner *page,void *object):owner(page),army(object),slot(0),active(false){
  ((Rva005A0B4CList*)((char*)army+8))->append((Rva002BA8F1Listener*)(Rva0083702CObserver*)this);
 }

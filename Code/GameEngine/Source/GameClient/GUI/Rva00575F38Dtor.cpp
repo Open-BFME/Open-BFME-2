@@ -133,7 +133,7 @@ private:
 #include "../../../Include/Common/Rva002B2B66.h"
 #include "../../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva00574A98 { public: void *rva00574A98(); };
-class Rva005A0B4CList { public: void append(struct Rva002BA8F1Listener*); };
+#include "../../../Include/Common/Rva005A0B4CList.h"
 class Rva005CC61E { public: Rva005CC61E(); private: void *ptr; };
 
 class Rva005753E9

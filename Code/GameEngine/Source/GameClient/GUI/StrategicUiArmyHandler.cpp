@@ -37,7 +37,7 @@ class Rva005F54DA;
 class Rva005F23B2 {public:~Rva005F23B2();};
 class Rva005F24F0 {public:Rva005F24F0(const Rva005F24F0&);__forceinline ~Rva005F24F0(){((Rva005F23B2*)this)->~Rva005F23B2();}char bytes[28];};
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
+#include "../../../Include/Common/Rva005A0B4CList.h"
 class CreateAHeroData;
 class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
 struct Rva005FArmyObserve {char pad[4];};
