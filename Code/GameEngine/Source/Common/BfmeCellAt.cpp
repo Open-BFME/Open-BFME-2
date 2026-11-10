@@ -112,7 +112,6 @@ struct Rva0073BE00Point
 	~Rva0073BE00Point();
 };
 
-// ?Rva0073BE00Point::~Rva0073BE00Point present-unmatched
 Rva0073BE00Point::~Rva0073BE00Point()
 {
 	_ReadWriteBarrier();

@@ -210,7 +210,6 @@ namespace _STL {template<> _List_base<AIGroup *,allocator<AIGroup *> >::~_List_b
 #include "../../../Include/GameLogic/AIPathfind.h"
 class INI;
 #include "../../../Include/GameLogic/AI.h"
-// ?TAiData::loadPostProcess present-unmatched
 void TAiData::loadPostProcess()
 {
 }

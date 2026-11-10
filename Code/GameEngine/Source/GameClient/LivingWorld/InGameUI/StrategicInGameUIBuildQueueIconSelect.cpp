@@ -638,7 +638,6 @@ __declspec(noinline) static UnicodeString GetTooltipTextAtIndex(Rva005E72B4Queue
 struct RGBColor;
 #include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
-// ?StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update present-unmatched
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update()
 { if(m_21) TheMouse->rva001EEA6D(StrategicInGameUI::GetTooltipTextAtIndex(m_owner->m_queue,m_queueIndex),-1,0,1.0f); }
 

@@ -37,7 +37,6 @@ namespace _STL
 #pragma optimize("", off)
 // Shared base destructor: retail uses the unoptimised body folded with
 // std::bad_alloc at 0x00023850.
-// ?__Named_exception::~__Named_exception present-unmatched
 __Named_exception::~__Named_exception() _STLP_NOTHROW_INHERENTLY
 {
 }

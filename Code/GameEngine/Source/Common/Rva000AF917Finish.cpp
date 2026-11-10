@@ -66,7 +66,6 @@ public:
 };
 class TileData;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
-// ?WorldHeightMap::readTexClass present-unmatched
 void WorldHeightMap::readTexClass(TXTextureClass *texClass,TileData **tileData)
 {
     File *normalFile=0;

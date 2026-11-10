@@ -356,7 +356,6 @@ StrategicHUD::ArmyMemberIconMovieClip::ArmyMemberIconMovieClip(AptMovieClipFrame
 {
 }
 
-// ?ArmyMemberIconMovieClip::DoUpdate present-unmatched (pinned at 0x005FC9F8, rowed there as Rva005FC9F8::rva005FC9F8)
 void StrategicHUD::ArmyMemberIconMovieClip::DoUpdate()
 {
 	m_impl->Update();

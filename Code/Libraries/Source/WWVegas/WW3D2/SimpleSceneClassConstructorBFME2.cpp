@@ -46,7 +46,6 @@ class ChunkLoadClass;
 class SceneClass : public RefCountClass
 {
 public:
-    // ?SceneClass::SceneClass present-unmatched
     SceneClass()
         : AmbientLight(0.5f, 0.5f, 0.5f), PolyRenderMode(2),
           ExtraPassPolyRenderMode(0), FogEnabled(false),

@@ -148,7 +148,6 @@ CompositeRenderObjClass::~CompositeRenderObjClass(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::operator= present-unmatched
 CompositeRenderObjClass & CompositeRenderObjClass::operator = (const CompositeRenderObjClass & that)
 {
 	Set_Name(that.Get_Name());
@@ -169,7 +168,6 @@ CompositeRenderObjClass & CompositeRenderObjClass::operator = (const CompositeRe
  * HISTORY:                                                                                    *
  *   5/30/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Restart present-unmatched
 void CompositeRenderObjClass::Restart(void)
 {
 	for (int ni = 0; ni < Get_Num_Sub_Objects(); ni++) {
@@ -256,7 +254,6 @@ void CompositeRenderObjClass::Set_Base_Model_Name(const char *name)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Get_Num_Polys present-unmatched
 int CompositeRenderObjClass::Get_Num_Polys(void) const
 {
 	int count = 0;
@@ -282,7 +279,6 @@ int CompositeRenderObjClass::Get_Num_Polys(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Notify_Added present-unmatched
 void CompositeRenderObjClass::Notify_Added(SceneClass * scene)
 {
 	RenderObjClass::Notify_Added(scene);
@@ -307,7 +303,6 @@ void CompositeRenderObjClass::Notify_Added(SceneClass * scene)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Notify_Removed present-unmatched
 void CompositeRenderObjClass::Notify_Removed(SceneClass * scene)
 {
 	for (int ni = 0; ni < Get_Num_Sub_Objects(); ni++) {
@@ -332,7 +327,6 @@ void CompositeRenderObjClass::Notify_Removed(SceneClass * scene)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Cast_Ray present-unmatched
 bool CompositeRenderObjClass::Cast_Ray(RayCollisionTestClass & raytest)
 {
 	bool res = false;
@@ -436,7 +430,6 @@ bool CompositeRenderObjClass::Intersect_AABox(AABoxIntersectionTestClass & boxte
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Intersect_OBBox present-unmatched
 bool CompositeRenderObjClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)
 {
 	bool res = false;
@@ -462,7 +455,6 @@ bool CompositeRenderObjClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxte
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Update_Obj_Space_Bounding_Volumes present-unmatched
 void CompositeRenderObjClass::Update_Obj_Space_Bounding_Volumes(void)
 {
 	int i;
@@ -524,7 +516,6 @@ void CompositeRenderObjClass::Update_Obj_Space_Bounding_Volumes(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Set_User_Data present-unmatched
 void CompositeRenderObjClass::Set_User_Data(void *value, bool recursive)
 {
 	RenderObjClass::Set_User_Data(value);

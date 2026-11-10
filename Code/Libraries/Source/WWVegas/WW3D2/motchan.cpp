@@ -168,7 +168,6 @@ void __cdecl operator delete[](void *);
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?MotionChannelClass::MotionChannelClass present-unmatched
 MotionChannelClass::MotionChannelClass(void) :
 	PivotIdx(0),
 	Type(0),
@@ -211,7 +210,6 @@ MotionChannelClass::~MotionChannelClass(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?MotionChannelClass::Free present-unmatched
 void MotionChannelClass::Free(void)
 {
 	// BFME frees Data unconditionally: retail's 0x00978140 loads [esi+0x14],
@@ -232,7 +230,6 @@ void MotionChannelClass::Free(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?MotionChannelClass::Load_W3D present-unmatched
 bool MotionChannelClass::Load_W3D(ChunkLoadClass & cload)
 {
 	int size = cload.Cur_Chunk_Length();
@@ -280,7 +277,6 @@ bool MotionChannelClass::Load_W3D(ChunkLoadClass & cload)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?BitChannelClass::BitChannelClass present-unmatched
 BitChannelClass::BitChannelClass(void) :
 	PivotIdx(0),
 	Type(0),
@@ -357,7 +353,6 @@ void BitChannelClass::Free(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?TimeCodedMotionChannelClass::TimeCodedMotionChannelClass present-unmatched
 TimeCodedMotionChannelClass::TimeCodedMotionChannelClass(void) :
 	PivotIdx(0),
 	Type(0),
@@ -399,7 +394,6 @@ TimeCodedMotionChannelClass::~TimeCodedMotionChannelClass(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?TimeCodedMotionChannelClass::Free present-unmatched
 void TimeCodedMotionChannelClass::Free(void)
 {
 	// No null test, as in MotionChannelClass::Free: retail's 0x00978180 loads
@@ -600,7 +594,6 @@ void TimeCodedBitChannelClass::Free(void)
  * HISTORY:                                                                                    *
  *   1/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?TimeCodedBitChannelClass::Load_W3D present-unmatched
 bool TimeCodedBitChannelClass::Load_W3D(ChunkLoadClass & cload)
 {
 	Free();
@@ -647,7 +640,6 @@ bool TimeCodedBitChannelClass::Load_W3D(ChunkLoadClass & cload)
  * HISTORY:                                                                                    *
  *   1/21/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?TimeCodedBitChannelClass::Get_Bit present-unmatched
 int TimeCodedBitChannelClass::Get_Bit(int frame)
 {		
 	assert(frame >= 0);	 

@@ -27,7 +27,6 @@ template<> inline void allocator<ScienceType>::deallocate(ScienceType*p,unsigned
 }
 class Rva0043D193Base {
 public: virtual void f0()=0;virtual void f1()=0;virtual void f2()=0;
-// ?Rva0043D193Base::~Rva0043D193Base present-unmatched
 ~Rva0043D193Base() {}
 };
 class __declspec(novtable) Rva0043D193:public Rva0043D193Base {

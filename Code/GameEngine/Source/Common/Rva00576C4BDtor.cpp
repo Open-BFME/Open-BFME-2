@@ -133,7 +133,6 @@ class Listener00576C4B
 public:
 	Listener00576C4B();
 	~Listener00576C4B() {}
-	// ?Listener00576C4B::rva00576ACB present-unmatched
 	virtual void rva00576ACB(void *, void *) {}
 
 };

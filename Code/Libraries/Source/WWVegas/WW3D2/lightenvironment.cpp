@@ -405,7 +405,6 @@ void LightEnvironmentClass::Add_Fill_Light(void)
 ** This final light is used to support the top 3 lights by providing a calulated fill to augment the lights.
 **
 ************************************************************************************************/
-// ?LightEnvironmentClass::Calculate_Fill_Light present-unmatched
 void LightEnvironmentClass::Calculate_Fill_Light(void)
 {	
 

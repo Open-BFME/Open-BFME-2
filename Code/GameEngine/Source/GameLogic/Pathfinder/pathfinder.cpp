@@ -878,7 +878,6 @@ void Pathfinder::ForceMapRecalculation()
 // WB 0xD3EA20 dispatches the ground-layer line test to the rowed helper.
 // The retail ABI reuses endWorld's dead parameter slot for callback context.
 #pragma optimize("y", off)
-// ?Pathfinder::IsGroundLineOnly present-unmatched
 Bool Pathfinder::IsGroundLineOnly(const Coord3D *startWorld,
 	const Coord3D *endWorld)
 {

@@ -35,7 +35,6 @@ class Rva00177860TextureRef
 public:
 	// ?Rva00177860TextureRef::Rva00177860TextureRef present-unmatched
 	Rva00177860TextureRef() : m_ptr(0) {}
-	// ?Rva00177860TextureRef::~Rva00177860TextureRef present-unmatched
 	~Rva00177860TextureRef()
 	{
 		if (m_ptr)

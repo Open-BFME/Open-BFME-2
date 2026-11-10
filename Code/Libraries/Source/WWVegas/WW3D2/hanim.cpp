@@ -187,7 +187,6 @@ HAnimComboClass::HAnimComboClass(void)
 
 // Get_Motion is defined in HAnimComboClassGetMotion.cpp.
 
-// ?HAnimComboClass::Peek_Motion present-unmatched
 __declspec(noinline) inline HAnimClass *HAnimComboClass::Peek_Motion( int index )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];
@@ -197,7 +196,6 @@ __declspec(noinline) inline HAnimClass *HAnimComboClass::Peek_Motion( int index 
 	return anim;
 }
 
-// ?HAnimComboClass::Set_Frame present-unmatched
 void	HAnimComboClass::Set_Frame( int index, float frame )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];
@@ -206,7 +204,6 @@ void	HAnimComboClass::Set_Frame( int index, float frame )
 	data->Set_Frame(frame);
 }
 
-// ?HAnimComboClass::Get_Frame present-unmatched
 float	HAnimComboClass::Get_Frame( int index )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];
@@ -215,7 +212,6 @@ float	HAnimComboClass::Get_Frame( int index )
 	return data->Get_Frame();
 }
 
-// ?HAnimComboClass::Set_Weight present-unmatched
 __declspec(noinline) inline void	HAnimComboClass::Set_Weight( int index, float weight )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];
@@ -224,7 +220,6 @@ __declspec(noinline) inline void	HAnimComboClass::Set_Weight( int index, float w
 	data->Set_Weight(weight);
 }
 
-// ?HAnimComboClass::Get_Weight present-unmatched
 __declspec(noinline) inline float	HAnimComboClass::Get_Weight( int index )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];
@@ -236,7 +231,6 @@ __declspec(noinline) inline float	HAnimComboClass::Get_Weight( int index )
 
 // Get_Pivot_Weight_Map has the same /G7 provider as Get_Motion.
 
-// ?HAnimComboClass::Peek_Pivot_Weight_Map present-unmatched
 __declspec(noinline) inline PivotMapClass	*HAnimComboClass::Peek_Pivot_Weight_Map( int index )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];

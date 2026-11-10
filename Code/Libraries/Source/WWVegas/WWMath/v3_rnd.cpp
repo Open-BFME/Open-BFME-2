@@ -103,7 +103,6 @@ void Vector3SolidBoxRandomizer::Scale(float scale)
 	Extents.Z *= scale;
 }
 
-// ?Vector3SolidSphereRandomizer::Vector3SolidSphereRandomizer present-unmatched
 Vector3SolidSphereRandomizer::Vector3SolidSphereRandomizer(float radius)
 {
 	Radius = MAX(radius, 0.0f);
@@ -123,14 +122,12 @@ void Vector3SolidSphereRandomizer::Get_Vector(Vector3 &vector)
 
 // Vector3SolidSphereRandomizer::Get_Maximum_Extent: defined in Vector3SolidSphereRandomizerExtent.cpp (its row's unit).
 
-// ?Vector3SolidSphereRandomizer::Scale present-unmatched
 void Vector3SolidSphereRandomizer::Scale(float scale)
 {
 	scale = MAX(scale, 0.0f);
 	Radius *= scale;
 }
 
-// ?Vector3HollowSphereRandomizer::Vector3HollowSphereRandomizer present-unmatched
 Vector3HollowSphereRandomizer::Vector3HollowSphereRandomizer(float radius)
 {
 	Radius = MAX(radius, 0.0f);
@@ -156,13 +153,11 @@ void Vector3HollowSphereRandomizer::Get_Vector(Vector3 &vector)
 	vector.Z *= scale;
 }
 
-// ?Vector3HollowSphereRandomizer::Get_Maximum_Extent present-unmatched
 float Vector3HollowSphereRandomizer::Get_Maximum_Extent(void)
 {
 	return Radius;
 }
 
-// ?Vector3HollowSphereRandomizer::Scale present-unmatched
 void Vector3HollowSphereRandomizer::Scale(float scale)
 {
 	scale = MAX(scale, 0.0f);
@@ -192,7 +187,6 @@ void Vector3SolidCylinderRandomizer::Get_Vector(Vector3 &vector)
 	vector.Z = vec2.Y;
 }
 
-// ?Vector3SolidCylinderRandomizer::Get_Maximum_Extent present-unmatched
 float Vector3SolidCylinderRandomizer::Get_Maximum_Extent(void)
 {
 	return MAX(Extent, Radius);

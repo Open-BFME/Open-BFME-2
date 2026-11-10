@@ -89,7 +89,6 @@ const char *EMITTER_TYPE_NAMES[EMITTER_TYPEID_COUNT] =
 //
 //	ParticleEmitterDefClass
 //
-// ?ParticleEmitterDefClass::ParticleEmitterDefClass present-unmatched
 ParticleEmitterDefClass::ParticleEmitterDefClass (void)
 	:	m_pName (NULL),
 		m_Version (0L),
@@ -118,7 +117,6 @@ ParticleEmitterDefClass::ParticleEmitterDefClass (void)
 //
 //	ParticleEmitterDefClass
 //
-// ?ParticleEmitterDefClass::ParticleEmitterDefClass present-unmatched
 ParticleEmitterDefClass::ParticleEmitterDefClass (const ParticleEmitterDefClass &src)
 	:	m_pName (NULL),
 		m_Version (0L),
@@ -619,7 +617,6 @@ ParticleEmitterDefClass::Save_Props (ChunkSaveClass &chunk_save)
 //	Save_Color_Keyframes
 //
 bool
-// ?ParticleEmitterDefClass::Save_Color_Keyframes present-unmatched
 ParticleEmitterDefClass::Save_Color_Keyframes (ChunkSaveClass &chunk_save)
 {
 	// Assume error
@@ -658,7 +655,6 @@ ParticleEmitterDefClass::Save_Color_Keyframes (ChunkSaveClass &chunk_save)
 //	Save_Opacity_Keyframes
 //
 bool
-// ?ParticleEmitterDefClass::Save_Opacity_Keyframes present-unmatched
 ParticleEmitterDefClass::Save_Opacity_Keyframes (ChunkSaveClass &chunk_save)
 {
 	// Assume error
@@ -697,7 +693,6 @@ ParticleEmitterDefClass::Save_Opacity_Keyframes (ChunkSaveClass &chunk_save)
 //	Save_Size_Keyframes
 //
 bool
-// ?ParticleEmitterDefClass::Save_Size_Keyframes present-unmatched
 ParticleEmitterDefClass::Save_Size_Keyframes (ChunkSaveClass &chunk_save)
 {
 	// Assume error
@@ -850,7 +845,6 @@ ParticleEmitterDefClass::Set_Blur_Time_Keyframes (ParticlePropertyStruct<float> 
 //	Get_Color_Keyframes
 //
 void
-// ?ParticleEmitterDefClass::Get_Color_Keyframes present-unmatched
 ParticleEmitterDefClass::Get_Color_Keyframes (ParticlePropertyStruct<Vector3> &keyframes) const
 {
 	::Copy_Emitter_Property_Struct (keyframes, m_ColorKeyframes);
@@ -863,7 +857,6 @@ ParticleEmitterDefClass::Get_Color_Keyframes (ParticlePropertyStruct<Vector3> &k
 //	Get_Opacity_Keyframes
 //
 void
-// ?ParticleEmitterDefClass::Get_Opacity_Keyframes present-unmatched
 ParticleEmitterDefClass::Get_Opacity_Keyframes (ParticlePropertyStruct<float> &keyframes) const
 {
 	::Copy_Emitter_Property_Struct (keyframes, m_OpacityKeyframes);
@@ -876,7 +869,6 @@ ParticleEmitterDefClass::Get_Opacity_Keyframes (ParticlePropertyStruct<float> &k
 //	Get_Size_Keyframes
 //
 void
-// ?ParticleEmitterDefClass::Get_Size_Keyframes present-unmatched
 ParticleEmitterDefClass::Get_Size_Keyframes (ParticlePropertyStruct<float> &keyframes) const
 {
 	::Copy_Emitter_Property_Struct (keyframes, m_SizeKeyframes);
@@ -888,7 +880,6 @@ ParticleEmitterDefClass::Get_Size_Keyframes (ParticlePropertyStruct<float> &keyf
 //	Get_Rotation_Keyframes
 //
 void
-// ?ParticleEmitterDefClass::Get_Rotation_Keyframes present-unmatched
 ParticleEmitterDefClass::Get_Rotation_Keyframes (ParticlePropertyStruct<float> &keyframes) const
 {
 	::Copy_Emitter_Property_Struct (keyframes, m_RotationKeyframes);
@@ -901,7 +892,6 @@ ParticleEmitterDefClass::Get_Rotation_Keyframes (ParticlePropertyStruct<float> &
 //	Get_Frame_Keyframes
 //
 void 
-// ?ParticleEmitterDefClass::Get_Frame_Keyframes present-unmatched
 ParticleEmitterDefClass::Get_Frame_Keyframes (ParticlePropertyStruct<float> &keyframes) const
 {
 	::Copy_Emitter_Property_Struct (keyframes, m_FrameKeyframes);
@@ -913,7 +903,6 @@ ParticleEmitterDefClass::Get_Frame_Keyframes (ParticlePropertyStruct<float> &key
 //	Get_Blur_Time_Keyframes
 //
 void
-// ?ParticleEmitterDefClass::Get_Blur_Time_Keyframes present-unmatched
 ParticleEmitterDefClass::Get_Blur_Time_Keyframes (ParticlePropertyStruct<float> &blurtimeframes) const
 {
 	::Copy_Emitter_Property_Struct (blurtimeframes, m_BlurTimeKeyframes);

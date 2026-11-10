@@ -153,7 +153,6 @@ unsigned DebugStackwalk::Signature::GetAddress(int n) const
   return m_addr[n];
 }
 
-// ?GetSymbol@Signature@@ present-unmatched
 void DebugStackwalk::Signature::GetSymbol(unsigned addr, char *buf, unsigned bufSize) 
 {
   DFAIL_IF(!buf) return;

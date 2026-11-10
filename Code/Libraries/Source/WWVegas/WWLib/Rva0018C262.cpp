@@ -15,7 +15,6 @@ struct Rva0018C262Head {
 	Rva0018C262Head *m_0C;
 };
 namespace _STL { void __cdecl free(void *block); }
-// ?Rva0018C262HeaderOwner::~Rva0018C262HeaderOwner present-unmatched
 struct Rva0018C262HeaderOwner {
 	Rva0018C262Head *m_head;
 	inline ~Rva0018C262HeaderOwner() {

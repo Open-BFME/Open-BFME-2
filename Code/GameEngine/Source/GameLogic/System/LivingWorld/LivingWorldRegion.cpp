@@ -571,7 +571,6 @@ CreateAHeroData *Rva003F1093::rva003F083A(void *key)
     return 0;
 }
 
-// ?LivingWorldRegion::rva003F0588 present-unmatched
 // Native3F0588..3F05CE and WB103FFE0 scan the established build-plot vector
 // at170, returning the first plot with no building at20. Original name unknown.
 void *LivingWorldRegion::rva003F0588()
@@ -581,7 +580,6 @@ void *LivingWorldRegion::rva003F0588()
  return 0;
 }
 
-// ?LivingWorldRegion::rva003F1053 present-unmatched
 // Native3F1053..3F1093 and WB1040630 count plots with a null building20.
 Int LivingWorldRegion::rva003F1053()
 {

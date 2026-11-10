@@ -134,7 +134,6 @@ UpdateSleepTime ProjectileStreamUpdate::update( void )
 	return UPDATE_SLEEP_NONE;
 }
 
-// ?ProjectileStreamUpdate::addProjectile present-unmatched
 void ProjectileStreamUpdate::addProjectile( ObjectID sourceID, ObjectID newID, ObjectID victimID, const Coord3D *victimPos )
 {
 	DEBUG_ASSERTCRASH( m_owningObject == INVALID_ID  ||  m_owningObject == sourceID, ("Two objects are trying to use the same Projectile stream.") );//Don't cross the streams!

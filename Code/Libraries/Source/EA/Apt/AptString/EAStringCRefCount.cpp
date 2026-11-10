@@ -570,7 +570,6 @@ bool EAStringC::rva006D36F0(const EAStringC *other) const
 #pragma comment(linker, "/alternatename:??1S4Mem005879C0@@QAE@XZ=??1EAStringC@@QAE@XZ")
 
 // Inline empty construction is shared by the native Left return path.
-// ?EAStringC::EAStringC present-unmatched
 inline EAStringC::EAStringC()
 {
 	data = &g_eaEmptyStringData;

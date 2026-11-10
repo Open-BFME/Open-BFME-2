@@ -116,7 +116,6 @@ void SidesListNotifier::post(void (Rva00281A15Listener::*callback)(void *), void
     p.owner=owner;
     dispatch(&p);
 }
-// ?SidesList::~SidesList present-unmatched
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline SidesList::~SidesList()

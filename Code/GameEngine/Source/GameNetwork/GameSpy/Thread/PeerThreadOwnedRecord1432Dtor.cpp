@@ -25,7 +25,6 @@ public:
 
 struct BfmeOwnedBuffer12
 {
-	// ?BfmeOwnedBuffer12::~BfmeOwnedBuffer12 present-unmatched (inline in the body; this unit emits a copy for its unwind funclets)
 	void *m_start;
 	void *m_finish;
 	void *m_end;

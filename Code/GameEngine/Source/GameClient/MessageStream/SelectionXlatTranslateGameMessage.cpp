@@ -700,7 +700,6 @@ static Bool areAllSelected(const DrawableList& listToCheck)
  return true;
 
 }
-// ?SelectionTranslator::translateGameMessage present-unmatched  // retail 0x0043003C body is a banked partial; retained because it fixes the private EBX call ABI of the 0x0042FA0D helper
 class InGameUISlot17C { public:
  virtual void s0();
  virtual void s1();

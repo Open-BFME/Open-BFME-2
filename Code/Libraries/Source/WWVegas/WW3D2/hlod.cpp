@@ -342,7 +342,6 @@ RenderObjClass * HLodPrototypeClass::Create(void)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?HLodDefClass::HLodDefClass present-unmatched
 HLodDefClass::HLodDefClass(void) : 
 	Name(NULL),
 	HierarchyTreeName(NULL),
@@ -365,7 +364,6 @@ HLodDefClass::HLodDefClass(void) :
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodDefClass::HLodDefClass present-unmatched
 HLodDefClass::HLodDefClass(HLodClass &src_lod) :
 	Name(NULL),
 	HierarchyTreeName(NULL),
@@ -390,7 +388,6 @@ HLodDefClass::HLodDefClass(HLodClass &src_lod) :
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodDefClass::~HLodDefClass present-unmatched
 HLodDefClass::~HLodDefClass(void)
 {
 	Free ();
@@ -410,7 +407,6 @@ HLodDefClass::~HLodDefClass(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodDefClass::Free present-unmatched
 void HLodDefClass::Free(void)
 {
 	if (Name) {
@@ -447,7 +443,6 @@ void HLodDefClass::Free(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodDefClass::Initialize present-unmatched
 void HLodDefClass::Initialize(HLodClass &src_lod)
 {
 	// Start with a fresh set of data
@@ -558,7 +553,6 @@ void HLodDefClass::Initialize(HLodClass &src_lod)
  * HISTORY:                                                                                    *
  *   10/25/2000 gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodDefClass::Save_Aggregate_Array present-unmatched
 bool HLodDefClass::Save_Aggregate_Array(ChunkSaveClass & csave)
 {
 	if (Aggregates.ModelCount > 0) {
@@ -666,7 +660,6 @@ WW3DErrorType HLodDefClass::Load_W3D(ChunkLoadClass & cload)
  * HISTORY:                                                                                    *
  *   10/27/2000 gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodDefClass::read_proxy_array present-unmatched
 inline bool HLodDefClass::read_proxy_array(ChunkLoadClass & cload)
 {
 	REF_PTR_RELEASE(ProxyArray);
@@ -712,7 +705,6 @@ inline bool HLodDefClass::read_proxy_array(ChunkLoadClass & cload)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?HLodDefClass::SubObjectArrayClass::SubObjectArrayClass present-unmatched
 HLodDefClass::SubObjectArrayClass::SubObjectArrayClass(void) : 
 	MaxScreenSize(NO_MAX_SCREEN_SIZE),
 	ModelCount(0),
@@ -905,7 +897,6 @@ bool HLodDefClass::SubObjectArrayClass::Save_W3D(ChunkSaveClass &csave)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?HLodClass::HLodClass present-unmatched
 HLodClass::HLodClass(void) : 
 	Animatable3DObjClass(NULL),
 	LodCount(0),
@@ -934,7 +925,6 @@ HLodClass::HLodClass(void) :
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::HLodClass present-unmatched
 HLodClass::HLodClass(const HLodClass & src) : 
 	Animatable3DObjClass(src),
 	LodCount(0),
@@ -1168,7 +1158,6 @@ HLodClass::HLodClass(const HLodDefClass & def) :
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::HLodClass present-unmatched
 HLodClass::HLodClass(const HModelDefClass & def) : 
 	Animatable3DObjClass(def.BasePoseName),
 	LodCount(0),
@@ -1241,7 +1230,6 @@ HLodClass::HLodClass(const HModelDefClass & def) :
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::operator= present-unmatched
 HLodClass & HLodClass::operator = (const HLodClass & that)
 {
 	int lod,model;
@@ -1350,7 +1338,6 @@ HLodClass::~HLodClass(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Free present-unmatched
 void HLodClass::Free(void)
 {
 	int lod,model;
@@ -1411,7 +1398,6 @@ void HLodClass::Free(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Clone present-unmatched
 RenderObjClass * HLodClass::Clone(void) const
 {
 	return ::new HLodClass(*this);
@@ -1484,7 +1470,6 @@ void HLodClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
  * HISTORY:                                                                                    *
  *   4/13/00    pds : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Obj_Space_Bounding_Sphere present-unmatched
 void HLodClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	AABoxClass box;
@@ -1506,7 +1491,6 @@ void HLodClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
  * HISTORY:                                                                                    *
  *   4/13/00    pds : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Bounding_Sphere present-unmatched
 const SphereClass &HLodClass::Get_Bounding_Sphere(void) const
 {
 	if (BoundingBoxIndex >= 0) {
@@ -1582,7 +1566,6 @@ const AABoxClass &HLodClass::Get_Bounding_Box(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_Max_Screen_Size present-unmatched
 void HLodClass::Set_Max_Screen_Size(int lod_index, float size)
 {
 	// Params valid?
@@ -1724,7 +1707,6 @@ int HLodClass::Get_Lod_Model_Count(int lod_index) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Peek_Lod_Model present-unmatched
 RenderObjClass *HLodClass::Peek_Lod_Model(int lod_index, int model_index) const
 {
 	RenderObjClass *pmodel = NULL;
@@ -1757,7 +1739,6 @@ RenderObjClass *HLodClass::Peek_Lod_Model(int lod_index, int model_index) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Lod_Model present-unmatched
 RenderObjClass *HLodClass::Get_Lod_Model(int lod_index, int model_index) const
 {
 	RenderObjClass *pmodel = NULL;
@@ -1793,7 +1774,6 @@ RenderObjClass *HLodClass::Get_Lod_Model(int lod_index, int model_index) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Lod_Model_Bone present-unmatched
 int HLodClass::Get_Lod_Model_Bone(int lod_index, int model_index) const
 {
 	int bone_index = 0;
@@ -1826,7 +1806,6 @@ int HLodClass::Get_Lod_Model_Bone(int lod_index, int model_index) const
  * HISTORY:                                                                                    *
  *   8/23/00    NH : Created.                                                                  *
  *=============================================================================================*/
-// ?HLodClass::Get_Additional_Model_Count present-unmatched
 int HLodClass::Get_Additional_Model_Count(void) const
 {
 	return AdditionalModels.Count();
@@ -2070,7 +2049,6 @@ void HLodClass::Include_NULL_Lod(bool include)
  * HISTORY:                                                                                    *
  *   10/27/2000 gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Proxy_Count present-unmatched
 int HLodClass::Get_Proxy_Count(void) const
 {
 	if (ProxyArray != NULL) {
@@ -2108,7 +2086,6 @@ int HLodClass::Get_Proxy_Count(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Num_Polys present-unmatched
 int HLodClass::Get_Num_Polys(void) const
 {
 	int polycount = 0;
@@ -2143,7 +2120,6 @@ int HLodClass::Get_Num_Polys(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Render present-unmatched
 void HLodClass::Render(RenderInfoClass & rinfo)
 {
 	int i;
@@ -2243,7 +2219,6 @@ void HLodClass::Set_Transform(const Matrix3D &matrix3D)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_Position present-unmatched
 void HLodClass::Set_Position(const Vector3 &v)
 {
 	Animatable3DObjClass::Set_Position(v); 
@@ -2263,7 +2238,6 @@ void HLodClass::Set_Position(const Vector3 &v)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Notify_Added present-unmatched
 void HLodClass::Notify_Added(SceneClass * scene)
 {
 	RenderObjClass::Notify_Added(scene);
@@ -2292,7 +2266,6 @@ void HLodClass::Notify_Added(SceneClass * scene)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Notify_Removed present-unmatched
 void HLodClass::Notify_Removed(SceneClass * scene)
 {
 	int i;
@@ -2321,7 +2294,6 @@ void HLodClass::Notify_Removed(SceneClass * scene)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Num_Sub_Objects present-unmatched
 int HLodClass::Get_Num_Sub_Objects(void) const
 {
 	// BFME: retail tail-calls vtable slot 28 (Lod counts) and adds
@@ -2353,7 +2325,6 @@ int HLodClass::_bfme_ro_v28(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Sub_Object present-unmatched
 RenderObjClass * HLodClass::Get_Sub_Object(int index) const
 {
 	WWASSERT(index >= 0);
@@ -2401,7 +2372,6 @@ int HLodClass::Add_Sub_Object(RenderObjClass * subobj)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Remove_Sub_Object present-unmatched
 int HLodClass::Remove_Sub_Object(RenderObjClass * removeme)
 {
 	// no object given?
@@ -2477,7 +2447,6 @@ int HLodClass::Remove_Sub_Object(RenderObjClass * removeme)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Num_Sub_Objects_On_Bone present-unmatched
 int HLodClass::Get_Num_Sub_Objects_On_Bone(int boneindex) const
 {
 	int count = 0;
@@ -2506,7 +2475,6 @@ int HLodClass::Get_Num_Sub_Objects_On_Bone(int boneindex) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Sub_Object_On_Bone present-unmatched
 RenderObjClass * HLodClass::Get_Sub_Object_On_Bone(int index,int boneindex) const
 {
 	int count = 0;
@@ -2546,7 +2514,6 @@ RenderObjClass * HLodClass::Get_Sub_Object_On_Bone(int index,int boneindex) cons
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Sub_Object_Bone_Index present-unmatched
 int HLodClass::Get_Sub_Object_Bone_Index(RenderObjClass * subobj) const
 {
 	for (int lod = 0; lod < LodCount; lod++) {
@@ -2565,7 +2532,6 @@ int HLodClass::Get_Sub_Object_Bone_Index(RenderObjClass * subobj) const
 }
 
 //Custom version of above function for cases where we know the lod/model index. -MW
-// ?HLodClass::Get_Sub_Object_Bone_Index present-unmatched
 int HLodClass::Get_Sub_Object_Bone_Index(int LodIndex, int ModelIndex)	const
 {
 	return Lod[LodIndex][ModelIndex].BoneIndex;
@@ -2598,7 +2564,6 @@ int HLodClass::Get_Sub_Object_Bone_Index(int LodIndex, int ModelIndex)	const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_Animation present-unmatched
 void HLodClass::Set_Animation(void)
 {
 	Animatable3DObjClass::Set_Animation(); 
@@ -2618,7 +2583,6 @@ void HLodClass::Set_Animation(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_Animation present-unmatched
 void HLodClass::Set_Animation(HAnimClass * motion,float frame,int mode)
 {
 	Animatable3DObjClass::Set_Animation(motion,frame,mode);
@@ -2664,7 +2628,6 @@ void HLodClass::Set_Animation
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_Animation present-unmatched
 void HLodClass::Set_Animation(HAnimComboClass * anim_combo)
 {
 	Animatable3DObjClass::Set_Animation(anim_combo);
@@ -2807,7 +2770,6 @@ bool HLodClass::Intersect_AABox(AABoxIntersectionTestClass & boxtest)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Intersect_OBBox present-unmatched
 bool HLodClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)
 {
 	if (Are_Sub_Object_Transforms_Dirty ()) {
@@ -3050,7 +3012,6 @@ void HLodClass::Recalculate_Static_LOD_Factors(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Increment_LOD present-unmatched
 void HLodClass::Increment_LOD(void)
 {
 	if (CurLod >= (LodCount-1)) return;
@@ -3085,7 +3046,6 @@ void HLodClass::Increment_LOD(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Decrement_LOD present-unmatched
 void HLodClass::Decrement_LOD(void)
 {
 	if (CurLod < 1) return;
@@ -3120,7 +3080,6 @@ void HLodClass::Decrement_LOD(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Cost present-unmatched
 float HLodClass::Get_Cost(void) const
 {
 	return(Cost[CurLod]);
@@ -3139,7 +3098,6 @@ float HLodClass::Get_Cost(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Value present-unmatched
 float HLodClass::Get_Value(void) const
 {
 	return(Value[CurLod]);
@@ -3158,7 +3116,6 @@ float HLodClass::Get_Value(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Post_Increment_Value present-unmatched
 float HLodClass::Get_Post_Increment_Value(void) const
 {
 	return(Value[CurLod + 1]);
@@ -3177,7 +3134,6 @@ float HLodClass::Get_Post_Increment_Value(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Set_LOD_Level present-unmatched
 void HLodClass::Set_LOD_Level(int lod)
 {
 	lod = MAX(0, lod);
@@ -3216,7 +3172,6 @@ void HLodClass::Set_LOD_Level(int lod)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_LOD_Level present-unmatched
 int HLodClass::Get_LOD_Level(void) const
 {
 	return CurLod;
@@ -3254,7 +3209,6 @@ int HLodClass::Get_LOD_Count(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Calculate_Cost_Value_Arrays present-unmatched
 int HLodClass::Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const
 {
 	int lod = 0;
@@ -3500,7 +3454,6 @@ void HLodClass::Scale(float scale)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Num_Snap_Points present-unmatched
 int HLodClass::Get_Num_Snap_Points(void)
 {
 	if (SnapPoints) {
@@ -3523,7 +3476,6 @@ int HLodClass::Get_Num_Snap_Points(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Snap_Point present-unmatched
 void HLodClass::Get_Snap_Point(int index,Vector3 * set)
 {
 	WWASSERT(set != NULL);

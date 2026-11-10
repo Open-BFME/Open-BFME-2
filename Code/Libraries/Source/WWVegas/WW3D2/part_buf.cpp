@@ -914,14 +914,12 @@ RenderObjClass * ParticleBufferClass::Clone(void) const
 }
 
 
-// ?ParticleBufferClass::Get_Num_Polys present-unmatched
 int ParticleBufferClass::Get_Num_Polys(void) const
 {
 	// Currently in particle buffers, the cost happens to be equal to thwe polygon count.
 	return (int)Get_Cost();
 }
 
-// ?ParticleBufferClass::Get_Particle_Count present-unmatched
 int ParticleBufferClass::Get_Particle_Count(void) const
 {
 	return NonNewNum + NewNum;
@@ -1276,7 +1274,6 @@ struct ParticleEmitterEmitView
 	virtual void Emit();
 };
 #undef BFME_EMIT_VIEW_EIGHT
-// ?ParticleBufferClass::On_Frame_Update present-unmatched
 void ParticleBufferClass::On_Frame_Update(void)
 {
 	WWPROFILE("ParticleBufferClass::On_Frame_Update");
@@ -1292,7 +1289,6 @@ void ParticleBufferClass::On_Frame_Update(void)
 }
 
 
-// ?ParticleBufferClass::Notify_Added present-unmatched
 void ParticleBufferClass::Notify_Added(SceneClass * scene)
 {
 	RenderObjClass::Notify_Added(scene);
@@ -1300,7 +1296,6 @@ void ParticleBufferClass::Notify_Added(SceneClass * scene)
 }
 
 
-// ?ParticleBufferClass::Notify_Removed present-unmatched
 void ParticleBufferClass::Notify_Removed(SceneClass * scene)
 {
 	scene->Unregister(this,SceneClass::ON_FRAME_UPDATE);
@@ -1406,13 +1401,11 @@ void ParticleBufferClass::Set_LOD_Level(int lod)
 	DecimationThreshold = (LodCount - 1) - lod;
 }
 
-// ?ParticleBufferClass::Get_LOD_Level present-unmatched
 int ParticleBufferClass::Get_LOD_Level(void) const
 {
 	return((LodCount - 1) - DecimationThreshold);
 }
 
-// ?ParticleBufferClass::Get_LOD_Count present-unmatched
 int ParticleBufferClass::Get_LOD_Count(void) const
 {
 	return LodCount;
@@ -3460,7 +3453,6 @@ float ParticleBufferClass::Get_LOD_Max_Screen_Size(int lod_level)
 }
 
 
-// ?ParticleBufferClass::Get_Line_Texture_Mapping_Mode present-unmatched
 int ParticleBufferClass::Get_Line_Texture_Mapping_Mode(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3469,7 +3461,6 @@ int ParticleBufferClass::Get_Line_Texture_Mapping_Mode(void) const
 	return SegLineRendererClass::UNIFORM_WIDTH_TEXTURE_MAP;
 }
 
-// ?ParticleBufferClass::Is_Merge_Intersections present-unmatched
 int ParticleBufferClass::Is_Merge_Intersections(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3478,7 +3469,6 @@ int ParticleBufferClass::Is_Merge_Intersections(void) const
 	return false;
 }
 
-// ?ParticleBufferClass::Is_Freeze_Random present-unmatched
 inline int ParticleBufferClass::Is_Freeze_Random(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3487,7 +3477,6 @@ inline int ParticleBufferClass::Is_Freeze_Random(void) const
 	return false;
 }
 
-// ?ParticleBufferClass::Is_Sorting_Disabled present-unmatched
 int ParticleBufferClass::Is_Sorting_Disabled(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3496,7 +3485,6 @@ int ParticleBufferClass::Is_Sorting_Disabled(void) const
 	return false;
 }
 
-// ?ParticleBufferClass::Are_End_Caps_Enabled present-unmatched
 int ParticleBufferClass::Are_End_Caps_Enabled(void)	const
 {
 	if (LineRenderer != NULL) {
@@ -3505,7 +3493,6 @@ int ParticleBufferClass::Are_End_Caps_Enabled(void)	const
 	return false;
 }
 
-// ?ParticleBufferClass::Get_Subdivision_Level present-unmatched
 int ParticleBufferClass::Get_Subdivision_Level(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3514,7 +3501,6 @@ int ParticleBufferClass::Get_Subdivision_Level(void) const
 	return 0;
 }
 
-// ?ParticleBufferClass::Get_Noise_Amplitude present-unmatched
 float ParticleBufferClass::Get_Noise_Amplitude(void) const
 {
 	if (LineRenderer != NULL) {
@@ -3595,7 +3581,6 @@ struct BFME_ParticleBuffer_GroupFields
 	LineGroupClass *lineGroup;				// 0x20c
 };
 
-// ?ParticleBufferClass::Get_Texture present-unmatched
 // BFME's group classes return the texture handle BY VALUE, not a raw pointer.
 // Retail forwards our own sret straight into them -- `mov esi,[esp+0Ch] /
 // push esi / call` and then `mov eax,esi` -- where constructing a handle from

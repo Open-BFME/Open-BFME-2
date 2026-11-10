@@ -165,13 +165,11 @@ void NamedPivotMapClass::Update_Pivot_Map(const HTreeClass *Tree)
 DEFINE_AUTO_POOL(HAnimComboDataClass,256);
 
 
-// ?HAnimComboDataClass::HAnimComboDataClass present-unmatched
 HAnimComboDataClass::HAnimComboDataClass(bool shared) 
 : Shared(shared), HAnim(0), PivotMap(0), Frame(0), Weight(1) 
 {}
 
 
-// ?HAnimComboDataClass::HAnimComboDataClass present-unmatched
 HAnimComboDataClass::HAnimComboDataClass(const HAnimComboDataClass &src)
 :	PivotMap(src.Get_Pivot_Map()),
 	HAnim(src.Get_HAnim())
@@ -181,7 +179,6 @@ HAnimComboDataClass::HAnimComboDataClass(const HAnimComboDataClass &src)
 	Weight = src.Get_Weight();
 }
 
-// ?HAnimComboDataClass::Copy present-unmatched
 void HAnimComboDataClass::Copy(const HAnimComboDataClass *src)
 {
 	if(src) {
@@ -197,7 +194,6 @@ void HAnimComboDataClass::Copy(const HAnimComboDataClass *src)
 	}
 }
 
-// ?HAnimComboDataClass::Clear present-unmatched
 void HAnimComboDataClass::Clear(void) 
 {
 	if ( HAnim != NULL ) {
@@ -229,7 +225,6 @@ inline void HAnimComboDataClass::Set_HAnim(HAnimClass *motion)
 }
 
 
-// ?HAnimComboDataClass::Set_Pivot_Map present-unmatched
 void HAnimComboDataClass::Set_Pivot_Map(PivotMapClass *map)
 {
 	if ( map != NULL ) {
@@ -245,7 +240,6 @@ void HAnimComboDataClass::Set_Pivot_Map(PivotMapClass *map)
 **	This function will replace the current pivot map (if any) with another pivot map that is
 ** set to 1 for only those pivot indices that actually have data.
 */
-// ?HAnimComboDataClass::Build_Active_Pivot_Map present-unmatched
 void HAnimComboDataClass::Build_Active_Pivot_Map(void) 
 {
 	if ( PivotMap != NULL ) {
@@ -291,7 +285,6 @@ HAnimComboClass::HAnimComboClass( int num_animations )
 // ??1HAnimComboClass@@QAE@XZ is rowed in its own unit; this copy collided with it.
 
 
-// ?HAnimComboClass::Clear present-unmatched
 void	HAnimComboClass::Clear( void )
 {
 	int numAnimations = HAnimComboData.Count();
@@ -302,7 +295,6 @@ void	HAnimComboClass::Clear( void )
 	}
 }
 
-// ?HAnimComboClass::Normalize_Weights present-unmatched
 bool	HAnimComboClass::Normalize_Weights(void)
 {
 	// NOTE: This can only work if either no anims have pivot weight maps (in which case we will
@@ -423,7 +415,6 @@ inline float	HAnimComboClass::Get_Weight( int index )
 	return data->Get_Weight();
 }
 
-// ?HAnimComboClass::Set_Pivot_Weight_Map present-unmatched
 void	HAnimComboClass::Set_Pivot_Weight_Map( int index, PivotMapClass *map )
 {
 	HAnimComboDataClass *data = HAnimComboData[index];

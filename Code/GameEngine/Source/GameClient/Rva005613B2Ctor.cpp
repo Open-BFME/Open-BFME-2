@@ -79,15 +79,12 @@ Rva00560A58::Rva00560A58() {
  Rva005C7889Init();
  g_00E0623C = new Rva00177860;
 }
-// ?Rva005613B2::Rva005613B2 present-unmatched
 Rva005613B2::Rva005613B2() {
  FXParticleSystem::ConcreteModuleClass<FXParticleSystem::ButterflyTag>::getInstance();
  Rva005C7889Init();
  g_00E06254 = new Rva00177860;
 }
-// ?Rva00560A58::~Rva00560A58 present-unmatched
 Rva00560A58::~Rva00560A58() { delete g_00E0623C; }
-// ?Rva005613B2::~Rva005613B2 present-unmatched
 Rva005613B2::~Rva005613B2() { delete g_00E06254; }
 void Rva003A83D4Init() { static Rva00560A58 publisher; }
 void Rva003A8414Init() { static Rva005613B2 publisher; }

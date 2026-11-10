@@ -765,7 +765,6 @@ void PointGroupClass::Set_Arrays(
  * HISTORY:                                                               * 
  *   11/17/1998 NH  : Created.                                            * 
  *========================================================================*/
-// ?PointGroupClass::Set_Point_Size present-unmatched
 void PointGroupClass::Set_Point_Size(float size)
 {
 	DefaultPointSize = size;
@@ -835,7 +834,6 @@ Vector3 PointGroupClass::Get_Point_Color(void)
  * HISTORY:                                                               * 
  *   08/25/1999 NH  : Created.                                            * 
  *========================================================================*/
-// ?PointGroupClass::Set_Point_Alpha present-unmatched
 void PointGroupClass::Set_Point_Alpha(float alpha)
 {
 	DefaultPointAlpha = alpha;
@@ -873,7 +871,6 @@ float PointGroupClass::Get_Point_Alpha(void)
  * HISTORY:                                                               * 
  *   06/28/2000 NH  : Created.                                            * 
  *========================================================================*/
-// ?PointGroupClass::Set_Point_Orientation present-unmatched
 void PointGroupClass::Set_Point_Orientation(unsigned char orientation)
 {
 	DefaultPointOrientation = orientation;
@@ -911,7 +908,6 @@ unsigned char PointGroupClass::Get_Point_Orientation(void)
  * HISTORY:                                                               * 
  *   06/28/2000 NH  : Created.                                            * 
  *========================================================================*/
-// ?PointGroupClass::Set_Point_Frame present-unmatched
 void PointGroupClass::Set_Point_Frame(unsigned char frame)
 {
 	DefaultPointFrame = frame;
@@ -947,7 +943,6 @@ unsigned char PointGroupClass::Get_Point_Frame(void)
  * HISTORY:                                                               * 
  *   11/17/1998 NH  : Created.                                            * 
  *========================================================================*/
-// ?PointGroupClass::Set_Point_Mode present-unmatched
 void PointGroupClass::Set_Point_Mode(PointModeEnum mode)
 {
 	PointMode = mode;
@@ -1021,7 +1016,6 @@ inline int PointGroupClass::Get_Flag(FlagsType flag)
  *   11/17/1998 NH  : Created.                                            *
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
-// ?PointGroupClass::Set_Texture present-unmatched
 void PointGroupClass::Set_Texture(TextureClass* texture)
 {
 	TextureClass **next = reinterpret_cast<TextureClass **>(texture);
@@ -1095,7 +1089,6 @@ TextureClass * PointGroupClass::Peek_Texture(void)
  *   11/17/1998 NH  : Created.                                            *
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
-// ?PointGroupClass::Set_Shader present-unmatched
 void PointGroupClass::Set_Shader(ShaderClass shader)
 {
 	Shader = shader;
@@ -1114,7 +1107,6 @@ void PointGroupClass::Set_Shader(ShaderClass shader)
  *   11/17/1998 NH  : Created.                                            * 
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
-// ?PointGroupClass::Get_Shader present-unmatched
 ShaderClass PointGroupClass::Get_Shader(void)
 {
 	return Shader;
@@ -1162,7 +1154,6 @@ ShaderClass PointGroupClass::Get_Shader(void)
  *   06/28/2000 NH  : Created.                                            * 
  *   02/08/2001 HY  : Upgraded to DX8                                     * 
  *========================================================================*/
-// ?PointGroupClass::Get_Frame_Row_Column_Count_Log2 present-unmatched
 unsigned char PointGroupClass::Get_Frame_Row_Column_Count_Log2(void)
 {
 	return FrameRowColumnCountLog2;
@@ -1181,7 +1172,6 @@ unsigned char PointGroupClass::Get_Frame_Row_Column_Count_Log2(void)
  *   06/28/2000 NH  : Created.                                            *
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
-// ?PointGroupClass::Set_Frame_Row_Column_Count_Log2 present-unmatched
 void PointGroupClass::Set_Frame_Row_Column_Count_Log2(unsigned char frccl2)
 {
 	FrameRowColumnCountLog2 = MIN(frccl2, 4);
@@ -1241,7 +1231,6 @@ int PointGroupClass::Get_Polygon_Count(void)
  *																		                                    *
  *========================================================================*/
 
-// ?PointGroupClass::RenderVolumeParticle present-unmatched
 void PointGroupClass::RenderVolumeParticle(RenderInfoClass &rinfo, unsigned int depth )
 {
 	// BFME match note: RenderVolumeParticle is the DX8/Direct3D render path — not reproducible

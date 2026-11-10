@@ -167,7 +167,6 @@ static void bfmeHTreeDeleteAnchor(HTreeClass * tree) { delete tree; }
 
 #pragma optimize("", on)
 
-// ?Animatable3DObjClass::Animatable3DObjClass present-unmatched
 Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
 	IsTreeValid(0),
 	HTree(NULL),
@@ -221,7 +220,6 @@ Animatable3DObjClass::Animatable3DObjClass(const char * htree_name) :
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Animatable3DObjClass present-unmatched
 Animatable3DObjClass::Animatable3DObjClass(const Animatable3DObjClass & src) :
 	CompositeRenderObjClass(src),
 	IsTreeValid(0),
@@ -258,7 +256,6 @@ Animatable3DObjClass::Animatable3DObjClass(const Animatable3DObjClass & src) :
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::~Animatable3DObjClass present-unmatched
 Animatable3DObjClass::~Animatable3DObjClass(void)
 {
 	Release();
@@ -336,7 +333,6 @@ Animatable3DObjClass & Animatable3DObjClass::operator = (const Animatable3DObjCl
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Render present-unmatched
 void Animatable3DObjClass::Render(RenderInfoClass & rinfo)
 {
 	if (HTree == NULL) return;
@@ -396,7 +392,6 @@ void Animatable3DObjClass::Special_Render(SpecialRenderInfoClass & rinfo)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Set_Transform present-unmatched
 void Animatable3DObjClass::Set_Transform(const Matrix3D &matrix3D)
 { 
 	CompositeRenderObjClass::Set_Transform(matrix3D); 
@@ -415,7 +410,6 @@ void Animatable3DObjClass::Set_Transform(const Matrix3D &matrix3D)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Set_Position present-unmatched
 void Animatable3DObjClass::Set_Position(const Vector3 &v)
 { 
 	CompositeRenderObjClass::Set_Position(v); 
@@ -560,7 +554,6 @@ void Animatable3DObjClass::Set_Animation(void)
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Peek_Animation present-unmatched
 HAnimClass *	Animatable3DObjClass::Peek_Animation( void )
 {
 	if ( CurMotionMode == SINGLE_ANIM ) {
@@ -582,7 +575,6 @@ HAnimClass *	Animatable3DObjClass::Peek_Animation( void )
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Capture_Bone present-unmatched
 void Animatable3DObjClass::Capture_Bone(int boneindex)
 { 
 	if (HTree) {
@@ -602,7 +594,6 @@ void Animatable3DObjClass::Capture_Bone(int boneindex)
  * HISTORY:                                                                                    *
  *   3/2/99     GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Release_Bone present-unmatched
 void Animatable3DObjClass::Release_Bone(int boneindex)
 { 
 	if (HTree) {
@@ -872,7 +863,6 @@ bool Animatable3DObjClass::Simple_Evaluate_Bone(int boneindex, float frame, Matr
  * HISTORY:                                                                                    *
  *   04/13/2000    PDS : Created.                                                              *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Compute_Current_Frame present-unmatched
 /***********************************************************************************************
  * Animatable3DObjClass::Single_Anim_Progress -- progess anims for loop and once               *
  *                                                                                             *
@@ -885,7 +875,6 @@ bool Animatable3DObjClass::Simple_Evaluate_Bone(int boneindex, float frame, Matr
  * HISTORY:                                                                                    *
  *   10/26/99    BMG : Created.                                                                 *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Single_Anim_Progress present-unmatched
 void Animatable3DObjClass::Single_Anim_Progress(void)
 {
     if (CurMotionMode == SINGLE_ANIM) {
@@ -917,7 +906,6 @@ void Animatable3DObjClass::Single_Anim_Progress(void)
 /***********************************************************************************************
  * Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier *
  *=============================================================================================*/
-// ?Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier present-unmatched
 void Animatable3DObjClass::Set_Animation_Frame_Rate_Multiplier(float multiplier)
 {
 	// 020607 srj -- added

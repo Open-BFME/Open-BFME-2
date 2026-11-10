@@ -77,7 +77,6 @@ class Rva0056ACAEVisitor:public PendingBattleVisitor {
 public:
  // ?Rva0056ACAEVisitor::Rva0056ACAEVisitor present-unmatched
  Rva0056ACAEVisitor(LivingWorldPendingBattle *livingWorldPendingBattle):selected(livingWorldPendingBattle){}
- // ?Rva0056ACAEVisitor::~Rva0056ACAEVisitor present-unmatched
  ~Rva0056ACAEVisitor(){}
  virtual bool Visit(LivingWorldPendingBattle *p);
  LivingWorldPendingBattle *selected;

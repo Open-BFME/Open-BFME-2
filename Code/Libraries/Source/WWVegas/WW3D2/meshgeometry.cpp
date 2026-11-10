@@ -240,7 +240,6 @@ const uint32 *MeshGeometryClass::Get_Vertex_Shade_Index_Array(bool create)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::MeshGeometryClass present-unmatched
 MeshGeometryClass::MeshGeometryClass(void) :
 	MeshName(NULL),
 	UserText(NULL),
@@ -347,7 +346,6 @@ MeshGeometryClass::MeshGeometryClass(void) :
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Get_Name present-unmatched
 const char * MeshGeometryClass::Get_Name(void) const
 {
 	if (MeshName) {
@@ -393,7 +391,6 @@ void MeshGeometryClass::Set_Name(const char * newname)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Get_User_Text present-unmatched
 const char * MeshGeometryClass::Get_User_Text(void)
 {
 	if (UserText) {
@@ -415,7 +412,6 @@ const char * MeshGeometryClass::Get_User_Text(void)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Set_User_Text present-unmatched
 void MeshGeometryClass::Set_User_Text(char * usertext)
 {
 	ShareBufferClass<char> *& user_text = UserText;
@@ -441,7 +437,6 @@ void MeshGeometryClass::Set_User_Text(char * usertext)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Get_Bounding_Box present-unmatched
 void MeshGeometryClass::Get_Bounding_Box(AABoxClass * set_box)
 {
 	WWASSERT(set_box != NULL);
@@ -462,7 +457,6 @@ void MeshGeometryClass::Get_Bounding_Box(AABoxClass * set_box)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Get_Bounding_Sphere present-unmatched
 void MeshGeometryClass::Get_Bounding_Sphere(SphereClass * set_sphere)
 {
 	set_sphere->Center = BoundSphereCenter;
@@ -686,7 +680,6 @@ bool MeshGeometryClass::Contains(const Vector3 &point)
  * HISTORY:                                                                                    *
  *   3/1/2001  NH : Created.                                                                   *
  *=============================================================================================*/
-// ?MeshGeometryClass::Cast_Ray present-unmatched
 bool MeshGeometryClass::Cast_Ray(RayCollisionTestClass & raytest)
 {
 	bool hit = false;
@@ -1286,7 +1279,6 @@ bool MeshGeometryClass::cast_obbox_brute_force(OBBoxCollisionTestClass & boxtest
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Compute_Plane_Equations present-unmatched
 // BFME: PolyCount/Poly/Vertex sit four bytes earlier than this header's
 // declared layout (this+0x24/0x2c/0x30, not +0x28/0x30/0x34 - see
 // docs/lessons-archive.md's "MeshGeometryClass has Poly at +0x2C" note), so
@@ -1331,7 +1323,6 @@ void MeshGeometryClass::Compute_Plane_Equations(Vector4 * peq)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Compute_Bounds present-unmatched
 void MeshGeometryClass::Compute_Bounds(Vector3 * verts)
 {
 	BoundBoxMin.Set(0,0,0);
@@ -1453,7 +1444,6 @@ const Vector4 * MeshGeometryClass::Get_Plane_Array(bool create)
  * HISTORY:                                                                                    *
  *   6/14/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Compute_Plane present-unmatched
 void MeshGeometryClass::Compute_Plane(int pidx,PlaneClass * set_plane) const
 {
 	WWASSERT(pidx >= 0);
@@ -1478,7 +1468,6 @@ void MeshGeometryClass::Compute_Plane(int pidx,PlaneClass * set_plane) const
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::Generate_Culling_Tree present-unmatched
 void MeshGeometryClass::Generate_Culling_Tree(void)
 {
 	WWMEMLOG(MEM_CULLINGDATA);

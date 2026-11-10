@@ -22,7 +22,6 @@ struct Rva003F5254Vector104
 #pragma comment(linker, "/alternatename:?allocateCopy@Rva003F5254Vector104@@QAEPAURvaVector104Element@@IPBU2@0@Z=??$_M_allocate_and_copy@PBUBfmePod104@@@?$vector@UBfmePod104@@V?$allocator@UBfmePod104@@@_STL@@@_STL@@IAEPAUBfmePod104@@IPBU2@0@Z")
 #pragma comment(linker, "/alternatename:?clearStorage@Rva003F5254Vector104@@QAEXXZ=?_M_clear@?$vector@UBfmeAssignRecord104@@V?$allocator@UBfmeAssignRecord104@@@_STL@@@_STL@@IAEXXZ")
 
-// ?Rva003F5254Vector104::operator= present-unmatched
 Rva003F5254Vector104 &Rva003F5254Vector104::operator=(const Rva003F5254Vector104 &x)
 {
     if (&x != this) {

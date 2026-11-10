@@ -122,7 +122,6 @@ class Rva005FA0C9 {public:Rva005FA0C9(StrategicHUD::BattlePromptMovieClip::Impl 
 inline Rva005FA197Element::Rva005FA197Element(Rva005FA0C9 *p):ptr(p){if(p)++p->refs;}
 // ?Rva005FA197Element::Rva005FA197Element present-unmatched
 inline Rva005FA197Element::Rva005FA197Element(const Rva005FA197Element &other):ptr(other.ptr){if(ptr)++ptr->refs;}
-// ?Rva005FA197Element::~Rva005FA197Element present-unmatched
 inline Rva005FA197Element::~Rva005FA197Element(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
 void StrategicHUD::BattlePromptMovieClip::Impl::AddAlly(const Rva005F91F3Src &item) {
  allies.push_back((const BfmeStringRecord005F93E3 &)Rva005F91F3(item));
@@ -137,7 +136,6 @@ class Rva005FA0F7 {public:Rva005FA0F7(StrategicHUD::BattlePromptMovieClip::Impl 
 inline Rva005FA1CEElement::Rva005FA1CEElement(Rva005FA0F7 *p):ptr(p){if(p)++p->refs;}
 // ?Rva005FA1CEElement::Rva005FA1CEElement present-unmatched
 inline Rva005FA1CEElement::Rva005FA1CEElement(const Rva005FA1CEElement &other):ptr(other.ptr){if(ptr)++ptr->refs;}
-// ?Rva005FA1CEElement::~Rva005FA1CEElement present-unmatched
 inline Rva005FA1CEElement::~Rva005FA1CEElement(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
 void StrategicHUD::BattlePromptMovieClip::Impl::AddEnemy(const Rva005F91F3Src &item) {
  enemies.push_back((const BfmeStringRecord005F93E3 &)Rva005F91F3(item));

@@ -435,7 +435,6 @@ RenderObjClass * ParticleEmitterClass::Clone(void) const
 	return W3DNEW ParticleEmitterClass(*this);
 }
 
-// ?ParticleEmitterClass::Restart present-unmatched
 void ParticleEmitterClass::Restart(void)
 {
 	// calling Start will cause all internal counters to reset
@@ -456,7 +455,6 @@ void ParticleEmitterClass::Notify_Added(SceneClass * scene)
 	IsInScene = true;
 }
 
-// ?ParticleEmitterClass::Notify_Removed present-unmatched
 void ParticleEmitterClass::Notify_Removed(SceneClass * scene)
 {
 	scene->Unregister(this,SceneClass::ON_FRAME_UPDATE);
@@ -471,7 +469,6 @@ void ParticleEmitterClass::Notify_Removed(SceneClass * scene)
 // - hopefully can be rewritten more cleanly in future)...
 // On_Frame_Update: native owner particle_emitter_frame.cpp, retail 0x001A1970.
 
-// ?ParticleEmitterClass::Reset present-unmatched
 void ParticleEmitterClass::Reset(void)
 {
 	// Note:  This flag needs to be set first thing, otherwise
@@ -492,7 +489,6 @@ void ParticleEmitterClass::Reset(void)
 	IsComplete = false;
 }
 
-// ?ParticleEmitterClass::Start present-unmatched
 void ParticleEmitterClass::Start(void)
 {
 	// Note:  This flag needs to be set first thing, otherwise
@@ -518,7 +514,6 @@ void ParticleEmitterClass::Start(void)
 	Buffer->Set_Current_GroupID(GroupID);
 }
 
-// ?ParticleEmitterClass::Stop present-unmatched
 void ParticleEmitterClass::Stop(void)
 {
 	Active = false;	
@@ -555,13 +550,11 @@ void ParticleEmitterClass::Set_Base_Velocity(const Vector3& base_vel)
 	BaseVel = base_vel * 0.001f;	// Convert from seconds to ms
 }
 
-// ?ParticleEmitterClass::Set_Outwards_Velocity present-unmatched
 void ParticleEmitterClass::Set_Outwards_Velocity(float out_vel)
 {
 	OutwardVel = out_vel * 0.001f;	// Convert from seconds to ms
 }
 
-// ?ParticleEmitterClass::Set_Velocity_Inheritance_Factor present-unmatched
 void ParticleEmitterClass::Set_Velocity_Inheritance_Factor(float inh_factor)
 {
 	VelInheritFactor = inh_factor;
@@ -584,7 +577,6 @@ void ParticleEmitterClass::Set_Velocity_Inheritance_Factor(float inh_factor)
 // time-based interpolation between the transforms at the beginning and end
 // of the current frame. This interpolation is performed via quaternion-
 // slerping the orientation and lerping the origin.
-// ?ParticleEmitterClass::Create_New_Particles present-unmatched
 void ParticleEmitterClass::Create_New_Particles(const Quaternion & curr_quat, const Vector3 & curr_orig)
 {
    Quaternion quat;

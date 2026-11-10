@@ -24,7 +24,6 @@ public:
     TargetRef00217D4C *ref;
     bool active;
 
-    // ?Rva00567BD7::Rva00567BD7 present-unmatched
     Rva00567BD7() : action(0), ref(0), active(false) {}
     Rva00567BD7(const Rva00567BD7 &);
     // ?Rva00567BD7::~Rva00567BD7 present-unmatched

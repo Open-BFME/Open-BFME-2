@@ -129,7 +129,6 @@ public:
 	public:
 		PerTurnStats() : m_numRegions(0), m_numUnits(0), m_numArmies(0) {}
 		virtual ~PerTurnStats() {}
-		// ?PerTurnStats::loadPostProcess present-unmatched
 		virtual void loadPostProcess() {}
 		virtual const char *GetSnapshotName() const;
 		virtual void xfer(Xfer *xfer);

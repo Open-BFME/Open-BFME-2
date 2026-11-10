@@ -968,7 +968,6 @@ void Rva006572A0::rva006572A0()
 
 // ---- from Code/GameEngine/Source/Common/forwardSentinel.cpp
 
-// ?Rva007EA0A0Owner::forwardSentinel present-unmatched
 void Rva007EA0A0Owner::forwardSentinel()
 {
 	int value = -204;

@@ -699,7 +699,6 @@ Rva003598D3::Rva003598D3(int manager, int a2, int id, bool exclusive)
 	m_18 = exclusive;
 }
 
-// ?Rva003598D3::slot00 present-unmatched
 void Rva003598D3::slot00(int cellX,int cellY)
 {
     reinterpret_cast<TerrainResourceManager*>(m_04)->tryToClaimCell(

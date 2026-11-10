@@ -806,7 +806,6 @@ void Rva00409850SubObject::rva_004097F0( unsigned char value )
 	}
 }
 
-// ?Rva00409850SubObject::rva_00409810 present-unmatched
 void Rva00409850SubObject::rva_00409810( const Block3 &pos )
 {
 	if ( m_flag == 1 && m_target )

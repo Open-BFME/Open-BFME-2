@@ -206,7 +206,6 @@ static float GetQueuedUnitProgress(int regionID,int unitID,int buildTime) {
  return 1.0f;
 }
 class Rva005F8A7E {public:void rva005F8A7E();char prefix[0x20];int regionID;int unknown24;int unitID;int buildTime;};
-// ?Rva005F8A7E::rva005F8A7E present-unmatched
 void Rva005F8A7E::rva005F8A7E() {
  QueueUnitButtonRegion*region=(QueueUnitButtonRegion*)Rva005F88F4Get(regionID);
  ((Rva005E1160Flag*)((char*)this+8))->rva005E1160(region&&region->canQueue(unitID));

@@ -15,7 +15,6 @@ public:
     Rva00564B1A& rva00564B1A(const Rva00564B1A& other);
 };
 
-// ?Rva00564B1A::rva00564B1A present-unmatched
 Rva00564B1A& Rva00564B1A::rva00564B1A(const Rva00564B1A& other)
 {
     m_first.set(other.m_first);

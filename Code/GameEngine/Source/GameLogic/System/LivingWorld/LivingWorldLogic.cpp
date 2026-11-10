@@ -2633,7 +2633,6 @@ Int LivingWorldLogic::rva002B783C(LivingWorldArmy *army, Rva003F287F *from, Rva0
 	return from->m_field154;
 }
 
-// ?LivingWorldLogic::rva002B4B83 present-unmatched
 // Native2B4B83..2B4BC9, 70B; WBD7EFF0 independently scans player vector8C
 // and calls the matching player predicate2E0B30 until true.
 bool LivingWorldLogic::rva002B4B83()

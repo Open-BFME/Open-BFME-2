@@ -588,7 +588,6 @@ const char *WeaponSet::GetSnapshotName() const
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?WeaponSet::loadPostProcess present-unmatched
 void WeaponSet::loadPostProcess( void )
 {
 

@@ -211,7 +211,6 @@ unsigned long  CRC::_Table[ 256 ] =
 	0xB40BBE37L, 0xC30C8EA1L, 0x5A05DF1BL, 0x2D02EF8DL
 };
 
-// ?CRC::Memory present-unmatched
 unsigned long	CRC::Memory( unsigned char *data, unsigned long length, unsigned long crc )
 {
  	crc ^= 0xFFFFFFFF;									// invert previous CRC
@@ -240,7 +239,6 @@ unsigned long Rva00615B50Text::crc() const
     return CRC::String(m_text, 0);
 }
 
-// ?CRC::String present-unmatched
 // Native 615B50 calls this real 619B00 provider out of line.
 __declspec(noinline) unsigned long	CRC::String( const char *string, unsigned long crc)
 {

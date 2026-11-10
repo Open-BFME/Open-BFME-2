@@ -979,7 +979,6 @@ void VertexMaterialClass::Apply_Null(void)
  * HISTORY:                                                                                    *
  *   2/14/2001  hy : Created.                                                                  *
  *=============================================================================================*/
-// ?VertexMaterialClass::Shutdown present-unmatched
 void VertexMaterialClass::Shutdown()
 {
 	int i;

@@ -107,7 +107,6 @@
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?AABTreeClass::AABTreeClass present-unmatched
 AABTreeClass::AABTreeClass(void) :
 	NodeCount(0),
 	Nodes(NULL),
@@ -132,7 +131,6 @@ AABTreeClass::AABTreeClass(void) :
  *   6/19/98    GTH : Created.                                                                 *
  *   5/23/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::AABTreeClass present-unmatched
 AABTreeClass::AABTreeClass(AABTreeBuilderClass * builder)
 {
 	NodeCount = builder->Node_Count();
@@ -158,7 +156,6 @@ AABTreeClass::AABTreeClass(AABTreeBuilderClass * builder)
  * HISTORY:                                                                                    *
  *   6/22/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::AABTreeClass present-unmatched
 AABTreeClass::AABTreeClass(const AABTreeClass & that) :
 	NodeCount(0),
 	Nodes(NULL),
@@ -199,7 +196,6 @@ AABTreeClass::~AABTreeClass(void)
  * HISTORY:                                                                                    *
  *   6/22/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::operator= present-unmatched
 AABTreeClass & AABTreeClass::operator = (const AABTreeClass & that)
 {
 	Reset();
@@ -234,7 +230,6 @@ AABTreeClass & AABTreeClass::operator = (const AABTreeClass & that)
  * HISTORY:                                                                                    *
  *   6/22/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Reset present-unmatched
 void AABTreeClass::Reset(void)
 {
 	NodeCount = 0;
@@ -264,7 +259,6 @@ void AABTreeClass::Reset(void)
  * HISTORY:                                                                                    *
  *   6/17/02    Jani : Created.                                                                *
  *=============================================================================================*/
-// ?AABTreeClass::Scale present-unmatched
 void AABTreeClass::Scale(float f)
 {
 	for (int i=0;i<NodeCount;++i) {
@@ -286,7 +280,6 @@ void AABTreeClass::Scale(float f)
  * HISTORY:                                                                                    *
  *   5/19/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Build_Tree_Recursive present-unmatched
 void AABTreeClass::Build_Tree_Recursive(AABTreeBuilderClass::CullNodeStruct * node,int & curpolyindex)
 {
 	/*
@@ -344,7 +337,6 @@ void AABTreeClass::Build_Tree_Recursive(AABTreeBuilderClass::CullNodeStruct * no
  * HISTORY:                                                                                    *
  *   6/22/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Set_Mesh present-unmatched
 void AABTreeClass::Set_Mesh(MeshGeometryClass * mesh)
 {
 	Mesh = mesh;
@@ -557,7 +549,6 @@ void AABTreeClass::Generate_OBBox_APT_Recursive(CullNodeStruct * node, OBBoxRayA
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Cast_Ray_Recursive present-unmatched
 bool AABTreeClass::Cast_Ray_Recursive(CullNodeStruct * node,RayCollisionTestClass & raytest)
 {
 	/*
@@ -741,7 +732,6 @@ bool AABTreeClass::Cast_OBBox_Recursive(CullNodeStruct * node,OBBoxCollisionTest
  * HISTORY:                                                                                    *
  *   1/20/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Intersect_OBBox_Recursive present-unmatched
 bool AABTreeClass::Intersect_OBBox_Recursive(AABTreeClass::CullNodeStruct * node,OBBoxIntersectionTestClass & test)
 {
 	/*
@@ -781,7 +771,6 @@ bool AABTreeClass::Intersect_OBBox_Recursive(AABTreeClass::CullNodeStruct * node
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Cast_Ray_To_Polys present-unmatched
 bool AABTreeClass::Cast_Ray_To_Polys(CullNodeStruct * node,RayCollisionTestClass & raytest)
 {
 	if (node->Get_Poly_Count() > 0) {
@@ -1088,7 +1077,6 @@ bool AABTreeClass::Intersect_OBBox_With_Polys
  * HISTORY:                                                                                    *
  *   6/22/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Update_Bounding_Boxes_Recursive present-unmatched
 void AABTreeClass::Update_Bounding_Boxes_Recursive(CullNodeStruct * node)
 {
 	node->Min.Set(100000.0f,100000.0f,100000.0f);
@@ -1162,7 +1150,6 @@ void AABTreeClass::Update_Bounding_Boxes_Recursive(CullNodeStruct * node)
  * HISTORY:                                                                                    *
  *   6/22/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Update_Min_Max present-unmatched
 namespace {
 template <typename T>
 struct BfmeShareBufferView {
@@ -1208,7 +1195,6 @@ void AABTreeClass::Update_Min_Max(int poly_index,Vector3 & min,Vector3 & max)
  * HISTORY:                                                                                    *
  *   5/22/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Load_W3D present-unmatched
 void AABTreeClass::Load_W3D(ChunkLoadClass & cload)
 {
 	Reset();
@@ -1252,7 +1238,6 @@ void AABTreeClass::Load_W3D(ChunkLoadClass & cload)
  * HISTORY:                                                                                    *
  *   5/22/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Read_Poly_Indices present-unmatched
 void AABTreeClass::Read_Poly_Indices(ChunkLoadClass & cload)
 {
 	cload.Read(PolyIndices,sizeof(uint32) * PolyCount);
@@ -1271,7 +1256,6 @@ void AABTreeClass::Read_Poly_Indices(ChunkLoadClass & cload)
  * HISTORY:                                                                                    *
  *   5/22/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::Read_Nodes present-unmatched
 void AABTreeClass::Read_Nodes(ChunkLoadClass & cload)
 {
 	W3dMeshAABTreeNode w3dnode;

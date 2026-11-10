@@ -31,25 +31,21 @@ public:
 	void *m_rawObject0C;
 };
 
-// ?Rva0066F5F0Secondary::forward0 present-unmatched
 void Rva0066F5F0Secondary::forward0()
 {
 	reinterpret_cast<Rva0066F5F0Slots *>( static_cast<char *>( m_rawObject0C ) + 4 )->slot0();
 }
 
-// ?Rva0066F5F0Secondary::forward1 present-unmatched
 void Rva0066F5F0Secondary::forward1()
 {
 	reinterpret_cast<Rva0066F5F0Slots *>( static_cast<char *>( m_rawObject0C ) + 4 )->slot1();
 }
 
-// ?Rva0066F5F0Secondary::forward2 present-unmatched
 void Rva0066F5F0Secondary::forward2()
 {
 	reinterpret_cast<Rva0066F5F0Slots *>( static_cast<char *>( m_rawObject0C ) + 4 )->slot2();
 }
 
-// ?Rva0066F5F0Secondary::forward3 present-unmatched
 void Rva0066F5F0Secondary::forward3()
 {
 	reinterpret_cast<Rva0066F5F0Slots *>( static_cast<char *>( m_rawObject0C ) + 4 )->slot3();

@@ -51,7 +51,6 @@ private:
 	CameraClass *m_camera;
 };
 
-// ?RTS3DScene::doRender present-unmatched
 void RTS3DScene::doRender(CameraClass *cam)
 {
 	m_camera = cam;
@@ -59,7 +58,6 @@ void RTS3DScene::doRender(CameraClass *cam)
 	m_camera = 0;
 }
 
-// ?RTS2DScene::doRender present-unmatched
 void RTS2DScene::doRender(CameraClass *cam)
 {
 	m_camera = cam;

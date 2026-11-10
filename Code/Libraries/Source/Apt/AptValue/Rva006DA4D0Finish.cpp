@@ -1,4 +1,3 @@
-// ?Rva006DA4D0::Rva006DA4D0 present-unmatched
 // Native 6DA4D0/138 installs the AptArray-family table CEA778.
 // This is distinct from AptValue constructors 6DCCC0/6DCD20 (CEAED0).
 // Original class name is unknown; array offsets20/24/28 and calls are target facts.
