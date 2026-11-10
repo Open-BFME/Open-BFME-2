@@ -68,11 +68,7 @@ Int (Player::*_bfmeInlineAnchor_PlayerGetPlayerNightColor)() const = &Player::ge
 // ?rva0033A453@Rva0033A453@@QBE_NPBX0@Z at 0x0033A453.
 // Caller at 0x0028F4D1 iterates Object+0x4B4 list and returns first element
 // whose predicate is true; landing unblocks 0x0028F4BC.
-class Rva0033A453
-{
-public:
-	bool rva0033A453(const void *required, const void *exempt) const;
-};
+#include "../../../../Include/Common/Rva0033A453.h"
 
 struct Rva00373EC6Holder
 {

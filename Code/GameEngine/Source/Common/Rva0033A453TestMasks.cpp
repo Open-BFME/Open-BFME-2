@@ -8,11 +8,7 @@
 // (0x00507558) plus required/forbidden pairs at +0x04/+0x84 (0x0033A8D9,
 // 0x00507558), +0x48/+0xC8 (0x00373EC6), +0xC4/+0x144 (0x004A3A20).
 // Opaque Rva name: the BitFlags size behind the 128 bytes is unproven.
-class Rva0033A453
-{
-public:
-	bool rva0033A453(const void *required, const void *exempt) const;
-};
+#include "../../Include/Common/Rva0033A453.h"
 
 bool Rva0033A453::rva0033A453(const void *required, const void *exempt) const
 {

@@ -177,7 +177,7 @@ protected:
 
 class Player;
 
-class Rva0033A453 { public: bool rva0033A453(const void*,const void*) const; };
+#include "../../../../Include/Common/Rva0033A453.h"
 
 class Object {
 public:

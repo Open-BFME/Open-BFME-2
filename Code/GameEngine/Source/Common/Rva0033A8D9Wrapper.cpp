@@ -5,11 +5,7 @@
 // mask at +0x04 and the exempt mask at +0x84. Same Object260 layout
 // (word + 128B + 128B = 0x104) as the 0x0033A9A5 array elements and the
 // 0x00507558/0x00373EC6 prerequisite pairs. Callee rowed at 0x0033A453.
-class Rva0033A453
-{
-public:
-	bool rva0033A453(const void *required, const void *exempt) const;
-};
+#include "../../Include/Common/Rva0033A453.h"
 
 class Rva0033A8D9
 {
