@@ -41,12 +41,7 @@ namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
 
-struct Rva0022D95AElement
-{
-	char bytes[1];
-	bool operator<(const Rva0022D95AElement &) const;
-	bool operator==(const Rva0022D95AElement &) const;
-};
+#include "../../Include/Common/Rva0022D95AElement.h"
 
 struct Rva00224C76Element
 {

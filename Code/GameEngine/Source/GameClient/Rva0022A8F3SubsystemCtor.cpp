@@ -51,10 +51,7 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(un
 namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
 
-struct Rva0022D95AElement
-{
-	char bytes[1];
-};
+#include "../../Include/Common/Rva0022D95AElement.h"
 
 // Retail base construction and cleanup use the shared fourteen-slot interface.
 typedef bool Bool;
