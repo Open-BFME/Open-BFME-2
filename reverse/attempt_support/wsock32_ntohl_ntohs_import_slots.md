@@ -36,3 +36,11 @@ sb_serverlist.c and the two `/alternatename:_ntohl@4=?ji_0065565e` hatches
 Tooling fix suggested: let Import-ref accept the ntohl/ntohs (and
 AVIStreamRelease) name for a slot whose rebuilt-table name is shared with
 another slot of the same DLL and whose export shares the body.
+
+Status 2026-11-10 (lk90): fixed in Import-ref (tools/build.py
+`rebuilt_import_partner`) and in the census and real-link import model
+(`link_census.retail_imports`, retail-truth-6), both through
+`build.rebuilt_partner_names`; `_ntohl@4` / `_ntohs@4` rowed in
+Wsock32ImportThunks.cpp; the macros, peerMangle.c's hatch,
+peerSBGroupsListCallback.c's htonl spelling and the stale pins removed.
+See docs/linking_obstacles/link-658-*.md.
