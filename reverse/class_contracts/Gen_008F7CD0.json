@@ -1,0 +1,141 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Gen_008F7CD0",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 17,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 3
+   },
+   "0x24": {
+    "4": 4
+   },
+   "0x28": {
+    "4": 3
+   },
+   "0x2c": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 10,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 13,
+   "36": 1,
+   "48": 3
+  },
+  "views": 17,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_bfmeHead",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char[4]",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellAt.cpp",
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellAt.cpp",
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeCellAt.cpp",
+    "Code/GameEngine/Source/Common/BfmeCellSum.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 48,
+ "size_by": "majority",
+ "vslots": {}
+}

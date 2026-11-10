@@ -7,11 +7,7 @@
 // Caller 0x0073CB5A builds the 0x008F139C updater temp; unblocks 0x0073CAF0.
 class BfmeCellFD;
 
-class Gen_008F7CD0
-{
-public:
-	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
-};
+#include "../../../Include/Common/Gen_008F7CD0.h"
 
 class ShroudManagerImpl;
 class ShroudManagerCell;

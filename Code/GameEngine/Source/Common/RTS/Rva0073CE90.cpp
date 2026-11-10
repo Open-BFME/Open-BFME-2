@@ -12,11 +12,7 @@ public:
 	int m_counter;
 	int m_amount;
 };
-class Gen_008F7CD0
-{
-public:
-	void rva0073CE90(int x, int y, int radius, int counter, int amount, int mask);
-};
+#include "../../../Include/Common/Gen_008F7CD0.h"
 char __cdecl Rva0073C820Raster(int centerX, int centerY, int radius, Rva0073BBE0 updater);
 void Gen_008F7CD0::rva0073CE90(int x, int y, int radius, int counter, int amount, int mask)
 {

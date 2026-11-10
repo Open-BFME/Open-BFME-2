@@ -52,11 +52,7 @@ private:
  ShroudManagerImpl008FBA40ElementLayout *elementAtByCoord_Rva0073A1D0(float x,float y)const;
  friend class BfmeThingCDE;
 };
-class Gen_008F7CD0
-{
-public:
- void rva0073CE90(int x,int y,int radius,int counter,int amount,int mask);
-};
+#include "../../Include/Common/Gen_008F7CD0.h"
 
 class CDEProvider;
 

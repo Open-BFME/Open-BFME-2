@@ -5,11 +5,7 @@
 // Precedent Rva0073BF40Raster.cpp circle twin; caller 0x0073CCB4 passes 4 ftol ints.
 class BfmeCellFD;
 
-class Gen_008F7CD0
-{
-public:
-	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
-};
+#include "../../../Include/Common/Gen_008F7CD0.h"
 
 class ShroudManagerImpl;
 class ShroudManagerCell;

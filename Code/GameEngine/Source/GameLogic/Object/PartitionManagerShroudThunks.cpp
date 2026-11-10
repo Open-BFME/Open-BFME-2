@@ -169,12 +169,7 @@ void PartitionManager::rva007397A0(bool value)
 // Evidence: retail mov ecx [ecx+0x10] jmp; callers 0x004B0F6D 0x004B1438 0x004B1954 0x004D942B.
 struct BfmePointFD;
 struct BfmeCellOut;
-class Gen_008F7CD0
-{
-public:
-	int bfmeCellSum(const BfmePointFD *pt, int a, unsigned int b) const;
-	void rva0073BC60(int mask, int index, BfmeCellOut *out) const;
-};
+#include "../../../Include/Common/Gen_008F7CD0.h"
 class Rva00739830
 {
 public:

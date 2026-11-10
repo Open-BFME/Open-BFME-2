@@ -5,11 +5,7 @@
 // family but rect (no midpoint state). Updater is Rva0073BB40 by value (16B: base12 plus derived extra4).
 class BfmeCellFD;
 
-class Gen_008F7CD0
-{
-public:
-	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
-};
+#include "../../../Include/Common/Gen_008F7CD0.h"
 
 class ShroudManagerImpl;
 class ShroudManagerCell;

@@ -40,7 +40,7 @@ static __forceinline void pushXY(_STL::deque<BfmeE8>& q,unsigned a,unsigned b){B
 static __forceinline void pushShroudCell(_STL::deque<BfmeE8>& q,const BfmeE8& p) {
     ((_STL::deque<Gen_t_008fb570_p8pod>*)&q)->push_back(*(const Gen_t_008fb570_p8pod*)&p);
 }
-class Gen_008F7CD0 { public: int bfmeCellX(float)const; int bfmeCellY(float)const; };
+#include "../../../Include/Common/Gen_008F7CD0.h"
 struct ShroudCell { void *nodes; unsigned short playerStates[20][4]; unsigned trailing; };
 class ShroudManagerImpl {
 public: bool GetNearestGroupWithValue(const Coord3D*,unsigned,int,unsigned,Coord3D*);
