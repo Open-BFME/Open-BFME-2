@@ -339,11 +339,7 @@ BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00483C75LeaNegSbbField, 12, 0x44)
 
 #include "../../Include/Common/Rva00420B2AZeroSetter.h"
 
-class Rva005FD8C1
-{
-public:
-	void rva005FD8C1();
-};
+#include "../../Include/Common/Rva005FD8C1.h"
 
 #include "../../../Libraries/Source/Apt/AptCIHClass.h"
 

@@ -16,10 +16,7 @@ private:
 	int m_5; // +20
 };
 
-struct Rva005FD8C1
-{
-	void rva005FD8C1();
-};
+#include "../../Include/Common/Rva005FD8C1.h"
 
 struct Rva005E95E9Iface
 {

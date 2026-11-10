@@ -668,11 +668,7 @@ int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool dontHide);
 extern int GameSpyColor[];
 #include "../../../../../Include/Common/Rva00420B2AZeroSetter.h"
-class Rva005FD8C1
-{
-public:
-	void rva005FD8C1();
-};
+#include "../../../../../Include/Common/Rva005FD8C1.h"
 #include "../../../../../../Libraries/Source/Apt/AptCIHClass.h"
 #include "../../../../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 namespace Debug_Statistics
