@@ -371,14 +371,7 @@ public:
 private:
     char storage[0x30];
 };
-class Rva005E4B9D
-{
-public:
-    Rva005E4B9D(Rva005E4AE2 *v) : value(v) {}
-    ~Rva005E4B9D() { clear(); }
-    void clear();
-    Rva005E4AE2 *value;
-};
+#include "../../../Include/Common/Rva005E4B9D.h"
 class Rva005E4F6D : public Rva005CC5E5, public Rva005E3AE1
 {
 public:
