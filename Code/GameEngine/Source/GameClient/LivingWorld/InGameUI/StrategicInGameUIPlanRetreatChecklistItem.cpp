@@ -27,7 +27,7 @@ struct Rva002BA8F1Listener;
 class Rva005CCE13 {public:void rva005CCE13(const UnicodeString&);};
 class Rva005CCB73 {public:void rva005CCB73(void*);};
 class Rva005CCB7B {public:void rva005CCB7B(bool);};
-class Rva005CCB83 {public:void rva005CCB83(void*);};
+#include "../../../../Include/Common/Rva005CCB83.h"
 class Rva005CCB90 {public:void rva005CCB90(const void*);};
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 class Vector3;
