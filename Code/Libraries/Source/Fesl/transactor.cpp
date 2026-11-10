@@ -295,13 +295,7 @@ extern GenAlloc *Gen007EFFC0();
 // already claims a `clear` on, redeclared here so their existing symbols resolve.
 #include "../../../GameEngine/Include/Common/Rva007F6BA0.h"
 
-class Rva007F6C60
-{
-public:
-	void clear();                                                     // 0x007F6C60
-	void *m_array;
-	int m_count;
-};
+#include "../../../GameEngine/Include/Common/Rva007F6C60.h"
 
 struct Gen_dtor_007f6d20
 {
