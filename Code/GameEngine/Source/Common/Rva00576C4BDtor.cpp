@@ -138,7 +138,7 @@ Listener00576C4B::Listener00576C4B()
 {
 }
 class Rva00576B5E;
-class Rva005A0B4CList { public: void append(struct Rva002BA8F1Listener *); };
+#include "../../Include/Common/Rva005A0B4CList.h"
 struct ResolveWorldView { char prefix[0x98]; int player; };
 void Rva00576753Func(int,int,int);
 namespace StrategicInGameUI { class ResolveBattlesBehavior { public: class Impl; }; }

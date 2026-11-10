@@ -19,11 +19,7 @@ struct Parent0057605D;
 #include "../../Include/Common/Rva0057605DSecond.h"
 // Preserve the existing inlined native constructor path.
 __forceinline Rva0057605DSecond::Rva0057605DSecond() {}
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 struct Parent0057605D
 {
 	char pad[8];

@@ -14,11 +14,7 @@ public:
 	int get() const;
 };
 struct Rva002BA8F1Listener { char opaque[4]; };
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 class Rva00574EA2
 {
 public:

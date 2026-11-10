@@ -4,7 +4,7 @@
 #include "../../Include/Common/Rva003FA62B.h"
 
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../Include/Common/Rva005A0B4CList.h"
 struct Rva003FA62BOwner {
     char m_pad00[0x1C];
     Rva005A0B4CList m_list;

@@ -16,11 +16,7 @@ struct Rva002BA8F1Listener
 {
 	char opaque[4];
 };
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 // The +0x10 base is the one Rva00575125 has: the ctor installs its one-slot
 // table 0x0086E360 (a RET 4 callback) and retail's unwind funclet 0x0079B108
 // destroys it through 0x00574293, rowed as ??1Rva00575125Second (nonvirtual).
