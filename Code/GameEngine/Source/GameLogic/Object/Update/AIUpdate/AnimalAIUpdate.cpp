@@ -99,18 +99,7 @@ struct Rva0006EE7A { unsigned m_bits[7]; Rva0006EE7A(int unused, int b1, int b2,
 // Alive filter: vftable 0x00BFAD10, allow 0x0026119D.
 #include "../../../../../Include/GameLogic/Rva0026119DFilter.h"
 // Relationship filter: vftable 0x00BFBC90, allow 0x00260EB1.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual ~Rva00260EB1Filter() {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
+#include "../../../../../Include/GameLogic/Rva00260EB1Filter.h"
 // Any-kind filter (ctor 0x003959FA).
 class Rva003959FA : public Rva000421C8
 {

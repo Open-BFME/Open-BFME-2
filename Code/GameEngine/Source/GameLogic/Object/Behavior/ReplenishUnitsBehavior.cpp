@@ -116,17 +116,7 @@ class Player;
 // vftable 0x00BF91BC, allow 0x002611BF.
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C
 // relationship flags, +0x10 whether a hit allows.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 // vftable 0x00BF8FE4, allow 0x0026109D; the out-of-line ctor 0x00261058.
 class Rva00261058 : public Rva000421C8
 {

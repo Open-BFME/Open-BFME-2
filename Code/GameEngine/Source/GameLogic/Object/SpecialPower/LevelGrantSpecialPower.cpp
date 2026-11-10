@@ -58,17 +58,7 @@ public:
 	Player *m_player;
 	bool m_match;
 };
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 #include "../../../Common/PartitionRangeQueryCallView.h"

@@ -143,17 +143,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 
 
 // Existing whole-map query provider returns this one-word handle. Native
