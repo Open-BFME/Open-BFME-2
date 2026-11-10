@@ -34,7 +34,7 @@ void XferLivingWorldPlayerID(Xfer*,int*);
 #include "../../../../Include/Common/BfmeSelectionState.h"
 class Rva002BBA45{public:unsigned int rva002BBA45(Xfer*);};
 class Rva002BB5DD{public:void rva002BB5DD(Xfer*);};
-class Rva002B7C74{public:void rva002B7C74();};
+#include "../../../../Include/Common/Rva002B7C74.h"
 class Glo012F1028Type{public:void rva002B7D03();};
 class Rva002B6AA2{public:void rva002B6AA2();};
 #include "../../../../Include/Common/Rva002BED10.h"

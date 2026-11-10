@@ -77,11 +77,7 @@ public:
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class Rva002B7C74
-{
-public:
-	void rva002B7C74();					// 0x002B7C74
-};
+#include "../../../../Include/Common/Rva002B7C74.h"
 
 class LivingWorldLogic
 {

@@ -35,7 +35,7 @@ class Rva002B7B25 { public: void rva002B7B25(); };
 class Rva002B7B71 { public: void rva002B7B71(); };
 #include "../../../../Include/GameLogic/Rva0020EE29.h"
 class Glo012F1028Type { public: void rva002B7D91(); };
-class Rva002B7C74 { public: void rva002B7C74(); };
+#include "../../../../Include/Common/Rva002B7C74.h"
 #include "../../../../Include/Common/Rva002B6900.h"
 class Rva002B296F { public: void rva002B296F(); };
 class Rva002B9099 { public: void clear(); };
