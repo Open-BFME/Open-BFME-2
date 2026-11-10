@@ -370,7 +370,7 @@ class Rva005D40A6 { public: void Update(); };
 
 class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };
 
-class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *summary); };
+#include "../../../Include/Common/UnitRevivalTracker.h"
 
 // 0x00203595: this + 0x10 -> Rva003B24C7::rva003B24C7
 // 0x002C6AC3: this + 0x4 -> AIBaseBuilder::rva00506B96

@@ -13,12 +13,7 @@ struct PlayerTeamNode;
 class Player;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class UnitRevivalTracker
-{
-public:
-	void addInitialBuildUnit(const ThingTemplate *tmpl, Player *player);
-	void removeBuildUnit(const ThingTemplate *tmpl);
-};
+#include "../../../../Include/Common/UnitRevivalTracker.h"
 struct Rva004B837FList
 {
 	unsigned char m_pad000[0x198];

@@ -178,11 +178,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 struct Rva002E2D10Record;
 #include "../../../Include/GameLogic/UnitRevivalEntry.h"
 
-class UnitRevivalTracker
-{
-public:
-	void addRevivableUnit(const Rva002E2D10Record &entry, Player *player);
-};
+#include "../../../Include/Common/UnitRevivalTracker.h"
 
 class Player
 {

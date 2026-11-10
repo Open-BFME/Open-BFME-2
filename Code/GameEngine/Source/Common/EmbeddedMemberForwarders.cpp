@@ -13,7 +13,7 @@ class QuadStrip2D { public: void rva0053892C(unsigned int count); };
 class Rva005382A6 { public: void *rva005382A6(int i, int off); };
 class Rva005D40A6 { public: void Update(); };
 class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };
-class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *summary); };
+#include "../../Include/Common/UnitRevivalTracker.h"
 
 // 0x00203595: this + 0x10 -> Rva003B24C7::rva003B24C7
 class Rva00203595Owner

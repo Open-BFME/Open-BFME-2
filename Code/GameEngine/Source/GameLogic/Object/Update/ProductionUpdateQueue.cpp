@@ -594,7 +594,7 @@ public:
 	void *rva0037E421(int);
 };
 struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };
-class UnitRevivalTracker { public: bool productionSystemQueueCreateUnit(int,int,const Image **); Object *productionSystemNewObject(unsigned int,const Coord3D *); };
+#include "../../../../Include/Common/UnitRevivalTracker.h"
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 struct ProductionExperienceView { char pad[0x24]; int level; int next; };

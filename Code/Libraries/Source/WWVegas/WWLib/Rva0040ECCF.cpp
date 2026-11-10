@@ -322,7 +322,7 @@ public:
 #include "../../../../GameEngine/Include/Common/BfmeFixedStorage128.h"
 enum ScienceType {};
 class ArmySummarySystem;
-class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *system); };
+#include "../../../../GameEngine/Include/Common/UnitRevivalTracker.h"
 
 class Player
 {

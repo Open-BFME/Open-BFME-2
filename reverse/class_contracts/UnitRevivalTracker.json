@@ -1,0 +1,180 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "UnitRevivalTracker",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0x8": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x37f27b"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x37f27b"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x37f27b"
+     ],
+     "value": {
+      "0x0": [
+       "?rva0037F26D@UnitRevivalTracker@@QAEXXZ"
+      ],
+      "0x4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x37f27b"
+     ],
+     "value": {
+      "0x0": "0x818df0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x818df0"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+        "slot": 0,
+        "target": "0x37f39e"
+       }
+      ],
+      "table": "0x818df0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x818df0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 7,
+   "16": 1,
+   "20": 5
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}
