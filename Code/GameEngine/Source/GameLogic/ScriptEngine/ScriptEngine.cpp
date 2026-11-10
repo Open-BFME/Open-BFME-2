@@ -686,11 +686,7 @@ struct Rva001F3899Arg
 	float x, y, z;
 };
 
-class Rva001F3899Slot
-{
-public:
-	void set(const Rva001F3899Arg &pos);
-};
+#include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 

@@ -12,7 +12,7 @@
 class Vector3;
 class Rva003FD14DBase { public: void rva003FB6C5(const Vector3 &); };	// 0x003FB6C5
 struct Rva001F3899Arg { int m_00, m_04, m_08; };
-class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
+#include "../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 class Rva003FDA19 {

@@ -20,7 +20,7 @@ struct Rva003FD9A3Point
 	Rva003FD9A3Point(const Coord3D &pos) : x(pos.x), y(pos.y), z(pos.z) {}
 };
 
-class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
+#include "../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Vector3;
 class Rva003FD14DBase { public: void rva003FB6C5(const Vector3 &); };	// 0x003FB6C5
 

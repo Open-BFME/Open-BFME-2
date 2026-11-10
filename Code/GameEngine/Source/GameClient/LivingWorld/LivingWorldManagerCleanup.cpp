@@ -38,7 +38,7 @@ class Rva003EF14A { public: void rva003EF1B8(); };
 // is a complete 726B RET0 same-receiver routine over +234/+240, inspected in
 // full; its original method name is not asserted.
 struct Rva001F3899Arg { int m_00, m_04, m_08; };
-class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
+#include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva001F384AByteZeroSetter { public: void disable(); };
 class ParticleSystem {
 public:

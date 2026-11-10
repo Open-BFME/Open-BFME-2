@@ -174,7 +174,7 @@ struct Vec3 {
 };
 class Rva003F936EHost {public:void rva003FB793(Vec3 *);};
 struct Rva001F3899Arg {int x,y,z;};
-class Rva001F3899Slot {public:void set(const Rva001F3899Arg &);};
+#include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva003FD9FA {public:void rva003FD9FA(const RvaSmartPtr12 *,Vec3);};
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;

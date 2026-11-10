@@ -319,11 +319,7 @@ struct Rva001F3899Arg
 	int m_04;
 	int m_08;
 };
-class Rva001F3899Slot
-{
-public:
-	void set(const Rva001F3899Arg &arg);
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva0055A88BDwordField;
 class Rva001F3C20Slot
 {

@@ -87,11 +87,7 @@ class Rva001F3C20Slot
     void set(const Rva0055A88BDwordField *);
 };
 struct Rva001F3899Arg;
-class Rva001F3899Slot
-{
-  public:
-    void set(const Rva001F3899Arg &);
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva001F3852ByteOneSetter
 {
   public:

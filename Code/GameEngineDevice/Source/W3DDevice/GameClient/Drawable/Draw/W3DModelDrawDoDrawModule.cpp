@@ -77,11 +77,7 @@ class ParticleSystemTemplate;
 #include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Rva001F3899Arg;
-class Rva001F3899Slot
-{
-public:
-	void set(const Rva001F3899Arg &);
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva001F384AByteZeroSetter
 {
 public:
