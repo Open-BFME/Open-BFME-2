@@ -18,11 +18,7 @@
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class AptMapPreview
-{
-public:
-    void UpdateMapTitle(MapMetaData *map);
-};
+#include "../../../Include/GameClient/AptMapPreview.h"
 
 void AptMapPreview::UpdateMapTitle(MapMetaData *map)
 {

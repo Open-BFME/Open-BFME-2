@@ -182,7 +182,7 @@ class GameSpyStagingRoom{public:
  char beforeType[0x5c-4];int type;int rules[10];char beforeVersionBlock[0x90-0x88];int versionBlock[12];int version,build;char beforeId[0xfe0-0xc8];int id;char beforeLocked[0xfec-0xfe4];bool locked;
 };
 #include "../../../../../Include/GameClient/MapMetaData.h"
-class AptMapPreview{public:MapMetaData*rva0057D922(const AsciiString&);};
+#include "../../../../../Include/GameClient/AptMapPreview.h"
 #include "../../../../../Include/GameClient/AptMpGameSetup.h"
 #include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection*TheMappedImageCollection;

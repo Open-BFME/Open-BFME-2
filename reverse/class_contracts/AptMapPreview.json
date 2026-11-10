@@ -1,0 +1,424 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AptMapPreview",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 18,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   },
+   "0x18": {
+    "4": 4
+   },
+   "0x1c": {
+    "4": 4
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x50": {
+    "4": 2
+   },
+   "0x5c": {
+    "4": 2
+   },
+   "0x68": {
+    "4": 7
+   },
+   "0x6c": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x57cf43"
+     ],
+     "value": 112
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x57cf43"
+     ],
+     "value": {
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       1
+      ],
+      "0x61": [
+       1
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x57cf43"
+     ],
+     "value": {
+      "0xc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x57cf43"
+     ],
+     "value": {
+      "0x4": [
+       "0x86f31c"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x57cf43"
+     ],
+     "value": {
+      "0x0": "0x86f390"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86f390"
+     ],
+     "value": {
+      "count": 10,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 0,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?v04@AptMapPreview@@UAEXPAX0@Z",
+        "slot": 1,
+        "target": "0x57d8f5"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 2,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?v0C@AptMapPreview@@UAEXPAX00@Z",
+        "slot": 3,
+        "target": "0x57d908"
+       },
+       {
+        "name": null,
+        "slot": 4,
+        "target": "0x320046"
+       },
+       {
+        "name": null,
+        "slot": 5,
+        "target": "0x250065"
+       },
+       {
+        "name": null,
+        "slot": 6,
+        "target": "0x60020"
+       },
+       {
+        "name": null,
+        "slot": 7,
+        "target": "0x32006f"
+       },
+       {
+        "name": null,
+        "slot": 8,
+        "target": "0x10020"
+       },
+       {
+        "name": null,
+        "slot": 9,
+        "target": "0x2c006c"
+       }
+      ],
+      "table": "0x86f390"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 32,
+  "retail_vtables": {
+   "0x86f390": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "1": "?v04@AptMapPreview@@UAEXPAX0@Z",
+     "2": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "3": "?v0C@AptMapPreview@@UAEXPAX00@Z",
+     "4": "0x320046",
+     "5": "0x250065",
+     "6": "0x60020",
+     "7": "0x32006f",
+     "8": "0x10020",
+     "9": "0x2c006c"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 8,
+   "8": 2,
+   "108": 1,
+   "112": 4
+  },
+  "views": 15,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_data",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 112,
+   "type": "uchar[112]",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp",
+    "Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0057C71F.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0057C71F.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0057C71F.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 97,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0057C71F.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 112,
+ "size_by": "majority",
+ "vslots": {}
+}

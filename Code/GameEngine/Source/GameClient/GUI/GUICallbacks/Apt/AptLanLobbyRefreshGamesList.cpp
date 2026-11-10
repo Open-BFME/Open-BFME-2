@@ -112,11 +112,7 @@ private:
 	bool m_sorted;
 };
 
-class AptMapPreview
-{
-public:
-	MapMetaData *rva0057D922(const AsciiString &mapName);
-};
+#include "../../../../../Include/GameClient/AptMapPreview.h"
 
 // TheVersion's 0x00237E63 (text colour for another build's version block),
 // pinned by this name.

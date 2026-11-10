@@ -392,16 +392,7 @@ public:
 
 // The +0x60 member is the map preview (AptMapPreviewSetMapDescription.cpp's
 // class; its rowed 0x0057C597 enables the preview windows).
-class AptMapPreview
-{
-public:
-	void rva0057C597(bool enable);
-	// Rowed 0x0057C57B: the start position a button window shows, or -1.
-	int rva0057C57B(int window);
-	// Rowed 0x0057CD66: reselects the strategic scenario campaign.
-	void rva0057CD66();
-	int GetMaxNumPlayers(); void *GetStartPositionInfoForSlot(int);
-};
+#include "../../../Include/GameClient/AptMapPreview.h"
 
 // The +0x60 member's next selectable slot from a start (rowed 0x0057CA78
 // under its address class).

@@ -141,7 +141,7 @@ public:
 	int m_08; // +0x08
 };
 
-class AptMapPreview { public: void UpdateStrategicStartSpots(); };
+#include "../../../../../Include/GameClient/AptMapPreview.h"
 class Rva0057DFFB
 {
 public:

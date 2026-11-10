@@ -46,7 +46,7 @@ struct Mem04
 };
 
 // 0x0057E058 is rowed as AptMapPreview::rva0057E058.
-class AptMapPreview { public: void rva0057E058(); };
+#include "../../Include/GameClient/AptMapPreview.h"
 
 class Rva0057E3DB : public Rva0057E3DBBase
 {
