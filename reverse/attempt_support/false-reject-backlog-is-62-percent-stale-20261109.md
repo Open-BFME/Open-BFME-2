@@ -158,6 +158,38 @@ the `--update` path and the commit hook's. It admits nothing: `--report` is
 identical and `--staged` stays silent on a clean tree. The remaining work is a
 ledger edit per address, in its own commit, since the grant is read from `HEAD`.
 
+## `tu_skeleton`: four are a stale index, and `link_census` is a different lane
+
+Four of the seven open `tu_skeleton` records are one phantom: a unit a later
+split or merge **deleted** is still in the census index, so the rows that moved
+into the absorbing TU read as duplicates of it, and a unit added since is
+missing as a provider ("no longer defines"). Each names an index commit older
+than the split it tripped over. Against the live tree:
+
+| record | index it used | now |
+| --- | --- | --- |
+| `TerrainLogic.cpp` duplicate `?rva00282B26@…` | `12902e9e1b` | one row in TerrainLogic; `Rva00282B26.cpp` gone; **LINKS cleanly** |
+| `ParticleSys.cpp`, three duplicates | `12902e9e1b` | one row each in ParticleSys; `Rva001F6492Chain.cpp` gone |
+| `BoneFXDamage.cpp` lacks providers | `112a456a2c` | all three providers in the ledger |
+| `PartitionManager` "no longer defines" | `3c963aae8f` | — |
+
+The files were never wrong. `index_staleness()` (`c01385f21b7`) now reports how
+many sources moved since the index commit, on stderr so a landing script's
+verdict parsing is untouched; against `12902e9e1b` it reports 1,052. Two of the
+four records' shas are not in this clone at all, and an index commit a checkout
+lacks is deliberately left unjudged.
+
+**`link_census`'s 12 are not this.** Eleven are COMDAT selection — `keep_rule`,
+`comdat-loser`, `comdat_losers` — where several TUs emit a copy of the same
+function and retail kept a different one, so the local copy "differs from the
+first copy in link order". They turn on which TU retail compiled a copy from
+and why MSVC 7.1 emitted an out-of-line body there (the `??1Rva006D07E0Key`
+cluster alone holds out seven Apt units, four of them with no other blocker).
+That is linker semantics against retail evidence, and the rule decides what
+counts as LINKED, so it is not a tooling-seat message fix and is left to the
+link lane. The twelfth is the hard-coded-image-address heuristic firing on
+`0x7F7FFF`, a pixel colour constant, which is its own small question.
+
 ## What this does not claim
 
 - **Not that the 351 are all real false rejects.** 144 are "a different real
