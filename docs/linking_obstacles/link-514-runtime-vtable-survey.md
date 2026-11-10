@@ -2339,3 +2339,56 @@ Method: class/method identity fixes + `tools/add_match.py --icf-owner` + `tools/
 - `ProductionQueueHordeContainModuleDataDtor.cpp` (previously a 1-slot `GarrisonContainModuleData` scaffold copy) now includes canonical `HordeGarrisonContainModuleData.h`, emitting a 31-slot `??_7ProductionQueueHordeContainModuleData@@6B@` matching `ProductionQueueHordeContain.cpp`.
 - Both `ProductionQueueHordeContainModuleDataDtor.cpp` and `SlaughterHordeContainModuleDataDtor.cpp` declare `inline __forceinline HordeGarrisonContainModuleData::~HordeGarrisonContainModuleData() {}` so retail's inlined `??1GarrisonContainModuleData@@UAE@XZ` tail call is preserved while emitting `sec=3 sel=2 len=5` `??1HordeGarrisonContainModuleData@@UAE@XZ` (`0x00257A05`). Row `0x00257A05` moves from `HordeGarrisonContainModuleDataDtor.cpp` (`sel=1` collision) to `SlaughterHordeContainModuleDataDtor.cpp` (`add_match.py --replace-existing`) and `HordeGarrisonContainModuleDataDtor.cpp` is retired (`-1` source file).
 - Verification: `build.py` 7/7 exact across both dtor TUs, `eh_verify.py` 2/2 exact, `find_declared_unmatched.py --fail`, `class_gate.py`, and read-only `link_check` simulation dropping `HordeGarrisonContainModuleDataDtor.obj` (`9/9 LINKS`, net `+172 B` linked across cohort; census confirmation pending). `ContainModuleDeletingDtors.cpp` still carries `header_queue.tsv:2227` and `0x00848DC0`/`0x008490F8` retain the shared `ModuleData::slot14` difference in `vtable_bridge_queue.tsv`.
+
+**Rva0024A797Grandchildren.cpp: WallUpgradeUpdate and the name-first route refused; one RvaSmallVtableCtors table
+off the bridge (2026-11-10, seat halilkkaya-lk89, base `60189f9cedc`).** Method: lk74_snap/lk74_cmp (old = new =
+HEAD's `vtable_bridge.py`), `tu_skeleton.py --split --dry-run --no-claim`, `rename.py class --fold` and `function
+--to-class` dry runs, retail slot reads, per-object `??_7` comparisons against retail.
+- WallUpgradeUpdate (0x004AB246, both rows approved): identity holds (ctor 0x004AB317 and dtor 0x004AB246 store
+  0x00C54780/+0, 0x00C49800/+0x0C, 0x00C54774/+0x10, 0x00C54768/+0x20, 0x00C54764/+0x24; the dtor jumps to 0x0024A797;
+  0x004AB392 is slot 0 of 0x00C54780). Not workable in this order: the split is refused (C2504, WallUpgradeUpdate.cpp
+  defines private `UpdateModule`/`WallUpgradeUpdate` views and a ctor that stores the placeholder's tables by
+  `__identifier`). The TU cannot be put on WallUpgradeUpdate.h alone (its real ctor would emit the class's tables
+  and need `??1WallUpgradeUpdate`, which only the fold defines), and the fold into the registered class needs every
+  unit spelling `Rva004AB246` prepared on that header, whose tables name `?loadPostProcess@WallUpgradeUpdate@@MAEXXZ`
+  (retail slot 1 is the 0x00497805 ICF; that address is held by ancalgonn-swarm-seat6 through
+  class:SpecialAbilityUpdate) and `?GetSnapshotName@WallUpgradeUpdate@@MBEPBDXZ` (0x004AB26D, rowed
+  `?name@Rva004AB26DNamed`). Route once 0x00497805 is free: one commit puts the TU on WallUpgradeUpdate.h (real ctor;
+  PoisonedBehavior's real ctor on the same base pair matches), rows the loadPostProcess ICF, respells the name getter
+  and folds the placeholder (grab-bag prepared, the dead `?fe@/?ff@Rva004AB246_E*` alternatename lines dropped); the
+  split follows.
+- Name-first pilot: not workable. `rename.py class --fold` refuses "nothing ties NEW to T" for all six ZH classes with
+  an out-of-line `~X` (ToppleUpdate, SlavedUpdate, StructureCollapseUpdate, DefaultProductionExitUpdate,
+  SupplyCenterProductionExitUpdate, AutoHealBehavior): each constructor unit stores the placeholder's tables by
+  `__identifier`, so each fold must carry that unit rewritten onto a view of X (lk88's recipe), and a view consistent
+  with the TU's. PropagandaTowerBehavior refuses because its TU declares both views (the `Rva0048180C` helper for
+  0x00481A9E). SlavedUpdate.cpp (the ZH-verbatim port) already defines `??1SlavedUpdate@@MAE@XZ` (present-unmatched)
+  with retail's 32-byte shape, but its four tables carry Zero Hour's layout (21 of 57 slots wrong, against the
+  placeholder's 15), so a real-name split there would worsen the tables until that TU's view is BFME2's. Every
+  candidate except AutoHealBehavior has slot 1 = 0x00497805 (same claim). Four placeholders duplicate tables their
+  real class already emits (ClickReactionBehavior, ShareExperienceBehavior, PropagandaTowerBehavior,
+  RadiateFearUpdate: 16 tables at the same addresses); a fold there removes four tables each without any split.
+- Done, one code commit ("Move ?rva000ABD68@Rva000ABD68Forwarder@@QAEXXZ into Rva000ABD56 ..."): lk80's one-slot
+  recipe. Retail's one-slot 0x00BC957C, installed by `??0Rva000ABD56` (RvaSmallVtableCtors.cpp), holds 0x000ABD68; the
+  forwarder body moved into the class with prepared views (the vptr replaces the old +0 pad). 205/205 matched;
+  link_check over both units, VslotSizedForwarders2.cpp and GameLogic.cpp: 4 of 4 LINK, 17,616 -> 17,616 bytes;
+  scoped DIR32 OK.
+- Bridge, base -> after: tables 3,830 -> 3,829, already correct 1,761 -> 1,762, mismatching source slots 41,006 ->
+  41,005; refusals identical, nothing newly bridged, no correct table lost. Off: `??_7Rva000ABD56@@6B@`.
+- Refused (re_attempts.log, three rows): 0x004AB246 (above), 0x004A1855 (the pilot), and 0x00040ECE: the fold
+  Rva00040ECE -> Rva0040EDB needs Rva00041004Lock.h, whose `__forceinline Rva0040EDB()` is the body rowed out of line
+  as `??0Rva00040ECE` (lk80's COMDAT-constructor trap). Other one-slot and three-slot candidates are held
+  (VslotSmallBodiesAI.cpp and VslotSmallBodiesC.cpp by ancalgonn-swarm-sweep-header) or fold across a third class's
+  deleting destructor (Rva003F3FEC, Rva003EE734, Rva0020E6D6 install another class's table).
+- Tooling compatibility audit (`60189f9cedc..HEAD`): no path added, moved or deleted; `rename.py check --range`: 0
+  renames, 0 problems. The old spelling `?rva000ABD68@Rva000ABD68Forwarder@@QAEXXZ` remains only in deleted_rows.csv
+  (the tombstone) and name_tiers.csv (generated); GameLogic.cpp still declares the unused `Rva000ABD68Forwarder` class
+  (no definition, no reference). tools/, .githooks/ and .github/ name neither class.
+- Next leads:
+  1. WallUpgradeUpdate as above, once 0x00497805 is claimable.
+  2. The four duplicate-table placeholders: fold each with its constructor TU prepared (each TU defines the ctor and
+     an implicit destructor, so the TU must declare `virtual ~X();` and the grab-bag view must match the TU's bases).
+  3. The six ZH classes: rewrite each constructor unit onto the class's view in the fold commit, then rebuild the map
+     for Z approval and split; SlavedUpdate.cpp's view must first carry BFME2's slot order.
+  4. Tooling: tu_map gives no Z/S for a placeholder-named destructor even when its constructor row names the class;
+     a constructor-store tie (ctor and dtor install the same tables) could approve it directly.
