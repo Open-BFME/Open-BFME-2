@@ -16,15 +16,7 @@ class Player;
 
 // vftable 0x00BFAD28, allow 0x0026137E, slot 2 0x00261368: +0x08 a
 // player, +0x0C whether a hit allows.
-class Rva0026137EFilter : public Rva000421C8
-{
-public:
-	Rva0026137EFilter(Player *player, bool match) : m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-};
+#include "../../../Include/GameLogic/Rva0026137EFilter.h"
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 #include "../../../Include/GameLogic/Rva0026119DFilter.h"
