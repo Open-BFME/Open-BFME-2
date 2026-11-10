@@ -134,11 +134,7 @@ public:
 #include "../../../../../../GameEngine/Include/GameLogic/Module/StealthUpdate.h"
 #include "../../../../../../GameEngine/Include/Common/Rva0038404A.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/CreateModuleClass.h"
-class Rva000B56F0Object
-{
-public:
-	void * selectStorage();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva000B56F0Object.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Rva003145B1.h"
 class HordeContain
 {
