@@ -385,11 +385,7 @@ public:
 	static bool Is_Snapshot_Activated(void) { return WW3D::SnapshotActivated; }
 };
 
-class SortingRendererClass
-{
-public:
-	static void Flush(void);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 

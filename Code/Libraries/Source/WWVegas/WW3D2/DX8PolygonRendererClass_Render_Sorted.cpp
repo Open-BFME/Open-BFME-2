@@ -52,10 +52,7 @@ public:
 struct TargetCenter3 { float x, y, z; };
 #include "BfmeSortingDispatchAt0012FE00.h"
 
-class SortingRendererClass {
-public:
-	static void Insert_Triangles(const SphereClass &,unsigned,unsigned,unsigned,unsigned);
-};
+#include "SortingRendererClass.h"
 
 class DX8PolygonRendererClass {
 	void *Vtable;

@@ -1217,36 +1217,7 @@ class SortingNodeStruct;
 class SphereClass;
 
 
-class SortingRendererClass
-{
-	static bool _EnableTriangleDraw;
-	static void Flush_Sorting_Pool();
-	static void Insert_To_Sorting_Pool(SortingNodeStruct* state);
-public:
-	static void Insert_Triangles(
-		const SphereClass& bounding_sphere,
-		unsigned start_index, 
-		unsigned polygon_count,
-		unsigned min_vertex_index,
-		unsigned vertex_count);
-	static void Insert_Triangles(
-		unsigned start_index, 
-		unsigned polygon_count,
-		unsigned min_vertex_index,
-		unsigned vertex_count);
-	static void Insert_VolumeParticle(
-		const SphereClass& bounding_sphere,
-		unsigned start_index, 
-		unsigned polygon_count,
-		unsigned min_vertex_index,
-		unsigned vertex_count,
-		unsigned layerCount);
-	static void Flush();
-	static void Deinit();
-	static void SetMinVertexBufferSize( unsigned val );
-	static void _Enable_Triangle_Draw(bool enable) { _EnableTriangleDraw=enable; }
-	static bool _Is_Triangle_Draw_Enabled() { return _EnableTriangleDraw; }
-};
+#include "SortingRendererClass.h"
 #endif
 #include "dx8wrapper.h"
 #include "wwmath.h"

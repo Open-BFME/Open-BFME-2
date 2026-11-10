@@ -13,15 +13,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.h
-class SortingRendererClass
-{
-public:
-	static void Insert_Triangles(
-		unsigned short start_index,
-		unsigned short polygon_count,
-		unsigned short min_vertex_index,
-		unsigned short vertex_count);
-};
+#include "SortingRendererClass.h"
 
 // The four-argument overload's own matched body at 0x0012FE00; retail's 0x009037D0
 // forwards the zeroed sphere view to it by the rowed spelling.

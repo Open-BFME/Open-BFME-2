@@ -93,11 +93,7 @@ bool BFME_DX8_Thread_Assert(void);
 // Its complete destructor at 0x00042F8C tail-calls BFME_DX8_Thread_Assert.
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
-class SortingRendererClass
-{
-public:
-	static void SetMinVertexBufferSize(UnsignedInt count);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
 
 class SimpleStreakRendererClass
 {

@@ -248,11 +248,7 @@ public:
 };
 class SnowManager;
 
-class SortingRendererClass
-{
-public:
-	static void Flush();				// 0x0012F190
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

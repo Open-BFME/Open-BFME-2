@@ -87,11 +87,7 @@ public:
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class SortingRendererClass
-{
-public:
-	static void Flush();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

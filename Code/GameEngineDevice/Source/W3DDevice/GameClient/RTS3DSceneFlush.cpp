@@ -74,7 +74,7 @@ public:
 	static bool Has_Stencil();
 	static void Get_DX8_Render_State_Value_Name(StringClass &, unsigned long, unsigned int);
 };
-class SortingRendererClass { public: static void Flush(); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
 class DX8MeshRendererClass { public: void Clear_Pending_Delete_Lists(); };
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 __forceinline void bfmeSetRS(unsigned long state, unsigned value)
