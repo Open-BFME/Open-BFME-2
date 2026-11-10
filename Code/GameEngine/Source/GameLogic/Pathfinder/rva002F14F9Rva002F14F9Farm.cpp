@@ -173,14 +173,7 @@ void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
 class Rva002E6C79;
 struct Rva002E8BCFSrc;
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../../Include/Common/Rva002E6DC4.h"
 void ji_00629952();
 struct Rva002F35AFCell;
 class Rva002E6C79
