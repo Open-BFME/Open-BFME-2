@@ -31,11 +31,7 @@ protected:
 	static unsigned texture_stage_state_changes;
 };
 
-class Rva00131CEAForwarder
-{
-public:
-	void rva00131CEA(int stage);
-};
+#include "../../../../GameEngine/Include/Common/Rva00131CEAForwarder.h"
 
 class Rva000EF7B8Texture
 {

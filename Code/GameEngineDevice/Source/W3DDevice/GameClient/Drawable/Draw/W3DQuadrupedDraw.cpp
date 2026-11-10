@@ -83,11 +83,7 @@ class W3DModelDraw
 protected:
 	virtual void loadPostProcess();
 };
-class Rva00131CEAForwarder
-{
-public:
-	void rva00131CEA(int a);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva00131CEAForwarder.h"
 class Rva002D35C7Forwarder
 {
 public:
