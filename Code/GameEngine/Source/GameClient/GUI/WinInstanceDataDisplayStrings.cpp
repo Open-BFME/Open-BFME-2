@@ -39,19 +39,7 @@ typedef unsigned short wchar_t;
 
 extern DisplayStringManager *TheDisplayStringManager;
 
-class WinInstanceData
-{
-public:
-	void setTooltipText(UnicodeString tip);
-	void setText(UnicodeString text);
-	UnicodeString getTooltipText();
-	UnicodeString getText();
-
-private:
-	char m_pad[0x19C];
-	DisplayString *m_text;
-	DisplayString *m_tooltip;
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 // ?setTooltipText@WinInstanceData@@QAEXVUnicodeString@@@Z
 void WinInstanceData::setTooltipText(UnicodeString tip)

@@ -46,12 +46,7 @@ extern FontLibrary *TheFontLibrary;
 // TheFontLibrary: matched references place it at VA 0xdfe33c (zero-filled .bss).
 FontLibrary * TheFontLibrary;
 
-class WinInstanceData
-{
-public:
-	char m_pad[0x184];
-	GameFont *m_font;
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 // scanInt lives in GameWindowManagerScript.cpp (file-static at 0x00314E96).
 // Declared extern (not static: MSVC rejects defined-never statics with

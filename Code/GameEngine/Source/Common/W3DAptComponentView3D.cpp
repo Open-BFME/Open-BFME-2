@@ -459,13 +459,7 @@ private:
 	Matrix3D Transform; // +0x18
 };
 class LightEnvironmentClass;
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-	char m_pad04[0x28 - 0x04];
-	LightEnvironmentClass *light_environment; // +0x28
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class RefCountClassView
 {
 public:

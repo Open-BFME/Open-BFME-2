@@ -26,7 +26,7 @@ public:
     virtual UnicodeString fetch(const char *, bool *exists=0);
 };
 extern GameTextInterface *TheGameText;
-class Version { public: UnicodeString getFullUnicodeVersion(); UnicodeString getUnicodeBuildTime(); };
+#include "../../Include/Common/VersionClass.h"
 extern Version *TheVersion;
 class GlobalData {public:AsciiString rva002360DE() const;char p0[0xc];AsciiString m_mapName;char p10[0xac0-0x10];AsciiString pendingFile;char pAC4[0xb04-0xac4];unsigned int field0b04;char pB08[0x1100-0xb08];bool field1100;char p1101[3];int field1104;};
 extern GlobalData *TheWritableGlobalData;

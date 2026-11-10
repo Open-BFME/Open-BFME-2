@@ -101,11 +101,7 @@ public: int commandTagForAssist() const { return m_commandTag; }
     int m_commandTag; // +0x2EC
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);			// 0x002A7A29
-};
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

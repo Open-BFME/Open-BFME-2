@@ -316,11 +316,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 
-class DelayedDeathBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 
 class FreeLifeBodyModuleData
 {

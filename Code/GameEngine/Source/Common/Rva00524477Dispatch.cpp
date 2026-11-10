@@ -45,11 +45,7 @@ public:
 typedef _STL::vector<CameraMarker, _STL::allocator<CameraMarker> > CameraMarkerVector;
 
 // Row spelling: 0x002245FF is AptPlayer::RemoveOverButtonHandler.
-class AptPlayer
-{
-public:
-	void RemoveOverButtonHandler(int a1, const AsciiString &name);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

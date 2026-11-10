@@ -215,14 +215,7 @@ struct GameClientVTable
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameClient.h
-class GameClient
-{
-public:
-	unsigned int getFrame() { return vtable->getFrame(this); }
-
-private:
-	GameClientVTable *vtable;
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 

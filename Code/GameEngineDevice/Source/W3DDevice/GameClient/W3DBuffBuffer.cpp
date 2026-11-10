@@ -806,15 +806,7 @@ public:
 	CameraClass &Camera;
 };
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-
-private:
-	char m_pad00[0x54];
-	int m_playerIndex;
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 

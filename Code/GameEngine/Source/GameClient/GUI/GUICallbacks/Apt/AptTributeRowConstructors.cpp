@@ -163,7 +163,8 @@ virtual bool connected(int);};extern NetworkInterface*TheNetwork;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
-class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};extern MultiplayerSettings*TheMultiplayerSettings;
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
+extern MultiplayerSettings*TheMultiplayerSettings;
 #include "../../../../../Include/Common/Player.h"
 void Rva0050EE72Set(int,const AsciiString&,int,const UnicodeString&);
 class Rva0050F909:public Rva0050FAEC {public:Rva0050F909(int,const AsciiString&,int,int);virtual~Rva0050F909(){}};

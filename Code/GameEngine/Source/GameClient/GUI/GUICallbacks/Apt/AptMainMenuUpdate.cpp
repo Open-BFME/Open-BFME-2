@@ -26,7 +26,7 @@
 
 #include "../../../../../Include/GameClient/AptSaveLoad.h"
 class AptOptions { public: static void OpenScreen(bool a, bool b, bool c, bool d); };
-class AptCreateAHero { public: static void OpenScreen(int mode); };
+#include "../../../../../Include/Common/AptCreateAHero.h"
 class AptSkirmish { public: static void OpenScreen(int mode); };
 void startGoodCampaign(char side);	// 0x00515BCA
 void startEvilCampaign(char side);	// 0x00515C17

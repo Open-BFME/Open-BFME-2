@@ -844,7 +844,7 @@ namespace rts
 // Range-erase provider for the alias multimap (rowed 0x00056B0A); the hash
 // functors are never called by erase, so the file's rts views are reused.
 enum NameKeyType;
-class DamageFX { public: int m_valueWords[0x1E0]; };
+#include "../../../GameEngine/Include/Common/DamageFXClass.h"
 typedef _STL::hash_map<NameKeyType, DamageFX, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > ExistingRangeErase;
 namespace _STL { template<> void ExistingRangeErase::erase(ExistingRangeErase::iterator, ExistingRangeErase::iterator); }
 // File name -> UnicodeString text map at +0x9E8 (value at node +8 is read
@@ -852,15 +852,7 @@ namespace _STL { template<> void ExistingRangeErase::erase(ExistingRangeErase::i
 // vector); its find is the folded hashtable helper at 0x0041534B.
 typedef _STL::hash_map<AsciiString, UnicodeString,
 	rts::hash<AsciiString>, rts::equal_to<AsciiString> > MilesFileTextMap;
-class MilesMutexGuard {
-public:
-    MilesMutexGuard(void *mutex, int defer);
-    ~MilesMutexGuard();
-    bool rva00041037(int timeout);       // waits up to timeout ms for the lock
-private:
-    void *m_mutex;
-    bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 // TheGameLODManager (0x00DFE144): +0x1770 audio LOD level, per-level
 // 8-byte settings at +0x218 whose first word is the ambient stream cap.
 struct AudioLODSettings {
@@ -2442,14 +2434,8 @@ void MilesAudioManager::rva0005A92A(int key, Rva0005A084Vector *output)
 // (rowed 0x0041534B on 0x56F61's table), the by-value erase (0x003A37DC) and
 // the first/next walk (0x00427195/0x00411084), all banked under these names.
 class Rva00056F61;
-struct Rva0041534BIter {
-    void *m_node;
-    Rva00056F61 *m_table;
-};
-class Rva00056F61 {
-public:
-    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *key);
-};
+#include "../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
+#include "../../../GameEngine/Include/GameClient/Rva00056F61.h"
 struct VideoPair {
     struct { void *first; void *second; } s;
     inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
@@ -5270,12 +5256,7 @@ public:
     PlayingAudioList::iterator m_streams[2];
 };
 // The subtitle window the update deletes once it reports itself finished.
-class SubTitleWindow
-{
-public:
-    ~SubTitleWindow();
-    bool rva00045837() const;
-};
+#include "../../../GameEngine/Include/GameClient/SubTitleWindow.h"
 // Zero Hour's LatchRestore: restores the latched value when the scope ends
 // (vftable 0x007C5314, ??_7?$LatchRestore@_N@@6B@).
 template <class T>

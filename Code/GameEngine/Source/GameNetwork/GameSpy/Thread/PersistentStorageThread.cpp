@@ -1152,17 +1152,7 @@ typedef _STL::map<AsciiString, AsciiString> StoragePreferenceMap;
 template <> AsciiString &StoragePreferenceMap::operator[](const AsciiString &);
 #include "../../../../Include/Common/UserPreferences.h"
 
-class GameSpyMiscPreferences : public UserPreferences
-{
-public:
-	GameSpyMiscPreferences();
-	virtual ~GameSpyMiscPreferences();
-	int rva00559782();
-	void rva0055986F(AsciiString val);
-	void rva00559924(AsciiString val);
-	AsciiString rva00559813();
-	AsciiString rva005598C8();
-};
+#include "../../../../Include/Common/GameSpyMiscPreferencesClass.h"
 
 // Retail 0x55325C (122 bytes): decodes a lowercase hex string, two digits
 // per output byte. The string reference arrives in eax (static, TU-local).

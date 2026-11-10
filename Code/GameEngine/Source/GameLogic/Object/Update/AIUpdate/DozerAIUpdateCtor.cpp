@@ -1513,11 +1513,7 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-class AiOrdersManager
-{
-public:
-	void clearOrders(Int a, Int b);
-};
+#include "../../../../../Include/GameLogic/AiOrdersManager.h"
 
 extern AiOrdersManager *TheAiOrdersManager;
 

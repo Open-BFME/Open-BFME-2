@@ -128,14 +128,7 @@ private:
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class AIStateMachine : public StateMachine
-{
-public:
-	const Waypoint *getGoalWaypoint() { return m_goalWaypoint; }
-private:
-	unsigned char m_pad3C[0x48 - 0x3C];
-	const Waypoint *m_goalWaypoint; // +0x48
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 // Waypoint (target evidence): location +0x0C, link count +0x4C; getLink is
 // the rowed out-of-line 0x00085404.

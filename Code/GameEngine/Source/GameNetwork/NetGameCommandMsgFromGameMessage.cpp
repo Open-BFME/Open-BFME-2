@@ -31,23 +31,7 @@ union GameMessageArgumentType
 
 class GameMessageArgument;
 
-class NetGameCommandMsg : public NetCommandMsg
-{
-public:
-	NetGameCommandMsg(GameMessage *msg);
-	virtual ~NetGameCommandMsg();
-	virtual Bool vslot08();
-	void addArgument(GameMessageArgumentDataType type, GameMessageArgumentType arg);
-private:
-	Int m_numArgs;
-	Int m_argSize;
-	Int m_type;
-	GameMessageArgument *m_argList;
-	GameMessageArgument *m_argTail;
-public:
-	// retail vftable slot: the rowed override
-	virtual AsciiString getContentsAsAsciiString();
-};
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 
 NetGameCommandMsg::NetGameCommandMsg(GameMessage *msg) : NetCommandMsg()
 {

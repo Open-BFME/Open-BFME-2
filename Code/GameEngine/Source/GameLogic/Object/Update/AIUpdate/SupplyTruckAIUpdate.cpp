@@ -569,11 +569,7 @@ private:
 // pointers to the +0x3E4 / +0x3E8 / +0x3EC subobjects.
 // --- 0x0052AC16 / 0x0052AC29 (19B each): assign a by-value delegate
 // description through the rowed assignments; return this.
-struct DelegateDesc
-{
-	void *m_object;
-	void *m_method;
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 class Rva0052A786
 {
@@ -604,13 +600,7 @@ public:
 
 // --- 0x00518756 (19B): constructor taking a 16-byte functor binding by value
 // and handing its address to the rowed holder base constructor 0x0057BC63.
-struct FunctorBinding
-{
-	void *m_target;
-	unsigned int m_pad;
-	void *m_method;
-	unsigned int m_adjust;
-};
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 
 class Rva0057BC63FunctorHolder
 {

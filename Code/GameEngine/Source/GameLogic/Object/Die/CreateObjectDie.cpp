@@ -231,25 +231,9 @@ extern const FieldParse g_00C4A968[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
-private:
-	unsigned char m_bytes[28];
-};
-
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
-
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class Rva00485ADCFilter
 {

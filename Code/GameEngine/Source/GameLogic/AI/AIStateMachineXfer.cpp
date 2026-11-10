@@ -30,7 +30,7 @@ class Xfer::Version { public: Version(unsigned char current, unsigned char minim
 class Squad {public:Squad()throw();virtual ~Squad();virtual void slot01();virtual void slot02();virtual void xfer(Xfer*);private:_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class StateMachine {public:virtual ~StateMachine();virtual void slot01();virtual void slot02();protected:virtual void xfer(Xfer*);char beforeGoalPath[0x38];public:State *internalGetState(unsigned int);};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIStateMachine:public StateMachine {protected:virtual void xfer(Xfer*);public:_STL::vector<Coord3D> goalPath;const Waypoint *goalWaypoint;Squad *goalSquad;State *temporaryState;unsigned int temporaryStateFrameEnd;ObjectID objectID58;Coord3D position5C;};
 void XferObjectID(Xfer*,ObjectID*);
 void AIStateMachine::xfer(Xfer *xfer)

@@ -58,11 +58,7 @@ extern "C" void *theLogicRandomLogFile;
 			fprintf msg; \
 	}
 #include "../../../Include/GameLogic/LocomotorClass.h"
-class AIStateMachine
-{
-public:
-	const Coord3D *getGoalPathPosition(Int i) const;
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 class Rva00346FA5 { public: void *rva00346FA5(Int index) const; };
 class LocomotorSet;
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>

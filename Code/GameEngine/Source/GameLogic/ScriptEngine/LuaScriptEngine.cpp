@@ -624,17 +624,7 @@ public:
 	char m_pad00[0x58];
 	BfmeSideHolder m_side58; // +0x58 target fact, AsciiString-compatible 4B
 };
-class UpgradeTemplate
-{
-public:
-	int m_00;
-	int m_type;
-};
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &n) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 struct Rva00335CAERec
 {

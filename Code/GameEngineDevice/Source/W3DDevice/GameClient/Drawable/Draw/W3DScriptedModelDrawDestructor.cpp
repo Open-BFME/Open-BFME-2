@@ -40,7 +40,7 @@
 class Thing;
 class ModuleData;
 class ObjectCreationList;
-class BfmeStringRecord000B94D2 { public: ~BfmeStringRecord000B94D2(); };
+#include "../../../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 struct Rva00B6CF1 
 {
  // Destruction is the rowed ??1BfmeStringRecord000B94D2, reached by a qualified call.

@@ -199,7 +199,7 @@ class AI;
  extern AI *TheAI;
 struct AIDataView {char pad[0x10];Pathfinder *path;};
 enum ObjectID;
- class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString&);Object *newObject(const ThingTemplate*,Team*,const CreateMask*,ObjectID);};
+#include "../../../../Include/Common/ThingFactory.h"
  extern ThingFactory *TheThingFactory;
 class BuildAssistant;
  extern BuildAssistant *TheBuildAssistant;

@@ -23,27 +23,7 @@
 
 typedef Vector3i16 TriIndex;
 
-class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass {
-public:
-    virtual void Delete_This(void);
-    virtual ~MeshGeometryClass(void);
-    virtual void Retail_Vtable_Slot_2(void);
-protected:
-    virtual void Compute_Plane_Equations(Vector4 *array);
-    virtual void Compute_Vertex_Normals(Vector3 *array, bool create);
-    virtual void Compute_Bounds(Vector3 *array);
-    Vector4 *get_planes(bool create);
-    uint32 *get_shade_indices(bool create);
-public:
-    void *MeshName;
-    void *UserText;
-    int Flags;
-    char SortLevel;
-    uint32 W3dAttributes;
-    int PolyCount;
-    int VertexCount;
-    ShareBufferClass<TriIndex> *Poly;
-};
+#include "MeshGeometryClass.h"
 
 void MeshGeometryClass::Compute_Vertex_Normals(Vector3 *vnorm, bool)
 {

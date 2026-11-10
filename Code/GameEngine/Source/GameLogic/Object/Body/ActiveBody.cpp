@@ -212,11 +212,7 @@ public:
 	virtual void onBodyDamageStateChange(DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);	// +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;	// 0x006BD7C0
-};
+#include "../../../../Include/Common/Geometry.h"
 // The Object's geometry (+0xA8) as the rowed BFME 1 donor helpers view it:
 // the shape at an index (0x006BD980) over 0x24-byte shapes named at +0x1C,
 // and the named-shape flag update (0x006BF450).
