@@ -169,11 +169,7 @@ Rva002129DD::~Rva002129DD()
 // only caller) +0x218 hash table destructor (formerly the alias dup_0021231b);
 // the shape above, clearing through the node/bucket clear 0x001DBCDC
 // (?clear@Rva004DFC20@@QAEXXZ). Retail folds its EH handler with 0x002129DD's.
-class Rva004DFC20
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva004DFC20.h"
 
 struct Rva0021231B
 {

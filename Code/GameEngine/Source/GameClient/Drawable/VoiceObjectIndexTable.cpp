@@ -17,7 +17,7 @@
 // Original application class name is unknown. The existing opaque hash-map
 // constructor4DAADE initializes the containing map in the caller reconstruction.
 namespace _STL { void __cdecl free(void *); }
-class Rva004DFC20 { public: void clear(); };
+#include "../../../Include/Common/Rva004DFC20.h"
 namespace _STL {
 template<class T> class allocator {};
 template<class T, class A> class vector {

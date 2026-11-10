@@ -1007,7 +1007,7 @@ void Rva002BC5C9ClearMap() { ((Rva002BBBE7 *)&g_Va00E04544)->rva002BC39D(); }
 // ---- fifth group -----------------------------------------------------------
 #include "../../Include/Common/Geometry.h"
 #include "../../Include/Common/Dict.h"
-class Rva004DFC20 { public: void clear(); };
+#include "../../Include/Common/Rva004DFC20.h"
 struct BfmeOpaqueOwnedRecord492;
 struct BfmeOpaqueOwnedRecord840;
 struct BfmeE12;

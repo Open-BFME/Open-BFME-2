@@ -22,7 +22,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
-class Rva004DFC20 { public: void clear(); };
+#include "../../../Include/Common/Rva004DFC20.h"
 
 struct BfmeTeamRelationBuckets
 {

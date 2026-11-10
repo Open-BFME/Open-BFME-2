@@ -691,11 +691,7 @@ void Rva005FEA50Base::DoXfer(Xfer &xfer)
 }
 }
 
-class Rva004DFC20
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva004DFC20.h"
 
 class Rva003ED1B6Forwarder
 {

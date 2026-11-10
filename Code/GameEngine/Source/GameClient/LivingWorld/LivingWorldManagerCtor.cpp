@@ -114,11 +114,7 @@ private:
 	Rva00213E11Map m_data;
 };
 
-class Rva004DFC20
-{
-public:
-	void clear();
-};
+#include "../../../Include/Common/Rva004DFC20.h"
 
 // +0x22C: a handle that clears its pointer.
 class Rva0010F149Handle

@@ -36,7 +36,7 @@ namespace _STL { template <> _Ht_iterator<pair<GameWindow const *const, WindowVi
 // bfme link decl-only end
 
 class Rva0041E875 { public: ~Rva0041E875(); };
-class Rva004DFC20 { public: void clear(); };
+#include "../../../Include/Common/Rva004DFC20.h"
 class Rva0041EA88 {
 public: void rva0041EA88();
 private: int m_functors; void **m_begin, **m_end, **m_capacity; unsigned m_count;

@@ -77,11 +77,7 @@ Rva0022A809Subsystem::~Rva0022A809Subsystem()
 // The table clear is the ICF-folded hashtable clear at 0x001DBCDC. Its
 // address-named provider row there is Rva004DFC20::clear (the opaque-table
 // spelling already rowed in Rva004E013BOwnedResources.cpp); call that name.
-class Rva004DFC20
-{
-public:
-    void clear();
-};
+#include "../../Include/Common/Rva004DFC20.h"
 
 struct Rva0041F4A7Buckets
 {

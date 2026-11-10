@@ -20,7 +20,7 @@
 #include "Common/Snapshot.h"
 
 // Shared scalar-payload bucket clear, already rowed at 0x001DBCDC.
-class Rva004DFC20 { public: void clear(); };
+#include "../../../Include/Common/Rva004DFC20.h"
 
 struct BfmePlayerRelationBuckets
 {

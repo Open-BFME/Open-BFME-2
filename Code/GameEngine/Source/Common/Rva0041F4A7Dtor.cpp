@@ -12,11 +12,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva004DFC20
-{
-public:
-    void clear();
-};
+#include "../../Include/Common/Rva004DFC20.h"
 
 struct Rva0041F4A7Buckets
 {

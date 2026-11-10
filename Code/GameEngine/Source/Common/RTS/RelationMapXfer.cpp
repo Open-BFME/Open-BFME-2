@@ -145,7 +145,7 @@ typedef _STL::hash_map< UnsignedInt, Relationship, _STL::hash<UnsignedInt>, _STL
 // Object spelling is an opaque four-byte ABI carrier, not a relationship type.
 typedef _STL::hashtable<_STL::pair<const int,Relationship>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<const int,Relationship> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,Relationship> > > PlayerRelationTableView;
 // The neutral bucket-table owner supplies the complete retail clear at 1DBCDC.
-class Rva004DFC20 {public: void clear();};
+#include "../../../Include/Common/Rva004DFC20.h"
 class Object;
 class ObjectLookupMap {public: Object **findSlot(int *);};
 struct RelationCopyNodeView {void *next; int key; int value;};
