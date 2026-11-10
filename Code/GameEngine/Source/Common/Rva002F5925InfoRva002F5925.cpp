@@ -117,33 +117,7 @@ enum PathfindLayerEnum {OBSERVED_LAYER_1=1};
 struct CallbackTemplate {char pad[0x108];unsigned kind[8];unsigned kindOf(unsigned n)const{return kind[n>>5]&(1U<<(n&31));}};
 class Object {public:void *vptr;CallbackTemplate *definition;char pad8[0x250-8];void *observed250;};
 struct TCheckMovementInfo {ICoord2D cell;PathfindLayerEnum layer;int radius;bool centerInCell,field11;char pad12[2];unsigned options;int ignoreID;char pad1C[16];int field2C;bool field30,field31,field32;char pad33;int blockers;};
-class Rva002E6FDF
-{
-public:
-	Rva002E6FDF *rva002E6FDF();
-	int m_00; // +0x00
-	int m_04; // +0x04
-	int m_08; // +0x08
-	int m_0C; // +0x0C
-	unsigned char m_10; // +0x10
-	unsigned char m_11; // +0x11
-	char m_pad12[0x2];
-	int m_14; // +0x14
-	int m_18; // +0x18
-	int m_1C; // +0x1C
-	unsigned char m_20; // +0x20
-	unsigned char m_21; // +0x21
-	char m_pad22[0x2];
-	int m_24; // +0x24
-	unsigned char m_28; // +0x28
-	char m_pad29[0x3];
-	int m_2C; // +0x2C
-	unsigned char m_30; // +0x30
-	unsigned char m_31; // +0x31
-	unsigned char m_32; // +0x32
-	char m_pad33[0x1];
-	int m_34; // +0x34
-};
+#include "../../Include/Common/Rva002E6FDF.h"
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 // Original spelling is unknown. Native9FF0CC is the four-byte BSS counter

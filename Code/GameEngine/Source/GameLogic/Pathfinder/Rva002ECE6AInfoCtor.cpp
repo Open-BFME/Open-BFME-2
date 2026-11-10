@@ -9,33 +9,7 @@ class Object {public:Bool rva0028AC62()const;Bool rva0028AFBB()const;
  void *vtable;LineContextTemplate *definition;char pad08[0x258-8];void *ai;char pad25C[0x274-0x25C];Object *container;
 };
 #include "../../../Include/Common/Rva0006E009DwordField.h"
-class Rva002E6FDF
-{
-public:
-	Rva002E6FDF *rva002E6FDF();
-	int m_00; // +0x00
-	int m_04; // +0x04
-	int m_08; // +0x08
-	int m_0C; // +0x0C
-	unsigned char m_10; // +0x10
-	unsigned char m_11; // +0x11
-	char m_pad12[0x2];
-	int m_14; // +0x14
-	int m_18; // +0x18
-	int m_1C; // +0x1C
-	unsigned char m_20; // +0x20
-	unsigned char m_21; // +0x21
-	char m_pad22[0x2];
-	int m_24; // +0x24
-	unsigned char m_28; // +0x28
-	char m_pad29[0x3];
-	int m_2C; // +0x2C
-	unsigned char m_30; // +0x30
-	unsigned char m_31; // +0x31
-	unsigned char m_32; // +0x32
-	char m_pad33[0x1];
-	int m_34; // +0x34
-};
+#include "../../../Include/Common/Rva002E6FDF.h"
 void Rva002EBCA7Split(void *,Int *,unsigned char *);
 struct LineContextQuery {
  Int surfaces;Bool flag4,flag5;Int priority8;Bool flagC;

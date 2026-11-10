@@ -3063,34 +3063,7 @@ struct TCheckMovementInfo
 	unsigned char m_pad33;
 	Int m_34;
 };
-class Rva002E6FDF
-{
-public:
-	Rva002E6FDF *rva002E6FDF();
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	unsigned char m_10;
-	unsigned char m_11;
-	char m_pad12[2];
-	int m_14;
-	int m_18;
-	int m_1C;
-	unsigned char m_20;
-	unsigned char m_21;
-	char m_pad22[2];
-	int m_24;
-	unsigned char m_28;
-	char m_pad29[3];
-	int m_2C;
-	unsigned char m_30;
-	unsigned char m_31;
-	unsigned char m_32;
-	char m_pad33[1];
-	int m_34;
-};
+#include "../../../Include/Common/Rva002E6FDF.h"
 class HierarchicalPath { public: Int lookUpPositionOnPath(const Coord3D *); };
 struct PathfinderCellLimitView { char pad[0x1210]; unsigned int maxCells; };
 extern unsigned int PathfinderSearchCellsVisited;	// 0x00DFF0CC, also cleared by FindSafePath
