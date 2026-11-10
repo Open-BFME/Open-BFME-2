@@ -53,9 +53,7 @@ public:
     int rva00132784() const;
     IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const;
 };
-class Rva00131DFC {
-public: void rva00131DFC(void *,void *,void *,void *,int,int);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00131DFC.h"
 class W3DRadarResetSurface {
 public:
     void *surface;

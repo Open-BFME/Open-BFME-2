@@ -14,9 +14,7 @@ public:
  W3DRadarResetSurface Get_Surface_Level();
  void *texture;
 };
-class Rva00131DFC {
-public: void rva00131DFC(void *,void *,void *,void *,int,int);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00131DFC.h"
 class Rva00739C70 { public: void cleanup(); };
 #include "../../../../GameEngine/Include/Common/Rva000724AE.h"
 bool Rva000724AE::rva000725BC(unsigned tw,unsigned th,unsigned w,unsigned h,unsigned format,bool onlySurface) {

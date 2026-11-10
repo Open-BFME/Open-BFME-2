@@ -43,7 +43,7 @@ public:
  }
  T *texture;
 };
-class Rva00131DFC { public: void rva00131DFC(void *,void *,void *,void *,int,int); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00131DFC.h"
 class Rva00154FD0;
 namespace _STL { class ios_base { friend class ::Rva00154FD0; protected: void _M_clear_nothrow(int); }; }
 // Native shared setter 13ED10 owns the existing ios_base spelling; this

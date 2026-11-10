@@ -78,11 +78,7 @@ private:
 };
 
 // The handle refill at 0x00131DFC, rowed under its address-derived name.
-class Rva00131DFC
-{
-public:
-	void rva00131DFC(void *a, void *b, void *c, void *d, int e, int f);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00131DFC.h"
 
 #include "DX8WrapperClass.h"
 

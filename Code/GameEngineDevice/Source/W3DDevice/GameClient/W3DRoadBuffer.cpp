@@ -3204,7 +3204,7 @@ void W3DRoadBuffer::freeRoadBuffers(void)
 // format, mip levels, ...) and hands out its top surface level by value; the
 // value's destructor is 0x00176CB0 and SurfaceClass::DrawPixel takes the
 // value itself as this.
-struct Rva00131DFC { void rva00131DFC(void *, void *, void *, void *, int, int); };
+#include "../../../Include/W3DDevice/GameClient/Rva00131DFC.h"
 class W3DRadarResetSurface
 {
 public:

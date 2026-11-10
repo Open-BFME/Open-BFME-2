@@ -58,11 +58,7 @@ public:
 	void Set_Texture(TextureClass *texture);
 };
 
-class Rva00131DFC
-{
-public:
-	void rva00131DFC(void *a, void *b, void *c, void *d, int e, int f);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00131DFC.h"
 
 void Rva00131DFC::rva00131DFC(void *a, void *b, void *c, void *d, int e, int f)
 {
