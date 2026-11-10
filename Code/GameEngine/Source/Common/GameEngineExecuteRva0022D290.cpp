@@ -1,4 +1,5 @@
 // ?rva0022D290@GameEngine@@QAEXXZ
+// platformsdk
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // ?rva0022D290@GameEngine@@QAEXXZ, retail 0x0022D290..0x0022D7FC (1388 bytes):
 // GameEngine's execute loop body with the startup load, embedded catch handlers
@@ -8,12 +9,11 @@
 // remaining-time ternary reads it back (retail's distinct EAX copy of elapsed),
 // and the network headroom test is a plain if (no early exit).
 // Native22D290..22D7FC includes startup load, embedded catch handlers and pacing.
+#include <windows.h>
 #include <stdio.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Common/INIException.h"
-extern "C" __declspec(dllimport) unsigned __stdcall timeGetTime();
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned);
 extern "C" __declspec(dllimport) __declspec(noreturn) void __cdecl exit(int);
 #include "../../../Libraries/Source/profile/profile.h"
 void _bfme_debugRecordCallsite(int);
