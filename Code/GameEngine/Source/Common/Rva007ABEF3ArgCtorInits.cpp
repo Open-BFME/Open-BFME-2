@@ -60,6 +60,8 @@ class Rva00559AC1
 {
 public:
 	Rva00559AC1 *rva00559A76(int a);
+private:
+	int m_vals[11];	// RankPointValue.cpp's layout: -1, 0, then the rank thresholds
 };
 
 void __cdecl rva007B6B91();
@@ -111,12 +113,14 @@ extern Rva00559D0CRankWeights g_00E05FCC;
 extern Rva00559D0CRankWeights g_00E06000;
 // VA 0x00E06034: Rva005C18F0Ctor.cpp defines this storage (char[100]).
 extern char g_00E06034[100];
-// g_rva005C1A8DDefault is the VA 0x00E06060 table: the getter at retail RVA
-// 0x005C1A8D returns it as the default ("Default") when a slot has no override,
-// and its two readers take its address or return it as a char*. An array and a
-// pointer mangle alike in MSVC (??@@3PADA either way), so the one spelling
-// serves the `char *` reader, the `char []` reader and this constructor.
-char *g_rva005C1A8DDefault = 0;
+// g_rva005C1A8DDefault is the VA 0x00E06060 rank-point table, 44 bytes (retail's
+// extent in the data ledger): an Rva00559AC1 (RankPointValue.cpp, int m_vals[11]),
+// built by the initializer 0x007B3DDF through 0x00559A76 (-1, 0, then 5 .. 1500).
+// AptSkirmishStats::GetRankPointValue (0x005C1A8D) returns its address as the
+// default, and AptLoadScreen::init (0x0043A5F6) looks rank images up in it. Declared
+// as the class so its storage is the object's size: a 4-byte `char *` here let the
+// initializer write 40 bytes into the next object in the image (P132).
+Rva00559AC1 g_rva005C1A8DDefault;
 unsigned g_Va00E0660C;	// retail RVA 0x00A0660C (.bss), defined here
 unsigned g_Va00E06610;	// retail RVA 0x00A06610 (.bss), defined here
 unsigned g_Va00E06614;	// retail RVA 0x00A06614 (.bss), defined here

@@ -135,7 +135,8 @@ char *Rva005B8018::rva005B8018()
 
 // slot at VA 0x00C743E0: the +0x2C object's +0x04 field, or the global
 // block at VA 0x00E06060 without the object.
-extern char g_rva005C1A8DDefault[];
+class Rva00559AC1;
+extern Rva00559AC1 g_rva005C1A8DDefault;	// the 44-byte rank-point table
 struct Rva005C1A8DInner
 {
 	char m_pad00[0x04];
@@ -152,7 +153,7 @@ private:
 char *AptSkirmishStats::GetRankPointValue()
 {
 	if (m_2C == 0)
-		return g_rva005C1A8DDefault;
+		return (char *)&g_rva005C1A8DDefault;
 	return m_2C->m_04;
 }
 
