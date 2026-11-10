@@ -1,10 +1,12 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP=
 // ?Rva00600777Set@@YAXPAD@Z @0x00600777 46B free cdecl copy into TheLangDir.
 // Retail push esi; push arg; mov esi TheLangDir; push esi; call _mbscpy;
 // pop ecx twice; mov ecx TheLocalFileSystem; push 1; push "*.BIG"; store
 // BFME2PreferLocalFiles=1; mov eax [ecx]; push esi; call [eax+0x20].
 // Evidence: caller 0x003BA046 push eax call pop ecx (cdecl 1 arg);
 // extern names in use TheLangDir BFME2PreferLocalFiles TheLocalFileSystem; "*.BIG" literal.
+#include <mbstring.h>
+
 extern char TheLangDir[];
 extern bool BFME2PreferLocalFiles;
 
@@ -23,11 +25,10 @@ public:
 };
 
 extern class LocalFileSystem *TheLocalFileSystem;
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 
 void __cdecl Rva00600777Set(char *src)
 {
-	_mbscpy(TheLangDir, src);
+	_mbscpy((unsigned char *)TheLangDir, (const unsigned char *)src);
 	BFME2PreferLocalFiles = true;
 	(*(Rva0060061AHelper **)&TheLocalFileSystem)->v8(TheLangDir, "*.BIG", 1);
 }
