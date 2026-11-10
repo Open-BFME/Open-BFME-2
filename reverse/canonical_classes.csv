@@ -659,3 +659,4 @@ W3DShadowGeometry,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowGe
 Matrix4,Code/Libraries/Source/WWVegas/WWMath/Matrix4Data.h,existing header; contract class_contracts/Matrix4.json; 10/24 sampled units adopt
 RenderStateStruct,Code/Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h,existing header; contract class_contracts/RenderStateStruct.json; 22/50 sampled units adopt
 Rva007C454,Code/Libraries/Source/WWVegas/WW3D2/Rva007C454Camera.h,existing header; contract class_contracts/Rva007C454.json; 2/7 sampled units adopt
+Rva002611BFFilter,Code/GameEngine/Include/GameLogic/Rva002611BFFilter.h,existing header; contract class_contracts/Rva002611BFFilter.json; 48/51 sampled units adopt
