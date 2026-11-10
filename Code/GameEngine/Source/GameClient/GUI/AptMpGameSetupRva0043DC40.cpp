@@ -1,4 +1,5 @@
 // ?rva0043DC40@AptMpGameSetup@@QAEXH@Z
+// platformsdk
 // partial score=0.8336 date=2026-10-14
 // ?rva0043DC40@AptMpGameSetup@@QAEXH@Z
 // partial score=0.6656 date=2026-10-14
@@ -27,6 +28,8 @@ namespace _STL
  }
  
 }
+#include <mbstring.h>
+#include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -120,7 +123,6 @@ int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
 void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
 void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
 int Rva0043DDF8(int count);
-extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
 class Image;
 #include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
@@ -326,7 +328,6 @@ struct MpGameSetupRules
 // The game's rules setter (rowed under its address name).
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 // Rva00511730Save.cpp's text entry helper.
 void Rva00511730(int value);
 // StringBase<char>::isEmpty (0x00001E2F) called out of line and nothrow:
