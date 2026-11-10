@@ -74,11 +74,7 @@ template <> class AttackSlots<0>
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/Common/ThingTemplate.h"
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 class ModelConditionFlags

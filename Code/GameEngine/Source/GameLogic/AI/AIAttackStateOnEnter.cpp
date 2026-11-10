@@ -41,7 +41,7 @@ public:
  char pad25c[0xA8]; Team *team;
  char pad308[0x130]; unsigned char status438;
 };
-class Rva002C9400ByteField { public: unsigned char get() const; };
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 class Rva002C940EByteField { public: unsigned char get() const; };
 class Rva0028B7B5CmpBoolField { public: bool get() const; };
 struct CurrentStateIDView { char pad[4]; unsigned id; };

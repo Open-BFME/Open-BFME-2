@@ -59,11 +59,7 @@ template <> class AIAimAISlots<0>
 #include "../../../Include/GameLogic/LocomotorClass.h"
 struct Rva0028AC4EEntry;
 #include "../../../Include/Common/ThingTemplate.h"
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const; // 0x002C9400
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 // The vision-range reach test 0x0028F326, pinned under this view.

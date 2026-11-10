@@ -7,7 +7,7 @@
 // unknown; names are address-derived and no referencing site was found for
 // these in this pass.
 class Rva0030812E { public: void *getTextureName(int i); };
-class Rva002C9400ByteField { public: unsigned char get() const; };
+#include "../../Include/Common/Rva002C9400ByteField.h"
 class Rva002C9407ByteField { public: unsigned char get() const; };
 class Rva005E3266 { public: void rva005E3266(); };
 

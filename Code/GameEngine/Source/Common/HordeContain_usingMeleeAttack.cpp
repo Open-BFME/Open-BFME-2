@@ -5,11 +5,7 @@ enum WeaponSlotType
 	SLOT_0 = 0
 };
 class Weapon;
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva002C9400ByteField.h"
 struct FlagHolder
 {
 	unsigned char m_pad[0x116];

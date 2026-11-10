@@ -17,11 +17,7 @@ public:
 	char m_pad[4];
 	class Rva002C9400ByteField *m_04;
 };
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva002C9400ByteField.h"
 
 class Rva005D898A
 {
