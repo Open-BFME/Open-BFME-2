@@ -167,11 +167,7 @@ public:
 	virtual int getQueueState();                     // +0x44
 };
 
-class Rva00395F57
-{
-public:
-	bool canUnpack(bool force);
-};
+#include "../../../../Include/GameLogic/Rva00395F57.h"
 
 class Rva0039718B
 {

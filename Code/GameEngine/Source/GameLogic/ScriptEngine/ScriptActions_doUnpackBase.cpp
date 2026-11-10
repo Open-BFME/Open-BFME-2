@@ -45,11 +45,7 @@ protected:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Rva00395F57
-{
-public:
-	bool canUnpack(bool v);
-};
+#include "../../../Include/GameLogic/Rva00395F57.h"
 class Rva00397F45
 {
 public:

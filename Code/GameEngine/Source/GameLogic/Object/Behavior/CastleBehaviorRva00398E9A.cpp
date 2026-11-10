@@ -59,7 +59,7 @@ _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *
  less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree() { clear(); }
 }
 class Rva00395D18:public _STL::set<Rva001408C0Target*> {public:~Rva00395D18();};
-class Rva00395F57 {public:bool canUnpack(bool);};
+#include "../../../../Include/GameLogic/Rva00395F57.h"
 class Rva00397EAC {public:bool isPlayerAllowedToCapture(Player*,int);};
 class CastleData {public:char pad[0x28];float radius;char pad2c[0x10];bool disabled;};
 class CastleBehavior {public:void rva00398E9A();void *vtable;CastleData *data;Object *owner;};
