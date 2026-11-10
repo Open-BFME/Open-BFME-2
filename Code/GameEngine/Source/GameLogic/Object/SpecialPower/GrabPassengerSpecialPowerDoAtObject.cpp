@@ -19,7 +19,7 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class Object;class SpecialPowerTemplate;class SpecialPowerModuleInterface;class Waypoint;
-template<int N> class BitFlags {public:bool any()const;unsigned words[(N+31)/32];};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
 struct GrabFinalTemplateView {char head[0x1C];int type;};

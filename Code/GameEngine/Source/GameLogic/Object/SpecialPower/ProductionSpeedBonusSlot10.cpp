@@ -9,12 +9,7 @@
 // +0x7C duration; then, unless the owner is disabled (rowed BitFlags<11>::any
 // on +0x1C8), runs slot 12 at the owner's position with the same options.
 // Compiled with the +0x10 subobject this. Names by address.
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

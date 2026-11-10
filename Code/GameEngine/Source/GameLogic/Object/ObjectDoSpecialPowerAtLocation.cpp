@@ -17,15 +17,7 @@ class Object;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	bool any() const;
-
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 typedef BitFlags<11> DisabledMaskType;
 

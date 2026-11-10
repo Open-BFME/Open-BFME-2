@@ -37,11 +37,7 @@ class Object;
 class WeaponTemplate;
 class Matrix3D;
 
-template <int N> class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 class FXList
 {

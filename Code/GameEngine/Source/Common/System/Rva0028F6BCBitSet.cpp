@@ -6,12 +6,7 @@
 // Evidence: same 47B shape as sibling Rva0028F733BitSet.cpp at 0x0028F733;
 // caller 0x00292502; prev 0x0028F68F abuts at start.
 
-template <unsigned NUMBITS>
-class BitFlags
-{
-public:
-	static int getSingleBitFromName(const char *token);
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class Rva0028F6BC
 {

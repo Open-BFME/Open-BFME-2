@@ -7,13 +7,7 @@
 // Object::defect(ours, false), Object 0x002930A9 with 0 (pinned by
 // address; it starts from the Object's producer, +0x78), the rowed
 // setProducer(ours) and status 0x3E cleared. Named by the base's address.
-template <int N> class BitFlags
-{
-public:
-	bool any() const;
-private:
-	unsigned int m_bits[1];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_39 = 0x39,

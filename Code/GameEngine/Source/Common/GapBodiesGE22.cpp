@@ -440,11 +440,7 @@ Rva0047A881Record *Rva0047A881::rva0047A881(int index)
 
 // --- 0x00481BFE (14B, cdecl): test the key against the flags (rowed
 // BitFlags<11>::test 0x0023C59F).
-template <int N> class BitFlags
-{
-public:
-	bool test(const void *key) const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 bool Rva00481BFE(const void *key, const BitFlags<11> &flags)
 {

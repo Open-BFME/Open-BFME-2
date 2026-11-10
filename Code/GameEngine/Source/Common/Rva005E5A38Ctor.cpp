@@ -8,23 +8,7 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	enum BogusInitType
-	{
-		kInit = 0
-	};
-
-	BitFlags(BogusInitType init, Int bit);
-	BitFlags(BogusInitType init, Int b0, Int b1);
-	BitFlags(BogusInitType init, Int b0, Int b1, Int b2, Int b3);
-	BitFlags();
-
-private:
-	UnsignedInt m_words[1];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 BitFlags<11> *Rva005E5A24Init(BitFlags<11> *p);
 

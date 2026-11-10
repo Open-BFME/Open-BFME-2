@@ -12,14 +12,7 @@ namespace _STL
 	};
 }
 
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-private:
-	unsigned m_words[1];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 struct Node00418CC8
 {

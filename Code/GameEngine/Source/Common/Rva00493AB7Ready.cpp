@@ -18,12 +18,7 @@ class Player;
 
 #include "../GameLogic/Object/object.h"
 
-template<int N>
-class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 #include "GameLogicObjectLookupView.h"
 

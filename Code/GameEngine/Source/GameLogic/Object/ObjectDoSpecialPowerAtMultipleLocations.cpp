@@ -14,14 +14,7 @@ typedef bool Bool;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	Bool any() const;
-
-private:
-	UnsignedInt m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class SpecialPowerTemplate;
 class Object;
