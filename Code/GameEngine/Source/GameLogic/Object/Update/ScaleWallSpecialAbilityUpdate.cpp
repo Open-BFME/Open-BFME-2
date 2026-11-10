@@ -96,11 +96,11 @@ class Thing;
 
 class ModuleData;
 
-static int s_dummy0C;
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
 
-static int s_dummy10;
+extern "C" const void *const __identifier("??_7Rva00492C90@@6BRva00451F45_B2@@@")[];
 
-static int s_dummy20;
+extern "C" const void *const __identifier("??_7Rva00494E01@@6BRva00451F45_E1@@@")[];
 
 // Opaque 0x88-byte UpdateModule-derived intermediate; ctor resolves to the
 // opaque pin at 0x0044EF5E. Protected slots mirror the retail stores.
@@ -528,9 +528,9 @@ namespace _STL {
 Rva00494DCA::Rva00494DCA(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
-	m_p20 = &s_dummy20;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7Rva00492C90@@6BRva00451F45_B2@@@");
+	m_p20 = __identifier("??_7Rva00494E01@@6BRva00451F45_E1@@@");
 }
 
 // ?Rva00494DCA::~Rva00494DCA present-unmatched
