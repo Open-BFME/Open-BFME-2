@@ -72,11 +72,7 @@ class Snapshot;
 #include "../../../Include/Common/BitFlagsTemplate.h"
 
 // Rowed per-set helpers under address names.
-class Rva0028F528
-{
-public:
-	Int rva0028F528();
-};
+#include "../../../Include/Common/Rva0028F528.h"
 class Rva0028C6FB
 {
 public:

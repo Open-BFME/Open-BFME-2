@@ -581,11 +581,7 @@ public:
 // at 0x004BE0F1; the set-bit count (0x0028F528), the name of a set bit
 // (0x004BE0C7) and the CRC transfer of the raw bits (0x004BE722) are rowed
 // under address names.
-class Rva0028F528
-{
-public:
-	Int rva0028F528();
-};
+#include "../../../../Include/Common/Rva0028F528.h"
 class Rva004BE0C7
 {
 public:

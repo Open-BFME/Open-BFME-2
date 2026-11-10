@@ -28,13 +28,7 @@ enum ObjectStatusTypes
 
 #include "../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 
-class Rva0028F528
-{
-public:
-	int rva0028F528();
-private:
-	unsigned m_bits; // +0x00
-};
+#include "../../../../GameEngine/Include/Common/Rva0028F528.h"
 
 struct ThingTemplate907A1
 {

@@ -1018,13 +1018,7 @@ enum KindOfType
 // ?rva0028F528@Rva0028F528@@QAEHXZ @ 0x0028F528 52B: dword SWAR popcount of
 // m_bits[0]; same fold as BitFlags<11>::countIntersection tail in neighbour
 // BitFlagsCountIntersection.cpp. Unblocks 0x002907A1 0x00292414 0x00318871 0x004BE781.
-class Rva0028F528
-{
-public:
-	int rva0028F528();
-private:
-	unsigned m_bits; // +0x00
-};
+#include "../../../Include/Common/Rva0028F528.h"
 
 struct Rva0028F5C6
 {
