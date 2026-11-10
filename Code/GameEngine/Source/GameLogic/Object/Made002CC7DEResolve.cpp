@@ -7,11 +7,7 @@
 // 0x001F07B8 into +0x128. Same slot as base rva00507877.
 class ObjectCreationList;
 
-class ObjectCreationListStore
-{
-public:
-	const ObjectCreationList *findObjectCreationList(const char *name) const;
-};
+#include "../../../Include/GameLogic/ObjectCreationListStore.h"
 extern class ObjectCreationListStore *TheObjectCreationListStore;
 
 #include "ascii_string.h"

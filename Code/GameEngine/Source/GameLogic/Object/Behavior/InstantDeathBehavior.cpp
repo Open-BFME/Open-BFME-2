@@ -53,11 +53,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #include <windows.h>
 #include "../../../../Include/Common/INI/INI.h"
-class ObjectCreationListStore
-{
-public:
-	const ObjectCreationList *findObjectCreationList(const char *name) const;
-};
+#include "../../../../Include/GameLogic/ObjectCreationListStore.h"
 extern ObjectCreationListStore *TheObjectCreationListStore;
 #include "../../../../Include/GameLogic/WeaponStore.h"
 // Use the complete retail push_back at 0x0005A084 from StlportVectorPushBackFamily.

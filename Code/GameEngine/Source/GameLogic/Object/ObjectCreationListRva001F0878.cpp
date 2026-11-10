@@ -27,11 +27,7 @@ public:
 
 class ObjectCreationList;
 
-class ObjectCreationListStore
-{
-public:
-	const ObjectCreationList *findObjectCreationList(const char *name) const;
-};
+#include "../../../Include/GameLogic/ObjectCreationListStore.h"
 
 extern ObjectCreationListStore *TheObjectCreationListStore;
 

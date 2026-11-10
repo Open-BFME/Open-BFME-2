@@ -62,11 +62,7 @@ template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &);
 #include "../../../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 
-class ObjectCreationListStore
-{
-public:
-	const ObjectCreationList *findObjectCreationList(const char *name) const;
-};
+#include "../../../../Include/GameLogic/ObjectCreationListStore.h"
 extern ObjectCreationListStore *TheObjectCreationListStore;
 
 typedef _STL::vector<const FXList *> FXListVec;

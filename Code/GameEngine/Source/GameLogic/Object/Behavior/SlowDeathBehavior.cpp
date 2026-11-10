@@ -18,11 +18,7 @@ class ObjectCreationList;
 class WeaponTemplate;
 #include "../../../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
-class ObjectCreationListStore
-{
-public:
-	const ObjectCreationList *findObjectCreationList(const char *name) const;
-};
+#include "../../../../Include/GameLogic/ObjectCreationListStore.h"
 extern ObjectCreationListStore *TheObjectCreationListStore;
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
