@@ -121,7 +121,7 @@ struct Rva005386B7;
 class Rva0030C1C8 { public: void rva0030C1C8(Int index, const StringBase<char> &name); };
 class Rva0030BDEE { public: void rva0030BD5B(const RGBColor *color); };
 class Rva0030BBC8 { public: void rva0030BBC8(Real value); };
-class Rva0030BBE5 { public: void rva0030BBE5(Int value); };
+#include "../../../Include/Common/Rva0030BBE5.h"
 class Rva0030BBB4 { public: void rva0030BBB4(Int level); };
 class Rva0030C129Owner { public: void rva0030C157(Rva005386B7 *strip); };
 

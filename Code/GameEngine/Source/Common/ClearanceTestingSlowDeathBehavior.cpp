@@ -115,11 +115,7 @@ public:
 };
 #include "../../Include/GameNetwork/GameInfo.h"
 #include "../../Include/GameLogic/Module/AIUpdate.h"
-class Rva0030BBE5
-{
-public:
-	void rva0030BBE5(int a);
-};
+#include "../../Include/Common/Rva0030BBE5.h"
 #include "../../Include/Common/CommandList.h"
 #include "../../Include/Common/SidesList.h"
 #include "../../Include/Common/StateMachineClass.h"

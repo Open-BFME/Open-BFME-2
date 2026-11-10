@@ -265,7 +265,7 @@ struct BfmeFloat4Record00469C61
 };
 class Rva0030BDEE { public: void rva0030BD5B(const RGBColor *color); };
 class Rva0030BBC8 { public: void rva0030BBC8(float value); };
-class Rva0030BBE5 { public: void rva0030BBE5(int value); };
+#include "../../../Include/Common/Rva0030BBE5.h"
 class Rva0030C1C8 { public: void rva0030C1C8(int index, const StringBase<char> &name); };
 class Rva0030BE41 { public: void rva0030BC11(const BfmeFloat4Record00469C61 &section); };
 class RiverAreaSetView { public: void insert(int id, AreaRefValueView area); };
