@@ -14,7 +14,7 @@
 // a local fallback pointer instead grew the frame and commuted those roles.
 #include "ascii_string.h"
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
-class Rva00270260 { public: bool rva00270260(); };
+#include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
 struct Rva001F3C43Arg;
 struct DrawableTruckView { char pad[0xfc]; Rva001F3C43Arg *object; };
 struct Rva001F3C43Arg {

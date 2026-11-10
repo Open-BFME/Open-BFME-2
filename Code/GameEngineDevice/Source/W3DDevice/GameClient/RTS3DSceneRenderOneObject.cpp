@@ -250,7 +250,7 @@ extern Int BfmeLogicFramesPerSecond;	// logic frames per second
 extern Int LODTextureReduction;
 
 // Rowed Drawable helpers under placeholder names.
-class Rva00270260 { public: bool rva00270260(void); };
+#include "../../../../GameEngine/Include/Common/Rva00270260.h"
 struct Rva0027070CData;
 class Rva0027070C { public: Rva0027070CData *rva0027070C(void); };
 class BfmeThingDDA { public: Int bfmeGoDDA(void); };

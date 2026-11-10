@@ -409,11 +409,7 @@ public:
 	bool rva0006F3B2();
 };
 
-class Rva00270260
-{
-public:
-	bool rva00270260();
-};
+#include "../../../../GameEngine/Include/Common/Rva00270260.h"
 
 class Drawable
 {

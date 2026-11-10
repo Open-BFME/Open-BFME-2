@@ -203,7 +203,7 @@ public:
 };
 
 class Object { public: int getIndicatorColor() const; };
-class Rva00270260 { public: bool rva00270260(); };
+#include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
 class Rva000788D3FloatField { public: float get() const; };
 
 class Drawable

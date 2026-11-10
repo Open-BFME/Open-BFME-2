@@ -344,7 +344,7 @@ extern W3DShadowManager *TheW3DShadowManager;
 class Rva000B4653 { public: void *rva000B4653(Int index); };
 class Rva0033A5F4 { public: void rva0033A5F4(Int *a, Real *b, Int *c, Real *d, Int *e); };
 class Rva000B3E82 { public: void rva000B3E82(unsigned char value); };
-class Rva00270260 { public: bool rva00270260(); };
+#include "../../../../GameEngine/Include/Common/Rva00270260.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

@@ -6,7 +6,7 @@
 // the target data flow. Ordinary potentially-throwing setter declarations
 // preserve the native handle unwind state and hidden local; throw() changes
 // the caller ABI shape by eliminating its EH frame. No pins or aliases.
-class Rva00270260 { public: bool rva00270260(); };
+#include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
 class Rva001F3852ByteOneSetter { public: void enable(); };
 class Rva001F384AByteZeroSetter { public: void disable(); };
 class ParticleSystem {};

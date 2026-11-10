@@ -366,11 +366,7 @@ RenderObjClass *Rva00137364CreateRenderObj( const char *name, float scale, const
 
 // Drawable 0x00270260 (rowed under a placeholder name): hidden when either
 // byte +0x43D or +0x43E is set, Zero Hour's isDrawableEffectivelyHidden.
-class Rva00270260
-{
-public:
-	Bool rva00270260( void );
-};
+#include "../../../../GameEngine/Include/Common/Rva00270260.h"
 
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
 class Rva0055A88BDwordField
