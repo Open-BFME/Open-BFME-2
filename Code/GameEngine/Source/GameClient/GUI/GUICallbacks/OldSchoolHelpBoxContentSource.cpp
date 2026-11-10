@@ -120,11 +120,7 @@ extern InGameUI *TheInGameUI;
 
 class BfmeMemberRV;
 
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV();
-};
+#include "../../../../Include/GameClient/BfmeThingRV.h"
 
 #include "../../../../Include/Common/PlayerList.h"
 

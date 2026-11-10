@@ -740,11 +740,7 @@ public:
 	unsigned char m_pad038[0x74C - 0x38];
 	AsciiString m_74c;			// +0x74C
 };
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV();
-};
+#include "../../../../Include/GameClient/BfmeThingRV.h"
 
 class AudioManager;
 extern AudioManager *TheAudio;

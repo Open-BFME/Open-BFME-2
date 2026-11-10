@@ -10,11 +10,7 @@ class Player;
 #include "../../../../GameLogic/Object/object.h"
 
 class BfmeMemberRV;
-class BfmeThingRV
-{
-public:
-    BfmeMemberRV *bfmePickRV();
-};
+#include "../../../../../Include/GameClient/BfmeThingRV.h"
 
 class PlayerList;
 extern GameLogic *TheGameLogic;

@@ -74,11 +74,7 @@ public:
 };
 enum RadarPriorityType { RADAR_PRIORITY_INVALID, RADAR_PRIORITY_NOT_ON_RADAR, RADAR_PRIORITY_STRUCTURE, RADAR_PRIORITY_UNIT, RADAR_PRIORITY_LOCAL_UNIT_ONLY };
 int __cdecl rva002D7BFD(int v);
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV();
-};
+#include "../../../Include/GameClient/BfmeThingRV.h"
 class BfmeMemberRV
 {
 public:

@@ -181,11 +181,7 @@ private:
 
 class BfmeMemberRV;
 
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV(void);   // PlayerList: local player, else the observed one
-};
+#include "../../../../../../GameEngine/Include/GameClient/BfmeThingRV.h"
 
 #include "../../../../../../GameEngine/Include/Common/PlayerList.h"
 

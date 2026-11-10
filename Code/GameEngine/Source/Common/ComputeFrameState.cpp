@@ -20,11 +20,7 @@ class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 extern GameLogic *TheGameLogic;
 
 class BfmeMemberRV;
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV();
-};
+#include "../../Include/GameClient/BfmeThingRV.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;
 

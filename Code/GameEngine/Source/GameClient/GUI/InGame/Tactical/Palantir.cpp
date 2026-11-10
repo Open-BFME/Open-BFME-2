@@ -20,11 +20,7 @@ bool *__copy_aux(bool *__first, bool *__last, bool *__result, const __true_type 
 class Player;
 class PlayerList;
 class BfmeMemberRV;
-class BfmeThingRV
-{
-public:
-    BfmeMemberRV *bfmePickRV();
-};
+#include "../../../../../Include/GameClient/BfmeThingRV.h"
 #include "../../../../../Include/GameClient/ControlBar.h"
 extern PlayerList *ThePlayerList;
 extern ControlBar *TheControlBar;

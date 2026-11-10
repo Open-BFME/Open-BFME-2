@@ -1,0 +1,61 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeThingRV",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 15,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 13,
+   "20": 2
+  },
+  "views": 15,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_bfmeHead",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uchar[16]",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerList.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -94,11 +94,7 @@ public:
 	Int m_money;			// +0x94
 };
 
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV();
-};
+#include "../../Include/GameClient/BfmeThingRV.h"
 
 class Player
 {
