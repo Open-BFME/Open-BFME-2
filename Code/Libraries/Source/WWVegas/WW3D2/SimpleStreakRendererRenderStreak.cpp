@@ -939,7 +939,7 @@ class Rva007B7024Object;
 extern Rva007B7024Object *g_Va00DEE870;
 extern Rva007B7024Object *g_Va00DEE86C;
 class ShroudFilter {public: int unknown[3],u,v; void Set_U_Addr_Mode(int m){u=m;} void Set_V_Addr_Mode(int m){v=m;}};
-class ShroudTexture {public:ShroudFilter *getFilter();};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 struct SimpleTextureRefPtr : BFME2TextureRef {SimpleTextureRefPtr(){Ptr=0;} ~SimpleTextureRefPtr(){if(Ptr)Ptr->Release_Ref();}};
 struct SimpleTextureTemp : SimpleTextureRefPtr {SimpleTextureTemp(){}};
 struct SimpleTextureHolder { TextureClass *Ptr; bool Is_Valid() const { return Ptr != 0; } };

@@ -53,7 +53,7 @@ public:
  void Set_Mip_Mapping(int mipMode) { _M_clear_nothrow(mipMode); }
  int MinFilter,MagFilter,MipFilter,UAddrMode,VAddrMode;
 };
-class ShroudTexture { public: ShroudFilter *getFilter(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); };
 class FontTextureOwner : public RefCountPtr<TextureClass> {
 public:
