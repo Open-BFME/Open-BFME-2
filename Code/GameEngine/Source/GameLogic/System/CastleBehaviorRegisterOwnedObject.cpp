@@ -401,7 +401,7 @@ struct FindPositionOptions {
  const void *ignoreObject,*sourceToPathToDest,*relationshipObject;
 };
 #include "../../../Include/GameLogic/PartitionFilter.h"
-class Rva0026119DFilter:public Rva000421C8 { public: virtual bool allow(Object*); };
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva0004584D:public Rva000421C8 {

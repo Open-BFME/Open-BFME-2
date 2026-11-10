@@ -28,11 +28,7 @@ class Player;
 #include "../../../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags, +0x0C whether a hit allows.

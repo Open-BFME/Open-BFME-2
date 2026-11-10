@@ -50,11 +50,7 @@ public:
  virtual int getPlayerMask();
  Player *m_player; bool m_match; int m_flags;
 };
-class Rva0026119DFilter:public Rva000421C8 {
-public:
- virtual ~Rva0026119DFilter() {}
- virtual bool allow(Object *);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 extern PartitionManager *ThePartitionManager;
 extern GameLogic *TheGameLogic;
 int GetGameLogicRandomValue(int,int,char *,int);
