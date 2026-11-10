@@ -163,7 +163,6 @@ class ShareExperienceBehavior : public UpdateModule,
 {
 public:
 	ShareExperienceBehavior(Thing *, const ModuleData *);
-	virtual ~ShareExperienceBehavior();
 public:
 	virtual NameKeyType getModuleNameKey() const;
 public:
@@ -330,4 +329,4 @@ ShareExperienceBehavior::ShareExperienceBehavior(Thing *thing, const ModuleData 
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x0047FF4F 28B ??_GShareExperienceBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+// tu-skeleton: 0x0047FF4F 28B ??_GRva0047FE25@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)

@@ -104,28 +104,19 @@ Rva00459553::~Rva00459553()
 {
 }
 
-// ShareExperienceBehavior's interface at +0x20, as ShareExperienceBehavior.cpp
-// declares it (retail table 0x00C485AC: rva00480093 0x00480093).
-class ShareExperienceBehaviorInterface
+class Rva0047FE25_E1
 {
 public:
-	virtual void rva00480093(float value) = 0;
+	virtual void fe();
 };
 
-// ShareExperienceBehavior (retail: ??0ShareExperienceBehavior 0x0047FEED and
-// this destructor store 0x00C4867C/+0, 0x00C485C0/+0x0C, 0x00C485B0/+0x10 and
-// 0x00C485AC/+0x20; 0x0047FF4F is slot 0 of 0x00C4867C), on the view
-// ShareExperienceBehavior.cpp declares, so both units emit the same tables.
-class ShareExperienceBehavior : public UpdateModule, public ShareExperienceBehaviorInterface
+class Rva0047FE25 : public UpdateModule, public Rva0047FE25_E1
 {
 public:
-	virtual ~ShareExperienceBehavior();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-	virtual void rva00480093(float value);
+	virtual ~Rva0047FE25();
 };
 
-ShareExperienceBehavior::~ShareExperienceBehavior()
+Rva0047FE25::~Rva0047FE25()
 {
 }
 
