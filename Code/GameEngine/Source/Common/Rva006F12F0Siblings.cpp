@@ -6,11 +6,7 @@
 // Only the pool global (a DIR32 operand) and the REL32 callee differ: retail
 // calls 0x006D2A60, which the template pins at 0x006DB270 for its sibling.
 // Evidence: callee Ghidra extent 253B at 0x006D2A60; prev/next share /O1 /MD.
-class Rva006D2A60
-{
-public:
-    void freeBlock(void *block, int size);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 extern class Rva006D2A60 *g_pChainBlockAllocatorF4;
 void __cdecl Rva006F12F0Free(void *block, int size)
 {

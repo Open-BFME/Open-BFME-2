@@ -18,11 +18,7 @@ public:
 // through the chain-block pool at 0x00E176F4 with the class size, as retail's
 // do (rowed here; previously modelled by address-named views in
 // Rva006CBF40Siblings.cpp).
-class Rva006D2A60
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
 

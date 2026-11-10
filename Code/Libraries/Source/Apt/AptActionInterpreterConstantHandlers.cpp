@@ -46,7 +46,7 @@ enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 }
 #include "AptValue.h"
 struct AptCharacterInst;
 #include "EAStringC.h"
-class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
+#include "Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
 // AptArray vtableCEA778 and slots+20/+24/+28. Unaccessed state stays opaque.

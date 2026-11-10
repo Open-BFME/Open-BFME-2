@@ -8,11 +8,7 @@
 
 // The scalar deleting destructor emitted here releases through the
 // chain-block pool at 0x00E176F4 with the class size, as retail's does.
-class Rva006D2A60
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
 

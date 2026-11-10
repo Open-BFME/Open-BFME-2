@@ -12,10 +12,7 @@
 // cl:  /O2 /DNDEBUG /MD /EHsc
 // Native 006FE4C0 constructor. Layout from native, base declarations from
 // the byte-verified Rva006D6360/Rva006D6470Owner family. WB1760610 guide.
-class Rva006D2A60 {
-public:
-  void freeBlock(void *, int);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class AptValue
 {

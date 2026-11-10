@@ -4,10 +4,7 @@
 // and owner +0x24; WB1787270 corroborates the constructor purpose.
 // Names remain address-derived: the layout and ABI are target facts.
 // The D6360 base is 0x1c bytes and D6470 adds the flag word at +0x1c.
-class Rva006D2A60 {
-public:
-  void freeBlock(void *, int);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class AptValue
 {

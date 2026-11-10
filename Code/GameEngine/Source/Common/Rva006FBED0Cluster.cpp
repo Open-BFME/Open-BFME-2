@@ -28,12 +28,7 @@
 // called, which is how the near file's global is maintained. A failed allocation
 // stores null through the shared `xor eax,eax` landing pad.
 
-class Rva006D2A60
-{
-public:
-	void *allocBlock(int size);
-	void freeBlock(void *block, int size);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4; // VA 0x00E176F4
 

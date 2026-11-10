@@ -15,11 +15,7 @@ public:
 
 #include "../../Include/Common/Rva006DB270.h"
 
-class Rva006D2A60
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../Libraries/Source/Apt/Rva006D2A60.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;   // 0x00E176E8
 // 0x00E176F4; the definition remains in Rva006CBF40Siblings.cpp.
