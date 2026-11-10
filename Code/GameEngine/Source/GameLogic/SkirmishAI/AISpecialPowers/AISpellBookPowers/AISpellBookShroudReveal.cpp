@@ -93,12 +93,7 @@ struct Rva005D7FA6Waypoints
 
 // The AoE special-power target picker (AISPecialPowerTargetAoE.cpp holds
 // 0x005EE317 and 0x005EE8DD).
-class Rva005EE816
-{
-public:
-	bool rva005EE8DD(const Coord3D *pos, Object *source);	// 0x005EE8DD
-	void rva005EE317(Coord3D *dir);				// 0x005EE317
-};
+#include "../../../../../Include/Common/Rva005EE816.h"
 
 // Slot 6 of vftable 0x00C75ED0, the shouldActivate slot of the sibling
 // AISpellBook powers; its asserts name this unit (lines 57 and 73).

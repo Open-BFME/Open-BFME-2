@@ -53,11 +53,7 @@ public:
 };
 #include "../../../../../Include/GameLogic/AISpellBookBase.h"
 
-class Rva005EE816
-{
-public:
-	Bool rva005EE8DD(const Coord3D *pos, Object *obj);
-};
+#include "../../../../../Include/Common/Rva005EE816.h"
 
 // shouldActivate is slot 6 of the 7-slot vftable 0x00C75F84 (installed by
 // 0x005D816B/0x005D817D), so it is virtual and the vptr sits at +0.
