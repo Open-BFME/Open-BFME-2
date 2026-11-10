@@ -3636,7 +3636,7 @@ struct DispatcherResolver {void*logic;LivingWorldBattle*battle;};
 class DispatcherSpawn {
  public:virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14(int);virtual void s18();virtual void s1c();virtual void s20();virtual void s24(int);virtual void s28(int);
 };
-class Rva004E0625 {public:int rva004E0625()const;};
+#include "../../../../Include/Common/Rva004E0625.h"
 static __declspec(noinline) bool rva002B2D5E(GameMessage*msg,void**out,int i){
  void *playerView=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B2579(msg->getArgument(i)->integer);
  if(!playerView)return false;*out=(void*)((Rva004E0625*)playerView)->rva004E0625();return *out!=0;

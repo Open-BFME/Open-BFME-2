@@ -31,11 +31,7 @@ public:
     virtual void slot10();
     virtual bool contains(void *key);
 };
-class Rva004E0625
-{
-public:
-    int rva004E0625() const;
-};
+#include "../../../../Include/Common/Rva004E0625.h"
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 #include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 struct Rva002E118ERegionCollection
