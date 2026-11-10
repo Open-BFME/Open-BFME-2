@@ -1767,6 +1767,7 @@ public:
 // this unit emits none of their tables.
 #include "../../Common/Thing/thing.h"
 #include "ObjectInterfaceBases.h"
+class PartitionData;
 
 class Object : public Thing, public Snapshot, public BfmeCtor001B3A20, public Rva00BFC2B8Base, public Rva00BFC290Base
 {
@@ -1920,6 +1921,37 @@ private:
 	unsigned char m_pad43D[0x458 - 0x43D];
 private:
 	int m_deadline458;
+	// +0x45C..+0x4D0 from retail's Object member accesses and constructor stores; spans no code here names
+	// stay opaque (+0x468 is a 0x18-byte sub-object; +0x4A4 and +0x4B4 are STLport vectors).
+	int m_45C;
+	unsigned char m_pad460[0x480 - 0x460];
+	bool m_480;
+	int m_484;
+	unsigned char m_pad488[0x48C - 0x488];
+	bool m_48C;
+	int m_490;
+	AsciiString m_name494;
+	unsigned char m_pad498[0x4C4 - 0x498];
+	PartitionData *m_partitionData4C4;
+	void *m_4C8;
+	void *m_4CC;
+protected:
+	// Declared as both lifetime units declare them; neither is defined here, so this unit emits nothing for
+	// them. Overriding the virtual base's slot (Object's destructor is already virtual through Thing) gives
+	// Object the vtordisp at +0x4D0 that retail's vbase thunks read (sub ecx,[ecx-4]), which puts the virtual
+	// base at +0x4D4; without the override this view is 0x4D4 bytes and the size check below fails.
+	virtual ~Object();
+public:
+	virtual void *slot() const;
+	// Compile-time layout checks (never called, so never emitted). With sizeof(Object) == 0x4D8 below, a
+	// non-virtual part ending at +0x4D0 and a one-word virtual base leave one layout: the vtordisp at +0x4D0
+	// and the virtual base at +0x4D4, where retail's vbtable (0x007FC320: -4, 0x46C from the vbptr at +0x68)
+	// puts it.
+	static void layoutCheck()
+	{
+		typedef char NonVirtualPartEndsAt0x4D0[(unsigned)&((Object *)0)->m_4CC + 4 == 0x4D0 ? 1 : -1];
+		typedef char VirtualBaseIsOneWord[sizeof(BfmeCtorVirtualBase001B3A20) == 4 ? 1 : -1];
+	}
 public:
 	Bool isCurWeaponLocked() const;
 public:
@@ -1963,6 +1995,8 @@ public:
 public:
 	void rva0028AE6D();
 };
+// sizeof(Object) is 0x4D8: `push 0x4D8; call operator new` at 0x0023CAF2 before Object::Object.
+typedef char ObjectSizeIs0x4D8[sizeof(Object) == 0x4D8 ? 1 : -1];
 
 class Rva004076EE
 {
