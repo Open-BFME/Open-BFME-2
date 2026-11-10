@@ -977,3 +977,10 @@ twin accepted at two alignments; self-call and fnstenv bodies refused; `position
 both refusals fail when the guard is stubbed out. Next check: the next real link's
 `vtable_bridge_queue.tsv` drops the alignment-only target-not-winning-provider tables (W3DWater,
 SegmentedLineClass and the other RenderObjClass-derived tables). Not yet measured.
+
+**2026-11-10, measured.** The real link at 311dbdcb82 (the first including 88c4a34da5) lists 9
+target-not-winning-provider refusals, down from 32 at d78d661f17; bridged rose 3,822 -> 3,846 as
+the alignment-only tables became generated copies instead of refusals. The 9 left are body or EH
+differences, not alignment: the `??_G` of VectorClass<int>/<Vector3>/<StringClass>, basic_ios<char>,
+Bucket, Rva0040DB52 and Rva005E3AE1 (first provider's private view compiles another body), and
+the money_get::do_get / basic_filebuf::seekoff EH bodies, whose owner must be the first provider.
