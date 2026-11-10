@@ -304,15 +304,7 @@ private:
 	char m_pad[0x3c];
 	AsciiString m_value; // +0x3c
 };
-class Rva0029173EAsciiField
-{
-public:
-	void setName(AsciiString value);
-
-private:
-	char m_pad[0x308];
-	AsciiString m_value; // +0x308
-};
+#include "../../Include/Common/Rva0029173EAsciiField.h"
 class Rva004CFBC2AsciiField
 {
 public:
