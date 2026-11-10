@@ -10,7 +10,11 @@
 
 #include "ascii_string.h"
 #include "unicode_string.h"
-extern "C" __declspec(dllimport) int __cdecl _snprintf(char *, unsigned int, const char *, ...);
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP
 
 #include <vector>
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
