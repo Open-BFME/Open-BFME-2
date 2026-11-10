@@ -12,11 +12,7 @@
 // reads ECX: its only caller 0x0020F832 loads ECX=this (mov ecx,ebx) for it.
 void __stdcall rva0020ED51(void *obj, int x, int flag);
 
-class Rva0020EE29
-{
-public:
-	void rva0020F309(void *obj, int x);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0020EE29.h"
 
 void __stdcall rva0020F2F1(void *obj, int x)
 {
