@@ -98,7 +98,7 @@ extern unsigned char g_Va00E1770C;
 extern AptActionInterpreter g_aptDateInterpreter;
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "BfmeAptValue006DCD20.h"
-class Rva006CD650 {public:void *rva006CD650();};
+#include "Rva006CD650.h"
 struct TickMovie {char pad[0x24];unsigned interval;};
 struct TickState {char pad[0xc];TickMovie *movie;char pad10[0x20];unsigned remainder;};
 struct TickNode {char pad[0x54];void *cih;};

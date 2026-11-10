@@ -13,7 +13,7 @@ struct Rva00700090Info { void *m_0; int m_4; const char *m_8; int m_c; };
 class Rva00700090 {public:void *rva00700090(Rva00700090Info *);};
 class Rva007002C0 {public:void rva007002C0(int,void *,int,void *);};
 class Rva00706950 {public:void rva00706950(void *,Rva00700090Info *);};
-class Rva006CD650 {public:void *rva006CD650();};
+#include "Rva006CD650.h"
 struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);

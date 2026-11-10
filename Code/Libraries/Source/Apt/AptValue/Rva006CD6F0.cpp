@@ -18,11 +18,7 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
 #include "../BfmeAptValue006DCD20.h"
 
-class Rva006CD650
-{
-public:
-	void *rva006CD650();
-};
+#include "../Rva006CD650.h"
 
 struct AptInner54
 {

@@ -61,7 +61,7 @@ class Rva006DBB60ShrNAndField {public:int get() const;};
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
 // 0x006E44F0 is rowed as AptAnimationPoolData::removeTimerFunctions.
 class AptAnimationPoolData {public:void removeFromBIL(AptCIH *);void removeTimerFunctions(AptCIH *);};
-class Rva006CD650 {public:void *rva006CD650();};
+#include "Rva006CD650.h"
 class AptDisplayList {public:void clear(bool);};
 class Rva008981E0Value {public:int aptHasAll();};
 class Rva006DBDB0DwordOrSetter {public:void apply();};

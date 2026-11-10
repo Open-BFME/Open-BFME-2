@@ -22,7 +22,7 @@ class AptValueVector {int capacity;int count;AptValue **items;int high;public:
 };
 extern AptValueVector *g_aptOptionalValueVector;
 extern unsigned char g_Va00E1770C;
-class Rva006CD650 {public:void *rva006CD650();};
+#include "Rva006CD650.h"
 int Rva006CFDF0DecRef(int *);
 void bfmeDropVGO(void *);
 struct Rva006CE1C0File {int refs,size;EAStringC name;int state;};

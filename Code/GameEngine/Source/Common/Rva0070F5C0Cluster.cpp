@@ -15,11 +15,7 @@ class AptCIH;
 
 #include "../../../Libraries/Source/Apt/AptCIHClass.h"
 
-class Rva006CD650
-{
-public:
-    void *rva006CD650();
-};
+#include "../../../Libraries/Source/Apt/Rva006CD650.h"
 
 struct Rva00700090Info
 {

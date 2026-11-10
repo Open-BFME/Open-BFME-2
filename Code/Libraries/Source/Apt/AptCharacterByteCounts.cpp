@@ -36,11 +36,7 @@ __declspec(noinline) inline EAStringC::EAStringC()
     ++data->m_uRefCount;
 }
 
-class Rva006CD650
-{
-public:
-    void *rva006CD650();
-};
+#include "Rva006CD650.h"
 
 // Retail preserves the unsigned-address addition before the resource load.
 // Using direct pointer arithmetic folds these two instructions in MSVC 7.1.
