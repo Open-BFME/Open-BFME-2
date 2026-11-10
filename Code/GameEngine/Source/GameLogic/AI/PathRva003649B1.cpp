@@ -24,13 +24,24 @@ public:
 
 #include "../../../Include/GameLogic/PathNode.h"
 
+#include "../../../../Libraries/Source/WWVegas/WWLib/bfme_pool_critical_section.h"
+
+// Retail's pool is 0x14 bytes (0x00A01E94): the allocator 0x002635C2 reads the free list at +0, the
+// block list at +4, the counts at +8 and +0xC, and locks +0x10. No constructor: retail's storage is
+// zero-filled and only the atexit destructor thunk (0x007B7CD7) touches it outside the users.
 class Rva00065964ObjectPool
 {
 public:
 	void *rva002635C2() throw();
+
+	void *m_freeListHead;
+	void *m_blockListHead;
+	int m_freeObjectCount;
+	int m_totalObjectCount;
+	BFMEPoolCriticalSection m_lock10;
 };
 
-// g_pathNodePool: matched references place it at VA 0xe01e94 (zero-filled; a plain-data view).
+// g_pathNodePool: matched references place it at VA 0xe01e94 (zero-filled).
 Rva00065964ObjectPool g_pathNodePool;
 
 #include "../../../Include/GameLogic/PathfindPath.h"
