@@ -18,15 +18,7 @@ extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 
 #include "../../../Include/GameLogic/PartitionFilter.h"
 
-class Rva00261409Filter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-	int m_flags;
-};
+#include "../../../Include/GameLogic/Rva00261409Filter.h"
 
 int Rva00261409Filter::getPlayerMask()
 {

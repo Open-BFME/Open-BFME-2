@@ -10,17 +10,7 @@ class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
-class Rva00261409Filter : public Rva000421C8
-{
-public:
-	Rva00261409Filter(Player *player, bool match, int flags)
-		: m_player(player), m_match(match), m_flags(flags) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-	int m_flags;
-};
+#include "../../../../Include/GameLogic/Rva00261409Filter.h"
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 class Rva00261058 : public Rva000421C8
 {
