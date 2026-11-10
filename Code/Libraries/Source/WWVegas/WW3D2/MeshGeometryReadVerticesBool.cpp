@@ -40,7 +40,7 @@
 // auto_inline(off) keeps that /O1 iterator out of line: otherwise the /O2
 // ShareBufferClass<Vector3> constructor inlines it and drops the Vector3
 // construction loop that retail's copy (0x00169780) still calls ??_H for.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 #pragma auto_inline(off)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }

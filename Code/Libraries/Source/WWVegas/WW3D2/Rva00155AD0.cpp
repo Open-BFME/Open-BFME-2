@@ -2,7 +2,7 @@
 // The vector constructor iterator (??_H) takes the optimization state of the
 // first function that needs it; retail links the /O1 body at 0x00001423.
 // Instantiate it first in an unemitted anchor so this unit's copy is that body.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)

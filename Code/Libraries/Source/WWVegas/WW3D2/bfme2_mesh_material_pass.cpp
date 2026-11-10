@@ -86,7 +86,7 @@ class MeshModelClass{public:virtual void Delete_This();int refs;char gap08[0x10]
 // The anchor must precede the Matrix link views below: their array-building
 // inline functions would otherwise fix ??_H's state at /O2 first, and
 // Render_Material_Pass would inline it.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 struct Rva00136090MeshHolder{MeshModelClass *pointer;~Rva00136090MeshHolder(){if(pointer)pointer->Release_Ref();}};

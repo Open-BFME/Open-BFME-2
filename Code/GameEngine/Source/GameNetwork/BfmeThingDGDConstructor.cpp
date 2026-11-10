@@ -122,7 +122,7 @@ extern const void *const g_00CE3008[2] = {
 	(const void *)&__identifier("?set@Rva007F63D0@@QAEXPAHPBURva007F63D0Src@@H@Z"), // slot 1 0x00662B60
 };
 
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)

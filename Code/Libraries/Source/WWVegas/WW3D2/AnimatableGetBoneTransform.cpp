@@ -9,7 +9,7 @@
 // It can also change how later array constructions here compile; checked to
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 // Matrix3D's inline helpers are defined in the same /O1-like state, so the
 // out-of-line copies this unit emits (default and copy constructors) are
 // retail's /O1 bodies (0x0006645C copy) instead of /O2 ones. Calls inline as before.

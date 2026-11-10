@@ -13,7 +13,7 @@
 // Same first-array anchor as Matrix3DUnmatchedSSE.cpp: keep the emitted
 // compiler vector constructor iterator at retail's 34B /O1 shape.
 // This static driver is unemitted and has no retail claim.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 // ?bfmePairTransformVciAnchor absent-from-retail
 static void bfmePairTransformVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }

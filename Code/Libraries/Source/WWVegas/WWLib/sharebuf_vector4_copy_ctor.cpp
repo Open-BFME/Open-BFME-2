@@ -11,7 +11,7 @@
 // copy that same body, so it no longer loses to retail's at link time.
 // auto_inline(off) keeps the iterator out of line: without it the copy
 // constructor's Vector4 array inlines it and loses retail's call to ??_H.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma auto_inline(off)
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
