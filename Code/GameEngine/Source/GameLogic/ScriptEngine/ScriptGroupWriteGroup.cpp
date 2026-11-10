@@ -65,11 +65,7 @@ private:
 	Byte *m_table; // +0x18
 };
 
-class Rva003B40A1Holder
-{
-public:
-	void *captureGroup(void *record);
-};
+#include "../../../Include/Common/Rva003B40A1Holder.h"
 
 void WriteScriptDataChunk(DataChunkOutput &chunkWriter, ScriptList *scriptList, Script *script);
 

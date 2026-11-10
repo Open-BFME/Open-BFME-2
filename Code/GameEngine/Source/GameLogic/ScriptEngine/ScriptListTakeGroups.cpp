@@ -34,11 +34,7 @@ public:
     int rva003B7F8E(Rva003B573E *other,int index);
     char prefix[12]; ScriptSetRecord *records; char suffix[16];
 };
-class Rva003B40A1Holder
-{
-public:
-	void *captureGroup(void *record);
-};
+#include "../../../Include/Common/Rva003B40A1Holder.h"
 struct CapturedGroup { int unknown; ScriptGroupLink *groups; ScriptEntryLink *scripts; };
 class BfmeKeyZK;
 struct BfmeNodeZK;

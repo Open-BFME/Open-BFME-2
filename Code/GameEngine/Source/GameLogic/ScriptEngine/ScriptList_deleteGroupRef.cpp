@@ -25,11 +25,7 @@ struct Rva003B3204
 	int m_index; // +0x04
 };
 
-class Rva003B40A1Holder
-{
-public:
-	void *captureGroup(void *record);
-};
+#include "../../../Include/Common/Rva003B40A1Holder.h"
 
 class Rva003B573E
 {

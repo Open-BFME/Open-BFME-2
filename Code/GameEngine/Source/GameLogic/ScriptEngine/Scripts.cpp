@@ -832,11 +832,7 @@ struct Rva003B489CEntry
 	Int m_val10; // +0x10
 };
 
-class Rva003B40A1Holder
-{
-public:
-	void *captureGroup(void *record);
-};
+#include "../../../Include/Common/Rva003B40A1Holder.h"
 
 class Rva003B483DHolder
 {
