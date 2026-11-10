@@ -6088,3 +6088,5 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
 ?rva000ABD68@Rva000ABD68Forwarder@@QAEXXZ,0x000ABD68,"Renamed to ?rva000ABD68@Rva000ABD56@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BC957C slot 0)"
 ??1Rva004A653D@@UAE@XZ,0x004A653D,"Renamed to ??1SupplyCenterProductionExitUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C52D30)"
 ??_GRva004A653D@@UAEPAXI@Z,0x004A6626,"Renamed to ??_GSupplyCenterProductionExitUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C52D30)"
+??1Rva00487F3A@@UAE@XZ,0x00487F3A,"Renamed to ??1DefaultProductionExitUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4B2AC)"
+??_GRva00487F3A@@UAEPAXI@Z,0x0048803F,"Renamed to ??_GDefaultProductionExitUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4B2AC)"

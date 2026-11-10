@@ -161,13 +161,13 @@ public:
 	virtual void fe();
 };
 
-class Rva00487F3A : public UpdateModule, public Rva00487F3A_E1
+class DefaultProductionExitUpdate : public UpdateModule, public Rva00487F3A_E1
 {
 public:
-	virtual ~Rva00487F3A();
+	virtual ~DefaultProductionExitUpdate();
 };
 
-Rva00487F3A::~Rva00487F3A()
+DefaultProductionExitUpdate::~DefaultProductionExitUpdate()
 {
 }
 
