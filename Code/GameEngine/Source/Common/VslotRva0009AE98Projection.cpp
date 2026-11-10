@@ -1,20 +1,9 @@
-// cl: /O1 /arch:SSE /G7 /MD /Oi-
+// cl: /O1 /arch:SSE /G7 /MD /Oi- /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // ?rva0009AE98@Rva0009AE98@@UAE_NPBVVector3@@PAH@Z @0x0009AE98 248B.
 // Target evidence: vtable 0x007C89C8 slot 15; the body projects the input point and converts it to screen coordinates. Class identity remains unresolved, so the address-based class name is used.
-#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "vector3.h"
 
-class CameraClass
-{
-public:
-	enum ProjectionResType
-	{
-		PROJECTION_ORTHO = 0,
-		PROJECTION_PERSPECTIVE = 1,
-		PROJECTION_INVALID_2 = 2,
-		PROJECTION_INVALID_3 = 3
-	};
-	ProjectionResType Project(Vector3 &dest, const Vector3 &source) const;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 #include "../../Include/GameClient/Display.h"
 void __cdecl W3DLogicalScreenToPixelScreen(float, float, int *, int *, int, int);
@@ -55,7 +44,7 @@ bool Rva0009AE98::rva0009AE98(const Vector3 *point, int *screen)
 		return false;
 	if (-2.0f > projected.Y)
 		return false;
-	if (result != CameraClass::PROJECTION_INVALID_2 && result != CameraClass::PROJECTION_INVALID_3)
+	if (result != CameraClass::OUTSIDE_NEAR_CLIP && result != CameraClass::OUTSIDE_FAR_CLIP)
 		return true;
 	return false;
 }

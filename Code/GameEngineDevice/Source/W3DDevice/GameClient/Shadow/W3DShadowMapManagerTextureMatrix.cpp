@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /MD
+// cl: /O1 /arch:SSE /G7 /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 //
 // The shadow-map manager at 0x00DE1FF8 (WorldBuilder's
 // W3DShadowMapManager.cpp, 0x007EEC40 there): before the create-a-hero
@@ -8,24 +8,21 @@
 
 // WWMath's Vector4 / Matrix4 / Matrix3D, only as far as this body inlines
 // them (fxshadernamespacesas.cpp's views).
-#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "matrix3d.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
-#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-
-
-#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-// WWMath matrix3d.h's inline Set(position) and Scale(Vector3), which the canonical header leaves to units.
+// WWMath matrix3d.h's inline Set(position) and Scale(Vector3), kept as file-local bodies.
 static __forceinline void matrixSetPosition(Matrix3D &m, const Vector3 &t)
 {
-	m.Row[0].Set(1.0f, 0.0f, 0.0f, t.X);
-	m.Row[1].Set(0.0f, 1.0f, 0.0f, t.Y);
-	m.Row[2].Set(0.0f, 0.0f, 1.0f, t.Z);
+	m[0].Set(1.0f, 0.0f, 0.0f, t.X);
+	m[1].Set(0.0f, 1.0f, 0.0f, t.Y);
+	m[2].Set(0.0f, 0.0f, 1.0f, t.Z);
 }
 static __forceinline void matrixScale(Matrix3D &m, const Vector3 &scale)
 {
-	m.Row[0][0] *= scale.X; m.Row[1][0] *= scale.X; m.Row[2][0] *= scale.X;
-	m.Row[0][1] *= scale.Y; m.Row[1][1] *= scale.Y; m.Row[2][1] *= scale.Y;
-	m.Row[0][2] *= scale.Z; m.Row[1][2] *= scale.Z; m.Row[2][2] *= scale.Z;
+	m[0][0] *= scale.X; m[1][0] *= scale.X; m[2][0] *= scale.X;
+	m[0][1] *= scale.Y; m[1][1] *= scale.Y; m[2][1] *= scale.Y;
+	m[0][2] *= scale.Z; m[1][2] *= scale.Z; m[2][2] *= scale.Z;
 }
 
 class Matrix4
@@ -79,12 +76,6 @@ public:
 	T *ptr;
 };
 
-// 0x00134A80 (camera.cpp): Get_D3D_Projection_Matrix times the view matrix.
-class CameraClass
-{
-public:
-	void rva00134A80(Matrix4 *set_tm);
-};
 
 class FXShaderParameterSourceNamespaceSAS
 {
