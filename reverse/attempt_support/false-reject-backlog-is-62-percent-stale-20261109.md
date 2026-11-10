@@ -65,6 +65,41 @@ were in that state.
 That is the point of the measure. The cluster was invisible while the backlog
 looked like 927 equal items.
 
+## The open `add_match` records are one cluster, and its obstacle is gone
+
+Re-measured at `4bb4bbac83f`: 933 records, 502 closed. Of the 159 `add_match`
+records still open, **144 are a `$L<n>` compiler-local label** whose evidence
+says some other TU already owns that number -- phrased as `one-name-one-address`
+(79), `local-name` (30), `global-local-name` (11), `local-label` (6),
+`compiler-local-label-collision` (4) and so on.
+
+That obstacle does not exist any more. `ledger_io.same_function_name` scopes a
+label to its source when both rows satisfy `ledger_io.local_funclet`, and
+`test_local_funclet_names.py` already pins the admission end to end. Checked
+against the live ledger: for **140 of the 144**, every existing row holding that
+name is itself a proven label, so a correctly-noted row in its own TU collides
+with nothing. The other 4 have no row with that name at all.
+
+So these records are stale in their *reason* while still open in their *work*:
+the address is still a placeholder, but nothing in the tooling refuses it. They
+belong to the decomp lane -- each needs a parent source and the byte gate -- not
+to a tooling seat.
+
+**Why 144 of them exist is a tooling defect, and that is fixed.** The refusal
+said only:
+
+    $L356 is already in the ledger at 0x0079A030 (…)
+    one name = one address; use --replace-existing only when deliberately
+    repointing that claim
+
+For a compiler label that advice is actively wrong: `--replace-existing` would
+repoint the *other* TU's claim. Nothing told the worker that the label scopes
+per-TU, or which of `local_funclet`'s five conditions their notes missed, so
+they read a verdict on identity where the truth was a verdict on notes and
+recorded a false reject. `add_match.local_label_hint` now names the missing
+condition instead, on both the single and batch paths. Submitting any of the 144
+without scoping notes produces the explanation in all 144 cases.
+
 ## What this does not claim
 
 - **Not that the 351 are all real false rejects.** 144 are "a different real
