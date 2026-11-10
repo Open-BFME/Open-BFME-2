@@ -8,12 +8,7 @@
 // Evidence: callees rowed 0x004CBCF2 plus 0x004CBDAC; no callers.
 #include "../../../../Include/Common/OpaqueRefElement4.h"
 
-struct Rva002C99FB
-{
-	int m_first;
-	OpaqueRefElement4 m_second;
-	Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../../Include/Common/Rva002C99FB.h"
 
 class Rva004CBDCF;
 

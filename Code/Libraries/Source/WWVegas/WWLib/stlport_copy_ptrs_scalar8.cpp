@@ -18,12 +18,7 @@ public:
 
 #include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
-struct Rva002C99FB
-{
-    int m_first;
-    OpaqueRefElement4 m_second;
-    Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../../GameEngine/Include/Common/Rva002C99FB.h"
 
 Rva002C99FB *Rva0031BA18Copy(Rva002C99FB *first, Rva002C99FB *last, Rva002C99FB *dest);
 

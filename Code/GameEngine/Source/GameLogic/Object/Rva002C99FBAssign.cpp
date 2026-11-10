@@ -4,11 +4,7 @@
 // Evidence: callers 0x002CD82A 0x002CD83C 0x002CF5EB 0x0031BA31; unblocks 8 (6 ready);
 // prev ObjectRva002C97E8 +0x38 layout, next WeaponComputeBonus flags; no vtable, ret 4 returns this.
 #include "../../../Include/Common/OpaqueRefElement4.h"
-struct Rva002C99FB {
-  int m_first;
-  OpaqueRefElement4 m_second;
-  Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../Include/Common/Rva002C99FB.h"
 Rva002C99FB &Rva002C99FB::operator=(const Rva002C99FB &other)
 {
   m_first = other.m_first;

@@ -542,12 +542,7 @@ private:
 	void *m_2ac;
 };
 #include "../../../../Include/Common/OpaqueRefElement4.h"
-struct Rva002C99FB
-{
-    int m_first;
-    OpaqueRefElement4 m_second;
-    Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../../Include/Common/Rva002C99FB.h"
 // A B2-native flag-word clearer at 0x0077AD65:
 //
 //     mov eax,[<address>] / and al,<mask8> / mov [<address>],eax / ret

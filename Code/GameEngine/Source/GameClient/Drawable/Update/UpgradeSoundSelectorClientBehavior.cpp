@@ -38,12 +38,7 @@ class Object;
 class AsciiString;
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 #include "../../../../Include/Common/OpaqueRefElement4.h"
-struct Rva002C99FB
-{
-	int m_first;
-	OpaqueRefElement4 m_second;
-	Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../../Include/Common/Rva002C99FB.h"
 // The entry test 0x004CB333 is rowed as UpgradeMuxData::rva004CB333.
 struct UpgradeMaskType;
 class UpgradeMuxData

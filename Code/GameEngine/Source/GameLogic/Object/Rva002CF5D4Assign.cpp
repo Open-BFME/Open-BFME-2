@@ -4,11 +4,7 @@
 // times assigning via the rowed 0x002C99FB, returns this in eax with ret 4.
 // Caller at 0x002D128C unblocks 0x002D1101.
 #include "../../../Include/Common/OpaqueRefElement4.h"
-struct Rva002C99FB {
-	int m_first;
-	OpaqueRefElement4 m_second;
-	Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../Include/Common/Rva002C99FB.h"
 
 struct Rva002CF5D4
 {

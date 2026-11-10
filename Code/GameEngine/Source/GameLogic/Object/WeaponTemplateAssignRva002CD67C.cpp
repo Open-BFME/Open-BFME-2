@@ -57,12 +57,7 @@ template <> vector<BfmePod8> &vector<BfmePod8>::operator=(const vector &);
 
 #include "../../../Include/Common/OpaqueRefElement4.h"
 
-struct Rva002C99FB
-{
-	int m_first;
-	OpaqueRefElement4 m_second;
-	Rva002C99FB &operator=(const Rva002C99FB &other);
-};
+#include "../../../Include/Common/Rva002C99FB.h"
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
