@@ -1,0 +1,34 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeSortingDispatchAt0012FE00",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 11,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 11
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

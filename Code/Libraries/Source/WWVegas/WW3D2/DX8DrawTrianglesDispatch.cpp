@@ -21,11 +21,7 @@
 struct TargetCenter3 { float x, y, z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c){} };
 // Address-derived local ABI name: retail 0x12FE00 consumes center xyz and four
 // DWORD ranges. The donor SphereClass spelling is not asserted for this target.
-class BfmeSortingDispatchAt0012FE00 {
-public:
-    static void Insert(const TargetCenter3& center, unsigned start,
-        unsigned polygons, unsigned minimum, unsigned vertices);
-};
+#include "BfmeSortingDispatchAt0012FE00.h"
 #include "DX8WrapperClass.h"
 void DX8Wrapper::Draw_Triangles(unsigned buffer_type, unsigned start,
     unsigned polygons, unsigned minimum, unsigned vertices)

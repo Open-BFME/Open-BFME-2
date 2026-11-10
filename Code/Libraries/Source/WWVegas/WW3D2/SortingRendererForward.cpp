@@ -3,5 +3,5 @@
 // target ABI independently establishes center reference and four words.
 // cl: /O1 /Oy- /G7 /arch:SSE /MD
 struct TargetCenter3{float x,y,z;TargetCenter3(float,float,float);};
-class BfmeSortingDispatchAt0012FE00{public:static void Insert(const TargetCenter3&,unsigned,unsigned,unsigned,unsigned);};
+#include "BfmeSortingDispatchAt0012FE00.h"
 void Rva0012630BForward(const TargetCenter3&targetCenter3,unsigned startIndex,unsigned polygonCount,unsigned minVertexIndex,unsigned vertexCount){BfmeSortingDispatchAt0012FE00::Insert(targetCenter3,startIndex,polygonCount,minVertexIndex,vertexCount);}

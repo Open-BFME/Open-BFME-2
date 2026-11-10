@@ -34,16 +34,7 @@ public:
 	TargetCenter3() {}
 };
 
-class BfmeSortingDispatchAt0012FE00
-{
-public:
-	static void Insert(
-		const TargetCenter3 &bounding_sphere,
-		unsigned int start_index,
-		unsigned int polygon_count,
-		unsigned int min_vertex_index,
-		unsigned int vertex_count);
-};
+#include "BfmeSortingDispatchAt0012FE00.h"
 
 // ?Insert_Triangles@SortingRendererClass@@SAXGGGG@Z
 void SortingRendererClass::Insert_Triangles(

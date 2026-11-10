@@ -1262,7 +1262,7 @@ void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
 struct TargetCenter3 { float x,y,z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c) {} };
 
-class BfmeSortingDispatchAt0012FE00 { public: static void Insert(const TargetCenter3 &, unsigned, unsigned, unsigned, unsigned); };
+#include "BfmeSortingDispatchAt0012FE00.h"
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp
 

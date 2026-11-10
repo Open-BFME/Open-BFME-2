@@ -40,7 +40,7 @@
 #include "dx8wrapper.h"
 #include "sortingrenderer.h"
 struct TargetCenter3 { float x,y,z; };
-class BfmeSortingDispatchAt0012FE00 { public: static void Insert(const TargetCenter3 &, unsigned, unsigned, unsigned, unsigned); };
+#include "BfmeSortingDispatchAt0012FE00.h"
 #include "vp.h"
 #include "vector3i.h"
 #include "random.h"

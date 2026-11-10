@@ -461,11 +461,7 @@ extern void BoxSetTexture(unsigned stage, TextureBaseClass *&texture);
 // DX8DrawTrianglesDispatch.cpp pins).
 struct TargetCenter3 { float x, y, z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c){} };
 
-class BfmeSortingDispatchAt0012FE00 {
-public:
-	static void Insert(const TargetCenter3& center, unsigned start,
-		unsigned polygons, unsigned minimum, unsigned vertices);
-};
+#include "BfmeSortingDispatchAt0012FE00.h"
 
 class Rva00914860Sizer
 {

@@ -936,11 +936,7 @@ struct TargetCenter3 {
 	float x, y, z;
 	TargetCenter3(float a, float b, float c) : x(a), y(b), z(c) {}
 };
-class BfmeSortingDispatchAt0012FE00 {
-public:
-	static void Insert(const TargetCenter3& center, unsigned start_index,
-		unsigned polygon_count, unsigned min_vertex_index, unsigned vertex_count);
-};
+#include "BfmeSortingDispatchAt0012FE00.h"
 
 void BfmeSortingDispatchAt0012FE00::Insert(const TargetCenter3& center,
 	unsigned start_index, unsigned polygon_count, unsigned min_vertex_index,

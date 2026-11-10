@@ -50,7 +50,7 @@ public:
 #include "../WWMath/SphereClass.h"
 
 struct TargetCenter3 { float x, y, z; };
-class BfmeSortingDispatchAt0012FE00 { public: static void Insert(const TargetCenter3 &,unsigned,unsigned,unsigned,unsigned); };
+#include "BfmeSortingDispatchAt0012FE00.h"
 
 class SortingRendererClass {
 public:

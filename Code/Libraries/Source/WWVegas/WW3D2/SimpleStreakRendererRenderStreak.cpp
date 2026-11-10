@@ -899,7 +899,7 @@ static bool _Is_Triangle_Draw_Enabled() { return _EnableTriangleDraw; }
 #include "dx8wrapper.h"
 #include "sortingrenderer.h"
 struct TargetCenter3 { float x,y,z; };
-class BfmeSortingDispatchAt0012FE00 { public: static void Insert(const TargetCenter3 &, unsigned, unsigned, unsigned, unsigned); };
+#include "BfmeSortingDispatchAt0012FE00.h"
 // TU-local: SortingRendererForward.cpp owns the out-of-line 0x0012630B row.
 static __forceinline void Rva0012630BForward(const TargetCenter3 &targetCenter3,unsigned start_index,unsigned polygon_count,unsigned min_vertex_index,unsigned vertex_count){BfmeSortingDispatchAt0012FE00::Insert(targetCenter3,start_index,polygon_count,min_vertex_index,vertex_count);}
 struct BFME2TextureRef { TextureBaseClass *Ptr; };

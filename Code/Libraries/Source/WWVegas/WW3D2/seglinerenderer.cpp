@@ -84,10 +84,7 @@ void BFME2Set_Texture(unsigned,const BFME2TextureRef &);
 // Canonical repository owner of retail sorting dispatch RVA 0x0012FE00.
 struct TargetCenter3;
 
-class BfmeSortingDispatchAt0012FE00 {
-public:
-	static void Insert(const TargetCenter3 &, unsigned, unsigned, unsigned, unsigned);
-};
+#include "BfmeSortingDispatchAt0012FE00.h"
 
 BFME_DISP8_FLOAT_SETTER(Rva0015DFA0FloatField, 0x1C)
 
