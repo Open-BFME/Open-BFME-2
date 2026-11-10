@@ -21,7 +21,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
-#include "Rva00330757Member.h"
+#include "SidesListNotifier.h"
 
 class AsciiString;
 class BuildListInfo;
@@ -50,7 +50,7 @@ template<class T, class Alloc> class vector;
 template<class Key, class Compare, class Alloc> class set;
 }
 
-class SidesList : public SubsystemInterface, public Snapshot, public Rva00330757Member
+class SidesList : public SubsystemInterface, public Snapshot, public SidesListNotifier
 {
 public:
     SidesList();

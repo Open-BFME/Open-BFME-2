@@ -27,19 +27,10 @@ public:
 class Rva00281A15Listener;
 #include "../../../Include/Common/SidesListNotifier.h"
 
-class SidesList
-{
-public:
-	void rva0032B871(bool value);
-private:
-	char unknown00[0x10];
-	SidesListNotifier m_notifier;
-	char m_pad20[0xF7C - 0x20];
-	bool m_cleared;
-};
+#include "../../../Include/Common/SidesList.h"
 
 void SidesList::rva0032B871(bool value)
 {
-	m_cleared = value;
-	m_notifier.post(&Rva00281A15Listener::slot24, this);
+	m_fieldF7C = value;
+	post(&Rva00281A15Listener::slot24, this);
 }

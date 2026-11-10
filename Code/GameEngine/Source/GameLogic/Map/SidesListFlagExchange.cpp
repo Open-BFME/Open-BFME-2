@@ -9,15 +9,7 @@
 
 class Rva00281A15Listener;
 #include "../../../Include/Common/SidesListNotifier.h"
-class SidesList {
-public:
-    void exchangeFlag(SidesList *other);
-private:
-    char unknown00[0x10];
-    SidesListNotifier m_notifier;
-    char m_pad20[0xF7C-0x20];
-    bool m_cleared;
-};
+#include "../../../Include/Common/SidesList.h"
 class Rva0032B833Listener {
 public:
     virtual void slot00();
@@ -33,12 +25,12 @@ public:
 template <class T> inline void exchangeValue(T &lhs,T &rhs) {T t=lhs; lhs=rhs; rhs=t;}
 void SidesList::exchangeFlag(SidesList *other)
 {
-    exchangeValue(m_cleared,other->m_cleared);
+    exchangeValue(m_fieldF7C,other->m_fieldF7C);
     union CallbackWord {
         void (Rva0032B833Listener::*member)(SidesList *,SidesList *);
         void (*stored)();
     } callback;
     callback.member=&Rva0032B833Listener::slot20;
-    m_notifier.post(callback.stored,this,(int)other);
-    other->m_notifier.post(callback.stored,other,(int)this);
+    post(callback.stored,this,(int)other);
+    other->post(callback.stored,other,(int)this);
 }
