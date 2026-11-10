@@ -107,11 +107,7 @@ public:
 	void rva00073C7A();
 };
 
-class Rva000728E2
-{
-public:
-	void rva000728E2();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 
 class W3DSnowManager
 {

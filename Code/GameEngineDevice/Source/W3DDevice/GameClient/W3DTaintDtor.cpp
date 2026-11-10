@@ -22,11 +22,7 @@ public:
 	TextureClass *m_p;
 };
 
-class Rva000728E2
-{
-public:
-	void rva000728E2();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 
 #include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 

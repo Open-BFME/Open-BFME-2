@@ -12,7 +12,7 @@ struct Rva0007311BRef {RefCountClass *ptr;~Rva0007311BRef(){if(ptr)ptr->Release_
 // calls its separate 5-byte forwarder at 0x00073116. This view preserves the
 // unadjusted receiver; the original wrapper type and inheritance are unknown.
 struct Rva00073116Member : Rva00072FE6 { ~Rva00073116Member() {} };
-class Rva000728E2 {public: void rva000728E2();};
+#include "../../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 class Rva0007311B {
 public: ~Rva0007311B();void *rva00066667(unsigned flags);
 private:
