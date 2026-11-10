@@ -107,12 +107,7 @@ class ExperienceTracker;
 struct Rva0039B24FInput;
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
-class Rva0028951F
-{
-public:
-	const Overridable *rva002897A8(void *list, int level); // 0x002897A8
-	const Overridable *rva0028951F(int key); // 0x0028951F, level by name key
-};
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 class Rva0039AF76
 {
 public:

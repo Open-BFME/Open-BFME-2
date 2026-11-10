@@ -23,7 +23,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Overridable;
-class Rva0028951F { public: const Overridable *rva0028951F(int); };
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;  // defined in DelayedExperienceLevelGrantUpdate.cpp
 enum ObjectID { INVALID_ID = 0 };

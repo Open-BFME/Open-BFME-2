@@ -31,11 +31,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/Common/Overridable.h"
 
-class Rva0028951F
-{
-public:
-	const Overridable *rva0028951F(int key);
-};
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 
 class DLINK_ITERATOR_Object;
 typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);

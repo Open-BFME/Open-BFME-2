@@ -345,7 +345,7 @@ class Rva004074B6 { public: void rva004074B6(const AsciiString &); };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva0028951F { public: const Overridable *rva0028951F(int); };
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 // WorldBuilder's CAH_MAX_EXP_LEVELS (the SetButtonForLevel assert).

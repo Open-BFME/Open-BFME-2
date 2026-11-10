@@ -81,12 +81,7 @@ class ExperienceTracker;
 class Overridable;
 // The store as the rowed 0x002897A8 names it: the next level of a list
 // above the one keyed by the given NameKeyType.
-class Rva0028951F
-{
-public:
-	const Overridable *rva002897A8(void *list, int level); // 0x002897A8
-	const Overridable *rva0028951F(int key); // 0x0028951F, level by name key
-};
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 // An experience level as read here: required experience at +0x18 and the
 // value at +0xFC this tracker reports.
 struct ExperienceTrackerLevelView

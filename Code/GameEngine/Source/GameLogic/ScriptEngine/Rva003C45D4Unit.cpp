@@ -24,11 +24,7 @@ enum NameKeyType
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Rva0028951F
-{
-public:
-	const Overridable *rva0028951F(int key);
-};
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 

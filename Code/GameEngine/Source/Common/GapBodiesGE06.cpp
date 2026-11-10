@@ -152,11 +152,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Overridable;
-class Rva0028951F
-{
-public:
-	const Overridable *rva0028951F(int key);				// 0x0028951F
-};
+#include "../../Include/GameLogic/Module/Rva0028951F.h"
 
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;

@@ -155,12 +155,7 @@ public:
     _STL::vector<void *> upgrades4C;
     char pad58[0xb0];
 };
-class Rva0028951F
-{
-public:
-	const Overridable *rva0028951F(int);
-	const Overridable *rva002897A8(void *list, int level);
-};
+#include "../../../Include/GameLogic/Module/Rva0028951F.h"
 class Rva0028881C
 {
 public:
