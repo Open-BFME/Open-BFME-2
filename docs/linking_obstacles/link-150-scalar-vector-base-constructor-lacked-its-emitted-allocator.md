@@ -21,3 +21,5 @@ in this source and `StringContainerRecordCopyBFME2.cpp`, with no certified
 retail owner. These unchanged providers need a separate reconciliation;
 zero wrong call bindings does not clear this definition finding.
 [Evidence and initial refused admission](../../reverse/attempt_support/scalar-vector-base-identity-20261029-codex4.md).
+
+- **2026-11-10 divergent `_Vector_base<BfmeAsciiScalarValue8>` dtor repaired:** `StringScalarVectorCopyBFME2.cpp` failed census `05cba3c7ab` (`2026-11-10 10:49 UTC`, 298 B lost) because its out-of-line `allocator<BfmeAsciiScalarValue8>::deallocate` suppression prevented inlining `free`, emitting a 24-byte `_Vector_base::~_Vector_base` against `StringContainerRecordCopyBFME2.cpp`'s 14-byte inline-`free` copy. Dropping that declaration-only suppression reconciles both copies to identical 14-byte COMDATs (`8b 01 85 c0 74 07 50 e8 00 00 00 00 59 c3`). Verified: `7/7` rows and `2` EH EXACT, `find_declared_unmatched.py --fail` clean, `hatch_counters.py --report` zero drift, `link_check` `2/2` cleanly (`LINKED 1,004 -> 1,302 bytes`; `StringScalarVectorCopyBFME2.cpp` `0 -> 298 B`). Census confirmation pending.
