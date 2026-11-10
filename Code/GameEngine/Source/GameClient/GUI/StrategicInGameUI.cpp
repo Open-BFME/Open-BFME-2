@@ -515,7 +515,7 @@ private:
 
 // Native5E68C0..5E6938 complete120B: complement of roster clear5E6938.
 // Same observed fields and existing calls; original class identity unresolved.
-class Rva005F6037ByteChaseField {public:unsigned char get()const;};
+#include "../../../Include/Common/Rva005F6037ByteChaseField.h"
 
 class Rva005F62FE {public:void rva005F62FE(bool);};
 

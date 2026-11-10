@@ -803,11 +803,7 @@ Rva005778B6Ret Rva005778B6::rva005778B6()
 	return m_3C->slot04();
 }
 
-class Rva005F6037ByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva005F6037ByteChaseField.h"
 class Rva005F62FE
 {
 public:

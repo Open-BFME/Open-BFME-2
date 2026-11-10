@@ -235,7 +235,7 @@ class Rva005E4116 {public:int rva005E4116();
 // to that sum for its +0x10 object;
 // native5E69D0 (table slot, 48B) calls it directly and adds the selected
 // +0x14 entry's template cost when that clip's flag byte is set.
-class Rva005F6037ByteChaseField {public:unsigned char get()const;};
+#include "../../../../Include/Common/Rva005F6037ByteChaseField.h"
 struct Rva005E69D0Selection {char pad0[4];Rva005F6037ByteChaseField *clip;char pad8[0x18-8];Rva005E4300Entry *entry;};
 class Rva005E69D0 {public:int rva005E415F();int getTotalCost();
  char pad0[0x10];Rva005E4116 *sum;Rva005E69D0Selection *selection;
