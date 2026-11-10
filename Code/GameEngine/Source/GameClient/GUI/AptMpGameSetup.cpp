@@ -786,20 +786,13 @@ GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 // releases the incumbent when non-null, and stores the new one. The target's
 // reference-counted base is the stlport rb_tree hint layout; the class here is
 // an honest address-named view (offset 0x6c proven by the add ecx).
-struct TargetRef00217D4C
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
+// Inline release body for this unit; the header only declares the destructor.
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	void *m_vtbl;
-	int references;
-};
-
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 class Rva0043F20C
 {

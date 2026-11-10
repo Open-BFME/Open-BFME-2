@@ -10,30 +10,15 @@
 // the garrison and hero panel slots (Common/Rva005FFCCBAppend.cpp).
 #include "ascii_string.h"
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int m_refCount;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
-
 // The panel handle (TreeHintRef00217D4C: assignment 0x002174A4 rowed in
 // WWLib/stlport_rb_tree_hint_00218022.cpp).
-struct TreeHintRef00217D4C
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
+// Inline release body for this unit; the header only declares the destructor.
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &that) : m_ptr(that.m_ptr)
-	{
-		if (m_ptr)
-			((TargetRef00217D4C *)m_ptr)->m_refCount++;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
-	}
-
-	void *m_ptr;
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 namespace StrategicHUD {
 class AbstractBattlePromptArmyPanelFactory

@@ -64,29 +64,13 @@ public:
 // TreeHintRef by hidden pointer with EH state 0 then inline holder dtor;
 // caller 0x00405D49 passes this in ecx with no stack args; same +0x2A4 as
 // big caller 0x00405C04; prev/next share // cl: /O1 /EHsc /MD.
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+// Inline release body for this unit; the header only declares the destructor.
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
-
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
-	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-	__forceinline ~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 class HintProvider00405A50
 {

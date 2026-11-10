@@ -88,14 +88,13 @@ class Rva0035B232 {public:const AsciiString *rva0035B232(int);};
 class Rva0035B29E {public:const AsciiString *rva0035B29E(int);};
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TargetRef00217D4C *ptr;
- TreeHintRef00217D4C(TargetRef00217D4C *p):ptr(p){if(ptr)++ptr->references;}
- TreeHintRef00217D4C(const TreeHintRef00217D4C &s):ptr(s.ptr){if(ptr)++ptr->references;}
- ~TreeHintRef00217D4C(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
-};
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
+// Inline release body for this unit; the header only declares the destructor.
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 class Rva0056D3FD:public TargetRef00217D4C {public:
  Rva0056D3FD(const UnicodeString &,const UnicodeString &,const UnicodeString &,const UnicodeString &,const AsciiString &);
  void *impl;

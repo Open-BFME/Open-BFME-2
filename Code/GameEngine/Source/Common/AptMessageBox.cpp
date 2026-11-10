@@ -13,17 +13,13 @@ extern int g_Va00E032FC;
 
 // Counted callback ABI established by the rowed 54D362 forwarder and
 // ReleaseTreeHintRef00217D4C: pointer at +0; target reference count at +4.
-struct TargetRef00217D4C { virtual void *destroy(unsigned int); int references; };
-
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
-struct TreeHintRef00217D4C {
- TargetRef00217D4C *m_ptr;
- TreeHintRef00217D4C(const TreeHintRef00217D4C &v):m_ptr(v.m_ptr) {
-  if(m_ptr) ++m_ptr->references;
- }
- ~TreeHintRef00217D4C() { if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+// Inline release body for this unit; the header only declares the destructor.
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 class Rva0054D2DDTarget { public:
  void method(int,const UnicodeString &,const UnicodeString &,
