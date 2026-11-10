@@ -280,7 +280,7 @@ class Stall(unittest.TestCase):
     def game(self, frames, main=(22, 201), threads=None):
         g = gs.Game.__new__(gs.Game)
         g.res, g.watch, g.stall_after, g.t0, g.k, g.hproc = {}, None, 120.0, 0.0, object(), 9
-        g.main_thread, g.threads = main, threads or {}
+        g.main_thread, g.threads, g.main_exited = main, threads or {}, False
         g.clock = 0.0
         g.seconds = lambda: g.clock
         it = iter(frames)
@@ -332,6 +332,40 @@ class Stall(unittest.TestCase):
         self.assertEqual((st["main_thread"], st["samples"], st["threads"]), (None, [], [{"tid": 202, "start": 0x401500, "eip": None}]))
         self.assertIn("CREATE_PROCESS", st["main_thread_why"])
 
+    def test_a_read_that_raises_is_a_recorded_failure_not_a_lost_run(self):
+        g = self.game(iter([0] * 10_000), threads={202: (33, 0x401500), 203: (34, 0x401600)})
+        with mock.patch.object(gs.boot_smoke, "while_suspended",
+                               side_effect=[OSError("access denied")] + [(dict(self.STACK), True)] * 4), \
+                mock.patch.object(gs.boot_smoke, "thread_eip", side_effect=[OSError("gone"), 0x7BC01234]):
+            self.assertEqual(self.drive(g, 300), [120, 123, 126, 129, 132])
+        st = g.res["stall"]
+        self.assertEqual((len(st["samples"]), st["failures"]), (4, 1))
+        self.assertIn("OSError: access denied", st["failure_reasons"][0])
+        self.assertEqual([(t["tid"], t["eip"], t.get("error")) for t in st["threads"]],
+                         [(202, None, "OSError: gone"), (203, 0x7BC01234, None)])
+
+    def test_a_main_thread_that_exited_is_never_sampled_and_says_so(self):
+        g = self.game(iter([0] * 10_000), main=None)
+        g.main_exited = True
+        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=AssertionError("stale handle")), \
+                mock.patch.object(gs.boot_smoke, "thread_eip"):
+            self.assertEqual(self.drive(g, 300), [120])
+        self.assertEqual((g.res["stall"]["samples"], g.res["stall"]["main_thread_why"]), ([], "main thread exited"))
+
+    def test_a_main_thread_exiting_between_samples_stops_the_samples(self):
+        g = self.game(iter([0] * 10_000))
+        calls = []
+
+        def sample(*a):
+            calls.append(1)
+            if len(calls) == 2:                                                 # its EXIT_THREAD arrives
+                g.main_thread, g.main_exited = None, True
+            return dict(self.STACK), True
+        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=sample), \
+                mock.patch.object(gs.boot_smoke, "thread_eip"):
+            self.drive(g, 300)
+        self.assertEqual((len(g.res["stall"]["samples"]), g.res["stall"]["main_thread_why"]), (2, "main thread exited"))
+
     def test_a_thread_left_suspended_stops_the_run_s_evidence(self):
         g = self.game(iter([0] * 10_000))
         with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=gs.boot_smoke.ThreadNotResumed(5)), \
@@ -359,20 +393,29 @@ class Stall(unittest.TestCase):
                 mock.patch.object(gs.boot_smoke, "image_frames", side_effect=frames):
             return gs.stall_report(self.RAW, 0x2000000, ri, where=lambda va: f"ntdll+{va & 0xFFF:#x}", **kw)
 
-    def test_the_report_names_each_address_and_the_frames_every_sample_holds(self):
+    def test_the_report_names_each_address_and_the_candidates_every_sample_holds(self):
         rep = self.report()
         s0 = rep["samples"][0]
         self.assertEqual((s0["eip"], s0["eip_label"], s0["eip_retail_rva"]), ("0x2001234", "f1234", "0x1334"))
-        self.assertEqual(s0["frames"][1], ["0x2002200", "f2200", "0x2300"])
-        self.assertFalse(rep["agree"])                                          # the two clean eips differ
-        self.assertEqual(rep["common"], [["0x2002200", "f2200", "0x2300"]])     # the unclean sample is left out
+        self.assertEqual(s0["scan_candidates"][1], ["0x2002200", "f2200", "0x2300"])
+        self.assertNotIn("frames", s0)                                          # scan candidates, never "frames"
+        self.assertIn("not a call chain", rep["method"])
+        self.assertFalse(rep["eip_agree"])                                      # the two clean eips differ
+        self.assertEqual(rep["common_scan_candidates"], [["0x2002200", "f2200", "0x2300"]])   # unclean left out
         self.assertEqual(rep["threads"][0]["eip_label"], "ntdll+0x234")         # outside the image
         rec = gs.stall_receipt(rep)
-        self.assertEqual((rec["samples"], rec["agree"], rec["eip"], rec["common"]), (2, False, "f1234", ["f2200"]))
+        self.assertEqual((rec["samples"], rec["stall_after"], rec["eip_agree"], rec["eip"], rec["common_scan_candidates"]),
+                         (2, 120.0, False, "f1234", ["f2200"]))
+
+    def test_an_unsymbolized_section_still_gives_a_receipt(self):
+        raw = dict(self.RAW, report_error="KeyError: 'x'")
+        rec = gs.stall_receipt(raw)
+        self.assertEqual((rec["samples"], rec["stall_after"], rec["report_error"]), (2, 120.0, "KeyError: 'x'"))
 
     def test_an_overlay_image_is_not_symbolized(self):
         rep = self.report(overlay=True)
-        self.assertEqual((rep["samples"][0]["eip_label"], rep["samples"][0]["frames"], rep["common"]), (None, None, None))
+        self.assertEqual((rep["samples"][0]["eip_label"], rep["samples"][0]["scan_candidates"],
+                          rep["common_scan_candidates"]), (None, None, None))
         self.assertIn("overlay", rep["note"])
 
     def test_the_receipt_gains_a_stall_section_only_when_there_was_one(self):

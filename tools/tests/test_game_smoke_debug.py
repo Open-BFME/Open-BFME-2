@@ -223,6 +223,59 @@ class StallThreads(unittest.TestCase):
         self.assertFalse({22, 33, 34} & set(kernel.closed))
         self.assertNotIn("stall", result)                                       # off unless --stall-after sets it
 
+    def lifecycle(self, events, stall_after=None, run_for=2, **patches):
+        clock = Clock()
+        kernel = Kernel(clock, events)
+        kernel.suspended, kernel.resumed = [], []
+        kernel.SuspendThread = lambda h: kernel.suspended.append(h.value) or 0
+        kernel.ResumeThread = lambda h: kernel.resumed.append(h.value) or 1
+        from contextlib import ExitStack
+        with ExitStack() as stack:
+            for p in [mock.patch.object(runner.boot_smoke, "k32", return_value=kernel),
+                      mock.patch.object(runner.boot_smoke, "check_sandbox_appdata"),
+                      mock.patch.object(runner, "image_size", return_value=0xC00000),
+                      mock.patch.object(runner.time, "time", side_effect=clock.time),
+                      mock.patch.object(runner.time, "monotonic", side_effect=clock.monotonic),
+                      mock.patch.object(runner.ctypes, "get_last_error", return_value=121, create=True),  # wait timed out
+                      *[mock.patch.object(runner.boot_smoke, n, v) for n, v in patches.items()]]:
+                stack.enter_context(p)
+            game = runner.Game(Path("/mock-game"), "-win", Path("/mock-appdata"), version_lie=False)
+            game.stall_after = stall_after
+            game.logic = lambda: (0, 2)                                         # frame 0 from the start: a stall
+            game._while_serving = lambda work, limit=30.0: (None, None)         # no screenshot at the timeout
+            result = game.run(run_for)
+        return kernel, game, result
+
+    def test_the_main_thread_s_exit_forgets_its_handle(self):
+        events = [event(runner.CREATE_PROCESS, pid=100, tid=101, process_handle=23),
+                  event(runner.CREATE_PROCESS, file_handle=31),
+                  thread_event(runner.CREATE_THREAD, 202, handle=33, start=0x401500),
+                  thread_event(runner.EXIT_THREAD, 201)]                         # game.dat's first thread
+        kernel, game, result = self.lifecycle(events, stall_after=1.0, run_for=8, thread_eip=mock.Mock(return_value=None))
+        self.assertEqual((game.main_thread, game.main_exited, game.threads), (None, True, {202: (33, 0x401500)}))
+        self.assertEqual(result["stall"]["main_thread_why"], "main thread exited")
+        self.assertEqual(result["stall"]["samples"], [])
+        self.assertNotIn(22, kernel.suspended)                                  # the stale handle is never used
+
+    def test_a_read_that_raises_resumes_the_thread_and_keeps_the_run(self):    # review: 9cbc99aa06 point 1
+        events = [event(runner.CREATE_PROCESS, pid=100, tid=101, process_handle=23),
+                  event(runner.CREATE_PROCESS, file_handle=31)]
+        kernel, game, result = self.lifecycle(events, stall_after=1.0, run_for=20,
+                                              stack_words=mock.Mock(side_effect=OSError("read failed")))
+        self.assertEqual(result["stopped"], "timeout")                          # the run went on to its end
+        self.assertEqual(result["debugger_errors"], [])
+        st = result.pop("stall")
+        self.assertEqual((st["failures"], len(st["samples"])), (runner.STALL_SAMPLES, 0))
+        self.assertIn("OSError: read failed", st["failure_reasons"][0])
+        self.assertEqual(kernel.suspended.count(22), runner.STALL_SAMPLES)     # every suspend of the main thread
+        self.assertEqual(kernel.resumed.count(22), runner.STALL_SAMPLES)       # was resumed
+        rep = runner.stall_report(st, 0x400000)
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(runner, "OUT", Path(d)), \
+                mock.patch("sys.stdout"):
+            written = runner.write_result("skirmish", {"image": "retail", "receipt": {}, "run": result, "stall": rep})
+            receipt = __import__("json").loads(written.read_text())["receipt"]
+        self.assertEqual((receipt["stall"]["failures"], receipt["stall"]["samples"]), (runner.STALL_SAMPLES, 0))
+
 
 class FaultCaptureTests(unittest.TestCase):
     """P106: a skirmish's crash keeps the fault's registers, through boot_smoke's capture."""
