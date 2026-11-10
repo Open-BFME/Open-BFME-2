@@ -1,449 +1,161 @@
-## Instruction freshness
+Reread this file after 24 hours, and at once when a message or commit reports an edit to it.
 
-Before continuing work, reread `AGENTS.md` if 24 hours have elapsed
-since the last read. Reread it immediately whenever a user message
-or commit message reports an edit to `AGENTS.md`.
+## Goal and done
 
-## Current phase: link and clean up
+The product: BFME II rebuilt from source people can read and mod. Done: the game links
+with no `/FORCE` and no stubs at a non-retail base; automated runs reach the menu, a
+skirmish and save/load; game-logic CRCs equal retail's, a perturbed run caught
+as the negative control (`docs/verifier_upgrade_plan.md` step 12); `Code/` is retail's
+~2,300 TUs (17,893 files on 2026-11-10), every code row in its approved TU, real names,
+shared classes.
 
-Byte matching of BFME 2's `.text` is complete (`python3 tools/progress.py`:
-BYTE-MATCHED 100%). The open work is making matched units link, retiring debt,
-replacing placeholder and generated rows with real C++ and real names, and
-consolidating files. Investigate an apparent unrowed body against current
-coverage, existing owners and history before calling it a regression. Restoring
-a lost row is regression repair; identifying an existing placeholder is cleanup.
+Progress, in order: the real link's unresolved, duplicates and bridges
+(`scoreboard.json`, `docs/automation.md`); the newest srv1 game-queue receipt (the crash and
+its row; menu, skirmish, save/load); `tools/image_iso.py` defects and what it could not
+analyze; `tools/progress.py`; the debt registers and hatch counts.
 
-**Exit test** (`docs/verifier_upgrade_plan.md` step 12): the game links with no
-`/FORCE` and no stubs at a non-retail base, and automated runs
-(`tools/boot_smoke.py`, `tools/game_smoke.py`) reach the menu, a skirmish and
-save/load. That is the milestone. The closing bar is a run whose game-logic CRCs equal
-retail's, with a deliberately perturbed run caught as the negative control. The phase
-closes with source recovery done too: `Code/` holds retail's
-translation units, not one file per function, and every code row sits in its
-approved TU (`reverse/tu_map.csv`).
+BYTE-MATCHED (100%), census LINKED and LINKING (`/FORCE` with stubs; `link_check.py`
+only predicts) and NOT OURS are kept but never show the game works. Bridges are temporary
+scaffolding, never progress, driven to 0 by real statics and classes; quote them beside how
+far a run got. Markers, prose and `gen-*` rows are not progress; required records are
+records, not progress.
 
-**Headline figures.** Two questions, in this order. The first decides progress.
+## Start here
 
-*Does the game run?* Measured on an actual image. Exit test and gates:
-`docs/verifier_upgrade_plan.md` step 12.
+1. `git pull --rebase origin master`, `python3 tools/check_csv.py`; repair ledger errors
+   first and `./build.sh` your area if the pull touched it. A red `master` comes first:
+   whoever is nearest repairs or reverts it.
+2. An explicit request or lane overrides the queue; otherwise `python3 tools/next_work.py
+   --claim` (`docs/matching.md`). An unrowed body is a regression only once history proves
+   a lost row.
+3. Claim first (`tools/claims.py claim 0xRVA` for every RVA, `class:NAME`, `file:PATH`);
+   if another worker holds it, choose other work. Claims last four hours: `renew`; stop
+   editing if renew refuses. Release banked, blocked or abandoned bodies and scope claims
+   after the push (`docs/claims.md`).
+4. Before planning an edit: `python3 tools/find_declared_unmatched.py <file>`, the body's
+   `reverse/re_attempts.log` entries, and for linking work the obstacle register
+   (`docs/linking_obstacles.md`) for what you touch; update the entries you work on
+   (`docs/linking.md`).
+5. Work the file, not the row: drain its queued candidates, finishing or reverting each
+   body or homogeneous batch before the next. Smallest change, `./build.sh <file>`,
+   stage, commit.
+6. Stay on one target while evidence-backed hypotheses remain; test a shared explanation
+   (layout, callee, compiler, ABI) first; reassess after ~120 minutes without progress.
+7. On failure record the verdict with `tools/re_log.py record`; `partial` only with a
+   banked body; a substantive `blocked` or `partial` gets a handoff in
+   `reverse/attempt_support/` (`docs/structural.md`, "Attempts").
+8. A record never takes its own commit: it rides with its change. Records of attempts that
+   changed nothing go in one records commit per push, after the last change, and are
+   never pushed alone before the session ends.
 
-- **Real link**: unresolved and duplicates from `.github/workflows/real-link.yml`
-  (`tools/exit_link.py --link`, no `/FORCE`, retail's exported names included),
-  driven to 0 with an image written (`docs/automation.md`).
-- **Bridges**: `initializers_bridged` and the generated vtable table's count in
-  the real link's `scoreboard.json`. They are temporary scaffolding that lets an
-  image start, never progress, and are driven to 0 by real statics and classes.
-- **How far it runs**: the newest receipt from srv1's game queue for the newest
-  image: the crash and the row it maps to, then menu, skirmish and save/load.
-- **Matches retail**: `tools/image_iso.py` defects on the newest image (short or
-  wrong vtable slots, wrong globals, initializers), with what it could not
-  analyze; then game-logic CRCs equal to retail's over the frames retail repeats.
+## Never
 
-*Is the source clean?*
+Many agents push to `master`: keep changes small, verified, easy to rebase.
+Detail: `docs/verifier_upgrade_plan.md` ("Live rules in detail").
 
-- **Source recovery**: SOURCE FILES (`.cpp`/`.c`/`.asm` under `Code/`, driven
-  down from ~22,500 toward the ~2,000 TUs `reverse/tu_map.csv` names) and
-  TU-APPROVED (code rows in an approved TU, which caps what merges can remove),
-  printed by `tools/progress.py`. Merges (`tools/tu_skeleton.py --queue`) lower
-  the first; TU-approval and TU-evidence work raises the second.
-- **Shared classes and names**: private class copies and readable names
-  (`tools/progress.py`); header adoption (`tools/header_adopt_lane.py`) is also
-  the lasting fix for short vtables.
-- **Debt**: `reverse/gate_baseline.txt`, the data, code-identity and header
-  registers, and the hatch counts in `reverse/hatch_baseline.tsv`.
+- Never `--no-verify` or bypass a hook (worktrees: `git -c core.hooksPath=.githooks`, made
+  with `tools/worktree_setup.py`). Gate code in `tools/`, `.githooks/` or a
+  baseline/whitelist needs a `Verifier-Change: <reason>` trailer.
+- A check refuses correct work: record a false reject; never work around it or edit it
+  in that commit.
+- Never compile by hand through `tools/build.py` (it poisons `build/match/`).
+- `// cl:` holds flags only; no absolute `#include`; in Git Bash set `MSYS_NO_PATHCONV=1`
+  before a `/I...` tool; control paths are lowercase.
+- Never add a line to `reverse/gate_baseline.txt`; delete it when you fix its row. Retire
+  debt only by its register's path; `Verifier-Change` never retires a key. A shadow
+  check that reaches `enforce` never returns.
+- Never add an escape hatch by hand: pins, `/alternatename`, `object-symbol=` rows,
+  address-named globals, selectany, `class-gate: allow`, `present-unmatched`,
+  `#pragma optimize`, `__emit`, `.asm` `db`. Counts rise only by a tool's admission or a
+  total-keeping `hatch_counters.py --update`; running `--allow` or `--admit` yourself is
+  hand-adding. Prefer removing hatches; remove a file's before renaming it.
+- A pin is an in-image code RVA written by `pin_admission.py --add` or `add_match.py
+  --pin`, never a second real name on a named address; an ICF fold needs `fold-proof=`.
+  `gen-alias` only as an exact token for a byte-and-relocation twin.
+- One global per address in `reverse/data_converged.csv`: declare the real global and cast
+  (`((AIView *)TheAI)->m_field`); never bind a second symbol.
+- No private copy of a class in `reverse/canonical_classes.csv`.
+- Rows move only into the address's approved unit in a fresh `reverse/tu_map.csv`; a stale
+  assignment or `repair_queue.py dest` fallback is no approval, and merges commit no
+  regenerated map. Only compiler-emitted rows (`$L<n>`, `_$E<n>`) with no unit follow their
+  parent (`docs/consolidation.md`). Merge only with `tools/tu_skeleton.py`, never by hand
+  or splitting a mixed file.
+- Anti-lift: clean C++; MASM or inline asm only for a proven codegen blocker (compiler
+  machinery, x87 shape, SEH). A dump lifted into `naked`/`__emit` is no conversion.
+- Never edit `Code/gen_asm/` (repoint the row, leave the `PROC`) or
+  `Code/gen_small/uw_gen_*.cpp` (`gen_uw.py land` owns it; never infer `parent=` from
+  adjacency). Recover `gen-*` rows as clean C++ at their proper path (`add_match.py
+  --replace-rva`).
+- `vendored=<lib>-<ver>` rows keep upstream's names, never `gen-`, and the exact release.
+- No fallback paths. No nonmatching code in `Code/`; banked attempts (`reverse/attempts/`)
+  are evidence, never progress.
+- Never hand-edit `reverse/re_attempts.log`. Unfreeze a file only by rowing its body or an
+  honest `absent-from-retail` marker (`docs/matching.md`, "Frozen files").
+  `reverse/unclaimed_sources_whitelist.txt` only shrinks.
+- Census rule changes only through `tools/census_rebaseline.py`.
+- Stage explicit paths, never `git add .`; track new ledger sources; keep others'
+  dirty-tree work, reverting only your own attempt.
+- Never load `reverse/functions.csv`, `ghidra_functions.csv` or `exports.csv` wholesale.
+- File placement: game source in `Code/`, dumps in `Code/masm_dumps/`, scratch untracked
+  in `build/`; a new `tools/` file replaces one or is called by a hook, picker or tool;
+  prefer TU-scoped shims to shared-header edits.
+- Keep target facts, donor facts and inferences apart: bytes, placement or a same-name hit
+  prove no donor name, layout or recovery; never claim a donor path as BFME 2 source.
+- VP6: never read any decoder source (On2, Winamp, ffdshow, MFNode).
 
-Not answers to "does it work": BYTE-MATCHED (each function compiles to retail's
-bytes on its own), the census's LINKED and LINKING (`tools/progress.py` from
-`reverse/link_census_history.csv`; a link under `/FORCE` with stubs, so it
-cannot show the game builds; `tools/link_check.py` only predicts) and NOT OURS
-(`tools/image_ownership.py report`, recorded only by
-`.github/workflows/nightly-measure.yml`). Keep them; never quote them as the
-game working.
+## Publishing
 
-Progress is the game getting further on a real image, then retail's behaviour
-matched; with `matched` rows in `reverse/functions.csv` backed by real source and
-byte verification kept; debt retired along its register's path; source files
-merged into their approved TUs and rows approved. Markers and prose are not
-progress.
+- Push only with `python3 tools/push.py`, never by hand or in a loop (`docs/claims.md`).
+  Never take a freeze yourself.
+- No GitHub merge button: cherry-pick onto `master`, `./build.sh` the rows, push, then
+  comment the landed SHAs on the PR.
+- Push source-path moves as soon as they verify, after one consumer audit per batch
+  (`docs/consolidation.md`). Batch other verified commits until they move a headline
+  figure, substantive changes in separate commits; publish what is left when you stop.
+- `tools/link_batch_audit.py` refuses proven link losses; inconclusive is not clean, so a
+  landing script reads `link_check.py`'s own verdict; losses go to the obstacle register.
+- Poll a full-gate hook run or a build returning an ID; never relaunch or duplicate it,
+  or pipe a gate through anything hiding its exit code.
+- Never start, re-run or approve `tools/nightly_measure.py`, `nightly-measure.yml` or
+  `tools/audit/run_nightly.cmd`; never start `boot_smoke.py` or `game_smoke.py bisect`
+  for a smoke item; ask a maintainer before a direct `link_cycle.py` run, `boot_smoke.py`
+  or the shadow publisher.
+- BFME 1 upstream: one check per account per 168 hours; never record success before
+  verification (`docs/matching.md`).
 
-## Hard rules
+## Lanes
 
-Several agents push to `origin/master` continuously. Keep each change small,
-verified and easy to rebase. Detail for the hook rules:
-`docs/verifier_upgrade_plan.md` ("Live rules in detail").
-
-### Verification and hooks
-
-- Never `--no-verify`; never bypass a hook. If `git config core.hooksPath` names
-  another checkout (common in worktrees), run `git -c core.hooksPath=.githooks`.
-- Create worktrees with `python3 tools/worktree_setup.py create PATH --branch
-  NAME`; never run a bare `submodule update --init` in a worktree. After
-  pulling in a worktree, run `worktree_setup.py prepare`; remove one with
-  `worktree_setup.py remove PATH`.
-- A commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
-  needs a `Verifier-Change: <reason>` trailer.
-- A `// cl:` line holds compiler flags and nothing else, and `#include` never names
-  an absolute path (`tools/conversion_gate.py` refuses both). Both pass on your machine
-  and break everyone else: in Git Bash, set `MSYS_NO_PATHCONV=1` before any tool that
-  takes a `/I...` argument, or it becomes `C:/Program Files/Git/I...`.
-- Spell control paths (the root, `reverse/`, `tools/`, `.githooks/`, `.github/`)
-  in lowercase (`tools/check_case_collisions.py`; banked attempts, attempt
-  evidence and class contracts are exempt).
-- `.c` and `.asm` sources are byte-verified like `.cpp`. The hooks refuse a string
-  literal shorter than retail's, a switch jump table mapping a case to the wrong
-  target, and compiled bytes past a row's extent that differ from retail (for a
-  longer body, raise the extent).
-- Never add a line to `reverse/gate_baseline.txt`; delete a line when you fix its
-  row.
-- Retire debt only by its register's path: gate baseline, delete the line with
-  the fix (`repair_queue.py pass-test "<line>"`, no trailer); data and identity,
-  `repair_queue.py retire data|identity SOURCE`; header queue, the row's
-  `header_adopt_lane.py accept`. A key whose source vanished: transfer it, cover
-  the old source's rows in `reverse/deleted_rows.csv`, or rarely a per-key
-  `Debt-Retired: <key> <source> <reason>` trailer (reason ≥20 characters; only
-  for that case). `Verifier-Change` never retires a key.
-- Code identity, `tools/tu_ownership.py`, `tools/invented_names.py`, link
-  admission and `data_check.py` outside `--converged` report in shadow; read
-  `reverse/code_identity_baseline.tsv`'s mode line. Once it says `enforce`,
-  findings outside the registers are refused and it never returns to shadow.
-- `class_gate.py`'s qualified-identity check for registered classes and class templates
-  reports in shadow (`reverse/class_gate_mode.txt`): `class_gate [shadow]` lines at commit and
-  `<git common dir>/class_gate_shadow.jsonl`; same one-way switch to `enforce`.
-- A full-gate hook run (header, vendored-reference and shared-shim edits,
-  resolved merges): poll it, never relaunch it, never pipe a gate through
-  anything that hides its exit code. Poll any build that returns a process or
-  session ID; never launch a duplicate.
-- Never compile by hand through `tools/build.py` (`build.compile_source`): it
-  poisons the shared `build/match/` cache. If you did, delete that `.obj` **and**
-  its `.deps.json` (`docs/matching.md`, "The build cache trap").
-- If a check refuses work you can show is correct, do not work around it or edit
-  the check in the same commit: record a false reject (Lanes).
-
-### Names, pins, hatches, data
-
-- Never add an escape hatch by hand (pins, `/alternatename`, `object-symbol=`
-  rows, address-named globals, selectany, `class-gate: allow`,
-  `present-unmatched`, `#pragma optimize`, `__emit`, `.asm` `db`;
-  `reverse/hatch_baseline.tsv` is enforced). A count rises only through a tool
-  admission (`tools/pin_admission.py --add`, `tools/add_match.py --pin`,
-  `tools/name_globals.py`, `tools/gen_small.py land`) or a total-keeping move
-  (`tools/hatch_counters.py --update`). Running `--allow` or `--admit` yourself
-  is hand-adding. Prefer removing hatches; remove a file's hatches before
-  renaming it.
-- Write pins only through `tools/pin_admission.py --add` or
-  `tools/add_match.py --pin`.
-- A pin must be an in-image code RVA and never a second real name on a named
-  address (rename the owner). An ICF fold needs `fold-proof=<ledger source>`.
-  Run `tools/pin_consistency.py --symbol <name>` before pinning and `--check`
-  after; `reverse/pin_consistency_baseline.csv` only shrinks. Check a harvested
-  pin's thunk against the ledger's own body before spending a name on it.
-- `gen-alias` only as an exact notes token whose masked callee is a
-  byte-and-relocation twin; no new `object-symbol=` alias rows.
-- One global per address in `reverse/data_converged.csv`. Declare the real
-  global (`class AI; extern AI *TheAI;`) and cast to your view
-  (`((AIView *)TheAI)->m_field`); never bind a second symbol (`g_00DFE78C`,
-  `extern AIView *TheAI`). The list only grows.
-- Never add a private copy of a class registered in
-  `reverse/canonical_classes.csv` (`tools/class_gate.py`).
-- Move rows only into the address's approved unit in the current TU map,
-  including `tu_skeleton.py --merge` and `rehome_rows.py` moves. The committed
-  `reverse/tu_map.csv` must be fresh; `tu_skeleton.py` can instead rebuild it
-  in memory from current inputs. Never treat a stale assignment or a fallback
-  from `repair_queue.py dest 0xRVA` as approval. Do not commit a regenerated
-  map from the consolidation lane.
-  One exception, for compiler-emitted rows only: an EH funclet (`$L<n>`) or a
-  static initializer or atexit destructor (`_$E<n>`) whose own address has no
-  approved unit in the map is rowed in the unit that compiles its parent
-  function or object, because the compiler emits it nowhere else. Name that
-  parent in the commit message; the row moves with the parent when the parent
-  is merged into its approved unit. Where the map approves a unit for the
-  row's own address, the rule above applies unchanged and the move waits for
-  the parent's merge.
-- Read `docs/naming.md` before renaming anything.
-
-### Source and ledger integrity
-
-- Anti-lift: write clean C++; MASM or inline asm only for a proven codegen
-  blocker (compiler machinery, x87 shape, SEH). Lifting a dump into a
-  `__declspec(naked)`/`__emit` .cpp is not a conversion and scores +0;
-  `tools/conversion_gate.py` refuses it in both hooks, across your whole
-  outgoing range.
-- Never edit a file under `Code/gen_asm/`: repoint the row and leave the orphaned
-  `PROC`. `Code/gen_small/uw_gen_*.cpp` is owned by `tools/gen_uw.py land`: never
-  hand-edit it, never infer a funclet's `parent=` from adjacency.
-- `gen-*` rows are placeholders, not progress. Recover by writing clean C++ at
-  the proper `Code/` path and repointing: `tools/add_match.py <real-name> <rva>
-  <size> <source> --replace-rva <rva>` (`--replace-existing` when the name is
-  unchanged). After a batch, check one body per address: a duplicate range is an
-  over-claim, not an ICF alias.
-- `vendored=<lib>-<ver>` rows carry upstream's real names, never `gen-`; the
-  header comment names the exact release; sources live at official BFME paths,
-  and pristine C TUs compile against `reference/shims/gamespy/`, never a real
-  Platform SDK.
-- No fallback paths; they conceal mismatches.
-- Record a census rule change only through `tools/census_rebaseline.py`.
-- Never leave a nonmatching reconstruction in `Code/`. Banked attempts
-  (`reverse/attempts/<rva>.cpp`) are evidence, never progress.
-- Never hand-edit `reverse/re_attempts.log`; record with `tools/re_log.py` and
-  stage the log with your row.
-- Before planning an edit, run `python3 tools/find_declared_unmatched.py
-  <file>`. Remedy a frozen file by rowing the body or, only for code retail
-  dead-stripped, an honest `// ?<Class::method> absent-from-retail` marker.
-  Never hand-add `present-unmatched`: it is a counted hatch and the enforced
-  gate refuses its unadmitted growth. Remove stale markers first; re-run the
-  check after any change and revert your file attempt if it still refuses
-  (`docs/matching.md`, "Frozen files").
-  `reverse/unclaimed_sources_whitelist.txt` is no remedy and only shrinks.
-- Stage explicit paths only (`git add <paths>`, never `git add .`); check every
-  new ledger source is tracked. Preserve unrelated dirty-tree work; revert only
-  your own attempt.
-- Never load `reverse/functions.csv`, `ghidra_functions.csv` or `exports.csv`
-  wholesale; use `rg` or narrow filters.
-- Game source under `Code/`, MASM dumps in `Code/masm_dumps/`, scratch untracked
-  under `build/`. A new file under `tools/` replaces a tool or is called by a
-  hook, a picker or another tool. Prefer TU-scoped shims over shared-header
-  edits.
-- Provenance: keep target facts, donor facts and structural inferences apart in
-  evidence. Exact bytes, a placement or a same-name hit do not prove a donor name,
-  layout or recovery. Never claim an external donor path as BFME 2 source.
-
-### Claims (`docs/claims.md`)
-
-- Claim before starting work: `python3 tools/claims.py claim 0xRVA` (every RVA
-  in a batch), a picker's `--claim`, or `class:NAME` / `file:PATH` for scope-wide
-  work. If another worker holds it, choose other work. The one exception: when
-  origin is unreachable a picker serves work unclaimed; proceed, but never
-  touch work origin last showed another worker holding.
-- Claims expire after four hours: renew with `claims.py renew 0xRVA` when work
-  runs longer. If `renew` reports a claim not renewed, stop editing that work;
-  reclaim it or switch.
-- Release a banked, blocked or abandoned body with `claims.py release 0xRVA`, and
-  scope claims by hand after the push; landed rows settle themselves
-  (`claims.py release --landed`).
-- An orchestrator sets a stable, distinct `BFME_CLAIM_OWNER` per seat and one
-  claim namespace per fleet.
-
-### Publication
-
-- Push to `master` with `python3 tools/push.py`, never by hand or with a
-  hand-rolled loop. It rebases onto origin/master, pins reference/open-bfme-1,
-  refuses any outgoing commit not authored and committed as the account's
-  GitHub noreply identity (`git config bfme.pushEmail`, else `user.email`),
-  pushes through `.githooks/` (never `--no-verify`), and on a lost race
-  rebases and pushes again at once, printing each attempt's time. The hooks
-  re-verify only what changed since the last check (commit and push receipts,
-  `tools/push_receipts.py`), so a retry costs seconds; a real refusal stops it.
-- Never land a pull request with GitHub's merge button: it publishes rows nothing
-  verified. Cherry-pick the commits onto master, `./build.sh` their rows, push,
-  then comment on the PR with the landed SHAs and that follow-up work stacks off
-  `master`.
-- Push TU merges, splits and other source-path moves as soon as they verify
-  and the account's push clock allows: a held move keeps its scope claimed and
-  conflicts with every later move (2026-10-28: the last commit of a push
-  waited a median 12 minutes and a p90 of 189 minutes before landing). Batch
-  other verified commits until the batch moves a headline figure (linked bytes
-  up, NOT OURS down, debt down, source files down), and batch linking repairs,
-  renames and banked attempts the same way. Keep substantive changes in
-  separate commits. Publish a smaller final batch when the work or session
-  ends, even if no headline figure moved.
-- A red `master` comes before other work: whoever is nearest repairs or reverts it. The
-  verification alarm's run log names the failure.
-- Allow at least five minutes between successful pushes by the same GitHub
-  account to this repository; share that clock across workers using the
-  account, and keep working during the cooldown. `push.py` keeps the clock
-  (`<git common dir>/bfme-last-push`, or `$BFME_PUSH_CLOCK` for a clock shared
-  beyond one clone) and waits before a first attempt; a retry after a lost
-  race does not wait, since nothing landed.
-- A full-gate push takes the landing window (`lease:landing`,
-  `tools/push_lease.py`) and renews it while its gate runs; every other push
-  waits for it at the end of its hook. Never take a freeze yourself.
-- If the outgoing batch changes source paths, audit active tooling and other
-  path consumers once across the entire batch immediately before pushing.
-  Update affected consumers and verify them together; repeat only if relevant
-  moves or consumers change. Core ledger repointing still accompanies each
-  applied move. Checklist: `docs/consolidation.md` ("Tooling compatibility audit
-  before pushing").
-- The pre-push hook runs `tools/link_batch_audit.py` once for the outgoing
-  batch, including ledger/pin identity edits, removed providers and changed
-  class declarations. It checks affected consumers and refuses proven losses
-  of previously linking units, even when changed bodies byte-match. Read its
-  report; inconclusive means unverified, not clean. In practice most pushes are
-  inconclusive, so the census and the real link are what catch a link loss, and
-  a landing script must read `link_check.py`'s own verdict before pushing rather
-  than rely on the audit. Carry those cases into the
-  next census and record link obstacles in `docs/linking_obstacles/` (one file per entry,
-  `docs/linking_obstacles.md`).
-- Never start, re-run or approve `tools/nightly_measure.py`, the nightly
-  workflow (`.github/workflows/nightly-measure.yml`, `docs/nightly_actions.md`)
-  or `tools/audit/run_nightly.cmd` (the maintainer's scheduled tasks). Ask a
-  maintainer before a direct `tools/link_cycle.py` run, `tools/boot_smoke.py` or
-  the shadow publisher. Use `python3 tools/link_check.py --fetch-index` and the census
-  history instead.
-- BFME 1 freshness: only one worker checks official upstream once per GitHub account
-  every 168 hours (seven days) and maintains the shared account check record
-  (`docs/matching.md`, "BFME 1 reference updates"). Other workers use the
-  committed reference pin and do not repeat a check already in progress or
-  recorded as fresh. Never record success before verification.
-
-## Work loop
-
-### Select
-
-An explicit request or assigned lane overrides the queue.
-
-For any linking work, including work served by the default picker, search the
-obstacle register (`docs/linking_obstacles.md`, one file per entry in
-`docs/linking_obstacles/`) for the units, symbols and IDs you will touch before
-choosing a target. Update the relevant entries
-with completed work, newly encountered obstacles and remaining prerequisites in
-the repair or attempt-handoff commit, and before ending a linking pass. Mark a
-cleared obstacle with verification evidence and its scope; retain its history.
-Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register").
-
-0. `git pull --rebase origin master`, then `python3 tools/check_csv.py`; repair
-   ledger errors first. If the pull touched your own area, `./build.sh` the
-   affected sources and repair regressions.
-1. `python3 tools/next_work.py --claim` serves, in order: regressions and gate
-   debt (`python3 tools/repair_queue.py repair`), then the real link's blockers,
-   then link, stub-closure, header,
-   TU-approval, consolidation, data, code-identity, ms-headers, dx and stlport
-   (STLport 4.6 file moves) queues by weight (`docs/matching.md`, "The default pick"). Check any new-match candidate against current
-   covered ranges, generated/alias owners, input freshness and history. Restore
-   a proven lost row in its approved unit, never a fresh one-function file;
-   existing-placeholder identity work stays in the naming/cleanup lanes.
-   `--wb` is served on request only. Lanes and their tools are below; picker
-   detail: `docs/matching.md` ("Work selection in detail").
-2. Work the file, not the row: drain the other queued candidates in the same
-   source file, finishing or reverting each body or homogeneous batch before the
-   next.
-3. Stay with one substantive target while new evidence-backed hypotheses remain.
-   Test a shared explanation (layout, callee, compiler, ABI) before retrying
-   several failures one by one. Reassess after ~120 minutes without progress
-   (`docs/structural.md`, "Attempts").
-
-### Convert, verify, commit, push
-
-1. Make the smallest source and ledger change for one function, unit or
-   homogeneous trivial batch (`docs/matching.md`, "Batch homogeneous trivial
-   changes"; verify each member on its own evidence).
-2. `./build.sh <file-or-symbol>`.
-3. Stage explicit paths and commit normally.
-4. On failure, record the verdict: `python3 tools/re_log.py record <symbol>
-   <rva> <size> <status> <evidence>` with the boundary, `t=<minutes>` and your
-   model (`blocked-on=0x<rva>` when walled by a missing function). Close but not
-   exact: `partial '<what is wrong>' --stash <your .cpp> --score <0..1>`; no body,
-   no `partial`. Commit a handoff under `reverse/attempt_support/` for
-   substantive `blocked` or `partial` attempts. Read prior entries before
-   retrying any function.
-5. A record never takes a commit of its own. A `re_log.py` line, a handoff or
-   an obstacle entry rides in the commit of the change it describes; records
-   of attempts that changed nothing (blocked, partial, false rejects) go in
-   one records commit per push, after the last change. A push of records alone
-   waits for the next change push or the end of the session.
-6. Publish per the rules above.
-
-## Lanes and tools
-
-- **Regressions and gate debt**: `repair_queue.py repair` (baseline lines,
-  tier C rows, emulator divergences, smoke queues). Smoke items: never start
-  `boot_smoke.py` or `game_smoke.py bisect`; run a desync test only with a
-  maintainer-provided sandbox and retail record; record repaired crashes as
-  awaiting the maintainer's pass (`docs/verifier_upgrade_plan.md`, "Boot and
-  smoke queues").
-- **Link repair**: `next_work.py --tier link` (real link blockers first:
-  `reverse/exit_link_blockers.tsv`), `repair_queue.py link`,
-  `python3 tools/link_rank.py` (`docs/linking.md`).
-- **Class headers**: `next_work.py --tier header`, `python3 tools/class_views.py`,
-  `python3 tools/header_adopt_lane.py order` (`docs/linking.md`).
-- **Data identity**: `next_work.py --tier data`, `tools/data_check.py`,
-  `python3 tools/name_globals.py`.
-- **Source-file recovery**: `python3 tools/tu_skeleton.py --queue`
-  (`docs/consolidation.md`).
-- **Escape-hatch debt**: replace a hatch with real code or a real name and lower
-  its count, preferably in files you are already in.
-- **Names**: `tools/rename.py`, `tools/name_lane.py` (`docs/naming.md`).
-  During linking or consolidation, clarify unclear locals/parameters in the
-  complete functions you are already inspecting, using the current code context.
-  Until the rebuilt game reaches the menu, link tasks and merges carry no
-  `scoped_naming` handoff (`name_scoped.RELATED_WORK_HANDOFF`). Afterwards they do:
-  use its explicit `--files` and optional `--functions` scopes with the same
-  worker identity and existing claims. Take a fresh packet after primary edits,
-  using the final TU path after a merge. Keep clear names and unsupported roles;
-  do not add unrelated files to reach a naming quota or delay publishing a
-  verified move. Naming does not satisfy the primary repair/merge pass test.
-  Standalone bulk naming remains available.
-  For locals/parameters, use `name_lane.py scoped next --session S --model M`
-  (default target 200 bindings across complete functions), then `scoped preview`
-  and `scoped apply`. A native sub-agent proposes the whole batch; the parent
-  quickly scans every mapping and the resulting diff, investigates only
-  questionable names, resolves them, and acknowledges the exact proposal once.
-  No scoped votes, approval rows, external reviewer CLI or per-name review essays.
-  Inventory includes meaningful and donor-spelled scoped names; retain good names
-  explicitly. Check inventory coverage warnings; do not claim regex inventories
-  cover unsupported C++ bindings. Apply and verify the whole batch together.
-  Globals, functions, classes and members keep the existing naming workflow.
-  Complete a naming batch through application: normal `name_lane.py submit`
-  applies its new approvals together and arranges independent review/application
-  for pending shared names using an available Codex, Claude or OpenCode CLI
-  (including T3 Code's underlying provider). Do not accumulate separate blanket
-  voting rounds when ready names can land. Use `--propose-only` only for an
-  explicitly proposal-only/read-only assignment. Existing claims, approval and
-  byte/link/ledger checks still decide what may land; nothing commits or pushes
-  automatically. See the reviewer status if the runtime is unavailable/disabled.
-- **Cleanup**: funclet repoints via `tools/eh_verify.py`, `repair_queue.py
-  ms-headers`, `next_work.py --tier dx` (`docs/matching.md`, "Cleanup lane
-  details").
-- **Reference lanes** (source leads for regressions, link repairs and `gen-*`
-  repoints): `tools/bfme1_sweep.py`, `reference/open-bfme-1/tools/lift_lane.py`,
-  `tools/zh_sweep.py`, `tools/list_naked_candidates.py`, `tools/place_bodies.py`
-  (`docs/matching.md`, "Reference lanes and donor sweeps"). Check
-  `reverse/re_attempts.log` before reworking a served candidate.
-- **False rejects**: record `python3 tools/re_log.py record <symbol> <rva> <size>
-  blocked "false-reject <check>: <evidence> t=<min> model=<model>"` and move on.
-  Tooling seats: `rg "false-reject" reverse/re_attempts.log`, reproduce, fix the
-  check with a regression test and a `Verifier-Change:` trailer; every case in
-  `tools/tests/test_gate_exploits.py` must still be refused.
-- **VP6 clean room**: `reverse/vp6_cleanroom/queue.tsv`. Implement from the spec
-  and retail only; never read any VP6 decoder source (On2, Winamp, ffdshow,
-  MFNode); it is no reference sweep. Rules: `reverse/vp6_cleanroom/README.md`.
-
-## Consolidate files into retail translation units
-
-Check debt ownership, header queues and provider/consumer bindings for each
-consolidation batch. Follow `docs/consolidation.md` ("Consolidation verification
-checks") and record the results in the audit before pushing.
-
-Start a consolidation or subsystem naming pass with
-`python3 tools/name_lane.py consolidate --under Code/<subsystem>/` and read its
-original-path evidence, alternatives and blockers. Reuse a report only while
-`python3 tools/name_lane.py consolidate --check build/consolidation` passes;
-regenerate it after relevant inputs change. This is the supported evidence
-planner; hints and investigation groups do not approve a TU or a merge.
-
-The one-function files are merged back into the TU retail built them from with
-`tools/tu_skeleton.py`, never by hand: `--queue` picks an approved TU
-(`reverse/tu_map.csv`), `--merge TU --dry-run` names the donors that do not yet
-compile together, and `--merge TU` claims the scope, writes the TU, deletes the
-absorbed donors and repoints every path-keyed column, keeping only merges that
-lose no matched row. Reconcile a rejected donor's private views in its own
-verified commit first; never split a mixed file inside a merge. Workflow:
-`docs/consolidation.md`.
+- **Regressions, gate debt**: `repair_queue.py repair`; repaired crashes, and desyncs
+  without a maintainer's sandbox, await the maintainer's pass
+  (`docs/verifier_upgrade_plan.md`, "Boot and smoke queues").
+- **Link, headers, data**: `next_work.py --tier link|header|data`, `repair_queue.py link`,
+  `link_rank.py`, `class_views.py`, `header_adopt_lane.py order`, `data_check.py`,
+  `name_globals.py` (`docs/linking.md`).
+- **Source files**: `name_lane.py consolidate --under Code/<dir>/`, `tu_skeleton.py
+  --queue`, `--merge TU [--dry-run]`, checks per batch (`docs/consolidation.md`).
+- **Hatch debt**: replace hatches with real code or names where you work.
+- **Names**: `rename.py`, `name_lane.py` (`scoped` for locals), batches finished through
+  application; read `docs/naming.md` before renaming; naming never passes a repair or
+  merge test or delays a move.
+- **Cleanup**: `eh_verify.py`, `repair_queue.py ms-headers`, `next_work.py --tier dx`
+  (`docs/matching.md`); `--wb` only on request.
+- **Reference lanes**: `bfme1_sweep.py` and other donor sweeps (`docs/matching.md`).
+- **False rejects**: `re_log.py record ... blocked "false-reject <check>: <evidence>
+  t=<min> model=<model>"` and move on. Tooling seats fix the check with a regression
+  test and `Verifier-Change:`; every `tools/tests/test_gate_exploits.py` case stays refused.
+- **VP6 clean room**: `reverse/vp6_cleanroom/queue.tsv` and its README.
 
 ## Docs
 
-- `docs/verifier_upgrade_plan.md`: the plan, hook rules in detail, runners, smoke
-  queues.
-- `docs/matching.md`: byte matching, picker detail, frozen files, batching,
-  reference lanes, BFME 1 updates.
-- `docs/structural.md`: manual RE, reassessing, recording and banking attempts.
-- `docs/recipes.md`: proven fixes for near misses.
-- `docs/linking.md`: the census, link tools, class reconciliation.
-- `docs/automation.md`: recurring jobs, reading the real link, a stopped census, the
-  original game under automation.
-- `docs/linking_obstacles.md` and `docs/linking_obstacles/`: required linking handoff,
-  one file per entry; update repairs, new obstacles and evidence for cleared entries.
-- `docs/claims.md`: claim mechanics.
-- `docs/naming.md`: names and `tools/rename.py`.
-- `docs/consolidation.md`: TU merges.
+| Task | Read |
+|---|---|
+| Hook rules in detail, runners, smoke queues | `docs/verifier_upgrade_plan.md` |
+| Matching, picker, frozen files, build cache, BFME 1 | `docs/matching.md` |
+| Manual RE, attempts; near-miss fixes | `docs/structural.md`, `docs/recipes.md` |
+| Census, link tools, classes; obstacles | `docs/linking.md`, `docs/linking_obstacles.md` |
+| Recurring jobs, real link, automated game | `docs/automation.md` |
+| Claims, push clock | `docs/claims.md` |
+| Names | `docs/naming.md` |
+| TU merges, path audit | `docs/consolidation.md` |
 
-Prose trimmed from these docs lives in git history, one `git show` away.
+Trimmed prose lives in git history.
