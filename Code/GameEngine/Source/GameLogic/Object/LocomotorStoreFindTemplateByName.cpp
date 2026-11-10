@@ -24,12 +24,7 @@ enum NameKeyType
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
-class LocomotorStore
-{
-public:
-	LocomotorTemplate *findLocomotorTemplate(int namekey);
-	LocomotorTemplate *findLocomotorTemplate(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/LocomotorStore.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern LocomotorStore *TheLocomotorStore;

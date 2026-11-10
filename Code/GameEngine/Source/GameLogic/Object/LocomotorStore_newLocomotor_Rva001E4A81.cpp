@@ -15,11 +15,7 @@ class LocomotorTemplate;
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
-class LocomotorStore
-{
-public:
-	Locomotor *newLocomotor(const LocomotorTemplate *tmpl, Bool flag);
-};
+#include "../../../Include/GameLogic/LocomotorStore.h"
 
 Locomotor *LocomotorStore::newLocomotor(const LocomotorTemplate *locomotorTemplate, Bool flag)
 {

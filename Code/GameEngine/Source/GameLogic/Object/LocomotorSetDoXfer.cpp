@@ -65,12 +65,7 @@ class Snapshot;
 
 class LocomotorTemplate;
 class ModuleData;
-class LocomotorStore
-{
-public:
-	LocomotorTemplate *findLocomotorTemplate(int);
-	Locomotor *newLocomotor(const LocomotorTemplate *, Bool);
-};
+#include "../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
 
 #include "../../../Include/Common/NameKeyGenerator.h"

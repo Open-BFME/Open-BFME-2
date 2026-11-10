@@ -11,11 +11,7 @@
 
 class LocomotorTemplate;
 
-class LocomotorStore
-{
-public:
-    LocomotorTemplate *findLocomotorTemplate(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/LocomotorStore.h"
 
 extern LocomotorStore *TheLocomotorStore;
 

@@ -58,9 +58,7 @@ class AIUpdateModuleData {
 public: char unknown00[8]; BfmeLocomotorSetMap templates;
 };
 #include "../../../../Include/Common/ThingTemplate.h"
-class LocomotorStore {
-public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
-};
+#include "../../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
 #include "../../../../Include/GameLogic/LocomotorSet.h"

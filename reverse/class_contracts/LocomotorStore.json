@@ -1,0 +1,169 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "zh",
+ "class": "LocomotorStore",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x22078e"
+     ],
+     "value": {
+      "0x8": [
+       "Rva00360D26Member",
+       "Rva003623E5Member"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 12,
+   "12": 6,
+   "24": 2,
+   "36": 1
+  },
+  "views": 21,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Locomotor.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 10
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/ArmySummaryDescriptionVisitor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreDeletingDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/ArmySummaryDescriptionVisitor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreDeletingDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "11": 1
+   },
+   "class": "LocomotorStore"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  }
+ }
+}

@@ -21,11 +21,7 @@ private:
     char m_unknown09[0x154 - 9];
 };
 
-class LocomotorStore
-{
-public:
-    LocomotorTemplate *newOverride(LocomotorTemplate *original);
-};
+#include "../../Include/GameLogic/LocomotorStore.h"
 extern unsigned char g_00E01EA8;
 LocomotorTemplate *LocomotorStore::newOverride(LocomotorTemplate *original)
 {

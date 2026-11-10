@@ -38,11 +38,7 @@ private:
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
-class LocomotorStore
-{
-public:
-	Locomotor *newLocomotor(const LocomotorTemplate *tmpl, Bool flag);
-};
+#include "../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;	// VA 0x00DFDC5C
 
 class LocomotorSet

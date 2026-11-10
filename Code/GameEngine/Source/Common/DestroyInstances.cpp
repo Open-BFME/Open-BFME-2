@@ -99,11 +99,7 @@ public:
 	~Rva00603C57();
 };
 
-class LocomotorStore
-{
-public:
-	~LocomotorStore();
-};
+#include "../../Include/GameLogic/LocomotorStore.h"
 class Rva00229487
 {
 public:

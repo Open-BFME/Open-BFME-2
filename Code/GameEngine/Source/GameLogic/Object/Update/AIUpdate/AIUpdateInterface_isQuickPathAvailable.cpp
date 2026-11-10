@@ -19,11 +19,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 extern int g_00DFEAE4;
 
 class LocomotorTemplate;
-class LocomotorStore
-{
-public:
-	LocomotorTemplate *findLocomotorTemplate(int key);
-};
+#include "../../../../../Include/GameLogic/LocomotorStore.h"
 extern class LocomotorStore *TheLocomotorStore;
 
 #include "../../../../../Include/GameLogic/LocomotorSet.h"

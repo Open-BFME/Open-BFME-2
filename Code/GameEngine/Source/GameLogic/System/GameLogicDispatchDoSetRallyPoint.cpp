@@ -50,7 +50,7 @@ enum NameKeyType { NAMEKEY_NONE = 0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class LocomotorTemplate;
-class LocomotorStore { public: LocomotorTemplate *findLocomotorTemplate(Int key); };
+#include "../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
 
 class Object;
