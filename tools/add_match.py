@@ -89,6 +89,12 @@ def swept_funclet_scaffold(row, rows=None):
     recorded evidence against the row leaves it a real claim, to be retracted
     in its own reviewable commit. Without `rows` the parent cannot be checked
     and the row stays refused.
+
+    The generated-directory test below asks WHERE the row was written, not
+    whether it is a dump (`test_dump_predicate.py`'s distinction): AGENTS.md
+    forbids hand-editing those trees, so a row filed there is never renamed
+    here. It is also redundant -- `gen_uw`'s harness notes carry no `parent=`,
+    so they never reach this predicate at all -- and kept as the explicit rule.
     """
     parent = SWEPT_NOTES.fullmatch(row["notes"])
     if (rows is None or not parent or row["status"] != "matched"
