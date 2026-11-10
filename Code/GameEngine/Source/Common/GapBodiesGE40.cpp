@@ -89,11 +89,7 @@ void Rva005F0A44(Rva005F0647 *element)
 // 0x005F88D6 lookup's record, 0 without one.
 int Rva005F88D6Get(int key);								// 0x005F88D6
 
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;								// 0x004E0625
-};
+#include "../../Include/Common/Rva004E0625.h"
 
 int Rva005E8872(int key)
 {

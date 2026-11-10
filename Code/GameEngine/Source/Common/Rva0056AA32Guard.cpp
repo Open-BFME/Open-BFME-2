@@ -3,11 +3,7 @@
 // ?rva0056AA32@Rva0056AA32@@QAEHPBVRva004E0625@@@Z @0x0056AA32 34B.
 // Guarded equality: 0 when the +0x10 count is zero, else whether the rowed
 // const 0x004E0625 query equals it (nested if shares one false target).
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;
-};
+#include "../../Include/Common/Rva004E0625.h"
 
 class Rva0056AA32
 {

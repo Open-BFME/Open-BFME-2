@@ -50,7 +50,7 @@ public:
 #include "../../../../Include/Common/LivingWorldObservers.h"
 
 // Region views (placeholder-rowed members of the region at +0x18).
-class Rva004E0625 { public: int rva004E0625() const; };
+#include "../../../../Include/Common/Rva004E0625.h"
 class Rva004E05F0 { public: CreateAHeroData *rva004E05F0(); };
 class Rva004E0741 { public: void rva004E0741() const; };
 struct Rva002BA8F1Listener;

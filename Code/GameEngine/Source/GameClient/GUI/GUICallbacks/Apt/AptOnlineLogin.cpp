@@ -337,11 +337,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../../Include/Common/INI/FieldParse.h"
 #include "../../../../../Include/Common/INI/INI.h"
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;								// 0x004E0625
-};
+#include "../../../../../Include/Common/Rva004E0625.h"
 #include "../../../../../Include/Common/Player.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;

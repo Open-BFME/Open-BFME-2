@@ -9,11 +9,7 @@
 
 #include "../../Include/Common/Rva000B3FD0.h"
 
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;
-};
+#include "../../Include/Common/Rva004E0625.h"
 
 struct Rva005CE1EBSource : public Rva004E0625
 {

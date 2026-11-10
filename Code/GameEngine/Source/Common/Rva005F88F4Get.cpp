@@ -13,11 +13,7 @@ struct Rva002B2579Result;
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;
-};
+#include "../../Include/Common/Rva004E0625.h"
 
 int __cdecl Rva005F88F4Get(int arg)
 {

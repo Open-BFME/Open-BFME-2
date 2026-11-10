@@ -15,11 +15,7 @@ class Rva002B7250
 public:
 	void rva002B7250(CreateAHeroData *v);
 };
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;
-};
+#include "../../Include/Common/Rva004E0625.h"
 class Rva004E0750
 {
 public:

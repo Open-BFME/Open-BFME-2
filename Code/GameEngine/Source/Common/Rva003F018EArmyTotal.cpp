@@ -20,11 +20,7 @@ public:
 	virtual int value();			// slot 14 (+0x38)
 };
 
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;		// 0x004E0625
-};
+#include "../../Include/Common/Rva004E0625.h"
 
 struct Rva003F018EArmy
 {

@@ -19,7 +19,7 @@ template<> BfmePod16 *vector<BfmePod16>::erase(BfmePod16*,BfmePod16*);
 }
 class Rva005B129FVector {public: Rva005B09D8Record *erase(Rva005B09D8Record*,Rva005B09D8Record*); __forceinline void clear() {erase(first,finish);} Rva005B09D8Record *first,*finish,*limit;};
 class SpawnArmy;
-class Rva004E0625 {public:int rva004E0625() const;};
+#include "../../../../Include/Common/Rva004E0625.h"
 class ArmySpawnerOrderView {public:
  virtual void slot0();virtual void slot4();virtual void slot8();virtual void slotC();virtual void slot10();virtual void slot14();virtual void spawn(const SpawnArmy*);
 };

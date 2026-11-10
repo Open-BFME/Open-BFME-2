@@ -68,11 +68,7 @@ extern const FieldParse s_Rva005E7037FieldParse[] =
 	{ 0, 0, 0, 0 }
 };
 
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;								// 0x004E0625
-};
+#include "../../Include/Common/Rva004E0625.h"
 
 class Rva005E7026
 {

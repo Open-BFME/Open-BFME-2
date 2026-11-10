@@ -95,7 +95,7 @@ private:
 // 0x005E8908) that the rowed helper 0x005E8ADF adds to the list. The
 // record view binds the record's two rowed spellings.
 #include "../../Include/Common/SpawnArmy.h"
-class Rva004E0625 { public: int rva004E0625() const; };
+#include "../../Include/Common/Rva004E0625.h"
 int Rva005F88D6Get(int id);
 class Rva005E8B66Source
 {
