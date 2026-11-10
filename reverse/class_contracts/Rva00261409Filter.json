@@ -1,0 +1,140 @@
+{
+ "bases": [
+  "Rva000421C8"
+ ],
+ "bases_by": "majority",
+ "class": "Rva00261409Filter",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 28,
+  "inherited": {
+   "base_views": 28,
+   "inherited_slots": 3,
+   "inherited_spans": [
+    [
+     0,
+     8
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x49c38a"
+     ],
+     "value": {
+      "0x0": "0x7c26e0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c26e0"
+     ],
+     "value": {
+      "count": 3,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva000421C8@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x421d5"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?Get_File_Handle@FileClass@@UAEPAXXZ",
+        "slot": 2,
+        "target": "0x36cc7a"
+       }
+      ],
+      "table": "0x7c26e0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7c26e0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva000421C8@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "?Get_File_Handle@FileClass@@UAEPAXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "20": 28
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_player",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Player*",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_match",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flags",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 28,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
