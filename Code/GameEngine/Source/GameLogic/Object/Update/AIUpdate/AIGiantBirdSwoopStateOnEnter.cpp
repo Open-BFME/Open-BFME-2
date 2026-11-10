@@ -258,11 +258,7 @@ private:
 #include "../../../../Common/Thing/thing.h"
 
 class BfmeVec3EJ;
-class Gen_000E5A50
-{
-public:
-	Real Get3DCenterDistanceSquared(const BfmeVec3EJ *pos) const;
-};
+#include "../../../../../Include/GameLogic/Module/Gen_000E5A50.h"
 
 #include "../../../../../Include/GameLogic/Rva002627E8.h"
 

@@ -51,11 +51,7 @@ template <> class GiantBirdPathSlots<0>
 
 #include "../../../../Common/Thing/thing.h"
 class BfmeVec3EJ;
-class Gen_000E5A50
-{
-public:
-	Real Get3DCenterDistanceSquared(const BfmeVec3EJ *point) const;
-};
+#include "../../../../../Include/GameLogic/Module/Gen_000E5A50.h"
 class Rva0036748E
 {
 public:

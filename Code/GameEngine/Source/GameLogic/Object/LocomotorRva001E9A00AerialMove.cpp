@@ -118,11 +118,7 @@ public:
 };
 
 class BfmeVec3EJ;
-class Gen_000E5A50
-{
-public:
-	float Get3DCenterDistanceSquared(const BfmeVec3EJ *point) const;
-};
+#include "../../../Include/GameLogic/Module/Gen_000E5A50.h"
 class Rva001E438B
 {
 public:

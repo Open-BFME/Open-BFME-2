@@ -38,11 +38,7 @@ enum ObjectStatusTypes
 extern GameLogic *TheGameLogic;
 
 class BfmeVec3EJ;
-class Gen_000E5A50
-{
-public:
-	float Get3DCenterDistanceSquared(const BfmeVec3EJ *point) const;
-};
+#include "../../../Include/GameLogic/Module/Gen_000E5A50.h"
 class Rva00368C7A
 {
 public:

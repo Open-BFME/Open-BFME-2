@@ -1,0 +1,89 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Gen_000E5A50",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x38": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "68": 4
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_head",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 56,
+   "type": "int[56]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp",
+    "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp",
+    "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp",
+    "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 68,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -69,11 +69,7 @@ public:
 };
 
 class BfmeVec3EJ;
-class Gen_000E5A50
-{
-public:
-	Real Get3DCenterDistanceSquared(const BfmeVec3EJ *pos) const;
-};
+#include "../../../../Include/GameLogic/Module/Gen_000E5A50.h"
 
 extern GameLogic *TheGameLogic;
 

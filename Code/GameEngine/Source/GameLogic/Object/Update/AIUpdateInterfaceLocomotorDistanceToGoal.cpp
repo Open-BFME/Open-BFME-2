@@ -19,7 +19,7 @@ extern "C" void _ReadWriteBarrier();
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
 class BfmeVec3EJ;
-class Gen_000E5A50 { public: float Get3DCenterDistanceSquared(const BfmeVec3EJ*)const; };
+#include "../../../../Include/GameLogic/Module/Gen_000E5A50.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object { public: char pad[4];ThingTemplate *templ; char pad8[0x38-8];Coord3D position; const Coord3D*getPosition()const{return &position;} };
 class LocomotorTemplate {public:char pad[0x74];int type;};
