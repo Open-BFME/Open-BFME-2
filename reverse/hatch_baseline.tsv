@@ -459,7 +459,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE5E50	
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE6194	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DEAF18	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DEAF20	2
-address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DEAF30	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DEAF3C	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DEBE0C	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DEBE24	2
@@ -3777,10 +3776,10 @@ class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGat
 class_gate_allow	Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp	AptScriptFunctionBase	1
 export_alias	reverse/export_aliases.csv	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S132@?1??GetValue@?$DefaultModuleName@$00@FXParticleSystem@@CAPBDXZ@4IA	1
-export_alias	reverse/export_aliases.csv	?$S142@?1??GetValue@?$DefaultModuleKey@$0A@@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b161e3662ffb3a9686e8d8d5295856d1f51dd120
-export_alias	reverse/export_aliases.csv	?$S146@?1??GetValue@?$DefaultModuleName@$0A@@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b161e3662ffb3a9686e8d8d5295856d1f51dd120
-export_alias	reverse/export_aliases.csv	?$S156@?1??GetValue@?$DefaultModuleKey@$02@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b161e3662ffb3a9686e8d8d5295856d1f51dd120
-export_alias	reverse/export_aliases.csv	?$S160@?1??GetValue@?$DefaultModuleName@$02@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b161e3662ffb3a9686e8d8d5295856d1f51dd120
+export_alias	reverse/export_aliases.csv	?$S142@?1??GetValue@?$DefaultModuleKey@$0A@@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S146@?1??GetValue@?$DefaultModuleName@$0A@@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S156@?1??GetValue@?$DefaultModuleKey@$02@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S160@?1??GetValue@?$DefaultModuleName@$02@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 object_symbol	reverse/functions.csv	0x000240E0	1

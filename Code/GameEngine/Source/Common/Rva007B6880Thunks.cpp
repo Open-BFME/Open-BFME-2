@@ -6173,15 +6173,6 @@ void __cdecl rva007B6B41()
 	return receiver->~Rva00059068Tree();
 }
 
-extern unsigned g_Va00DEAF30;
-unsigned int g_Va00DEAF30;
-
-// ?rva007B6D1D@@YAXXZ @ 0x007B6D1D (10B). Faction-set tree teardown: ecx=&g_Va00DEAF30 then tail-jmp to the 0x00059068 stub for the rowed FactionSetTree dtor (0x000589BE). No callers. Honest address name.
-void __cdecl rva007B6D1D()
-{
-	Rva00059068Tree *receiver = (Rva00059068Tree *)&g_Va00DEAF30;
-	return receiver->~Rva00059068Tree();
-}
 
 extern unsigned g_Va00DEAF3C;
 unsigned int g_Va00DEAF3C;
