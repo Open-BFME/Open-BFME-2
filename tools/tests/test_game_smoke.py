@@ -166,6 +166,14 @@ class Coverage(unittest.TestCase):
                          ("ledger", "ab", 2, 1, "coverage_skirmish_retail.json"))
         self.assertNotIn("run", rec)
 
+    def test_the_run_list_is_kept_out_of_stdout_only(self):
+        out = {"outcome": "pass", "coverage": {"units": 2, "run": [["0x3000", 32, "b", None]], "file": "f"}}
+        shown = gs.without_coverage_run(out)
+        self.assertEqual(shown["coverage"], {"units": 2, "file": "f"})
+        self.assertIn("run", out["coverage"])                                   # the result file keeps it
+        plain = {"outcome": "pass"}
+        self.assertIs(gs.without_coverage_run(plain), plain)                    # any other run: unchanged
+
 
 class MorePlayers(unittest.TestCase):
     def test_four_brutal_ais_and_no_fps_cap(self):

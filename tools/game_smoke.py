@@ -256,6 +256,14 @@ def coverage_receipt(cov, file):
                 run_before_game=cov["run_before_game"], file=file)
 
 
+def without_coverage_run(out):
+    """out as printed: a --coverage run's units-that-ran list stays in the result file (the one
+    file the game queue keeps from a job) and in coverage_*.json, not on stdout."""
+    if "coverage" not in out:
+        return out
+    return dict(out, coverage={k: v for k, v in out["coverage"].items() if k != "run"})
+
+
 def block_diff(a, b):
     """{block: first logic frame whose per-block CRC differs} between two runs'
     FrameHook.blocks lists (only frames both sampled)."""
@@ -1349,9 +1357,9 @@ def finish(a, name, out):
         cov = OUT / f"coverage_{name}_{out['image']}.json"
         cov.write_text(json.dumps(out["coverage"], indent=1))
         out["receipt"]["coverage"] = coverage_receipt(out["coverage"], cov.name)
-        out["coverage"] = {k: v for k, v in out["coverage"].items() if k != "run"} | {"file": str(cov)}
+        out["coverage"]["file"] = str(cov)
     (OUT / f"{name}_{out['image']}.json").write_text(json.dumps(out, indent=1, default=str))
-    print(json.dumps(out, indent=1, default=str))
+    print(json.dumps(without_coverage_run(out), indent=1, default=str))
     return 0 if out["outcome"] == "pass" else 1
 
 
