@@ -2847,7 +2847,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerOperations.c	_
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerUserChangedNickCallback.c	_piChannelUserChangedNickA	1
 alternatename	Code/GameEngine/Source/GameNetwork/LANGameInfoSlots.cpp	?getConstLANSlot@LANGameInfo@@QBEPBVLANGameSlot@@H@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	?count@XmlNameSlotList@@QAEHXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp	??1NetKeepAliveCommandMsg@@MAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/NetPacket.cpp	?j_00004935@@YAXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/NetPacket.cpp	?j_0001bbd5@@YAXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/NetPacket.cpp	?j_00046e89@@YAXXZ	1
@@ -7556,7 +7555,7 @@ pin	reverse/symbols.csv	0x004CE56D	2
 pin	reverse/symbols.csv	0x004CE6E4	1
 pin	reverse/symbols.csv	0x004CEA94	4
 pin	reverse/symbols.csv	0x004CEE6E	3
-pin	reverse/symbols.csv	0x004CEE78	2
+pin	reverse/symbols.csv	0x004CEE78	1
 pin	reverse/symbols.csv	0x004CEF58	2
 pin	reverse/symbols.csv	0x004CF3B9	1
 pin	reverse/symbols.csv	0x004CF926	1
@@ -11610,7 +11609,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c	qr2_init_
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpyOverlay_RaiseGSMessageBox_YAXXZ.cpp	raiseOverlays	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandList.cpp	1NetCommandList@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandList.cpp	?	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	1NetCommandMsg@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getChunkNumber@NetWrapperCommandMsg@@QAEIXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getCommandID@NetAckBothCommandMsg@@QAEGXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getCommandID@NetAckStage1CommandMsg@@QAEGXZ	1
@@ -11621,7 +11619,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getNewFra
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getOriginalPlayerID@NetAckBothCommandMsg@@QAEEXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getOriginalPlayerID@NetAckStage1CommandMsg@@QAEEXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getOriginalPlayerID@NetAckStage2CommandMsg@@QAEEXZ	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getSortNumber@NetAckStage1CommandMsg@@UAEHXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setChunkNumber@NetWrapperCommandMsg@@QAEXI@Z	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setDataOffset@NetWrapperCommandMsg@@QAEXI@Z	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setNumChunks@NetWrapperCommandMsg@@QAEXI@Z	1
@@ -11631,7 +11628,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setVoteFr
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandWrapperList.cpp	init@NetCommandWrapperList@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetworkUtilResolveIP.cpp	rva00581339FirstChar	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/Rva004D65DCDtor.cpp	1NetCommandMsg@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/Rva004D67D0Dtor.cpp	1NetCommandMsg@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp	1Rva00803890Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	clear@Rva007F7860Block@@QAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	0Elem4@@QAE@XZ	1

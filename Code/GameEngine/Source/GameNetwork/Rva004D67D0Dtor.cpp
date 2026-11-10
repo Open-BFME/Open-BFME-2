@@ -30,7 +30,6 @@ protected:
 	int m_commandType;
 	int m_referenceCount;
 };
-// ??1NetCommandMsg@@MAE@XZ present-unmatched
 inline NetCommandMsg::~NetCommandMsg() {}
 
 class Rva004D67D0 : public NetCommandMsg

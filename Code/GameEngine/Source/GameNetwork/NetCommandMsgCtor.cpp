@@ -89,7 +89,7 @@ class NetKeepAliveCommandMsg : public NetCommandMsg
 public:
 	NetKeepAliveCommandMsg();
 protected:
-	virtual ~NetKeepAliveCommandMsg();	// retail ??_G 0x004D5B30 calls the setter-shaped body at 0x004CEE78
+	virtual ~NetKeepAliveCommandMsg() {}	// retail ??_G 0x004D5B30 calls this 0x004CEE78 ICF body
 };
 
 // ??0NetKeepAliveCommandMsg@@QAE@XZ
@@ -640,6 +640,3 @@ Rva004D598E::Rva004D598E() : NetCommandMsg()
 	m_20 = 0;
 	m_commandType = (NetCommandType)0x16;
 }
-
-// The deleting destructor 0x004D5B30 (emitted with this class's vftable) calls the dtor body at 0x004CEE78.
-#pragma comment(linker, "/alternatename:??1NetKeepAliveCommandMsg@@MAE@XZ=??1NetCommandMsg@@MAE@XZ")

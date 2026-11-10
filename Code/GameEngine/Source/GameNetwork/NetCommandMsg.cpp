@@ -22,7 +22,6 @@ BfmeNetGameMessageArgument::BfmeNetGameMessageArgument()
 {
 }
 
-// ??1NetCommandMsg@@MAE@XZ present-unmatched
 inline NetCommandMsg::~NetCommandMsg()
 {
 }

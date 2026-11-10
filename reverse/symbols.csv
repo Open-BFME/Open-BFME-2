@@ -2912,7 +2912,6 @@ name,address,notes
 ??1MpGameSetupComboRef@@QAE@XZ,0x000B3FD0,ICF-folded empty destructor (the +0x2F4 element destructor Rva004421E1Dtor.cpp names) called by MpGameSetup 0x0043ED9C on its color combo box copy
 ??1NestedBuffers@@QAE@XZ,0x000B6CF1,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1NestedInlineBase@@UAE@XZ,0x0049B47C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1NetKeepAliveCommandMsg@@MAE@XZ,0x004CEE78,ICF twin of apply row at 0x004CEE78 called by deleting dtor 0x004D5B30
 ??1ObjectModule@@MAE@XZ,0x0049B47C,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??1ObjectModule@@UAE@XZ,0x0049B47C,public-virtual spelling of the ObjectModule dtor for the slot-0 ??_G at 0x4A10FD (same address as the MAE pin and FX fold rows; dtor body itself unclaimed, 7B mov-vptr-ret fold point)
 ??1Open2Rec5822D0@@QAE@XZ,0x002207C4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
