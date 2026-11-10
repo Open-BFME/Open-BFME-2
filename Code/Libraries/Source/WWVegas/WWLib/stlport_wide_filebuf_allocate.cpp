@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport46
 //
 // STLport 4.5.3 basic_filebuf<wchar_t>::_M_allocate_buffers, the wide twin of
@@ -13,10 +13,9 @@
 // against 0x66/0x6C/0x70/0x74/0x78/0xA0 there. The two virtuals keep the same
 // slots, encoding at 0x10 and max_length at 0x1C.
 
-typedef unsigned int size_t;
-typedef int streamsize;
+#include <stdlib.h>
 
-extern "C" __declspec(dllimport) void *__cdecl malloc(size_t size);
+typedef int streamsize;
 
 namespace _STL
 {
