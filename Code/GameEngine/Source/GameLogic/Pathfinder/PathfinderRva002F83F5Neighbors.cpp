@@ -400,11 +400,7 @@ private:
 	unsigned char m_15[3]; // +0x15
 	int m_18; // +0x18
 };
-class Rva0006E009DwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva0006E009DwordField.h"
 union PathfinderCheckCoordinates {
 Coord3D point;
 struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;

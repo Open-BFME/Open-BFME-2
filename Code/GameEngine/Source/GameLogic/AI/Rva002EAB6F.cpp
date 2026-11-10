@@ -42,11 +42,7 @@ public:
 	void *m_258;
 };
 
-class Rva0006E009DwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva0006E009DwordField.h"
 
 static unsigned char Rva002EAB6FFlag(const Object *obj)
 {

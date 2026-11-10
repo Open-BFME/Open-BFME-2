@@ -592,7 +592,7 @@ public:
     void *rva002E7C99(int,int,int,unsigned char,int,unsigned char,int);
     char fields[28];
 };
-class Rva0006E009DwordField { public: int get() const; };
+#include "../../../Include/Common/Rva0006E009DwordField.h"
 class Rva0052DB4D { public: bool rva0052DB4D(int); };
 
 // Native 0x002F01B6 addresses this 12-byte floating scratch first. Later

@@ -20,11 +20,7 @@ struct Rva002F3F7DInfo
 	char m_pad[4];
 };
 
-class Rva0006E009DwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva0006E009DwordField.h"
 
 class Object
 {

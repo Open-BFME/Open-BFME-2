@@ -8,11 +8,7 @@ struct LineContextTemplate {
 class Object {public:Bool rva0028AC62()const;Bool rva0028AFBB()const;
  void *vtable;LineContextTemplate *definition;char pad08[0x258-8];void *ai;char pad25C[0x274-0x25C];Object *container;
 };
-class Rva0006E009DwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva0006E009DwordField.h"
 class Rva002E6FDF
 {
 public:

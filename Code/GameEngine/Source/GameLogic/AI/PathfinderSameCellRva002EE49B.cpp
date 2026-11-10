@@ -49,11 +49,7 @@ public:
 
 enum ObjectID;
 
-class Rva0006E009DwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva0006E009DwordField.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
