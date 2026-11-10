@@ -150,6 +150,11 @@ UnsignedByte NetAckBothCommandMsg::getOriginalPlayerID()
 	return m_originalPlayerID;
 }
 
+Int NetAckBothCommandMsg::getSortNumber()
+{
+	return m_commandID;
+}
+
 // ?getCommandID@NetAckStage1CommandMsg@@QAEGXZ present-unmatched
 UnsignedShort NetAckStage1CommandMsg::getCommandID()
 {
@@ -162,7 +167,6 @@ UnsignedByte NetAckStage1CommandMsg::getOriginalPlayerID()
 	return m_originalPlayerID;
 }
 
-// ?getSortNumber@NetAckStage1CommandMsg@@UAEHXZ present-unmatched
 Int NetAckStage1CommandMsg::getSortNumber()
 {
 	return m_commandID;
@@ -178,6 +182,11 @@ UnsignedShort NetAckStage2CommandMsg::getCommandID()
 UnsignedByte NetAckStage2CommandMsg::getOriginalPlayerID()
 {
 	return m_originalPlayerID;
+}
+
+Int NetAckStage2CommandMsg::getSortNumber()
+{
+	return m_commandID;
 }
 
 // NetProgressCommandMsg::getPercentage: defined in NetProgressCommandMsgGetPercentage.cpp (its row's unit).

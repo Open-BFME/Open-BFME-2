@@ -487,6 +487,8 @@ private:
 	UnsignedInt m_originalTimestamp; // +0x20
 	UnsignedInt m_originalExecutionFrame; // +0x24
 public:
+	// retail vftable slot 1: overrides NetCommandMsg::getSortNumber at 0x004D5776
+	virtual Int getSortNumber();
 	// retail vftable slot: the rowed override
 	virtual AsciiString getContentsAsAsciiString();
 };
@@ -522,6 +524,8 @@ private:
 	UnsignedInt m_originalTimestamp; // +0x20
 	UnsignedInt m_originalExecutionFrame; // +0x24
 public:
+	// retail vftable slot 1: overrides NetCommandMsg::getSortNumber at 0x004D5776
+	virtual Int getSortNumber();
 	// retail vftable slot: the rowed override
 	virtual AsciiString getContentsAsAsciiString();
 };
@@ -558,6 +562,8 @@ private:
 	UnsignedInt m_originalTimestamp; // +0x20
 	UnsignedInt m_originalExecutionFrame; // +0x24
 public:
+	// retail vftable slot 1: overrides NetCommandMsg::getSortNumber at 0x004D5776
+	virtual Int getSortNumber();
 	// retail vftable slot: the rowed override
 	virtual AsciiString getContentsAsAsciiString();
 };
