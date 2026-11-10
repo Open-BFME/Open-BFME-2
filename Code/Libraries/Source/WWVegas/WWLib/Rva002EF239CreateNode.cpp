@@ -7,7 +7,7 @@
 // merely from a pin. No new pin, layout or storage owner is introduced.
 #include <map>
 #include <memory>
-class Rva002EB448 { public: void *rva002EB448(); };
+#include "../../../../GameEngine/Include/Common/Rva002EB448.h"
 #include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
 extern Rva002E8548 g_IntKeyedTreeNodePool;
 struct Rva002F1DA1Mapped { int a; };

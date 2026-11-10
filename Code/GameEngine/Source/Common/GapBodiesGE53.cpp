@@ -24,11 +24,7 @@ Rva000427195::Rva000427195(const Rva000427195 &that)
 // pop one element from that pool through the rowed 0x002EB448.
 #include "../../Include/Common/Rva002E8548Pool.h"
 
-class Rva002EB448
-{
-public:
-	void *rva002EB448();									// 0x002EB448
-};
+#include "../../Include/Common/Rva002EB448.h"
 
 class Rva001FF547
 {

@@ -666,11 +666,7 @@ int Rva002E7FC7(int index)
 
 // --- 0x002EEA5A, 0x002EEA72 (24B each): one node from the rowed pools at
 // VA 0x00DBD4B0 and 0x00DBD4C8, none for a count above one.
-class Rva002EB448
-{
-public:
-	void *rva002EB448();									// 0x002EB448
-};
+#include "../../Include/Common/Rva002EB448.h"
 class Rva002E8548;
 extern Rva002E8548 g_IntKeyedTreeNodePool;
 extern Rva002E8548 g_Va00DBD4C8;
