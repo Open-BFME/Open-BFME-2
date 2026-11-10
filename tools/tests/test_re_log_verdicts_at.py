@@ -193,6 +193,11 @@ def test_picker_json_includes_prior_evidence(log, monkeypatch, capsys, ranked):
     monkeypatch.setattr(sys, "argv", args + (["--ranked"] if ranked else []))
     monkeypatch.setattr(next_work, "check_ledger", lambda: "ledger healthy")
     monkeypatch.setattr(build, "load_claim_rows", lambda **kwargs: [])
+    # next_work.without_busy consults next_work.busy_keys() (claims.busy_keys),
+    # not claims.busy_rvas. Stubbing only the latter left the queue filtered
+    # against the fleet's LIVE claims, so this test dropped its own candidate and
+    # failed -- and would have passed or failed depending on what peers held.
+    monkeypatch.setattr(next_work, "busy_keys", lambda: set())
     monkeypatch.setattr(next_work.claims, "busy_rvas", lambda: set())
     monkeypatch.setattr(next_work, "reloc_named_candidates",
                         lambda *args: ([candidate], "fixture"))

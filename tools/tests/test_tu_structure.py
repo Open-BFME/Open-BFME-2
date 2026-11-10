@@ -11,6 +11,7 @@ import importlib.util
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -1017,12 +1018,28 @@ def test_generated_placeholder_file_is_never_a_donor(tmp_path, monkeypatch):
         "rva,size,kind,tu,confidence,by,evidence,source\n"
         "0x00001000,16,code,Code/X/A.cpp,approved,Z,,Code/X/Af.cpp\n"
         "0x00001010,11,code,Code/X/A.cpp,approved,C,,Code/gen_small/uw_gen_001.cpp\n")
-    monkeypatch.setattr(tu_skeleton, "LAYOUT", tu_map.Layout(tmp_path))
+    layout = tu_map.Layout(tmp_path)
+    # Record the fingerprint of these inputs, as tu_map.main does after a build:
+    # without it the map reads as stale, and current_rows would rebuild it, which
+    # raises NoZhTree in a fixture root that has no Zero Hour tree. This test is
+    # about donor selection, not map freshness (test_picker_cache.py's idiom).
+    layout.fingerprint.parent.mkdir(parents=True, exist_ok=True)
+    layout.fingerprint.write_text(tu_map.fingerprint(layout), encoding="utf-8", newline="")
+    assert tu_map.check_fresh(layout) == []
+    monkeypatch.setattr(tu_skeleton, "LAYOUT", layout)
     monkeypatch.setattr(tu_skeleton, "LEDGER", tmp_path / "reverse/functions.csv")
+    # tu_skeleton.tree() builds its refusal reader from the REAL repo root, so it
+    # reports every fixture path as "not tracked" and refuses the donor before the
+    # placeholder rule is reached. Absorption mechanics are tested elsewhere
+    # (test_tu_skeleton_split.py); what is pinned here is which files the map's
+    # approvals make candidates.
+    monkeypatch.setitem(tu_skeleton._CACHE, "tree", SimpleNamespace(refusals=lambda f, rows: ()))
     sk = tu_skeleton.skeleton("Code/X/A.cpp")
     assert len(sk) == 2
-    don, mixed = tu_skeleton.donors("Code/X/A.cpp", sk)
+    don, mixed, refused = tu_skeleton.donors("Code/X/A.cpp", sk)
     assert set(don) == {"Code/X/Af.cpp"} and not mixed
+    # the generated placeholder is not a candidate at all, not merely refused
+    assert "Code/gen_small/uw_gen_001.cpp" not in refused and not refused
 
 
 # ---------------------------------------------------------------- ownership
