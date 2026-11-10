@@ -528,7 +528,7 @@ struct BuffInfoView;
 
 class TBuff;
 
-class W3DTreeBuffer { public: Bool rva000EA644(void *firstValue); void rva000EA24D(); };
+#include "../../../Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
 class Rva000680B3Host
 {

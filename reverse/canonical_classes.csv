@@ -843,3 +843,4 @@ SortingRendererClass,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h,
 Rva0004263F,Code/GameEngine/Include/GameClient/Rva0004263F.h,existing header; contract class_contracts/Rva0004263F.json; 6/11 sampled units adopt
 ArmorStore,Code/GameEngine/Include/GameLogic/ArmorStore.h,existing header; contract class_contracts/ArmorStore.json; 7/12 sampled units adopt
 Gen_0094AC70,Code/GameEngineDevice/Include/W3DDevice/GameClient/Gen_0094AC70.h,existing header; contract class_contracts/Gen_0094AC70.json; 9/10 sampled units adopt
+W3DTreeBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DTreeBufferClass.h,existing header; contract class_contracts/W3DTreeBuffer.json; 7/12 sampled units adopt

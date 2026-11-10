@@ -373,11 +373,7 @@ private:
 	char m_lead[0x3854];
 	W3DShrubBuffer *m_member;
 };
-class W3DTreeBuffer
-{
-public:
-	void rva000EA2C0(void *a0);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 class Rva00068283NullTarget
 {
 public:

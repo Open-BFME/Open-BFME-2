@@ -210,13 +210,7 @@ struct GapQuad
 	int d;
 };
 
-class W3DTreeBuffer
-{
-public:
-	bool rva000EA48D(void *a, const Coord3D *b, float c);	// 0x000EA48D
-	bool rva000ECF2A(unsigned int a, int b);				// 0x000ECF2A
-	bool rva000EA6A7(void *a);								// 0x000EA6A7
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
 class Rva000EB08C
 {

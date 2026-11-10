@@ -29,12 +29,7 @@ class Matrix3D;
 struct Rva000ECF79Data;
 struct Rva000E91CEData;
 
-class W3DTreeBuffer
-{
-public:
-	void addTree( unsigned int id, Rva000ECF79Coord location, Real scale, const Matrix3D *transform, Real randomScaleAmount,
-		const Rva000ECF79Data *data, int shadowKind, const AsciiString &textureName, const AsciiString &nameD );
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
 class W3DShrubBuffer
 {

@@ -124,11 +124,7 @@ void Rva00068061NullTarget::rva00068061(Int a0)
 		m_member->rva000E7734((Thing *)a0);
 }
 
-class W3DTreeBuffer
-{
-public:
-	void rva000EA2C0(void *a0);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
 class Rva00068283NullTarget
 {

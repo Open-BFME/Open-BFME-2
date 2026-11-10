@@ -17,11 +17,7 @@ public:
 
 class Matrix3D;
 
-class W3DTreeBuffer
-{
-public:
-	char rva000EA327( void *key, Vector3 position, const Matrix3D *transform );
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
 class W3DShrubBuffer
 {

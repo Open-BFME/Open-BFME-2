@@ -1,0 +1,379 @@
+{
+ "bases": [
+  "Rva000E6AC0"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "W3DTreeBuffer",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "Snapshot"
+   ]
+  },
+  "census": 12,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x5c8": {
+    "4": 1
+   },
+   "0x618": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0xede35"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva000E6AC0",
+       "offset": 0,
+       "own_vftable": "0x7ceea4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xede35"
+     ],
+     "value": 285797
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xede35"
+     ],
+     "value": {
+      "0x44546": [
+       1
+      ],
+      "0x44554": [
+       1
+      ],
+      "0x44558": [
+       4
+      ],
+      "0x45c60": [
+       4
+      ],
+      "0x45c64": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xede35"
+     ],
+     "value": {
+      "0x0": [
+       "?rva000EA24D@W3DTreeBuffer@@QAEXXZ"
+      ],
+      "0x44548": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0xede35"
+     ],
+     "value": {
+      "0x0": "0x7ceea4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7ceea4"
+     ],
+     "value": {
+      "count": 6,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva000EDA94@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0xedf07"
+       },
+       {
+        "name": "?rva000EAF80@Rva000EAF80@@QAEXXZ",
+        "slot": 1,
+        "target": "0xeaf80"
+       },
+       {
+        "name": "?name@Rva000EDB39Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0xedb39"
+       },
+       {
+        "name": "?xfer@W3DTreeBuffer@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0xed47d"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 4,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?enable@Rva000EDB3FByteOneSetter@@QAEXXZ",
+        "slot": 5,
+        "target": "0xedb3f"
+       }
+      ],
+      "table": "0x7ceea4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 16,
+  "retail_vtables": {
+   "0x7ceea4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva000EDA94@@UAEPAXI@Z",
+     "1": "?rva000EAF80@Rva000EAF80@@QAEXXZ",
+     "2": "?name@Rva000EDB39Named@@QBEPBDXZ",
+     "3": "?xfer@W3DTreeBuffer@@MAEXPAVXfer@@@Z",
+     "4": "?IsCRC@Xfer@@UBE_NXZ",
+     "5": "?enable@Rva000EDB3FByteOneSetter@@QAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 7,
+   "279876": 1,
+   "279894": 1,
+   "285800": 2
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DTreeBuffer.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1468,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1472,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279872,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 279876,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279877,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279878,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279879,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279880,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279892,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279893,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 279894,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279895,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 279896,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 285784,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 285788,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 285792,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 285796,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "285800:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "W3DTreeBuffer"
+  }
+ ],
+ "size": 285800,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}

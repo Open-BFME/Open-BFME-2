@@ -18,7 +18,7 @@
 
 namespace _STL { template<> void vector<bool, allocator<bool> >::clear(); }
 
-class W3DTreeBuffer { public: void rva000EA24D(); };
+#include "../../../Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 class Rva000D3A17
 {
 public:
