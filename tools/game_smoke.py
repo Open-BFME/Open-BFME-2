@@ -209,6 +209,8 @@ STALL_AFTER = 120.0     # seconds with no new logic frame; retail waits at most 
 STALL_SAMPLES = 5       # main-thread samples once a stall is seen
 STALL_EVERY = 3.0       # seconds between them
 STALL_FRAMES = 64       # scan candidates kept per sample
+STALL_THREADS = 32      # other threads read with a stall (srv1's runs have about 12)
+STALL_THREAD_SECONDS = 5.0      # and at most this long reading them
 STALL_METHOD = ("stack scan, not a frame-pointer walk: the aligned dwords from esp that point into the image's code "
                 "right after a call instruction. Stale return addresses and coincidences pass, so a candidate list "
                 "supports a hypothesis about where the thread is; it is not a call chain. common_scan_candidates: "
@@ -252,9 +254,12 @@ def stall_report(st, loaded, ri=None, overlay=False, where=hex):
     if clean and not overlay:
         held = [{f[0] for f in s["scan_candidates"]} for s in clean[1:]]
         common = [f for f in clean[0]["scan_candidates"] if all(f[0] in h for h in held)]
-    threads = [dict(t, start=hex(t["start"]), start_label=label(t["start"]) if t["start"] else None,
+    threads = [dict({k: v for k, v in t.items() if k != "words"}, start=hex(t["start"]),
+                    start_label=label(t["start"]) if t["start"] else None,
                     eip=hex(t["eip"]) if t["eip"] is not None else None,
-                    eip_label=label(t["eip"]) if t["eip"] is not None else None) for t in st["threads"] or []]
+                    eip_label=label(t["eip"]) if t["eip"] is not None else None,
+                    scan_candidates=candidates(t["words"]) if t.get("words") else None)
+               for t in st["threads"] or []]
     out = {k: v for k, v in st.items() if k not in ("samples", "threads")}
     return dict(out, method=STALL_METHOD, samples=samples, threads=threads,
                 eip_agree=len({s["eip"] for s in clean}) == 1 if clean else None,
@@ -1005,7 +1010,7 @@ class Game:
             return False
         st = self.res["stall"]
         if st["threads"] is None:
-            st["threads"] = self.thread_eips()
+            st["threads"] = self.thread_stacks()
         if not self.main_thread:                      # never known, or exited (before or during the samples)
             st["main_thread_why"] = ("main thread exited" if self.main_exited
                                      else "CREATE_PROCESS gave no thread handle for game.dat")
@@ -1034,20 +1039,29 @@ class Game:
                               "eip": int(got["regs"]["eip"], 16), "esp": got["esp"], "ebp": got["ebp"],
                               "regs": got["regs"], "words": got["words"]})
 
-    def thread_eips(self):
-        """[{tid, start, eip}] of the game's other live threads, each read once with it suspended
-        (eip None when the read proves nothing). Raises boot_smoke.ThreadNotResumed."""
+    def thread_stacks(self):
+        """[{tid, start, eip, clean, words}] of the game's other live threads, each read once under
+        its own brief suspend: registers and 4 KB of stack, as a main-thread sample (to find who
+        holds what the main thread waits on). At most STALL_THREADS threads and STALL_THREAD_SECONDS
+        of reading; the rest are listed with why they were skipped. Raises boot_smoke.ThreadNotResumed."""
         main = self.main_thread[1] if self.main_thread else None
-        out = []
+        out, t0 = [], time.time()
         for tid, (h, start) in sorted(self.threads.items()):
             if tid == main:
                 continue
+            if len(out) >= STALL_THREADS or time.time() - t0 >= STALL_THREAD_SECONDS:
+                out.append({"tid": tid, "start": start, "eip": None, "skipped": "past the thread bound"})
+                continue
             try:
-                out.append({"tid": tid, "start": start, "eip": boot_smoke.thread_eip(self.k, h)})
+                got, clean = boot_smoke.while_suspended(
+                    self.k, h, lambda: boot_smoke.stack_words(self.k, self.hproc, tid, n=1024))
             except boot_smoke.ThreadNotResumed:
                 raise
-            except Exception as e:                    # a failed read: that thread's eip is unknown, the rest stand
+            except Exception as e:                    # a failed read: that thread is unknown, the rest stand
                 out.append({"tid": tid, "start": start, "eip": None, "error": f"{type(e).__name__}: {e}"})
+                continue
+            out.append({"tid": tid, "start": start, "eip": int(got["regs"]["eip"], 16) if got else None,
+                        "clean": clean, "words": got["words"] if got else []})
         return out
 
     def _seeding(self, tid, ctx):
@@ -2175,7 +2189,7 @@ def main(argv=None):
     ap.add_argument("--stall-after", type=float, default=STALL_AFTER, metavar="SECONDS",
                     help=f"after this long with no new logic frame (None to 0 counts), sample the main thread "
                          f"{STALL_SAMPLES} times {STALL_EVERY:g} s apart (eip, registers, stack scan candidates with "
-                         f"symbols) and the other threads' eips once, into the result's `stall` section; 0 turns the "
+                         f"symbols) and the other threads' eips and scan candidates once, into the result's `stall` section; 0 turns the "
                          f"watch off (default {STALL_AFTER:g}). The watch reads up to three words of game memory a "
                          f"second in every run (TheGameLogic's pointer, frame and mode), so it is not strictly inert. "
                          f"It fires on any stretch without a new frame (before the first, in menus, a long load on a "

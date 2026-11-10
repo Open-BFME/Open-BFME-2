@@ -273,7 +273,7 @@ class Probes(unittest.TestCase):
 
 
 class Stall(unittest.TestCase):
-    """--stall-after: Game.stall_watch / stall_sample / thread_eips over a fake game, and stall_report."""
+    """--stall-after: Game.stall_watch / stall_sample / thread_stacks over a fake game, and stall_report."""
     STACK = {"esp": 0x19F000, "ebp": 0x19F040, "regs": {"eip": "0x401234", "esp": "0x19f000"},
              "words": [0x401100, 7, 0x402200]}
 
@@ -311,10 +311,11 @@ class Stall(unittest.TestCase):
         st = g.res["stall"]
         self.assertEqual((st["trigger"]["seconds"], st["trigger"]["frame"], st["trigger"]["unchanged_since"]),
                          (130.0, 0, 10.0))
-        self.assertEqual((len(st["samples"]), st["failures"], susp.call_count), (5, 0, 5))
+        self.assertEqual((len(st["samples"]), st["failures"], susp.call_count), (5, 0, 6))   # 5 main + 1 thread
         self.assertEqual(st["samples"][0]["eip"], 0x401234)
-        self.assertEqual(st["threads"], [{"tid": 202, "start": 0x401500, "eip": 0x7BC01234}])   # once, main left out
-        self.assertEqual(teip.call_count, 1)
+        self.assertEqual(st["threads"], [{"tid": 202, "start": 0x401500, "eip": 0x401234, "clean": True,
+                                          "words": self.STACK["words"]}])                  # once, main left out
+        self.assertEqual(teip.call_count, 0)
 
     def test_a_sample_that_could_not_suspend_is_a_counted_failure(self):
         g = self.game(iter([0] * 10_000))
@@ -325,24 +326,33 @@ class Stall(unittest.TestCase):
 
     def test_without_a_main_thread_only_the_threads_are_read(self):
         g = self.game(iter([0] * 10_000), main=None, threads={202: (33, 0x401500)})
-        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=AssertionError("no main thread")), \
-                mock.patch.object(gs.boot_smoke, "thread_eip", return_value=None):
+        with mock.patch.object(gs.boot_smoke, "while_suspended", return_value=(None, False)) as susp:
             self.assertEqual(self.drive(g, 300), [120])
         st = g.res["stall"]
-        self.assertEqual((st["main_thread"], st["samples"], st["threads"]), (None, [], [{"tid": 202, "start": 0x401500, "eip": None}]))
+        self.assertEqual((st["main_thread"], st["samples"], susp.call_count), (None, [], 1))     # the thread only
+        self.assertEqual(st["threads"], [{"tid": 202, "start": 0x401500, "eip": None, "clean": False, "words": []}])
         self.assertIn("CREATE_PROCESS", st["main_thread_why"])
 
     def test_a_read_that_raises_is_a_recorded_failure_not_a_lost_run(self):
         g = self.game(iter([0] * 10_000), threads={202: (33, 0x401500), 203: (34, 0x401600)})
         with mock.patch.object(gs.boot_smoke, "while_suspended",
-                               side_effect=[OSError("access denied")] + [(dict(self.STACK), True)] * 4), \
-                mock.patch.object(gs.boot_smoke, "thread_eip", side_effect=[OSError("gone"), 0x7BC01234]):
+                               side_effect=[OSError("gone"), (dict(self.STACK), True),          # the two threads
+                                            OSError("access denied")] + [(dict(self.STACK), True)] * 4):
             self.assertEqual(self.drive(g, 300), [120, 123, 126, 129, 132])
         st = g.res["stall"]
         self.assertEqual((len(st["samples"]), st["failures"]), (4, 1))
         self.assertIn("OSError: access denied", st["failure_reasons"][0])
         self.assertEqual([(t["tid"], t["eip"], t.get("error")) for t in st["threads"]],
-                         [(202, None, "OSError: gone"), (203, 0x7BC01234, None)])
+                         [(202, None, "OSError: gone"), (203, 0x401234, None)])
+
+    def test_other_threads_are_bounded_in_count(self):
+        g = self.game(iter([0] * 10_000), threads={202: (33, 1), 203: (34, 2), 204: (35, 3)})
+        with mock.patch.object(gs, "STALL_THREADS", 2), \
+                mock.patch.object(gs.boot_smoke, "while_suspended", return_value=(dict(self.STACK), True)) as susp:
+            self.drive(g, 125)
+        st = g.res["stall"]
+        self.assertEqual([t.get("skipped") for t in st["threads"]], [None, None, "past the thread bound"])
+        self.assertEqual(susp.call_count, 2 + 2)                                # 2 threads, then main at 120 and 123
 
     def test_a_main_thread_that_exited_is_never_sampled_and_says_so(self):
         g = self.game(iter([0] * 10_000), main=None)
@@ -375,7 +385,7 @@ class Stall(unittest.TestCase):
 
     RAW = {"trigger": {"seconds": 130.0, "frame": 0, "stall_after": 120.0, "unchanged_since": 10.0},
            "main_thread": {"tid": 201}, "failures": 0,
-           "threads": [{"tid": 202, "start": 0x2001500, "eip": 0x7BC01234}],
+           "threads": [{"tid": 202, "start": 0x2001500, "eip": 0x7BC01234, "clean": True, "words": [0x2002200, 5]}],
            "samples": [{"seconds": 130.0, "frame": 0, "clean": True, "eip": 0x2001234, "esp": 1, "ebp": 2, "regs": {},
                         "words": [0x2001100, 0x2002200]},
                        {"seconds": 133.0, "frame": 0, "clean": True, "eip": 0x2001240, "esp": 1, "ebp": 2, "regs": {},
@@ -403,6 +413,8 @@ class Stall(unittest.TestCase):
         self.assertFalse(rep["eip_agree"])                                      # the two clean eips differ
         self.assertEqual(rep["common_scan_candidates"], [["0x2002200", "f2200", "0x2300"]])   # unclean left out
         self.assertEqual(rep["threads"][0]["eip_label"], "ntdll+0x234")         # outside the image
+        self.assertEqual(rep["threads"][0]["scan_candidates"], [["0x2002200", "f2200", "0x2300"]])
+        self.assertNotIn("words", rep["threads"][0])
         rec = gs.stall_receipt(rep)
         self.assertEqual((rec["samples"], rec["stall_after"], rec["eip_agree"], rec["eip"], rec["common_scan_candidates"]),
                          (2, 120.0, False, "f1234", ["f2200"]))
