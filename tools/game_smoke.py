@@ -187,18 +187,21 @@ def judge_playback(crc, recorded_last=None, played_last=None, min_pairs=3, crash
     return "pass"
 
 
-def coverage_report(units, covered):
+def coverage_report(units, covered, failed=None):
     """Summary of a --coverage run: units probed / run, their bytes, how many first
     ran before the skirmish's first logic frame, and the units that ran (retail
-    RVA, size, name, first logic frame), in order of first execution."""
+    RVA, size, name, first logic frame), in order of first execution. failed (image
+    RVA -> why) are the units whose probe was never planted: listed in not_observed,
+    so their absence from run is never read as "did not run"."""
     ran = []
     for t, frame, rva in covered:
         if rva in units:
             r, size, name = units[rva]
             ran.append([hex(r), size, name, frame])
-    return {"units": len(units), "units_run": len(ran),
+    lost = [[hex(units[rva][0]), units[rva][1], units[rva][2], why] for rva, why in sorted((failed or {}).items())]
+    return {"units": len(units), "units_observable": len(units) - len(lost), "units_run": len(ran),
             "bytes": sum(z for _, z, _ in units.values()), "bytes_run": sum(x[1] for x in ran),
-            "run_before_game": sum(1 for x in ran if not x[3]), "run": ran}
+            "run_before_game": sum(1 for x in ran if not x[3]), "not_observed": lost, "run": ran}
 
 
 def ledger_units(rows, code):
@@ -251,8 +254,10 @@ def coverage_units(a):
 
 def coverage_receipt(cov, file):
     """The receipt's coverage section: where the unit list came from and its hash, how many
-    probes were armed and how many units ran, and the file holding the units that ran."""
-    return dict(cov["source"], armed=cov.get("armed"), units_run=cov["units_run"], bytes_run=cov["bytes_run"],
+    probes were planted, which units a harness breakpoint observed instead, how many could not be
+    observed at all, how many units ran, and the file holding the units that ran."""
+    return dict(cov["source"], armed=cov.get("armed"), observed_by_harness=cov.get("observed_by_harness"),
+                not_observed=len(cov["not_observed"]), units_run=cov["units_run"], bytes_run=cov["bytes_run"],
                 run_before_game=cov["run_before_game"], file=file)
 
 
@@ -461,6 +466,8 @@ class Game:
         self.dlls = []                # (base, file name) of the game's DLLs
         self.probe_units = {}         # --coverage: RVA in the image -> (retail RVA, size, name)
         self.covered = []             # (seconds, logic frame, image RVA) of each first execution
+        self.probe_shared = set()     # --coverage: VAs of probed units a harness breakpoint holds instead
+        self.probe_failed = {}        # --coverage: RVA in the image -> why its probe was not planted
         self.stub = None
         self.procs = {}
         self.pid = self.hproc = self.base = None
@@ -520,9 +527,20 @@ class Game:
         self.handlers[self.rva_map(RVA[name])] = handler
 
     def _arm(self, va, handler):
+        """Plant an int3 at va for handler. Returns None once it is planted, else why not. A
+        --coverage probe already at va is taken over, keeping the byte it saved (never its own
+        int3), and its unit is then observed through the new handler (_observe)."""
+        if va in self.bps and self.bps[va][1] is Game._probe and handler is not Game._probe:
+            self.bps[va] = (self.bps[va][0], handler)
+            self.probe_shared.add(va)
+            return None
         orig = self.read(va, 1)
-        if orig and self.write(va, b"\xCC", code=True):
-            self.bps[va] = (orig, handler)
+        if not orig:
+            return "read failed"
+        if not self.write(va, b"\xCC", code=True):
+            return "write failed"
+        self.bps[va] = (orig, handler)
+        return None
 
     def _context(self, tid, flags=0x10003):
         h = self.k.OpenThread(0x1FFFFF, False, tid)
@@ -538,6 +556,13 @@ class Game:
         """Arm a breakpoint at run time (from a tick)."""
         self._arm(self.va(name), handler)
 
+    def _observe(self, va):
+        """--coverage: a harness breakpoint at a probed unit's entry fired; its first time is the
+        unit's first entry, recorded as _probe would have."""
+        if va in self.probe_shared:
+            self.probe_shared.discard(va)
+            self.covered.append((self.seconds(), self.logic()[0], va - self.base))
+
     def _hit(self, tid, va):
         orig, handler = self.bps[va]
         h, ctx = self._context(tid)
@@ -545,6 +570,7 @@ class Game:
             return
         eip = ctx.eip
         self.hit_va = va                              # the breakpoint's address (eip may be past the int3)
+        self._observe(va)
         keep = handler(self, tid, ctx)
         self.write(va, orig, code=True)
         if isinstance(keep, dict):                    # {"call": va, "ecx": this, "done": f(game, eax)}
@@ -717,6 +743,7 @@ class Game:
                     elif game and exc in INT3 and self.focus_va in (addr, addr - 1):
                         hits = self.res["lies"]["focus"]
                         hits["hits"] += 1
+                        self._observe(self.focus_va)
                         hits["rewritten"] += boot_smoke.focus_lie(k, self.hproc, tid, self.focus_va,
                                                                   self.bps[self.focus_va][0])
                         self.stepping[tid] = self.focus_va
@@ -956,14 +983,26 @@ class Game:
             self._arm(self.va(name), Game._seeding)
         for rva, handler in self.handlers.items():
             self._arm(self.base + rva, handler)
-        armed = 0
-        for rva in self.probe_units:                 # one-shot; never on top of a harness breakpoint
-            if self.base + rva not in self.bps:
-                self._arm(self.base + rva, Game._probe)
-                armed += 1
         if self.probe_units:
-            self.res["coverage_armed"] = armed
+            self._arm_probes()
         return True
+
+    def _arm_probes(self):
+        """--coverage: a one-shot probe on each unit's entry, after the harness's own breakpoints:
+        where one of those already sits, it observes the unit instead (_observe). Counts only
+        the probes planted; the rest go to probe_failed with why."""
+        armed = 0
+        for rva in self.probe_units:
+            if self.base + rva in self.bps:
+                self.probe_shared.add(self.base + rva)
+                continue
+            why = self._arm(self.base + rva, Game._probe)
+            if why:
+                self.probe_failed[rva] = why
+            else:
+                armed += 1
+        self.res["coverage_armed"] = armed
+        self.res["coverage_shared"] = sorted(hex(va - self.base) for va in self.probe_shared)
 
     def _probe(self, tid, ctx):
         """--coverage: a probed unit's entry ran (first time only)."""
@@ -1227,8 +1266,9 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
             out["crash"] = crash_record(a.ri, res, loaded)
             res["crash_name"] = real_image.crash_name(out["crash"])
     if a.coverage:
-        out["coverage"] = coverage_report(game.probe_units, game.covered)
-        out["coverage"].update(source=a.coverage_source, armed=res.get("coverage_armed"))
+        out["coverage"] = coverage_report(game.probe_units, game.covered, game.probe_failed)
+        out["coverage"].update(source=a.coverage_source, armed=res.get("coverage_armed"),
+                               observed_by_harness=res.get("coverage_shared"))
     out["profile_guard"], out["profile_touched"] = profile_guard.check()
     out["sandbox_profile"] = sorted(str(Path(p).relative_to(a.appdata))
                                     for p in boot_smoke.snapshot(Path(a.appdata)))[:40]
@@ -1353,14 +1393,23 @@ def finish(a, name, out):
     out["receipt"] = real_image.receipt_fields("game_smoke", MODES.get(scenario, scenario), out["outcome"], image,
                                                out.get("crash"), getattr(a, "started", None),
                                                time.time() - getattr(a, "t_start", time.time()))
-    if "coverage" in out:                            # the unit list goes to its own file
+    write_result(name, out)
+    return 0 if out["outcome"] == "pass" else 1
+
+
+def write_result(name, out):
+    """Write OUT/NAME_IMAGE.json, the result file (the one file the game queue keeps from a job),
+    and print it. A --coverage run also writes its unit list to coverage_NAME_IMAGE.json and keeps
+    it in the result file too; only stdout leaves out the units that ran."""
+    if "coverage" in out:
         cov = OUT / f"coverage_{name}_{out['image']}.json"
         cov.write_text(json.dumps(out["coverage"], indent=1))
         out["receipt"]["coverage"] = coverage_receipt(out["coverage"], cov.name)
         out["coverage"]["file"] = str(cov)
-    (OUT / f"{name}_{out['image']}.json").write_text(json.dumps(out, indent=1, default=str))
+    path = OUT / f"{name}_{out['image']}.json"
+    path.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps(without_coverage_run(out), indent=1, default=str))
-    return 0 if out["outcome"] == "pass" else 1
+    return path
 
 
 def cmd_skirmish(a, keep_replay=None):
@@ -1930,10 +1979,20 @@ def main(argv=None):
     ap.add_argument("--difficulty", choices=sorted(AI_STATES), default="easy")
     ap.add_argument("--fast", action="store_true", help="lift the FPS cap: logic runs at render rate / 6")
     ap.add_argument("--coverage", action="store_true",
-                    help="one-shot probe on each authored unit's entry; report the units that ran")
+                    help="one-shot int3 probe on each unit's entry; reports each unit's FIRST entry in THIS run, in "
+                         "order, with its logic frame. A unit missing from the list was not recorded: that is not "
+                         "'retail never runs it' (another map, seed, length or path may run it). Units whose probe "
+                         "could not be planted are listed in not_observed; units a harness breakpoint holds are "
+                         "recorded through it (observed_by_harness). Limits: a probe restores the byte and rewinds "
+                         "eip without single-stepping; nothing handles two threads hitting one probe at once, code "
+                         "checksums, code read as data or self-modifying code; a failed restore is not checked; the "
+                         "observer effect (timing, logic CRCs) is not measured yet")
     ap.add_argument("--coverage-units", choices=["authored", "ledger"], default=None,
                     help="with --coverage: the units to probe, build/boot/IMAGE.json's authored list (default) or, "
-                         "with --retail only, every reverse/functions.csv row of this checkout (no link needed)")
+                         "with --retail only, every reverse/functions.csv row of this checkout with an RVA and a size, "
+                         "whatever its status (no link needed). 'In code' means inside an executable section, not a "
+                         "checked instruction boundary: a wrong ledger start, padding, embedded data or a jump table "
+                         "is not rejected, and a row's wrong extent can hide a real later start (left out as inside it)")
     ap.add_argument("--player", action="store_true",
                     help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")

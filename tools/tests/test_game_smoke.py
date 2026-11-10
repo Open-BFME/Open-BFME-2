@@ -166,13 +166,110 @@ class Coverage(unittest.TestCase):
                          ("ledger", "ab", 2, 1, "coverage_skirmish_retail.json"))
         self.assertNotIn("run", rec)
 
-    def test_the_run_list_is_kept_out_of_stdout_only(self):
-        out = {"outcome": "pass", "coverage": {"units": 2, "run": [["0x3000", 32, "b", None]], "file": "f"}}
-        shown = gs.without_coverage_run(out)
-        self.assertEqual(shown["coverage"], {"units": 2, "file": "f"})
-        self.assertIn("run", out["coverage"])                                   # the result file keeps it
-        plain = {"outcome": "pass"}
-        self.assertIs(gs.without_coverage_run(plain), plain)                    # any other run: unchanged
+    def test_the_result_file_keeps_the_run_list_and_stdout_does_not(self):
+        import io
+        import json
+        import tempfile
+        from contextlib import redirect_stdout
+        cov = gs.coverage_report({0x3000: (0x3000, 32, "b"), 0x4000: (0x4000, 8, "c")}, [(1.0, None, 0x3000)],
+                                 {0x4000: "write failed"})
+        cov.update(source={"units_from": "ledger", "units": 2, "units_sha256": "ab"}, armed=1, observed_by_harness=[])
+        out = {"outcome": "pass", "image": "retail", "receipt": {"result": "pass"}, "coverage": cov}
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(gs, "OUT", Path(d)):
+            printed = io.StringIO()
+            with redirect_stdout(printed):
+                path = gs.write_result("skirmish", out)
+            kept = json.loads(path.read_text())
+            self.assertEqual(path.name, "skirmish_retail.json")
+            self.assertEqual(kept["coverage"]["run"], [["0x3000", 32, "b", None]])
+            self.assertEqual(kept["coverage"]["not_observed"], [["0x4000", 8, "c", "write failed"]])
+            self.assertEqual((kept["receipt"]["coverage"]["units_sha256"], kept["receipt"]["coverage"]["armed"],
+                              kept["receipt"]["coverage"]["not_observed"]), ("ab", 1, 1))
+            self.assertNotIn("run", json.loads(printed.getvalue())["coverage"])
+            self.assertTrue((Path(d) / "coverage_skirmish_retail.json").exists())
+
+    def test_a_run_without_coverage_writes_what_it_always_did(self):
+        import io
+        import json
+        import tempfile
+        from contextlib import redirect_stdout
+        out = {"outcome": "pass", "image": "retail", "receipt": {"result": "pass"}}
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(gs, "OUT", Path(d)):
+            with redirect_stdout(io.StringIO()) as printed:
+                path = gs.write_result("skirmish", out)
+            self.assertEqual(path.read_text(), json.dumps(out, indent=1, default=str))
+            self.assertEqual(printed.getvalue(), json.dumps(out, indent=1, default=str) + "\n")
+            self.assertEqual(sorted(p.name for p in Path(d).iterdir()), ["skirmish_retail.json"])
+
+
+class Probes(unittest.TestCase):
+    """--coverage probes on the real Game._arm / _hit / _arm_probes, over a fake address space."""
+    BASE = 0x400000
+
+    def game(self, mem, unreadable=()):
+        g = gs.Game.__new__(gs.Game)
+        g.base, g.bps, g.stepping, g.res, g.covered = self.BASE, {}, {}, {}, []
+        g.probe_units, g.probe_shared, g.probe_failed = {}, set(), {}
+        g.read = lambda va, n: None if va in unreadable else bytes([mem[va]])
+        g.write = lambda va, data, code=False: mem.__setitem__(va, data[0]) or True
+        g.seconds = lambda: 1.0
+        g.logic = lambda: (7, 2)
+        ctx = gs.WOW64_CONTEXT()
+
+        def context(tid, flags=0x10003):
+            ctx.eip = 0x12345                                                  # past the int3; _hit rewinds it
+            return 1, ctx
+        g._context = context
+        g.k = SimpleNamespace(Wow64SetThreadContext=lambda *a: 1, CloseHandle=lambda *a: 1)
+        return g
+
+    def test_a_unit_under_a_harness_breakpoint_is_observed_through_it(self):     # review: InitRandom 0x233F82
+        seed, other = self.BASE + 0x233F82, self.BASE + 0x1000
+        mem = {seed: 0x55, other: 0x8B}
+        g = self.game(mem)
+        fired = []
+        self.assertIsNone(g._arm(seed, lambda game, tid, ctx: fired.append(1) or True))   # the harness's own, kept
+        g.probe_units = {0x233F82: (0x233F82, 0x45, "InitRandom"), 0x1000: (0x1000, 8, "f")}
+        g._arm_probes()
+        self.assertEqual((g.res["coverage_armed"], g.res["coverage_shared"]), (1, ["0x233f82"]))
+        self.assertEqual(g.bps[seed][0], b"\x55")                               # the harness's breakpoint untouched
+        g._hit(1, seed)
+        g._hit(1, seed)                                                         # kept: fires again, recorded once
+        self.assertEqual(fired, [1, 1])
+        rep = gs.coverage_report(g.probe_units, g.covered, g.probe_failed)
+        self.assertEqual(rep["run"], [["0x233f82", 0x45, "InitRandom", 7]])
+        self.assertEqual(rep["not_observed"], [])
+
+    def test_a_harness_breakpoint_armed_later_on_a_probe_keeps_the_real_byte(self):
+        va = self.BASE + 0x2000
+        mem = {va: 0x55}
+        g = self.game(mem)
+        g.probe_units = {0x2000: (0x2000, 16, "g")}
+        g._arm_probes()
+        self.assertEqual(mem[va], 0xCC)
+        self.assertIsNone(g._arm(va, lambda game, tid, ctx: False))             # a tick's arm()
+        self.assertEqual(g.bps[va][0], b"\x55")                                 # never the probe's own int3
+        g._hit(1, va)
+        self.assertEqual((mem[va], g.covered), (0x55, [(1.0, 7, 0x2000)]))
+
+    def test_a_probe_that_was_not_planted_is_not_counted_and_says_why(self):
+        ok, bad = self.BASE + 0x1000, self.BASE + 0x3000
+        g = self.game({ok: 0x8B}, unreadable={bad})
+        g.probe_units = {0x1000: (0x1000, 8, "f"), 0x3000: (0x3000, 4, "h")}
+        g._arm_probes()
+        self.assertEqual((g.res["coverage_armed"], g.probe_failed), (1, {0x3000: "read failed"}))
+        rep = gs.coverage_report(g.probe_units, g.covered, g.probe_failed)
+        self.assertEqual((rep["units"], rep["units_observable"], rep["not_observed"]),
+                         (2, 1, [["0x3000", 4, "h", "read failed"]]))
+
+    def test_without_probes_arm_is_the_old_read_then_write(self):
+        va = self.BASE + 0x1000
+        mem = {va: 0x55}
+        g = self.game(mem)
+        h1, h2 = (lambda game, tid, ctx: True), (lambda game, tid, ctx: True)
+        g._arm(va, h1)
+        g._arm(va, h2)                                                          # re-reads, as it always did
+        self.assertEqual((g.bps[va], g.probe_shared), ((b"\xCC", h2), set()))
 
 
 class MorePlayers(unittest.TestCase):
