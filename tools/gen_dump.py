@@ -29,10 +29,17 @@ could if naked_cpp_rows ever regressed:
 
   python3 tools/gen_dump.py --asm --limit 500
   BUILD_POOL=8 ./build.sh Code/gen_asm/*.asm
+
+--orphans is read-only: one line per Code/gen_asm/ file, ORPHAN when no row, pin,
+alias, export alias, include, build list or tool names the file or a PROC in it
+(AGENTS.md then allows deleting the whole file), else REFERENCED with the hits:
+
+  python3 tools/gen_dump.py --orphans
 """
 import argparse
 import bisect
 import csv
+import re
 import sys
 from pathlib import Path
 
@@ -402,6 +409,152 @@ def retract(sha):
           f"now `git revert {sha}` for the sources")
 
 
+# --orphans: the Code/gen_asm/ files nothing names any more. AGENTS.md lets a whole
+# file there be deleted once this reports it ORPHAN, with hatch_counters.py --update
+# in the same commit; editing one stays forbidden.
+GEN_ASM = "Code/gen_asm/"
+ORPHAN_INPUTS = ("reverse/functions.csv", "reverse/data_rows.csv", "reverse/symbols.csv",
+                 "reverse/pin_consistency_baseline.csv", "reverse/export_aliases.csv",
+                 "reverse/body_owners.csv", "reverse/hatch_baseline.tsv")
+# Rows reference a file through these columns only; their notes are provenance.
+ORPHAN_ROW_COLUMNS = {"reverse/functions.csv": ("name", "source"),
+                      "reverse/data_rows.csv": ("name", "source")}
+# Records, never references: the history registers, and two tool-written tables keyed
+# by placeholder names that go stale as bodies land (allowed_symbols.py --tiers and
+# wb_context.py --refresh rewrite them from the ledger; neither builds or links).
+ORPHAN_RECORDS = ("reverse/deleted_rows.csv", "reverse/re_attempts.log",
+                  "reverse/attempt_support/", "reverse/attempt_evidence/", "docs/",
+                  "reverse/name_tiers.csv", "reverse/wb_name_leads.csv")
+
+
+def _orphan_needles(root):
+    """{needle: {gen_asm file}}: each file's path, its stem and every PROC it defines."""
+    import re
+    import subprocess
+
+    listed = subprocess.run(["git", "ls-files", "-z", "--", GEN_ASM], cwd=root,
+                            capture_output=True, check=True).stdout.decode("utf-8")
+    files = sorted(p for p in listed.split("\0") if p)
+    needles = {}
+    for path in files:
+        text = (Path(root) / path).read_text(encoding="utf-8")
+        stem = path.rsplit("/", 1)[1].rsplit(".", 1)[0]
+        for needle in {path, stem, *re.findall(r"^(\S+)\s+PROC\b", text, re.M)}:
+            needles.setdefault(needle, set()).add(path)
+    return files, needles
+
+
+def _occurrences(text, needle):
+    at, found = text.find(needle), []
+    while at >= 0:
+        found.append(at)
+        at = text.find(needle, at + 1)
+    return found
+
+
+def _comment_spans(path, text):
+    """[(start, end)] of comment text on one source line, read so that doubt counts as code: a
+    line comment only where no quote precedes its `//` (a URL in a string is not one), a block
+    comment only where the line opens it, and only up to its first `*/`. A line starting with
+    `*` is code: it may be a continuation or a dereference."""
+    indent = len(text) - len(text.lstrip())
+    lead = text[indent:]
+    if lead.startswith("//") or (path.lower().endswith((".asm", ".inc")) and lead.startswith(";")):
+        return [(indent, len(text))]
+    spans, rest = [], 0
+    if lead.startswith("/*"):
+        close = text.find("*/", indent + 2)
+        rest = len(text) if close < 0 else close + 2
+        spans.append((indent, rest))
+    slash = text.find("//", rest)
+    if slash >= 0 and not any(mark in text[rest:slash] for mark in ('"', "'", "/*")):
+        spans.append((slash, len(text)))
+    return spans
+
+
+def _in_comment(path, text, needle):
+    """True only when every occurrence of `needle` on the line lies inside comment text."""
+    spans = _comment_spans(path, text)
+    return all(any(start <= at and at + len(needle) <= end for start, end in spans)
+               for at in _occurrences(text, needle))
+
+
+def _reference_kind(path, text, needle, owner, headers):
+    """'ref' when this hit keeps `owner` alive, else 'record' (see ORPHAN_RECORDS). Doubt is 'ref'."""
+    if path.startswith(ORPHAN_RECORDS):
+        return "record"
+    if path == "reverse/hatch_baseline.tsv":
+        # The file's own asm_bytes line goes with it (hatch_counters.py --update).
+        return "record" if text.startswith(f"asm_bytes\t{owner}\t") else "ref"
+    if path in ORPHAN_ROW_COLUMNS:
+        row = dict(zip(headers[path], next(csv.reader([text]), [])))
+        return "ref" if needle in {row.get(c, "") for c in ORPHAN_ROW_COLUMNS[path]} else "record"
+    if path.startswith("tools/tests/"):
+        # No fixture exemption: a test can build any path, and no static reading proves otherwise.
+        return "ref"
+    if path.startswith(("Code/", "reference/", "vendor/")):
+        return "record" if _in_comment(path, text, needle) else "ref"
+    return "ref"
+
+
+def orphan_report(root=ROOT):
+    """(lines, exit status): one line per Code/gen_asm/ file, then a total. Status 0 when
+    every input was read, 2 when one was missing or git could not search the tree."""
+    import subprocess
+    import tempfile
+
+    root = Path(root)
+    missing = [p for p in ORPHAN_INPUTS if not (root / p).is_file()]
+    if missing:
+        return [f"gen_dump --orphans: cannot read {', '.join(missing)}"], 2
+    headers = {}
+    for path in ORPHAN_ROW_COLUMNS:
+        with (root / path).open(encoding="utf-8", newline="") as handle:
+            headers[path] = next(csv.reader(handle), [])
+    files, needles = _orphan_needles(root)
+    if not files:
+        return [f"gen_dump --orphans: no tracked files under {GEN_ASM}"], 0
+    hatch = {}
+    with (root / "reverse/hatch_baseline.tsv").open(encoding="utf-8") as handle:
+        for line in handle:
+            fields = line.rstrip("\n").split("\t")
+            if len(fields) >= 4 and fields[0] == "asm_bytes" and fields[1] in files:
+                hatch[fields[1]] = hatch.get(fields[1], 0) + int(fields[3])
+    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as patterns:
+        patterns.write("\n".join(needles) + "\n")
+    try:
+        # Records are never references, so they are not searched (the log alone is 41 MB).
+        found = subprocess.run(["git", "grep", "-n", "-z", "-F", "-f", patterns.name, "--", ".", f":!{GEN_ASM}",
+                                *(f":!{record}" for record in ORPHAN_RECORDS)],
+                               cwd=root, capture_output=True, text=True)
+    finally:
+        Path(patterns.name).unlink()
+    if found.returncode not in (0, 1):
+        return [f"gen_dump --orphans: git grep failed: {found.stderr.strip()[:200]}"], 2
+    refs = {path: set() for path in files}
+    records = {path: set() for path in files}
+    for hit in found.stdout.splitlines():
+        path, number, text = hit.split("\0", 2)
+        for needle, owners in needles.items():
+            if needle not in text:
+                continue
+            for owner in owners:
+                kind = _reference_kind(path, text, needle, owner, headers)
+                (refs if kind == "ref" else records)[owner].add(f"{path}:{number}:{needle}")
+    lines = []
+    for path in files:
+        if refs[path]:
+            lines.append(f"REFERENCED {path} by " + " ".join(sorted(refs[path])))
+        else:
+            noted = sorted(r for r in records[path] if not r.startswith("reverse/hatch_baseline.tsv:"))
+            lines.append(f"ORPHAN {path} asm_bytes={hatch.get(path, 0)}"
+                         + (" records: " + " ".join(noted) if noted else ""))
+    orphaned = [p for p in files if not refs[p]]
+    lines.append(f"total {len(files)} orphaned {len(orphaned)} referenced {len(files) - len(orphaned)} "
+                 f"asm_bytes_orphaned {sum(hatch.get(p, 0) for p in orphaned)}")
+    return lines, 0
+
+
 def main():
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -423,8 +576,16 @@ def main():
                         help="drop the gen_asm rows a wave commit added and "
                              "tombstone them (functions.csv is merge=union, so "
                              "a revert alone lets any fork re-add them)")
+    parser.add_argument("--orphans", action="store_true",
+                        help="list each Code/gen_asm/ file and whether anything still names it "
+                             "(read-only; exit 2 when an input cannot be read)")
     args = parser.parse_args()
 
+    if args.orphans:
+        lines, status = orphan_report()
+        for line in lines:
+            print(line)
+        sys.exit(status)
     if args.retract:
         return retract(args.retract)
     if args.asm:
