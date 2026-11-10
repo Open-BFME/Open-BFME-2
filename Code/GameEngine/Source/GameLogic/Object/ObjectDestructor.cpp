@@ -96,9 +96,9 @@ public:
 	void unregisterFromPartition() { ((Rva00739770 *)TheShroudManager)->rva00739770(this); }
 };
 class GeometryInfo;
-struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const; };
+struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const; virtual void *rva00299CBE() const = 0; virtual float rva00299CC2() const = 0; virtual void *rva00299C74() = 0; virtual void *rva00299C74() const = 0; };
 struct Coord3D;
-struct Rva00BFC290Base { virtual Coord3D rva0028C037(); virtual Coord3D rva0028C08D(); };
+struct Rva00BFC290Base { virtual Coord3D rva0028C037(); virtual Coord3D rva0028C08D(); virtual void *rva00299C78() = 0; virtual void *rva00299C78() const = 0; };
 
 // Owned objects deleted through their virtual destructor (slot 0).
 struct Rva00299CE4Owned { virtual ~Rva00299CE4Owned(); };
@@ -281,6 +281,13 @@ public:
 	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const;
 	virtual bool ShroudHideIfFogged(int) const;
 	virtual Coord3D rva0028C08D();
+	// retail vftables 0x00BFC2B8 slots 3/4 and 0x00BFC290 slots 2/3 hold one body each (0x00299C74,
+	// 0x00299C78): the Object seen from that interface. Non-const first: VC7.1 lays an overload group
+	// out in reverse, so the const member takes the lower slot.
+	virtual void *rva00299C74() { return this; }
+	virtual void *rva00299C74() const { return (void *)this; }
+	virtual void *rva00299C78() { return this; }
+	virtual void *rva00299C78() const { return (void *)this; }
 };
 
 // ??1Object@@MAE@XZ

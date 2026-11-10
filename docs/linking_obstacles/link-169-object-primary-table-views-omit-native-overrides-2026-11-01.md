@@ -70,3 +70,11 @@ Update (2026-11-10, ancalgonn-swarm-class-object): 0x007FC2D8 slot 1. Object ove
 +0x64 interface's empty slot (`protected: virtual void opaqueSlot1() {}`) in both lifetime units;
 the 1-byte `c3` is rowed at the shared empty body 0x000B3FD0 as a verified fold (owner
 ??1Region2D@@QAE@XZ, region.cpp; fold_proof.py on both objects). Wrong secondary slots 21 -> 20.
+Update (2026-11-10, ancalgonn-swarm-class-object): the twins. Retail's 0x007FC2B8 slots 3/4 both
+hold 0x00299C74 and 0x007FC290 slots 2/3 both hold 0x00299C78 (`lea eax,[ecx-0x6C|0x70]; ret`, the
+Object seen from that interface). rename.py --to-class refuses a body in two slots of a class's own
+tables, so each pair is a const/non-const override pair (`rva00299C74`, `rva00299C78`) in both
+lifetime units, rowed as four verified folds onto the placeholder rows at those addresses
+(fold_proof.py on both objects). The const member takes the lower slot, as VC7.1 lays an overload
+group out. +0x6C slots 1-2 stay __purecall until 0x00299CBE / 0x00299CC2 move. Wrong secondary
+slots 20 -> 16.

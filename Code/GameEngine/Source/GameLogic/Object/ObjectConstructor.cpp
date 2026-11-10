@@ -233,8 +233,8 @@ public:
 	BfmeCtor001B3A20() throw();
 };
 class GeometryInfo;
-struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const = 0; };
-struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; virtual Coord3D rva0028C08D() = 0; };
+struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const = 0; virtual void *rva00299CBE() const = 0; virtual float rva00299CC2() const = 0; virtual void *rva00299C74() = 0; virtual void *rva00299C74() const = 0; };
+struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; virtual Coord3D rva0028C08D() = 0; virtual void *rva00299C78() = 0; virtual void *rva00299C78() const = 0; };
 
 template <int N> class BitFlags;
 struct CreateMask;
@@ -437,6 +437,13 @@ public:
 	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const;
 	virtual bool ShroudHideIfFogged(int) const;
 	virtual Coord3D rva0028C08D();
+	// retail vftables 0x00BFC2B8 slots 3/4 and 0x00BFC290 slots 2/3 hold one body each (0x00299C74,
+	// 0x00299C78): the Object seen from that interface. Non-const first: VC7.1 lays an overload group
+	// out in reverse, so the const member takes the lower slot.
+	virtual void *rva00299C74() { return this; }
+	virtual void *rva00299C74() const { return (void *)this; }
+	virtual void *rva00299C78() { return this; }
+	virtual void *rva00299C78() const { return (void *)this; }
 };
 
 Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, ObjectID id) :
