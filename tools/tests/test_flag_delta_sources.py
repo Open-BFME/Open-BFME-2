@@ -95,7 +95,15 @@ def test_real_hook_refuses_selector_producer_failure(hooked):
 def test_real_hook_large_global_selection_uses_bounded_chunks(hooked):
     names=[f'Code/GameEngine/Source/Common/LongDirectoryName/Unit{i:04}.cpp' for i in range(1500)]
     for source in names:write(hooked,source,'// fixture\n')
-    write(hooked,'reverse/functions.csv',HEADER+''.join(row(n) for n in names));base=commit(hooked)
+    # One matched .asm keeps the selection SHORT of full coverage, so the hook
+    # stays on its scoped path: the flag resolver selects only managed() sources
+    # (.c/.cpp under Code/), while classify_full_scope counts .asm among the
+    # providers a full build would cover. Without it the selection covers every
+    # provider and the hook runs the ordinary full build instead -- one call with
+    # no selectors -- which is what this test used to read as "no chunks at all".
+    write(hooked,ASM,'; fixture\n')
+    write(hooked,'reverse/functions.csv',HEADER+''.join(row(n) for n in names)+row(ASM))
+    base=commit(hooked)
     write(hooked,'tools/flag_defaults.py','raise SystemExit(0) # changed flags\n')
     got=push(hooked,base,commit(hooked));assert got.returncode==0,got.stderr
     import json
