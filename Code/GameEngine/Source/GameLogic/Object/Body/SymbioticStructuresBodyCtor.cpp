@@ -13,9 +13,9 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7Rva004C0A4C@@6BRva004BF951@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C0A4C@@6BMiBase1@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C0A4C@@6BRva004C0A4C_B2@@@")[];
 
 class ActiveBody
 {
@@ -51,9 +51,9 @@ private:
 SymbioticStructuresBody::SymbioticStructuresBody(Thing *thing, const ModuleData *moduleData)
 	: ActiveBody(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = __identifier("??_7Rva004C0A4C@@6BRva004BF951@@@");
+	m_p0C = __identifier("??_7Rva004C0A4C@@6BMiBase1@@@");
+	m_p10 = __identifier("??_7Rva004C0A4C@@6BRva004C0A4C_B2@@@");
 	m_108.construct();
 	m_104 = 0;
 	m_100 = 0;
