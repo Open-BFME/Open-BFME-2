@@ -1028,12 +1028,19 @@ def test_generated_placeholder_file_is_never_a_donor(tmp_path, monkeypatch):
     assert tu_map.check_fresh(layout) == []
     monkeypatch.setattr(tu_skeleton, "LAYOUT", layout)
     monkeypatch.setattr(tu_skeleton, "LEDGER", tmp_path / "reverse/functions.csv")
-    # tu_skeleton.tree() builds its refusal reader from the REAL repo root, so it
-    # reports every fixture path as "not tracked" and refuses the donor before the
-    # placeholder rule is reached. Absorption mechanics are tested elsewhere
-    # (test_tu_skeleton_split.py); what is pinned here is which files the map's
-    # approvals make candidates.
-    monkeypatch.setitem(tu_skeleton._CACHE, "tree", SimpleNamespace(refusals=lambda f, rows: ()))
+    # A fresh _CACHE, not setitem on the live one: tu_skeleton memoises the map,
+    # the ledger and approved_by_tu there for the whole process, so any earlier
+    # test file that touched the real repo leaves LAYOUT and LEDGER ignored and
+    # skeleton() returns 0 rows. That is why this passed alone and still failed
+    # in the full suite.
+    #
+    # tree() is stubbed in it because tu_skeleton builds its refusal reader from
+    # the REAL repo root, so it reports every fixture path as "not tracked" and
+    # refuses the donor before the placeholder rule is reached. Absorption
+    # mechanics are tested in test_tu_skeleton_split.py; what is pinned here is
+    # which files the map's approvals make candidates.
+    monkeypatch.setattr(tu_skeleton, "_CACHE",
+                        {"tree": SimpleNamespace(refusals=lambda f, rows: ())})
     sk = tu_skeleton.skeleton("Code/X/A.cpp")
     assert len(sk) == 2
     don, mixed, refused = tu_skeleton.donors("Code/X/A.cpp", sk)
