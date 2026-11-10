@@ -62,11 +62,7 @@ public:
 	bool rva004E9378();
 };
 
-class Rva00506FE9Hit
-{
-public:
-	void unRegisterWithBuilder(void *owner);
-};
+#include "../../../../../../Include/Common/Rva00506FE9Hit.h"
 
 class Rva00573A00
 {

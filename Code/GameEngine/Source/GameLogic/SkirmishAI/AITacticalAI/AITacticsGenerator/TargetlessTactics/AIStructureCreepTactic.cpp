@@ -361,11 +361,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Rva00506FE9Hit
-{
-public:
-	void unRegisterWithBuilder(void *owner);
-};
+#include "../../../../../../Include/Common/Rva00506FE9Hit.h"
 
 class Rva004E9378
 {

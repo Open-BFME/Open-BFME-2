@@ -1,0 +1,94 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00506FE9Hit",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "40": 1
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 40,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "v0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "v4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "v5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "v6(void*,int)"
+  }
+ }
+}

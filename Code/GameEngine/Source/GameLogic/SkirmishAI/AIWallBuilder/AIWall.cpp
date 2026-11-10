@@ -223,7 +223,7 @@ public:
 	const CommandButton *m_30;	// +0x30 the button
 };
 
-class Rva00506FE9Hit { public: void unRegisterWithBuilder(void *); };
+#include "../../../../Include/Common/Rva00506FE9Hit.h"
 
 // Existing owned predicate4E9378 tests order state10 for 2 or 3.
 class Rva004E9378 { public: bool rva004E9378(); };

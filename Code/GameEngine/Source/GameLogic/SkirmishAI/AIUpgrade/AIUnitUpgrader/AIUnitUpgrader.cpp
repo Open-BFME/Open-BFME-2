@@ -73,7 +73,7 @@ int GetGameLogicRandomValue(int,int,char *,int);
 // WB 0x01528530 asserts140..154. This receiver has owner+20 and only
 // two vectors; Register/UnRegister use the distinct owner+2C view.
 // Keep its neutral address name until a complete class relationship is proven.
-class Rva00506FE9Hit { public: void unRegisterWithBuilder(void *); };
+#include "../../../../../Include/Common/Rva00506FE9Hit.h"
 
 class Rva004E9378 { public: bool rva004E9378(); };
 

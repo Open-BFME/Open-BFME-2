@@ -88,7 +88,7 @@ class Player;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct Rva00598961Template {char pad00[0x113];unsigned char field113;};
-class Rva00506FE9Hit {public:void unRegisterWithBuilder(void*);};
+#include "../../../../Include/Common/Rva00506FE9Hit.h"
 class Rva00598C3AItem
 {
 public:

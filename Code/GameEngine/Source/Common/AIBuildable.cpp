@@ -24,11 +24,7 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva00506FE9Hit
-{
-public:
-	void unRegisterWithBuilder(void *owner);
-};
+#include "../../Include/Common/Rva00506FE9Hit.h"
 
 // ?failBuild@Rva0055ADD8@@QAEHH@Z @ 0x0055ADD8, 10 bytes.
 // Thunk forwarding constant 3 to vtable slot 7 ignoring its int arg.
