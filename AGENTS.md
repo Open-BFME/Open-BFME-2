@@ -327,7 +327,12 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
    no `partial`. Commit a handoff under `reverse/attempt_support/` for
    substantive `blocked` or `partial` attempts. Read prior entries before
    retrying any function.
-5. Publish per the rules above.
+5. A record never takes a commit of its own. A `re_log.py` line, a handoff or
+   an obstacle entry rides in the commit of the change it describes; records
+   of attempts that changed nothing (blocked, partial, false rejects) go in
+   one records commit per push, after the last change. A push of records alone
+   waits for the next change push or the end of the session.
+6. Publish per the rules above.
 
 ## Lanes and tools
 
