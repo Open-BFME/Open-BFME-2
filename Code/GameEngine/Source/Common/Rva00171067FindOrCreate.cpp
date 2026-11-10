@@ -73,14 +73,7 @@ __declspec(noinline) inline Rva00170999 __cdecl Rva00170A58Get(const AssetRefere
 	return Rva00170999(a, d);
 }
 
-struct Rva00170EFENode
-{
-	unsigned int _color;
-	Rva00170EFENode *_parent;
-	Rva00170EFENode *_left;
-	Rva00170EFENode *_right;
-	char _val10[0x14];
-};
+#include "../../Include/Common/Rva00170EFENode.h"
 
 struct Rva00170EFEIter
 {

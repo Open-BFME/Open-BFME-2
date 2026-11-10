@@ -43,14 +43,7 @@ public:
 	Rva00170999(const AssetReference &a, const Rva00170999Data &d);
 };
 
-struct Rva00170EFENode
-{
-	unsigned int _color;
-	Rva00170EFENode *_parent;
-	Rva00170EFENode *_left;
-	Rva00170EFENode *_right;
-	char _val10[0x14];
-};
+#include "../../Include/Common/Rva00170EFENode.h"
 
 struct Rva00170EFEIter
 {
