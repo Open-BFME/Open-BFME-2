@@ -59,7 +59,7 @@ extern "C" void *theLogicRandomLogFile;
 	}
 #include "../../../Include/GameLogic/LocomotorClass.h"
 #include "../../../Include/GameLogic/AIStateMachineClass.h"
-class Rva00346FA5 { public: void *rva00346FA5(Int index) const; };
+#include "../../../Include/Common/Rva00346FA5.h"
 class LocomotorSet;
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {

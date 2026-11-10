@@ -46,11 +46,7 @@ template <> class GiantBirdPathSlots<0>
 {
 };
 
-class Rva00346FA5
-{
-public:
-	void *rva00346FA5(int index) const;
-};
+#include "../../../../../Include/Common/Rva00346FA5.h"
 
 
 #include "../../../../Common/Thing/thing.h"

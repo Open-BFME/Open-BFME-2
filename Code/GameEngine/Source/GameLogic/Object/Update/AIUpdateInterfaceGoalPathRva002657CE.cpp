@@ -70,7 +70,7 @@ struct GoalPathVector
 };
 
 // Rowed goal-path accessor 0x00346FA5 (its pin names AIStateMachine::getGoalPathPosition).
-class Rva00346FA5 { public: void *rva00346FA5(Int index) const; };
+#include "../../../../Include/Common/Rva00346FA5.h"
 
 class AIStateMachine
 {

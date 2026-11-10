@@ -598,11 +598,7 @@ private:
 // An enclosing container's contain module (Object +0x250), slot 77.
 // The AI's locomotor-goal slots (132 and 135), as AIFaceStateUpdate.cpp views them.
 // The AI's goal path (+0x30): position by index (0x00346FA5).
-class Rva00346FA5
-{
-public:
-	void *rva00346FA5(Int index) const;
-};
+#include "../../../Include/Common/Rva00346FA5.h"
 
 class Rva0034E3A5Helper
 {

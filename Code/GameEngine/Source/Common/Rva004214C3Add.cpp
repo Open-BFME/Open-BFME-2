@@ -12,11 +12,7 @@ public:
 	StringBase<char> m_name;
 };
 
-struct Rva00421263Vec
-{
-	const ModuleData **m_begin;
-	const ModuleData **m_end;
-};
+#include "../../Include/Common/Rva00421263Vec.h"
 
 class LightPointSystem { public: const ModuleData *rva00421263(const Rva00421263Vec *, const StringBase<char> &) const; };
 

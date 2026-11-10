@@ -45,7 +45,7 @@ public:
 Rva004211CA::Rva004211CA() : m_name(), m_label(), m_values() {}
 #include "../../../Include/Common/INI/FieldParse.h"
 class ModuleData;
-struct Rva00421263Vec { const ModuleData **begin, **end; };
+#include "../../../Include/Common/Rva00421263Vec.h"
 class INI;
 class LightPointSystem
 {
