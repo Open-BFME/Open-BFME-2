@@ -2,6 +2,7 @@
 every doubt widens the set or falls back to the full gate."""
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -410,13 +411,23 @@ def test_a_data_ledger_under_a_miscased_directory_is_refused(repo, capsys):
 
 def receipt(repo, source, deps, path=None):
     """The build/match/*.deps.json build.py writes for `source` after compiling it
-    (tools/build.py _write_deps_sidecar), hashing the working tree now."""
+    (tools/build.py _write_deps_sidecar), hashing the working tree now.
+
+    Dependency keys carry the HOST separator, because that is what build.py
+    records: it keys each dep on `os.path.relpath(host, ROOT)`. Writing `\\`
+    unconditionally described a Windows receipt, which header_dependents cannot
+    resolve on POSIX -- `ROOT / "vendor\\lib\\a.h"` is one filename that does not
+    exist, so its digest came back None, every unit with a recorded dep counted
+    as having a stale receipt, and the vendored bound degenerated to "every
+    unit". build/match is untracked scratch, so a receipt never crosses hosts and
+    the tool is right not to accept a foreign separator.
+    """
     def md5(rel):
         return hashlib.md5((repo / rel).read_bytes()).hexdigest()
     target = H.receipt_path(source)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps({"cmd": "x", "source": md5(source), "path": path or source,
-                                  "deps": {dep.replace("/", "\\"): md5(dep) for dep in deps}}))
+                                  "deps": {dep.replace("/", os.sep): md5(dep) for dep in deps}}))
 
 
 def vendored_base(repo, extra=None):
