@@ -272,6 +272,9 @@ protected:
 	// retail vftable slots 1 and 2 (0x00BFC300) both hold 0x0047A6A9, `return this`
 	virtual Object *asObjectMeth() { return this; }
 	virtual const Object *asObjectMeth() const { return this; }
+protected:
+	// retail vftable 0x00BFC2D8 slot 1 holds the shared empty body 0x000B3FD0
+	virtual void opaqueSlot1() {}
 public:
 	// retail vftable 0x00BFC2D8 slots 3-5 and 0x00BFC290 slot 1: the rowed overrides
 	virtual void rva002941EA(int *, float *, float *, float *);

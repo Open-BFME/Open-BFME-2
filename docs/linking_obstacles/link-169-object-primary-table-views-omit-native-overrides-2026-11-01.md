@@ -66,3 +66,7 @@ units unchanged. Section by section against the parent-built object the only new
 the vector constructor iterator `??_H@YGXPAXIHP6EPAX0@Z@Z`, equal to retail 0x00001423
 (34 bytes, no relocations) and already emitted by both lifetime units (Matrix3DData.h's
 `Vector4 Row[3]`); no vftable, vbtable, thunk or other inline body is emitted.
+Update (2026-11-10, ancalgonn-swarm-class-object): 0x007FC2D8 slot 1. Object overrides the
++0x64 interface's empty slot (`protected: virtual void opaqueSlot1() {}`) in both lifetime units;
+the 1-byte `c3` is rowed at the shared empty body 0x000B3FD0 as a verified fold (owner
+??1Region2D@@QAE@XZ, region.cpp; fold_proof.py on both objects). Wrong secondary slots 21 -> 20.
