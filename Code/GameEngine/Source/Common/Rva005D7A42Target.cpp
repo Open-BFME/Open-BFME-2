@@ -16,7 +16,7 @@ extern GameLogic *TheGameLogic;
 class Rva005C4AD1LeaField {public:void *get()const;};
 struct Rva005D7A42Store {char pad[8];Rva005C4AD1LeaField*owner;};
 struct Rva005D7A42IDs {ObjectID*begin;ObjectID*end;ObjectID*limit;};
-class Rva005EE816 {public:bool rva005EE8DD(const Coord3D*,Object*);};
+#include "../../Include/Common/Rva005EE816.h"
 class Rva005D7A42 {public:bool rva005D7A42(Object*source);};
 // ?rva005D7A42@Rva005D7A42@@QAE_NPAVObject@@@Z
 bool Rva005D7A42::rva005D7A42(Object*source){

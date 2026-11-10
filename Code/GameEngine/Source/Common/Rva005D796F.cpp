@@ -76,11 +76,7 @@ public:
 	void *get() const;
 };
 
-class Rva005EE816
-{
-public:
-	bool rva005EE8DD(const Coord3D *a, Object *b);
-};
+#include "../../Include/Common/Rva005EE816.h"
 
 class Rva005D791C
 {
