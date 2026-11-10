@@ -48,16 +48,7 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
-class Rva002614ECFilter : public Rva000421C8
-{
-public:
-	Rva002614ECFilter(const void *what, Player *player, bool match)
-		: m_what(what), m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	const void *m_what;
-	Player *m_player;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva002614ECFilter.h"
 #include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

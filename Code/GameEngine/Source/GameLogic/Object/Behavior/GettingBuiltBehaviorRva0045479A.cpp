@@ -15,12 +15,7 @@
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-class Rva002614ECFilter : public Rva000421C8 {
-public:
- Rva002614ECFilter(const void *f,Player *player,bool m):m_what(f),m_player(player),m_match(m){}
- virtual bool allow(Object *);
- const void *m_what;Player *m_player;bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva002614ECFilter.h"
 class Rva0045342FBody {
 public:
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();

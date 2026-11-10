@@ -9,16 +9,7 @@ class Player;
 #include "../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
 // player, +0x10 whether a hit allows.
-class Rva002614ECFilter : public Rva000421C8
-{
-public:
-	Rva002614ECFilter(const void *what, Player *player, bool match)
-		: m_what(what), m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	const void *m_what;
-	Player *m_player;
-	bool m_match;
-};
+#include "../../Include/GameLogic/Rva002614ECFilter.h"
 // An ObjectStatusMaskType view: 128 bits, zeroed then set bit by bit.
 struct Rva00491FA6Mask
 {
