@@ -62,11 +62,14 @@ public:
 	// constructors in reverse of this order, so this order keeps adopters'
 	// objects as they are today. The four N=11 bodies (0x003B31AD,
 	// 0x00481B7F, 0x005CBA5F, 0x005E5963) are spread across .text, so
-	// retail's bytes do not fix it.
-	BitFlags(BogusInitType, int bit);
-	BitFlags(BogusInitType, int bit1, int bit2);
-	BitFlags(BogusInitType, int bit1, int bit2, int bit3, int bit4);
-	BitFlags();
+	// retail's bytes do not fix it. They are declared throw(): two units'
+	// constructors (GlobalWeatherSystem, Made002CC64B) match retail only when
+	// a BitFlags member's construction adds no unwind state, and every other
+	// adopter builds the same either way.
+	BitFlags(BogusInitType, int bit) throw();
+	BitFlags(BogusInitType, int bit1, int bit2) throw();
+	BitFlags(BogusInitType, int bit1, int bit2, int bit3, int bit4) throw();
+	BitFlags() throw();
 
 	bool test(int bit) const
 	{
