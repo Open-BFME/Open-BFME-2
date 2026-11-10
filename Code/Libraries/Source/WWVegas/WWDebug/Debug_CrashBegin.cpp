@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Oy-
+// platformsdk
 //
 // Debug::CrashBegin, retail 0x0003AD80 (329 bytes, ret 0x0C).
 // Ported from Open-BFME-1 WWDebug/Debug_CrashBegin_0088BA10.cpp (2-arg
@@ -47,11 +48,10 @@
 //   no direct E8 caller in .text (release asserts compile out) — the vtable
 //   reference is what keeps the body alive. This TU leaves CrashBegin
 //   non-virtual like the BFME1 TU: no body bytes depend on it.
+#include <windows.h>
 #include <string.h>
 
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTimeFormatA(
-	unsigned long, unsigned long, const void *, const char *, char *, int);
 
 struct DebugIOInterface
 {
