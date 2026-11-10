@@ -36,19 +36,24 @@ void **vector<void*>::end()
 { return _M_finish; }
 }
 
+// Base SpecialAbilityUpdateModuleData ctor is already adopted in the ctor TU;
+// its dtor 0x0044ECCE is still rowed under Rva0044ECCE, so inherit ModuleData
+// directly until 0x0044ECCE is rehomed to ~SpecialAbilityUpdateModuleData.
+#include "../../../../Include/Common/ModuleData.h"
+
 class Rva004B2B2F
 {
 public:
 	~Rva004B2B2F();
 };
 
-class Rva0044ECCE
+class Rva0044ECCE : public ModuleData
 {
 public:
 	virtual ~Rva0044ECCE();
 
 private:
-	unsigned char m_pad[0xC8 - 4];
+	unsigned char m_pad[0xC8 - 8];
 };
 
 class ReplaceObjectUpdateModuleData : public Rva0044ECCE
