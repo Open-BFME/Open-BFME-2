@@ -419,7 +419,6 @@ Code/GameEngine/Source/Common/BfmeConv455.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeConv458.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeConv465.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeConv468.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/BfmeConv470.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeConv472.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeConv479.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeConv482.cpp,yes,0,0,0,0,0
@@ -3991,10 +3990,6 @@ Code/GameEngine/Source/Common/Rva0046247DCondPair.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00468520Set.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00468E98Rotate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00469075Setter.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00469124Xfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004691A5Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00469294Find.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00469B73Call.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00469BEAConstruct.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00469BEACtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00469C07Free.cpp,yes,0,0,0,0,0
@@ -4005,12 +4000,10 @@ Code/GameEngine/Source/Common/Rva0046A915Clear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046A93EClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046A9D2Free.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0046AB7DClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046AC30.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046AC52.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046E455.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046E6EA.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0046E7C2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0046EFDBXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00470222Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004703E0Finish.cpp,yes,0,0,0,0,0
@@ -8868,7 +8861,6 @@ Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupAdd.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIGroupChain00472B54.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupFormations.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupGetCommandButtonSourceObject.cpp,yes,0,0,0,0,0
@@ -9804,22 +9796,18 @@ Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainChangeToFormation.cp
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainDissolveComboHorde.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainFormationPosition.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIdMapGetOrInsert.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface24Slot0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainMovementPosition.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainOnDelete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseMeleeBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseRankCollections.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseSplitResult.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainPoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRankInfoCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046A10D.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046A893.cpp,yes,0,0,0,0,0
@@ -9928,10 +9916,7 @@ Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466C04Heal.cpp,yes,0,0,0,0,
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466C94.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D50Capacity.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D93ExitReserve.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/Rva00468FB4Xfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/Rva004697E1Gate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046CE9DFinish.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D733Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D738.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D946Closest.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046DA6BDraw.cpp,yes,0,0,0,0,0
@@ -10166,7 +10151,6 @@ Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelperDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper_Rva002927f8.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Helper/ObjectWeaponStatusHelperCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/HordeContainParseComboHorde.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/HordeMeleeAmoebaXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp,yes,0,0,0,0,0
@@ -10563,7 +10547,6 @@ Code/GameEngine/Source/GameLogic/Object/Rva0041E6BECtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva0041E732Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva0041E764Find.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva0043B278Do.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004884B7Check.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva0048B9D0Replace.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp,yes,0,0,0,0,0
@@ -13081,7 +13064,6 @@ Code/GameEngine/Source/GameNetwork/Rva0023E928Getter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva0025E5F4RelayCommands.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva00318333.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva0037BADDGameInfoCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/Rva0046E30BLowerBound.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva004CEEE8Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva004CF35DFunc.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva004CFEB9.cpp,yes,0,0,0,0,0
@@ -16377,7 +16359,6 @@ Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00424709.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004274C7.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004390F7.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00469C85.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00469D1A.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004DAA9E.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004E1D4E.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004E7F83.cpp,yes,0,0,0,0,0
@@ -16907,7 +16888,6 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_nocase4_create_node_002FE8AA.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_nocase4_insert_002FEC97.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_construct.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_copy.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_filln.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp,no,0,0,1,0,0
