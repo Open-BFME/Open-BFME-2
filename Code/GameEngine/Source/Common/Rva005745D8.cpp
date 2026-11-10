@@ -23,11 +23,7 @@ class Rva002E0CD4
 public:
 	int get() const;
 };
-class Rva002E0C2B
-{
-public:
-	int rva002E0C2B();
-};
+#include "../../Include/Common/Rva002E0C2B.h"
 class Rva002E063B
 {
 public:

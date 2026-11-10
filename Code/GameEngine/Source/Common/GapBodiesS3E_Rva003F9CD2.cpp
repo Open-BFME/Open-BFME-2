@@ -129,11 +129,7 @@ void parseEyeTowerDefinition(INI *ini)
 // percentage bonus factor (value * 0.01 + 1). No call to it survives in the
 // image; the anchor below only forces cl to emit it in that convention.
 // Identity unproven; address-derived names.
-class Rva002E0C2B
-{
-public:
-	int rva002E0C2B();
-};
+#include "../../Include/Common/Rva002E0C2B.h"
 
 static __declspec(noinline) float Rva005742B3(Rva002E0C2B *owner)
 {

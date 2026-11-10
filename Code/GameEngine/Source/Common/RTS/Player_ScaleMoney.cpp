@@ -23,11 +23,7 @@ class Rva002E2903Player;
 
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002E0C2B
-{
-public:
-	int rva002E0C2B();
-};
+#include "../../../Include/Common/Rva002E0C2B.h"
 
 inline int Rva002A9E36RealToInt(float a)
 {
