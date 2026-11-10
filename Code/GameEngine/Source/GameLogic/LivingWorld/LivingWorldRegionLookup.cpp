@@ -10,11 +10,7 @@ struct Rva0020FAB4Ret
 	unsigned char m_1a2;
 };
 
-class Rva0020EE29
-{
-public:
-	void *rva0020FAB4(int a1, int a2);
-};
+#include "../../../Include/GameLogic/Rva0020EE29.h"
 
 class Rva002BA8F1Logic
 {

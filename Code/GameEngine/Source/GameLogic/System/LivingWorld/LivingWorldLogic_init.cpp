@@ -33,7 +33,7 @@ class Rva003F812C { public: void rva003F812C(); };
 class Rva002B5522 { public: void rva002B5522(); };
 class Rva002B7B25 { public: void rva002B7B25(); };
 class Rva002B7B71 { public: void rva002B7B71(); };
-class Rva0020EE29 { public: void rva0020F795(); };
+#include "../../../../Include/GameLogic/Rva0020EE29.h"
 class Glo012F1028Type { public: void rva002B7D91(); };
 class Rva002B7C74 { public: void rva002B7C74(); };
 class Rva002B6900 { public: void rva002B6900(); };

@@ -67,11 +67,7 @@ class Rva0020EAF6View
 public:
 	Rva0020E89C *rva0020EAF6(int);
 };
-class Rva0020EE29
-{
-public:
-	void rva002101C6(void *);
-};
+#include "../../../../Include/GameLogic/Rva0020EE29.h"
 struct RegionCampaignView
 {
 	AsciiString name;

@@ -19,11 +19,7 @@ class Rva00318C32Ret;
 class Coord2D;
 #include "../../Include/GameLogic/LivingWorldArmy.h"
 
-class Rva0020EE29
-{
-public:
-	void *rva0020FAEA(float *buf, void *hint);
-};
+#include "../../Include/GameLogic/Rva0020EE29.h"
 
 class Rva002B2757B0;
 

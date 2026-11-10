@@ -40,7 +40,7 @@ namespace _STL {
 template <> Gen_p12pod *vector<Gen_p12pod, allocator<Gen_p12pod> >::erase(Gen_p12pod *, Gen_p12pod *);
 }
 
-class Rva0020EE29 { public: void rva0020F795(); };
+#include "../../../../Include/GameLogic/Rva0020EE29.h"
 class Rva002B7C74 { public: void rva002B7C74(); };
 class Rva002B4CED { public: void rva002B753B(); };
 class Rva002B7B25 { public: void rva002B7B25(); };

@@ -1,11 +1,7 @@
 // cl: /O1 /MD
 // ?rva002B36BE@Rva002B36BE@@QAEXPAX0_N@Z @0x002B36BE 53B.
 // 0x0020F832 is rowed on Rva0020EE29.
-class Rva0020EE29
-{
-public:
-	bool rva0020F832(void *a1, void *a2);
-};
+#include "../../Include/GameLogic/Rva0020EE29.h"
 
 class Rva002B296F
 {

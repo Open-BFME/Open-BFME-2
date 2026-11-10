@@ -44,7 +44,7 @@ namespace _STL {
  template<>void vector<const ModuleData*,allocator<const ModuleData*> >::reserve(unsigned int);
  template<>void vector<const ModuleData*,allocator<const ModuleData*> >::push_back(const ModuleData*const&);
 }
-class Rva0020EE29 {public:void rva002100E6(void*,void*);};
+#include "../../../Include/GameLogic/Rva0020EE29.h"
 void Rva0020EE29::rva002100E6(void*arg,void*range){
  Xfer*xfer=(Xfer*)arg;
  _STL::vector<const ModuleData*>&battles=*(_STL::vector<const ModuleData*>*)range;

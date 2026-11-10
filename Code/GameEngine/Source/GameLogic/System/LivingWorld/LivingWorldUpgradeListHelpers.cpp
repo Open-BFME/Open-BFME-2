@@ -44,11 +44,7 @@ void __stdcall rva0020ED51(void *list, int player, int flag)
 	}
 }
 
-class Rva0020EE29
-{
-public:
-	void rva0020ED8E(void *owner, void *player);
-};
+#include "../../../../Include/GameLogic/Rva0020EE29.h"
 
 void Rva0020EE29::rva0020ED8E(void *ownerWord, void *player)
 {

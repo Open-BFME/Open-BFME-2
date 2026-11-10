@@ -14,11 +14,7 @@ public:
 	int m_12C;
 };
 
-class Rva0020EE29
-{
-public:
-	void *rva0020FAEA(float *a1, void *a2);
-};
+#include "../../Include/GameLogic/Rva0020EE29.h"
 
 class Rva002BA8F1Logic
 {

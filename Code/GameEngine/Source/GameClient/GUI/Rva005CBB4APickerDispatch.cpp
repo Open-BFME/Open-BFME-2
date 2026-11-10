@@ -9,7 +9,7 @@
 // Named lookup-result locals reproduce target callback evaluation order.
 // The pointer-result ABI repair is verified in the canonical owner units.
 class Rva005CBB0A {public:void *rva005CBB0A(void *,const int*);};
-class Rva0020EE29 {public:void *rva0020FAB4(int,int);};
+#include "../../../Include/GameLogic/Rva0020EE29.h"
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 struct PickerWorldView {char pad[0xb0];Rva0020EE29 *lookup;};
 struct PickerRecordView {char pad[0x38];void *child;};
