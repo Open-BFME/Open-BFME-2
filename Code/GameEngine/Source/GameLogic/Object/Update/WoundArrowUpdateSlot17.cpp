@@ -44,12 +44,7 @@ class AIUpdateInterfaceHead
 };
 
 
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-	bool testBit7() const { return ((*(const unsigned int *)get() >> 7) & 1) != 0; }
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 class Rva0010CBits
 {

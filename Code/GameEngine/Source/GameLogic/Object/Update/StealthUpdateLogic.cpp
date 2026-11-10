@@ -353,11 +353,7 @@ public:
 	bool test(const void *other) const;
 };
 // The Object+0x370 address getter 0x0028B7AE.
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 extern PartitionManager *ThePartitionManager;
 
