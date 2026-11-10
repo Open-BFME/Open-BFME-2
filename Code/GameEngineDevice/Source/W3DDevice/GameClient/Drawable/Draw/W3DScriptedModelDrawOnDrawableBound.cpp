@@ -113,7 +113,7 @@ int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-class Rva000BFDFE { public: void rva000C0386(); };
+#include "../../../../../../GameEngine/Include/Common/Rva000BFDFE.h"
 extern const char *animationModeNames[];
 
 // The playing animation's slot views: name (2), frame count (5), total

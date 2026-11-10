@@ -153,11 +153,7 @@ class W3DScriptedModelDraw
 public:
 	void rva000B710D(Matrix3D &mtx);
 public: void rva000BD6C2(); };
-class Rva000BFDFE
-{
-public:
-	void rva000C0386();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva000BFDFE.h"
 class Rva000B3B2BArg;
 class Rva000B3B2B
 {

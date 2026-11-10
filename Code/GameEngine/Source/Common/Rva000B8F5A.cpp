@@ -25,7 +25,7 @@ public:
 };
 
 class Matrix3D;struct Coord3D;class Object;
-class Rva000BFDFE { public: void rva000C0386(); }; // rowed 0x000C0386
+#include "../../Include/Common/Rva000BFDFE.h"
 class ModelConditionFlags;
 #include "../../Include/GameClient/Drawable.h"
 class FXList {public:static void doFXObj(const FXList*,const Object*,const Object*);static void doFXPos(const FXList*,const Coord3D*,const Matrix3D*,float,const Coord3D*);};

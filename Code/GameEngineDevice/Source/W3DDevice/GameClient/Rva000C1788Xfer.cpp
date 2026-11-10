@@ -44,7 +44,7 @@ public:
 };
 
 
-class Rva000BFDFE { public: void rva000C0386(); };
+#include "../../../../GameEngine/Include/Common/Rva000BFDFE.h"
 
 class Rva000C1788
 {
