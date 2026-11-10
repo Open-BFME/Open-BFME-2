@@ -4232,6 +4232,45 @@ def verify_float_refs(rows):
     print(f"Float-ref verify: OK ({checked} compiler literals verified)")
 
 
+# Exports one DLL implements with one body under two names. game.dat's import
+# directory was rebuilt after link (an appended section, OriginalFirstThunk = 0
+# in all 23 descriptors); the rebuilder named each bound slot after one export
+# at its address, so retail's ntohl and ntohs slots read htonl and htons, beside
+# the genuine htonl and htons slots (reverse/attempt_support/
+# wsock32_ntohl_ntohs_import_slots.md). A linker gives one import one slot.
+REBUILT_IMPORT_PARTNERS = {
+    "wsock32.dll": (("htonl", "ntohl"), ("htons", "ntohs")),
+}
+
+
+def rebuilt_import_partner(symbol, slot, imports):
+    """(partner, twin slot) when SYMBOL may name the shared-body partner at SLOT.
+
+    The evidence must be in the target's own table: SLOT's DLL lists the pair,
+    the table spells SLOT's name on exactly one other slot of that DLL (the
+    duplicate-hint pattern), it spells the partner on none, and the source's
+    COFF import name is the partner. The table cannot say which of the two
+    slots is the partner; verify_import_refs refuses a run that gives both
+    slots the partner. Anything else returns None.
+    """
+    from pe_imports import coff_import_names
+
+    entry = imports.get(slot)
+    if entry is None or entry.name is None:
+        return None
+    dll = entry.dll.lower()
+    partner = next((b if a == entry.name else a
+                    for a, b in REBUILT_IMPORT_PARTNERS.get(dll, ())
+                    if entry.name in (a, b)), None)
+    if partner is None or partner not in coff_import_names(symbol):
+        return None
+    same_dll = [(other, e) for other, e in imports.items() if e.dll.lower() == dll]
+    twins = [other for other, e in same_dll if other != slot and e == entry]
+    if len(twins) != 1 or any(e.name == partner for _, e in same_dll):
+        return None
+    return partner, twins[0]
+
+
 def verify_import_refs(rows):
     """Check imported call/data identities independently of copied DIR32s.
 
@@ -4239,6 +4278,8 @@ def verify_import_refs(rows):
     InterlockedIncrement. Read the PE's own import directory, then require
     the source's COFF import name at each referenced IAT slot. No address
     pin, function-name alias, or ordinal-only guess can satisfy this check.
+    The one exception is a rebuilt table's duplicate slot of a shared-body
+    pair (rebuilt_import_partner), and then only one twin is the partner.
     """
     from pe_imports import coff_import_names, read_imports
 
@@ -4247,6 +4288,7 @@ def verify_import_refs(rows):
     except ValueError as exc:
         raise SystemExit(f"Import-ref verify: FAIL unreadable PE imports: {exc}")
     checked, mismatches = 0, []
+    partners = {}   # slot taken as its partner -> (partner, twin slot, first row)
     object_paths = RowObjectPaths(require_row_object)
     for row in rows:
         obj = object_paths.get(row)
@@ -4272,12 +4314,25 @@ def verify_import_refs(rows):
                 if entry is not None and entry.name in coff_import_names(symbol):
                     checked += 1
                     continue
+                shared = rebuilt_import_partner(symbol, slot, imports)
+                if shared is not None:
+                    checked += 1
+                    partners.setdefault(slot, (*shared, row["name"]))
+                    continue
                 actual = (f"{entry.dll}!{entry.name or ('ordinal ' + str(entry.ordinal))}"
                           if entry is not None else "not a declared IAT slot")
                 mismatches.append((row["name"], symbol, f"0x{slot:08X}: {actual}"))
             except struct.error as exc:
                 mismatches.append((row["name"], symbol, f"unverifiable: {exc}"))
     object_paths.check()
+    # The table cannot say which twin is the partner, but only one can be. A
+    # caller still spelling the rebuilt name passes on the table name (C++
+    # dllimport sites read htonl at the ntohl slot 0x00BBA9A4 today).
+    for slot, (partner, twin, name) in sorted(partners.items()):
+        other = partners.get(twin)
+        if other is not None and other[0] == partner:
+            mismatches.append((name, partner, f"0x{slot:08X}: its twin 0x{twin:08X} "
+                               f"is {partner} too ({other[2]})"))
     if mismatches:
         print(f"Import-ref verify: FAIL {len(mismatches)} mismatch(es)")
         for name, symbol, detail in mismatches[:20]:
