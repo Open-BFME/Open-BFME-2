@@ -81,12 +81,7 @@ public:
 	virtual TreeHintRef00217D4C GetHint();
 };
 
-class RadarWindowOverrideSource
-{
-public:
-	void ShowHelpBox(const TreeHintRef00217D4C &hint);
-	void rva002D370A();
-};
+#include "../../Include/Common/RadarWindowOverrideSource.h"
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 

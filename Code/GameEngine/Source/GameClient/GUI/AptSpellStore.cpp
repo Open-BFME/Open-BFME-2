@@ -252,11 +252,7 @@ extern int g_Va00E03314;
 // Rva0050E9D3Enable.cpp's guarded singleton; its +4 byte enables the store.
 void *Rva0043C9B3Get(void);
 // TheAptPalantir's BFME 2 counterpart (RadarWindowOverride.cpp).
-class RadarWindowOverrideSource
-{
-public:
-	bool hasOverrideWindow() const;
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 // Further screens that keep the store closed while up
 // (ColdGlobalDwordGetters.cpp, AptDisconnectScreen.cpp).

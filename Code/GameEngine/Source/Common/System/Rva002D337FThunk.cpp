@@ -6,11 +6,7 @@
 // into ECX first, so it is a member that does not use this.
 void __cdecl setHideScroll();
 void __cdecl hideSpellBook();
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D337F();
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 void RadarWindowOverrideSource::rva002D337F()
 {
 	setHideScroll();

@@ -849,11 +849,7 @@ struct ShortcutTimerView
 };
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D370A();
-};
+#include "../../../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 // Command-set/button node for the +0x2C list: next link at +0x18 and the
 // reset-cleared word at +0xF8. Reached as Overridable only for the

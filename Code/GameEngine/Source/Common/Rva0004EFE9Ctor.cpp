@@ -38,11 +38,7 @@ private:
 	RadarEventRef *m_ref; // +0x00
 };
 
-class RadarWindowOverrideSource
-{
-public:
-	RadarEventRefSlot rva002D508B(const char *name);
-};
+#include "../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 // The owner's +0x1500 snapshot list (Rva0004EFE9Dtor.cpp): a node is

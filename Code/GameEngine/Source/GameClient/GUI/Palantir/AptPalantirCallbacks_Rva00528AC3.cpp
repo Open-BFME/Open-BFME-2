@@ -141,17 +141,7 @@ struct AptPalantirLODView
 
 // The radar window override at +0x58 (RadarWindowOverride.cpp's class);
 // vslot 14 refreshes it.
-class RadarWindowOverrideSource
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13();
-	virtual void v14();
-
-	void rva002D35F2();
-};
+#include "../../../../Include/Common/RadarWindowOverrideSource.h"
 
 // The three Apt sub-movie holders at +0xC4, +0xC8 and +0xCC (each rowed
 // with its own clear).

@@ -50,12 +50,7 @@ class DisconnectMenu;
 extern DisconnectMenu *TheDisconnectMenu;
 
 struct TreeHintRef00217D4C;
-class RadarWindowOverrideSource
-{
-public:
-	void ShowHelpBox(const TreeHintRef00217D4C &hint);
-	void rva002D370A();
-};
+#include "../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 class Rva002D36D8
 {

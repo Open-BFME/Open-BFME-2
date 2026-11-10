@@ -100,12 +100,7 @@ extern GameWindowManager *TheWindowManager;
 // purely from this call site: a global object (VA 0xDFF028) whose
 // [this+0x10] sub-object exposes a 3-bit flag test (0x2D35D6, returns
 // Bool) and a cached pointer (0x2D35CF, returns void*).
-class RadarWindowOverrideSource
-{
-public:
-	Bool hasOverrideWindow( void ) const;
-	GameWindow *getOverrideWindow( void ) const;
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 

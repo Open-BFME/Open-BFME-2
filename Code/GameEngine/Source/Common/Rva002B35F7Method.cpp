@@ -12,11 +12,7 @@ struct Rva002B3740Item
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D3772(int a, float b);
-};
+#include "../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 // g_00BCEAFC was the retail address alias (RVA 0x007CEAFC) of the constant 7.0f; the literal is the source.
 

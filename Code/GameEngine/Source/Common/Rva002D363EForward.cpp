@@ -7,11 +7,7 @@
 // to pinned 0x00529FBE (+0x8c) and pinned 0x005288BD (+0x90). Honest
 // address-derived names; sub-object identities unproven.
 
-class RadarWindowOverrideSource
-{
-public:
-	bool hasOverrideWindow() const;
-};
+#include "../../Include/Common/RadarWindowOverrideSource.h"
 
 // LINK: the three forwarded calls bind their rowed owners: 0x0052A287 Rva0052A287::rva0052A287(Obj0052A22C*),
 // 0x00529FBE PalantirCommandInterface::rva00529FBE(), 0x0052854C Rva0052854C::rva0052854C(Rva0052854CArg*).

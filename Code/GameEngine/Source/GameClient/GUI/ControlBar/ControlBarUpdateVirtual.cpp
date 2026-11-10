@@ -18,7 +18,7 @@ class CommandButton;
 class GameClient;
 class GameWindowManager;
 class PlayerList;
-class RadarWindowOverrideSource { public: void rva002D370A(); };
+#include "../../../../Include/Common/RadarWindowOverrideSource.h"
 // GameClient.cpp defines this singleton as GameClient*. Access its frame
 // slot through the explicitly measured dispatch view below.
 extern GameClient *TheGameClient;
