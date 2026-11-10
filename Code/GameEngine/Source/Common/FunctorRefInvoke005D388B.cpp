@@ -9,16 +9,12 @@
 // Retail's zeroed [ebp-4] is the returned-object flag MSVC keeps for a
 // value type with a destructor. Caller 0x005D3AB2 passes a local result.
 // The value type and owner stay address-derived.
-class exception
-{
-public:
-	__declspec(dllimport) exception();
-	virtual ~exception();
-private:
-	const char *m_what;
-	int m_doFree;
-};
-class FunctorNotSet : public exception
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <exception>
+#undef _CRTIMP
+#define _CRTIMP
+class FunctorNotSet : public std::exception
 {
 public:
 	__declspec(dllimport) __forceinline FunctorNotSet() {}
