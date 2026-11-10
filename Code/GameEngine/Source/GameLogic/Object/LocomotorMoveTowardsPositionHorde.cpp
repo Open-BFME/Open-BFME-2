@@ -693,11 +693,7 @@ class Rva001E3557
 public:
 	Bool rva001E3557();
 };
-class Rva001E3591
-{
-public:
-	Bool rva001E3591();
-};
+#include "../../../Include/Common/Rva001E3591.h"
 // Ratios-unit externals (getMaxSpeed and its float getters).
 extern float g_secondsPerLogicFrame;
 #include "../../../Include/Common/GlobalData.h"

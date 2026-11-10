@@ -60,7 +60,7 @@ class Weapon {public:
  void *vptr;const Rva002C9400ByteField *data;
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class Rva001E3591 {public:bool rva001E3591();};
+#include "../../../Include/Common/Rva001E3591.h"
 template<int N> class HmaVirtualSlots:public HmaVirtualSlots<N-1>{public:virtual void gap(char(*)[N]);};
 template<> class HmaVirtualSlots<0>{};
 class HmaUnitAIView:public HmaVirtualSlots<111>{public:

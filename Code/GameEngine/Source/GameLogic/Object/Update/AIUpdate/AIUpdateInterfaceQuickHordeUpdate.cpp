@@ -377,11 +377,7 @@ struct Rva003642DFNode
 #include "../../../../../Include/GameLogic/Rva003642DFResult.h"
 
 
-class Rva001E3591
-{
-public:
-	Bool rva001E3591();
-};
+#include "../../../../../Include/Common/Rva001E3591.h"
 
 struct PathNodeView
 {

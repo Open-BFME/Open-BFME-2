@@ -124,7 +124,7 @@ struct Rva002ED236Pos {
 #include "../../../Include/GameLogic/AI.h"
 
 
-class Rva001E3591 { public: bool rva001E3591(); };
+#include "../../../Include/Common/Rva001E3591.h"
 class AIUpdateInterface {
 public:
  bool isMoving() const;

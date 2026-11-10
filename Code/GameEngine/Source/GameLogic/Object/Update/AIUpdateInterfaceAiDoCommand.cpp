@@ -18,7 +18,7 @@ class Object;
 // predate this parameter-block adoption. Aggregate arguments now take the
 // address of the canonical member; legacy void * slots need explicit const casts.
 class AIUpdateInterface;
-class Rva001E3591 { public: bool rva001E3591(); };
+#include "../../../../Include/Common/Rva001E3591.h"
 class Module;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../../Include/GameLogic/StancesBehavior.h"

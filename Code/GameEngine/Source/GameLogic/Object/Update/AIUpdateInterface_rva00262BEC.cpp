@@ -45,11 +45,7 @@ public:
 	}
 };
 
-class Rva001E3591
-{
-public:
-	bool rva001E3591();
-};
+#include "../../../../Include/Common/Rva001E3591.h"
 
 class Rva003638BA : public Rva001E3591
 {

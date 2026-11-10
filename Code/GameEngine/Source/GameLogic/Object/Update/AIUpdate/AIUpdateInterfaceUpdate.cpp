@@ -167,11 +167,7 @@ extern AiOrdersManager *TheAiOrdersManager;
 #include "../../../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class Rva001E3591
-{
-public:
-	bool rva001E3591();
-};
+#include "../../../../../Include/Common/Rva001E3591.h"
 class Rva00265173
 {
 public:
