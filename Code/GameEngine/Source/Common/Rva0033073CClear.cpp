@@ -22,12 +22,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva0033068BListener {
-public:
-	virtual void notify(void *, int);
-	void dummy1(void *, int);
-	void dummy2(void *, int);
-};
+#include "../../Include/Common/Rva0033068BListener.h"
 
 class Rva0033068BList {
 public:

@@ -19,12 +19,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 class CreateAHeroData : public Rva0053FA0A {
 };
 
-class Rva0033068BListener {
-public:
-	virtual void notify(void *, int);
-	void dummy1(void *, int);
-	void dummy2(void *, int);
-};
+#include "../../Include/Common/Rva0033068BListener.h"
 
 class Rva0033068BList {
 public:

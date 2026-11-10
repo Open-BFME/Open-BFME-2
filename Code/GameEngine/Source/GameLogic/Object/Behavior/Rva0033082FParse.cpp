@@ -13,11 +13,7 @@
 
 #include "../../../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva0033068BListener
-{
-public:
-	virtual void notify(void *, int);
-};
+#include "../../../../Include/Common/Rva0033068BListener.h"
 
 class Rva0033068BList
 {
