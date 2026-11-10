@@ -1852,11 +1852,7 @@ class Rva002CEC0A
 public:
 	void rva002CED26(Xfer *xfer);
 };
-class Gen009D6DD0
-{
-public:
-	void Close();
-};
+#include "../../../Include/Common/Gen009D6DD0.h"
 #include "../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 extern "C" void *theLogicRandomLogFile;
 // g_00E02D7C is only an alias of the owned global TheXObjectCRC (ledger names column); this unit reads the owner through its own view type.

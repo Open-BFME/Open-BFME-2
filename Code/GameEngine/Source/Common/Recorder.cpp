@@ -93,7 +93,7 @@ template <> int StringBase<unsigned short>::compare(const StringBase<unsigned sh
 enum { MAX_SLOTS = 8 };
 
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../Include/Common/Gen009D6DD0.h"
 
 class XferSave { public:XferSave();virtual ~XferSave(); unsigned char Open(Xfer*,int,bool);void close();char tail[0x3c];};
 

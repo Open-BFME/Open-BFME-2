@@ -282,7 +282,7 @@ struct Rva002DB9B6
 // The MD5 block writer (ctor 0x0052B42B, vtable 0x00868620). Its destructor
 // 0x52B497 keeps that address name, so the class is split to reach it.
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../../../Include/Common/Gen009D6DD0.h"
 
 class XferSave : public Xfer
 {

@@ -427,7 +427,7 @@ private:
 // BFME 2's CRC writer over the block-writer base whose destructor retail
 // rows as XferSave (0x0060D0B3); full at +0x40, crc at +0x44.
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../Include/Common/Gen009D6DD0.h"
 
 class XferSave
 {

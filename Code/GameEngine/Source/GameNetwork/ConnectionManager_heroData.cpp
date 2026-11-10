@@ -181,7 +181,7 @@ class BfmeMade_009CB5F0;
 BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *text);
 
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../Include/Common/Gen009D6DD0.h"
 
 class XferSave
 {
