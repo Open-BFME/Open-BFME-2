@@ -7,11 +7,7 @@
 
 int GetMaxCommandPoints(void *key);
 
-class Rva00318FBE
-{
-public:
-	int rva00318FBE();
-};
+#include "../../Include/GameClient/Rva00318FBE.h"
 
 class Rva005FD956
 {

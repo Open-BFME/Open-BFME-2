@@ -86,7 +86,7 @@ class Rva005EF5C2 {public:void rva005EF5C2(const UnicodeString &);};
 class Rva005E18B9 {public:void rva005E18B9();};
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void *);}
 int GetMaxCommandPoints(void *);
-class Rva00318FBE {public:int rva00318FBE();};
+#include "../../../../Include/GameClient/Rva00318FBE.h"
 struct Rva005E19CAEntry {char unknown00[0x14];void *army;};
 void StrategicInGameUI::RegionDetailsArmiesPage::Impl::rva005E19CA(int next){
  if(next==selected)return;

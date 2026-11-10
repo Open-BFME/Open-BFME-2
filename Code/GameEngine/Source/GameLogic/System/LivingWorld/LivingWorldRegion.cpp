@@ -107,11 +107,7 @@ struct Pair8;
 class Rva003F3AB5 { public: void rva003F3B28(unsigned int); };
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
-class Rva00318FBE
-{
-public:
-    Int rva00318FBE();
-};
+#include "../../../../Include/GameClient/Rva00318FBE.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 // Native3F0F48/91 and WB103E4A0 preserve a nested12-byte range of

@@ -1,11 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E0C68@Rva002E0C68@@QAEHXZ 68B @0x002E0C68: sum of Rva00318FBE over +0x1B8/+0x1BC pointer array.
 // Evidence: unlock lane missing callee of 5 frees making 1 ready; callees rowed Rva00318FBE 0x00318FBE; 6 callers incl 0x002E112A 0x002E1155; prev Rva002E0C2BMethod next Rva002E0CD4Get share /O1.
-class Rva00318FBE
-{
-public:
-	int rva00318FBE();
-};
+#include "../../Include/GameClient/Rva00318FBE.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva002E0C68

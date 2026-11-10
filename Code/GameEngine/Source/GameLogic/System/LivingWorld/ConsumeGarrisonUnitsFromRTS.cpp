@@ -25,7 +25,7 @@ class Rva00318FC6;
 class Rva00319028;
 class Rva00319924 {public:int count(const AsciiString&);};
 class Rva0031979COwner {public:void rva0031979C(int);};
-class Rva00318FBE {public:int rva00318FBE();};
+#include "../../../../Include/GameClient/Rva00318FBE.h"
 struct LivingWorldArmy {public:void rva00319EA3(LivingWorldArmy*,ArmySummaryEntry*);};
 class Rva0037DCA5 {public:int GetCommandPointSize();void*GetThingTemplate();};
 class Rva003190A5 {public:bool query()const;};

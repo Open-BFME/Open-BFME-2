@@ -14,11 +14,7 @@ public:
 	void rva005F55D6();
 };
 
-class Rva00318FBE
-{
-public:
-	int rva00318FBE();
-};
+#include "../../../../Include/GameClient/Rva00318FBE.h"
 int GetMaxCommandPoints(void *army);
 
 class Rva005E589ETarget

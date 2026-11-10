@@ -12,7 +12,7 @@
 class Rva00318C32Ret;
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva0020E89C {public:UnicodeString rva0020E89C();};
-class Rva00318FBE {public:int rva00318FBE();};
+#include "../../../../Include/GameClient/Rva00318FBE.h"
 int GetMaxCommandPoints(void*);
 struct Rva005FD956 {char pad[4];void *inner;
  void setCommandPoints(int,int,int);void rva005FDA0D(int,const UnicodeString&);void rva005FDA15(int,const UnicodeString&);};
