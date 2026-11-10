@@ -147,12 +147,7 @@ public:
  virtual UnicodeString fetch(const char *, bool *);
 };
 static const char *ruleStringTags[]={"RULE:AllowCustomHeroes","RULE:ClanGame","RULE:AllowRingHeroes","RULE:CommandPointFactor","RULE:InitialResources","RULE:MapRevealMode","RULE:StrategicPhaseTimer","RULE:BattleType","RULE:BattleChoice","RULE:AutoResolveType"};
-class MpGameRules
-{
-public:
-	static UnicodeString GetRuleString(int rule);
-	static void GetDefaults(int mode, void *store);
-};
+#include "../../../Include/Common/MpGameRules.h"
 
 // ?GetRuleString@MpGameRules@@SA?AVUnicodeString@@H@Z @0x0055A04C 59B:
 // renamed from placeholder Rva0055A04C — the WorldBuilder twin names

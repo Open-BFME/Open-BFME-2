@@ -388,7 +388,7 @@ void MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallback)())
 
 // 0x0055A04C (59 bytes; a rule's display name, fetched from a table of ten
 // labels), rowed in RTS/MpGameRules.cpp.
-class MpGameRules { public: static UnicodeString GetRuleString(int kind); };
+#include "../../../Include/Common/MpGameRules.h"
 
 // The game being set up, spelled as LANAPIRemoveGame.cpp's pin does.
 struct LANGameInfo;

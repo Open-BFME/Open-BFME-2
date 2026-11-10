@@ -85,11 +85,7 @@ unsigned char Rva0056BD91Pack(unsigned char a, unsigned char b,
 void Rva0056BDA5Split(unsigned char a, char b, char c,
 	unsigned char *out1, unsigned char *out2);
 
-class MpGameRules
-{
-public:
-	static void GetDefaults(int mode, void *rules);
-};
+#include "../../Include/Common/MpGameRules.h"
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 

@@ -23,11 +23,7 @@ typedef int Int;
 // g_00DBC800 is only an alias of the owned global NET_CRC_INTERVAL (ledger names column); this unit reads the owner through its own view type.
 extern int NET_CRC_INTERVAL;
 #define g_00DBC800 (*(int *)&NET_CRC_INTERVAL)
-class MpGameRules
-{
-public:
-	static void GetDefaults(int mode, void *rules);
-};
+#include "../../Include/Common/MpGameRules.h"
 // memset is msvcr71's, called through its import thunk at 0x006291AE
 // rather than expanded inline: <string.h>'s memset with
 // #pragma function(memset).

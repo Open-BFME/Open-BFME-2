@@ -166,11 +166,7 @@ void GadgetListBoxSetColumnWidths(GameWindow*,int,int*);
 int GadgetListBoxAddEntryText(GameWindow*,UnicodeString,int,int,int,bool);
 int GadgetListBoxAddEntryImage(GameWindow*,const Image*,int,int,int,int,bool,int);
 void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
-class MpGameRules
-{
-public:
-	static void GetDefaults(int,void*);
-};
+#include "../../../../../Include/Common/MpGameRules.h"
 int Rva00559EDCCompare(int*,int*);
 int Rva005DB335Get(int);
 #include "../../../../../Include/Common/VersionClass.h"

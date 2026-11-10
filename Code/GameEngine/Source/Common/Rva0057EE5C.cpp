@@ -58,12 +58,7 @@ Rva0057EE5C::~Rva0057EE5C()
 }
 
 class UnicodeString;
-class MpGameRules
-{
-public:
-	static void GetDefaults(int mode, void *rules);
-	static UnicodeString GetRuleString(int rule);
-};
+#include "../../Include/Common/MpGameRules.h"
 
 class AptMpGameRules
 {

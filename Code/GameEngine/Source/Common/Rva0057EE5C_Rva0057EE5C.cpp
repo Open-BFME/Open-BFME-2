@@ -49,11 +49,6 @@ _STL::vector<ObjectID> m_B4;
 
 
 class UnicodeString;
-class MpGameRules
-{
-public:
-	static void GetDefaults(int mode, void *rules);
-	static UnicodeString GetRuleString(int rule);
-};
+#include "../../Include/Common/MpGameRules.h"
 
 Rva0057EE5C::Rva0057EE5C(TargetRef00217D4C *ref):m_58(ref),m_5C(-1),m_60(-1),m_88(true),m_89(false),m_B4(10,INVALID_OBJECT_ID){MpGameRules::GetDefaults(m_60,&m_8C);}
