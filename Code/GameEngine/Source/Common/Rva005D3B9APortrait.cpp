@@ -16,11 +16,7 @@ struct Rva005D2FD0Inner
 	char m_name[1];
 };
 
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00223A94.h"
 
 // The window-manager slot at VA 0xDFE4CC is the ledger's g_bfmeAptWindowManager;
 // this unit calls it through its Rva00223A94 view.

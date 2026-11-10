@@ -5,7 +5,7 @@
 // remains address-derived. Public AsciiString clear uses its owned worker.
 #include "ascii_string.h"
 #include "../../Include/Common/Rva00222A8BTarget.h"
-class Rva00223A94 {public:int rva00223A94(const AsciiString *);};
+#include "../../Include/Common/Rva00223A94.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva00528B98 {public:void rva00528B98();private:void *owner;bool flag04;};
 class Rva00528BDD {public:void rva00528BDD();private:void *owner;bool flag04;};

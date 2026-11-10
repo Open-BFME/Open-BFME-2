@@ -17,11 +17,7 @@
 
 void _bfme_closeAptScreen(const AsciiString &);
 
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00223A94.h"
 
 #include "../../Include/Common/Rva00222A8BTarget.h"
 

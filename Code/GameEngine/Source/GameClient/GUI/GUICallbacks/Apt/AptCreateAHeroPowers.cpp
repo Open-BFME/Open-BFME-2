@@ -77,11 +77,7 @@ class Rva002239B2
 public:
 	void rva002239E2(const AsciiString &name, const Image *image);
 };
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *name);
-};
+#include "../../../../../Include/Common/Rva00223A94.h"
 
 // The hero at owner+0x27c is accessed through its rowed button setter and
 // power clear and an unidentified target vslot at +0x14. This declaration

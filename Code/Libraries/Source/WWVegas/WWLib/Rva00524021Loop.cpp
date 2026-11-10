@@ -5,11 +5,7 @@
 #include "ascii_string.h"
 
 
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../../../GameEngine/Include/Common/Rva00223A94.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

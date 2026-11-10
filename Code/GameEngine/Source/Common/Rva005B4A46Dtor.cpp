@@ -109,11 +109,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 
 void _bfme_closeAptScreen(const AsciiString &name);
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00223A94.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

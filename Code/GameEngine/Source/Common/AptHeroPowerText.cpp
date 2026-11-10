@@ -51,11 +51,7 @@ class Rva00223A9F
 public:
 	void *rva00223A9F(const AsciiString *key);
 };
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00223A94.h"
 class Rva002239B2
 {
 public:

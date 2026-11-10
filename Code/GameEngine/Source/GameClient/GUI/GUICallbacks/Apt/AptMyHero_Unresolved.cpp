@@ -113,7 +113,7 @@ class Object {public: char pad00[0x44];float field44;char pad48[0x74-0x48];int f
 class CommandButton;
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
 bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
-class Rva00223A94 {public: int rva00223A94(const AsciiString *);};
+#include "../../../../../Include/Common/Rva00223A94.h"
 // Keep the helper layout shared with AptMyHero.cpp, including the two
 // records stored by value at +0x174.
 class Rva005B129FClass

@@ -62,11 +62,7 @@ public:
 	int RemoveExternHandler(const AsciiString *);
 };
 
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *);
-};
+#include "../../../../../Include/Common/Rva00223A94.h"
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 

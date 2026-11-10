@@ -59,7 +59,7 @@ public: ~Rva0043D193();virtual void f0();virtual void f1();virtual void f2();
 private: int unknown4;_STL::vector<ScienceType> sciences;int unknown14;
 };
 
-class Rva00223A94 {public:int rva00223A94(const AsciiString*);};
+#include "../../../Include/Common/Rva00223A94.h"
 #include "../../../Include/Common/Rva00222A8BTarget.h"
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
