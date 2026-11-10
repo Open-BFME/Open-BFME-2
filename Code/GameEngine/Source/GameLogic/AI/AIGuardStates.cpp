@@ -115,11 +115,7 @@ enum StateReturnType
 static __forceinline void guardZero(Coord3D &p){p.x=0.0f;p.y=0.0f;p.z=0.0f;}
 class Object;
 class AIUpdateInterface;
-class Rva0030B719Shape
-{
-public:
-	Real getRadius(void) const;
-};
+#include "../../../Include/GameLogic/Rva0030B719Shape.h"
 class PolygonTrigger
 {
 public:

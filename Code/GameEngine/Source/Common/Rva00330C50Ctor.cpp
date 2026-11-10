@@ -19,7 +19,7 @@ struct Rva0030B72CPoint {
 class PolygonTrigger {
 public: Region2D rva0007E03A(); Rva0030B72CPoint getCenterPoint2D() const;
 };
-class Rva0030B719Shape {public:float rva0030B706()const;float getRadius()const;};
+#include "../../Include/GameLogic/Rva0030B719Shape.h"
 
 class Rva00330C50Interface
 {

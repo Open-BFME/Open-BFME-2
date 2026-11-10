@@ -844,11 +844,7 @@ public:
     unsigned int m_flags;
 };
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
-class Rva0030B719Shape
-{
-public:
-	float getRadius() const;	// 0x0030B719
-};
+#include "../../../Include/GameLogic/Rva0030B719Shape.h"
 // The trigger's polygon shape at +0x08 (canonical Rva00330C50 container).
 #include "../../../Include/GameLogic/PolygonTrigger.h"
 struct CondA003E5F73

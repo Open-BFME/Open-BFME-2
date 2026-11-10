@@ -141,10 +141,7 @@ public:
 	BfmeObject872Header m_mustNot;
 };
 
-struct Rva0030B719Shape
-{
-	float getRadius() const;	// 0x0030B719
-};
+#include "../../../Include/GameLogic/Rva0030B719Shape.h"
 
 class PolygonTrigger
 {

@@ -113,11 +113,7 @@ public:
 // The area's shape (PolygonTrigger +8): its bounds come back through
 // 0x0030B6E3 and 0x00285B66 tests a cell centre against it.
 #include "../../../../Libraries/Include/Lib/Region2D.h"
-class Rva0030B719Shape
-{
-public:
-	Region2D rva0030B6E3();
-};
+#include "../../../Include/GameLogic/Rva0030B719Shape.h"
 bool __cdecl rva00285B66(const void *point, const void *region);
 struct FireCellCentre
 {

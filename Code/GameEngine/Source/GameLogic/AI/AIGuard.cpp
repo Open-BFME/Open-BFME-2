@@ -250,11 +250,7 @@ public:
 
 extern AI *TheAI;
 
-class Rva0030B719Shape
-{
-public:
-	Real getRadius() const;
-};
+#include "../../../Include/GameLogic/Rva0030B719Shape.h"
 
 class PolygonTrigger
 {
