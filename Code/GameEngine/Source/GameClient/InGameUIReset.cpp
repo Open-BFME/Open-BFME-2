@@ -119,7 +119,7 @@ public:
 
 // The InGameUI members reset calls by address (each rowed under its address).
 class Rva0029C138 { public: void rva0029C138(); };
-class Rva0029B380 { public: void rva0029B34B(); };	// freeMessageResources
+#include "../../Include/Common/Rva0029B380.h"
 class Rva0029D30A
 {
 public:

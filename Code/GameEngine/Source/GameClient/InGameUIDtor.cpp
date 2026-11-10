@@ -61,7 +61,7 @@ public:
 
 // The InGameUI members the destructor calls by address (each rowed under its
 // address): freeMessageResources, clearFloatingText, clearWorldAnimations.
-class Rva0029B380 { public: void rva0029B34B(); };
+#include "../../Include/Common/Rva0029B380.h"
 class Rva0029D30A
 {
 public:

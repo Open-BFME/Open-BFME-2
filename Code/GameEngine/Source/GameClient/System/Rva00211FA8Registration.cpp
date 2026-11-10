@@ -49,7 +49,7 @@ class RadarWindowOverrideSource { public: void rva002D4240(bool); };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 class InGameUI;
 extern InGameUI *TheInGameUI;
-class Rva0029B380 { public: void rva0029B34B(); };
+#include "../../../Include/Common/Rva0029B380.h"
 
 #include "../../../Include/Common/Rva00DFE1C8Host.h"
 void Rva00DFE1C8Host::rva00211FA8()

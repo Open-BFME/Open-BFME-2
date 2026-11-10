@@ -204,11 +204,7 @@ public:
 	void rva004E7277();
 };
 
-class Rva0029B380
-{
-public:
-	void rva0029B380(Int index);
-};
+#include "../../Include/Common/Rva0029B380.h"
 
 class ControlBar;
 class RadarWindowOverrideSource;
