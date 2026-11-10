@@ -12,11 +12,7 @@
 // ?bfmeGoUPB@BfmeThingUPB@@QAEDPAXPAD0@Z. Name the call by that spelling so
 // the link resolves; the byte shape (three cdecl args, result discarded) is
 // unchanged.
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB(void *s, char *dst, void *n);            // 0x007E8A80
-};
+#include "../../Include/GameNetwork/BfmeThingUPB.h"
 
 // BfmeQ1279 stays the ctor's parameter type: it is spelled in
 // ?bfmeA1279@@QAE@PAVBfmeQ1279@@@Z and in

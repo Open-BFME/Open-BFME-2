@@ -15,11 +15,7 @@ public:
 
 extern GenAlloc *Gen007EFFC0();
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB( void *a, char *b, void *c );
-};
+#include "../../../GameEngine/Include/GameNetwork/BfmeThingUPB.h"
 
 #include "../../../GameEngine/Include/GameNetwork/Rva007EB810Diag.h"
 

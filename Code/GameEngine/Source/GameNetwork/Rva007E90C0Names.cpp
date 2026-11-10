@@ -6,11 +6,7 @@
 
 class Rva007E8810Message;
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB(void *key, char *dest, void *destSize);
-};
+#include "../../Include/GameNetwork/BfmeThingUPB.h"
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 

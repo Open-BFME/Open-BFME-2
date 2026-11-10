@@ -35,11 +35,7 @@ private:
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB( void *a, char *b, void *c );
-};
+#include "../../Include/GameNetwork/BfmeThingUPB.h"
 
 struct Rva007FF700Date
 {

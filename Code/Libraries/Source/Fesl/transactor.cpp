@@ -366,11 +366,7 @@ public:
 	void *m_block;
 };
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB(void *key, char *dest, void *destSize);
-};
+#include "../../../GameEngine/Include/GameNetwork/BfmeThingUPB.h"
 
 struct Rva007F96C0Rec
 {

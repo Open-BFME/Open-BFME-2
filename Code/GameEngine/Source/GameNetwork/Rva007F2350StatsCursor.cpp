@@ -17,11 +17,7 @@ public:
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB( void *key, char *dest, void *destSize );
-};
+#include "../../Include/GameNetwork/BfmeThingUPB.h"
 
 class Rva007F2350StatsRecord
 {

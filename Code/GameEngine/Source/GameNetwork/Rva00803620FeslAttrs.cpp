@@ -7,11 +7,7 @@ class Rva00803620Getter;
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB( void *key, char *out, void *size );
-};
+#include "../../Include/GameNetwork/BfmeThingUPB.h"
 
 class Rva00803620Sink
 {
