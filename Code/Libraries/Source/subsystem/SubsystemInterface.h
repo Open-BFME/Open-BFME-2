@@ -38,6 +38,14 @@ public:
     SubsystemInterface &operator=(const SubsystemInterface &that);
     // Out of line in retail: 0x0006F3CC (row in subsystem/SubsystemInterfaceSetName.cpp).
     void setName(AsciiString name);
+#ifdef BFME_SUBSYSTEM_GETNAME
+    // Out of line in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (present-unmatched there).
+    // Declared only for reference/shims/subsystem_bfme2/subsystem_interface.h's units: one more member
+    // changes MSVC 7.1's register and stack choices in other units (a full build moved three rowed
+    // functions: TeamTemplateInfo::loadFromDict, PlaceEventTranslator::translateGameMessage,
+    // Player::initFromDict). No layout change: it is not virtual.
+    AsciiString getName(void);
+#endif
     bool m_flag;
     AsciiString m_name;
 };

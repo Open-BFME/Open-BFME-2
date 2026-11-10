@@ -23,37 +23,14 @@ class Xfer;
 // evidence: vslotNN are ours, their default bodies are retail's (structural).
 // Slots 1 and 2 are the load-bearing ones: SubsystemInterfaceList::initSubsystem
 // dispatches through [vptr+4] and [vptr+8].
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
-class SubsystemInterface {
-public:
-	SubsystemInterface();
-	virtual ~SubsystemInterface();
-	virtual void init() = 0;
-	// BFME-only: look this subsystem up in TheSubsystemLegend by name and load the
-	// INI files and directories its "LoadSubsystem" block lists. Returns TRUE if
-	// the legend supplied anything, in which case initSubsystem skips the
-	// hard-coded paths it was passed.
-	virtual Bool loadIniFilesFromLegend();
-	virtual void postProcessLoad() {}
-	virtual bool vslot04(int) { return false; }
-	virtual bool vslot05() { return false; }
-	virtual int vslot06() { return 0; }
-	virtual void vslot07(int) {}
-	virtual void vslot08() {}
-	virtual void reset() = 0;
-	virtual void update() = 0;
-	virtual bool vslot11(int) { return false; }
-	virtual void vslot12() {}
-	virtual void vslot13(int) {}
-	inline void UPDATE(void) { update(); }
-	void setName(AsciiString name) { m_name = name; }
-	AsciiString getName(void);
-protected:
-	// BFME2 layout: the base ctor (0x001B4E63) clears a byte at +0x04 and the
-	// dtor (0x001B4E74) destroys m_name at +0x08; the byte's role is unknown.
-	Bool m_flag;		// +0x04
-	AsciiString m_name;	// +0x08
-};
+// The class itself is the canonical one (reverse/canonical_classes.csv), with the fourteen
+// base slots above switched on; a second definition here made every unit that met both
+// headers fail with C2011. This shim keeps only the registry and the slot helpers.
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#define BFME_SUBSYSTEM_GETNAME
+#include "../../../Code/Libraries/Source/subsystem/SubsystemInterface.h"
 
 // The registry GameEngine::init drives; retail keeps it at 0x0134C6C8.
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
