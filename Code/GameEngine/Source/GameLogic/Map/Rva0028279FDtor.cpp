@@ -27,11 +27,7 @@ public:
 };
 }
 
-class Rva00281A15Listener
-{
-public:
-    virtual void notify(void *);
-};
+#include "../../../Include/Common/Rva00281A15Listener.h"
 
 struct Rva00280B1ACall;
 class Rva00281A15List

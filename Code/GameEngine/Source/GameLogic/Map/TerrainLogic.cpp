@@ -344,11 +344,7 @@ private:
 	unsigned int m_index;	// +0x0C
 };
 // ---- forEach 0x00281A15, walk 0x00280B1A
-class Rva00281A15Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../../Include/Common/Rva00281A15Listener.h"
 struct Rva00280B1ACall
 {
 	void (Rva00281A15Listener::*notify)(void *);

@@ -106,7 +106,7 @@ SidesList::SidesList() : m_numSides(0),m_numSkirmishSides(0),m_cleared(true)
 Rva001976F0::Rva001976F0() {}
 
 // Retail posts the slot-zero member callback with the complete SidesList owner.
-class Rva00281A15Listener { public: virtual void notify(void *); };
+#include "../../../Include/Common/Rva00281A15Listener.h"
 #include "../../../Include/Common/SidesListNotifier.h"
 void SidesListNotifier::post(void (Rva00281A15Listener::*callback)(void *), void *owner)
 {

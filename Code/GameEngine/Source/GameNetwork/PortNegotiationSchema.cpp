@@ -15,7 +15,7 @@ enum { MAX_PORT_SLOTS = 8 };
 
 unsigned int g_Va00DD35D0 = 30000; // Native four-byte timeout storage at RVA 0x009D35D0.
 class Rva005DBE6AListener { public: virtual void notify(void *, int, int); };
-class Rva00281A15Listener { public: virtual void notify(); };
+#include "../../Include/Common/Rva00281A15Listener.h"
 class Rva005DBE6AList {
 public:
     void forEach(void (Rva005DBE6AListener::*notify)(void *, int, int), void *, int, int);

@@ -7,20 +7,7 @@
 // swaps the same +0xF7C byte and posts through the same +0x10 notifier.
 // Only this prefix of SidesList is represented; the method name and the
 // listener's slot identity are unknown (address-derived).
-class Rva00281A15Listener
-{
-public:
-	virtual void notify(void *);
-	virtual void slot04(void *);
-	virtual void slot08(void *);
-	virtual void slot0C(void *);
-	virtual void slot10(void *);
-	virtual void slot14(void *);
-	virtual void slot18(void *);
-	virtual void slot1C(void *);
-	virtual void slot20(void *);
-	virtual void slot24(void *);
-};
+#include "../../../Include/Common/Rva00281A15Listener.h"
 
 #include "../../../Include/Common/Rva00330757Member.h"
 
