@@ -86,6 +86,22 @@ RULES (the commit gate, --staged):
      occurrence, once, and never the other way round. Any other new
      address-named token still needs an admission. A data_rows.csv row
      (DATA_ROWS) names the owner at its address, as data_check reads it.
+ 11. Class-key respellings. When a registered class's contract
+     (reverse/class_contracts/<class>.json) changes its key between `struct`
+     and `class` in the judged change, every mangled name spelling that class
+     changes its U/V letters, and a hatch keyed by such a name is respelled
+     with it. A register line may then move from token T to token T' in the
+     same hatch and the same file only when T' is exactly what
+     header_adopt_lane.rekey_symbol produces from T for that class (the
+     migration's own rewriter), and the hatch's total does not grow. Each
+     move spends one old occurrence and is listed. Nothing is matched by
+     pattern; no move crosses hatches or files; with no contract key change
+     in the judged change there is no move. A present_unmatched token is
+     stored without its leading `?`; it is compared with that `?` restored.
+     Two old tokens may not become one, nor may an old token become one the
+     file already holds, nor survive beside its respelling. A later
+     committed transition back (class to struct) is a key change too and is
+     judged the same way.
 
 Usage:
   python3 tools/hatch_counters.py --staged              the commit gate
@@ -359,7 +375,9 @@ def parse(text):
 
 MODE = re.compile(r"^# mode: (shadow|enforce)[ \t]*$", re.MULTILINE)
 STATE = {"mode": "enforce", "respellable": frozenset(), "ledger_spec": "HEAD:", "ledger_respell": None,
-         "ledger_hidden": None}
+         "ledger_hidden": None, "class_keys": {}, "class_key_moves": []}
+CONTRACTS = "reverse/class_contracts/"
+REGISTRY = "reverse/canonical_classes.csv"
 CI_MODE = re.compile(r"^# mode:(.*)$", re.MULTILINE)
 
 
@@ -375,6 +393,62 @@ def set_respellable(specs):
     at every git object spec in SPECS is enforced; otherwise per token."""
     texts = read_blobs(["%s%s" % (spec, CODE_IDENTITY) for spec in specs])
     STATE["respellable"] = RESPELLABLE if code_identity_enforced(list(texts.values())) else frozenset()
+
+
+def _registered(text):
+    """Class names reverse/canonical_classes.csv registers, from its TEXT (None: none)."""
+    if not text:
+        return set()
+    return {row.get("class") for row in csv.DictReader(io.StringIO(text))} - {None, ""}
+
+
+def set_class_keys(old_texts, new_texts, old_registry, new_registry):
+    """Rule 11: {class: old key letter} for each contract whose key changes between struct and
+    class from OLD_TEXTS to NEW_TEXTS ({contract path: json text or None}). Only a class both
+    snapshots' reverse/canonical_classes.csv (OLD_REGISTRY, NEW_REGISTRY: its text) register,
+    read from its own contract file (reverse/class_contracts/<class>.json, naming that class
+    in both snapshots), earns a move."""
+    import json
+    keys = {}
+    registered = _registered(old_registry) & _registered(new_registry)
+    for path in sorted(set(old_texts) & set(new_texts)):
+        try:
+            old, new = json.loads(old_texts[path] or "null"), json.loads(new_texts[path] or "null")
+        except ValueError:
+            continue
+        if not (isinstance(old, dict) and isinstance(new, dict)):
+            continue
+        name = new.get("class")
+        if (name in registered and old.get("class") == name and path == CONTRACTS + name + ".json"
+                and {old.get("key"), new.get("key")} == {"struct", "class"}):
+            keys[name] = "U" if new["key"] == "class" else "V"
+    STATE["class_keys"] = keys
+    STATE["class_key_moves"] = []
+
+
+def _changed_contracts(paths):
+    return [p for p in paths if p.startswith(CONTRACTS) and p.endswith(".json")]
+
+
+def class_key_respelling(old_token, new_token):
+    """The class whose key change (rule 11) respells OLD_TOKEN to exactly NEW_TOKEN, or None."""
+    if not STATE["class_keys"] or old_token == new_token:
+        return None
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import class_contract
+    import header_adopt_lane
+    # a present_unmatched token is stored with its leading '?' (or '??') stripped (scan)
+    prefixes = ("",) if old_token.startswith("?") else ("?", "??")
+    for name, other in sorted(STATE["class_keys"].items()):
+        for prefix in prefixes:
+            try:
+                got = header_adopt_lane.rekey_symbol(prefix + old_token, class_contract.mangled_scope(name), other,
+                                                     allow_mixed=True)
+            except Exception:      # the rewriter refuses what it cannot resolve: no move
+                continue
+            if got == prefix + new_token:
+                return name
+    return None
 
 
 def _ledger_ident(name):
@@ -581,6 +655,8 @@ def register_growth(old, new, admitted=()):
             aliases = ledger_respellings().get(token, ())
             if aliases:
                 return out + [k for k in by_path.get((hatch, path), []) if k[2] in aliases]
+        if STATE["class_keys"]:                    # rule 11: the same name under a changed class key
+            return out + [k for k in by_path.get((hatch, path), []) if class_key_respelling(k[2], token)]
         return out
     supply = {k: n for k, n in old.items() if n > 0}
     by_tok, by_path = collections.defaultdict(list), collections.defaultdict(list)
@@ -634,7 +710,30 @@ def register_growth(old, new, admitted=()):
                 if prev[j] is not None:
                     flow[(prev[j], j)] -= delta
             need[k] -= delta
+    if STATE["class_keys"]:
+        moves = [(i, j, n) for (i, j), n in flow.items() if n and i != j and class_key_respelling(i[2], j[2])]
+        STATE["class_key_moves"] = sorted(moves)
+        t_old, t_new = totals(old), totals(new)
+        sources = collections.defaultdict(set)
+        for i, j, _ in moves:
+            sources[j].add(i)
+        # rule 11 only respells, one token for one token: a hatch it touches may not grow, two old
+        # tokens may not collapse into one, and no old token may survive beside its respelling
+        bad = {j for j, olds in sources.items() if len(olds) > 1}
+        bad |= {j for j in sources if old.get(j, 0) > 0}      # into a token the file already held
+        bad |= {j for i, j, _ in moves if new.get(i, 0) > 0}
+        bad |= {k for k, n in new.items() if n > old.get(k, 0)
+                and any(t_new[i[0]] > t_old[i[0]] and i[0] == k[0] for i, _, _ in moves)}
+        if bad:
+            STATE["class_key_moves"] = []
+            return sorted(set(bad) | {k for k, n in need.items() if n})
     return sorted(k for k, n in need.items() if n)
+
+
+def report_class_key_moves(out=sys.stderr):
+    for old, new, n in STATE["class_key_moves"]:
+        print("hatch_counters: rule 11 class-key respelling (%s): %s %s: %s -> %s (x%d)"
+              % (class_key_respelling(old[2], new[2]), old[0], old[1], old[2], new[2], n), file=out)
 
 
 def read_blobs(specs):
@@ -752,6 +851,11 @@ def _check_staged(hard):
     staged_base = read_blobs([":" + BASELINE])[":" + BASELINE]
     STATE["mode"] = mode_of(staged_base)
     set_respellable(["HEAD:", ":"])
+    contracts = _changed_contracts(changed)
+    blobs = read_blobs(["HEAD:" + c for c in contracts] + [":" + c for c in contracts]
+                       + ["HEAD:" + REGISTRY, ":" + REGISTRY])
+    set_class_keys({c: blobs["HEAD:" + c] for c in contracts}, {c: blobs[":" + c] for c in contracts},
+                   blobs["HEAD:" + REGISTRY], blobs[":" + REGISTRY])
     parents = ["HEAD"]
     merge_head = git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip()
     if merge_head:
@@ -870,6 +974,7 @@ def _check_staged(hard):
     if grown:
         b0 = _with_hidden_supply(b0, grown, "HEAD:", ":")
         grown = register_growth(b0, b1)
+    report_class_key_moves()
     if grown:
         stamped = [k for k in b1 if b1[k] > b0.get(k, 0) and allow1.get(k)]
         blobs = index_blob_ids(sorted({k[1] for k in stamped}))
@@ -967,11 +1072,19 @@ def update(allow_paths=(), reason=None):
     old, _ = parse(old_text)
     new = tree_scan()
     set_respellable(["HEAD:"])
+    contracts = _changed_contracts(git("diff", "--name-only", "HEAD", "--", CONTRACTS).splitlines())
+    heads = read_blobs(["HEAD:" + c for c in contracts + [REGISTRY]])
+
+    def worktree(rel):
+        return (ROOT / rel).read_text(encoding="utf-8") if (ROOT / rel).exists() else None
+    set_class_keys({c: heads["HEAD:" + c] for c in contracts}, {c: worktree(c) for c in contracts},
+                   heads["HEAD:" + REGISTRY], worktree(REGISTRY))
     allow_paths = {p.replace("\\", "/") for p in allow_paths}
     grown = register_growth(old, new)
     if grown:
         old = _with_hidden_supply(old, grown, "HEAD:", None)
         grown = register_growth(old, new)
+    report_class_key_moves(sys.stdout)
     refused = [k for k in grown if k[1] not in allow_paths]
     if refused:
         for k in refused[:40]:

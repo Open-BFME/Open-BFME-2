@@ -1836,8 +1836,9 @@ def key_metadata_blockers(items):
 # class, and the dup_defs baseline's keys. All or nothing: before any write it
 # refuses a key retail's exports do not decide, a name in an identity position the
 # parser cannot resolve, a respelled name that would own a second address or land
-# on a tombstone, a converged data name, a hatch token (hatch_counters has no
-# respelling move), and any touched path whose claim this worker does not hold.
+# on a tombstone, a converged data name, and any touched path whose claim this
+# worker does not hold. A hatch token the respelling changes (an /alternatename in
+# a source) is carried by tools/hatch_counters.py --update under its rule 11.
 # Shims under reference/shims/ that declare the class change with it. The before-state goes in rename.py's journal
 # (`rename.py recover` restores a killed run). Nothing is verified here: the
 # rebuilt objects must differ only by the respelled names (the evidence kit takes
@@ -2234,6 +2235,7 @@ def plan_class_key(name, key, root=None):
     if contract["key"] == key:
         raise RekeyRefused(f"{contract_rel} already says {key}")
     rekeyer = _Rekeyer(name, other)
+    hatch_tokens = []
     files = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "Code", "reverse", "reference/shims"],
                            capture_output=True, check=True).stdout.decode("utf-8").split("\0")
     after, decls, refusals = {}, collections.Counter(), []
@@ -2277,10 +2279,8 @@ def plan_class_key(name, key, root=None):
         elif rel.startswith("reverse/class_contracts/") and rel.endswith(".json") and rel != contract_rel:
             new = rekeyer.text(raw.decode("utf-8"), rel, identity=False).encode("utf-8")
         elif rel == "reverse/hatch_baseline.tsv":
-            hits = _register_hatch_tokens(raw.decode("utf-8"), rekeyer)
-            if hits:
-                refusals.append(f"{rel}: {len(hits)} hatch token(s) spell {name} (e.g. {hits[0][:90]}); "
-                                "hatch_counters has no respelling move yet")
+            # Written by hatch_counters --update after the sources (rule 11), never here.
+            hatch_tokens = _register_hatch_tokens(raw.decode("utf-8"), rekeyer)
             continue
         elif rel == "reverse/data_converged.csv":
             hits = [t for _, t in _split_tokens(raw.decode("utf-8")) if _rekey_changes(t, rekeyer)]
@@ -2337,6 +2337,7 @@ def plan_class_key(name, key, root=None):
                    "export_tier_gains": getattr(rekeyer, "export_gains", []),
                    "other_scope_declarations": rekeyer.other_scope,
                    "shims": sorted(r for r in after if r.startswith("reference/shims/")),
+                   "hatch_tokens": hatch_tokens,
                    "donor_header_units": donors,
                    "prose_left": rekeyer.prose_left, "left_alone": REKEY_LEFT_ALONE}
 
@@ -2471,7 +2472,8 @@ def apply_class_key(name, key, dry_run=False, report=None):
     ctx = rename.Context(ROOT, object_scan=False)
     rename.refuse_pending_journal(ctx)
     after, summary = plan_class_key(name, key)
-    written = sorted(after)
+    hatches = "reverse/hatch_baseline.tsv"
+    written = sorted([*after, *([hatches] if summary["hatch_tokens"] else [])])
     summary["written"] = written
     if report_path:
         report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -2483,6 +2485,8 @@ def apply_class_key(name, key, dry_run=False, report=None):
         print(f"  shim rewritten: {shim}")
     for line in summary["other_scope_declarations"]:
         print(f"  left: {line}")
+    if summary["hatch_tokens"]:
+        print(f"  {len(summary['hatch_tokens'])} hatch token(s) respelled; hatch_counters --update moves their lines (rule 11)")
     if summary["donor_header_units"]:
         print(f"  {len(summary['donor_header_units'])} unit(s) include a header name a donor root may resolve to "
               f"its own {name} (check their rebuilt objects): {', '.join(summary['donor_header_units'][:8])}")
@@ -2498,6 +2502,11 @@ def apply_class_key(name, key, dry_run=False, report=None):
     try:
         for rel, data in after.items():
             ctx.path(rel).write_bytes(data)
+        if summary["hatch_tokens"]:
+            # rule 11 moves each respelled hatch token's register line and lists it; any
+            # other growth exits nonzero and everything above is restored
+            import hatch_counters
+            hatch_counters.update()
     except BaseException:
         rename.restore(ctx, plan.before)
         journal.unlink()

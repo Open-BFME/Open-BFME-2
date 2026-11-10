@@ -361,8 +361,7 @@ def test_migration_plan_rewrites_every_spelling_and_nothing_else(tmp_path, monke
 
 @pytest.mark.parametrize("case,want", [
     ("collision", "collision:"), ("tombstone", "tombstone:"), ("identity", "unresolvable identity"),
-    ("hatch", "hatch token"), ("exports", "retail's exports decide"), ("base", "base clause"),
-    ("collision-old", "collision:"),
+    ("exports", "retail's exports decide"), ("base", "base clause"), ("collision-old", "collision:"),
     ("converged", "converged names"), ("generated", "generated or vendored"),
     ("namespace-use", "cannot be resolved to the global class"), ("braces", "unbalanced braces"),
 ])
@@ -458,6 +457,14 @@ def test_migration_carries_name_basis_records_instead_of_editing_them(tmp_path, 
 
 
 
+def test_migration_hands_hatch_tokens_to_hatch_counters(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW, hatch="alternatename\tCode/Unit.cpp\t?f@@YAXPAUCoord3D@@@Z\t1\n")
+    after, report = hal.plan_class_key("Coord3D", "class", root)
+    assert report["hatch_tokens"] == ["?f@@YAXPAUCoord3D@@@Z"]
+    assert "reverse/hatch_baseline.tsv" not in after                 # hatch_counters --update writes it
+
+
+
 def test_declaration_scope_is_resolved(tmp_path, monkeypatch):
     unit = ("namespace Other { struct Coord3D { int x; }; }\n"
             "struct Coord3D;\n"
@@ -501,6 +508,40 @@ def test_report_never_overwrites_a_repository_input(tmp_path, monkeypatch, where
     with pytest.raises(hal.RekeyRefused, match="--report"):
         hal.apply_class_key("Coord3D", "class", dry_run=True, report=str(target))
     assert _snapshot(root) == before
+
+
+def test_claims_cover_the_hatch_register_it_writes(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW, hatch="alternatename\tCode/Unit.cpp\t?f@@YAXPAUCoord3D@@@Z\t1\n")
+    monkeypatch.setattr(hal, "ROOT", root)
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    import claims
+    after, _ = hal.plan_class_key("Coord3D", "class", root)
+    held = {claims.file_key(r): {"owner": "me"} for r in after}
+    held[claims.class_key("Coord3D")] = {"owner": "me"}
+    monkeypatch.setattr(claims, "owner", lambda root=None: "me")
+    monkeypatch.setattr(claims, "active", lambda root=None: held)
+    before = _snapshot(root)
+    with pytest.raises(hal.RekeyRefused, match="file:reverse/hatch_baseline.tsv"):
+        hal.apply_class_key("Coord3D", "class")
+    assert _snapshot(root) == before
+
+
+def test_a_refused_hatch_update_restores_every_file(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW, hatch="alternatename\tCode/Unit.cpp\t?f@@YAXPAUCoord3D@@@Z\t1\n")
+    monkeypatch.setattr(hal, "ROOT", root)
+    monkeypatch.setenv("BFME_CLAIMS", "off")
+    import hatch_counters
+
+    def refuse():
+        (root / "reverse/hatch_baseline.tsv").write_text("half-written\n")
+        raise SystemExit("hatch_counters: 1 occurrence key(s) grew")
+    monkeypatch.setattr(hatch_counters, "update", refuse)
+    before = _snapshot(root)
+    with pytest.raises(SystemExit):
+        hal.apply_class_key("Coord3D", "class")
+    assert _snapshot(root) == before
+    assert not list((root / "build/rename-journal").glob("*.json"))
+
 
 
 def test_old_key_scan_reads_symbols_and_directives_and_fails_closed(tmp_path):
@@ -547,6 +588,15 @@ def test_report_path_resolves_links_and_tracked_build_files(tmp_path, monkeypatc
     with pytest.raises(hal.RekeyRefused, match="--report"):
         hal.apply_class_key("Coord3D", "class", dry_run=True, report=str(target))
     assert _snapshot(root) == before
+
+
+
+def test_present_unmatched_register_tokens_are_read_with_their_question_mark(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW,
+                hatch="present_unmatched\tCode/Unit.cpp\tf@@YAXPAUCoord3D@@@Z\t1\n"
+                      "present_unmatched\tCode/Unit.cpp\tg@@YAXPAUICoord3D@@@Z\t1\n")
+    _, report = hal.plan_class_key("Coord3D", "class", root)
+    assert report["hatch_tokens"] == ["f@@YAXPAUCoord3D@@@Z"]
 
 
 

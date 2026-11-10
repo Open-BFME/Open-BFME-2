@@ -1100,3 +1100,130 @@ def test_the_route_does_not_admit_anything(bare_owner):
     """Message only: the same key still grows and is still refused."""
     k = ("address_global", "Code/c.cpp", "g_Va00E063D4")
     assert hc.register_growth({}, {k: 2}) == [k]
+
+
+
+# ---- rule 11: a class-key respelling moves a hatch token, exactly and nowhere else
+
+ALT11 = '#pragma comment(linker, "/alternatename:%s=?g@@YAXXZ")\n'
+OLD_TOKEN = "?f@@YAXPAUCoord3D@@@Z"
+NEW_TOKEN = "?f@@YAXPAVCoord3D@@@Z"
+MIXED_A = "?m@@YAXPAUCoord3D@@PAVCoord3D@@@Z"
+MIXED_B = "?m@@YAXPAVCoord3D@@PAUCoord3D@@@Z"
+MIXED_AFTER = "?m@@YAXPAVCoord3D@@PAVCoord3D@@@Z"
+
+
+def contract(key):
+    return '{\n "class": "Coord3D",\n "key": "%s",\n "key_by": "exports"\n}\n' % key
+
+
+@pytest.fixture
+def keyrepo(tmp_path):
+    r = Repo(tmp_path, "bfme2")
+    r.git("init", "-q")
+    (tmp_path / "tools").mkdir()
+    for module in TOOLS.glob("*.py"):           # the rule calls the migration's own rewriter
+        shutil.copy(module, tmp_path / "tools")
+    (tmp_path / "tools" / "retail_inventory.py").write_text(STUB_INVENTORY)
+    r.write("Code/GameEngine/a.cpp", ALT11 % OLD_TOKEN)
+    r.write("Code/GameEngine/b.cpp", "int b;\n")
+    r.write("reverse/class_contracts/Coord3D.json", contract("struct"))
+    r.write("reverse/class_contracts/Other.json", contract("struct").replace("Coord3D", "Other"))
+    r.write("reverse/class_contracts/NotRegistered.json", contract("struct").replace("Coord3D", "NotRegistered"))
+    r.write("reverse/canonical_classes.csv", "class,header,note\nCoord3D,Code/Lib/Coord3D.h,x\nOther,Code/Lib/Other.h,x\n")
+    r.git("add", ".")
+    assert r.tool("--write-baseline").returncode == 0
+    r.commit("init", when=T0 - 2 * DAY)
+    return r
+
+
+def respell(r, *, key_class="Coord3D", source="Code/GameEngine/a.cpp", text=None):
+    if key_class:
+        r.write("reverse/class_contracts/%s.json" % key_class,
+                contract("class").replace("Coord3D", key_class))
+    if source != "Code/GameEngine/a.cpp":
+        r.write("Code/GameEngine/a.cpp", "")
+    r.write(source, text if text is not None else ALT11 % NEW_TOKEN)
+
+
+def test_rule_11_moves_a_respelled_token_and_lists_it(keyrepo):
+    respell(keyrepo)
+    got = keyrepo.tool("--update")
+    assert got.returncode == 0 and "rule 11 class-key respelling (Coord3D)" in got.stdout
+    assert NEW_TOKEN in keyrepo.read("reverse/hatch_baseline.tsv")
+    assert OLD_TOKEN not in keyrepo.read("reverse/hatch_baseline.tsv")
+    keyrepo.git("add", ".")
+    got = staged(keyrepo)
+    assert got.returncode == 0, got.stderr
+    assert "rule 11 class-key respelling (Coord3D): alternatename Code/GameEngine/a.cpp" in got.stderr
+
+
+@pytest.mark.parametrize("case", ["no-contract-change", "other-class", "not-exact", "other-file", "grows",
+                                  "unregistered", "wrong-file", "kind", "collapse", "collapse-into-existing",
+                                  "split"])
+def test_rule_11_refuses_everything_else(keyrepo, case):
+    if case == "no-contract-change":
+        respell(keyrepo, key_class=None)
+    elif case == "other-class":                  # a contract changes key, but not the respelled class's
+        respell(keyrepo, key_class="Other")
+    elif case == "not-exact":                    # a key letter and something else
+        respell(keyrepo, text=ALT11 % "?h@@YAXPAVCoord3D@@@Z")
+    elif case == "other-file":                   # rule 11 never moves a line between files
+        respell(keyrepo, source="Code/GameEngine/b.cpp")
+    elif case == "grows":                        # the respelled token twice: the hatch total grows
+        respell(keyrepo, text=(ALT11 % NEW_TOKEN) * 2)
+    elif case == "unregistered":                 # a key transition in a contract no registry lists
+        keyrepo.write("reverse/class_contracts/NotRegistered.json",
+                      contract("class").replace("Coord3D", "NotRegistered"))
+        respell(keyrepo, key_class=None)
+    elif case == "wrong-file":                   # Coord3D's transition, but in another class's contract file
+        keyrepo.write("reverse/class_contracts/Other.json", contract("class"))
+        respell(keyrepo, key_class=None)
+    elif case == "kind":                         # the respelled name reappears as another hatch
+        respell(keyrepo, text="// %s present-unmatched\n" % NEW_TOKEN)
+    elif case == "collapse":                     # two mixed-key tokens become one token, count two
+        keyrepo.write("Code/GameEngine/a.cpp", (ALT11 % MIXED_A) + (ALT11 % MIXED_B))
+        keyrepo.write("reverse/hatch_baseline.tsv", keyrepo.read("reverse/hatch_baseline.tsv").replace(
+            "\t%s\t1" % OLD_TOKEN, "\t%s\t1\nalternatename\tCode/GameEngine/a.cpp\t%s\t1" % (MIXED_A, MIXED_B)))
+        keyrepo.commit("two mixed tokens", when=T0 - DAY)
+        respell(keyrepo, text=(ALT11 % MIXED_AFTER) * 2)
+    elif case == "collapse-into-existing":       # old and new spellings once each become the new one twice
+        keyrepo.write("Code/GameEngine/a.cpp", (ALT11 % OLD_TOKEN) + (ALT11 % NEW_TOKEN))
+        keyrepo.write("reverse/hatch_baseline.tsv", keyrepo.read("reverse/hatch_baseline.tsv").replace(
+            "\t%s\t1" % OLD_TOKEN, "\t%s\t1\nalternatename\tCode/GameEngine/a.cpp\t%s\t1" % (OLD_TOKEN, NEW_TOKEN)))
+        keyrepo.commit("both spellings", when=T0 - DAY)
+        respell(keyrepo, text=(ALT11 % NEW_TOKEN) * 2)
+    elif case == "split":                        # one of two occurrences respelled, the old one survives
+        keyrepo.write("Code/GameEngine/a.cpp", (ALT11 % OLD_TOKEN) * 2)
+        keyrepo.write("reverse/hatch_baseline.tsv",
+                      keyrepo.read("reverse/hatch_baseline.tsv").replace("\t%s\t1" % OLD_TOKEN, "\t%s\t2" % OLD_TOKEN))
+        keyrepo.commit("two occurrences", when=T0 - DAY)
+        respell(keyrepo, text=(ALT11 % OLD_TOKEN) + (ALT11 % NEW_TOKEN))
+    got = keyrepo.tool("--update")
+    assert got.returncode != 0 and "grew" in got.stderr
+    assert "rule 11" not in got.stdout
+    keyrepo.write("reverse/hatch_baseline.tsv",
+                  keyrepo.read("reverse/hatch_baseline.tsv").replace(OLD_TOKEN, NEW_TOKEN))
+    keyrepo.git("add", ".")
+    got = staged(keyrepo)                        # the file still holds what no register line grants
+    assert got.returncode == 1 and "escape hatches grew" in got.stderr
+
+
+
+def test_rule_11_does_not_cover_an_unrelated_hatch_staged_beside_it(keyrepo):
+    respell(keyrepo, text=(ALT11 % NEW_TOKEN) + "void h() { __asm { __emit 0x90 } }\n")
+    got = keyrepo.tool("--update")
+    assert got.returncode != 0 and "emit" in got.stderr
+
+
+
+def test_rule_11_moves_a_present_unmatched_marker_stored_without_its_question_mark(keyrepo):
+    keyrepo.write("Code/GameEngine/a.cpp", "// %s present-unmatched\n" % OLD_TOKEN)
+    assert keyrepo.tool("--allow", "Code/GameEngine/a.cpp", "--reason", "fixture marker").returncode == 0
+    keyrepo.commit("a marker", when=T0 - DAY)
+    assert "\t%s\t" % OLD_TOKEN.lstrip("?") in keyrepo.read("reverse/hatch_baseline.tsv")
+    respell(keyrepo, text="// %s present-unmatched\n" % NEW_TOKEN)
+    got = keyrepo.tool("--update")
+    assert got.returncode == 0 and "rule 11 class-key respelling (Coord3D): present_unmatched" in got.stdout
+    keyrepo.git("add", ".")
+    assert staged(keyrepo).returncode == 0
