@@ -24,22 +24,18 @@ vector<Rva0048130E, allocator<Rva0048130E> >::~vector();
 
 }
 
-class GarrisonContainModuleData
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
+
+inline __forceinline HordeGarrisonContainModuleData::~HordeGarrisonContainModuleData()
 {
-public:
-	virtual ~GarrisonContainModuleData();
+}
 
-private:
-	unsigned char m_pad[0xAC - 4];
-};
-
-class ProductionQueueHordeContainModuleData : public GarrisonContainModuleData
+class ProductionQueueHordeContainModuleData : public HordeGarrisonContainModuleData
 {
 public:
 	virtual ~ProductionQueueHordeContainModuleData();
 
 private:
-	unsigned char m_padAC[0xD4 - 0xAC];
 	_STL::vector<Rva0048130E, _STL::allocator<Rva0048130E> > m_vecD4;
 };
 

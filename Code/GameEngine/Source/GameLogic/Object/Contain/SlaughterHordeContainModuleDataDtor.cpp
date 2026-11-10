@@ -24,15 +24,21 @@ private:
 	int m_x;
 };
 
-#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
-class SlaughterHordeContainModuleData : public GarrisonContainModuleData
+// Derived EH unwind emits select-any ??1HordeGarrisonContainModuleData@@UAE@XZ
+// (0x00257A05, 5B jmp to 0x00257507); inline __forceinline inlines the call in
+// ~SlaughterHordeContainModuleData while keeping the COMDAT select-any.
+inline __forceinline HordeGarrisonContainModuleData::~HordeGarrisonContainModuleData()
+{
+}
+
+class SlaughterHordeContainModuleData : public HordeGarrisonContainModuleData
 {
 public:
 	virtual ~SlaughterHordeContainModuleData();
 
 private:
-	unsigned char m_padAC[0xD4 - 0xAC];
 	float m_floatD4;
 	Rva00360D26Member m_filterD8;
 	unsigned char m_padDC[0xEC - 0xDC];
