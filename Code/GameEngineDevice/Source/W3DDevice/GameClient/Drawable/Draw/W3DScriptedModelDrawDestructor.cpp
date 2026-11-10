@@ -342,26 +342,8 @@ class RadiusDecalTemplate
 #include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 struct Coord3D;
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
-#include "../../../../../../GameEngine/Include/Common/DrawableModule.h"
-class DrawModule:public DrawableModule 
-{
- public:DrawModule(Thing*,const ModuleData*);
- protected:virtual ~DrawModule()
- {
-  
- }
- const ModuleData*getModuleData()const
- {
-  return m_moduleData;
-  
- }
- Drawable*getDrawable()const
- {
-  return m_drawable;
-  
- }
-}
-;
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 class Vector3;
 struct Rva000B34D8Out30;
 class Rva000B34D8
@@ -406,6 +388,7 @@ class W3DScriptedModelDraw : public DrawModule, public Rva000B34D8, public Rva00
  public:
  W3DScriptedModelDraw(Thing *thing, const ModuleData *moduleData);
  virtual ~W3DScriptedModelDraw();
+ virtual NameKeyType getModuleNameKey() const;
  private:
  int m_14;
  int m_18;
