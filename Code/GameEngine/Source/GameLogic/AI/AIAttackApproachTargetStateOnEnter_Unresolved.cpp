@@ -1106,17 +1106,7 @@ public:
 };
 
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C flags, +0x10 a flag.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, Int flags, Bool fromOther)
-		: m_obj(obj), m_flags(flags), m_fromOther(fromOther) {}
-	virtual Bool allow(Object *obj);
-	virtual int getPlayerMask(); // slot 2, 0x00260E6A
-	const Object *m_obj;
-	Int m_flags;
-	Bool m_fromOther;
-};
+#include "../../../Include/GameLogic/Rva00260EB1Filter.h"
 
 // The out-of-line constructor 0x002611F2.
 class PartitionFilterRejectBuildings : public Rva000421C8

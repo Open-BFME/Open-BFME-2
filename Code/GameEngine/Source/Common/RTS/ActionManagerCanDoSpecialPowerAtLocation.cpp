@@ -59,13 +59,7 @@ public:
 };
 #include "../../../Include/GameLogic/Rva0026119DFilter.h"
 // Native BFBC90 filter: object +8, relationship mask +C, bool +10.
-class Rva00260EB1Filter:public Rva000421C8 {
-public:
- Rva00260EB1Filter(const Object *o,int r,bool b):object(o),relationship(r),match(b) {}
- virtual bool allow(Object *);
- virtual int getPlayerMask();
- const Object *object; int relationship; bool match;
-};
+#include "../../../Include/GameLogic/Rva00260EB1Filter.h"
 class BfmeRefCF { public: BfmeRefCF *bfmeAssignCF(const BfmeRefCF &); void *data; };
 #include "PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;

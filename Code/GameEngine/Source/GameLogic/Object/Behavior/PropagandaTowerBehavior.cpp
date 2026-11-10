@@ -33,17 +33,7 @@ class Player;
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C flags,
 // +0x10 whether a hit allows.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-		: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 // The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
