@@ -205,15 +205,7 @@ int Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const int &value, const char *const &text);
 AsciiString Rva00222834Get(int value);
 // What 0x0057C71F returns for a slot: its forced team at +0x04.
-struct Rva0057C71FEntry
-
-{
- int m_00;
- int m_team;
-// +0x04
- 
-}
-;
+#include "../../../Include/Common/Rva0057C71FEntry.h"
 // The member at +0x60 (0x70 bytes, destroyed through ??1Rva0057E3DB).
 class Rva0057E3DB
 
