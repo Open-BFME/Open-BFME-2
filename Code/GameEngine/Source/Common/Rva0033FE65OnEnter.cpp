@@ -70,7 +70,11 @@ extern int IDLE_COUNTDOWN_DELAY;
 // the unit's Drawable.h copy 0x007AEB9A in its run (LINK-236).
 extern int BfmeLogicFramesPerSecond;
 int IDLE_COUNTDOWN_DELAY = BfmeLogicFramesPerSecond * 2;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 int __cdecl GetGameLogicRandomValue(int a, int b, char *c, int d);
 class __declspec(novtable) Rva0033FE65 : public State
 {
@@ -107,7 +111,7 @@ StateReturnType Rva0033FE65::onEnter()
 			name = name + 8;
 		else
 			name = "";
-		fprintf(logFile, "AIIdleState::onEnter() called for object %s(%d) at location %g,%g,%g.", name, id, obj->m_positionX, obj->m_positionY, obj->m_positionZ);
+		fprintf((FILE *)logFile, "AIIdleState::onEnter() called for object %s(%d) at location %g,%g,%g.", name, id, obj->m_positionX, obj->m_positionY, obj->m_positionZ);
 	}
 	m_20 = (unsigned short)GetGameLogicRandomValue(0, IDLE_COUNTDOWN_DELAY, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp", 0x94A);
 	return STATE_CONTINUE;
