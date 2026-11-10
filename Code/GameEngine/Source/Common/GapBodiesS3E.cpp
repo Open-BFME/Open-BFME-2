@@ -220,11 +220,7 @@ class Rva003F287F;
 class Rva002E2903Player;
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002B2B66
-{
-public:
-	int rva002B2B66();
-};
+#include "../../Include/Common/Rva002B2B66.h"
 struct Rva005CB2D2LogicView
 {
 	char m_pad00[0x98];

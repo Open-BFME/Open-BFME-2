@@ -316,7 +316,7 @@ struct TacticalEntryNameView {
 class ThingTemplate;
 #include "../../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class Rva002B2B66 { public: int rva002B2B66(); };
+#include "../../../../../Include/Common/Rva002B2B66.h"
 class Rva005ECD8C {
 public: void rva005ECD8C(_STL::vector<S4SortElem8B> *, int);
 };

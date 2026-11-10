@@ -67,7 +67,7 @@ private:
 	unsigned char m_data[0x20];
 };
 
-class Rva002B2B66 { public: int rva002B2B66(); };
+#include "../../../../../Include/Common/Rva002B2B66.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

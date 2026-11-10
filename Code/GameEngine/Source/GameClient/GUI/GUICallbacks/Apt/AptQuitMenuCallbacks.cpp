@@ -138,11 +138,7 @@ public:
 	bool rva0051AEEF() const;
 };
 
-class Rva002B2B66
-{
-public:
-	int rva002B2B66();
-};
+#include "../../../../../Include/Common/Rva002B2B66.h"
 
 // The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
 // to its vslot 3 (0x005CB265), both pinned.

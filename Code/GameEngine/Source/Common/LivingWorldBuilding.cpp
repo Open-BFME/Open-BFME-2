@@ -450,11 +450,7 @@ struct Rva004E08A9World
 	int m_FC;
 };
 
-class Rva002B2B66
-{
-public:
-	int rva002B2B66();
-};
+#include "../../Include/Common/Rva002B2B66.h"
 
 // The native provider normalizes its bool result with movzx eax,al at
 // 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.

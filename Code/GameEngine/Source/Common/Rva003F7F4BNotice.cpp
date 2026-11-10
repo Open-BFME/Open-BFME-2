@@ -14,7 +14,7 @@ class AudioManager; extern AudioManager *TheAudio;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 class InGameUI; extern InGameUI *TheInGameUI;
 class GameTextInterface; extern GameTextInterface *TheGameText;
-class Rva002B2B66 {public:int rva002B2B66();};
+#include "../../Include/Common/Rva002B2B66.h"
 class Rva0029B17C {public:void clearMissionHelpText();};
 class Rva0029B16A {public:void setMissionHelpText(int,int);};
 class Rva003F7F4BAudioView {public:

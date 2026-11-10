@@ -50,11 +50,7 @@ public:
 };
 class Rva002BA8F1Logic;
 
-class Rva002B2B66
-{
-public:
-	int rva002B2B66();
-};
+#include "../../Include/Common/Rva002B2B66.h"
 class GameMessage
 {
 public:

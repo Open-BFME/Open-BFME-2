@@ -86,7 +86,7 @@ class Rva002E2903Player;
 class Rva003F287F;
 #include "../../Include/GameLogic/LivingWorldRegion.h"
 #include "../../Include/GameLogic/LivingWorldLogic.h"
-class Rva002B2B66 { public: Int rva002B2B66(); };
+#include "../../Include/Common/Rva002B2B66.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 struct Rva005CB748Slot { char m_pad00[0x20]; Int m_enabled; };

@@ -45,7 +45,7 @@ struct Rva005CC5C8Context
 	Rva005CC5C8Record m_record;	// +0x04
 };
 
-class Rva002B2B66 { public: int rva002B2B66(); };
+#include "../../../../../Include/Common/Rva002B2B66.h"
 class Rva005E3049 { public: void rva005E3049(int mode, bool flag); };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
