@@ -66,6 +66,8 @@ size_t ArmorTable::_M_bkt_num_key(const NameKeyType &key) const
 {
     return _M_hash(key) % _M_buckets.size();
 }
+// Use XferSaveOpen.obj's _M_delete_node copy instead of emitting a conflicting 32-byte one.
+template <> void ArmorTable::_M_delete_node(_Hashtable_node<ArmorValue> *);
 }
 
 template void ArmorTemplateMap::erase(ArmorTemplateMap::iterator);
