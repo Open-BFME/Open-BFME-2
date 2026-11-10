@@ -40,7 +40,7 @@ struct BfmePod40;
 class CreateAHeroAward;
 class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(int key); };	// 0x0040AAD5
 extern Rva0040AAD5 *TheAwardSystemManager;
-class Rva00406E7D { public: int rva00406E7D(); };		// 0x00406E7D
+#include "../../../Include/Common/Rva00406E7D.h"
 class Rva00406E8F { public: int rva00406E8F(unsigned int i); };	// 0x00406E8F
 class CreateAHeroHero { public: bool HasEarnedAward(const CreateAHeroAward *award) const; };	// 0x00406EA7
 

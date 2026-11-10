@@ -36,7 +36,7 @@ class Rva00406E8F
 public:
     int rva00406E8F(unsigned int i);
 };
-class Rva00406E7D { public: int rva00406E7D(); };
+#include "../../../../../Include/Common/Rva00406E7D.h"
 struct Holder
 {
     char m_pad[0x274];

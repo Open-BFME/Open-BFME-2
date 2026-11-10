@@ -73,7 +73,7 @@ public:
 struct BfmePod40;
 class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(Int awardId); };
 extern Rva0040AAD5 *TheAwardSystemManager;
-class Rva00406E7D { public: Int rva00406E7D(); };
+#include "../../../Include/Common/Rva00406E7D.h"
 class Rva00406E8F { public: Int rva00406E8F(UnsignedInt index); };
 
 // 0x004079D5 (31 B, rowed in Rva004079D5.cpp): the hero's +0x74 map

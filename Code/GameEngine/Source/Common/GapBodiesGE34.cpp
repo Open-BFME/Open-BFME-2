@@ -126,11 +126,7 @@ public:
 
 extern Rva0040AAD5 *TheAwardSystemManager;
 
-class Rva00406E7D
-{
-public:
-	int rva00406E7D();										// 0x00406E7D
-};
+#include "../../Include/Common/Rva00406E7D.h"
 
 class Rva00406E8F
 {
