@@ -100,6 +100,30 @@ recorded a false reject. `add_match.local_label_hint` now names the missing
 condition instead, on both the single and batch paths. Submitting any of the 144
 without scoping notes produces the explanation in all 144 cases.
 
+`check_csv` has the same cluster: **13 of its 17 open records are `$L` labels**,
+and it already routes its duplicate-name check through the same
+`ledger_io.same_function_name`, so all 13 have fully scoped peers too. Its
+message said `One is wrong.`, which for a compiler label is false -- both can be
+right. Fixed at `e0d4d5ee95c`, where `local_label_hint` moved to `ledger_io`
+beside the rule it explains and both tools now use it.
+
+### Two rows are latent blockers
+
+Of 10,546 `$L` rows in the ledger, 1,898 names are used more than once and
+**exactly 2 rows fail `local_funclet`**:
+
+| row | why it is unscoped |
+| --- | --- |
+| `$L4914` @ `0x007AB398`, `Code/Libraries/Source/WWVegas/WWLib/stlport_target_list_73eee0.cpp` | notes carry `object-symbol=$L5079` |
+| `$L3985` @ `0x0075D58E`, `Code/GameEngine/Source/Common/System/GeometryRecord.cpp` | notes are **empty**: no `gen-funclet`, no `parent=` |
+
+Each currently holds its name alone, so neither blocks anything today. But an
+unscoped row is global: the first worker who needs that label number in another
+TU is refused, and before `e0d4d5ee95c` would have been told one of the two rows
+must be wrong. Giving them notes means asserting a parent I have not proven, so
+they are reported rather than edited -- `$L3985` in particular is a matched
+compiler-label row carrying no parentage evidence at all.
+
 ## What this does not claim
 
 - **Not that the 351 are all real false rejects.** 144 are "a different real
