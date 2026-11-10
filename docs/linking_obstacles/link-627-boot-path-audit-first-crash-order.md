@@ -367,3 +367,26 @@ producer/EH prerequisites remain, with no boot or image clearance claimed.
   entries, and 0 refusals (`already_correct`) in both `fam_first` and
   `ctor_first` link orders. Next real link confirms retirement of the
   `reverse/vtable_bridge_queue.tsv` bridge entry.
+
+- 2026-11-10, `FloatUpdateModuleDataCtor.cpp` (+13 B) and `Module.cpp` (+45 B):
+  in index `51f6d2483f` (`2026-11-10 13:06`), both TUs emitted colliding
+  `??0ModuleData@@QAE@XZ` COMDATs (`d2c52b1fb17a` vs `ModuleFactory.cpp`'s
+  `ed1c6d5ce184`), and `reverse/vtable_bridge_queue.tsv:2256` kept
+  `??_7FloatUpdateModuleData@@6B@` bridged at `32 B` (`8/31` slots of
+  `0x0084ED70`). `FloatUpdateModuleDataCtor.cpp` now includes canonical
+  `ModuleData.h` (`__declspec(dllimport) __forceinline ModuleData()`) over a
+  minimal `class FloatUpdateModuleData : public ModuleData` (`bool m_enabled`),
+  and `Module.cpp` drops its unrowed, unreferenced Zero Hour
+  `Module::friend_newModuleData(INI*)`. Neither TU now emits
+  `??0ModuleData@@QAE@XZ`, and `FloatUpdateModuleDataCtor.obj` emits the
+  `124 B` (31-slot) `??_7FloatUpdateModuleData@@6B@` (only the held
+  `W3DPropDraw.cpp` `??0ModuleData@@QAE@XZ` `d2c52b1fb17a` emitter remains
+  untouched; `?slot14@ModuleData@@UBE?AVAsciiString@@H@Z` remains unowned like
+  `0x0084ED70` sibling `W3DDebrisDrawModuleDataFactory.cpp`). Verified:
+  `build.py` 6/6 with `W3DScriptedModelDrawDestructor.cpp`, `class_gate.py`
+  and `find_declared_unmatched.py --fail` clean, `link_check --new-variants`
+  clean, and `link_check` over the 3 edited units + 4 `FloatUpdate*` siblings
+  + 12 touching `DrawModule`/`ModuleData` units gives 18/19 cleanly (all 5
+  `FloatUpdate*` units + `Module.cpp` + `ModuleFactory.cpp` link; only held
+  `W3DPropDraw.cpp` stays 0/157 B). Census and next real-link bridge queue
+  confirmation pending.

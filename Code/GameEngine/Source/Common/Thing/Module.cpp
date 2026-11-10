@@ -77,17 +77,8 @@ template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, al
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// this method should NEVER be overridden by user code, only via the MAKE_STANDARD_MODULE_xxx macros!
-// it should also NEVER be called directly; it's only for use by ModuleFactory!
-/*static*/ ModuleData* Module::friend_newModuleData(INI* ini) 
-{ 
-	ModuleData* data = MSGNEW("Module::friend_newModuleData") ModuleData;	// no need to memorypool these since we never allocate more than one of each
-	if (ini)
-		ini->initFromINI(data, 0);	// this is just so that an "end" token is required
-	return data;
-}
+// Module::friend_newModuleData removed: unrowed Zero Hour stub whose `new ModuleData`
+// emitted a colliding ??0ModuleData@@QAE@XZ COMDAT; nothing references it.
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
