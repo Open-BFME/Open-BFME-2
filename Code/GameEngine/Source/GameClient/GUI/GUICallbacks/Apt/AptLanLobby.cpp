@@ -154,11 +154,7 @@ public:
 };
 void __cdecl Rva003B3371Call(int value);
 void Rva00444040Enable();
-class AptOptions
-{
-public:
-	static void OpenScreen(bool a, bool b, bool c, bool d);
-};
+#include "../../../../../Include/GameClient/AptOptions.h"
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
 // Unrowed 0x0044C0A8 (message box with title, text and callback), pinned.
 void MessageBoxOk(UnicodeString title, UnicodeString text, void (*callback)());

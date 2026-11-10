@@ -25,11 +25,7 @@ public:
 };
 void __cdecl Rva00511730(int value);
 void __cdecl Rva0051AF0BEnable(int value);
-class AptOptions
-{
-public:
-	static void OpenScreen(bool a, bool b, bool c, bool d);
-};
+#include "../../../../../Include/GameClient/AptOptions.h"
 
 // TheGameLogic (0x00DFE78C): the mode at +0x110, +0x114 and the rowed
 // readers this unit calls.

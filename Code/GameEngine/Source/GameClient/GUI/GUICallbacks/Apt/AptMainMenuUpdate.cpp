@@ -25,7 +25,7 @@
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
 #include "../../../../../Include/GameClient/AptSaveLoad.h"
-class AptOptions { public: static void OpenScreen(bool a, bool b, bool c, bool d); };
+#include "../../../../../Include/GameClient/AptOptions.h"
 #include "../../../../../Include/Common/AptCreateAHero.h"
 class AptSkirmish { public: static void OpenScreen(int mode); };
 void startGoodCampaign(char side);	// 0x00515BCA

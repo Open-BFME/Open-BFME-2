@@ -396,11 +396,7 @@ struct State0051E262
 	int m_288; // +0x288
 };
 
-class AptOptions
-{
-public:
-	static void OpenScreen(bool a1, bool a2, bool a3, bool a4);
-};
+#include "../../../../../Include/GameClient/AptOptions.h"
 
 class AptScoreScreen : public _bfme_AptGameWindow
 {

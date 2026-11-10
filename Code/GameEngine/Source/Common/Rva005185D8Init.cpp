@@ -27,11 +27,7 @@ struct State0051E262
 	char m_pad284[4];
 	int m_288; // +0x288
 };
-class AptOptions
-{
-public:
-	static void OpenScreen(bool a1, bool a2, bool a3, bool a4);
-};
+#include "../../Include/GameClient/AptOptions.h"
 void AptOptions::OpenScreen(bool a1, bool a2, bool a3, bool a4)
 {
 	if (g_Va00A04908 != 0)

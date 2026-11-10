@@ -376,11 +376,7 @@ struct Rva00517547 : Rva005173CB
 // pointers by the screen's registration; that binding is their only
 // reference. The class is named for the strings' prefix.
 
-class AptOptions
-{
-public:
-	static void OpenScreen(bool a, bool b, bool c, bool d);
-};
+#include "../../../../../Include/GameClient/AptOptions.h"
 
 // Rva00516E92Enable.cpp's 0x00516E92.
 void Rva00516E92Enable();
