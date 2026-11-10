@@ -1,4 +1,6 @@
-# real link at 74f796af361e065334e76df8b0540cab5a654673: tools/exit_link.py --blockers
+# real link at d5d330359e8fa0697215e782d85328536940be10: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	10	?$S142@?1??GetValue@?$DefaultModuleKey@$0A@@FXParticleSystem@@CAPBDXZ@4IA
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
+Code/GameEngine/Source/GameLogic/Object/ArmorHashMapErase.cpp	1	?_M_delete_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@Z
+Code/Libraries/Source/xfer/XferSaveOpen.cpp	1	?_M_delete_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@Z
