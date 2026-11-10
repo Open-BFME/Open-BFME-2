@@ -1,5 +1,5 @@
-// cl: /O1 /arch:SSE /GX /Oy- /MD /DNDEBUG
-// ??0FireWeaponWhenDeadBehaviorModuleData@@QAE@XZ @0x00253737 (110B): vtable
+// cl: /O1 /arch:SSE /GX /Oy /MD /DNDEBUG
+// ??0FireWeaponWhenDeadBehaviorModuleData@@QAE@XZ @0x00253737 (111B): vtable
 // 0x00C4ED70 (trivial-hierarchy fold shared with DeletionUpdate) then the
 // shared-construct block at +8 (rowed Rva0025342CMember::construct, 0x110
 // bytes ending exactly at +0x118) then DieMuxData at +0x12C (rowed init)
@@ -7,20 +7,15 @@
 // DelayTime at +0x11C plus DeathWeapon at +0x15C plus WeaponOffset floats at
 // +0x120. Table 0x00BF0508 carries all five fields at these offsets;
 // factory 0x2537DC news 0x160 with this ctor as sole caller and pushes the
-// rowed proc. Shape follows SpawnBehavior (empty base, init-listed explicit
-// vtable, rowed construct plus rowed init).
-extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
+// rowed proc. The base cleanup at RVA 0x00771C42 calls ModuleData::~ModuleData.
 
 #include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
-class BehaviorModuleData
-{
-public:
-	__declspec(dllimport) __forceinline BehaviorModuleData() {}
-	~BehaviorModuleData();
-};
+#include "../../../../Include/Common/ModuleData.h"
+
+inline ModuleData::~ModuleData() {}
 
 // The block's rowed construct runs before the next member's constructor.
 class ConstructedMuxBlock : public Rva0025342CMember
@@ -29,14 +24,12 @@ public:
 	ConstructedMuxBlock() { construct(); }
 };
 
-class FireWeaponWhenDeadBehaviorModuleData : public BehaviorModuleData
+class FireWeaponWhenDeadBehaviorModuleData : public ModuleData
 {
 public:
 	FireWeaponWhenDeadBehaviorModuleData();
 
 private:
-	const void *m_vtable; // +0
-	unsigned int m_unused04; // +4
 	ConstructedMuxBlock m_muxData; // +8
 	bool m_startsActive; // +0x118
 	bool m_activeDuringConstruction; // +0x119
@@ -49,7 +42,6 @@ private:
 
 // ??0FireWeaponWhenDeadBehaviorModuleData@@QAE@XZ @0x00253737
 inline FireWeaponWhenDeadBehaviorModuleData::FireWeaponWhenDeadBehaviorModuleData()
-	: m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7ObjectHelperModuleData@@6B@"))))
 {
 	m_startsActive = false;
 	m_activeDuringConstruction = false;
