@@ -233,3 +233,20 @@ Exact queued names are deferred without removing the queue. Full table
 identity and next-image verification remain open, rather than repeating
 the strong-array removal.
 [Recheck evidence](../../reverse/attempt_support/lightning-stored-tables-20261109/stale-queue-recheck-20261109.json).
+
+2026-11-10, the module side of the same family, CAT_WIND (0x0081B5D0 /
+0x0081B5E0, `Rva003A59C3Ctor.cpp`), attempt handoff, no `Code/` change: the
+constructor unit declares three virtuals per base where retail's tables hold
+four, one and four slots. A trial with retail's shape on the shim `Snapshot`
+byte-matches 4/4 and emits tables with retail's slot counts, but
+`link_check` takes the unit from LINKED 143 to 0 bytes (seven unresolved
+members): the rows at the slot addresses are spelled `Rva003ADFB2`,
+`Rva003A57A9`, `Rva003A5A58` and a free getter, not this class.
+`Rva003AE03DCopyCtor.cpp` / `Rva003AE017CopyCtor.cpp` still define one-byte
+stand-ins at the four table addresses (strong-definition); they cannot go
+first, because `Data rows` refuses a compiler table whose slots have no
+ledger address. `rename.py --to-class` refuses the slot move until a view
+derives `Rva003AE017` (table 0x00C1CED8) from this class. Next: one family
+header, as `FXModuleTemplateBase.h` did for the templates, landing the shape
+and the slot rows together.
+[Target facts, the banked trial and the slot table](../../reverse/attempt_support/fx-wind-default-particle-module-20261110/README.md).
