@@ -26,10 +26,7 @@ typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-struct Rva00390729Element
-{
-	int opaque[3];
-};
+#include "../../Include/Common/Rva00390729Element.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void vector<Rva00390729Element,allocator<Rva00390729Element> >::reserve(unsigned int); }
 

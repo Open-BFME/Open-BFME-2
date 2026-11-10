@@ -41,7 +41,7 @@ class SegmentedLineClass:public RenderObjClass { public:
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 extern RenderObjClass *Create_Render_Obj(const char *);
 class LightEnvironmentClass { public:LightEnvironmentClass();~LightEnvironmentClass();char bytes[0x22c];};
-struct Rva00390729Element { int opaque[3]; };
+#include "../../../../GameEngine/Include/Common/Rva00390729Element.h"
 struct Rva000E0AC3Element { char bytes[1]; bool operator<(const Rva000E0AC3Element&)const; bool operator==(const Rva000E0AC3Element&)const; };
 namespace _STL {template<> struct hash<Rva000E0AC3Element> { unsigned operator()(const Rva000E0AC3Element&) const; };
 template<> void vector<Rva00390729Element>::reserve(unsigned);

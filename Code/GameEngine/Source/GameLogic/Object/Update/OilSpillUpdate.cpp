@@ -38,7 +38,7 @@ namespace _STL { template <> void vector<Coord3D, allocator<Coord3D> >::resize(u
 struct Gen_p12pod { int a[3]; };
 namespace _STL { template <> Gen_p12pod *vector<Gen_p12pod>::erase(Gen_p12pod *, Gen_p12pod *); }
 namespace _STL { template <> void vector<Coord3D>::push_back(Coord3D const &); }
-struct Rva00390729Element { int opaque[3]; };
+#include "../../../../Include/Common/Rva00390729Element.h"
 namespace _STL { template <> void vector<Rva00390729Element>::reserve(unsigned int); }
 inline Coord3D operator-(const Coord3D &a, const Coord3D &b)
 {
