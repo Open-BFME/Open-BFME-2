@@ -8,11 +8,7 @@
 // +4 base (virtual dtor 0x005CD1A9 out of line) and the empty first base
 // unwind. Identity of the class is unproven.
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
-class Rva0042D6AEPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0042D6AEPtrChaseField.h"
 class VirtObj005770F7
 {
 public:

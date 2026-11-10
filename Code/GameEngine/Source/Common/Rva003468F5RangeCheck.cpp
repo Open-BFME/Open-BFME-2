@@ -7,12 +7,7 @@
 // /arch:SSE selects the retail fld/fxch/fcompi/jbe shape (plain /O1 emits fcomp/fnstsw); /O1 keeps push-esi framing.
 class Object;
 #include "../../Include/GameLogic/Module/TurretStateMachine.h"
-class Rva000CBA20Point
-{
-public:
-	float x;
-	float y;
-};
+#include "../../Include/Common/Rva000CBA20Point.h"
 #include "RTS/XYDistanceCallView.h"
 
 // AIChargeTargetState (rowed ctor 0x00343042, onExit, update; the class is

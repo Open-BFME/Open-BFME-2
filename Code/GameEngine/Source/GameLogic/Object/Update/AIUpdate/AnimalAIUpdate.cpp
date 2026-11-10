@@ -119,12 +119,7 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
-class Rva000CBA20Point
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../../../Include/Common/Rva000CBA20Point.h"
 static const char *const kAnimalSource =
 	"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AIUpdate\\AnimalAIUpdate.cpp";
 struct Coord3D;

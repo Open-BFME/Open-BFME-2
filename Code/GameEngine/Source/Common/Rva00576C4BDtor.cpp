@@ -36,11 +36,7 @@ class Rva00328A83PtrChaseField
 public:
 	int get() const;
 };
-class Rva0042D6AEPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0042D6AEPtrChaseField.h"
 class VirtObj00576C4B
 {
 public:

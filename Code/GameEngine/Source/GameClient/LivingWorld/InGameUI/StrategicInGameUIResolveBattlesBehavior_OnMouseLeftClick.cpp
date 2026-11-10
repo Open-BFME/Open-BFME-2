@@ -118,7 +118,7 @@ class Rva005CD708 { public: void rva005CD708(); };
 class Rva005D14AB { public: void rva005D14AB(); };
 #include "../../../../Include/Common/Rva000AD6F4.h"
 class Rva002B5EB5 { public: bool IsLocalPlayerAllowedToEndPhase(); };
-class Rva0042D6AEPtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva0042D6AEPtrChaseField.h"
 class ResolveUpdateAction {
 public:
  virtual void slot0();

@@ -45,11 +45,7 @@ class RadarWindowOverrideSource : public Rva002D43A0Owner
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-class Rva003EF008
-{
-public:
-	void rva003EF008();
-};
+#include "../../Include/Common/Rva003EF008.h"
 
 void Rva003EF008::rva003EF008()
 {

@@ -40,7 +40,7 @@ GameMessageDisposition StrategicInGameUI::ManualPhaseEnder::Translate(const Game
 	return KEEP_MESSAGE;
 }
 
-class Rva0042D6AEPtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva0042D6AEPtrChaseField.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include "../../../../Include/Common/DelegateDesc.h"
