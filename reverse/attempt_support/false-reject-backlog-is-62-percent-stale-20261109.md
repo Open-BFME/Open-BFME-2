@@ -161,16 +161,27 @@ whole time, which is cause 3 below. Cases found while verifying the above:
   specimen, so the red is arguably the authors' intended signal with nowhere
   to go.
 
-**19 other test files carry the same unguarded `_load`** and are one import
-away from repeating cause 1: `test_gen_getters`, `test_gen_uw_shapes`,
-`test_gen_tinst`, `test_inventory`, `test_dump_predicate`, `test_merge_cluster`,
-`test_ledger_terminators`, `test_ledger_guards`, `test_red_rows`,
-`test_gen_uw_transaction`, `test_scan_population`, `test_land_supersede`,
-`test_pin_consistency`, `test_pin_audit`, `test_wb_queue_hooks`,
-`test_readability_metric`, `test_tu_structure`, `test_zh_packet_metadata` and
-`test_reloc_names` itself (now guarded). Each is a two-line fix, but whether
-any of them wants a fresh copy deliberately needs reading, so they are not
-swept here.
+**11 other test files carried the same unguarded `_load`**, all now guarded:
+`test_gen_tinst`, `test_gen_uw_shapes`, `test_gen_uw_transaction`,
+`test_inventory`, `test_land_supersede`, `test_ledger_guards`, `test_pin_audit`,
+`test_pin_consistency`, `test_red_rows`, `test_wb_queue_hooks`,
+`test_zh_packet_metadata`.
+
+An earlier revision of this note put that at 19, counting by `rg "if name in
+sys.modules"`. Six files -- `test_dump_predicate`, `test_merge_cluster`,
+`test_ledger_terminators`, `test_readability_metric`, `test_scan_population`,
+`test_tu_structure` -- were already guarded in the other idiom (`if name not in
+sys.modules:` around the load, returning `sys.modules[name]`), and
+`test_gen_getters` loads `gen_small.py` under the distinct name
+`gen_small_getter_test`, so it never touches the shared entry. Both forms are
+safe; only the count was wrong.
+
+Three of the eleven clobbered `build`, which 25 test files import normally --
+the same exposure that caused the 8. The three `_load` calls that happen inside
+a test rather than at import were checked before guarding: `bfme1_sweep`,
+`zh_sweep` and `permute` all do `import wb_context` and resolve its attributes
+at call time, so the `leads` fixture's monkeypatch still reaches them without a
+fresh module, and `test_ledger_terminators:259` only asserts identity.
 
 I did not run the whole 321-file suite; the 31-file subset above is every test
 importing `add_match`, `gen_uw` or `ledger_io`. After the three fixes it is
