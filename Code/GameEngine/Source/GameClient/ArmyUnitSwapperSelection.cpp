@@ -139,7 +139,7 @@ void Rva005F5E83::rva005F5E83(){if(StrategicInGameUI::ShouldEnableButton(selecti
 // BC, count budget, and message6BF are target facts. Cached end iterators
 // and same-TU callers permit the native EBX/EDI/EAX private entries.
 class Rva00318C32Ret;
-class Rva00318C79Owner {public:Rva00318C32Ret *rva00318C32();};
+#include "../../Include/GameLogic/Rva00318C79Owner.h"
 #include "../../Include/Common/Rva002B2B66.h"
 namespace StrategicInGameUI {
 static bool CanUpgradeAny(LivingWorldArmy *army,Rva005F56B0Selection *selection);

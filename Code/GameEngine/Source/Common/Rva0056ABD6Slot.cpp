@@ -15,11 +15,7 @@ struct LivingWorldArmy;
 struct Rva002B4BC9Arg;
 class Rva00318C32Ret;
 
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();
-};
+#include "../../Include/GameLogic/Rva00318C79Owner.h"
 
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
 

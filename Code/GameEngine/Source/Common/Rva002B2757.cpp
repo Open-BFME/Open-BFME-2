@@ -12,11 +12,7 @@
 // ret 0xC. 20FAEA arity (int, float*) from its four call sites all pushing
 // (X, buf). Identity unproven: honest address-derived names.
 class Rva00318C32Ret;
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();
-};
+#include "../../Include/GameLogic/Rva00318C79Owner.h"
 
 // Row 0x0031A591 is LivingWorldArmy::initiateMove; row 0x0020FAEA is
 // Rva0020EE29::rva0020FAEA.

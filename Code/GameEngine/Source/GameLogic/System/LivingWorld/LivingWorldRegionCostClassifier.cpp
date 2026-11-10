@@ -14,10 +14,7 @@ extern "C" void _ReadWriteBarrier();
 class Rva0020E89C;
 class Rva002E2903Player;
 class Rva00318C32Ret;
-class Rva00318C79Owner {
-public:
-    Rva00318C32Ret *rva00318C32();
-};
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva0020EAF6View {
 public:

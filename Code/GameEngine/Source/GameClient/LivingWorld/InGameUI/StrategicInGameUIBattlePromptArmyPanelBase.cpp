@@ -59,7 +59,7 @@ public:
     char pad11D[0x13C-0x11D]; int owner;
     char pad140[0x170-0x140]; CounterPlot **begin; CounterPlot **end;
 };
-class Rva00318C79Owner { public: Rva00318C32Ret *rva00318C32(); };
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 struct CounterPanel {
     char pad[0x18]; StringBase<char> key;
     char pad1C[0x54-0x1C]; int owner;

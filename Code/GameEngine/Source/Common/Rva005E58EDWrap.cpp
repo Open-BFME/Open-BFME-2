@@ -4,11 +4,7 @@
 // Else call pinned 0x005E6836 (this + 2 args: +8->+0x18 value and first result).
 // Ret void, this only. Address-derived.
 class Rva00318C32Ret;
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();
-};
+#include "../../Include/GameLogic/Rva00318C79Owner.h"
 
 class Rva005E6836
 {

@@ -18,7 +18,7 @@
 class Rva005CCDDD {public:Rva005CCDDD();virtual ~Rva005CCDDD();int unknown4;void *payload;};
 class SecondBase005D2111 {public:virtual void observerSlot0(int);virtual void observerSlot1(void*,unsigned);virtual void observerSlot2(void*);virtual void observerSlot3(void*);virtual void observerSlot4(void*);~SecondBase005D2111(){} };
 class Rva00318C32Ret;
-class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva0020E89C;
 UnicodeString Rva005C95ECGet(Rva0020E89C*);
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}

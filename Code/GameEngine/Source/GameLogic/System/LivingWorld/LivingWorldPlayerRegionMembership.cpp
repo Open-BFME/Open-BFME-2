@@ -23,7 +23,7 @@ void *&vector<void*>::operator[](size_t __n)
 { return *(begin() + __n); }
 }
 class Rva00318C32Ret;
-class Rva00318C79Owner { public: Rva00318C32Ret *rva00318C32(); };
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 class LivingWorldPlayer {
 public:
  bool rva002E0B76(Rva00318C32Ret *region);

@@ -23,11 +23,7 @@ template<> void vector<const ModuleData *>::reserve(unsigned int);
 }
 class ModuleData;
 class Rva00318C32Ret;
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();
-};
+#include "../../Include/GameLogic/Rva00318C79Owner.h"
 
 class Rva002E2504
 {

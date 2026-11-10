@@ -10,7 +10,7 @@
 // Both UnicodeString temporary lifetimes follow the two-state retail EH map.
 #include "unicode_string.h"
 class Rva00318C32Ret;
-class Rva00318C79Owner {public:Rva00318C32Ret *rva00318C32();};
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva0020E89C {public:UnicodeString rva0020E89C();};
 class Rva00318FBE {public:int rva00318FBE();};
 int GetMaxCommandPoints(void*);

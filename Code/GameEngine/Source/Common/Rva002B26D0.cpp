@@ -20,12 +20,7 @@
 // follows the rowed 0x318C32 pin.
 class Rva00318C32Ret;
 class Coord2D;
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();
-	void rva0031A591(float *pair, void *key, void *extra);
-};
+#include "../../Include/GameLogic/Rva00318C79Owner.h"
 #include "../../Include/GameLogic/LivingWorldArmy.h"
 
 #include "ArmyMoveCoordinateView.h"

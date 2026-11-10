@@ -288,7 +288,7 @@ void Rva004E141DParse(INI *ini,void *instance,void*,const void*) {
 
 class Rva0020E89C { public:UnicodeString rva0020E89C(); };
 class Rva00318C32Ret;
-class Rva00318C79Owner { public:Rva00318C32Ret *rva00318C32(); };
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 struct ArmyHelpBuildingView { unsigned char pad[0x24]; Rva0020E89C *region; };
 
 // 0x004E265F 738B: the hero-unit help text of the army spawn record: the
