@@ -554,8 +554,10 @@ def donors(tu, sk):
     another TU, or leaves without one for want of evidence, makes it mixed; a row
     only proposed for this TU refuses it: only approved rows move. The TU path
     itself moves none of its rows (the merge seeds from it), so only a row the
-    map assigns to another TU blocks it. A donor is also refused when deleting
-    it is not mechanical (see refusal()).
+    map approves for another TU blocks it: one the map merely proposes for another
+    TU stays in the TU file as its own unassigned rows do (a proposal is not an
+    approval; if it is approved later, moving the row out is an ordinary repair).
+    A donor is also refused when deleting it is not mechanical (see refusal()).
     """
     rows = ledger_rows()
     if "assigned" not in _CACHE:
@@ -563,7 +565,11 @@ def donors(tu, sk):
                               if r["kind"].startswith("code") and r["tu"]}
         _CACHE["unplaced"] = {int(r["rva"], 16): r for r in map_rows() if r["kind"].startswith("code") and not r["tu"]}
         _CACHE["approved"] = approved_homes(map_rows())
+    if "proposed" not in _CACHE:
+        _CACHE["proposed"] = {int(r["rva"], 16) for r in map_rows()
+                              if r["kind"].startswith("code") and r["tu"] and r["confidence"] == "proposed"}
     assigned, unplaced, approved = _CACHE["assigned"], _CACHE["unplaced"], _CACHE["approved"]
+    proposed = _CACHE["proposed"]
     if "by_file" not in _CACHE:
         _CACHE["by_file"] = collections.defaultdict(list)
         for r in rows:
@@ -590,8 +596,12 @@ def donors(tu, sk):
         # row. A donor's never: absorbing it would carry the row away from its approved TU.
         # (only a row the map places in another TU can make the file mixed: judge only those)
         # (an ICF alias is never foreign anyway: no need to preprocess for it)
+        # So does a row the map only proposes for another TU (not approved): the seed keeps it in
+        # place, unmoved and re-verified, exactly like a row the map places nowhere. A donor's
+        # never: absorbing the donor would move the row.
         held = ({id(r) for r in own if assigned.get(int(r["target_rva"], 16)) not in (tu.lower(), None)
-                 and not fold_alias(r) and emission_held(r)} if f.lower() == tu.lower() else set())
+                 and not fold_alias(r) and (emission_held(r) or int(r["target_rva"], 16) in proposed)}
+                if f.lower() == tu.lower() else set())
         mine = {id(r): None if id(r) in held else assigned.get(int(r["target_rva"], 16)) for r in own}
         home = {r["name"]: mine[id(r)] for r in own}
         dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}

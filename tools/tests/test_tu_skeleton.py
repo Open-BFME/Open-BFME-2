@@ -689,6 +689,31 @@ class DonorTests(unittest.TestCase):
         self.assertEqual(mixed, {self.TU: 1})
         self.assertNotIn(self.TU, don)
 
+    def test_a_tu_file_row_only_proposed_for_another_tu_does_not_block_merges_into_it(self):
+        # Object.cpp: ObjectRecoveryHelper::GetSnapshotName is proposed (not approved) for
+        # ObjectRecoveryHelper.cpp; the seed keeps it in place and the merge goes ahead.
+        don, mixed, _ = self.donors([("?t@@YAXXZ", 0x1000, self.TU), ("?o@@YAXXZ", 0x1200, self.TU),
+                                     ("?a@@YAXXZ", 0x1010, "Code/A.cpp")],
+                                    {0x1000: self.TU, 0x1010: self.TU, 0x1200: ("Code/Other.cpp", "proposed", "N=x")})
+        self.assertEqual(mixed, {})
+        self.assertEqual(sorted(don), ["Code/A.cpp", self.TU])
+        self.assertEqual(len(don[self.TU]), 2)          # the proposed row stays with the seed, unmoved
+
+    def test_a_tu_file_row_approved_for_another_tu_still_blocks_it(self):
+        don, mixed, _ = self.donors([("?t@@YAXXZ", 0x1000, self.TU), ("?o@@YAXXZ", 0x1200, self.TU),
+                                     ("?a@@YAXXZ", 0x1010, "Code/A.cpp")],
+                                    {0x1000: self.TU, 0x1010: self.TU, 0x1200: ("Code/Other.cpp", "approved", "S=x")})
+        self.assertEqual(mixed, {self.TU: 1})
+        self.assertNotIn(self.TU, don)
+
+    def test_a_donor_with_a_row_proposed_elsewhere_stays_mixed(self):
+        # absorbing the donor would move the proposed row into this TU
+        don, mixed, _ = self.donors([("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
+                                     ("?p@@YAXXZ", 0x1300, "Code/B.cpp")],
+                                    {0x1000: self.TU, 0x1020: self.TU, 0x1300: ("Code/Other.cpp", "proposed", "N=x")})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertEqual(sorted(don), [self.TU])
+
     def test_a_donor_with_unplaced_rows_is_still_not_absorbed(self):
         # Absorbing it would move a row the map does not put in this TU.
         don, mixed, _ = self.donors([("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"),
