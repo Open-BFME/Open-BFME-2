@@ -591,3 +591,9 @@ defines each target as an external in a .bss section. Both sides are zero-fill. 
 
 Predicted: 12 -> 8 unresolved, to be confirmed by the next real link. Step 3, 24 h after this lands: `$S170`, `$S174`, `$S184`, `$S188`, then `$S22`/`$S26` once their named
 zero words have data rows. The two `Matrix4D` names stay with LINK-018. Evidence: `~/bfme2-ops/swarm/sweeps/link-018/alias-step2/`.
+
+A COFF comparison on 5c4cc57fb7 confirms the 12 out-of-class accessor bodies
+in the draw-order trial preserve every instruction and relocation outside
+the guard name differences (+12 and +27 in each body). The category-six
+publisher-only control still emits S3/S7 and changes the empty-string
+relocation. Details in the [FX guard evidence](../../reverse/attempt_support/fx-guard-source-layout-20261110.md).

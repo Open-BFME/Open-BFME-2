@@ -14,3 +14,21 @@ Experiments ran in scratch copies using the compiler command of FXParticleSystem
 This narrows the missing input to the surrounding source and instantiation sequence, including the large gap after category six. Repeating only the wrapper permutation, or padding a compiler counter, does not recover those inputs. Confirm the TU and additional live instantiations before changing production sources. The original Defaults TU and export registry are unchanged.
 
 Both BFME2 images give the same additional ordering constraint. Following the exported code addresses (including jump thunks), between category 6 and category 1 there are seven getInstance bodies: the default and StreakDraw, QuadDraw, ButterflyDraw, RenderObjectDraw, LightningDraw and GpuDraw, in that order. Between each subsequent pair of default categories there is one getInstance. The WB function inventory has no file/line evidence in this window. In the scratch factory trial, placing the six existing draw wrappers in that order moves category 1 from 40/44 to 52/56; the remaining four key/name pairs become 62/66, 72/76, 82/86, 92/96. Class dllexport on the two default templates and the concrete module class emits twelve actual /EXPORT:,DATA directives for the guards, with those same numbers. Export visibility and the Key/Name spacing are therefore both reproducible from C++; the remaining counter sequence and object ownership are still open.
+
+At 5c4cc57fb7, compared the COFF bodies against the retail accessors and
+the checkout's verified FXParticleSystemDefaults object. In the draw-order
+trial with class dllexport, all 12 accessors have retail's 127-byte extent
+and instruction bytes outside relocation operands. All 192 relocations
+retain their offsets, kinds and target spellings apart from the two guard
+operands per accessor (+12 and +27). Each pair uses the same word. This
+isolates a difference in compiler-generated guard identity; the trial still
+does not produce the ten outstanding names or establish object ownership.
+
+A separate scratch control used the actual Rva0055C8BCCtor.cpp flags and
+source, including its real function-local publisher. Instantiating the two
+category-six accessor classes before or after that source produced S3/S7
+both times. With that TU's include search order the +111 relocation in each
+body also names StringBase::str's TheNullChr instead of the empty string
+literal in the verified Defaults object (retail operand VA 0x00BBAC1C).
+The three draw-module file/line pairings in the TU map are useful for the
+draw code, but the publisher alone does not explain the S22/S26 exports.
