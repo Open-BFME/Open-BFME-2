@@ -1,9 +1,10 @@
 # 66 of 11,838 tests are red, and nothing was ever going to say so
 
-> **29 remain.** Of the 66 measured, 37 are fixed: `test_tu_structure.py`'s 1
+> **26 remain.** Of the 66 measured, 40 are fixed: `test_tu_structure.py`'s 1
 > (`7b1c3d1eb1a`, which the run caught and which was already fixed when this was
 > written), `test_header_dependents.py`'s 14 (`ee2d7795743`) and
-> `test_recovery_experiments.py`'s 22 (`60dc4dca8fe`). An earlier revision said
+> `test_recovery_experiments.py`'s 22 (`60dc4dca8fe`), and three singletons
+> (`41a969507d6`, `c02cdfcaa65`). An earlier revision said
 > "52 remain", which double-counted the one already fixed. The table records
 > which and why.
 >
@@ -48,11 +49,11 @@ in a standalone run, as a starting point and not a diagnosis.
 | `test_publisher.py` | 1 | fails alone | `assert 0 != 0` |
 | `test_link_rank_snapshot.py` | 1 | fails alone | output lacks `--files Code/known.cpp`; the snapshot it prints is dated 2026-10-24 |
 | `test_flag_input_coverage.py` | 1 | fails alone | `DID NOT RAISE SnapshotError` |
-| `test_flag_delta_sources.py` | 1 | fails alone | `assert 1 > 1` |
+| `test_flag_delta_sources.py` | 1 | ~~fails alone~~ | **fixed at `c02cdfcaa65`**: the hook gained `classify_full_scope`, so a selection covering every provider becomes one ordinary full build; the empty selector list means "build everything" and the test read it as nothing verified |
 | `test_fix_eh_prolog_sizes.py` | 1 | fails alone | `FUN_0061ecb2 at 0x21ecb2 overlaps 0x21ed9c` — reads live data |
 | `test_doc_lint.py` | 1 | fails alone | a list of undocumented docs where `[]` is asserted; likely a real content finding, not a test bug |
-| `test_claims_gc.py` | 1 | fails alone | `assert 1 == 2` |
-| `test_build_lib_thin.py` | 1 | fails alone | `ValueError: Code/Libraries/Source/CRT/VS2003/security_cookie_check.cpp: not an ar archive` |
+| `test_claims_gc.py` | 1 | ~~fails alone~~ | **fixed at `41a969507d6`**: `renew()` now sends one batched push before the per-token retry loop, so 3 pushes carry 1 backoff, not 2 |
+| `test_build_lib_thin.py` | 1 | ~~fails alone~~ | **fixed at `41a969507d6`**: `@__security_check_cookie@4` was recovered from `msvcrt.lib` to real C++, so its source is no longer an archive |
 | `test_tu_structure.py` | 1 | passed alone | **mine, fixed at `7b1c3d1eb1a`** |
 | | **66** | | |
 
