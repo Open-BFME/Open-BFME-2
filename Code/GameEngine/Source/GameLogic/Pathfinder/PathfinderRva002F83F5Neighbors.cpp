@@ -65,11 +65,7 @@ Object *container;
 #include "../../Common/Thing/thing.h"
 struct Rva002E7ED6Info;
 class Pathfinder;
-struct Rva002E93A7Info
-{
-Pathfinder *m_00;
-Int m_04;
-};
+#include "../../../Include/Common/Rva002E93A7Info.h"
 class PathfindCell;
 #include "../../../Include/GameLogic/PathfindPath.h"
 

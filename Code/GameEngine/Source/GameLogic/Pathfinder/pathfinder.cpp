@@ -130,11 +130,7 @@ class Pathfinder;
 // Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.
 #include "../../../Include/GameLogic/PathNode.h"
 struct Rva002EDEABArg;
-struct Rva002E93A7Info
-{
-	Pathfinder *m_00;
-	Int m_04;
-};
+#include "../../../Include/Common/Rva002E93A7Info.h"
 class Waypoint { public:
  Bool isValidUnitType(Object *); Waypoint *getLink(Int) const;
  Int word0,id;void *name;Coord3D location;Int word18;Waypoint *next;
