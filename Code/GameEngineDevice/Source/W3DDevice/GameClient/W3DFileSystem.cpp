@@ -43,6 +43,7 @@
 // for now we maintain old legacy files
 // #define MAINTAIN_LEGACY_FILES
 
+#include <mbstring.h>
 #include "Common/Debug.h"
 #include "Common/File.h"
 #include "Common/FileSystem.h"
@@ -54,7 +55,6 @@
 
 #include <io.h>
 // Retail calls MSVCR71 _mbscat here (thunk 0x0062988C), not strcat.
-extern "C" char *__cdecl _mbscat(char *dest, const char *source);
 
 // BFME's File vtable, which the vendored Zero Hour header does not describe:
 // BFME's File is not a MemoryPoolObject, so every slot sits one earlier than
