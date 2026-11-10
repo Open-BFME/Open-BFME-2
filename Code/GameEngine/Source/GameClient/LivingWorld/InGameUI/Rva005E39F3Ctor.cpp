@@ -16,8 +16,6 @@ class AptMovieClipFrame;
 // Rows retail's tables hold in the shared virtual base's slots (0x00879448, 0x00877C50).
 class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
 class Rva005F41AF { public: void rva005F41AF(); };
-class Rva005F3FF4 { public: void rva005F3FF4(); };
-class Rva005F3F6B { public: void rva005F3F6B(); };
 // Retail's details-portion rows. A vtordisp thunk enters them with the virtual base's pointer and they adjust it
 // themselves, so these forward by jump: a cast to a class would subtract the base's offset a second time.
 extern "C" {
@@ -64,9 +62,9 @@ public:
 	virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *) = 0;
 	__declspec(noinline) virtual TreeHintRef00217D4C rva005F4254() { return ((Rva001524CA *)this)->rva001524CA(); }
 	__declspec(noinline) virtual void DoUpdate() { ((Rva005F41AF *)this)->rva005F41AF(); }
-	virtual void slot05() {}
-	__declspec(noinline) virtual void slot06() { ((Rva005F3FF4 *)this)->rva005F3FF4(); }
-	__declspec(noinline) virtual void slot07() { ((Rva005F3F6B *)this)->rva005F3F6B(); }
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
 private:
 	Rva005F4096 m_08;
 };
@@ -127,7 +125,7 @@ class ArmyHeroIcon : public virtual Rva005F4179
 {
 public:
 	ArmyHeroIcon(void *owner, void *clip, void *entry);
-	__declspec(noinline) virtual ~ArmyHeroIcon() { ((Rva005F422C *)((char *)this + 0x14))->Rva005F422C::~Rva005F422C(); }
+	virtual ~ArmyHeroIcon();
 	virtual void DoUpdate();
 	virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *);
 	virtual TreeHintRef00217D4C rva005F4254();

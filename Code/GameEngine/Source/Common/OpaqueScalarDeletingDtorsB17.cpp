@@ -174,12 +174,22 @@ StrategicHUD::RegionDetailsStructuresMovieClip::RegionDetailsStructuresMovieClip
 {
 }
 
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+class AptMovieClipFrame;
+
 class Rva005F4179
 {
 public:
 	Rva005F4179(EmitVtableTag *);
 public:
 	virtual ~Rva005F4179();
+	virtual void slot01() = 0;
+	virtual TreeHintRef00217D4C CreateMovieClip(AptMovieClipFrame *) = 0;
+	virtual TreeHintRef00217D4C rva005F4710();
+	virtual void DoUpdate();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
 };
 
 // ?<Rva005F4179::Rva005F4179> absent-from-retail

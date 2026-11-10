@@ -30,3 +30,5 @@ The served ??_8 no-retail-slots refusal is a separate tooling false reject:
 native and compiled vbtable offsets are both (0,36). Neither this preview
 nor the valid offset table clears the two actual eight-slot function tables.
 See [the scoped evidence](../../reverse/attempt_support/army-icon-vbtable-selector-20261108/README.md).
+
+2026-11-10: fixed `Rva005F422CDtor.cpp` (+473 B) and `Rva005E39F3Ctor.cpp` (+289 B) under `link_check.py` (census `682a5d2110`; all 7 unclaimed units in the `Rva005F4179` cohort plus held sibling `ArmyHeroIconCtor.cpp` (+130 B) now link cleanly: 1,462 -> 2,354 B across all 8 cohort files): unified `class Rva005F4179` in `OpaqueScalarDeletingDtorsB17.cpp` and `Rva005F4179Dtor.cpp` to the 8-slot virtual declaration (`??_7Rva005F4179@@6B@` 32 B digest `153e8f55bc4a` matching `Rva005F422CDtor.cpp`), and declared `Rva005F4179::slot05..07` and `ArmyHeroIcon::~ArmyHeroIcon` out of line in `Rva005E39F3Ctor.cpp` so it binds `StrategicInGameUIArmyUnitIconLifetime.cpp` and `ArmyHeroIconCtor.cpp` instead of emitting conflicting inline copies. Remaining work: `Rva005E39F3`/`Rva005E3BD5`/`Rva005E3C90` slot-rename / vtable-bridge retirement.

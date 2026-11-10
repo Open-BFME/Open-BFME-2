@@ -10,6 +10,9 @@
 // a C++ exception under /EHsc. Its nonthrowing declaration preserves the
 // native absence of an allocation-delete EH state. Original class names
 // and the clip's application type remain unknown.
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+class AptMovieClipFrame;
+
 class Rva005F3F73 {
 public:
     Rva005F3F73(void *, void *) throw();
@@ -39,6 +42,13 @@ class Rva005F4179 : public Rva005F4179Base
 public:
 	Rva005F4179(void *clip);
     virtual ~Rva005F4179();
+	virtual void slot01() = 0;
+	virtual TreeHintRef00217D4C CreateMovieClip(AptMovieClipFrame *) = 0;
+	virtual TreeHintRef00217D4C rva005F4710();
+	virtual void DoUpdate();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
 private:
 	Rva005F4096 m_08;
 };
