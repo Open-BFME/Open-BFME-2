@@ -573,3 +573,5 @@ TUs retires. Expected real-link effect: 4 fewer unresolved, not yet measured. Ne
 words, ZERO_WORD_EXPORTS) and the last two on 2026-11-11.
 Tool note for `fdd0d06a74` (LeonardBuhl): it made `exit_link.link_setup` build `image_report.Retail(raw, spans)`, and the P105 batch updated
 `tools/tests/test_exit_link.py`'s fake `Retail` to that signature, which master's test run had been failing on.
+
+**2026-11-10, source-only FX guard trial.** The game and BFME2 WorldBuilder share all fourteen decorated guard names. On VC7.1, out-of-class inline GetValue definitions recover the four-counter Key/Name spacing with external storage; the remaining measured category stride is 10 against retail's 14, and the category-six gap is still unexplained. [Inputs, controls and exact results](../../reverse/attempt_support/fx-guard-source-layout-20261110.md). No production symbol changed.
