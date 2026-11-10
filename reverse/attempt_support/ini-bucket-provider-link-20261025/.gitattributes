@@ -1,4 +1,0 @@
-# Preserve the original tool-output bytes bound by validation.json.
-*.log -text whitespace=cr-at-eol
-# Identity references retain an empty final TSV field.
-*.tsv whitespace=-blank-at-eol

@@ -1,2 +1,0 @@
-Lib members: 13 extracted from 1 archive(s)
-link_check: 23,426 current-ledger object(s) missing: ^code_^game^engine_^source_^common_^disp^dword^field^getters.obj, ^code_^game^engine_^source_^common_^disp^byte^field^setters.obj, ^code_^libraries_^source_^a^t^l_atlconv.obj, ^code_^libraries_^source_^a^t^l_atlimage.obj, ^code_^game^engine_^source_^common_^bfme5^small^tests.obj

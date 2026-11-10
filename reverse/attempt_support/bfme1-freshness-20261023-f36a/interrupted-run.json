@@ -1,7 +1,0 @@
-{
-  "started_utc": "2026-10-23T00:45:56+00:00",
-  "terminated_utc": "2026-10-23T01:18:26.295432+00:00",
-  "pid": 99536,
-  "reason": "Default serial compilation; restart full baseline after confirmed termination with BUILD_POOL=8 and unbuffered logging. This interrupted run is not verification proof.",
-  "active_compiler_children_at_termination": []
-}

@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateUpdate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 347)
-  unresolved  ?onExit@SpecialAbilityUpdate@@AAEX_N0@Z
-Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp: LINKS  LINKED 0 -> 5,211 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 5,211)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 5,211 bytes (3.5s)

@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp: LINKS  LINKED 0 -> 2,594 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 2,594)
-  diagnostic  ?getPathExtraDistance@AIUpdateInterface@@QBEMXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
-  diagnostic  ??$maxOf@M@@YAABMABM0@Z  (layout-like: 2 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 2,594 bytes (3.2s)

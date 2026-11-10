@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ??$__uninitialized_fill_n@PAURva0039A48EElement@@IU1@@_STL@@YAPAURva0039A48EElement@@PAU1@IABU1@ABU__false_type@0@@Z (Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n.cpp)
-    target:   56 8b 74 24 08 57 8b 7c 24 10 85 ff 76 12 ff 74 24 14 56 e8 68 ff ff ff 59 83 c6 08 4f 59 75 ee 5f 8b c6 5e c3
-    compiled: 56 8b 74 24 08 57 8b 7c 24 10 85 ff 76 12 ff 74 24 14 56 e8 3d 75 e4 ff 59 83 c6 08 4f 59 75 ee 5f 8b c6 5e c3
-Functions: FAIL 1/11
-1 function(s) failed byte comparison

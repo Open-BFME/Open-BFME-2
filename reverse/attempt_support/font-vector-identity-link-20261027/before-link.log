@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp: LINKS  LINKED 805 -> 850 bytes (census 2026-10-27 14:34 at 73061d9452; file's own bytes 850)
-Code/Libraries/Source/WWVegas/WWLib/Rva00155940Vector.cpp: LINKS  LINKED 240 -> 240 bytes (census 2026-10-27 14:34 at 73061d9452; file's own bytes 240)
-Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME.cpp: LINKS  LINKED 387 -> 387 bytes (census 2026-10-27 14:34 at 73061d9452; file's own bytes 387)
-link_check: 3 of 3 link cleanly; LINKED 1,432 -> 1,477 bytes (4.9s)

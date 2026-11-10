@@ -1,4 +1,0 @@
-  PASS Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp
-  retired 3 row(s) from reverse/header_queue.tsv; commit it with the adoption

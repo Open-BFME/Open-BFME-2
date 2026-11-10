@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp",
-  "source_sha256": "781cfe53e890d3ddd1b870877e4bcd89b59b136b58d74ae4c84d5c3b2ab45b6d",
-  "object_sha256": "cffd618cc35e4bcc1a38e6cbea9de0fee715f711e959ccb4f7ffc94851c7dc0f",
-  "normal_equals_private_winner": true,
-  "definitions": 5,
-  "eh": {}
-}

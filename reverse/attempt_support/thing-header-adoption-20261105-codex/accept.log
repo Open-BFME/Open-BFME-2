@@ -1,8 +1,0 @@
-  PASS Code/GameEngine/Source/Common/Rva005AB125Tactic.cpp
-  PASS Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp
-  PASS Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp
-  PASS Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp
-  PASS Code/GameEngine/Source/GameClient/InGameUIUpdateLocalPhantomStructureDisplay.cpp
-  PASS Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp
-  PASS Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroRefreshCamera.cpp
-  retired 2 row(s) from reverse/header_queue.tsv; commit it with the adoption

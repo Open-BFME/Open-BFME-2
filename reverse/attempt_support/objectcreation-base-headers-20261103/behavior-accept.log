@@ -1,3 +1,0 @@
-  PASS Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp
-  retired 2 row(s) from reverse/header_queue.tsv; commit it with the adoption

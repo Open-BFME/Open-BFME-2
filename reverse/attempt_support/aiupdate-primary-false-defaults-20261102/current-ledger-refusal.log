@@ -1,2 +1,0 @@
-Lib members: 11 extracted from 1 archive(s)
-link_check: 12,759 current-ledger object(s) lack current compiler evidence: ^code_^game^engine_^source_^common_^disp^dword^field^getters.obj, ^code_^game^engine_^source_^common_^disp^byte^field^setters.obj, ^code_^libraries_^source_^c^r^t_^abs^import^forwarder.obj, ^code_^game^engine_^source_^common_^bfme5^small^tests.obj, ^code_^game^engine_^source_^common_^rva^small^vtable^ctors.obj

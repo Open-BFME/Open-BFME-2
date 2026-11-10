@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?rva00365B8A@Path@@QAEXPAVObject@@PAVPathNode@@1PBUCoord3D@@M@Z (Code/GameEngine/Source/GameLogic/Pathfinder/PathRva00365B8A.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (7 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

@@ -1,2 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-?checkIdleTeams@AITeamBuilder@@QAEXXZ (Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp): REL32 site at offset 400 (0x190) for ?Rva00295A0FCommand@Rva00295A0FCommands@@QAEXPAXHH@Z needs 404 bytes but the row claims target_size 402. The row's extent is wrong: raise it to the real end of the function. This displacement is part of this body, not of whatever follows it.

@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWMath/region.cpp: LINKS  LINKED 1,287 -> 1,305 bytes (census 2026-11-05 23:16 at 2d7376f084; file's own bytes 1,305)
-link_check: 1 of 1 link cleanly; LINKED 1,287 -> 1,305 bytes (4.3s)

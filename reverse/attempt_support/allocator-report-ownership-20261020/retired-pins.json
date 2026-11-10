@@ -1,7 +1,0 @@
-[
-  "?rva00034d10@Rva000353B0@@QAEPAXHHHH@Z,0x00034D10,address-derived allocator reached by direct call from 0x000353D9 0x00035485 0x0003556A and 0x006C3832; EH prolog body not a thunk; four-int signature proven by the five pushed args at each caller; identity unproven",
-  "?rva000353F0@Rva000353B0@@QAEPAXHHHH@Z,0x000353F0,callee of ?rva006C37E0@Rva006C1F60@@QAEPAXHHHH@Z",
-  "?rva00035540@GeneralAllocator@Allocator@EA@@QAE_NP6A_NPBUBlockInfo@23@PAX@Z1H_NPADI@Z,0x00035540,callee of ?rva00030910@MemoryPool@@YAIXZ",
-  "?rva00034D10@GeneralAllocator@Allocator@EA@@QAEPAXH_NPAXI@Z,0x00034D10,callee of ?rva000353B0@GeneralAllocator@Allocator@EA@@QAEPAXPAXH_N0I@Z",
-  "?rva00031430@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z,0x00031430,callee of ?rva000327E0@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z"
-]

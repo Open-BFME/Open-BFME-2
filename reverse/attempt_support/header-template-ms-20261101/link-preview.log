@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp: LINKS  LINKED 706 -> 706 bytes (census 2026-11-01 14:31 at 86db074988; file's own bytes 706)
-link_check: 1 of 1 link cleanly; LINKED 706 -> 706 bytes (3.9s)

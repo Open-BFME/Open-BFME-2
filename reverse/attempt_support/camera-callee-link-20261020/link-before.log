@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 2,789)
-  unresolved  ?rva0009AACF@Rva0009C134Host@@QAEXHM@Z
-  unresolved  ?rva0009CD9B@Rva0009C134Host@@QAEXXZ
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.7s)

@@ -1,9 +1,0 @@
-{
-  "canonical_unicode": [
-    "reference/shims/bfme2_ascii_common/common/unicodestring.h",
-    "reference/shims/bfme2_ascii/unicode_string.h"
-  ],
-  "languagefilter_header": [
-    "reference/shims/languagefilter/gameclient/languagefilter.h"
-  ]
-}

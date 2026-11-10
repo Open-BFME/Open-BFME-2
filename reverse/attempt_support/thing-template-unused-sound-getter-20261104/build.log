@@ -1,9 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Funclet pins: 3 row(s) verified past a renumbered $L label
-    Unwind@00b7c65a (Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp): $L80540 was renumbered; verified parent EH data places $L76470 at 0x0077C65A
-    $L78942 (Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp): $L78942 was renumbered; verified parent EH data places $L76471 at 0x0077C662
-    $L74359 (Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp): $L74359 was renumbered; verified parent EH data places $L73402 at 0x00774EAF
-Functions: OK 23/23 matched across 1 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

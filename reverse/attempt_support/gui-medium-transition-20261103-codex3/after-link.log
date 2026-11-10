@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp: LINKS  LINKED 80 -> 80 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 80)
-Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp: LINKS  LINKED 6,569 -> 6,569 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 6,569)
-link_check: 2 of 2 link cleanly; LINKED 6,649 -> 6,649 bytes (6.8s)

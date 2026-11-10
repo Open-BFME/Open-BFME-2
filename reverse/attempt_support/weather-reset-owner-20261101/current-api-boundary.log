@@ -1,4 +1,0 @@
-usage: rename.py [-h]
-                 {check,carry,recover,revert,function,global,file,class,member,param,local}
-                 ...
-rename.py: error: unrecognized arguments: --native-owner-rva 0x003186A5

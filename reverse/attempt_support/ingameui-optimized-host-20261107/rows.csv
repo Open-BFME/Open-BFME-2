@@ -1,9 +1,0 @@
-name,export_rva,target_rva,target_size,source,status,notes
-?preDraw@InGameUI@@UAEXXZ,,0x002A3255,30,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-??_GWorldAnimationData@@QAEPAXI@Z,,0x007593F0,25,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-?rva0029F93A@Rva0029F93A@@QAEXH@Z,,0x0029F93A,26,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,guarded list int remove at plus9C4
-?rva0029B2E7@Rva0029B2E7@@QAEPAV1@XZ,,0x0029B2E7,44,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,zeroes byte plus 7 floats returns this caller 0x29B502
-?rva0029B132@Rva0029B132@@QAEPAV1@XZ,,0x0029B132,56,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,unlocks 0x002A0F19 zero plus 1.0f 0xBBB8D8 plus 0x20
-?removeRecycleRva0029DFE9@@YGXPAX0@Z,,0x0029DFE9,36,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,unlocks 0x0029F34F twin freelist 0xDBA5E8
-?rva002A463B@Rva002A463B@@QAEXXZ,,0x002A463B,11,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,Native11 2A463B..2A4646 this+0x750 map clear via rowed tree clear 2A1B9D; owner unresolved
-_$E25,,0x007AE087,16,Code/GameEngine/Source/GameClient/InGameUI.cpp,matched,compiler-emitted .text$yc dynamic initializer of this unit's Drawable.h copy DRAWABLE_FRAMES_PER_FLASH = BfmeClientFramesPerSecond / 2 (GameClient/DrawableFramesPerFlash.h); retail .CRT$XCU entry; its static VA 0x00DFEDF8 after TheInGameUI and m_replayWindow; it opens InGameUI's run; was rva007AE087 in Rva007AB7F0HalfRateInits.cpp

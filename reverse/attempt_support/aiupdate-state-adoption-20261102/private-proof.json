@@ -1,8 +1,0 @@
-{
-  "scope": "Canonical StateMachine adoption only. Existing three placeholder identities retained. No named isIdle provider admitted and old donor source untouched; semantic identity remains unproven.",
-  "rows": 3,
-  "all_existing_rows_exact": true,
-  "no_new_isidle_definition": true,
-  "external_definitions": 3,
-  "sha256": "76898bf7ab73c39084d68e7f529aab3879781fac7604bbd7dceae8764cd95d6a"
-}

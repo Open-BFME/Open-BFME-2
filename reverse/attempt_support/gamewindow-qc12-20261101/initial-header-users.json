@@ -1,9 +1,0 @@
-[
-  "Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp",
-  "Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp",
-  "Code/GameEngine/Source/GameClient/GUI/BfmeAptGameWindowConstructor.cpp",
-  "Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp",
-  "Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp",
-  "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp",
-  "Code/GameEngine/Source/GameClient/GUI/GameWindowManager_processDestroyList.cpp"
-]

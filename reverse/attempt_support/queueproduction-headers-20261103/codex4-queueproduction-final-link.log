@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp: LINKS  LINKED 205 -> 205 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 205)
-Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate_notifyProductionBurstFinished.cpp: LINKS  LINKED 297 -> 297 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 297)
-link_check: 2 of 2 link cleanly; LINKED 502 -> 502 bytes (7.3s)

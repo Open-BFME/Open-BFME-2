@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp: LINKS  LINKED 274 -> 274 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 274)
-link_check: 1 of 1 link cleanly; LINKED 274 -> 274 bytes (4.1s)

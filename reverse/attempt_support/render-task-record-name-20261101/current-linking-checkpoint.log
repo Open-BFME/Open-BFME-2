@@ -1,9 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 20:19 at 0156fc269e; file's own bytes 2,013)
-  comdat      ??_7AutoPickUpUpdate@@6BBehaviorModuleInterface@@@  (first: differs from the first copy in link order (no retail address))
-Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 20:19 at 0156fc269e; file's own bytes 1,050)
-  comdat      ??_7ReplenishUnitsBehavior@@6BBehaviorModuleInterface@@@  (first: differs from the first copy in link order (no retail address))
-  comdat      ??_7ReplenishUnitsBehavior@@6BObjectModule@@@  (first: differs from the first copy in link order (no retail address))
-Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 20:19 at 0156fc269e; file's own bytes 1,124)
-  unresolved  ??1LivingWorldBuilding@@UAE@XZ
-Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp: LINKS  LINKED 0 -> 972 bytes (census 2026-11-01 20:19 at 0156fc269e; file's own bytes 972)
-link_check: 1 of 4 link cleanly; LINKED 0 -> 972 bytes (6.4s)

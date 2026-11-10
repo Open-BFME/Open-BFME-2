@@ -1,9 +1,0 @@
---- before.cpp
-+++ extern-template.cpp
-@@ -36,0 +37,6 @@
-+}
-+
-+// Use the existing range and character-copy providers without local copies.
-+namespace _STL {
-+extern template void basic_string<char, char_traits<char>, allocator<char> >::_M_range_initialize<char *>(char *, char *, const forward_iterator_tag &);
-+template <> char *__uninitialized_copy<char *, char *>(char *, char *, char *, const __true_type &);

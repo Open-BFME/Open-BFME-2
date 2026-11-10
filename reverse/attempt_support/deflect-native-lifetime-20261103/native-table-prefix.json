@@ -1,6 +1,0 @@
-{
-  "table_rva": "0x0085DAB0",
-  "first_word": "0x8c5683",
-  "target_rva": "0x004C5683",
-  "scope": "Only the emitted four-byte prefix is asserted; full original table extent/hierarchy not inferred"
-}

@@ -1,8 +1,0 @@
-packets: 1 written to reverse\zh_sweep\packets, covering 1 candidate body/bodies over 15 bytes of unclaimed .text
-  240 address(es) the ledger has claimed since the match ran: no packet
-  address function start              1
-  extent from the Ghidra inventory    1
-  1 packet(s) quote a retail extent the Zero Hour candidate does not have
-  0 packet(s) agree on less than 85% of their COMPARED bytes; the threshold is applied upstream to a figure that scores blanked bytes as agreeing
-
-COMMAND_EXIT_CODE=0

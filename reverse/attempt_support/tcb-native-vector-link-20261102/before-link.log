@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWMath/tcbspline.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 340)
-  comdat      ?Resize@?$VectorClass@VTCBClass@TCBSpline3DClass@@@@UAE_NHPBVTCBClass@TCBSpline3DClass@@@Z  (retail: not retail's body)
-  selected    ?Resize@?$VectorClass@VTCBClass@TCBSpline3DClass@@@@UAE_NHPBVTCBClass@TCBSpline3DClass@@@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/vector_class_vector3_resize.cpp: LINKS  LINKED 237 -> 237 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 237)
-link_check: 1 of 2 link cleanly; LINKED 237 -> 237 bytes (3.5s)

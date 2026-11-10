@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp: LINKS  LINKED 436 -> 436 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 436)
-  diagnostic  ??R?$less@UBfmePod20@@@_STL@@QBE_NABUBfmePod20@@0@Z  (codegen-like: 19 bytes against the majority copy's 22; unreferenced, not a blocker)
-link_check: 1 of 1 link cleanly; LINKED 436 -> 436 bytes (4.5s)

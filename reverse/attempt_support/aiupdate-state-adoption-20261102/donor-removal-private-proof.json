@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp",
-  "rows": 9,
-  "missing": [],
-  "errors": [],
-  "removed_definition": "// ?isIdle@AIUpdateInterface@@ present-unmatched\nBool AIUpdateInterface::isIdle() const\n{\n\tconst AIStateMachine *state = getStateMachine();\n\tif( state->getCurrentStateID() == AI_IDLE )\n\t{\n\t\treturn TRUE;\n\t}\n\treturn state->isInIdleState();\n}\n\n",
-  "scope": "Remove only existing unrowed30B strong donor isIdle and its stale marker; all9matched rows retained. Coordinate with canonical87B provider before publication."
-}

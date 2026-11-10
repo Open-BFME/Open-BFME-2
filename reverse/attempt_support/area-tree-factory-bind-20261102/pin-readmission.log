@@ -1,7 +1,0 @@
-?insert_equal@?$_Rb_tree@IU?$pair@$$CBIVAssetReference@@@_STL@@U?$_Select1st@U?$pair@$$CBIVAssetReference@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVAssetReference@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@2@ABU?$pair@$$CBIVAssetReference@@@2@@Z: 0x00170E3D
-    0x00170E3D  extent=59 (matched)  owned-by=['?insert_equal@?$_Rb_tree@IU?$pair@$$CBIURva00170E3DElement@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva00170E3DElement@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00170E3DElement@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIURva00170E3DElement@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva00170E3DElement@@@_STL@@@2@@2@ABU?$pair@$$CBIURva00170E3DElement@@@2@@Z']
-    verdict: consistent
-pin admission: added ?insert_equal@?$_Rb_tree@IU?$pair@$$CBIVAssetReference@@@_STL@@U?$_Select1st@U?$pair@$$CBIVAssetReference@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVAssetReference@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@2@ABU?$pair@$$CBIVAssetReference@@@2@@Z,0x00170E3D
-Pin consistency: OK (5 multi-pinned symbols of 9346; 0 baselined, 0 new, 0 stale)
-Existing pin revalidated: identical complete name/address multiset and hatch counts; no new pin.
-Hatch register bytes unchanged: True

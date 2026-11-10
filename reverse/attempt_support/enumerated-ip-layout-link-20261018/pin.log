@@ -1,3 +1,0 @@
-?getIPstring@EnumeratedIP@@QAE?AVAsciiString@@XZ: 0x002E4336
-    0x002E4336  extent=24 (matched)  owned-by=['?getTooltipName@MultiplayerColorDefinition@@QBE?AVAsciiString@@XZ']
-    verdict: consistent

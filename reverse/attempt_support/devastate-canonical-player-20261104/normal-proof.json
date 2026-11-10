@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp",
-  "source_sha256": "f6983179a07b4e169db9e82b5c43a68c3fc3edfd0e43bab91c610cd7542ae2a0",
-  "object_sha256": "256a85def224fe884fc2dfacd2520fd3dda81891f1579c15de0c256240199a70",
-  "normal_equals_private_winner": true,
-  "definitions": 6,
-  "eh": {}
-}

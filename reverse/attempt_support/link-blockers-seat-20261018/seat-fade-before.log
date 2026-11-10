@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva0059675ACtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 125)
-  addresses   1 hard-coded image address(es), e.g. 0xDCF0FA
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.2s)

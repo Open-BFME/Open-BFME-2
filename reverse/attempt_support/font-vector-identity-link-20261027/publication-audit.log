@@ -1,7 +1,0 @@
-Functions: OK 78/78 matched across 5 source file(s)
-EH verify: 6 row(s) with EH data (EXACT 6); 0 not exact, 0 in baseline; 0 row(s) without an object; 0.3s
-link batch audit: INCONCLUSIVE baseline: index at 73061d9452, outgoing base 1bce3761a210a4c7adc9f9371831e7a4b0b58404; findings below are provisional since-index changes
-link batch audit: INCONCLUSIVE: census index lacks per-object consumer names; fetch a current index
-pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
-PRE-PUSH OK (5 outgoing source(s) byte-verified)
-   1bce3761a21..f5a2184b8a7  HEAD -> master

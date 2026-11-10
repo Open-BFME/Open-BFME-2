@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/OutwardEmissionVelocityModuleTemplateCopyCtorThunk.cpp",
-  "source_sha256": "ea66481d9249548d16d70ad3c5b547a083848c4901149aa2b3a7752ce7a95a57",
-  "object_sha256": "d22da38be800fd37c628fb26891144b0507596215f7685d911f1d7ec5ebef106",
-  "normal_equals_private_winner": true,
-  "definitions": 2,
-  "eh": {}
-}

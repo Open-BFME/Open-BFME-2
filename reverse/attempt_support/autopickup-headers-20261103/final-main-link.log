@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp: LINKS  LINKED 0 -> 2,013 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 2,013)
-Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp: LINKS  LINKED 60 -> 60 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 60)
-link_check: 2 of 2 link cleanly; LINKED 60 -> 2,073 bytes (3.8s)

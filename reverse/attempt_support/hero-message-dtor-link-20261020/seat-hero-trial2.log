@@ -1,7 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ?rva005254C5@Rva005254C5@@QAEXH@Z (Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceRva005254C5.cpp)
-    unresolved call(s): ??1Rva004E7392@@UAE@XZ (add to reverse/symbols.csv)
-    target:   b8 d8 67 b9 00 e8 b9 3c 10 00 83 ec 0c 8b 41 04 8b 11 83 c0 03 6b c0 18 03 c2 80 78 16 00 74 56 f6 05 50 49 e0 00 01 56 be 4c 49 e0 00 75 26 83 0d 50 49 e0 00 01 83 65 fc 00 68 88 7e c6 00 8b ce e8 95 26 b1 ff 68 02 92 bb 00 e8 e3 3c 10 00 83 4d fc ff 59 8b 0d fc 1c e0 00 56 e8 16 69 df ff 85 c0 5e 74 45 8b 0d fc 1c e0 00 50 6a 00 e8 83 08 ee ff eb 35 8b 4a 10 8b 00 83 c1 10 8b 09 3b c1 74 27 8b 40 08 83 65 f0 00 c7 45 e8 10 d0 bf 00 89 45 ec 8b 0d fc 1c e0 00 8d 45 e8 50 c7 45 fc 01 00 00 00 e8 94 06 ee ff 8b 4d f4 64 89 0d 00 00 00 00 c9 c2 04 00
-    compiled: b8 d8 67 b9 00 e8 b9 3c 10 00 83 ec 0c 8b 41 04 8b 11 83 c0 03 6b c0 18 03 c2 80 78 16 00 74 56 f6 05 50 49 e0 00 01 56 be 4c 49 e0 00 75 26 83 0d 50 49 e0 00 01 83 65 fc 00 68 88 7e c6 00 8b ce e8 95 26 b1 ff 68 02 92 bb 00 e8 e3 3c 10 00 83 4d fc ff 59 8b 0d fc 1c e0 00 56 e8 16 69 df ff 85 c0 5e 74 51 8b 0d fc 1c e0 00 50 6a 00 e8 83 08 ee ff eb 41 8b 4a 10 8b 00 83 c1 10 8b 09 3b c1 74 33 8b 40 08 83 65 f0 00 c7 45 e8 10 d0 bf 00 89 45 ec 8b 0d fc 1c e0 00 8d 45 e8 50 c7 45 fc 01 00 00 00 e8 94 06 ee ff 83 4d fc ff 8d 4d e8 e8 00 00 00 00 8b 4d
-Functions: FAIL 1/2
-1 function(s) failed byte comparison

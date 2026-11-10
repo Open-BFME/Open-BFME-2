@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp: LINKS  LINKED 468 -> 468 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 468)
-Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp: LINKS  LINKED 212 -> 212 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 212)
-link_check: 2 of 2 link cleanly; LINKED 680 -> 680 bytes (3.9s)

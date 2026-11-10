@@ -1,8 +1,0 @@
-{
-  "head": "cb96e120c532994f3f619a41e10b1b2267451c79",
-  "paths": [
-    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainModuleDataDtor.cpp",
-    "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp"
-  ],
-  "index_sha256": "a62768cd8b72348f941e82db69aa1b98c82ce8047bff41abf0a8820d10dbb444"
-}

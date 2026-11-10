@@ -1,5 +1,0 @@
---- a/Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicBaseDefense.cpp
-+++ b/Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicBaseDefense.cpp
-@@ -69,0 +70,2 @@
-+	// Bind the implicit virtual cleanup to the existing shared provider.
-+	__declspec(dllimport) __forceinline virtual ~Rva00260F1BFilter() {}

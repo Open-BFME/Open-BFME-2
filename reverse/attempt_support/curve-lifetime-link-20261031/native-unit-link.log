@@ -1,2 +1,0 @@
-LINK : warning LNK4102: export of deleting destructor 'public: virtual void * __thiscall DynamicVectorClass<class Curve3DClass::KeyClass>::`scalar deleting destructor'(unsigned int)'; image may not run correctly
-   Creating library <workspace>\build\curve-standalone-link-final-20261031\lifetimes.lib and object <workspace>\build\curve-standalone-link-final-20261031\lifetimes.exp

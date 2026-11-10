@@ -1,9 +1,0 @@
-{
-  "name": "??1?$RefCountPtr@VFXShaderSetup@@@@QAE@XZ",
-  "source": "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp",
-  "rva": "0x7b724",
-  "size": 16,
-  "bytes": "8b0985c97409ff490475048b01ff20c3",
-  "relocations": [],
-  "evidence": "Existing setup factory owns RefCountPtr<FXShaderSetup>, preserves its pointer in hidden return, and emits EXACT EH cleanup766D2C with native tail call7B724. Class base count+4 and virtual Delete_This slot0 independently agree. Existing physical owner remains; original template name inference not extended."
-}

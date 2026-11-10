@@ -1,9 +1,0 @@
-Source claims: OK (3 sources, scoped byte-verified)
-Compile: 0 of 3 TU(s) (deps-cache: 3 current)
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    Unwind@00b8e77e (Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp): $L393 was renumbered; verified parent EH data places $L828 at 0x0078E77E
-    $L310 (Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp): $L310 was renumbered; verified parent EH data places $L2032 at 0x0078E790
-Functions: OK 13/13 matched across 3 source file(s)
-String-ref verify: OK (2 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

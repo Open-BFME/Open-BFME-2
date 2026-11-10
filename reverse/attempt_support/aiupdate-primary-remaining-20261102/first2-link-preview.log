@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 1,224)
-  unresolved  ?addTargeter@AIUpdateInterface@@UAEXH_N@Z
-  unresolved  ?vslot044@AIUpdateInterface@@UAEXPAVObject@@W4CommandSourceType@@@Z
-  unresolved  ?vslot045@AIUpdateInterface@@UAEXPAVObject@@W4CommandSourceType@@@Z
-  diagnostic  ?getCurrentStateID@StateMachine@@QBEIXZ  (layout-like: 2 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva002645FF.cpp: LINKS  LINKED 155 -> 155 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 155)
-link_check: 1 of 2 link cleanly; LINKED 155 -> 155 bytes (4.7s)

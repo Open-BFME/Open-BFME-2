@@ -1,9 +1,0 @@
-tu: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp
-seed: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp  (8 files)
-  UpdateModule: canonical header Code/GameEngine/Include/GameLogic/Module/UpdateModule.h: header-lane work, not written (python3 tools/header_adopt_lane.py accept --class UpdateModule FILE...)
-  Object: conflict (4 files)
-      CONFLICT: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp: m_x at +0x38 lies under the bases (own data starts at +0x48)
-  BehaviorModuleOther: conflict (2 files)
-      CONFLICT: no file's CodeView lays BehaviorModuleOther out (nothing uses it)
-  QueueProductionExitUpdate: conflict (5 files)
-      CONFLICT: base clause differs: Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateDtor.cpp: `public UpdateModule, public ExitInterface`; Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp: `public UpdateModule, public ExitInterface`; Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateCtor.cpp: `public UpdateModule`; Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp: `public UpdateModule, public ExitInterface`; Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate_notifyProductionBurstFinished.cpp: `-`

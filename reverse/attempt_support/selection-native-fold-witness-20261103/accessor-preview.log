@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat_areAllSelected.cpp: LINKS  LINKED 63 -> 63 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 63)
-link_check: 1 of 1 link cleanly; LINKED 63 -> 63 bytes (4.0s)

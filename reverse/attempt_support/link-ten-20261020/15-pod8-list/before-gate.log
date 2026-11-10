@@ -1,9 +1,0 @@
-Source claims: OK (2 sources, scoped byte-verified)
-Compile: 0 of 2 TU(s) (deps-cache: 2 current)
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    uw_007741f8 (Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp): $L44859 was renumbered; verified parent EH data places $L43543 at 0x007741F8
-    uw_00791f6d (Code/Libraries/Source/WWVegas/WWLib/Rva004E4F82Finish.cpp): $L4193 was renumbered; verified parent EH data places $L4151 at 0x00791F6D
-Functions: OK 44/44 matched across 2 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (2 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

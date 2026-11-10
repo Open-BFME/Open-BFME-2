@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp	wrong-name	?TheScriptConditions@@3PAVScriptConditionsInterface@@A	0x00A02E04
-data_check: Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp	wrong-name	?TheScriptActions@@3PAVScriptActionsInterface@@A	0x00A02D98
-data_check (shadow): 2 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.2s

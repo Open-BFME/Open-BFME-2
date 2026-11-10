@@ -1,6 +1,0 @@
-  PASS Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorOnDie.cpp
-  PASS Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453905.cpp
-  retired 5 row(s) from reverse/header_queue.tsv; commit it with the adoption

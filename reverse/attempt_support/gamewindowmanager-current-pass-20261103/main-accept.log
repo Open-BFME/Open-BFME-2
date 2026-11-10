@@ -1,5 +1,0 @@
-  PASS Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winDestroyAll.cpp
-  PASS Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntrySetText.cpp
-  PASS Code/GameEngine/Source/Common/Rva002C5398Dtor.cpp
-  PASS Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp
-  retired 4 row(s) from reverse/header_queue.tsv; commit it with the adoption

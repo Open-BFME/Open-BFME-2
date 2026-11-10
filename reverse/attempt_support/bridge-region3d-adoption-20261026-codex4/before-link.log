@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp: LINKS  LINKED 448 -> 448 bytes (census 2026-10-26 19:02 at 5ce093a71a; file's own bytes 448)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferAddBridge.cpp: LINKS  LINKED 305 -> 305 bytes (census 2026-10-26 19:02 at 5ce093a71a; file's own bytes 305)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeCtor.cpp: LINKS  LINKED 261 -> 261 bytes (census 2026-10-26 19:02 at 5ce093a71a; file's own bytes 261)
-link_check: 3 of 3 link cleanly; LINKED 1,014 -> 1,014 bytes (8.3s)

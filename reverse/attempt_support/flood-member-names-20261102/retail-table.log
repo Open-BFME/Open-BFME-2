@@ -1,7 +1,0 @@
-0: MemberTemplateName offset=0x00 parser_rva=0x0002F11E userData=0
-1: ControlPointOffsetOne offset=0x04 parser_rva=0x0002F507 userData=0
-2: ControlPointOffsetTwo offset=0x10 parser_rva=0x0002F507 userData=0
-3: ControlPointOffsetThree offset=0x1C parser_rva=0x0002F507 userData=0
-4: ControlPointOffsetFour offset=0x28 parser_rva=0x0002F507 userData=0
-5: MemberSpeed offset=0x34 parser_rva=0x0002EFC0 userData=0
-Terminator: 16 zero bytes; four coordinate fields use one parser.
