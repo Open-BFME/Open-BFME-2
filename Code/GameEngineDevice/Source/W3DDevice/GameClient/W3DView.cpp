@@ -966,14 +966,7 @@ public:
 	void rva0008615B();
 };
 
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-private:
-	char m_lead[0x4FA8];
-	SizedForwarderSlots *m_inner;
-};
+#include "../../../../GameEngine/Include/Common/Rva001EDDBBForwarder.h"
 
 class Rva0030ADE8Forwarder : public SizedForwarderSlots
 {
