@@ -41,18 +41,18 @@ private:
 	Rva002571A7Elem *m_end;
 };
 
-class Xfer;
+// Base SpecialAbilityUpdateModuleData ctor is already adopted in the ctor TU;
+// its dtor 0x0044ECCE is still rowed under Rva0044ECCE, so inherit ModuleData
+// directly until 0x0044ECCE is rehomed to ~SpecialAbilityUpdateModuleData.
+#include "../../../../Include/Common/ModuleData.h"
 
-class Rva0044ECCE
+class Rva0044ECCE : public ModuleData
 {
 public:
 	virtual ~Rva0044ECCE();
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
 
 private:
-	unsigned char m_tail[0xC8 - 4];
+	unsigned char m_tail[0xC8 - 8];
 };
 
 class ActivateModuleSpecialPowerModuleData : public Rva0044ECCE
