@@ -112,11 +112,7 @@ struct Rva002A8AB1Record {public:void*rva002C6ACB();};
 class Player;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24*TheSkirmishAIManager;
-class Rva0025BFF8
-{
-public:
-	Object *rva0025BFF8(int index);
-};
+#include "../../Include/Common/Rva0025BFF8.h"
 namespace _STL {
  template<class T>struct hash;template<class T>struct equal_to;
  template<class T>class allocator;

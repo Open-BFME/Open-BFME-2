@@ -92,7 +92,7 @@ public:
 };
 }
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
-class Rva0025BFF8 { public: Object *rva0025BFF8(Int index); };		// 0x0025BFF8
+#include "../../../../GameEngine/Include/Common/Rva0025BFF8.h"
 struct Rva002A8F24Economy
 {
 	unsigned char m_pad00[0x14];

@@ -65,11 +65,7 @@ struct Rva002A8AB1Record;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva0025BFF8
-{
-public:
-	Object *rva0025BFF8(int index);
-};
+#include "../../Include/Common/Rva0025BFF8.h"
 
 namespace _STL
 {

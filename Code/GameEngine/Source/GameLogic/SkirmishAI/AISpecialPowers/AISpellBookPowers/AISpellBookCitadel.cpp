@@ -18,7 +18,7 @@ public:
     Coord3D position38;
 };
 
-class Rva0025BFF8 { public: Object *rva0025BFF8(int); };
+#include "../../../../../Include/Common/Rva0025BFF8.h"
 
 struct CitadelPlayerData { char unknown0[8]; Rva0025BFF8 *objects8; };
 

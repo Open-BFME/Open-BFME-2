@@ -204,13 +204,7 @@ public:
 };
 
 class Object;
-class Rva0025BFF8
-{
-public:
-	Object *rva0025BFF8(int index);							// 0x0025BFF8
-	int rva005964B0(int index);
-	Rva005964B0Position rva005964C7(int index);
-};
+#include "../../Include/Common/Rva0025BFF8.h"
 
 int Rva0025BFF8::rva005964B0(int index)
 {

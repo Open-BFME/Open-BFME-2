@@ -64,11 +64,7 @@ struct Rva005DCC4BSource
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 
-class Rva0025BFF8
-{
-public:
-	Object *rva0025BFF8(int index);
-};
+#include "../../Include/Common/Rva0025BFF8.h"
 
 class Rva00506A0C
 {

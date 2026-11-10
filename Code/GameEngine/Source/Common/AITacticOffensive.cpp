@@ -41,11 +41,7 @@ public:
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > Rva005DC763Units;
 
-class Rva0025BFF8
-{
-public:
-	Object *rva0025BFF8(int index);			// 0x0025BFF8
-};
+#include "../../Include/Common/Rva0025BFF8.h"
 
 struct Rva002A8AB1Record
 {
