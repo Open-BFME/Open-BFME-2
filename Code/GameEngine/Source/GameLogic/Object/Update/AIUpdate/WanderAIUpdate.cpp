@@ -24,14 +24,7 @@ class Player;
 #include "../../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 // vftable 0x00BF8FE4, allow 0x0026109D; the out-of-line ctor 0x00261058.
-class Rva00261058 : public Rva000421C8
-{
-public:
-	Rva00261058(Object *obj, bool flag);	// 0x00261058
-	virtual bool allow(Object *obj);
-	Player *m_player;
-	bool m_flag;
-};
+#include "../../../../../Include/GameLogic/Rva00261058.h"
 // vftable 0x00BF8FF0; the out-of-line ctor 0x002611F2.
 class PartitionFilterRejectBuildings : public Rva000421C8
 {

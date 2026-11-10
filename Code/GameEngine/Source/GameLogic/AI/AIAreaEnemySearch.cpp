@@ -64,14 +64,7 @@ public:
 
 // vftable 0x00BF8FE4; the out-of-line ctor 0x00261058: +0x08 the object's
 // controlling player, +0x0C whether a hit allows.
-class Rva00261058 : public Rva000421C8
-{
-public:
-	Rva00261058(Object *obj, bool flag);	// 0x00261058
-	virtual bool allow(Object *obj);
-	Player *m_player;
-	bool m_flag;
-};
+#include "../../../Include/GameLogic/Rva00261058.h"
 
 // A 128-bit ObjectStatusMaskType; 0x0023DA79 clears it and sets one bit.
 class BfmeObject872Header

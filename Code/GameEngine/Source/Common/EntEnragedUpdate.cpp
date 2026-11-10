@@ -109,14 +109,7 @@ class Player;
 #include "../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BF8FE4, allow 0x0026109D: +0x08 the object's controlling player
 // (or none), +0x0C a flag.
-class Rva00261058 : public Rva000421C8
-{
-public:
-	Rva00261058(Object *obj, bool flag);
-	virtual bool allow(Object *obj);
-	Player *m_player;
-	bool m_flag;
-};
+#include "../../Include/GameLogic/Rva00261058.h"
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.
 #include "../../Include/GameLogic/Rva00260EB1Filter.h"

@@ -35,14 +35,7 @@ class Player;
 
 #include "../../../Include/GameLogic/Rva00260EB1Filter.h"
 
-class Rva00261058 : public Rva000421C8
-{
-public:
-	Rva00261058(Object *obj, bool flag);	// 0x00261058
-	virtual bool allow(Object *obj);
-	Player *m_player;
-	bool m_flag;
-};
+#include "../../../Include/GameLogic/Rva00261058.h"
 
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
