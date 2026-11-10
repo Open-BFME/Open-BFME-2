@@ -2122,8 +2122,10 @@ def main(argv=None):
                          "could not be planted are listed in not_observed; units a harness breakpoint holds are "
                          "recorded through it (observed_by_harness). Limits: a probe restores the byte and rewinds "
                          "eip without single-stepping; nothing handles two threads hitting one probe at once, code "
-                         "checksums, code read as data or self-modifying code; a failed restore is not checked; the "
-                         "observer effect (timing, logic CRCs) is not measured yet")
+                         "checksums, code read as data or self-modifying code; a failed restore is not checked. "
+                         "Observer effect, measured once (2026-11-10, retail record, Udun, seed 1, to frame 1000, "
+                         "ledger units): logic CRCs equal a run without coverage at all 40 frames; the run took "
+                         "about 30 s longer, mostly planting probes. Other scenarios are not measured")
     ap.add_argument("--coverage-units", choices=["authored", "ledger"], default=None,
                     help="with --coverage: the units to probe, build/boot/IMAGE.json's authored list (default) or, "
                          "with --retail only, every reverse/functions.csv row of this checkout with an RVA and a size, "
