@@ -117,7 +117,7 @@ public:
 // The 81-byte file-list provider 0x006007DA ignores ECX and takes four stack
 // words; call it as GameState::iterateSaveFiles does, with the file system
 // as the unused receiver.
-class Rva006007DAFileSystem {};
+#include "../../../../GameEngine/Include/Common/Rva006007DAFileSystem.h"
 void __stdcall Rva006007DAOpen(void *, void *, void *, void *);
 union NativeSaveEnumerationCall {
     void (__stdcall *target)(void *, void *, void *, void *);

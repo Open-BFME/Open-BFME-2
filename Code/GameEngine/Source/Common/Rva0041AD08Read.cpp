@@ -340,7 +340,7 @@ public:~Rva0021C459();
 class Rva0021DA13 : public Rva0021C459
 {
 };
-class Rva006007DAFileSystem {};
+#include "../../Include/Common/Rva006007DAFileSystem.h"
 void __stdcall Rva006007DAOpen(void *,void *,void *,void *);
 // The whole 81B provider ignores incoming ECX and consumes four stack words.
 // Keep the native caller's unused receiver and name the existing owner.
