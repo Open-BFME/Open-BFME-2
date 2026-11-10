@@ -94,13 +94,7 @@ class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
 // player, +0x10 whether a hit allows.

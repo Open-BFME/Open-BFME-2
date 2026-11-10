@@ -171,16 +171,7 @@ public:
 private:
 	virtual void anchor();
 };
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00C4D040, allow 0x00260F9E: the member filter at +0x08 and
 // whether a counted hit allows.
 class Rva00260F9EFilter : public Rva000421C8
@@ -208,13 +199,6 @@ public:
 	virtual bool allow(Object *obj);
 };
 // vftable 0x00BF91BC, allow 0x002611BF: not the given object.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
 struct Rva00490225HitEntry
 {
 	Object *m_object;

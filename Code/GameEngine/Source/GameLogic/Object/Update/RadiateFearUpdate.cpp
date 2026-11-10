@@ -119,13 +119,7 @@ class RadiateFearUpdate;
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags, +0x0C whether a hit allows.
 class Rva00261409Filter : public Rva000421C8

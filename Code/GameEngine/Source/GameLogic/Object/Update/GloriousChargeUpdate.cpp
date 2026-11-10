@@ -211,13 +211,7 @@ public:
 	bool m_match;
 };
 // vftable 0x00BF91BC, allow 0x002611BF: +0x08 an object.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *object) : m_obj(object) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 #include "../../../../Include/GameClient/Drawable.h"
 

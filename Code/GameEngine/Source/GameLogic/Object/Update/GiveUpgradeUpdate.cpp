@@ -13,13 +13,7 @@ public:
 	virtual bool allow(class Object *obj);
 };
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const class Object *obj) : m_obj(obj) {}
-	virtual bool allow(class Object *obj);
-	const class Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00C51150, allow 0x00261130: +0x08 an upgrade.
 class Rva00261130Filter : public Rva000421C8
 {
