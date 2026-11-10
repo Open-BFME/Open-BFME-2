@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?getContentsAsAsciiString@Rva004D63DB@@UAE?AVAsciiString@@XZ, retail 0x004D63DB, 141 bytes.
-// Rva004D63DB (dwords +0x1c/+0x20) contents: base
+// ?getContentsAsAsciiString@Rva004D5A10@@UAE?AVAsciiString@@XZ, retail 0x004D63DB, 141 bytes.
+// Rva004D5A10 (dwords +0x1c/+0x20) contents: base
 // NetCommandMsg::getContentsAsAsciiString plus ", leavePlayer=%d, reason = %d".
 // Identity from same-shape sibling Rva004D59D1 0x004D634E (141B), callee base
 // 0x004D5B4C, format "%s, leavePlayer=%d, reason = %d" at 0x008604CC,
@@ -27,16 +27,16 @@ __forceinline const char *GetStr004D63DB(const AsciiString &asciiString)
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-class Rva004D63DB : public NetCommandMsg
+class Rva004D5A10 : public NetCommandMsg
 {
 public:
-	AsciiString getContentsAsAsciiString();
+	virtual AsciiString getContentsAsAsciiString();
 private:
 	unsigned int m_leavePlayer;
 	unsigned int m_reason;
 };
 
-AsciiString Rva004D63DB::getContentsAsAsciiString()
+AsciiString Rva004D5A10::getContentsAsAsciiString()
 {
 	AsciiString result;
 	result.format("%s, leavePlayer=%d, reason = %d", GetStr004D63DB(((NetCommandMsg *)this)->NetCommandMsg::getContentsAsAsciiString()), m_leavePlayer, m_reason);

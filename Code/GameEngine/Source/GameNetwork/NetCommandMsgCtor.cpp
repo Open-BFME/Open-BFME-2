@@ -300,6 +300,9 @@ public:
 private:
 	unsigned int m_1c;
 	unsigned int m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D5A10::Rva004D5A10() : NetCommandMsg()
