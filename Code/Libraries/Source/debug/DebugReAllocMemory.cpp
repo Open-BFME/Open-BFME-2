@@ -1,4 +1,5 @@
 // cl: /Oy- /MD
+// platformsdk
 //
 // ?DebugReAllocMemory@@YAPAXPAXI@Z, retail 0x0003E4B0, 189 bytes.
 // Dedicated TU.
@@ -10,14 +11,9 @@
 // the landed DebugAllocMemory TU in this directory); the recordCallsite is
 // Debug::SkipNext(bool) at 0x00038790 (pinned).
 
+#include <windows.h>
 #include <string.h>
 
-extern "C" __declspec(dllimport) void *__stdcall GlobalAlloc(unsigned int flags,
-		unsigned int bytes);
-extern "C" __declspec(dllimport) int __stdcall GlobalFree(void *mem);
-extern "C" __declspec(dllimport) void *__stdcall GlobalReAlloc(void *mem,
-		unsigned int bytes, unsigned int flags);
-extern "C" __declspec(dllimport) unsigned int __stdcall GlobalSize(void *mem);
 
 #include "../../../GameEngine/Source/Common/debug.h"
 
