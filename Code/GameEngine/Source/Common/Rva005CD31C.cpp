@@ -13,11 +13,7 @@ public:
 	void rva005CCB5B();
 };
 
-class Rva002BF6A7
-{
-public:
-	void rva002BF6A7(int a);
-};
+#include "../../Include/Common/Rva002BF6A7.h"
 
 class Rva005CD31CVirt
 {

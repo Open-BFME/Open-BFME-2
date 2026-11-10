@@ -71,16 +71,7 @@ template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void 
 { _M_fill_insert(pos, n, x); }
 }
 #pragma comment(linker, "/alternatename:?helper@Rva002BFCF5@@AAEXPBUTwoInts002BFCF5@@@Z=?erase@?$hashtable@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@URva002BFA86Record@@U?$hash@URva002BFA86Record@@@2@U?$_Select1st@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@U?$equal_to@URva002BFA86Record@@@2@V?$allocator@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@U?$_Const_traits@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@URva002BFA86Record@@U?$hash@URva002BFA86Record@@@2@U?$_Select1st@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@U?$equal_to@URva002BFA86Record@@@2@V?$allocator@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@@2@@Z")
-class Rva002BF6A7 {
-public:
-	void rva002BF61B(int);
-public:
-	void rva002BF687(int owner);
-public:
-	void rva002BF697(int owner);
-public:
-	void rva002BF6A7(int owner);
-};
+#include "../../../Include/Common/Rva002BF6A7.h"
 // Retail 0x002BF687 / 0x002BF697, 16B each: the same pass for the +0x48 and
 // +0x28 sub-objects.
 void Rva002BF6A7::rva002BF687(int owner)
