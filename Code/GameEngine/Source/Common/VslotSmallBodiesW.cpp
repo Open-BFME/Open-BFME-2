@@ -272,11 +272,7 @@ GameMessageDisposition GameClientMessageDispatcher::translateGameMessage(const G
 // virtual slot 18 then GarrisonContain::onContaining (rowed 0x00478C2C, called
 // non-virtually on the Contain interface at +0x20) with the argument and false.
 class Rva00588E44Contain;
-class Rva0047A040Base9E0
-{
-public:
-	Rva00588E44Contain *rva00588BF3(void *owner, Object *obj);
-};
+#include "../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 class GarrisonContain
 {
 public:

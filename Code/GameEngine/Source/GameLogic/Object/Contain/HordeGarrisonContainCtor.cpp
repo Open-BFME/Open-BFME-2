@@ -103,11 +103,7 @@ private:
 };
 
 // Empty second base with an out-of-line empty ctor (retail 0x0047A6A9, ICF).
-class Rva0047A040Base9E0
-{
-public:
-	Rva0047A040Base9E0();
-};
+#include "../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 
 class HordeGarrisonContain : public GarrisonContain, public Rva0047A040Base9E0
 {

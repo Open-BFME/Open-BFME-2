@@ -55,7 +55,7 @@ class HordeGarrisonContain{public:virtual void rva00479ADA(Object*);virtual void
 class SlaughterAddTeam:public SlaughterAddSlots<21>{public:virtual void change(Team*);};
 class Rva00588E44Contain:public SlaughterAddSlots<61>{public:virtual unsigned char test();};
 class SlaughterAddCount:public SlaughterAddSlots<96>{public:virtual unsigned count(int);};
-class Rva0047A040Base9E0{public:Rva00588E44Contain *rva00588BF3(void*,Object*);};
+#include "../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 struct SlaughterAddData{char pad[0xd4];float multiplier;};
 class SlaughterHordeContain:public SlaughterAddSlots<32>{public:
  virtual void remove(Object*);virtual bool consume(Object*);

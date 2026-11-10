@@ -23,11 +23,7 @@ private:
 	unsigned char m_pad04[0x9E0 - 0x04];
 };
 
-class Rva0047A040Base9E0
-{
-public:
-	class Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);	// row 0x00588BF3 spelling
-};
+#include "../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 
 class HordeGarrisonContain : public GarrisonContain, public Rva0047A040Base9E0
 {

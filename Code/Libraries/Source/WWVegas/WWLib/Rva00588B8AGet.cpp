@@ -50,11 +50,7 @@ struct Rva00588B8AHolder
 	Rva00588B8AVtbl *m_ptr;
 };
 
-class Rva0047A040Base9E0
-{
-public:
-	void *rva00588B8A(void *p);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva0047A040Base9E0.h"
 
 void *Rva0047A040Base9E0::rva00588B8A(void *p)
 {
