@@ -124,7 +124,7 @@ class Rva005D2664 { public:
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
+#include "../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {
     operator AsciiString(); Rva000B3F84Pair m_text;
 };

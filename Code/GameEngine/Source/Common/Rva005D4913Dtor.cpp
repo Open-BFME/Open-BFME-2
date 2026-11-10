@@ -28,7 +28,7 @@ struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
+#include "../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {
     operator AsciiString(); Rva000B3F84Pair m_text;
 };

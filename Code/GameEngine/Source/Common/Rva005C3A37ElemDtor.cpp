@@ -128,7 +128,7 @@ template<class T> __forceinline AptRef<T>::AptRef(DelegateDesc d):Rva00579E47(d)
 static __forceinline void AddCommandMapBinding(AptCommandMapAdder &adder,const AsciiString &asciiString,DelegateDesc d) {adder.AddCommandMap(asciiString,d);}
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
+#include "../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString(); Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString &a,const AsciiString &b) {AsciiStringPlusString t;t.m_string=&a;t.m_second.m_string=&b;return t;}
 // ?operator+(AsciiStringPlusString,text) present-unmatched (inline; byte-and-relocation fold to existing109CFD owner)
