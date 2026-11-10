@@ -117,11 +117,7 @@ class Waypoint;
 typedef _STL::list<Coord3D> TerrainBeaconPath;
 struct Rva002BA8F1Listener;
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *listener);			// 0x005A0B4C
-};
+#include "../../../Include/Common/Rva005A0B4CList.h"
 
 class Rva002834C4
 {

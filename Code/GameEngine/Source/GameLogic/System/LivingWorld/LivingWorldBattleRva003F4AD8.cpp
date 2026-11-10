@@ -11,7 +11,7 @@
 // Original method/callback names are unresolved; all offsets are target facts.
 #include <vector>
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 class Rva003F498ACallback { public: virtual bool invoke(int) = 0; ~Rva003F498ACallback() {} };
 class LivingWorldBattle;
 class Rva005FED52 : public Rva003F498ACallback {

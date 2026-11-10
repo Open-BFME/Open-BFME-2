@@ -72,7 +72,7 @@ class Module;
 class Object;
 extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Listener;
-struct Rva005A0B4CList {void append(Rva002BA8F1Listener *);};
+#include "../../../../../Include/Common/Rva005A0B4CList.h"
 #include "../../../../../Include/GameLogic/StancesBehavior.h"
 
 // The native constructor registers on the listener storage at module +0x20.

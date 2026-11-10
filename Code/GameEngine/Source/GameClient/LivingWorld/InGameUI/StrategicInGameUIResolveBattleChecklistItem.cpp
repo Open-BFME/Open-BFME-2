@@ -20,7 +20,7 @@ class Rva0020E89C {public:UnicodeString rva0020E89C();};
 UnicodeString Rva005C95ECGet(Rva0020E89C*);
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 class Rva005CCE13 {public:void rva005CCE13(const UnicodeString&);};
 class Rva005CCB73 {public:void rva005CCB73(void*);};
 class Rva005CCB7B {public:void rva005CCB7B(bool);};

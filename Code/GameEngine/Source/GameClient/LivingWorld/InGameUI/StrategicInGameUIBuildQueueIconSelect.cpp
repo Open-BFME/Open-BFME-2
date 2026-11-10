@@ -576,7 +576,7 @@ template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<Rva005E71C
 class Rva002DF9E9 { public: UnicodeString rva002DF9E9(); };
 class Rva004E0625 { public: int rva004E0625() const; };
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 class CreateAHeroData;
 class Rva002B7250
 {

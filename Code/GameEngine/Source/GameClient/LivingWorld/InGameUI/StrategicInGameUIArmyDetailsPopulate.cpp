@@ -52,7 +52,7 @@ struct Rva005E4300Context;
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
 namespace _STL {template<class It,class Cmp> void sort(It,It,Cmp);}
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 enum ScienceType {SCIENCE_NONE=0};
 namespace StrategicInGameUI {class ArmyDetailsPanel {public:class Impl {public:SBServer CreateIcon(int,ArmySummaryEntry*);};};}
 class Rva005E39AE {public:
