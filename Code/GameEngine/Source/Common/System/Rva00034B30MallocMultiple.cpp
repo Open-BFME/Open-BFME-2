@@ -18,11 +18,7 @@
 
 #include "../../../Include/Common/Rva006C1F60.h"
 
-class Rva00034C90
-{
-public:
-	void consolidate();
-};
+#include "../../../Include/Common/Rva00034C90.h"
 
 static inline unsigned int Rva00034B30RequestSize(unsigned int request)
 {

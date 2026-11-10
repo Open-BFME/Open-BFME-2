@@ -51,11 +51,7 @@ public:
 	int get() const;
 };
 
-class Rva00034C90
-{
-public:
-	void consolidate();
-};
+#include "../../../Include/Common/Rva00034C90.h"
 
 class Rva0066D7D0LeaField
 {

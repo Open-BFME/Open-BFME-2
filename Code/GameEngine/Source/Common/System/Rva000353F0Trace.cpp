@@ -42,11 +42,7 @@ public:
 	}
 };
 
-class Rva00034C90
-{
-public:
-	void consolidate();
-};
+#include "../../../Include/Common/Rva00034C90.h"
 
 // Canonical base fields read here: m_004 (bit 0 gates 0x00033930), the trace
 // callback m_4C0 and its context m_4C4, the trace-internal byte m_4E0 and the

@@ -46,11 +46,7 @@ public:
     void rva0010F24F();
 };
 
-class Rva0010F26E
-{
-public:
-    void rva0010F26E();
-};
+#include "../../Include/Common/Rva0010F26E.h"
 
 struct Rva0010F28DMid
 {

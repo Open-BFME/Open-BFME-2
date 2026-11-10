@@ -40,11 +40,7 @@ public:
 	}
 };
 
-class Rva00034C90
-{
-public:
-	void consolidate();
-};
+#include "../../../Include/Common/Rva00034C90.h"
 
 #include "../../../Include/Common/Rva006C1F60.h"
 
