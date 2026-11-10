@@ -41,7 +41,7 @@ struct Rva002B85ECFilter {char m_pad[0x14];int key;};
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct RetreatEntry {char m_pad[8];int id;char m_rest[12];};
 class Rva00318C32Ret {public:char m_pad[0x1a8];_STL::vector<RetreatEntry> entries;};
-class Rva00318C79Owner {public:Rva00318C32Ret *rva00318C32();};
+#include "../../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva0020E89C {public:char m_pad[0x13c];int m_13c;};
 class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
 class Rva002104B6 {public:void *rva002104B6(void*);};

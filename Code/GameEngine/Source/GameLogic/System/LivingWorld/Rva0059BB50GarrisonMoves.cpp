@@ -116,11 +116,7 @@ public:
 	int rva002E0BC0(int id);
 };
 
-class Rva00318C79Owner
-{
-public:
-	int rva00318C79();
-};
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 
 int __cdecl rva0050059A(int from, int to);
 

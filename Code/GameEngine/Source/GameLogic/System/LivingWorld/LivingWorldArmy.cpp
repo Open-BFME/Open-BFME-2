@@ -115,7 +115,7 @@ struct ArmySummaryView {
     int nativeSize() const { const ArmySummaryEntryRefView *last=entries40.end(); return last-entries40.begin(); }
 };
 class Rva00318C32Ret;
-class Rva00318C79Owner { public: Rva00318C32Ret *rva00318C32(); };
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva003193EC { public: void rva003198B8(Rva003193EC *); void rva003190E7(bool); void rva003191B1(); };
 #include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder { public: ArmySummaryEntry *entry; };
