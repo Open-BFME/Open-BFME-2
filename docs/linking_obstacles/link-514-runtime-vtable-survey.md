@@ -2392,3 +2392,35 @@ HEAD's `vtable_bridge.py`), `tu_skeleton.py --split --dry-run --no-claim`, `rena
      for Z approval and split; SlavedUpdate.cpp's view must first carry BFME2's slot order.
   4. Tooling: tu_map gives no Z/S for a placeholder-named destructor even when its constructor row names the class;
      a constructor-store tie (ctor and dtor install the same tables) could approve it directly.
+- Addendum (same seat, base `bdd53035fb4`): the two leads above.
+  - Duplicate-table placeholders (lead 2): ShareExperienceBehavior was folded with a reconcile commit first (the
+    placeholder on ShareExperienceBehaviorInterface, as rename.py's per-unit layout check needs) and the TU prepared
+    with `virtual ~ShareExperienceBehavior();`. Both units then emitted identical tables and `??_G` (same digests),
+    4 of 4 LINK, and the bridge fell 3,829 -> 3,825 with nothing newly bridged. Reverted ("Revert the
+    ShareExperienceBehavior fold and its reconcile ..."): tu_map's N signal names `<the row's directory>/<Class>.cpp`,
+    and for a BFME-only class (no Z/S anchor) whose destructor is its first address, a regenerated map moves all 25
+    rows to `Common/ShareExperienceBehavior.cpp` (rows in their approved TU 23,444 -> 23,423), while no map approves
+    the destructor for the Behavior/ TU, so the split that would settle it is unavailable. ClickReactionBehavior and
+    RadiateFearUpdate are BFME-only too: not attempted. PropagandaTowerBehavior (ZH, so Z-anchored) still needs its
+    TU's two views and the constructor unit's third view reconciled first: skipped.
+  - "Nothing ties NEW to T" (lead 3): cleared without rewriting the constructor onto a real view. rename.py's tie
+    reads the installing rows' current objects, so respelling the constructor unit's `__identifier` table names to
+    NEW's and rebuilding it (bytes unchanged) before the fold is enough; constructor unit and fold land together.
+    Folded: SupplyCenterProductionExitUpdate (Rva004A653D) and DefaultProductionExitUpdate (Rva00487F3A), both
+    already agreed by the name lane (name_agreed nl-94a22544e126, nl-edfe4ae01f4c). In memory the map now approves
+    each destructor by Z for its Zero Hour TU (and two C rows each); its `??_G` goes displaced (it rides with the
+    destructor); rows in their approved TU are unchanged. Bridge 3,829 -> 3,829: the eight placeholder tables
+    become the classes' (same slots). link_check 7 of 7 and 8 of 8 LINK, bytes unchanged; scoped DIR32 OK.
+  - The split does not follow yet: SupplyCenterProductionExitUpdate.cpp's view (ExitInterface.h, a one-argument
+    getExitPosition opening a new primary slot, no declared destructor) fails the merge verifier ('bytes');
+    DefaultProductionExitUpdate.cpp is the Zero Hour verbatim port, whose tables have ZH's layout (as SlavedUpdate's).
+    Each TU's view must take retail's tables first.
+  - Next leads: (1) tooling: tu_map's N should not take a grab-bag row's directory when the class's other rows sit in
+    one TU; that unlocks the four duplicate-table folds (16 tables). (2) The same respell-then-fold for
+    StructureCollapseUpdate (registered: needs its header in every prepared unit), ToppleUpdate and AutoHealBehavior
+    (both held by ancalgonn-swarm-sweep-header today). (3) Reconcile the two ProductionExit TUs' views to retail's
+    tables, then split.
+  - Audit (`bdd53035fb4..HEAD`): no path added, moved or deleted; `rename.py check --range`: 0 renames, 0 problems;
+    tools/, .githooks/, .github/ and docs name neither placeholder; old spellings remain only in generated or
+    historical records (data_ledger.csv, vtable_bridge_queue.tsv, wb_name_leads.csv, name_votes/name_agreed,
+    an attempt_support verdicts file, deleted_rows.csv tombstones, tu_map.csv until its next refresh).
