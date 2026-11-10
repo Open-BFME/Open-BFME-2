@@ -269,11 +269,7 @@ struct LWAIArmySummary
 	_STL::vector<_STL::pair<int, int> > m_entries;   // +0x40
 };
 
-class Rva00318C79Owner
-{
-public:
-	int rva00318C79();
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva00318C79Owner.h"
 
 struct LWAIArmyView
 {
