@@ -195,11 +195,7 @@ bool SupplyTruckAIUpdate::isCurrentlyFerryingSupplies() const
 
 // Call-only view retaining the already-rowed broadcast symbol and argument ABI.
 // It does not define Drawable or assert the broadcaster's original class name.
-struct Rva002716Holder
-{
-public:
-	void Rva0027164EBroadcast(int a, int b);
-};
+#include "../../../../../Include/GameClient/Rva002716Holder.h"
 
 bool SupplyTruckAIUpdate::loseOneBox()
 {

@@ -235,7 +235,7 @@ public:
 	ObjectID m_id;						// +0x74
 };
 
-class Rva002716Holder { public: void rva00271547(); };
+#include "../../Include/GameClient/Rva002716Holder.h"
 class Rva00279354Host { public: void rva00279354(bool b); };
 class Rva0027974B
 {

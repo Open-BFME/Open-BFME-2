@@ -13,11 +13,7 @@
 // sums, which the volatile read of a2 reproduces (the fleet's volatile
 // operand form).
 class Drawable;
-class Rva002716Holder
-{
-public:
-	void rva00271547();
-};
+#include "../../Include/GameClient/Rva002716Holder.h"
 
 class Drawable
 {

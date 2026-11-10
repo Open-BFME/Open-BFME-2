@@ -94,7 +94,7 @@ struct BfmeWarehouseVictimFields
     AIUpdateInterface *m_ai;
 };
 
-struct Rva002716Holder { void Rva0027164EBroadcast(int a, int b); };
+#include "../../../../../Include/GameClient/Rva002716Holder.h"
 
 int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 

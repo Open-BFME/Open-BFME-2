@@ -133,11 +133,7 @@ public:
 	char m_pad6C[0xFC - 0x6C];
 	Object *m_object;
 };
-class Rva002716Holder
-{
-public:
-	void Rva002716ACBroadcast();
-};
+#include "../../../../../../GameEngine/Include/GameClient/Rva002716Holder.h"
 #include "../../../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 #include "../../../../../../GameEngine/Include/GameClient/GameClientClass.h"

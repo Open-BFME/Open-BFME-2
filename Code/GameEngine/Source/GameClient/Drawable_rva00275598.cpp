@@ -111,7 +111,7 @@ public:
 template<class T> __forceinline const T& drawableMin(const T&a,const T&b){return a<b?a:b;}
 template<class T> __forceinline const T& drawableMax(const T&a,const T&b){return a<b?b:a;}
 
-class Rva002716Holder { public:void rva00271547(); };
+#include "../../Include/GameClient/Rva002716Holder.h"
 extern int BfmeClientFramesPerSecond;
 float Sin(float);
 // Target reads the stored1/30-second value at VA DBA508; its original

@@ -35,12 +35,7 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_INVALID = -1
 };
-class Rva002716Holder
-{
-public:
-	void Rva0027164EBroadcast(int a, int b);
-	void Rva00271619Broadcast(int,int,int);
-};
+#include "../../../Include/GameClient/Rva002716Holder.h"
 class Rva0010CBits
 {
 public:
