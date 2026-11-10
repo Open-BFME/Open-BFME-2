@@ -575,3 +575,19 @@ Tool note for `fdd0d06a74` (LeonardBuhl): it made `exit_link.link_setup` build `
 `tools/tests/test_exit_link.py`'s fake `Retail` to that signature, which master's test run had been failing on.
 
 **2026-11-10, source-only FX guard trial.** The game and BFME2 WorldBuilder share all fourteen decorated guard names. On VC7.1, out-of-class inline GetValue definitions recover the four-counter Key/Name spacing with external storage; the remaining measured category stride is 10 against retail's 14, and the category-six gap is still unexplained. [Inputs, controls and exact results](../../reverse/attempt_support/fx-guard-source-layout-20261110.md). No production symbol changed.
+
+**2026-11-10 the 14 guards, step 2 of 3 (Link lane, by hand; script cancelled).** Measured first:
+- The real link at `a7a3c4d962` (run 42673555664) holds the twelve default KEY/NAME: 28 -> 16 unresolved.
+- The real link at `012abe1b4f` (run 42714245264) holds step 1's four aliases: 16 -> 12, 0 duplicates.
+
+`tools/pin_admission.py --alias` admitted four more at 20:51Z, total 4 -> 8. The freeze's 24 h reference is 4 (step 1 landed
+20:29Z on 11-09), so 8 is not more than twice it.
+- Template argument 0 (`$0A`): `$S142` -> our `$S1` (0x00A02A1C) and `$S146` -> `$S13` (0x00A02A28).
+- Template argument 3 (`$02`): `$S156` -> `$S7` (0x00A02A48) and `$S160` -> `$S19` (0x00A02A54).
+
+Each export's retail address equals the data ledger's address of its target, owned by FXParticleSystemDefaults.cpp, whose object
+defines each target as an external in a .bss section. Both sides are zero-fill. The /DEF changes in those four lines only
+(1,965 lines). link_check (index 18:57 at `945334bfd0`): FXParticleSystemDefaults.cpp LINKS, 1,900 -> 1,900 bytes.
+
+Predicted: 12 -> 8 unresolved, to be confirmed by the next real link. Step 3, 24 h after this lands: `$S170`, `$S174`, `$S184`, `$S188`, then `$S22`/`$S26` once their named
+zero words have data rows. The two `Matrix4D` names stay with LINK-018. Evidence: `~/bfme2-ops/swarm/sweeps/link-018/alias-step2/`.
