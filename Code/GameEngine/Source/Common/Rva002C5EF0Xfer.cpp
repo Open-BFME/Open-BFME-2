@@ -95,11 +95,7 @@ template<class T> __forceinline volatile T &orderedMemberWrite(T &value)
 #include "../../Include/GameLogic/PartitionFilter.h"
 
 // Native BFAD10 slot1 tests effective-death status; donor purpose: alive filter.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-    virtual bool allow(Object *obj);
-};
+#include "../../Include/GameLogic/Rva0026119DFilter.h"
 
 // Native C004D8 slot1 tests player relationship against flags at +0x10.
 class Rva00261409Filter : public Rva000421C8

@@ -18,11 +18,7 @@ public:
 	int m_flags;
 };
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;

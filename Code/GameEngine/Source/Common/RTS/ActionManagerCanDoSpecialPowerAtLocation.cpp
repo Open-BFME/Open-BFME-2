@@ -57,7 +57,7 @@ public:
  virtual bool allow(Object *);
  BfmeFixedStorage0004543D yes,no;
 };
-class Rva0026119DFilter:public Rva000421C8 { public: virtual bool allow(Object *); };
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 // Native BFBC90 filter: object +8, relationship mask +C, bool +10.
 class Rva00260EB1Filter:public Rva000421C8 {
 public:

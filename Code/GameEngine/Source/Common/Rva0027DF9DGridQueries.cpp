@@ -578,11 +578,7 @@ class ThingTemplate;
 
 #include "../../Include/GameLogic/PartitionFilter.h"
 
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../Include/GameLogic/Rva0026119DFilter.h"
 
 #include "../../Include/Common/BfmeFixedStorage0004543D.h"
 

@@ -85,11 +85,7 @@ public:
 };
 
 // vftable 0x00BFAD10: the object is alive.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../Include/GameLogic/Rva0026119DFilter.h"
 
 #include "PartitionRangeQueryCallView.h"
 

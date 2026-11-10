@@ -1260,11 +1260,7 @@ public:
 	virtual Bool slot114();
 };
 // vftable 0x00BFAD10: accepts a living object (allow 0x0026119D).
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual Bool allow(Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00C17F08 (allow 0x0026118B).
 class Rva0026118BFilter : public Rva000421C8
 {
