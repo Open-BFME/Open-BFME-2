@@ -204,6 +204,64 @@ def coverage_report(units, covered, failed=None):
             "run_before_game": sum(1 for x in ran if not x[3]), "not_observed": lost, "run": ran}
 
 
+CREATE_THREAD, EXIT_THREAD = 2, 4     # debug event codes
+STALL_AFTER = 120.0     # seconds with no new logic frame; retail waits at most 22 s (62 s under 95k coverage probes)
+STALL_SAMPLES = 5       # main-thread samples once a stall is seen
+STALL_EVERY = 3.0       # seconds between them
+STALL_FRAMES = 64       # return addresses kept per sample
+
+
+def stall_report(st, loaded, ri=None, overlay=False, where=hex):
+    """The result's `stall` section from the run's raw samples: each eip and each return
+    address into the image's code (boot_smoke.image_frames) with its symbol+offset (the real
+    image's map, or functions.csv for retail; `where(va)` for anything outside the image) and
+    retail RVA (retail: the address less `loaded`; a real image: RealImage.where, null when it
+    cannot say). An overlay image is not symbolized. agree: every clean sample has one eip;
+    common: the return addresses every clean sample holds, in the first one's order."""
+    def label(va):
+        if overlay:
+            return None
+        return boot_smoke.address_label(va, loaded, ri, None) or where(va)
+
+    def retail_rva(va):
+        rva = va - loaded
+        img = ri.img if ri is not None else boot_smoke._retail_sections()
+        if overlay or rva < 0 or not img.code(rva):
+            return None
+        return hex(rva) if ri is None else ri.where(ri.base + rva).get("retail_rva")
+
+    def frames(words):
+        if overlay:
+            return None
+        return [[a, lab, retail_rva(int(a, 16))]
+                for a, lab in boot_smoke.image_frames(words, loaded, ri, None, STALL_FRAMES)]
+
+    samples = [{"seconds": s["seconds"], "frame": s["frame"], "clean": s["clean"], "eip": hex(s["eip"]),
+                "eip_label": label(s["eip"]), "eip_retail_rva": retail_rva(s["eip"]), "esp": hex(s["esp"]),
+                "ebp": hex(s["ebp"]), "regs": s["regs"], "frames": frames(s["words"])} for s in st["samples"]]
+    clean = [s for s in samples if s["clean"]]
+    common = None
+    if clean and not overlay:
+        held = [{f[0] for f in s["frames"]} for s in clean[1:]]
+        common = [f for f in clean[0]["frames"] if all(f[0] in h for h in held)]
+    threads = [dict(t, start=hex(t["start"]), start_label=label(t["start"]) if t["start"] else None,
+                    eip=hex(t["eip"]) if t["eip"] is not None else None,
+                    eip_label=label(t["eip"]) if t["eip"] is not None else None) for t in st["threads"] or []]
+    out = {k: v for k, v in st.items() if k not in ("samples", "threads")}
+    return dict(out, samples=samples, threads=threads, agree=len({s["eip"] for s in clean}) == 1 if clean else None,
+                common=common, note="overlay image: not symbolized" if overlay else None)
+
+
+def stall_receipt(stall):
+    """The receipt's stall section: when, at which frame, how many clean samples and failures,
+    whether they agree, the first clean sample's eip and the first 8 common frames."""
+    clean = [s for s in stall["samples"] if s["clean"]]
+    return {"seconds": stall["trigger"]["seconds"], "frame": stall["trigger"]["frame"], "samples": len(clean),
+            "failures": stall["failures"], "agree": stall["agree"],
+            "eip": (clean[0]["eip_label"] or clean[0]["eip"]) if clean else None,
+            "common": [f[1] or f[0] for f in (stall["common"] or [])[:8]]}
+
+
 def ledger_units(rows, code):
     """--coverage-units ledger: [retail RVA, size, name] for every functions.csv row
     (real_image.Rows' (start, size, name, source)) whose start is in retail's code, one per
@@ -468,6 +526,10 @@ class Game:
         self.covered = []             # (seconds, logic frame, image RVA) of each first execution
         self.probe_shared = set()     # --coverage: VAs of probed units a harness breakpoint holds instead
         self.probe_failed = {}        # --coverage: RVA in the image -> why its probe was not planted
+        self.stall_after = None       # --stall-after: seconds with no new logic frame before sampling (None: off)
+        self.watch = None             # the stall watch's state (stall_watch)
+        self.main_thread = None       # (handle, tid) of game.dat's first thread, from CREATE_PROCESS
+        self.threads = {}             # tid -> (handle, start address) of the game's other live threads
         self.stub = None
         self.procs = {}
         self.pid = self.hproc = self.base = None
@@ -640,6 +702,7 @@ class Game:
         self.t0 = time.time()
         next_tick = self.t0 + tick_every
         next_note = self.t0 + 30
+        next_watch = self.t0 + 1.0
         res = self.res
         res["debugger_errors"] = []
         res["cleanup"] = {"terminate": [], "exit_events": [], "wait": [], "close": [], "uncertain_handles": []}
@@ -676,6 +739,14 @@ class Game:
                     if why:
                         res["stopped"] = why
                         break
+                if self.stall_after and self.pid and now >= next_watch:
+                    next_watch = now + 1.0
+                    try:
+                        if self.stall_watch(now):
+                            continue                     # a sample took time: look again before anything else
+                    except boot_smoke.ThreadNotResumed as failure:
+                        debugger_error("ResumeThread:stall-sample", failure.error)
+                        break
                 if not k.WaitForDebugEvent(ev, 200):
                     error = ctypes.get_last_error()
                     if error != 121:
@@ -698,6 +769,8 @@ class Game:
                             debugger_error("CREATE_PROCESS:multiple-game", pid)
                         else:
                             self.pid, self.hproc = pid, h
+                            thread = int.from_bytes(ev.raw[32:40], "little")     # the debug system's; never closed
+                            self.main_thread = (thread, tid) if thread else None
                             self.base = int.from_bytes(ev.raw[40:48], "little")
                             self.size = image_size(buf.value)
                             self.exe = buf.value
@@ -717,6 +790,10 @@ class Game:
                             if k.GetFinalPathNameByHandleW(wt.HANDLE(h), buf, 1024, 0):
                                 self.dlls.append((int.from_bytes(ev.raw[24:32], "little"), buf.value.split("\\")[-1]))
                         close_handle(h, f"load-dll:{pid}")
+                elif code == CREATE_THREAD and game:  # handle and start address, for a stall's thread list
+                    self.threads[tid] = (int.from_bytes(ev.raw[16:24], "little"), int.from_bytes(ev.raw[32:40], "little"))
+                elif code == EXIT_THREAD and game:
+                    self.threads.pop(tid, None)
                 elif code == EXIT_PROCESS and game:
                     res.update(stopped="exit", exit_code=int.from_bytes(ev.raw[16:20], "little"),
                                seconds=self.seconds())
@@ -882,6 +959,59 @@ class Game:
         stack = self.read(ctx.esp, 0x1000) or b""
         words = [struct.unpack_from("<I", stack, i)[0] for i in range(0, len(stack) - 3, 4)]
         return [self.where(w) for w in words if self.base <= w < self.base + self.size][:n]
+
+    def stall_watch(self, now):
+        """--stall-after, once a second from the debug loop: the logic frame (None before
+        TheGameLogic exists) is read; any change is progress. After stall_after seconds of none,
+        STALL_SAMPLES samples of the main thread are taken STALL_EVERY apart (stall_sample), once
+        per run. True when this call took a sample. Raises boot_smoke.ThreadNotResumed."""
+        w = self.watch
+        if w is None or w["left"] is None:
+            frame = self.logic()[0]
+            if w is None:
+                self.watch = w = {"frame": frame, "since": now, "left": None}
+            if frame != w["frame"]:
+                w.update(frame=frame, since=now)
+                return False
+            if now - w["since"] < self.stall_after:
+                return False
+            w.update(left=STALL_SAMPLES, next=now)
+            self.res["stall"] = {
+                "trigger": {"seconds": self.seconds(), "frame": frame, "stall_after": self.stall_after,
+                            "unchanged_since": round(w["since"] - self.t0, 1)},
+                "main_thread": {"tid": self.main_thread[1]} if self.main_thread else None,
+                "samples": [], "failures": 0, "threads": None}
+            if not self.main_thread:
+                self.res["stall"]["main_thread_why"] = "CREATE_PROCESS gave no thread handle for game.dat"
+        if not w["left"] or now < w["next"]:
+            return False
+        st = self.res["stall"]
+        if st["threads"] is None:
+            st["threads"] = self.thread_eips()
+        w["left"], w["next"] = (w["left"] - 1 if self.main_thread else 0), now + STALL_EVERY
+        if self.main_thread:
+            self.stall_sample(st)
+        return True
+
+    def stall_sample(self, st):
+        """One main-thread sample into st: registers and 4 KB of stack, read with the thread
+        suspended (boot_smoke.while_suspended; nothing is written to the game)."""
+        h, tid = self.main_thread
+        got, clean = boot_smoke.while_suspended(
+            self.k, h, lambda: boot_smoke.stack_words(self.k, self.hproc, tid, n=1024))
+        if not got:
+            st["failures"] += 1
+            return
+        st["samples"].append({"seconds": self.seconds(), "frame": self.logic()[0], "clean": clean,
+                              "eip": int(got["regs"]["eip"], 16), "esp": got["esp"], "ebp": got["ebp"],
+                              "regs": got["regs"], "words": got["words"]})
+
+    def thread_eips(self):
+        """[{tid, start, eip}] of the game's other live threads, each read once with it suspended
+        (eip None when the read proves nothing). Raises boot_smoke.ThreadNotResumed."""
+        main = self.main_thread[1] if self.main_thread else None
+        return [{"tid": tid, "start": start, "eip": boot_smoke.thread_eip(self.k, h)}
+                for tid, (h, start) in sorted(self.threads.items()) if tid != main]
 
     def _seeding(self, tid, ctx):
         """Log every RNG seeding: (seconds, which, seed argument, GlobalData fixed
@@ -1253,9 +1383,14 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
                 game.probe_units[move(rva)] = (rva, size, name)
             except KeyError:
                 pass
+    game.stall_after = getattr(a, "stall_after", None) or None
     t0 = time.time()
     res = game.run(timeout or a.timeout, tick)
+    stall = res.pop("stall", None)
     out = {"args": game.args, "retail": a.retail, "wall_seconds": round(time.time() - t0, 1), "run": res}
+    if stall:
+        loaded = int(res["image_base"], 16) if res.get("image_base") else game.base
+        out["stall"] = stall_report(stall, loaded, a.ri, overlay=not a.retail and a.ri is None, where=game.where)
     if not a.retail:
         out["addresses"], out["relayout"] = a.address_map, a.relayout
     if a.ri is not None:
@@ -1401,6 +1536,8 @@ def write_result(name, out):
     """Write OUT/NAME_IMAGE.json, the result file (the one file the game queue keeps from a job),
     and print it. A --coverage run also writes its unit list to coverage_NAME_IMAGE.json and keeps
     it in the result file too; only stdout leaves out the units that ran."""
+    if "stall" in out:
+        out["receipt"]["stall"] = stall_receipt(out["stall"])
     if "coverage" in out:
         cov = OUT / f"coverage_{name}_{out['image']}.json"
         cov.write_text(json.dumps(out["coverage"], indent=1))
@@ -1993,6 +2130,10 @@ def main(argv=None):
                          "whatever its status (no link needed). 'In code' means inside an executable section, not a "
                          "checked instruction boundary: a wrong ledger start, padding, embedded data or a jump table "
                          "is not rejected, and a row's wrong extent can hide a real later start (left out as inside it)")
+    ap.add_argument("--stall-after", type=float, default=STALL_AFTER, metavar="SECONDS",
+                    help=f"after this long with no new logic frame (None to 0 counts), sample the main thread "
+                         f"{STALL_SAMPLES} times {STALL_EVERY:g} s apart (eip, stack, symbols) and the other threads' "
+                         f"eips once, into the result's `stall` section; 0 turns the watch off (default {STALL_AFTER:g})")
     ap.add_argument("--player", action="store_true",
                     help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")

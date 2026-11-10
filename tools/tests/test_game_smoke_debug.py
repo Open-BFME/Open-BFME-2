@@ -187,6 +187,43 @@ class GameRunLifecycle(unittest.TestCase):
         self.assertEqual(report["outcome"], "debugger-error")
 
 
+def thread_event(code, tid, handle=0, start=0, pid=200):
+    raw = bytearray(event(runner.EXIT_PROCESS, pid=pid, tid=tid))
+    raw[0:4] = code.to_bytes(4, "little")
+    raw[16:24] = handle.to_bytes(8, "little")
+    raw[32:40] = start.to_bytes(8, "little")
+    return bytes(raw)
+
+
+class StallThreads(unittest.TestCase):
+    """The stall sampler's handles: game.dat's main thread from CREATE_PROCESS, its other threads from
+    CREATE_THREAD until EXIT_THREAD; the debug system owns them, so none is closed."""
+
+    def test_the_main_thread_and_live_threads_are_kept_and_never_closed(self):
+        clock = Clock()
+        events = [event(runner.CREATE_PROCESS, pid=100, tid=101, process_handle=23),
+                  event(runner.CREATE_PROCESS, file_handle=31),
+                  thread_event(runner.CREATE_THREAD, 202, handle=33, start=0x401500),
+                  thread_event(runner.CREATE_THREAD, 203, handle=34, start=0x401600),
+                  thread_event(runner.CREATE_THREAD, 102, handle=35, start=0x1000, pid=100),   # the launcher's
+                  thread_event(runner.EXIT_THREAD, 203),
+                  event(runner.EXIT_PROCESS, exit_code=0)]
+        kernel = Kernel(clock, events)
+        with (mock.patch.object(runner.boot_smoke, "k32", return_value=kernel),
+              mock.patch.object(runner.boot_smoke, "check_sandbox_appdata"),
+              mock.patch.object(runner, "image_size", return_value=0xC00000),
+              mock.patch.object(runner.time, "time", side_effect=clock.time),
+              mock.patch.object(runner.time, "monotonic", side_effect=clock.monotonic),
+              mock.patch.object(runner.ctypes, "get_last_error", return_value=5, create=True)):
+            game = runner.Game(Path("/mock-game"), "-win", Path("/mock-appdata"), version_lie=False)
+            result = game.run(2)
+        self.assertEqual(result["stopped"], "exit")
+        self.assertEqual(game.main_thread, (22, 201))
+        self.assertEqual(game.threads, {202: (33, 0x401500)})
+        self.assertFalse({22, 33, 34} & set(kernel.closed))
+        self.assertNotIn("stall", result)                                       # off unless --stall-after sets it
+
+
 class FaultCaptureTests(unittest.TestCase):
     """P106: a skirmish's crash keeps the fault's registers, through boot_smoke's capture."""
 

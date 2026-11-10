@@ -272,6 +272,122 @@ class Probes(unittest.TestCase):
         self.assertEqual((g.bps[va], g.probe_shared), ((b"\xCC", h2), set()))
 
 
+class Stall(unittest.TestCase):
+    """--stall-after: Game.stall_watch / stall_sample / thread_eips over a fake game, and stall_report."""
+    STACK = {"esp": 0x19F000, "ebp": 0x19F040, "regs": {"eip": "0x401234", "esp": "0x19f000"},
+             "words": [0x401100, 7, 0x402200]}
+
+    def game(self, frames, main=(22, 201), threads=None):
+        g = gs.Game.__new__(gs.Game)
+        g.res, g.watch, g.stall_after, g.t0, g.k, g.hproc = {}, None, 120.0, 0.0, object(), 9
+        g.main_thread, g.threads = main, threads or {}
+        g.clock = 0.0
+        g.seconds = lambda: g.clock
+        it = iter(frames)
+        g.logic = lambda: (next(it), 2)
+        return g
+
+    def drive(self, g, until):
+        took = []
+        for t in range(until + 1):
+            g.clock = float(t)
+            if g.stall_watch(float(t)):
+                took.append(t)
+        return took
+
+    def test_a_run_that_progresses_is_never_sampled(self):                      # the old path
+        g = self.game(iter([None] * 30 + list(range(10_000))))
+        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=AssertionError("suspended")), \
+                mock.patch.object(gs.boot_smoke, "thread_eip", side_effect=AssertionError("suspended")):
+            self.assertEqual(self.drive(g, 600), [])
+        self.assertNotIn("stall", g.res)
+
+    def test_no_new_frame_for_stall_after_gives_five_samples_three_seconds_apart(self):
+        g = self.game(iter([None] * 10 + [0] * 10_000), threads={202: (33, 0x401500), 201: (22, 0x400000)})
+        with mock.patch.object(gs.boot_smoke, "while_suspended", return_value=(dict(self.STACK), True)) as susp, \
+                mock.patch.object(gs.boot_smoke, "thread_eip", return_value=0x7BC01234) as teip:
+            took = self.drive(g, 300)
+        self.assertEqual(took, [130, 133, 136, 139, 142])                       # frame 0 from 10 s; 120 s later
+        st = g.res["stall"]
+        self.assertEqual((st["trigger"]["seconds"], st["trigger"]["frame"], st["trigger"]["unchanged_since"]),
+                         (130.0, 0, 10.0))
+        self.assertEqual((len(st["samples"]), st["failures"], susp.call_count), (5, 0, 5))
+        self.assertEqual(st["samples"][0]["eip"], 0x401234)
+        self.assertEqual(st["threads"], [{"tid": 202, "start": 0x401500, "eip": 0x7BC01234}])   # once, main left out
+        self.assertEqual(teip.call_count, 1)
+
+    def test_a_sample_that_could_not_suspend_is_a_counted_failure(self):
+        g = self.game(iter([0] * 10_000))
+        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=[(None, False)] + [(dict(self.STACK), True)] * 4), \
+                mock.patch.object(gs.boot_smoke, "thread_eip"):
+            self.drive(g, 300)
+        self.assertEqual((len(g.res["stall"]["samples"]), g.res["stall"]["failures"]), (4, 1))
+
+    def test_without_a_main_thread_only_the_threads_are_read(self):
+        g = self.game(iter([0] * 10_000), main=None, threads={202: (33, 0x401500)})
+        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=AssertionError("no main thread")), \
+                mock.patch.object(gs.boot_smoke, "thread_eip", return_value=None):
+            self.assertEqual(self.drive(g, 300), [120])
+        st = g.res["stall"]
+        self.assertEqual((st["main_thread"], st["samples"], st["threads"]), (None, [], [{"tid": 202, "start": 0x401500, "eip": None}]))
+        self.assertIn("CREATE_PROCESS", st["main_thread_why"])
+
+    def test_a_thread_left_suspended_stops_the_run_s_evidence(self):
+        g = self.game(iter([0] * 10_000))
+        with mock.patch.object(gs.boot_smoke, "while_suspended", side_effect=gs.boot_smoke.ThreadNotResumed(5)), \
+                mock.patch.object(gs.boot_smoke, "thread_eip"):
+            with self.assertRaises(gs.boot_smoke.ThreadNotResumed):
+                self.drive(g, 300)
+
+    RAW = {"trigger": {"seconds": 130.0, "frame": 0, "stall_after": 120.0, "unchanged_since": 10.0},
+           "main_thread": {"tid": 201}, "failures": 0,
+           "threads": [{"tid": 202, "start": 0x2001500, "eip": 0x7BC01234}],
+           "samples": [{"seconds": 130.0, "frame": 0, "clean": True, "eip": 0x2001234, "esp": 1, "ebp": 2, "regs": {},
+                        "words": [0x2001100, 0x2002200]},
+                       {"seconds": 133.0, "frame": 0, "clean": True, "eip": 0x2001240, "esp": 1, "ebp": 2, "regs": {},
+                        "words": [0x2001180, 0x2002200]},
+                       {"seconds": 136.0, "frame": 0, "clean": False, "eip": 0x2009999, "esp": 1, "ebp": 2, "regs": {},
+                        "words": [0x2009000]}]}
+
+    def report(self, **kw):
+        lab = lambda va, loaded, ri, pieces: f"f{va - loaded:x}" if 0 <= va - loaded < 0x10000 else None  # noqa: E731
+        frames = lambda words, loaded, ri, pieces, limit: [[hex(w), lab(w, loaded, ri, pieces)] for w in words  # noqa: E731
+                                                           if lab(w, loaded, ri, pieces)]
+        ri = SimpleNamespace(base=0x400000, img=SimpleNamespace(code=lambda rva: rva < 0x10000),
+                             where=lambda va: {"retail_rva": hex(va - 0x400000 + 0x100)})
+        with mock.patch.object(gs.boot_smoke, "address_label", side_effect=lab), \
+                mock.patch.object(gs.boot_smoke, "image_frames", side_effect=frames):
+            return gs.stall_report(self.RAW, 0x2000000, ri, where=lambda va: f"ntdll+{va & 0xFFF:#x}", **kw)
+
+    def test_the_report_names_each_address_and_the_frames_every_sample_holds(self):
+        rep = self.report()
+        s0 = rep["samples"][0]
+        self.assertEqual((s0["eip"], s0["eip_label"], s0["eip_retail_rva"]), ("0x2001234", "f1234", "0x1334"))
+        self.assertEqual(s0["frames"][1], ["0x2002200", "f2200", "0x2300"])
+        self.assertFalse(rep["agree"])                                          # the two clean eips differ
+        self.assertEqual(rep["common"], [["0x2002200", "f2200", "0x2300"]])     # the unclean sample is left out
+        self.assertEqual(rep["threads"][0]["eip_label"], "ntdll+0x234")         # outside the image
+        rec = gs.stall_receipt(rep)
+        self.assertEqual((rec["samples"], rec["agree"], rec["eip"], rec["common"]), (2, False, "f1234", ["f2200"]))
+
+    def test_an_overlay_image_is_not_symbolized(self):
+        rep = self.report(overlay=True)
+        self.assertEqual((rep["samples"][0]["eip_label"], rep["samples"][0]["frames"], rep["common"]), (None, None, None))
+        self.assertIn("overlay", rep["note"])
+
+    def test_the_receipt_gains_a_stall_section_only_when_there_was_one(self):
+        import io
+        import json
+        import tempfile
+        from contextlib import redirect_stdout
+        rep = self.report()
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(gs, "OUT", Path(d)), redirect_stdout(io.StringIO()):
+            kept = json.loads(gs.write_result("skirmish", {"image": "real", "receipt": {}, "stall": rep}).read_text())
+            plain = json.loads(gs.write_result("record", {"image": "real", "receipt": {}}).read_text())
+        self.assertEqual(kept["receipt"]["stall"]["frame"], 0)
+        self.assertEqual(plain, {"image": "real", "receipt": {}})
+
+
 class MorePlayers(unittest.TestCase):
     def test_four_brutal_ais_and_no_fps_cap(self):
         info, glob = 0x6000000, 0x6400000
