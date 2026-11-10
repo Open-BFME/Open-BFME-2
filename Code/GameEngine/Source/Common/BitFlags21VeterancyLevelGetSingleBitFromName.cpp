@@ -15,17 +15,9 @@ typedef bool Bool;
 
 extern const char *VeterancyLevelNames[21]; ///< retail [0x00DBAA40]
 
-template <size_t NUMBITS>
-class BitFlags
-{
-public:
-	static Int getSingleBitFromName( const char *token );
+#include "../../Include/Common/BitFlagsTemplate.h"
 
-private:
-	_STL::bitset<NUMBITS> m_bits;
-};
-
-template <size_t NUMBITS>
+template <int NUMBITS>
 Int BitFlags<NUMBITS>::getSingleBitFromName( const char *token )
 {
 	Int i = 0;

@@ -128,18 +128,9 @@ const char *BodyStateNames[101] = {
 	"COMMAND_BUTTON_TOGGLED",
 };
 
-template <size_t NUMBITS>
-class BitFlags
-{
-public:
-	static Int getSingleBitFromName( const char *token );
-	void buildDescription( AsciiString *str, Int maxPerLine ) const;
+#include "../../Include/Common/BitFlagsTemplate.h"
 
-private:
-	_STL::bitset<NUMBITS> m_bits;
-};
-
-template <size_t NUMBITS>
+template <int NUMBITS>
 Int BitFlags<NUMBITS>::getSingleBitFromName( const char *token )
 {
 	Int i = 0;
@@ -155,7 +146,7 @@ Int BitFlags<NUMBITS>::getSingleBitFromName( const char *token )
 // and formatting behavior. Retail's 101-bit BFME2 body differs in its lookup:
 // it uses the matched 0x0028C753 helper, which reads this bitset and the
 // BodyStateNames table at 0x00DA5F30.
-template <size_t NUMBITS>
+template <int NUMBITS>
 void BitFlags<NUMBITS>::buildDescription( AsciiString *str, Int maxPerLine ) const
 {
 	if ( str == 0 )

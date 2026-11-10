@@ -31,17 +31,9 @@ const char *CommandSetNames[15] = {
 	"INNATE_HEALTH",
 };
 
-template <size_t NUMBITS>
-class BitFlags
-{
-public:
-	static Int getSingleBitFromName( const char *token );
+#include "../../Include/Common/BitFlagsTemplate.h"
 
-private:
-	_STL::bitset<NUMBITS> m_bits;
-};
-
-template <size_t NUMBITS>
+template <int NUMBITS>
 Int BitFlags<NUMBITS>::getSingleBitFromName( const char *token )
 {
 	Int i = 0;
