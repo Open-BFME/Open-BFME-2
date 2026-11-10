@@ -21,6 +21,19 @@ NOTES_RE = re.compile(r"reloc-derived;call-sites=[1-9]\d*;identity=(real|generat
 
 
 def _load(name):
+    """The tools module `name`, loaded by path, reusing the one already imported.
+
+    One module object per name. Loading unconditionally overwrote
+    `sys.modules[name]` with a second copy, and tools resolve some imports at
+    call time: `add_match.replacement_scaffold` does `import build` inside the
+    function, so it read the fresh copy's real EXE while the test that patched
+    `build.EXE` held the first copy. That failed eight of
+    test_add_match_import_scaffold.py's tests whenever pytest imported this file
+    into the same process -- at COLLECTION, before any test here runs, which is
+    why both files passed alone (recorded as tool:test_reloc_names). Same cause
+    as tool:test_exit_link, fixed at cd973bd3e4c."""
+    if name in sys.modules:
+        return sys.modules[name]
     spec = importlib.util.spec_from_file_location(name, TOOLS / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
     sys.modules[name] = module
@@ -65,6 +78,31 @@ def a_publishable_function():
         if inventory.get(body, "").startswith("FUN_") and body not in claimed:
             return body
     raise AssertionError("no anonymous unclaimed thunked body in the image")
+
+
+def test_one_module_object_per_tool_so_a_patched_attribute_is_the_one_read():
+    """Regression: a second copy of a tool module is a different patch target.
+
+    Tools resolve some imports at call time -- `add_match.replacement_scaffold`
+    does `import build` in the function body -- so a second `build` in
+    `sys.modules` makes a monkeypatch land on an object the tool never reads.
+    test_add_match_import_scaffold.py patches `build.EXE` and
+    `build.read_target_bytes` to a fixture PE; against the other copy the real
+    game.dat answered, `pe_imports.generated_import_scaffold` found no slot, and
+    the admission refused a row it should take. Eight of its tests failed that
+    way, only ever in a combined run, because this file's import at COLLECTION
+    did the clobbering (recorded as tool:test_reloc_names).
+
+    Pin that `_load` hands back the imported module for both names it loads.
+    """
+    import build as imported_normally
+
+    assert _load("build") is imported_normally
+    assert sys.modules["build"] is build
+    assert sys.modules["next_work"] is next_work
+    assert _load("next_work") is next_work
+    assert sys.modules["build"].read_target_bytes is build.read_target_bytes
+    print("PASS _load reuses the imported module, so patches reach the tool")
 
 
 def test_callee_comes_from_the_retail_bytes():
