@@ -32,12 +32,7 @@ struct LivingWorldArmy
 	ArmySummary *m_summary;					// +0x78
 };
 
-class LivingWorldBattle
-{
-public:
-	unsigned char m_pad00[0x38];
-	Int m_side;						// +0x38, the winning side
-};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
 
 // Rowed receivers under placeholder names (LivingWorldLogic.cpp views).
 class Rva003F468D
@@ -79,9 +74,9 @@ public:
 bool Rva002B29D8::visit(LivingWorldArmy *army)
 {
 	LivingWorldBattle *battle = m_battle;
-	if (battle->m_side >= 0)
+	if (battle->field38 >= 0)
 	{
-		Rva002E071E *winner = (Rva002E071E *)((Rva003F468D *)battle)->rva003F468D(battle->m_side, 0);
+		Rva002E071E *winner = (Rva002E071E *)((Rva003F468D *)battle)->rva003F468D(battle->field38, 0);
 		if (!(unsigned char)winner->rva002E0BC0(army->m_ownerPlayer))
 		{
 			if (!(army->m_summary && ((const Rva0040CF55Owner *)army->m_summary)->sumUnflagged())

@@ -13,6 +13,9 @@
 #include "vector3.h"
 #include "ascii_string.h"
 #define BFME_SNAPSHOT_NAME_SLOT 1
+// LivingWorldBattle.h needs the capitalized Snapshot slots with the reference transfer.
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 #include <stdlib.h>
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
@@ -88,7 +91,7 @@ class Rva00318C8DOwner { public: Rva0020E89C *rva00318C8D(); };
 class Player;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class LivingWorldBattle { public: int rva003F4752(void*); };
+#include "../../../Include/GameLogic/LivingWorldBattle.h"
 struct ArmySpawnBattleSide { unsigned char bytes[28]; };
 class Rva003F468D {
 public: int rva003F4DAE(int);

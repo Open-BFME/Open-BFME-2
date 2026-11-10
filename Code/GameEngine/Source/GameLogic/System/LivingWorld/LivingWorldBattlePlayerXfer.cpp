@@ -40,6 +40,10 @@ struct XferUnknown11;
 struct Rva003F4E07Player {char pad[0x14];int id;};
 class Rva002E2903Player;
 class ModuleData;
+// LivingWorldBattle.h needs the capitalized Snapshot slots with the reference transfer.
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 struct LivingWorldArmy;
@@ -54,13 +58,14 @@ Xfer *Rva003F5729Xfer(Xfer*,std::vector<ArmySummary>*);
 class ArmyRecords: public std::vector<ArmySummary> {public:
 void clear(){((_STL::vector<BfmeAssignRecord104> *)this)->erase((BfmeAssignRecord104 *)begin(),(BfmeAssignRecord104 *)end());}
 };
-class LivingWorldBattle {public:class BattlePlayer {public:
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
+class LivingWorldBattle::BattlePlayer {public:
  void DoXfer(Xfer*);
  Rva003F4E07Player *m_player;
  std::vector<LivingWorldArmy*>m_armies;
  ArmyRecords m_records;
  int counters[5];
-};};
+};
 void LivingWorldBattle::BattlePlayer::DoXfer(Xfer *xfer)
 {
 	XferVersion version;

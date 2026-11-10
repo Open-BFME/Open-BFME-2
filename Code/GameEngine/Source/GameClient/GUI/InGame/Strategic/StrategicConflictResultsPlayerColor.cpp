@@ -42,7 +42,9 @@ struct StrategicIntIndexPrefix {StrategicIntNode *end;};
 extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
 
 #include "../../../../../../Libraries/Include/Lib/RGBColor.h"
-class LivingWorldBattle {public:int rva003F459A();int getSide()const {return side;}char unknown00[0x38];int side;};
+#include "../../../../../Include/GameLogic/LivingWorldBattle.h"
+// Retail reads the side through an inlined accessor after loading the receiver.
+static inline int battleSide(const LivingWorldBattle *battle) {return battle->field38;}
 class Rva003F468D {public:int rva003F468D(int,int);int rva003F4DAE(int);};
 struct StrategicPlayerColorView {char unknown00[0x184];RGBColor color;};
 class StrategicConflictResults::Impl {public:
@@ -73,7 +75,7 @@ void StrategicConflictResults::Impl::ExternFunc(int selector,char *out,bool sett
     if(!setting)_snprintf(out,255,"%d",battle->rva003F459A());
     break;
    case 0:
-    if(!setting)_snprintf(out,255,"%d",reinterpret_cast<Rva003F468D *>(battle)->rva003F4DAE(battle->getSide()));
+    if(!setting)_snprintf(out,255,"%d",reinterpret_cast<Rva003F468D *>(battle)->rva003F4DAE(battleSide(battle)));
     break;
   }
  }
