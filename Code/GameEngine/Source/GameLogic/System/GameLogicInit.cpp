@@ -366,11 +366,7 @@ public:
 	void rva0024191A(void);
 };
 
-class Rva004DFC20
-{
-public:
-	void clear(void);
-};
+#include "../../../Include/Common/Rva004DFC20.h"
 
 class Rva0053F1ECSub
 {

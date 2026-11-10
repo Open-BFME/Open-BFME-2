@@ -54,7 +54,7 @@ template <> ManagerMapTable::~hashtable();
 }
 // Existing neutral owner of the complete 72-byte bucket/node cleanup at
 // 0x001DBCDC; it touches no payload fields (Rva004E013BOwnedResources.cpp).
-class Rva004DFC20 { public: void clear(); };
+#include "../../../Include/Common/Rva004DFC20.h"
 
 // Native parent FuncInfo 0x0092F5C0 state 1 uses cleanup 0x007836A4:
 // load this, add 0x0C, jump to the 5-byte destructor at 0x003ED1F7.
