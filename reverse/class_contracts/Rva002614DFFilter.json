@@ -1,0 +1,163 @@
+{
+ "bases": [
+  "Rva000421C8"
+ ],
+ "bases_by": "majority",
+ "class": "Rva002614DFFilter",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 17,
+  "inherited": {
+   "base_views": 17,
+   "inherited_slots": 3,
+   "inherited_spans": [
+    [
+     0,
+     8
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x807190"
+      },
+      "dtor": {
+       "0x0": "0x7c26e0"
+      }
+     },
+     "dtor": "0x49c38a",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2fd6e0"
+     ],
+     "value": 12
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2fd6e0"
+     ],
+     "value": {
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2fd6e0"
+     ],
+     "value": {
+      "0x0": "0x807190"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x807190"
+     ],
+     "value": {
+      "count": 3,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?rva00395A19@Rva00395A19@@QAEPAXI@Z",
+        "slot": 0,
+        "target": "0x395a19"
+       },
+       {
+        "name": "?allow@Rva002614DFFilter@@UAE_NPAVObject@@@Z",
+        "slot": 1,
+        "target": "0x2614df"
+       },
+       {
+        "name": "?Get_File_Handle@FileClass@@UAEPAXXZ",
+        "slot": 2,
+        "target": "0x36cc7a"
+       }
+      ],
+      "table": "0x807190"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x807190": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?rva00395A19@Rva00395A19@@QAEPAXI@Z",
+     "1": "?allow@Rva002614DFFilter@@UAE_NPAVObject@@@Z",
+     "2": "?Get_File_Handle@FileClass@@UAEPAXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 17
+  },
+  "views": 17,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_obj",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 17,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x807190"
+    },
+    "dtor": {
+     "0x0": "0x7c26e0"
+    }
+   },
+   "class": "Rva002614DFFilter",
+   "why": "the class's retail constructors or destructors disagree"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
