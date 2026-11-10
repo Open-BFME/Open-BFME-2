@@ -133,6 +133,39 @@ class Coverage(unittest.TestCase):
                          (3, 2, 0x200 + 0x21E + 0x10, 0x200 + 0x21E, 1))
         self.assertEqual(rep["run"][1], ["0x23cb2c", 0x21E, "getCRC", 25])
 
+    ROWS = [(0x3000, 0x20, "b", "x.cpp"), (0x1000, 0x40, "f", "x.cpp"), (0x1000, 0x30, "e", "y.cpp"),
+            (0x1010, 0x8, "inner", "x.cpp"), (0x1040, 0x10, "g", "x.cpp"), (0x900000, 4, "data", "x.cpp")]
+
+    def test_ledger_units_one_per_start_in_code_and_never_inside_another(self):
+        units, skipped = gs.ledger_units(self.ROWS, lambda r: r < 0x800000)
+        self.assertEqual(units, [[0x1000, 0x40, "e|f"], [0x1040, 0x10, "g"], [0x3000, 0x20, "b"]])
+        self.assertEqual(skipped, {"not code": 1, "inside another row": 1})
+
+    def test_ledger_units_and_their_digest_ignore_row_order(self):
+        units, _ = gs.ledger_units(self.ROWS, lambda r: r < 0x800000)
+        again, _ = gs.ledger_units(list(reversed(self.ROWS)), lambda r: r < 0x800000)
+        self.assertEqual(gs.units_digest(units), gs.units_digest(again))
+        self.assertNotEqual(gs.units_digest(units), gs.units_digest(units[:-1]))
+
+    def test_ledger_coverage_is_retail_only_and_needs_coverage(self):
+        ns = lambda **k: SimpleNamespace(**dict(dict(coverage=True, coverage_units="ledger", retail=True), **k))
+        gs.check_coverage_args(ns())
+        gs.check_coverage_args(ns(coverage_units=None, retail=False))           # the authored list, as before
+        gs.check_coverage_args(ns(coverage=False, coverage_units=None))         # a normal run
+        with self.assertRaises(SystemExit):
+            gs.check_coverage_args(ns(retail=False))
+        with self.assertRaises(SystemExit):
+            gs.check_coverage_args(ns(coverage=False))
+
+    def test_receipt_names_the_list_by_hash(self):
+        units = {0x401000: (0x1000, 0x40, "e|f"), 0x403000: (0x3000, 0x20, "b")}
+        cov = gs.coverage_report(units, [(1.0, None, 0x403000)])
+        cov.update(source={"units_from": "ledger", "units": 2, "units_sha256": "ab"}, armed=2)
+        rec = gs.coverage_receipt(cov, "coverage_skirmish_retail.json")
+        self.assertEqual((rec["units_from"], rec["units_sha256"], rec["armed"], rec["units_run"], rec["file"]),
+                         ("ledger", "ab", 2, 1, "coverage_skirmish_retail.json"))
+        self.assertNotIn("run", rec)
+
 
 class MorePlayers(unittest.TestCase):
     def test_four_brutal_ais_and_no_fps_cap(self):

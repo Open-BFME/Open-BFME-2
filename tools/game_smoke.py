@@ -201,6 +201,61 @@ def coverage_report(units, covered):
             "run_before_game": sum(1 for x in ran if not x[3]), "run": ran}
 
 
+def ledger_units(rows, code):
+    """--coverage-units ledger: [retail RVA, size, name] for every functions.csv row
+    (real_image.Rows' (start, size, name, source)) whose start is in retail's code, one per
+    start in RVA order: rows sharing a start keep their names sorted and joined by "|" and the
+    largest size. A start inside an earlier unit's range is left out (its probe could land
+    mid-instruction), as is a start outside code. Returns (units, {why left out: count})."""
+    by_start = {}
+    for start, size, name, _ in rows:
+        by_start.setdefault(start, (set(), []))
+        by_start[start][0].add(name)
+        by_start[start][1].append(size)
+    units, skipped, end = [], {"not code": 0, "inside another row": 0}, 0
+    for start in sorted(by_start):
+        names, sizes = by_start[start]
+        if not code(start):
+            skipped["not code"] += 1
+            continue
+        if start < end:
+            skipped["inside another row"] += 1
+            continue
+        units.append([start, max(sizes), "|".join(sorted(names))])
+        end = max(end, start + max(sizes))
+    return units, skipped
+
+
+def units_digest(units):
+    """SHA-256 of a coverage unit list, as compact JSON: what a receipt names it by."""
+    return hashlib.sha256(json.dumps(units, separators=(",", ":")).encode()).hexdigest()
+
+
+def coverage_units(a):
+    """(units, source) for --coverage: build/boot/IMAGE.json's authored units (the default), or
+    with --coverage-units ledger every reverse/functions.csv row of this checkout probed in
+    retail's own image (no link, no boot image). source says where the list came from, with its
+    hash and the ledger's, for the receipt."""
+    if a.coverage_units != "ledger":
+        path = boot_smoke.OUT / f"{a.image}.json"
+        units = json.loads(path.read_text())["authored"]
+        return units, {"units_from": "authored", "file": path.relative_to(ROOT).as_posix(), "units": len(units),
+                       "units_sha256": units_digest(units)}
+    import real_image
+    ledger = real_image.FUNCTIONS
+    units, skipped = ledger_units(real_image.Rows(ledger).rows, real_image.Sections(boot_smoke.boot_image.build.EXE).code)
+    return units, {"units_from": "ledger", "ledger": ledger.relative_to(ROOT).as_posix(),
+                   "ledger_sha256": real_image.sha256_file(ledger), "units": len(units),
+                   "units_sha256": units_digest(units), "skipped": skipped}
+
+
+def coverage_receipt(cov, file):
+    """The receipt's coverage section: where the unit list came from and its hash, how many
+    probes were armed and how many units ran, and the file holding the units that ran."""
+    return dict(cov["source"], armed=cov.get("armed"), units_run=cov["units_run"], bytes_run=cov["bytes_run"],
+                run_before_game=cov["run_before_game"], file=file)
+
+
 def block_diff(a, b):
     """{block: first logic frame whose per-block CRC differs} between two runs'
     FrameHook.blocks lists (only frames both sampled)."""
@@ -903,7 +958,7 @@ class Game:
         return True
 
     def _probe(self, tid, ctx):
-        """--coverage: an authored unit's entry ran (first time only)."""
+        """--coverage: a probed unit's entry ran (first time only)."""
         self.covered.append((self.seconds(), self.logic()[0], self.hit_va - self.base))
         return False
 
@@ -1144,7 +1199,7 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     for name, h in handlers:
         game.on(name, h)
     if a.coverage:
-        units = json.loads((boot_smoke.OUT / f"{a.image}.json").read_text())["authored"]
+        units, a.coverage_source = coverage_units(a)
         move = rva_map or (lambda r: r)
         for rva, size, name in units:
             try:
@@ -1165,6 +1220,7 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
             res["crash_name"] = real_image.crash_name(out["crash"])
     if a.coverage:
         out["coverage"] = coverage_report(game.probe_units, game.covered)
+        out["coverage"].update(source=a.coverage_source, armed=res.get("coverage_armed"))
     out["profile_guard"], out["profile_touched"] = profile_guard.check()
     out["sandbox_profile"] = sorted(str(Path(p).relative_to(a.appdata))
                                     for p in boot_smoke.snapshot(Path(a.appdata)))[:40]
@@ -1292,6 +1348,7 @@ def finish(a, name, out):
     if "coverage" in out:                            # the unit list goes to its own file
         cov = OUT / f"coverage_{name}_{out['image']}.json"
         cov.write_text(json.dumps(out["coverage"], indent=1))
+        out["receipt"]["coverage"] = coverage_receipt(out["coverage"], cov.name)
         out["coverage"] = {k: v for k, v in out["coverage"].items() if k != "run"} | {"file": str(cov)}
     (OUT / f"{name}_{out['image']}.json").write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps(out, indent=1, default=str))
@@ -1830,6 +1887,16 @@ def cmd_playback(a):
     return finish(a, "playback_perturbed" if a.perturb_frame is not None else "playback", out)
 
 
+def check_coverage_args(a):
+    """--coverage-units needs --coverage, and its ledger list is for retail's own image only: a
+    relayout or linked image would need each row moved (and, linked, its body checked and its
+    folds kept apart) before a probe could be planted on it."""
+    if a.coverage_units and not a.coverage:
+        raise SystemExit("game_smoke: --coverage-units needs --coverage")
+    if a.coverage_units == "ledger" and not a.retail:
+        raise SystemExit("game_smoke: --coverage-units ledger probes retail's own image only (--retail)")
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else list(argv)
     if argv[:1] == ["suite"]:
@@ -1856,6 +1923,9 @@ def main(argv=None):
     ap.add_argument("--fast", action="store_true", help="lift the FPS cap: logic runs at render rate / 6")
     ap.add_argument("--coverage", action="store_true",
                     help="one-shot probe on each authored unit's entry; report the units that ran")
+    ap.add_argument("--coverage-units", choices=["authored", "ledger"], default=None,
+                    help="with --coverage: the units to probe, build/boot/IMAGE.json's authored list (default) or, "
+                         "with --retail only, every reverse/functions.csv row of this checkout (no link needed)")
     ap.add_argument("--player", action="store_true",
                     help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")
@@ -1886,6 +1956,7 @@ def main(argv=None):
     ap.add_argument("--status", type=Path, default=boot_smoke.boot_image.LINK_STATUS)
     ap.add_argument("--base", type=lambda v: int(v, 0), default=boot_smoke.real_image.IMAGE_BASE)
     a = ap.parse_args(argv)
+    check_coverage_args(a)
     if a.real_image:
         if a.retail or a.coverage or a.scenario == "bisect":
             raise SystemExit("game_smoke: --real-image runs the linked image alone (no --retail, --coverage, bisect)")
