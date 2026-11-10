@@ -175,10 +175,20 @@ def test_check_ignores_paths_outside_the_scan():
                      read_old=lambda p: None, index=INDEX) == []
 
 
-def test_extra_root_arguments():
-    roots = mha.parse_root_args(["DXSDK=C:/dx/Include", "C:/other/inc"])
-    assert roots[0][0] == "DXSDK" and roots[0][1] == Path("C:/dx/Include")
-    assert roots[1][0] == "inc"
+def test_extra_root_arguments(tmp_path):
+    """An absolute value is kept; anything else resolves under the repo root.
+
+    Asserted as that rule rather than against a literal: `C:/dx/Include` is
+    absolute on Windows and a RELATIVE path on POSIX, where parse_root_args
+    correctly joins it to ROOT, so the old literal assertion could only pass on
+    one platform.
+    """
+    absolute = tmp_path / "dx" / "Include"
+    roots = mha.parse_root_args([f"DXSDK={absolute}", "C:/other/inc"])
+    assert roots[0] == ("DXSDK", absolute)
+    windows_style = Path("C:/other/inc")
+    assert roots[1] == ("inc", windows_style if windows_style.is_absolute()
+                        else mha.ROOT / "C:/other/inc")
 
 
 def test_preprocessor_uses_wine_paths_and_compiler_environment(tmp_path, monkeypatch):
@@ -795,6 +805,14 @@ def test_included_project_headers_are_inspected(tmp_path, monkeypatch):
         "Code/Inc/Same.h": "typedef struct tagRECT { long left; long top; long right; long bottom; } RECT;\n",
         "Code/Inc/Plain.h": "typedef unsigned long DWORD;\n#define NOMINMAX\n",
         "Code/Inc/Own.h": "#pragma once\nstruct tagRECT { unsigned char data[24]; };\n",
+        # The includer's own directory has to exist: resolve_include searches it
+        # with Path.is_file(), and the OS cannot stat Code/Src/../Inc/Lock.h
+        # while Code/Src does not. Without this every include here resolved
+        # "missing", which ms_header_audit classifies "adapt" by design (see its
+        # module docstring), so all three cases below read as adapt and the
+        # conflicts the fixture exists to show were never scanned. scan_text
+        # takes the text as an argument, so the file's own content is unused.
+        "Code/Src/A.cpp": "",
     })
     tu = "typedef unsigned long DWORD;\n"
     res = mha.scan_text("Code/Src/A.cpp", '#include "../Inc/Lock.h"\n' + tu, INDEX)
