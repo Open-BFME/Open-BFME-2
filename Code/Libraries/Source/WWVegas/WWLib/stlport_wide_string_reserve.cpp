@@ -2,7 +2,7 @@
 // stlport
 //
 // STLport 4.5.3 basic_string<unsigned short>::reserve, retail 0x0000DEA0, 102 bytes.
-// The body carried only a machine byte-dump row in Code/gen_asm/d_0000b550.asm;
+// The body carried only a machine byte-dump row (a gen_asm dump, since deleted);
 // reverse/reloc_names.csv already held the decorated name with identity=real,
 // so only the body was missing.
 //

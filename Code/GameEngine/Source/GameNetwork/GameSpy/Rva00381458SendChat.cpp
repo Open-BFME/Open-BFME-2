@@ -1,4 +1,4 @@
-// ?d_00381458@@YAXXZ
+// Retail 0x00381458, once a gen_asm byte-dump placeholder.
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
 // Ghidra FUN_00781458, 78B, cdecl RET. Mode 0 forwards the wide string
 // reference to 0x004166DB; mode 1 uses TheGameSpyInfo slot 0x100 with a

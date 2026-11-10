@@ -173,7 +173,7 @@ private:
 // Recovery of the complete 141-byte retail body at RVA 0x002612C6.
 // Reference lead: Open-BFME-1 0bef414b52a39a3ab1ec98dca60d8a214de4260e,
 // game/GameEngine/Source/Common/Gen_001DCF50.cpp, nested can-enter flow.
-// Target evidence: d_002612c6.asm and WB 0x00E5CDB0 share the call graph;
+// Target evidence: the retail body at 0x002612C6 and WB 0x00E5CDB0 share the call graph;
 // native bytes establish owner +8, flag +0xC, contain +0x250 and virtual
 // slots +0x10/+0x110. The original filter class name remains unknown.
 // Both Object readers return int with their low byte tested; the established
