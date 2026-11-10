@@ -59,11 +59,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class Rva00589079_E1
-{
-public:
-	virtual void fe() = 0;
-};
+#include "../../../../Include/Common/Rva00589079_E1.h"
 class Rva00589079_E2
 {
 public:

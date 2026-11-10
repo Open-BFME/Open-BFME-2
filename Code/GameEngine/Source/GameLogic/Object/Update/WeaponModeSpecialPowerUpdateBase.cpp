@@ -73,11 +73,7 @@ struct VirtPrimary
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class Rva00589079_E1
-{
-public:
-	virtual void fe();
-};
+#include "../../../../Include/Common/Rva00589079_E1.h"
 
 class Rva00589079_E2
 {

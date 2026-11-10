@@ -471,11 +471,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 // Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
 #include "../../../../Include/Common/Rva00050D86.h"
 
-class Rva00589079_E1
-{
-public:
-	virtual void fe();
-};
+#include "../../../../Include/Common/Rva00589079_E1.h"
 
 class Rva00589079_E2
 {
