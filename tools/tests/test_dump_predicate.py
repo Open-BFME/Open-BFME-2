@@ -157,6 +157,14 @@ ALLOWED = {
                     "refuses rows moved out of its deliberately restricted MASM lane",
     "rtc_framevars.py": "selects the default MASM analysis lane; --rva independently "
                        "accepts any source and neither path classifies ledger ownership",
+    "ms_header_audit.py": "scanned_path picks which FILES ON DISK to audit for Microsoft "
+                          "header redefinitions; it reads no ledger and classifies no "
+                          "address. The gen_asm lane holds 62 generated .asm dumps that "
+                          "AGENTS.md forbids hand-editing, so a finding there is "
+                          "unactionable, and test_ms_header_audit.test_scanned_paths pins "
+                          "that a .cpp written into that lane is skipped too -- which is "
+                          "the only thing the branch does, since .asm is not in "
+                          "SOURCE_SUFFIXES and the suffix test drops the lane anyway",
 }
 
 
