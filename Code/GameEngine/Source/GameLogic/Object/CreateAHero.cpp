@@ -560,7 +560,7 @@ void CreateAHeroManager::CreateAHeroSubClass::AddBling(Int blingKey, UnsignedInt
 }
 
 // Native substring builder and conversion use the same12-byte view ABI.
-struct Rva000B6AF5Rec { void *p; int a; int b; };
+#include "../../../Include/Common/Rva000B6AF5Rec.h"
 Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *, void **, int);
 
 // Retail expands its nullable character accessor. The shared string header

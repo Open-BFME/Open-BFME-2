@@ -303,7 +303,7 @@ namespace _STL {
 template <> vector<unsigned int> &map<int, vector<unsigned int> >::operator[](const int &);
 }
 // Native substring builder and conversion use the same12-byte view ABI.
-struct Rva000B6AF5Rec { void *p; int a; int b; };
+#include "../../Include/Common/Rva000B6AF5Rec.h"
 Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *, void **, int);
 // Retail expands the old nullable character accessor. The canonical
 // string header's current getCharAt deliberately calls a different body.

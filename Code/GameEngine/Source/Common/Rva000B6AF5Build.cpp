@@ -4,7 +4,7 @@
 // Clamp(&tmp,&val,w2), pack (srcpp,tmp,val) via tmp movsd x3 returning dest.
 // Callers 0x000BDDF7 0x0021C025 0x0021C080 0x0021C0D7 0x0021C1C4 0x0021EED8.
 void __cdecl Rva000B2B42Clamp(int *a1, int *a2, int a3);
-struct Rva000B6AF5Rec { void *p; int a; int b; };
+#include "../../Include/Common/Rva000B6AF5Rec.h"
 Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *dest, void **srcpp, int val)
 {
 	void *p = *srcpp;

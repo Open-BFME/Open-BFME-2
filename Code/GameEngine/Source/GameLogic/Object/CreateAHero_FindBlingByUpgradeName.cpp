@@ -462,7 +462,7 @@ template <> vector<unsigned int> &map<int, vector<unsigned int> >::operator[](co
 }
 
 // Native substring builder and conversion use the same12-byte view ABI.
-struct Rva000B6AF5Rec { void *p; int a; int b; };
+#include "../../../Include/Common/Rva000B6AF5Rec.h"
 struct Rva000B6AA9Rec {
     operator AsciiString();
     AsciiString *m_string; int m_start; int m_len;
