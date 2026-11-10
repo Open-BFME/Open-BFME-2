@@ -1031,11 +1031,7 @@ BFME_DISP_FLOAT_GETTER(Rva000879EDFloatField, 0x24F8)
 
 BFME_DISP_FLOAT_GETTER(Rva000879F4FloatField, 0x24FC)
 
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../../GameEngine/Include/Common/Rva00420B2AZeroSetter.h"
 
 class Rva005FD8C1
 {

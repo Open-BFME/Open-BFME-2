@@ -423,11 +423,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva00420B2AZeroSetter.h"
 
 class Rva005FD8C1
 {

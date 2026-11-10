@@ -573,11 +573,7 @@ class AIBuildable
 public:
 	void addNeed(int a);
 };
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../../GameEngine/Include/Common/Rva00420B2AZeroSetter.h"
 class Rva005FD8C1
 {
 public:
