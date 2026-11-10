@@ -195,17 +195,7 @@ public:
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BFBC90, allow 0x00260EB1: the object, relationship flags and
 // whether a hit allows.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *object, int flags, bool match)
-		: m_obj(object), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj;
-	int m_flags;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 // vftable 0x00BF91BC, allow 0x002611BF: +0x08 an object.
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
