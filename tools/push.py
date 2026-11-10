@@ -28,8 +28,15 @@ Same-account spacing: a successful push writes the shared clock file
 until $BFME_PUSH_SPACING_S (default 300) have passed since the last one (the
 race an attempt lost may be another seat of the same account landing).
 
-  python3 tools/push.py [--tries 20] [--email ADDRESS] [--dry-run]
+  python3 tools/push.py [--tries 20] [--email ADDRESS] [--dry-run] [--expect-base SHA]
 Prints one line per attempt with its time; exit 0 when it landed.
+
+--expect-base SHA is for a driver that verified its commits on top of SHA and must publish exactly
+those: step 1 then fetches without rebasing and refuses (exit 3) unless origin/master is SHA and HEAD is
+built on it, and a race lost during the hook is not retried (a retry would need the rebase); exit 3 tells
+the driver to verify again on the new master. A GitHub server error is still retried, since nothing moved.
+SHA is resolved with git rev-parse, so a symbolic revision (origin/master, a branch) is accepted too and
+then means whatever it names at the time of the fetch: pass the immutable full SHA the driver verified on.
 """
 import argparse
 import os
@@ -61,6 +68,10 @@ NOREPLY = re.compile(r"^[^@\s]+@users\.noreply\.github\.com$")
 
 class Refused(Exception):
     """A push that must not be retried: the message says why."""
+
+
+class MasterMoved(Refused):
+    """--expect-base: origin/master is not the verified base; verify again (exit 3)."""
 
 
 def git(*args, check=True, env=None, cwd=None):
@@ -136,6 +147,23 @@ def rebase(name, email):
     return before, git("rev-parse", "HEAD").stdout.strip()
 
 
+def at_expected_base(expect_base):
+    """Fetch without rebasing; (HEAD, HEAD) when origin/master is `expect_base` and HEAD is built on it."""
+    head = git("rev-parse", "HEAD").stdout.strip()
+    tip = git("for-each-ref", "--format=--negotiation-tip=%(refname)", f"refs/remotes/{REMOTE}/{BRANCH}").stdout
+    git("fetch", "-q", *tip.split(), REMOTE, BRANCH)
+    base = git("rev-parse", "--verify", "-q", f"{expect_base}^{{commit}}", check=False).stdout.strip()
+    if not base:
+        raise Refused(f"--expect-base {expect_base} is not a commit here")
+    master = git("rev-parse", f"{REMOTE}/{BRANCH}").stdout.strip()
+    if master != base:
+        raise MasterMoved(f"origin/master is {master[:10]}, not the verified base {base[:10]}; "
+                          "not rebasing: verify again on the new master")
+    if git("merge-base", "--is-ancestor", base, head, check=False).returncode:
+        raise Refused(f"HEAD {head[:10]} is not built on the verified base {base[:10]}")
+    return head, head
+
+
 def pin_submodule():
     """Check out the gitlink's commit of reference/open-bfme-1 when it differs."""
     pin = git("ls-tree", "HEAD", SUBMODULE, check=False).stdout.split()
@@ -191,16 +219,17 @@ def push_once(previous, dry_run, lost_race=False):
     return proc.wait(), "".join(lines)
 
 
-def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False):
+def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False, expect_base=None):
     """`after_lost_race`: this run retries a push that lost the race to master
-    (a driver that runs its own retries says so with --after-lost-race)."""
+    (a driver that runs its own retries says so with --after-lost-race).
+    `expect_base`: publish HEAD only on top of that exact master, never rebasing (MasterMoved)."""
     name, email = push_identity(email)
     previous = None
     lost_race = after_lost_race
     for attempt in range(1, tries + 1):
         wait_for_spacing(say)
         started = time.time()
-        before, tip = rebase(name, email)
+        before, tip = at_expected_base(expect_base) if expect_base else rebase(name, email)
         if previous is None and before != tip:
             previous = before
         pin_submodule()
@@ -227,6 +256,9 @@ def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False):
         if not LOST_RACE.search(output):
             say(f"push: attempt {attempt}: refused after {took:.1f} s (see above); not retrying")
             return 1
+        if expect_base:
+            raise MasterMoved(f"attempt {attempt}: lost the race to master after {took:.1f} s; not rebasing "
+                              f"onto it (--expect-base): verify again on the new master")
         say(f"push: attempt {attempt}: lost the race to master after {took:.1f} s; rebasing and retrying")
         previous = tip
         lost_race = True
@@ -243,9 +275,17 @@ def main(argv=None):
                     help="this run retries a push that lost the race to master (a driver that runs its own "
                          "retries, e.g. --tries 1 in a loop, passes it on each retry; the hook's landing "
                          "window for a long retry keys on it)")
+    ap.add_argument("--expect-base", metavar="SHA",
+                    help="publish HEAD only if origin/master is exactly SHA (the base the driver verified on); "
+                         "never rebase; exit 3 when master moved. Pass the immutable full SHA: a symbolic "
+                         "revision is accepted but means whatever it names when push.py fetches")
     args = ap.parse_args(argv)
     try:
-        return land(args.tries, args.email, args.dry_run, after_lost_race=args.after_lost_race)
+        return land(args.tries, args.email, args.dry_run, after_lost_race=args.after_lost_race,
+                    expect_base=args.expect_base)
+    except MasterMoved as why:
+        print(f"push: {why}", file=sys.stderr)
+        return 3
     except Refused as why:
         print(f"push: {why}", file=sys.stderr)
         return 1

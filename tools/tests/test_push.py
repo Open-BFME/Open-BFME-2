@@ -308,3 +308,62 @@ def test_a_github_server_error_is_retried_and_is_not_a_lost_race(seat, capsys, m
     assert flags == [False, False]                # the hook's retry window keys on a real lost race
     assert push.SERVER_ERROR_WAIT_S in naps
 
+
+
+# --expect-base: a driver that verified HEAD on top of one master publishes exactly that or nothing
+
+def test_expect_base_lands_when_master_is_the_verified_base(seat, capsys):
+    path, other, origin, state = seat
+    base = git(path, "rev-parse", "HEAD")
+    head = work(path)
+    code = push.main(["--tries", "1", "--expect-base", base, "--email", EMAIL])
+    out = capsys.readouterr()
+    assert code == 0, out
+    assert git(origin, "rev-parse", "master") == head                 # the verified commit itself, not a rebase
+
+
+def test_expect_base_refuses_without_rebasing_when_master_moved(seat, capsys):
+    path, other, origin, state = seat
+    base = git(path, "rev-parse", "HEAD")
+    head = work(path)
+    (other / "other.txt").write_text("moved\n")
+    git(other, "add", "other.txt")
+    git(other, "commit", "-qm", "other seat lands first")
+    git(other, "push", "-q", "origin", "HEAD:master")
+    moved = git(origin, "rev-parse", "master")
+    code = push.main(["--tries", "5", "--expect-base", base, "--email", EMAIL])
+    err = capsys.readouterr().err
+    assert code == 3 and "not the verified base" in err
+    assert git(path, "rev-parse", "HEAD") == head                     # no rebase happened
+    assert git(origin, "rev-parse", "master") == moved                # nothing was pushed
+    assert not (state / "hook-count").exists()                        # the hook never ran
+
+
+def test_expect_base_does_not_retry_a_race_lost_during_the_hook(seat, capsys):
+    path, other, origin, state = seat
+    base = git(path, "rev-parse", "HEAD")
+    head = work(path)
+    (state / "race").write_text("1")                                  # another seat lands during the hook
+    code = push.main(["--tries", "5", "--expect-base", base, "--email", EMAIL])
+    err = capsys.readouterr().err
+    assert code == 3 and "not rebasing" in err
+    assert git(path, "rev-parse", "HEAD") == head
+    assert (state / "hook-count").read_text().strip() == "1"          # one attempt, no rebase and retry
+    assert git(origin, "log", "-1", "--format=%s", "master") == "other seat 0"
+
+
+def test_expect_base_refuses_a_head_not_built_on_it(seat, capsys):
+    path, other, origin, state = seat
+    work(path, "first")
+    unrelated_base = git(path, "rev-parse", "HEAD")
+    git(path, "reset", "-q", "--hard", "HEAD~1")
+    git(other, "pull", "-q", "origin", "master")
+    git(other, "commit", "-q", "--allow-empty", "-m", "unrelated")
+    git(other, "push", "-q", "origin", "HEAD:master")
+    master = git(origin, "rev-parse", "master")
+    work(path, "second")                                              # HEAD sits on the old master
+    git(path, "fetch", "-q", "origin")
+    code = push.main(["--tries", "1", "--expect-base", master, "--email", EMAIL])
+    err = capsys.readouterr().err
+    assert code == 1 and "not built on the verified base" in err
+    assert git(origin, "rev-parse", "master") == master
