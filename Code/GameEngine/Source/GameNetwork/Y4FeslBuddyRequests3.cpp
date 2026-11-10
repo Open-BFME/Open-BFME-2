@@ -15,11 +15,7 @@ public:
 	void run( void );
 };
 
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB( void *key, void *value );
-};
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 
 class BfmeThingCIC
 {

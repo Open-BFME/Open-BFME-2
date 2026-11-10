@@ -20,11 +20,7 @@ public:
 	void bfmeGoCIC(void *name, void *value);
 };
 
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB(void *name, void *value);
-};
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 
 struct Rva007F2C10Msg
 {

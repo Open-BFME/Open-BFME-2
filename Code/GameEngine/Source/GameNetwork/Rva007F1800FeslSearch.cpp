@@ -13,11 +13,7 @@ public:
 	void addInt64(const char *key, FeslInt64 value);
 };
 
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB(void *key, void *value);
-};
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 
 class BfmeThingCIC
 {

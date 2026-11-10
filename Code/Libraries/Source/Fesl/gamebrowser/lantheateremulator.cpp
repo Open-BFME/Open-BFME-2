@@ -424,11 +424,7 @@ struct Rva00674E90
 	void copyFields(const Rva00674E90 &source);
 };
 
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB( void *key, void *value );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeThingCIB.h"
 
 class BfmeThingCIC
 {

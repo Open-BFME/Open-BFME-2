@@ -30,11 +30,7 @@ public:
 	char m_pad30;
 };
 
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB( void *one, void *two );
-};
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 

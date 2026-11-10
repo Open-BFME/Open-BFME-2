@@ -15,7 +15,7 @@
 
 class Rva007E8AC0 { public: void run(); };
 class BfmeThingCIC { public: void bfmeGoCIC(void*, void*); };
-class BfmeThingCIB { public: void bfmeGoCIB(void*, void*); };
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 class Rva007E8810Message { public: void addInt64(const char*, __int64); };
 
 class Rva007F3980Msg
