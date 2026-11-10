@@ -657,13 +657,7 @@ struct Rva007F6A10Slot { int m_0; Rva007F6A10Owner* m_owner; void* m_used; char 
 
 struct Rva007F6A10Owner { char m_pad[0x58]; Rva007F6A10Slot m_slots[4]; Rva007F6A10Slot* allocSlot(); };
 
-class Rva007F6BA0
-{
-public:
-	void clear();                                                     // 0x007F6BA0
-	void *m_array;
-	int m_count;
-};
+#include "../../../../GameEngine/Include/Common/Rva007F6BA0.h"
 
 class Rva007F6C60
 {

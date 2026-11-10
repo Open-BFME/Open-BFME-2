@@ -63,13 +63,7 @@ public:
 	char m_locale[ 8 ];
 };
 
-class Rva007F6BA0
-{
-public:
-	void clear();                                                     // 0x007F6BA0
-	void *m_array;
-	int m_count;
-};
+#include "../../Include/Common/Rva007F6BA0.h"
 
 class Rva007F6C60
 {

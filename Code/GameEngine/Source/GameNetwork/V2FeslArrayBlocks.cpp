@@ -50,13 +50,7 @@ extern GenAlloc *Gen007EFFC0();
 
 // The two array objects Code/GameEngine/Source/Common/S3PolymorphicArrayClear.cpp
 // already claims a `clear` on, redeclared here so their existing symbols resolve.
-class Rva007F6BA0
-{
-public:
-	void clear();                                                     // 0x007F6BA0
-	void *m_array;
-	int m_count;
-};
+#include "../../Include/Common/Rva007F6BA0.h"
 
 class Rva007F6C60
 {
