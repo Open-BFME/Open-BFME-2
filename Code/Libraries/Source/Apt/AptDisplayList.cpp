@@ -231,11 +231,7 @@ BfmeNestedBE *BfmeQuery1279::rva006F7D50(int nDepth)
 // and member names are address-derived.
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
-class Rva006CFCD0
-{
-public:
-	bool isSpriteInstBase() const;
-};
+#include "Rva006CFCD0.h"
 
 class AsciiString;
 #include "AptNativeHash.h"

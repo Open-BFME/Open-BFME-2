@@ -16,11 +16,7 @@ void __debugbreak();
 
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
-class Rva006CFCD0
-{
-public:
-	bool isSpriteInstBase() const;
-};
+#include "Rva006CFCD0.h"
 
 class Rva006F7AC0List
 {

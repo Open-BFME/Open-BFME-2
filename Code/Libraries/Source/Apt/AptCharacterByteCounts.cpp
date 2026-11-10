@@ -250,11 +250,7 @@ void __debugbreak();
 // Callback name remains address-derived.
 class BfmeAptValue006DCD20;
 void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
-class Rva006CFCD0
-{
-public:
-	bool isSpriteInstBase() const;
-};
+#include "Rva006CFCD0.h"
 class AptDisplayList
 {
 public:

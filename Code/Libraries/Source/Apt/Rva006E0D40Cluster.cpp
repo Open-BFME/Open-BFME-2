@@ -49,7 +49,7 @@ public:
 	void rva006F76B0();
 };
 
-class Rva006CFCD0 {public: bool isSpriteInstBase() const;};
+#include "Rva006CFCD0.h"
 
 class BfmeAptValue006DCD20
 {
