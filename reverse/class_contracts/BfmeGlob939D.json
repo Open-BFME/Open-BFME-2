@@ -1,0 +1,319 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeGlob939D",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 30,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x110": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 20,
+   "276": 1,
+   "388": 1,
+   "448": 8
+  },
+  "views": 30,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 109,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 111,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 154,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv939Call939D.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 293,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 440,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 444,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerNewMapBFME2.cpp",
+    "Code/GameEngine/Source/Common/Rva0023C6C5Check.cpp",
+    "Code/GameEngine/Source/Common/Rva00420110Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp"
+   ],
+   "views": 8
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
