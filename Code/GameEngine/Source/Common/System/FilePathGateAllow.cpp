@@ -23,10 +23,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include <string.h>
 
-struct Rva00603A00Mapped
-{
-	unsigned int m_bits;
-};
+#include "../../../Include/Common/Rva00603A00Mapped.h"
 
 struct Rva006038D4Less
 {

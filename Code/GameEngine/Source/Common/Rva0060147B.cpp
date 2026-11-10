@@ -51,7 +51,7 @@ namespace _STL {
 template<class A,class B> struct pair {};
 template<class T> struct _Select1st {};
 }
-struct Rva00603A00Mapped { unsigned word; };
+#include "../../Include/Common/Rva00603A00Mapped.h"
 struct Rva006038D4Less {};
 struct Rva0060126D;
 namespace _STL { template<class T> struct _Rb_tree_node; }

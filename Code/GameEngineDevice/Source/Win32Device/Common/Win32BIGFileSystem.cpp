@@ -361,10 +361,7 @@ private:
 
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 
-struct Rva00603A00Mapped
-{
-	unsigned int m_bits;
-};
+#include "../../../../GameEngine/Include/Common/Rva00603A00Mapped.h"
 
 typedef _STL::pair<const char* const, Rva00603A00Mapped> Rva00603A00Pair;
 
