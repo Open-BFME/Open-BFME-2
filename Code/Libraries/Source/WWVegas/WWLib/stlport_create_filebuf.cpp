@@ -43,6 +43,9 @@ namespace _STL { template <> bool basic_filebuf<unsigned short, char_traits<unsi
 namespace _STL { template <> bool basic_filebuf<unsigned short, char_traits<unsigned short> >::_M_switch_to_output_mode(); }
 namespace _STL { template <> unsigned short basic_filebuf<unsigned short, char_traits<unsigned short> >::_M_underflow_aux(); }
 namespace _STL { template <> locale basic_ios<unsigned short, char_traits<unsigned short> >::imbue(locale const &); }
+// Narrow seekoff and seekpos are owned by stlport_narrow_ifstream.cpp (0x00014010 and 0x00014580).
+namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::seekoff(long, int, int); }
+namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::seekpos(fpos<int>, int); }
 namespace _STL { template <> fpos<int> basic_filebuf<unsigned short, char_traits<unsigned short> >::seekpos(fpos<int>, int); }
 namespace _STL { template <> unsigned short basic_filebuf<unsigned short, char_traits<unsigned short> >::underflow(); }
 // Retail close is owned by stlport_wide_filebuf.cpp at 0x15240.
@@ -321,6 +324,10 @@ bool _STLP_CALL ios_base::sync_with_stdio(bool sync) {
 }
 
 _STLP_END_NAMESPACE
+
+// Anchor count<char *, char> (0x000143A0, stlport_wide_filebuf.cpp) after stream globals so wide seekoff keeps
+// calling it out of line without shifting _$E initializer symbol numbering.
+static ptrdiff_t (*const _bfmeAnchorCountChar)(char *, char *, const char &) = &_STL::count<char *, char>;
 
 // The two derived stdio destructors fold to the recovered base destructor:
 // all three retail stdio vtables use its deleting destructor at 0x1CED0.

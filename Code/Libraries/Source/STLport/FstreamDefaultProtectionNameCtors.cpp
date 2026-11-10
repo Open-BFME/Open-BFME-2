@@ -65,8 +65,9 @@ namespace _STL { template <> unsigned short basic_filebuf<unsigned short, char_t
 namespace _STL { template <> locale basic_ios<char, char_traits<char> >::imbue(locale const &); }
 namespace _STL { template <> locale basic_ios<unsigned short, char_traits<unsigned short> >::imbue(locale const &); }
 namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::overflow(int); }
-// Narrow seekoff is retail 0x00014010, owned by stlport_narrow_ifstream.cpp.
+// Narrow seekoff and seekpos are retail 0x00014010 and 0x00014580, owned by stlport_narrow_ifstream.cpp.
 namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::seekoff(long, int, int); }
+namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::seekpos(fpos<int>, int); }
 namespace _STL { template <> fpos<int> basic_filebuf<unsigned short, char_traits<unsigned short> >::seekoff(long, int, int); }
 namespace _STL { template <> fpos<int> basic_filebuf<unsigned short, char_traits<unsigned short> >::seekpos(fpos<int>, int); }
 namespace _STL { template <> unsigned short basic_filebuf<unsigned short, char_traits<unsigned short> >::underflow(); }
