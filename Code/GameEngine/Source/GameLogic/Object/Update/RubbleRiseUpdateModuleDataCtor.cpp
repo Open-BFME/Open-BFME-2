@@ -30,16 +30,10 @@ typedef _STL::vector<const FXList *> RubbleFXVec;
 
 // The base is ModuleData: retail's state-0 unwind funclet (mov ecx,[ebp-10h];
 // jmp 0x0049B47C) tail-calls ModuleData's destructor, which stores the
-// Snapshot vtable 0x00BBB554; declaring it binds the kept retail COMDAT.
-// novtable: retail never installs ModuleData's own table (BfmeModuleData.h).
-class __declspec(novtable) ModuleData
-{
-public:
-	virtual ~ModuleData();
-
-private:
-	unsigned char m_pad04[4];
-};
+// Snapshot vtable 0x00BBB554; the canonical ModuleData declares that out-of-line
+// destructor and keeps ModuleData() __declspec(dllimport) __forceinline so this
+// unit emits no ??0ModuleData@@QAE@XZ COMDAT and installs the 31-slot table.
+#include "../../../../Include/Common/ModuleData.h"
 
 enum
 {
