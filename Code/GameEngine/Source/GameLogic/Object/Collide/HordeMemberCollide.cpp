@@ -26,11 +26,11 @@ class Thing;
 
 class ModuleData;
 
-static int s_vtable;
+extern "C" const void *const __identifier("??_7Rva004BC325@@6BRva004BB68E@@@")[];
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7FireWeaponCollide@@6BBehaviorModuleInterface@@@")[];
 
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7Rva004BC325@@6BRva004BC325_B2@@@")[];
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -58,9 +58,9 @@ public:
 HordeMemberCollide::HordeMemberCollide(Thing *thing, const ModuleData *moduleData)
 	: CollideModule(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = __identifier("??_7Rva004BC325@@6BRva004BB68E@@@");
+	m_p0C = __identifier("??_7FireWeaponCollide@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7Rva004BC325@@6BRva004BC325_B2@@@");
 }
 
 // tu-skeleton: 0x004BC3B3 28B ??_GRva004BC325@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp (not merged yet)
