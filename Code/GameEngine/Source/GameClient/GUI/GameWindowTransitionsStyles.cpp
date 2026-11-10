@@ -681,13 +681,7 @@ public:
 	Rva000F0A75Node *m_next;
 };
 
-class W3DVolumetricShadowManager
-{
-public:
-	void rva000F0A75(void *owner);
-private:
-	Rva000F0A75Node *m_head;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
 class W3DProjectedShadowManager
 {

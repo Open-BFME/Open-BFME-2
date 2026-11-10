@@ -46,11 +46,7 @@ typedef DWORD D3DRENDERSTATETYPE;
 #include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
-class W3DVolumetricShadowManager
-{
-protected:
-	void renderStencilShadows(void);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
 void W3DVolumetricShadowManager::renderStencilShadows( void )
 {

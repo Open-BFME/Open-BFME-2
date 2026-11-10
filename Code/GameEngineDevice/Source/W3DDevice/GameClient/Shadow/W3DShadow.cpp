@@ -174,17 +174,7 @@ public:
 
 class R2GlobalReceiver;
 
-class W3DVolumetricShadowManager
-{
-public:
-	void renderShadows(RenderInfoClass &rinfo);
-public:
-	Bool ReAcquireResources();
-public:
-	void ReleaseResources();
-public:
-	~W3DVolumetricShadowManager();
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
 class Rva00108660ResourceManager
 {

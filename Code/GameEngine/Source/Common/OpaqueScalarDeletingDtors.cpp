@@ -320,11 +320,7 @@ Rva009A500::Rva009A500(EmitVtableTag *)
 {
 }
 
-class W3DVolumetricShadowManager
-{
-public:
-	~W3DVolumetricShadowManager();	// row 0x000F2ECB in W3DVolumetricShadow.cpp
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GW3DVolumetricShadowManager (it
 // calls out to the destructor row); the destructor is only declared here.

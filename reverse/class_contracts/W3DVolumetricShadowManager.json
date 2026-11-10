@@ -1,0 +1,98 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DVolumetricShadowManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 8,
+   "4": 2,
+   "8": 2,
+   "12": 1
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DVolumetricShadowManager.cpp: compile failed: C2143: syntax error : missing ',' before '&'",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadow.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_head",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "W3DVolumetricShadow*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderDynamicMeshVolume.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderShadows.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowManagerAddShadow.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_head": 2,
+    "m_shadowList": 2
+   },
+   "class": "W3DVolumetricShadowManager"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 8,
+    "4": 2,
+    "8": 2,
+    "12": 1
+   },
+   "class": "W3DVolumetricShadowManager"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {}
+}

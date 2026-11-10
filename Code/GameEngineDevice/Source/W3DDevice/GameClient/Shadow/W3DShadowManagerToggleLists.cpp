@@ -62,11 +62,7 @@ extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
 // invalidateCachedLightPositions (0x000F0912), then the DEC2D8 manager's
 // rowed 0x00108E28 as a tail jump. Its second half had been rowed alone as a
 // forwarder at 0x0009A487.
-class W3DVolumetricShadowManager
-{
-public:
-    void invalidateCachedLightPositions();
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 class Rva00109DCF { public: void rva00108E28(); };
 #include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 void W3DShadowManager::invalidateCachedLightPositions()

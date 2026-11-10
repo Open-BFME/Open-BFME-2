@@ -17,12 +17,7 @@ struct IDirect3DIndexBuffer8; extern IDirect3DIndexBuffer8 *shadowIndexBufferD3D
 struct IDirect3DVertexBuffer8; extern IDirect3DVertexBuffer8 *shadowVertexBufferD3D;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 extern class W3DBufferManager *TheW3DBufferManager;
-class W3DVolumetricShadowManager
-{
-public:
-	void ReleaseResources();
-	bool ReAcquireResources();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 struct Rva000F09E1LockGuard
 {
 	Rva000F09E1LockGuard() { BFME_DX8_Thread_Lock(); }

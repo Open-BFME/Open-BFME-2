@@ -18,11 +18,7 @@ public:
 	void setLightPosition(int lightIndex, float x, float y, float z);
 };
 
-class W3DVolumetricShadowManager
-{
-public:
-	void invalidateCachedLightPositions();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
 class Gen0003AC38;
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
