@@ -320,11 +320,7 @@ class AIPickUpCrateState
 public:
 	virtual StateReturnType update();
 };
-class Rva00262CB6DwordClearer
-{
-public:
-	void clear();
-};
+#include "../../../../../Include/Common/Rva00262CB6DwordClearer.h"
 class GiantBirdNormalFlightState
 {
 public:
