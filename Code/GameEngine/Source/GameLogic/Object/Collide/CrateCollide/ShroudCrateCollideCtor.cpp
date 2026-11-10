@@ -5,8 +5,8 @@
 // CrateCollide intermediate base (0x4BC523, thing plus data): forwards both
 // args to the base, then re-stores the primary vtable slot (the behavior
 // vtable 0x00C5A8D8, whose slot2 is the name getter 0x004BCB07 pushing
-// ShroudCrateCollide) and the +0x0C/+0x10 secondary slots (address-of
-// TU-local dummies, DIR32-masked).
+// ShroudCrateCollide) and the +0x0C/+0x10 secondary slots. Its destructor
+// at 0x004BCB0D stores the same collision interface table at +0x10.
 //
 // The class declares no virtuals of its own: the stores land from explicit
 // members in body order. The base ctor spelling resolves to its pin at
@@ -20,7 +20,7 @@ class ModuleData;
 
 extern "C" const void *const __identifier("??_7Rva004BCB0D@@6BRva004BC4FC_Root@@@")[];
 extern "C" const void *const __identifier("??_7FireWeaponCollide@@6BBehaviorModuleInterface@@@")[];
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7Rva004BCB0D@@6BRva004BC4FC_B2@@@")[];
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -48,5 +48,5 @@ ShroudCrateCollide::ShroudCrateCollide(Thing *thing, const ModuleData *moduleDat
 {
 	m_vtable = __identifier("??_7Rva004BCB0D@@6BRva004BC4FC_Root@@@");
 	m_p0C = __identifier("??_7FireWeaponCollide@@6BBehaviorModuleInterface@@@");
-	m_p10 = &s_secondary10;
+	m_p10 = __identifier("??_7Rva004BCB0D@@6BRva004BC4FC_B2@@@");
 }
