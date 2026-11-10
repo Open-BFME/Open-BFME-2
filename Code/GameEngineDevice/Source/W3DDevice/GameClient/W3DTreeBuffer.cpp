@@ -894,7 +894,7 @@ struct DX8Guard
 
 struct Vec2 { float x, y; };
 
-class CountedAsset { public: void Release_Ref(); };
+#include "../../../Include/W3DDevice/GameClient/CountedAsset.h"
 
 class AssetReference
 {

@@ -1,11 +1,7 @@
 // Retail 0x009EBDC0: return the registry's current counted asset.
 // The dump's generated name is replaced by the recovered return-by-value ABI.
 
-class CountedAsset
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Include/W3DDevice/GameClient/CountedAsset.h"
 
 class AssetReference
 {

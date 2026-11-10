@@ -6,7 +6,7 @@
 // 0x009EB7A0 and restores base vtable VA 0x01126A80. Real BFME network refs
 // have no vptr and use the 12-byte destructor at 0x00676280.
 // The owning class remains address-named, consistent with its proven ctor.
-class CountedAsset { public: void Release_Ref(); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 class Rva00782CB0
 {
 public:

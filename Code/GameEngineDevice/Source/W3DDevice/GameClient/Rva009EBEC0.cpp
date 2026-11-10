@@ -1,11 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Retail 0x009EBEC0: return a counted AssetRegistry lookup by value.
 
-class CountedAsset
-{
-public:
-	void Release_Ref();
-};
+#include "../../../Include/W3DDevice/GameClient/CountedAsset.h"
 
 class AssetReference
 {

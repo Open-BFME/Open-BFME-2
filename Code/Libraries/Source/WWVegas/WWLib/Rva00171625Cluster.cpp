@@ -9,11 +9,7 @@
 // establishes +0x14 iterator and +0x18/+0x1C (this body) members.
 // Identity of the class is not proven; names are address-derived.
 
-class CountedAsset
-{
-public:
-    void Release_Ref();
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 
 #include "../../../../GameEngine/Include/Common/AssetReference.h"
 

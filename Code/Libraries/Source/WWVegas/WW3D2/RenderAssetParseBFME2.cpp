@@ -145,7 +145,7 @@ struct BfmeR1025;
 char bfmeGo1025F(BfmeR1025 *);
 void Add_Prototype(void *);
 class AssetName;
-class CountedAsset{public:void Release_Ref();};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 #include "../../../../GameEngine/Include/Common/AssetReference.h"
 // Preserve the native release at this TU's temporary cleanup sites.
 inline AssetReference::~AssetReference(){if(field00)field00->Release_Ref();}

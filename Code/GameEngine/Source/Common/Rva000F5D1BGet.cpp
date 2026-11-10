@@ -4,11 +4,7 @@
 // Target facts: hidden-pointer return; source is global array at VA 0x00DE1F8C element size 4; callee rowed 0x000424BB; caller 0x000F5D9C passes index 0 and hidden at [ebp-0x10].
 // Callers: 0x000F5D9C in 0x000F5D3B; callees: ??0AssetReference@@QAE@ABV0@@Z.
 // Not established: owning TU/class and global identities; names are address-derived.
-class CountedAsset
-{
-public:
-	void Release_Ref();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 
 #include "../../Include/Common/AssetReference.h"
 

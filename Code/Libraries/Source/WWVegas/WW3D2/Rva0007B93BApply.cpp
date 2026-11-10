@@ -9,7 +9,7 @@
 // and optional step pointer +0x08 with a bool two-int virtual call at slot +0x08.
 // BFME 1 donor 874e38488 game/.../WW3D2/dxwrapper.cpp asset walk is the semantic
 // lead for owning temporaries, not evidence of this wrapper's original name.
-class CountedAsset { public: void Release_Ref(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 class Rva001514D0 { public: void *rva001514D0(int); };
 #include "../../../../GameEngine/Include/Common/AssetReference.h"
 // Keep the native inline cleanup and the destructor's existing COMDAT copy.
