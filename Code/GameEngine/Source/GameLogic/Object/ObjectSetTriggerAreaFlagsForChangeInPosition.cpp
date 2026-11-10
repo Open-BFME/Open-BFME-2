@@ -70,11 +70,7 @@ struct DelayedLuaEventList
 	BfmeDelayedLuaEvent m_events[3];
 };
 
-class BfmeObjectEventDispatch
-{
-public:
-	void rva003360D2(Int index, void *object, BfmeDelayedLuaEventList *eventList);	// 0x003360D2
-};
+#include "../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;

@@ -208,11 +208,7 @@ extern GameLogic *TheGameLogic;
 
 struct BfmeDelayedLuaEventList;
 
-class BfmeObjectEventDispatch
-{
-public:
-	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 
 class LuaScriptEngine;
 

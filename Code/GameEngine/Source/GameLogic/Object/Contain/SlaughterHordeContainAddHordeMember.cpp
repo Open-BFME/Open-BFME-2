@@ -47,7 +47,7 @@ extern InGameUI *TheInGameUI;
 struct BfmeDelayedLuaEventList;
 struct BfmeDispatchDelayedLuaEvent{void *m_vtable;float m_number;unsigned char m_boolean;unsigned m_objectID;AsciiString m_string;unsigned m_type;};
 struct DelayedLuaEventList{DelayedLuaEventList();virtual ~DelayedLuaEventList();BfmeDispatchDelayedLuaEvent m_events[3];};
-class BfmeObjectEventDispatch{public:void rva003360D2(int,void*,BfmeDelayedLuaEventList*);};
+#include "../../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 class LuaScriptEngine;extern LuaScriptEngine *TheLuaScriptEngine;extern GameLogic *TheGameLogic;
 float GetGameClientRandomValueReal(float,float,char*,int);
 class Rva004783F4{public:Team *rva004783F4();};

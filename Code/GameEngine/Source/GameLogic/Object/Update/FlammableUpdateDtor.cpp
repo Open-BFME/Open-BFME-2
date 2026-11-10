@@ -418,11 +418,7 @@ struct DelayedLuaEventList
 
 // The object-event dispatch at 0x003360D2 is rowed as a method of an
 // address-level view of TheLuaScriptEngine's object.
-class BfmeObjectEventDispatch
-{
-public:
-	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;

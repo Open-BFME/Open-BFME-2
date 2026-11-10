@@ -1998,11 +1998,7 @@ struct DelayedLuaEventList
 
 	unsigned char m_data[0x48];
 };
-class BfmeObjectEventDispatch
-{
-public:
-	void rva003360D2(int event, void *obj, BfmeDelayedLuaEventList *list);
-};
+#include "../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 // clear is the rowed out-of-line 0x0006AA1C.
