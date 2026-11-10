@@ -160,11 +160,7 @@ public:
 // ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-class Rva004885DE
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../../Include/Common/Rva004885DE.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 class Xfer;
 // Existing verified getters rehomed after naming their actual providers.

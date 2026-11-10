@@ -122,11 +122,7 @@ void *__stdcall createAptScreenQuickMatchMenu(void *);
 // ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-class Rva004885DE
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/Common/Rva004885DE.h"
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
