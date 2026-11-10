@@ -4,6 +4,7 @@
 // (BehaviorModule.h). No BehaviorModule-derived table is emitted here.
 #define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 #include "../../../GameClient/BuffManager.h"
 
 // Cold-slice B8-imm32 const-int returners (twin-free TU).
@@ -33,7 +34,6 @@ void *__stdcall createAptScreenQuickMatchMenu(void *);
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
 // DamageModule::xfer calls Xfer::Version1; keep its operand types beside the include.
 class Snapshot;

@@ -8,13 +8,13 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 // WBCA4BE0 is an empty instance method invoked on the builder drawable;
 // retail uses the complete shared RET at B3FD0. Original spelling unknown.
 enum ObjectStatusTypes { STATUS_NONE = 0 };
 enum CommandSourceType { SOURCE_NONE = 0 };
-#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct PlayerPart { unsigned char pad[0x1bc]; bool alternate; };
 class Team;
 class Player {

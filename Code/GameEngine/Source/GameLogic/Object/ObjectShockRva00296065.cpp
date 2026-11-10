@@ -40,6 +40,7 @@ struct Rva00297612Entry
 
 // 0x0027B18C's bank names its parameter DamageInfo; the call passes this entry unchanged.
 struct DamageInfo;
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 #include "../../../Include/GameClient/Drawable.h"
 class Rva002D9531
 {
@@ -72,7 +73,6 @@ public:
 	char pad0[0x5c];
 	bool flag5c;
 };
-#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 struct ShockBodyEntry { char pad0[8]; ObjectID source; };
 #include "../../../Include/GameLogic/Module/BodyModuleClass.h"
 class AIUpdateInterface : public ShockSlots<153>

@@ -67,6 +67,7 @@ public:
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/Common/MessageStream.h"
@@ -79,7 +80,6 @@ extern InGameUI *TheInGameUI;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // Experience tracker views at Object+0x264 (rowed and pinned spellings).
 class Rva0039ACA4

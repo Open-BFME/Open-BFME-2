@@ -181,6 +181,7 @@ struct MountedFlags
 	__forceinline void clear(unsigned bit) { words[bit >> 5] &= ~(1U << (bit & 31)); }
 	__forceinline void set(unsigned bit) { words[bit >> 5] |= (1U << (bit & 31)); }
 };
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Object : public Thing
 {
@@ -470,7 +471,6 @@ public:
 	virtual bool requiresAllActivationUpgrades() const = 0;
 	virtual bool requiresAllConflictingUpgrades() const = 0;
 };
-#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 // 0x004839F9 (interface at +0x20): virtual slot 14 of the complete object
 // when the third argument is 2, else slot 15 when the second is 2.
 // 0x004ADBD7 (interface at +0x88): virtual slot 17 of the complete object

@@ -87,6 +87,7 @@ struct AIUpdateThingTemplateView
 	__forceinline unsigned int isKindOf(unsigned int bit) const { return ((const unsigned char *)&m_kindOf)[bit >> 3] & (1 << (bit & 7)); }
 };
 
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../../Include/Common/Geometry.h"
 
 class Team;
@@ -219,7 +220,6 @@ protected:
 	char m_pad0C[0x10 - 0x0C];
 };
 
-#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class UpdateModuleView : public AIUpdatePrimary, public UpdateModuleInterface
 {

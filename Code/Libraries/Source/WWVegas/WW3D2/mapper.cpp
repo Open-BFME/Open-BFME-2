@@ -52,6 +52,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma inline_depth()
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_grid_mapper_link/mapper.h"
+#include "../../../../GameEngine/Include/GameLogic/Module/DamageModuleClass.h"
 #include "../../../../GameEngine/Source/GameClient/BuffManager.h"
 // Direct Zero Hour mapper.cpp Reset_All_Texture_Mappers transfer (BFME 1
 // reference 874e38488 inputs/reference/.../GeneralsMD/.../WW3D2/mapper.cpp).
@@ -115,7 +116,6 @@ protected:
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-#include "../../../../GameEngine/Include/GameLogic/Module/DamageModuleClass.h"
 
 class Xfer;
 

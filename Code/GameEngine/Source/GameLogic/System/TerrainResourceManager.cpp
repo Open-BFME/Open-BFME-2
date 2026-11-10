@@ -38,6 +38,7 @@ __forceinline int cellInteger(float value)
 #include <cstring>
 #pragma intrinsic(memset)
 #include "../../../Include/Common/BfmeAccessorMacros.h"
+#include "../../../Include/GameLogic/Module/ToppleUpdateClass.h"
 #include "../../GameClient/BuffManager.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
@@ -302,7 +303,6 @@ class WinInstanceData;
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
 BFME_DISP8_TERNARY_BOOL_GETTER(Rva003598CBCmpBoolField, 0x40)
-#include "../../../Include/GameLogic/Module/ToppleUpdateClass.h"
 #include <stdlib.h>
 #include "Common/Snapshot.h"
 #include "Lib/Region3D.h"

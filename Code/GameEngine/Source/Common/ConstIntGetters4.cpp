@@ -1,3 +1,4 @@
+#include "../../Include/GameLogic/Module/UpgradeModule.h"
 #include "../GameClient/BuffManager.h"
 // Cold-slice B8-imm32 const-int returners (twin-free TU).
 //
@@ -699,7 +700,6 @@ int Rva00460827Get(void)
 // ?GetSnapshotName@UpgradeModule@@MBEPBDXZ @ 0x00460b4a (6B): slot 2 of
 // UpgradeModule's primary vtable 0xC42768, which its ctor 0x00460AEC stores.
 #define BFME_SNAPSHOT_NAME_SLOT
-#include "../../Include/GameLogic/Module/UpgradeModule.h"
 const char *UpgradeModule::GetSnapshotName() const
 {
 	return "UpgradeModule";

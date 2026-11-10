@@ -42,6 +42,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include <wchar.h>
 #pragma intrinsic(_ReadWriteBarrier)
+#include "../../../../../Include/GameLogic/Module/DamageModuleClass.h"
 #include "../../../BuffManager.h"
 class LANGameInfo;
 #include "../../../../../Include/GameClient/GameText.h"
@@ -516,7 +517,6 @@ void *__stdcall createAptScreenQuickMatchMenu(void *);
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
 #include "../../../../../Include/Common/Rva004885DE.h"
-#include "../../../../../Include/GameLogic/Module/DamageModuleClass.h"
 extern class GameEngine *TheGameEngine;
 // The +0x288 panel's rowed bodies: 0x0044303D (1040 bytes; registers the
 // panel's Apt callbacks) and 0x0043DC0F.

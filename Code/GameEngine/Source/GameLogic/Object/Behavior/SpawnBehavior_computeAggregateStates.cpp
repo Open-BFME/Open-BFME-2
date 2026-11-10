@@ -60,6 +60,7 @@ typedef float Real;
 
 extern class MessageStream *TheMessageStream;
 
+#include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/GameClient/InGameUI.h"
@@ -77,7 +78,6 @@ public:
 	virtual Bool isSelfTasking() const;
 };
 
-#include "../../../../Include/Common/ObjectModule.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 

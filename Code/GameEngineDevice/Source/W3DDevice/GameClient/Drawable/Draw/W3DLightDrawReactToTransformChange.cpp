@@ -23,11 +23,11 @@ public:
 	AsciiString boneName;
 };
 
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DLightDraw.h"
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/W3DDynamicLightClass.h"
 
-#include "../../../../../Include/W3DDevice/GameClient/Module/W3DLightDraw.h"
 
 // File-static matrix copy (LK3-style): the TU's copy-ctor COMDAT loses
 // the link, and the rowed body below inlines the construction, so the def

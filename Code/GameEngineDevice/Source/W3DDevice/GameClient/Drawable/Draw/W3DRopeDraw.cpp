@@ -49,6 +49,7 @@ template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deal
 template <> void vector<BfmeE16>::_M_clear();
 }
 
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class Vector3
@@ -95,7 +96,6 @@ public:
 	static RTS3DScene *m_3DScene;
 };
 
-#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 
 struct SegInfo

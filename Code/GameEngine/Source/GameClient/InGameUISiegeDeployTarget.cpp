@@ -127,6 +127,7 @@ protected:
  friend class InGameUI;
  Module *findModule(NameKeyType) const;	// rowed 0x0028B6D6 (protected)
 };
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../Include/GameClient/Drawable.h"
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
@@ -139,7 +140,6 @@ extern InGameUI *TheInGameUI;
 extern ControlBar *TheControlBar;
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-#include "../../Include/GameLogic/Module/AIUpdate.h"
 class SiegeDockInterface { public: virtual void slot0(); virtual bool slot1(ObjectID,Coord3D*); };
 #include "../../Include/Common/Module.h"
 

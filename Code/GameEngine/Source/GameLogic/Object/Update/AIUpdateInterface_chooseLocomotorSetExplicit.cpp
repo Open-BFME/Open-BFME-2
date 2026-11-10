@@ -40,6 +40,7 @@ private:
 	const ModuleInfo *m_template;
 };
 
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/LocomotorSet.h"
 
 // clear()'s rowed 0x001E7E25 body (the existing set.clear() spelling folds to
@@ -52,7 +53,6 @@ public:
 
 class Locomotor;
 
-#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 Bool AIUpdateInterface::chooseLocomotorSetExplicit(Int wst)
 {

@@ -10,6 +10,7 @@
 
 extern float g_00BBB8D8;
 
+#include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 #include "../../Common/Thing/thing.h"
@@ -25,7 +26,6 @@ public:
 	float m_cc;
 };
 
-#include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva004AD9B0 : public SpecialAbilityUpdate
 {

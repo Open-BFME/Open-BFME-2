@@ -56,6 +56,7 @@ class ModuleData;
 class Object;
 class UpgradeTemplate;
 class AsciiString;
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 class RampageBehaviorModuleDataView
@@ -89,7 +90,6 @@ class BodyModuleFloatInterface
  
 }
 ;
-#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class AIUpdateInterfaceView
 

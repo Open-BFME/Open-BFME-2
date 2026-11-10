@@ -47,6 +47,7 @@ class Object;
 
 #include "../../../Common/Thing/thing.h"
 
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 class Payload
@@ -124,7 +125,6 @@ private:
 	Team *m_team;
 };
 
-#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class RvaHijackerModuleData
 {

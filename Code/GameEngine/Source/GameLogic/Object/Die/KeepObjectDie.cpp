@@ -27,6 +27,7 @@ class Object;
 class GameLogic;
 class Radar;
 class DamageInfo;
+#include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 enum ModelConditionFlagType
 {
@@ -47,7 +48,6 @@ struct Rva00486CF6_P04
 	unsigned int m_collapsingTime;
 	unsigned char m_stayOnRadar;
 };
-#include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 //
 // ??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00486D73,

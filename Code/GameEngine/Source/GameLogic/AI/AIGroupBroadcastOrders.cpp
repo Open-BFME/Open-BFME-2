@@ -74,10 +74,10 @@ enum UpgradeType { UPGRADE_TYPE_PLAYER = 0, UPGRADE_TYPE_OBJECT = 1 };
 enum CanMakeType { CANMAKE_QUEUE_FULL = 4 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Drawable.h
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/AIUpdate.h
-#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerUpdateModule.h
 #include "../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"

@@ -22,6 +22,7 @@ class LocomotorTemplate;
 #include "../../../../../Include/GameLogic/LocomotorStore.h"
 extern class LocomotorStore *TheLocomotorStore;
 
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../../Include/GameLogic/LocomotorSet.h"
 
 class AIUpdateInterface;
@@ -62,7 +63,6 @@ extern class AI *TheAI;
 
 #include "../../../../../Include/GameLogic/AIPathfind.h"
 
-#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 bool AIUpdateInterface::isQuickPathAvailable(const Coord3D *destination) const
 {

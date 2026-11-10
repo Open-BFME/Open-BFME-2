@@ -57,6 +57,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 class Team;
@@ -78,7 +79,6 @@ public:
 
 enum CommandSourceType { CMD_FROM_AI = 2 };
 
-#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 

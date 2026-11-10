@@ -10,6 +10,7 @@
 // Object::setStatus(enum,bool), and canonical rowed AI operations.
 
 class Object; class Team;
+#include "../../../Include/Common/Module.h"
 #include "../../../Include/GameClient/Drawable.h"
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -48,7 +49,6 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-#include "../../../Include/Common/Module.h"
 
 // Partial storage view: the completion caller writes module+0x2C.
 class Rva0029A12BDefectModuleView : public Module

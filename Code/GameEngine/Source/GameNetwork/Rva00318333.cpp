@@ -15,6 +15,7 @@ public:
 	Object *m_8C;
 };
 class AsciiString;
+#include "../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 #include "../../Include/Common/PlayerList.h"
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
@@ -29,7 +30,6 @@ public:
 	int m_00;
 };
 #include "../../Include/Common/BitFlagsTemplate.h"
-#include "../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class Player
 {
 public:

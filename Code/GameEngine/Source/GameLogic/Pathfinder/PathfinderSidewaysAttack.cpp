@@ -21,6 +21,7 @@ PATHFIND_LAYER_GROUND = 1
 };
 typedef int LocomotorSurfaceTypeMask;
 
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/LocomotorSet.h"
 
 #include "../../../Include/Common/Player.h"
@@ -252,7 +253,6 @@ char m_pad[0x14];
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
 #include "../../../Include/GameLogic/Module/Rva001E46E1.h"
-#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/BridgeClass.h"
 struct Rva002ED236Pos {
 float x, y, z;

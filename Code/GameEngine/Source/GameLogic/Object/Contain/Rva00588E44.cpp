@@ -52,6 +52,7 @@ enum CommandSourceType
 	CMD_SOURCE_DUMMY = 0
 };
 
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/Common/Rva00270260.h"
@@ -75,7 +76,6 @@ public:
 
 class Object;
 
-#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00588E44UpdateModule
 {
