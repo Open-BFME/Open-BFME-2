@@ -220,7 +220,7 @@ Rva003FAFB9::Rva003FAFB9(const AsciiString &name) : m_name(name), m_zoom(g_00E02
 // Names are address-derived (see the symbols.csv pins).
 
 class Rva003FAB93 { public: void rva003FAB93(); };
-class Rva003FAC3F { public: void rva003FAC3F(); };
+#include "../../../Include/Common/Rva003FAC3F.h"
 
 class Rva003FAC83
 {

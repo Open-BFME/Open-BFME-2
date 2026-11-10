@@ -5,10 +5,7 @@
 // states 2/1/0, Release_Ref row, StringBase row, base BBB554.
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
-class Rva003FAC3F {
-public:
-    void rva003FAC3F();
-};
+#include "../../Include/Common/Rva003FAC3F.h"
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct RvaHolder14 {
     OpaqueRefCounted *m_ptr;

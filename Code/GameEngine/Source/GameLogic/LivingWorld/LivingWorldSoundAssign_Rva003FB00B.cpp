@@ -15,11 +15,7 @@ class Rva003FAB93
 public:
 	void rva003FAB93();
 };
-class Rva003FAC3F
-{
-public:
-	void rva003FAC3F();
-};
+#include "../../../Include/Common/Rva003FAC3F.h"
 
 class LivingWorldSoundThunkCall
 {
