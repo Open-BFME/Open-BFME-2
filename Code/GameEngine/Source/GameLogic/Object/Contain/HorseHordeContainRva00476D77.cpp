@@ -17,13 +17,7 @@ enum CommandSourceType {COMMAND_SOURCE_2=2};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct LocoTemplate {char pad[0x70];int appearance;};
 #include "../../../../Include/GameLogic/LocomotorClass.h"
-class Rva001E46E1
-{
-public:
-	float rva001E4845(Object*);
-	float rva001E46E1(Object*);
-	bool rva001E543F(Object*);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../Common/Thing/thing.h"
 enum ObjectStatusTypes {STATUS_75=75};
 enum KindOfType {KINDOF_0088=0x88};

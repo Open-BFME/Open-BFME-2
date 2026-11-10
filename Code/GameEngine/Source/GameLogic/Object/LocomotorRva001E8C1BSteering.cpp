@@ -62,12 +62,7 @@ public:
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
-class Rva001E46E1
-{
-public:
-	Real rva001E4845(Object *obj);
-	void rva001E6007(Object *obj, const Coord3D *goal, Real distance, Real desiredSpeed);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 
 class Rva001E685F
 {

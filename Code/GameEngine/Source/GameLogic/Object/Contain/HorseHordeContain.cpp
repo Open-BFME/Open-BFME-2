@@ -174,13 +174,7 @@ AICommandInterface*command(){return (AICommandInterface*)((char*)this+0x20);}
 };
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 #include "../../../../Include/GameLogic/LocomotorTemplate.h"
-class Rva001E46E1
-{
-public:
-	float rva001E4845(Object*);
-	float rva001E46E1(Object*);
-	bool rva001E543F(Object*);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../../Include/GameClient/View.h"
 #include "../../../Common/Thing/thing.h"
 enum KindOfType {KINDOF_0088=0x88};

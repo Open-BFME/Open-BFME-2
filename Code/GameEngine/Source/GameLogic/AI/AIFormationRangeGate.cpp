@@ -31,11 +31,7 @@ public:
 	unsigned char m_438;
 };
 
-class Rva001E46E1
-{
-public:
-	bool rva001E543F(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 
 // Preserve the established PAV ABI while the local parameter view sequences
 // its read ahead of the two ordered position reads.

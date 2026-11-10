@@ -195,12 +195,7 @@ private:
 
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 
-class Rva001E46E1
-{
-public:
-	float rva001E4845(Object *obj);
-	float rva001E488A(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 struct Rva001E3F08Arg;
 class Rva001E3F08
 {

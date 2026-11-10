@@ -358,11 +358,7 @@ public:
 	void rva001E9083(Object *obj, const Coord3D *goal, Real onPathDistToGoal, Real desiredSpeed);
 };
 
-class Rva001E46E1
-{
-public:
-	void rva001E53D8(Real speed, Object *obj);
-};
+#include "../../../../../Include/GameLogic/Module/Rva001E46E1.h"
 
 class Rva0008BB38FloatField;
 

@@ -131,13 +131,7 @@ class Rva0028E8D4
  
 }
 ;
-class Rva001E46E1 
-{
- public:float rva001E46E1(Object*);
- bool rva001E5F1D(Object*,const Coord3D*,float*);
- 
-}
-;
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 float __stdcall Rva001E40D9Get(float,float);
 bool Rva001E3679(int);
 #include "../../../Include/Common/Geometry.h"

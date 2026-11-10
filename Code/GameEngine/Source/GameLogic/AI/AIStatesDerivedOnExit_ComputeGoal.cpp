@@ -244,11 +244,7 @@ class Rva00352F2FOpaque
 public:
 	void invoke(const Waypoint *way, int maxShots, CommandSourceType cmdSource);
 };
-class Rva001E46E1
-{
-public:
-	Bool rva001E543F(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 class AIUpdateInterface : public AIDeadStateAISlots<131>
 {
 public:

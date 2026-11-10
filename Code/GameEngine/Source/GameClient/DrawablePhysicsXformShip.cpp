@@ -105,11 +105,7 @@ struct LocomotorTemplate
 class Object;
 enum KindOfType { KINDOF_FIRST };
 
-class Rva001E46E1
-{
-public:
-	Real rva001E4845(Object *obj);
-};
+#include "../../Include/GameLogic/Module/Rva001E46E1.h"
 
 class Rva001E3F27FloatChaseField
 {

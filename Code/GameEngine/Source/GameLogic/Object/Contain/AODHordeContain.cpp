@@ -150,11 +150,7 @@ class Locomotor
 public:
 	float getMaxSpeed(Object *object) const;
 };
-class Rva001E46E1
-{
-public:
-    float rva001E4845(Object *object);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../../Include/Common/Geometry.h"
 class AIUpdateInterface;
 class Rva003BD306Target;
