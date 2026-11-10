@@ -62,7 +62,7 @@ void Rva005EB955::rva005EB955(int index, char *result, bool disabled)
 // The worker's input is an opaque battle pointer: target5EBDBF stores it
 // at+0C and dereferences it. The accessed implementation prefix is owned
 // by Rva005EB8D6 (constructor5EB9F2 and destructor5EB8D6).
-class Rva002B254F { public: int rva002B254F(); };
+#include "../../../Include/Common/Rva002B254F.h"
 #include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class Rva00222A8BTarget;
 void Rva00516F21Invoke(Rva00222A8BTarget *, void *, const char *, const char *);

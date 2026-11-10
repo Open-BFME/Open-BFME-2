@@ -17,7 +17,7 @@ extern GameInfo *TheGameInfo;
 class SkirmishGameInfo;
 extern SkirmishGameInfo *TheSkirmishGameInfo;
 class Rva00210C66CmpBoolField { public: bool get() const; };
-class Rva002B254F { public: int rva002B254F(); };
+#include "../../../../Include/Common/Rva002B254F.h"
 class Rva002B256E { public: void *rva002B256E(); };
 class Rva003F44A9 { public: bool rva003F44ED(); };
 class Rva002E071E { public: int rva002E0BC0(int); };

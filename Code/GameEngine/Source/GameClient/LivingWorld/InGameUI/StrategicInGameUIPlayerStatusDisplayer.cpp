@@ -41,11 +41,7 @@ GameMessageDisposition StrategicInGameUI::PlayerStatusDisplayer::rva005CD690(con
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../../../Include/Common/Rva002B254F.h"
 
 class StrategicPlayerStatus
 {

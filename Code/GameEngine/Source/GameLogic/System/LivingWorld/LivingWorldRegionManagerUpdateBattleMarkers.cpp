@@ -13,11 +13,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "../../../../Include/GameLogic/LivingWorldBattle.h"
 
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../../../Include/Common/Rva002B254F.h"
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 

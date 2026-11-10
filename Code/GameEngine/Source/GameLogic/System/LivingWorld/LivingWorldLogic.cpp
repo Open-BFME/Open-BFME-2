@@ -994,11 +994,7 @@ public:
 
 // TheLivingWorldLogic (0x00DFEF10): its rowed int-returning check 0x002B254F,
 // tested as a byte by every caller.
-class Rva002B254F
-{
-public:
-	Int rva002B254F();					// 0x002B254F
-};
+#include "../../../../Include/Common/Rva002B254F.h"
 
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 

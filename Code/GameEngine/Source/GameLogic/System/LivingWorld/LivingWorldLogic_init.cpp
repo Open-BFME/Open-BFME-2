@@ -27,7 +27,7 @@ namespace _STL {
 template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C, allocator<TreeHintRef00217D4C> >::erase(TreeHintRef00217D4C *, TreeHintRef00217D4C *);
 }
 
-class Rva002B254F { public: int rva002B254F(); };
+#include "../../../../Include/Common/Rva002B254F.h"
 #include "../../../../Include/Common/LivingWorldCampaignManager.h"
 class Rva003F812C { public: void rva003F812C(); };
 class Rva002B5522 { public: void rva002B5522(); };

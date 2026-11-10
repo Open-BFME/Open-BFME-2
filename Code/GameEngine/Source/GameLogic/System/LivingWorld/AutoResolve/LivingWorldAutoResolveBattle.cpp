@@ -507,7 +507,7 @@ LivingWorldAutoResolveBattle::LivingWorldAutoResolveBattle(const PlayerStorage&i
 class Rva0059AE94 {public:bool rva0059AE94();};
 class Rva0059AEFF {public:int rva0059AEFF();};
 class Rva0059ADF4 {public:void rva0059ADF4(int);};
-class Rva002B254F {public:int rva002B254F();};
+#include "../../../../../Include/Common/Rva002B254F.h"
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva00380200 {public:bool rva003805BB(float,bool);};
 #include "../../../../../Include/Common/ThingTemplate.h"
