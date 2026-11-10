@@ -8,6 +8,7 @@
 // Source constness is supported by the standard const-string callers and donor
 // overloads; the existing neutral names and pointer ABI carriers are retained.
 
+#include <stdlib.h>
 #include <string.h>
 // Bound nested helper expansion to reproduce both retail stack frames.
 // This is a reconstruction compiler setting, not a claim about the original build.
@@ -93,7 +94,6 @@ inline _ForwardIter Rva000179B0UninitializedCopy(_InputIter __first, _InputIter 
 }
 }
 
-extern "C" void free(void *);
 
 #pragma intrinsic(memcpy)
 
