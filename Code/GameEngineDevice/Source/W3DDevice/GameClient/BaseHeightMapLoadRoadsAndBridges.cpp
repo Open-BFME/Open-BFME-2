@@ -47,11 +47,7 @@ public:
 	char data[80]; // +0x00
 };
 
-class W3DBridgeBuffer
-{
-public:
-	void loadBridges(W3DTerrainLogic *pTerrainLogic, Bool saveGame);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 #define REFCOUNT_H

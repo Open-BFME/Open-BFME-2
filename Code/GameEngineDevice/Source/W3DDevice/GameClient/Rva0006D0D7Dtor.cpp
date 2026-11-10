@@ -19,7 +19,7 @@ class VBuf { public: virtual ~VBuf(); };
 class Rva000D3A17 { public: ~Rva000D3A17(); void rva000D3A17(); char data[272]; };
 class W3DBibBuffer { public: ~W3DBibBuffer(); char data[68048]; };
 class W3DRoadBuffer { public: ~W3DRoadBuffer(); char data[80]; };
-class W3DBridgeBuffer { public: ~W3DBridgeBuffer(); };
+#include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 class W3DWaypointBuffer { public: ~W3DWaypointBuffer(); char data[12]; };
 class Rva000E0AE2 { public: ~Rva000E0AE2(); char data[620]; };
 class Rva0007311B { public: ~Rva0007311B(); };

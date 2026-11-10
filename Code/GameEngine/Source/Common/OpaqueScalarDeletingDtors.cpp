@@ -210,11 +210,7 @@ void Rva000DC51D_Anchor(W3DRoadBuffer *object)
 	delete object;
 }
 
-class W3DBridgeBuffer
-{
-public:
-	~W3DBridgeBuffer();	// row 0x000DE4EB in W3DBridgeBufferDestructor.cpp
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GW3DBridgeBuffer (it
 // calls out to the destructor row); the destructor is only declared here.

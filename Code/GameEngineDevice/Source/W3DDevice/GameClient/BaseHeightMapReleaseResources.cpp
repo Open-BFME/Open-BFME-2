@@ -144,11 +144,7 @@ public:
 	void allocateBuffBuffers();
 };
 
-class W3DBridgeBuffer
-{
-public:
-	void allocateBridgeBuffers();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 
 // 0x000ABA2F ignores ECX: a free body.
 void rva000ABA2F();

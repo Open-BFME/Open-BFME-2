@@ -47,7 +47,7 @@ public:
 	void setMap(WorldHeightMap*);
 	char data[80]; // +0x00
 };
-class W3DBridgeBuffer { public: void clearAllBridges(); };
+#include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 class W3DFloorBuffer
 {
 public:
