@@ -13,13 +13,7 @@ struct Rva002BA8F1Listener
 	char m_pad[4];
 };
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 
 struct NotifyI
 {

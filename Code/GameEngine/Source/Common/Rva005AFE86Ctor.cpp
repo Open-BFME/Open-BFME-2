@@ -15,13 +15,7 @@ struct Rva002BA8F1Listener
 	char opaque[4];
 };
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 
 // Retail's ctor unwind destroys this base through 0x0057C03B, the rowed
 // protected ~CategoryModuleClass<0> (restore table 0x00C6FFFC at +0).

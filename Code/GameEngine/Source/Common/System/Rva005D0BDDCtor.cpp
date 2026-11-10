@@ -7,11 +7,7 @@
 // append 0x005A0B4C. Base split and layout follow the dtor unit.
 struct Rva002BA8F1Listener;
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../../Include/Common/Rva005A0B4CList.h"
 
 class LivingWorldLogic
 {

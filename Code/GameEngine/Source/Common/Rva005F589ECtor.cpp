@@ -41,11 +41,7 @@ struct Rva002BA8F1Listener;
 
 // Preserve the original forced-inline construction path.
 __forceinline Rva005E4AE2Listener::Rva005E4AE2Listener() {}
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 
 #include "../../Include/Common/Rva0007DF07.h"
 
