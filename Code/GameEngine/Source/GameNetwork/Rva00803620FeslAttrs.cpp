@@ -5,11 +5,7 @@
 
 class Rva00803620Getter;
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *key, void *defaultValue );
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeThingUPB
 {

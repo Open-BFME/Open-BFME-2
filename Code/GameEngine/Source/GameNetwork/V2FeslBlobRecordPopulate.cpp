@@ -8,11 +8,7 @@
 
 typedef __int64 FeslInt64;
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *key, void *defaultValue );
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeThingUPB
 {

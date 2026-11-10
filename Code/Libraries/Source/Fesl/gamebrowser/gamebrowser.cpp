@@ -1097,11 +1097,7 @@ public:
 // assertion and the listener call at vtable slot 11 identify the remaining
 // operations at this address.
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *a, void *b );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeThingRF.h"
 
 struct Rva007F7640Results
 {

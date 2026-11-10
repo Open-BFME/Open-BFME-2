@@ -15,11 +15,7 @@ public:
  unsigned int m_category;
 };
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *key, void *defaultValue );
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeThingUPB
 {

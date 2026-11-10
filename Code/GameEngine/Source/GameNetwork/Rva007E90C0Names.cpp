@@ -12,11 +12,7 @@ public:
 	char bfmeGoUPB(void *key, char *dest, void *destSize);
 };
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF(void *key, void *defaultValue);
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class Rva007E90C0Names
 {

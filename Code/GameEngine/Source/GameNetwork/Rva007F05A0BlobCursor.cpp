@@ -33,11 +33,7 @@ private:
 	int m_state; // +0x2C
 };
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *key, void *defaultValue );
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeThingUPB
 {

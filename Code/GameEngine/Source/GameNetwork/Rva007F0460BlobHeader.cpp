@@ -6,11 +6,7 @@ public:
     __int64 getInt64(const char *name, __int64 missing);
 };
 
-class BfmeThingRF
-{
-public:
-    void *bfmeGoRF(void *name, void *missing);
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class Rva007F0460BlobHeader
 {

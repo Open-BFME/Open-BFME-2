@@ -793,3 +793,4 @@ Rva006007DAFileSystem,Code/GameEngine/Include/Common/Rva006007DAFileSystem.h,gen
 Rva001F3852ByteOneSetter,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h,existing header; contract class_contracts/Rva001F3852ByteOneSetter.json; 10/13 sampled units adopt
 ShroudTexture,Code/GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h,existing header; contract class_contracts/ShroudTexture.json; 14/21 sampled units adopt
 Rva0020E6B7RegionManager,Code/GameEngine/Include/GameLogic/Rva0020E6B7RegionManager.h,existing header; contract class_contracts/Rva0020E6B7RegionManager.json; 6/12 sampled units adopt
+BfmeThingRF,Code/GameEngine/Include/GameNetwork/BfmeThingRF.h,existing header; contract class_contracts/BfmeThingRF.json; 10/12 sampled units adopt

@@ -36,11 +36,7 @@ public:
 	void bfmeGoCIB( void *one, void *two );
 };
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *one, void *two );
-};
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeThingHA
 {

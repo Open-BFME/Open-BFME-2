@@ -342,11 +342,7 @@ extern "C" unsigned char bfmeStrEBJ[];
 
 // Retail body at 0x007E8900 is BfmeThingRF::bfmeGoRF; declared here (no real
 // header owns it) so this call spells its defining mangled name.
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF(void *key, void *fallback);
-};
+#include "../../../Include/GameNetwork/BfmeThingRF.h"
 
 extern void *g_bfmeXEBK;
 
