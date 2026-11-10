@@ -88,7 +88,7 @@ struct R4Word {const char *name;int id;};
 
 const R4Word *Rva008D5DC0(const char *,unsigned int);
 
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+#include "Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

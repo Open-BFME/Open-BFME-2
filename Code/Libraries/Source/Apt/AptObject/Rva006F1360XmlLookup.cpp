@@ -9,11 +9,7 @@
 // place the shared undefined-return block after its allocation, as retail.
 // All callees are existing providers, with the newly recovered F1570 callback.
 // Whole native code, case targets and table bytes verify independently.
-class Rva006D2A60 {
-public:
-  void *allocBlock(int);
-  void freeBlock(void *, int);
-};
+#include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 #define POOL_ALLOC                                                             \
 public:                                                                        \

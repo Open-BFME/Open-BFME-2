@@ -15,11 +15,7 @@ void __debugbreak();
 #include "AptValue.h"
 #include "AptCIHClass.h"
 
-class Rva006D2A60
-{
-public:
-	void *allocBlock(int size);
-};
+#include "Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4; // VA 0x00E176F4
 

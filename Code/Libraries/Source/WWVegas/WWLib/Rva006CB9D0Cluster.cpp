@@ -85,12 +85,7 @@ AptValue *createBoolean(bool value)
 // object 0x006DA4D0 in a 0x2C-byte block of the value allocator at VA
 // 0x00E176F4 (rowed allocBlock 0x006D29E0; freeBlock 0x006D2A60 on unwind).
 class BfmeAptValue006DCD20;
-class Rva006D2A60
-{
-public:
-	void *allocBlock(int size);
-	void freeBlock(void *block, int size);
-};
+#include "../../Apt/Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class Rva006DA4D0
 {

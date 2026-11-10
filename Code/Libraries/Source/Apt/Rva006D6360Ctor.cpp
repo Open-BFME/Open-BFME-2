@@ -27,7 +27,7 @@ public:
     Rva006D6360(int type, int size);
     virtual ~Rva006D6360();
 };
-class Rva006D2A60 { public: void freeBlock(void *, int); };
+#include "Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class Rva006D6470Owner : public Rva006D6360
 {

@@ -103,12 +103,7 @@ void __debugbreak();
 
 #include "EAStringC.h"
 
-class Rva006D2A60
-{
-public:
-	void *allocBlock(int);
-	void freeBlock(void*,int);
-};
+#include "Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

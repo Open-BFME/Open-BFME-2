@@ -93,7 +93,7 @@ struct AptCharacterSpriteInstBase
 	int mode;			// +0x2C
 };
 
-class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
+#include "Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
 class Rva006DE1A0
