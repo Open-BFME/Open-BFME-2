@@ -48,11 +48,7 @@ public:
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 // vftable 0x00BF91BC, allow 0x002611BF: not the given object.
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00C17F08, allow 0x0026118B: the object has an AI (+0x258).
 class Rva0026118BFilter : public Rva000421C8
 {

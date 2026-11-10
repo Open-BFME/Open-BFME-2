@@ -17,11 +17,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 // vftable 0x00BC2908: every kind of the first mask, none of the second.
 // vftable 0x00BFAD10: the object is alive.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 
 class Player;
 

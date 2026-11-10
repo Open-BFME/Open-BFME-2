@@ -669,11 +669,7 @@ void ScriptActions::Rva003C6A0EDo(Parameter *unitParm, Parameter *wayParm, Param
 }
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // ?Rva003C6B7BDo@ScriptActions@@QAEXPAVParameter@@00@Z @0x003C6B7B 468B evidence: the team variant of 0x003C6A0E (WB 0x01002390, unnamed): team by Parameter name (getTeamNamed 0x003584E9, no create), its member list via iterate_TeamMemberList 0x00263864, waypoint (TerrainLogic slot 0x88) location and the radius parameter; objects in range passing the kind-60 filter and the not-dead filter 0x0026119D; for each object with a SiegeDockingBehavior the team members (kind 93, ready special power 0x2d, status 0x40 clear) are walked from the iterator's current position, the first the dock refuses ends that object; caller dispatch next to 0x003CE4A0
 void ScriptActions::Rva003C6B7BDo(Parameter *teamParm, Parameter *wayParm, Parameter *radiusParm)
