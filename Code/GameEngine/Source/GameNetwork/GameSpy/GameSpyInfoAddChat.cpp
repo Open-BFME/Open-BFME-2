@@ -74,11 +74,7 @@ typedef _STL::map<Int, Int> BuddyInfoMap;
 #include "../../../Include/Common/MiscAudioClass.h"
 extern AudioManager *TheAudio;
 
-class LanguageFilter
-{
-public:
-	void filterLine(UnicodeString &line);
-};
+#include "../../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 
 class GameSpyInfoInterface;

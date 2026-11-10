@@ -314,11 +314,7 @@ AsciiString GameInfoToAsciiString( const GameInfo *game, Bool flag );
 Bool ParseGameOptionsString( LANGameInfo *game, AsciiString options, const void *data, Int length );
 #include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
-class LanguageFilter
-{
-public:
-	void filterLine( UnicodeString &line );
-};
+#include "../../Include/GameClient/LanguageFilterClass.h"
 extern LanguageFilter *TheLanguageFilter;
 extern const Int chatActionColor;
 extern const Int chatLocalActionColor;
