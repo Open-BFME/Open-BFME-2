@@ -295,8 +295,10 @@ def check_functions(raw, problems, sources_ok, deleted_raw=None):
         for old_rva, old_identity in previous:
             if old_rva != rva and name not in ALLOWED_DUP_NAMES \
                     and ledger_io.same_function_name(identity, old_identity):
+                hint = ledger_io.local_label_hint(identity, [old_identity])
                 problems.append(f"functions.csv: {name} claims two addresses: "
-                                f"0x{old_rva:08X} and 0x{rva:08X}. One is wrong.")
+                                f"0x{old_rva:08X} and 0x{rva:08X}. " +
+                                (hint or "One is wrong."))
         previous.append((rva, identity))
 
         if status == "matched":

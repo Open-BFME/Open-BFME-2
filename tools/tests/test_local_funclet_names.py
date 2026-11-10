@@ -213,8 +213,9 @@ def test_an_unscoped_peer_is_identified_rather_than_blamed_on_the_notes():
         {"name": "$L1893", "source": "Code/b.cpp", "notes": NOTES},
         [{"name": "$L1893", "source": "Code/gen_small/uw_gen_001.cpp",
           "notes": NOTES + ";object-symbol=$L1893", "rva": 0x1000}])
-    assert message and "the row holding it is not itself a proven label" in message
-    assert "Code/gen_small/uw_gen_001.cpp" in message and "0x00001000" in message
+    assert message and "already holding it is not itself a proven label" in message
+    # names the source that needs the notes; the address is in the caller's line
+    assert "Code/gen_small/uw_gen_001.cpp" in message
     assert "ledger_io.local_funclet" in message
 
 
@@ -231,3 +232,35 @@ def test_the_refusal_text_reaches_the_worker(admission, monkeypatch, capsys):
     assert "already in the ledger" in error and "`gen-funclet` token" in error
     assert "do not reach for --replace-existing" in error
     assert calls == []
+
+
+def test_check_csv_duplicate_name_explains_a_label_collision():
+    """check_csv reports the same collision add_match does, through the same
+    rule, so it has to give the same explanation. 13 of the open check_csv
+    false-reject records are $L labels whose peers are all already scoped.
+    """
+    # same label, two TUs, but the proposed row carries no scoping notes
+    raw = ledger(row(), row("Code/b.cpp", notes=""))
+    problems = []
+    check_csv.check_functions(raw, problems, {"Code/a.cpp", "Code/b.cpp"}, b"")
+    duplicate = [p for p in problems if "claims two addresses" in p]
+    assert len(duplicate) == 1, problems
+    assert "`gen-funclet` token" in duplicate[0]
+    assert "One is wrong." not in duplicate[0]
+    assert "0x00001000" in duplicate[0] and "0x00001020" in duplicate[0]
+
+
+def test_check_csv_keeps_the_plain_message_for_an_external_name():
+    raw = ledger(row(name="?f@C@@QAEXXZ", notes=""),
+                 row("Code/b.cpp", name="?f@C@@QAEXXZ", notes=""))
+    problems = []
+    check_csv.check_functions(raw, problems, {"Code/a.cpp", "Code/b.cpp"}, b"")
+    duplicate = [p for p in problems if "claims two addresses" in p]
+    assert len(duplicate) == 1 and duplicate[0].endswith("One is wrong.")
+
+
+def test_check_csv_still_accepts_two_properly_scoped_labels():
+    raw = ledger(row(), row("Code/b.cpp"))
+    problems = []
+    check_csv.check_functions(raw, problems, {"Code/a.cpp", "Code/b.cpp"}, b"")
+    assert not [p for p in problems if "claims two addresses" in p], problems

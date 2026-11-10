@@ -57,6 +57,57 @@ def same_function_name(left, right):
     return True
 
 
+def local_label_hint(identity, claims):
+    """Why a `$L<n>` row collided, when per-TU scoping would have let it through.
+
+    A compiler label is not a global name: same_function_name scopes one to its
+    source when BOTH rows satisfy local_funclet. A bare duplicate-name refusal
+    does not say so, and advice to repoint the existing claim is wrong here --
+    that claim belongs to another TU. 144 open add_match and 13 open check_csv
+    false-reject records are this: a worker read the refusal as a verdict on
+    identity when it was a verdict on notes.
+
+    `identity` is the proposed row, `claims` the rows already holding the name.
+    Returns the missing condition, or None when the name is not a label or the
+    collision is genuine (same source, or a peer that is itself unscoped).
+    """
+    name = identity.get("name", "")
+    if not re.fullmatch(r"\$L\d+", name):
+        return None
+    source = identity.get("source", "").replace("\\", "/")
+    tokens = [token.strip() for token in identity.get("notes", "").split(";")]
+    parents = [token[7:] for token in tokens if token.startswith("parent=")]
+    if not (source.startswith("Code/") and source.endswith(".cpp")):
+        missing = "its source must be a Code/**.cpp translation unit"
+    elif source.startswith(("Code/gen_asm/", "Code/gen_small/")):
+        missing = ("its source is a generated tree, which owns its own labels; "
+                   "a label scopes only to a hand-written TU")
+    elif "gen-funclet" not in tokens:
+        missing = "its notes must carry a `gen-funclet` token"
+    elif len(parents) != 1 or not parents[0]:
+        missing = ("its notes must carry exactly one non-empty `parent=<owner>` "
+                   f"token (found {len(parents)})")
+    elif any(token.startswith("object-symbol=") for token in tokens):
+        missing = ("its notes carry `object-symbol=`, which marks generator "
+                   "scaffolding rather than a proven label, so it stays global")
+    else:
+        unscoped = [row for row in claims if not local_funclet(row)]
+        if not unscoped:
+            return None            # same source: a real duplicate, not scoping
+        # The addresses are already in the caller's first line; name the sources,
+        # which is what says WHICH row needs the notes.
+        return (f"{name} would scope to {source}, but the row already holding it "
+                "is not itself a proven label: " +
+                ", ".join(sorted({row["source"].replace("\\", "/")
+                                  for row in unscoped})) +
+                ". Both sides must satisfy ledger_io.local_funclet before the "
+                "same label can name two addresses.")
+    return (f"{name} is a compiler-local label, which belongs to ONE translation "
+            f"unit, not to the image: {missing}. Scope it and this collision goes "
+            "away -- do not reach for --replace-existing, which repoints the "
+            "other TU's claim. See ledger_io.local_funclet.")
+
+
 def split_records(raw):
     """[(payload_bytes, terminator_bytes)] over the whole file, order preserved."""
     out, pos = [], 0
