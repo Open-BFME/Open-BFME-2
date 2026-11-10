@@ -4,7 +4,7 @@
 extern int g_Va00E0492C;
 struct GlobalA01E48 { char pad[0x54]; unsigned char flag; };
 extern class Shell *TheShell;
-class Rva00222479ByteOneSetter { public: void enable(); };
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

@@ -10,5 +10,5 @@ class GameMessage;
 extern MessageStream *TheMessageStream;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00222479ByteOneSetter {public:void enable();};
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 void Rva00513866(){if(AptCreateAHero::s_instance){TheMessageStream->appendMessage(29);((Rva00222479ByteOneSetter*)g_bfmeAptWindowManager)->enable();}}

@@ -162,11 +162,7 @@ struct AptTimeLineShell
 class Shell;
 extern Shell *TheShell;
 
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../../../Include/Common/Rva00222479ByteOneSetter.h"
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 

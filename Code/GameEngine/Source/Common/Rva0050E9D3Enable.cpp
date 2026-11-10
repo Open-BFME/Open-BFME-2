@@ -16,7 +16,7 @@ extern GlobalA046B4 *g_Va00A046B4;
 struct GlobalA01E48 { char pad[0x54]; unsigned char flag; };
 class Shell;
 extern Shell *TheShell;
-class Rva00222479ByteOneSetter { public: void enable(); };
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptPlayerTribute
 {

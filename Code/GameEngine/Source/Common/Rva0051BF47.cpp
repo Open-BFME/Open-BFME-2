@@ -10,11 +10,7 @@ struct GlobalA01E48
 };
 extern class Shell *TheShell;
 
-class Rva00222479ByteOneSetter
-{
-public:
-    void enable();
-};
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;

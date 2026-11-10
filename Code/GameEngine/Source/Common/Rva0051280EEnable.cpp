@@ -3,11 +3,7 @@
 extern void *g_obj12F495C;
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 void Rva0051280EEnable()
 {
 	if (g_obj12F495C == 0)

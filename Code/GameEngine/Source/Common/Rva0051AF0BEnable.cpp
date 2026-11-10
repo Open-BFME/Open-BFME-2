@@ -14,7 +14,7 @@ class AptQuitMenu; extern AptQuitMenu *TheAptQuitMenu;
 struct GlobalA01E48 { char pad[0x54]; unsigned char flag; };
 class Shell;
 extern Shell *TheShell;
-class Rva00222479ByteOneSetter { public: void enable(); };
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva0051AF0BEnable(int val)
 {

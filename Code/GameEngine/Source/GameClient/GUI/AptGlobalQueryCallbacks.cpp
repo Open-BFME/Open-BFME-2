@@ -31,11 +31,7 @@ extern unsigned char g_Va00E0302C;
 
 // The Apt window manager's rowed byte setter 0x00222479 (closing the
 // current window).
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../Include/Common/Rva00222479ByteOneSetter.h"
 
 class Rva00222A8BTarget;
 class Rva00222A8BTarget;

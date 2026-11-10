@@ -7,11 +7,7 @@ struct Rva00517048;
 extern struct Rva00517048 *g_Va00A04904;
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../Include/Common/Rva00222479ByteOneSetter.h"
 
 void Rva00516E92Enable()
 {
