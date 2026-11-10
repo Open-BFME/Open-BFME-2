@@ -50,7 +50,7 @@ enum Relationship
 
 extern PlayerList *ThePlayerList;
 
-class Rva002AA22AByteField { public: unsigned char get()const; };
+#include "../../../../../Include/Common/Rva002AA22AByteField.h"
 
 struct AIEnemyPlayerPrefix { char unknown00[0x54]; int index; };
 

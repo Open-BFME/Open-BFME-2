@@ -39,7 +39,7 @@ public:
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeTab1026;
-class Rva002AA22AByteField { public: unsigned char get() const; };	// 0x002AA22A
+#include "../../../Include/Common/Rva002AA22AByteField.h"
 
 class Player {
 public:

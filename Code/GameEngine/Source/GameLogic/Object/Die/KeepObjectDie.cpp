@@ -32,11 +32,7 @@ enum ModelConditionFlagType
 {
 	MCF_335 = 0x14F
 };
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002AA22AByteField.h"
 class Player : public Rva002AA22AByteField
 {
 };

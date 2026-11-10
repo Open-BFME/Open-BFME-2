@@ -138,11 +138,7 @@ static inline void setPlayerRelationship(Player *player, const Player *that, Rel
 	((Rva002ADF9C *)player)->rva002ADF9C(that, (Object *)r);
 }
 
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002AA22AByteField.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 

@@ -82,11 +82,7 @@ struct ObjectPlus4
 	char m_pad00[0x117];
 	unsigned char m_117;
 };
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002AA22AByteField.h"
 extern GameLogic *TheGameLogic;
 enum NameKeyType;
 struct Rva004CC795ModuleData

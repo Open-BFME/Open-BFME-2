@@ -176,11 +176,7 @@ public:
 	bool fromGate(Rva002A9BF2 *key);
 };
 class SpecialPowerModuleInterface;
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002AA22AByteField.h"
 struct Rva002A8AB1Record;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 //

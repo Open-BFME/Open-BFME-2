@@ -111,7 +111,7 @@ public:
 };
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class Rva002AA22AByteField { public: unsigned char get() const; };
+#include "../../../../Include/Common/Rva002AA22AByteField.h"
 
 // Target C4AA90 DieModuleInterface slot0 is onDie, as the ZH interface
 // specifies. Native this is primary+10: data -C, owner -8 and recorded

@@ -13,11 +13,7 @@
 
 class Team;
 
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002AA22AByteField.h"
 
 #include "../../../Include/Common/Player.h"
 
