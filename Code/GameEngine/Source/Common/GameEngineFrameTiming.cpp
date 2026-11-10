@@ -25,11 +25,7 @@ extern Rva009EB960 *Rva0134FAA0;
 #include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Rva00203B08
-{
-public:
-	bool rva00203B08();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203B08.h"
 
 class ClientFrameSubsystem
 {

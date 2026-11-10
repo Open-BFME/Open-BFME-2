@@ -978,7 +978,7 @@ private:
 #include "../../Include/GameClient/View.h"
 
 class ScriptEngine;
-class Rva00203B08 { public: bool rva0020424FF(); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203B08.h"
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 
 // ZH PlayerList::getLocalPlayer and Player::getPlayerIndex: the local

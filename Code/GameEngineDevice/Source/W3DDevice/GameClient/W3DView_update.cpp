@@ -57,7 +57,7 @@ class Object;
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 class ScriptEngine;
-class Rva00203B08 {public:bool rva0020424FF();};
+#include "../../../Include/W3DDevice/GameClient/Rva00203B08.h"
 #include "../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 extern ScriptEngine *TheScriptEngine;
 class Rva0030E7D0

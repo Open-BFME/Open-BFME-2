@@ -520,7 +520,7 @@ class Rva0081D520Owner { public: void broadcast(int, float, float, float, float)
 
 void bfmeGoKA();
 
-class Rva00203B08 { public: bool rva0020424FF(); };
+#include "../../../Include/W3DDevice/GameClient/Rva00203B08.h"
 
 #include "../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 
