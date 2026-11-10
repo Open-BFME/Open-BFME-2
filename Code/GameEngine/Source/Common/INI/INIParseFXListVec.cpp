@@ -14,9 +14,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
+// Suppress this TU's non-retail copy of ?_M_clear@?$vector@PBVFXList@@V?$allocator@PBVFXList@@@_STL@@@_STL@@IAEXXZ:
+// SlowDeathBehavior.cpp owns the kept copy (and _STLP_alloc_proxy::deallocate below is unused once _M_clear is external).
+class FXList;
+namespace _STL { template <> void vector<const FXList *, allocator<const FXList *> >::_M_clear(); }
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char*,const char*);
 #include "../../../Include/Common/INI/INI.h"
-class FXList;
 #include "../../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 namespace _STL {template<> inline __declspec(noinline) void vector<const FXList*>::push_back(const FXList*const& v){
