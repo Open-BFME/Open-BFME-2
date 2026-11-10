@@ -438,7 +438,41 @@ def ledger_respellings():
                     hidden.add(alias)
         STATE["ledger_respell"] = {k: frozenset(v) for k, v in out.items()}
         STATE["ledger_hidden"] = frozenset(hidden)
+        # Where each address-named owner lives, so a refusal can name the row whose
+        # `names` column a rebind needs. Owners only; aliases are what gets added.
+        STATE["ledger_owner_at"] = {_ledger_ident(owner_name): address
+                                    for address, (owner_name, _) in at.items()
+                                    if ADDR_GLOBAL.fullmatch(_ledger_ident(owner_name))}
     return STATE["ledger_respell"]
+
+
+def address_global_route(key):
+    """Why an `address_global` key grew with no occurrence to trade, when rule 10 is the route.
+
+    Rebinding a consumer from a wrong or undefined spelling to the address's ledger
+    owner adds no global and usually lowers the file's count, but the register keys
+    address_global per NAME, so the owner's key rises. Rule 10 trades the old
+    spelling for it -- and only ever a spelling `reverse/data_ledger.csv` records in
+    the `names` column at that address, which is empty for most rows. Nine open
+    hatch_counters false-reject records are a worker meeting "N occurrence key(s)
+    grew" with no idea that the trade exists or what feeds it.
+
+    Returns the route, or None when the token is not an address-named ledger owner
+    or rule 10 already has aliases for it (a different refusal).
+    """
+    hatch, _path, token = key
+    if hatch != "address_global" or not ADDR_GLOBAL.fullmatch(token or ""):
+        return None
+    if ledger_respellings().get(token):
+        return None                       # rule 10 has supply; this grew for another reason
+    address = (STATE.get("ledger_owner_at") or {}).get(token)
+    if address is None:
+        return None                       # not a ledger owner: nothing to respell from
+    return (f"{token} owns 0x{address:08X} in {DATA_LEDGER}, but that row's `names` "
+            "column records no other spelling, so rule 10 has no occurrence to trade "
+            "for the rebind. Record the spelling the consumer used there FIRST, in its "
+            "own commit -- the grant is read from HEAD, so a commit cannot widen its "
+            "own -- then rebind. Do not widen ADDR_GLOBAL or raise the baseline.")
 
 
 def _spells_address(alias, address):
@@ -820,6 +854,10 @@ def _check_staged(hard):
                               % (unit[0], a - g - inherited, unit[1], what, g, inherited))
             else:
                 errors.append(msg)
+        # Rule 10's route, once per token, for the same reason as in update(): the
+        # bare count tells a worker nothing about the trade that would admit a rebind.
+        for route in sorted({address_global_route(k) for u in over for k in over[u][2]} - {None}):
+            errors.append("-> " + route)
     # credited repair: a hatch whose register total this commit lowers (a move or a respelling
     # lowers one line and raises another, and is no credit)
     t0, t1 = totals(b0), totals(b1)
@@ -938,6 +976,8 @@ def update(allow_paths=(), reason=None):
     if refused:
         for k in refused[:40]:
             print("  %s +%d in %s: %s" % (k[0], new[k] - old.get(k, 0), k[1], k[2]), file=sys.stderr)
+        for route in sorted({address_global_route(k) for k in refused} - {None}):
+            print("  -> %s" % route, file=sys.stderr)
         sys.exit("hatch_counters: %d occurrence key(s) grew; remove them, or admit them with "
                  "--allow PATH --reason TEXT" % len(refused))
     allow = {}

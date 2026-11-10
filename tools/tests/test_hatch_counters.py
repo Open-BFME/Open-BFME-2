@@ -1030,3 +1030,73 @@ def test_ledger_ident_c_name():
     assert hc._ledger_ident("__rg_country") == "__rg_country"
     assert hc._ledger_ident("plain_name") == "plain_name"
 
+
+
+# ---------------------------------------------------------------------------
+# Nine of the eleven open hatch_counters false-reject records are one shape: a
+# consumer rebound from a wrong or undefined spelling to the address's ledger
+# owner, which lowers the file's count but raises the owner's per-name key. Rule
+# 10 is the trade that admits it, and it only ever spends a spelling the ledger
+# records in `names` at that address -- empty for 33,157 of 34,425 rows. The
+# refusal printed a bare count, so the records propose widening ADDR_GLOBAL or
+# raising the baseline instead.
+
+BARE_LEDGER = ("address,size,section,kind,name,source,status,names,defs,refs\n"
+               "0x00A063D4,4,.data,global,?g_Va00E063D4@@3VAsciiString@@A,Code/x.cpp,owned,,1,3\n")
+
+
+@pytest.fixture
+def bare_owner(monkeypatch):
+    """A ledger row whose `names` column is empty: an owner with no alias to trade."""
+    blobs = {"HEAD:" + hc.DATA_LEDGER: BARE_LEDGER, "HEAD:" + hc.DATA_ROWS: ""}
+    monkeypatch.setattr(hc, "read_blobs", lambda specs: {s: blobs.get(s) for s in specs})
+    monkeypatch.setitem(hc.STATE, "ledger_respell", None)
+    monkeypatch.setitem(hc.STATE, "ledger_owner_at", None)
+    return blobs
+
+
+def test_the_route_names_the_ledger_row_whose_names_column_is_empty(bare_owner):
+    route = hc.address_global_route(("address_global", "Code/c.cpp", "g_Va00E063D4"))
+    assert route and "0x00A063D4" in route and hc.DATA_LEDGER in route
+    assert "`names` column records no other spelling" in route
+    # the two ways the records wanted to go instead
+    assert "Do not widen ADDR_GLOBAL or raise the baseline." in route
+    # and that the grant cannot come from this commit
+    assert "read from HEAD" in route
+
+
+def test_no_route_once_rule_10_already_has_an_alias(monkeypatch):
+    """A key that grew with supply available grew for some other reason; saying
+    "record the alias" would send the worker to add one that is already there."""
+    monkeypatch.setitem(hc.STATE, "ledger_respell",
+                        {"g_Va0130A588": frozenset({"g_Va00E09FA4"})})
+    monkeypatch.setitem(hc.STATE, "ledger_owner_at", {"g_Va0130A588": 0x00A09FA4})
+    assert hc.address_global_route(("address_global", "Code/c.cpp", "g_Va0130A588")) is None
+
+
+def test_no_route_for_another_hatch_or_a_name_no_ledger_row_owns(bare_owner):
+    assert hc.address_global_route(("alternatename", "Code/c.cpp", "g_Va00E063D4")) is None
+    assert hc.address_global_route(("address_global", "Code/c.cpp", "g_Va00DEAD00")) is None
+    # not an address-named global at all
+    assert hc.address_global_route(("address_global", "Code/c.cpp", "TheThing")) is None
+
+
+def test_a_c_linkage_owner_is_an_owner(monkeypatch):
+    """One record blames _ledger_ident for keeping a C name's leading underscore.
+    It does not, and the owner resolves -- the empty `names` column is the real
+    blocker, so the route has to be what the refusal offers."""
+    ledger = ("address,size,section,kind,name,source,status,names,defs,refs\n"
+              "0x008E1A60,256,.rdata,global,_g_Rva0112A210Fold,Code/y.cpp,owned,,1,4\n")
+    blobs = {"HEAD:" + hc.DATA_LEDGER: ledger, "HEAD:" + hc.DATA_ROWS: ""}
+    monkeypatch.setattr(hc, "read_blobs", lambda specs: {s: blobs.get(s) for s in specs})
+    monkeypatch.setitem(hc.STATE, "ledger_respell", None)
+    monkeypatch.setitem(hc.STATE, "ledger_owner_at", None)
+    assert hc._ledger_ident("_g_Rva0112A210Fold") == "g_Rva0112A210Fold"
+    route = hc.address_global_route(("address_global", "Code/c.cpp", "g_Rva0112A210Fold"))
+    assert route and "0x008E1A60" in route
+
+
+def test_the_route_does_not_admit_anything(bare_owner):
+    """Message only: the same key still grows and is still refused."""
+    k = ("address_global", "Code/c.cpp", "g_Va00E063D4")
+    assert hc.register_growth({}, {k: 2}) == [k]
