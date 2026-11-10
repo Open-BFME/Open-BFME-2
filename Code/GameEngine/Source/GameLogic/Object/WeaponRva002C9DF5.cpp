@@ -38,12 +38,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Rva000CBA20Point
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../Include/Common/Rva000CBA20Point.h"
 
 int __cdecl makeAssistanceRequest(Object *requestOf, void *userData);
 

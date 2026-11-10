@@ -76,7 +76,7 @@ void Rva0020EE29Inner::rva0020F5B3()
 // the owner and slot meanings remain address-derived views.
 class Rva0020EB41 {public: void rva0020EB41();};
 class Rva002104C7 {public: bool ActivateRegion(void*,void*);};
-class Rva003EF008 {public: void rva003EF008();};
+#include "../../../../Include/Common/Rva003EF008.h"
 struct Rva0052C161RegionManager: Rva0020EB41 {
  char unknown00[8]; Rva0020EE29Inner *campaign;
 };

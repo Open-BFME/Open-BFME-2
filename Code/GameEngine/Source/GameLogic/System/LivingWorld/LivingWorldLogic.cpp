@@ -2655,7 +2655,7 @@ void LivingWorldLogic::spawnCity(SpawnArmy *city)
  reinterpret_cast<_STL::vector<LivingWorldArmy *> *>(m_pad124)->push_back(army);
 }
 
-class Rva002B2405 {public:int rva002B2405();};
+#include "../../../../Include/Common/Rva002B2405.h"
 class Rva002B4650 {public:int GetTimeRemainingForCurrentPhaseInFrames();};
 class Rva0020E72A {public:bool rva0020E72A(void *);};
 class Rva002B4C09 {public:bool rva002B3621();void rva002B6875();};

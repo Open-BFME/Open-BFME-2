@@ -68,12 +68,7 @@ public:
 	ContainView *m_contain250;
 };
 
-class Rva000CBA20Point
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../../../Include/Common/Rva000CBA20Point.h"
 
 #include "../../../../Common/RTS/XYDistanceCallView.h"
 #include <string.h>
