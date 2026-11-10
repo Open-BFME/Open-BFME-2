@@ -343,7 +343,6 @@ unsigned char g_00DFE168;
 class Team;
 typedef Team *(Team::*Rva00203E47Next)() const;
 #define _STLP_NO_EXCEPTIONS 1
-#pragma comment(linker, "/alternatename:_vtbl_00BD3B54=??_7FunctorNotSet@@6B@")
 #pragma inline_depth(0)
 #pragma inline_depth()
 #pragma comment(linker, "/alternatename:?holderSlot0@Rva0020453CHolderBase@@UAEXXZ=?rva00204316@Rva00204316@@QAEXPBDABVParticleSystemTemplate@FXParticleSystem@@@Z")

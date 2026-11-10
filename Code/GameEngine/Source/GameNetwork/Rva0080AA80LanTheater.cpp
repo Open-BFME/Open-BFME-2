@@ -121,7 +121,6 @@ void Rva00803620Sink::rva0080AA80( Rva00809500Entry *entry )
 
 // Existing thiscall teardown pin at RVA 0x655780 names the matched
 // seven-byte base-vptr reinstall worker; no receiver adjustment is needed.
-#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
 
 // ?rva0066F750@Rva0066F750@@QAEXPAURva00809500Entry@@@Z @0x0066F750 8B member
 // forwarder to rowed ?rva0080AA80@Rva00803620Sink@@QAEXPAURva00809500Entry@@@Z

@@ -28,4 +28,3 @@ int bfmeAnchorRva00528B37Equal(const Rva00528B37Key *a, const Rva00528B37Key *b)
 
 // ?g_Va00BC2424@@3MA: matched references place it at VA 0xbc2424; also referenced as _INV.
 float g_Va00BC2424 = 0.1f;
-#pragma comment(linker, "/alternatename:_INV=?g_Va00BC2424@@3MA")

@@ -206,8 +206,6 @@ enum UpdateSleepTime
 #include "../../../../Include/GameClient/Drawable.h"
 enum ObjectID;
 #define BFME_SNAPSHOT_NAME_SLOT
-#pragma comment(linker, "/alternatename:?f3@BroadcastStealthUpdate_B3@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?getBody@BehaviorModuleInterface@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A3541ByteChase32Field, 0x1C, 0x13C)
 

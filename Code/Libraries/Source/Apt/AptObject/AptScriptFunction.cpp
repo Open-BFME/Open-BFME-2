@@ -38,9 +38,7 @@ struct AptInitParmsT { unsigned char unaccessed[48]; int iRegArraySize; };
 #pragma comment(linker, "/alternatename:?CreatingNestedFunction@AptScriptFunctionBase@@MAEXXZ=?rva00709A00@Rva8D0D80Result@@QAEXXZ")
 #pragma comment(linker, "/alternatename:??1AptScriptFunction1@@MAE@XZ=??1Rva00709B80@@UAE@XZ")
 #pragma intrinsic(__debugbreak)
-#pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
 #pragma intrinsic(__debugbreak)
-#pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
 #define APT_SCRIPT_FUNCTION_CHECK_AT(c,s,f,l) if(!(c)) { g_bfmeAptAssertAtE17734(s,f,l); if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); }
 #pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBE_N_N@Z")

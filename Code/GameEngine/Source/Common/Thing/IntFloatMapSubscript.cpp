@@ -55,7 +55,6 @@ typedef _STL::_Rb_tree<int, _STL::pair<int const, Rva00358FEERecord>, _STL::_Sel
 namespace _STL {
 template <> void _Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::erase(_Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::iterator);
 }
-#pragma comment(linker, "/alternatename:?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@2@@Z=?rva00358DC2@Rva00358DC2@@QAEXPAURva00358DC2Node@@@Z")
 
 struct Rva003591F4Arg
 {

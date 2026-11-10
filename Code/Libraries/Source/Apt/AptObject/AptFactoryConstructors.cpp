@@ -58,7 +58,6 @@ public: static void operator delete(void *p,unsigned int n){g_pChainBlockAllocat
 protected: virtual ~AptError();
 };
 
-#pragma comment(linker, "/alternatename:??0AptValue@@IAE@W4AptVirtualFunctionTable_Indices@@@Z=??0BfmeAptValue006DCD20@@QAE@H@Z")
 typedef char SoundSize[sizeof(AptSound)==44?1:-1];
 typedef char StringObjectSize[sizeof(AptStringObject)==36?1:-1];
 typedef char ErrorSize[sizeof(AptError)==40?1:-1];
@@ -155,9 +154,7 @@ void Rva006CC110Log(int,const char *,...);
 extern const char g_00CEC838[],g_00BBFDDC[],g_00CEC710[];
 
 // Existing provider identities retained; native call operands establish ABI.
-#pragma comment(linker, "/alternatename:??0AptNativeFunction@@QAE@P6APAVAptValue@@PAV1@H@Z@Z=??0Rva006D6500@@QAE@H@Z")
 #pragma comment(linker, "/alternatename:?callback006F3670@@YAPAVAptValue@@PAV1@H@Z=?Rva006F3670@@YAPAVBfmeAptValue006DCD20@@PAV1@@Z")
-#pragma comment(linker, "/alternatename:?rva006D36C0@EAStringC@@QBEHPBV1@@Z=?compare008B4260@Rva008B4260StringRef@@QBEHABU1@@Z")
 typedef char FactoryNativeFunctionSize[sizeof(AptNativeFunction)==36?1:-1];
 
 // Sound donor e97b38e0a6efef64 attachSound/stop semantics; native body proves
@@ -282,7 +279,6 @@ AptValue *callback006F29C0(AptValue *context,int count) {
 }
 
 // Target call operands and original MAP bind canonical hash lookup to existing provider.
-#pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
 
 // Setter semantics follow the later AptCIH source; native indices and layout
 // are independently established above. Preserve the older shared AS flag

@@ -40,7 +40,6 @@
         if (g_bfmeAptBreakOnAssertAtDDC01C)                                    \
             __debugbreak();                                                    \
     }
-#pragma comment(linker, "/alternatename:?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z=?Push@AptBasePtrStack@@QAEXPAVBfmeAptValue006DCD20@@@Z")
 #pragma intrinsic(strlen)
 #pragma intrinsic(strcmp)
 #pragma intrinsic(fabs)
@@ -55,15 +54,10 @@
 #pragma intrinsic(strcmp)
 #pragma intrinsic(fabs)
 #pragma intrinsic(__debugbreak)
-#pragma comment(linker, "/alternatename:?c_string@AptValue@@QBEPAVAptString@@XZ=?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ")
-#pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
-#pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBE_N_N@Z")
-#pragma comment(linker, "/alternatename:?c_cih@AptValue@@QAEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 #pragma intrinsic(__debugbreak)
 #pragma intrinsic(strlen)
 #pragma intrinsic(strcpy)
 #pragma intrinsic(strcpy)
-#pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
 #pragma intrinsic(__debugbreak)
 #define CHECK_AT(cond,text,line) if (!(cond)) { g_bfmeAptAssertAtE17734(text,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptDebugStack.h",line); if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); }
 #pragma intrinsic(_ReadWriteBarrier)
@@ -79,19 +73,12 @@
 #define APT_CIH_H "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 #define APT_INTERP_CPP "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp"
 #pragma intrinsic(__debugbreak)
-#pragma comment(linker, "/alternatename:?c_string@AptValue@@QBEPAVAptString@@XZ=?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ")
-#pragma comment(linker, "/alternatename:?isUndefined@AptValue@@QBE_NXZ=?isUndefined@BfmeAptValue006DCD20@@QBE_NXZ")
 #pragma comment(linker, "/alternatename:?rva006FBED0@AptScriptFunctionBase@@QAEXXZ=?rva006FBED0@Rva8D0D80Result@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?bfmeFind1024@BfmeTab1024@@QAEHH@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
 #pragma intrinsic(fmod)
 #pragma intrinsic(strcmp)
 #pragma intrinsic(fabs)
 #pragma intrinsic(__debugbreak)
-#pragma comment(linker, "/alternatename:?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z=?Push@AptBasePtrStack@@QAEXPAVBfmeAptValue006DCD20@@@Z")
-#pragma comment(linker, "/alternatename:?c_string@AptValue@@QBEPAVAptString@@XZ=?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ")
-#pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
-#pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBE_N_N@Z")
-#pragma comment(linker, "/alternatename:?c_cih@AptValue@@QAEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 #pragma intrinsic(__debugbreak)
 #pragma intrinsic(strlen)
 #pragma intrinsic(strcpy)

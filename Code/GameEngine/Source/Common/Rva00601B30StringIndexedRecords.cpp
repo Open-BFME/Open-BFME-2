@@ -19,7 +19,6 @@
 inline bool operator==(const AsciiString& a,const char* b){return reinterpret_cast<const StringBase<char>*>(&a)->compare(b)==0;}
 struct Rva00601A3AElement {unsigned int word0,word4;int stringIndex;};
 void Rva00030830FreeAllocation(void*);
-#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 namespace _STL {
 template<> vector<AsciiString>::~vector();
 // Native601AE9 frees record storage through complete17B30830 game pool.

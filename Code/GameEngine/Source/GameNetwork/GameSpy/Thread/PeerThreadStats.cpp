@@ -30,7 +30,6 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 { allocator<char>::deallocate(__p, __n); }
 }
 #undef free
-#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 namespace _STL {
 template <> string &string::append(const char *);
 template <> unsigned int &map<string, unsigned int>::operator[](const string &);

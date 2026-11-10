@@ -13,7 +13,6 @@ enum UpdateSleepTime
 };
 enum NameKeyType { NAMEKEY_INVALID=-1 };
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 typedef unsigned int UnsignedInt;
 class Snapshot;
 class AsciiString;

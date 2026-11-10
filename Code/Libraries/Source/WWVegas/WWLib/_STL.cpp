@@ -60,20 +60,6 @@ namespace _STL {
 template <> void basic_ios<char, char_traits<char> >::init(
     basic_streambuf<char, char_traits<char> > *);
 }
-#pragma comment(linker, "/alternatename:?do_curr_symbol@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_positive_sign@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_negative_sign@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_grouping@?$moneypunct@D$0A@@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_curr_symbol@?$moneypunct@D$0A@@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_positive_sign@?$moneypunct@D$0A@@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_negative_sign@?$moneypunct@D$0A@@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_grouping@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_positive_sign@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ=?do_curr_symbol@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_negative_sign@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ=?do_curr_symbol@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_grouping@?$moneypunct@G$0A@@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ=?do_grouping@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_curr_symbol@?$moneypunct@G$0A@@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ=?do_curr_symbol@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_positive_sign@?$moneypunct@G$0A@@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ=?do_curr_symbol@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ")
-#pragma comment(linker, "/alternatename:?do_negative_sign@?$moneypunct@G$0A@@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ=?do_curr_symbol@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ")
 // Public malloc release uses retail's unoptimized import entry; callers keep the header inline body.
 namespace _STL {
 template <> __forceinline void __malloc_alloc<0>::deallocate(void *p, size_t) { free((char *)p); }

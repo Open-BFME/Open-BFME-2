@@ -23,7 +23,6 @@
 // FollowTarget at +0x34). The rowed factory at 0x255601 news 0x38.
 
 extern "C" const void *const vtbl_00BF3740[];  // ??_7Rva0025558E@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BF3740=??_7Rva0025558E@@6B@")
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 

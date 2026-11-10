@@ -129,4 +129,3 @@ int g_guardTargetTypeThrowInfo = 0;
 // Units that declare _CxxThrowException(void *, void *) as a C++ overload
 // call ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
 // __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
-#pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")

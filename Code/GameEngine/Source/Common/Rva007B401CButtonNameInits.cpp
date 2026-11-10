@@ -66,5 +66,4 @@ void __cdecl Rva007B401CButtonNameInits::rva007B4081()
 // what the unit's matched code references or installs: the rowed function of
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:??0Rva00221635@@QAE@ABVAsciiString@@@Z=??0Rva00221635@@QAE@H@Z")
 #pragma comment(linker, "/alternatename:?Rva007B401CButton_pure@Rva007B401CButton@@UAEXXZ=?rva005742A1@Rva005742A1@@UAEXPAVINI@@@Z")

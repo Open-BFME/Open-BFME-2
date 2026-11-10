@@ -63,7 +63,6 @@ public:
 	bool m_letSlaveLive; // +0x11
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 //
 // ??0SlaveWatcherBehaviorModuleData@@QAE@XZ, retail 0x004846C7,
 // 22 bytes. Frameless store-only ctor over table 0xC4A208

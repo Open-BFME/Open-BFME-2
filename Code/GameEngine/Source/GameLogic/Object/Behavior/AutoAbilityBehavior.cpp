@@ -24,7 +24,6 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 class Object;
 // BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 #define BFME_SNAPSHOT_NAME_SLOT

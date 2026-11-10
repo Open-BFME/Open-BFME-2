@@ -31,6 +31,4 @@ Rva005D00A6::Rva005D00A6() : Rva00221635(AsciiString("BattleResolver")), m_8(100
 // what the unit's matched code references or installs: the rowed function of
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:??0Rva00221635@@QAE@ABVAsciiString@@@Z=??0Rva00221635@@QAE@H@Z")
-#pragma comment(linker, "/alternatename:?f0@Rva00221635@@UAEXXZ=??_GRva005E9F7B@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?g0@Rva005D00A6@@UAEXXZ=?rva005CFC12@Rva005D00A6@@UAEXPAVINI@@@Z")

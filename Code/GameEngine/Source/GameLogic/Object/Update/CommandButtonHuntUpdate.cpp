@@ -23,7 +23,6 @@ class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #pragma comment(linker, "/alternatename:?TheEmptyString@AsciiString@@2V1@A=?TheEmptyString@AsciiString@@2V1@B")
 #pragma comment(linker, "/alternatename:?slot@PB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?slot@PB_Iface2@@UAEXXZ=?update@Rva004958AE@@QAEHXZ")
 
 typedef bool Bool;
 

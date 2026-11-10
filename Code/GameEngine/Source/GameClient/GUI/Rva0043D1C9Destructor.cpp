@@ -201,7 +201,6 @@ AptSpellStore::~AptSpellStore() {
  }
  g_Va00A03314=0;
 }
-#pragma comment(linker,"/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 
 
 #pragma comment(linker,"/alternatename:?erase@?$vector@PAURva0043D1C9Entry@@V?$allocator@PAURva0043D1C9Entry@@@_STL@@@_STL@@QAEPAPAURva0043D1C9Entry@@PAPAU3@0@Z=?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z")

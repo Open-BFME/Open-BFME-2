@@ -523,7 +523,6 @@ static const char *s_externNames[] = { "ShowSaveReplay", "ShowCampaign", "heroVe
 
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
-#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
 
 // Retail 0x0051DA24, 1049 bytes: BFME 1's 0x005778E0 on BFME 2's armies.
 // Each living-world army's persistent units with a known template become

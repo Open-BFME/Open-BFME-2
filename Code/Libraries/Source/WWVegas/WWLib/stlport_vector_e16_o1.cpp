@@ -87,8 +87,6 @@ template BfmeE16 *_STL::__copy<const BfmeE16 *, BfmeE16 *, int>(
 #pragma comment(linker, "/alternatename:??0?$_Vector_base@VRva004BA1C8@@V?$allocator@VRva004BA1C8@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva004BA1C8@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
 #pragma comment(linker, "/alternatename:??0?$_Vector_base@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00297360Element@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
 #pragma comment(linker, "/alternatename:??0?$_Vector_base@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAE@ABV?$allocator@UQuantityModifier@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
-#pragma comment(linker, "/alternatename:??0?$_Vector_base@PAUBfmeExpLevelDraw@@V?$allocator@PAUBfmeExpLevelDraw@@@_STL@@@_STL@@QAE@ABV?$allocator@PAUBfmeExpLevelDraw@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
-#pragma comment(linker, "/alternatename:??0?$_Vector_base@PAUBfmeMorphCondition@@V?$allocator@PAUBfmeMorphCondition@@@_STL@@@_STL@@QAE@ABV?$allocator@PAUBfmeMorphCondition@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
 #pragma comment(linker, "/alternatename:??0AICommandCoordVector@@QAE@ABUAICommandCoordAlloc@@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
 
 // Existing uint consumers call the same empty-base fold at 00211E58. Emit

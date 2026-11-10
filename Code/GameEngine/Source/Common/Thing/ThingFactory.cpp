@@ -358,7 +358,6 @@ void reportMissingNameInTemplate( AsciiString templateName )
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?dup_002ca82c@@YAXXZ=??$_Construct@VArmorTemplateSet@@V1@@_STL@@YAXPAVArmorTemplateSet@@ABV1@@Z")
 
 // Retain this unit's existing header-inline row after the unfinished
 // freeDatabase caller moves to its verified BFME2 unit. This pointer is

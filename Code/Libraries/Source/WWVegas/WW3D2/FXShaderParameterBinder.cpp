@@ -30,7 +30,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma inline_depth()
 #pragma inline_depth(0)
 #pragma inline_depth()
-#pragma comment(linker, "/alternatename:??0?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@ABV01@@Z=??0?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAE@ABV01@@Z")
 #pragma comment(linker, "/alternatename:?get@Rva001514B2@@QAEPAXXZ=?rva0015148D@Rva0015148D@@QAEPAXXZ")
 #define strchr _stlport_hides_strchr
 #define strrchr _stlport_hides_strrchr

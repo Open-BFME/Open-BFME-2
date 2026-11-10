@@ -28,7 +28,6 @@ namespace _STL {
 template<> inline void allocator<void *>::deallocate(void **p, unsigned int) const
 { if (p) ::Rva00030830FreeAllocation(p); }
 }
-#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 #include "ascii_string.h"
 #pragma comment(linker, "/alternatename:?rvaClear@Rva001E7087@@AAEXXZ=?rva001E7E25@Rva001E7E25@@QAEXXZ")
 #include "../../../../Libraries/Include/Lib/Region3D.h"

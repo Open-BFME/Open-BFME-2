@@ -2,7 +2,6 @@
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.
 // Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:??1Module@@QAE@XZ=??1Module@@MAE@XZ")
 
 // stlport
 // Ported verbatim from the Generals Zero Hour reference

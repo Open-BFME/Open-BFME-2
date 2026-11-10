@@ -193,10 +193,6 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-#pragma comment(linker, "/alternatename:?slot00@SpawnBehaviorFourthBase@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?slot08@SpawnBehaviorFourthBase@@UAEXXZ=?wouldUpgrade@UpgradeMux@@UBE_NABV?$BitFlags@$0IA@@@@Z")
-#pragma comment(linker, "/alternatename:?setReplenishing@SpawnBehaviorFourthBase@@UAEX_N@Z=?resetUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z")
-#pragma comment(linker, "/alternatename:?slot04@SpawnBehaviorFourthBase@@UAEXXZ=?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z")
 
 extern PartitionManager *ThePartitionManager;
 

@@ -532,7 +532,6 @@ class ExperienceLevelSystem;
 ExperienceLevelSystem *TheExperienceLevelSystem = 0;
 #include <new>
 #pragma comment(linker, "/alternatename:?Rva00288A5CAssign@@YAPAVCameraMarker@@PAV1@00PAX@Z=?Rva00288A5CAssign@@YAXPAUCameraMarker@@00PAX@Z")
-#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)

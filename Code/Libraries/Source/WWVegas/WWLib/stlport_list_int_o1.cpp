@@ -52,11 +52,9 @@ template class _STL::list<int, _STL::allocator<int> >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??1Rva004EC395Member@@QAE@XZ=??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva0023DAA5List@@QAE@XZ=??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?clear@Rva0023DAA5List@@QAEXXZ=?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ")
 #pragma comment(linker, "/alternatename:??0?$_List_base@MV?$allocator@M@_STL@@@_STL@@QAE@ABV?$allocator@M@1@@Z=??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z")
-#pragma comment(linker, "/alternatename:??0?$_List_base@UFloodMember@@V?$allocator@UFloodMember@@@_STL@@@_STL@@QAE@ABV?$allocator@UFloodMember@@@1@@Z=??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z")
 
 // HeaderTemplateManager::newHeaderTemplate's push_front reaches the folded
 // list insert at 0x5925E2, which calls node creation out of line (0xB6447);

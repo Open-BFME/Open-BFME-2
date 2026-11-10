@@ -273,4 +273,3 @@ void StrategicHUD::ArmyUnitIconMovieClip::DoUpdate()
 // what the unit's matched code references or installs: the rowed function of
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:??1ArmyMemberIconMovieClip@StrategicHUD@@UAE@XZ=??1Rva0023863E@@QAE@XZ")

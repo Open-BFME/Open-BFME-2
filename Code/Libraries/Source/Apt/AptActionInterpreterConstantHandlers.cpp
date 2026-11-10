@@ -423,8 +423,6 @@ void AptActionInterpreter::_FunctionAptActionStringDictByteGetMember(AptActionIn
 
 // Source headers declare c_string() const; native callers select this exact
 // checked-string provider. The global shares the existing four-byte storage.
-#pragma comment(linker, "/alternatename:?c_string@AptValue@@QBEPAVAptString@@XZ=?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ")
-#pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
 
 void AptActionInterpreter::_FunctionAptActionPushStringGetVar(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
@@ -559,9 +557,7 @@ void AptActionInterpreter::_FunctionAptActionMultiply(AptActionInterpreter *cons
 // with the existing four-byte +8 dword getter; no container identity is inferred.
 #pragma comment(linker, "/alternatename:?isUndefined@AptValue@@QBE_NXZ=?isUndefined@BfmeAptValue006DCD20@@QBE_NXZ")
 #pragma comment(linker, "/alternatename:?isInteger@AptValue@@QBE_NXZ=?isInteger@BfmeAptValue006DCD20@@QBEHXZ")
-#pragma comment(linker, "/alternatename:?c_integer@AptValue@@QBEPAVAptInteger@@XZ=?checkedInteger@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 #pragma comment(linker, "/alternatename:?toFloat@AptValue@@QBEMXZ=?rva006DD460@BfmeAptValue006DCD20@@QAEMXZ")
-#pragma comment(linker, "/alternatename:?GetInt@AptInteger@@QBEHXZ=?Length@?$SimpleVecClass@K@@QBEHXZ")
 
 void AptActionInterpreter::_FunctionAptActionDivide(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
@@ -628,7 +624,6 @@ void AptActionInterpreter::_FunctionAptActionDecrement(AptActionInterpreter *con
     interpreter->stack.Push(result);
 }
 
-#pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
 
 void AptActionInterpreter::_FunctionAptActionEquals(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
@@ -1044,18 +1039,15 @@ void AptActionInterpreter::_FunctionAptActionSetMember(AptActionInterpreter *con
     if(g_releaseVectorAtE17710->GetNumValues()!=0 && interpreter->stack.count==0) g_releaseVectorAtE17710->ReleaseValues();
 }
 
-#pragma comment(linker, "/alternatename:?isArray@AptValue@@QBE_NXZ=?isArray@BfmeAptValue006DCD20@@QBEHXZ")
 
 #pragma comment(linker, "/alternatename:?isExtern@AptValue@@QBE_NXZ=?rva006DC300@BfmeAptValue006DCD20@@QBEHXZ")
 
 #pragma comment(linker, "/alternatename:?isObject@AptValue@@QBE_NXZ=?isObject@BfmeAptValue006DCD20@@QBEHXZ")
 
-#pragma comment(linker, "/alternatename:?c_array@AptValue@@QBEPAVAptArray@@XZ=?rva006DCFA0@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 
 
 #pragma comment(linker, "/alternatename:?PopAndPush@AptBasePtrStack@@QAEXHPAVAptValue@@@Z=?rva006FE880@AptBasePtrStack@@QAEXHPAVBfmeAptValue006DCD20@@@Z")
 
-#pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBE_N_N@Z")
 
 // The native UTF-8 substring overloads return EAStringC by value. Preserve
 // their temporary lifetimes and the clamped one-based ActionScript index.
@@ -1303,7 +1295,6 @@ void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *con
     cih->jumpToFrame(cihSpriteBaseInline(cih)->mnFrame-1);
     cihSpriteBaseInline(cih)->mbIsPlaying=0;
 }
-#pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")
 
 struct AptContextRootState { unsigned char prefix[0x54]; AptValue *head; };
 struct AptContextRootDisplay { AptContextRootState *state; };
@@ -1502,7 +1493,6 @@ void AptActionInterpreter::_FunctionAptActionCallFrame(AptActionInterpreter *con
 }
 #pragma comment(linker, "/alternatename:?IsCharacterInst@AptCIH@@QBE_NXZ=?isCharacterInst@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?runFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z=?rva0070F5C0@Rva0070F5C0@@QAEXPAVAptCIH@@H@Z")
-#pragma comment(linker, "/alternatename:?getContext@AptActionInterpreter@@CA_NPAVAptValue@@0PBVEAStringC@@PAPAV2@AAV3@@Z=?rva006FEC00@@YAEHHPAVEAStringC@@PAH0@Z")
 
 void AptActionInterpreter::_FunctionAptActionSetTarget2(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
@@ -1856,7 +1846,6 @@ void AptActionInterpreter::_FunctionAptActionExtends(AptActionInterpreter *const
     interpreter->stack.Pop(2);
 }
 
-#pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?isPrototype@AptValue@@QBE_NXZ=?isPrototype@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?c_prototype@AptValue@@QBEPAVAptPrototype@@XZ=?rva006DD120@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 
@@ -2181,7 +2170,6 @@ void AptActionInterpreter::_FunctionAptActionInstanceOf(AptActionInterpreter *co
 }
 
 
-#pragma comment(linker, "/alternatename:?c_cih@AptValue@@QBEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 
 // CallFunction: original dispatch slot and native 707910..707B77 (615 bytes).
 // Same-TU parser definitions above prove its output pointers do not escape,

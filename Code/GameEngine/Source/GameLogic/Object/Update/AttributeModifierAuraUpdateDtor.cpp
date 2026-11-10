@@ -101,7 +101,6 @@ AttributeModifierAuraUpdate::~AttributeModifierAuraUpdate()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?updateSlot@UpdateModuleInterface@@UAEXXZ=?update@AttributeModifierAuraUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?upgradeSlot@UpgradeMux@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
 
 // Slot 10 of AttributeModifierAuraUpdate's BehaviorModuleInterface table 0x00C49F78: retail 0x004543A9, the +0x20 UpgradeMux.

@@ -77,7 +77,6 @@ Rva003ADEBF::Rva003ADEBF(const Rva003ADEBF &that)
 }
 // _Rva003ADFDB_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.
 // _Rva003ADEBF_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003ADEBF_v8=?vftable_0112B89C@@3HA")
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

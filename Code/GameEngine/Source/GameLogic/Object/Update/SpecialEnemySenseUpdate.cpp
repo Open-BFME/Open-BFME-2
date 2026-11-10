@@ -152,8 +152,6 @@ protected:
 };
 class SESU_Iface1 { public: virtual void slot(); };
 class SESU_Iface2 { public: virtual void slot(); };
-#pragma comment(linker, "/alternatename:?slot@SESU_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?slot@SESU_Iface2@@UAEXXZ=?update@SpecialEnemySenseUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

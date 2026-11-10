@@ -136,7 +136,6 @@ class BehaviorModuleOther
 {
 	virtual void unused();
 };
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?unused@BehaviorModuleBase@@EAEXXZ=??_GAIGateUpdate@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?update@UpdateModule@@UAEXXZ=?update@AIGateUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 

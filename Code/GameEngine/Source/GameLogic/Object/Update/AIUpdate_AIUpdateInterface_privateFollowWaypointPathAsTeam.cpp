@@ -978,4 +978,3 @@ void AIUpdateInterface::privateFollowWaypointPathAsTeam( const Waypoint *way, Co
 // The retail call in this body reads 0x0026B403, an address the ledger already
 // carries as ?playMoveVoiceResponse@AIUpdateInterface@@IAEXPBUCoord3D@@@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
-#pragma comment(linker, "/alternatename:?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z=?playMoveVoiceResponse@AIUpdateInterface@@IAEXPBUCoord3D@@@Z")

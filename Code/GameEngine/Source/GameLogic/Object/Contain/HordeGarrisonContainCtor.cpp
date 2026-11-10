@@ -131,12 +131,10 @@ HordeGarrisonContain::HordeGarrisonContain(Thing *thing, const ModuleData *modul
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f0C@Iface0C@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f2C@Iface2C@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
@@ -144,7 +142,6 @@ HordeGarrisonContain::HordeGarrisonContain(Thing *thing, const ModuleData *modul
 #pragma comment(linker, "/alternatename:?f00@Iface00@@UAEXXZ=??_GHordeGarrisonContain@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?f10@Iface10@@UAEXXZ=?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f20@Iface20@@UAEXXZ=?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")
-#pragma comment(linker, "/alternatename:?f24@Iface24@@UAEXXZ=?rva004628D1@Rva004628D1@@UAEXPAVObject@@HH@Z")
 #pragma comment(linker, "/alternatename:?f28@Iface28@@UAEXXZ=?rva00479CF6@Rva00479CF6@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?f30@Iface30@@UAEXXZ=?isExitBusy@HordeGarrisonContain@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?f34@Iface34@@UAEXXZ=??1Region2D@@QAE@XZ")

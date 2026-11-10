@@ -37,4 +37,3 @@ Rva0055BCD2::Rva0055BCD2(const Rva0055BCD2 &that)
 	*(void **)((char *)this + 8) = (void *)&s_slot3E4first;
 }
 // _s_slot3E4first: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_s_slot3E4first=?vftable_0112B89C@@3HA")

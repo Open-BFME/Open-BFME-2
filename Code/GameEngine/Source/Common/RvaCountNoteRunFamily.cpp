@@ -14,7 +14,6 @@
 // Helper identities unproven (opaque pins); owner names address-derived.
 // One ledger row per member.
 
-#pragma comment(linker, "/alternatename:??1Rva0052B7B3Dtor@@QAE@XZ=?j_0052b7b3@@YAXXZ")
 #pragma comment(linker, "/alternatename:?note@Rva00056BFESub@@QAEXH@Z=?resize@?$hashtable@PAURva00051107AudioRequest@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@_STL@@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@4@@_STL@@QAEXI@Z")
 #pragma comment(linker, "/alternatename:?note@Rva0053F1ECSub@@QAEXH@Z=?resize@?$hashtable@U?$pair@$$CBH_N@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEXI@Z")
 #pragma comment(linker, "/alternatename:?run@Rva00054BC3Sub@@QAEXHH@Z=?insert_unique_noresize@?$hashtable@PAURva00051107AudioRequest@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@_STL@@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@4@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@PAURva00051107AudioRequest@@U?$_Nonconst_traits@PAURva00051107AudioRequest@@@_STL@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@3@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@3@@_STL@@_N@2@ABQAURva00051107AudioRequest@@@Z")
@@ -413,7 +412,6 @@ int Rva003EF3F7Owner::fwd(int resultAddress, int entryAddress)
 // Names this unit references that no unit defines under that spelling. Each is
 // bound to the row that owns the pinned retail address (same address, same
 // body); the pin keeps the name, the row supplies the definition.
-#pragma comment(linker, "/alternatename:??1Rva0052B7B3Dtor@@QAE@XZ=?j_0052b7b3@@YAXXZ")
 #pragma comment(linker, "/alternatename:?note@Rva00056BFESub@@QAEXH@Z=?resize@?$hashtable@PAURva00051107AudioRequest@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@_STL@@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@4@@_STL@@QAEXI@Z")
 #pragma comment(linker, "/alternatename:?note@Rva0053F1ECSub@@QAEXH@Z=?resize@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAEXI@Z")
 #pragma comment(linker, "/alternatename:?run@Rva00054BC3Sub@@QAEXHH@Z=?insert_unique_noresize@?$hashtable@PAURva00051107AudioRequest@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@_STL@@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@4@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@PAURva00051107AudioRequest@@U?$_Nonconst_traits@PAURva00051107AudioRequest@@@_STL@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051107AudioRequest@@@3@URva00050E1CEqualTo@@V?$allocator@PAURva00051107AudioRequest@@@3@@_STL@@_N@2@ABQAURva00051107AudioRequest@@@Z")

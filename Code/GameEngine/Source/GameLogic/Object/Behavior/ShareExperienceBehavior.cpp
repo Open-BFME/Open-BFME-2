@@ -135,8 +135,6 @@ class ShareExperienceBehaviorIface2
 public:
     virtual void slot();
 };
-#pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorIface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?slot@ShareExperienceBehaviorIface2@@UAEXXZ=?update@ShareExperienceBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

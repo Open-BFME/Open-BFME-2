@@ -11,8 +11,6 @@
 #define CASE(x) case (x): return #x;
 #undef CASE
 #endif // defined(_DEBUG) || defined(_INTERNAL)
-#pragma comment(linker, "/alternatename:__imp__htonl=__imp__htonl@4")
-#pragma comment(linker, "/alternatename:__imp__htons=__imp__htons@4")
 #define Matrix4x4 Matrix4
 #include "PreRTS.h"
 #include <winsock.h>

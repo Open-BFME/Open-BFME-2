@@ -226,4 +226,3 @@ bool StreamingArchiveFile::openFromArchive( File *archiveFile, const AsciiString
 
 	return true;
 }
-#pragma comment(linker, "/alternatename:?convertToRAMFile@File@@UAEPAV1@XZ=??0Coord2D@@QAE@XZ")

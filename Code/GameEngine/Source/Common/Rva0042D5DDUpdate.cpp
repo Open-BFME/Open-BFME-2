@@ -4,7 +4,6 @@
 // states 3..4 start _fadeIn and go to 2): Apt fade-state update via rowed Rva00516F21Invoke 0x00516F21 (SetState/_fadeIn) or rowed AptPlayer 0x002224FE on the manager at 0x00DFE4CC. Evidence: count at inner +8 selecting Invoke path (3-4) or setter path (0); strings verified; REL32s to rowed callees.
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-#pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 
 void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
 

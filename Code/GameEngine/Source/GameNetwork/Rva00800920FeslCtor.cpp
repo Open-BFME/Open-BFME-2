@@ -151,7 +151,6 @@ extern "C" int __cdecl _purecall(void);
 int vftable_0112B89C = (int)&_purecall;
 #pragma comment(linker, "/alternatename:_s_slot3E4first=?vftable_0112B89C@@3HA")
 #pragma comment(linker, "/alternatename:_Rva003ADEBF_v8=?vftable_0112B89C@@3HA")
-#pragma comment(linker, "/alternatename:_DefaultModuleTemplate6_vtbl4=?vftable_0112B89C@@3HA")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

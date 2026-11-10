@@ -2302,7 +2302,6 @@ public:
 #include "../../../Include/Common/Module.h"
 #include "../Rva00525119.h"
 #include "../../../Include/Common/BfmeAccessorMacros.h"
-#pragma comment(linker, "/alternatename:??0Rva00394173Member@@QAE@ABV0@@Z=??0?$list@PAURva00332106PointerTarget@@V?$allocator@PAURva00332106PointerTarget@@@_STL@@@_STL@@QAE@ABV01@@Z")
 #include "Common/Snapshot.h"
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free

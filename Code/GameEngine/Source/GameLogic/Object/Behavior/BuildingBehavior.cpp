@@ -145,8 +145,6 @@ public:
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 class BB_Iface1 { public: virtual void slot(); };
 class BB_Iface2 { public: virtual void slot(); };
-#pragma comment(linker, "/alternatename:?slot@BB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?slot@BB_Iface2@@UAEXXZ=?update@BuildingBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 
 extern GlobalData *TheWritableGlobalData;
 

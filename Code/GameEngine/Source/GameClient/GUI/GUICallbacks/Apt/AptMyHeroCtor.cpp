@@ -182,5 +182,3 @@ AptMyHero::AptMyHero(AptCreateAHero *holder)
 // Retail's CreateAHeroData vftable (0x00C38D88) holds the xfer 0x00408C11 in slot 3 and 0x004083FF
 // in slot 4; the rows at those addresses carry the CreateAHeroHero spelling. Bind this unit's
 // placeholders to them.
-#pragma comment(linker, "/alternatename:?DoXfer@CreateAHeroData@@UAEXAAVXfer@@@Z=?DoXfer@CreateAHeroHero@@QAEXAAVXfer@@@Z")
-#pragma comment(linker, "/alternatename:?Update@CreateAHeroData@@UAE_NH@Z=?Update@CreateAHeroHero@@QAE_NH@Z")

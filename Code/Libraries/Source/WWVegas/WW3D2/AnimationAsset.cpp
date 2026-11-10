@@ -50,7 +50,6 @@ public:
 	HAnimClass *m_animation; // +0x14
 };
 #include "../../../../GameEngineDevice/Source/W3DDevice/GameClient/BFME2ParticleTextureHandles.h"
-#pragma comment(linker, "/alternatename:?Rva0061F230_GetPrototype@@YA?AVHierarchyPrototypeRef@@PBD@Z=?Rva009EBCE0_GetPrototype@@YA?AVRva009EBCE0AssetReference@@PBD@Z")
 #pragma comment(linker, "/alternatename:?Get_HAnim@@YAPAVHAnimClass@@PBD@Z=?GetAnim@AnimationAsset@@SAPAVHAnimClass@@PBD@Z")
 
 //

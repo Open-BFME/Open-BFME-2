@@ -1487,4 +1487,3 @@ PartitionData *GhostObject::vslot10() const { return m_partitionData; }
 // (0x00C078F0) holds __purecall (0x0003B810) in slot 6, updateOrphanedObjects.
 #pragma comment(linker, "/alternatename:?slot00@W3DGhostObject@@UAEXXZ=?detach@Rva006BD6C0@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?slot04@W3DGhostObject@@UAEXXZ=?reset@Rva0006341B@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?updateOrphanedObjects@GhostObjectManager@@UAEXPAHH@Z=__purecall")

@@ -141,7 +141,6 @@ WorkerAIUpdate::~WorkerAIUpdate()
 	m_workerMachine = 0;
 }
 
-#pragma comment(linker, "/alternatename:?f1@DBaseM1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 // Placeholder names this unit's own object settles.  In retail each one holds
 // what the unit's matched code references or installs: the rowed function of

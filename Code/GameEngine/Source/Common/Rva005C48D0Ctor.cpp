@@ -7,7 +7,6 @@
 // virtuals so the compiler emits no implicit vptr store; the explicit
 // *(void **)this write gives retail call-then-store order (Rva0098477Ctor).
 extern "C" const void *const vtbl_00C40818[];  // folded, 7 classes; via ??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@
-#pragma comment(linker, "/alternatename:_vtbl_00C40818=??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@")
 
 #include "../../Include/Common/Rva00330757Member.h"
 

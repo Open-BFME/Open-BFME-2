@@ -74,7 +74,6 @@ class BehaviorModuleOther
 	virtual void unused();
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?unused@BehaviorModuleBase@@EAEXXZ=??_GDestroyEnvironmentUpdate@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?update@UpdateModule@@UAEXXZ=?update@DestroyEnvironmentUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 //

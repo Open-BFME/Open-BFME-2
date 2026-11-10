@@ -2781,7 +2781,6 @@ static char s_loginTextB[256];
 // (0xBBA998; the later two swaps load 0xBBA9A4), as udp.cpp's Bind does.
 // The undecorated COFF spelling keeps the import loads distinct.
 extern "C" unsigned long (__stdcall * const _imp__htonl)(unsigned long);
-#pragma comment(linker, "/alternatename:__imp__htonl=__imp__htonl@4")
 
 // Native [38B9F8,38BBF0),504B. Unlike Zero Hour, BFME2 falls back to the
 // preferred online IP when the chat connection address cannot be read,

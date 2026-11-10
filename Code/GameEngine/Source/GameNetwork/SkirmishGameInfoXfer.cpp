@@ -11,7 +11,6 @@
 // The shared headers declare these members with the access/virtual spelling
 // retail's vftables reference; the ledger row keeps the spelling this TU
 // compiled to. Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:?xfer@SkirmishGameInfo@@MAEXPAVXfer@@@Z=?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z")
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;

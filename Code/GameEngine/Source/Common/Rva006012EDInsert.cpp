@@ -11,7 +11,6 @@ struct Rva006038D4Less
 {
 	bool operator()(const char *a, const char *b) const;
 };
-#pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
 bool __stdcall Rva0006038D4CStrLess(const char *a, const char *b);
 struct Rva0060126DNode
 {

@@ -58,4 +58,3 @@ void *bfmeAnchorBfmeAptValue006DCD20(void *where, int type)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0Rva006DCD20@@QAE@PAVThing@@PBVModuleData@@@Z=??0BfmeAptValue006DCD20@@QAE@HI@Z")

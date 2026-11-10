@@ -28,8 +28,6 @@ struct Rva0047A6EDVec28
 	int size() const { return m_finish - m_start; }
 };
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-#pragma comment(linker, "/alternatename:?f0C@Iface0C@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?f2C@Iface2C@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #include <math.h>
 struct Iface11C
 {

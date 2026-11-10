@@ -60,20 +60,15 @@ SlaughterHordeContain::~SlaughterHordeContain()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?b1@B1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?b6@B6@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GSlaughterHordeContain@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?b2@B2@@UAEXXZ=?update@SlaughterHordeContain@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?b3@B3@@UAEXXZ=?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")
-#pragma comment(linker, "/alternatename:?b4@B4@@UAEXXZ=?rva004628D1@Rva004628D1@@UAEXPAVObject@@HH@Z")
 #pragma comment(linker, "/alternatename:?b5@B5@@UAEXXZ=?onDie@CitadelSlaughterHordeContain@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?b7@B7@@UAEXXZ=?isExitBusy@HordeGarrisonContain@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?b8@B8@@UAEXXZ=??1Region2D@@QAE@XZ")

@@ -26,4 +26,3 @@ void bfmeGo1019C(int a)
 
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
-#pragma comment(linker, "/alternatename:?bfmeInit1019@@YAXPAD@Z=?ji_00629b14@@YAXXZ")

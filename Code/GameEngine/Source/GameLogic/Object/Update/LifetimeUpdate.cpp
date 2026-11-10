@@ -63,7 +63,6 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-#pragma comment(linker, "/alternatename:?behaviorSlot@BehaviorModuleInterface@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 // LifetimeUpdateModuleData's constructor, retail 0x00297E90. No base constructor call at
 // all - the class writes its own vftable pointer at +0x00 and leaves the base's

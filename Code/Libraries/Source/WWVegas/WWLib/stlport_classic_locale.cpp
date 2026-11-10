@@ -455,9 +455,6 @@ template <> _String_base<char, allocator<char> >::_String_base(allocator<char> c
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?do_in@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z=?do_out@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z")
-#pragma comment(linker, "/alternatename:?do_out@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBG1AAPBGPAD3AAPAD@Z=?do_out@codecvt_wide_char@_STL@@QBEHAAHPBG1AAPBGPAD3AAPAD@Z")
-#pragma comment(linker, "/alternatename:?do_in@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAG3AAPAG@Z=?do_in@codecvt_wide_char@_STL@@QBEHAAHPBD1AAPBDPAG3AAPAG@Z")
 #pragma comment(linker, "/alternatename:?_M_incr@_Locale_impl@_STL@@UAEXXZ=?DX8_Assert@@YAXXZ")
 #pragma comment(linker, "/alternatename:?_M_decr@_Locale_impl@_STL@@UAEXXZ=?DX8_Assert@@YAXXZ")
 

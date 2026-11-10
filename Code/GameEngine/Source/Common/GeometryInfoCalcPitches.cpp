@@ -1,6 +1,5 @@
 // Ported from BFME1; retain only after independent BFME2 placement.
 // Legacy link-wide compatibility alias; consumer cleanup is a separate change.
-#pragma comment(linker, "/alternatename:?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z=?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z")
 
 // Keep the MSVC float overloads local; their inlined operations stay retail-exact.
 #define inline static inline

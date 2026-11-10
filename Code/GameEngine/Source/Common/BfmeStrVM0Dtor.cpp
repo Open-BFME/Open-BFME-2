@@ -415,31 +415,10 @@ void Display::rva00049F94(AsciiString s)
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?v01@Display@@UAEXXZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?v03@Display@@UAEXXZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?v04@Display@@UAEXXZ=?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")
-#pragma comment(linker, "/alternatename:?v05@Display@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?v06@Display@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?v08@Display@@UAEXXZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?v09@Display@@UAEXXZ=?reset@Display@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?v11@Display@@UAEXXZ=?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")
-#pragma comment(linker, "/alternatename:?v14@Display@@UAEXXZ=?setHeight@Display@@UAEXI@Z")
-#pragma comment(linker, "/alternatename:?v15@Display@@UAEXXZ=?setWidth@Display@@UAEXI@Z")
-#pragma comment(linker, "/alternatename:?v16@Display@@UAEXXZ=?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ")
-#pragma comment(linker, "/alternatename:?v17@Display@@UAEXXZ=?get@Rva001DB09DDwordField@@QBEHXZ")
-#pragma comment(linker, "/alternatename:?v19@Display@@UAEXXZ=?get@Rva0057E556DwordField@@QBEHXZ")
-#pragma comment(linker, "/alternatename:?v21@Display@@UAEXXZ=?get@Rva004C9990ByteField@@QBEEXZ")
-#pragma comment(linker, "/alternatename:?v23@Display@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?v30@Display@@UAEXXZ=?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z")
-#pragma comment(linker, "/alternatename:?v35@Display@@UAEXXZ=?rva0025C134@Display@@UAEXPAVView@@@Z")
-#pragma comment(linker, "/alternatename:?v36@Display@@UAEXXZ=?getData@NetWrapperCommandMsg@@QAEPAEXZ")
-#pragma comment(linker, "/alternatename:?v68@Display@@UAEXXZ=?rva0025D19E@Display@@QAEXXZ")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?v07@Display@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
-#pragma comment(linker, "/alternatename:?v13@Display@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 
 // ?rva0025C238@Display@@UAEXXZ, retail 0x0025C238 (34 bytes), slot 40 next to the slot-38
 // walker above: every node of the +0x1C list gets its slot-95 step, unconditionally.

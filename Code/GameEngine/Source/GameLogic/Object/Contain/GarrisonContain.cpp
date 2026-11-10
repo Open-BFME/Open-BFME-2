@@ -158,15 +158,10 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-#pragma comment(linker, "/alternatename:?b1@B1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?b6@B6@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GGarrisonContain@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?b2@B2@@UAEXXZ=?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?b3@B3@@UAEXXZ=?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")
-#pragma comment(linker, "/alternatename:?b4@B4@@UAEXXZ=?rva004628D1@Rva004628D1@@UAEXPAVObject@@HH@Z")
 #pragma comment(linker, "/alternatename:?b5@B5@@UAEXXZ=?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?b7@B7@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?b8@B8@@UAEXXZ=??1Region2D@@QAE@XZ")
 #include "../../../../Include/GameLogic/Weapon.h"
 struct Rva004786F8LogicView { char m_lead[0x40]; unsigned int m_frame; };
 #include "../../../../Include/GameLogic/Damage.h"

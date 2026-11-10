@@ -425,7 +425,6 @@ void bfmeAnchorDataChunkInfoDtor(DataChunkInfo *dataChunkInfo)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?consume@DataChunkInput@@QAEXH@Z=?decrementDataLeft@DataChunkInput@@IAEXH@Z")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

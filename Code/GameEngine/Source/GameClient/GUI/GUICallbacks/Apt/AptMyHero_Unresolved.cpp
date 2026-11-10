@@ -331,5 +331,4 @@ void AptMyHero::FrameUpdate() {
 // CreateAHeroData vftable (0x00C38D88: 0x00408C11 and 0x004083FF, spelled CreateAHeroHero in the
 // ledger).
 #pragma comment(linker, "/alternatename:??1MyHeroBlingBlock@@QAE@XZ=??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?DoXfer@CreateAHeroData@@UAEXAAVXfer@@@Z=?DoXfer@CreateAHeroHero@@QAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?Update@CreateAHeroData@@UAE_NH@Z=?Update@CreateAHeroHero@@QAE_NH@Z")

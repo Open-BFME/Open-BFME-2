@@ -141,13 +141,4 @@ extern "C" void *theLogicRandomLogFile;
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?slot07@State@@UAEXXZ=?disable@Rva0033F2D7ByteSetter@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?slot09@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot10@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot11@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot12@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot13@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot14@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot15@State@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot16@State@@UAEXXZ=??1Region2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?update@State@@UAE?AW4StateReturnType@@XZ=?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ")

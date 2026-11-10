@@ -226,7 +226,6 @@ typedef int Int;
 #pragma function(memset)
 #pragma function(memset)
 #pragma intrinsic(_ReadWriteBarrier)
-#pragma comment(linker, "/alternatename:_kF7C=?g_objectSpacingDefault@@3MA")
 #pragma comment(linker, "/alternatename:?g_cloudBreakRadiusDefault@@3MA=?g_Va00BC2428@@3MA")
 //
 // WeaponChangeSpecialPowerModule::doSpecialPower, retail 0x004C40BA, 413 bytes:

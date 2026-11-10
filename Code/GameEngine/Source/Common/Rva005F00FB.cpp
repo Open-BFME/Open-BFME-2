@@ -59,6 +59,4 @@ MappedImageCache::MappedImageCache() : Rva0022167C(AsciiString("TypeImages"))
 // under the rowed name below. Bind the donor spelling to that owner so one
 // address keeps one definition and the unit links.
 //   0x0022167C reads ??1Rva0022167C@@QAE@XZ
-#pragma comment(linker, "/alternatename:??1Rva0022167C@@UAE@XZ=??1Rva0022167C@@QAE@XZ")
 //   0x00221635 reads ??0Rva00221635@@QAE@H@Z
-#pragma comment(linker, "/alternatename:??0Rva0022167C@@QAE@ABVAsciiString@@@Z=??0Rva00221635@@QAE@H@Z")

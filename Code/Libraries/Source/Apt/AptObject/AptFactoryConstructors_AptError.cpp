@@ -182,6 +182,5 @@ AptValue *callback006F29C0(AptValue *context,int count);
 
 
 // Target call operands and original MAP bind canonical hash lookup to existing provider.
-#pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
 
 

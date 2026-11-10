@@ -247,7 +247,6 @@ namespace StrategicHUD
 #pragma data_seg(".rdata")
 #pragma data_seg()
 #include "unicode_string.h"
-#pragma comment(linker, "/alternatename:?g_Va007C9260@@3QBGB=??_C@_15KNBIKKIN@?$AA?$CF?$AAd?$AA?$AA@")
 #include <stdlib.h>
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../Include/Common/BfmeAccessorMacros.h"

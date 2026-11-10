@@ -213,7 +213,6 @@ void Rva00362AB5::rva00362ADE(IntPtrTree::iterator first, IntPtrTree::iterator l
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?erase@Rva006DF050Slot@@QAEIABH@Z=?rva000D3BFD@Rva000D20A9@@QAEIABH@Z")
 
 class Rva001E7E78
 {

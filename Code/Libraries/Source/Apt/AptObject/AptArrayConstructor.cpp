@@ -56,7 +56,6 @@ private:
     int mnCapacity,mnLength;
 };
 
-#pragma comment(linker, "/alternatename:??0AptValue@@IAE@W4AptVirtualFunctionTable_Indices@@@Z=??0BfmeAptValue006DCD20@@QAE@H@Z")
 typedef char AptArrayNativeSize[sizeof(AptArray)==44?1:-1];
 
 // Native CEA778 slots and existing matched providers establish these exact
@@ -164,7 +163,6 @@ AptValue *AptArray::objectMemberLookup(AptValue *const context,const EAStringC *
  return mNativeHash.Lookup(name);
 }
 
-#pragma comment(linker, "/alternatename:??0AptNativeFunction@@QAE@P6APAVAptValue@@PAV1@H@Z@Z=??0Rva006D6500@@QAE@H@Z")
 #pragma comment(linker, "/alternatename:?setGCRootCount@AptNativeFunction@@QAEXI@Z=?setGCRootCount@BfmeAptValue006DCD20@@QAEXI@Z")
 #pragma comment(linker, "/alternatename:?At@AptArray@@QAEPAVAptValue@@H@Z=?rva006D8A50@BfmeAptValue006DCD20@@QAEPAV1@H@Z")
 #pragma comment(linker, "/alternatename:?sMethod_pop@AptArray@@SAPAVAptValue@@PAV2@H@Z=?Rva006D9B50Pop@@YAPAVBfmeAptValue006DCD20@@PAV1@@Z")
@@ -173,7 +171,6 @@ AptValue *AptArray::objectMemberLookup(AptValue *const context,const EAStringC *
 #pragma comment(linker, "/alternatename:?sMethod_sort@AptArray@@SAPAVAptValue@@PAV2@H@Z=?rva006D9F00@@YAPAVBfmeAptValue006DCD20@@PAV1@H@Z")
 #pragma comment(linker, "/alternatename:?sMethod_sortOn@AptArray@@SAPAVAptValue@@PAV2@H@Z=?rva006DA0C0@@YAPAVBfmeAptValue006DCD20@@PAV1@H@Z")
 
-#pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
 
 #include <string.h>
 AptValue *AptArray::sMethod_shift(AptValue *pThis,int nParams) {
@@ -355,9 +352,7 @@ void AptValue::toString(EAStringC &sBuf) const {
 #pragma comment(linker, "/alternatename:?c_nativefunction@AptValue@@QBEPAVAptNativeFunction@@XZ=?rva006DCF20@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 #pragma comment(linker, "/alternatename:?c_date@AptValue@@QBEPAVAptDate@@XZ=?rva006DD160@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 #pragma comment(linker, "/alternatename:?c_cih@AptValue@@QBEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
-#pragma comment(linker, "/alternatename:?GetBool@AptBoolean@@QBE_NXZ=?get@Rva006D89D0ByteField@@QBEEXZ")
 #pragma comment(linker, "/alternatename:?GetFloat@AptFloat@@QBEMXZ=?get@Rva00723490FloatField@@QBEMXZ")
-#pragma comment(linker, "/alternatename:?GetInt@AptInteger@@QBEHXZ=?Length@?$SimpleVecClass@K@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
 #pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
 #pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXAAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")

@@ -97,8 +97,6 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #pragma comment(linker, "/alternatename:?slot@ClickReactionBehaviorIface@@UAEXXZ=?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ")
-#pragma comment(linker, "/alternatename:?slot@PB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?slot@PB_Iface2@@UAEXXZ=?update@Rva0045969F@@UAEHXZ")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

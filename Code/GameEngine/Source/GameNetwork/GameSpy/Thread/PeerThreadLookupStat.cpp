@@ -36,7 +36,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 #undef free
-#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 namespace _STL {
 // Use the comparator in its existing verified owner.
 // Native operator<388F39 compares four begin/end pointers through244FC only.

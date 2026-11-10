@@ -56,4 +56,3 @@ void AptCIH::jumpToFrame(int frame) {
 #pragma comment(linker, "/alternatename:?Destroy@AptPseudoDisplayList@@QAEPAV1@H@Z=?rva006E2A00@Rva006E2A00@@QAEPAV1@H@Z")
 
 #pragma comment(linker, "/alternatename:?queueFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z=?rva0070F680@Rva0070F680@@QAEXPAXH@Z")
-#pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")

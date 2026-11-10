@@ -62,7 +62,6 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-#pragma comment(linker, "/alternatename:?setFloat@Secondary20@@UAEXM@Z=?set@Rva00101CCCFloatField@@QAEXM@Z")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

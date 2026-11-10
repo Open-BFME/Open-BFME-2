@@ -176,4 +176,3 @@ unsigned char W3DShroud::getShroudLevel(int x, int y)
 // The retail call in this body reads 0x00306A9B, an address the ledger already
 // carries as ?Rva00306A9BDoXfer@@YGXPAVXfer@@@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
-#pragma comment(linker, "/alternatename:?xfer@TerrainVisual@@MAEXPAVXfer@@@Z=?Rva00306A9BDoXfer@@YGXPAVXfer@@@Z")

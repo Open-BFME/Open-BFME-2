@@ -128,8 +128,6 @@ void AptMovie::DoTemporaryFrameControls(AptPseudoDisplayList *display,int frame)
 
 #pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")
 #pragma comment(linker, "/alternatename:?FindInst@AptPseudoDisplayList@@QAEXHPAPAUAptPseudoCIH_t@@0@Z=?rva006F6AC0@Rva006F6AC0@@QAEXHPAPAX0@Z")
-#pragma comment(linker, "/alternatename:??0AptPseudoCIH_t@@QAE@PAUAptControl@@HHPAUAptCharacter@@@Z=??0Rva006F6A50@@QAE@PAXHHH@Z")
-#pragma comment(linker, "/alternatename:??3AptPseudoCIH_t@@SAXPAXI@Z=?Rva006D8680Free@@YAXPAXH@Z")
 
 #pragma comment(linker, "/alternatename:?rva00706950@Rva00706950@@QAEXPAXPAURva00700090Info@@@Z=?CleanupAfterExecution@AptActionInterpreter@@QAEXPAXPAUAptActionSetup@@@Z")
 

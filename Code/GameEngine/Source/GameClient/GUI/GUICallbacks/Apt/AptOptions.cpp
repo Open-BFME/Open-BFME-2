@@ -329,8 +329,6 @@ struct BfmeAudioSettings
 #define V(n) virtual void slot##n();
 #undef V
 #include "../../../../../Include/Common/GlobalData.h"
-#pragma comment(linker, "/alternatename:?g_00BBFDDC@@3QBDB=??_C@_01GBGANLPD@0?$AA@")
-#pragma comment(linker, "/alternatename:?g_00BBFDE0@@3QBDB=??_C@_01HIHLOKLC@1?$AA@")
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

@@ -10,7 +10,6 @@ struct Rva006038D4Less
 {
 	bool operator()(const char *a, const char *b) const;
 };
-#pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
 struct Rva00600991;
 namespace _STL {
 struct _Rb_tree_node_base {};

@@ -37,7 +37,6 @@ class ParticleSystemManager {
     BfmeW3DParticleHandle findParticleSystemByID(ParticleSystemID id);
     friend struct Rva000BC9B1;
 };
-#pragma comment(linker, "/alternatename:?findParticleSystemByID@ParticleSystemManager@@AAE?AUBfmeW3DParticleHandle@@W4ParticleSystemID@@@Z=?findParticleSystemByID@ParticleSystemManager@@AAE?AVBfmeParticleSystemHandle@@W4ParticleSystemID@@@Z")
 
 extern ParticleSystemManager *TheParticleSystemManager;
 

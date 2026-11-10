@@ -65,4 +65,3 @@ void *T1Fwd_005C98A0::hand( void *a, T1Sink_005C8D40 *sink )
 // The retail call in this body reads 0x001F8A38, an address the ledger already
 // carries as ?rva001F8A38@Rva001F8A38@@QBEXAAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAX@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
-#pragma comment(linker, "/alternatename:?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z=?rva001F8A38@Rva001F8A38@@QBEXAAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAX@Z")

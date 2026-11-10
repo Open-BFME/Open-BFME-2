@@ -3,7 +3,6 @@
 #define BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "ascii_string.h"
-#pragma comment(linker, "/alternatename:_TheUpgradeCenter=?TheUpgradeCenter@@3PAVUpgradeCenter@@A")
 
 class Thing;
 

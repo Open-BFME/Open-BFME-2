@@ -14,7 +14,6 @@
 
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-#pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 
 #include "../../Include/GameClient/Display.h"
 

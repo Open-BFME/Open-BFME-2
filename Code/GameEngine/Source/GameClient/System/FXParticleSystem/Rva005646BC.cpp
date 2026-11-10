@@ -90,4 +90,3 @@ Rva005646BC::Rva005646BC(unsigned int a, struct Src005646BC &src)
 	m_20 = true;
 }
 // _s_slot3E4first: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_s_slot3E4first=?vftable_0112B89C@@3HA")

@@ -25,7 +25,6 @@
 // into two cursors when the group is its own aggregate member, so the
 // nesting here is what the byte-verified body witnesses, not a free choice.
 
-#pragma comment(linker, "/alternatename:??0BfmeTailBE@@QAE@ABU0@@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
 
 struct BfmeFalseBE
 {

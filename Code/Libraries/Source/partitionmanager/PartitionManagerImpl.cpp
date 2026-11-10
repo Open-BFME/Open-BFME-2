@@ -16,7 +16,6 @@ static __forceinline void releaseFlightDeckStorage(void *storage)
 #pragma intrinsic(sqrt)
 #include "../../Include/Lib/Coord3D.h"
 #pragma comment(linker, "/alternatename:?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z=?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z")
-#pragma comment(linker, "/alternatename:?m@T_009f4fb0@@QAEXXZ=?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z")
 #include "../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 // Partition calculate recovery: BFME1 donor commit 63c2207a252634a8d48d248b11d81d5e5f6f8241,
 // at verified reference 644b1863ec6ec70c7eb3313432ab438c5735d347, from

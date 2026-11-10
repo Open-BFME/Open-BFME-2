@@ -429,7 +429,6 @@ Rva0045232D::~Rva0045232D()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f1@Rva0024A797_Mid@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?fe@Rva00458402_E1@@UAEXXZ=?setPositions@BridgeScaffoldBehavior@@UAEXPBUCoord3D@@00@Z")
 #pragma comment(linker, "/alternatename:?fe@Rva00487F3A_E1@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?fe@Rva0048FFB4_E1@@UAEXXZ=?get@Rva001DAF7DByteField@@QBEEXZ")

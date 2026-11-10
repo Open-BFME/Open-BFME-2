@@ -6,7 +6,6 @@
 // shape as 0x00448D65. Evidence: callers 0x000A7A3F and 0x000A7C3B; neighbours
 // 0x000A78A3 Less and 0x000A799B create_node share the same tree.
 // The empty member comparator and rowed stdcall provider use the same key pair.
-#pragma comment(linker, "/alternatename:??RRva000A7AA7Less@@QBE_NABUTreeKey00242F5E@@0@Z=?Rva000A78A3Less@@YG_NABUTreeKey00242F5E@@0@Z")
 #include <set>
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "TreeKey00242F5E.h"

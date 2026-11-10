@@ -15,7 +15,6 @@
 #include <exception>
 
 extern "C" const void *const vtbl_00BD3B54[];  // ??_7FunctorNotSet@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BD3B54=??_7FunctorNotSet@@6B@")
 
 class __declspec(novtable) FunctorNotSet : public exception
 {

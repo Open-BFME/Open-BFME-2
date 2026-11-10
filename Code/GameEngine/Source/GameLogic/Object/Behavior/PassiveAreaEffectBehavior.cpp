@@ -95,8 +95,6 @@ namespace _STL {
 template <> _List_base<int, allocator<int> >::~_List_base();
 }
 class Xfer;
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #include "../../../../Include/Common/XferVersion.h"
 class Player;
 class FXList;

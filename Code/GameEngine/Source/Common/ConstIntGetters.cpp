@@ -11,8 +11,6 @@
 // No // cl: line (defaults match the frameless 6-byte shape).
 
 extern const int g_emptyFieldParseTable[4];
-#pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
-#pragma comment(linker, "/alternatename:?opaqueCall@Rva005088C8@@SAPAXXZ=?Rva005088C8Get@@YAHXZ")
 
 // ?Rva001820A0Get@@YAHXZ @ 0x001820A0 (6B): returns 8. CC-island
 // (4xCC before, 8xCC after), 4 vtable refs in the 0x7D49xx-0x7D55xx mapper

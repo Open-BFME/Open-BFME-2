@@ -16,7 +16,6 @@
 // precedent: x87 fldz otherwise).
 
 extern "C" const void *const vtbl_00BF36C0[];  // ??_7Rva0025559B@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BF36C0=??_7Rva0025559B@@6B@")
 
 template <typename T>
 class StringBase

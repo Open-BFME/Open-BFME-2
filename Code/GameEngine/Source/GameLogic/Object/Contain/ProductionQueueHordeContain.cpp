@@ -31,15 +31,10 @@ public:
 	virtual ~OpenContain();
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#pragma comment(linker, "/alternatename:?b1@B1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?b6@B6@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GProductionQueueHordeContain@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?b2@B2@@UAEXXZ=?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?b3@B3@@UAEXXZ=?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")
-#pragma comment(linker, "/alternatename:?b4@B4@@UAEXXZ=?rva004628D1@Rva004628D1@@UAEXPAVObject@@HH@Z")
 #pragma comment(linker, "/alternatename:?b5@B5@@UAEXXZ=?rva00479CF6@Rva00479CF6@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?b7@B7@@UAEXXZ=?isExitBusy@HordeGarrisonContain@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?b8@B8@@UAEXXZ=??1Region2D@@QAE@XZ")
 #include "ascii_string.h"
 #pragma comment(linker, "/alternatename:??1Rva004816F4Entry@@QAE@XZ=??1Rva0048130E@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?push_back@Rva004816F4Vector@@QAEXABURva004816F4Entry@@@Z=?push_back@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAEXABURva0048130E@@@Z")

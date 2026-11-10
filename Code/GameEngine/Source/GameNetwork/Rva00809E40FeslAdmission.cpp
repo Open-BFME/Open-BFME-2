@@ -296,4 +296,3 @@ void Rva0066CC40Owner::forwardToDRoute( void *message )
 
 // Existing thiscall teardown pin at RVA 0x655780 names the matched
 // seven-byte base-vptr reinstall worker; no receiver adjustment is needed.
-#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")

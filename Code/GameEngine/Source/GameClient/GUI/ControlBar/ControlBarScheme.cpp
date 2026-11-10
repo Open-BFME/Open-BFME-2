@@ -78,7 +78,6 @@ typedef int Int;
 typedef int Color;
 #define INT_TO_REAL(x) ((float)(x))
 #include <windows.h>
-#pragma comment(linker, "/alternatename:?g_0080D720@@3UFieldParse@@B=?g_0080D720@@3QBUFieldParse@@B")
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
