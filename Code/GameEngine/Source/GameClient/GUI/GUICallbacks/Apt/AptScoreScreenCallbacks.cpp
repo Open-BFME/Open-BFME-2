@@ -6,6 +6,16 @@
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x27C is the screen's state.
 
+#include <string.h>
+// Externs releases its temporary AsciiString after strcpy without an unwind state.
+extern "C" char *__cdecl strcpy(char *, const char *) throw();
+// The score callbacks call sprintf through the MSVCR71 import slot.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
+
 class Rva002BA8F1Logic;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -37,10 +47,6 @@ namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *>::_Bit_i
 // Suppress this TU's non-retail copy of ??0?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> _Bvector_base<allocator<bool> >::_Bvector_base(const allocator<bool> &); }
-
-extern "C" int __cdecl strcmp(const char *left, const char *right);
-extern "C" char *__cdecl strcpy(char *destination, const char *source) throw();
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 // The objectives summary at +0x288: a count at +4 and up to eight
 // checked flags at +0x28.
