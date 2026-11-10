@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_CRTIMP=
 // ConnectionManager::update, retail 0x004D342A, 802 bytes: vtable 0x008601C0
 // slot 3, called with the in-game flag and the frame-advance flag.
 //
@@ -134,7 +134,6 @@ extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 extern "C" char *GetChallenge(void *game);
 extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
 #include <string.h>
-extern "C" char *strdup(const char *text);
 void free(void *memory);
 
 #include "../../Include/GameNetwork/Transport.h"
