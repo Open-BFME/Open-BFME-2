@@ -6079,3 +6079,5 @@ $L5189,0x007977B6,"Renamed to Unwind@00b977b6 (object-symbol=$L5448) in ProfileP
 ?rva0028E84A@Rva0028C0E3Receiver@@QBEIXZ,0x0028E84A,"Renamed to ?rva0028E84A@Object@@UBEIXZ by tools/rename.py (to-class: retail vftable 0x00BFC290 slot 5)"
 ?call@Rva005C2603View@@QAEXPAVRva005DDE01@@@Z,0x005C2603,"Renamed to ?slot1@Rva005C18F0@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743C4 slot 1)"
 __ehhandler$?call@Rva005C2603View@@QAEXPAVRva005DDE01@@@Z,0x007A087C,"Renamed to __ehhandler$?slot1@Rva005C18F0@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743C4 slot 1)"
+?call@Rva005C1BDEView@@QAEXPAVRva005DDE01@@@Z,0x005C1BDE,"Renamed to ?slot1@Rva005C1980@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743D0 slot 1)"
+__ehhandler$?call@Rva005C1BDEView@@QAEXPAVRva005DDE01@@@Z,0x007A06E1,"Renamed to __ehhandler$?slot1@Rva005C1980@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743D0 slot 1)"

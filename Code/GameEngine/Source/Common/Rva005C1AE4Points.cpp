@@ -136,9 +136,7 @@ UnicodeString Rva005C1B2D(const AsciiString &faction){
 // WB15916B0 callgraph and recovered integer/ratio/time display records
 // guide the37-row/six-faction persistent-table builder. Its original receiver
 // class is unknown; do not infer it from the adjacent Rva005C1A36 methods.
-// Native LEA EDI,[ECX+8] establishes the used preferences subobject only.
-// Receiver embeds
-// UserPreferences at8; original builder name is unknown.
+// Slot 1 of Rva005C1980's vtable 0x008743D0; native LEA EDI,[ECX+8] proves prefs+8.
 struct BfmeStringRecord005DDD40{UnicodeString text;unsigned int word;};
 class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned int);};
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
@@ -147,8 +145,21 @@ class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const Unic
 class Rva005DDE01{public:void AddStat(unsigned int,unsigned int,const BfmeStringRecord005DDD40&,bool);};
 class GameStats{public:class Persistent{public:void CalculateTotalColumn(float);};};
 static __forceinline float ScaleCounts(int first,int second){float sum=(float)first;sum+=(float)second;return sum*100.0f;}
-class Rva005C1BDEView {public:void call(Rva005DDE01*);};
-void Rva005C1BDEView::call(Rva005DDE01*table){
+class Rva005C1860
+{
+public:
+	virtual ~Rva005C1860();
+	virtual void slot1(Rva005DDE01 *table) = 0;
+	virtual UserPreferences *slot2() = 0;
+};
+class Rva005C1980 : public Rva005C1860
+{
+public:
+	virtual ~Rva005C1980();
+	virtual void slot1(Rva005DDE01 *table);
+	virtual UserPreferences *slot2();
+};
+void Rva005C1980::slot1(Rva005DDE01*table){
 float total=0;UserPreferences*prefs=(UserPreferences*)((char*)this+8);
 for(int side=0;side<6;++side){AsciiString faction(g_rva0033A3F4Table[side]);int wins=prefs->rva00535BF6(faction);int losses=prefs->rva00535CE4(faction);for(int row=0;row<37;++row){switch(row){
 case 0:{table->AddStat(0,side,Rva005DD822(prefs->rva00535D75(faction)),true);break;}
@@ -192,13 +203,6 @@ table->AddStat(3,6,Rva005DD822(prefs->rva0053616D()),true);
 // rows26/28..31/33..34 and a zero total-column weight. The shared string
 // and display-record ABI comes from the independently matched builder above.
 // Slot 1 of Rva005C18F0's vtable 0x008743C4; native LEA EDI,[ECX+8] proves prefs+8.
-class Rva005C1860
-{
-public:
-	virtual ~Rva005C1860();
-	virtual void slot1(Rva005DDE01 *table) = 0;
-	virtual UserPreferences *slot2() = 0;
-};
 class Rva005C18F0 : public Rva005C1860
 {
 public:
