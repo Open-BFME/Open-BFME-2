@@ -67,7 +67,7 @@ class Object;
 
 static int s_vtable;
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
 
 static int s_secondary10;
 
@@ -128,7 +128,7 @@ void EnragedBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 EnragedBehavior::EnragedBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	m_p0C = &s_secondary0C;
+	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = &s_secondary10;
 	m_20 = 0.0f;
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
