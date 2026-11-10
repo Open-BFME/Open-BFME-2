@@ -7,11 +7,7 @@
 // Callers at 0x002B283F 0x005E914E 0x005F56D0. ecx passes through from thiscall.
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../Include/Common/Rva002B254F.h"
 
 #include "../../Include/Common/LivingWorldCampaignManager.h"
 

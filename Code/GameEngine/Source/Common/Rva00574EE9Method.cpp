@@ -24,11 +24,7 @@ struct Rva002B256EState
 	bool m_flag20; // +0x20
 };
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../Include/Common/Rva002B254F.h"
 class Rva002B256E
 {
 public:

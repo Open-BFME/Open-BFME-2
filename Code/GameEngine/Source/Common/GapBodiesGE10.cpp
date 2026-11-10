@@ -72,11 +72,7 @@ void Rva005DB004::rva005DB033()
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();										// 0x002B254F
-};
+#include "../../Include/Common/Rva002B254F.h"
 
 class Rva003F81FDProxy
 {

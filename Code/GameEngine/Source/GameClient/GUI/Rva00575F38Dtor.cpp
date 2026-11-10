@@ -37,11 +37,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 class CreateAHeroData;
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../../Include/Common/Rva002B254F.h"
 
 class Rva002B7250
 {

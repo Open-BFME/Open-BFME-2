@@ -841,11 +841,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // The living world's rowed 0x002B254F, whose int callers read only its low byte.
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../../../../Include/Common/Rva002B254F.h"
 
 // The 0x00DFEF18 singleton (address-named view) and its +0x14 dword.
 class Rva002D3627Host

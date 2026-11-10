@@ -8,11 +8,7 @@
 // mov ecx eax/call [edx+C]/test jne true else false/ret 8. Callers at 0x2B6CAB etc.
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../Include/Common/Rva002B254F.h"
 
 #include "../../Include/Common/LivingWorldCampaignManager.h"
 

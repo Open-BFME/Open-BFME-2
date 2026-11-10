@@ -296,11 +296,7 @@ void Rva005743E9::rva005743E9(Rva005743E9Arg *arg, int v)
 // --- 0x00574423 / 0x0057444B (40B each): when TheLivingWorldLogic exists and
 // its rowed 0x002B254F guard holds, poke the rowed 0x002B256E object's proxy
 // forwarders 0x003F8374 / 0x003F8385; the argument is unused.
-class Rva002B254F
-{
-public:
-	int rva002B254F();										// 0x002B254F
-};
+#include "../../Include/Common/Rva002B254F.h"
 
 class Rva002B256E
 {

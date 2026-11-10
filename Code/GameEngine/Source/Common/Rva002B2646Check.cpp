@@ -7,11 +7,7 @@
 // Caller at 0x004FA89B. ecx passes through from thiscall. Sibling TU Rva002B2C40Check.cpp.
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
-class Rva002B254F
-{
-public:
-	int rva002B254F();
-};
+#include "../../Include/Common/Rva002B254F.h"
 
 #include "../../Include/Common/LivingWorldCampaignManager.h"
 

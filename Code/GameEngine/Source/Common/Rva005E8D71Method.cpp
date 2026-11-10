@@ -7,7 +7,7 @@
 // the query byte selection and legacy thiscall pin256E are independently
 // consistent with native calls. Thiscall256E ignores ECX in its11B body.
 // No new pin or class-layout claim is added.
-class Rva002B254F { public: int rva002B254F(); };
+#include "../../Include/Common/Rva002B254F.h"
 class Rva002B256E { public: void* rva002B256E(); };
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva005E1160Flag { public: void rva005E1160(bool); };

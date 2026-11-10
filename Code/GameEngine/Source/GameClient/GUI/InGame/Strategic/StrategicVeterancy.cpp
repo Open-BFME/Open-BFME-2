@@ -97,11 +97,7 @@ class Rva00222A8BTarget; extern class BfmeAptWindowManager *g_bfmeAptWindowManag
 void Rva00516F21Invoke(Rva00222A8BTarget *player, void *level, const char *message, const char *arg);	// 0x00516F21
 
 // TheLivingWorldLogic (VA 0x00DFEF10) and its rowed check 0x002B254F.
-class Rva002B254F
-{
-public:
-	Int rva002B254F();					// 0x002B254F
-};
+#include "../../../../../Include/Common/Rva002B254F.h"
 
 #include "../../../../../Include/GameClient/StrategicVeterancy.h"
 

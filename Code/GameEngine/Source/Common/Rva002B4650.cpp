@@ -9,7 +9,7 @@
 // Boundary: Ghidra FUN_006b3db2-adjacent 30B; successor 0x2B466E opens with
 // push ebp. Names are address-derived.
 class Rva0023C6A4 {public: bool rva0023C6A4();};
-class Rva002B254F {public: int rva002B254F();};
+#include "../../Include/Common/Rva002B254F.h"
 extern class GameLogic *TheGameLogic;
 extern class GameInfo *TheGameInfo;
 struct Rva002B2BAAGameInfo {char opaque[0x78];unsigned int count;};
