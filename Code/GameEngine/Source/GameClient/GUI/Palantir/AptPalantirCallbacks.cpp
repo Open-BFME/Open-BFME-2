@@ -227,11 +227,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 
 // TheGameLogic's rowed byte query 0x0023C6FD (BfmeConv939Call939D.cpp).
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 
 // TheGameLogic's rowed bool query 0x00200084 (Rva0023C6A4Check.cpp's
 // class) and its game mode at +0x110.

@@ -5,11 +5,7 @@
 extern GameLogic *TheGameLogic;
 // The multiplayer gate 0x0023C6FD is rowed under this name (BfmeConv939Call939D.cpp);
 // it is called on TheGameLogic.
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();	// 0x0023C6FD
-};
+#include "../../../../../Include/Common/BfmeGlob939D.h"
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

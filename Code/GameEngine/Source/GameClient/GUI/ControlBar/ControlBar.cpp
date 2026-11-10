@@ -570,11 +570,7 @@ private:
   int m_pad0;
   unsigned char m_flag;
 };
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 class Rva0035B456Owner {public:void rva0035B3E7();};
 class Rva0031D5F8
 {

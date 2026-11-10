@@ -96,7 +96,7 @@ class BuildTimeModule {public:
 struct GlobalDataBuildView {char before[0xa74];float minimum,maximum,penalty,multiple;char after[0xec4-0xa84];MultiPlayMults multiplay;};
 extern GlobalData *TheWritableGlobalData;
 // Existing owned multiplayer predicate; the shared header owns GameLogic.
-class BfmeGlob939D {public: char bfmeCall939D();};
+#include "../../Include/Common/BfmeGlob939D.h"
 extern GameLogic *TheGameLogic;
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
