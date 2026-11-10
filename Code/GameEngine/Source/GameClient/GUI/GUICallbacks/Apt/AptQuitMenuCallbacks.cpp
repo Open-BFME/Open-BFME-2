@@ -148,11 +148,7 @@ public:
 // to its vslot 3 (0x005CB265), both pinned.
 class Rva005CB260;
 
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../../../Include/Common/Rva005CB265.h"
 
 // TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the quit menu (BFME1's
 // slot 84) and vslot 95 tells whether it is up.

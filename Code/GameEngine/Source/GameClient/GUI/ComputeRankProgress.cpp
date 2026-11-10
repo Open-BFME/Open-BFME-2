@@ -108,11 +108,7 @@ public:
 	void rva002B7250(CreateAHeroData *data);
 };
 
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../Include/Common/Rva005CB265.h"
 
 // Base vtable C79544: the listener callbacks rowed in StrategicUiArmyHandler.cpp.
 class Rva005FPrimaryCallbacks {public:

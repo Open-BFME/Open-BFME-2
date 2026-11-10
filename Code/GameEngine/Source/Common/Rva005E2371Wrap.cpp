@@ -3,11 +3,7 @@
 // If +0x10->m_0 null return; else getter 0x005CB265 via m_8->+0x10 vs it;
 // if equal calls rowed 0x005CB260 forwarder; then clear +0x10 via rowed 0x002BED91.
 // Ret 4 ignores int. Address-derived; same getter/tail shape as 0x005E0D9C.
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 
 class Rva005CB260
 {

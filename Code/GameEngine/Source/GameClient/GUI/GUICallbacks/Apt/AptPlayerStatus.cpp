@@ -185,11 +185,7 @@ public:
 // The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
 // to its vslot 3 (0x005CB265), both pinned (as in AptQuitMenuCallbacks.cpp).
 class Rva005CB260;
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../../../Include/Common/Rva005CB265.h"
 #include "../../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 // The extern queries' names, by index (0x00C621A8).

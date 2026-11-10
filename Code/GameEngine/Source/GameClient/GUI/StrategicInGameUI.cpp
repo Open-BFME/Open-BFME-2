@@ -309,11 +309,7 @@ private:
 // no-arg twin ?rva005CB265@Rva005CB265@@UAEHXZ at the same address.
 // Evidence: packet disasm; pins at 0x005E6A9D; rows 0x005CB265 0x005CB260
 // 0x002BED91 0x005E3B25; precedent Rva005E21EB::rva005E25CD.
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../Include/Common/Rva005CB265.h"
 class Rva005CB260
 {
 public:

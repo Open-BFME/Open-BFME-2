@@ -44,11 +44,7 @@ public:
 };
 extern Mouse *TheMouse;
 class Rva005CB260;
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../../../Include/Common/Rva005CB265.h"
 
 #include "../../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;

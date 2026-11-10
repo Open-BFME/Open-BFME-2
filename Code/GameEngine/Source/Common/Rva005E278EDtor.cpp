@@ -22,11 +22,7 @@ public:
 	void rva002B7250(CreateAHeroData *v);
 };
 
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 
 class Rva005CB260
 {
