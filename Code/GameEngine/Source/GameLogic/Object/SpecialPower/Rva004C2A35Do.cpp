@@ -9,14 +9,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_26 = 0x26
 };
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	Bool any() const;
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 class Waypoint;
 class Object
 {

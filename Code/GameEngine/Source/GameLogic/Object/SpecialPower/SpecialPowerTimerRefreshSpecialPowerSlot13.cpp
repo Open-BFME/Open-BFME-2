@@ -6,13 +6,7 @@
 // 0x00C4E868 among them; it works on the Object it is given, pinned by
 // address), then the rowed Object::rva0028B72A on that Object. Named by the
 // base's address.
-template <int N> class BitFlags
-{
-public:
-	bool any() const;
-private:
-	unsigned int m_bits[1];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../object.h"
 class ModuleData;
 class SpecialPowerModule

@@ -41,15 +41,7 @@ enum
 	COMMAND_FIRED_BY_SCRIPT = 0x40000
 };
 
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	Bool any() const;
-
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

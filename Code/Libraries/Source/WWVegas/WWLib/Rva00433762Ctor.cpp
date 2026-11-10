@@ -11,14 +11,7 @@ private:
 	char m_pad04[0xC4 - 4];
 };
 
-template <int N>
-class BitFlags
-{
-public:
-	BitFlags();
-private:
-	unsigned int m_word;
-};
+#include "../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 
 class Rva004333C0 : public Rva001DA2D5
 {

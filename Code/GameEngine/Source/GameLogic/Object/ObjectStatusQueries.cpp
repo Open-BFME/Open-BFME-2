@@ -14,13 +14,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_RVA0023D39F = 0x4A
 };
 
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-	unsigned int m_words[(N + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class Object
 {

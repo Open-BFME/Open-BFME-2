@@ -26,12 +26,7 @@ enum ObjectStatusTypes
 	STATUS_DUMMY = 0
 };
 
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 
 class Rva0028F528
 {

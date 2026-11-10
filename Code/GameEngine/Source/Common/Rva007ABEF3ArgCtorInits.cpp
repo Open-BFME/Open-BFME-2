@@ -26,14 +26,7 @@ public:
 	DynamicVectorClass(unsigned size, const T *array);
 };
 
-template <int N> class BitFlags
-{
-public:
-	enum BogusInitType { kInit };
-	BitFlags(BogusInitType, int a);
-	BitFlags(BogusInitType, int a, int b);
-	BitFlags(BogusInitType, int a, int b, int c, int d);
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 class Rva0006EFC8
 {
