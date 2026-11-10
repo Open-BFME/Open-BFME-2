@@ -499,3 +499,21 @@ provider facts and LINKS/139 preview are unchanged. Supported header acceptance
 retires only this source's UpdateModule row. Full class reconciliation and the
 primary strong-definition refusal remain open under LINK-514.
 [Evidence and minimum next repair](../../reverse/attempt_support/strafe-base-adoption-20261108/README.md).
+
+2026-11-10 Die units `??_7BehaviorModule@@6BObjectModule@@@` alignment (base `c11e566b799`, index `51f6d2483f` at `2026-11-10 13:06`):
+- `FXListDie.cpp`, `CreateObjectDie.cpp` and `SpecialPowerCompletionDie.cpp` now define
+  `BFME_BEHAVIORMODULE_LOADPOSTPROCESS` before `DieModule.h`, aligning emitted
+  `??_7BehaviorModule@@6BObjectModule@@@` slot 1 with `BehaviorModule::loadPostProcess`
+  (`0x000B3FD0`, retail `0x00BEEA7C` slot 1) as `CreateModule.cpp` and `DamageModuleCtor.cpp`
+  do, while keeping `??_7DieModule@@6BObjectModule@@@` consistent across all Die emitters
+  (retail `0x00C41E78` slot 1 is `0x0058B03E`, jumping to `0x000B3FD0`).
+- Verification: `build.py` 60/60 functions and 2 data rows match across the 3 edited units
+  (85/85 across the 8-file `--prepare-current` cohort), EH verify 10/10 exact, `find_declared_unmatched --fail`
+  and `class_gate` clean; `link_check.py --new-variants` clean; `link_check.py` against
+  `51f6d2483f`: `FXListDie.cpp` `0 -> 149` B, `CreateObjectDie.cpp` `0 -> 1,421` B,
+  `SpecialPowerCompletionDie.cpp` `288 -> 288` B (+1,570 B across the 3 units; `CreateModule.cpp`
+  159 B, `DamageModuleCtor.cpp` 74 B and `DieModule.cpp` 19 B unchanged; `FamilyDeletingDtors_muse-ae2e.cpp`
+  0 -> 0 pre-existing module-data vtable difference).
+- Remaining: `BridgeTowerBehavior.cpp` (375 B, sole blocker `??_7BehaviorModule@@6BObjectModule@@@`)
+  needs the same `BFME_BEHAVIORMODULE_LOADPOSTPROCESS` alignment once its held ICF twins
+  (`0x000D1407`, `0x001DB0A8`) are available. Census confirmation: pending.

@@ -7,6 +7,9 @@
 // longer name the Zero Hour ?crc@BehaviorModule nothing in BFME2 defines.
 class Thing;
 class ModuleData;
+// Align emitted ??_7BehaviorModule@@6BObjectModule@@@ and ??_7DieModule@@6BObjectModule@@@
+// slot 1 with ?loadPostProcess@BehaviorModule@@MAEXXZ (retail 0x00BEEA7C / 0x00C41E78).
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 // Retail's CreateObjectDie builds Drawable.h's flash constant: its copy 0x007B1266, alone in its
 // .text$yc run, static right after CreateObjectDieIfEldestKindof::onDie's guard (LINK-236).

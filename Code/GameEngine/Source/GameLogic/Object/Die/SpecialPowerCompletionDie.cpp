@@ -30,6 +30,9 @@
 class Thing;
 class ModuleData;
 class Object;
+// Keep ??_7DieModule@@6BObjectModule@@@ slot 1 aligned across Die units
+// (?loadPostProcess@BehaviorModule@@MAEXXZ).
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
