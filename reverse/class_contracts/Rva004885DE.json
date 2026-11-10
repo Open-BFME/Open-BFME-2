@@ -1,0 +1,246 @@
+{
+ "bases": [
+  "StateMachine"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva004885DE",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 15,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 16,
+   "inherited_spans": [
+    [
+     0,
+     48
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4885de"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "StateMachine",
+       "offset": 0,
+       "own_vftable": "0x84b510",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4885de"
+     ],
+     "value": 64
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4885de"
+     ],
+     "value": {
+      "0x3c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4885de"
+     ],
+     "value": {
+      "0x0": [
+       "?defineState@StateMachine@@QAEXIPAVState@@IIPBUStateConditionInfo@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4885de"
+     ],
+     "value": {
+      "0x0": "0x84b510"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84b510"
+     ],
+     "value": {
+      "count": 16,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00488D3B@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x488d1f"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@Rva004885DE@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x4886c1"
+       },
+       {
+        "name": "?xfer@Rva004885DE@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4894a9"
+       },
+       {
+        "name": "?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 4,
+        "target": "0x4d7321"
+       },
+       {
+        "name": "?clear@StateMachine@@UAEXXZ",
+        "slot": 5,
+        "target": "0x4d72c5"
+       },
+       {
+        "name": "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 6,
+        "target": "0x4d7a75"
+       },
+       {
+        "name": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 7,
+        "target": "0x4d770f"
+       },
+       {
+        "name": "?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z",
+        "slot": 8,
+        "target": "0x4d7acd"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 9,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?isInAttackState@StateMachine@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x2621b8"
+       },
+       {
+        "name": "?isInBusyState@StateMachine@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x4d7309"
+       },
+       {
+        "name": "?rva004D7395@StateMachine@@UAEXXZ",
+        "slot": 13,
+        "target": "0x4d7395"
+       },
+       {
+        "name": "?setGoalObject@StateMachine@@UAEXPBVObject@@@Z",
+        "slot": 14,
+        "target": "0x4d750f"
+       },
+       {
+        "name": "?halt@StateMachine@@UAEXXZ",
+        "slot": 15,
+        "target": "0x4d73a4"
+       }
+      ],
+      "table": "0x84b510"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x84b510": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00488D3B@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@Rva004885DE@@MBEPBDXZ",
+     "3": "?xfer@Rva004885DE@@MAEXPAVXfer@@@Z",
+     "4": "?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "5": "?clear@StateMachine@@UAEXXZ",
+     "6": "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "7": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "8": "?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z",
+     "9": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?isInAttackState@StateMachine@@UBE_NXZ",
+     "12": "?isInBusyState@StateMachine@@UBE_NXZ",
+     "13": "?rva004D7395@StateMachine@@UAEXXZ",
+     "14": "?setGoalObject@StateMachine@@UAEXPBVObject@@@Z",
+     "15": "?halt@StateMachine@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 11,
+  "view_sizes": {
+   "4": 1,
+   "64": 3
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_3C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 64,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
