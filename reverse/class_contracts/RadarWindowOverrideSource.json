@@ -1,0 +1,150 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "RadarWindowOverrideSource",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 33,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 22
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 13,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 20,
+   "4": 5,
+   "12": 1,
+   "20": 6
+  },
+  "views": 32,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RadarWindowOverrideCreatePing.cpp",
+    "Code/GameEngine/Source/Common/System/RadarWindowOverride.cpp",
+    "Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp",
+    "Code/GameEngine/Source/Common/System/RadarWindowOverrideSetViewCorners.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirUpdate.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "v00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "v01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "v10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "v11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "v12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "v13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "v14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "drawLine(int,int,int,int)"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "drawViewBox()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "v03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "v04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "v05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "v06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "v07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "v08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "v09()"
+  }
+ }
+}
