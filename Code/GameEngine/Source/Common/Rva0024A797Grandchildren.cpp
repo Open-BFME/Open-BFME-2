@@ -312,13 +312,13 @@ public:
 	virtual void fe();
 };
 
-class Rva004A653D : public UpdateModule, public Rva004A653D_E1
+class SupplyCenterProductionExitUpdate : public UpdateModule, public Rva004A653D_E1
 {
 public:
-	virtual ~Rva004A653D();
+	virtual ~SupplyCenterProductionExitUpdate();
 };
 
-Rva004A653D::~Rva004A653D()
+SupplyCenterProductionExitUpdate::~SupplyCenterProductionExitUpdate()
 {
 }
 

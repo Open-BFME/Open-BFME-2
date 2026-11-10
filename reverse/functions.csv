@@ -6331,7 +6331,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004A4214@@UAE@XZ,,0x004A4214,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
 ??1Rva004A4C19@@UAE@XZ,,0x004A4C19,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
 ??1StructureToppleUpdate@@UAE@XZ,,0x004A54A8,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
-??1Rva004A653D@@UAE@XZ,,0x004A653D,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
+??1SupplyCenterProductionExitUpdate@@UAE@XZ,,0x004A653D,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
 ??1Rva004A8091@@UAE@XZ,,0x004A8091,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
 ??1Rva004B8732@@UAE@XZ,,0x004B8732,32,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 4 vptrs to +0x20; tail-jmp opaque base 0x24A797
 ??1Rva0045D39E@@UAE@XZ,,0x0045D39E,39,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,opaque MI-grandchild dtor; 5 vptrs; tail-jmp opaque base 0x24A797
@@ -9885,7 +9885,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004A1855@@UAEPAXI@Z,,0x004A1926,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004A4214@@UAEPAXI@Z,,0x004A436F,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GStructureToppleUpdate@@UAEPAXI@Z,,0x004A560C,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004A653D@@UAEPAXI@Z,,0x004A6626,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GSupplyCenterProductionExitUpdate@@UAEPAXI@Z,,0x004A6626,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004A8091@@UAEPAXI@Z,,0x004A829E,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004AB246@@UAEPAXI@Z,,0x004AB392,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004B8732@@UAEPAXI@Z,,0x004B8824,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact

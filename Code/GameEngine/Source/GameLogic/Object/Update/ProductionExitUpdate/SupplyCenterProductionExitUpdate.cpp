@@ -136,7 +136,7 @@ NameKeyType SupplyCenterProductionExitUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x004A65AE 120B ??0SupplyCenterProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterProductionExitUpdateBehaviorCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A6626 28B ??_GRva004A653D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+// tu-skeleton: 0x004A6626 28B ??_GSupplyCenterProductionExitUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SupplyCenterProductionExitUpdate.cpp
 
