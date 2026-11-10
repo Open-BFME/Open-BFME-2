@@ -272,13 +272,19 @@ def test_renew_retries_transient_contention_with_exponential_jitter(hosts, monke
     def git(*args, **kwargs):
         if args[:1] == ("push",):
             pushes.append(args)
-            if len(pushes) <= 2:
+            if len(pushes) <= 3:
                 return subprocess.CompletedProcess(args, 1, "", "cannot lock ref")
         return real(*args, **kwargs)
     monkeypatch.setattr(claims, "_git", git)
     own_sleep(monkeypatch, delays.append)
     renewed, lost = claims.renew(old.tokens, root=root)
-    assert not lost and len(pushes) == 3
+    # renew() sends one BATCHED push for every pending token first and only then
+    # enters the per-token retry loop, which sleeps _backoff(attempt) between its
+    # own attempts. So N pushes are 1 batched + (N-1) retried, and the backoffs
+    # number one fewer again: failing three gives 4 pushes and 2 sleeps. The
+    # earlier expectation of 2 sleeps for 3 pushes predates the batched push and
+    # left this file red, so the doubling it is named for went unchecked.
+    assert not lost and len(pushes) == 4
     assert len(delays) == 2 and all(0 <= d <= claims.BACKOFF_BASE * 2 ** i for i, d in enumerate(delays))
     assert _remote_refs(hosts.origin)[claims.ref_of(0x100)] == renewed[0x100]
 

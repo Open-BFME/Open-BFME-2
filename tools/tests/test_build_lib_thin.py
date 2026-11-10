@@ -261,8 +261,8 @@ def test_a_site_past_the_row_end_is_never_credited(lib):
 # --- the real CRT sibling call ------------------------------------------------
 
 def test_real_security_check_cookie_credits_its_report_failure_call(tmp_path):
-    # Real msvcrt.lib member, real retail bytes, real ledger: the jmp at +10
-    # in @__security_check_cookie@4 lands on _report_failure's own row at
+    # Real retail bytes and the real ledger: the jmp at +10 in
+    # @__security_check_cookie@4 lands on _report_failure's own row at
     # 0x00629B7A, and that is the only site credited -- the DIR32 at +2
     # (___security_cookie) stays masked.
     build.ledger_entry_points.cache_clear()
@@ -270,9 +270,22 @@ def test_real_security_check_cookie_credits_its_report_failure_call(tmp_path):
         row = next(r for r in build.load_function_rows()
                    if r["name"] == "@__security_check_cookie@4")
         assert build.ledger_entry_points()["_report_failure"] == CALLEE
-        archive = dict(coffar.read_archive(build.ROOT / row["source"]))
-        obj = tmp_path / "secchk.obj"
-        obj.write_bytes(archive[build.ledger_member(row)])
+        # This row was a vendor/msvc71crt/msvcrt.lib member when the test was
+        # written and has since been recovered to real C++, so reading its source
+        # as an archive raised "not an ar archive". Take the object the way
+        # build.row_object does, which covers either shape; the row keeps its
+        # `vendored=` note either way, so the note is no guide.
+        source = build.ROOT / row["source"]
+        if source.suffix.lower() == build.LIB_SUFFIX:
+            archive = dict(coffar.read_archive(source))
+            obj = tmp_path / "secchk.obj"
+            obj.write_bytes(archive[build.ledger_member(row)])
+        else:
+            obj = build.row_object(row)
+            if not obj.exists():
+                pytest.skip(f"{row['source']} is recovered C++ and {obj.name} is not built here; "
+                            "the entry-point crediting above is checked, the member-level "
+                            "relocation and byte assertions below need ./build.sh for that row")
         size = int(row["target_size"])
         member, relocs = build.read_object_symbol_bytes(
             obj, build.ledger_object_symbol(row), size, code_only=True)
