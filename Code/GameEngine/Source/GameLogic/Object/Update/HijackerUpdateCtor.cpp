@@ -17,9 +17,9 @@
 class ModuleData;
 class Thing;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7Rva004A3F8B@@6BUpdateModule@@@")[];
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
+extern "C" const void *const __identifier("??_7Rva004A3F8B@@6BRva004A3F8B_B2@@@")[];
 
 // Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -69,8 +69,8 @@ HijackerUpdate::HijackerUpdate(Thing *thing, const ModuleData *moduleData)
 	m_update = 0;
 	m_isInVehicle = 0;
 	m_wasTargetAirborne = false;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = __identifier("??_7Rva004A3F8B@@6BUpdateModule@@@");
+	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7Rva004A3F8B@@6BRva004A3F8B_B2@@@");
 	m_ejectPos.zero();
 }
