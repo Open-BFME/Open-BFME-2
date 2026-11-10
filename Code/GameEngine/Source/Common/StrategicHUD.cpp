@@ -902,11 +902,7 @@ public:
 struct Rva002A8AB1Record;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
-class Rva004194D6
-{
-public:
-	bool rva0041950A();										// 0x0041950A
-};
+#include "../../Include/Common/Rva004194D6.h"
 struct Rva0059AE72Object
 {
 	char m_pad[0x10];

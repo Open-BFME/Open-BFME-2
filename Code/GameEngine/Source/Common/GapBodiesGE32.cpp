@@ -231,11 +231,7 @@ Rva002A8AB1Record *Rva00599F65::rva00599F65()
 // check of the +0x2C template's auto-resolve weapon for the +0x08 object.
 #include "../../Include/Common/ThingTemplate.h"
 
-class Rva004194D6
-{
-public:
-	bool rva0041950A();										// 0x0041950A
-};
+#include "../../Include/Common/Rva004194D6.h"
 
 struct Rva0059AE72Object
 {

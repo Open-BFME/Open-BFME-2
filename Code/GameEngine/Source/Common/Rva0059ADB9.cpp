@@ -183,11 +183,7 @@ void *Rva0059AE32::rva0059AE32(void *source, unsigned int *tail)
 // 0x0059AE55 0x0059AFC2. Owner identity remains address-derived.
 #include "../../Include/Common/ThingTemplate.h"
 
-class Rva004194D6
-{
-public:
-	bool rva0041950A();
-};
+#include "../../Include/Common/Rva004194D6.h"
 
 class Rva0059AE94
 {
