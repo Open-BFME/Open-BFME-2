@@ -30,8 +30,8 @@ extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BObjectM
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C42808
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BUpgradeMux@@@")[];  // vftable 0x00C427C0
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BModuleInterface@@@")[];  // vftable 0x00C58790
-static int s_first1C;
-static int s_first20;
+extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[];
+extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BDynamicPortalExtraA@@@")[];  // vftable 0x00C427B8
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BDynamicPortalExtraB@@@")[];  // vftable 0x00C427A8
 
@@ -62,8 +62,8 @@ private:
 DynamicPortalBehaviour::DynamicPortalBehaviour(Thing *thing, const ModuleData *moduleData) :
 	UpgradeModule(thing, moduleData)
 {
-	*(volatile unsigned int *)((char *)this + 0x1C) = (unsigned int)&s_first1C;
-	*(volatile unsigned int *)((char *)this + 0x20) = (unsigned int)&s_first20;
+	*(volatile unsigned int *)((char *)this + 0x1C) = (unsigned int)__identifier("??_7Rva003F498ACallback@@6B@");
+	*(volatile unsigned int *)((char *)this + 0x20) = (unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	_ReadWriteBarrier();
 	*(unsigned int *)this = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BObjectModule@@@");
 	*(unsigned int *)((char *)this + 0xC) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BBehaviorModuleInterface@@@");
