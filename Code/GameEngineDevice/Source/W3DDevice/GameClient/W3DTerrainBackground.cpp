@@ -788,14 +788,7 @@ struct TextureArgumentView : public RefCountPtr<TextureClass> {
  __forceinline TextureArgumentView(const RefCountPtr<TextureClass>&other):RefCountPtr<TextureClass>(other){}
 };
 
-class Rva000E19A3Interface
-{
-public:
-	virtual void setRenderingMode(int mode) = 0;
-	virtual void setBaseTexture(RefCountPtr<TextureClass> texture) = 0;
-	virtual void setNormalTexture(RefCountPtr<TextureClass> texture) = 0;
-	virtual void clearTextures() = 0;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000E19A3Interface.h"
 
 class Rva000E19A3TextureArgumentView {
 public:

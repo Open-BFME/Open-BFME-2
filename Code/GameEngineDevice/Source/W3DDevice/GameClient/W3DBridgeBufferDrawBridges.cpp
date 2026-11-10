@@ -160,14 +160,7 @@ protected:
 };
 
 // g_00DEBC60, the road/terrain shader interface (Rva000E19A3Dtor.cpp).
-class Rva000E19A3Interface
-{
-public:
-	virtual void setRenderingMode(int mode) = 0;
-	virtual void setBaseTexture(RefCountPtr<TextureClass> texture) = 0;
-	virtual void setNormalTexture(RefCountPtr<TextureClass> texture) = 0;
-	virtual void clearTextures() = 0;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000E19A3Interface.h"
 extern Rva000E19A3Interface *g_00DEBC60;
 // renderBridge passes the bridge texture by value through this argument view:
 // its forced-inline constructor builds the base handle directly, the shape

@@ -153,11 +153,7 @@ void Rva00062A1C::rva00062A29(bool enabled) { Rva000A8F64Set(enabled); }
 
 // vtable 0x00BC64D8#4: the object at +0x44 runs the ledger's
 // Rva000724AE::rva000724D7 on the field at +0x1C.
-class Rva000724AE
-{
-public:
-	void *rva000724D7(Int *value);
-};
+#include "../../Include/Common/Rva000724AE.h"
 class Rva00072559
 {
 public:

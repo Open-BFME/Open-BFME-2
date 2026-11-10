@@ -735,12 +735,7 @@ struct _Rva002EBB53Wrap {
 };
 // Empty comparator, greater-than on the payload key: the smallest key is on
 // top of the heap.
-struct Rva002EBB53Compare {
-    bool operator()(const _Rva002EBB53Wrap *a, const _Rva002EBB53Wrap *b) const
-    {
-        return a->m_inner->m_key > b->m_inner->m_key;
-    }
-};
+#include "../../../Include/Common/Rva002EBB53Compare.h"
 template void _STL::__push_heap(_Rva002EBB53Wrap **, int, int, _Rva002EBB53Wrap *, Rva002EBB53Compare);
 template void _STL::__adjust_heap(_Rva002EBB53Wrap **, int, int, _Rva002EBB53Wrap *, Rva002EBB53Compare);
 // ?Rva002EBBFBIsOdd@@YA_NPAX@Z @0x002EBBFB 25B
