@@ -11,11 +11,7 @@
 // Slot 1 (0x008018C0) is the same lookup over the host's +0x2A8 key vector,
 // and the vtable at 0x0112C55C carries a third copy over +0x2B8 (0x00802470).
 
-struct Rva007F76F0Vector
-{
-	void *m_begin;
-	int m_count;
-};
+#include "../../Include/Common/Rva007F76F0Vector.h"
 
 class Rva00802240Host
 {

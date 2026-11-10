@@ -20,11 +20,7 @@ struct Rva007F76F0Slot
 	int m_tag;
 };
 
-struct Rva007F76F0Vector
-{
-	Rva007F76F0Slot *m_begin;
-	int m_count;
-};
+#include "../../Include/Common/Rva007F76F0Vector.h"
 
 class Rva00802240Host
 {
