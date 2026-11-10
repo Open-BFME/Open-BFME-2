@@ -24,13 +24,7 @@ public:
 	Player *m_player;
 };
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../../Include/GameLogic/Rva002611BFFilter.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;

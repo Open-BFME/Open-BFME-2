@@ -44,13 +44,7 @@ class Rva0026119DFilter : public Rva000421C8
 public:
 	virtual bool allow(Object *obj);
 };
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 class Rva002614DFFilter : public Rva000421C8
 {
 public:
