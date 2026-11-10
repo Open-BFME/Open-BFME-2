@@ -8,7 +8,7 @@ class MovieStream:public MovieSlots<14>{public:virtual bool start(void*);char pa
 class VideoPlayerInterface:public MovieSlots<17>{public:virtual MovieStream *open(AsciiString,int);};
 extern VideoPlayerInterface *TheVideoPlayer;
 #include "../../Include/GameClient/Display.h"
-class BfmeSelectionState {public:bool isSelectionLocked()const;};
+#include "../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Object;

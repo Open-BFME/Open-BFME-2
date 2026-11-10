@@ -200,7 +200,7 @@ public:
 };
 class Rva002DC74A {public:UnicodeString rva002DC74A(const UnicodeString&)const;};
 class Rva002DC7C1 {public:bool rva002DC7C1(const UnicodeString&)const;};
-class BfmeSelectionState {public:bool isSelectionLocked()const;};
+#include "../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;
 class LinearCampaignManager;
 class Rva001EB0B9 {public:unsigned char rva001EB0B9();};

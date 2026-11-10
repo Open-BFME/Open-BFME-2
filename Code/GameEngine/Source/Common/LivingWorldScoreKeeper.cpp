@@ -39,11 +39,7 @@ public:
 };
 class LivingWorldBattle {public:bool rva003F486C(int);int rva003F4798(int,int);};
 class LivingWorldLogic {public:char pad[0xfc];const ModuleData *m_FC;};
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked()const;
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 struct Rva004EF2ABArg {char pad[0x14];int m_14;};
 void LivingWorldScoreKeeper::event1_3(const Rva004E06FBPtrChase32Field*a,int b) {
  if(a->m_20==-1)return;

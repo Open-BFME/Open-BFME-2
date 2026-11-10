@@ -7,11 +7,7 @@
 
 typedef unsigned short WideChar;
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 class Rva002E0687
 {

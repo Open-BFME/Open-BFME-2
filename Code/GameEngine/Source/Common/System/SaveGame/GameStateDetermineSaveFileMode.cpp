@@ -12,11 +12,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 extern GameLogic *TheGameLogic;
 class Rva002BA8F1Logic;
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../../../Include/Common/BfmeSelectionState.h"
 struct Rva0023D607Holder
 {
 	char m_00[16];

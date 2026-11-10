@@ -162,7 +162,7 @@ class GlobalData; extern GlobalData *TheWritableGlobalData;
 class Display; extern Display *TheDisplay;
 class InGameUI; extern InGameUI *TheInGameUI;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
-class BfmeSelectionState {public: bool isSelectionLocked() const;};
+#include "../../Include/Common/BfmeSelectionState.h"
 struct CameraData42 {
  char gap[0xA9C]; float horizontal,vertical,edge;
  char gapAA8[0xAF8-0xAA8]; float keyboard;

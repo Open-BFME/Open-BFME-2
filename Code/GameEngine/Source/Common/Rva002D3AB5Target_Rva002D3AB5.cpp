@@ -8,11 +8,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva002BA8F1Logic;
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;

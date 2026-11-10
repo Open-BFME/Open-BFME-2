@@ -11,11 +11,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 

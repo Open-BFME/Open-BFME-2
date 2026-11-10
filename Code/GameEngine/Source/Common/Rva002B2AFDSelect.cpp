@@ -6,11 +6,7 @@
 // jne alt; mov eax,[TheGameLogic]; mov eax,[eax+0x118]; ret; alt:
 // mov eax,[TheWritableGlobalData]; mov eax,[eax+0xe84]; ret.
 // Caller at 0x0038030D takes min with another int. Honest address name.
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 class Rva002034E9Host
 {
 public:

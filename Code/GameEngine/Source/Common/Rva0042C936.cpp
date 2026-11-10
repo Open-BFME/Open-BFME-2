@@ -111,7 +111,7 @@ namespace StrategicInGameUI
 
 // The bool query at 0x0004253A is the rowed BfmeSelectionState::isSelectionLocked,
 // called on TheLivingWorldLogic as in MilesAudioSubtitleConsumer.cpp.
-class BfmeSelectionState { public: bool isSelectionLocked() const; };
+#include "../../Include/Common/BfmeSelectionState.h"
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;

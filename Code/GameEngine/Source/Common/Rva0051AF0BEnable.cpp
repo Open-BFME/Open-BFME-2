@@ -43,11 +43,7 @@ void __cdecl Rva0051B11CEnable(void)
 // plus rowed appendIntegerArgument plus rowed appendBooleanArgument.
 // Globals g_009FEF10 TheMessageStream TheVictoryConditions TheInGameUI per packet.
 // Caller at 0x0051BF1C.
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 class Rva002BA8F1Logic;
 
 #include "../../Include/Common/Rva002B2B66.h"
