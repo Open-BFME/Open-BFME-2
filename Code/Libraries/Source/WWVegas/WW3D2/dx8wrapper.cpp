@@ -370,7 +370,7 @@ struct DX8WrapperStageHelper : public DX8Wrapper
 // Release view for the out-of-line TextureBaseClass::Release_Ref
 // (0x0061ED10); declared early for Invalidate_Cached_Render_States below.
 // Full family comment sits with the Bfme reset views further down.
-struct BfmeResetResource { void Add_Ref(); void Release_Ref(); };
+#include "BfmeResetResource.h"
 
 // Retail Invalidate_Cached_Render_States is at 0x0011FD10 (226B): Zero Hour's
 // body (see the converted BFME1 dx8wrapper.cpp) with the texture-stage half

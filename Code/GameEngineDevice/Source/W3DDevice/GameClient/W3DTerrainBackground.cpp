@@ -317,9 +317,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 class RayCollisionTestClass;
 
-struct BfmeResetResource {
-public: void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetResource.h"
 
 class BfmeResetTextureRef {
 public:

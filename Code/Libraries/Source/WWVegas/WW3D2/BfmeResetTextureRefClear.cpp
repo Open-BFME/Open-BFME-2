@@ -4,10 +4,7 @@
 // Dedicated TU so the assign unit cannot see this body. /O1 for and-zero
 // of the holder after Release_Ref.
 
-struct BfmeResetResource
-{
-	void Release_Ref();
-};
+#include "BfmeResetResource.h"
 
 #include "BfmeResetTextureRef.h"
 

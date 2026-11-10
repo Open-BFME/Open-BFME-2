@@ -37,11 +37,7 @@ struct BfmeResetAnyRef
 // The pin proves BfmeResetResource::Release_Ref is the rowed
 // TextureBaseClass::Release_Ref body (0x0061ED10); call it by the linked
 // spelling so this TU's releasing dtor matches the kept copy.
-class BfmeResetResource
-{
-public:
-	void Release_Ref();
-};
+#include "BfmeResetResource.h"
 
 struct BfmeResetShaderRef
 {

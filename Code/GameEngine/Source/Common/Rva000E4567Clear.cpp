@@ -7,10 +7,7 @@ struct RefCounted00217D4C
 	int references;
 };
 
-struct BfmeResetResource
-{
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetResource.h"
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 

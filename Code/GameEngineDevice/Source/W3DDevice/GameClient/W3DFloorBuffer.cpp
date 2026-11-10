@@ -42,10 +42,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
 #include <new>
-struct BfmeResetResource
-{
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetResource.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 struct SurfaceClass
 {

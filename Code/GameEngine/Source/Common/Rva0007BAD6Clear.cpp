@@ -14,10 +14,7 @@
 // unproven (callers 0x0007C10D/0x0007DC5D/0x0009A415 unclaimed), so the
 // class carries the honest address name.
 
-struct BfmeResetResource
-{
-	void Release_Ref();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetResource.h"
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 

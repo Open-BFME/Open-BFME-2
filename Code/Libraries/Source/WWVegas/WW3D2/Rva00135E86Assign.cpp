@@ -13,10 +13,7 @@ public:
 	const RefCountPtr &operator=(const RefCountPtr &that);
 	T *p;
 };
-struct BfmeResetResource
-{
-	void Release_Ref();
-};
+#include "BfmeResetResource.h"
 #include "BfmeResetTextureRef.h"
 class SubObject
 {

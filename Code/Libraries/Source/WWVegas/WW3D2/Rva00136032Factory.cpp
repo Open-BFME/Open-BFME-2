@@ -123,7 +123,7 @@ struct BfmeResetTagged;
 struct BfmeResetAnyRef { BfmeResetTagged *pointer; };
 // Use the established holder release spelling from dx8wrapper.cpp.
 // Its nullable destructor must be the same byte-and-relocation copy.
-struct BfmeResetResource {void Release_Ref();};
+#include "BfmeResetResource.h"
 class Rva00180649Base
 {
 public:

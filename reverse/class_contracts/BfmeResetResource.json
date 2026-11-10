@@ -1,0 +1,125 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeResetResource",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 5,
+   "24": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/BfmeApplyTextureRef_Apply.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 24,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "_V00()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "_V01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "IsApplied()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "PrepareForApply()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "_V0C()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "_V0D()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "_V0E()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "_V0F()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "ApplyStage(uint)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "_V02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "_V03()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "_V04()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "_V05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "_V06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "_V07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "_V08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "_V09()"
+  }
+ }
+}
