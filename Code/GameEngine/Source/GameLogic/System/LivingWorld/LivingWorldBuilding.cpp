@@ -158,7 +158,7 @@ struct Rva003F1BD3TemplateView {char opaque00[9];bool army;char pad0A[2];AsciiSt
 
 struct Rva002BA8F1Listener;
 
-class Rva005A0B4CList{public:void append(Rva002BA8F1Listener*);};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 
 class LivingWorldLogic;
 

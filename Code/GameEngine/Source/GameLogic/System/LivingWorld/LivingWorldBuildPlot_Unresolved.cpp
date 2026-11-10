@@ -98,11 +98,7 @@ public:
 };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList
-{
-public:
-    void append(Rva002BA8F1Listener *listener);
-};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 
 LivingWorldBuildPlot::LivingWorldBuildPlot(int id, LivingWorldRegion *region,
                                          const Coord2D &position)

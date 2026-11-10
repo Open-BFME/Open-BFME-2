@@ -39,7 +39,8 @@ void*inner;int word0C,word10;_STL::vector<BfmeE16>vec14,vec20;int word2C,word30;
 };
 
 class Rva002130CF {public:void rva002130CF(struct Rva002130CFOwner*);};class LivingWorldManager;extern LivingWorldManager*TheLivingWorldManager;
-class Rva005A0B4CList {public:void append(struct Rva002BA8F1Listener*);};class Rva002B7250;extern Rva002B7250 g_00E04424,g_registryAtE02E88;
+#include "../../../../Include/Common/Rva005A0B4CList.h"
+class Rva002B7250;extern Rva002B7250 g_00E04424,g_registryAtE02E88;
 template<int Tag>class CtorObservableView:public Rva00330757Member {};
 struct TargetRef00217D4C;struct Rva005F8F96{Rva005F8F96():m_00(0){}~Rva005F8F96();TargetRef00217D4C*m_00;};
 class Rva002B9099{public:void clear();void*pointer;};struct CtorOwnedChild:public Rva002B9099{CtorOwnedChild(){pointer=0;}~CtorOwnedChild(){clear();}};

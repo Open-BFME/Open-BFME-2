@@ -15,11 +15,7 @@
 template <> void **_STL::vector<void *>::erase(void **first, void **last);
 struct Rva0020F5B3Range { void **begin; void **end; };
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 struct Rva003EF7DFDest;
 class Rva003EF7DF
 {
