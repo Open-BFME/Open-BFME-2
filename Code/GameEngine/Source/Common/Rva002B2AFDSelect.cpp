@@ -65,7 +65,7 @@ bool Rva002B31DB::invoke(int value)
 // and full layouts remain unknown. Lookup20E5BB and singleton are now
 // provided by real recovered code; no new pin or duplicated callback.
 class Rva003F468D;
-class Rva0020E6B7RegionManager { public: Rva003F468D *rva0020E6B7(); };
+#include "../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 class Rva002B4AF8 {
 public: void rva002B4AF8();
  char pad[0xb0]; Rva0020E6B7RegionManager *manager;

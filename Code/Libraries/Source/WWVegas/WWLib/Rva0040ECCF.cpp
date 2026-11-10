@@ -298,7 +298,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva002034E9Host { public: bool rva002034E9(); };
 class Rva003F468D;
-class Rva0020E6B7RegionManager { public: Rva003F468D *rva0020E6B7(); };
+#include "../../../../GameEngine/Include/GameLogic/Rva0020E6B7RegionManager.h"
 struct Rva0040F19DLivingWorldLogic { char pad00[0xb0]; Rva0020E6B7RegionManager *m_regions; };
 
 struct Rva0040F19DTemplate { char pad00[0x118]; unsigned char m_kindOf118; };

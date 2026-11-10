@@ -96,7 +96,7 @@ bool Rva002B85B1::rva002B85B1(Rva003190A5 *a)
 class Rva003F498ACallback;
 #include "../../../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F468D;
-class Rva0020E6B7RegionManager {public:Rva003F468D *rva0020E6B7();};
+#include "../../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 class Rva002B31F2 {
 public: void rva002B31F2(_STL::vector<unsigned int>*);
 char pad[0xb0];Rva0020E6B7RegionManager *manager;

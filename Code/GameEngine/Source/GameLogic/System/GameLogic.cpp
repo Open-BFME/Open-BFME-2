@@ -347,11 +347,7 @@ extern GameLogic *TheGameLogic;
 class Rva003F468D;
 class Rva0020E89C;
 class Rva002E2903Player;
-class Rva0020E6B7RegionManager
-{
-public:
-	Rva003F468D *rva0020E6B7();
-};
+#include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
 class Rva002BA8F1Logic : public SystemBase, public Snapshot
 {

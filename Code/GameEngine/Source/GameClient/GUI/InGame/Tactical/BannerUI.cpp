@@ -410,11 +410,7 @@ class Rva002E2903Player;
 // (owner Rva002B2DAD.cpp); declare that exact signature and cast the result.
 class Rva003F468D;
 
-class Rva0020E6B7RegionManager
-{
-public:
-	Rva003F468D *rva0020E6B7();	// 0x0020E6B7, the current battle
-};
+#include "../../../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 
 #include "../../../../../Include/Common/BfmeSelectionState.h"
 

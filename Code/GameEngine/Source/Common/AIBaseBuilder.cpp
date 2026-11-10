@@ -215,7 +215,7 @@ struct TacticPlayerView {char pad[0x3ac];int army;__forceinline int getArmyID()c
 class LivingWorldLogic;
 extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva003F468D;
-class Rva0020E6B7RegionManager {public:Rva003F468D*rva0020E6B7();};
+#include "../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 struct TacticWorldView {char pad[0xb0];Rva0020E6B7RegionManager*manager;};
 struct TacticBattleParticipantView {char pad[0x14];int army;};
 #include "../../Include/GameLogic/LivingWorldBattle.h"
