@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /Ireference/shims/bfmealloc /D_CRTIMP= /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
+// platformsdk
 // stlport
 //
 // BFME2's skirmish screen Apt callbacks, 0x00521741 onward, bound by these
@@ -8,6 +9,7 @@
 // its profile name entry, +0x698 its SkirmishPreferences (whose user name
 // list the profile callbacks walk; STLport and /EHs are for them).
 
+#include <windows.h>
 #include <string.h>
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -760,7 +762,6 @@ struct SkirmishSlotView { int getState() const { return state; } void *v;int sta
 class PlayerTemplateStore {public:bool rva001FD367(int,int *) const;};extern PlayerTemplateStore *ThePlayerTemplateStore;
 class SkirmishScenarioView {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void select(long);};
 class MpGameRules { public: static void GetDefaults(int,void *); };
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
 // Native 0x00521EDA..0x0052223E, WB 0x01467A90 AptSkirmish::InitTheGame: a fresh skirmish game
 // info with the local player against a closed slot 1 on Harlindon, unless the preferences hold one.
