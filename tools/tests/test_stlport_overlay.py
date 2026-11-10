@@ -114,15 +114,20 @@ def test_marker_changes_only_opted_in_commands(tmp_path, monkeypatch, marker, se
     monkeypatch.setattr(build, "source_extra_flags", lambda _: ["-MD", "-Ireference/shims/bfmealloc"])
     monkeypatch.setattr(overlay, "materialize", lambda: tmp_path / "generated")
     command, env = build.compiler_command(source, tmp_path / "x.obj")
+    # INCLUDE is what MSVC reads under Wine, so compiler_command writes every
+    # entry through build.wine_path ("Z:\\home\\..." with backslashes) off
+    # Windows, where it is str() again. Comparing the POSIX spelling failed the
+    # selected cases and, worse, made the unselected ones vacuous: the plain
+    # path is absent from a Wine INCLUDE whether the overlay is on or off.
     if selected:
         assert "-Igenerated/bfmealloc" in command
         assert "-Igenerated/base" in command
-        assert str(overlay.TREE / "stlport") in env["INCLUDE"]
+        assert build.wine_path(overlay.TREE / "stlport") in env["INCLUDE"]
         assert "-Ireference/shims/bfmealloc" not in command
     else:
         assert "-Ireference/shims/bfmealloc" in command
         assert all("generated" not in c for c in command)
-        assert str(overlay.TREE / "stlport") not in env["INCLUDE"]
+        assert build.wine_path(overlay.TREE / "stlport") not in env["INCLUDE"]
 
 
 def test_marker_checks_upstream_even_for_cached_command(tmp_path, monkeypatch):
