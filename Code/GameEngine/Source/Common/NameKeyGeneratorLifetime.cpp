@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS  /EHsc- /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// platformsdk
 // stlport
 // Target identity: constructor1491AC is called by GameEngine::init; native
 // vtableBD3568 and scalar deleting wrapper148DC3 identify destructor148BC2.
@@ -10,6 +11,7 @@
 // Inline init emits that exact complete body; reset uses the existing provider.
 // Donor semantics: ZH NameKeyGenerator.cpp; scope Lock/Unlock are existing
 // native helpers and the target demonstrates that they do not throw.
+#include <windows.h>
 #include <hash_map>
 typedef bool Bool;
 #include "subsystem_interface.h"
@@ -20,7 +22,6 @@ namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_
 namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
 namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION*) throw();
 struct Rva0014918DElement {char bytes[8];};
 typedef _STL::hash_map<int,Rva0014918DElement> ReverseIndex;
 namespace _STL {template<> ReverseIndex::hash_map();}
