@@ -18,19 +18,7 @@ class Rva00131DFC {
 public: void rva00131DFC(void *,void *,void *,void *,int,int);
 };
 class Rva00739C70 { public: void cleanup(); };
-class Rva000724AE
-{
-public:
-	void rva000724AE();
-	bool rva000724C7();
-	void *rva000724D7(int *pitchOut);
-	bool rva000725BC(unsigned textureWidth,unsigned textureHeight,unsigned width,unsigned height,unsigned format,bool surfaceOnly);
-	int m_00; // +0x00
-	int m_04; // +0x04
-	void *m_08; // +0x08
-	void *m_0c; // +0x0C
-	unsigned int m_flags; // +0x10
-};
+#include "../../../../GameEngine/Include/Common/Rva000724AE.h"
 bool Rva000724AE::rva000725BC(unsigned tw,unsigned th,unsigned w,unsigned h,unsigned format,bool onlySurface) {
  bool result=false;
  m_00=w;

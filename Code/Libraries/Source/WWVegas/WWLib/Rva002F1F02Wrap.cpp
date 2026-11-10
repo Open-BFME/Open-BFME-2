@@ -16,12 +16,7 @@ struct _Rva002EBB53Wrap {
 };
 // Empty comparator, greater-than on the payload key: the smallest key is on
 // top of the heap.
-struct Rva002EBB53Compare {
-    bool operator()(const _Rva002EBB53Wrap *a, const _Rva002EBB53Wrap *b) const
-    {
-        return a->m_inner->m_key > b->m_inner->m_key;
-    }
-};
+#include "../../../../GameEngine/Include/Common/Rva002EBB53Compare.h"
 
 extern template void _STL::__pop_heap_aux(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare);
 template void _STL::pop_heap(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare);
