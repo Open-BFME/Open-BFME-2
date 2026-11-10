@@ -111,8 +111,8 @@ public:
 // reads their weights), and a second definition of the same symbol is a duplicate.
 extern Rva00559D0CRankWeights g_00E05FCC;
 extern Rva00559D0CRankWeights g_00E06000;
-// VA 0x00E06034: Rva005C18F0Ctor.cpp defines this storage (char[100]).
-extern char g_00E06034[100];
+// VA 0x00E06034: the strategic rank table, which Rva005C18F0Ctor.cpp defines (44 bytes).
+extern Rva00559AC1 g_00E06034;
 // g_rva005C1A8DDefault is the VA 0x00E06060 rank-point table, 44 bytes (retail's
 // extent in the data ledger): an Rva00559AC1 (RankPointValue.cpp, int m_vals[11]),
 // built by the initializer 0x007B3DDF through 0x00559A76 (-1, 0, then 5 .. 1500).
@@ -244,7 +244,7 @@ void Rva007ABEF3ArgCtorInits::rva007B3DC5()
 // 0x007B3DD2 (13B): 0x00559A76(1) on VA 0x00E06034
 void Rva007ABEF3ArgCtorInits::rva007B3DD2()
 {
-	( (Rva00559AC1 *)g_00E06034 )->rva00559A76( 1 );
+	( (Rva00559AC1 *)&g_00E06034 )->rva00559A76( 1 );
 }
 
 // 0x007B3DDF (13B): 0x00559A76(0) on VA 0x00E06060, i.e. g_rva005C1A8DDefault

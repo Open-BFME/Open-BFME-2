@@ -127,7 +127,7 @@ public:
 class Rva00559D0CRankWeights;
 extern Rva00559D0CRankWeights g_00E05FCC;
 extern Rva00559D0CRankWeights g_00E06000;
-extern char *g_00E06034;
+extern Rva00559AC1 g_00E06034;	// the 44-byte strategic rank table at VA 0x00E06034
 extern Rva00559AC1 g_rva005C1A8DDefault;	// the 44-byte rank-point table at VA 0x00E06060
 
 const Image *GetRankIcon(int side, int difficulty);

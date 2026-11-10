@@ -8,9 +8,19 @@
 // under EH state 0. Base carries the scalar so its store lands before the
 // derived EH state and vtable. Caller at 0x005C19FD in 0x005C19B6. Flags
 // copy Rva005C18F0Dtor.cpp with the shared ascii shim first.
-// g_00E06034: matched references place it at VA 0xe06034; zero-filled at retail, sized to the
-// 0x64-byte gap before the next known global there.
-char g_00E06034[100];
+// The two rank-point tables (RankPointValue.cpp's Rva00559AC1, int m_vals[11], 44 bytes each).
+// g_00E06034 at VA 0x00E06034 is the strategic one, built by the initializer 0x007B3DD2
+// (0x00559A76 with 1); the real-time one at VA 0x00E06060 is Rva007ABEF3ArgCtorInits.cpp's
+// g_rva005C1A8DDefault (P132). A 100-byte char array here once spanned both.
+class Rva00559AC1
+{
+public:
+	Rva00559AC1 *rva00559A76(int a);
+private:
+	int m_vals[11];
+};
+Rva00559AC1 g_00E06034;
+extern Rva00559AC1 g_rva005C1A8DDefault;
 
 class StrategicStatsPreferences
 {
@@ -28,7 +38,7 @@ class UserPreferences;
 class Rva005C1860
 {
 public:
-	Rva005C1860(char *tag=g_00E06034) : m_04(tag) {}
+	Rva005C1860(char *tag=(char *)&g_00E06034) : m_04(tag) {}
 	virtual ~Rva005C1860() {}
 	virtual void slot1(Rva005DDE01 *table) = 0;
 	virtual UserPreferences *slot2() = 0;
@@ -64,11 +74,11 @@ UserPreferences *Rva005C18F0::slot2()
 
 // Native5C1926..5C1964: constructor used by Rva005C1A36 at5C19FD.
 // Its rowed destructor5C1980 and scalar5C1964 own vtableC743D0;
-// +4 points44 bytes into the same100-byte static span as the strategic twin.
+// +4 points at the real-time rank table, VA 0x00E06060 (retail 0x009C1937 stores it).
 class RealTimeStatsPreferences { public: RealTimeStatsPreferences(const UnicodeString &); private: char m_storage[4]; };
 // Retail table 0x008743D0: [0x005C1964, 0x005C1BDE, 0x005C4AD5].
 class Rva005C1980 : public Rva005C1860 { public: Rva005C1980(); virtual ~Rva005C1980(); virtual void slot1(Rva005DDE01 *table); virtual UserPreferences *slot2(); private: RealTimeStatsPreferences m_08; };
-Rva005C1980::Rva005C1980() : Rva005C1860(g_00E06034+44), m_08(UnicodeString::TheEmptyString) { }
+Rva005C1980::Rva005C1980() : Rva005C1860((char *)&g_rva005C1A8DDefault), m_08(UnicodeString::TheEmptyString) { }
 
 // Same folded 4-byte body as Rva005C18F0::slot2 (0x005C4AD5).
 UserPreferences *Rva005C1980::slot2()
