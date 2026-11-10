@@ -510,6 +510,9 @@ class AptDisconnectScreen : public _bfme_AptGameWindow
 public:
 	AptDisconnectScreen(EmitVtableTag *);
 	virtual ~AptDisconnectScreen();
+	// Slot 2 of the screen's vftable 0x00C65B6C (0x00513449), declared as
+	// DisconnectMenu.cpp declares it so both units emit one table.
+	virtual int rva00513449(int message, unsigned int wParam, unsigned int lParam);
 private:
 	unsigned char m_unmodelled27C[0x290 - 0x27C];
 };

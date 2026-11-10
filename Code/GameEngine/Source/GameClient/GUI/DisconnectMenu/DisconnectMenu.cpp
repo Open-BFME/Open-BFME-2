@@ -113,6 +113,9 @@ class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 public:
 	_bfme_AptGameWindow(void *context);
 	virtual ~_bfme_AptGameWindow();
+	// The base message handler (pinned 0x0051274F) the screens' own handlers
+	// delegate to first.
+	int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
 
 private:
 	AsciiString m_filename; // +0x270
@@ -138,6 +141,9 @@ public:
 	// Whether a slot's kick button is shown (+0x286).
 	bool rva00512D47(int player);
 	virtual ~AptDisconnectScreen();
+	// Slot 2 of the screen's vftable 0x00C65B6C: the message handler
+	// (0x00513449, AptDisconnectScreenRva00513449.cpp).
+	virtual int rva00513449(int message, unsigned int wParam, unsigned int lParam);
 
 	// AptDisconnectScreenKick.cpp and AptLobbyScreenInitCallbacks.cpp.
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
