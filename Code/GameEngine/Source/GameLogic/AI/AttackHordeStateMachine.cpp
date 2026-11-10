@@ -17,25 +17,13 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
-typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
 
 #include "../../../Include/Common/StateConditionInfo.h"
-class State
-{
-public:
-	virtual ~State();
-};
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-protected:
-	unsigned char m_pad04[0x3C - 0x04];
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &coord)
@@ -86,50 +74,69 @@ class AIAttackMeleeSquishState : public State
 {
 public:
 	AIAttackMeleeSquishState(StateMachine *machine);
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad04[0x68 - 0x04];
+	unsigned char m_pad20[0x68 - 0x20];
 };
 class Rva003429B9 : public State
 {
 public:
 	Rva003429B9(StateMachine *machine);
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad04[0x60 - 0x04];
+	unsigned char m_pad20[0x60 - 0x20];
 };
 class AIAttackMeleeHordeWaitState : public State
 {
 public:
 	AIAttackMeleeHordeWaitState(StateMachine *machine);
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad04[0x24 - 0x04];
+	unsigned char m_pad20[0x24 - 0x20];
 };
 class Rva0033F38B : public State
 {
 public:
 	Rva0033F38B(StateMachine *machine);
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad04[0x28 - 0x04];
+	unsigned char m_pad20[0x28 - 0x20];
 };
 class AIAttackApproachTargetState : public State
 {
 public:
 	AIAttackApproachTargetState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking);
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad04[0x74 - 0x04];
+	unsigned char m_pad20[0x74 - 0x20];
 };
 class Rva0033F460 : public State
 {
 public:
 	Rva0033F460(StateMachine *machine);
-private:
-	unsigned char m_pad04[0x20 - 0x04];
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 };
 class Rva0033F483 : public State
 {
 public:
 	Rva0033F483(StateMachine *machine, int attackInterface);
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad04[0x28 - 0x04];
+	unsigned char m_pad20[0x28 - 0x20];
 };
 class AttackHordeStateMachine : public StateMachine
 {

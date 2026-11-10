@@ -30,9 +30,8 @@ public:
 	virtual void method250();
 };
 
-#include "../GameLogic/Object/object.h"
-
 #define BFME_SNAPSHOT_NAME_SLOT
+#include "../GameLogic/Object/object.h"
 #include "../../Include/Common/StateMachine.h"
 #include "../../Include/Common/StateMachineClass.h"
 
