@@ -52,12 +52,7 @@ struct Rva002A8AB1Record;
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class SkirmishAI
-{
-public:
-	void onUnitCreated(Object *object, Object *other);
-	bool isAPartialBrain();
-};
+#include "../../../Include/Common/SkirmishAI.h"
 
 #include "../../../Include/GameLogic/AIPlayerClass.h"
 

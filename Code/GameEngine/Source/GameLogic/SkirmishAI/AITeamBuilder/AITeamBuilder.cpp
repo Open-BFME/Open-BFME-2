@@ -75,7 +75,7 @@ public:
     bool done() const { return m_cur == 0; }
     Object *cur() const { return m_cur; }
 };
-class SkirmishAI { public: void Register(Team *); };
+#include "../../../../Include/Common/SkirmishAI.h"
 class Rva0039D5A9 { public: int rva0039D5A9(); };
 struct Requirements {
  char pad[0x1a0]; int mode; unsigned maximum; unsigned minimum;

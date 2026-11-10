@@ -55,12 +55,7 @@ public:
 
 class Xfer;
 
-class SkirmishAI
-{
-public:
-	void update();
-	void DoXfer(Xfer *xfer);
-};
+#include "../../Include/Common/SkirmishAI.h"
 
 class Rva004E8FF6
 {

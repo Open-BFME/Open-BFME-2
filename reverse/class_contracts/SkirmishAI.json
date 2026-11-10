@@ -1,0 +1,190 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "SkirmishAI",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x15c": {
+    "4": 6
+   },
+   "0x164": {
+    "4": 2
+   },
+   "0x168": {
+    "1": 5
+   },
+   "0x16c": {
+    "4": 1
+   },
+   "0x174": {
+    "4": 1
+   },
+   "0x178": {
+    "4": 5
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2c6ee0"
+     ],
+     "value": {
+      "0x0": [
+       "AIBuilder"
+      ],
+      "0x17c": [
+       "?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL",
+       "?$map@EMU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEM@_STL@@@2@@_STL",
+       "?$map@HPAXU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL",
+       "?$map@HPAXURva001FDAB0Less@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@_STL@@@_STL",
+       "?$map@HURva00501875Count@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva00501875Count@@@_STL@@@3@@_STL",
+       "?$map@IPAVImage@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@3@@_STL",
+       "?$map@IPAVWaypoint@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVWaypoint@@@_STL@@@3@@_STL",
+       "?$map@I_NU?$less@I@_STL@@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL",
+       "?$map@UTemplateCountKey@@HU?$less@UTemplateCountKey@@@_STL@@V?$allocator@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@HU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@H@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@MU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@M@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@PAVNamedTimerInfo@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@4@@_STL",
+       "?$map@VAsciiString@@UNoCaseTreeValue4@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@4@@_STL",
+       "?$map@VAsciiString@@UOpaqueVolumeWord@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UOpaqueVolumeWord@@@_STL@@@4@@_STL",
+       "?$map@W4ObjectID@@HU?$less@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL",
+       "?$multimap@IVAssetReference@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@3@@_STL",
+       "NoCaseMapView",
+       "Rva00205AF8",
+       "Rva0046A915",
+       "Rva004D1D32",
+       "TemplateNameMapView",
+       "WeaponSetFinderView"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 13,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "360": 1,
+   "392": 2
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 348,
+   "type": "uchar[348]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PartitionFilterSkirmishAIAllow.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 392,
+ "size_by": "majority",
+ "vslots": {}
+}

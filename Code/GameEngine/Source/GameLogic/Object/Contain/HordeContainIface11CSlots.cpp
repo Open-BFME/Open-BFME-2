@@ -172,11 +172,7 @@ public:
 	bool accepts(Object *obj, Player *player);
 };
 // The record is the player's SkirmishAI; 0x002C6AA8 is its rowed onHordeCreated.
-class SkirmishAI
-{
-public:
-	void onHordeCreated(Object *horde, Object *member);
-};
+#include "../../../../Include/Common/SkirmishAI.h"
 struct Rva002A8AB1Record : SkirmishAI
 {
 };

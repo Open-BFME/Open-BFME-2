@@ -99,11 +99,7 @@ public:
 // SkirmishAI.cpp); these calls go through a TU-local view so they resolve
 // to the rowed body instead of the unrowed Rva002A8AB1Record spelling
 // (U on this unit).
-class SkirmishAI
-{
-public:
-	void UnRegister(Team *team);
-};
+#include "../../../Include/Common/SkirmishAI.h"
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 
