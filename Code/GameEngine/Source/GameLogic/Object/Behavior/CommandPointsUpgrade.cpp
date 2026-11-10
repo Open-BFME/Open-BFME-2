@@ -110,11 +110,7 @@ void rva004649A1(INI *, void *, void *, const void *);
 void rva004B5293(INI *, void *, void *, const void *);
 void Rva0049B51EParse(INI *, void *, void *, const void *);
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-class DockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DockUpdateModuleData.h"
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
 #include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"

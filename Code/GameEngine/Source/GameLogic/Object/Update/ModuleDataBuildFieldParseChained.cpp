@@ -273,11 +273,7 @@ extern const FieldParse BfmeSpecialAbilityUpdateFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class DockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DockUpdateModuleData.h"
 
 // Retail VA 0x00C5FAE0: 5 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
