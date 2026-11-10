@@ -1,0 +1,60 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva001EDDBBForwarder",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 15,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4fa8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 12,
+  "view_sizes": {
+   "1": 2,
+   "20396": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_lead",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 20392,
+   "type": "char[20392]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 20392,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/Mouse.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 20396,
+ "size_by": "majority",
+ "vslots": {}
+}
