@@ -103,8 +103,7 @@ void piSBGroupsListCallback
 	{
 	case slc_serveradded:
 		{
-		// Retail imports WSOCK32!htonl here (the x86 byte swap is also its inverse).
-		int groupID = (int)htonl(SBServerGetPublicInetAddress(server));
+		int groupID = (int)ntohl(SBServerGetPublicInetAddress(server));
 		const char *name = SBServerGetStringValueA(server, "hostname", "(No Name)");
 		int numWaiting = SBServerGetIntValueA(server, "numwaiting", 0);
 		int maxWaiting = SBServerGetIntValueA(server, "maxwaiting", 0);
