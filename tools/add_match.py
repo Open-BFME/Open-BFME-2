@@ -165,6 +165,53 @@ def replacement_scaffold(row, root=None, rows=None):
         lambda path: (Path(root) if root is not None else DEFAULT_ROOT).joinpath(path).read_bytes())
 
 
+def local_label_hint(identity, claims):
+    """Why a `$L<n>` row collided, when per-TU scoping would have let it through.
+
+    A compiler label is not a global name: ledger_io.same_function_name scopes
+    one to its source when BOTH rows satisfy ledger_io.local_funclet. The bare
+    "one name = one address" refusal does not say so, and its suggestion of
+    --replace-existing is the wrong advice here -- that repoints the OTHER TU's
+    claim. 140 of the open add_match false-reject records are this: a worker
+    read the refusal as a verdict on identity rather than on notes.
+
+    Returns the missing condition, or None when the name is not a label or the
+    collision is genuine (same source, or a peer that is itself unscoped).
+    """
+    name = identity.get("name", "")
+    if not re.fullmatch(r"\$L\d+", name):
+        return None
+    source = identity.get("source", "").replace("\\", "/")
+    tokens = [token.strip() for token in identity.get("notes", "").split(";")]
+    parents = [token[7:] for token in tokens if token.startswith("parent=")]
+    if not (source.startswith("Code/") and source.endswith(".cpp")):
+        missing = "its source must be a Code/**.cpp translation unit"
+    elif source.startswith(("Code/gen_asm/", "Code/gen_small/")):
+        missing = ("its source is a generated tree, which owns its own labels; "
+                   "a label scopes only to a hand-written TU")
+    elif "gen-funclet" not in tokens:
+        missing = "its notes must carry a `gen-funclet` token"
+    elif len(parents) != 1 or not parents[0]:
+        missing = ("its notes must carry exactly one non-empty `parent=<owner>` "
+                   f"token (found {len(parents)})")
+    elif any(token.startswith("object-symbol=") for token in tokens):
+        missing = ("its notes carry `object-symbol=`, which marks generator "
+                   "scaffolding rather than a proven label, so it stays global")
+    else:
+        unscoped = [row for row in claims if not ledger_io.local_funclet(row)]
+        if not unscoped:
+            return None            # same source: a real duplicate, not scoping
+        return (f"{name} would scope to {source}, but the row holding it is not "
+                f"itself a proven label: " + ", ".join(
+                    f"0x{row['rva']:08X} ({row['source']})" for row in unscoped) +
+                ". Both sides must satisfy ledger_io.local_funclet before the "
+                "same label can name two addresses.")
+    return (f"{name} is a compiler-local label, which belongs to ONE translation "
+            f"unit, not to the image: {missing}. Scope it and this collision goes "
+            "away -- do not reach for --replace-existing, which repoints the "
+            "other TU's claim. See ledger_io.local_funclet.")
+
+
 def fail(*lines):
     for line in lines:
         print(f"add_match: {line}", file=sys.stderr)
@@ -521,10 +568,12 @@ def main():
         addresses = ", ".join(
             f"0x{row['rva']:08X} ({row['source']}, {row['status']})" for row in claims
         )
+        hint = local_label_hint(identity, claims)
         fail(
             f"{name} is already in the ledger at {addresses}",
-            "one name = one address; use --replace-existing only when deliberately "
-            "repointing that claim",
+            *( [hint] if hint else
+               ["one name = one address; use --replace-existing only when deliberately "
+                "repointing that claim"] ),
         )
 
     new_end = rva + size

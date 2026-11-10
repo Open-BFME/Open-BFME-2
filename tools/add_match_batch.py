@@ -171,8 +171,9 @@ def main():
                     and ledger_io.same_function_name(r, c)]
             if live:
                 where = ", ".join(f"0x{r['rva']:08X} ({r['source']})" for r in live)
+                hint = add_match.local_label_hint(c, live)
                 add_match.fail(f"line {c['line']}: {name} is already in the ledger at {where}",
-                               "one name = one address")
+                               hint or "one name = one address")
         for other in accepted:
             if ledger_io.same_function_name(other, c):
                 add_match.fail(f"line {c['line']}: {name} is claimed twice IN THIS BATCH "

@@ -161,3 +161,73 @@ def test_local_names_do_not_relax_range_ownership():
     problems = []
     check_csv.check_functions(raw, problems, {"Code/a.cpp", "Code/b.cpp"}, b"")
     assert any("overlap" in problem for problem in problems)
+
+
+# ---------------------------------------------------------------------------
+# The refusal has to teach the scoping rule, because the bare one-name message
+# sent 140 workers to reverse/re_attempts.log instead. Every record in that
+# cluster has peers that ARE proven labels, so the collision they hit was about
+# their own notes; the message that named --replace-existing was pointing at the
+# other TU's claim.
+
+def hint(**over):
+    identity = {"name": "$L1893", "source": "Code/b.cpp", "notes": NOTES}
+    identity.update(over)
+    return add_match.local_label_hint(identity, [row()])
+
+
+def test_a_scoped_label_against_scoped_peers_gets_no_hint():
+    """Nothing to explain: this one lands, which the admission test proves."""
+    assert hint() is None
+
+
+def test_a_same_source_duplicate_gets_no_hint():
+    """A real duplicate, not a scoping question -- keep the plain refusal."""
+    assert add_match.local_label_hint(
+        {"name": "$L1893", "source": "Code/a.cpp", "notes": NOTES}, [row()]) is None
+
+
+def test_an_external_name_gets_no_hint():
+    assert add_match.local_label_hint(
+        {"name": "?f@C@@QAEXXZ", "source": "Code/b.cpp", "notes": NOTES}, [row()]) is None
+
+
+@pytest.mark.parametrize("over,wanted", [
+    ({"notes": "parent=?parent@@YAXXZ"}, "`gen-funclet` token"),
+    ({"notes": "gen-funclet"}, "`parent=<owner>`"),
+    ({"notes": "gen-funclet;parent=?a@@YAXXZ;parent=?b@@YAXXZ"}, "found 2"),
+    ({"notes": NOTES + ";object-symbol=$L1893"}, "object-symbol="),
+    ({"source": "Code/gen_small/uw_gen_001.cpp"}, "generated tree"),
+    ({"source": "reference/shims/x.cpp"}, "Code/**.cpp"),
+])
+def test_each_unmet_condition_is_named(over, wanted):
+    message = hint(**over)
+    assert message and wanted in message
+    # never the advice that repoints the other TU's row
+    assert "--replace-existing" in message and "do not reach for" in message
+
+
+def test_an_unscoped_peer_is_identified_rather_than_blamed_on_the_notes():
+    """The proposed row is fine; the row already holding the name is not."""
+    message = add_match.local_label_hint(
+        {"name": "$L1893", "source": "Code/b.cpp", "notes": NOTES},
+        [{"name": "$L1893", "source": "Code/gen_small/uw_gen_001.cpp",
+          "notes": NOTES + ";object-symbol=$L1893", "rva": 0x1000}])
+    assert message and "the row holding it is not itself a proven label" in message
+    assert "Code/gen_small/uw_gen_001.cpp" in message and "0x00001000" in message
+    assert "ledger_io.local_funclet" in message
+
+
+def test_the_refusal_text_reaches_the_worker(admission, monkeypatch, capsys):
+    """End to end: the admission that 140 records recorded, with the notes they
+    were missing, now explains itself instead of suggesting --replace-existing."""
+    root, calls = admission
+    monkeypatch.setattr(sys, "argv", ["add_match.py", "$L1893", "0x2000", "8",
+                                     "Code/b.cpp", "--notes", "parent=?parent@@YAXXZ",
+                                     "--root", str(root)])
+    with pytest.raises(SystemExit):
+        add_match.main()
+    error = capsys.readouterr().err
+    assert "already in the ledger" in error and "`gen-funclet` token" in error
+    assert "do not reach for --replace-existing" in error
+    assert calls == []
