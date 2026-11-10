@@ -7,9 +7,18 @@
 // Signatures: the VS2003 Platform SDK WinSock.h, included through windows.h;
 // its declarations carry no dllimport. WinSock.h leaves __WSAFDIsSet's
 // parameters unnamed; the documented names are used.
-// Each retail six-byte thunk's IAT slot names the export (row notes).
+// Each retail six-byte thunk's IAT slot names the export (row notes), except
+// ntohl and ntohs: game.dat's rebuilt import table spells their slots htonl
+// and htons (reverse/attempt_support/wsock32_ntohl_ntohs_import_slots.md).
 #include <windows.h>
 extern "C" {
+// _ntohl@4
+typedef u_long (PASCAL FAR *PFN_ntohl)(u_long);
+extern PFN_ntohl __identifier("_imp__ntohl@4");
+u_long PASCAL FAR ntohl(u_long netlong) {
+ return __identifier("_imp__ntohl@4")(netlong);
+}
+
 // _recvfrom@24
 typedef int (PASCAL FAR *PFN_recvfrom)(SOCKET, char FAR *, int, int, struct sockaddr FAR *, int FAR *);
 extern PFN_recvfrom __identifier("_imp__recvfrom@24");
@@ -106,6 +115,13 @@ typedef int (PASCAL FAR *PFN_WSAStartup)(WORD, LPWSADATA);
 extern PFN_WSAStartup __identifier("_imp__WSAStartup@8");
 int PASCAL FAR WSAStartup(WORD wVersionRequired, LPWSADATA lpWSAData) {
  return __identifier("_imp__WSAStartup@8")(wVersionRequired, lpWSAData);
+}
+
+// _ntohs@4
+typedef u_short (PASCAL FAR *PFN_ntohs)(u_short);
+extern PFN_ntohs __identifier("_imp__ntohs@4");
+u_short PASCAL FAR ntohs(u_short netshort) {
+ return __identifier("_imp__ntohs@4")(netshort);
 }
 
 // _gethostname@8

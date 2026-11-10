@@ -28,8 +28,6 @@ extern "C" __declspec(dllimport) void exp();
 extern "C" __declspec(dllimport) void fabs();
 extern "C" __declspec(dllimport) void floor();
 extern "C" __declspec(dllimport) void fmod();
-extern "C" __declspec(dllimport) void htonl();
-extern "C" __declspec(dllimport) void htons();
 extern "C" __declspec(dllimport) void isxdigit();
 extern "C" __declspec(dllimport) void log();
 extern "C" __declspec(dllimport) void log10();
@@ -80,8 +78,6 @@ void ji_00629b14() { printf(); }
 void ji_00629b6e() { isxdigit(); }
 void ji_0065477e() { AVIFileRelease(); }
 void ji_0065478a() { AVIFileRelease(); }
-void ji_0065565e() { htonl(); }
-void ji_006556b8() { htons(); }
 void ji_006b8a30() { memmove(); }
 void ji_006b8c30() { clock(); }
 void ji_0075ac7a() { _setjmp3(); }
