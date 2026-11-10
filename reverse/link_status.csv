@@ -6717,7 +6717,7 @@ Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/LivingWorldAutoResolveReinforcementSchedule_getRoundForArmyNumber.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/LivingWorldAutoResolveResourceBonusSchedule_getBonusForResourceAmount.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ModelConditionMap117InsertUnique.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Thing/Module.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/Thing/Module.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ModuleFactoryCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ModuleFactoryCtor_Rva00413F8B.cpp,yes,0,0,0,0,0
@@ -9229,7 +9229,7 @@ Code/GameEngine/Source/GameLogic/Object/AIUpdateInterface_onCollide.cpp,yes,0,0,
 Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Armor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/ArmorAdjustDamage.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/ArmorHashMapErase.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/ArmorHashMapErase.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/ArmorHashtableRtsCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/ArmorStoreCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/ArmorStoreFind.cpp,yes,0,0,0,0,0
@@ -9369,7 +9369,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorXf
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorModuleDataCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorModuleDataCtor.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorOnDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp,yes,0,0,0,0,0
@@ -9463,7 +9463,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstruc
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
@@ -11154,7 +11154,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/FlingPassengerSpecialAbilityUpdat
 Code/GameEngine/Source/GameLogic/Object/Update/FlingPassengerSpecialAbilityUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateModuleDataCtor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp,yes,0,0,0,0,0
@@ -13513,7 +13513,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModel
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawConditionInfoCopy.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp,no,0,0,2,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawGetProjectileLaunchOffset.cpp,yes,0,0,0,0,0
@@ -17786,7 +17786,7 @@ Code/Libraries/Source/subsystem/SubsystemInterfaceSetName.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/xfer/Rva0005CC28XferAsciiStringRealMap.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/xfer/XferSaveChain.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/xfer/XferSaveOpen.cpp,no,1,0,0,0,0
+Code/Libraries/Source/xfer/XferSaveOpen.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/xfer/xfer_crc.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/xfer/xfer_load.cpp,yes,0,0,0,0,0
 Code/gen_small/U3_leaf_ctors_Rva00060850Record.cpp,yes,0,0,0,0,0
