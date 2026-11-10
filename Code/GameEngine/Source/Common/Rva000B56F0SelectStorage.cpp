@@ -6,15 +6,7 @@
 // Single pick: the same 19B also matches the Rva000B5A10BitSelectPointer
 // donor shape; this TU claims the address once, under this name.
 
-struct Rva000B56F0Object
-{
-	unsigned char m_prefix[8];
-	unsigned char m_inlineStorage[0xBC];
-	unsigned int m_flags;
-	unsigned char m_externalStorage[1];
-
-	void *selectStorage();
-};
+#include "../../Include/Common/Rva000B56F0Object.h"
 
 void *Rva000B56F0Object::selectStorage()
 {

@@ -239,11 +239,7 @@ public:
 	void rva00384E8E();
 };
 #include "../../../Include/GameLogic/Module/CreateModuleClass.h"
-class Rva000B56F0Object
-{
-public:
-	void * selectStorage();
-};
+#include "../../../Include/Common/Rva000B56F0Object.h"
 class Rva003145B1
 {
 public:

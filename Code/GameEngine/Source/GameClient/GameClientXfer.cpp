@@ -227,16 +227,7 @@ public:
 };
 
 // The event's name storage and its own xfer (unrowed 0x004331C6).
-struct Rva000B56F0Object
-{
-	unsigned char m_prefix[8];
-	unsigned char m_inlineStorage[0xBC];
-	unsigned int m_flags;
-	unsigned char m_externalStorage[1];
-
-	void *selectStorage();
-	
-};
+#include "../../Include/Common/Rva000B56F0Object.h"
 
 
 #define V(n) virtual void pad##n();

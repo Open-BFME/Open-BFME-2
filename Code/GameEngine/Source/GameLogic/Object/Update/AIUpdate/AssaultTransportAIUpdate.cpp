@@ -163,11 +163,7 @@ public:
 #include "../../../../../Include/GameLogic/Module/StealthUpdate.h"
 #include "../../../../../Include/Common/Rva0038404A.h"
 #include "../../../../../Include/GameLogic/Module/CreateModuleClass.h"
-class Rva000B56F0Object
-{
-public:
-	void * selectStorage();
-};
+#include "../../../../../Include/Common/Rva000B56F0Object.h"
 #include "../../../../../Include/GameLogic/Rva003145B1.h"
 class HordeContain
 {

@@ -188,7 +188,7 @@ Rva0036CA00Str Rva00274DD4();
 
 class Rva004333C0 { public: Rva004333C0(int); Rva004333C0(const Rva001DA2D5 &base, int); unsigned char m_data[0xD0]; };
 class DynamicAudioEventInfo { public: void xferNoName(Xfer *xfer); };
-class Rva000B56F0Object { public: void *selectStorage(); };
+#include "../../Include/Common/Rva000B56F0Object.h"
 
 class AudioManager
 {
