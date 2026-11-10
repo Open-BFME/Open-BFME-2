@@ -13,12 +13,7 @@ public:
 };
 
 
-class ChatWindowsInGame
-{
-public:
-    bool rva005AFCB4(bool);
-	bool rva005B00C8(int arg0, unsigned int arg1, unsigned int arg2);
-};
+#include "../../Include/Common/ChatWindowsInGame.h"
 
 class Rva0057FD6E
 {

@@ -36,11 +36,7 @@ typedef int Int;
 // address-derived ABI view of the native scalar vector, not an original name.
 template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
 typedef _STL::vector<int,Rva002444BEAllocator<int> > SelectionIDs;
-class ChatWindowsInGame
-{
-public:
-	int rva005AFEF7(SelectionIDs *, _STL::vector<AsciiString> *);
-};
+#include "../../../../../Include/Common/ChatWindowsInGame.h"
 
 // The rowed 0x00416088 destructor establishes two strings at record+8/+12.
 // The 192-byte caller supplies the two -1 scalar defaults.

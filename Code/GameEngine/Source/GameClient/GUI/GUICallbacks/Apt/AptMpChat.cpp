@@ -124,7 +124,7 @@ struct Rva0057FFB9Owner
 // player list windows (all pinned by address), and the rowed 0x005AFD43
 // sets the entry's text (its own address class).
 // Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
-class ChatWindowsInGame { public: void rva005B000C(); };
+#include "../../../../../Include/Common/ChatWindowsInGame.h"
 
 // The chat and player-list hand-offs are rowed under their own address
 // classes (Rva005AFC21Store.cpp); the entry is passed as their receiver.

@@ -187,7 +187,7 @@ public:
 // A tab's chat entry; its recovered 0x005B000C sends the typed line, pinned
 // by address.
 // Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
-class ChatWindowsInGame { public: void rva005B000C(); bool rva005B00C8(int,unsigned int,unsigned int); bool rva005AFCB4(bool); };
+#include "../../../../../Include/Common/ChatWindowsInGame.h"
 class Rva005AFC21Class {public:void rva005AFC21(GameWindow*);};
 class Rva005AFC4CClass {public:void rva005AFC4C(GameWindow*);};
 class Rva005B000C

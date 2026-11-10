@@ -890,11 +890,7 @@ private:
 class Drawable;
 // --- 0x0057FD5F (15B): close the +0x64 in-game chat (rowed 0x005AFCB4 with
 // true).
-class ChatWindowsInGame
-{
-public:
-	bool rva005AFCB4(bool flag);							// 0x005AFCB4
-};
+#include "../../Include/Common/ChatWindowsInGame.h"
 // --- 0x005851BF (14B, cdecl): advance a deque cursor (rowed _M_advance
 // 0x00584CB2).
 // --- 0x00599F65 (15B): the record of the +0x14 key in the 0x00DFEEF8 table

@@ -172,11 +172,7 @@ void Rva0058A193::rva0058A193(unsigned count)
 
 // --- 0x0057FD5F (15B): close the +0x64 in-game chat (rowed 0x005AFCB4 with
 // true).
-class ChatWindowsInGame
-{
-public:
-	bool rva005AFCB4(bool flag);							// 0x005AFCB4
-};
+#include "../../Include/Common/ChatWindowsInGame.h"
 
 class Rva0057FD5F
 {

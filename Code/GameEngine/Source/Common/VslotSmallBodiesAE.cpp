@@ -240,7 +240,7 @@ void Rva005AFA0E::rva005AFA0E(Int text, Int selected)
 
 // 0x005AFCEC (eight tables): the pinned 0x005AFCB4(1) when the argument
 // equals +0x04.
-class ChatWindowsInGame { public: bool rva005AFCB4(bool); };
+#include "../../Include/Common/ChatWindowsInGame.h"
 class Rva005AFCEC
 {
 public:
