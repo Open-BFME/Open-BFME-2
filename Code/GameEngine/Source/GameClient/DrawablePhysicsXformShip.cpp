@@ -115,11 +115,7 @@ public:
 
 #include "../../Include/GameLogic/LocomotorClass.h"
 
-class Rva002627E8
-{
-public:
-	Real rva002627E8() const;
-};
+#include "../../Include/GameLogic/Rva002627E8.h"
 
 #include "../../Include/Common/Geometry.h"
 

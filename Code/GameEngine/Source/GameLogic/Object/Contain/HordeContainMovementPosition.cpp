@@ -125,11 +125,7 @@ struct Rva0046B05BTemplate
     unsigned char m_121; // +0x121
 };
 
-class Rva002627E8
-{
-  public:
-    float rva002627E8() const;
-};
+#include "../../../../Include/GameLogic/Rva002627E8.h"
 
 class Object
 {

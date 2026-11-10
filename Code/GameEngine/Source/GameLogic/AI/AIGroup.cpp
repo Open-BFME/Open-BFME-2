@@ -866,10 +866,7 @@ template<> __declspec(noinline) _List_node<AIGroupDistanceEntry> *list<AIGroupDi
 }
 struct IndividualTemplate {char pad[0x114];unsigned flags114;unsigned pad118;unsigned flags11c;};
 class Path;
-class Rva002627E8 {
-public:
-	float rva002627E8() const;
-};
+#include "../../../Include/GameLogic/Rva002627E8.h"
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

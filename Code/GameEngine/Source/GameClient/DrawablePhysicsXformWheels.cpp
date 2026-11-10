@@ -94,11 +94,7 @@ private:
 	const LocomotorTemplate *m_template;	// +0x04
 };
 
-class Rva002627E8
-{
-public:
-	Real rva002627E8() const;		// current locomotor speed
-};
+#include "../../Include/GameLogic/Rva002627E8.h"
 
 class Object
 {

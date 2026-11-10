@@ -202,11 +202,7 @@ struct Rva001E3F08Arg;
 struct Rva0028AC4EEntry;
 
 // AI current-locomotor speed (0x002627E8), rowed under this name.
-class Rva002627E8
-{
-public:
-	Real rva002627E8() const;
-};
+#include "../../../Include/GameLogic/Rva002627E8.h"
 
 class AIUpdateModuleData
 {

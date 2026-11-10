@@ -1025,10 +1025,7 @@ public:
 	virtual bool _v109();
 	virtual bool isReady();
 };
-class Rva002627E8 {
-public:
-	float rva002627E8() const;
-};
+#include "../../../Include/GameLogic/Rva002627E8.h"
 class ObjectWithRange {
 public:
 	char m_pad[0x258];
