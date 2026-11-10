@@ -194,7 +194,7 @@ template <> bool RefMultiListClass<RenderObjClass>::Release_Head();
 // bfme link decl-only end
 typedef RefMultiListIterator<RenderObjClass> SceneRenderIterator;
 class BfmeVecHF;
-class Gen_0094AC70 { public: void bfmeSetPair(const BfmeVecHF*,const BfmeVecHF*); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0094AC70.h"
 
 
 void SimpleSceneClass::Customized_Render(RenderInfoClass &rinfo)

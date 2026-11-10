@@ -1,0 +1,139 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Gen_0094AC70",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "1": 1
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x164": {
+    "4": 1
+   },
+   "0x168": {
+    "4": 1
+   },
+   "0x16c": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "368": 1
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_bfmeFlag",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/Common/Bfme5EightyEight.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

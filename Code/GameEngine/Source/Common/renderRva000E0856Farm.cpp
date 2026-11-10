@@ -7,7 +7,7 @@
 #include <stl/_hashtable.h>
 #include <windows.h>
 class BfmeVecHF {public:float x,y,z;};
-class Gen_0094AC70 {public:void bfmeSetPair(const BfmeVecHF*,const BfmeVecHF*);};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0094AC70.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class LightEnvironmentClass {public:void Pre_Render_Update(const Matrix3D&);};
 #include "../../../../reference/shims/wwmath/Vector2.h"

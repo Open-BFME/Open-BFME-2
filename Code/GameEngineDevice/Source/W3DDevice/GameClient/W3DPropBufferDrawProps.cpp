@@ -59,7 +59,7 @@ private:
 
 // LightEnvironmentClass::Reset is rowed as Gen_0094AC70::bfmeSetPair.
 class BfmeVecHF;
-class Gen_0094AC70 { public: void bfmeSetPair(const BfmeVecHF *center, const BfmeVecHF *ambient); };
+#include "../../../Include/W3DDevice/GameClient/Gen_0094AC70.h"
 
 class LightEnvironmentClass
 {

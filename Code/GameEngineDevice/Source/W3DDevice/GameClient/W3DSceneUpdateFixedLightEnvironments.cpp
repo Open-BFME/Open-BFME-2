@@ -72,11 +72,7 @@ class CameraClass : public RenderObjClass
 // called directly (an inline Reset wrapper over it loses retail's early
 // LEA of the first environment).
 class BfmeVecHF;
-class Gen_0094AC70
-{
-public:
-	void bfmeSetPair(const BfmeVecHF *cameraPosition, const BfmeVecHF *ambient);
-};
+#include "../../../Include/W3DDevice/GameClient/Gen_0094AC70.h"
 
 class LightEnvironmentClass : public Gen_0094AC70
 {

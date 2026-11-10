@@ -511,11 +511,7 @@ public:
 	RenderObjClass *Peek_Obj(void) { return ((RenderObjClass *)Current_Object()); }
 };
 class BfmeVecHF;
-class Gen_0094AC70
-{
-public:
-	void bfmeSetPair(const BfmeVecHF *center, const BfmeVecHF *ambient);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0094AC70.h"
 class LightEnvironmentClass
 {
 public:

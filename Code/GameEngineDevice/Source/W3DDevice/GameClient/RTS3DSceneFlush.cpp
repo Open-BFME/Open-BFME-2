@@ -25,7 +25,7 @@ private:
 	Vector3 Diffuse; // +0xE0
 };
 class BfmeVecHF;
-class Gen_0094AC70 { public: void bfmeSetPair(const BfmeVecHF *cameraPosition, const BfmeVecHF *ambient); };
+#include "../../../Include/W3DDevice/GameClient/Gen_0094AC70.h"
 class LightEnvironmentClass : public Gen_0094AC70
 {
 public:

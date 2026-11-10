@@ -50,7 +50,7 @@ class CameraClass : public RenderObjClass {};
 // Size 0x228 from LightEnvironmentClassConstructor.cpp (retail 0x0094AAF0).
 class BfmeVecHF;
 
-class Gen_0094AC70 { public: void bfmeSetPair(const BfmeVecHF *center, const BfmeVecHF *ambient); };
+#include "../../../Include/W3DDevice/GameClient/Gen_0094AC70.h"
 
 class LightEnvironmentClass
 {

@@ -105,11 +105,7 @@ class LightEnvironmentClass;
 
 
 class BfmeVecHF;
-class Gen_0094AC70
-{
-public:
-	void bfmeSetPair(const BfmeVecHF *center, const BfmeVecHF *ambient);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0094AC70.h"
 
 class LightEnvironmentClass
 {
