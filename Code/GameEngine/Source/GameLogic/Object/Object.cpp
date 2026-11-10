@@ -1766,30 +1766,7 @@ public:
 // override defined in this unit adjusts `this` as retail's does. Nothing here is constructed, so
 // this unit emits none of their tables.
 #include "../../Common/Thing/thing.h"
-class GeometryInfo;
-class BfmeCtorFirstBase001B3A20
-{
-public:
-	virtual AsciiString rva00290EE0() = 0;
-protected:
-	// Empty native slot (0x000B3FD0); return type and name unknown.
-	virtual void opaqueSlot1() = 0;
-public:
-	virtual void *getGhostObject() = 0;
-	virtual void rva002941EA(int *, float *, float *, float *) = 0;
-	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const = 0;
-	virtual bool ShroudHideIfFogged(int) const = 0;
-};
-class BfmeCtorVirtualBase001B3A20
-{
-public:
-	virtual void *slot() const = 0;
-};
-class BfmeCtor001B3A20 : public BfmeCtorFirstBase001B3A20, public virtual BfmeCtorVirtualBase001B3A20
-{
-};
-struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const = 0; virtual void *rva00299CBE() const = 0; virtual float rva00299CC2() const = 0; virtual void *rva00299C74() = 0; virtual void *rva00299C74() const = 0; };
-struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; virtual Coord3D rva0028C08D() = 0; virtual void *rva00299C78() = 0; virtual void *rva00299C78() const = 0; };
+#include "ObjectInterfaceBases.h"
 
 class Object : public Thing, public Snapshot, public BfmeCtor001B3A20, public Rva00BFC2B8Base, public Rva00BFC290Base
 {

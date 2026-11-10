@@ -71,34 +71,7 @@ struct Rva00299CE4Template
 class Rva00739770 { public: void rva00739770(void *obj); };
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
-// Retail table 0x00BFC2D8 has six slots; spelled as the registered ObjectShroudClient spells them.
-class BfmeCtorFirstBase001B3A20
-{
-public:
-	virtual AsciiString rva00290EE0() = 0;
-protected:
-	// Empty native slot (0x000B3FD0); return type and name unknown.
-	virtual void opaqueSlot1() = 0;
-public:
-	virtual void *getGhostObject() = 0;
-	virtual void rva002941EA(int *, float *, float *, float *) = 0;
-	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const = 0;
-	virtual bool ShroudHideIfFogged(int) const = 0;
-};
-class BfmeCtorVirtualBase001B3A20
-{
-public:
-	virtual void *slot() const = 0;
-};
-class BfmeCtor001B3A20 : public BfmeCtorFirstBase001B3A20, public virtual BfmeCtorVirtualBase001B3A20
-{
-public:
-	void unregisterFromPartition() { ((Rva00739770 *)TheShroudManager)->rva00739770(this); }
-};
-class GeometryInfo;
-struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const; virtual void *rva00299CBE() const = 0; virtual float rva00299CC2() const = 0; virtual void *rva00299C74() = 0; virtual void *rva00299C74() const = 0; };
-struct Coord3D;
-struct Rva00BFC290Base { virtual Coord3D rva0028C037(); virtual Coord3D rva0028C08D(); virtual void *rva00299C78() = 0; virtual void *rva00299C78() const = 0; };
+#include "ObjectInterfaceBases.h"
 
 // Owned objects deleted through their virtual destructor (slot 0).
 struct Rva00299CE4Owned { virtual ~Rva00299CE4Owned(); };
@@ -327,7 +300,8 @@ Object::~Object()
 	setTeam(0);
 
 	if (m_partitionData)
-		unregisterFromPartition();
+		// retail passes this+0x64 (the +0x64 interface) to 0x00739770 on TheShroudManager
+		((Rva00739770 *)TheShroudManager)->rva00739770(static_cast<BfmeCtor001B3A20 *>(this));
 
 	if (m_group)
 		m_group->remove(this);
