@@ -125,7 +125,7 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 
 // vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
 // first mask and none of the second.
-class Rva0026119DFilter : public Rva000421C8 { public: virtual bool allow(Object *); };
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 class Rva0004584D : public Rva000421C8
 {

@@ -112,11 +112,7 @@ Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
 class Player;
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C
 // relationship flags, +0x10 whether a hit allows.

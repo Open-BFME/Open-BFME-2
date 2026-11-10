@@ -18,11 +18,7 @@ class Player;
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
 // ZH's PartitionFilterAlive.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.

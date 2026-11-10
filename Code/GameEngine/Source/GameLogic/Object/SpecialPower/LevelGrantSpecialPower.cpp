@@ -39,11 +39,7 @@ namespace _STL { template <> void vector<ObjectID, allocator<ObjectID> >::push_b
 class Object;
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 class Rva002614DFFilter : public Rva000421C8
 {

@@ -61,23 +61,10 @@ extern PlayerList *ThePlayerList;				// 0x00DFEEE8
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 // Its inline destructor resets the base vptr, so each derived filter's destructor
 // is retail's shared seven-byte body (0x0049C38A, called by deleting dtor 0x00395A19).
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	__declspec(dllimport) __forceinline Rva000421C8() : m_next(0) {}
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // vftable 0x00BFAD10, built inline by StructureCreep 0x005ABEA2: what is
 // not effectively dead (Zero Hour's PartitionFilterAlive).
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual Bool allow(Object *objOther);
-};
 
 Bool Rva0026119DFilter::allow(Object *objOther)
 {
