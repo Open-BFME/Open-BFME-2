@@ -2738,7 +2738,18 @@ def main(argv=None):
     ap.add_argument("--dry-run", action="store_true",
                     help="gc: list what would be deleted; claim: report each key claimable or held, "
                          "taking nothing")
-    args = ap.parse_args(argv)
+    # `claim --dry-run KEY...` -- the form this file's own usage above and
+    # docs/claims.md both print -- exited 2 with "unrecognized arguments". With
+    # two positionals and `rvas` nargs="*", argparse matches the whole positional
+    # group inside the first run of plain words: `claim` fills `action`, `rvas`
+    # takes the empty rest, and every key after the flag has nowhere to go. Only
+    # keys-then-flags worked. Take the strays back as keys, but never a flag, so
+    # a mistyped option still stops the run instead of becoming a claim.
+    args, strays = ap.parse_known_args(argv)
+    bad = [a for a in strays if a.startswith("-") and a != "--"]
+    if bad:
+        ap.error("unrecognized arguments: " + " ".join(bad))
+    args.rvas = list(args.rvas) + [a for a in strays if a != "--"]
     if args.dry_run and args.action in ("renew", "release"):
         ap.error(f"--dry-run applies to claim and gc only; {args.action} has none and would write")
     if args.action == "whoami":
