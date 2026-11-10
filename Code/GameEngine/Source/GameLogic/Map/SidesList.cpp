@@ -134,11 +134,7 @@ class Rva006C1F60
 public:
 	bool rva00033D50();
 };
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-};
+#include "../../../Include/Common/Rva001EDDBBForwarder.h"
 class Win32GameEngine
 {
 public:

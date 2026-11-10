@@ -56,11 +56,7 @@ namespace Allocator
 }
 }
 
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-};
+#include "../../Include/Common/Rva001EDDBBForwarder.h"
 
 class Win32GameEngine
 {

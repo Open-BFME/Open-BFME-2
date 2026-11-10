@@ -52,11 +52,7 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 #include "../../Include/Common/Rva006C1F60.h"
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-};
+#include "../../Include/Common/Rva001EDDBBForwarder.h"
 class Win32GameEngine
 {
 public:
