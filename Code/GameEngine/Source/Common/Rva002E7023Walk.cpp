@@ -45,11 +45,7 @@ private:
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic; // ?TheGameLogic@@3PAVGameLogic@@A
 
-class Rva004618D4Caller
-{
-public:
-	void rva002E7023();
-};
+#include "../../Include/Common/Rva004618D4Caller.h"
 
 // ?rva002E7023@Rva004618D4Caller@@QAEXXZ
 void Rva004618D4Caller::rva002E7023()

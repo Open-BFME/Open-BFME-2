@@ -74,11 +74,7 @@ public:
 	void rva002E9042(void *arg);
 };
 
-class Rva004618D4Caller
-{
-public:
-	void rva002E7023();
-};
+#include "../../../../Include/Common/Rva004618D4Caller.h"
 
 struct Rva004618D4AI
 {
