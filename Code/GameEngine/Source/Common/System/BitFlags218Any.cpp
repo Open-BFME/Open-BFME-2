@@ -9,20 +9,12 @@
 // (KindOfGetSingleBitFromName.cpp proves BitFlags<218>, 0xDA names).
 // Sibling shape: BitFlags11Any.cpp one-word any() at 0x0023C58B.
 
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-
-private:
-	unsigned m_words[7];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 template <>
 bool BitFlags<218>::any() const
 {
-	const unsigned *mine = m_words;
+	const unsigned *mine = m_bits;
 	for (unsigned i = 0; i < 7; i++) {
 		if (mine[i] != 0)
 			return true;

@@ -7,23 +7,14 @@
 // this (second call, tie-break) next to countIntersection at 0x0033ADFC;
 // retail computes (~mine & theirs) SWAR popcount summed over 4 words.
 
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	int countInverseIntersection(const BitFlags &that) const;
-	int countIntersection(const BitFlags &that) const;
-
-private:
-	unsigned m_words[4];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 template <>
 int BitFlags<117>::countInverseIntersection(const BitFlags &that) const
 {
 	int total = 0;
-	const unsigned *mine = m_words;
-	const unsigned *theirs = that.m_words;
+	const unsigned *mine = m_bits;
+	const unsigned *theirs = that.m_bits;
 	for (unsigned i = 0; i < 4; i++) {
 		unsigned v = (~mine[i]) & theirs[i];
 		v = v - ((v >> 1) & 0x55555555);
@@ -39,8 +30,8 @@ template <>
 int BitFlags<117>::countIntersection(const BitFlags &that) const
 {
     int total = 0;
-    const unsigned *mine = m_words;
-    const unsigned *theirs = that.m_words;
+    const unsigned *mine = m_bits;
+    const unsigned *theirs = that.m_bits;
     for (unsigned i = 0; i < 4; ++i) {
         unsigned v = theirs[i] & mine[i];
         v = v - ((v >> 1) & 0x55555555);

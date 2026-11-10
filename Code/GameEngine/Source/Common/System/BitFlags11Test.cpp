@@ -9,20 +9,12 @@
 // mask and calls on virtual-return mask); prev row is sibling
 // ?any@?$BitFlags@$0L@@@QBE_NXZ at 0x0023C58B. Flags from that sibling.
 
-template <int N>
-class BitFlags
-{
-public:
-	bool test(const void *other) const;
-
-private:
-	unsigned m_words[1];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 template <>
 bool BitFlags<11>::test(const void *other) const
 {
-	const unsigned *mine = m_words;
+	const unsigned *mine = m_bits;
 	const unsigned *theirs = (const unsigned *)other;
 	for (unsigned i = 0; i < 1; i++) {
 		if (mine[i] & theirs[i])
