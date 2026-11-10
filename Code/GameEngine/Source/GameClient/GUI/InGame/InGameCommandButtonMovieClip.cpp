@@ -18,7 +18,7 @@ class AptCommandMap;
 
 #include "../../../../Include/Common/Rva000B3F84Pair.h"
 #include "../../../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusString:AsciiStringRef {int length()const;int write(char *);AsciiStringRef m_second;};
+#include "../../../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText:AsciiStringPlusString {int write(char *);operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left,const char *right){Rva000B3F84Pair text;text.init(right);AsciiStringPlusStringText result;static_cast<AsciiStringPlusString&>(result)=left;result.m_right=text;return result;}

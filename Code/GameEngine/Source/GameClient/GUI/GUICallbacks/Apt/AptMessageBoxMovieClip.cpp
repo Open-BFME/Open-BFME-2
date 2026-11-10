@@ -32,7 +32,7 @@ inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(
 AsciiStringPlusText operator+(const AsciiString &,const char *);
 // (prefix + movie) + "_OnX" nodes, as in Rva005794EDDtor.cpp: concat
 // 0x00109CFD (pinned ICF fold) and conversion 0x0050F74B.
-struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
+#include "../../../../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString { operator AsciiString(); Rva000B3F84Pair m_right; };
 static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
 {

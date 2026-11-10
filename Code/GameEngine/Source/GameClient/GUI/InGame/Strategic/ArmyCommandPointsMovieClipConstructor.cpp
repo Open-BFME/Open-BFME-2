@@ -18,7 +18,7 @@
 #include <vector>
 #include "../../../../Common/RegionDetailsArmiesClipImplView.h"
 #include "../../../../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
+#include "../../../../../Include/Common/AsciiStringPlusString.h"
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}

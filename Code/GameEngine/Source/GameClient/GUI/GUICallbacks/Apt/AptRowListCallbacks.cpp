@@ -159,10 +159,7 @@ struct AsciiStringCharPlusText : AsciiStringRefWithChar
 	Rva000B3F84Pair m_right;
 };
 
-struct AsciiStringPlusString : AsciiStringRef
-{
-	AsciiStringRef m_second;
-};
+#include "../../../../../Include/Common/AsciiStringPlusString.h"
 
 struct AsciiStringPlusStringChar : AsciiStringPlusString
 {
