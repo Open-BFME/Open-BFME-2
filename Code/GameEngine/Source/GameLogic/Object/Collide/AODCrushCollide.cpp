@@ -17,7 +17,7 @@ class Object;
 struct Coord3D;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-static int s_crush20;
+extern "C" const void *const __identifier("??_7AIUpdateInterfaceFifth@@6B@")[];
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class __declspec(novtable) CollideModuleInterface
@@ -31,7 +31,7 @@ public:
 	__forceinline CrushCollide(Thing *thing, const ModuleData *moduleData)
 		: UpdateModule(thing, moduleData)
 	{
-		*(const void **)((char *)this + 0x20) = &s_crush20;
+		*(const void **)((char *)this + 0x20) = __identifier("??_7AIUpdateInterfaceFifth@@6B@");
 		_ReadWriteBarrier();
 		m_24 = 0;
 		m_28 = (ObjectID)0;
