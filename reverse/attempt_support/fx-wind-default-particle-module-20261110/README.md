@@ -1,10 +1,35 @@
 # The CAT_WIND default particle module (tables 0x00C1B5E0 / 0x00C1B5D0), 2026-11-10
 
 Served as `??_7Rva003A59C3@@6B@` (0x0081B5D0, link-cycle repair,
-unbounded-retail-row). Nothing in `Code/` changed: the one source trial that
-byte-matched loses the unit's link, so it is banked here instead.
+unbounded-retail-row). Landed so far: slot 1 of the primary table (below).
+The tables stay bridged until the other slots move.
 
-## Trial 1: retail's slot shape in the constructor unit (byte-exact, not landed)
+## Landed (2026-11-10)
+
+- `Rva003AE017CopyCtor.cpp` declares its class on `Rva003A59C3` (table
+  0x00C1CED8 is 0x00C1B5E0 with the pure slot filled).
+- `tools/rename.py function --rva 0x003A5A58 --to-class Rva003A59C3 --new
+  update` moved the 708-byte body to `?update@Rva003A59C3@@UAEXXZ`.
+  `Rva003A59C3Ctor.cpp` declares retail's slot counts (4 / 1 / 4) with
+  `update` declared and inline stand-ins in the slots whose rows have not
+  moved, so the unit still links (143 -> 143 bytes). Its primary table now
+  names the right row in slot 1 and `__purecall` in slot 2.
+
+## Open: the DoXfer move (tool gap, recorded as a false reject)
+
+`--also 0x003A57A9=DoXfer` passes the plan and then fails
+`name_dependents`: the this-adjustor thunk row
+`?DoXfer@Rva003A57A9@@WM@AEXAAVXfer@@@Z` (0x003A5A50,
+`GapForwardersSeat8.cpp`) calls the old name, and `--to-class` neither
+respells a method's adjustor thunk row itself nor accepts it as
+`--also 0x003A5A50=?DoXfer@Rva003A59C3@@WM@AEXAAVXfer@@@Z` ("is not spelled
+virtual"). `class --fold Rva003A57A9` refuses too (the placeholder installs
+no table). The body and its thunk have to move in one transaction; the
+prepared sources for it are the two definition units with `Rva003A57A9`
+respelled `Rva003A59C3` and `DEFINE_THUNK_UAE(Rva003A59C3, DoXfer, 0x0C,
+(Xfer &))` in `GapForwardersSeat8.cpp`.
+
+## Trial 1: the full retail shape in the constructor unit (byte-exact, not landed)
 
 [class-shape-trial.cpp.txt](class-shape-trial.cpp.txt) is
 `Rva003A59C3Ctor.cpp` with retail's slot shape: a four-slot abstract module
@@ -77,7 +102,7 @@ spelled under other placeholders:
 | --- | --- | --- |
 | 0x003AE270 | `??_GRva003A59C3@@UAEPAXI@Z` | `??_GRva003ADFB2@@UAEPAXI@Z` (fold) |
 | 0x003A5A48 | `??_ERva003A59C3@@WM@AEPAXI@Z` | `??_ERva003ADFB2@@WM@AEPAXI@Z` |
-| 0x003A5A58 | `?update@Rva003A59C3@@UAEXXZ` | `?rva003A5A58@Rva003A5A58@@UAEXXZ` |
+| 0x003A5A58 | `?update@Rva003A59C3@@UAEXXZ` | moved 2026-11-10 |
 | 0x003A57A9 | `?DoXfer@Rva003A59C3@@UAEXAAVXfer@@@Z` | `?DoXfer@Rva003A57A9@@UAEXAAVXfer@@@Z` |
 | 0x003A5A50 | `?DoXfer@Rva003A59C3@@WM@AEXAAVXfer@@@Z` | `?DoXfer@Rva003A57A9@@WM@AEXAAVXfer@@@Z` |
 | 0x003A5A42 | `?GetSnapshotName@Rva003A59C3@@UAEPBDXZ` | `?Rva003A5A42Get@@YAHXZ` |
@@ -92,8 +117,10 @@ Trial 2 and 3, not landed:
   retail address in the ledgers`). So the stand-ins go only after the slot
   rows exist. The data-row check is a local proxy for the pass test.
 - `rename.py function --rva 0x003A5A58 --to-class Rva003A59C3 --new update
-  --dry-run` refuses: 0x003A5A58 is also slot 1 of 0x00C1CED8, which the
-  ledger gives to `Rva003AE017`, a class no view derives from `Rva003A59C3`.
+  --dry-run` first refused: 0x003A5A58 is also slot 1 of 0x00C1CED8, which the
+  ledger gives to `Rva003AE017`. The derivation has to be declared in that
+  table's installer unit (`Rva003AE017CopyCtor.cpp`); a view in the clone
+  unit is not read. With it the move went through.
 
 ## Next step
 

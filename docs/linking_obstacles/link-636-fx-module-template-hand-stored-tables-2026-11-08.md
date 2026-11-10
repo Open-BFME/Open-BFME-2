@@ -250,3 +250,15 @@ derives `Rva003AE017` (table 0x00C1CED8) from this class. Next: one family
 header, as `FXModuleTemplateBase.h` did for the templates, landing the shape
 and the slot rows together.
 [Target facts, the banked trial and the slot table](../../reverse/attempt_support/fx-wind-default-particle-module-20261110/README.md).
+
+2026-11-10, CAT_WIND module, first slot landed: `Rva003AE017CopyCtor.cpp`
+declares its class on `Rva003A59C3`, which let `rename.py function
+--to-class` move 0x003A5A58 to `?update@Rva003A59C3@@UAEXXZ`;
+`Rva003A59C3Ctor.cpp` declares retail's slot counts with inline stand-ins in
+the slots not yet moved. 7/7 rows match over both units; `link_check`
+143 -> 143 and 717 -> 717 bytes. The primary table's slots 1 and 2 now agree
+with retail; clearance: none claimed, the tables stay bridged. New obstacle:
+`--to-class` cannot carry a method's this-adjustor thunk row, so DoXfer
+(0x003A57A9, thunk 0x003A5A50 in `GapForwardersSeat8.cpp`) does not move;
+recorded as a false reject in `re_attempts.log`. Next check: the real link's
+queue entry for 0x0081B5E0 should list slot 1 as resolved.
