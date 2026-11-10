@@ -948,3 +948,16 @@ ParticleModuleTemplateClones.cpp strong tables (0x0081C608, 0x0081CEE8,
 
 **2026-11-09, `0x007C6244` (`??_7W3DShroudMaterialPassClass@@6B@`) slot 1 provider/alignment repair (`W3DScene.cpp`):**
 `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp` declared `W3DShroudMaterialPassClass` inside `/O2` (`#include "W3DDevice/GameClient/W3DShroud.h"`), so it emitted `??_GW3DShroudMaterialPassClass@@UAEPAXI@Z` (`0x0006F1DD`) as a 30-byte `/O2` copy (`0x60501020`, calling Zero Hour `RefCountClass::Delete_This`) and came first in link order ahead of the ledger owner `OpaqueScalarDeletingDtorsB08.cpp` (28-byte `/O1` copy, `0x60101020`). Wrapping `#include "W3DDevice/GameClient/W3DShroud.h"` in `#pragma optimize("s", on)` / `#pragma optimize("", on)` and including canonical `WWLib/RefCountData.h` inside the existing `"s", on` block before `"refcount.h"` (merging the duplicate `#pragma optimize("s", on)`/`"", on` pair so hatch counts stay unchanged) makes `W3DScene.obj` emit retail's exact 28-byte `/O1` `??_GW3DShroudMaterialPassClass` (`0x60101020`, bit-for-bit twin of `OpaqueScalarDeletingDtorsB08.obj`) and canonical 20-byte `::delete this` `?Delete_This@RefCountClass@@UAEXXZ` (`0x0006CE57`, twin of `BfmeDynamicVBRefCountRva0006CE57.obj`). Verified locally: `./build.sh` 7/7 matched on `W3DScene.cpp` (`find_declared_unmatched`, `eh_verify`, `class_gate`, `data_check`, `hatch_counters` clean); COFF diff confirms `??_GW3DShroudMaterialPassClass@@UAEPAXI@Z` 30B/`0x60501020` -> 28B/`0x60101020`; `link_check` over `{W3DScene, OpaqueScalarDeletingDtorsB08, W3DShroudMaterialPass, W3DPropBuffer}.cpp` moves `4/4` LINKS (`1,207 -> 1,207` B; `W3DScene.cpp` repaired from `does not link 180 -> 0` to `LINKS 180 -> 180` B); bounded 6-object `vtable_bridge.plan()` simulation puts `0x007C6244` into `correct` (4/4 slots) in both `W3DScene`-first and `B08`-first order. Pending: next published census and real-link queue confirmation (also verify the header-queue items on `W3DSceneRenderStenciledPlayerColor`/`W3DSceneUpdateFixedLightEnvironments` remain untouched).
+
+2026-11-10, bounding-getter wall, one more target fact (7C5DB0 re-served at
+`6f1e6210`, no source change): retail's `Get_Bounding_Sphere` 0x0006D028 and
+`Get_Bounding_Box` 0x0006D03E are not 16-byte aligned (address mod 16 is 8
+and 14). A COMDAT kept from an align16 section starts on a 16-byte boundary,
+so the copies retail kept are align1 (`/O1`) ones: the flavour
+BaseHeightMapConstructor.obj emits, not hlod.obj's. Structural inference,
+untested: an `/O1` owner for the two rows (RenderObjO1Inlines.cpp already
+owns the sibling `/O1` inlines at 0x0006CECD..0x0006CF52) would be a flag
+twin of the path-order winner, with no alignment exception in the check.
+Not done here: `reverse/tu_map.csv` approves no unit for either address, and
+rows move only into an approved unit. Remaining prerequisite, either one:
+TU approval for the two rows, or the position-observation proof.
