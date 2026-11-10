@@ -599,10 +599,7 @@ private:
 // its call; same this). All names are address-derived.
 class ArmySummaryEntry;
 
-class Rva0040CB3AIndexedField {
-public:
-    int rva0040CB79(ArmySummaryEntry *entry) const;
-};
+#include "../../../Include/Common/Rva0040CB3AIndexedField.h"
 
 class Xfer;
 

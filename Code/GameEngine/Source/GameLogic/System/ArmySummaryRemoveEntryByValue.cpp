@@ -14,9 +14,7 @@ struct Rva0040DD3ARef {
  ~Rva0040DD3ARef();
 };
 class ArmySummaryEntry;
-class Rva0040CB3AIndexedField {
-public: int rva0040CB79(ArmySummaryEntry *) const;
-};
+#include "../../../Include/Common/Rva0040CB3AIndexedField.h"
 #include "../../../Include/GameLogic/ArmySummary.h"
 Rva0040DD3ARef ArmySummary::rva0040E6A4(ArmySummaryEntry *entry) {
  int index=reinterpret_cast<const Rva0040CB3AIndexedField *>(this)->rva0040CB79(entry);

@@ -30,7 +30,7 @@ public:
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
 class Rva0040D8D6List {public:~Rva0040D8D6List();void*begin,*end,*limit;unsigned index;};
 struct ArmySummaryEntryRef{Rva004F6093Holder holder;ArmySummaryEntryRef(){}ArmySummaryEntryRef(const Rva004F6093Holder&h):holder(h){}};
-class Rva0040CB3AIndexedField{public:int find(int)const;};
+#include "../../../Include/Common/Rva0040CB3AIndexedField.h"
 class ObjectTypes{public:bool isInSet(const AsciiString&)const;char pad[8];_STL::vector<AsciiString>types;};
 namespace _STL{template<>vector<ObjectID>::iterator vector<ObjectID>::erase(iterator);}
 #include "../../../Include/GameLogic/UnitRevivalEntry.h"

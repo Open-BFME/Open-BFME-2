@@ -20,11 +20,7 @@ struct _Rb_global
 	static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *) throw();
 };
 }
-class Rva0040CB3AIndexedField
-{
-public:
-	int get(int key) const;
-};
+#include "../../Include/Common/Rva0040CB3AIndexedField.h"
 class GameMessage
 {
 public:

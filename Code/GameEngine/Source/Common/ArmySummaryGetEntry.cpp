@@ -45,11 +45,7 @@ struct Rva0040CB3AEntryArray
 	Rva0040CB3AEntry *m_end;		// +0x44
 };
 
-class Rva0040CB3AIndexedField
-{
-public:
-	int find(int key) const;		// 0x0040CB3A
-};
+#include "../../Include/Common/Rva0040CB3AIndexedField.h"
 
 #include "../../Include/GameLogic/ArmySummary.h"
 

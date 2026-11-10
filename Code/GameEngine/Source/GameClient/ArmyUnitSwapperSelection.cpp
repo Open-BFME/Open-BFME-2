@@ -29,7 +29,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 typedef _STL::set<int> SelectedMemberSet;
 struct Rva005F56B0Selection {char prefix[0x10]; SelectedMemberSet members;};
 #include "../../Include/Common/ArmySummaryEntry.h"
-class Rva0040CB3AIndexedField {public: int get(int) const;};
+#include "../../Include/Common/Rva0040CB3AIndexedField.h"
 struct LivingWorldArmy {char prefix[0x20]; int id; char pad24[0x78-0x24]; Rva0040CB3AIndexedField *summary;};
 struct Arg54;
 class Rva002B280C {public: bool rva002B280C(Arg54*);};
