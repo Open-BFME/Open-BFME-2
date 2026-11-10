@@ -119,11 +119,7 @@ void emitScriptNameFixup(ScriptList *list, AsciiString &script)
 
 #include "../../../Include/Common/DataChunkInfo.h"
 
-class Rva003B40A1Holder
-{
-public:
-	void *captureGroup(void *record);
-};
+#include "../../../Include/Common/Rva003B40A1Holder.h"
 
 struct Rva0034F9D0Node
 {
