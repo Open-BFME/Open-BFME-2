@@ -1087,7 +1087,6 @@ Code/GameEngine/Source/Common/GameMessageAllocArg.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GameMessageCopy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GameMessageStructArgs.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GameModePreferences.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GameSlotRva004479B1.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GameStateMap.cpp,yes,0,0,0,0,0
@@ -1333,7 +1332,6 @@ Code/GameEngine/Source/Common/KindOfGetSingleBitFromName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LANChatHistory.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LadderPrefCopy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LargeGroupAudio_removeOverrides.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LeapYearPredicateThunk.cpp,yes,0,0,0,0,0
@@ -3492,7 +3490,6 @@ Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003B1820Find.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003B1853Set.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003B1879Init.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003B241AForwarder.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003B242CGet.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003B262EFinish.cpp,yes,0,0,0,0,0
