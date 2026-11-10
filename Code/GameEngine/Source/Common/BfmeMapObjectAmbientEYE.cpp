@@ -94,11 +94,7 @@ class Rva0030D631
 public:
 	BfmeRetBWF *rva0030D631();
 };
-class Rva0030D606
-{
-public:
-	void rva0030D606();
-};
+#include "../../Include/Common/Rva0030D606.h"
 
 void TranslateAudioProperties(Dict *props, Drawable *draw, ThingTemplate *tmpl, bool *soundOff,
 	Rva000A8C9B *customInfo, bool *soundEnabled);

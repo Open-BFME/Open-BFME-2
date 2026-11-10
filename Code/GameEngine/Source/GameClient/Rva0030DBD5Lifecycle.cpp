@@ -95,7 +95,7 @@ class VertexMaterialClass;
 class RenderObjClass;
 enum BridgeTowerType { BRIDGE_TOWER_FIRST=0 };
 class MapObject { public: void setBridgeRenderObject(BridgeTowerType, RenderObjClass *); };
-class Rva0030D606 { public: void rva0030D606(); };
+#include "../../Include/Common/Rva0030D606.h"
 
 class Rva0030DBD5 : public Rva0030D346
 {
