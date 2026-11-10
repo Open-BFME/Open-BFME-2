@@ -94,11 +94,7 @@ public:
 	unsigned char m_438;	// +0x438
 };
 
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 class Rva00331682Holder
 {

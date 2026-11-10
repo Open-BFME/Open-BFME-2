@@ -104,11 +104,7 @@ enum WeaponSetType
 
 // Object::getWeaponSetFlags (lea eax,[ecx+0x370]); the row keeps its
 // address-derived name.
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 

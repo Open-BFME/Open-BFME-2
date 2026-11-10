@@ -105,7 +105,7 @@ virtual void h95()=0;
 virtual unsigned slot96(int) const=0;};
 class AttackContainView : public AttackSlots<31> {public:virtual AttackHordeView *slot31()=0;};
 class SpawnBehaviorInterface : public AttackSlots<3> {public:virtual void slot3(Object*,int,CommandSourceType)=0;};
-class Rva0028B7AELeaGetter {public:void *get() const;bool testBit8()const{return (unsigned)((*(const unsigned*)get()>>8)&1);}};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 #include "../../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../../Include/GameLogic/Weapon.h"
 class AttackTemplate {public:char pad0[0x112];unsigned char flag112;char pad113;unsigned flags114;};

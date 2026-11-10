@@ -102,11 +102,7 @@ NameKeyType Rva0045EE2CGet();
 
 #include "../../../../Include/GameLogic/StancesBehavior.h"
 
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 struct DamageInfoView
 {

@@ -82,13 +82,7 @@ enum KindOfType
 }
 ;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-class Rva0028B7AELeaGetter
-
-{
- public: void *get() const;
-
-}
-;
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 struct DualWeaponFlags
 
 {

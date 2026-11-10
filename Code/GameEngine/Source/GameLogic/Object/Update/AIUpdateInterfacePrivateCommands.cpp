@@ -664,12 +664,7 @@ struct Rva001E4147Twelve;
 // Object's flag word at +0x370, handed out by the matched lea getter
 // 0x0028B7AE (DispDwordLeaFieldGetters.cpp); command 0x47 refuses an object
 // with bit 8 set.
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-	Bool testBit8() const { return (UnsignedInt)((*(const UnsignedInt *)get() >> 8) & 1); }
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 // 0x00263910 (matched, Rva00263910Goal.cpp): the clipped goal position with an
 // explicit range; setGoalPositionClipped (0x00265667) forwards to it with the

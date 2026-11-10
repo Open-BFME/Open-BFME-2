@@ -55,11 +55,7 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva0028B7AELeaGetter.h"
 
 class Rva00331682Holder
 {

@@ -69,11 +69,7 @@ public:
 };
 
 // Object +0x370 (rowed out-of-line lea getter).
-class Rva0028B7AELeaGetter
-{
-public:
-	void *get() const;
-};
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 class Object
 {

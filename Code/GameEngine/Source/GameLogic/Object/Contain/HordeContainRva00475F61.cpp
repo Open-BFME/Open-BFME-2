@@ -81,7 +81,7 @@ enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
 enum WeaponSetType { WEAPONSET_NONE=0 };
 enum CommandSourceType { CMD_NONE=0 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-class Rva0028B7AELeaGetter { public: void *get() const; };
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 class Rva00475F61AIUpdate;
 class Object : public Thing {
 public:

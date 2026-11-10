@@ -104,14 +104,7 @@ class AIUpdateInterfaceView
  
 }
 ;
-class Rva0028B7AELeaGetter
-
-{
- public:
- void *get() const;
- 
-}
-;
+#include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 class Rva0028BD3AInterface
 
 {
