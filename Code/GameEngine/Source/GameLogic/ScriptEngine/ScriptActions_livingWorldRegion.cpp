@@ -455,7 +455,7 @@ class Rva003BD598 { public: void rva003BD598(); };
 class Rva003BE5C9 { public: void rva003BE5C9(); void rva003C3B4A(); };
 class Rva003BE6CB { public: void rva003BE6CB(); };
 class Rva003BE7ED { public: void rva003BE7ED(); };
-class Rva003BBAD3 { public: void rva003BBAD3(); };
+#include "../../../Include/Common/Rva003BBAD3.h"
 class Rva003C08CC { public: void rva003C08CC(class AsciiString const *, bool); };
 class Rva003BC392Holder { public: void set(bool); };
 class Rva003C1E69 { public: class Team * rva003C1E69(class AsciiString const &, class AsciiString const &); };

@@ -25,11 +25,7 @@ public:
 	bool rva00200084();
 };
 
-class Rva003BBAD3
-{
-public:
-	void rva003BBAD3();
-};
+#include "../../../Include/Common/Rva003BBAD3.h"
 
 class Rva001EB0CAHolder
 {
