@@ -9,11 +9,7 @@
 
 // 0x002259F3 is rowed as this const int getter (Disp8ByteFieldGetters.cpp);
 // retail consumes only its low byte (movzx eax,al), as the bool it is.
-class Rva002259F3
-{
-public:
-	int rva002259F3() const;
-};
+#include "../../Include/Common/Rva002259F3.h"
 
 class GameLogic
 {

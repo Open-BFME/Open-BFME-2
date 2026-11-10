@@ -719,7 +719,7 @@ template<> inline void vector<Rva0024622FEntry>::_M_insert_overflow(
 }
 }
 
-class Rva002259F3 { public: int rva002259F3() const; };
+#include "../../../Include/Common/Rva002259F3.h"
 class Rva00240E18 { public: void rva00240E18(bool); };
 class GameLogic : public SubsystemInterface, public Snapshot
 {

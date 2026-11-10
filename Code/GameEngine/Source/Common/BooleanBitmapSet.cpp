@@ -62,18 +62,7 @@ struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsig
 // Address-derived class; the stored byte's meaning is unproven.
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
-class Rva002259F3
-{
-public:
-	int rva002259F3() const;
-private:
-	char m_pad00[0x44];
-	unsigned char m_44;
-	char m_pad45[0x9D - 0x45];
-	unsigned char m_9d;
-	char m_pad9E[0xA8 - 0x9E];
-	unsigned char m_a8;
-};
+#include "../../Include/Common/Rva002259F3.h"
 // Small unrowed .text bodies from the 0x0051xxxx..0x005Fxxxx (/O1) region.
 // Retail bytes establish every shape; the owning classes are not recovered,
 // so each keeps an address-derived name and a view of only the fields it

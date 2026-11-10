@@ -252,18 +252,7 @@ public:
 
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
-class Rva002259F3
-{
-public:
-	int rva002259F3() const;
-private:
-	char m_pad00[0x44];
-	unsigned char m_44;
-	char m_pad45[0x9D - 0x45];
-	unsigned char m_9d;
-	char m_pad9E[0xA8 - 0x9E];
-	unsigned char m_a8;
-};
+#include "../../../GameEngine/Include/Common/Rva002259F3.h"
 
 // Rva007E8810Message's key/value accessors and error slot, under the names
 // their 20-odd FESL callers already use (symbols.csv pins at 0x00655950 -
