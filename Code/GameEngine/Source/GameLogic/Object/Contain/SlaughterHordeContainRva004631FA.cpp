@@ -6,7 +6,7 @@
 
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
-class Rva0046247D { public: void rva0046247D(Rva0046247DPair &p); };
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
 
 class SlaughterHordeContain { public:
   virtual void dslot0();

@@ -3,11 +3,7 @@
 // Evidence: Native46333B..4633D3 PUSH EBP entry and RET24 prove six integer out pointers. Secondary interface20 data minus1C flag80; virtual capacity28 reserved69 current51 and established pair46247D; contained node8 object template4 flag109bit0. Address-derived purpose and types remain structural inference; prior no-boundary verdict refuted by complete retail prologue and return. Full152 verified no pins.
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 // row ?rva0046247D@Rva0046247D@@QAEXAAURva0046247DPair@@@Z (Rva0046247DCondPair.cpp); this caller ignores the result
-class Rva0046247D
-{
-public:
-	void rva0046247D(Rva0046247DPair&);
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
 struct Data {char pad[0x80];bool enabled;};
 struct Template {char pad[0x109];unsigned char kindof;};
 struct Object {void*vptr;Template*type;};

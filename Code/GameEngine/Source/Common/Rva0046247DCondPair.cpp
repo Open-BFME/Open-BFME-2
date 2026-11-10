@@ -9,11 +9,7 @@
 // getters with the same defaults. No donor; identity is honest-address Rva.
 // No // cl: line (defaults /O2 match the frameless 26-byte shape).
 #include "../../Include/GameLogic/Module/Rva0046247DPair.h"
-class Rva0046247D
-{
-public:
-	void rva0046247D(Rva0046247DPair &result);
-};
+#include "../../Include/GameLogic/Module/Rva0046247D.h"
 __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &result)
 {
 	void *base = this;

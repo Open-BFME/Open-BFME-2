@@ -82,7 +82,7 @@ class Rva0046AB7D { public: void rva0046AB7D(); };
 struct UpdateListNode { UpdateListNode *next,*prev; Object *object; };
 struct UpdateList { UpdateListNode *head; };
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
-class Rva0046247D { public: void rva0046247D(Rva0046247DPair &); };
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
 class HordeContain {
 public:
     void rva0046E740(int);

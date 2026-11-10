@@ -43,11 +43,7 @@ struct HordeMemberList
     Rva0046A10DListNode *sentinel;
 };
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
-class Rva0046247D
-{
-public:
-    void rva0046247D(Rva0046247DPair &pair);
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
 __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &result)
 {
 	void *base = this;

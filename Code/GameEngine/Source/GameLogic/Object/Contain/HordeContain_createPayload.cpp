@@ -27,11 +27,7 @@ typedef ContainmentList IntList;
 
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
-class Rva0046247D
-{
-public:
-	void rva0046247D(Rva0046247DPair &p);	// rowed void; retail callers read eax
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
 
 
 class Object;

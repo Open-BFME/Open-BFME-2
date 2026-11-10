@@ -22,11 +22,7 @@ template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_Lis
 
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
-class Rva0046247D
-{
-public:
-	void rva0046247D(Rva0046247DPair&);
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
 
 // The shared helper and its eight-byte element copier are now recovered.
 // Original element identity and the descriptor's first-field meaning remain
