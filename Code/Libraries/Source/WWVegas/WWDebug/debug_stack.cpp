@@ -384,7 +384,6 @@ bool DebugStackwalk::IsOldDbghelp(void)
 // Under /Od MSVC 7.1 orders frame slots by local NAME (a hash), not by
 // declaration; ctxCopy, curProcess and value are names that reproduce retail's
 // slots, the original names are unknown.
-#pragma optimize("", off)
 int DebugStackwalk::StackWalk(Signature &sig, struct _CONTEXT *ctx, bool useFallback)
 {
   InitDbghelp();
@@ -512,7 +511,6 @@ int DebugStackwalk::StackWalk(Signature &sig, struct _CONTEXT *ctx, bool useFall
 
 	return sig.m_numAddr;
 }
-#pragma optimize("", on)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

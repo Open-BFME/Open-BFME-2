@@ -12,7 +12,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -41,7 +40,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // The shared Unicode view keeps the native size-profile copy constructor.
 #pragma optimize("s", on)
 #include "Common/UnicodeString.h"
-#pragma optimize("", on)
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <map>

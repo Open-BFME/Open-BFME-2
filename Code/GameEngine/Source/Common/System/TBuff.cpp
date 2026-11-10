@@ -673,9 +673,7 @@ unsigned char __stdcall Rva000D1D21ByteResult(unsigned int, unsigned int, unsign
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
 
-#pragma optimize("s", on)
 
-#pragma optimize("", on)
 
 template <class Type>
 ShareBufferClass<Type>::ShareBufferClass(int count, const char *msg, int alignment) :

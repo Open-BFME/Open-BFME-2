@@ -9,7 +9,6 @@
 #define _CRTIMP
 #pragma optimize("s", on)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-#pragma optimize("", on)
 #include <vector>
 namespace _STL {
 template<> void vector<unsigned char>::_M_fill_insert(unsigned char *, unsigned int, const unsigned char &);

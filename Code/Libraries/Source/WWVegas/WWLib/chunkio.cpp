@@ -180,9 +180,7 @@ private:
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp
 
-#pragma optimize("gsy", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp
 
@@ -545,9 +543,7 @@ Rva009E12B0Table::Rva009E12B0Table(int owner)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/chunkio_load_ctor.cpp
 
-#pragma optimize("gsy", on)
 
-#pragma optimize("", on)
 
 // ??0ChunkLoadClass@@QAE@PAVBFMEChunkInput@@@Z
 // The first three go in the initialiser list, not the body: members are

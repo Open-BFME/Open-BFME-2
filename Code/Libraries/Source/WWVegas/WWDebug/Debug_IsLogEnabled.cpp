@@ -14,7 +14,6 @@
 #pragma comment(linker, "/alternatename:?UpdateFrameStatus@Debug@@AAEXAAUFrameHashEntry@1@@Z=?UpdateFrameStatus@Rva0088A7E0Debug@@QAEXAAURva0088A7E0FrameHashEntry@@@Z")
 
 // LookupFrame is frameless at retail RVA 0x00038330.
-#pragma optimize("y", on)
 
 // ?LookupFrame@Debug@@AAEPAUFrameHashEntry@1@I@Z
 inline Debug::FrameHashEntry *Debug::LookupFrame(unsigned int address)

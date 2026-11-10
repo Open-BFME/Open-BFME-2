@@ -802,11 +802,8 @@ void Rva00358D62::rva00358DFD()
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 unsigned int Rva00359269::rva00359269(const int &key)
 {
@@ -820,11 +817,8 @@ unsigned int Rva00359269::rva00359269(const int &key)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva00358e6a_insert_unique.cpp
 

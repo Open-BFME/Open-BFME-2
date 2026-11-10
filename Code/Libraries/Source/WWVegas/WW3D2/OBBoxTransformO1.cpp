@@ -12,16 +12,13 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 // Keep the transform algorithm inline in the /O1 OBBox body without emitting
 // an unused competing Matrix3D helper. The scoped view preserves its layout
 // and complete inline definitions; it adds no imported call or address.
 #pragma optimize("ty", on)
 #include "matrix3d.h"
-#pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
 #include "mesh.h"

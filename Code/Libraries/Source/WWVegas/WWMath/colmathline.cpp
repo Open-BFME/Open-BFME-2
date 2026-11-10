@@ -11,7 +11,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // Emit retail's /O1 COMDAT copies (Plane ctor, Vector3 operators).
 // TriClass::Collide rows below keep the TU flags.
 #pragma optimize("s", on)

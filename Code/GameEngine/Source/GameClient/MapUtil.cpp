@@ -297,7 +297,6 @@ Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *us
 	worldDict = file.readDict();
 	return true;
 }
-#pragma optimize("", on)
 
 #pragma optimize("s", on)
 void resetMap( void )
@@ -449,7 +448,6 @@ Bool WouldMapTransfer( const AsciiString& mapName )
 //-------------------------------------------------------------------------------------------------
 /** Validate a map */
 //-------------------------------------------------------------------------------------------------
-#pragma optimize("t", off)
 #pragma optimize("s", on)
 Bool isValidMap( AsciiString mapName, Bool isMultiplayer )
 {

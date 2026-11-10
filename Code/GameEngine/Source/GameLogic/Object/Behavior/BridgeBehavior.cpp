@@ -13,9 +13,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
@@ -150,9 +148,7 @@ public:
 
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<_List_node< ::BridgeBehaviorListValue12 > >::deallocate(_List_node< ::BridgeBehaviorListValue12 > *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 
 typedef std::list<BridgeBehaviorListValue12> BridgeBehaviorList12;
@@ -498,7 +494,6 @@ BridgeBehaviorInterface *BridgeBehavior::getBridgeBehaviorInterfaceFromObject(Ob
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-#pragma optimize("s", on)
 
 void BridgeBehavior::setTower( BridgeTowerType towerType, Object *tower )
 {
@@ -522,12 +517,10 @@ void BridgeBehavior::setTower( BridgeTowerType towerType, Object *tower )
 
   // end setTower
 
-#pragma optimize("", on)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-#pragma optimize("s", on)
 
 ObjectID BridgeBehavior::getTowerID( BridgeTowerType towerType )
 {
@@ -548,7 +541,6 @@ ObjectID BridgeBehavior::getTowerID( BridgeTowerType towerType )
 
   // end getTowerID
 
-#pragma optimize("", on)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

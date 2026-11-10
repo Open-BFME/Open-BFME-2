@@ -15,17 +15,13 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix3x3 Matrix3
 #define Matrix4x4 Matrix4  // BFME renamed it
-#pragma optimize("t", on)
 #include "camera.h"
 #include "ww3d.h"
 #include "matrix4.h"
 #include "dx8wrapper.h"
-#pragma optimize("", on)
 
 // ?_bfmeFrustumAnchor@@YAPAVFrustumClass@@XZ absent-from-retail
 FrustumClass *_bfmeFrustumAnchor(void)

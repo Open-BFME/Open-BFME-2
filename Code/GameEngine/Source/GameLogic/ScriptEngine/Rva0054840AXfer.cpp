@@ -46,7 +46,6 @@ template<> void list<int>::pop_front();
 
 // The existing speed scope also keeps the placement construction helper
 // identical to STLport's verified provider at 0x00620140.
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
 template <> inline void _Construct<int, int>(int *p, const int &value)

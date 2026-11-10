@@ -10,27 +10,19 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma optimize("gsy", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "rendobj.h"
 #include "aabox.h"
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"
 #include "scene.h"
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
-#pragma optimize("gsy", on)
 #pragma optimize("", on)
 #define Matrix4x4 Matrix4
 #include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
 #include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
 #include "camera.h"
 #include <string.h>
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #include "vector3.h" // select the verified three-word constructor before donor math headers
 #include "intersec.h"
 #include <stdio.h>
@@ -46,9 +38,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 	{ \
 		m_value = value; \
 	}
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
-#pragma optimize("s", on)
 #include "multilist.h"
 #include "matrix3d.h"
 #pragma optimize("", on)
@@ -175,7 +164,6 @@ struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp
 
-#pragma optimize("gsy", on)
 
 #pragma optimize("", on)
 

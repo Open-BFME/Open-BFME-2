@@ -13,7 +13,6 @@
 // add-esi-0x14 loop); the class keeps the retail address token because no
 // caller names it (parser-registration precedent).
 
-#pragma optimize("t", on)
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -23,7 +22,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#pragma optimize("", on)
 
 #include "ascii_string.h"
 

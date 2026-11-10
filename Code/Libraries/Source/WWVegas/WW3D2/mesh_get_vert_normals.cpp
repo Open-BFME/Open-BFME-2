@@ -12,7 +12,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma auto_inline(off)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma auto_inline(on)
-#pragma optimize("", on)
 
 #include <string.h>
 // Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form

@@ -164,15 +164,12 @@ public:
 };
 #include <algorithm>
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 #include <set>
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #pragma comment(linker, "/alternatename:?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva002F3093Record@@@2@@Z=?rva002F1DDC@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@U2@ABVRva002F1DDCValue@@@Z")
@@ -1469,17 +1466,11 @@ static __forceinline char cellLayerByte(const PathfindCell *cell) {return (char)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/Common/PathfindCell_IsObstaclePresent.cpp
 

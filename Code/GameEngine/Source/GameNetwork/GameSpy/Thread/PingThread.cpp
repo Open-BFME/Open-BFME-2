@@ -832,11 +832,8 @@ void Pinger::startThreads(void)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva006609D0Destructor_Rva0054ffa5.cpp
 

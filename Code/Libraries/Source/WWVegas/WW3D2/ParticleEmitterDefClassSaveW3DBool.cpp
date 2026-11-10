@@ -12,7 +12,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // Use SDK components: the donor windows.h is a sweep stand-in.
 #include <stdarg.h>

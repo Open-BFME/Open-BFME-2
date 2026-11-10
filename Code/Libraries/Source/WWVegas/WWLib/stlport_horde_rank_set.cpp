@@ -86,7 +86,6 @@ RankTree::_Link_type RankTree::_M_clone_node(_Link_type x)
     return node;
 }
 
-#pragma optimize("y", off)
 template _STL::pair<RankTree::iterator, bool> RankTree::insert_unique(const int &);
 typedef _STL::set<int> RankSet;
 template _STL::pair<RankSet::iterator, bool> RankSet::insert(const int &);

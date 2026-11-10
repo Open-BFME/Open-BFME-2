@@ -61,22 +61,15 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define __PLACEMENT_VEC_NEW_INLINE	// always.h defines array placement-new itself
 #include "vector2.h"
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #include "vector3i.h"
 #pragma intrinsic(_ReadWriteBarrier)
 #define BFME_MESHMATDESC_COLOR_ARRAY_EXTERNAL
 #include <meshmatdesc.h>
 #define BFME_MESHMATDESC_COLOR_ARRAY_EXTERNAL
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #include "sharebuf.h"
-#pragma optimize("gsy", on)
 #pragma optimize("", on)
 #include "bittype.h"
 #include "vector3.h"

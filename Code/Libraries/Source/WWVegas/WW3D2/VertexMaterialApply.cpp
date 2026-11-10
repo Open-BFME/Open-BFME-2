@@ -21,7 +21,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 // Link view: Matrix4(Vector4 x4), Transpose and the Matrix3D overloads stay inline without emitting
 // non-/O1 copies that lose to retail's owners (0x0006A34E, 0x0006A3D1).

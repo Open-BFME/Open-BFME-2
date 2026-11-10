@@ -4,12 +4,10 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 // Keep header-defined interface COMDATs in the retail frame context.
-#pragma optimize("y",on)
 #include "_pch.h"
 #include <stdlib.h>
 #include <new>      // needed for placement new prototype
 #include <new>
-#pragma optimize("y",off)
 #include <windows.h>
 #include <string.h>
 #pragma intrinsic(strlen)

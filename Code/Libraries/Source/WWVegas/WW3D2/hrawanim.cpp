@@ -23,26 +23,18 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "chunkio.h"
 #include "assetmgr.h"
 #include "htree.h"
-#pragma optimize("gsy", on)
 #include "hash.h"
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 #define ANIM_CHANNEL_FADE 15
-#pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 HTreeClass *Get_HTree(const char *name);
 #include <ctype.h>
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 #define ANIM_CHANNEL_FADE 15
-#pragma optimize("s", on)
-#pragma optimize("", on)
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 #include <new>

@@ -48,7 +48,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "GameClient/AnimateWindowManager.h"
 #include "GameClient/GameWindow.h"
 #include "GameClient/Display.h"
-#pragma optimize("", on)
 
 void ProcessAnimateWindowSlideFromRightFast::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
 {

@@ -24,7 +24,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -105,7 +104,6 @@ namespace _STL { template <> vector<void *,allocator<void *> >::vector(allocator
 // this TU is default-flag for its hashtable clear row, so its own copy differs.
 // Specialize only the member under "s" so our emitted copy matches the kept /O1 body,
 // while inlined key compares and the clear row keep default flags (as in FXListMapNodeEmit.cpp).
-#pragma optimize("s", on)
 namespace rts {
 template<> Bool equal_to<NameKeyType>::operator()(const NameKeyType &a, const NameKeyType &b) const { return a == b; }
 }

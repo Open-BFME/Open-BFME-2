@@ -28,9 +28,7 @@
 #include <stl/_alloc.h>
 // Public malloc release uses retail's unoptimized import entry; callers keep the header inline body.
 namespace _STL {
-#pragma optimize("", off)
 template <> __forceinline void __malloc_alloc<0>::deallocate(void *p, size_t) { free((char *)p); }
-#pragma optimize("", on)
 }
 
 #include <locale>

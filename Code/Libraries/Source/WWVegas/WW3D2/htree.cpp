@@ -58,9 +58,7 @@
 // /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
 // lookuptable.cpp pattern) so this unit's copy is that body.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include "quat.h"
 #include "matrix3d.h"
 #include "vector3.h"
@@ -69,15 +67,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #undef min
 #undef max
 #pragma auto_inline(off)
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #pragma auto_inline(on)
 #pragma intrinsic(memcpy)
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #pragma intrinsic(strcpy)
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #pragma intrinsic(memcpy)
 
 struct Elem36Block16
@@ -515,9 +507,7 @@ bool HTreeClass::Simple_Evaluate_Pivot(int pivot_index, const Matrix3D &obj_tm, 
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/htree.cpp
 
-#pragma optimize("gsy", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassScale.cpp
 
@@ -1319,11 +1309,8 @@ void HTreeClass::rva00160FC0(Rva00160FC0Input *next)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/HTreeClassDestructor.cpp
 

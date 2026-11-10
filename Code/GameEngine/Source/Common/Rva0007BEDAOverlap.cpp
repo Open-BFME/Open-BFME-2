@@ -19,7 +19,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // Retain inline arithmetic while binding external helpers to the rowed Vector3 providers.
 class __declspec(dllimport) Vector3;
 #include "vector3.h"

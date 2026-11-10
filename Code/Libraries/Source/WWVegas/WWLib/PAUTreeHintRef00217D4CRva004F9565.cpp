@@ -12,9 +12,7 @@
 // The handle types' original names are unknown. operator= is the matched
 // 0x002174A4 body; giving it a visible body (noinline) is what keeps swap's
 // copy in esi across both assignments (retail swap 0x004F6542).
-#pragma optimize("t", on)
 #include <stl/_algobase.h>
-#pragma optimize("", on)
 #include <algorithm>
 struct Key004F9185 { int _00[3]; int m_key; };
 #include "../../Apt/AptRefTarget.h"

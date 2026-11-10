@@ -143,9 +143,6 @@ extern "C" void _ReadWriteBarrier();
 #pragma pack(push,1)
 #pragma pack(pop)
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include <list>
 #include <windows.h>
 struct BfmePointFC

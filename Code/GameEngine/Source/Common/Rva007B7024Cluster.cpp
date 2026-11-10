@@ -40,7 +40,6 @@ void __cdecl rva007B700A()
 	if (g_Va00DEE870 != 0)
 		g_Va00DEE870->Release();
 }
-#pragma optimize("", on)
 
 // The global address is an absolute DIR32 operand, masked by the byte gate.
 Rva007B7024Object *g_Va00DEE86C;
@@ -54,7 +53,6 @@ void __cdecl rva007B7024()
 	if (g_Va00DEE86C != 0)
 		g_Va00DEE86C->Release();
 }
-#pragma optimize("", on)
 
 // 0x007B71D0, 0x007B7200 and 0x007B7230 (35B each) are meshmdl_sidehash.cpp's
 // compiler-emitted atexit destructors _$E3 / _$E6 / _$E9 for LocationHash,

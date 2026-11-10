@@ -10,9 +10,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -71,7 +69,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "Common/PlayerList.h"
 // CameraClass::Cull_Sphere (emitted for cull) is retail's speed-optimised body at
 // 0x00135960, which W3DScene.cpp also emits: define camera.h's inline members for speed.
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 #include "WW3D2/Camera.h"
 #pragma optimize("", on)
@@ -201,7 +198,6 @@ ALPINE, DECIDUOUS and SHRUB. */
 // 0xDFE748.
 extern PartitionManager *TheShroudManager;
 
-#pragma optimize("s", on)
 void W3DPropBuffer::notifyShroudChanged()
 {
 	Int i;
@@ -209,7 +205,6 @@ void W3DPropBuffer::notifyShroudChanged()
 		m_props[i].ss = TheShroudManager?OBJECTSHROUD_INVALID:OBJECTSHROUD_CLEAR;
 	}
 }
-#pragma optimize("", on)
 
 
 DECLARE_PERF_TIMER(Prop_Render)

@@ -9,7 +9,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // rendobj.h: this unit inlines RenderObjClass::Set_Hidden (a qualified or
 // in-constructor call), so it needs the bit setters' bodies.

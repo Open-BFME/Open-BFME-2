@@ -10,7 +10,6 @@
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
 #pragma optimize("s", on)
 #include "multilist.h"
-#pragma optimize("", on)
 #include "multilist.h"
 
 class TextureClass
@@ -36,8 +35,6 @@ public:
 
 // Retail array initialization takes this address; preserve its six-byte
 // size-optimized callback (326BE6) rather than the general /O2 template copy.
-#pragma optimize("s", on)
-#pragma optimize("t", off)
 template<> inline RefCountPtr<TextureClass>::RefCountPtr() : p(0) {}
 #pragma optimize("", on)
 

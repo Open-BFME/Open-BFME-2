@@ -8,7 +8,6 @@ template <> __declspec(dllimport) __forceinline
 const unsigned &max<unsigned>(const unsigned &__a, const unsigned &__b) { return __a < __b ? __b : __a; }
 }
 #include <vector>
-#pragma optimize("", on)
 #include "ascii_string.h"
 typedef int Int;
 typedef unsigned int UnsignedInt;

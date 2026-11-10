@@ -77,14 +77,11 @@ public:
 };
 void BoxSetTexture(unsigned int stage, TextureBaseClass *&texture);
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
-#pragma optimize("t", off)
-#pragma optimize("s", on)
 inline StringClass::StringClass(int length, bool temporary) : m_Buffer(m_EmptyString)
 {
 	Get_String(length, temporary);
 	m_Buffer[0] = m_NullChar;
 }
-#pragma optimize("", on)
 __forceinline StringClass::~StringClass(void) { Free_String(); }
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (SetTextureStageState, vtable slot 67).

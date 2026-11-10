@@ -62,4 +62,3 @@ const char *INI::rva0002E03D(const char *seps, bool *substituted)
 	}
 	return 0;
 }
-#pragma optimize("", on)

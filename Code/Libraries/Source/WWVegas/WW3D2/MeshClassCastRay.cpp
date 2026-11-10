@@ -15,7 +15,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // Preserve the inline transform algorithms while suppressing unused external copies.
 // An inline function's out-of-line copy takes the optimization state of its definition:
 // under /O1 settings Matrix3D() and Matrix3D(const Matrix3D &) build Row through ??_H,

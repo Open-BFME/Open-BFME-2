@@ -1299,11 +1299,8 @@ void __cdecl Rva00218BD4Sort(Rva004748F0Element *first, Rva004748F0Element *midd
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00217802.cpp
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
 
@@ -1330,11 +1327,8 @@ void __cdecl bfmeEachQR(BfmeElemQR *first, BfmeElemQR *last, int unused, void *e
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // This caller's native REL32 already names the kept provider at 0x00217624.
 // Both declarations use thiscall with one object-pointer/reference argument; binding is address-proven.

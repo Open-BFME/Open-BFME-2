@@ -102,8 +102,6 @@ template <> __declspec(dllimport) __forceinline
 hash_map<unsigned int, void *>::iterator hash_map<unsigned int, void *>::find(const unsigned int &__key)
 { return _M_ht.find(__key); }
 }
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
 #pragma comment(linker, "/alternatename:?bfmeSay1025@BfmeP1025@@QAEDPAD@Z=?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z")
 #define _STLP_NO_EXCEPTIONS 1

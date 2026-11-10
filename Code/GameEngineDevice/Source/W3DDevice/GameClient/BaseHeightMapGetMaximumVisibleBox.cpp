@@ -21,12 +21,10 @@ inline Vector3 operator-(const Vector3 &a, const Vector3 &b)
 	return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
 }
 
-#pragma optimize("ty", on)
 __declspec(dllimport) __forceinline Vector3 operator*(const Vector3 &a, float k)
 {
 	return Vector3((a.X * k), (a.Y * k), (a.Z * k));
 }
-#pragma optimize("", on)
 
 class PlaneClass
 {

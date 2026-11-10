@@ -50,7 +50,6 @@ public:
 
 // Native array initialization uses the same six-byte callback as the
 // material/texture migration units (326BE6).
-#pragma optimize("s", on)
 #pragma optimize("t", off)
 template<> inline RefCountPtr<TextureClass>::RefCountPtr() : Referent(0) {}
 #pragma optimize("", on)

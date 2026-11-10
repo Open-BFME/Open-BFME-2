@@ -7,7 +7,6 @@
 // identify the local workers at 0x003F24D6, 0x003F1ECE, 0x003F1EEB, and the
 // already matched overflow body at 0x003F3277.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)

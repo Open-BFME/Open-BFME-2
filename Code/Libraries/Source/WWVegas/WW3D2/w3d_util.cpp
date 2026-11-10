@@ -160,4 +160,3 @@ void W3dUtilityClass::Convert_Shader(const ShaderClass & shader,W3dShaderStruct 
 	W3d_Shader_Set_Post_Detail_Alpha_Func(set,shader.Get_Post_Detail_Alpha_Func());
 }
 
-#pragma optimize("", on)

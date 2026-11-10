@@ -102,7 +102,6 @@ template <> unsigned int hashtable<pair<NameKeyType const, FXList>, NameKeyType,
 // this TU is default-flag (speed) for its _M_new_node row, so its own copy differs.
 // Specialize only the member under "s" so our emitted copy matches the kept /O1 body,
 // while inlined key compares and the _M_new_node row keep default flags.
-#pragma optimize("s", on)
 namespace rts {
 template<> Bool equal_to<NameKeyType>::operator()(const NameKeyType &a, const NameKeyType &b) const { return a == b; }
 }

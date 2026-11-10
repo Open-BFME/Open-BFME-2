@@ -23,7 +23,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -88,7 +87,6 @@ static Bool greater_than(PairObjectIDAndUInt a, PairObjectIDAndUInt b)
 	return a.second > b.second;
 }
 
-#pragma optimize("s", on)
 
 #pragma optimize("", on)
 

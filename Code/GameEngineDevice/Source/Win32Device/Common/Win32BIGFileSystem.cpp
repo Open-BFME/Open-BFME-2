@@ -370,9 +370,7 @@ typedef _STL::pair<const char* const, Rva00603A00Mapped> Rva00603A00Pair;
 
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<_Rb_tree_node< ::Rva00603A00Pair > >::deallocate(_Rb_tree_node< ::Rva00603A00Pair > *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 
 typedef _STL::_Rb_tree<const char*, Rva00603A00Pair, _STL::_Select1st<Rva00603A00Pair>, _STL::less<const char*>, _STL::allocator<Rva00603A00Pair> > Rva00603A00Tree;

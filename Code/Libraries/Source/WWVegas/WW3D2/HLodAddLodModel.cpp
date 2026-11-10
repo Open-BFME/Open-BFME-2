@@ -22,7 +22,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 #include <sweep/winbase_shim.h>
 #include <string.h>
@@ -39,7 +38,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "vector4.h"
 #pragma optimize("gsy", on)
 #include "matrix3d.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "winbase_shim.h"
 // Retail links the size-optimized WeightInfoStruct vector deleting destructor (??_E,

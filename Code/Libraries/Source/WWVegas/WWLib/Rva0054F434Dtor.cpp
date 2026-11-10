@@ -84,16 +84,12 @@ Rva0054F434::~Rva0054F434()
 {
 }
 
-#pragma optimize("y", off)
 _STL::list<AsciiString, _STL::allocator<AsciiString> > Rva0054F434::rva0054F3FD()
 {
 	return *(_STL::list<AsciiString, _STL::allocator<AsciiString> > *)&m_list48;
 }
-#pragma optimize("", on)
 
-#pragma optimize("y", off)
 AsciiString Rva0054F434::rva0054F3C7()
 {
 	return m_str64;
 }
-#pragma optimize("", on)

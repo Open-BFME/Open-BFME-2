@@ -5,7 +5,6 @@
 // returns null or whose Object byte at +0x438 bit0 is set via rowed Rb increment
 // and map erase. Evidence: leaf lane 1 caller 0x0046410E TheGameLogic extern
 // unblocks 0x004640BE; same shape as Rva0025C010 vector prune but map erase-void.
-#pragma optimize("t", on)
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -15,7 +14,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#pragma optimize("", on)
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 

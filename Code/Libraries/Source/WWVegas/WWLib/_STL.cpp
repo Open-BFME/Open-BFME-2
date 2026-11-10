@@ -76,9 +76,7 @@ template <> void basic_ios<char, char_traits<char> >::init(
 #pragma comment(linker, "/alternatename:?do_negative_sign@?$moneypunct@G$0A@@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ=?do_curr_symbol@?$moneypunct@G$00@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ")
 // Public malloc release uses retail's unoptimized import entry; callers keep the header inline body.
 namespace _STL {
-#pragma optimize("", off)
 template <> __forceinline void __malloc_alloc<0>::deallocate(void *p, size_t) { free((char *)p); }
-#pragma optimize("", on)
 }
 #include <iterator>
 #include <limits>

@@ -83,7 +83,6 @@ struct GeometryShape
 	GeometryShape &operator=(const GeometryShape &other);
 };
 
-#pragma optimize("t", off)
 #pragma optimize("s", on)
 static __forceinline void DestroyTmpName(AsciiString *asciiString) { asciiString->~AsciiString(); }
 #pragma optimize("", on)

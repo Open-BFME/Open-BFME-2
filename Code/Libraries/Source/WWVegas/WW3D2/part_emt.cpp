@@ -15,7 +15,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define _CRTIMP // free and strdup bind the game's direct allocation wrappers (0x00030830, 0x006C4C70), not CRT imports.
 #include <string.h>
 #include "wwstring.h"
-#pragma optimize("t", off)
 #pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
@@ -71,21 +70,10 @@ public:
 	{ \
 		return m_value; \
 	}
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #include "rendobj.h"
-#pragma optimize("s", on)
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
 #pragma inline_depth(0)
 #pragma inline_depth()
-#pragma optimize("gsy", on)
-#pragma optimize("", on)
-#pragma optimize("s", on)
-#pragma optimize("", on)
-#pragma optimize("gsy", on)
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_particle_definition/vector3.h"
 #define _CRTIMP // free and strdup bind the game's direct allocation wrappers (0x00030830, 0x006C4C70), not CRT imports.

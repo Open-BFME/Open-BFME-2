@@ -384,9 +384,7 @@ W3DProjectileStreamDrawModuleData::~W3DProjectileStreamDrawModuleData()
 // RefCountPtr by reference: its body (0x0015E250 -> 0x001911E0) reads the
 // pointer through the argument and adds a reference.
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 template <class T> inline const T &max( const T &lhs, const T &rhs ) { return lhs > rhs ? lhs : rhs; }
 

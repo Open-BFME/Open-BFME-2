@@ -69,7 +69,6 @@ private:
 #include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 
-#pragma optimize("y", off)
 // ?allocatePlayingAudio@MilesAudioManager@@QAE?AVPlayingAudioRef@@XZ
 PlayingAudioRef MilesAudioManager::allocatePlayingAudio(void)
 {

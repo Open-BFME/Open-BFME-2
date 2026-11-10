@@ -12,15 +12,12 @@ template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_stri
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #define ASCIISTRING_H
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
 template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define THREAD_H
 #include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"

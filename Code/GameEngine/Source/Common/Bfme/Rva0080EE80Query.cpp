@@ -27,4 +27,3 @@ int Rva0080EE80Query(Rva0080EE80View *object, unsigned tag)
 		return object->m_third;
 	return 0;
 }
-#pragma optimize("", on)

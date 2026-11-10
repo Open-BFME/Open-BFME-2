@@ -30,7 +30,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // under /O1 settings (retail 0x000423C5). Bodies that inline them are unchanged.
 #pragma optimize("y", off)
 #include "wwmath.h"
-#pragma optimize("", on)
 #pragma optimize("gsy", on)
 #include "matrix3d.h"
 #pragma optimize("", on)

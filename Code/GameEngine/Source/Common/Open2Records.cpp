@@ -135,7 +135,6 @@ Open2Rec439370::Open2Rec439370( const Open2Rec439370 &other )
 #include "../../Include/GameNetwork/PlayerInfo.h"
 
 // @??0PlayerInfo@@QAE@ABV0@@Z 0x004F1120
-#pragma optimize("s", on)
 inline PlayerInfo::PlayerInfo( const PlayerInfo &other )
 	: m_at00( other.m_at00 ), m_at04( other.m_at04 ), m_at08( other.m_at08 ), m_at0c( other.m_at0c ), m_at10( other.m_at10 ), m_at14( other.m_at14 ), m_at18( other.m_at18 ), m_at1c( other.m_at1c ), m_at20( other.m_at20 ), m_at24( other.m_at24 ), m_at28( other.m_at28 ), m_at2c( other.m_at2c ), m_at30( other.m_at30 )
 {

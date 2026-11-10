@@ -54,9 +54,6 @@ enum NameKeyType
 };
 #include "../../../Include/GameLogic/Armor.h"
 #include "RtsHashView.h"
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include <hash_set>
 namespace rts
 {

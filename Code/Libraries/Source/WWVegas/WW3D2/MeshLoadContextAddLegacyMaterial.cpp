@@ -158,7 +158,6 @@ RefCountPtr<TextureClass>::operator=(const RefCountPtr<TextureClass> &other)
     Referent = other.Referent;
     return *this;
 }
-#pragma optimize("", on)
 
 // Owning-assignment wrapper matched at 0x00042707 (TextureHandleAssignment.cpp).
 // Defined here only so read_v3_materials can see it keeps no handle address.
@@ -171,7 +170,6 @@ public:
         return *this;
     }
 };
-#pragma optimize("", on)
 
 // Release-and-clear helper matched at 0x0004D75B (BfmeResetTextureRefClear.cpp).
 // Defined here only so read_v3_materials can see it keeps no handle address.

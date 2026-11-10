@@ -20,7 +20,6 @@ struct VideoPair {
  inline VideoPair(const VideoPair &other) { s.first=other.s.first; s.second=other.s.second; }
 };
 #include "../../../../Include/GameLogic/Rva000427195.h"
-#pragma optimize("y", on)
 void Rva000427195::rva002ADCE1(const VideoPair &it) {
  VideoNode *node=(VideoNode *)it.s.first;
  if(node) {
@@ -51,7 +50,6 @@ void Rva000427195::rva002ADCE1(const VideoPair &it) {
 // copies both words into a local cursor and passes that local by reference
 // to the rowed chain-erase worker at 2ADCE1. No original container name is
 // inferred from this wrapper or from its generic STLport instruction shape.
-#pragma optimize("y", off)
 void Rva000427195::rva003A37DC(VideoPair cursor)
 {
  VideoPair local=cursor;

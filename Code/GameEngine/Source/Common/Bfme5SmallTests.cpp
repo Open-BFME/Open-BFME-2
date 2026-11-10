@@ -41,7 +41,6 @@ unsigned int g_rva00E02FC0Bits = 0;
 // Semantic lead: complete BFME1 Bfme5SmallTests.cpp blob1b4b62701b06e1ef5ea774e495711a32f8a688c8
 // at5cc75ddda6455c338a5068307e587a793f96d6b3, compiled /O1 /Ob1. Its dirty
 // label is donor evidence only. Keep the existing push body's compiler flags.
-#pragma optimize("s", on)
 void __cdecl rva00222435(unsigned int bits)
 {
     g_rva00E02FC0Bits |= bits;
@@ -53,7 +52,6 @@ void __cdecl rva00222440(unsigned int bits)
 {
     g_rva00E02FC0Bits &= ~bits;
 }
-#pragma optimize("", on)
 
 // Whole donor ConditionalPointerStoreThunk.cpp at5cc75ddda6455c338a5068307e587a793f96d6b3
 // emitted this sole new body under O1/Ob1. Native Ghidra133E/34 ends with
@@ -66,26 +64,22 @@ struct Rva00001360Bits
     unsigned int m_bits08;
     unsigned int takeBits();
 };
-#pragma optimize("s", on)
 unsigned int Rva00001360Bits::takeBits()
 {
     unsigned int result = m_bits08;
     m_bits08 = 0;
     return result;
 }
-#pragma optimize("", on)
 
 // Primary semantic lead: whole BFME1 Dict_getAsciiString.cpp at5cc75ddda6455c338a5068307e587a793f96d6b3
 // under O1/Ob1 emitted DictPair::getTypeFromKey. Native306B19/108 ends
 // ret8 at306B82; this leaf306B85/10 ends ret306B8E before another distinct
 // stack-word shift leaf306B8F. The bits and cdecl ABI are target facts;
 // donor Dict names, key enum, and DataType identity remain unproven here.
-#pragma optimize("s", on)
 unsigned int __cdecl rva00306B85(unsigned int bits)
 {
     return bits & 0xff;
 }
-#pragma optimize("", on)
 
 // Three whole BFME1 donor units at5cc75ddda6455c338a5068307e587a793f96d6b3
 // place their differently named cleanup members at native Ghidra1DBA9B/9:
@@ -98,12 +92,10 @@ struct Rva001DBA9BSectionView
     _RTL_CRITICAL_SECTION *m_criticalSection;
     void leave();
 };
-#pragma optimize("s", on)
 void Rva001DBA9BSectionView::leave()
 {
     LeaveCriticalSection(m_criticalSection);
 }
-#pragma optimize("", on)
 
 // Whole BFME1 SmallLeafBodies.cpp at5cc75ddda6455c338a5068307e587a793f96d6b3
 // compiled O1/Ob1 supplies the same byte-store pattern at two offsets.
@@ -126,7 +118,6 @@ public:
     unsigned char m_bits64;
     void setBits(unsigned char bits);
 };
-#pragma optimize("s", on)
 void Rva0045311AByteView::setBits(unsigned char bits)
 {
     m_bits32 = bits;
@@ -135,7 +126,6 @@ void Rva00330CD3ByteView::setBits(unsigned char bits)
 {
     m_bits64 = bits;
 }
-#pragma optimize("", on)
 
 // The same whole SmallLeafBodies donor labels this shape a constructor.
 // Target preceding Ghidra360BB8/70 endsret360BFD, this body360BFE/8 ends
@@ -152,12 +142,10 @@ public:
     unsigned int m_bits00;
     Rva00360BFEWordView(unsigned int ignored);
 };
-#pragma optimize("s", on)
 Rva00360BFEWordView::Rva00360BFEWordView(unsigned int)
 {
     m_bits00 = ~0u;
 }
-#pragma optimize("", on)
 
 // Primary semantic lead: complete BFME1 PackedByteExtractThunk.cpp
 // at5cc75ddda6455c338a5068307e587a793f96d6b3 (no header dependencies),
@@ -168,7 +156,6 @@ Rva00360BFEWordView::Rva00360BFEWordView(unsigned int)
 // 32-bit stack words and boundaries are facts; donor names and the original
 // bitfield owner/type are not. Byte access spells the proven x86 object
 // representation without assigning a target structure or semantic flag name.
-#pragma optimize("s", on)
 unsigned long rva0000117D(unsigned long bits)
 {
     return reinterpret_cast<const unsigned char *>(&bits)[1];
@@ -181,7 +168,6 @@ unsigned long rva0000118E(unsigned long bits)
 {
     return (bits >> 18) & 1;
 }
-#pragma optimize("", on)
 
 // Primary semantic guide: whole BFME1 Small03fRangeClassify.cpp at
 // 5cc75ddda6455c338a5068307e587a793f96d6b3, without headers. Discovery
@@ -199,7 +185,6 @@ int isThaiCharacter(unsigned short bits)
         return 0;
     return 1;
 }
-#pragma optimize("", on)
 
 // Whole BFME1 donor game/GameEngine/Source/Common/S2TwoValueStateTests.cpp
 // revision5cc75ddda6455c338a5068307e587a793f96d6b3,
@@ -226,7 +211,6 @@ int Rva000B22B3StateView::rva000B22B3() const
 {
 	return word == 0x400 || word == 0x800;
 }
-#pragma optimize("", on)
 
 // Whole clean BFME1 Small03iListPush.cpp @5cc75ddda6455c338a5068307e587a793f96d6b3.
 // Target 0x00140BE0 is bounded by INT3 padding before and after its RET.

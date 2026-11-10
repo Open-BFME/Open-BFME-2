@@ -7,7 +7,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define BFME_MESHMATDESC_UV_ARRAY_EXTERNAL
 // Link view first: Vector4(x,y,z,w) stays inline without emitting an SSE
 // copy that competes with retail's integer-move owner (0x006D8A30).
@@ -15,7 +14,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 // stlport
 // Use the verified out-of-line material getter; the ordinary /O2 header copy

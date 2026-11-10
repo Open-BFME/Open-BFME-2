@@ -38,9 +38,7 @@ typedef _STL::pair<const AsciiString, TreeHintRef00221D6B> TreeHintPair00221D6B;
 
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<_Rb_tree_node< ::TreeHintPair00221D6B > >::deallocate(_Rb_tree_node< ::TreeHintPair00221D6B > *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair00221D6B, _STL::_Select1st<TreeHintPair00221D6B>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair00221D6B> > TreeHint00221D6B;

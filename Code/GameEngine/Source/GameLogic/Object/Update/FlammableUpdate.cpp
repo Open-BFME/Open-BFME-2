@@ -365,11 +365,8 @@ Rva0048C8C6::Rva0048C8C6() : m_00(0), m_04("")
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // Bind lifetime operations to the existing rowed native providers.
 // push_back and overflow 48D48F call the cdecl copy provider 48C81F.

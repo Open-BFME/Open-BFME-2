@@ -38,7 +38,6 @@ public:
 	ArchivedFileInfoMap m_files;
 	void clear();
 };
-#pragma optimize("ty", on)
 class ArchivedFileInfo
 {
 public:
@@ -50,7 +49,6 @@ public:
 	~ArchivedFileInfo();
 	void clear();
 };
-#pragma optimize("", on)
 #include "Common/ArchiveFile.h"
 #include "Common/File.h"
 #include "Common/PerfTimer.h"

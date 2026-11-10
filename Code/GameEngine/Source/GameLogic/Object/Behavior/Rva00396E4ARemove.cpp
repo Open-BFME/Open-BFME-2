@@ -169,7 +169,6 @@ private:
 };
 
 // Native trigger bodies retain EBP; inline library helpers use normal omission.
-#pragma optimize("y", off)
 void Rva00396E4A::rva00396E4A(Object *obj)
 {
 	if (obj == 0)
@@ -235,4 +234,3 @@ void Rva00396E4A::onTriggerEntered(Object *obj)
 }
 
 // MSVC uses the final state when emitting delayed template instances.
-#pragma optimize("", on)

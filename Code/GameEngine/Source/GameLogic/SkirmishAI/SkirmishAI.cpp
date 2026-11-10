@@ -389,9 +389,7 @@ public:
 // 0x0040C922: this + 0x738 -> UnitRevivalTracker::retrieveHeroesForArmySummary
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 

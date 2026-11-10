@@ -15,14 +15,12 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // Retail treats array delete as nothrow: ~AggregateDefClass (0x001A3C90) has
 // no EH state store between its body and the member vector's teardown, which
 // the compiler drops only when delete[] cannot throw.
 void __cdecl operator delete[](void *) throw();
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "always.h"
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
@@ -163,11 +161,8 @@ struct AggregateSubobjectListView {
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp
 
-#pragma optimize("gsy", on)
 
-#pragma optimize("", on)
 
-#pragma optimize("gsy", on)
 
 #pragma optimize("", on)
 

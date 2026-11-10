@@ -11,10 +11,8 @@
 // entry point is supplied by its separately verified owner.
 namespace _STL {
 template <> void __malloc_alloc<0>::deallocate(void *, size_t);
-#pragma optimize("gsy", on)
 template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
 template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
-#pragma optimize("", on)
 }
 
 #include <string>

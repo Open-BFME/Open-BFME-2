@@ -7,9 +7,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -30,9 +28,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // Vector3's inlines compile with the unit's own settings, as retail's copies do.
 #include "vector3.h"
-#pragma optimize("ty", on)
 #include "../../../../../reference/shims/bfmefrustum/plane.h"
-#pragma optimize("", on)
 inline void PlaneClass::Set(const Vector3 & point1, const Vector3 & point2, const Vector3 & point3) 
 {
 #ifdef ALLOW_TEMPORARIES

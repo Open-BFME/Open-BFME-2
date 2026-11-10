@@ -10,10 +10,8 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_eq_link/vector3_eq_link.h"
 // stlport
 // Ported verbatim from the Generals Zero Hour reference

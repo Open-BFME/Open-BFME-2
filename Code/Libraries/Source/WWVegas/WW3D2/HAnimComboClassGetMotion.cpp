@@ -9,7 +9,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 // Preserve the inline count operations without competing external copies.
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"

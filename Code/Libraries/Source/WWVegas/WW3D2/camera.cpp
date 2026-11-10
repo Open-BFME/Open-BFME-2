@@ -116,7 +116,6 @@ void _bfmeMatrix4InitAnchor(Matrix4x4 &matrix4x4, const Matrix3D &matrix3D) { ma
 // retail's size-optimized body (row 0x0007B638), so its header is read under /Os.
 #pragma optimize("s", on)
 #include "colmathplane.h"
-#pragma optimize("", on)
 #include "colmathinlines.h"
 
 
@@ -210,7 +209,6 @@ CameraClass::CameraClass(const CameraClass & src) :
 // pointer (0x0004254E); instantiate it first so it does not take the "y" off.
 #pragma optimize("s", on)
 static void bfmePlaneCopyAnchor(PlaneClass &to, const PlaneClass &from) { to = from; }
-#pragma optimize("y", off)
 static void bfmeFrustumCopyAnchor(FrustumClass &to, const FrustumClass &from) { to = from; }
 #pragma optimize("", on)
 

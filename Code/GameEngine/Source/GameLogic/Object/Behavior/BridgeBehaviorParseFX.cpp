@@ -39,7 +39,6 @@ typedef unsigned int UnsignedInt;
 
 class FXList;
 
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 struct TimeAndLocationInfo
 {
@@ -48,7 +47,6 @@ struct TimeAndLocationInfo
 	TimeAndLocationInfo() {}
 	~TimeAndLocationInfo() {}
 };
-#pragma optimize("", on)
 
 class BridgeBehaviorModuleData
 {
@@ -56,8 +54,6 @@ public:
 	static void parseFX( INI *, void *, void *, const void * );
 };
 
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 struct BridgeFXInfo
 {
 	BridgeFXInfo() {}

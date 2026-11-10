@@ -47,7 +47,6 @@ extern void *DebugAllocMemory(unsigned size);
 // Keep the base deleting destructor frameless, as its rowed owner does.
 // The derived constructor/factory retain the native EBP frame.
 
-#pragma optimize("y", off)
 
 // ??0DebugIONet@@QAE@XZ
 inline DebugIONet::DebugIONet(void)
@@ -68,7 +67,6 @@ void _bfmeDebugIONetInlineAnchor(DebugIONet *debugIONet)
 
 // The derived destructor and its EH graph retain their retail frame pointer.
 
-#pragma optimize("y", off)
 
 // ??1DebugIONet@@UAE@XZ (stores vftable 0x007C09C8, ??_7DebugIONet)
 DebugIONet::~DebugIONet()
@@ -205,7 +203,6 @@ void DebugIONet::Delete(void)
 // Keep the base deleting destructor frameless, as its rowed owner does.
 // The derived constructor/factory retain the native EBP frame.
 
-#pragma optimize("y", off)
 
 // ?Create@DebugIONet@@SAPAVDebugIOInterface@@XZ
 DebugIOInterface *DebugIONet::Create(void)

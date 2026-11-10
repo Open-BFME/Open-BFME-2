@@ -23,13 +23,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "reference/shims/bfme_matrix4_rows_link/matrix4_bfme1_rows_link.h"
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "wwstring.h"
 #include "shader.h"
 #pragma optimize("s", on)
 #include "reference/shims/banked_segline/dx8wrapper.h"
-#pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "vector.h"
 #include "vector2.h"
@@ -293,7 +291,6 @@ class CameraClass;
 #include	"../WWLib/always.h"
 #include	"vector.h"
 #include	<string.h>
-#pragma optimize("gsy", on)
 #pragma optimize("", on)
 #include "sharebuf.h"
 #include "vector3.h"

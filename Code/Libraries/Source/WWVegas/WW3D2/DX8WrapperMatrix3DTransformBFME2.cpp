@@ -6,9 +6,7 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("y", on)	// Vector4::operator= as retail's frameless copy (0x00133880)
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

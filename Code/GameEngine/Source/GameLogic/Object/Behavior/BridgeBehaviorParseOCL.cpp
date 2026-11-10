@@ -41,7 +41,6 @@ typedef unsigned int UnsignedInt;
 class ObjectCreationList;
 
 // Use the same retail 0x154300 constructor as the FX callback view.
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 struct TimeAndLocationInfo
 {

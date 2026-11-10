@@ -534,22 +534,16 @@ ExperienceLevelSystem *TheExperienceLevelSystem = 0;
 #pragma comment(linker, "/alternatename:?Rva00288A5CAssign@@YAPAVCameraMarker@@PAV1@00PAX@Z=?Rva00288A5CAssign@@YAXPAUCameraMarker@@00PAX@Z")
 #pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 #pragma comment(linker, "/alternatename:??MRva00288874Record@@QBE_NABU0@@Z=??MExperienceLevel@@QBE_NABV0@@Z")
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #pragma comment(linker, "/alternatename:??4Rva00289FBCRecord@@QAEAAU0@ABU0@@Z=?rva00289902@Rva00289902@@QAEAAV1@ABV1@@Z")
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #pragma push_macro("_CRTIMP")
 #undef _CRTIMP
 #define _CRTIMP

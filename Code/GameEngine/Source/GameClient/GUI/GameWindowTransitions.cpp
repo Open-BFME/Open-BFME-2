@@ -406,9 +406,7 @@ const FieldParse GameWindowTransitionsHandler::m_gameWindowTransitionsFieldParse
 // The unwind funclet keeps an out-of-line ~CriticalSectionLock COMDAT; retail's
 // (0x0061FC60, mov eax,[ecx]; push eax) is the favor-speed shape.
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerState.cpp
 

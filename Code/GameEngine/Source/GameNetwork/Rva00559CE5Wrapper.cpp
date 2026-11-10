@@ -18,7 +18,6 @@ __declspec(noinline) unsigned char __cdecl Rva00559B4BCheck(int v)
 {
 	return v == 3 || v == 4 || v == 5;
 }
-#pragma optimize("", on)
 UnicodeString __cdecl Rva00559C3D(unsigned char valid, int value);
 UnicodeString __cdecl Rva00559CE5(int type, int value)
 {

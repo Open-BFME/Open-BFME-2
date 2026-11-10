@@ -65,7 +65,6 @@ public:
 #include <deque>
 #include <string>
 #include <new>
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {

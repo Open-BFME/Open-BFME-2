@@ -9,7 +9,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // ShareBufferClass<float> for the FX particle draw-category size buffer.
 //
@@ -38,7 +37,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define _OPERATOR_NEW_DEFINED_
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "sharebuf.h"
 

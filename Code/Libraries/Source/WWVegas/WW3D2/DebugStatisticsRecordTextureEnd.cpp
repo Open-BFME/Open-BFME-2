@@ -84,7 +84,6 @@ private:
 	static char m_NullChar;
 };
 // Keep the member body under its own compiler optimization context.
-#pragma optimize("t", off)
 #pragma optimize("s", on)
 inline StringClass::StringClass(int initial_len, bool hint_temporary)
 		: m_Buffer(m_EmptyString)

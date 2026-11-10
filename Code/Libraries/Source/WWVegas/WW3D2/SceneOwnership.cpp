@@ -3,14 +3,12 @@
 // emitting /O2 copies that compete with retail's owners (0x000692B3, 0x0006924F, 0x006CD510).
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
 #pragma optimize("s", on)
 #include "multilist.h"
 #pragma optimize("", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_lenfull_link/vector3_lenfull_link.h"
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one

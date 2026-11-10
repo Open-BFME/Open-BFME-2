@@ -169,11 +169,8 @@ template _STL::vector<BfmeVectorRecord0002154F3, _STL::allocator<BfmeVectorRecor
 
 // ---- from Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 

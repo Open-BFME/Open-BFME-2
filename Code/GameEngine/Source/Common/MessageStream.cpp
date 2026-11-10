@@ -257,11 +257,9 @@ const GameMessageArgumentType *GameMessage::getArgument(int argIndex) const
 
 // ---- from Code/GameEngine/Source/Common/MessageStream.cpp
 
-#pragma optimize("gsy", on)
 
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
-#pragma optimize("", on)
 
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -313,7 +311,6 @@ GameMessage::GameMessage( GameMessage::Type type )
  * Return the given argument data type
  */
 
-#pragma optimize("s", on)
 
 GameMessageArgumentDataType GameMessage::getArgumentDataType( Int argIndex )
 {
@@ -330,7 +327,6 @@ GameMessageArgumentDataType GameMessage::getArgumentDataType( Int argIndex )
 	return ARGUMENTDATATYPE_UNKNOWN;
 }
 
-#pragma optimize("", on)
 
 /**
  * Append an integer argument
@@ -452,9 +448,7 @@ Bool GameMessageList::containsMessageOfType( GameMessage::Type type )
  * associated with this message can be attached to it.
  */
 
-#pragma optimize("t", off)
 
-#pragma optimize("s", on)
 
 GameMessage *MessageStream::appendMessage( GameMessage::Type type )
 {
@@ -466,16 +460,13 @@ GameMessage *MessageStream::appendMessage( GameMessage::Type type )
 	return msg;
 }
 
-#pragma optimize("", on)
 
 /**
  * Create a new message of the given message type and insert it
  * in the stream after messageToInsertAfter, which must not be NULL.
  */
 
-#pragma optimize("t", off)
 
-#pragma optimize("s", on)
 
 GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *messageToInsertAfter )
 {
@@ -486,7 +477,6 @@ GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *
 	return msg;
 }
 
-#pragma optimize("", on)
 
 /**
  * Attach the given Translator to the message stream, and return a
@@ -523,7 +513,6 @@ GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *
  * construct a valid 2D bounding region.
  */
 
-#pragma optimize("s", on)
 
 void buildRegion( const ICoord2D *anchor, const ICoord2D *dest, IRegion2D *region )
 {
@@ -551,7 +540,6 @@ void buildRegion( const ICoord2D *anchor, const ICoord2D *dest, IRegion2D *regio
 	}
 }
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/Common/GameMessageIntWideArgs.cpp
 

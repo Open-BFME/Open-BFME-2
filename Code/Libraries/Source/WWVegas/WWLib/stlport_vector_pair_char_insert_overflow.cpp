@@ -4,7 +4,6 @@
 // Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -12,7 +11,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <memory>
 #include <vector>

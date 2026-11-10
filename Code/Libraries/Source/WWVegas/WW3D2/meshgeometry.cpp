@@ -41,7 +41,6 @@ static inline void MeshGeom_Transform_Vector(const Matrix3D &matrix3D, const Vec
 }
 
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 /*

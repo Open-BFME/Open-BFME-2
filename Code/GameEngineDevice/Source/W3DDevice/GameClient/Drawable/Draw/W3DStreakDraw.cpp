@@ -82,7 +82,6 @@ public:
 };
 #include <new>
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)

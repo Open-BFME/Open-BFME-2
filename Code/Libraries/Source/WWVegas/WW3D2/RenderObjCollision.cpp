@@ -11,7 +11,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 // Share the retail size context with the RefCountClass release declaration.
 #include "refcount.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

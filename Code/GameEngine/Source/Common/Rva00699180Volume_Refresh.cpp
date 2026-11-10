@@ -64,7 +64,6 @@ float g_00DB3F64[6] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 // g_00DB3F7C: VA 0x00DB3F7C (.data); retail initial byte is 0x01.
 unsigned char g_00DB3F7C = 1;
 
-#pragma optimize("y", off)
 // ?refreshPair@GlobalVolumeData@MilesAudioManager@@QAEXHH@Z
 void MilesAudioManager::GlobalVolumeData::refreshPair(int a, int b)
 {
@@ -111,7 +110,6 @@ void MilesAudioManager::GlobalVolumeData::refreshPair(int a, int b)
 			*((unsigned char *)this + 0x188 + (b + a * 2) * 4 + i) = 2;
 	}
 }
-#pragma optimize("", on)
 
 // ?refreshAll@GlobalVolumeData@MilesAudioManager@@QAEXXZ
 void MilesAudioManager::GlobalVolumeData::refreshAll()

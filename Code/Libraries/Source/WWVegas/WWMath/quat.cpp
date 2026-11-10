@@ -27,7 +27,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <stdlib.h>
 #include <assert.h>
 #define SLERP_EPSILON		0.001
-#pragma optimize("gsy", on)
 #pragma optimize("", on)
 #define SLERP_EPSILON 0.001
 

@@ -50,7 +50,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma inline_depth()
 #pragma inline_depth(0)
 #pragma inline_depth()
-#pragma optimize("gsy", on)
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_grid_mapper_link/mapper.h"
 #include "../../../../GameEngine/Source/GameClient/BuffManager.h"

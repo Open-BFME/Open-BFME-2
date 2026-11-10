@@ -1013,7 +1013,6 @@ static __forceinline void setCoord(Coord3D *p, float x, float y, float z)
 
 // Retain the retail frames only for the native methods below.
 
-#pragma optimize("y", off)
 
 Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
 {
@@ -1130,7 +1129,6 @@ void MineshaftPortalBehaviour::createWaypoint()
 
 // MSVC emits delayed template instances after the native methods.
 
-#pragma optimize("", on)
 
 // tu-skeleton: 0x00372ED3 45B ?_M_erase@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 

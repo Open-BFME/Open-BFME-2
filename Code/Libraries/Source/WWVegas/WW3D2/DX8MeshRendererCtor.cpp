@@ -12,7 +12,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // ??0DX8MeshRendererClass@@QAE@XZ at retail 0x00145AA0 (101B). Dedicated TU:
 // the Code/ dx8renderer.cpp TU builds against the ZH header (file-static

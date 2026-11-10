@@ -22,7 +22,6 @@ extern "C" { static float __cdecl floorf(float); }
 #include "mempool.h"
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #pragma optimize("gsy", on)
 #include <math.h>
 #include "wwmath.h"

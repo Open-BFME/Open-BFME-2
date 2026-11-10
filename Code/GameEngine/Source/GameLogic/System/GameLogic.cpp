@@ -886,9 +886,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
 class Rva0023DC8E;
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include <algorithm>
 #define NOMINMAX
 #define _INC_STDIO
@@ -3100,11 +3097,8 @@ static __forceinline void makeIdentityAndTakeScale(Matrix3D &mtx, float &scale, 
 // 0x00241C75..0x002421F5 supplies every offset,
 // mode branch, CastleBehavior radius, ten starting offsets and polar math.
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp
 

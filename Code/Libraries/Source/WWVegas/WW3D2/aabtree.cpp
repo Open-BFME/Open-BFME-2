@@ -767,7 +767,6 @@ bool AABTreeClass::Intersect_OBBox_Recursive(AABTreeClass::CullNodeStruct * node
 }
 
 #ifdef _DEBUG
-#pragma optimize("", off)	 // We get an odd error when using optimized in the debug.  
 // All optimized seems to work.  jba.
 #endif
 /***********************************************************************************************
@@ -831,7 +830,6 @@ bool AABTreeClass::Cast_Ray_To_Polys(CullNodeStruct * node,RayCollisionTestClass
 	return false;
 }
 #ifdef _DEBUG
-#pragma optimize("", on)
 #endif
 
 

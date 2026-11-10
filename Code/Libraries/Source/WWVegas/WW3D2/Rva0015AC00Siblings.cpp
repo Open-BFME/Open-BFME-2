@@ -12,7 +12,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include "refcount.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "sharebuf.h"
 

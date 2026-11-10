@@ -12,7 +12,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma comment(linker, "/alternatename:??1BehaviorModuleData@@QAE@XZ=??1BehaviorModuleData@@UAE@XZ")
 
 // stlport

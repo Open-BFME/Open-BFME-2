@@ -10,10 +10,8 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "bittype.h"
 #define WWDEBUG_H
 #define MEMPOOL_H

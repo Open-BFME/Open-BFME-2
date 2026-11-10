@@ -12,7 +12,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma auto_inline(off)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma auto_inline(on)
-#pragma optimize("", on)
 
 /*
 **	Command & Conquer Generals Zero Hour(tm)

@@ -120,7 +120,6 @@ public:
 	float x;
 	float y;
 };
-#pragma optimize("", on)
 
 // Not expanded at /O1: the COMDAT is 0x001040AE, also emitted by
 // PathfinderSidewaysAttack.cpp.

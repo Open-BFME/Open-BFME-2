@@ -25,7 +25,6 @@
 namespace _STL {
 static inline const unsigned int& max(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
 }
-#pragma optimize("", on)
 #include "ascii_string.h"
 #include <new>
 #define COORD3D_VIEW_EXTERN_CTOR

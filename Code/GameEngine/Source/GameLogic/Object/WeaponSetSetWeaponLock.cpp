@@ -1070,4 +1070,3 @@ bool WeaponSet::chooseBestWeaponForTarget(const Object *obj, const Object *victi
 	return found;
 }
 
-#pragma optimize("", on)

@@ -16,7 +16,6 @@
 // emitting conflicting out-of-line copies. The COFF audit preserves every
 // surviving body and relocation and confirms there are no helper import edges.
 // The shared mutable-copy provider still has its separately tracked 68/41-byte debt.
-#pragma optimize("", off)
 
 namespace _STL
 {

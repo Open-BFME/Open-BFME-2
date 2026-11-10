@@ -36,9 +36,6 @@ class Snapshot;
 #pragma comment(linker, "/alternatename:?rva005055DE@AITargetChooser@@AAEXXZ=?rva005055DE@Rva005055DE@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?rva005A9693@Rva005A9562@@QAEXXZ=?rva005A9693@Rva005A9693Owner@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?rva005A910E@Rva005A9562@@QAEPAURva0050542BTarget@@XZ=?rva005A910E@Rva005A910E@@QAEPAVPlayer@@XZ")
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 
 #include "../../../../../Include/Common/XferVersion.h"
 

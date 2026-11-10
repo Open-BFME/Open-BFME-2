@@ -8,7 +8,6 @@
 // 0xFC with (rec wide int int). Second arg at +0xC unused proving 5-arg
 // shape with ret 0x14. Dummy virtuals pad GetMap to 21 and Bar to 63.
 //
-#pragma optimize("t", on)
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -18,7 +17,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#pragma optimize("", on)
 
 typedef unsigned short RawWChar;
 

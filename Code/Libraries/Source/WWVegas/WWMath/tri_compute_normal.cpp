@@ -9,7 +9,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // TriClass::Compute_Normal is inline in the reference WWMath header.  Keep
 // this small TU at the retail size-optimized settings and take its address so
@@ -21,12 +20,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // TU flags and keeps its frame.
 #pragma optimize("y", on)
 #include "../../../../../reference/shims/bfme_tri_math/vector3.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "tri.h"
 
-#pragma optimize("s", on)
-#pragma optimize("y", off)
 #pragma auto_inline(off)
 
 void (TriClass::*kTriComputeNormal)() = &TriClass::Compute_Normal;

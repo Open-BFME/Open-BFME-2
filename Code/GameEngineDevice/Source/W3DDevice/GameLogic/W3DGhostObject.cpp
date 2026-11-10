@@ -301,11 +301,8 @@ struct BfmeCopyElementF
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp
 
-#pragma optimize("s", off)
 
-#pragma optimize("t", on)
 
-#pragma optimize("", on)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp
 

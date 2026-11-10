@@ -20,7 +20,6 @@
 
 #pragma optimize("y", on)
 #include <new>      // placement new, as the debug library uses it
-#pragma optimize("", on)
 
 void *DebugAllocMemory(unsigned int numBytes);
 const char *DebugGetDefaultCommands(void);

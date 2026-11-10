@@ -12,7 +12,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves; <new> must not
 #include "hash.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #define Matrix4x4 Matrix4

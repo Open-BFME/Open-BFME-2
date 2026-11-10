@@ -13,7 +13,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "GameClient/GameText.h"
 #include "GameNetwork/DownloadManager.h"

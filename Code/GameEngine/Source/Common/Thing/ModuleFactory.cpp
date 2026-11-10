@@ -7,7 +7,6 @@
 // Retail calls _mbscpy through the import thunk at 0x00629176.
 #include <mbstring.h>
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
 template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)

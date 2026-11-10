@@ -37,9 +37,6 @@ template <> void _Construct<BfmeStringRecord00568CE0, BfmeStringRecord00568CE0>(
 #include <vector>
 // RVA 0x00569543 dedup push into vector<ModuleData*> at +0x58 via rowed push_back @0x004DFCB0.
 class ModuleData;
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include "ascii_string.h"
 #pragma comment(linker, "/alternatename:?Rva00569109RangeCallee@@YAPAURva00569109Output@@PAURva00569109Input@@0PAU1@ABURva00569109IteratorTag@@PAH@Z=?Rva00568EB4Copy@@YAPAVRva00568B4E@@PAV1@00@Z")
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT

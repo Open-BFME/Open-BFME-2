@@ -7,8 +7,6 @@
 // BFME wildcard comparison ported from reference/open-bfme-1/.../DebugSimpleMatch.cpp:
 // unlike the Zero Hour body (kept in debug_debug.cpp), BFME folds ASCII
 // uppercase on the input only.
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 #pragma optimize("y", off)
 
 // ?SimpleMatch@Debug@@SA_NPBD0@Z

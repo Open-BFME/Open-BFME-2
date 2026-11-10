@@ -5,7 +5,6 @@
 #define inline static inline
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include <math.h>
 #pragma pop_macro("inline")
 #include <stl/_algobase.h>
@@ -18,7 +17,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include "always.h"
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
@@ -654,7 +652,6 @@ void MapObject::setBridgeRenderObject( BridgeTowerType type, RenderObjClass* ren
 
 }
 
-#pragma optimize("", on)
 
 #pragma optimize("s", on)
 

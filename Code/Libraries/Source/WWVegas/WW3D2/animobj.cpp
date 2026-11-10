@@ -12,7 +12,6 @@
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma optimize("s", on)
 #include "rendobj.h"	// the verified BFME2 base object must win the include guard
 #include "composite.h"
@@ -150,13 +149,11 @@ struct BfmeTreeView
 // four places down. Retail table 0x007D6D10 has them at 129..133 (the
 // float-frame Simple_Evaluate_Bone 0x001A4F50 at 132, called via +0x210).
 
-#pragma optimize("", on)
 
 #pragma optimize("gsy", on)
 
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
 
-#pragma optimize("", on)
 
 // Likewise for HTreeClass's scalar deleting destructor: retail links one copy,
 // the /O1-shaped body at 0x0017FADF (pop ecx after operator delete), where this

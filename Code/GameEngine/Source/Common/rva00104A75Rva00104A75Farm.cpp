@@ -238,7 +238,6 @@ inline float sqr(float operand) { return operand * operand; }
 
 // Its inline members compile as PathfinderSidewaysAttack.cpp's (built /Ow)
 // do, so the COMDAT copies this unit emits agree with the ones the link keeps.
-#pragma optimize("w", on)
 class MathCoord2D
 {
 public:
@@ -252,7 +251,6 @@ public:
 	float x;
 	float y;
 };
-#pragma optimize("", on)
 
 // Not expanded at /O1: the COMDAT is 0x001040AE, also emitted by
 // PathfinderSidewaysAttack.cpp.
