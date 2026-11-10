@@ -20,7 +20,7 @@ enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;class Module;class Weapon;
-class Rva002C9400ByteField {public:unsigned char get()const;};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/Weapon.h"
 struct AttackQueryTemplate {char pad[0x108];unsigned kind[8];unsigned kindOf(unsigned k)const{return kind[k>>5]&(1U<<(k&31));}};
 class Object {

@@ -207,11 +207,7 @@ public:
 Bool rva002CB35C(Int a1, void *pos, void *a3, void *a4, float range, Int a6);
 };
 
-class Rva002C9400ByteField
-{
-public:
-unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 // Weapon::isWithinAttackRange 0x002CB35C (WorldBuilder name).
 #include "../../../Include/GameLogic/Weapon.h"
 class Rva002C9B80Owner
