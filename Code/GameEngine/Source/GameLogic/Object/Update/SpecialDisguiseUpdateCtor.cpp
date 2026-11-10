@@ -21,11 +21,11 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_slotBase;
+extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
 extern "C" const void *const s_dummy62C8[4];
-static int s_vtable;
+extern "C" const void *const __identifier("??_7Rva004B0164@@6B@")[];
 extern "C" const void *const s_dummy62D8[47];
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
 extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9];
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
@@ -63,11 +63,11 @@ SpecialDisguiseUpdate::SpecialDisguiseUpdate(Thing *thing, const ModuleData *mod
 	: Rva0044EF5E(thing, moduleData)
 {
 	const void * volatile *slot = (const void * volatile *)((char *)this + 0x88);
-	*slot = &s_slotBase;
+	*slot = __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	*slot = s_dummy62C8;
-	m_vtable = &s_vtable;
+	m_vtable = __identifier("??_7Rva004B0164@@6B@");
 	m_p0C = s_dummy62D8;
-	m_p10 = &s_secondary10;
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 	m_8C = 0.0f;
 	m_90 = 0;
