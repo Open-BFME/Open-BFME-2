@@ -72,8 +72,6 @@
 #include "Common/GameMemory.h"
 #pragma push_macro("MEMORY_POOL_GLUE_WITHOUT_GCMP")
 #undef MEMORY_POOL_GLUE_WITHOUT_GCMP
-extern "C" void *malloc(size_t s);
-extern "C" void free(void *p);
 #define MEMORY_POOL_GLUE_WITHOUT_GCMP(ARGCLASS) \
 protected: \
 	virtual ~ARGCLASS(); \
