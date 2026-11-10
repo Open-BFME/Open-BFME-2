@@ -80,11 +80,7 @@ public:
 extern Display *TheDisplay;
 
 // TheDisplay's fill rectangle (0x0004263F), rowed under its address.
-class Rva0004263F
-{
-public:
-	void rva0004263F(float x, float y, float width, float height, int color);
-};
+#include "../../Include/GameClient/Rva0004263F.h"
 
 #include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;

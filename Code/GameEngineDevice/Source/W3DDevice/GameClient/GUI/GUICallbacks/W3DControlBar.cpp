@@ -257,12 +257,7 @@ public:
 		Color color = 0xFFFFFFFF, Int mode = 2);   // ZH Display::drawImage (DRAW_IMAGE_ALPHA)
 };
 
-class Rva0004263F
-{
-public:
-	void rva0004263F(Real startX, Real startY, Real width, Real height,
-		Color color);   // ZH Display::drawFillRect
-};
+#include "../../../../../../GameEngine/Include/GameClient/Rva0004263F.h"
 
 #include "../../../../../../Libraries/Include/Lib/Region3D.h"
 

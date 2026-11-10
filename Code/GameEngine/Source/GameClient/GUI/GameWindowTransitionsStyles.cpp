@@ -160,11 +160,7 @@ public:
 };
 typedef unsigned char UnsignedByte;
 typedef int Color;
-class Rva0004263F
-{
-public:
-	void rva0004263F(float a, float b, float c, float d, int color);
-};
+#include "../../../Include/GameClient/Rva0004263F.h"
 class FullFadeTransition : public Rva001DBAA4
 {
 public:

@@ -36,11 +36,7 @@ public:
 };
 
 // TheDisplay's background helper 0x0004263F.
-class Rva0004263F
-{
-public:
-	void rva0004263F(float,float,float,float,Int);
-};
+#include "../../Include/GameClient/Rva0004263F.h"
 
 class Display;
 extern Display *TheDisplay;

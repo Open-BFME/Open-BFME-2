@@ -22,11 +22,7 @@ public:
 	void rva0008EEF0(float x0, float y0, float w, float h, float a1, int a0);
 };
 
-class Rva0004263F
-{
-public:
-	void rva0004263F(float x0, float y0, float w, float h, int color);
-};
+#include "../../../Include/GameClient/Rva0004263F.h"
 
 void __stdcall Rva00314AE0(Image *image, int startX, int startY, int endX, int endY, int color)
 {
