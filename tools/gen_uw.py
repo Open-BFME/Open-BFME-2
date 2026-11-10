@@ -123,12 +123,18 @@ def delete_kind(pushed):
     Both templates are `push <imm32>; push <block>; call <op delete>;
     add esp,8; ret`, so the immediate is the only thing that tells them apart,
     and reading every immediate as a size published 19 funclets as class-scoped
-    sized deletes of classes 19,968,608 bytes and up. They are not sizes: read
-    as virtual addresses they land in .data at 104-byte strides, all 19 call one
-    address whose body is a lone `ret`, and 253 placement-delete rows already
-    name that same address ??3@YAXPAXPAUGen_uwt_0002aaa9@@@Z -- one function
-    cannot be the class-scoped operator delete of nineteen different classes.
-    An immediate that is a valid address in this image is an address.
+    sized deletes of classes 14,541,016 bytes and up. They are not sizes: read
+    as virtual addresses all 19 land in .data past that section's raw bytes
+    (0x00DDE0D8..0x00DDEE80, eight of them at a 104-byte stride), and all 19
+    call 0x0069E440, whose body is a lone `ret` that other rows already name --
+    one function cannot be the class-scoped operator delete of nineteen
+    different classes. An immediate that is a valid address in this image is an
+    address.
+
+    Those figures are BFME 2's own. An earlier revision carried the BFME 1
+    reference's instead (0x0130B260, 19,968,608 bytes, 0x0002AAA9), which is
+    outside this image, so the tests pinning them asserted the opposite of what
+    this function decides.
     """
     return "K" if in_image(pushed) else "S"
 

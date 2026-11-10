@@ -41,9 +41,12 @@ RVA = 0x00BF0000
 DTOR = "??1Gen_uw_0000d828@@QAE@XZ"
 MEMBER_DTOR = "??1Gen_uwm_0000d828@@QAE@XZ"
 TARGET = 0x0000D828
-# One of the 19 addresses retail pushes as a placement tag: .data, well past the
-# last raw byte of that section, at the 104-byte stride of the table it sits in.
-TAG = 0x0130B260
+# One of the 19 addresses retail pushes as a placement tag -- the one the funclet
+# at RVA 0x0075C252 pushes: .data, well past the last raw byte of that section
+# (0x00DDE008), in a seven-entry run at the 104-byte stride of its table.
+# It must be IN the image, or delete_kind reads it as a class size and the three
+# tests below assert the opposite of what the tool decides.
+TAG = 0x00DDEC10
 SYMBOLS_HEADER = "name,address,notes"
 
 
@@ -74,10 +77,10 @@ TEMPLATES = [
      ("S", -0x110, 300)),
     ("8b 45 04 50 8b 4d f0 51 e8 00000000 83 c4 08 c3", 9, ("P", -0x10, 4)),
     ("8b 45 0c 50 8b 4d b0 51 e8 00000000 83 c4 08 c3", 9, ("P", -0x50, 12)),
-    # Byte for byte an S, decided a K because 0x0130B260 is an address in this
-    # image and no class is 19,968,608 bytes.
-    ("68 60 b2 30 01 8b 45 f0 50 e8 00000000 83 c4 08 c3", 10, ("K", -0x10, TAG)),
-    ("68 60 b2 30 01 8b 85 f0 fe ff ff 50 e8 00000000 83 c4 08 c3", 13,
+    # Byte for byte an S, decided a K because 0x00DDEC10 is an address in this
+    # image and no class is 14,543,888 bytes.
+    ("68 10 ec dd 00 8b 45 f0 50 e8 00000000 83 c4 08 c3", 10, ("K", -0x10, TAG)),
+    ("68 10 ec dd 00 8b 85 f0 fe ff ff 50 e8 00000000 83 c4 08 c3", 13,
      ("K", -0x110, TAG)),
 ]
 SIZED_DELETE = {36: "??3Gen_uws36_0000d828@@SAXPAXI@Z",
@@ -235,12 +238,17 @@ def test_the_placement_tag_type_is_what_separates_one_target_from_another():
 def test_a_pushed_address_is_a_placement_tag_and_never_a_class_size():
     """The one thing separating the S and K templates is the immediate.
 
-    Nineteen retail funclets push a constant in the 0x0130Bxxx table and were
-    read as sizes, which put nineteen class-scoped sized deletes of 19,968,608
-    bytes and up in reverse/symbols.csv -- all nineteen pinned onto 0x0002AAA9,
-    an address whose body is a lone `ret` and which 253 placement-delete rows
-    already name as a free two-argument delete. One function cannot be the
-    class-scoped delete of nineteen classes; the immediate is an address.
+    Nineteen retail funclets push a constant in the 0x00DDExxx table and were
+    read as sizes, which put nineteen class-scoped sized deletes of 14,541,016
+    bytes and up in reverse/symbols.csv -- all nineteen pinned onto 0x0069E440,
+    an address whose body is a lone `ret` and which other rows already name.
+    One function cannot be the class-scoped delete of nineteen classes; the
+    immediate is an address.
+
+    This test and TAG used to carry 0x0130B260, which is the BFME 1 reference's
+    tag (reference/open-bfme-1/game/gen_small/uw_gen_017.cpp), not BFME 2's.
+    It is outside this image, so delete_kind rightly called it a size and these
+    three assertions failed for three weeks: a donor fact read as a target one.
     """
     assert gen_uw.delete_kind(TAG) == "K"
     base, end = gen_uw.image_span()
@@ -259,7 +267,7 @@ def test_the_tag_and_the_slot_placement_share_one_pin():
 
     assert text.count("void operator delete(void *, Gen_uwt_0000d828 *);") == 1
     assert text.count("struct Gen_uwp_0000d828 {") == 1
-    assert "new ((Gen_uwt_0000d828 *)0x0130B260) Gen_uwp_0000d828(0)" in text
+    assert "new ((Gen_uwt_0000d828 *)0x00DDEC10) Gen_uwp_0000d828(0)" in text
     assert "Gen_uws" not in text, "a pushed address must not mint a sized-delete class"
 
 
