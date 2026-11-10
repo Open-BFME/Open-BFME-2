@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /G7 /arch:SSE /GX- /Oy- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /O1 /Ob2 /G7 /arch:SSE /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // ??0Rva0040DB52@@QAE@XZ, retail 0x0040E039, 98 bytes.
