@@ -70,7 +70,7 @@ class Rva0005CB9F3DwordImmSetter
 public:
 	void apply();
 };
-class Rva005CBB4A { public: void rva005CBB4A(void *map, int point, int mode); }; // rowed 0x005CBB4A
+#include "../../../../Include/Common/Rva005CBB4A.h"
 class Rva0057709A
 {
 public:

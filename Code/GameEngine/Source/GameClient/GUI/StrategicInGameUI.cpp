@@ -342,7 +342,7 @@ union GameMessageArgumentType { int integer;ICoord2D point;IRegion2D region; };
 class GameMessage { public: const GameMessageArgumentType*getArgument(int)const;char prefix[0x10];int type; };
 class Rva0005CB9F3DwordImmSetter { public:void apply(); };
 class Rva005E5A38 { public:Rva005E5A38(int);__forceinline ~Rva005E5A38(){((Rva0005CB9F3DwordImmSetter*)this)->apply();} private:unsigned storage[3]; };
-class Rva005CBB4A { public:void rva005CBB4A(void*,int,int); };
+#include "../../../Include/Common/Rva005CBB4A.h"
  // rowed 0x005CBB4A
 class Callback { public:virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04(); };
 struct Context { char pad[0x1c];int value; };

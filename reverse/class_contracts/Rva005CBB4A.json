@@ -1,0 +1,123 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005CBB4A",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "4": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "slot0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot1()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot10(void*)"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "slot11(void*)"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "slot12(void*)"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "slot13(void*)"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "slot14(void*)"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "slot15(void*)"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "slot16(void*)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "slot6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot7(void*)"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot8(int)"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "slot9()"
+  }
+ }
+}

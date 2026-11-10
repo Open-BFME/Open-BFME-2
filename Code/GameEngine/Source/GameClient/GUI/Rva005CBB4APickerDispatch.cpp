@@ -22,10 +22,7 @@ class Rva005CB91E {public:
  int rva005CB91E(int);
 };
 struct PickerChosenView {char pad[0x10];int key;};
-class Rva005CBB4A {public:
- virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual bool slot7(void*);virtual bool slot8(int);virtual void slot9();virtual void slot10(void*);virtual void slot11(void*);virtual void slot12(void*);virtual void slot13(void*);virtual void slot14(void*);virtual void slot15(void*);virtual void slot16(void*);
- void rva005CBB4A(void*,int,int);
-};
+#include "../../../Include/Common/Rva005CBB4A.h"
 void Rva005CBB4A::rva005CBB4A(void *map,int point,int mode) {
  bool first=slot8(0);bool second=slot8(1);bool third=slot8(2);
  if(first||second||third) {
