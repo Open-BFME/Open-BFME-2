@@ -46,20 +46,7 @@ public:
 };
 #include "../../../Common/Thing/thing.h"
 #include "../object.h"
-class Rva000421C8
-{
-public:
- Rva000421C8() : m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object *) = 0;
- virtual int getPlayerMask();
- Rva000421C8 *m_next;
-};
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
- virtual bool allow(Object *);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 class Rva003ECB13Array
 {
 public:

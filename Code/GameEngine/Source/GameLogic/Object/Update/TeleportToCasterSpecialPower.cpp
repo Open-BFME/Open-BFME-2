@@ -152,11 +152,7 @@ public:
 	bool m_inverse;
 };
 
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 
 class Rva002614DFFilter : public Rva000421C8
 {

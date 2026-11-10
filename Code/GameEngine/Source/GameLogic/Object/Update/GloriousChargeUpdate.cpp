@@ -192,11 +192,7 @@ public:
 };
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BFBC90, allow 0x00260EB1: the object, relationship flags and
 // whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8

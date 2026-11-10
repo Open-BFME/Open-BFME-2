@@ -276,11 +276,7 @@ public:
 };
 
 // vftable 0x00BFAD10: not effectively dead (ZH's PartitionFilterAlive).
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // The two-bit KindOf mask constructor 0x0006EE7A (the first argument is
 // BitFlags' unused init tag).

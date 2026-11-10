@@ -14,11 +14,7 @@ class Object;
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
 // player, +0x10 whether a hit allows.
 class Rva002614ECFilter : public Rva000421C8
