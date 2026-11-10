@@ -46,6 +46,8 @@ class INI;
 #include "../../Include/GameClient/TerrainFireEmissionInfo.h"
 #include "../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 #include "../../Include/GameClient/LifeEventModuleInfo.h"
+#include "../../Include/GameClient/QuadDrawModuleInfo.h"
+#include "../../Include/GameClient/StreakDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -154,26 +156,13 @@ struct FXKeyframe
 #define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                         };
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
-class QuadDrawModuleInfo
-{
-public:
-    virtual ~QuadDrawModuleInfo();
-    virtual void v1() = 0;
-    virtual const char *GetSnapshotName();
-};
-class StreakDrawModuleInfo
-{
-public:
-    virtual ~StreakDrawModuleInfo();
-    virtual void v1() = 0;
-    virtual const char *GetSnapshotName();
-};
-class ButterflyDrawModuleInfo
+class ButterflyDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~ButterflyDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
     virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 };
 
 class RenderObjectDrawModuleInfo

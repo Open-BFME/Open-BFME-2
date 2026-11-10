@@ -26,7 +26,10 @@
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct Rva001408C0Target;
-namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree(); }
+namespace _STL {
+template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree();
+template <> set<Rva001408C0Target *, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::set();
+}
 
 class Rva009EB960;
 // Owned by W3DDisplayDtor.cpp: the asset registry the W3DDisplay dtor deletes.
@@ -39,16 +42,18 @@ struct Rva001408C0Target
 
 typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > PtrSet001408C0;
 
-class Rva0006C995
+struct AssetList00208F90
 {
-public:
-	Rva0006C995() : m_zero0C(0), m_flag(true) {}
-	Rva0006C995 *rva0006C995(Rva001408C0Target *p);
-
-private:
 	PtrSet001408C0 m_set;
 	int m_zero0C;
 	bool m_flag;
+	AssetList00208F90() : m_zero0C(0), m_flag(true) {}
+};
+
+class Rva0006C995 : public AssetList00208F90
+{
+public:
+	Rva0006C995 *rva0006C995(Rva001408C0Target *p);
 };
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"

@@ -25,7 +25,7 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
-#include "../../../../../Include/Common/BfmeModuleData.h"
+#include "../../../../../Include/Common/ModuleData.h"
 #include "../../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 
@@ -33,10 +33,9 @@ class TransportAIUpdateModuleData : public ModuleData
 {
 public:
 	virtual ~TransportAIUpdateModuleData();
-	virtual bool slot04() const { return true; }
+	virtual bool isAiModuleData() const { return true; }
 
 private:
-	unsigned int m_moduleTagNameKey;
 	Rva0026E1A6 m_tree;
 	int *m_p14;
 	int m_f1c, m_f20, m_f24, m_f28, m_f2c;
