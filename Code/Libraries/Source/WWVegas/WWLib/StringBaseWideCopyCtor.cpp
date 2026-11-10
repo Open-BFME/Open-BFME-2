@@ -1,4 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// platformsdk
+#include <windows.h>
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.
@@ -35,8 +37,6 @@ private:
 };
 
 Rva00041004 *Rva00035DF0Get();
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *);
 
 template <>
 StringBase<wchar_t>::StringBase(const StringBase<wchar_t> &src)
