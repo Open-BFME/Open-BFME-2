@@ -246,11 +246,7 @@ class UpgradeTemplate;
 extern UpgradeCenter *TheUpgradeCenter;
 
 // TheTerrainLogic's query 0x0027F108, rowed under an address-derived class.
-class BfmeThingCME
-{
-public:
-	Int rva0027F108(void *pos, Real radius, Int a, Int b);
-};
+#include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 

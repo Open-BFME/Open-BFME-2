@@ -172,11 +172,7 @@ public:
 	Coord3D m_1c;
 };
 
-class BfmeThingCME
-{
-public:
-	int rva0027F108(void *pos, float radius, int a, int b);
-};
+#include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 
 class TerrainLogic;
 

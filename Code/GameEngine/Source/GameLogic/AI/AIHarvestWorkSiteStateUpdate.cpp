@@ -13,7 +13,7 @@
 #include "../../../Include/Common/StateMachine.h"
 class Rva0027D3CB { public: bool rva0027D3CB(int); };
 class Rva0027D378 { public: int rva0027D378(void *,int); };
-class BfmeThingCME { public: int rva0027F108(void *,float,int,int); };
+#include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;

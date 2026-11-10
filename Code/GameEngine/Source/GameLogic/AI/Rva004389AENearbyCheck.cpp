@@ -106,11 +106,7 @@ extern PartitionManager *ThePartitionManager;
 // Native 0x27F108 takes four 32-bit argument slots and returns the result
 // word at temporary+0x14. The caller only tests that full word for zero.
 // Reuse the verified provider contract; no pointer-result identity is assumed.
-class BfmeThingCME
-{
-public:
-	int rva0027F108(void *position, float radius, int flag, int unused);
-};
+#include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 

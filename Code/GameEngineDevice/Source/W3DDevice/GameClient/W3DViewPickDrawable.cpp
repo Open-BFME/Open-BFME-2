@@ -284,11 +284,7 @@ struct PickedGhostView
 	unsigned char m_flagB;
 };
 
-class BfmeThingCME
-{
-public:
-	int bfmeGoCME(void *position);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/BfmeThingCME.h"
 
 class Rva0025DE76Slot
 {

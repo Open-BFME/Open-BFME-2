@@ -62,14 +62,7 @@ public:
 };
 typedef void (Rva0027DCF2::*Rva0027DCF2Shape)(void *, float, void *, int, int);
 
-class BfmeThingCME
-{
-public:
-	int bfmeGoCME(void *what);
-	int rva0027F108(void *what, float value, int one, int two);
-	int rva0027F171(PolygonTrigger *trigger);
-	void rva0027F2B2(Coord3D *center, float radius, unsigned char value);
-};
+#include "../../Include/GameLogic/Module/BfmeThingCME.h"
 
 int BfmeThingCME::bfmeGoCME(void *what)
 {

@@ -812,11 +812,7 @@ class PolygonTrigger;
 // TerrainLogic (TheTerrainLogic 0x00DFEC50): +0x1910 is the frame stamp
 // TerrainLogicRva00283CE7.cpp stores from TheGameLogic's frame; the rowed
 // 0x0027F171 counts the grid hits inside a PolygonTrigger's radius.
-class BfmeThingCME
-{
-public:
-	int rva0027F171(PolygonTrigger *trigger);
-};
+#include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 
 class TerrainLogic
 {

@@ -110,7 +110,7 @@ struct ActionAIManagerView { char pad[0x10]; Pathfinder *pathfinder; Pathfinder 
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/ActionManager.h"
 #include "XYDistanceCallView.h"
-class BfmeThingCME { public: int rva0027F108(void *, float, int, int); };
+#include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 #define STORAGE(X) (*(const BfmeFixedStorage0004543D *)&(X))
 #define FILTER(K) Rva0004584D(BfmeFixedStorage0004543D(0,K),STORAGE(KINDOFMASK_NONE))
 

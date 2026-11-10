@@ -64,11 +64,7 @@ public:
 	int rva0027D378( void *thing, int limit );
 };
 
-class BfmeThingCME
-{
-public:
-	int rva0027F108( void *target, float radius, int a, int b );
-};
+#include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 
 // 0x0028447F's rowed body is the stdcall ?bfmeGo1035C@@YGXPAVBfmeX1035@@H@Z
 // (BfmeConv1035.cpp); retail's call site here passes TerrainLogic in ecx

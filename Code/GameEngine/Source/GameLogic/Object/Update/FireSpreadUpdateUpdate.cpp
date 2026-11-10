@@ -103,11 +103,7 @@ extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 
 // 0x0027F108, rowed as BfmeThingCME::rva0027F108 (BfmeConv624.cpp).
-class BfmeThingCME
-{
-public:
-	int rva0027F108(void *pos, Real radius, int flag, int unused);
-};
+#include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../../Include/GameLogic/TAiData.h"
