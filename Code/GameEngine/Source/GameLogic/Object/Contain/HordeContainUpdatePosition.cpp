@@ -234,10 +234,7 @@ class Locomotor {
     char pad[4];
     const LocoTemplate *data;
 };
-class Rva001E46E1 {
-  public:
-    float rva001E4845(Object *);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Rva00373EC6 {
   public:

@@ -453,12 +453,7 @@ struct DirectionMath : Coord3D {
     void sub(const Coord3D *v) { x -= v->x; y -= v->y; z -= v->z; }
 };
 
-class Rva001E46E1 {
-public:
-	void rva001E6007(Object *, const Coord3D *, float, float);
-public:
-	Bool rva001E4015(Object *, const Coord3D *);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 
 // ?rva001E4147@Rva001E4147@@QAEXPAURva001E4147Twelve@@@Z @0x001E4147 24B: copy 12B from src+0x38 to this+0x14 if src.
 // Evidence: 12 callers e.g. 0x0026457D 0x0026B4C1 0x0026D588; 3x movsd shape.
