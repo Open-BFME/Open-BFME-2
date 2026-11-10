@@ -151,6 +151,14 @@ verified and easy to rebase. Detail for the hook rules:
   in memory from current inputs. Never treat a stale assignment or a fallback
   from `repair_queue.py dest 0xRVA` as approval. Do not commit a regenerated
   map from the consolidation lane.
+  One exception, for compiler-emitted rows only: an EH funclet (`$L<n>`) or a
+  static initializer or atexit destructor (`_$E<n>`) whose own address has no
+  approved unit in the map is rowed in the unit that compiles its parent
+  function or object, because the compiler emits it nowhere else. Name that
+  parent in the commit message; the row moves with the parent when the parent
+  is merged into its approved unit. Where the map approves a unit for the
+  row's own address, the rule above applies unchanged and the move waits for
+  the parent's merge.
 - Read `docs/naming.md` before renaming anything.
 
 ### Source and ledger integrity
