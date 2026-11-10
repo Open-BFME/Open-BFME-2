@@ -38,6 +38,8 @@ static __forceinline void releaseAudioMapStorage(void *storage)
 #define BFME_SNAPSHOT_NAME_SLOT 1
 #include "Common/Snapshot.h"
 class LargeGroupAudioAudioMap;
+class LargeGroupAudio;
+class Rva0020D98D;
 namespace _STL {
 template<> inline void allocator<LargeGroupAudioAudioMap *>::deallocate(LargeGroupAudioAudioMap **__p, size_type) const
 {
@@ -99,9 +101,9 @@ public:
 	LargeGroupAudioAudioMap(AsciiString name);	// 0x003EE0CF
 	void rva003EE3FE(const LargeGroupAudioAudioMap &other);	// 0x003EE3FE
 	const AsciiString &getName() const { return m_name; }
-private:
 	char m_pad10[8];
 	AsciiString m_name;	// +0x18
+private:
 	char m_pad1C[0xF8 - 0x1C];
 };
 
