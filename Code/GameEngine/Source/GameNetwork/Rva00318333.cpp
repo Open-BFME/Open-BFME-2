@@ -28,12 +28,7 @@ class BfmeTab1026 : public Rva2225E0Filter
 public:
 	int m_00;
 };
-template<int N> class BitFlags
-{
-public:
-	bool any() const;
-	unsigned int m_words[(N + 31) / 32];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 #include "../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class Player
 {
@@ -142,7 +137,7 @@ void Rva00318333::rva00318807(int mode, int *m1Csrc, void *shiftSrc, const Strin
 	m_18 = mode;
 	m_1C.m_00 = *m1Csrc;
 	m_20.set(*m20src);
-	m_58.m_words[0] = (unsigned int)*m58src;
+	m_58 = *(const BitFlags<11> *)m58src;
 	int sh = *(int *)((char *)shiftSrc + 0x54);
 	m_24 = 1 << sh;
 	m_2C = duration;
