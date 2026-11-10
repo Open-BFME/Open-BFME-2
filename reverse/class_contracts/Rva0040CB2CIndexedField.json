@@ -1,0 +1,82 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0040CB2CIndexedField",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 24,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x40": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 19,
+   "68": 1,
+   "72": 1,
+   "76": 2
+  },
+  "views": 23,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 64,
+   "type": "char[64]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/CountOwnedUnits.cpp",
+    "Code/GameEngine/Source/Common/Rva0040CC0EIndexedGetters.cpp",
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/CountOwnedUnits.cpp",
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 76,
+ "size_by": "majority",
+ "vslots": {}
+}
