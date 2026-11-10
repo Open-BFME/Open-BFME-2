@@ -6030,14 +6030,6 @@ void __cdecl rva007B70C9()
 	return receiver->~basic_string();
 }
 
-extern unsigned g_Va00DFEC84;
-unsigned int g_Va00DFEC84;
-
-void __cdecl rva007B782E()
-{
-	StlNarrowString *receiver = (StlNarrowString *)&g_Va00DFEC84;
-	return receiver->~basic_string();
-}
 
 // Retail constructs a vector, constructor 0x004F710A, here; its readers declare this name.
 extern "C" { unsigned int __identifier("?g_Va00DFF134@@3IA")[3]; }
