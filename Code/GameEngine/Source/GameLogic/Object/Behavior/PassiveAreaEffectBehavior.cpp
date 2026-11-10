@@ -154,17 +154,7 @@ private:
 	char pad258[0x438 - 0x258];
 	unsigned char m_438; // +0x438, bit 0 effectively dead
 };
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	bool allows(Object *obj);	// 0x00625720
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
 // ZH's PartitionFilterAlive.
 class Rva0026119DFilter : public Rva000421C8
@@ -190,13 +180,6 @@ public:
 	bool m_match;
 };
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
 class Rva002614ECFilter:public Rva000421C8 {
 public: Rva002614ECFilter(const void *what,Player *player,bool match):what(what),player(player),match(match){}
 virtual bool allow(Object *); const void *what; Player *player; bool match;

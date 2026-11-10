@@ -48,13 +48,7 @@ public:
 };
 
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 
 // vftable 0x00C0719C, allow 0x00261513: +0x08 an object, +0x0C a flag, +0x10 a float.
 class Rva00261513Filter : public Rva000421C8

@@ -5,16 +5,7 @@
 #include <stddef.h>
 #include "AITNGuardObjectView.h"
 class Player;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8
@@ -29,13 +20,6 @@ public:
 	bool m_match;
 };
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
 // vftable 0x00BF91B0, allow 0x00260FD0: +0x08 the object, +0x0C the attack
 // type, +0x10 the command source.
 class Rva00260FD0Filter : public Rva000421C8
