@@ -5,9 +5,7 @@
 // two field updates separately. The imports resolve by slot with no pins.
 
 extern "C" {
-    __declspec(dllimport) void __cdecl _fpreset(void);
-    __declspec(dllimport) unsigned int __cdecl _statusfp(void);
-    __declspec(dllimport) void __cdecl _controlfp(unsigned int val, unsigned int mask);
+#include <float.h>
 }
 
 // ?setFPMode@@YAXXZ
