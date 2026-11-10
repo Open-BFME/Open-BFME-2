@@ -14,11 +14,15 @@ measures, and how, follows from the history's last row:
     (link_census.record(rebaseline=REBASELINE_IN_PROCESS)). Steps 1, 3, 4 and
     5 below; step 2 does not apply.
   OLD_TOOL_RULES, measured by the previous link_census.py (step 2):
-    PREVIOUS_RULES (retail-truth-4: an object's lowest row places it in link
-    order even when another object's row claims that address). Placement
-    changes the link itself, so the previous rules cannot be judged on this
-    census's log: the previous tool links the same objects in its own order.
-    Its default is the parent of the commit that introduced RULES.
+    PREVIOUS_RULES (retail-truth-5: the import model, link_census.
+    retail_imports, holds only the names game.dat's rebuilt import table
+    spells; retail-truth-6 adds the wsock32 ntohl/ntohs partners that table
+    hides). The import model decides excuses and the real link's import list,
+    not keep_rule, so the previous rules cannot be judged in this census's
+    judgment: the previous tool links the same objects in its own process.
+    (retail-truth-4, before it, placed an object by its lowest row even when
+    another object's row claimed that address.) Its default is the parent of
+    the commit that introduced RULES.
     LEGACY_RULES (majority-0): its default is the parent of the commit that
     ported Open-BFME-1's rules (keep_rule).
 
@@ -247,9 +251,9 @@ def message(old, new):
     def pct(row, field="linked_authored"):
         return 100 * int(row[field]) / int(row["game_code"])
     previous = old.get("rules") or link_census.LEGACY_RULES
-    why = {link_census.PREVIOUS_RULES: f".\n{previous} places an object by its lowest row even when another\n"
-                                       f"object's row claims that address (an ICF fold); {link_census.RULES}\n"
-                                       "by its own unshared rows, so each rule linked in its own order"}.get(previous, "")
+    why = {link_census.PREVIOUS_RULES: f".\n{previous} imports only the names game.dat's rebuilt import table\n"
+                                       f"spells; {link_census.RULES} also the wsock32 ntohl/ntohs partners it\n"
+                                       "hides (an import-model change, so each rule ran its own tool)"}.get(previous, "")
     return (f"link_census: re-baseline LINKING under {link_census.RULES}\n\n"
             f"One census of {new['commit']} measured under both rules on the same objects\n"
             f"(objects digest {old['objects_digest'][:16]}); the previous rules by\n"

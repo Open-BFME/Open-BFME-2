@@ -184,3 +184,14 @@ def test_rebuilt_name_callers_still_pass_beside_the_partner(monkeypatch, tmp_pat
                          [("__imp__htonl@4", 0x500000), ("__imp__ntohl@4", 0x500004),
                           ("__imp__htonl@4", 0x500004)])
     build.verify_import_refs(rows)
+
+
+def test_rebuilt_partner_names_is_the_shared_duplicate_slot_test():
+    build = importlib.import_module("build")
+    rebuilt = [("WSOCK32.dll", "htonl"), ("WSOCK32.dll", "htonl"), ("wsock32.dll", "htons"),
+               ("wsock32.dll", "htons"), ("wsock32.dll", "socket")]
+    assert build.rebuilt_partner_names(rebuilt) == {("wsock32.dll", "ntohl"): "htonl",
+                                                    ("wsock32.dll", "ntohs"): "htons"}
+    assert build.rebuilt_partner_names(rebuilt + [("wsock32.dll", "ntohs")]) == {
+        ("wsock32.dll", "ntohl"): "htonl"}
+    assert build.rebuilt_partner_names([("MSVCR71.dll", "_strcmpi")] * 2) == {}

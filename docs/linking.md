@@ -80,6 +80,12 @@ Open-BFME-1's rules:
   marked `fold-proof=` or not) does not place its object, unless every row of
   the object is one (LINK-133). Before then a folded row at a low address could
   move a unit megabytes ahead and make its non-retail COMDAT copies the kept ones.
+- An import resolves when retail imports that function (`link_census.retail_imports`,
+  which the real link's import libraries also follow). Since `retail-truth-6` that
+  includes the shared-body partners game.dat's rebuilt import table hides: it spells
+  wsock32's ntohl/ntohs slots htonl/htons, so a name on exactly two slots of the DLL,
+  its partner on none, stands for both (LINK-658; build.py's Import-ref uses the same
+  test, `build.rebuilt_partner_names`).
 
 That order is the census's, not the real link's: real links use path order (`exit_link --order`, default `path`), so
 `link_check`, `tu_skeleton`, `allowed_symbols` and `dup_defs` can name a different kept copy from the one an image runs.

@@ -227,8 +227,10 @@ def test_index_tables_carry_the_reference_graph():
 
 
 def test_rules_ids_and_rebaseline_order():
-    assert (L.RULES, L.PREVIOUS_RULES, L.RETAIL_TRUTH_3) == ("retail-truth-5", "retail-truth-4", "retail-truth-3")
+    assert (L.RULES, L.PREVIOUS_RULES, L.RETAIL_TRUTH_4, L.RETAIL_TRUTH_3) == (
+        "retail-truth-6", "retail-truth-5", "retail-truth-4", "retail-truth-3")
     assert {L.PREVIOUS_RULES, L.PREVIOUS_RULES_NO_WRONG_SELECTED, L.RULES_NO_WRONG_SELECTED,
+            L.RETAIL_TRUTH_4, L.RETAIL_TRUTH_4_NO_WRONG_SELECTED,
             L.RETAIL_TRUTH_3, L.RETAIL_TRUTH_3_NO_WRONG_SELECTED,
             L.RETAIL_TRUTH_2, L.RETAIL_TRUTH_2_NO_WRONG_SELECTED,
             L.RETAIL_TRUTH_1, L.RETAIL_TRUTH_1_NO_WRONG_SELECTED} <= set(L.KNOWN_RULES)
@@ -246,8 +248,9 @@ def test_rules_ids_and_rebaseline_order():
 
 
 def test_no_earlier_rule_is_judged_in_process_since_placement_changed(tmp_path, monkeypatch):
-    # retail-truth-4 placed objects differently, so its figures need its own
-    # link (census_rebaseline.OLD_TOOL_RULES), never this census's log.
+    # retail-truth-5 read another import model (and retail-truth-4 placed
+    # objects differently), so their figures need their own link
+    # (census_rebaseline.OLD_TOOL_RULES), never this census's log.
     from test_link_census_currency import _record_harness, linked
     obj, source = tmp_path / "f.obj", tmp_path / "f.cpp"
     obj.write_bytes(b"object")
@@ -255,7 +258,7 @@ def test_no_earlier_rule_is_judged_in_process_since_placement_changed(tmp_path, 
     assert L.IN_PROCESS_RULES == {}
     monkeypatch.setattr(L, "read_history", lambda: [{"date": "2026-10-01 00:00", "commit": "x",
                                                      "rules": L.PREVIOUS_RULES}])
-    monkeypatch.setattr(L, "write_status", lambda *a, **k: pytest.fail("judged retail-truth-4 on a retail-truth-5 link"))
+    monkeypatch.setattr(L, "write_status", lambda *a, **k: pytest.fail("judged the previous rules on this link"))
     with pytest.raises(SystemExit, match="same judgment"):
         L.record(linked(obj), [], rebaseline=L.REBASELINE_IN_PROCESS)
 

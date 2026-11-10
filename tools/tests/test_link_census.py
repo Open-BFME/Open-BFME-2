@@ -494,6 +494,44 @@ def test_call_stub_is_excused_only_when_retail_imports_it_from_that_dll(tmp_path
     assert not L.excused("__imp__htons@4", set(), imported, stubs)
 
 
+WSOCK_REBUILT = [("WSOCK32.dll", "htonl", 0x7BA998), ("WSOCK32.dll", "htonl", 0x7BA9A4),
+                 ("WSOCK32.dll", "htons", 0x7BA968), ("WSOCK32.dll", "htons", 0x7BA98C),
+                 ("WSOCK32.dll", "socket", 0x7BA990), ("KERNEL32.dll", "Sleep", 0x7BA000)]
+
+
+def test_retail_imports_add_the_partners_a_rebuilt_table_hides(monkeypatch):
+    # game.dat's rebuilt import table spells wsock32's ntohl/ntohs slots
+    # htonl/htons (retail-truth-6): the census and the real link import both.
+    monkeypatch.setattr(L, "_retail_import_entries", lambda: list(WSOCK_REBUILT))
+    imported = L.retail_imports()
+    assert imported["ntohl"] == imported["ntohs"] == imported["htonl"] == {"wsock32.dll"}
+    assert L.excused("__imp__ntohl@4", set(), imported)
+    assert L.excused("__imp__ntohs@4", set(), imported)
+    stubs = {"_ntohs@4": {("wsock32.dll", "ntohs")}, "_ntohs@4x": {("ws2_32.dll", "ntohs")}}
+    assert L.excused("_ntohs@4", set(), imported, stubs)
+    assert not L.excused("_ntohs@4x", set(), imported, stubs)  # ws2_32's ntohs is not retail's
+
+
+@pytest.mark.parametrize("entries", [
+    # one slot each: nothing hidden
+    [("WSOCK32.dll", "htonl", 1), ("WSOCK32.dll", "htons", 2)],
+    # the partner is spelled already
+    [("WSOCK32.dll", "htonl", 1), ("WSOCK32.dll", "htonl", 2), ("WSOCK32.dll", "ntohl", 3)],
+    # three slots are not one pair
+    [("WSOCK32.dll", "htonl", 1), ("WSOCK32.dll", "htonl", 2), ("WSOCK32.dll", "htonl", 3)],
+    # the pair is a wsock32 fact
+    [("WS2_32.dll", "htonl", 1), ("WS2_32.dll", "htonl", 2)],
+    # a twin in another DLL is not a duplicate slot
+    [("WSOCK32.dll", "htonl", 1), ("WS2_32.dll", "htonl", 2)],
+    # other duplicated names get no partner (msvcr71 _strcmpi, avifil32 AVIFileRelease)
+    [("MSVCR71.dll", "_strcmpi", 1), ("MSVCR71.dll", "_strcmpi", 2),
+     ("AVIFIL32.dll", "AVIFileRelease", 3), ("AVIFIL32.dll", "AVIFileRelease", 4)],
+])
+def test_retail_imports_add_no_partner_without_the_duplicate_slot_evidence(monkeypatch, entries):
+    monkeypatch.setattr(L, "_retail_import_entries", lambda: list(entries))
+    assert set(L.retail_imports()) == {name for _, name, _ in entries}  # nothing added
+
+
 def test_build_dump_reads_the_source_not_the_note():
     cpp = {"name": "?f@@YAXXZ", "target_rva": "0x0082B870", "source": "Code/x/Thunk.cpp",
            "notes": "exact C++ __emit thunk converted from MASM dump"}

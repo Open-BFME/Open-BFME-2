@@ -265,13 +265,13 @@ def test_previous_figures_must_be_measured_under_the_previous_rules(tmp_path, mo
             self.rows.append({**figures, "rules": self.rules})
     monkeypatch.setattr(rb, "OLD_FIGURES", tmp_path / "old_rules.json")
     monkeypatch.setattr(rb, "load_old", lambda rev, out, previous=None: Old(link_census.RULES))
-    with pytest.raises(SystemExit, match="recorded retail-truth-5, not retail-truth-4"):
+    with pytest.raises(SystemExit, match=f"recorded {link_census.RULES}, not {link_census.PREVIOUS_RULES}"):
         rb.measure_old("rev", tmp_path / "old", link_census.PREVIOUS_RULES)
     monkeypatch.setattr(rb, "load_old", lambda rev, out, previous=None: Old(link_census.PREVIOUS_RULES))
     got = rb.measure_old("rev", tmp_path / "old", link_census.PREVIOUS_RULES)
     assert (got["rules"], got["files_linked"], got["linked_authored"]) == (link_census.PREVIOUS_RULES, 2, 8)
     text = rb.message(got, {"commit": "c0ffee", "files_linked": 3, "linked_authored": 9, "game_code": 10})
-    assert f"prev_rules={link_census.PREVIOUS_RULES}" in text and "ICF fold" in text
+    assert f"prev_rules={link_census.PREVIOUS_RULES}" in text and "rebuilt import table" in text
 
 
 def test_rebaseline_from_retail_truth_4_runs_the_previous_tool(monkeypatch, capsys, tmp_path):

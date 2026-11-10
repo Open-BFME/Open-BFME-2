@@ -88,6 +88,21 @@ def test_import_def_entries_accept_retails_decorated_names():
     assert missing == []
 
 
+def test_import_def_entries_import_the_partners_a_rebuilt_table_hides(monkeypatch):
+    # The real link (exit_link.py, link_cycle.py) builds its import libraries
+    # from link_census.retail_imports: game.dat's rebuilt table spells the
+    # ntohl/ntohs slots htonl/htons, so without the partners the real link
+    # would leave __imp__ntohl@4 / __imp__ntohs@4 unresolved.
+    import link_census
+    monkeypatch.setattr(link_census, "_retail_import_entries", lambda: [
+        ("WSOCK32.dll", "htonl", 0x7BA998), ("WSOCK32.dll", "htonl", 0x7BA9A4),
+        ("WSOCK32.dll", "htons", 0x7BA968), ("WSOCK32.dll", "htons", 0x7BA98C)])
+    names = {"__imp__htonl@4", "__imp__ntohl@4", "__imp__htons@4", "__imp__ntohs@4", "__imp__inet_ntoa@4"}
+    entries, missing = lc.import_def_entries(names, link_census.retail_imports())
+    assert entries == {"wsock32.dll": ["htonl@4", "htons@4", "ntohl@4", "ntohs@4"]}
+    assert missing == ["__imp__inet_ntoa@4"]
+
+
 def test_undefined_plain_imports_name_only_non_crt_retail_imports():
     class Symbol:
         def __init__(self, name, sec=0):

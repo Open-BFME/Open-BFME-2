@@ -4243,15 +4243,35 @@ REBUILT_IMPORT_PARTNERS = {
 }
 
 
+def rebuilt_partner_names(entries):
+    """{(dll, partner): rebuilt name} for each REBUILT_IMPORT_PARTNERS pair a
+    rebuilt import table hides: it spells the name on exactly two slots of the
+    DLL (one import has one slot, so the other is the partner's, the
+    duplicate-hint pattern) and the partner on none. ENTRIES holds one
+    (dll, name) per IAT slot; DLLs compare case-insensitively. Import-ref
+    verify (rebuilt_import_partner) and the census and real-link import model
+    (link_census.retail_imports) share this one test."""
+    import collections
+
+    counts = collections.Counter((dll.lower(), name) for dll, name in entries if name)
+    found = {}
+    for dll, pairs in REBUILT_IMPORT_PARTNERS.items():
+        for a, b in pairs:
+            for name, partner in ((a, b), (b, a)):
+                if counts[(dll, name)] == 2 and not counts[(dll, partner)]:
+                    found[(dll, partner)] = name
+    return found
+
+
 def rebuilt_import_partner(symbol, slot, imports):
     """(partner, twin slot) when SYMBOL may name the shared-body partner at SLOT.
 
-    The evidence must be in the target's own table: SLOT's DLL lists the pair,
-    the table spells SLOT's name on exactly one other slot of that DLL (the
-    duplicate-hint pattern), it spells the partner on none, and the source's
-    COFF import name is the partner. The table cannot say which of the two
-    slots is the partner; verify_import_refs refuses a run that gives both
-    slots the partner. Anything else returns None.
+    The evidence must be in the target's own table (rebuilt_partner_names):
+    SLOT's DLL lists the pair, the table spells SLOT's name on exactly one
+    other slot of that DLL and the partner on none, and the source's COFF
+    import name is the partner. The table cannot say which of the two slots
+    is the partner; verify_import_refs refuses a run that gives both slots
+    the partner. Anything else returns None.
     """
     from pe_imports import coff_import_names
 
@@ -4259,14 +4279,12 @@ def rebuilt_import_partner(symbol, slot, imports):
     if entry is None or entry.name is None:
         return None
     dll = entry.dll.lower()
-    partner = next((b if a == entry.name else a
-                    for a, b in REBUILT_IMPORT_PARTNERS.get(dll, ())
-                    if entry.name in (a, b)), None)
+    hidden = rebuilt_partner_names((e.dll, e.name) for e in imports.values())
+    partner = next((p for (d, p), name in hidden.items() if d == dll and name == entry.name), None)
     if partner is None or partner not in coff_import_names(symbol):
         return None
-    same_dll = [(other, e) for other, e in imports.items() if e.dll.lower() == dll]
-    twins = [other for other, e in same_dll if other != slot and e == entry]
-    if len(twins) != 1 or any(e.name == partner for _, e in same_dll):
+    twins = [other for other, e in imports.items() if other != slot and e == entry]
+    if len(twins) != 1:
         return None
     return partner, twins[0]
 

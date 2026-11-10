@@ -2536,10 +2536,20 @@ def _retail_import_entries():
 
 def retail_imports():
     """{name: {dll, lower case}} for every function retail's import table
-    lists (every entry is imported by name)."""
+    lists (every entry is imported by name), plus the shared-body partners its
+    rebuilt table hides (since retail-truth-6). game.dat's import directory was
+    rebuilt after link (OriginalFirstThunk = 0): wsock32's ntohl and ntohs
+    slots read htonl and htons beside the genuine ones, so a name spelled on
+    exactly two slots, its partner on none, stands for both
+    (build.rebuilt_partner_names, the test Import-ref verify uses too). The
+    census's excuses and the real link's import list (link_cycle.
+    import_def_entries, exit_link.py) both read this."""
     found = collections.defaultdict(set)
-    for dll, name, _ in _retail_import_entries():
+    entries = _retail_import_entries()
+    for dll, name, _ in entries:
         found[name].add(dll.lower())
+    for dll, partner in build.rebuilt_partner_names((dll, name) for dll, name, _ in entries):
+        found[partner].add(dll)
     return dict(found)
 
 
@@ -2612,8 +2622,8 @@ def excused(symbol, runtime, imported, thunks=None):
     retail does not import is a declaration defect. A call stub an import
     library in the toolchain defines (`_strcpy` in msvcrt.lib, `_socket@12` in
     WSock32.Lib, import_stubs()) counts only when retail imports that function
-    from that DLL: `_htons@4` is a WSock32.Lib stub, but retail imports only
-    htonl and ntohs, so a direct htons call stays a defect. Any other name
+    from that DLL: `_WSAAsyncSelect@16` is a WSock32.Lib stub retail does not
+    import, so a direct call to it stays a defect. Any other name
     only when msvcrt.lib (MSVCR71's import library and CRT statics:
     __except_list, __fltused) defines it. `imported` is retail_imports().
     """
@@ -3140,17 +3150,22 @@ HISTORY = ROOT / "reverse/link_census_history.csv"
 # (every copy proven wrong loses, even when another object supplies the
 # retail copy), retail-truth-3 (an unproven copy that differs from the proven
 # one loses, even when the copy the link keeps is retail's), each measured in
-# the same judgment as the rules after it (REBASELINE_IN_PROCESS), and
-# PREVIOUS_RULES (retail-truth-4: an object's lowest row places it in link
-# order even when another object's row claims that address, an ICF fold;
-# code_places), measured by the previous link_census.py, which links the same
-# objects in its own order. Dates are UTC from retail-truth-4 on (rows before it are mostly UTC; their
+# the same judgment as the rules after it (REBASELINE_IN_PROCESS),
+# retail-truth-4 (an object's lowest row places it in link order even when
+# another object's row claims that address, an ICF fold; code_places),
+# measured by its own link_census.py, which links the same objects in its own
+# order, and PREVIOUS_RULES (retail-truth-5: the import model is the rebuilt
+# import table's names only; retail-truth-6 adds the shared-body partners that
+# table hides, wsock32 ntohl/ntohs, retail_imports), measured by the previous
+# link_census.py too. Dates are UTC from retail-truth-4 on (rows before it are mostly UTC; their
 # zone is whatever the runner had); rows stay in physical append order, and
 # readers take the last physical row as current.
-RULES = "retail-truth-5"
-RULES_NO_WRONG_SELECTED = "retail-truth-5-no-wrong-selected"
-PREVIOUS_RULES = "retail-truth-4"
-PREVIOUS_RULES_NO_WRONG_SELECTED = "retail-truth-4-no-wrong-selected"
+RULES = "retail-truth-6"
+RULES_NO_WRONG_SELECTED = "retail-truth-6-no-wrong-selected"
+PREVIOUS_RULES = "retail-truth-5"
+PREVIOUS_RULES_NO_WRONG_SELECTED = "retail-truth-5-no-wrong-selected"
+RETAIL_TRUTH_4 = "retail-truth-4"
+RETAIL_TRUTH_4_NO_WRONG_SELECTED = "retail-truth-4-no-wrong-selected"
 RETAIL_TRUTH_3 = "retail-truth-3"
 RETAIL_TRUTH_3_NO_WRONG_SELECTED = "retail-truth-3-no-wrong-selected"
 RETAIL_TRUTH_2 = "retail-truth-2"
@@ -3161,6 +3176,7 @@ LEGACY_RULES = "majority-0"
 KNOWN_RULES = (LEGACY_RULES, RETAIL_TRUTH_1_NO_WRONG_SELECTED, RETAIL_TRUTH_1,
                RETAIL_TRUTH_2_NO_WRONG_SELECTED, RETAIL_TRUTH_2,
                RETAIL_TRUTH_3_NO_WRONG_SELECTED, RETAIL_TRUTH_3,
+               RETAIL_TRUTH_4_NO_WRONG_SELECTED, RETAIL_TRUTH_4,
                PREVIOUS_RULES_NO_WRONG_SELECTED, PREVIOUS_RULES, RULES_NO_WRONG_SELECTED, RULES)
 REBASELINE_IN_PROCESS = object()  # record(rebaseline=...): the last row's rules measured in the same judgment
 # keep_rule's arguments for the earlier keep rules (write_status judges
@@ -3170,8 +3186,9 @@ KEEP_RULE_VARIANTS = {RETAIL_TRUTH_3: {"retail_first": False},
 # Earlier rules that differ from RULES only in keep_rule's exemptions, so a
 # re-baseline measures them on the same objects, log and /MAP. None does
 # since retail-truth-5: every earlier rule also placed objects by
-# retail-truth-4's link order, which changes the link itself, so a
-# re-baseline measures them with their own link_census.py
+# retail-truth-4's link order, which changes the link itself, and
+# retail-truth-5 differs from retail-truth-6 in the import model, not in
+# keep_rule, so a re-baseline measures them with their own link_census.py
 # (census_rebaseline.OLD_TOOL_RULES).
 IN_PROCESS_RULES = {}
 HISTORY_FIELDS = ["date", "commit", "objects", "unresolved", "alias", "pinned_elsewhere", "dump", "data",
