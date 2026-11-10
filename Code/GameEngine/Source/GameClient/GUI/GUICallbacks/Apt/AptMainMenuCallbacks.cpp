@@ -90,11 +90,7 @@ public:
 #include "../../../../../Include/GameClient/Shell.h"
 
 // The shell's rowed 0x0035BD3F (its own address class).
-class Rva0035BD3F
-{
-public:
-	void rva0035BD3F();
-};
+#include "../../../../../Include/Common/Rva0035BD3F.h"
 
 class GameWindowTransitionsHandler
 {

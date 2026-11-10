@@ -29,11 +29,7 @@ public:
 // game/GameEngine/Source/Common/S3GuardedIndirectRelease.cpp owns the
 // giveBack body at 0x0057F100, so the call is made through that view, exactly
 // as Rva0051DD10StartBattleSchool.cpp does.
-class Rva0035BD3F
-{
-public:
-	void rva0035BD3F(void);
-};
+#include "../../../Include/Common/Rva0035BD3F.h"
 extern Shell *TheShell;
 
 class ModuleData;

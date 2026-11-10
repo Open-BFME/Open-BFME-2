@@ -421,11 +421,7 @@ public:
 
 extern Shell *TheShell;
 
-class Rva0035BD3F
-{
-public:
-	void rva0035BD3F();
-};
+#include "../../../../../Include/Common/Rva0035BD3F.h"
 
 class ModuleData;
 
