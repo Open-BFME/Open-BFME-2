@@ -8,11 +8,7 @@
 // 0x00BBAACC, 0.5f literal at 0x00BC26F0. Honest address names.
 extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_volume_pan(void *stream, float volume, float pan);
 
-class Rva0010F24F
-{
-public:
-    void rva0010F24F();
-};
+#include "../../Include/Common/Rva0010F24F.h"
 
 #include "../../Include/Common/Rva0010F26E.h"
 

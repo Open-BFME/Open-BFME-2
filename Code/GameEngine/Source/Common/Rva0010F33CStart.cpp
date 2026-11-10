@@ -12,11 +12,7 @@
 
 extern "C" __declspec(dllimport) void __stdcall AIL_start_stream(void *stream);
 
-class Rva0010F24F
-{
-public:
-    void rva0010F24F();
-};
+#include "../../Include/Common/Rva0010F24F.h"
 
 #include "../../Include/Common/Rva0010F26E.h"
 
