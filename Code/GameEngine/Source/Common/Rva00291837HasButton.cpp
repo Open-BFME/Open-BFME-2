@@ -8,11 +8,7 @@ class AsciiString;
 class ControlBar;
 extern ControlBar *TheControlBar;
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *);
-};
+#include "../../Include/Common/Rva0031D5F8.h"
 
 #include "../../Include/GameClient/CommandButton.h"
 

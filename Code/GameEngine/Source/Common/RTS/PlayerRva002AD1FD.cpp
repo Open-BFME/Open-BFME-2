@@ -15,11 +15,7 @@ class AsciiString;
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 class Object;
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *s);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 struct Iface22
 {

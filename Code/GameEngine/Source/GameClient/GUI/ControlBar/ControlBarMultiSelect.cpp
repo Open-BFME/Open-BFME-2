@@ -44,10 +44,7 @@ class AsciiString;
 enum ObjectStatusTypes { MULTISELECT_SOLD = 0x13 };
 #include "../../../GameLogic/Object/object.h"
 #include "../../../../Include/GameClient/CommandSet.h"
-class Rva0031D5F8 {
-public:
-    void *rva0031D5F8(const AsciiString *);
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 class Rva0035B424 {
 public:
     void rva0035B424(int);

@@ -42,11 +42,7 @@ public:
 	void rva002CAC6E(int a1, int a2);
 };
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 #include "../../../Include/GameClient/CommandSet.h"
 

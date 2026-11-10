@@ -324,11 +324,7 @@ class CommandSet
 public:
 	const CommandButton *getCommandButton(int i) const; // 0x00409EE8
 };
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *key); // 0x0031D5F8, findCommandSet
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 class ControlBar : public Rva0031D5F8
 {
 public:

@@ -7,11 +7,7 @@ extern class ControlBar *TheControlBar;
 
 #include "../GameLogic/Object/object.h"
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *);
-};
+#include "../../Include/Common/Rva0031D5F8.h"
 
 #include "../../Include/GameClient/CommandButton.h"
 #include "../../Include/GameClient/CommandSet.h"

@@ -1313,11 +1313,7 @@ bool BFMEActionManager::canEnterObject(const Object *obj, const Object *objectTo
 class ControlBar;
 extern ControlBar *TheControlBar;
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);	// 0x0031D5F8
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 #include "../../../Include/GameClient/CommandButton.h"
 
