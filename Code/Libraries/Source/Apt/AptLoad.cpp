@@ -86,7 +86,7 @@ public:
 
 int __cdecl Rva006CFDF0DecRef(int *p);
 void __cdecl bfmeDropVGO(void *p);
-class Rva00894D80Accessor { public: static unsigned int increment(unsigned int *p); };
+#include "../../../GameEngine/Include/Common/Rva00894D80Accessor.h"
 __declspec(noinline) inline BfmeRefVGO &BfmeRefVGO::assign(const BfmeRefVGO &other)
 {
 	if (&other != this)

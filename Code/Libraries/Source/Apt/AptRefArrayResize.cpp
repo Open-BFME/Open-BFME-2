@@ -9,7 +9,7 @@ class Rva006DB160 {public:void *allocBlock(int);};
 extern Rva006DB270 *g_pChainBlockAllocator;
 int Rva006CFDF0DecRef(int *);
 void bfmeDropVGO(void *);
-class Rva00894D80Accessor {public:static unsigned increment(unsigned *);};
+#include "../../../GameEngine/Include/Common/Rva00894D80Accessor.h"
 class BfmeRefVGO {
 protected:unsigned *value;
 public:

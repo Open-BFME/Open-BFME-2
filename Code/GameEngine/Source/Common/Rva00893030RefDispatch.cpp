@@ -1,10 +1,6 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
-class Rva00894D80Accessor
-{
-public:
-	static unsigned int increment(unsigned int *value);
-};
+#include "../../Include/Common/Rva00894D80Accessor.h"
 
 unsigned int bfmeDecVGO(unsigned int *value);
 void bfmeDropVGO(void *value);

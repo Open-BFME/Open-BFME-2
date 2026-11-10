@@ -10,7 +10,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class Rva00894D80Accessor {public:static unsigned increment(unsigned *);};
+#include "../../../../GameEngine/Include/Common/Rva00894D80Accessor.h"
 int Rva006CFDF0DecRef(int *);
 void bfmeDropVGO(void *);
 // The out-of-line ~BfmeRefVGO this unit emits for its unwind path must be the

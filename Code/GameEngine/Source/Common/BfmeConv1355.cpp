@@ -6,11 +6,7 @@
 // calls use their matched row names; the drop call retains bfmeDropVGO.
 
 int __cdecl Rva006CFDF0DecRef(int *p);
-class Rva00894D80Accessor
-{
-public:
-	static unsigned int increment(unsigned int *p);
-};
+#include "../../Include/Common/Rva00894D80Accessor.h"
 void __cdecl bfmeDropVGO(void *p);
 
 class BfmeRefVGO

@@ -53,11 +53,7 @@ public:
 // here as an out-of-line COMDAT copy of the same body: seeing that it never
 // writes its argument lets MSVC drop the empty handles' destructors in
 // insert (retail has no release call there) and keeps retail's slot choice.
-class Rva00894D80Accessor
-{
-public:
-	static unsigned int increment(unsigned int *p);
-};
+#include "../../Include/Common/Rva00894D80Accessor.h"
 __declspec(noinline) inline BfmeRefVGO &BfmeRefVGO::assign(const BfmeRefVGO &o)
 {
 	if (&o != this)

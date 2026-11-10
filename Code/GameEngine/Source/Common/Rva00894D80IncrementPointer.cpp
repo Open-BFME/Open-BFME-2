@@ -1,8 +1,4 @@
-class Rva00894D80Accessor
-{
-public:
-	static unsigned int increment(unsigned int *value);
-};
+#include "../../Include/Common/Rva00894D80Accessor.h"
 
 unsigned int Rva00894D80Accessor::increment(unsigned int *value)
 {

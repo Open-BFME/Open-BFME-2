@@ -10,11 +10,7 @@ class Rva00894D90Accessor
 public:
     static unsigned int decrement(unsigned int *p);
 };
-class Rva00894D80Accessor
-{
-public:
-    static unsigned int increment(unsigned int *p);
-};
+#include "../../Include/Common/Rva00894D80Accessor.h"
 void bfmeDropVGO(void *p);
 struct Rva008A2BA0Payload
 {

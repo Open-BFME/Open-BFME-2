@@ -25,11 +25,7 @@
 //
 // Method name stays address-derived: the caller is an anonymous ?d_ dump.
 
-class Rva00894D80Accessor
-{
-public:
-	static unsigned int increment(unsigned int *value);
-};
+#include "../../Include/Common/Rva00894D80Accessor.h"
 
 class Rva00894D90Accessor
 {
