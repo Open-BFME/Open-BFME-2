@@ -17,6 +17,13 @@ HEADER = "name,export_rva,target_rva,target_size,source,status,notes"
 
 
 def _load(name):
+    # One module object per name. Tools resolve some imports at call time, so a
+    # second copy of one makes a fixture's monkeypatch land on an object the tool
+    # never reads; loading unconditionally also clobbered whatever another test
+    # file had imported normally (tool:test_reloc_names, cfef858142e; same bug as
+    # tool:test_exit_link, cd973bd3e4c).
+    if name in sys.modules:
+        return sys.modules[name]
     spec = importlib.util.spec_from_file_location(name, TOOLS / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
     sys.modules[name] = module
