@@ -185,11 +185,7 @@ extern PartitionManager *ThePartitionManager;
 class ControlBar;
 
 // 0x0031D5F8 is rowed as Rva0031D5F8::rva0031D5F8 (ControlBar's command set lookup).
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 
 extern ControlBar *TheControlBar;
 

@@ -145,11 +145,7 @@ class ThingTemplate;
 
 #include "../../../../../Include/GameClient/CommandSet.h"
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);	// 0x0031D5F8 the command set
-};
+#include "../../../../../Include/Common/Rva0031D5F8.h"
 
 class ControlBar;
 

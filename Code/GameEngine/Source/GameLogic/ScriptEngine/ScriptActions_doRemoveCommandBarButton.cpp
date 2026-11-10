@@ -63,11 +63,7 @@ private:
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 

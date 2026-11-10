@@ -50,7 +50,7 @@ class Object { public: const AsciiString *rva00290E67() const; int rva00294ADD(i
 
 #include "../../../../../Include/GameClient/CommandSet.h"
 
-class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
+#include "../../../../../Include/Common/Rva0031D5F8.h"
 
 class ControlBar;
 

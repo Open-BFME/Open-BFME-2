@@ -29,11 +29,7 @@ public:
 };
 class ScriptEngine;
 extern class ScriptEngine *TheScriptEngine;
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 #include "../../../Include/GameClient/CommandSet.h"
 #include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
