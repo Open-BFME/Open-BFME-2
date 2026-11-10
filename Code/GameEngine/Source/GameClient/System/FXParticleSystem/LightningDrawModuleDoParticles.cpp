@@ -131,7 +131,7 @@ static inline float StreakFabs(float val)
 
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
-class WWMath { public:static float Random_Float(); };
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 struct Rva00561C34Point:Coord3D { Rva00561C34Point(); };
 class DefaultModuleHeadBase {public:virtual ~DefaultModuleHeadBase();protected: ::ParticleSystem *m_system;unsigned int storage[3];};

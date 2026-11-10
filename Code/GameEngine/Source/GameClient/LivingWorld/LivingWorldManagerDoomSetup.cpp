@@ -28,7 +28,7 @@ static inline const unsigned &max(const unsigned &a,const unsigned &b) { return 
 #include "ascii_string.h"
 // Use the existing destructor provider, avoiding a conflicting COMDAT copy.
 namespace _STL { template<> vector<AsciiString>::~vector(); }
-class WWMath {public: static float Random_Float();};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 class Coord3D;
 class RenderObjClass;
 class BfmeAnimationReceiver;

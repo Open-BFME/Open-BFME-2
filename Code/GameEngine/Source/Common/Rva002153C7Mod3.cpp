@@ -6,12 +6,7 @@
 #include <math.h>
 #include "Coord3D.h"
 
-class WWMath
-{
-public:
-    static float Random_Float(void);
-    static float __fastcall Inv_Sqrt(float value);
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 struct Rva002152BDVector
 {

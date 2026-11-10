@@ -50,11 +50,7 @@ class Team;
 class ThingTemplate;
 #define COORD3D_VIEW_DTOR
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 // Bezier segment over four control points (see Rva0055A246Ctor.cpp).
 class Rva0055A246

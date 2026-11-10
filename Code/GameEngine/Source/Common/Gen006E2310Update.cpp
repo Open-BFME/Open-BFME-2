@@ -110,11 +110,7 @@ public:
 #include "../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 
-class WWMath
-{
-public:
-	static float Random_Float();
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 

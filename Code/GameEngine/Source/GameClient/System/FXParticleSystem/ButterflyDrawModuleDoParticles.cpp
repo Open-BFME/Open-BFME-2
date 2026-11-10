@@ -32,7 +32,7 @@
 #include "ascii_string.h"
 #include <math.h>
 float Rva001333F0Atan2(float y, float x);
-class WWMath {public:static __forceinline float Cos(float);static __forceinline float Sin(float);};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 // ----------------------------------------------------------------------------
 // Cos
 // ----------------------------------------------------------------------------

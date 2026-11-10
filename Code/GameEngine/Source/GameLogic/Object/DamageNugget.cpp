@@ -31,11 +31,7 @@ typedef int Int;
 static inline void coordSet(Coord3D &destination, const Coord3D *p) { destination.x = p->x; destination.y = p->y; destination.z = p->z; }
 static inline void coordSub(Coord3D &d, const Coord3D *p) { d.x -= p->x; d.y -= p->y; d.z -= p->z; }
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-class WWMath
-{
-public:
-	static Real __fastcall Inv_Sqrt(Real value);
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 __forceinline void Vector3::Normalize()
 {
 	Real len2 = X * X + Y * Y + Z * Z;

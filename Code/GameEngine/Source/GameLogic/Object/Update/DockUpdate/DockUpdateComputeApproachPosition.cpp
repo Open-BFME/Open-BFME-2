@@ -20,11 +20,7 @@
 class Matrix3D;
 class Object;
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float value); // 0x0004233A
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 #include "../../../../Common/Thing/thing.h"
 

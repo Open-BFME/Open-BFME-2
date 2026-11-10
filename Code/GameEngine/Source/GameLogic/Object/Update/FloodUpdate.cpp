@@ -30,11 +30,7 @@ class ModuleData;
 class Team;
 class ThingTemplate;
 #include "../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 class Vector3
 {
 public:

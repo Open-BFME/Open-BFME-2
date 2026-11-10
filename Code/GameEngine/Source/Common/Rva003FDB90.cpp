@@ -4,11 +4,7 @@
 // rowed Random_Float plus pin 0x3FDAEB plus rowed 0x3FDC46 tail-jmp.
 // Offsets 0x38 0x40 0x44 0x48 unsigned with 0.7f gate. VTABLE slot 3 at
 // 0x837DA0 is not xfer shape here so honest Rva name.
-class WWMath
-{
-public:
-	static float Random_Float();
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 class Rva003FDCEB
 {

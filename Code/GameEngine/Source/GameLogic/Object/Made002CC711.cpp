@@ -11,7 +11,7 @@ extern GameLogic *TheGameLogic;
 // local set/sub mirror the referenced Coord3D point operations.
 // Explicit local point set/sub preserve the native value order and both
 // normalized vectors. Original helper and view names remain unproven.
-class WWMath {public:static float __fastcall Inv_Sqrt(float);};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 float Cos(float);
 struct Vector3 {float X,Y,Z;
 Vector3(){} Vector3(float x,float y,float z):X(x),Y(y),Z(z){}

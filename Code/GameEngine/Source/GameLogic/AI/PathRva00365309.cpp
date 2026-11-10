@@ -24,7 +24,7 @@ class Rva001E3F27FloatChaseField {public:float get()const;};
 class Rva00065964ObjectPool {public:void *rva002635C2()throw();};
 extern Rva00065964ObjectPool g_pathNodePool;
 #include "../../../Include/GameLogic/PathNode.h"
-class WWMath {public:static float __fastcall Inv_Sqrt(float);};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 // Zero Hour's inline Vector3 math bodies and a scalar scale; retail inlines them here.
 static __forceinline float bfmeLength2V3(const Vector3 &v){return v.X*v.X+v.Y*v.Y+v.Z*v.Z;}
