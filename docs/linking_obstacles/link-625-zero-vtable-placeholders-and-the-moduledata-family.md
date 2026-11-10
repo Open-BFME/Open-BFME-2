@@ -518,3 +518,21 @@ matches the instruction sequence at 0x004A10FD. Its calls target the derived
 its EH graph is EXACT, and link_check reports LINKS (111 -> 111). RampageBehavior
 is the other consumer of the unresolved nonvirtual BehaviorModuleData destructor
 in the c1dd79e380 real-link report. A fresh real link remains outstanding.
+
+2026-11-10: RampageBehavior now binds its module-data constructor cleanup to
+ModuleData. Both Rampage objects generate 31 slots for the table at VA 0x00C40EF8
+(the field parse table is at 0x00C40E78). Slots 1..30 in retail equal those of
+0x00C4ED70; slot 0 is the 28-byte Rampage deleting destructor at RVA 0x00458C7F.
+In each object the ordinary and deleting Rampage destructors and ModuleData's
+7-byte destructor match their retail rows with all operands resolved. Neither
+object references the unresolved nonvirtual BehaviorModuleData destructor.
+Retired the private ModuleDataBase row at the already-covered RVA 0x0049B47C.
+Three family destructor unwind funclets also used the old name: W3DBoatWakeModelDraw,
+SpawnUnitBehavior and StealthDetectorUpdate. They now restore the same native base.
+The boat's unique slot 20 returns this (retail 0x0047A6A9). StealthDetector's ctor
+and dtor units now agree on its 31-slot table. The four-file preview reports
+4/4 LINKS, 1239 -> 1232 bytes attributed: retiring the duplicate 7-byte row accounts
+for the difference. Scoped builds verify 41 rows and the three EH-bearing units
+report 11 exact EH graphs.
+This accounts for both consumers in the c1dd79e380 report together with the
+FireWeaponWhenDead repair above. Whole-image verification remains outstanding.

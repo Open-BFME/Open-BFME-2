@@ -21,13 +21,14 @@ public:
 	unsigned char m_data[0x1C];
 };
 
-class StealthDetectorUpdateModuleData
+#include "../../../../Include/Common/ModuleData.h"
+
+class StealthDetectorUpdateModuleData : public ModuleData
 {
 public:
 	StealthDetectorUpdateModuleData();
 	virtual ~StealthDetectorUpdateModuleData();
 
-	int m_unused04;
 	int m_detectionRate;
 	float m_detectionRange;
 	bool m_initiallyDisabled;

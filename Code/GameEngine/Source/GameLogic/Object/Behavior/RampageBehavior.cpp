@@ -88,8 +88,6 @@ private:
 	Object *m_obj; // +0x08
 };
 
-// The matched destructor unit provides retail's module-data vtable.
-extern "C" const void *__identifier("??_7RampageBehaviorModuleData@@6B@")[];
 
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
@@ -101,28 +99,22 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
 
-class BehaviorModuleData
-{
-public:
-	__declspec(dllimport) __forceinline BehaviorModuleData() {}
-	~BehaviorModuleData();
+#include "../../../../Include/Common/ModuleData.h"
 
-private:
-};
+inline ModuleData::~ModuleData() {}
 
 #include "../../../../Include/Common/GlobalData.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 extern GlobalData *TheWritableGlobalData;
 
-class RampageBehaviorModuleData : public BehaviorModuleData
+class RampageBehaviorModuleData : public ModuleData
 {
 public:
 	RampageBehaviorModuleData();
+	RampageBehaviorModuleData(int);
 
 private:
-	const void *m_vtable; // +0x00
-	unsigned int m_unused04; // +0x04
 	_STL::vector<AsciiString> m_requiredUpgrade; // +0x08
 	float m_healthThreshold; // +0x14
 	int m_lifeTimer; // +0x18
@@ -184,13 +176,11 @@ unsigned char Rva00458BE1::rva00458BE1()
 // EnemyCheckRange at +24 float-zero, EnemyThreshold at +28 zero. Table
 // 0xC40E78 carries all seven fields; factory 0x24AD38 news 0x2C sole caller;
 // rowed poolkey 0x458B0A ends where proc 0x458B4F begins. Shape follows
-// CrateCollide (empty base + declared-only dtor for EH, explicit vtable,
-// all-init-list) with vector clear in body.
+// the original EH cleanup, which destroys ModuleData after vector initialization.
 
 // ??0RampageBehaviorModuleData@@QAE@XZ @0x458C0F
 RampageBehaviorModuleData::RampageBehaviorModuleData()
-	: m_vtable(reinterpret_cast<const void *>(__identifier("??_7RampageBehaviorModuleData@@6B@")))
-	, m_healthThreshold(TheWritableGlobalData->m_unitReallyDamagedThreshold)
+	: m_healthThreshold(TheWritableGlobalData->m_unitReallyDamagedThreshold)
 	, m_lifeTimer(0)
 	, m_angryLifeTimer(0)
 	, m_resetTimer(0)

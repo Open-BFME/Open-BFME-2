@@ -6090,3 +6090,4 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
 ??_GRva004A653D@@UAEPAXI@Z,0x004A6626,"Renamed to ??_GSupplyCenterProductionExitUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C52D30)"
 ??1Rva00487F3A@@UAE@XZ,0x00487F3A,"Renamed to ??1DefaultProductionExitUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4B2AC)"
 ??_GRva00487F3A@@UAEPAXI@Z,0x0048803F,"Renamed to ??_GDefaultProductionExitUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4B2AC)"
+??1ModuleDataBase@@UAE@XZ,0x0049B47C,"Retired the Rampage TU private base name. The existing ModuleData destructor row covers the same seven bytes at 0x0049B47C and restores the Snapshot table. Retail Rampage constructor cleanup at 0x0078A1FD calls that address."
