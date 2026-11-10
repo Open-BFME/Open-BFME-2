@@ -1017,11 +1017,7 @@ BFME_DISP_FLOAT_GETTER(Rva000879F4FloatField, 0x24FC)
 
 #include "../../../../GameEngine/Include/Common/Rva00420B2AZeroSetter.h"
 
-class Rva005FD8C1
-{
-public:
-	void rva005FD8C1();
-};
+#include "../../../../GameEngine/Include/Common/Rva005FD8C1.h"
 
 #include "../../../../Libraries/Source/Apt/AptCIHClass.h"
 
