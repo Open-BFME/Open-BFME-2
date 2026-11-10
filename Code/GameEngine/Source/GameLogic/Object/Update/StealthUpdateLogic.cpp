@@ -505,11 +505,7 @@ private:
 
 // Zero Hour's Drawable::isDrawableEffectivelyHidden (0x00270260), rowed
 // under an address-derived name.
-class Rva00270260
-{
-public:
-	bool rva00270260();
-};
+#include "../../../../Include/Common/Rva00270260.h"
 
 extern float g_secondsPerLogicFrame;
 

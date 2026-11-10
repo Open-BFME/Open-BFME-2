@@ -49,11 +49,7 @@ public:
 	bool rva00588D24(void *owner, Object *obj);
 	void rva00588E44(void *argument);
 };
-class Rva00270260
-{
-public:
-	bool rva00270260();
-};
+#include "../../../../../Include/Common/Rva00270260.h"
 enum DamageType { DeathDamage=8 };
  enum DeathType { NormalDeath=0 };
 class Matrix3D;

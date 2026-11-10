@@ -190,11 +190,7 @@ public:
 	int get() const;
 };
 
-class Rva00270260
-{
-public:
-	bool rva00270260();
-};
+#include "../../../Include/Common/Rva00270260.h"
 
 
 #include "../../../Include/GameLogic/AICommandParms.h"

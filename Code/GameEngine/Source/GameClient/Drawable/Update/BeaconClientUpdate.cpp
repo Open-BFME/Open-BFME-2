@@ -98,11 +98,7 @@ class Rva001F3852ByteOneSetter
     void enable();
 };
 #include "../../../../Include/GameClient/Drawable.h"
-class Rva00270260
-{
-  public:
-    bool rva00270260();
-};
+#include "../../../../Include/Common/Rva00270260.h"
 #include "../../../Common/Thing/thing.h"
 #include "../../BuffManager.h"
 

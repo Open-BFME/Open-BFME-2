@@ -33,11 +33,7 @@ public:
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class Rva00270260
-{
-public:
-	Bool rva00270260();
-};
+#include "../../../Include/Common/Rva00270260.h"
 
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"

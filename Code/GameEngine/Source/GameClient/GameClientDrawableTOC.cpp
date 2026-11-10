@@ -1655,7 +1655,7 @@ void GameClient::update()
 // object.
 class Rva00276470Drawable { public: const Coord3D *rva00276470() const; };
 class Rva00270FEE { public: float rva00271008(); };
-class Rva00270260 { public: bool rva00270260(); };
+#include "../../Include/Common/Rva00270260.h"
 class Rva002707FA { public: void rva002707FA(unsigned char value); };
 
 // GameClient slot 26 (0x002391AA): BFME 2 has no ZH counterpart. Target
