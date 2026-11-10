@@ -3,7 +3,7 @@ Reread this file after 24 hours, and at once when a message or commit reports an
 ## Goal and done
 
 The product: BFME II rebuilt from source people can read and mod. Done: the game links
-without `/FORCE` or stubs at a non-retail base; automated runs reach the menu, a
+without `/FORCE` or stubs at a non-retail base; automated runs reach menu,
 skirmish and save/load; game-logic CRCs equal retail's, a perturbed run caught
 as the negative control (`docs/verifier_upgrade_plan.md` step 12); `Code/` is retail's
 ~2,300 TUs (today 17,893 files), every code row in its approved TU, real names, shared
@@ -71,7 +71,8 @@ Detail: `docs/verifier_upgrade_plan.md` ("Live rules in detail").
   address-named globals, selectany, `class-gate: allow`, `present-unmatched`,
   `#pragma optimize`, `__emit`, `.asm` `db`. Counts rise only by a tool's admission or a
   total-keeping `hatch_counters.py --update`; running `--allow` or `--admit` yourself is
-  hand-adding. Prefer removing hatches; remove a file's before renaming it.
+  hand-adding. Prefer removing hatches where you work; remove a file's before renaming
+  it.
 - A pin is an in-image code RVA written by `pin_admission.py --add` or `add_match.py
   --pin`, never a second real name on a named address; an ICF fold needs `fold-proof=`.
   Run `pin_consistency.py --symbol <name>` before pinning and `--check` after;
@@ -88,8 +89,10 @@ Detail: `docs/verifier_upgrade_plan.md` ("Live rules in detail").
   Merge only with `tools/tu_skeleton.py`, never by hand or splitting a mixed file.
 - Anti-lift: clean C++; MASM or inline asm only for a proven codegen blocker (compiler
   machinery, x87 shape, SEH). A dump lifted into `naked`/`__emit` is no conversion.
-- Never edit `Code/gen_asm/` (repoint the row, leave the `PROC`) or
-  `Code/gen_small/uw_gen_*.cpp` (`gen_uw.py land` owns it; never infer `parent=` from
+- Never edit a file in `Code/gen_asm/` (repoint the row, leave the `PROC`); delete a whole
+  file only once `tools/gen_dump.py --orphans` reports it unreferenced, lowering the hatch
+  total with `tools/hatch_counters.py --update` in that commit (`docs/matching.md`). Never
+  edit `Code/gen_small/uw_gen_*.cpp` (`gen_uw.py land` owns it; never infer `parent=` from
   adjacency). Recover `gen-*` rows as clean C++ at their proper path (`add_match.py
   --replace-rva`).
 - `vendored=<lib>-<ver>` rows keep upstream's names, never `gen-`, and the exact release;
@@ -109,7 +112,8 @@ Detail: `docs/verifier_upgrade_plan.md` ("Live rules in detail").
   prefer TU-scoped shims to shared-header edits.
 - Keep target facts, donor facts and inferences apart: bytes, placement or a same-name hit
   prove no donor name, layout or recovery; never claim a donor path as BFME 2 source.
-- VP6: never read any decoder source (On2, Winamp, ffdshow, MFNode).
+- VP6 (`reverse/vp6_cleanroom/queue.tsv`, its README): never read any decoder source
+  (On2, Winamp, ffdshow, MFNode).
 
 ## Publishing
 
@@ -139,31 +143,28 @@ Detail: `docs/verifier_upgrade_plan.md` ("Live rules in detail").
   maintainer's pass; run a desync test only with a maintainer-provided sandbox and a
   retail record (`docs/verifier_upgrade_plan.md`).
 - **Link, headers, data**: `next_work.py --tier link|header|data`, `repair_queue.py link`,
-  `link_rank.py`, `header_adopt_lane.py order`, `name_globals.py` (`docs/linking.md`).
+  `header_adopt_lane.py order` (`docs/linking.md`).
 - **Source files**: `name_lane.py consolidate --under Code/<dir>/`, `tu_skeleton.py
   --queue`, `--merge TU [--dry-run]`, checks per batch (`docs/consolidation.md`).
-- **Hatch debt**: replace hatches with real code or names where you work.
 - **Names**: `rename.py`, `name_lane.py` (`scoped` for locals), batches finished through
   application; read `docs/naming.md` before renaming; naming never passes a repair or
   merge test or delays a move. Never add unrelated files to reach a quota; no scoped votes
   or external reviewer CLI; `--propose-only` only on an explicit proposal-only assignment.
 - **Cleanup, reference lanes**: `eh_verify.py`, `repair_queue.py ms-headers`,
-  `next_work.py --tier dx`, `bfme1_sweep.py` and other donor sweeps (`docs/matching.md`);
-  `--wb` only on request.
+  `next_work.py --tier dx`, donor sweeps (`docs/matching.md`); `--wb` only on request.
 - **False rejects**: `re_log.py record ... blocked "false-reject <check>: <evidence>
   t=<min> model=<model>"` and move on. Tooling seats fix the check with a regression
   test and `Verifier-Change:`; every `tools/tests/test_gate_exploits.py` case stays refused.
-- **VP6 clean room**: `reverse/vp6_cleanroom/queue.tsv` and its README.
 
 ## Docs
 
 | Task | Read |
 |---|---|
 | Live rules, runners, smoke queues | `docs/verifier_upgrade_plan.md` |
-| Matching, picker, frozen files, BFME 1; attempts; near-miss fixes | `docs/matching.md`, `docs/structural.md`, `docs/recipes.md` |
+| Matching, frozen files, BFME 1; attempts; near-miss fixes | `docs/matching.md`, `docs/structural.md`, `docs/recipes.md` |
 | Linking, census; obstacles | `docs/linking.md`, `docs/linking_obstacles.md` |
 | Real link, recurring jobs | `docs/automation.md` |
 | Claims, push clock; names | `docs/claims.md`, `docs/naming.md` |
-| TU merges, path audit | `docs/consolidation.md` |
+| TU merges | `docs/consolidation.md` |
 
 Trimmed prose lives in git history.

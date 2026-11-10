@@ -801,6 +801,12 @@ coverage, ownership, freshness and history checks as other apparent gaps.
   body per address: a duplicate range is an over-claim, not an ICF alias.
   Identifying an existing placeholder is cleanup and stays in the naming and
   cleanup lanes; only restoring a proven lost row is regression repair.
+- Generated MASM files (`Code/gen_asm/`): never edit one; repoint its rows and leave
+  the orphaned `PROC`. The owner allowed on 2026-11-10 deleting a whole file once
+  nothing names it: no row, pin, alias, export alias, include, build list or tool
+  names the file or any `PROC` in it, as `python3 tools/gen_dump.py --orphans`
+  reports (`ORPHAN`) for that file. The deleting commit deletes only such files and
+  lowers the hatch register with `python3 tools/hatch_counters.py --update`.
 - Generated funclets onto real parents: repoint a `Code/gen_small/uw_gen_*.cpp`
   row to the `$L` label its matched parent emits, only where `tools/eh_verify.py`
   finds the parent's EH graph EXACT and binding that label to the retail funclet.
