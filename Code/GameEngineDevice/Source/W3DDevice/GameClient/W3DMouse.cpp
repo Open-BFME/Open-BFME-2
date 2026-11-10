@@ -549,11 +549,7 @@ public:
 	void rva0057BA90();
 };
 }
-class Rva005E717ENamed
-{
-public:
-	const char * name() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva005E717ENamed.h"
 class Rva005CC5DFNamed
 {
 public:
