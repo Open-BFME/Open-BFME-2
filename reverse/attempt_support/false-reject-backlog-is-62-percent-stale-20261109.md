@@ -96,28 +96,82 @@ scratchpad rather than in `tools/`.
 ## A finding alongside it: no hook runs pytest
 
 `rg -n "pytest" .githooks/*` finds nothing, and the verification alarm watches
-the gate and real-link workflows. So a broken test can sit indefinitely. Two
-cases, both found while verifying the above:
+the gate and real-link workflows. So a broken test can sit indefinitely -- and
+a documented command can ship broken for eight days with its own test red the
+whole time, which is cause 3 below. Cases found while verifying the above:
 
 - Three `test_gen_uw_shapes.py` tests had failed since 2026-10-17 on a BFME 1
   constant asserted against BFME 2's image (fixed at `22f4d5b0e60`).
-- **15 tests fail only in a combined run** and pass when their own file runs
-  alone. Identical at `a8381105532` and after my commits, so they are
-  pre-existing and nothing here caused them:
+- **15 tests failed** in a 31-file run, identical at `a8381105532` and after
+  the commits above, so none of them was caused here.
 
-  | file | tests |
-  | --- | ---: |
-  | `test_add_match_import_scaffold.py` | 8 |
-  | `test_reloc_names.py` | 3 |
-  | `test_stlport_overlay.py` | 2 |
-  | `test_dump_predicate.py` | 1 |
-  | `test_claims.py` | 1 |
+  An earlier revision of this note said all 15 "fail only in a combined run and
+  pass when their own file runs alone". That was wrong, and wrong in the
+  direction that makes them look harmless: only the 8 are order-dependent. I
+  had verified `test_add_match_import_scaffold.py` alone and generalised from
+  the one file I checked. Run alone, each file gives:
 
-  `test_add_match_import_scaffold.py` passes 84/84 alone. This is the same
-  class of bug as `tool:test_exit_link` (fixed at `cd973bd3e4c`): test files
-  sharing process state. `test_dump_predicate.py`'s one offence is real and in
-  another lane -- `tools/ms_header_audit.py:3243` decides dumpness by
-  `path.startswith("Code/gen_asm/")`.
+  | file | tests | alone | cause |
+  | --- | ---: | --- | --- |
+  | `test_add_match_import_scaffold.py` | 8 | **passes 84/84** | another file's import |
+  | `test_reloc_names.py` | 3 | **also fails** | no specimens left in the data |
+  | `test_stlport_overlay.py` | 2 | **also fails** | assertion in the wrong path form |
+  | `test_dump_predicate.py` | 1 | **also fails** | a real offence, another lane |
+  | `test_claims.py` | 1 | **also fails** | `claims.py` CLI bug |
+
+  So 7 of the 15 were plain broken tests, which is worse than order
+  dependence, not better. Three separate causes, now each diagnosed:
+
+  **1. The 8 are the `tool:test_exit_link` bug again** (fixed at
+  `cd973bd3e4c`). `test_reloc_names.py`'s `_load()` overwrote
+  `sys.modules["build"]` with a second copy of the module. Tools resolve some
+  imports at call time -- `add_match.replacement_scaffold` does `import build`
+  inside the function -- so it read the fresh copy's real `game.dat` while the
+  fixture had patched `build.EXE` on the first copy;
+  `pe_imports.generated_import_scaffold` then found no import slot and the
+  admission refused a row it should take. It bites at COLLECTION, before any
+  test in the poisoning file runs, which is why the two files pass together in
+  a 3-file run but not a 31-file one, and why the file's position in the list
+  does not matter. Fixed by the same guard.
+
+  **2. `test_stlport_overlay.py` compared a POSIX path against a Wine
+  `INCLUDE`.** `build.compiler_command` writes every entry through
+  `build.wine_path` off Windows (`Z:\home\...`), so the tool was right and the
+  test was stale. Its negative branch had also gone vacuous: the plain
+  spelling is absent from a Wine `INCLUDE` whether the overlay is on or off,
+  so the three unselected cases asserted nothing.
+
+  **3. `claims.py claim --dry-run KEY...` exited 2** -- the form
+  `tools/claims.py`'s own usage text and `docs/claims.md:16` both print. With
+  `action` then `rvas` (`nargs="*"`), argparse binds the whole positional group
+  inside the first run of plain words, so `claim` fills `action`, `rvas` takes
+  the empty rest, and every key after the flag is "unrecognized". Only
+  keys-then-flags worked. It shipped broken at `5e914a66b49` (2026-11-01) with
+  its own test red from that day, and the same applies to `--note`.
+
+  Left for their owners: `test_dump_predicate.py`'s single offence
+  (`tools/ms_header_audit.py:3243` decides dumpness by
+  `path.startswith("Code/gen_asm/")`), and `test_reloc_names.py`'s 3, which
+  are one state and not a tool bug -- `reverse/reloc_names.csv` now holds **0
+  rows**, the only dup-claimed anonymous thunked body (`0x00355257`) is pinned
+  in `symbols.csv`, and no pinned-but-unclaimed `FUN_` row is left. These
+  tests mine the live data for a specimen and the project has named its way
+  out of all of them. Whether to skip when drained or synthesize fixtures is a
+  call for that lane: the file's own convention is to raise on a missing
+  specimen, so the red is arguably the authors' intended signal with nowhere
+  to go.
+
+**19 other test files carry the same unguarded `_load`** and are one import
+away from repeating cause 1: `test_gen_getters`, `test_gen_uw_shapes`,
+`test_gen_tinst`, `test_inventory`, `test_dump_predicate`, `test_merge_cluster`,
+`test_ledger_terminators`, `test_ledger_guards`, `test_red_rows`,
+`test_gen_uw_transaction`, `test_scan_population`, `test_land_supersede`,
+`test_pin_consistency`, `test_pin_audit`, `test_wb_queue_hooks`,
+`test_readability_metric`, `test_tu_structure`, `test_zh_packet_metadata` and
+`test_reloc_names` itself (now guarded). Each is a two-line fix, but whether
+any of them wants a fresh copy deliberately needs reading, so they are not
+swept here.
 
 I did not run the whole 321-file suite; the 31-file subset above is every test
-importing `add_match`, `gen_uw` or `ledger_io`.
+importing `add_match`, `gen_uw` or `ledger_io`. After the three fixes it is
+**4 failed, 1757 passed, 4 skipped**, down from 15 failed.
