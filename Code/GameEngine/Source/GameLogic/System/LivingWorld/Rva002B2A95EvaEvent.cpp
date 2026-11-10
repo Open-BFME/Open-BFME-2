@@ -13,11 +13,7 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 
 // The coordinate helper 0x002BF5B0, rowed as Rva002BF4F3::rva002BF5B0.
 class Vector3;
-class Rva002BF4F3
-{
-public:
-	bool rva002BF5B0(const Vector3 *input, Vector3 *output);
-};
+#include "../../../../Include/Common/Rva002BF4F3.h"
 
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../../Include/GameClient/Eva.h"

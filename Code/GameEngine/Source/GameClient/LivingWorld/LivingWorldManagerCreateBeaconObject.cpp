@@ -107,11 +107,7 @@ public:
 };
 
 // The ground lookup 0x002BF5B0, rowed as Rva002BF4F3::rva002BF5B0.
-class Rva002BF4F3
-{
-public:
-	bool rva002BF5B0(const Vector3 *pos, Vector3 *out);
-};
+#include "../../../Include/Common/Rva002BF4F3.h"
 
 // The layer registration 0x002BFFD4, rowed as Rva002BFF5A::rva002BFFD4.
 struct Rva002BFFD4Template;
