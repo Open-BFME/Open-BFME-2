@@ -18,11 +18,7 @@ unsigned char g_00CE8B70[47] = {
     0x28, 0x28, 0x24, 0x24, 0x40, 0x10, 0x20, 0x20, 0x00, 0x28, 0x24, 0x34, 0x34, 0x44, 0x60
 };
 #pragma data_seg()
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const;
-};
+#include "../../Include/Common/Rva006DBB30SarDwordField.h"
 int __cdecl Rva006CD3F0Get(void *p)
 {
     int eType = ((const Rva006DBB30SarDwordField *)p)->get();

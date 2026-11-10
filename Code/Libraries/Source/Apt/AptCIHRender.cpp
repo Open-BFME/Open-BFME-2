@@ -94,11 +94,7 @@ extern void *g_aptCustomControlRenderSlot;
 bool (__cdecl *g_aptCustomControlFilter)(int);
 extern char g_00DDC2E0;
 
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const; // 0x006DBB30
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 struct AptRenderShapeInfo
 {

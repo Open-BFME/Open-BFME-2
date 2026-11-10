@@ -459,11 +459,7 @@ public:
 
 // AptValue::getVtblIndex (donor identity, pinned at 0x006DBB30) is rowed as
 // Rva006DBB30SarDwordField::get; the loops below call it by the ledger's name.
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 struct BindingDefinition {char unknown00[0x34]; const char *defaultText;};
 

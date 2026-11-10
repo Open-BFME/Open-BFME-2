@@ -229,11 +229,7 @@ BfmeNestedBE *BfmeQuery1279::rva006F7D50(int nDepth)
 // 0x12, its 0x7D assert re-testing it) recurses into its own display list
 // (+0x4C instance +0x24). Target facts: offsets, strings, call order. Class
 // and member names are address-derived.
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 class Rva006CFCD0
 {

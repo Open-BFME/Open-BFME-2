@@ -15,11 +15,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "AptCIHClass.h"
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 struct AptMatrix { float a,b,c,d,tx,ty; };
 struct ButtonHitTestRecord { AptCIH *pCIH; AptMatrix matrix; };
 struct AptAnimationPoolData {

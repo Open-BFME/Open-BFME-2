@@ -29,10 +29,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #include "AptValue.h"
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 #include "BfmeAptValue006DCD20.h"
-class Rva006DBB30SarDwordField {
-public:
-    int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class Rva006CFCD0 {
 public:
     bool isSpriteInstBase() const;

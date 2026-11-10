@@ -13,11 +13,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 class AptCIH;
 class EAStringC;
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 #include "AptValue.h"
 

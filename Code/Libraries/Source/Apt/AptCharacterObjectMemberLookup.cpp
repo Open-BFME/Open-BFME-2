@@ -23,7 +23,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
 #define CIH_FILE "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 #include "EAStringC.h"
 class AptCIH;
-class Rva006DBB30SarDwordField {public:int get() const;};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "AptValue.h"
 class BfmeAptValue006DCD20 {
 public:BfmeAptValue006DCD20 *rva006DCF60(bool); bool isCIH(bool) const; bool isUndefined() const; virtual void AddRef();unsigned flags;int rva006E02B0()const; void *rva006E0F40()const;int isCharacterInst()const;void setGCRootCount(unsigned);

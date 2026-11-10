@@ -218,11 +218,7 @@ extern "C" void _ReadWriteBarrier(void);
 // Evidence: rowed getters 0x6DBB30 and 0x6DC010; unlock lane; caller at
 // 0x006E18FD; same /O2 AptCIH layout as neighbours. Barrier keeps the +0x4C
 // load late (retail test-je-int3-mov, no hoist); emits no bytes.
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 class Rva006E1C40Holder;
 
