@@ -503,12 +503,7 @@ class LargeGroupAudioKeyMap;
 // and VictorySystem::newMap both call it on their own this. Method and field
 // names are unknown.
 class CellGrid { public: void rva0056C065(); };
-class Rva0056C3E5
-{
-public:
-    ~Rva0056C3E5();
-    /* the rowed CellGrid::rva0056C065 */ __declspec(dllimport) __forceinline void rva0056C065() { ((CellGrid *)this)->rva0056C065(); }
-};
+#include "../../../Include/Common/Rva0056C3E5.h"
 #include "../../../Include/Common/Rva00404781.h"
 #include "../../../Include/Common/VictorySystem.h"
 // ??0AITNGuardInnerState@@QAE@PAVStateMachine@@@Z @0x00545D50 40B
