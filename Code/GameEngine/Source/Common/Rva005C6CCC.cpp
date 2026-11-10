@@ -1,12 +1,13 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// platformsdk
 // stlport46
 
 // Retail calls the float sin overload out of line (row 0x0002FBB0); <math.h>
 // would emit a non-retail inline copy of it here.
+#include <windows.h>
 #include <math.h>
 #include "../../../Libraries/Include/Lib/Coord2DCtorView.h"
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 #define _STLP_BFME_TREE_NODE_BASE_O2  // emit retail's _Rb_tree_node_base::_S_minimum/_S_maximum (vendor/stlport/stl/_tree.h)
 #include <stl/_prolog.h>
 #include <stl/type_traits.h>
