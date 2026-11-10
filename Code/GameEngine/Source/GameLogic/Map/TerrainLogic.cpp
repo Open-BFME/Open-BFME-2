@@ -1178,14 +1178,7 @@ struct Rva002ED236Pos
 	Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
 	~Rva002ED236Pos() {}
 };
-class AI
-{
-public:
-    Pathfinder *pathfinder() { return m_pathfinder; }
-    Pathfinder *pathfinder() const { return m_pathfinder; }
-    unsigned char m_pad00[0x10];
-    Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 class G00DFF080Obj;
 class TerrainPlacementManagerView {public:
  virtual void p0();
