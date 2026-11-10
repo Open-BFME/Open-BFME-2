@@ -383,11 +383,7 @@ public:
 }
 #include "../../../../../Include/Common/Rva005E717ENamed.h"
 #include "../../../../../Include/Common/Rva005CC5DFNamed.h"
-class Rva005E39E0Named
-{
-public:
-	const char * name() const;
-};
+#include "../../../../../Include/Common/Rva005E39E0Named.h"
 class AIBuildable
 {
 public:

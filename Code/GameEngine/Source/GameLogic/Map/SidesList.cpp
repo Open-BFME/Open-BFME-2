@@ -323,11 +323,7 @@ class Rva005CC5DFNamed
 public:
 	const char * name() const;
 };
-class Rva005E39E0Named
-{
-public:
-	const char * name() const;
-};
+#include "../../../Include/Common/Rva005E39E0Named.h"
 class AIBuildable
 {
 public:
