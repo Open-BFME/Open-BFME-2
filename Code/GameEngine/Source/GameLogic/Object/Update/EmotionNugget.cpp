@@ -250,10 +250,7 @@ namespace _STL { template <> _Rb_tree_base<pair<int const ,Rva00462D35Mapped>,al
 
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<int const ,Rva00462D35Mapped> > >::deallocate(_Rb_tree_node<pair<int const ,Rva00462D35Mapped> > *,unsigned int) const; }
 
-struct Rva00462D35Mapped
-{
-	unsigned int m_bits;
-};
+#include "../../../../Include/Common/Rva00462D35Mapped.h"
 
 typedef _STL::_Rb_tree<unsigned short, _STL::pair<const unsigned short, int>, _STL::_Select1st<_STL::pair<const unsigned short, int> >, _STL::less<unsigned short>, _STL::allocator<_STL::pair<const unsigned short, int> > > Rva004DCE8ETree20;
 

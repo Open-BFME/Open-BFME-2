@@ -74,7 +74,7 @@ struct ContainIface30 { virtual void containIface30() = 0; };
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 struct Rva00462D08Mapped { unsigned int m_bits; };
-struct Rva00462D35Mapped { unsigned int m_bits; };
+#include "../../../../Include/Common/Rva00462D35Mapped.h"
 typedef _STL::map<int, Rva00462D08Mapped> Rva00462D08Map;
 typedef _STL::map<int, Rva00462D35Mapped> Rva00462D35Map;
 
