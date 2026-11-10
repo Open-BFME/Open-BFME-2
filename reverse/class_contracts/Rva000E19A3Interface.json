@@ -1,0 +1,64 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva000E19A3Interface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 7
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "setRenderingMode(int)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "setBaseTexture(RefCountPtr<TextureClass>)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "setNormalTexture(RefCountPtr<TextureClass>)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "clearTextures()"
+  }
+ }
+}
