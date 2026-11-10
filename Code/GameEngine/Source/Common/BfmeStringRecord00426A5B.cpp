@@ -56,11 +56,7 @@ public:
 };
 
 // ?rva004266A1@Rva004266A1@@QAE_NH@Z present-unmatched
-class Rva0033F15DDwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../Include/Common/Rva0033F15DDwordSlot.h"
 
 struct Bfield
 {

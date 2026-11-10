@@ -75,11 +75,7 @@ extern Radar *TheRadar;
 extern AudioManager *TheAudio;
 
 // AudioEventRTS::setPlayerIndex (+0x6C), rowed under an address-derived name.
-class Rva0033F15DDwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../../Include/GameClient/Eva.h"

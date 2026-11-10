@@ -12,7 +12,7 @@
 #pragma comment(linker, "/alternatename:?okToPlayRadarEdgeSound@Player@@QAE_NXZ=?rva002AA04C@Rva002AA04C@@QAEHXZ")
 class AudioManager; extern AudioManager *TheAudio;
 
-class Rva0033F15DDwordSlot { public: void set(int); char lead[0x6C]; int value; };
+#include "../../../Include/Common/Rva0033F15DDwordSlot.h"
 struct Rva002AA9C2MiscView { char unknown[0xC]; OpaqueRefElement4 radarOnline; OpaqueRefElement4 radarLost; };
 class Rva002AA9C2AudioView { public:
     virtual void slot0();

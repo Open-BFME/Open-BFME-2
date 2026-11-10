@@ -9,13 +9,7 @@
 class AudioManager;
 extern AudioManager *TheAudio;
 
-class Rva0033F15DDwordSlot
-{
-public:
-	void set(int);
-	char lead[0x6C];
-	int value;
-};
+#include "../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 class Rva004210A0
 {

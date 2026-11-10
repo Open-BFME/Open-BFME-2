@@ -21,11 +21,7 @@ class Matrix3D;
 #include "../GameLogic/Object/object.h"
 
 // setPlayerIndex on the event: rowed dword-slot setter 0x0033F15D.
-class Rva0033F15DDwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../Include/Common/Rva0033F15DDwordSlot.h"
 
 // Rowed setter the event's position goes through.
 class Rva002D9508

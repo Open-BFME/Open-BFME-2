@@ -319,7 +319,7 @@ enum RadarEventType { RADAR_EVENT_BATTLE_PLAN=7 };
 
 #include "../../../../Include/Common/Radar.h"
 
-class Rva0033F15DDwordSlot { public: void set(int); };
+#include "../../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 extern AudioManager *TheAudio;
 

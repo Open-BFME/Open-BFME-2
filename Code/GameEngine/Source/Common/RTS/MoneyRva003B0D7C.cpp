@@ -19,7 +19,7 @@ extern class PlayerList *ThePlayerList;
 class StatsCollector;
 extern StatsCollector *g_00E032F8;
 
-class Rva0033F15DDwordSlot { public: void set(int); };
+#include "../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 
 class Rva003B0D7CAudioView

@@ -95,11 +95,7 @@ public:
 	void rva002D9531(int value);
 };
 
-class Rva0033F15DDwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 // pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
 // is a plain list<Drawable *>: retail destroys it with the base destructor

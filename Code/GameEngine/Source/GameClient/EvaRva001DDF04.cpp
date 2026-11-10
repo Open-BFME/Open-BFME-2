@@ -102,7 +102,7 @@ extern GameLogic *TheGameLogic;
 #include "../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
-class Rva0033F15DDwordSlot { public: void set(int value); };	// the event's player index
+#include "../../Include/Common/Rva0033F15DDwordSlot.h"
 class Rva002D94CE { public: void rva002D94CE(int value); };
 class Rva002D9508 { public: void rva002D9508(const void *position); };
 class Rva001DCD05 { public: void *rva001DCD05(); };
