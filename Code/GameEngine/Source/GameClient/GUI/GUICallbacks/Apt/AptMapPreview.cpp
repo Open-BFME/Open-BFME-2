@@ -370,11 +370,7 @@ public:
 // Rva002BED10.cpp (89B member-free body: virtuals + globals only, so the
 // static this-type is byte-irrelevant). Bind that name directly; the old
 // Rva002D3627Host::rva002BED10 declaration had no definition (U).
-class Rva002BED10
-{
-public:
-	void rva002BED10();
-};
+#include "../../../../../Include/Common/Rva002BED10.h"
 class LivingWorld;
  extern LivingWorld *TheLivingWorld;
 // The preview's +0x18 holder of the game (GameInfo): 0x0043DA65 returns

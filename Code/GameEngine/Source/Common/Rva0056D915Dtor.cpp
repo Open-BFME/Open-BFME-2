@@ -44,11 +44,7 @@ public:
 	unsigned char m_19;
 };
 
-class Rva002BED10
-{
-public:
-	void rva002BED10();
-};
+#include "../../Include/Common/Rva002BED10.h"
 
 class Rva0056D915 : public _bfme_AptGameWindow
 {

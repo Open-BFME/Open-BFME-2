@@ -37,7 +37,7 @@ class Rva002BB5DD{public:void rva002BB5DD(Xfer*);};
 class Rva002B7C74{public:void rva002B7C74();};
 class Glo012F1028Type{public:void rva002B7D03();};
 class Rva002B6AA2{public:void rva002B6AA2();};
-class Rva002BED10{public:void rva002BED10();};
+#include "../../../../Include/Common/Rva002BED10.h"
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;
 class Rva00E02D6C;extern Rva00E02D6C*TheCampaignManager;
 class LivingWorldManager;extern LivingWorldManager*TheLivingWorldManager;

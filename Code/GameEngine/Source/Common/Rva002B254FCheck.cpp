@@ -32,11 +32,7 @@ struct GameLogicView002B2535
 };
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class Rva002BED10
-{
-public:
-	void rva002BED10();
-};
+#include "../../Include/Common/Rva002BED10.h"
 // LivingWorldLogic::reset: retail's LivingWorldLogic SubsystemInterface table
 // 0x00BFE2E4 holds 0x002B2535 in slot 9, the base's reset; the body never
 // reads this.
