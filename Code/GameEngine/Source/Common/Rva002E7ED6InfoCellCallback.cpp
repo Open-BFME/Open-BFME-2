@@ -41,14 +41,7 @@ int Rva002E7ED6Info::cellCallback(PathfindCell *previousCell, PathfindCell *curr
 // and the predicate-enable byte +1C. Only output X/Y are changed.
 // The full rowed 2E6DC4 predicate consumes the query and current cell;
 // rowed 2E6E8A supplies the byte-range predicate. No new pins are needed.
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../Include/Common/Rva002E6DC4.h"
 
 #include "Rva002E7D6DInfo.h"
 

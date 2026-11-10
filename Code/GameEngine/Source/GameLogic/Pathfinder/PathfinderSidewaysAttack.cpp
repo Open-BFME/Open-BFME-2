@@ -88,7 +88,7 @@ class Rva002E6B06 { public: Int rva002E6B06(); };
 class Rva002E6C79;
 struct Rva002E8BCFSrc;
 class Rva002E8BCF { public: Rva002E8BCF(){} Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool); Int surfaces;Bool field4,field5;Int maxLayer;Bool fieldC; };
-class Rva002E6DC4 { public: Bool rva002E6DC4(void *,void *); };
+#include "../../../Include/Common/Rva002E6DC4.h"
 
 void ji_00629952();
 #include "../../../Include/GameLogic/PathfindCell.h"

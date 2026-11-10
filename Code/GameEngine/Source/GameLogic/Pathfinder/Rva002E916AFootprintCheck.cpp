@@ -30,14 +30,7 @@ public:PathfindCell *getCell(PathfindLayerEnum,int,int);
 private:friend class Rva002E7388Owner;
  int rva002E8145(const ICoord2D*,const ICoord2D*,PathfindLayerEnum,Rva002E8145Info*);
 };
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../../Include/Common/Rva002E6DC4.h"
 int Rva002E6E8AGet(int);
 bool Rva001E3679(int);
 int isGroundOrBridgeLayer(int);

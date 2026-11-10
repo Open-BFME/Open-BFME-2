@@ -125,14 +125,7 @@ class Rva002872BA {public:
 };
 extern Rva002872BA *TheTriggerManager;
 #include "../../../Include/GameLogic/AIPathfind.h"
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../../Include/Common/Rva002E6DC4.h"
 Bool Rva001E3679(Int);
 Int Rva002ECE6AInfo::cellCallback(PathfindCell *from,PathfindCell *to,Int x,Int y)
 {

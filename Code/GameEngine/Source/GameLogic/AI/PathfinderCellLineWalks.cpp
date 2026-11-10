@@ -101,11 +101,7 @@ struct Rva002E8145Info { int opaque; int skipX; int skipY; };
 // (owner + out Coord2D + layer + a 0x10 check block + flag) and the walk body
 // inlines the per-cell reject/predicate/layer checks instead of calling
 // cellCallback; offsets and callees from retail.
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4( void *a, void *b );
-};
+#include "../../../Include/Common/Rva002E6DC4.h"
 
 int __cdecl Rva002E6E8AGet( int v );
 

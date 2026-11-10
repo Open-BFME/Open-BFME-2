@@ -72,14 +72,7 @@ public:
 	int m8;
 	bool mC;
 };
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../../Include/Common/Rva002E6DC4.h"
 // 0x002E6C23 is the row ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z
 // (Rva002E6C23Obstacle.cpp, WB lead PathfindCell::IsObstaclePresent).
 enum ObjectID {};

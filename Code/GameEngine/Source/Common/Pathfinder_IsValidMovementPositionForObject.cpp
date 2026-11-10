@@ -38,14 +38,7 @@ struct Rva002E909FInner
 	unsigned char m_634;
 };
 
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../Include/Common/Rva002E6DC4.h"
 
 struct Rva002E6DC4P1
 {
