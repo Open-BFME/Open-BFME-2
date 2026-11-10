@@ -17,6 +17,7 @@
 // Shared tree/allocator provider repair is needed before publication.
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
+#include <mbstring.h>
 #include <stdio.h>
 #undef _CRTIMP
 #define _CRTIMP
@@ -46,7 +47,6 @@ bool less<int>::operator()(const int &a, const int &b) const
 class StrategicConflictResults {public:class Impl;};
 class Rva00226883 {public:void rva0022999F();};
 struct StrategicBattleSideCountView {char unknown00[28];};
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
