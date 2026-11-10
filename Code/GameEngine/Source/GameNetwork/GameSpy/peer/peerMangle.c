@@ -20,11 +20,6 @@
 #include <stdio.h>
 #include <assert.h>
 #include "nonport.h"
-/* Retail resolves this unit's ntohl calls to the wsock32 htonl import stub at
- * 0x0065565E (ledger row ?ji_0065565e, import slot 0x00BBA9A4 = htonl; the two
- * byte-swaps are the same routine on x86). Bind the C name to that stub so the
- * unit links; the REL32 bytes are unchanged. */
-#pragma comment(linker, "/alternatename:_ntohl@4=?ji_0065565e@@YAXXZ")
 
 typedef enum
 {

@@ -34,10 +34,6 @@ extern "C" {
 #endif
 
 #include "nonport.h"
-/* Retail resolves this unit's ntohl calls to the wsock32 htonl import stub at
- * 0x0065565E (ledger row ?ji_0065565e, import slot 0x00BBA9A4 = htonl; the two
- * byte-swaps are the same routine on x86). Bind the C name to that stub so the
- * unit links; the REL32 bytes are unchanged. */
 
 #if defined(_WIN32) && !defined(UNDER_CE) && !defined(_PS2)
 #if defined(__WINSOCK_2_0__)
