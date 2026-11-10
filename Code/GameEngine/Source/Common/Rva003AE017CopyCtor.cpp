@@ -18,16 +18,23 @@ extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$
 // Rva003AE017_v0C: matched references place it at VA 0xc1cec8 (retail .rdata value 72).
 extern "C" char Rva003AE017_v0C = 72;
 
-class Rva003AE017
+// The class the constructor 0x003A59C3 builds (tables 0x00C1B5E0, 0x00C1C780,
+// 0x00C1B5D0). This class's primary table 0x00C1CED8 is that class's with
+// slot 2, pure there, filled by the clone 0x003ADFFA, so it is the base;
+// its copy constructor is the rowed 0x003AE03D.
+class Rva003A59C3
 {
-public:
-	__declspec(noinline) Rva003AE017(const Rva003AE017 &other);
-
 private:
 	void *m_v0;
 	char m_pad04[4];
 	void *m_v8;
 	void *m_v0C;
+};
+
+class Rva003AE017 : public Rva003A59C3
+{
+public:
+	__declspec(noinline) Rva003AE017(const Rva003AE017 &other);
 };
 
 Rva003AE017::Rva003AE017(const Rva003AE017 &that)
