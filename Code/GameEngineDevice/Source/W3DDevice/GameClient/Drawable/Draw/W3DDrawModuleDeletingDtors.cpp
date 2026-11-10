@@ -17,7 +17,9 @@
 // (0x000D0B69), W3DTornadoDrawModuleData (0x000D1713) and
 // W3DProjectileStreamDraw (0x000D146B) destructors.
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 // ??_GW3DScriptedModelDraw@@UAEPAXI@Z @0x000C8617 28B: slot 0 of vtable 0x00BCA090; calls ??1 at 0x000C79C9.
 // Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x000C1201 uses class-name string "W3DScriptedModelDraw".
@@ -46,10 +48,10 @@ void W3DSailModelDraw_Delete(W3DSailModelDraw *w3DSailModelDraw) { delete w3DSai
 
 // ??_GW3DBoatWakeModelDraw@@UAEPAXI@Z @0x000D0D08 28B: slot 0 of vtable 0x00BCDD70; calls ??1 at 0x000D0B69.
 // Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x000D0C93 uses class-name string "W3DBoatWakeModelDraw".
-class W3DBoatWakeModelDraw { public: W3DBoatWakeModelDraw(struct EmitVtableTag *); virtual ~W3DBoatWakeModelDraw(); };
+class W3DBoatWakeModelDraw : public DrawModule { public: W3DBoatWakeModelDraw(struct EmitVtableTag *); virtual ~W3DBoatWakeModelDraw(); };
 // ?<W3DBoatWakeModelDraw::W3DBoatWakeModelDraw> absent-from-retail
-W3DBoatWakeModelDraw::W3DBoatWakeModelDraw(struct EmitVtableTag *) {}
-void W3DBoatWakeModelDraw_Delete(W3DBoatWakeModelDraw *w3DBoatWakeModelDraw) { delete w3DBoatWakeModelDraw; }
+inline W3DBoatWakeModelDraw::W3DBoatWakeModelDraw(struct EmitVtableTag *) : DrawModule(0, 0) {}
+void W3DBoatWakeModelDraw_Delete(W3DBoatWakeModelDraw *w3DBoatWakeModelDraw) { w3DBoatWakeModelDraw->W3DBoatWakeModelDraw::W3DBoatWakeModelDraw(0); delete w3DBoatWakeModelDraw; }
 
 // ??_GW3DProjectileStreamDraw@@UAEPAXI@Z @0x000D144F 28B: slot 0 of vtable 0x00BCE010; calls ??1 at 0x000D146B.
 // Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x000D140A uses class-name string "W3DProjectileStreamDraw".

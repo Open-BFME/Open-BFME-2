@@ -39,6 +39,7 @@ extern const FieldParse BfmeW3DTornadoDrawFields[] = {
 	{ 0, 0, 0, 0 }
 };
 extern "C" const void *const __identifier("??_7W3DTornadoDrawModuleData@@6B@")[];
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include <list>
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it

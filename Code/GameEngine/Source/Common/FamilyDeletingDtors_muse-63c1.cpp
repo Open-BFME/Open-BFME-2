@@ -8,7 +8,7 @@ struct EmitVtableTag;
 // of a one-slot one that link order would keep.
 #include "../../Include/GameLogic/Module/Rva00253487Base.h"
 
-class SpellRechargeModifierUpgradeModuleData { public: SpellRechargeModifierUpgradeModuleData(EmitVtableTag *); virtual ~SpellRechargeModifierUpgradeModuleData(); };
+class SpellRechargeModifierUpgradeModuleData : public Rva00253487Base { public: SpellRechargeModifierUpgradeModuleData(EmitVtableTag *); virtual ~SpellRechargeModifierUpgradeModuleData(); };
 // ?<SpellRechargeModifierUpgradeModuleData::SpellRechargeModifierUpgradeModuleData> absent-from-retail
 SpellRechargeModifierUpgradeModuleData::SpellRechargeModifierUpgradeModuleData(EmitVtableTag *) {}
 // ??_GGeometryUpgradeModuleData@@UAEPAXI@Z @0x004B6F65 28B

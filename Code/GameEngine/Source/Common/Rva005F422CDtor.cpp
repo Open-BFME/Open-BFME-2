@@ -38,7 +38,13 @@ void __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")();
 void __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")();
 }
 extern "C" { void __identifier("?DoUpdate@ArmyHeroIcon@StrategicInGameUI@@UAEXXZ")(); }
-class Rva005F4179 {
+class Rva005F4179Base {
+public:
+ Rva005F4179Base():m_04(0){}
+ virtual ~Rva005F4179Base(){}
+protected: int m_04;
+};
+class Rva005F4179:public Rva005F4179Base {
 public:
  virtual ~Rva005F4179();
  virtual void slot01()=0;
@@ -48,7 +54,7 @@ public:
  virtual void slot05();
  virtual void slot06();
  virtual void slot07();
-private: int count;void *leaf;
+private: void *leaf;
 };
 struct Rva005F422CClip {
  TargetRef00217D4C *p;

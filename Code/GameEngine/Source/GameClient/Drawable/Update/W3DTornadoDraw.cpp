@@ -14,22 +14,10 @@ void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<i
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
 }
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
-};
+#include "../../../../Include/GameLogic/Module/DrawModule.h"
+inline DrawModule::~DrawModule() {}
 
-class Rva000B19A1 : public Rva0049B47C
-{
-public:
-	inline virtual ~Rva000B19A1() {}
-
-private:
-	unsigned char m_pad04[8];
-};
-
-class W3DTornadoDraw : public Rva000B19A1
+class W3DTornadoDraw : public DrawModule
 {
 public:
 	virtual ~W3DTornadoDraw();

@@ -64,16 +64,20 @@ namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_t
 struct Rva001408C0Target;
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
 
-class Xfer;
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 namespace FXParticleSystem {
-class DefaultDrawModuleInfo {
+class DefaultDrawModuleInfo : public ::Snapshot {
 public:
     DefaultDrawModuleInfo() {}
     virtual ~DefaultDrawModuleInfo();
+    virtual void LoadPostProcess();
     virtual const char *GetSnapshotName();
-    virtual void LoadPostProcess() = 0;
-    virtual void DoXfer(Xfer &xfer) = 0;
+    virtual void DoXfer(::Xfer &xfer);
 };
 
 }

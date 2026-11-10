@@ -7,6 +7,7 @@
 class Thing;
 class ModuleData;
 class Xfer;
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"

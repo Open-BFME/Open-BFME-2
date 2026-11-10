@@ -97,12 +97,16 @@ struct FreeOnDestroy
     void *m_block;
 };
 
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class AptPlayer : public SubsystemInterface
 {
 public:
     virtual ~AptPlayer();
+    virtual void init() = 0;
+    virtual void reset() = 0;
+    virtual void update() = 0;
     void rva0022274A();
 private:
     FileInfoTree m_0C;
