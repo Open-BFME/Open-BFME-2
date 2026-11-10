@@ -1,5 +1,8 @@
 # 66 of 11,838 tests are red, and nothing was ever going to say so
 
+> **52 remain.** `test_header_dependents.py`'s 14 are fixed (`ee2d7795743`);
+> the table below records which and why.
+
 Measured at `7b1c3d1eb1a`, 2026-11-10: `python3 -m pytest tools/tests/` over all
 322 files, 20 minutes, **66 failed, 11,772 passed, 176 skipped**.
 
@@ -29,7 +32,7 @@ in a standalone run, as a starting point and not a diagnosis.
 | file | failed | alone | first cause seen |
 | --- | ---: | --- | --- |
 | `test_recovery_experiments.py` | 22 | 22 failed, 5 passed | `StopIteration` |
-| `test_header_dependents.py` | 14 | 14 failed, 58 passed | a dependents list gained `Code/B.cpp` |
+| `test_header_dependents.py` | 14 | ~~14 failed, 58 passed~~ | **fixed at `ee2d7795743`**: the fixture wrote receipt dep keys with `\`, which `ROOT / dep` cannot resolve on POSIX, so every unit with a dep looked uncompiled and the vendored bound collapsed to "every unit" |
 | `test_nightly_measure.py` | 9 | 9 failed, 218 passed | `Refused: tracked path differs from approved commit: .githooks/post-checkout` |
 | `test_publisher_service.py` | 6 | 6 failed, 4 passed | `assert 0 == 1` |
 | `test_reloc_names.py` | 3 | 3 failed, 11 passed | no specimens left in the data (below) |
