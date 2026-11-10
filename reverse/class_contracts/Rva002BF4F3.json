@@ -1,0 +1,232 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002BF4F3",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 20,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 7,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 18,
+   "4": 2
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "ownerSlot13(Vector3*,Vector3*,Vector3*)": 1,
+    "ownerSlot13(int,Vector3*,Vector3*)": 1
+   },
+   "class": "Rva002BF4F3"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "ownerSlot0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "ownerSlot1()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "ownerSlot10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "ownerSlot11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "ownerSlot12()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "ownerSlot14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "ownerSlot15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "ownerSlot16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "ownerSlot17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "ownerSlot18()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "ownerSlot19()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "ownerSlot2()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "ownerSlot20()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "ownerSlot21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "ownerSlot22()"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "ownerSlot23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "ownerSlot24()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "ownerSlot25()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "ownerSlot26()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "ownerSlot27()"
+  },
+  "28": {
+   "decided_by": "bytes",
+   "member": "ownerSlot28()"
+  },
+  "29": {
+   "decided_by": "bytes",
+   "member": "ownerSlot29()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "ownerSlot3()"
+  },
+  "30": {
+   "decided_by": "bytes",
+   "member": "ownerSlot30()"
+  },
+  "31": {
+   "decided_by": "bytes",
+   "member": "ownerSlot31()"
+  },
+  "32": {
+   "decided_by": "bytes",
+   "member": "ownerSlot32()"
+  },
+  "33": {
+   "decided_by": "bytes",
+   "member": "ownerSlot33()"
+  },
+  "34": {
+   "decided_by": "bytes",
+   "member": "ownerSlot34()"
+  },
+  "35": {
+   "decided_by": "bytes",
+   "member": "ownerSlot35()"
+  },
+  "36": {
+   "decided_by": "bytes",
+   "member": "ownerSlot36()"
+  },
+  "37": {
+   "decided_by": "bytes",
+   "member": "ownerSlot37()"
+  },
+  "38": {
+   "decided_by": "bytes",
+   "member": "ownerSlot38()"
+  },
+  "39": {
+   "decided_by": "bytes",
+   "member": "ownerSlot39()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "ownerSlot4()"
+  },
+  "40": {
+   "decided_by": "bytes",
+   "member": "ownerSlot40()"
+  },
+  "41": {
+   "decided_by": "bytes",
+   "member": "ownerSlot41()"
+  },
+  "42": {
+   "decided_by": "bytes",
+   "member": "ownerSlot42()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "ownerSlot5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "ownerSlot6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "ownerSlot7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "ownerSlot8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "ownerSlot9()"
+  }
+ }
+}
