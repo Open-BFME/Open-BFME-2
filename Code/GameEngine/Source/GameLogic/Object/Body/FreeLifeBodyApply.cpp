@@ -12,7 +12,7 @@ enum ModelConditionFlagType;
 #include "../../../../Include/GameLogic/Damage.h"
 #include "../../../../Include/Common/Player.h"
 #include "../object.h"
-struct Rva00294D61 { void report(Object *, int); };
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 struct Rva004C19DCData {

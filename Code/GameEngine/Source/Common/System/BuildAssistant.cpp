@@ -570,11 +570,7 @@ public:
 	virtual BodyDamageType getDamageState() const;		// +0x20
 };
 // Object::scoreTheKill in the WorldBuilder build.
-class Rva00294D61
-{
-public:
-	void report(Object *owner, int setting);
-};
+#include "../../../Include/GameLogic/Module/Rva00294D61.h"
 class Thing
 {
 public:

@@ -1261,11 +1261,7 @@ StateReturnType AIEnterAndAttackState::update()
 
 // The pinned killer notification SpawnBehavior::onSpawnDeath also makes
 // (BFME 1 donor: killer->report(owner, 1)); its identity is unproven.
-class Rva00294D61
-{
-public:
-	void report(Object *victim, int count);
-};
+#include "../../../Include/GameLogic/Module/Rva00294D61.h"
 
 class AIMoveToPositionAndDieState : public AIInternalMoveToState
 {

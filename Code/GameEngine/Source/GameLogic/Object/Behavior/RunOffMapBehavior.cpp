@@ -73,7 +73,7 @@ class Object : public Thing {public:
  friend class RunOffMapBehavior;
  private:char pad60[0x10c-0x60];RunOffModelFlagsView m_conditions;char pad158[0x254-0x158];RunOffBodyView *m_body;AIUpdateInterface *m_ai;
 };
-class Rva00294D61 {public:void report(Object *,int);};
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/AIPathfind.h"
 class AI;

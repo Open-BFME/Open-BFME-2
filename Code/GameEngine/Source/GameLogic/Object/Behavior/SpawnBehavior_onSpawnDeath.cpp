@@ -69,11 +69,7 @@ class Object;
 
 #include "../object.h"
 
-class Rva00294D61
-{
-public:
-	void report(Object *owner, int setting);
-};
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 
 #include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 

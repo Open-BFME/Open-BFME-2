@@ -5,11 +5,7 @@
 #include "GameLogicObjectLookupView.h"
 class Object;
 extern GameLogic *TheGameLogic;
-class Rva00294D61
-{
-public:
-	void report(Object *obj, int v);
-};
+#include "../../Include/GameLogic/Module/Rva00294D61.h"
 class BfmeSubBGB;
 class LoopRes
 {

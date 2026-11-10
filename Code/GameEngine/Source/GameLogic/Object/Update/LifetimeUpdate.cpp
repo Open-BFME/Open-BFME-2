@@ -130,11 +130,7 @@ public:
 	W3DBridge m_record3BC;
 };
 
-class Rva00294D61
-{
-public:
-	void report(Object *victim, int amount);
-};
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 

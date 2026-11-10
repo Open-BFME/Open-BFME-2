@@ -106,11 +106,7 @@ private:
 	float m_f74;
 	unsigned char m_b78;
 };
-class Rva00294D61
-{
-public:
-	void report(Object *o, int v);
-};
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 class DamageInfoish
 {
 public:
