@@ -19,7 +19,7 @@ struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
 class Rva00319B0AOwner {public:void rva00319B0A();};
 class Rva00318C32Ret;
-class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva00318FBE {public:int rva00318FBE();};
 class Rva005CB84A {public:void rva005CB84A(int);};
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"

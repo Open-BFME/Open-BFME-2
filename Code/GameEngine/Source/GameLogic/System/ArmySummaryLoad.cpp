@@ -80,7 +80,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 namespace _STL { template <> void vector<NameKeyType, allocator<NameKeyType> >::push_back(const NameKeyType &); }
 typedef _STL::vector<NameKeyType> Rva0040E6D6Sub;
 class Rva00318C32Ret {public:char bytes00[0x28];_STL::vector<AsciiString>delayed;};
-class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
+#include "../../../Include/GameLogic/Rva00318C79Owner.h"
 struct Rva002B488EResult {char bytes00[0x54];int ownerID;__forceinline int getOwnerID()const{return ownerID;}};
 class Rva002E2903Player {public:char bytes00[0x14];int playerID;};
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"

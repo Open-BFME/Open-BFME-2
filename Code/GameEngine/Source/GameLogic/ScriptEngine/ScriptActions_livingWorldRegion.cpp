@@ -260,11 +260,7 @@ extern TerrainLogic *TheTerrainLogic;
 struct Rva002B488EResult;
 class Rva00318C32Ret;
 
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();
-};
+#include "../../../Include/GameLogic/Rva00318C79Owner.h"
 
 class Rva002B2702
 {
