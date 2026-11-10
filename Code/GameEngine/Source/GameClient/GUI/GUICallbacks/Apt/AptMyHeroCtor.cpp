@@ -105,13 +105,7 @@ public:
 };
 
 class CommandButton;
-class CreateAHeroHero
-{
-public:
-	void ConstructHeroBlingList();
-	const class CommandButton *GetButtonForLevel(int);
-	void rva005B0357(int, char *, int);
-};
+#include "../../../../../Include/Common/CreateAHeroHero.h"
 class Rva005B03B4 { public: void rva005B03B4(int, char *, int); };
 class Rva005B0608
 {

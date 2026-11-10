@@ -51,11 +51,7 @@ private:
 };
 }
 
-class CreateAHeroHero
-{
-public:
-	void UpdateAwardEarnedFlags();
-};
+#include "../../../Include/Common/CreateAHeroHero.h"
 
 class Rva0021937DTarget
 {

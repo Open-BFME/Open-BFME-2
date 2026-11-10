@@ -197,12 +197,7 @@ public:
 	int rva00406E8F(unsigned index);						// 0x00406E8F
 };
 
-class CreateAHeroHero
-{
-public:
-	bool HasEarnedAward(const CreateAHeroAward *award) const;	// 0x00406EA7
-	void rva005B0357(int index, char *buffer, int unused);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 // --- 0x005B03B4 (98B): text callback by field: the 0x00E06450 value, the
 // hero manager's +0x1D4 value, or "1" / "0" for the +0x48 flag without the

@@ -60,11 +60,7 @@ struct Rva00294D61PlayerTemplate
 	unsigned char m_1BC; // +0x1BC
 };
 
-class CreateAHeroHero
-{
-public:
-	void rva004088F0(const void *victim, int arg1);
-};
+#include "../../../Include/Common/CreateAHeroHero.h"
 
 void Rva00294D4B(Object *, Object *);
 typedef void (*Cb)(Object *, Object *);
