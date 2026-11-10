@@ -41,9 +41,6 @@ Please see the GameSpy Presence SDK documentation for more information
 #include <stdlib.h>
 #include "gpi.h"
 
-/* Retail binds both 16-bit byte swaps to the named WinSock htons import. */
-#undef ntohs
-#define ntohs htons
 #include <string.h>
 
 

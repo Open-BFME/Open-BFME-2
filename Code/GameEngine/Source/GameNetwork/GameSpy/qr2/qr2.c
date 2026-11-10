@@ -35,11 +35,6 @@ INCLUDES
 
 
 #include <string.h>
-/* Retail imports both byte-order directions as htonl/htons. */
-#undef ntohl
-#undef ntohs
-#define ntohl htonl
-#define ntohs htons
 
 #if defined(_PS2) && defined(GSI_UNICODE)
 // A few prototypes to prevent warnings

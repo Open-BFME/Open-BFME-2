@@ -30,12 +30,6 @@
 #undef strcasecmp
 #define strcasecmp _strcmpi
 
-// This x86 BFME2 image imports htonl/htons for both directions of the
-// same 32/16-bit byte reversal. Keep the actual PE import names in this TU.
-#undef ntohl
-#define ntohl htonl
-#undef ntohs
-#define ntohs htons
 #endif
 
 //for the unique value list

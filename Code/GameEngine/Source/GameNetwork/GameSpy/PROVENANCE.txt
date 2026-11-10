@@ -234,15 +234,21 @@ BFME 2's own deltas against BFME 1's text (comment-stripped diff of the TUs
 both repos carry: qr2.c 12 lines, ghttpProcess.c 12, sb_serverbrowsing.c 14,
 gpiConnect.c 2, gpiBuffer.c 0), each marked in place:
 
-    qr2/qr2.c, gp/gpiConnect.c   `#define ntohs htons`: game.dat imports htons
-                                 for both byte-order directions, so the call
-                                 sites bind to that one import. Import
-                                 binding, not a version signal.
+    qr2/qr2.c, gp/gpiConnect.c   (removed 2026-11-10) `#define ntohs htons`
+                                 (and ntohl in qr2.c) bound the call sites to
+                                 the htons/htonl imports because game.dat's
+                                 rebuilt import table spells the ntohs/ntohl
+                                 slots htons/htonl. The calls now bind to
+                                 their own _ntohs@4/_ntohl@4 thunks, as retail
+                                 does (reverse/attempt_support/
+                                 wsock32_ntohl_ntohs_import_slots.md);
+                                 gpiConnect.c is BFME 1's text again.
     serverbrowsing/sb_server.c,  `_strcmpi` for the CRT case-insensitive
-    sb_serverlist.c              compare and htonl/htons for both directions,
-                                 after the retail import table; sb_server.c
-                                 also validates the first digit after an
-                                 optional minus when reading integer keys.
+    sb_serverlist.c              compare, after the retail import table;
+                                 sb_server.c also validates the first digit
+                                 after an optional minus when reading integer
+                                 keys. (Their htonl/htons-for-ntohl/ntohs
+                                 macros went on 2026-11-10, as above.)
     serverbrowsing/              the added-server callback treats pending
     sb_serverbrowsing.c          basic/full queries as updates in progress.
                                  Note its `htons(port)` calls are the
@@ -321,9 +327,9 @@ GSISocketSelect with an /alternatename, so the callers link to retail's body.
 BFME2 server-browsing reconciliation, 2026-09-07
 ------------------------------------------------
 sb_server.c and sb_serverlist.c use TU-local names matching the retail imports:
-_strcmpi for case-insensitive CRT comparisons, and htonl/htons for both directions
-of the x86 byte reversal. Separate import slots are accepted only when the PE
-explicitly names the same DLL and export. sb_server.c also validates the first
+_strcmpi for case-insensitive CRT comparisons, and (until 2026-11-10, see above)
+htonl/htons for both directions of the x86 byte reversal. Separate import slots
+are accepted only when the PE explicitly names the same DLL and export. sb_server.c also validates the first
 digit after an optional minus sign when reading integer keys. In
 sb_serverbrowsing.c, the added-server callback treats pending basic/full queries
 as updates already in progress. These ordinary-C changes are inferred from
