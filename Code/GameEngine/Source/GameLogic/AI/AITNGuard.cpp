@@ -263,11 +263,7 @@ public:
 };
 }
 #include "../../../Include/Common/Rva005E717ENamed.h"
-class Rva005CC5DFNamed
-{
-public:
-	const char * name() const;
-};
+#include "../../../Include/Common/Rva005CC5DFNamed.h"
 class Rva005E39E0Named
 {
 public:
