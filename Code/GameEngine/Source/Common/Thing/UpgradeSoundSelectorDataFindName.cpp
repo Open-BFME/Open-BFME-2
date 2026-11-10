@@ -17,6 +17,7 @@ struct Rva002C99FB {
  Rva002390CB value;
  __forceinline Rva002C99FB() {}
  __forceinline Rva002C99FB(const Rva002C99FB &v):value(v.value) {}
+ ~Rva002C99FB();
 };
 struct Rva004CB51CEntry;
 namespace _STL {
