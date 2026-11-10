@@ -3200,7 +3200,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007D3B8C,12,.rdata,string,??_C@_08PNOJLJKJ@Generals?$AA@,,literal,,0,1
 0x007D3B98,24,.rdata,vtable,??_7?$VectorClass@PAVRva00155940Element@@@@6B@,,literal,,0,5
 0x007D3BB0,24,.rdata,vtable,??_7?$VectorClassWide@UTextureStatisticsStructWide@@@@6B@,,literal,,0,4
-0x007D3BC8,24,.rdata,vtable,??_7?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@6B@,,literal,??_7?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@6B@;??_7?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@6B@,0,4
+0x007D3BC8,24,.rdata,vtable,??_7?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@6B@,,literal,??_7?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@6B@;??_7?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@6B@,0,4
 0x007D3BE0,8,.rdata,string,??_C@_04EEFHOPMO@?$CFs?$CFf?$AA@,,literal,,0,1
 0x007D3BE8,24,.rdata,vtable,??_7?$DynamicVectorClass@PAVRva00155940Element@@@@6B@,,literal,,0,2
 0x007D3C00,24,.rdata,vtable,??_7?$DynamicVectorClass@H@@6B@,,literal,,0,4
@@ -3466,7 +3466,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007D69F0,8,.rdata,vtable,??_7ParticleEmitterClass@@6BMultiListObjectClass@@@,,literal,,0,3
 0x007D69F8,532,.rdata,vtable,??_7ParticleEmitterClass@@6BRefCountClass@@@,,literal,,0,3
 0x007D6C0C,24,.rdata,vtable,??_7?$VectorClass@PAUW3dAggregateSubobjectStruct@@@@6B@,,literal,,0,5
-0x007D6C24,24,.rdata,vtable,??_7?$VectorClass@PAVRenderObjClass@@@@6B@,,literal,??_7?$VectorClass@PAD@@6B@;??_7?$VectorClass@PAVRenderObjClass@@@@6B@;??_7?$VectorClass@URendererDataStruct@Render2DSentenceClass@@@@6B@;??_7?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@6B@,0,10
+0x007D6C24,24,.rdata,vtable,??_7?$VectorClass@PAVRenderObjClass@@@@6B@,,literal,??_7?$VectorClass@PAD@@6B@;??_7?$VectorClass@PAVRenderObjClass@@@@6B@;??_7?$VectorClass@USentenceDataStruct@Render2DSentenceClass@@@@6B@,0,9
 0x007D6C3C,24,.rdata,vtable,??_7?$DynamicVectorClass@PAUW3dAggregateSubobjectStruct@@@@6B@,,literal,,0,4
 0x007D6C54,28,.rdata,vtable,??_7?$DynamicVectorClass@PAVRenderObjClass@@@@6B@,,literal,??_7?$DynamicVectorClass@PAD@@6B@;??_7?$DynamicVectorClass@PAVRenderObjClass@@@@6B@,0,4
 0x007D6C70,68,.rdata,vtable,??_7AggregateDefClass@@6B@,,literal,,0,4

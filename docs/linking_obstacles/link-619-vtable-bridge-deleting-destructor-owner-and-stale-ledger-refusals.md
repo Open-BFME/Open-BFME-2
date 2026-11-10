@@ -993,3 +993,25 @@ Declaring `template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);`
 
 **2026-11-10, `0x007BBD50` (`??_7?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@6B@`) slots 2 & 3 (`seekoff`/`seekpos`) provider repair (`FstreamDefaultProtectionNameCtors.cpp`, `stlport_create_filebuf.cpp`):**
 Declaring narrow `basic_filebuf<char, char_traits<char> >::seekpos` decl-only in `Code/Libraries/Source/STLport/FstreamDefaultProtectionNameCtors.cpp` and narrow `seekoff`/`seekpos` decl-only in `Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp` (with a post-stream-globals `static` `_bfmeAnchorCountChar = &_STL::count<char *, char>;` in `stlport_create_filebuf.cpp` so wide `seekoff` `0x000149F0` keeps calling `0x000143A0` out of line without shifting `_$E` numbering) removes both earlier COMDAT providers so `stlport_narrow_ifstream.obj` (`0x00014010`, `0x00014580`) wins both slots cleanly. Verified: `build.py` `54/54` functions + `2/2` data rows matched (`EH verify: 7/7 EXACT`), `find_declared_unmatched.py --fail` clean, `link_check.py --new-variants` exit 0, `11/11` cohort `link_check` (`18,491 -> 18,491` B against `51f6d2483f`), COFF `seekoff`/`seekpos` `sec=0` in both modified objs (`_bfmeAnchorCountChar` `cls=3` static), and bounded 11-object `vtable_bridge.plan()` puts `0x007BBD50` into `already_correct=1` (`0` refusals). Full real-link queue confirmation pending.
+
+**2026-11-10, VectorClass tables at 0x007D3BC8 and 0x007D6C24.** The queue at
+`5c4cc57fb7` refused both addresses because the ledger still put the
+RendererDataStruct vector at 0x007D6C24 after `2dca491cbc` retracted its
+deleting-destructor alias. The actual relocation in the sentence destructor
+at 0x00157C70 + 0x98 installs the table at 0x007D3BC8. Retail .text contains
+four direct pointer sites for that table and five for 0x007D6C24. The matched
+rows covering all nine sites belong to agg_def, collect, mixfile,
+render2dsentence and Render2DSentenceDestructorBFME2. Their scoped builds
+verified 129/129 functions. Regenerated the ledger into scratch with
+`tools/data_ledger.py --out` and took only these two complete rows. Both
+extents remain 24 bytes. A bounded `vtable_bridge.plan` replay with the same
+19 objects (the referencing TUs and matched owners of the retail slots)
+changes two ambiguous-table-name refusals into two already-correct names and
+three generated bridges. Full-image confirmation and bridge retirement remain open.
+
+The separate agg_def queue entry at 0x008E0BC4 survives regeneration. Retail
+slot 0 is BfmeMsg's deleting destructor at 0x00655880. The 16-byte constructor
+at 0x00655770 installs that table but is rowed as PrototypeClass in part_ldr,
+whose compiled name binds it to the five-slot PrototypeClass table. Before
+rehoming that constructor, reconcile its consumer symbols, including the three
+existing constructor alternatenames in part_ldr. Keep the five-slot table intact.
