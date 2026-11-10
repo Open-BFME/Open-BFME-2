@@ -25,11 +25,7 @@ public:
 	RvaSmartPtr12 get() const;
 };
 
-class Rva001F3852ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 
 class Rva003FDC46
 {

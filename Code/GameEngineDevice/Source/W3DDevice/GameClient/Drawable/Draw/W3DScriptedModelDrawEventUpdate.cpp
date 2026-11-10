@@ -101,7 +101,7 @@ public:
  operator bool()const{return system!=0;}
  ParticleSystem *operator->()const;
 };
-class Rva001F3852ByteOneSetter {public:void enable();};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 class ParticleSystem {public:void destroy();};
 ParticleSystem *Make001FCBD7();
 // ?BfmeParticleSystemHandle::operator-> present-unmatched

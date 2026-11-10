@@ -131,11 +131,7 @@ class Rva001F3C43Slot
 public:
 	void set(const Rva001F3C43Arg *arg);
 };
-class Rva001F3852ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 
 class ParticleSystem
 {

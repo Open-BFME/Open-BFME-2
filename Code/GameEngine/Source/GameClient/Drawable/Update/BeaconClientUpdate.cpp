@@ -88,11 +88,7 @@ class Rva001F3C20Slot
 };
 struct Rva001F3899Arg;
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
-class Rva001F3852ByteOneSetter
-{
-  public:
-    void enable();
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/Common/Rva00270260.h"
 #include "../../../Common/Thing/thing.h"

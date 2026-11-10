@@ -388,7 +388,7 @@ enum ParticleSystemID {INVALID_PARTICLE_SYSTEM_ID=0};
 class Rva000B75FF;
 #include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
-class Rva001F3852ByteOneSetter {public:void enable();};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 class Rva001F384AByteZeroSetter {public:void disable();};
 class Rva001F3C13ByteSlot {public:void set(unsigned char);};
 struct Rva001F38C1Arg {int words[12];};

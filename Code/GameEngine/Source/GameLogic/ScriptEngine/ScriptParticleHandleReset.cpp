@@ -9,7 +9,7 @@
 // ParticleSystemManager find111 and ParticleSystemHandle destructor55.
 class ParticleSystem {public:void destroy();};
 ParticleSystem *Make001FCBD7();
-class Rva001F3852ByteOneSetter {public:void enable();};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 #include "../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:

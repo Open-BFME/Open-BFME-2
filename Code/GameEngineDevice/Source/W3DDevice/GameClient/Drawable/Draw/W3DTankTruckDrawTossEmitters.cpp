@@ -15,10 +15,7 @@ class Rva001F384AByteZeroSetter {
 public:
     void disable();
 };
-class Rva001F3852ByteOneSetter {
-public:
-    void enable();
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 struct Rva001F3C43Arg {
     char m_pad[0x74];
     int m_value;

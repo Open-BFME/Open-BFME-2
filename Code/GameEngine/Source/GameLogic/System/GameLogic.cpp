@@ -2576,14 +2576,7 @@ public:
 	char m_lead[0xC1];
 	unsigned char m_enabled;
 };
-class Rva001F3852ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A3];
-	unsigned char m_enabled;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 class Rva00203BE1ByteOneSetter
 {
 public:

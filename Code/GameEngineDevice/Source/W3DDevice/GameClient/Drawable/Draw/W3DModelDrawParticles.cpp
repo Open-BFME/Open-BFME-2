@@ -7,7 +7,7 @@
 // preserve the native handle unwind state and hidden local; throw() changes
 // the caller ABI shape by eliminating its EH frame. No pins or aliases.
 #include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
-class Rva001F3852ByteOneSetter { public: void enable(); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 class Rva001F384AByteZeroSetter { public: void disable(); };
 class ParticleSystem {};
 class RvaSmartPtr12
