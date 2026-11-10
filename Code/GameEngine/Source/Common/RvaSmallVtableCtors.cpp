@@ -23,7 +23,7 @@ class Rva000ABD56
 {
 public:
 	Rva000ABD56(void *payload);
-	virtual ~Rva000ABD56() {}
+	virtual void rva000ABD68();
 private:
 	void *m_04;
 };
