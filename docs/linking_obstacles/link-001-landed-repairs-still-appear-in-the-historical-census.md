@@ -315,3 +315,14 @@
   --prepare-current` to establish strict receipts, diagnose any inventory
   refusals along LINK-008, then carry confirmation into the next normal census.
   No maintainer-only measurement or repeated batch audit was started here.
+- **RvaHashIndex00928620 EdgeTable::resize STLport 4.6 alignment (2026-11-10):**
+  `Code/Libraries/Source/WWVegas/WWLib/RvaHashIndex00928620.cpp` switched from
+  STLport 4.5.3 (`// stlport`) to STLport 4.6 (`// stlport46` with
+  `_STLP_USE_MALLOC` and `_STLP_NO_EXCEPTIONS`, matching
+  `DamageFX_hashtableResize.cpp`), replacing the 323-byte EH-prolog copy of
+  `EdgeTable::resize` with the exact 252-byte retail `0x0016DD70` body (`2/2`
+  rows match, EH clean, `0` `code_identity_baseline.tsv` keys remaining).
+  `link_check.py` (census `05cba3c7ab`) moves from `0/2` (`DamageFX_hashtableResize.cpp`
+  alone at `252 B`) to `3/3` `LINKS` (`252 -> 2,075` bytes:
+  `RvaHashIndex00928620.cpp` `0 -> 111 B` and `MeshGeometryGetEdges.cpp`
+  `0 -> 1,712 B`). Census confirmation is pending.

@@ -1,47 +1,32 @@
-// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// stlport46
 
 // STLport's hash_map index over the pair<int, int> table whose lookup and
 // insertion bodies are already recovered at 0x00927800 and 0x00928590.
 
 #define _STLP_NO_EXCEPTIONS 1
-#define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include <vector>
+namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *, allocator<void *> >::size() const { return (unsigned int)(this->_M_finish - this->_M_start); } }
+namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
+namespace _STL {
+template <> __declspec(dllimport) __forceinline _Vector_base<void *, allocator<void *> >::~_Vector_base() { if (_M_start != 0) _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start); }
+}
 #include <hash_map>
 #include <cstddef>
+namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_CALL __malloc_alloc<0>::deallocate(void *__p, size_t) { free((char *)__p); } }
+namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector<void *, allocator<void *> >::operator[](unsigned int n) { return *(this->_M_start + n); } }
 // bfme link decl-only begin
-namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }
-namespace _STL { template <> vector<void *, allocator<void *> >::vector(unsigned int, void *const &, allocator<void *> const &); }
-namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
-namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
-namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
-namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
-// Keep __node_alloc<true,0>::allocate inline-only: every call here is inlined,
-// and this TU's COMDAT copy differs from the copy the link keeps.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void * _STLP_CALL __node_alloc<true, 0>::allocate(size_t __n)
-{ return (__n > (size_t)_MAX_BYTES) ? __stl_new(__n) : _M_allocate(__n); }
-}
-// Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> void advance<unsigned int const *, int>(unsigned int const * &, int); }
+namespace _STL { template <> void __advance<unsigned int const *, int>(unsigned int const * &, int, random_access_iterator_tag const &); }
+namespace _STL { template <> void *__malloc_alloc<0>::allocate(size_t); }
+namespace _STL { template <> __declspec(dllimport) __forceinline void **allocator<void *>::allocate(size_t __n, const void *)
+{ return __n != 0 ? (void **)__sgi_alloc::allocate(__n * sizeof(void *)) : 0; } }
 namespace _STL { template <> __declspec(dllimport) __forceinline vector<void *>::const_iterator vector<void *>::begin() const { return _M_start; } }
 namespace _STL { template <> __declspec(dllimport) __forceinline void *const &vector<void *>::operator[](size_t n) const { return *(begin() + n); } }
-// Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
-// the retail copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> void *&_STL::vector<void*>::operator[](size_t);
-}
-// Inline the bucket count and bind mutable iterators to their shared copies.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline size_t vector<void*>::size() const { return size_t(_M_finish - _M_start); }
-template <> void **vector<void*>::begin();
-template <> void **vector<void*>::end();
-}
+namespace _STL { template <> void **vector<void*>::begin(); }
+namespace _STL { template <> void **vector<void*>::end(); }
 
 typedef unsigned int UnsignedInt;
 
