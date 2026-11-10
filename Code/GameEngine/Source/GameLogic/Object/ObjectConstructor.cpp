@@ -415,6 +415,10 @@ protected:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
+protected:
+	// retail vftable slots 1 and 2 (0x00BFC300) both hold 0x0047A6A9, `return this`
+	virtual Object *asObjectMeth() { return this; }
+	virtual const Object *asObjectMeth() const { return this; }
 };
 
 Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, ObjectID id) :

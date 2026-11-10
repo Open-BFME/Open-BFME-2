@@ -21,3 +21,23 @@ folded 0x0047A6A9) and `reactToTransformChange` (rowed MAE spelling, 0x00292D49)
 slot 6 (0x0028B193, rowed non-virtual `?rva0028B193@Object@@QAEXXZ`) also needs
 Thing's `vslot6` respelled in `thing.h` plus a `rename.py function --virtual`.
 Change both units together so the copies stay equal.
+Update (2026-11-10, ancalgonn-swarm-class-object): primary slots 1/2 and the
+table spellings. Slots 0 and 5 were already declared in both views (`fb8f466d29`).
+ObjectConstructor.cpp and ObjectDestructor.cpp now both declare
+`asObjectMeth() { return this; }` and its const twin, as `object.h` does; retail's
+slots 1 and 2 hold the shared `8b c1 c3` body 0x0047A6A9, so both overrides are
+rowed there as verified ICF folds (`add_match --icf-owner ??0RealRange@@QAE@XZ`,
+fold-proof region.cpp). ObjectDestructor.cpp now spells the +0x64 base and the
+virtual base as ObjectConstructor.cpp does (`BfmeCtor001B3A20` over
+`BfmeCtorFirstBase001B3A20` and virtual `BfmeCtorVirtualBase001B3A20`, the data
+ledger's first names at 0x007FC2D8 and 0x007FC27C), so
+`??_7Object@@6BRva00BFC2D8Base@@@` and `??_7Object@@6BRva00BFC27CVirtualBase@@@` are no
+longer emitted. Both objects now emit the same six tables slot for slot. `./build.sh`
+72/72 rows plus the data row; `link_check` LINKS 3,681 and 972 bytes, unchanged.
+Still open: slot 6. Overriding Thing's `vslot6` needs the row's identifier changed
+(`?rva0028B193@Object@@QAEXXZ` to `vslot6`), which `rename.py` accepts only with an
+inferred `agree:` record, then `function --virtual --access protected`; `--virtual`
+alone keeps the identifier and would add a ninth slot instead. The four secondary
+tables (0x007FC2D8 6 slots, 5 missing; 0x007FC2B8 8, 7 missing; 0x007FC290 10, 9
+missing; 0x007FC27C 5, 4 missing: 25 wrong of 29) still emit only slot 0 each and
+stay bridged.

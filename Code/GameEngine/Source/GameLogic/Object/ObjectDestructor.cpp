@@ -66,17 +66,24 @@ struct Rva00299CE4Template
 // primary table has the same slots as ObjectConstructor.cpp's copy.
 #include "../../Common/Thing/thing.h"
 
-// Base subobjects Object installs vftables for.
-struct Rva00BFC27CVirtualBase
-{
-	virtual void *slot() const;
-};
+// Base subobjects Object installs vftables for, spelled as ObjectConstructor.cpp spells them
+// so both lifetime units emit the same table names (0x00BFC2D8 at +0x64, 0x00BFC27C virtual).
 class Rva00739770 { public: void rva00739770(void *obj); };
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
-struct Rva00BFC2D8Base : virtual Rva00BFC27CVirtualBase
+class BfmeCtorFirstBase001B3A20
 {
-	virtual AsciiString rva00290EE0();
+public:
+	virtual AsciiString rva00290EE0() = 0;
+};
+class BfmeCtorVirtualBase001B3A20
+{
+public:
+	virtual void *slot() const = 0;
+};
+class BfmeCtor001B3A20 : public BfmeCtorFirstBase001B3A20, public virtual BfmeCtorVirtualBase001B3A20
+{
+public:
 	void unregisterFromPartition() { ((Rva00739770 *)TheShroudManager)->rva00739770(this); }
 };
 class GeometryInfo;
@@ -177,7 +184,7 @@ struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
-class Object : public Thing, public Snapshot, public Rva00BFC2D8Base, public Rva00BFC2B8Base, public Rva00BFC290Base
+class Object : public Thing, public Snapshot, public BfmeCtor001B3A20, public Rva00BFC2B8Base, public Rva00BFC290Base
 {
 public:
 	virtual void loadPostProcess();
@@ -252,6 +259,10 @@ protected:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
+protected:
+	// retail vftable slots 1 and 2 (0x00BFC300) both hold 0x0047A6A9, `return this`
+	virtual Object *asObjectMeth() { return this; }
+	virtual const Object *asObjectMeth() const { return this; }
 };
 
 // ??1Object@@MAE@XZ
