@@ -15,11 +15,7 @@ template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *);
 
 class SpawnArmy;
 
-struct Rva003F0F13Elem
-{
-	float a;
-	float b;
-};
+#include "../../../../Include/Common/Rva003F0F13Elem.h"
 
 
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"

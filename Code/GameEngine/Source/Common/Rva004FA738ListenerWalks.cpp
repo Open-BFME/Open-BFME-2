@@ -284,11 +284,7 @@ public:
 class SpawnArmy;
 #include "../../Include/GameLogic/LivingWorldPlayer.h"
 
-struct Rva003F0F13Elem
-{
-	float a;
-	float b;
-};
+#include "../../Include/Common/Rva003F0F13Elem.h"
 
 class Rva003F0F13
 {

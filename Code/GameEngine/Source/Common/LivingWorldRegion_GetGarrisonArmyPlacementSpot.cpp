@@ -7,10 +7,7 @@
 // retail keeps the arithmetic `sar ecx,3` + `je`.
 #include <vector>
 
-struct Rva003F0F13Elem {
-	float a;
-	float b;
-};
+#include "../../Include/Common/Rva003F0F13Elem.h"
 
 class LivingWorldRegion {
 public:
