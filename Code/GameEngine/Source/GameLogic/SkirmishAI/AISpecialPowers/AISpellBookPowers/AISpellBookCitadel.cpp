@@ -30,7 +30,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 
 class Rva004EBF4B { public: Coord3D rva004EBF4B(); };
 
-class Rva005EE816 { public: bool rva005EE8DD(const Coord3D *,Object *); };
+#include "../../../../../Include/Common/Rva005EE816.h"
 
 float GetGameLogicRandomValueReal(float,float,char *,int);
 

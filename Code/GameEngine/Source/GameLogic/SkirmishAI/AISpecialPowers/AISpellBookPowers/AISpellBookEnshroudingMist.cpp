@@ -18,7 +18,7 @@ public:
 };
 class ModuleData;
 #include "../../../../../Include/GameLogic/AISpellBookBase.h"
-class Rva005EE816 { public: bool rva005EE8DD(const Coord3D *,Object *); };
+#include "../../../../../Include/Common/Rva005EE816.h"
 class AISpellBookEnshroudingMist { public:
     virtual bool shouldActivate(Object *);
     char unknown00[0x24]; AISpellBookBase finder28;

@@ -3,7 +3,7 @@
 // Evidence: vslot 6 of 0x008762E4 class Rva005D96FA plus AI victim plus picker 0x005D9721.
 class Object;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
-class Rva005EE816 { public: unsigned rva005D9721(Object *obj); };
+#include "../../Include/Common/Rva005EE816.h"
 #include "../GameLogic/Object/object.h"
 class Rva005EE30C { public: virtual ~Rva005EE30C(); };
 class Rva005D96FA : public Rva005EE30C {

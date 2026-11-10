@@ -112,10 +112,7 @@ public:
     Object *findUnitInCombat(Player *, bool, bool);
 };
 #include "../../../../../Include/GameLogic/AISpellBookBase.h"
-class Rva005EE816 {
-public:
-    bool rva005EE8DD(const Coord3D *, Object *);
-};
+#include "../../../../../Include/Common/Rva005EE816.h"
 
 class Rva005D8317 {
 public:

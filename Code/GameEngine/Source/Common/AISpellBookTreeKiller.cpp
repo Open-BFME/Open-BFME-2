@@ -58,11 +58,7 @@ public:
 
 #include "../../Include/Common/Player.h"
 
-class Rva005EE816
-{
-public:
-	bool rva005EE8DD(const Coord3D *pos, Object *source);
-};
+#include "../../Include/Common/Rva005EE816.h"
 
 class AISpellBookTreeKiller
 {

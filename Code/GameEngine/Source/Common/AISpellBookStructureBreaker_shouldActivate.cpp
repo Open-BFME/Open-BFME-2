@@ -23,11 +23,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 
 #include "../../Include/GameLogic/AISpellBookBase.h"
 
-class Rva005EE816
-{
-public:
-	bool rva005EE8DD(const Coord3D *pos, Object *source);
-};
+#include "../../Include/Common/Rva005EE816.h"
 
 class AISpellBookStructureBreaker
 {

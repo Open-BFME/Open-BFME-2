@@ -5,7 +5,7 @@
 // Use its exact literal so MSVC supplies the constant instead of an unowned global.
 class Object;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
-class Rva005EE816 { public: unsigned rva005EE3B0(Object *obj, bool flag); };
+#include "../../Include/Common/Rva005EE816.h"
 class Rva005D9Float {
 public:
 	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();

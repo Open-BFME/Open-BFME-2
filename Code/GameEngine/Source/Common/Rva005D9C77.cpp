@@ -3,7 +3,7 @@
 // Evidence: gap between Rva005D9C6C dtor 0x005D9C6C and deleting dtor 0x005D9CA7 plus vslot 6 of 0x008763FC.
 class Object;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
-class Rva005EE816 { public: unsigned rva005EE3B0(Object *obj, bool flag); };
+#include "../../Include/Common/Rva005EE816.h"
 #include "../GameLogic/Object/object.h"
 class Rva005EE30C { public: virtual ~Rva005EE30C(); };
 class Rva005D9C6C : public Rva005EE30C {
