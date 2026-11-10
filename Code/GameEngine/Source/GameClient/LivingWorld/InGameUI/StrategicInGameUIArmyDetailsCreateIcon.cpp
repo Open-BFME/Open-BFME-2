@@ -66,14 +66,7 @@ private:
 	char storage[0x18];
 };
 
-class Rva005F4096
-{
-public:
-	void clear();
-	Rva005F4096(Rva005F3F73 *p) : m_ptr(p) {}
-private:
-	Rva005F3F73 *m_ptr;
-};
+#include "../../../../Include/Common/Rva005F4096.h"
 
 class Rva005F3F41Outer {public:virtual ~Rva005F3F41Outer(){} void set(unsigned char);};
 class Rva005F4179Base:public Rva005F3F41Outer
