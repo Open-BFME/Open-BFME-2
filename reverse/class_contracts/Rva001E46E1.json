@@ -1,0 +1,215 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva001E46E1",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 24,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x30": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 7
+   },
+   "0x40": {
+    "4": 17
+   },
+   "0x44": {
+    "1": 1,
+    "4": 3
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 1
+   },
+   "0x99": {
+    "1": 1
+   },
+   "0xa0": {
+    "4": 4
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 11,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 19,
+   "8": 1,
+   "172": 2
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 153,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 172,
+ "size_by": "majority",
+ "vslots": {}
+}
