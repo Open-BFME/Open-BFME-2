@@ -32,7 +32,7 @@ void __debugbreak();
 #include "AptCIHClass.h"
 
 #include "BfmeAptValue006DCD20.h"
-class Rva006DBB30SarDwordField { public: int get() const; };
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class Rva006DBB60ShrNAndField { public: int get() const; };
 class Rva006CFCD0 { public: bool isSpriteInstBase() const; };
 

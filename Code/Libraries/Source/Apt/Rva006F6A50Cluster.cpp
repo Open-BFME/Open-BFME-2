@@ -12,11 +12,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 #include "EAStringC.h"
 struct AptCharacter;struct AptCharacterInst;

@@ -30,11 +30,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 #include "AptValue.h"
 #include "AptCIHClass.h"
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const; // 0x006DBB30 (AptValue::getVtblIndex, rowed under this name)
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "BfmeAptValue006DCD20.h"
 
 struct AptButtonRecord

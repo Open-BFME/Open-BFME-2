@@ -35,11 +35,7 @@ class Rva006EBD30
 public:
 	void bounds(AptRenderingContext *ctx, void *a, void *b);
 };
-class Rva006DBB30SarDwordField
-{
-public:
-	int get(void) const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class Rva006E1C40Holder
 {
 public:

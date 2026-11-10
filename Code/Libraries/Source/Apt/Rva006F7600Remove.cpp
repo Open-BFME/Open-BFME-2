@@ -97,7 +97,7 @@ void *Rva006F7600::getMask(int i)
 // method name is address-derived.
 extern unsigned int g_bfmeExtra1282Flags;
 #include "BfmeAptValue006DCD20.h"
-class Rva006DBB30SarDwordField { public: int get() const; };
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 struct AptMaskInfo { int unknown00; int clipDepth; };
 struct AptDisplayNode
 {
