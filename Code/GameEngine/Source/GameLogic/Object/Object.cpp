@@ -1760,7 +1760,38 @@ public:
 // Names by address. Condition word array at Object+0x10C with masked-word
 // accessors in free __forceinline helpers around the pinned notifier 0x0028AE6D.
 
-class Object
+// Object's bases at retail's offsets (Object::Object 0x00298EA9 installs them; sizes from its stores):
+// Thing +0x00, Snapshot +0x60, the +0x64 interface (vbptr +0x68, one virtual base), +0x6C and +0x70.
+// Spelled as ObjectConstructor.cpp and ObjectDestructor.cpp spell them, so a secondary-interface
+// override defined in this unit adjusts `this` as retail's does. Nothing here is constructed, so
+// this unit emits none of their tables.
+#include "../../Common/Thing/thing.h"
+class GeometryInfo;
+class BfmeCtorFirstBase001B3A20
+{
+public:
+	virtual AsciiString rva00290EE0() = 0;
+protected:
+	// Empty native slot (0x000B3FD0); return type and name unknown.
+	virtual void opaqueSlot1() = 0;
+public:
+	virtual void *getGhostObject() = 0;
+	virtual void rva002941EA(int *, float *, float *, float *) = 0;
+	virtual float ShroudGetValueRangeAndMask(int, unsigned *, unsigned *) const = 0;
+	virtual bool ShroudHideIfFogged(int) const = 0;
+};
+class BfmeCtorVirtualBase001B3A20
+{
+public:
+	virtual void *slot() const = 0;
+};
+class BfmeCtor001B3A20 : public BfmeCtorFirstBase001B3A20, public virtual BfmeCtorVirtualBase001B3A20
+{
+};
+struct Rva00BFC2B8Base { virtual const GeometryInfo &getGeometryInfo() const = 0; };
+struct Rva00BFC290Base { virtual Coord3D rva0028C037() = 0; virtual Coord3D rva0028C08D() = 0; };
+
+class Object : public Thing, public Snapshot, public BfmeCtor001B3A20, public Rva00BFC2B8Base, public Rva00BFC290Base
 {
 public:
 	friend AsciiString DescribeObject(const Object *);
@@ -1842,16 +1873,6 @@ public:
 	void replaceModelConditionFlagsForHorde(const int *a, bool b);
 protected:
 	Module *findModule(NameKeyType key) const;
-private:
-	unsigned char m_pre000[4];
-private:
-	ThingTemplate *m_template004;
-private:
-	unsigned char m_pre008[0x38 - 0x08];
-private:
-	Coord3D m_pos38;
-private:
-	unsigned char m_pre044[0x74 - 0x44];
 private:
 	ObjectID m_id74;
 private:
@@ -2294,7 +2315,7 @@ void Object::setReceivingDifficultyBonus(bool flag)
 // an eligible Object. The disabled/energy guard matches Zero Hour's method.
 void Object::friend_adjustPowerForPlayer(bool flag)
 {
-	if (m_disabled1C8.any() && m_template004->m_val548 > 0)
+	if (m_disabled1C8.any() && ((ThingTemplate *)m_template)->m_val548 > 0)
 		return;
 	Player *player = getControllingPlayer();
 	if (!player)
@@ -2491,14 +2512,14 @@ AsciiString DescribeObject(const Object *obj)
  if (!((const StringBase<char> *)&obj->m_name88)->isEmpty())
  {
   result.format("Object %d (%s) [%s, owned by player %d (%ls)]",
-   obj->getID(), obj->m_name88.str(), obj->m_template004->getNameText(),
+   obj->getID(), obj->m_name88.str(), ((ThingTemplate *)obj->m_template)->getNameText(),
    owner ? owner->getPlayerIndex() : 0,
    owner ? owner->getPlayerDisplayNameText() : (const unsigned short *)L"<unknown>");
  }
  else
  {
   result.format("Object %d [%s, owned by player %d (%ls)]",
-   obj->getID(), obj->m_template004->getNameText(),
+   obj->getID(), ((ThingTemplate *)obj->m_template)->getNameText(),
    owner ? obj->getControllingPlayer()->getPlayerIndex() : 0,
    owner ? obj->getControllingPlayer()->getPlayerDisplayNameText() : (const unsigned short *)L"<unknown>");
  }
@@ -2617,7 +2638,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 		rva0028C24C();
 		setWeaponLock(commandButton->getWeaponSlot(), (WeaponLockType)1);
 		if (ai)
-			ai->m_commands20.aiAttackPosition(&m_pos38, 1, (CommandSourceType)cmdSource);
+			ai->m_commands20.aiAttackPosition(&m_cachedPos, 1, (CommandSourceType)cmdSource);
 		break;
 
 	case 6:
@@ -2949,7 +2970,7 @@ Object *Object::adjustVictim(Object *source, bool useWeaponRange, int index)
 			float range = 0.0f;
 			if (!useWeaponRange)
 				range = 99999.0f;
-			else if ((source->m_template004->m_kindOf108[13] & 0x20) == 0)
+			else if ((((ThingTemplate *)source->m_template)->m_kindOf108[13] & 0x20) == 0)
 			{
 				const Weapon *weapon = source->getCurrentWeapon(0);
 				if (weapon != 0 && reinterpret_cast<const Rva002C9400ByteField *>(weapon->m_template04)->get() == 0)
@@ -2959,7 +2980,7 @@ Object *Object::adjustVictim(Object *source, bool useWeaponRange, int index)
 			Object *victim = 0;
 			if (selector->getCount(0) > 0)
 			{
-				victim = selector->select(0, &source->m_pos38, range, source, index);
+				victim = selector->select(0, &source->m_cachedPos, range, source, index);
 				if (victim == 0)
 					victim = selector->select(0, 0, 0.0f, 0, index);
 			}

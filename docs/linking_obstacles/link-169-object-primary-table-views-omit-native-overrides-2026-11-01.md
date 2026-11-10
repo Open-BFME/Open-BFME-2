@@ -56,3 +56,13 @@ constructors 0x005EEE6B/0x0028AB0D that store them can be any same-length pure
 interface's (the ledger names 3 and 5 classes there), and the rename made
 ObjectConstructor.cpp duplicate RvaSmallVtableCtors.cpp's base constructors and tables
 (`link_check` 3,681 -> 0); reverted.
+Update (2026-11-10, ancalgonn-swarm-class-object): Object.cpp's Object view now has
+retail's bases (Thing via thing.h, Snapshot, the +0x64 interface with its virtual base,
++0x6C, +0x70), spelled as the lifetime units spell them, replacing the pads over
++0x00..+0x74. This is the prerequisite for moving the secondary-table bodies (all approved
+for Object.cpp) into Object: an override in a secondary interface compiles with `this` at
+that subobject. 98/98 rows and the data row; `link_check` 7,026 bytes unchanged, lifetime
+units unchanged. Section by section against the parent-built object the only new symbol is
+the vector constructor iterator `??_H@YGXPAXIHP6EPAX0@Z@Z`, equal to retail 0x00001423
+(34 bytes, no relocations) and already emitted by both lifetime units (Matrix3DData.h's
+`Vector4 Row[3]`); no vftable, vbtable, thunk or other inline body is emitted.
