@@ -26,7 +26,7 @@ class Object;
 
 static int s_vtable;
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
 
 static int s_secondary10;
 
@@ -138,7 +138,7 @@ private:
 RampageBehavior::RampageBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	m_p0C = &s_secondary0C;
+	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = &s_secondary10;
 	m_24 = 0;
 	m_28 = 0;
@@ -150,7 +150,7 @@ RampageBehavior::RampageBehavior(Thing *thing, const ModuleData *moduleData)
 // 0x00458BC5 (formerly the placeholder Rva00458AAE in Rva0024A797Derived.cpp).
 RampageBehavior::~RampageBehavior()
 {
-	m_p0C = &s_secondary0C;
+	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = &s_secondary10;
 }
 
