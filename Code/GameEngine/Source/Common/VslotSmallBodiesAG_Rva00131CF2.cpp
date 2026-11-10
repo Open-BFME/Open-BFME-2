@@ -227,11 +227,7 @@ class Rva0042D697PtrChaseField
 public:
 	Int get() const;
 };
-class Rva00328A83PtrChaseField
-{
-public:
-	Int get() const;
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 struct Rva00576FFEInfo
 {
 	Int m_00;

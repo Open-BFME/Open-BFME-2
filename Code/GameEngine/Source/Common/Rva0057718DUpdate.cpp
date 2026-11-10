@@ -41,11 +41,7 @@ public:
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
 class Rva0042D6AEPtrChaseField
 {

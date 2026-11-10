@@ -42,11 +42,7 @@ public:
 	int get() const;
 };
 
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
 class Rva0042D703PtrChaseField
 {

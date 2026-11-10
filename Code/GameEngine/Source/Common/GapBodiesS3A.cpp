@@ -128,11 +128,7 @@ void Rva0057557F::rva00575643(void *a, void *b)
 
 // --- 0x0057556D (18B): a slot shared by two tables (0x00C6E6E8, 0x00C6E7EC)
 // chasing +0x0C -> +0x04 through the rowed 0x00328A83 and 0x0042D697 getters.
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;										// 0x00328A83
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
 class Rva0042D697PtrChaseField
 {

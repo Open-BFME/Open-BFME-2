@@ -135,7 +135,7 @@ private:
 };
 
 class Rva002B2B66 { public: int rva002B2B66(); };
-class Rva00328A83PtrChaseField { public: int get() const; };
+#include "../../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva00574A98 { public: void *rva00574A98(); };
 class Rva005A0B4CList { public: void append(struct Rva002BA8F1Listener*); };
 class Rva005CC61E { public: Rva005CC61E(); private: void *ptr; };

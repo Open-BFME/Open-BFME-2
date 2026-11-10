@@ -7,11 +7,7 @@
 // its slot 3; then the +0x28 member, the +0x18 and +0x14 direct members, the
 // +4 base (virtual dtor 0x005CD1A9 out of line) and the empty first base
 // unwind. Identity of the class is unproven.
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva0042D6AEPtrChaseField
 {
 public:

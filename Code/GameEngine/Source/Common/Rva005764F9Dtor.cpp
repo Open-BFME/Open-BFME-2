@@ -15,11 +15,7 @@ class Rva005CD5FA
 public:
   void rva005CD5FA(unsigned char value);
 };
-class Rva00328A83PtrChaseField
-{
-public:
-  int get() const;
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva00574AACAddDwordField
 {
 public:
