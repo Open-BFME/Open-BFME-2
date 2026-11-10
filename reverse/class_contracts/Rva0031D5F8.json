@@ -1,0 +1,81 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0031D5F8",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 42,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 37,
+   "68": 3
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
