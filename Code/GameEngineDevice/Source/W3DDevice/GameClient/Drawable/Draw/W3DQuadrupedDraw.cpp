@@ -101,11 +101,7 @@ public:
 };
 #include "../../../../../../GameEngine/Include/GameNetwork/GameInfo.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
-class Rva0030BBE5
-{
-public:
-	void rva0030BBE5(int a);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva0030BBE5.h"
 #include "../../../../../../GameEngine/Include/Common/CommandList.h"
 #include "../../../../../../GameEngine/Include/Common/SidesList.h"
 #include "../../../../../../GameEngine/Include/Common/StateMachineClass.h"

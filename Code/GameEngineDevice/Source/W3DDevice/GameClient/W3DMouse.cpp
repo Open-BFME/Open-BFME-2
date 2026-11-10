@@ -431,11 +431,7 @@ protected:
 	virtual void loadPostProcess();
 	virtual void privateIdle(CommandSourceType a);
 };
-class Rva0030BBE5
-{
-public:
-	void rva0030BBE5(int a);
-};
+#include "../../../../GameEngine/Include/Common/Rva0030BBE5.h"
 class SidesList
 {
 public:
