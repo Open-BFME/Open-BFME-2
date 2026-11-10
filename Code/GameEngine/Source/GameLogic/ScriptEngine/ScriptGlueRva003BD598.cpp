@@ -12,11 +12,7 @@
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Rva003BBAD3
-{
-public:
-	void rva003BBAD3();
-};
+#include "../../../Include/Common/Rva003BBAD3.h"
 
 class LinearCampaignManager
 {

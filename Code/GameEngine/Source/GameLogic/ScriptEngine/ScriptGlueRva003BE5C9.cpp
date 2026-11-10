@@ -14,11 +14,7 @@
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Rva003BBAD3
-{
-public:
-	void rva003BBAD3();
-};
+#include "../../../Include/Common/Rva003BBAD3.h"
 
 class Player;
 struct Rva003BE5C9P34

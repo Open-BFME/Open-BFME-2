@@ -36,11 +36,7 @@ void Rva003BBAD3Set()
 	return ((Rva005B5440 *)((BfmeOwnVVD *)TheLookAtTranslator))->clearFlags();
 }
 
-class Rva003BBAD3
-{
-public:
-	void rva003BBAD3();
-};
+#include "../../../Include/Common/Rva003BBAD3.h"
 
 // ICF-folded twin of Rva003BBAD3Set above (same 99 bytes at 0x003BBAD3):
 // the member spelling ignores its receiver, so with the same globals-only
