@@ -1,10 +1,6 @@
 // cl: /MD
 // ?rva005CC9CB@Rva005CC9CB@@QAEPAV1@PAV1@@Z @0x005CC9CB 45B: refcounted assign via inc 0x005D1A79 plus Release_Ref 0x005D1A7D; caller 0x005CCA18 unblocks 0x005CCA0B.
-class Rva005D1A79DwordCounter
-{
-public:
-	void inc();
-};
+#include "../../Include/Common/Rva005D1A79DwordCounter.h"
 class RefCountClass
 {
 public:

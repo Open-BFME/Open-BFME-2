@@ -120,11 +120,7 @@ Rva005774D0::Rva005774D0(int value) : Rva005773DB(&value)
 
 // --- 0x0057A304 (15B): twice the +0x58 count plus the +0x5C flag.
 // --- 0x0057A433 (26B): share a counted record (rowed 0x005D1A79 increment).
-class Rva005D1A79DwordCounter
-{
-public:
-	void inc();												// 0x005D1A79
-};
+#include "../../Include/Common/Rva005D1A79DwordCounter.h"
 
 // --- 0x0057E779 (40B): store a rule value, notify slot 1 and refresh its
 // gadget (rowed AptMpGameRules::UpdateRuleGadget).

@@ -136,7 +136,7 @@ class Rva005D40A6 {public:virtual ~Rva005D40A6();char m_pad04[0x40 - 0x04];};
 namespace StrategicHUD {
 class ChecklistUIItemView : public Rva005D1A6C, public Rva005D40A6 {};
 }
-class Rva005D1A79DwordCounter {public:void inc();};
+#include "../../../../../Include/Common/Rva005D1A79DwordCounter.h"
 class RefCountClass {public:void Release_Ref();};
 class Rva005D3FE4 {public:void rva005D3FE4(float y);};
 class Rva004987FEFloatField {public:float get() const;};

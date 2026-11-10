@@ -868,11 +868,7 @@ private:
 	bool m_5C;
 };
 // --- 0x0057A433 (26B): share a counted record (rowed 0x005D1A79 increment).
-class Rva005D1A79DwordCounter
-{
-public:
-	void inc();												// 0x005D1A79
-};
+#include "../../Include/Common/Rva005D1A79DwordCounter.h"
 class Rva0057A433
 {
 public:
