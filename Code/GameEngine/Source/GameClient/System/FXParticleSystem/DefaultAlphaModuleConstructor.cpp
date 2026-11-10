@@ -52,8 +52,9 @@ private:
 }
 
 extern "C" char Rva003AEA42_v0b;
-extern "C" char Rva003AEA42_v14b;
-extern "C" char Rva003AEA42_v18b;
+// Folded 0x0081C780 (one __purecall slot): distinct clean COMDATs keep +0x14/+0x18 stores separate without asserting class identity.
+extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[1];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[1];
 extern "C" char Rva003AEA42_vsub;
 
 class Rva003AEA42
@@ -72,8 +73,8 @@ Rva003AEA42::Rva003AEA42(const RvaSmartPtr12 &smart, int input)
     : m_base(smart, input), m_info()
 {
     *(void **)this = &Rva003AEA42_v0b;
-    *(void **)((char *)this + 0x14) = &Rva003AEA42_v14b;
-    *(void **)((char *)this + 0x18) = &Rva003AEA42_v18b;
+    *(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003F498ACallback@@6B@");
+    *(void **)((char *)this + 0x18) = (void *)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
     *(void **)((char *)this + 0x1C) = &Rva003AEA42_vsub;
     for (int i = 0; i < 8; ++i)
         ((FXParticleSystem::AlphaKeys *)((char *)this + 0x20))->m_keys[i] =

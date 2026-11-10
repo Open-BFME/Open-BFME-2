@@ -37,8 +37,9 @@ struct RenderModuleInput624DE
 };
 
 extern "C" char Rva003AEF9B_v0b;
-extern "C" char Rva003AEF9B_v14b;
-extern "C" char Rva003AEF9B_v18b;
+// Folded 0x0081C780 (one __purecall slot): distinct clean COMDATs match Rva003AEF9B copy stores without asserting class identity.
+extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[1];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[1];
 extern "C" char Rva003AEF9B_vsub;
 
 class Rva003AEF9B
@@ -55,8 +56,8 @@ Rva003AEF9B::Rva003AEF9B(const RvaSmartPtr12 &smart, int input)
 {
     *(void **)((char *)this + 0x1C) = &Rva003AEF9B_vsub;
     *(void **)this = &Rva003AEF9B_v0b;
-    *(void **)((char *)this + 0x14) = &Rva003AEF9B_v14b;
-    *(void **)((char *)this + 0x18) = &Rva003AEF9B_v18b;
+    *(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003F498ACallback@@6B@");
+    *(void **)((char *)this + 0x18) = (void *)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
     memcpy(&info.m_var0, &((const RenderModuleInput624DE *)input)->values[0], sizeof(info.m_var0));
     memcpy(&info.m_var1, &((const RenderModuleInput624DE *)input)->values[1], sizeof(info.m_var1));
     memcpy(&info.m_var2, &((const RenderModuleInput624DE *)input)->values[2], sizeof(info.m_var2));

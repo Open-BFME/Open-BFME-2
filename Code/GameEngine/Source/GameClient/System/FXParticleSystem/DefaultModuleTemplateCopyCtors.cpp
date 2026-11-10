@@ -73,8 +73,9 @@ extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@
 extern "C" char Rva003AEF9B_vsub = -114;
 // Rva003AEF9B_v0b: matched references place it at VA 0xc1d728 (retail .rdata value -10).
 extern "C" char Rva003AEF9B_v0b = -10;
-extern "C" char Rva003AEF9B_v14b;
-extern "C" char Rva003AEF9B_v18b;
+// Folded 0x0081C780 (one __purecall slot): distinct clean COMDATs keep +0x14/+0x18 stores separate without asserting class identity.
+extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[1];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[1];
 
 class Rva003AEB0A
 {
@@ -200,8 +201,8 @@ Rva003AEF9B::Rva003AEF9B(const Rva003AEF9B &that)
 		*(const FXParticleSystem::RenderObjectUpdateModuleInfo *)sub_src);
 	*(void **)sub = &Rva003AEF9B_vsub;
 	*(void **)this = &Rva003AEF9B_v0b;
-	*(void **)((char *)this + 0x14) = &Rva003AEF9B_v14b;
-	*(void **)((char *)this + 0x18) = &Rva003AEF9B_v18b;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003F498ACallback@@6B@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
 }
 
 // Native constructor operands bind this complete compiler table.
@@ -239,10 +240,6 @@ Rva003AED6B::Rva003AED6B(const Rva003AED6B &that)
 	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot14@@@");
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva005FEA50Base@FXParticleSystem@@6BRva003AEEB3Slot18@@@");
 }
-// _Rva003AEF9B_v14b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEF9B_v14b=?vftable_0112B89C@@3HA")
-// _Rva003AEF9B_v18b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEF9B_v18b=?vftable_0112B89C@@3HA")
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

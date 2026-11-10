@@ -25,7 +25,7 @@ extern const void *const g_00C1CB64[8] = {
 	(const void *)&__identifier("?rva003ABEFD@Rva003ABEFD@@QAEMXZ"), // slot 6 0x003ABEFD
 	(const void *)&__identifier("?getPosition@FXPSEmitterLineVolumeModule@@QAE?AUCoord3D0055CDEC@@IIII@Z"), // slot 7 0x0055CDEC
 };
-extern "C" void *s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" const void *const __identifier("??_7Rva003AF89A@@6BRva003AF8C7B18@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AF57F@@6BLineEmissionVolumeInfo@FXParticleSystem@@@")[];
 class Rva003ABFE1
@@ -42,7 +42,7 @@ Rva003ACC7C::Rva003ACC7C(void *a, void *b)
 	: Rva003ABFE1(a, b)
 {
 	*(void **)this = (void *)g_00C1CB64;
-	*(void **)((char *)this + 0x14) = (void *)&s_slot3E4first;
+	*(void **)((char *)this + 0x14) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva003AF89A@@6BRva003AF8C7B18@@@");
 	*(void **)((char *)this + 0x1C) = (void *)__identifier("??_7Rva003AF57F@@6BLineEmissionVolumeInfo@FXParticleSystem@@@");
 }

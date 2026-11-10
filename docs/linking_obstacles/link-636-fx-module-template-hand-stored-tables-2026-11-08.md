@@ -262,3 +262,17 @@ with retail; clearance: none claimed, the tables stay bridged. New obstacle:
 (0x003A57A9, thunk 0x003A5A50 in `GapForwardersSeat8.cpp`) does not move;
 recorded as a false reject in `re_attempts.log`. Next check: the real link's
 queue entry for 0x0081B5E0 should list slot 1 as resolved.
+
+2026-11-10, 0x0081C780 (`vftable_0112B89C` + 11 pure-slot aliases) retired
+across the 32-file cohort (base `5c069f65d8f`, see LINK-617): deleted all
+`/alternatename` placeholders (`_Rva003AEA42_v14a/b/v18a/b` in
+`DefaultModuleTemplate01InlineCopyCtors.cpp`, `_Rva003AEF9B_v14b/v18b` in
+`DefaultModuleTemplateCopyCtors.cpp`, `_Rva003AE0D5_v8`, `_Rva003ADEBF_v8`,
+`_s_slot3E4first`, `_vtbl_00C1C780`, `_vtbl_00C1C780_again`) and the strong
+`int vftable_0112B89C` definition in `Rva00800920FeslCtor.cpp` while keeping
+the `BfmeVciAnchorElem` anchor (`??_H` exact 34 B) and without touching
+`D728`/`D758` or `RenderObject`'s open class-recovery scope. All 32 units
+verify (`92/92` code, `17/17` data, `16/16` EH exact, `32/32` `link_check`
+`4,853 -> 4,853 B` at census `51f6d2483f`, `-11` `alternatename` hatches in
+`reverse/hatch_baseline.tsv`); next real link / `image_iso` confirmation is
+not yet claimed.

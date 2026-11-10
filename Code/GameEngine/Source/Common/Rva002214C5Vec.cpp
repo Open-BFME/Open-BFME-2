@@ -24,7 +24,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #include <vector>
 #include "ascii_string.h"
 
-extern "C" char s_slot3E4first;
 
 #include "../../Include/Common/NoCaseTreeValue4.h"
 #include "../../../Libraries/Include/Lib/BfmeE16.h"

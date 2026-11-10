@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ??0Rva0055BCD2@@QAE@ABV0@@Z @0x003ADDCD 31B copy via rowed base 0x003ADDEC with vptrs g_00C1D164 and s_slot3E4first. Evidence: same vptrs as unsigned-int ctor row 0x0055BCD2; callees rowed; callers 0x003ADC7F 0x003ADD3C; same 31B shape as 0x003ADFDB.
+// ??0Rva0055BCD2@@QAE@ABV0@@Z @0x003ADDCD 31B copy via rowed base 0x003ADDEC with vptrs g_00C1D164 and 0x00C1C780. Evidence: same vptrs as unsigned-int ctor row 0x0055BCD2; callees rowed; callers 0x003ADC7F 0x003ADD3C; same 31B shape as 0x003ADFDB.
 class Rva005EA430
 {
 public:
@@ -19,7 +19,7 @@ extern const void *const g_00C1D164[6] = {
 	(const void *)&__identifier("_purecall"), // slot 4 0x0003B810
 	(const void *)&__identifier("_purecall"), // slot 5 0x0003B810
 };
-extern "C" char s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 class Rva0055BCD2
 {
 public:
@@ -34,6 +34,5 @@ Rva0055BCD2::Rva0055BCD2(const Rva0055BCD2 &that)
 	const void *src = &that;
 	((Rva005EA430 *)this)->Rva005EA430::Rva005EA430(*(const Rva005EA430 *)src);
 	*(const void **)this = g_00C1D164;
-	*(void **)((char *)this + 8) = (void *)&s_slot3E4first;
+	*(void **)((char *)this + 8) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 }
-// _s_slot3E4first: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.

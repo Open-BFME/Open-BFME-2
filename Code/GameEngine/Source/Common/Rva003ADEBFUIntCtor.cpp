@@ -13,7 +13,7 @@ public:
 };
 
 extern "C" char Rva003ADEBF_v0;
-extern "C" char Rva003ADEBF_v8;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 class Rva003ADEBF
 {
@@ -32,7 +32,7 @@ Rva003ADEBF::Rva003ADEBF(unsigned int a)
 	((Rva00563FE1 *)this)->Rva00563FE1::Rva00563FE1(a);
 	m_flagC = true;
 	m_v0 = &Rva003ADEBF_v0;
-	m_v8 = &Rva003ADEBF_v8;
+	m_v8 = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
 
 // Retail's data references in this unit's matched rows land on globals defined

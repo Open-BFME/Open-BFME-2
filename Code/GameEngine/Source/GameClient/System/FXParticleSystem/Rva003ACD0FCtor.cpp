@@ -25,7 +25,7 @@ extern const void *const g_cylinderEmissionVolumeModuleVTable[8] = {
 	(const void *)&__identifier("?rva003ABEFD@Rva003ABEFD@@QAEMXZ"), // slot 6 0x003ABEFD
 	(const void *)&__identifier("?getPosition@CylinderEmissionVolumeModule@FXParticleSystem@@UAE?AUCoord3D@2@MMMM@Z"), // slot 7 0x0055D741
 };
-extern "C" void *s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" const void *const __identifier("??_7Rva003AF7D1@@6BIntermediate3AFC6FC@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AF7D1@@6BLineEmissionVolumeInfo@FXParticleSystem@@@")[];
 class Rva003AC0DA
@@ -42,7 +42,7 @@ Rva003ACD0F::Rva003ACD0F(void *a, void *moduleTemplate)
 	: Rva003AC0DA(a, moduleTemplate)
 {
 	*(void **)this = (void *)g_cylinderEmissionVolumeModuleVTable;
-	*(void **)((char *)this + 0x14) = (void *)&s_slot3E4first;
+	*(void **)((char *)this + 0x14) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva003AF7D1@@6BIntermediate3AFC6FC@@@");
 	*(void **)((char *)this + 0x1C) = (void *)__identifier("??_7Rva003AF7D1@@6BLineEmissionVolumeInfo@FXParticleSystem@@@");
 }

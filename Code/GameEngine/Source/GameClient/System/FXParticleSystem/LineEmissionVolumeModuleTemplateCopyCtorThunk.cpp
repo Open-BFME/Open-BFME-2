@@ -4,10 +4,10 @@
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
 // LineEmissionVolumeModuleTemplate sub vtbl at VA 0x00C1BB10, outer at 0x00C1BB20;
-// +4 slot reuses s_slot3E4first at VA 0x00C1C780 (?vftable_0112B89C).
+// +4 slot reuses 0x00C1C780 at VA 0x00C1C780.
 extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6B@")[];
 extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@")[];
-extern "C" char s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 #include "../../../../Include/GameClient/LineEmissionVolumeInfo.h"
 namespace FXParticleSystem
@@ -45,7 +45,6 @@ LineEmissionVolumeModuleTemplate::LineEmissionVolumeModuleTemplate(
 	// Sub vtbl then outer dual vtbls (retail store order).
 	*(void **)sub = (void *)__identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6B@");
 	m_v0 = (void *)__identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
-	m_v4 = (void *)&s_slot3E4first;
+	m_v4 = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 }
 }
-// _s_slot3E4first: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.

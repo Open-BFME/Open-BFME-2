@@ -25,7 +25,7 @@ extern const void *const g_00C1CB34[8] = {
 	(const void *)&__identifier("?rva003ABEFD@Rva003ABEFD@@QAEMXZ"), // slot 6 0x003ABEFD
 	(const void *)&__identifier("?rva0055CB45@Rva0055CB45@@QAE?AUCoord3D0055CB45@@IIII@Z"), // slot 7 0x0055CB45
 };
-extern "C" void *s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" const void *const __identifier("??_7Rva003AF47D@@6BIntermediate3AFC6FC@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AF47D@@6BEmissionVolumeInfo4AA@FXParticleSystem@@@")[];
 namespace FXParticleSystem
@@ -50,7 +50,7 @@ Rva003ACC4B::Rva003ACC4B(FXParticleSystem::TrackingPtr<FXParticleSystem::Particl
 	: FXParticleSystem::PointEmissionVolumeModule(system, module_template)
 {
 	*(void **)this = (void *)g_00C1CB34;
-	*(void **)((char *)this + 0x14) = (void *)&s_slot3E4first;
+	*(void **)((char *)this + 0x14) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva003AF47D@@6BIntermediate3AFC6FC@@@");
 	*(void **)((char *)this + 0x1C) = (void *)__identifier("??_7Rva003AF47D@@6BEmissionVolumeInfo4AA@FXParticleSystem@@@");
 }

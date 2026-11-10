@@ -2,7 +2,7 @@
 // ??0Rva005646BC@@QAE@IAAUSrc005646BC@@@Z, retail 0x005646BC, 135 bytes.
 // Copy-from-template ctor twin of the 0x0056413D shape: base Rva003ADEBF via
 // rowed uint ctor 0x005640EC, subobject defaults at +0x10/+0x14/+0x18/+0x1c,
-// final vtables Rva003AE2CF_v0 / s_slot3E4first / Rva003AE2CF_v10, float via
+// final vtables Rva003AE2CF_v0 / 0x00C1C780 / Rva003AE2CF_v10, float via
 // rowed GameClientRandomVariable::getValue 0x002341A1, FX via just-landed
 // TerrainCollisionModuleInfo::getEventFX 0x0056468E, bytes from +0x1d/+0x34, flag at +0x20.
 // Evidence: calls 0x0056468E at 0x00564719; caller at 0x003ACB36.
@@ -49,7 +49,7 @@ public:
 
 // Rva003AE2CF_v0: matched references place it at VA 0xc1d3a0 (retail .rdata value 60).
 extern "C" char Rva003AE2CF_v0 = 60;
-extern "C" char s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // Rva003AE2CF_v10: matched references place it at VA 0xc1d390 (retail .rdata value -117).
 extern "C" char Rva003AE2CF_v10 = -117;
 // The copy constructor at 0x003AE315 emits this particle-info table.
@@ -80,7 +80,7 @@ Rva005646BC::Rva005646BC(unsigned int a, struct Src005646BC &src)
 	: Rva003ADEBF(a), Rva005646BCSub()
 {
 	*(void **)this = (void *)&Rva003AE2CF_v0;
-	*(void **)((char *)this + 8) = (void *)&s_slot3E4first;
+	*(void **)((char *)this + 8) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	m_10 = (void *)&Rva003AE2CF_v10;
 	float randomValue = src.m_info.m_08.getValue();
 	m_14 = randomValue;
@@ -89,4 +89,3 @@ Rva005646BC::Rva005646BC(unsigned int a, struct Src005646BC &src)
 	m_flagC = src.m_1d;
 	m_20 = true;
 }
-// _s_slot3E4first: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.

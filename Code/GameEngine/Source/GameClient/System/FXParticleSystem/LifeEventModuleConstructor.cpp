@@ -53,7 +53,7 @@ public:
 };
 
 extern "C" char Rva003AE0D5_v0;
-extern "C" char Rva003AE0D5_v8;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" char Rva003AE0D5_v10;
 
 class Rva003AE0D5
@@ -70,7 +70,7 @@ Rva003AE0D5::Rva003AE0D5(unsigned a, LifeInput413D &input)
     : base(a), sub()
 {
     *(void **)this = &Rva003AE0D5_v0;
-    *(void **)((char *)this + 8) = &Rva003AE0D5_v8;
+    *(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
     *(void **)((char *)this + 0x10) = &Rva003AE0D5_v10;
     sub.time = (unsigned)input.info.time.getValue();
     sub.fx = input.info.getEventFX();

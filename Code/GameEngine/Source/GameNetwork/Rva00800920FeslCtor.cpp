@@ -12,7 +12,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
-extern int vftable_0112B89C;
 extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
 extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
@@ -145,12 +144,6 @@ Rva00800920Owner::Rva00800920Owner( Rva00800920Host *host )
 	host->m_hub->add( (Rva00803080 *)static_cast<Rva00800920Sec *>( this ) );
 }
 
-// ?vftable_0112B89C@@3HA: matched references place it at VA 0xc1c780; also referenced as _s_slot3E4first, _Rva003ADEBF_v8, _DefaultModuleTemplate6_vtbl4.
-// Its one slot is retail VA 0x0043B810, the rowed _purecall (debug_purecall.cpp).
-extern "C" int __cdecl _purecall(void);
-int vftable_0112B89C = (int)&_purecall;
-#pragma comment(linker, "/alternatename:_s_slot3E4first=?vftable_0112B89C@@3HA")
-#pragma comment(linker, "/alternatename:_Rva003ADEBF_v8=?vftable_0112B89C@@3HA")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

@@ -1,10 +1,10 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 // ??0Rva003ABA83@@QAE@PAX0@Z @0x003ABA83 42B
 // Unlock lane: ctor calling rowed T1Base 0x0055C903 with same (a,b) then
-// vtable g_00C1C334 plus address of s_slot3E4first at +0x14 and g_ data at
+// vtable g_00C1C334 plus address of 0x00C1C780 at +0x14 and g_ data at
 // +0x18 as immediates. Evidence: three mov-dword immediates; base ctor rowed;
-// s_slot3E4first extern C; neighbours /O1 /EHsc; ret 8 frameless.
-extern "C" void *s_slot3E4first;
+// ??_7Rva003F498ACallback@@6B@ extern C; neighbours /O1 /EHsc; ret 8 frameless.
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // The retail table at RVA 0x0081C334: 11 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
@@ -53,7 +53,7 @@ private:
 Rva003ABA83::Rva003ABA83(void *a, void *b) : T1Base_005F3750(a, b)
 {
 	*(void **)this = (void *)g_00C1C334;
-	m_14 = (void *)&s_slot3E4first;
+	m_14 = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	m_18 = (void *)__identifier("??_7Rva003AE43F@@6B@");
 }
 

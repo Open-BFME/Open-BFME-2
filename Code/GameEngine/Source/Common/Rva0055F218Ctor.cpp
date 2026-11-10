@@ -2,7 +2,7 @@
 // ??0Rva0055F218@@QAE@IAAUSrc0055F218@@@Z, retail 0x0055F218, 120 bytes.
 // UInt-plus-template ctor: forwards the dword to the rowed base
 // ??0Rva0055EFE1@@QAE@I@Z at 0x0055EFE1, subobject defaults at +0xC/+0x10/+0x14/+0x15,
-// final vtables +0 0x00C1D1D4 plus +8 s_slot3E4first plus +0xC 0x00C1D1E4,
+// final vtables +0 0x00C1D1D4 plus +8 0x00C1C780 plus +0xC 0x00C1D1E4,
 // float via rowed GameClientRandomVariable::getValue 0x002341A1, flag bytes
 // from +0x3C/+0x3D. Same shape as sibling 0x005646BC. Caller at 0x003ACF96.
 
@@ -34,7 +34,7 @@ extern "C" const void *const __identifier("??_7Rva003ADE58@@6BV3Vt01111D90@@@")[
 extern "C" const void *const __identifier("??_7Rva003ADE58@@6B@")[];
 extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva003ADE98@@6B@")[];
-extern "C" char s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 struct Src0055F218
 {
@@ -67,7 +67,7 @@ Rva0055F218::Rva0055F218(unsigned int a, struct Src0055F218 &src)
 	: Rva0055EFE1(a), Rva0055F218Sub()
 {
 	*(void **)this = (void *)__identifier("??_7Rva003ADE58@@6BV3Vt01111D90@@@");
-	*(void **)((char *)this + 8) = (void *)&s_slot3E4first;
+	*(void **)((char *)this + 8) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	m_v = (void *)__identifier("??_7Rva003ADE58@@6B@");
 	float v = src.m_var30.getValue();
 	m_f = v;

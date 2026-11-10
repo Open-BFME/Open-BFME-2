@@ -1931,7 +1931,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?update@AIIntern
 alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?xfer@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0039597COpAssign.cpp	?Rva00395D45CopyAux@@YAPAVRva0039597C@@PAV1@00PADH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v0	1
-alternatename	Code/GameEngine/Source/Common/Rva003AE0D5CopyCtor.cpp	_Rva003AE0D5_v8	1
 alternatename	Code/GameEngine/Source/Common/Rva003C4B2DInsert.cpp	?rva003BD4C3@@YAXPAX00@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vbfunc@Rva003FD14DBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vfunc@Rva003FD14D@@UAEXXZ	1
@@ -2231,8 +2230,6 @@ alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Is_Procedural@?$Ref
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Use_Alpha_Shader@BFME2ParticleTextureHandle@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?bfmeReset@Gen009D6E10@@QAEXPAVBfmePeer@@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/XferSaveAsText.cpp	_bfmeAppend	1
-alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780	1
-alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780_again	1
 alternatename	Code/GameEngine/Source/Common/TaintManagerImpl.cpp	?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/TerrainTypes.cpp	?allocate@?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@_STL@@QBEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@IPBX@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/FXBoneInfoVectorErase.cpp	?erase@?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAEPAUQuantityModifier@@PAU3@0@Z	1
@@ -2410,12 +2407,6 @@ alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??1Rva00
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F8348Ctor.cpp	?init@Rva000F8348@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F9C3CCtor.cpp	?slot0@Rva000F9C3C@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/Shadow.cpp	?SetTexture@Rva00330995@@QAEXPAX@Z	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14a	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14b	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v18a	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v18b	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEF9B_v14b	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEF9B_v18b	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoDefaultCtors.cpp	??0OutwardEmissionVelocityInfo@FXParticleSystem@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ADC4FCopy.cpp	??0Rva003ADC75@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005635CDCtor.cpp	??1Rva005635CD@@QAE@XZ	1
@@ -2870,8 +2861,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva007FA990Ctor.cpp	?v0@Rva007F
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007FA990Ctor.cpp	?v4@Rva007FA990@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	?v0@Rva00800920Primary@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	?v0@Rva00800920Sec@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	_Rva003ADEBF_v8	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	_s_slot3E4first	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801BD0FeslAlloc.cpp	?allocate@Rva00802040Arr@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslFill.cpp	?bfmeHitZP@BfmeSlotZP@@QAEXPAVBfmeKeyZP@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801FB0FeslElemCtor.cpp	??0BfmeRva0066E270@@QAE@XZ	1

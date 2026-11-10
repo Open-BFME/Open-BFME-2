@@ -35,12 +35,13 @@ struct AlphaKeys
 
 // The rowed smart-base constructor installs this existing class table.
 extern "C" const void *const __identifier("??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@")[];
-extern "C" char Rva003AEA42_v14a;
-extern "C" char Rva003AEA42_v18a;
+extern "C" const void *const __identifier("??_7Rva0055B5BF@@6BRva003AEEB3Slot14@@@")[1];
+extern "C" const void *const __identifier("??_7Rva0055B5BF@@6BRva003AEEB3Slot18@@@")[1];
 // Rva003AEA42_v0b: matched references place it at VA 0xc1d5d4 (retail .rdata value -10).
 extern "C" char Rva003AEA42_v0b = -10;
-extern "C" char Rva003AEA42_v14b;
-extern "C" char Rva003AEA42_v18b;
+// Folded 0x0081C780 (one __purecall slot): distinct clean COMDATs keep +0x14/+0x18 stores separate without asserting class identity.
+extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[1];
+extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[1];
 // Rva003AEA42_vsub: matched references place it at VA 0xc1d5c4 (retail .rdata value -114).
 extern "C" char Rva003AEA42_vsub = -114;
 
@@ -65,24 +66,16 @@ Rva003AEA42::Rva003AEA42(const Rva003AEA42 &that)
 	const void *sub_src = src ? (const char *)src + 0x1C : 0;
 	void *sub = (char *)this + 0x1C;
 	*(void **)this = (void *)__identifier("??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@");
-	*(void **)((char *)this + 0x14) = &Rva003AEA42_v14a;
-	*(void **)((char *)this + 0x18) = &Rva003AEA42_v18a;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva0055B5BF@@6BRva003AEEB3Slot14@@@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055B5BF@@6BRva003AEEB3Slot18@@@");
 	*(void **)sub = (void *)__identifier("??_7DefaultAlphaModuleInfo@FXParticleSystem@@6B@");
 	*(FXParticleSystem::AlphaKeys *)((char *)sub + 4) =
 		*(const FXParticleSystem::AlphaKeys *)((const char *)sub_src + 4);
 	*(void **)this = &Rva003AEA42_v0b;
-	*(void **)((char *)this + 0x14) = &Rva003AEA42_v14b;
-	*(void **)((char *)this + 0x18) = &Rva003AEA42_v18b;
+	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003F498ACallback@@6B@");
+	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
 	*(void **)((char *)this + 0x1C) = &Rva003AEA42_vsub;
 }
 
 // Inner 0x003AEA42 only; outer 0x003AEA15 raced (sibling Rva003AEA15CopyCtor.cpp
 // won 8c789e53b with the same Rva owner for the middle). Dropped our outer dup.
-// _Rva003AEA42_v18b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEA42_v18b=?vftable_0112B89C@@3HA")
-// _Rva003AEA42_v14a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEA42_v14a=?vftable_0112B89C@@3HA")
-// _Rva003AEA42_v18a: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEA42_v18a=?vftable_0112B89C@@3HA")
-// _Rva003AEA42_v14b: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
-#pragma comment(linker, "/alternatename:_Rva003AEA42_v14b=?vftable_0112B89C@@3HA")

@@ -1,11 +1,11 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // Retail 0x005634F7 (RVA 0x005634F7) size 202: particle renderobject draw ctor.
-// Evidence: pinned ParticleModule005F2CA0 base 0x0055C86D then vtable 0xC1D4F4 plus s_slot3E4first at +0x14 plus RenderObjectDrawModuleInfo at +0x18 with vtable 0xC1D4E4 then bytes dwords strings from info plus 8 at +0x58.
+// Evidence: pinned ParticleModule005F2CA0 base 0x0055C86D then vtable 0xC1D4F4 plus 0x00C1C780 at +0x14 plus RenderObjectDrawModuleInfo at +0x18 with vtable 0xC1D4E4 then bytes dwords strings from info plus 8 at +0x58.
 #include "ascii_string.h"
 
 extern "C" const void *const __identifier("??_7Rva003AE6A9@@6BModuleInfoHeadBase_3AE6A9@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AE6A9@@6B@")[];
-extern "C" int s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 class ParticleModule005F2CA0
 {
@@ -66,7 +66,7 @@ Rva005634F7::Rva005634F7(void *a, DrawInfo2 *drawInfo2)
 	, m_18()
 {
 	*(const void **)this = __identifier("??_7Rva003AE6A9@@6BModuleInfoHeadBase_3AE6A9@@@");
-	m_14 = (void *)&s_slot3E4first;
+	m_14 = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	*(const void **)((char *)this + 0x18) = __identifier("??_7Rva003AE6A9@@6B@");
 	*(unsigned char *)((char *)this + 0x24) = drawInfo2->m_14;
 	((StringBase<char> *)((char *)this + 0x28))->set(*(const StringBase<char> *)&drawInfo2->m_18);

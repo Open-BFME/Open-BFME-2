@@ -2,13 +2,13 @@
 // ??0Rva003AE50B@@QAE@PAX0@Z @0x005600F8 49B
 // Ctor forwarding two void args to the pinned ParticleModule005F2CA0 base
 // ctor (0x0055C86D), then storing vtable VA 0x00C1D440 plus data VAs
-// 0x00C1BD10/0x00C1C780(s_slot3E4first)/0x00C1D430 at +0/+0x14/+0x18.
+// 0x00C1BD10/0x00C1C780/0x00C1D430 at +0/+0x14/+0x18.
 // Base size 0x14 proven by derived offsets; +0x18 stored twice like retail
 // (first overwritten). Flags mirror Rva00560135Ctor.cpp. Caller 0x003ABACE.
 extern "C" const void *const __identifier("??_7ModuleInfoThirdBD10@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva003AE50B@@6BDefaultModuleHeadBase@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AE50B@@6B@")[];
-extern "C" int s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 class ParticleModule005F2CA0
 {
@@ -34,13 +34,13 @@ Rva003AE50B::Rva003AE50B(void *a, void *b)
 {
 	m_18 = (void *)__identifier("??_7ModuleInfoThirdBD10@@6B@");
 	*(const void **)this = __identifier("??_7Rva003AE50B@@6BDefaultModuleHeadBase@@@");
-	m_14 = (void *)&s_slot3E4first;
+	m_14 = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	m_18 = (void *)__identifier("??_7Rva003AE50B@@6B@");
 }
 
 // ??0Rva00560A1B@@QAE@PAX0@Z @0x00560A1B 49B twin of the ctor above over the
 // same pinned base: vtable VA 0x00C1D47C plus data VAs 0x00C1BD30 and
-// 0x00C1D46C at +0x18 (twice) with s_slot3E4first at +0x14. Same volatile
+// 0x00C1D46C at +0x18 (twice) with 0x00C1C780 at +0x14. Same volatile
 // +0x18 recipe and flags.
 extern "C" const void *const __identifier("??_7ModuleInfoThirdBD30@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva003AE595@@6BDefaultModuleHeadBase@@@")[];
@@ -61,12 +61,12 @@ Rva00560A1B::Rva00560A1B(void *a, void *b)
 {
 	m_18 = (void *)__identifier("??_7ModuleInfoThirdBD30@@6B@");
 	*(const void **)this = __identifier("??_7Rva003AE595@@6BDefaultModuleHeadBase@@@");
-	m_14 = (void *)&s_slot3E4first;
+	m_14 = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	m_18 = (void *)__identifier("??_7Rva003AE595@@6B@");
 }
 
 // ??0Rva003AE61F@@QAE@PAX0@Z @0x00561375 49B twin over the same pinned base:
-// vtable VA 0x00C1D4B8 plus data VAs 0x00C1BD50/0x00C1C780(s_slot3E4first)/
+// vtable VA 0x00C1D4B8 plus data VAs 0x00C1BD50/0x00C1C780/
 // 0x00C1D4A8 at +0/+0x14/+0x18 (twice). Same volatile +0x18 recipe and flags.
 // Evidence: push esi push [esp+0xc] mov esi ecx push [esp+0xc] call 0x0055C86D
 // then stores at +0x18/+0/+0x14/+0x18; caller at 0x003ABB2E; naming stores
@@ -90,7 +90,7 @@ Rva003AE61F::Rva003AE61F(void *a, void *b)
 {
 	m_18 = (void *)__identifier("??_7ModuleInfoThirdBD50@@6B@");
 	*(const void **)this = __identifier("??_7Rva003AE61F@@6BDefaultModuleHeadBase@@@");
-	m_14 = (void *)&s_slot3E4first;
+	m_14 = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	m_18 = (void *)__identifier("??_7Rva003AE61F@@6B@");
 }
 

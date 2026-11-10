@@ -55,7 +55,6 @@ Rva003ADFDB::Rva003ADFDB(const Rva003ADFDB &that)
 // V3-inline copy shape via rowed base 0x003ADDEC (+0 0x00C1D2C0, +8 0x00C1C780).
 
 extern "C" char Rva003ADEBF_v0;
-extern "C" char Rva003ADEBF_v8;
 
 class Rva003ADEBF
 {
@@ -73,10 +72,9 @@ Rva003ADEBF::Rva003ADEBF(const Rva003ADEBF &that)
 	const void *src = &that;
 	((Rva005EA430 *)this)->Rva005EA430::Rva005EA430(*(const Rva005EA430 *)src);
 	*(void **)this = &Rva003ADEBF_v0;
-	*(void **)((char *)this + 8) = &Rva003ADEBF_v8;
+	*(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
 // _Rva003ADFDB_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.
-// _Rva003ADEBF_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

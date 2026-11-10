@@ -24,7 +24,7 @@ class Rva0037DCA5;
 class ThingTemplate;
 extern bool (Rva002206F9::*const ArmySummaryObjectVisitorTable[1])(Rva0037DCA5 *);
 extern int (Rva00220D1E::*const ArmySummaryTemplateVisitorTable[1])(const ThingTemplate *);
-extern "C" char s_slot3E4first;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern void *g_00DFE490;
 
 _STLP_BEGIN_NAMESPACE
@@ -54,7 +54,7 @@ struct Root220B04 {
 	unsigned m_v4;
 	Root220B04()
 	{
-		*(volatile unsigned *)&m_v4 = (unsigned)&s_slot3E4first;
+		*(volatile unsigned *)&m_v4 = (unsigned)&__identifier("??_7Rva003F498ACallback@@6B@");
 	}
 };
 

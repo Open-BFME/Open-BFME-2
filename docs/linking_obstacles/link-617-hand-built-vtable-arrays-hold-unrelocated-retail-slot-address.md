@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Partly repaired (6 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-09; inspected revision: 5b0f8a1f5fe (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162, 10748c0b80c and da227633903.
+Status: Partly repaired (7 of 12 sources fixed in source; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-10; inspected revision: 5c069f65d8f (image 0a36813ed0, image_iso 35c0259989, census 51f6d2483f); repairs on 31e5d302162, 10748c0b80c and da227633903.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -18,7 +18,7 @@ rowed under a different placeholder class in another file, so no one class owns 
 | Common/R3ScalarFieldConstructors1.cpp | Gen00C1F470 (0x00C1F470) | 1 | FIXED 2026-11-07 (below). ScriptGroup; retail's table has 4 slots: ??_GRva003B4100, shared `ret` 0x4B3FD0, getter 0x3B40FA, ScriptGroup::xfer |
 | Common/Rva007EB310Destroy.cpp | vftable_01129CB4 (0x00CE1514) | 1 | Rva007EB310Owner::destroy (ledger: ??_7Rva007EB2C0Object) |
 | GameNetwork/Rva007EBAA0Create.cpp | g_bfmeVftTDA (0x00CE157C) | 1 | Rva007EB8B0Log::setFields_007EB760 |
-| GameNetwork/Rva00800920FeslCtor.cpp | vftable_0112B89C (0x00C1C780) | 1 | __purecall (ledger: ??_7SecondaryModuleBase@FXParticleSystem; data row ??_7Rva003F498ACallback) |
+| GameNetwork/Rva00800920FeslCtor.cpp | vftable_0112B89C (0x00C1C780) | 1 | FIXED 2026-11-10 (below). __purecall (ledger/data row ??_7Rva003F498ACallback@@6B@, plus 4-byte ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@ / Rva0055B5BF folded slot views) |
 | GameNetwork/ServiceHubImpl.cpp | vftable_01129CB0 (0x00CE1510), vftable_01129AF4 (0x00CE1354) | 2 | ??_GGen007EB140 (ledger: ??_7ServiceHubImpl), ??_GRva00657670 |
 | GameNetwork/ServiceHubImpl_ctor.cpp | vftable_011296B0 (0x00CE0F20) | 1 | ??_GBfmeMsgVJH (ledger: ??_7Rva00808CB0LanGameEntry and six more) |
 | WWLib/HordeMeleeAmoeba.cpp | g_00C6FF28 (0x00C6FF28) | 1 | FIXED 2026-11-07 (below). ??_GRva00587752Record, then 0x587F11 and 0x587217 |
@@ -246,6 +246,28 @@ array-constructor iterator from retail's complete 34-byte body to48 bytes.
 The source/table/aliases are retained. The existing compiler-table data owner
 at0x0081C780 is a separate folded callback view, not proof of the FESL
 interface's original identity. [Private trial and native comparison](../../reverse/attempt_support/fesl-live-iterator-anchor-20261108/README.md).
+
+2026-11-10, `vftable_0112B89C` and 11 aliases RETIRED across all 32 callers
+(base `5c069f65d8f`, `Rva00800920FeslCtor.cpp` plus 31 FX/T4/Army/Common units):
+kept the `BfmeVciAnchorElem` anchor in `Rva00800920FeslCtor.cpp` intact
+(`??_H@YGXPAXIHP6EPAX0@Z@Z` remains retail's exact 34 bytes), deleted the
+strong `int vftable_0112B89C = (int)&_purecall` definition and all 11
+`/alternatename` global placeholder aliases (`_s_slot3E4first`,
+`_Rva003ADEBF_v8`, `_Rva003AE0D5_v8`, `_Rva003AEA42_v14a/b/v18a/b`,
+`_Rva003AEF9B_v14b/v18b`, `_vtbl_00C1C780`, `_vtbl_00C1C780_again`), and bound
+all 30 live slot stores directly to the existing 4-byte `[__purecall]`
+`SELECT_ANY` compiler tables (`??_7Rva003F498ACallback@@6B@`, paired with
+`??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@` where dual-store CSE
+avoidance requires distinct symbols, and `??_7Rva0055B5BF@@6BRva003AEEB3Slot14@@@` /
+`Slot18@@@` in `DefaultModuleTemplate01InlineCopyCtors.cpp` for base-init slots
+without claiming caller class identity). Verified: 92/92 code rows, 17/17 data
+rows, 18 funclet pins, 16/16 `eh_verify.py` EXACT, `find_declared_unmatched.py`
+clean, `data_check.py --converged` + shadow 0 findings, `hatch_counters.py`
+`alternatename` `2357 -> 2346` (`-11`), `link_check.py` 32/32 LINKS (`4,853 -> 4,853`
+bytes, census `51f6d2483f`), and zero references to `?vftable_0112B89C@@3HA` or the
+11 removed placeholders in all 32 compiled `.obj` files. Pass test: next real link
+and `image_iso` drop 0x0081C780 (`strong-definition` + 11 `bridged` alias rows)
+and remove 0x00C1C780 from `defects.tsv`; clearance pending until observed there.
 
 Not pointers (left as they are):
 - Huff.cpp `LZHLEncoderStat::symbolTable0`: henc.tbl packed {nBits, code} shorts (0x00B70008,
