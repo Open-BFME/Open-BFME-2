@@ -200,11 +200,7 @@ public:
 };
 
 // Object::testBit 0x0028D891: the opaque bit-test twin owner (the Object itself).
-class Rva0028D891Owner
-{
-public:
-	Bool testBit(Int bit) const;
-};
+#include "../../../Include/Common/Rva0028D891Owner.h"
 
 // Object::findSpecialAbilityUpdate(0x27) returns a record whose +0x20 sub-object answers
 // a flag in vtable slot 2.

@@ -52,11 +52,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
-class Rva0028D891Owner
-{
-public:
-	bool testBit(int bit) const;
-};
+#include "../../../../Include/Common/Rva0028D891Owner.h"
 
 class Rva0046AA11AsciiField
 {

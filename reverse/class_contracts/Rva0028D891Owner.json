@@ -1,0 +1,56 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0028D891Owner",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "896": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_pre",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 880,
+   "type": "uchar[880]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 880,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 896,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -13,11 +13,7 @@
 // caller bits 0x12-0x1A"). This body's two calls pass exactly those bits --
 // 0x12 and 0x13 -- so the call goes through that one name rather than giving
 // the address a second one.
-class Rva0028D891Owner
-{
-public:
-	bool testBit(int bit) const;
-};
+#include "../../Include/Common/Rva0028D891Owner.h"
 
 struct BfmeThingFDH
 {
