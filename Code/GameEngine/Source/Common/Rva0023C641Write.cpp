@@ -25,8 +25,11 @@
 #include <windows.h>
 
 // Retail calls the game's _mbscat import thunk through REL32. The /MD
-// mbstring.h declaration would call its IAT slot directly and changes bytes.
-extern "C" char *__cdecl _mbscat(char *dest, const char *src);
+// mbstring.h declaration would call its IAT slot directly and changes bytes,
+// so read <mbstring.h> without dllimport.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 
 // The four flags the donor clears, in its order (there +0xCF4, +0x1E and
 // the shadow volume/decal pair +0x64/+0x65); BFME 2's offsets are the
@@ -122,8 +125,8 @@ void Rva0023C641::rva0023D494()
 	}
 
 	strcpy(fileName, "TimingLog");
-	_mbscat(fileName, dateBuf);
-	_mbscat(fileName, ".csv");
+	_mbscat((unsigned char *)fileName, (const unsigned char *)dateBuf);
+	_mbscat((unsigned char *)fileName, (const unsigned char *)".csv");
 	m_file18 = fopen(fileName, "w");
 	rva0023C641("Full,TotalVerts/Skin/Sort,Less Fill,NoParticles,No Spawn-NoPart,Logic,Thing,Model,Kind,Side,DrawCalls All,DrawCalls NoPart-NoSpawn,DrawCalls NoSpawn\n");
 
