@@ -160,7 +160,7 @@ def main():
             if len(at) != 1:
                 add_match.fail(f"line {c['line']}: replace_rva 0x{old:08X} matches "
                                f"{len(at)} live rows; it retires exactly one")
-            if not add_match.replacement_scaffold(at[0], root):
+            if not add_match.replacement_scaffold(at[0], root, rows):
                 add_match.fail(
                     f"line {c['line']}: replace_rva 0x{old:08X} is {at[0]['name']} "
                     f"({at[0]['source']}), not an anonymous scaffold row",

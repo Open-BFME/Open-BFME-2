@@ -68,6 +68,38 @@ def generated_unwind_scaffold(row, root=None):
         return False
 
 
+SWEPT_NOTES = re.compile(r"gen-funclet;parent=([^;]+);object-symbol=\$L\d+")
+
+
+def swept_funclet_scaffold(row, rows=None):
+    """Recognize gen_small's swept funclets: the same anonymous generator output
+    as gen_uw's harness rows, minted straight into the parent's real TU.
+
+    `gen_small.py sweep-funclets` claims a ghidra funclet whose FuncInfo owner
+    is a matched ledger row and writes `uw_<rva>` at THAT row's source, so the
+    proof gen_uw takes from its own path and file header is here the parent
+    itself: the `parent=` name must still be a matched row of the same source,
+    which is the condition that let the generator mint the row (only a row
+    names a source whose object holds the `.text$x` symbols). Nothing in that
+    source spells the funclet -- the parent's own compilation emits it as an
+    associative COMDAT -- so a takeover renames a row and retires an
+    `object-symbol=` hatch without touching a body.
+
+    Keyed on the generator's exact notes, so prose appended by a worker who
+    recorded evidence against the row leaves it a real claim, to be retracted
+    in its own reviewable commit. Without `rows` the parent cannot be checked
+    and the row stays refused.
+    """
+    parent = SWEPT_NOTES.fullmatch(row["notes"])
+    if (rows is None or not parent or row["status"] != "matched"
+            or not re.fullmatch(r"uw_%08x(?:_r[1-9]\d*)?" % row["rva"], row["name"])
+            or row["source"].startswith(("Code/gen_asm/", "Code/gen_small/"))):
+        return False
+    source = row["source"].replace("\\", "/")
+    return any(other["status"] == "matched" and other["name"] == parent[1]
+               and other["source"].replace("\\", "/") == source for other in rows)
+
+
 def generated_gap_thunk_scaffold(row, root=None):
     source_match = re.fullmatch(r"Code/gen_small/gthunks_(\d{3})(?:_admitted)?\.cpp", row["source"])
     target_match = re.fullmatch(r"gen-thunk;gap;target=0x([0-9A-F]{8})", row["notes"])
@@ -104,15 +136,18 @@ def generated_gap_thunk_scaffold(row, root=None):
         return False
 
 
-def replacement_scaffold(row, root=None):
+def replacement_scaffold(row, root=None, rows=None):
     """A named takeover may retire only anonymous scaffolding.
 
     Import placeholders also yield, but their path, synthetic name and retail
     PE identity are proven together; a gen-import note cannot erase real code.
+    `rows` is the parsed ledger, which the swept-funclet kind needs to find the
+    parent that proves it.
     """
     if row["notes"].lstrip().startswith(("gen-dump", "gen-alias")):
         return True
-    if generated_unwind_scaffold(row, root) or generated_gap_thunk_scaffold(row, root):
+    if (generated_unwind_scaffold(row, root) or generated_gap_thunk_scaffold(row, root)
+            or swept_funclet_scaffold(row, rows)):
         return True
     import build
     import pe_imports
@@ -461,10 +496,10 @@ def main():
         # not authored C++: their real PE slot/DLL/export are checked below.
         # AGENTS.md: a gen-* placeholder yields to a real
         # name. Everything else is a real claim and must be retracted on its own.
-        if not replacement_scaffold(at_rva[0], root):
+        if not replacement_scaffold(at_rva[0], root, rows):
             fail(
                 f"--replace-rva 0x{old_rva:08X} is {at_rva[0]['name']} "
-                f"({at_rva[0]['source']}), not a gen-dump, gen-alias, generated unwind, verified gap-thunk or gen-import scaffold row",
+                f"({at_rva[0]['source']}), not a gen-dump, gen-alias, generated unwind, swept funclet, verified gap-thunk or gen-import scaffold row",
                 "only scaffolding may be taken over by name; retract a real claim "
                 "in its own commit so the retraction is reviewable",
             )
