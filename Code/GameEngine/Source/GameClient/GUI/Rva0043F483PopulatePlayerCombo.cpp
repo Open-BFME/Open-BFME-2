@@ -1,4 +1,5 @@
 // ?PopulatePlayerCombo@AptMpGameSetup@@QAEXH@Z
+// platformsdk
 // retail 0x0043F483, 1072 bytes, WB AptMpGameSetup::PopulatePlayerCombo.
 // Lever (W7-MP3 r8): eq3c equal-arm on TheWritableGlobalData->modeFlags closes the
 // full-body mismatch. Kept the existing address-derived ledger spelling.
@@ -15,6 +16,8 @@
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
+#include <mbstring.h>
+#include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -123,7 +126,6 @@ void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
 void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
 int Rva0043DDF8(int count);
 
-extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
 
 class Image;
 
@@ -319,7 +321,6 @@ struct MpGameSetupRules
 
 extern GameTextInterface *TheGameText;
 
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
 // Rva00511730Save.cpp's text entry helper.
 void Rva00511730(int value);
