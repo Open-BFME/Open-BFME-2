@@ -175,11 +175,7 @@ struct Rva00493251GameLogicView
 	int m_114;
 };
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 
 class BfmeTab1026;
 

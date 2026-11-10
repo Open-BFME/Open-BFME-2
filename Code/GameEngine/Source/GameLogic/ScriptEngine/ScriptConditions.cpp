@@ -396,11 +396,7 @@ extern AudioManager *TheAudio;
 // (BFME1 0x00324340, same BfmeConv939.cpp TU family). Only bfmeGo939D is
 // claimed here; the TU's siblings need their own identity passes.
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../Include/Common/BfmeGlob939D.h"
 extern class GameLogic *TheGameLogic;
 class GameInfo
 {

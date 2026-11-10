@@ -158,7 +158,7 @@ public:
 };
 inline BFMEAIUpdateInterface *bfmeGetAI(const Object *object) { return *(BFMEAIUpdateInterface **)((char *)object + 0x258); }
 inline ExperienceTracker *bfmeGetExperienceTracker(const Object *object) { return *(ExperienceTracker **)((char *)object + 0x264); }
-class BfmeGlob939D { public: char bfmeCall939D(); };
+#include "../../../../../Include/Common/BfmeGlob939D.h"
 #include "../../../../../Include/Common/PlayerList.h"
 #include "../../../../../Include/Common/MultiPlayMults.h"
 extern GameLogic *TheGameLogic;

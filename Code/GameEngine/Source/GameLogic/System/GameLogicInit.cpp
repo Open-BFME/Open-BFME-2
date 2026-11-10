@@ -2491,11 +2491,7 @@ public:
 	bool rva0023C666(void);
 };
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D(void);
-};
+#include "../../../Include/Common/BfmeGlob939D.h"
 
 class NetworkInterface
 {

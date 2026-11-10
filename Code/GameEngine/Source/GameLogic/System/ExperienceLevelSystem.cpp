@@ -229,11 +229,7 @@ ExperienceLevelHandle ExperienceLevelStore::GetNextLevel(ExperienceLevelHandle l
 // would not link, so the body lives here too (same pattern as
 // Rva00288940Find.cpp). No row: it claims no retail address.
 extern class GameLogic *TheGameLogic;
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../Include/Common/BfmeGlob939D.h"
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 struct Rva0028867DData
 {
