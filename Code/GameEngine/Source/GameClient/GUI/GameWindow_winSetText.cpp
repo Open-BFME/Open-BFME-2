@@ -26,17 +26,7 @@ typedef unsigned short wchar_t;
 
 class DisplayString;
 
-class WinInstanceData
-{
-public:
-	void setText(UnicodeString text);
-	void setTooltipText(UnicodeString text);
-
-private:
-	char m_pad[0x19C];
-	DisplayString *m_text;
-	DisplayString *m_tooltip;
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 class GameWindowCallback
 {

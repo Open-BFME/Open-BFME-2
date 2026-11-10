@@ -18,7 +18,7 @@ class Rva006E3E20Object {public:void rva006E3E20(void*,void*);};
 
 class Rva006D0280 {public:int m_useCount;int unused4;EAStringC name8;int typeC;int argument10;void*object14;void*buffer18;~Rva006D0280();};
 
-class Rva006DB270 {public:void freeBlock(void*,int);};
+#include "../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 

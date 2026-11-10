@@ -38,13 +38,7 @@ struct BfmeWideResultPayload
     int m_refCount;
 };
 
-struct BfmeWideResult
-{
-	void *m_value;
-	BfmeWideResult();
-	BfmeWideResult(const BfmeWideResult &that);
-	~BfmeWideResult();
-};
+#include "PartitionRangeQueryCallView.h"
 
 // The emitted payload destructor is independently exact at 0x0007FAB3,
 // already rowed as BasicStringCharDtor_dup; its _free call is native 0x30830.

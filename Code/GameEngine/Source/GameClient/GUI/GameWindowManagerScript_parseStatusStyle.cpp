@@ -33,13 +33,7 @@ extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
 extern "C" char *_mbscpy(char *, const char *);
 
-class WinInstanceData
-{
-public:
-	char m_pad[0x0C];
-	UnsignedInt m_style;  // +0x0C
-	UnsignedInt m_status;  // +0x10
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 // parseBitString is defined below (same TU). Static free function at
 // 0x00314D4D; the pin used to resolve it before conversion.
