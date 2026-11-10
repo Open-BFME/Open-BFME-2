@@ -43,14 +43,7 @@ struct TemporarilyDefectUpdateFields
 };
 
 // The +0x308 name setter, under the owner name its row (0x0029173E) carries.
-class Rva0029173EAsciiField
-{
-public:
-	void setName(AsciiString value);
-	char m_pad00[0x308];
-private:
-	AsciiString m_value; // +0x308
-};
+#include "../../../Include/Common/Rva0029173EAsciiField.h"
 
 class Object
 {
