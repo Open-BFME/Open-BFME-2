@@ -7,11 +7,7 @@
 // and the holder's inline destructor releases through the rowed 0x0053FA32.
 // Twin of 0x005421AA (0x64 bytes, copy ctor 0x00541F1F).
 class Rva0053F8E5DwordCounter;
-class Rva0053FA0A
-{
-public:
-	void release();
-};
+#include "../../Include/Common/Rva0053FA0A.h"
 
 struct Rva0053FC99Src
 {

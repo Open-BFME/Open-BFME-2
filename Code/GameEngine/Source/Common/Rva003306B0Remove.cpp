@@ -14,10 +14,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 
-class Rva0053FA0A {
-public:
-	void release();
-};
+#include "../../Include/Common/Rva0053FA0A.h"
 
 class CreateAHeroData : public Rva0053FA0A {
 };

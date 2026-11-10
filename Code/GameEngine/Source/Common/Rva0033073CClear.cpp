@@ -18,10 +18,7 @@ void **vector<void *>::end() { return this->_M_finish; }
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Rva0053FA0A {
-public:
-	void release();
-};
+#include "../../Include/Common/Rva0053FA0A.h"
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 

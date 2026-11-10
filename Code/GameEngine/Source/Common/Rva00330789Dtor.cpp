@@ -24,10 +24,7 @@ static __forceinline void releaseListStorage(void *storage)
 }
 #include <vector>
 
-class Rva0053FA0A {
-public:
-	void release();
-};
+#include "../../Include/Common/Rva0053FA0A.h"
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
