@@ -19,11 +19,7 @@
 class Drawable;
 class Player;
 
-class Rva001DFE56
-{
-public:
-	bool rva001DFE56(const void *required, const void *exempt) const;
-};
+#include "../../Include/Common/Rva001DFE56.h"
 
 class Object
 {

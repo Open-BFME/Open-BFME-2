@@ -75,7 +75,7 @@ public:
 
 struct ModuleData { void*vptr; int unknown04; AnimationSoundTree tree; float cap; };
 
-class Rva001DFE56 { public: bool rva001DFE56(const void*,const void*) const; };
+#include "../../../../Include/Common/Rva001DFE56.h"
 
 class Rva00432F23Node;
 

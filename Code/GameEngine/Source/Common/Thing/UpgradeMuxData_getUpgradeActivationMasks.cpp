@@ -75,11 +75,7 @@ extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 // TU-local views for the activation gate 0x004CB333 (retail-measured offsets).
 #include "../../../Include/Common/Rva001EAE6FHelper.h"
 
-class Rva001DFE56
-{
-public:
-	bool rva001DFE56(const void *required, const void *exempt) const;
-};
+#include "../../../Include/Common/Rva001DFE56.h"
 
 class Drawable
 {

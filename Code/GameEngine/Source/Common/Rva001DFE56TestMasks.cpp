@@ -7,11 +7,7 @@
 // and Rva00271C8ALoop (19-dword merge). Callers pass 76-byte masks at +0x28/+0x74 (0x003EDE16),
 // +0x118/+0x164 vs +0x258 (0x004CB333), +0x0C/+0x58 vs +0x258 (0x004CA328), +0x04/+0x50 array stride 0x9C (0x004CBE66).
 // Landing unblocks 0x004CBE66 0x004CB333 0x003EDE16 0x004CA328.
-class Rva001DFE56
-{
-public:
-	bool rva001DFE56(const void *required, const void *exempt) const;
-};
+#include "../../Include/Common/Rva001DFE56.h"
 
 bool Rva001DFE56::rva001DFE56(const void *required, const void *exempt) const
 {
