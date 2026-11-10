@@ -360,11 +360,7 @@ class Rva002E9ACC
 // A hierarchical path node list (rowed 0x002E6C79 gives the next node) whose
 // +0 points at a cell record: x, y, and at +0x0C a zone record whose +0x04
 // is kept.
-struct Rva002F35AFZone
-{
- Int m_00;
- Int m_04;
-};
+#include "../../../Include/Common/Rva002F35AFZone.h"
 #include "../../../Include/Common/Rva002F35AFCell.h"
 struct Rva002E8C23Param;
 Int Rva002E8C23Call(Int,unsigned char,Rva002E8C23Param *);

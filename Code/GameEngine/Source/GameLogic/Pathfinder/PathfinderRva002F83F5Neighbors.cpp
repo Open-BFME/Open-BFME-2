@@ -274,11 +274,7 @@ unsigned char m_1F;						// +0x1F
 unsigned char m_20;						// +0x20
 };
 
-struct Rva002F35AFZone
-{
-Int m_00;
-Int m_04;
-};
+#include "../../../Include/Common/Rva002F35AFZone.h"
 #include "../../../Include/Common/Rva002F35AFCell.h"
 #include "../../../Include/Common/Rva002E6C79.h"
 struct Rva002F35AFHop
