@@ -63,21 +63,21 @@ class ModuleData;
 
 static int s_vtable;
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7GarrisonContain@@6BB1@@@")[];
 
 static int s_secondary10;
 
 static int s_secondary20;
 
-static int s_secondary24;
+extern "C" const void *const __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@")[];
 
-static int s_secondary28;
+extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface28@@@")[];
 
-static int s_secondary2C;
+extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface2C@@@")[];
 
-static int s_secondary30;
+extern "C" const void *const __identifier("??_7CaveContain@@6BB7@@@")[];
 
-static int s_secondary34;
+extern "C" const void *const __identifier("??_7GarrisonContain@@6BB8@@@")[];
 
 class Xfer;
 
@@ -309,14 +309,14 @@ HealContain::HealContain(Thing *thing, const ModuleData *moduleData)
 	: OpenContain(thing, moduleData)
 {
 	*reinterpret_cast<const void **>(this) = &s_vtable;
-	m_p0C = &s_secondary0C;
+	m_p0C = __identifier("??_7GarrisonContain@@6BB1@@@");
 	m_p10 = &s_secondary10;
 	m_p20 = &s_secondary20;
-	m_p24 = &s_secondary24;
-	m_p28 = &s_secondary28;
-	m_p2C = &s_secondary2C;
-	m_p30 = &s_secondary30;
-	m_p34 = &s_secondary34;
+	m_p24 = __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@");
+	m_p28 = __identifier("??_7AODHordeContain@@6BIface28@@@");
+	m_p2C = __identifier("??_7AODHordeContain@@6BIface2C@@@");
+	m_p30 = __identifier("??_7CaveContain@@6BB7@@@");
+	m_p34 = __identifier("??_7GarrisonContain@@6BB8@@@");
 }
 
 // ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
