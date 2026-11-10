@@ -9,11 +9,7 @@
 // +0x258 holder per ObjectRva0028AC4EAccessors; flags from SSE sibling
 // ObjectRva0028B141. Honest address name on the proven Object class.
 
-class Rva002627E8
-{
-public:
-	float rva002627E8() const;
-};
+#include "../../../Include/GameLogic/Rva002627E8.h"
 
 struct Rva0028CECFTemplate
 {

@@ -264,11 +264,7 @@ public:
 	Real Get3DCenterDistanceSquared(const BfmeVec3EJ *pos) const;
 };
 
-class Rva002627E8
-{
-public:
-	Real rva002627E8() const;
-};
+#include "../../../../../Include/GameLogic/Rva002627E8.h"
 
 class Rva002CAAFA
 {
