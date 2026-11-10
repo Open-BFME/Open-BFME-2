@@ -257,7 +257,7 @@ void AI::reset()
 #include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRefWithChar { const AsciiString *m_string; char m_char; };
 struct AsciiStringCharPlusText : AsciiStringRefWithChar { Rva000B3F84Pair m_right; };
-struct Rva005D2F96S16 { int m0, m1, m2, m3; };
+#include "../../Include/Common/Rva005D2F96S16.h"
 struct Rva005D2F96Base24 { int m0, m1, m2, m3, m4, m5; };
 struct Rva005D2F96S24 : Rva005D2F96Base24 {};
 Rva000B3F84Pair __cdecl Rva00108B93Make(const char *text);

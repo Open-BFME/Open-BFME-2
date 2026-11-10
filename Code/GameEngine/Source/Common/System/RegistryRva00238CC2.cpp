@@ -14,10 +14,7 @@ struct Rva005F17C6S12
 	int m0, m1, m2;
 };
 #include "../../../Include/Common/AsciiStringPlusText.h"
-struct Rva005D2F96S16
-{
-	int m0, m1, m2, m3;
-};
+#include "../../../Include/Common/Rva005D2F96S16.h"
 struct Rva005F17C6S16 : Rva005D2F96S16
 {
 };

@@ -352,10 +352,7 @@ struct AsciiStringCharPlusText : AsciiStringRefWithChar
 	Rva000B3F84Pair m_right;
 };
 
-struct Rva005D2F96S16
-{
-	int m0, m1, m2, m3;
-};
+#include "../../../../../Include/Common/Rva005D2F96S16.h"
 
 struct Rva005D2F96Base24
 {
