@@ -173,11 +173,7 @@ extern GameLogic *TheGameLogic;
 // goes through a TU-local derivation so it resolves to the rowed body
 // instead of the unrowed GameLogic spelling.
 #include "../../../../../Include/Common/BfmeGlob939D.h"
-class Rva0023C902
-{
-public:
-	int rva0023C902();
-};
+#include "../../../../../Include/Common/Rva0023C902.h"
 // The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
 // to its vslot 3 (0x005CB265), both pinned (as in AptQuitMenuCallbacks.cpp).
 class Rva005CB260;

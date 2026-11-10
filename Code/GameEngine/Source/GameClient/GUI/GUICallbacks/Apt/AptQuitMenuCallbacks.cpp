@@ -58,11 +58,7 @@ public:
 extern GameLogic *TheGameLogic;
 
 // The rowed check 0x0023C902 on the same object.
-class Rva0023C902
-{
-public:
-	int rva0023C902();
-};
+#include "../../../../../Include/Common/Rva0023C902.h"
 
 // The rowed bool field reader 0x00210C66 on the same object.
 class Rva00210C66CmpBoolField

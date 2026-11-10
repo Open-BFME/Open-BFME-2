@@ -117,11 +117,7 @@ extern ScienceStore *TheScienceStore;
 // 0x0023C902 check.
 extern GameLogic *TheGameLogic;
 
-class Rva0023C902
-{
-public:
-	int rva0023C902();
-};
+#include "../../../Include/Common/Rva0023C902.h"
 
 class Rva005CB260;
 

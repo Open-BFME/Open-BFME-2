@@ -12,7 +12,7 @@
 
 #include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class Rva0023C902 { public: int rva0023C902(); };
+#include "../../../../../Include/Common/Rva0023C902.h"
 #include "../../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class GameWindowTransitionsHandler { public: bool isFinished(); };
