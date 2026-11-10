@@ -14,16 +14,23 @@ private:
 	char m_pad[4];
 };
 
+class Rva005DDE01;
+class UserPreferences;
+
+// Retail table 0x008743B8: deleting destructor plus two pure slots.
 class Rva005C1860
 {
 public:
 	virtual ~Rva005C1860() {}
+	virtual void slot1(Rva005DDE01 *table) = 0;
+	virtual UserPreferences *slot2() = 0;
 };
 
 class Rva005C18F0 : public Rva005C1860
 {
 public:
 	virtual ~Rva005C18F0();
+	virtual UserPreferences *slot2();
 private:
 	char m_pad04[4];
 	ProfilePreferences m_08;
@@ -50,6 +57,7 @@ class Rva005C1980 : public Rva005C1860
 {
 public:
 	virtual ~Rva005C1980();
+	virtual UserPreferences *slot2();
 private:
 	char m_pad04[4];
 	ProfilePreferences m_08;

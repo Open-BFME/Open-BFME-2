@@ -338,11 +338,16 @@ void *bfmeAnchorRva005B253F(void *where, void *p)
 
 
 // ??0Rva005C1860@@QAE@PAX@Z @0x005C1860 18B, vtable VA 0xc743b8
+// Retail table: deleting destructor 0x005C1879 plus two pure slots.
+class Rva005DDE01;
+class UserPreferences;
 class Rva005C1860
 {
 public:
 	Rva005C1860(void *payload);
 	virtual ~Rva005C1860() {}
+	virtual void slot1(Rva005DDE01 *table) = 0;
+	virtual UserPreferences *slot2() = 0;
 private:
 	void *m_04;
 };
