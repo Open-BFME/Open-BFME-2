@@ -29,9 +29,9 @@ extern "C" void _ReadWriteBarrier( void );
 extern const void *const g_00CE3018[36];
 extern const void *const g_00CE3010[1];
 extern const void *const g_00CE3008[2];
-static int BfmeThingDGDChildVTableAnchorIn;
-static int BfmeThingDGDChildVTableAnchorOut;
-static int BfmeThingDGDBaseVTableAnchor;
+extern "C" char __identifier("??_7Rva007F6D60Child@@6B@");
+extern "C" char __identifier("??_7Rva00663530@@6B@");
+extern "C" char __identifier("??_7Rva00663550@@6B@");
 
 class Rva00803080
 {
@@ -126,12 +126,12 @@ struct Rva007F6D60Child
 {
 	~Rva007F6D60Child()
 	{
-		m_vftable = (unsigned)&BfmeThingDGDChildVTableAnchorIn;
+		m_vftable = (unsigned)&__identifier("??_7Rva007F6D60Child@@6B@");
 		m_08 = 0;
 		m_chain3C.m();
 		m_chain2C.m();
 		m_buffer1C.reset();
-		m_vftable = (unsigned)&BfmeThingDGDChildVTableAnchorOut;
+		m_vftable = (unsigned)&__identifier("??_7Rva00663530@@6B@");
 	}
 
 	unsigned m_vftable;									///< child+0x00
@@ -149,7 +149,7 @@ struct Rva007F6D60Child
 class Rva007F8090Base
 {
 public:
-	~Rva007F8090Base() { m_v0 = (unsigned)&BfmeThingDGDBaseVTableAnchor; }
+	~Rva007F8090Base() { m_v0 = (unsigned)&__identifier("??_7Rva00663550@@6B@"); }
 
 	unsigned m_v0;
 	unsigned m_v4;

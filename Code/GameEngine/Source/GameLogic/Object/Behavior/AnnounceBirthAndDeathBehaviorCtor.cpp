@@ -11,7 +11,7 @@
 class Thing;
 class ModuleData;
 
-static int s_first18;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
@@ -44,7 +44,7 @@ public:
 AnnounceBirthAndDeathBehavior::AnnounceBirthAndDeathBehavior(Thing *thing, const ModuleData *moduleData)
 	: CreateModule(thing, moduleData)
 {
-	*(const void * volatile *)&m_p18 = &s_first18;
+	*(const void * volatile *)&m_p18 = &__identifier("??_7Rva003F498ACallback@@6B@");
 	m_vtable = &s_vtable;
 	m_p0C = &s_secondary0C;
 	m_p10 = &s_secondary10;

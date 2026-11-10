@@ -4,7 +4,7 @@
 // its own vtable VA as a literal, which cannot transfer. The address of a
 // sacrificial anchor stands in (mov-imm-DIR32, patched from retail); a plain
 // extern would load through a register and reschedule the stores.
-static int Rva0081C2F0VTableAnchor;
+extern "C" char __identifier("??_7BfmeBaseCC@@6B@");
 
 class Rva0081C2F0
 {
@@ -21,7 +21,7 @@ public:
 Rva0081C2F0 &Rva0081C2F0::set(int n)
 {
 	m_20 = 1.0f;
-	m_vt = (void *)&Rva0081C2F0VTableAnchor;
+	m_vt = (void *)&__identifier("??_7BfmeBaseCC@@6B@");
 	m_04 = 0;
 	m_08 = 0;
 	m_width = 0;

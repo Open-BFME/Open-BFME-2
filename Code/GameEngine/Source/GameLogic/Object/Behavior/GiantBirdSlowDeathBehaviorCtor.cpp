@@ -13,11 +13,11 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
-static int s_secondary24;
+extern "C" char __identifier("??_7Rva00461EEB@@6BRva0045D39E_Root@@@");
+extern "C" char __identifier("??_7Rva0045D39E@@6BBehaviorModuleInterface@@@");
+extern "C" char __identifier("??_7Rva00461EEB@@6BRva0045D39E_B2@@@");
+extern "C" char __identifier("??_7ClearanceTestingSlowDeathBehavior@@6BClearanceTestingSlowDeathBehaviorIface3@@@");
+extern "C" char __identifier("??_7Rva00461EEB@@6BRva0045D39E_E2@@@");
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -56,11 +56,11 @@ GiantBirdSlowDeathBehavior::GiantBirdSlowDeathBehavior(Thing *thing, const Modul
 	: SlowDeathBehavior(thing, moduleData)
 {
 	m_50 = 0;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
-	m_p24 = &s_secondary24;
+	m_vtable = &__identifier("??_7Rva00461EEB@@6BRva0045D39E_Root@@@");
+	m_p0C = &__identifier("??_7Rva0045D39E@@6BBehaviorModuleInterface@@@");
+	m_p10 = &__identifier("??_7Rva00461EEB@@6BRva0045D39E_B2@@@");
+	m_p20 = &__identifier("??_7ClearanceTestingSlowDeathBehavior@@6BClearanceTestingSlowDeathBehaviorIface3@@@");
+	m_p24 = &__identifier("??_7Rva00461EEB@@6BRva0045D39E_E2@@@");
 	m_60 = 0.0f;
 	m_64 = 0;
 }

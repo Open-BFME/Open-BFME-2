@@ -16,8 +16,8 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_first0C;
-static int s_first10;
+extern "C" char __identifier("??_7Rva00588FFAIface10@@6B@");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" const void *const __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BRva004CC0FEPrimary@@@")[];  // vftable 0x00C5F458
 extern "C" const void *const __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary0C@@@")[];  // vftable 0x00C5F450
 extern "C" const void *const __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary10@@@")[];  // vftable 0x00C5F44C
@@ -50,8 +50,8 @@ private:
 ModelConditionAudioLoopClientBehavior::ModelConditionAudioLoopClientBehavior(Thing *thing, const ModuleData *moduleData)
 	: Rva00252B68(thing, moduleData)
 {
-	*(const void * volatile *)&m_p0C = &s_first0C;
-	*(const void * volatile *)&m_p10 = &s_first10;
+	*(const void * volatile *)&m_p0C = &__identifier("??_7Rva00588FFAIface10@@6B@");
+	*(const void * volatile *)&m_p10 = &__identifier("??_7Rva003F498ACallback@@6B@");
 	_ReadWriteBarrier();
 	m_vtable = __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BRva004CC0FEPrimary@@@");
 	m_p0C = __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary0C@@@");

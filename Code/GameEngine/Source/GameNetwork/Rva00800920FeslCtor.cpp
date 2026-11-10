@@ -13,6 +13,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
 extern int vftable_0112B89C;
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
 extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
 
@@ -72,7 +73,7 @@ class Rva00800920Sec
 public:
 	Rva00800920Sec()
 	{
-		*(int *)this = (int)&vftable_0112B89C;
+		*(int *)this = (int)&__identifier("??_7Rva003F498ACallback@@6B@");
 	}
 	virtual void v0();
 };

@@ -12,12 +12,12 @@
 class Thing;
 class ModuleData;
 
-static int s_first1C;
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary18;
-static int s_second1C;
+extern "C" char __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
+extern "C" char __identifier("??_7Rva004B5D0B@@6BObjectModule@@@");
+extern "C" char __identifier("??_7CostModifierUpgrade@@6BBehaviorModuleInterface@@@");
+extern "C" char __identifier("??_7Rva004B5D0B@@6BUpgradeMux@@@");
+extern "C" char __identifier("??_7AODHordeContain@@6BIface2C@@@");
+extern "C" char __identifier("??_7Rva004B5D0B@@6B@");
 
 // Opaque UpgradeModule base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -50,11 +50,11 @@ private:
 SpellRechargeModifierUpgrade::SpellRechargeModifierUpgrade(Thing *thing, const ModuleData *moduleData)
 	: UpgradeModule(thing, moduleData)
 {
-	*(const void * volatile *)&m_p1C = &s_first1C;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p18 = &s_secondary18;
-	m_p1C = &s_second1C;
+	*(const void * volatile *)&m_p1C = &__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
+	m_vtable = &__identifier("??_7Rva004B5D0B@@6BObjectModule@@@");
+	m_p0C = &__identifier("??_7CostModifierUpgrade@@6BBehaviorModuleInterface@@@");
+	m_p10 = &__identifier("??_7Rva004B5D0B@@6BUpgradeMux@@@");
+	m_p18 = &__identifier("??_7AODHordeContain@@6BIface2C@@@");
+	m_p1C = &__identifier("??_7Rva004B5D0B@@6B@");
 	m_20 = 1;
 }

@@ -20,7 +20,7 @@ public:
 
 // Rva003AE03D_v0: matched references place it at VA 0xc1b5e0 (retail .rdata value 112).
 extern "C" char Rva003AE03D_v0 = 112;
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // Rva003AE03D_v0C: matched references place it at VA 0xc1b5d0 (retail .rdata value 72).
 extern "C" char Rva003AE03D_v0C = 72;
 
@@ -44,6 +44,6 @@ Rva003AE03D::Rva003AE03D(const Rva003AE03D &that)
 	((Rva003AE07D *)((char *)this + 0x0C))->Rva003AE07D::Rva003AE07D(*(const Rva003AE07D *)poly_src);
 	*(void **)((char *)this + 0x0C) = &Rva003AE03D_v0C;
 	*(void **)this = &Rva003AE03D_v0;
-	*(void **)((char *)this + 8) = &__identifier("?vftable_0112B89C@@3HA");
+	*(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
-// _Rva003AE03D_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _Rva003AE03D_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.

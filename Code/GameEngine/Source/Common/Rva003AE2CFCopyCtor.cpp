@@ -15,7 +15,7 @@ public: Rva003AE315(const Rva003AE315 &that);
 };
 
 extern "C" char Rva003AE2CF_v0;
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" char Rva003AE2CF_v10;
 
 class Rva003AE2CF : public Rva003AE13C {
@@ -33,8 +33,8 @@ Rva003AE2CF::Rva003AE2CF(const Rva003AE2CF &that)
 	Rva003AE315 *sub = (Rva003AE315 *)((char *)this + 0x10);
 	sub->Rva003AE315::Rva003AE315(*(const Rva003AE315 *)sub_src);
 	*(void **)this = &Rva003AE2CF_v0;
-	*(void **)((char *)this + 8) = &__identifier("?vftable_0112B89C@@3HA");
+	*(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
 	*(void **)sub = &Rva003AE2CF_v10;
 	*(unsigned char *)((char *)this + 0x20) = *(const unsigned char *)((const char *)src + 0x20);
 }
-// _Rva003AE2CF_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _Rva003AE2CF_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.

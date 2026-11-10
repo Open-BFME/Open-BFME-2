@@ -22,7 +22,7 @@ public:
 
 // The tables are retail's exported names, at retail's addresses (reverse/exports.csv).
 extern "C" const void *const __identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@")[];
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" const void *const __identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6B@")[];
 
 class ButterflyDrawModuleTemplate
@@ -49,7 +49,7 @@ ButterflyDrawModuleTemplate::ButterflyDrawModuleTemplate(
 	// Sub vtbl then outer dual vtbls (retail store order).
 	*(void **)sub = (void *)__identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6B@");
 	m_v0 = (void *)__identifier("??_7ButterflyDrawModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@");
-	m_v4 = &__identifier("?vftable_0112B89C@@3HA");
+	m_v4 = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
 }
-// _ButterflyDrawModuleTemplate_cvtbl4: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _ButterflyDrawModuleTemplate_cvtbl4: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.

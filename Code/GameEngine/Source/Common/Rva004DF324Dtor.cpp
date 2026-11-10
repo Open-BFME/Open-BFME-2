@@ -41,7 +41,7 @@ private:
 	PoolMember m_mem24;
 };
 
-static int s_0C; // The separate folded table at RVA 0x007EFF90 remains debt.
+extern "C" char __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"); // The separate folded table at RVA 0x007EFF90 remains debt.
 
 // Retail's secondary table at RVA 0x0086157C has three entries before the
 // primary table at 0x00861588. Keep the existing inventory symbol, but own
@@ -61,7 +61,7 @@ extern const void *const s_10[3] = {
 
 Rva004DF324::~Rva004DF324()
 {
-	m_p0C = &s_0C;
+	m_p0C = &__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = &s_10;
 	m_mem24.Rva00268902();
 }

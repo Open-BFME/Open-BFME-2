@@ -13,7 +13,7 @@ public:
 };
 
 extern "C" char __identifier("??_7Rva005EA430@@6BV3Vt01111D90@@@");
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 class Rva003AE13C
 {
@@ -36,9 +36,9 @@ Rva003AE13C::Rva003AE13C(const Rva003AE13C &that)
 	unsigned char flag = *(const unsigned char *)flag_src;
 	*(unsigned char *)((char *)this + 0x0C) = flag;
 	*(void **)this = &__identifier("??_7Rva005EA430@@6BV3Vt01111D90@@@");
-	*(void **)((char *)this + 8) = &__identifier("?vftable_0112B89C@@3HA");
+	*(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
-// _Rva003AE13C_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _Rva003AE13C_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

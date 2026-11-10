@@ -15,9 +15,9 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" char __identifier("??_7Rva004AE1AC@@6BRva00451F45_Root@@@");
+extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+extern "C" char __identifier("??_7Rva004AE1AC@@6BRva00451F45_B2@@@");
 static int s_secondary20;
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
@@ -53,8 +53,8 @@ ToggleHiddenSpecialAbilityUpdate::ToggleHiddenSpecialAbilityUpdate(Thing *thing,
 {
 	m_88 = 0;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = &__identifier("??_7Rva004AE1AC@@6BRva00451F45_Root@@@");
+	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = &__identifier("??_7Rva004AE1AC@@6BRva00451F45_B2@@@");
 	m_p20 = &s_secondary20;
 }

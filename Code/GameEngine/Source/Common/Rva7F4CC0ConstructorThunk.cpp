@@ -1,6 +1,6 @@
 // The BFME1 donor baked its table VA as a literal, which cannot transfer:
 // the address of a sacrificial anchor stands in (mov-imm-DIR32, patched).
-static int Rva7F4CC0TableAnchor;
+extern "C" char __identifier("??_7Rva00808CB0LanGameEntry@@6B@");
 
 struct Rva7F4CC0Child
 {
@@ -10,7 +10,7 @@ struct Rva7F4CC0Child
 		second = 0;
 		third = 0;
 		first = 0;
-		table = (unsigned int)&Rva7F4CC0TableAnchor;
+		table = (unsigned int)&__identifier("??_7Rva00808CB0LanGameEntry@@6B@");
 	}
 
 	volatile unsigned int table;

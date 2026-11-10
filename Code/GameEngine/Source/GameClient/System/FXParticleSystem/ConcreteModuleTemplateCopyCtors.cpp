@@ -60,7 +60,7 @@ extern "C" char Rva003AEF6E_v1c = -64;
 extern "C" char __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@");
 // The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // The compiler table the data ledger binds at this address:
 extern "C" const void *const __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@")[4];
 
@@ -156,10 +156,10 @@ Rva003AED3E::Rva003AED3E(const Rva003AED3E &that)
 	((Rva003AED6B *)this)->Rva003AED6B::Rva003AED6B(*(const Rva003AED6B *)src);
 	*(void **)this = &__identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@");
 	*(void **)((char *)this + 0x14) = &__identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
-	*(void **)((char *)this + 0x18) = &__identifier("?vftable_0112B89C@@3HA");
+	*(void **)((char *)this + 0x18) = &__identifier("??_7Rva003F498ACallback@@6B@");
 	*(const void **)((char *)this + 0x1C) = __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50WindInfoBase@1@@");
 }
-// _Rva003AED3E_v18: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _Rva003AED3E_v18: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

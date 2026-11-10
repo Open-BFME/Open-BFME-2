@@ -519,11 +519,11 @@ extern "C"
 #pragma intrinsic(_ReadWriteBarrier)
 }
 
-static int s_slotBase;
+extern "C" char __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 
 static int s_vtable;
 
-static int s_secondary10;
+extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 
 // The data ledger assigns these provisional table symbols to ModuleUpdateDtors.
 // Share those definitions rather than allocating another datum for each table.
@@ -788,12 +788,12 @@ void Rva004ADBD7::rva004ADBD7()
 ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_slotBase = &s_slotBase;
+	m_slotBase = &__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	_ReadWriteBarrier();
 	m_slotBase = &s_dummy5188;
 	*(const void **)this = &s_vtable;
 	*(const void **)((char *)this + 0x0C) = s_dummy62D8;
-	*(const void **)((char *)this + 0x10) = &s_secondary10;
+	*(const void **)((char *)this + 0x10) = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	*(const void **)((char *)this + 0x20) = &s_dummy5198;
 	flag8C = false;
 }

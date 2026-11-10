@@ -22,7 +22,7 @@ public:
 // Rva0056224FCtor.cpp emits for Rva00562366; the data ledger binds both names
 // at those addresses.
 extern "C" char __identifier("??_7Rva00562366@@6BRva003ADFDBPrimary@@@");
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 extern "C" char __identifier("??_7Rva00562366@@6B@");
 
 class Rva003AE1CD
@@ -45,6 +45,6 @@ Rva003AE1CD::Rva003AE1CD(const Rva003AE1CD &that)
 	((Rva005EA0D0 *)((char *)this + 0x0C))->Rva005EA0D0::Rva005EA0D0(*(const Rva005EA0D0 *)poly_src);
 	*(void **)((char *)this + 0x0C) = &__identifier("??_7Rva00562366@@6B@");
 	*(void **)this = &__identifier("??_7Rva00562366@@6BRva003ADFDBPrimary@@@");
-	*(void **)((char *)this + 8) = &__identifier("?vftable_0112B89C@@3HA");
+	*(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
-// _Rva003AE1CD_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _Rva003AE1CD_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.

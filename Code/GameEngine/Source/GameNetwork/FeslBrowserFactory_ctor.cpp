@@ -10,8 +10,8 @@
 
 #include <new>
 
-static int Rva00803890SecondaryVTableAnchor;
-static int Rva00803890PrimaryVTableAnchor;
+extern "C" char __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
+extern "C" char __identifier("??_7Rva00803890Owner@@6B@");
 // Shared with the destructor; keep the data ledger's C symbol spelling.
 extern "C" {
 void __identifier("?forward0@Rva0066F5F0Secondary@@QAEXXZ")();
@@ -55,7 +55,7 @@ class Rva00803890Secondary
 public:
 	Rva00803890Secondary()
 	{
-		*(int *)this = (int)&Rva00803890SecondaryVTableAnchor;
+		*(int *)this = (int)&__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	}
 
 	virtual void v0();
@@ -80,7 +80,7 @@ public:
 
 Rva00803890Owner::Rva00803890Owner( unsigned char flag, BfmeOwnerUNC *owner )
 {
-	*(int *)this = (int)&Rva00803890PrimaryVTableAnchor;
+	*(int *)this = (int)&__identifier("??_7Rva00803890Owner@@6B@");
 	*(int *)( (char *)this + 4 ) = (int)&Rva00803890SecondaryFinalVTableAnchor;
 	m_registry = 0;
 	m_peer = 0;

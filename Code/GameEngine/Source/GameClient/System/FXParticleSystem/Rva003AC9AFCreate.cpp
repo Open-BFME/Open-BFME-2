@@ -22,9 +22,9 @@
 // (Rva003A59C3Ctor.cpp), vtables 0x00C1CED8/0x00C1BFB4/0x00C1CEC8.
 struct Src0055F840;
 
-static int s_vtable00;
-static int s_vtable08;
-static int s_vtable0C;
+extern "C" char __identifier("??_7Rva003ADEFB@@6BV3Vt01111D90@@@");
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
+extern "C" char __identifier("??_7Rva003ADEFB@@6B@");
 
 class Rva003ADFB2
 {
@@ -44,9 +44,9 @@ public:
 	__forceinline Rva003AC9AFModule(unsigned int arg, Src0055F840 &src)
 		: Rva003ADFB2(arg, src)
 	{
-		m_vtable00 = &s_vtable00;
-		m_vtable08 = &s_vtable08;
-		m_vtable0C = &s_vtable0C;
+		m_vtable00 = &__identifier("??_7Rva003ADEFB@@6BV3Vt01111D90@@@");
+		m_vtable08 = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@");
+		m_vtable0C = &__identifier("??_7Rva003ADEFB@@6B@");
 	}
 };
 
@@ -79,9 +79,12 @@ struct ColorModuleTemplate;
 struct LifeInput413D;
 struct Rva003A59C3Src;
 
-static int s_vt93E_00, s_vt93E_08, s_vt93E_0C;
-static int s_vtA24_00, s_vtA24_08, s_vtA24_10;
-static int s_vtD03B_00, s_vtD03B_08, s_vtD03B_0C;
+static int s_vt93E_00, s_vt93E_0C;
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
+static int s_vtA24_00, s_vtA24_10;
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$07@1@@");
+static int s_vtD03B_00, s_vtD03B_0C;
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
 
 class Rva0055BCF1
 {
@@ -101,7 +104,7 @@ public:
 		: Rva0055BCF1(arg, src)
 	{
 		m_vtable00 = &s_vt93E_00;
-		m_vtable08 = &s_vt93E_08;
+		m_vtable08 = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
 		m_vtable0C = &s_vt93E_0C;
 	}
 };
@@ -139,7 +142,7 @@ public:
 		: Rva003AE0D5(arg, src)
 	{
 		m_vtable00 = &s_vtA24_00;
-		m_vtable08 = &s_vtA24_08;
+		m_vtable08 = &__identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$07@1@@");
 		m_vtable10 = &s_vtA24_10;
 	}
 };
@@ -176,7 +179,7 @@ public:
 		: Rva003A59C3(arg, src)
 	{
 		m_vtable00 = &s_vtD03B_00;
-		m_vtable08 = &s_vtD03B_08;
+		m_vtable08 = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
 		m_vtable0C = &s_vtD03B_0C;
 	}
 };

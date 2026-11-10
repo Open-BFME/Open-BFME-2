@@ -17,7 +17,7 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_first14;
+extern "C" char __identifier("??_7Rva002B0F3CIface@@6B@");
 extern "C" const void *const __identifier("??_7DamageFilteredCreateObjectDie@@6BObjectModule@@@")[];  // vftable 0x00C4AB54
 extern "C" const void *const __identifier("??_7DamageFilteredCreateObjectDie@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C4AA98
 extern "C" const void *const __identifier("??_7DamageFilteredCreateObjectDie@@6BDieModule@@@")[];  // vftable 0x00C4AA90
@@ -51,7 +51,7 @@ public:
 DamageFilteredCreateObjectDie::DamageFilteredCreateObjectDie(Thing *thing, const ModuleData *moduleData)
 	: DieModule(thing, moduleData)
 {
-	*(const void * volatile *)&m_p14 = &s_first14;
+	*(const void * volatile *)&m_p14 = &__identifier("??_7Rva002B0F3CIface@@6B@");
 	_ReadWriteBarrier();
 	m_18 = 0;
 	m_1C |= -1;

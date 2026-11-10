@@ -185,9 +185,9 @@ public:
 	Rva003623E5Filter m_attributeModifierAffects;		// +0xD8
 };
 
-static int s_dummy0C;
+extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 
-static int s_dummy10;
+extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 
 static int s_dummy20;
 
@@ -233,8 +233,8 @@ private:
 DominateEnemySpecialPower::DominateEnemySpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummy20;
 }
 

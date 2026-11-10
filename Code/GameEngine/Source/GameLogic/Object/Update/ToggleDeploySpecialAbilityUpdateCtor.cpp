@@ -11,9 +11,9 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" char __identifier("??_7Rva004AE4E2@@6B@");
+extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 
 // The data ledger assigns the +0x20 table symbol (0x00855348) to
 // ModuleUpdateDtors; share that definition rather than allocating a second datum.
@@ -49,8 +49,8 @@ private:
 ToggleDeploySpecialAbilityUpdate::ToggleDeploySpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = &__identifier("??_7Rva004AE4E2@@6B@");
+	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummy5348;
 }

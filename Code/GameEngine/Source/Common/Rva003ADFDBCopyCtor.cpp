@@ -30,7 +30,7 @@ extern const void *const g_00C1D294[11] = {
 	(const void *)&__identifier("_purecall"), // slot 9 0x0003B810
 	(const void *)&__identifier("_purecall"), // slot 10 0x0003B810
 };
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
+extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 
 class Rva003ADFDB
 {
@@ -48,7 +48,7 @@ Rva003ADFDB::Rva003ADFDB(const Rva003ADFDB &that)
 	const void *src = &that;
 	((Rva005EA430 *)this)->Rva005EA430::Rva005EA430(*(const Rva005EA430 *)src);
 	*(const void **)this = g_00C1D294;
-	*(void **)((char *)this + 8) = &__identifier("?vftable_0112B89C@@3HA");
+	*(void **)((char *)this + 8) = &__identifier("??_7Rva003F498ACallback@@6B@");
 }
 
 // ??0Rva003ADEBF@@QAE@ABV0@@Z, retail 0x003ADEBF, 31 bytes. Same 31B derived
@@ -75,7 +75,7 @@ Rva003ADEBF::Rva003ADEBF(const Rva003ADEBF &that)
 	*(void **)this = &Rva003ADEBF_v0;
 	*(void **)((char *)this + 8) = &Rva003ADEBF_v8;
 }
-// _Rva003ADFDB_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
+// _Rva003ADFDB_v8: the global at VA 0xc1c780 is ??_7Rva003F498ACallback@@6B@.
 // _Rva003ADEBF_v8: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
 #pragma comment(linker, "/alternatename:_Rva003ADEBF_v8=?vftable_0112B89C@@3HA")
 
