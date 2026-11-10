@@ -104,13 +104,15 @@ Rva00459553::~Rva00459553()
 {
 }
 
-class Rva0047FE25_E1
+// ShareExperienceBehavior's interface at +0x20, as ShareExperienceBehavior.cpp
+// declares it (retail table 0x00C485AC: rva00480093 0x00480093).
+class ShareExperienceBehaviorInterface
 {
 public:
-	virtual void fe();
+	virtual void rva00480093(float value) = 0;
 };
 
-class Rva0047FE25 : public UpdateModule, public Rva0047FE25_E1
+class Rva0047FE25 : public UpdateModule, public ShareExperienceBehaviorInterface
 {
 public:
 	virtual ~Rva0047FE25();
