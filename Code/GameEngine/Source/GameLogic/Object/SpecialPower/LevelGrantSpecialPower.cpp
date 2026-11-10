@@ -41,13 +41,7 @@ class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002614DFFilter.h"
 #include "../../../../Include/GameLogic/Rva002614ECFilter.h"
 #include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

@@ -40,13 +40,7 @@ struct Rva0006EE7A : public BitFlags<69>
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00C07190, allow 0x002614DF.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002614DFFilter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,

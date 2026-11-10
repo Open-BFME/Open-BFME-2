@@ -17,13 +17,7 @@ class Object;
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.
 // vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002614DFFilter.h"
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
 // relationship flags and whether a hit allows.
 #include "../../../../Include/GameLogic/Rva00260EB1Filter.h"

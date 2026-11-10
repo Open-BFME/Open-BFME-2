@@ -46,13 +46,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../Include/GameLogic/Rva002611BFFilter.h"
 
 // vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../Include/GameLogic/Rva002614DFFilter.h"
 
 // vftable 0x00C17F08, allow 0x0026118B: no members of its own.
 class Rva0026118BFilter : public Rva000421C8

@@ -42,13 +42,7 @@ public:
 	bool m_flag;
 };
 // vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../../Include/GameLogic/Rva002614DFFilter.h"
 // vftable 0x00C53D18, allow 0x00261C72: no members of its own.
 class Rva00261C72Filter : public Rva000421C8
 {

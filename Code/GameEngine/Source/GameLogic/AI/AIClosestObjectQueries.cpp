@@ -79,13 +79,7 @@ public:
 #include "../../../Include/GameLogic/Rva002611BFFilter.h"
 
 // vftable 0x00C07190, allow 0x002614DF.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../Include/GameLogic/Rva002614DFFilter.h"
 
 // vftable 0x00C07150, allow 0x002619C1.
 class Rva002619C1Filter : public Rva000421C8

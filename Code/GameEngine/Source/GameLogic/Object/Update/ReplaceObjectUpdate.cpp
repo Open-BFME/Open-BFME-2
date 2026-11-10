@@ -71,13 +71,7 @@ class FXList;
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002614DFFilter.h"
 
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
 // player, +0x10 whether a hit allows.
