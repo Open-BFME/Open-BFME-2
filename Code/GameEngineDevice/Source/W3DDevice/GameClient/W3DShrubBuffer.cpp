@@ -509,7 +509,7 @@ struct BreezeInfo;
 class ScriptEngine;
 class PlayerList;
 enum ObjectShroudStatus { SHROUD_STATUS_A = 0 };
-class Rva00203ACEByteField { public: unsigned char get() const; };
+#include "../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 class Rva00203B08 { public: bool rva0020424FF(); };
 class Rva00739800 { public: ObjectShroudStatus rva00739800(int, const Coord3D *) const; };
 class Rva000EC9C6 { public: void rva000E663B(int); };

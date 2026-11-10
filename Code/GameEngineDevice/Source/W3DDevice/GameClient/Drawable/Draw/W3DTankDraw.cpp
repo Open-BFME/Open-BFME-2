@@ -410,11 +410,7 @@ public:
 	bool rva0020424FF();
 };
 
-class Rva00203ACEByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 
 class ScriptEngine;
 
