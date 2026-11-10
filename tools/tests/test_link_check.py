@@ -833,3 +833,71 @@ def test_the_summary_line_other_tools_parse_is_unchanged(capsys):
     first = capsys.readouterr().out.splitlines()[0]
     assert first == "Code/a.cpp: does not link  LINKED 0 -> 0 bytes (census d at c; file's own bytes 10)"
 
+
+
+# ---------------------------------------------------------------------------
+# A verdict is only as fresh as the index. Four open tu_skeleton false-reject
+# records are a phantom: a unit a later split DELETED is still in the index, so
+# the rows that moved into the absorbing TU read as duplicates, and a unit added
+# since is missing as a provider ("no longer defines"). Each record names an
+# index commit older than the split it tripped over. Checked against the live
+# tree, every one of those duplicates is now a single row in the merged TU and
+# the residual files are gone, so nothing was ever wrong with the files.
+
+def _stale(monkeypatch, status_lines, contains=True, code=0):
+    from types import SimpleNamespace
+    monkeypatch.setattr(C, "contains", lambda commit, ref="HEAD": contains)
+    monkeypatch.setattr(C.subprocess, "run",
+                        lambda *a, **k: SimpleNamespace(returncode=code,
+                                                        stdout="\n".join(status_lines)))
+    return C.index_staleness({"date": "2026-11-01 00:00", "commit": "abcdef1234"})
+
+
+def test_a_deleted_or_added_source_since_the_index_is_reported(monkeypatch):
+    got = _stale(monkeypatch, ["D\tCode/GameEngine/Source/Common/Rva00282B26.cpp",
+                               "A\tCode/GameEngine/Source/Map/New.cpp"])
+    assert got and "2 source file(s)" in got
+    assert "abcdef1234" in got and "2026-11-01 00:00" in got
+    assert "--update-index" in got
+    # names both artefacts, because the records hit both
+    assert "duplicates" in got and "no longer defines" in got
+
+
+def test_a_rename_counts_through_its_destination(monkeypatch):
+    got = _stale(monkeypatch, ["R100\tCode/a/Old.cpp\tCode/b/New.cpp"])
+    assert got and "1 source file(s)" in got
+
+
+def test_a_non_source_move_is_not_staleness(monkeypatch):
+    """A header or a data file moving does not make a definition appear or vanish."""
+    assert _stale(monkeypatch, ["D\tCode/GameEngine/Include/Thing.h",
+                                "A\tCode/notes.txt"]) is None
+
+
+def test_nothing_moved_is_silent(monkeypatch):
+    assert _stale(monkeypatch, []) is None
+
+
+def test_an_index_commit_this_checkout_lacks_is_not_judged(monkeypatch):
+    """Two of the four records name a commit this clone does not have. Guessing
+    staleness from a commit we cannot diff would be inventing a verdict."""
+    assert _stale(monkeypatch, ["D\tCode/x.cpp"], contains=False) is None
+
+
+def test_a_failed_git_call_is_silent(monkeypatch):
+    assert _stale(monkeypatch, ["D\tCode/x.cpp"], code=128) is None
+
+
+def test_a_file_without_meta_is_not_judged():
+    assert C.index_staleness(None) is None
+    assert C.index_staleness({}) is None
+    assert C.index_staleness({"date": "d"}) is None        # no commit
+
+
+def test_the_advisory_goes_to_stderr_so_a_verdict_parser_is_untouched(monkeypatch, capsys):
+    """A landing script reads link_check's own verdict off stdout."""
+    monkeypatch.setattr(C, "STATE_STALE_SAID", False)
+    C._say_stale("link_check: stale")
+    out = capsys.readouterr()
+    assert out.err.strip() == "link_check: stale" and out.out == ""
+    assert C.STATE_STALE_SAID is True

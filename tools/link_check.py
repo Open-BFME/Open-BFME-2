@@ -273,7 +273,63 @@ def load_index():
             "  build one (keep the tree still until it ends; rewrites reverse/link_status.csv):\n"
             "                            python3 tools/link_census.py --build --measure")
     with INDEX.open("rb") as handle:
-        return pickle.load(handle)
+        index = pickle.load(handle)
+    advisory = index_staleness(index.get("meta") if isinstance(index, dict) else None)
+    if advisory and not STATE_STALE_SAID:
+        _say_stale(advisory)
+    return index
+
+
+STATE_STALE_SAID = False
+SOURCE_SUFFIXES = (".cpp", ".c", ".asm")
+
+
+def _say_stale(advisory):
+    global STATE_STALE_SAID
+    STATE_STALE_SAID = True
+    print(advisory, file=sys.stderr)
+
+
+def index_staleness(meta):
+    """One line when the index predates source moves, or None when it is current.
+
+    A verdict is only as fresh as the index. A unit a later split or merge
+    DELETED is still in it, so the rows that moved into the absorbing TU look
+    like duplicates of a definition nothing provides any more; a unit ADDED
+    since is missing as a provider, which reads as "no longer defines". Four
+    open tu_skeleton false-reject records are exactly that, each naming an index
+    commit older than the split it tripped over, and each cost a worker a real
+    investigation of a file that no longer exists.
+
+    Counts only added, deleted and renamed sources under Code/: a source whose
+    CONTENT changed is the ordinary staleness the docstring above already warns
+    about and --refresh handles, while an appearing or vanishing definition is
+    what manufactures a phantom verdict.
+    """
+    if not isinstance(meta, dict) or not meta.get("commit"):
+        return None
+    commit = meta["commit"]
+    if not contains(commit):
+        return None                       # a commit this checkout lacks: --fetch-index refuses it
+    names = subprocess.run(["git", "diff", "--name-status", "--diff-filter=ADR",
+                            f"{commit}..HEAD", "--", "Code/"],
+                           cwd=ROOT, capture_output=True, text=True)
+    if names.returncode != 0:
+        return None
+    moved = 0
+    for line in names.stdout.splitlines():
+        parts = line.split("\t")
+        if len(parts) >= 2 and any(p.endswith(SOURCE_SUFFIXES) for p in parts[1:]):
+            moved += 1
+    if not moved:
+        return None
+    return (f"link_check: the index is {meta.get('date', '?')} at {commit[:10]}, and "
+            f"{moved} source file(s) under Code/ have been added, deleted or renamed since. "
+            "A unit the index still holds but the tree no longer has makes its rows look like "
+            "duplicates, and a unit added since is missing as a provider -- both are artefacts "
+            "of the index, not of your files. Bring it to HEAD with "
+            "`python3 tools/link_check.py --update-index` before trusting a duplicate or a "
+            "'no longer defines'.")
 
 
 def object_digest(obj):
