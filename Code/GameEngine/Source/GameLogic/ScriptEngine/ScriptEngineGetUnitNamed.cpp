@@ -29,11 +29,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class Rva00358752Opaque
-{
-public:
-    Object *lookupUnitByValue(AsciiString);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

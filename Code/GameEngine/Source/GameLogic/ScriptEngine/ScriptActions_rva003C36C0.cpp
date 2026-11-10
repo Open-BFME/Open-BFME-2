@@ -8,11 +8,7 @@ class Object;
 #include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/DrawableBFME2.h"
 #include "../../../Include/GameLogic/ScriptParameter.h"
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString name);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 class ScriptEngine;
 extern class ScriptEngine *TheScriptEngine;
 

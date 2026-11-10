@@ -42,11 +42,7 @@ private:
 
 #include "../../../Include/GameLogic/ScriptClass.h"
 
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString name);	// 0x00358752 (rowed)
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 class Rva002046C0Owner
 {
 public:

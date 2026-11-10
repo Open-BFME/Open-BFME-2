@@ -22,11 +22,7 @@ public:
 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString name);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 class ScriptEngine;
 extern class ScriptEngine *TheScriptEngine;
 #include "../../../Include/Common/Rva0031D5F8.h"

@@ -65,11 +65,7 @@ public:
 
 // The by-value unit lookup 0x00358752 is rowed as
 // Rva00358752Opaque::lookupUnitByValue (ScriptEngineRva00358752.cpp).
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString name);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
