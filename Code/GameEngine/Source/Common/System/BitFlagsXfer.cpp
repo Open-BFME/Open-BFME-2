@@ -69,6 +69,8 @@ class Snapshot;
 
 #include "../../../Include/Common/XferException.h"
 
+#include "../../../Include/Common/BitFlagsTemplate.h"
+
 // Rowed per-set helpers under address names.
 class Rva0028F528
 {
@@ -165,20 +167,6 @@ public:
 	void rva002ABBBE(void *xfer);
 };
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	enum { NUMWORDS = (NUMBITS + 31) / 32 };
-
-	Int count() const;
-	const char *getBitNameIfSet(Int i) const;
-	Bool setBitByName(const char *token);
-	void xferRawBits(Xfer *xfer);
-	void xfer(Xfer *xfer);
-
-private:
-	UnsignedInt m_bits[NUMWORDS];
-};
 
 //-------------------------------------------------------------------------------------------------
 template <int NUMBITS>
