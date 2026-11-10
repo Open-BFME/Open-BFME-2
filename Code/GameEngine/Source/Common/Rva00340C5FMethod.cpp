@@ -19,7 +19,11 @@ struct FprintfTarget
 	char m_pad[4];
 };
 
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
@@ -47,7 +51,7 @@ int Rva00340C5F::onEnter()
 	{
 		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
-			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 38");
+			fprintf((FILE *)log, "CritterDesync: setAdjustDestination(TRUE) 38");
 	}
 	Coord3D *src = (Coord3D *)((char *)obj + 0x38);
 	m_48 = true;
