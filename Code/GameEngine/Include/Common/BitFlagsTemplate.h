@@ -58,10 +58,15 @@ public:
 	enum { NUMWORDS = (NUMBITS + 31) / 32 };
 	enum BogusInitType { kInit = 0 };
 
-	BitFlags();
+	// Declaration order, not retail: cl 7.1 emits explicitly instantiated
+	// constructors in reverse of this order, so this order keeps adopters'
+	// objects as they are today. The four N=11 bodies (0x003B31AD,
+	// 0x00481B7F, 0x005CBA5F, 0x005E5963) are spread across .text, so
+	// retail's bytes do not fix it.
 	BitFlags(BogusInitType, int bit);
 	BitFlags(BogusInitType, int bit1, int bit2);
 	BitFlags(BogusInitType, int bit1, int bit2, int bit3, int bit4);
+	BitFlags();
 
 	bool test(int bit) const
 	{
