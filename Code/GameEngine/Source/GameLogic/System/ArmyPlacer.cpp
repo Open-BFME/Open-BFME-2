@@ -49,7 +49,7 @@ class Rva0037F57E{public:Rva0037F57E();virtual~Rva0037F57E();void rva0037FD2B(Lo
 extern PlayerList*ThePlayerList;
 class LivingWorldLogic;
 extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva002B2B66{public:int rva002B2B66();};
+#include "../../../Include/Common/Rva002B2B66.h"
 class View;
 // Pointer-only native virtual prefix; no complete View layout is asserted.
 class Rva0037FDE9CameraSlots{public:

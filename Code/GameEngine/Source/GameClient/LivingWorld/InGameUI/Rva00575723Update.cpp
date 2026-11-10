@@ -51,11 +51,7 @@ public:
 // The two holders own Rva000AD6F4Action objects.
 __forceinline Rva000AD6F4Action *heldAction(const Rva000AD6F4 &holder) { return static_cast<Rva000AD6F4Action *>(holder.m_ptr); }
 
-class Rva002B2B66
-{
-public:
-	int rva002B2B66();
-};
+#include "../../../../Include/Common/Rva002B2B66.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

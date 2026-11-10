@@ -83,7 +83,7 @@ struct RegionAwardDisputeFlags
 
 class Rva002E2903Player;
 
-class Rva002B2B66 { public: int rva002B2B66(); };
+#include "../../../../Include/Common/Rva002B2B66.h"
 
 	// rowed 0x002B2B66, the local player's id
 class LivingWorldLogic;

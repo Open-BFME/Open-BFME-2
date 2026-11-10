@@ -53,7 +53,7 @@ namespace _STL { template <> vector<Rva004F77E0Element>::~vector(); }
 struct S4SortElem8B { void *first; const ThingTemplate *second; };
 struct BfmeE8 { int a, b; };
 class Rva005ECD8C { public: void rva005ECD8C(_STL::vector<S4SortElem8B> *,int); };
-class Rva002B2B66 {public: int rva002B2B66();};
+#include "../../../Include/Common/Rva002B2B66.h"
 struct Record52 { char unknown[0x2c]; int m_sideIndex; int m_playerID; };
 struct Records52 { Record52 *first,*last; };
 class Rva004F92E3 { public: void rva004F92E3(void *); };
