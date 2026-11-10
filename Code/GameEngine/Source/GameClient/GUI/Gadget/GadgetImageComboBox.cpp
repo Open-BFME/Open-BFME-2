@@ -331,7 +331,7 @@ private:
 	GameWindow *m_window;
 };
 // 0x003140CF, the owner setter (null means the window itself).
-class Rva003140CF { public: int rva003140CF(int v); };
+#include "../../../../Include/Common/Rva003140CF.h"
 
 WindowMsgHandledType GadgetImageComboBoxInput(GameWindow *window, UnsignedInt msg,
 	WindowMsgData mData1, WindowMsgData mData2)

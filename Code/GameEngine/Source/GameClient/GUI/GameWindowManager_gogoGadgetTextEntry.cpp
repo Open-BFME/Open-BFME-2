@@ -23,7 +23,7 @@
 #include "GameWindowManagerRecordView.h"
 
 class GameWindow { public: void winSetUserData(void *); };
-class Rva003140CF { public: int rva003140CF(int); };
+#include "../../../Include/Common/Rva003140CF.h"
 
 class WinInstanceData
 {

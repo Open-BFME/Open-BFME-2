@@ -9,7 +9,7 @@ class GameWindow
 public:
     void winSetUserData(void *);
 };
-class Rva003140CF { public: int rva003140CF(int); };
+#include "../../../Include/Common/Rva003140CF.h"
 #include "GameWindowManagerRecordView.h"
 
 struct FactoryInstanceView { unsigned char unknown[12]; unsigned int style; };

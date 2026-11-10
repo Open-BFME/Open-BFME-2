@@ -19,7 +19,7 @@
 #include "GameWindowManagerRecordView.h"
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-class Rva003140CF { public: int rva003140CF(int); };
+#include "../../../Include/Common/Rva003140CF.h"
 
 
 enum { GWS_SCROLL_LISTBOX = 0x20 };

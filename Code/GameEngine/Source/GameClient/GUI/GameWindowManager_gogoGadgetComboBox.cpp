@@ -63,7 +63,7 @@ public:
 	int m_tooltipDelay;
 };
 
-class Rva003140CF { public: int rva003140CF(int); };
+#include "../../../Include/Common/Rva003140CF.h"
 
 class WinInstanceData
 {
