@@ -63,15 +63,7 @@ enum ScienceType
 	SCIENCE_NONE = 0
 };
 
-class Rva0040AEE3
-{
-public:
-	Rva0040AEE3(const Rva0040AEE3 &other);
-	Rva0040AEE3 &operator=(const Rva0040AEE3 &other);
-private:
-	_STL::vector<ScienceType> m_0000;
-	int m_000C;
-};
+#include "Rva0040AEE3.h"
 struct DestroyElem0040B52E;
 void Rva0040B52EDestroy(DestroyElem0040B52E *, DestroyElem0040B52E *);
 namespace _STL {

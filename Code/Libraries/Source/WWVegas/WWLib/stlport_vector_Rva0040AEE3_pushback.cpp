@@ -41,15 +41,7 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 }
 
 
-class Rva0040AEE3
-{
-public:
-	Rva0040AEE3(const Rva0040AEE3 &other);
-	Rva0040AEE3 &operator=(const Rva0040AEE3 &other);
-private:
-	_STL::vector<ScienceType> m_0000;
-	int m_000C;
-};
+#include "Rva0040AEE3.h"
 
 namespace _STL
 {
