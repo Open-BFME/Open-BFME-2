@@ -670,7 +670,7 @@ extern GameLogic *TheGameLogic;
 // slot-1 virtual, then dispatches 14 idle / 23 weapon-fire (the visible
 // rva0028C24C keeps ECX, as in the siblings above) / 24+38 special-power
 // at object / 29 attack. Cases, byte-flag and goto structure follow the
-// banked shape; views are this TU's (m_disabled1C8, m_commandAI258).
+// banked shape; views are this TU's (m_disabled1C8, m_ai).
 struct Rva00297000Ref
 {
 	virtual void *slot00();
@@ -1870,15 +1870,15 @@ private:
 private:
 	unsigned char m_144[0x48];
 private:
-	BehaviorModule **m_behaviors;
+	void *m_18C;
 private:
-	void *m_contain;
+	void *m_190;
 private:
-	BodyModuleInterface *m_body;
+	void *m_194;
 private:
-	StealthUpdate *m_stealth;
+	void *m_198;
 private:
-	AIUpdateInterface *m_ai;
+	void *m_19C;
 private:
 	void *m_1A0;
 private:
@@ -1894,13 +1894,15 @@ private:
 private:
 	FiringTracker *m_firingTracker240;
 private:
-	unsigned char m_pad244[0x250 - 0x244];
+	BehaviorModule **m_behaviors;					// +0x244
 private:
-	AdjustVictimProvider *m_provider250;
+	unsigned char m_pad248[0x250 - 0x248];
 private:
-	unsigned char m_pad254[0x258 - 0x254];
+	AdjustVictimProvider *m_contain;				// +0x250 (this unit's view of the contain interface)
 private:
-	Rva00297149AI *m_commandAI258;
+	BodyModuleInterface *m_body;					// +0x254
+private:
+	Rva00297149AI *m_ai;							// +0x258 (this unit's view of the AI update interface)
 private:
 	unsigned char m_pad25C[0x274 - 0x25C];
 private:
@@ -2564,7 +2566,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 	else if (m_disabled1C8.any())
 		return;
 
-	Rva00297149AI *ai = m_commandAI258;
+	Rva00297149AI *ai = m_ai;
 	if (!commandButton)
 		return;
 
@@ -2869,7 +2871,7 @@ void Object::doCommandButtonAtPosition(const CommandButton *button, const Coord3
 {
  if (m_disabled1C8.any())
   return;
- Rva00297149AI *ai = m_commandAI258;
+ Rva00297149AI *ai = m_ai;
  if (!button)
   return;
  switch (button->m_command)
@@ -2922,7 +2924,7 @@ void Object::rva00297000(const CommandButton *commandButton, Object *target, int
 			return;
 	}
 skip1:
-	Rva00297149AI *ai = m_commandAI258;
+	Rva00297149AI *ai = m_ai;
 	if (commandButton == 0)
 		return;
 	switch (commandButton->m_command) {
@@ -2972,7 +2974,7 @@ Object *Object::adjustVictim(Object *source, bool useWeaponRange, int index)
 		parent = &target->m_containedBy274;
 	}
 
-	AdjustVictimProvider *provider = target->m_provider250;
+	AdjustVictimProvider *provider = target->m_contain;
 	if (provider != 0)
 	{
 		AdjustVictimSelector *selector = (this?getAdjustVictimSelector(provider):getAdjustVictimSelector(provider));
