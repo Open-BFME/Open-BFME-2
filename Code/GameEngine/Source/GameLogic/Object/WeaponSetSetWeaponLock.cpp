@@ -482,11 +482,7 @@ public:
 	CONTAIN_GAP(71) CONTAIN_GAP(72) CONTAIN_GAP(73) CONTAIN_GAP(74) CONTAIN_GAP(75)
 	virtual bool calcBestGarrisonPosition(Coord3D *goalPos, const Coord3D *targetPos); // slot 76
 };
-class Rva001E46E1
-{
-public:
-	float rva001E4845(Object *);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 class AIUpdateInterface
 {
 public:

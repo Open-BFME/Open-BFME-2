@@ -400,10 +400,7 @@ class Xfer;
 #include "../../../Include/Common/Rva002EBC7FPair.h"
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
-class Rva001E46E1
-{
- public: float rva001E46E1(Object *);
-};
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 // Native 0x002EC0A2 reads Object nodes at cell-info +0x14, +0x20 and +0x24.
 // The list-role labels below describe the three observed conflict passes;

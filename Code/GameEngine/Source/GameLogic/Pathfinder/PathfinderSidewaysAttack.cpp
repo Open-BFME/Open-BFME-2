@@ -265,7 +265,7 @@ char m_pad[0x14];
 #include "../../../Include/Common/Rva002EBC7FPair.h"
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
-class Rva001E46E1 { public: float rva001E46E1(Object *); };
+#include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/BridgeClass.h"
 struct Rva002ED236Pos {
