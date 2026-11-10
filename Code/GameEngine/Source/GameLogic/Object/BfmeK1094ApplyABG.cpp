@@ -9,11 +9,7 @@ extern class ControlBar *TheControlBar;
 
 #include "../../../Include/GameClient/CommandSet.h"
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *key);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 #include "object.h"
 

@@ -91,11 +91,7 @@ extern ControlBar *TheControlBar;
 
 // TheControlBar's command-set lookup at 0x0031D5F8, rowed under an address
 // name.
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 
 // Slot 0 of each module's primary vftable is its deleting destructor
 // (0x0045A560 in 0x00C4175C), so the base's first virtual is the destructor.

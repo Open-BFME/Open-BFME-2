@@ -249,7 +249,7 @@ __forceinline void SetSpellWindowWidth(int count)
 }
 struct SpellAptModeView {char prefix00[0x318];int mode318;};
 class CommandSet;
-class Rva0031D5F8 {public:void *rva0031D5F8(const AsciiString *);};
+#include "../../../../../Include/Common/Rva0031D5F8.h"
 // Native52A34D..52A36A is the 29B constructor callback passed by52AD30
 // to the plain array constructor: 24 entries, stride20, starting at+50.
 // The existing52A36A accessor independently reads float+8 and int+C.

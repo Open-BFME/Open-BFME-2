@@ -20,11 +20,7 @@ enum GUICommandType
 
 #include "../../../Include/GameClient/CommandSet.h"
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name); // ControlBar::findCommandSet
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 class ControlBar;
 extern ControlBar *TheControlBar;
 

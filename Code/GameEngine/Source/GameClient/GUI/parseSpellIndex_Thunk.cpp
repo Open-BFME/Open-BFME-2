@@ -167,11 +167,7 @@ extern PlayerList *ThePlayerList;
 class ControlBar;
 extern ControlBar *TheControlBar;
 
-class Rva0031D5F8
-{
-public:
-	void *GetPurchaseScienceCommandSet(const void *key);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 // The Apt window manager (0x009FE4CC): the rowed image binding 0x002239E2
 // (Rva002239B2.cpp) and text setter.

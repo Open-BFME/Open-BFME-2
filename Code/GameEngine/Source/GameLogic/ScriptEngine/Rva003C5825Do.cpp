@@ -24,11 +24,7 @@ public:
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 #include "../Object/object.h"
 

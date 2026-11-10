@@ -15,11 +15,7 @@
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *key);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 class CommandButton;
 #include "../../../Include/GameClient/CommandSet.h"

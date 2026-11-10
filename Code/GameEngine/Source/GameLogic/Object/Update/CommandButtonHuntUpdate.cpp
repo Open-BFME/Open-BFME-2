@@ -249,11 +249,7 @@ enum { MAX_COMMANDS_PER_SET = 32 };
 #include "../../../../Include/GameClient/CommandSet.h"
 
 // ControlBar::findCommandSet (0x0031D5F8) is rowed as Rva0031D5F8::rva0031D5F8.
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8( const AsciiString *name );
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 
 class ControlBar;
 

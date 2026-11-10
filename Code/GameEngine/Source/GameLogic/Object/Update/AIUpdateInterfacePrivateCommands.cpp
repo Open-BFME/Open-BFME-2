@@ -312,11 +312,7 @@ public:
 
 // 0x0031D5F8: the ControlBar's command-set lookup, rowed under this view's
 // class name; takes the AsciiString by pointer.
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 
 #include "../../../../Include/GameClient/ControlBar.h"
 

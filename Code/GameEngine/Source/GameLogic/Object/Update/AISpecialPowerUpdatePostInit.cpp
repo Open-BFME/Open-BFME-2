@@ -39,11 +39,7 @@ struct SpecialPowerTemplateView
 #include "../../../../Include/GameClient/CommandButton.h"
 #include "../../../../Include/GameClient/CommandSet.h"
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);	// rowed 0x0031D5F8 (ControlBar::findCommandSet)
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
