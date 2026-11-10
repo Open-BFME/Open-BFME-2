@@ -11,11 +11,7 @@
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 
-class Rva00358752Opaque
-{
-public:
-    class Object *lookupUnitByValue(AsciiString);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 class ActionTarget
 {

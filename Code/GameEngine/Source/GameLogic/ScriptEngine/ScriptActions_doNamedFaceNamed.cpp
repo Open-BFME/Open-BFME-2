@@ -15,11 +15,7 @@
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
-class Rva00358752Opaque
-{
-public:
-    Object *lookupUnitByValue(AsciiString);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {

@@ -22,11 +22,7 @@ class Object;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Rva00358752Opaque
-{
-public:
-    Object *lookupUnitByValue(AsciiString);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

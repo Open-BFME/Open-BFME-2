@@ -602,7 +602,7 @@ class Rva003BD306Target { public: void rva0039B2C7(int,bool); };
 class Rva004DC8E7AsciiField { public: AsciiString get() const; };
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class Rva00358752Opaque { public: Object *lookupUnitByValue(AsciiString); };
+#include "../../../../Include/GameLogic/Rva00358752Opaque.h"
 #include "../../../Common/Thing/thing.h"
 class Rva002390CB { public: int opaque00; OpaqueRefElement4 ref; };
 #include "../../../../Include/GameClient/Drawable.h"

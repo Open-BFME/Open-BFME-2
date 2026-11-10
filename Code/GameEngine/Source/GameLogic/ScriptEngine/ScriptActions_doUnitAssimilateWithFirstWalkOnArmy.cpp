@@ -11,11 +11,7 @@
 class Parameter;
 class Object;
 
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString s);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;

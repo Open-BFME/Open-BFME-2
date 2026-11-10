@@ -45,11 +45,7 @@ public:
 	AIUpdateInterface *m_ai;
 };
 
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString name);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 class ScriptEngine;
 extern class ScriptEngine *TheScriptEngine;

@@ -18,11 +18,7 @@ class SpecialPowerTemplate;
 
 extern class ScriptEngine *TheScriptEngine;
 
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString s);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 class SpecialPowerStore;
 

@@ -35,11 +35,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
-class Rva00358752Opaque
-{
-public:
-    Object *lookupUnitByValue(AsciiString);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 #include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 extern ScriptEngine *TheScriptEngine;
 
