@@ -34,6 +34,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_NONE = 0,
 	OBJECT_STATUS_PARACHUTING = 7
 };
+#include <stdio.h>
 #include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 #include "../../../Include/GameClient/ModelConditionFlags.h"
@@ -129,7 +130,6 @@ struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
