@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs /D_CRTIMP=
 // BFMEConnectionManager::sendGameSpyStatsAuthKey, retail 0x004D12B2, 312 bytes.
 //
 // Donor: Open-BFME-1 game/GameEngine/Source/GameNetwork/native_connection_timing.cpp
@@ -18,6 +18,7 @@
 // the extern "C" _strdup call, which /EHsc would treat as unable to throw.
 // free is the C++-linkage declaration that reaches GameMemory's _free.
 
+#include <string.h>
 #include "ascii_string.h"
 
 typedef int Int;
@@ -79,7 +80,6 @@ public:
 
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 extern GameLogic *TheGameLogic;
-extern "C" char *strdup(const char *text);
 void free(void *memory);
 extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
 Bool DoesCommandRequireACommandID(NetCommandType type);
