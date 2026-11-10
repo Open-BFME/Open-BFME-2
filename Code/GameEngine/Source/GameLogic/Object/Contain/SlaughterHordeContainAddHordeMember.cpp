@@ -25,7 +25,7 @@ extern GlobalData *TheWritableGlobalData;
 extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/BfmeGlob939D.h"
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-class Rva0039ADF3{public:bool rva0039AE04()const;};
+#include "../../../../Include/GameLogic/Module/Rva0039ADF3.h"
 class Rva0028D796{public:int rva0028D796();};
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/DrawableBFME2.h"

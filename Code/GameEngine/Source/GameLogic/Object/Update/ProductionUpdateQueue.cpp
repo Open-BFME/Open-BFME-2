@@ -595,7 +595,7 @@ public:
 };
 struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };
 #include "../../../../Include/Common/UnitRevivalTracker.h"
-class Rva0039ADF3 { public: bool rva0039AE04() const; };
+#include "../../../../Include/GameLogic/Module/Rva0039ADF3.h"
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 struct ProductionExperienceView { char pad[0x24]; int level; int next; };
 #include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"

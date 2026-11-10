@@ -166,11 +166,7 @@ public:
 // ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
 // resolves to the rowed body instead of the unrowed ExperienceTracker
 // spelling (U on this unit).
-class Rva0039ADF3
-{
-public:
-	bool rva0039AE04() const;
-};
+#include "../../../../Include/GameLogic/Module/Rva0039ADF3.h"
 
 class FXList
 {
