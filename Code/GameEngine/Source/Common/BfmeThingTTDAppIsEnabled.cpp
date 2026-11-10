@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// platformsdk
 //
 // Ported from Open-BFME-1 GameEngine/Source/Common/BfmeThingTTDAppIsEnabled.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
@@ -11,9 +12,7 @@ typedef unsigned short *BSTR;
 typedef short VARIANT_BOOL;
 typedef long HRESULT;
 
-extern "C" __declspec(dllimport) BSTR __stdcall SysAllocString(const unsigned short *value);
-extern "C" __declspec(dllimport) unsigned int __stdcall SysStringLen(BSTR value);
-extern "C" __declspec(dllimport) void __stdcall SysFreeString(BSTR value);
+#include <windows.h>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
