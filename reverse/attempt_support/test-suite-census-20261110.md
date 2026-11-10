@@ -1,7 +1,15 @@
 # 66 of 11,838 tests are red, and nothing was ever going to say so
 
-> **52 remain.** `test_header_dependents.py`'s 14 are fixed (`ee2d7795743`);
-> the table below records which and why.
+> **29 remain.** Of the 66 measured, 37 are fixed: `test_tu_structure.py`'s 1
+> (`7b1c3d1eb1a`, which the run caught and which was already fixed when this was
+> written), `test_header_dependents.py`'s 14 (`ee2d7795743`) and
+> `test_recovery_experiments.py`'s 22 (`60dc4dca8fe`). An earlier revision said
+> "52 remain", which double-counted the one already fixed. The table records
+> which and why.
+>
+> Both large clusters were **one line of fixture each**, and neither tool was
+> wrong. That is now 31 of the 37 traced to a fixture that misdescribed its
+> tool, against one real tool bug all day (`claims.py`'s argument order).
 
 Measured at `7b1c3d1eb1a`, 2026-11-10: `python3 -m pytest tools/tests/` over all
 322 files, 20 minutes, **66 failed, 11,772 passed, 176 skipped**.
@@ -31,20 +39,20 @@ in a standalone run, as a starting point and not a diagnosis.
 
 | file | failed | alone | first cause seen |
 | --- | ---: | --- | --- |
-| `test_recovery_experiments.py` | 22 | 22 failed, 5 passed | `StopIteration` |
+| `test_recovery_experiments.py` | 22 | ~~22 failed, 5 passed~~ | **fixed at `60dc4dca8fe`**: the fixture replaces `subprocess.run` wholesale for the compiler and finds the output by scanning argv for `-Fo`, so `build.wine_path`'s own `winepath -w` call landed in it and `next()` raised `StopIteration`. Stubbing `wine_path` also drops the file from 2.25s to 0.42s and removes its Wine dependency |
 | `test_header_dependents.py` | 14 | ~~14 failed, 58 passed~~ | **fixed at `ee2d7795743`**: the fixture wrote receipt dep keys with `\`, which `ROOT / dep` cannot resolve on POSIX, so every unit with a dep looked uncompiled and the vendored bound collapsed to "every unit" |
 | `test_nightly_measure.py` | 9 | 9 failed, 218 passed | `Refused: tracked path differs from approved commit: .githooks/post-checkout` |
 | `test_publisher_service.py` | 6 | 6 failed, 4 passed | `assert 0 == 1` |
 | `test_reloc_names.py` | 3 | 3 failed, 11 passed | no specimens left in the data (below) |
 | `test_boot_smoke_profile.py` | 3 | 3 failed, 24 passed | `RedirectError not raised`; `pefile.PEFormatError: DOS Header magic not found` |
-| `test_publisher.py` | 1 | — | |
-| `test_link_rank_snapshot.py` | 1 | — | |
-| `test_flag_input_coverage.py` | 1 | — | |
-| `test_flag_delta_sources.py` | 1 | — | |
-| `test_fix_eh_prolog_sizes.py` | 1 | — | |
-| `test_doc_lint.py` | 1 | — | |
-| `test_claims_gc.py` | 1 | — | |
-| `test_build_lib_thin.py` | 1 | — | |
+| `test_publisher.py` | 1 | fails alone | `assert 0 != 0` |
+| `test_link_rank_snapshot.py` | 1 | fails alone | output lacks `--files Code/known.cpp`; the snapshot it prints is dated 2026-10-24 |
+| `test_flag_input_coverage.py` | 1 | fails alone | `DID NOT RAISE SnapshotError` |
+| `test_flag_delta_sources.py` | 1 | fails alone | `assert 1 > 1` |
+| `test_fix_eh_prolog_sizes.py` | 1 | fails alone | `FUN_0061ecb2 at 0x21ecb2 overlaps 0x21ed9c` — reads live data |
+| `test_doc_lint.py` | 1 | fails alone | a list of undocumented docs where `[]` is asserted; likely a real content finding, not a test bug |
+| `test_claims_gc.py` | 1 | fails alone | `assert 1 == 2` |
+| `test_build_lib_thin.py` | 1 | fails alone | `ValueError: Code/Libraries/Source/CRT/VS2003/security_cookie_check.cpp: not an ar archive` |
 | `test_tu_structure.py` | 1 | passed alone | **mine, fixed at `7b1c3d1eb1a`** |
 | | **66** | | |
 
