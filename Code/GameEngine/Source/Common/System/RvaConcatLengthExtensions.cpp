@@ -9,7 +9,7 @@
 // that layout. The other original receiver names and character widths
 // remain unknown. Existing fold spellings below expose only receiver calls;
 // none of these consumed-prefix views is allocated or claimed complete.
-class AsciiStringPlusString {public:int length() const;};
+#include "../../../Include/Common/AsciiStringPlusString.h"
 class Rva0050F1DFPrefix {
 public: char unknown00[0x10];int extra;
  int total() const;

@@ -268,10 +268,7 @@ private:
 };
 // ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
 // AsciiStringPlusString::length 0x002198C8 of this object plus one.
-struct AsciiStringPlusString
-{
-	int length() const;
-};
+#include "../../Include/Common/AsciiStringPlusString.h"
 struct Rva0050EE1C : AsciiStringPlusString
 {
 	int rva0050EE1C() const;

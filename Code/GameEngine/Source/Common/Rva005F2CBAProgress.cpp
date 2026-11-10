@@ -276,10 +276,7 @@ __forceinline Rva0057ACEBData &CopyBinding(Rva0057ACEBData &out, const Rva005D4E
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusString : AsciiStringRef
-{
-	AsciiStringRef m_second;
-};
+#include "../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString
 {
 	operator AsciiString(); // 0x0050F74B
