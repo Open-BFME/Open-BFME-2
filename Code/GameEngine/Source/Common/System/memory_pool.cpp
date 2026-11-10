@@ -1367,7 +1367,7 @@ struct Rva00030DD0Lock;
 Rva00030DD0Lock *Rva00030D90Init(Rva00030DD0Lock *storage);
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
-class Rva00034C90 { public: void consolidate(); };	// pinned callee 0x00033930
+#include "../../../Include/Common/Rva00034C90.h"
 
 inline unsigned int rva000317F0Align(unsigned int size, unsigned int alignment)
 {
