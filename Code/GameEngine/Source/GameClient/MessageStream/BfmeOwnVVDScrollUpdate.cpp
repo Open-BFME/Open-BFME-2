@@ -143,11 +143,7 @@ public:
 
 #include "../../../Include/Common/GameEngine.h"
 
-class Rva0023C666
-{
-public:
-	bool rva0023C666();
-};
+#include "../../../Include/Common/Rva0023C666.h"
 
 class BfmeOwnVVD
 {

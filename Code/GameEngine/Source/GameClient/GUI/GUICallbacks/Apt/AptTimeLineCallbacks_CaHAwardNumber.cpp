@@ -310,7 +310,7 @@ enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
 #include "../../../../../Include/Common/RecorderClass.h"
 extern RecorderClass *TheRecorder;
 
-class Rva0023C666 { public: bool rva0023C666(); };
+#include "../../../../../Include/Common/Rva0023C666.h"
 
 // ?get@Rva00210C66CmpBoolField@@QBE_NXZ, rowed 0x00210C66 (LivingWorldLogic.cpp)
 class Rva00210C66CmpBoolField

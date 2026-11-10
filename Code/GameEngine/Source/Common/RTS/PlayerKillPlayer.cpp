@@ -94,10 +94,7 @@ extern PlayerList *ThePlayerList;
 extern InGameUI *TheInGameUI;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class Rva0023C666 {
-  public:
-    bool rva0023C666();
-};
+#include "../../../Include/Common/Rva0023C666.h"
 class Rva0039B795;
 class Rva003B0D7C {
   public:
