@@ -32,11 +32,7 @@ extern DamageFXStore *TheDamageFXStore;
 // ArmorStore::findArmorTemplate (ArmorStoreCtor.cpp); call it by that name
 // with the same thiscall ABI (DamageFXStore::findDamageFX has no row).
 class ArmorTemplate;
-class ArmorStore
-{
-public:
-	const ArmorTemplate *findArmorTemplate(AsciiString name) const;
-};
+#include "../../../Include/GameLogic/ArmorStore.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

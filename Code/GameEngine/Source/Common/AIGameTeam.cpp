@@ -45,11 +45,7 @@ class AsciiString;
 class ModuleData;
 class ArmorTemplate;
 class Player;
-class ArmorStore
-{
-public:
-	const ArmorTemplate *rva0041F474(const AsciiString &name) const;
-};
+#include "../../Include/GameLogic/ArmorStore.h"
 // VA 0x00E0312C is TheArmyDefinitionManager (ArmyDefinitionManager.cpp), the subsystem
 // GameEngine::init creates; addPlayer reads its armor lookup through this view.
 class Rva0022BD25Subsystem;

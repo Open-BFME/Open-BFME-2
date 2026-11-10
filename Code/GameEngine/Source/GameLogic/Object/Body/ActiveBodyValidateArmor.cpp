@@ -47,11 +47,7 @@ private:
 	AsciiString m_templateName;
 };
 
-class ArmorStore
-{
-public:
-	Armor makeArmor(const AsciiString &name) const;	// 0x001D9001
-};
+#include "../../../../Include/GameLogic/ArmorStore.h"
 extern ArmorStore *TheArmorStore;
 
 #include "../../../../Include/Common/ThingTemplate.h"

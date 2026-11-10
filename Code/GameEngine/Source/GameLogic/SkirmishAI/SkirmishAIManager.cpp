@@ -187,7 +187,7 @@ class Rva004E94CA { public: bool rva004E94CA(Player *); };
 class Rva004E9600 { public: void *rva004E95D4(void *); };
 class Rva004E962A { public: Rva004E962A(); unsigned char nativeStorage[0x28]; };
 class ArmorTemplate;
-class ArmorStore { public: const ArmorTemplate *rva0041F474(const AsciiString &) const; };
+#include "../../../Include/GameLogic/ArmorStore.h"
 class Rva0022BD25Subsystem;
 extern Rva0022BD25Subsystem *TheArmyDefinitionManager;
 enum NameKeyType { NAMEKEY_INVALID=0 };

@@ -57,11 +57,7 @@ extern ThreatFinderManager *TheThreatFinderManager;
 // Its by-name lookup is the ICF-folded hash_map find at 0x0041F474, rowed as
 // ArmorStore::rva0041F474 (ArmorStoreFindByName.cpp): call it by that name.
 class ArmorTemplate;
-class ArmorStore
-{
-public:
-	const ArmorTemplate *rva0041F474(const AsciiString &name) const;
-};
+#include "../../../Include/GameLogic/ArmorStore.h"
 
 // The by-value unit lookup 0x00358752 is rowed as
 // Rva00358752Opaque::lookupUnitByValue (ScriptEngineRva00358752.cpp).

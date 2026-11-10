@@ -18,11 +18,7 @@ private:
 	AsciiString m_templateName;
 };
 
-class ArmorStore
-{
-public:
-	Armor makeArmor(const AsciiString &name) const;
-};
+#include "../../../Include/GameLogic/ArmorStore.h"
 
 Armor ArmorStore::makeArmor(const AsciiString &name) const
 {
