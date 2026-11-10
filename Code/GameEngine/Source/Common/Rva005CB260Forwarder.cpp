@@ -64,14 +64,7 @@ void Rva005CB260Properties::rva005CB260(int index, unsigned int word0, unsigned 
 // argument and read an int (call site 0x005796CE: no push, cmp eax,edi), so
 // they cannot call that one-argument spelling. This is the fold's no-argument
 // spelling those callers use.
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-	virtual void rva005CB265_slot1();
-	virtual void rva005CB265_slot2();
-	virtual int rva005CB265_slot3();
-};
+#include "../../Include/Common/Rva005CB265.h"
 
 // ?Rva005CB265::rva005CB265 present-unmatched
 int Rva005CB265::rva005CB265()

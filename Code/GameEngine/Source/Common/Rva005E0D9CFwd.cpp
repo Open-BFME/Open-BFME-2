@@ -3,11 +3,7 @@
 // If +0x10 null return; else call rowed no-arg int getter 0x005CB265 via +0x0C;
 // if result != +0x10 return; else tail-jmp to rowed void forwarder 0x005CB260.
 // Address-derived.
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 
 class Rva005CB260
 {

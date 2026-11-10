@@ -18,11 +18,7 @@ public:
 	void rva005CB260(int);
 };
 
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);

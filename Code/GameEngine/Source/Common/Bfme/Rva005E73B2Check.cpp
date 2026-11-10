@@ -6,11 +6,7 @@
 // AnimateWindow) but this site passes no args and cmps eax edi per pin
 // ?rva005CB265@Rva005CB265@@UAEHXZ. Evidence: packet disassembly plus callers
 // 0x005E788E 0x005E7994 plus prev/next same flags.
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../Include/Common/Rva005CB265.h"
 
 class Rva005CB260
 {

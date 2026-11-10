@@ -36,11 +36,7 @@ struct Rva005765D1Outer
 	char m_pad[0x10];
 	const Rva005765D1Mid *m_10;
 };
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 class Rva005765D1 : public Rva005D19F8
 {
 public:

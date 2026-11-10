@@ -532,7 +532,7 @@ void Rva0059EF57::rva0059EF57(int, int, int)
 }
 
 class Rva0042D697PtrChaseField { public: int get() const; };
-class Rva005CB265 { public: virtual int rva005CB265(); };
+#include "../../Include/Common/Rva005CB265.h"
 struct Rva005CF9B2Mid { char m_pad[0xC]; Rva0042D697PtrChaseField *m_field; };
 class Rva005CF9B2 { public: void rva005CF9B2(); };
 void Rva005CF9B2::rva005CF9B2()

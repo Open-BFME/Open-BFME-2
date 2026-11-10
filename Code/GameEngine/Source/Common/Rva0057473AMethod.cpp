@@ -72,9 +72,5 @@ void Rva005746AF::rva0057473A()
 // ?rva005CB265@Rva005CB265@@UAEHXZ 0x005CB265), that object is cleared via
 // the rowed forwarder 0x005CB260; then the hint member's inline dtor releases
 // it through 0x0007DEEF. Same unlock check as Rva005E73B2Check.cpp.
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 

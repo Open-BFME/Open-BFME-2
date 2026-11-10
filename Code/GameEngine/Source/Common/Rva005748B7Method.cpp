@@ -6,11 +6,7 @@ class Rva0042D6B4PtrChaseField
 public:
 	int get() const;
 };
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../Include/Common/Rva005CB265.h"
 class Rva005CB260
 {
 public:
