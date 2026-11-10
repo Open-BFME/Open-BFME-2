@@ -42,11 +42,7 @@ public:
 };
 }
 
-class Rva002B6900
-{
-public:
-	void rva002B6900();
-};
+#include "../../Include/Common/Rva002B6900.h"
 
 class Other002B9CFC
 {
