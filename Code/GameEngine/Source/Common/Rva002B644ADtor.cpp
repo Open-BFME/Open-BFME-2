@@ -28,11 +28,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 class Rva0021294A;
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
-class Rva00DFE1C8Host
-{
-public:
-	void rva00212655(int value);	// 0x00212655
-};
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 
 // The Snapshot base (vftable 0x00BBB554, restored at the end).
 #define BFME_SNAPSHOT_NAME_SLOT

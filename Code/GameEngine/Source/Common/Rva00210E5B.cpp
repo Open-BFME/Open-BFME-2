@@ -23,11 +23,7 @@ void __stdcall rva00210E5B(void *key, int value)
 		((Rva003FA835 *)entry)->rva003FA781(value);
 }
 
-class Rva00DFE1C8Host
-{
-public:
-	void rva00210E5B(int key, int value);
-};
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 
 // ICF-folded twin of rva00210E5B above (same 33 bytes at 0x00210E5B): the
 // member spelling ignores its receiver, so its stack frame matches the

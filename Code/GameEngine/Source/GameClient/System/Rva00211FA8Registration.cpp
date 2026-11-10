@@ -51,7 +51,7 @@ class InGameUI;
 extern InGameUI *TheInGameUI;
 class Rva0029B380 { public: void rva0029B34B(); };
 
-class Rva00DFE1C8Host { public: void rva00211FA8(); void rva00212017(); };
+#include "../../../Include/Common/Rva00DFE1C8Host.h"
 void Rva00DFE1C8Host::rva00211FA8()
 {
     {

@@ -15,11 +15,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #define TheRva00DFEF10 (*(void **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
 
-class Rva00DFE1C8Host
-{
-public:
-	bool rva00210DC9();
-};
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 
 bool Rva00DFE1C8Host::rva00210DC9()
 {

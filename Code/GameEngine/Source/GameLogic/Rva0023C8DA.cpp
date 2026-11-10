@@ -5,11 +5,7 @@
 // confirms GameLogic's +0x184 member is ArmySummarySystem; this method and the
 // nested operation's purpose remain address-derived.
 
-class Rva00DFE1C8Host
-{
-public:
-	bool rva00210DC9();
-};
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
 extern class LivingWorldManager *TheLivingWorldManager;

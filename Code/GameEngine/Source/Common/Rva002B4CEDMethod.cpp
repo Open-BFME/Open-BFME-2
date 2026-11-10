@@ -30,11 +30,7 @@ extern "C" void _ReadWriteBarrier(void);
 class Rva0021294A;
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
-class Rva00DFE1C8Host
-{
-public:
-	void rva00212655(int value);
-};
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 
 struct Rva002B4CEDItem
 {

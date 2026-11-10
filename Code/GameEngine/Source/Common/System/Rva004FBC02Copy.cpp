@@ -146,11 +146,7 @@ void RegionAwardDispute::rva004FBDB0(bool arg)
 // ?rva004FBDCC@Rva004FBDCC@@QAEXXZ 0x004FBDCC 19: pushes this+0x18 then sets
 // byte at +0x1c to 1 and forwards the int to Rva00DFE1C8Host::rva00212655
 // through global TheLivingWorldManager. Evidence: pin 0x00212655 plus caller 0x002BAF01.
-class Rva00DFE1C8Host
-{
-public:
-	void rva00212655(int val);
-};
+#include "../../../Include/Common/Rva00DFE1C8Host.h"
 
 class Rva004FBDCC
 {

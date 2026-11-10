@@ -6,10 +6,7 @@ public:
 	int m_val38; // +0x38
 };
 
-class Rva00DFE1C8Host {
-public:
-	void rva00210E5B(int a, int b);
-};
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva005C4B56 {

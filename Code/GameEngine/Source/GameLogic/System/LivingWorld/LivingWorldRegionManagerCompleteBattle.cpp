@@ -39,11 +39,7 @@ struct LivingWorldBattleIDView
 };
 class LivingWorldBattle;
 
-class Rva00DFE1C8Host
-{
-public:
-	void rva00212655(int value);	// 0x00212655
-};
+#include "../../../../Include/Common/Rva00DFE1C8Host.h"
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;	// 0x00DFE1C8
 

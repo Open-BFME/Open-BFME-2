@@ -2183,12 +2183,7 @@ class Rva0028D680
 public:
 	void rva0028D680(void);
 };
-class Rva00DFE1C8Host
-{
-public:
-	bool rva00210DC9();
-	void rva00211FA8();
-};
+#include "../../../Include/Common/Rva00DFE1C8Host.h"
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
 extern class LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host

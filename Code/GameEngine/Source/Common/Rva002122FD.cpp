@@ -25,7 +25,7 @@ public:
 	int rva002122D4(int rawKey);
 };
 
-class Rva00DFE1C8Host { public: int rva002122FD(const AsciiString &); };
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 
 int Rva00DFE1C8Host::rva002122FD(const AsciiString &name)
 {

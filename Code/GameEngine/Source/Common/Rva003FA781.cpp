@@ -103,7 +103,7 @@ void Rva003FA835::rva003FA7D3(int enabled)
 const char *EmissiveTemplateNames[] = {
  "ARMY", "BATTLE_MARKER", "REGION_AWARD_DISPUTE", "CLOUD", "BUILDING", "DEFAULT", 0
 };
-class Rva00DFE1C8Host { public: int rva002122FD(const AsciiString &); };
+#include "../../Include/Common/Rva00DFE1C8Host.h"
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
 extern class LivingWorldManager *TheLivingWorldManager;
 #define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
