@@ -1,6 +1,7 @@
 # Consolidation: one retail translation unit, one source file
 
-The ledger mostly holds one function per file (about 23,000 units under `Code/`).
+The ledger mostly holds one function per file (17,893 source files under `Code/`
+on 2026-11-10, `tools/progress.py` SOURCE FILES).
 Retail was linked from real translation units, and a TU's functions sit next to
 each other in `.text` in object order. This lane merges the small files back into
 the TU retail built them from, one TU at a time, without losing a matched row.
@@ -18,6 +19,7 @@ Start a consolidation or subsystem naming pass with the read-only
 [evidence catalogue and naming planner](#evidence-catalogue-and-naming-packets).
 Its investigation packets support work selection and prerequisite repairs;
 merges continue through `tools/tu_skeleton.py` and the normal verification gates.
+Its hints and investigation groups approve no TU and no merge.
 
 | Tool | Role |
 |---|---|
@@ -89,8 +91,11 @@ regenerated `tu_map.csv` from this lane.
 6. **Verify and commit.** `./build.sh TU`, then
    `python3 tools/find_declared_unmatched.py TU`, then commit with the printed
    subject, plus the printed `trailer:` and any `debt-retired:` lines when the
-   merge carried register keys. The hook byte-verifies the TU again. Follow AGENTS.md's Publication
-   rules: a merge recovers no new bytes, so batch merges and push them together. Perform
+   merge carried register keys. The hook byte-verifies the TU again. Follow AGENTS.md's Publishing
+   rules: push a verified merge as soon as the account's push clock allows. A held
+   move keeps its scope claimed and conflicts with every later move (2026-10-28:
+   the last commit of a push waited a median 12 minutes and a p90 of 189 minutes
+   before landing). Perform
    the tooling compatibility audit below once over the full outgoing batch
    immediately before pushing.
 7. **Name while you are there.** The rows of the TU are a natural naming group:
@@ -928,6 +933,17 @@ During the audit before pushing, check the complete consolidation batch:
   before and after composition. Verify changed bindings.
 - Confirm active ledgers, registers, queues and fold proofs resolve to current
   owners. Record verification results and remaining prerequisites in the handoff.
+
+## Compiler-emitted rows go with their parent
+
+One exception to "rows move only into the address's approved unit", for
+compiler-emitted rows only: an EH funclet (`$L<n>`) or a static initializer or
+atexit destructor (`_$E<n>`) whose own address has no approved unit in the map
+is rowed in the unit that compiles its parent function or object, because the
+compiler emits it nowhere else. Name that parent in the commit message; the row
+moves with the parent when the parent is merged into its approved unit. Where
+the map approves a unit for the row's own address, the rule applies unchanged
+and the move waits for the parent's merge.
 
 ## A row a rename forces out (`rename.py --forced-move`)
 

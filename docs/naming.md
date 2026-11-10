@@ -36,7 +36,9 @@ Fully reviewed sources are remembered locally until their bytes change, so
 continuous batches advance rather than repeatedly reviewing completed files;
 explicit `--files` revisits a source.
 
-Link and consolidation work also supplies a `scoped_naming` handoff, in both
+Until the rebuilt game reaches the menu, link tasks and merges carry no
+`scoped_naming` handoff (`name_scoped.RELATED_WORK_HANDOFF` is off). Afterwards,
+link and consolidation work also supplies a `scoped_naming` handoff, in both
 selected-work JSON and human instructions; a successful TU merge points at its
 final TU path, including when applying a saved merge plan. Reuse the analysis and
 worker identity from the main task to clarify locals/parameters in the complete

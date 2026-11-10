@@ -564,7 +564,7 @@ recovery.
 
 ### BFME 1 reference updates (moved from AGENTS.md, 2026-10)
 
-AGENTS.md ("BFME 1 reference freshness") says when to check and what may never be
+AGENTS.md ("Publishing") says when to check and what may never be
 skipped; this is the full procedure.
 
 Use the `reference/open-bfme-1` submodule for building and donor discovery.
@@ -699,7 +699,7 @@ sources are confined by their grammar, not by a list of what can include.
 
 ## Work selection in detail (moved from AGENTS.md, 2026-10)
 
-AGENTS.md ("Work loop") gives the order; this is how the picker applies it.
+AGENTS.md ("Start here") gives the order; this is how the picker applies it.
 
 ### The default pick
 
@@ -794,6 +794,13 @@ coverage, ownership, freshness and history checks as other apparent gaps.
 
 ### Cleanup lane details
 
+- Generated placeholder rows (`gen-*`) are placeholders, not progress. Recover
+  one by writing clean C++ at the proper `Code/` path and repointing:
+  `tools/add_match.py <real-name> <rva> <size> <source> --replace-rva <rva>`
+  (`--replace-existing` when the name is unchanged). After a batch, check one
+  body per address: a duplicate range is an over-claim, not an ICF alias.
+  Identifying an existing placeholder is cleanup and stays in the naming and
+  cleanup lanes; only restoring a proven lost row is regression repair.
 - Generated funclets onto real parents: repoint a `Code/gen_small/uw_gen_*.cpp`
   row to the `$L` label its matched parent emits, only where `tools/eh_verify.py`
   finds the parent's EH graph EXACT and binding that label to the retail funclet.

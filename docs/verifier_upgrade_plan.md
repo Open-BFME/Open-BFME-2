@@ -89,7 +89,33 @@ matching as usual — rows the new checks flag will be served as a queue.
 
 ## Live rules in detail (moved from AGENTS.md, 2026-10)
 
-AGENTS.md ("Hard rules") states each rule in one line. This is the detail.
+AGENTS.md ("Never") states each rule in one line. This is the detail. This
+section is Open-BFME-2's own: Open-BFME-1's copy of this plan has its fleet
+lanes here instead.
+
+### Hooks, worktrees and portable sources
+
+- If `git config core.hooksPath` names another checkout (common in worktrees),
+  run `git -c core.hooksPath=.githooks`. Create worktrees with
+  `python3 tools/worktree_setup.py create PATH --branch NAME`; never run a bare
+  `submodule update --init` in a worktree. After pulling in a worktree, run
+  `worktree_setup.py prepare`; remove one with `worktree_setup.py remove PATH`.
+- A `// cl:` line holds compiler flags and nothing else, and `#include` never
+  names an absolute path (`tools/conversion_gate.py` refuses both). Both pass on
+  your machine and break everyone else: in Git Bash, set `MSYS_NO_PATHCONV=1`
+  before any tool that takes a `/I...` argument, or it becomes
+  `C:/Program Files/Git/I...`.
+- Spell control paths (the root, `reverse/`, `tools/`, `.githooks/`, `.github/`)
+  in lowercase (`tools/check_case_collisions.py`; banked attempts, attempt
+  evidence and class contracts are exempt).
+- `.c` and `.asm` sources are byte-verified like `.cpp`. The hooks refuse a
+  string literal shorter than retail's, a switch jump table mapping a case to
+  the wrong target, and compiled bytes past a row's extent that differ from
+  retail (for a longer body, raise the extent).
+- False rejects: a tooling seat finds them with
+  `rg "false-reject" reverse/re_attempts.log`, reproduces each, and fixes the
+  check with a regression test and a `Verifier-Change:` trailer; every case in
+  `tools/tests/test_gate_exploits.py` must still be refused.
 
 ### Debt leaves a register only by its own path
 
@@ -150,6 +176,20 @@ list: the resolver keeps the first pinned address that reproduces retail, so a
 pin naming the wrong function still byte-matches; hence the
 `tools/pin_consistency.py` checks.
 
+Write pins only through `tools/pin_admission.py --add` or `tools/add_match.py
+--pin`. Run `tools/pin_consistency.py --symbol <name>` before pinning and
+`--check` after; `reverse/pin_consistency_baseline.csv` only shrinks. Check a
+harvested pin's thunk against the ledger's own body before spending a name on
+it. `gen-alias` is allowed only as an exact notes token whose masked callee is a
+byte-and-relocation twin; add no new `object-symbol=` alias rows.
+
+### Vendored rows
+
+`vendored=<lib>-<ver>` rows carry upstream's real names, never `gen-`; the
+header comment names the exact release; sources live at official BFME paths,
+and pristine C TUs compile against `reference/shims/gamespy/`, never a real
+Platform SDK.
+
 ### Converged data addresses
 
 Each address in `reverse/data_converged.csv` (TheGameLogic, TheAI,
@@ -170,6 +210,11 @@ to shadow. Read the register's mode line rather than trusting this paragraph. Th
 other data checks (`tools/data_check.py` outside `--converged`),
 `tools/tu_ownership.py`, `tools/invented_names.py` and link admission
 (`tools/link_check.py --shadow`) also report without refusing.
+`tools/class_gate.py`'s qualified-identity check for registered classes and
+class templates reports in shadow too (`reverse/class_gate_mode.txt`):
+`class_gate [shadow]` lines at commit and
+`<git common dir>/class_gate_shadow.jsonl`, with the same one-way switch to
+`enforce`.
 `tools/publisher.py` only re-verifies pushed work afterwards.
 
 ### Verification runners

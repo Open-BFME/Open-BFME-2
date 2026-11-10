@@ -1,6 +1,6 @@
 # Claims
 
-AGENTS.md ("Hard rules: claims") states the rules. This is the mechanism, moved
+AGENTS.md ("Start here") states the rules. This is the mechanism, moved
 from AGENTS.md in 2026-10.
 
 ## Taking a claim
@@ -41,6 +41,27 @@ other push to master waits at the end of its hook while another seat holds it,
 until the holder's commit is on origin/master or the TTL passes. Check it with
 `python3 tools/push_lease.py status`. A crashed holder blocks no one past the
 TTL, and unreachable claims never block a push.
+
+`python3 tools/push.py` is the only way to push to `master`. It rebases onto
+origin/master, pins `reference/open-bfme-1`, refuses any outgoing commit not
+authored and committed as the account's GitHub noreply identity (`git config
+bfme.pushEmail`, else `user.email`), pushes through `.githooks/`, and on a lost
+race rebases and pushes again at once, printing each attempt's time. The hooks
+re-verify only what changed since the last check (commit and push receipts,
+`tools/push_receipts.py`), so a retry costs seconds; a real refusal stops it.
+
+Allow at least five minutes between successful pushes by the same GitHub account
+to this repository; share that clock across workers using the account, and keep
+working during the cooldown. `push.py` keeps the clock (`<git common
+dir>/bfme-last-push`, or `$BFME_PUSH_CLOCK` for a clock shared beyond one clone)
+and waits before a first attempt; a retry after a lost race does not wait, since
+nothing landed.
+
+Batch verified commits other than source-path moves until the batch moves a
+headline figure (linked bytes up, NOT OURS down, debt down, source files down),
+and batch linking repairs, renames and banked attempts the same way. A pull
+request lands only by cherry-pick (never GitHub's merge button); afterwards
+comment on it with the landed SHAs and that follow-up work stacks off `master`.
 
 ## Settling and releasing
 
@@ -100,4 +121,5 @@ under the old `<user>@<host>` owner.
 ## When origin is unreachable
 
 `claims.py claim` claims nothing and exits 2. The pickers then warn and serve the
-work unclaimed, skipping any work origin showed another worker holding.
+work unclaimed, skipping any work origin showed another worker holding. Proceed
+with that work, but never touch work origin last showed another worker holding.

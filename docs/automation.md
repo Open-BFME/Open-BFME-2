@@ -122,7 +122,8 @@ source stay visible in an ownership-investigation item claiming
 published real link no longer bridging or refusing those tables while retaining
 their ledger coverage. The dispatcher stages both committed queue files.
 
-These copies are a runtime bridge, not recovered class definitions. G1 requires both
+These copies are a runtime bridge, not recovered class definitions; header adoption
+(`tools/header_adopt_lane.py`) is the lasting fix for short vtables. G1 requires both
 vtable counters and `initializers_bridged` to be zero in addition to its other
 requirements. Missing counters in an older result are unknown, not zero. The image
 receipt carries the vtable counts, so the linked-image report preserves them under
