@@ -3,6 +3,11 @@ name: Retail byte verification
 on:
   push:
     branches: [master]
+    # Notes nothing below reads (tools/build.py, tools/check_csv.py): a push that
+    # changes only these starts no run. A later code push verifies the whole tree.
+    paths-ignore:
+      - 'docs/**'
+      - 'reverse/attempt_support/**'
   workflow_dispatch:
     inputs:
       sources:
