@@ -12,11 +12,7 @@ class Weapon;
 
 #include "../../../../Include/Common/Rva002C9400ByteField.h"
 
-class Rva002C9407ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002C9407ByteField.h"
 
 #include "../../../../Include/GameLogic/Weapon.h"
 

@@ -8,7 +8,7 @@
 // these in this pass.
 class Rva0030812E { public: void *getTextureName(int i); };
 #include "../../Include/Common/Rva002C9400ByteField.h"
-class Rva002C9407ByteField { public: unsigned char get() const; };
+#include "../../Include/Common/Rva002C9407ByteField.h"
 class Rva005E3266 { public: void rva005E3266(); };
 
 // 0x0007E0C6: [ecx+0x40] -> Rva0030812E::getTextureName(int)

@@ -423,11 +423,7 @@ public:
 Bool rva00344EB2Gate(Object *obj, Thing *other);
 
 #include "../../../Include/Common/Rva002C9400ByteField.h"
-class Rva002C9407ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9407ByteField.h"
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 static __forceinline Bool weaponTemplateIs16B(const WeaponTemplate *wt) { return wt->m_field16B; }
 
