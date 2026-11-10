@@ -1,0 +1,187 @@
+{
+ "bases": [
+  "Rva000421C8"
+ ],
+ "bases_by": "majority",
+ "class": "Rva00260EB1Filter",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 45,
+  "inherited": {
+   "base_views": 45,
+   "inherited_slots": 3,
+   "inherited_spans": [
+    [
+     0,
+     8
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x7fbc90"
+      },
+      "dtor": {
+       "0x0": "0x7c26e0"
+      }
+     },
+     "dtor": "0x49c38a",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x28aabb"
+     ],
+     "value": 17
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x28aabb"
+     ],
+     "value": {
+      "0x10": [
+       1
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x28aabb"
+     ],
+     "value": {
+      "0x0": "0x7fbc90"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fbc90"
+     ],
+     "value": {
+      "count": 3,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?rva00395A19@Rva00395A19@@QAEPAXI@Z",
+        "slot": 0,
+        "target": "0x395a19"
+       },
+       {
+        "name": "?allow@Rva00260EB1Filter@@UAE_NPAVObject@@@Z",
+        "slot": 1,
+        "target": "0x260eb1"
+       },
+       {
+        "name": "?getPlayerMask@Rva00260EB1Filter@@UAEHXZ",
+        "slot": 2,
+        "target": "0x260e6a"
+       }
+      ],
+      "table": "0x7fbc90"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7fbc90": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?rva00395A19@Rva00395A19@@QAEPAXI@Z",
+     "1": "?allow@Rva00260EB1Filter@@UAE_NPAVObject@@@Z",
+     "2": "?getPlayerMask@Rva00260EB1Filter@@UAEHXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "20": 45
+  },
+  "views": 45,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_obj",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 45,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flags",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 45,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_match",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 45,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x7fbc90"
+    },
+    "dtor": {
+     "0x0": "0x7c26e0"
+    }
+   },
+   "class": "Rva00260EB1Filter",
+   "why": "the class's retail constructors or destructors disagree"
+  }
+ ],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

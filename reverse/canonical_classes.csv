@@ -661,3 +661,4 @@ RenderStateStruct,Code/Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h,existi
 Rva007C454,Code/Libraries/Source/WWVegas/WW3D2/Rva007C454Camera.h,existing header; contract class_contracts/Rva007C454.json; 2/7 sampled units adopt
 Rva002611BFFilter,Code/GameEngine/Include/GameLogic/Rva002611BFFilter.h,existing header; contract class_contracts/Rva002611BFFilter.json; 48/51 sampled units adopt
 Rva0026119DFilter,Code/GameEngine/Include/GameLogic/Rva0026119DFilter.h,existing header; contract class_contracts/Rva0026119DFilter.json; 79/82 sampled units adopt
+Rva00260EB1Filter,Code/GameEngine/Include/GameLogic/Rva00260EB1Filter.h,existing header; contract class_contracts/Rva00260EB1Filter.json; 34/45 sampled units adopt
