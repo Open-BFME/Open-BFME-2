@@ -205,7 +205,7 @@ private:
 // Retail has no self-call and no loop-back before the transfer; the loop-back
 // jne targets the lookup, and null-sink breaks to MULT (not return).
 class Object;
-class BfmeGlob939D:public GameLogic{public:char bfmeCall939D();};
+#include "../../../Include/Common/BfmeGlob939D.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MultiPlayMults.h"

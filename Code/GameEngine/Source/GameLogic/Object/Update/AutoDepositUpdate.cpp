@@ -30,11 +30,7 @@ extern GameLogic *TheGameLogic;
 // BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). These calls
 // go through a TU-local derivation so they resolve to the rowed body
 // instead of the unrowed GameLogic spelling (U on 4 units).
-class BfmeGlob939D : public GameLogic
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/MultiPlayMults.h"

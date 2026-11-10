@@ -110,11 +110,7 @@ public:
 	BitFlags<11> m_disabledMask;
 };
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 
 class GameLogic;
 extern GameLogic *TheGameLogic;

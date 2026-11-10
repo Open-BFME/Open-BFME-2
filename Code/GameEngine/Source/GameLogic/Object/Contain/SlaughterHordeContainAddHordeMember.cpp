@@ -23,7 +23,7 @@ class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemp
 extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class BfmeGlob939D{public:char bfmeCall939D();};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Rva0039ADF3{public:bool rva0039AE04()const;};
 class Rva0028D796{public:int rva0028D796();};
