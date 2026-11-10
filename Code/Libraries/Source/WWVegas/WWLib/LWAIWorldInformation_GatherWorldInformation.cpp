@@ -251,11 +251,7 @@ struct LWAIPlayerView
 	int getID() const { return m_id; }
 };
 
-class Rva0040CB2CIndexedField
-{
-public:
-	int get(int index) const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0040CB2CIndexedField.h"
 
 class Rva0040CC1BIndexedField
 {

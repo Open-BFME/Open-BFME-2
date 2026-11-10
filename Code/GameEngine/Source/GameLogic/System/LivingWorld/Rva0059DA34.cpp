@@ -130,7 +130,7 @@ struct Rva0059D90CSource
 class Rva003B8E89 { public: void *rva003B8E89(void *); };
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
-class Rva0040CB2CIndexedField { public: int get(int) const; };
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"

@@ -49,7 +49,7 @@ struct Rva003F6DF9Data {char pad2c[0x2c];unsigned dirty;char pad30[0x10];_STL::v
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);private:void*words[3];};
 struct Rva003F6DF9Payload {char pad8[8];Rva005A0B4CList listeners;char pad14[0x64];Rva003F6DF9Data *data;};
-class Rva0040CB2CIndexedField {public:int get(int)const;};
+#include "../../../../GameEngine/Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct Rva003F6D35Inner {
  unsigned word;_STL::vector<const ModuleData*> payloads;_STL::vector<BfmePod104> data;unsigned tail[5];
 };
