@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -D_STLP_USE_STATIC_LIB  -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
+// platformsdk
 // stlport
 // Target candidate BuddyThreadClass::Thread_Function552027..552BD2 (2987B),
 // with separate catch funclet552BD2 and twelve-case jump table552BD8.
@@ -21,6 +22,7 @@
 // the existing provider is reconciled as its real destructor rather than
 // std::auto_ptr. Original holder type name remains unknown.
 #define __PLACEMENT_VEC_NEW_INLINE
+#include <windows.h>
 #include <stdlib.h>
 void Rva00030830GameFree(void*);
 #include <string>
@@ -57,8 +59,6 @@ namespace _STL { template <> char * basic_string<char,char_traits<char>,allocato
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> basic_string<char,char_traits<char>,allocator<char> >::basic_string(); }
 
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long);
 
 // The native cleanup at 0x0055076F clears its one owned word before
 // ordinary scalar delete; it is the same owned-pointer lifetime already viewed
