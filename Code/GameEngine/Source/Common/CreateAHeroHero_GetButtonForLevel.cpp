@@ -18,12 +18,7 @@ struct Rva00406ED7Item
     int b;
 };
 
-class CreateAHeroHero
-{
-    char m_pad[0x80];
-public:
-    const CommandButton *GetButtonForLevel(int idx);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 const CommandButton *CreateAHeroHero::GetButtonForLevel(int idx)
 {
     if ((unsigned int)idx >= 15)

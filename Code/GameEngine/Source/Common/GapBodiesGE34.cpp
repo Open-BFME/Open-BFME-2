@@ -134,12 +134,7 @@ public:
 	int rva00406E8F(unsigned index);						// 0x00406E8F
 };
 
-class CreateAHeroHero
-{
-public:
-	bool HasEarnedAward(const CreateAHeroAward *award) const;	// 0x00406EA7
-	void rva005B0357(int index, char *buffer, int unused);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 void CreateAHeroHero::rva005B0357(int index, char *buffer, int unused)
 {

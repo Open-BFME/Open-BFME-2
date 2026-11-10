@@ -53,12 +53,7 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 #include "subsystem_interface.h"
 
-class CreateAHeroHero
-{
-public:
-	Int GetBlingCount(Int blingKey) const;			// 0x004079F4
-	Int GetBlingId(Int blingKey, UnsignedInt index) const;	// 0x00407A29
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling

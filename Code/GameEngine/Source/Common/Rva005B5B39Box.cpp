@@ -12,11 +12,7 @@
 #include "ascii_string.h"
 
 class CommandButton;
-class CreateAHeroHero
-{
-public:
-	const CommandButton *GetButtonForLevel(int level);	// 0x00406ED7
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 #include "../../Include/Common/AptCreateAHero.h"
 

@@ -258,11 +258,7 @@ void Rva005AFCEC::rva005AFCEC(Int a)
 // 0x005B023A: sets +0x150 and runs CreateAHeroHero::Update(0) (0x004083FF,
 // CreateAHeroHero.cpp) on itself; the WorldBuilder twin 0x0156DEC0 calls
 // CreateAHeroHero::Update with this.
-class CreateAHeroHero
-{
-public:
-	bool Update(Int flags);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 #include "../../Include/GameClient/AptMyHero.h"
 void AptMyHero::slot14()
 {

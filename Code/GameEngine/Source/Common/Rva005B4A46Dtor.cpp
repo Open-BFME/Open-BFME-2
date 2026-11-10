@@ -25,7 +25,7 @@ class Rva00406F27 {public:bool rva00406F27(int);};
 class Rva00406F3C {public:bool rva00406F3C(int);};
 class AppearanceHeroView {public:virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void refresh(bool);virtual void refresh14();char unknown04[0x2C-4];unsigned m_hairColor,m_skinColor,m_paintColor;};
 #include "../../Include/GameClient/AptMyHero.h"
-class CreateAHeroHero {public:bool SetDefaultColors();};
+#include "../../Include/Common/CreateAHeroHero.h"
 class Rva005B4BDB {public:void rva005B4C3C();void rva005B4BDB();void rva005B4AD9(int);};
 class Rva005B5C02Box {public:void Run();};
 class GameWindow;

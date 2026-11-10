@@ -64,13 +64,7 @@ extern const char *g_CreateAHeroFilenameExtension;
 #include <algorithm>
 typedef unsigned int UnsignedInt;
 class AsciiString;
-class CreateAHeroHero
-{
-public:
-	int GetBlingCount(int blingKey) const; // 0x004079F4
-	int GetBlingId(int blingKey, unsigned int index) const; // 0x00407A29
-	bool rva004098BE(const AsciiString &file, bool system);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling
 {

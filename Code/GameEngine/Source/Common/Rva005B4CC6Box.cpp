@@ -8,11 +8,7 @@
 #include "../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 
-class CreateAHeroHero
-{
-public:
-	bool SetDefaultColors();
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 class Rva004076EE
 {

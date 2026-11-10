@@ -154,7 +154,7 @@ class CreateAHeroData;
 class CreateAHeroHero;
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
-class CreateAHeroHero { public: bool UpdateCommandSet(unsigned int); };
+#include "../../../Include/Common/CreateAHeroHero.h"
 #include "../../../Include/GameClient/Drawable.h"
 class Object
 {

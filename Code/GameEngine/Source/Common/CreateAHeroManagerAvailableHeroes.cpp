@@ -83,15 +83,7 @@ typedef _STL::_Rb_tree<int, SignedBlingPair,
     _STL::allocator<SignedBlingPair> > SignedBlingTree;
 template SignedBlingTree::_Link_type SignedBlingTree::_M_find<int>(const int &) const;
 
-class CreateAHeroHero
-{
-public:
-	Int GetBlingCount(Int blingKey) const;			// 0x004079F4
-	Int GetBlingId(Int blingKey, UnsignedInt index) const;	// 0x00407A29
-	// 0x004098BE (WorldBuilder places it in CreateAHeroHero.cpp): takes a
-	// file name and a flag; rva0021A428 hands it "MyHero.dat".
-	Bool rva004098BE(const AsciiString &fileName, Bool flag);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 // The same hero object under the names its rowed copy and setter carry:
 // operator= at 0x00409359 and the +4 setter at 0x00406E47.

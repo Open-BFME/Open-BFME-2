@@ -14,11 +14,7 @@ struct RGBColor;
 extern Mouse *TheMouse;
 
 class CommandButton;
-class CreateAHeroHero
-{
-public:
-	const CommandButton *GetButtonForLevel(int index);
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 #include "../../Include/Common/AptCreateAHero.h"
 class Rva005B2B6DOwner

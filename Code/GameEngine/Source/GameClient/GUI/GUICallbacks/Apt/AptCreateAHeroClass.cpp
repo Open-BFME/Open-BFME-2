@@ -10,7 +10,7 @@ class CreateAHeroData;
 class Rva00219251 { public:
  CreateAHeroData *rva00219251(int,int,int,const UnicodeString &,int,int,int);
 };
-class CreateAHeroHero { public: bool SetDefaultColors(); };
+#include "../../../../../Include/Common/CreateAHeroHero.h"
 class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
