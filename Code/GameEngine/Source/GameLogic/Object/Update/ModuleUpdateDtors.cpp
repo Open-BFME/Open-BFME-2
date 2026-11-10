@@ -18,8 +18,8 @@
 class Thing;
 class ModuleData;
 
-static int s_dummy0C;
-static int s_dummy10;
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
 extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9];
 
 // Opaque 0x88-byte UpdateModule-derived intermediate; dtor resolves to the
@@ -47,8 +47,8 @@ public:
 
 OCLUpdate::~OCLUpdate()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -60,8 +60,8 @@ public:
 
 CurseSpecialPower::~CurseSpecialPower()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -73,8 +73,8 @@ public:
 
 SupplyCenterDockUpdate::~SupplyCenterDockUpdate()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -86,8 +86,8 @@ public:
 
 Rva00490D3F::~Rva00490D3F()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -99,8 +99,8 @@ public:
 
 Rva00492179::~Rva00492179()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -117,8 +117,8 @@ public:
 
 Rva00492402::~Rva00492402()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = s_dummy20;
 }
 
@@ -136,8 +136,8 @@ public:
 
 Rva00494F1B::~Rva00494F1B()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -227,7 +227,7 @@ private:
 Rva004B0164::~Rva004B0164()
 {
 	m_p0C = &s_dummy62D8;
-	m_p10 = &s_dummy10;
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 	m_tail88 = &s_dummy62C8;
 }
@@ -240,8 +240,8 @@ public:
 
 Rva004B29BE::~Rva004B29BE()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -253,8 +253,8 @@ public:
 
 Rva004CC9BF::~Rva004CC9BF()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -266,8 +266,8 @@ public:
 
 ActivateModuleSpecialPower::~ActivateModuleSpecialPower()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
@@ -321,8 +321,8 @@ public:
 
 Rva004AE4E2::~Rva004AE4E2()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummy5348;
 }
 
@@ -336,8 +336,8 @@ public:
 
 UnleashSpecialPower::~UnleashSpecialPower()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummyFD98;
 }
 
@@ -388,7 +388,7 @@ private:
 Rva004AD9B0::~Rva004AD9B0()
 {
 	m_p0C = &s_dummy62D8;
-	m_p10 = &s_dummy10;
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummy5198;
 	m_tail88 = &s_dummy5188;
 }

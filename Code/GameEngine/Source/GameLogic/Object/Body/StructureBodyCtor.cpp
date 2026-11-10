@@ -14,7 +14,7 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_vtable;
+extern "C" const void *const __identifier("??_7Rva004C0988@@6BRva004BF951@@@")[];
 static int s_secondary0C;
 static int s_secondary10;
 
@@ -47,7 +47,7 @@ StructureBody::StructureBody(Thing *thing, const ModuleData *moduleData)
 {
 	m_100 = 0;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
+	m_vtable = __identifier("??_7Rva004C0988@@6BRva004BF951@@@");
 	m_p0C = &s_secondary0C;
 	m_p10 = &s_secondary10;
 }

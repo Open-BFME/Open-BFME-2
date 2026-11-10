@@ -12,15 +12,15 @@ class Thing;
 class ModuleData;
 
 static int s_vtable;
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface0C@@@")[];
 static int s_secondary10;
 static int s_secondary20;
-static int s_secondary24;
-static int s_secondary28;
-static int s_secondary2C;
+extern "C" const void *const __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@")[];
+extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface28@@@")[];
+extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface2C@@@")[];
 static int s_secondary30;
 static int s_secondary34;
-static int s_secondaryFC;
+extern "C" const void *const __identifier("??_7AODHordeContain@@6BIfaceFC@@@")[];
 
 // Opaque SiegeEngineContain base (0x138); ctor resolves to its pin.
 class Xfer;
@@ -57,13 +57,13 @@ RiderChangeContain::RiderChangeContain(Thing *thing, const ModuleData *moduleDat
 	m_144 = 0;
 	m_140 = 0;
 	*(const void **)this = &s_vtable;
-	*(const void **)((char *)this + 0xC) = &s_secondary0C;
+	*(const void **)((char *)this + 0xC) = __identifier("??_7AODHordeContain@@6BIface0C@@@");
 	*(const void **)((char *)this + 0x10) = &s_secondary10;
 	*(const void **)((char *)this + 0x20) = &s_secondary20;
-	*(const void **)((char *)this + 0x24) = &s_secondary24;
-	*(const void **)((char *)this + 0x28) = &s_secondary28;
-	*(const void **)((char *)this + 0x2C) = &s_secondary2C;
+	*(const void **)((char *)this + 0x24) = __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@");
+	*(const void **)((char *)this + 0x28) = __identifier("??_7AODHordeContain@@6BIface28@@@");
+	*(const void **)((char *)this + 0x2C) = __identifier("??_7AODHordeContain@@6BIface2C@@@");
 	*(const void **)((char *)this + 0x30) = &s_secondary30;
 	*(const void **)((char *)this + 0x34) = &s_secondary34;
-	*(const void **)((char *)this + 0xFC) = &s_secondaryFC;
+	*(const void **)((char *)this + 0xFC) = __identifier("??_7AODHordeContain@@6BIfaceFC@@@");
 }

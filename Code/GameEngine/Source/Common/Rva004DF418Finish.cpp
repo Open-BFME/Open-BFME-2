@@ -60,7 +60,7 @@ public:
 	void *m_head;
 };
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
 // Shared with the destructor's complete three-entry secondary table.
 extern "C" const void *const s_10[3];
 extern "C" const void *const __identifier("??_7Rva004DF324@@6B@")[];
@@ -84,7 +84,7 @@ private:
 
 Rva004DF418::Rva004DF418(Thing *thing, const ModuleData *moduleData)
 	: ObjectHelper(thing, moduleData)
-	, m_p0C((*(const void **)this = __identifier("??_7Rva004DF324@@6B@"), &s_secondary0C))
+	, m_p0C((*(const void **)this = __identifier("??_7Rva004DF324@@6B@"), __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")))
 	, m_p10(&s_10)
 	, m_24((void *)((char *)&moduleData + 3))
 {

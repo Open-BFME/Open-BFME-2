@@ -17,7 +17,7 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_slotFirst;
+extern "C" const void *const __identifier("??_7Rva002B0F3CIface@@6B@")[];
 static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
@@ -62,7 +62,7 @@ private:
 CastleMemberBehavior::CastleMemberBehavior(Thing *thing, const ModuleData *moduleData)
 	: BehaviorModule(thing, moduleData)
 {
-	*(const void **)((char *)this + 0x10) = &s_slotFirst;
+	*(const void **)((char *)this + 0x10) = __identifier("??_7Rva002B0F3CIface@@6B@");
 	_ReadWriteBarrier();
 	m_14 = 0;
 	m_18 = 0;

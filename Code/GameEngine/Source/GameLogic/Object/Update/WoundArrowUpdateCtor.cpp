@@ -11,10 +11,10 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
+extern "C" const void *const __identifier("??_7Rva004C6943@@6BRva00451F45_Root@@@")[];
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C6943@@6BRva00451F45_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C6943@@6BRva00451F45_E1@@@")[];
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -47,9 +47,9 @@ private:
 WoundArrowUpdate::WoundArrowUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
+	m_vtable = __identifier("??_7Rva004C6943@@6BRva00451F45_Root@@@");
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7Rva004C6943@@6BRva00451F45_B2@@@");
+	m_p20 = __identifier("??_7Rva004C6943@@6BRva00451F45_E1@@@");
 	m_88 = 0;
 }

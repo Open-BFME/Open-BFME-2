@@ -18,8 +18,8 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7Rva004BCB0D@@6BRva004BC4FC_Root@@@")[];
+extern "C" const void *const __identifier("??_7FireWeaponCollide@@6BBehaviorModuleInterface@@@")[];
 static int s_secondary10;
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
@@ -46,7 +46,7 @@ public:
 ShroudCrateCollide::ShroudCrateCollide(Thing *thing, const ModuleData *moduleData)
 	: CrateCollide(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
+	m_vtable = __identifier("??_7Rva004BCB0D@@6BRva004BC4FC_Root@@@");
+	m_p0C = __identifier("??_7FireWeaponCollide@@6BBehaviorModuleInterface@@@");
 	m_p10 = &s_secondary10;
 }

@@ -11,9 +11,9 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7Rva004C6C5C@@6BRva00451F45_Root@@@")[];
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C6C5C@@6BRva00451F45_B2@@@")[];
 static int s_secondary20;
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
@@ -47,9 +47,9 @@ private:
 FellBeastSwoopPower::FellBeastSwoopPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = __identifier("??_7Rva004C6C5C@@6BRva00451F45_Root@@@");
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7Rva004C6C5C@@6BRva00451F45_B2@@@");
 	m_p20 = &s_secondary20;
 	m_88 = 0;
 }

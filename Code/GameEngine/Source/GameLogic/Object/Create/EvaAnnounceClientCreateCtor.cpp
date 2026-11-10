@@ -14,7 +14,7 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_first0C;
+extern "C" const void *const __identifier("??_7Rva004C9994@@6B@")[];
 static int s_vtable;
 static int s_secondary0C;
 
@@ -46,7 +46,7 @@ private:
 EvaAnnounceClientCreate::EvaAnnounceClientCreate(Thing *thing, const ModuleData *moduleData)
 	: Rva00362EC7(thing, moduleData)
 {
-	*(const void * volatile *)&m_p0C = &s_first0C;
+	*(const void * volatile *)&m_p0C = __identifier("??_7Rva004C9994@@6B@");
 	_ReadWriteBarrier();
 	m_10 = 0;
 	m_vtable = &s_vtable;

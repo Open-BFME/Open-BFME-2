@@ -21,7 +21,7 @@ extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M1@
 extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_B2@@@")[];  // vftable 0x00C47B8C
 extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M3@@@")[];  // vftable 0x00C47B88
 extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M4@@@")[];  // vftable 0x00C52F88
-static int s_slot3E4first;
+extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[];
 extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6B@")[];  // vftable 0x00C47B84
 
 class AIUpdateInterface
@@ -57,7 +57,7 @@ public:
 AnimalAIUpdate::AnimalAIUpdate(Thing *thing, const ModuleData *moduleData)
 	: AIUpdateInterface(thing, moduleData)
 {
-	*(const void * volatile *)&m_p3E4 = &s_slot3E4first;
+	*(const void * volatile *)&m_p3E4 = __identifier("??_7Rva003F498ACallback@@6B@");
 	m_p3E4 = __identifier("??_7AnimalAIUpdate@@6B@");
 	m_3E8 = 0;
 	m_3F8 = 0;
