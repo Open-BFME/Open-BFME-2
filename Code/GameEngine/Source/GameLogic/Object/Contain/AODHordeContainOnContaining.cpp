@@ -18,11 +18,7 @@ extern int BfmeLogicFramesPerSecond;
 #include "../../../../Include/Common/Geometry.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B28F(bool value);
-};
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 #include "../../../Common/Thing/thing.h"
 struct Rva0028AC4EEntry;

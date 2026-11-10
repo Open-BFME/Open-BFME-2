@@ -5,11 +5,7 @@
 // that caller keeps ecx across the call, which MSVC does only for a callee it
 // has already compiled in the same unit.
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B548();
-};
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 struct Rva004BDA67M04
 {

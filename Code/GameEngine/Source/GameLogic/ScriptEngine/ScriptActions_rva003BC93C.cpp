@@ -10,12 +10,7 @@
 //   0x003BD306 (37B): hands the bool argument to 0x0039B28F (no null check).
 //   0x003BC93C (51B): when the +0x264 object exists, hands it the int
 //                     argument as a float with true to 0x0039B3D1.
-class Rva003BD306Target
-{
-public:
-    void rva0039B28F(bool value);
-    void rva0039B3D1(float value, bool flag);
-};
+#include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 class Object
 {

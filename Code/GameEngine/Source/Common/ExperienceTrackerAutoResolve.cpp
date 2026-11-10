@@ -31,7 +31,7 @@ protected:
     char pad14[0x34-0x14];
 };
 class LivingWorldAutoResolveUnit { public: char pad[0x2C]; const ThingTemplate *type; };
-class Rva003BD306Target { public: void rva0039B28F(bool); };
+#include "../../Include/GameLogic/Module/Rva003BD306Target.h"
 class Rva005DB004 { public: void rva005DB004(); };
 class ExperienceTrackerAutoResolve : public ExperienceTracker {
 public:

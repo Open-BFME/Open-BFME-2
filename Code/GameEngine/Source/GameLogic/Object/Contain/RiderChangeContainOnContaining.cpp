@@ -89,11 +89,7 @@ public:
 	void rva0039ACA4(const Rva0039ACA4 *from);	// 0x0039ACA4
 };
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B3D1(float experience, bool provideFeedback);	// 0x0039B3D1
-};
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 class Object
 {

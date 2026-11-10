@@ -855,7 +855,7 @@ class Rva001E6516 { public: void rva001E6516(Object *); };
 class Rva00077710Value { public: bool operator!=(const Rva00077710Value &) const; };
 struct Rva0039B24FInput;
 class Rva0039B24F { public: void rva0039B24F(Rva0039B24FInput *, bool, bool); };
-class Rva003BD306Target { public: void rva0039B28F(bool); void rva0039B2C7(int, bool); };
+#include "../../Include/GameLogic/Module/Rva003BD306Target.h"
 #include "../../Include/Common/Overridable.h"
 class WeaponStore
 {

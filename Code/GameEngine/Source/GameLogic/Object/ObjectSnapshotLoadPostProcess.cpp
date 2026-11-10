@@ -63,7 +63,7 @@ class LoadDelayedFlagBackup{public:LoadDelayedFlagBackup(){old=TheDelayedExperie
 extern CreateAHeroManager*TheCreateAHeroManager;
 struct Rva00293EFFXPNode {char pad[12];int value;};
 class Rva00293EFFXPField {public:int getField();char pad[0x2C];Rva00293EFFXPNode*node;};
-class Rva003BD306Target{public:void rva0039B548();};
+#include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 class Rva0039B20C{public:void rva0039B227(int);};
 struct LoadScoringView{char pad[0x98];bool enabled;};

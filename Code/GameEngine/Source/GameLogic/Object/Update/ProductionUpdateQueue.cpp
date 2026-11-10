@@ -598,7 +598,7 @@ class UnitRevivalTracker { public: bool productionSystemQueueCreateUnit(int,int,
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 struct ProductionExperienceView { char pad[0x24]; int level; int next; };
-class Rva003BD306Target { public: void rva0039B2C7(int,bool); };
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 class Rva004DC8E7AsciiField { public: AsciiString get() const; };
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

@@ -8,10 +8,7 @@
 // owner +8, tracker +264, level +24 and the out-ID word at +26C.
 class ThingTemplate;
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-class Rva003BD306Target {
-public:
- void rva0039B2C7(int count, bool value);
-};
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 class Object {
 public:
  char unknown[0x264];

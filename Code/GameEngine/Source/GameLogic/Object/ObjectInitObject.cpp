@@ -217,11 +217,7 @@ public:
 	void rva00318333(Object *obj, Bool flag);
 };
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B28F(bool value);
-};
+#include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 class Rva0039B20C
 {
 public:

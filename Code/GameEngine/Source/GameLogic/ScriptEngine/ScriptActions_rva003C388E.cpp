@@ -17,12 +17,7 @@ struct Rva003C388EObject
 	void *m_264;
 };
 
-class Rva003BD306Target
-{
-public:
-	// LINK: rowed as rva0039B28F(bool) (Rva003BD306 sibling row); the old bool call shape is kept through a member-pointer cast.
-	void rva0039B28F(bool on);
-};
+#include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 // Team iterate callback 0x0028870A (28B): pass the action's flag, carried in
 // the userdata, to each member's +0x264 object, then continue.
