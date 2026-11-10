@@ -34,6 +34,7 @@
 #include "vector.h"
 
 template <> void VectorClass<Vector3>::Clear();
+template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
 // operator==, ID(T const &) and ID(T const *) compile here to retail's table
 // slots 0x000F1C16, 0x000F0DC5 and 0x000F0E20 (vtable 0x00BCEFAC).
 
