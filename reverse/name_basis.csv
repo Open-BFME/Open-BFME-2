@@ -7465,9 +7465,9 @@ member,Rva00448DCBNode::m_key10,Rva00448DCBNode::m_key,inferred,agree:nl-c055e1b
 member,Rva00448DCBNode::m_left08,Rva00448DCBNode::m_left,inferred,agree:nl-0b391e360a51,Code/GameEngine/Source/Common/Rva00448DCBFind.cpp,
 member,Rva00448DCBNode::m_right0C,Rva00448DCBNode::m_right,inferred,agree:nl-8554d5cafc38,Code/GameEngine/Source/Common/Rva00448DCBFind.cpp,
 member,Rva005CED37Held::m_04,Rva005CED37Held::m_refCount,inferred,agree:nl-fc14926ec040,Code/GameEngine/Source/Common/Rva005CED37.cpp,
-member,Rva004692BA::m_formation1AC,Rva004692BA::m_formation,inferred,agree:nl-c611f3ece4ef,Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,
-member,Rva004692BA::m_membersBegin6C,Rva004692BA::m_membersBegin,inferred,agree:nl-a9cda92b50a4,Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,
-member,Rva004692BA::m_membersEnd70,Rva004692BA::m_membersEnd,inferred,agree:nl-287ac4e6dda0,Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,
+member,Rva004692BA::m_formation1AC,Rva004692BA::m_formation,inferred,agree:nl-c611f3ece4ef,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,
+member,Rva004692BA::m_membersBegin6C,Rva004692BA::m_membersBegin,inferred,agree:nl-a9cda92b50a4,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,
+member,Rva004692BA::m_membersEnd70,Rva004692BA::m_membersEnd,inferred,agree:nl-287ac4e6dda0,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,
 member,Rva00254D38Node::m_next08,Rva00254D38Node::m_next,inferred,agree:nl-0a82bc8a89ec,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp,
 local,BfmeHostSB::bfmeGoSB::a,BfmeHostSB::bfmeGoSB::tid,inferred,agree:nl-17c9e5c94680,Code/GameEngine/Source/Common/BfmeConv1287.cpp,0x0066F820
 local,BfmeHostSB::bfmeGoSB::b,BfmeHostSB::bfmeGoSB::pid,inferred,agree:nl-8eb8dc4a861a,Code/GameEngine/Source/Common/BfmeConv1287.cpp,0x0066F820
@@ -8696,8 +8696,8 @@ param,AIGroup::groupAttackObjectPrivate::shots,AIGroup::groupAttackObjectPrivate
 param,AIGroup::groupAttackObjectPrivate::source,AIGroup::groupAttackObjectPrivate::cmdSource,inferred,direct:nd-b53c5f8086f754dc31aec679 parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp,0x0036FD64
 local,AIGroup::groupAttackObjectPrivate::member,AIGroup::groupAttackObjectPrivate::garrisonedMember,inferred,direct:nd-622f3b08c519c34b3590c3f7 parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp,0x0036FD64
 param,AIGroup::groupDoCommandButton::commandSource,AIGroup::groupDoCommandButton::cmdSource,inferred,direct:nd-1be65d75eac92077e45dcf2c parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp,0x0036DC8D
-param,Rva00472B54::rva00472B54::src,Rva00472B54::rva00472B54::cmdSource,inferred,direct:nd-925187859f8a0a644135455c parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupChain00472B54.cpp,0x00472B54
-local,Rva00472B54::rva00472B54::g,Rva00472B54::rva00472B54::contain,inferred,direct:nd-6d03cb191240b8c93aa891e7 parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupChain00472B54.cpp,0x00472B54
+param,Rva00472B54::rva00472B54::src,Rva00472B54::rva00472B54::cmdSource,inferred,direct:nd-925187859f8a0a644135455c parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,0x00472B54
+local,Rva00472B54::rva00472B54::g,Rva00472B54::rva00472B54::contain,inferred,direct:nd-6d03cb191240b8c93aa891e7 parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp,0x00472B54
 local,Rva005490D2::rva005490D2::p,Rva005490D2::rva005490D2::unitIter,inferred,direct:nd-1f7204e7760674f04a41408f parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupFormations.cpp,0x005490D2
 local,Rva00549252::rva00549252::acc,Rva00549252::rva00549252::rowDepth,inferred,direct:nd-f65dc956fb48008a132ce7b3 parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupFormations.cpp,0x00549252
 local,Rva00549252::rva00549252::pp,Rva00549252::rva00549252::unitIter,inferred,direct:nd-cd42e703fe16d14a9b465c84 parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/GameLogic/AI/AIGroupFormations.cpp,0x00549252
