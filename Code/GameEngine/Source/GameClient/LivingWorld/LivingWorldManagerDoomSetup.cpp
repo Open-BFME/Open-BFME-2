@@ -94,7 +94,7 @@ template <> class DoomVSlots<0> { };
 class DoomPrimaryView : public DoomVSlots<101> { public: virtual void setHidden(int); };
 class Rva003FBA0E { public: void rva003FBA0E(int,int,int,int,int,float); };
 struct Rva002BFFD4Template;
-class Rva002BFF5A { public: void rva002BFFD4(Rva002BFFD4Template *,int,unsigned int); };
+#include "../../../Include/Common/Rva002BFF5A.h"
 struct Rva00459E05Entry;
 struct DoomVec12 { float x,y,z; };
 struct DoomVec3 { __forceinline DoomVec3() {} __forceinline DoomVec3(const DoomVec3 &o) { x=o.x; y=o.y; z=o.z; } float x,y,z; };

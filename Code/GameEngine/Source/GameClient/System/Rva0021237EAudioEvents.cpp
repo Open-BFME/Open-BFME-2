@@ -86,7 +86,8 @@ class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 // the old Rva002D3627Host spelling named an unresolved symbol. The global keeps
 // its pointer type, the call binds the rowed member through a cast.
 class Rva002D3627Host;
-class Rva002BFF5A { public: void rva002C004F(const char *name); }; class LivingWorld; extern LivingWorld *TheLivingWorld;
+#include "../../../Include/Common/Rva002BFF5A.h"
+class LivingWorld; extern LivingWorld *TheLivingWorld;
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 struct SingletonView21123 { char pad14[0x14];int mode; };

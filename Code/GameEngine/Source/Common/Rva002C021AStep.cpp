@@ -31,7 +31,7 @@ extern class LivingWorldManager *TheLivingWorldManager;
 #define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
 
 // Rows 0x002BFF9F (Rva002BFF5A::rva002BFF9F) and 0x002BF77B (Rva002BF77B).
-class Rva002BFF5A { public: void update(); };
+#include "../../Include/Common/Rva002BFF5A.h"
 class Rva002BF77B { public: void rva002BF77B(); };
 
 class Rva002C021A

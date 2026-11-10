@@ -1,0 +1,71 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002BFF5A",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 11,
+   "192": 1
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -519,7 +519,7 @@ class Rva003FD14D;
 // the old Rva002D3627Host spelling named an unresolved symbol. The global keeps
 // its pointer type, the call binds the rowed member through a cast.
 class Rva002D3627Host;
-class Rva002BFF5A { public: void rva002C004F(const char *name); };
+#include "../../../../GameEngine/Include/Common/Rva002BFF5A.h"
 
 class Rva00212655Virt { public: virtual void *v00(int); };
 

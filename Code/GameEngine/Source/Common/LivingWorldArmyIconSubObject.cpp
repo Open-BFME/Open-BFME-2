@@ -58,12 +58,7 @@ public:
 // 0x002BFFD4 is rowed as Rva002BFF5A::rva002BFFD4 (Rva002BFF5A.cpp).
 struct Rva002BFFD4Template;
 
-class Rva002BFF5A
-{
-public:
-	void rva002BFFD4(Rva002BFFD4Template *, int, unsigned int);
-	void rva002C004F(const char *name);
-};
+#include "../../Include/Common/Rva002BFF5A.h"
 
 class LivingWorld;
 

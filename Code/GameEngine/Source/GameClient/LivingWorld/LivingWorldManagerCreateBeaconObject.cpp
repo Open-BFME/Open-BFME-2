@@ -111,11 +111,7 @@ public:
 
 // The layer registration 0x002BFFD4, rowed as Rva002BFF5A::rva002BFFD4.
 struct Rva002BFFD4Template;
-class Rva002BFF5A
-{
-public:
-	void rva002BFFD4(Rva002BFFD4Template *object, int layer, unsigned int extra);
-};
+#include "../../../Include/Common/Rva002BFF5A.h"
 
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
