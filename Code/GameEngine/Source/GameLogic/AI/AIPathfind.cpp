@@ -763,12 +763,7 @@ typedef void (__cdecl *Rva002E79A8View)(int, unsigned char, int, int, int);
 // Dump lane range 13: ?rva002EBC7F @0x002EBC7F 40B. Cdecl helper: rowed
 // IsOdd on one arg (sharing pushed args), then pinned cdecl 0x002E79A8
 // with a struct pair unpacked, returning the first arg. Identity unproven.
-struct Rva002EBC7FPair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva002E8C23Pair

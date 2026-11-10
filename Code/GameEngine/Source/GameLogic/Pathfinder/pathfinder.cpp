@@ -515,7 +515,7 @@ private:
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 
-struct Rva002EBC7FPair { int x,y; };
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 // The rowed 0x002EBC7F body (AI/Rva002EBC7F.cpp), visible here so that the pair
 // CalcCollisionFreeExtraCosts hands it does not escape and rva002ECC0D's info stays local.
 __declspec(noinline) inline void *rva002EBC7F(void *a1, void *a2, Rva002EBC7FPair *a3, int a4)

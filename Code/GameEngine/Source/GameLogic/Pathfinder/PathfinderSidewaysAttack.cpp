@@ -272,7 +272,7 @@ char m_pad[0x14];
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 
-struct Rva002EBC7FPair { int x,y; };
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
 class Rva001E46E1 { public: float rva001E46E1(Object *); };

@@ -5,12 +5,7 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "Lib/Coord3D.h"
 
-struct Rva002EBC7FPair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 
 enum PathfindLayerEnum
 {

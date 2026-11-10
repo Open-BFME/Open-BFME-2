@@ -302,12 +302,7 @@ class Xfer;
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 
-struct Rva002EBC7FPair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
 class AIUpdateInterface {

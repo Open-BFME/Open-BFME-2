@@ -321,12 +321,7 @@ class Xfer;
 
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
-struct Rva002EBC7FPair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 struct PathfinderCellPoint;
 // Rowed 0x002E79A8 returns its cell point through the hidden first argument; this caller
 // forwards that buffer, so it calls the rowed symbol through the five-slot cdecl view.

@@ -153,12 +153,7 @@ unsigned int PathfinderSearchCellsVisited;
 int isGroundOrBridgeLayer(int);
 #include "../../Include/GameLogic/PathfindZoneManager.h"
 #include "../../Include/Common/Rva002E6DC4.h"
-struct Rva002EBC7FPair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../Include/Common/Rva002EBC7FPair.h"
 class Pathfinder {
 public:
  bool rva002EA658(Object*,TCheckMovementInfo&,const ICoord2D*);

@@ -10,11 +10,7 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2DBase.h"
 
-struct Rva002EBC7FPair
-{
-	int x;
-	int y;
-};
+#include "../../../Include/Common/Rva002EBC7FPair.h"
 void *__cdecl rva002EBC7F(void *out, void *owner, Rva002EBC7FPair *position, int layer);
 
 // The object at Object+0xA4. Its float getter at 0x004DD843 is rowed under
