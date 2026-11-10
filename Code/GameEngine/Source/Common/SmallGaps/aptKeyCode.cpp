@@ -1,14 +1,14 @@
 // ?aptKeyCode@@YAPAVAptValue@@XZ
 // Open-BFME7: Apt key-code callback (41 B): maps the last key through the
 // special-key table when the modifier bits are set and the code is small.
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_CRTIMP=
 class AptValue;
+#include <ctype.h>
 #include "../../../Include/Common/AptInteger.h"
 extern unsigned int Rva008A5250LastKey;
 // Rva008A5250LastKey: matched references place it at VA 0xe18328 (zero-filled .bss).
 unsigned int Rva008A5250LastKey;
 extern const int Rva008A5250KeyTable[0x14];
-extern "C" int __cdecl toupper(int);
 AptValue* aptKeyCode()
 {
 	unsigned int key = Rva008A5250LastKey;
