@@ -67,11 +67,7 @@ __declspec(noinline) inline const Overridable *Overridable::friend_getFinalOverr
 	return this;
 }
 
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 

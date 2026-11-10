@@ -302,11 +302,7 @@ public:
 };
 #include "../../../Include/GameClient/ControlBar.h"
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SpecialPower.h
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplateByID(UnsignedInt id);	// ILT 0x000034B8
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 template<int N>
 class BitFlags
 {

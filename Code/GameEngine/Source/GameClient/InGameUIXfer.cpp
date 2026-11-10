@@ -145,11 +145,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/Common/SpecialPower.h"
 
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate( AsciiString name );
-};
+#include "../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 
 #include "../../Include/Common/Player.h"

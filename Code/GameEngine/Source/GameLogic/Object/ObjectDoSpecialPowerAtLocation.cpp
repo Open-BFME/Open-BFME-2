@@ -21,11 +21,7 @@ class Object;
 
 typedef BitFlags<11> DisabledMaskType;
 
-class SpecialPowerStore
-{
-public:
-	bool canUseSpecialPower(Object*,const SpecialPowerTemplate*);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 

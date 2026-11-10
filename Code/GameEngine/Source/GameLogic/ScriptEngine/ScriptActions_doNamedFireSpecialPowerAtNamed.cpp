@@ -24,11 +24,7 @@ class SpecialPowerStore;
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 
 class BecSlot
 {

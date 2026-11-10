@@ -815,11 +815,7 @@ void ScriptActions::rva003C606C(Parameter *playerParam, bool flag)
 // SpecialAbilityGiveUpgrade power from it at the other team's first member.
 class SpecialPowerTemplate;
 
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 
 class Rva0026F0F0

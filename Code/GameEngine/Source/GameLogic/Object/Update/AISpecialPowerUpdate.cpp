@@ -78,11 +78,7 @@ class SpecialPowerTemplate;
 class Player;
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../object.h"
-class SpecialPowerStore
-{
-public:
-	bool canUseSpecialPower(Object *obj, const SpecialPowerTemplate *tmpl);
-};
+#include "../../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 class Rva004B2F7B
 {

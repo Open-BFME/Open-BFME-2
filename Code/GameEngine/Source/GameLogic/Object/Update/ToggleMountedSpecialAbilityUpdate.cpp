@@ -379,7 +379,7 @@ public:
 };
 class Rva00493BD4 { public: void rva00493BD4(Rva00493BD4 *); };
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-class SpecialPowerStore { public: const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString); };
+#include "../../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 class ThingTemplate;
 class ScoreKeeper {public:void addObjectBuilt(Object*,int);};

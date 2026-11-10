@@ -38,11 +38,7 @@ public:
 	virtual void doSpecialPowerAtMultipleLocations(const Coord3D *locations, Int locCount, UnsignedInt commandOptions); // 0x34
 };
 
-class SpecialPowerStore
-{
-public:
-	bool canUseSpecialPower(Object*,const SpecialPowerTemplate*);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 
 class Object
