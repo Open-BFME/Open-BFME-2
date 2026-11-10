@@ -251,3 +251,16 @@ stays waiting on the class-key flip: a row respell alone would not compile to th
 `Coord3D` claim or branch was found, so whether that work is active needs asking.
 
 **2026-11-10, axis-angle constructor and Set.** A shared force-inlined implementation in the approved Snapshot.cpp TU emits both retail export names when compiled with the retail Coord3D class key. Both bodies match all 357 bytes after resolving the same relocation. The current canonical struct still emits U for both names. The [tested patch and controls](../../reverse/attempt_support/matrix4d-axis-angle-exports-20261110/README.md) are ready for the coordinated class-key change. No production row or export has moved yet.
+
+**2026-11-10 collision fix held: element types first (swarm Link lane; base `60189f9ced`).** Six names would carry two
+addresses once Coord3D becomes a class (each is a row at one address and a pin at another; LINK-658). The pre-flip fix
+respelled each 12-byte vector family by its own element type. It byte-matched every row but did not land. Both short reviews
+(GPT Sol, 2026-11-10) returned REQUEST CHANGES under the anti-lift rule: in every family, the shared bodies were reached through
+a cast to another type.
+- Target fact: the 0x2CD098 element is neither Coord3D nor Vector3. Parser 0x2CE849 stores its third word straight from
+  `INI::scanUnsignedInt`.
+- **Prerequisite for the class-key flip:** the real element type of every 12-byte family in the collision set. That means its
+  parser or constructor, its copy shape and its field types, with each shared body reached by its own name through
+  fold-proven pins where retail folded them. This is planned in the lane's `element-types.md`, after the Coord3D members
+  trial, which rests on the same retail facts.
+- Rejected units, and what a typed fix needs: `reverse/attempt_support/link-018-collisions-typed-fix-20261110.md`.
