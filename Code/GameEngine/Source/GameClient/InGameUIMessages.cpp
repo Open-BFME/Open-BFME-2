@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// platformsdk
 //
 // InGameUI's on-screen message family: the three ZH formatters (also recovered
 // in BFME 1 donor 847fc2a5406da49baed14adf987ff6830204b9d0, InGameUI.cpp), the
@@ -53,6 +54,7 @@
 // lookup through TheWindowManager slot 60, m_idleWorkerWin at +0x978, and both
 // deletions run the virtual destructor in place before the global delete.
 
+#include <windows.h>
 #include <math.h>
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -130,7 +132,6 @@ public:
 };
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
 
 // BaseType.h's inline fld/fistp rounding; retail floors through msvcr71.
 __forceinline long fast_float2long_round( float f )
