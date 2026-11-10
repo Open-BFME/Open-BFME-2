@@ -255,16 +255,7 @@ class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
 // BFME 2's partition filters (the view AIPlayerIsLocationSafe.cpp documents).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
@@ -300,13 +291,6 @@ struct Rva0006EE7A
 };
 
 // vftable 0x00BF91BC, allow 0x002611BF, with the object at +0x08.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
 
 // vftable 0x00C07190, allow 0x002614DF, with the object at +0x08.
 class Rva002614DFFilter : public Rva000421C8

@@ -36,13 +36,7 @@ public:
 };
 
 // vftable 0x00BF91BC, allow 0x002611BF.
-class Rva002611BFFilter : public Rva000421C8
-{
-public:
-	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../Include/GameLogic/Rva002611BFFilter.h"
 
 // A KindOfMaskType with two kinds set (0x0006EE7A).
 struct Rva0006EE7A
