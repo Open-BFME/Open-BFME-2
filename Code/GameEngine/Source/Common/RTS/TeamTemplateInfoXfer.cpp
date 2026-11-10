@@ -22,14 +22,7 @@ class Snapshot;
 #include "../../../Include/Common/XferVersion.h"
 // KindOfMaskType is the donor's BitFlags typedef. Target 0x2AC06A's loop
 // bound 218 and seven-word payload establish this target specialization.
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<218> KindOfMaskType;
 class Rva002ABBBE
 {

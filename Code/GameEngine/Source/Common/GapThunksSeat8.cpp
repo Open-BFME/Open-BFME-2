@@ -66,11 +66,7 @@ void Rva0026AFD1Run(Rva00268B04 *target)
 
 // --- 0x002C7515 (9B, cdecl): BitFlags<218>::any of the pointer argument,
 // a tail jump to the rowed 0x002C7501.
-template <int N> class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 bool Rva002C7515Any(const BitFlags<218> *flags)
 {
 	return flags->any();

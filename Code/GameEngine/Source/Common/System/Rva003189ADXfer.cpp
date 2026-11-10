@@ -91,11 +91,7 @@ public:
 };
 
 // The member fill 0x00318871 is the rowed BitFlags<15>::xfer.
-template <int NUMBITS> class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class Rva003189ADSub4C
 {

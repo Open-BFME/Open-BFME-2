@@ -3,12 +3,7 @@
 // via rowed BitFlags<104>::getSingleBitFromName (0x0028C7E3); returns false
 // if bit<0 else sets m_bits[bit>>5] |= 1<<(bit&31) and returns true.
 // Caller 0x0029159D. Next is own Rva0028F808 bitset same flags.
-template <unsigned NUMBITS>
-class BitFlags
-{
-public:
-	static int getSingleBitFromName(const char *token);
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class Rva0028F733
 {

@@ -4,12 +4,7 @@
 // (0x0028C819 BodyState table); returns false if bit<0 else sets
 // m_bits[bit>>5] |= 1<<(bit&31) and returns true. Caller 0x0029263E.
 // Prev/next own bitset TUs same flags.
-template <unsigned NUMBITS>
-class BitFlags
-{
-public:
-	static int getSingleBitFromName(const char *token);
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class Rva0028F762
 {

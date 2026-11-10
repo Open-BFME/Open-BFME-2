@@ -79,14 +79,7 @@ enum TransitionStatus
 	TRANSITIONSTATUS_IDLE
 };
 
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	void xfer( Xfer *xfer );
-private:
-	UnsignedInt m_bits[ (NUMBITS + 31) / 32 ];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<218> KindOfMaskType;
 
 struct BattlePlanBonuses
