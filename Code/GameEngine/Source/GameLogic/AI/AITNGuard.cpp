@@ -377,11 +377,7 @@ private:
 extern PartitionManager *ThePartitionManager;
 #include "../../../Include/GameLogic/AIGuardMachine.h"
 struct DamageInfo;
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../Include/Common/Rva00420B2AZeroSetter.h"
 class Rva005FD8C1
 {
 public:

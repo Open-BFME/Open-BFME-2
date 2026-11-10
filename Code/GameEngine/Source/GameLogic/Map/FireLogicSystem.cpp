@@ -591,11 +591,7 @@ struct Rva000AD6F4Base
 	virtual void *virt0(unsigned int);
 };
 #include "../../../Include/Common/Rva000AD6F4.h"
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../Include/Common/Rva00420B2AZeroSetter.h"
 class Rva005FD8C1
 {
 public:

@@ -340,11 +340,7 @@ public:
 
 #include "../../Include/Common/Overridable.h"
 
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../Include/Common/Rva00420B2AZeroSetter.h"
 
 class Rva005FD8C1
 {

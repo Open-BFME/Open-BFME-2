@@ -683,11 +683,7 @@ void GadgetComboBoxReset(GameWindow *comboBox);
 int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool dontHide);
 extern int GameSpyColor[];
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../../../Include/Common/Rva00420B2AZeroSetter.h"
 class Rva005FD8C1
 {
 public:

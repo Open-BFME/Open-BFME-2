@@ -353,11 +353,7 @@ BFME_DISP8_ADD_IMM32_BEFORE_DWORD_GETTER(Rva00483D9BAddImm32Field, 0x4C, 0x190)
 // vtables, so it is virtual (same body).
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00483C75LeaNegSbbField, 12, 0x44)
 
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../Include/Common/Rva00420B2AZeroSetter.h"
 
 class Rva005FD8C1
 {

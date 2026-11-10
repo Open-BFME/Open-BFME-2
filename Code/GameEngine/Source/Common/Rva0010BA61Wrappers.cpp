@@ -99,11 +99,7 @@ void Rva005E1906::rva005E1906()
 	m_0C->tail005E18D0();
 }
 
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../Include/Common/Rva00420B2AZeroSetter.h"
 
 class Rva005E18DCForwarder
 {
