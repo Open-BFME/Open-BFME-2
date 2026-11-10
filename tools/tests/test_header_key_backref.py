@@ -109,9 +109,9 @@ BAD = [
     "?f@@YAXPAUCoord3D@@PAT1@@Z",  # same target under struct and union keys
     "?f@@YAXPAUCoord3D@@@Zjunk",
     "?f@@YAXPAUCoord3D@@@",
-    # Unknown local scopes and adjustor headers remain conservative refusals.
-    "?f@?1??g@@YAXXZ@YAXPAUCoord3D@@@Z",
-    "?f@Host@@W3AEXPAUCoord3D@@@Z",
+    # A name back-reference after a local scope: whether the local piece enters
+    # the outer table is not proven, so it refuses.
+    "?f@?1??g@@YAXXZ@YAXPAUCoord3D@@PAU1@@Z",
     # Rekeying these template instances would collapse two name-table entries.
     "?f@@YAXV?$Box@UCoord3D@@@@V?$Box@VCoord3D@@@@@Z",
 ]
@@ -245,3 +245,330 @@ def test_ledger_rewrite_preserves_other_fields_quotes_and_terminators(tmp_path, 
     path.write_bytes(prefix + (first + tail).encode() + unchanged)
     hal.rewrite_ledger([(before, after)])
     assert path.read_bytes() == prefix + (wanted + tail).encode() + unchanged
+
+
+
+# ---------------------------------------------------------------- local scopes, thunks, the migration
+
+LOCAL_AND_THUNK = [
+    # Local scopes: '?<number>?<the enclosing function's own symbol>'.
+    ("?f@?1??g@@YAXXZ@YAXPAUCoord3D@@@Z", "?f@?1??g@@YAXXZ@YAXPAVCoord3D@@@Z"),
+    ("?color2@?M@??createEvent@Radar@@QAEXPBUCoord3D@@W4RadarEventType@@M@Z@4URGBAColorInt@@A",
+     "?color2@?M@??createEvent@Radar@@QAEXPBVCoord3D@@W4RadarEventType@@M@Z@4URGBAColorInt@@A"),
+    ("?$S1@?1??getCurrentBonePositions@W3DModelDraw@@UBEHPBDHPAUCoord3D@@PAVMatrix3D@@H@Z@4IA",
+     "?$S1@?1??getCurrentBonePositions@W3DModelDraw@@UBEHPBDHPAVCoord3D@@PAVMatrix3D@@H@Z@4IA"),
+    ("??__Fgeometry@?1??Rva009F66F0@@YAMPBUCoord3D@@PAVRva009F66F0Provider@@M@Z@YAXXZ",
+     "??__Fgeometry@?1??Rva009F66F0@@YAMPBVCoord3D@@PAVRva009F66F0Provider@@M@Z@YAXXZ"),
+    # The nested symbol keeps its own tables: its 1@ is its own Coord3D entry.
+    ("?x@?1??f@@YAXPAUCoord3D@@PAU1@@Z@4HA", "?x@?1??f@@YAXPAVCoord3D@@PAV1@@Z@4HA"),
+    # Adjustor thunks: W<adjustment>, then a member signature.
+    ("?f@Host@@W3AEXPAUCoord3D@@@Z", "?f@Host@@W3AEXPAVCoord3D@@@Z"),
+    ("?construct@DozerAIUpdate@@WDOE@AEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z",
+     "?construct@DozerAIUpdate@@WDOE@AEPAVObject@@PBVThingTemplate@@PBVCoord3D@@MPAVPlayer@@_NH@Z"),
+    # Neighbouring classes keep their own keys.
+    ("??4Coord3D@@QAEAAU0@ABUCoord3DBase@@@Z", "??4Coord3D@@QAEAAV0@ABUCoord3DBase@@@Z"),
+    ("?f@@YAXPAUICoord3D@@PAUCoord3D@@@Z", "?f@@YAXPAUICoord3D@@PAVCoord3D@@@Z"),
+]
+
+
+@pytest.mark.parametrize("before,after", LOCAL_AND_THUNK)
+def test_local_scopes_and_thunks_rewrite_exactly_and_invert(before, after):
+    assert hal.rekey_symbol(before, "Coord3D", "U") == after
+    assert hal.rekey_symbol(after, "Coord3D", "V") == before
+
+
+def test_mixed_name_rewrites_only_when_the_migration_allows_it():
+    name, whole = "?GetXVector@Matrix4D@@QBEAAUCoord3D@@AAV2@@Z", "?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z"
+    with pytest.raises(ValueError):
+        hal.rekey_symbol(name, "Coord3D", "U")
+    assert hal.rekey_symbol(name, "Coord3D", "U", allow_mixed=True) == whole
+    # Never when the rewrite would merge two name-table entries.
+    with pytest.raises(ValueError):
+        hal.rekey_symbol("?f@@YAXV?$Box@UCoord3D@@@@V?$Box@VCoord3D@@@@@Z", "Coord3D", "U", allow_mixed=True)
+
+
+def test_rewrites_change_only_key_letters():
+    for before, after in CHANGES + LOCAL_AND_THUNK:
+        diff = [(a, b) for a, b in zip(before, after) if a != b]
+        assert len(before) == len(after) and diff and set(diff) == {("U", "V")}
+
+
+import json
+import subprocess
+from collections import Counter
+
+import dup_defs
+
+
+def tree(tmp_path, monkeypatch, *, functions="", symbols="", data_rows="", deleted="", hatch="", unit=None,
+         dup="", exports=("class",), converged=None, extra=None):
+    """A miniature registered-class tree in a git repository."""
+    files = {
+        "reverse/canonical_classes.csv": "class,header,note\nCoord3D,Code/Lib/Coord3D.h,generated\n",
+        "reverse/class_contracts/Coord3D.json":
+            '{\n "class": "Coord3D",\n "key": "struct",\n "key_by": "bytes",\n "size": 12\n}\n',
+        "Code/Lib/Coord3D.h": ("// Coord3D: generated\n// sizeof 12 (zh); class-key struct (bytes).\n"
+                               "#ifndef C\n#define C\nstruct Coord3D {\n    float x, y, z;\n};\nstruct ICoord3D;\n#endif\n"),
+        "Code/Unit.cpp": unit if unit is not None else (
+            "// ?f@@YAXPAUCoord3D@@@Z absent-from-retail\n// see ?f@@YAXPAUCoord3D@@@ truncated (prose)\n"
+            "struct Coord3D;\nstruct Coord3DBase;\nvoid g(const struct Coord3D *p);\n"
+            'extern "C" void __identifier("?f@@YAXPAUCoord3D@@@Z")();\n'),
+        "reverse/functions.csv": "name,export_rva,target_rva,target_size,source,status,notes\n" + functions,
+        "reverse/symbols.csv": "name,address,notes\n" + symbols,
+        "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status,evidence,model\n" + data_rows,
+        "reverse/deleted_rows.csv": "name,target_rva,reason\n" + deleted,
+        "reverse/dup_defs_baseline.tsv": dup_defs.HEADER + dup,
+        "reverse/hatch_baseline.tsv": "# hatch register\n" + hatch,
+    }
+    if converged is not None:
+        files["reverse/data_converged.csv"] = "name\n" + converged
+    files.update(extra or {})
+    for rel, text in files.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text, encoding="utf-8", newline="")
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    subprocess.run(["git", "-C", str(tmp_path), "add", "-A"], check=True)
+    monkeypatch.setattr(hal.class_contract, "export_key", lambda name: Counter({k: 15 for k in exports}))
+    return tmp_path
+
+
+ROW = "?f@@YAXPAUCoord3D@@@Z,,0x00001000,4,Code/Unit.cpp,matched,parent=?f@@YAXPAUCoord3D@@@Z\n"
+
+
+def test_migration_plan_rewrites_every_spelling_and_nothing_else(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW,
+                symbols="?f@@YAXPAVCoord3D@@@Z,0x00001000,same address as the row: dropped\n"
+                        "?h@@YAXPAUICoord3D@@@Z,0x00002000,other class: kept\n",
+                dup="divergent\t??$_Destroy@PAUCoord3D@@@_STL@@YAXPAUCoord3D@@0@Z\n")
+    after, report = hal.plan_class_key("Coord3D", "class", root)
+    header = after["Code/Lib/Coord3D.h"].decode()
+    assert "class Coord3D {\npublic:\n    float x" in header and "struct ICoord3D;" in header
+    assert "class-key class (exports)." in header
+    contract = json.loads(after["reverse/class_contracts/Coord3D.json"])
+    assert (contract["key"], contract["key_by"], contract["size"]) == ("class", "exports", 12)
+    unit = after["Code/Unit.cpp"].decode()
+    assert "class Coord3D;\nstruct Coord3DBase;\nvoid g(const class Coord3D *p);" in unit
+    assert '__identifier("?f@@YAXPAVCoord3D@@@Z")' in unit and "// ?f@@YAXPAVCoord3D@@@Z absent" in unit
+    assert "?f@@YAXPAUCoord3D@@@ truncated (prose)" in unit          # unresolvable prose is left
+    assert report["prose_left"]
+    ledger = after["reverse/functions.csv"].decode()
+    assert "?f@@YAXPAVCoord3D@@@Z,,0x00001000" in ledger and "parent=?f@@YAXPAVCoord3D@@@Z" in ledger
+    pins = after["reverse/symbols.csv"].decode()
+    assert "?f@@YAXPAVCoord3D" not in pins and "?h@@YAXPAUICoord3D@@@Z" in pins
+    assert "??$_Destroy@PAVCoord3D@@@_STL@@YAXPAVCoord3D@@0@Z" in after["reverse/dup_defs_baseline.tsv"].decode()
+    assert set(report["mapping"]) >= {"?f@@YAXPAUCoord3D@@@Z"}
+
+
+@pytest.mark.parametrize("case,want", [
+    ("collision", "collision:"), ("tombstone", "tombstone:"), ("identity", "unresolvable identity"),
+    ("hatch", "hatch token"), ("exports", "retail's exports decide"), ("base", "base clause"),
+    ("collision-old", "collision:"),
+    ("converged", "converged names"), ("generated", "generated or vendored"),
+    ("namespace-use", "cannot be resolved to the global class"), ("braces", "unbalanced braces"),
+])
+def test_migration_refuses_whole(tmp_path, monkeypatch, case, want):
+    kw = {"functions": ROW}
+    if case == "collision":      # a U pin on another address respells to the row's name
+        kw["symbols"] = "?f@@YAXPAUCoord3D@@@Z,0x00003000,a habit spelling on a shared body\n"
+        kw["functions"] = ROW.replace("PAUCoord3D", "PAVCoord3D").replace("parent=?f@@YAXPAVCoord3D@@@Z", "")
+    elif case == "tombstone":
+        kw["deleted"] = "?f@@YAXPAVCoord3D@@@Z,0x00001000,misnamed\n"
+    elif case == "identity":
+        kw["functions"] = ROW + "?f@?1??g@@YAXXZ@YAXPAUCoord3D@@PAU1@@Z,,0x00001010,4,Code/Unit.cpp,matched,\n"
+    elif case == "hatch":
+        kw["hatch"] = "alternatename\tCode/Unit.cpp\t?f@@YAXPAUCoord3D@@@Z\t1\n"
+    elif case == "exports":
+        kw["exports"] = ("class", "struct")
+    elif case == "base":
+        kw["unit"] = "struct Coord3D : A, B {\n};\n"
+    elif case == "collision-old":   # the old spelling already names two addresses: still refused
+        kw["symbols"] = "?f@@YAXPAUCoord3D@@@Z,0x00003000,a pin on another body\n"
+    elif case == "converged":
+        kw["converged"] = "?g_c@@3UCoord3D@@A\n"
+    elif case == "generated":
+        kw["extra"] = {"Code/gen_asm/f.asm": "; Coord3D\n EXTERN ?f@@YAXPAUCoord3D@@@Z:PROC\n"}
+    elif case == "namespace-use":
+        kw["unit"] = "namespace N { void f(const struct Coord3D *p); }\n"
+    elif case == "braces":
+        kw["unit"] = "struct Coord3D;\n#if 0\nnamespace N {\n#endif\nvoid f() {}\n"
+    root = tree(tmp_path, monkeypatch, **kw)
+    snapshot = {p: p.read_bytes() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts}
+    with pytest.raises(hal.RekeyRefused, match=want):
+        hal.plan_class_key("Coord3D", "class", root)
+    assert snapshot == {p: p.read_bytes() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts}
+
+
+def test_migration_is_not_repeated(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    after, _ = hal.plan_class_key("Coord3D", "class", root)
+    for rel, data in after.items():
+        (root / rel).write_bytes(data)
+    with pytest.raises(hal.RekeyRefused, match="already says class"):
+        hal.plan_class_key("Coord3D", "class", root)
+
+
+def test_dup_defs_rekey_keeps_the_total_and_never_merges():
+    text = dup_defs.HEADER + "divergent\tA\ndivergent\tB\n"
+    assert dup_defs.rekey_baseline_text(text, {"A": "C"}) == dup_defs.HEADER + "divergent\tC\ndivergent\tB\n"
+    with pytest.raises(ValueError):
+        dup_defs.rekey_baseline_text(text, {"A": "B"})
+
+
+def test_apply_restores_every_file_when_a_write_fails(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    monkeypatch.setattr(hal, "ROOT", root)
+    monkeypatch.setenv("BFME_CLAIMS", "off")
+    snapshot = {p: p.read_bytes() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts}
+    real, calls = hal.Path.write_bytes, []
+
+    def failing(self, data):
+        calls.append(self)
+        if len(calls) == 3:
+            raise OSError("disk full")
+        return real(self, data)
+    monkeypatch.setattr(hal.Path, "write_bytes", failing)
+    with pytest.raises(OSError):
+        hal.apply_class_key("Coord3D", "class")
+    monkeypatch.setattr(hal.Path, "write_bytes", real)
+    now = {p: p.read_bytes() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts}
+    assert now == snapshot
+
+
+def test_apply_refuses_without_the_claims(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    monkeypatch.setattr(hal, "ROOT", root)
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    import claims
+    monkeypatch.setattr(claims, "owner", lambda root=None: "me")
+    monkeypatch.setattr(claims, "active", lambda root=None: {})      # unreachable origin: fail closed
+    with pytest.raises(hal.RekeyRefused, match="not held"):
+        hal.apply_class_key("Coord3D", "class")
+
+
+
+def test_migration_carries_name_basis_records_instead_of_editing_them(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    basis = "kind,old,new,basis,evidence,source,rva\n" \
+            "function,?rva1000@@YAXPAUCoord3D@@@Z,?f@@YAXPAUCoord3D@@@Z,canonical:wb,cited,Code/Unit.cpp,0x00001000\n"
+    (root / "reverse/name_basis.csv").write_text(basis, encoding="utf-8", newline="")
+    after, _ = hal.plan_class_key("Coord3D", "class", root)
+    text = after["reverse/name_basis.csv"].decode()
+    assert text.startswith(basis)                                    # history untouched, appended only
+    assert text[len(basis):].startswith("carry,?f@@YAXPAUCoord3D@@@Z,?f@@YAXPAVCoord3D@@@Z,canonical:wb,")
+
+
+
+def test_declaration_scope_is_resolved(tmp_path, monkeypatch):
+    unit = ("namespace Other { struct Coord3D { int x; }; }\n"
+            "struct Coord3D;\n"
+            "void f(const struct Coord3D *p);\n")
+    root = tree(tmp_path, monkeypatch, functions=ROW, unit=unit)
+    after, report = hal.plan_class_key("Coord3D", "class", root)
+    text = after["Code/Unit.cpp"].decode()
+    assert "namespace Other { struct Coord3D { int x; }; }" in text        # another class: untouched
+    assert "\nclass Coord3D;\n" in text and "const class Coord3D *p" in text
+    assert report["other_scope_declarations"] == ["Code/Unit.cpp: struct Coord3D inside namespace (another class; left)"]
+
+
+def test_use_beside_another_scope_declaration_refuses(tmp_path, monkeypatch):
+    unit = "class Outer { struct Coord3D; void g(struct Coord3D *p); };\n"
+    root = tree(tmp_path, monkeypatch, functions=ROW, unit=unit)
+    with pytest.raises(hal.RekeyRefused, match="file declares another Coord3D"):
+        hal.plan_class_key("Coord3D", "class", root)
+
+
+def _snapshot(root):
+    return {p: p.read_bytes() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts}
+
+
+def test_dry_run_writes_nothing_but_its_report(tmp_path, monkeypatch):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    monkeypatch.setattr(hal, "ROOT", root)
+    before = _snapshot(root)
+    assert hal.apply_class_key("Coord3D", "class", dry_run=True, report=str(root / "build/rekey.json")) == 0
+    now = _snapshot(root)
+    assert set(now) - set(before) == {root / "build/rekey.json"}
+    assert all(now[p] == before[p] for p in before)
+    assert json.loads((root / "build/rekey.json").read_text())["key"] == "class"
+
+
+@pytest.mark.parametrize("where", ["tracked", "outside-build"])
+def test_report_never_overwrites_a_repository_input(tmp_path, monkeypatch, where):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    monkeypatch.setattr(hal, "ROOT", root)
+    target = root / ("reverse/functions.csv" if where == "tracked" else "notes.json")
+    before = _snapshot(root)
+    with pytest.raises(hal.RekeyRefused, match="--report"):
+        hal.apply_class_key("Coord3D", "class", dry_run=True, report=str(target))
+    assert _snapshot(root) == before
+
+
+def test_old_key_scan_reads_symbols_and_directives_and_fails_closed(tmp_path):
+    clean, stale, directive = tmp_path / "a.obj", tmp_path / "b.obj", tmp_path / "c.obj"
+    clean.write_bytes(b"\0?f@@YAXPAVCoord3D@@@Z\0?g@@YAXPAUICoord3D@@@Z\0")
+    stale.write_bytes(b"\0?f@@YAXPAUCoord3D@@@Z\0")
+    directive.write_bytes(b' /alternatename:?h@@YAXPAUCoord3D@@@Z=?k@@YAXXZ ')
+    found = hal.scan_old_key("Coord3D", "class", [clean, stale, directive, tmp_path / "missing.obj"])
+    assert set(found) == {str(stale), str(directive), str(tmp_path / "missing.obj")}
+    assert found[str(stale)] == ["?f@@YAXPAUCoord3D@@@Z"]
+
+
+
+@pytest.mark.parametrize("unit,why", [
+    ("#if N\nnamespace Other {\n#endif\nstruct Coord3D {};\n#if N\n}\n#endif\n", "conditional branch"),
+    ("#define BEGIN namespace Other {\n#define END }\nBEGIN struct Coord3D {}; END\n", "macro BEGIN"),
+    ("#define DECLARE struct Coord3D;\nDECLARE\n", "preprocessor directive"),
+])
+def test_scope_changing_preprocessing_refuses(tmp_path, monkeypatch, unit, why):
+    root = tree(tmp_path, monkeypatch, functions=ROW, unit=unit)
+    with pytest.raises(hal.RekeyRefused, match=why):
+        hal.plan_class_key("Coord3D", "class", root)
+
+
+def test_an_include_guard_around_a_global_declaration_still_passes(tmp_path, monkeypatch):
+    unit = "#ifndef UNIT_H\n#define UNIT_H\n#ifdef _MSC_VER\n#pragma once\n#endif\nstruct Coord3D;\n#endif\n"
+    root = tree(tmp_path, monkeypatch, functions=ROW, unit=unit)
+    after, _ = hal.plan_class_key("Coord3D", "class", root)
+    assert "\nclass Coord3D;\n" in after["Code/Unit.cpp"].decode()
+
+
+@pytest.mark.parametrize("where", ["symlink", "tracked-under-build"])
+def test_report_path_resolves_links_and_tracked_build_files(tmp_path, monkeypatch, where):
+    root = tree(tmp_path, monkeypatch, functions=ROW)
+    monkeypatch.setattr(hal, "ROOT", root)
+    (root / "build").mkdir(exist_ok=True)
+    target = root / "build" / "report.json"
+    if where == "symlink":
+        target.symlink_to(root / "reverse" / "functions.csv")
+    else:
+        target.write_text("tracked\n")
+        subprocess.run(["git", "-C", str(root), "add", "-f", "build/report.json"], check=True)
+    before = _snapshot(root)
+    with pytest.raises(hal.RekeyRefused, match="--report"):
+        hal.apply_class_key("Coord3D", "class", dry_run=True, report=str(target))
+    assert _snapshot(root) == before
+
+
+
+def test_a_balanced_class_defining_macro_before_a_global_declaration_passes(tmp_path, monkeypatch):
+    unit = ("#define BFME_DISP8_BYTE_SETTER(NAME, METHOD, DISP, IMM) \\\n"
+            "\tclass NAME \\\n\t{ \\\n\tpublic: \\\n\t\tvoid METHOD(); \\\n\t\tchar m_lead[DISP]; \\\n"
+            "\t\tunsigned char m_flag; \\\n\t}; \\\n\tvoid NAME::METHOD() { m_flag = IMM; }\n"
+            "BFME_DISP8_BYTE_SETTER(Rva1, set, 4, 1)\n"
+            "struct Coord3D;\n")
+    root = tree(tmp_path, monkeypatch, functions=ROW, unit=unit)
+    after, _ = hal.plan_class_key("Coord3D", "class", root)
+    assert "\nclass Coord3D;\n" in after["Code/Unit.cpp"].decode()
+
+
+def test_a_block_opened_after_an_unclassified_identifier_is_not_file_scope(tmp_path, monkeypatch):
+    unit = "#define OPEN namespace Other\nOPEN { struct Coord3D {}; }\nstruct Coord3D;\n"
+    root = tree(tmp_path, monkeypatch, functions=ROW, unit=unit)
+    after, report = hal.plan_class_key("Coord3D", "class", root)
+    text = after["Code/Unit.cpp"].decode()
+    assert "OPEN { struct Coord3D {}; }" in text and "\nclass Coord3D;\n" in text
+    assert report["other_scope_declarations"] == ["Code/Unit.cpp: struct Coord3D inside unknown (another class; left)"]
+    root2 = tree(tmp_path / "use", monkeypatch, functions=ROW,
+                 unit="#define OPEN namespace Other\nOPEN { void f(const struct Coord3D *p); }\n")
+    with pytest.raises(hal.RekeyRefused, match="unclassified block"):
+        hal.plan_class_key("Coord3D", "class", root2)

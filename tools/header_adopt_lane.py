@@ -48,6 +48,7 @@ import argparse
 import collections
 import concurrent.futures as cf
 import csv
+import io
 import json
 import os
 import random
@@ -1583,6 +1584,7 @@ class _ClassKeyParser(wb_gold._Parser):
         self.argument_types = []
         self.argument_refs = []
         self.symbol_depth = 0
+        self.after_local = False
 
     def memorize(self, key, name):
         before = [k for k, _ in self.names]
@@ -1593,6 +1595,10 @@ class _ClassKeyParser(wb_gold._Parser):
 
     def unqualified_name(self):
         if self.peek().isdigit():
+            if self.after_local:
+                # Whether a local scope piece enters the outer table is not
+                # proven here; a reference that could depend on it refuses.
+                raise wb_gold.DemangleError("name back-reference after a local scope")
             index = int(self.take())
             if index >= len(self.names):
                 raise wb_gold.DemangleError("name back-reference out of range")
@@ -1608,6 +1614,27 @@ class _ClassKeyParser(wb_gold._Parser):
             value = ("name", key)
         self.memorize(key, value)
         return next((v for k, v in self.names if k == key), value)
+
+    def scope(self):
+        # A numbered local scope, '?<number>?<encoded symbol>': the enclosing
+        # function's own decorated name, with its own name and argument
+        # tables (1,741 of the ledger's 1,833 such names embed a function
+        # row's exact name, 150 of them with back-references). Only the
+        # anonymous namespace '?A0x...' and template names stay with WB.
+        if self.peek() != "?" or self.peek(2) == "?$" or self.peek(3) == "?A0":
+            return super().scope()
+        self.i += 1
+        self.number()
+        self.expect("?")
+        nested = _ClassKeyParser(self.s)
+        nested.i = self.i
+        nested.encoded_symbol()
+        self.records.extend(nested.records)
+        self.memo_shape.append(("local", tuple(nested.memo_shape), tuple(nested.argument_types),
+                                tuple(nested.argument_refs)))
+        self.i = nested.i
+        self.after_local = True
+        return ("local",)
 
     def type(self):
         start = self.i
@@ -1643,6 +1670,10 @@ class _ClassKeyParser(wb_gold._Parser):
                 self.i += 1
         elif code in "YZCDKLSTABEFIJMNQRUV":
             self.function_signature(code)
+        elif code in "GHOPWX":
+            # An adjustor thunk: the this-adjustment, then a member signature.
+            self.number()
+            self.function_signature("Q")
         else:
             raise wb_gold.DemangleError("unsupported function/header class")
 
@@ -1686,12 +1717,15 @@ def _parse_class_keys(symbol):
     return parser, len(prefix)
 
 
-def rekey_symbol(symbol, scope, other):
+def rekey_symbol(symbol, scope, other, allow_mixed=False):
     """Change only U/V TYPE keys resolving to this exact plain qualified scope.
 
     Never change a backreference digit. Unknown grammar, mixed target keys or
     changed name-table/identity structure refuse the whole unit. Byte, EH,
     data and provider/caller verification are still required by the lane.
+    `allow_mixed` (the class-key migration only, toward the key retail's
+    exports decide) rewrites a name that already spells both keys, since the
+    result spells one.
     """
     import rename
     parts = scope.split("@")
@@ -1706,7 +1740,7 @@ def rekey_symbol(symbol, scope, other):
     parser, offset = _parse_class_keys(symbol)
     have = "V" if other == "U" else "U"
     kinds = {key for _, key, name in parser.records if name == target}
-    if other in kinds and kinds - {other}:
+    if other in kinds and kinds - {other} and not allow_mixed:
         raise ValueError("mixed existing keys for the same target")
     out = list(symbol)
     expected = []
@@ -1791,6 +1825,732 @@ def key_metadata_blockers(items):
                         hits[source].add("deleted_rows.csv target tombstone")
     return {s: "class-key metadata requires a coordinated name transaction: " + ", ".join(sorted(labels))
             for s, labels in hits.items()}
+
+
+# ---------------------------------------------------------------- class-key migration
+#
+# A registered class whose canonical header spells the wrong class-key (LINK-018:
+# retail's exports spell Coord3D `V`, the header `struct`) changes in ONE
+# transaction: the contract's key, the generated header, every declaration and
+# view in Code/, every mangled name in the ledgers and registers that spells the
+# class, and the dup_defs baseline's keys. All or nothing: before any write it
+# refuses a key retail's exports do not decide, a name in an identity position the
+# parser cannot resolve, a respelled name that would own a second address or land
+# on a tombstone, a converged data name, a hatch token (hatch_counters has no
+# respelling move), and any touched path whose claim this worker does not hold.
+# Shims under reference/shims/ that declare the class change with it. The before-state goes in rename.py's journal
+# (`rename.py recover` restores a killed run). Nothing is verified here: the
+# rebuilt objects must differ only by the respelled names (the evidence kit takes
+# the plan's map as its declared exception), and reverse/data_ledger.csv is
+# regenerated from them by tools/data_ledger.py, never edited.
+
+REKEY_TOKEN = re.compile(r"(?:__ehhandler\$|__unwindfunclet\$)?\?[A-Za-z0-9_?@$]+")
+# Ledger columns whose value IS an identity: an unresolvable name there refuses.
+REKEY_NAME_COLUMNS = {"reverse/functions.csv": "name", "reverse/symbols.csv": "name",
+                      "reverse/data_rows.csv": "name", "reverse/deleted_rows.csv": "name",
+                      "reverse/stlport_trial.csv": "name"}
+REKEY_NOTE_KEYS = re.compile(r"\b(?:parent|parents|icf-owner|dup-of|object-symbol|fold-proof)=([^\s;,]+)")
+REKEY_IDENTITY_FILES = ("reverse/place_denylist.txt",)
+REKEY_PROSE_FILES = ()
+REKEY_LEFT_ALONE = ("reverse/data_ledger.csv (regenerate with tools/data_ledger.py after the rebuild)",
+                    "reverse/name_basis.csv's existing records (carry records are appended), name_agreed.csv, "
+                    "name_votes.csv, name_vote_sources.csv (history)",
+                    "reverse/re_attempts.log, reverse/attempts/, reverse/attempt_support/ (evidence)",
+                    "reverse/vtable_bridge_queue.tsv, reverse/exit_link_blockers.tsv (the real link writes them)",
+                    "reverse/name_tiers.csv (allowed_symbols.py --tiers owns it; the tiers are checked unchanged)",
+                    "reverse/header_queue.tsv (a debt register; its spellings are failure prose)",
+                    "tools/tests/fixtures/")
+REKEY_CODE_SUFFIXES = (".cpp", ".c", ".cc", ".cxx", ".h", ".hpp", ".hh", ".hxx", ".inl", ".inc")
+REKEY_MARKER = re.compile(r"absent-from-retail|present-unmatched|tu-skeleton:")
+# Bare includes that, through a unit's /Ireference/open-bfme-1/... roots, can reach a donor
+# header that defines Coord3D itself (reference/ is never edited here). Reported, not judged:
+# the rebuilt objects show whether such a unit still spells the old key.
+REKEY_DONOR_INCLUDE = re.compile(r'#\s*include\s*[<"](?:coord|coord3d|basetype|thing)\.h[>"]', re.IGNORECASE)
+
+
+class RekeyRefused(Exception):
+    """The migration cannot be applied whole; nothing was written."""
+
+
+def _rekey_relevant(token, name):
+    """Could `token` spell the class `name` as a type or scope? Over-inclusive by design:
+    a false hit only parses to itself, a parse failure on one refuses."""
+    return re.search(r"(?:^|[@?0-9UVT]|\?_[A-Z0-9])" + re.escape(name) + "@", token) is not None
+
+
+def _rekey_changes(token, rekeyer):
+    """True when `token` spells the class with the old key, or cannot be resolved (so might)."""
+    if not _rekey_relevant(token, rekeyer.name):
+        return False
+    try:
+        return rekey_symbol(token, rekeyer.scope, rekeyer.other, allow_mixed=True) != token
+    except Exception:
+        return True
+
+
+def _register_hatch_tokens(text, rekeyer):
+    """Hatch register tokens the respelling changes. A present_unmatched token is stored with its
+    leading '?' stripped (hatch_counters.scan), so it is read with the '?' restored."""
+    out = set()
+    for line in text.splitlines():
+        cells = line.split("\t")
+        if line.startswith("#") or len(cells) < 4:
+            continue
+        token = cells[2]
+        forms = [token] if token.startswith("?") else ["?" + token, "??" + token]
+        if any(_rekey_changes(form, rekeyer) for form in forms if _rekey_relevant(form, rekeyer.name)):
+            out.add(token)
+    return sorted(out)
+
+
+def _split_tokens(text):
+    """Mangled tokens in `text` with their spans; `A=B` alias pairs split at '='."""
+    for match in REKEY_TOKEN.finditer(text):
+        yield match.start(), match.group()
+
+
+class _Rekeyer:
+    def __init__(self, name, other):
+        self.name, self.other = name, other
+        self.scope = class_contract.mangled_scope(name)
+        self.mapping, self.refused, self.prose_left = {}, {}, {}
+        self.other_scope = []
+
+    def one(self, token, where, identity):
+        """The respelling of one token, recording a failure as a refusal (identity) or a leftover."""
+        if not _rekey_relevant(token, self.name):
+            return token
+        try:
+            new = rekey_symbol(token, self.scope, self.other, allow_mixed=True)
+        except Exception as err:  # the parser's every failure: rename.Unparsed, DemangleError, ValueError
+            (self.refused if identity else self.prose_left).setdefault(token, f"{where}: {err}")
+            return token
+        if new != token:
+            self.mapping[token] = new
+        return new
+
+    def text(self, text, where, identity):
+        out, last = [], 0
+        for start, token in _split_tokens(text):
+            new = self.one(token, where, identity)
+            if new != token:
+                out.append(text[last:start])
+                out.append(new)
+                last = start + len(token)
+        out.append(text[last:])
+        return "".join(out)
+
+
+def _lex(text):
+    """[(kind, start, end)] of a C/C++ text: 'code', 'comment' or 'string' (char literals too)."""
+    out, i, n, start = [], 0, len(text), 0
+    while i < n:
+        c, d = text[i], text[i:i + 2]
+        if d in ("//", "/*") or c in "\"'":
+            if start < i:
+                out.append(("code", start, i))
+            if d == "//":
+                end = text.find("\n", i)
+                end = n if end < 0 else end
+                out.append(("comment", i, end))
+            elif d == "/*":
+                end = text.find("*/", i + 2)
+                end = n if end < 0 else end + 2
+                out.append(("comment", i, end))
+            else:
+                j = i + 1
+                while j < n and text[j] != c and text[j] != "\n":
+                    j += 2 if text[j] == "\\" else 1
+                end = min(j + 1, n)
+                out.append(("string", i, end))
+            i = start = end
+        else:
+            i += 1
+    if start < n:
+        out.append(("code", start, n))
+    return out
+
+
+def _brace_scopes(text, code_mask, rel):
+    """[(position, scope stack)] at each brace or semicolon of the code; a stack entry is
+    'namespace', 'linkage' (extern "C" { }), 'class', 'enum', 'block' (a function body, an
+    initializer, a statement) or 'unknown': a brace after an identifier this cannot classify
+    (`OPEN {` where a macro may expand OPEN to `namespace Other`). An unknown block is never
+    file scope. RekeyRefused when the braces do not balance (a macro or #if can hide one),
+    since then no declaration's scope is known."""
+    events, stack, start = [], [], 0
+    for i, c in enumerate(text):
+        if not code_mask[i] or c not in ";{}":
+            continue
+        if c == "{":
+            head = "".join(ch for ch, m in zip(text[start:i], code_mask[start:i]) if m)
+            raw = " ".join(text[start:i].split())
+            if re.search(r"\bnamespace\b\s*\w*\s*$", head):
+                stack.append("namespace")
+            elif re.search(r'\bextern\s*"C(?:\+\+)?"\s*$', raw):
+                stack.append("linkage")
+            elif re.search(r"\benum\b[^;{}()]*$", head):
+                stack.append("enum")
+            elif re.search(r"\b(?:class|struct|union)\b[^;{}()]*$", head):
+                stack.append("class")
+            elif (re.search(r"\b[A-Za-z_]\w*\s*$", head)
+                  and not re.search(r"(?:\)|\b(?:else|do|try|const|volatile|throw))\s*$", head)):
+                stack.append("unknown")
+            else:
+                stack.append("block")
+        elif c == "}":
+            if not stack:
+                raise RekeyRefused(f"{rel}: unbalanced braces; no declaration's scope can be resolved")
+            stack.pop()
+        start = i + 1
+        events.append((i, tuple(stack)))
+    if stack:
+        raise RekeyRefused(f"{rel}: unbalanced braces; no declaration's scope can be resolved")
+    return events
+
+
+def _pp_directives(text, code_mask):
+    """[(start, end, directive, body)] of the preprocessor lines (a `#` that is code at the start
+    of a line, joined over backslash continuations)."""
+    out = []
+    for m in re.finditer(r"(?m)^[ \t]*#", text):
+        hash_at = m.end() - 1
+        if not code_mask[hash_at]:
+            continue
+        end = hash_at
+        while True:
+            nl = text.find("\n", end)
+            if nl < 0:
+                end = len(text)
+                break
+            if text[max(0, nl - 2):nl].rstrip("\r").endswith("\\"):
+                end = nl + 1
+                continue
+            end = nl
+            break
+        line = text[hash_at + 1:end]
+        word = re.match(r"[ \t]*(\w*)", line)
+        out.append((m.start(), end, word.group(1), line[word.end():]))
+    return out
+
+
+def _braces(text, mask, start, end):
+    """'{' minus '}' among the code characters MASK keeps in text[start:end]."""
+    return sum(1 if text[i] == "{" else -1 for i in range(start, end) if mask[i] and text[i] in "{}")
+
+
+def _preprocessor_scope_refusal(text, code_mask, scope_mask, directives, last, rel):
+    """Why preprocessing before LAST (the last declaration or use of the class) can change
+    which scope it is in, or None. Conditions are never evaluated and macros never expanded:
+    a conditional branch whose braces do not balance within it, or a macro whose replacement's
+    braces do not balance and that is used before LAST, refuses the file. A balanced macro
+    cannot leave a scope open around later text, whatever keywords it holds; one that expands
+    to a scope head with no brace (`#define OPEN namespace Other`) leaves its literal brace to
+    the tracker, which classes that block as unknown, never file scope."""
+    stack, line_of = [], lambda pos: text.count("\n", 0, pos) + 1
+    for start, end, word, _ in directives:
+        if word in ("if", "ifdef", "ifndef"):
+            stack.append(end)
+        elif word in ("elif", "else", "endif"):
+            if not stack:
+                return f"{rel}: #{word} at line {line_of(start)} has no #if"
+            branch = stack.pop()
+            if branch < last and _braces(text, scope_mask, branch, start):
+                return (f"{rel}: braces do not balance inside the conditional branch ending at line "
+                        f"{line_of(start)}, before the declaration; its scope cannot be resolved")
+            if word != "endif":
+                stack.append(end)
+    if stack:
+        return f"{rel}: an #if is never closed; no declaration's scope can be resolved"
+    for start, end, word, body in directives:
+        if word != "define" or start >= last:
+            continue
+        macro = re.match(r"\s*(\w+)(\([^)]*\))?(.*)", body, re.S)
+        if not macro:
+            continue
+        replacement = macro.group(3)
+        if replacement.count("{") == replacement.count("}"):
+            continue
+        for use in re.finditer(r"\b" + re.escape(macro.group(1)) + r"\b", text[:last]):
+            if scope_mask[use.start()]:
+                return (f"{rel}: macro {macro.group(1)} (line {line_of(start)}) has unbalanced braces and is used "
+                        f"at line {line_of(use.start())}, before the declaration; its scope cannot be resolved")
+    return None
+
+
+def _scope_at(events, position):
+    """The scope stack in force at POSITION, without the transparent linkage blocks."""
+    import bisect
+    k = bisect.bisect_left(events, (position, ())) - 1
+    return tuple(s for s in (events[k][1] if k >= 0 else ()) if s != "linkage")
+
+
+def _rekey_source(text, rel, name, key, rekeyer):
+    """(new text, [declaration edits]) for one Code/ file; RekeyRefused on a shape it cannot carry."""
+    old_kw = "struct" if key == "class" else "class"
+    spans = _lex(text)
+    code_mask = [False] * len(text)
+    for kind, a, b in spans:
+        if kind == "code":
+            code_mask[a:b] = [True] * (b - a)
+    edits = []        # (start, end, replacement)
+    decls = []
+    for kind, a, b in spans:
+        piece = text[a:b]
+        if kind == "string":
+            new = rekeyer.text(piece, rel, identity=True)
+        elif kind == "comment":
+            new = rekeyer.text(piece, rel, identity=bool(REKEY_MARKER.search(piece)))
+        else:
+            new = piece
+        if new != piece:
+            edits.append((a, b, new))
+    # Only the global class changes. A declaration or definition of NAME inside a namespace,
+    # class or function body is another class (N::NAME, Outer::NAME, a local class): it is
+    # left as written and reported. An elaborated use (`const struct NAME *p`) names the
+    # global class only when no namespace encloses it and the file declares no other NAME;
+    # otherwise it is ambiguous and refuses.
+    # Braces on preprocessor lines are no scope by themselves; the checks below refuse the
+    # file when preprocessing could move a declaration into or out of one.
+    directives = _pp_directives(text, code_mask)
+    scope_mask = list(code_mask)
+    for start, end, _, _ in directives:
+        scope_mask[start:end] = [False] * (end - start)
+    scopes = _brace_scopes(text, scope_mask, rel)
+    found = []
+    for match in re.finditer(r"\b" + old_kw + r"(\s+)" + re.escape(name) + r"\b", text):
+        if not code_mask[match.start()]:
+            continue
+        j = match.end()
+        while j < len(text) and (text[j].isspace() or not code_mask[j]):
+            j += 1
+        nxt = text[j:j + 2]
+        friend = re.search(r"\bfriend\s*$", text[max(0, match.start() - 40):match.start()])
+        declares = not friend and (nxt[:1] in ("{", ";") or (nxt[:1] == ":" and nxt != "::"))
+        if not scope_mask[match.start()]:
+            raise RekeyRefused(f"{rel}: `{old_kw} {name}` inside a preprocessor directive at line "
+                               f"{text.count(chr(10), 0, match.start()) + 1}; its scope cannot be resolved")
+        found.append((match, j, nxt, declares, _scope_at(scopes, match.start())))
+    if found:
+        why = _preprocessor_scope_refusal(text, code_mask, scope_mask, directives,
+                                          max(m.start() for m, *_ in found), rel)
+        if why:
+            raise RekeyRefused(why)
+    other_scope = [m for m, _, _, declares, scope in found if declares and scope]
+    for match, j, nxt, declares, scope in found:
+        if declares and scope:
+            rekeyer.other_scope.append(f"{rel}: {old_kw} {name} inside {'/'.join(scope)} (another class; left)")
+            continue
+        if not declares and scope and ("namespace" in scope or "unknown" in scope or other_scope):
+            raise RekeyRefused(f"{rel}: `{old_kw} {name}` inside {'/'.join(scope)} cannot be resolved to the "
+                               f"global class (a namespace or an unclassified block encloses it, or the file "
+                               f"declares another {name})")
+        replacement = key + match.group(1) + name
+        if nxt[:1] in ("{", ":") and nxt != "::":
+            brace = j
+            if nxt[:1] == ":":
+                end = text.find("{", j)
+                bases = text[j + 1:end].strip() if end > 0 else ""
+                if end < 0 or "," in bases or not re.fullmatch(r"(?:(public|protected|private)\s+)?[\w:]+", bases):
+                    raise RekeyRefused(f"{rel}: {old_kw} {name} has a base clause this writer cannot carry: {bases!r}")
+                if key == "class" and not bases.startswith(("public", "protected", "private")):
+                    edits.append((j, end, ": public " + bases + " "))
+                brace = end
+            line_end = text.find("\n", brace)
+            rest = text[brace + 1:line_end if line_end >= 0 else len(text)].strip()
+            access = "public:" if key == "class" else ""
+            if access:
+                eol = "\r\n" if text[brace + 1:brace + 3] == "\r\n" else "\n"
+                edits.append((brace, brace + 1, "{ " + access if rest else "{" + eol + access))
+            decls.append("definition")
+        else:
+            decls.append("declaration")
+        edits.append((match.start(), match.end(), replacement))
+    edits.sort()
+    for (a1, b1, _), (a2, _b2, _) in zip(edits, edits[1:]):
+        if a2 < b1:
+            raise RekeyRefused(f"{rel}: overlapping edits at {a1}..{b1} and {a2}")
+    out, last = [], 0
+    for a, b, new in edits:
+        out.append(text[last:a])
+        out.append(new)
+        last = b
+    out.append(text[last:])
+    return "".join(out), decls
+
+
+def _csv_rewrite(raw, rel, rekeyer):
+    """Respell tokens in a ledger CSV/TSV in place, byte for byte elsewhere. A token that is
+    a row's identity (its name column, or a notes `parent=`/`icf-owner=`... value) refuses
+    when unresolvable; any other (prose) token is rewritten if it resolves, else left."""
+    text = raw.decode("utf-8-sig")
+    delimiter = "\t" if rel.endswith(".tsv") else ","
+    column = REKEY_NAME_COLUMNS.get(rel)
+    identities = set()
+    for row in csv.DictReader(io.StringIO(text), delimiter=delimiter):
+        if column and row.get(column):
+            identities.add(row[column])
+        for value in row.values():
+            if value and "=" in value:
+                for m in REKEY_NOTE_KEYS.finditer(value):
+                    identities.update(_t for _s, _t in _split_tokens(m.group(1)))
+    out, last = [], 0
+    for start, token in _split_tokens(text):
+        new = rekeyer.one(token, rel, identity=token in identities)
+        if new != token:
+            out += [text[last:start], new]
+            last = start + len(token)
+    out.append(text[last:])
+    new = "".join(out)
+    if new == text:
+        return raw
+    bom = bytes((0xEF, 0xBB, 0xBF))
+    return (bom if raw.startswith(bom) else b"") + new.encode("utf-8")
+
+
+def _addresses(rows, name_col, address_col):
+    out = collections.defaultdict(set)
+    for row in rows:
+        value = (row.get(address_col) or "").strip()
+        if value:
+            out[row[name_col]].add(int(value, 16))
+    return out
+
+
+def plan_class_key(name, key, root=None):
+    """The whole migration as {rel: new bytes} plus its report; RekeyRefused before any write."""
+    root = Path(root or ROOT)
+    other = "U" if key == "class" else "V"
+    registry = {r["class"]: r for r in csv.DictReader(io.StringIO(
+        (root / "reverse/canonical_classes.csv").read_text(encoding="utf-8")))}
+    if name not in registry:
+        raise RekeyRefused(f"{name} is not a registered class")
+    header = registry[name]["header"]
+    contract_rel = f"reverse/class_contracts/{name}.json"
+    contract = json.loads((root / contract_rel).read_text(encoding="utf-8"))
+    exported = class_contract.export_key(name)
+    if set(exported) != {key}:
+        raise RekeyRefused(f"retail's exports decide {dict(exported) or 'nothing'} for {name}, not {key} alone")
+    if contract["key"] == key:
+        raise RekeyRefused(f"{contract_rel} already says {key}")
+    rekeyer = _Rekeyer(name, other)
+    files = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "Code", "reverse", "reference/shims"],
+                           capture_output=True, check=True).stdout.decode("utf-8").split("\0")
+    after, decls, refusals = {}, collections.Counter(), []
+    for rel in files:
+        if not rel:
+            continue
+        path = root / rel
+        if rel.startswith(("Code/", "reference/shims/")):
+            # A shim edit runs the full gate; the header's own dependents already do.
+            if rel.startswith(("Code/gen_asm/", "Code/gen_small/uw_gen_")) or "/vendor/" in rel:
+                # never edited here: refuse only when it spells NAME with the old key (a comment
+                # that mentions the class is no spelling)
+                hits = [t for _, t in _split_tokens(path.read_text(encoding="utf-8", errors="replace"))
+                        if _rekey_changes(t, rekeyer)]
+                if hits:
+                    refusals.append(f"{rel}: a generated or vendored file spells {name} with the old key "
+                                    f"({hits[0][:90]}); its owner tool must change it")
+                continue
+            if not rel.endswith(REKEY_CODE_SUFFIXES):
+                continue
+            raw = path.read_bytes()
+            if name.encode() not in raw:
+                continue
+            text = raw.decode("utf-8", errors="surrogateescape")
+            try:
+                new, kinds = _rekey_source(text, rel, name, key, rekeyer)
+            except RekeyRefused as err:
+                refusals.append(str(err))
+                continue
+            decls.update(kinds)
+            if new != text:
+                after[rel] = new.encode("utf-8", errors="surrogateescape")
+            continue
+        raw = path.read_bytes() if path.is_file() else b""
+        if name.encode() not in raw:
+            continue
+        if rel in REKEY_NAME_COLUMNS:
+            new = _csv_rewrite(raw, rel, rekeyer)
+        elif rel in REKEY_IDENTITY_FILES or rel in REKEY_PROSE_FILES:
+            new = rekeyer.text(raw.decode("utf-8"), rel, identity=rel in REKEY_IDENTITY_FILES).encode("utf-8")
+        elif rel.startswith("reverse/class_contracts/") and rel.endswith(".json") and rel != contract_rel:
+            new = rekeyer.text(raw.decode("utf-8"), rel, identity=False).encode("utf-8")
+        elif rel == "reverse/hatch_baseline.tsv":
+            hits = _register_hatch_tokens(raw.decode("utf-8"), rekeyer)
+            if hits:
+                refusals.append(f"{rel}: {len(hits)} hatch token(s) spell {name} (e.g. {hits[0][:90]}); "
+                                "hatch_counters has no respelling move yet")
+            continue
+        elif rel == "reverse/data_converged.csv":
+            hits = [t for _, t in _split_tokens(raw.decode("utf-8")) if _rekey_changes(t, rekeyer)]
+            if hits:
+                refusals.append(f"{rel}: converged names are never renamed ({hits[0][:90]})")
+            continue
+        else:
+            continue
+        if new != raw:
+            after[rel] = new
+    # dup_defs baseline: keys respelled through dup_defs' own total-keeping writer.
+    import dup_defs
+    base_rel = "reverse/dup_defs_baseline.tsv"
+    base_raw = (root / base_rel).read_bytes()
+    base_map = {}
+    for _, token in _split_tokens(base_raw.decode("utf-8")):
+        new = rekeyer.one(token, base_rel, identity=True)
+        if new != token:
+            base_map[token] = new
+    if base_map:
+        try:
+            after[base_rel] = dup_defs.rekey_baseline_text(base_raw.decode("utf-8"), base_map).encode("utf-8")
+        except ValueError as err:
+            refusals.append(f"{base_rel}: {err}")
+    # The contract and its generated header line.
+    # The contract changes by text, not re-serialized: only its key, its rule, and the
+    # mangled names in it (its method declarations name their rows).
+    old_key = contract["key"]
+    ctext = (root / contract_rel).read_bytes().decode("utf-8")
+    fields = re.compile(r'(\n "key": )"' + old_key + r'",(\r?\n "key_by": )"' + re.escape(contract["key_by"]) + '",')
+    if len(fields.findall(ctext)) != 1:
+        refusals.append(f"{contract_rel}: no single top-level key/key_by pair to respell")
+    else:
+        ctext = fields.sub(lambda m: f'{m.group(1)}"{key}",{m.group(2)}"exports",', ctext)
+        after[contract_rel] = rekeyer.text(ctext, contract_rel, identity=True).encode("utf-8")
+        if json.loads(after[contract_rel])["key"] != key:
+            refusals.append(f"{contract_rel}: the respelled contract does not parse to key {key}")
+    head = after.get(header, (root / header).read_bytes()).decode("utf-8")
+    line = re.compile(r"(// sizeof [^\n]*; class-key )" + old_key + r" \([^)\n]*\)\.")
+    if len(line.findall(head)) != 1:
+        refusals.append(f"{header}: no single generated class-key line to respell")
+    else:
+        after[header] = line.sub(lambda m: m.group(1) + f"{key} (exports).", head).encode("utf-8")
+    refusals += [f"unresolvable identity {t[:110]} ({why})" for t, why in sorted(rekeyer.refused.items())]
+    refusals += _rekey_collisions(root, after, rekeyer.mapping)
+    if refusals:
+        raise RekeyRefused("\n".join(refusals))
+    after = _drop_redundant_pins(root, after, rekeyer.mapping)
+    donors = sorted(rel for rel in files if rel.startswith("Code/") and rel.endswith(REKEY_CODE_SUFFIXES)
+                    and REKEY_DONOR_INCLUDE.search((root / rel).read_text(encoding="utf-8", errors="replace")))
+    after = _carry_and_tiers(root, after, rekeyer, f"{name} {old_key} -> {key}")
+    return after, {"class": name, "key": key, "from": old_key, "header": header, "files": sorted(after),
+                   "mapping": rekeyer.mapping, "declarations": dict(decls),
+                   "export_tier_gains": getattr(rekeyer, "export_gains", []),
+                   "other_scope_declarations": rekeyer.other_scope,
+                   "shims": sorted(r for r in after if r.startswith("reference/shims/")),
+                   "donor_header_units": donors,
+                   "prose_left": rekeyer.prose_left, "left_alone": REKEY_LEFT_ALONE}
+
+
+def _ledger_dicts(root, after, rel):
+    raw = after.get(rel) or ((root / rel).read_bytes() if (root / rel).is_file() else b"")
+    return list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
+
+
+def _rekey_collisions(root, after, mapping):
+    """Respelled names that would name more than one address (rows, pins and data rows
+    together; the byte gate accepts a pin as an extra candidate, a real link gives a name one
+    body, so an old spelling that already had two addresses refuses too), or land on a
+    tombstone."""
+    sides = (("reverse/functions.csv", "name", "target_rva"), ("reverse/symbols.csv", "name", "address"),
+             ("reverse/data_rows.csv", "name", "address"))
+    before, later = collections.defaultdict(set), collections.defaultdict(set)
+    for rel, col, at in sides:
+        for n, rvas in _addresses(_ledger_dicts(root, {}, rel), col, at).items():
+            before[n] |= rvas
+        for n, rvas in _addresses(_ledger_dicts(root, after, rel), col, at).items():
+            later[n] |= rvas
+    out = []
+    for new in sorted(set(mapping.values())):
+        if len(later.get(new, ())) > 1:
+            olds = sorted(o for o, n in mapping.items() if n == new)
+            out.append(f"collision: {new[:110]} would name "
+                       f"{', '.join(f'0x{r:08X}' for r in sorted(later[new]))} (from {olds[0][:80]})")
+    tomb_before = {r["name"] for r in _ledger_dicts(root, {}, "reverse/deleted_rows.csv")}
+    live_before = set(before)
+    for new in sorted(set(mapping.values()) & tomb_before):
+        if new in later and new not in live_before:
+            out.append(f"tombstone: {new[:110]} is in reverse/deleted_rows.csv")
+    return out
+
+
+def _drop_redundant_pins(root, after, mapping):
+    """A pin the respelling makes equal to a row's own name at the same address is dropped
+    (only those: an older redundant pin is not this migration's to remove)."""
+    rel = "reverse/symbols.csv"
+    respelled = set(mapping.values())
+    rows = _addresses(_ledger_dicts(root, after, "reverse/functions.csv"), "name", "target_rva")
+    raw = (after.get(rel) or (root / rel).read_bytes()).decode("utf-8-sig")
+    lines = raw.splitlines(keepends=True)
+    keep, seen, dropped = [lines[0]], set(), 0
+    for line, rec in zip(lines[1:], csv.DictReader(io.StringIO(raw))):
+        at = int(rec["address"], 16) if rec["address"].strip() else None
+        if rec["name"] in respelled and (at in rows.get(rec["name"], ()) or (rec["name"], at) in seen):
+            dropped += 1
+            continue
+        seen.add((rec["name"], at))
+        keep.append(line)
+    return {**after, rel: "".join(keep).encode("utf-8")} if dropped else after
+
+
+def _carry_and_tiers(root, after, rekeyer, subject):
+    """name_basis.csv binds a name's tier by its spelling, so every record whose spelling
+    the migration changes gets an appended `carry` record (rename.py's own mechanism,
+    never an edit of history). The tiers tools/allowed_symbols.py derives must then be
+    today's, respelled: any other tier change refuses. reverse/name_tiers.csv itself is
+    left to its owner (`allowed_symbols.py --tiers`), since the gate checks it only when
+    staged and the committed file may already lag the tool."""
+    import allowed_symbols
+    import rename
+    import tempfile
+    ctx = rename.Context(root, object_scan=False)
+    lines = []
+    for spelling, row in rename.current_records(ctx).items():
+        if spelling in rekeyer.mapping:
+            lines.append(rename.csv_line(["carry", spelling, rekeyer.mapping[spelling], row.get("basis", ""),
+                                          f"class-key respelled by {subject} (retail exports)",
+                                          row.get("source", ""), row.get("rva", "")]))
+    basis_rel = "reverse/name_basis.csv"
+    if lines:
+        after = {**after, basis_rel: rename.appended(ctx.read(basis_rel), lines, header=rename.NAME_BASIS_HEADER)}
+
+    def tiers(files):
+        # The rows `allowed_symbols.py --tiers` reads (link_census.ledger): matched, with an address.
+        rows = [r for r in _ledger_dicts(root, files, "reverse/functions.csv")
+                if r.get("status") == "matched" and (r.get("target_rva") or "").startswith("0x")]
+        with tempfile.TemporaryDirectory() as tmp:
+            basis = Path(tmp) / "name_basis.csv"
+            basis.write_bytes(files.get(basis_rel) or ctx.read(basis_rel) or b"")
+            return allowed_symbols.tiers_text(rows, allowed_symbols.Bases(basis))
+
+    expected = rekeyer.text(tiers({}), "tiers (before)", identity=False)
+    generated = tiers(after)
+    lost = sorted(set(expected.splitlines()) - set(generated.splitlines()))
+    gained = sorted(set(generated.splitlines()) - set(expected.splitlines()))
+    # A respelled name that now IS retail's export gains that evidence; nothing else may move.
+    other = [g for g in gained if not g.endswith(",evidence,export")]
+    if lost or other:
+        raise RekeyRefused(f"name tiers: the respelling changes tiers beyond the names: "
+                           f"{len(lost)} line(s) lost (e.g. {lost[:2]}), {len(other)} gained (e.g. {other[:2]})")
+    rekeyer.export_gains = [g for g in gained if g not in other]
+    return after
+
+
+def _rekey_claims(root, rels, name):
+    """Touched paths (and the class) this worker does not hold, failing closed."""
+    if os.environ.get("BFME_CLAIMS", "on") == "off":
+        return []
+    import claims
+    me = claims.owner(root)
+    held = claims.active(root)
+    wanted = [("class:" + name, claims.class_key(name))] + [("file:" + r, claims.file_key(r)) for r in rels]
+    return [label for label, k in wanted if (held.get(k) or {}).get("owner") != me]
+
+
+def _report_path(report):
+    """REPORT as a Path that is safe to write: under build/ (untracked scratch) or outside the
+    repository, never a tracked file. RekeyRefused otherwise, before anything is written. The
+    check is lexical on the resolved path (symlinks followed); it was not verified on a
+    case-insensitive mount."""
+    path = Path(report).resolve()
+    inside = path == ROOT.resolve() or ROOT.resolve() in path.parents
+    if inside and (ROOT / "build").resolve() not in path.parents:
+        raise RekeyRefused(f"--report {report}: write reports under build/ or outside the repository")
+    if inside and subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", "--", str(path)],
+                                 capture_output=True).returncode == 0:
+        raise RekeyRefused(f"--report {report} is a tracked file")
+    return path
+
+
+def apply_class_key(name, key, dry_run=False, report=None):
+    """Plan and (unless DRY_RUN) apply the migration. Not a round trip: the reverse key is
+    refused while retail's exports decide this one, and the inserted `public:` lines stay; a
+    second run refuses (the contract already says KEY). A run killed by a signal or power
+    loss leaves rename.py's journal: `python3 tools/rename.py recover` restores the tree."""
+    import rename
+    report_path = _report_path(report) if report else None
+    ctx = rename.Context(ROOT, object_scan=False)
+    rename.refuse_pending_journal(ctx)
+    after, summary = plan_class_key(name, key)
+    written = sorted(after)
+    summary["written"] = written
+    if report_path:
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    print(f"class-key {name}: {summary['from']} -> {key}: {len(after)} file(s), "
+          f"{len(summary['mapping'])} name(s) respelled, declarations {summary['declarations']}, "
+          f"{len(summary['prose_left'])} prose token(s) left as written")
+    for shim in summary["shims"]:
+        print(f"  shim rewritten: {shim}")
+    for line in summary["other_scope_declarations"]:
+        print(f"  left: {line}")
+    if summary["donor_header_units"]:
+        print(f"  {len(summary['donor_header_units'])} unit(s) include a header name a donor root may resolve to "
+              f"its own {name} (check their rebuilt objects): {', '.join(summary['donor_header_units'][:8])}")
+    if dry_run:
+        return 0
+    missing = _rekey_claims(ROOT, written, name)
+    if missing:
+        raise RekeyRefused(f"{len(missing)} claim(s) not held by this worker, e.g. {', '.join(missing[:5])}")
+    plan = rename.Plan(kind="class-key", old=f"{name} {summary['from']}", new=f"{name} {key}",
+                       basis="exports", evidence="reverse/exports.csv", source=summary["header"], rva=0)
+    plan.before = {rel: ctx.read(rel) for rel in written}
+    journal = rename.write_journal(ctx, plan)
+    try:
+        for rel, data in after.items():
+            ctx.path(rel).write_bytes(data)
+    except BaseException:
+        rename.restore(ctx, plan.before)
+        journal.unlink()
+        raise
+    journal.unlink()
+    return 0
+
+
+def scan_old_key(name, key, objects):
+    """{object: [old-key or unresolvable names]} over OBJECTS (paths): every mangled token in an
+    object's bytes (symbol table, .drectve directives, debug records) that still spells NAME
+    with the other key, or spells NAME and cannot be resolved. A missing object is a finding:
+    the flip is complete only when every rebuilt object is read and none spells the old key."""
+    other = "U" if key == "class" else "V"
+    scope = class_contract.mangled_scope(name)
+    found = {}
+    for obj in objects:
+        path = Path(obj)
+        if not path.is_file():
+            found[str(obj)] = ["(object missing)"]
+            continue
+        bad = set()
+        for match in REKEY_TOKEN.finditer(path.read_bytes().decode("latin-1")):
+            token = match.group()
+            if not _rekey_relevant(token, name):
+                continue
+            try:
+                if rekey_symbol(token, scope, other, allow_mixed=True) != token:
+                    bad.add(token)
+            except Exception:
+                bad.add(token + "  (unresolvable)")
+        if bad:
+            found[str(obj)] = sorted(bad)
+    return found
+
+
+def rekey_scan(name, key, sources_from=None):
+    """The flip's completion check over the objects of the ledger's matched sources (or the
+    sources listed one per line in SOURCES_FROM): exit 1 and list them when any object is
+    missing or still spells NAME with the old key. It reads the objects as they are and does
+    not establish that they are fresh: the trial must rebuild them first."""
+    import build
+    if sources_from:
+        sources = [s for s in Path(sources_from).read_text(encoding="utf-8").split() if s]
+    else:
+        with LEDGER.open(newline="", encoding="utf-8") as handle:
+            sources = sorted({r["source"] for r in csv.DictReader(handle) if r.get("status") == "matched"})
+    objects = [build.obj_path(ROOT / s) for s in sources]
+    found = scan_old_key(name, key, objects)
+    for obj, names in sorted(found.items()):
+        print(f"{obj}: {len(names)} old-key name(s), e.g. {names[0][:150]}")
+    print(f"rekey-scan {name} -> {key}: {len(objects)} object(s), {len(found)} with an old-key spelling or missing")
+    return 1 if found else 0
 
 
 def key_backref_blockers(sources, name, key):
@@ -3725,6 +4485,22 @@ def main(argv=None):
     p.add_argument("--apply", action="store_true", help="write the units that byte-match")
     p.add_argument("--jobs", type=int, default=1)
     p.add_argument("files", nargs="+")
+    p = sub.add_parser("rekey", help="change a registered class's class-key everywhere, in one transaction",
+                       description="Change a registered class's class-key everywhere, in one transaction. Not a "
+                                   "round trip (the reverse key is refused while retail's exports decide this one; "
+                                   "inserted public: lines stay); a second run refuses. A run killed by a signal or "
+                                   "power loss leaves rename.py's journal: run `python3 tools/rename.py recover`. "
+                                   "The flip is complete only when the rebuilt objects spell no old-key name.")
+    p.add_argument("--class", dest="name", required=True)
+    p.add_argument("--key", choices=("class", "struct"), required=True)
+    p.add_argument("--dry-run", action="store_true", help="plan and report; write nothing")
+    p.add_argument("--report", help="write the plan (respelling map, leftovers) here as JSON: under build/ or "
+                                    "outside the repository, never a tracked file")
+    p = sub.add_parser("rekey-scan", help="the flip's completion check: no rebuilt object spells the old key")
+    p.add_argument("--class", dest="name", required=True)
+    p.add_argument("--key", choices=("class", "struct"), required=True, help="the NEW key")
+    p.add_argument("--sources-from", help="sources to check, one per line (default: every matched ledger source); "
+                                          "the objects must be freshly rebuilt, which this does not check")
     p = sub.add_parser("gate-cost")
     p.add_argument("--header", required=True)
     p.add_argument("--jobs", type=int, default=max(2, (os.cpu_count() or 4) // 2))
@@ -3764,6 +4540,14 @@ def main(argv=None):
         return accept(args.name, args.files, args.header)
     if args.cmd == "adopt":
         return 1 if adopt(args.name, args.header, args.files, args.apply, args.jobs) else 0
+    if args.cmd == "rekey":
+        try:
+            return apply_class_key(args.name, args.key, args.dry_run, args.report)
+        except RekeyRefused as err:
+            print(f"class-key {args.name}: REFUSED, nothing written:\n{err}", file=sys.stderr)
+            return 2
+    if args.cmd == "rekey-scan":
+        return rekey_scan(args.name, args.key, args.sources_from)
     if args.cmd == "gate-cost":
         gate_cost(args.header, args.jobs)
         return 0

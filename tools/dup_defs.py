@@ -244,6 +244,32 @@ def remove_identical_extras(found, rows, limit=0):
     return done
 
 
+def rekey_baseline_text(text, mapping):
+    """The baseline with keys respelled by `mapping` (a class-key migration), keeping its
+    total: every respelled key keeps its class, none may land on a key already listed,
+    and no line is added or dropped. ValueError otherwise."""
+    lines = text.splitlines(keepends=True)
+    present = {line.rstrip("\n") for line in lines if line.strip() and not line.startswith("#")}
+    out, changed = [], 0
+    for line in lines:
+        body = line.rstrip("\n")
+        if not body or body.startswith("#"):
+            out.append(line)
+            continue
+        cls, _, name = body.partition("\t")
+        new = mapping.get(name, name)
+        if new != name:
+            if f"{cls}\t{new}" in present:
+                raise ValueError(f"respelled key {new[:100]} is already listed")
+            changed += 1
+        out.append(f"{cls}\t{new}" + line[len(body):])
+    result = "".join(out)
+    keys = [line for line in result.splitlines() if line.strip() and not line.startswith("#")]
+    if len(keys) != len(present) or len(set(keys)) != len(keys):
+        raise ValueError("a respelling would merge or drop baseline keys")
+    return result
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--check", action="store_true")
