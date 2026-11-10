@@ -317,11 +317,7 @@ public:
 
 class Vector3;
 
-class Rva002BF4F3
-{
-public:
-	bool rva002BF5B0(const Vector3 *input, Vector3 *output);
-};
+#include "../../../Include/Common/Rva002BF4F3.h"
 
 class LivingWorld;
 

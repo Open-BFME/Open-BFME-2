@@ -39,7 +39,7 @@ class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class Rva002B4C09 {public:bool rva002B4C09();};
-class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
+#include "../../../Include/Common/Rva002BF4F3.h"
 class Rva003FE342Virtual {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5(Vector3*);};
 class LivingWorldArmyIcon {
 public:

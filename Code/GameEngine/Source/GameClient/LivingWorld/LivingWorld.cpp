@@ -252,7 +252,7 @@ class Rva002BFC59 {public:TreeHintRef002BF0D6 &rva002BFC59(const AsciiString&);}
 
 class Vector3;
 
-class Rva002BF4F3 {public: bool rva002BF5B0(const Vector3 *,Vector3 *);};
+#include "../../../Include/Common/Rva002BF4F3.h"
 
 class Rva002D3627Host {public:void rva002BF09E(const Coord3D *);};
 

@@ -28,11 +28,7 @@ struct Rva00319AA0Float3
 // The maker 0x002BF5B0, rowed as Rva002BF4F3::rva002BF5B0 (its bool
 // result is unused here).
 class Vector3;
-class Rva002BF4F3
-{
-public:
-	bool rva002BF5B0(const Vector3 *pair, Vector3 *rec);
-};
+#include "../../../Include/Common/Rva002BF4F3.h"
 
 // The gate 0x003197B7, rowed as Rva00319AA0::rva003197B7.
 class Rva00319AA0

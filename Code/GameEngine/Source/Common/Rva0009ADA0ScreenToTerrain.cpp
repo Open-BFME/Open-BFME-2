@@ -14,11 +14,7 @@
 #include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 
-class Rva002BF4F3
-{
-public:
-	bool rva002BF2B7(int screen, Vector3 *world);
-};
+#include "../../Include/Common/Rva002BF4F3.h"
 
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;

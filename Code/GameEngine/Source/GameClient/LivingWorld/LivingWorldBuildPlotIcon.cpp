@@ -61,7 +61,7 @@ struct IconSubTemplate {char pad[0x1c];float height;};
 
 struct IconTemplate {void *name;_STL::vector<IconSubTemplate *> items;};
 
-class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3 *,Vector3 *);};
+#include "../../../Include/Common/Rva002BF4F3.h"
 
 class Rva002D3627Host;
 

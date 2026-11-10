@@ -25,12 +25,7 @@ typedef unsigned int UnsignedInt;
 
 class Vector3;
 
-class Rva002BF4F3
-{
-public:
-	bool rva002BF935(void *obj, const Vector3 *pos, Vector3 *result);
-	bool rva002BF5B0(const Vector3 *pos, Vector3 *result);
-};
+#include "../../../Include/Common/Rva002BF4F3.h"
 
 class Rva002D3627Host;
 

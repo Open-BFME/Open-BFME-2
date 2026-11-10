@@ -22,7 +22,7 @@ class LivingWorldArmyIcon {public:void rva003FDD41(int,int,int);void rva003FDE8C
 class Rva003FDE50 {public:void rva003FDE50(unsigned int);};
 struct Position00538D3B {float x,y,z; Position00538D3B(float a,float b,float c):x(a),y(b),z(c){} };
 class Vector3;
-class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
+#include "../../../Include/Common/Rva002BF4F3.h"
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;
 struct Record00538D3B {int unused;float x,y,z;};
 struct Rva00538CEFPair {int a,b;};

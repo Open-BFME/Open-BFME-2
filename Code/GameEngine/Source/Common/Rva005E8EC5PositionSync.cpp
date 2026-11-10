@@ -20,11 +20,7 @@ struct Rva005F83F4Data
 
 // The lift 0x002BF5B0 is rowed as Rva002BF4F3::rva002BF5B0 (Vector3 spelling).
 class Vector3;
-class Rva002BF4F3
-{
-public:
-	bool rva002BF5B0(const Vector3 *in, Vector3 *out);
-};
+#include "../../Include/Common/Rva002BF4F3.h"
 class Rva002D3627Host;
 
 class Rva003F07CEOwner

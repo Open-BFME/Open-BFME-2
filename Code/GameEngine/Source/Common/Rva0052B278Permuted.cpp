@@ -50,7 +50,7 @@ struct IconHelpRef {
  IconHelpRef():ptr(0){}
  ~IconHelpRef() {if(ptr) ReleaseTreeHintRef00217D4C(ptr);}
 };
-class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3 *,Vector3 *);};
+#include "../../Include/Common/Rva002BF4F3.h"
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 class Rva005392C2 {public:void rva0052B045();};

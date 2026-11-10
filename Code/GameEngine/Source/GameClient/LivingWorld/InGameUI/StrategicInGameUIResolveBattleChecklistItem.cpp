@@ -27,7 +27,7 @@ class Rva005CCB7B {public:void rva005CCB7B(bool);};
 class Rva005CCB83 {public:void rva005CCB83(void*);};
 class Rva005CCB90 {public:void rva005CCB90(const void*);};
 class Vector3;
-class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);}; // rowed 0x002BF5B0 (Rva002BF4F3.cpp)
+#include "../../../../Include/Common/Rva002BF4F3.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class LivingWorld;extern LivingWorld*TheLivingWorld;
 class GameTextInterface;
