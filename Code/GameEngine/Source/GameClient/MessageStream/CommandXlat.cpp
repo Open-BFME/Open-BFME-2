@@ -96,7 +96,7 @@ class PlayerTemplate { public: char pad00[0xe4]; AsciiString m_beaconTemplate; c
 class Team;
  enum Relationship { CONTEXT_ALLY,CONTEXT_ENEMY,CONTEXT_NEUTRAL };
 #include "../../../Include/Common/Player.h"
-class PlayerList { public: char pad00[0xc]; Player* m_localPlayer; Player* getLocalPlayer() const { return m_localPlayer; } };
+#include "../../../Include/Common/PlayerList.h"
 #include "../../../Include/GameClient/ControlBar.h"
 // TU-local field view of retail's GlobalData; the one writable global at
 // 0x012ED5C8 is declared with EA's own class below and cast at each use.
