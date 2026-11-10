@@ -20,7 +20,7 @@ template<class T> class AptValueSet {public: bool has(T)const;};
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+#include "../Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

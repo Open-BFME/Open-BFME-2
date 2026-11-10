@@ -84,7 +84,7 @@ struct LookupMouse {char pad[0x74];int x,y;};
 struct CharacterInstance {char pad[12];struct Definition {int a,b;int frames;};Definition *definition;};
 void rva006ffc30(AptValue*,EAStringC&);
 void rva006ffce0(AptValue*,EAStringC&);
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void*,int);};
+#include "Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class Rva006D6500:public BfmeAptValue006DCD20 {
  char rest[28];

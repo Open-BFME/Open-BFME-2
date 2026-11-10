@@ -18,7 +18,7 @@ inline AptObject::AptObject(AptVirtualFunctionTable_Indices type,int n) : AptVal
     mbHasClass=0;
     mbIsInMainInst=0;
 }
-class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
+#include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 extern AptValue *gpUndefinedValue;
 class AptArray : public AptObject {

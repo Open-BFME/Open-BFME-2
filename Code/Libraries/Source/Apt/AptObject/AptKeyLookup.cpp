@@ -19,7 +19,7 @@ class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);};
 class Rva006E34D0 {public:unsigned char unaccessed00[0x18];AptValueSet<AptValue *> listenerSet;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 class AptBoolean {public:static AptValue *Create(bool);};
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+#include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Constructor storage view only; rowed native ctor initializes all36 bytes.
 class BfmeC1062 {public:virtual void bfmeSlot1062C_0();virtual void bfmeSlot1062C_1();};

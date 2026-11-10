@@ -100,7 +100,7 @@ S4_BASE( 009A1A40 )
 // ??1S4Dtor00587B30@@UAE@XZ
 S4_TWO_MEMBER_DTOR( 00587B30, 009A1A40, 005864A0, 005879C0, 0x20, 0x24 )
 
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+#include "Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

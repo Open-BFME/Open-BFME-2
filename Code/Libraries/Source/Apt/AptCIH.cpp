@@ -183,12 +183,7 @@ private:
 	int m_code; // +0x58
 };
 
-class Rva006D2A60
-{
-public:
-	void freeBlock(void *, int);
-	void *allocBlock(int);
-};
+#include "Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

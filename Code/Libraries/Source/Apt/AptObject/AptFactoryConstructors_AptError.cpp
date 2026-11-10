@@ -34,7 +34,7 @@ struct SoundCharacter { char pad[4]; void *parent; };
 struct SoundSprite { char pad[12]; SoundCharacter *character; };
 class AptCIH { public: char pad[0xc];float a,b,c,d,tx,ty;float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;float *properties;char pad2[4];SoundSprite *sprite;char pad3[0x5c-0x50];union {unsigned int flags;struct {unsigned int flagsLow:16;unsigned int asChanged:1;unsigned int flagsHigh:15;};};void factoryEnsureProperties();bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
 // Target scalar destructors6F3960/6FE430/6E9B50 use this pool and class size.
-class Rva006D2A60 { public: void *allocBlock(int);void freeBlock(void *,int); };
+#include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class AptSound : public AptObject {
 public: static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}

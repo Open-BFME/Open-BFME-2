@@ -113,11 +113,7 @@ private:
 // original PDB classes. The clone copies the +30 record pointer after the
 // newly verified three-argument base clone, with type43/44 respectively.
 // Allocation helpers are the same proven definitions used by DefineFunction.
-class Rva006D2A60 {
-public:
-  void *allocBlock(int);
-  void freeBlock(void *, int);
-};
+#include "../Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

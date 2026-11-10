@@ -38,7 +38,7 @@ int (__cdecl *g_rva00A177C0)(const char *,int)=0;
 AptValue *__cdecl Rva008A4EA0MakeFloat(float);
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+#include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class Rva006D6500
 {
