@@ -13,11 +13,7 @@
 // direct count shape; /arch:SSE selects the retail fldz/fld/fcompi float
 // compare (plain /O2 emits fcoms/fnstsw against a static zero).
 
-class Rva0008BB38FloatField
-{
-public:
-	float get() const;
-};
+#include "../../../Include/GameLogic/Rva0008BB38FloatField.h"
 
 
 struct Rva0028AC4EQ

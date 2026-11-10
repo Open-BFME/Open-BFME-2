@@ -30,7 +30,7 @@ struct NotifyCoord:Coord3D{
 struct Rva0087E650Bounds{NotifyCoord lo,hi;};
 #include "../../../../Include/Common/Geometry.h"
 class Rva0087E370{public:void method(const Coord3D&,float,Region2D&)const;};
-class Rva0008BB38FloatField{public:float get()const;};
+#include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 struct Rva0028AC4EEntry;
 class Rva0028FC7F{public:void rva0028FC7F(const void*);};
 class Object{public:

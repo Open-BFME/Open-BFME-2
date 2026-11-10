@@ -100,11 +100,7 @@ public:
 };
 typedef float Real;
 // The rowed 4-byte float getter 0x0008BB38 (fld [ecx+0x40]).
-class Rva0008BB38FloatField
-{
-public:
-	Real get() const;
-};
+#include "../../../Include/GameLogic/Rva0008BB38FloatField.h"
 class Locomotor
 {
 public:

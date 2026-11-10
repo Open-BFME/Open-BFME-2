@@ -33,11 +33,7 @@ class Pathfinder;
 class Locomotor;
 class AI;
 
-class Rva0008BB38FloatField
-{
-public:
-	Real get() const;
-};
+#include "../../../Include/GameLogic/Rva0008BB38FloatField.h"
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 

@@ -11,7 +11,7 @@ class Thing;
 class Locomotor;
 class Path;
 float normalizeAngle(float);
-class Rva0008BB38FloatField {public:float get()const;};
+#include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/PathfindPath.h"

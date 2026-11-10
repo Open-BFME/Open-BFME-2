@@ -902,11 +902,7 @@ class BfmeVirtualSlots<0>
 {
 };
 extern float g_00BBB9AC;
-class Rva0008BB38FloatField
-{
-public:
-	float get() const;
-};
+#include "../../../Include/GameLogic/Rva0008BB38FloatField.h"
 struct Rva0028AC4EEntry
 {
 	char m_pad00[0x2C];

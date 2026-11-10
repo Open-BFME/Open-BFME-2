@@ -180,11 +180,7 @@ public:
 	Bool m_150; // +0x150
 };
 
-class Rva0008BB38FloatField
-{
-public:
-	Real get() const;
-};
+#include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 
 class Rva001E702E
 {

@@ -58,11 +58,7 @@ enum PathfindLayerEnum
  LAYER_INVALID = 0
 };
 
-class Rva0008BB38FloatField
-{
- public:
- float get() const;
-};
+#include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 class Locomotor;

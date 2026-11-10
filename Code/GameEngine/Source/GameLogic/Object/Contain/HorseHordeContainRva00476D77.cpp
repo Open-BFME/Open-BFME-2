@@ -9,7 +9,7 @@ class Object;class Thing;class Locomotor;class Path;
 struct Rva0028AC4EEntry;class Rva001E3591 {public:bool rva001E3591();};class Rva00469012 {public:bool rva00469012(Object*,const Coord3D*);};class Rva0046AFDEReceiver {public:bool rva0046AFDE(Object*);};class HordeContain {public:void _updatePosition(Object*,const Coord3D*,float);};
 struct Rva001E4194A;bool __stdcall Rva001E4194Get(Rva001E4194A*);
 float normalizeAngle(float);
-class Rva0008BB38FloatField {public:float get()const;};
+#include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"

@@ -20,11 +20,7 @@ enum PathfindLayerEnum
 struct Rva003642DFNode;
 #include "../../../Include/GameLogic/Rva003642DFResult.h"
 
-class Rva0008BB38FloatField
-{
-public:
-	Real get() const;
-};
+#include "../../../Include/GameLogic/Rva0008BB38FloatField.h"
 
 #include "../../../Include/GameLogic/PathNode.h"
 
