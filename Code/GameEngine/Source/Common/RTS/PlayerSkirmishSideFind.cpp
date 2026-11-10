@@ -33,18 +33,7 @@ extern Rva00148F5ECache TheKey_playerFaction;
 
 #include "../../../Include/GameLogic/SidesInfo.h"
 
-class SidesList
-{
-public:
-	int getNumSkirmishSides() const { return m_numSkirmishSides; }
-	SidesInfo *getSkirmishSideInfo(int ndx);
-
-private:
-	unsigned char m_pad[0x7C0];
-	int m_numSkirmishSides;
-};
-
-extern SidesList *TheSidesList;
+#include "../../../Include/Common/SidesList.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
@@ -69,7 +58,7 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 
 bool Player::rva002AC4D4(int *index)
 {
-	int count = TheSidesList->getNumSkirmishSides();
+	int count = TheSidesList->m_numSkirmishSides;
 	AsciiString side = m_side;
 	for (int i = 0; i < count; i++) {
 		SidesInfo *info = TheSidesList->getSkirmishSideInfo(i);

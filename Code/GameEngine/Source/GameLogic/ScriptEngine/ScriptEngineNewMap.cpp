@@ -54,7 +54,7 @@ struct ScriptNodePayload {char prefix[4];char scriptStorage[1];__forceinline Scr
 struct ScriptEntry {int next;int word4;AsciiString name;int wordC;ScriptNodePayload*payload;};
 class ScriptList {public:char prefix[0x38];ScriptEntry*entries;char opaque3C[0xC];int first;};
 class SidesInfo {public:char prefix[8];ScriptList scripts;};
-class SidesList {public:SidesInfo*getSideInfo(int);char prefix[0x3C];int count;};extern SidesList*TheSidesList;
+#include "../../../Include/Common/SidesList.h"
 namespace _STL {template<>ScienceType*vector<ScienceType>::erase(ScienceType*,ScienceType*);}
 class ScriptEngine {public:void newMap();void checkConditionsForTeamNames(Script*,const AsciiString&);
 char prefix[0x190A0];Rva00206593 counters;Rva002065C8 flags;Rva002065FD mapB8;Rva00206632 mapC4;
@@ -70,7 +70,7 @@ counters.rva00206EC7();flags.rva00206EF0();mapB8.rva00206F19();mapC4.rva00206F42
 endTimer=-1;closeTimer=-1;totalUpdateTime=0;maxUpdateTime=0;numFrames=0;
 completedVideo.clear();completedSound.clear();testingSpeech.clear();testingAudio.clear();uiInteractions.clear();
 for(int i=0;i<20;++i){triggered[i].clear();midway[i].clear();finished[i].clear();sciences[i].erase(sciences[i].begin(),sciences[i].end());upgrades[i].clear();}
-for(int i=0;i<TheSidesList->count;++i){
+for(int i=0;i<TheSidesList->m_numSides;++i){
 currentPlayer=ThePlayerList->getNthPlayer(i);Rva002048A2 playerScope(&playerName,TheNameKeyGenerator->keyToName(currentPlayer->nameKey));
 ScriptList*list=&TheSidesList->getSideInfo(i)->scripts;
 if(list){for(int slot=list->first;slot!=-1;slot=list->entries[slot].next){

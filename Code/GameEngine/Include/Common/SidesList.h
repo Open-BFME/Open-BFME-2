@@ -4,7 +4,7 @@
 // Table 0x00C0DA88 has four Snapshot slots: 0=0x0032ED59 (this -= 0x0C, then deleting destructor), 1=0x000B3FD0 (LoadPostProcess), 2=0x0032ED53 (returns "SidesList" at VA 0x00BC9618), 3=0x00329AEA (DoXfer; its receiver is the Snapshot subobject). The next table starts at 0x00C0DA98.
 // Constructor 0x0032EE24 constructs list/maps at +0x20/+0x24/+0x30, clears dword counts +0x3C/+0x7C0, constructs twenty 0x60-byte SidesInfo records at +0x40/+0x7C4, TeamsInfoRec at +0xF44/+0xF60, sets byte +0xF7C, and constructs twenty 0x1C-byte records at +0xF80. Allocation sites 0x0022E968 and 0x0032F4D8 request 0x11B0 bytes before calling that constructor. Getter 0x002035BA proves count +0x3C and stride 0x60; 0x002A98D1 proves +0x7C0/+0x7C4 and the same stride; 0x0016809F reads +0x7C0; 0x00313840 reads signed word +0xF78.
 // Copy constructor 0x0032EF3E and assignment 0x0032E978 call the rowed base/member copies; destructor 0x0032EC63 is out of line. All three are declared only. Other declarations preserve the SidesList ledger spellings. Zero Hour SidesList.h supplies the names of the counts and getNumSides; retail 0x00205358 reads +0x3C in its side loop. Unrecovered member storage is opaque.
-// The +0x10 base constructor 0x00330757 calls the empty-vector initializer 0x00211E58, then writes -1 at its +0x0C. Its rowed destructor is the nullable first-pointer release at 0x0007FAB3. The parent's registered headers supply the proven SubsystemInterface and Snapshot layouts; their selectable slot surfaces change no offsets.
+// The +0x10 base constructor 0x00330757 calls the empty-vector initializer 0x00211E58, then writes -1 at its +0x0C. Its rowed destructor is the nullable first-pointer release at 0x0007FAB3. The registered headers supply the proven SubsystemInterface, Snapshot and Rva00330757Member layouts; their selectable slot surfaces change no offsets.
 // Remaining named member rows: emptySides 0x0032D81B, emptyTeams 0x0032D05C, addSide 0x0032D076, removeSide 0x0032D850, removeSideAndTeams 0x0032D8C7, addPlayerByTemplate 0x0032DE04, swap 0x0032B690, exchangeFlag 0x0032B833, duplicateScripts 0x00329A80, discardOverriddenScriptsAndTeams 0x0032C991, addMusicScriptReference 0x0032FD8E, and addToFactionBuildListMap 0x0032CDFE.
 // Lookup and validation rows: findSideInfo 0x0032B0A9, findSkirmishSideInfo 0x0032B13F, isPlayerDefaultTeam 0x0032B1E1, validateAllyEnemyList 0x0032B2A5, and validateSides 0x0032E02B. Parser and writer rows: parseBuildListDataChunk 0x0032CE9E, parseCastleTemplateDataChunk 0x0032F664, parseLibraryMapListsChunk 0x0032C779, parseSidesDataChunk 0x0032F13C, parseCastleTemplateMaps 0x0032F84F, writeCastleTemplateDataChunk 0x0032B88C, writeSidesDataChunk 0x0032E542, and linkLibraryMaps 0x0032FA07.
 // The rva-prefixed declarations retain their ledger names and encode their own entry RVAs, including rva0032996EWriteScripts and rva00329FF4WriteLibraryMaps. Their decorated rows prove the parameter types and access. Forward declarations do not assert layouts for their parameter types.
@@ -21,6 +21,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "Rva00330757Member.h"
 
 class AsciiString;
 class BuildListInfo;
@@ -48,16 +49,6 @@ template<class T> class allocator;
 template<class T, class Alloc> class vector;
 template<class Key, class Compare, class Alloc> class set;
 }
-
-class Rva00330757Member
-{
-public:
-    Rva00330757Member() throw();
-    ~Rva00330757Member();
-
-private:
-    char m_body[0x10];
-};
 
 class SidesList : public SubsystemInterface, public Snapshot, public Rva00330757Member
 {

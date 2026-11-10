@@ -19,19 +19,11 @@ struct LibraryMapStringVector {
     AsciiString *last;
     AsciiString *capacity;
 };
-class SidesList {
-public:
-    SidesInfo *getSideInfo(int index);
-    void rva00329FF4WriteLibraryMaps(DataChunkOutput &output);
-    void rva0032996EWriteScripts(DataChunkOutput &output);
-private:
-    unsigned char prefix[0x3C];
-    int numSides;
-};
+#include "../../../Include/Common/SidesList.h"
 
 void SidesList::rva00329FF4WriteLibraryMaps(DataChunkOutput &output) {
     output.openDataChunk("LibraryMapLists", 1);
-    int count = numSides;
+    int count = m_numSides;
     for (int index = 0; index < count; ++index) {
         output.openDataChunk("LibraryMaps", 1);
         LibraryMapStringVector *maps = reinterpret_cast<LibraryMapStringVector *>(getSideInfo(index)->m_tail);
@@ -46,7 +38,7 @@ void SidesList::rva00329FF4WriteLibraryMaps(DataChunkOutput &output) {
 
 void SidesList::rva0032996EWriteScripts(DataChunkOutput &output) {
     ScriptList *scripts[20];
-    int count = numSides;
+    int count = m_numSides;
     for (int index = 0; index < count; ++index)
         scripts[index] = getSideInfo(index)->getScriptList();
     ScriptList::WriteScriptsDataChunk(output, scripts, count);
