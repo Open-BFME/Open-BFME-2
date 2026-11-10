@@ -42,11 +42,7 @@ typedef _STL::list<Drawable *> DrawableList;
 typedef DrawableList::const_iterator DrawableListCIt;
 
 // The ledger's address name for the selected-drawable list clear 0x00239380.
-class Rva00239380Holder
-{
-public:
-	void rva00239380();
-};
+#include "../../Include/Common/Rva00239380Holder.h"
 
 enum { INVALID_DRAWABLE_ID = 0 };
 

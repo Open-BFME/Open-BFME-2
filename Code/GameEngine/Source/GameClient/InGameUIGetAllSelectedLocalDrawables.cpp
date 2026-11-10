@@ -49,11 +49,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits> &a,
 class Drawable;
 typedef _STL::list<Drawable *> BfmeDrawableList;
 
-class Rva00239380Holder
-{
-public:
-	void rva00239380();
-};
+#include "../../Include/Common/Rva00239380Holder.h"
 
 #include "../GameLogic/Object/object.h"
 

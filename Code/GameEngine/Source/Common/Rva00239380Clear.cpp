@@ -5,13 +5,7 @@
 // reinits sentinel next and prev to itself. Freelist here is 0x009BA5E8.
 // Callers at 0x002399E0 0x00239AF7 0x0029BDF5 0x002A3916 0x0030F277 plus
 // jmp at 0x00239944. No donor; honest address names.
-class Rva00239380Holder
-{
-public:
-	void *m_head;
-	void rva00239368(void *node, int dummy);
-	void rva00239380();
-};
+#include "../../Include/Common/Rva00239380Holder.h"
 // The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
 class FreelistPool;
 extern FreelistPool g_freelistPool00DBA5E0;

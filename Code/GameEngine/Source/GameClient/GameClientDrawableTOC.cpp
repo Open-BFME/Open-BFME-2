@@ -1826,11 +1826,7 @@ public:
 	virtual ~Rva00239911Item();
 };
 
-class Rva00239380Holder
-{
-public:
-	void rva00239380();
-};
+#include "../../Include/Common/Rva00239380Holder.h"
 
 // Slot 36, no ZH counterpart: delete every object in the +0xE4 list, then
 // clear it through 0x00239380.
