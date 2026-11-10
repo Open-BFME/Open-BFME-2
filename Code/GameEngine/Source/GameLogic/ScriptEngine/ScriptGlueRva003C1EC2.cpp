@@ -21,11 +21,7 @@ typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B3D1(float amount, bool flag);
-};
+#include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 struct Rva002886E9Object
 {
