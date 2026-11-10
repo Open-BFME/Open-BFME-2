@@ -260,16 +260,80 @@ inline Bool testFlagBit(Int flags, Int bit)
 	return (flags & (1<<bit)) != 0;
 }
 
+// P125: the cached-bone validator keeps its own copies of these helpers, because retail
+// compiled them static in one unit with it (the render object goes in ECX). They now read
+// RenderObjClass through the same retail-slot views as the rowed copies in
+// W3DModelDraw_doSingleBoneName.cpp (0x000B6B4F, 0x000B6BF0); RendObj.h's table is one virtual short
+// there, which made findSingleSubObj call each sub-object virtual one slot low.
 //-------------------------------------------------------------------------------------------------
+// Target-only dispatch prefix: native B6B4F calls vslots C8 and CC.
+// CC returns Matrix3D by value through a hidden 48-byte result buffer;
+// these slots and ABI differ from the BFME 1 donor declaration. Unused
+// slots stay opaque and no complete RenderObjClass layout is asserted.
+// WB921920 supplies the helper identity; retail supplies every byte.
+class RetailBoneRenderView {public:
+virtual void slot00();
+virtual void slot01();
+virtual void slot02();
+virtual void slot03();
+virtual void slot04();
+virtual void slot05();
+virtual void slot06();
+virtual void slot07();
+virtual void slot08();
+virtual void slot09();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void slot28();
+virtual void slot29();
+virtual void slot30();
+virtual void slot31();
+virtual void slot32();
+virtual void slot33();
+virtual void slot34();
+virtual void slot35();
+virtual void slot36();
+virtual void slot37();
+virtual void slot38();
+virtual void slot39();
+virtual void slot40();
+virtual void slot41();
+virtual void slot42();
+virtual void slot43();
+virtual void slot44();
+virtual void slot45();
+virtual void slot46();
+virtual void slot47();
+virtual void slot48();
+virtual void slot49();
+virtual int Get_Bone_Index(const char*);
+virtual Matrix3D Get_Bone_Transform(int);
+};
 static Bool findSingleBone(RenderObjClass* robj, const AsciiString& boneName, Matrix3D& mtx, Int& boneIndex)
 {
-	if (boneName.isNone() || boneName.isEmpty())
+	if (((const StringBase<char>*)&boneName)->isNone() || boneName.isEmpty())
 		return false;
 
-	boneIndex = robj->Get_Bone_Index(boneName.str());
+	boneIndex = ((RetailBoneRenderView*)robj)->Get_Bone_Index(boneName.str());
 	if (boneIndex != 0)
 	{
-		mtx = robj->Get_Bone_Transform(boneIndex);
+		mtx = ((RetailBoneRenderView*)robj)->Get_Bone_Transform(boneIndex);
 		return true;
 	}
 	else
@@ -279,12 +343,53 @@ static Bool findSingleBone(RenderObjClass* robj, const AsciiString& boneName, Ma
 }
 
 //-------------------------------------------------------------------------------------------------
+// Native B6BF0..B6CF1 and WB921AF0 identify the subobject helper.
+// Only called root-object slots are typed; the verified donor child
+// transform validity and reference-count handling remain unchanged.
+class RetailSubObjRenderView {public:
+virtual void slot00();
+virtual void slot01();
+virtual void slot02();
+virtual void slot03();
+virtual void slot04();
+virtual void slot05();
+virtual void slot06();
+virtual void slot07();
+virtual void slot08();
+virtual void slot09();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual int Get_Num_Sub_Objects()const;
+virtual void slot29();
+virtual RenderObjClass*Get_Sub_Object(int)const;
+virtual void slot31();
+virtual RenderObjClass*Get_Sub_Object_By_Name(const char*,int * =0)const;
+virtual void slot33();
+virtual void slot34();
+virtual int Get_Sub_Object_Bone_Index(int,int)const;
+};
 static Bool findSingleSubObj(RenderObjClass* robj, const AsciiString& boneName, Matrix3D& mtx, Int& boneIndex)
 {
-	if (boneName.isNone() || boneName.isEmpty())
+	if (((const StringBase<char>*)&boneName)->isNone() || boneName.isEmpty())
 		return false;
 
-	RenderObjClass* childObject = robj->Get_Sub_Object_By_Name(boneName.str());
+	RenderObjClass* childObject = ((RetailSubObjRenderView*)robj)->Get_Sub_Object_By_Name(boneName.str());
 	if (childObject)
 	{
 		mtx = childObject->Get_Transform();
@@ -292,15 +397,15 @@ static Bool findSingleSubObj(RenderObjClass* robj, const AsciiString& boneName, 
 		// you'd think this would work, but, it does not. do it the hard way.
 		// boneIndex = childObject->Get_Sub_Object_Bone_Index(childObject);
 
-		for (Int subObj = 0; subObj < robj->Get_Num_Sub_Objects(); subObj++)
+		for (Int subObj = 0; subObj < ((RetailSubObjRenderView*)robj)->Get_Num_Sub_Objects(); subObj++)
 		{	
-			RenderObjClass* test = robj->Get_Sub_Object(subObj);
+			RenderObjClass* test = ((RetailSubObjRenderView*)robj)->Get_Sub_Object(subObj);
 			if (test == childObject)
 			{
-				boneIndex = robj->Get_Sub_Object_Bone_Index(0, subObj);
+				boneIndex = ((RetailSubObjRenderView*)robj)->Get_Sub_Object_Bone_Index(0, subObj);
 #if defined(_DEBUG) || defined(_INTERNAL)
 				test->Release_Ref();
-				test = robj->Get_Sub_Object_On_Bone(0, boneIndex);
+				test = ((RetailSubObjRenderView*)robj)->Get_Sub_Object_On_Bone(0, boneIndex);
 				DEBUG_ASSERTCRASH(test != NULL && test == childObject, ("*** ASSET ERROR: Hmm, bone problem"));
 #endif
 			}
