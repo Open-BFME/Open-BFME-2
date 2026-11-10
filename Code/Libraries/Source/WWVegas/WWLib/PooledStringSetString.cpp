@@ -1,4 +1,5 @@
 // cl: /O2 /arch:SSE /MD /EHsc /I.
+// platformsdk
 // PooledString::setString at 0x006CB7C0, next to getHash (0x006CB780) in the same
 // /O2 run as string_inline.cpp. Ghidra's 489 omits the trailing RET 4; the full
 // body ends at 0x006CB9AC (492 B). Entry next0, folded-case alias4 and text8 are
@@ -6,14 +7,13 @@
 // at 0x4411C1 (flag +20 and CS +8 witnessed by Enter/LeaveCriticalSection). The
 // pool names come from retail's exports.
 #define _DLL
+#include <windows.h>
 #include <string.h>
 #include "Code/GameEngine/Include/Common/Rva00041004Lock.h"
 
 template<class T> __forceinline volatile T &r1_vwrite(T &value) { return *(volatile T *)&value; }
 
 extern "C" {
-    __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *);
-    __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *);
 }
 
 namespace _STL {
