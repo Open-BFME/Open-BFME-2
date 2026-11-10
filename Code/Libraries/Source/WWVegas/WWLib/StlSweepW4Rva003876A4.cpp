@@ -6,11 +6,7 @@
 // stlport
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <set>
-struct Rva0038768DData
-{
-    unsigned char m_b;
-    int m_x;
-};
+#include "../../../../GameEngine/Include/Common/Rva0038768DData.h"
 void Rva0038768DCopy(Rva0038768DData *, const Rva0038768DData *);
 
 struct Rva003876A4Element

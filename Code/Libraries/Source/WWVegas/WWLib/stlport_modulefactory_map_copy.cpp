@@ -171,11 +171,7 @@ public:
 
 }
 
-struct Rva0038768DData
-{
-    unsigned char m_b;
-    int m_x;
-};
+#include "../../../../GameEngine/Include/Common/Rva0038768DData.h"
 void Rva0038768DCopy(Rva0038768DData *, const Rva0038768DData *);
 
 namespace _STL {

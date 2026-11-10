@@ -12,11 +12,7 @@ public:
 	static char *allocate(unsigned int n, const void *hint);
 };
 }
-struct Rva0038768DData
-{
-	unsigned char m_b;
-	int m_x;
-};
+#include "../../Include/Common/Rva0038768DData.h"
 struct _Rva0038766BNode
 {
 	char m_pad00[0x10];
