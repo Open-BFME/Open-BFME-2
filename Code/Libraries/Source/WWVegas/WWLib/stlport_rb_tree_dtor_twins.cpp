@@ -21,10 +21,7 @@
 #include <map>
 #include "ascii_string.h"
 
-struct Rva004D1B38Mapped
-{
-	AsciiString m_name;
-};
+#include "../../../../GameEngine/Include/Common/Rva004D1B38Mapped.h"
 typedef _STL::pair<const int, Rva004D1B38Mapped> Rva004D1B38Pair;
 typedef _STL::_Rb_tree<int, Rva004D1B38Pair, _STL::_Select1st<Rva004D1B38Pair>, _STL::less<int>, _STL::allocator<Rva004D1B38Pair> > Rva004D1B38Tree;
 

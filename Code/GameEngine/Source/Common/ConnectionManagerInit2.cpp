@@ -87,10 +87,7 @@ struct Unknown12050
 	Unknown12050() : m_12050(0), m_12054(0) {}
 };
 
-struct Rva004D1B38Mapped
-{
-	AsciiString m_name;
-};
+#include "../../Include/Common/Rva004D1B38Mapped.h"
 
 class Rva004D0545
 {

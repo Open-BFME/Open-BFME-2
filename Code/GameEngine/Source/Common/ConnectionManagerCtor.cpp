@@ -101,10 +101,7 @@ typedef char ConnectionProgressExtent[(sizeof(Rva004D1D32)==12)?1:-1];
 // spell map<int, Rva004D1B38Mapped>: retail's unwind for it (0x00790E8E) runs
 // ~map 0x004D233F -> tree dtor 0x004D21B4, and init/reset clear it through
 // 0x004D1EF1. Its default constructor is the shared folded 0x0033C432.
-struct Rva004D1B38Mapped
-{
-	AsciiString m_name;
-};
+#include "../../Include/Common/Rva004D1B38Mapped.h"
 typedef _STL::map<int, Rva004D1B38Mapped> Rva004D1B38Map;
 namespace _STL { template <> _Rb_tree_base<pair<int const, Rva004D1B38Mapped>, allocator<pair<int const, Rva004D1B38Mapped> > >::_Rb_tree_base(allocator<pair<int const, Rva004D1B38Mapped> > const &); }
 namespace _STL { template <> _Rb_tree<int, pair<int const, Rva004D1B38Mapped>, _Select1st<pair<int const, Rva004D1B38Mapped> >, less<int>, allocator<pair<int const, Rva004D1B38Mapped> > >::~_Rb_tree(); }

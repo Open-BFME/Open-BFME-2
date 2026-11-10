@@ -69,10 +69,7 @@ public:
 	virtual ~Rva004D376A();
 };
 
-struct Rva004D1B38Mapped
-{
-	AsciiString m_name;
-};
+#include "../../Include/Common/Rva004D1B38Mapped.h"
 
 // The file recipient-mask map's tree (clear 0x004D0F82, destructor 0x004D1AC3).
 class Rva004D0545
