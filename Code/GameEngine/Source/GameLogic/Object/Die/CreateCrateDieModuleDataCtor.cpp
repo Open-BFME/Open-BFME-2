@@ -23,6 +23,7 @@
 // (pin 4079, superseded by this row).
 
 #include <list>
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 #include "ascii_string.h"

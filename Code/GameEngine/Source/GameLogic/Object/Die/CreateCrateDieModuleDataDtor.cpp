@@ -11,8 +11,6 @@
 // copied from it.
 #include <list>
 
-#include "Common/Snapshot.h"
-
 #include "ascii_string.h"
 
 // Declaration-only: the rowed list<AsciiString> base members are bound,
@@ -22,16 +20,18 @@ template <> _List_base<AsciiString, allocator<AsciiString> >::~_List_base();
 template <> void _List_base<AsciiString, allocator<AsciiString> >::clear();
 }
 
-// The Die-family intermediate adds no destructible members; its dtor is
-// trivial here and stores no vptr of its own in retail.
-class __declspec(novtable) DestroyDieModuleData : public Snapshot
-{
-public:
-	virtual ~DestroyDieModuleData() {}
+// Retail's ModuleData and DestroyDieModuleData destructors are trivial inlines
+// that leave only Snapshot's vptr restore; declare them inline here so the
+// 31-slot DestroyDieModuleData vtable matches the canonical ctor TU.
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
-private:
-	unsigned char m_pad[0x38 - 4];
-};
+inline ModuleData::~ModuleData()
+{
+}
+
+inline DestroyDieModuleData::~DestroyDieModuleData()
+{
+}
 
 class CreateCrateDieModuleData : public DestroyDieModuleData
 {
