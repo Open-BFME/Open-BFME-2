@@ -33,6 +33,11 @@ def lab(tmp_path, monkeypatch):
     monkeypatch.setattr(build, "ROOT", root)
     monkeypatch.setattr(build, "BFME1_ROOT", root / "reference")
     monkeypatch.setattr(build, "_CASEDIR_MEMO", {})
+    # The compile stub below replaces subprocess.run wholesale, so build.wine_path's
+    # own `winepath -w <toolchain root>` lands in it too -- a command with no -Fo,
+    # which made the stub raise StopIteration and failed all 22 tests here. Stubbed
+    # rather than special-cased in the stub, so the fixture needs no Wine either.
+    monkeypatch.setattr(build, "wine_path", lambda path: str(path))
     state = SimpleNamespace(calls=0, body=retail.read_bytes(), flags=[], unresolved=[], masked=False,
                             relocs=[], compile_failure=False, missing_probe=False, delay=0, lock=threading.Lock())
 
