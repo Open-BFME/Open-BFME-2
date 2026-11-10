@@ -9,10 +9,7 @@
 #include "../../../Include/Common/AsciiStringRef.h"
 
 // "string + string"
-struct AsciiStringPlusString : AsciiStringRef
-{
-	AsciiStringRef m_second;
-};
+#include "../../../Include/Common/AsciiStringPlusString.h"
 
 // "string + string + text"; its conversion is rowed at 0x0050F74B.
 struct AsciiStringPlusStringText : AsciiStringPlusString

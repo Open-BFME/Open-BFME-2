@@ -105,10 +105,7 @@ class Rva005242D7 {public:Rva005242D7();~Rva005242D7();private:char bytes[12];};
 
 #include "../../../../../Include/Common/AsciiStringRef.h"
 
-struct AsciiStringPlusString : AsciiStringRef
-{
-	AsciiStringRef m_second;
-};
+#include "../../../../../Include/Common/AsciiStringPlusString.h"
 
 struct AsciiStringPlusStringText : AsciiStringPlusString
 {
