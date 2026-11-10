@@ -21,11 +21,7 @@ public:
 	bool m_match;
 	int m_flags;
 };
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 class Rva00261058 : public Rva000421C8
 {
 public:

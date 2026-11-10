@@ -117,11 +117,7 @@ enum NameKeyType
 };
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 extern PartitionManager *ThePartitionManager;
 class ObjectCreationList
 {

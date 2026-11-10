@@ -154,11 +154,7 @@ class Rva003186EE { public: void rva003186EE(int a, int b, int c); };
 extern PartitionManager *ThePartitionManager;
 
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 class Rva00260EB1Filter : public Rva000421C8
 {

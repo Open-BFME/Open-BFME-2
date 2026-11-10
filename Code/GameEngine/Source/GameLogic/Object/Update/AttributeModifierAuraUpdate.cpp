@@ -38,11 +38,7 @@ struct Rva0006EE7A : public BitFlags<69>
 };
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00C07190, allow 0x002614DF.
 class Rva002614DFFilter : public Rva000421C8
 {

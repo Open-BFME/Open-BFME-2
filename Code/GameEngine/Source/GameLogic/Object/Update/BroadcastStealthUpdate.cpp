@@ -14,11 +14,7 @@
 class Object;
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.
 // vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
 class Rva002614DFFilter : public Rva000421C8

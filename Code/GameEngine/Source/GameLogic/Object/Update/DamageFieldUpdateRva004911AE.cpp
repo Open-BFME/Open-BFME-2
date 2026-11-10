@@ -70,11 +70,7 @@ public:
 	bool m_flag;
 };
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 class Rva00260EB1Filter : public Rva000421C8
 {
 public:
