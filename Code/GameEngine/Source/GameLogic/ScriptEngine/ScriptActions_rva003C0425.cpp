@@ -60,11 +60,7 @@ public:
 	virtual AudioEventInfoRef findAudioEvent(const AsciiString &name);
 };
 
-class Rva0033F15DDwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
