@@ -152,7 +152,7 @@ struct ObjectCrushLevelsView {
 
 #include "Common/BfmeAudioEventPrefix136.h"
 #include <string.h>
-class Rva002D9508 {public:void rva002D9508(const void*);};
+#include "../../../Include/GameLogic/Module/Rva002D9508.h"
 class Object; class Player; class RadarWindowOverrideSource;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

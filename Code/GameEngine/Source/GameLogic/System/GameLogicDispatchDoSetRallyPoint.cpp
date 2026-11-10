@@ -105,7 +105,7 @@ extern InGameUI *TheInGameUI;
 
 extern AudioManager *TheAudio;
 
-class Rva002D9508 { public: void rva002D9508(const void *position); };		// setPosition
+#include "../../../Include/GameLogic/Module/Rva002D9508.h"
 #include "../../../Include/Common/Rva0033F15DDwordSlot.h"
 
 #include "../../../Include/GameClient/ControlBar.h"

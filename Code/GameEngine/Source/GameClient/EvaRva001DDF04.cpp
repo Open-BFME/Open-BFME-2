@@ -104,7 +104,7 @@ extern AudioManager *TheAudio;
 
 #include "../../Include/Common/Rva0033F15DDwordSlot.h"
 class Rva002D94CE { public: void rva002D94CE(int value); };
-class Rva002D9508 { public: void rva002D9508(const void *position); };
+#include "../../Include/GameLogic/Module/Rva002D9508.h"
 class Rva001DCD05 { public: void *rva001DCD05(); };
 struct Coord3D;
 class Rva001DDAE1 { public: void rva001DDAE1(Coord3D *pos); };

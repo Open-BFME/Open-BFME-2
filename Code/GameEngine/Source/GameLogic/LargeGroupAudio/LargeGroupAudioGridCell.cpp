@@ -19,7 +19,7 @@ struct Rva005C8876Grid { char unknown00[0x10]; float cellWidth; float speed; };
 struct Rva005C8876Position { float x,y,z; Rva005C8876Position() {} Rva005C8876Position(const Rva005C8876Position &p):x(p.x),y(p.y),z(p.z) {} };
 
 #include "Common/BfmeAudioEventPrefix136.h"
-class Rva002D9508 { public: void rva002D9508(const void *); };
+#include "../../../Include/GameLogic/Module/Rva002D9508.h"
 class AudioManager { public:
 virtual void rvaSlot0();
 virtual void rvaSlot1();

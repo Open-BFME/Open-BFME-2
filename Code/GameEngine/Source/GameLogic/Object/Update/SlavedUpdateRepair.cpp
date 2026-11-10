@@ -372,11 +372,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 #include "../../../../Include/Common/MiscAudioClass.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
-class Rva002D9508
-{
-public:
-	void rva002D9508(const void *src);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9508.h"
 
 enum Relationship
 {

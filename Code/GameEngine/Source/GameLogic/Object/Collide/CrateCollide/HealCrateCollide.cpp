@@ -144,11 +144,7 @@ public:
 	virtual const HealCrateMiscView *getMiscAudio();
 };
 
-class Rva002D9508
-{
-public:
-	void rva002D9508(const void *src);	// 0x002D9508
-};
+#include "../../../../../Include/GameLogic/Module/Rva002D9508.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
 class CrateCollide : public CollideModule

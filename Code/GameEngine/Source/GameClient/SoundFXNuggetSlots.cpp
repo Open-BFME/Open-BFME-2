@@ -24,11 +24,7 @@ class Matrix3D;
 #include "../../Include/Common/Rva0033F15DDwordSlot.h"
 
 // Rowed setter the event's position goes through.
-class Rva002D9508
-{
-public:
-	void rva002D9508(const void *position);
-};
+#include "../../Include/GameLogic/Module/Rva002D9508.h"
 
 #include "../../Include/Common/GameAudio.h"
 
