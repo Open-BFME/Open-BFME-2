@@ -29,6 +29,17 @@ prepared sources for it are the two definition units with `Rva003A57A9`
 respelled `Rva003A59C3` and `DEFINE_THUNK_UAE(Rva003A59C3, DoXfer, 0x0C,
 (Xfer &))` in `GapForwardersSeat8.cpp`.
 
+## Open: the name getter (naming route)
+
+0x003A5A42 is rowed as the free function `?Rva003A5A42Get@@YAHXZ`
+(`ConstIntGetters4.cpp`). `function --to-class` refuses a non-method;
+`add_match.py --replace-rva` takes scaffold rows only; `function --respell
+--basis canonical:export` refuses because no export spells
+`?GetSnapshotName@Rva003A59C3@@UAEPBDXZ` (the class is a placeholder). What
+is left is `--respell --identity --basis inferred` with a naming approval.
+The prepared body is a `Rva003A59C3` view with `virtual const char
+*GetSnapshotName()` returning the same literal.
+
 ## Trial 1: the full retail shape in the constructor unit (byte-exact, not landed)
 
 [class-shape-trial.cpp.txt](class-shape-trial.cpp.txt) is
