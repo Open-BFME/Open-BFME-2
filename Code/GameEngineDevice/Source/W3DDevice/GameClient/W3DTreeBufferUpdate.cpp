@@ -67,11 +67,7 @@ private:
 	unsigned char m_pad[0x1A4A8];
 };
 
-class Rva00203ACEByteField
-{
-public:
-	unsigned char get() const;			// 0x00203ACE
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 
 class Rva00203B08
 {

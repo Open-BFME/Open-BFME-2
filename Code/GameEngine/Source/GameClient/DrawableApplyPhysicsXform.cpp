@@ -113,7 +113,7 @@ class GlobalDataView{public:char pad[0x9b0];bool showPhysics;};
 extern View*TheTacticalView;
 class ScriptEngine;extern ScriptEngine*TheScriptEngine;
 class Rva00203B08{public:bool rva0020424FF();};
-class Rva00203ACEByteField{public:unsigned char get()const;};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 class Drawable{public:
 struct PhysicsXformInfo{float m_totalPitch,m_totalRoll,m_totalYaw,m_totalZ;__declspec(dllimport) PhysicsXformInfo():m_totalPitch(0),m_totalRoll(0),m_totalYaw(0),m_totalZ(0){}};
 bool calcPhysicsXform(PhysicsXformInfo&);

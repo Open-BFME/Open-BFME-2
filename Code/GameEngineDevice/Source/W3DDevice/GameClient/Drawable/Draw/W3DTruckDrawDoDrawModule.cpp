@@ -54,7 +54,7 @@ struct Rva006C9270GlobalData { char head[0x9b0]; bool m_showClientPhysics; };
 class GameEngine { public: char head[0x38]; int field34; };
 extern GameEngine *TheGameEngine;
 class Rva00203B08 { public: bool rva0020424FF(); };
-class Rva00203ACEByteField { public: unsigned char get()const; };
+#include "../../../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 class ScriptEngine { public: bool isFrozen(); };
 extern ScriptEngine *TheScriptEngine;
 class BfmeScriptEngineFreezeExtra { public: unsigned char get() const; };

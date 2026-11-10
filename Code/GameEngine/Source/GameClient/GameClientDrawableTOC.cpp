@@ -979,7 +979,7 @@ private:
 
 class ScriptEngine;
 class Rva00203B08 { public: bool rva0020424FF(); };
-class Rva00203ACEByteField { public: unsigned char get() const; };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 
 // ZH PlayerList::getLocalPlayer and Player::getPlayerIndex: the local
 // player at +0x10, its index at +0x54.

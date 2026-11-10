@@ -58,7 +58,7 @@ class Object;
 #include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 class ScriptEngine;
 class Rva00203B08 {public:bool rva0020424FF();};
-class Rva00203ACEByteField {public:unsigned char get()const;};
+#include "../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 extern ScriptEngine *TheScriptEngine;
 class Rva0030E7D0
 {
