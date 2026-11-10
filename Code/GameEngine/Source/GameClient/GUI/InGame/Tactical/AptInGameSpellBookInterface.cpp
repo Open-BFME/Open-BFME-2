@@ -119,12 +119,7 @@ struct SpellControlBarColorView
 }
 ;
 #include "../../../../../Include/Common/Rva00223A94.h"
-class Rva002239B2 
-{
- public:void rva002239E2(const AsciiString &,const Image *);
- 
-}
-;
+#include "../../../../../Include/GameClient/Rva002239B2.h"
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *,void *,const char *,const char *,const char *);
 int __cdecl Rva0052519DFire(void *,void *,const char *,const char *,int *);
 class BannerUI 

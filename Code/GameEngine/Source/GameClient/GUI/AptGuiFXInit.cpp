@@ -82,7 +82,7 @@ public:
  virtual int loadWindow(AsciiString directory,AsciiString file,int arg1,int arg2);
 };
 struct Rva001408C0Target;
-class Rva002239B2 {public:void rva002239B2(const void *,Rva001408C0Target *);};
+#include "../../../Include/GameClient/Rva002239B2.h"
 class Coord2D;
 void rva00380869(Coord2D *,Coord2D *);
 class Rva003806D4 {public:void rva003806D4();};

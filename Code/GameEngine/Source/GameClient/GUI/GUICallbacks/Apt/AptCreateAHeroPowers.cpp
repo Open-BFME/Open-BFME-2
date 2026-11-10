@@ -72,11 +72,7 @@ class Image;
 #include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &name, const Image *image);
-};
+#include "../../../../../Include/GameClient/Rva002239B2.h"
 #include "../../../../../Include/Common/Rva00223A94.h"
 
 // The hero at owner+0x27c is accessed through its rowed button setter and

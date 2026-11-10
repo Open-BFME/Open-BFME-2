@@ -52,11 +52,7 @@ public:
 	void *rva00223A9F(const AsciiString *key);
 };
 #include "../../Include/Common/Rva00223A94.h"
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &key, const Image *image);
-};
+#include "../../Include/GameClient/Rva002239B2.h"
 
 bool __cdecl rva005B2295(const CommandButton *button, const char *widgetPrefix, int index, int pageIndex)
 {

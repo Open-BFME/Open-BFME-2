@@ -54,11 +54,7 @@ struct Rva00222343
 	bool m_39;
 };
 
-class Rva002239B2
-{
-public:
-	void rva002239B2(const void *key, Rva001408C0Target *value);
-};
+#include "../../../Include/GameClient/Rva002239B2.h"
 
 class Rva00223CBD
 {
