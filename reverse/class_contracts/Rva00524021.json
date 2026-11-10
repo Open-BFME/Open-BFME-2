@@ -1,0 +1,75 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00524021",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 8,
+   "8": 5,
+   "20": 1
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_begin",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "StringBase<char>*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/InGameNotificationBoxMovieClip_OnClosed.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00523F8CClear.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00524021Loop.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00524056Loop.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00523F8CClear.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00523F8CClear.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}

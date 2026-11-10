@@ -22,7 +22,7 @@ template<> vector<Rva005FA197Element>::~vector(){_Destroy(reinterpret_cast<TreeH
 template<> vector<Rva005FA1CEElement>::~vector(){_Destroy(reinterpret_cast<TreeHintRef00217D4C*>(_M_start),reinterpret_cast<TreeHintRef00217D4C*>(_M_finish));}
 template<> vector<AsciiString>::~vector();
 }
-class Rva00524021 {public:void rva00523F22();};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/Rva00524021.h"
 // Pinned 12B vector<AsciiString> stand-in: the name list's destruction.
 // 0x0002CC70 (??1RvaVecAscii@@QAE@XZ, range-destroy via AsciiString _Destroy
 // 0x2CB64) is the member destructor the implicit destruction below calls.

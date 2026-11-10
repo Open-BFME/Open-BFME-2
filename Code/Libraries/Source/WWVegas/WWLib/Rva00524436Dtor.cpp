@@ -26,11 +26,7 @@ struct Rva005243BBVector
 	void *m_end;
 };
 
-class Rva00524021
-{
-public:
-	void rva00523F8C();
-};
+#include "Rva00524021.h"
 
 class Rva00524436
 {

@@ -15,11 +15,7 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
-class Rva00524021
-{
-public:
-	void rva00523F57();
-};
+#include "Rva00524021.h"
 
 class Rva005241B0
 {

@@ -8,11 +8,7 @@
 #include "ascii_string.h"
 
 
-class Rva00524021
-{
-public:
-	void rva00524021();
-};
+#include "Rva00524021.h"
 
 #include "../../../../GameEngine/Source/Common/BattlePromptArmyPanelClipImplView.h"
 

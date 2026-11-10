@@ -433,12 +433,7 @@ void StrategicHUD::CommandButtonMovieClipWithHelp::OnRollOver()
 	m_helpBox->rva001FF3A9(m_help);
 }
 
-class Rva00524021
-{
-public:
-    void rva00524021();
-    void rva00524056();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva00524021.h"
 
 // Native 524349: unregister timer names, then destroy the owning string vector.
 AptTimerAdder::~AptTimerAdder()
