@@ -124,6 +124,40 @@ must be wrong. Giving them notes means asserting a parent I have not proven, so
 they are reported rather than edited -- `$L3985` in particular is a matched
 compiler-label row carrying no parentage evidence at all.
 
+## `hatch_counters`: nine of eleven are one shape, and three are already closed
+
+The open `hatch_counters` records are a consumer rebound from a wrong or
+undefined spelling to the address's ledger owner. The file's count falls --
+9→2 and 7→2 for the LANAPI pair, 12→6 for ColdGlobalDwordGetters -- but the
+register keys `address_global` per **name**, so the owner's key rises and the
+commit is refused.
+
+Rule 10 exists to trade exactly that, and spends only a spelling
+`reverse/data_ledger.csv` records in its `names` column at that address. That
+column is empty for **33,157 of 34,425 rows**, so `ledger_respellings()` finds
+just **6 owners** image-wide. Checked one by one:
+
+| record | token | rule 10 supply |
+| --- | --- | --- |
+| `g_Va00E03314` | `g_Va00A03314` | **mapped** -- obstacle gone |
+| `g_Va00E04450/E04904/E046B4` | `g_Va00A04450` … | **mapped** -- obstacle gone |
+| LANAPI pair | `g_Va00A03354` | moot: `0x00A03354` is now `?s_instance@AptLanLobby@@0PAV1@A`, a real name, so there is no `address_global` key left to grow |
+| token parsers | `g_Va00DC85C4Names` | none: `names` empty |
+| AsciiString fix | `g_Va00E063D4` | none: `names` empty |
+| rule 10 / C linkage | `g_Rva0112A210Fold` | none: `names` empty |
+
+So three are stale and the rest need one ledger edit each, not a tool change.
+The records instead propose widening `ADDR_GLOBAL` to bare `g_<hex>` or raising
+the baseline; both raise an enforced total and neither is the route. One record
+blames `_ledger_ident` for keeping a C name's leading underscore -- it strips
+it, and `_g_Rva0112A210Fold` resolves to an owner, so that diagnosis is wrong
+and the empty `names` column is the blocker there too.
+
+`address_global_route()` (`77726e29b1d`) now says this at the refusal, on both
+the `--update` path and the commit hook's. It admits nothing: `--report` is
+identical and `--staged` stays silent on a clean tree. The remaining work is a
+ledger edit per address, in its own commit, since the grant is read from `HEAD`.
+
 ## What this does not claim
 
 - **Not that the 351 are all real false rejects.** 144 are "a different real
