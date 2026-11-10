@@ -2,7 +2,7 @@
 // partial score=0.9805 date=2026-10-09
 // cl: /DNDEBUG /MD /EHs-c- /Oy- /O1 /arch:SSE
 #include <math.h>
-class WWMath { public: static float __fastcall Inv_Sqrt(float); };
+#include "../WWMath/WWMathClass.h"
 struct V2 {float X,Y; void Scale(double k) {X*=k;Y*=k;} };
 struct Vertex {float X,Y,Z; unsigned long Color; char rest[16];};
 struct Rva001101D7 {Vertex *Next;};

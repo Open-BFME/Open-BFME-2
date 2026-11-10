@@ -696,11 +696,7 @@ public:
 class BuildAssistant;
 extern BuildAssistant *TheBuildAssistant;
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float value);
-};
+#include "../../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 // Zero Hour's inline Coord3D::add.
 static inline void Coord3DAdd(Coord3D *c, const Coord3DBase *coord3DBase)

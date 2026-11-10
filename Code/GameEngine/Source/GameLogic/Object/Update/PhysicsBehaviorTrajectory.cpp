@@ -34,7 +34,7 @@ public:
  char pad1A4[2]; bool nextDirty; char pad1A7[0x274-0x1A7]; Object *holder274; char pad278[0x438-0x278]; unsigned char status438;
  __forceinline void setNextPosition(const Coord3D *p) { nextDirty=true;nextPosition=*p; }
 };
-class WWMath { public: static float __fastcall Inv_Sqrt(float); };
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 class Vector3 {
 public:
  float X,Y,Z;

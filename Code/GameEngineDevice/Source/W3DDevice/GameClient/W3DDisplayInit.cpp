@@ -80,12 +80,7 @@ public:
 };
 extern W3DFileSystem *TheW3DFileSystem;
 
-class WWMath
-{
-public:
-	static void Init();
-	static void Shutdown();
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

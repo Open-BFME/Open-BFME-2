@@ -14,7 +14,7 @@
 #undef inline
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-class WWMath { public: static float __fastcall Inv_Sqrt(float); };
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

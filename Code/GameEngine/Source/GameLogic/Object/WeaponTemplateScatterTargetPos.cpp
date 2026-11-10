@@ -33,11 +33,7 @@ enum PathfindLayerEnum
 // Coord3D: retail user ctors, opt-in view (Lib/Coord3DCtorView.h); no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class WWMath
-{
-public:
-	static Real __fastcall Inv_Sqrt(Real val);
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

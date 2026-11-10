@@ -35,12 +35,7 @@ typedef float Real;
 // Keep math.h's inline floorf local: retail's object exposes no _floorf.
 extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
-class WWMath
-{
-public:
-	static float Min(float a, float b);
-	static float Max(float a, float b);
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 inline float WWMath::Min(float a, float b)
 {

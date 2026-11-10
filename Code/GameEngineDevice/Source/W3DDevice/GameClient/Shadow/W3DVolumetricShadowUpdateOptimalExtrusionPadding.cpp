@@ -43,11 +43,7 @@ __forceinline Vector3 operator+(const Vector3 &a, const Vector3 &b) { return Vec
 __forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
 __declspec(dllimport) __forceinline Vector3 operator*(const Vector3 &a, float k) { return Vector3(a.X*k, a.Y*k, a.Z*k); }
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 __forceinline void Vector3::Normalize(void)
 {

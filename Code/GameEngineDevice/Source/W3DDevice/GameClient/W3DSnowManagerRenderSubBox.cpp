@@ -32,7 +32,7 @@
 #define SIN_TABLE_SIZE 1024
 #define WWMATH_PI 3.14159265358979323846f
 extern float _FastSinTable[SIN_TABLE_SIZE];
-class WWMath {public:static __forceinline int Float_To_Int_Floor(const float&);static __forceinline float Fast_Sin(float);};
+#include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class RenderInfoClass;class TextureBaseClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"

@@ -333,11 +333,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 extern PartitionManager *ThePartitionManager;
 float Cos(float value);
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
