@@ -89,23 +89,31 @@ namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::a
 namespace _STL { template <> void allocator<const ModuleData *>::deallocate(const ModuleData **, size_t) const; }
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
 #include "../../../Include/Common/ModuleData.h"
+// Retail keeps the minimum/current version bytes in xfer's dead argument slot.
+struct VersionPair
+{
+	VersionPair(unsigned char min, unsigned char cur) : minimum(min), current(cur) {}
+	unsigned char minimum, current;
+};
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+struct RealRange;
+struct RGBColor;
+struct RGBAColorReal;
+struct RGBAColorInt;
+#include "../../../Include/Common/BfmeXfer.h"
 
 int Rva003EE6F7Get();
-
-	// LargeGroupAudioAudioMap field-parse table
-
-// Overridable-style map of sounds keyed by unit type, 0xF8 bytes.
-class LargeGroupAudioAudioMap : public Overridable
-{
-public:
-	LargeGroupAudioAudioMap(AsciiString name);	// 0x003EE0CF
-	void rva003EE3FE(const LargeGroupAudioAudioMap &other);	// 0x003EE3FE
-	const AsciiString &getName() const { return m_name; }
-	char m_pad10[8];
-	AsciiString m_name;	// +0x18
-private:
-	char m_pad1C[0xF8 - 0x1C];
-};
 
 // Address-named workers on the audio maps and on LargeGroupAudio.
 class Rva003EDC16 { public: void rva003EDC16(); };
@@ -131,38 +139,6 @@ public:
 	static const FieldParse *getFieldParse();
 private:
 	ObjectCreationList m_key;
-};
-
-class LargeGroupAudio : public SubsystemInterface, public Snapshot
-{
-public:
-	LargeGroupAudio();
-	virtual ~LargeGroupAudio();
-
-	virtual void init();
-	virtual bool vslot05();
-	virtual void reset();
-	virtual void update();
-
-	Overridable *removeOverrides();
-
-	static void parseLargeGroupAudioMapDefinition(INI *ini);
-	static void parseLargeGroupAudioUnusedKnownKeysDefinition(INI *ini);
-
-protected:
-	virtual void loadPostProcess() {}
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-
-private:
-	_STL::vector<LargeGroupAudioAudioMap *> m_audioMaps;				// +0x10
-	_STL::vector<LargeGroupAudioAudioMap *> m_baseAudioMaps;			// +0x1C
-	_STL::vector<LargeGroupAudioAudioMap *> m_mapSpecificAudioMaps;	// +0x28
-	Rva0020D98D *m_34;													// +0x34
-	bool m_waitingForLevelLoad;											// +0x38
-	bool m_39;															// +0x39
-	bool m_needsToRegenerateAfterReload;								// +0x3A
-	int m_3C;															// +0x3C
 };
 
 extern LargeGroupAudio *TheLargeGroupAudio;
@@ -247,6 +223,81 @@ private:
 	Rva0020DB91Item **m_begin10; // +0x10
 	Rva0020DB91Item **m_end14; // +0x14
 };
+
+	 
+
+ 
+class LargeGroupAudioAudioMap : public Overridable
+{
+public:
+	LargeGroupAudioAudioMap(AsciiString name);
+public:
+	void rva003EE3FE(const LargeGroupAudioAudioMap &other);
+public:
+	const AsciiString &getName() const { return m_name; }
+public:
+	char m_pad10[8];
+public:
+	AsciiString m_name;
+private:
+	char m_pad1C[0xF8 - 0x1C];
+public:
+	bool rva003EE23C(Xfer *xfer, VersionPair *version);
+};
+
+// The name lookup 0x0020DB91 keeps its address-derived owner in the ledger.
+struct Rva0020DB91Item;
+
+class LargeGroupAudio : public SubsystemInterface, public Snapshot
+{
+public:
+	LargeGroupAudio();
+public:
+	virtual ~LargeGroupAudio();
+public:
+	virtual void init();
+public:
+	virtual bool vslot05();
+public:
+	virtual void reset();
+public:
+	virtual void update();
+public:
+	Overridable *removeOverrides();
+public:
+	static void parseLargeGroupAudioMapDefinition(INI *ini);
+public:
+	static void parseLargeGroupAudioUnusedKnownKeysDefinition(INI *ini);
+protected:
+	virtual void loadPostProcess() {}
+protected:
+	virtual const char *GetSnapshotName() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	_STL::vector<LargeGroupAudioAudioMap *> m_audioMaps;
+private:
+	_STL::vector<LargeGroupAudioAudioMap *> m_baseAudioMaps;
+private:
+	_STL::vector<LargeGroupAudioAudioMap *> m_mapSpecificAudioMaps;
+private:
+	Rva0020D98D *m_34;
+private:
+	bool m_waitingForLevelLoad;
+private:
+	bool m_39;
+private:
+	bool m_needsToRegenerateAfterReload;
+private:
+	int m_3C;
+public:
+	LargeGroupAudioAudioMap *findAudioMap(const AsciiString &name)
+	{
+		return (LargeGroupAudioAudioMap *)((Rva0020DB91 *)this)->rva0020DB91(name);
+	}
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp
 
@@ -474,16 +525,6 @@ void _bfmeRva0020DXXXDtorAnchor()
 	static_cast<Rva0020DXXX *>(0)->Rva0020DXXX::~Rva0020DXXX();
 }
 
-// tu-skeleton: 0x0020D86C 133B ?rva0020D86C@LargeGroupAudio@@QAE?AVRva003ED658@@XZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit_Rva0020D86C.cpp (not merged yet)
-
-// tu-skeleton: 0x0020D98D 67B ??0Rva0020D98D@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0020D98D.cpp (not merged yet)
-
-// tu-skeleton: 0x0020D9D0 28B ??_GRva0020D9EC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp (not merged yet)
-
-// tu-skeleton: 0x0020DA21 40B ?rva0020DA21@LargeGroupAudio@@QAEEPAVINI@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0020DA49 92B ?init@LargeGroupAudio@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0020DAE0.cpp
 
 // ?Rva0020DAE0@@YAXPAX@Z 0x0020DAE0 41B remove ptr from global vector via erase
@@ -501,8 +542,6 @@ void __cdecl Rva0020DAE0(void *p)
 	}
 }
 
-// tu-skeleton: 0x0020DB09 136B ?rva0020DB09@LargeGroupAudio@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0020DB91.cpp
 
 // ?rva0020DB91@Rva0020DB91@@QAEPAXABVAsciiString@@@Z 0x0020DB91 46B scan ptr array with StringBase compareNoCase
@@ -516,10 +555,6 @@ void *Rva0020DB91::rva0020DB91(const AsciiString &asciiString)
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x0020DBBF 410B ?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0020DEB0 91B ?removeOverrides@LargeGroupAudio@@QAEPAVOverridable@@XZ -- matched in Code/GameEngine/Source/Common/LargeGroupAudio_removeOverrides.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0020DFFBRegister.cpp
 
@@ -543,6 +578,79 @@ void __cdecl Rva0020DFFBRegister(const ModuleData* md)
     g_moduleDataList0020DFFB.push_back(md);
 }
 
+// tu-skeleton: 0x0020D86C 133B ?rva0020D86C@LargeGroupAudio@@QAE?AVRva003ED658@@XZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit_Rva0020D86C.cpp (not merged yet)
+
+// tu-skeleton: 0x0020D98D 67B ??0Rva0020D98D@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0020D98D.cpp (not merged yet)
+
+// tu-skeleton: 0x0020D9D0 28B ??_GRva0020D9EC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp (not merged yet)
+
+// tu-skeleton: 0x0020DA21 40B ?rva0020DA21@LargeGroupAudio@@QAEEPAVINI@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0020DA49 92B ?init@LargeGroupAudio@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0020DB09 136B ?rva0020DB09@LargeGroupAudio@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioXfer.cpp
+
+void LargeGroupAudio::xfer(Xfer *xfer)
+{
+	if (xfer->IsCRC())
+		return;
+
+	VersionPair version(1, 5);
+	*xfer == (Xfer::Version &)version;
+
+	*xfer == m_waitingForLevelLoad;
+	if (m_waitingForLevelLoad)
+		return;
+
+	if (version.current >= 2)
+	{
+		*xfer == m_3C;
+		*xfer == m_needsToRegenerateAfterReload;
+	}
+	if (version.current >= 4)
+		*xfer == m_39;
+
+	int count = m_audioMaps.size();
+	*xfer == count;
+	int processed = 0;
+	for (int i = 0; i < count; ++i)
+	{
+		if (xfer->IsLoading())
+		{
+			AsciiString name;
+			*xfer == name;
+			LargeGroupAudioAudioMap *audioMap = findAudioMap(name);
+			if (audioMap == NULL)
+			{
+				xfer->SkipBlock("AudioMap");
+			}
+			else
+			{
+				xfer->BeginBlock("AudioMap");
+				if (audioMap->rva003EE23C(xfer, &version))
+					++processed;
+				xfer->EndBlock();
+			}
+		}
+		else
+		{
+			LargeGroupAudioAudioMap *audioMap = m_audioMaps[i];
+			AsciiString name(audioMap->m_name);
+			*xfer == name;
+			xfer->BeginBlock("AudioMap");
+			audioMap->rva003EE23C(xfer, &version);
+			xfer->EndBlock();
+		}
+	}
+
+	if (xfer->IsLoading() && processed != m_audioMaps.size())
+		m_needsToRegenerateAfterReload = true;
+}
+
+// tu-skeleton: 0x0020DEB0 91B ?removeOverrides@LargeGroupAudio@@QAEPAVOverridable@@XZ -- matched in Code/GameEngine/Source/Common/LargeGroupAudio_removeOverrides.cpp (not merged yet)
+
 // tu-skeleton: 0x0076D3B8 10B __ehhandler$??0Rva0020D98D@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0020D98D.cpp (not merged yet)
 
 // tu-skeleton: 0x0076D3C2 8B uw_0076d3c2 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
@@ -560,12 +668,6 @@ void __cdecl Rva0020DFFBRegister(const ModuleData* md)
 // tu-skeleton: 0x0076D40A 11B Unwind@00b6d40a -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
 
 // tu-skeleton: 0x0076D415 10B __ehhandler$?rva0020DB09@LargeGroupAudio@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D41F 8B Unwind@00b6d41f -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D427 8B Unwind@00b6d427 -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D42F 10B __ehhandler$?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0076D4A7 20B (unledgered) -- unmatched, no code, never credited
 
