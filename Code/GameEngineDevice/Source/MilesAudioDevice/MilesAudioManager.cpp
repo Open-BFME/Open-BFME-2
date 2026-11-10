@@ -5458,7 +5458,7 @@ struct MicVec : public Coord3D {
 // the volume fade toward m_at3C and the fade-down / fade-up time in m_at30 by
 // this frame's step (m_at90, or g_00DBA4FC for a view-type-2 event on the
 // tactical view while the step is below 1); true while a fade is in progress.
-class Rva00050D86 { public: bool rva00050D86(unsigned char mask); };
+#include "../../../GameEngine/Include/Common/Rva00050D86.h"
 
 // Native 5F2BB..5FA3C RET4; WorldBuilder callgraph names processAmbientStreams.
 // The event's volume product getter, rowed at 0x002D94E4 under an

@@ -364,16 +364,7 @@ BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva00598025CmpBoolField, 0x34, ==)
 // Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
 // (1/2/4/8); returns true when a set field lacks its bit, false when covered.
 // Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
-class Rva00050D86
-{
-public:
-	bool rva00050D86(unsigned char mask);
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
+#include "../../../../Include/Common/Rva00050D86.h"
 
 class AIUnitBuilder
 {
