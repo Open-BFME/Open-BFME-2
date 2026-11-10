@@ -251,9 +251,140 @@ public:
 	Bool loadFromIniFile(void);
 };
 
-// tu-skeleton: 0x0044D330 335B ?rva0044D330@GameModePreferences@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
+// GameModePreferences::rva0044DBA5: defined in GameModePreferences.cpp (its row's unit).
 
-// tu-skeleton: 0x0044D47F 142B ?setUserName@LanLobbyUserNamePrefs@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp (not merged yet)
+// ?rva0044D330@GameModePreferences@@QAE?AVUnicodeString@@XZ @0x0044D330 335B:
+// UserName getter over the map: find "UserName", machine-name fallback when
+// missing or QP-decoded empty, else QP-decode plus trim.
+// Evidence: "UserName" 0x0083EF48; map find 0x001F8437; quoted 0x005355F2;
+// translate 0x006CB6A0; trim 0x00037F70; IPEnumeration 0x00318329 plus
+// getMachineName 0x0050C1FD; callers 0x003817EE 0x004453A2 0x0050CFFA;
+// prev 0x0044D2F5 next 0x0044D50D.
+class EnumeratedIP;
+
+class IPEnumeration
+{
+public:
+	IPEnumeration();
+	~IPEnumeration();
+	AsciiString getMachineName(void);
+private:
+	EnumeratedIP *m_IPlist;
+	bool m_isWinsockInitialized;
+};
+
+UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
+
+// Retail's map lookup is throw(): the key temporary carries EH state for its
+// own construction but no extra state across the find call itself.
+// _STL::map::find is not throw(), so the lookup goes through the
+// layout-compatible SkirmishFindMap shim whose find is declared throw().
+// Its call is already pinned to the shared _M_find worker at 0x001F8437.
+struct SkirmishFindNode
+{
+	unsigned char m_pad[0x14];
+	AsciiString m_value;
+};
+
+class SkirmishFindMap
+{
+public:
+	SkirmishFindNode *find(const AsciiString &key) const throw();
+	SkirmishFindNode *end() const { return m_end; }
+private:
+	SkirmishFindNode *m_end;
+	unsigned char m_unreconstructed[8];
+};
+
+AsciiString UnicodeStringToQuotedPrintable(UnicodeString original);
+
+class LanLobbyUserNamePrefs : public UserPreferences
+{
+public:
+	void setUserName(UnicodeString user);
+};
+
+// ---- from Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp
+
+//
+// Game-mode-keyed preferences (vtable 0x00C3EF60, retail 0x0044D50D-
+// 0x0044D774): a UserPreferences whose typed accessors store every key as
+// "<mode>:<key>", with mode 0 = "Rts", 1 = "Strat" (War of the Ring) and
+// anything else unprefixed. The prefixed key is formatted into a scratch
+// AsciiString member (+0x18) and handed to the base accessor; write is a
+// plain forward. The class name is descriptive -- no retail spelling is
+// known. LANPreferences (vtable 0x00C3EF04) derives from it. The
+// UserPreferences model is the one in Common/UserPreferences.cpp.
+
+// ?rva0044D836@GameModePreferences@@QAEHXZ @0x0044D836 (86B): Color getter
+// over the mode-keyed map with -1 for missing or out of range plus lazy
+// cached limit from 0x00A022F4.
+// Evidence: makeKey 0x0044D512; map find 0x001F8437; atoi IAT; limit
+// 0x00A022F4 plus 0x38 plus 0x40; callers 0x00249E23 0x00446853.
+// GameModePreferences::rva0044D836: defined in GameModePreferences.cpp (its row's unit).
+
+// ?rva0044D88C@GameModePreferences@@QAEHXZ @0x0044D88C 180B:
+// PlayerTemplate getter over the mode-keyed map: find makeKey(
+// "PlayerTemplate"), -1 when missing unless the writable-global faction
+// flag remaps to the store default, else atoi with -2/over-range plus
+// empty-faction rejection, and -1 remapped through the same flag.
+// Evidence: makeKey 0x0044D512; map find 0x001F8437; atoi IAT;
+// getNth 0x001FD3C6; TheWritableGlobalData 0x009FE758 plus 0x9D4 bits 3;
+// ThePlayerTemplateStore 0x009FE0D0 plus count 0x0C/0x10 over 0x1DC plus
+// default map at 0x18 begin-first; PlayerTemplate byte 0x151;
+// callers 0x00249DE4 0x00446861 0x005A22AC 0x005A24F9;
+// prev 0x0044D836 next 0x0044DBA5.
+
+UnicodeString GameModePreferences::rva0044D330(void)
+{
+	UnicodeString ret;
+	SkirmishFindNode *it = ((const SkirmishFindMap *)((const char *)this + 4))->find("UserName");
+	if (it == ((const SkirmishFindMap *)((const char *)this + 4))->end())
+	{
+		IPEnumeration ips;
+		ret.translate(ips.getMachineName());
+		return ret;
+	}
+	ret = QuotedPrintableToUnicodeString(it->m_value);
+	ret.trim();
+	if (((const AsciiString *)(const void *)&ret)->isEmpty())
+	{
+		IPEnumeration ips;
+		ret.translate(ips.getMachineName());
+		return ret;
+	}
+	return ret;
+}
+
+// The destructor (0x0044D285) and its deleting form (0x0044D290) are rowed
+// under address names in Rva0044D56ADerived.cpp.
+
+// ?loadFromIniFile@LANPreferences@@QAE_NXZ @0x44D2AC
+// LANPreferences::loadFromIniFile: defined in GameModePreferences.cpp (its row's unit).
+
+// ??0LANPreferences@@QAE@H@Z @0x44D2F5
+// LANPreferences::LANPreferences: defined in GameModePreferences.cpp (its row's unit).
+
+// ---- from Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp
+
+// ?setUserName@LanLobbyUserNamePrefs@@QAEXVUnicodeString@@@Z
+// partial score=0.995 date=2026-10-03
+//
+// Game-mode-keyed preferences (vtable 0x00C3EF60, retail 0x0044D50D-
+// 0x0044D774): a UserPreferences whose typed accessors store every key as
+// "<mode>:<key>", with mode 0 = "Rts", 1 = "Strat" (War of the Ring) and
+// anything else unprefixed. The prefixed key is formatted into a scratch
+// AsciiString member (+0x18) and handed to the base accessor; write is a
+// plain forward. The class name is descriptive -- no retail spelling is
+// known. LANPreferences (vtable 0x00C3EF04) derives from it. The
+// UserPreferences model is the one in Common/UserPreferences.cpp.
+
+void LanLobbyUserNamePrefs::setUserName(UnicodeString user)
+{
+	(*this)["UserName"] = UnicodeStringToQuotedPrintable(user);
+}
+
+// ---- from Code/GameEngine/Source/Common/GameModePreferences.cpp
 
 // ---- from Code/GameEngine/Source/Common/GameModePreferences.cpp
 
@@ -456,27 +587,3 @@ void GameModePreferences::rva0044DEC1(const AsciiString &val)
 {
 	(*this)[makeKey("Password")].setCopyInline(AsciiStringToQuotedPrintable(val));
 }
-
-// tu-skeleton: 0x00789889 8B Unwind@00b89889 -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x00789891 8B Unwind@00b89891 -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x00789899 8B Unwind@00b89899 -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898A1 25B ?rva007898a1@@YAXXZ -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898BA 8B Unwind@00b898ba -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898C2 8B Unwind@00b898c2 -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898CA 8B Unwind@00b898ca -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898D2 10B __ehhandler$?rva0044D330@GameModePreferences@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/GameModePreferencesUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898DC 8B Unwind@00b898dc -- matched in Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898E4 8B Unwind@00b898e4 -- matched in Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898EC 8B Unwind@00b898ec -- matched in Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp (not merged yet)
-
-// tu-skeleton: 0x007898F4 10B __ehhandler$?setUserName@LanLobbyUserNamePrefs@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/LanLobbyUserNamePrefs_setUserName.cpp (not merged yet)
