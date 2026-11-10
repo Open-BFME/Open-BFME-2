@@ -11,9 +11,9 @@
 class ModuleData;
 class Thing;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7Rva0049B2A2@@6BUpdateModule@@@")[];
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
+extern "C" const void *const __identifier("??_7Rva0049B2A2@@6BRva0049B2A2_B2@@@")[];
 
 // Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -49,7 +49,7 @@ OCLUpdate::OCLUpdate(Thing *thing, const ModuleData *moduleData)
 	m_20 = 0;
 	m_24 = 0;
 	m_28 = 0;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = __identifier("??_7Rva0049B2A2@@6BUpdateModule@@@");
+	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7Rva0049B2A2@@6BRva0049B2A2_B2@@@");
 }
