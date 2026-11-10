@@ -18,7 +18,7 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_firstFC;
+extern "C" const void *const __identifier("??_7Rva00588FFAIface10@@6B@")[];
 extern "C" const void *const __identifier("??_7CaveContain@@6BB0@@@")[];  // vftable 0x00C43CB8
 extern "C" const void *const __identifier("??_7CaveContain@@6BB1@@@")[];  // vftable 0x00C43BF8
 extern "C" const void *const __identifier("??_7CaveContain@@6BB2@@@")[];  // vftable 0x00C43BE8
@@ -57,7 +57,7 @@ private:
 CaveContain::CaveContain(Thing *thing, const ModuleData *moduleData)
 	: OpenContain(thing, moduleData)
 {
-	*(const void * volatile *)&m_FC = &s_firstFC;
+	*(const void * volatile *)&m_FC = __identifier("??_7Rva00588FFAIface10@@6B@");
 	_ReadWriteBarrier();
 	m_104 = 0;
 	m_108 = 0;
