@@ -39,11 +39,7 @@ public:
 
 #include "../../../Libraries/Source/Apt/AptNativeHash.h"
 
-class Rva0070B380
-{
-public:
-	void *lookup(const EAStringC &key);
-};
+#include "../../Include/Common/Rva0070B380.h"
 
 class BfmeNestedBE;
 

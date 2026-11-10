@@ -226,11 +226,7 @@ void Rva00625870::rva00625870()
 
 // ?rva006FBB70@Rva006FBB70@@QAE_NABVEAStringC@@@Z @0x006FBB70 22B: whether the
 // rowed lookup 0x0070B380 on the +0x08 member finds the key.
-class Rva0070B380
-{
-public:
-	void *lookup(const EAStringC &key);
-};
+#include "../../Include/Common/Rva0070B380.h"
 class Rva006FBB70
 {
 public:

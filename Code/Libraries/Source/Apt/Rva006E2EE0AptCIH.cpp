@@ -119,7 +119,7 @@ public:
 class BfmeN1034;
 class Rva0070A5C0 { public: BfmeN1034 *rva0070A5C0(int k); };
 extern AptValue *gpGlobalGlobalObject;
-class Rva0070B380 { public: void *lookup(const EAStringC &key); };
+#include "../../../GameEngine/Include/Common/Rva0070B380.h"
 extern AptNativeHash *g_bfmeAptHashAtE180E4;
 
 class AptCIH;

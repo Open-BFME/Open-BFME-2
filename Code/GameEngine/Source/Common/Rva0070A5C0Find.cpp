@@ -12,11 +12,7 @@ public:
 
 // The table lookup is the rowed Rva0070B380::lookup.
 class EAStringC;
-class Rva0070B380
-{
-public:
-	void *lookup(const EAStringC &key);
-};
+#include "../../Include/Common/Rva0070B380.h"
 
 class BfmeTab1034
 {

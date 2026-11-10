@@ -157,7 +157,7 @@ public:
  bool rva006FBBA0(const EAStringC *,AptValue *);
 };
 
-class Rva0070B380 {public:void *lookup(const EAStringC &);};
+#include "../../../../GameEngine/Include/Common/Rva0070B380.h"
 
 class AptCIH : public AptValue
 {

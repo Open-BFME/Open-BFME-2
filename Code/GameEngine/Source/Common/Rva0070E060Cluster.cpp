@@ -20,11 +20,7 @@ public:
 	BfmeNode1279 *bfmeLookup1279(BfmeKey1279 &key);
 };
 
-class Rva0070B380
-{
-public:
-	void *lookup(const EAStringC &key);
-};
+#include "../../Include/Common/Rva0070B380.h"
 
 class Rva0070E060
 {
