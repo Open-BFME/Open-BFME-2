@@ -51,7 +51,6 @@
 #include "SpecialPowerUpdateInterface.h"
 #include "../../Common/BitFlags11.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-#include <list>
 
 class SpecialPowerTemplate;
 class Waypoint;
@@ -137,7 +136,13 @@ protected:
     Coord3D m_50;
     int m_5C;
     int m_60;
+    // STLport's list where the unit included it (every unit that touches the list or destroys it does);
+    // elsewhere the same four bytes stay opaque, so non-STLport includers compile unchanged (AI.h's form).
+#ifdef _STLP_INTERNAL_LIST_H
     _STL::list<int> m_specialObjectIDList;
+#else
+    unsigned int m_opaque64;
+#endif
     unsigned int m_68;
     unsigned int m_6C;
     float m_70;
