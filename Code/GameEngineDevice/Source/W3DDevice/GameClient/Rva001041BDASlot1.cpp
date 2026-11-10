@@ -51,12 +51,10 @@ private:
 	bool m_flag;
 };
 
-void bfmeMarkReceiverPayloads(int value);
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 
-struct Vector3
-{
-	float x, y, z;
-};
+void bfmeMarkReceiverPayloads(int value);
 
 struct Matrix3D
 {
@@ -94,35 +92,11 @@ public:
 
 RenderObjClass *Create_Render_Obj(const char *name);
 
-class SimpleSceneClass
-{
-public:
-	SimpleSceneClass();
-	virtual ~SimpleSceneClass();
-};
-
 class Rva001040D5 : public SimpleSceneClass
 {
 public:
 	__declspec(dllimport) __forceinline Rva001040D5() {}
 	virtual ~Rva001040D5();
-private:
-	char m_rest[0x104];
-};
-
-// The scene's slots this body calls, as a dispatch-only view that is never
-// constructed: Rva001040D5's own vftable stays the one-slot copy
-// Rva001040D5Ctor.cpp emits first in link order.
-class Rva001040D5Dispatch
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void Add_Render_Object(RenderObjClass *obj); // slot 2 (+0x08)
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void Set_Ambient_Light(const Vector3 &v); // slot 6 (+0x18)
 };
 
 class CameraClass
@@ -173,10 +147,10 @@ void Rva0010461F::rva00104BDA()
 	}
 
 	self->m_scene = new Rva001040D5;
-	Vector3 ambient = { 0.0f, 0.0f, 0.0f };
-	((Rva001040D5Dispatch *)self->m_scene)->Set_Ambient_Light(ambient);
+	Vector3 ambient(0.0f, 0.0f, 0.0f);
+	self->m_scene->Set_Ambient_Light(ambient);
 	if (self->m_model != 0)
-		((Rva001040D5Dispatch *)self->m_scene)->Add_Render_Object(self->m_model);
+		self->m_scene->Add_Render_Object(self->m_model);
 
 	self->m_camera = new CameraClass;
 	self->m_camera->Set_Clip_Planes(0.1f, 5000.0f);
