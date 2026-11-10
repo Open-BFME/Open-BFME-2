@@ -204,7 +204,7 @@ extern int BfmeLogicFramesPerSecond;
 extern RecorderClass *TheRecorder;
 class Rva0023C6A4 { public: Bool rva00200084(); };
 #include "../../../Include/Common/Rva0023C666.h"
-class Rva00210C66CmpBoolField { public: Bool get() const; };
+#include "../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 class PlayerTemplate { public: char pad[0x1BC]; Bool m_1bc; };
 #include "../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;

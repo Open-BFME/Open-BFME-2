@@ -20,11 +20,7 @@ struct Rva0023D607Holder
 };
 class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;
-class Rva00210C66CmpBoolField
-{
-public:
-	bool get() const;
-};
+#include "../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 #include "../../../../Include/Common/GameState.h"
 int GameState::determineCurrentGameSaveFileMode()
 {

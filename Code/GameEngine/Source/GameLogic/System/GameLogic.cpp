@@ -1857,11 +1857,7 @@ class Gen009D6DD0
 public:
 	void Close();
 };
-class Rva00210C66CmpBoolField
-{
-public:
-	bool get() const;
-};
+#include "../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 extern "C" void *theLogicRandomLogFile;
 // g_00E02D7C is only an alias of the owned global TheXObjectCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXObjectCRC;

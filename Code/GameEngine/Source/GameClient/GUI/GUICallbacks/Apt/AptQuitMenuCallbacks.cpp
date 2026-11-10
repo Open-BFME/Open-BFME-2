@@ -61,11 +61,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../Include/Common/Rva0023C902.h"
 
 // The rowed bool field reader 0x00210C66 on the same object.
-class Rva00210C66CmpBoolField
-{
-public:
-	bool get() const;
-};
+#include "../../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 
 // TheGameText's fetch (vslot 15).
 #include "../../../../../Include/GameClient/GameText.h"

@@ -135,7 +135,7 @@ void LivingWorldManager::update()
 extern GameLogic *TheGameLogic;
 struct Bfme939Helper { int get()const; }; class RecorderClass; extern RecorderClass *TheRecorder;
 #include "../../../Include/Common/RecorderClass.h"
-class Rva00210C66CmpBoolField { public: bool get() const; };
+#include "../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 extern class GameInfo *TheGameInfo;
 #include "../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;

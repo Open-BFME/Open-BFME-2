@@ -79,11 +79,7 @@ public:
 };
 class NetWrapperCommandMsg;
 
-class Rva00210C66CmpBoolField
-{
-public:
-	bool get() const;			// 0x00210C66, mode 1 or 2
-};
+#include "../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 #include "../../Include/Common/BfmeSelectionState.h"
 
 // The int set LivingWorldLogic::rva002B693F fills: an STLport set<int>.

@@ -843,11 +843,7 @@ private:
 };
 
 // GameLogic's +0x114 mode test (1 or 2), rowed at 0x00210C66.
-class Rva00210C66CmpBoolField
-{
-public:
-	Bool get() const;
-};
+#include "../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 
 // BFME's MessageStream appends a typed message through vtable slot 18.
 class BfmeMessageStreamFacade

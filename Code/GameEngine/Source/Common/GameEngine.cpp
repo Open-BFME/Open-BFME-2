@@ -86,7 +86,7 @@ public:
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GameLogic.h
 
-class Rva00210C66CmpBoolField { public: bool get() const; };
+#include "../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
 #include "../../Include/Common/SubsystemInterfaceList.h"
