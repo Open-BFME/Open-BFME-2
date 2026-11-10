@@ -418,6 +418,14 @@ public:
 	virtual void *rva00299C74() const { return (void *)this; }
 	virtual void *rva00299C78() { return this; }
 	virtual void *rva00299C78() const { return (void *)this; }
+	// +0x6C slots 5-7 and +0x70 slots 4, 6, 7. 0x00299C7C and 0x00042272 each serve one slot of each interface:
+	// through +0x6C they set/read Object+0x4C8, through +0x70 Object+0x4CC (`[ecx+0x45C]` from either).
+	virtual void rva00299C7C_6Cs5(int value) { m_4c8 = value; }
+	virtual int rva00042272_6Cs6() const { return m_4c8; }
+	virtual int PartitionGetPlayerIndex() const;
+	virtual int rva005801F2() const { return m_id; }
+	virtual void rva00299C7C_70s6(int value) { m_4cc = value; }
+	virtual int rva00042272_70s7() const { return m_4cc; }
 };
 
 Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, ObjectID id) :

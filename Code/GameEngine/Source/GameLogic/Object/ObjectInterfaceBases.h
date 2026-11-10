@@ -60,6 +60,11 @@ struct Rva00BFC2B8Base
 	virtual float rva00299CC2() const = 0;
 	virtual void *rva00299C74() = 0;
 	virtual void *rva00299C74() const = 0;
+	// Slots 5 and 6 hold bodies Object shares with the +0x70 table's slots 6 and 7 (0x00299C7C, 0x00042272), which
+	// there act on +0x4CC instead of +0x4C8: two functions per body, so each name carries its table and slot.
+	virtual void rva00299C7C_6Cs5(int) = 0;
+	virtual int rva00042272_6Cs6() const = 0;
+	virtual int PartitionGetPlayerIndex() const = 0;
 };
 
 // Object+0x70, base table 0x00BFBCBC, Object's table 0x00BFC290. Slots 2 and 3 hold one body in
@@ -70,6 +75,10 @@ struct Rva00BFC290Base
 	virtual Coord3D rva0028C08D() = 0;
 	virtual void *rva00299C78() = 0;
 	virtual void *rva00299C78() const = 0;
+	virtual int rva005801F2() const = 0;
+	virtual unsigned rva0028E84A() const = 0;
+	virtual void rva00299C7C_70s6(int) = 0;
+	virtual int rva00042272_70s7() const = 0;
 };
 
 #endif // BFME2_OBJECT_INTERFACE_BASES_H

@@ -78,3 +78,12 @@ lifetime units, rowed as four verified folds onto the placeholder rows at those 
 (fold_proof.py on both objects). The const member takes the lower slot, as VC7.1 lays an overload
 group out. +0x6C slots 1-2 stay __purecall until 0x00299CBE / 0x00299CC2 move. Wrong secondary
 slots 20 -> 16.
+Update (2026-11-10, ancalgonn-swarm-class-object): +0x6C slots 5-7 and +0x70 slots 4, 6, 7.
+0x00299C7C (`mov eax,[esp+4]; mov [ecx+0x45C],eax; ret 4`) and 0x00042272 (`mov eax,[ecx+0x45C]; ret`)
+each fill one slot of both interfaces, setting/reading Object+0x4C8 through +0x6C and Object+0x4CC
+through +0x70: two functions per body, named after address and slot (`rva00299C7C_6Cs5`,
+`rva00299C7C_70s6`, `rva00042272_6Cs6`, `rva00042272_70s7`). 0x005801F2 (`mov eax,[ecx+4]; ret`) reads
+Object+0x74 through +0x70 (`rva005801F2`). All five are verified folds (fold_proof.py on both objects)
+onto the rows already at those addresses; PartitionGetPlayerIndex (+0x6C slot 7) is declared only.
++0x70 slot 5 stays __purecall until the --to-class of 0x0028E84A/0x0028C0E3/0x0028E868. Wrong
+secondary slots 16 -> 10.
