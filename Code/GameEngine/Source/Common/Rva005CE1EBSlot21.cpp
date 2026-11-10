@@ -7,11 +7,7 @@
 // 0x005CB84A) and the +0x1C object, if any, runs its rowed 0x005E88DD as a
 // tail call. WorldBuilder's twin (0x015C19A0) is unnamed.
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 class Rva004E0625
 {

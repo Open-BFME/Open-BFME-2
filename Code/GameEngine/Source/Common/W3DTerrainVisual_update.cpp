@@ -20,11 +20,7 @@
 // the water render object's per-frame update (0x0010082F) when present; BFME 2
 // adds the shadow-manager dispatch.
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 class Rva0010082F
 {

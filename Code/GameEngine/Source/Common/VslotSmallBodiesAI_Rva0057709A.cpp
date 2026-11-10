@@ -66,11 +66,7 @@ private:
 // empty body 0x000B3FD0 for this+0x4C and this+0x48. Field ownership and the
 // address-derived class identity are structural views.
 namespace StrategicHUD { class CommandUIImpl { public: void Update(); }; }
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 class Rva005785CD
 {
 public:

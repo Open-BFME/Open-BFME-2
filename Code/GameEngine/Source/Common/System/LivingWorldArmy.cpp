@@ -226,11 +226,7 @@ int GetMaxCommandPoints(void *key);
 class LivingWorldArmyIcon;
 
 // 0x000B3FD0 is the image's shared one-byte empty RET; 0x003198B8 calls it on both +0x88 pointers.
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../Include/Common/Rva000B3FD0.h"
 
 class Rva003193EC
 {

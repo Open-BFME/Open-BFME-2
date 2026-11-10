@@ -512,11 +512,7 @@ void Rva0025E27FNullForwarder::rva0025E27F(Int firstValue)
 }
 
 // The ICF-folded empty body at 0x000B3FD0 (EmptyFoldTwins.cpp).
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 class Rva0035BD00NullForwarder
 {

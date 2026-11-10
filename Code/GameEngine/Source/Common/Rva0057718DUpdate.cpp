@@ -30,11 +30,7 @@ public:
 	void rva005CD708();
 };
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 class Rva002B5EB5
 {

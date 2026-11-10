@@ -530,11 +530,7 @@ void Rva005CCB16::rva005CCB16()
 		m_4->rva005CB283();
 }
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 class Rva005D13D5
 {

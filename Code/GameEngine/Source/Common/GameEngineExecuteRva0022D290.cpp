@@ -305,7 +305,7 @@ struct Bfme939Helper
 // Bfme939Helper::get callers do (BfmeConv939Call939D.cpp).
 class RecorderClass;
 extern RecorderClass *TheRecorder;
-class Rva000B3FD0 { public: void rva000B3FD0(); };
+#include "../../Include/Common/Rva000B3FD0.h"
 #include "../../Include/Common/RecorderClass.h"
 class BfmeDfe6e4 
 

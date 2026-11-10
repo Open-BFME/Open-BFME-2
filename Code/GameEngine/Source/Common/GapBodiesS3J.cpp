@@ -5,11 +5,7 @@
 // view of only the members it touches.
 
 // 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 // --- 0x005CFAD3 (19B): from a +0x08 interface, latch +0x0C (of the
 // interface) when the second argument equals the +0x04 owner's +0x14 word.

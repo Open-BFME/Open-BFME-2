@@ -21,11 +21,7 @@ void Rva000B3FD0Empty::rva000B3FD0Empty()
 {
 }
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/Common/Rva000B3FD0.h"
 
 void Rva000B3FD0::rva000B3FD0()
 {
