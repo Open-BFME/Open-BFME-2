@@ -457,11 +457,7 @@ public:
 #include "../../../Include/Common/Rva002F35AFCell.h"
 
 // The 12-byte record +0x1C1CC collects per hop (zone, next cell x/y).
-struct Rva002F35AFHop
-{
-	Int m_zone;
-	PathfinderCostCellInfo m_position;
-};
+#include "../../../Include/Common/Rva002F35AFHop.h"
 // The 0x14-byte hierarchical path (rowed constructor 0x005348AD); 0x00534557
 // adds a cell and 0x00534AAE finishes it (WorldBuilder: computeOrderMap).
 class Rva00534AAE { public: void rva00534AAE(); };

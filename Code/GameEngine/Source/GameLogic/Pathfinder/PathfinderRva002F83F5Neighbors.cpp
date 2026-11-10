@@ -277,12 +277,7 @@ unsigned char m_20;						// +0x20
 #include "../../../Include/Common/Rva002F35AFZone.h"
 #include "../../../Include/Common/Rva002F35AFCell.h"
 #include "../../../Include/Common/Rva002E6C79.h"
-struct Rva002F35AFHop
-{
-public:
-	int m_zone; // +0x00
-	PathfinderCostCellInfo m_position; // +0x04
-};
+#include "../../../Include/Common/Rva002F35AFHop.h"
 class Rva005348AD
 {
 public:
