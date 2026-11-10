@@ -134,7 +134,7 @@ extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 extern "C" char *GetChallenge(void *game);
 extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
 #include <string.h>
-void free(void *memory);
+#include <stdlib.h>
 
 #include "../../Include/GameNetwork/Transport.h"
 
