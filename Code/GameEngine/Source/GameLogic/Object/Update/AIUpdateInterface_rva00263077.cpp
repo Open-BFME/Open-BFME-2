@@ -10,11 +10,7 @@ class Object;
 class Player;
 class Weapon;
 
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002C9400ByteField.h"
 
 class Rva002C9407ByteField
 {

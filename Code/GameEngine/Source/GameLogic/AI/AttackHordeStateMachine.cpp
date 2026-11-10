@@ -44,11 +44,7 @@ static __forceinline void zeroCoord3D(Coord3D &coord)
 	coord.y = 0.0f;
 	coord.z = 0.0f;
 }
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 class Weapon
 {
 public:

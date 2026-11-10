@@ -228,11 +228,7 @@ enum Relationship { ENEMY = 0, NEUTRAL = 1, ALLY = 2 };
 enum WeaponSlotType { PRIMARY = 0 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Rva002CA9CA { public: float getProjectileNuggetRadiusIfAlliesAffected(const void *); };
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get()const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 class Weapon { public: char pad0[4]; Rva002CA9CA *info; };
 class BodyModuleInterface : public QuerySlots<6> { public: virtual float getHealth() const = 0; };

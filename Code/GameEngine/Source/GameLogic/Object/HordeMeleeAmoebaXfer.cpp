@@ -53,7 +53,7 @@ void HordeMeleeAmoeba::xfer(Xfer *xfer)
 extern GameLogic *TheGameLogic;
 enum WeaponSlotType { HmaWeaponSlotInvalid=-1 };
 enum ObjectStatusTypes { HmaStatus26=0x26 };
-class Rva002C9400ByteField {public: unsigned char get()const;};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 class Weapon {public:
  const Rva002C9400ByteField *getTemplate()const{return data;}
  float getAttackRange(const Object*)const;

@@ -10,11 +10,7 @@
 // getter 0x002C9400 on the weapon's template (+0x04).
 class Object;
 
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002C9400ByteField.h"
 
 class Weapon
 {

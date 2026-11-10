@@ -16,11 +16,7 @@ enum Relationship{ENEMIES=0};
 bool rva00344EB2Gate(Object*,Thing*);
 template<int N>class Slots:public Slots<N-1>{public:virtual void gap(char(*)[N]);};template<>class Slots<0>{};
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/Weapon.h"
 struct ThingTemplateView{char pad00[0x108];unsigned char kinds[28];bool isStructure()const{return(kinds[0]&0x80)!=0;}bool isKind55()const{return(kinds[6]&0x80)!=0;}};
 class Object{public:

@@ -206,11 +206,7 @@ struct Rva004786F8ObjectView {
 typedef float Real;
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <list>
-class Rva002C9400ByteField
-{
-public:
-    unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002C9400ByteField.h"
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.

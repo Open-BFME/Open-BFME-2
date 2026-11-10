@@ -10,11 +10,7 @@ enum ObjectStatusTypes { STATUS_39=0x39, STATUS_32=0x32 };
 enum KindOfType { KINDOF_84=0x84 };
 enum Relationship { ENEMIES=0,NEUTRAL=1,ALLIES=2 };
 enum WeaponSlotType { PRIMARY=0 };
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/Weapon.h"
 #include "object.h"
 bool Object::rva0029493F(Object *victim,int mode) {
