@@ -22,11 +22,7 @@ class Player;
 #include "../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"

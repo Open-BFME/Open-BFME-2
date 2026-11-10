@@ -294,11 +294,7 @@ public:
 };
 
 // vftable 0x00BFAD10: not effectively dead (Zero Hour's PartitionFilterAlive).
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // vftable 0x00BF91BC (Zero Hour's PartitionFilterSameMapStatus).
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"

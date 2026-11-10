@@ -101,11 +101,7 @@ public:
 };
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0026119DFilter.h"
 
 // vftable 0x00BF8FE4, allow 0x0026109D: +0x08 a player, +0x0C whether a hit
 // allows (built inline here; the out-of-line ctor 0x00261058 takes an object).

@@ -34,7 +34,7 @@ extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-class Rva0026119DFilter:public Rva000421C8 {public:virtual bool allow(Object*);};
+#include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 class BfmeFixedStorage0004543D {public:void SetBit(unsigned bit){words[bit>>5]|=1<<(bit&31);} void set(int i){SetBit(i);}BfmeFixedStorage0004543D(){memset(words,0,sizeof(words));}BfmeFixedStorage0004543D(int,int) throw();BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();unsigned words[7];};
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
