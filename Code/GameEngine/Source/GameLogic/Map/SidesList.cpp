@@ -268,11 +268,7 @@ class Rva00497805
 protected:
 	virtual void loadPostProcess();
 };
-class Rva002645FF
-{
-public:
-	bool rva002645FF();
-};
+#include "../../../Include/Common/Rva002645FF.h"
 class SpecialAbilityUpdate
 {
 public:

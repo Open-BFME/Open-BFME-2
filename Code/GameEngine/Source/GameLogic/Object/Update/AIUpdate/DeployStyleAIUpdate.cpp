@@ -446,11 +446,7 @@ class Rva002390CB { public: int id; Rva0036CA00Str ref; };
 
 extern AudioManager *TheAudio;
 
-class Rva002645FF
-{
-public:
-	bool rva002645FF();
-};
+#include "../../../../../Include/Common/Rva002645FF.h"
 
 class Rva0048E643
 {

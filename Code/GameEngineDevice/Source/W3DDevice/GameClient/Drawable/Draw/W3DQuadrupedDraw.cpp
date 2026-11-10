@@ -163,11 +163,7 @@ class Rva00497805
 protected:
 	virtual void loadPostProcess();
 };
-class Rva002645FF
-{
-public:
-	bool rva002645FF();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva002645FF.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class GateOpenAndCloseBehavior
 {
