@@ -1,0 +1,160 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0020EE29",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 18,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 4
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 5
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 11,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 13,
+   "12": 2,
+   "44": 1,
+   "52": 1
+  },
+  "views": 17,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 8,
+   "type": "char[8]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldCandidateRaySearch.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
