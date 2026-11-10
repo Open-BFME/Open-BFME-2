@@ -127,11 +127,7 @@ class Rva005CB260;
 
 // The folded forwarder to vslot 3 of what TheInGameUI's 0x000CF155
 // returns (both pinned, as in AptQuitMenuCallbacks.cpp).
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
+#include "../../../Include/Common/Rva005CB265.h"
 
 // TheInGameUI (0x009FEDF0): vslot 94 shows or hides a menu, vslot 95 tells
 // whether one is up; the byte at +0x16 lets mode 6 use the store.

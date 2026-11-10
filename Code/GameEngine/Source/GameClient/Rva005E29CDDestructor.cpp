@@ -16,7 +16,7 @@ struct Rva005E2857Record { char bytes[1]; };
 namespace _STL { template<> vector<Rva005E2857Record>::~vector(); }
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class Rva005CB265 { public: virtual int rva005CB265(); };
+#include "../../Include/Common/Rva005CB265.h"
 class Rva005CB260 { public: void rva005CB260(); };
 namespace StrategicHUD { class RegionDetailsStructuresMovieClip { public: virtual ~RegionDetailsStructuresMovieClip(); }; }
 struct RegionIconRef { TargetRef00217D4C *pointer; ~RegionIconRef() { if(pointer) ReleaseTreeHintRef00217D4C(pointer); } };
