@@ -1855,25 +1855,49 @@ def problems_note(problems):
 
 @lru_cache(maxsize=1)
 def head_ledger_rows():
-    """{source: {row names}} of the matched rows HEAD's ledger holds ({} when HEAD has none)."""
+    """{source: {row name: target RVA}} of the matched rows HEAD's ledger holds
+    ({} when HEAD has none). The address is kept so coverage_problems can tell a
+    respelled row from a lost one."""
     got = _git("show", f"{DEBT_BASE}:{LEDGER}")
     out = {}
     if got.returncode:
         return out
     for row in csv.DictReader(io.StringIO(got.stdout)):
         if row.get("status") == "matched" and row.get("target_rva"):
-            out.setdefault(row["source"], set()).add(row["name"])
+            try:
+                rva = int(row["target_rva"], 16)
+            except ValueError:
+                continue
+            out.setdefault(row["source"], {})[row["name"]] = rva
     return out
 
 
-def coverage_problems(source, names):
-    """Why SOURCE's rows cannot vouch for a clean verdict: gone, rowless, or rows lost since HEAD."""
+def coverage_problems(source, names, rvas=None):
+    """Why SOURCE's rows cannot vouch for a clean verdict: gone, rowless, or rows lost since HEAD.
+
+    `rvas`: the target addresses SOURCE's rows cover now. Coverage is about
+    addresses, not spellings: a row whose NAME changed while this source still
+    covers its address is not lost. An ABI repair does exactly that -- correcting
+    a placeholder's return type remangles the symbol, leaving the same bytes
+    matched at the same address in the same file -- and three open false-reject
+    records are that read as lost coverage before the verdict is even judged.
+    A row whose ADDRESS left the source is still lost, which is the case the
+    check exists for. Without `rvas` the old name-only rule stands.
+    """
     if not (ROOT / source).exists():
         return [f"{source} no longer exists: its debt is a regression to investigate (restore or re-home its "
                 "rows), never a fix"]
     if not names:
         return [f"{source} holds no matched row: nothing left to judge (lost row coverage)"]
-    lost = sorted(head_ledger_rows().get(source, set()) - set(names))
+    head = head_ledger_rows().get(source, {})
+    covered = set()
+    for rva in rvas or ():
+        try:
+            covered.add(int(rva, 16) if isinstance(rva, str) else int(rva))
+        except (TypeError, ValueError):
+            continue
+    lost = sorted(name for name, rva in head.items()
+                  if name not in names and (rvas is None or rva not in covered))
     return [f"{len(lost)} row(s) HEAD held are gone from {source} (lost coverage hides findings): "
             + ", ".join(lost[:3])] if lost else []
 
@@ -1886,7 +1910,8 @@ def data_verdict(source, held):
     import data_check
     import data_ledger
     rows = data_check.source_rows([source])
-    problems = coverage_problems(source, {r["name"] for r in rows})
+    problems = coverage_problems(source, {r["name"] for r in rows},
+                                 {r.get("target_rva") for r in rows})
     if problems:
         return problems, set()
     for obj in sorted({build.row_object(r) for r in rows}):
@@ -1982,7 +2007,8 @@ def identity_verdict(source, held, state=None):
         ident, rows, ledger_rows, missing, source_of = _identity_inputs(source, state)
     except allowed.Unreadable as error:
         return [f"an object is unreadable, so the kept copies are unknown: {error}"], set()
-    problems = coverage_problems(source, {r["name"] for r in rows})
+    problems = coverage_problems(source, {r["name"] for r in rows},
+                                 {r.get("target_rva") for r in rows})
     if problems:
         return problems, set()
     if missing:

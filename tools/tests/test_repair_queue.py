@@ -1217,9 +1217,12 @@ class DataWorld:
                        0xA00004: {"name": "?TheX@@3HA", "kind": "global", "source": "Code/Own.cpp"}}
         for name in ("Body", "Loco"):
             (self.objs / f"{name}.obj").write_bytes(b"obj")
+        # The real data_check.source_rows hands back whole functions.csv rows
+        # (link_census.ledger), so the address is present; coverage_problems
+        # reads it to tell a respelled row from a lost one.
         monkeypatch.setattr(data_check, "source_rows", lambda sources: [
-            {"name": r["name"], "source": r["source"]} for rows in rq.ledger()[0].values() for r in rows
-            if r["source"] in sources])
+            {"name": r["name"], "source": r["source"], "target_rva": r["target_rva"]}
+            for rows in rq.ledger()[0].values() for r in rows if r["source"] in sources])
         monkeypatch.setattr(build, "row_object", lambda row: self.objs / (
             "missing.obj" if row["source"] in self.missing else Path(row["source"]).stem + ".obj"))
         monkeypatch.setattr(build, "compile_is_current", lambda source, obj, **_: Path(source).stem not in self.stale)
@@ -3220,3 +3223,51 @@ def test_vtable_queue_draw_prioritizes_real_blockers_then_refusals_then_retireme
                            ([refused, retired], refused), ([retired], retired)]:
         got = nw.draw_debt("link", pool, pool, args, [], 0)
         assert got["candidate"] is expected
+
+
+# ---------------------------------------------------------------------------
+# Coverage is about addresses, not spellings. An ABI repair remangles a
+# placeholder's symbol -- correcting a return type changes the name while the
+# same bytes stay matched at the same address in the same file -- and three open
+# repair_queue false-reject records are that read as lost coverage before the
+# verdict is judged at all. A row whose ADDRESS leaves the source is still lost,
+# which test_a_row_lost_since_head_blocks_the_verdict above pins.
+
+def test_a_respelled_row_at_the_same_address_is_not_lost_coverage(tmp_path, monkeypatch):
+    rq, rev, git, world = _data_fixture(tmp_path, monkeypatch)
+    ledger_path = rev / "functions.csv"
+    # ?b@Loco keeps 0x1080, 0x40 and Loco.cpp; only its mangled spelling changes,
+    # exactly as a corrected return type does.
+    ledger_path.write_text(ledger_path.read_text().replace("?b@Loco@@QAEXXZ",
+                                                           "?b@Loco@@QAEPAUBfmeE16@@XZ"),
+                           newline="\n")
+    rq.ledger.cache_clear()
+    world.binds["Code/GameEngine/Loco.cpp"] = set()
+    ok, message = rq.retire("data", "Code/GameEngine/Loco.cpp")
+    assert "lost coverage hides findings" not in message, message
+
+
+def test_coverage_problems_judges_by_address(tmp_path, monkeypatch):
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES[:3])
+    _git_repo(tmp_path)
+    rq.head_ledger_rows.cache_clear()
+    source = "Code/GameEngine/Loco.cpp"
+    head = rq.head_ledger_rows().get(source)
+    assert head and set(head) == {"?a@Loco@@QAEXXZ", "?b@Loco@@QAEXXZ"}, head
+    assert head["?b@Loco@@QAEXXZ"] == 0x1080                 # the address is kept, not just the name
+
+    both = {"0x00001000", "0x00001080"}
+    # respelled: one name gone, both addresses still covered
+    assert rq.coverage_problems(source, {"?a@Loco@@QAEXXZ", "?renamed@Loco@@QAEXXZ"}, both) == []
+    # genuinely lost: the address went with it
+    lost = rq.coverage_problems(source, {"?a@Loco@@QAEXXZ"}, {"0x00001000"})
+    assert len(lost) == 1 and "?b@Loco@@QAEXXZ" in lost[0]
+    # a name that is not a row here does not launder a missing address
+    still = rq.coverage_problems(source, {"?a@Loco@@QAEXXZ", "?elsewhere@@YAXXZ"}, {"0x00001000"})
+    assert len(still) == 1 and "?b@Loco@@QAEXXZ" in still[0]
+    # without addresses the old name-only rule stands
+    assert len(rq.coverage_problems(source, {"?a@Loco@@QAEXXZ", "?renamed@Loco@@QAEXXZ"})) == 1
+    # an unparsable address is not coverage
+    assert len(rq.coverage_problems(source, {"?a@Loco@@QAEXXZ"}, {"0x00001000", "notanrva"})) == 1
+    # rowless and vanished still come first
+    assert "holds no matched row" in rq.coverage_problems(source, set(), both)[0]
