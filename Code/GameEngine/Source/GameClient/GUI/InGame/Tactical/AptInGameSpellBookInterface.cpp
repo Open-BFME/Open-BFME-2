@@ -44,7 +44,7 @@ private:T *ptr;
 #include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
-class BfmeSelectionState {public:bool isSelectionLocked() const;};
+#include "../../../../../Include/Common/BfmeSelectionState.h"
 class BfmeMemberRV {public:bool bfmeAskRV();};
 class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
 class PlayerList;extern PlayerList *ThePlayerList;

@@ -49,7 +49,7 @@ public:
     VS(10) VS(11) VS(12) VS(13) VS(14) virtual void slot15(bool);
 };
 extern ScriptActions *TheScriptActions;
-class BfmeSelectionState { public: bool isSelectionLocked() const; };
+#include "../../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 bool rva00520F7D();

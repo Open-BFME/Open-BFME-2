@@ -90,11 +90,7 @@ void Rva005020CCBuildRegionDistances();	// 0x005020CC, 447 B
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;	// 0x0042253A, 20 B
-};
+#include "../../../../Include/Common/BfmeSelectionState.h"
 
 class Rva002B296F
 {

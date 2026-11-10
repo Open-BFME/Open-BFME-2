@@ -16,7 +16,7 @@ extern FontLibrary *TheFontLibrary;
 class GlobalLanguage;extern GlobalLanguage *TheGlobalLanguageData;
 struct SubtitleFontOptions {char at00[0x5C];AsciiString name;int size;bool bold;};
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
-class BfmeSelectionState {public:bool isSelectionLocked()const;};
+#include "../../../GameEngine/Include/Common/BfmeSelectionState.h"
 class Display;extern Display *TheDisplay;
 class SubtitleDisplayView {public:
 virtual void slot00();

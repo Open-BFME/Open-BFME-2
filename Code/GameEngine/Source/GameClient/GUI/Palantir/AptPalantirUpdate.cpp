@@ -692,11 +692,7 @@ __declspec(noinline) inline void AptPalantir::init()
 }
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

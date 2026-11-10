@@ -516,7 +516,7 @@ class Rva0007DA23ResourceManager { public: void rva0007C18E(); void rva0007B6F3(
 
 class Rva0081D520Owner { public: void broadcast(int, float, float, float, float); };
 
-class BfmeSelectionState { public: bool isSelectionLocked() const; };
+#include "../../../../GameEngine/Include/Common/BfmeSelectionState.h"
 
 void bfmeGoKA();
 

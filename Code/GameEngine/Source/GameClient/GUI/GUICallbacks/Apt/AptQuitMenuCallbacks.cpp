@@ -108,11 +108,7 @@ public:
 
 // TheLivingWorldLogic (0x009FEF10); its rowed
 // isSelectionLocked 0x0004253A tells a war of the ring game apart.
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-};
+#include "../../../../../Include/Common/BfmeSelectionState.h"
 
 // The living-world logic's player at +0x98 and its byte +0x3C5.
 struct LivingWorldPlayer

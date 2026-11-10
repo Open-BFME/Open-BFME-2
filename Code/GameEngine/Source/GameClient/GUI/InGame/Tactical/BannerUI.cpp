@@ -416,11 +416,7 @@ public:
 	Rva003F468D *rva0020E6B7();	// 0x0020E6B7, the current battle
 };
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;	// 0x0004253A
-};
+#include "../../../../../Include/Common/BfmeSelectionState.h"
 
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 

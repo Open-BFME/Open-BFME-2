@@ -84,11 +84,7 @@ class Rva00210C66CmpBoolField
 public:
 	bool get() const;			// 0x00210C66, mode 1 or 2
 };
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;		// 0x0004253A, +0xB4 && +0xB5
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 // The int set LivingWorldLogic::rva002B693F fills: an STLport set<int>.
 // Its ctor is the folded 0x000D3A71 (pinned as the opaque Rva002EE9B7 set
