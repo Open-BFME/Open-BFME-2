@@ -1969,8 +1969,6 @@ alternatename	Code/GameEngine/Source/Common/Rva003ADEBFUIntCtor.cpp	_Rva003ADEBF
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v0	1
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v8	1
 alternatename	Code/GameEngine/Source/Common/Rva003AE0D5CopyCtor.cpp	_Rva003AE0D5_v8	1
-alternatename	Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp	??1RealTimeStatsPreferences@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp	??1StrategicStatsPreferences@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva003C4B2DInsert.cpp	?rva003BD4C3@@YAXPAX00@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vbfunc@Rva003FD14DBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vfunc@Rva003FD14D@@UAEXXZ	1
@@ -8319,7 +8317,7 @@ pin	reverse/symbols.csv	0x0053470B	1
 pin	reverse/symbols.csv	0x0053479F	1
 pin	reverse/symbols.csv	0x00534AAE	1
 pin	reverse/symbols.csv	0x00534E13	1
-pin	reverse/symbols.csv	0x00535776	4
+pin	reverse/symbols.csv	0x00535776	2
 pin	reverse/symbols.csv	0x0053841C	1
 pin	reverse/symbols.csv	0x005385F3	1
 pin	reverse/symbols.csv	0x00538B2F	1

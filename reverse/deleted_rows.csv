@@ -6073,3 +6073,6 @@ __ehhandler$??1Rva004134AE@@QAE@XZ,0x00785F39,"Renamed to __ehhandler$??1Rva0041
 ??_GRva002E4272@@UAEPAXI@Z,0x002E42D2,"Renamed to ??_GOptionPreferences@@UAEPAXI@Z: retail vftable 0x00C04CE8 slot 0 -> VA 0x006E42D2"
 ?rva003A5A58@Rva003A5A58@@UAEXXZ,0x003A5A58,"Renamed to ?update@Rva003A59C3@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C1B5E0 slot 1)"
 __ehhandler$?rva003A5A58@Rva003A5A58@@UAEXXZ,0x00781C3B,"Renamed to __ehhandler$?update@Rva003A59C3@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C1B5E0 slot 1)"
+??1Rva00535776@@UAE@XZ,0x00535776,"Reconciled to ??1ProfilePreferences@@UAE@XZ in ProfilePreferences.cpp: retail vftable 0x00868DD8 slot 0 -> 0x00537E60 -> 0x00535776"
+??_GRva00535776@@UAEPAXI@Z,0x00537E60,"Reconciled to ??_GProfilePreferences@@UAEPAXI@Z in ProfilePreferences.cpp: retail vftable 0x00868DD8 slot 0"
+$L5189,0x007977B6,"Renamed to Unwind@00b977b6 (object-symbol=$L5448) in ProfilePreferences.cpp after ordinal shift in ProfilePreferences.obj"

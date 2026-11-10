@@ -10,8 +10,9 @@
 // descriptive -- no retail spelling is known. Adjacent .rdata carries the
 // profile stat keys (ProfileCreatedDate, Points, TimePlayed,
 // LongestGameTime, ShortestGameTime), and the vtable keeps every
-// UserPreferences slot except slot 0. The matching destructor is the
-// opaque Rva00535776 row at 0x00535776 (tail-calls UserPreferences dtor).
+// UserPreferences slot except slot 0. The matching destructor (0x00535776,
+// deleting dtor 0x00537E60) restores vtable 0x00C68DD8 and tail-calls
+// UserPreferences::~UserPreferences; both stats subclasses inherit it via ICF.
 //
 // loadStatsFile at 0x00537D33 is the shared stats loader the subclasses
 // below will forward to: it clears the preference map, and unless the
@@ -76,6 +77,8 @@ class ProfilePreferences : public UserPreferences
 {
 public:
 	ProfilePreferences(int profileKind);
+	virtual ~ProfilePreferences();
+	virtual void loadProfileStats(const UnicodeString &profilePath) = 0;
 
 protected:
 	void loadStatsFile(const UnicodeString &profilePath, const UnicodeString &leafName);
@@ -84,14 +87,13 @@ protected:
 // StrategicStatsPreferences (vtable 0x00C6913C) loads the global leaf
 // "StrategicStats.ini" (UnicodeString static at 0x00E05E04, built by the
 // dynamic initializer at 0x007B3AA5 from the .rdata leaf at 0x00C691D4).
-// Its vtable keeps the thirteen UserPreferences slots, overrides slot 0
-// with the shared deleting destructor at 0x00537E60 (already rowed), and
-// appends the loadProfileStats thunk at slot 13.
+// Its vtable keeps the thirteen UserPreferences slots, shares the ICF
+// deleting destructor at 0x00537E60 (0x00535776) at slot 0, and appends
+// the loadProfileStats thunk at slot 13.
 class StrategicStatsPreferences : public ProfilePreferences
 {
 public:
 	StrategicStatsPreferences(const UnicodeString &profilePath);
-	virtual ~StrategicStatsPreferences();
 	virtual void loadProfileStats(const UnicodeString &profilePath);
 	static Bool deleteStatsFile(const UnicodeString &profilePath);
 };
@@ -105,7 +107,6 @@ class RealTimeStatsPreferences : public ProfilePreferences
 {
 public:
 	RealTimeStatsPreferences(const UnicodeString &profilePath);
-	virtual ~RealTimeStatsPreferences();
 	virtual void loadProfileStats(const UnicodeString &profilePath);
 	static Bool deleteStatsFile(const UnicodeString &profilePath);
 };
@@ -114,6 +115,11 @@ public:
 ProfilePreferences::ProfilePreferences(int profileKind)
 {
 	(void)profileKind;
+}
+
+// ??1ProfilePreferences@@UAE@XZ @0x535776
+ProfilePreferences::~ProfilePreferences()
+{
 }
 
 // ?loadStatsFile@ProfilePreferences@@IAEXABVUnicodeString@@0@Z @0x537D33

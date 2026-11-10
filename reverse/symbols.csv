@@ -2924,7 +2924,6 @@ name,address,notes
 ??1PlayerInfo@@QAE@XZ,0x001EF50E,alias of rowed Rva001EF50E dtor at 0x001EF50E; called by pair<const AsciiString PlayerInfo>::~pair at 0x00382899
 ??1PodPayload20@@QAE@XZ,0x0007FAB3,ICF twin of rowed BasicStringCharDtor same bytes dtor for string member call site 0x0054FD8C in destroy 0x0054FD83
 ??1Q1ReceiverLockGuard@@QAE@XZ,0x0061FC60,TU-private twin (assetmanager_impl.cpp) of CriticalSectionLock: its destructor LeaveCriticalSection(m_lock) is byte-identical to ??1CriticalSectionLock at this address beside the rowed ??0CriticalSectionLock 0x0061FC40; the three assetmanager unwind funclets 0x007A7558/0x007A7560/0x007A7650 jump here; original class name unknown
-??1RealTimeStatsPreferences@@UAE@XZ,0x00535776,ICF twin of rowed Rva00535776 dtor via RealTime construction at 0x0043C612
 ??1RefPtr@@QAE@XZ,0x0007B724,TU-private view (Rva0015b110Cluster.cpp) of the refcounted pointer whose release-at-zero destructor is rowed as ??1Rva00087A93; the unwind funclet 0x0076724B destroys the returned temporary by jumping here; original class name unknown
 ??1Rva00001F18@@UAE@XZ,0x00001F18,"destructor the vector deleting destructor 0x00001EAE calls and hands to the eh vector destructor iterator (DIR32 at 0x00001EBD); opaque address name"
 ??1Rva0002B8C8TailBase@@UAE@XZ,0x0049B47C,callee of 1W3DStreakDraw (0x000CFFD3) at the site its BFME1 donor calls it; may be an ICF alias
@@ -3272,7 +3271,6 @@ name,address,notes
 ??1ShroudManagerImpl008FBA40Element@@QAE@XZ,0x0069E440,Target configure73DBF0 pushes this destructor at73DD28 and73DE84 with element strideA8; native69E440 is empty ret folded with DX8_Assert. Refutes donor68-byte virtual Snapshot owner3A795A.
 ??1SidesInfoStringVector@@QAE@XZ,0x0002CC70,retail REL32 from SidesInfo destructor 0x32D4E6; TU vector stand-in destructor; same body as matched AsciiString vector destructor
 ??1SpecialPowerCompletionDie@@UAE@XZ,0x00486B01,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1StrategicStatsPreferences@@UAE@XZ,0x00535776,ICF twin of rowed Rva00535776 dtor via Strategic construction at 0x0043C612
 ??1T2VBaseA@@UAE@XZ,0x00013420,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1T2VBaseB@@UAE@XZ,0x00013440,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1T2Vb0084B3A0@@UAE@XZ,0x0001E6F0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
