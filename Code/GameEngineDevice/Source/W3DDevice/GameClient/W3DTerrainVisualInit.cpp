@@ -46,11 +46,7 @@ public:
 	virtual void Add_Render_Object(Rva00091AEARenderObj *obj);	// slot 2
 };
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
 // The height-map render object.
 class Rva000E3B41

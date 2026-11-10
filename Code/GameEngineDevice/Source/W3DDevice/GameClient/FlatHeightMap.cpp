@@ -485,11 +485,7 @@ namespace FXShader { class RenderingMethod; }
 struct IRegion2D;
 
 // 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
 
 // tu-skeleton: 0x000E0F1E 340B ?doPartialUpdate@FlatHeightMapRenderObjClass@@QAEXABUIRegion2D@@PAVWorldHeightMap@@PAVRefRenderObjListIterator@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp (not merged yet)

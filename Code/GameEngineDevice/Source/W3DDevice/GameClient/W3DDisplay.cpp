@@ -512,7 +512,7 @@ class Rva0007F92AHost { public: void rva0007F92A(int, int); };
 
 class Rva0007DA23ResourceManager { public: void rva0007C18E(); void rva0007B6F3(); };
 
-class Rva000B3FD0 { public: void rva000B3FD0(); };
+#include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
 class Rva0081D520Owner { public: void broadcast(int, float, float, float, float); };
 

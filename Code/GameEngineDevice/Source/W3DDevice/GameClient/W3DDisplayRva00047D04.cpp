@@ -137,11 +137,7 @@ public:
 
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
 #define V4(a) virtual void a##0(); virtual void a##1(); virtual void a##2(); virtual void a##3();
 #define V16(a) V4(a##0) V4(a##1) V4(a##2) V4(a##3)

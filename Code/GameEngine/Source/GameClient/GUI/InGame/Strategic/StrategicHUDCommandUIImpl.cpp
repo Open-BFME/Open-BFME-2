@@ -88,11 +88,7 @@ private:
 };
 
 // The folded empty body (pinned opaque name).
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../../Include/Common/Rva000B3FD0.h"
 
 // The per-slot sub-menu clip's activation (rowed 0x005C39AA, address-named).
 class Rva005C39AA

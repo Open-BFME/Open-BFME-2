@@ -87,11 +87,7 @@ public:
 };
 
 // 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
 class Rva00083E5C
 {

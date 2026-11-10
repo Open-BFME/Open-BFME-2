@@ -110,11 +110,7 @@ void Rva0009A2CDRun();
 // The second dispatch calls the folded empty body at 0x000B3FD0 on the
 // shadow-manager receiver. Its original method name is unknown; use the
 // existing opaque member provider rather than a private StringBase view.
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
 class Rva000F278F
 {

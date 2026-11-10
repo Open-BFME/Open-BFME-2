@@ -100,11 +100,7 @@ public:
 #include "../../../../Include/GameClient/Drawable.h"
 
 // The shared empty body 0x000B3FD0, called on the drawable.
-class Rva000B3FD0
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../Include/Common/Rva000B3FD0.h"
 
 class BodyModuleInterface
 {
