@@ -240,10 +240,10 @@ class Rva0020DB91
 {
 public:
 	void *rva0020DB91(const AsciiString &arg);
+	char m_pad00[0x10];
 private:
-	char m_pad00[16];
-	Rva0020DB91Item **m_begin10;
-	Rva0020DB91Item **m_end14;
+	Rva0020DB91Item **m_begin10; // +0x10
+	Rva0020DB91Item **m_end14; // +0x14
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp

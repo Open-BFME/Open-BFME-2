@@ -60,10 +60,15 @@ public:
 };
 
 // The name lookup 0x0020DB91 keeps its address-derived owner in the ledger.
+struct Rva0020DB91Item;
 class Rva0020DB91
 {
 public:
 	void *rva0020DB91(const AsciiString &arg);
+	char m_pad00[0x10];
+private:
+	Rva0020DB91Item **m_begin10; // +0x10
+	Rva0020DB91Item **m_end14; // +0x14
 };
 
 class LargeGroupAudio : public SubsystemInterface, public Snapshot
