@@ -29,11 +29,7 @@ class Rva006DB160
 public:
 	void *allocBlock(int blockSize);
 };
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 // The real AptValue: its first three vftable slots are the rowed AddRef
 // (0x006DCAC0), Release (0x006DCB20) and ForceDelete (0x006CBCD0) that the
 // base constructor's vtable 0x008EAED0 holds.

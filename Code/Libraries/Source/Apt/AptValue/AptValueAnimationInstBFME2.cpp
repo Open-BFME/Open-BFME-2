@@ -10,11 +10,7 @@
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *condition, const char *file, int line);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 #include "../BfmeAptValue006DCD20.h"
 

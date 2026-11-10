@@ -13,10 +13,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "BfmeAptValue006DCD20.h"
-class Rva006DBB30SarDwordField {
-public:
-    int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class Rva006CFCD0 {
     virtual void vtableSlot0();
     unsigned int m_flags;

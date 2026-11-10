@@ -119,11 +119,7 @@ struct AptInputPoolView {
 // (BfmeBroadcast1282) is the semantic guide only; its original name is unknown.
 // Retail fixes the +0x48 parent/+0x4C character, descriptor +0x34/+0x38/+0x3C,
 // the 7x12B key-route table at 0xDDC898 and the pool queue callees.
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 extern int g_00E17704;
 

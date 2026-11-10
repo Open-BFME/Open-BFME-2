@@ -49,11 +49,7 @@ public:
     void *rva006E0F40() const;
 };
 
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 // Corresponding checked casts at 6DCD50/90/D0 and 6DCE10/50 assert these
 // exact predicate names. Type numbers are independently decoded from PC.
 // Godfather final PDB corroborates names but is structurally incompatible:

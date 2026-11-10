@@ -139,11 +139,7 @@ struct Rva006F73A0Input
     void *field48;
 };
 
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "BfmeAptValue006DCD20.h"
 class Rva006E1260
 {

@@ -82,11 +82,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 class Rva006DBDB0DwordOrSetter
 {

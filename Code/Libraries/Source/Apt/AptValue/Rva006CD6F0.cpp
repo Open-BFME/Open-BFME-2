@@ -14,11 +14,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 #include "../BfmeAptValue006DCD20.h"
 

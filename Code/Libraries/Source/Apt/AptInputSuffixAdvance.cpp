@@ -10,7 +10,7 @@
 #include "EAStringC.h"
 class AsciiString;
 #include "BfmeAptValue006DCD20.h"
-class Rva006DBB30SarDwordField {public:int get()const;};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class AptNativeHash {public:struct Entry {EAStringC key;BfmeAptValue006DCD20 *value;};AsciiString *rva0070AA40();Entry *rva0070AAA0(Entry*);};
 struct AptInputInst {char unknown00[0x10];AptNativeHash *hash;};
 #include "AptCIHClass.h"
