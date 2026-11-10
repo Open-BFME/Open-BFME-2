@@ -94,7 +94,7 @@ class Bridge{public:Bridge(Rva0027C36A&,Dict*,const AsciiString&,PolygonTrigger*
 #include "../../../Include/GameClient/Drawable.h"
 struct WallTemplate{char pad[0x64];AsciiString name;const AsciiString&getName()const{return name;}};
 class Object{public:Drawable*getDrawable()const;const WallTemplate*getTemplate()const{return templ;}char pad0[4];WallTemplate*templ;char pad8[0x74-8];int id;int getID()const{return id;}char pad78[0x94-0x78];unsigned status;};
-class Rva0036666B{public:bool rva0036666B();};
+#include "../../../Include/Common/Rva0036666B.h"
 class Rva0036658B{public:bool rva0036658B(void*,void*);};
 #include "../../../Include/GameLogic/PathfindLayer.h"
 class Rva00366500{public:bool rva00366500(int);bool rva0036652D(int);};

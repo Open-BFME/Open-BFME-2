@@ -65,15 +65,7 @@ typedef PathfindCell *PathfindCellP;
 class Xfer;
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
-class Rva0036666B
-{
-public:
-	bool rva0036666B();
-	bool rva0036736E(bool flag);
-	char m_pad00[0x34];
-	int m_a34; // +0x34
-	int m_b38; // +0x38
-};
+#include "../../../Include/Common/Rva0036666B.h"
 
 struct Rva005312BERect;
 

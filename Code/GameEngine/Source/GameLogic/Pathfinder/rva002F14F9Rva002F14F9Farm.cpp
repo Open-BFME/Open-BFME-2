@@ -405,15 +405,7 @@ class Rva005348AD
  private:
  char m_pad[0x14];
 };
-class Rva0036666B
-{
-public:
-	bool rva0036666B();
-	bool rva0036736E(bool flag);
-	char m_pad00[0x34];
-	int m_a34; // +0x34
-	int m_b38; // +0x38
-};
+#include "../../../Include/Common/Rva0036666B.h"
 struct IRegion2D;
 class Xfer;
 #include "../../../Include/GameLogic/PathfindLayer.h"

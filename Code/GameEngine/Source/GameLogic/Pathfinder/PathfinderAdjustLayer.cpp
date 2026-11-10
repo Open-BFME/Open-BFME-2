@@ -9,15 +9,7 @@ enum PathfindLayerEnum {UNKNOWN_LAYER=0,GROUND_LAYER=1};
 struct ObjWithPos;
 class Object {public:int rva0028B511()const;void setLayer(PathfindLayerEnum);char pad00[0x38];Coord3D position;};
 #include "../../../Include/GameLogic/PathfindCell.h"
-class Rva0036666B
-{
-public:
-	bool rva0036666B();
-	bool rva0036736E(bool flag);
-	char m_pad00[0x34];
-	int m_a34; // +0x34
-	int m_b38; // +0x38
-};
+#include "../../../Include/Common/Rva0036666B.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIPathfind.h"
