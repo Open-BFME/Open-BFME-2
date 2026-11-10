@@ -154,7 +154,7 @@ extern MultiplayerSettings *TheMultiplayerSettings;
 // stride8, through the existing integer-returning indexed getter. Its result
 // is a pointer in this caller; the hero entry key lives atC0. Original template
 // qualifiers and entry type names remain unknown, so retain opaque views.
-class Rva0040CB2CIndexedField { public: int get(int) const; };
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 
 struct PlayerHeroEntryView { char unknown00[0xC0]; int heroKey; };
 

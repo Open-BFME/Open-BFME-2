@@ -128,14 +128,7 @@ struct Rva0040CC0EEntry
 	int second;
 };
 
-class Rva0040CB2CIndexedField
-{
-public:
-	int get(int index) const;
-
-	unsigned char m_pad[0x40];
-	_STL::vector<Rva0040CC0EEntry> m_entries; // +0x40
-};
+#include "../../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 
 class GameLogic;
 
