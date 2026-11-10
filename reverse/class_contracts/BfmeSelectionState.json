@@ -1,0 +1,67 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeSelectionState",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 34,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xb4": {
+    "1": 1
+   },
+   "0xb5": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 28,
+   "182": 6
+  },
+  "views": 34,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_Rva0029B04D.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 181,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_Rva0029B04D.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
