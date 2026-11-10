@@ -423,7 +423,7 @@ class Rva005E54F7:public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,
 
 class Rva000425C4PtrChaseField { public: int get() const; };
 
-class Rva0040CB2CIndexedField { public: int get(int) const; };
+#include "../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 
 struct GarrisonSummarySlot { int id; void *entry; };
 

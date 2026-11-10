@@ -308,7 +308,7 @@ class ThingTemplate;
 extern ThingFactory *TheThingFactory;
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
 // 0x0040CB2C, the rowed indexed getter Rva0040CB2CIndexedField::get (second dword).
-class Rva0040CB2CIndexedField { public: int get(int) const; };
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct Rva005E76AEContext { char pad[0x18]; int m_id; };
 // WorldBuilder StrategicInGameUI::GetThingTemplate, WB VA 0x016025A0 (callgraph lead, score 1.0).
 namespace StrategicInGameUI {

@@ -297,9 +297,7 @@ struct S4SortElem8B {
 // The score builder uses its independently verified two-word input view.
 struct BfmeE8 { int a,b; };
 namespace _STL { template<> void vector<BfmeE8>::push_back(const BfmeE8 &); }
-class Rva0040CB2CIndexedField {
-public: int get(int index) const;
-};
+#include "../../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 // Native40/44 bound the eight-byte entries of WB's ArmySummary. This
 // local view keeps the tactical pointer-container's game-free specialization
 // separate from older containers using the indexed-getter owner as a type.

@@ -29,7 +29,7 @@ class Rva00318FBE {public:int rva00318FBE();};
 struct LivingWorldArmy {public:void rva00319EA3(LivingWorldArmy*,ArmySummaryEntry*);};
 class Rva0037DCA5 {public:int GetCommandPointSize();void*GetThingTemplate();};
 class Rva003190A5 {public:bool query()const;};
-class Rva0040CB2CIndexedField {public:int get(int)const;};
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 class Rva0040DB0ERegistry {public:int rva0040DB0E(const AsciiString&);};
 class BfmeY1038 {public:int bfmeVal1038();};
 struct Rva0040DC56Element {ArmySummaryEntry*value;__forceinline ArmySummaryEntry*Get()const{return value;}};

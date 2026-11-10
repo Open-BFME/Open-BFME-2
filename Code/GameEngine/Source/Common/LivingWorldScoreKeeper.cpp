@@ -158,7 +158,7 @@ struct TemplateCountKey {
  __forceinline bool operator<(const TemplateCountKey &other)const {return pointer<other.pointer;}
 };
 #include "../../Include/Common/SpawnArmy.h"
-class Rva0040CB2CIndexedField {public:int get(int)const;};
+#include "../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 class Rva0037DCA5 {public:void *GetThingTemplate();};
 class CountInputPrefix {public:virtual void *get();virtual void slot1();virtual void slot2();virtual void slot3();virtual bool fill(void*,SpawnArmy*);};
 struct CountInputObjectPrefix {char prefix[4];Rva004E06FBPtrChase32Field *type;};

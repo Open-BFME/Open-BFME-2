@@ -102,7 +102,7 @@ void Rva005E6AD8::rva005E6AD8(){
 // Context+78 is a summary whose8B entries begin40/end44; the two existing
 // indexed providers yield its entry pointer and count. Field names describe
 // target accesses; the original pair/context/summary class names are unknown.
-class Rva0040CB2CIndexedField {public:int get(int) const;};
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 class Rva0040CC0EIndexedField {public:int get(int) const;};
 struct HeroDetailsArmyEntry {int count;Rva005E4300Entry *entry;};
 struct HeroDetailsArmySummary {char pad[0x40];HeroDetailsArmyEntry *begin,*end;};

@@ -24,7 +24,7 @@ class AsciiString;
 class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned*); };
 class Rva00318C32Ret;
 class Rva002E2504 { public: bool rva002E2504(Rva00318C32Ret*,_STL::vector<const ModuleData*>*); };
-class Rva0040CB2CIndexedField { public: int get(int) const; };
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct EntryView { char pad[0xbc]; int buildingKey; };
 #include "../../../../Include/Common/ArmySummaryEntry.h"
 struct SummaryView { char pad[0x40]; int begin,end; };

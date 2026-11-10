@@ -58,11 +58,7 @@ public:
 	bool rva002B2646(Arg54 *nugget, Arg54 *id);
 };
 
-class Rva0040CB2CIndexedField
-{
-public:
-	int get(int index) const;
-};
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 
 struct Rva004FA83ETemplate
 {

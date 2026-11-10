@@ -140,7 +140,7 @@ class Rva002B6498 {public: ArmorTemplate *rva002B6498(NameKeyType);};
 class BuildingNuggetView;
 class LivingWorldBuildingTemplate {public: BuildingNuggetView *findNugget(const AsciiString &) const;};
 #include "../../../../Include/Common/SpawnArmy.h"
-class Rva0040CB2CIndexedField {public: int get(int) const;};
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct SpawnArmyRecordView {char unknown00[0x4C]; int key; char unknown50[8];};
 struct SpawnArmyNuggetView {char unknown00[8]; SpawnArmyRecordView *begin,*end;};
 struct ArmySummaryEntryView {int unit,count;};
