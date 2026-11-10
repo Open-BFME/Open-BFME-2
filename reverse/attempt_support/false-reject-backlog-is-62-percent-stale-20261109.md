@@ -190,6 +190,50 @@ counts as LINKED, so it is not a tooling-seat message fix and is left to the
 link lane. The twelfth is the hard-coded-image-address heuristic firing on
 `0x7F7FFF`, a pixel colour constant, which is its own small question.
 
+## `name_lane` and `vtable_bridge`: 12 of 13 are fixed already
+
+Neither lane needed a tool change. What they needed was someone to check.
+
+**`name_lane`, 9 of 10 stale.** Four records are a proposal refused for a name
+another *class* in the same file uses (`Rva006F7600::get` against
+`Rva006F7540::get`, `ArmyDetailsPanelImpl::IsSelected` against
+`Rva005E3B1A::IsSelected`, and a `clear` against another placeholder's scope).
+`Lane.problem()` now replaces its caller's file-wide word set with the
+scope-aware `collision_words()` for every `member` and `function` proposal, and
+the submit path's `taken` set is keyed `(scope, name)`. Both landed in
+`f37cb996139` on **2026-10-30**, a week after the records
+(`codex8-20261023-225509-*`). Checked on the mechanism, not just the date: with
+two classes in one text, the other class's `get` is absent from the proposing
+class's collision set while a same-class `m_n` still blocks.
+
+Three more are superseded by the fourth, which records its own repair -- direct
+`typedef struct`/`class` aliases are recognised (`record_typedef_names`), so the
+`ListboxData` header check went false→true. And `Lane.named_rvas()` now withholds
+an RVA only through `rename.wb_lead_names()`, whose docstring states the rule the
+record asked for ("most rows pair a body and name nothing"), since `b6a20d351df`.
+
+The one that stands: `rename.py --evidence agree:<id>` used directly does not
+check that the record's source still matches its votes' fingerprints, though
+`apply` does (`fresh_voters`). That is `rename.py`'s, and `data_rows.py
+--admit-agreed` skips it by design, so it needs that lane's judgement.
+
+**`vtable_bridge`, 3 of 8 stale, and a handoff that cost me the detour.** The
+weak `??_E` cluster was proposed in
+`reverse/attempt_support/vtable-bridge-weak-deleting-dtor-20261108/`, headed
+"proposed tooling fix, **not landed**" because the tool was claimed. The seat
+holding it landed the fix the same day (`b9aeebea15a`), in a stronger form than
+the patch: `slot_matches()` resolves a weak slot through `weak_resolutions()` and
+*also* requires that copy's own weak record to name the same default. All three
+regression tests the handoff specified exist, plus a fourth; 112 pass. I read
+the heading as current and claimed the tool before reading the history. The
+heading is now corrected, which is the whole fix.
+
+Left for the link lane: the twin/alignment records (`align1` vs `align16`), the
+vbtable positive-slot selector (its checker was held), the RTTI-prefixed
+one-slot `_com_error` table, and the wide `basic_ifstream` slot 0, which looks
+like the same weak-`??_E` mechanism from the real link's side but was not
+re-measured here.
+
 ## What this does not claim
 
 - **Not that the 351 are all real false rejects.** 144 are "a different real
