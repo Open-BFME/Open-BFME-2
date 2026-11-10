@@ -730,11 +730,7 @@ public:
 	int m_vAddressMode; // +0x10
 };
 
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter();
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 

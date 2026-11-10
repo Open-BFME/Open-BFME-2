@@ -177,7 +177,7 @@ public:
 template<class T> bool operator!=(RefCountPtr<T> const &a, RefCountPtr<T> const &b) { return a.Referent != b.Referent; }
 
 class ShroudFilter { public: int m_00, m_04, m_08, m_0C, m_10; };
-class ShroudTexture { public: ShroudFilter *getFilter(void); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 class BFME2ParticleTextureHandle;
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 class BFME2ParticleTextureHandle

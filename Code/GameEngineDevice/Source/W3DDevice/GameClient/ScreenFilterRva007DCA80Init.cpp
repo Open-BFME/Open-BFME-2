@@ -69,11 +69,7 @@ public:
 	int m_10;
 };
 
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter(void);
-};
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 

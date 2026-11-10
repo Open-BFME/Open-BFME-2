@@ -319,11 +319,7 @@ public:
 	void Set_V_Addr_Mode(int mode) { m_vAddressMode = mode; }
 };
 
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 

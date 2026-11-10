@@ -511,7 +511,7 @@ public:
 };
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 class ShroudFilter {public:void SetMip(int mode);char pad00[0xc];int m_minFilter;int m_magFilter;};
-class ShroudTexture {public:ShroudFilter *getFilter(void);};
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 enum FilterTypes {FT_NULL_FILTER=0,FT_VIEW_BW_FILTER,FT_VIEW_MOTION_BLUR_FILTER,FT_VIEW_CROSSFADE,FT_MAX=10};
 extern W3DFilterInterface *W3DFilters[FT_MAX];
 // The filter instance (0x009B5A64): retail initializes it statically (its .data word is

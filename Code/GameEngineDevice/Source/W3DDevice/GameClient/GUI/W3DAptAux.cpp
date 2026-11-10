@@ -510,7 +510,7 @@ class Rva001100C5 { public: void __fastcall rva001100C5(void *lines); };
 class Rva001103A5 { public: void __fastcall rva001103A5(const RefCountPtr<TextureClass> &texture); };
 class Rva000A9F23 { public: AssetReference rva000A9F23(); };
 class ShroudFilter { public: int minFilter, magFilter, unused08, words0C[2]; int getMag() const { return magFilter; } void setMag(int v) { magFilter = v; } void setMin(int v) { minFilter = v; } void SetMip(int); };
-class ShroudTexture { public: ShroudFilter *getFilter(); };
+#include "../../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 struct V2 { float X, Y; };
 struct Rva001101D7;
 void __fastcall Rva001101D7Draw(void *renderer, Rva001101D7 *sink, const V2 &a, const V2 &b, float width, unsigned long color);

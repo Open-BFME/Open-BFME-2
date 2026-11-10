@@ -136,11 +136,7 @@ public:
 	int m_uAddressMode;
 	int m_vAddressMode;
 };
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter(void);
-};
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 class GameClient;
 extern GameClient *TheGameClient;
 #include "../../../../GameEngine/Include/Common/GlobalData.h"

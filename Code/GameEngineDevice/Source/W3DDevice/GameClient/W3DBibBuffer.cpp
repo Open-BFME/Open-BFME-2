@@ -92,7 +92,7 @@ class DX8VertexBufferClass;
 
 class ShroudFilter { public: char pad[12]; int u,v; };
 
-class ShroudTexture { public: ShroudFilter *getFilter(); };
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBuffer.cpp
 

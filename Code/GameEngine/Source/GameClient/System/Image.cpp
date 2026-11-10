@@ -98,7 +98,7 @@ namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_t
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
 BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char*,int,int);
 class ShroudFilter;
-class ShroudTexture { public: ShroudFilter *getFilter(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free

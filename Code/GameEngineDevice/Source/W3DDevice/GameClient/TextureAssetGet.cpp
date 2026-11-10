@@ -210,9 +210,7 @@ public:
 // verified against every owner extent; its ICF ledger twin records this view.
 // ?SetMip@ShroudFilter@@QAEXH@Z
 void ShroudFilter::SetMip(int value) { mip=value; }
-class ShroudTexture {
-public: ShroudFilter *getFilter();
-};
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 struct TextureInfo { unsigned short Attributes, AnimType; unsigned int FrameCount; float FrameRate; };
 // ?Load_Texture@@YA?AVBFME2ParticleTextureHandle@@AAVChunkLoadClass@@@Z
 BFME2ParticleTextureHandle Load_Texture(ChunkLoadClass &cload)

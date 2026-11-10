@@ -170,12 +170,7 @@ class ShroudFilter : public _STL::ios_base
 
 }
 ;
-class ShroudTexture
-{
- public: ShroudFilter *getFilter();
-
-}
-;
+#include "../../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 class HAnimClass;
 class HAnimManagerClass
 {

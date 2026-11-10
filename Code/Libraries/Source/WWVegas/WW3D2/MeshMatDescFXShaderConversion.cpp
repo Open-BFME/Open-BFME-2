@@ -69,7 +69,7 @@ public:
 };
 
 class ShroudFilter;
-class ShroudTexture { public: ShroudFilter *getFilter(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
 class BFME2ParticleTextureHandle { public: StringClass Get_Texture_Name() const; };
 class TextureClass
 {
