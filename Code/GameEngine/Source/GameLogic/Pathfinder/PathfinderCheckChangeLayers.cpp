@@ -267,13 +267,7 @@ struct Rva002F35AFCell
 	Int m_08;
 	Rva002F35AFZone *m_0C;
 };
-class Rva002E6C79
-{
-public:
-	Int rva002E6C79();
-	Rva002F35AFCell *m_00;
-	Rva002E6C79 *next() { return (Rva002E6C79 *)rva002E6C79(); }
-};
+#include "../../../Include/Common/Rva002E6C79.h"
 // The 12-byte record +0x1C1CC collects per hop (zone, next cell x/y).
 struct Rva002F35AFHop
 {

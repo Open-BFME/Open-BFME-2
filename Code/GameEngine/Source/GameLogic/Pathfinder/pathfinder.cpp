@@ -211,13 +211,7 @@ private:
 
 void ji_00629952();
 struct Rva002F35AFCell;
-class Rva002E6C79
-{
-public:
-	Int rva002E6C79();
-	Rva002F35AFCell *m_00;
-	Rva002E6C79 *next() { return (Rva002E6C79 *)rva002E6C79(); }
-};
+#include "../../../Include/Common/Rva002E6C79.h"
 class PathfindCell
 {
  friend class Pathfinder;

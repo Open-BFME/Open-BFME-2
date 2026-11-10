@@ -176,16 +176,7 @@ struct Rva002E8BCFSrc;
 #include "../../../Include/Common/Rva002E6DC4.h"
 void ji_00629952();
 struct Rva002F35AFCell;
-class Rva002E6C79
-{
- public:
- Int rva002E6C79();
- Rva002F35AFCell *m_00;
- Rva002E6C79 *next()
- {
-  return (Rva002E6C79 *)rva002E6C79();
- }
-};
+#include "../../../Include/Common/Rva002E6C79.h"
 #include "../../../Include/GameLogic/PathfindCell.h"
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
