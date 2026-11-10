@@ -293,12 +293,7 @@ public:
 // The NAT negotiator at 0x00A063F8 keeps its port negotiation at +0x28.
 struct Elem005DB98E { float rva005DB95B(); };
 
-class PortNegotiationSchema
-{
-public:
-	int GetConnectionState(unsigned short localSlot, unsigned short slot); // rowed 0x005DB9BC
-	void *peekPing(unsigned short localSlot, unsigned short slot); // rowed 0x005DB98E
-};
+#include "../../../../../Include/GameClient/PortNegotiationSchema.h"
 
 class Rva005A6D47
 {

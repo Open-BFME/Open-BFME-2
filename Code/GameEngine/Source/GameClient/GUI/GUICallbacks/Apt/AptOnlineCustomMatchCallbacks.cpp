@@ -428,12 +428,7 @@ struct Rva002BA8F1Listener
 
 #include "../../../../../Include/Common/Rva005A0B4CList.h"
 
-class PortNegotiationSchema
-{
-public:
-	int GetConnectionState(unsigned short localSlot, unsigned short slot); // rowed 0x005DB9BC
-	void *peekPing(unsigned short localSlot, unsigned short slot); // rowed 0x005DB98E
-};
+#include "../../../../../Include/GameClient/PortNegotiationSchema.h"
 
 class Rva005A6D47
 {

@@ -44,12 +44,7 @@ struct Elem005DB98E
 	float rva005A66BF();
 };
 
-class PortNegotiationSchema
-{
-public:
-	void *peekPing(unsigned short x, unsigned short y);
-	int GetConnectionState(unsigned short x, unsigned short y);
-};
+#include "../../../../../Include/GameClient/PortNegotiationSchema.h"
 
 extern class GameSpyConfigInterface *TheGameSpyConfig;
 

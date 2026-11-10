@@ -1,0 +1,156 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PortNegotiationSchema",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x118": {
+    "4": 1
+   },
+   "0x14": {
+    "2": 4
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x718": {
+    "4": 1
+   },
+   "0x838": {
+    "4": 1
+   },
+   "0x8b8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 19,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "2232": 1,
+   "2236": 2
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1816,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1848,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2104,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2232,
+   "sources": [
+    "Code/GameEngine/Source/Common/PortNegotiationSchema.cpp",
+    "Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

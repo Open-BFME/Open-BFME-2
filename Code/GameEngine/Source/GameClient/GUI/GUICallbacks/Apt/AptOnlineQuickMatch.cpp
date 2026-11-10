@@ -97,7 +97,7 @@ class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 struct NAT {void processGlobalMessage(int,const char *);	// 0x005A8ABF, rowed
  void attachSlotList(GameInfo*,int,unsigned,unsigned,bool);};
 extern NAT *TheNAT;
-class PortNegotiationSchema {public:bool rva005DBA9C(bool);};
+#include "../../../../../Include/GameClient/PortNegotiationSchema.h"
 struct Rva005BA3AD
 {
 public:

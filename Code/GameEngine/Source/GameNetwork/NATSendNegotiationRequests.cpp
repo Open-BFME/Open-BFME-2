@@ -95,15 +95,7 @@ extern class GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 int Rva005A671DNext();	// 0x005A671D next negotiation cookie
 
-class PortNegotiationSchema
-{
-public:
-	void negotiationStarted(unsigned short a, unsigned short b, int cookie, bool started);
-    int getActionID(unsigned short,unsigned short);
-    bool receivedAPong(unsigned short,unsigned short,int);
-    void *peekPing(unsigned short,unsigned short);
-    bool setPingStats(unsigned short,unsigned short,float,float,float);	// 0x005DBF8C
-};
+#include "../../Include/GameClient/PortNegotiationSchema.h"
 
 struct Rva005A7A96Slot
 {
