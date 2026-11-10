@@ -92,11 +92,7 @@ struct Rva0016F770Coord3D
 };
 
 // BFME 2's goal-path position lookup is rowed as 0x00346FA5.
-class Rva00346FA5
-{
-public:
-	void *rva00346FA5(int index) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva00346FA5.h"
 
 class AIUpdateInterface
 {
