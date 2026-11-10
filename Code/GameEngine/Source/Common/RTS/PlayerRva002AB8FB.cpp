@@ -23,11 +23,7 @@ enum NameKeyType
 
 #include "../../GameLogic/Object/object.h"
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../Include/Common/BfmeGlob939D.h"
 
 extern GameLogic *TheGameLogic;
 extern NameKeyGenerator *TheNameKeyGenerator;

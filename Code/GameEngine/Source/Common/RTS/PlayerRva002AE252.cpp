@@ -37,11 +37,7 @@ typedef _STL::vector<int> IntVec;
 struct Rva0021C21BElement { char bytes[4]; };
 typedef _STL::vector<Rva0021C21BElement> RetailAssignVector;
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../Include/Common/BfmeGlob939D.h"
 
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 

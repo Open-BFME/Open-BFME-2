@@ -26,11 +26,7 @@ struct DisplayFlag140View
 };
 
 #include "GameLogicObjectLookupView.h"
-class BfmeGlob939D : public GameLogic
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../Include/Common/BfmeGlob939D.h"
 extern GameLogic *TheGameLogic;
 
 class GameWindowTransitionsHandler;

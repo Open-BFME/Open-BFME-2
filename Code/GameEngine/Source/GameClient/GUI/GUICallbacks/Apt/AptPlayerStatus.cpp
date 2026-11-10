@@ -172,11 +172,7 @@ extern GameLogic *TheGameLogic;
 // BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). This call
 // goes through a TU-local derivation so it resolves to the rowed body
 // instead of the unrowed GameLogic spelling.
-class BfmeGlob939D : public GameLogic
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../../../Include/Common/BfmeGlob939D.h"
 class Rva0023C902
 {
 public:

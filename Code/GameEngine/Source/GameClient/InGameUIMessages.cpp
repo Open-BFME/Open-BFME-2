@@ -125,11 +125,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 extern GameLogic *TheGameLogic;
 
 // TheGameLogic's multiplayer predicate 0x0023C6FD, rowed under this name.
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../Include/Common/BfmeGlob939D.h"
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 
 

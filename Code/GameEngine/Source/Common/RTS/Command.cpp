@@ -37,11 +37,7 @@ extern GlobalData *TheWritableGlobalData;
 extern GameInfo *TheGameInfo;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../../Include/Common/BfmeGlob939D.h"
 
 struct Rva002E0CD4
 {

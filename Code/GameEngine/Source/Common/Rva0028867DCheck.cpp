@@ -7,11 +7,7 @@
 
 extern class GameLogic *TheGameLogic;
 
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../Include/Common/BfmeGlob939D.h"
 
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 

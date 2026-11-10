@@ -25,7 +25,7 @@ __forceinline int bountyRound(float value) {
 extern GameTextInterface *TheGameText;
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
-class BfmeGlob939D {public: char bfmeCall939D();};
+#include "../../../Include/Common/BfmeGlob939D.h"
 extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/PlayerList.h"

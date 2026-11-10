@@ -716,12 +716,7 @@ struct AptPalantirCampaignView
 };
 
 extern GameLogic *TheGameLogic;
-class BfmeGlob939D
-{
-public:
-	char rva0023C6C5();
-	char bfmeCall939D();
-};
+#include "../../../../Include/Common/BfmeGlob939D.h"
 
 class PlayerList;
 extern PlayerList *ThePlayerList;

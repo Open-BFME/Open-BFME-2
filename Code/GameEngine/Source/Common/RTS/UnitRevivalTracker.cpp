@@ -504,7 +504,7 @@ public:
     }
     const AsciiString &value() const { return *reinterpret_cast<const AsciiString*>(this); }
 };
-class BfmeGlob939D { public: char bfmeCall939D(); };
+#include "../../../Include/Common/BfmeGlob939D.h"
 #include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 // Native 37EBEA..37EDC6: complete476B image query; WB F5ED20

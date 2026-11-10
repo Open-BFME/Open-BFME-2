@@ -307,11 +307,7 @@ unsigned char Rva0043CCD1Get(void)
 // (rowed bfmeCall939D 0x0023C6FD) answers nonzero, else walks global
 // 0x009FEEE8 (+0x10, +0x34) to a flag byte at +0x1BC: 1 when set, 0 when any
 // link is null or clear. Caller at 0x0043CD78. Unlock lane.
-class BfmeGlob939D
-{
-public:
-	char bfmeCall939D();
-};
+#include "../../Include/Common/BfmeGlob939D.h"
 struct Rva0043C933Sub
 {
 	char m_pad[0x1BC];
