@@ -334,7 +334,7 @@ class Rva003F3F27 { public: void rva003F3B4F();
     _STL::vector<RegionHeroSlot> heroes,enemyHeroes;
 };
 // 0x003F2106 is rowed as Rva003F2106::rva003F2106 (Rva002B7B71DeleteAll.cpp).
-class Rva003F2106 { public: void rva003F2106(); };
+#include "../../../../Include/Common/Rva003F2106.h"
 class Rva002B3166BumpCounter { public: int bump(); };
 void LivingWorldRegion::CreateBuildPlots()
 {

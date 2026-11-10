@@ -32,7 +32,7 @@ class Rva003F1AFF { public: void rva003F1AFF(int n); };
 class Rva003EFDF5Host { public: void rva003EFDF5(void *p); };
 
 // 0x003F2106 is rowed as Rva003F2106::rva003F2106 (Rva002B7B71DeleteAll.cpp).
-class Rva003F2106 { public: void rva003F2106(); };
+#include "../../Include/Common/Rva003F2106.h"
 
 class Rva003F3F27
 {

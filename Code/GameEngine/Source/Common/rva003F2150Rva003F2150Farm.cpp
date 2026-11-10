@@ -181,7 +181,7 @@ private:
 // slot's army vector (the folded pointer-vector erase 0x0031BD55). Callers
 // 0x003F3F27/0x003F3F03 and DoXfer reach it under this view's pinned spelling.
 // 0x003F2106 is rowed as Rva003F2106::rva003F2106 (Rva002B7B71DeleteAll.cpp).
-class Rva003F2106 { public: void rva003F2106(); };
+#include "../../Include/Common/Rva003F2106.h"
 int Rva003F1E2EHook(int,int);
 class GameSlot;
 // PrepareSkirmishOpponents reads native VA E02EF0, the existing owned

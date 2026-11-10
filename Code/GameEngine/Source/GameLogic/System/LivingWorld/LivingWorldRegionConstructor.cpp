@@ -61,5 +61,5 @@ _STL::vector<ScienceType>*v=(_STL::vector<ScienceType>*)&values158;v->erase(v->b
 }
 
 // 0x003F2106 is rowed as Rva003F2106::rva003F2106 (Rva002B7B71DeleteAll.cpp).
-class Rva003F2106 { public: void rva003F2106(); };
+#include "../../../../Include/Common/Rva003F2106.h"
 LivingWorldRegion::~LivingWorldRegion(){delete child;child=0;((Rva003F2106*)this)->rva003F2106();}
