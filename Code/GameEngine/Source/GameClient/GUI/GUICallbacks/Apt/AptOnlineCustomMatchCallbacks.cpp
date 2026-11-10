@@ -363,11 +363,7 @@ UnicodeString GadgetTextEntryGetText(GameWindow *window); // rowed 0x00320AAB
 
 // The +0x70 panel's rowed 0x0043DBCA test and the screen's state-2 action
 // 0x005A5B38 (address-named views).
-class Rva0043DFE0
-{
-public:
-	bool rva0043DBCA();
-};
+#include "../../../../../Include/GameClient/Rva0043DFE0.h"
 
 class Rva005A5B38Box
 {

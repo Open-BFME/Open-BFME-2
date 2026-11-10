@@ -400,14 +400,7 @@ class MpGameSetupComboRef
 // under its address class).
 // The panel's team, handicap and start position handlers, rowed under
 // their own address classes (Rva0043DFE0.cpp, Rva0043E0C5.cpp).
-class Rva0043DFE0
-
-{
- public:
- bool rva0043DFE0(int slot);
- 
-}
-;
+#include "../../../Include/GameClient/Rva0043DFE0.h"
 class Rva0043E0C5
 
 {

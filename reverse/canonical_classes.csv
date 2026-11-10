@@ -815,3 +815,4 @@ BfmeVciAnchorElem,Code/GameEngine/Include/Common/BfmeVciAnchorElem.h,generated b
 Rva0070B380,Code/GameEngine/Include/Common/Rva0070B380.h,existing header; contract class_contracts/Rva0070B380.json; 8/12 sampled units adopt
 Rva0025BFF8,Code/GameEngine/Include/Common/Rva0025BFF8.h,existing header; contract class_contracts/Rva0025BFF8.json; 7/12 sampled units adopt
 AptMapPreview,Code/GameEngine/Include/GameClient/AptMapPreview.h,existing header; contract class_contracts/AptMapPreview.json; 9/18 sampled units adopt
+Rva0043DFE0,Code/GameEngine/Include/GameClient/Rva0043DFE0.h,existing header; contract class_contracts/Rva0043DFE0.json; 7/11 sampled units adopt
