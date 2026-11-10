@@ -234,13 +234,7 @@ struct Rva002F35AFZone
 Int m_00;
 Int m_04;
 };
-struct Rva002F35AFCell
-{
-Int x;
-Int y;
-Int m_08;
-Rva002F35AFZone *m_0C;
-};
+#include "../../../Include/Common/Rva002F35AFCell.h"
 #include "../../../Include/Common/Rva002E6C79.h"
 struct Rva002F35AFHop
 {
