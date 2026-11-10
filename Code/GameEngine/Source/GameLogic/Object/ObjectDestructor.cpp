@@ -270,6 +270,8 @@ public:
 	virtual int rva005801F2() const { return m_id; }
 	virtual void rva00299C7C_70s6(int value) { m_4cc = value; }
 	virtual int rva00042272_70s7() const { return m_4cc; }
+	// +0x70 slot 5 (0x0028E84A): defined in Object.cpp.
+	virtual unsigned rva0028E84A() const;
 };
 
 // ??1Object@@MAE@XZ

@@ -821,7 +821,6 @@ struct Rva0028E868BehaviorInterface {
 class Rva0028C0E3Receiver {
 public:
  bool geometryTest(const Object *,unsigned,unsigned) const;
- unsigned rva0028E84A() const;
  void collisionDispatch(Object *,const Coord3D *,const Coord3D *);
 private:
  char pad00[4]; unsigned word04;
@@ -1945,6 +1944,8 @@ protected:
 	virtual ~Object();
 public:
 	virtual void *slot() const;
+	// +0x70 interface slot 5 (table 0x00BFC290); `this` arrives at +0x70.
+	virtual unsigned rva0028E84A() const;
 	// Compile-time layout checks (never called, so never emitted). With sizeof(Object) == 0x4D8 below, a
 	// non-virtual part ending at +0x4D0 and a one-word virtual base leave one layout: the vtordisp at +0x4D0
 	// and the virtual base at +0x4D4, where retail's vbtable (0x007FC320: -4, 0x46C from the vbptr at +0x68)
@@ -3057,12 +3058,14 @@ bool Rva0028C0E3Receiver::geometryTest(const Object *other,unsigned,unsigned) co
 // the template at primary+4 and the interface at primary+70. The original
 // method name and meaning of the 32-bit result remain unresolved; this is an
 // address-derived method, not a claimed original collision identifier name.
-unsigned Rva0028C0E3Receiver::rva0028E84A() const {
- const Rva0028E84ATemplatePrefix *data=
-  ((const ObjectPrefix *)((const char *)this-0x70))->objectTemplate;
- if(data->m_kindOf & 4)return 1;
- if(m_containedBy)return m_containedBy;
- return reinterpret_cast<unsigned>(this)-0x70;
+unsigned Object::rva0028E84A() const
+{
+	const Rva0028E84ATemplatePrefix *data = (const Rva0028E84ATemplatePrefix *)m_template;
+	if (data->m_kindOf & 4)
+		return 1;
+	if (m_containedBy274)
+		return reinterpret_cast<unsigned>(m_containedBy274);
+	return reinterpret_cast<unsigned>(this);
 }
 
 // Native 28E868..28E8D4 ends RET12. The same BFC290 table's slot +24

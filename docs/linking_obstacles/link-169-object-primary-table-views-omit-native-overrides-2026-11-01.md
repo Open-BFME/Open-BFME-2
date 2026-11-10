@@ -87,3 +87,10 @@ Object+0x74 through +0x70 (`rva005801F2`). All five are verified folds (fold_pro
 onto the rows already at those addresses; PartitionGetPlayerIndex (+0x6C slot 7) is declared only.
 +0x70 slot 5 stays __purecall until the --to-class of 0x0028E84A/0x0028C0E3/0x0028E868. Wrong
 secondary slots 16 -> 10.
+Update (2026-11-10, ancalgonn-swarm-class-object): 0x007FC290 slot 5. 0x0028E84A moves from the
+placeholder Rva0028C0E3Receiver into Object as `rva0028E84A` by rename.py --to-class (run on boat; its
+dependents pass needs a compiler), defined in Object.cpp with `this` at +0x70. The +0x70 table's eight
+declared slots now all name retail's targets. Slots 8 and 9 (geometryTest 0x0028C0E3, collisionDispatch
+0x0028E868) stay on the placeholder: --to-class refuses a signature that already names Object (the compiler
+would spell it as a back-reference) and one with a type back-reference, though both bodies compile equal
+to retail as Object members. Wrong secondary slots 10 -> 9.
