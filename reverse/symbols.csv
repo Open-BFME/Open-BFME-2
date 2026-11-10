@@ -6617,14 +6617,11 @@ _ghiSocketSelect,0x0060A9F0,nonport.c explicitly identifies GSISocketSelect as f
 _gpiDebug,0x0069E440,GameSpy release gpiDebug compiles to one ret; ICF-folded with held DX8_Assert; direct target corroborated by full gpiSendData and gpiRecvToBuffer bodies
 _gpiInitTransfers,0x00736150,GameSpy GP callee; independent unique 62-byte source candidate in gpiTransfer.c; direct call from _gpiInitialize corroborates identity
 _gpiReadDiskProfile,0x00732B50,GameSpy GP callee; independent unique 1844-byte source candidate in gpiProfile.c; direct call from _gpiLoadDiskProfiles corroborates identity
-_htonl@4,0x0065565E,PE-verified FF25 import thunk to wsock32.dll!htonl via IAT 0x00BBA9A4; independently read from retail import directory
 _htonl@4,0x00655670,PE-verified FF25 import thunk to wsock32.dll!htonl via IAT 0x00BBA998; independently read from retail import directory
 _htons@4,0x00655682,PE-verified FF25 import thunk to wsock32.dll!htons via IAT 0x00BBA98C; independently read from retail import directory
-_htons@4,0x006556B8,PE-verified FF25 import thunk to wsock32.dll!htons via IAT 0x00BBA968; independently read from retail import directory
 _log10,0x0062997C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 _memcpy,0x006291A8,CRT memcpy import thunk; retail target of the BI_BITFIELDS copy in ATL CImage::CreateEx
 _memmove,0x00629506,address read from the REL32 displacements in DirtySock Y4TextToValue Rva007EC780 at 0x006596B0; static CRT callee; body not yet converted
-_ntohl@4,0x0065565E,address read from the REL32 displacement at placed _piStagingRoomHash 0x006A79E0
 _peerCreateStagingRoomWithSocketA,0x0069A190,
 _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI; PeerThread.cpp maps peerJoinStagingRoom to it as the BFME 2 SDK header does): PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerJoinStagingRoom
 _peerShutdown,0x00699A10,
