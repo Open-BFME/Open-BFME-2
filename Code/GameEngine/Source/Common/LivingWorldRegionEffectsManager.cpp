@@ -229,7 +229,7 @@ RenderObjClass *Create_Render_Obj(const char *);
 
 void rva0010E4F6(void *,bool);
 
-class Rva002BF4F3 { public: void rva002BEA10(RenderObjClass *,bool); };
+#include "../../Include/Common/Rva002BF4F3.h"
 
 class Rva002D3627Host;
 

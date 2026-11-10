@@ -14,7 +14,7 @@ class Rva0020E89C;
 class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
-class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
+#include "../../Include/Common/Rva002BF4F3.h"
 class Rva002D3627Host {public:void rva002BF09E(const Coord3D*);};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 struct RegionIDRecord {char unknown0[4];int id;};

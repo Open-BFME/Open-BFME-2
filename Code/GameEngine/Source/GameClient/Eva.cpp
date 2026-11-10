@@ -565,11 +565,7 @@ static inline LivingWorldRegionManager *livingWorldRegionManager() { return (Liv
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 class Vector3;
-class Rva002BF4F3
-{
-public:
-	bool rva002BF5B0(const Vector3 *in, Vector3 *out);
-};
+#include "../../Include/Common/Rva002BF4F3.h"
 
 // EvaEventStatus::getPlayPositionForEvent, retail 0x001DCE6B (279 bytes;
 // WorldBuilder's Eva.cpp 0x00AC8E80, whose assert names both player
