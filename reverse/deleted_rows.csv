@@ -6086,3 +6086,5 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
 ?getContentsAsAsciiString@Rva004D63DB@@UAE?AVAsciiString@@XZ,0x004D63DB,"Renamed to ?getContentsAsAsciiString@Rva004D5A10@@UAE?AVAsciiString@@XZ by tools/rename.py (to-class: retail vftable 0x00C60284 slot 3)"
 ?get@Rva004D5776MovzxWordField@@QBEIXZ,0x004D5776,"Retracted: retail vtables 0x008601F4/0x00860204/0x00860214 hold 0x004D5776 in slot 1 as NetAckBoth/Stage1/Stage2CommandMsg::getSortNumber; rowed in the same change as ?getSortNumber@NetAckStage1CommandMsg@@UAEHXZ and its two ICF twins."
 ?rva000ABD68@Rva000ABD68Forwarder@@QAEXXZ,0x000ABD68,"Renamed to ?rva000ABD68@Rva000ABD56@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BC957C slot 0)"
+??1Rva0047FE25@@UAE@XZ,0x0047FE25,"Renamed to ??1ShareExperienceBehavior@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4867C)"
+??_GRva0047FE25@@UAEPAXI@Z,0x0047FF4F,"Renamed to ??_GShareExperienceBehavior@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4867C)"
