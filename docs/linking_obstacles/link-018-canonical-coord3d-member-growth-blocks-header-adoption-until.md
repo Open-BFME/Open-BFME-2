@@ -249,3 +249,5 @@ both as unresolved.
 **2026-11-09 status (swarm Link lane).** `Coord3D` is still `struct` and the real link at `26501393cb` still lists both `Matrix4D` exports. The follow-up
 stays waiting on the class-key flip: a row respell alone would not compile to the export spelling. Dave Razidlo's last Coord3D commit is 2026-11-06, and no
 `Coord3D` claim or branch was found, so whether that work is active needs asking.
+
+**2026-11-10, axis-angle constructor and Set.** A shared force-inlined implementation in the approved Snapshot.cpp TU emits both retail export names when compiled with the retail Coord3D class key. Both bodies match all 357 bytes after resolving the same relocation. The current canonical struct still emits U for both names. The [tested patch and controls](../../reverse/attempt_support/matrix4d-axis-angle-exports-20261110/README.md) are ready for the coordinated class-key change. No production row or export has moved yet.

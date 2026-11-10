@@ -1,0 +1,38 @@
+--- a/Code/GameEngine/Source/Common/System/Snapshot.cpp
++++ b/Code/GameEngine/Source/Common/System/Snapshot.cpp
+@@ -78,6 +78,8 @@
+ {
+ public:
+     Matrix4D(const Coord3D &axis, float angle);
++    Matrix4D &Set(const Coord3D &axis, float angle);
++    __forceinline void setAxisAngle(const Coord3D &axis, float angle);
+
+     float values[16];
+ };
+@@ -119,7 +121,7 @@
+
+ // flags: region default (reverse/retail_inventory/flag_regions.csv)
+
+-Matrix4D::Matrix4D(const Coord3D &axis, float angle)
++__forceinline void Matrix4D::setAxisAngle(const Coord3D &axis, float angle)
+ {
+     float cosine;
+     float sine;
+@@ -152,6 +154,17 @@
+     values[15] = 1.0f;
+ }
+
++Matrix4D::Matrix4D(const Coord3D &axis, float angle)
++{
++    setAxisAngle(axis, angle);
++}
++
++Matrix4D &Matrix4D::Set(const Coord3D &axis, float angle)
++{
++    setAxisAngle(axis, angle);
++    return *this;
++}
++
+ // tu-skeleton: 0x000041DE 111B ?Transpose@Matrix4D@@QAEAAV1@XZ -- matched in Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp (not merged yet)
+
+ // tu-skeleton: 0x0000424D 188B ?Determinant@Matrix4D@@QBEMXZ -- matched in Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp (not merged yet)
