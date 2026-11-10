@@ -1,0 +1,74 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002B296F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x169": {
+    "1": 1
+   },
+   "0x16c": {
+    "4": 1
+   },
+   "0xe8": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "368": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002B296F.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002B296F.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 361,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002B296F.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002B296F.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

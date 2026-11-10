@@ -37,7 +37,7 @@ class Rva002B7B71 { public: void rva002B7B71(); };
 class Glo012F1028Type { public: void rva002B7D91(); };
 #include "../../../../Include/Common/Rva002B7C74.h"
 #include "../../../../Include/Common/Rva002B6900.h"
-class Rva002B296F { public: void rva002B296F(); };
+#include "../../../../Include/Common/Rva002B296F.h"
 class Rva002B9099 { public: void clear(); };
 class Rva002BED91 { public: void clear(); };
 

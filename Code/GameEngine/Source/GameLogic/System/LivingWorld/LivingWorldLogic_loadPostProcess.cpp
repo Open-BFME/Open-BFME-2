@@ -92,11 +92,7 @@ void Rva005020CCBuildRegionDistances();	// 0x005020CC, 447 B
 
 #include "../../../../Include/Common/BfmeSelectionState.h"
 
-class Rva002B296F
-{
-public:
-	void rva002B296F();	// 0x002B296F, 29 B
-};
+#include "../../../../Include/Common/Rva002B296F.h"
 
 // The region manager pointer read at this+0xA4 (the reset target's +0xB0).
 class Rva002BC5D3RegionMgr

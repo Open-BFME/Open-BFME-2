@@ -3,11 +3,7 @@
 // 0x0020F832 is rowed on Rva0020EE29.
 #include "../../Include/GameLogic/Rva0020EE29.h"
 
-class Rva002B296F
-{
-public:
-	void rva002B35DF();
-};
+#include "../../Include/Common/Rva002B296F.h"
 
 class Rva002B36BE
 {
