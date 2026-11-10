@@ -42,14 +42,7 @@ public:
  virtual ~Rva003959FA() {}
  virtual bool allow(Object *);
 };
-class Rva00261409Filter:public Rva000421C8 {
-public:
- Rva00261409Filter(Player *player,bool match,int flags):m_player(player),m_match(match),m_flags(flags) {}
- virtual ~Rva00261409Filter() {}
- virtual bool allow(Object *);
- virtual int getPlayerMask();
- Player *m_player; bool m_match; int m_flags;
-};
+#include "../../../../Include/GameLogic/Rva00261409Filter.h"
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 extern PartitionManager *ThePartitionManager;
 extern GameLogic *TheGameLogic;
