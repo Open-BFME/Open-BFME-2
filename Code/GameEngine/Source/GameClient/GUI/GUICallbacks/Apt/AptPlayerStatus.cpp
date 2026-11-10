@@ -18,10 +18,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <mbstring.h>
+#include <string.h>
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
-extern "C" void *__cdecl memset(void *destination, int value, unsigned int count);
 class GameWindow
 {
 protected:
