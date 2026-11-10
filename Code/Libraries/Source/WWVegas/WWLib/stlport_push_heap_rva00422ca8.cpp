@@ -10,11 +10,7 @@
 // callees rowed to 0x00422CA8; unblocks 0x004239BF. Same STLport sift-up
 // spelling as stlport_push_heap_s4sortelem8.cpp.
 
-class Rva00422CA8
-{
-public:
-	bool operator()(int a, int b) const;
-};
+#include "Rva00422CA8.h"
 
 namespace _STL
 {

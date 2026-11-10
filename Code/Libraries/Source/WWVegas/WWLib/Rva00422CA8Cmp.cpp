@@ -27,11 +27,7 @@ struct Elem32
 	char m_pad[0x20 - 8];
 };
 
-class Rva00422CA8
-{
-public:
-	bool operator()(int a, int b) const;
-};
+#include "Rva00422CA8.h"
 
 bool Rva00422CA8::operator()(int a, int b) const
 {

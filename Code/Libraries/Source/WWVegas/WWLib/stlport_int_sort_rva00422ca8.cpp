@@ -23,11 +23,7 @@
 // specialization declared before the sort instantiation uses it.
 #include <algorithm>
 
-class Rva00422CA8
-{
-public:
-	bool operator()(int a, int b) const;
-};
+#include "Rva00422CA8.h"
 namespace _STL {
 template<> __declspec(dllimport) __forceinline _OKToMemCpy<int,int> _IsOKToMemCpy<int,int>(int*,int*) { return _OKToMemCpy<int,int>(); }
 template<> __declspec(dllimport) __forceinline __true_type _OKToMemCpy<int,int>::_Ret() { return __true_type(); }

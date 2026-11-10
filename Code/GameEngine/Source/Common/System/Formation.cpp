@@ -17,9 +17,7 @@ void __cdecl rva004216A2(float *out, const float *pos, const float *slot);
 
 float __cdecl Rva004219F4DistSquared(const float *pos, const float *obj);
 
-class Rva00422CA8
-{
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva00422CA8.h"
 
 namespace _STL
 {

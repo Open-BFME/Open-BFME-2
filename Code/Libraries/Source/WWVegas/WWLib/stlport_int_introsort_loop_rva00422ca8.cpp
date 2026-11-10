@@ -13,11 +13,7 @@
 // the vendored header emits a value median here, retail calls the pointer
 // median, so the loop is spelled out and the callees stay declared-only.
 
-class Rva00422CA8
-{
-public:
-	bool operator()(int a, int b) const;
-};
+#include "Rva00422CA8.h"
 
 namespace _STL
 {

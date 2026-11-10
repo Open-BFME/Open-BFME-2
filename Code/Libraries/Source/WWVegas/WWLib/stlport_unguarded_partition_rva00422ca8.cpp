@@ -9,11 +9,7 @@
 // Evidence: caller 0x004253C9 passes (first,last,pivot,comp) in the median /
 // partition / recurse quicksort shape; callees both rowed to 0x00422CA8.
 
-class Rva00422CA8
-{
-public:
-	bool operator()(int a, int b) const;
-};
+#include "Rva00422CA8.h"
 
 namespace _STL
 {
