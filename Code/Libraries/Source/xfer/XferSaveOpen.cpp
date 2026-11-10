@@ -66,7 +66,6 @@ private:
 namespace _STL { template <> void _Destroy<_STL::pair<NameKeyType const,FXList> >(_STL::pair<NameKeyType const,FXList> *); }
 namespace _STL { template <> void hashtable<_STL::pair<NameKeyType const,FXList>,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<_STL::pair<NameKeyType const,FXList> >,rts::equal_to<NameKeyType>,_STL::allocator<_STL::pair<NameKeyType const,FXList> > >::_M_delete_node(_STL::_Hashtable_node<_STL::pair<NameKeyType const,FXList> > *); }
 namespace _STL { template <> void hashtable<_STL::pair<NameKeyType const,FXList>,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<_STL::pair<NameKeyType const,FXList> >,rts::equal_to<NameKeyType>,_STL::allocator<_STL::pair<NameKeyType const,FXList> > >::clear(); }
-namespace _STL { template <> void hashtable<_STL::pair<NameKeyType const,ArmorTemplate>,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<_STL::pair<NameKeyType const,ArmorTemplate> >,_STL::equal_to<NameKeyType>,_STL::allocator<_STL::pair<NameKeyType const,ArmorTemplate> > >::_M_delete_node(_STL::_Hashtable_node<_STL::pair<NameKeyType const,ArmorTemplate> > *); }
 // bfme link decl-only end
 unsigned char XferSave::Open(Xfer *stream, int arg2, bool arg3)
 {
