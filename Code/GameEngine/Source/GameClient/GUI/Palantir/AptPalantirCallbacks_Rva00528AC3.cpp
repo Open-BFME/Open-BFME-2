@@ -30,11 +30,7 @@ private:
 // The help-box pointee is built by the 0x00527C04 constructor rowed under
 // its class Rva00527827 (same 0x20 bytes); the owning-pointer reset row
 // spells the pointee Rva00527CCE, so the new pointer is cast for it.
-class Rva00527CCE
-{
-private:
-	unsigned char m_pad00[0x20];
-};
+#include "../../../../Include/Common/Rva00527CCE.h"
 class Rva00527827
 {
 public:

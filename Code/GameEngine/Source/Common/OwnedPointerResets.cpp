@@ -265,11 +265,7 @@ void Rva002D3894::clear()
 	}
 }
 
-class Rva00527CCE
-{
-public:
-	~Rva00527CCE();
-};
+#include "../../Include/Common/Rva00527CCE.h"
 
 class Rva002D38D1
 {
