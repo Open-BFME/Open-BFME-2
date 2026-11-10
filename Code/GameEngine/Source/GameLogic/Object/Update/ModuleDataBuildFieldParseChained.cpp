@@ -308,11 +308,7 @@ extern const FieldParse BfmeSupplyWarehouseDockUpdateFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class SupplyWarehouseDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SupplyWarehouseDockUpdateModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 

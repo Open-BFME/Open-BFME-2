@@ -529,7 +529,7 @@ class SupplyWarehouseCreate { public: static Module *friend_newModuleInstance(Th
 class SupplyWarehouseCripplingBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SupplyWarehouseCripplingBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SupplyWarehouseDockUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class SupplyWarehouseDockUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/SupplyWarehouseDockUpdateModuleData.h"
 class SwayClientUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SymbioticStructuresBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SymbioticStructuresBodyModuleData { public: static ModuleData *friend_newModuleData(INI *); };

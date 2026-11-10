@@ -257,11 +257,7 @@ public:
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
 #include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
-class SupplyWarehouseDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SupplyWarehouseDockUpdateModuleData.h"
 #include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 int Rva004CE29DGet(void);
 int Rva004CE52EGet(void);
