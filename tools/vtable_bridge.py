@@ -255,7 +255,16 @@ class Targets:
         if self.selections().get(name) != {SELECT_ANY}:
             return False
         ours = comdat_body(self.objects, ledger, name)
-        return ours is not None and ours == comdat_body(self.objects, Path(winner), name)
+        theirs = comdat_body(self.objects, Path(winner), name)
+        if ours is None or theirs is None:
+            return False
+        if ours == theirs:
+            return True
+        # An /O1 copy (ALIGN_1BYTES) and an /O2 copy (ALIGN_16BYTES) of one inline
+        # body differ only in where the linker may place them. That is identity
+        # only for code that cannot observe its own address (position_blind).
+        return ((ours[0] & ~ALIGN_MASK) == (theirs[0] & ~ALIGN_MASK)
+                and ours[1:] == theirs[1:] and position_blind(ours[1], ours[2]))
 
     def selections(self):
         """Target name -> COMDAT selections of its kept definitions (0: not COMDAT)."""
@@ -268,6 +277,29 @@ class Targets:
                         sec = sections[sym.sec - 1]
                         self._selections[sym.name].add(sec.sel if sec.flags & COMDAT else 0)
         return self._selections
+
+
+ALIGN_MASK = 0x00F00000  # IMAGE_SCN_ALIGN_*: placement only
+
+
+def position_blind(code, relocs):
+    """Conservative proof that a body cannot read its own address, so two copies
+    that differ only in section alignment behave alike wherever each lands.
+    x86-32 code reads EIP only through a call it does not relocate (the call
+    pushes its return address; `call $+5; pop` is the idiom) or by storing the
+    FPU environment (fnstenv/fnsave keep the last instruction pointer). Any 0xE8
+    byte whose next four bytes carry no relocation, and any D9/DD opcode byte
+    followed by a memory ModRM with reg 6, refuses, even when the byte is really
+    data or part of another instruction: false refusals only keep a bridge."""
+    relocated = {offset for offset, *_rest in relocs}
+    for index, byte in enumerate(code):
+        if byte == 0xE8 and index + 1 not in relocated:
+            return False
+        if byte in (0xD9, 0xDD) and index + 1 < len(code):
+            modrm = code[index + 1]
+            if modrm >> 6 != 3 and (modrm >> 3) & 7 == 6:
+                return False
+    return True
 
 
 def comdat_body(objects, path, name):

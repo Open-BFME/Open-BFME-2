@@ -684,12 +684,38 @@ def test_earlier_byte_and_relocation_twin_provides_the_ledger_body(tmp_path):
 
 
 LOCAL = dict(callee="_local", callee_class=L.STATIC)
+# call $+5 / pop eax: the unrelocated call pushes its own address.
+SELF_CALL = b"\xe8\x00\x00\x00\x00\x58\x90\x00\x00\x00\x00\xc3"
+# fnstenv [esp]: the FPU environment holds the last instruction pointer.
+FNSTENV = b"\xd9\x34\x24\x90\x00\x00\x00\x00\xc3"
+
+
+@pytest.mark.parametrize("flags", [0x60101020, 0x60301020])
+def test_alignment_only_twin_without_self_observation_provides_the_ledger_body(tmp_path, flags):
+    # LINK-619: RenderObjClass::Get_Bounding_Sphere is one inline body in an /O1
+    # unit (ALIGN_1BYTES) and the /O2 owner (ALIGN_16BYTES); bytes, selection and
+    # relocations are equal and the body cannot see where it is placed.
+    result = twin_plan(tmp_path, comdat_code(tmp_path / "earlier.obj", flags=flags))
+    assert (result["tables"], result["refused_tables"], result["twin_target_slots"]) == (1, 0, 2)
+
+
+def test_position_blind_refuses_unrelocated_calls_and_fpu_environment_stores():
+    assert V.position_blind(b"\xe8\x00\x00\x00\x00\xc3", [(1, "_callee", L.REL32)])
+    assert not V.position_blind(b"\xe8\x00\x00\x00\x00\x58\xc3", [])
+    assert not V.position_blind(b"\xe8\x05\x00\x00\x00\xc3", [])      # forward call, still pushes EIP
+    assert not V.position_blind(b"\xd9\x34\x24\xc3", [])          # fnstenv [esp]
+    assert not V.position_blind(b"\xdd\x30\xc3", [])               # fnsave [eax]
+    assert V.position_blind(b"\xd9\xf6\xc3", [])                   # fdecstp: register form
+    assert V.position_blind(b"\xd9\x7c\x24\x04\xc3", [])         # fnstcw: reg 7
 
 
 @pytest.mark.parametrize("earlier,ours", [
     (dict(body=b"\xe8\0\0\0\0\x90"), {}),             # bytes
     (dict(body=b"\xe8\0\0\0\0\xc3\xcc"), {}),         # size: same prefix, longer section
-    (dict(flags=0x60301020), {}),                     # flags (alignment)
+    (dict(flags=0x60500020), {}),                     # flags other than alignment
+    # alignment only, but the body could read its own address (LINK-619):
+    (dict(flags=0x60101020, body=SELF_CALL, offset=7), dict(body=SELF_CALL, offset=7)),
+    (dict(flags=0x60101020, body=FNSTENV, offset=4), dict(body=FNSTENV, offset=4)),
     (dict(offset=2), {}),                             # relocation offset
     (dict(kind=L.REL32), {}),                         # relocation kind
     (dict(callee="_other"), {}),                      # relocation target

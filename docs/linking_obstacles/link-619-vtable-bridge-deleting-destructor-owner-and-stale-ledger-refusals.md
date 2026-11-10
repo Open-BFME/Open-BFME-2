@@ -961,3 +961,19 @@ twin of the path-order winner, with no alignment exception in the check.
 Not done here: `reverse/tu_map.csv` approves no unit for either address, and
 rows move only into an approved unit. Remaining prerequisite, either one:
 TU approval for the two rows, or the position-observation proof.
+
+**2026-11-10, alignment-only twins (tooling change, Verifier-Change).** `Targets.twin` now accepts an
+earlier kept COMDAT copy whose section flags differ from the ledger owner's only in
+`IMAGE_SCN_ALIGN_MASK` (0x00F00000) when bytes, selection, relocations and weak defaults are equal
+and `position_blind` proves the body cannot read its own address: no 0xE8 byte without a relocation
+on its next four bytes (an unrelocated call pushes EIP, `call $+5; pop` included) and no D9/DD
+opcode with a memory ModRM reg 6 (fnstenv/fnsave keep the FPU instruction pointer). The scan is
+byte-level and refuses on any such byte, so it can only keep a bridge, never admit an
+address-observing body. This is the position-observation boundary
+`reverse/attempt_support/renderobj-bounding-order-20261108/` asked for. The RenderObjClass
+getters (`Get_Bounding_Sphere`/`Get_Bounding_Box`, BaseHeightMapConstructor.cpp /O1 first,
+hlod.cpp /O2 owner) carry no such bytes. Tests: `tools/tests/test_vtable_bridge.py` (alignment-only
+twin accepted at two alignments; self-call and fnstenv bodies refused; `position_blind` cases), and
+both refusals fail when the guard is stubbed out. Next check: the next real link's
+`vtable_bridge_queue.tsv` drops the alignment-only target-not-winning-provider tables (W3DWater,
+SegmentedLineClass and the other RenderObjClass-derived tables). Not yet measured.
