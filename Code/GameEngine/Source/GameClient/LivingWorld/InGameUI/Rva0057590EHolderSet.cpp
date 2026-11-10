@@ -38,11 +38,7 @@ public:
 	};
 };
 
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 
 class Rva00574AACAddDwordField
 {

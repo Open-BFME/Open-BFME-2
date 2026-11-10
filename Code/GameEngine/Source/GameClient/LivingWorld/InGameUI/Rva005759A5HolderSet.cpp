@@ -17,11 +17,7 @@ public: Rva005CE804(void *owner,int context,int unused,int ui,int extra,FwdArg *
 virtual ~Rva005CE804();
 private: unsigned char storage[0x20-4];
 };
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 
 class Rva00574AACAddDwordField
 {

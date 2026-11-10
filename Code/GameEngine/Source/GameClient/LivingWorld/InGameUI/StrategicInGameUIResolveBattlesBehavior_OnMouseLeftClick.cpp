@@ -94,7 +94,7 @@ class Rva00DFE1C8Host;
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
 extern class LivingWorldManager *TheLivingWorldManager;
 #define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
-class Rva00328A83PtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 struct Rva002B5C5EVal;
 // The two native owning state holders share the38-byte reset at575674.
 // Distinct typed instantiations preserve the native caller's two EH paths;

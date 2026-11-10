@@ -12,7 +12,7 @@ class StrategicInGameUI::ResolveBattlesBehavior::Impl { public: class MyResolveR
 class Object;
 #include "../../../../Include/Common/Rva00575674.h"
 #include "../../../../Include/GameLogic/RegionAwardDispute.h"
-class Rva00328A83PtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva0042D6BAPtrChaseField { public: int get() const; };
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };
 class Rva005765D1 {
