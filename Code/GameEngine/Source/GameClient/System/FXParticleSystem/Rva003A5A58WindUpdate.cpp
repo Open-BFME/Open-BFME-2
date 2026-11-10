@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
-// ?rva003A5A58@Rva003A5A58@@UAEXXZ retail 0x003A5A58..0x003A5D1C
+// ?update@Rva003A59C3@@UAEXXZ retail 0x003A5A58..0x003A5D1C
 // (708 bytes EH thiscall RET 0). Virtual slot 1 of the CAT_WIND particle
 // module vtables 0x00C1B5E0 (DefaultParticleModule<CAT_WIND> the copy
 // ctor 0x003AE03D installs it) and 0x00C1CED8 (the concrete module whose
@@ -20,8 +20,9 @@
 // has a positive +0x5C turbulence add the particle's (rowed 0x001F4D2D)
 // wobble along an angle from position z times +0x60 plus the unsigned
 // +0x88 age (retail adds both wobble terms to x). The handle is released
-// through the pinned 0x0004CBC0 when set. Owner identity is unproven so
-// the class carries the address name.
+// through the pinned 0x0004CBC0 when set. The class is the one the
+// constructor 0x003A59C3 builds (Rva003A59C3Ctor.cpp); its name stays
+// address-derived.
 // Codegen notes: the fade takes math.h's float sqrt overload (its inline
 // boundary schedules the call's stack pops as retail does); the release
 // callee is nothrow (retail stores no -1 state before it); the body sits
@@ -138,11 +139,11 @@ public:
 	unsigned int m_age;	// +0x88
 };
 
-class Rva003A5A58
+class Rva003A59C3
 {
 public:
-	virtual ~Rva003A5A58();
-	virtual void rva003A5A58();
+	virtual ~Rva003A59C3();
+	virtual void update();
 
 private:
 	Rva003A5A58Particle *m_particle;	// +0x04
@@ -150,7 +151,7 @@ private:
 	Real m_strength;	// +0x10
 };
 
-void Rva003A5A58::rva003A5A58()
+void Rva003A59C3::update()
 {
 	RvaSmartPtr12 system(m_particle->m_system);
 	if (getWindKind(system.operator->()) != 1)

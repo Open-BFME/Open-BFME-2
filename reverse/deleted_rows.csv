@@ -6071,3 +6071,5 @@ __ehhandler$??1Rva004134AE@@QAE@XZ,0x00785F39,"Renamed to __ehhandler$??1Rva0041
 ??_GRva004134AE@@QAEPAXI@Z,0x00413492,"Renamed to ??_GRva004134AE@@UAEPAXI@Z by tools/rename.py (virtual: retail vtable slot)"
 ??1Rva002E4272@@UAE@XZ,0x002E4272,"Renamed to ??1OptionPreferences@@UAE@XZ: retail vftable 0x00C04CE8 slot 0 calls 0x002E42D2 which calls 0x002E4272"
 ??_GRva002E4272@@UAEPAXI@Z,0x002E42D2,"Renamed to ??_GOptionPreferences@@UAEPAXI@Z: retail vftable 0x00C04CE8 slot 0 -> VA 0x006E42D2"
+?rva003A5A58@Rva003A5A58@@UAEXXZ,0x003A5A58,"Renamed to ?update@Rva003A59C3@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C1B5E0 slot 1)"
+__ehhandler$?rva003A5A58@Rva003A5A58@@UAEXXZ,0x00781C3B,"Renamed to __ehhandler$?update@Rva003A59C3@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C1B5E0 slot 1)"

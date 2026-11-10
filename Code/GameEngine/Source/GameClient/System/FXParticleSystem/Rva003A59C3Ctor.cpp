@@ -20,24 +20,33 @@
 
 float GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
 
+class Xfer;
 struct Rva003A59C3Src;
 
+// The module base's primary table (0x00C1D2C0) is four slots: the deleting
+// destructor and three __purecall words. Slot 1 is the per-frame update this
+// class overrides (0x003A5A58) and slot 2 stays pure in this class; the
+// factory's derived class fills it with its clone (0x003ADFFA in table
+// 0x00C1CED8). Slot 3 is DoXfer(Xfer &), which this class overrides at
+// 0x003A57A9; that row is still spelled under another placeholder class, so
+// the slot keeps an inline stand-in here until it moves.
 class Rva003A59C3B0A
 {
 public:
 	virtual ~Rva003A59C3B0A() {}
-	virtual void s0() {}
-	virtual void s1() {}
+	virtual void update() = 0;
+	virtual void *clone() const = 0;
+	virtual void DoXfer(Xfer &) {}
 
 private:
 	int m_4;
 };
 
+// The +8 table (0x00C1C780) is a single __purecall word.
 class Rva003A59C3B0B
 {
 public:
-	virtual void s0() {}
-	virtual void s1() {}
+	virtual void s0() = 0;
 };
 
 class Rva0055EFE1 : public Rva003A59C3B0A, public Rva003A59C3B0B
@@ -47,7 +56,8 @@ public:
 };
 
 // Same shape as the rowed Rva003AE07D (V3PolyCopyCtors.cpp): vtable
-// 0x00C1B568 and a Real at +4 zeroed by the default ctor.
+// 0x00C1B568 and a Real at +4 zeroed by the default ctor. Retail's table is
+// four slots (destructor, LoadPostProcess, GetSnapshotName, DoXfer).
 extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 
 class Rva003A59C3B3
@@ -59,16 +69,18 @@ public:
 	virtual ~Rva003A59C3B3() { *(const void *const **)this = __identifier("??_7Snapshot@@6B@"); }
 	virtual void s0() {}
 	virtual void s1() {}
+	virtual void s2(Xfer &) {}
 
 	float m_real04;
 };
 
+// Retail's primary table 0x00C1B5E0: deleting destructor 0x003AE270, update
+// 0x003A5A58, __purecall, DoXfer 0x003A57A9.
 class Rva003A59C3 : public Rva0055EFE1, public Rva003A59C3B3
 {
 public:
 	Rva003A59C3(unsigned int arg, Rva003A59C3Src &src);
-	virtual void s0() {}
-	virtual void s1() {}
+	virtual void update();
 };
 
 Rva003A59C3::Rva003A59C3(unsigned int arg, Rva003A59C3Src &)
