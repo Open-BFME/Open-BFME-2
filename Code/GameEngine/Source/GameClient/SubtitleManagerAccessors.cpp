@@ -4,6 +4,7 @@
 // need. While the STL headers parse, free names a local inline to that table; those copies call it directly where
 // retail's call _free. Retired when the real allocator headers give this unit retail's _free binding, or when these
 // copies are no longer kept from this unit (P75). If anything odd happens under the STL headers, look here first.
+#include <string.h>
 #include <malloc.h>
 #include <stdlib.h>
 extern "C" void (__cdecl *__gameMemFreePtr)(void *, int);
@@ -191,7 +192,6 @@ extern VideoPlayerInterface *TheVideoPlayer;
 #include "Common/INIException.h"
 #undef free
 
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
 
 static const char *const subtitleStyles[] = {
 	"TRANSPARENT", "TRANSPARENT_FADE", "OUTLINED", "OUTLINED_FADE",
