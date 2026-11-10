@@ -220,10 +220,7 @@ inline Rva0046A915::Rva0046A915()
 struct Rva0046F543BannerIndexEntry;
 struct Rva0046F543Element2CC;
 
-struct Rva00462D35Mapped
-{
-	UnsignedInt m_bits;
-};
+#include "../../../../Include/Common/Rva00462D35Mapped.h"
 
 // A Coord3D zeroed on construction.
 struct Rva0046F543ZeroedCoord : public Coord3D

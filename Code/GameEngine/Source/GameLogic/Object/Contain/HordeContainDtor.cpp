@@ -95,7 +95,7 @@ struct FreeHolder
 	}
 };
 
-struct Rva00462D35Mapped { unsigned int m_bits; };
+#include "../../../../Include/Common/Rva00462D35Mapped.h"
 typedef _STL::pair<const int, Rva00462D35Mapped> HordeTreePair;
 typedef _STL::_Rb_tree<int, HordeTreePair, _STL::_Select1st<HordeTreePair>, _STL::less<int>, _STL::allocator<HordeTreePair> > HordeTree;
 
