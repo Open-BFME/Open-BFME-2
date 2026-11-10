@@ -1,0 +1,76 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00270260",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 25,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x43d": {
+    "1": 1
+   },
+   "0x43e": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 21,
+   "1087": 2,
+   "1090": 2
+  },
+  "views": 25,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1085,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1086,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1088,
+   "sources": [
+    "Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawSetModelState.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1089,
+   "sources": [
+    "Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawSetModelState.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
