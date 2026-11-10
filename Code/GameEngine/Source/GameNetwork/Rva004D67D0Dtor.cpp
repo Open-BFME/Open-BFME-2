@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ??1Rva004D67D0@@MAE@XZ retail 0x004D67D0 54B.
 // Dtor: vptr 0x00860560 then Wide releaseBuffer at +0x24 then vptr 0x00860130.
-// Evidence: caller 0x004D67B4 deleting dtor plus layout Rva004D6806 ints +0x1c/+0x20 UnicodeString +0x24 plus vtable pair.
+// Evidence: caller 0x004D67B4 deleting dtor plus layout Rva004D67D0 ints +0x1c/+0x20 UnicodeString +0x24 plus vtable pair.
 // ??0Rva004D67D0@@QAE@XZ retail 0x004D674D 103B.
 // Ctor: base ctor, vptr 0x00860560, both ints zeroed, the UnicodeString
 // built from an empty AsciiString temp (EH states 1 and 3), then type 30 at
@@ -37,6 +37,7 @@ class Rva004D67D0 : public NetCommandMsg
 {
 public:
 	Rva004D67D0();
+	virtual AsciiString getContentsAsAsciiString();
 protected:
 	virtual ~Rva004D67D0();
 private:

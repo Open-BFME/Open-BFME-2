@@ -6081,3 +6081,5 @@ $L5189,0x007977B6,"Renamed to Unwind@00b977b6 (object-symbol=$L5448) in ProfileP
 __ehhandler$?call@Rva005C2603View@@QAEXPAVRva005DDE01@@@Z,0x007A087C,"Renamed to __ehhandler$?slot1@Rva005C18F0@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743C4 slot 1)"
 ?call@Rva005C1BDEView@@QAEXPAVRva005DDE01@@@Z,0x005C1BDE,"Renamed to ?slot1@Rva005C1980@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743D0 slot 1)"
 __ehhandler$?call@Rva005C1BDEView@@QAEXPAVRva005DDE01@@@Z,0x007A06E1,"Renamed to __ehhandler$?slot1@Rva005C1980@@UAEXPAVRva005DDE01@@@Z by tools/rename.py (to-class: retail vftable 0x00C743D0 slot 1)"
+?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x004D6806,"Renamed to ?getContentsAsAsciiString@Rva004D67D0@@UAE?AVAsciiString@@XZ by tools/rename.py (to-class: retail vftable 0x00C60560 slot 3)"
+__ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791153,"Renamed to __ehhandler$?getContentsAsAsciiString@Rva004D67D0@@UAE?AVAsciiString@@XZ by tools/rename.py (to-class: retail vftable 0x00C60560 slot 3)"

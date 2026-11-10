@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ, retail 0x004D6806, 192 bytes.
-// Rva004D6806 contents: base NetCommandMsg::getContentsAsAsciiString plus
+// ?getContentsAsAsciiString@Rva004D67D0@@UAE?AVAsciiString@@XZ, retail 0x004D6806, 192 bytes.
+// Rva004D67D0 contents: base NetCommandMsg::getContentsAsAsciiString plus
 // "%s, action=%d reason = %d, filename=%s" with dwords +0x1c/+0x20 and
 // UnicodeString +0x24 translated to AsciiString.
 // Identity from callees translate 0x00038220, base 0x004D5B4C, format
@@ -29,17 +29,17 @@ __forceinline const char *GetStr004D6806(const AsciiString &asciiString)
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-class Rva004D6806 : public NetCommandMsg
+class Rva004D67D0 : public NetCommandMsg
 {
 public:
-	AsciiString getContentsAsAsciiString();
+	virtual AsciiString getContentsAsAsciiString();
 private:
 	int m_action;
 	int m_reason;
 	UnicodeString m_filename;
 };
 
-AsciiString Rva004D6806::getContentsAsAsciiString()
+AsciiString Rva004D67D0::getContentsAsAsciiString()
 {
 	AsciiString result;
 	AsciiString filenameAscii;
