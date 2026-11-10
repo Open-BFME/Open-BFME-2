@@ -19,7 +19,7 @@ struct Rva0020F832State { char pad[0x14]; int value; };
 
 struct Rva0020F832Node { char pad[0x24]; void *entry; char pad28[8]; int key; };
 
-class Rva00DFE1C8Host { public: void rva00212655(int key); };
+#include "../../../../GameEngine/Include/Common/Rva00DFE1C8Host.h"
 
 class LivingWorldManager;
 
