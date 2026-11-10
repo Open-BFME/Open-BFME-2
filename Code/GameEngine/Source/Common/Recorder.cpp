@@ -220,7 +220,7 @@ struct Rva002CF1FB {Rva002CF1FBNode*findByTemplateID(unsigned short);};
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/Common/SpecialPower.h"
 
-class SpecialPowerStore {public:const SpecialPowerTemplate*findSpecialPowerTemplateByID(unsigned);};
+#include "../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore*TheSpecialPowerStore;
 

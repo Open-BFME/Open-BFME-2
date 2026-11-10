@@ -14,11 +14,7 @@
 extern TerrainLogic *TheTerrainLogic;
 
 class SpecialPowerTemplate;
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 

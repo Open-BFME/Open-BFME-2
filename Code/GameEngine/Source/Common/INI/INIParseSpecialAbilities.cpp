@@ -21,11 +21,7 @@ typedef unsigned int UnsignedInt;
 // the final override, and the by-value return is the pushed temporary.
 static inline UnsignedInt idOf(const SpecialPowerTemplate *final) { return final->m_id; }
 
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 

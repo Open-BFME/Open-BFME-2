@@ -141,11 +141,7 @@ class Rva00425F10
 public:
 	static void parseStanceTemplateDefinition(INI *);
 };
-class SpecialPowerStore
-{
-public:
-	static void parseSpecialPowerDefinition(INI *);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 #include "../../../Include/Common/Upgrade.h"
 #include "../../../Include/GameLogic/WeaponStore.h"
 // ControlBarResizer points to the shared one-byte RET at 0x000B3FD0.

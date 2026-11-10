@@ -17,11 +17,7 @@
 #include "GameLogic/ScriptActionsBFME2.h"
 
 class SpecialPowerTemplate;
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../Include/Common/SpecialPowerStore.h"
 
 // Retail loads the named store at VA 0x00E02D4C before its template lookup.
 extern SpecialPowerStore *TheSpecialPowerStore;

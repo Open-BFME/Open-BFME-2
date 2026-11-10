@@ -458,10 +458,7 @@ public:
 	bool rva000C4080(const Object *a, const Object *b, CommandSourceType commandSource);
 };
 
-class SpecialPowerStore {
-public:
-    const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString s);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
