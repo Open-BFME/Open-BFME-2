@@ -319,3 +319,8 @@ The broader audit remains INCONCLUSIVE: unchanged AICowerState_onEnter.cpp
 lacks a current receipt (index c885072a48/base93e2f70268). The three held
 inherited-name gaps persist; carry both dependencies into the next
 census/image rather than reporting full link/bridge clearance.
+
+2026-11-09/10 `OptionPreferences` (`0x00804CE8`) fold:
+- Adopted `Code/GameEngine/Include/Common/OptionPreferences.h` in `Rva00238A61Volume.cpp`, `Rva005183A0Finish.cpp`, and `Rva0051847BAudio.cpp` (dropping unused `class Rva002E4272` in `Rva0023C322Resolution.cpp`, retiring 3 `OptionPreferences` header-queue rows), then folded `Rva002E4272` (`0x002E4272`/`0x002E42D2`) into `OptionPreferences` in place inside `Rva003B1F65Derived.cpp` (`UserPreferences.h` + `OptionPreferences.h`, retiring its `UserPreferences` header-queue row).
+- Both `OptionsMenu.obj` and `Rva003B1F65Derived.obj` emit identical 13-slot `??_7OptionPreferences@@6B@` (`SELECT_ANY`, 0 slot mismatches against retail `0x00804CE8`) and 28 B `??_GOptionPreferences@@UAEPAXI@Z`; `Rva005183A0Finish.cpp` (1) and `FirewallHelper.cpp` (2) retire 3 `/alternatename` hatches and `reverse/symbols.csv` retires the `??1OptionPreferences@@UAE@XZ` pin (`hatch_counters.py --update`).
+- Scoped verification: 72/72 matched (`build.py`), 10/10 exact EH graphs, 19/20 `link_check.py` cleanly (census `a946a2c6d1`, LINKED `60,911 -> 60,911` bytes; `PeerThread.cpp` unchanged pre-existing blockers). Next-image confirmation pending; `ProfilePreferences` / `Rva00535776` remains in `Rva003B1F65Derived.cpp`.

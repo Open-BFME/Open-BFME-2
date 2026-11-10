@@ -41,9 +41,7 @@
 #include "ascii_string.h"
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define Matrix4x4 Matrix4  // BFME renamed it
-#pragma comment(linker, "/alternatename:??1OptionPreferences@@UAE@XZ=??1Rva002E4272@@UAE@XZ")
 #define Matrix4x4 Matrix4  // BFME renamed it
-#pragma comment(linker, "/alternatename:??1OptionPreferences@@UAE@XZ=??1Rva002E4272@@UAE@XZ")
 
 // BFME2 native NAT port allocation helper at 594F19, 263B.
 // ZH FirewallHelper::getNATPortAllocationScheme is the semantic donor at BFME1

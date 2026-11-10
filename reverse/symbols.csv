@@ -2916,7 +2916,6 @@ name,address,notes
 ??1ObjectModule@@MAE@XZ,0x0049B47C,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??1ObjectModule@@UAE@XZ,0x0049B47C,public-virtual spelling of the ObjectModule dtor for the slot-0 ??_G at 0x4A10FD (same address as the MAE pin and FX fold rows; dtor body itself unclaimed, 7B mov-vptr-ret fold point)
 ??1Open2Rec5822D0@@QAE@XZ,0x002207C4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1OptionPreferences@@UAE@XZ,0x002E4272,OptionPreferences dtor: vtable 0xC04CE8 slot 0 is the deleting dtor 0x2E42D2 (rowed ??_GRva002E4272) which calls this body; REL32 at 0x00235890
 ??1Overridable@@MAE@XZ,0x00548948,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1PB_DeepBase@@UAE@XZ,0x0002CCC3,address read from the REL32 displacement at a placed body
 ??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,0x001FBEB7,"seat-14 dtor tail call target: retail 0x1FBF4D leas ecx=[esi+0xa4] and calls here; unproven Ghidra boundary (gap); opaque BFME2-local tail name, no donor"
