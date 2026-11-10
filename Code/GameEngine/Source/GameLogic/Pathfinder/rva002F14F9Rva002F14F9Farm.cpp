@@ -132,10 +132,7 @@ class Path
  Bool blockedByAlly;
  char padE[0x28-0xe];
 };
-struct Rva002E8C23Pair
-{
- Int x,y;
-};
+#include "../../../Include/Common/Rva002E8C23Pair.h"
 int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);
 bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;

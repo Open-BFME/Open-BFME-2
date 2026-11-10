@@ -766,11 +766,7 @@ typedef void (__cdecl *Rva002E79A8View)(int, unsigned char, int, int, int);
 #include "../../../Include/Common/Rva002EBC7FPair.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-struct Rva002E8C23Pair
-{
-	int m00;
-	int m04;
-};
+#include "../../../Include/Common/Rva002E8C23Pair.h"
 // ?Rva002E8C4DCall@@YAHHEPAURva002E8C23Pair@@H@Z @0x002E8C4D 33B: free cdecl wrapper
 // passing through two ints plus fields from ptr+0/+4 to pinned 0x002E79A8;
 // evidence pin ?rva002E79A8@@YAXHEHHH@Z and LINK 5 files plus adjacent row 0x002E8C23.

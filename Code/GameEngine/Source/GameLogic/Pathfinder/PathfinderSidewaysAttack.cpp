@@ -64,7 +64,7 @@ class Pathfinder;
 class PathfindCell;
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-struct Rva002E8C23Pair { Int x,y; };
+#include "../../../Include/Common/Rva002E8C23Pair.h"
 int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);
 bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;

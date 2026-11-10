@@ -156,7 +156,7 @@ private:
 	Int m_refCount;PathNode *firstNode;PathNode *lastNode;char wordC;Bool blockedByAlly;char padE[0x28-0xe];
 };
 
-struct Rva002E8C23Pair { Int x,y; };
+#include "../../../Include/Common/Rva002E8C23Pair.h"
 struct PathfinderCellPoint : Coord3D {
 	__forceinline PathfinderCellPoint() {}
 	__forceinline PathfinderCellPoint(const PathfinderCellPoint &pathfinderCellPoint) { x = pathfinderCellPoint.x; y = pathfinderCellPoint.y; z = pathfinderCellPoint.z; }
