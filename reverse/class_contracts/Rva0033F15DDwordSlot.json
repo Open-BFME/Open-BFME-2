@@ -1,0 +1,61 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0033F15DDwordSlot",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 16,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x6c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 14,
+   "112": 2
+  },
+  "views": 16,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "lead",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 108,
+   "type": "char[108]",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002AA756.cpp",
+    "Code/GameEngine/Source/Common/RTS/Player_Radar.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 112,
+ "size_by": "majority",
+ "vslots": {}
+}
