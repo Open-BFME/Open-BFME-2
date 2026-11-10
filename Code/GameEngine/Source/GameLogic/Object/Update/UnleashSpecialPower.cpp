@@ -29,9 +29,9 @@ class Thing;
 
 class ModuleData;
 
-static int s_dummy0C;
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
 
-static int s_dummy10;
+extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
 
 // The data ledger assigns the +0x20 table symbol (0x0085FD98) to
 // ModuleUpdateDtors; share that definition rather than allocating a second datum.
@@ -85,8 +85,8 @@ void UnleashSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &multiIni
 UnleashSpecialPower::UnleashSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummyFD98;
 }
 
