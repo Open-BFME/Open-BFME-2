@@ -191,9 +191,22 @@ table->AddStat(3,6,Rva005DD822(prefs->rva0053616D()),true);
 // WB1592C10 repeats the six-faction persistent-stat builder with the RTS
 // rows26/28..31/33..34 and a zero total-column weight. The shared string
 // and display-record ABI comes from the independently matched builder above.
-// Receiver identity remains unknown; native LEA EDI,[ECX+8] proves prefs+8.
-class Rva005C2603View {public:void call(Rva005DDE01*);};
-void Rva005C2603View::call(Rva005DDE01*table){
+// Slot 1 of Rva005C18F0's vtable 0x008743C4; native LEA EDI,[ECX+8] proves prefs+8.
+class Rva005C1860
+{
+public:
+	virtual ~Rva005C1860();
+	virtual void slot1(Rva005DDE01 *table) = 0;
+	virtual UserPreferences *slot2() = 0;
+};
+class Rva005C18F0 : public Rva005C1860
+{
+public:
+	virtual ~Rva005C18F0();
+	virtual void slot1(Rva005DDE01 *table);
+	virtual UserPreferences *slot2();
+};
+void Rva005C18F0::slot1(Rva005DDE01*table){
 UserPreferences*prefs=(UserPreferences*)((char*)this+8);
 for(int side=0;side<6;++side){AsciiString faction(g_rva0033A3F4Table[side]);int wins=prefs->rva00535BF6(faction);int losses=prefs->rva00535CE4(faction);for(int row=0;row<37;++row){switch(row){
 case 0:{table->AddStat(0,side,Rva005DD822(prefs->rva00535D75(faction)),true);break;}

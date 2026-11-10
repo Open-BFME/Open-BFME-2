@@ -30,6 +30,7 @@ class Rva005C18F0 : public Rva005C1860
 {
 public:
 	virtual ~Rva005C18F0();
+	virtual void slot1(Rva005DDE01 *table);
 	virtual UserPreferences *slot2();
 private:
 	char m_pad04[4];

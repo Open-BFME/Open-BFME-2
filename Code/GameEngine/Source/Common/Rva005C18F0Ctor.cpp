@@ -42,6 +42,7 @@ class Rva005C18F0 : public Rva005C1860
 public:
 	Rva005C18F0();
 	virtual ~Rva005C18F0();
+	virtual void slot1(Rva005DDE01 *table);
 	virtual UserPreferences *slot2();
 private:
 	StrategicStatsPreferences m_08;
