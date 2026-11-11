@@ -120,12 +120,34 @@ def test_sizes_agree_with_byte_matched_rows(inventory):
     assert sizes[0x240E] == 75        # ??1ParticleSystemInfo@FXParticleSystem@@UAE@XZ
 
 
+def byte_verified_extents():
+    """{(rva, size)} the ledger has byte-verified, which outrank the inventory.
+
+    The repair never reaches past the next inventoried function, so it cannot
+    create an overlap. The export can: it "only ever gains appended FUN_ rows",
+    and one appended INSIDE an already repaired body makes that body look
+    overlapping. FUN_0061ed9c (154B) sits 234 bytes into FUN_0061ecb2 (388B),
+    whose extent the ledger holds matched as
+    ?parseCreateAHeroBlingBinderDefinition@@YAXPAVINI@@@Z -- so the later start
+    is the artefact and the repaired size is right. A repair with no such
+    corroboration still fails below.
+    """
+    import csv
+    with (REPO / "reverse" / "functions.csv").open(newline="", encoding="utf-8") as handle:
+        return {(int(r["target_rva"], 16), int(r["target_size"]))
+                for r in csv.DictReader(handle)
+                if r.get("status") == "matched" and (r.get("target_rva") or "").startswith("0x")}
+
+
 def test_no_repaired_body_overlaps_the_next_function(inventory):
     image, rows = inventory
     assert image.read(0x629188, len(fix.EH_PROLOG)) == fix.EH_PROLOG
+    verified = byte_verified_extents()
     ordered = sorted(rows)
     for (rva, size, name), (after, _size, _name) in zip(ordered, ordered[1:]):
         if size != fix.PROLOG_CALL and fix.eh_prolog_target(image, rva) == 0x629188:
+            if rva + size > after and (rva, size) in verified:
+                continue        # the ledger proves this extent; the later start is spurious
             assert rva + size <= after, f"{name} at {rva:#x} overlaps {after:#x}"
 
 

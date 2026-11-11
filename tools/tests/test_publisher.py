@@ -311,6 +311,11 @@ def test_no_verify_direct_push_is_only_stopped_by_the_admin_ruleset(world):
     # with the ruleset: the direct push is refused, the bot's push is accepted
     hook = world.origin / "hooks" / "pre-receive"
     hook.write_text(RULESET, newline="\n")
+    # Git runs only an executable hook, and silently ignores one that is not.
+    # Written 0644 the ruleset never ran, the direct push this test exists to
+    # see refused went through, and the assertion below read that as the server
+    # having no ruleset at all.
+    hook.chmod(0o755)
     git(world.origin, "config", "receive.advertisePushOptions", "true")
     cfg = json.loads((world.state / "config.json").read_text())
     cfg["push_options"] = ["publisher-bot=s3cret"]
