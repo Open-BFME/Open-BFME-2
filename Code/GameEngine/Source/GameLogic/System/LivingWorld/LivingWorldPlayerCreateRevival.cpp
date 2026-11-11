@@ -99,7 +99,7 @@ void LivingWorldPlayer::rva002E3442(const RevivalSourceView*const *source,const 
 // mode. WB DE5DF0 supplies the same template lookup/revival construction.
 // Keep the admitted static helper visible: ordinary MSVC optimization selects
 // its witnessed EBX template input, without a handwritten calling convention.
-class Rva0037DCA5 { public: void *GetThingTemplate(); };
+#include "../../../../Include/Common/Rva0037DCA5.h"
 struct Rva0040DD3ARef { const RevivalSourceView *value; };
 class Rva002E34A9 { public:
  void rva002E34A9(const Rva0040DD3ARef &,int);

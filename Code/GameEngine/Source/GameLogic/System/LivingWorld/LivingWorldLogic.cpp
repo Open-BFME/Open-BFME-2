@@ -1030,12 +1030,7 @@ extern ThingFactory *TheThingFactory;
 // (+0x18), through the rowed StringBase compare 0x000069D6.
 
 // The target army's room for an entry: rowed 0x00319413.
-class Rva0037DCA5
-{
-public:
-	Int GetCommandPointSize();					// 0x0037DCA5
-	void *GetThingTemplate();					// 0x0037DC52, template lookup
-};
+#include "../../../../Include/Common/Rva0037DCA5.h"
 class Rva003193EC
 {
 public:

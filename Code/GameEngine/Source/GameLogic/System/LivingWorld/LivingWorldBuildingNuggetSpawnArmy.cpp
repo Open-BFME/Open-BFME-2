@@ -66,11 +66,7 @@ struct Rva004FA83ETemplate
 	unsigned char m_kind113;	// +0x113, bit 2 tested
 };
 
-class Rva0037DCA5
-{
-public:
-	void *GetThingTemplate();
-};
+#include "../../../../Include/Common/Rva0037DCA5.h"
 
 class Rva004E0705
 {

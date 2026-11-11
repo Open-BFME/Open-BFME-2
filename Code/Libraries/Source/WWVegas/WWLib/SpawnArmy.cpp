@@ -224,11 +224,7 @@ class Rva0040CB2CIndexedField
 public:
 	int get(int index) const;
 };
-class Rva0037DCA5
-{
-public:
-	void *GetThingTemplate();
-};
+#include "../../../../GameEngine/Include/Common/Rva0037DCA5.h"
 struct Rva004E23E2Pair
 {
 	char m_pad[0x40];

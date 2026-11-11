@@ -79,7 +79,7 @@ struct Rva0031A02ASummary { char opaque00[0x1C]; int owner; };
 
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
-class Rva0037DCA5 { public: void *GetThingTemplate(); };
+#include "../../../../Include/Common/Rva0037DCA5.h"
 class ExperienceLevelList;
 class ExperienceLevelIterator {
 public:
