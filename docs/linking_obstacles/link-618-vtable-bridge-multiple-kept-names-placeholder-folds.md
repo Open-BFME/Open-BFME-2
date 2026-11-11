@@ -231,6 +231,15 @@ Clearance: none claimed (no new real link measured). Census confirmation: none c
     (`?rva000E4886@Rva000E4886`), 0x000E5A25 (`?name@Rva000E5A25Named`) and 0x000E6186
     (`?DoXfer@W3DFloorBuffer`), all rowed in W3DFloorBuffer.cpp as non-virtual placeholders. Fold the class
     and make those Snapshot's three overrides, in W3DFloorBuffer.cpp and Rva000E59D3Dtor.cpp together.
+    On 2026-11-11 at `20a4f5a13d`, the destructor unit adopted STLport's
+    `<list>`, removing its private allocator, list base and list definitions.
+    Its seven rows byte-match, including the three unwind funclets. A scoped
+    link preview with the constructor retains 5,194 bytes on index `60189f9ced`.
+    The bridge at 0x007CE9E0 remains open. The class-fold dry run requires
+    a native tie to W3DFloorBuffer. The virtual-respell dry run for DoXfer
+    recognizes slot 3 but attributes the table to Rva000E59D3. The destructor
+    change resolves the private STLport type collision only; a combined TU
+    and the final four-slot table still need verification.
   - Not examined this pass: `Rva003B4100` and `Rva0025EF18` (own 14B/11B destructors, so the Snapshot alias
     may be a ledger error), `SnapC8` (Rva0006D0D7Dtor.cpp), `ResourceGatheringManagerBase`,
     `Rva0022CE19SnapshotBase` (4 emitters, GameInfoSlotView.h), `W3DTreeDrawModuleDataBase` (the derived
