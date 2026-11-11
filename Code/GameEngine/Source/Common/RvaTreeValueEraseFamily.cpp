@@ -741,7 +741,7 @@ void Rva005007CF::rva00500AA6()
 	m_04Flag = 0;
 }
 
-class Rva00053DC5 { public: ~Rva00053DC5(); };
+#include "../../Include/Common/Rva00053DC5.h"
 
 // ??1Rva005344C0@@QAE@XZ @0x005344C0 8B: pair value, second member Rva00053DC5 at +4.
 // Defined once by Rva00534A2AMapSubscript.cpp's identical-layout pair (which

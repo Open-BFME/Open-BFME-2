@@ -7,7 +7,7 @@
 // int/void* spelling on the shared empty-map constructor or insertion wrapper.
 // A direct default-map temporary preserves constructor EAX for pair creation;
 // forwarding through a storage constructor needlessly recomputes its address.
-struct Rva00053DC5 { ~Rva00053DC5(); };
+#include "../../../../GameEngine/Include/Common/Rva00053DC5.h"
 namespace _STL {
 template<class T> class allocator;
 template<class T> struct less;

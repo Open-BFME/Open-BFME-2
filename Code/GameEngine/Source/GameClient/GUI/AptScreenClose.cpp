@@ -181,11 +181,7 @@ void _bfme_closeAptScreen(const AsciiString &name)
     g_theAptScreenRefMap->erase(name);
 }
 
-class Rva00053DC5
-{
-public:
-	~Rva00053DC5();
-};
+#include "../../../Include/Common/Rva00053DC5.h"
 
 class Rva000559CB
 {

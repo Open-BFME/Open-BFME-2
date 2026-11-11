@@ -780,11 +780,7 @@ void Rva0005A07F::rva0005A07F(const Rva0036CA00Str &value)
 
 // 0x000554F5 (5B), unreferenced: forwarder to the rowed
 // Rva00053DC5::rva00054B9A (0x00054B9A) of the object at +0.
-class Rva00053DC5
-{
-public:
-	void rva00054B9A();
-};
+#include "../../Include/Common/Rva00053DC5.h"
 
 class Rva000554F5
 {

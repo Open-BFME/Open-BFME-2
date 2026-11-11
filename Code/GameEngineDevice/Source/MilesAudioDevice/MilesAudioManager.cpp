@@ -4269,7 +4269,7 @@ void MilesAudioManager::startPendingMusicTracks(void)
 }
 // Retail 0x0002E36D5Find: the polygon trigger with this ID, or null.
 void *Rva002E36D5Find(int id);
-class Rva00053DC5 { public: void rva00054B9A(void); };
+#include "../../../GameEngine/Include/Common/Rva00053DC5.h"
 class Rva00056DA2 { public: void rva00056DA2(void); };
 #include "../../../GameEngine/Include/Common/XferException.h"
 // WorldBuilder twin 0x7AB6E0 (MilesAudioManager::LoadPostProcess, assert at
