@@ -1350,7 +1350,10 @@ def param_key(param, top=True):
                                             re.sub(r"\s+", "", pointer["scope"] + pointer["star"])]))
         bounds = [re.sub(r"\s+", "", b) for b in re.findall(r"\[[^\]]*\]", pointer["bounds"])]
         if top and bounds:                       # an array of pointers as a parameter is a pointer to one:
-            declarator, bounds = declarator + "*", bounds[1:]       # `(*p[2])[4]` -> `(**)[4]`
+            # `(*p[2])[4]` -> `(**)[4]`; the element pointer's own cv is no longer top-level, so it
+            # stays: `(*const p[2])(int)` -> `(*const*)(int)`
+            own = "".join(pointer["cv"].split())
+            declarator, bounds = declarator + own + "*", bounds[1:]
         declarator += "".join(bounds)            # a field keeps them: `(*cb[2])(int)` -> `(*[2])(int)`
         base = param_key(pointer["base"], False)
         rest = pointer["rest"]
@@ -1564,6 +1567,9 @@ def member_role(member, short):
     if re.match(r"(?:class|struct|union|enum)\b", rest) and ("{" in LITERAL.sub("", member)
                                                              or re.match(r"\w+\s+\w+\s*;?$", rest)):
         return "nested"
+    if re.match(r"(?:(?:const|volatile|mutable|static)\s+)+(?:class|struct|union|enum)\b", rest) \
+            and "{" in LITERAL.sub("", member):
+        return "nested"                          # `const struct N { ... } s;`: a named type defined here
     if prefix and not re.search(r"\(", rest):
         return "nested"                          # a member class template's declaration
     rest = re.sub(r"^(?:class|struct|union|enum)\s+", "", rest)

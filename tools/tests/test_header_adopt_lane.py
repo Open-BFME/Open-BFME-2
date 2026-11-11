@@ -1194,6 +1194,20 @@ def test_a_list_mixing_a_field_and_a_function_holds():
     assert len(problems) == 1 and "a declaration of several members" in problems[0]
 
 
+def test_a_decayed_parameter_array_keeps_its_element_pointers_cv():
+    key = lambda member: lane.declaration_records("class C { public: %s };\n" % member, "C")[0]["key"]  # noqa: E731
+    assert key("void f(void (*const p[2])(int));") == "f(void(*const*)(int))"
+    assert key("void f(void (*p[2])(int));") == "f(void(**)(int))"
+    assert key("void f(void (*const p)(int));") == key("void f(void (*p)(int));")   # top-level cv: none
+
+
+def test_a_qualified_named_nested_type_holds():
+    view = "struct C { const struct N { int a; } s; int m; };\n"
+    assert [r["role"] for r in lane.declaration_records(view, "C")] == ["nested"]
+    _, problems = special("C", {"a.cpp": view})
+    assert len(problems) == 1 and "a nested declaration" in problems[0]
+
+
 def test_a_qualified_unnamed_struct_member_is_one_field():
     view = "struct C { const struct { int a; } s; int m; };\n"
     assert lane.declaration_records(view, "C") == []
