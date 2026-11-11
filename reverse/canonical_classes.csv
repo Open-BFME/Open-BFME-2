@@ -1117,3 +1117,4 @@ AptConnectionScreen,Code/GameEngine/Include/GameClient/AptConnectionScreen.h,exi
 BfmeCopyElementA,Code/GameEngine/Include/Common/BfmeCopyElementA.h,existing header; contract class_contracts/BfmeCopyElementA.json; 4/7 sampled units adopt
 Rva002000D7Store,Code/GameEngine/Include/Common/Rva002000D7Store.h,existing header; contract class_contracts/Rva002000D7Store.json; 5/6 sampled units adopt
 AnimationSoundModuleManager,Code/GameEngine/Include/Common/AnimationSoundModuleManager.h,existing header; contract class_contracts/AnimationSoundModuleManager.json; 3/5 sampled units adopt
+BfmeResultForwardB,Code/GameEngine/Include/Common/BfmeResultForwardB.h,existing header; contract class_contracts/BfmeResultForwardB.json; 5/6 sampled units adopt

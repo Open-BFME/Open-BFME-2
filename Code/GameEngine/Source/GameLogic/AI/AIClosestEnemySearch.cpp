@@ -289,7 +289,7 @@ extern AI *TheAI;
 // The whole-map query 0x006256F0 is rowed returning a one-word result; the
 // call here uses it as the iterator.
 struct BfmeResultA { void *value; BfmeResultA(); BfmeResultA(const BfmeResultA &); ~BfmeResultA(); };
-class BfmeResultForwardB { public: BfmeResultA bfmeForwardResultB(int); };
+#include "../../../Include/Common/BfmeResultForwardB.h"
 typedef BfmeWideResult (BfmeResultForwardB::*AllObjectsCall)(int);
 // Retail inlines the result copy (bump the shared record's +0x10 count) when
 // the ternary's temporary initialises the iterator; the shared view only

@@ -42,11 +42,7 @@ struct BfmeResultA
 	~BfmeResultA();
 };
 
-class BfmeResultForwardB
-{
-public:
-	BfmeResultA bfmeForwardResultB(int value);
-};
+#include "../../../Include/Common/BfmeResultForwardB.h"
 
 class ModuleInterface
 {

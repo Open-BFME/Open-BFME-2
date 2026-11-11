@@ -1262,11 +1262,7 @@ struct BfmeResultA
 	~BfmeResultA();
 };
 // ThePartitionManager's filtered all-objects query (0x006256F0).
-class BfmeResultForwardB
-{
-public:
-	BfmeResultA bfmeForwardResultB(int value);
-};
+#include "../../../Include/Common/BfmeResultForwardB.h"
 // GeometryInfo's assignment (0x00064605).
 #include "../../../Include/Common/BfmeCopyElementA.h"
 Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);

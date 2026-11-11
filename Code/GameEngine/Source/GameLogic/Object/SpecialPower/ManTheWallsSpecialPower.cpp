@@ -161,7 +161,7 @@ struct BfmeResultA { void *m_value; BfmeResultA(); BfmeResultA(const BfmeResultA
   if (static_cast<BfmeWideResultPayload *>(payload)->m_refCount == 0)
    delete static_cast<BfmeWideResultPayload *>(payload);
  } };
-class BfmeResultForwardB { public: BfmeResultA bfmeForwardResultB(int); };
+#include "../../../../Include/Common/BfmeResultForwardB.h"
 extern PartitionManager *ThePartitionManager;
 
 

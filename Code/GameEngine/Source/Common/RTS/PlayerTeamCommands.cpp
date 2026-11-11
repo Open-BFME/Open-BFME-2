@@ -59,11 +59,7 @@ public:
 	void *m_value; // +0x00
 };
 
-class BfmeResultForwardB
-{
-public:
-	BfmeResultA bfmeForwardResultB(int value);
-};
+#include "../../../Include/Common/BfmeResultForwardB.h"
 
 extern PartitionManager *ThePartitionManager;
 
