@@ -140,7 +140,7 @@ public:
 	virtual void slot20(int value);
 };
 
-class RadarWindowOverrideSource { public: void rva002D337F(); };
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 class GameLogic;

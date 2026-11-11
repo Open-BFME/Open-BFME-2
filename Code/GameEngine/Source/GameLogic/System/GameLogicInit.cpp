@@ -2938,11 +2938,7 @@ public:
 	bool bfmeAskRV(void);
 };
 
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D55EF(void);
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 
 class Rva0022C4DF
 {

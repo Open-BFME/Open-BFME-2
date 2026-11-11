@@ -44,7 +44,7 @@ void InitGameLogicRandom(unsigned);
 extern MessageStream *TheMessageStream;
 class Rva0023DC8E { public: void rva0023DC8E(const AsciiString &); };
 class Rva0023DCCE { public: void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &); };
-class RadarWindowOverrideSource { public: void rva002D4240(bool); };
+#include "../../../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 class InGameUI;
 extern InGameUI *TheInGameUI;

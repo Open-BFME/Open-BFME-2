@@ -8,11 +8,7 @@ public:
 	void rva002D36C3(void *p);
 };
 
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D3615(bool value);
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 extern int BfmeClientFramesPerSecond;

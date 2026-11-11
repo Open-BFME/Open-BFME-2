@@ -45,7 +45,7 @@ struct MouseVisibilityView {
     virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
     virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(bool);
 };
-class RadarWindowOverrideSource { public: void rva002D4240(bool); };
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 class InGameUI;
 extern InGameUI *TheInGameUI;

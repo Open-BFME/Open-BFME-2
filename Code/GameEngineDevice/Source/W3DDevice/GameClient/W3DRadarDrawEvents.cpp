@@ -6,7 +6,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 class RadarEventRef {public:void release();};
 class RadarEventRefSlot {public:RadarEventRefSlot():ptr(0){}RadarEventRefSlot(const RadarEventRefSlot&s):ptr(s.ptr){}~RadarEventRefSlot(){if(ptr)ptr->release();}RadarEventRefSlot&operator=(const RadarEventRefSlot&);RadarEventRef*ptr;};
-class RadarWindowOverrideSource {public:RadarEventRefSlot rva002D508B(const char*);};
+#include "../../../../GameEngine/Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource*theRadarWindowOverrideSource;
 class Rva002D3366 {public:void rva002D3366(float,float);};
 class Rva002D5333 {public:virtual~Rva002D5333();virtual void rva002D3D2A();virtual void rva002D4AEF(float,float);virtual void DoStartFade();__declspec(noinline) void rva005CB265();};

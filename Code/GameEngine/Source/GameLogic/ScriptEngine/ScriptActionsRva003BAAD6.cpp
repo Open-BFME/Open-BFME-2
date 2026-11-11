@@ -163,11 +163,7 @@ void ScriptActions::doMoviePlayRadar(const AsciiString &name)
 	Rva00DFEDF0->s087(name);
 }
 
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D3615(bool value);
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 
 #define Rva00DFF028 theRadarWindowOverrideSource
 

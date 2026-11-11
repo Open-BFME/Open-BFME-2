@@ -33,11 +33,7 @@ struct BfmeRadarMapPoint : Coord2D {
 extern View *TheTacticalView;
 
 struct BfmePod8 { int fields[2]; };
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D55D2(const BfmePod8 *corners);
-};
+#include "../../../../../GameEngine/Include/Common/RadarWindowOverrideSource.h"
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 

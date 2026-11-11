@@ -419,11 +419,7 @@ extern GlobalA03314 *g_Va00A03314;
 void *Rva0043C9B3Get(void);
 
 // TheAptPalantir's BFME 2 counterpart (RadarWindowOverride.cpp).
-class RadarWindowOverrideSource
-{
-public:
-	bool hasOverrideWindow() const;
-};
+#include "../../../Include/Common/RadarWindowOverrideSource.h"
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
