@@ -24,7 +24,7 @@ class Rva0020EB4EOuter {public:void rva0020EB4E(void*);};
 class Rva003F7478 {public:void rva003F7465(float);void rva003F7478(float);};
 class Rva003F74A0 {public:void rva003F74A0(float);};
 class LivingWorldAutoResolveBattleBonus {public:void GetFinalBonuses(float*,float*,float*);};
-class Rva004E05E9DwordField {public:int get()const;};
+#include "../../../../Include/GameNetwork/Rva004E05E9DwordField.h"
 class LivingWorldAutoResolveReinforcementSchedule {public:int getRoundForArmyNumber(int);};
 class LivingWorldAutoResolveResourceBonusSchedule {public:int*getBonusForResourceAmount(int);};
 struct Rva00413E27Bucket;

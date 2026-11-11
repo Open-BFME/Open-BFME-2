@@ -87,7 +87,7 @@ public:
 	char m_1CC[0x1d8 - 0x1cc];
 	BfmeFixedStorage128 m_1D8;
 };
-class Rva004E05E9DwordField { public: int get() const; };
+#include "../../../Include/GameNetwork/Rva004E05E9DwordField.h"
 
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 

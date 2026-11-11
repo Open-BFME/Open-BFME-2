@@ -43,11 +43,7 @@ class Rva0028A65EDwordField
 public:
 	Int get() const;
 };
-class Rva004E05E9DwordField
-{
-public:
-	Int get() const;
-};
+#include "../../Include/GameNetwork/Rva004E05E9DwordField.h"
 class Rva0025DE76Slot
 {
 public:
