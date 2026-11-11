@@ -1001,3 +1001,4 @@ DoCommandUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/DoCommandUpg
 Rva0054CBEFTarget,Code/GameEngine/Include/Common/Rva0054CBEFTarget.h,existing header; contract class_contracts/Rva0054CBEFTarget.json; 6/7 sampled units adopt
 Rva002A7389,Code/GameEngine/Include/GameLogic/Rva002A7389.h,existing header; contract class_contracts/Rva002A7389.json; 6/7 sampled units adopt
 Rva0060126D,Code/GameEngine/Include/Common/Rva0060126D.h,existing header; contract class_contracts/Rva0060126D.json; 6/12 sampled units adopt
+PathfinderPosGoalManager,Code/GameEngine/Include/GameLogic/Module/PathfinderPosGoalManager.h,existing header; contract class_contracts/PathfinderPosGoalManager.json; 4/8 sampled units adopt

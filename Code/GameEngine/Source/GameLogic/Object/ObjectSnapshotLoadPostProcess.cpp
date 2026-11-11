@@ -34,7 +34,7 @@ enum ObjectStatusTypes{STATUS_51=51};
 class Object;
 #include "../../Common/Thing/thing.h"
 #include "../../../Include/Common/ThingTemplate.h"
-class PathfinderPosGoalManager{public:void LoadPostProcess();};
+#include "../../../Include/GameLogic/Module/PathfinderPosGoalManager.h"
 struct CameraMarker{~CameraMarker();CameraMarker*index;AsciiString name;};
 namespace _STL {
 template <> __declspec(dllimport) __forceinline

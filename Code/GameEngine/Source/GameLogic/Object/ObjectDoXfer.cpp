@@ -301,12 +301,7 @@ public:
 	int m_value;
 };
 
-class PathfinderPosGoalManager
-{
-public:
-	bool rva004DE2ED(); // rowed 0x004DE2ED returns bool; this caller ignores it
-	void rva004DD658(Xfer *xfer);
-};
+#include "../../../Include/GameLogic/Module/PathfinderPosGoalManager.h"
 
 class Rva004DDF3A
 {

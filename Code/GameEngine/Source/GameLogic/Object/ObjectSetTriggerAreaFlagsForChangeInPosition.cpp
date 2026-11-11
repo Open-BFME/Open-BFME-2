@@ -96,12 +96,7 @@ extern Rva002E373CHolder *g_Va00DBD0F4;
 #include "../../../Include/Common/TeamBFME2.h"
 
 class Xfer;
-class PathfinderPosGoalManager
-{
-public:
-	bool rva004DE2ED(); // rowed 0x004DE2ED returns bool; this caller ignores it
-	void rva004DD658(Xfer *xfer);
-};
+#include "../../../Include/GameLogic/Module/PathfinderPosGoalManager.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 // Readers on the canonical ThingTemplate: the kind-mask dword test and the

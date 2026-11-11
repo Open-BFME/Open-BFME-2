@@ -1,0 +1,242 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PathfinderPosGoalManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 8
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 4
+   },
+   "0x24": {
+    "4": 4
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 16,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "44": 1,
+   "76": 3
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 8
+   },
+   "size": 4,
+   "type": "Object*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 76,
+ "size_by": "majority",
+ "vslots": {}
+}
