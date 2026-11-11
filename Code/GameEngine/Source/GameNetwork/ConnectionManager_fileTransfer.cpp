@@ -142,12 +142,7 @@ public:
 	Rva004D598E();
 };
 
-class NetCommandWrapperList
-{
-public:
-	void processWrapper(NetCommandRef *ref);
-	Int getPercentComplete(UnsignedShort wrappedCommandID);
-};
+#include "../../Include/GameNetwork/NetCommandWrapperListClass.h"
 
 // Zero Hour's max is a macro that evaluates the larger argument twice; this
 // body reads the progress once and picks between the two by reference.

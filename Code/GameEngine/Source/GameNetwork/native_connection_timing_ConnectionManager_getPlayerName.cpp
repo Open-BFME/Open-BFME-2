@@ -168,13 +168,7 @@ public:
 // Packet fields remain four-packed: address is at +0x1E4 and sizeof is 0x200.
 #pragma pack(push, 4)
 #pragma pack(pop)
-class NetCommandWrapperList
-{
-public:
-	NetCommandList *getReadyCommands();
-	void processWrapper(NetCommandRef *ref);
-	int getPercentComplete(unsigned short commandID);
-};
+#include "../../Include/GameNetwork/NetCommandWrapperListClass.h"
 class Network;
 struct BFMEReceiveNetworkVTable
 {

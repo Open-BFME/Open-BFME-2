@@ -113,11 +113,7 @@ private:
 
 #include "../../Include/GameNetwork/NetCommandListClass.h"
 
-class NetCommandWrapperList
-{
-public:
-	NetCommandList *getReadyCommands();
-};
+#include "../../Include/GameNetwork/NetCommandWrapperListClass.h"
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 
