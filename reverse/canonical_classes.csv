@@ -1129,3 +1129,4 @@ Rva005D3AF2,Code/GameEngine/Include/Common/Rva005D3AF2.h,existing header; contra
 GameStateMap,Code/GameEngine/Include/Common/GameStateMapClass.h,existing header; contract class_contracts/GameStateMap.json; 3/5 sampled units adopt
 Rva005CCE13,Code/GameEngine/Include/GameClient/Rva005CCE13.h,existing header; contract class_contracts/Rva005CCE13.json; 5/6 sampled units adopt
 RiverArea,Code/GameEngine/Include/Common/RiverArea.h,existing header; contract class_contracts/RiverArea.json; 3/5 sampled units adopt
+Rva001166E0,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva001166E0.h,existing header; contract class_contracts/Rva001166E0.json; 4/6 sampled units adopt

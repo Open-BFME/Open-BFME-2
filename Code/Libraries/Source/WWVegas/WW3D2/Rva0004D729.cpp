@@ -5,11 +5,7 @@
 // Evidence: push 0x20/0x1c/0x18/0x14/0x10 call 0x1166E0 / mov [ecx] eax /
 // mov eax esi / ret 0x1c; callers in unclaimed; neighbours prove TU flags.
 class Rva001166E0;
-class Rva001166E0
-{
-public:
-	void *rva001166E0(int *pitchOut, int left, int top, int right, int bottom);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001166E0.h"
 #include "Member0C00739C70.h"
 class Rva0004D729
 {

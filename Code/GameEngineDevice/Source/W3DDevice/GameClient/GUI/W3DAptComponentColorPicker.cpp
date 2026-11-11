@@ -51,7 +51,7 @@ class BFME2ParticleTextureHandle {public:TextureClass *Ptr;~BFME2ParticleTexture
 class W3DRadarResetSurface {public:void *ptr;~W3DRadarResetSurface();};
 struct CursorTextureSlot {W3DRadarResetSurface Get_Surface_Level();};
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
-class Rva001166E0 {public:void *rva001166E0(int *,int,int,int,int);};
+#include "../../../../Include/W3DDevice/GameClient/Rva001166E0.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 struct ColorSurfaceLock {
  W3DRadarResetSurface *surface;
