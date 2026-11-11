@@ -215,11 +215,7 @@ extern GameLogic *TheGameLogic;
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 #define GARRISONCONTAIN_SOURCE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\GarrisonContain.cpp"
 
-class Rva00462785
-{
-public:
-    int rva00462785();
-};
+#include "../../../../Include/GameLogic/Module/Rva00462785.h"
 
 struct Flags128
 {

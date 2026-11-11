@@ -492,11 +492,7 @@ class ExitObjectContain:public ExitGetSlots<31>{public:virtual RiderContain*get(
 // one-pointer ABI. That supports the onDie name; the +0x82 module-data flag and
 // helper meaning remain unnamed target fields. Donor source is a layout/slot
 // lead, not proof of BFME2 field semantics.
-class Rva00462785
-{
-public:
-	int rva00462785();
-};
+#include "../../../../../Include/GameLogic/Module/Rva00462785.h"
 
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@H@_STL@@@_STL@@QBEXPAU?$_List_node@H@2@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

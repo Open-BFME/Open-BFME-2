@@ -384,10 +384,7 @@ public:
 // 0x00588E44 through this+0x9B8; on false it calls vtable slot 32 on this-8
 // with value 2. The 0x00588E44 pin records only its direct-call ABI/address;
 // its 285-byte body and identity remain unresolved.
-class Rva00462785 {
-public:
-	int rva00462785();
-};
+#include "../../../../Include/GameLogic/Module/Rva00462785.h"
 
 class Rva00479CF6Dispatch {
 public:
