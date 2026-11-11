@@ -246,11 +246,7 @@ public:
 	void rva000AE84A(int x, int y, unsigned char *out, int unused);
 };
 
-class Gen_0074B410
-{
-public:
-	bool bfmeBitA(Int x, Int y) const;
-};
+#include "../../../Include/W3DDevice/GameClient/Gen_0074B410.h"
 
 class W3DTerrainBackground
 {

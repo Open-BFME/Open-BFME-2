@@ -386,7 +386,7 @@ struct SHADOW_DECAL_DUAL_VERTEX { Real x, y, z; UnsignedInt diffuse; Real u0, v0
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class BoundedShortGrid { public: short load(int, int); };
-class Gen_0074B410 { public: bool bfmeBitA(int, int) const; };
+#include "../../../../Include/W3DDevice/GameClient/Gen_0074B410.h"
 class WorldHeightMap
 {
 public:

@@ -1153,3 +1153,4 @@ Gen0003AC38,Code/GameEngine/Include/Common/Gen0003AC38.h,existing header; contra
 LivingWorldRegionBonusRule,Code/GameEngine/Include/GameLogic/LivingWorldRegionBonusRule.h,existing header; contract class_contracts/LivingWorldRegionBonusRule.json; 3/5 sampled units adopt
 Rva002D9C2F,Code/GameEngine/Include/GameLogic/Module/Rva002D9C2F.h,existing header; contract class_contracts/Rva002D9C2F.json; 3/5 sampled units adopt
 AptDate,Code/Libraries/Source/Apt/AptDate.h,existing header; contract class_contracts/AptDate.json; 3/5 sampled units adopt
+Gen_0074B410,Code/GameEngineDevice/Include/W3DDevice/GameClient/Gen_0074B410.h,existing header; contract class_contracts/Gen_0074B410.json; 4/5 sampled units adopt

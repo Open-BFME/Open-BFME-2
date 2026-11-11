@@ -53,11 +53,7 @@ class Rva0006653B
  
 }
 ;
-class Gen_0074B410
-{
-public:
-	bool bfmeBitA(int x, int y) const;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0074B410.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 struct BFMEScorchEntry
 
