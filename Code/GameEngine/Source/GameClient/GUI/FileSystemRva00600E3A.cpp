@@ -13,11 +13,7 @@ struct FileInfo;
 
 #include "../../../Include/Common/FileSystem.h"
 
-class FilePathGate
-{
-public:
-	bool allow(const char *filename);
-};
+#include "../../../Include/GameClient/FilePathGate.h"
 
 class ArchiveFileSystem
 {

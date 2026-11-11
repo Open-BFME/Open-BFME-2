@@ -49,11 +49,7 @@ public:
 		const AsciiString &searchName, FilenameList &filenameList, bool searchSubdirectories);	// slot 9
 };
 
-class FilePathGate
-{
-public:
-	bool allow(const char *filename);
-};
+#include "../../../Include/GameClient/FilePathGate.h"
 
 extern ArchiveFileSystem *TheArchiveFileSystem;
 extern LocalFileSystem *TheLocalFileSystem;

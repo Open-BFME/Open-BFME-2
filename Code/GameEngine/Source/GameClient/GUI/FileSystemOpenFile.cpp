@@ -32,11 +32,7 @@ private:
 	StringBase<char> m_name;
 };
 
-class FilePathGate
-{
-public:
-	bool allow(const char *filename);
-};
+#include "../../../Include/GameClient/FilePathGate.h"
 
 class LocalFileSystem
 {
