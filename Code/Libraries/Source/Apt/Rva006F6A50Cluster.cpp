@@ -449,11 +449,7 @@ public:
 };
 
 struct BfmeS1209;
-class BfmeA1209
-{
-public:
-	void bfmeOp1209(const BfmeS1209 *value);
-};
+#include "BfmeA1209.h"
 
 class BfmeThingDXH
 {

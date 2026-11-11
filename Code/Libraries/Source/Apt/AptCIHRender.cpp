@@ -47,11 +47,7 @@ public:
 #include "AptRenderingContext.h"
 #include "BfmeThingDXH.h"
 struct BfmeS1209;
-class BfmeA1209
-{
-public:
-    void bfmeOp1209(const BfmeS1209 *cxform); // 0x0070E3E0
-};
+#include "BfmeA1209.h"
 struct Rva0070E440Box;
 class Rva0070E440
 {

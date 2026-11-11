@@ -7,7 +7,7 @@
 // the callback's original name remains unknown. No return is consumed.
 #include "AptRenderingContext.h"
 struct BfmeS1209;
-class BfmeA1209 {public:void bfmeOp1209(const BfmeS1209*);};
+#include "BfmeA1209.h"
 #include "BfmeThingDXH.h"
 #include "BfmeAptValue006DCD20.h"
 #include "Rva006E1260.h"
