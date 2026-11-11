@@ -63,7 +63,7 @@ public:
 class MapFloatHolder : public _STL::map<unsigned char, float> {};
 class MapIntHolder : public _STL::map<unsigned char, int> {};
 class Rva0038204A { public: void rva003828DF(); };
-class Rva00382077 { public: void rva00382908(); };
+#include "../../../../GameEngine/Include/Common/Rva00382077.h"
 template <> float &_STL::map<unsigned char, float>::operator[](const unsigned char &);
 template <> int &_STL::map<unsigned char, int>::operator[](const unsigned char &);
 

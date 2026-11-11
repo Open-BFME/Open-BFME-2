@@ -765,7 +765,7 @@ class Rva0038201D { public: void rva003828B6(); };
 
 class Rva0038204A { public: void rva003828DF(); };
 
-class Rva00382077 { public: void rva00382908(); };
+#include "../../../Include/Common/Rva00382077.h"
 
 class Rva005532D6 { public: void rva005532D6(); };
 

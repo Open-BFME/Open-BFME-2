@@ -871,7 +871,7 @@ void Rva005690E7(BfmePoolRef10 *p);
 // Bare tail jumps to a rowed member of the object at +0.
 class Rva0038201D { public: void rva003828B6(); };
 class Rva0038204A { public: void rva003828DF(); };
-class Rva00382077 { public: void rva00382908(); };
+#include "../../../../../Include/Common/Rva00382077.h"
 class Rva005532D6 { public: void rva005532D6(); };
 // ?rva0055381C@Rva0055381C@@QAEXXZ @0x0055381C 5B: Rva0038201D::rva003828B6 on the member at +0.
 class Rva0055381C

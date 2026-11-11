@@ -1310,7 +1310,7 @@ void SetUpGameSpy(const char *motdBuffer, const char *configBuffer)
 	ThePinger->startThreads();
 }
 
-class Rva00382077 { public: ~Rva00382077(); };
+#include "../../../Include/Common/Rva00382077.h"
 class Rva0038201D { public: ~Rva0038201D(); };
 class Rva0038204A { public: ~Rva0038204A(); };
 class Rva003820A4 { public: ~Rva003820A4(); };
