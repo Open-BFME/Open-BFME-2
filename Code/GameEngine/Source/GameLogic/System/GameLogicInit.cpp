@@ -3237,11 +3237,7 @@ public:
 	void NewMap(void);
 };
 
-class Rva00739780
-{
-public:
-	void rva00739780(int playerIndex);
-};
+#include "../../../Include/GameLogic/Rva00739780.h"
 
 extern int st_DebugDLL;
 class SkirmishGameInfo;

@@ -137,7 +137,7 @@ class PartitionManager;
 
 extern PartitionManager *TheShroudManager;
 
-class Rva00739780 { public: void rva00739780(int); };
+#include "../../../../../Include/GameLogic/Rva00739780.h"
 
 #include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 

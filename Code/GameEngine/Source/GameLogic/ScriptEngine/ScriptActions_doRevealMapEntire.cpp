@@ -12,11 +12,7 @@ extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
-class Rva00739780
-{
-public:
-	void rva00739780(int value);
-};
+#include "../../../Include/GameLogic/Rva00739780.h"
 void ScriptActions::doRevealMapEntire(const AsciiString &name)
 {
 	int mask = TheScriptEngine->rva00357475(name, 0);
