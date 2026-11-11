@@ -403,11 +403,7 @@ int Rva0056FA94::rva0056FD7B()
 // --- 0x0056FD88 / 0x0056FDB1 / 0x0056FDDA / 0x0056FE03 (41B each): a kind-2
 // update stores +0x04, a kind-1 update passes the value to the rowed setter
 // (0x0056FCDB, 0x0056FD14, 0x0056FD2D, 0x0056FD46); the receiver is answered.
-class Rva0056FCDB
-{
-public:
-	void rva0056FCDB(short value);							// 0x0056FCDB
-};
+#include "../../Include/Common/Rva0056FCDB.h"
 
 class Rva0056FAA5
 {

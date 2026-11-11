@@ -758,12 +758,7 @@ extern PlayerList *ThePlayerList;
 extern View *TheTacticalView;
 // --- 0x00570405 / 0x0057041B / 0x00570455 / 0x00570469: this-returning
 // forwarders of a referenced value to the class's rowed setters.
-class Rva0056FCDB
-{
-public:
-	void rva0056FCDB(short value);							// 0x0056FCDB
-	Rva0056FCDB *rva00570405(const short &value);
-};
+#include "../../Include/Common/Rva0056FCDB.h"
 class Rva0056FAA5
 {
 public:
