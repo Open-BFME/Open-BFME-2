@@ -40,12 +40,24 @@ def placeholder(row):
 
 
 # --- the records ------------------------------------------------------------
+# re_log's `void` is a RETRACTION, not a verdict: it deletes every EARLIER row at
+# exactly its (symbol, rva). A false reject a later void retracted is no longer a
+# record of anything, so counting it keeps a cleared blocker in the pile forever.
+# (See re_log.VOID_STATUS. 15 records were retracted on 2026-11-10 alone.)
+voids = collections.defaultdict(list)
 records = []
 with open("reverse/re_attempts.log", encoding="utf-8", errors="replace") as fh:
     for lineno, line in enumerate(fh, 1):
+        f = line.rstrip("\n").split("\t")
+        if len(f) == 5 and f[3] == "void":
+            try:
+                voids[(f[0], int(f[1], 16))].append(lineno)
+            except ValueError:
+                pass
         if "false-reject" not in line:
             continue
-        f = line.rstrip("\n").split("\t")
+        if len(f) == 5 and f[3] == "void":
+            continue        # a retraction that merely NAMES a false reject is not one
         if len(f) != 5:
             records.append({"line": lineno, "shape": len(f), "raw": line[:120]})
             continue
@@ -57,7 +69,22 @@ with open("reverse/re_attempts.log", encoding="utf-8", errors="replace") as fh:
             "ev": ev,
         })
 
-print(f"{len(records)} false-reject records")
+
+def retracted(rec):
+    """A void at this exact boundary, recorded after this row."""
+    if "sym" not in rec:
+        return False
+    try:
+        key = (rec["sym"], int(rec["rva"], 16))
+    except ValueError:
+        return False
+    return any(line > rec["line"] for line in voids.get(key, ()))
+
+
+live = [rec for rec in records if not retracted(rec)]
+print(f"{len(records)} false-reject records, {len(records) - len(live)} of them "
+      f"retracted by a later void; {len(live)} stand")
+records = live
 
 # --- classify ---------------------------------------------------------------
 # A record's symbol is sometimes annotated, e.g. `_$E2(LivingWorldEyeTower)`.

@@ -369,9 +369,10 @@ a vtable, a virtual-base table, a static, a string -- is rowed in
 `reverse/data_ledger.csv` or `reverse/data_rows.csv`, so the question can never
 resolve and the record is scored open whatever the truth.
 
-Re-asking it against both data ledgers closes **27** of the 439 that read as
-open, and finds 51 more sitting at a real data address under a different name
-(a rename to judge, not a refusal to reproduce). By check:
+Re-asking it against both data ledgers closes **17** of the 403 that read as
+open, and finds 50 more sitting at a real data address under a different name
+(a rename to judge, not a refusal to reproduce). It closed 27 of 439 before the
+void correction below retired the rest. By check:
 
 | check | closed by the data ledger |
 | --- | ---: |
@@ -388,6 +389,27 @@ whole method lived in one seat's scratchpad. Run them in order from anywhere:
 
 The two `.json` files they write are working output, not evidence; delete them
 when done.
+
+### It counted retractions as records, and retracted records as open
+
+`void` is re_log's retraction: it deletes every EARLIER row at exactly its
+(symbol, rva), so a false reject a later void answered is no longer a record of
+anything. The triage never consulted it, and got this wrong twice:
+
+- **45 standing records were already retracted** -- 15 by the vtable_bridge and
+  pin_admission clearance below, and **30 by other workers**, going back far
+  enough that nobody has re-measured since.
+- **15 `void` rows were counted as false rejects themselves**, because the
+  retraction prose names one ("Retract duplicate append; consolidate to one
+  false-reject finding below").
+
+The direction matters and is easy to get backwards: a void only retracts what
+precedes it. 47 records sit at a boundary that holds an EARLIER void, and all 47
+still stand -- several are the consolidated finding the void was clearing room
+for, appended on the very next line.
+
+Corrected, the pile is **926 records, 881 standing, 403 open** -- not 941 and
+439. Of those 403, 17 more close against the data ledgers above.
 
 ### A record is stale the moment the fix lands, and nobody goes back
 
