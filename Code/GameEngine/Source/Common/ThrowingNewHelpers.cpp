@@ -175,7 +175,7 @@ void Rva005CF703Owner::rva005CF703(int x)
 class Rva004E0741 {public:void rva004E0741()const;};
 class CreateAHeroData;
 class Rva004E05F0 {public:CreateAHeroData *rva004E05F0();};
-class Rva0042D6E6PtrChaseField {public:int get()const;};
+#include "../../Include/Common/Rva0042D6E6PtrChaseField.h"
 class Rva005CE259 {public:struct Payload {int v[2];};};
 class Rva005CE2A1 {public:~Rva005CE2A1(){if(m_p)ReleaseTreeHintRef00217D4C(m_p);}TargetRef00217D4C*m_p;};
 Rva005CE2A1 Rva005CE2A1Create(const Rva005CE259::Payload*);

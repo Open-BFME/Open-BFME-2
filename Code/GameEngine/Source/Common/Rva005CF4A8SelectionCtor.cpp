@@ -103,7 +103,7 @@ struct LivingWorldActivePlayerView {char gap[0x98];void *player;};
 struct LivingWorldPlayerKeyView {char gap[0x40];int key;int getKey()const{return key;}};
 class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva0042D6E6PtrChaseField {public:int get()const;};
+#include "../../Include/Common/Rva0042D6E6PtrChaseField.h"
 
 class Rva005CEAE6 {public:struct Payload{int v[3];};};
 class Rva005CEC8F {public:TargetRef00217D4C *pointer;
