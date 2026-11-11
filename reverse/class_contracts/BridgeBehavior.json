@@ -1,0 +1,534 @@
+{
+ "bases": [
+  "UpdateModule",
+  "BridgeBehaviorInterface",
+  "DamageModuleInterface",
+  "DieModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BridgeBehavior",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "UpdateModule",
+    "BridgeBehaviorInterface",
+    "DamageModuleInterface",
+    "DieModuleInterface"
+   ]
+  },
+  "census": 13,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x457472"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x8409dc",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x840818>",
+       "offset": 32,
+       "own_vftable": "0x8408fc",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x7e2b78>",
+       "offset": 36,
+       "own_vftable": "0x8408f0",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 40,
+       "own_vftable": "0x8408ec",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x457472"
+     ],
+     "value": 264
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x457472"
+     ],
+     "value": {
+      "0x104": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xfc": [
+       1
+      ],
+      "0xfd": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x457472"
+     ],
+     "value": {
+      "0x100": [
+       "?init@Rva0029FB3BMember@@QAEPAXPAX@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24ac2a"
+     ],
+     "value": 264
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x457472"
+     ],
+     "value": {
+      "0x10": [
+       "0x840914"
+      ],
+      "0xc": [
+       "0x840920"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x457472"
+     ],
+     "value": {
+      "0x0": "0x8409dc",
+      "0x20": "0x8408fc",
+      "0x24": "0x8408f0",
+      "0x28": "0x8408ec"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8409dc"
+     ],
+     "value": {
+      "count": 13,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBridgeBehavior@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x457536"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?GetSnapshotName@BridgeBehavior@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x4571ee"
+       },
+       {
+        "name": "?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x457e72"
+       },
+       {
+        "name": "?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4571a9"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00456A3E@Rva00456A3E@@QAEXXZ",
+        "slot": 8,
+        "target": "0x456a3e"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x8409dc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x8408ec": {
+    "offset": 40,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8408f0": {
+    "offset": 36,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8408fc": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8409dc": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBridgeBehavior@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?GetSnapshotName@BridgeBehavior@@MBEPBDXZ",
+     "3": "?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "?rva00456A3E@Rva00456A3E@@QAEXXZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "12": 1,
+   "260": 1,
+   "264": 4
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BridgeBehavior.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 253,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "BridgeBehavior"
+  },
+  {
+   "attribute": "inherited@0x14",
+   "candidates": {
+    "240:A": 1,
+    "4:i4": 1
+   },
+   "class": "BridgeBehavior"
+  },
+  {
+   "attribute": "inherited@0x24",
+   "candidates": {
+    "4:VPTR": 1,
+    "8:A": 1
+   },
+   "class": "BridgeBehavior"
+  }
+ ],
+ "size": 264,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

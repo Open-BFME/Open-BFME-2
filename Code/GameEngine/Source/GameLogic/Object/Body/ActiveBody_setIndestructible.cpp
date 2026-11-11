@@ -27,11 +27,7 @@ public:
 	virtual void s00();
 	virtual ObjectID getTowerID(int which) = 0; // +4
 };
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(class Object *obj);
-};
+#include "../../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 class BodyIface
 {
 public:

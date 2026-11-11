@@ -38,11 +38,7 @@ public:
 	virtual ObjectID endpoint(int index) = 0;
 };
 
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *object);
-};
+#include "../../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 
 class Rva00489913
 {

@@ -662,11 +662,7 @@ public:
 	virtual ObjectID getTowerID(BridgeTowerType type); // vslot 1
 };
 
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
-};
+#include "../../../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 
 inline Real sqr(Real x)
 {

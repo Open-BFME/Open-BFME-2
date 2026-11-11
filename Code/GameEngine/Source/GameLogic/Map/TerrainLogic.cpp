@@ -1151,11 +1151,7 @@ public:
 	virtual void slot4();
 	virtual Bool isScaffoldPresent(); // +0x14
 };
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 // 0x002ED236 takes the position by value as a 12-byte type with a
 // non-trivial destructor: its caller copies the three words into the
 // argument and saves the argument's address, the callee-destroyed parameter

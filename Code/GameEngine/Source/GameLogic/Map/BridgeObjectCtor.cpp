@@ -221,11 +221,7 @@ public:
 	virtual void setTowerType(BridgeTowerType type) = 0;
 };
 
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 
 class BridgeTowerBehavior
 {

@@ -96,7 +96,7 @@ class BoneFXDamage { public: static Module *friend_newModuleInstance(Thing *,con
 class BoneFXUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BoredUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BoredUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class BridgeBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 class BridgeBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BridgeScaffoldBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BridgeTowerBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

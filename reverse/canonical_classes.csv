@@ -1198,3 +1198,4 @@ Rva00580316,Code/GameEngine/Include/GameClient/Rva00580316.h,existing header; co
 Rva0020EEF4Outer,Code/GameEngine/Include/GameLogic/Rva0020EEF4Outer.h,existing header; contract class_contracts/Rva0020EEF4Outer.json; 4/5 sampled units adopt
 Rva00527FA2,Code/GameEngine/Include/Common/Rva00527FA2.h,existing header; contract class_contracts/Rva00527FA2.json; 5/6 sampled units adopt
 Rva00381D02,Code/GameEngine/Include/GameNetwork/Rva00381D02.h,existing header; contract class_contracts/Rva00381D02.json; 3/5 sampled units adopt
+BridgeBehavior,Code/GameEngine/Include/GameLogic/Module/BridgeBehaviorClass.h,existing header; contract class_contracts/BridgeBehavior.json; 7/13 sampled units adopt

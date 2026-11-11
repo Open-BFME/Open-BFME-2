@@ -959,11 +959,7 @@ public:
 	virtual Bool isScaffoldInMotion(); // vslot 4
 };
 
-class BridgeBehavior
-{
-public:
-	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
-};
+#include "../../../../../Include/GameLogic/Module/BridgeBehaviorClass.h"
 
 inline Real sqr(Real x)
 {
