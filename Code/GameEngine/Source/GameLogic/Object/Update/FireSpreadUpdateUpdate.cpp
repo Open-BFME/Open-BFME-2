@@ -56,11 +56,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #define NAMEKEY(x) (TheNameKeyGenerator->nameToKey(x))
 
-class FlammableUpdate
-{
-public:
-	void tryToIgnite();
-};
+#include "../../../../Include/GameLogic/Module/FlammableUpdateClass.h"
 
 #include "../../../Common/Thing/thing.h"
 

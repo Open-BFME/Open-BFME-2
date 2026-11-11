@@ -1,0 +1,294 @@
+{
+ "bases": [
+  "UpdateModule",
+  "<vftable 0x7e2b78>"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "FlammableUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "UpdateModule",
+    "DamageModuleInterface"
+   ]
+  },
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x24": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x40": {
+    "1": 1
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x48c64f"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x84c3d4",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x7e2b78>",
+       "offset": 32,
+       "own_vftable": "0x84c3bc",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x48c64f"
+     ],
+     "value": 60
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x48c64f"
+     ],
+     "value": {
+      "0x38": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x48c64f"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24d057"
+     ],
+     "value": 80
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x48c64f"
+     ],
+     "value": {
+      "0x10": [
+       "0x84c3c8"
+      ],
+      "0xc": [
+       "0x849800"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x48c64f"
+     ],
+     "value": {
+      "0x0": "0x84c3d4",
+      "0x20": "0x84c3bc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84c3d4"
+     ],
+     "value": {
+      "count": 13,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GFlammableUpdate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x48c8dd"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?GetSnapshotName@FlammableUpdate@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x48c6d9"
+       },
+       {
+        "name": "?xfer@FlammableUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x48c582"
+       },
+       {
+        "name": "?getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x48c6df"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x84c3d4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x84c3bc": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x84c3d4": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GFlammableUpdate@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?GetSnapshotName@FlammableUpdate@@MBEPBDXZ",
+     "3": "?xfer@FlammableUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 3,
+   "4": 1,
+   "80": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/FlammableUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base@0x20",
+   "candidates": {
+    "'<vftable 0x7e2b78>'": 1
+   },
+   "class": "FlammableUpdate",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  }
+ ],
+ "size": 80,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "GetSnapshotName()"
+  }
+ }
+}

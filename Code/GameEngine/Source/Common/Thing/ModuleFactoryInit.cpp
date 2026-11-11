@@ -232,7 +232,7 @@ class FireWeaponWhenDamagedBehavior { public: static Module *friend_newModuleIns
 class FireWeaponWhenDamagedBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class FireWeaponWhenDeadBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FireWeaponWhenDeadBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class FlammableUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/FlammableUpdateClass.h"
 class FlammableUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class FlingPassengerSpecialAbilityUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FlingPassengerSpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

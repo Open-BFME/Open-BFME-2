@@ -113,11 +113,7 @@ void *__stdcall createAptScreenQuickMatchMenu(void *);
 // no direct callers, no branch sources. Opaque address-derived name.
 #include "../../../../Include/Common/Rva004885DE.h"
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
-class FlammableUpdate
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../../Include/GameLogic/Module/FlammableUpdateClass.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 class LivingWorldCampaign
 {

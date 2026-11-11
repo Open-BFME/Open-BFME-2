@@ -1067,3 +1067,4 @@ CommandTranslator,Code/GameEngine/Include/GameClient/CommandTranslator.h,existin
 Rva000E016A,Code/GameEngine/Include/GameLogic/Module/Rva000E016A.h,existing header; contract class_contracts/Rva000E016A.json; 5/6 sampled units adopt
 Rva000B937E,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000B937E.h,existing header; contract class_contracts/Rva000B937E.json; 5/10 sampled units adopt
 NetCommandWrapperList,Code/GameEngine/Include/GameNetwork/NetCommandWrapperListClass.h,existing header; contract class_contracts/NetCommandWrapperList.json; 3/6 sampled units adopt
+FlammableUpdate,Code/GameEngine/Include/GameLogic/Module/FlammableUpdateClass.h,existing header; contract class_contracts/FlammableUpdate.json; 4/6 sampled units adopt

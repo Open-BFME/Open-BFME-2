@@ -46,12 +46,7 @@ protected:
 	Module *findModule( NameKeyType key ) const;
 };
 
-class FlammableUpdate
-{
-public:
-	void tryToIgnite();
-	void rva0048C8F9();	// the cleanup branch
-};
+#include "../../../../Include/GameLogic/Module/FlammableUpdateClass.h"
 
 namespace Rva002EFB20
 {
