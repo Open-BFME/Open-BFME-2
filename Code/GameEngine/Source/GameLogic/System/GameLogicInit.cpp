@@ -4652,11 +4652,7 @@ public:
 	void rva002CEC34(void);
 };
 
-class Rva002747F9
-{
-public:
-	void rva002747F9(int mode);
-};
+#include "../../../Include/GameLogic/Module/Rva002747F9.h"
 
 class Rva00238FF3Arg;
 

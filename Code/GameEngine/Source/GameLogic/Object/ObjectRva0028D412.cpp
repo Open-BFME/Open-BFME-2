@@ -20,11 +20,7 @@ class Matrix3D;
 
 #include "../../Common/Thing/thing.h"
 
-class Rva002747F9
-{
-public:
-	void rva002747F9(int dirty);
-};
+#include "../../../Include/GameLogic/Module/Rva002747F9.h"
 
 #define VSLOTS10(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();

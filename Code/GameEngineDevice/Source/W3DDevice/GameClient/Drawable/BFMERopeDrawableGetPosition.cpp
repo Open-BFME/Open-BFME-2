@@ -33,11 +33,7 @@ extern "C" BfmeVector3 *__stdcall D3DXVec3CatmullRom(
 	const Coord3D *tangent1,
 	float factor);
 
-class Rva002747F9
-{
-public:
-	void rva002747F9(int force);
-};
+#include "../../../../../GameEngine/Include/GameLogic/Module/Rva002747F9.h"
 
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.

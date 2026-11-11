@@ -22,11 +22,7 @@ enum CommandSourceType
 
 #include "../../Common/Thing/thing.h"
 
-class Rva002747F9
-{
-public:
-	void rva002747F9(int dirty);
-};
+#include "../../../Include/GameLogic/Module/Rva002747F9.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

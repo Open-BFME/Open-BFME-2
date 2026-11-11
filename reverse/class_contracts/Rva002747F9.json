@@ -1,0 +1,368 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002747F9",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x244": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x3ac": {
+    "4": 1
+   },
+   "0x3b0": {
+    "4": 1
+   },
+   "0x3b4": {
+    "4": 1
+   },
+   "0x3b8": {
+    "4": 1
+   },
+   "0x3bc": {
+    "4": 1
+   },
+   "0x3cc": {
+    "4": 1
+   },
+   "0x3dc": {
+    "4": 2
+   },
+   "0x3e0": {
+    "4": 2
+   },
+   "0x3e4": {
+    "4": 2
+   },
+   "0x3e8": {
+    "4": 2
+   },
+   "0x3ec": {
+    "4": 2
+   },
+   "0x3f0": {
+    "4": 2
+   },
+   "0x3f4": {
+    "4": 2
+   },
+   "0x3f8": {
+    "4": 2
+   },
+   "0x3fc": {
+    "4": 2
+   },
+   "0x400": {
+    "4": 2
+   },
+   "0x404": {
+    "4": 2
+   },
+   "0x408": {
+    "4": 2
+   },
+   "0x40c": {
+    "4": 1
+   },
+   "0x418": {
+    "4": 1
+   },
+   "0x424": {
+    "4": 1
+   },
+   "0x430": {
+    "4": 1
+   },
+   "0x444": {
+    "1": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   },
+   "0xfc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "1096": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 520,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 572,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 576,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 580,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 940,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 988,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1036,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1040,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1044,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1048,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1052,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1056,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1060,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1064,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1068,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1072,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1076,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1080,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1091,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1092,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableInterpolationRebuild.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
