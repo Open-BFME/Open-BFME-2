@@ -1,6 +1,6 @@
 # 66 of 11,838 tests are red, and nothing was ever going to say so
 
-> **26 remain.** Of the 66 measured, 40 are fixed: `test_tu_structure.py`'s 1
+> **24 remain.** Of the 66 measured, 42 are fixed: `test_tu_structure.py`'s 1
 > (`7b1c3d1eb1a`, which the run caught and which was already fixed when this was
 > written), `test_header_dependents.py`'s 14 (`ee2d7795743`) and
 > `test_recovery_experiments.py`'s 22 (`60dc4dca8fe`), and three singletons
@@ -47,11 +47,11 @@ in a standalone run, as a starting point and not a diagnosis.
 | `test_reloc_names.py` | 3 | 3 failed, 11 passed | no specimens left in the data (below) |
 | `test_boot_smoke_profile.py` | 3 | 3 failed, 24 passed | `RedirectError not raised`; `pefile.PEFormatError: DOS Header magic not found` |
 | `test_publisher.py` | 1 | fails alone | `assert 0 != 0` |
-| `test_link_rank_snapshot.py` | 1 | fails alone | output lacks `--files Code/known.cpp`; the snapshot it prints is dated 2026-10-24 |
-| `test_flag_input_coverage.py` | 1 | fails alone | `DID NOT RAISE SnapshotError` |
+| `test_link_rank_snapshot.py` | 1 | ~~fails alone~~ | **fixed at `95b9398847b`**: it asserted a scoped-naming handoff that AGENTS.md gates off until the game reaches the menu (`name_scoped.RELATED_WORK_HANDOFF = False`); now asserts its absence, with a sibling covering it enabled |
+| `test_flag_input_coverage.py` | 1 | ~~fails alone~~ | **fixed at `95b9398847b`**: `ledger_cache` memoises on the blob id in the real checkout's git dir, shared by every worktree and kept between runs, so once that blob was cached the deleted git object could never be reached |
 | `test_flag_delta_sources.py` | 1 | ~~fails alone~~ | **fixed at `c02cdfcaa65`**: the hook gained `classify_full_scope`, so a selection covering every provider becomes one ordinary full build; the empty selector list means "build everything" and the test read it as nothing verified |
 | `test_fix_eh_prolog_sizes.py` | 1 | fails alone | `FUN_0061ecb2 at 0x21ecb2 overlaps 0x21ed9c` — reads live data |
-| `test_doc_lint.py` | 1 | fails alone | a list of undocumented docs where `[]` is asserted; likely a real content finding, not a test bug |
+| `test_doc_lint.py` | 1 | fails alone | **not a test bug — real content debt** (below) |
 | `test_claims_gc.py` | 1 | ~~fails alone~~ | **fixed at `41a969507d6`**: `renew()` now sends one batched push before the per-token retry loop, so 3 pushes carry 1 backoff, not 2 |
 | `test_build_lib_thin.py` | 1 | ~~fails alone~~ | **fixed at `41a969507d6`**: `@__security_check_cookie@4` was recovered from `msvcrt.lib` to real C++, so its source is no longer an archive |
 | `test_tu_structure.py` | 1 | passed alone | **mine, fixed at `7b1c3d1eb1a`** |
@@ -60,6 +60,26 @@ in a standalone run, as a starting point and not a diagnosis.
 The five clusters are five different lanes. `test_nightly_measure.py` and
 `test_boot_smoke_profile.py` belong to jobs AGENTS.md says not to start without
 a maintainer, so their failures want that owner rather than a passing seat.
+
+## `test_doc_lint.py` is not a test bug either: the docs have drifted
+
+`test_repository_guide_is_clean` lints the real tree and `tools/doc_lint.py`
+reports **20 errors and 8 warnings**. The lint works; the documentation has
+drifted behind the fleet's renaming and merging, in three groups:
+
+- **10 `[sources]`** -- `docs/doxygen/sources.cfg` lists one file that no longer
+  exists (`GameLogicRandomSeed_get.cpp`) and nine that are placeholder-named and
+  so undocumented (`BfmeThingRE.cpp`, `BfmeItemKA.cpp`, `BfmeB1137.cpp` …).
+- **6 `[ref]`** -- a `\file` naming a path absent from `sources.cfg`
+  (`WW3D2/Register_Aggregate_Prototype.cpp`, `GameSpy/md5c.c`, …).
+- **12 `[name]`** -- documented names in no ledger, `Code/` or shim: 3 errors
+  (`MeasureIcmpPing`, ×3 sites) and 9 warnings that may be Zero Hour names.
+- 1 `[address]` -- `w2_wwlib_md5_sha1.dox:17` names `0x00606220` where the
+  function should be named.
+
+Left for the guide's owner rather than bulk-edited here: each one is a content
+decision (was the file renamed, merged away, or should it be documented?), and
+guessing would put wrong prose in the manual to make a test green.
 
 ## The one that is not a test bug
 
