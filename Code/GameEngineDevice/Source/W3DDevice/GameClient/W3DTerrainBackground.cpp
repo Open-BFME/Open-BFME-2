@@ -245,11 +245,7 @@ private:
 	Rva00729300BitPlane *m_map; // +0x5C
 };
 
-class Rva0006653B
-{
-public:
-    void rva0006AA45(int x, int y, Vector3 *normal);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0006653B.h"
 
 class Rva0006AB49BitPlane
 {

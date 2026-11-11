@@ -191,7 +191,7 @@ public:
 	virtual void s145();
 	virtual Real getMaxCellHeight(Real x, Real y) const;
 };
-class Rva0006653B { public: void rva0006AA45(Int x, Int y, Vector3 *out); };
+#include "../../../Include/W3DDevice/GameClient/Rva0006653B.h"
 // Inline wrapper the vertex loop reads the normal through (see the basis note above).
 static __forceinline Vector3 RoadGetNormal(Rva0006653B *m, Int x, Int y)
 {

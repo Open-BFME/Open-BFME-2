@@ -86,11 +86,7 @@ public:
 };
 
 // 0x0006653B: clamped height lookup on the map (rowed under its address name).
-class Rva0006653B
-{
-public:
-	UnsignedShort rva0006653B(Int x, Int y);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0006653B.h"
 
 Real BaseHeightMapRenderObjClass::getHeightMapHeight(Real x, Real y, Coord3D *normal) const
 {

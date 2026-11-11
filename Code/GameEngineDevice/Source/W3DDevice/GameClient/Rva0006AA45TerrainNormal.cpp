@@ -8,11 +8,7 @@
 // address-derived type rather than promoting a WorldHeightMap guess.
 #include "../../../../../reference/shims/bfme_vector3_ctor_link/vector3.h"
 #include "vector3.h"
-class Rva0006653B {
-public:
- unsigned short rva0006653B(int x,int y);
- void rva0006AA45(int x,int y,Vector3 *normal);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0006653B.h"
 void Rva0006653B::rva0006AA45(int x,int y,Vector3 *normal)
 {
  Vector3 l2r(20.0f,0.0f,(rva0006653B(x+1,y)-rva0006653B(x-1,y))*0.0390625f);

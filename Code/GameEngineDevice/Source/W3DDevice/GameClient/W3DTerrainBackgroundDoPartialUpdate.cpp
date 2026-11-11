@@ -164,11 +164,7 @@ inline __declspec(noinline) short BoundedShortGrid::load(int a, int b)
 	return 0;
 }
 
-class Rva0006653B
-{
-public:
-	void rva0006AA45(Int x, Int y, Vector3 *normal);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0006653B.h"
 
 // ZH TCliffInfo shape (WorldHeightMap.h): four corner UVs, flip, mutant, tile.
 class Rva000ABD19
