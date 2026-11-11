@@ -446,7 +446,7 @@ class SalvageCrateCollideModuleData { public: static ModuleData *friend_newModul
 class ScaleWallSpecialAbilityUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ScaleWallSpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ScavengerSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class ScavengerSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/ScavengerSpecialPowerModuleData.h"
 class ShareExperienceBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ShareExperienceBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ShipSlowDeathBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

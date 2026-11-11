@@ -491,11 +491,7 @@ void PlayerUpgradeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &pa
 	parse.add(reinterpret_cast<const FieldParse *>((unsigned int)&g_00C5E23C), 0);
 }
 
-class ScavengerSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/ScavengerSpecialPowerModuleData.h"
 
 // ?buildFieldParse@ScavengerSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C4338 (27 bytes): base-table call above plus the Scavenger

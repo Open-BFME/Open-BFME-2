@@ -1164,3 +1164,4 @@ Rva007E8980,Code/GameEngine/Include/GameNetwork/Rva007E8980.h,existing header; c
 Rva004E6935,Code/GameEngine/Include/Common/Rva004E6935.h,existing header; contract class_contracts/Rva004E6935.json; 4/7 sampled units adopt
 SortingRenderStateStruct,Code/GameEngine/Include/Common/SortingRenderStateStruct.h,existing header; contract class_contracts/SortingRenderStateStruct.json; 3/4 sampled units adopt
 Rva00423A68,Code/GameEngine/Include/Common/Rva00423A68.h,existing header; contract class_contracts/Rva00423A68.json; 4/5 sampled units adopt
+ScavengerSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/ScavengerSpecialPowerModuleData.h,existing header; contract class_contracts/ScavengerSpecialPowerModuleData.json; 3/4 sampled units adopt

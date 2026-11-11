@@ -33,12 +33,7 @@ private:
 	unsigned char m_pad[0x80 - 4];
 };
 
-class ScavengerSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-};
+#include "../../../../Include/GameLogic/Module/ScavengerSpecialPowerModuleData.h"
 
 // ?friend_newModuleData@ScavengerSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *ScavengerSpecialPowerModuleData::friend_newModuleData(INI *ini)
