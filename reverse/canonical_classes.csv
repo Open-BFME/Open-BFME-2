@@ -909,3 +909,4 @@ Q1Forwardee0000871A,Code/GameEngine/Include/GameLogic/Q1Forwardee0000871A.h,exis
 Rva002A9BF2,Code/GameEngine/Include/Common/Rva002A9BF2.h,existing header; contract class_contracts/Rva002A9BF2.json; 13/14 sampled units adopt
 Rva003EF8E1,Code/GameEngine/Include/Common/Rva003EF8E1.h,existing header; contract class_contracts/Rva003EF8E1.json; 4/10 sampled units adopt
 BfmeThingCIC,Code/GameEngine/Include/GameNetwork/BfmeThingCIC.h,existing header; contract class_contracts/BfmeThingCIC.json; 11/12 sampled units adopt
+Rva002D9531,Code/GameEngine/Include/GameLogic/Module/Rva002D9531.h,existing header; contract class_contracts/Rva002D9531.json; 30/37 sampled units adopt
