@@ -1,10 +1,13 @@
 # 576 of the 927 false-reject records are already closed; the tooling lane is 351
 
-> **Corrected 2026-11-11: the open lane is 330, not 439.** The triage was
-> counting retracted records, counting retractions as records, and asking a
-> question that misses work landed under a different name. The three corrections
-> are in the 11-10/11-11 sections at the end; the numbers in the body above them
-> are the uncorrected ones, kept so the method is legible.
+> **Corrected 2026-11-11: the open lane is 195, not 439.** The triage was
+> counting retracted records, counting retractions AND resolutions as records,
+> and asking a question that misses work landed under a different name. The
+> corrections are in the 11-10/11-11 sections at the end; the numbers in the
+> body above them are the uncorrected ones, kept so the method is legible.
+>
+> Current: **890 records, 836 standing after voids, 449 after resolutions, 195
+> open.**
 
 Measured at `598687dc8dd`, 2026-11-09, over `reverse/re_attempts.log`.
 
@@ -572,3 +575,39 @@ later lines when there are any. **72 of the 317 open records -- 23% -- carry a
 later row**, so this is not a rare corner. It is a prompt to read, not a
 verdict: a later row answered by the same fix is fine to vote through, which is
 how the four pairs above were closed.
+
+
+## The $L ordinal is a guess; the parent and the object-symbol are not
+
+`add_match` is the largest cluster and reads as decomp work, because the name
+each record wanted never owns its address. For a `$L` compiler label that proves
+nothing: the ordinal is per-TU and renumbers with everything emitted before it.
+**109 of its 145 open records closed on two tests that ignore the number.**
+
+**1. The ledger row is a different `$L` with the record's own parent.** 39
+records sit at an address now holding another label; for 30 of them the row's
+`parent=` resolves to an RVA the record itself names as the native parent, and
+the sizes agree exactly. Those 30 fall on 18 boundaries, several carrying repeat
+appends of one finding. The other 9 stay open -- 49712 names parent `0059B4FF`
+where the row has `0x0059B2EC`, which is a different body.
+
+**2. The label is bound as an `object-symbol`.** 96 records sit at an address
+matched under a `uw_<rva>` placeholder, and in **80** of those the row's notes
+carry `object-symbol=<exactly the label the record was refused>`:
+
+    0x007A0C4C  matched 11B  name uw_007a0c4c
+      gen-funclet;parent=??1Impl@InGameCommandButtonMovieClip@@QAE@XZ;object-symbol=$L1330
+
+`$L1330` is precisely what `re_attempts.log:47520` was refused. The COFF symbol
+the worker proved is the one the ledger binds; only the display name is a
+placeholder, and `build.ledger_object_symbol` is the documented mechanism. A
+global-name collision cannot arise on that route -- which is why it works, and
+why nearly every one of these records says the worker declined it ("No alias or
+source edit"). Someone later took it.
+
+This is the stronger of the two tests, because the alias IS the label rather
+than a number to argue about. **Try it first on any `$L` record.**
+
+A third of the whole backlog was these two shapes. The same test should be run
+against `name_lane` and `check_csv` label records before any of them is read as
+decomp work.

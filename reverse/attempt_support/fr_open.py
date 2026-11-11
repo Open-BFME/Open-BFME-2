@@ -39,6 +39,8 @@ def placeholder(row):
     return bool(PLACEHOLDER.match(name)) or "gen-" in notes
 
 
+import re_log                                                    # noqa: E402
+
 # --- the records ------------------------------------------------------------
 # re_log's `void` is a RETRACTION, not a verdict: it deletes every EARLIER row at
 # exactly its (symbol, rva). A false reject a later void retracted is no longer a
@@ -68,8 +70,13 @@ with open("reverse/re_attempts.log", encoding="utf-8", errors="replace") as fh:
                 pass
         if "false-reject" not in line:
             continue
-        if len(f) == 5 and f[3] == "void":
-            continue        # a retraction that merely NAMES a false reject is not one
+        # A row is a false-reject RECORD only if it is itself a deferral or a
+        # finding about the boundary. A `void` retraction and a `mapped`/`solved`
+        # resolution both quote the record they answer ("false-reject ... closed"),
+        # and counting those keeps every record alive by the act of closing it --
+        # the pile grew from 938 to 1020 overnight that way.
+        if len(f) == 5 and f[3] not in re_log.DEFERRED_STATUSES | re_log.DEAD_END_STATUSES:
+            continue
         if len(f) != 5:
             records.append({"line": lineno, "shape": len(f), "raw": line[:120]})
             continue
@@ -103,9 +110,6 @@ records = live
 # name the record WANTED owns the address, which misses every case where the work
 # landed under a different spelling -- a $L label renumbered, an alias adopted.
 # re_log already tracks the standing verdict per boundary, so ask it.
-import re_log                                                   # noqa: E402
-
-
 def resolved(rec):
     if "sym" not in rec:
         return False
