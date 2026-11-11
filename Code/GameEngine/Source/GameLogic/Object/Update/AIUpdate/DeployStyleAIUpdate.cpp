@@ -430,7 +430,7 @@ public:
 
 class Rva001E42F2 { public: void rva001E42F2(const int *); };
 
-class Rva002D9531 { public: void rva002D9531(int); };
+#include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 class Rva0036CA00Str {
 public:

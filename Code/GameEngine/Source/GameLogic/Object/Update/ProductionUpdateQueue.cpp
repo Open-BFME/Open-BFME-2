@@ -572,7 +572,7 @@ struct DoorInfo
 // bfme link decl-only begin
 namespace _STL { template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base(); }
 // bfme link decl-only end
-class Rva002D9531 { public: void rva002D9531(int); };
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 #include "../../../../Include/Common/Rva0033F15DDwordSlot.h"
 class Rva002AE98B { public: float rva002AE98B(const AsciiString *); };
 struct Rva002A7557In;

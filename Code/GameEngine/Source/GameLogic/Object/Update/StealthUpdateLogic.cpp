@@ -434,11 +434,7 @@ public:
 };
 
 // AudioEventRTS::setObjectID, rowed under an address-derived name.
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 // DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
 // vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.

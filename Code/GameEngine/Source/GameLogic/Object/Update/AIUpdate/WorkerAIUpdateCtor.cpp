@@ -771,11 +771,7 @@ inline void zeroCoord(Coord3D &c)
 	c.z = 0.0f;
 }
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int objectID);
-};
+#include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 struct BfmeAudioEventPrefix136;
 class Xfer;

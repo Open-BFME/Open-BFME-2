@@ -167,11 +167,7 @@ public:
 	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
 };
-class Rva002D9531
-{
-public:
-	void rva002D9531(int objectID); // AudioEventRTS::setObjectID
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 template <int N> class DisguiseAudioSlots : public DisguiseAudioSlots<N - 1>
 {
 public:
