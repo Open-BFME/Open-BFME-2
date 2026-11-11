@@ -5,11 +5,7 @@ void *Rva00807920(const char *name, int cap);
 
 class Rva00803080;
 
-class Rva007EAServiceList
-{
-public:
-	void add(Rva00803080 *entry);
-};
+#include "../../Include/GameNetwork/Rva007EAServiceList.h"
 
 struct Rva007EB810Diag
 {

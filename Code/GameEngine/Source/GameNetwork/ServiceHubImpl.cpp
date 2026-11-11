@@ -169,11 +169,7 @@ public:
 
 class Rva00803080;
 
-class Rva007EAServiceList
-{
-public:
-	void add(Rva00803080 *owner);
-};
+#include "../../Include/GameNetwork/Rva007EAServiceList.h"
 
 class BfmeThingDGG;
 

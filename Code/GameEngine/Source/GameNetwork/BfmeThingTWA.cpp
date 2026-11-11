@@ -29,9 +29,7 @@ public:
  virtual void slot0(unsigned int) = 0;
 };
 
-class Rva007EAServiceList {
-public: void add(Rva00803080*);
-};
+#include "../../Include/GameNetwork/Rva007EAServiceList.h"
 
 struct Rva00804150ProtoMangleRef;
 

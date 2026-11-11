@@ -13,12 +13,7 @@ extern Rva007EB810Diag *Rva007EB810Get();
 
 struct Rva00803080;
 
-class Rva007EAServiceList
-{
-public:
-	void remove( class Rva00803080 *owner );
-	void add( Rva00803080 *owner );
-};
+#include "../../Include/GameNetwork/Rva007EAServiceList.h"
 
 // What a ping reply is written back into: the hub looks the game up by the
 // request's first key (slot 21), the game looks the entry up by the second

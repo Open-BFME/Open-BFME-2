@@ -20,12 +20,7 @@ public:
 	int m_0C; // +0x0C
 };
 
-class Rva007EAServiceList
-{
-public:
-	void remove( class Rva00803080 *owner );
-	void add( Rva00803080 *owner );
-};
+#include "../../../../GameEngine/Include/GameNetwork/Rva007EAServiceList.h"
 
 struct Rva007EAPingGame;
 struct Rva007EAPingListener;

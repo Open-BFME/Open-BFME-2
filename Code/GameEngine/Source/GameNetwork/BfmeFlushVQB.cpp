@@ -2,11 +2,7 @@
 
 class Rva00803080;
 
-class Rva007EAServiceList
-{
-public:
-	void remove( Rva00803080 *owner );
-};
+#include "../../Include/GameNetwork/Rva007EAServiceList.h"
 
 struct BfmeFlushVQBItem;
 
