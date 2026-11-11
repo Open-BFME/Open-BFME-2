@@ -1054,3 +1054,4 @@ EmotionNuggetTemplate,Code/GameEngine/Include/Common/EmotionNuggetTemplate.h,exi
 AnimationAsset,Code/GameEngineDevice/Include/W3DDevice/GameClient/AnimationAsset.h,existing header; contract class_contracts/AnimationAsset.json; 4/4 sampled units adopt
 Rva0022C4DF,Code/GameEngine/Include/GameNetwork/Rva0022C4DF.h,existing header; contract class_contracts/Rva0022C4DF.json; 5/7 sampled units adopt
 Rva001D98BD,Code/GameEngineDevice/Include/Rva001D98BD.h,existing header; contract class_contracts/Rva001D98BD.json; 5/6 sampled units adopt
+BFMEWeaponSetOwner,Code/GameEngine/Include/GameLogic/Module/BFMEWeaponSetOwner.h,existing header; contract class_contracts/BFMEWeaponSetOwner.json; 4/4 sampled units adopt

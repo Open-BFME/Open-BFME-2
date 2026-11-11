@@ -819,11 +819,7 @@ public:
 	UnsignedInt m_words[1];
 };
 
-class BFMEWeaponSetOwner
-{
-public:
-	const BFMEWeaponSetFlags &getWeaponSetFlags() const;	///< retail ILT 0x000209fa
-};
+#include "../../../../Include/GameLogic/Module/BFMEWeaponSetOwner.h"
 
 // BFME writes the max-shot count in place: the count at weapon+0x34 and the
 // shots-fired counter at +0x20 reset together, with no call.
