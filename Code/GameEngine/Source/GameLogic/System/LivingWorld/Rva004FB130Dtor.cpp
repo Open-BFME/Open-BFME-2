@@ -29,11 +29,7 @@ struct Rva004FAFF2;
 class SpawnArmy;
 class Rva002E2903Player;
 
-class Rva004FB0C7Registry
-{
-public:
-	bool rva004FB0C7(int key, Rva004FAFF2 *out);
-};
+#include "../../../../Include/GameLogic/Rva004FB0C7Registry.h"
 
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 

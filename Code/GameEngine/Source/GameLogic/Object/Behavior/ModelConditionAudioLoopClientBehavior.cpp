@@ -143,11 +143,7 @@ public:
 // Rva004FB0C7Registry::rva004FB0C7 (0x004FB0C7, ret 8).
 struct Rva004FAFF2;
 
-class Rva004FB0C7Registry
-{
-public:
-	Bool rva004FB0C7(int key, Rva004FAFF2 *out);
-};
+#include "../../../../Include/GameLogic/Rva004FB0C7Registry.h"
 
 struct Rva004FB128Owner
 {
