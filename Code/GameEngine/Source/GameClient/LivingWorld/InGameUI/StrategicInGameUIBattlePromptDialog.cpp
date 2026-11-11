@@ -74,7 +74,7 @@ private:
  Impl *m_impl;
 };
 }
-class Rva0050B5F1 { public: bool rva0050B5F1(int,int); };
+#include "../../../../Include/GameClient/Rva0050B5F1.h"
 class Rva005FA874 { public: Rva005FA874(); ~Rva005FA874() { rva005FA874(); } void rva005FA874(); private: void *m_ptr; };
 
 class Rva005E9625;

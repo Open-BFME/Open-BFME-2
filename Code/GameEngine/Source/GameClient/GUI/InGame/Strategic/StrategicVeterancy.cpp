@@ -47,7 +47,7 @@ class Rva005FA874 {
 public:__declspec(noinline) Rva005FA874();~Rva005FA874(){rva005FA874();}void rva005FA874();
 private:void*ptr;
 };
-class Rva0050B5F1 {public:bool rva0050B5F1(int,int);};
+#include "../../../../../Include/GameClient/Rva0050B5F1.h"
 
 class Image;
 class Rva00524306

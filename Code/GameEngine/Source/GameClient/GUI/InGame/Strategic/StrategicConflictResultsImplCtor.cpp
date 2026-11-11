@@ -142,11 +142,7 @@ private:
 };
 
 // The timer registration folded to a false-returning stub (0x0050B5F1).
-class Rva0050B5F1
-{
-public:
-	bool rva0050B5F1(int a, int b);
-};
+#include "../../../../../Include/GameClient/Rva0050B5F1.h"
 
 // The Apt window manager's movie loader (virtual +0x50) returning the level.
 class Rva005EB9F2AptLoader

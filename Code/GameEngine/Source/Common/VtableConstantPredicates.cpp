@@ -45,11 +45,7 @@ bool GameWindow::vslot10()
 	return true;
 }
 
-class Rva0050B5F1
-{
-public:
-	bool rva0050B5F1(int unusedArgument1, int unusedArgument2);
-};
+#include "../../Include/GameClient/Rva0050B5F1.h"
 
 bool Rva0050B5F1::rva0050B5F1(int unusedArgument1, int unusedArgument2)
 {

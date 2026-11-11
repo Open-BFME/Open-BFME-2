@@ -480,11 +480,7 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
-class Rva0050B5F1
-{
-public:
-	bool rva0050B5F1(int a, int b);
-};
+#include "../../Include/GameClient/Rva0050B5F1.h"
 
 class Rva005CB9FF
 {
