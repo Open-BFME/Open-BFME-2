@@ -53,11 +53,7 @@ protected:
 	friend class SpecialPowerModule;
 };
 
-class DeletionUpdate
-{
-public:
-	void setLifetimeRange(UnsignedInt a, UnsignedInt b);
-};
+#include "../../../../Include/GameLogic/Module/DeletionUpdateClass.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

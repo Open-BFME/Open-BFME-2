@@ -84,12 +84,7 @@ class FireWeaponUpdate
  
 };
 
-class DeletionUpdate 
-
-{
- public: void setLifetimeRange(unsigned int, unsigned int);
- 
-};
+#include "../../../Include/GameLogic/Module/DeletionUpdateClass.h"
 
 struct Input005093C6 
 

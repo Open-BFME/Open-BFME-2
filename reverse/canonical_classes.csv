@@ -1085,3 +1085,4 @@ RespawnUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/RespawnUpdateMo
 Rva002FFFCA,Code/GameEngine/Include/GameLogic/Rva002FFFCA.h,existing header; contract class_contracts/Rva002FFFCA.json; 5/5 sampled units adopt
 Rva001E702E,Code/GameEngine/Include/GameLogic/Module/Rva001E702E.h,existing header; contract class_contracts/Rva001E702E.json; 5/8 sampled units adopt
 Rva0028B525DwordSlot,Code/GameEngine/Include/GameLogic/Module/Rva0028B525DwordSlot.h,existing header; contract class_contracts/Rva0028B525DwordSlot.json; 5/5 sampled units adopt
+DeletionUpdate,Code/GameEngine/Include/GameLogic/Module/DeletionUpdateClass.h,existing header; contract class_contracts/DeletionUpdate.json; 3/6 sampled units adopt

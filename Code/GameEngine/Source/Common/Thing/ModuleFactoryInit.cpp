@@ -170,7 +170,7 @@ class DelayedLuaEventUpdateModuleData { public: static ModuleData *friend_newMod
 class DelayedUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DelayedWeaponSetUpgradeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DelayedWeaponSetUpgradeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class DeletionUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/DeletionUpdateClass.h"
 class DeletionUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DemoTrapUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DemoTrapUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
