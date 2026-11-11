@@ -979,7 +979,7 @@ void Rva00278DF9::rva00278DF9(const Locomotor *locomotor, Drawable::PhysicsXform
 // ---- fourth group ----------------------------------------------------------
 class Rva0021915B;
 void Rva0021ACB9Swap(Rva0021915B *a, Rva0021915B *b);
-class Rva002BBBE7 { public: void rva002BC39D(); };
+#include "../../Include/GameLogic/Rva002BBBE7.h"
 
 // 0x0021BA41 (5B, cdecl) -> the rowed Rva0021ACB9Swap.
 void Rva0021BA41Swap(Rva0021915B *a, Rva0021915B *b) { Rva0021ACB9Swap(a, b); }

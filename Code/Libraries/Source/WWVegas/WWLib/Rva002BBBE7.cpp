@@ -22,11 +22,7 @@ struct Node002BBBE7 {
 	Rva002B923F m_obj10;
 };
 
-class Rva002BBBE7
-{
-public:
-	void rva002BBBE7(Node002BBBE7 *node);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002BBBE7.h"
 
 void Rva002BBBE7::rva002BBBE7(Node002BBBE7 *node)
 {

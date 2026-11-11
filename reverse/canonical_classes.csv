@@ -1107,3 +1107,4 @@ Rva00151288,Code/Libraries/Source/WWVegas/WW3D2/Rva00151288.h,existing header; c
 Rva002E0C68,Code/GameEngine/Include/Common/Rva002E0C68.h,existing header; contract class_contracts/Rva002E0C68.json; 5/7 sampled units adopt
 BoneFXUpdate,Code/GameEngine/Include/GameLogic/Module/BoneFXUpdateClass.h,existing header; contract class_contracts/BoneFXUpdate.json; 3/6 sampled units adopt
 Rva0073F4F3,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0073F4F3.h,existing header; contract class_contracts/Rva0073F4F3.json; 4/7 sampled units adopt
+Rva002BBBE7,Code/GameEngine/Include/GameLogic/Rva002BBBE7.h,existing header; contract class_contracts/Rva002BBBE7.json; 5/7 sampled units adopt

@@ -2394,7 +2394,7 @@ class Rva00210C66CmpBoolField { public: Bool get() const{int value=*(const int*)
 void Rva00437E9C(Int);
 class BfmeAptWindowManager; extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../Include/Common/Rva00222A8BTarget.h"
-class Rva002BBBE7 { public: void rva002BC39D(); };
+#include "../../../../Include/GameLogic/Rva002BBBE7.h"
 extern UnsignedInt g_Va00E04544;
 class Rva002D3627Host; class LivingWorld; extern LivingWorld *TheLivingWorld;
 class LivingWorldResetDispatch

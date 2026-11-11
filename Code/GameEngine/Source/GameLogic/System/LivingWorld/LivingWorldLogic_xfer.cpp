@@ -43,7 +43,8 @@ class Rva00E02D6C;extern Rva00E02D6C*TheCampaignManager;
 class LivingWorldManager;extern LivingWorldManager*TheLivingWorldManager;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic*TheGameLogic;
-class Rva002BBBE7{public:void rva002BC39D();};extern unsigned g_Va00E04544;
+#include "../../../../Include/GameLogic/Rva002BBBE7.h"
+extern unsigned g_Va00E04544;
 class RvaSnapshotView {public:virtual void s0();virtual void s1();virtual void s2();virtual void transfer(Xfer*);};
 class RvaSnapshotResetView {public:
  virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void reset(int);

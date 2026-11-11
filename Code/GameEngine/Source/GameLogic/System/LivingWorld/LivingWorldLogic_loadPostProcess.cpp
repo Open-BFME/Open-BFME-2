@@ -80,11 +80,7 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;	// 0x009FEF18 pin
 // The 0x00A04544 global object (16 B, owned by Rva007B6880Thunks.cpp).
 extern unsigned int g_Va00E04544;
 
-class Rva002BBBE7
-{
-public:
-	void rva002BC39D();	// 0x002BC39D, 41 B
-};
+#include "../../../../Include/GameLogic/Rva002BBBE7.h"
 
 void Rva005020CCBuildRegionDistances();	// 0x005020CC, 447 B
 
