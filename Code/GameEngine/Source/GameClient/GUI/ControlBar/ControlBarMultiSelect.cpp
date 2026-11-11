@@ -45,10 +45,7 @@ enum ObjectStatusTypes { MULTISELECT_SOLD = 0x13 };
 #include "../../../GameLogic/Object/object.h"
 #include "../../../../Include/GameClient/CommandSet.h"
 #include "../../../../Include/Common/Rva0031D5F8.h"
-class Rva0035B424 {
-public:
-    void rva0035B424(int);
-};
+#include "../../../../Include/GameClient/Rva0035B424.h"
 class MultiSelectModeView {
 public:
     virtual void slot0();

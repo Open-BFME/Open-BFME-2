@@ -81,7 +81,7 @@ static Rva005A0B4CList *stanceObservers(StancesBehavior *behavior)
 {
  return reinterpret_cast<Rva005A0B4CList *>(reinterpret_cast<char *>(behavior) + 0x20);
 }
-class Rva0035B424 {public:void rva0035B424(int);};
+#include "../../../../../Include/GameClient/Rva0035B424.h"
 #include "../../../../../Include/GameClient/Drawable.h"
 typedef _STL::list<Drawable *> DrawableList;
 class InGameUI;extern InGameUI *TheInGameUI;

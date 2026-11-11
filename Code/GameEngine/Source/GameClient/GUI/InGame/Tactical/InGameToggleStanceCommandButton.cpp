@@ -14,7 +14,7 @@ static inline const _STL::vector<int> &stanceList(const CommandButton *button)
 {
 	return *reinterpret_cast<const _STL::vector<int> *>(&button->m_stancesBegin);
 }
-class Rva0035B424 {public:void rva0035B424(int);};
+#include "../../../../../Include/GameClient/Rva0035B424.h"
 class Rva0057C22FByteChaseField {public:unsigned char get()const;};
 class Rva005C39AA {public:void rva005C39AA();};
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
