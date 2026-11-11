@@ -827,6 +827,101 @@ def test_rva0022cfe6_views_keep_their_out_of_line_destructor(monkeypatch):
         assert body.rstrip().endswith("~Rva0022CFE6();")       # the destructor stays last
 
 
+# I6 (GPT Sol, review 3): both private copies the batch replaced declared the comparisons,
+# and the generated header kept only `char bytes[1];` because the data variant won.
+I6_VIEWS = {
+    "SkirmishAIManagerReset.cpp": "struct Rva002A9706Element {char bytes[1];bool operator<(const Rva002A9706Element&)"
+                                  "const;bool operator==(const Rva002A9706Element&)const;};\n",
+    "StlSweepW4Rva002A9706.cpp": "struct Rva002A9706Element { char bytes[1]; bool operator<(const Rva002A9706Element&)"
+                                 "const; bool operator==(const Rva002A9706Element&)const; };\n",
+}
+I6_CONTRACT = {"class": "Rva002A9706Element", "key": "struct", "key_by": "bytes", "size": 1, "size_by": "majority",
+               "bases": [], "vslots": {}, "queue": [], "fields": [{"kind": "i1", "type": "char[1]", "name": "bytes"}]}
+
+
+def test_i6_rva002a9706element_keeps_its_comparison_operators(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    carried, problems = special("Rva002A9706Element", I6_VIEWS)
+    assert problems == []
+    assert [c["text"] for c in carried] == ["bool operator<(const Rva002A9706Element&)const;",
+                                            "bool operator==(const Rva002A9706Element&)const;"]
+    for variant in ("data", "data+ctor", "data+methods", "data+includes"):
+        text = lane.generate(I6_CONTRACT, variant, {}, None, None, carried)
+        body = text[text.index("struct Rva002A9706Element"):text.index("};")]
+        assert "char bytes[1];" in body
+        assert body.count("operator<(") == 1 and body.count("operator==(") == 1
+
+
+def test_declaration_records_is_the_one_definition_of_a_member_declaration():
+    # What the generator carries and the header lane's lost-declaration scan compares.
+    view = """class K {
+public:
+    operator const char *() const;
+    int operator()(int a) const;
+    char &operator[](int i);
+    template <class T> void visit(T &t);
+    static K *instance();
+    static int s_count;
+    friend struct KFriend;
+    friend bool operator==(const K &a, const K &b);
+    bool operator<(const K &o) const;
+    bool operator<(const K &o);
+    void (*m_callback)(int code);
+    virtual void tick() = 0;
+private:
+    union { int m_i; float m_f; };
+    int m_x;
+};
+"""
+    records = lane.declaration_records(view, "K")
+    assert {r["key"]: r["role"] for r in records} == {
+        "operator const char*()const": "method", "operator()(int)const": "method", "operator[](int)": "method",
+        "template<classT>visit(T&)": "method", "instance()": "method", "static s_count": "static",
+        "friend struct KFriend": "friend class", "friend operator==(const K&,const K&)": "friend",
+        "operator<(const K&)const": "method", "operator<(const K&)": "method", "tick()": "virtual"}
+    assert [r["pure"] for r in records if r["role"] == "virtual"] == [True]
+    assert lane.member_key("void *operator new [] (unsigned int size);", "K") == "operator new[](unsigned int)"
+    carried, problems = special("K", {"a.cpp": view, "b.cpp": view})
+    assert problems == [] and len(carried) == 10           # every one but the virtual (the slots' own)
+    assert {c["access"] for c in carried} == {"public"}
+
+
+@pytest.mark.parametrize("a,b,why", [
+    ("bool operator<(const C&) const;", "bool operator<(const C&) const { return false; }",
+     "member bool operator<(const C&) const: out of line in a.cpp, inline in b.cpp"),
+    ("bool operator==(const C&) const;", "private: bool operator==(const C&) const; public:",
+     "member bool operator==(const C&) const: access disagrees (private, public)"),
+    ("int f();", "bool f();", "member int f(): declarations differ (a.cpp, b.cpp)"),
+    ("static int s_n;", "static long s_n;", "member static int s_n: declarations differ (a.cpp, b.cpp)"),
+    ("C(int a);", "explicit C(int a);", "special C(int a): declarations differ (a.cpp, b.cpp)"),
+    ("void f(const Holder &h);", "", "member void f(const Holder &h): names a type or default argument the header "
+                                     "does not declare"),
+    ("operator Holder() const;", "", "member operator Holder() const: names a type or default argument the header "
+                                     "does not declare"),
+    ("typedef int Id;", "", "member typedef int Id: a nested declaration in a.cpp, which the generator does not carry"),
+    ("struct Node { int v; };", "", "member struct Node: a nested declaration in a.cpp, which the generator does not "
+                                    "carry"),
+])
+def test_views_that_disagree_on_any_member_hold_the_class(a, b, why):
+    carried, problems = special("C", {"a.cpp": "class C { public: %s int m; };\n" % a,
+                                      "b.cpp": "class C { public: %s int m; };\n" % b})
+    assert problems == [why]
+
+
+def test_a_member_one_view_omits_is_carried_and_spellings_that_differ_only_cosmetically_agree():
+    carried, problems = special("C", {"a.cpp": "class C { public: inline bool operator==(const C &that) const; "
+                                               "int m; };\n",
+                                      "b.cpp": "class C { public: bool operator == (C const &) const; int m; };\n",
+                                      "c.cpp": "class C { public: int m; };\n"})
+    assert problems == [] and [c["text"] for c in carried] == ["inline bool operator==(const C &that) const;"]
+
+
+def test_a_preprocessor_line_in_a_class_body_holds_the_class():
+    view = "class C {\npublic:\n#define SLOT(N) virtual void slot##N()\n    SLOT(0);\n    int m;\n};\n"
+    carried, problems = special("C", {"a.cpp": view})
+    assert len(problems) == 1 and "a preprocessor line in a.cpp" in problems[0]
+
+
 def test_special_members_keep_spelling_access_and_skip_what_another_part_declares(monkeypatch):
     monkeypatch.setattr(lane, "registered", lambda: {})
     view = ("class Pod {\npublic:\n    explicit Pod(Real r);\n    Pod();\n    Pod(const Pod &other);\n"
@@ -837,6 +932,8 @@ def test_special_members_keep_spelling_access_and_skip_what_another_part_declare
     carried, problems = special("Pod", {"a.cpp": view, "b.cpp": other})
     # Pod(const Coord3D &) names a type the header lacks: the class is held
     assert problems == ["special Pod(const Coord3D &where): names a type or default argument the header "
+                        "does not declare",
+                        "member void setMode(int m = MODE_ON): names a type or default argument the header "
                         "does not declare"]
     assert sorted((c["role"], c["access"], c["text"]) for c in carried) == [
         ("assign", "public", "Pod &operator = (const Pod &);"), ("copy", "public", "Pod(const Pod &other);"),
@@ -859,14 +956,14 @@ def test_inline_special_members_the_views_agree_on_are_carried_in_every_variant(
     monkeypatch.setattr(lane, "registered", lambda: {})
     view = "class C {\npublic:\n    ~C() {\n        release();\n    }\n    void release();\n    int x;\n};\n"
     carried, problems = special("C", {"a.cpp": view, "b.cpp": view})
-    assert problems == [] and [c["text"] for c in carried] == ["~C() {\n        release();\n    }"]
+    assert problems == [] and [c["text"] for c in carried] == ["void release();", "~C() {\n        release();\n    }"]
     contract = {"class": "C", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
                 "fields": [{"kind": "i4", "type": "int", "name": "x"}]}
     for variant in ("data", "data+ctor", "data+methods", "data+includes"):
         assert "release();" in lane.generate(contract, variant, {}, None, None, carried)
     other = "class C {\npublic:\n    ~C() { x = 0; }\n    int x;\n};\n"
     carried, problems = special("C", {"a.cpp": view, "b.cpp": other})
-    assert problems == ["special ~C(): inline bodies differ (a.cpp, b.cpp)"] and carried == []
+    assert problems == ["special ~C(): inline bodies differ (a.cpp, b.cpp)"]
 
 
 def test_special_member_keys_keep_qualifiers_and_drop_names():
@@ -945,7 +1042,8 @@ def test_a_carried_declaration_keeps_its_string_literals():
     # comment markers and braces inside a literal are text, not comments or members
     view = 'class C {\npublic:\n    ~C() { log("a/*  b  */c}"); } // gone\n    void log(const char *);\n};\n'
     carried, problems = special("C", {"a.cpp": view, "b.cpp": view})
-    assert problems == [] and [c["text"] for c in carried] == ['~C() { log("a/*  b  */c}"); }']
+    assert problems == [] and [c["text"] for c in carried] == ['void log(const char *);',
+                                                               '~C() { log("a/*  b  */c}"); }']
 
 
 def test_ledger_proof_reads_nested_scope_back_references():

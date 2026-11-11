@@ -13,8 +13,9 @@ PIPELINE (per class, in DEPENDENCY_ORDER):
   1. contract   tools/class_contract.py decides the ABI (rule order bytes ->
                 retail access -> retail vtable -> ZH -> majority; ties queue).
   2. header     generated from the contract, or the class's registered header.
-                Every variant declares the special members the views declare
-                (special_declarations); views that disagree on one hold the
+                Every variant declares every member function and static
+                member the views declare (special_declarations, reading
+                declaration_records); views that disagree on one hold the
                 class.
   3. tournament 2-4 header variants (data only, + user default ctor, + the
                 views' non-special methods) are each gated against every unit;
@@ -1212,9 +1213,12 @@ def view_methods(name, sources, known=()):
 # implicit body, which does not do what the views' body does. `??0` and `??4`
 # carry the same risk. Views that disagree on a special member hold the class.
 #
-# Known limit: other bodiless methods are declared by the methods variant only.
-# A unit that calls one the winning variant lacks fails to compile and is
-# queued, so a dropped one never reaches the link.
+# Every other member declaration is carried the same way, in every variant: a
+# dropped one is not always a compile error either. A dropped `operator<` or
+# `operator==` (I6, Rva002A9706Element) lets a comparison fall to a conversion
+# or a free operator; a dropped named method lets a call fall to a base's. The
+# one definition of a member declaration is declaration_records, which the
+# header lane's lost-declaration scan reads too.
 
 ACCESS_LABEL = re.compile(r"^\s*(public|private|protected)\s*:(?!:)\s*")
 SPECIAL_QUALIFIERS = re.compile(r"^(?:(?:__declspec\(\w+\)|__forceinline|inline|explicit)\s+)*")
@@ -1354,22 +1358,171 @@ def special_role(member, short):
     return None
 
 
+TEMPLATE_HEAD = re.compile(r"^template\s*<")
+FUNCTION_POINTER = re.compile(r"^[^(]*\(\s*(?:__(?:cdecl|stdcall|fastcall|thiscall)\s*)?(?:[A-Za-z_]\w*\s*::\s*)*[*&]")
+OPERATOR_NAME = re.compile(r"\boperator\b\s*(\(\s*\)|\[\s*\]|(?:new|delete)\b\s*(?:\[\s*\])?|[^\w\s(]+"
+                           r"|(?:[A-Za-z_][\w:]*(?:\s*<[^()]*?>)?[\s*&]*)+?)\s*\(")
+
+
+def template_head(text):
+    """(`template <...>` prefix, the rest) of a declaration; ("", text) without one."""
+    if not TEMPLATE_HEAD.match(text):
+        return "", text
+    depth, index = 0, text.index("<")
+    for index in range(index, len(text)):
+        depth += {"<": 1, ">": -1}.get(text[index], 0)
+        if depth == 0:
+            break
+    return text[:index + 1], text[index + 1:].strip()
+
+
+def declaration_head(member):
+    """A member's declaration without its body, constructor initializers or literals' contents."""
+    return re.sub(r"\)\s*:(?!:).*$", ")", LITERAL.sub('""', member).split("{")[0].strip(), flags=re.S)
+
+
+def member_role(member, short):
+    """What one class member declares: a special role (special_role), `virtual` for a virtual
+    function, `method` for any other member function (named, operator, conversion operator,
+    `operator()`, `operator[]`, template, static), `static` for a static data member,
+    `friend class` for a befriended class, `friend` for a befriended function, `nested` for a
+    nested type, typedef, enum, using-declaration or other friend, `directive` for a member
+    a preprocessor line runs into, or None for a non-static data member or anonymous union
+    or struct (layout, which the contract decides)."""
+    if re.search(r"^[ \t]*#", member, flags=re.M):
+        return "directive"
+    head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
+    prefix, rest = template_head(head)
+    if re.match(r"(?:class|struct|union)\s*$", rest) or re.match(r"(?:struct|union)\s*$", head):
+        return None                              # an anonymous union or struct: layout
+    if re.match(r"friend\s+(?:class|struct|union)\s+[A-Za-z_][\w:]*\s*;?$", rest):
+        return "friend class"
+    if re.match(r"friend\b", rest):
+        return "friend" if "(" in rest and not FUNCTION_POINTER.match(rest[6:].strip()) else "nested"
+    if re.match(r"(?:typedef|using)\b", rest):
+        return "nested"
+    if re.match(r"(?:class|struct|union|enum)\b", rest) and ("{" in LITERAL.sub("", member)
+                                                             or re.match(r"\w+\s+\w+\s*;?$", rest)):
+        return "nested"
+    if prefix and not re.search(r"\(", rest):
+        return "nested"                          # a member class template's declaration
+    role = special_role(member, short)
+    if role is not None:
+        return role
+    rest = re.sub(r"^(?:class|struct|union|enum)\s+", "", rest)
+    if "(" in rest and not FUNCTION_POINTER.match(re.sub(r"^static\s+", "", rest)):
+        return "virtual" if re.search(r"\bvirtual\b", rest.split("(")[0]) else "method"
+    return "static" if re.match(r"static\b", rest) else None
+
+
+def method_key(member, name):
+    """A member function's key across spellings: its template parameter list, its name
+    (`operator<`, `operator()`, `operator const char*` included), its parameters' types and
+    its cv-qualifiers; parameter names, defaults, `static`, `inline` and the return type are
+    no part of it (two overloads cannot differ only there)."""
+    head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
+    prefix, rest = template_head(head)
+    prefix = re.sub(r"\s+", "", prefix)
+    found = OPERATOR_NAME.search(rest)
+    if found:
+        token = re.sub(r"\s+", " ", found.group(1)).strip().replace(" *", "*").replace(" &", "&")
+        if re.match(r"(?:new|delete)\b", token):
+            what = "operator " + token.replace(" ", "")           # `operator new[]`
+        elif re.match(r"[A-Za-z_]", token):
+            what = "operator " + token                            # a conversion: `operator const char*`
+        else:
+            what = "operator" + token.replace(" ", "")            # `operator<`, `operator()`, `operator[]`
+        paren = found.end() - 1
+    else:
+        found = re.search(r"(~?[A-Za-z_]\w*)\s*\(", rest)
+        if not found:
+            return signature(member, name)
+        what, paren = found.group(1), found.end() - 1
+    depth = 0
+    for close in range(paren, len(rest)):
+        depth += {"(": 1, ")": -1}.get(rest[close], 0)
+        if depth == 0:
+            break
+    params = ",".join(param_key(p) for p in param_list(rest[paren:close + 1]))
+    qualifiers = " ".join(w for w in re.findall(r"\b(?:const|volatile)\b", rest[close + 1:]))
+    return f"{prefix}{what}({params}){qualifiers}"
+
+
+def declaration_identity(text, key):
+    """What two spellings of one member (one key) must also share: everything before its
+    name, so its return type, `static`, `explicit` and the like (`int f()` and `bool f()`
+    mangle apart), without `inline`, `__forceinline`, `__declspec(...)` or whitespace."""
+    _, rest = template_head(re.sub(r"^\s*friend\s+", "", declaration_head(text)))
+    what = re.sub(r"^(?:friend\s+)?(?:template<[^>]*>)?", "", key.split("(")[0]).strip()
+    if what.startswith(("operator", "friend ")):
+        found = re.search(r"\boperator\b|\b(?:class|struct|union)\b", rest)
+    elif what == "~":
+        found = re.search(r"~", rest)
+    elif what.startswith("static "):
+        found = list(re.finditer(r"\b%s\b" % re.escape(what[7:]), rest))
+        found = found[-1] if found else None
+    else:
+        found = re.search(r"\b%s\s*\(" % re.escape(what), rest) if what else None
+    prefix = rest[:found.start()] if found else rest
+    prefix = re.sub(r"__declspec\(\w+\)|\b(?:inline|__forceinline|friend)\b", " ", prefix)
+    return re.sub(r"\s*([*&])\s*", r"\1", " ".join(prefix.split())).strip()
+
+
+def static_key(member):
+    """A static data member's key: `static ` and its name."""
+    found = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?:=.*)?;?\s*$", declaration_head(member), flags=re.S)
+    return "static " + (found.group(1) if found else re.sub(r"\s+", " ", member))
+
+
+def declaration_records(text, name):
+    """[{access, role, key, inline, pure, text}] of every member the view of `name` in `text`
+    declares except its non-static data members (layout), or None when `text` has no body.
+
+    The one definition of a member declaration: header generation (special_declarations)
+    and the header lane's lost-declaration scan read it alike. `key` names the member across
+    spellings (member_key), `inline` is whether it has a body, `pure` whether it ends `= 0`."""
+    short = name.split("::")[-1]
+    members = class_members(text, name)
+    if members is None:
+        return None
+    out = []
+    for access, member in members:
+        role = member_role(member, short)
+        if role is None:
+            continue
+        spelled_member = outside_literals(member, spell_typedefs)
+        head = re.sub(r"\s+", " ", declaration_head(spelled_member))
+        if role == "static":
+            key = static_key(spelled_member)
+        elif role == "friend class":
+            key = head.rstrip(" ;")                  # `friend struct X`
+        elif role in ("nested", "directive"):
+            key = f"{role} {head}".rstrip(" ;")
+        elif role == "friend":
+            key = "friend " + method_key(re.sub(r"^\s*friend\s+", "", spelled_member), name)
+        else:
+            key = member_key(spelled_member, name)
+        out.append({"access": access, "role": role, "key": key, "inline": "{" in LITERAL.sub("", member),
+                    "pure": bool(re.search(r"=\s*0\s*;?\s*$", declaration_head(member))),
+                    "text": spelled_member})
+    return out
+
+
 def member_key(member, name):
     """What one member is known by across its spellings: `~` for the destructor, a
     constructor or `operator=` by its parameter types with their qualifiers (`const X &o`
-    and `X const&` are one, `X&` another), any other member by its signature."""
+    and `X const&` are one, `X&` another), any other member function by method_key."""
     short = name.split("::")[-1]
-    head = re.sub(r"\)\s*:.*$", ")", member.split("{")[0], flags=re.S)
     head = SPECIAL_QUALIFIERS.sub("", re.sub(r"^(?:(?:__forceinline|inline)\s+)?virtual\s+", "",
-                                             SPECIAL_QUALIFIERS.sub("", head.strip())))
-    if "~" in head.split("(")[0]:
+                                             SPECIAL_QUALIFIERS.sub("", declaration_head(member))))
+    if re.match(r"~\s*[A-Za-z_]\w*\s*\(", head):
         return "~"
     if re.match(r"%s\s*\(" % re.escape(short), head):
         return f"{short}({','.join(param_key(p) for p in param_list(head))})"
     assign = re.search(r"\boperator\s*=\s*\(", head)
     if assign:
         return f"operator=({','.join(param_key(p) for p in param_list(head[assign.start():]))})"
-    return signature(member, name)
+    return method_key(member, name)
 
 
 def _matched_index():
@@ -1428,40 +1581,40 @@ def pure_contradicted(name, member, args, index=None):
 
 
 def special_declarations(name, sources, read=None, known=(), slotted=(), index=None):
-    """([{role, access, text, sig}] special members to declare, [problem]).
+    """([{role, access, text, sig}] member declarations to carry, [problem]).
 
-    A destructor, constructor or `operator=` the views declare is carried, with the
+    Every member declaration_records reports is carried, in every variant, with the
     views' access: one declared without a body in its most common spelling, one with an
-    inline body only when every view that declares it spells the same body. A virtual
-    one belongs to the slot declarations; `slotted` names the members those already
-    emit (`~` for the destructor). The class is held (a problem) when the views disagree
-    on any of them: one declares it out of line and another inline, virtual or with
-    other access, or inline bodies differ; when one names a type or default argument
-    the header does not declare; or, for a member with an implicit counterpart
-    (destructor, default and copy constructor, copy assignment), when another view's
-    body omits it and no matched ledger row defines it. No such member is ever left
-    out: another overload, or an implicit copy member, could take its calls without a
-    unit failing to compile."""
+    inline body only when every view that declares it spells the same body. That is the
+    special members (destructor, constructors, `operator=`) and every other member
+    function (operators, conversion operators, `operator()`, `operator[]`, templates,
+    statics) and static data member. A virtual one belongs to the slot declarations;
+    `slotted` names the members those already emit (`~` for the destructor).
+
+    The class is held (a problem) when the views disagree on a member: one declares it
+    out of line and another inline, virtual or with other access, or inline bodies
+    differ; when one names a type or default argument the header does not declare; when
+    a view declares a nested type, typedef, enum, using-declaration or friend (the
+    generator carries none); or, for a member with an implicit counterpart (destructor,
+    default and copy constructor, copy assignment), when another view's body omits it
+    and no matched ledger row defines it. No member is ever left out: another overload,
+    a base's member or an implicit one could take its calls without a unit failing to
+    compile."""
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
     hump_id = re.compile(r"^[A-Z][A-Za-z0-9]*(?:_[A-Z][A-Za-z0-9]*)+$")
     views = {}
     for source in sources:
         try:
-            members = class_members(read(source), name)
+            records = declaration_records(read(source), name)
         except OSError:
             continue
-        if members is None:
+        if records is None:
             continue
         found = collections.defaultdict(list)
-        for access, member in members:
-            role = special_role(member, short)
-            if role is None:
-                continue
-            spelled_member = outside_literals(member, spell_typedefs)
-            norm = outside_literals(spelled_member, lambda part: re.sub(r"\s+", " ", part)).strip()
-            inline = "{" in LITERAL.sub("", member)
-            found[member_key(spelled_member, name)].append((role, access, inline, norm, spelled_member))
+        for record in records:
+            norm = outside_literals(record["text"], lambda part: re.sub(r"\s+", " ", part)).strip()
+            found[record["key"]].append((record["role"], record["access"], record["inline"], norm, record["text"]))
         views[source] = found
     out, problems = [], []
     keys = sorted({k for found in views.values() for k, decls in found.items()
@@ -1475,20 +1628,31 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         outline = [(s, d) for s, d in own if not d[2]]
         inline = [(s, d) for s, d in own if d[2]]
         what = (outline or inline)[0][1][3].split("{")[0].rstrip(" ;")
+        label = "special" if role in IMPLICIT_ROLES + ("ctor", "operator=") else "member"
         virtual = sorted({s for s, d in decls if d[0] == "virtual"})
-        accesses = collections.Counter(d[1] for _, d in own)
+        # a friend declaration's access label means nothing: it is declared public
+        accesses = collections.Counter("public" if role.startswith("friend") else d[1] for _, d in own)
         omitted = sorted(s for s, found in views.items() if key not in found)
+        if role in ("nested", "directive"):
+            problems.append(f"member {what}: a {'nested declaration' if role == 'nested' else 'preprocessor line'}"
+                            f" in {own[0][0]}, which the generator does not carry")
+            continue
         if outline and inline:
-            problems.append(f"special {what}: out of line in {outline[0][0]}, inline in {inline[0][0]}")
+            problems.append(f"{label} {what}: out of line in {outline[0][0]}, inline in {inline[0][0]}")
             continue
         if virtual:
-            problems.append(f"special {what}: virtual in {virtual[0]} only, not in {own[0][0]}")
+            problems.append(f"{label} {what}: virtual in {virtual[0]} only, not in {own[0][0]}")
             continue
         if len(accesses) > 1:
-            problems.append(f"special {what}: access disagrees ({', '.join(sorted(accesses))})")
+            problems.append(f"{label} {what}: access disagrees ({', '.join(sorted(accesses))})")
+            continue
+        identity = declaration_identity(outline[0][1][3], key) if outline else None
+        differ = [s for s, d in outline if declaration_identity(d[3], key) != identity]
+        if differ:
+            problems.append(f"{label} {what}: declarations differ ({outline[0][0]}, {differ[0]})")
             continue
         if inline and len({d[3] for _, d in inline}) > 1:
-            problems.append(f"special {what}: inline bodies differ ({inline[0][0]}, "
+            problems.append(f"{label} {what}: inline bodies differ ({inline[0][0]}, "
                             f"{next(s for s, d in inline if d[3] != inline[0][1][3])})")
             continue
         if role in IMPLICIT_ROLES and omitted and not ledger_defines(name, role, index=index):
@@ -1500,19 +1664,30 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         else:
             text = inline[0][1][4].strip()
         bare = LITERAL.sub(" ", text)
-        words = set(re.findall(r"[A-Za-z_]\w*", bare)) - PRIMITIVE_WORDS - {name, short} - set(known)
+        prefix, _ = template_head(SPECIAL_QUALIFIERS.sub("", declaration_head(text)))
+        # its own name and template parameters name no type the header lacks; an operator's
+        # name is only `operator` (a conversion operator's type must be declared)
+        name_part = re.sub(r"^(?:friend\s+)?(?:template<[^>]*>)?", "", key.split("(")[0])
+        own_names = ({"operator"} if name_part.startswith("operator") else
+                     set(re.findall(r"[A-Za-z_]\w*", name_part))) | set(
+            re.findall(r"\b(?:class|typename)\s+([A-Za-z_]\w*)", prefix))
+        words = set(re.findall(r"[A-Za-z_]\w*", bare)) - PRIMITIVE_WORDS - {name, short} - set(known) - own_names
         # an inline body may call a hump-underscore method (Release_Ref), as view_methods allows
         if any(w[0].isupper() and not (inline and hump_id.match(w)) for w in words) or \
                 re.search(r"=\s*(?!(?:true|false)\b)[A-Za-z_]", bare.split("{")[0].split("(", 1)[-1]):
-            problems.append(f"special {what}: names a type or default argument the header does not declare")
+            problems.append(f"{label} {what}: names a type or default argument the header does not declare")
             continue
         out.append({"role": role, "access": next(iter(accesses)), "sig": key,
                     "text": text if text.endswith((";", "}")) else text + ";"})
     return out, problems
 
 
-def special_members(name, contract, sources, known=()):
-    """special_declarations for a contract: the members its slot declarations emit are theirs."""
+def special_members(name, contract, sources, known=None):
+    """special_declarations for a contract: the members its slot declarations emit are theirs.
+    `known` defaults to what the header includes for every variant: its member aggregates'
+    registered headers (the tournament's `nested`), so the gate and the tournament agree."""
+    if known is None:
+        known = {f["kind"][2:] for f in contract.get("fields", ()) if f["kind"].startswith("S:")} & set(registered())
     slotted = set()
     if contract.get("vslots"):
         own, overrides, _ = slot_declarations(contract, sources)
