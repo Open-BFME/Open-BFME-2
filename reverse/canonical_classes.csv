@@ -1059,3 +1059,4 @@ Rva005DB004,Code/GameEngine/Include/Common/Rva005DB004.h,existing header; contra
 BFMEMoveVoiceAI,Code/GameEngine/Include/GameLogic/Module/BFMEMoveVoiceAI.h,existing header; contract class_contracts/BFMEMoveVoiceAI.json; 4/4 sampled units adopt
 Rva002B6C9F,Code/GameEngine/Include/GameClient/Rva002B6C9F.h,existing header; contract class_contracts/Rva002B6C9F.json; 6/6 sampled units adopt
 Rva005E6817Mid,Code/GameEngine/Include/Common/Rva005E6817Mid.h,existing header; contract class_contracts/Rva005E6817Mid.json; 5/6 sampled units adopt
+Rva005CCB73,Code/GameEngine/Include/GameClient/Rva005CCB73.h,existing header; contract class_contracts/Rva005CCB73.json; 5/6 sampled units adopt

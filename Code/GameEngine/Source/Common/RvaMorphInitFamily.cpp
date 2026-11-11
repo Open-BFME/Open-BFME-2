@@ -29,7 +29,7 @@ private:
 	void *m_payload;					// +0x08
 };
 
-class Rva005CCB73 { public: void rva005CCB73(void *arg); };				// 0x005CCB73
+#include "../../Include/GameClient/Rva005CCB73.h"
 #include "../../Include/Common/Rva005CCB7B.h"
 class Rva005CCE13 { public: void rva005CCE13(const UnicodeString &text); };	// 0x005CCE13
 

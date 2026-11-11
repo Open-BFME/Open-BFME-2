@@ -20,7 +20,7 @@ UnicodeString Rva005C95ECGet(Rva0020E89C*);
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}
 struct Rva002BA8F1Listener;
 class Rva005CCE13 {public:void rva005CCE13(const UnicodeString&);};
-class Rva005CCB73 {public:void rva005CCB73(void*);};
+#include "../../../../Include/GameClient/Rva005CCB73.h"
 #include "../../../../Include/Common/Rva005CCB7B.h"
 #include "../../../../Include/Common/Rva005CCB83.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;

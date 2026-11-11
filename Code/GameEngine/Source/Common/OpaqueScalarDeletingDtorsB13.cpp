@@ -87,11 +87,7 @@ class Rva005CCE13
 public:
 	void rva005CCE13(const UnicodeString &arg);
 };
-class Rva005CCB73
-{
-public:
-	void rva005CCB73(void *arg);
-};
+#include "../../Include/GameClient/Rva005CCB73.h"
 
 class Rva005CD3A5 : public Rva005CCDDD
 {
