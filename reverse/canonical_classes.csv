@@ -991,3 +991,4 @@ Rva0039BAD2,Code/GameEngine/Include/GameLogic/Module/Rva0039BAD2.h,existing head
 Rva000B4B23,Code/GameEngine/Include/Common/Rva000B4B23.h,existing header; contract class_contracts/Rva000B4B23.json; 6/7 sampled units adopt
 AptGuiFX,Code/GameEngine/Include/Common/AptGuiFX.h,existing header; contract class_contracts/AptGuiFX.json; 5/5 sampled units adopt
 Rva003F4DCA,Code/GameEngine/Include/GameLogic/Rva003F4DCA.h,existing header; contract class_contracts/Rva003F4DCA.json; 7/8 sampled units adopt
+ElevatedAreaPolygon,Code/GameEngine/Include/Common/ElevatedAreaPolygon.h,existing header; contract class_contracts/ElevatedAreaPolygon.json; 4/8 sampled units adopt

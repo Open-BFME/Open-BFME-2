@@ -60,11 +60,7 @@ public:
 	Coord2D *m_pointsEnd;
 	char m_pad08[0x2C - 8];
 };
-class ElevatedAreaPolygon
-{
-public:
-	void parse(DataChunkInput &file, Int flag);
-};
+#include "../../../Include/Common/ElevatedAreaPolygon.h"
 
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

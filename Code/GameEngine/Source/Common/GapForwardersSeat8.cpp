@@ -76,7 +76,7 @@ class Rva00283002 { public: void rva00283002(); };	// 0x00283002 (list clear)
 enum ScienceType { };
 #include "../../Include/Common/Player.h"
 class DataChunkInput;
-class ElevatedAreaPolygon { public: void parse(DataChunkInput &file, int val); };	// 0x0030BB87
+#include "../../Include/Common/ElevatedAreaPolygon.h"
 struct Rva0030B7C2Point;
 class Rva002E37B1 { public: bool rva002E37B1(const Rva0030B7C2Point *point); };	// 0x002E37B1
 class Rva003184B8 { public: void rva003184B8(); };	// 0x003184B8

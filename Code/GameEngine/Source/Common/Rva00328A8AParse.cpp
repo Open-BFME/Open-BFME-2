@@ -5,10 +5,7 @@
 #include "ascii_string.h"
 #include "../../Include/Common/DataChunk.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-struct ElevatedAreaPolygon
-{
-	void parse(DataChunkInput &file, int val);
-};
+#include "../../Include/Common/ElevatedAreaPolygon.h"
 struct Out
 {
 	int m_00;
