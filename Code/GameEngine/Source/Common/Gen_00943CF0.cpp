@@ -9,19 +9,7 @@ struct Gen_00943CF0_Node
 	void *m_value;
 };
 
-class Gen_00943CF0
-{
-	void first(void *value, int *secondOutput, int *firstOutput,
-		int *listAddress);
-	void second(void *value, void *secondOutput, void *firstOutput,
-		void *list);
-	void unlink(void *value);
-	void link(void *value, int address, int secondOutput, int firstOutput);
-
-public:
-	void process(Gen_00943CF0_Node **list);
-	void update(void *value);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Gen_00943CF0.h"
 
 void Gen_00943CF0::process(Gen_00943CF0_Node **list)
 {

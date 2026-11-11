@@ -50,11 +50,7 @@ public:
 extern Rva0006EFC8 g_BfmeSceneNodePool; // VA 0xDB424C (.data RVA 0x9B424C), 24B pool
 typedef char Rva0006EFC8PoolSize24[(sizeof(Rva0006EFC8) == 0x18) ? 1 : -1];
 
-class Gen_00943CF0
-{
-public:
-	void process(Gen_00943CF0_Node **list);
-};
+#include "Gen_00943CF0.h"
 
 struct Rva00141F90Bounds
 {

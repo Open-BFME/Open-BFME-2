@@ -344,11 +344,7 @@ public:
 
 // Rowed spatial-index members (0x001416F0 update) and the unrowed collector at
 // 0x00142410 (pinned; the partial bank of that body names it this way).
-class Gen_00943CF0
-{
-public:
-	void update(void *obj);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Gen_00943CF0.h"
 
 struct Gen_00943CF0_Node
 {

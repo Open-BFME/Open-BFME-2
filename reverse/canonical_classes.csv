@@ -1202,3 +1202,4 @@ BridgeBehavior,Code/GameEngine/Include/GameLogic/Module/BridgeBehaviorClass.h,ex
 Rva00800550Chain,Code/GameEngine/Include/GameNetwork/Rva00800550Chain.h,existing header; contract class_contracts/Rva00800550Chain.json; 5/6 sampled units adopt
 AptActionQueueC,Code/Libraries/Source/Apt/AptActionQueueC.h,existing header; contract class_contracts/AptActionQueueC.json; 6/12 sampled units adopt
 Rva003F409F,Code/GameEngine/Include/Common/Rva003F409F.h,existing header; contract class_contracts/Rva003F409F.json; 3/5 sampled units adopt
+Gen_00943CF0,Code/Libraries/Source/WWVegas/WW3D2/Gen_00943CF0.h,existing header; contract class_contracts/Gen_00943CF0.json; 4/6 sampled units adopt
