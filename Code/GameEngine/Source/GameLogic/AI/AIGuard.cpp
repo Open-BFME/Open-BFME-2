@@ -27,7 +27,10 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
-#define NULL 0
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 enum
 {
 	AI_VISIONFACTOR_OWNERTYPE = 0x01,
@@ -39,7 +42,6 @@ enum
 #define PATHFIND_CELL_SIZE_F 10.0f
 #define STATE_SLEEP(n) ((StateReturnType)(n))
 #define AIGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIGuard.cpp"
-#define NULL 0
 
 typedef bool Bool;
 
@@ -462,7 +464,11 @@ struct FprintfTarget
 	char m_pad[4];
 };
 
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game's _fprintf thunk through REL32, so read <stdio.h>
+// without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 
 extern unsigned char g_00E03745;
 
@@ -940,7 +946,7 @@ StateReturnType AIGuardReturnState::onEnter( void )
 		{
 			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log)
-				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 3");
+				fprintf((FILE *)log, "CritterDesync: setAdjustDestination(TRUE) 3");
 		}
 		m_adjustDestinations = true;
 		return AIInternalMoveToState::onEnter();
