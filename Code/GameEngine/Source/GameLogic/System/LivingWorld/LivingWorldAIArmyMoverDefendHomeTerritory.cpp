@@ -94,11 +94,7 @@ private:
 };
 extern Rva00E02D6C *TheCampaignManager;
 
-class Rva004FF997Owner
-{
-public:
-	int rva004FF997(int);
-};
+#include "../../../../Include/GameLogic/Rva004FF997Owner.h"
 
 struct Rva004FFB00Hero
 {

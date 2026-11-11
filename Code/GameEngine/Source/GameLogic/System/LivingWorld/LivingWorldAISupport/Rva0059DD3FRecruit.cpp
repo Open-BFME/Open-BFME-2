@@ -37,7 +37,7 @@ struct Rva004FCD6DElement {short words[1];bool operator<(const Rva004FCD6DElemen
 typedef _STL::map<Rva004FCD6DElement,int> RegionMap;
 typedef _STL::pair<RegionMap::const_iterator,RegionMap::const_iterator> RegionRange;
 class Rva005003C7 {public:RegionRange rva005003C7(Rva004FCD6DElement)const;};
-class Rva004FF997Owner {public:int rva004FF997(int);};
+#include "../../../../../Include/GameLogic/Rva004FF997Owner.h"
 class Rva0059DA34 {public:int rva0059DA34(int,int,bool,int,Rva004FF5B7*,int*);bool rva0059DB48(_STL::vector<BfmeE8>*,const Rva0059D90CSource*,Rva004FF8DA*,Rva004FF5B7*,int,int,int*);};
 class Rva0059D90C {public:bool rva0059D90C(_STL::vector<BfmeE8>*,const Rva0059D90CSource*,Rva004FF8DA*,int,int*);};
 typedef _STL::map<int,int> IntMap;

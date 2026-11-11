@@ -34,11 +34,7 @@ public:
 	Rva004FFB00Hero *rva004FFB00(int playerId, int *territory, int *distance);
 };
 
-class Rva004FF997Owner
-{
-public:
-	int rva004FF997(int id);
-};
+#include "../../../../Include/GameLogic/Rva004FF997Owner.h"
 
 class Rva0059DD3F
 {

@@ -93,11 +93,7 @@ struct Range0059BD85
 	Elem0059BD85 *m_end;
 };
 
-class Rva004FF997Owner
-{
-public:
-	int rva004FF997(int);
-};
+#include "../../../../../Include/GameLogic/Rva004FF997Owner.h"
 class Rva004FF9B6 {public:void*rva004FF9B6(int);};
 class Rva0020E89C;
 #include "../../../../../Include/GameLogic/Rva0020EAF6View.h"
