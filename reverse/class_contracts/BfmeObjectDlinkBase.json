@@ -1,0 +1,73 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeObjectDlinkBase",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 20,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 15,
+   "100": 5
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_template",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ThingTemplate*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsReinforcements.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 100,
+ "size_by": "majority",
+ "vslots": {}
+}
