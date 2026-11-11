@@ -87,7 +87,7 @@ struct TreeHintRef00217D4C {
  TargetRef00217D4C *m_ptr;
 };
 class Rva002BED91 { public: void set(TargetRef00217D4C *); };
-class Rva005FC9F0 { public: void rva005FC9E8(const Image *); void rva005FC9F0(int); };
+#include "../../../../Include/GameClient/Rva005FC9F0.h"
 class Rva0037E07C { public: int rva0037E07C(); };
 struct StrategicButtonImageView; struct Rva005F01D6In;
 namespace StrategicInGameUI { const Image *GetButtonImage(const StrategicButtonImageView *,int); }

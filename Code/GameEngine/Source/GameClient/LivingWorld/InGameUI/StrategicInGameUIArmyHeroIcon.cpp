@@ -71,7 +71,7 @@ const Image *GetButtonImage(const StrategicButtonImageView *,int);
 namespace StrategicHUD {
 class ArmyHeroIconMovieClip { public: ArmyHeroIconMovieClip(AptMovieClipFrame *); private: char storage[0x1c]; };
 }
-class Rva005FC9F0 { public: void rva005FC9E8(const Image *); void rva005FC9F0(int); };
+#include "../../../../Include/GameClient/Rva005FC9F0.h"
 
 struct Rva005F42FFHero
 {
