@@ -9,11 +9,7 @@
 // object status at +0x94 with DieMuxData required/exempt masks (see
 // Object::isDieAbleToAttack-class users like DieMuxData::isDieApplicable).
 // Opaque Rva name: the BitFlags size behind the 16 bytes is unproven.
-class Rva0026157E
-{
-public:
-	bool testMasks(const void *required, const void *exempt) const;
-};
+#include "../../Include/Common/Rva0026157E.h"
 
 bool Rva0026157E::testMasks(const void *required, const void *exempt) const
 {

@@ -184,11 +184,7 @@ public:
 // Forwarder to 4-dword tester ?testMasks@Rva0026157E (0x0026157E) with this+0xC0/+0xD0.
 // Sibling of 0x003EDE16 (19-dword forwarder) same page same shape larger disp32.
 // Callers 0x003EDE44 0x003EDF69 0x003EDFD8.
-class Rva0026157E
-{
-public:
-	bool testMasks(const void *required, const void *exempt) const;
-};
+#include "../../../Include/Common/Rva0026157E.h"
 
 class Rva003EDE16
 {

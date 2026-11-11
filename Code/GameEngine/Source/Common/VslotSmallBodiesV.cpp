@@ -165,11 +165,7 @@ void LivingWorldRegionManager::BeginTurn(Int a, Int b)
 // 0x002616D1 and 0x002616EB (tables at VA 0x00C1796C, 0x00C071D0): the rowed dual-mask
 // test 0x0026157E of the argument's +0x94 masks against this object's
 // +0x08/+0x18, resp. its negation.
-class Rva0026157E
-{
-public:
-	bool testMasks(const void *a, const void *b) const;
-};
+#include "../../Include/Common/Rva0026157E.h"
 struct Rva002616D1Arg
 {
 	char m_pad00[0x94];

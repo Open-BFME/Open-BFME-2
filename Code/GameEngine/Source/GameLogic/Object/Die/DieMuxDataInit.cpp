@@ -24,7 +24,7 @@ template<> bitset<128> &bitset<128>::reset();
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Rva0026157E { public: bool testMasks(const void *required, const void *exempt) const; };
+#include "../../../../Include/Common/Rva0026157E.h"
 class Object {
 public:
  Coord3D *getPlanarDirectionTo(Coord3D *out, const Object *killer) const;
