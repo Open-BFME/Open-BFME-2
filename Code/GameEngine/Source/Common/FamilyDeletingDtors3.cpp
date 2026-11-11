@@ -61,11 +61,7 @@ void Rva00577DE1OwningCell::rva00577E3EForwardClear()
 // 0x00577914 on each value and rowed 0x005F8FCC(0) on the resulting slot.
 // The address-derived owner and element roles are structural views; the
 // original class and routine purpose are unknown.
-class Rva005C6CC7Call
-{
-public:
-    void rva005C6CC7();
-};
+#include "../../Include/Common/Rva005C6CC7Call.h"
 class Rva00577914
 {
 public:

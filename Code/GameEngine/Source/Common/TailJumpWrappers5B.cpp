@@ -795,11 +795,7 @@ public:
 	void reset();
 };
 
-class Rva005C6CC7Call
-{
-public:
-	void rva005C6CC7();
-};
+#include "../../Include/Common/Rva005C6CC7Call.h"
 
 void Rva005C6CC7Call::rva005C6CC7()
 {

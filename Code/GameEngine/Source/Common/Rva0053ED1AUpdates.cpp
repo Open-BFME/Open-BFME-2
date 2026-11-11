@@ -48,11 +48,7 @@ public:
 	void reset();
 };
 
-class Rva005C6CC7Call
-{
-public:
-	void rva005C6CC7();
-};
+#include "../../Include/Common/Rva005C6CC7Call.h"
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
