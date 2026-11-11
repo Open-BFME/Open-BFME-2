@@ -124,9 +124,14 @@ SURVIVOR_CALLS = {0x004144F0: (0x0F, F.members[0x0041445C]), 0x00414793: (0x09, 
 
 
 def good_bodies():
-    """Each survivor rebuilt as retail has it (read from the test's image), its one call relocated."""
-    return {F.members[at]: (R.read_retail(at, SIZES[at]), [(offset, rename.REL32, target)])
-            for at, (offset, target) in SURVIVOR_CALLS.items()}
+    """Each survivor rebuilt as retail has it (read from the test's image), its one call relocated: the object holds
+    a zero addend in the call's rel32, as MSVC writes it."""
+    out = {}
+    for at, (offset, target) in SURVIVOR_CALLS.items():
+        code = bytearray(R.read_retail(at, SIZES[at]))
+        code[offset:offset + 4] = b"\0\0\0\0"
+        out[F.members[at]] = (bytes(code), [(offset, rename.REL32, target)])
+    return out
 
 
 def context(root, refs=(), relocs=None, bodies=None):
@@ -434,8 +439,13 @@ def flipped(code, offset):
     ("a call to the stand-in's copy", lambda body, offset: (body[0], [(offset, rename.REL32,
                                                                        "?Rva0041445CDestroy@@YAXPAURva0041445CElement@@0H@Z")]),
      "no row of that name"),
-    ("a call that moved", lambda body, offset: (body[0], [(offset + 1, rename.REL32, body[1][0][2])]), "no row of that name"),
+    ("a call that moved", lambda body, offset: (body[0], [(offset + 1, rename.REL32, body[1][0][2])]),
+     "carries an addend|no row of that name"),
     ("a body cut short", lambda body, offset: (body[0][:-2], body[1]), "is 2. bytes, its row"),
+    ("the right callee at an addend", lambda body, offset: (body[0][:offset] + b"\x01\0\0\0" + body[0][offset + 4:], body[1]),
+     "carries an addend"),
+    ("the right callee at a negative addend",
+     lambda body, offset: (body[0][:offset] + b"\xff\xff\xff\xff" + body[0][offset + 4:], body[1]), "carries an addend"),
 ])
 def test_a_survivor_that_is_not_retails_is_undone(tree, at, label, change, message):
     """The class's row at a retired duplicate's address serves its callers: the same size is not enough."""

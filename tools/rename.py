@@ -5271,7 +5271,11 @@ def retail_identity_problems(ctx, identity):
                 if body is None:
                     problems.append(f"{name} (0x{at:08X}), which replaces a retired duplicate, cannot be read ({source})")
                     continue
-                why = retail_body_problem(name, at, size, body[0], body[1], rows_now)
+                # retail_body_problem masks each relocated word; a nonzero addend would call past the target
+                addends = [offset for offset, _kind, _target in body[1]
+                           if offset + 4 <= len(body[0]) and any(body[0][offset:offset + 4])]
+                why = (f"{name} carries an addend at +{addends[0]}: its call does not reach its target's start"
+                       if addends else retail_body_problem(name, at, size, body[0], body[1], rows_now))
                 if why:
                     problems.append(f"0x{at:08X}'s surviving row is not retail's: {why}")
     else:
