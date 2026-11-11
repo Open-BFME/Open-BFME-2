@@ -91,7 +91,7 @@ namespace FXParticleSystem { class LightningDrawModule; }
 
 #include "../../../../Include/GameClient/Rva001F4D2D.h"
 #include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
-class Rva001F4DF9 { public: float rva001F4DF9(); };
+#include "../../../../Include/GameClient/Rva001F4DF9.h"
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
 
 struct StreakParticle

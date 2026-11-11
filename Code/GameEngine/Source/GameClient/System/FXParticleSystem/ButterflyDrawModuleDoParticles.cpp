@@ -110,7 +110,7 @@ class Rva001F4E2D {public:bool rva001F4E2D();};
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
-class Rva001F4DF9 {public:float rva001F4DF9();};
+#include "../../../../Include/GameClient/Rva001F4DF9.h"
 struct ButterflyParticle {char prefix[16];Vector3 axis;Vector3 position;char gap[0x3c];ButterflyParticle*next;};
 class ButterflyParticleStorage {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual ButterflyParticle*getFirstParticle();};
 #include "../../../../Include/GameClient/Rva0004CABDSevenEight.h"

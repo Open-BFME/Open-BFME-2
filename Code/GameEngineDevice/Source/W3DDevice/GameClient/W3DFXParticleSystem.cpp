@@ -127,7 +127,7 @@ template<> RvaSmartPtr12 *_STL::vector<RvaSmartPtr12>::erase(RvaSmartPtr12 *, Rv
 #include "../../../../GameEngine/Include/GameClient/Rva001F4D2D.h"
 #include "../../../../GameEngine/Include/GameClient/Rva001F4E1BSlot.h"
 #include "../../../../GameEngine/Include/GameClient/Rva001F4DC4.h"
-class Rva001F4DF9 { public: Real rva001F4DF9(); };		// 0x001F4DF9
+#include "../../../../GameEngine/Include/GameClient/Rva001F4DF9.h"
 
 class Particle
 {
