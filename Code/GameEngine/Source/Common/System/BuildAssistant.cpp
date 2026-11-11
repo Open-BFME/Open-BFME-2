@@ -777,11 +777,7 @@ public:
 	virtual void v20(); virtual void v24(); virtual void v28();
 	virtual Real getRange();				// +0x2C
 };
-class Rva00293330
-{
-public:
-	void *rva00293330(UnsignedInt key);
-};
+#include "../../../Include/Common/Rva00293330.h"
 Real normalizeAngle(Real angle);
 class BuildAssistant
 {

@@ -151,11 +151,7 @@ class Object : public Thing
 public:
     Player* getControllingPlayer() const;
 };
-class Rva00293330
-{
-public:
-    void* rva00293330(unsigned);
-};
+#include "../../Include/Common/Rva00293330.h"
 
 class Cb00359D42;
 #include "../../Include/GameClient/TerrainResourceManager.h"

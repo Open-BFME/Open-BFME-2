@@ -633,11 +633,7 @@ tmp2=matrix3D[2][1];
 matrix3D[2][0]=(float)((c ? c : c)*tmp1 + s*tmp2);
 matrix3D[2][1]=(float)(-s*tmp1 +(c ? c : c)*tmp2);
 }
-class Rva00293330
-{
-public:
-	void *rva00293330(UnsignedInt key);
-};
+#include "../../../Include/Common/Rva00293330.h"
 class Rva0039380FModule{
 public:
 virtual void slot0();
