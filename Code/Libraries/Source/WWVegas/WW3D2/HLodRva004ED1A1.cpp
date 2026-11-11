@@ -37,11 +37,7 @@ struct Rva00372571Params
 	int m_18;
 	bool m_1C;
 };
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2();
-};
+#include "../../../../GameEngine/Include/Common/Rva002A9BF2.h"
 #include "../../../../GameEngine/Include/GameLogic/AIGroup.h"
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
