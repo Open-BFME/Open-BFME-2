@@ -139,11 +139,7 @@ Rva009D6FA::Rva009D6FA(EmitVtableTag *)
 {
 }
 
-class Rva00785FD0Renderer
-{
-public:
-	~Rva00785FD0Renderer();	// row 0x0011018B in Rva0011018BDestructor.cpp
-};
+#include "../../Include/Common/Rva00785FD0Renderer.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GRva00785FD0Renderer (it
 // calls out to the destructor row); the destructor is only declared here.

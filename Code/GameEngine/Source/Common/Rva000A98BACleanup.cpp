@@ -13,11 +13,7 @@ class W3DAptAux
 
 // The destructor at 0x0011018B is rowed as the non-virtual
 // ??1Rva00785FD0Renderer@@QAE@XZ (WW3D2/Rva0011018BDestructor.cpp).
-class Rva00785FD0Renderer
-{
-public:
-	~Rva00785FD0Renderer();
-};
+#include "../../Include/Common/Rva00785FD0Renderer.h"
 
 void __cdecl Rva000A98BACleanup(void)
 {

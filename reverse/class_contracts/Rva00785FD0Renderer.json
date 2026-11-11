@@ -1,0 +1,189 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00785FD0Renderer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x14": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 3
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 3
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 2
+   },
+   "0x44": {
+    "4": 2
+   },
+   "0x48": {
+    "4": 2
+   },
+   "0x4c": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 2
+   },
+   "0xd4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xe0": 1
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "212": 1,
+   "224": 2
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva0011018BDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva0011018BDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "1:i1": 1,
+    "224:A": 1
+   },
+   "class": "Rva00785FD0Renderer"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -391,12 +391,7 @@ public:
 // 0x0003DDED, stencil helper ILT 0x00041EC0 -> 0x0078B280, queue sentinel
 // 0x01306978, element cleanup ILT 0x00049062 -> 0x00785300.
 
-class Rva00785FD0Renderer
-{
-public:
-	void stencil();
-	void __fastcall setMode(int mode);
-};
+#include "../../../../../GameEngine/Include/Common/Rva00785FD0Renderer.h"
 
 class AptShapeContainer
 {
