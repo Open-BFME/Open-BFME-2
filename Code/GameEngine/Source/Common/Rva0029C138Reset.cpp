@@ -29,7 +29,7 @@ static inline bool operator!=(const _List_iterator<T,L>& a,
 static __forceinline bool Rva0029FFFFIsPoint(const IRegion2D &region2D) { return region2D.hi.y-region2D.lo.y==0 && region2D.hi.x-region2D.lo.x==0; }
 struct Rva0087DC00Vec { int x,y,z; };
 #include "../../Include/GameClient/Rva0087DC00.h"
-class Rva00270FEE { public: char* rva00270FEE(); };
+#include "../../Include/Common/Rva00270FEE.h"
 class Rva00276470Drawable { public: const Coord3D* rva00276470() const; };
 template<int N> class BitFlags { public: bool test(const void*) const; };
 class Drawable {

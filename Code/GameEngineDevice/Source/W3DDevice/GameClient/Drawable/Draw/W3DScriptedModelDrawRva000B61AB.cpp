@@ -45,11 +45,7 @@ struct Rva000B61ABDrawTemplate
 };
 
 // The rowed geometry getter of the drawable (0x00270FEE).
-class Rva00270FEE
-{
-public:
-	char *rva00270FEE();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva00270FEE.h"
 
 class Rva00276470Drawable
 {

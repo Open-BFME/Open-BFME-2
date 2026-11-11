@@ -1650,7 +1650,7 @@ void GameClient::update()
 // lerps +0x418 toward +0x424 and returns +0x38 for a drawable without an
 // object.
 class Rva00276470Drawable { public: const Coord3D *rva00276470() const; };
-class Rva00270FEE { public: float rva00271008(); };
+#include "../../Include/Common/Rva00270FEE.h"
 #include "../../Include/Common/Rva00270260.h"
 class Rva002707FA { public: void rva002707FA(unsigned char value); };
 
