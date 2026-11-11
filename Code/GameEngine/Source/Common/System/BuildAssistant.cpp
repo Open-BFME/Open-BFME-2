@@ -1268,10 +1268,7 @@ public:
 	BfmeResultA bfmeForwardResultB(int value);
 };
 // GeometryInfo's assignment (0x00064605).
-struct BfmeCopyElementA
-{
-	BfmeCopyElementA *bfmeAssign(BfmeCopyElementA *source);
-};
+#include "../../../Include/Common/BfmeCopyElementA.h"
 Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
 #define BUILDASSISTANT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\System\\BuildAssistant.cpp"
 #define PI 3.14159265359f

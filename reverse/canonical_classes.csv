@@ -1114,3 +1114,4 @@ Rva002E713FOwner,Code/GameEngine/Include/GameLogic/Rva002E713FOwner.h,existing h
 BfmeThingEC,Code/GameEngine/Include/GameNetwork/BfmeThingEC.h,existing header; contract class_contracts/BfmeThingEC.json; 5/7 sampled units adopt
 Rva0004CCFF,Code/Libraries/Source/WWVegas/WWLib/Rva0004CCFF.h,existing header; contract class_contracts/Rva0004CCFF.json; 5/7 sampled units adopt
 AptConnectionScreen,Code/GameEngine/Include/GameClient/AptConnectionScreen.h,existing header; contract class_contracts/AptConnectionScreen.json; 3/6 sampled units adopt
+BfmeCopyElementA,Code/GameEngine/Include/Common/BfmeCopyElementA.h,existing header; contract class_contracts/BfmeCopyElementA.json; 4/7 sampled units adopt

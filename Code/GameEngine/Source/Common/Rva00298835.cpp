@@ -14,10 +14,7 @@
 // its real layout lives in GeometryInfoCtor.cpp. Holder and identities
 // unproven: honest address-derived names; the sibling 0x29895A wrapper
 // shares the +0xA8 member and may rehome here.
-struct BfmeCopyElementA
-{
-	BfmeCopyElementA *bfmeAssign(BfmeCopyElementA *source);
-};
+#include "../../Include/Common/BfmeCopyElementA.h"
 
 #include "../../Include/Common/Geometry.h"
 
