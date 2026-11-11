@@ -905,3 +905,4 @@ Rva007E8AC0,Code/GameEngine/Include/GameNetwork/Rva007E8AC0.h,existing header; c
 Rva002A7461,Code/GameEngine/Include/GameLogic/Rva002A7461.h,existing header; contract class_contracts/Rva002A7461.json; 15/19 sampled units adopt
 Rva0023C6A4,Code/GameEngine/Include/Common/Rva0023C6A4.h,existing header; contract class_contracts/Rva0023C6A4.json; 14/16 sampled units adopt
 AptDisplayList,Code/Libraries/Source/Apt/AptDisplayList.h,existing header; contract class_contracts/AptDisplayList.json; 12/24 sampled units adopt
+Q1Forwardee0000871A,Code/GameEngine/Include/GameLogic/Q1Forwardee0000871A.h,existing header; contract class_contracts/Q1Forwardee0000871A.json; 13/13 sampled units adopt
