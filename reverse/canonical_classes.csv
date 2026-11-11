@@ -1512,3 +1512,4 @@ Rva005FBEBA,Code/GameEngine/Include/Common/Rva005FBEBA.h,existing header; contra
 Rva002120A4,Code/GameEngine/Include/Common/Rva002120A4.h,existing header; contract class_contracts/Rva002120A4.json; 3/7 sampled units adopt
 StatsReporter,Code/GameEngine/Include/Common/StatsReporter.h,existing header; contract class_contracts/StatsReporter.json; 3/3 sampled units adopt
 RepairSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/RepairSpecialPowerModuleData.h,existing header; contract class_contracts/RepairSpecialPowerModuleData.json; 3/3 sampled units adopt
+Rva8D0D80Result,Code/Libraries/Source/Apt/Rva8D0D80Result.h,existing header; contract class_contracts/Rva8D0D80Result.json; 3/7 sampled units adopt

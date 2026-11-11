@@ -10,11 +10,7 @@
 class Rva8D0D80String;
 class Rva8D0D80Value;
 
-class Rva8D0D80Result
-{
-public:
-	bool rva006FBBA0(Rva8D0D80String *name, Rva8D0D80Value *value);
-};
+#include "../../../Libraries/Source/Apt/Rva8D0D80Result.h"
 
 class AptFrameStack;
 extern "C" AptFrameStack *__identifier("?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A");

@@ -645,7 +645,7 @@ class Rva006CD120ExtObject {public:virtual void s0();virtual void s1();virtual v
 class BfmeN1034;
 #include "Rva0070A5C0.h"
 class Rva8D0D80String;class Rva8D0D80Value;
-class Rva8D0D80Result {public:void rva006FBB90(Rva8D0D80String *,Rva8D0D80Value *);};
+#include "Rva8D0D80Result.h"
 extern AptValue *g_shutdownAtE18360;
 void Rva006CD120AddGlobalExtension(Rva006CD120ExtObject *pExtObject) {
  GAPCHECK(pExtObject != 0,"pExtObject != NULL",0x685);

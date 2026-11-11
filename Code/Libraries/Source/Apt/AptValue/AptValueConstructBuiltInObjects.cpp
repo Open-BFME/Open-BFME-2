@@ -117,11 +117,7 @@ extern AptValueVector *g_releaseVectorAtE17710;
 
 class Rva8D0D80String;
 class Rva8D0D80Value;
-class Rva8D0D80Result
-{
-public:
-    void rva006FBB90(Rva8D0D80String *name, Rva8D0D80Value *value); // object Set
-};
+#include "../Rva8D0D80Result.h"
 class BfmeN1034;
 class Rva0070A5C0
 {
