@@ -67,7 +67,7 @@ template <class T> class RefMultiListIterator;
 class RenderObjClass;
 
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
-class Rva0006ED29 { public: void rva0006ED29(void *iterator); };
+#include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 
 class Rva0007F944Host { public: int rva0007FA2B(Real x, Real y); };
 class Rva003081FB { public: unsigned char rva003081FB(); };

@@ -88,11 +88,7 @@ public:
 class Rva0007DA23ResourceManager;extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 extern void *W3DGCData00DE2000;
 class RenderObjClass;template<class T>class RefMultiListIterator;
-class Rva0006ED29
-{
-public:
-	void rva0006ED29(void*);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class RTS2DScene;
 class W3DDisplay

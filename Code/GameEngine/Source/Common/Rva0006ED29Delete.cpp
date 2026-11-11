@@ -11,11 +11,7 @@
 
 #include <new>
 
-class Rva0006ED29
-{
-public:
-	void rva0006ED29(void *p);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0006ED29.h"
 
 void Rva0006ED29::rva0006ED29(void *p)
 {

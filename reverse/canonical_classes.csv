@@ -1147,3 +1147,4 @@ Rva005F23B2,Code/GameEngine/Include/GameClient/Rva005F23B2.h,existing header; co
 Rva0050B5F1,Code/GameEngine/Include/GameClient/Rva0050B5F1.h,existing header; contract class_contracts/Rva0050B5F1.json; 5/5 sampled units adopt
 BfmeThingTemplateShadowSelector,Code/GameEngine/Include/Common/BfmeThingTemplateShadowSelector.h,existing header; contract class_contracts/BfmeThingTemplateShadowSelector.json; 4/6 sampled units adopt
 WaterArea,Code/GameEngine/Include/GameLogic/WaterArea.h,existing header; contract class_contracts/WaterArea.json; 3/5 sampled units adopt
+Rva0006ED29,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0006ED29.h,existing header; contract class_contracts/Rva0006ED29.json; 4/5 sampled units adopt
