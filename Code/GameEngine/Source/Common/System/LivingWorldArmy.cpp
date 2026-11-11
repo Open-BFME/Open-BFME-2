@@ -170,11 +170,7 @@ public:
 	int bfmeVal1038();
 };
 
-class Rva0037DCA5
-{
-public:
-	int GetCommandPointSize();
-};
+#include "../../../Include/Common/Rva0037DCA5.h"
 
 class Rva002BA8F1Logic;
 

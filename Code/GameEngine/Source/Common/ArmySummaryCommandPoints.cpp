@@ -10,11 +10,7 @@
 // points; the owner keeps its placeholder name.
 #include <vector>
 
-class Rva0037DCA5
-{
-public:
-	int GetCommandPointSize();		// 0x0037DCA5
-};
+#include "../../Include/Common/Rva0037DCA5.h"
 
 class Rva004F6093Holder
 {

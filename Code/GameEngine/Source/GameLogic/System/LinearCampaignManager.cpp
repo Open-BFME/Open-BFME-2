@@ -492,11 +492,7 @@ public:
 // The typed STLport carryover vector exposes the actual operator[] helper:
 // it reproduces native EDI vector/EBX offset allocation without volatile.
 // Every direct call retains the current ledger owner's spelling. No EH map.
-class Rva0037DCA5
-{
-public:
-	void *GetThingTemplate();	// 0x0037DC52, WB CarryoverUnit::GetThingTemplate
-};
+#include "../../../Include/Common/Rva0037DCA5.h"
 
 class Rva001EC9BDVector : public _STL::vector<CarryoverUnit>
 {

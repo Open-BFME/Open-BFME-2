@@ -159,7 +159,7 @@ struct TemplateCountKey {
 };
 #include "../../Include/Common/SpawnArmy.h"
 #include "../../Include/GameLogic/Rva0040CB2CIndexedField.h"
-class Rva0037DCA5 {public:void *GetThingTemplate();};
+#include "../../Include/Common/Rva0037DCA5.h"
 class CountInputPrefix {public:virtual void *get();virtual void slot1();virtual void slot2();virtual void slot3();virtual bool fill(void*,SpawnArmy*);};
 struct CountInputObjectPrefix {char prefix[4];Rva004E06FBPtrChase32Field *type;};
 struct CountArrayEntry {int first;void *second;};

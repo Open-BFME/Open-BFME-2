@@ -79,11 +79,7 @@ class Rva0037DCA5;
 #define RVA0059AEE9_INLINE_CONSTRUCTOR
 #include "../../Include/Common/Rva002206F9Sink.h"
 
-class Rva0037DCA5
-{
-public:
-	int rva0037DF8D(Rva002206F9Sink *sink);
-};
+#include "../../Include/Common/Rva0037DCA5.h"
 
 struct Rva0059AEFF24
 {

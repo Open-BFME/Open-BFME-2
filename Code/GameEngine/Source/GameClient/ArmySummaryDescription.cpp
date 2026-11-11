@@ -120,7 +120,7 @@ struct DescriptionDataView {
     _STL::vector<DescriptionCategory> categories;
 };
 struct DescriptionTemplateView { char pad[0x58]; UnicodeString displayName; };
-class Rva0037DCA5 { public: void *GetDisplayNameStrategicGame(); };
+#include "../../Include/Common/Rva0037DCA5.h"
 void Rva00220DCDInit();
 class ThingTemplate;
 class Player;

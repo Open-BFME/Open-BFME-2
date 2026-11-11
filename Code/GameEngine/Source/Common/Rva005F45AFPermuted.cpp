@@ -47,10 +47,7 @@ void useUpgradeList(UnicodeString &out,const UpgradeRecordView *record){appendUp
 // owner-1C, fallback receiver-20 instead of -0xC/-0x10/-0x14), plus a
 // description tail: GetArmySummaryEntryDescription result, newline plus the
 // template text at +0x40 when non-empty, then the same-TU appendUpgradeList.
-class Rva0037DCA5 {
-public:
- void *GetDisplayNameStrategicGame(int index);
-};
+#include "../../Include/Common/Rva0037DCA5.h"
 UnicodeString GetArmySummaryEntryDescription(Rva0037DCA5 *entry,int rule);
 class InGameSimpleHelp {
 public:

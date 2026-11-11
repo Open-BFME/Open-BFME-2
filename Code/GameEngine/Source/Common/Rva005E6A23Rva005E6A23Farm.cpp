@@ -66,7 +66,7 @@ class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FB
 // target accesses; the original pair/context/summary class names are unknown.
 // StrategicInGameUI::Rva005E6CA1 is rowed in StrategicInGameUIHeroComparator.cpp.
 
-class Rva0037DCA5 {public:void *GetThingTemplate();};
+#include "../../Include/Common/Rva0037DCA5.h"
 class InGameSimpleHelp {public:InGameSimpleHelp(const UnicodeString&,const UnicodeString&);virtual ~InGameSimpleHelp();int count;void*impl;};
 namespace StrategicInGameUI {
 TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*entry) {

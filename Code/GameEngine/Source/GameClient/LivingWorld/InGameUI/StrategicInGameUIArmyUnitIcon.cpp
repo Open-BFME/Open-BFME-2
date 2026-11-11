@@ -117,10 +117,7 @@ TreeHintRef00217D4C StrategicInGameUI::ArmyUnitIcon::CreateMovieClip(AptMovieCli
 }
 
 class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
-class Rva0037DCA5 {
-public:
-    void *GetDisplayNameStrategicGame(int index);
-};
+#include "../../../../Include/Common/Rva0037DCA5.h"
 class InGameSimpleHelp {
 public:
     InGameSimpleHelp(const UnicodeString &title, const UnicodeString &text);
