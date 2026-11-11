@@ -60,11 +60,7 @@ public:
 	AsciiString rva0050C807(int index) const;
 };
 
-class Rva000B4A9F
-{
-public:
-    const char *rva000B4A9F();
-};
+#include "../../Include/Common/Rva000B4A9F.h"
 
 extern const char *const BfmeThingClassNames[];
 

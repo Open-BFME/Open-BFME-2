@@ -8,11 +8,7 @@
 
 class ModelConditionFlags;
 
-class Rva000B4A9F
-{
-public:
-	const char *rva000B4A9F();
-};
+#include "../../Include/Common/Rva000B4A9F.h"
 
 class Rva000B4B23
 {

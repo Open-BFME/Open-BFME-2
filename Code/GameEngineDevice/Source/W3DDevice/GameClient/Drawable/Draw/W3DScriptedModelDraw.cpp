@@ -76,11 +76,7 @@ public:
 	void *rva000BBDDF(int key, int *index) const;
 };
 
-class Rva000B4A9F
-{
-public:
-	const char *rva000B4A9F();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva000B4A9F.h"
 
 #include "../../../../../../GameEngine/Source/Common/debug.h"
 

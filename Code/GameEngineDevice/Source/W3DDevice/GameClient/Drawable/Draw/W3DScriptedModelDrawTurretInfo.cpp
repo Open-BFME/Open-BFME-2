@@ -13,7 +13,7 @@
 #include "ascii_string.h"
 template<> bool StringBase<char>::isEmpty() const;
 
-class Rva000B4A9F {public: const char *rva000B4A9F();};
+#include "../../../../../../GameEngine/Include/Common/Rva000B4A9F.h"
 void setFPMode();
 int Rva000B2CBDGet();
 
