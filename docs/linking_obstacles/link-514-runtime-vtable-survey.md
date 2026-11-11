@@ -2469,3 +2469,10 @@ It duplicated the strong constructor from V3PolyCopyCtors.cpp (preview
 236 to 0). A shared inline definition alone removed the required standalone
 body from that owner. Both trials were reverted; the three units verify
 34/34 together. Await real-link provider selection for 0x008765A0.
+
+The two GapBodiesGE08.cpp filter constructors match their existing filter
+views in a scoped trial (13 and 29 bytes). Their one-slot placeholder
+tables at 0x008172A8 and 0x007F8FE4 still need identity reconciliation.
+Both fold dry runs reject the shared base restore at 0x0049C38A.
+See `reverse/attempt_support/partition-filter-constructors-3674bd.md` for
+the two slot maps, proposed signatures and reproduction commands.
