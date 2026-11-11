@@ -401,7 +401,7 @@ struct Arg
 namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 void Rva00030830FreeAllocation(void *);
-class Rva0039D761DwordClearer { public: void clear(); };
+#include "../../../../Include/GameLogic/Rva0039D761DwordClearer.h"
 namespace _STL { template<> unsigned int hash_map<int,int>::bucket_count() const; }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }

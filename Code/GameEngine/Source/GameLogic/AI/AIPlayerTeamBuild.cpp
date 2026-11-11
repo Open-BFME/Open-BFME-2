@@ -681,7 +681,7 @@ extern AI *TheAI;
 
 #include "../../../Include/GameLogic/TCreateUnitsInfo.h"
 
-class Rva0039D761DwordClearer { public: void clear(); };
+#include "../../../Include/GameLogic/Rva0039D761DwordClearer.h"
 
 // The prototype's TeamTemplateInfo starts at +0x12C (its Snapshot table
 // first); selectTeamToReinforce reads the unit infos, the reinforce flag and
