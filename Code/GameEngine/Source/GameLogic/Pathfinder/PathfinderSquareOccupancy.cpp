@@ -37,10 +37,7 @@ static __forceinline CellInfo *cellInfo(const PathfindCell *cell){return (CellIn
 static __forceinline OccupantNode *cellObstacles(const PathfindCell *cell){return cellInfo(cell)->obstacles;}
 static __forceinline OccupantNode *cellOccupants(const PathfindCell *cell){return cellInfo(cell)?cellInfo(cell)->occupants:0;}
 #include "../../../Include/GameLogic/AIPathfind.h"
-class Rva002EC3CEProbes {
-public:
- Bool rva002EAA41(int objectAddress,int cellX,int cellY,int layer,int radius,Bool center);
-};
+#include "../../../Include/GameLogic/Rva002EC3CEProbes.h"
 Bool Rva002EC3CEProbes::rva002EAA41(int objectAddress,int cellX,int cellY,int layer,int radius,Bool center)
 {
  int cellsAbove=radius;

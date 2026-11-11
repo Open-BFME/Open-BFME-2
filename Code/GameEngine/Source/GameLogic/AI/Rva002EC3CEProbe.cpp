@@ -8,12 +8,7 @@
 // signatures beyond the observed push shapes are unproven.
 // Compiler evidence: /G7 passes the bool arguments as bare mov al/cl
 // pushes; the default zero-extends them first (the bank's residual).
-class Rva002EC3CEProbes
-{
-public:
-	bool rva002E7BF0(int p1, int p2, bool p3, int p4, int p5, int p6, void *p7, bool p8);
-	bool rva002EAA41(int p1, int p2, int p3, int p4, int p5, bool p6);
-};
+#include "../../../Include/GameLogic/Rva002EC3CEProbes.h"
 
 class Rva002CB35CObj
 {

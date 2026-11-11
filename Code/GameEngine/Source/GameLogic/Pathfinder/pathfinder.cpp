@@ -4562,7 +4562,7 @@ void __cdecl Rva002EBCA7Split(void *p, int *outHalf, unsigned char *outOdd)
 // reproduce the native frame without the old bank's forced storage unions.
 // Initialize the walk budget before x/y to retain the native load scheduling.
 struct Rva002ED7F7Budget{char pad[0x1200];int maxSteps;};
-class Rva002EC3CEProbes{public:bool rva002EAA41(int,int,int,int,int,bool);bool rva002E7BF0(int,int,bool,int,int,int,void*,bool);};
+#include "../../../Include/GameLogic/Rva002EC3CEProbes.h"
 static __forceinline void subtractMelee(Coord3D &lhs,const Coord3D&rhs){lhs.x-=rhs.x;lhs.y-=rhs.y; lhs.z-=rhs.z;}
 static __forceinline float distanceMelee(const Coord3D&lhs){return lhs.z*lhs.z+lhs.y*lhs.y+lhs.x*lhs.x;}
 bool Pathfinder::adjustToMeleeDestination(Object*obj,const LocomotorSet&set,Coord3D*dest){
