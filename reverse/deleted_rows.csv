@@ -6123,3 +6123,5 @@ __ehhandler$??0?$_Rb_tree@URva00534581Element@@U?$pair@$$CBURva00534581Element@@
 __ehhandler$?rva00111DB6@Rva00111DB6@@QAEXXZ,0x00764A2D,"Renamed to __ehhandler$?rva00111DB6@LookupTablePostEffect@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BCFAC8 slot 2)"
 ??1Rva00486136@@UAE@XZ,0x00486136,"Renamed to ??1CrushDie@@UAE@XZ: slot 0 of CrushDie's vftable 0x0084AC34 (ctor 0x004862E1) is the deleting dtor 0x0048630B that calls this body"
 ??_GRva00486136@@UAEPAXI@Z,0x0048630B,"Renamed to ??_GCrushDie@@UAEPAXI@Z: slot 0 of CrushDie's vftable 0x0084AC34 installed by ctor 0x004862E1"
+??1Rva004851FE@@UAE@XZ,0x004851FE,"Renamed to ??1RefundDie@@UAE@XZ: slot 0 of RefundDie's vftable 0x0084A70C (ctor 0x00485262) is the deleting dtor 0x0048528C that calls this body"
+??_GRva004851FE@@UAEPAXI@Z,0x0048528C,"Renamed to ??_GRefundDie@@UAEPAXI@Z: slot 0 of RefundDie's vftable 0x0084A70C installed by ctor 0x00485262"

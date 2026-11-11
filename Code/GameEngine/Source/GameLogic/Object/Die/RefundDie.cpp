@@ -86,6 +86,7 @@ class RefundDie : public DieModule
 {
 public:
 	RefundDie( Thing *thing, const ModuleData *moduleData );
+	virtual ~RefundDie();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie( const DamageInfo *damageInfo );
 
@@ -251,7 +252,14 @@ RefundDie::RefundDie( Thing *thing, const ModuleData *moduleData )
 {
 }
 
-// tu-skeleton: 0x0048528C 28B ??_GRva004851FE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+// ??1RefundDie@@UAE@XZ @0x004851FE (25B): restores the three vptrs the
+// constructor installs (0x0084A70C at +0, 0x0084A650 at +0xC, 0x0084A64C at
+// +0x10) and tail-jumps to ~DieModule. Slot 0 of RefundDie's own vftable
+// 0x0084A70C is the scalar deleting destructor 0x0048528C, which calls this
+// body.
+RefundDie::~RefundDie()
+{
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/RefundDieOnDie.cpp
 
