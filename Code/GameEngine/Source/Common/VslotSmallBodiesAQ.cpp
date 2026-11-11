@@ -97,11 +97,7 @@ Int Rva005CE125::rva005CE125(Int)
 // its argument to the rowed +4 callback forwarder 0x005E6817 (ledger
 // spelling Rva005E6817Mid::fwd) on the complete object.
 class GameMessage;
-class Rva005E6817Mid
-{
-public:
-	int fwd(GameMessage *message);
-};
+#include "../../Include/Common/Rva005E6817Mid.h"
 class Rva005CDE69Primary
 {
 public:

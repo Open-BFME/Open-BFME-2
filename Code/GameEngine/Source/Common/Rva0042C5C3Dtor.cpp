@@ -107,7 +107,7 @@ public:
 struct Rva0042C083Param {int x,y;};
 union GameMessageArgumentType {Rva0042C083Param position;int integer;};
 class GameMessage {public:const GameMessageArgumentType*getArgument(int)const;char unknown0[0x10];int type;};
-class Rva005E6817Mid {public:int fwd(GameMessage*);};
+#include "../../Include/Common/Rva005E6817Mid.h"
 class Rva0042C083 {public:void rva0042C083(const Rva0042C083Param*);};
 #include "../../Include/Common/RAMFileClass.h"
 #include "../../Include/GameClient/Mouse.h"

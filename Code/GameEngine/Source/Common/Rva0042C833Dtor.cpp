@@ -72,11 +72,7 @@ class Rva0042C7B1
 public:
     int rva0042C7B1(const Rva0042C083Param *point, int argument);
 };
-class Rva005E6817Mid
-{
-public:
-    int fwd(GameMessage *message);
-};
+#include "../../Include/Common/Rva005E6817Mid.h"
 
 // Native0042C879..0042C8D1 RET4: input type3, +14 callback first,
 // then first argument's two32-bit pixel coordinates and argument1's int

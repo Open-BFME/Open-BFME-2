@@ -1710,11 +1710,7 @@ int Rva0056AB25Interface::rva0056AB25(int)
 // --- 0x005CE9B4, 0x005CE9BF (11B each): the rowed forwarders on the +4
 // member of the +0x0C record.
 class GameMessage;
-class Rva005E6817Mid
-{
-public:
-	int fwd(GameMessage *msg);								// 0x005E6817
-};
+#include "../../Include/Common/Rva005E6817Mid.h"
 
 class Rva005E681EMid
 {

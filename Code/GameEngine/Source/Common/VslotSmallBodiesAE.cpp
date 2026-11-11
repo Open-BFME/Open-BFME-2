@@ -161,11 +161,7 @@ public:
 	virtual Int v00(Int a);
 };
 class GameMessage;
-class Rva005E6817Mid
-{
-public:
-	Int fwd(GameMessage *msg);
-};
+#include "../../Include/Common/Rva005E6817Mid.h"
 class Rva00577302
 {
 public:
