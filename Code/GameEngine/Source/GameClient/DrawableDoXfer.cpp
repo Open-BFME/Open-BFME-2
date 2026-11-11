@@ -236,7 +236,7 @@ public:
 };
 
 #include "../../Include/GameClient/Rva002716Holder.h"
-class Rva00279354Host { public: void rva00279354(bool b); };
+#include "../../Include/GameClient/Rva00279354Host.h"
 class Rva0027974B
 {
 public:

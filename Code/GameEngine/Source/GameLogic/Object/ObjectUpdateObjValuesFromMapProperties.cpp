@@ -106,11 +106,7 @@ public:
 extern AudioManager *TheAudio;
 
 class ThingTemplate;
-class Rva00279354Host
-{
-public:
-	void setCustomSoundAmbientInfo(const OpaqueRefElement4 &info);
-};
+#include "../../../Include/GameClient/Rva00279354Host.h"
 
 class Drawable
 {

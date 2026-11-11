@@ -294,11 +294,7 @@ private:
 	unsigned int m_handle; // +0x148
 };
 
-class Rva00279354Host
-{
-public:
-	void rva00279354(bool value);
-};
+#include "../../Include/GameClient/Rva00279354Host.h"
 
 // Target teardown sequence at 0x002793F0; the Zero Hour destructor supplies
 // the same module/display-string lifecycle, while offsets and helpers here
