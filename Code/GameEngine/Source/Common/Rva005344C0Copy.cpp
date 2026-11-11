@@ -19,11 +19,10 @@ public:
 };
 }
 
-// The member tree's copy constructor is retail 0x00534581, rowed under its
-// address-derived key view (StlSweepW5Rva00534581.cpp); the <int,int> tree's own
-// copy is the different body at 0x0021CF2C, so this pair does not hold that type.
-struct Rva00534581Element;
-typedef _STL::_Rb_tree<Rva00534581Element, _STL::pair<const Rva00534581Element, int>, _STL::_Select1st<_STL::pair<const Rva00534581Element, int> >, _STL::less<Rva00534581Element>, _STL::allocator<_STL::pair<const Rva00534581Element, int> > > IntTree00534581;
+// The member tree's copy constructor is retail 0x00534581, the map<unsigned int,int>
+// tree's (StlSweepW5Rva00534581.cpp); the <int,int> tree's own copy is the
+// different body at 0x0021CF2C, so this pair does not hold that type.
+typedef _STL::_Rb_tree<unsigned int, _STL::pair<const unsigned int, int>, _STL::_Select1st<_STL::pair<const unsigned int, int> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, int> > > IntTree00534581;
 
 struct Rva005344C0
 {

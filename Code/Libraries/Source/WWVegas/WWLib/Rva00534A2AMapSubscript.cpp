@@ -36,9 +36,8 @@ public:
  iterator insert(iterator,const value_type&);
 };
 }
-// The pair constructor's tree is the 0x00534581-copied tree (address-derived key view).
-struct Rva00534581Element;
-typedef _STL::_Rb_tree<Rva00534581Element,_STL::pair<const Rva00534581Element,int>,_STL::_Select1st<_STL::pair<const Rva00534581Element,int> >,_STL::less<Rva00534581Element>,_STL::allocator<_STL::pair<const Rva00534581Element,int> > > IntTree;
+// The pair constructor's tree is the 0x00534581-copied map<unsigned int,int> tree.
+typedef _STL::_Rb_tree<unsigned int, _STL::pair<const unsigned int, int>, _STL::_Select1st<_STL::pair<const unsigned int, int> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, int> > > IntTree;
 typedef _STL::map<int,void*,_STL::less<int>,_STL::allocator<_STL::pair<const int,void*> > > EmptyMap;
 struct TreeStorage534 {
  unsigned int words[3];

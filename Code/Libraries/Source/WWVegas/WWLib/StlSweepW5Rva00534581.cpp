@@ -1,5 +1,5 @@
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
+// The key is retail's 32-bit unsigned int (tools/retail_identity.py MAP_UINT_INT_COPY).
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #define _STLP_BFME_TREE_NODE_BASE_O2  // emit retail's _Rb_tree_node_base::_S_minimum/_S_maximum (vendor/stlport/stl/_tree.h)
@@ -16,5 +16,9 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-struct Rva00534581Element { short words[1]; bool operator<(const Rva00534581Element&b)const { return words[0]<b.words[0]; } bool operator==(const Rva00534581Element&b)const {return words[0]==b.words[0];} };
-template class _STL::map<Rva00534581Element,int>;
+// map<unsigned int,int>: subscript 0x00534A2A compares the key unsigned (cmp eax,[esi+0x10]; jae) and
+// _Construct 0x0060C9D9 copies it as a dword. Only the map copy constructor (0x0053462F) is instantiated; it
+// brings the tree copy (0x00534581). The whole class would emit an insert_unique that differs from
+// PathDoXfer.cpp's matched row 0x004D795B.
+typedef _STL::map<unsigned int, int> Map00534581;
+template Map00534581::map(const Map00534581 &);
