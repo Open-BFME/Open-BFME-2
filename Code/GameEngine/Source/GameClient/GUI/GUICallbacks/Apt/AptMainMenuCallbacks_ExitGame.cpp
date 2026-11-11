@@ -451,11 +451,7 @@ struct TreeHintRef00217D4C : public Rva0057BC63FunctorHolder
 	}
 	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
-class AptMessageBox
-{
-public:
-	static void Show(int type, const UnicodeString &text, const UnicodeString &title, TreeHintRef00217D4C callback, TreeHintRef00217D4C callback2);
-};
+#include "../../../../../Include/Common/AptMessageBox.h"
 class Rva00514DDA
 {
 public:

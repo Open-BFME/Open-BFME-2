@@ -142,12 +142,7 @@ bool Rva0054D3E1Prompt::prompt(int kind, const UnicodeString &title,
 // passes kind2, a fetched title, message reference and counted callback.
 // WB AptMessageBox::Change (score 2 callgraph); static cdecl overload of the rowed
 // three-pointer Change 0x00437EAC.
-class AptMessageBox
-{
-public:
- static bool Change(int kind, const UnicodeString &title,
-  const UnicodeString &message, TreeHintRef00217D4C callback);
-};
+#include "../../Include/Common/AptMessageBox.h"
 
 bool AptMessageBox::Change(int kind, const UnicodeString &title,
  const UnicodeString &message, TreeHintRef00217D4C callback)

@@ -86,9 +86,7 @@ struct TreeHintRef00217D4C;
 extern "C" void __cdecl Rva00437F61(int type,
 	const UnicodeString &message, const UnicodeString &title,
 	TreeHintRef00217D4C callback);
-class AptMessageBox { public: static bool Change(int type,
-	const UnicodeString &message, const UnicodeString &title,
-	TreeHintRef00217D4C callback); };
+#include "../../../../../Include/Common/AptMessageBox.h"
 
 struct TreeHintRef00217D4C {
  Rva0023E8D8 holder;

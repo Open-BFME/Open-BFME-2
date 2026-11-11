@@ -1,0 +1,128 @@
+{
+ "bases": [
+  "Rva0054D2CF"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptMessageBox",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 1,
+   "inherited_spans": [
+    [
+     0,
+     4
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x437f0a"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0054D2CF",
+       "offset": 0,
+       "own_vftable": "0x83d294",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x437f0a"
+     ],
+     "value": 4
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x3806f4"
+     ],
+     "value": 8
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x437f0a"
+     ],
+     "value": {
+      "0x0": "0x83d294"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83d294"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptMessageBox@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x437eee"
+       }
+      ],
+      "table": "0x83d294"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x83d294": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptMessageBox@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 5,
+   "4": 1,
+   "8": 1
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

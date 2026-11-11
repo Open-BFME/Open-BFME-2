@@ -3609,7 +3609,7 @@ Bool Rva002B5414Anchor(const GameMessage *msg, void *battle, LivingWorldRegion *
 		&& rva002B2D92IntegerFromMessage(&value, msg, 4);
 }
 class Rva002BAF01 {public:void rva002BAF01(struct Rva002BAF01Region*,CreateAHeroData*);};
-class AptMessageBox {public:static void Show(void*,void*,void*);static void Change(void*,void*,void*);};
+#include "../../../../Include/Common/AptMessageBox.h"
 static __forceinline void dispatchShow(int kind,const UnicodeString&title,const UnicodeString&body){AptMessageBox::Show((void*)kind,(void*)&title,(void*)&body);}
 static __forceinline void dispatchChange(int kind,const UnicodeString&title,const UnicodeString&body){AptMessageBox::Change((void*)kind,(void*)&title,(void*)&body);}
 class Rva0023D26F {public:void rva0023D26F(bool);};

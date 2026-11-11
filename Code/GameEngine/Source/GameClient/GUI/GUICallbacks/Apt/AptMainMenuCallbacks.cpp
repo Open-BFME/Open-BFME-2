@@ -879,11 +879,7 @@ public:
 	}
 	TargetRef00217D4C *m_ptr;
 };
-class AptMessageBox
-{
-public:
-	static void Show(int type, const UnicodeString &text, const UnicodeString &title, TreeHintRef00217D4C callback, TreeHintRef00217D4C callback2);
-};
+#include "../../../../../Include/Common/AptMessageBox.h"
 void __cdecl Rva00437EC4Set(float seconds);
 // The generic member pointer is the eight-byte multiple-inheritance form; a
 // plain member converts to it through a derived class of that form.
