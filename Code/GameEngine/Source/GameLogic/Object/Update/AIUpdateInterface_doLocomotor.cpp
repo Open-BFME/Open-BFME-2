@@ -215,11 +215,7 @@ struct Rva003642DFNode
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 
 
-class Rva001E3511
-{
-public:
-	Int rva001E3511();
-};
+#include "../../../../Include/GameLogic/Module/Rva001E3511.h"
 
 class Rva001E34FA
 {

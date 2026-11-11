@@ -54,7 +54,7 @@ class Object:public Thing {public:
 struct Rva003642DFNode;
 struct Rva003642DFResult {Rva003642DFResult();Rva003642DFNode*node;Coord3D pos;};
 class Rva0008BB38FloatField;
-class Rva001E3511 {public:int rva001E3511();};
+#include "../../../../Include/GameLogic/Module/Rva001E3511.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 template<int N> class NotifySlots:public NotifySlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class NotifySlots<0>{};
 struct BfmeE12 { float x, y, z; }; // 12B element-agnostic swap stand-in; swap touches only header pointers

@@ -206,15 +206,7 @@ class Rva001E34FA
  
 }
 ;
-class Rva001E3511
-
-{
- public:
- int rva001E3511();
-// 0x001E3511, the node's waypoint (0x7FFFFFFF without one)
- 
-}
-;
+#include "../../../Include/GameLogic/Module/Rva001E3511.h"
 class Rva001E34B2
 
 {

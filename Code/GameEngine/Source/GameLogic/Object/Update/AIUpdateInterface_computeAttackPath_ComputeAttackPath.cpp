@@ -132,11 +132,7 @@ public:
 struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 class Rva0008BB38FloatField;
-class Rva001E3511
-{
-public:
-	int rva001E3511();
-};
+#include "../../../../Include/GameLogic/Module/Rva001E3511.h"
 
 #include "../../../../Include/GameLogic/PathNode.h"
 class Path { public:

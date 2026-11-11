@@ -255,11 +255,7 @@ struct Rva003642DFNode
 	unsigned char m_pad00[0x08];
 	int m_08; // +0x08
 };
-class Rva001E3511
-{
-public:
-	int rva001E3511();
-};
+#include "../../../../Include/GameLogic/Module/Rva001E3511.h"
 struct Rva00468C37Template
 {
 	unsigned char m_pad000[0x150];

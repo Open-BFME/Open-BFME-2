@@ -10,7 +10,7 @@
 enum Relationship{ENEMIES=0,NEUTRAL=1,ALLIES=2};enum ObjectStatusTypes{};class Object;class AIUpdateInterface;class LocomotorSet;class Rva0008BB38FloatField;
 class Thing {public:void getUnitDirectionVector2D(Coord3D&)const;};
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
-class Rva001E3511 {public:int rva001E3511();};
+#include "../../../../Include/GameLogic/Module/Rva001E3511.h"
 class Path {public:Rva003642DFResult rva00364521(const Rva0008BB38FloatField*);char pad[8];struct Node{char pad[12];Coord3D point;}*node;};
 class Rva0008BB38FloatField {public:char pad[0x44];union{unsigned flags;struct{unsigned lower:7;unsigned ignored:1;unsigned upper:24;};};bool ignores()const{return ignored!=0;}};
 #include "../../../../Include/Common/ThingTemplate.h"
