@@ -131,12 +131,7 @@ public:
 };
 
 class RenderInfoClass;
-class W3DBuffBuffer
-{
-public:
-	void rva000D28FA(RenderInfoClass &rinfo, bool flag);
-	void allocateBuffBuffers();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DBuffBuffer.h"
 
 #include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 

@@ -25,11 +25,7 @@ struct Rva000D20A9Key { int value; };
 typedef _STL::set<Rva000D20A9Key> Rva000D3A8AElemB;
 typedef char ProvenHolderSize[sizeof(Rva000D3A8AElemB)==12 ? 1 : -1];
 
-class W3DBuffBuffer
-{
-public:
-	void allocateBuffBuffers();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBuffBuffer.h"
 
 class Rva000D3A17
 {

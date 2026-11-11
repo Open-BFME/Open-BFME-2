@@ -228,11 +228,7 @@ public:
 class Drawable;
 class TBuff;
 struct BuffInfoView;
-class W3DBuffBuffer
-{
-public:
-	TBuff *addBuff(Drawable *draw, const BuffInfoView *info);	// 0x000D3B27
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBuffBuffer.h"
 
 namespace FXParticleSystem
 {
