@@ -1,0 +1,14 @@
+// Rva0033A9A5: canonical declarations for the members 3 units call through private views of it;
+// each call resolves to the unit's ledger row or pin, and no unit reads its layout, which stays opaque.
+#ifndef CANONICAL_RVA0033A9A5_H
+#define CANONICAL_RVA0033A9A5_H
+
+class Rva00427157;
+
+class Rva0033A9A5
+{
+public:
+	const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void *key);
+};
+
+#endif // CANONICAL_RVA0033A9A5_H

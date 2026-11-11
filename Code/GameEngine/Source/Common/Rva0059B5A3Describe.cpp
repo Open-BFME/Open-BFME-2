@@ -38,11 +38,7 @@ public:
 };
 
 class Rva00427157;
-class Rva0033A9A5
-{
-public:
-	const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void *upgrades);	// current auto-resolve armor
-};
+#include "../../Include/Common/Rva0033A9A5.h"
 #include "../../Include/Common/ThingTemplate.h"
 
 #include "../../Include/Common/Upgrade.h"

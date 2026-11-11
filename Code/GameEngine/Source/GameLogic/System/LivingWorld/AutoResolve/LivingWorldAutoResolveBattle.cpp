@@ -513,7 +513,7 @@ class Rva00380200 {public:bool rva003805BB(float,bool);};
 #include "../../../../../Include/Common/ThingTemplate.h"
 #include "../../../../../Include/Common/Rva004194D6.h"
 class Rva00427157 {public:float rva004270FA(int);};
-class Rva0033A9A5 {public:const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void*);};
+#include "../../../../../Include/Common/Rva0033A9A5.h"
 class Rva0033A65E {public:void *rva0033A65E();};
 class LivingWorldAutoResolveBodyTemplate {public:float getHitpointsForLevel(int);};
 int GetGameLogicRandomValue(int,int,char*,int);

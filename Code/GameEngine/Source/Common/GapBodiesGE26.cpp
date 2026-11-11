@@ -260,11 +260,7 @@ void Rva004F5F96::rva004F5FBC(float amount)
 // ThingTemplate::getCurrentLivingWorldAutoResolveWeapon).
 class Rva00427157;
 
-class Rva0033A9A5
-{
-public:
-	const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void *key);		// 0x0033A9A5
-};
+#include "../../Include/Common/Rva0033A9A5.h"
 
 #include "../../Include/Common/ThingTemplate.h"
 
