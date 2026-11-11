@@ -1439,11 +1439,7 @@ struct Rva002B4C35Player
 // (region, player)) and the army's eviction 0x0031912E (pinned).
 class Refresh0023FA80AI;
 class Refresh0023FA80Object;
-class Refresh0023FA80Primary
-{
-public:
-	void scheduleNullable(Refresh0023FA80AI *ai, Refresh0023FA80Object *obj);	// 0x002B388D
-};
+#include "../../../../Include/GameLogic/Refresh0023FA80Primary.h"
 class Rva0031912E
 {
 public:

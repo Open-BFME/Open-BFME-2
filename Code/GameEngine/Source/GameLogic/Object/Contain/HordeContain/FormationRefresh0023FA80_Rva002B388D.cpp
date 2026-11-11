@@ -17,11 +17,7 @@ public:
 	void rva002B37B4( struct Rva002B37B4P1 *ai, struct Rva002B37B4P2 *obj );
 };
 
-class Refresh0023FA80Primary
-{
-public:
-	void scheduleNullable( Refresh0023FA80AI *ai, Refresh0023FA80Object *obj );
-};
+#include "../../../../../Include/GameLogic/Refresh0023FA80Primary.h"
 
 void Refresh0023FA80Primary::scheduleNullable( Refresh0023FA80AI *ai, Refresh0023FA80Object *obj )
 {

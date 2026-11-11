@@ -25,11 +25,7 @@ public:
 
 class Refresh0023FA80AI;
 class Refresh0023FA80Object;
-class Refresh0023FA80Primary
-{
-public:
-	void scheduleNullable(Refresh0023FA80AI *ai, Refresh0023FA80Object *object);
-};
+#include "../../../../Include/GameLogic/Refresh0023FA80Primary.h"
 
 static __forceinline int rva003F300ANameLength(const AsciiString *key)
 {
