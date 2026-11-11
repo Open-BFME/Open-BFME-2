@@ -21,6 +21,7 @@ Code/GameEngine/Source/GameLogic/System
 Code/GameEngine/Source/GameLogic/System/LogicDispatch/headers
 Code/GameEngine/Source/GameNetwork/GameSpy
 Code/GameEngine/Source/GameNetwork/GameSpy/pinger
+Code/GameEngineDevice/Include
 Code/GameEngineDevice/Source/W3DDevice/GameClient
 Code/Libraries/Include
 Code/Libraries/Include/Lib
