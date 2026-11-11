@@ -445,11 +445,7 @@ class RenderObjClass;
 
 // 0x0005CE73 (11B): forward a key to the rowed Rva00056CF8::rva0005B633
 // (0x0005B633) of the member at +0x1B8, a tail jump.
-class Rva00056CF8
-{
-public:
-	unsigned int rva0005B633(const AsciiString &key);
-};
+#include "../../Include/Common/Rva00056CF8.h"
 
 class Rva0005CE73
 {

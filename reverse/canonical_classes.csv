@@ -1505,3 +1505,4 @@ Rva0070A840,Code/GameEngine/Include/Common/Rva0070A840.h,existing header; contra
 Rva005E2439,Code/GameEngine/Include/Common/Rva005E2439.h,existing header; contract class_contracts/Rva005E2439.json; 3/4 sampled units adopt
 Rva005E4DAF,Code/GameEngine/Include/Common/Rva005E4DAF.h,existing header; contract class_contracts/Rva005E4DAF.json; 3/4 sampled units adopt
 BucketAlloc,Code/GameEngine/Include/Common/BucketAlloc.h,existing header; contract class_contracts/BucketAlloc.json; 3/3 sampled units adopt
+Rva00056CF8,Code/GameEngine/Include/Common/Rva00056CF8.h,existing header; contract class_contracts/Rva00056CF8.json; 4/9 sampled units adopt

@@ -21,7 +21,7 @@ typedef _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>,
 template <> Rva006ABC60Tree::~_Rb_tree();
 }
 
-class Rva00056CF8 { public: ~Rva00056CF8(); };
+#include "../../Include/Common/Rva00056CF8.h"
 class Rva006ABC60TrailingMember
 {
 public:

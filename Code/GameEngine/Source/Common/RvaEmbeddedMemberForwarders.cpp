@@ -124,11 +124,7 @@ void Rva00628D18::rva00628D18()
 	m_member.RemoveAll();
 }
 
-class Rva00056CF8
-{
-public:
-	void rva00057B74();
-};
+#include "../../Include/Common/Rva00056CF8.h"
 
 class Rva0005922D
 {

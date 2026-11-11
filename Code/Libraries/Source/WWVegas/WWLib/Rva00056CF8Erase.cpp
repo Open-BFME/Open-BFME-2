@@ -21,11 +21,7 @@ struct HashNode00056CF8
 	AsciiString m_value;
 };
 
-class Rva00056CF8
-{
-public:
-	void rva00056CF8(HashNode00056CF8 *node);
-};
+#include "../../../../GameEngine/Include/Common/Rva00056CF8.h"
 
 void Rva00056CF8::rva00056CF8(HashNode00056CF8 *node)
 {
