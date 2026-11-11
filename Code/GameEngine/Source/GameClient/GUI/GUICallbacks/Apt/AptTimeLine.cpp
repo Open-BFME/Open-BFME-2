@@ -1152,11 +1152,7 @@ public:
 	unsigned char m_pad00[0x30];
 	UnicodeString m_displayName; // +0x30
 };
-class Rva003F83B5
-{
-public:
-	UnicodeString rva003F83B5();
-};
+#include "../../../../../Include/Common/Rva003F83B5.h"
 class Rva004FCBA9
 {
 public:

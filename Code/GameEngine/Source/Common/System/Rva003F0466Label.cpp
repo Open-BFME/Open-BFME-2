@@ -38,11 +38,7 @@ UnicodeString LivingWorldRegion::GetFortressDisplayDescription()
 // 0x003F83B5 getter, then copies either it or TheEmptyString to the hidden
 // return pointer. WB's callgraph twin independently shows that conditional
 // temporary and its teardown. Original owner and method names are unknown.
-class Rva003F83B5
-{
-public:
-	UnicodeString rva003F83B5();
-};
+#include "../../../Include/Common/Rva003F83B5.h"
 
 class Rva003F8052
 {

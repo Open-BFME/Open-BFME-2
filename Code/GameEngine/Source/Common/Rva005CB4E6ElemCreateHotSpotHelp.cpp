@@ -64,7 +64,7 @@ unsigned int g_Va00E065EC[8];
 class Rva004FCB85 { public: UnicodeString rva004fcb85(); };
 class Rva004FCB61 { public: UnicodeString rva004fcb61(); };
 class Rva004FCBA9 { public: UnicodeString rva004fcba9(); };
-class Rva003F83B5 { public: UnicodeString rva003F83B5(); };
+#include "../../Include/Common/Rva003F83B5.h"
 
 #define REGION_LABELS(T) ((T *)&g_Va00E065EC)
 
