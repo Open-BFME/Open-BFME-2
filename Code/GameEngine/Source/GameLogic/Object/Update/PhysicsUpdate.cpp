@@ -56,10 +56,7 @@ struct BfmeE12;
 
 struct Coord3D;
 
-class Rva000E016A {
-public:
-    BfmeE12 *rva000E016A(unsigned int, Coord3D *, Coord3D *);
-};
+#include "../../../../Include/GameLogic/Module/Rva000E016A.h"
 
 class PhysicsBehaviorModuleData
 {

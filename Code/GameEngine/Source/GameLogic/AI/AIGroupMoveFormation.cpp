@@ -113,11 +113,7 @@ struct BfmeE12
 {
     float x, y, z;
 };
-class Rva000E016A
-{
-  public:
-    BfmeE12 *rva000E016A(unsigned, Coord3D *, Coord3D *);
-};
+#include "../../../Include/GameLogic/Module/Rva000E016A.h"
 namespace _STL
 {
 template <> __declspec(noinline) inline void _Construct(Coord3D *p, const Coord3D &r)

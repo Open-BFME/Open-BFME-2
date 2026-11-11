@@ -15,11 +15,7 @@
 #include <stdlib.h>
 struct BfmeE12;
 // The allocate-and-copy at 0x000E016A is rowed under this name.
-class Rva000E016A
-{
-public:
-	BfmeE12 *rva000E016A(unsigned int n, Coord3D *first, Coord3D *last);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva000E016A.h"
 namespace _STL {
 struct __false_type { __false_type() {} };
 template <class Type> class allocator {};

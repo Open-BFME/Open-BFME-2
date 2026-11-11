@@ -73,7 +73,7 @@ template<class Tag,int N>class Slots:public Slots<Tag,N-1>{public:virtual void g
 void Rva00030830GameFree(void*);
 void Rva00030830FreeAllocation(void*);
 struct BfmeE12 {float x,y,z;};
-class Rva000E016A {public:BfmeE12 *rva000E016A(unsigned,Coord3D*,Coord3D*);};
+#include "../../../../Include/GameLogic/Module/Rva000E016A.h"
 namespace _STL {
 template <class I,class O> O __copy_ptrs(I,I,O,const __false_type&);
 // Visible and called out of line as retail's 0x002CA82C, so the caller's vector does not escape.

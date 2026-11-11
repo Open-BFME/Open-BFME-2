@@ -1064,3 +1064,4 @@ Rva001DBB82OneSetter,Code/GameEngine/Include/GameClient/Rva001DBB82OneSetter.h,e
 HAnimManagerClass,Code/Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h,existing header; contract class_contracts/HAnimManagerClass.json; 4/4 sampled units adopt
 Rva00046827,Code/GameEngine/Include/GameLogic/Module/Rva00046827.h,existing header; contract class_contracts/Rva00046827.json; 5/6 sampled units adopt
 CommandTranslator,Code/GameEngine/Include/GameClient/CommandTranslator.h,existing header; contract class_contracts/CommandTranslator.json; 3/6 sampled units adopt
+Rva000E016A,Code/GameEngine/Include/GameLogic/Module/Rva000E016A.h,existing header; contract class_contracts/Rva000E016A.json; 5/6 sampled units adopt
