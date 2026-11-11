@@ -31,6 +31,7 @@ class Rva0056AC82 : public Rva0056AC26, public Rva0056AC82_B1
 {
 public:
 	virtual ~Rva0056AC82();
+	virtual bool ac26Slot1() { return true; } // 0x0086D0A8 slot 1: 0x0050B5C6
 };
 
 Rva0056AC82::~Rva0056AC82()

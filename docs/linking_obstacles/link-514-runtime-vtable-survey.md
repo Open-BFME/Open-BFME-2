@@ -2424,3 +2424,15 @@ HEAD's `vtable_bridge.py`), `tu_skeleton.py --split --dry-run --no-claim`, `rena
     tools/, .githooks/, .github/ and docs name neither placeholder; old spellings remain only in generated or
     historical records (data_ledger.csv, vtable_bridge_queue.tsv, wb_name_leads.csv, name_votes/name_agreed,
     an attempt_support verdicts file, deleted_rows.csv tombstones, tu_map.csv until its next refresh).
+
+Rva0056AC82, partial primary-table repair (base 40023db426). The retail
+destructor at RVA 0x0056AC82 stores the primary table at RVA 0x0086D0A8
+and the secondary table at 0x0086D06C. Primary slot 1 targets 0x0050B5C6
+(`B0 01 C3`, true with no argument pop). Both Rva0056AC26Constructor.obj
+and Rva0056AC26Derived.obj now reference the derived override at offset 4.
+The two sources verify 47/47 rows. Link preview retains 352 and 292 bytes
+respectively against census 60189f9ced. Both primary tables still emit only
+two slots. The secondary table has 15 slots in the constructor unit and one
+in the destructor unit. Adopting Base2 in the latter alone introduced an
+extra secondary vptr store during destruction and failed byte verification.
+The bridge remains open pending reconciliation of the base destructor.

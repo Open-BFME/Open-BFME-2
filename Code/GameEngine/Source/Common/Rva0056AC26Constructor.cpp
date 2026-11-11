@@ -53,6 +53,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../Include/Common/Rva002B2702.h"
 class Rva0056AC82:public Rva0056AC26 {
 public:virtual ~Rva0056AC82();
+ virtual bool ac26Slot1();
  Rva0056AC82(Rva0056AC26Owner *,void *,void *);
 };
 Rva0056AC82::Rva0056AC82(Rva0056AC26Owner *owner,void *second,void *third):Rva0056AC26(owner){
