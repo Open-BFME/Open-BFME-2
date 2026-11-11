@@ -52,10 +52,7 @@ struct Rva003820D1
 {
 	~Rva003820D1();
 };
-struct Rva00383A28
-{
-	~Rva00383A28();
-};
+#include "../../../Include/GameNetwork/Rva00383A28.h"
 struct Rva00383AFF
 {
 	~Rva00383AFF();

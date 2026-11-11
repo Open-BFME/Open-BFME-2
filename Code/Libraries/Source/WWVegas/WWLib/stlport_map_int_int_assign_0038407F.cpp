@@ -4,11 +4,7 @@
 // ?rva0038407F@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAV12@ABV12@@Z 0x0038407F 115B
 // Map<int,int> tree assign twin of rowed ??4 at 0x002CF742: same 115B shape via rowed clear 0x00383A28 plus rowed copy 0x00383C34 plus min/max walks plus count.
 // Evidence: callees 0x00383A28 plus 0x00383C34 both rowed; callers at 0x00384E7E 0x00385BB2; same 115B shape as locomotor assign 0x002D0E69.
-class Rva00383A28
-{
-public:
-	void rva00383A28();
-};
+#include "../../../../GameEngine/Include/GameNetwork/Rva00383A28.h"
 
 namespace _STL
 {

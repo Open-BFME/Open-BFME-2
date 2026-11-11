@@ -100,7 +100,7 @@ template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 
 #include "../../../Include/Common/Rva0038404A.h"
 class Rva00383AFF { public: void rva00383AFF(void); };
-class Rva00383A28 { public: void rva00383A28(void); };
+#include "../../../Include/GameNetwork/Rva00383A28.h"
 #include "../../../Include/Common/Rva00072FE6.h"
 class PSPlayerAllStats { public: void rva00552CB8(void); };
 
