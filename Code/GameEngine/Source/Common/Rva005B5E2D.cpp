@@ -27,11 +27,7 @@ struct BfmePod40
 extern Rva0040AAD5 *TheAwardSystemManager;
 extern const unsigned short g_00BC26DC[];
 
-class Rva00406E8F
-{
-public:
-    int rva00406E8F(unsigned int i);
-};
+#include "../../Include/GameLogic/Module/Rva00406E8F.h"
 struct Holder
 {
     char m_pad[0x27C];

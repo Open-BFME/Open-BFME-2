@@ -124,11 +124,7 @@ extern Rva0040AAD5 *TheAwardSystemManager;
 
 #include "../../Include/Common/Rva00406E7D.h"
 
-class Rva00406E8F
-{
-public:
-	int rva00406E8F(unsigned index);						// 0x00406E8F
-};
+#include "../../Include/GameLogic/Module/Rva00406E8F.h"
 
 #include "../../Include/Common/CreateAHeroHero.h"
 

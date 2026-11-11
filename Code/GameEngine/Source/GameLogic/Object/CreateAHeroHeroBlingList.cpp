@@ -74,7 +74,7 @@ struct BfmePod40;
 #include "../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 #include "../../../Include/Common/Rva00406E7D.h"
-class Rva00406E8F { public: Int rva00406E8F(UnsignedInt index); };
+#include "../../../Include/GameLogic/Module/Rva00406E8F.h"
 
 // 0x004079D5 (31 B, rowed in Rva004079D5.cpp): the hero's +0x74 map
 // lookup. Its body is visible here so cl proves the out-node's address does

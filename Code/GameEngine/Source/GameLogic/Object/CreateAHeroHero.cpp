@@ -217,7 +217,7 @@ inline const int &(min)(const int &__a, const int &__b)
 template<class T> static __forceinline T BlingOperand(const T &v) { return *(const volatile T *)&v; }
 class Rva0021937DTarget { public: void rva00407E94(); };
 class Rva00406E7D { public: int rva00406E7D(); };
-class Rva00406E8F { public: int rva00406E8F(unsigned int); };
+#include "../../../Include/GameLogic/Module/Rva00406E8F.h"
 struct BfmePod40;
 #include "../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
