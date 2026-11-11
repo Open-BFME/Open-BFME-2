@@ -213,7 +213,6 @@ Code/GameEngine/Source/Common/Bfme5FactoryStubs.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Bfme5FiftyFour.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Bfme5FiftyOne.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Bfme5FiftyThree.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Bfme5FindAndErase.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Bfme5FlagStateTransition.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Bfme5FortyNine.cpp,yes,0,0,0,0,0
@@ -569,7 +568,6 @@ Code/GameEngine/Source/Common/BfmeOwnerCC.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeOwnerCDE.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/BfmePackedColors1280.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmePod60Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeQueryForward1279.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeQueryProcess1279.cpp,yes,0,0,0,0,0
@@ -957,7 +955,6 @@ Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005D1846.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005D3731.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005ED152.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva006F8460.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-01-585D21.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-01b0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-1DD38E.cpp,yes,0,0,0,0,0
@@ -1462,7 +1459,7 @@ Code/GameEngine/Source/Common/OpenAudioFile_setFileReady.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Out.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Overridable.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OverridableDeleteOverrides.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/OwnedPointerResets.cpp,no,0,0,1,0,1
+Code/GameEngine/Source/Common/OwnedPointerResets.cpp,no,0,0,2,0,2
 Code/GameEngine/Source/Common/OwnedPointerTransfer2B43E7.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OwnedRecordArray56Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/P8ZeroingCtors.cpp,yes,0,0,0,0,0
@@ -2151,7 +2148,6 @@ Code/GameEngine/Source/Common/Rva000EA1DBTopple.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000EA1F3.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000EA21A.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000EDF23Setter.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva000EF137.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000EFA2BHandles.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000EFD0EIndexedWords.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000EFD1BWordState.cpp,yes,0,0,0,0,0
@@ -5721,8 +5717,6 @@ Code/GameEngine/Source/Common/Rva006F1360Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F1F50Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F1F90Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F3670Cluster.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva006F7540Cluster.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva006F8460Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F84C0DeletingDtor.cpp,no,0,0,1,0,1
 Code/GameEngine/Source/Common/Rva006F8DA0Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F97B0Cluster.cpp,yes,0,0,0,0,0
@@ -6950,7 +6944,7 @@ Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp,no,0,0,2,0,2
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp,no,0,0,1,0,1
 Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp,yes,0,0,0,0,0
@@ -7790,7 +7784,7 @@ Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadg
 Code/GameEngine/Source/GameClient/GUI/OnlineLoginIntegerRange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/OnlineLoginTextFilter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/OnlineQuickMatchWindowRef.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,no,0,0,0,0,2
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks_Rva00528AC3.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirRenderCallbacks.cpp,yes,0,0,0,0,0
@@ -13233,7 +13227,7 @@ Code/GameEngine/Source/Main/Rva00237E28.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Main/Rva00237E45.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Main/Win32GameEngineUpdate.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Main/Win32GameEngineUpdate.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/Main/WinMain.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Main/WinMainPairCopyWchars.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,yes,0,0,0,0,0
@@ -13690,7 +13684,6 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp,yes,0,0,0,
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E6B99FreeBuffers.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E6D94AllocateBuffers.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000EE198Reset.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000EEEF4Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000EF7B8TextureApply.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FBA57PostRender.cpp,yes,0,0,0,0,0
@@ -13882,7 +13875,6 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp,yes,0,0,0,0,
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferAddProp.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferCtor.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferDrawProps.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRemoveProp.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRemovePropsForConstruction.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRva000EE04A.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRva000EE15B.cpp,yes,0,0,0,0,0
@@ -14078,7 +14070,6 @@ Code/Libraries/Source/Apt/AptAnimationPoolCharacterVisit.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptAnimationPoolData__tickNewInsts.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptAnimationRebase.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptArray.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackInit.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp,yes,0,0,0,0,0
@@ -14099,8 +14090,6 @@ Code/Libraries/Source/Apt/AptDate.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptDateConstructor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptDisplayList.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptGC.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptGapLeaves.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptInput.cpp,yes,0,0,0,0,0
@@ -14215,12 +14204,7 @@ Code/Libraries/Source/Apt/Rva006E1C40Draw.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E1E30Cluster.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E2EE0AptCIH.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E3230Validate.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006E3410.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006E34A0.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006E34D0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006E3530Pack.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006E3710Check.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E3C80.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp,yes,0,0,0,0,0
@@ -14231,11 +14215,7 @@ Code/Libraries/Source/Apt/Rva006EF6D0TextFormat.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006EF920TextFormat.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006F6E00Cluster.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006F7600Remove.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006F7C10Clear.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006F7C70Free.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006F8060Assert.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006FBE10HasName.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp,yes,0,0,0,0,0
@@ -14377,7 +14357,6 @@ Code/Libraries/Source/DirtySock/cryptsha1.c,yes,0,0,0,0,0
 Code/Libraries/Source/DirtySock/netgameutil.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/EAStringAppendBounded.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/EAStringCAssign.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/EA/Apt/AptString/EAStringCChangeBuffer.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/EAStringCConcat.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/EAStringCGlobalCleanup.cpp,yes,0,0,0,0,0
@@ -14394,10 +14373,8 @@ Code/Libraries/Source/EA/Apt/AptString/Rva006CD510WordTriple.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Rva006D2E70Finish.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Rva006D4280Decode.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Rva006D4CA0Cluster.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/EA/Apt/AptString/Rva006D5E70Cluster.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Rva006D5F30Cluster.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Rva006D5FE0Append.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/EA/Apt/AptString/Rva006D6070Finish.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Rva006D6100Cluster.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptString/Utf8EncodedLength.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/EA/Apt/AptStringMethodLookup.cpp,yes,0,0,0,0,0
@@ -15072,7 +15049,6 @@ Code/Libraries/Source/WWVegas/WW3D2/Rva001514F5Factory.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/Rva001553C0Clear.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/Rva001553C0TreeFree.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/Rva00155AD0.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WW3D2/Rva0015AC00Siblings.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/Rva0015E2B0Apply.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/Rva0015F810QuaternionPrefixMultiply.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/Rva0015b110Cluster.cpp,yes,0,0,0,0,0
@@ -15264,7 +15240,6 @@ Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_resize.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp,yes,0,0,0,0,0
