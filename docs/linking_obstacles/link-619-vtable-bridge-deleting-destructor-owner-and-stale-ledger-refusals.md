@@ -1015,3 +1015,5 @@ at 0x00655770 installs that table but is rowed as PrototypeClass in part_ldr,
 whose compiled name binds it to the five-slot PrototypeClass table. Before
 rehoming that constructor, reconcile its consumer symbols, including the three
 existing constructor alternatenames in part_ldr. Keep the five-slot table intact.
+
+Bucket 0x007D3564 remains blocked. An effective /O1 reproduces the selected slot's verified COMDAT, but the regional flag proposal checks only the ordinary destructor. [Compiler comparison and admission result](../../reverse/attempt_support/bucket-dtor-profile-20261111.md).
