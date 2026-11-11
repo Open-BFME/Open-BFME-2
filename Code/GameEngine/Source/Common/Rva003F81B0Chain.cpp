@@ -29,11 +29,7 @@ public:
 	void rva003F8FB2();							// 0x003F8FB2
 };
 
-class Rva003F8052
-{
-public:
-	unsigned char rva003F8478();				// 0x003F8478
-};
+#include "../../Include/Common/Rva003F8052.h"
 
 class LivingWorldTutorial
 {

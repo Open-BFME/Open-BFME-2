@@ -2,7 +2,7 @@
 #include "unicode_string.h"
 class Rva003F7D86Inner;
 #include "../../../Include/Common/Rva003F81FDProxy.h"
-class Rva003F8052 {public:UnicodeString rva003F8497();};
+#include "../../../Include/Common/Rva003F8052.h"
 #include "../../../Include/Common/Rva0056AC26Owner.h"
 UnicodeString Rva0056AC26Owner::rva003F855D(){
  Rva003F7D86Inner *p=reinterpret_cast<Rva003F81FDProxy *>(this)->rva003F81B0();

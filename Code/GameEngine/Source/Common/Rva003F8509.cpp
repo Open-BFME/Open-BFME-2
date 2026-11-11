@@ -24,11 +24,7 @@ public:
 	void rva003F7F4B();
 };
 
-class Rva003F8052
-{
-public:
-	unsigned char rva003F8478();
-};
+#include "../../Include/Common/Rva003F8052.h"
 
 class Rva003F8090
 {
