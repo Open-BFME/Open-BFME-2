@@ -25,11 +25,7 @@
 class MultiIniFieldParse;
 
 // The rowed ExemptStatus parser 0x003B1327 (opaque owner class).
-class Rva003B1017
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/Rva003B1017.h"
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 

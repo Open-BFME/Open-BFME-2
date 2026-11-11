@@ -60,7 +60,7 @@
 // are retail's: death-type word +0x00, exempt/required 128-bit status masks
 // +0x04/+0x14, damage threshold +0x24, killer angles +0x28/+0x2C. The status
 // masks parse through 0x003B1327, rowed ?parseFromINI@Rva003B1017@@...
-class Rva003B1017 { public: static void parseFromINI( INI *ini, void *instance, void *store, const void *userData ); };
+#include "../../../../Include/Common/Rva003B1017.h"
 
 const FieldParse* DieMuxData::getFieldParse()
 {

@@ -26,11 +26,7 @@ extern const FieldParse AssistedTargetingUpdateModuleDataFieldParse[5];
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class Rva003B1017
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/Rva003B1017.h"
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 void Rva001DEE74Parse(INI *ini, void *instance, void *store, const void *userData);

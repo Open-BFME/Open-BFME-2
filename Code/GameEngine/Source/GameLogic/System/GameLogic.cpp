@@ -2396,11 +2396,7 @@ public:
 private:
 	unsigned int m_words[4]; // Native worker clears/accesses the 16-byte bitset.
 };
-class Rva003B1017 : public Rva003339CE
-{
-public:
-	void rva003B1017(INI *ini, void *extra);
-};
+#include "../../../Include/Common/Rva003B1017.h"
 // Byte one-setters: eight-byte __thiscall members with one shape:
 //
 //     mov byte ptr [ecx+<DISP>],1 / ret

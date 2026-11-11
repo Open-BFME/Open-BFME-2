@@ -148,12 +148,7 @@ class INI;
 
 class AsciiString;
 
-class Rva003B1017
-{
-public:
-	void rva003B1017(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva003B1017.h"
 
 // tu-skeleton: 0x003B0FD0 71B ?findSpecialPowerTemplateByID@SpecialPowerStore@@QAEPBVSpecialPowerTemplate@@I@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreFind.cpp (not merged yet)
 

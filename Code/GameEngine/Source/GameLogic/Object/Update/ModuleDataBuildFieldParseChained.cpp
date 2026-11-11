@@ -95,11 +95,7 @@ extern const FieldParse g_00C5BD38[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class Rva003B1017
-{
-public:
-	static void parseFromINI(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/Common/Rva003B1017.h"
 
 void Rva000B9468Parse(INI *, void *, void *, const void *);
 void Rva002567EAParse(INI *, void *, void *, const void *);

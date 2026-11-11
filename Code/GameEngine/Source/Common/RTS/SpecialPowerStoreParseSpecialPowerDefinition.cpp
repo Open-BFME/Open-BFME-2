@@ -96,12 +96,7 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 
 void Rva001DEE74Parse( INI *ini, void *instance, void *store, const void *userData );
 void iniParseObjectFilter( INI *ini, void *instance, void *store, const void *userData );
-class Rva003B1017
-{
-public:
-	void rva003B1017(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva003B1017.h"
 
 // The SpecialPowerNames index list (VA 0x00DC0B40).
 extern const char *SpecialPowerNames[];
