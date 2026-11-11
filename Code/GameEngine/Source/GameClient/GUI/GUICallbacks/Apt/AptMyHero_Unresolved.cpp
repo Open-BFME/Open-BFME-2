@@ -89,7 +89,7 @@ public:
  void setGroup(AsciiString groupName,bool immediate);
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-class Rva001DBB82OneSetter {public: void enable();};
+#include "../../../../../Include/GameClient/Rva001DBB82OneSetter.h"
 class GameWindowManager {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();

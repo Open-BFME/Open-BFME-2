@@ -76,11 +76,7 @@ public:
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class Rva001DBB82OneSetter
-{
-public:
-	void enable();
-};
+#include "../../Include/GameClient/Rva001DBB82OneSetter.h"
 
 #include "../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;

@@ -19,11 +19,7 @@ public:
 };
 
 // The flag poke is the rowed Rva001DBB82OneSetter::enable.
-class Rva001DBB82OneSetter
-{
-public:
-	void enable();
-};
+#include "../../../Include/GameClient/Rva001DBB82OneSetter.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 

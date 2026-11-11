@@ -5665,11 +5665,7 @@ void GameLogic::rva0024004D(bool loadingSaveGame)
 // (0x0023DCCE) and the +0x?? string (0x0023DC8E). WB 0x00CFF490 is the
 // identity lead; BFME 1 (deleteLoadScreen, naked dump only) and Zero Hour
 // (deleteLoadScreen is 0x0023C7D2 here) guide purpose only.
-class Rva001DBB82OneSetter
-{
-public:
-	void enable(void);
-};
+#include "../../../Include/GameClient/Rva001DBB82OneSetter.h"
 
 class W3DDisplay
 {
