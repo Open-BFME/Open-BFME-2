@@ -229,7 +229,7 @@ void Rva005CF22COwner::rva005CF22C(int regionAddress) {
 }
 
 #include "../../Include/Common/Rva002B7250.h"
-class Rva004E0750 {public:void rva004E0750()const;};
+#include "../../Include/Common/Rva004E0750.h"
 Rva005CEE9F::~Rva005CEE9F(){
  ((Rva002B7250*)((char*)m_region+8))->rva002B7250((CreateAHeroData*)static_cast<Rva005CF07EListener*>(this));
  void *view=m_owner->m_view10;

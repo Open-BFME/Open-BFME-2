@@ -12,11 +12,7 @@
 class CreateAHeroData;
 #include "../../Include/Common/Rva002B7250.h"
 #include "../../Include/Common/Rva004E0625.h"
-class Rva004E0750
-{
-public:
-	void rva004E0750() const;
-};
+#include "../../Include/Common/Rva004E0750.h"
 struct Rva005CE4FATarget
 {
 	char m_pad[8];
