@@ -21,11 +21,7 @@ struct Rva004C5DD0Ref
 	int m_refs;
 };
 
-struct Rva004C5DD0Pair
-{
-	Rva004C5DD0Ref *a;
-	Rva004C5DD0Ref *b;
-};
+#include "../../Include/Common/Rva004C5DD0Pair.h"
 
 class Rva004C5DD0
 {
