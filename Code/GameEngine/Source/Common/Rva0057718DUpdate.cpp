@@ -16,11 +16,7 @@ public:
 	void rva0057539C();
 };
 
-class Rva005CCEB6
-{
-public:
-	void rva005CCEB6();
-};
+#include "../../Include/GameClient/Rva005CCEB6.h"
 
 #include "../../Include/GameLogic/ManualPhaseEnder.h"
 

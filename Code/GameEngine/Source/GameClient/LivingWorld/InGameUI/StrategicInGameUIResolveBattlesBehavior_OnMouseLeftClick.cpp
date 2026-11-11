@@ -113,7 +113,7 @@ template<class T> class ResolveClickHolder { public:
 // 0x0057539C is rowed as Rva00575383's member forwarder (Rva0057539CForwarders.cpp).
 class Rva00575383 { public: void rva0057539C(); };
 class Rva005CD010 { public: void rva005CD010(); };
-class Rva005CCEB6 { public: void rva005CCEB6(); };
+#include "../../../../Include/GameClient/Rva005CCEB6.h"
 class Rva005CD708 { public: void rva005CD708(); };
 class Rva005D14AB { public: void rva005D14AB(); };
 #include "../../../../Include/Common/Rva000AD6F4.h"

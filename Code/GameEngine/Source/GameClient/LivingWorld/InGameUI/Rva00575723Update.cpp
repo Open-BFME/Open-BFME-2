@@ -60,11 +60,7 @@ class Rva005CD010
 public:
 	void rva005CD010();
 };
-class Rva005CCEB6
-{
-public:
-	void rva005CCEB6();
-};
+#include "../../../../Include/GameClient/Rva005CCEB6.h"
 class Rva005CB84A
 {
 public:
