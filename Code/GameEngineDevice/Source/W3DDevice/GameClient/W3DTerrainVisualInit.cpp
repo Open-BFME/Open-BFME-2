@@ -88,11 +88,7 @@ private:
 	unsigned char m_data[0x28];
 };
 
-class Rva00084C05System
-{
-public:
-	void init(SceneClass *scene);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00084C05System.h"
 
 class TerrainTracksRenderObjClassSystem;
 extern TerrainTracksRenderObjClassSystem *TheTerrainTracksRenderObjClassSystem;

@@ -115,7 +115,7 @@ virtual void slot54();
 virtual int getTimeMultiplier();
 };
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
-class Rva00084C05System {public:void update();};
+#include "../../../Include/W3DDevice/GameClient/Rva00084C05System.h"
 class Rva00203B47Host {public:bool rva00203B47();};
 class GameClient;class View;extern GameLogic*TheGameLogic;extern GameClient*TheGameClient;extern View*TheTacticalView;extern GlobalData*TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData*)TheWritableGlobalData)

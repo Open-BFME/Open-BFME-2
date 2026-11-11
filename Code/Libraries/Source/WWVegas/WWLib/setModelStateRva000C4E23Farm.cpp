@@ -297,7 +297,7 @@ struct SrcArg000C18E3;
 class Rva000C18E3 { public: void rva000C18E3(SrcArg000C18E3 *arg); };
 class Rva00084206Track { public: char m_pad00[0x38]; void *m_drawable38; };
 class Rva00084B18RenderObj;
-class Rva00084C05System { public: Rva00084206Track *bind(Rva00084B18RenderObj *robj, Real length, const char *texture, const char *a, const char *b); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00084C05System.h"
 class TerrainTracksRenderObjClassSystem;
 extern TerrainTracksRenderObjClassSystem *TheTerrainTracksRenderObjClassSystem;
 
