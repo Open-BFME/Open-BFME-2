@@ -48,6 +48,7 @@ import argparse
 import collections
 import concurrent.futures as cf
 import csv
+import hashlib
 import io
 import json
 import os
@@ -1863,135 +1864,140 @@ REKEY_LEFT_ALONE = ("reverse/data_ledger.csv (regenerate with tools/data_ledger.
                     "tools/tests/fixtures/")
 REKEY_CODE_SUFFIXES = (".cpp", ".c", ".cc", ".cxx", ".h", ".hpp", ".hh", ".hxx", ".inl", ".inc")
 REKEY_MARKER = re.compile(r"absent-from-retail|present-unmatched|tu-skeleton:")
-# A unit can compile the class from a donor header the rekey never edits: one under reference/
-# (outside reference/shims/) reached through the unit's own /I roots, directly or through other
-# headers. Such a unit keeps the old key after the flip, whatever its own text says (LINK-018:
-# W3DRopeDraw.cpp names no Coord3D yet calls Drawable::getPosition through the Zero Hour
-# Lib/BaseType.h). The plan resolves every compile unit's includes and refuses each one that
-# reaches a donor definition, unless its current object shows no old-key spelling of the class.
+# A unit can compile the class from a donor header the rekey never edits (one under reference/,
+# outside reference/shims/), directly or through other headers, and then keeps the old key after
+# the flip whatever its own text says (LINK-018: W3DRopeDraw.cpp names no Coord3D yet reaches the
+# Zero Hour Lib/BaseType.h through "Common/Thing.h"). The plan reads which files each ledger unit
+# compiled from build.py's own receipt (the .deps.json next to its object, from the compiler's
+# include notes), and only from a receipt build.compile_is_current accepts and that names this
+# source and this object; every direct include must resolve, by full path through the compiler's
+# own roots, to a file the receipt lists. Anything it cannot prove refuses the plan.
 REKEY_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*([<"])([^">\n]+)[">]', re.MULTILINE)
+REKEY_ANY_INCLUDE = re.compile(r"^[ \t]*#[ \t]*include\b", re.MULTILINE)
+REKEY_COMMENT = re.compile(r"/\*.*?\*/|//[^\n]*", re.DOTALL)
 REKEY_UNIT_SUFFIXES = (".cpp", ".c", ".cc", ".cxx")
-REKEY_INCLUDE_ROOT = re.compile(r"^[/-]I(.*)$")
-REKEY_GRAPH_LIMIT = 20000
 
 
-def _rekey_unit_flags(root, rel):
-    """The flags build.py compiles REL with: its own answer for this repository, the bare `// cl:`
-    tokens for any other root (tests)."""
-    path = Path(root) / rel
-    if Path(root).resolve() == ROOT.resolve():
-        import build
-        return list(build.source_extra_flags(path.resolve()))
-    for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
-        if line.startswith("// cl:"):
-            return line[len("// cl:"):].split()
-    return []
+def _rekey_units(root):
+    """The compile units the ledger builds: C and C++ sources of reverse/functions.csv and data_rows.csv."""
+    units = set()
+    for rel in ("reverse/functions.csv", "reverse/data_rows.csv"):
+        path = Path(root) / rel
+        if path.is_file():
+            with path.open(newline="", encoding="utf-8") as handle:
+                units |= {r["source"] for r in csv.DictReader(handle)
+                          if (r.get("source") or "").endswith(REKEY_UNIT_SUFFIXES)}
+    return sorted(u for u in units if (Path(root) / u).is_file())
 
 
-def _rekey_include_roots(root, rel):
-    """REL's /I roots in command-line order, as absolute paths."""
-    tokens, roots = _rekey_unit_flags(root, rel), []
-    i = 0
-    while i < len(tokens):
-        match = REKEY_INCLUDE_ROOT.match(tokens[i])
-        if match:
-            value = match.group(1)
-            if not value and i + 1 < len(tokens):
-                i += 1
-                value = tokens[i]
-            if value:
-                roots.append(os.path.normpath(os.path.join(str(Path(root).resolve()), value)))
+def _rekey_receipt_gaps(root, rel, deps, roots, forced, find):
+    """Why DEPS (a receipt's dependency map) does not prove REL's includes, or None.
+
+    Every map entry must be a plain path inside the repository. Every direct include of the unit's own
+    text (comments removed) and every forced include must resolve, by full path in the compiler's search
+    order (the unit's directory first for a quoted or forced include, then ROOTS), to a file the map
+    lists. FIND(path) is the existing file a path names (case-resolved) or None. An #include this cannot
+    read (a macro name), one that resolves to no file, and one whose file the map does not list all
+    count: a receipt that cannot prove its closure proves nothing."""
+    base = os.path.normpath(str(root))
+    listed = set()
+    for key in deps:
+        k = key.replace("\\", "/")
+        if not k or os.path.isabs(k) or re.match(r"^[A-Za-z]:", k) or any(s in ("", ".", "..") for s in k.split("/")):
+            return f"its receipt lists {key!r}, which is not a plain path inside the repository"
+        listed.add(os.path.normpath(os.path.join(base, k)).lower())
+    code = REKEY_COMMENT.sub("", (Path(base) / rel).read_text(encoding="utf-8", errors="replace"))
+    found = REKEY_INCLUDE.findall(code)
+    if len(found) != len(REKEY_ANY_INCLUDE.findall(code)):
+        return "it has an #include this check cannot read (a macro name)"
+    unit_dir = os.path.dirname(os.path.join(base, rel))
+    for quote, include in [('"', f) for f in forced] + found:
+        dirs = ([unit_dir] if quote == '"' else []) + list(roots)
+        hit = next((h for h in (find(os.path.normpath(os.path.join(d, include.strip()))) for d in dirs) if h), None)
+        if hit is None:
+            return f"{include!r} resolves to no file through its directory and the compiler's roots"
+        if os.path.normpath(hit).lower() not in listed:
+            return f"{include!r} resolves to {os.path.relpath(hit, base)}, which its receipt does not list"
+    return None
+
+
+def _rekey_unit_receipt(root, rel):
+    """(dependency paths relative to the repository, None) when REL's object is current and its receipt
+    proves its includes; (None, why) otherwise. Only this repository's own build can be read."""
+    if Path(root).resolve() != ROOT.resolve():
+        return None, "there is no build of this tree to read"
+    import build
+    source = ROOT / rel
+    obj = Path(build.obj_path(source))
+    sidecar = obj.with_suffix(".deps.json")
+    if not obj.is_file() or not sidecar.is_file():
+        return None, "it has no object and dependency receipt"
+    try:
+        meta = json.loads(sidecar.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None, "its dependency receipt is unreadable"
+    if not isinstance(meta, dict) or not isinstance(meta.get("deps"), dict):
+        return None, "its dependency receipt has no dependency map"
+    if meta.get("path") != build._root_key(source):
+        return None, f"its receipt describes {meta.get('path')}, not this source"
+    if meta.get("object") != hashlib.md5(obj.read_bytes()).hexdigest():
+        return None, "its receipt describes another object than the one on disk (stale)"
+    if not build.compile_is_current(source, obj):
+        return None, "its object is stale: the source, the compile command or a dependency changed since it was built"
+    command, env = build.compiler_command(source, obj)
+    roots, forced, i = [], [], 0
+    while i < len(command):
+        token = command[i]
+        for flag, out in (("I", roots), ("FI", forced)):
+            if token[:1] in "-/" and token[1:1 + len(flag)] == flag and (flag == "FI" or token[1:3] != "FI"):
+                value = token[1 + len(flag):] or (command[i + 1] if i + 1 < len(command) else "")
+                if not token[1 + len(flag):]:
+                    i += 1
+                out.append(value)
+                break
         i += 1
-    return roots
-
-
-class _DonorReach:
-    """Which donor definitions of NAME a unit's include graph reaches. Paths are normalized strings,
-    and file texts, existence and each (directory, include, roots) resolution are cached across units."""
-
-    def __init__(self, root, name):
-        self.root = os.path.normpath(str(Path(root).resolve()))
-        self.prefix = self.root + os.sep
-        self.texts, self.exists, self.resolved, self.donors = {}, {}, {}, {}
-        self.defines = re.compile(r"\b(?:struct|class)\s+" + re.escape(name) + r"\b\s*(?::[^;{]*)?\{")
-
-    def _includes(self, path):
-        if path not in self.texts:
-            try:
-                with open(path, encoding="utf-8", errors="replace") as handle:
-                    text = handle.read()
-            except OSError:
-                text = ""
-            self.texts[path] = REKEY_INCLUDE.findall(text)
-            rel = path[len(self.prefix):].replace(os.sep, "/") if path.startswith(self.prefix) else None
-            self.donors[path] = rel if (rel and rel.startswith("reference/") and not rel.startswith("reference/shims/")
-                                        and self.defines.search(text)) else None
-        return self.texts[path]
-
-    def _is_file(self, path):
-        if path not in self.exists:
-            self.exists[path] = os.path.isfile(path)
-        return self.exists[path]
-
-    def _resolve(self, quote, name, here, unit_dir, roots):
-        key = (quote, name, here, unit_dir, roots)
-        if key not in self.resolved:
-            bases = ((here, unit_dir) if quote == '"' else ()) + roots
-            self.resolved[key] = next((c for c in (os.path.normpath(os.path.join(b, name.strip())) for b in bases)
-                                       if self._is_file(c)), None)
-        return self.resolved[key]
-
-    def of(self, rel, roots):
-        """(sorted donor definitions reached, False), or (what was found, True) past the graph limit.
-        A quoted include looks in the including file's directory and the unit's first, then the
-        /I roots; an angled one only in the roots. Headers found nowhere (the SDK) are skipped."""
-        roots = tuple(os.path.normpath(str(r)) for r in roots)
-        start = os.path.normpath(os.path.join(self.root, rel))
-        unit_dir = os.path.dirname(start)
-        seen, found, stack = {start}, set(), [start]
-        while stack:
-            current = stack.pop()
-            here = os.path.dirname(current)
-            for quote, name in self._includes(current):
-                candidate = self._resolve(quote, name, here, unit_dir, roots)
-                if candidate is None or candidate in seen:
-                    continue
-                seen.add(candidate)
-                if len(seen) > REKEY_GRAPH_LIMIT:
-                    return sorted(found), True
-                self._includes(candidate)
-                if self.donors[candidate]:
-                    found.add(self.donors[candidate])
-                stack.append(candidate)
-        return sorted(found), False
+    roots = [os.path.normpath(r if os.path.isabs(r) else os.path.join(str(ROOT), r)) for r in roots]
+    roots += [build._host_path(r) for r in env.get("INCLUDE", "").split(";") if r]
+    why = _rekey_receipt_gaps(ROOT, rel, meta["deps"], roots, forced, build._case_resolve)
+    if why:
+        return None, why
+    return sorted(k.replace("\\", "/") for k in meta["deps"]), None
 
 
 def _rekey_unit_object(root, rel, name, key):
-    """None when REL has no object to read; else the old-key spellings of NAME it holds (empty: none).
-    The object is read as it is: the check is that the unit, as built, emits no old-key name."""
-    if Path(root).resolve() != ROOT.resolve():
-        return None
+    """The old-key spellings of NAME in REL's object (empty: none). The receipt has bound the object."""
     import build
     obj = Path(build.obj_path(ROOT / rel))
-    if not obj.is_file():
-        return None
     return scan_old_key(name, key, [obj]).get(str(obj), [])
 
 
-def _rekey_donor_units(root, files, name, key):
-    """{unit: (donors, object spellings or None)} for every compile unit whose includes reach a donor
-    definition of NAME. The plan refuses those whose object is missing or spells the old key."""
-    reach, out = _DonorReach(root, name), {}
-    for rel in files:
-        if not (rel.startswith("Code/") and rel.endswith(REKEY_UNIT_SUFFIXES)):
-            continue
-        donors, partial = reach.of(rel, _rekey_include_roots(root, rel))
-        if partial:
-            donors = donors + [f"(include graph past {REKEY_GRAPH_LIMIT} files)"]
-        if donors:
-            out[rel] = (donors, _rekey_unit_object(root, rel, name, key))
-    return out
+def _rekey_donor_units(root, name, key):
+    """({unit: (donor definitions, old-key spellings)}, {unit: why unverified}) over the ledger's units.
 
+    A unit whose receipt does not prove what it compiled is unverified; one whose dependencies include a
+    file under reference/ (outside reference/shims/) defining NAME is listed with its object's old-key
+    spellings of NAME (empty: harmless as built)."""
+    defines = re.compile(r"\b(?:struct|class)\s+" + re.escape(name) + r"\b\s*(?::[^;{]*)?\{")
+    defines_at, donor_units, unverified = {}, {}, {}
+    for rel in _rekey_units(root):
+        deps, why = _rekey_unit_receipt(root, rel)
+        if why:
+            unverified[rel] = why
+            continue
+        donors = []
+        for dep in deps:
+            if dep.startswith("reference/") and not dep.startswith("reference/shims/"):
+                if dep not in defines_at:
+                    try:
+                        defines_at[dep] = bool(defines.search((Path(root) / dep).read_text(encoding="utf-8",
+                                                                                           errors="replace")))
+                    except OSError:
+                        defines_at[dep] = True          # unreadable: assume the worst
+                if defines_at[dep]:
+                    donors.append(dep)
+        if donors:
+            donor_units[rel] = (donors, _rekey_unit_object(root, rel, name, key))
+    return donor_units, unverified
 
 class RekeyRefused(Exception):
     """The migration cannot be applied whole; nothing was written."""
@@ -2450,13 +2456,14 @@ def plan_class_key(name, key, root=None):
         after[header] = line.sub(lambda m: m.group(1) + f"{key} (exports).", head).encode("utf-8")
     refusals += [f"unresolvable identity {t[:110]} ({why})" for t, why in sorted(rekeyer.refused.items())]
     refusals += _rekey_collisions(root, after, rekeyer.mapping)
-    donor_units = _rekey_donor_units(root, files, name, key)
+    donor_units, unverified = _rekey_donor_units(root, name, key)
+    for rel, why in sorted(unverified.items()):
+        refusals.append(f"unverified: {rel}: {why}; rebuild it so its receipt shows whether it compiles a donor {name}")
     for rel, (donors, spelled) in sorted(donor_units.items()):
-        if spelled is None or spelled:
-            why = ("its object is missing, so nothing shows it is harmless" if spelled is None
-                   else f"its object spells the old key ({len(spelled)} name(s), e.g. {spelled[0][:90]})")
+        if spelled:
             refusals.append(f"donor {name}: {rel} compiles {name} from {donors[0]}, which the rekey cannot edit, "
-                            f"and {why}; move it to {header} or a TU-scoped shim first")
+                            f"and its object spells the old key ({len(spelled)} name(s), e.g. {spelled[0][:90]}); "
+                            f"move it to {header} or a TU-scoped shim first")
     if refusals:
         raise RekeyRefused("\n".join(refusals))
     after = _drop_redundant_pins(root, after, rekeyer.mapping)

@@ -5,6 +5,7 @@ retail-ledger template mappings were independently decoded with DbgHelp. These
 checks need neither compiler nor DbgHelp. Unknown grammar still refuses a unit.
 """
 import csv
+import os
 import re
 import sys
 from pathlib import Path
@@ -330,6 +331,8 @@ def tree(tmp_path, monkeypatch, *, functions="", symbols="", data_rows="", delet
     subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
     subprocess.run(["git", "-C", str(tmp_path), "add", "-A"], check=True)
     monkeypatch.setattr(hal.class_contract, "export_key", lambda name: Counter({k: 15 for k in exports}))
+    # No build to read here: every ledger unit has a receipt that proves it compiled nothing (donor tests replace it).
+    monkeypatch.setattr(hal, "_rekey_unit_receipt", lambda root, rel: ([], None))
     return tmp_path
 
 
@@ -626,59 +629,91 @@ def test_a_block_opened_after_an_unclassified_identifier_is_not_file_scope(tmp_p
 
 
 # LINK-018 rekey defect (the members trial's F build, 2026-11-11): units that compile Coord3D from a donor
-# header, and so keep the old key after the flip, were not found when their own text named no Coord3D or
-# reached the donor only through other headers. These three are the trial's own failures.
+# header keep the old key after the flip. The plan reads what each ledger unit compiled from build.py's
+# own receipt; these use the trial's three failing shapes, and the review's negatives (a stale object, an
+# include the receipt does not prove).
 DONOR = "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+BASETYPE = "struct Coord3D\n{\n    float x, y, z;\n};\n"
+CALLER_ROW = "?caller@@YAXXZ,,0x00003000,4,Code/Caller.cpp,matched,\n"
 DONOR_CASES = [
-    # W3DRopeDraw.cpp: a directory-qualified donor include, no Coord3D in the unit's text
-    ('#include "Common/Thing.h"', "GameEngine/Include/Common/Thing.h", "?getPosition@Drawable@@QBEPBUCoord3D@@XZ"),
-    # W3DRadar.cpp: donor headers that reach Lib/BaseType.h only through another header
-    ('#include "GameClient/Color.h"', "GameEngine/Include/GameClient/Color.h",
-     "?worldToRadar@Radar@@QAE_NPBUCoord3D@@PAUICoord2D@@@Z"),
-    ('#include <Common/Geometry.h>', "GameEngine/Include/Common/Geometry.h",
-     "?CollidesWith@GeometryInfo@@QBE_NABUCoord3D@@MABV1@0M@Z"),
+    # W3DRopeDraw.cpp: a directory-qualified donor include ("Common/Thing.h"), no Coord3D in its text
+    [f"{DONOR}/GameEngine/Include/Common/Thing.h", f"{DONOR}/Libraries/Include/Lib/BaseType.h"],
+    # W3DRadar.cpp: a donor header that reaches Lib/BaseType.h through another
+    [f"{DONOR}/GameEngine/Include/GameClient/Color.h", f"{DONOR}/Libraries/Include/Lib/BaseType.h"],
+    # nested two deep: the donor definition is no direct include of anything the unit names
+    [f"{DONOR}/GameEngine/Include/Common/Geometry.h", f"{DONOR}/GameEngine/Include/Common/Inner.h",
+     f"{DONOR}/Libraries/Include/Lib/BaseType.h"],
 ]
+OLD_KEY = ["?caller@@YAXPBUCoord3D@@@Z"]
 
 
-def donor_tree(tmp_path, monkeypatch, include, via, name, basetype="struct Coord3D\n{\n    float x, y, z;\n};\n"):
-    callee = f"{name},,0x00002000,8,Code/Callee.cpp,matched,\n"
-    return tree(tmp_path, monkeypatch, functions=ROW + callee, extra={
-        f"{DONOR}/{via}": '#include "Lib/BaseType.h"\n',
+def donor_tree(tmp_path, monkeypatch, receipt, basetype=BASETYPE, spelled=OLD_KEY):
+    root = tree(tmp_path, monkeypatch, functions=ROW + CALLER_ROW, extra={
+        f"{DONOR}/GameEngine/Include/Common/Thing.h": '#include "Lib/BaseType.h"\n',
+        f"{DONOR}/GameEngine/Include/GameClient/Color.h": '#include "Lib/BaseType.h"\n',
+        f"{DONOR}/GameEngine/Include/Common/Geometry.h": '#include "Common/Inner.h"\n',
+        f"{DONOR}/GameEngine/Include/Common/Inner.h": '#include "Lib/BaseType.h"\n',
         f"{DONOR}/Libraries/Include/Lib/BaseType.h": basetype,
-        "Code/Callee.cpp": '#include "Lib/Coord3D.h"\nstruct Coord3D;\n',
-        "Code/Caller.cpp": (f"// cl: /MD /I{DONOR}/GameEngine/Include /I {DONOR}/Libraries/Include\n"
-                            f"{include}\nvoid caller();\n"),
+        "Code/Caller.cpp": "void caller();\n",
     })
+    monkeypatch.setattr(hal, "_rekey_unit_receipt",
+                        lambda root, rel: receipt if rel == "Code/Caller.cpp" else ([], None))
+    monkeypatch.setattr(hal, "_rekey_unit_object", lambda root, rel, name, key: list(spelled))
+    return root
 
 
-@pytest.mark.parametrize("include,via,name", DONOR_CASES)
-def test_a_unit_compiling_a_donor_class_is_refused(tmp_path, monkeypatch, include, via, name):
-    root = donor_tree(tmp_path, monkeypatch, include, via, name)
+@pytest.mark.parametrize("deps", DONOR_CASES)
+def test_a_unit_whose_receipt_holds_a_donor_definition_and_spells_the_old_key_is_refused(tmp_path, monkeypatch, deps):
+    root = donor_tree(tmp_path, monkeypatch, (deps, None))
     with pytest.raises(hal.RekeyRefused, match=r"donor Coord3D: Code/Caller\.cpp compiles Coord3D from "
                                                + re.escape(f"{DONOR}/Libraries/Include/Lib/BaseType.h")):
         hal.plan_class_key("Coord3D", "class", root)
 
 
 def test_a_donor_unit_whose_object_spells_no_old_key_is_reported_not_refused(tmp_path, monkeypatch):
-    include, via, name = DONOR_CASES[0]
-    root = donor_tree(tmp_path, monkeypatch, include, via, name)
-    monkeypatch.setattr(hal, "_rekey_unit_object", lambda root, rel, name, key: [])
+    root = donor_tree(tmp_path, monkeypatch, (DONOR_CASES[0], None), spelled=[])
     after, report = hal.plan_class_key("Coord3D", "class", root)
     assert report["donor_header_units"] == ["Code/Caller.cpp"]
-    assert name.replace("UCoord3D", "VCoord3D") in after["reverse/functions.csv"].decode()
 
 
-def test_a_donor_unit_whose_object_spells_the_old_key_is_refused(tmp_path, monkeypatch):
-    include, via, name = DONOR_CASES[0]
-    root = donor_tree(tmp_path, monkeypatch, include, via, name)
-    monkeypatch.setattr(hal, "_rekey_unit_object", lambda root, rel, name, key: [name])
-    with pytest.raises(hal.RekeyRefused, match=r"its object spells the old key \(1 name"):
+@pytest.mark.parametrize("why", ["its object is stale: the source, the compile command or a dependency changed",
+                                 "it has no object and dependency receipt",
+                                 "'Common/Thing.h' resolves to no file through its directory and the compiler's roots"])
+def test_a_unit_whose_receipt_proves_nothing_is_refused(tmp_path, monkeypatch, why):
+    root = donor_tree(tmp_path, monkeypatch, (None, why), spelled=[])
+    with pytest.raises(hal.RekeyRefused, match=r"unverified: Code/Caller\.cpp: " + re.escape(why)):
         hal.plan_class_key("Coord3D", "class", root)
 
 
 @pytest.mark.parametrize("basetype", ["struct Coord3D;\n", "struct Coord2D { float x, y; };\n"])
-def test_a_donor_header_without_the_class_definition_is_ignored(tmp_path, monkeypatch, basetype):
-    include, via, name = DONOR_CASES[0]
-    root = donor_tree(tmp_path, monkeypatch, include, via, name, basetype=basetype)
+def test_a_donor_file_without_the_class_definition_is_ignored(tmp_path, monkeypatch, basetype):
+    root = donor_tree(tmp_path, monkeypatch, (DONOR_CASES[0], None), basetype=basetype)
     after, report = hal.plan_class_key("Coord3D", "class", root)
     assert report["donor_header_units"] == []
+
+
+def gaps_tree(tmp_path, unit):
+    for rel, text in {"Code/U.cpp": unit, "Code/Local.h": "", "inc/Common/Thing.h": "", "inc2/Common/Thing.h": ""}.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text)
+    find = lambda p: p if os.path.isfile(p) else None
+    return [str(tmp_path / "inc"), str(tmp_path / "inc2")], find
+
+
+def test_receipt_gaps_accepts_a_receipt_listing_each_direct_include_at_its_first_hit(tmp_path):
+    roots, find = gaps_tree(tmp_path, '#include "Local.h"\n#include <Common/Thing.h>\n// #include "gone.h"\n')
+    assert hal._rekey_receipt_gaps(tmp_path, "Code/U.cpp", {"Code/Local.h": "x", "inc/Common/Thing.h": "x"},
+                                   roots, [], find) is None
+
+
+@pytest.mark.parametrize("unit,deps,forced,want", [
+    ('#include "Missing.h"\n', {}, [], "resolves to no file"),
+    ('#include <Common/Thing.h>\n', {"inc2/Common/Thing.h": "x"}, [], "which its receipt does not list"),  # shadowed
+    ('#include "Local.h"\n', {}, [], "which its receipt does not list"),                                 # stale receipt
+    ("#define H <x.h>\n#include H\n", {}, [], "cannot read"),
+    ("", {"../outside.h": "x"}, [], "not a plain path"),
+    ("", {}, ["Common/Gone.h"], "resolves to no file"),                                                  # a forced include
+])
+def test_receipt_gaps_refuses_what_it_cannot_prove(tmp_path, unit, deps, forced, want):
+    roots, find = gaps_tree(tmp_path, unit)
+    assert want in (hal._rekey_receipt_gaps(tmp_path, "Code/U.cpp", deps, roots, forced, find) or "")
