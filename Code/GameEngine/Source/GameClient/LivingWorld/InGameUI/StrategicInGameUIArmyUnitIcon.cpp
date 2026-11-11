@@ -159,7 +159,7 @@ TreeHintRef00217D4C StrategicInGameUI::ArmyHeroIcon::rva005F4254()
     return ((Rva001524CA *)((char *)this + offset - 0x14))->rva001524CA();
 }
 
-class Rva005FC70A {public:void rva005FC70A(unsigned char);};
+#include "../../../../Include/GameClient/Rva005FC70A.h"
 class Rva005FC71E {public:void rva005FC71E(unsigned char);};
 #include "../../../../Include/GameClient/Rva005FC73BPtrChaseField.h"
 class Rva005FD034 {public:void rva005FD034(int);};

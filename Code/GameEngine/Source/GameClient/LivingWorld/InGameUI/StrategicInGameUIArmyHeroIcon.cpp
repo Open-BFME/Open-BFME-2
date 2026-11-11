@@ -31,11 +31,7 @@
 #include "unicode_string.h"
 
 // The clip's rowed setters and query (address-named views).
-class Rva005FC70A
-{
-public:
-	void rva005FC70A(unsigned char flag);
-};
+#include "../../../../Include/GameClient/Rva005FC70A.h"
 class Rva005FC71E
 {
 public:
