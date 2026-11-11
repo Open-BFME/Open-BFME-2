@@ -10,11 +10,7 @@
 
 #include "ascii_string.h"
 
-class Rva00397E50
-{
-public:
-	void rva00397E50();
-};
+#include "../../../../Include/GameLogic/Module/Rva00397E50.h"
 
 #include "../../../../Include/GameLogic/Rva002EE9B7.h"
 

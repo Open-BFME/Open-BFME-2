@@ -109,11 +109,7 @@ private:
 };
 
 // The rowed clear of the +0x80 vector.
-class Rva00397E50
-{
-public:
-	void rva00397E50();
-};
+#include "../../../../Include/GameLogic/Module/Rva00397E50.h"
 
 struct Rva002E36D5Node;
 struct Rva003983D4Element74;

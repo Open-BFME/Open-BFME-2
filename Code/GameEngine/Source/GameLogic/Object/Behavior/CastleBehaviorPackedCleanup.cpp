@@ -32,7 +32,7 @@ class CastleBehavior:public CastleObjectModule,public CastleBehaviorInterface,pu
  char pad14[0x20];int state34;char pad38[8];float wait40;char pad44[0xC];
  _STL::vector<ObjectID>owned50,owned5C,owned68,owned74;char pad80[0x20];Rva00395CEB mapA0;
 };
-class Rva00397E50{public:void rva00397E50();};
+#include "../../../../Include/GameLogic/Module/Rva00397E50.h"
 enum NameKeyType{NAMEKEY_INVALID=0};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
