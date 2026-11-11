@@ -87,11 +87,7 @@ struct Rva002860CFIterator
 	Rva002860CFIterator(Rva00286214Node *node) : m_node(node) {}
 	Rva002860CFIterator(const Rva002860CFIterator &that) : m_node(that.m_node) {}
 };
-class Rva002860CFHost
-{
-public:
-	void rva002860CF(Rva002860CFIterator it);
-};
+#include "../../../Include/GameLogic/Rva002860CFHost.h"
 class Rva00286214
 {
 public:
