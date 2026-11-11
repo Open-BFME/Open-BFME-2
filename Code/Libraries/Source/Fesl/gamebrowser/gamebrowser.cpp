@@ -11,7 +11,7 @@
 #include <new>
 // The complete retail destructor at 0x007E86C0 has an address-derived
 // ledger identity; use that existing declaration for the scoped cleanup.
-class Gen_007e86c0 { public: void m(); };
+#include "../../../../GameEngine/Include/GameNetwork/Gen_007e86c0.h"
 class BfmeC994
 {
 public:

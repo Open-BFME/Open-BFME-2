@@ -16,11 +16,7 @@ public:
     BfmeC994(char *buffer, int size);
     char m_unknown[0x34];
 };
-class Gen_007e86c0
-{
-public:
-    void m();
-};
+#include "../../Include/GameNetwork/Gen_007e86c0.h"
 class Rva007F61E0Sender
 {
 public:

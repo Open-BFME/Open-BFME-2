@@ -60,10 +60,7 @@ public:
 
 Rva007EB810Diag *Rva007EB810Get();
 
-struct Gen_007e86c0
-{
-	void m();
-};
+#include "../../Include/GameNetwork/Gen_007e86c0.h"
 
 // The destructor stores ServiceHubImpl's own table (VA 0x00CE1510, compiler-emitted
 // in ServiceHubImpl_ctor.cpp) first and its base's (VA 0x00CE1354, Rva00657670's,

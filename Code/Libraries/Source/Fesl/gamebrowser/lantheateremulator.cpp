@@ -290,11 +290,7 @@ public:
 	void send( BfmeC994 *message );
 };
 
-class Gen_007e86c0
-{
-public:
-	void m();
-};
+#include "../../../../GameEngine/Include/GameNetwork/Gen_007e86c0.h"
 
 struct Rva00809520Entry
 {

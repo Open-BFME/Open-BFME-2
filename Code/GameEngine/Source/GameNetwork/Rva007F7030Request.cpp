@@ -21,7 +21,7 @@ public:
     BfmeC994(char *, int);
     char bytes[0x34];
 };
-class Gen_007e86c0 { public: void m(); };
+#include "../../Include/GameNetwork/Gen_007e86c0.h"
 class Rva007F7030Sender {
 public:
     virtual void slot0();

@@ -26,11 +26,7 @@ public:
 
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
 
-class Gen_007e86c0
-{
-public:
-	void m();
-};
+#include "../../Include/GameNetwork/Gen_007e86c0.h"
 
 class Rva007E8760Addr
 {

@@ -970,3 +970,4 @@ Rva001E438B,Code/GameEngine/Include/GameLogic/Module/Rva001E438B.h,existing head
 AIGameTeam,Code/GameEngine/Include/Common/AIGameTeam.h,existing header; contract class_contracts/AIGameTeam.json; 5/7 sampled units adopt
 Rva00116680,Code/Libraries/Source/WWVegas/WW3D2/Rva00116680.h,existing header; contract class_contracts/Rva00116680.json; 7/8 sampled units adopt
 Rva0057C2CC,Code/GameEngine/Include/Common/Rva0057C2CC.h,existing header; contract class_contracts/Rva0057C2CC.json; 6/8 sampled units adopt
+Gen_007e86c0,Code/GameEngine/Include/GameNetwork/Gen_007e86c0.h,existing header; contract class_contracts/Gen_007e86c0.json; 6/8 sampled units adopt
