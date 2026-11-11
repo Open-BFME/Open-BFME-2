@@ -28,10 +28,7 @@ public:
 };
 
 struct Rva0059E647Arg;
-struct Rva0059E647World
-{
-    void Apply(Rva0059E647Entry *, void *, Rva0059E647Arg *);
-};
+#include "../../Include/Common/Rva0059E647World.h"
 void Rva0059E647World::Apply(Rva0059E647Entry *buildingTemplate, void *regionView, Rva0059E647Arg *playerView)
 {
     void *p1 = buildingTemplate;

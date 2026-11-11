@@ -363,11 +363,7 @@ public:
  AsciiString m_34; int m_38; int m_3c; int m_40; float m_44; float m_48;
  bool fromCampaign; bool m_4d; bool m_4e;
 };
-class Rva0059E647World
-{
-public:
-	void rva002B77AD();
-};
+#include "../../../../Include/Common/Rva0059E647World.h"
 class LivingWorldLogic;
 class Glo012F1024Item
 {

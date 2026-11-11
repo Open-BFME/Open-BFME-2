@@ -1135,3 +1135,4 @@ AptCampaignReview,Code/GameEngine/Include/GameClient/AptCampaignReview.h,existin
 Rva0021937DTarget,Code/GameEngine/Include/GameLogic/Rva0021937DTarget.h,existing header; contract class_contracts/Rva0021937DTarget.json; 4/6 sampled units adopt
 Rva0028F326Owner,Code/GameEngine/Include/GameLogic/Module/Rva0028F326Owner.h,existing header; contract class_contracts/Rva0028F326Owner.json; 5/6 sampled units adopt
 W3DShadowGeometryManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowGeometryManager.h,existing header; contract class_contracts/W3DShadowGeometryManager.json; 3/5 sampled units adopt
+Rva0059E647World,Code/GameEngine/Include/Common/Rva0059E647World.h,existing header; contract class_contracts/Rva0059E647World.json; 4/6 sampled units adopt

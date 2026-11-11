@@ -34,7 +34,7 @@ struct Rva0059E647Factory
 };
 class Rva0022C0CDSubsystem;
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
-struct Rva0059E647World { void Apply(Rva0059E647Entry *,void *,Rva0059E647Arg *); };
+#include "../../../../Include/Common/Rva0059E647World.h"
 struct Rva002B8660Army;
 struct Rva002B8660Player;
 struct LivingWorldArmy;

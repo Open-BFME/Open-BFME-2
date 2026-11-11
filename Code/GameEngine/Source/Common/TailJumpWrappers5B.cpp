@@ -901,11 +901,7 @@ void BfmeHub982::rva001116E2()
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 
-class Rva0059E647World
-{
-public:
-	void rva002B77AD();
-};
+#include "../../Include/Common/Rva0059E647World.h"
 
 void Rva0059E647World::rva002B77AD()
 {
