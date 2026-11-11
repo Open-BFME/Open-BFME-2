@@ -921,3 +921,4 @@ Rva00331682Holder,Code/GameEngine/Include/GameLogic/Module/Rva00331682Holder.h,e
 DynamicPortalBehaviour,Code/GameEngine/Include/GameLogic/Module/DynamicPortalBehaviour.h,existing header; contract class_contracts/DynamicPortalBehaviour.json; 8/15 sampled units adopt
 Rva002246B1,Code/GameEngine/Include/GameClient/Rva002246B1.h,existing header; contract class_contracts/Rva002246B1.json; 8/9 sampled units adopt
 Rva002E9042,Code/GameEngine/Include/GameLogic/Module/Rva002E9042.h,existing header; contract class_contracts/Rva002E9042.json; 8/9 sampled units adopt
+BfmeThing932E,Code/GameEngine/Include/Common/BfmeThing932E.h,existing header; contract class_contracts/BfmeThing932E.json; 13/14 sampled units adopt
