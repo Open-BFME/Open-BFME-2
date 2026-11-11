@@ -4974,7 +4974,7 @@ param,peekSub::a,peekSub::pos,inferred,agree:nl-c8a4764642c7,Code/GameEngine/Sou
 param,peekSub::b,peekSub::offset,inferred,agree:nl-5252908c17ea,Code/GameEngine/Source/GameLogic/Pathfinder/rva003642DFRva003642DFFarm.cpp,
 local,Rva007FA6C0::openHost::b,Rva007FA6C0::openHost::port,inferred,agree:nl-16eeba2b8f9b,Code/GameEngine/Source/GameNetwork/Rva007FA6C0Open.cpp,0x00666BF0
 param,rva0004F037Caller::c,rva0004F037Caller::color,inferred,agree:nl-d57e48b55f58,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarBlobBlips.cpp,
-local,Rva000EE198Owner::rva000EE198::n,Rva000EE198Owner::rva000EE198::remaining,inferred,agree:nl-3b8d1e1d77d0,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000EE198Reset.cpp,0x000EE198
+local,Rva000EE198Owner::rva000EE198::n,Rva000EE198Owner::rva000EE198::remaining,inferred,agree:nl-3b8d1e1d77d0,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp,0x000EE198
 param,Rva006D8680Free::p,Rva006D8680Free::block,inferred,agree:nl-6470c86e569e,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp,0x006D8680
 local,AptAnimationPoolData::_tickNewInsts::e2,AptAnimationPoolData::_tickNewInsts::element,inferred,agree:nl-a8ca7f362569,Code/Libraries/Source/Apt/AptAnimationPoolData__tickNewInsts.cpp,0x006E4390
 local,AptAnimationPoolData::_tickNewInsts::p,AptAnimationPoolData::_tickNewInsts::button,inferred,agree:nl-bda108ff8c1d,Code/Libraries/Source/Apt/AptAnimationPoolData__tickNewInsts.cpp,0x006E4390
