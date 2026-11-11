@@ -65,7 +65,7 @@ class Rva0013101E {public:unsigned words[4];};
 struct HordeTexturePair {AsciiString original,replacement;};
 struct HordeModelState {char pad[0x64];_STL::vector<HordeTexturePair> textures;};
 #include "../../../../../../GameEngine/Include/Common/Rva000B4A9F.h"
-class Rva000B4AB5 {public:const AsciiString *rva000B4AB5(unsigned);};
+#include "../../../../../../GameEngine/Include/Common/Rva000B4AB5.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva000BC9B1.h"
 class Rva000B3348 {public:void rva000B3348(Matrix3D*);};
 class Rva000788D3FloatField {public:float get()const;};

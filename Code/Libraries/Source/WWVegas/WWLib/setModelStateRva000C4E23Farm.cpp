@@ -202,11 +202,7 @@ const char *Rva000B4A9F::rva000B4A9F()
 
 static __forceinline bool namesDiffer(const StringBase<char> &a, const StringBase<char> &b) { return a.compare(b) != 0; }
 
-class Rva000B4AB5
-{
-public:
-	const AsciiString *rva000B4AB5(unsigned index);
-};
+#include "../../../../GameEngine/Include/Common/Rva000B4AB5.h"
 
 struct BfmeNarrowRecord00079C23
 {

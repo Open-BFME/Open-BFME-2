@@ -1049,11 +1049,7 @@ extern Debug *theDebug;
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);
 
-class Rva000B4AB5
-{
-public:
-	const AsciiString *rva000B4AB5(unsigned int index);
-};
+#include "../../Include/Common/Rva000B4AB5.h"
 
 class Rva000B4926
 {
