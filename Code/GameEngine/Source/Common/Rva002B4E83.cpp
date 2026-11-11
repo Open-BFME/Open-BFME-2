@@ -25,11 +25,7 @@ extern GameTextInterface *TheGameText;
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class Rva0029B16A
-{
-public:
-	void setMissionHelpText(int a, int b);
-};
+#include "../../Include/Common/Rva0029B16A.h"
 
 
 class Rva002B4E83

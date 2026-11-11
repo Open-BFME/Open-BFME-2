@@ -16,7 +16,7 @@ class InGameUI; extern InGameUI *TheInGameUI;
 class GameTextInterface; extern GameTextInterface *TheGameText;
 #include "../../Include/Common/Rva002B2B66.h"
 class Rva0029B17C {public:void clearMissionHelpText();};
-class Rva0029B16A {public:void setMissionHelpText(int,int);};
+#include "../../Include/Common/Rva0029B16A.h"
 class Rva003F7F4BAudioView {public:
  virtual void v0();
  virtual void v1();

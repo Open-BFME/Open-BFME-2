@@ -34,11 +34,7 @@ class InGameUI;
 
 extern InGameUI *TheInGameUI;
 
-class Rva0029B16A
-{
-public:
-    void setMissionHelpText(int, int);
-};
+#include "../../Include/Common/Rva0029B16A.h"
 
 // ---- from Code/GameEngine/Source/Common/BfmeRectVNH_ctor.cpp
 
