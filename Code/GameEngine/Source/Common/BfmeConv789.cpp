@@ -11,9 +11,10 @@ struct BfmeCsDWA
 	unsigned char m_bfmeHead[0x18];
 };
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(BfmeCsDWA *cs);
-extern "C" __declspec(dllimport) void __stdcall InterlockedIncrement(BfmeCsDWA *cs);
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(BfmeCsDWA *cs);
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 
 
 
@@ -31,8 +32,8 @@ struct BfmeThingDWC
 
 bool BfmeThingDWC::bfmeGoDWC()
 {
-	InterlockedIncrement(&m_bfmeCs);
-	EnterCriticalSection((BfmeCsDWA *)&g_bfmeCsDWC);
+	InterlockedIncrement((LONG *)&m_bfmeCs);
+	EnterCriticalSection((CRITICAL_SECTION *)&g_bfmeCsDWC);
 	return false;
 }
 
