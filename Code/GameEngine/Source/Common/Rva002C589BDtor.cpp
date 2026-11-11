@@ -39,12 +39,7 @@ public:
 extern unsigned int g_00DFEFC0;
 // Inferred serial-counter role; original static member spelling is unknown.
 unsigned int g_AITargetThreatFinderSerial;
-class Rva003ECDB7Object
-{
-public:
-	~Rva003ECDB7Object();
-    void registerName();
-};
+#include "../../Include/GameLogic/Module/Rva003ECDB7Object.h"
 
 extern GameLogic *TheGameLogic;
 

@@ -97,11 +97,7 @@ struct InterestZone
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
-class Rva003ECDB7Object
-{
-public:
-	~Rva003ECDB7Object();
-};
+#include "../../Include/GameLogic/Module/Rva003ECDB7Object.h"
 
 class Xfer::Version
 {

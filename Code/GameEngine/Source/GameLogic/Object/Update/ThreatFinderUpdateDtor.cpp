@@ -6,11 +6,7 @@
 // then calls the rowed UpdateModule base dtor 0x0024A797. Called by the
 // matched deleting dtor 0x003ED0A8. Pool key 0x003ECCD6 plus ctor 0x003ECCA2
 // prove the class.
-class Rva003ECDB7Object
-{
-public:
-	~Rva003ECDB7Object();
-};
+#include "../../../../Include/GameLogic/Module/Rva003ECDB7Object.h"
 
 // Base view matching Common/Rva0024A797DeletingDtor.cpp: vptrs at +0, +0xC,
 // +0x10; 0x20 bytes (copied from SpecialAbilityUpdateDtor.cpp).

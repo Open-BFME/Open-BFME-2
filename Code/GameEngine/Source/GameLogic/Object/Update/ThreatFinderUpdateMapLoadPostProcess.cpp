@@ -13,11 +13,7 @@ public:
 	char m_pad00[0x88];
 	StringBase<char> m_name; // +0x88
 };
-class Rva003ECDB7Object
-{
-public:
- void registerName();
-};
+#include "../../../../Include/GameLogic/Module/Rva003ECDB7Object.h"
 class Rva003ECD60Object : public Rva003ECDB7Object
 {
 public:
