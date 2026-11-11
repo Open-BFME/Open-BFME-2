@@ -5996,11 +5996,7 @@ public:
 	void rva0039B3D1(float level, bool flag);
 };
 
-class Rva0039B20C
-{
-public:
-	void rva0039B227(int value);
-};
+#include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 
 // The interface the +0x250 contain module's slot 31 (and Object 0x0029439D)
 // returns.

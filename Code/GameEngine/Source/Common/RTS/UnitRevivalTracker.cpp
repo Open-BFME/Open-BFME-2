@@ -93,7 +93,7 @@ struct RevivalLevelValue
 };
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"
-class Rva0039B20C { public: void rva0039B227(int); };
+#include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 class RevivalExperienceView
 {
 public:

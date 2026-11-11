@@ -152,12 +152,7 @@ public:
 	~Rva0022DDAB();
 };
 
-class Rva0039B20C
-{
-public:
-	void rva0039B227(int);
-	void rva0039B246();
-};
+#include "../../Include/GameLogic/Module/Rva0039B20C.h"
 
 // _STL::_List_base<Rva0024076D>, dtor rowed at 0x002461DA (StlportListRva002461DA.cpp).
 class Rva0024076D;

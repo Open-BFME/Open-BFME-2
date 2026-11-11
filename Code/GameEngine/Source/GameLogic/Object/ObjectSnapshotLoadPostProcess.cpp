@@ -65,7 +65,7 @@ struct Rva00293EFFXPNode {char pad[12];int value;};
 class Rva00293EFFXPField {public:int getField();char pad[0x2C];Rva00293EFFXPNode*node;};
 #include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 #include "../../../Include/GameLogic/ExperienceTracker.h"
-class Rva0039B20C{public:void rva0039B227(int);};
+#include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 struct LoadScoringView{char pad[0x98];bool enabled;};
 struct LoadXPView{char pad[16];float points;};
 struct LoadBinding{void*region;int opaque;};

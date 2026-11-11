@@ -66,7 +66,7 @@ class DelayedExperienceLevelGrantSystem;
 extern DelayedExperienceLevelGrantSystem *TheDelayedExperienceLevelGrantSystem;
 
 class Rva0039AF76 { public: void rva0039AF76(const AsciiString &name); };
-class Rva0039B20C { public: void rva0039B20C(void *level); };
+#include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 class Rva0039ADF3
 {
 public:

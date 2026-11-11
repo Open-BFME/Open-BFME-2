@@ -214,11 +214,7 @@ public:
 };
 
 #include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
-class Rva0039B20C
-{
-public:
-	void rva0039B246();
-};
+#include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 
 class Object
 {

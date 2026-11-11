@@ -2,11 +2,7 @@
 // ?rva005DB023@Rva005DB023@@QAEXXZ 0x005DB023 16B
 // Calls 0x39B246 then tail-jmps to 0x5DB004 copy.
 // Evidence: caller 0x59B2AA; unblocks 0x59B1EC.
-class Rva0039B20C
-{
-public:
-	void rva0039B246();
-};
+#include "../../Include/GameLogic/Module/Rva0039B20C.h"
 
 class Rva005DB004
 {

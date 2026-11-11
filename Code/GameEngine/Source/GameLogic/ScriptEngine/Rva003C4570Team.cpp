@@ -53,11 +53,7 @@ public:
 	void rva0039B24F(Rva0039B24FInput *input, bool a, bool b);
 };
 
-class Rva0039B20C
-{
-public:
-	void rva0039B246();
-};
+#include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 
 // Team iterate callback 0x002886A7 (27B): hand the experience level found
 // above to each member's +0x264 object, then continue.
