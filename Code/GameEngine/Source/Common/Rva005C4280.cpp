@@ -59,9 +59,7 @@ public:
 	Rva005C4B56(const Helper005C4D4B &, bool, const int *);
 };
 
-struct Rva004E06FBPtrChase32Field {
-	int get() const;
-};
+#include "../../Include/Common/Rva004E06FBPtrChase32Field.h"
 
 struct Arg1Host005C4280 {
 	char pad[0x38];

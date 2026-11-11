@@ -34,7 +34,7 @@ struct Rva002BED91
 		if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
 	}
 };
-class Rva004E06FBPtrChase32Field { public: int get() const; };
+#include "../../Include/Common/Rva004E06FBPtrChase32Field.h"
 #include "../../Include/GameLogic/Rva002E071E.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

@@ -126,7 +126,7 @@ class Rva0035C95FView {public: const Rva002BFF5AData *rva0035C95F() const; void 
 
 struct Rva002D9C7AEntry {char unknown[8]; Rva0035C95FView version; char unknown0c[4]; unsigned int key10;};
 
-class Rva004E06FBPtrChase32Field {public: int get() const;};
+#include "../../../Include/Common/Rva004E06FBPtrChase32Field.h"
 
 struct Rva002D9C7ASecond {char unknown[0x38]; Rva004E06FBPtrChase32Field *value38;};
 
