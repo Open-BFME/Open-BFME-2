@@ -42,7 +42,7 @@ struct Rva0052DEEFArg;struct Rva0052DFB1Arg;struct In002E6BA1{int x,y;};
 static __forceinline void setCellPinched(PathfindCell *cell,bool b){if(b)cell->m_0C|=0x10000u;else cell->m_0C&=~0x10000u;}
 static __forceinline bool getCellGate(const PathfindCell *cell){return ((cell->m_0C>>17)&1)!=0;}
 #include "../../../Include/GameLogic/Rva0052E001.h"
-class Rva0052E02F{public:bool rva0052E02F(bool);};
+#include "../../../Include/GameLogic/Rva0052E02F.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 float Sin(float);float Cos(float);
 static __forceinline long float2long(float f){long i;__asm{

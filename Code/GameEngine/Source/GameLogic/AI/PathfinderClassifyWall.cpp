@@ -19,11 +19,7 @@ extern "C" void __cdecl free(void*);
 
 typedef int Int;
 
-class Rva0052E02F
-{
-public:
-	bool rva0052E02F(bool value);
-};
+#include "../../../Include/GameLogic/Rva0052E02F.h"
 
 class Rva0052E0CE
 {

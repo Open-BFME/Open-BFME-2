@@ -1,0 +1,63 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0052E02F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "16": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:bitfield",
+   "name": "m_lo",
+   "name_by": "tie",
+   "offset": 12,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 0,
+   "type": "bitfield",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0xc",
+   "candidates": {
+    "m_bit": 1,
+    "m_lo": 1
+   },
+   "class": "Rva0052E02F"
+  }
+ ],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {}
+}
