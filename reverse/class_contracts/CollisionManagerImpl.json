@@ -1,0 +1,184 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "CollisionManagerImpl",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 2
+   },
+   "0xae04": {
+    "4": 4
+   },
+   "0xae0c": {
+    "4": 2
+   },
+   "0xae10": {
+    "4": 4
+   },
+   "0xc": {
+    "4": 1
+   },
+   "0xc060": {
+    "4": 7
+   },
+   "0xc064": {
+    "4": 12
+   },
+   "0xc068": {
+    "4": 1
+   },
+   "0xc06d": {
+    "1": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 10,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "49264": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_bfmeFirst",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/CollisionManagerImpl.cpp",
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44548,
+   "sources": [
+    "Code/GameEngine/Source/Common/CollisionManagerImpl.cpp",
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44552,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44556,
+   "sources": [
+    "Code/GameEngine/Source/Common/CollisionManagerImpl.cpp",
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44560,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 49244,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 49248,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 49252,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 49256,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 49260,
+   "sources": [
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 49261,
+   "sources": [
+    "Code/GameEngine/Source/Common/CollisionManagerImpl.cpp",
+    "Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 49264,
+ "size_by": "majority",
+ "vslots": {}
+}

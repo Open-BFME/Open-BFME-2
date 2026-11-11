@@ -24,11 +24,7 @@ public:
 };
 
 class Rva009A36F0Param;
-class CollisionManagerImpl
-{
-public:
-	void UnRegisterObject(Rva009A36F0Param *param);
-};
+#include "../../Include/Common/CollisionManagerImpl.h"
 
 class Rva00758210
 {

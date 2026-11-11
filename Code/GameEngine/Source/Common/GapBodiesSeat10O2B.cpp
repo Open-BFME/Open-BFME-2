@@ -188,11 +188,7 @@ int Rva0073B640::rva0073B640(int row, int column) const
 // rowed member of the object held at +0 (CollisionManagerImpl::UnRegisterObject
 // 0x007592E0 / PartitionManagerImpl::bfmeDropYQ 0x006278A0).
 class Rva009A36F0Param;
-class CollisionManagerImpl
-{
-public:
-	void UnRegisterObject(Rva009A36F0Param *param);
-};
+#include "../../Include/Common/CollisionManagerImpl.h"
 class Rva007584F0
 {
 public:

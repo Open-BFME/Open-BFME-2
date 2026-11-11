@@ -214,11 +214,7 @@ Int Rva0070A330::rva0070A360(Int)
 // slot at 0x007581E0: the rowed 0x0075A490 on the +0x10 object inside a "collision"
 // profile range.
 #include "../../../Libraries/Source/profile/profile.h"
-class CollisionManagerImpl
-{
-public:
-	void Update();
-};
+#include "../../Include/Common/CollisionManagerImpl.h"
 class Rva007581E0
 {
 public:

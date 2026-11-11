@@ -1122,3 +1122,4 @@ Rva004E9600,Code/GameEngine/Include/Common/Rva004E9600.h,existing header; contra
 AptFileTransferPopup,Code/GameEngine/Include/Common/AptFileTransferPopup.h,existing header; contract class_contracts/AptFileTransferPopup.json; 4/5 sampled units adopt
 InGameHelpBoxMovieClip,Code/GameEngine/Include/Common/InGameHelpBoxMovieClip.h,existing header; contract class_contracts/InGameHelpBoxMovieClip.json; 3/5 sampled units adopt
 Rva005ED976,Code/GameEngine/Include/GameClient/Rva005ED976.h,existing header; contract class_contracts/Rva005ED976.json; 4/6 sampled units adopt
+CollisionManagerImpl,Code/GameEngine/Include/Common/CollisionManagerImpl.h,existing header; contract class_contracts/CollisionManagerImpl.json; 3/5 sampled units adopt
