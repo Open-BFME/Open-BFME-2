@@ -355,3 +355,71 @@ fresh module, and `test_ledger_terminators:259` only asserts identity.
 I did not run the whole 321-file suite; the 31-file subset above is every test
 importing `add_match`, `gen_uw` or `ledger_io`. After the three fixes it is
 **4 failed, 1757 passed, 4 skipped**, down from 15 failed.
+
+## 2026-11-10: the triage question has a blind spot, and the age gap is real
+
+Two corrections to the method above, both found while clearing the
+`vtable_bridge` cluster.
+
+### It only ever asked `functions.csv`
+
+"Does the name the record wanted now own that address?" is read against
+`reverse/functions.csv` alone. A false reject whose subject is a **data** row --
+a vtable, a virtual-base table, a static, a string -- is rowed in
+`reverse/data_ledger.csv` or `reverse/data_rows.csv`, so the question can never
+resolve and the record is scored open whatever the truth.
+
+Re-asking it against both data ledgers closes **27** of the 439 that read as
+open, and finds 51 more sitting at a real data address under a different name
+(a rename to judge, not a refusal to reproduce). By check:
+
+| check | closed by the data ledger |
+| --- | ---: |
+| `data_rows` (+ `data_rows.py`, `.verify_row`) | 10 |
+| `vtable_bridge` (+ `.is_table_row`) | 9 |
+| `link_debt.staged` | 2 |
+| `data`, `data_check`, `rename.py`, `as`, `clearance` | 6 |
+
+Both scripts are now in the repo, which they were not before -- this note's
+whole method lived in one seat's scratchpad. Run them in order from anywhere:
+
+    python3 reverse/attempt_support/fr_open.py     # writes fr_open.json beside itself
+    python3 reverse/attempt_support/fr_data.py     # re-asks the open ones of the data ledgers
+
+The two `.json` files they write are working output, not evidence; delete them
+when done.
+
+### A record is stale the moment the fix lands, and nobody goes back
+
+The whole `vtable_bridge` cluster -- 9 of its 11 records -- names a defect that
+was repaired **after the record was written**, by someone who never knew the
+record existed:
+
+| records | named blocker | repaired at |
+| --- | --- | --- |
+| 101661, 101711, 101712, 102083 | `is_table_row` reads `??_8` base offsets as function slots | `0e11bbf733d` 11-08 |
+| 101706, 101707, 101710 | a weak `??_E` slot must resolve to its rowed `??_G` default | `b9aeebea15a` 11-08 |
+| 101617, 102301, 101643, 101645 | the LINK-619 `/O1`-vs-`/O2` alignment wall, "deferred until the position-observation proof lands" | `88c4a34da58` **11-10, that morning** |
+
+All nine are retracted with `void` at `f067741fcf9`. Two stay open: 101567 (the
+real link emits `??_E` for wide `basic_ifstream` where a local build emits only
+`??_G`) and 102511 (RTTI-prefixed LARGEST selection for `_com_error`).
+
+Note the shape of the evidence. Three of the four `??_8` records say so
+themselves -- "34 vbtable-only rows share selector error" -- and the ledger holds
+exactly 34, every one of which `is_table_row` now excludes. **That check needed
+no build to replay**: it reads `data_ledger.csv` and nothing else. The same is
+true of `pin_admission.is_placeholder`, whose 6 records all name the `b_`/`j_`
+gap-thunk family that `SELF_ADDRESS_THUNK_RE` now covers; all six addresses
+return `True` in the spelling `gen_small.thunk_symbol` actually mints.
+
+So the cheap first move on any record is not "reproduce the refusal" but **call
+the named predicate**. A large share of these checks are pure over a committed
+CSV, and the fleet's own `./build.sh` is the expensive part of reproducing.
+
+One trap while doing that: the three `?j_` records above are written with
+UPPERCASE hex (`?j_000066EB@@YAXXZ`). `SELF_ADDRESS_THUNK_RE` is lowercase-only,
+which looks like a case-sensitivity bug and is not -- `thunk_symbol` formats
+`{rva:08x}`, and all 264 such names in the ledgers are lowercase. The uppercase
+is the record's own transcription. Widening the pattern would admit placeholder
+spellings the generator never mints, which weakens the predicate; don't.
