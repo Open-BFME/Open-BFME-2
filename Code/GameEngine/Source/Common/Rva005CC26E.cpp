@@ -5,11 +5,7 @@ class Rva005CC23B
 public:
 	bool rva005CC23B();
 };
-class Rva005CC26E
-{
-public:
-	int rva005CC26E(void *p);
-};
+#include "../../Include/Common/Rva005CC26E.h"
 int Rva005CC26E::rva005CC26E(void *p)
 {
 	if (*(int *)((char *)p + 0x10) != 0x70)

@@ -605,11 +605,7 @@ void Rva005FB1AD::rva005FAA15(int value)
 	reinterpret_cast<Rva005FA97C *>(m_member.m_value)->rva005FA97C(value);
 }
 
-class Rva005CC26E
-{
-public:
-	int rva005CC26E(void *arg);
-};
+#include "../../Include/Common/Rva005CC26E.h"
 class Rva00574910Dispatch
 {
 public:

@@ -46,11 +46,7 @@ public:
 
 // The +0x5C and +0x28 members' translate methods (0x005CC26E and 0x005C9BE3,
 // both rowed under address names).
-class Rva005CC26E
-{
-public:
-	int rva005CC26E(void *msg);
-};
+#include "../../../../Include/Common/Rva005CC26E.h"
 #include "../../../../Include/GameClient/Rva005C9BE3Call.h"
 
 // Member destructors named by the retail calls.
