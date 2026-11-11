@@ -8,11 +8,7 @@
 // clear 0x0022C432 and rowed _M_copy 0x00418E05 plus _S_minimum/_S_maximum
 // bottom-tested walks. Evidence: callers 0x0041902A 0x0041911E; neighbouring
 // stlport_map_int_int_copy_00418E05.
-class Rva002294D0
-{
-public:
-	void rva0022C432();
-};
+#include "../../../../GameEngine/Include/Common/Rva002294D0.h"
 
 namespace _STL
 {

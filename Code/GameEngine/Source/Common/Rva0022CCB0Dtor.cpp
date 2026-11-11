@@ -35,11 +35,7 @@ public:
 	~Rva002294A3();
 };
 
-class Rva002294D0
-{
-public:
-	~Rva002294D0();
-};
+#include "../../Include/Common/Rva002294D0.h"
 
 class Rva0022CCE5
 {
