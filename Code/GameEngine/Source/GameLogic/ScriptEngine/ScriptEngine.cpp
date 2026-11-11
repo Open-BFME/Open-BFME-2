@@ -237,11 +237,7 @@ extern ScriptEngine *TheScriptEngine;
 // 0x00203693, the engine's current mode mask (2 or 1), is rowed as
 // Rva00203693Host::rva00203693; evaluateCondition calls it through a view of
 // the engine.
-class Rva00203693Host
-{
-public:
-	int rva00203693();
-};
+#include "../../../Include/GameLogic/Rva00203693Host.h"
 // The script latches' out-of-line members: LatchRestore<Team *> ctor 0x00203CA8,
 // dtor 0x00203CC7 and scalar deleting dtor 0x00203D04 (vtable 0x00BE39EC);
 // LatchRestore<Player *> ctor 0x00203CD6, dtor 0x00203CF5 and scalar deleting

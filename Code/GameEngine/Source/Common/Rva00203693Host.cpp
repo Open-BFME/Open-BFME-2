@@ -11,11 +11,7 @@
 extern GameLogic *TheGameLogic;
 
 
-class Rva00203693Host
-{
-public:
-	int rva00203693();
-};
+#include "../../Include/GameLogic/Rva00203693Host.h"
 
 int Rva00203693Host::rva00203693()
 {
