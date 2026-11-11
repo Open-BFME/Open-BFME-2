@@ -939,7 +939,7 @@ void Rva0055382B::rva0055382B()
 	m_00.rva005532D6();
 }
 
-class Gen_0054EC50 { public: bool bfmeDiffers(const Gen_0054EC50 &other) const; };
+#include "../../Include/Common/Gen_0054EC50.h"
 #include "../../Include/Common/Gen_0054EC80.h"
 class Rva0056FA50 { public: bool rva0056FA50(const Rva0056FA50 &other) const; };
 class Rva0056FA72 { public: bool rva0056FA72(const Rva0056FA72 &other) const; };
