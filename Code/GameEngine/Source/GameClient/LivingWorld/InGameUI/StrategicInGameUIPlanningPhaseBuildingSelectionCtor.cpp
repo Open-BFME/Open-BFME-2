@@ -327,7 +327,7 @@ class GameLogic; extern GameLogic *TheGameLogic;
 class Rva0037EE4C { public: int rva0037EE4C(const ThingTemplate *,int,int); };
 class Image; class ModuleData;
 class Rva0037EDC6 { public: const Image *rva0037EDC6(int); };
-class Rva0037E421 { public: void *rva0037E7A5(int); };
+#include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 class Rva0033AC7F { public: bool rva0033ACC5(AsciiString&); };
 class Rva0035B750 { public: void rva0035B750(const ModuleData *); };
 class Rva0035B7D9 { public: void rva0035B7D9(Rva0035B7D9 *,bool); };

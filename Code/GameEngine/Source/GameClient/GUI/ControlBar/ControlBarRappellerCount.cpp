@@ -333,7 +333,7 @@ static Int getRappellerCount(Object *obj)
 	return num;
 }
 
-class Rva0037E421 { public: void *rva0037E7A5(Int index); };
+#include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 #include "../../../../Include/GameLogic/Rva0037E6E8.h"
 
 class Player {

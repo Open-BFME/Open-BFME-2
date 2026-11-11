@@ -283,12 +283,7 @@ struct Rva0037E87ARecord
 	float m_CC;
 };
 
-class Rva0037E421
-{
-public:
-	void *rva0037E421(int id);								// 0x0037E421
-	void rva0037E87A(int id, float value);
-};
+#include "../../Include/GameLogic/Module/Rva0037E421.h"
 
 void Rva0037E421::rva0037E87A(int id, float value)
 {

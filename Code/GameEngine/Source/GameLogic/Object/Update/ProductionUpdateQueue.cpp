@@ -578,15 +578,7 @@ class Rva002AE98B { public: float rva002AE98B(const AsciiString *); };
 struct Rva002A7557In;
 class Rva002A7461 { public: bool rva002A7557(Rva002A7557In *,int); };
 #include "../../../../Include/GameLogic/Rva0037E6E8.h"
-class Rva0037E421
-{
-public:
-	unsigned char productionSystemCancelUnitCreate(int id);
-	void *rva0037E915(int index);
-	void *rva0037E7A5(int);
-	void *rva0037E451(int);
-	void *rva0037E421(int);
-};
+#include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };
 #include "../../../../Include/Common/UnitRevivalTracker.h"
 #include "../../../../Include/GameLogic/Module/Rva0039ADF3.h"

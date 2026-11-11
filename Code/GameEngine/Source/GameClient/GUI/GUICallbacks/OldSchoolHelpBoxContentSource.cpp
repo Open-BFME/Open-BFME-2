@@ -237,11 +237,7 @@ public:
 
 #include "../../../../Include/GameLogic/UnitRevivalEntry.h"
 
-class Rva0037E421
-{
-public:
-	void *rva0037E421(int index);
-};
+#include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 
 #include "../../../../Include/GameLogic/Rva0037E6E8.h"
 

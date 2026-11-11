@@ -306,11 +306,7 @@ class Rva0037F2C0
 public:
 	int rva0037F2C0(Object *obj, bool autoSpawn);
 };
-class Rva0037E421
-{
-public:
-	void *rva0037E421(int index);
-};
+#include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 struct RevivalSlot
 {
 	char m_pad00[0xC8];

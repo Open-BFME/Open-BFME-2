@@ -256,12 +256,7 @@ public:
 #include "../GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Rva0037E421
-{
-public:
-	void *rva0037E421(Int index);
-	void *rva0037E451(Int productionID);
-};
+#include "../../../Include/GameLogic/Module/Rva0037E421.h"
 
 class UnitRevivalTracker
 {

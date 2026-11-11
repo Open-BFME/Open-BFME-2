@@ -427,15 +427,7 @@ public:
 	int m_100;
 };
 
-class Rva0037E421
-{
-public:
-	unsigned char productionSystemCancelUnitCreate(int id);
-	void *rva0037E915(int index);
-	void *rva0037E7A5(int);
-	void *rva0037E451(int);
-	void *rva0037E421(int);
-};
+#include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 
 class Player
 {

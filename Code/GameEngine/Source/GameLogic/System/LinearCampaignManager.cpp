@@ -72,7 +72,7 @@ public:
 struct Rva00291198Dest;
 class Rva00291198Host {public:void rva002910B7(Rva00291198Dest*);};
 class Rva0037EACC {public:void rva0037EACC(void*);};
-class Rva0037E421 {public:void* rva0037E421(int);};
+#include "../../../Include/GameLogic/Module/Rva0037E421.h"
 class Object {public:char p0[0x8c]; Object* next;char p90[0x438-0x90];unsigned char status;};
 #include "GameLogicObjectLookupView.h"
 struct Rva001EBEABElement
