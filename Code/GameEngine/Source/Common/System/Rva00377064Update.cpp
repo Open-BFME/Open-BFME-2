@@ -24,11 +24,7 @@ class Rva00203BCDDwordSlot
 public:
 	void set(int value); // ?set@Rva00203BCDDwordSlot@@QAEXH@Z
 };
-class Rva0023D2D8DwordClearer
-{
-public:
-	void clear(); // ?clear@Rva0023D2D8DwordClearer@@QAEXXZ
-};
+#include "../../../Include/Common/Rva0023D2D8DwordClearer.h"
 #include "../../../Include/GameClient/Shell.h"
 
 #include "../GameLogicObjectLookupView.h"

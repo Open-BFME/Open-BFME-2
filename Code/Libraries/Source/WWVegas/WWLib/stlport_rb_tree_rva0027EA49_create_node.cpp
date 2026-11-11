@@ -21,11 +21,7 @@ public:
 	static char *allocate(unsigned int bytes, const void *hint);
 };
 }
-struct Rva004733E0Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../../../GameEngine/Include/Common/Rva004733E0Obj.h"
 class Rva004733E0
 {
 	int m_00;

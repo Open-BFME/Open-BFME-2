@@ -30,16 +30,8 @@ struct Rva00418BFBKey {
 	int lo;
 	int hi;
 };
-struct Rva00418BFBNode {
-	int _c0;
-	Rva00418BFBNode *_parent;
-	Rva00418BFBNode *_left;
-	Rva00418BFBNode *_right;
-	Rva00418BFBKey _key;
-};
-struct Rva00418BFBComp {
-	bool operator()(const void *a, const void *b) const;
-};
+#include "../../Include/Common/Rva00418BFBNode.h"
+#include "../../Include/Common/Rva00418BFBComp.h"
 struct Rva00418BFBIter {
 	Rva00418BFBNode *node;
 };

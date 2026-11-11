@@ -4,11 +4,7 @@
 void HideControlBar(bool b);
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva0023D2D8DwordClearer
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva0023D2D8DwordClearer.h"
 #include "GameLogicObjectLookupView.h"
 
 // The canonical GameLogic header pads over the fields read here; they

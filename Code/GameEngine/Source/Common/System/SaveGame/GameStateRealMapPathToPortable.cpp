@@ -20,11 +20,7 @@ public:
 	UnicodeString rva002DC267() const;
 };
 
-class Rva00300489
-{
-public:
-	virtual AsciiString getMapDir() const;
-};
+#include "../../../../Include/Common/Rva00300489.h"
 
 class Rva00300D7A : public Rva00300489
 {

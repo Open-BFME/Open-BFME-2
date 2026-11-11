@@ -12,11 +12,7 @@
 
 class GameWindow;
 
-class Rva00314046LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../Include/Common/Rva00314046LeaField.h"
 
 #include <string.h>
 

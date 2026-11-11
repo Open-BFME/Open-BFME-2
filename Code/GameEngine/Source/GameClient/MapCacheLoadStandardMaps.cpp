@@ -5,7 +5,7 @@
 class Xfer;
 enum INILoadType {INI_LOAD_INVALID,INI_LOAD_OVERWRITE,INI_LOAD_CREATE_OVERRIDES,INI_LOAD_MULTIFILE};
 #include "../../Include/Common/INI/INI.h"
-class Rva00300489 {public:virtual AsciiString getMapDir()const;};
+#include "../../Include/Common/Rva00300489.h"
 #include "../../Include/GameClient/MapCache.h"
 void MapCache::loadStandardMaps()
 {

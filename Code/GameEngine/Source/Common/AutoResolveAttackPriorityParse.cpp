@@ -28,18 +28,8 @@ struct Rva00418BFBKey
 	int hi;
 	__forceinline Rva00418BFBKey(const int &lowValue, const int &highValue) : lo(lowValue), hi(highValue) {}
 };
-struct Rva00418BFBNode
-{
-	int _c0;
-	Rva00418BFBNode *_parent;
-	Rva00418BFBNode *_left;
-	Rva00418BFBNode *_right;
-	Rva00418BFBKey _key;
-};
-struct Rva00418BFBComp
-{
-	bool operator()(const void *a, const void *b) const;
-};
+#include "../../Include/Common/Rva00418BFBNode.h"
+#include "../../Include/Common/Rva00418BFBComp.h"
 struct Rva00418BFBIter
 {
 	Rva00418BFBNode *node;

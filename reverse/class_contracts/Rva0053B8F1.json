@@ -1,0 +1,53 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0053B8F1",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x106": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 4,
+  "view_sizes": {
+   "263": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_106",
+   "name_by": "majority",
+   "offset": 262,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 263,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -15,11 +15,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 extern GameWindowManager *TheWindowManager;
 
-class Rva00314046LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva00314046LeaField.h"
 
 class PartitionData;
 

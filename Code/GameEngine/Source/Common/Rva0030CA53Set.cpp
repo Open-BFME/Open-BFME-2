@@ -5,11 +5,7 @@
 // Callees all rowed. Callers at 0x002828C3/0x00308676/0x00308E3E/0x0030CA73/
 // 0x005C673C push two pointers and clean 8 (cdecl void). Identity stays
 // honest Rva address plus Set verb per fleet free-function convention.
-struct Rva004733E0Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva004733E0Obj.h"
 
 class Rva004733E0
 {

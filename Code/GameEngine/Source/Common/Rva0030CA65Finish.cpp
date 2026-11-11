@@ -4,11 +4,7 @@
 // frameless (no ebp) with src in edi, dst in esi and end held at [esp+0x10];
 // the local aliases in/out are what make MSVC 7.1 allocate that pair instead
 // of spilling dst to an ebp frame. Callers at 0x002828AE/0x002828F9.
-struct Rva004733E0Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva004733E0Obj.h"
 class Rva004733E0
 {
 	int m_00;

@@ -10,11 +10,7 @@
 #include "ascii_string.h"
 
 // ?getMapDir@Rva00300489@@UBE?AVAsciiString@@XZ @0x00300489 28B: "Maps"
-class Rva00300489
-{
-public:
-	virtual AsciiString getMapDir() const;
-};
+#include "../../Include/Common/Rva00300489.h"
 
 AsciiString Rva00300489::getMapDir() const
 {

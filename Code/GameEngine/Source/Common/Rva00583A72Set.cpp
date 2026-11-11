@@ -4,16 +4,7 @@
 // Callers 0x00583A97 0x00583B1F 0x00584373 fill/copy 0x1c-byte elements.
 // Prev/next rows in stlport_vector_stringrecord_111acf_allocate_copy.cpp share these flags.
 
-struct Rva002337F0Blk
-{
-	int a;
-	int b;
-	int c;
-	int d;
-	char e;
-	int f;
-	int g;
-};
+#include "../../Include/Common/Rva002337F0Blk.h"
 
 class Rva002337F0
 {

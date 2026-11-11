@@ -179,7 +179,7 @@ protected:
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-struct Rva00300489 {virtual AsciiString getMapDir() const;};
+#include "../../../Include/Common/Rva00300489.h"
 
 struct ScanNode
 {
