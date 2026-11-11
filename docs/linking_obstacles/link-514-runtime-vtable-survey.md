@@ -2569,3 +2569,13 @@ of the base headers and three related provider units verify 128/128
 functions and four data rows. The same 18 units retain 3,781 bytes in
 the link preview before and after the signature change at census
 60189f9ced. The ACFF hand tables and secondary slot 1 remain open.
+
+The shared secondary slot 1 now accepts Rva002B4BC9Arg *, the type already
+used by ACFF's forwarder at 0x0056ABCB. Its target at 0x002B4BC9 reads the
+string at +0x18. The shared slot retains its ordinal name and the five-byte
+default at 0x005CB9FF retains its fold proof. Rebuilding the header consumers,
+related providers and the forwarder's target verifies 129/129 functions and
+four data rows. The same 19 units retain 3,845 bytes in the link preview
+before and after the change at census 60189f9ced. ACFF's private override is
+still spelled b1Slot1; adopting the shared declaration must reconcile that
+name and check sibling slots before replacing the hand tables.

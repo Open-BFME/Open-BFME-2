@@ -43,7 +43,7 @@
   },
   "1": {
    "decided_by": "bytes",
-   "member": "slot1(int)"
+   "member": "slot1(Rva002B4BC9Arg *)"
   },
   "10": {
    "decided_by": "bytes",
@@ -103,6 +103,7 @@
    "Native84B destructor56AC26 and85B constructor56AD80 place this minimal polymorphic interface at+8 before the UnicodeString at+C.",
    "Complete C37298 table is60B with15 slots; slot0 is29B deleting destructor3F7BCC and nondeleting teardown3F7BC5 is7B.",
    "Slots1/2/5/6/7/8/12 are false RET4; slots3/4/9/10/11 are false RET8; slot13 is false RET0 and slot14 integer-zero RET4.",
+   "ACFF secondary slot 1 at RVA 0x0086D160 forwards its argument unchanged at 0x0056ABCB to 0x002B4BC9, which reads the string at argument offset 0x18.",
    "ACFF secondary slot 4 at RVA 0x0086D160 calls 0x0056ABD6 with the army and destination region. The B2DD override at 0x0056AB09 compares the pair supplied by tutorial task case 5.",
    "Native parent full EH graph binds20B nullable+8 cleanup79A389 to3F7BC5."
   ],

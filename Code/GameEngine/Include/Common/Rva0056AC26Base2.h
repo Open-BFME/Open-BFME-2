@@ -5,6 +5,7 @@
 #define CANONICAL_RVA0056AC26BASE2_H
 
 struct LivingWorldArmy;
+struct Rva002B4BC9Arg;
 class Rva00318C32Ret;
 
 class Rva0056AC26Base2 {
@@ -12,7 +13,7 @@ public:
     // Native C37298 slot0 is deleting destructor3F7BCC. Keep this
     // declaration first; the generator appends special members last.
     virtual ~Rva0056AC26Base2() {}
-    virtual bool slot1(int) { return false; }
+    virtual bool slot1(Rva002B4BC9Arg *) { return false; }
     virtual bool slot2(int) { return false; }
     virtual bool slot3(int, int) { return false; }
     virtual bool slot4(LivingWorldArmy *, Rva00318C32Ret *) { return false; }
