@@ -56,6 +56,9 @@ struct BfmePod12
 	int m_key;
 	float m_val;
 };
+// erase<BfmePod12> is retail's shared 0x0034C117, rowed by Rva002DF872Dedup.cpp. This unit's own copy
+// dispatched to __copy where retail calls __copy_ptrs, and the link kept it, so it declares the owner's.
+namespace _STL { template <> BfmePod12 *vector<BfmePod12, allocator<BfmePod12> >::erase(BfmePod12 *); }
 
  
  
