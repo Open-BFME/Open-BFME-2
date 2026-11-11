@@ -41,7 +41,7 @@ class Drawable;
 enum ObjectStatusTypes { STATUS_NONE=0 };
 enum CommandSourceType { SOURCE_NONE=0 };
 class AICommandInterface { public:void aiIdle(CommandSourceType); };
-class Rva001E702E { public:void rva001E702E(Thing *,int,int); };
+#include "../../../../Include/GameLogic/Module/Rva001E702E.h"
 template<int N> class CompletionAISlots:public CompletionAISlots<N-1>{public:virtual void gap(char (*)[N]);};
 template<>class CompletionAISlots<1>{public:virtual void gap(char (*)[1]);};
 class AIUpdateInterface:public CompletionAISlots<110>{

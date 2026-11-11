@@ -18,7 +18,7 @@ class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 class Thing;
-class Rva001E702E { public: void rva001E702E(Thing *,int,int); };
+#include "../../../Include/GameLogic/Module/Rva001E702E.h"
 class HarvestTarget {
 public:
  virtual int slot00(); virtual int slot01(); virtual void slot02(); virtual void slot03(int);

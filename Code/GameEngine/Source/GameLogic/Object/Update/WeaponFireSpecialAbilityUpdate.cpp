@@ -305,11 +305,7 @@ public:
 	void *rva0044E633();
 };
 
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *obj, int pos, int flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E702E.h"
 
 class Rva00492BEBHolder
 {

@@ -873,11 +873,7 @@ Real Sin(Real angle);
 #define PI_F 3.14159265359f
 
 // The locomotor's aim-at-position hook (0x001E702E, rowed under this name).
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *obj, Int targetPos, Int flag);
-};
+#include "../../../Include/GameLogic/Module/Rva001E702E.h"
 
 enum AbleToAttackType
 {

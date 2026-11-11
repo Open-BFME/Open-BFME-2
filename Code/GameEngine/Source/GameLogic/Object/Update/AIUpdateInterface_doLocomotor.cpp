@@ -182,11 +182,7 @@ public:
 
 #include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *obj, Int pos, Int arg3);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E702E.h"
 
 // Locomotor::getMaxSpeed (0x001E46E1), named by WorldBuilder.
 #include "../../../../Include/GameLogic/LocomotorClass.h"
