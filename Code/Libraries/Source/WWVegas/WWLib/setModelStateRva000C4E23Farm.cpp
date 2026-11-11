@@ -276,11 +276,7 @@ public:
 	static RenderObjClass *CreateRenderObj(const char *name, Real scale, const Rva0013101E &a, AsciiStringVec &b, AsciiStringVec &c, AsciiStringVec &d);
 };
 RenderObjClass *Rva00137364CreateRenderObj(const char *name, Real scale, const Rva0013101E &a);
-class AnimationAsset
-{
-public:
-	static HAnimClass *GetAnim(const char *name);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/AnimationAsset.h"
 
 // --- rowed callees, declared under their ledger spellings -------------------
 class Rva002793AF { public: void rva002793AF(const AsciiString &name); };

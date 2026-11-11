@@ -347,11 +347,7 @@ public:
 private:
 	int NumRefs;
 };
-class AnimationAsset
-{
-public:
-	static HAnimClass *GetAnim(const char *name);
-};
+#include "../../../Include/W3DDevice/GameClient/AnimationAsset.h"
 void alignToTerrain(float angle, const Coord3D &pos, const Coord3D &normal, Matrix3D &mtx);
 
 void Rva0008EF3FProduct::drawMoveHints(View *view)

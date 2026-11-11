@@ -195,7 +195,7 @@ struct Rva0050CBA2Anim : Rva0050CBA2RefCounted
 class RenderObjClass;
 RenderObjClass *Create_Render_Obj(const char *name);
 class HAnimClass;
-class AnimationAsset { public: static HAnimClass *GetAnim(const char *name); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/AnimationAsset.h"
 
 bool Rva0050CBA2::rva0050CBA2(void *filename)
 {

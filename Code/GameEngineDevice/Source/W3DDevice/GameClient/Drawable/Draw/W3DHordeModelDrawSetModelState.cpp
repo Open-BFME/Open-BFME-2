@@ -82,7 +82,7 @@ public:
 	unsigned char m_441; // +0x441
 };
 class HAnimClass {public:virtual void deleteThis();int refs;void ReleaseRef(){if(--refs==0)deleteThis();}};
-class AnimationAsset {public:static HAnimClass *GetAnim(const char*);};
+#include "../../../../../Include/W3DDevice/GameClient/AnimationAsset.h"
 class RenderObjClass;
 class RenderAsset {public:static RenderObjClass *CreateRenderObj(const char*,float,const Rva0013101E&,Strings&,Strings&,Strings&);};
 RenderObjClass *Rva00137364CreateRenderObj(const char*,float,const Rva0013101E&);
