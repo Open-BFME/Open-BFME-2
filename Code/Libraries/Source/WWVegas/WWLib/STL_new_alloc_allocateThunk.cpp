@@ -17,12 +17,7 @@ extern "C" char *g_bfmeFreeList1150[];
 namespace _STL
 {
 
-class NodeAllocMutex
-{
-public:
-    void _M_acquire_lock();
-    void _M_release_lock();
-};
+#include "../../../../GameEngine/Include/Common/NodeAllocMutex.h"
 
 template <bool __threads, int __inst>
 class _Node_Alloc_Lock

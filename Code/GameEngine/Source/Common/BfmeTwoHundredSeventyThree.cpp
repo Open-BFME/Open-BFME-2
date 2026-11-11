@@ -8,12 +8,7 @@ void bfmeBigFreePM(void *at);
 namespace _STL
 {
 
-class NodeAllocMutex
-{
-public:
-	void _M_acquire_lock(void);
-	void _M_release_lock(void);
-};
+#include "../../Include/Common/NodeAllocMutex.h"
 
 template <bool __threads, int __inst>
 class _Node_Alloc_Lock

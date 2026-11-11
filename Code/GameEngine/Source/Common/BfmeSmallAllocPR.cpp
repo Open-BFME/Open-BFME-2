@@ -21,12 +21,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 namespace _STL
 {
 
-class NodeAllocMutex
-{
-public:
-	void _M_acquire_lock(void);
-	void _M_release_lock(void);
-};
+#include "../../Include/Common/NodeAllocMutex.h"
 
 }
 
