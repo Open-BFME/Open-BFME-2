@@ -40,11 +40,7 @@ void Rva005D1AE9::rva005D1AE9()
 	((Rva005CCB7B *)this)->rva005CCB7B(m_10->m_1C);
 }
 
-class Rva0056A989
-{
-public:
-	bool rva0056A989();
-};
+#include "../../Include/Common/Rva0056A989.h"
 
 class Rva005D1CAF
 {

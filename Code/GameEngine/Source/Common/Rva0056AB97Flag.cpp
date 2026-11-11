@@ -6,11 +6,7 @@
 // singleton, and return true. Honest address-derived names.
 class InGameUI;
 extern InGameUI *TheInGameUI;
-class Rva0056A989
-{
-public:
-	bool rva0056A989();
-};
+#include "../../Include/Common/Rva0056A989.h"
 
 class Rva0029B1A1
 {

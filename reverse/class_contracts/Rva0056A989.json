@@ -1,0 +1,60 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0056A989",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x38": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "60": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_lead",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 56,
+   "type": "char[56]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0056A989Gate.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 60,
+ "size_by": "majority",
+ "vslots": {}
+}

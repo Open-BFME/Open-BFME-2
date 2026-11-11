@@ -12,7 +12,7 @@
 // Its16-bit char and string views follow the target Unicode materializer98.
 #include <windows.h>
 #include "unicode_string.h"
-class Rva0056A989{public:bool rva0056A989();};
+#include "../../../../Include/Common/Rva0056A989.h"
 class Rva005CFA87{public:Rva005CFA87(void*,bool);char data[16];};
 class Object;
 #include "../../../../Include/Common/Rva00575674.h"
