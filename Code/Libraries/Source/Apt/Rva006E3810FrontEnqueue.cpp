@@ -29,18 +29,7 @@ struct Rva006E3740Slot {
     AptValue *pValue1;
     AptValue *pValue2;
 };
-class AptActionQueueC {
-    Rva006E3230Action *m_aActionPool;
-    Rva006E3230Action *m_pCurrent;
-    Rva006E3230Action *m_pEnd;
-    char _padC[4];
-    int m_iActionPoolSize;
-public:
-    void rva006E3230(Rva006E3230Action *pCur);
-    void enqueueFront(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
-    int rva006E38D0();
-    Rva006E3230Action *rva006E32A0(Rva006E3230Action *pCur);
-};
+#include "AptActionQueueC.h"
 void AptActionQueueC::enqueueFront(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE)
 {
     if (!((const Rva006DBB60ShrNAndField *)pContext)->get()) {

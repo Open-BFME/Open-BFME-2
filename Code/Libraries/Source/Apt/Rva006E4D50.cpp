@@ -20,18 +20,7 @@ struct Rva006E3230Action
     char _pad4[8];
     AptValue *m_pValues[3];
 };
-class AptActionQueueC
-{
-public:
-    void rva006E3230(Rva006E3230Action *pCur);
-    void RemoveActionFor(AptValue *pArg);
-private:
-    Rva006E3230Action *m_aActionPool;
-    Rva006E3230Action *m_pCurrent;
-    Rva006E3230Action *volatile m_pEnd;
-    Rva006E3230Action *m_pExec;
-    int m_iActionPoolSize;
-};
+#include "AptActionQueueC.h"
 void AptActionQueueC::RemoveActionFor(AptValue *pArg)
 {
     rva006E3230(m_pCurrent);

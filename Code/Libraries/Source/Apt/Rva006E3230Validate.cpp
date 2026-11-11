@@ -55,22 +55,7 @@ struct AptQueuedAction {
     void *m_actions;
     AptCIH *field14;
 };
-class AptActionQueueC {
-    Rva006E3230Action *m_aActionPool;
-    Rva006E3230Action *m_pCurrent;
-    Rva006E3230Action *m_pEnd;
-    char _padC[4];
-    int m_iActionPoolSize;
-public:
-    void rva006E3230(Rva006E3230Action *pCur);
-    Rva006E3230Action *getCurrent();
-    Rva006E3230Action *rva006E3920(int index);
-    void rva006E39A0();
-    void rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
-    void enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
-    void prependAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
-    void enqueueFront(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
-};
+#include "AptActionQueueC.h"
 void AptActionQueueC::rva006E3230(Rva006E3230Action *pCur)
 {
     if (!(pCur >= &m_aActionPool[0])) {

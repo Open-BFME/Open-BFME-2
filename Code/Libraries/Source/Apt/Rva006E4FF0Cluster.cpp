@@ -25,19 +25,7 @@ struct Rva006E3230ActionFull
 	AptValue *m_pValues[3];
 };
 
-class AptActionQueueC
-{
-	Rva006E3230Action *m_aActionPool;
-	Rva006E3230Action *m_pCurrent;
-	Rva006E3230Action *m_pEnd;
-	char _padC[4];
-	int m_iActionPoolSize;
-
-public:
-	void rva006E3230(Rva006E3230Action *pCur);
-	void ClearActions();
-	AptActionQueueC(int nSize);
-};
+#include "AptActionQueueC.h"
 
 // Native6E6060 new-expression allocates20 bytes and invokes this86B ctor.
 // The former return-this initializer body stays exact with the honest ctor ABI.
