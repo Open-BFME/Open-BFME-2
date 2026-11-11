@@ -34,11 +34,7 @@ namespace StrategicInGameUI
 {
 }
 
-class Rva005CD708
-{
-public:
-	void rva005CD708();
-};
+#include "../../../../Include/GameClient/Rva005CD708.h"
 
 class Rva000AD6F4Action
 {

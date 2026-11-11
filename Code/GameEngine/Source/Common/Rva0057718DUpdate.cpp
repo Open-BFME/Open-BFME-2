@@ -20,11 +20,7 @@ public:
 
 #include "../../Include/GameLogic/ManualPhaseEnder.h"
 
-class Rva005CD708
-{
-public:
-	void rva005CD708();
-};
+#include "../../Include/GameClient/Rva005CD708.h"
 
 #include "../../Include/Common/Rva000B3FD0.h"
 

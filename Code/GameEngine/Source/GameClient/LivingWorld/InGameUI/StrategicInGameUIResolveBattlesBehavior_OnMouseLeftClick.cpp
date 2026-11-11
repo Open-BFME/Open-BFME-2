@@ -114,7 +114,7 @@ template<class T> class ResolveClickHolder { public:
 class Rva00575383 { public: void rva0057539C(); };
 class Rva005CD010 { public: void rva005CD010(); };
 #include "../../../../Include/GameClient/Rva005CCEB6.h"
-class Rva005CD708 { public: void rva005CD708(); };
+#include "../../../../Include/GameClient/Rva005CD708.h"
 class Rva005D14AB { public: void rva005D14AB(); };
 #include "../../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../Include/Common/Rva002B5EB5.h"
