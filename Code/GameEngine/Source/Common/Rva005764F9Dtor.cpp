@@ -10,11 +10,7 @@ class Rva005CC20D
 public:
   void rva005CC20D(unsigned char value);
 };
-class Rva005CD5FA
-{
-public:
-  void rva005CD5FA(unsigned char value);
-};
+#include "../../Include/Common/Rva005CD5FA.h"
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
 #include "../../Include/Common/Rva00574AACAddDwordField.h"
 class Rva005D0D85

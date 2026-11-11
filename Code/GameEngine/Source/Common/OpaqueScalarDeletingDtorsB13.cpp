@@ -162,11 +162,7 @@ public:
 private:
 	void *m_holder;
 };
-class Rva005CD5FA
-{
-public:
-	void rva005CD5FA(unsigned char value);
-};
+#include "../../Include/Common/Rva005CD5FA.h"
 
 class Rva00576591 : public Rva005D12E3
 {

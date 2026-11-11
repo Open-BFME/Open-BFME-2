@@ -9,11 +9,7 @@
 // tells the notifier at +0x30 of the object it keeps at +8 that it is gone
 // (rowed setter 0x005CD5FA, argument 1), then the base destructor runs.
 // Class name address-derived; owner types are views of the accessed prefix.
-class Rva005CD5FA
-{
-public:
-	void rva005CD5FA(unsigned char flag);
-};
+#include "../../../../../Include/Common/Rva005CD5FA.h"
 
 struct Rva00576591Owner
 {
