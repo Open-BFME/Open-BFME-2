@@ -4,11 +4,7 @@
 // The prefix xfer at 0x002D9FD9 is the rowed Rva002D9FD9Owner::rva002D9FD9
 // (Rva002D9FD9Seq.cpp).
 class Rva002D9FD9Arg;
-class Rva002D9FD9Owner
-{
-public:
-	void rva002D9FD9(Rva002D9FD9Arg *arg);
-};
+#include "../../Include/Rva002D9FD9Owner.h"
 
 class Snapshot;
 class AsciiString;

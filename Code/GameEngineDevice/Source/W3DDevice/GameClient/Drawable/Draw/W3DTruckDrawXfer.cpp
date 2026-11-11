@@ -31,11 +31,7 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 
 class Rva002D9FD9Arg;
-class Rva002D9FD9Owner
-{
-public:
-	void rva002D9FD9(Rva002D9FD9Arg *xfer);
-};
+#include "../../../../../Include/Rva002D9FD9Owner.h"
 
 class AsciiString;
 class UnicodeString;

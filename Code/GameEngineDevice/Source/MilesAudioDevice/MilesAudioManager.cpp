@@ -602,7 +602,7 @@ class Rva002D9BDC { public: void rva002D9BDC(float lo, float hi); };
 class Rva00481FAFFloatSlot { public: void store(float value); };
 // The event's own xfer (rowed at 0x002D9FD9 under an address-derived owner).
 class Rva002D9FD9Arg;
-class Rva002D9FD9Owner { public: void rva002D9FD9(Rva002D9FD9Arg *xfer); };
+#include "../../Include/Rva002D9FD9Owner.h"
 // Float-returning event query rowed at 0x002DA153; prep3DSample compares it
 // with AudioSettings +0xB8 to treat a sound as global.
 class Rva002DA153 { public: float rva002DA153(void); };

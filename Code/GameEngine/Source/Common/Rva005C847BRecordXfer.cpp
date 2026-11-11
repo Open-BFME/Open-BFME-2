@@ -20,7 +20,7 @@ private:
 #include "System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
 class Rva002D9FD9Arg;
-class Rva002D9FD9Owner { public: void rva002D9FD9(Rva002D9FD9Arg *); };
+#include "../../../GameEngineDevice/Include/Rva002D9FD9Owner.h"
 class HostClass005C8E0A { public: void method_005C9069(); };
 struct Rva005C847BRecord
 {
