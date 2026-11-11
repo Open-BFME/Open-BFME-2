@@ -143,7 +143,7 @@ extern GameWindowManager *TheWindowManager;
 
 class Rva001EB73C { public: bool rva001EB73C(); };
 
-class Rva001EB0CAHolder { public: unsigned char rva001EB0D9(); };
+#include "../../../../../Include/GameClient/Rva001EB0CAHolder.h"
 
 #include "../../../../../Include/Common/GameState.h"
 

@@ -1195,7 +1195,7 @@ public:
 	char m_pad38[0x14];
 	void *m_template; // +0x4C
 };
-class Rva001EB0CAHolder { public: unsigned char rva001EB0D9(); };
+#include "../../../../../Include/GameClient/Rva001EB0CAHolder.h"
 class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;
 class VictoryConditionsInterface;

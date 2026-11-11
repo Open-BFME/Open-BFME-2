@@ -1262,3 +1262,4 @@ Rva8D0D80Table,Code/Libraries/Source/EA/Apt/Rva8D0D80Table.h,existing header; co
 Rva00448089,Code/GameEngine/Include/Common/Rva00448089.h,existing header; contract class_contracts/Rva00448089.json; 3/6 sampled units adopt
 Rva002747F9,Code/GameEngine/Include/GameLogic/Module/Rva002747F9.h,existing header; contract class_contracts/Rva002747F9.json; 4/5 sampled units adopt
 Rva002B2F49,Code/GameEngine/Include/Common/Rva002B2F49.h,existing header; contract class_contracts/Rva002B2F49.json; 3/6 sampled units adopt
+Rva001EB0CAHolder,Code/GameEngine/Include/GameClient/Rva001EB0CAHolder.h,existing header; contract class_contracts/Rva001EB0CAHolder.json; 4/5 sampled units adopt

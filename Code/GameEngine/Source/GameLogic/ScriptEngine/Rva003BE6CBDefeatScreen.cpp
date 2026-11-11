@@ -23,11 +23,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/Rva003BBAD3.h"
 
-class Rva001EB0CAHolder
-{
-public:
-	void rva001EB0CA();
-};
+#include "../../../Include/GameClient/Rva001EB0CAHolder.h"
 // The holder is the global at 0x00DFDC8C, TheLinearCampaignManager.
 class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;

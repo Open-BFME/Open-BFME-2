@@ -112,11 +112,7 @@ struct Rva00E02D6CDefeatView
 extern class Rva00E02D6C *TheCampaignManager;
 #define g_00E02D6C (*(Rva00E02D6CDefeatView * *)&TheCampaignManager)
 
-class Rva001EB0CAHolder
-{
-public:
-	void rva001EB0CA();
-};
+#include "../../../Include/GameClient/Rva001EB0CAHolder.h"
 // g_00DFDC8C is only an alias of the owned global TheLinearCampaignManager (ledger names column); this unit reads the owner through its own view type.
 extern class LinearCampaignManager *TheLinearCampaignManager;
 #define g_00DFDC8C (*(Rva001EB0CAHolder * *)&TheLinearCampaignManager)
