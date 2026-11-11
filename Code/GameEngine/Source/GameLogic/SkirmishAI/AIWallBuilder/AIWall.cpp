@@ -33,7 +33,7 @@ template <> vector<void *, allocator<void *> >::iterator vector<void *, allocato
 #include <new>
 struct Rva002E36D5Node;
 void Rva002E3714Unlink(Rva002E36D5Node *node);
-class Rva0023D661 { public: void rva0023D661(int nodeAddress); };
+#include "../../../../Include/Common/Rva0023D661.h"
 class GameLogic;
 class Cleanup4EB5E9 { public: virtual void *releaseStorage(unsigned flags) = 0; };
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"

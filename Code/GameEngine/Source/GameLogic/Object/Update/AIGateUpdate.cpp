@@ -155,11 +155,7 @@ void *Rva002E36D5Find(int id);
 
 void Rva002E3714Unlink(Rva002E36D5Node *node);
 
-class Rva0023D661
-{
-public:
-	void rva0023D661(int val);
-};
+#include "../../../../Include/Common/Rva0023D661.h"
 
 class GameLogic;
 

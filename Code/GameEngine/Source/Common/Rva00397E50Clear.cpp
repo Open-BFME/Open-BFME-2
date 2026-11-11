@@ -10,11 +10,7 @@
 class GameLogic;
 extern GameLogic *TheGameLogic; // ?TheGameLogic@@3PAVGameLogic@@A
 
-class Rva0023D661
-{
-public:
-	void rva0023D661(int val);
-};
+#include "../../Include/Common/Rva0023D661.h"
 
 struct Rva002E36D5Node
 {
