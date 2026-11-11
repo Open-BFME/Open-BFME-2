@@ -597,3 +597,29 @@ in the draw-order trial preserve every instruction and relocation outside
 the guard name differences (+12 and +27 in each body). The category-six
 publisher-only control still emits S3/S7 and changes the empty-string
 relocation. Details in the [FX guard evidence](../../reverse/attempt_support/fx-guard-source-layout-20261110.md).
+
+**2026-11-11 the 14 guards, step 3 of 3 (Link lane).** Measured first: the real link at `26181e477a` holds step 2's four aliases,
+12 -> 8 unresolved (6 guards plus LINK-018's two `Matrix4D` names).
+
+`tools/pin_admission.py --alias` admitted four more, total 8 -> 12. The freeze's 24 h reference is 8 (step 2 landed 21:42Z on
+11-10), so 12 is not more than twice it.
+- Template argument 2 (`$01`): `$S170` -> our `$S5` (0x00A02A74) and `$S174` -> `$S17` (0x00A02A80).
+- Template argument 7 (`$06`): `$S184` -> `$S11` (0x00A02AA0) and `$S188` -> `$S23` (0x00A02AAC).
+
+The checks are step 2's: each export's retail address equals its target's data ledger address, owned by FXParticleSystemDefaults.cpp
+(72/72 rows), whose object defines each target as an external at offset 0 of its own .bss section. Both sides are zero-fill. The /DEF
+changes in those four lines only (1,965 lines). link_check (index 20:56 at `80569f4278`): FXParticleSystemDefaults.cpp LINKS,
+1,900 -> 1,900 bytes.
+
+Predicted: 8 -> 4 unresolved.
+
+`$S22`/`$S26` stay open for the FX TU recovery (coordinator ruling, 2026-11-12). A named word's honest owner is the
+source of the code that tests and sets it, and no retail code names either word. The retail EXE has no base-relocation
+directory, so an absolute literal is the only way code can name a `.data` word. A whole-file scan for VA-3..VA+3:
+- 0x00E0609C (`$S22`) and 0x00E060A0 (`$S26`): 0 sites each.
+- Controls: 0x00E0294C (`$S24`) at 0x3AA25E, 0x3AA26D, 0x781D50 and 0x781D57; 0x00E02958 (`$S28`) at 0x3AA2DD, 0x3AA2EC,
+  0x781D67 and 0x781D6E. These are the category-6 accessors and their funclets.
+
+No ledger or source names either address, so no `register-data` request was filed: no address neighbour stands in as
+owner. They stay unresolved until a recovered source compiles them.
+Evidence: `~/bfme2-ops/swarm/sweeps/link-018/alias-step3/`.

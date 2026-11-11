@@ -3711,6 +3711,10 @@ export_alias	reverse/export_aliases.csv	?$S142@?1??GetValue@?$DefaultModuleKey@$
 export_alias	reverse/export_aliases.csv	?$S146@?1??GetValue@?$DefaultModuleName@$0A@@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S156@?1??GetValue@?$DefaultModuleKey@$02@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S160@?1??GetValue@?$DefaultModuleName@$02@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S170@?1??GetValue@?$DefaultModuleKey@$01@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b1155a2c067410c5dc4fa6d88557b7cca0f8501a
+export_alias	reverse/export_aliases.csv	?$S174@?1??GetValue@?$DefaultModuleName@$01@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b1155a2c067410c5dc4fa6d88557b7cca0f8501a
+export_alias	reverse/export_aliases.csv	?$S184@?1??GetValue@?$DefaultModuleKey@$06@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b1155a2c067410c5dc4fa6d88557b7cca0f8501a
+export_alias	reverse/export_aliases.csv	?$S188@?1??GetValue@?$DefaultModuleName@$06@FXParticleSystem@@CAPBDXZ@4IA	1	allow=b1155a2c067410c5dc4fa6d88557b7cca0f8501a
 export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 object_symbol	reverse/functions.csv	0x000240E0	1
