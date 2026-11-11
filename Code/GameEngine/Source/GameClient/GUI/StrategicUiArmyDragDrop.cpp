@@ -74,7 +74,7 @@ static __declspec(noinline) bool CanMoveArmyMembers(const Rva005FSelectionView*f
 }
 struct Rva005FEntryView {char prefix[16];Rva005FArmyView*army;Rva005FSelectionView selection;};
 struct Rva005FContextView {char prefix[12];Rva005FEntryView*source;Rva005FEntryView*target;};
-class Rva005F23B2 {public:~Rva005F23B2();};
+#include "../../../Include/GameClient/Rva005F23B2.h"
 class Rva005F2381 {public:Rva005F2381();__forceinline ~Rva005F2381(){((Rva005F23B2*)this)->~Rva005F23B2();}char bytes[28];};
 class ArmyMemberTransferCallback {public:void moveSelectedMembersToTarget();void moveSelectedMembersToSource();char unknown[8];Rva005FContextView*volatile context;};
 void ArmyMemberTransferCallback::moveSelectedMembersToTarget(){

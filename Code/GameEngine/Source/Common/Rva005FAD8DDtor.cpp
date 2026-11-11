@@ -64,11 +64,7 @@ public:
 	virtual void t9();
 };
 
-class Rva005F23B2
-{
-public:
-	~Rva005F23B2();
-};
+#include "../../Include/GameClient/Rva005F23B2.h"
 
 // The native constructor 005FAFE8 passes 005FA892 to the owned plain
 // vector constructor iterator (00001423) with count 3 and stride 8 at +34.

@@ -1143,3 +1143,4 @@ Rva001F3C20Slot,Code/GameEngine/Include/GameLogic/Module/Rva001F3C20Slot.h,exist
 Rva0056AC26Owner,Code/GameEngine/Include/Common/Rva0056AC26Owner.h,existing header; contract class_contracts/Rva0056AC26Owner.json; 4/6 sampled units adopt
 SlaveWatcherBehavior,Code/GameEngine/Include/GameLogic/Module/SlaveWatcherBehavior.h,existing header; contract class_contracts/SlaveWatcherBehavior.json; 3/5 sampled units adopt
 Rva00366500,Code/GameEngine/Include/GameLogic/Rva00366500.h,existing header; contract class_contracts/Rva00366500.json; 4/6 sampled units adopt
+Rva005F23B2,Code/GameEngine/Include/GameClient/Rva005F23B2.h,existing header; contract class_contracts/Rva005F23B2.json; 4/6 sampled units adopt

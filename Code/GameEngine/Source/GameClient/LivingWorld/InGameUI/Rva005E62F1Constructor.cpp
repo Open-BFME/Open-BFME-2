@@ -25,7 +25,7 @@ class Rva005CB84A {public:void rva005CB84A(int);};
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Ref {void*pointer;Ref():pointer(0){} ~Ref(){reinterpret_cast<Rva000AD6F4*>(this)->clear();}};
 class Rva005773DB {public:Rva005773DB(const int*);__forceinline ~Rva005773DB(){if(pointer)ReleaseTreeHintRef00217D4C(pointer);}private:TargetRef00217D4C*pointer;};
-class Rva005F23B2 {public:~Rva005F23B2();};
+#include "../../../../Include/GameClient/Rva005F23B2.h"
 class Rva005F2381 {public:Rva005F2381();~Rva005F2381(){reinterpret_cast<Rva005F23B2*>(this)->~Rva005F23B2();}private:char storage[28];};
 struct Owned {void*p;Owned():p(0){}~Owned(){reinterpret_cast<Rva000AD6F4*>(this)->clear();}};
 class __declspec(novtable) Rva005E62F1ListenerBase {public:__forceinline Rva005E62F1ListenerBase(){} __forceinline ~Rva005E62F1ListenerBase(){reinterpret_cast<Rva003F3F7CDwordImmSetter*>(this)->apply();}virtual int rva005E57A2(void*)=0;virtual void rva0050B238(void*,unsigned)=0;virtual void third()=0;virtual void fourth()=0;virtual void fifth()=0;};
