@@ -210,11 +210,7 @@ public:
 	UnicodeString rva004fcb85();
 };
 
-class Rva005E755E
-{
-public:
-	UnicodeString rva005e755e();
-};
+#include "../../../../../Include/GameClient/Rva005E755E.h"
 
 // The current campaign scenario (+0x1C of the selected campaign entry).
 struct Rva00523825Scenario

@@ -692,7 +692,7 @@ void StrategicInGameUI::BuildQueueDetailsPanel::Impl::InProgressIcon::Init(bool 
 // on the panel's own icon members.
 class Rva005F7498 { public: void rva005F7498(); };
 class Rva005F6B35ByteChaseField { public: unsigned char get() const; };
-class Rva005E755E { public: UnicodeString rva005e755e(); };
+#include "../../../../Include/GameClient/Rva005E755E.h"
 extern unsigned g_Va00E06724[4];
 
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::rva005E7AC6()

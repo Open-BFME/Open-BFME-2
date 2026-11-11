@@ -59,7 +59,7 @@ public:
 extern unsigned int g_Va00E065EC[8];
 unsigned int g_Va00E065EC[8];
 
-class Rva005E755E { public: UnicodeString rva005e755e(); };
+#include "../../Include/GameClient/Rva005E755E.h"
 #include "../../Include/Common/Rva005E3DE8.h"
 class Rva004FCB85 { public: UnicodeString rva004fcb85(); };
 class Rva004FCB61 { public: UnicodeString rva004fcb61(); };
