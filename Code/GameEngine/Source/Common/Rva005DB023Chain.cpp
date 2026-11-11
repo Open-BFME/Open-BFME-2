@@ -4,11 +4,7 @@
 // Evidence: caller 0x59B2AA; unblocks 0x59B1EC.
 #include "../../Include/GameLogic/Module/Rva0039B20C.h"
 
-class Rva005DB004
-{
-public:
-	void rva005DB004();
-};
+#include "../../Include/Common/Rva005DB004.h"
 
 class Rva005DB023
 {

@@ -32,7 +32,7 @@ protected:
 };
 class LivingWorldAutoResolveUnit { public: char pad[0x2C]; const ThingTemplate *type; };
 #include "../../Include/GameLogic/Module/Rva003BD306Target.h"
-class Rva005DB004 { public: void rva005DB004(); };
+#include "../../Include/Common/Rva005DB004.h"
 class ExperienceTrackerAutoResolve : public ExperienceTracker {
 public:
     ExperienceTrackerAutoResolve(LivingWorldAutoResolveUnit *,const Rva004F6093Holder &);

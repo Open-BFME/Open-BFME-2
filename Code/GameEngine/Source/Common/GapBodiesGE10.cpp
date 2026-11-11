@@ -48,12 +48,7 @@ private:
 
 // --- 0x005DB033 (18B): the rowed 0x0039B28F with 0, then the rowed
 // 0x005DB004.
-class Rva005DB004
-{
-public:
-	void rva005DB004();										// 0x005DB004
-	void rva005DB033();
-};
+#include "../../Include/Common/Rva005DB004.h"
 
 class Rva003BD306Target
 {
