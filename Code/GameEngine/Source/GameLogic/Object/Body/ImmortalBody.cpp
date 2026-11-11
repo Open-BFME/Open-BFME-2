@@ -57,19 +57,12 @@ public:
 	void rva00275DCE(int mode, Real a, Real b, Real c);
 };
 
-class Thing
-{
-public:
-	void setTransformMatrix(const Matrix3D *mtx);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
-	unsigned char m_pad00[4];
-	const ThingTemplate *m_template; // +0x04
-	const ThingTemplate *getTemplate() const { return m_template; }
-	unsigned char m_transform[0x74 - 8]; // +0x08
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_74; // +0x74 (ID)
 	ObjectID getID() const { return m_74; }
 	unsigned char m_pad78[0x88 - 0x78];
@@ -559,7 +552,7 @@ void SymbioticStructuresBody::loadPostProcess()
 		name = object->m_88;
 		if (name.compare(symbioticStructuresBodyModuleData->m_64) == 0)
 		{
-			obj->setTransformMatrix((const Matrix3D *)object->m_transform);
+			obj->setTransformMatrix(&object->m_transform);
 			m_104 = object->getID();
 			rva004C0C52();
 			break;
