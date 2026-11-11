@@ -69,7 +69,7 @@ class RenderObjClass;
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 #include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 
-class Rva0007F944Host { public: int rva0007FA2B(Real x, Real y); };
+#include "../../../Include/W3DDevice/GameClient/Rva0007F944Host.h"
 class Rva003081FB { public: unsigned char rva003081FB(); };
 #include "../../../../GameEngine/Include/GameLogic/StandingWaterArea.h"
 extern void *W3DGCData00DE2000;

@@ -86,7 +86,7 @@ extern PlayerList *ThePlayerList;
 // Water query at 0x0007FA2B (rowed int return in Rva0007F944HostFamily.cpp); render
 // tests the result and reads the integer at +0x60 of it as the water height.
 struct Rva0007FA2BWaterData { char unknown00[0x60]; int height; };
-class Rva0007F944Host { public: int rva0007FA2B(float x, float y); };
+#include "../../../../Include/W3DDevice/GameClient/Rva0007F944Host.h"
 extern void *W3DGCData00DE2000;
 
 class Rva000FE9E3PointBounds { public: Rva000FE9E3PointBounds *rva000FE9E3(Vector3 *,int); };

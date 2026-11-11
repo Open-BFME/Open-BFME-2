@@ -29,11 +29,7 @@ public:
 };
 
 class Rva0007F944Item;
-class Rva0007F944Host
-{
-public:
-	Rva0007F944Item *rva0007F9AD(float x, float y);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva0007F944Host.h"
 
 extern void *W3DGCData00DE2000;
 #define theHost (reinterpret_cast<Rva0007F944Host*>(W3DGCData00DE2000))
