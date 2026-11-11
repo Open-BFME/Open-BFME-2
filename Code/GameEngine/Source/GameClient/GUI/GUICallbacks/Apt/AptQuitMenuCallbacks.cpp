@@ -250,11 +250,7 @@ void InitRandom(unsigned int seed);
 void __cdecl Rva0043C96FEnable(void);
 void __cdecl Rva004E855CClose(void);
 void __cdecl Rva004E400DEnable(void);
-class AptPlayerTribute
-{
-public:
-	static void CloseScreen(void);
-};
+#include "../../../../../Include/GameClient/AptPlayerTribute.h"
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an object and an eight-byte

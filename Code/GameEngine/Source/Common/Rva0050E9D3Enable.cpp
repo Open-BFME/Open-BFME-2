@@ -18,11 +18,7 @@ class Shell;
 extern Shell *TheShell;
 #include "../../Include/Common/Rva00222479ByteOneSetter.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-class AptPlayerTribute
-{
-public:
-	static void CloseScreen(void);
-};
+#include "../../Include/GameClient/AptPlayerTribute.h"
 void AptPlayerTribute::CloseScreen(void)
 {
 	GlobalA046B4 *instance = g_Va00A046B4;

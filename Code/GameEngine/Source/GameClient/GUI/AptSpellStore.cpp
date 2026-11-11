@@ -300,11 +300,7 @@ void Rva004E855CClose(void);
 
 void Rva004E400DEnable(void);
 
-class AptPlayerTribute
-{
-public:
-	static void CloseScreen(void);
-};
+#include "../../../Include/GameClient/AptPlayerTribute.h"
 
 #include "../../../Include/GameClient/Mouse.h"
 

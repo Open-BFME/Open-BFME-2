@@ -37,11 +37,7 @@ template <> struct less<AsciiString>
 
 // Rva0050E9D3Enable.cpp's one-shot enabler on this screen's instance
 // (g_Va00A046B4, which the destructor clears): AptPlayerTribute::CloseScreen.
-class AptPlayerTribute
-{
-public:
-	static void CloseScreen(void);
-};
+#include "../../../../../Include/GameClient/AptPlayerTribute.h"
 
 // BfmeAskRV.cpp's player predicate.
 #include "../../../../../Include/Common/BfmeMemberRV.h"

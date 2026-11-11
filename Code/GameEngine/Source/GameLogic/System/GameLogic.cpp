@@ -647,11 +647,7 @@ public:
 };
 #include "../../../Include/GameLogic/LivingWorldLogic.h"
 void Rva004E400DEnable();
-class AptPlayerTribute
-{
-public:
-	static void CloseScreen(void);
-};
+#include "../../../Include/GameClient/AptPlayerTribute.h"
 void Rva004E855CClose();
 void Rva004E84ABRun();
 void Rva00511730(int);
