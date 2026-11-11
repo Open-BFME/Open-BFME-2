@@ -40,11 +40,7 @@ class Rva004104C9
 public:
 	~Rva004104C9();
 };
-class Rva00410688
-{
-public:
-	~Rva00410688();
-};
+#include "../../Include/Common/Rva00410688.h"
 class Rva00466E23
 {
 public:

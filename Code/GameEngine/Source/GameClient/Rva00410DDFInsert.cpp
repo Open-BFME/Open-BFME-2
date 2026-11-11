@@ -45,7 +45,7 @@ _STL::pair<const AsciiString, TreeHintPayload00410A86> *Rva000427195::rva00410DD
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C() {if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
 
-class Rva00410688 {public:~Rva00410688();};
+#include "../../Include/Common/Rva00410688.h"
 namespace _STL {
 template<> struct pair<const AsciiString,TreeHintRef00217D4C> {
  pair(const AsciiString &,const TreeHintRef00217D4C &);
