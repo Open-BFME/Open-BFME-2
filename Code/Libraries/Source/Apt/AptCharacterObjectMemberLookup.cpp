@@ -47,7 +47,7 @@ static __forceinline bool isButton(AptCIH *cih){
  return ((const Rva006DBB30SarDwordField*)v)->get()==14 && !((const BfmeAptValue006DCD20*)v)->isUndefined();
 }
 class Rva006EBFF0 {public:void rva006EBE60(AptValue*);void rva006EBFF0(AptValue*);};
-class Rva006E1260 {public:void call(void*);};
+#include "Rva006E1260.h"
 class Rva006E9A40List {public:void add(AptCIH*);};
 template<class T>class AptValueSet {public:unsigned short reserved,count;T *items;bool has(T)const;};
 #include "Rva006E34D0.h"

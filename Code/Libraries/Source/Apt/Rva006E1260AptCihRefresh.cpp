@@ -115,11 +115,7 @@ public:
 	unsigned int bit2 : 1;
 };
 
-class Rva006E1260
-{
-public:
-	void call(void *parentValue);
-};
+#include "Rva006E1260.h"
 
 void Rva006E1260::call(void *parentValue)
 {
