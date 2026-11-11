@@ -251,11 +251,7 @@ private:
 };
 
 // GameClient::allocDrawableID, named for its address.
-class Rva00238E1B
-{
-public:
-	Int rva00238E1B();
-};
+#include "../../../Include/GameClient/Rva00238E1B.h"
 class GameClient;
 extern GameClient *TheGameClient;
 

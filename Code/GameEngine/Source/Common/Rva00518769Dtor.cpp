@@ -26,11 +26,7 @@ public:
 class ClientFrameSubsystem;
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
-class Rva00238E1B
-{
-public:
-	void rva00238F91(int a, int b, int c);
-};
+#include "../../Include/GameClient/Rva00238E1B.h"
 
 #include "../../Include/GameClient/Shell.h"
 

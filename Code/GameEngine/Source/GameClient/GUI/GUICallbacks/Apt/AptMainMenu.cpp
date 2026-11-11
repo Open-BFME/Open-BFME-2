@@ -239,11 +239,7 @@ public:
 	void rva0023C322();
 };
 
-class Rva00238E1B
-{
-public:
-	void restorePriorDisplayMode();
-};
+#include "../../../../../Include/GameClient/Rva00238E1B.h"
 
 class Rva00514DDA
 {
