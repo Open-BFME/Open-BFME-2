@@ -6135,3 +6135,5 @@ __ehhandler$?rva00111DB6@Rva00111DB6@@QAEXXZ,0x00764A2D,"Renamed to __ehhandler$
 ??_GRva00486B56@@UAEPAXI@Z,0x00486BE4,"Renamed to ??_GUpgradeDie@@UAEPAXI@Z: slot 0 of UpgradeDie's vftable 0x0084AEBC installed by ctor 0x00486BBA"
 ??1Rva0045CE6D@@UAE@XZ,0x0045CE6D,"Renamed to ??1InstantDeathBehavior@@UAE@XZ: slot 0 of InstantDeathBehavior's vftable 0x00841E48 (ctor 0x0045CF55) is the deleting dtor 0x0045CF7F that calls this body"
 ??_GRva0045CE6D@@UAEPAXI@Z,0x0045CF7F,"Renamed to ??_GInstantDeathBehavior@@UAEPAXI@Z: slot 0 of InstantDeathBehavior's vftable 0x00841E48 installed by ctor 0x0045CF55"
+??1Rva004869FC@@UAE@XZ,0x004869FC,"Retired: duplicate of ??1SpecialPowerCompletionDie@@MAE@XZ (same 25B body, ICF fold; the fold rows hold the real names at 0x004869FC); the fake branch and its f2 /alternatename left DieModuleDerived.cpp"
+??_GRva004869FC@@UAEPAXI@Z,0x00486AA6,"Retired: duplicate of ??_GSpecialPowerCompletionDie@@MAEPAXI@Z (same 28B body, ICF fold; slot 0 of SpecialPowerCompletionDie's vftable 0x0084AE88 installed by ctor 0x00486A74)"

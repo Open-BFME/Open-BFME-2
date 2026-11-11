@@ -1,8 +1,8 @@
 // cl: /MD
 //
 // ?xfer@SpecialPowerCompletionDie@@MAEXPAVXfer@@@Z, retail 0x00486AC2 63B: slot-3 xfer of vtable 0x0084AE88
-// (class of rowed dtor ??1Rva004869FC@@UAE@XZ in DieModuleDerived.cpp, rowed ctor 0x00486A74,
-// rowed setCreator 0x00486A1B and pool key 0x00486A2F prove SpecialPowerCompletionDie).
+// (class of dtor ??1SpecialPowerCompletionDie@@MAE@XZ 0x004869FC, defined in SpecialPowerCompletionDie.cpp;
+// rowed ctor 0x00486A74, rowed setCreator 0x00486A1B and pool key 0x00486A2F prove SpecialPowerCompletionDie).
 // Base DieModule xfer via rowed 0x004CE56D then IsLightCRC early-out via Xfer slot 0x10
 // then Version1 via rowed 0x000053EE then ObjectID at +0x14 via rowed XferObjectID 0x003060B2
 // then bool at +0x18 via Xfer slot 0x90. Layout is DieModule base 0x14 giving +0x14 start

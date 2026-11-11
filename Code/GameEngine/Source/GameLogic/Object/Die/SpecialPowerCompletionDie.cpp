@@ -92,8 +92,9 @@ SpecialPowerCompletionDie::SpecialPowerCompletionDie( Thing *thing, const Module
 }
 
 //-------------------------------------------------------------------------------------------------
-// Retail 0x004869FC (rowed as the opaque ??1Rva004869FC): the class's three tables,
-// then a tail jump to ~DieModule 0x0045CE54.
+// Retail 0x004869FC (fold rows ??1SpecialPowerCompletionDie@@MAE@XZ and
+// ??_GSpecialPowerCompletionDie@@MAEPAXI@Z): the class's three tables, then a
+// tail jump to ~DieModule 0x0045CE54.
 SpecialPowerCompletionDie::~SpecialPowerCompletionDie( void )
 {
 }

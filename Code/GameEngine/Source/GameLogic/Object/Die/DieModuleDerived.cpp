@@ -37,22 +37,6 @@ Rva0048593D::~Rva0048593D()
 {
 }
 
-class Rva004869FC_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004869FC : public DieModule, public MiBase1, public Rva004869FC_B2
-{
-public:
-	virtual ~Rva004869FC();
-};
-
-Rva004869FC::~Rva004869FC()
-{
-}
-
 class Rva004C227A_B2
 {
 public:
@@ -68,11 +52,6 @@ public:
 Rva004C227A::~Rva004C227A()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f2@Rva004869FC_B2@@UAEXXZ=?onDie@SpecialPowerCompletionDie@@UAEXPBVDamageInfo@@@Z")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
