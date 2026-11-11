@@ -169,11 +169,7 @@ private:
 
 // The request deque's push_back and both pop_front paths are rowed on
 // address-named views of the same storage.
-class Rva0041A96D
-{
-public:
-	void rva0041AB68(const BfmeNarrowRecord0041A5D2 &request);	// 0x0041AB68
-};
+#include "../../../../Include/GameNetwork/Rva0041A96D.h"
 class Rva0041A3C4
 {
 public:

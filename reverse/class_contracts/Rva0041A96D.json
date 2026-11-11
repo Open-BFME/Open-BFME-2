@@ -1,0 +1,97 @@
+{
+ "bases": [
+  "_STL::deque<BfmePod28,_STL::allocator<BfmePod28> >"
+ ],
+ "bases_by": "majority",
+ "class": "Rva0041A96D",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 1,
+   "32": 1
+  },
+  "views": 2,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_cur10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "BfmeNarrowRecord0041A5D2*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_first14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "BfmeNarrowRecord0041A5D2*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_last18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "BfmeNarrowRecord0041A5D2*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_node1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "BfmeNarrowRecord0041A5D2**",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 32,
+ "size_by": "majority",
+ "vslots": {}
+}
