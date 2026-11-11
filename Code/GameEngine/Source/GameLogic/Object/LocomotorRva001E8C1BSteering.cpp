@@ -64,11 +64,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 
-class Rva001E685F
-{
-public:
-	void rva001E685F(Object *obj, const Coord3D *pos, float *angle);
-};
+#include "../../../Include/GameLogic/Module/Rva001E685F.h"
 
 struct Rva001E8C1BTemplate
 {

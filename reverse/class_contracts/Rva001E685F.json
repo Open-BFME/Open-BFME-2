@@ -1,0 +1,75 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva001E685F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x68": {
+    "4": 1
+   },
+   "0x6c": {
+    "4": 1
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x74": {
+    "4": 1
+   },
+   "0x78": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "152": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 104,
+   "type": "char[104]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 152,
+ "size_by": "majority",
+ "vslots": {}
+}

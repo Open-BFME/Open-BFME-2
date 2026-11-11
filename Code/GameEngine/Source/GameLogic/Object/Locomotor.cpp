@@ -556,11 +556,7 @@ private:
 	_STL::map<int, void *> m_locomotorTemplates;
 };
 
-class Rva001E685F
-{
-public:
-	void rva001E685F(Object *obj, const Coord3D *pos, float *angle);
-};
+#include "../../../Include/GameLogic/Module/Rva001E685F.h"
 
 class Rva001E702E
 {
