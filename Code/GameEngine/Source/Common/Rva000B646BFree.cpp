@@ -15,11 +15,7 @@ struct Rva000B646BNode
 	struct Rva000B646BNode *m_child;
 };
 
-class Rva000B646B
-{
-public:
-	void rva000B646B(struct Rva000B646BNode *n);
-};
+#include "../../Include/Common/Rva000B646B.h"
 
 void Rva000B646B::rva000B646B(struct Rva000B646BNode *n)
 {

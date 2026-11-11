@@ -44,11 +44,7 @@ Rva000BB694::~Rva000BB694()
 	((Rva000B6498 *)this)->rva000B9324();
 }
 
-class Rva000B646B
-{
-public:
-	~Rva000B646B();
-};
+#include "../../Include/Common/Rva000B646B.h"
 
 class Rva000BBF4B
 {
