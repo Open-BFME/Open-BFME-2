@@ -134,17 +134,11 @@ class Object;
 #undef _CRTIMP
 #define _CRTIMP
 #undef _CRTIMP
-
 #include "../../../../Include/Common/XferVersion.h"
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 template<int N>class VGap:public VGap<N-1>{public:virtual void gap(char(*)[N])=0;};
-
 template<>class VGap<0>{};
-
 class StanceRider:public VGap<23>{public:virtual bool slot23()=0;
  virtual void slot24()=0;
  virtual void gap25()=0;
@@ -275,15 +269,10 @@ class StanceRider:public VGap<23>{public:virtual bool slot23()=0;
  virtual void gap150()=0;
  virtual void gap151()=0;
  virtual void slot152(int)=0;};
-
 class StanceContain:public VGap<31>{public:virtual StanceRider*getRider()=0;};
-
 enum CommandSourceType{SOURCE0=0,SOURCE2=2};
-
 class AICommandInterface{public:void aiIdle(CommandSourceType);};
-
 class AIUpdateInterface:public VGap<110>{public:virtual bool slot110()=0;void rva00262D40(int);AICommandInterface&commands(){return*(AICommandInterface*)((char*)this+0x20);}};
-
 class Object
 {
 public:
@@ -297,30 +286,16 @@ public:
 	int m_pad254;
 	AIUpdateInterface *m_ai;	// +0x258
 };
-
 class Rva004260DE{public:int*rva004260DE(int);};
-
 class Rva00425F10;
-
 extern Rva00425F10 *TheStancesStore;
-
 struct StancesBehaviorModuleData
 {
 	char m_pad00[8];
 	int m_key;	// +0x08
 };
-
 void XferStancesEnum(Xfer *xfer, int *stances);
-
-// Object, its module data and the store stay views: only the class's own layout comes from the header.
 #include "../../../../Include/GameLogic/StancesBehavior.h"
-
-// Retail inlines this in ~StancesBehavior; the shared row at 0x0007FAB3 is the out-of-line copy.
-inline Rva00330757Member::~Rva00330757Member() throw()
-{
-	if (field00)
-		free(field00);
-}
 
 class Rva00148F5ECache
 {
@@ -333,6 +308,17 @@ private:
 };
 
 Rva00425F10 *TheStancesStore = 0;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp
+
+// Object, its module data and the store stay views: only the class's own layout comes from the header.
+
+// Retail inlines this in ~StancesBehavior; the shared row at 0x0007FAB3 is the out-of-line copy.
+inline Rva00330757Member::~Rva00330757Member() throw()
+{
+	if (field00)
+		free(field00);
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorStanceClass.cpp
 
@@ -372,12 +358,6 @@ bool StancesBehavior::changeStance(int value){
  if(value==1)ai->rva00262D40(0);else if(value==3 || value==4)ai->rva00262D40(1);else if(oldStance==1 || oldStance==3)ai->commands().aiIdle(SOURCE2);
  }}return true;
 }
-
-// tu-skeleton: 0x0045ED66 24B ?XferStancesEnum@@YAXPAVXfer@@PAH@Z -- matched in Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp (not merged yet)
-
-// tu-skeleton: 0x0045ED7E 14B ?invokeCallback@Rva0045ED7E@@QAEXPAVRva0045ED7ETarget@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x0045ED8C 17B ?buildFieldParse@StancesBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorXfer.cpp
 
@@ -537,9 +517,7 @@ StancesBehavior::~StancesBehavior()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x0045EF80 54B ??0StancesBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0045EFB6 6B ?Rva0045EFB6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorPoolKey.cpp
 
@@ -631,4 +609,31 @@ const char *StancesBehavior::GetSnapshotName() const
 void StancesBehavior::loadPostProcess()
 {
 	UpdateModule::loadPostProcess();
+}
+
+// tu-skeleton: 0x0045ED66 24B ?XferStancesEnum@@YAXPAVXfer@@PAH@Z -- matched in Code/GameEngine/Source/Common/System/XferEnumHelpers.cpp (not merged yet)
+
+// tu-skeleton: 0x0045ED7E 14B ?invokeCallback@Rva0045ED7E@@QAEXPAVRva0045ED7ETarget@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0045ED8C 17B ?buildFieldParse@StancesBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp
+
+//
+// ??0StancesBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045EF80, 54 bytes.
+// Behavior-side ctor completing the StancesBehavior file-unit (poolkey rowed at
+// 0x45EFBC; proc rowed at 0x45ED8C; ModuleData factory rowed at 0x24B3B4;
+// instance factory rowed at 0x24B37C news 0x34 with this pinned 2-arg ctor).
+//
+// Retail shape: UpdateModule base (rowed 0x253390) + member at +0x20 via the
+// pinned 0x330757 ctor + trailing zero at +0x30 + primary vtable 0xC424DC +
+// secondaries 0xBEFF90/+0x0C and 0xC424D0/+0x10. The +0x20 member spans 0x10
+// bytes (next explicit store is +0x30); its 23B body (Vector_base 0x211E58 +
+// or -1 at +0x0C) fits a vector plus flag word.
+
+// ??0StancesBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x0045EF80
+StancesBehavior::StancesBehavior(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_stance = 0;
 }

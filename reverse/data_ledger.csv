@@ -12480,7 +12480,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008424A4,12,.rdata,string,??_C@_0M@OIGPPGEI@StancesEnum?$AA@,,literal,,0,1
 0x008424B0,32,.rdata,global,?g_00C424B0@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,owned,,1,1
 0x008424D0,12,.rdata,vtable,??_7StancesBehavior@@6BStancesBehaviorInterfaceB@@@,,literal,,0,2
-0x008424DC,52,.rdata,vtable,??_7StancesBehavior@@6BObjectModule@@@,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp,provisional,??_7StancesBehavior@@6BObjectModule@@@;??_7StancesBehavior@@6BUpdateModule@@@;_vtbl_00C424DC,1,2
+0x008424DC,52,.rdata,vtable,??_7StancesBehavior@@6BObjectModule@@@,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp,provisional,??_7StancesBehavior@@6BObjectModule@@@;??_7StancesBehavior@@6BUpdateModule@@@;_vtbl_00C424DC,1,2
 0x00842518,52,.rdata,vtable,??_7Rva0057A2B0B1@@6B@,,literal,??_7Rva0057A2B0B1@@6B@;??_7Rva005D1A6C@@6B@;??_7SpawnBehaviorInterface@@6B@,0,7
 0x0084254C,4,.rdata,global,?g_00C4254C@@3MA,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp,owned,,1,2
 0x00842550,72,.rdata,vtable,??_7SpawnBehavior@@6BUpgradeMux@@@,,literal,,0,2
