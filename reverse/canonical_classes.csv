@@ -1522,3 +1522,4 @@ Rva00288CFA,Code/GameEngine/Include/Common/Rva00288CFA.h,existing header; contra
 BFMENetworkQueueItem1,Code/GameEngine/Include/GameNetwork/BFMENetworkQueueItem1.h,existing header; contract class_contracts/BFMENetworkQueueItem1.json; 3/3 sampled units adopt
 Rva00319AA0,Code/GameEngine/Include/GameLogic/Rva00319AA0.h,existing header; contract class_contracts/Rva00319AA0.json; 3/4 sampled units adopt
 Rva00601941,Code/GameEngine/Include/GameClient/Rva00601941.h,existing header; contract class_contracts/Rva00601941.json; 3/4 sampled units adopt
+BFMENetworkQueueItem,Code/GameEngine/Include/GameNetwork/BFMENetworkQueueItem.h,existing header; contract class_contracts/BFMENetworkQueueItem.json; 3/3 sampled units adopt

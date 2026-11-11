@@ -161,11 +161,7 @@ struct BfmeOpaqueOwnedRecord1408
 typedef _STL::deque<BfmeOpaqueOwnedRecord1432, _STL::allocator<BfmeOpaqueOwnedRecord1432> > BFMENetworkRecordDeque;
 typedef _STL::deque<BfmeOpaqueOwnedRecord1408, _STL::allocator<BfmeOpaqueOwnedRecord1408> > BFMENetworkRecordDeque1;
 
-class BFMENetworkQueueItem
-{
-public:
-	BFMENetworkQueueItem(const BFMENetworkQueueItem &that);
-};
+#include "../../Include/GameNetwork/BFMENetworkQueueItem.h"
 
 #include "../../Include/GameNetwork/BFMENetworkQueueItem1.h"
 

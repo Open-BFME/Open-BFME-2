@@ -186,11 +186,7 @@ public:
 	MutexClass::LockClass *m_ref;
 };
 
-class BFMENetworkQueueItem
-{
-public:
-	BFMENetworkQueueItem(const BFMENetworkQueueItem &that);
-};
+#include "../../Include/GameNetwork/BFMENetworkQueueItem.h"
 
 #include "../../Include/GameNetwork/BFMENetworkQueueItem1.h"
 
