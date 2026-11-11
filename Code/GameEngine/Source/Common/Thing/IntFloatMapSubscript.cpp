@@ -63,11 +63,7 @@ struct Rva003591F4Arg
 	bool m_flag;
 };
 
-class Rva00E01E28Owner
-{
-public:
-	void rva003591F4(Rva003591F4Arg arg);
-};
+#include "../../../Include/Common/Rva00E01E28Owner.h"
 
 void Rva00E01E28Owner::rva003591F4(Rva003591F4Arg arg)
 {

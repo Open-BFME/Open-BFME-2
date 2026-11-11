@@ -195,11 +195,7 @@ struct Rva003591F4Arg
 	bool m_flag;
 };
 
-class Rva00E01E28Owner
-{
-public:
-	void rva003591F4(Rva003591F4Arg arg);
-};
+#include "../../Include/Common/Rva00E01E28Owner.h"
 
 // VA 0x00E01E28 (RVA 0x00A01E28) is TheHotKeyManager, the object GameClient.cpp
 // creates and stores there (ledger spelling ?TheHotKeyManager@@3PAVHotKeyManager@@A,

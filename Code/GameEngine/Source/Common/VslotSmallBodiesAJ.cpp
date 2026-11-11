@@ -58,7 +58,7 @@ struct Rva004F691E { Rva003591F4Arg action; Rva002BED91 ref; ~Rva004F691E(); };
 struct StanceHotKeyRecord : Rva004F691E { bool active; };
 struct Rva005681CE : _STL::vector<StanceHotKeyRecord> { ~Rva005681CE(); };
 class Rva005C3E79 { public: void hide(); };
-class Rva00E01E28Owner { public: void rva003591F4(Rva003591F4Arg); };
+#include "../../Include/Common/Rva00E01E28Owner.h"
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
 #include "../../Include/GameClient/HotKeyManager.h"
