@@ -902,3 +902,4 @@ Rva0020EAF6View,Code/GameEngine/Include/GameLogic/Rva0020EAF6View.h,existing hea
 Rva00DF6F94GapFillerContext,Code/Libraries/Source/WWVegas/WW3D2/Rva00DF6F94GapFillerContext.h,existing header; contract class_contracts/Rva00DF6F94GapFillerContext.json; 9/14 sampled units adopt
 CellGrid,Code/GameEngine/Include/Common/CellGrid.h,existing header; contract class_contracts/CellGrid.json; 13/17 sampled units adopt
 Rva007E8AC0,Code/GameEngine/Include/GameNetwork/Rva007E8AC0.h,existing header; contract class_contracts/Rva007E8AC0.json; 10/11 sampled units adopt
+Rva002A7461,Code/GameEngine/Include/GameLogic/Rva002A7461.h,existing header; contract class_contracts/Rva002A7461.json; 15/19 sampled units adopt
