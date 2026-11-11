@@ -328,11 +328,7 @@ public:
 	Player *rva002C5FD9();
 };
 
-class AIGameTeam
-{
-public:
-	void *getMasterPlayer();
-};
+#include "../../../Include/Common/AIGameTeam.h"
 
 class Rva004E9600 : public AIGameTeam
 {

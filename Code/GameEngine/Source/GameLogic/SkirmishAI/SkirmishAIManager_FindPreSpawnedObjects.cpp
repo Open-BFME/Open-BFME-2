@@ -181,7 +181,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/Rva0023C6A4.h"
 void Rva004ECE14Clear();
-class AIGameTeam { public: void rva004E94FB();void rva004E951C(void*); };
+#include "../../../Include/Common/AIGameTeam.h"
 // WB E8D0A0 names newMap. Native2A95F9..2A9706 preserves the
 // multiplayer/replay guards and AI/collector split before team startup.
 // addNewAIForPlayer remains a separately banked unconverted dependency.

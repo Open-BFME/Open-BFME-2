@@ -154,7 +154,7 @@ extern GameInfo *TheGameInfo;
 class GameLogic;
 extern GameLogic *TheGameLogic;
 void Rva004ECE14Clear();
-class AIGameTeam { public: void addPlayer(const ModuleData *); void rva004E94FB();void rva004E951C(void*); };
+#include "../../../Include/Common/AIGameTeam.h"
 
 
 // Native manager snapshot pass; version min1/current2, CRC bail then farm/wall

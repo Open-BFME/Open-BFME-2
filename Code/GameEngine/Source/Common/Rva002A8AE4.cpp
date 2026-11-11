@@ -35,11 +35,7 @@ public:
 	bool rva004E9600(void *p);
 };
 
-class AIGameTeam
-{
-public:
-	void *getTargetByIndexForPlayer(int unused, int key);
-};
+#include "../../Include/Common/AIGameTeam.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

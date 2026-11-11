@@ -50,7 +50,7 @@ namespace _STL {template<> vector<ObjectID>::iterator vector<ObjectID>::erase(it
 class Rva004DF95DOwner {public:void rva004DF95D();};
 class Object;
 extern GameLogic*TheGameLogic;
-class AIGameTeam {public:void update();};
+#include "../../../Include/Common/AIGameTeam.h"
 void Rva002A8F24::update(){
  if(teams914.empty() || TheGameLogic->getFrame()<10)return;
  typedef _STL::map<int,Rva004DF95DOwner*> Collectors;
