@@ -122,6 +122,14 @@ import claims
 import landability
 import picker_cache
 import re_log
+# build_debt, _build_queue and prefetch_debt read `repair_queue` as a module
+# global, and tests inject a fake over it (test_next_work_structural_tiers.py's
+# picker fixture does `next_work.repair_queue = Queues(...)`). Nothing bound it
+# here, so those three raised NameError for every non-structural debt queue.
+# It must be bound HERE and not inside the functions: a local import shadows
+# the injected fake and drives the real queue builders. repair_queue imports
+# next_work only inside a function, so this does not cycle at import time.
+import repair_queue
 import tier_tuning
 import wb_context
 import yield_model
