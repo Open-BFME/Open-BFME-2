@@ -46,7 +46,7 @@ struct ID3DXEffect
 extern int BfmeClientFramesPerSecond;
 
 // WorldBuilder BDE250 and the recovered loader establish this identity.
-class StandingWaterArea { public: void LoadPCAFile(); };
+#include "../../../../GameEngine/Include/GameLogic/StandingWaterArea.h"
 
 class Rva003093F6Bases
 {

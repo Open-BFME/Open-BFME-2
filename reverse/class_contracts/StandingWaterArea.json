@@ -1,0 +1,174 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "StandingWaterArea",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xa8": {
+    "4": 1
+   },
+   "0xb8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "208": 2,
+   "212": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 160,
+   "type": "uchar[160]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "mean",
+   "name_by": "majority",
+   "offset": 168,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "StandingWaterPCARecord*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "channels",
+   "name_by": "majority",
+   "offset": 172,
+   "retail_widths": {},
+   "size": 36,
+   "type": "StandingWaterPCARecord*[36]",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030902EDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 208,
+ "size_by": "majority",
+ "vslots": {}
+}

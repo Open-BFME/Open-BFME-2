@@ -56,7 +56,7 @@ public:
 };
 
 class Rva00308DF0;
-class StandingWaterArea {public:void loadFXShaderSetup();}; // row 0x00308C31
+#include "../../../../../GameEngine/Include/GameLogic/StandingWaterArea.h"
 class Rva008291D : public WaterAreaRenderable
 {
 public:

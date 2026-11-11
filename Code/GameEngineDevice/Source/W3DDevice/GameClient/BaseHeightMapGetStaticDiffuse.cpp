@@ -71,7 +71,7 @@ class Rva0006ED29 { public: void rva0006ED29(void *iterator); };
 
 class Rva0007F944Host { public: int rva0007FA2B(Real x, Real y); };
 class Rva003081FB { public: unsigned char rva003081FB(); };
-class StandingWaterArea { public: void rva00308A12(Real fraction, int *r, int *g, int *b); };
+#include "../../../../GameEngine/Include/GameLogic/StandingWaterArea.h"
 extern void *W3DGCData00DE2000;
 
 class BaseHeightMapRenderObjClass
