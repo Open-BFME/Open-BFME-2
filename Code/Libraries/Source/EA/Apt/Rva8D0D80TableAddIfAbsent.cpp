@@ -20,12 +20,7 @@ public:
 	int bfmeFind1024(int key);
 };
 
-class Rva8D0D80Table
-{
-public:
-	void add(Rva8D0D80String *name, Rva8D0D80Value *value);
-	void addIfAbsent(Rva8D0D80String *name, Rva8D0D80Value *value);
-};
+#include "Rva8D0D80Table.h"
 
 void Rva8D0D80Table::addIfAbsent(Rva8D0D80String *name, Rva8D0D80Value *value)
 {

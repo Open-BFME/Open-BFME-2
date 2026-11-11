@@ -233,7 +233,7 @@ inline void *operator new(unsigned int n,FactoryObjectAllocation){return g_pChai
 // Native6F12F0 pool-delete fold; the tag is a TU-local structural model.
 inline void operator delete(void *p,FactoryObjectAllocation size){g_pChainBlockAllocatorF4->freeBlock(p,size);}
 class Rva8D0D80String;class Rva8D0D80Value;
-class Rva8D0D80Table {public:void add(Rva8D0D80String *,Rva8D0D80Value *);};
+#include "../../EA/Apt/Rva8D0D80Table.h"
 #define COLOUR_ASSERT(expr,line) if(!(expr)){g_bfmeAptAssertAtE17734(#expr,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptColour.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
 AptValue *callback006F2760(AptValue *context,int count) {
  if(count>0)return gpUndefinedValue;

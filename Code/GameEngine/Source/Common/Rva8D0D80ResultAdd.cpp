@@ -10,11 +10,7 @@
 class Rva8D0D80String;
 class Rva8D0D80Value;
 
-class Rva8D0D80Table
-{
-public:
-	void add(Rva8D0D80String *name, Rva8D0D80Value *value);
-};
+#include "../../../Libraries/Source/EA/Apt/Rva8D0D80Table.h"
 
 class Rva8D0D80Value
 {
