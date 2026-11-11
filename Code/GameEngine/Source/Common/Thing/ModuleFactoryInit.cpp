@@ -432,7 +432,7 @@ class ReplenishUnitsBehaviorModuleData { public: static ModuleData *friend_newMo
 class RespawnBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 #include "../../../Include/GameLogic/Module/RespawnUpdate.h"
-class RespawnUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/RespawnUpdateModuleData.h"
 class RiderChangeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RiderChangeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RousingSpeechUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

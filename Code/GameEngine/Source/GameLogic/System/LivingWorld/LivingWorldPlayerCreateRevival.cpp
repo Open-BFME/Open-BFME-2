@@ -12,7 +12,7 @@
 // Native2E3442..2E34A9 RET12 proves the caller and its three input words.
 // A normal128-byte aggregate assignment gives retail's inline repMOVSD, while
 // a memcpy call adds a call boundary. No hand-built private calling convention.
-class RespawnUpdateModuleData {public: int calcCostToBuild(int); int calcTimeToBuild(unsigned);};
+#include "../../../../Include/GameLogic/Module/RespawnUpdateModuleData.h"
 #include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate;

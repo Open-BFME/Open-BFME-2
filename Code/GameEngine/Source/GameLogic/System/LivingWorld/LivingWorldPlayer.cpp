@@ -507,7 +507,7 @@ namespace _STL {
 // independently corroborate the record layout. Campaign index10/array14 and
 // cost/time scalars44/48 are native facts; named scalar temporaries preserve
 // retail x87 conversions, and a named array fixes its pointer-load order.
-class RespawnUpdateModuleData {public: int calcCostToBuild(int); int calcTimeToBuild(unsigned);};
+#include "../../../../Include/GameLogic/Module/RespawnUpdateModuleData.h"
 
 class ModuleData {
 public:
