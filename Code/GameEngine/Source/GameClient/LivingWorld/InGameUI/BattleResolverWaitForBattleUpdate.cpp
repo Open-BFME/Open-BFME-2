@@ -55,7 +55,7 @@ if(((WaitOwnerView*)owner)->resolver->rva0056A989()){
 
 class CreateAHeroData;class Rva002B7250{public:void rva002B7250(CreateAHeroData*);};
 struct WaitLogicView{char pad[0x2C];Rva002B7250 list2C;char gap[0x3C-0x2C-sizeof(Rva002B7250)];Rva002B7250 list3C;};
-class Rva0054CBEFTarget{public:void method(int);};
+#include "../../../../Include/Common/Rva0054CBEFTarget.h"
 Rva005D0643::~Rva005D0643(){
  if(shown&&AptStrategicMessageBox::s_instance)((Rva0054CBEFTarget*)AptStrategicMessageBox::s_instance)->method(0);
  ((WaitLogicView*)TheLivingWorldLogic)->list3C.rva002B7250((CreateAHeroData*)(Rva005D0643BaseC*)this);

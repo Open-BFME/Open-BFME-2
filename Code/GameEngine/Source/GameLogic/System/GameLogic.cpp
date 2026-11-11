@@ -690,7 +690,7 @@ public:
 	bool m_clientQuiet; // +0x8C5
 };
 class Rva005CB265 { public: virtual int rva005CB265(); };
-class Rva0054CBEFTarget { public: void method(int); };
+#include "../../../Include/Common/Rva0054CBEFTarget.h"
 extern InGameUI *TheInGameUI;
 class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class GameLogic;};
 extern ControlBar *TheControlBar;

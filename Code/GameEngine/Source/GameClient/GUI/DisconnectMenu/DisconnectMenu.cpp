@@ -214,11 +214,7 @@ private:
 	class GameWindow *m_listbox;
 };
 
-class Rva0054CBEFTarget
-{
-public:
-	void method(int arg);
-};
+#include "../../../../Include/Common/Rva0054CBEFTarget.h"
 
 class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend void __cdecl bfmeShowDisconnectScreen(void);};
 

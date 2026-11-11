@@ -19,11 +19,7 @@
 extern GameTextInterface *TheGameText;
 class Rva0054D3E1Prompt {public:bool configure(int,const UnicodeString&,const UnicodeString&);};
 class Rva0054D2DDTarget {public:void method(int,const UnicodeString&,const UnicodeString&);};
-class Rva0054CBEFTarget
-{
-public:
-	void method(int arg);
-};
+#include "../../Include/Common/Rva0054CBEFTarget.h"
 
 class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class Rva005CF9FF; friend class Rva005CFA43; friend class Rva005CFA87;};
 

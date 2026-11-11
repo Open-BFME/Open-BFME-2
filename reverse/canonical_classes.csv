@@ -998,3 +998,4 @@ Energy,Code/GameEngine/Include/Common/EnergyClass.h,existing header; contract cl
 Rva00390533,Code/GameEngine/Include/GameLogic/Rva00390533.h,existing header; contract class_contracts/Rva00390533.json; 6/7 sampled units adopt
 Rva005EEA20,Code/GameEngine/Include/GameLogic/Rva005EEA20.h,existing header; contract class_contracts/Rva005EEA20.json; 7/7 sampled units adopt
 DoCommandUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/DoCommandUpgradeModuleData.h,existing header; contract class_contracts/DoCommandUpgradeModuleData.json; 4/8 sampled units adopt
+Rva0054CBEFTarget,Code/GameEngine/Include/Common/Rva0054CBEFTarget.h,existing header; contract class_contracts/Rva0054CBEFTarget.json; 6/7 sampled units adopt

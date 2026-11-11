@@ -8,11 +8,7 @@
 // from int3 padding; byte verification decides.
 #include "unicode_string.h"
 
-class Rva0054CBEFTarget
-{
-public:
-	void method(int arg);
-};
+#include "../../Include/Common/Rva0054CBEFTarget.h"
 
 class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class Rva004FBCBE;};
 

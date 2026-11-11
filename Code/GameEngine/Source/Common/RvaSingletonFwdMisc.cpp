@@ -49,11 +49,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 struct Rva003F1BD3TemplateView;
 #include "../../Include/GameLogic/LivingWorldBuildPlot.h"
 
-class Rva0054CBEFTarget
-{
-public:
-	void method(int value);
-};
+#include "../../Include/Common/Rva0054CBEFTarget.h"
 
 // g_pRva00437E9C is only an alias of the owned global g_Va00E032FC (ledger names column); this unit reads the owner through its own view type.
 extern int g_Va00E032FC;
