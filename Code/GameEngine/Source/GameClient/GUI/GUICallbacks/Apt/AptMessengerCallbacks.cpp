@@ -223,11 +223,7 @@ public:
 };
 
 // The rowed 0x005AFD43 keeps a tab's chat entry window and its text.
-class Rva005AFD43
-{
-public:
-	void rva005AFD43(GameWindow *window, const UnicodeString &text);
-};
+#include "../../../../../Include/GameClient/Rva005AFD43.h"
 
 class AptMessengerOnline { public: void OnBttnInvite(); };	// 0x005AE7C6 (WB)
 class AptMessenger : public GameWindow

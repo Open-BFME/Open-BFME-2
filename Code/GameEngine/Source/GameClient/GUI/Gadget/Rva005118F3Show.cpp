@@ -9,11 +9,7 @@
 #include "unicode_string.h"
 
 class GameWindow;
-class Rva005AFD43
-{
-public:
-	void rva005AFD43(GameWindow *g, const UnicodeString &s);
-};
+#include "../../../../Include/GameClient/Rva005AFD43.h"
 
 #include "../../../../Include/Common/Rva00222A8BTarget.h"
 

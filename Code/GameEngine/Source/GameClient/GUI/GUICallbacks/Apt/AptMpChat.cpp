@@ -151,11 +151,7 @@ public:
 	Rva005D50C4();
 };
 
-class Rva005AFD43
-{
-public:
-	void rva005AFD43(GameWindow *window, const UnicodeString &text);
-};
+#include "../../../../../Include/GameClient/Rva005AFD43.h"
 
 class AptMpChat
 {
