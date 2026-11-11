@@ -7,7 +7,7 @@
 // no referencing site was found for these in this pass.
 struct Coord3D;
 class ArmySummarySystem;
-class Rva003B24C7 { public: void rva003B24C7(bool val); };
+#include "../../Include/GameLogic/Rva003B24C7.h"
 #include "../../Include/GameLogic/AIBaseBuilder.h"
 #include "../../Include/Common/QuadStrip2D.h"
 class Rva005382A6 { public: void *rva005382A6(int i, int off); };

@@ -354,7 +354,7 @@ struct Coord3D;
 
 class ArmySummarySystem;
 
-class Rva003B24C7 { public: void rva003B24C7(bool val); };
+#include "../../../Include/GameLogic/Rva003B24C7.h"
 
 class AIBaseBuilder { public: void rva00506B96(const Coord3D *point); bool rva00506C39(void *arg); };
 

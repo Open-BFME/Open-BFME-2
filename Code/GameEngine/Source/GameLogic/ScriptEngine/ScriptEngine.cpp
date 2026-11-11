@@ -155,7 +155,7 @@ class Rva00336C90
 public:
 	Rva00336C90 &operator=(const Rva00336C90 &other);
 };
-class Rva003B24C7 { public: void rva003B24C7(bool); };
+#include "../../../Include/GameLogic/Rva003B24C7.h"
 struct SequentialScriptQuad
 {
 public:
