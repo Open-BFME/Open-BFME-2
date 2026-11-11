@@ -27,11 +27,7 @@ public:
 	int RemoveExternHandler(const AsciiString *key);
 };
 
-class Rva00224455
-{
-public:
-	int RemoveCommandMap(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00224455.h"
 
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;

@@ -56,7 +56,7 @@ public:
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva00224455 { public: int RemoveCommandMap(const AsciiString *name); };
+#include "../../Include/Common/Rva00224455.h"
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 #include "../../Include/GameClient/Rva002246B1.h"
 class Rva00224705 { public: int rva00224705(const AsciiString *name); };

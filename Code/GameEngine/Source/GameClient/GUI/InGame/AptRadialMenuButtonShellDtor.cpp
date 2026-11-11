@@ -12,11 +12,7 @@
 // and the inline base dtor restores vftable 0x00BC6F20.
 #include "ascii_string.h"
 
-class Rva00224455
-{
-public:
-	int RemoveCommandMap(const AsciiString *name);
-};
+#include "../../../../Include/Common/Rva00224455.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

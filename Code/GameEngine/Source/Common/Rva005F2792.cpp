@@ -8,11 +8,7 @@
 #include "ascii_string.h"
 
 
-class Rva00224455
-{
-public:
-	int RemoveCommandMap(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00224455.h"
 
 class Rva00222A8BTarget;
 class Rva00222A8BTarget;

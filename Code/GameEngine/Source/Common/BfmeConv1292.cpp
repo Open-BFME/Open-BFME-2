@@ -112,7 +112,7 @@ extern unsigned g_Va00E03020;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../Include/GameClient/Rva002246B1.h"
-class Rva00224455 {public:int RemoveCommandMap(const AsciiString*);};
+#include "../../Include/Common/Rva00224455.h"
 void _bfme_closeAptScreen(const AsciiString&);
 // Structural RE label for the pointer released during Apt shutdown; original
 // global/type names remain unknown. Native stores and initial data establish

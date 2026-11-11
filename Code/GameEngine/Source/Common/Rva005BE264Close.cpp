@@ -11,11 +11,7 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva00224455
-{
-public:
-	int RemoveCommandMap(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00224455.h"
 
 void _bfme_closeAptScreen(const AsciiString &name);
 

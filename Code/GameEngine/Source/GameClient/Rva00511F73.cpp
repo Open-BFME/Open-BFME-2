@@ -4,11 +4,7 @@
 #include "ascii_string.h"
 #include <new>
 void __cdecl Rva00511730(int unused);
-class Rva00224455
-{
-public:
-	int RemoveCommandMap(const AsciiString *key);
-};
+#include "../../Include/Common/Rva00224455.h"
 class Rva002244CA
 {
 public:
