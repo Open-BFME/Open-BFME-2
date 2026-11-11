@@ -50,11 +50,7 @@ struct DelayedLuaEventList
 	BfmeDispatchDelayedLuaEvent m_events[3];
 };
 
-class Rva00332E60
-{
-public:
-	void *rva00333918(int key);
-};
+#include "../../Include/Common/Rva00332E60.h"
 
 #include "../../Include/GameLogic/LuaScriptEngine.h"
 

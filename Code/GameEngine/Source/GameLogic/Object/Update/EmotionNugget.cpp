@@ -210,7 +210,7 @@ struct DelayedLuaEventList {
     char events04[0x48];
 };
 
-class Rva00332E60 { public: void *rva00333918(int); };
+#include "../../../../Include/Common/Rva00332E60.h"
 
 #include "../../../../Include/GameLogic/LuaScriptEngine.h"
 

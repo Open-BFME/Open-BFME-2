@@ -105,12 +105,7 @@ struct DelayedLuaEventList
 
 // The global at 0x00E01DBC: the event a key names (0x00333918, rowed as
 // Rva00332E60::rva00333918) and LuaScriptEngine::DispatchEvent (0x00334634).
-class Rva00332E60
-{
-public:
-	void *rva00333918( int key );
-	void *rva0033321B(int key); // 0x0033321B
-};
+#include "../../../Include/Common/Rva00332E60.h"
 #include "../../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 
