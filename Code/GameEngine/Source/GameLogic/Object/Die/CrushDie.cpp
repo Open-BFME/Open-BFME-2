@@ -167,6 +167,7 @@ class CrushDie : public DieModule
 {
 public:
 	CrushDie( Thing *thing, const ModuleData *moduleData );
+	virtual ~CrushDie();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie( const DamageInfo *damageInfo );
 
@@ -192,6 +193,15 @@ NameKeyType CrushDie::getModuleNameKey() const
 
 CrushDie::CrushDie( Thing *thing, const ModuleData *moduleData )
 	: DieModule( thing, moduleData )
+{
+}
+
+// ??1CrushDie@@UAE@XZ @0x00486136 (25B): restores the three vptrs the
+// constructor installs (0x0084AC34 at +0, 0x0084A650 at +0xC, 0x0084AC30 at
+// +0x10) and tail-jumps to ~DieModule. Slot 0 of CrushDie's own vftable
+// 0x0084AC34 is the scalar deleting destructor 0x0048630B, which calls this
+// body.
+CrushDie::~CrushDie()
 {
 }
 
@@ -355,4 +365,4 @@ void CrushDie::onDie( const DamageInfo * damageInfo )
 	}
 }
 
-// tu-skeleton: 0x0048630B 28B ??_GRva00486136@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+// tu-skeleton: 0x0048630B 28B ??_GCrushDie@@UAEPAXI@Z -- defined in this unit above (CrushDie::~CrushDie)

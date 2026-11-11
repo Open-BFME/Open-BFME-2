@@ -85,22 +85,6 @@ Rva0048593D::~Rva0048593D()
 {
 }
 
-class Rva00486136_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva00486136 : public DieModule, public MiBase1, public Rva00486136_B2
-{
-public:
-	virtual ~Rva00486136();
-};
-
-Rva00486136::~Rva00486136()
-{
-}
-
 class Rva004864AA_B2
 {
 public:
@@ -193,7 +177,6 @@ Rva004C227A::~Rva004C227A()
 #pragma comment(linker, "/alternatename:?f2@Rva004851FE_B2@@UAEXXZ=?onDie@RefundDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva00485425_B2@@UAEXXZ=?onDie@CreateCrateDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z")
-#pragma comment(linker, "/alternatename:?f2@Rva00486136_B2@@UAEXXZ=?onDie@CrushDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004864AA_B2@@UAEXXZ=?onDie@DestroyDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva00486579_B2@@UAEXXZ=?onDie@FXListDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva00486B56_B2@@UAEXXZ=?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z")
