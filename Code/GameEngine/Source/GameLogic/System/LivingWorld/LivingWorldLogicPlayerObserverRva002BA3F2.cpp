@@ -103,11 +103,7 @@ public:
 	unsigned char m_key[4];			// +0x2C
 };
 
-class Rva002E071E
-{
-public:
-	bool rva002E071E(const Rva002E071E *other) const;
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 
 class Rva002104B6
 {

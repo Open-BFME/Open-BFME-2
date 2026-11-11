@@ -110,11 +110,7 @@ public:
 	int rva002E0A9F(void *id);
 };
 
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(int id);
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 

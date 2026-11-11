@@ -47,11 +47,7 @@ class Rva002E2903Player;
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(int id);
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 
 typedef _STL::map<int, int> Rva004FFA6EIntMap;
 

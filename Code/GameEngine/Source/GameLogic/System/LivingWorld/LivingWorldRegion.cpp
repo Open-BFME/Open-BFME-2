@@ -90,11 +90,7 @@ public:
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 #include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 
-class Rva002E071E
-{
-public:
-    bool rva002E071E(const Rva002E071E *other) const;
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 
 class Rva00318C32Ret;
 class Rva0020E89C;

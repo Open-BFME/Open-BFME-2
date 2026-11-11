@@ -3618,7 +3618,7 @@ extern PlayerList *ThePlayerList;
 class Rva002DA414 { public: void *rva002DA414(void); };
 class Rva002D9C7A { public: int rva002D9C7A(void); };
 #include "../../../GameEngine/Include/Common/Rva002B2B66.h"
-class Rva002E071E { public: int rva002E0BC0(int playerID); };
+#include "../../../GameEngine/Include/GameLogic/Rva002E071E.h"
 struct LivingWorldLogicAudioView
 {
     char at00[0x98];

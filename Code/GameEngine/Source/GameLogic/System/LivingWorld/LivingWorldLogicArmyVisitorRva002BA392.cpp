@@ -36,11 +36,7 @@ struct LivingWorldArmy
 
 // Rowed receivers under placeholder names (LivingWorldLogic.cpp views).
 #include "../../../../Include/Common/Rva003F468D.h"
-class Rva002E071E
-{
-public:
-	Int rva002E0BC0(Int playerID);				// 0x002E0BC0
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva0040CF55Owner
 {
 public:
