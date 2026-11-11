@@ -6,7 +6,7 @@
 
 class Rva00589079_E1 {
 public:
-    virtual void fe();
+    virtual void fe(int, int, int, int, int) = 0;
     virtual bool isSpecialAbility() const = 0;
 };
 

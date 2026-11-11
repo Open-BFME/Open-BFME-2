@@ -94,6 +94,7 @@ class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
 {
 public:
 	DeflectSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual void fe(int, int, int, int, int);
 	virtual bool isSpecialAbility() const;
 	virtual ~DeflectSpecialPower();
 	virtual NameKeyType getModuleNameKey() const;
@@ -132,24 +133,6 @@ class Rva005890EDBase
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class BfmeWakeBJ
-{
-public:
-	void bfmeSetWakeBJ(void *object, int sleep);
-
-	int m_bfmeWakeDataBJ;
-};
-
-class BfmeOwnBJ
-{
-public:
-	void bfmeSleepBJ(int first, int second, int third, int fourth, int fifth);
-
-	unsigned char m_bfmeHeadBJ[0x1c];
-	char m_active;
-	char m_pending;
 };
 
 template <int N> class Rva004C55B2Slots : public Rva004C55B2Slots<N - 1>
@@ -290,7 +273,7 @@ bool DeflectSpecialPower::isSpecialAbility() const
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv1752.cpp
 
-void BfmeOwnBJ::bfmeSleepBJ(int first, int second, int third, int fourth, int fifth)
+void DeflectSpecialPower::fe(int, int, int, int, int)
 {
 	if (m_active)
 		return;
@@ -298,11 +281,11 @@ void BfmeOwnBJ::bfmeSleepBJ(int first, int second, int third, int fourth, int fi
 	if (m_pending)
 		return;
 
-	void *object = *(void **)((char *)this - 0x18);
+	Object *object = m_object;
 
 	m_pending = 1;
 
-	((BfmeWakeBJ *)((char *)this - 0x20))->bfmeSetWakeBJ(object, 1);
+	setWakeFrame(object, UPDATE_SLEEP_NONE);
 }
 
 // ??1DeflectSpecialPower@@UAE@XZ @0x004C54BE: restores the six vtables the

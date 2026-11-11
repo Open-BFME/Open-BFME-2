@@ -24,3 +24,5 @@ definition in `SupplyCenterDockUpdateConstructor.cpp` is removed (1/1 row,
 LINKS 49 -> 49 B; one hatch line retired).
 
 The separate +0x20 table at RVA 0x0085D98C has nine retail entries. Both installer views now declare its second entry, isSpecialAbility, and the concrete override returns false at RVA 0x0047A699. [Native slot evidence](../../reverse/attempt_support/deflect-secondary-slot-004c5551.md).
+
+The row at 0x004C5551 is now the concrete five-argument override in both tables. Its direct call to UpdateModule::setWakeFrame retires the old pin and alternate name. Both slots verified in the constructor and destructor objects; six units pass link_check. Await the next real link for whole-image confirmation.

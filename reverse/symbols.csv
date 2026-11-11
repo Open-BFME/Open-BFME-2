@@ -4968,7 +4968,6 @@ name,address,notes
 ?bfmeSetVJH@BfmeMsgVJH@@QAEXPBD0@Z,0x00655AA0
 ?bfmeSetVJI@BfmeMsgVJI@@QAEXPBD0@Z,0x00655AA0
 ?bfmeSetVJJ@BfmeMsgVJJ@@QAEXPBD0@Z,0x00655AA0
-?bfmeSetWakeBJ@BfmeWakeBJ@@QAEXPAXH@Z,0x0044DF71,callee of ?bfmeSleepBJ@BfmeOwnBJ@@QAEXHHHHH@Z at retail 0x004C5551 read from its REL32 displacement; body unrowed
 ?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z,0x00405C04,callee of ?rva004C1B60@ControlBar@@QAEXPAVGameWindow@@PAX@Z at retail 0x00405DBC read from its REL32 displacement; body unrowed
 ?bfmeShowEAC@BfmeUiEAC@@QAEXPAXPBDH0HHHH@Z,0x00222A8B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeSmallAllocPS@@YAPAXI@Z,0x00027A90,small arm of the 0x28D80 alloc dispatcher (Rva00028D80Alloc twin of bfmeAllocPR); rowed as node-alloc _M_allocate

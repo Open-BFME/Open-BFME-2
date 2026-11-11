@@ -9,3 +9,9 @@ The official rename.py function --rva 0x004C5551 --to-class DeflectSpecialPower 
 ## Second slot
 
 SpecialPowerUpdateInterface.h records independent retail callers for the second slot, isSpecialAbility() const. In the Deflect table the word at RVA 0x0085D990 points to 0x0047A699 (xor al, al; ret). VC7.1 emits the same 3-byte body for the concrete override. The constructor and destructor have distinct secondary-table names; both reference the same decorated override at offset 4. The first-slot repair uses this separate witness.
+
+## Verified repair on 5126f08a90
+
+Both objects now install the same first two callbacks. The constructor's DIR32 relocation is at 0x004C545D + 0x2E and the destructor's at 0x004C54BE + 0x17. Both retail operands are VA 0x00C5D98C. COFF offsets 0 and 4 in their respective secondary tables resolve to DeflectSpecialPower::fe and DeflectSpecialPower::isSpecialAbility. The 32-byte first body matches retail including the REL32 to UpdateModule::setWakeFrame (0x0044DF71); the 3-byte second body matches exactly. Removed the superseded bfmeSetWakeBJ pin and linker alias. The first callback keeps the five dword arguments of the existing row. The other seven retail slots still require reconstruction.
+
+The official rename.py --to-class verifier accepted the rebuilt constructor and destructor. Scoped build: 53/53 functions and one data row across six TUs. link_check: 6/6 LINKS, 3523 to 3526 bytes on reference index 60189f9ced. The three bytes are a folded row. Confirmation that the unresolved symbol has disappeared from the whole program awaits the next real link.

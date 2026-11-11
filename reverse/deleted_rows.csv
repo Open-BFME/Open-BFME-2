@@ -6104,3 +6104,4 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
 ??4BfmeAssignRecord44@@QAEAAU0@ABU0@@Z,0x0055AC1F,"Respelled to ??4ScoredKillTracker@@QAEAAV0@ABV0@@Z by tools/rename.py (retail identity)"
 ??$_Destroy@PAUBfmeAssignRecord44@@@_STL@@YAXPAUBfmeAssignRecord44@@0@Z,0x004144F0,"Retired: ??$_Destroy@PAVScoredKillTracker@@@_STL@@YAXPAVScoredKillTracker@@0@Z is its class's own row at this address (tools/rename.py, retail identity)"
 ?_M_clear@?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@IAEXXZ,0x00414793,"Retired: ?_M_clear@?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@IAEXXZ is its class's own row at this address (tools/rename.py, retail identity)"
+?bfmeSleepBJ@BfmeOwnBJ@@QAEXHHHHH@Z,0x004C5551,"Renamed to ?fe@DeflectSpecialPower@@UAEXHHHHH@Z by tools/rename.py (to-class: retail vftable 0x00C5D98C slot 0)"

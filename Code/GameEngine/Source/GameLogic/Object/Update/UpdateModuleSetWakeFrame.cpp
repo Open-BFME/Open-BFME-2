@@ -128,7 +128,6 @@ DisabledMaskType Rva004DF396::getDisabledTypesToProcess() const
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?bfmeSetWakeBJ@BfmeWakeBJ@@QAEXPAXH@Z=?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z")
 
 // Native 23C3DA..23C3E9 is a complete RET4 accessor between the scheduler
 // frame setter23C3C6 and index/phase setter23C3E9. The existing rowed

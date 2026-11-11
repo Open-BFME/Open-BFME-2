@@ -47,7 +47,7 @@
  "vslots": {
   "0": {
    "decided_by": "bytes",
-   "member": "fe()"
+   "member": "fe(int,int,int,int,int)"
   },
   "1": {
    "decided_by": "bytes",

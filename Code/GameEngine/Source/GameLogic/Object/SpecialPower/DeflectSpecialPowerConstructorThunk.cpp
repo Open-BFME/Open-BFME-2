@@ -31,7 +31,7 @@ private:
 class DeflectSpecialPowerIface3
 {
 public:
-	virtual void deflectSpecialPowerIface3Anchor();
+	virtual void fe(int, int, int, int, int) = 0;
 	virtual bool isSpecialAbility() const = 0;
 };
 
@@ -72,6 +72,7 @@ class DeflectSpecialPower : public WeaponModeSpecialPowerUpdateBase,
 {
 public:
 	DeflectSpecialPower(Thing *, const ModuleData *);
+	virtual void fe(int, int, int, int, int);
 	virtual bool isSpecialAbility() const;
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 
