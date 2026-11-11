@@ -7,11 +7,7 @@ struct Rva00600F9CElement
 {
 	Rva00600F9CElement(const Rva00600F9CElement &that);
 };
-class Rva0060126D
-{
-public:
-	void *rva006012A2(const Rva00600F9CElement &val);
-};
+#include "../../Include/Common/Rva0060126D.h"
 void *Rva0060126D::rva006012A2(const Rva00600F9CElement &val)
 {
 	char *mem = _STL::allocator<char>::allocate(0x20, 0);

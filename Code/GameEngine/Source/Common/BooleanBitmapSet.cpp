@@ -554,11 +554,7 @@ struct Rva006013B7Pair
 	void *m_first;
 	bool m_second;
 };
-class Rva0060126D
-{
-public:
-	Rva006013B7Pair rva006013B7(const Rva00600F9CElement &element);
-};
+#include "../../Include/Common/Rva0060126D.h"
 class Rva00601457
 {
 public:
