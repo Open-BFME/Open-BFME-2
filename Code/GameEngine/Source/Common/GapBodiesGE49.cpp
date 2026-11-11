@@ -172,12 +172,7 @@ Rva001DFE98::Rva001DFE98(GapCounted2C *object) : m_object(object)
 }
 
 // --- 0x001DE77C (18B): construct through the rowed 0x001DE3E3 initialiser.
-class Rva001DE3E3
-{
-public:
-	Rva001DE3E3(Rva001DE3E3 *source);
-	Rva001DE3E3 *rva001DE3E3(Rva001DE3E3 *source);		// 0x001DE3E3
-};
+#include "../../Include/GameClient/Rva001DE3E3.h"
 
 Rva001DE3E3::Rva001DE3E3(Rva001DE3E3 *source)
 {

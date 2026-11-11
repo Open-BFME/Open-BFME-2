@@ -11,11 +11,7 @@ class Rva001DDCC5
 public:
 	void rva001DDCC5(void *other);
 };
-class Rva001DE3E3
-{
-public:
-	Rva001DE3E3 *rva001DE3E3(Rva001DE3E3 *other);
-};
+#include "../../Include/GameClient/Rva001DE3E3.h"
 
 // ?rva001DE3E3@Rva001DE3E3@@QAEPAV1@PAV1@@Z
 Rva001DE3E3 *Rva001DE3E3::rva001DE3E3(Rva001DE3E3 *other)

@@ -43,11 +43,7 @@ private:
 
 // Row spellings: 0x001DE3E3 is Rva001DE3E3::rva001DE3E3(Rva001DE3E3 *)
 // returning this, and 0x001DEF89 is vector<Rva001DEF89Record>::operator=.
-class Rva001DE3E3
-{
-public:
-	Rva001DE3E3 *rva001DE3E3(Rva001DE3E3 *other);
-};
+#include "../../Include/GameClient/Rva001DE3E3.h"
 struct Rva001DEF89Record;
 namespace _STL {
 template <class T> class allocator;

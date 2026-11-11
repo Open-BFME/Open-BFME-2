@@ -272,7 +272,7 @@ struct EvaEventReport
 // at 0x001DE3E3 has a receiver-only owner; its element type is still unknown.
 // Call that owner without the retired sweep's unsupported one-byte record.
 struct Rva001DEF89Record { Rva001DEF89Record(); Rva001DEF89Record(const Rva001DEF89Record&); ~Rva001DEF89Record(); Rva001DEF89Record&operator=(const Rva001DEF89Record&); char bytes[48]; };
-class Rva001DE3E3 { public: Rva001DE3E3 *rva001DE3E3(Rva001DE3E3 *other); };
+#include "../../Include/GameClient/Rva001DE3E3.h"
 typedef _STL::vector<Rva001DEF89Record, _STL::allocator<Rva001DEF89Record> > EvaInfoRecords;
 namespace _STL {
 template<> EvaInfoRecords &EvaInfoRecords::operator=(const EvaInfoRecords &);
