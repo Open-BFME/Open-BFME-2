@@ -1,13 +1,67 @@
-# 576 of the 927 false-reject records are already closed; the tooling lane is 351
+# The false-reject backlog: 120 open of 892, and how to work it
 
-> **Corrected 2026-11-11: the open lane is 195, not 439.** The triage was
-> counting retracted records, counting retractions AND resolutions as records,
-> and asking a question that misses work landed under a different name. The
-> corrections are in the 11-10/11-11 sections at the end; the numbers in the
-> body above them are the uncorrected ones, kept so the method is legible.
->
-> Current: **890 records, 836 standing after voids, 449 after resolutions, 195
-> open.**
+**2026-11-12. 892 records, 832 standing after voids, 374 after resolutions,
+120 open.** When this note was first written on 11-09 the same pile measured
+927 and 351; most of that gap is triage bugs, not work. The original text and
+its numbers are kept below from "Measured at 598687dc8dd" onward, because the
+corrections only make sense against what they corrected.
+
+The filename still says `62-percent-stale-20261109`; it is kept because
+re_attempts.log rows cite it by path, and renaming it would orphan them.
+
+## Start here
+
+Run both scripts, in order, from anywhere in the tree:
+
+    python3 reverse/attempt_support/fr_open.py    # writes fr_open.json beside itself
+    python3 reverse/attempt_support/fr_data.py    # re-asks the open ones of the data ledgers
+
+`fr_open.json` is the work list. Each entry carries the record's line, symbol,
+RVA, check and evidence, plus `boundary_rows`, `boundary_safe_to_vote` and a
+`boundary_warning`. Delete both `.json` files when you are done; they are
+working output.
+
+**Per record, in this order. Stop at the first that answers it.**
+
+1. **Does the row's `object-symbol=` note name exactly the symbol the record
+   wanted?** Then the label is bound and the record is closed, whatever the row
+   is *called*. This one test closed 80 records.
+2. **Is it a `$L<n>` or `Unwind@<va>`?** The ordinal is a per-TU guess that
+   renumbers; the `parent=` identifies the funclet. If the row's parent is the
+   native parent the record names and the sizes agree, it landed.
+3. **Call the named predicate.** Most of these checks are pure over committed
+   CSVs -- `import` the tool and call it with the record's own arguments.
+   `./build.sh` is the expensive part of "reproduce", and usually unnecessary.
+4. **Find the fix and date it.** `git log -S'<a line of the rule>' --
+   tools/<file>.py` to find it; then
+   `git grep -c '<text from the record>' <fix-sha>^ -- reverse/re_attempts.log`
+   to date it. Non-zero means the record predates the fix, which is all "stale"
+   means.
+5. **Read the whole boundary before voting it.** `void` deletes every earlier
+   row at a (symbol, rva); a resolution supersedes them all. 23% of open
+   records carry a later row.
+
+**Recording.** `tools/re_log.py record <symbol> <rva> <size> <status> <evidence>`.
+Use `mapped` when the address is accounted for (it supersedes without deleting),
+`void` when the recorded verdict is retracted and nothing landed, `solved` when
+you fixed the tool. The vocabulary is closed: `correction` and friends are
+refused.
+
+### Four traps, each of which cost real time
+
+- **A matched row is not a closed record.** 267 of 324 open records sat at a
+  matched address; filtering to a *real* name left 77. A row can be matched and
+  still be named `uw_0076fa6b`.
+- **The parent-RVA-appears-in-the-record-text test is noisy both ways.** Use it
+  to rank what to read. Never let it vote.
+- **A record can postdate its fix.** Then it is not stale, and the worker was
+  looking at fixed code or a stale checkout. Two records were appended *by*
+  their own fix commit.
+- **A record can be right.** Two live tool bugs came out of this pile in one
+  day -- `protected_paths` matching with fnmatch (`*` crossed `/`, so 48
+  handoff files were protected as debt registers) and `data_rows --admit-agreed`
+  rebuilding the whole ledger to append one row. Reproduce before assuming
+  stale.
 
 Measured at `598687dc8dd`, 2026-11-09, over `reverse/re_attempts.log`.
 
