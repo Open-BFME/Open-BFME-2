@@ -31,7 +31,7 @@ class Rva0028D796{public:int rva0028D796();};
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 class AICommandInterface{public:void aiIdle(CommandSourceType);};
 class AIUpdateInterface{public:AICommandInterface *commands(){return (AICommandInterface*)((char*)this+0x20);}};
-class Rva002AA292{public:bool rva002AA292(const int*)const;};
+#include "../../../../Include/GameLogic/Module/Rva002AA292.h"
 class Object{public:Player *getControllingPlayer()const;bool rva0028C15E(int,float*,int,int);
  bool testStatus(ObjectStatusTypes)const;void updateUpgradeModules();void rva0028DA28();void kill(DamageType,DeathType);void setBuilder(const Object*);const ThingTemplate *getTemplate()const{return tmplate;}Team *getTeam()const{return team;}
  char pad[4];ThingTemplate *tmplate;char pad8[0x38-8];Coord3D position;

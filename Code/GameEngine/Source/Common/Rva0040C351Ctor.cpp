@@ -120,7 +120,7 @@ static inline const int &min(const int &a, const int &b)
 #include <algorithm>
 class Rva0040C598 { public: void bitAnd(const int *); void rva0040C5B1(const int *); };
 #include "../../Include/Common/Rva0037DCA5.h"
-class Rva002AA292 { public: bool rva002AA292(const int *) const; };
+#include "../../Include/GameLogic/Module/Rva002AA292.h"
 class Rva00406F9C { public: bool rva00406F9C(const void *); };
 struct WorldMapUpgradeDataView {
  char unknown[8];

@@ -23,11 +23,7 @@ extern PartitionManager *ThePartitionManager;
 class UpgradeTemplate;
 #include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
-class Rva002AA292
-{
-public:
-	bool rva002AA292(const int *mask) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva002AA292.h"
 class Object
 {
 public:
