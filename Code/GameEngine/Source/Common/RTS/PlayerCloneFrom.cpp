@@ -113,11 +113,7 @@ public:
 };
 
 class Object;
-class Rva002ADF9C
-{
-public:
-	void rva002ADF9C(const Player *that, Object *relationship);
-};
+#include "../../../Include/Common/Rva002ADF9C.h"
 
 class Rva0039B795;
 class Rva0039B7AD;

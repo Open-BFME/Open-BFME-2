@@ -11,11 +11,7 @@ class Object;
 extern class ScriptEngine *TheScriptEngine;
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class Rva002ADF9C
-{
-public:
-	void rva002ADF9C(const Player *p, Object *o);
-};
+#include "../../Include/Common/Rva002ADF9C.h"
 void ScriptActions::Rva003BB713Set(const AsciiString &name1, Object *obj, const AsciiString &name2)
 {
 	int mask1 = TheScriptEngine->rva00357475(name2, 0);

@@ -124,11 +124,7 @@ class Rva002A99D2
 public:
 	void rva002A99D2(void *buildList);
 };
-class Rva002ADF9C
-{
-public:
-	void rva002ADF9C(const Player *that, Object *relationship);
-};
+#include "../../../Include/Common/Rva002ADF9C.h"
 static inline void setBuildList(Player *player, BuildListInfo *buildList)
 {
 	((Rva002A99D2 *)player)->rva002A99D2(buildList);
