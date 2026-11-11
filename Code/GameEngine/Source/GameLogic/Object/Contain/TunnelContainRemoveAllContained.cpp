@@ -34,11 +34,7 @@ typedef void (*ContainIterateFunc)( Object *obj, void *userData );
 
 #include "../object.h"
 
-class Rva00466398
-{
-public:
-	Rva0036AE51ListView rva00466398();
-};
+#include "../../../../Include/GameLogic/Module/Rva00466398.h"
 
 #include "../../../../Include/Common/Player.h"
 

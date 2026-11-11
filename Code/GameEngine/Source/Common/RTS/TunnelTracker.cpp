@@ -229,7 +229,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
-class Rva00466398 {public:Rva0036AE51ListView rva00466398();};
+#include "../../../Include/GameLogic/Module/Rva00466398.h"
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
 

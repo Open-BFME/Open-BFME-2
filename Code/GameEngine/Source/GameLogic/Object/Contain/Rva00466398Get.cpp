@@ -12,13 +12,7 @@ namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9El
 // caller at 0x0047DF44 reads its second pointer as a list<int>. Target bytes
 // show the hidden result pointer in [esp+4], first field this+4-or-null via
 // neg/sbb/and, second field this+0x10, and ret 4.
-class Rva00466398
-{
-public:
-	Rva0036AE51ListView rva00466398();
-private:
-	char m_pad[20];
-};
+#include "../../../../Include/GameLogic/Module/Rva00466398.h"
 __declspec(noinline) inline Rva0036AE51ListView Rva00466398::rva00466398()
 {
 	Rva0036AE51ListView out;

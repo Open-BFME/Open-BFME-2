@@ -1434,3 +1434,4 @@ Rva0052DB11,Code/GameEngine/Include/GameLogic/Rva0052DB11.h,existing header; con
 Rva0039ACBD,Code/GameEngine/Include/Common/Rva0039ACBD.h,existing header; contract class_contracts/Rva0039ACBD.json; 3/4 sampled units adopt
 Rva0053B914,Code/GameEngine/Include/GameClient/Rva0053B914.h,existing header; contract class_contracts/Rva0053B914.json; 3/4 sampled units adopt
 Rva007397D0,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva007397D0.h,existing header; contract class_contracts/Rva007397D0.json; 3/4 sampled units adopt
+Rva00466398,Code/GameEngine/Include/GameLogic/Module/Rva00466398.h,existing header; contract class_contracts/Rva00466398.json; 4/4 sampled units adopt
