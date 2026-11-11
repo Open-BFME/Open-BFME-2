@@ -197,11 +197,7 @@ public:
 	__declspec(noinline) ~Rva0040A530();
 };
 
-class Rva0040A59B
-{
-public:
-	void rva0040A59B();
-};
+#include "../../Include/Common/Rva0040A59B.h"
 
 // CreateAHeroManager (formerly the Rva0021FFEE placeholder): its constructor
 // 0x0021FE49 installs vftable 0x00BE648C, whose slot 0 is this destructor's

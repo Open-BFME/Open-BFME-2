@@ -302,5 +302,5 @@ CreateAHeroManager::CreateAHeroManager()
     g_Va00DFE348 = (int)this;
 }
 
-class Rva0040A59B { public: void rva0040A59B(); };
+#include "../../Include/Common/Rva0040A59B.h"
 Rva0040A530::~Rva0040A530() { reinterpret_cast<Rva0040A59B *>(this)->rva0040A59B(); }

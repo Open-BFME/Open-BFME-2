@@ -7,11 +7,7 @@
 // wide-adjust forwarders (RvaWideAdjustFwds.cpp) and the guarded
 // member-pointer forwarders.
 
-class Rva0040A59B
-{
-public:
-	void rva0040A59B();
-};
+#include "../../Include/Common/Rva0040A59B.h"
 
 class Dict;
 class TeamsInfoRec
