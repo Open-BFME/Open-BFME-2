@@ -4,11 +4,7 @@
 // Evidence: same shape as rowed sibling 0x00223D8D but table at +0xC and single-int invoke; callees rowed 0x00037BA0 0x00056F61 0x00036410 0x0057CC15; caller 0x000A91EB; ret 8 two args.
 #include "ascii_string.h"
 
-class Rva0057CC15Ref
-{
-public:
-	void invoke(int v);
-};
+#include "../../Include/GameClient/Rva0057CC15Ref.h"
 
 #include "../../Include/GameClient/Rva00056F61.h"
 

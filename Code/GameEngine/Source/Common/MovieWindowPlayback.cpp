@@ -529,11 +529,7 @@ extern const float MovieSubtitleLockedWidth=0.9765625f;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Rva0057CC15Ref
-{
-public:
-	void invoke(int a);
-};
+#include "../../Include/GameClient/Rva0057CC15Ref.h"
 
 class Rva00524B7A_0C
 {

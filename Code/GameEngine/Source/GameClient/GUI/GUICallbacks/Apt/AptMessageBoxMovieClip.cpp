@@ -97,7 +97,7 @@ protected:
 // object; Show passes its own this.
 class Rva0054C99AImpl : public Rva0054CFB8Target { public: void rva0054C99A(int); };
 class Rva00432AEB { public: int rva00432AEB(int); };
-class Rva0057CC15Ref { public: void invoke(int); };
+#include "../../../../../Include/GameClient/Rva0057CC15Ref.h"
 // The Apt delegates the box ctor 0x0054CC35 binds by name (retail literals
 // "_OnButtonOk".."_OnHidden", in this address order); WB names the four
 // button handlers AptMessageBoxMovieClip::Impl::OnButton*.
