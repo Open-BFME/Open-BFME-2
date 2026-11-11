@@ -514,13 +514,7 @@ private:
 // --- 0x00575DFE (52B): the +0x04 holder takes the +0x08 value with the
 // +0x0C or the +0x10 argument (rowed 0x00575AE1 / 0x00575B7B), else alone
 // (rowed 0x00575A3F).
-class Rva00575A3F
-{
-public:
-	void rva00575A3F(int a);								// 0x00575A3F
-	void rva00575AE1(int a, int b);							// 0x00575AE1
-	void rva00575B7B(int a, int b);							// 0x00575B7B
-};
+#include "../../../Include/Common/Rva00575A3F.h"
 // --- 0x00362FC3 (53B): for a positive duration, mark +0x31 and record the
 // GameClient frame (virtual slot 31) at +0x40, the end at +0x44 and 1.0 at
 // +0x3C.

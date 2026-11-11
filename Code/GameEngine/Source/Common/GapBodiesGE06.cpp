@@ -203,13 +203,7 @@ Object *Rva0044F7EA::rva0044F7EA(const Rva0044F7EAObject *other)
 // --- 0x00575DFE (52B): the +0x04 holder takes the +0x08 value with the
 // +0x0C or the +0x10 argument (rowed 0x00575AE1 / 0x00575B7B), else alone
 // (rowed 0x00575A3F).
-class Rva00575A3F
-{
-public:
-	void rva00575A3F(int a);								// 0x00575A3F
-	void rva00575AE1(int a, int b);							// 0x00575AE1
-	void rva00575B7B(int a, int b);							// 0x00575B7B
-};
+#include "../../Include/Common/Rva00575A3F.h"
 
 class Rva00575DFE
 {

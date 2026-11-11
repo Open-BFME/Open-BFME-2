@@ -189,11 +189,7 @@ void Rva00575DCA::rva00575DCA(Int firstValue)
 	m_08->rva005759A5(firstValue);
 }
 
-class Rva00575A3F
-{
-public:
-	void rva00575A3F(Int firstValue);
-};
+#include "../../Include/Common/Rva00575A3F.h"
 class Rva00575DD2
 {
 public:
