@@ -206,11 +206,7 @@ private:
 
 // The image-key list's set (0x00524725) and clear (0x00524306), rowed under
 // this address-named view (Common/AptImageKeySetters.cpp).
-class AptMovieClipFrame
-{
-public:
-	bool CreateContentMovieClip(const AsciiString &type, const AsciiString &instance, int *level, AsciiString *name); // 0x005C329B
-};
+#include "../../Include/Common/AptMovieClipFrame.h"
 
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

@@ -204,13 +204,7 @@ Rva005E136CList28::Rva005E136CList28()
 {
 }
 
-class AptMovieClipFrame
-{
-public:
-	// Both strings are forwarded to the Apt "CreateContent" call; the
-	// ArmyMemberIcon ctor passes its own string first and "icon" second.
-	bool CreateContentMovieClip(const AsciiString &type, const AsciiString &instance, int *level, AsciiString *name); // 0x005C329B
-};
+#include "../../Include/Common/AptMovieClipFrame.h"
 
 struct Rva005E10A8Inner
 {

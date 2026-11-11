@@ -38,7 +38,7 @@ struct Init005E1260{int a,b;};class Rva005E1260 {public:Rva005E1260&rva005E1260(
 class AptTimer;
 template<> class AptRef<AptTimer> {public:AptRef(DelegateDesc desc){((Rva005E1260*)this)->rva005E1260((const Init005E1260*)&desc);}AptRef(const AptRef&);~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}private:void*ptr;};
 class AptTimerAdder {public:__declspec(dllimport) __forceinline AptTimerAdder(){}void AddTimer(const AsciiString&,AptRef<AptTimer>);ObjectCreationList state;~AptTimerAdder();};
-class AptMovieClipFrame {public:bool CreateContentMovieClip(const AsciiString&,const AsciiString&,int*,AsciiString*);};
+#include "../../../../Include/Common/AptMovieClipFrame.h"
 
 namespace AptUtils {AsciiString DotPath2SlashPath(const char*);}
 struct AsciiStringRefWithChar:AsciiStringRef {int write(char *);operator AsciiString();char m_char;};

@@ -204,11 +204,7 @@ public:
 	void rva00524725(const AsciiString &key, const Image *image);
 };
 
-class AptMovieClipFrame
-{
-public:
-	bool CreateContentMovieClip(const AsciiString &type, const AsciiString &instance, int *level, AsciiString *name); // 0x005C329B
-};
+#include "../../Include/Common/AptMovieClipFrame.h"
 
 class Rva00222A8BTarget;
 class Rva00222A8BTarget;
