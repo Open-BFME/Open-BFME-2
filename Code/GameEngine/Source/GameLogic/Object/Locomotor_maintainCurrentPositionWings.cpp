@@ -20,12 +20,7 @@ public:
 private:
 	Rva001E3F08MidA *m_p04; // +0x04
 };
-class Rva001E7C2B
-{
-public:
-	void rva001e7c2b(unsigned int, unsigned int, float, float);
-	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
-};
+#include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 class Rva001E4073
 {
 public:

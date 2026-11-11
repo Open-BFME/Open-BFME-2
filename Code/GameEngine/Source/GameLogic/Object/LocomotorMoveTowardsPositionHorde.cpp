@@ -1157,12 +1157,7 @@ public:
 	void rva001E9045(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 
-class Rva001E7C2B
-{
-public:
-	void rva001e7c2b(unsigned int, unsigned int, float, float);
-	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
-};
+#include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 
 class Rva001E8C1B
 {
