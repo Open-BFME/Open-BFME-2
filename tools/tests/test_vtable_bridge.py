@@ -921,32 +921,35 @@ def test_a_forwarded_target_that_fails_a_provider_check_stays_omitted(tmp_path):
     assert result["refusals"][0]["reason"] == "omitted-target"
 
 
-def weak_table_object(path, weak="_weak", default="_first", characteristics=2, name="_vtable"):
+def weak_table_object(path, weak="_weak", default="_first", characteristics=2, name="_vtable",
+                      aux=True, kind=L.DIR32, addend=0):
     """A COMDAT table whose slot 0 relocates to an undefined weak external (`??_EX`) with an
     IMAGE_WEAK_EXTERN default (`??_GX`) and slot 1 to `_second`."""
     symbols = [(name, 1, 0, L.EXTERNAL), (weak, 0, 0, V.WEAK_EXTERNAL), ("_aux", 0, 0, 0),
                (default, 0, 0, L.EXTERNAL)]
     symbols += [("_second", 0, 0, L.EXTERNAL)] if default != "_second" else []
-    path = L.write_coff(path, [(".rdata", 0x40300040 | V.COMDAT, bytes(8), V.SELECT_ANY)], symbols,
-                        {1: [(0, weak, L.DIR32), (4, "_second", L.DIR32)]})
+    body = bytearray(8)
+    body[:4] = addend.to_bytes(4, "little")
+    path = L.write_coff(path, [(".rdata", 0x40300040 | V.COMDAT, bytes(body), V.SELECT_ANY)], symbols,
+                        {1: [(0, weak, kind), (4, "_second", L.DIR32)]})
     raw = bytearray(path.read_bytes())
     symptr = struct.unpack_from("<I", raw, 8)[0]
     _sections, syms = L.parse_coff(bytes(raw))
     index = next(y.i for y in syms.values() if y.name == weak)
     raw[symptr + 18 * (index + 1):symptr + 18 * (index + 2)] = \
         struct.pack("<II", index + 2, characteristics) + bytes(10)
-    raw[symptr + 18 * index + 17] = 1
+    raw[symptr + 18 * index + 17] = 1 if aux else 0
     path.write_bytes(bytes(raw))
     return path
 
 
-def weak_slot_plan(tmp_path, *extra, **kw):
+def weak_slot_plan(tmp_path, *extra, archives=(), **kw):
     code = code_object(tmp_path / "code.obj")
     table = weak_table_object(tmp_path / "table.obj", **kw)
     rows = [{"target_rva": hex(rva), "name": name, "source": "Code/code.cpp", "status": "matched"}
             for rva, name in ((0x1000, "_first"), (0x1010, "_second"))]
     data = [{"address": "0x3000", "size": "8", "name": "_vtable", "kind": "vtable"}]
-    return plan(code, [table, *extra], rows, data)
+    return plan(code, [table, *extra], rows, data, archives=archives)
 
 
 def test_weak_destructor_slot_resolving_to_the_retail_default_is_correct(tmp_path):
@@ -973,6 +976,40 @@ def test_weak_records_that_disagree_leave_the_default_unproven(tmp_path, other):
     disagreeing = weak_table_object(tmp_path / "other.obj", name="_other_vtable", **other)
     result = weak_slot_plan(tmp_path, disagreeing)
     assert (result["tables"], result["already_correct"]) == (1, 0)
+
+
+# The weak ??_E slot rule landed at b9aeebea15a with the four cases above. These
+# are the boundaries it left open, and the three vtable_bridge false rejects at
+# re_attempts.log 101706/101707/101710 (ThreadClass, Rva005ED152, and "492
+# bridged tables differ in nothing else") all turn on the first two.
+
+def test_a_weak_record_without_its_aux_entry_leaves_the_default_unproven(tmp_path):
+    """IMAGE_WEAK_EXTERN lives in the aux record, so a symbol claiming none names no
+    default and weak_default() reads None. slot_matches() refuses that None rather
+    than treat "neither side has a record" as agreement."""
+    result = weak_slot_plan(tmp_path, aux=False)
+    assert (result["tables"], result["already_correct"]) == (1, 0)
+    assert result["entries"][0]["source_slot_mismatches"][0]["name"] == "_weak"
+
+
+def test_an_archive_member_defining_the_weak_name_beats_its_default(tmp_path, monkeypatch):
+    """A possible archive provider is a definition too: weak_resolutions() drops the
+    name rather than guess which member the native linker extracts."""
+    member = L.write_coff(tmp_path / "member.obj", [(".text", 0x60500020, b"\xc3", 0)],
+                          [("_weak", 1, 0, L.EXTERNAL)])
+    monkeypatch.setattr(V.coffar, "read_archive",
+                        lambda path: [("member.obj", member.read_bytes())])
+    result = weak_slot_plan(tmp_path, archives=[tmp_path / "lib.lib"])
+    assert (result["tables"], result["already_correct"]) == (1, 0)
+
+
+@pytest.mark.parametrize("kw,why", [
+    (dict(addend=4), "an addend picks a different entry point"),
+    (dict(kind=L.REL32), "a REL32 slot is a jump, not a pointer"),
+])
+def test_the_weak_slot_is_still_an_unaddended_dir32_pointer(tmp_path, kw, why):
+    result = weak_slot_plan(tmp_path, **kw)
+    assert (result["tables"], result["already_correct"]) == (1, 0), why
 
 
 def test_weak_default_bound_to_another_retail_address_does_not_match(tmp_path):
