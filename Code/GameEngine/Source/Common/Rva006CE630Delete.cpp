@@ -1,9 +1,6 @@
 // cl: /MD
 // ?rva006CE630@Rva006CE630@@QAEPAXI@Z @0x006CE630 35B evidence chain via 0x006DB270 freeBlock plus detach row 0x006CD530 plus pool 0x00A176E8 size 8 plus ret-4 flag free
-class Rva006CD530 {
-public:
-    void detach();
-};
+#include "../../Include/Common/Rva006CD530.h"
 #include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct Rva006CE630 {

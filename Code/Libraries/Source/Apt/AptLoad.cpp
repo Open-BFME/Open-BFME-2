@@ -160,7 +160,7 @@ public:
 };
 
 class BfmeNodeVMU { public: Rva006D0790Ref entry; BfmeNodeVMU *next; };
-class Rva006CD530 { public: void detach(); };
+#include "../../../GameEngine/Include/Common/Rva006CD530.h"
 class BfmeListVMU
 {
 public:

@@ -16,11 +16,7 @@ public:
 	BfmeNodeVMU *m_bfmeNext;
 };
 
-class Rva006CD530
-{
-public:
-	void detach();
-};
+#include "../../Include/Common/Rva006CD530.h"
 
 #include "../../Include/Common/Rva006DB270.h"
 
