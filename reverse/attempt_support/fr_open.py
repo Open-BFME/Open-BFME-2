@@ -45,10 +45,22 @@ def placeholder(row):
 # record of anything, so counting it keeps a cleared blocker in the pile forever.
 # (See re_log.VOID_STATUS. 15 records were retracted on 2026-11-10 alone.)
 voids = collections.defaultdict(list)
+# Every row of the log indexed by boundary, so a record can show its neighbours.
+# `void` deletes every EARLIER row at a boundary and a resolution supersedes
+# every row there, so a boundary is only safe to vote when EVERY row on it is
+# answered. Three tu-merge file-level boundaries were nearly closed on
+# 2026-11-11 over a later, live finding; one of them (100096) says in terms that
+# the false reject had cleared while LINK-155's view wall had not.
+boundary = collections.defaultdict(list)
 records = []
 with open("reverse/re_attempts.log", encoding="utf-8", errors="replace") as fh:
     for lineno, line in enumerate(fh, 1):
         f = line.rstrip("\n").split("\t")
+        if len(f) == 5:
+            try:
+                boundary[(f[0], int(f[1], 16))].append((lineno, f[3], f[4][:90]))
+            except ValueError:
+                pass
         if len(f) == 5 and f[3] == "void":
             try:
                 voids[(f[0], int(f[1], 16))].append(lineno)
@@ -139,6 +151,20 @@ for rec in records:
     per_check[rec["check"]][v] += 1
     if v.startswith("OPEN"):
         rec["verdict"] = v
+        # Neighbours at this exact boundary, so the next seat does not have to
+        # look them up by hand before deciding whether a verdict is safe.
+        others = [row for row in boundary.get((rec["sym"], rva), ())
+                  if row[0] != rec["line"]]
+        rec["boundary_rows"] = [{"line": n, "status": st, "evidence": ev}
+                                for n, st, ev in others]
+        later = [row for row in others if row[0] > rec["line"]]
+        rec["boundary_safe_to_vote"] = not later
+        if later:
+            rec["boundary_warning"] = (
+                f"{len(later)} later row(s) at this boundary (lines "
+                + ", ".join(str(n) for n, _, _ in later)
+                + "): read them before any void or resolution -- a void deletes "
+                  "every earlier row here and a resolution supersedes them all.")
         rec["here"] = [f"{r['name']} ({r['source']})" for r in here]
         open_rows.append(rec)
 
@@ -159,4 +185,7 @@ for check, c in sorted(per_check.items(), key=lambda kv: -sum(kv[1].values())):
 print(f"{tot['n']:>6} {tot['closed']:>7} {tot['open']:>7} {tot['other']:>7}  TOTAL")
 
 json.dump(open_rows, open(SC + "/fr_open.json", "w"), indent=1)
+unsafe = sum(1 for r in open_rows if not r.get("boundary_safe_to_vote", True))
 print(f"\n{len(open_rows)} open records written to {SC}/fr_open.json")
+print(f"{len(open_rows) - unsafe} sit alone at their boundary; {unsafe} carry a LATER "
+      "row that a void or resolution would bury -- see boundary_warning")

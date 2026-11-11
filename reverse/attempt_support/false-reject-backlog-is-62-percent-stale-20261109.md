@@ -564,3 +564,11 @@ usually holds one record.
 The counterpart trap is the reverse: 87825/92513, 87826/92514, 87828/92515 and
 94614/98203 are PAIRS at one boundary, both rows answered by the same fix, and
 there voting the boundary is right. Read the neighbours either way.
+
+`fr_open.py` now does that lookup for you. Every open record in `fr_open.json`
+carries `boundary_rows` (every other row at its exact (symbol, rva), with line
+and status), a `boundary_safe_to_vote` flag, and a `boundary_warning` naming the
+later lines when there are any. **72 of the 317 open records -- 23% -- carry a
+later row**, so this is not a rare corner. It is a prompt to read, not a
+verdict: a later row answered by the same fix is fine to vote through, which is
+how the four pairs above were closed.
