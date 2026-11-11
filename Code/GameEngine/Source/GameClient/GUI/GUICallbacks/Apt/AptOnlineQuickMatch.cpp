@@ -384,10 +384,7 @@ public:
 // Rva00559A11.cpp proves) in the unit whose arg-ctor bodies fill it,
 // Common/Rva007ABEF3ArgCtorInits.cpp.
 extern Rva00559D0CRankWeights g_00E06000;
-class Rva0054D974 {
-public:
-  Rva0054D8D8 *rva0054D6C8(int);
-};
+#include "../../../../../Include/Common/Rva0054D974.h"
 extern Rva0054D974 *TheLadderList;
 class PlayerTemplate
 {

@@ -238,14 +238,7 @@ public:
 };
 
 // LadderList (0xC bytes): ctor 0x0054E546, non-virtual dtor rowed at 0x0054D974.
-class Rva0054D974
-{
-public:
-	Rva0054D974();
-	~Rva0054D974();
-private:
-	void *m_lists[3];
-};
+#include "../../../Include/Common/Rva0054D974.h"
 
 // The three thread factories SetUpGameSpy calls are rowed under names that
 // disagree with the globals retail stores their results in: 0x00551B28

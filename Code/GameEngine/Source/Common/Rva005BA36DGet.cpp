@@ -9,11 +9,7 @@ void __cdecl GadgetComboBoxGetSelectedPos(GameWindow *gw, int *pos);
 void *__cdecl GadgetComboBoxGetItemData(GameWindow *gw, int pos);
 
 class Rva0054D8D8;
-class Rva0054D974
-{
-public:
-	Rva0054D8D8 *rva0054D6C8(int id);
-};
+#include "../../Include/Common/Rva0054D974.h"
 extern Rva0054D974 *TheLadderList;
 // TheLadderList (formerly the address-named G00A05FB0): matched references place it at VA 0xe05fb0 (zero-filled .bss);
 // PeerDefs.cpp creates and deletes it under this name.
