@@ -5,7 +5,7 @@
 // layout agrees with rowed getPowerName 0x004934B8; callees rowed testStatus/getControllingPlayer/friend_getFinalOverride/getOrStart/TheGameLogic.
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
-class Rva002AC6B1PlayerTimers { public: unsigned getOrStart(const SpecialPowerTemplate *); void resetOrStart(const SpecialPowerTemplate *); };
+#include "../../../../Include/GameLogic/Module/Rva002AC6B1PlayerTimers.h"
 class Rva002AA0B1FloatField { public: float get() const; };
 class Player;
 enum ObjectStatusTypes { Status70 = 70 };

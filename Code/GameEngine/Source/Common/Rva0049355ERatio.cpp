@@ -8,11 +8,7 @@
 #include "../../Include/Common/SpecialPower.h"
 #include "../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class Rva002AC6B1PlayerTimers
-{
-public:
-	unsigned int getOrStart(const SpecialPowerTemplate *tmpl);
-};
+#include "../../Include/GameLogic/Module/Rva002AC6B1PlayerTimers.h"
 
 class Player;
 

@@ -64,12 +64,7 @@
 // 0x002AC7A0 and resetOrStart 0x002AC6E1, Zero Hour's
 // Player::getOrStartSpecialPowerReadyFrame/resetOrStartSpecialPowerReadyFrame.
 // The Zero Hour bodies below call them there; the Player donor copies are gone.
-class Rva002AC6B1PlayerTimers
-{
-public:
-	unsigned getOrStart(const SpecialPowerTemplate *specialPowerTemplate);
-	void resetOrStart(const SpecialPowerTemplate *specialPowerTemplate);
-};
+#include "../../../../Include/GameLogic/Module/Rva002AC6B1PlayerTimers.h"
 
 
 #ifdef _INTERNAL

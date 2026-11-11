@@ -11,12 +11,7 @@ struct VirtBase
 #include "../../../../Include/Common/SpecialPower.h"
 class Player;
 #include "../object.h"
-class Rva002AC6B1PlayerTimers
-{
-public:
-	unsigned int getOrStart(const SpecialPowerTemplate *tmpl);
-	void resetOrStart(const SpecialPowerTemplate *);
-};
+#include "../../../../Include/GameLogic/Module/Rva002AC6B1PlayerTimers.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 //
 // ?xfer@Rva00589079@@MAEXPAVXfer@@@Z, retail 0x00589215, 72 bytes. Virtual

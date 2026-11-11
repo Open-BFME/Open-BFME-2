@@ -1,0 +1,67 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002AC6B1PlayerTimers",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x704": {
+    "4": 4
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 6,
+   "1800": 1
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 1784,
+   "type": "uchar[1784]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1784,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002AC6B1PlayerTimers.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1796,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002AC6B1PlayerTimers.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1800,
+ "size_by": "majority",
+ "vslots": {}
+}

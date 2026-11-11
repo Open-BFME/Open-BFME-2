@@ -38,12 +38,7 @@
 
 enum ObjectID { INVALID_ID = 0 };
 
-class Rva002AC6B1PlayerTimers
-{
-public:
-	void rva002AC75C(const SpecialPowerTemplate *temp, unsigned int frame);
-	unsigned int getOrStart(const SpecialPowerTemplate *temp);
-};
+#include "../../../../Include/GameLogic/Module/Rva002AC6B1PlayerTimers.h"
 
 enum KindOfType { KINDOF_STRUCTURE = 7 };
 
