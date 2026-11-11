@@ -1244,3 +1244,4 @@ Rva006C2D20Sink,Code/GameEngine/Include/Common/Rva006C2D20Sink.h,existing header
 Rva006054AF,Code/GameEngine/Include/Common/Rva006054AF.h,existing header; contract class_contracts/Rva006054AF.json; 4/4 sampled units adopt
 Rva002ADF9C,Code/GameEngine/Include/Common/Rva002ADF9C.h,existing header; contract class_contracts/Rva002ADF9C.json; 3/5 sampled units adopt
 Rva002F23A6,Code/GameEngine/Include/GameLogic/Rva002F23A6.h,existing header; contract class_contracts/Rva002F23A6.json; 4/4 sampled units adopt
+Rva00152D1CObj,Code/GameEngine/Include/Common/Rva00152D1CObj.h,existing header; contract class_contracts/Rva00152D1CObj.json; 4/5 sampled units adopt

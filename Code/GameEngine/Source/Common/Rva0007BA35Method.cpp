@@ -43,11 +43,7 @@ extern const FieldParse g_shadowMapFieldParseTable[] = {
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 
-class Rva00152D1CObj
-{
-public:
-	void rva152d1c(int);
-};
+#include "../../Include/Common/Rva00152D1CObj.h"
 
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();

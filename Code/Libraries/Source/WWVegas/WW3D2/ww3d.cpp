@@ -334,10 +334,7 @@ extern bool BFME_DX8_Thread_Assert();
 
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
-class Rva00152D1CObj {
-public:
-	void rva152d1c(int);
-};
+#include "../../../../GameEngine/Include/Common/Rva00152D1CObj.h"
 
 class Rva00117120MatDesc {
 public:

@@ -121,7 +121,7 @@ struct Rva003080AARef;
 
 class Rva003080AA {public:Rva003080AARef *rva003080AA(int);};
 
-class Rva00152D1CObj {public:void rva152d1c(int);};
+#include "../../../Include/Common/Rva00152D1CObj.h"
 
 class GameLODManager;
 

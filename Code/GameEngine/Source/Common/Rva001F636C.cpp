@@ -12,11 +12,7 @@ public:
 	void rva001F58D4();
 };
 
-class Rva00152D1CObj
-{
-public:
-	void rva152d1c(int n);
-};
+#include "../../Include/Common/Rva00152D1CObj.h"
 
 class Rva001F636C
 {
