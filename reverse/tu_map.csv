@@ -30844,10 +30844,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003B8B44,29,code,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,proposed,C,C=0x003B8A9B..0x003B8B61,Code/Libraries/Source/WWVegas/WWLib/StlportRecordRangeCopyDispatch.cpp
 0x003B8B61,26,code,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,proposed,C,C=0x003B8A9B..0x003B8B7B,Code/GameEngine/Source/Common/Rva003B8B61Destroy.cpp
 0x003B8B7B,10,code,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,proposed,K,K=Rva003B0C9F,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
-0x003B8B85,37,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/Common/Rva003B8BAALookup.cpp
-0x003B8BAA,30,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/Common/Rva003B8BAALookup.cpp
-0x003B8BC8,49,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8BAA..0x003B8BF9,Code/GameEngine/Source/Common/Rva003B8BAALookup.cpp
-0x003B8BF9,13,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/Common/Rva003B8BAALookup.cpp
+0x003B8B85,37,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x003B8BAA,30,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x003B8BC8,49,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8BAA..0x003B8BF9,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x003B8BF9,13,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8C06,166,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8CAC,52,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8CE0,38,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
@@ -30855,14 +30855,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003B8D4D,36,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8D71,102,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8DD7,60,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8D71..0x003B8E13,Code/GameEngine/Source/Common/GapBodiesS3C.cpp
-0x003B8E13,24,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8D71..0x003B8E2B,Code/GameEngine/Source/Common/Rva003B8E13DestroyRange.cpp
+0x003B8E13,24,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8D71..0x003B8E2B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8E2B,65,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8E6C,29,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8E89,83,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8E6C..0x003B8EDC,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8EDC,68,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B8F20,86,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp
-0x003B8F76,213,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B904B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerXfer.cpp
-0x003B904B,63,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B908A,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferredOwners.cpp
+0x003B8F76,213,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B904B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x003B904B,63,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B908A,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B908A,51,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B90BD,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
 0x003B90BD,30,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B90DB,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x003B90DB,73,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B9124,Code/GameEngine/Source/Common/Rva003B923BConstructor.cpp
@@ -30872,9 +30872,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003B9179,11,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B9184,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x003B9184,183,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B923B,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 0x003B923B,103,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B92A2,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp
-0x003B92A2,23,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B92B9,Code/GameEngine/Source/Common/Rva003B92A2Clear.cpp
-0x003B92B9,84,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/Common/Rva003B92B9Filter.cpp
-0x003B930D,92,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/Common/Rva003B930DFilter.cpp
+0x003B92A2,23,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,C,C=0x003B8F20..0x003B92B9,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x003B92B9,84,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x003B930D,92,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/Common/LivingWorldCampaignManager.cpp,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x003B9369,55,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,proposed,C,C=0x003B930D..0x003B93A0,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x003B93A0,28,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,proposed,K,K=Rva003B923B,Code/GameEngine/Source/Common/Rva003B923BConstructor.cpp
 0x003B93BC,68,code,,,-,,Code/GameEngine/Source/Common/Rva003B93BCMethod.cpp
@@ -51798,7 +51798,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005EB159,255,code,,,-,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp
 0x005EB258,25,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp
 0x005EB271,25,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp
-0x005EB28A,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferredOwners.cpp
+0x005EB28A,63,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x005EB2C9,30,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 0x005EB2E7,118,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp
 0x005EB35D,28,code,,,-,,Code/GameEngine/Source/Common/Rva005EB35DDeletingDtor.cpp
@@ -76098,11 +76098,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00782793,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8D71@FuncInfo0x0092DE84,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x0078279D,13,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F20@FuncInfo0x0092DEA8,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp
 0x007827AA,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F20@FuncInfo0x0092DEA8,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp
-0x007827B4,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F76@FuncInfo0x0092DED4,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerXfer.cpp
-0x007827BC,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F76@FuncInfo0x0092DED4,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerXfer.cpp
-0x007827C4,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F76@FuncInfo0x0092DED4,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerXfer.cpp
-0x007827CE,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B904B@FuncInfo0x0092DEF8,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferredOwners.cpp
-0x007827D6,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B904B@FuncInfo0x0092DEF8,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferredOwners.cpp
+0x007827B4,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F76@FuncInfo0x0092DED4,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x007827BC,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F76@FuncInfo0x0092DED4,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x007827C4,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B8F76@FuncInfo0x0092DED4,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x007827CE,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B904B@FuncInfo0x0092DEF8,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
+0x007827D6,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B904B@FuncInfo0x0092DEF8,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x007827E0,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B923B@FuncInfo0x0092DF34,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp
 0x007827E8,20,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B923B@FuncInfo0x0092DF34,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp
 0x007827FC,11,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,approved,P,P=0x003B923B@FuncInfo0x0092DF34,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp
@@ -90047,7 +90047,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A433D,8,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp
 0x007A4345,10,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp
 0x007A434F,8,code,,,-,,Code/gen_small/uw_gen_010.cpp
-0x007A4357,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferredOwners.cpp
+0x007A4357,10,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp
 0x007A4361,8,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp
 0x007A4369,11,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp
 0x007A4374,22,code,,,-,,Code/GameEngine/Source/Common/Rva005EB2E7Dtor.cpp
