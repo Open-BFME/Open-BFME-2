@@ -681,7 +681,7 @@ public:
 	char m_pad17[0x8C5 - 0x17];
 	bool m_clientQuiet; // +0x8C5
 };
-class Rva005CB265 { public: virtual int rva005CB265(); };
+#include "../../../Include/Common/Rva005CB265.h"
 #include "../../../Include/Common/Rva0054CBEFTarget.h"
 extern InGameUI *TheInGameUI;
 class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class GameLogic;};

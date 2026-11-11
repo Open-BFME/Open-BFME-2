@@ -74,7 +74,7 @@ class Rva005CC208Select {public: void rva005CC208(int);};
 class Rva005F94C2 {public: void rva005F94C2(); void rva005F9567(); char m_pad[0x28]; int m_state;};
 class Rva005F8F31 {public: void rva005F8F31();};
 // Tab window forwarder 0x005CB265 (ICF-folded vslot thunk); the qualified call binds the pin directly.
-class Rva005CB265 {public: virtual int rva005CB265();};
+#include "../../../../../Include/Common/Rva005CB265.h"
 namespace StrategicHUD {class BattlePromptPlayerTabsMovieClip {public: void SetTabCount(unsigned int);};}
 namespace StrategicHUD {class BattlePromptMovieClip {public: class Impl;};}
 class Rva005F8E37 {public: Rva005F8E37(StrategicHUD::BattlePromptMovieClip::Impl *,int,const AsciiString &);private:char opaque[0x40];};
