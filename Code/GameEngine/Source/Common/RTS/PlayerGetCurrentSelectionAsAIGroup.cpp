@@ -5,12 +5,7 @@
 class BfmeVisitorBF;
 class AIGroup;
 class BfmeVecAK;
-class Gen_0018BC70
-{
-public:
-	void bfmeVisitAll(BfmeVisitorBF *visitor);
-	BfmeVecAK *bfmeCompact(bool restart);
-};
+#include "../../../Include/GameLogic/Gen_0018BC70.h"
 class Player
 {
 public:

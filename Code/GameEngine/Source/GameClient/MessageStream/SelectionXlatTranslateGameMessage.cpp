@@ -529,7 +529,7 @@ class Rva0030F0E2 { public:
  Int bestPriority;
 };
 class BfmeVecAK;
-class Gen_0018BC70 { public: BfmeVecAK *bfmeCompact(Bool); };
+#include "../../../Include/GameLogic/Gen_0018BC70.h"
 class Rva004D6BCD;
 class Rva002AA191 { public: Rva004D6BCD *rva002AA176(Int); };
 static Object *nativeObject43003C(const Drawable *drawable) { return *(Object *const *)((const char *)drawable + 0xFC); }

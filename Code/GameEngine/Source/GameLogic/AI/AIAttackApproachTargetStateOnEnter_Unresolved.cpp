@@ -1054,11 +1054,7 @@ StateReturnType AIAttackFireWeaponState::update()
 class BfmeVecAK : public std::vector<Object *>
 {
 };
-class Gen_0018BC70
-{
-public:
-	BfmeVecAK *bfmeCompact(bool flag);
-};
+#include "../../../Include/GameLogic/Gen_0018BC70.h"
 
 // The body module (Object +0x254), slot 15 the last damage info; its source
 // ObjectID at +0x08.
