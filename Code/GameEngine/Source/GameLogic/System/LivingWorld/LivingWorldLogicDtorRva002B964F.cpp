@@ -168,7 +168,7 @@ struct Rva002B964FMessageRef
 	}
 };
 
-class Rva002B74DE { public: ~Rva002B74DE(); };
+#include "../../../../Include/Common/Rva002B74DE.h"
 
 
 class Rva002B9099
