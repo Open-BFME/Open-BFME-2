@@ -30,11 +30,7 @@ private:
 	bool grow( int arena, int size );
 };
 
-class Rva001EAF7B
-{
-public:
-	bool rva001EAF7B();
-};
+#include "../../Include/Common/Rva001EAF7B.h"
 
 void *__cdecl Rva0002FFC0Alloc(int size, int ignored);
 void __cdecl Rva0002FFE0Free(void *ptr, int ignored);

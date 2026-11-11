@@ -328,11 +328,7 @@ void __cdecl rva007B6C3E()
 	return receiver->Rva000906DE::~Rva000906DE();
 }
 
-class Rva001EAF7B
-{
-public:
-	bool rva001EAF7B();
-};
+#include "../../Include/Common/Rva001EAF7B.h"
 
 // The behavior freelist pool at VA 0x00DA60E8, defined once in
 // Rva007AB800PoolInits.cpp (FreelistPool g_freelistPool). Only its address
