@@ -6113,3 +6113,4 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
 ??0Rva0056AF94@@QAE@PAX@Z,0x0056AF94,"Renamed to ??0Rva0056ACFF@@QAE@PAX@Z by tools/rename.py (fold: retail vftable 0x00C6D19C)"
 ?slot4@Rva0056AC26Base2@@UAE_NHH@Z,0x0050B5F1,"Renamed to ?slot4@Rva0056AC26Base2@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z: ACFF secondary slot 4 passes an army and destination region at 0x0056ABD6."
 ?slot1@Rva0056AC26Base2@@UAE_NH@Z,0x005CB9FF,"Renamed to ?slot1@Rva0056AC26Base2@@UAE_NPAURva002B4BC9Arg@@@Z: secondary slot 1 at 0x0056ABCB forwards the object pointer used by 0x002B4BC9."
+??0Rva0056AF4B@@QAE@PAXHH@Z,0x0056AF4B,"Renamed to ??0Rva0056ACDF@@QAE@PAXHH@Z by tools/rename.py (fold: retail vftable 0x00C6D14C)"

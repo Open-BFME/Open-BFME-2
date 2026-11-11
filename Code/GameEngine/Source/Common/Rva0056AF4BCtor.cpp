@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ??0Rva0056AF4B@@QAE@PAXHH@Z @0x0056AF4B 45B.
+// ??0Rva0056ACDF@@QAE@PAXHH@Z @0x0056AF4B 45B.
 // Constructor: run the pinned EH 0x0056AD80 initializer with the first
 // arg, store the second/third args at +0x14/+0x18, then install the
 // 0x00C6D14C vftable at +0 and the 0x00C6D110 vftable at +8. Follows the
@@ -14,13 +14,13 @@ class Rva0056AC26Owner;
 extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056AC26@@@")[];
 extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056ACDF_B1@@@")[];
 
-class Rva0056AF4B
+class Rva0056ACDF
 {
 public:
-	Rva0056AF4B(void *arg1, int arg2, int arg3);
+	Rva0056ACDF(void *arg1, int arg2, int arg3);
 };
 
-Rva0056AF4B::Rva0056AF4B(void *arg1, int arg2, int arg3)
+Rva0056ACDF::Rva0056ACDF(void *arg1, int arg2, int arg3)
 {
 	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)arg1);
 	*(int *)((char *)this + 0x14) = arg2;

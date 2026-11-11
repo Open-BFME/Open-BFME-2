@@ -2579,3 +2579,13 @@ four data rows. The same 19 units retain 3,845 bytes in the link preview
 before and after the change at census 60189f9ced. ACFF's private override is
 still spelled b1Slot1; adopting the shared declaration must reconcile that
 name and check sibling slots before replacing the hand tables.
+
+ACDF constructor at 0x0056AF4B: the class fold ties both table stores to
+ACDF's deleting destructor (0x0056AF78) and its secondary adjustment
+thunk (0x0056ACF7). The tutorial object calls the ACDF constructor by REL32
+and its constructor object defines that name. Both affected units verify
+18/18 functions. The preview with all shared-header consumers retains
+3,845/3,845 bytes in 19 units before and after the fold (60189f9ced).
+The current destructor object still emits 2 of 5 primary entries and
+1 of 15 secondary entries. Secondary slot 14 must target 0x0056ACF1
+when adopting the full tables in the shared ACFF/ACDF destructor unit.

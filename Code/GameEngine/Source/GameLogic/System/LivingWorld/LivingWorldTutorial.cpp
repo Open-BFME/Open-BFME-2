@@ -136,12 +136,12 @@ char storage14[8];
 }
 ;
 
-class Rva0056AF4B:public Rva0056AC26
+class Rva0056ACDF:public Rva0056AC26
 {
 
 public:
 virtual bool ac26Slot1();
-Rva0056AF4B(void *,int,int);
+Rva0056ACDF(void *,int,int);
 
 private:
 char storage14[8];
@@ -367,7 +367,7 @@ void LivingWorldTutorial::SessionTask::create()
 			if(m_params.size()!=1)break;
 			void *battle=getBattleParam(0);
 			if(!battle)break;
-			task=new Rva0056AF4B(m_owner,(int)battle,2);
+			task=new Rva0056ACDF(m_owner,(int)battle,2);
 			break;
 		}
 		case 9:{
