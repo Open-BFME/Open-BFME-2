@@ -28,11 +28,7 @@ public:
 	virtual bool check(Arg54 *a);
 };
 
-class Rva002B280C
-{
-public:
-	bool rva002B280C(Arg54 *army);
-};
+#include "../../Include/Common/Rva002B280C.h"
 
 bool Rva002B280C::rva002B280C(Arg54 *army)
 {

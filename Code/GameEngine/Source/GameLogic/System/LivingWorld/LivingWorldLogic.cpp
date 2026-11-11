@@ -1520,11 +1520,7 @@ Bool LivingWorldLogic::rva002B27B5(LivingWorldArmy *army, Rva00318C32Ret *target
 // The rowed army check 0x002B280C (address-named) and the army's unnamed
 // handler 0x00319831 (pinned) that 0x002B2834 forwards to.
 struct Arg54;
-class Rva002B280C
-{
-public:
-	bool rva002B280C(Arg54 *army);				// 0x002B280C
-};
+#include "../../../../Include/Common/Rva002B280C.h"
 // The army's 0x00319831, rowed under Rva003195C9Owner (Rva00319831Copy.cpp).
 class Rva003195C9Owner {public:void rva00319E7C();void rva00319831(void*);};
 

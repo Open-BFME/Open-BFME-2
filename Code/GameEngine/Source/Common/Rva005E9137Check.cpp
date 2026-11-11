@@ -14,11 +14,7 @@ public:
 	char m_pad[0x20];
 	int m_20;
 };
-class Rva002B280C
-{
-public:
-	bool rva002B280C(struct Arg54 *a);
-};
+#include "../../Include/Common/Rva002B280C.h"
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *target)
 {

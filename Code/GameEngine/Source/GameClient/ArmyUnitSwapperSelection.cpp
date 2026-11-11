@@ -32,7 +32,7 @@ struct Rva005F56B0Selection {char prefix[0x10]; SelectedMemberSet members;};
 #include "../../Include/Common/Rva0040CB3AIndexedField.h"
 struct LivingWorldArmy {char prefix[0x20]; int id; char pad24[0x78-0x24]; Rva0040CB3AIndexedField *summary;};
 struct Arg54;
-class Rva002B280C {public: bool rva002B280C(Arg54*);};
+#include "../../Include/Common/Rva002B280C.h"
 struct Rva002B488EResult;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 #include "../../Include/GameClient/Rva002B6C9F.h"
