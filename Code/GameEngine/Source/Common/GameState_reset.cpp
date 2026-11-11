@@ -28,11 +28,7 @@ struct Rva002DEE9A0E10
 };
 
 // 0x002DE311 is rowed as Rva002DE311Owner::rva002DE311 (SaveGameInfoCopyBFME2.cpp).
-class Rva002DE311Owner
-{
-public:
-	void rva002DE311();
-};
+#include "../../Include/Common/Rva002DE311Owner.h"
 
 class GameState
 {

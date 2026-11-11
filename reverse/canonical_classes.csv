@@ -1341,3 +1341,4 @@ Rva005D3A91,Code/GameEngine/Include/Common/Rva005D3A91.h,existing header; contra
 BfmeRangedWeaponTemplate,Code/GameEngine/Include/Common/BfmeRangedWeaponTemplate.h,existing header; contract class_contracts/BfmeRangedWeaponTemplate.json; 4/5 sampled units adopt
 Rva003B24C7,Code/GameEngine/Include/GameLogic/Rva003B24C7.h,existing header; contract class_contracts/Rva003B24C7.json; 3/4 sampled units adopt
 Rva002268B0,Code/GameEngine/Include/Common/Rva002268B0.h,existing header; contract class_contracts/Rva002268B0.json; 3/5 sampled units adopt
+Rva002DE311Owner,Code/GameEngine/Include/Common/Rva002DE311Owner.h,existing header; contract class_contracts/Rva002DE311Owner.json; 3/4 sampled units adopt

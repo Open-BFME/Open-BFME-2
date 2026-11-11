@@ -60,11 +60,7 @@ private:
 	char m_pad[0xDE8 - 4];
 };
 
-class Rva002DE311Owner
-{
-public:
-	void rva002DE311();
-};
+#include "../../../../Include/Common/Rva002DE311Owner.h"
 
 class GameState : public SubsystemInterface, public Snapshot
 {

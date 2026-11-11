@@ -171,11 +171,7 @@ extern const char *SAVE_FILE_EOF;
 
 // clearAvailableGames 0x002DE311 keeps the address spelling it is pinned
 // under (Rva002DEE9AClear.cpp, GameStateDtor.cpp).
-class Rva002DE311Owner
-{
-public:
-	void rva002DE311();
-};
+#include "../../../../Include/Common/Rva002DE311Owner.h"
 
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
