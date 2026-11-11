@@ -37,11 +37,7 @@ class Dict;
 class ChunkInputStream;
 #include "../../../../GameEngine/Include/Common/DataChunk.h"
 
-class Q1Forwardee0000871A
-{
-public:
-	void handle(Int token);
-};
+#include "../../../../GameEngine/Include/GameLogic/Q1Forwardee0000871A.h"
 
 class BfmeParserBindingBaseVE
 {
