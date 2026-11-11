@@ -200,11 +200,7 @@ static inline bool Rva00513497IsEmpty(const UnicodeString &unicodeString)
 	return data == 0 || *(const unsigned short *)(data + 4) == 0;
 }
 
-class Rva00513497
-{
-public:
-	void rva00513497(int playerSlot, UnicodeString playerName);
-};
+#include "../../Include/Common/Rva00513497.h"
 
 void Rva00513497::rva00513497(int playerSlot, UnicodeString playerName)
 {

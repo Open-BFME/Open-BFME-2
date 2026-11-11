@@ -106,11 +106,7 @@ static inline bool Rva00513497IsEmpty(const UnicodeString &unicodeString)
 	return data == 0 || *(const unsigned short *)(data + 4) == 0;
 }
 
-class Rva00513497
-{
-public:
-	void rva00513497(int slot, UnicodeString name);
-};
+#include "../../Include/Common/Rva00513497.h"
 
 
 // ?rva0057F538@Rva0057F538@@QAEXVUnicodeString@@@Z @0x0057F538 181B: the clan

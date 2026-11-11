@@ -765,11 +765,7 @@ public:
 
 // The screen's per-slot name setter, the donor's DisconnectMenu::setPlayerName,
 // is rowed at 0x00513497 under a placeholder class.
-class Rva00513497
-{
-public:
-	void rva00513497(Int slot, UnicodeString name);
-};
+#include "../../Include/Common/Rva00513497.h"
 
 // BFME's GameSlot keeps the donor's m_disconnected at +0x48, not Zero Hour's
 // +0x3c: the isHuman-then-flag predicate 0x004FD9CF (the donor's
