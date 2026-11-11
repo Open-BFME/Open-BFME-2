@@ -177,6 +177,7 @@ class Rva005F566A
 public:
 	Rva005F566A(Rva0057C394 *a, void *b, void *c, void *d, void *e, void *f);
 	virtual ~Rva005F566A();
+	virtual void rva005E586B() = 0;
 private:
 	unsigned char m_pad04[4];
 };

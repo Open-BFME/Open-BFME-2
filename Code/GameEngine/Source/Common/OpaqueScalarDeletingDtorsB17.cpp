@@ -217,6 +217,7 @@ public:
 	Rva005F566A(EmitVtableTag *);
 public:
 	virtual ~Rva005F566A();
+	virtual void rva005E586B() = 0;
 };
 
 // ?<Rva005F566A::Rva005F566A> absent-from-retail

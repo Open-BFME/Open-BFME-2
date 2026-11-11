@@ -2487,3 +2487,12 @@ retail calls 0x000B69A1. This shared identity is still open. Verification:
 8/8 code rows, link preview 277/277 bytes at census 60189f9ced. The three
 CastleMemberBehavior tables belong to the behavior object itself and remain
 open. Real-link selection and runtime behavior await a new image.
+
+Army unit swapper dialog, RVA 0x0087953C. Both the B17 object and the
+real Rva005F566ADtor object now emit an eight-byte table with the deleting
+destructor followed by __purecall (0x0003B810). The derived constructor
+0x005E626D installs 0x00877DE8, where slot 1 is the existing no-argument
+override 0x005E586B. StrategicInGameUI.obj retains that override and the
+next method at 0x005E57A2. All three units pass byte verification and the
+link preview retains 3,037 bytes against census 60189f9ced. Await the real
+link before retiring the bridge.

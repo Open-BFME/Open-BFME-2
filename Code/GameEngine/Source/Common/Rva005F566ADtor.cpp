@@ -29,6 +29,8 @@ public:
     Rva005F566A(Rva0057C394 *provider, void *firstA, void *firstB,
         void *secondA, void *secondB, void *callback);
     virtual ~Rva005F566A();
+    // Slot 1 is pure at C7953C; the derived C77DE8 table supplies 5E586B.
+    virtual void rva005E586B() = 0;
     Rva005F55FA m_holder;
 };
 
