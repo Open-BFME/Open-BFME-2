@@ -467,11 +467,7 @@ public:
 	void call(void *value);
 };
 
-class Rva006E15C0
-{
-public:
-	void call(void *context, void *zero, int flags);
-};
+#include "Rva006E15C0.h"
 
 void __cdecl rva006F7330(AptRenderingContext *context, AptCIH *item, int flags)
 {

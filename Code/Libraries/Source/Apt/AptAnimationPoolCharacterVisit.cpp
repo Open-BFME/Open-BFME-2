@@ -11,7 +11,7 @@ class BfmeA1209 {public:void bfmeOp1209(const BfmeS1209*);};
 #include "BfmeThingDXH.h"
 #include "BfmeAptValue006DCD20.h"
 #include "Rva006E1260.h"
-class Rva006E15C0 {public:void call(void*,void*,int);};
+#include "Rva006E15C0.h"
 #include "AptCIHClass.h"
 void rva006F7330(void *argument1,void *argument2,int argument3)
 {

@@ -146,11 +146,7 @@ class Rva006E1260
 public:
     void call(void *);
 };
-class Rva006E15C0
-{
-public:
-    void call(void *, void *, int);
-};
+#include "Rva006E15C0.h"
 struct BfmeTransform1236
 {
     float m[16];
