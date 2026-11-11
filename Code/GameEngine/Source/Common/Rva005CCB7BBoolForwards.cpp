@@ -17,11 +17,7 @@ public:
 	void rva000B3FD0Empty();
 };
 
-class Rva005CCB7B
-{
-public:
-	void rva005CCB7B(bool b);
-};
+#include "../../Include/Common/Rva005CCB7B.h"
 
 struct Rva005D1AE9Mid
 {

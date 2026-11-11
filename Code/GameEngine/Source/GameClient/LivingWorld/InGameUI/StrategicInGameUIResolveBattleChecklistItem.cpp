@@ -23,7 +23,7 @@ struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva005A0B4CList.h"
 class Rva005CCE13 {public:void rva005CCE13(const UnicodeString&);};
 class Rva005CCB73 {public:void rva005CCB73(void*);};
-class Rva005CCB7B {public:void rva005CCB7B(bool);};
+#include "../../../../Include/Common/Rva005CCB7B.h"
 #include "../../../../Include/Common/Rva005CCB83.h"
 class Rva005CCB90 {public:void rva005CCB90(const void*);};
 class Vector3;

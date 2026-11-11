@@ -13,11 +13,7 @@ struct Rva005CD242Inner
 	virtual bool f1();
 };
 
-class Rva005CCB7B
-{
-public:
-	void rva005CCB7B(bool v);
-};
+#include "../../Include/Common/Rva005CCB7B.h"
 
 class Rva005CD242
 {

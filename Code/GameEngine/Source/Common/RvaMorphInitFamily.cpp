@@ -30,7 +30,7 @@ private:
 };
 
 class Rva005CCB73 { public: void rva005CCB73(void *arg); };				// 0x005CCB73
-class Rva005CCB7B { public: void rva005CCB7B(bool flag); };				// 0x005CCB7B
+#include "../../Include/Common/Rva005CCB7B.h"
 class Rva005CCE13 { public: void rva005CCE13(const UnicodeString &text); };	// 0x005CCE13
 
 // ??0Rva005CDMorphBase@@QAE@HHHHH@Z, retail 0x005CD1D3, 111 bytes (RET 0x14):

@@ -208,11 +208,7 @@ public:
 	unsigned char get() const;
 };
 #include "../../Include/Common/Rva005CCB5B.h"
-class Rva005CCB7B
-{
-public:
-	void rva005CCB7B(bool value);
-};
+#include "../../Include/Common/Rva005CCB7B.h"
 
 // Target evidence: this is slot 13 of the table at 0x00C6E5C4, whose slot 10
 // contains the rowed deleting dtor at 0x005753E9. The existing 0x005CCB5B,
