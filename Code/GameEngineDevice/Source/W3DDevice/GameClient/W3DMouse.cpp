@@ -515,11 +515,7 @@ public:
 	virtual void onExit(StateExitType a);
 };
 namespace StrategicHUD {
-class SelectionDetailsUIImpl
-{
-public:
-	void rva0057BA90();
-};
+#include "../../../../GameEngine/Include/Common/SelectionDetailsUIImpl.h"
 }
 #include "../../../../GameEngine/Include/Common/Rva005E717ENamed.h"
 #include "../../../../GameEngine/Include/Common/Rva005CC5DFNamed.h"

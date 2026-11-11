@@ -275,11 +275,7 @@ public:
 };
 
 namespace StrategicHUD {
-class SelectionDetailsUIImpl
-{
-public:
-	void rva0057BA90();
-};
+#include "../../Include/Common/SelectionDetailsUIImpl.h"
 }
 
 #include "../../Include/Common/Rva005E717ENamed.h"
