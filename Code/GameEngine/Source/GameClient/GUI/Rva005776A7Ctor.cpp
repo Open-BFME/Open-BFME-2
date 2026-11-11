@@ -39,11 +39,7 @@ private:
 
 #include "../../../Include/Common/Rva00328A83PtrChaseField.h"
 
-class Rva00574A98
-{
-public:
-	void *rva00574A98();
-};
+#include "../../../Include/GameClient/Rva00574A98.h"
 
 struct Rva005772BFTarget;
 

@@ -48,7 +48,7 @@ struct Inner00576C4B
 };
 #include "../../Include/Common/Rva000AD6F4.h"
 class Rva005CD1A9;
-class Rva00574A98 { public: void *rva00574A98(); };
+#include "../../Include/GameClient/Rva00574A98.h"
 class Rva005CD7BD { public: Rva005CD7BD(void *,int,int); private: int native[4]; };
 
 class Rva005CD7DA
