@@ -44,11 +44,7 @@ AsciiString getNameOfRequestType(int type)
 	}
 }
 
-class Rva0073F4F3
-{
-public:
-	~Rva0073F4F3();
-};
+#include "../../Include/W3DDevice/GameClient/Rva0073F4F3.h"
 
 class Rva000A87DC
 {

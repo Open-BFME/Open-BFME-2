@@ -105,11 +105,7 @@ double __cdecl Rva0009DBF4Log10(float value)
 
 // --- 0x000A87E1 (18B): a constructor that only runs the rowed
 // ??0Rva0073F4F3@@QAE@PAX@Z (0x0073F468) on itself with its argument.
-class Rva0073F4F3
-{
-public:
-	Rva0073F4F3(void *source);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0073F4F3.h"
 
 class Rva000A87E1 : public Rva0073F4F3
 {

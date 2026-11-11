@@ -261,11 +261,7 @@ public:
 
 // --- 0x000A87E1 (18B): a constructor that only runs the rowed
 // ??0Rva0073F4F3@@QAE@PAX@Z (0x0073F468) on itself with its argument.
-class Rva0073F4F3
-{
-public:
-	Rva0073F4F3(void *source);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0073F4F3.h"
 
 // --- 0x000E0197 (12B): XOR of the two dwords of the record it is given
 // (the receiver is not read).
