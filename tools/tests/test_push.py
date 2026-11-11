@@ -367,3 +367,44 @@ def test_expect_base_refuses_a_head_not_built_on_it(seat, capsys):
     err = capsys.readouterr().err
     assert code == 1 and "not built on the verified base" in err
     assert git(origin, "rev-parse", "master") == master
+
+
+def test_previous_hands_the_drivers_earlier_attempt_to_the_hook(seat, capsys):
+    # C12: a driver that replays its batch itself pushes with --expect-base, so
+    # push.py's own rebase moves nothing and no hint reached the hook
+    path, other, origin, state = seat
+    base = git(path, "rev-parse", "HEAD")
+    earlier = work(path, "the earlier attempt")
+    git(path, "reset", "-q", "--hard", base)
+    work(path)
+    code = push.main(["--tries", "1", "--expect-base", base, "--previous", earlier[:12], "--email", EMAIL])
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert (state / "hook-env").read_text().splitlines() == [f"previous={earlier}"]     # the full SHA
+    assert f"receipt hint from the earlier attempt {earlier[:10]}" in out
+
+
+def test_previous_is_the_first_attempts_hint_and_a_retry_carries_its_own(seat, capsys):
+    path, other, origin, state = seat
+    earlier = work(path, "the earlier attempt")
+    git(path, "reset", "-q", "--hard", "HEAD~1")
+    work(path)
+    (other / "early.txt").write_text("early\n")
+    git(other, "add", "early.txt")
+    git(other, "commit", "-qm", "other seat early")
+    git(other, "push", "-q", "origin", "HEAD:master")                # push.py's rebase moves HEAD too
+    (state / "race").write_text("1")
+    code, out = run(capsys, previous=earlier)
+    assert code == 0, out
+    env = (state / "hook-env").read_text().splitlines()
+    assert env[0] == f"previous={earlier}"                            # the driver's, over the pre-rebase tip
+    assert env[1] != env[0] and env[1] != "previous="                 # the lost attempt's own tip
+
+
+def test_previous_must_name_a_commit(seat, capsys):
+    path, other, origin, state = seat
+    work(path)
+    code = push.main(["--tries", "1", "--previous", "0" * 40, "--email", EMAIL])
+    err = capsys.readouterr().err
+    assert code == 1 and "--previous" in err and "is not a commit here" in err
+    assert not (state / "hook-count").exists()

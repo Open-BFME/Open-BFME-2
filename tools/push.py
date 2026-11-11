@@ -18,7 +18,8 @@ WHAT each attempt does:
   4. git push origin HEAD:master through .githooks/ (never --no-verify). The
      pre-push hook does every check, takes or waits for the landing window
      (lease:landing, tools/push_lease.py) and carries receipts; this passes it
-     the tip before the rebase (BFME_PUSH_PREVIOUS), so a retry re-verifies
+     the tip before the rebase, or on a first attempt a driver's --previous
+     (BFME_PUSH_PREVIOUS), so a retry re-verifies
      only what master's new commits can affect;
   5. a lost race (cannot lock ref, fetch first, non-fast-forward, moved past
      this push's base) goes straight back to 1; GitHub failing the ref update
@@ -28,7 +29,8 @@ Same-account spacing: a successful push writes the shared clock file
 until $BFME_PUSH_SPACING_S (default 300) have passed since the last one (the
 race an attempt lost may be another seat of the same account landing).
 
-  python3 tools/push.py [--tries 20] [--email ADDRESS] [--dry-run] [--expect-base SHA]
+  python3 tools/push.py [--tries 20] [--email ADDRESS] [--dry-run] [--expect-base SHA] [--previous SHA]
+                        [--after-lost-race]
 Prints one line per attempt with its time; exit 0 when it landed.
 
 --expect-base SHA is for a driver that verified its commits on top of SHA and must publish exactly
@@ -37,6 +39,12 @@ built on it, and a race lost during the hook is not retried (a retry would need 
 the driver to verify again on the new master. A GitHub server error is still retried, since nothing moved.
 SHA is resolved with git rev-parse, so a symbolic revision (origin/master, a branch) is accepted too and
 then means whatever it names at the time of the fetch: pass the immutable full SHA the driver verified on.
+
+--previous SHA is for a driver that rebases or replays its batch itself between attempts (so push.py's own rebase
+moves nothing): name the commit this branch's earlier attempt pushed, and the first attempt passes it to the hook
+as BFME_PUSH_PREVIOUS, the receipt hint. Name only the same branch's earlier attempt. The hook still judges it:
+a hint with no valid push receipt here falls back to the receipts it finds itself, and what the change from that
+commit can affect is verified again either way, so a wrong hint costs verification, never a check.
 """
 import argparse
 import os
@@ -219,12 +227,23 @@ def push_once(previous, dry_run, lost_race=False):
     return proc.wait(), "".join(lines)
 
 
-def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False, expect_base=None):
+def resolve_previous(previous):
+    """The full SHA of a driver's --previous commit; Refused when it names none here."""
+    sha = git("rev-parse", "--verify", "-q", f"{previous}^{{commit}}", check=False).stdout.strip()
+    if not sha:
+        raise Refused(f"--previous {previous} is not a commit here")
+    return sha
+
+
+def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False, expect_base=None, previous=None):
     """`after_lost_race`: this run retries a push that lost the race to master
     (a driver that runs its own retries says so with --after-lost-race).
-    `expect_base`: publish HEAD only on top of that exact master, never rebasing (MasterMoved)."""
+    `expect_base`: publish HEAD only on top of that exact master, never rebasing (MasterMoved).
+    `previous`: the commit the driver's earlier attempt pushed, the first attempt's receipt hint."""
     name, email = push_identity(email)
-    previous = None
+    if previous:
+        previous = resolve_previous(previous)
+        say(f"push: receipt hint from the earlier attempt {previous[:10]} (--previous)")
     lost_race = after_lost_race
     for attempt in range(1, tries + 1):
         wait_for_spacing(say)
@@ -275,6 +294,9 @@ def main(argv=None):
                     help="this run retries a push that lost the race to master (a driver that runs its own "
                          "retries, e.g. --tries 1 in a loop, passes it on each retry; the hook's landing "
                          "window for a long retry keys on it)")
+    ap.add_argument("--previous", metavar="SHA",
+                    help="the commit this branch's earlier attempt pushed (a driver that rebases its batch itself "
+                         "names it): passed to the hook as the receipt hint BFME_PUSH_PREVIOUS")
     ap.add_argument("--expect-base", metavar="SHA",
                     help="publish HEAD only if origin/master is exactly SHA (the base the driver verified on); "
                          "never rebase; exit 3 when master moved. Pass the immutable full SHA: a symbolic "
@@ -282,7 +304,7 @@ def main(argv=None):
     args = ap.parse_args(argv)
     try:
         return land(args.tries, args.email, args.dry_run, after_lost_race=args.after_lost_race,
-                    expect_base=args.expect_base)
+                    expect_base=args.expect_base, previous=args.previous)
     except MasterMoved as why:
         print(f"push: {why}", file=sys.stderr)
         return 3
