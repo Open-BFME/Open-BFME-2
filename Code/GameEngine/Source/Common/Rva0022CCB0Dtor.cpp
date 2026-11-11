@@ -29,11 +29,7 @@ Rva0022CCB0::~Rva0022CCB0()
 {
 }
 
-class Rva002294A3
-{
-public:
-	~Rva002294A3();
-};
+#include "../../Include/Common/Rva002294A3.h"
 
 #include "../../Include/Common/Rva002294D0.h"
 
