@@ -61,11 +61,7 @@ struct AssetList00208F90
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
-class Rva0030812E
-{
-public:
-	void *getTextureName(int index);
-};
+#include "../../../../Include/Common/Rva0030812E.h"
 
 void bfmeMergeReceiverKeys(int value);
 

@@ -18,7 +18,7 @@
 #include <vector>
 class ModuleData;
 #include "string_base.h"
-class Rva0030812E { public: void *getTextureName(int index); };
+#include "../../../../../GameEngine/Include/Common/Rva0030812E.h"
 enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
 class W3DRadarFormatCaps { public: bool supportTextureFormat(WW3DFormat format); };
 class DX8Caps;

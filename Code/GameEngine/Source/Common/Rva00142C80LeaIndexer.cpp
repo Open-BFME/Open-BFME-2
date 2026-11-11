@@ -34,11 +34,7 @@ public:
 	Rva003080AARef *rva003080AA(int i);
 };
 
-class Rva0030812E
-{
-public:
-	void *getTextureName(int i);
-};
+#include "../../Include/Common/Rva0030812E.h"
 
 Rva003080AARef *Rva003080AA::rva003080AA(int i)
 {

@@ -220,7 +220,7 @@ struct Rva006C1650Interface
 // call is not inlined as it would be beside their definitions. Owners are
 // unknown; names are address-derived and no referencing site was found for
 // these in this pass.
-class Rva0030812E { public: void *getTextureName(int i); };
+#include "../../Include/Common/Rva0030812E.h"
 
 #include "../../Include/Common/Rva002C9400ByteField.h"
 

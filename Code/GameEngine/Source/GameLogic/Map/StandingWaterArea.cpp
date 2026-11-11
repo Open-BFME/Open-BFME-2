@@ -389,11 +389,7 @@ struct Rva003080AARef
 	int m_ref04;
 };
 
-class Rva0030812E
-{
-public:
-	void *getTextureName(int i);
-};
+#include "../../../Include/Common/Rva0030812E.h"
 
 class Rva00308139
 {
