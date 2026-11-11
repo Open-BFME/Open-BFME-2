@@ -22,11 +22,7 @@ enum ObjectStatusTypes
 
 // The rowed bool getter at 0x006BE160 (placeholder row name), called on the
 // Object's +0xA8 member.
-class BfmeThingTemplateShadowSelector
-{
-public:
-	bool usePluralShadowName() const;
-};
+#include "../../../Include/Common/BfmeThingTemplateShadowSelector.h"
 
 struct Rva002CB35CTemplate
 {

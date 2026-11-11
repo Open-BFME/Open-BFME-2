@@ -1145,3 +1145,4 @@ SlaveWatcherBehavior,Code/GameEngine/Include/GameLogic/Module/SlaveWatcherBehavi
 Rva00366500,Code/GameEngine/Include/GameLogic/Rva00366500.h,existing header; contract class_contracts/Rva00366500.json; 4/6 sampled units adopt
 Rva005F23B2,Code/GameEngine/Include/GameClient/Rva005F23B2.h,existing header; contract class_contracts/Rva005F23B2.json; 4/6 sampled units adopt
 Rva0050B5F1,Code/GameEngine/Include/GameClient/Rva0050B5F1.h,existing header; contract class_contracts/Rva0050B5F1.json; 5/5 sampled units adopt
+BfmeThingTemplateShadowSelector,Code/GameEngine/Include/Common/BfmeThingTemplateShadowSelector.h,existing header; contract class_contracts/BfmeThingTemplateShadowSelector.json; 4/6 sampled units adopt

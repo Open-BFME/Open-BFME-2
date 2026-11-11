@@ -208,11 +208,7 @@ enum GeometryType
 	GEOMETRY_BOX
 };
 // Whether the geometry is a single box (0x006BE160).
-class BfmeThingTemplateShadowSelector
-{
-public:
-	Bool usePluralShadowName() const;
-};
+#include "../../../Include/Common/BfmeThingTemplateShadowSelector.h"
 class GeometryInfo
 {
 public:

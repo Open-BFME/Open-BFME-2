@@ -7,9 +7,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include "vector3.h"
 #include "Lib/Coord2D.h"
 #include "../../../../Include/Common/Geometry.h"
-class BfmeThingTemplateShadowSelector {
-public: bool usePluralShadowName() const;
-};
+#include "../../../../Include/Common/BfmeThingTemplateShadowSelector.h"
 bool Point_In_Triangle_2D(const Vector3&,const Vector3&,const Vector3&,const Vector3&,int,int,unsigned char&);
 static __forceinline float gridCoordinate(int value) { return (float)value*10.0f; }
 class Rva004DC1BF {

@@ -182,11 +182,7 @@ void setAnimationLoopDuration(UnsignedInt numFrames);
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../Include/Common/Geometry.h"
-class BfmeThingTemplateShadowSelector
-{
-public:
-	Bool usePluralShadowName() const;
-};
+#include "../../../Include/Common/BfmeThingTemplateShadowSelector.h"
 class ModuleData;
 class ThingTemplate
 {
