@@ -14,11 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "ascii_string.h"
 
-class Rva00210390
-{
-public:
-	void *rva00210390(const AsciiString *key);
-};
+#include "Rva00210390.h"
 
 enum ScienceType
 {

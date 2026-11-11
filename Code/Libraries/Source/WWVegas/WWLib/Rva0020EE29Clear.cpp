@@ -305,11 +305,7 @@ struct Rva00210390Node
 	void *m_payload;
 };
 
-class Rva00210390
-{
-public:
-	void *rva00210390(const AsciiString *key);
-};
+#include "Rva00210390.h"
 
 #include "../../../../GameEngine/Include/GameClient/Rva00056F61.h"
 

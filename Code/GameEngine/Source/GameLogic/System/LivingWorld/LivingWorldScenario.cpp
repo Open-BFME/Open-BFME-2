@@ -46,7 +46,7 @@ public:
 // This local ABI tag makes no claim about the original enum spelling.
 enum Rva004FD8B8RegionID { RVA004FD8B8_REGION_ZERO = 0 };
 class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
-class Rva00210390 { public: void *rva00210390(const AsciiString *name); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva00210390.h"
 class Rva004FD6F9 { public: bool rva004FD6F9(const StringBase<char> &name); };
 #include "../../../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::TeamVictoryCondition {

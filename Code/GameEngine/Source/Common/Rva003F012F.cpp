@@ -3,11 +3,7 @@
 // Evidence: callees rowed rva00210390 0x00210390; callers 0x003F08F1 plus thunk 0x003F0DC6; unblocks 0x003F08EE; offsets +0x60 start +0x64 finish +0x130 holder +4 str +8 result.
 #include "ascii_string.h"
 
-class Rva00210390
-{
-public:
-	void *rva00210390(const AsciiString *s);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva00210390.h"
 
 struct Entry003F012F
 {
