@@ -1,0 +1,275 @@
+{
+ "bases": [
+  "GameMessageTranslator"
+ ],
+ "bases_by": "zh",
+ "class": "CommandTranslator",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 2,
+   "inherited_spans": [
+    [
+     0,
+     4
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x83c6ac"
+      },
+      "dtor": {
+       "0x0": "0x7dba74"
+      }
+     },
+     "dtor": "0x429191",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x30": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4296c2"
+     ],
+     "value": 45
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4296c2"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       1
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       1
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4296c2"
+     ],
+     "value": {
+      "0x0": "0x83c6ac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83c6ac"
+     ],
+     "value": {
+      "count": 2,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?translateGameMessage@CommandTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z",
+        "slot": 0,
+        "target": "0x42b0de"
+       },
+       {
+        "name": "??_GRva0042CBB6@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x4296ee"
+       }
+      ],
+      "table": "0x83c6ac"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 14,
+  "retail_vtables": {
+   "0x83c6ac": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?translateGameMessage@CommandTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z",
+     "1": "??_GRva0042CBB6@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "9": 1,
+   "48": 2
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/CommandXlat.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x83c6ac"
+    },
+    "dtor": {
+     "0x0": "0x7dba74"
+    }
+   },
+   "class": "CommandTranslator",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": "decided by majority",
+    "45": "retail constructor writes",
+    "48": "retail allocates"
+   },
+   "class": "CommandTranslator",
+   "why": "the decided size is below both the bytes retail's constructor writes and an allocation retail makes"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

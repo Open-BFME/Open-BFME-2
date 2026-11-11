@@ -43,7 +43,7 @@ struct InGameRet
 	Object *m_obj;
 };
 
-class CommandTranslator { public: const CommandButton* rva0042970A(int); };
+#include "../../../../Include/GameClient/CommandTranslator.h"
 const CommandButton *CommandTranslator::rva0042970A(int id)
 {
 	int i;

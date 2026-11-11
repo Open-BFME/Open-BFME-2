@@ -109,11 +109,7 @@ enum CommandEvaluateType
 	EVALUATE_ONLY = 2
 };
 
-class CommandTranslator
-{
-private:
-	int issueFireWeaponCommand(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos);
-};
+#include "../../Include/GameClient/CommandTranslator.h"
 
 int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos)
 {

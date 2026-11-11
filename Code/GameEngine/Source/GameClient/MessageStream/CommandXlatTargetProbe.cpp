@@ -39,7 +39,7 @@ extern ControlBar*TheControlBar;
 // Native82B3EA pushes msg then MOV ECX,EDI (CommandTranslator receiver);
 // WB E7CBE0 case18 confirms receiver. Body never reads this, so old stdcall
 // owner reproduced bytes while removing the caller receiver load.
-class CommandTranslator {public:void rva0042AF97(GameMessage*);};
+#include "../../../Include/GameClient/CommandTranslator.h"
 void CommandTranslator::rva0042AF97(GameMessage*msg){
  if(TheInGameUI->field8B8)return;
  const IRegion2D&region2D=msg->getArgument(0)->pixelRegion;
