@@ -43,11 +43,7 @@ public:
 	void rva001F43BD(void *);
 };
 
-class Rva001F5CF7
-{
-public:
-	void rva001F5CF7();
-};
+#include "../../Include/Common/Rva001F5CF7.h"
 
 #include "../../Include/Common/Rva001F5D4F.h"
 

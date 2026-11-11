@@ -11,11 +11,7 @@ public:
 	virtual void tick();
 };
 
-class Rva001F5CF7
-{
-public:
-	void rva001F5CF7();
-};
+#include "../../../Include/Common/Rva001F5CF7.h"
 
 class Rva001F8DA9
 {

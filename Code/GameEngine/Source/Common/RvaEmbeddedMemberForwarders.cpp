@@ -15,11 +15,7 @@
 //   0x002BFC4E +0xAC -> Rva002BF75A::rva002BF7BE
 // Forwarder classes are address-named; original names are unknown.
 
-class Rva001F5CF7
-{
-public:
-	void rva001F5CF7();
-};
+#include "../../Include/Common/Rva001F5CF7.h"
 
 class Rva001F8203
 {
