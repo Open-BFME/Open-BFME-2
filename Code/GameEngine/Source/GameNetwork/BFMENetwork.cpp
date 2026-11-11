@@ -192,11 +192,7 @@ public:
 	BFMENetworkQueueItem(const BFMENetworkQueueItem &that);
 };
 
-class BFMENetworkQueueItem1
-{
-public:
-	BFMENetworkQueueItem1(const BFMENetworkQueueItem1 &that);
-};
+#include "../../Include/GameNetwork/BFMENetworkQueueItem1.h"
 
 class BFMENetworkListPayload
 {
