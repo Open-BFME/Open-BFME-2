@@ -6,12 +6,7 @@
 // callee row ?rva005FBB70@Rva005FBB68@@QAEXM@Z, data kF7C at VA 0xBC292C, callers at 0x005EA7B7/0x005EA79D.
 extern "C" float kF7C;
 
-class Rva005FBB68
-{
-public:
-	void rva005FBB68(int v);
-	void rva005FBB70(float v);
-};
+#include "../../../../GameEngine/Include/GameClient/Rva005FBB68.h"
 
 struct Rva005EA33DElem
 {

@@ -54,7 +54,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 #include "../../../../Include/Common/Rva0007DF07.h"
 class Rva005FBBEE {public:Rva005FBBEE(unsigned,const AsciiString&);virtual ~Rva005FBBEE();private:void *impl;};
 class Rva005FBBFC {public:void setPlayerName(const UnicodeString&);};
-class Rva005FBB68 {public:void setPlayerColor(int);void rva005FBB55(float);};
+#include "../../../../Include/GameClient/Rva005FBB68.h"
 class Image;
 #include "../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;

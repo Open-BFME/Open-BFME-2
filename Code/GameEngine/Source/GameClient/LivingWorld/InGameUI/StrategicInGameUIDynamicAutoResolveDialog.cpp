@@ -206,13 +206,7 @@ struct Rva005EAEAFUnit
 };
 
 // The panel slot's rowed 0x005FBB83 (percent) and 0x005FBB68 setters.
-class Rva005FBB68
-{
-public:
-	void rva005FBB68(int value);
-	void rva005FBB55(Real percent);
-	void rva005FBB83(Real percent);
-};
+#include "../../../../Include/GameClient/Rva005FBB68.h"
 
 class Rva005FB84E
 {
