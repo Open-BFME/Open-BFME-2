@@ -2544,3 +2544,12 @@ LivingWorldTutorial.obj now has a REL32 call to the ACFF constructor that
 Rva0056AF94Ctor.obj defines. The three changed units verify 19/19 code
 rows and both data rows. The scoped link preview retains 1,438 bytes at
 census 60189f9ced. Both hand-written tables remain pending replacement.
+
+ACFF native constructor trial after the class fold: 31/31 bytes match
+with compiler-generated 20-byte and 60-byte tables. Five primary and
+thirteen secondary relocations resolve to the retail targets. The secondary
+overrides at offsets 4 and 16 lack providers under their typed names. The
+slot 4 to-class dry run rejects the old two-slot destructor table even
+with the complete constructor table present. See the reproduction in
+`reverse/attempt_support/registry-acff-slot-contract.md`. The production
+tables remain in place.

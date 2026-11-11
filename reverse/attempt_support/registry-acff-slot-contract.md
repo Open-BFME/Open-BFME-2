@@ -54,3 +54,34 @@ default implementation. Reconcile the base contract and the default row
 together with the two overrides before adopting it in the derived unit.
 The region getter currently returns void * in its recovered declaration;
 these paths establish the roles and order, but not an original class name.
+
+### Constructor emission after the class fold (d4ba4ff014)
+
+The recovered constructor now has the same owner as the destructor. A trial
+derived Rva0056ACFF from the canonical Rva0056AC26 and used the base
+initializer Rva0056AC26(static_cast<Rva0056AC26Owner *>(owner)).
+Leaving a manual secondary vptr store in the body produced 38 bytes: MSVC
+wrote its own secondary pointer first, then the manual pointer at the same
+offset. Keeping just that hand table is insufficient.
+
+In a scratch copy of Rva0056AC26Base2.h, give slot1 the parameter
+Rva002B4BC9Arg * and slot4 the parameters LivingWorldArmy *, Rva00318C32Ret *.
+Retain both bool return types. In the constructor TU, remove both arrays.
+Declare the destructor, ac26Slot1() and both typed overrides in Rva0056ACFF.
+Leave the constructor body empty after the base initializer. The official
+symbol build verifies all 31 bytes. COFF relocation offsets are 8 (base
+constructor), 14 (primary table for Rva0007DF07), and 21 (secondary table
+for Rva0056AC26Base2).
+
+Comparing each DIR32 target against the retail PE and exact symbol keys in
+functions.csv or symbols.csv gives 5/5 primary and 13/15 secondary matches.
+The missing keys are ?slot1@Rva0056ACFF@@UAE_NPAURva002B4BC9Arg@@@Z at
+secondary +4 (retail RVA 0x0056ABCB) and
+?slot4@Rva0056ACFF@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z at
++16 (0x0056ABD6). Both targets have existing bodies under other names.
+The pointer-preserving to-class dry run for slot4, with the new constructor
+object present, still refuses the destructor object's ACFF_B1 table because
+it lacks slot 4. The constructor alone cannot authorize this move. Reconcile
+both installers and the shared base before migrating the providers and the
+two data rows. Restored production sources verify 20/20 code and 2/2 data
+rows in the constructor, derived destructor and slot4 body units.
