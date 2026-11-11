@@ -102,8 +102,8 @@ void Rva0023DAF7::rva0023DAF7(Real a, Int b)
 }
 
 // 0x005FEEC7 and 0x005FEEE6 (adjacent slots of table VA 0x00C7A454): each
-// first runs the shared empty base slot 0x0047A69C (pinned there as
-// Gen_003bcb40::m) with its index, then stores entry [index] of the +0x08
+// first calls the shared body at 0x0047A69C with this and the index,
+// then stores entry [index] of the +0x08
 // object's +0x18 table into its +0x24, resp. resets +0x24 to 7 when it
 // holds that entry.
 // Retail's 0x0047A69C is the shared `ret 4`, rowed under this placeholder among others. An empty
@@ -134,12 +134,12 @@ private:
 };
 void Rva005FEEC7::rva005FEEC7(Int index)
 {
-	m(index);
+	reinterpret_cast<Rva0059BB50 *>(this)->rva0047A69C(index);
 	m_08->m_24 = m_08->m_18[index];
 }
 void Rva005FEEC7::rva005FEEE6(Int index)
 {
-	m(index);
+	reinterpret_cast<Rva0059BB50 *>(this)->rva0047A69C(index);
 	if (m_08->m_24 == m_08->m_18[index])
 		m_08->m_24 = 7;
 }

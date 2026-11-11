@@ -6,3 +6,9 @@ VslotSmallBodiesAG_Rva00131CF2.cpp (10 matched functions, 264 bytes) does not li
 3. `?m@Gen_003bcb40@@QAEXH@Z` & `?buildFieldParse@Rva005C4352Base@@QAEXAAVMultiIniFieldParse@@@Z` (0x0047A69C): alias pins for the shared 3-byte `ret 4` empty base function (owned by `EmissionInfoCopyCtors.cpp` and `GameEngineInitFolded.cpp`).
 4. `?g_rva005C4352FieldParse@@3QBUFieldParse@@B`, `?g_rva005C4553FieldParse@@3QBUFieldParse@@B`, `?g_rva005C47A8FieldParse@@3QBUFieldParse@@B`: data tables at 0x00874540, 0x00874630, 0x00874704 in `.rdata` which are unowned in `reverse/data_ledger.csv`.
 Recorded `blocked` in `reverse/re_attempts.log`.
+
+## 2026-11-11: direct calls to the folded index callback
+
+Real link 76f0baefa6 reported Gen_003bcb40::m(int) unresolved after e444adbb7b removed the forwarder. The two retail callers at 0x005FEEC7 and 0x005FEEE6 both pass this and the index to RVA 0x0047A69C. Bind their calls directly to the existing Rva0059BB50::rva0047A69C(int) provider. Sharing this folded address does not establish class identity.
+
+Both COFF call operands are REL32 at offset 10. Resolving them to the provider reproduces all 31 and 43 retail bytes. The defining object emits C2 04 00; the caller object no longer references Gen_003bcb40::m. Scoped build: 10/10 functions and three data rows. On index 60189f9ced link_check drops the unresolved name but still reports the same two pre-existing non-retail COMDAT selections (rva00130FCE and buildFieldParse), 0 linked bytes before and after. Await the next full link after publication.
