@@ -148,11 +148,7 @@ private:
 class ControlBarSchemeManager;
 class Image;
 
-class Rva0053B914
-{
-public:
-	void rva0053B914();
-};
+#include "../../../../Include/GameClient/Rva0053B914.h"
 
 class Rva0053ED1A
 {

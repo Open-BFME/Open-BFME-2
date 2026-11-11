@@ -160,7 +160,7 @@ class Image;
 #include "../../../../Include/Common/ThingTemplate.h"
 class Rva002A7DDEArg;
 #include "../../../../Include/Common/Rva002A7DDE.h"
-class Rva0053B914 { public: void rva0053B914(); };
+#include "../../../../Include/GameClient/Rva0053B914.h"
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
 class ConstructionResetDispatchView {
