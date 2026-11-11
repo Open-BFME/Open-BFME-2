@@ -47,7 +47,7 @@ Rva0036CA00Str Rva004CBE66::rva004CBE66(const Rva000CF0D6 *flags) const {
   if(reinterpret_cast<const Rva001DFE56 *>(flags)->rva001DFE56(&i->required,&i->exempt))return i->value;
  return Rva0036CA00Str();
 }
-class Rva004CBF9A { public:void clear(); };
+#include "../../../../Include/GameLogic/Module/Rva004CBF9A.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 class ClientModuleBase

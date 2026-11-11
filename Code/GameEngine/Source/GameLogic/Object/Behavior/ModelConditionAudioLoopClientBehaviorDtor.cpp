@@ -18,11 +18,7 @@
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-class Rva004CBF9A
-{
-public:
-	void clear();
-};
+#include "../../../../Include/GameLogic/Module/Rva004CBF9A.h"
 
 class Rva0049B47C
 {

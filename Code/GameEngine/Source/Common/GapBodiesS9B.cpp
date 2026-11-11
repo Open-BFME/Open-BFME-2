@@ -19,11 +19,7 @@ public:
 
 #include "../../Include/GameLogic/LivingWorldBattle.h"
 
-class Rva004CBF9A
-{
-public:
-	void clear();										// 0x004CBF9A
-};
+#include "../../Include/GameLogic/Module/Rva004CBF9A.h"
 
 class Rva003F59FE;
 class Rva0039851D;
