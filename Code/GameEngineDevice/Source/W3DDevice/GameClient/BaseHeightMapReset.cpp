@@ -28,7 +28,7 @@ public:
 	char data[272]; // +0x00
 };
 class W3DShrubBuffer { public: void rva000E7016(); };
-class Rva000EE198Owner { public: void rva000EE198(); };
+#include "../../../../GameEngine/Include/GameLogic/Rva000EE198Owner.h"
 class BaseHeightMapRenderObjClass;
 class WorldHeightMap;
 class W3DRoadBuffer

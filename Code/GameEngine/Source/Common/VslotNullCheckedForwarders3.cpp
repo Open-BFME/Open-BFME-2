@@ -211,11 +211,7 @@ void Rva005CEA04NullForwarder::rva005CEA04()
 		m_member->rva005E8F49();
 }
 
-class Rva000EE198Owner
-{
-public:
-	void rva000EE198();
-};
+#include "../../Include/GameLogic/Rva000EE198Owner.h"
 
 class Rva00068385NullForwarder
 {

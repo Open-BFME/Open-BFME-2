@@ -393,11 +393,7 @@ class Rva005E8F49Owner
 public:
 	void rva005E8F49();
 };
-class Rva000EE198Owner
-{
-public:
-	void rva000EE198();
-};
+#include "../../../Include/GameLogic/Rva000EE198Owner.h"
 class Rva000EDB47NullTarget
 {
 public:
