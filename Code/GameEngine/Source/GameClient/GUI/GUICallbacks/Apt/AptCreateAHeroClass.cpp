@@ -7,9 +7,7 @@
 #include "unicode_string.h"
 
 class CreateAHeroData;
-class Rva00219251 { public:
- CreateAHeroData *rva00219251(int,int,int,const UnicodeString &,int,int,int);
-};
+#include "../../../../../Include/Common/Rva00219251.h"
 #include "../../../../../Include/Common/CreateAHeroHero.h"
 class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };

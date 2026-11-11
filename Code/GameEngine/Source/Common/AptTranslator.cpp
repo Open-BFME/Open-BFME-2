@@ -173,11 +173,7 @@ private:
 class CreateAHeroData;
 class CreateAHeroManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
-class Rva00219251
-{
-public:
-	void rva0021929D(CreateAHeroData **data);				// 0x0021929D
-};
+#include "../../Include/Common/Rva00219251.h"
 // --- 0x0040B068 (104B): assignment of a word, two rowed 0x0021C21B vectors,
 // two 7-word blocks, two strings and a byte.
 // --- 0x0040B7E1 (83B): assignment of a word, a rowed 0x0021C21B vector,

@@ -23,11 +23,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 // 0x00409359 consumes the source record as CreateAHeroData's rowed assignment.
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva00219251
-{
-public:
-	CreateAHeroData *rva00219251(int a1, int a2, int a3, const UnicodeString &a4, int a5, int a6, int a7);
-};
+#include "../../Include/Common/Rva00219251.h"
 
 
 struct Rva00423A68

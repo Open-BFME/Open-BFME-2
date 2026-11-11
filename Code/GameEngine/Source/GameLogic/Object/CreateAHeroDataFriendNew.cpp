@@ -6,11 +6,7 @@
 
 #include "../../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva00219251
-{
-public:
-	CreateAHeroData *rva00219251(int, int, int, const UnicodeString &, int, int, int);
-};
+#include "../../../Include/Common/Rva00219251.h"
 
 CreateAHeroData *Rva00219251::rva00219251(int a1, int a2, int a3, const UnicodeString &unicodeString, int a5, int color, int a7)
 {

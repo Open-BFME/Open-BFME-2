@@ -13,11 +13,7 @@
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva00219251
-{
-public:
-	void rva0021929D(CreateAHeroData **data);
-};
+#include "../../Include/Common/Rva00219251.h"
 
 void Rva00219251::rva0021929D(CreateAHeroData **data)
 {

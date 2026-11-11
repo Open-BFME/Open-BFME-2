@@ -20,11 +20,7 @@ CreateAHeroData **__copy_ptrs(CreateAHeroData **__first, CreateAHeroData **__las
 { return (CreateAHeroData **)__copy_trivial(__first, __last, __result); }
 }
 
-class Rva00219251
-{
-public:
-	void rva0021929D(CreateAHeroData **data);
-};
+#include "../../Include/Common/Rva00219251.h"
 
 // 0x009FE344 under its data-ledger primary name (defined in CreateAHero.cpp).
 class CreateAHeroManager;

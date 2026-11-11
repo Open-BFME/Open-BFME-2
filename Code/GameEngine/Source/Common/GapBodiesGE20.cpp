@@ -172,11 +172,7 @@ class CreateAHeroData;
 class CreateAHeroManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 
-class Rva00219251
-{
-public:
-	void rva0021929D(CreateAHeroData **data);				// 0x0021929D
-};
+#include "../../Include/Common/Rva00219251.h"
 
 class Rva0040A15B
 {

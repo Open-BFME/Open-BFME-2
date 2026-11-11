@@ -99,7 +99,7 @@ class XferSave { public:XferSave();virtual ~XferSave(); unsigned char Open(Xfer*
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva00219251 {public:CreateAHeroData *rva00219251(int,int,int,const UnicodeString&,int,int,int);void rva0021929D(CreateAHeroData**);};
+#include "../../Include/Common/Rva00219251.h"
 
 // Read the existing global through its observed callback view at call sites.
 extern class CreateAHeroManager *TheCreateAHeroManager;
