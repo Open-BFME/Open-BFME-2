@@ -3,7 +3,7 @@
 // names removeClonedObject; retail proves depth signed17 bits at CIH+58,
 // query outputs and removeObject call. No full CIH layout claimed.
 #include "AptCIHClass.h"
-class AptDisplayListState { public: void findInst(int,const EAStringC *,AptCIH **,AptCIH **); };
+#include "AptDisplayListState.h"
 // Donor removeObject is rowed as AptDisplayList::bfmeProcess1279 (0x006F7230); call it by that name.
 class AptDisplayList { public: AptDisplayListState *pState; void bfmeProcess1279(void *); void removeClonedObject(AptCIH *); };
 void AptDisplayList::removeClonedObject(AptCIH *object)

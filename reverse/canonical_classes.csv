@@ -1029,3 +1029,4 @@ Gen_0054EC80,Code/GameEngine/Include/Common/Gen_0054EC80.h,existing header; cont
 FilePathGate,Code/GameEngine/Include/GameClient/FilePathGate.h,existing header; contract class_contracts/FilePathGate.json; 4/6 sampled units adopt
 KindOfMaskType,Code/GameEngine/Include/GameLogic/KindOfMaskType.h,existing header; contract class_contracts/KindOfMaskType.json; 4/6 sampled units adopt
 Rva002B2702,Code/GameEngine/Include/Common/Rva002B2702.h,existing header; contract class_contracts/Rva002B2702.json; 5/7 sampled units adopt
+AptDisplayListState,Code/Libraries/Source/Apt/AptDisplayListState.h,existing header; contract class_contracts/AptDisplayListState.json; 4/6 sampled units adopt

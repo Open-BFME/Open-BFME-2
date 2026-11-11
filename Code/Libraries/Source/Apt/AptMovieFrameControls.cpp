@@ -44,7 +44,7 @@ struct AptControlPlaceObject2 {int flags,depth,character; float matrix[6]; int c
 struct AptControl {int type; union {struct {int sprite,stream;} init; AptControlPlaceObject2 place; int value;};};
 struct AptFrame {int count; AptControl **controls;};
 #include "EAStringC.h"
-class AptDisplayListState {public:void findInst(int,const EAStringC *,AptCIH **,AptCIH **);};
+#include "AptDisplayListState.h"
 class AptDisplayList {public:AptDisplayListState *state; AptCIH *placeObject(AptControlPlaceObject2 *,AptCIH *); void removeObject(int *);
  AptCIH *placeObjectNCXForm(AptCIH *,int,AptCharacter *,EAStringC *,AptCIH *,int,int,const unsigned int *,const float *,void *,float);
 };

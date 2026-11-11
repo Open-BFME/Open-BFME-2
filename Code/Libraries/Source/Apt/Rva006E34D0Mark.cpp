@@ -22,11 +22,7 @@ public:
 
 #include "AptValue.h"
 
-class AptDisplayListState
-{
-public:
-    void DisplayListItem(void *arg);
-};
+#include "AptDisplayListState.h"
 
 class AptActionQueueC
 {

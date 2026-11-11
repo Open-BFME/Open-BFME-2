@@ -48,11 +48,7 @@ public:
 
 #include "AptNativeHash.h"
 
-class AptDisplayListState
-{
-public:
-    void DisplayListItem(void *value);
-};
+#include "AptDisplayListState.h"
 
 #include "AptCIHClass.h"
 
