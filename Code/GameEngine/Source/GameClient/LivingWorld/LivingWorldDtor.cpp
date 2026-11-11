@@ -20,7 +20,7 @@ public:
  void forEach(void(Rva002BF33DListener::*)(void*),void*);
  ~Rva002BF33DList(){if(first)Rva00030830GameFree(first);}
 };
-class Rva00213A85 {public:void rva00213AB6();};
+#include "../../../Include/GameClient/Rva00213A85.h"
 class LivingWorldManager;extern LivingWorldManager*TheLivingWorldManager;
 class AudioManager;extern AudioManager*TheAudio;
 class AudioSlots {public:

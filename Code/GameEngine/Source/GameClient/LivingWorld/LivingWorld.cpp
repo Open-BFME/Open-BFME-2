@@ -130,13 +130,7 @@ class Rva002BF75A { public: LivingWorldTable m_table; ~Rva002BF75A(); void rva00
 
 #include "../../../Include/Common/Rva00330757Member.h"
 
-class Rva00213A85
-{
-public:
-	void rva00213A85();
-	void rva00213BBE();
-	void rva00213C30();
-};
+#include "../../../Include/GameClient/Rva00213A85.h"
 
 class LivingWorldManager;
 

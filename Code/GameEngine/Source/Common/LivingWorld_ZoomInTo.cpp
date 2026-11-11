@@ -49,11 +49,7 @@ public:
 	Rva002BE7DBValue &rva002BE7DB(Rva002BE7DBValue &out) const;
 };
 
-class Rva00213A85
-{
-public:
-	void rva00213AFC(void *value);
-};
+#include "../../Include/GameClient/Rva00213A85.h"
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 

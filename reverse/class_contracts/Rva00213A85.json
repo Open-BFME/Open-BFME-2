@@ -1,0 +1,57 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00213A85",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x204": {
+    "4": 4
+   },
+   "0x2c0": {
+    "1": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 8,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "705": 1
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 516,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00213A85.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 704,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00213A85.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

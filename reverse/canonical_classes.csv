@@ -986,3 +986,4 @@ Rva001F4DF9,Code/GameEngine/Include/GameClient/Rva001F4DF9.h,existing header; co
 Rva000B4A9F,Code/GameEngine/Include/Common/Rva000B4A9F.h,existing header; contract class_contracts/Rva000B4A9F.json; 6/7 sampled units adopt
 Rva0020DXXX,Code/GameEngine/Include/Common/Rva0020DXXX.h,existing header; contract class_contracts/Rva0020DXXX.json; 7/8 sampled units adopt
 SimpleStreakRendererClass,Code/GameEngineDevice/Include/W3DDevice/GameClient/SimpleStreakRendererClass.h,existing header; contract class_contracts/SimpleStreakRendererClass.json; 5/5 sampled units adopt
+Rva00213A85,Code/GameEngine/Include/GameClient/Rva00213A85.h,existing header; contract class_contracts/Rva00213A85.json; 6/7 sampled units adopt

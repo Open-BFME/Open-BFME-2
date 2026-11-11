@@ -307,7 +307,7 @@ public:
 	D55B_SLOTS16(s0) D55B_SLOTS4(s1) virtual void s20(); virtual void s21();
 	virtual void rva0009B023(const Vector3 *pos);	// slot 22
 };
-class Rva00213A85 { public: void rva00213B88(void *point); };
+#include "../../../../GameEngine/Include/GameClient/Rva00213A85.h"
 // Native mutable tuning values DB4AB0/DB4AAC; original identifiers unknown.
 float BfmeCameraPanRotationRate = 1.0f;
 float BfmeCameraPanRotationLimit = 1.0f;
