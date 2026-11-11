@@ -882,3 +882,4 @@ Rva00223591,Code/GameEngine/Include/GameClient/Rva00223591.h,existing header; co
 Rva0037DCA5,Code/GameEngine/Include/Common/Rva0037DCA5.h,existing header; contract class_contracts/Rva0037DCA5.json; 18/25 sampled units adopt
 Rva003B1017,Code/GameEngine/Include/Common/Rva003B1017.h,existing header; contract class_contracts/Rva003B1017.json; 8/10 sampled units adopt
 AIBuildable,Code/GameEngine/Include/Common/AIBuildable.h,existing header; contract class_contracts/AIBuildable.json; 13/18 sampled units adopt
+Rva003F468D,Code/GameEngine/Include/Common/Rva003F468D.h,existing header; contract class_contracts/Rva003F468D.json; 17/24 sampled units adopt
