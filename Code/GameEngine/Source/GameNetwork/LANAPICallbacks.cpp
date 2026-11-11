@@ -131,11 +131,7 @@ typedef unsigned short WideChar;
 // The ledger's inequality test of two addresses (0x00248CDD) is a method of
 // a class named by its address with BfmeNetAddress's dword/word key; the
 // callers below view their addresses as one.
-class Rva00248CDD
-{
-public:
-	Bool rva00248CDD( const Rva00248CDD &other ) const;
-};
+#include "../../Include/Common/Rva00248CDD.h"
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 // The zero address of a SYSTEM line nobody sent, built as a temporary.
 struct NoAddress : public BfmeNetAddress

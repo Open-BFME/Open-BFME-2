@@ -22,14 +22,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 
-class Rva00248CDD
-{
-public:
-	Bool rva00248CDD( const Rva00248CDD &other ) const;
-private:
-	UnsignedInt m_key0;
-	UnsignedShort m_key4;
-};
+#include "../../Include/Common/Rva00248CDD.h"
 
 #include <string.h>
 #include "../../Include/GameNetwork/Transport.h"

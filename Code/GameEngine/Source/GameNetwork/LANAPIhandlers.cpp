@@ -141,11 +141,7 @@ template <> int StringBase<unsigned short>::compare( const unsigned short *str )
 
 // The ledger's inequality test of two addresses (0x00248CDD) is a method of
 // a class named by its address; cast the address to that existing view.
-class Rva00248CDD
-{
-public:
-	Bool rva00248CDD( const Rva00248CDD &other ) const;
-};
+#include "../../Include/Common/Rva00248CDD.h"
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 
