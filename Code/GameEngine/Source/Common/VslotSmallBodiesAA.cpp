@@ -15,11 +15,7 @@ class AsciiString;
 // from 0x004BF8AC, the slot that applies it to the +0xF8 name (eleven
 // module tables).
 #include "../../Include/GameLogic/Armor.h"
-class Rva001D901B
-{
-public:
-	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
-};
+#include "../../Include/Common/Rva001D901B.h"
 extern class ArmorStore *TheArmorStore;
 class Rva001D9083
 {

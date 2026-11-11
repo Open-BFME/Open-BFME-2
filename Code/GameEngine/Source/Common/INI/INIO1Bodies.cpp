@@ -405,11 +405,7 @@ Bool INI::isEndOfBlock( char *bufferToCheck )
 // None/null case and ArmorStore lookup but uses the rowed const-ref lookup
 // at1D901B instead of the donor's by-value method. This declaration names
 // that existing recovered entry; it asserts no additional store layout.
-class Rva001D901B
-{
-public:
- const ArmorTemplate *rva001D901B(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Rva001D901B.h"
 void INI::parseArmorTemplate(INI *ini, void *, void *store, const void *)
 {
  const char *token = ini->getNextToken();

@@ -51,11 +51,7 @@ public:
 	AsciiString m_armorName;		// +0x04
 };
 
-class Rva001D901B
-{
-public:
-	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Rva001D901B.h"
 class ArmorStore : public Rva001D901B
 {
 };
