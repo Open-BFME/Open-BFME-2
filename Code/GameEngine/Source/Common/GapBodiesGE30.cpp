@@ -29,11 +29,7 @@ public:
 	void rva0031A129(const Rva00318B5C &value);				// 0x0031A129
 };
 
-class Rva00538CEF
-{
-public:
-	void rva00538D3B(int value);							// 0x00538D3B
-};
+#include "../../Include/Common/Rva00538CEF.h"
 
 class Rva00538EF5
 {

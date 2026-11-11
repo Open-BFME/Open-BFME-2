@@ -256,7 +256,7 @@ struct Rva00319F5A { void rva0031A129(const Rva00318B5C &); };
 class Rva00538E22 { public: void rva00538ED1(int); void rva00538F10(const _STL::vector<BfmeE16> &,int); };
 class Rva003195C9Owner { public: void rva003195C9(); };
 class Rva0020E89C;
-class Rva00538CEF { public: Rva0020E89C *rva00538CEF(); };
+#include "../../../../Include/Common/Rva00538CEF.h"
 struct RegionMoveGroup { int word0,word4,region; Coord2D *start,*finish,*end; };
 struct RegionMoveView { char pad00[0x12C]; int region; char pad130[0x1A8-0x130]; _STL::vector<RegionMoveGroup> groups; };
 struct QueueCollectionView { _STL::vector<MoveRecordStorage> entries; };

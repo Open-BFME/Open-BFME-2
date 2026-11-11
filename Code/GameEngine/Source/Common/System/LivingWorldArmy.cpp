@@ -337,13 +337,7 @@ public:
 	const TWheelInfo *getWheelInfo() const;
 };
 
-class Rva00538CEF
-{
-public:
-	Rva0020E89C *rva00538CEF();
-	bool rva00538D17(Rva00538CEFPair *out);
-	void rva00538DC1(const Rva00538CEFPair *,int);
-};
+#include "../../../Include/Common/Rva00538CEF.h"
 
 class Rva003195C9Owner : public Drawable
 {
