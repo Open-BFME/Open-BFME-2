@@ -15,7 +15,7 @@ class FXShaderSetup;
 class Rva0010E482 {public:int rva0010E482(int);char prefix[0xB8];FXShaderSetup *setup;};
 #include "../WWLib/Rva0007BB16Record.h"
 namespace _STL {template<>vector<Rva0007BB16Record>::vector(const vector<Rva0007BB16Record>&);template<>vector<Rva0007BB16Record>::~vector();}
-class Rva00151288{public:void rva00151288(const char *);};
+#include "Rva00151288.h"
 class FXShaderSetup{public:char prefix[12];_STL::vector<Rva0007BB16Record> params;bool UpdateParameterList(const _STL::vector<Rva0007BB16Record>&);};
 class MeshModelClass{public:virtual void Delete_This();int refs;char unknown08[0x8C];Rva0010E482 *description;void rva001716E0UnregisterMeshModel();void Replace_Texture(const RefCountPtr<TextureClass>&,const RefCountPtr<TextureClass>&);void Release_Ref(){--refs;if(refs==0)Delete_This();}};
 struct Rva00136090MeshHolder{MeshModelClass *pointer;__forceinline ~Rva00136090MeshHolder(){if(pointer)pointer->Release_Ref();}};

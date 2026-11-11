@@ -136,7 +136,7 @@ struct BfmeAssignRecord36
 	int integer;
 	bool boolean;
 };
-class Rva00151288 { public: void rva00151288(const char *textureName); };
+#include "Rva00151288.h"
 class Rva00199FCC { public: void *rva00199FCC(const AsciiString &name) throw(); };
 namespace
 {

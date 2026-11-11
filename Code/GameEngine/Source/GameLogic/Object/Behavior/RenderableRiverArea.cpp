@@ -15,11 +15,7 @@ struct BfmeAssignRecord36
 	char m_tail[4];
 };
 
-class Rva00151288
-{
-public:
-	void rva00151288(const char *path);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/Rva00151288.h"
 
 struct Rva0007BB16Record
 {

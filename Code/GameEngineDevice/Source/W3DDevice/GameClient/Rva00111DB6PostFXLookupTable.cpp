@@ -60,11 +60,7 @@ public:
 	void rva00082EB8(const Rva00082EB8Rec &record);
 };
 
-class Rva00151288
-{
-public:
-	void rva00151288(const char *text);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Rva00151288.h"
 
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char *file, const char *technique,
 	const _STL::vector<Rva0007BB16Record> *parameters, int index);

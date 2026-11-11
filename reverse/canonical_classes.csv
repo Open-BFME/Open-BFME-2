@@ -1103,3 +1103,4 @@ BfmeSubBIC,Code/GameEngine/Include/GameClient/BfmeSubBIC.h,existing header; cont
 Rva002E9D09,Code/GameEngine/Include/GameLogic/Rva002E9D09.h,existing header; contract class_contracts/Rva002E9D09.json; 4/8 sampled units adopt
 Gen_0054EC50,Code/GameEngine/Include/Common/Gen_0054EC50.h,existing header; contract class_contracts/Gen_0054EC50.json; 5/7 sampled units adopt
 MineshaftPortalBehaviour,Code/GameEngine/Include/GameLogic/Module/MineshaftPortalBehaviour.h,existing header; contract class_contracts/MineshaftPortalBehaviour.json; 3/6 sampled units adopt
+Rva00151288,Code/Libraries/Source/WWVegas/WW3D2/Rva00151288.h,existing header; contract class_contracts/Rva00151288.json; 4/7 sampled units adopt
