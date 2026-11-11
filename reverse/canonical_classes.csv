@@ -1324,3 +1324,4 @@ Rva006CE660Vec,Code/Libraries/Source/Apt/Rva006CE660Vec.h,existing header; contr
 Rva004D632D,Code/GameEngine/Include/GameNetwork/Rva004D632D.h,existing header; contract class_contracts/Rva004D632D.json; 3/6 sampled units adopt
 Rva00559AC1,Code/GameEngine/Include/GameClient/Rva00559AC1.h,existing header; contract class_contracts/Rva00559AC1.json; 3/6 sampled units adopt
 Rva0040C804Target,Code/GameEngine/Include/Common/Rva0040C804Target.h,existing header; contract class_contracts/Rva0040C804Target.json; 3/4 sampled units adopt
+Rva005F41AF,Code/GameEngine/Include/GameClient/Rva005F41AF.h,existing header; contract class_contracts/Rva005F41AF.json; 3/6 sampled units adopt

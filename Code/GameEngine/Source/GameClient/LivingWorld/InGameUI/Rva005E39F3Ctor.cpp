@@ -15,7 +15,7 @@ class HeroClipReference;
 class AptMovieClipFrame;
 // Rows retail's tables hold in the shared virtual base's slots (0x00879448, 0x00877C50).
 class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
-class Rva005F41AF { public: void rva005F41AF(); };
+#include "../../../../Include/GameClient/Rva005F41AF.h"
 // Retail's details-portion rows. A vtordisp thunk enters them with the virtual base's pointer and they adjust it
 // themselves, so these forward by jump: a cast to a class would subtract the base's offset a second time.
 extern "C" {
