@@ -44,11 +44,7 @@ public:
 };
 
 // BfmeAskRV.cpp's player predicate.
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../../../Include/Common/BfmeMemberRV.h"
 
 // ThePlayerList's local player at +0x10.
 class PlayerList;

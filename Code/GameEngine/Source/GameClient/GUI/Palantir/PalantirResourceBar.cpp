@@ -58,7 +58,7 @@ extern "C" void _ReadWriteBarrier();
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 class PlayerList;extern PlayerList *ThePlayerList;
 class BfmeSelectionState {public:bool isSelectionLocked()const;};
-class BfmeMemberRV {public:bool bfmeAskRV();};
+#include "../../../../Include/Common/BfmeMemberRV.h"
 class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
 struct PlayerTemplateView {char pad[0x151];bool playable;};
 struct MoneyView {void *vptr;unsigned value;};

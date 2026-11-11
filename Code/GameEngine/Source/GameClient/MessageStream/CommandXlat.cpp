@@ -762,7 +762,7 @@ extern GameEngine*TheGameEngine;
 
 extern Eva*TheEva;
 
-class BfmeMemberRV {public:bool bfmeAskRV();};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 struct Bfme939Helper {public:int get()const;};
 

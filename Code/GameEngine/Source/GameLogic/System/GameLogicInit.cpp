@@ -2932,11 +2932,7 @@ public:
 	void rva0023D494(void);	// 0x0023D494 (Rva0023C641Write.cpp)
 };
 
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV(void);
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 #include "../../../Include/Common/RadarWindowOverrideSource.h"
 

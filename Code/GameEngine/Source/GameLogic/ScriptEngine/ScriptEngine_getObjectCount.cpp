@@ -23,11 +23,7 @@ unsigned long Rva003ECA13Get(const AsciiString &s);
 extern PlayerList *ThePlayerList;
 
 
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 class ScriptEngine
 {

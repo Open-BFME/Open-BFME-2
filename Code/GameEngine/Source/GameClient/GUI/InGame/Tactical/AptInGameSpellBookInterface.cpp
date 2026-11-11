@@ -45,7 +45,7 @@ private:T *ptr;
 extern GameLogic *TheGameLogic;
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../../Include/Common/BfmeSelectionState.h"
-class BfmeMemberRV {public:bool bfmeAskRV();};
+#include "../../../../../Include/Common/BfmeMemberRV.h"
 #include "../../../../../Include/GameClient/BfmeThingRV.h"
 class PlayerList;extern PlayerList *ThePlayerList;
 class Object {public:const AsciiString *rva00290E67() const;};

@@ -133,7 +133,7 @@ class ParasiticInGameCommandButton {public:class Impl;};
 class Object {friend class ParasiticInGameCommandButton::Impl;public:bool isLocallyControlled()const;protected:Module *findModule(NameKeyType)const;};
 extern GameLogic *TheGameLogic;
 class PlayerList;extern PlayerList *ThePlayerList;
-class BfmeMemberRV {public:bool bfmeAskRV();};
+#include "../../../Include/Common/BfmeMemberRV.h"
 struct ParasiticPlayerView {char prefix[0x10];BfmeMemberRV *local;};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

@@ -8,7 +8,7 @@ class Player;
 #include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../../../Include/Common/Player.h"
-class BfmeMemberRV {public: bool bfmeAskRV();};
+#include "../../../../../Include/Common/BfmeMemberRV.h"
 class Rva0050F0AB {public: char unknown00[0x6c];unsigned amount;void rva0050F2AF(unsigned);};
 class Rva0050F041;
 class Rva0050F5A6 { public:

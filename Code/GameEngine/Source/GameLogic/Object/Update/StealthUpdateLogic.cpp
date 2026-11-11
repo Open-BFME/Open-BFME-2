@@ -57,11 +57,7 @@ extern ControlBar *TheControlBar;
 #include "../../../../Include/Common/TeamBFME2.h"
 
 // Player::isPlayerActive (0x002AA231), rowed under an address-derived name.
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../../Include/Common/BfmeMemberRV.h"
 
 class Object;
 class Player

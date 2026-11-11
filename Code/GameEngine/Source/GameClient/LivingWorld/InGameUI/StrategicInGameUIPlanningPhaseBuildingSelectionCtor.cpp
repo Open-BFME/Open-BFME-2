@@ -448,7 +448,7 @@ struct CommandObjectView {
     char unknown08[0x250-8]; CommandContainView *contain;
 };
 struct CommandDrawableView { char unknown00[0xFC]; Object *object; };
-class BfmeMemberRV { public: bool bfmeAskRV(); };
+#include "../../../../Include/Common/BfmeMemberRV.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;
 struct CommandPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };

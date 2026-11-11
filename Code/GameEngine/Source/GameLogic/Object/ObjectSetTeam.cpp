@@ -45,11 +45,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class BfmeMemberRV
-{
-public:
-	Bool bfmeAskRV();			// 0x002AA231, Player::isPlayerActive
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 #include "../../../Include/Common/Player.h"
 

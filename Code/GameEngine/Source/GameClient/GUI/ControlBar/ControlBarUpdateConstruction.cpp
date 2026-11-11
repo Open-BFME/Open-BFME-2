@@ -97,7 +97,7 @@ public:
 };
 class ExitInterface;
 class Rva002A7DD0 { public: bool rva002A7DD0(); };
-class BfmeMemberRV { public: bool bfmeAskRV(); };
+#include "../../../../Include/Common/BfmeMemberRV.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;
 struct ConstructionPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };
