@@ -68,11 +68,7 @@ Rva00540E9D rva00540EBD(float value, void *arg10, void *arg14, Rva005C71ADView *
 	void *arg1C, void *arg20, void *arg24, void *arg28, void *arg2C);
 
 // The banked sorted-key locators, pinned under their address names.
-class Rva00541579
-{
-public:
-	bool rva00541579(int frame);
-};
+#include "../../../Include/Common/Rva00541579.h"
 #include "../../../Include/Common/Rva005418CB.h"
 
 // The free camera's 0x24-byte frame (rowed copy constructor 0x0053FF5F),

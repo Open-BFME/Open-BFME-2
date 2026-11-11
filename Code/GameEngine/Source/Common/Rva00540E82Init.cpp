@@ -186,7 +186,7 @@ Rva00540E9D rva00540EBD(float value, void *arg10, void *arg14,
 #include <new>
 struct Rva00541021 {int m_field0;Rva00540D94 m_frame;Rva00541021(const Rva00541021&);Rva00541021&operator=(const Rva00541021&);};
 namespace _STL {template<> Rva00541021 *vector<Rva00541021>::insert(Rva00541021*,const Rva00541021&);}
-class Rva00541579 {public:bool rva00541579(int);};
+#include "../../Include/Common/Rva00541579.h"
 class Rva005414E5Listener {public:
 virtual void beforeInsert(void*,int);
 virtual void slot1();

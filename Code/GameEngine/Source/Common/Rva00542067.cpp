@@ -45,11 +45,7 @@ public:
 	Rva00540D67 m_04;
 };
 
-class Rva00541579
-{
-public:
-	void rva00541883(int key);
-};
+#include "../../Include/Common/Rva00541579.h"
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
