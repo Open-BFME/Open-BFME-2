@@ -286,20 +286,7 @@ public:
 };
 
 // The member at +0x244 (rowed under its address name).
-class Rva0057FD6E
-{
-public:
-	// Unrowed 0x0057FFB9 (411 bytes; its Apt callback registration), pinned.
-	void rva0057FFB9();
-	void rva0057FD6E();
-	void rva0057FD94();
-	// Unrowed 0x0057FDB0 (15 bytes; hands the flag to its +0x64 member),
-	// pinned by address.
-	void rva0057FDB0(bool changed);
-	// Unrowed 0x0057FD7B (25 bytes; ret 0xC, forwards window messages to its
-	// +0x64 member when +0x68 is set), pinned by address.
-	bool rva0057FD7B(unsigned int msg, unsigned int data1, unsigned int data2);
-};
+#include "../../../Include/GameClient/Rva0057FD6E.h"
 
 // A panel member rowed under its own address-named class (0x0043DBE0).
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.

@@ -125,11 +125,7 @@ public:
 };
 
 // The AptMpGameSetup chat panel (0x00E06394) and its rowed 0x0057FDA1 test.
-class Rva0057FD6E
-{
-public:
-	bool rva0057FDA1();
-};
+#include "../../../../../Include/GameClient/Rva0057FD6E.h"
 
 extern int g_Va00E06394;
 
