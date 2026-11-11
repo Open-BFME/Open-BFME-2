@@ -2,11 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-class Rva007E8AC0
-{
-public:
-	void run( void );
-};
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 

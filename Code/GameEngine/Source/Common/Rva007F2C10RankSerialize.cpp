@@ -8,11 +8,7 @@
 // not recovered; every callee is address-derived. /GS is proven by the
 // ___security_cookie load/check pair.
 
-class Rva007E8AC0
-{
-public:
-	void run();
-};
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 
 class BfmeThingCIC
 {

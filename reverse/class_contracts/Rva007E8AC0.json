@@ -1,0 +1,111 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva007E8AC0",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 11,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 10,
+   "48": 1
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_leadingA",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 16,
+   "type": "char[16]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 48,
+ "size_by": "majority",
+ "vslots": {}
+}

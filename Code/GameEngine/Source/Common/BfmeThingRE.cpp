@@ -21,11 +21,7 @@ public:
 	unsigned int m_category; // +0x1C
 };
 
-class Rva007E8AC0
-{
-public:
-    void run();
-};
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 
 class Rva007E8980
 {

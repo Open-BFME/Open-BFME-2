@@ -20,11 +20,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8AC0
-{
-public:
-	void run( void );
-};
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 
 class BfmeThingCIC
 {

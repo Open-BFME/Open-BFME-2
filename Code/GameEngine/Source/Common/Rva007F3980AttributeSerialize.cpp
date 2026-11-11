@@ -13,7 +13,7 @@
 // _CRTIMP= preserves both retail direct sprintf calls with the real declaration.
 #include <stdio.h>
 
-class Rva007E8AC0 { public: void run(); };
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 class BfmeThingCIC { public: void bfmeGoCIC(void*, void*); };
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 class Rva007E8810Message { public: void addInt64(const char*, __int64); };

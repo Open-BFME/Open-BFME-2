@@ -145,7 +145,7 @@ bool Rva007F2350StatsCursor::nextAdditionalStat(Rva007F2350StatsRecord *record)
 // configuration; four inline scalar getters preserve native SIB register
 // selection. The named12B UpdateStats record is independently initialized
 // by7B5AA0. Its data owner and request are verified together.
-class Rva007E8AC0 {public:void run();};
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 struct RankStat
 {
 	int userType;
