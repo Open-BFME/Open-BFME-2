@@ -11,28 +11,26 @@
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
 
-// The AptValue root view the first-in-link-order vtable copy
-// (Rva006D6360Ctor.cpp) declares: its private slot 0 precedes the destructor.
+// The constructor unit still emits a short table with AddRef and Release
+// before the deleting destructor. Both emitters must migrate together.
 class AptValue
 {
 public:
     virtual void AddRef();
     virtual void Release();
+protected:
+    virtual ~AptValue();
+    unsigned int m_flags04;
 };
-// Retail vtable 0x008EA228 starts with the rowed AptValue::AddRef (0x006DCAC0) and Release.
-class BfmeAptValue006DCD20 : public AptValue
+// The unwind path calls the GC wrapper at RVA 0x006D6340; ordinary teardown
+// inlines its tail call to the root destructor at 0x006DE350.
+class __declspec(novtable) AptValueGC : public AptValue
 {
 protected:
-    unsigned int m_flags04;
-public:
-    virtual ~BfmeAptValue006DCD20();
-};
-struct Rva006DE350 : public BfmeAptValue006DCD20
-{
-	virtual ~Rva006DE350();
+	virtual ~AptValueGC() {}
 };
 
-struct Rva006D6470Owner : public Rva006DE350
+struct Rva006D6470Owner : public AptValueGC
 {
 	AptNativeHash m_nativeHash; // +0x08
 	unsigned int m_bits; // +0x1C

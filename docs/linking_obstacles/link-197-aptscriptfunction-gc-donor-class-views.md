@@ -16,6 +16,11 @@ preview preserves 3,990 bytes (index `60189f9ced`). The bridge at RVA
 0x008EA264 remains open. The class-fold dry run for Rva006D6470Owner into
 AptObject refuses the third table name, Rva006DE6C0. Trace that name's
 installer before retrying the fold or updating the shared virtual slots.
+The unwind funclet at 0x007A8830 now calls AptValueGC's destructor at
+0x006D6340; the normal path inlines its tail call to AptValue at 0x006DE350.
+The four-unit preview including Rva006FBC90OwnerDtor.cpp retains 4,193 bytes.
+A full AptValue-header trial in the destructor alone matches all four rows
+but loses 127 linked bytes because the constructor still emits a short table.
 
 Publication recovery: [upstream ID collision and correction](../../reverse/attempt_support/preparation-recovery-publication-20261104-codex3.md).
 2026-11-04: the same shared-root conflict also blocks AptMiscObjects.cpp's AptCIH adoption; four other consumers now pass nine header acceptances and preserve their link previews ([evidence](../../reverse/attempt_support/aptcih-header-adoption-20261104.md)).
