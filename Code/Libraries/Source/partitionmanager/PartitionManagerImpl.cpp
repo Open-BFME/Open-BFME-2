@@ -323,11 +323,7 @@ public:
 	char m_prefix[0x14];
 	float m_radius;
 };
-class Rva0073A1C0FloatField
-{
-public:
-	float get(void) const;
-};
+#include "../../../GameEngine/Include/GameLogic/Module/Rva0073A1C0FloatField.h"
 class Object
 {
 public:

@@ -58,11 +58,7 @@ struct ThingKindBytes
 
 int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Rva0073A1C0FloatField
-{
-public:
-	float get() const;
-};
+#include "../../../Include/GameLogic/Module/Rva0073A1C0FloatField.h"
 
 #include "../../../Include/Common/GlobalData.h"
 

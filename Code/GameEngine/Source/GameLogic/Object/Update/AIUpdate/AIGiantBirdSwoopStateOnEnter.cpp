@@ -86,11 +86,7 @@ extern unsigned char g_00E01ED0[4];
 #include "../../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../../Include/Common/Geometry.h"
 
-class Rva0073A1C0FloatField
-{
-public:
-	Real get(void) const;	// 0x0073A1C0 (rowed float getter)
-};
+#include "../../../../../Include/GameLogic/Module/Rva0073A1C0FloatField.h"
 
 #include "../../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
