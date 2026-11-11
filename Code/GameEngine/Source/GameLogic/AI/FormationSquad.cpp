@@ -360,14 +360,7 @@ private:
 };
 
 // ?rva00531C54@Rva00531C54@@QAEXXZ @0x00531C54 6B: clear the 16-bit field at +2.
-class Rva00531C54
-{
-public:
-	void rva00531C54();
-private:
-	unsigned short m_00;
-	unsigned short m_02;
-};
+#include "../../../Include/Common/Rva00531C54.h"
 
 // ?rva0053B8F1@Rva0053B8F1@@QBE_NXZ @0x0053B8F1 7B: the flag byte at +0x106.
 class Rva0053B8F1
