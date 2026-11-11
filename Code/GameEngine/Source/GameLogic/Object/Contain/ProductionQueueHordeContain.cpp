@@ -111,11 +111,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 //   0x005748AD   5B   33 c0 c2 0c 00        xor eax,eax ; ret 0xc
 //   0x005748B2   5B   33 c0 c2 08 00        xor eax,eax ; ret 8
 
-class Rva0050B5C6
-{
-public:
-	bool rva0050B5C6();
-};
+#include "../../../../Include/Common/Rva0050B5C6.h"
 // Retail GameWindow's installed table at RVA 0080BBCC has eleven slots.
 // Slot 10 selects this same three-byte constant body (0050B5C6), an ICF
 // fold shared with unrelated classes. Keep the opaque owner for those

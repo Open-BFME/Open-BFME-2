@@ -91,7 +91,7 @@ Rva00108660ResourceManager * Rva00DEC2D8Manager = 0;
 // holds, the projected shadows through 0x001076EE (pinned by address), the
 // 0x00DEC2D8 manager when 0x00108DBC holds, and the 0x00DE1FF8 manager's
 // 0x0007B6EC check; any failure makes the result false.
-class Rva0050B5C6 { public: bool rva0050B5C6(); };
+#include "../../../../../GameEngine/Include/Common/Rva0050B5C6.h"
 
 class Rva001076EE { public: bool rva001076EE(); };
 

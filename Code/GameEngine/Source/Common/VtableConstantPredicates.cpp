@@ -21,11 +21,7 @@
 //   0x005748AD   5B   33 c0 c2 0c 00        xor eax,eax ; ret 0xc
 //   0x005748B2   5B   33 c0 c2 08 00        xor eax,eax ; ret 8
 
-class Rva0050B5C6
-{
-public:
-	bool rva0050B5C6();
-};
+#include "../../Include/Common/Rva0050B5C6.h"
 
 bool Rva0050B5C6::rva0050B5C6()
 {
