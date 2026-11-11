@@ -12,11 +12,7 @@
 
 #include "../../Include/Common/Overridable.h"
 
-class Rva005E2439
-{
-public:
-	void rva005E2540();
-};
+#include "../../Include/Common/Rva005E2439.h"
 
 // +0x0C is cleared through the canonical holder's clear 0x000AD6F4 but has no
 // destructor of its own in the unwind map, so it is held as a raw pointer.

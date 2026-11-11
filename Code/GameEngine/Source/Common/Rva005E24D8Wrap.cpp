@@ -33,12 +33,7 @@ public:
 	void rva005E2144(bool b);
 };
 
-class Rva005E2439
-{
-public:
-	void SetUpSubUIs();
-	void rva005E2460();	// rowed Rva005E2439::rva005E2460
-};
+#include "../../Include/Common/Rva005E2439.h"
 
 namespace StrategicInGameUI
 {

@@ -18,12 +18,7 @@ public:
 	unsigned char m_8flag;
 };
 
-class Rva005E2439
-{
-public:
-	void SetUpSubUIs();
-	void rva005E2460();	// rowed Rva005E2439::rva005E2460
-};
+#include "../../Include/Common/Rva005E2439.h"
 
 class Rva005E261C
 {
