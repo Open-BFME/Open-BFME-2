@@ -24,7 +24,7 @@ class Rva001F4D9D {public:float rva001F4D9D();};
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
 class Rva001F4DE6 {public:int rva001F4DE6();};
 class Rva001F4DF9 {public:float rva001F4DF9();};
-class Rva001F4E1BSlot {public:const RGBColor *get() const;};
+#include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
 namespace FXParticleSystem {class CPUParticle {public:bool rva001F4E2D();};}
 class Rva0007671F {public:Rva0007671F();float row[4][4];};
 extern "C" Rva0007671F *__stdcall D3DXMatrixRotationX(Rva0007671F*,float);

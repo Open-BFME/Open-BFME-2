@@ -91,7 +91,7 @@ class Rva001F4D2D {public:float rva001F4D2D();};
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
 class Rva001F4DE6 {public:int rva001F4DE6();};
 #include "RGBColor.h"
-class Rva001F4E1BSlot {public:const RGBColor*get()const;};
+#include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
 class Rva001F4DF9 {public:float rva001F4DF9();};
 struct QuadParticle {char prefix[16];Vector3 axis;Vector3 position;char gap[0x3c];QuadParticle*next;};
 class QuadParticleStorage {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual QuadParticle*getFirstParticle();};

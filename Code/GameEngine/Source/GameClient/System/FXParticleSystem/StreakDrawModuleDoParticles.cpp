@@ -111,7 +111,7 @@ namespace FXParticleSystem { class StreakDrawModule; }
 
 namespace FXParticleSystem { class CPUParticle { public: bool rva001F4E2D(); }; }
 class Rva001F4D2D { public: float rva001F4D2D(); };
-class Rva001F4E1BSlot { public: const RGBColor *get() const; };
+#include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
 class Rva001F4DF9 { public: float rva001F4DF9(); };
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
 
