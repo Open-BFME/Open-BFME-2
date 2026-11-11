@@ -5,6 +5,7 @@ retail-ledger template mappings were independently decoded with DbgHelp. These
 checks need neither compiler nor DbgHelp. Unknown grammar still refuses a unit.
 """
 import csv
+import re
 import sys
 from pathlib import Path
 
@@ -622,3 +623,62 @@ def test_a_block_opened_after_an_unclassified_identifier_is_not_file_scope(tmp_p
                  unit="#define OPEN namespace Other\nOPEN { void f(const struct Coord3D *p); }\n")
     with pytest.raises(hal.RekeyRefused, match="unclassified block"):
         hal.plan_class_key("Coord3D", "class", root2)
+
+
+# LINK-018 rekey defect (the members trial's F build, 2026-11-11): units that compile Coord3D from a donor
+# header, and so keep the old key after the flip, were not found when their own text named no Coord3D or
+# reached the donor only through other headers. These three are the trial's own failures.
+DONOR = "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+DONOR_CASES = [
+    # W3DRopeDraw.cpp: a directory-qualified donor include, no Coord3D in the unit's text
+    ('#include "Common/Thing.h"', "GameEngine/Include/Common/Thing.h", "?getPosition@Drawable@@QBEPBUCoord3D@@XZ"),
+    # W3DRadar.cpp: donor headers that reach Lib/BaseType.h only through another header
+    ('#include "GameClient/Color.h"', "GameEngine/Include/GameClient/Color.h",
+     "?worldToRadar@Radar@@QAE_NPBUCoord3D@@PAUICoord2D@@@Z"),
+    ('#include <Common/Geometry.h>', "GameEngine/Include/Common/Geometry.h",
+     "?CollidesWith@GeometryInfo@@QBE_NABUCoord3D@@MABV1@0M@Z"),
+]
+
+
+def donor_tree(tmp_path, monkeypatch, include, via, name, basetype="struct Coord3D\n{\n    float x, y, z;\n};\n"):
+    callee = f"{name},,0x00002000,8,Code/Callee.cpp,matched,\n"
+    return tree(tmp_path, monkeypatch, functions=ROW + callee, extra={
+        f"{DONOR}/{via}": '#include "Lib/BaseType.h"\n',
+        f"{DONOR}/Libraries/Include/Lib/BaseType.h": basetype,
+        "Code/Callee.cpp": '#include "Lib/Coord3D.h"\nstruct Coord3D;\n',
+        "Code/Caller.cpp": (f"// cl: /MD /I{DONOR}/GameEngine/Include /I {DONOR}/Libraries/Include\n"
+                            f"{include}\nvoid caller();\n"),
+    })
+
+
+@pytest.mark.parametrize("include,via,name", DONOR_CASES)
+def test_a_unit_compiling_a_donor_class_is_refused(tmp_path, monkeypatch, include, via, name):
+    root = donor_tree(tmp_path, monkeypatch, include, via, name)
+    with pytest.raises(hal.RekeyRefused, match=r"donor Coord3D: Code/Caller\.cpp compiles Coord3D from "
+                                               + re.escape(f"{DONOR}/Libraries/Include/Lib/BaseType.h")):
+        hal.plan_class_key("Coord3D", "class", root)
+
+
+def test_a_donor_unit_whose_object_spells_no_old_key_is_reported_not_refused(tmp_path, monkeypatch):
+    include, via, name = DONOR_CASES[0]
+    root = donor_tree(tmp_path, monkeypatch, include, via, name)
+    monkeypatch.setattr(hal, "_rekey_unit_object", lambda root, rel, name, key: [])
+    after, report = hal.plan_class_key("Coord3D", "class", root)
+    assert report["donor_header_units"] == ["Code/Caller.cpp"]
+    assert name.replace("UCoord3D", "VCoord3D") in after["reverse/functions.csv"].decode()
+
+
+def test_a_donor_unit_whose_object_spells_the_old_key_is_refused(tmp_path, monkeypatch):
+    include, via, name = DONOR_CASES[0]
+    root = donor_tree(tmp_path, monkeypatch, include, via, name)
+    monkeypatch.setattr(hal, "_rekey_unit_object", lambda root, rel, name, key: [name])
+    with pytest.raises(hal.RekeyRefused, match=r"its object spells the old key \(1 name"):
+        hal.plan_class_key("Coord3D", "class", root)
+
+
+@pytest.mark.parametrize("basetype", ["struct Coord3D;\n", "struct Coord2D { float x, y; };\n"])
+def test_a_donor_header_without_the_class_definition_is_ignored(tmp_path, monkeypatch, basetype):
+    include, via, name = DONOR_CASES[0]
+    root = donor_tree(tmp_path, monkeypatch, include, via, name, basetype=basetype)
+    after, report = hal.plan_class_key("Coord3D", "class", root)
+    assert report["donor_header_units"] == []
