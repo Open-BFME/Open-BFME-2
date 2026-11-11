@@ -58455,7 +58455,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006D4640,114,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp
 0x006D46C0,300,code,,,-,,Code/Libraries/Source/EA/Apt/AptString/EAStringCConcat.cpp
 0x006D47F0,685,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp W=Code/Libraries/Source/Apt/string/EAString.cpp,Code/Libraries/Source/EA/Apt/AptString/EAStringCConcat.cpp
-0x006D4AA0,329,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,Code/Libraries/Source/EA/Apt/AptString/EAStringCChangeBuffer.cpp
+0x006D4AA0,329,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,Code/Libraries/Source/Apt/string/EAString.cpp
 0x006D4BF0,144,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp
 0x006D4C80,25,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp
 0x006D4CA0,151,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,C,C=0x006D4C80..0x006D4D40 noncontiguous,Code/Libraries/Source/EA/Apt/AptString/Rva006D4CA0Cluster.cpp
@@ -58483,13 +58483,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006D5CB0,27,code,,displaced,-,Z=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/GameLogic/AI/Pathfinder.cpp,Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp
 0x006D5CD0,204,code,Code/Libraries/Source/Apt/string/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/Apt/string/EAStringC.cpp noncontiguous,Code/Libraries/Source/Apt/string/EAString.cpp
 0x006D5DA0,201,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/Apt/string/EAStringC.cpp W=Code/Libraries/Source/Apt/string/EAString.cpp,Code/Libraries/Source/Apt/string/EAString.cpp
-0x006D5E70,22,code,,,-,,Code/Libraries/Source/EA/Apt/AptString/Rva006D5E70Cluster.cpp
-0x006D5E90,45,code,,,-,,Code/Libraries/Source/EA/Apt/AptString/Rva006D5E70Cluster.cpp
+0x006D5E70,22,code,,,-,,Code/Libraries/Source/Apt/string/EAString.cpp
+0x006D5E90,45,code,,,-,,Code/Libraries/Source/Apt/string/EAString.cpp
 0x006D5EC0,15,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/EAStringCLen.cpp
 0x006D5ED0,88,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/EAStringCMid.cpp
 0x006D5F30,174,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/Rva006D5F30Cluster.cpp
 0x006D5FE0,136,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/Rva006D5FE0Append.cpp
-0x006D6070,143,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp W=Code/Libraries/Source/Apt/string/EAString.cpp,Code/Libraries/Source/EA/Apt/AptString/Rva006D6070Finish.cpp
+0x006D6070,143,code,Code/Libraries/Source/Apt/string/EAString.cpp,approved,F,F=Code/Libraries/Source/Apt/string/EAString.cpp N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp W=Code/Libraries/Source/Apt/string/EAString.cpp,Code/Libraries/Source/Apt/string/EAString.cpp
 0x006D6100,99,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/Rva006D6100Cluster.cpp
 0x006D6170,99,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/Rva006D6100Cluster.cpp
 0x006D61E0,79,code,Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp,proposed,N,N=Code/Libraries/Source/EA/Apt/AptString/EAStringC.cpp noncontiguous,Code/Libraries/Source/EA/Apt/AptString/EAStringCAssign.cpp
