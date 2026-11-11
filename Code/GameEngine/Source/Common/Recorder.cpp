@@ -108,7 +108,7 @@ class BfmeMade_009CB5F0;
 
 BfmeMade_009CB5F0*bfmeMake_009CB5F0(void*);
 
-class BfmeThingEC {public:int bfmeTakeEC(int*);};
+#include "../../Include/GameNetwork/BfmeThingEC.h"
 
 extern GameInfo *TheGameInfo;
 

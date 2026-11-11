@@ -5332,7 +5332,7 @@ void MilesAudioManager::update()
 // hand-off (0x006021A4), under their rowed address-derived names.
 class BfmeMade_009CB5F0;
 BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *owner);
-class BfmeThingEC { public: int bfmeTakeEC(int *out); };
+#include "../../../GameEngine/Include/GameNetwork/BfmeThingEC.h"
 // XferSave (ctor 0x0060D1F7, dtor 0x0060D0B3, open 0x0060D10A); its close
 // 0x0060C8CD is rowed under an address-derived owner.
 class Gen009D6DD0 { public: void Close(); };

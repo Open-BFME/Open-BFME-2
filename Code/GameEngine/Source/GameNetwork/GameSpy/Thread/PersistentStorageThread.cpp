@@ -931,11 +931,7 @@ private:
 // drained by 0x006021A4, which hands back its buffer and length.
 class BfmeMade_009CB5F0;
 BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *owner);
-class BfmeThingEC
-{
-public:
-	int bfmeTakeEC(int *out);
-};
+#include "../../../../Include/GameNetwork/BfmeThingEC.h"
 
 // Native [55686A,556982),280B with its catch funclet at 0x556957. Serializes
 // the tournament, open-play and strategic blocks into a "playerStats" stream

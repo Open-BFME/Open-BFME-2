@@ -167,11 +167,7 @@ private:
 };
 
 // The memory stream 0x006023C1 builds; 0x006021A4 hands back its buffer.
-class BfmeThingEC
-{
-public:
-	int bfmeTakeEC(int *size);
-};
+#include "../../Include/GameNetwork/BfmeThingEC.h"
 
 class BfmeMade_009CB5F0;
 BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *text);

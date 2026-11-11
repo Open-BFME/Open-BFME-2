@@ -588,15 +588,7 @@ template<> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<int> > >::deallocate(_List_node<int>* p, size_t n)
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
 }
-class BfmeThingEC
-{
-public:
-	virtual void bfmeSpare000EC(void) = 0;
-	virtual void bfmeSpare001EC(void) = 0;
-	virtual void bfmeDoEC(void) = 0;
-
-	int bfmeTakeEC(int *out);
-};
+#include "../../../Include/GameNetwork/BfmeThingEC.h"
 // Native 0x004398D8 clears and destroys the red-black tree at +4 through
 // its existing owners 0x00240C60 and 0x002418E2. The former hash_map view
 // only matched these call operands through incorrect hashtable pins.
