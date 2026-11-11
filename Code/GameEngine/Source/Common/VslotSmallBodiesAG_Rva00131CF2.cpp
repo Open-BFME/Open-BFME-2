@@ -114,11 +114,7 @@ public:
 	void rva0047A69C(int value);
 };
 
-class Gen_003bcb40
-{
-public:
-	__declspec(noinline) void m(Int index) { ((Rva0059BB50 *)this)->rva0047A69C(index); }
-};
+#include "../../Include/Common/Gen_003bcb40.h"
 struct Rva005FEEC7Info
 {
 	char m_pad00[0x18];

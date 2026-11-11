@@ -432,11 +432,7 @@ struct BfmeNetAddress;
 // Gen_003bcb40::m) with its index, then stores entry [index] of the +0x08
 // object's +0x18 table into its +0x24, resp. resets +0x24 to 7 when it
 // holds that entry.
-class Gen_003bcb40
-{
-public:
-	void m(Int index);
-};
+#include "../../../../Include/Common/Gen_003bcb40.h"
 
 class MultiIniFieldParse
 {

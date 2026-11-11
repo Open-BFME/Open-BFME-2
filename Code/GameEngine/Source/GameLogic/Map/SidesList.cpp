@@ -1128,11 +1128,7 @@ struct BfmeNetAddress;
 // Gen_003bcb40::m) with its index, then stores entry [index] of the +0x08
 // object's +0x18 table into its +0x24, resp. resets +0x24 to 7 when it
 // holds that entry.
-class Gen_003bcb40
-{
-public:
-	void m(Int index);
-};
+#include "../../../Include/Common/Gen_003bcb40.h"
 
 // 0x005C4352 and 0x005C4553 (tables VA 0x00C745E0/0x00C746D8): field-parse
 // builders: the shared empty base slot 0x0047A69C (alias-pinned here as a
