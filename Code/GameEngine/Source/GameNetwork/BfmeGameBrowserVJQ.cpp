@@ -14,12 +14,7 @@ public:
 	void setError(int code) throw();
 };
 
-class BfmeAsk992
-{
-public:
-	char bfmeHas992C() throw();
-	int bfmeGet992C() throw();
-};
+#include "../../Include/GameNetwork/BfmeAsk992.h"
 
 class BfmeAVJQ
 {

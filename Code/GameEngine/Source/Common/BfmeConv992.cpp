@@ -24,12 +24,7 @@ public:
 	virtual void bfmeSend992C(int v);
 };
 
-class BfmeAsk992
-{
-public:
-	char bfmeHas992C();
-	int bfmeGet992C();
-};
+#include "../../Include/GameNetwork/BfmeAsk992.h"
 
 class BfmeC992
 {
