@@ -1231,6 +1231,17 @@ def test_a_method_returning_an_elaborated_type_is_a_method(member):
     assert [r["name"] for r in lane.field_records(view, "C")] == ["m"]
 
 
+@pytest.mark.parametrize("member", ["const typedef struct { int a; } T;", "typedef struct { int a; } T;",
+                                    "const typedef int Id;", "volatile typedef struct n { int a; } T, *P;"])
+def test_a_typedef_anywhere_in_its_specifiers_is_nested(member):
+    view = "struct C { %s void g(); int m; };\n" % member
+    records = lane.declaration_records(view, "C")
+    assert [r["role"] for r in records] == ["nested", "method"] and records[1]["key"] == "g()"
+    assert [r["name"] for r in lane.field_records(view, "C")] == ["m"]
+    _, problems = special("C", {"a.cpp": view})
+    assert len(problems) == 1 and "a nested declaration" in problems[0]
+
+
 def test_a_method_with_a_template_parameter_ends_at_its_body():
     view = "struct C { struct N *h(B<void()> x) {} int m; };\n"
     assert [r["name"] for r in lane.field_records(view, "C")] == ["m"]

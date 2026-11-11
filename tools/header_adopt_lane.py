@@ -1566,6 +1566,8 @@ def member_role(member, short):
         return "directive"
     head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
     prefix, rest = template_head(head)
+    if re.search(r"\btypedef\b", top_level(rest)):
+        return "nested"                          # a typedef wherever it stands (`const typedef struct {...} T;`)
     if re.match(r"(?:(?:const|volatile|mutable|__declspec\s*\(\s*\))\s*)*(?:class|struct|union)"
                 r"(?:\s*__declspec\s*\(\s*\))*\s*$", top_level(rest).strip()):
         return None                              # an anonymous union or struct, or an unnamed one's member: layout
