@@ -147,7 +147,7 @@ typedef _STL::hashtable<_STL::pair<const int,Relationship>,int,_STL::hash<int>,_
 // The neutral bucket-table owner supplies the complete retail clear at 1DBCDC.
 #include "../../../Include/Common/Rva004DFC20.h"
 class Object;
-class ObjectLookupMap {public: Object **findSlot(int *);};
+#include "../../../Include/Common/ObjectLookupMap.h"
 struct RelationCopyNodeView {void *next; int key; int value;};
 class PlayerRelationMap
 {

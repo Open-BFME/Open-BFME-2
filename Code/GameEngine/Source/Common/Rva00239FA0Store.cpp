@@ -6,11 +6,7 @@ class Rva0055A88BDwordField
 public:
 	int get() const;
 };
-class ObjectLookupMap
-{
-public:
-	Object **findSlot(int *key);
-};
+#include "../../Include/Common/ObjectLookupMap.h"
 class Rva00239FA0
 {
 	char m_pad[0x18];

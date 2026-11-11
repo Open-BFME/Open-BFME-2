@@ -589,11 +589,7 @@ template Rva003A37FATable::hashtable(Rva003A37FATable::size_type,
 	const Rva003A37FATable::allocator_type &);
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerList *ThePlayerList;
-class ObjectLookupMap
-{
-public:
-	Object **findSlot(int *key);
-};
+#include "../../../Include/Common/ObjectLookupMap.h"
 // The relation map read through its embedded hash map.
 struct MapWrapper
 {

@@ -398,11 +398,7 @@ private:char pad4[0xa8];char mapAC[0x14];
 // ?eraseSlot@ObjectLookupMap@@QAEXPAH@Z (void thiscall, int* arg) used here;
 // Rva002BFA12 already treats +0x98 as an ObjectLookupMap (findSlot). The
 // dead arg slot is reused for the key (mov [ebp+8],eax then lea/push it).
-class ObjectLookupMap
-{
-public:
-	void eraseSlot(int *key);
-};
+#include "../../../Include/Common/ObjectLookupMap.h"
 
 class Rva002BF6B7
 {

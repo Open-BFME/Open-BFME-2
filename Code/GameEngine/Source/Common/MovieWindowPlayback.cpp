@@ -118,11 +118,7 @@ private:
 	int m_1c;
 };
 class Object;
-class ObjectLookupMap
-{
-public:
-	Object**findSlot(int*);
-};
+#include "../../Include/Common/ObjectLookupMap.h"
 class Rva00548984;
 typedef _STL::hashtable<_STL::pair<const int,Rva00548984*>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<const int,Rva00548984*> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,Rva00548984*> > > EraseView;
 namespace _STL {template<> unsigned EraseView::erase(const int&);}

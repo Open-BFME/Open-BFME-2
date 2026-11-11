@@ -5,11 +5,7 @@ class Rva0055A88BDwordField
 public:
 	int get() const;
 };
-class ObjectLookupMap
-{
-public:
-	void eraseSlot(int *p);
-};
+#include "../../Include/Common/ObjectLookupMap.h"
 class Rva00239C38
 {
 	char m_pad[0x18];

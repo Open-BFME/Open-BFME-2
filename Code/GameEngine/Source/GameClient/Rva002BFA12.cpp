@@ -58,11 +58,7 @@ typedef std::hash_map<
 
 class Object;
 
-class ObjectLookupMap
-{
-public:
-	Object **findSlot(int *key);
-};
+#include "../../Include/Common/ObjectLookupMap.h"
 
 class Rva002BFA12
 {

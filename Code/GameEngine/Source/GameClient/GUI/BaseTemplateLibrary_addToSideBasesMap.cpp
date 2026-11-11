@@ -59,11 +59,7 @@ typedef _STL::hashtable<_STL::pair<const NameKeyType, ArmorTemplate>, NameKeyTyp
 
 class Object;
 
-class ObjectLookupMap
-{
-public:
-	Object **findSlot(int *key);
-};
+#include "../../../Include/Common/ObjectLookupMap.h"
 
 class ModuleData;
 

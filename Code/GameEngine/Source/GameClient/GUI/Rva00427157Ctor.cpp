@@ -134,7 +134,7 @@ typedef _STL::hash_map<NameKeyType, const Rva00427157 *, rts::hash<NameKeyType>,
 // (0x0041F4E5). Both use a four-byte key and pointer value in the same table
 // layout; use that rowed insertion provider rather than emitting another copy.
 class Object;
-class ObjectLookupMap { public: Object **findSlot(int *key); };
+#include "../../../Include/Common/ObjectLookupMap.h"
 
 class LivingWorldAutoResolveArmorStore
 {

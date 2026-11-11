@@ -15,11 +15,7 @@ class INI;
 
 typedef void (__cdecl *TransitionFunc)(INI *ini, void *instance, void *store, const void *userData);
 
-class ObjectLookupMap
-{
-public:
-	class Object **findSlot(int *id);
-};
+#include "../../../Include/Common/ObjectLookupMap.h"
 
 enum NameKeyType
 {
