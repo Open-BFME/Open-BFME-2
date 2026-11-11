@@ -1240,3 +1240,4 @@ Rva0041E875,Code/GameEngine/Include/GameClient/Rva0041E875.h,existing header; co
 Rva00210390,Code/Libraries/Source/WWVegas/WWLib/Rva00210390.h,existing header; contract class_contracts/Rva00210390.json; 4/4 sampled units adopt
 Rva00318FA1MainOwner,Code/GameEngine/Include/Common/Rva00318FA1MainOwner.h,existing header; contract class_contracts/Rva00318FA1MainOwner.json; 4/4 sampled units adopt
 Rva00407E28,Code/GameEngine/Include/GameNetwork/Rva00407E28.h,existing header; contract class_contracts/Rva00407E28.json; 4/5 sampled units adopt
+Rva006C2D20Sink,Code/GameEngine/Include/Common/Rva006C2D20Sink.h,existing header; contract class_contracts/Rva006C2D20Sink.json; 4/5 sampled units adopt

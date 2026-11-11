@@ -132,11 +132,7 @@ struct GeneralAllocatorGuardView
 	unsigned int flags; // +0x514
 };
 
-class Rva006C2D20Sink
-{
-public:
-	void rva006C2FB0(const char *, const char *);
-};
+#include "../../Include/Common/Rva006C2D20Sink.h"
 unsigned char rva00030E20Fill(void *, unsigned int, unsigned char);
 
 // Native 006C3180..006C3216, 150 bytes, RET4. Before releasing a chunk,

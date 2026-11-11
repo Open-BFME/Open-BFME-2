@@ -26,11 +26,7 @@ int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 unsigned char rva00030E20Fill(void *memory, unsigned int size, unsigned char value);
 
-class Rva006C2D20Sink
-{
-public:
-	void rva006C2FB0(const char *text, const char *extra);
-};
+#include "../../Include/Common/Rva006C2D20Sink.h"
 
 #include "../../Include/Common/GeneralAllocator.h"
 

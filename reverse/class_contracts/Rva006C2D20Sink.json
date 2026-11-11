@@ -1,0 +1,339 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva006C2D20Sink",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x474": {
+    "1": 4
+   },
+   "0x475": {
+    "1": 2
+   },
+   "0x4e4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "1296": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_000",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1072,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1088,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1092,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1096,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1128,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1132,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1133,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1136,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1140,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1141,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1144,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1148,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1152,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1156,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1160,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1164,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1168,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1172,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1176,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1180,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1196,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1200,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1204,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1208,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1212,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1216,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1220,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1224,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1228,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1232,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1236,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1240,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1244,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1248,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1252,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1256,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1288,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C2D20Describe.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

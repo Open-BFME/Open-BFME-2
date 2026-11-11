@@ -25,12 +25,7 @@
 // `lea esi,[eax+0x1]` with the `mov eax,edx` landing between the two pushes,
 // exactly as retail orders them. The expression has no runtime effect; it only
 // withholds the copy-elision that collapsed the cursor onto the parameter.
-class Rva006C2D20Sink
-{
-public:
-	int rva006C2D20(const char *text, const char *tail, unsigned int room);	// returns 0 (xor eax eax at the end of 0x006C2D20)
-	void rva006C2FB0(const char *text, const char *extra);
-};
+#include "../../Include/Common/Rva006C2D20Sink.h"
 
 // m8: force the walk cursor into its own register with a tautological phi so the
 // `+1` for base cannot fold back onto the parameter (retail lea esi,[eax+1]).

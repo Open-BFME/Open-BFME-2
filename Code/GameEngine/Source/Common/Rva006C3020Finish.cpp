@@ -52,11 +52,7 @@ unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned ch
 namespace EA { namespace Allocator {
 }}
 
-class Rva006C2D20Sink
-{
-public:
-	void rva006C2FB0(const char *text, const char *extra);
-};
+#include "../../Include/Common/Rva006C2D20Sink.h"
 
 class GeneralAllocatorDebug
 {
