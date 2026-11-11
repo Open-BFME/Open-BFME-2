@@ -177,11 +177,7 @@ Rva003ED94FDtor::Rva003ED94FDtor()
 
 extern unsigned int g_Va00DFEC74;
 
-class Rva002862C9
-{
-public:
-	LargeGroupAudioKeyMap *rva002862C9();
-};
+#include "../../../Include/GameLogic/Rva002862C9.h"
 
 LargeGroupAudioKeyMap *Rva002862C9::rva002862C9()
 {

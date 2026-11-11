@@ -41,7 +41,7 @@ Rva00285BEC::~Rva00285BEC()
 
 extern unsigned char g_00DFEA50[76];
 extern unsigned char g_00DFE794[16];
-class Rva002862C9 {public: LargeGroupAudioKeyMap *rva002862C9();};
+#include "../../Include/GameLogic/Rva002862C9.h"
 Rva00SlotFloat2FromInts Rva00285BEC::vslot00(){return Rva00SlotFloat2FromInts(m_08.m_00,m_08.m_04);}
 Rva00SlotFloat2FromInts Rva00285BEC::vslot01()const{return Rva00SlotFloat2FromInts(m_08.m_00,m_08.m_04);}
 unsigned char *Rva00285BEC::vslot02(){return g_00DFEA50;}

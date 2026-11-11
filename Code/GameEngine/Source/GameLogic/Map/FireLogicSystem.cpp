@@ -643,11 +643,7 @@ public:
 // address-derived names (argument counts from each callee's ret).
 
 class LargeGroupAudioKeyMap;
-class Rva002862C9
-{
-public:
-	LargeGroupAudioKeyMap *rva002862C9();
-};
+#include "../../../Include/GameLogic/Rva002862C9.h"
 class Rva00286351 : public Rva002862C9
 {
 public:

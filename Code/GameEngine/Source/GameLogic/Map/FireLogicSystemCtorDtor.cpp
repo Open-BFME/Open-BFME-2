@@ -196,11 +196,7 @@ void __cdecl Rva0020DAE0(void *);
 // Keep the existing by-value descriptor identity; its twelve-byte view
 // and copy operation come from the rowed getter at286356 and copy3ED658.
 #include "../../../Include/GameLogic/Rva003ED658.h"
-class Rva002862C9
-{
-public:
-    LargeGroupAudioKeyMap *rva002862C9();
-};
+#include "../../../Include/GameLogic/Rva002862C9.h"
 Rva00285D27::Rva00285D27()
 {
 }
