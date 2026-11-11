@@ -26,7 +26,7 @@ destructor has no definition.
 | `??1Rva0070A560@@UAE@XZ` | same | 0x00709B80 | same |
 | `??1Rva0070A590@@UAE@XZ` | same | 0x00709B80 | same |
 | `??1Rva006DE320@@UAE@XZ` | `Apt/AptValue.cpp` | 0x006DE350 | `??1AptValue@@MAE@XZ` / `??1Rva006DE350@@UAE@XZ` (AptValue.cpp) |
-| `??1Rva006F84C0@@UAE@XZ` | `Common/Rva006F84C0DeletingDtor.cpp` | 0x006F8460 | `??1Rva006F8460@@UAE@XZ` (Rva006F8460Dtor.cpp) |
+| `??1Rva006F84C0@@UAE@XZ` | `Common/Rva006F84C0DeletingDtor.cpp` | 0x006F8460 | `??1Rva006F8460@@UAE@XZ` (Rva006F8460Dtor.cpp; merged into `Apt/AptDisplayList.cpp` on 2026-11-11) |
 
 **Two repair shapes (not started; for the identity work in progress).**
 - *Derived classes, 5 names* (`Rva0070A530`, `Rva0070A560`, `Rva0070A590`, `Rva006DE320`, `Rva006F84C0`).

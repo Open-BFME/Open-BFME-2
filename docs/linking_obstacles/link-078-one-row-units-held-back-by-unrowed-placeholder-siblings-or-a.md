@@ -24,7 +24,8 @@ Evidence / affected units:
   Remaining: a fold-proof pin of `??1Rva006F84C0` onto 0x006F8460 from a TU
   whose inline base dtor reproduces it, or one family header reconciling the
   `Rva006F6A50Cluster.cpp`, `Rva006F8DA0Cluster.cpp` and
-  `FamilyDeletingDtors_Rva006F8460.cpp` views. Deferred (re_attempts.log).
+  `FamilyDeletingDtors_Rva006F8460.cpp` views (that file merged into
+  `Code/Libraries/Source/Apt/AptDisplayList.cpp` on 2026-11-11). Deferred (re_attempts.log).
 - `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00551B02.cpp`,
   `StlSweepR3Rva005838DC.cpp` and `StlSweepR3Rva005AFEDB.cpp` each row a
   placeholder `??_GRva...Record` whose `??1` is a pin onto a real owner's
