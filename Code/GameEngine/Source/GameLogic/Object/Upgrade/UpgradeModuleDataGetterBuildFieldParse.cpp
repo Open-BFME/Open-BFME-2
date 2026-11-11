@@ -52,11 +52,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class DoCommandUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DoCommandUpgradeModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 

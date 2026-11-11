@@ -1,0 +1,385 @@
+{
+ "bases": [
+  "Rva00253487Base"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "DoCommandUpgradeModuleData",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x7f3840"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x256222",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x120": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x255795"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00253487Base",
+       "offset": 0,
+       "own_vftable": "0x7f3840",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x255795"
+     ],
+     "value": 288
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x255795"
+     ],
+     "value": {
+      "0x118": [
+       4
+      ],
+      "0x11c": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x255795"
+     ],
+     "value": {
+      "0x0": "0x7f3840"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7f3840"
+     ],
+     "value": {
+      "count": 31,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GDoCommandUpgradeModuleData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x256283"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x65212"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 4,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 7,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+        "slot": 14,
+        "target": "0xb69a1"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 16,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 17,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 18,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 19,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 20,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 21,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 22,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 23,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 24,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 25,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 26,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 27,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 29,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 30,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x7f3840"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7f3840": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GDoCommandUpgradeModuleData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+     "3": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "4": "?IsCRC@Xfer@@UBE_NXZ",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?IsCRC@Xfer@@UBE_NXZ",
+     "7": "?IsCRC@Xfer@@UBE_NXZ",
+     "8": "?IsCRC@Xfer@@UBE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "17": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "18": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "19": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "20": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "21": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "22": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "23": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "24": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "25": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "26": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "27": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "30": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 2,
+   "288": 3
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x7f3840"
+    },
+    "dtor": {
+     "0x0": "0x7bb554"
+    }
+   },
+   "class": "DoCommandUpgradeModuleData",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['ModuleDataBase']": 1,
+    "['Rva00253487Base']": 1
+   },
+   "class": "DoCommandUpgradeModuleData",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "DoCommandUpgradeModuleData"
+  },
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "DoCommandUpgradeModuleData"
+  },
+  {
+   "attribute": "field@0x118",
+   "candidates": {
+    "4:A": 1,
+    "4:i4": 1
+   },
+   "class": "DoCommandUpgradeModuleData"
+  },
+  {
+   "attribute": "field@0x11c",
+   "candidates": {
+    "4:A": 1,
+    "4:i4": 1
+   },
+   "class": "DoCommandUpgradeModuleData"
+  }
+ ],
+ "size": 288,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

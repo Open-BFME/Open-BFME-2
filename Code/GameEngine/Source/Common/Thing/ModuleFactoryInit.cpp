@@ -186,7 +186,7 @@ class DetachableRiderUpdateModuleData { public: static ModuleData *friend_newMod
 class DevastateSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DevastateSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DoCommandUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class DoCommandUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/DoCommandUpgradeModuleData.h"
 class DominateEnemySpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
 class DozerAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
