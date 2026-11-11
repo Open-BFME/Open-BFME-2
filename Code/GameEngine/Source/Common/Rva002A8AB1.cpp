@@ -15,11 +15,7 @@ struct Rva002A8AB1Record
 	char m_pad[0x160];
 };
 
-class Rva004E9600
-{
-public:
-	void *rva004E95D4(void *p);
-};
+#include "../../Include/Common/Rva004E9600.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

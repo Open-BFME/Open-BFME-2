@@ -35,11 +35,7 @@ public:
 	void rva002C6845();
 };
 
-class Rva004E9600
-{
-public:
-	void *rva004E95D4(void *key);
-};
+#include "../../Include/Common/Rva004E9600.h"
 
 class Rva004E93A8
 {

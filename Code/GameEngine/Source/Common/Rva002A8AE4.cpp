@@ -29,11 +29,7 @@ struct Rva002A8AE4Record : public Rva002C67CFCmpBoolField
 
 struct Rva002A8B59Data;
 
-class Rva004E9600
-{
-public:
-	bool rva004E9600(void *p);
-};
+#include "../../Include/Common/Rva004E9600.h"
 
 #include "../../Include/Common/AIGameTeam.h"
 

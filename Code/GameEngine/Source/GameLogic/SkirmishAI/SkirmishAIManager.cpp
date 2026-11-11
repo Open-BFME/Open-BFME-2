@@ -184,7 +184,7 @@ void Rva002A8F24::xfer(Xfer* xfer) {
 class AsciiString;
 typedef _STL::hash_map<int,AsciiString> DozerMap;
 class Rva004E94CA { public: bool rva004E94CA(Player *); };
-class Rva004E9600 { public: void *rva004E95D4(void *); };
+#include "../../../Include/Common/Rva004E9600.h"
 class Rva004E962A { public: Rva004E962A(); unsigned char nativeStorage[0x28]; };
 class ArmorTemplate;
 #include "../../../Include/GameLogic/ArmorStore.h"
