@@ -186,13 +186,7 @@ public:
 	TextureRef() : m_ptr(0) {}
 	TextureClass *m_ptr; // +0x00
 };
-class BfmeRetBWF
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../GameEngine/Include/Common/BfmeRetBWF.h"
 class Rva0030D631
 {
 public:

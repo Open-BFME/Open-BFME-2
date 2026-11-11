@@ -1578,7 +1578,7 @@ void W3DRoadBuffer::addMapObject(RoadSegment *pRoad, Bool updateTheCounts)
 // is out of line (0x0030D631) and the list head is read through the holder
 // at retail [0x00E00940]. The Zero Hour MapObject header here has the older
 // layout, so addMapObjects walks the list through this view.
-class BfmeRetBWF { public: Real x, y, z; };
+#include "../../../../GameEngine/Include/Common/BfmeRetBWF.h"
 struct Rva0030D631 { BfmeRetBWF *rva0030D631(); };
 class BfmeRoadMapObjectView
 {
