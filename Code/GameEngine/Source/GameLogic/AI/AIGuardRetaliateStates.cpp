@@ -46,9 +46,8 @@
 typedef bool Bool;
 typedef float Real;
 typedef unsigned int UnsignedInt;
-#define NULL 0
-#define TRUE 1
-#define FALSE 0
+// platformsdk
+#include <windows.h>
 #include "../../Common/GameLogicObjectLookupView.h"
 enum Relationship
 {
@@ -319,7 +318,11 @@ struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game's _fprintf thunk through REL32, so read <stdio.h>
+// without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 class StateMachine
@@ -414,7 +417,7 @@ StateReturnType AIGuardRetaliateReturnState::onEnter( void )
 	{
 		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log)
-			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 4");
+			fprintf((FILE *)log, "CritterDesync: setAdjustDestination(TRUE) 4");
 	}
 	setAdjustsDestination(true);
 	return AIInternalMoveToState::onEnter();
