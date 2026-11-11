@@ -1244,13 +1244,22 @@ def spell_typedefs(text):
     return text
 
 
+# The head of a type's definition, read at the top level (attributes' and template arguments'
+# parentheses blanked): specifiers and attributes, the class key, attributes, an optional name and
+# an optional base clause, and nothing else before the body's `{` (a method returning a type,
+# `struct N *f()`, is no definition).
+TYPE_DEFINITION_HEAD = re.compile(
+    r"(?:(?:typedef|const|volatile|mutable|static|__declspec\s*\(\s*\))\s*)*(?:class|struct|union|enum)\b"
+    r"(?:\s*__declspec\s*\(\s*\))*\s*(?P<name>[A-Za-z_]\w*)?\s*(?::[^;(){}]*)?$")
+
+
 def top_level_spans(shape, start, end, raw=None):
     """(start, end) of each top-level member of `shape[start:end]`, split as split_members
     splits; `shape` has its literals and comments blanked (masked), `raw` is the text it
     masks (for a directive's line continuations). A preprocessor line outside every brace
     is a member of its own, continuation lines included (it has no `;` to end it, so it once
     swallowed the member after it); a declaration it interrupts goes with it."""
-    out, begin, depth, index = [], start, 0, start
+    out, begin, depth, index, opened = [], start, 0, start, start
     while index < end:
         if depth == 0 and (index == start or shape[index - 1] == "\n"):
             first = index
@@ -1271,14 +1280,15 @@ def top_level_spans(shape, start, end, raw=None):
                 continue
         char = shape[index]
         if char == "{":
+            opened = index if depth == 0 else opened
             depth += 1
         elif char == "}":
             depth -= 1
-            if depth == 0 and re.match(r"\s*(?:(?:public|private|protected)\s*:\s*)*"
-                                       r"(?:(?:typedef|const|volatile|mutable|static)\s+)*"
-                                       r"(?:class|struct|union|enum)\b", shape[begin:index]):
+            head = re.sub(r"^\s*(?:(?:public|private|protected)\s*:\s*)*", "", shape[begin:opened]) \
+                if depth == 0 else ""
+            if depth == 0 and TYPE_DEFINITION_HEAD.match(top_level(head).strip()):
                 pass                             # a type's definition runs to its `;` (`struct {...} s;`)
-            elif depth == 0:
+            elif depth == 0:                     # a method's body ends it (`struct N *f() { ... }`)
                 out.append((begin, index + 1))
                 while index + 1 < end and shape[index + 1] in " \t\r\n;":
                     index += 1
@@ -1556,7 +1566,8 @@ def member_role(member, short):
         return "directive"
     head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
     prefix, rest = template_head(head)
-    if re.match(r"(?:(?:const|volatile|mutable)\s+)*(?:class|struct|union)\s*$", rest):
+    if re.match(r"(?:(?:const|volatile|mutable|__declspec\s*\(\s*\))\s*)*(?:class|struct|union)"
+                r"(?:\s*__declspec\s*\(\s*\))*\s*$", top_level(rest).strip()):
         return None                              # an anonymous union or struct, or an unnamed one's member: layout
     if re.match(r"friend\s+(?:class|struct|union)\s+[A-Za-z_][\w:]*\s*;?$", rest):
         return "friend class"
@@ -1566,11 +1577,12 @@ def member_role(member, short):
         return "nested"
     # A named type defined here (`struct N { ... };`, `const struct N : B { ... } s;`): the body's `{`
     # follows the type's name or base clause, unlike a method returning one (`struct N *f() { ... }`).
-    # A forward declaration (`class X;`) is nested too. Read at the top level, where a template
-    # argument's or an attribute's parentheses are blanked (`B<void()>`, `__declspec(align(8))`).
-    if re.match(r"(?:(?:const|volatile|mutable|static)\s+)*(?:class|struct|union|enum)\s+"
-                r"(?:__declspec\s*\(\s*\)\s*)*[A-Za-z_]\w*\s*(?::[^;(){}]*)?$", top_level(rest)) \
-            and "{" in LITERAL.sub("", member) or re.match(r"(?:class|struct|union|enum)\s+\w+\s*;?$", rest):
+    # A forward declaration (`class X;`) is nested too. TYPE_DEFINITION_HEAD reads the top level,
+    # where a template argument's or an attribute's parentheses are blanked (`B<void()>`,
+    # `__declspec(align(8))`, before the class key or after it); the splitter uses it too.
+    definition = TYPE_DEFINITION_HEAD.match(top_level(rest).strip())
+    if definition and definition["name"] and "{" in LITERAL.sub("", member) \
+            or re.match(r"(?:class|struct|union|enum)\s+\w+\s*;?$", rest):
         return "nested"
     if prefix and not re.search(r"\(", rest):
         return "nested"                          # a member class template's declaration

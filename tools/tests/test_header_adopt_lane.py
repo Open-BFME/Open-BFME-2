@@ -1212,7 +1212,9 @@ def test_a_qualified_named_nested_type_holds():
                    "struct d : public b<void()> { int x; };", "const struct d : public b<void()> { int x; } v;",
                    "template<class t> struct d : b<t()> { int x; };",
                    "struct __declspec(align(8)) n { int a; };", "struct __declspec (dllexport) n { int a; };",
-                   "const struct __declspec(align(8)) n { int a; } v;"):
+                   "const struct __declspec(align(8)) n { int a; } v;",
+                   # round 7: an attribute before the class key
+                   "__declspec(align(8)) struct n { int a; };", "__declspec (dllexport) struct n { int a; };"):
         assert [r["role"] for r in lane.declaration_records("struct C { %s int m; };\n" % nested, "C")] == ["nested"], \
             nested
         assert [r["name"] for r in lane.field_records("struct C { %s int m; };\n" % nested, "C")] == ["m"], nested
@@ -1221,9 +1223,18 @@ def test_a_qualified_named_nested_type_holds():
 @pytest.mark.parametrize("member", ["const struct N *f() { return 0; }", "struct N *f() { return 0; }",
                                     "struct N *f();"])
 def test_a_method_returning_an_elaborated_type_is_a_method(member):
-    # the brace of a method's body is no type's definition
-    records = lane.declaration_records("struct C { %s int m; };\n" % member, "C")
-    assert [(r["role"], r["key"]) for r in records] == [("method", "f()")]
+    # the brace of a method's body is no type's definition, and it ends the member: the
+    # members after it are their own (they were swallowed into it, `g()` lost silently)
+    view = "struct C { %s void g(); int m; };\n" % member
+    records = lane.declaration_records(view, "C")
+    assert [(r["role"], r["key"]) for r in records] == [("method", "f()"), ("method", "g()")]
+    assert [r["name"] for r in lane.field_records(view, "C")] == ["m"]
+
+
+def test_a_method_with_a_template_parameter_ends_at_its_body():
+    view = "struct C { struct N *h(B<void()> x) {} int m; };\n"
+    assert [r["name"] for r in lane.field_records(view, "C")] == ["m"]
+    assert len(lane.declaration_records(view, "C")) == 1
 
 
 def test_a_qualified_unnamed_struct_member_is_one_field():
