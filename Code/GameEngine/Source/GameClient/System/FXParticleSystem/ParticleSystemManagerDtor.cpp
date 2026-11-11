@@ -188,11 +188,7 @@ struct Rva001F9D98Node
 
 #include "../../../../Include/GameLogic/Rva000427195.h"
 
-class Rva001F58D4
-{
-public:
-	void rva001F58D4();
-};
+#include "../../../../Include/Common/Rva001F58D4.h"
 
 class Rva001F9D98 : public SubsystemInterface, public Snapshot
 {

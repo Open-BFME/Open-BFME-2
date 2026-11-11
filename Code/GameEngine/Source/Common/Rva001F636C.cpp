@@ -6,11 +6,7 @@ bool __cdecl BFME_DX8_Thread_Assert();
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
-class Rva001F58D4
-{
-public:
-	void rva001F58D4();
-};
+#include "../../Include/Common/Rva001F58D4.h"
 
 #include "../../Include/Common/Rva00152D1CObj.h"
 

@@ -103,11 +103,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva001F5BBEArg;
-class Rva001F58D4
-{
-public:
-	void rva001F5BBE(Rva001F5BBEArg *obj); // destroyAttachedSystems (rowed 0x001F5BBE)
-};
+#include "../../../../Include/Common/Rva001F58D4.h"
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
