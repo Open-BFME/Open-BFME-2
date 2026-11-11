@@ -687,14 +687,7 @@ public:
 	virtual int s15();
 };
 
-class Rva0029ACFB
-{
-public:
-	virtual int rva0029ACFB();
-private:
-	char m_pad04[0x5C4 - 4];
-	Rva0029ACFBTarget *m_target;							// +0x5C4
-};
+#include "../../../../Include/Common/Rva0029ACFB.h"
 
 // --- 0x0029B558 / 0x0029B563 / 0x0029B5CD / 0x0029B5D8 (11B each): forward
 // to rowed members of the +0x9BC object.
