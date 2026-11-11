@@ -68,11 +68,7 @@ struct Rva004FA83ETemplate
 
 #include "../../../../Include/Common/Rva0037DCA5.h"
 
-class Rva004E0705
-{
-public:
-	Rva002E2903Player *rva004E0705();
-};
+#include "../../../../Include/GameLogic/Rva004E0705.h"
 
 struct Rva004FA83EData
 {

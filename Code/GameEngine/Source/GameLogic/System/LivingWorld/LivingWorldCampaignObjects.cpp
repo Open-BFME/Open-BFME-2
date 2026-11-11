@@ -163,7 +163,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 struct Rva002B2579Result;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E2903Player;
-class Rva004E0705 { public:Rva002E2903Player *rva004E0705(); };
+#include "../../../../Include/GameLogic/Rva004E0705.h"
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 // Complete native body and associated EH graph verified against retail.

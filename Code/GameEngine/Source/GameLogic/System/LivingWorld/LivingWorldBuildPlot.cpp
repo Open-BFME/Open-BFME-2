@@ -95,11 +95,7 @@ public:
 
 #include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 
-class Rva004E0705
-{
-public:
-    bool rva004E0A58();
-};
+#include "../../../../Include/GameLogic/Rva004E0705.h"
 
 class Rva004FC320Listener
 {
