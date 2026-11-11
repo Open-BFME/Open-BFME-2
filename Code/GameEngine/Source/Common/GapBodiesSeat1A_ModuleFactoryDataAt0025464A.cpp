@@ -660,11 +660,7 @@ extern int BfmeLogicFramesPerSecond;
 
 
 // --- 0x002B4404 (12B, cdecl): the rowed 0x002B2F49 with 0 on the argument.
-class Rva002B2F49
-{
-public:
-	void *rva002B2F49(unsigned int value);					// 0x002B2F49
-};
+#include "../../Include/Common/Rva002B2F49.h"
 
 
 // --- 0x002B4640 (16B): the indexed word of the array *(+0x170).

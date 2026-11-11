@@ -2184,11 +2184,7 @@ unsigned int Rva002B3DA4()
 }
 
 // --- 0x002B4404 (12B, cdecl): the rowed 0x002B2F49 with 0 on the argument.
-class Rva002B2F49
-{
-public:
-	void *rva002B2F49(unsigned int value);					// 0x002B2F49
-};
+#include "../../Include/Common/Rva002B2F49.h"
 
 void *Rva002B4404(Rva002B2F49 *target)
 {

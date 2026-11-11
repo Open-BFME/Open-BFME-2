@@ -47,10 +47,7 @@ struct Rva0040DC56Element
 	char m_pad[4];
 };
 
-struct Rva002B2F49
-{
-	void *rva002B2F49(unsigned int flag);
-};
+#include "../../Include/Common/Rva002B2F49.h"
 
 class Rva002B6066
 {
