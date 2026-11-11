@@ -497,3 +497,34 @@ which looks like a case-sensitivity bug and is not -- `thunk_symbol` formats
 `{rva:08x}`, and all 264 such names in the ledgers are lowercase. The uppercase
 is the record's own transcription. Widening the pattern would admit placeholder
 spellings the generator never mints, which weakens the predicate; don't.
+
+## What the remaining open lane actually is
+
+After the three corrections above the pile is **324 open**. Splitting it by the
+state of the ledger at each record's address changes what the lane looks like:
+
+| state at the record's RVA | records |
+| --- | ---: |
+| matched, but every name there is still a placeholder | **190** |
+| matched under a real name | 77 |
+| no ledger row at the address | 57 |
+
+The 190 are the lane's real shape and they are **not "the check is broken and
+nothing can land"** -- the body landed and byte-verified. What is unresolved is
+the *name*. 145 of them are `add_match`, where a worker proposed a real name and
+was refused. So the question for each is narrow: is a check still refusing this
+rename, or did the worker simply stop? Only the first is a tooling record.
+
+The 77 matched under a real name are the best remaining hunting ground, since
+the naming work visibly completed after the record was written: 19 `rename.py`,
+8 `header_adopt_lane`, 4 `classification`, 3 each `pin_admission` and
+`rename.run_batch`. Those are the ones to read next.
+
+The 57 with no row are mostly `tool:` pseudo-symbols at 0x0 -- records about a
+tool, where the only evidence is the tool's own code.
+
+**A caution that cost real time.** "The address is matched" is not closure: a
+row can be `matched` and still carry a placeholder name (`Rva0012345`,
+`uw_0076fa6b`). 267 of the 324 are matched under *some* name, which looks like a
+backlog that has almost entirely evaporated; filtering to a real name leaves 77.
+Do not take the first number.
