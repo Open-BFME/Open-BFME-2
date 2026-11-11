@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /DNDEBUG /D_STLP_NO_EXCEPTIONS /DWIN32 /D_WINDOWS
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /DNDEBUG /D_STLP_NO_EXCEPTIONS /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
 // stlport
 //
 // STLport 4.5.3 vector<T>::push_back for element types whose push_back sits
@@ -538,7 +538,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void vector<Rva
 class LivingWorldRegionConnection;
 class Rva004E366E;
 class Rva0052BE33;
-struct BfmeAssignRecord44;
+class ScoredKillTracker;
 struct BfmeStringRecord00466E64;
 struct BfmeStringRecord005DDD40;
 struct DynamicPortalLink;
@@ -568,7 +568,7 @@ namespace _STL { template <> void _Destroy<struct Rva0027EA49 *>(Rva0027EA49 *,R
 void __cdecl Rva0032C0CADestroyPairs(RvaPair0032C0CA *,RvaPair0032C0CA *);
 namespace _STL { template <> void _Destroy<struct DynamicPortalLink *>(DynamicPortalLink *,DynamicPortalLink *); }
 void __cdecl Rva0022D941Destroy(Rva0022CD2A *,Rva0022CD2A *);
-namespace _STL { template <> void _Destroy<struct BfmeAssignRecord44 *>(BfmeAssignRecord44 *,BfmeAssignRecord44 *); }
+namespace _STL { template <> void _Destroy<class ScoredKillTracker *>(ScoredKillTracker *,ScoredKillTracker *); }
 namespace _STL { template <> void _Destroy<struct TreeHintRef00217D4C *>(TreeHintRef00217D4C *,TreeHintRef00217D4C *); }
 void __cdecl Rva004F8373Destroy(Rva004F6986 *,Rva004F6986 *);
 void __cdecl Rva0052CEF6Clear(Rva004E366E *,Rva004E366E *);
@@ -591,7 +591,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<s
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<struct Rva00414258Element *>(Rva00414258Element * a0, Rva00414258Element * a1)
 { ((void (__cdecl *)(Rva00414258Element *,Rva00414258Element *))(void (__cdecl *)(Rva0022CD2A *,Rva0022CD2A *))&Rva0022D941Destroy)(a0, a1); } }
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<struct Rva00414BA4Element *>(Rva00414BA4Element * a0, Rva00414BA4Element * a1)
-{ ((void (__cdecl *)(Rva00414BA4Element *,Rva00414BA4Element *))(void (__cdecl *)(BfmeAssignRecord44 *,BfmeAssignRecord44 *))&_STL::_Destroy<BfmeAssignRecord44 *>)(a0, a1); } }
+{ ((void (__cdecl *)(Rva00414BA4Element *,Rva00414BA4Element *))(void (__cdecl *)(ScoredKillTracker *,ScoredKillTracker *))&_STL::_Destroy<ScoredKillTracker *>)(a0, a1); } }
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<struct Rva004F8D92Element *>(Rva004F8D92Element * a0, Rva004F8D92Element * a1)
 { ((void (__cdecl *)(Rva004F8D92Element *,Rva004F8D92Element *))(void (__cdecl *)(TreeHintRef00217D4C *,TreeHintRef00217D4C *))&_STL::_Destroy<TreeHintRef00217D4C *>)(a0, a1); } }
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<struct Rva004F93B0Element *>(Rva004F93B0Element * a0, Rva004F93B0Element * a1)

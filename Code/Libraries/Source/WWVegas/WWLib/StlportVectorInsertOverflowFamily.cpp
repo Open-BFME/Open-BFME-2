@@ -337,7 +337,7 @@ struct Rva00565A42 { void rva00565A42(); };
 struct Rva0056614DVec { void rva0056614D(); };
 struct Rva002B61DD { void rva002B61DD(); };
 struct BfmeStringRecord00426A5B { char m_pad[8]; };
-struct BfmeAssignRecord44 { char m_pad[44]; };
+class ScoredKillTracker;
 struct BfmeAssignRecord104;
 class CameraMarker;
 struct Rva002BB6BE20Rec;
@@ -353,7 +353,7 @@ template <> void _STL::vector<Rva002B9062Element>::_M_clear();
 // stlport_vector_stringrecord_426a5b_allocate_copy.cpp and stlport_asciistring_record_bodies.cpp.
 template <> void _STL::vector<BfmeStringRecord005DDD40>::_M_clear();
 template <> void _STL::vector<BfmeStringRecord00426A5B>::_M_clear();
-template <> void _STL::vector<BfmeAssignRecord44>::_M_clear();
+template <> void _STL::vector<ScoredKillTracker>::_M_clear();
 template <> void _STL::vector<BfmeAssignRecord104>::_M_clear();
 template <> void _STL::vector<Rva005F8F96>::_M_clear();
 template <> void _STL::vector<CameraMarker>::_M_clear();
@@ -389,7 +389,7 @@ BFME_CLEAR_FORWARD(Rva0032EA3FElement, ((Rva0032E7E2 *)this)->rva0032E7E2())
 BFME_CLEAR_FORWARD(Rva0033A23AElement, ((Rva0032E7E2 *)this)->rva0032E7E2())
 BFME_CLEAR_FORWARD(Rva003F7B22Element, ((Rva002B61DD *)this)->rva002B61DD())
 BFME_CLEAR_FORWARD(Rva00414258Element, ((Rva00414148 *)this)->rva00414148())
-BFME_CLEAR_FORWARD(Rva00414BA4Element, ((ClearOwner<BfmeAssignRecord44> *)this)->_M_clear())
+BFME_CLEAR_FORWARD(Rva00414BA4Element, ((ClearOwner<ScoredKillTracker> *)this)->_M_clear())
 BFME_CLEAR_FORWARD(Rva004F8D92Element, ((ClearOwner<Rva002B9062Element> *)this)->_M_clear())
 BFME_CLEAR_FORWARD(Rva005FA197Element, ((ClearOwner<Rva002B9062Element> *)this)->_M_clear())
 BFME_CLEAR_FORWARD(Rva005FA1CEElement, ((ClearOwner<Rva002B9062Element> *)this)->_M_clear())

@@ -33,7 +33,7 @@ extern "C" void *Rva00054E23CopyDispatch(void *first, void *last, void *result,
 
 // Native 00414403/29 has the same dispatch ABI; worker 004143A4 is already
 // rowed and independently proves stride 44. No element layout is inferred.
-extern "C" void *__identifier("??$__copy@PAUBfmeAssignRecord44@@PAU1@H@_STL@@YAPAUBfmeAssignRecord44@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z")(void *, void *, void *,
+extern "C" void *__identifier("??$__copy@PAVScoredKillTracker@@PAV1@H@_STL@@YAPAVScoredKillTracker@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z")(void *, void *, void *,
     const RvaCopyIteratorTag &, int *);
 
 // ?Rva00414403CopyDispatch present-unmatched
@@ -41,7 +41,7 @@ extern "C" void *Rva00414403CopyDispatch(void *first, void *last, void *result,
     const RvaCopyIteratorTag &)
 {
     RvaCopyIteratorTag tag;
-    return __identifier("??$__copy@PAUBfmeAssignRecord44@@PAU1@H@_STL@@YAPAUBfmeAssignRecord44@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z")(first, last, result, tag, 0);
+    return __identifier("??$__copy@PAVScoredKillTracker@@PAV1@H@_STL@@YAPAVScoredKillTracker@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z")(first, last, result, tag, 0);
 }
 
 // Native 003B8B44/29 has the same dispatch ABI; worker 003F421D is already

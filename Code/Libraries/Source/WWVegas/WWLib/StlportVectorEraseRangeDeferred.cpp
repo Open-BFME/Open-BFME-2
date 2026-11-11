@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // Blocked instantiations rehomed unchanged from StlportVectorEraseRangeFamily.cpp.
 // Their helper/provider prerequisites remain unresolved; no new identity is claimed.
@@ -59,7 +59,7 @@
 //   0x004043AE  0x00403BD2   0x00214B09   Rva004043AEElement
 //   0x0040538F  0x00404CD8*  0x00405337   Rva0040538FElement
 //   0x0040DC56  0x002B4410*  0x002B61C5*  Rva0040DC56Element
-//   0x00414760  0x00414403   0x004144F0   BfmeAssignRecord44
+//   0x00414760  0x00414403   0x004144F0   ScoredKillTracker
 //   0x00426BB2  0x00426B29   0x0032C0CA   BfmeStringRecord00426A5B
 //   0x004286AF  0x004284F5*  0x002385E6   BfmeNarrowRecord00427F75
 //   0x004758F4  0x00474125   0x00470398   Rva004758F4Element
@@ -235,7 +235,7 @@ struct BfmeStringRecord00111ACF;
 struct Rva004043AEElement;
 struct Rva0040538FElement;
 struct Rva0040DC56Element;
-struct BfmeAssignRecord44;
+class ScoredKillTracker;
 struct BfmeStringRecord00426A5B;
 struct BfmeNarrowRecord00427F75;
 struct Rva004758F4Element;

@@ -116,39 +116,20 @@ void ScoredKillTracker::LoadPostProcess()
 	hookToKeeper(&player->m_3BC);
 }
 
-struct BfmeAssignExtra
-{
-	int v0;
-	int v1;
-	int v2;
-};
-
-struct BfmeAssignRecord44
-{
-	BfmeAssignRecord44 &operator=(const BfmeAssignRecord44 &other);
-	char m_00[4]; // +0x00
-	int m_04; // +0x04
-	int m_08; // +0x08
-	int m_0c; // +0x0C
-	Rva0039BCF8 *m_10; // +0x10
-	int m_14; // +0x14
-	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
-	int m_1c; // +0x1C
-	BfmeAssignExtra m_20; // +0x20 (12B via movsd x3)
-};
-
-BfmeAssignRecord44 &BfmeAssignRecord44::operator=(const BfmeAssignRecord44 &other)
+// Retail 0x0055AC1F: the class's own assignment, reached from the vector copy at 0x004143A4. It drops the old
+// keeper link, copies everything but the keeper and player index, then re-hooks to the source's keeper.
+ScoredKillTracker &ScoredKillTracker::operator=(const ScoredKillTracker &other)
 {
 	if (this == &other)
 		return *this;
-	((ScoredKillTracker *)this)->rva0055A91A();
-	m_04 = other.m_04;
-	m_08 = other.m_08;
-	m_0c = other.m_0c;
-	m_list = other.m_list;
-	m_1c = other.m_1c;
-	m_20 = other.m_20;
-	if (other.m_10 != 0)
-		((ScoredKillTracker *)this)->hookToKeeper(other.m_10);
+	rva0055A91A();
+	m_lifetime = other.m_lifetime;
+	m_filter = other.m_filter;
+	m_value0c = other.m_value0c;
+	m_trackedKills = other.m_trackedKills;
+	m_trackedKillsCount = other.m_trackedKillsCount;
+	m_position = other.m_position;
+	if (other.m_keeper != 0)
+		hookToKeeper(other.m_keeper);
 	return *this;
 }

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // Pristine STLport 4.5.3 members, each placed by a single masked whole-.text
@@ -30,10 +30,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <map>
 
 #include "ascii_string.h"
-// Suppress this TU's non-retail copy of ?erase@?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@QAEPA:
+// Suppress this TU's non-retail copy of ?erase@?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@QAEPA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeAssignRecord44;
-namespace _STL { template <> BfmeAssignRecord44 * vector<BfmeAssignRecord44,allocator<BfmeAssignRecord44> >::erase(BfmeAssignRecord44 *,BfmeAssignRecord44 *); }
+class ScoredKillTracker;
+namespace _STL { template <> ScoredKillTracker * vector<ScoredKillTracker,allocator<ScoredKillTracker> >::erase(ScoredKillTracker *,ScoredKillTracker *); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAUBfmeStringTailRecord156@@IU1@@_STL@@YAPAUBfmeStringTailRecord:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmeStringTailRecord156;
@@ -50,10 +50,10 @@ namespace _STL { template <> BfmeAssignRecord104 * vector<BfmeAssignRecord104,al
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmeAssignRecord172;
 namespace _STL { template <> vector<BfmeAssignRecord172,allocator<BfmeAssignRecord172> >::~vector(); }
-// Suppress this TU's non-retail copy of ??1?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@QAE@XZ:
+// Suppress this TU's non-retail copy of ??1?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeAssignRecord44;
-namespace _STL { template <> vector<BfmeAssignRecord44,allocator<BfmeAssignRecord44> >::~vector(); }
+class ScoredKillTracker;
+namespace _STL { template <> vector<ScoredKillTracker,allocator<ScoredKillTracker> >::~vector(); }
 bool operator<(const AsciiString &, const AsciiString &);
 bool operator==(const AsciiString &, const AsciiString &);
 struct BfmeAssignRecord24 { AsciiString s; int a[5]; BfmeAssignRecord24 &operator=(const BfmeAssignRecord24 &); };
@@ -69,8 +69,8 @@ struct BfmeAssignRecord32 { AsciiString s; int a[7]; ~BfmeAssignRecord32(); Bfme
 inline bool operator==(const BfmeAssignRecord32 &x, const BfmeAssignRecord32 &y) { return x.s == y.s; }
 struct BfmeAssignRecord36 { AsciiString s; int a[8]; BfmeAssignRecord36 &operator=(const BfmeAssignRecord36 &); };
 inline bool operator==(const BfmeAssignRecord36 &x, const BfmeAssignRecord36 &y) { return x.s == y.s; }
-struct BfmeAssignRecord44 { AsciiString s; int a[10]; BfmeAssignRecord44 &operator=(const BfmeAssignRecord44 &); };
-inline bool operator==(const BfmeAssignRecord44 &x, const BfmeAssignRecord44 &y) { return x.s == y.s; }
+#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
+#include "../../../../GameEngine/Source/Common/ScoredKillTrackerView.h"
 struct BfmeAssignRecord52 { AsciiString s; int a[12]; BfmeAssignRecord52 &operator=(const BfmeAssignRecord52 &); ~BfmeAssignRecord52(); };
 inline bool operator==(const BfmeAssignRecord52 &x, const BfmeAssignRecord52 &y) { return x.s == y.s; }
 struct BfmeAssignRecord84 { AsciiString s; int a[20]; BfmeAssignRecord84 &operator=(const BfmeAssignRecord84 &); };
@@ -129,7 +129,7 @@ namespace _STL {
 // specializations before the member instantiations below suppresses
 // emission here; this file's bodies keep calling them by the same names.
 template <> void _Destroy<BfmeAssignRecord32 *>(BfmeAssignRecord32 *, BfmeAssignRecord32 *);
-template <> void _Destroy<BfmeAssignRecord44 *>(BfmeAssignRecord44 *, BfmeAssignRecord44 *);
+template <> void _Destroy<ScoredKillTracker *>(ScoredKillTracker *, ScoredKillTracker *);
 template <> BfmeAssignRecord32 *vector<BfmeAssignRecord32, allocator<BfmeAssignRecord32> >::erase(BfmeAssignRecord32 *, BfmeAssignRecord32 *);
 template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
 }
@@ -162,7 +162,6 @@ template void fill<Rva0051FC54Element *, Rva0051FC54Element>(Rva0051FC54Element 
 template void __destroy_aux<BfmeStringTailRecord144 *>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, const __false_type &);
 template void __destroy_aux<BfmeStringTailRecord156 *>(BfmeStringTailRecord156 *, BfmeStringTailRecord156 *, const __false_type &);
 template void __destroy_aux<BfmeStringTailRecord180 *>(BfmeStringTailRecord180 *, BfmeStringTailRecord180 *, const __false_type &);
-template void vector<BfmeAssignRecord44, allocator<BfmeAssignRecord44> >::_M_clear();
 template void vector<BfmeAssignRecord104, allocator<BfmeAssignRecord104> >::_M_clear();
 template void _Destroy<BfmeStringTailRecord144 *>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *);
 template void _Destroy<BfmeStringHeadRecord184 *>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *);
@@ -179,7 +178,7 @@ template BfmeAssignRecord84 *__copy_ptrs<BfmeAssignRecord84 *, BfmeAssignRecord8
 template BfmeStringTailRecord144 *__copy<BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, int>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, const random_access_iterator_tag &, int *);
 template void __destroy_aux<BfmeAssignRecord52 *>(BfmeAssignRecord52 *, BfmeAssignRecord52 *, const __false_type &);
 template void vector<BfmeStringTailRecord156, allocator<BfmeStringTailRecord156> >::push_back(const BfmeStringTailRecord156 &);
-template BfmeAssignRecord44 *__copy<BfmeAssignRecord44 *, BfmeAssignRecord44 *, int>(BfmeAssignRecord44 *, BfmeAssignRecord44 *, BfmeAssignRecord44 *, const random_access_iterator_tag &, int *);
+template ScoredKillTracker *__copy<ScoredKillTracker *, ScoredKillTracker *, int>(ScoredKillTracker *, ScoredKillTracker *, ScoredKillTracker *, const random_access_iterator_tag &, int *);
 template void _Destroy<BfmeStringTailRecord144>(BfmeStringTailRecord144 *);
 template void vector<BfmeAssignRecord104, allocator<BfmeAssignRecord104> >::clear();
 }
@@ -215,7 +214,6 @@ template <> void _Destroy<Rva002BBB96Element *>(Rva002BBB96Element *first, Rva00
 
 // Native fill 001EB84E receives the live CarryoverUnit temporary made by
 // copy 001EB79E in fill-insert 001EBEAB; assignment is the real 001EB20E.
-#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
 template void _STL::fill<CarryoverUnit *, CarryoverUnit>(CarryoverUnit *, CarryoverUnit *, const CarryoverUnit &);
 
 // Native backward loop 001EB262 assigns CarryoverUnit ranges through 001EB20E.

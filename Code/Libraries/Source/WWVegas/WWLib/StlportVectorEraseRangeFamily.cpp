@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // STLport 4.5.3 vector<T>::erase(first, last) for element types whose 51-byte
@@ -61,7 +61,7 @@
 //   0x004043AE  0x00403BD2   0x00214B09   Rva004043AEElement
 //   0x0040538F  0x00404CD8*  0x00405337   Rva0040538FElement
 //   0x0040DC56  0x002B4410*  0x002B61C5*  Rva0040DC56Element
-//   0x00414760  0x00414403   0x004144F0   BfmeAssignRecord44
+//   0x00414760  0x00414403   0x004144F0   ScoredKillTracker
 //   0x00426BB2  0x00426B29   0x0032C0CA   BfmeStringRecord00426A5B
 //   0x004286AF  0x004284F5*  0x002385E6   BfmeNarrowRecord00427F75
 //   0x004758F4  0x00474125   0x00470398   Rva004758F4Element
@@ -202,7 +202,7 @@ struct BfmeStringRecord00111ACF;
 struct Rva004043AEElement;
 struct Rva0040538FElement;
 struct Rva0040DC56Element;
-struct BfmeAssignRecord44;
+class ScoredKillTracker;
 struct BfmeStringRecord00426A5B;
 struct BfmeNarrowRecord00427F75;
 struct Rva004758F4Element;
@@ -261,7 +261,7 @@ template TreeHintRef00217D4C *_STL::vector<TreeHintRef00217D4C >::erase(TreeHint
 template OpaqueRefElement4 *_STL::vector<OpaqueRefElement4 >::erase(OpaqueRefElement4 *, OpaqueRefElement4 *);
 template Elem003AF9E0 *_STL::vector<Elem003AF9E0 >::erase(Elem003AF9E0 *, Elem003AF9E0 *);
 template BfmeStringRecord00111ACF *_STL::vector<BfmeStringRecord00111ACF >::erase(BfmeStringRecord00111ACF *, BfmeStringRecord00111ACF *);
-template BfmeAssignRecord44 *_STL::vector<BfmeAssignRecord44 >::erase(BfmeAssignRecord44 *, BfmeAssignRecord44 *);
+template ScoredKillTracker *_STL::vector<ScoredKillTracker >::erase(ScoredKillTracker *, ScoredKillTracker *);
 template BfmeStringRecord00426A5B *_STL::vector<BfmeStringRecord00426A5B >::erase(BfmeStringRecord00426A5B *, BfmeStringRecord00426A5B *);
 template BfmeStringHeadRecord184 *_STL::vector<BfmeStringHeadRecord184 >::erase(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *);
 template Rva000B690BRecord *_STL::__copy_ptrs<Rva000B690BRecord *, Rva000B690BRecord *>(Rva000B690BRecord *, Rva000B690BRecord *, Rva000B690BRecord *, const _STL::__false_type &);
@@ -365,4 +365,4 @@ void W3DHordeModelDraw::onDrawableBoundToObject()
 }
 
 // Native 0x004149B4: STLport4.5.3 record vector clear forwarding to its owned provider.
-template void _STL::vector<BfmeAssignRecord44>::clear();
+template void _STL::vector<ScoredKillTracker>::clear();

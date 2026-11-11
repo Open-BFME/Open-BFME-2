@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata /D_STLP_NO_EXCEPTIONS
 // stlport
 // STLport 4.5.3 APIs isolated from stlport_asciistring_record_bodies.cpp.
 // Preserve the existing size/code-generation views and native call pins;
@@ -12,13 +12,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 
 struct BfmeAssignRecord28 { AsciiString s; int a[6]; BfmeAssignRecord28 &operator=(const BfmeAssignRecord28 &); };
-struct BfmeAssignRecord44 { AsciiString s; int a[10]; BfmeAssignRecord44 &operator=(const BfmeAssignRecord44 &); };
+#include "../../../../GameEngine/Source/Common/ScoredKillTrackerView.h"
 struct BfmeAssignRecord104 { int a[25]; AsciiString s; BfmeAssignRecord104 &operator=(const BfmeAssignRecord104 &); };
 struct BfmeAssignRecord172 { int a[42]; AsciiString s; BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &); };
 
 // The original reserve callers use their existing destruction owners.
 namespace _STL {
-template <> void _Destroy<BfmeAssignRecord44 *>(BfmeAssignRecord44 *, BfmeAssignRecord44 *);
+template <> void _Destroy<ScoredKillTracker *>(ScoredKillTracker *, ScoredKillTracker *);
 }
 struct Rva003B8B61Elem;
 void __cdecl Rva003B8B61Destroy(Rva003B8B61Elem *first, Rva003B8B61Elem *last, int unused);
@@ -28,7 +28,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void __destroy_
 // contracts. Keep their original implementations and flags isolated from the
 // independent algorithms in stlport_asciistring_record_bodies.cpp.
 namespace _STL {
-template void vector<BfmeAssignRecord44, allocator<BfmeAssignRecord44> >::reserve(unsigned int);
+template void vector<ScoredKillTracker, allocator<ScoredKillTracker> >::reserve(unsigned int);
 template void vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::reserve(unsigned int);
 template void vector<BfmeAssignRecord104, allocator<BfmeAssignRecord104> >::reserve(unsigned int);
 template void vector<BfmeAssignRecord28, allocator<BfmeAssignRecord28> >::push_back(const BfmeAssignRecord28 &);

@@ -1,4 +1,4 @@
-// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // platformsdk
 // stlport
 // Byte-matched vector destructors with independently rowed range-worker owners.
@@ -21,10 +21,10 @@ namespace _STL { template <> void _Destroy<BfmeAssignRecord172 *>(BfmeAssignReco
 template _STL::vector<BfmeAssignRecord172>::~vector();
 
 
-// ??1?$vector@UBfmeAssignRecord44@@V?$allocator@UBfmeAssignRecord44@@@_STL@@@_STL@@QAE@XZ @0x4146e2 (_Destroy at 0x4144f0)
-struct BfmeAssignRecord44 { public: ~BfmeAssignRecord44(); };
-namespace _STL { template <> void _Destroy<BfmeAssignRecord44 *>(BfmeAssignRecord44 *, BfmeAssignRecord44 *); }
-template _STL::vector<BfmeAssignRecord44>::~vector();
+// ??1?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@QAE@XZ @0x4146e2 (_Destroy at 0x4144f0)
+#include "../../../../GameEngine/Source/Common/ScoredKillTrackerView.h"
+namespace _STL { template <> void _Destroy<ScoredKillTracker *>(ScoredKillTracker *, ScoredKillTracker *); }
+template _STL::vector<ScoredKillTracker>::~vector();
 
 // ??1?$vector@URvaPair00257544@@V?$allocator@URvaPair00257544@@@_STL@@@_STL@@QAE@XZ @0x00257544 63B.
 // StructureToppleUpdateModuleData +0xA0 member vector: retail destroys the range through the rowed 8-byte AsciiString-keyed DestroyPairs at 0x32C0CA then frees storage via 0x30830 (EH states 0/-1); called by the StructureTopple dtor at 0x00257B7A plus Unwind funclets at 0xB720EF/0xB7213E. ICF-twin of rowed 0x004C3D4C and 0x0049E274 (same 63B Destroy+free shape). True element name unproven so honest RvaPair address name stands in for the 8-byte AsciiString-plus-four-byte-payload layout the retail destroy proves.

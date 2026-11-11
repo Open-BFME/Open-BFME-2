@@ -9,7 +9,7 @@
 // element count (+0x78); saving (+0x08) hands each 44-byte tracker to
 // xferSnapshot (+0x30); loading throws XferException(4 "Vector must be
 // empty on load") (ctor 0x0060C36E) unless empty then reserves the count
-// (0x0041484C rowed under its folded BfmeAssignRecord44 instantiation) and
+// (0x0041484C rowed under its folded ScoredKillTracker instantiation) and
 // for each element pushes a ScoredKillTracker(1 filter 0xFFFFF) copy
 // (ctor 0x0055A998 with a temporary filter 0x003623E5/0x00360D26 and
 // push_back 0x00414BA4) and transfers the new back element. Same pattern as
@@ -23,12 +23,12 @@ typedef bool Bool;
 #include <vector>
 #include "ScoredKillTrackerView.h"
 
-struct BfmeAssignRecord44;
+class ScoredKillTracker;
 
 namespace _STL
 {
 template <> void vector<ScoredKillTracker>::push_back(const ScoredKillTracker &value);
-template <> void vector<BfmeAssignRecord44>::reserve(size_type n);
+template <> void vector<ScoredKillTracker>::reserve(size_type n);
 }
 
 struct Rva00414EA1Vector
@@ -70,7 +70,7 @@ Xfer *Rva00414C92(Xfer *xfer, Rva00414EA1Vector *trackers)
 	{
 		if (trackers->begin != trackers->end)
 			throw XferException(4, "Vector must be empty on load");
-		reinterpret_cast<_STL::vector<BfmeAssignRecord44> *>(trackers)->reserve(count);
+		reinterpret_cast<_STL::vector<ScoredKillTracker> *>(trackers)->reserve(count);
 		ScoredKillTracker value(1, Rva00360D26Member(), 0xFFFFF);
 		while (count--)
 		{

@@ -6,16 +6,11 @@
 #include "ascii_string.h"
 #include "ScoredKillEvaAnnouncerView.h"
 
-struct BfmeAssignRecord44
-{
-	AsciiString s;
-	int a[10];
-};
 
 // Retail calls the verified range-erase owner at0x00414760. Declare it
 // instead of emitting erase and its layout-dependent assignment helpers.
 namespace _STL {
-template <> BfmeAssignRecord44 *vector<BfmeAssignRecord44, allocator<BfmeAssignRecord44> >::erase(BfmeAssignRecord44 *, BfmeAssignRecord44 *);
+template <> ScoredKillTracker *vector<ScoredKillTracker, allocator<ScoredKillTracker> >::erase(ScoredKillTracker *, ScoredKillTracker *);
 }
 
 struct Rva00414F5EGlobal
@@ -31,14 +26,14 @@ public:
 	void run();
 private:
 	char m_00[0x1C];
-	_STL::vector<BfmeAssignRecord44, _STL::allocator<BfmeAssignRecord44> > m_vec1C;
+	_STL::vector<ScoredKillTracker, _STL::allocator<ScoredKillTracker> > m_vec1C;
 	int m_28;
 	int m_2C;
 };
 
 void Rva00414F5EHost::run()
 {
-	_STL::vector<BfmeAssignRecord44, _STL::allocator<BfmeAssignRecord44> > &v = m_vec1C;
+	_STL::vector<ScoredKillTracker, _STL::allocator<ScoredKillTracker> > &v = m_vec1C;
 	v.erase(v.begin(), v.end());
 	m_28 = (*(Rva00414F5EGlobal **)&ThePlayerList)->m_10;
 	m_2C = 0;

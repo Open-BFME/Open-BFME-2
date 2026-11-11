@@ -35,6 +35,7 @@ class ScoredKillTracker:public Snapshot {
 public:
  ScoredKillTracker(unsigned,const Rva00360D26Member &,unsigned);
  ScoredKillTracker(const ScoredKillTracker &);
+ ScoredKillTracker &operator=(const ScoredKillTracker &);
  virtual ~ScoredKillTracker();
  // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
