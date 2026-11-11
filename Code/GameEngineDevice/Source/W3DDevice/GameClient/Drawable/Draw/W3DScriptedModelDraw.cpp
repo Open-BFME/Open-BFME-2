@@ -270,7 +270,7 @@ class Rva000C38F8 { public: Rva000C38F8(); };
 
 class Rva000C27B0 { public: Rva000C27B0 &operator=(const Rva000C27B0 &that); };
 
-class Rva000C2980 { public: ~Rva000C2980(); };
+#include "../../../../../../GameEngine/Include/Common/Rva000C2980.h"
 
 struct ScriptedModelConditionInfo
 {

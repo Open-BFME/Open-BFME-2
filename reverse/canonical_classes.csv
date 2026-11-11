@@ -1255,3 +1255,4 @@ Rva003EFDF5Host,Code/Libraries/Source/WWVegas/WWLib/Rva003EFDF5Host.h,existing h
 BfmeOwnZC,Code/GameEngine/Include/GameLogic/BfmeOwnZC.h,existing header; contract class_contracts/BfmeOwnZC.json; 3/6 sampled units adopt
 Rva003FB9C8,Code/GameEngine/Include/Common/Rva003FB9C8.h,existing header; contract class_contracts/Rva003FB9C8.json; 4/5 sampled units adopt
 Rva004FF997Owner,Code/GameEngine/Include/GameLogic/Rva004FF997Owner.h,existing header; contract class_contracts/Rva004FF997Owner.json; 4/5 sampled units adopt
+Rva000C2980,Code/GameEngine/Include/Common/Rva000C2980.h,existing header; contract class_contracts/Rva000C2980.json; 4/6 sampled units adopt

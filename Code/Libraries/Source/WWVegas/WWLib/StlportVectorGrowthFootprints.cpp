@@ -108,7 +108,7 @@ class CreateAHeroManager::CreateAHeroSubClass { char m_pad[216]; public: CreateA
 // 248-byte element; layout owner stlport_pod_vector_bodies.cpp.
 struct BfmePod248 { char m_pad[248]; public: BfmePod248(const BfmePod248 &); ~BfmePod248(); };
 // 252-byte element; layout owner stlport_pod_vector_bodies.cpp.
-class Rva000C2980 { public: ~Rva000C2980(); };
+#include "../../../../GameEngine/Include/Common/Rva000C2980.h"
 struct BfmePod252 { char m_pad[252]; public: BfmePod252(const BfmePod252 &); // Destruction is the rowed ??1Rva000C2980, reached by a qualified call.
 __declspec(dllimport) __forceinline ~BfmePod252() { ((Rva000C2980 *)this)->Rva000C2980::~Rva000C2980(); } };
 // 20-byte element; layout owner stlport_vector_stringrecord_00204a30_allocate_copy.cpp.

@@ -839,7 +839,7 @@ private:
 struct EmitVtableTag;
 
 // ??_GRva000C2980@@UAEPAXI@Z @0x000C3808 28B; calls pinned ??1 at 0x000C2980
-class Rva000C2980 { public: Rva000C2980(EmitVtableTag *); virtual ~Rva000C2980(); };
+#include "../../../../GameEngine/Include/Common/Rva000C2980.h"
 
 // ??_GRva000D1BA6@@UAEPAXI@Z @0x000D208D 28B; calls pinned ??1 at 0x000D1BA6
 // ??_GRva00142FE0@@UAEPAXI@Z @0x000E00A4 28B; calls pinned ??1 at 0x00142FE0

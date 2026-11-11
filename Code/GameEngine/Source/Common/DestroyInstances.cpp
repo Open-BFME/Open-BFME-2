@@ -13,11 +13,7 @@
 // emitting units are not recovered, so the instances are instantiated here.
 #include <vector>
 
-class Rva000C2980
-{
-public:
-	~Rva000C2980();
-};
+#include "../../Include/Common/Rva000C2980.h"
 class Rva00216108
 {
 public:
