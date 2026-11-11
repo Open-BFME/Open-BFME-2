@@ -198,13 +198,7 @@ struct Rva002C92B8Record
 	float m_40;
 };
 
-class BfmeRangedWeaponTemplate
-{
-public:
-	float rva002C9217(void *arg, float value);				// 0x002C9217
-	float rva002C92B8(void *arg, const Rva002C92B8Record *from, const Rva002C92B8Record *to);
-	float rva002C92DC(void *arg, const Rva002C92B8Record *rec);
-};
+#include "../../Include/Common/BfmeRangedWeaponTemplate.h"
 
 float BfmeRangedWeaponTemplate::rva002C92B8(void *arg, const Rva002C92B8Record *from, const Rva002C92B8Record *to)
 {

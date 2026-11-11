@@ -17,12 +17,7 @@
 class Object;
 class WeaponBonus;
 struct Coord3D;
-class BfmeRangedWeaponTemplate
-{
-public:
-	float rva002C995D(void *a, void *arr, float b);
-	float getAttackRange( const Object *source, const WeaponBonus &bonus, const Coord3D *sourcePos ) const; // retail ILT 0x0002ffb3
-};
+#include "../../Include/Common/BfmeRangedWeaponTemplate.h"
 
 class Rva002C9B80Owner
 {

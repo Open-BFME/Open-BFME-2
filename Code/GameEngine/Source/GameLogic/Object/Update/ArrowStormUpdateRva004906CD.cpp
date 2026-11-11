@@ -39,11 +39,7 @@ private:
 	Real m_multiplier[6];
 };
 
-class BfmeRangedWeaponTemplate : public WeaponTemplate
-{
-public:
-	Real getAttackRange(const Object *obj, const WeaponBonus &bonus, const Coord3D *pos) const;
-};
+#include "../../../../Include/Common/BfmeRangedWeaponTemplate.h"
 
 class WeaponStore;
 extern WeaponStore *TheWeaponStore;

@@ -333,12 +333,7 @@ struct BfmeWeaponBonus
 // BFME widened the reference's bonus-only signature: its getAttackRange takes
 // the source object and the source's position as well as the bonus, so the
 // range can depend on where the shooter is.
-class BfmeRangedWeaponTemplate
-{
-public:
-	float rva002C995D(void *a, void *arr, float b);
-	float getAttackRange( const Object *source, const WeaponBonus &bonus, const Coord3D *sourcePos ) const; // retail ILT 0x0002ffb3
-};
+#include "../../../Include/Common/BfmeRangedWeaponTemplate.h"
 
 // BFME's weapon keeps its template at +0x04, where the reference class puts it
 // at +0x08 -- the same offset Object::getAmmoPipShowingInfo reads.
