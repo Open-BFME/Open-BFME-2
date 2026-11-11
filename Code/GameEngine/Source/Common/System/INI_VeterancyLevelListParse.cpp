@@ -40,12 +40,7 @@ public:
 	void append(const char *s, StringBase<char> *b);
 };
 
-class Rva0033AFBB
-{
-public:
-	bool rva0033AFBB(const char *token, bool *foundNormal, bool *foundAddOrSub);
-	void rva0033B84E(INI *ini, AsciiString *accum);
-};
+#include "../../../Include/Common/Rva0033AFBB.h"
 
 void Rva0033AFBB::rva0033B84E(INI *ini, AsciiString *accum)
 {

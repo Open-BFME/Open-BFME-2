@@ -4,11 +4,7 @@
 struct FieldParse;
 
 #include "../../../Include/Common/INI/INI.h"
-class Rva0033AFBB
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva0033AFBB.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 

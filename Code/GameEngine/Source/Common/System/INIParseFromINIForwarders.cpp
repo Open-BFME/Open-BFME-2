@@ -16,12 +16,7 @@ public:
 	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class Rva0033AFBB
-{
-public:
-	void rva0033B84E(INI *ini, AsciiString *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva0033AFBB.h"
 
 class Rva003FB508
 {
