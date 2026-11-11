@@ -618,7 +618,7 @@ void ControlBar::populateCommand(Object *obj,bool refresh)
 }
 
 
-class Rva005E57A2Callback { public: int invoke(); };
+#include "../../../../Include/GameClient/Rva005E57A2Callback.h"
 
 void StrategicInGameUI::PlanningPhaseBuildingSelection::event1_1(int)
 {

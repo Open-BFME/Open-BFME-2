@@ -66,11 +66,7 @@ void Rva005CC24C::rva005CC24C(Int)
 // returns the rowed no-argument +4 callback forwarder 0x005E6817 (ledger
 // spelling Rva005E57A2Callback::invoke) on the complete object, dropping its
 // one argument (call, then ret 4).
-class Rva005E57A2Callback
-{
-public:
-	int invoke();
-};
+#include "../../Include/GameClient/Rva005E57A2Callback.h"
 class Rva005CE125Primary
 {
 public:

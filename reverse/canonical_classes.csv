@@ -1526,3 +1526,4 @@ BFMENetworkQueueItem,Code/GameEngine/Include/GameNetwork/BFMENetworkQueueItem.h,
 Rva003F11EC,Code/GameEngine/Include/GameLogic/Rva003F11EC.h,existing header; contract class_contracts/Rva003F11EC.json; 3/4 sampled units adopt
 Rva0033C8E8,Code/GameEngine/Include/Common/Rva0033C8E8.h,existing header; contract class_contracts/Rva0033C8E8.json; 3/4 sampled units adopt
 Rva0007E971,Code/Libraries/Source/WWVegas/WWLib/Rva0007E971.h,existing header; contract class_contracts/Rva0007E971.json; 4/9 sampled units adopt
+Rva005E57A2Callback,Code/GameEngine/Include/GameClient/Rva005E57A2Callback.h,existing header; contract class_contracts/Rva005E57A2Callback.json; 3/4 sampled units adopt

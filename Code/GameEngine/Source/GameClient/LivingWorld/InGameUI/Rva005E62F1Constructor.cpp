@@ -48,7 +48,7 @@ RvaCloneResult<Rva005E59A5>Rva005E5C63Create(const Rva005E59A5::Payload*);
 RvaCloneResult<Rva005E59C2>Rva005E5C95Create(const Rva005E59C2::Payload*);
 RvaCloneResult<Rva005E59DF>Rva005E5CC7Create(const Rva005E59DF::Payload*);
 struct Context{int info,owner;void*record;bool enabled;};
-class Rva005E57A2Callback {public:int invoke();};
+#include "../../../../Include/GameClient/Rva005E57A2Callback.h"
 class Rva005E62F1:public Rva005E62F1ListenerBase {
 public:Rva005E62F1(void*,int,int,void*,Rva005CB84A*,void*,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*);~Rva005E62F1();
 virtual int rva005E57A2(void*);virtual void rva0050B238(void*,unsigned);virtual void third()=0;virtual void fourth()=0;virtual void fifth()=0;
