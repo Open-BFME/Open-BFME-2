@@ -40,14 +40,7 @@ private:
 	unsigned char m_pad00[0x20];
 };
 
-class Rva00527FA2
-{
-public:
-	Rva00527FA2(int level, const AsciiString &name);
-
-private:
-	void *m_0;
-};
+#include "../../../../Include/Common/Rva00527FA2.h"
 
 // Rva00527FA2's constructor allocates 0x18 bytes and calls this constructor
 // with its level and name arguments. The allocation extent is target evidence;

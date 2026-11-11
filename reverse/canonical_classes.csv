@@ -1196,3 +1196,4 @@ AptAnimationPoolData,Code/Libraries/Source/Apt/AptAnimationPoolData.h,existing h
 Rva000BC9B1,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000BC9B1.h,existing header; contract class_contracts/Rva000BC9B1.json; 4/5 sampled units adopt
 Rva00580316,Code/GameEngine/Include/GameClient/Rva00580316.h,existing header; contract class_contracts/Rva00580316.json; 4/7 sampled units adopt
 Rva0020EEF4Outer,Code/GameEngine/Include/GameLogic/Rva0020EEF4Outer.h,existing header; contract class_contracts/Rva0020EEF4Outer.json; 4/5 sampled units adopt
+Rva00527FA2,Code/GameEngine/Include/Common/Rva00527FA2.h,existing header; contract class_contracts/Rva00527FA2.json; 5/6 sampled units adopt

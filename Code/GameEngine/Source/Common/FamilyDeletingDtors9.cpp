@@ -29,7 +29,7 @@ class Rva00527CCE { public: ~Rva00527CCE(); };
 void famgenDelete(Rva00527CCE *helpBox) { delete helpBox; }
 
 // ??_GRva00527FA2@@QAEPAXI@Z @0x002D33D7 28B: calls pinned ~Rva00527FA2 0x00527FA2
-class Rva00527FA2 { public: ~Rva00527FA2(); };
+#include "../../Include/Common/Rva00527FA2.h"
 void famgenDelete(Rva00527FA2 *planningModeUI) { delete planningModeUI; }
 
 // ??_GRva0057417E@@QAEPAXI@Z @0x0042C0BF 28B: calls pinned ~Rva0057417E 0x0057417E

@@ -285,11 +285,7 @@ void Rva002D38D1::clear()
 	}
 }
 
-class Rva00527FA2
-{
-public:
-	__declspec(noinline) ~Rva00527FA2();
-};
+#include "../../Include/Common/Rva00527FA2.h"
 
 class Rva002D3931
 {

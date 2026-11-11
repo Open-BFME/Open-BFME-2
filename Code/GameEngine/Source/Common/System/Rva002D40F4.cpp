@@ -46,11 +46,7 @@ public:
 	void clear();
 };
 
-class Rva00527FA2
-{
-public:
-	~Rva00527FA2();
-};
+#include "../../../Include/Common/Rva00527FA2.h"
 
 class Rva002D3931
 {
