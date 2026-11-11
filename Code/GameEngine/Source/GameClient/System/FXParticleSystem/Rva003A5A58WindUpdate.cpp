@@ -96,11 +96,7 @@ public:
 	void rva001F385A(void *out);
 };
 
-class Rva001F4D2D
-{
-public:
-	float rva001F4D2D();
-};
+#include "../../../../Include/GameClient/Rva001F4D2D.h"
 
 struct Rva003A5A58WindInfo
 {

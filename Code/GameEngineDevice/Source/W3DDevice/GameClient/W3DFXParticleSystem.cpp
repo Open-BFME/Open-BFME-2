@@ -124,7 +124,7 @@ static inline bool operator!=(const _List_iterator<T, L>& a, const _List_iterato
 template<> void _STL::vector<RvaSmartPtr12>::push_back(const RvaSmartPtr12 &);
 template<> RvaSmartPtr12 *_STL::vector<RvaSmartPtr12>::erase(RvaSmartPtr12 *, RvaSmartPtr12 *);
 
-class Rva001F4D2D { public: Real rva001F4D2D(); };		// 0x001F4D2D
+#include "../../../../GameEngine/Include/GameClient/Rva001F4D2D.h"
 #include "../../../../GameEngine/Include/GameClient/Rva001F4E1BSlot.h"
 #include "../../../../GameEngine/Include/GameClient/Rva001F4DC4.h"
 class Rva001F4DF9 { public: Real rva001F4DF9(); };		// 0x001F4DF9

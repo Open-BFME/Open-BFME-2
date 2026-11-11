@@ -84,7 +84,7 @@ namespace FXParticleSystem { template<int CATEGORY> class DefaultModule; }
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva001F4E2D { public: bool rva001F4E2D(); };
-class Rva001F4D2D { public: float rva001F4D2D(); };
+#include "../../../../Include/GameClient/Rva001F4D2D.h"
 #include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
 class Rva001F4DF9 { public: float rva001F4DF9(); };
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
