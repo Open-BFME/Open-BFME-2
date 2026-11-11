@@ -221,11 +221,7 @@ void __cdecl rva007B6A30()
 }
 
 // ??1SortingRenderStateStruct@@QAE@XZ rowed target for next thunks (184B @0x0011C5C0).
-class SortingRenderStateStruct
-{
-public:
-	~SortingRenderStateStruct();
-};
+#include "../../Include/Common/SortingRenderStateStruct.h"
 
 // g_Va00DEDC80: matched references place it at VA 0xdedc80 (zero-filled .bss).
 // Retail's object extends 656 bytes; the mangled name stays the one its other users declare.

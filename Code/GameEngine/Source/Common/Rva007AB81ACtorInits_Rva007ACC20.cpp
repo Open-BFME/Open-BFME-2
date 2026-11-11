@@ -16,11 +16,7 @@ namespace ATL
 #include "../../Include/Common/CAtlWinModule.h"
 }
 
-class SortingRenderStateStruct
-{
-public:
-	SortingRenderStateStruct();
-};
+#include "../../Include/Common/SortingRenderStateStruct.h"
 
 class BfmeDualVtableReleaseDtor
 {

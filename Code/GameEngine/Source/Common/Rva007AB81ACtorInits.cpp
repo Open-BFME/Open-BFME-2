@@ -26,11 +26,7 @@ public:
 	Rva000910D8VTableInstall *init();
 };
 
-class SortingRenderStateStruct
-{
-public:
-	SortingRenderStateStruct();
-};
+#include "../../Include/Common/SortingRenderStateStruct.h"
 
 class SegLineRendererClass
 {

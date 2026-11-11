@@ -1162,3 +1162,4 @@ BfmeSub932C,Code/GameEngine/Include/Common/BfmeSub932C.h,existing header; contra
 LivingWorldAutoResolveCombatChain,Code/GameEngine/Include/GameLogic/LivingWorldAutoResolveCombatChain.h,existing header; contract class_contracts/LivingWorldAutoResolveCombatChain.json; 3/4 sampled units adopt
 Rva007E8980,Code/GameEngine/Include/GameNetwork/Rva007E8980.h,existing header; contract class_contracts/Rva007E8980.json; 4/5 sampled units adopt
 Rva004E6935,Code/GameEngine/Include/Common/Rva004E6935.h,existing header; contract class_contracts/Rva004E6935.json; 4/7 sampled units adopt
+SortingRenderStateStruct,Code/GameEngine/Include/Common/SortingRenderStateStruct.h,existing header; contract class_contracts/SortingRenderStateStruct.json; 3/4 sampled units adopt
