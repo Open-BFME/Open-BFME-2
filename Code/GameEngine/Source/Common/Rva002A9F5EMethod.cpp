@@ -1,11 +1,7 @@
 // cl: /DNDEBUG /MD
 // ?rva002A9F5E@Rva002A9F5E@@QAEXH@Z @0x002A9F5E 66B chain lane: guarded accumulate plus money add plus ControlBar refresh.
 // Evidence: callees rowed 0x0039B668 Rva0039B668::rva0039B668 plus 0x0038027B Rva00380200::rva0038027B plus 0x0031B5A3 ControlBar::rva0031B5A3; global g_bfmeWorldRV ?g_bfmeWorldRV@@3PAUBfmeWorldRV@@A; offsets +0x3B4 +0x1C plus Player at this-8; neighbours share /O1.
-class Rva0039B668
-{
-public:
-	void rva0039B668(int amount);
-};
+#include "../../Include/Common/Rva0039B668.h"
 
 class Rva00380200
 {

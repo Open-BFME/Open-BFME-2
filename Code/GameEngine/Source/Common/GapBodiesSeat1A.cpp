@@ -1873,11 +1873,7 @@ Rva002AC026Member::Rva002AC026Member(void *context)
 enum ScienceType { SCIENCE_INVALID = -1 };
 class CreateAHeroData;
 
-class Rva0039B668
-{
-public:
-	void rva0039B668(int value);							// 0x0039B668
-};
+#include "../../Include/Common/Rva0039B668.h"
 
 struct Rva002AD7E9Record
 {
