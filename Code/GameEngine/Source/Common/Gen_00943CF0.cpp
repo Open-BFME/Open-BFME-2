@@ -3,11 +3,7 @@
 // address-derived declarations preserve the call boundaries and observed
 // pointer flow without inventing a semantic name.
 
-struct Gen_00943CF0_Node
-{
-	Gen_00943CF0_Node *m_next;
-	void *m_value;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Gen_00943CF0_Node.h"
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/Gen_00943CF0.h"
 

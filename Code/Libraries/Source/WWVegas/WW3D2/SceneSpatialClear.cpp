@@ -21,11 +21,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "aabox.h"
 #include "scene.h"
 
-struct Gen_00943CF0_Node
-{
-	Gen_00943CF0_Node *m_next;
-	void *m_value;
-};
+#include "Gen_00943CF0_Node.h"
 
 class Rva0006EFC8
 {

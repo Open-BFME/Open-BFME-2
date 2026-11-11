@@ -30,11 +30,7 @@ template <> void RefMultiListClass<RenderObjClass>::Reset_List();
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct Gen_00943CF0_Node
-{
-	Gen_00943CF0_Node *m_next;
-	void *m_value;
-};
+#include "Gen_00943CF0_Node.h"
 
 class Rva0006EFC8
 {

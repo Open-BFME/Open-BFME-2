@@ -8,11 +8,7 @@
 // Reference: Open-BFME-1 a7c38d3b, inputs/vendor/stlport/stl/_slist.h.
 // int is the existing provider's ABI carrier; original payload spelling is unknown.
 #include <slist>
-struct Gen_00943CF0_Node
-{
-	Gen_00943CF0_Node *m_next;
-	void *m_value;
-};
+#include "Gen_00943CF0_Node.h"
 
 struct Rva0006FB50List
 {

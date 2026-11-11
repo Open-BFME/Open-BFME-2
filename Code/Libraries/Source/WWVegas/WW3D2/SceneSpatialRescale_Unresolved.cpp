@@ -28,11 +28,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 namespace _STL { template <> _Slist_node_base * _Slist_base<int, allocator<int> >::_M_erase_after(_Slist_node_base *, _Slist_node_base *); }
 // bfme link decl-only end
 
-struct Gen_00943CF0_Node
-{
-	Gen_00943CF0_Node *m_next;
-	void *m_value;
-};
+#include "Gen_00943CF0_Node.h"
 
 class Rva0006EFC8
 {

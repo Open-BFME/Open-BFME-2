@@ -25,7 +25,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "scene.h"
 #include "camera.h"
 #include "plane.h"
-struct Gen_00943CF0_Node { Gen_00943CF0_Node *m_next; void *m_value; };
+#include "Gen_00943CF0_Node.h"
 struct SceneCollectCell { unsigned count; MultiListClass<RenderObjClass> objects; };
 typedef char SceneCollectCellSize[(sizeof(SceneCollectCell)==28)?1:-1];
 class Gen_009431F0 { public: int map_x(float); int map_y(float); };

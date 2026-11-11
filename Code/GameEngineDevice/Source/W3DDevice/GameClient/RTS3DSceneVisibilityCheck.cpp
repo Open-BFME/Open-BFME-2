@@ -346,11 +346,7 @@ public:
 // 0x00142410 (pinned; the partial bank of that body names it this way).
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Gen_00943CF0.h"
 
-struct Gen_00943CF0_Node
-{
-	Gen_00943CF0_Node *m_next;
-	void *m_value;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Gen_00943CF0_Node.h"
 
 class BfmeSceneVector
 {
