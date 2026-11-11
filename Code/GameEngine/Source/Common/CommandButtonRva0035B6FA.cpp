@@ -11,7 +11,7 @@
 
 extern GameLogic *TheGameLogic;
 
-class Rva0035B164 { public: int rva0035B164(int index); };
+#include "../../Include/GameClient/Rva0035B164.h"
 #include "../../Include/GameClient/CommandButton.h"
 
 void CommandButton::rva0035B6FA(ObjectID objectID, bool value)

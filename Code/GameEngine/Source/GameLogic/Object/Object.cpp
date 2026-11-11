@@ -460,7 +460,7 @@ class Rva00395686 { public: bool rva00395686(Player *player, ThingTemplate *tt);
 
 NameKeyType Rva0045EE2CGet();
 
-class Rva0035B164 { public: int rva0035B164(int value); };
+#include "../../../Include/GameClient/Rva0035B164.h"
 
 enum WeaponStatus { WEAPON_STATUS_NONE = 0 };
 

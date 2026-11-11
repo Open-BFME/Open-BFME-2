@@ -236,7 +236,7 @@ class Rva00373EB6 { public: unsigned char rva00373EB6(); };
 class Rva0029FCB4 { public: __declspec(noinline) inline ScienceVec rva0029FCB4(); };
 #include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 class Rva0028B7C1DwordField { public: Int get() const; };
-class Rva0035B164 { public: Int rva0035B164(Int cur); };
+#include "../../../../Include/GameClient/Rva0035B164.h"
 #include "../../../../Include/Common/Rva0028F528.h"
 #include "../../../../Include/Common/Rva002A7DDE.h"
 class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };

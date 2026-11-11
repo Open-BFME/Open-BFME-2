@@ -76,7 +76,7 @@ class UpgradeCenter { public:
 }; extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
-class Rva0035B164 { public: int rva0035B164(int); };
+#include "../../../../Include/GameClient/Rva0035B164.h"
 class Rva0028B7C1DwordField { public: int get() const; };
 #include "../../../../Include/GameClient/Drawable.h"
 struct Rva0045A6D3Arg;
