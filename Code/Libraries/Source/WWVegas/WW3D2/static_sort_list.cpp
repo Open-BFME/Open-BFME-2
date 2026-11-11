@@ -102,11 +102,7 @@ public:
 	void rva174ba6();
 };
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
-class DX8MeshRendererClass
-{
-public:
-	void Flush(void);
-};
+#include "DX8MeshRendererClass.h"
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 
 void DefaultStaticSortListClass::Render_And_Clear(RenderInfoClass & rinfo)

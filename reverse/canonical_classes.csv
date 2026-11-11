@@ -893,3 +893,4 @@ Rva002CA9CA,Code/GameEngine/Include/Common/Rva002CA9CA.h,existing header; contra
 Rva002B7250,Code/GameEngine/Include/Common/Rva002B7250.h,existing header; contract class_contracts/Rva002B7250.json; 73/76 sampled units adopt
 DataChunkParser,Code/GameEngine/Include/Common/DataChunkParser.h,existing header; contract class_contracts/DataChunkParser.json; 11/14 sampled units adopt
 Rva0040AAD5,Code/GameEngine/Include/GameClient/Rva0040AAD5.h,existing header; contract class_contracts/Rva0040AAD5.json; 13/17 sampled units adopt
+DX8MeshRendererClass,Code/Libraries/Source/WWVegas/WW3D2/DX8MeshRendererClass.h,existing header; contract class_contracts/DX8MeshRendererClass.json; 9/16 sampled units adopt

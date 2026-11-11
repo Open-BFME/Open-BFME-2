@@ -32,10 +32,7 @@ public:
 private:
     void Free();
 };
-class DX8MeshRendererClass {
-public:
-    void Unregister_Mesh_Type(MeshModelClass *model);
-};
+#include "DX8MeshRendererClass.h"
 class Rva00DF6F94GapFillerContext {
 public:
     void DeleteModelGapFiller(MeshModelClass *model);

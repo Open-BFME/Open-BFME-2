@@ -71,11 +71,7 @@ public:
 	DX8PolygonRendererList PolygonRendererList;
 };
 
-class DX8MeshRendererClass
-{
-public:
-	void Unregister_Mesh_Type(MeshModelClass *mmc);
-};
+#include "DX8MeshRendererClass.h"
 
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 // TheDX8MeshRenderer: matched references place it at VA 0xdf363c (zero-filled .bss).

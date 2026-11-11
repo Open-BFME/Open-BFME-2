@@ -708,7 +708,7 @@ __declspec(noinline) MeshModelClass *rva001718E0GetNextMeshModel(MeshModelClass 
  return model->m_next;
 }
 
-class DX8MeshRendererClass { public: void Invalidate(bool); };
+#include "DX8MeshRendererClass.h"
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 
 // Retail 0x001170A0, 120 bytes. WW3D mesh-cache invalidation under the DX8

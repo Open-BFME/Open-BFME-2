@@ -75,7 +75,7 @@ public:
 	static void Get_DX8_Render_State_Value_Name(StringClass &, unsigned long, unsigned int);
 };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
-class DX8MeshRendererClass { public: void Clear_Pending_Delete_Lists(); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8MeshRendererClass.h"
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 __forceinline void bfmeSetRS(unsigned long state, unsigned value)
 {

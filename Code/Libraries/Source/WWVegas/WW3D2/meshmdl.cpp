@@ -56,12 +56,7 @@ struct UVBufferClass;
 
 class MeshModelClass;
 
-class DX8MeshRendererClass
-{
-public:
-	void Unregister_Mesh_Type(MeshModelClass *mmc);
-	void Register_Mesh_Type(MeshModelClass *mesh);
-};
+#include "DX8MeshRendererClass.h"
 
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 

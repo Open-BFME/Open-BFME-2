@@ -770,7 +770,7 @@ struct BfmeNodeVDB
 // rowed dtor callee; the dtor call resolves through that row.
 
 // ??_GDX8MeshRendererClass@@QAEPAXI@Z @0x11cbf0
-class DX8MeshRendererClass { public: ~DX8MeshRendererClass(); };
+#include "../WWVegas/WW3D2/DX8MeshRendererClass.h"
 
 // ??_GBfmeEnumerationCaps@@QAEPAXI@Z @0x11fe00
 class BfmeEnumerationCaps { public: ~BfmeEnumerationCaps(); };

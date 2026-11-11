@@ -65,11 +65,7 @@ public:
 
 class MeshModelClass;
 
-class DX8MeshRendererClass
-{
-public:
-	void Unregister_Mesh_Type(MeshModelClass *mmc);
-};
+#include "DX8MeshRendererClass.h"
 
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 

@@ -38,11 +38,7 @@ public:
 	MultiListClass<DX8PolygonRendererClass> PolygonRendererList;
 };
 
-class DX8MeshRendererClass
-{
-public:
-	void Unregister_Mesh_Type(MeshModelClass *mmc);
-};
+#include "DX8MeshRendererClass.h"
 
 // ?Unregister_Mesh_Type@DX8MeshRendererClass@@QAEXPAVMeshModelClass@@@Z
 void DX8MeshRendererClass::Unregister_Mesh_Type(MeshModelClass *mmc)
