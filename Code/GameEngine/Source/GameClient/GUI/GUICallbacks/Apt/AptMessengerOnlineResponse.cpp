@@ -102,7 +102,7 @@ public:
 struct Rva005AE5EEQuad { int value[4]; };
 class Rva003821E2 { public: void assign(UnicodeString value); };
 class Rva005AE5EE { public: void rva005AE5EE(const Rva005AE5EEQuad *value); };
-class Rva00381D02 { public: void rva00381D02(void *value); };
+#include "../../../../../Include/GameNetwork/Rva00381D02.h"
 class Rva004FDB57 { public: void rva004FDB57(AsciiString value); };
 class Rva0059F2EB { public: void rva0059F2EB(AsciiString value); };
 class GameInfo

@@ -415,11 +415,7 @@ TreeHintOpaque0043671B *Rva004360B3( AsciiString key );
 
 // The 16 bytes at a game's +0xCC, restored by 0x00381D02 under the ledger's
 // class name.
-class Rva00381D02
-{
-public:
-	void rva00381D02( void *source );
-};
+#include "../../Include/GameNetwork/Rva00381D02.h"
 
 // setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
 // calls it on the current game directly.
