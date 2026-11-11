@@ -291,12 +291,7 @@ enum WeaponStatus
 };
 // One linear firing-pattern entry: an offset in the source's frame and the frames to wait
 // before the next entry fires (privateFireWeapon reads the third word as its delay).
-struct WeaponLinearTarget
-{
-    Real x;
-    Real y;
-    UnsignedInt delay;
-};
+#include "../../../Include/GameLogic/WeaponLinearTarget.h"
 class WeaponTemplate;
 extern GameLogic *TheGameLogic;
 class Weapon

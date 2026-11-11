@@ -275,3 +275,23 @@ names (the members trial). The fix lands with this note, in four reviewed commit
   unverified.
 - Consequence: the flip's plan needs a census-grade build. In an ordinary checkout, 392 of 17,807 ledger units pass.
 - Record: sweeps/link-018/rekey-donor-defect.md.
+
+**LinearTarget element at WeaponTemplate +0x4C.** In retail 1.06 the field
+table at RVA 0x008011A8 pairs the string LinearTarget with parser 0x002CE849.
+The preceding entry pairs ScatterTarget with a different parser. LinearTarget
+reads X/Y with scanReal and T with scanUnsignedInt. Weapon firing consumes
+the offsets and delay through the existing WeaponLinearTarget type. At
+0x002CD6F9 the assignment caller takes source +0x4C and destination +0x4C,
+then calls 0x002CD098 at 0x002CD700, identifying the vector assigned there.
+
+The parser now uses the firing code's type directly. As a control, an
+implicit aggregate copy emitted a 20-byte construction helper using MOVSD.
+Member-wise copy reproduces retail's 29 bytes at 0x002CA82C. With the BFME
+allocator, the emitted push_back (55 bytes), overflow (189), uninitialized
+copy (38), fill (37) and allocation (28) match their retail bodies and
+REL32 destinations. Pin admission proved the push_back fold at 0x002CE7DC
+from the parser object. The parser and firing unit match 10/10 functions;
+with the existing Coord3D push_back unit the preview retains 3,604 bytes at
+1380d51e2c. Migrating the assignment owner at 0x002CD098 and the distinct
+12-byte families remains open. This change clears the element identity for
+this vector only.
