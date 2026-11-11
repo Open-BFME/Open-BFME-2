@@ -56,11 +56,7 @@ enum SlotState
 #include "../../../Include/GameNetwork/GameInfo.h"
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../../Include/GameClient/Rva003821B9AsciiField.h"
 
 // Unrowed 0x00300E42 (cdecl; whether the game's map starts with the map
 // cache's 0x00300D7A folder name, through startsWithNoCase), pinned by

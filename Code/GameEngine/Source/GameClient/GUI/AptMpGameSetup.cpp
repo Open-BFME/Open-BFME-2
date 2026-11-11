@@ -92,11 +92,7 @@ enum SlotState
 #include "../../../Include/GameNetwork/GameInfo.h"
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../../Include/GameClient/Rva003821B9AsciiField.h"
 
 // The slot's +0x5C setter (rowed as a Disp8 dword setter).
 

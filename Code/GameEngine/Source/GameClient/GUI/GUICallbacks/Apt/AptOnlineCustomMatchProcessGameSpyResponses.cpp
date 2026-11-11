@@ -218,11 +218,7 @@ public:
 // for the clan id); the spelling resolves to the rowed
 // StringBase<char>::compare(const char *) at 0x000069B1 (as INIAsciiIndexParse.cpp).
 // Rowed getter of the slot's clan id.
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../../../../Include/GameClient/Rva003821B9AsciiField.h"
 
 // The GameSpy slot's ping string setter (address-named row).
 class Rva004FDB04

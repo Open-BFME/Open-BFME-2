@@ -965,3 +965,4 @@ Rva00406E8F,Code/GameEngine/Include/GameLogic/Module/Rva00406E8F.h,existing head
 Rva00226883,Code/GameEngine/Include/Common/Rva00226883.h,existing header; contract class_contracts/Rva00226883.json; 6/12 sampled units adopt
 AptMpGameRules,Code/GameEngine/Include/Common/AptMpGameRules.h,existing header; contract class_contracts/AptMpGameRules.json; 4/8 sampled units adopt
 Rva002A7DDE,Code/GameEngine/Include/Common/Rva002A7DDE.h,existing header; contract class_contracts/Rva002A7DDE.json; 7/8 sampled units adopt
+Rva003821B9AsciiField,Code/GameEngine/Include/GameClient/Rva003821B9AsciiField.h,existing header; contract class_contracts/Rva003821B9AsciiField.json; 8/11 sampled units adopt

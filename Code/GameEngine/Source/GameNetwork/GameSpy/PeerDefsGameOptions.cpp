@@ -175,11 +175,7 @@ public:
 
 // The slot's +0x1A8 and +0x1B8 (ZH getPingString) getters, rowed as
 // AsciiString RVO getters under address names.
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../../Include/GameClient/Rva003821B9AsciiField.h"
 class Rva00382216AsciiField
 {
 public:

@@ -916,15 +916,7 @@ private:
 	AsciiString m_value; // +0x318
 };
 
-class Rva003821B9AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x1A8];
-	AsciiString m_value; // +0x1A8
-};
+#include "../../../Include/GameClient/Rva003821B9AsciiField.h"
 
 class Rva00382216AsciiField
 {

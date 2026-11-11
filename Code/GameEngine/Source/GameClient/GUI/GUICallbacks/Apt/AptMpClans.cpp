@@ -158,7 +158,7 @@ extern int GameSpyColor[];
 // first (missing clan, or only two clans can play).
 class Rva0043DA65 { public: int rva0043DA65(); };
 
-class Rva003821B9AsciiField { public: AsciiString get() const; };
+#include "../../../../../Include/GameClient/Rva003821B9AsciiField.h"
 
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 
