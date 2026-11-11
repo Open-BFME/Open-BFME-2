@@ -25,12 +25,7 @@ struct Rva0005E13CArg
 	Rva0005E13CInner1 *m_04; // +0x04
 };
 
-class Rva0005E13CHost
-{
-public:
-	bool rva0005E13C(const Rva0005E13CArg *chainStart);
-	bool helper(const Rva0005E13CInner1 *a);
-};
+#include "../../../GameEngineDevice/Include/Rva0005E13CHost.h"
 
 bool Rva0005E13CHost::rva0005E13C(const Rva0005E13CArg *chainStart)
 {

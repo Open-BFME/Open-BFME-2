@@ -575,10 +575,7 @@ class Rva00050DD0 { public: bool rva00050DD0(); };
 class Rva002D94FEDwordSlot { public: void set(int value); };
 // Request gate rowed at 0x0005E13C under address-derived names.
 struct Rva0005E13CArg;
-class Rva0005E13CHost {
-public:
-    bool rva0005E13C(const Rva0005E13CArg *request);
-};
+#include "../../Include/Rva0005E13CHost.h"
 class Rva000CB12FByteField {
 public:
     unsigned char get(void) const;

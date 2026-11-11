@@ -94,7 +94,7 @@ class Rva006AD590Entry {public:Rva006AD590Slot*find(int);char opaque[0x1c4];};
 class Rva003EF5DA {public:void rva003EF5DA(float);};
 #include "../../../GameEngine/Include/GameClient/View.h"
 struct Rva0005E13CInner1;
-class Rva0005E13CHost {public:bool helper(const Rva0005E13CInner1*);};
+#include "../../Include/Rva0005E13CHost.h"
 class Rva002D9BDC {public:void rva002D9BDC(float,float);};
 #include "../../Include/MilesAudioDevice/AudioFileCache.h"
 struct AudioSettings {char pad0[0x74];int globalRange;char pad78[0x3c];int cacheThreshold;};
