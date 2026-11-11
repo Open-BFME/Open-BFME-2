@@ -1,6 +1,6 @@
 # 66 of 11,838 tests are red, and nothing was ever going to say so
 
-> **22 remain.** Of the 66 measured, 44 are fixed: `test_tu_structure.py`'s 1
+> **18 remain.** Of the 66 measured, 48 are fixed: `test_tu_structure.py`'s 1
 > (`7b1c3d1eb1a`, which the run caught and which was already fixed when this was
 > written), `test_header_dependents.py`'s 14 (`ee2d7795743`) and
 > `test_recovery_experiments.py`'s 22 (`60dc4dca8fe`), and three singletons
@@ -27,6 +27,11 @@ been a stale test rather than a broken tool: the tools are guarded by the byte
 gate and the commit hooks, which do run, so tool regressions get caught --
 nobody was checking whether the *tests* still described the tools.
 
+A third of everything closed so far was one mistake repeated: a fixture hook
+written without the execute bit, which git ignores while saying so on stderr
+(`test_publisher`, `test_publisher_service`). Worth grepping for before writing
+a new gate fixture.
+
 Earlier today eight failures were repaired this way (`claims.py`'s documented
 `claim --dry-run` argument order was the one real tool bug among them;
 `4bb44369a15`, `cfef858142e`, `5e548edd49d`, `c2ae255b3eb`, `3e462179eba`,
@@ -43,7 +48,7 @@ in a standalone run, as a starting point and not a diagnosis.
 | `test_recovery_experiments.py` | 22 | ~~22 failed, 5 passed~~ | **fixed at `60dc4dca8fe`**: the fixture replaces `subprocess.run` wholesale for the compiler and finds the output by scanning argv for `-Fo`, so `build.wine_path`'s own `winepath -w` call landed in it and `next()` raised `StopIteration`. Stubbing `wine_path` also drops the file from 2.25s to 0.42s and removes its Wine dependency |
 | `test_header_dependents.py` | 14 | ~~14 failed, 58 passed~~ | **fixed at `ee2d7795743`**: the fixture wrote receipt dep keys with `\`, which `ROOT / dep` cannot resolve on POSIX, so every unit with a dep looked uncompiled and the vendored bound collapsed to "every unit" |
 | `test_nightly_measure.py` | 9 | 9 failed, 218 passed | `Refused: tracked path differs from approved commit: .githooks/post-checkout` |
-| `test_publisher_service.py` | 6 | 6 failed, 4 passed | `assert 0 == 1` |
+| `test_publisher_service.py` | 6 | **4 fixed at `cd0858bd7e6`**, 2 remain | the fixture's `.githooks/pre-push` and an origin `pre-receive` were written 0644, so git ignored them and every push the tests expect refused succeeded. The last 2 now reach the real `publisher_hook.py` for the first time and report the benign control fixture rejected — newly visible, not newly broken; left for the publisher lane |
 | `test_reloc_names.py` | 3 | 3 failed, 11 passed | no specimens left in the data (below) |
 | `test_boot_smoke_profile.py` | 3 | 3 failed, 24 passed | `RedirectError not raised`; `pefile.PEFormatError: DOS Header magic not found` |
 | `test_publisher.py` | 1 | ~~fails alone~~ | **fixed at `6b15e593a45`**: the fixture's `pre-receive` ruleset was written 0644, and git silently ignores a non-executable hook, so the push it expects refused went through |
