@@ -170,11 +170,7 @@ public:
 private:
 	unsigned int m_words[19];
 };
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *mask);
-};
+#include "../../../Include/GameLogic/Module/Rva001E42F2.h"
 class Weapon;
 #include "../../../Include/Common/Rva002CA9CA.h"
 enum WeaponChoiceCriteria
