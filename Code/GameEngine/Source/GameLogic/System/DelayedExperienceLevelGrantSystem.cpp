@@ -116,11 +116,7 @@ public:
 	void rva0039B2E6(const Rva0039B2E6Input &level);			// 0x0039B2E6
 };
 
-class Rva001E431E
-{
-public:
-	void rva001E431E(const Int *flags);						// 0x001E431E
-};
+#include "../../../Include/GameLogic/Module/Rva001E431E.h"
 
 class Rva00496CA8
 {

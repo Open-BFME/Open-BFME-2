@@ -125,7 +125,7 @@ struct ModelConditionUpgradeDataView
 };
 #include "../object.h"
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Rva001E431E { public: void rva001E431E(const int *flags); };
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 extern int BfmeLogicFramesPerSecond;
 	// logic frames per second
 
