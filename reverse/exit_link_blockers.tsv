@@ -1,6 +1,7 @@
-# real link at 34bfd79461baebfd9f9d01428830e22c98cc041f: tools/exit_link.py --blockers
+# real link at c501bf16b5826b46f700bfa02f9e56330f7d987e: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	6	?$S170@?1??GetValue@?$DefaultModuleKey@$01@FXParticleSystem@@CAPBDXZ@4IA
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
 Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp	2	?g_pool00286116@@3VRva00065964ObjectPool@@A
+Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp	1	?rva0057FFB9@Rva0057FD6E@@QAEXXZ
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp	1	?fe@Rva00589079_E1@@UAEXXZ
