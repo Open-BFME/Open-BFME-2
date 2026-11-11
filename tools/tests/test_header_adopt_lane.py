@@ -1206,8 +1206,16 @@ def test_a_qualified_named_nested_type_holds():
     assert [r["role"] for r in lane.declaration_records(view, "C")] == ["nested"]
     _, problems = special("C", {"a.cpp": view})
     assert len(problems) == 1 and "a nested declaration" in problems[0]
-    for nested in ("struct D : public B { int b; };", "enum E { A, B };", "class X;"):
-        assert [r["role"] for r in lane.declaration_records("struct C { %s int m; };\n" % nested, "C")] == ["nested"]
+    for nested in ("struct D : public B { int b; };", "enum E { A, B };", "class X;", "enum e : int { a };",
+                   "typedef struct n { int a; } t;", "union u { int a; float b; };",
+                   # round 6: parentheses in a template base or an attribute are no method's
+                   "struct d : public b<void()> { int x; };", "const struct d : public b<void()> { int x; } v;",
+                   "template<class t> struct d : b<t()> { int x; };",
+                   "struct __declspec(align(8)) n { int a; };", "struct __declspec (dllexport) n { int a; };",
+                   "const struct __declspec(align(8)) n { int a; } v;"):
+        assert [r["role"] for r in lane.declaration_records("struct C { %s int m; };\n" % nested, "C")] == ["nested"], \
+            nested
+        assert [r["name"] for r in lane.field_records("struct C { %s int m; };\n" % nested, "C")] == ["m"], nested
 
 
 @pytest.mark.parametrize("member", ["const struct N *f() { return 0; }", "struct N *f() { return 0; }",

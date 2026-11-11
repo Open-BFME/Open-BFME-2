@@ -1566,9 +1566,10 @@ def member_role(member, short):
         return "nested"
     # A named type defined here (`struct N { ... };`, `const struct N : B { ... } s;`): the body's `{`
     # follows the type's name or base clause, unlike a method returning one (`struct N *f() { ... }`).
-    # A forward declaration (`class X;`) is nested too.
+    # A forward declaration (`class X;`) is nested too. Read at the top level, where a template
+    # argument's or an attribute's parentheses are blanked (`B<void()>`, `__declspec(align(8))`).
     if re.match(r"(?:(?:const|volatile|mutable|static)\s+)*(?:class|struct|union|enum)\s+"
-                r"(?:__declspec\([^)]*\)\s*)*[A-Za-z_]\w*\s*(?::[^;(){}]*)?$", rest) \
+                r"(?:__declspec\s*\(\s*\)\s*)*[A-Za-z_]\w*\s*(?::[^;(){}]*)?$", top_level(rest)) \
             and "{" in LITERAL.sub("", member) or re.match(r"(?:class|struct|union|enum)\s+\w+\s*;?$", rest):
         return "nested"
     if prefix and not re.search(r"\(", rest):
