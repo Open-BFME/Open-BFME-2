@@ -4,15 +4,7 @@ struct Rva005E39AEInner
 	virtual int f0();
 	virtual int f1();
 };
-class Rva005F2A32
-{
-public:
-	void rva005F2F5C(int v);
-	void rva005F2A4A();
-	void HideMemberName();
-	void rva005F2A3A();
-	void rva005F2A42();
-};
+#include "../../Include/GameClient/Rva005F2A32.h"
 class Rva005E39AE
 {
 public:
