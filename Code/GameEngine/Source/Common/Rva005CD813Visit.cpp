@@ -8,11 +8,7 @@ struct Visitor005CCCD0
 	virtual bool visit(TargetRef00217D4C *p);
 	virtual ~Visitor005CCCD0() {}
 };
-class Rva005CCD36
-{
-public:
-	void rva005CCD36(Visitor005CCCD0 *v);
-};
+#include "../../Include/Common/Rva005CCD36.h"
 class Rva005CD813Visitor : public Visitor005CCCD0
 {
 public:
