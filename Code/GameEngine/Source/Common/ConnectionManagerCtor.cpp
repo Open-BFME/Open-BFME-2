@@ -62,7 +62,7 @@ struct Unknown12050
 // Preserve the verified set constructor while naming the target-specific
 // tree destruction: retail4D1D2D tail-calls the rowed tree dtor4D1AC3.
 // The original comparator/container spelling remains unasserted.
-class Rva004D0545 {public:~Rva004D0545();};
+#include "../../Include/Common/Rva004D0545.h"
 struct ConnectionAsciiSet
 {
 	unsigned storage[3];

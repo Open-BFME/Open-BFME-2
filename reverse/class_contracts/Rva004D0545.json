@@ -1,0 +1,110 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004D0545",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "8": 2,
+   "12": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:RvaTreeFamilyHolder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_header",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RvaTreeFamilyHolder",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flag",
+   "name_by": "tie",
+   "offset": 4,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_00Head": 1,
+    "m_header": 1,
+    "m_header.m_ptr": 1
+   },
+   "class": "Rva004D0545"
+  },
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "m_04Flag": 1,
+    "m_flag": 1,
+    "m_nodeCount": 1
+   },
+   "class": "Rva004D0545"
+  }
+ ],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}

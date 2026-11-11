@@ -315,11 +315,7 @@ void Rva00417DFB::rva00417DFB(INI *ini, void *extra)
 	}
 }
 
-class Rva004D0545
-{
-public:
-	~Rva004D0545();
-};
+#include "../../../../GameEngine/Include/Common/Rva004D0545.h"
 
 class Rva004D1D2D
 {

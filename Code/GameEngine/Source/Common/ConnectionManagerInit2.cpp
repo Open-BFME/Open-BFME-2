@@ -89,11 +89,7 @@ struct Unknown12050
 
 #include "../../Include/Common/Rva004D1B38Mapped.h"
 
-class Rva004D0545
-{
-public:
-	void rva004D0F82();
-};
+#include "../../Include/Common/Rva004D0545.h"
 
 class Rva004D0572
 {
