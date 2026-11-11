@@ -5,12 +5,15 @@
 #include "AptCIHClass.h"
 #include "AptDisplayListState.h"
 // Donor removeObject is rowed as AptDisplayList::bfmeProcess1279 (0x006F7230); call it by that name.
-class AptDisplayList { public: AptDisplayListState *pState; void bfmeProcess1279(void *); void removeClonedObject(AptCIH *); };
+#include "AptDisplayList.h"
+// The canonical header keeps AptDisplayList opaque; this unit reads only its
+// state pointer at +0x00 through a local view.
+struct AptDisplayListStateView { AptDisplayListState *pState; };
 void AptDisplayList::removeClonedObject(AptCIH *object)
 {
     AptCIH *cur=0;
     AptCIH *prev;
-    pState->findInst((int)(object->field58 << 15) >> 15,0,&prev,&cur);
+    ((AptDisplayListStateView *)this)->pState->findInst((int)(object->field58 << 15) >> 15,0,&prev,&cur);
     bfmeProcess1279(cur);
 }
 #pragma comment(linker, "/alternatename:?findInst@AptDisplayListState@@QAEXHPBVEAStringC@@PAPAVAptCIH@@1@Z=?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z")
