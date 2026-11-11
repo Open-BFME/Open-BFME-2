@@ -1097,7 +1097,7 @@ public:
 	virtual Object *slot68() = 0;
 };
 struct Rva0046E6EAObject; struct Rva0046E6EACoord;
-class Rva0046E6EA { public: bool rva0046E6EA(Rva0046E6EAObject *obj, const Rva0046E6EACoord *pos, Rva0046E6EACoord *out, bool flag); };
+#include "../../../../Include/GameLogic/Module/Rva0046E6EA.h"
 
 // The rowed Coord3D::length (0x00003571) and normalize (0x000035B6), visible and out of line like
 // coord3d.cpp's select-any copies: cl then knows normalize keeps no pointer to the vector it scales.

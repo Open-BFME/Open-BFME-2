@@ -70,7 +70,7 @@ class AICommandInterface;
 class Rva00475F61Contain;
 struct Rva0046E6EAObject;
 struct Rva0046E6EACoord;
-class Rva0046E6EA { public: bool rva0046E6EA(Rva0046E6EAObject *,const Rva0046E6EACoord *,Rva0046E6EACoord *,bool); };
+#include "../../../../Include/GameLogic/Module/Rva0046E6EA.h"
 
 #define COORD3D_INLINE_ASSIGN
 #include "Lib/Coord3DInline.h"

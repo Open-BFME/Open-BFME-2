@@ -59,7 +59,7 @@ class Object:public Thing {public:
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 class OpenContain:public ContainModuleInterface {public:virtual void onContaining(Object*,bool);};
 struct Rva0046E6EAObject;struct Rva0046E6EACoord;
-class Rva0046E6EA {public:bool rva0046E6EA(Rva0046E6EAObject*,const Rva0046E6EACoord*,Rva0046E6EACoord*,bool);};
+#include "../../../../Include/GameLogic/Module/Rva0046E6EA.h"
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 class GlobalData;extern GlobalData*TheWritableGlobalData;

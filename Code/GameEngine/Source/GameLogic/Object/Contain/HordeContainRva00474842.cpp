@@ -258,12 +258,7 @@ struct Rva0046E6EACoord
 }
 ;
 struct Rva0046E6EAObject;
-class Rva0046E6EA 
-{
- public: bool rva0046E6EA(Rva0046E6EAObject*,const Rva0046E6EACoord*,Rva0046E6EACoord*,bool);
- 
-}
-;
+#include "../../../../Include/GameLogic/Module/Rva0046E6EA.h"
 class Rva00474842Iface 
 {
  public:
