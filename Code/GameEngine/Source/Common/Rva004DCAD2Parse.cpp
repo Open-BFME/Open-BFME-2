@@ -23,12 +23,7 @@ void Rva000B9468Parse(INI *ini, void *instance, void *store, const void *userDat
 // keeps the table external, which a plain const array at namespace scope would
 // not be. Every parse target is a rowed body, so all 29 names resolve.
 // 0x004DC702 is rowed as WB EmotionNuggetTemplate::IniParseEmotionType.
-class EmotionNuggetTemplate
-{
-public:
-	static void IniParseEmotionType(INI *ini, void *instance, void *store, const void *userData);
-	static void friend_parseEmotionNugget(INI *);
-};
+#include "../../Include/Common/EmotionNuggetTemplate.h"
 
 extern const FieldParse g_00C61310[];
 const FieldParse g_00C61310[] =

@@ -30,11 +30,7 @@ public:
 // renamed from placeholder INI::Rva004DC702_ParseEmotionType — the WorldBuilder
 // twin names EmotionNuggetTemplate::IniParseEmotionType at EA's own
 // EmotionNugget.cpp (strings).
-class EmotionNuggetTemplate
-{
-public:
-	static void IniParseEmotionType(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/EmotionNuggetTemplate.h"
 
 void EmotionNuggetTemplate::IniParseEmotionType(INI *ini, void *instance, void *store, const void *userData)
 {

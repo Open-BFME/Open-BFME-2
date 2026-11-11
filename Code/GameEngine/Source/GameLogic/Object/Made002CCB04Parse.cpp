@@ -21,11 +21,7 @@ int Rva00507552Get();
 
 #include "../../../Include/Common/INI/INI.h"
 
-class EmotionNuggetTemplate
-{
-public:
-	static void IniParseEmotionType(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/EmotionNuggetTemplate.h"
 
 // The table pushed at 0x00C64CD0 (.rdata): 3 16-byte records and the
 // null terminator read from retail, parsers resolved to their ledger
