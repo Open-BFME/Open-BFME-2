@@ -4418,11 +4418,7 @@ public:
 };
 extern ScriptActions *TheScriptActions;
 
-class Rva002036B4GlobalCopier
-{
-public:
-	void apply(void);
-};
+#include "../../../Include/GameLogic/Rva002036B4GlobalCopier.h"
 
 void Rva00437E84(int type, const UnicodeString &title, const UnicodeString &text);
 File *createMemoryReadFile(char *buffer, int size);

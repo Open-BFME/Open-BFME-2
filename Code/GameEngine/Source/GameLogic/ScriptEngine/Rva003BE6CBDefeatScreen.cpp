@@ -70,11 +70,7 @@ public:
 };
 class VictoryConditionsInterface; extern VictoryConditionsInterface *TheVictoryConditions;
 
-class Rva002036B4GlobalCopier
-{
-public:
-	void apply();
-};
+#include "../../../Include/GameLogic/Rva002036B4GlobalCopier.h"
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;	// the global at 0x00DFE16C; 0x002036B4 is one of its members
 

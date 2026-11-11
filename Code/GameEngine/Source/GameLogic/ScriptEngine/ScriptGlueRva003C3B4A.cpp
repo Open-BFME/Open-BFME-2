@@ -29,11 +29,7 @@ public:
 };
 extern Rva00E02D6C *TheCampaignManager;
 
-class Rva002036B4GlobalCopier
-{
-public:
-	void apply();
-};
+#include "../../../Include/GameLogic/Rva002036B4GlobalCopier.h"
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 
