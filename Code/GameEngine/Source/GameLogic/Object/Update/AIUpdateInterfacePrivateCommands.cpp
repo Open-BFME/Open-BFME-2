@@ -170,11 +170,7 @@ namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
 // destination pointer. Its byte-verified view reads the template at +4
 // and the containment word at +0x250. Keep that provider ABI; the body
 // name and the position test remain unnamed.
-class Rva0028ECDBHost
-{
-public:
-	bool rva0028ECDB(void *position);
-};
+#include "../../../../Include/GameLogic/Rva0028ECDBHost.h"
 
 // Only the two virtuals privateGuardPosition dispatches are placed: getExtent
 // at vtable+0x20 and findClosestEdgePoint at +0x34 (BFME2 slots, read from

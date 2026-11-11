@@ -169,11 +169,7 @@ struct DisabledFlags
 	__forceinline Bool test(Int bit) const { return (m_bits[bit >> 3] & (1 << (bit & 7))) != 0; }
 };
 
-class Rva0028ECDBHost
-{
-public:
-	bool rva0028ECDB(void *pos);
-};
+#include "../../../Include/GameLogic/Rva0028ECDBHost.h"
 
 class Object
 {

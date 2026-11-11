@@ -35,11 +35,7 @@ extern GameLogic *TheGameLogic;
 // destination pointer. Its byte-verified view reads the template at +4
 // and the containment word at +0x250. Keep that provider ABI; the body
 // name and the position test remain unnamed.
-class Rva0028ECDBHost
-{
-public:
-	bool rva0028ECDB(void *position);
-};
+#include "../../../Include/GameLogic/Rva0028ECDBHost.h"
 
 class Object;
 

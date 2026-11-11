@@ -56,11 +56,7 @@ extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The ledger row at 0x0028ECDB is Rva0028ECDBHost::rva0028ECDB(void *).
-class Rva0028ECDBHost
-{
-public:
-	bool rva0028ECDB(void *pos);
-};
+#include "../../../Include/GameLogic/Rva0028ECDBHost.h"
 
 class Object
 {
