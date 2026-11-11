@@ -9,11 +9,7 @@ class EAStringC;
 EAStringC *__cdecl Rva0070B4F0GetString(int eSC);
 
 class BfmeN1034;
-class Rva0070A5C0
-{
-public:
-	BfmeN1034 *rva0070A5C0(int k);
-};
+#include "../Rva0070A5C0.h"
 class AptValue;
 extern AptValue *gpGlobalGlobalObject;
 

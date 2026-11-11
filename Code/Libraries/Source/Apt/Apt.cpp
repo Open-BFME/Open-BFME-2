@@ -643,7 +643,7 @@ void Rva006CD3A0Clear(Rva006CD3A0Record *r) {
 // extension object view and this function's name are address-derived.
 class Rva006CD120ExtObject {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual const char *name();virtual void registered();};
 class BfmeN1034;
-class Rva0070A5C0 {public:BfmeN1034 *rva0070A5C0(int);};
+#include "Rva0070A5C0.h"
 class Rva8D0D80String;class Rva8D0D80Value;
 class Rva8D0D80Result {public:void rva006FBB90(Rva8D0D80String *,Rva8D0D80Value *);};
 extern AptValue *g_shutdownAtE18360;

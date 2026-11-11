@@ -117,7 +117,7 @@ public:
 	AptValue *m_prototype;			// +0x0C
 };
 class BfmeN1034;
-class Rva0070A5C0 { public: BfmeN1034 *rva0070A5C0(int k); };
+#include "Rva0070A5C0.h"
 extern AptValue *gpGlobalGlobalObject;
 #include "../../../GameEngine/Include/Common/Rva0070B380.h"
 extern AptNativeHash *g_bfmeAptHashAtE180E4;

@@ -56,7 +56,7 @@ class Rva006DC9E0 { public: int rva006DC9E0(); };
 
 class BfmeN1034;
 
-class Rva0070A5C0 { public: BfmeN1034 *rva0070A5C0(int); };
+#include "Rva0070A5C0.h"
 
 // _AptValuePtrStack.h's stack: retail's assert text in top/at (0x006DE160,
 // 0x006DCC10) names m_nElements; the layout mirrors AptBasePtrStack.
