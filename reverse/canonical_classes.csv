@@ -1427,3 +1427,4 @@ Rva003F83B5,Code/GameEngine/Include/Common/Rva003F83B5.h,existing header; contra
 Rva0041A3F7,Code/GameEngine/Include/GameNetwork/Rva0041A3F7.h,existing header; contract class_contracts/Rva0041A3F7.json; 3/4 sampled units adopt
 Rva003FDD05Host,Code/GameEngine/Include/Common/Rva003FDD05Host.h,existing header; contract class_contracts/Rva003FDD05Host.json; 3/4 sampled units adopt
 Rva0052B23D,Code/GameEngine/Include/Common/Rva0052B23D.h,existing header; contract class_contracts/Rva0052B23D.json; 3/4 sampled units adopt
+Rva004FA10FOwner,Code/GameEngine/Include/Common/Rva004FA10FOwner.h,existing header; contract class_contracts/Rva004FA10FOwner.json; 3/4 sampled units adopt

@@ -364,7 +364,7 @@ struct PlayerStorage : public _STL::vector<Rva002BBB96Element>
 // view). A wrapper constructor would emit a non-retail copy at 0x004FA3C9.
 class Rva004FA2E2 {public:~Rva004FA2E2();char opaque00[0x80];};
 class LivingWorldAutoResolveBattle : public Rva004FA2E2 {public:LivingWorldAutoResolveBattle(const PlayerStorage&);void applyResults();};
-class Rva004FA10FOwner {public:void rva004FA10F();};
+#include "../../../../Include/Common/Rva004FA10FOwner.h"
 class Rva002B8644 {public:void rva002B8644(int);};
 class ModuleData;
 class Rva002B8A9F {public:void rva002B8A9F(ModuleData*);};

@@ -33,7 +33,7 @@ private:LivingWorldLogic *m_logic;LivingWorldBattle *m_battle;
 };
 class Rva002B471B {public:Bool rva002B471B();};
 class Rva002B466E {public:Bool rva002B466E();};
-class Rva004FA10FOwner {public:void rva004FA10F();};
+#include "../../Include/Common/Rva004FA10FOwner.h"
 struct ResolverPlayerRecord {char pad00[0x2c];int side2c;int getSide()const{return side2c;}bool isSide(int v)const{return side2c==v;}int tail30;};
 struct ResolverSimHeader {int winner()const{return winner78;}bool isWinner(int side)const{return winner78==side;}void *players;char pad04[0x78-4];int winner78;};
 struct ResolverUnit2B74DE {char pad00[0xc];float value0c;float getValue()const{return value0c;}char pad10[0x1c-0x10];int value1c;int getCount()const{return value1c;}char tail20[0x2c-0x20];};

@@ -132,7 +132,7 @@ struct PlayerStorage : public BattlePlayers
 };
 class Rva004FA2E2 {public:~Rva004FA2E2();char gap00[0x78];int winner;int round;};
 class LivingWorldAutoResolveBattle: public Rva004FA2E2 {public:LivingWorldAutoResolveBattle(const PlayerStorage&);};
-class Rva004FA10FOwner {public:void rva004FA10F();};
+#include "../../../../../Include/Common/Rva004FA10FOwner.h"
 // ?WinTestBattle@LivingWorldAIArmyMover@@QAEHPAUArmyMoverRegion@@HHPBVModuleData@@PAXPAVRva004FF5B7@@H@Z
 int LivingWorldAIArmyMover::WinTestBattle(ArmyMoverRegion*region,int distance,int playerID,const ModuleData*army,void*unused,Rva004FF5B7*info,int difficulty) {
  PointerVector friendly,enemy,players;
