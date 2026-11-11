@@ -70,13 +70,7 @@ inline void Overridable::markAsOverride()
 #include "../../../Include/Common/INI/INI.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-struct Rva0020DXXXElem
-{
-	void rva003EDC31();
-	void rva003EDE44(int x);
-	void rva003EDF69(int x);
-	void rva003EDFD8(int x);
-};
+#include "../../../Include/GameLogic/Rva0020DXXXElem.h"
 struct Rva003ED94FDtor
 {
 	~Rva003ED94FDtor();

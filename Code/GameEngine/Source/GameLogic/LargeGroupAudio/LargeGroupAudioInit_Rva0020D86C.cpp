@@ -57,11 +57,7 @@ public:
     }
 };
 
-class Rva0020DXXXElem
-{
-public:
-    Rva003ED658 rva003EDD68();
-};
+#include "../../../Include/GameLogic/Rva0020DXXXElem.h"
 
 class LargeGroupAudio
 {

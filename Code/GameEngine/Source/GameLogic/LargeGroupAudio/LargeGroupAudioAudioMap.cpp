@@ -206,14 +206,7 @@ private:
 	unsigned m_ban[4]; // +0xD0
 };
 
-struct Rva0020DXXXElem
-{
-	void rva003EDC31();
-	void rva003EDC16();
-	void rva003EDE44(int subjectAddress);
-	void rva003EDF69(int subjectAddress);
-	void rva003EDFD8(int subjectAddress);
-};
+#include "../../../Include/GameLogic/Rva0020DXXXElem.h"
 
 // An 8-byte x/y pair returned through a hidden pointer (so not a POD in
 // retail's source), compared field by field.
