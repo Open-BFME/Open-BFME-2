@@ -80,7 +80,7 @@ struct Rva00211494 { void rva00211494(); };
 struct Rva002112A9 { void rva002112A9(); };
 struct Rva003EEAB7 { void rva003EEAB7(); };
 class LivingWorldEyeTower { friend class LivingWorldManager; void updateState(); };
-struct Rva002B5073 { bool rva002B5073(int); };
+#include "../../../Include/Common/Rva002B5073.h"
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 // LINK: rva002C004F's rowed home is Rva002BFF5A (Rva002C004FErase.cpp, 0x2C004F);
 // the old Rva002D3627Host spelling named an unresolved symbol. The global keeps

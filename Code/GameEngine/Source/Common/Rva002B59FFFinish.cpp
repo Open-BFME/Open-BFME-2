@@ -61,11 +61,7 @@ public:
 extern class GameLogic *TheGameLogic;	// VA 0x00DFE78C
 class LivingWorld; extern LivingWorld *TheLivingWorld;	// VA 0x00DFEF18
 
-class Rva002B5073
-{
-public:
-	bool rva002B5073(int mask);
-};
+#include "../../Include/Common/Rva002B5073.h"
 
 #define TheRva00DFE78C (*(Rva0023C6A4 **)&TheGameLogic)
 #define TheRva00DFEF18 (*(Rva002BE8D4 **)&TheLivingWorld)

@@ -19,11 +19,7 @@ class Mouse; extern Mouse *TheMouse;
 
 #include "../../Include/GameClient/Mouse.h"
 
-class Rva002B5073
-{
-public:
-	bool rva002B5073(int what);
-};
+#include "../../Include/Common/Rva002B5073.h"
 
 struct Rva00210DD5World
 {
