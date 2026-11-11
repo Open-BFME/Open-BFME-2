@@ -120,11 +120,7 @@ public:
 class BfmeVec3EJ;
 #include "../../../Include/GameLogic/Module/Gen_000E5A50.h"
 #include "../../../Include/GameLogic/Module/Rva001E438B.h"
-class Rva0030A3E4
-{
-public:
-	void _setTransformMatrix(const Matrix3D *mtx);
-};
+#include "../../../Include/GameLogic/Module/Rva0030A3E4.h"
 
 class Thing
 {
