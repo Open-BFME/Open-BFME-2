@@ -112,11 +112,7 @@ enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 extern int g_Va00DFE348;
 #include "../../Include/Common/Player.h"
 class ModuleData;
-class Rva00423A68
-{
-public:
-    void rva00423A68(const ModuleData *p);
-};
+#include "../../Include/Common/Rva00423A68.h"
 struct CreateAHeroFileEntry
 {
     AsciiString filename;

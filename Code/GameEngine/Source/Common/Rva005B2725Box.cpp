@@ -26,10 +26,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 #include "../../Include/Common/Rva00219251.h"
 
 
-struct Rva00423A68
-{
-	void rva00423A68(const class ModuleData *p);
-};
+#include "../../Include/Common/Rva00423A68.h"
 
 class ModuleData;
 

@@ -66,7 +66,7 @@ class CreateAHeroData;
 #include "../../Include/GameClient/AptMyHero.h"
 struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };
 class ModuleData;
-class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
+#include "../../Include/Common/Rva00423A68.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../Include/GameClient/GameText.h"

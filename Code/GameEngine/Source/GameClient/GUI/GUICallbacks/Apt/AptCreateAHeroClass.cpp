@@ -10,7 +10,7 @@ class CreateAHeroData;
 #include "../../../../../Include/Common/Rva00219251.h"
 #include "../../../../../Include/Common/CreateAHeroHero.h"
 class ModuleData;
-class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
+#include "../../../../../Include/Common/Rva00423A68.h"
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
