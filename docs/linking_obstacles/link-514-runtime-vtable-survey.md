@@ -2447,3 +2447,9 @@ method retains its ledger coverage under the derived class. Verification:
 14/14 matched rows across three sources; link preview at census 60189f9ced
 retains 333/333 bytes. Other names sharing 0x0087A630 and the secondary
 table at 0x00877FD0 remain separate work. Await the real link for bridge counts.
+
+Rva0056ACFF (RVA 0x0086D160, secondary; 0x0086D19C, primary) remains
+blocked. The canonical base trial emits both full table extents and preserves
+the five derived destructors. The secondary slot 4 move refuses a parameter
+type change; three siblings also need distinct overrides. Trial results and
+retail targets are in `reverse/attempt_support/registry-acff-slot-contract.md`.
