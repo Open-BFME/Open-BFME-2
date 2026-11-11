@@ -138,6 +138,83 @@ def test_a_push_receipt_under_another_verifier_is_not_carried(repo):
     assert P.previous(moved) is None
 
 
+def pushed(repo, rev, base, units, age):
+    """A push receipt for `rev` over `base`, written `age` seconds ago."""
+    import os
+    import time
+    P.record_push(rev, base, None, sorted(units))
+    when = time.time() - age
+    os.utime(P.folder() / f"push-{git(repo, 'rev-parse', rev)}.json", (when, when))
+
+
+def rebased_batch(repo, contents=(("Code/a.cpp", "a"), ("Code/b.cpp", "b"))):
+    """The verifier commit as base; a two-commit batch pushed a minute ago; another
+    commit of this clone pushed since; then the batch replayed on a master that moved."""
+    base = git(repo, "rev-parse", "HEAD")
+    git(repo, "checkout", "-q", "-b", "batch", base)
+    first = commit(repo, "Code/a.cpp", "a")
+    mine = commit(repo, "Code/b.cpp", "b")
+    pushed(repo, mine, base, {"Code/a.cpp", "Code/b.cpp"}, age=60)
+    git(repo, "checkout", "-q", "-b", "elsewhere", base)
+    other = commit(repo, "Code/z.cpp", "z")
+    pushed(repo, other, base, {"Code/z.cpp"}, age=0)
+    git(repo, "checkout", "-q", "-b", "master2", base)
+    commit(repo, "Code/c.cpp", "master moved")
+    for path, text in contents:
+        tip = commit(repo, path, text)
+    return first, mine, other, tip
+
+
+def test_the_fallback_prefers_the_same_batchs_earlier_push_over_a_newer_one(repo):
+    # C12 (sweep-header, 2026-11-10): with no hint the hook took the newest valid
+    # receipt, another commit's, which proved 0 of 165; the batch's own earlier
+    # attempt proves them all
+    first, mine, other, tip = rebased_batch(repo)
+    assert P.previous(tip) == mine
+    assert P.previous(tip, hint=other) == other       # a valid hint still decides
+
+
+def test_a_hint_without_a_valid_receipt_falls_back_to_the_receipts_found(repo):
+    # push.py hints the tip before its rebase, which a first attempt never pushed:
+    # no receipt there must not stop the search
+    first, mine, other, tip = rebased_batch(repo)
+    assert P.previous(tip, hint=first) == mine
+    assert P.previous(tip, hint="0" * 40) == mine
+
+
+@pytest.mark.parametrize("contents", [
+    (("Code/a.cpp", "a"), ("Code/b.cpp", "b, edited")),                # a line changed in the replay
+    (("Code/a.cpp", "a"),),                                            # a commit dropped
+    (("Code/a.cpp", "a"), ("Code/b.cpp", "b"), ("Code/d.cpp", "d")),   # a commit added
+])
+def test_another_patch_is_no_same_batch(repo, contents):
+    # no batch matches, so the newest valid receipt, as before
+    first, mine, other, tip = rebased_batch(repo, contents)
+    assert P.previous(tip) == other
+    assert P.previous(tip, hint=first) is None          # a hinted push never takes an unrelated receipt
+
+
+@pytest.mark.parametrize("replayed, carried", [(b"\0\1a", "mine"), (b"\0\1b", "other")])
+def test_binary_contents_count_in_the_patch(repo, replayed, carried):
+    base = git(repo, "rev-parse", "HEAD")
+    git(repo, "checkout", "-q", "-b", "batch", base)
+    (repo / "data.bin").write_bytes(b"\0\1a")
+    mine = commit(repo, "Code/a.cpp", "a")
+    git(repo, "add", "data.bin")
+    git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--amend", "--no-edit")
+    mine = git(repo, "rev-parse", "HEAD")
+    pushed(repo, mine, base, {"Code/a.cpp"}, age=60)
+    git(repo, "checkout", "-q", "-b", "elsewhere", base)
+    other = commit(repo, "Code/z.cpp", "z")
+    pushed(repo, other, base, {"Code/z.cpp"}, age=0)
+    git(repo, "checkout", "-q", "-b", "master2", base)
+    commit(repo, "Code/c.cpp", "master moved")
+    (repo / "data.bin").write_bytes(replayed)                  # other bytes: same size, other patch
+    git(repo, "add", "data.bin")
+    tip = commit(repo, "Code/a.cpp", "a")
+    assert P.previous(tip) == {"mine": mine, "other": other}[carried]
+
+
 def test_a_stale_or_foreign_receipt_is_ignored(repo):
     base = git(repo, "rev-parse", "HEAD")
     c1 = commit(repo, "Code/a.cpp", "a")

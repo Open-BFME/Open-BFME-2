@@ -24,11 +24,14 @@ HOW pre-push uses them, for a scoped push from base B to tip X:
     verifier is X's, the union of their units was verified at the tree where
     each last changed; a later commit whose scope holds a unit proves it again
     or drops it. Those units are proven at X.
-  * previous push: a push receipt for a commit H (the tip before a rebase:
-    push.py names it, else the newest receipt whose base X descends from) whose
-    verifier is X's proves its units at H. The hook computes scope_from(H) --
-    the units the change from H to X can affect (master's commits since the
-    lost race) -- and only those are verified again.
+  * previous push: a push receipt for a commit H (the tip before a rebase or a
+    driver's earlier attempt: push.py names it, BFME_PUSH_PREVIOUS; when it has
+    no valid receipt, or nothing is named, one of the newest receipts whose base
+    X descends from, preferring one whose batch is X's patch) whose verifier is
+    X's proves its units at H. The hook computes scope_from(H) -- the units the
+    change from H to X can affect (master's commits since the lost race) -- and
+    only those are verified again. Which H is chosen decides only how much is
+    left to verify, never what a unit needs to be proven.
   * everything else in the scope is byte-verified as before; nothing outside
     the scope is touched (as before). An object that is not current is
     rebuilt and verified whatever the receipts say.
@@ -240,16 +243,43 @@ def cover(base, tip):
     return units
 
 
+def batch_patch(base, tip):
+    """`git patch-id --stable` of the whole change base..tip (binary contents
+    included), or None when there is none to compare."""
+    diff = subprocess.run(["git", "diff", "--no-ext-diff", "--no-textconv", "--no-renames", "--binary",
+                           base, tip], cwd=ROOT, capture_output=True)
+    if diff.returncode or not diff.stdout:
+        return None
+    ids = subprocess.run(["git", "patch-id", "--stable"], cwd=ROOT, input=diff.stdout, capture_output=True)
+    words = ids.stdout.split()
+    return words[0].decode() if ids.returncode == 0 and words else None
+
+
+def batch_length(base, tip):
+    """The first-parent commit count of base..tip, or None."""
+    done = git("rev-list", "--count", "--first-parent", f"{base}..{tip}", check=False)
+    return int(done.stdout) if done.returncode == 0 and done.stdout.strip().isdigit() else None
+
+
 def previous(tip, hint=None):
-    """A push receipt to carry from: `hint` (the tip before a rebase) if it has a
-    valid one, else the newest whose base `tip` descends from. None otherwise."""
+    """A push receipt to carry from: `hint` (the tip before a rebase, or the
+    driver's earlier attempt) if it has a valid one; else, of the eight newest
+    whose base `tip` descends from and that are valid at `tip`, the newest whose
+    batch has the patch of `tip`'s last as many commits (the same batch pushed
+    before a rebase), else -- only when nothing was hinted, as before -- the
+    newest. None otherwise. The choice only bounds how much the hook verifies
+    again: whatever it carries from, the change from that commit to `tip` is
+    verified. (A hinted push keeps away from an unrelated receipt: carrying
+    from one costs the hook a second scope computation for little.)"""
     if hint:
         receipt = push_receipt(hint)
-        return receipt["commit"] if valid_for(receipt, tip) else None
+        if valid_for(receipt, tip):
+            return receipt["commit"]
     where = folder()
     if not where.is_dir():
         return None
     candidates = sorted(where.glob("push-*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+    valid = []
     for path in candidates[:8]:
         receipt = _read(path.name)
         if not receipt or not receipt.get("base") or not full_sha(receipt.get("commit", "")):
@@ -257,8 +287,18 @@ def previous(tip, hint=None):
         if git("merge-base", "--is-ancestor", receipt["base"], tip, check=False).returncode:
             continue
         if valid_for(receipt, tip):
+            valid.append(receipt)
+    mine = {}                                      # batch length -> tip's patch over that many commits
+    for receipt in valid:
+        length = batch_length(receipt["base"], receipt["commit"])
+        if not length:
+            continue
+        if length not in mine:
+            start = full_sha(f"{tip}~{length}")
+            mine[length] = batch_patch(start, tip) if start else None
+        if mine[length] and batch_patch(receipt["base"], receipt["commit"]) == mine[length]:
             return receipt["commit"]
-    return None
+    return valid[0]["commit"] if valid and not hint else None
 
 
 def stale(units):
