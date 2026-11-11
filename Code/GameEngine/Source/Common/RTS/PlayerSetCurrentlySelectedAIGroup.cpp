@@ -26,11 +26,7 @@ private:
 	char m_pad[0x1c];
 };
 
-class Rva004D6C29
-{
-public:
-	void rva004D6C29();
-};
+#include "../../../Include/Common/Rva004D6C29.h"
 
 class Rva0018B8B0Arg;
 

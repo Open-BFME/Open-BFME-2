@@ -41,11 +41,7 @@ private:
 class BfmeVisitorBF;
 #include "../../../Include/GameLogic/Gen_0018BC70.h"
 
-class Rva004D6C29
-{
-public:
-	void rva004D6C29();
-};
+#include "../../../Include/Common/Rva004D6C29.h"
 
 class Rva004D6C7C
 {
