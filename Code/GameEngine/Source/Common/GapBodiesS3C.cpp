@@ -190,11 +190,7 @@ void Rva00481A6E::rva00481A6E(int, void *player)
 // (+0x04) entry of the +0x08 table.
 class LivingWorldRegionManager;
 
-class LivingWorldRegionCampaign
-{
-public:
-	void rva0020F3E8(LivingWorldRegionManager *mgr);		// 0x0020F3E8
-};
+#include "../../Include/GameLogic/LivingWorldRegionCampaign.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 

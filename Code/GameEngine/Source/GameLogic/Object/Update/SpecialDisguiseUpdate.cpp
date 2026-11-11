@@ -367,11 +367,7 @@ struct Rva00481A6EPlayerListView
 // campaign's rowed 0x0020F3E8 over the holder, then slot 1 of the current
 // (+0x04) entry of the +0x08 table.
 class LivingWorldRegionManager;
-class LivingWorldRegionCampaign
-{
-public:
-	void rva0020F3E8(LivingWorldRegionManager *mgr);		// 0x0020F3E8
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionCampaign.h"
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
 class LivingWorldLogic;
 struct Rva003B8DD7Holder
