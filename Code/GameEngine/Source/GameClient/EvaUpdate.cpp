@@ -71,7 +71,7 @@ public:
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 
 struct EvaEventReport;
-class Rva001DD70F { public: void rva001DD846(); };
+#include "../../Include/GameClient/Rva001DD70F.h"
 
 class __single_inheritance AudioManager;
 extern AudioManager *TheAudio;

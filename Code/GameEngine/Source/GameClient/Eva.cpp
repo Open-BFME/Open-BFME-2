@@ -279,7 +279,7 @@ template<> EvaInfoRecords &EvaInfoRecords::operator=(const EvaInfoRecords &);
 template<> void _List_base<int, allocator<int> >::clear();
 }
 class Rva001DEE92Member { public: void rva001DEE92(int count); char *m_begin; char *m_end; char *m_storage; };
-class Rva001DD70F { public: void rva001DD846(); };
+#include "../../Include/GameClient/Rva001DD70F.h"
 typedef char EvaInfoRecordsWidth[(sizeof(EvaInfoRecords)==12)?1:-1];
 typedef char EvaListWidth[(sizeof(_STL::_List_base<int,_STL::allocator<int> >)==4)?1:-1];
 
