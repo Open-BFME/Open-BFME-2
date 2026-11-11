@@ -20,7 +20,7 @@
 struct SplineRecord {float duration;float steps[10];Coord3D samples[10];Coord3D point;unsigned tail[2];};
 struct SplineState {char pad[0x18];float time,segmentBegin;unsigned segment;bool enabled;char pad25[7];_STL::vector<SplineRecord> records;unsigned pad38;float sampleBegin;int sample;unsigned pad44;Coord3D result;};
 class View;extern View *TheTacticalView;
-class Rva0022B3F6Subsystem {public:bool rva00311974(SplineState*,bool,float*);};
+#include "../../../Include/Common/Rva0022B3F6Subsystem.h"
 extern Rva0022B3F6Subsystem *TheSplineService;
 class TerrainLogic;extern TerrainLogic *TheTerrainLogic;
 float Rva000930C0(float,float);

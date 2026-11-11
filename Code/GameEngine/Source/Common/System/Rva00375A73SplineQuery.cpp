@@ -21,12 +21,7 @@ public:
     unsigned char padding25[0x23];
     Rva00375A73Coord position48;
 };
-class Rva0022B3F6Subsystem
-{
-public:
-    // LINK: rowed as bool rva00311974(SplineState*, bool, float*) (Rva00311974SplineGet.cpp); the context is that state.
-    bool rva00311974(SplineState *context, bool a, float *b);
-};
+#include "../../../Include/Common/Rva0022B3F6Subsystem.h"
 extern Rva0022B3F6Subsystem *TheSplineService;
 
 // The caller 0x00368B51 loads TheAerialPathfinder (VA 0x00E01F10) into ECX

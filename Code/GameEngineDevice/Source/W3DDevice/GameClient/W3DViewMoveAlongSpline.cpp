@@ -34,7 +34,7 @@ struct SplineState {
  char byte44;bool finished,waiting;char byte47;Coord3D result;
  char pad54[0x68-0x54];bool byte68;char pad69[3];int word6c,word70;
 };
-class Rva0022B3F6Subsystem {public:bool rva00311974(SplineState*,bool,float*);};
+#include "../../../../GameEngine/Include/Common/Rva0022B3F6Subsystem.h"
 extern Rva0022B3F6Subsystem *TheSplineService;
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

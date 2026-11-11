@@ -99,7 +99,7 @@ public:
     void rva00312118();
 };
 struct SplineState;
-class Rva0022B3F6Subsystem { public: bool rva00311974(SplineState *, bool, float *); };
+#include "../../../Include/Common/Rva0022B3F6Subsystem.h"
 extern Rva0022B3F6Subsystem *TheSplineService;
 class AerialRouteCalls {
 public:

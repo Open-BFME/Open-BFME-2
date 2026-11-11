@@ -19,7 +19,7 @@ struct SplineRecord {float duration;float steps[10];Coord3D samples[10];Coord3D 
 struct SplineState {char pad[0x18];float time,segmentBegin;unsigned segment;bool enabled;char pad25[7];_STL::vector<SplineRecord> records;unsigned pad38;float sampleBegin;int sample;unsigned pad44;Coord3D result;};
 class View;extern View *TheTacticalView;
 struct SplineViewCalls {virtual void p00();virtual void p04();virtual void p08();virtual void p0c();virtual void p10();virtual void p14();virtual void p18();virtual void p1c();virtual void p20();virtual void p24();virtual void p28();virtual void p2c();virtual void p30();virtual void p34();virtual void p38();virtual void p3c();virtual void p40();virtual void p44();virtual void p48();virtual void p4c();virtual void p50();virtual void p54();virtual void p58();virtual void p5c();virtual void p60();virtual void p64();virtual void p68();virtual void p6c();virtual void visit(unsigned);};
-class Rva0022B3F6Subsystem {public:bool rva00311974(SplineState*,bool,float*);};
+#include "../../../Include/Common/Rva0022B3F6Subsystem.h"
 // ?splineGetActive present-unmatched
 static __forceinline bool splineGetActive(SplineState *splineState,bool notify,float *out) {
  while(splineState->time-splineState->segmentBegin>=splineState->records[splineState->segment].duration) {
