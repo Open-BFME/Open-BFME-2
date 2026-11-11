@@ -689,7 +689,7 @@ void Rva00534626(Rva005344C0 *p);
 void Rva005690DE(Rva00568C4E *p);
 void Rva005690E7(BfmePoolRef10 *p);
 // Bare tail jumps to a rowed member of the object at +0.
-class Rva0038201D { public: void rva003828B6(); };
+#include "../../Include/Common/Rva0038201D.h"
 class Rva0038204A { public: void rva003828DF(); };
 #include "../../Include/Common/Rva00382077.h"
 class Rva005532D6 { public: void rva005532D6(); };

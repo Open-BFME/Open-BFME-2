@@ -757,7 +757,7 @@ private:
 // cdecl destroy helpers: ecx = the argument, then a tail jump to the rowed
 // destructor (or reset member) of the pointee.
 // Bare tail jumps to a rowed member of the object at +0.
-class Rva0038201D { public: void rva003828B6(); };
+#include "../../../Include/Common/Rva0038201D.h"
 
 class Rva0038204A { public: void rva003828DF(); };
 

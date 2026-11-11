@@ -1311,7 +1311,7 @@ void SetUpGameSpy(const char *motdBuffer, const char *configBuffer)
 }
 
 #include "../../../Include/Common/Rva00382077.h"
-class Rva0038201D { public: ~Rva0038201D(); };
+#include "../../../Include/Common/Rva0038201D.h"
 class Rva0038204A { public: ~Rva0038204A(); };
 class Rva003820A4 { public: ~Rva003820A4(); };
 class Rva003820D1 { public: ~Rva003820D1(); };

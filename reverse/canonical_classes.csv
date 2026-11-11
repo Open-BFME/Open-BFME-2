@@ -931,3 +931,4 @@ BfmeParserRegistryVE,Code/GameEngine/Include/Common/BfmeParserRegistryVE.h,exist
 BfmeSubmitter1283,Code/Libraries/Source/Apt/BfmeSubmitter1283.h,existing header; contract class_contracts/BfmeSubmitter1283.json; 6/8 sampled units adopt
 XferLoad,Code/GameEngine/Include/Common/XferLoadClass.h,existing header; contract class_contracts/XferLoad.json; 7/9 sampled units adopt
 Rva001E11F8,Code/GameEngine/Include/Common/Rva001E11F8.h,existing header; contract class_contracts/Rva001E11F8.json; 10/11 sampled units adopt
+Rva0038201D,Code/GameEngine/Include/Common/Rva0038201D.h,existing header; contract class_contracts/Rva0038201D.json; 7/13 sampled units adopt

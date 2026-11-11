@@ -55,10 +55,7 @@ public:
 class MapHolder : public _STL::map<unsigned char, short> {
 };
 
-class Rva0038201D {
-public:
-	void rva003828B6();
-};
+#include "../../../../GameEngine/Include/Common/Rva0038201D.h"
 
 class MapFloatHolder : public _STL::map<unsigned char, float> {};
 class MapIntHolder : public _STL::map<unsigned char, int> {};
