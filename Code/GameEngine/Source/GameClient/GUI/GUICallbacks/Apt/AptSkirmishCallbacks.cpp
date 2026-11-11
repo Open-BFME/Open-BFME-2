@@ -222,7 +222,7 @@ public:
 };
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern int g_Va00E0333C;
-void __cdecl operator delete(void *p);
+#include <new>
 class Panel00E0333C
 {
 public:
