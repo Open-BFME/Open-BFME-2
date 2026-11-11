@@ -375,11 +375,7 @@ class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 // 0x002B5B55 destroys one army (rowed Rva002B5B55::rva002B5B55, called on this).
 class Rva002B5B55Arg;
-class Rva002B5B55
-{
-public:
-	void rva002B5B55(Rva002B5B55Arg *army);
-};
+#include "../../../../Include/Common/Rva002B5B55.h"
 // 0x002B8019, the army-member move check (rowed Rva002B6C9F::rva002B8019, called on this).
 #include "../../../../Include/GameClient/Rva002B6C9F.h"
 

@@ -1350,3 +1350,4 @@ Rva00319F5A,Code/GameEngine/Include/Common/Rva00319F5A.h,existing header; contra
 Rva0007BAD6,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0007BAD6.h,existing header; contract class_contracts/Rva0007BAD6.json; 3/5 sampled units adopt
 Rva004FB0C7Registry,Code/GameEngine/Include/GameLogic/Rva004FB0C7Registry.h,existing header; contract class_contracts/Rva004FB0C7Registry.json; 3/4 sampled units adopt
 Rva0052710C,Code/GameEngine/Include/GameClient/Rva0052710C.h,existing header; contract class_contracts/Rva0052710C.json; 4/5 sampled units adopt
+Rva002B5B55,Code/GameEngine/Include/Common/Rva002B5B55.h,existing header; contract class_contracts/Rva002B5B55.json; 3/4 sampled units adopt

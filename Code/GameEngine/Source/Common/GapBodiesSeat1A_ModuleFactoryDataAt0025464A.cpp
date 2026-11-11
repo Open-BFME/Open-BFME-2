@@ -679,11 +679,7 @@ struct Rva002B4E6DArg
 struct Rva002B488EResult;
 class Rva002B5B55Arg;
 
-class Rva002B5B55
-{
-public:
-	void rva002B5B55(Rva002B5B55Arg *arg);					// 0x002B5B55
-};
+#include "../../Include/Common/Rva002B5B55.h"
 
 
 // --- 0x002B77A2 (11B): clears the +0xF0 unicode-string list.

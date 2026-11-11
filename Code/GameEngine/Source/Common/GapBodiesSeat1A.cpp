@@ -2240,11 +2240,7 @@ public:
 	void rva002B685D(int value);
 };
 
-class Rva002B5B55
-{
-public:
-	void rva002B5B55(Rva002B5B55Arg *arg);					// 0x002B5B55
-};
+#include "../../Include/Common/Rva002B5B55.h"
 
 void Rva002B685D::rva002B685D(int value)
 {
