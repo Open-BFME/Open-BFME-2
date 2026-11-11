@@ -83,11 +83,7 @@ private:
 };
 
 class Rva002C589B;
-class AITargetChooser
-{
-public:
-	Rva002C589B *rva00505408(int key);
-};
+#include "../../Include/Common/AITargetChooser.h"
 
 // ?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z @0x002C5FBA 17B.
 // Null-checked forwarder at +0x0C to rowed AITargetChooser 0x00505408.

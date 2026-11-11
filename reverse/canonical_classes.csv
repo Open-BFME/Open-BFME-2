@@ -1077,3 +1077,4 @@ Rva005D40A6,Code/GameEngine/Include/Common/Rva005D40A6.h,existing header; contra
 LivingWorldEyeTower,Code/GameEngine/Include/Common/LivingWorldEyeTower.h,existing header; contract class_contracts/LivingWorldEyeTower.json; 3/6 sampled units adopt
 Rva001E3F08,Code/GameEngine/Include/GameLogic/Rva001E3F08.h,existing header; contract class_contracts/Rva001E3F08.json; 5/9 sampled units adopt
 BfmeKeyLC,Code/GameEngine/Include/Common/BfmeKeyLC.h,existing header; contract class_contracts/BfmeKeyLC.json; 5/5 sampled units adopt
+AITargetChooser,Code/GameEngine/Include/Common/AITargetChooser.h,existing header; contract class_contracts/AITargetChooser.json; 4/6 sampled units adopt

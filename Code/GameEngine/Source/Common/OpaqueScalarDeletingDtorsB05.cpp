@@ -305,7 +305,7 @@ private:
  unsigned m_0; Coord3DBase m_4;
  unsigned m_10; float m_14,m_18; unsigned m_1C;
 };
-class AITargetChooser { public: void xfer(Xfer *); };
+#include "../../Include/Common/AITargetChooser.h"
 class AITacticsGenerator { public: void DoXfer(Xfer *); };
 class ModuleData;
 struct Rva002C6354Buffer
