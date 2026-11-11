@@ -148,12 +148,12 @@ char storage14[8];
 }
 ;
 
-class Rva0056AF94:public Rva0056AC26
+class Rva0056ACFF:public Rva0056AC26
 {
 
 public:
 virtual bool ac26Slot1();
-Rva0056AF94(void *);
+Rva0056ACFF(void *);
 }
 ;
 
@@ -371,7 +371,7 @@ void LivingWorldTutorial::SessionTask::create()
 			break;
 		}
 		case 9:{
-			task=new Rva0056AF94(m_owner);
+			task=new Rva0056ACFF(m_owner);
 			m_owner->rva003F887D(task);
 			break;
 		}

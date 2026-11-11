@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ??0Rva0056AF94@@QAE@PAX@Z @0x0056AF94 31B.
+// ??0Rva0056ACFF@@QAE@PAX@Z @0x0056AF94 31B.
 // Constructor: run the pinned EH 0x0056AD80 initializer, then install the
 // 0x00C6D19C vftable at +0 and the 0x00C6D160 vftable at +8. Honest
 // address-derived name.
@@ -51,13 +51,13 @@ extern "C" const void *const vtbl_00C6D160[15] = {
 	(const void *)&__identifier("?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z"), // slot 14 0x005DAA6C
 };
 
-class Rva0056AF94
+class Rva0056ACFF
 {
 public:
-	Rva0056AF94(void *owner);
+	Rva0056ACFF(void *owner);
 };
 
-Rva0056AF94::Rva0056AF94(void *owner)
+Rva0056ACFF::Rva0056ACFF(void *owner)
 {
 	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)owner);
 	*(unsigned int *)this = ((unsigned int)vtbl_00C6D19C);

@@ -2536,3 +2536,11 @@ missing. The three changed units verify 49/49 functions and three float
 literals. Including the current ACDF provider in the link preview retains
 768/768 bytes across four units at census 60189f9ced. The separate ACFF
 secondary table remains open.
+
+ACFF constructor identity, RVA 0x0056AF94. The class fold verifies its
+primary store of 0x0086D19C and its +8 store of 0x0086D160 against the
+ACFF deleting destructor and adjustment thunk in their respective slot 0.
+LivingWorldTutorial.obj now has a REL32 call to the ACFF constructor that
+Rva0056AF94Ctor.obj defines. The three changed units verify 19/19 code
+rows and both data rows. The scoped link preview retains 1,438 bytes at
+census 60189f9ced. Both hand-written tables remain pending replacement.
