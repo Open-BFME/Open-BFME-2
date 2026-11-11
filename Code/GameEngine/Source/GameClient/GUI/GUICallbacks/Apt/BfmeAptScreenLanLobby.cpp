@@ -197,11 +197,7 @@ private:
 };
 
 // 0x0054D3D9 is rowed as Rva0054D3E1Prompt::configure (its bool result is unused here).
-class Rva0054D3E1Prompt
-{
-public:
-	bool configure(int type, const UnicodeString &text, const UnicodeString &title);
-};
+#include "../../../../../Include/Common/Rva0054D3E1Prompt.h"
 
 // Native 54D438 takes both counted handles (RET 20), forwards the first
 // to 54D222 and conditionally assigns the second at +20. Its original

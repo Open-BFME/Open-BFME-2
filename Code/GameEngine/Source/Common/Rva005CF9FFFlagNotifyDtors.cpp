@@ -17,7 +17,7 @@
 #include <windows.h>
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class Rva0054D3E1Prompt {public:bool configure(int,const UnicodeString&,const UnicodeString&);};
+#include "../../Include/Common/Rva0054D3E1Prompt.h"
 #include "../../Include/Common/Rva0054D2DDTarget.h"
 #include "../../Include/Common/Rva0054CBEFTarget.h"
 

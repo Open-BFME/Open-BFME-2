@@ -25,11 +25,7 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 
 // LINK: the two forwarded calls are rowed as Rva0054D2DDTarget::method(int, UnicodeString const&, UnicodeString const&) and
 // bool Rva0054D3E1Prompt::configure(int, UnicodeString const&, UnicodeString const&) on the same instance.
-class Rva0054D3E1Prompt
-{
-public:
-	bool configure(int a, const UnicodeString &b, const UnicodeString &c);
-};
+#include "../../Include/Common/Rva0054D3E1Prompt.h"
 
 // This four-byte wrapper view is supported by the 0x0023E8D8 constructor,
 // its vtable, and the callback argument traffic at 0x00437F61. The payload's
