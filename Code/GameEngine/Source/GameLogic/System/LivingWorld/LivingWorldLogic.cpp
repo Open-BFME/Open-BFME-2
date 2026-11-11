@@ -3070,7 +3070,7 @@ class Rva0020E89C {public:
 #include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva00318C8DOwner {public:Rva0020E89C *rva00318C8D();};
 class Rva00319159 {public:UnicodeString GetHeroDisplayName();};
-class Rva002E0687 {public:bool rva002E0687()const;};
+#include "../../../../Include/GameLogic/Rva002E0687.h"
 #include "../../../../Include/Common/Rva002B2702.h"
 struct Rva003F7198Node {int key;};
 class __declspec(novtable) Rva003F7177Base {public:

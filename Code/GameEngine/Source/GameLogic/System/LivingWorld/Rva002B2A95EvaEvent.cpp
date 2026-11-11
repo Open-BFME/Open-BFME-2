@@ -2,11 +2,7 @@
 #include "Coord2D.h"
 #include "Coord3D.h"
 
-class Rva002E0687
-{
-public:
-	bool rva002E0687() const;
-};
+#include "../../../../Include/GameLogic/Rva002E0687.h"
 
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;

@@ -14,11 +14,7 @@ struct Rva002E0687Holder
 	char m_pad[0x98];
 	void *m_98;
 };
-class Rva002E0687
-{
-public:
-	bool rva002E0687() const;
-};
+#include "../../Include/GameLogic/Rva002E0687.h"
 bool Rva002E0687::rva002E0687() const
 {
 	return ((Rva002E0687Holder *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->m_98 == this;

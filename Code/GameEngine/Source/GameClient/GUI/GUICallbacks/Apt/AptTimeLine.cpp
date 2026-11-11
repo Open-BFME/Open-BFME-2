@@ -1133,11 +1133,7 @@ public:
 	bool m_3C5; // +0x3C5, set once the player has left
 	bool hasLeft() const { return m_3C5; }
 };
-class Rva002E0687
-{
-public:
-	bool rva002E0687() const; // the local (observing) player
-};
+#include "../../../../../Include/GameLogic/Rva002E0687.h"
 class Rva002E1046
 {
 public:
