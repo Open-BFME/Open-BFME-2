@@ -198,7 +198,7 @@ namespace _STL { template<class Iterator> void sort(Iterator,Iterator); }
 #include "../../../../../Include/GameLogic/AIPathfind.h"
 struct AmoebaAIManager { unsigned char pad[0x10]; Pathfinder *pathfinder; };
 class AI; extern AI *TheAI;
-class Rva001E42F2 { public: void rva001E42F2(const int *); };
+#include "../../../../../Include/GameLogic/Module/Rva001E42F2.h"
 class Rva001E431E { public: void rva001E431E(const int *); };
 class Rva0058729D { public: bool rva0058729D(const ICoord2DBase &); };
 class AmoebaPositionProvider : public AmoebaSlots<38> { public: virtual void setLeader(Object *)=0; };

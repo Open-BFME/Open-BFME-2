@@ -50,7 +50,7 @@ struct Rva00464D02Object { char unknown00[0x74]; int id74; };
 // The 0x000B6253 initializer is rowed as a this-returning member
 // (Rva000B6253::rva000B6253), so it is called on an uninitialized temporary.
 class Rva000B6253 { public: Rva000B6253() {} Rva000B6253 *rva000B6253(int,unsigned,unsigned,unsigned,unsigned,unsigned); unsigned words[19]; };
-struct Rva001E42F2 { void rva001E42F2(const int *); };
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 struct Rva00463E09Record { char word; };
 struct Rva00463D9BElement {
     Rva00463D9BElement(); Rva00463D9BElement(const Rva00463D9BElement &);

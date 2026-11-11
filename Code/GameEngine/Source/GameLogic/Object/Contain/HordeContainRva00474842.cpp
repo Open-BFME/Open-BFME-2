@@ -235,12 +235,7 @@ class Rva00265254
  
 }
 ;
-class Rva001E42F2 
-{
- public: void rva001E42F2(const int *);
- 
-}
-;
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

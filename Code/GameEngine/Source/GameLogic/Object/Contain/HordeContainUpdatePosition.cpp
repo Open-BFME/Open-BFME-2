@@ -248,10 +248,7 @@ class Rva001E4912 {
     Rva001E4912 *rva001E4912(int, unsigned, unsigned);
     unsigned bits[19];
 };
-class Rva001E42F2 {
-  public:
-    void rva001E42F2(const int *);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 class Rva001E431E {
   public:
     void rva001E431E(const int *);

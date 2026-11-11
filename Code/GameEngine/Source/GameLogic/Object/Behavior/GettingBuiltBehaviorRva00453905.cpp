@@ -42,7 +42,7 @@ public:
 	Rva001E4912 *rva001E4912(int a1, unsigned int a2, unsigned int a3); // 0x001E4912
 	unsigned int m_words[19];
 };
-class Rva001E42F2 { public: void rva001E42F2(const int *); };
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 class Object : public Thing {
 public:
     void *rva0028BC58(int);

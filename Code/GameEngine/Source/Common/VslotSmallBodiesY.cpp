@@ -324,11 +324,7 @@ class Rva001E431E
 public:
 	void rva001E431E(const Int *flags);
 };
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const Int *flags);
-};
+#include "../../Include/GameLogic/Module/Rva001E42F2.h"
 struct Rva004B65A5Data
 {
 	char m_pad00[0x118];

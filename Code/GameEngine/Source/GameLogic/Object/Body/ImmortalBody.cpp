@@ -149,11 +149,7 @@ public:
 };
 
 // The rowed 0x1E42F2 condition-clear owner spelling.
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *bits);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 class BodyModuleInterface : public Rva004C0D13Slots<4>
 {

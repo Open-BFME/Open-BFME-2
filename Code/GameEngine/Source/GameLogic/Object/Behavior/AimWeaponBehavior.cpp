@@ -259,7 +259,7 @@ class Rva0028F59A {public:Rva0028F59A(int,int);int words[19];};
 
 class Rva000B6253 {public:Rva000B6253 *rva000B6253(int,unsigned,unsigned,unsigned,unsigned,unsigned);int words[19];};
 
-class Rva001E42F2 {public:void rva001E42F2(const int*);};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 class Object {public:
  Weapon *getCurrentWeapon(WeaponSlotType*);

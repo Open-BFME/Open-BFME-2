@@ -596,11 +596,7 @@ public:
 	unsigned m_bits[19];
 };
 
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *p);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 class Xfer::Version
 {
