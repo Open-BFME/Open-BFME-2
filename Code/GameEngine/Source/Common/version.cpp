@@ -95,13 +95,15 @@ extern const char g_versionBlock[512];
 
 int Rva00237D3DCheck();
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);
-
-extern "C" __declspec(dllimport) void __cdecl srand(unsigned int seed);
-
-extern "C" __declspec(dllimport) int __cdecl rand(void);
-
-extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buffer, const char *format, ...);
+// platformsdk
+// These go through the CRT import table (FF15): read the real headers with
+// _CRTIMP redefined to dllimport for the include only.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <windows.h>
+#include <stdlib.h>
+#include <stdio.h>
+#undef _CRTIMP
 
 namespace _STL
 {
