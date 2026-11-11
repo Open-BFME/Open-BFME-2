@@ -61,7 +61,7 @@ class Rva002E071E { public: bool rva002E071E(const Rva002E071E *) const; };
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva003F468D { public: int rva003F468D(int side,int index); int rva003F4DAE(int side); };
+#include "../../../../Include/Common/Rva003F468D.h"
 namespace StrategicHUD {
 class BattlePromptMovieClip {
 public:

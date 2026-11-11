@@ -25,7 +25,7 @@ public:
 };
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
-class Rva003F468D {public:Int rva003F468D(Int,Int);Int rva003F4DAE(Int);};
+#include "../../Include/Common/Rva003F468D.h"
 class Rva002B74DE {
 public:Int Update();
 private:LivingWorldLogic *m_logic;LivingWorldBattle *m_battle;

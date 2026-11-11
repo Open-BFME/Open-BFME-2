@@ -43,11 +43,7 @@ public:
 	void CalcPlayerRemap();
 };
 
-class Rva003F468D
-{
-public:
-	int rva003F4DAE(int side);
-};
+#include "../../../../../Include/Common/Rva003F468D.h"
 
 struct StrategicBattleSideView
 {

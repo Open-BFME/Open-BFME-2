@@ -31,7 +31,7 @@ extern "C" char *__cdecl _mbscpy(char *, const char *);
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../../Include/GameLogic/LivingWorldBattle.h"
-class Rva003F468D { public: int rva003F468D(int, int); };
+#include "../../../Include/Common/Rva003F468D.h"
 
 class Rva005EB955 {
 public:

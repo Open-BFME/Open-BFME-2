@@ -649,11 +649,7 @@ template void _STL::vector<Rva00565865Element>::clear();
 
 // ?rva00600396@Rva00600396@@QAEHXZ @0x00600396 15B: the rowed 0x003F468D on
 // the object held at +0x14 with the +0x18 and +0x1C words.
-class Rva003F468D
-{
-public:
-	int rva003F468D(int a, int b);
-};
+#include "../../../Include/Common/Rva003F468D.h"
 
 class Rva00600396
 {

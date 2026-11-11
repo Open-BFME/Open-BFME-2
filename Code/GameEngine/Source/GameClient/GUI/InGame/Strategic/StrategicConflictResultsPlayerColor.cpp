@@ -45,7 +45,7 @@ extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *)
 #include "../../../../../Include/GameLogic/LivingWorldBattle.h"
 // Retail reads the side through an inlined accessor after loading the receiver.
 static inline int battleSide(const LivingWorldBattle *battle) {return battle->field38;}
-class Rva003F468D {public:int rva003F468D(int,int);int rva003F4DAE(int);};
+#include "../../../../../Include/Common/Rva003F468D.h"
 struct StrategicPlayerColorView {char unknown00[0x184];RGBColor color;};
 class StrategicConflictResults::Impl {public:
  void ExternPlayerColor(int,char *,bool);

@@ -31,7 +31,7 @@ extern "C" const void *const vtbl_00C7A620[4] = {
 #include "../../Include/Common/Rva0007DF07.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 // 0x003F468D returns the player as an int (its rowed spelling).
-class Rva003F468D { public: int rva003F468D(int a, int b); };
+#include "../../Include/Common/Rva003F468D.h"
 struct Rva006003FCPlayer
 {
 	unsigned char m_pad000[0x184];
