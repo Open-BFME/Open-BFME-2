@@ -38,11 +38,7 @@ inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(
 }
 
 
-class Rva004FBC02
-{
-public:
-	void rva004FBD3A();
-};
+#include "../../Include/GameLogic/Rva004FBC02.h"
 
 class Rva004F70D1
 {

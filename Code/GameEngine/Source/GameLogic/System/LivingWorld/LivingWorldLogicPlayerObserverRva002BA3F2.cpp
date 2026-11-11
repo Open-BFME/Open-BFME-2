@@ -133,7 +133,7 @@ class Vector3;
 
 // The rowed 0x004FBC02 position setter (position +0x18, flag +0x24).
 struct Rva004FBC02Src;
-class Rva004FBC02 { public: void rva004FBC02(const Rva004FBC02Src *position); };
+#include "../../../../Include/GameLogic/Rva004FBC02.h"
 
 class Rva004FBCBE
 {

@@ -3080,7 +3080,7 @@ class Rva004FBCBE {public:
  int refs;char pad08[12];int message;char pad18[16];
 };
 struct Rva004FBC02Src {int x,y,z;};
-class Rva004FBC02 {public:void rva004FBC02(const Rva004FBC02Src*);};
+#include "../../../../Include/GameLogic/Rva004FBC02.h"
 struct Rva002B9062Element {
  Rva004FBCBE *object;
  Rva002B9062Element(Rva004FBCBE *p):object(p){if(p)++p->refs;}
