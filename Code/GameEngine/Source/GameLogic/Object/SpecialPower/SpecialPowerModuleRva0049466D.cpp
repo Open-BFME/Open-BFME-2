@@ -144,11 +144,7 @@ public:
 
 #include "../../../../Include/Common/ResourceGatheringManagerClass.h"
 
-class Rva0044E6AE
-{
-public:
-	void rva0049C8FC();
-};
+#include "../../../../Include/GameLogic/Module/Rva0044E6AE.h"
 
 class Rva00493313
 {

@@ -119,11 +119,7 @@ public:
 	float m_delta;
 };
 
-class Rva0044E6AE
-{
-public:
-	void rva0044E6AE();
-};
+#include "../../../../Include/GameLogic/Module/Rva0044E6AE.h"
 
 class Rva0049C6E1
 {

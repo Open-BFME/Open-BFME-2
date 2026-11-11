@@ -18,11 +18,7 @@ void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<i
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
 }
 
-class Rva0044E6AE
-{
-public:
-	void rva0044E6AE();
-};
+#include "../../../Include/GameLogic/Module/Rva0044E6AE.h"
 
 class ElemA
 {

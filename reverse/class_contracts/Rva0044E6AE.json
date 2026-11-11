@@ -1,0 +1,153 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0044E6AE",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 2
+   },
+   "0x88": {
+    "1": 1
+   },
+   "0x89": {
+    "1": 1,
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "140": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0044E6AEVirtForward.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0044E6AEVirtForward.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0044E6AEVirtForward.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 137,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0044E6AEVirtForward.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 140,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "v00()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "v10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "v11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "v12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "virt34(int,int)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v03()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "v04()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "v05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "v06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "v07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "v08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "v09()"
+  }
+ }
+}
