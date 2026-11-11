@@ -7,11 +7,7 @@ template <typename T> class StringBase
 	void validate() const;
 };
 
-class Rva005CCB5B
-{
-public:
-	void rva005CCB5B();
-};
+#include "../../Include/Common/Rva005CCB5B.h"
 
 #include "../../Include/Common/Rva002BF6A7.h"
 

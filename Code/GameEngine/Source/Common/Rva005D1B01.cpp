@@ -9,7 +9,7 @@
 #include "Coord3D.h"
 #include "vector3.h"
 class Rva000B3FD0Empty {public:void rva000B3FD0Empty();};
-class Rva005CCB5B {public:void rva005CCB5B();};
+#include "../../Include/Common/Rva005CCB5B.h"
 class Rva0020E89C;
 #include "../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../Libraries/Include/Lib/Coord2D.h"

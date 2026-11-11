@@ -54,7 +54,7 @@ Rva005D1D38::Rva005D1D38(void*p,void*a):planner(p),battle(a) {
  ((Rva005CCB90*)this)->rva005CCB90(&position);
 }
 
-class Rva005CCB5B {public:void rva005CCB5B();};
+#include "../../../../Include/Common/Rva005CCB5B.h"
 class Rva002D3627Host {public:void rva002BF09E(const Coord3D*);};
 // NativeC75734slot08 ->5D1CD3..5D1D38/101B RET0; WB15B6B50
 // confirms the empty base hook then guarded projection/point placement.

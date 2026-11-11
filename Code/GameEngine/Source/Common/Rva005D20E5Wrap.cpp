@@ -10,11 +10,7 @@ public:
 	void rva000B3FD0Empty();
 };
 
-class Rva005CCB5B
-{
-public:
-	void rva005CCB5B();
-};
+#include "../../Include/Common/Rva005CCB5B.h"
 
 #include "../../Include/Common/Rva002BF6A7.h"
 
