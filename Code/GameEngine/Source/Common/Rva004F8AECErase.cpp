@@ -4,10 +4,7 @@
 // Evidence: callees 0x004F7DD4 pin plus 0x30830 rowed; caller clear 0x004F8DD4 pushes root at +4 and resets header; same 53B shape as landed erases 0x003833BB and 0x00502610.
 
 #include <stdlib.h>
-struct Rva004F7DD4
-{
-	~Rva004F7DD4();
-};
+#include "../../Include/Common/Rva004F7DD4.h"
 
 struct Rva004F8AECNode
 {

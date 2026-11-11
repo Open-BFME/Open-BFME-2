@@ -187,11 +187,7 @@ class Rva001EB940
 public:
 	~Rva001EB940();
 };
-struct Rva004F7DD4
-{
-public:
-	~Rva004F7DD4();
-};
+#include "../../Include/Common/Rva004F7DD4.h"
 class Rva005C8FBD
 {
 public:
