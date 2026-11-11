@@ -333,7 +333,7 @@ public:
 	void enableShadowInvisible(Bool b) { m_05 = b; }
 	void setFlag30(unsigned char b) { m_30 = b; }
 };
-class Rva00330A37 { public: void rva00330A37(Int a, Int b, Int c, Int d, Int e, Int f, Int g, Int h); };
+#include "../../../../GameEngine/Include/GameClient/Rva00330A37.h"
 class Rva000B22B3StateView { public: int rva000B22B3() const; };
 class W3DShadowManager { public: Shadow *addShadow(RenderObjClass *robj, Shadow::ShadowTypeInfo *info, Drawable *draw); };
 extern W3DShadowManager *TheW3DShadowManager;

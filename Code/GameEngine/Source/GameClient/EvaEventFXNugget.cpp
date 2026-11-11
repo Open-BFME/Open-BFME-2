@@ -163,12 +163,7 @@ public:
 	Real m_angle;					// +0x20
 };
 
-class Rva00330A37
-{
-public:
-	void rva00330A37(Int delay, Int lifetime, Int opacityStart, Int fadeOne,
-		Int opacityPeak, Int peakTime, Int fadeTwo, Int opacityEnd);	// 0x00330A37	// opacity fade frames
-};
+#include "../../Include/GameClient/Rva00330A37.h"
 
 #include "../../Include/GameLogic/TerrainLogic.h"
 
