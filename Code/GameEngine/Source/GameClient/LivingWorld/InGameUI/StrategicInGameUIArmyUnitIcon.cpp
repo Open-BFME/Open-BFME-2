@@ -161,7 +161,7 @@ TreeHintRef00217D4C StrategicInGameUI::ArmyHeroIcon::rva005F4254()
 
 class Rva005FC70A {public:void rva005FC70A(unsigned char);};
 class Rva005FC71E {public:void rva005FC71E(unsigned char);};
-class Rva005FC73BPtrChaseField {public:bool get()const;};
+#include "../../../../Include/GameClient/Rva005FC73BPtrChaseField.h"
 class Rva005FD034 {public:void rva005FD034(int);};
 class Rva005FD04B {public:void rva005FD04B(unsigned char);};
 class Rva002A98A7DwordField {public:int get()const;};

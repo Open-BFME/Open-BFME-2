@@ -41,11 +41,7 @@ class Rva005FC71E
 public:
 	void rva005FC71E(unsigned char value);
 };
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-};
+#include "../../../../Include/GameClient/Rva005FC73BPtrChaseField.h"
 
 class ArmyHeroIconMovieClip;
 class Image;
