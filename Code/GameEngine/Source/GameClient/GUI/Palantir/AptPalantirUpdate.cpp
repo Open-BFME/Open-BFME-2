@@ -644,11 +644,7 @@ __declspec(noinline) inline void RadarWindowOverrideSource::rva002D55EF()
 // the input window, detach the listed observers, then the members in reverse.
 #include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
-class Rva00224BC9Owner
-{
-public:
-	bool check();
-};
+#include "../../../../Include/GameClient/Rva00224BC9Owner.h"
 
 struct AptPalantirListener
 {

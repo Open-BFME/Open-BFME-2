@@ -709,11 +709,7 @@ __declspec(noinline) inline void RadarWindowOverrideSource::rva002D55EF()
 #include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
-class Rva00224BC9Owner
-{
-public:
-	bool check();
-};
+#include "../../../../Include/GameClient/Rva00224BC9Owner.h"
 
 struct AptPalantirListener
 {

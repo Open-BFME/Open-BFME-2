@@ -21,11 +21,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 // RvaSingletonFwdMisc.cpp's view of the window manager.
-class Rva00224BC9Owner
-{
-public:
-	bool check();
-};
+#include "../../../../../Include/GameClient/Rva00224BC9Owner.h"
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // AptScoreScreenCallbacks.cpp).
