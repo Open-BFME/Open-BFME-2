@@ -568,11 +568,7 @@ class Rva005F1B51
 public:
 	void rva005F1B51();
 };
-class Rva00226883
-{
-public:
-	void rva0022999F();
-};
+#include "../../Include/Common/Rva00226883.h"
 class Rva005E358A
 {
 public:

@@ -45,7 +45,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 class StrategicConflictResults {public:class Impl;};
-class Rva00226883 {public:void rva0022999F();};
+#include "../../Include/Common/Rva00226883.h"
 struct StrategicBattleSideCountView {char unknown00[28];};
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"

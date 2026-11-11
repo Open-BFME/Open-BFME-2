@@ -1,0 +1,124 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00226883",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 2,
+   "8": 2,
+   "12": 3,
+   "16": 1
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "S:Rva00226883Header",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_00Head",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_header",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva00226883Header",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_04Flag",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<int>",
+   "name": "storage._M_t._M_key_compare",
+   "name_by": "tie",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<int>",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_00Head": 1,
+    "m_head": 1,
+    "m_header.data": 1,
+    "m_storage": 1,
+    "m_tree._M_t._M_header._M_data": 1,
+    "storage._M_t._M_header._M_data": 1
+   },
+   "class": "Rva00226883"
+  },
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "m_tree._M_t._M_key_compare": 1,
+    "storage._M_t._M_key_compare": 1
+   },
+   "class": "Rva00226883"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "storage._M_t._M_key_compare": 2
+   },
+   "class": "Rva00226883"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}

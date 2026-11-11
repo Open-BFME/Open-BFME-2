@@ -962,3 +962,4 @@ Rva00368C7A,Code/GameEngine/Include/GameLogic/Module/Rva00368C7A.h,existing head
 Rva002244CA,Code/GameEngine/Include/GameClient/Rva002244CA.h,existing header; contract class_contracts/Rva002244CA.json; 7/8 sampled units adopt
 StatusBitsUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/StatusBitsUpgradeModuleData.h,existing header; contract class_contracts/StatusBitsUpgradeModuleData.json; 5/9 sampled units adopt
 Rva00406E8F,Code/GameEngine/Include/GameLogic/Module/Rva00406E8F.h,existing header; contract class_contracts/Rva00406E8F.json; 7/8 sampled units adopt
+Rva00226883,Code/GameEngine/Include/Common/Rva00226883.h,existing header; contract class_contracts/Rva00226883.json; 6/12 sampled units adopt
