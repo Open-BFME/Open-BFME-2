@@ -15,12 +15,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/TerrainType.h"
 
-class TerrainTypeCollection
-{
-public:
-	TerrainType *findTerrain(AsciiString name);
-	TerrainType *newTerrain(AsciiString name);
-};
+#include "../../../Include/Common/TerrainTypeCollection.h"
 
 extern TerrainTypeCollection *TheTerrainTypes;
 

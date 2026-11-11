@@ -19,11 +19,7 @@ typedef bool Bool;
 
 #include "../../../../GameEngine/Include/Common/TerrainType.h"
 
-class TerrainTypeCollection
-{
-public:
-	TerrainType *findTerrain(AsciiString name);
-};
+#include "../../../../GameEngine/Include/Common/TerrainTypeCollection.h"
 
 extern TerrainTypeCollection *TheTerrainTypes;
 

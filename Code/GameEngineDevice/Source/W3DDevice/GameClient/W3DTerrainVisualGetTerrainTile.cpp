@@ -20,11 +20,7 @@ typedef float Real;
 
 class TerrainType;
 
-class TerrainTypeCollection
-{
-public:
-	TerrainType *findTerrain(AsciiString name);
-};
+#include "../../../../GameEngine/Include/Common/TerrainTypeCollection.h"
 
 // TheTerrainTypes: matched references place it at VA 0xe01cdc (retail .data initial value 0).
 TerrainTypeCollection * TheTerrainTypes = 0;
