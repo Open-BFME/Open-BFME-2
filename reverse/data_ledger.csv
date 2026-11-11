@@ -7501,7 +7501,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00813604,52,.rdata,string,??_C@_0CO@KAMJEKDP@CritterDesync?3?5setAdjustDestinat@,,literal,,0,1
 0x00813638,72,.rdata,vtable,??_7AIAttackFollowWaypointPathState@@6B@,,literal,??_7AIAttackFollowWaypointPathState@@6B@;??_7Rva00345F21@@6B@,0,2
 0x00813680,32,.rdata,string,??_C@_0CA@NMABMPJG@AIAttackFollowWaypointPathState?$AA@,,literal,,0,1
-0x008136A0,72,.rdata,global,?g_00C136A0@@3QBQBXB,Code/GameEngine/Source/Common/Rva00346CDDCtor.cpp,owned,,1,1
+0x008136A0,72,.rdata,global,?g_00C136A0@@3QBQBXB,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,owned,,1,1
 0x008136E8,32,.rdata,string,??_C@_0BO@PJDGBGFK@AIMoveToPositionAndEnterState?$AA@,,literal,,0,1
 0x00813708,24,.rdata,global,?portableStructureChaseConditions@?N@???0AttackStateMachine@@QAE@PAVObject@@PAVRva00346D17Attack@@I_N22@Z@4QBUStateConditionInfo@@B,Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp,owned,,1,1
 0x00813720,24,.rdata,global,?positionConditions@?6???0AttackStateMachine@@QAE@PAVObject@@PAVRva00346D17Attack@@I_N22@Z@4QBUStateConditionInfo@@B,Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp,owned,,1,2

@@ -26381,7 +26381,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0033FC3C,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x0033FC42,91,code,,,-,,Code/GameEngine/Source/Common/Rva0033FC42Dtor.cpp
 0x0033FC9D,43,code,,,-,,Code/GameEngine/Source/Common/Rva0033FC42Dtor.cpp
-0x0033FCC8,20,code,,,-,,Code/GameEngine/Source/Common/Rva0033FCC8Copy.cpp
+0x0033FCC8,20,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x0033FCDC,5,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
 0x0033FCE1,150,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/Common/AIStateMachine.cpp W=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp
 0x0033FD77,33,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x0033FCE1..0x0033FD98,Code/GameEngine/Source/Common/Rva0033FD77Vslot.cpp
@@ -26456,9 +26456,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00340FCD,110,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathState.cpp,Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp
 0x0034103B,217,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00340FCD..0x00341114,Code/GameEngine/Source/Common/Rva0034103BXfer.cpp
 0x00341114,104,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathExactState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp
-0x0034117C,65,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00341114..0x003411BD,Code/GameEngine/Source/Common/Rva0034117CXfer.cpp
+0x0034117C,65,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00341114..0x003411BD,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x003411BD,72,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIWanderInPlaceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIWanderInPlaceStateXfer.cpp
-0x00341205,50,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003411BD..0x00341237,Code/GameEngine/Source/Common/Rva00341205Xfer.cpp
+0x00341205,50,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003411BD..0x00341237,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00341237,62,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesXfer.cpp
 0x00341275,48,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIAttackPositionAimAtTargetState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesXfer.cpp
 0x003412A5,54,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp
@@ -26512,16 +26512,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00341E48,40,code,Code/GameEngine/Source/GameLogic/AI/AIEnterAndAttackState.cpp,proposed,U,N=Code/GameEngine/Source/GameLogic/AI/AIGoingIdleState.cpp noncontiguous,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp
 0x00341E70,91,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,proposed,K,K=Rva00341E70,Code/GameEngine/Source/Common/Rva00341E70Dtor.cpp
 0x00341ECB,146,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateState.cpp,Code/GameEngine/Source/GameLogic/AI/AIGuardStatesXfer.cpp
-0x00341F5D,60,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00341ECB..0x00341F99,Code/GameEngine/Source/Common/Rva00341E70VSlot.cpp
+0x00341F5D,60,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00341ECB..0x00341F99,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00341F99,91,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00341ECB..0x00341FF4,Code/GameEngine/Source/Common/Rva00341F99Dtor.cpp
 0x00341FF4,146,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardState.cpp,Code/GameEngine/Source/GameLogic/AI/AIGuardStatesXfer.cpp
 0x00342086,154,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardState.cpp,Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateOnEnter.cpp
-0x00342120,55,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00342086..0x00342157,Code/GameEngine/Source/Common/Rva00341F99Slot5.cpp
+0x00342120,55,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00342086..0x00342157,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00342157,91,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00342086..0x003421B2,Code/GameEngine/Source/Common/Rva00342157Dtor.cpp
-0x003421B2,66,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/Common/Rva00342157Slot4.cpp
+0x003421B2,66,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x003421F4,52,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIHuntState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp
 0x00342228,91,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003421F4..0x00342283,Code/GameEngine/Source/Common/Rva00342228Dtor.cpp
-0x00342283,108,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003421F4..0x003422EF,Code/GameEngine/Source/Common/Rva00342228Xfer.cpp
+0x00342283,108,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003421F4..0x003422EF,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x003422EF,29,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackAreaState.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackStatesIsAttack.cpp
 0x0034230C,64,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/Common/Rva00342228Slot4.cpp
 0x0034234C,35,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackAreaState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp
@@ -26681,10 +26681,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00345B89,42,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFollowPathState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp
 0x00345BB3,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345B89..0x00345CAB,Code/GameEngine/Source/Common/Rva00340D1FDtor.cpp
 0x00345BCF,220,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIFollowPathAsTeamState.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp
-0x00345CAB,79,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345B89..0x00345CFA,Code/GameEngine/Source/Common/Rva00345CABDtor.cpp
+0x00345CAB,79,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345B89..0x00345CFA,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00345CFA,6,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345B89..0x00345D00,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
 0x00345D00,545,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp
-0x00345F21,79,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345D00..0x00345F70,Code/GameEngine/Source/Common/Rva00345F21Dtor.cpp
+0x00345F21,79,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345D00..0x00345F70,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00345F70,6,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345D00..0x00345F76,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
 0x00345F76,30,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00345D00..0x00346017,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp
 0x00345F94,131,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIWaitUntilFinishedFiringState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp
@@ -26704,14 +26704,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00346925,208,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIChargeTargetState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp
 0x003469F5,376,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIBurningDeathState.cpp W=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/GameLogic/AI/AIBurningDeathStateUpdate.cpp
 0x00346B6D,83,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346BC0,Code/GameEngine/Source/GameLogic/AI/Rva00346B6DSetup.cpp
-0x00346BC0,109,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346C2D,Code/GameEngine/Source/Common/Rva00346BC0Ctor.cpp
+0x00346BC0,109,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346C2D,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00346C2D,38,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346CDD,Code/GameEngine/Source/Common/Coord3DUninitializedCopy.cpp
 0x00346C53,38,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/AI/Object.cpp,Code/GameEngine/Source/GameLogic/AI/Rva00346C53Mask.cpp
 0x00346C79,25,code,,displaced,-,S=Code/GameEngine/Source/GameClient/Drawable.cpp N=Code/GameEngine/Source/GameClient/Drawable.cpp,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp
 0x00346C92,25,code,,displaced,-,S=Code/GameEngine/Source/GameClient/Drawable.cpp N=Code/GameEngine/Source/GameClient/Drawable.cpp,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp
 0x00346CAB,25,code,,displaced,-,S=Code/GameEngine/Source/GameClient/Drawable.cpp N=Code/GameEngine/Source/GameClient/Drawable.cpp,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp
 0x00346CC4,25,code,,displaced,-,S=Code/GameEngine/Source/GameClient/Drawable.cpp N=Code/GameEngine/Source/GameClient/Drawable.cpp,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp
-0x00346CDD,24,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346CF5,Code/GameEngine/Source/Common/Rva00346CDDCtor.cpp
+0x00346CDD,24,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346CF5,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00346CF5,6,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x003469F5..0x00346D17,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00346CFB,28,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathExactState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp
 0x00346D17,654,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp,Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
@@ -26733,7 +26733,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00347C38,107,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIBackAwayAndCowerState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp
 0x00347CA3,359,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp,Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp
 0x00347E0A,66,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp,Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp
-0x00347E4C,92,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStatesRva00347E4C.cpp
+0x00347E4C,92,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00347EA8,82,code,Code/GameEngine/Source/GameLogic/AI/AIUncontrollableCower.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/AIUncontrollableCower.cpp,Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp
 0x00347EFA,78,code,Code/GameEngine/Source/GameLogic/AI/AIUncontrollableCower.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/AIUncontrollableCower.cpp,Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp
 0x00347F48,46,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIMoveAwayAndCowerState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp
@@ -26765,7 +26765,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00349E15,95,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIFollowPathAsTeamState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp
 0x00349E74,348,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/AI/AIFollowPathAsTeamState.cpp W=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00349FD0,37,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateState.cpp,Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp
-0x00349FF5,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00349FD0..0x0034A011,Code/GameEngine/Source/Common/Rva00345CABDtor.cpp
+0x00349FF5,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00349FD0..0x0034A011,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x0034A011,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackMoveToState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp
 0x0034A02D,158,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIMoveAndDeleteState.cpp,Code/GameEngine/Source/GameLogic/AI/AIMoveAndDeleteStateUpdate.cpp
 0x0034A0CB,12,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIMoveAndDeleteState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp
@@ -26773,7 +26773,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0034A105,28,code,Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateAndEvacuate.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateAndEvacuate.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp
 0x0034A121,70,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathExactState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp
 0x0034A167,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathExactState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp
-0x0034A183,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x0034A167..0x0034A19F,Code/GameEngine/Source/Common/Rva00345F21Dtor.cpp
+0x0034A183,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x0034A167..0x0034A19F,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x0034A19F,28,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackFollowWaypointPathState.cpp,Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp
 0x0034A1BB,360,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIWanderState.cpp,Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp
 0x0034A323,65,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIWanderState.cpp,Code/GameEngine/Source/GameLogic/AI/AIWanderStateOnExit.cpp
@@ -26795,7 +26795,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0034B167,11,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp
 0x0034B172,6,code,,,-,,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
 0x0034B178,113,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp
-0x0034B1E9,471,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp W=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
+0x0034B1E9,471,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp W=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x0034B3C0,322,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackStateXfer.cpp
 0x0034B489,40,code-unledgered,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp C=0x0034B3C0..0x0034B502,
 0x0034B502,903,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp
@@ -26892,11 +26892,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0035135D,108,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIGuardState.cpp,Code/GameEngine/Source/GameLogic/AI/AIGuardStateOnExit.cpp
 0x003513C9,214,code,Code/GameEngine/Source/GameLogic/AI/AIMoveToPositionAndDieState.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/AIMoveToPositionAndDieState.cpp noncontiguous,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp
 0x0035149F,209,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp
-0x00351570,222,code,,,-,,Code/GameEngine/Source/GameLogic/AI/Rva00351570.cpp
-0x0035164E,165,code,,,-,,Code/GameEngine/Source/GameLogic/AI/Rva00351570.cpp
+0x00351570,222,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0035164E,165,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x003516F3,96,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/Common/AIStateMachine.cpp,Code/GameEngine/Source/Common/AIStateMachine.cpp
 0x00351753,6,code,,,-,,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
-0x00351759,8,code,,,-,,Code/GameEngine/Source/GameLogic/AI/Rva0035149F.cpp
+0x00351759,8,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x00351761,39,code,Code/GameEngine/Source/Common/BfmeThingCDF.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCDF.cpp,Code/GameEngine/Source/Common/BfmeConv584.cpp
 0x00351788,449,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp S=Code/GameEngine/Source/GameLogic/AI/AIStates.cpp N=Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetState.cpp,Code/GameEngine/Source/GameLogic/AI/AIAttackAimAtTargetStateOnExit_Update.cpp
 0x00351949,8,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,C,C=0x00351788..0x00351951,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp
@@ -73844,8 +73844,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077CDD1,10,code,Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitPathState.cpp,approved,P,P=0x003450DB@FuncInfo0x00926628 p-group provisional,Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp
 0x0077CDDB,13,code,Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachState.cpp,approved,P,P=0x00345393@FuncInfo0x0092664C p-group provisional,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp
 0x0077CDE8,10,code,Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachState.cpp,approved,P,P=0x00345393@FuncInfo0x0092664C p-group provisional,Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp
-0x0077CDF2,8,code,,,-,,Code/GameEngine/Source/Common/Rva00345F21Dtor.cpp
-0x0077CDFA,10,code,,,-,,Code/GameEngine/Source/Common/Rva00345F21Dtor.cpp
+0x0077CDF2,8,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CDFA,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x0077CE04,8,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x00346D17@FuncInfo0x009266DC,Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
 0x0077CE0C,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x00346D17@FuncInfo0x009266DC,Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
 0x0077CE16,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x00346D17@FuncInfo0x009266DC,Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
@@ -73874,15 +73874,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077CEEC,8,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B178@FuncInfo0x009267B4,Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp
 0x0077CEF4,11,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B178@FuncInfo0x009267B4,Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp
 0x0077CEFF,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B178@FuncInfo0x009267B4,Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp
-0x0077CF09,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF13,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF1D,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF27,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF31,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF3B,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF45,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF4F,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
-0x0077CF59,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp
+0x0077CF09,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF13,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF1D,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF27,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF31,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF3B,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF45,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF4F,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
+0x0077CF59,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B1E9@FuncInfo0x00926810,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp
 0x0077CF63,10,code,Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,approved,P,P=0x0034B3C0@FuncInfo0x00926860,Code/GameEngine/Source/GameLogic/AI/AIAttackStateXfer.cpp
 0x0077CF6D,8,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
 0x0077CF75,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
