@@ -19,7 +19,7 @@ namespace _STL { template <> void _Destroy(Rva004DA181Element *, Rva004DA181Elem
 template _STL::vector<Rva004DA181Element>::~vector();
 
 // ??1?$vector@URva00520211Element@@V?$allocator@URva00520211Element@@@_STL@@@_STL@@QAE@XZ @0x52012b
-struct Rva00520211Element { public: ~Rva00520211Element(); };
+#include "Rva00520211Element.h"
 // The range destroy is the rowed retail _Destroy<Rva00520211Element *>; declaration-only.
 namespace _STL { template <> void _Destroy(Rva00520211Element *, Rva00520211Element *); }
 template _STL::vector<Rva00520211Element>::~vector();

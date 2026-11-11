@@ -8,5 +8,5 @@ struct Rva003F610FElement { public: ~Rva003F610FElement(); };
 void famgenDelete(Rva003F610FElement *p) { delete p; }
 
 // ??_GRva00520211Element@@QAEPAXI@Z @0x51fc86
-struct Rva00520211Element { public: ~Rva00520211Element(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva00520211Element.h"
 void famgenDelete(Rva00520211Element *p) { delete p; }
