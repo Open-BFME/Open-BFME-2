@@ -103,11 +103,7 @@ private:
 class CreateAHeroData;
 
 // The rowed list removal 0x002B7250 (the counterpart of the append).
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *who);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 void Rva005EC135Delete(void **object);
 

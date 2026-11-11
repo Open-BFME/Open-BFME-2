@@ -7,10 +7,7 @@
 // parent; the +0x1C holder clears; the empty base dtor is inline. Pattern from
 // Rva0056B2DDDtor.cpp. Identity of the class is unproven.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Parent005CEFD3 {
     char pad[4];
     Rva002B7250 holder;

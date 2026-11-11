@@ -7,11 +7,7 @@
 // ret-4 unused int arg, neg-sbb-and for int-base ternary.
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 class Rva005D1D8F
 {

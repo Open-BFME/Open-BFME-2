@@ -10,11 +10,7 @@
 // clears the back reference at +0x20+0xC; then the +0x1C owning pointer
 // (0x005CE21C) resets.
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 #include "../../Include/Common/Rva004E0625.h"
 class Rva004E0750
 {

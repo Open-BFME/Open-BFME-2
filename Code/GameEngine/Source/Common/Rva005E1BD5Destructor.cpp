@@ -15,7 +15,7 @@ class Rva0086E330Callback {public:
 struct DestructorHelpRef {TargetRef00217D4C *ptr;DestructorHelpRef():ptr(0){}~DestructorHelpRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}};
 class Rva005E197E {public:void rva005E197E();};
 class CreateAHeroData;
-class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
+#include "../../Include/Common/Rva002B7250.h"
 namespace StrategicInGameUI {class RegionDetailsArmiesPage {public:class Impl;};}
 class StrategicInGameUI::RegionDetailsArmiesPage::Impl {public:void rva005E19CA(int);};
 class Rva005E1BD5;

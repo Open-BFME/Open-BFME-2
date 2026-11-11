@@ -14,11 +14,7 @@ public:
 	virtual ~Rva0086E330Base() {}
 };
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 struct Holder005CC287
 {
