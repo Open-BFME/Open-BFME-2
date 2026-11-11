@@ -30,7 +30,7 @@ struct Rva005E5424Value { const int *vbtable;
 };
 struct Rva005E5424Node : _STL::_Rb_tree_node_base { unsigned opaqueKey; Rva005E5424Value *value; };
 class Rva005F2767 { public: bool IsMouseOverBackButton() const; };
-class Rva005E3DE8 { public: UnicodeString rva005E3E1D(); };
+#include "../../Include/Common/Rva005E3DE8.h"
 struct RGBColor;
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;

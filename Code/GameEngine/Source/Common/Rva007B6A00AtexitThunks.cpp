@@ -89,11 +89,7 @@ public:
 	virtual ~Rva005E16DA();
 };
 
-class Rva005E3DE8
-{
-public:
-	~Rva005E3DE8();
-};
+#include "../../Include/Common/Rva005E3DE8.h"
 
 class Rva005E7529
 {

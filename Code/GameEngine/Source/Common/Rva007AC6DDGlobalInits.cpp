@@ -61,11 +61,7 @@ public:
 	Rva005E2237();
 };
 
-class Rva005E3DE8
-{
-public:
-	Rva005E3DE8();
-};
+#include "../../Include/Common/Rva005E3DE8.h"
 
 // retail's constructor 0x005F005B builds it; the owner is Rva005F0152ImageGet.cpp
 class INI;

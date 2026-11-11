@@ -1,0 +1,160 @@
+{
+ "bases": [
+  "Rva00221635"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva005E3DE8",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 7,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5e3d95"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00221635",
+       "offset": 0,
+       "own_vftable": "0x877cc4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5e3d95"
+     ],
+     "value": 12
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5e3d95"
+     ],
+     "value": {
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5e3d95"
+     ],
+     "value": {
+      "0x0": "0x877cc4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x877cc4"
+     ],
+     "value": {
+      "count": 2,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva005E3DE8@@QAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5e3eee"
+       },
+       {
+        "name": "?rva005E3955@Rva005E3955@@UAEXPAVINI@@@Z",
+        "slot": 1,
+        "target": "0x5e3955"
+       }
+      ],
+      "table": "0x877cc4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x877cc4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva005E3DE8@@QAEPAXI@Z",
+     "1": "?rva005E3955@Rva005E3955@@UAEXPAVINI@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "12": 2
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "8:A": 1
+   },
+   "class": "Rva005E3DE8"
+  },
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "8:A": 1
+   },
+   "class": "Rva005E3DE8"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
