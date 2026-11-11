@@ -51,11 +51,7 @@ struct Rva002000D7Config
 	char unknown00[0x34];
 	int rankCost34;
 };
-class Rva002000D7Store
-{
-public:
-	Rva002000D7Config *get(int);
-};
+#include "../../Include/Common/Rva002000D7Store.h"
 extern class RankInfoStore *TheRankInfoStore;
 
 // Native3805BB uses the three-pointer scalar vector at the established +8 member.

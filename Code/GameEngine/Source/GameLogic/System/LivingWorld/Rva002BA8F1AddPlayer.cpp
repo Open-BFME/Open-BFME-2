@@ -38,7 +38,7 @@ private: char at00[0xc]; _STL::vector<AsciiString *> entries;
 };
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore, *TheLivingWorldAITemplateStore;
 struct Rva002000D7Config { char at00[0x34]; int at34; };
-class Rva002000D7Store { public: Rva002000D7Config *get(int); };
+#include "../../../../Include/Common/Rva002000D7Store.h"
 extern class RankInfoStore *TheRankInfoStore;
 struct Va00DFE78CState { char at00[0x114]; int at114; };
 class GameLogic;

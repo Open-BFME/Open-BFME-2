@@ -8,11 +8,7 @@ struct Rva002000D7Config
     int m_pad[0x34 / 4];
     int m_34;
 };
-class Rva002000D7Store
-{
-public:
-    Rva002000D7Config *get(int v);
-};
+#include "../../Include/Common/Rva002000D7Store.h"
 class RankInfoStore;
 extern RankInfoStore *TheRankInfoStore;
 class Rva00380200

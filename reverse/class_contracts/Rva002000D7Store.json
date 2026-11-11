@@ -1,0 +1,64 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002000D7Store",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "24": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/RankInfo.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/RankInfo.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/RankInfo.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

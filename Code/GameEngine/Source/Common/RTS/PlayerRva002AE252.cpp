@@ -55,11 +55,7 @@ struct Rva002000D7Config
 	ScienceType *m_finish;
 };
 
-class Rva002000D7Store
-{
-public:
-	Rva002000D7Config *get(int index);
-};
+#include "../../../Include/Common/Rva002000D7Store.h"
 
 #define TheStore (*(Rva002000D7Store **)&TheRankInfoStore)
 
