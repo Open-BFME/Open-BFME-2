@@ -71,7 +71,7 @@ public:
 	float y; // +0x10
 	float z; // +0x14
 };
-class Rva002E6ECA { public: int get() const; };
+#include "../../../../Include/GameLogic/Rva002E6ECA.h"
 class Rva00372CA8
 {
 public:

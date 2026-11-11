@@ -123,7 +123,7 @@ class Rva0052DB4D
 public:
 	Bool rva0052DB4D(Int);
 };
-class Rva002E6ECA { public: int get() const; };
+#include "../../../Include/GameLogic/Rva002E6ECA.h"
 float Rva002E7BB8Get();
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

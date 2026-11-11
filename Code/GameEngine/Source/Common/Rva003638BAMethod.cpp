@@ -6,11 +6,7 @@
 // Chain lane: calls rowed 0x003638BA which you just landed; same this plus TerrainLogic::getWaypointByID (slot 0x8c) plus rowed get.
 // Evidence: same this offsets plus global 0x00DFEC50 plus rowed get 0x002E6ECA; callers at 0x002E704A 0x0047000A.
 
-class Rva002E6ECA
-{
-public:
-	int get() const;
-};
+#include "../../Include/GameLogic/Rva002E6ECA.h"
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

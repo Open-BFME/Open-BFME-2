@@ -5843,7 +5843,7 @@ class MineshaftPortalNetworkManager { public: Bool hasUsableNetwork(void *); };
 // GameEngineInit.cpp registration literal names it.
 extern void *TheMineshaftPortalNetworkManager;
 class HierarchyTerrain : public PathfinderNativeSlots<33> { public: virtual Waypoint *getFirstWaypoint(); };
-class Rva002E6ECA { public: Int get() const; };
+#include "../../../Include/GameLogic/Rva002E6ECA.h"
 Int isGroundOrBridgeLayer(Int);
 class Rva003F69C0Object { public: void set(Int *,Int); };
 struct Disp32IntPair { Int x,y; };

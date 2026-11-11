@@ -90,10 +90,7 @@ public:
 	Int linkCount; // +0x4C
 };
 
-struct Rva002E6ECA
-{
-	int get() const;
-};
+#include "../../../Include/GameLogic/Rva002E6ECA.h"
 
 class Rva0052DA63
 {
