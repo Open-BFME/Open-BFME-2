@@ -1150,3 +1150,4 @@ WaterArea,Code/GameEngine/Include/GameLogic/WaterArea.h,existing header; contrac
 Rva0006ED29,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0006ED29.h,existing header; contract class_contracts/Rva0006ED29.json; 4/5 sampled units adopt
 Rva003ECDB7Object,Code/GameEngine/Include/GameLogic/Module/Rva003ECDB7Object.h,existing header; contract class_contracts/Rva003ECDB7Object.json; 4/5 sampled units adopt
 Gen0003AC38,Code/GameEngine/Include/Common/Gen0003AC38.h,existing header; contract class_contracts/Gen0003AC38.json; 5/5 sampled units adopt
+LivingWorldRegionBonusRule,Code/GameEngine/Include/GameLogic/LivingWorldRegionBonusRule.h,existing header; contract class_contracts/LivingWorldRegionBonusRule.json; 3/5 sampled units adopt

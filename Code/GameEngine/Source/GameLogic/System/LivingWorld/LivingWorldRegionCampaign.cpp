@@ -145,11 +145,7 @@ public:
 
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
-class LivingWorldRegionBonusRule
-{
-public:
-	static void ParseINI(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionBonusRule.h"
 
 // Campaign fields at native 0x00BE4120, including its null sentinel.
 extern const FieldParse Rva00210A14FieldParseTable[] =

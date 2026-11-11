@@ -613,11 +613,7 @@ public:
 	void **m_end;
 };
 
-class LivingWorldRegionBonusRule
-{
-public:
-	void CacheRegionIDs(Rva00210390 *a1);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionBonusRule.h"
 
 class Rva002103B6
 {

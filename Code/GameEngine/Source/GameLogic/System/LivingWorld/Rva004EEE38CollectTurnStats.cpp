@@ -49,11 +49,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldRegionBonusRule
-{
-public:
-	bool IsRuleSatisfied(Rva002E071E *player, float *value);
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionBonusRule.h"
 
 class Rva003F287F
 {
