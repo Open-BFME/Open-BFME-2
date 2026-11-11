@@ -902,7 +902,7 @@ typedef void (QuickMatchFunctorTarget::*QuickMatchCallback)(const char *);
 
 typedef void (QuickMatchFunctorTarget::*QuickMatchInitGadgets)(const char *, void *, GameWindow *);
 
-class Rva003821E2 {public:void assign(UnicodeString);};
+#include "../../../../../Include/GameClient/Rva003821E2.h"
 
 class Rva004FDD36AsciiField{public:void setClan(AsciiString);};
 

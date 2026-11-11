@@ -181,7 +181,7 @@ public:
 };
 
 #include "../../../../../Include/GameNetwork/Rva0022C4DF.h"
-class Rva003821E2 { public: void assign(UnicodeString); };
+#include "../../../../../Include/GameClient/Rva003821E2.h"
 class Rva0059F322AsciiField { public: AsciiString get() const; };
 class Rva0059F2EB { public: void rva0059F2EB(AsciiString); };
 
