@@ -294,7 +294,7 @@ class Rva00E02D6C {public:char gap00[0x10];int current;_STL::vector<Rva00E02D6CC
 extern Rva00E02D6C*TheCampaignManager;
 class Rva004FD448 {public:void rva004FD571(int,PointerVector*,int*)const;};
 class Rva004FD4D4 {public:void rva004FD4D4(int,PointerVector*,int*)const;};
-class Rva002E0A9FElem {public:int rva002E0A9F(void*);};
+#include "../../../../../Include/GameLogic/Rva002E0A9FElem.h"
 struct ArmyObject {char gap00[0x20];int id;__forceinline int GetID()const{return id;}};
 class Rva005003DF {public:int rva005003DF(int,const int&,int*)const;};
 struct Rva004FFA6ESource;

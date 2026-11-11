@@ -104,11 +104,7 @@ struct BfmePod20
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002E0A9FElem
-{
-public:
-	int rva002E0A9F(void *id);
-};
+#include "../../../../Include/GameLogic/Rva002E0A9FElem.h"
 
 #include "../../../../Include/GameLogic/Rva002E071E.h"
 

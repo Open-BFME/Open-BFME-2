@@ -42,7 +42,7 @@ static __forceinline Rva0020EEF4Outer *livingWorldSpawnerRegions() { return (Rva
 class Rva0022C0CDSubsystem;extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 enum NameKeyType{NAMEKEY_INVALID=0};class ArmorTemplate;
 class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};
-class Rva002E0A9FElem {public:int rva002E0A9F(void*);};
+#include "../../../../Include/GameLogic/Rva002E0A9FElem.h"
 #include "../../../../Include/GameLogic/Rva00318F42.h"
 class Rva002B4076 {public:void rva002B4076(void*,int,void*);};
 #include "../../../../Include/Common/Rva002B2702.h"

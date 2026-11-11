@@ -11,11 +11,7 @@
 
 struct Rva002B488EResult;
 
-class Rva002E0A9FElem
-{
-public:
-	int rva002E0A9F(void *key);	// 0x002E0A9F
-};
+#include "../../../../Include/GameLogic/Rva002E0A9FElem.h"
 
 // What the +0x124 list holds: records keyed by the int at +0x20.
 struct Rva002B3187Elem
