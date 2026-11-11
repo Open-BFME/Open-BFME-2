@@ -130,11 +130,7 @@ struct FrameSprite {
 // 0x00DDC020) and takes one reference. Its body stays out of this unit: a visible
 // body reads as no-throw and removes the EH frame retail's 0x006ED1E0 has.
 
-class Rva0070A840
-{
-public:
-    ~Rva0070A840();
-};
+#include "../../../GameEngine/Include/Common/Rva0070A840.h"
 
 extern unsigned char g_00E1771C;
 

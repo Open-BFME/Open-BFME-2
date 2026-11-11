@@ -469,11 +469,7 @@ public:
 // ??1Rva006F8460@@UAE@XZ retail 0x006F8460 37B dtor.
 // Evidence: vtable 0x008EC9CC at +0; m_10 freed via member dtor 0x0070A840
 // plus pool freeBlock 0x006DB270 size 0x14 with pool 0x00A176E8.
-class Rva0070A840
-{
-public:
-	~Rva0070A840();
-};
+#include "../../../GameEngine/Include/Common/Rva0070A840.h"
 
 struct BfmeSubmitCopy8
 {

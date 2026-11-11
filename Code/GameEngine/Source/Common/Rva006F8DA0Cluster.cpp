@@ -13,11 +13,7 @@
 // Names are address-derived; the near file's Rva006DE350 scaffold is only the
 // deleting-dtor recipe and does not describe these members.
 
-class Rva0070A840
-{
-public:
-	~Rva0070A840();
-};
+#include "../../Include/Common/Rva0070A840.h"
 
 #include "../../Include/Common/Rva006DB270.h"
 

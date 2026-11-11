@@ -1501,3 +1501,4 @@ Rva005C3E79,Code/GameEngine/Include/Common/Rva005C3E79.h,existing header; contra
 Rva0037EE4C,Code/GameEngine/Include/GameLogic/Rva0037EE4C.h,existing header; contract class_contracts/Rva0037EE4C.json; 7/9 sampled units adopt
 Rva004FC275,Code/GameEngine/Include/Common/Rva004FC275.h,existing header; contract class_contracts/Rva004FC275.json; 3/4 sampled units adopt
 AITargetHeuristicEnemyStructure,Code/GameEngine/Include/Common/AITargetHeuristicEnemyStructure.h,existing header; contract class_contracts/AITargetHeuristicEnemyStructure.json; 3/3 sampled units adopt
+Rva0070A840,Code/GameEngine/Include/Common/Rva0070A840.h,existing header; contract class_contracts/Rva0070A840.json; 4/9 sampled units adopt

@@ -1,0 +1,81 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0070A840",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "8": 1,
+   "20": 4
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_data",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 20,
+   "type": "char[20]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_data",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva0070A840Entry*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_count": 1,
+    "m_data": 1,
+    "m_nativeHash": 1,
+    "nativeHash": 1
+   },
+   "class": "Rva0070A840"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "Rva0070A840"
+  }
+ ],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {}
+}

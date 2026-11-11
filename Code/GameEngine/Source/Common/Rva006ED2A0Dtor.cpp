@@ -7,11 +7,7 @@
 // chain lane via freeBlock 0x006DB270; caller 0x006EFB90; sibling base
 // Rva006F8460Dtor shares base vtable/member pattern; same /O1 Apt pool family.
 #include "../../../Libraries/Source/Apt/EAStringC.h"
-class Rva0070A840
-{
-public:
-    ~Rva0070A840();
-};
+#include "../../Include/Common/Rva0070A840.h"
 #include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern char g_00DDC2E0;
