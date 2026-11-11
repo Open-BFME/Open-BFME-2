@@ -84,13 +84,7 @@ class Rva006F97B0 {public:void rva006F97B0();};
 
 class Rva006DBB60ShrNAndField {public:bool get() const;};
 
-class AptActionQueueC
-{
-public:
-	void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);
-	void enqueueFront(AptValue *,AptValue *,AptValue *,int,int);
-	void enqueueAction(void *,AptCIH *,int,int);
-};
+#include "AptActionQueueC.h"
 
 class AptInputScriptFunction {
 public:

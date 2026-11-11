@@ -7,11 +7,7 @@
 // g_bfmeAptPtrAtE176D0+0xA0. Evidence: chain lane (callee just landed);
 // callers 0x006E2C10 0x006E2D60; globals E176D0 (extern name in use) E17704.
 class AptCIH;
-class AptActionQueueC
-{
-public:
-    void enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
-};
+#include "../../../Libraries/Source/Apt/AptActionQueueC.h"
 class Rva006E34D0
 {
 public:

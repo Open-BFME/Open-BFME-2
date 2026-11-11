@@ -95,14 +95,7 @@ public:
     AptSpriteCharacter *mpCharacter; // +0x4C
 };
 
-class AptActionQueueC
-{
-public:
-    void rva006E3740(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3740
-    void enqueueFront(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3810
-    void enqueueAction(void *actions, AptCIH *target, int type, int value); // 0x006E4B80
-    void prependAction(void *actions, AptCIH *target, int type, int value); // 0x006E4C70
-};
+#include "AptActionQueueC.h"
 class Rva006E34D0
 {
 public:

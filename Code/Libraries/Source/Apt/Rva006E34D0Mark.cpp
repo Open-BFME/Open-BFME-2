@@ -24,11 +24,7 @@ public:
 
 #include "AptDisplayListState.h"
 
-class AptActionQueueC
-{
-public:
-    void rva006E39A0();
-};
+#include "AptActionQueueC.h"
 
 class AptValuePtrStack
 {

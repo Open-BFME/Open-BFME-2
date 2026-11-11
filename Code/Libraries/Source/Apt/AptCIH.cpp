@@ -307,11 +307,7 @@ public:
 	Rva006F7AC0 *m_24;
 };
 
-class AptActionQueueC
-{
-public:
-	void RemoveActionFor(AptValue *pArg);
-};
+#include "AptActionQueueC.h"
 
 struct AptMatrix;
 

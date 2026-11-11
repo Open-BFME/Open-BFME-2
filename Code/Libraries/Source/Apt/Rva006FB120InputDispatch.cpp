@@ -60,13 +60,7 @@ static __forceinline bool isButtonInst(AptCIH *cih)
 }
 
 class AptValue;
-class AptActionQueueC
-{
-public:
-	void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);
-	void enqueueFront(AptValue *,AptValue *,AptValue *,int,int);
-	void enqueueAction(void *,AptCIH *,int,int);
-};
+#include "AptActionQueueC.h"
 
 struct Rva006E3710Node;
 class Rva006E3710
