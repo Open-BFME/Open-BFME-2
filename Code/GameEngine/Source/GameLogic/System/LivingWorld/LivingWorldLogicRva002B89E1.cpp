@@ -52,11 +52,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 
 class InGameUI;
 extern InGameUI *TheInGameUI;
-class Rva0029B17C
-{
-public:
-	void clearMissionHelpText();	// 0x0029B17C, WB InGameUI::clearMissionHelpText
-};
+#include "../../../../Include/GameLogic/Rva0029B17C.h"
 
 extern GameLogic *TheGameLogic;
 

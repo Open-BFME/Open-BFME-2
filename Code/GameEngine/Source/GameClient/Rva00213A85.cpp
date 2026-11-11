@@ -52,11 +52,7 @@ public:
 class InGameUI;
 extern InGameUI *TheInGameUI;
 
-class Rva0029B17C
-{
-public:
-	void clearMissionHelpText();
-};
+#include "../../Include/GameLogic/Rva0029B17C.h"
 
 void HideControlBar(bool visible);
 
