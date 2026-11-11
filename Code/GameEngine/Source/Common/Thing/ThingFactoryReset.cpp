@@ -36,11 +36,7 @@ public:
     bool m_isOverride;
 };
 
-class Rva000B4BED
-{
-public:
-    void rva000B4AE4();
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B4BED.h"
 
 // Call-only view; no vtable or slot implementation is emitted here.
 #include "../../../Include/Common/ModuleData.h"

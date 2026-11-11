@@ -14,13 +14,7 @@ public:
 	void *rva000B4B23(const ModelConditionFlags &query);
 };
 
-class Rva000B4BED
-{
-public:
-	void *rva000B4BED(const void *query);
-	void *rva000B4C9D(const void *entry);
-	void *rva000B4CBE(const void *entry);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B4BED.h"
 
 class Rva000B5746
 {

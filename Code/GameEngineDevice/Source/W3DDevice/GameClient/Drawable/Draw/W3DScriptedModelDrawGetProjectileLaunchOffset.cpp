@@ -146,7 +146,7 @@ struct WeaponBarrelInfoVec
 struct Rva000C3886Range;
 struct Rva000C3886Obj;
 class Rva000C3886 { public: void rva000C3886(void *, float, Rva000C3886Range *, Rva000C3886Obj *, void *); };
-class Rva000B4BED { public: void *rva000B4BED(const void *); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
 class Rva000B4B23 { public: void *rva000B4B23(const ModelConditionFlags &); };
 
 struct ModelConditionInfo

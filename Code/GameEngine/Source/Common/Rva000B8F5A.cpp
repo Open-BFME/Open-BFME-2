@@ -16,13 +16,7 @@
 #include <string.h>
 template<> bool StringBase<char>::isEmpty() const;
 
-class Rva000B4BED
-{
-public:
-	void *rva000B4BED(const void *entry);
-	void *rva000B4C9D(const void *entry);
-	void *rva000B4CBE(const void *entry);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B4BED.h"
 
 class Matrix3D;struct Coord3D;class Object;
 #include "../../Include/Common/Rva000BFDFE.h"

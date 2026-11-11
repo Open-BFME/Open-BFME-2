@@ -745,7 +745,7 @@ static __declspec(noinline) bool Rva000B2E4CComplete(RenderAnimationObj*obj,Anim
  switch(s->mode){case 0:case 1:case 3:case 5:return finish?s->completed:false;case 2:if(s->frame>=s->motion->NumFrames()-1.0f)return true;return false;case 6:if(s->frame<=0.0f)return true;return false;}
  }return true;
 }
-class Rva000B4BED{public:void*rva000B4BED(const void*);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
 class Rva0027532F{public:bool rva0027532F(bool);};
 class Rva000B3C61{public:void rva000B3C61(int);void rva000B3CCF(int,int);};
 class Rva000B3A68{public:unsigned char rva000B3A68();};
