@@ -12,12 +12,7 @@
 extern void *W3DGCData00DE2000;
 
 class Rva0007E12F { public: void rva0007E12F(); };
-class Rva000EC9C6
-{
-public:
-	void rva000EC9C6(int);
-	void rva000E6B99();
-};
+#include "../../../../GameEngine/Include/Common/Rva000EC9C6.h"
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"

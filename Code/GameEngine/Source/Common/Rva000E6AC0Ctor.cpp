@@ -112,7 +112,7 @@ private:
     float m_5bc;
 };
 
-class Rva000EC9C6 { public: void rva000E6B99(); };
+#include "../../Include/Common/Rva000EC9C6.h"
 
 // ??0Rva000E6AC0@@QAE@XZ @0x000E6AC0
 Rva000E6AC0::Rva000E6AC0()

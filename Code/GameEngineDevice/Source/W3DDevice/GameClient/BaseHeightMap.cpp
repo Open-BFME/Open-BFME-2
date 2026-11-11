@@ -101,12 +101,7 @@ extern GlobalData *TheWritableGlobalData;
 
 class RenderInfoClass;
 
-class Rva000EC9C6
-{
-public:
-	void rva000EC9C6(int);
-	void rva000E6B99();
-};
+#include "../../../../GameEngine/Include/Common/Rva000EC9C6.h"
 
 class W3DShrubBuffer { public: void drawShrubs(int); void rva000E7016(); };
 

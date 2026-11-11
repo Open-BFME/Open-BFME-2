@@ -886,3 +886,4 @@ Rva003F468D,Code/GameEngine/Include/Common/Rva003F468D.h,existing header; contra
 Rva00295A0FCommands,Code/GameEngine/Include/Common/Rva00295A0FCommands.h,existing header; contract class_contracts/Rva00295A0FCommands.json; 9/10 sampled units adopt
 W3DProjectedShadow,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DProjectedShadowClass.h,existing header; contract class_contracts/W3DProjectedShadow.json; 13/17 sampled units adopt
 BfmeObjectDlinkBase,Code/GameEngine/Include/Common/BfmeObjectDlinkBase.h,existing header; contract class_contracts/BfmeObjectDlinkBase.json; 15/20 sampled units adopt
+Rva000EC9C6,Code/GameEngine/Include/Common/Rva000EC9C6.h,existing header; contract class_contracts/Rva000EC9C6.json; 6/10 sampled units adopt

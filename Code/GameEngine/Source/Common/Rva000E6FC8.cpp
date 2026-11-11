@@ -14,11 +14,7 @@ public:
 };
 // The allocator 0x000E6D94 is rowed with an int argument
 // (Rva000E6D94AllocateBuffers.cpp).
-class Rva000EC9C6
-{
-public:
-	void rva000E6D94(int value);
-};
+#include "../../Include/Common/Rva000EC9C6.h"
 
 void Rva000E6FC8::rva000E6FC8()
 {
