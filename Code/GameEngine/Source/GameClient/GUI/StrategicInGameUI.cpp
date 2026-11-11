@@ -225,7 +225,7 @@ private:
 	Rva005E626DListOwner *m_listOwner10;	// +0x10
 };
 class CreateAHeroData;
-class Rva002B7250 {public:void rva002B7250(CreateAHeroData *);};
+#include "../../../Include/Common/Rva002B7250.h"
 // 0x005E57A2 (11 B, RET 4): primary vtable slot 2. The one-word argument is
 // unused; the +4 callback member is invoked with no argument through the
 // no-argument forwarder below, which ICF folds into Rva005E6817Mid::fwd

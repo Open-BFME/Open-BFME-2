@@ -43,7 +43,7 @@ public:
  __forceinline ~Rva0086CE84Observer() {}
 };
 class CreateAHeroData;
-class Rva002B7250 { public: void rva002B7250(CreateAHeroData*); };
+#include "../../Include/Common/Rva002B7250.h"
 struct StanceBehaviorPrefix { char pad[0x20]; Rva002B7250 observers; };
 struct TargetRef00217D4C;
 struct Rva002BED91 { TargetRef00217D4C *p; void clear(); };

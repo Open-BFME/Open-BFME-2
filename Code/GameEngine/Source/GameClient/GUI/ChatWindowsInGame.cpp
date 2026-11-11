@@ -263,11 +263,7 @@ class CreateAHeroData;
 
 int Rva00381452Get();
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *who);
-};
+#include "../../../Include/Common/Rva002B7250.h"
 
 class Rva005AFE3FBase
 {

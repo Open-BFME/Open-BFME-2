@@ -578,11 +578,7 @@ class Rva004E0625 { public: int rva004E0625() const; };
 struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva005A0B4CList.h"
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *data);
-};
+#include "../../../../Include/Common/Rva002B7250.h"
 class Rva005E8095 { public: void rva005E8095(unsigned); };
 struct Rva005E8350Building { char unknown0[0x28]; Rva002DF9E9 *label; };
 // Field offsets are native evidence; this accessor name is reconstructed.

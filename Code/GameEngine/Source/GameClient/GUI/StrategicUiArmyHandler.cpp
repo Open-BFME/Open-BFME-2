@@ -39,7 +39,7 @@ class Rva005F24F0 {public:Rva005F24F0(const Rva005F24F0&);__forceinline ~Rva005F
 struct Rva002BA8F1Listener;
 #include "../../../Include/Common/Rva005A0B4CList.h"
 class CreateAHeroData;
-class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
+#include "../../../Include/Common/Rva002B7250.h"
 struct Rva005FArmyObserve {char pad[4];};
 struct Rva005FArmyContext {char pad[0x78];Rva005FArmyObserve*observed; __forceinline Rva005FArmyObserve*getObserved(){return observed;}};
 struct Rva005F54DAState {char pad[0x18];bool enabled;};

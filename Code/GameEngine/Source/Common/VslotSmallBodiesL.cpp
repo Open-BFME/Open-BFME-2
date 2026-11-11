@@ -29,11 +29,7 @@ private:
 // (NULL stays NULL), to the rowed 0x002B7250 on the entry's +0x08 member;
 // answers true. Same shape as Rva005FED52::invoke (vtable 0x00C37064).
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *data);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Rva003F55B6Head
 {
 	Int m_00;

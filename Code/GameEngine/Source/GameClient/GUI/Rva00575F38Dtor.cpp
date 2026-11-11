@@ -39,11 +39,7 @@ class CreateAHeroData;
 
 #include "../../../Include/Common/Rva002B254F.h"
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *data);
-};
+#include "../../../Include/Common/Rva002B7250.h"
 
 struct Rva002B256EOwner
 {

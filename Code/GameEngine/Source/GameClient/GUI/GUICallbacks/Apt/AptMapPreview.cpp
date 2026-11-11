@@ -83,11 +83,7 @@ public:
 // 0x002B7250 and appended through 0x005A0B4C (both rowed under address
 // names, with their own views of the vector).
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *listener);
-};
+#include "../../../../../Include/Common/Rva002B7250.h"
 struct Rva002BA8F1Listener;
 #include "../../../../../Include/Common/Rva005A0B4CList.h"
 // Row spelling of 0x003EEBEF (Rva003EE900Forward.cpp).

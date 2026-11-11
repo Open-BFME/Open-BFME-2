@@ -228,7 +228,7 @@ void Rva005CF22COwner::rva005CF22C(int regionAddress) {
  m_a->m_sub.rva00575674((Object *)regionHelper);
 }
 
-class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
+#include "../../Include/Common/Rva002B7250.h"
 class Rva004E0750 {public:void rva004E0750()const;};
 Rva005CEE9F::~Rva005CEE9F(){
  ((Rva002B7250*)((char*)m_region+8))->rva002B7250((CreateAHeroData*)static_cast<Rva005CF07EListener*>(this));

@@ -193,11 +193,7 @@ extern const unsigned short g_00C76704[] = { '%', 'd', '.', 0 };
 
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../../../../Include/Common/Rva002B7250.h"
 
 struct NAT;
 

@@ -102,11 +102,7 @@ struct Rva002BA8F1Listener;
 struct HeroDetailsInput;
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *data);
-};
+#include "../../../Include/Common/Rva002B7250.h"
 
 #include "../../../Include/Common/Rva005CB265.h"
 
