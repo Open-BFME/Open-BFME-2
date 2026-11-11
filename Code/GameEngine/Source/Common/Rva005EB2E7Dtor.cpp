@@ -34,10 +34,7 @@ struct LivingWorldLogic005EB2E7
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-struct Rva0057C2CC
-{
-	void rva0057C2CC();
-};
+#include "../../Include/Common/Rva0057C2CC.h"
 
 // The +0x14 and +0x34 holders' destructor is 0x000AD6F4, the body clear shares.
 #include "../../Include/Common/Rva000AD6F4.h"

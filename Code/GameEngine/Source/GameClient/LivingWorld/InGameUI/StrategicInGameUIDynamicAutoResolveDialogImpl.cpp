@@ -189,11 +189,7 @@ public:
 	__forceinline ~Rva00579E47() {}
 };
 
-class Rva0057C2CC
-{
-public:
-	void rva0057C2CC();
-};
+#include "../../../../Include/Common/Rva0057C2CC.h"
 
 class Rva0057C394 : public Rva0057C2CC
 {

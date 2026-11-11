@@ -1,0 +1,12 @@
+// Rva0057C2CC: canonical declarations for the members 6 units call through private views of it;
+// each call resolves to the unit's ledger row or pin, and no unit reads its layout, which stays opaque.
+#ifndef CANONICAL_RVA0057C2CC_H
+#define CANONICAL_RVA0057C2CC_H
+
+class Rva0057C2CC
+{
+public:
+	void rva0057C2CC();
+};
+
+#endif // CANONICAL_RVA0057C2CC_H

@@ -27,10 +27,7 @@ Rva005E971F::~Rva005E971F()
     }
 }
 
-struct Rva0057C2CC
-{
-	void rva0057C2CC();
-};
+#include "../../Include/Common/Rva0057C2CC.h"
 
 class Rva005E98A0
 {
