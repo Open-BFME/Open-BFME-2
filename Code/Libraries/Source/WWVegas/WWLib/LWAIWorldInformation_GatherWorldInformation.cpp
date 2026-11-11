@@ -216,11 +216,7 @@ struct LWAILogicView
 
 #include "../../../../GameEngine/Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002E0C68
-{
-public:
-	int rva002E0C68();
-};
+#include "../../../../GameEngine/Include/Common/Rva002E0C68.h"
 
 #include "../../../../GameEngine/Include/Common/Rva002E0CD4.h"
 

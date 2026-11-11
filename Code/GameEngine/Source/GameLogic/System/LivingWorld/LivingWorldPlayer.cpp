@@ -225,7 +225,7 @@ private:
 };
 
 // Existing out-of-line player providers; their original method names are unknown.
-class Rva002E0C68 { public: Int rva002E0C68(); };
+#include "../../../../Include/Common/Rva002E0C68.h"
 
 #include "../../../../Include/Common/Rva002E0CD4.h"
 

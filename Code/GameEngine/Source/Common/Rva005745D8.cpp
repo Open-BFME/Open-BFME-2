@@ -13,11 +13,7 @@ struct BfmeWorldRV;
 extern BfmeWorldRV *g_bfmeWorldRV;
 class Rva002BA8F1Logic;
 
-class Rva002E0C68
-{
-public:
-	int rva002E0C68();
-};
+#include "../../Include/Common/Rva002E0C68.h"
 #include "../../Include/Common/Rva002E0CD4.h"
 #include "../../Include/Common/Rva002E0C2B.h"
 class Rva002E063B

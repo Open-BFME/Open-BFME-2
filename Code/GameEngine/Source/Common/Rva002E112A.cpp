@@ -6,11 +6,7 @@
 // this->get 0x002E0CD4 via setle. Returns (a+b)<=c.
 // Evidence: callees all rowed per packet; callers 0x002B65DE 0x004FAB57
 // UNCLAIMED so owner honest Rva002E112A; this calls rowed get on itself.
-class Rva002E0C68
-{
-public:
-	int rva002E0C68();
-};
+#include "../../Include/Common/Rva002E0C68.h"
 
 #include "../../Include/Common/SpawnArmy.h"
 

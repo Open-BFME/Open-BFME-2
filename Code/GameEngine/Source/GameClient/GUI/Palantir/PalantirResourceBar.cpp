@@ -66,7 +66,7 @@ struct PlayerView {char pad[0x34];PlayerTemplateView *playerTemplate;char pad38[
 #include "../../../../Include/GameLogic/Rva002A7461.h"
 #include "../../../../Include/GameLogic/Rva002A7389.h"
 #include "../../../../Include/Common/Rva002E0CD4.h"
-class Rva002E0C68 {public:int rva002E0C68();};
+#include "../../../../Include/Common/Rva002E0C68.h"
 class Rva002E0C2B {public:int rva002E0C2B();};
 struct CountBaseView {char pad[8];int value;};
 struct RegionView {char pad[0x40];CountBaseView *base;};
