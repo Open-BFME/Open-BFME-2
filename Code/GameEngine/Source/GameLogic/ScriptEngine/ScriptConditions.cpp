@@ -133,11 +133,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int PlayerMaskType;
-class Rva00261C89
-{
-public:
-	Bool rva00261C89(); // 0x00261C89
-};
+#include "../../../Include/Common/Rva00261C89.h"
 #include "../../../Include/GameLogic/ScriptCondition.h"
 // Distance-count callback data; its constructor (0x003E5563) zeroes the
 // position, threshold and count and sets the cap to 0x7ffffffe.

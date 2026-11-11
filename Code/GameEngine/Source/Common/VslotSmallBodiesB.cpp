@@ -178,11 +178,7 @@ void *Rva000910E1::allocate(unsigned int size, Int) { return operator new[](size
 void Rva000910E1::deallocate(void *block, Int) { operator delete[](block); }
 
 // vtable 0x00C35B28#1: 0x00261C89 on the object at +4 of the argument.
-class Rva00261C89
-{
-public:
-	bool rva00261C89();
-};
+#include "../../Include/Common/Rva00261C89.h"
 struct Rva00261D01Holder
 {
 	void *m_00;

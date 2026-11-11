@@ -318,11 +318,7 @@ private:
 	char m_pad[0xCC];
 	_STL::_Rb_tree_node_base *m_CC;
 };
-class Rva00261C89
-{
-public:
-	bool rva00261C89();
-};
+#include "../../Include/Common/Rva00261C89.h"
 struct Rva004EE485Node : _STL::_Rb_tree_node_base
 {
 	Rva00261C89 *m_10;
