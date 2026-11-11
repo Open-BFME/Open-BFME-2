@@ -8,11 +8,7 @@
 // reaches them in retail, so the owner and names stay address-derived.
 class ModelConditionFlags;
 
-class Rva000B4B23
-{
-public:
-	void *rva000B4B23(const ModelConditionFlags &query);
-};
+#include "../../Include/Common/Rva000B4B23.h"
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B4BED.h"
 

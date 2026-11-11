@@ -10,12 +10,7 @@ class ModelConditionFlags;
 
 #include "../../Include/Common/Rva000B4A9F.h"
 
-class Rva000B4B23
-{
-public:
-	void *rva000B4B23(const ModelConditionFlags &query);
-	AsciiString rva000B6E28(const ModelConditionFlags &query);
-};
+#include "../../Include/Common/Rva000B4B23.h"
 
 AsciiString Rva000B4B23::rva000B6E28(const ModelConditionFlags &query)
 {

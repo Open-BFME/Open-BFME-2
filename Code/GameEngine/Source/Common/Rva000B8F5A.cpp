@@ -27,7 +27,7 @@ struct AnimationStateBF9FC {char pad00[0x68];const FXList*fx68;char pad6C[0x9C-0
 class ModelConditionFlags {public:bool rva000B3EB3()const;bool test(unsigned bit)const{return ((bits[bit>>5]>>(bit&31))&1)!=0;}unsigned bits[19];};
 class WeaponTemplateSetHead {public:WeaponTemplateSetHead(const WeaponTemplateSetHead&);void rva000B3ED3(const WeaponTemplateSetHead&);unsigned bits[19];};
 class Rva000B6253 {public:Rva000B6253*rva000B6253(int,unsigned,unsigned,unsigned,unsigned,unsigned);unsigned bits[19];};
-class Rva000B4B23 {public:void*rva000B4B23(const ModelConditionFlags&);};
+#include "../../Include/Common/Rva000B4B23.h"
 #include "../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem*Make001FCBD7();
 #include "../../Include/Common/RvaSmartPtr12.h"

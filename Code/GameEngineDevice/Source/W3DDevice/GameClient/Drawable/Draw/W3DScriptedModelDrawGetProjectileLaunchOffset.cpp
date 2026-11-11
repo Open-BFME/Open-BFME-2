@@ -147,7 +147,7 @@ struct Rva000C3886Range;
 struct Rva000C3886Obj;
 class Rva000C3886 { public: void rva000C3886(void *, float, Rva000C3886Range *, Rva000C3886Obj *, void *); };
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
-class Rva000B4B23 { public: void *rva000B4B23(const ModelConditionFlags &); };
+#include "../../../../../../GameEngine/Include/Common/Rva000B4B23.h"
 
 struct ModelConditionInfo
 {

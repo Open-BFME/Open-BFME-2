@@ -40,7 +40,7 @@ public:
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 struct ModelConditionInfo;
-class Rva000B4B23 { public: void *rva000B4B23(const ModelConditionFlags &); };
+#include "../../../../../../GameEngine/Include/Common/Rva000B4B23.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
 class Rva000B8F5AOuter { public: bool rva000BF9FC(void *boneState, bool force, int options); };
 
