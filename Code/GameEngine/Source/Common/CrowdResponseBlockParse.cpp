@@ -49,11 +49,7 @@ public:
 	Rva00415C84 *assignMembers(const Rva00415C84 &other);
 };
 
-class Rva00415AE0
-{
-public:
-	~Rva00415AE0();
-};
+#include "../../Include/Common/Rva00415AE0.h"
 
 #pragma pack(push, 1)
 struct InsertRet0041539F

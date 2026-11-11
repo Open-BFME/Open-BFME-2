@@ -1329,3 +1329,4 @@ Rva005E88DDNullTarget,Code/GameEngine/Include/Common/Rva005E88DDNullTarget.h,exi
 BfmeThingGE,Code/GameEngine/Include/GameLogic/BfmeThingGE.h,existing header; contract class_contracts/BfmeThingGE.json; 3/4 sampled units adopt
 Rva0029B16A,Code/GameEngine/Include/Common/Rva0029B16A.h,existing header; contract class_contracts/Rva0029B16A.json; 3/4 sampled units adopt
 Rva004D04C9,Code/GameEngine/Include/Common/Rva004D04C9.h,existing header; contract class_contracts/Rva004D04C9.json; 3/5 sampled units adopt
+Rva00415AE0,Code/GameEngine/Include/Common/Rva00415AE0.h,existing header; contract class_contracts/Rva00415AE0.json; 3/4 sampled units adopt

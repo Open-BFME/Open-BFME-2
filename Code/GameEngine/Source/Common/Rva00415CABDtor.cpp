@@ -21,11 +21,7 @@ namespace _STL
 template <> Rva0041E832PodIterator &Rva0041E832PodIterator::operator++();
 }
 
-class Rva00415AE0
-{
-public:
-    ~Rva00415AE0();
-};
+#include "../../Include/Common/Rva00415AE0.h"
 
 #include "../../Include/GameClient/Rva000411084.h"
 
