@@ -5,11 +5,7 @@
 #include <string.h>
 #pragma intrinsic(strlen)
 
-class Rva00800550Chain
-{
-public:
-	void *append(int size);
-};
+#include "../../Include/GameNetwork/Rva00800550Chain.h"
 
 class Rva007FA2C0
 {

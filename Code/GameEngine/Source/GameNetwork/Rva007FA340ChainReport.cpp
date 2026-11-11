@@ -16,12 +16,7 @@ public:
 	void walk(unsigned int);
 };
 
-class Rva00800550Chain
-{
-public:
-	void *first();
-	void popFront();
-};
+#include "../../Include/GameNetwork/Rva00800550Chain.h"
 
 struct Rva007EB810Diag
 {

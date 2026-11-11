@@ -95,18 +95,7 @@ struct Rva00800550Node
 	Rva00800550Node *m_next;
 };
 
-class Rva00800550Chain
-{
-public:
-	void  clear();              // 0x00800550
-	void *append( int size );   // 0x00800590
-	void *first();              // 0x0066CA00
-	void  popFront();           // 0x008005F0
-
-	int              m_count;
-	Rva00800550Node *m_head;
-	Rva00800550Node *m_tail;
-};
+#include "../../../GameEngine/Include/GameNetwork/Rva00800550Chain.h"
 
 // ------------------------------------ the byte-equal three-field reset
 class Rva008003C0Owner

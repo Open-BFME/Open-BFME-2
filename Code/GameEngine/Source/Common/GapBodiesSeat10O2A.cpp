@@ -79,11 +79,7 @@ void *Rva00674BA0::rva00674BA0() const
 // ?rva0066CA80@Rva0066CA80@@QAEXXZ @0x0066CA80 5B (called from 0x006661DA):
 // clear the chain member at +0 through the rowed Rva00800550Chain::clear
 // 0x0066C970.
-class Rva00800550Chain
-{
-public:
-	void clear();
-};
+#include "../../Include/GameNetwork/Rva00800550Chain.h"
 class Rva0066CA80
 {
 public:
