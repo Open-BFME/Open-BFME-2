@@ -42,7 +42,7 @@ struct CampaignGlobalView { char unknown00[0xac0]; AsciiString map; };
 void InitGameLogicRandom(unsigned);
 #include "../../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
-class Rva0023DC8E { public: void rva0023DC8E(const AsciiString &); };
+#include "../../../../Include/GameLogic/Rva0023DC8E.h"
 class Rva0023DCCE { public: void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &); };
 #include "../../../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;

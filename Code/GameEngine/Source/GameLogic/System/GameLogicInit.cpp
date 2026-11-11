@@ -5759,11 +5759,7 @@ public:
 	OpaqueRefElement4 m_b;
 };
 
-class Rva0023DC8E
-{
-public:
-	void rva0023DC8E(const AsciiString &a);
-};
+#include "../../../Include/GameLogic/Rva0023DC8E.h"
 
 // The mode gate 0x001DCD1C stays visible (out of line) so the unit knows it
 // leaves TheAudio alone: retail keeps the pointer in a register across it.

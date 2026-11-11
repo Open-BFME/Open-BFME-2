@@ -20,11 +20,7 @@ void __cdecl startEvilCampaign(char side);
 
 extern GameLogic *TheGameLogic;
 
-class Rva0023DC8E
-{
-public:
-	void rva0023DC8E(const AsciiString &value);
-};
+#include "../../Include/GameLogic/Rva0023DC8E.h"
 
 #include "../../Include/Common/MessageStream.h"
 

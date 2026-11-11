@@ -776,7 +776,7 @@ struct TutorialGlobalView {
  char unknownAC4[0x1114-0xAC4];TutorialConfig basic,advanced;
  TutorialConfig *selected;
 };
-class Rva0023DC8E {public:void rva0023DC8E(const AsciiString &);};
+#include "../../../../../Include/GameLogic/Rva0023DC8E.h"
 class Rva0023DCCE {public:void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &);};
 struct TutorialLogicView {char unknown0[0x90];int field90;};
 void AptMainMenu::OnTutorial(const char *params) {

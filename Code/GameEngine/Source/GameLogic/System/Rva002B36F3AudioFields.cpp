@@ -43,11 +43,7 @@ public:
 	void *get() const;
 };
 
-class Rva0023DC8E
-{
-public:
-	void rva0023DC8E(const AsciiString &value);
-};
+#include "../../../Include/GameLogic/Rva0023DC8E.h"
 class Rva0023DCCE
 {
 public:

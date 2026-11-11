@@ -151,7 +151,7 @@ class AudioEventInfo { public:const _STL::vector<RvaPair001D9F62, _STL::allocato
 class Rva003EFDD7LeaField { public:void *get()const; };
 class Rva0053B8E5LeaField { public:void *get()const; };
 struct OpaqueRefElement4;
-class Rva0023DC8E {public:void rva0023DC8E(const AsciiString&);};
+#include "../../../Include/GameLogic/Rva0023DC8E.h"
 class Rva0023DCCE {public:void rva0023DCCE(const AsciiString&,const OpaqueRefElement4&,const OpaqueRefElement4&);};
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
