@@ -1748,6 +1748,14 @@ does the same directly. A canonical name is not disputed this way. If retail
 evidence refutes one, that is an identity correction with its own evidence
 (`tools/add_match.py --replace-rva`), not a naming vote.
 
+`--replace-rva` takes over SCAFFOLDING by name -- a gen-dump, gen-alias,
+generated unwind, swept funclet, verified gap-thunk or gen-import row. It
+refuses a real claim, and that refusal is the review gate, not a gap: a real row
+is retracted in its own commit so the retraction is reviewable, and the
+correction lands after. Reading this paragraph as "point `--replace-rva` at the
+row and go" produced a false-reject record (`re_attempts.log:99401`) against a
+check that was doing its job.
+
 ## Landing a rename
 
 Renames recover zero bytes. Keep shared-name changes coherent and keep a class
