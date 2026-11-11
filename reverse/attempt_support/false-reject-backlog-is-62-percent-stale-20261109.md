@@ -528,3 +528,39 @@ row can be `matched` and still carry a placeholder name (`Rva0012345`,
 `uw_0076fa6b`). 267 of the 324 are matched under *some* name, which looks like a
 backlog that has almost entirely evaporated; filtering to a real name leaves 77.
 Do not take the first number.
+
+## How to date a record without `git blame`
+
+Every "is this stale?" question needs the record's age against its fix, and
+`git blame -L <n>,<n> -- reverse/re_attempts.log` on a 100k-line append-only log
+is slow enough to time out. It is also the wrong question. The cheap form asks
+whether the record was already in the file when the fix landed:
+
+    git grep -c '<distinctive text from the record>' <fix-sha>^ -- reverse/re_attempts.log
+
+A non-zero count means the record predates the fix, which is all "stale" means.
+It returns in about a second. `git log -S` over the log is worse than blame --
+never run it unscoped.
+
+To find the fix itself, `git log -S'<a line of the rule>' -- tools/<file>.py` is
+fast, because it is scoped to one small file.
+
+## A boundary is only safe to close when EVERY row on it is answered
+
+Three records reported closed on 2026-11-11 were deliberately left standing:
+the `tu-merge` file-level boundaries for TerrainLogic.cpp (98570),
+ParticleSys.cpp (98571) and Player.cpp (102310). Each carries a LATER `blocked`
+row that is a different, live finding. 100096 is explicit about it:
+
+> The 98571 link-guard false reject **has cleared** … what remains is LINK-155's
+> view wall: C2011 FXParticleSystem::ParticleSystemInfo … redefinitions
+
+So the false reject is genuinely answered and the boundary is not. `void`
+deletes every earlier row there and a resolution supersedes every row there, so
+either verdict would bury the live wall. File-level `tu-merge:<path>` symbols
+accumulate rows this way and are the main place this bites; an address boundary
+usually holds one record.
+
+The counterpart trap is the reverse: 87825/92513, 87826/92514, 87828/92515 and
+94614/98203 are PAIRS at one boundary, both rows answered by the same fix, and
+there voting the boundary is right. Read the neighbours either way.
