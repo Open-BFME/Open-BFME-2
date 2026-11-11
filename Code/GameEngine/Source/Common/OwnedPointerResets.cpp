@@ -237,11 +237,7 @@ void Rva002B9099::clear()
 	}
 }
 
-class Rva0052710C
-{
-public:
-	__declspec(noinline) ~Rva0052710C();
-};
+#include "../../Include/GameClient/Rva0052710C.h"
 
 class Rva002D3894
 {

@@ -17,15 +17,7 @@ namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // The three sub-movie panels; their unrowed constructors take the movie's
 // level and name, pinned by address. The sizes are the allocations'.
-class Rva0052710C
-{
-public:
-	// It also takes the screen's +0xC0 and +0xF8 members (types unknown).
-	Rva0052710C(int level, const AsciiString &name, void *c0, void *f8);
-
-private:
-	void *m_0;
-};
+#include "../../../../Include/GameClient/Rva0052710C.h"
 
 // The help-box pointee is built by the 0x00527C04 constructor rowed under
 // its class Rva00527827 (same 0x20 bytes); the owning-pointer reset row

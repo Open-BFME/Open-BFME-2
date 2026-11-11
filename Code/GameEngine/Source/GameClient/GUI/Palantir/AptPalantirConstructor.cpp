@@ -310,7 +310,7 @@ private:
 
 // The three Apt sub-movie holders (rowed clears) and two more owned pointers.
 void __cdecl operator delete(void *pointer);
-class Rva0052710C {public: ~Rva0052710C();};
+#include "../../../../Include/GameClient/Rva0052710C.h"
 
 class Rva002D3894
 {

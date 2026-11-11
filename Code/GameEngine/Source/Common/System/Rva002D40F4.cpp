@@ -24,11 +24,7 @@ private:
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
 
-class Rva0052710C
-{
-public:
-	~Rva0052710C();
-};
+#include "../../../Include/GameClient/Rva0052710C.h"
 
 class Rva002D3894
 {
