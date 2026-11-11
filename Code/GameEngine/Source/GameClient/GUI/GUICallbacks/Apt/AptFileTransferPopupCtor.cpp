@@ -115,11 +115,7 @@ public:
 	void PlayerColor(int slot, char *result, bool skip);
 };
 
-class AptFileTransferPopup
-{
-public:
-	void ProcessProgress(int player, int percent, UnicodeString text);
-};
+#include "../../../../../Include/Common/AptFileTransferPopup.h"
 
 class Rva00582FC1 : public Rva005248D0
 {

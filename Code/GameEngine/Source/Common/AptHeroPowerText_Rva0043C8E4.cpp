@@ -152,14 +152,7 @@ public:
 // calls SetBarTo with the slot and the percentage as "%d" strings through
 // the rowed Rva00222A8BTarget::invoke (owner 13, two arguments).
 
-class AptFileTransferPopup
-{
-public:
-	void ProcessProgress(int player, int percent, UnicodeString text);
-private:
-	char m_pad00[0x5C];
-	int m_slots[8];				// +0x5C
-};
+#include "../../Include/Common/AptFileTransferPopup.h"
 
 
 // ?rva0057C7BA@Rva0057E3DB@@QAEXH@Z @0x0057C7BA 216B: the lobby map title

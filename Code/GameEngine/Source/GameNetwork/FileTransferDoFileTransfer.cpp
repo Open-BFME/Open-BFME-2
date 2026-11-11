@@ -68,14 +68,7 @@ public:
 
 class Rva005830AE {public:void rva005830AE(int);};
 
-class AptFileTransferPopup
-{
-public:
-	void rva005832D0(const AsciiString &filename);
-	void rva00583202(int secondsLeft);
-	void rva005830AE(int percentage);
-	void ProcessProgress(int playerID, int percentage, UnicodeString state);
-};
+#include "../../Include/Common/AptFileTransferPopup.h"
 
 extern NetworkInterface *TheNetwork;
 extern GameInfo *TheGameInfo;

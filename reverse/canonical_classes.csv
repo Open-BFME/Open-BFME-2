@@ -1119,3 +1119,4 @@ Rva002000D7Store,Code/GameEngine/Include/Common/Rva002000D7Store.h,existing head
 AnimationSoundModuleManager,Code/GameEngine/Include/Common/AnimationSoundModuleManager.h,existing header; contract class_contracts/AnimationSoundModuleManager.json; 3/5 sampled units adopt
 BfmeResultForwardB,Code/GameEngine/Include/Common/BfmeResultForwardB.h,existing header; contract class_contracts/BfmeResultForwardB.json; 5/6 sampled units adopt
 Rva004E9600,Code/GameEngine/Include/Common/Rva004E9600.h,existing header; contract class_contracts/Rva004E9600.json; 4/6 sampled units adopt
+AptFileTransferPopup,Code/GameEngine/Include/Common/AptFileTransferPopup.h,existing header; contract class_contracts/AptFileTransferPopup.json; 4/5 sampled units adopt

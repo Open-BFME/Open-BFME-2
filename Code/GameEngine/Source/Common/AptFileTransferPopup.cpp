@@ -35,12 +35,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 // WB 0x0156BCA0 saves ECX as this; native doFileTransfer passes the
 // popup receiver for this one-argument member (RET4). No instance fields
 // are accessed here, which hid the former free-function ABI error.
-class AptFileTransferPopup
-{
-public:
-	void rva00583202(int totalSeconds);
-	void rva005832D0(const AsciiString &path);
-};
+#include "../../Include/Common/AptFileTransferPopup.h"
 
 // Matched DIR32 references place this BFME Apt manager slot at VA 0x00DFE4CC.
 // The retail bytes there are zero, so the pointer starts null.
