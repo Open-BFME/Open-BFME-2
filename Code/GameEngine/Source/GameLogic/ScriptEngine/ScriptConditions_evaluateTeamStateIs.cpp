@@ -488,11 +488,7 @@ private:
 // its address and called through a cast because an inline forwarder
 // returning the string is not expanded under /EHs (as in
 // Map/TerrainLogicWaypointLookups.cpp).
-class Rva0027F5A6
-{
-public:
-	AsciiString rva0027F5A6();
-};
+#include "../../../Include/GameLogic/Rva0027F5A6.h"
 class Rva0027F5C1
 {
 public:

@@ -215,7 +215,7 @@ extern TerrainRoadCollection *TheTerrainRoads;
 // bridge's damage-state texture and model reads call.
 class Rva000DE59C { public: AsciiString rva000DE59C(); };
 class Rva000DE5B7 { public: AsciiString rva000DE5B7(); };
-class Rva0027F5A6 { public: AsciiString rva0027F5A6(); };
+#include "../../../../GameEngine/Include/GameLogic/Rva0027F5A6.h"
 #include "../../../../GameEngine/Include/GameNetwork/GameInfo.h"
 #include "../../../../GameEngine/Include/GameLogic/ScriptClass.h"
 class Rva004DC8E7AsciiField { public: AsciiString get() const; };

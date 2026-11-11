@@ -232,7 +232,7 @@ class Rva004DC8E7AsciiField { public: AsciiString get() const; };
 
 class Rva000DE5B7 { public: AsciiString rva000DE5B7(); };
 
-class Rva0027F5A6 { public: AsciiString rva0027F5A6(); };
+#include "../../../Include/GameLogic/Rva0027F5A6.h"
 
 // ---- from Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp
 
