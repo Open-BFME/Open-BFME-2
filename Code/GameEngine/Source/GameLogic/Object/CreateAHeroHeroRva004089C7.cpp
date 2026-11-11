@@ -23,11 +23,7 @@ extern GameLogic *TheGameLogic;
 class Rva0040AAD5;
 extern Rva0040AAD5 *TheAwardSystemManager;
 
-class Rva0040BAD0
-{
-public:
-	int rva0040AAF8(int key);
-};
+#include "../../../Include/GameLogic/Module/Rva0040BAD0.h"
 
 struct TreeHintPayload001F8ACB
 {

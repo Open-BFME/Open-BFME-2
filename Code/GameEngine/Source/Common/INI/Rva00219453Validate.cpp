@@ -2,11 +2,7 @@
 // ?Rva00219453Validate@@YA_NHPBD@Z @0x00219453 90B CreateAHero stat validator throws INIException 3 callers 0x00220484
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class Rva0040BAD0
-{
-public:
-	int rva0040AAF8(int x);
-};
+#include "../../../Include/GameLogic/Module/Rva0040BAD0.h"
 // Data ledger 0x00A02F74 owns TheAwardSystemManager as Rva0040AAD5*; pin 0x0040AAF8 is a
 // Rva0040BAD0 member on the same manager. View the ledger type as derived so
 // the data ref keeps its ledger mangling while the call keeps its pin mangling.

@@ -315,11 +315,7 @@ void __cdecl rva00149002(int ini, int instance, Rva0014921EVector *store, int us
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct BfmePod40;
-class Rva0040BAD0
-{
-public:
-	int rva0040AAF8(int key);
-};
+#include "../../Include/GameLogic/Module/Rva0040BAD0.h"
 class Rva0040AAD5 : public Rva0040BAD0
 {
 public:

@@ -122,7 +122,7 @@ void AptCreateAHero::Manager::rva005B6A05() {
 
 class Rva00406E53 {public:int rva00406E53();};
 class Rva00406E65 {public:int rva00406E65(unsigned);};
-class Rva0040BAD0 {public:int rva0040AAF8(int);};
+#include "../../../../../Include/GameLogic/Module/Rva0040BAD0.h"
 class Rva0040AAD5;
 extern Rva0040AAD5 *TheAwardSystemManager;
 struct StatRecord {char prefix[0x54];AsciiString label;};

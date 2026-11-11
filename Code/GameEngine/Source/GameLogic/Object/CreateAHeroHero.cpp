@@ -371,7 +371,7 @@ template <> TreeHintPayload001F8ACB &map<AsciiString, TreeHintPayload001F8ACB, l
 class Rva00406E53 { public: int rva00406E53(); };
 class Rva00406E65 { public: int rva00406E65(unsigned int); };
 class Rva0040B0D0 { public: bool isContributor(const void *); };
-class Rva0040BAD0 { public: int rva0040AAF8(int); };
+#include "../../../Include/GameLogic/Module/Rva0040BAD0.h"
 class GameLogic;
 extern GameLogic *TheGameLogic;
 struct Rva004088F0GameLogicView { unsigned char m_pad00[0x110]; int m_mode; };
