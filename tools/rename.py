@@ -5110,6 +5110,9 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         raise Refusal(f"the code-identity scan cannot read the units as they stand ({error}): "
                       f"./build.sh {' '.join(plan.verify)} first") from None
     renames = {e["old"]: e["new"] for e in entries}
+    # a pin respelled in place is the same callee at the same address: a wrong binding through it that the scan
+    # already reported is not a new one (source, row, target and class must still match)
+    renames.update({old_name: family.respell(old_name) for old_name, _facts in family.pins.values()})
     plan.identity = dict(
         retail=True, rows=[(e["rva"], e["old"], e["new"]) for e in entries], sources=sorted(set(plan.verify)),
         wrong_before=sorted({_identity_key(r, renames) for r in identity_wrong(before)}),

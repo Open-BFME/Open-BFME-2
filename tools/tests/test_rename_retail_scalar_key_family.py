@@ -401,6 +401,30 @@ def test_a_row_with_no_references_is_undone(tree):
         land(ctx, plan(ctx), state, refs=after_refs()[:1])
 
 
+PIN_COPY = F.pins[0x005344C8][0]
+
+
+def test_a_wrong_binding_the_respelled_pin_already_had_is_carried(tree):
+    """0x005344C8 rows _M_copy under another spelling, so the copy's binding through the pin is `wrong` before the
+    respell as after it: the pin respelled in place is the same callee, and its binding is no new one."""
+    before = dict(source=W5, row=OLD_COPY, rva=COPY, symbol=PIN_COPY, target=0x005344C8, cls="wrong")
+    ctx, state = context(tree, refs=[before])
+    land(ctx, plan(ctx), state, refs=after_refs() + [dict(before, row=NEW_COPY, symbol=F.respell(PIN_COPY))])
+    assert NEW_COPY in (tree / "reverse/functions.csv").read_text()
+
+
+@pytest.mark.parametrize("label, before", [
+    ("no binding before", None),
+    ("another target before", dict(source=W5, row=OLD_COPY, rva=COPY, symbol=PIN_COPY, target=0x00001000, cls="wrong")),
+    ("another symbol before", dict(source=W5, row=OLD_COPY, rva=COPY, symbol="?x@@YAXXZ", target=0x005344C8, cls="wrong")),
+])
+def test_a_wrong_binding_through_a_pin_is_new_unless_it_was_there(tree, label, before):
+    ctx, state = context(tree, refs=[before] if before else [])
+    after = dict(source=W5, row=NEW_COPY, rva=COPY, symbol=F.respell(PIN_COPY), target=0x005344C8, cls="wrong")
+    with pytest.raises(VerifyFailed, match="gains a wrong binding"):
+        land(ctx, plan(ctx), state, refs=after_refs() + [after])
+
+
 def test_a_new_wrong_binding_is_undone(tree):
     ctx, state = context(tree)
     wrong = dict(source=W5, row=NEW_COPY, rva=COPY, symbol="x", target=0x1234, cls=next(iter(allowed_symbols.WRONG)))
