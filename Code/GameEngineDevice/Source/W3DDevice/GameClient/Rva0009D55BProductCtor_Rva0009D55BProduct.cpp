@@ -187,7 +187,7 @@ Rva0009D55BProduct::~Rva0009D55BProduct()
 // the "FadeInGameMovie" transition group (rowed setGroup / enable) and hides
 // the engine mouse; phase 3 sets the fade to 1, clears +0x134/+0x138 and
 // calls the table's slot 10 with true.
-class GameWindowTransitionsHandler { public: void setGroup(AsciiString name, bool immediate); };
+#include "../../../../GameEngine/Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../GameEngine/Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;

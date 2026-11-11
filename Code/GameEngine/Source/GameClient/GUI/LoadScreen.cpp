@@ -244,11 +244,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
-class GameWindowTransitionsHandler
-{
-public:
-	void reverse(AsciiString groupName);
-};
+#include "../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 class Rva002026C7ByteField
 {

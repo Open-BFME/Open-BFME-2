@@ -9,13 +9,7 @@
 // GameWindowTransitionsHandler *TheTransitionHandler.  Reference it by that
 // class name so the mangled global is ?TheTransitionHandler@@3PAV
 // GameWindowTransitionsHandler@@A, the one recorded at 0x012F3330.
-class GameWindowTransitionsHandler
-{
-public:
-	void setGroup(AsciiString name, bool immediate);
-	void reverse(AsciiString name);
-	bool isFinished(void);
-};
+#include "../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 // Retail global 0x012F4B58 is EA's shell singleton, defined once under the

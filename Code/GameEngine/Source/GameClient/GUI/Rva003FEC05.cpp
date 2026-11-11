@@ -17,12 +17,7 @@ class RecorderClass; extern RecorderClass *TheRecorder;
 
 #include "../../../Include/Common/RecorderClass.h"
 
-class GameWindowTransitionsHandler
-{
-public:
-	void reverse(AsciiString s);
-	bool isFinished();
-};
+#include "../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 class Rva001DBB87ZeroSetter

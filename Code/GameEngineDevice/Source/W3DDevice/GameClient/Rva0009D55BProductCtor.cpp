@@ -152,7 +152,7 @@ private:
 // the engine mouse; phase 3 sets the fade to 1, clears +0x134/+0x138 and
 // calls the table's slot 10 with true.
 class Rva002BE7FA { public: void rva002BE7FA(unsigned int a, unsigned int b); };
-class GameWindowTransitionsHandler { public: void setGroup(AsciiString name, bool immediate); };
+#include "../../../../GameEngine/Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../GameEngine/Include/GameClient/Rva001DBB82OneSetter.h"
 #include "../../../../GameEngine/Include/GameClient/Mouse.h"
