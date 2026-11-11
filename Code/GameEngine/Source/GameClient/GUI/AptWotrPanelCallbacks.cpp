@@ -99,11 +99,7 @@ public:
 // The checklist's items: an STLport list of pointers (sentinel node at
 // +0x30, data at node +8), each item updating its +8 member through the
 // 0x005D4769, rowed as Rva005D40A6::Update (Rva005D40A6Dtor.cpp).
-class Rva005D40A6
-{
-public:
-	void Update();
-};
+#include "../../../Include/Common/Rva005D40A6.h"
 
 struct Rva0057B499Item
 {

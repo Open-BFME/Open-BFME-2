@@ -251,11 +251,7 @@ void Rva005772FA::rva005772FA()
 }
 
 class UnicodeString;
-class Rva005D40A6
-{
-public:
-	void rva005D46E3(const UnicodeString &firstValue);
-};
+#include "../../Include/Common/Rva005D40A6.h"
 typedef Rva005D40A6 Rva005D46E3;
 class Rva0057A362
 {

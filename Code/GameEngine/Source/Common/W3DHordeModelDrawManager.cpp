@@ -777,11 +777,7 @@ typedef StrategicInGameUI::ResolveBattlesBehavior::Impl Rva00576D0D;
 
 class UnicodeString;
 
-class Rva005D40A6
-{
-public:
-	void rva005D46E3(const UnicodeString &firstValue);
-};
+#include "../../Include/Common/Rva005D40A6.h"
 
 typedef Rva005D40A6 Rva005D46E3;
 
