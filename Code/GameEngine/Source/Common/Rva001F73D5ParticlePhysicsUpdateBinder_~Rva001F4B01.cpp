@@ -92,7 +92,7 @@ struct Out001F5141
 
 // Rowed ParticleSystem methods under address-derived classes.
 #include "../../Include/Common/Rva001F510D.h"
-class Rva001F512FSlot { public: const RGBColor *get() const; };
+#include "../../Include/Common/Rva001F512FSlot.h"
 class Rva001F5141 { public: Out001F5141 *rva001F5141(Out001F5141 *out); };
 struct Vec2001F517E { float x; float y; };
 class Rva001F517E { public: void rva001F517E(Vec2001F517E *out); };
