@@ -2910,11 +2910,7 @@ private:
 	bool m_11;
 };
 
-class Rva007397D0
-{
-public:
-	void rva007397D0(void);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva007397D0.h"
 
 class Rva006C0820
 {

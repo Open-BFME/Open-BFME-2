@@ -83,7 +83,7 @@ private:
 };
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
-class Rva007397D0 { public: void rva007397D0(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva007397D0.h"
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
