@@ -5,12 +5,7 @@
 // which uses the same bool at +0x0C and holder cleanup as the separately
 // compiled slot-eighteen method. Slot methods stay in their original unit;
 // the destructor needs only the already recovered cleanup helper.
-class Rva004E7B0CHolder
-{
-public:
-	void rva004E7B0C();
-	void rva004E7D1D();
-};
+#include "../../../../Include/Common/Rva004E7B0CHolder.h"
 // TheInGameUI's holder at +0x58C. Retail adds the offset to the global loaded
 // straight into ecx (add ecx, 0x58C); cl 7.1 emits that for byte-pointer
 // arithmetic written in the body.

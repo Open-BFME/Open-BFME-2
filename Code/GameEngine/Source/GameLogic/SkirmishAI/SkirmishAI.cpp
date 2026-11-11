@@ -364,7 +364,7 @@ class Rva005382A6 { public: void *rva005382A6(int i, int off); };
 
 #include "../../../Include/Common/Rva005D40A6.h"
 
-class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };
+#include "../../../Include/Common/Rva004E7B0CHolder.h"
 
 #include "../../../Include/Common/UnitRevivalTracker.h"
 

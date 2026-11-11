@@ -12,7 +12,7 @@ class Rva003B24C7 { public: void rva003B24C7(bool val); };
 #include "../../Include/Common/QuadStrip2D.h"
 class Rva005382A6 { public: void *rva005382A6(int i, int off); };
 #include "../../Include/Common/Rva005D40A6.h"
-class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };
+#include "../../Include/Common/Rva004E7B0CHolder.h"
 #include "../../Include/Common/UnitRevivalTracker.h"
 
 // 0x00203595: this + 0x10 -> Rva003B24C7::rva003B24C7
