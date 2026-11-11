@@ -1,0 +1,103 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003195C9Owner",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x3c": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 4
+   },
+   "0x48": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 2
+   },
+   "0x90": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "140": 1,
+   "148": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/Common/System/Rva00319AA0Handoff.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/Common/System/Rva00319AA0Handoff.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Rva00319AA0Handoff.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

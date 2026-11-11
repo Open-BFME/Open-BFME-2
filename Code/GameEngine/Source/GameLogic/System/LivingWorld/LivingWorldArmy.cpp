@@ -254,7 +254,7 @@ public:
 #include "../../../../Include/Common/Rva00319F5A.h"
 
 class Rva00538E22 { public: void rva00538ED1(int); void rva00538F10(const _STL::vector<BfmeE16> &,int); };
-class Rva003195C9Owner { public: void rva003195C9(); };
+#include "../../../../Include/GameLogic/Rva003195C9Owner.h"
 class Rva0020E89C;
 #include "../../../../Include/Common/Rva00538CEF.h"
 struct RegionMoveGroup { int word0,word4,region; Coord2D *start,*finish,*end; };

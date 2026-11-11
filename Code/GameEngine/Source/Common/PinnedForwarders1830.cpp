@@ -538,11 +538,7 @@ void Rva005D13D5::rva005D13D5()
 // groups at +8C/+90 and each group's array at +1B8/+1BC, invoking
 // the verified dirty-coordinate method 319E7C on every element.
 // The original receiver and group names remain unknown.
-class Rva003195C9Owner
-{
-public:
-    void rva00319E7C();
-};
+#include "../../Include/GameLogic/Rva003195C9Owner.h"
 struct Rva002B3B66Range
 {
     Rva003195C9Owner **begin, **end;

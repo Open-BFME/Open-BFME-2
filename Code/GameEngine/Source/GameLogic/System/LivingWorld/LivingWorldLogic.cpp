@@ -1518,7 +1518,7 @@ Bool LivingWorldLogic::rva002B27B5(LivingWorldArmy *army, Rva00318C32Ret *target
 struct Arg54;
 #include "../../../../Include/Common/Rva002B280C.h"
 // The army's 0x00319831, rowed under Rva003195C9Owner (Rva00319831Copy.cpp).
-class Rva003195C9Owner {public:void rva00319E7C();void rva00319831(void*);};
+#include "../../../../Include/GameLogic/Rva003195C9Owner.h"
 
 // Retail 0x002B2834 (36 bytes; WorldBuilder leaves it unnamed, its only
 // callee is the army's 0x00319831; armyMoveRequest calls it): forwards the
