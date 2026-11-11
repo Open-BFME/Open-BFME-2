@@ -999,11 +999,7 @@ private:
 	void *m_48; // +0x48
 };
 bool Rva001E3679(int);
-class Rva002E6AF3
-{
-public:
-	int get() const;
-};
+#include "../../../Include/GameLogic/Rva002E6AF3.h"
 #include "../../../Include/GameLogic/Rva002E6B06.h"
 static __forceinline MixFileInfoBuffer *cellInfo(const PathfindCell *cell) { return (MixFileInfoBuffer *)cell->m_info; }
 static __forceinline Bool cellOpen(const PathfindCell *cell) { return (unsigned char)reinterpret_cast<const Rva002E6AF3 *>(cell)->get() != 0; }

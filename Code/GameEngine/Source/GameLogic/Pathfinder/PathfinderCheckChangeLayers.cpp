@@ -359,11 +359,7 @@ void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,int,In002E6BA1 *);
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 int isGroundOrBridgeLayer(int);
-class Rva002E6AF3
-{
-public:
-	int get() const;
-};
+#include "../../../Include/GameLogic/Rva002E6AF3.h"
 #include "../../../Include/GameLogic/Rva002E6B06.h"
 class Rva003F69C0Object { public: void set(int *,int); };
 #include "../../../Include/GameLogic/Waypoint.h"

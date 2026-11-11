@@ -25,11 +25,7 @@ extern int TheMixFileInfoPool;
 void Rva0052DBCDInit(void);
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, int a, In002E6BA1 *in);
 
-class Rva002E6AF3
-{
-public:
-	int get() const;
-};
+#include "../../Include/GameLogic/Rva002E6AF3.h"
 
 #include "../../Include/GameLogic/Rva002E6B06.h"
 

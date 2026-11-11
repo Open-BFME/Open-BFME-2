@@ -101,11 +101,7 @@ class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
 void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
-class Rva002E6AF3
-{
-public:
-	int get() const;
-};
+#include "../../../Include/GameLogic/Rva002E6AF3.h"
 #include "../../../Include/GameLogic/Rva002E6B06.h"
 class Rva002E6C79;
 struct Rva002E8BCFSrc;
