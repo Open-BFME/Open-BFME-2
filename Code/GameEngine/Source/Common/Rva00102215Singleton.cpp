@@ -42,11 +42,7 @@ Rva001021F7 *Rva00102215Get()
 // rowed 0x0010223B on the live instance, delete it (non-virtual destructor
 // 0x00102188, operator delete 0x0002FD60) and clear the pointer. No direct
 // caller reaches it in retail; the name is address-derived.
-class Rva0010223B
-{
-public:
-    void rva0010223B();
-};
+#include "../../Include/Common/Rva0010223B.h"
 
 void Rva001022C4Shutdown()
 {

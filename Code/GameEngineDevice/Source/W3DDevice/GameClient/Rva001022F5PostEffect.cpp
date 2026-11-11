@@ -5,11 +5,7 @@
 // The target name and private field view remain address-derived; donor or old set/AsciiString labels are not asserted.
 #include "ascii_string.h"
 
-class Rva0010223B
-{
-public:
-	void rva0010223B();
-};
+#include "../../../../GameEngine/Include/Common/Rva0010223B.h"
 
 class Rva00116482
 {

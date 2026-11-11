@@ -153,7 +153,7 @@ void Rva0010225F::rva0010231F() {
 #include "../../Include/Common/DataChunkInfo.h"
 class Rva001021F7;
 Rva001021F7 *Rva00102215Get();
-class Rva0010223B { public: void rva0010223B(); };
+#include "../../Include/Common/Rva0010223B.h"
 class Rva001022F5 { public: unsigned char rva001022F5(const AsciiString &name); };
 
 class Rva000B071DHost { public: bool rva000B071D(DataChunkInput &file, DataChunkInfo *info); };
