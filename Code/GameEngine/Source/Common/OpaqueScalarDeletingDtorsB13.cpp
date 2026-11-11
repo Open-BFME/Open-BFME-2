@@ -82,11 +82,7 @@ private:
 };
 
 class UnicodeString;
-class Rva005CCE13
-{
-public:
-	void rva005CCE13(const UnicodeString &arg);
-};
+#include "../../Include/GameClient/Rva005CCE13.h"
 #include "../../Include/GameClient/Rva005CCB73.h"
 
 class Rva005CD3A5 : public Rva005CCDDD

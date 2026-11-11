@@ -31,7 +31,7 @@ private:
 
 #include "../../Include/GameClient/Rva005CCB73.h"
 #include "../../Include/Common/Rva005CCB7B.h"
-class Rva005CCE13 { public: void rva005CCE13(const UnicodeString &text); };	// 0x005CCE13
+#include "../../Include/GameClient/Rva005CCE13.h"
 
 // ??0Rva005CDMorphBase@@QAE@HHHHH@Z, retail 0x005CD1D3, 111 bytes (RET 0x14):
 // the five arguments land at +0x0C..+0x1C; then 0x005CCB73(1),
