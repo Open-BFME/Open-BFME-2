@@ -43,14 +43,7 @@ private:
 };
 
 // ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
-class Rva0054C836
-{
-public:
-	bool rva0054C836() const;
-private:
-	char m_pad[0x14];
-	void *m_14;
-};
+#include "../../../Include/Common/Rva0054C836.h"
 
 // ?rva005FC6EE@Rva005FC6EE@@QBE_NXZ @0x005FC6EE 9B: bit 0 of the byte at +0x34
 // of the object held at +0x18 (same shape as the rowed 0x005F273B).
