@@ -49,6 +49,7 @@ class DestroyDie : public DieModule
 {
 public:
 	DestroyDie( Thing *thing, const ModuleData *moduleData );
+	virtual ~DestroyDie();
 public:
 	virtual void onDie( const DamageInfo *damageInfo );
 public:
@@ -72,6 +73,15 @@ DestroyDie::DestroyDie( Thing *thing, const ModuleData *moduleData )
 {
 }
 
+// ??1DestroyDie@@UAE@XZ @0x004864AA (25B): restores the three vptrs the
+// constructor installs (0x0084ACC8 at +0, 0x0084A650 at +0xC, 0x0084ACC4 at
+// +0x10) and tail-jumps to ~DieModule. Slot 0 of DestroyDie's own vftable
+// 0x0084ACC8 is the scalar deleting destructor 0x00486538, which calls this
+// body.
+DestroyDie::~DestroyDie()
+{
+}
+
 // ?onDie@DestroyDie@@UAEXPBVDamageInfo@@@Z retail 0x00486554 35B: Zero Hour's
 // DestroyDie::onDie, entered through the DieModuleInterface vtable at VA
 // 0x00C4ACC4 with this on the +0x10 interface (hence the -0x10 adjust); a
@@ -82,5 +92,3 @@ void DestroyDie::onDie( const DamageInfo *damageInfo )
 		return;
 	TheGameLogic->destroyObject(getObject());
 }
-
-// tu-skeleton: 0x00486538 28B ??_GRva004864AA@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)

@@ -53,22 +53,6 @@ Rva0048593D::~Rva0048593D()
 {
 }
 
-class Rva004864AA_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004864AA : public DieModule, public MiBase1, public Rva004864AA_B2
-{
-public:
-	virtual ~Rva004864AA();
-};
-
-Rva004864AA::~Rva004864AA()
-{
-}
-
 class Rva00486579_B2
 {
 public:
@@ -143,7 +127,6 @@ Rva004C227A::~Rva004C227A()
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?f2@Rva0045CE6D_B2@@UAEXXZ=?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z")
-#pragma comment(linker, "/alternatename:?f2@Rva004864AA_B2@@UAEXXZ=?onDie@DestroyDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva00486579_B2@@UAEXXZ=?onDie@FXListDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva00486B56_B2@@UAEXXZ=?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004C227A_B2@@UAEXXZ=?onDie@HeroDie@@UAEXPBVDamageInfo@@@Z")
