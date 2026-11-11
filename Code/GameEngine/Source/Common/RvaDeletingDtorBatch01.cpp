@@ -13,7 +13,7 @@
 
 class Rva0009A200 { public: ~Rva0009A200(); };
 class Rva000FE9C7 { public: ~Rva000FE9C7(); };
-class Rva001732C6 { public: ~Rva001732C6(); };
+#include "../../Include/Common/Rva001732C6.h"
 class Rva001F097A { public: ~Rva001F097A(); };
 
 #include <new>

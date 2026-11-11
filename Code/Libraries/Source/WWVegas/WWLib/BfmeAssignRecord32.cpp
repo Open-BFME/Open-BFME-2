@@ -69,11 +69,7 @@ typedef bool (__cdecl *BfmePred)(const BfmeAssignRecord32 &, const BfmeAssignRec
 // initialiser by its symbol FXShaderGeometry::Init.  The constructor, the
 // destructor and the receiver keep their ledger's address-derived names;
 // one object is reached through those three spellings.
-class Rva001732C6
-{
-public:
-	~Rva001732C6();
-};
+#include "../../../../GameEngine/Include/Common/Rva001732C6.h"
 
 class Rva0018C54E
 {

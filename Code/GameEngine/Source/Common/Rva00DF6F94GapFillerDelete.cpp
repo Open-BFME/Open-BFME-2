@@ -2,10 +2,7 @@
 //
 // ?DeleteModelGapFiller@Rva00DF6F94GapFillerContext@@QAEXPAVMeshModelClass@@@Z @ 0x001732E2 40B
 // Evidence: callers in MeshModelClassDtor.cpp (0x001716FE 0x00172AFD) and MeshModelReset.cpp (0x00171FA4); callee dtor pin 0x0018C57C plus operator delete row 0x0002FD60; GapFiller at +0xBC per MeshModelClass layout.
-class Rva001732C6 {
-public:
-  ~Rva001732C6();
-};
+#include "../../Include/Common/Rva001732C6.h"
 #include <new>
 class MeshModelClass {
 public:
