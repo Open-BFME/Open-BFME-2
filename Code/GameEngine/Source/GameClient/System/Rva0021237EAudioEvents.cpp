@@ -152,7 +152,7 @@ class Rva003EFDD7LeaField { public:void *get()const; };
 class Rva0053B8E5LeaField { public:void *get()const; };
 struct OpaqueRefElement4;
 #include "../../../Include/GameLogic/Rva0023DC8E.h"
-class Rva0023DCCE {public:void rva0023DCCE(const AsciiString&,const OpaqueRefElement4&,const OpaqueRefElement4&);};
+#include "../../../Include/GameClient/Rva0023DCCE.h"
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;

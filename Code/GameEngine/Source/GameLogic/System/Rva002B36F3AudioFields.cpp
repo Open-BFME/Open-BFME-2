@@ -44,12 +44,7 @@ public:
 };
 
 #include "../../../Include/GameLogic/Rva0023DC8E.h"
-class Rva0023DCCE
-{
-public:
-	void rva0023DCCE(const AsciiString &value,
-		const OpaqueRefElement4 &first, const OpaqueRefElement4 &second);
-};
+#include "../../../Include/GameClient/Rva0023DCCE.h"
 
 class GameLogic;
 extern GameLogic *TheGameLogic;

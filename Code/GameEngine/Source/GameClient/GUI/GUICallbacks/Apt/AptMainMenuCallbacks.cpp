@@ -771,7 +771,7 @@ struct TutorialGlobalView {
  TutorialConfig *selected;
 };
 #include "../../../../../Include/GameLogic/Rva0023DC8E.h"
-class Rva0023DCCE {public:void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &);};
+#include "../../../../../Include/GameClient/Rva0023DCCE.h"
 struct TutorialLogicView {char unknown0[0x90];int field90;};
 void AptMainMenu::OnTutorial(const char *params) {
  ((TutorialGlobalView*)TheWritableGlobalData)->selected=0;
