@@ -392,7 +392,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 class Rva001F384AByteZeroSetter {public:void disable();};
 class Rva001F3C13ByteSlot {public:void set(unsigned char);};
 struct Rva001F38C1Arg {int words[12];};
-class Rva001F38C1Slot {public:void set(const Rva001F38C1Arg&);};
+#include "../../Include/GameClient/Rva001F38C1Slot.h"
 struct ParticleFlagView {char pad[0x1a7];bool active;};
 struct ParticleMDView {char pad[0x12a];bool useDrawableBones;};
 struct ParticleTrackerNode {ParticleTrackerNode*next,*previous;BfmeStringRecord000B757D value;};

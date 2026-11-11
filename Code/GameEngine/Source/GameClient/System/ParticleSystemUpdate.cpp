@@ -91,7 +91,7 @@ extern GameClient *TheGameClient;
 extern GameLogic *TheGameLogic;
 
 struct Rva001F38C1Arg { int v[12]; };
-class Rva001F38C1Slot { public: void set(const Rva001F38C1Arg &); };
+#include "../../../Include/GameClient/Rva001F38C1Slot.h"
 class Rva001F3C9AHelper;
 class Rva001F3C9A
 {
