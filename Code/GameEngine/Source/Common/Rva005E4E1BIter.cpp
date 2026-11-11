@@ -26,11 +26,7 @@ struct ArmyIconMapHeader
 	ArmyIconMapNode *m_leftmost;
 };
 #include "../../Include/GameClient/Rva005F2278.h"
-class Rva005E4DAF
-{
-public:
-	void Deselect(int v);
-};
+#include "../../Include/Common/Rva005E4DAF.h"
 class Rva005E4E1B
 {
 public:

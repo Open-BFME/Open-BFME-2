@@ -4,12 +4,7 @@
 // Forwarder via +0x10 ptr to rowed Rva005E4DAF::Select; evidence callers
 // at 0x005CDB23 and 0x005E691C push one int and tail call here.
 
-class Rva005E4DAF
-{
-public:
-	void Select(int v);
-	void Deselect(int v);
-};
+#include "../../Include/Common/Rva005E4DAF.h"
 
 class Rva005E4E1B
 {

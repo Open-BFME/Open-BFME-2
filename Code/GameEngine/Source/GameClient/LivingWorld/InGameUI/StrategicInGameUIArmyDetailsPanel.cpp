@@ -60,7 +60,7 @@ void StrategicInGameUI::ArmyDetailsPanel::Impl::OnRemovingEntryFromArmySummary(c
 #include "../../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 #include "../../../../Include/GameClient/Rva005F2278.h"
-class Rva005E4DAF { public: void Deselect(int); void Select(int); };
+#include "../../../../Include/Common/Rva005E4DAF.h"
 struct ArmySelectionCountView { char unknown[0x14]; unsigned count; };
 void StrategicInGameUI::ArmyDetailsPanel::Impl::OnIconLeftClicked(int entryID) {
  Rva005E4DAF *actions=(Rva005E4DAF *)this;
