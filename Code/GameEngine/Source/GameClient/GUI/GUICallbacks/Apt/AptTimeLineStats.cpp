@@ -195,7 +195,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
-class Rva004EE447 {public:int rva004EE447();};
+#include "../../../../../Include/Common/Rva004EE447.h"
 class Rva004EE485 {public:int rva005BE20B();};
 class Rva004EE4C3 {public:int rva004EE4C3();};
 // WB155C340 is an unnamed31B count helper whose body is expanded in retail

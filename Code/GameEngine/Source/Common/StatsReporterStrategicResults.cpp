@@ -28,7 +28,7 @@ template<int N>class BitFlags {unsigned words[7];};
 class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
-class Rva004EE447 {public:int rva004EE447();};
+#include "../../Include/Common/Rva004EE447.h"
 class Rva004EE485 {public:int rva004EE485();};
 class Rva004EE4C3 {public:int rva004EE4C3();};
 class LivingWorldScoreKeeper {

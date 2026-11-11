@@ -247,11 +247,7 @@ void Rva004B3A22(Rva004B3A22Owner *owner, int a, int b)
 }
 
 // --- 0x005BE1E2 (25B, cdecl, one argument) / 0x005BE1FB (16B): score sums.
-class Rva004EE447
-{
-public:
-	int rva004EE447();										// 0x004EE447
-};
+#include "../../Include/Common/Rva004EE447.h"
 
 class LivingWorldScoreKeeper
 {
