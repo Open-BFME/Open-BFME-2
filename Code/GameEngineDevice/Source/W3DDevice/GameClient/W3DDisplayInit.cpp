@@ -95,11 +95,7 @@ bool BFME_DX8_Thread_Assert(void);
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/SortingRendererClass.h"
 
-class SimpleStreakRendererClass
-{
-public:
-	static void Init(Bool enable);
-};
+#include "../../../Include/W3DDevice/GameClient/SimpleStreakRendererClass.h"
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 

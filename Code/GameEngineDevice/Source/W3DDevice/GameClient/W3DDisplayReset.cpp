@@ -19,11 +19,7 @@ bool __cdecl BFME_DX8_Thread_Assert();
 void Log_DX8_ErrorCode(unsigned int error);
 void Rva0012641FClear();
 
-class SimpleStreakRendererClass
-{
-public:
-	static void Init(bool flag);
-};
+#include "../../../Include/W3DDevice/GameClient/SimpleStreakRendererClass.h"
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (EvictManagedResources, vtable slot 5).

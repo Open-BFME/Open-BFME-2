@@ -264,7 +264,7 @@ extern unsigned char LODMeshCacheSetting;
 void rva00117120();
 #include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 void Rva0012641FClear();
-class SimpleStreakRendererClass {public:static void Init(bool);};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/SimpleStreakRendererClass.h"
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
 struct LODRenderLock { LODRenderLock(){BFME_DX8_Thread_Lock();} ~LODRenderLock(){BFME_DX8_Thread_Assert();} };
 class Rva00DFE144Globals {public: void rva002022E9(int);private: LODPresetBFME2 presets[6];char gap1C8[0x1774-0x1c8];int controlParticles,controlProcessor,controlMinimum,controlCloud,controlSamples,controlStreams;char gap178C[0x17a0-0x178c];int control44,control48;char gap17A8[2];LODBool usePresetOption;};

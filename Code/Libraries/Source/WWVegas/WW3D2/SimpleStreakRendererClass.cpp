@@ -60,11 +60,7 @@ extern Rva007B7024Object *g_Va00DEE870;
 
 extern Rva007B7024Object *g_Va00DEE86C;
 
-class SimpleStreakRendererClass
-{
-public:
-	static void Init(bool enableShadows);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/SimpleStreakRendererClass.h"
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
 
