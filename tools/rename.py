@@ -4796,7 +4796,13 @@ def scalar_key_problem(ctx, rows, family):
         return start <= fact.site and fact.site + len(retail_identity.expected(fact)) <= start + size
 
     def in_row_at(fact, at):
-        return any(inside(fact, at, int(r["target_size"])) for r in matched_at.get(at, ()))
+        """The fact lies in the row that owns `at`: the member's or family row's own named row, or, at any other
+        address, every matched row there (ICF twins share one extent). A row of another name or size is no owner."""
+        owner = family.members.get(at) or (family.rows[at][0] if at in family.rows else None)
+        found = [r for r in matched_at.get(at, ()) if owner is None or r["name"] == owner]
+        if owner is not None and len(found) != 1:
+            return False
+        return bool(found) and all(inside(fact, at, int(r["target_size"])) for r in found)
 
     for at, name in sorted(family.members.items()):
         if [r["name"] for r in matched_at.get(at, ())].count(name) != 1:

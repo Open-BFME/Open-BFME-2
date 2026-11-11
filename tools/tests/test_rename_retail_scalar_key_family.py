@@ -338,6 +338,35 @@ def test_the_key_copy_outside_its_member_refuses(tree):
         plan(ctx)
 
 
+def test_a_member_fact_is_held_to_the_members_own_row(tree):
+    """Review finding: a row of another name at the member's address must not lend its extent to the key's copy."""
+    member = F.members[0x0060C9D9]
+    (tree / "reverse/functions.csv").write_text(ledger_rows(
+        resize={member: 0x0C}, extra=["??$_Construct@UOther@@U1@@_STL@@YAXPAUOther@@ABU1@@Z,,0x0060C9D9,23,Code/Lib/Other.cpp,matched,fold\n"]))
+    git(tree, "add", "-A")
+    ctx, _ = context(tree)
+    with pytest.raises(Refusal, match="in no matched row at 0x0060C9D9"):
+        plan(ctx)
+
+
+def test_a_path_fact_needs_every_row_at_its_address(tree):
+    """A path row with an ICF twin of another size: the fact must lie in both, so the larger one lends nothing."""
+    (tree / "reverse/functions.csv").write_text(ledger_rows(
+        extra=["?_M_clone_node@twin,,0x0053444F,8,Code/Lib/Other.cpp,matched,fold\n"]))
+    git(tree, "add", "-A")
+    ctx, _ = context(tree)
+    with pytest.raises(Refusal, match="in no matched row at 0x0053444F"):
+        plan(ctx)
+
+
+def test_an_icf_twin_of_the_same_extent_is_accepted(tree):
+    (tree / "reverse/functions.csv").write_text(ledger_rows(
+        extra=["?_M_clone_node@twin,,0x0053444F,30,Code/Lib/Other.cpp,matched,fold\n"]))
+    git(tree, "add", "-A")
+    ctx, _ = context(tree)
+    plan(ctx)
+
+
 def test_a_pin_fact_in_no_row_refuses(tree):
     """The proxy's fact is the base constructor's call: without the row at that pin it lies nowhere."""
     (tree / "reverse/functions.csv").write_text(ledger_rows(skip={OTHER_ROWS[0x001F0534], OTHER_ROWS[0x0014F3C4]}))
