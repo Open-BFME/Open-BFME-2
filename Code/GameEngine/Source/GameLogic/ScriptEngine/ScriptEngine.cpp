@@ -827,11 +827,7 @@ template<> void _Construct<BfmeStringRecord00204A30, BfmeStringRecord00204A30>(B
 
 template _STL::vector<BfmeStringRecord00204A30, _STL::allocator<BfmeStringRecord00204A30> >::vector(const _STL::vector<BfmeStringRecord00204A30, _STL::allocator<BfmeStringRecord00204A30> > &);
 
-class Rva00203B47Host
-{
-public:
-	bool rva00203B47();
-};
+#include "../../../Include/GameLogic/Rva00203B47Host.h"
 
 // ?st_DebugDLL@@3HA (data_ledger RVA 0x9FE158, null .data, unowned): debug
 // DLL handle, LoadLibrary'd on demand; defined here, nothing else defines it.

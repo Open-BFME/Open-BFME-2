@@ -116,7 +116,7 @@ virtual int getTimeMultiplier();
 };
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 #include "../../../Include/W3DDevice/GameClient/Rva00084C05System.h"
-class Rva00203B47Host {public:bool rva00203B47();};
+#include "../../../../GameEngine/Include/GameLogic/Rva00203B47Host.h"
 class GameClient;class View;extern GameLogic*TheGameLogic;extern GameClient*TheGameClient;extern View*TheTacticalView;extern GlobalData*TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData*)TheWritableGlobalData)
 class TerrainTracksRenderObjClassSystem;extern TerrainTracksRenderObjClassSystem*TheTerrainTracksRenderObjClassSystem;class ScriptEngine;extern ScriptEngine*TheScriptEngine;
