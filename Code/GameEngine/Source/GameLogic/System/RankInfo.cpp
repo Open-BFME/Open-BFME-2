@@ -74,7 +74,7 @@ class GameLogic;
 
 extern GameLogic *TheGameLogic;
 
-class Rva0023C6A4 { public: bool rva00200084(); };
+#include "../../../Include/Common/Rva0023C6A4.h"
 
 class __declspec(novtable) RankInfo : public Overridable
 {

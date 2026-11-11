@@ -12,11 +12,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 class UnitRevivalEntry;
 
-class Rva0023C6A4
-{
-public:
-	bool rva0023C6A4();
-};
+#include "../../../../Include/Common/Rva0023C6A4.h"
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
