@@ -29,11 +29,7 @@ struct BfmeNodeLC
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
-class BfmeKeyLC
-{
-public:
-	BfmeNodeLC *bfmeFindLC();
-};
+#include "../../Include/Common/BfmeKeyLC.h"
 
 void *bfmeGo925A(BfmeKeyLC *k)
 {

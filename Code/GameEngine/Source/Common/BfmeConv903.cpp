@@ -16,11 +16,7 @@ struct BfmeNodeLC
 	BfmeNodeLC *m_bfmeLink;
 };
 
-class BfmeKeyLC
-{
-public:
-	BfmeNodeLC *bfmeFindLC();
-};
+#include "../../Include/Common/BfmeKeyLC.h"
 
 void bfmeGoLD(BfmeKeyLC *k, unsigned int mask)
 {

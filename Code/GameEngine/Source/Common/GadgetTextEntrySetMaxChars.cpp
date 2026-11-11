@@ -15,11 +15,7 @@ struct BfmeNodeLC
 	int m_bfmeD;
 };
 
-class BfmeKeyLC
-{
-public:
-	BfmeNodeLC *bfmeFindLC();
-};
+#include "../../Include/Common/BfmeKeyLC.h"
 
 void bfmeGo924A(BfmeKeyLC *k, char v);
 int bfmeGo924B(BfmeKeyLC *k);

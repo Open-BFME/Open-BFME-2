@@ -27,11 +27,7 @@ private:
 public:
 	UnicodeString m_wide08;
 };
-class BfmeKeyLC
-{
-public:
-	void *bfmeFindLC();
-};
+#include "../../Include/Common/BfmeKeyLC.h"
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 void GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w);
 class Rva005B4BDBOuter
