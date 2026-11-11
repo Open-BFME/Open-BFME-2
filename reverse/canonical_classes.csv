@@ -927,3 +927,4 @@ Rva005CCB5B,Code/GameEngine/Include/Common/Rva005CCB5B.h,existing header; contra
 TerrainRoadCollection,Code/GameEngine/Include/GameClient/TerrainRoadCollection.h,existing header; contract class_contracts/TerrainRoadCollection.json; 7/9 sampled units adopt
 Rva0042D6B4PtrChaseField,Code/GameEngine/Include/Common/Rva0042D6B4PtrChaseField.h,existing header; contract class_contracts/Rva0042D6B4PtrChaseField.json; 11/14 sampled units adopt
 Rva0070A5C0,Code/Libraries/Source/Apt/Rva0070A5C0.h,existing header; contract class_contracts/Rva0070A5C0.json; 5/9 sampled units adopt
+BfmeParserRegistryVE,Code/GameEngine/Include/Common/BfmeParserRegistryVE.h,existing header; contract class_contracts/BfmeParserRegistryVE.json; 11/11 sampled units adopt

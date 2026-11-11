@@ -4,11 +4,7 @@
 // Evidence: unlock lane, caller 0x003030E4 in 0x00302F2B, literal MPPositionList, base pin 0x000ABB87.
 #include "ascii_string.h"
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 #include "../../Include/Common/DataChunkParser.h"

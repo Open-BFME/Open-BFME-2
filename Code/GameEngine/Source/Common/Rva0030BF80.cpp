@@ -7,11 +7,7 @@
 // caller 0x000AF3F3 in 0x000AF238.
 #include "ascii_string.h"
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 #include "../../Include/Common/DataChunkParser.h"

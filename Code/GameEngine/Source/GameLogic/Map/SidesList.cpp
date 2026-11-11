@@ -866,11 +866,7 @@ private:
 	Rva0032EAA1 m_30; // +0x30
 };
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../../Include/Common/BfmeParserRegistryVE.h"
 
 class BfmeParserBindingBaseVE
 {

@@ -198,11 +198,7 @@ private:
 	Vector4 *m_trackZ[3];    // +0xC4
 };
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 

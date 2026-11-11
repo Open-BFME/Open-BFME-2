@@ -570,11 +570,7 @@ private:
 	int m_bfmeSecond;					// +0x04
 };
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 

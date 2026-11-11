@@ -8,11 +8,7 @@
 // 0x00037BA0 plus pinned base 0x000ABB87 plus rowed releaseBuffer 0x00036410.
 #include "ascii_string.h"
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 #include "../../Include/Common/DataChunkParser.h"

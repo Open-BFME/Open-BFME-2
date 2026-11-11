@@ -7,11 +7,7 @@
 // vtable 0x0080894C, owner at +0x0C, caller 0x000AF423 in 0x000AF238.
 #include "ascii_string.h"
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 #include "../../Include/Common/DataChunkParser.h"

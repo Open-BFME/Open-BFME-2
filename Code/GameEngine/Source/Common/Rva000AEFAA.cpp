@@ -3,11 +3,7 @@
 // Evidence: unlock lane, BlendTileData literal, vtable g_00BC95D8, base pin 0x000ABB87, caller 0x000AF238.
 #include "ascii_string.h"
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *a, void *b, void *c, void *d);
-};
+#include "../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 #include "../../Include/Common/DataChunkParser.h"

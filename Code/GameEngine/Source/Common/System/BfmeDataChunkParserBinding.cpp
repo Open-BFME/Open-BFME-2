@@ -19,12 +19,7 @@ class DataChunkInput;
 struct DataChunkInfo;
 class SidesList;
 
-class BfmeParserRegistryVE
-{
-public:
-	void *bfmeRegister(void *label, void *parentLabel,
-		BfmeChunkParserVE parser, void *userData);
-};
+#include "../../../Include/Common/BfmeParserRegistryVE.h"
 
 class DataChunkInput;
 #include "../../../Include/Common/DataChunkParser.h"
