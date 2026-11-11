@@ -34,7 +34,7 @@ private:
 // Native 0x0021C21B is owned by the non-POD-traited four-byte record
 // specialization in StlSweepW5Rva0021C21B.cpp. Preserve this caller's
 // storage and argument ABI while naming the verified out-of-line provider.
-struct Rva0021C21BElement { char bytes[4]; };
+#include "Rva0021C21BElement.h"
 typedef _STL::vector<Rva0021C21BElement, _STL::allocator<Rva0021C21BElement> > RetailAssignVector;
 namespace _STL {
 template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &

@@ -16,7 +16,7 @@ namespace _STL { template <> Rva003F5FD0Record * __copy<Rva003F5FD0Record const 
 
 struct Rva003F5FD0Record { Rva003F5FD0Record(); Rva003F5FD0Record(const Rva003F5FD0Record&); ~Rva003F5FD0Record(); Rva003F5FD0Record& operator=(const Rva003F5FD0Record&); char bytes[48]; };
 namespace _STL { template<> void _Construct<Rva003F5FD0Record, Rva003F5FD0Record>(Rva003F5FD0Record*, const Rva003F5FD0Record&); }
-struct Rva0021C21BElement { char bytes[4]; };
+#include "Rva0021C21BElement.h"
 namespace _STL {template<> vector<Rva0021C21BElement>& vector<Rva0021C21BElement>::operator=(const vector<Rva0021C21BElement>&);}
 
 

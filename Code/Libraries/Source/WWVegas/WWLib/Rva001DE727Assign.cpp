@@ -13,7 +13,7 @@ struct BfmeRecord001DD3BC;
 namespace _STL { template <> void _Rb_tree<BfmeRecord001DD3BC,BfmeRecord001DD3BC,_Identity<BfmeRecord001DD3BC>,less<BfmeRecord001DD3BC>,allocator<BfmeRecord001DD3BC> >::_M_erase(_Rb_tree_node<BfmeRecord001DD3BC> *); }
 // The 4-byte vector's assignment is the rowed body at 0x0021C21B
 // (StlSweepW5Rva0021C21B.cpp); call it by that row's name.
-struct Rva0021C21BElement { char bytes[4]; };
+#include "Rva0021C21BElement.h"
 namespace _STL { template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &); }
 
 struct BfmeRecord001DD3BC

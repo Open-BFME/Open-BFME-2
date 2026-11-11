@@ -20,7 +20,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-struct Rva0021C21BElement { char bytes[4]; };
+#include "Rva0021C21BElement.h"
 
 namespace _STL {
 // The native allocation/copy operation propagates failures without a cleanup handler.

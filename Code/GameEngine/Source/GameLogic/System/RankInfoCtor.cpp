@@ -37,7 +37,7 @@ template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 
 // The science vector's assignment is the rowed body at 0x0021C21B
 // (StlSweepW5Rva0021C21B.cpp); call it by that row's name.
-struct Rva0021C21BElement { char bytes[4]; };
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 namespace _STL { template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &); }
 
 typedef int Int;
