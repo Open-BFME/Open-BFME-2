@@ -22,11 +22,7 @@ inline BigChainO1Hold::~BigChainO1Hold()
 {
     ((Rva001F4206 *)this)->rva001F4206();
 }
-class H1F8167
-{
-public:
-    ~H1F8167();
-};
+#include "../../Include/Common/H1F8167.h"
 class Rva005C9D30 : public BigChainO1Hold, public H1F8167
 {
 public:

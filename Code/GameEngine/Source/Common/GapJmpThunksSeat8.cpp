@@ -59,11 +59,7 @@ public:
 	void rva001F5D4F(int);
 };
 
-class H1F8167
-{
-public:
-	~H1F8167();
-};
+#include "../../Include/Common/H1F8167.h"
 
 class Rva001F8E45
 {

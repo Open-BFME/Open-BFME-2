@@ -24,11 +24,7 @@ inline Rva001F8BE8Hold::~Rva001F8BE8Hold()
 {
     ((Rva001F4206 *)this)->rva001F4206();
 }
-class H1F8167
-{
-public:
-    ~H1F8167();
-};
+#include "../../Include/Common/H1F8167.h"
 class Rva001F8BE8 : public Rva001F8BE8Hold, public H1F8167
 {
 public:
