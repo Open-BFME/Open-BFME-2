@@ -56,11 +56,7 @@ class Rva004E5086
 public:
 	~Rva004E5086();
 };
-class Rva004FF2F4
-{
-public:
-	~Rva004FF2F4();
-};
+#include "../../Include/Common/Rva004FF2F4.h"
 struct Rva004FABE2
 {
 public:
