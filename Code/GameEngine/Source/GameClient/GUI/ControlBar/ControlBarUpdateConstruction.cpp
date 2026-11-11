@@ -103,7 +103,7 @@ extern PlayerList *ThePlayerList;
 struct ConstructionPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-class Rva002D368E { public: void rva002D368E(); };
+#include "../../../../Include/GameClient/Rva002D368E.h"
 #include "../../../../Include/GameClient/Rva002D363EOwner.h"
 class WindowList;
 class Rva0053ED1A { public: void rva0053EFC7(WindowList &); };

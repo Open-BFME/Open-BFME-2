@@ -34,7 +34,7 @@ extern GameLogic *TheGameLogic;
 int Rva0043C969Get();
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-class Rva002D368E { public: void rva002D368E(); };
+#include "../../../../Include/GameClient/Rva002D368E.h"
 // This existing folded setter copies Object+0x74 to receiver+0x58. Using its
 // owned binding does not identify the context overlay as PhysicsBehavior.
 class PhysicsBehavior { public: void setIgnoreCollisionsWith(const Object *); };
