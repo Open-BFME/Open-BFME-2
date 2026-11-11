@@ -120,7 +120,7 @@ private:
 Rva00661860::~Rva00661860()
 {
 }
-class Rva00801570 { public: void clear(); };
+#include "../../Include/Common/Rva00801570.h"
 class Rva00801600 { public: void clear(); };
 class Rva00802A10 { public: void clear(); };
 // ?rva0066DF00@Rva0066DF00@@QAEXXZ @0x0066DF00 5B: rowed Rva00801570::clear 0x0066D890.

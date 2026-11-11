@@ -243,7 +243,7 @@ private:
 	BfmeMsg m_msg;
 };
 
-class Rva00801570 { public: void clear(); };
+#include "../../../GameEngine/Include/Common/Rva00801570.h"
 
 class Rva00801600 { public: void clear(); };
 

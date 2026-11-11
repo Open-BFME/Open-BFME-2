@@ -122,7 +122,7 @@ public:
     int field04, field08, field0C;
 };
 class Rva007E8760Addr { public: void parse(const char *, int); };
-class Rva00801570 { public: void allocate(int); };
+#include "../../Include/Common/Rva00801570.h"
 
 struct Rva00802A90Elem
 {
