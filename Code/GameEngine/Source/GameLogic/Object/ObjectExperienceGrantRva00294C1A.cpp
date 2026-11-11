@@ -11,7 +11,7 @@ class Object;
 union ObjectExperienceVictim { Object *object; float points; };
 union ObjectExperienceFlag { bool flag; float bonus; };
 #include "../../../Include/GameLogic/Module/Rva0039ADF3.h"
-class Rva0039ACBD { public: int rva0039ACBD(const Object *,bool); };
+#include "../../../Include/Common/Rva0039ACBD.h"
 class Rva0039AF9B { public: float rva0039AF9B(float); };
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"

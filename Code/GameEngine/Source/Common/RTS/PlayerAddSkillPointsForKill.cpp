@@ -19,12 +19,7 @@ enum ObjectStatusTypes
 class Object;
 class Player;
 
-class Rva0039ACBD
-{
-public:
-	int rva0039ACBD(const Object *attacker, bool b);
-	int rva0039ACE3(const Object *killer);
-};
+#include "../../../Include/Common/Rva0039ACBD.h"
 
 class Object
 {
