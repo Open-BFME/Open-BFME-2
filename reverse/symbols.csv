@@ -5796,7 +5796,6 @@ name,address,notes
 ?lower_bound@Rva00304DC7Map@@AAEPAU?$_Rb_tree_node@URva00304DC7Entry@@@_STL@@ABVAsciiString@@@Z,0x00221B8D,"auto-pin (permute --pins): REL32 call target read from retail in 0x00304dc7, whose banked body is byte-exact once this call resolves"
 ?m009F0FA0@Q1Receiver0134FAAC@@QAEXPAVRva009EF0D0Element@@@Z,0x00623600
 ?m@Gen_00064730@@QAEHXZ,0x005801F2,callee read from the retail REL32 in placed BFME1-donor body ?refresh@Rva003BBA00@@QAE_NXZ (0x003FD2F6)
-?m@Gen_003bcb40@@QAEXH@Z,0x0047A69C,callee of ?j_00019eca@Glo012F1024Item@@QAEXXZ at retail 0x00566A0D read from its REL32 displacement; 3B empty override folding with the other empty bodies at this address; body rowed as ?DoXfer@EmissionVelocityInfo@FXParticleSystem
 ?m@Gen_007e86c0@@QAEXXZ,0x00655780
 ?m@Gen_007e88b0@@QAEHXZ,0x0066DD00
 ?m@Gen_007f0300@@QAEXXZ,0x0065D180,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1

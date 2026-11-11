@@ -101,13 +101,8 @@ void Rva0023DAF7::rva0023DAF7(Real a, Int b)
 	m_08.rva0023C7F5(a, b);
 }
 
-// 0x005FEEC7 and 0x005FEEE6 (adjacent slots of table VA 0x00C7A454): each
-// first calls the shared body at 0x0047A69C with this and the index,
-// then stores entry [index] of the +0x08
-// object's +0x18 table into its +0x24, resp. resets +0x24 to 7 when it
-// holds that entry.
-// Retail's 0x0047A69C is the shared `ret 4`, rowed under this placeholder among others. An empty
-// local body would not do: cl drops a call to one, and these calls are in the rows' bytes.
+// Slots 3 and 4 of the retail table at VA 0x00C7A448 call the empty base
+// member at 0x0047A69C. The out-of-line definition preserves both calls.
 class Rva0059BB50
 {
 public:
@@ -134,12 +129,12 @@ private:
 };
 void Rva005FEEC7::rva005FEEC7(Int index)
 {
-	reinterpret_cast<Rva0059BB50 *>(this)->rva0047A69C(index);
+	m(index);
 	m_08->m_24 = m_08->m_18[index];
 }
 void Rva005FEEC7::rva005FEEE6(Int index)
 {
-	reinterpret_cast<Rva0059BB50 *>(this)->rva0047A69C(index);
+	m(index);
 	if (m_08->m_24 == m_08->m_18[index])
 		m_08->m_24 = 7;
 }

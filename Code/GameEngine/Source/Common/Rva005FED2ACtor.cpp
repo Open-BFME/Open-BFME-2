@@ -4,9 +4,16 @@
 // 0x005FF912 with (b,c), int at +8 from (a). Ret 0xC.
 // Evidence: disassembly packet lane=unlock, caller 0x005FEFF9, prev/next.
 #include "BattlePromptMovieClipView.h"
+#include "../../Include/Common/Gen_003bcb40.h"
 
 Rva005FED2A::Rva005FED2A(int a, int b, int c)
 	: Rva005FF912(b, c)
 {
 	m_08 = a;
+}
+
+// Zero-based slots 3 and 4 of the clip's retail vtable call this empty member.
+// Define it outside their TU so MSVC preserves both calls.
+void Gen_003bcb40::m(int)
+{
 }

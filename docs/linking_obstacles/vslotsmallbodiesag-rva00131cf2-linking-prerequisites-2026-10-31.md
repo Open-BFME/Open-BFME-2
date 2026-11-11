@@ -12,3 +12,14 @@ Recorded `blocked` in `reverse/re_attempts.log`.
 Real link 76f0baefa6 reported Gen_003bcb40::m(int) unresolved after e444adbb7b removed the forwarder. The two retail callers at 0x005FEEC7 and 0x005FEEE6 both pass this and the index to RVA 0x0047A69C. Bind their calls directly to the existing Rva0059BB50::rva0047A69C(int) provider. Sharing this folded address does not establish class identity.
 
 Both COFF call operands are REL32 at offset 10. Resolving them to the provider reproduces all 31 and 43 retail bytes. The defining object emits C2 04 00; the caller object no longer references Gen_003bcb40::m. Scoped build: 10/10 functions and three data rows. On index 60189f9ced link_check drops the unresolved name but still reports the same two pre-existing non-retail COMDAT selections (rva00130FCE and buildFieldParse), 0 linked bytes before and after. Await the next full link after publication.
+
+### Follow-up: use the declared base member
+
+Retail's calls at `0x005FEED0` and `0x005FEEEF` pass the slot index to the
+three-byte `ret 4` fold at `0x0047A69C`. Both callers now use their declared
+base member `Gen_003bcb40::m(int)`. Its verified out-of-line definition in
+the clip constructor unit retires the pin and the two receiver casts. The
+build verifies 14 functions and three data rows across the provider and
+callers. The local preview resolves both call sites and still flags the
+same two selected COMDATs under census ordering. The next real-link receipt
+is needed to confirm the effect on the game link.
