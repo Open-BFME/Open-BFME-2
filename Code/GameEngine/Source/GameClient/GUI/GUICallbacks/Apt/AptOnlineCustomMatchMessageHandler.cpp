@@ -343,11 +343,7 @@ void Rva003B3371Call(int value);									   // rowed 0x003B3371
 // InitGadgets' helpers: the +0x450 preferences loader (rowed 0x00580316),
 // the +0x70 panel's reset (AptMpGameSetup 0x0043DE19), the screen closer
 // (0x0041149A) and the full object's 0x0052493F.
-class Rva00580316
-{
-public:
-	void rva00580316(void *prefs);
-};
+#include "../../../../../Include/GameClient/Rva00580316.h"
 
 void _bfme_closeAptScreen(const AsciiString &name);
 

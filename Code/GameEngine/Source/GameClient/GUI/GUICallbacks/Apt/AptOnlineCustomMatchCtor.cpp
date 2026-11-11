@@ -90,11 +90,7 @@ private:
 	unsigned char m_pad[0x46C - 0x450];
 };
 
-class Rva00580316
-{
-public:
-	void rva00580263(void *prefs);
-};
+#include "../../../../../Include/GameClient/Rva00580316.h"
 
 class Rva0054F508
 {
