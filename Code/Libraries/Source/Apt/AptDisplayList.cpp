@@ -456,6 +456,8 @@ struct Payload{char pad0[12];Character*character;char pad10[12];signed int flags
 class Rva006E9A40List{public:unsigned short count,capacity;AptCIH**items;void add(AptCIH*);inline bool has(AptCIH*p)const{const int n=capacity;int i=0;if(n>0){AptCIH**item=items;do{if(*item==p)return true;++i;++item;}while(i<n);}return false;}};
 #include "Rva006E34D0.h"
 #define CHECK(c,s,l) if(!(c)){g_bfmeAptAssertAtE17734(s,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",l);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
+#include "Rva006D2A60.h"
+
 class Rva006F8060Head
 {
 public:
@@ -465,6 +467,7 @@ public:
 	int m_pad04[(0x4C / 4) - 1];
 	int m4C;
 };
+
 //
 // ??1Rva006F8460@@UAE@XZ retail 0x006F8460 37B dtor.
 // Evidence: vtable 0x008EC9CC at +0; m_10 freed via member dtor 0x0070A840
@@ -595,6 +598,29 @@ public:
 	explicit Rva006F8460(int) {}
 };
 
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+
+ // VA 0x00E176F4
+
+class Rva006CBDE0
+{
+public:
+	Rva006CBDE0(int type, void *p1, AptValue *p2);
+
+	static void *operator new(unsigned int size)
+	{
+		return g_pChainBlockAllocatorF4->allocBlock((int)size);
+	}
+
+	char m_storage[0x60];
+};
+
+class BfmeNestedBE;
+
+struct BfmeQueryNode1279;
+
+// ---- from Code/Libraries/Source/Apt/AptDisplayList.cpp
+
 // ---- from Code/Libraries/Source/Apt/AptDisplayList.cpp
 
 // ?rva006F8220@Rva006F8220List@@QAEXPAURva006F8220CIH@@@Z, retail 0x006F8220
@@ -676,20 +702,6 @@ void *BfmeSubmitter1283::bfmeSubmit1283(AptCIH *item, int a1, int pCharacter, in
     return live;
 }
 
-// tu-skeleton: 0x006F6BB0 297B ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z -- matched in Code/Libraries/Source/Apt/AptMovieFrameControls.cpp (not merged yet)
-
-// tu-skeleton: 0x006F6D60 159B ?insert@BfmeQuery1279@@QAEPAVAptCIH@@PAV2@0@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F6E00 199B ?rva006F6E00@BfmeQuery1279@@QAEPAVAptCIH@@HHPAXPAV2@PAVAptValue@@@Z -- matched in Code/Libraries/Source/Apt/Rva006F6E00Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F6ED0 221B ?rva006F6ED0@BfmeQuery1279@@QAEPAVAptCIH@@HHPAX@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F6FB0 122B ?rva006F6FB0@BfmeQuery1279@@QAEXHPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7030 96B ?rva006F7030@BfmeQuery1279@@QAEXHPAVAptCIH@@00@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7140 18B ??0Rva006F7140Derived@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmePackedColors1280.cpp
 
 void bfmeUnpackTwoColors1280(float *output, const unsigned int *colors)
@@ -705,14 +717,6 @@ void bfmeUnpackTwoColors1280(float *output, const unsigned int *colors)
 	output[6] = (float)bytes[5] * scale;
 	output[7] = (float)(colors[1] & 0xff) * scale;
 }
-
-// tu-skeleton: 0x006F72F0 62B ?removeClonedObject@AptDisplayList@@QAEXPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7330 112B ?rva006F7330@@YAXPAVAptRenderingContext@@PAVAptCIH@@H@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F73A0 395B ?rva006F73A0@@YAPAXPAX0H@Z -- matched in Code/Libraries/Source/Apt/AptMathClipStack.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7530 13B ??0Rva006F7540@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva006F7540Cluster.cpp
 
@@ -767,24 +771,6 @@ void AptAnimationPoolData::rva006F7720Sub(void *context, int mode)
     }
 }
 
-// tu-skeleton: 0x006F76A0 7B ?get@Rva006F76A0DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x006F76B0 100B ?rva006F76B0@AptDisplayList@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F79B0 126B ?rva006F79B0@AptDisplayList@@QAEXPAX0@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7A30 127B ?rva006F7A30@AptDisplayList@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7AB0 13B ?rva006F7AB0@AptDisplayList@@QAEXHPAX@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7AC0 33B ?rva006F7AC0@Rva006F7AC0List@@QAE_NXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7AF0 36B ?rva006F7AF0@Rva006F7AC0List@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7BC0 65B ??1BfmeQuery1279@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7C10 83B ?rva006F7C10@Rva006F7C10@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F7C10Clear.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/Rva006F7C70Free.cpp
 
 void __stdcall Rva006F7C70Free(Rva006F7C70Item *pItem)
@@ -824,14 +810,6 @@ void __stdcall Rva006F7C70Free(Rva006F7C70Item *pItem)
     g_pChainBlockAllocator->freeBlock(pItem, 0x14);
 }
 
-// tu-skeleton: 0x006F7D80 27B ??0Rva006F7D80@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7DA0 27B ??0Rva006F7DA0@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7DC0 35B ??_GRva006F7DC0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp (not merged yet)
-
-// tu-skeleton: 0x006F7DF0 5B ??1Rva006F7DC0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp
 
 // The canonical pool splits these eight-byte sets into their scalar fields.
@@ -854,8 +832,6 @@ void Rva006F7E00::rva006F7E00(AptCIH*item,int fire){
  if(type==2&&g_00E1771C==1){((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field20)->add(item);((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field28)->add(item);}
 }
 
-// tu-skeleton: 0x006F7FF0 103B ??0AptDisplayList@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/Rva006F8060Assert.cpp
 
 Rva006F8060 *Rva006F8060::rva006F8060(int flag)
@@ -872,10 +848,6 @@ Rva006F8060 *Rva006F8060::rva006F8060(int flag)
 		g_pChainBlockAllocator->freeBlock(this, 4);
 	return this;
 }
-
-// tu-skeleton: 0x006F80C0 205B ?clear@AptDisplayList@@QAEX_N@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
-// tu-skeleton: 0x006F8190 142B ?rva006F8190@AptDisplayList@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva006F8460Dtor.cpp
 
@@ -902,6 +874,75 @@ __declspec(noinline) Rva006F8460::~Rva006F8460()
 Rva006F8460 *famgenNew_Rva006F8460() { return new Rva006F8460(0); }
 
 void deleteRva006F8460(Rva006F8460 *p) { delete p; }
+
+// tu-skeleton: 0x006F6BB0 297B ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z -- matched in Code/Libraries/Source/Apt/AptMovieFrameControls.cpp (not merged yet)
+
+// tu-skeleton: 0x006F6D60 159B ?insert@BfmeQuery1279@@QAEPAVAptCIH@@PAV2@0@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Apt/Rva006F6E00Cluster.cpp
+
+AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth)
+{
+	AptCIH *node = (AptCIH *)new Rva006CBDE0(type, p1, 0);
+
+	if (!(pItemAtDepth == 0 || pItemAtDepth->isUndefined())) {
+		g_bfmeAptAssertAtE17734("pItemAtDepth == NULL || pItemAtDepth->isUndefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x1EC);
+		if (g_bfmeAptBreakOnAssertAtDDC01C)
+			__debugbreak();
+	}
+
+	node->field4C = p1;
+	node->field58 = node->field58 ^ ((node->field58 ^ (unsigned int)key) & 0x1FFFFu);
+	return insert(pOldItem, node);
+}
+
+// tu-skeleton: 0x006F6ED0 221B ?rva006F6ED0@BfmeQuery1279@@QAEPAVAptCIH@@HHPAX@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F6FB0 122B ?rva006F6FB0@BfmeQuery1279@@QAEXHPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7030 96B ?rva006F7030@BfmeQuery1279@@QAEXHPAVAptCIH@@00@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7140 18B ??0Rva006F7140Derived@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x006F72F0 62B ?removeClonedObject@AptDisplayList@@QAEXPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7330 112B ?rva006F7330@@YAXPAVAptRenderingContext@@PAVAptCIH@@H@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F73A0 395B ?rva006F73A0@@YAPAXPAX0H@Z -- matched in Code/Libraries/Source/Apt/AptMathClipStack.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7530 13B ??0Rva006F7540@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F76A0 7B ?get@Rva006F76A0DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x006F76B0 100B ?rva006F76B0@AptDisplayList@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F79B0 126B ?rva006F79B0@AptDisplayList@@QAEXPAX0@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7A30 127B ?rva006F7A30@AptDisplayList@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7AB0 13B ?rva006F7AB0@AptDisplayList@@QAEXHPAX@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7AC0 33B ?rva006F7AC0@Rva006F7AC0List@@QAE_NXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7AF0 36B ?rva006F7AF0@Rva006F7AC0List@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7BC0 65B ??1BfmeQuery1279@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7C10 83B ?rva006F7C10@Rva006F7C10@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F7C10Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7D80 27B ??0Rva006F7D80@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7DA0 27B ??0Rva006F7DA0@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7DC0 35B ??_GRva006F7DC0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7DF0 5B ??1Rva006F7DC0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x006F7FF0 103B ??0AptDisplayList@@QAE@XZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F80C0 205B ?clear@AptDisplayList@@QAEX_N@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x006F8190 142B ?rva006F8190@AptDisplayList@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x006F84C0 35B ??_GRva006F84C0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva006F84C0DeletingDtor.cpp (not merged yet)
 
