@@ -189,11 +189,7 @@ private:
 
 #include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 struct Rva001E3F08Arg;
-class Rva001E3F08
-{
-public:
-	float rva001E3F08(Rva001E3F08Arg *p);
-};
+#include "../../../Include/GameLogic/Rva001E3F08.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))

@@ -21,11 +21,7 @@ struct Rva001E3F08Arg
 	Rva001E3F08MidB *m_p258;
 };
 
-class Rva001E3F08
-{
-public:
-	float rva001E3F08(Rva001E3F08Arg *p);
-};
+#include "../../Include/GameLogic/Rva001E3F08.h"
 
 
 struct AIUpdateLike

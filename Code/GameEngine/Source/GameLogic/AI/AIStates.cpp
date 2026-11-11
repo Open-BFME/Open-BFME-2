@@ -142,11 +142,7 @@ private:
 struct LocomotorTemplateView { char prefix[0x10B]; Bool m_10b; };
 // Locomotor min speed (0x001E3F08), rowed under this name.
 struct Rva001E3F08Arg;
-class Rva001E3F08
-{
-public:
-	Real rva001E3F08(Rva001E3F08Arg *obj);
-};
+#include "../../../Include/GameLogic/Rva001E3F08.h"
 
 struct Rva0028AC4EEntry;
 

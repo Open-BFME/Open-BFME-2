@@ -44,11 +44,7 @@ template <> class VSlots<0>
 {
 };
 struct Rva001E3F08Arg;
-class Rva001E3F08
-{
-public:
-	float rva001E3F08(Rva001E3F08Arg *p);
-};
+#include "../../../Include/GameLogic/Rva001E3F08.h"
 class AIUpdateInterface : public VSlots<129>
 {
 public:

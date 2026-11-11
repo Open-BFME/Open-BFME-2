@@ -1075,3 +1075,4 @@ LinearCampaign,Code/GameEngine/Include/Common/LinearCampaign.h,existing header; 
 Rva0028ECDBHost,Code/GameEngine/Include/GameLogic/Rva0028ECDBHost.h,existing header; contract class_contracts/Rva0028ECDBHost.json; 5/6 sampled units adopt
 Rva005D40A6,Code/GameEngine/Include/Common/Rva005D40A6.h,existing header; contract class_contracts/Rva005D40A6.json; 5/9 sampled units adopt
 LivingWorldEyeTower,Code/GameEngine/Include/Common/LivingWorldEyeTower.h,existing header; contract class_contracts/LivingWorldEyeTower.json; 3/6 sampled units adopt
+Rva001E3F08,Code/GameEngine/Include/GameLogic/Rva001E3F08.h,existing header; contract class_contracts/Rva001E3F08.json; 5/9 sampled units adopt
