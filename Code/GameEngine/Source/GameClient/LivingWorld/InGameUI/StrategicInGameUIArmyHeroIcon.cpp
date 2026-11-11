@@ -32,11 +32,7 @@
 
 // The clip's rowed setters and query (address-named views).
 #include "../../../../Include/GameClient/Rva005FC70A.h"
-class Rva005FC71E
-{
-public:
-	void rva005FC71E(unsigned char value);
-};
+#include "../../../../Include/GameClient/Rva005FC71E.h"
 #include "../../../../Include/GameClient/Rva005FC73BPtrChaseField.h"
 
 class ArmyHeroIconMovieClip;

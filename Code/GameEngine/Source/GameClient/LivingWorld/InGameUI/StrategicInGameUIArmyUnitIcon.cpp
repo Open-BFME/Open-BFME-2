@@ -160,7 +160,7 @@ TreeHintRef00217D4C StrategicInGameUI::ArmyHeroIcon::rva005F4254()
 }
 
 #include "../../../../Include/GameClient/Rva005FC70A.h"
-class Rva005FC71E {public:void rva005FC71E(unsigned char);};
+#include "../../../../Include/GameClient/Rva005FC71E.h"
 #include "../../../../Include/GameClient/Rva005FC73BPtrChaseField.h"
 class Rva005FD034 {public:void rva005FD034(int);};
 class Rva005FD04B {public:void rva005FD04B(unsigned char);};
