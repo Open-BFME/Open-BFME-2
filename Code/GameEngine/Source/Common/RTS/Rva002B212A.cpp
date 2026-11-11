@@ -35,7 +35,7 @@ class Rva002AABEE {public:
  void rva002AABEE();
  char opaque[36];
 };
-struct Rva002AF6C5Element {~Rva002AF6C5Element();};
+#include "../../../Include/Common/Rva002AF6C5Element.h"
 struct Rva002B212AOwned {
  Rva002AABEE value;
  __forceinline Rva002B212AOwned(const AsciiString &name,const _STL::vector<unsigned>& values,const _STL::vector<AsciiString>& tags):value(name,1,values,tags) {}

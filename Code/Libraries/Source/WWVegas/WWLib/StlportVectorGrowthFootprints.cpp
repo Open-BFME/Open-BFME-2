@@ -139,7 +139,7 @@ class BfmeStringTailRecord156 { char m_pad[8]; public: BfmeStringTailRecord156(c
 // vector<BfmeVectorRecord002AF478>'s ~vector and _M_clear destroy their range
 // through retail 0x002B0CE7, whose element destructor is 0x002AF1EC
 // (Rva002AF6C5Element), not this record's 0x005EA85F. Spell that loop here.
-struct Rva002AF6C5Element { ~Rva002AF6C5Element(); };
+#include "../../../../GameEngine/Include/Common/Rva002AF6C5Element.h"
 namespace _STL {
 template <> __declspec(noinline) inline void _Destroy<BfmeVectorRecord002AF478 *>(BfmeVectorRecord002AF478 *first, BfmeVectorRecord002AF478 *last)
 {

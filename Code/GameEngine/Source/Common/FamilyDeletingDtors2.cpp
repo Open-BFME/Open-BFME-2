@@ -20,7 +20,7 @@ void famgenDelete(BfmeStringTailRecord156 *record) { delete record; }
 void famgenDelete(Path *path) { delete path; }
 
 // ??_GRva002AF6C5Element@@QAEPAXI@Z @0x2af4d1 (the 0x24-byte record whose dtor is 0x2af1ec)
-struct Rva002AF6C5Element { ~Rva002AF6C5Element(); };
+#include "../../Include/Common/Rva002AF6C5Element.h"
 void famgenDelete(Rva002AF6C5Element *element) { delete element; }
 
 // ??_GBfmeStringHeadRecord148@@QAEPAXI@Z @0x3611d3

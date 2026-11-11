@@ -1155,3 +1155,4 @@ Rva002D9C2F,Code/GameEngine/Include/GameLogic/Module/Rva002D9C2F.h,existing head
 AptDate,Code/Libraries/Source/Apt/AptDate.h,existing header; contract class_contracts/AptDate.json; 3/5 sampled units adopt
 Gen_0074B410,Code/GameEngineDevice/Include/W3DDevice/GameClient/Gen_0074B410.h,existing header; contract class_contracts/Gen_0074B410.json; 4/5 sampled units adopt
 H1F8167,Code/GameEngine/Include/Common/H1F8167.h,existing header; contract class_contracts/H1F8167.json; 3/4 sampled units adopt
+Rva002AF6C5Element,Code/GameEngine/Include/Common/Rva002AF6C5Element.h,existing header; contract class_contracts/Rva002AF6C5Element.json; 4/8 sampled units adopt
