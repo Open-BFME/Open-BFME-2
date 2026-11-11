@@ -103,7 +103,7 @@ void Rva005E6AD8::rva005E6AD8(){
 // indexed providers yield its entry pointer and count. Field names describe
 // target accesses; the original pair/context/summary class names are unknown.
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
-class Rva0040CC0EIndexedField {public:int get(int) const;};
+#include "../../../../Include/GameClient/Rva0040CC0EIndexedField.h"
 struct HeroDetailsArmyEntry {int count;Rva005E4300Entry *entry;};
 struct HeroDetailsArmySummary {char pad[0x40];HeroDetailsArmyEntry *begin,*end;};
 struct HeroDetailsPair {

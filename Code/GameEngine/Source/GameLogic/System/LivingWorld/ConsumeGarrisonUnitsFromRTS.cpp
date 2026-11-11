@@ -48,7 +48,7 @@ namespace _STL {
 template<>void sort<Rva004F6093Holder*,Rva002BBC1CCmp>(Rva004F6093Holder*,Rva004F6093Holder*,Rva002BBC1CCmp);
 template<>vector<Rva0040DC56Element>::~vector();
 }
-class Rva0040CC0EIndexedField {public:int get(int)const;};
+#include "../../../../Include/GameClient/Rva0040CC0EIndexedField.h"
 class AttackOrdersMember {public:ArmySummaryEntryRef rva0031996D(const HeroEntryKey&);char prefix[0x78];SummaryHolder summary;};
 class Rva00318FC6 {public:int rva00318FC6(int,int);char prefix[0x78];SummaryHolder summary;};
 class Rva00319028 {public:ArmySummaryEntryRef rva00319028(int,int);char prefix[0x78];SummaryHolder summary;};

@@ -46,7 +46,7 @@ private: ArmySummaryEntry *m_p;
 struct ArmySummaryEntryRef {Rva004F6093Holder m_holder;};
 struct ArmyDetailsSummaryRecord {int key;void *entry;};
 class ArmySummary {public:ArmySummaryEntryRef GetEntry(int);char pad[0x40];ArmyDetailsSummaryRecord *begin,*end;};
-class Rva0040CC0EIndexedField {public:int get(int) const;};
+#include "../../../../Include/GameClient/Rva0040CC0EIndexedField.h"
 struct ArmyDetailsArmyView {char pad[0x18];AsciiString name;char gap[0x78-0x1C];ArmySummary *summary;};
 struct Rva005E4300Context;
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
