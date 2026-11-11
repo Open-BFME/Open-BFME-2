@@ -42,7 +42,7 @@ protected:
 
 // Rowed ParticleSystem methods under address-derived classes.
 class Rva001F385A { public: void rva001F385A(void *p); };
-class Rva001F510D { public: float rva001F510D(); };
+#include "../../Include/Common/Rva001F510D.h"
 class Rva001F512FSlot { public: const RGBColor *get() const; };
 class Rva001F3828 { public: bool rva001F3828(int a, int b); };
 
