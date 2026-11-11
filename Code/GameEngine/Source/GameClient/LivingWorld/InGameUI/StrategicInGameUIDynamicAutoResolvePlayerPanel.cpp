@@ -60,7 +60,7 @@ class Image;
 extern ImageCollection *TheMappedImageCollection;
 class Rva005FB83E {public:void rva005FB83E(const Image*);};
 class Rva005FBB96 {public:void rva005FBB96(int,const Image*);};
-class BannerUI {public:const AsciiString&GetBannerIconImageName(const AsciiString&);};
+#include "../../../../Include/GameClient/BannerUI.h"
 extern BannerUI *TheBannerUI;
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 struct PlayerView {char pad00[0x1c];UnicodeString name;char pad20[0x184-0x20];RGBColor color;};

@@ -122,12 +122,7 @@ struct SpellControlBarColorView
 #include "../../../../../Include/GameClient/Rva002239B2.h"
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *,void *,const char *,const char *,const char *);
 int __cdecl Rva0052519DFire(void *,void *,const char *,const char *,int *);
-class BannerUI 
-{
- public:void SetBannerSlotXOffset(unsigned,float);
- 
-}
-;
+#include "../../../../../Include/GameClient/BannerUI.h"
 extern BannerUI *TheBannerUI;
 class InGameUI;
 extern InGameUI *TheInGameUI;

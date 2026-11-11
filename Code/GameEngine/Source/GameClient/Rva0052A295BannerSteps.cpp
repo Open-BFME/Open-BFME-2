@@ -36,11 +36,7 @@ extern const Rva0052A321Step g_Va00C6847C[5] = {
     {0x00000000}, {7}, {0x3D700000}, {18}, {0x3DCC0000}
 };
 
-class BannerUI
-{
-public:
-	void SetBannerSlotXOffset(unsigned int index, float value);
-};
+#include "../../Include/GameClient/BannerUI.h"
 extern BannerUI *TheBannerUI;
 
 class Rva0029A767FloatField

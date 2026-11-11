@@ -79,11 +79,7 @@ class Rva0031AFDE { public: Int rva0031AFDE(); };
 
 #include "../../../../Include/Common/RadarWindowOverrideSource.h"
 
-class BannerUI
-{
-public:
-	void Hide(bool on);
-};
+#include "../../../../Include/GameClient/BannerUI.h"
 
 class Rva005CB260
 {

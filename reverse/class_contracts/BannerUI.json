@@ -1,0 +1,422 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BannerUI",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 9,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "1": 2
+   },
+   "0x24": {
+    "4": 3
+   },
+   "0x28": {
+    "4": 3
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x34": {
+    "1": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x44": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x217211"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e59e4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x217211"
+     ],
+     "value": 64
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x217211"
+     ],
+     "value": {
+      "0x20": [
+       1
+      ],
+      "0x24": [
+       4
+      ],
+      "0x34": [
+       1
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x217211"
+     ],
+     "value": {
+      "0x0": [
+       "?setName@SubsystemInterface@@QAEXVAsciiString@@@Z"
+      ],
+      "0x28": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xc": [
+       "??0?$hash_map@HURva002171F2Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva002171F2Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x217211"
+     ],
+     "value": {
+      "0x0": "0x7e59e4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e59e4"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00216BF5@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x216da0"
+       },
+       {
+        "name": "?init@BannerUI@@QAEXXZ",
+        "slot": 1,
+        "target": "0x216035"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@BannerUI@@QAEXXZ",
+        "slot": 9,
+        "target": "0x216d2d"
+       },
+       {
+        "name": "?update@BannerUI@@QAEXXZ",
+        "slot": 10,
+        "target": "0x2167a3"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7e59e4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x7e59e4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00216BF5@@UAEPAXI@Z",
+     "1": "?init@BannerUI@@QAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@BannerUI@@QAEXXZ",
+     "10": "?update@BannerUI@@QAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "4": 1,
+   "12": 1,
+   "68": 2
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIDtor.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 13,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "1:i1": 1,
+    "64:A": 1
+   },
+   "class": "BannerUI"
+  }
+ ],
+ "size": 68,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "loadIniFilesFromLegend()"
+  }
+ }
+}

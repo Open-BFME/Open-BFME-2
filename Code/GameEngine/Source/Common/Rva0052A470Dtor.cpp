@@ -92,7 +92,7 @@ void Rva0052A765Owner::rva0052A765()
     m_ptr->rva0052A66A();
 }
 
-class BannerUI { public: void SetBannerSlotXOffset(unsigned,float); };
+#include "../../Include/GameClient/BannerUI.h"
 extern BannerUI *TheBannerUI;
 // Native52A4B5..52A53B complete134B: flags30..50 are reset true;
 // twenty-four 20B records50..230 receive {0,0,1,0,false}; scalar28/2C
