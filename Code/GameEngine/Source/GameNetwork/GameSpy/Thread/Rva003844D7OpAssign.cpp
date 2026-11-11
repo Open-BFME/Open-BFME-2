@@ -37,14 +37,7 @@ struct Rva003876A4Element
 };
 bool operator<(const Rva003876A4Element &a, const Rva003876A4Element &b);
 
-struct Rva00387568Element
-{
-	Rva00387568Element();
-	Rva00387568Element(const Rva00387568Element &that);
-	~Rva00387568Element();
-	Rva00387568Element &operator=(const Rva00387568Element &that);
-	char bytes[8];
-};
+#include "../../../../Include/Common/Rva00387568Element.h"
 bool operator<(const Rva00387568Element &a, const Rva00387568Element &b);
 
 class Rva003877A7

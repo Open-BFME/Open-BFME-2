@@ -11,7 +11,7 @@
 #include <set>
 #include <map>
 
-struct Rva00387568Element { char bytes[8]; };
+#include "../../../../GameEngine/Include/Common/Rva00387568Element.h"
 
 namespace _STL {
 template <> _Rb_tree<Rva00387568Element, Rva00387568Element,

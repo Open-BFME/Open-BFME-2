@@ -321,7 +321,7 @@ Rva0029FBC9Iterator Rva0029FBC9Tree::insert(_STL::_Rb_tree_node_base *x,
 // Native 3875DB and the assignment caller387568 establish operation/receiver.
 // Both creator calls target38766B; copy38768D establishes a byte and dword,
 // without proving the application's scalar type or key semantics.
-struct Rva00387568Element { char bytes[8]; };
+#include "../../../../GameEngine/Include/Common/Rva00387568Element.h"
 namespace _STL {
 template<class T> struct _Identity {};
 typedef _Rb_tree<Rva00387568Element,Rva00387568Element,
