@@ -48,7 +48,7 @@ struct Rva002B488EResult {char prefix[0x54];int owner;char gap[0x20];ArmyData*da
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldPlayer {public:char prefix[0x14];int id;char gap[0x1a0];_STL::vector<int> objects;char gap2[0x200];bool lost;__forceinline bool hasLost()const{return lost;}};
 enum Rva002B7DE6ArmyID { Rva002B7DE6InvalidArmyID=-1 };
-class Rva003F2A8C {public:void rva003F2A8C(int);};  // rowed at 0x003F2A8C
+#include "../../../Include/GameLogic/Rva003F2A8C.h"
 class LivingWorldRegion {public:char prefix[0x164];_STL::vector<Rva002B7DE6ArmyID> armyIDs;};
 #include "../../../Include/Common/LivingWorldRegionEffectsManager.h"
 class Rva00DFE1C8Host {public:char prefix[0x268];LivingWorldRegionEffectsManager*effects;};

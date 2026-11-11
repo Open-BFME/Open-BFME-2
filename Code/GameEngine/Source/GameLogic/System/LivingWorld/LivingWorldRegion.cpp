@@ -614,11 +614,7 @@ class Rva004FC176 { public: void rva004FC176(Int owner); };
 // owner, clears the region (0x003F2106), its +0x17C plot index and +0x1A3
 // flag, applies the owner (0x003F1AFF), then rebuilds the plots for a real
 // owner or clears again for none (-1).
-class Rva003F2A8C
-{
-public:
-	void rva003F2A8C(Int newOwner);
-};
+#include "../../../../Include/GameLogic/Rva003F2A8C.h"
 
 void Rva003F2A8C::rva003F2A8C(Int newOwner)
 {

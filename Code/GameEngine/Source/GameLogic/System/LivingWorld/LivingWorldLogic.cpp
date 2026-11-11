@@ -520,11 +520,7 @@ struct Rva003F0F13Elem
 };
 struct Rva0059E647Entry;
 // The owner change 0x003F2A8C, rowed under its address class (LivingWorldRegion.cpp).
-class Rva003F2A8C
-{
-public:
-	void rva003F2A8C(Int playerID);
-};
+#include "../../../../Include/GameLogic/Rva003F2A8C.h"
 class LivingWorldRegion
 {
 public:

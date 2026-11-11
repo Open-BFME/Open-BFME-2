@@ -11,7 +11,7 @@ template <> void vector<const ModuleData *>::push_back(const ModuleData *const &
 template <> void **vector<void *>::erase(void **pos);
 }
 
-class Rva003F2A8C { public: void rva003F2A8C(int value); };
+#include "../../../../GameEngine/Include/GameLogic/Rva003F2A8C.h"
 
 struct Rva0020F832Entry { char pad[0x6c]; AsciiString script; };
 

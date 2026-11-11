@@ -21,11 +21,7 @@ public:
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva003F2A8C
-{
-public:
-	void rva003F2A8C(int newOwner);
-};
+#include "../../../../Include/GameLogic/Rva003F2A8C.h"
 
 class Refresh0023FA80AI;
 class Refresh0023FA80Object;
