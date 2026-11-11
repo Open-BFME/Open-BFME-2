@@ -26,10 +26,7 @@ public:
 };
 // The holder's destructor is 0x000AD6F4, the body clear shares.
 #include "../../Include/Common/Rva000AD6F4.h"
-class Rva003EE966 {
-public:
-    void rva003EE966(int v);
-};
+#include "../../Include/Common/Rva003EE966.h"
 class Rva0021294A {
 public:
     char m_pad[0x268];
