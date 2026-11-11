@@ -366,12 +366,7 @@ private:
 
 #include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 
-class Rva0049D526
-{
-public:
-	void rva0049D57F(void *node);
-	void rva0049D526(void *entry); // addToProductionQueue
-};
+#include "../../../../Include/GameLogic/Module/Rva0049D526.h"
 
 class Player;
 

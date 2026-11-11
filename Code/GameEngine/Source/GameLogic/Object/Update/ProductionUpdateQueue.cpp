@@ -543,12 +543,7 @@ public:
 	virtual void onDie();
 };
 
-class Rva0049D526
-{
-public:
-	void rva0049D57F(void *node);
-	void rva0049D526(void *entry); // addToProductionQueue
-};
+#include "../../../../Include/GameLogic/Module/Rva0049D526.h"
 
 enum
 {
