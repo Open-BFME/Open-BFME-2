@@ -97,10 +97,7 @@ public:
  void createTexture(int index);
  void rva00082061();
 };
-class RiverArea {
-public:
- void *getTextureName(int index);
-};
+#include "../../../../Include/Common/RiverArea.h"
 class Rva000820CA {
  char m_pad00[4];
  RiverArea *m_assets;

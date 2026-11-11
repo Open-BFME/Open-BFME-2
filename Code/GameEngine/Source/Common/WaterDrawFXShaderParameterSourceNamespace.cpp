@@ -8,11 +8,7 @@
 // The slots are BFME2ParticleTextureHandle (the loader's return type): its
 // implicit inline copy-assign forwards to the rowed RefCountPtr op= and forms
 // the slot address before the push, as retail does. Callers 0x82061/0x820CA loop 4 entries with set insert.
-class RiverArea
-{
-public:
-	void *getTextureName(int i);
-};
+#include "../../Include/Common/RiverArea.h"
 
 template <typename T>
 class StringBase

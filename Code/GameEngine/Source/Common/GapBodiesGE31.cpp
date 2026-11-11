@@ -491,11 +491,7 @@ bool Rva0006F23F::rva0006F23F(RenderObjClass *obj)
 // arrays at +0x50 and +0x44; 0x0007E0E2 (8B): the rowed
 // RiverArea::getTextureName (0x0030BBA9) of the pointer at +0x40, a tail
 // jump.
-class RiverArea
-{
-public:
-	void *getTextureName(int index);
-};
+#include "../../Include/Common/RiverArea.h"
 
 class Rva0007E0CE
 {
