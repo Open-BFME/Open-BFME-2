@@ -40,7 +40,7 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 bool Rva001E3679(int);
 #include "../../../Include/GameLogic/PathfindLayer.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Rva0052E001{public:bool rva0052E001(bool v);};
+#include "../../../Include/GameLogic/Rva0052E001.h"
 class Object;
 struct Rva002ED236Pos {float x,y,z;Rva002ED236Pos(const Coord3D &p){x=p.x;y=p.y;z=p.z;}~Rva002ED236Pos(){}};
 enum PathfindLayerEnum {GROUND=1};

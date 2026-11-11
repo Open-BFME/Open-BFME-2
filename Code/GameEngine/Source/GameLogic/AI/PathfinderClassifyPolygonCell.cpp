@@ -21,12 +21,7 @@ struct WallCellInfo
 ;
 struct Rva0052DFB1Arg;
 #include "../../../Include/GameLogic/Rva00366500.h"
-class Rva0052E001 
-{
- public: Bool rva0052E001(Bool);
- 
-}
-;
+#include "../../../Include/GameLogic/Rva0052E001.h"
 Int Rva002E6E8AGet(Int);
 enum CellKind
 {
