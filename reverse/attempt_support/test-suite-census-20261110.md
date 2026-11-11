@@ -47,7 +47,7 @@ in a standalone run, as a starting point and not a diagnosis.
 | --- | ---: | --- | --- |
 | `test_recovery_experiments.py` | 22 | ~~22 failed, 5 passed~~ | **fixed at `60dc4dca8fe`**: the fixture replaces `subprocess.run` wholesale for the compiler and finds the output by scanning argv for `-Fo`, so `build.wine_path`'s own `winepath -w` call landed in it and `next()` raised `StopIteration`. Stubbing `wine_path` also drops the file from 2.25s to 0.42s and removes its Wine dependency |
 | `test_header_dependents.py` | 14 | ~~14 failed, 58 passed~~ | **fixed at `ee2d7795743`**: the fixture wrote receipt dep keys with `\`, which `ROOT / dep` cannot resolve on POSIX, so every unit with a dep looked uncompiled and the vendored bound collapsed to "every unit" |
-| `test_nightly_measure.py` | 9 | 9 failed, 218 passed | `Refused: tracked path differs from approved commit: .githooks/post-checkout` |
+| `test_nightly_measure.py` | 9 | 9 failed, 218 passed | **one cause, diagnosed below — a maintainer's call, not changed here** |
 | `test_publisher_service.py` | 6 | **4 fixed at `cd0858bd7e6`**, 2 remain | the fixture's `.githooks/pre-push` and an origin `pre-receive` were written 0644, so git ignored them and every push the tests expect refused succeeded. The last 2 now reach the real `publisher_hook.py` for the first time and report the benign control fixture rejected — newly visible, not newly broken; left for the publisher lane |
 | `test_reloc_names.py` | 3 | 3 failed, 11 passed | no specimens left in the data (below) |
 | `test_boot_smoke_profile.py` | 3 | 3 failed, 24 passed | `RedirectError not raised`; `pefile.PEFormatError: DOS Header magic not found` |
@@ -65,6 +65,45 @@ in a standalone run, as a starting point and not a diagnosis.
 The five clusters are five different lanes. `test_nightly_measure.py` and
 `test_boot_smoke_profile.py` belong to jobs AGENTS.md says not to start without
 a maintainer, so their failures want that owner rather than a passing seat.
+
+## `test_nightly_measure.py`: all 9 are one design conflict
+
+Every one of the 9 ends in the same refusal, and it fires before the check each
+test is actually about -- `test_snapshot_rejects_untracked_and_ignored_extras`
+wants `Refused('unexpected untracked ...')` and gets this instead, so what those
+tests pin has not been exercised either:
+
+    Refused: tracked path differs from approved commit: <snapshot>/.githooks/post-checkout
+
+Measured in the surviving fixture: the fixture repo's index holds
+`.githooks/post-checkout` and `.githooks/pre-commit` at **100755**, and the
+snapshot holds both at **0644**.
+
+- `copy_data_tree()` builds the snapshot and copies **bytes only** -- its
+  docstring says "Copy bytes, never links or Git metadata", and it writes each
+  file with `q.write_bytes(...)`, so no mode travels.
+- `bind_tree()` then compares that copy against the approved commit with
+  `git status --porcelain`, which on POSIX reports a tracked 100755 file now
+  0644 as modified.
+- Nothing sets `core.fileMode`: it is not in `GIT_SAFE`, `GIT_NO_CREDS`,
+  `QUERY_CONFIG` or anywhere else in the tool.
+
+So a snapshot of any tree with executable tracked files cannot pass the binding
+check, and this repo tracks five (`.githooks/*`, all 100755).
+
+**Not fixed here, deliberately.** `tools/nightly_measure.py` is the maintainer's
+scheduled job (AGENTS.md: never start, re-run or approve it), and both obvious
+repairs are security decisions in opposite directions:
+
+- make the comparison mode-blind (`core.fileMode=false`) -- but a tracked file
+  silently gaining the execute bit is exactly the forgery this check exists to
+  catch, and the failing tests are named for refusing forged inputs;
+- make `copy_data_tree` preserve modes -- but then the publisher-private
+  snapshot gains executable files, which "copy bytes, never links" looks
+  written to avoid.
+
+Which is right depends on what the binding is meant to guarantee, so it wants
+that owner rather than a guess from here.
 
 ## `test_doc_lint.py` is not a test bug either: the docs have drifted
 
