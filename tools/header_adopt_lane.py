@@ -1274,7 +1274,10 @@ def top_level_spans(shape, start, end, raw=None):
             depth += 1
         elif char == "}":
             depth -= 1
-            if depth == 0:
+            if depth == 0 and re.match(r"\s*(?:(?:public|private|protected)\s*:\s*)*(?:typedef\s+)?"
+                                       r"(?:class|struct|union|enum)\b", shape[begin:index]):
+                pass                             # a type's definition runs to its `;` (`struct {...} s;`)
+            elif depth == 0:
                 out.append((begin, index + 1))
                 while index + 1 < end and shape[index + 1] in " \t\r\n;":
                     index += 1
@@ -1333,18 +1336,27 @@ def param_key(param, top=True):
     """One parameter's type as the compiler sees it: qualifiers kept, names dropped, an array
     adjusted to a pointer and top-level `const`/`volatile` ignored (`f(int)` and `f(const int)`
     are one function): `X const &o` -> `const X&`, `int a[4]` -> `int*`, `const int n` -> `int`,
-    `void (*fn)(int x)` -> `void(*)(int)`, `void (C::*pm)(int)` -> `void(C::*)(int)`."""
+    `void (*fn)(int x)` -> `void(*)(int)`, `void (C::*pm)(int)` -> `void(C::*)(int)`, `int (*p)[4]`
+    -> `int(*)[4]` (a pointer to array is no array). A parenthesized declarator it cannot read
+    keys as `?` and its text, which holds the member's class (declaration_records: `complex`)."""
     param = re.sub(r"=.*$", "", param, flags=re.S)
     param = re.sub(r"\b(struct|class|enum)\b", "", param).strip()
     if param == "...":
         return "..."
-    pointer = re.match(r"^(.*?)\(\s*((?:__cdecl|__stdcall|__fastcall|__thiscall)\s*)?"
-                       r"((?:[A-Za-z_]\w*\s*::\s*)*[*&])\s*((?:(?:const|volatile)\b\s*)*)"
-                       r"(?:[A-Za-z_]\w*)?\s*\)\s*\((.*)\)\s*((?:const|volatile|\s)*)$", param, flags=re.S)
-    if pointer:                                  # a function pointer: its own parameters lose their names too,
-        inner = ",".join(param_key(p) for p in param_list("(" + pointer.group(5) + ")"))
-        declarator = " ".join(filter(None, [(pointer.group(2) or "").strip(), re.sub(r"\s+", "", pointer.group(3))]))
-        return f"{param_key(pointer.group(1), False)}({declarator})({inner}){' '.join(pointer.group(6).split())}"
+    pointer = pointer_declarator(param)
+    if pointer:                                  # its own cv is top-level (ignored); names go, inner ones too
+        declarator = " ".join(filter(None, [(pointer["calling"] or "").strip(),
+                                            re.sub(r"\s+", "", pointer["scope"] + pointer["star"])]))
+        base = param_key(pointer["base"], False)
+        rest = pointer["rest"]
+        if rest.startswith("["):
+            bounds, dims = re.sub(r"\s+", "", pointer["bounds"]), re.sub(r"\s+", "", rest)
+            return f"{base}({declarator}{bounds}){dims}"
+        close = rest.rindex(")")
+        inner = ",".join(param_key(p) for p in param_list(rest[:close + 1]))
+        return f"{base}({declarator})({inner}){' '.join(rest[close + 1:].split())}"
+    if "(" in param:
+        return "?" + " ".join(param.split())
     array = re.match(r"^([^\[]*?)\s*\[[^\]]*\](.*)$", param, flags=re.S)
     if array:                                    # an array parameter is a pointer to its element
         return param_key(array.group(1), False) + "*" + re.sub(r"\s+", "", array.group(2))
@@ -1392,6 +1404,29 @@ POINTER_DATA = re.compile(r"^[^(]*\(\s*" + CALLING + r"(?:[A-Za-z_]\w*\s*::\s*)*
                           r"[A-Za-z_]\w*\s*(?:\[[^\]]*\]\s*)*\)\s*[(\[]")
 # a declarator that starts with `(*`: a function returning a pointer to function or array
 PAREN_DECLARATOR = re.compile(r"^[^(]*\(\s*" + CALLING + r"(?:[A-Za-z_]\w*\s*::\s*)*[*&]")
+# The parts of a parenthesized pointer declarator, `base (calling scope::* cv name[bounds]) rest`:
+# `void (*volatile cb)(int)`, `void (C::*pm)()`, `int (*p)[4]`; `rest` is the parameter list or bounds.
+POINTER_DECLARATOR = re.compile(
+    r"^(?P<base>[^(]*?)\(\s*(?P<calling>__(?:cdecl|stdcall|fastcall|thiscall)\s*)?"
+    r"(?P<scope>(?:[A-Za-z_]\w*\s*::\s*)*)(?P<star>[*&])\s*(?P<cv>(?:(?:const|volatile)\b\s*)*)"
+    r"(?P<name>[A-Za-z_]\w*)?\s*(?P<bounds>(?:\[[^\]]*\]\s*)*)\)\s*(?P<rest>[(\[].*?)\s*;?\s*$", re.S)
+
+
+def pointer_declarator(text):
+    """POINTER_DECLARATOR's match for `text` when its `rest` is one parameter list (and cv) or
+    array bounds, else None (a pointer to a function returning a pointer is not read)."""
+    found = POINTER_DECLARATOR.match(text.strip())
+    if not found:
+        return None
+    rest = found["rest"]
+    if rest.startswith("["):
+        return found if re.fullmatch(r"(?:\[[^\]]*\]\s*)+", rest) else None
+    depth = 0
+    for close, char in enumerate(rest):
+        depth += {"(": 1, ")": -1}.get(char, 0)
+        if depth == 0:
+            break
+    return found if re.fullmatch(r"(?:\s*(?:const|volatile)\b)*\s*", rest[close + 1:]) else None
 OPERATOR_SYMBOL = re.compile(r"\boperator\b\s*(?:\(\s*\)|\[\s*\]|[^\w\s(]+)")
 # Roles the generator never carries: a view declaring one holds the class.
 UNCARRIED = {"nested": "a nested declaration", "directive": "a preprocessor line",
@@ -1417,9 +1452,17 @@ def template_head(text):
     return text[:index + 1], text[index + 1:].strip()
 
 
-def declaration_head(member):
-    """A member's declaration without its body, constructor initializers or literals' contents."""
-    return re.sub(r"\)\s*:(?!:).*$", ")", LITERAL.sub('""', member).split("{")[0].strip(), flags=re.S)
+def declaration_head(member, literals=False):
+    """A member's declaration without its body or constructor initializers; its literals' contents
+    blanked to `""` unless `literals` (a default `'a'` and one `'b'` must not compare equal). The
+    body and initializers are found with literals masked, so a `{` or `:` in one cuts nothing."""
+    shape = masked(member)
+    cut = shape.find("{")
+    member, shape = (member[:cut], shape[:cut]) if cut >= 0 else (member, shape)
+    init = re.search(r"\)\s*:(?!:)", shape)
+    if init:
+        member = member[:init.start() + 1]
+    return (member if literals else LITERAL.sub('""', member)).strip()
 
 
 def top_level(text):
@@ -1480,6 +1523,17 @@ def template_names(prefix):
     return f"template<{','.join(kinds)}>", names
 
 
+def type_names(specifiers):
+    """The type names among a declaration's specifiers: identifiers (scoped ones as one) that are
+    no keyword, built-in type or compiler keyword (`__declspec`, `__forceinline`, `__cdecl`)."""
+    names = []
+    for token in re.findall(r"[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*", specifiers):
+        token = re.sub(r"\s+", "", token)
+        if not token.startswith("__") and token not in SPECIFIER_WORDS:
+            names.append(token)
+    return names
+
+
 def member_role(member, short):
     """What one class member declares: a special role (special_role), `virtual` for a virtual
     function, `method` for any other member function (named, operator, conversion operator,
@@ -1527,6 +1581,16 @@ def member_role(member, short):
         tail = top_level(rest)[span[2] + 1:].split("=")[0]   # call_span's positions: the same length
         if set(re.findall(r"[A-Za-z_]\w*", tail)) - {"const", "volatile", "throw"}:
             return "macro"                       # `GLUE(X) int m_a`: a macro's use runs into a member
+    # Two type names before the declarator (`DECLARE_MEMBERS C *m`, `GLUE Foo f()`): a declaration
+    # names one type, so the other is a macro's use running into it.
+    if span:
+        specifiers = top[:span[0]]
+    else:
+        first = declarator.split(",")[0]
+        start = DECLARATOR_START.search(first) or FIELD_NAME.search(first)
+        specifiers = first[:start.start()] if start else first
+    if len(type_names(specifiers)) >= 2:
+        return "macro"
     if has_call and POINTER_DATA.match(rest):
         has_call = False                         # a pointer to function or array: data
     elif has_call and PAREN_DECLARATOR.match(rest):
@@ -1579,11 +1643,23 @@ def declaration_identity(text, key):
     name (return type, `static`, `explicit`: `int f()` and `bool f()` mangle apart), its
     default arguments (a call that omits one takes it) and everything after its parameter list
     or, for a static data member, after its name (`= 0`, `throw()`, array bounds, initializer);
-    without `inline`, `__forceinline`, `__declspec(...)`, parameter names or whitespace."""
-    head = re.sub(r"^(?:\s*(?:__declspec\(\w+\)|__forceinline|inline)\s+)*", "", declaration_head(text))
+    without `inline`, `__forceinline`, `__declspec(...)`, parameter names or whitespace. A literal
+    counts by its content (`'a'` and `'b'` differ), standing in as a digest so its commas and
+    parentheses split nothing."""
+    head = declaration_head(text, literals=True)
+    head = LITERAL.sub(lambda m: '"' + hashlib.sha256(m.group().encode()).hexdigest()[:16] + '"', head)
+    head = re.sub(r"^(?:\s*(?:__declspec\(\w+\)|__forceinline|inline)\s+)*", "", head)
     _, rest = template_head(re.sub(r"^\s*friend\s+", "", head))     # `explicit` stays: it is identity
     tidy = lambda s: re.sub(r"\s*([*&,()\[\]=])\s*", r"\1", " ".join(s.split())).strip()  # noqa: E731
     if key.startswith("static "):
+        declared = re.sub(r"\bstatic\b", " ", rest)
+        equals = top_level(declared).find("=")
+        initializer = declared[equals + 1:] if equals >= 0 else ""
+        declared = declared[:equals] if equals >= 0 else declared
+        pointer = pointer_declarator(declared)
+        if pointer:                              # `static void (*const cb)(int x)`: its type, its own cv
+            return "|".join(["static", param_key(declared, False), " ".join(pointer["cv"].split()),
+                             tidy(initializer).rstrip(";")])
         found = list(re.finditer(r"\b%s\b" % re.escape(key[7:]), rest))
         if not found:
             return tidy(rest)
@@ -1608,6 +1684,9 @@ def static_key(member):
     top = top_level(head)
     equals = top.find("=")
     head = head[:equals] if equals >= 0 else head
+    pointer = pointer_declarator(re.sub(r"\bstatic\b", " ", head))
+    if pointer and pointer["name"]:              # `static void (*cb)(int x)`: its name is in the parentheses
+        return "static " + pointer["name"]
     found = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*;?\s*$", head, flags=re.S)
     return "static " + (found.group(1) if found else re.sub(r"\s+", " ", member))
 
@@ -1640,40 +1719,116 @@ def declaration_records(text, name):
             key = "friend " + method_key(re.sub(r"^\s*friend\s+", "", spelled_member), name)
         else:
             key = member_key(spelled_member, name)
+        if "(?" in key or ",?" in key:           # a parameter declarator param_key cannot read
+            role, key = "complex", f"complex {' '.join(masked(spelled_member, keep_literals=True).split())}".rstrip(" ;")
         out.append({"access": access, "role": role, "key": key, "inline": "{" in LITERAL.sub("", member),
                     "pure": bool(re.search(r"=\s*0\s*;?\s*$", declaration_head(member))),
                     "text": spelled_member})
     return out
 
 
+# where a data member's first declarator starts: a `(` (a pointer to function or array) or a
+# `*`/`&` (with a member pointer's `C::` before it)
+DECLARATOR_START = re.compile(r"\(|(?:[A-Za-z_]\w*\s*::\s*)*[*&]")
+FIELD_NAME = re.compile(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?::\s*[^:;,]+)?\s*;?\s*$")
+
+
+def field_declarator(specifiers, declarator):
+    """(name, qualifiers, shape) of one data member declarator under its shared `specifiers`;
+    name None when it cannot be read. `qualifiers`: `mutable`, `const@k`/`volatile@k` (k the
+    `*`/`&` before it: `char *const p` -> const@1), `const@ret`/`volatile@ret` for a function
+    pointer's return type. `shape`: the declarator's pointers and bounds, names gone."""
+    words = re.findall(r"[A-Za-z_]\w*", masked(specifiers))
+    qualifiers = {"mutable"} if "mutable" in words else set()
+    if declarator.lstrip().startswith("("):
+        pointer = pointer_declarator(specifiers + declarator)
+        if not pointer or not pointer["name"]:   # every qualifier it carries, specifiers' too, unplaced
+            found = re.findall(r"\b(?:const|volatile)\b", masked(specifiers + declarator))
+            return None, qualifiers | {f"{w}@?" for w in found}, ""
+        function = pointer["rest"].startswith("(")
+        qualifiers |= {f"{w}@{'ret' if function else 0}" for w in words if w in CV_WORDS}
+        qualifiers |= {f"{w}@1" for w in pointer["cv"].split()}
+        shape = param_key(specifiers + declarator, False)
+        return pointer["name"], qualifiers, shape
+    qualifiers |= {f"{w}@0" for w in words if w in CV_WORDS}
+    stars = 0
+    for token in re.findall(r"[A-Za-z_]\w*|::\s*\*|[*&]", top_level(declarator)):
+        if token in ("*", "&") or token.endswith("*"):
+            stars += 1
+        elif token in CV_WORDS:
+            qualifiers.add(f"{token}@{stars}")
+    found = FIELD_NAME.search(top_level(declarator))
+    if not found:
+        return None, qualifiers, ""
+    shape = re.sub(r"\s+", "", declarator[:found.start(1)]) + re.sub(r"\s+", "", declarator[found.end(1):]).rstrip(";")
+    return found.group(1), qualifiers, re.sub(r"\b(?:const|volatile)\b", "", shape)
+
+
+def data_member_fields(member, short):
+    """[{name, qualifiers, shape, text}] of one data member: each declarator of a list (`float x,
+    y, z;`) with the shared specifiers, an anonymous union's or struct's fields one by one, a
+    member of an unnamed struct type (`struct { int a; } s;`) by its own name."""
+    shape_text = masked(member)
+    if "{" in shape_text:                        # an anonymous union or struct, or an unnamed type's member
+        open_ = shape_text.index("{")
+        close = len(shape_text) - 1 - shape_text[::-1].index("}")
+        after = member[close + 1:].strip().rstrip(";").strip()
+        if after:
+            out = []
+            for piece in split_top_commas(after):
+                name, qualifiers, shape = field_declarator(member[:open_] + " ", piece)
+                out.append({"name": name, "qualifiers": qualifiers, "shape": shape, "text": member})
+            return out
+        inner = member[open_ + 1:close]
+        out = []
+        for start, end in top_level_spans(masked(inner), 0, len(inner), inner):
+            part = ACCESS_LABEL.sub("", inner[start:end].strip()).strip()
+            if part and member_role(part, short) is None:
+                out += data_member_fields(part, short)
+        return out
+    head = declaration_head(member).strip()
+    pieces = split_top_commas(head)
+    pointer = pointer_declarator(pieces[0])
+    found = DECLARATOR_START.search(top_level(pieces[0]))
+    if pointer and pointer["name"]:              # `const char *(*get)(int)`: the declarator is the `(`
+        cut = len(pointer["base"])
+    elif found:
+        cut = found.start()
+    else:
+        name = FIELD_NAME.search(top_level(pieces[0]))
+        cut = name.start() if name else len(pieces[0])
+    specifiers = pieces[0][:cut]
+    out = []
+    for declarator in [pieces[0][cut:]] + pieces[1:]:
+        name, qualifiers, shape = field_declarator(specifiers, declarator)
+        out.append({"name": name, "qualifiers": qualifiers, "shape": shape, "text": member})
+    return out
+
+
+def split_top_commas(text):
+    """`text` split at its top-level commas (none inside (), [], {}, <>, or a literal)."""
+    top, out, last = top_level(text), [], 0
+    for index, char in enumerate(top):
+        if char == ",":
+            out.append(text[last:index])
+            last = index + 1
+    return out + [text[last:]]
+
+
 def field_records(text, name):
-    """[{name, qualifiers, text}] of the non-static data members the view of `name` in `text`
-    declares, or None when `text` has no body. `qualifiers` is the set of `mutable` and of
-    `const@k`/`volatile@k`, k the number of `*`/`&` before the qualifier (`volatile int n`
-    -> {volatile@0}, `char *const p` -> {const@1}); a parameter's qualifiers in a pointer to
-    function are no field's. `name` is None where the field cannot be read one by one (a
-    declaration list, an anonymous union or struct): its qualifiers are still reported."""
+    """[{name, qualifiers, shape, text}] of the non-static data members the view of `name` in
+    `text` declares, one per declarator (data_member_fields), or None when `text` has no body.
+    `qualifiers` is field_declarator's; a parameter's qualifiers in a pointer to function are
+    no field's. `name` is None only where a declarator cannot be read (its qualifiers, `@?`, are
+    still reported, and field_qualifiers holds the class on any)."""
     short = name.split("::")[-1]
     members = class_members(text, name)
     if members is None:
         return None
     out = []
     for _, member in members:
-        if member_role(member, short) is not None:
-            continue
-        head = declaration_head(member) if "{" not in LITERAL.sub("", member) else member
-        top = top_level(head)
-        qualifiers, stars = set(), 0
-        for token in re.findall(r"[A-Za-z_]\w*|[*&]", top if "{" not in top else masked(member)):
-            if token in "*&":
-                stars += 1
-            elif token in CV_WORDS:
-                qualifiers.add(f"{token}@{stars}")
-            elif token == "mutable":
-                qualifiers.add("mutable")
-        found = re.search(r"([A-Za-z_]\w*)\s*(?:\[\s*\]\s*)*(?::[^:]*)?;?\s*$", re.sub(r"\[[^\]]*\]", "[]", top))
-        single = "," not in top and "{" not in top and found is not None
-        out.append({"name": found.group(1) if single else None, "qualifiers": qualifiers, "text": member})
+        if member_role(member, short) is None:
+            out += data_member_fields(member, short)
     return out
 
 
@@ -1699,10 +1854,14 @@ def field_qualifiers(contract, views):
     seen, problems = collections.defaultdict(dict), []
     for source, records in sorted(views.items()):
         for record in records:
-            if record["name"] in fields:
+            what = " ".join(record["text"].split())[:80]
+            if record["name"] is None:
+                if record["qualifiers"]:
+                    problems.append(f"field {what}: qualified ({', '.join(sorted(record['qualifiers']))}) in "
+                                    f"{source}, in a declarator the generator cannot read")
+            elif record["name"] in fields:
                 seen[record["name"]][source] = frozenset(record["qualifiers"])
             elif record["qualifiers"]:
-                what = " ".join(record["text"].split())[:80]
                 problems.append(f"field {what}: qualified ({', '.join(sorted(record['qualifiers']))}) in {source}, "
                                 f"and no contract field is named after it")
     out = {}
@@ -1713,7 +1872,9 @@ def field_qualifiers(contract, views):
             continue
         qualifiers = next(iter(by_source.values()))
         stars = fields[field_name]["type"].count("*")
-        if any(q != "mutable" and int(q.split("@")[1]) > stars for q in qualifiers):
+        depths = [q.split("@")[1] for q in qualifiers if q != "mutable"]
+        # a function pointer's return type (@ret) has no spelling in the contract's type
+        if any(not depth.isdigit() or int(depth) > stars for depth in depths):
             problems.append(f"field {field_name}: qualified beyond its contract type {fields[field_name]['type']!r}")
             continue
         if qualifiers:

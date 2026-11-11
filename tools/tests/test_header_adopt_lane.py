@@ -1106,6 +1106,88 @@ def test_a_nested_type_is_keyed_by_its_body():
                                                       "int m; };\n", "C")[0]["key"]
 
 
+# Round 2 of GPT Sol's review of the member-declaration carry, and the header lane's v5 refusals.
+
+@pytest.mark.parametrize("a,b", [
+    ("void f(char c = 'a');", "void f(char c = 'b');"),               # a literal default counts by content
+    ("static const int n = 'a';", "static const int n = 'b';"),
+    ("static void (*cb)(int);", "static void (*const cb)(int);"),      # a static pointer's own cv
+])
+def test_declarations_that_differ_in_a_literal_or_a_pointers_own_cv_hold(a, b):
+    _, problems = special("C", {"a.cpp": "class C { public: %s int m; };\n" % a,
+                                "b.cpp": "class C { public: %s int m; };\n" % b})
+    assert len(problems) == 1 and "declarations differ" in problems[0]
+
+
+@pytest.mark.parametrize("a,b,key", [
+    ('void f(const char *s = "a,(b");', 'void f(const char *t = "a,(b");', "f(const char*)"),
+    ("void f(int (*p)[4]);", "void f(int (*q)[4]);", "f(int(*)[4])"),     # a pointer to array, named apart
+    ("static void (*cb)(int x);", "static void (*cb)(int y);", "static cb"),
+])
+def test_spellings_of_one_member_are_one_key(a, b, key):
+    carried, problems = special("C", {"a.cpp": "class C { public: %s int m; };\n" % a,
+                                      "b.cpp": "class C { public: %s int m; };\n" % b})
+    assert problems == [] and [c["sig"] for c in carried] == [key]
+
+
+def test_a_parameter_declarator_param_key_cannot_read_holds():
+    records = lane.declaration_records("class C { public: void f(int (*(*g)())[4]); int m; };\n", "C")
+    assert [r["role"] for r in records] == ["complex"]
+
+
+@pytest.mark.parametrize("member", ["DECLARE_MEMBERS\n    C *m;", "DECLARE_MEMBERS\n    Holder m_h;",
+                                    "GLUE Foo f();"])
+def test_a_macros_use_before_a_user_type_holds(member):
+    view = "class C {\npublic:\n    %s\n    int n;\n};\n" % member
+    assert [r["role"] for r in lane.declaration_records(view, "C")] == ["macro"]
+    assert lane.field_records(view, "C") == [{"name": "n", "qualifiers": set(), "shape": "", "text": "int n;"}]
+
+
+@pytest.mark.parametrize("member,fields", [
+    # each declarator of a list is a field of its own (the header lane's v5 refusals: TriIndex, Rva0087DC00Vec ...)
+    ("float x, y, z;", [("x", set(), ""), ("y", set(), ""), ("z", set(), "")]),
+    ("int m_00,m_refs;", [("m_00", set(), ""), ("m_refs", set(), "")]),
+    ("volatile int a, *b;", [("a", {"volatile@0"}, ""), ("b", {"volatile@0"}, "*")]),
+    ("char *p, q[4];", [("p", set(), "*"), ("q", set(), "[4]")]),
+    ("const char *name;", [("name", {"const@0"}, "*")]),                   # AptActionSetup's lost `const`
+    # pointer declarators: the name inside the parentheses, the pointer's own cv at depth 1
+    ("void (* volatile cb)();", [("cb", {"volatile@1"}, "void(*)()")]),
+    ("void (*cb)();", [("cb", set(), "void(*)()")]),
+    ("const char *(*get)(int);", [("get", {"const@ret"}, "const char*(*)(int)")]),
+    ("const int (*p)[4];", [("p", {"const@0"}, "const int(*)[4]")]),
+    ("int C::* const pm;", [("pm", {"const@1"}, "C::*")]),
+    # anonymous unions and structs: their fields one by one; an unnamed type's member by its name
+    ("union { int a; volatile float b; };", [("a", set(), ""), ("b", {"volatile@0"}, "")]),
+    ("union { struct { int x, y; }; int z; };", [("x", set(), ""), ("y", set(), ""), ("z", set(), "")]),
+    ("struct { int a; } s;", [("s", set(), "")]),
+])
+def test_field_records_read_every_declarator(member, fields):
+    records = lane.field_records("class C { public: %s };\n" % member, "C")
+    assert [(r["name"], r["qualifiers"], r["shape"]) for r in records] == fields
+
+
+def test_a_function_pointer_fields_qualifier_is_carried_or_held():
+    contract = {"class": "C", "key": "struct", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
+                "fields": [{"kind": "P", "type": "void*", "name": "cb"}]}
+
+    def views(*texts):
+        return {f"{i}.cpp": lane.field_records("struct C { %s };\n" % t, "C") for i, t in enumerate(texts)}
+
+    qualifiers, problems = lane.field_qualifiers(contract, views("void (*volatile cb)();", "void (*volatile cb)();"))
+    assert problems == [] and qualifiers == {"cb": {"volatile@1"}}
+    _, problems = lane.field_qualifiers(contract, views("void (*volatile cb)();", "void (*cb)();"))
+    assert problems == ["field cb: qualifiers differ (0.cpp: volatile@1; 1.cpp: none)"]
+    _, problems = lane.field_qualifiers(contract, views("const char *(*cb)();", "const char *(*cb)();"))
+    assert problems == ["field cb: qualified beyond its contract type 'void*'"]
+    # a declarator neither reads (a pointer to a function returning a pointer to array) holds as `complex`
+    carried, problems = special("C", {"a.cpp": "struct C { volatile int (*(*f)())[3]; };\n"})
+    assert len(problems) == 1 and "a declarator the generator does not parse" in problems[0]
+    # one field_records cannot name, qualified: field_qualifiers holds on it
+    _, problems = lane.field_qualifiers(contract, {"a.cpp": [{"name": None, "qualifiers": {"volatile@?"},
+                                                              "shape": "", "text": "volatile T (x);"}]})
+    assert len(problems) == 1 and "in a declarator the generator cannot read" in problems[0]
+
+
 def test_a_preprocessor_line_in_a_class_body_holds_the_class():
     view = "class C {\npublic:\n#define SLOT(N) virtual void slot##N()\n    SLOT(0);\n    int m;\n};\n"
     carried, problems = special("C", {"a.cpp": view})
