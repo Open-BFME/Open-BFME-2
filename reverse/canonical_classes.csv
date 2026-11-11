@@ -1296,3 +1296,4 @@ Rva004E05E9DwordField,Code/GameEngine/Include/GameNetwork/Rva004E05E9DwordField.
 Rva003F3F27,Code/GameEngine/Include/Common/Rva003F3F27.h,existing header; contract class_contracts/Rva003F3F27.json; 3/5 sampled units adopt
 Rva00405A50,Code/GameEngine/Include/Common/Rva00405A50.h,existing header; contract class_contracts/Rva00405A50.json; 3/5 sampled units adopt
 Rva0039D761DwordClearer,Code/GameEngine/Include/GameLogic/Rva0039D761DwordClearer.h,existing header; contract class_contracts/Rva0039D761DwordClearer.json; 4/4 sampled units adopt
+Rva005C3A37Elem,Code/GameEngine/Include/Common/Rva005C3A37Elem.h,existing header; contract class_contracts/Rva005C3A37Elem.json; 3/5 sampled units adopt

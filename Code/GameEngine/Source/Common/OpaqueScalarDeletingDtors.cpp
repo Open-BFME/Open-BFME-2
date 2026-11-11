@@ -870,11 +870,7 @@ void Rva0057C39C::clear()
 	delete doomed;
 }
 
-class Rva005C3A37Elem
-{
-public:
-	~Rva005C3A37Elem();
-};
+#include "../../Include/Common/Rva005C3A37Elem.h"
 
 void Rva005C3EE8::clear()
 {

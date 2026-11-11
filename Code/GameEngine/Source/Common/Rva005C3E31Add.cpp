@@ -12,11 +12,7 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 
 
 
-class Rva005C3A37Elem
-{
-public:
-	void Add(TreeHintRef00217D4C ref);
-};
+#include "../../Include/Common/Rva005C3A37Elem.h"
 
 class Rva005C3F02
 {
