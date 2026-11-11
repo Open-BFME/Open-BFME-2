@@ -84,7 +84,7 @@ struct Rva005D3C2BReferenceHolder
 	__forceinline ~Rva005D3C2BReferenceHolder() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
-class Rva005D3AF2 {public: void rva005D3AF2();};
+#include "../../Include/Common/Rva005D3AF2.h"
 class Rva005D3B9A {public: void rva005D3B9A();};
 class __declspec(novtable) Rva005D3C2B : public Rva005D3C2BBase
 {

@@ -1,10 +1,6 @@
 // cl: /MD
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
-class Rva005D3AF2
-{
-public:
-	void rva005D3AF2();
-};
+#include "../../Include/Common/Rva005D3AF2.h"
 namespace StrategicHUD {
 class SelectionUIImpl;
 }

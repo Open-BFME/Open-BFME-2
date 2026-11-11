@@ -100,7 +100,7 @@ struct Rva005D2FD0Outer;
 namespace StrategicHUD { void __cdecl SetCommandPointsString(int level, Rva005D2FD0Outer *name, int used, int max); }
 
 class Rva005D3A91 { public: void rva005D3C07(int); };
-class Rva005D3AF2 { public: void rva005D3C1F(int); };
+#include "../../Include/Common/Rva005D3AF2.h"
 
 struct TargetRef00217D4CHolder
 {

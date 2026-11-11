@@ -13,11 +13,7 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-class Rva005D3AF2
-{
-public:
-	void rva005D3AF2();
-};
+#include "../../Include/Common/Rva005D3AF2.h"
 
 class Rva005D3B9A
 {
