@@ -122,11 +122,7 @@ class BuddyMessage
 public:
 	~BuddyMessage();
 };
-class Rva0041579E
-{
-public:
-	~Rva0041579E();
-};
+#include "../../Include/Common/Rva0041579E.h"
 struct Rva0073EEE0ListValue
 {
 public:

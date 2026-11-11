@@ -586,11 +586,7 @@ public:
 namespace _STL { template <> void _Construct<Rva003A6F70, Rva003A6F70>(Rva003A6F70 *, const Rva003A6F70 &) throw(); }
 template _STL::vector<Rva003A6F70,_STL::allocator<Rva003A6F70> >::vector(_STL::vector<Rva003A6F70,_STL::allocator<Rva003A6F70> > const &);
 template void _STL::vector<Rva00541021,_STL::allocator<Rva00541021> >::reserve(unsigned int);
-class Rva0041579E
-{
-public:
-	Rva0041579E(const Rva0041579E &other);
-};
+#include "../../../../Include/Common/Rva0041579E.h"
 class Rva002E0A0A {
     char opaque[36];
 public:
