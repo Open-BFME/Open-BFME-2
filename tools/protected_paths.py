@@ -33,7 +33,7 @@ needs a server-side or CI run of `--range` over what reaches master.
   python3 tools/protected_paths.py --list
 """
 import argparse
-import fnmatch
+import functools
 import re
 import subprocess
 import sys
@@ -41,7 +41,7 @@ import sys
 PROTECTED = (
     # the byte gate and what decides which sources it verifies
     "build.sh", "build.cmd", "tools/build.py", "tools/stlport_overlay.py", "tools/delta_sources.py", "tools/name_dependents.py", "tools/flag_delta_sources.py",
-    "tools/flag_defaults.py", "tools/compiler_profiles.py", "vendor/clang23-x86/*",
+    "tools/flag_defaults.py", "tools/compiler_profiles.py", "vendor/clang23-x86/**",
     "reverse/flag_overrides.csv", "tools/eh_verify.py",
     # what a source may tell the compiler: the flag and include value allowlists
     "tools/cl_flags.py", "reverse/cl_include_roots.txt",
@@ -54,7 +54,7 @@ PROTECTED = (
     "tools/link_debt.py", "tools/class_gate.py", "tools/pin_consistency.py", "tools/header_dependents.py", "tools/ledger_guard.py",
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
     "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
-    "tools/publisher.py", "tools/publisher_pre_push.sh", "tools/publisher_fixtures/*",
+    "tools/publisher.py", "tools/publisher_pre_push.sh", "tools/publisher_fixtures/**",
     # link admission: pre-commit judges a new unit's COMDAT copies through it (shadow until promoted)
     "tools/link_check.py",
     # data identity: the pre-commit check and the ledger it reads
@@ -66,7 +66,7 @@ PROTECTED = (
     # which models may judge, and how they are called (decision record, pillar 5)
     "tools/judges.py", "tools/judges.json",
     # the advisory audit: its panel, canaries and harness
-    "tools/audit/*",
+    "tools/audit/**",
     "tools/publisher_gate.py", "tools/publisher_hook.py", "tools/publisher_service.py",
     "reverse/publisher_mode",
     # the image-ownership metric checks signed history with an external key pin
@@ -74,9 +74,9 @@ PROTECTED = (
     # the pinned vendored STLport headers rename.py's identity respell trusts
     "reverse/stlport_manifest.txt",
     # the hooks that run all of the above
-    ".githooks/*", ".github/workflows/*",
+    ".githooks/**", ".github/workflows/**",
     # debt registers and exemption lists
-    "reverse/*baseline*", "reverse/*whitelist*", "reverse/retail_inventory/*",
+    "reverse/*baseline*", "reverse/*whitelist*", "reverse/retail_inventory/**",
 )
 
 TRAILER = re.compile(r"^Verifier-Change:[ \t]*(\S.{7,}?)[ \t]*$", re.MULTILINE)
@@ -209,8 +209,25 @@ def blob(rev, path):
     return got.stdout if got.returncode == 0 else ""
 
 
+@functools.lru_cache(maxsize=None)
+def _pattern(pat):
+    """A PROTECTED glob where `*` stays inside one path segment and `**` spans them.
+
+    fnmatch's `*` crosses `/`, which made `reverse/*baseline*` -- written for the
+    debt registers sitting directly in reverse/ -- also match 48 tracked handoff
+    files under reverse/attempt_support/, e.g.
+    bridge-native-contract-seat2-20261023/baseline-byte.log. Deleting one then
+    demanded a Verifier-Change trailer as though a debt register had moved
+    (re_attempts.log:103352). Every entry that means a subtree says `**` now, so
+    what each pattern covers is written down rather than inherited.
+    """
+    out = [".*" if part == "**" else "[^/]*" if part == "*" else re.escape(part)
+           for part in re.split(r"(\*\*|\*)", pat)]
+    return re.compile("".join(out) + r"\Z")
+
+
 def protected(paths):
-    return sorted(p for p in set(paths) if any(fnmatch.fnmatchcase(p, pat) for pat in PROTECTED))
+    return sorted(p for p in set(paths) if any(_pattern(pat).match(p) for pat in PROTECTED))
 
 
 def reason(message):
