@@ -1,6 +1,6 @@
 # 66 of 11,838 tests are red, and nothing was ever going to say so
 
-> **24 remain.** Of the 66 measured, 42 are fixed: `test_tu_structure.py`'s 1
+> **22 remain.** Of the 66 measured, 44 are fixed: `test_tu_structure.py`'s 1
 > (`7b1c3d1eb1a`, which the run caught and which was already fixed when this was
 > written), `test_header_dependents.py`'s 14 (`ee2d7795743`) and
 > `test_recovery_experiments.py`'s 22 (`60dc4dca8fe`), and three singletons
@@ -46,11 +46,11 @@ in a standalone run, as a starting point and not a diagnosis.
 | `test_publisher_service.py` | 6 | 6 failed, 4 passed | `assert 0 == 1` |
 | `test_reloc_names.py` | 3 | 3 failed, 11 passed | no specimens left in the data (below) |
 | `test_boot_smoke_profile.py` | 3 | 3 failed, 24 passed | `RedirectError not raised`; `pefile.PEFormatError: DOS Header magic not found` |
-| `test_publisher.py` | 1 | fails alone | `assert 0 != 0` |
+| `test_publisher.py` | 1 | ~~fails alone~~ | **fixed at `6b15e593a45`**: the fixture's `pre-receive` ruleset was written 0644, and git silently ignores a non-executable hook, so the push it expects refused went through |
 | `test_link_rank_snapshot.py` | 1 | ~~fails alone~~ | **fixed at `95b9398847b`**: it asserted a scoped-naming handoff that AGENTS.md gates off until the game reaches the menu (`name_scoped.RELATED_WORK_HANDOFF = False`); now asserts its absence, with a sibling covering it enabled |
 | `test_flag_input_coverage.py` | 1 | ~~fails alone~~ | **fixed at `95b9398847b`**: `ledger_cache` memoises on the blob id in the real checkout's git dir, shared by every worktree and kept between runs, so once that blob was cached the deleted git object could never be reached |
 | `test_flag_delta_sources.py` | 1 | ~~fails alone~~ | **fixed at `c02cdfcaa65`**: the hook gained `classify_full_scope`, so a selection covering every provider becomes one ordinary full build; the empty selector list means "build everything" and the test read it as nothing verified |
-| `test_fix_eh_prolog_sizes.py` | 1 | fails alone | `FUN_0061ecb2 at 0x21ecb2 overlaps 0x21ed9c` — reads live data |
+| `test_fix_eh_prolog_sizes.py` | 1 | ~~fails alone~~ | **fixed at `6b15e593a45`**: the inventory gained `FUN_0061ed9c` 234 bytes inside the byte-verified 388-byte body at `0x0021ECB2`; an overlap is now excused only where a matched ledger row holds that exact extent |
 | `test_doc_lint.py` | 1 | fails alone | **not a test bug — real content debt** (below) |
 | `test_claims_gc.py` | 1 | ~~fails alone~~ | **fixed at `41a969507d6`**: `renew()` now sends one batched push before the per-token retry loop, so 3 pushes carry 1 backoff, not 2 |
 | `test_build_lib_thin.py` | 1 | ~~fails alone~~ | **fixed at `41a969507d6`**: `@__security_check_cookie@4` was recovered from `msvcrt.lib` to real C++, so its source is no longer an archive |
