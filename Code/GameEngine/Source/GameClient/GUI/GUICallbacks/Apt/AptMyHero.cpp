@@ -166,7 +166,7 @@ public:
 };
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
-class W3DGameClientShadowShim {public:void setLightPosition(int,float,float,float);};
+#include "../../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DGameClientShadowShim.h"
 const AsciiString &rva005B0A53(const char *kind,int index);
 class AptMyHero : public CreateAHeroData {
 public:

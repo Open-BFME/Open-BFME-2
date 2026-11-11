@@ -53,7 +53,7 @@ struct Color9B28C { float X, Y, Z; };
 struct Light9B28CManagerView { char pad[0x60]; Color9B28C color; };
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
-class W3DGameClientShadowShim { public: void setLightPosition(int, float, float, float); };
+#include "../../../Include/W3DDevice/GameClient/W3DGameClientShadowShim.h"
 
 // Layout view of the established factory-product owner; no new class identity.
 class Rva0009D55BProduct

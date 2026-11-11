@@ -216,11 +216,7 @@ public:
 	void setTimeOfDay(TimeOfDay tod);
 };
 
-class W3DGameClientShadowShim
-{
-public:
-	void setTimeOfDay(TimeOfDay tod);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DGameClientShadowShim.h"
 
 class W3DGameClientDisplayShim
 {

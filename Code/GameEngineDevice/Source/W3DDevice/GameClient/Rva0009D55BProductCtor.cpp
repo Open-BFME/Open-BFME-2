@@ -211,7 +211,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
-class W3DGameClientShadowShim { public: void setLightPosition(int index, float x, float y, float z); };
+#include "../../../Include/W3DDevice/GameClient/W3DGameClientShadowShim.h"
 struct Rva0009DB5AShadowView { void *m_vtbl; int m_04; };
 struct Rva0009DB5AGlobalView { unsigned char m_pad[0x60]; bool m_shadows; };
 struct Rva0009DB5AManagerView { unsigned char m_pad[0x1E4]; int m_1E4; };

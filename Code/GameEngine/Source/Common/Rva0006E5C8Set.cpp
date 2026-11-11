@@ -12,11 +12,7 @@
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class W3DGameClientShadowShim
-{
-public:
-	void setLightPosition(int lightIndex, float x, float y, float z);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DGameClientShadowShim.h"
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
