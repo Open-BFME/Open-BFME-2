@@ -29,11 +29,7 @@ Rva000B3F75Record *Rva000B3F75::rva000B3F75(int index)
 // --- 0x000B693D (15B): when the object at +0x68 exists, assign the argument
 // to it through the rowed ?bfmeAssign@Gen_0075EF90@@QAEAAV1@ABV1@@Z
 // (0x000B4682) as a tail jump.
-class Gen_0075EF90
-{
-public:
-	Gen_0075EF90 &bfmeAssign(const Gen_0075EF90 &that);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0075EF90.h"
 
 class Rva000B693D
 {

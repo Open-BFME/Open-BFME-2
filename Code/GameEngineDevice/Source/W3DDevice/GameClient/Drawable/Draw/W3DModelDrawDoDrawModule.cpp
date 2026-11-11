@@ -114,11 +114,7 @@ public:
 	char m_pad278[0x438 - 0x278];
 	unsigned char m_flags438;
 };
-class Gen_0075EF90
-{
-public:
-	Gen_0075EF90 &bfmeAssign(const Gen_0075EF90 &);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Gen_0075EF90.h"
 class View;
 class Drawable
 {
