@@ -1,0 +1,654 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "GameWindowTransitionsHandler",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "SubsystemInterface"
+   ]
+  },
+  "census": 37,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x24": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x6c": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1dcbc3"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7dbc30",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1dcbc3"
+     ],
+     "value": 106
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1dcbc3"
+     ],
+     "value": {
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x50": [
+       1
+      ],
+      "0x51": [
+       1
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       1
+      ],
+      "0x69": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1dcbc3"
+     ],
+     "value": {
+      "0x20": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xc": [
+       "??0?$hash_map@W4NameKeyType@@P6APAVTransition@@XZU?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@_STL@@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1dcbc3"
+     ],
+     "value": {
+      "0x0": "0x7dbc30"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7dbc30"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGameWindowTransitionsHandler@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1dc7c5"
+       },
+       {
+        "name": "?init@Rva001DBAA4@@UAEXXZ",
+        "slot": 1,
+        "target": "0x1dbb5c"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@GameWindowTransitionsHandler@@UAEXXZ",
+        "slot": 9,
+        "target": "0x1dbe6e"
+       },
+       {
+        "name": "?update@GameWindowTransitionsHandler@@UAEXXZ",
+        "slot": 10,
+        "target": "0x1dbeb6"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?draw@GameWindowTransitionsHandler@@UAEXXZ",
+        "slot": 12,
+        "target": "0x1dbfd1"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7dbc30"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x7dbc30": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGameWindowTransitionsHandler@@UAEPAXI@Z",
+     "1": "?init@Rva001DBAA4@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@GameWindowTransitionsHandler@@UAEXXZ",
+     "10": "?update@GameWindowTransitionsHandler@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "?draw@GameWindowTransitionsHandler@@UAEXXZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 17,
+   "4": 11,
+   "12": 1,
+   "56": 1,
+   "108": 3
+  },
+  "views": 33,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowTransitions.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 13,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 13,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 14,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 105,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 2,
+    "14": 1
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "106": "retail constructor writes",
+    "108": "retail allocates",
+    "4": "decided by majority"
+   },
+   "class": "GameWindowTransitionsHandler",
+   "why": "the decided size is below both the bytes retail's constructor writes and an allocation retail makes"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "a1()": 1,
+    "draw()": 1,
+    "init()": 1,
+    "pad1()": 1,
+    "slot01()": 2,
+    "slot04()": 2,
+    "slot1()": 1,
+    "v01()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "a2()": 1,
+    "pad2()": 1,
+    "reset()": 1,
+    "slot02()": 2,
+    "slot08()": 2,
+    "slot2()": 1,
+    "update()": 1,
+    "v02()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "a3()": 1,
+    "pad3()": 1,
+    "slot03()": 2,
+    "slot0C()": 2,
+    "slot3()": 1,
+    "update()": 1,
+    "v03()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "a4()": 1,
+    "pad4()": 1,
+    "slot04()": 2,
+    "slot10()": 2,
+    "slot4()": 1,
+    "v04()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "a5()": 1,
+    "pad5()": 1,
+    "slot05()": 2,
+    "slot14()": 2,
+    "slot5()": 1,
+    "v05()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "a6()": 1,
+    "advance(int)": 1,
+    "pad6()": 1,
+    "slot06()": 1,
+    "slot18()": 2,
+    "slot6()": 1,
+    "v06()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "a7()": 1,
+    "pad7()": 1,
+    "slot07()": 2,
+    "slot1C()": 2,
+    "slot7()": 1,
+    "v07()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "a8()": 1,
+    "pad8()": 1,
+    "slot08()": 2,
+    "slot20()": 2,
+    "slot8()": 1,
+    "v08()": 2
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "a10()": 1,
+    "pump()": 1,
+    "slot28()": 1,
+    "update()": 1
+   },
+   "class": "GameWindowTransitionsHandler"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "slot12()": 1,
+    "slot30()": 1
+   },
+   "class": "GameWindowTransitionsHandler"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "a11()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "reset()"
+  }
+ }
+}
