@@ -2560,3 +2560,12 @@ The eight-unit link preview still loses 352 bytes in AC26Constructor due
 to two shared base table definitions. Restoring production inputs returns
 all 2,286 bytes. The reproducer and affected table names are in
 `reverse/attempt_support/registry-acff-slot-contract.md`.
+
+The shared Rva0056AC26Base2 slot 4 now declares the army and destination
+region pointers used by the override at 0x0056ABD6 and corroborated by
+the B2DD pair comparison at 0x0056AB09. Its folded five-byte default row
+at 0x0050B5F1 retains its source and fold proof. The 15 direct consumers
+of the base headers and three related provider units verify 128/128
+functions and four data rows. The same 18 units retain 3,781 bytes in
+the link preview before and after the signature change at census
+60189f9ced. The ACFF hand tables and secondary slot 1 remain open.

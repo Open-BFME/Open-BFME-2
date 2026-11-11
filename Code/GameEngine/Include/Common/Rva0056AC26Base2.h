@@ -4,6 +4,9 @@
 #ifndef CANONICAL_RVA0056AC26BASE2_H
 #define CANONICAL_RVA0056AC26BASE2_H
 
+struct LivingWorldArmy;
+class Rva00318C32Ret;
+
 class Rva0056AC26Base2 {
 public:
     // Native C37298 slot0 is deleting destructor3F7BCC. Keep this
@@ -12,7 +15,7 @@ public:
     virtual bool slot1(int) { return false; }
     virtual bool slot2(int) { return false; }
     virtual bool slot3(int, int) { return false; }
-    virtual bool slot4(int, int) { return false; }
+    virtual bool slot4(LivingWorldArmy *, Rva00318C32Ret *) { return false; }
     virtual bool slot5(int) { return false; }
     virtual bool slot6(int) { return false; }
     virtual bool slot7(int) { return false; }
