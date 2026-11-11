@@ -26,11 +26,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Rva002A9140
-{
-public:
-	AsciiString &rva002A9140(const int &key);
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva002A9140.h"
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 

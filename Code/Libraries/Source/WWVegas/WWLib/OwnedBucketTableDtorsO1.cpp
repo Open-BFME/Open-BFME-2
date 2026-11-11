@@ -228,11 +228,7 @@ public:
     int key;
     AsciiString mapped;
 };
-class Rva002A9140
-{
-public:
-    AsciiString &rva002A9140(const int &key);
-};
+#include "Rva002A9140.h"
 AsciiString &Rva002A9140::rva002A9140(const int &key)
 {
     void *node;

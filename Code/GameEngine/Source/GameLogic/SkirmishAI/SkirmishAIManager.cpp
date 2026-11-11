@@ -193,7 +193,7 @@ extern Rva0022BD25Subsystem *TheArmyDefinitionManager;
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva002A9140 { public: AsciiString &rva002A9140(const int &); };
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva002A9140.h"
 class Rva004EC1CE { public: void rva004EC1CE(const AsciiString &); };
 // WB E8E370 proves this method and its player/team/army/collector behavior.
 // Native 2A9476..2A95B9: preparation of the side reference in each selection
