@@ -35,7 +35,7 @@ namespace _STL { template <> _Hashtable_node<pair<GameWindow const *const, Windo
 namespace _STL { template <> _Ht_iterator<pair<GameWindow const *const, WindowVideo *>, _Nonconst_traits<pair<GameWindow const *const, WindowVideo *> >, GameWindow const *, WindowVideoManager::hashConstGameWindowPtr, _Select1st<pair<GameWindow const *const, WindowVideo *> >, equal_to<GameWindow const *>, allocator<pair<GameWindow const *const, WindowVideo *> > > hashtable<pair<GameWindow const *const, WindowVideo *>, GameWindow const *, WindowVideoManager::hashConstGameWindowPtr, _Select1st<pair<GameWindow const *const, WindowVideo *> >, equal_to<GameWindow const *>, allocator<pair<GameWindow const *const, WindowVideo *> > >::begin(); }
 // bfme link decl-only end
 
-class Rva0041E875 { public: ~Rva0041E875(); };
+#include "../../../Include/GameClient/Rva0041E875.h"
 #include "../../../Include/Common/Rva004DFC20.h"
 class Rva0041EA88 {
 public: void rva0041EA88();

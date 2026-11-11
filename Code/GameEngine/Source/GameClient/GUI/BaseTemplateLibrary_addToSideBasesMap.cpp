@@ -63,11 +63,7 @@ class Object;
 
 class ModuleData;
 
-class Rva0041E875
-{
-public:
-	void rva0041E8E6(const ModuleData *arg);
-};
+#include "../../../Include/GameClient/Rva0041E875.h"
 
 class BaseTemplateLibrary
 {

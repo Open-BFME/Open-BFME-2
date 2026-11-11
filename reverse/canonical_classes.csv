@@ -1236,3 +1236,4 @@ Rva0028E8D4,Code/GameEngine/Include/GameLogic/Module/Rva0028E8D4.h,existing head
 Rva0035B164,Code/GameEngine/Include/GameClient/Rva0035B164.h,existing header; contract class_contracts/Rva0035B164.json; 4/5 sampled units adopt
 Rva0042D6BAPtrChaseField,Code/GameEngine/Include/GameClient/Rva0042D6BAPtrChaseField.h,existing header; contract class_contracts/Rva0042D6BAPtrChaseField.json; 4/5 sampled units adopt
 Rva002B5EB5,Code/GameEngine/Include/Common/Rva002B5EB5.h,existing header; contract class_contracts/Rva002B5EB5.json; 4/4 sampled units adopt
+Rva0041E875,Code/GameEngine/Include/GameClient/Rva0041E875.h,existing header; contract class_contracts/Rva0041E875.json; 4/5 sampled units adopt

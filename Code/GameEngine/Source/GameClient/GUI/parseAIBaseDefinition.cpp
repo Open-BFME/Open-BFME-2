@@ -27,7 +27,7 @@ class INI;
 extern const FieldParse g_00C3AF18[]={
  {"Side",INI::parseAsciiString,0,0},{"Map",INI::parseAsciiString,0,4},{"GameMapToUseOn",INI::parseAsciiString,0,8},{"PlayerPositions",INI::Rva004E8EFF_ParseDisabledSlots,0,12},{"AllowsArbirtaryRotation",INI::parseBool,0,24}};
 class Rva0041E732 {public:Rva0041E732() throw();AsciiString side,map;char rest[32];};
-class Rva0041E875 {public:~Rva0041E875();};
+#include "../../../Include/GameClient/Rva0041E875.h"
 enum ScienceType {SCIENCE_NONE=0};
 // Native scalar-vector cleanup uses the rowed game-memory free wrapper.
 // Keep the first compatible ScienceType destructor's allocator identity.
