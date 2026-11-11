@@ -149,11 +149,7 @@ public:
 };
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *pos, int maxShots, int source);
-};
+#include "../../../Include/Common/Rva00295A0FCommands.h"
 
 class AICommandInterface
 {

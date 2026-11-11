@@ -543,11 +543,7 @@ public:
 };
 // The three-argument position command at 0x00295A0F (target, shot count,
 // source), rowed under a placeholder name.
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *pos, int maxShotsToFire, int cmdSource);
-};
+#include "../../../../Include/Common/Rva00295A0FCommands.h"
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
 public:

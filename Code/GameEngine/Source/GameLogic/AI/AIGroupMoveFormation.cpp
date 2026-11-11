@@ -162,12 +162,7 @@ struct AICommandParms
     int maxShots;
     char pad38[0xc0 - 0x38];
 };
-class Rva00295A0FCommands
-{
-  public:
-    virtual void aiDoCommand(const AICommandParms *);
-    void Rva00295A0FCommand(void *, int, int);
-};
+#include "../../../Include/Common/Rva00295A0FCommands.h"
 class AICommandInterface
 {
   public:

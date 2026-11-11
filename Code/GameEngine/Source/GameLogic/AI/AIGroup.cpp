@@ -1017,12 +1017,7 @@ template <> __declspec(dllimport) __forceinline
 Object *&list<Object*>::front() { return ((_Node *)this->_M_node._M_data->_M_next)->_M_data; }
 }
 
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *pos, int maxShots, int source);
-	virtual void aiDoCommand(const AICommandParms *parms);
-};
+#include "../../../Include/Common/Rva00295A0FCommands.h"
 
 class BfmeC986
 {

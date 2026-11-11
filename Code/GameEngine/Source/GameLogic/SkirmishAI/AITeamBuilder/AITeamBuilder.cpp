@@ -482,7 +482,7 @@ struct Rva002A8AB1Record { char prefix[0x164]; IdleTargetList* targetList; };
 
 class Rva0025BFF8 { public: Object* rva0025BFF8(int); };
 
-class Rva00295A0FCommands { public: void Rva00295A0FCommand(void*,int,int); };
+#include "../../../../Include/Common/Rva00295A0FCommands.h"
 
 int GetGameLogicRandomValue(int,int,char*,int);
 

@@ -539,11 +539,7 @@ struct Rva0048F64EMaster
 	float m64;
 };
 
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *target, int range, int source);
-};
+#include "../../../../../Include/Common/Rva00295A0FCommands.h"
 
 struct AICommandParms
 {

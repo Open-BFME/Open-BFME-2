@@ -51,11 +51,7 @@ public:
 extern ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *pos, int a, int b);
-};
+#include "../../../Include/Common/Rva00295A0FCommands.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

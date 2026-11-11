@@ -61,11 +61,7 @@ struct Rva0006EE7A : public BitFlags<69>
 
 #include "Thing/thing.h"
 
-class Rva00295A0FCommands
-{
-public:
-	void Rva00295A0FCommand(void *where, int a, int b);
-};
+#include "../../Include/Common/Rva00295A0FCommands.h"
 
 struct Rva005AB125AI
 {

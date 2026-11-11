@@ -49,7 +49,7 @@ class Player;
 #include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class Rva004EBF4B{public:Coord3D rva004EBF4B();};
-class Rva00295A0FCommands{public:void Rva00295A0FCommand(void*,int,int);};
+#include "../../../../../../Include/Common/Rva00295A0FCommands.h"
 struct RoamAI {char pad[0x20];Rva00295A0FCommands commands;};
 struct RoamObjectTemplate{char pad[0x120];unsigned int bits;};
 class Object{public:char pad0[4];RoamObjectTemplate *objectTemplate;char pad8[0x38-8];Coord3D position;char pad44[0x258-0x44];RoamAI *ai;};
