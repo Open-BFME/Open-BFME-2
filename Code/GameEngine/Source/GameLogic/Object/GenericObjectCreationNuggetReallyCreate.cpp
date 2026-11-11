@@ -107,11 +107,7 @@ private:
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 
 struct Rva002A7557In;
-class Rva002A7461
-{
-public:
-	Bool rva002A7557(Rva002A7557In *tmpl, Int count);
-};
+#include "../../../Include/GameLogic/Rva002A7461.h"
 
 class Player
 {

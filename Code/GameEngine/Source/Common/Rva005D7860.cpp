@@ -7,11 +7,7 @@ class Rva002A7389
 public:
 	int get(int);
 };
-class Rva002A7461
-{
-public:
-	int rva002A7461();
-};
+#include "../../Include/GameLogic/Rva002A7461.h"
 extern float g_Va00BBB8D8;
 // length_estimate_factor was the retail address alias (RVA 0x007BB8D4) of the pooled constant 0.25f; the literal is the source.
 bool __stdcall Rva005D7860Check(Object *obj)

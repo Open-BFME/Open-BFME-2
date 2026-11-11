@@ -446,11 +446,7 @@ public:
 extern class ScriptEngine *TheScriptEngine;
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
-class Rva002A7461
-{
-public:
-	int rva002A7548(int v);
-};
+#include "../../../Include/GameLogic/Rva002A7461.h"
 #include "../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 extern float g_Va007C26F0;

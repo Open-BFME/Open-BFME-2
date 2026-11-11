@@ -651,11 +651,7 @@ private:
 	unsigned char m_pad439[0x45C - 0x439];
 	Int m_45C;				// +0x45C
 };
-class Rva002A7461
-{
-public:
-	bool rva002A7557(Rva002A7557In *p, int unused);
-};
+#include "../../../Include/GameLogic/Rva002A7461.h"
 #include "../../../Include/GameLogic/Rva0037E6E8.h"
 #include "../../../Include/GameLogic/Module/Rva0037E421.h"
 class Rva0039B7AD;

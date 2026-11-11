@@ -576,7 +576,7 @@ class Rva002D9531 { public: void rva002D9531(int); };
 #include "../../../../Include/Common/Rva0033F15DDwordSlot.h"
 class Rva002AE98B { public: float rva002AE98B(const AsciiString *); };
 struct Rva002A7557In;
-class Rva002A7461 { public: bool rva002A7557(Rva002A7557In *,int); };
+#include "../../../../Include/GameLogic/Rva002A7461.h"
 #include "../../../../Include/GameLogic/Rva0037E6E8.h"
 #include "../../../../Include/GameLogic/Module/Rva0037E421.h"
 struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };

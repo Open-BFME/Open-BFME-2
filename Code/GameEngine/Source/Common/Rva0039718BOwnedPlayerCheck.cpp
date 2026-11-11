@@ -107,11 +107,7 @@ struct Rva0039718BInner
 	Rva0039718BTree m_tree68;
 };
 
-class Rva002A7461
-{
-public:
-	int rva002A7548(int unused);
-};
+#include "../../Include/GameLogic/Rva002A7461.h"
 
 // Target evidence: the 164-byte entry at 0x003970E7 copies Player+0x58,
 // returns zero for a null or empty name and for a tree miss, then reads the

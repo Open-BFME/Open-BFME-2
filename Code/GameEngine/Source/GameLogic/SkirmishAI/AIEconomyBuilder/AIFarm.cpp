@@ -79,11 +79,7 @@ public:
 	int get(int v);
 };
 
-class Rva002A7461
-{
-public:
-	int rva002A7461();
-};
+#include "../../../../Include/GameLogic/Rva002A7461.h"
 
 // PlayerList's matched mask/index consumers independently establish index at +0x54.
 struct FarmPlayerIndexView

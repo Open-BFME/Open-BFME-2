@@ -102,11 +102,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class Rva002A7461
-{
-public:
-	Int rva002A7548(Int which);
-};
+#include "../../../../Include/GameLogic/Rva002A7461.h"
 
 class Player
 {

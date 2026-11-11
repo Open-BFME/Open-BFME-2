@@ -63,7 +63,7 @@ class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
 struct PlayerTemplateView {char pad[0x151];bool playable;};
 struct MoneyView {void *vptr;unsigned value;};
 struct PlayerView {char pad[0x34];PlayerTemplateView *playerTemplate;char pad38[0x90-0x38];MoneyView money;};
-class Rva002A7461 {public:int rva002A7461();};
+#include "../../../../Include/GameLogic/Rva002A7461.h"
 class Rva002A7389 {public:int get(int);};
 class Rva002E0CD4 {public:int get()const;int rva002E14DD()const;};
 class Rva002E0C68 {public:int rva002E0C68();};

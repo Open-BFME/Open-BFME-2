@@ -20,12 +20,7 @@ public:
 	int get(int x);
 	int rva002A7548(int x);
 };
-class Rva002A7461
-{
-public:
-	int rva002A7548(int x);
-	int rva002A7461();
-};
+#include "../../../Include/GameLogic/Rva002A7461.h"
 
 class Player
 {
