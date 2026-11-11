@@ -29,11 +29,7 @@ class Rva005CB283
 public:
 	void rva005CB283(const Rva0030B9DD *polygon);
 };
-class WaterArea
-{
-public:
-	void parse(DataChunkInput &file, void *userData);
-};
+#include "../../../Include/GameLogic/WaterArea.h"
 // The wave area as Rva0030CAA9OwnerCtor.cpp lays it out.
 class VBase00C6EE28
 {

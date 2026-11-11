@@ -181,12 +181,7 @@ class Rva0030912A
 public:
 	void rva0030912A(int, StandingWaterRef);
 };
-class WaterArea
-{
-public:
-	void rva00537F74(const AsciiString &);
-	void rva00537FA0(const AsciiString &);
-};
+#include "../../../Include/GameLogic/WaterArea.h"
 class Rva00308765
 {
 public:

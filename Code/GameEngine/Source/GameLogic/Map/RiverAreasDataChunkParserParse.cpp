@@ -85,11 +85,7 @@ public:
 	Rva0030C1FCOwner *m_ptr;
 };
 
-class WaterArea
-{
-public:
-	void parse(DataChunkInput &file, void *userData);
-};
+#include "../../../Include/GameLogic/WaterArea.h"
 
 // The quad strip storage: rowed constructor 0x005388AB; QuadStrip2D::parse.
 class Rva005388AB
