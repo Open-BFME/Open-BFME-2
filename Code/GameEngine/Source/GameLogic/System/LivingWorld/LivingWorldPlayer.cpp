@@ -227,7 +227,7 @@ private:
 // Existing out-of-line player providers; their original method names are unknown.
 class Rva002E0C68 { public: Int rva002E0C68(); };
 
-class Rva002E0CD4 { public: Int get() const; };
+#include "../../../../Include/Common/Rva002E0CD4.h"
 
 // WB DE74D0 names LivingWorldPlayer::ParseLivingWorldPlayer at source lines
 // 1489..1499. Both retail2E1D22 and WB share the two error literals, null-input

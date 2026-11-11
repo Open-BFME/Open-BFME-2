@@ -14,11 +14,7 @@ public:
 
 #include "../../Include/Common/SpawnArmy.h"
 
-class Rva002E0CD4
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva002E0CD4.h"
 
 class Rva002E112A
 {

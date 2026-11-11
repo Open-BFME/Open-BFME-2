@@ -222,11 +222,7 @@ public:
 	int rva002E0C68();
 };
 
-class Rva002E0CD4
-{
-public:
-	int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva002E0CD4.h"
 
 struct LWAIPlayerScoreView
 {

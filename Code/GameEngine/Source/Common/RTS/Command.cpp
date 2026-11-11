@@ -39,10 +39,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../../Include/Common/BfmeGlob939D.h"
 
-struct Rva002E0CD4
-{
-	int rva002E14DD() const;
-};
+#include "../../../Include/Common/Rva002E0CD4.h"
 
 struct CommandPointsPair
 {

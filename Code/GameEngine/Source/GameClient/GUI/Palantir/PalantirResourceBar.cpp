@@ -65,7 +65,7 @@ struct MoneyView {void *vptr;unsigned value;};
 struct PlayerView {char pad[0x34];PlayerTemplateView *playerTemplate;char pad38[0x90-0x38];MoneyView money;};
 #include "../../../../Include/GameLogic/Rva002A7461.h"
 #include "../../../../Include/GameLogic/Rva002A7389.h"
-class Rva002E0CD4 {public:int get()const;int rva002E14DD()const;};
+#include "../../../../Include/Common/Rva002E0CD4.h"
 class Rva002E0C68 {public:int rva002E0C68();};
 class Rva002E0C2B {public:int rva002E0C2B();};
 struct CountBaseView {char pad[8];int value;};
