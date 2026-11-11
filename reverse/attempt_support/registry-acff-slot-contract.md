@@ -85,3 +85,29 @@ it lacks slot 4. The constructor alone cannot authorize this move. Reconcile
 both installers and the shared base before migrating the providers and the
 two data rows. Restored production sources verify 20/20 code and 2/2 data
 rows in the constructor, derived destructor and slot4 body units.
+
+### Paired constructor and destructor trial at cb18cd71e8
+
+The reproducible diff is `registry-acff-paired-installers.patch`. Apply with
+`git apply --unidiff-zero` in a clean test checkout at that revision.
+The diff includes the trial inputs under build/acff-slot-trial and the
+ledger edits. The scratch base declares b1Slot1(Rva002B4BC9Arg *), retaining
+the existing derived provider name, plus the typed slot4. Both installers use
+one derived declaration. The official to-class transaction verified the
+80-byte slot4 provider in the presence of both tables. The matching data rows
+now name compiler-emitted tables. Both data rows and all 20 code rows pass
+for the AF94 constructor, AC26 derived destructor and ABD6 method units.
+
+The wider check includes those three units plus AF4BCtor, AB97Flag,
+AB35Method, AC26Constructor and LivingWorldTutorial. ACDF's AF4B constructor
+still imports the former primary and secondary names until both references
+are updated. Updating those and compiling AC26Constructor against the same
+trial interface raises the link preview from 6/8 to 7/8 at census 60189f9ced.
+AC26Constructor still loses 352 bytes. Its two reported conflicts are
+??_7Rva0056AC26Base2@@6B@ and ??_7Rva0056AC26@@6BRva0056AC26Base2@@@.
+Other objects still emit the original shared base interface. The trial has
+no production-wide shared contract migration and does not validate sibling
+slot ordering. In particular, check ACC5 primary slot 2 against 0x0056AB35
+before landing canonical inheritance in the shared destructor unit.
+Restoring production inputs returns 8/8 and 2286/2286 bytes; the five source
+units edited by the experiment then verify all 51 code rows and both data rows.

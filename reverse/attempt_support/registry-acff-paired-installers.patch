@@ -1,0 +1,287 @@
+diff --git a/Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp b/Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp
+index c09507f20a..84b4893bc2 100644
+--- a/Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp
++++ b/Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp
+@@ -3 +3 @@
+-// ?rva0056ABD6@Rva0056ABD6@@QAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,
++// ?slot4@Rva0056ACFF@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,
+@@ -37,5 +37 @@ extern LivingWorldLogic *TheLivingWorldLogic;
+-class Rva0056ABD6
+-{
+-public:
+-	bool rva0056ABD6(LivingWorldArmy *army, Rva00318C32Ret *target);
+-};
++#include "../../../../build/acff-slot-trial/acff.h"
+@@ -43 +39 @@ public:
+-bool Rva0056ABD6::rva0056ABD6(LivingWorldArmy *army, Rva00318C32Ret *target)
++bool Rva0056ACFF::slot4(LivingWorldArmy *army, Rva00318C32Ret *target)
+diff --git a/Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp b/Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp
+index dc355cd8ac..e547a6d130 100644
+--- a/Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp
++++ b/Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp
+@@ -29 +29 @@ private:
+-#include "../../Include/Common/Rva0056AC26Base2.h"
++#include "../../../../build/acff-slot-trial/Rva0056AC26Base2.h"
+diff --git a/Code/GameEngine/Source/Common/Rva0056AC26Derived.cpp b/Code/GameEngine/Source/Common/Rva0056AC26Derived.cpp
+index 2670061849..ba0226bc85 100644
+--- a/Code/GameEngine/Source/Common/Rva0056AC26Derived.cpp
++++ b/Code/GameEngine/Source/Common/Rva0056AC26Derived.cpp
+@@ -14,15 +14 @@
+-class Rva0056AC26
+-{
+-public:
+-	virtual ~Rva0056AC26();
+-	virtual bool ac26Slot1();	// slot 1 (overridden by Rva0056ACFF below)
+-
+-private:
+-	char m_pad04[4];
+-};
+-
+-class __declspec(novtable) Rva0056AC82_B1
+-{
+-public:
+-	virtual ~Rva0056AC82_B1() {}
+-};
++#include "../../../../build/acff-slot-trial/acff.h"
+@@ -30 +16 @@ public:
+-class Rva0056AC82 : public Rva0056AC26, public Rva0056AC82_B1
++class Rva0056AC82 : public Rva0056AC26
+@@ -41,5 +26,0 @@ Rva0056AC82::~Rva0056AC82()
+-class __declspec(novtable) Rva0056ACC5_B1
+-{
+-public:
+-	virtual ~Rva0056ACC5_B1() {}
+-};
+@@ -47 +28 @@ public:
+-class Rva0056ACC5 : public Rva0056AC26, public Rva0056ACC5_B1
++class Rva0056ACC5 : public Rva0056AC26
+@@ -59,5 +39,0 @@ Rva0056ACC5::~Rva0056ACC5()
+-class __declspec(novtable) Rva0056ACDF_B1
+-{
+-public:
+-	virtual ~Rva0056ACDF_B1() {}
+-};
+@@ -65 +41 @@ public:
+-class Rva0056ACDF : public Rva0056AC26, public Rva0056ACDF_B1
++class Rva0056ACDF : public Rva0056AC26
+@@ -78,6 +53,0 @@ struct Rva002B4BC9Arg;
+-class __declspec(novtable) Rva0056ACFF_B1
+-{
+-public:
+-	virtual ~Rva0056ACFF_B1() {}
+-	virtual bool b1Slot1(Rva002B4BC9Arg *arg) = 0;	// slot 1
+-};
+@@ -85,7 +54,0 @@ public:
+-class Rva0056ACFF : public Rva0056AC26, public Rva0056ACFF_B1
+-{
+-public:
+-	virtual ~Rva0056ACFF();
+-	virtual bool ac26Slot1();
+-	virtual bool b1Slot1(Rva002B4BC9Arg *arg);
+-};
+@@ -97,5 +59,0 @@ Rva0056ACFF::~Rva0056ACFF()
+-class __declspec(novtable) Rva0056AE4A_B1
+-{
+-public:
+-	virtual ~Rva0056AE4A_B1() {}
+-};
+@@ -103 +61 @@ public:
+-class Rva0056AE4A : public Rva0056AC26, public Rva0056AE4A_B1
++class Rva0056AE4A : public Rva0056AC26
+@@ -143,4 +100,0 @@ bool Rva0056ACFF::b1Slot1(Rva002B4BC9Arg *arg)
+-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+-// holds a rowed function; the vftable's address is proven by the vptr stores in
+-// the matched destructors, so bind the placeholder to that row's name.
+-#pragma comment(linker, "/alternatename:?ac26Slot1@Rva0056AC26@@UAE_NXZ=?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")
+diff --git a/Code/GameEngine/Source/Common/Rva0056AF4BCtor.cpp b/Code/GameEngine/Source/Common/Rva0056AF4BCtor.cpp
+index 2e74fc7b7a..ec1761b853 100644
+--- a/Code/GameEngine/Source/Common/Rva0056AF4BCtor.cpp
++++ b/Code/GameEngine/Source/Common/Rva0056AF4BCtor.cpp
+@@ -14,2 +14,2 @@ class Rva0056AC26Owner;
+-extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056AC26@@@")[];
+-extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056ACDF_B1@@@")[];
++extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0007DF07@@@")[];
++extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056AC26Base2@@@")[];
+@@ -28,2 +28,2 @@ Rva0056AF4B::Rva0056AF4B(void *arg1, int arg2, int arg3)
+-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0056AC26@@@"));
+-	*(unsigned int *)((char *)this + 8) = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0056ACDF_B1@@@"));
++	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0007DF07@@@"));
++	*(unsigned int *)((char *)this + 8) = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0056AC26Base2@@@"));
+diff --git a/Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp b/Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp
+index b0b458de20..e712f00c06 100644
+--- a/Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp
++++ b/Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp
+@@ -2,58 +2 @@
+-//
+-// ??0Rva0056ACFF@@QAE@PAX@Z @0x0056AF94 31B.
+-// Constructor: run the pinned EH 0x0056AD80 initializer, then install the
+-// 0x00C6D19C vftable at +0 and the 0x00C6D160 vftable at +8. Honest
+-// address-derived name.
+-class Rva0056AC26Owner;
+-#include "../../Include/Common/Rva0056AC26.h"
+-
+-// The retail table at RVA 0x0086D19C: 5 slots, each a rowed code owner (the next
+-// word is not a code address or starts another ledger datum).
+-extern "C" {
+-void __identifier("??_GRva0056ACFF@@UAEPAXI@Z")();
+-void __identifier("?ac26Slot1@Rva0056ACFF@@UAE_NXZ")();
+-void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
+-void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
+-}
+-extern "C" const void *const vtbl_00C6D19C[5] = {
+-	(const void *)&__identifier("??_GRva0056ACFF@@UAEPAXI@Z"), // slot 0 0x0056AFB3
+-	(const void *)&__identifier("?ac26Slot1@Rva0056ACFF@@UAE_NXZ"), // slot 1 0x0056ABC0
+-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 2 0x0047A69C
+-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 3 0x000B3FD0
+-	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 4 0x000B3FD0
+-};
+-// The retail table at RVA 0x0086D160: 15 slots, each a rowed code owner (the next
+-// word is not a code address or starts another ledger datum).
+-extern "C" {
+-void __identifier("??_ERva0056ACFF@@W7AEPAXI@Z")();
+-void __identifier("?b1Slot1@Rva0056ACFF@@UAE_NPAURva002B4BC9Arg@@@Z")();
+-void __identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")();
+-void __identifier("?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z")();
+-void __identifier("?rva0056ABD6@Rva0056ABD6@@QAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z")();
+-void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
+-void __identifier("?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z")();
+-}
+-extern "C" const void *const vtbl_00C6D160[15] = {
+-	(const void *)&__identifier("??_ERva0056ACFF@@W7AEPAXI@Z"), // slot 0 0x0056AD11
+-	(const void *)&__identifier("?b1Slot1@Rva0056ACFF@@UAE_NPAURva002B4BC9Arg@@@Z"), // slot 1 0x0056ABCB
+-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 2 0x005CB9FF
+-	(const void *)&__identifier("?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z"), // slot 3 0x0050B5F1
+-	(const void *)&__identifier("?rva0056ABD6@Rva0056ABD6@@QAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z"), // slot 4 0x0056ABD6
+-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 5 0x005CB9FF
+-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 6 0x005CB9FF
+-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 7 0x005CB9FF
+-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 8 0x005CB9FF
+-	(const void *)&__identifier("?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z"), // slot 9 0x0050B5F1
+-	(const void *)&__identifier("?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z"), // slot 10 0x0050B5F1
+-	(const void *)&__identifier("?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z"), // slot 11 0x0050B5F1
+-	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // slot 12 0x005CB9FF
+-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 13 0x0047A699
+-	(const void *)&__identifier("?Remove_Sub_Object@RenderObjClass@@UAEHPAV1@@Z"), // slot 14 0x005DAA6C
+-};
+-
+-class Rva0056ACFF
+-{
+-public:
+-	Rva0056ACFF(void *owner);
+-};
+-
++#include "../../../../build/acff-slot-trial/acff.h"
+@@ -60,0 +4 @@ Rva0056ACFF::Rva0056ACFF(void *owner)
++    : Rva0056AC26(static_cast<Rva0056AC26Owner *>(owner))
+@@ -62,3 +5,0 @@ Rva0056ACFF::Rva0056ACFF(void *owner)
+-	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)owner);
+-	*(unsigned int *)this = ((unsigned int)vtbl_00C6D19C);
+-	*(unsigned int *)((char *)this + 8) = ((unsigned int)vtbl_00C6D160);
+@@ -66 +6,0 @@ Rva0056ACFF::Rva0056ACFF(void *owner)
+-
+diff --git a/reverse/data_rows.csv b/reverse/data_rows.csv
+index a19f7a7fc4..8af948d302 100644
+--- a/reverse/data_rows.csv
++++ b/reverse/data_rows.csv
+@@ -663,2 +663,2 @@ _vtbl_00C6D23C,0x0086D23C,rva,20,.rdata,Code/GameEngine/Source/Common/Rva0056ADF
+-_vtbl_00C6D160,0x0086D160,rva,60,.rdata,Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp,matched,"15-slot table this unit installs as its vptr; every slot points at a rowed code owner and the table ends where the next word is not a code address or another ledger datum starts.",claude-opus-5-5
+-_vtbl_00C6D19C,0x0086D19C,rva,20,.rdata,Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp,matched,"5-slot table this unit installs as its vptr; every slot points at a rowed code owner and the table ends where the next word is not a code address or another ledger datum starts.",claude-opus-5-5
++??_7Rva0056ACFF@@6BRva0056AC26Base2@@@,0x0086D160,rva,60,.rdata,Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp,matched,"15-slot table this unit installs as its vptr; every slot points at a rowed code owner and the table ends where the next word is not a code address or another ledger datum starts.",claude-opus-5-5
++??_7Rva0056ACFF@@6BRva0007DF07@@@,0x0086D19C,rva,20,.rdata,Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp,matched,"5-slot table this unit installs as its vptr; every slot points at a rowed code owner and the table ends where the next word is not a code address or another ledger datum starts.",claude-opus-5-5
+diff --git a/reverse/deleted_rows.csv b/reverse/deleted_rows.csv
+index d95987b157..459e653bb8 100644
+--- a/reverse/deleted_rows.csv
++++ b/reverse/deleted_rows.csv
+@@ -6113,0 +6114 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
++?rva0056ABD6@Rva0056ABD6@@QAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,0x0056ABD6,"Renamed to ?slot4@Rva0056ACFF@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z by tools/rename.py (to-class: retail vftable 0x00C6D160 slot 4)"
+diff --git a/reverse/functions.csv b/reverse/functions.csv
+index b205e4740d..73584076ea 100644
+--- a/reverse/functions.csv
++++ b/reverse/functions.csv
+@@ -55585 +55585 @@ _Wmt_idct1,,0x001D89C0,98,Code/Libraries/Source/VP6/Idct1Wmt.cpp,matched,Clean-r
+-?rva0056ABD6@Rva0056ABD6@@QAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,,0x0056ABD6,80,Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp,matched,slot 4 of the Rva0056ACFF_B1 table: living-world logic 0x002B4BC9 gate then region manager ValidateArmyRegionEntry from the army region into the target accepting 0 and 1
++?slot4@Rva0056ACFF@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,,0x0056ABD6,80,Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp,matched,slot 4 of the Rva0056ACFF_B1 table: living-world logic 0x002B4BC9 gate then region manager ValidateArmyRegionEntry from the army region into the target accepting 0 and 1
+diff --git a/build/acff-slot-trial/acff.h b/build/acff-slot-trial/acff.h
+new file mode 100644
+--- /dev/null
++++ b/build/acff-slot-trial/acff.h
+@@ -0,0 +1,10 @@
++#include "Rva0056AC26.h"
++class Rva0056ACFF : public Rva0056AC26
++{
++public:
++    Rva0056ACFF(void *owner);
++    virtual ~Rva0056ACFF();
++    virtual bool ac26Slot1();
++    virtual bool b1Slot1(Rva002B4BC9Arg *);
++    virtual bool slot4(LivingWorldArmy *, Rva00318C32Ret *);
++};
+diff --git a/build/acff-slot-trial/Rva0056AC26.h b/build/acff-slot-trial/Rva0056AC26.h
+new file mode 100644
+--- /dev/null
++++ b/build/acff-slot-trial/Rva0056AC26.h
+@@ -0,0 +1,28 @@
++// Target facts (addresses are RVAs): constructor 0x0056AD80 (85 bytes) and destructor 0x0056AC26 (84 bytes) install tables 0x0086D058 at +0 and 0x0086D01C at +8. Destructor 0x0056AC26 restores registered Rva0056AC26Base2's table 0x00837298 at +8 and registered Rva0007DF07's table 0x007C6F20 at +0; 0x0007DF07 zeros that base's word +4, as does 0x0056AD8E. The registered parents supply the eight-byte and four-byte base subobjects.
++// Target facts: 0x0056ADA4 passes +0x0C as the UnicodeString result of 0x003F855D; 0x0056AC54 passes it to releaseBuffer at 0x00036E70. 0x0056ADC3 stores the owner pointer at +0x10, which 0x0056AC44 loads for 0x003F88A7. The accessed extent is 0x14; derived constructor 0x0056B3F5 places its next polymorphic base at +0x14 (0x0056B412), bounding this base at 20 bytes. No standalone allocation of this abstract class proves its size.
++// Target facts: primary table 0x0086D058 has five slots before the secondary table at 0x0086D06C: deleting destructor 0x0056ADD5, purecall 0x0003B810, RET4 stub 0x0047A69C, and RET stubs 0x000B3FD0 twice. Derived primary table 0x0086D19C has the rowed bool ac26Slot1() at 0x0056ABC0 in slot 1. Secondary table 0x0086D01C has 15 slots before 0x0086D058: slot 0 is 0x0056AC7A (this minus 8, then 0x0056ADD5); slots 1..14 equal registered parent table 0x00837298. Slot argument words and the field labels below assert no original names or semantic types.
++#ifndef CANONICAL_RVA0056AC26_H
++#define CANONICAL_RVA0056AC26_H
++
++#include "../../Code/GameEngine/Include/Common/Rva0007DF07.h"
++#include "Rva0056AC26Base2.h"
++#include "../../reference/shims/bfme2_ascii/unicode_string.h"
++
++class Rva0056AC26Owner;
++
++class Rva0056AC26 : public Rva0007DF07, public Rva0056AC26Base2
++{
++public:
++    Rva0056AC26(Rva0056AC26Owner *owner);
++    virtual ~Rva0056AC26();
++    virtual bool ac26Slot1() = 0;
++    virtual void vslot02(int) {}
++    virtual void vslot03() {}
++    virtual void vslot04() {}
++
++private:
++    UnicodeString m_0C;
++    Rva0056AC26Owner *m_10;
++};
++
++#endif
+diff --git a/build/acff-slot-trial/Rva0056AC26Base2.h b/build/acff-slot-trial/Rva0056AC26Base2.h
+new file mode 100644
+--- /dev/null
++++ b/build/acff-slot-trial/Rva0056AC26Base2.h
+@@ -0,0 +1,31 @@
++// Rva0056AC26Base2: canonical layout, generated by tools/header_adopt_lane.py from
++// reverse/class_contracts/Rva0056AC26Base2.json (variant data+methods). Edit the contract, not this file.
++// sizeof 4 (majority); class-key class (majority).
++#ifndef CANONICAL_RVA0056AC26BASE2_H
++#define CANONICAL_RVA0056AC26BASE2_H
++
++struct Rva002B4BC9Arg;
++struct LivingWorldArmy;
++class Rva00318C32Ret;
++class Rva0056AC26Base2 {
++public:
++    // Native C37298 slot0 is deleting destructor3F7BCC. Keep this
++    // declaration first; the generator appends special members last.
++    virtual ~Rva0056AC26Base2() {}
++    virtual bool b1Slot1(Rva002B4BC9Arg *) { return false; }
++    virtual bool slot2(int) { return false; }
++    virtual bool slot3(int, int) { return false; }
++    virtual bool slot4(LivingWorldArmy *, Rva00318C32Ret *) { return false; }
++    virtual bool slot5(int) { return false; }
++    virtual bool slot6(int) { return false; }
++    virtual bool slot7(int) { return false; }
++    virtual bool slot8(int) { return false; }
++    virtual bool slot9(int, int) { return false; }
++    virtual bool slot10(int, int) { return false; }
++    virtual bool slot11(int, int) { return false; }
++    virtual bool slot12(int) { return false; }
++    virtual bool slot13() { return false; }
++    virtual int slot14(int) { return 0; }
++};
++
++#endif // CANONICAL_RVA0056AC26BASE2_H

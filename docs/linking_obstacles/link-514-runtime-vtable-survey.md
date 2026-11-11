@@ -2553,3 +2553,10 @@ slot 4 to-class dry run rejects the old two-slot destructor table even
 with the complete constructor table present. See the reproduction in
 `reverse/attempt_support/registry-acff-slot-contract.md`. The production
 tables remain in place.
+
+ACFF paired installer trial. Both compiler-emitted tables now pass the data
+verifier with the typed slot 4 provider and the existing b1Slot1 symbol.
+The eight-unit link preview still loses 352 bytes in AC26Constructor due
+to two shared base table definitions. Restoring production inputs returns
+all 2,286 bytes. The reproducer and affected table names are in
+`reverse/attempt_support/registry-acff-slot-contract.md`.
