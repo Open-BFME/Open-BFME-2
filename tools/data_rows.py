@@ -1202,6 +1202,7 @@ def admit_agreed(record_id, symbol, model):
         raise rename.Refusal('model is required')
     row = dict(name=symbol, address=request['rva'], address_kind='rva', size=request['size'],
                section=section, source=source, status='matched', evidence=evidence, model=model)
+    existing = load()           # the unrowed Resolver below reads these rows
     raw = with_row(lane.ctx.read(rename.DATA_ROWS), row)
     problems = []
     tracked = set(lane.git('ls-files', '--', 'Code').splitlines())
