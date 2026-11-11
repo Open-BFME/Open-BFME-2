@@ -76,12 +76,7 @@ class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 // The trigger's entered/exited notifications, rowed under an address-named view.
-class Rva002E3766Holder
-{
-public:
-	void notifyObjectExited(Int obj);	// 0x002E3794
-	void notifyObjectEntered(Int obj);	// 0x002E3777
-};
+#include "../../../Include/GameLogic/Module/Rva002E3766Holder.h"
 
 #include "../../../Include/GameLogic/PolygonTrigger.h"
 

@@ -307,7 +307,7 @@ public:
     virtual void addBoundaryPoint(const Coord2D *);
 };
 
-class Rva002E3766Holder { public: void set(int, int); };
+#include "../../../../Include/GameLogic/Module/Rva002E3766Holder.h"
 
 struct WallBoundaryPoint : Coord2D {
     WallBoundaryPoint &set(float a, float b) { x=a; y=b; return *this; }

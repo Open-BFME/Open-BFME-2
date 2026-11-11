@@ -30,7 +30,7 @@ class PolygonTrigger:public virtual Rva00330C50Interface {public:
 };
 typedef char PolygonExtent[sizeof(PolygonTrigger)==100?1:-1];
 class PolygonPointCalls {public:virtual void slot0();virtual void addBoundaryPoint(const Vector2 &);};
-class Rva002E3766Holder {public:void set(int,int);};
+#include "../../../../Include/GameLogic/Module/Rva002E3766Holder.h"
 extern int Rva00A03D80;
 enum Relationship { RELATION_0,RELATION_1,RELATION_2 };
 class Player;

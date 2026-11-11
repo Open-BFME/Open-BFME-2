@@ -684,7 +684,7 @@ typedef char PolygonTriggerExtentCheck[sizeof(PolygonTrigger)==100?1:-1];
 // view preserves the measured primary-vtable ABI without asserting field types.
 // Typed pointer-vector push_back requires independent recursive ICF proof.
 void Rva00372BA0ConditionalDispatcher(void*,void*,bool);
-class Rva002E3766Holder { public: void set(int,int); };
+#include "../../../Include/GameLogic/Module/Rva002E3766Holder.h"
 class Rva00395E19 { public: void rva00395E19(AsciiString*,int); };
 class CastlePolygonTransformCallView {
 public:
