@@ -86,11 +86,7 @@ public:
 
 class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
 
-class BfmeObjectDlinkBase
-{
-public:
-	Object *dlink_next_TeamMemberList() const;
-};
+#include "../../../Include/Common/BfmeObjectDlinkBase.h"
 
 class BfmeObjectDlinkPad
 {

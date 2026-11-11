@@ -271,11 +271,7 @@ public:
 
 class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
 
-class BfmeObjectDlinkBase
-{
-public:
-	Object *dlink_next_TeamMemberList() const;
-};
+#include "../../../Include/Common/BfmeObjectDlinkBase.h"
 
 class BfmeObjectDlinkPad { public: unsigned char m_pad[0x64]; };
 

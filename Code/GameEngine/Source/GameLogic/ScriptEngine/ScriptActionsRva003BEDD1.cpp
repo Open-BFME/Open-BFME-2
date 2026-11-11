@@ -8,7 +8,7 @@ class Object;
 class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
-class BfmeObjectDlinkBase { public: Object *dlink_next_TeamMemberList() const; };
+#include "../../../Include/Common/BfmeObjectDlinkBase.h"
 class BfmeObjectDlinkPad { public: unsigned char m_pad[0x64]; };
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase, public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier { public: unsigned char m_tail[0x40]; };
 template<class OBJCLASS> class DLINK_ITERATOR
