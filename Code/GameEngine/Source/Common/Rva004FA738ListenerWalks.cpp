@@ -333,16 +333,7 @@ public:
 };
 class GameMessage;
 struct Rva0042C083Param;
-class Rva0042C0DBDelegate
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual int slot2(GameMessage *);
-	virtual int slot3(const Rva0042C083Param *, int);
-	__declspec(noinline) int invokeMessage(GameMessage *);
-	__declspec(noinline) int invokePoint(const Rva0042C083Param *, int);
-};
+#include "../../Include/Common/Rva0042C0DBDelegate.h"
 
 void Rva004FA992Owner::rva004FA9B1(int index)
 {

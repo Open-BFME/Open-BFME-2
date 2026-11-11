@@ -41,7 +41,7 @@ public:
 // The native Open call reaches the shared slot-2 thunk. Its rowed delegate
 // spelling is used with this call site's independently established ABI.
 class GameMessage;
-class Rva0042C0DBDelegate { public: int invokeMessage(GameMessage *); };
+#include "../../Include/Common/Rva0042C0DBDelegate.h"
 class InGameUIPrimaryView
 {
 public:

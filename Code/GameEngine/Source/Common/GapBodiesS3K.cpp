@@ -83,11 +83,7 @@ void W3DFloorDraw::updateRecordMatch(const Rva000CF0D6 *what, int, int)
 class Rva0042C0DBDelegate;
 class GameMessage;
 
-class Rva0042C0DBDelegate
-{
-public:
-	int invokeMessage(GameMessage *msg);					// 0x005CC208
-};
+#include "../../Include/Common/Rva0042C0DBDelegate.h"
 
 class Rva002D5333
 {

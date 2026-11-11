@@ -11,7 +11,7 @@ public:
 };
 
 class GameMessage;
-class Rva0042C0DBDelegate { public: int invokeMessage(GameMessage *); };
+#include "../../../Include/Common/Rva0042C0DBDelegate.h"
 
 class Rva00527827
 {
