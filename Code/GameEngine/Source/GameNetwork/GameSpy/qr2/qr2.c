@@ -1,4 +1,4 @@
-// cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/qr2 /DNDEBUG
+// cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/qr2 /DNDEBUG /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy
 /* GameSpy SDK, ~2005 snapshot (BFME 2) -- upstream C source PLUS a reconstruction of
    the deltas between the carrier's text and retail's snapshot, inferred from
    retail's bytes -- most of them upstream's own later text, not EA's.  Not

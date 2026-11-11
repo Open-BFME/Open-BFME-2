@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/peer
+// cl: /DNDEBUG /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/peer /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy
 /* BFME2 placement: callbackFuncs[] is independently located at RVA
    0x008E5DD0 (VA 0x00CE5DD0). All 34 typed records and the type-34 null
    terminator match; all 102 callback targets reproduce their complete source

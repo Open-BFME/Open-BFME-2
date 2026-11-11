@@ -1,4 +1,4 @@
-// cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/gstats /DNDEBUG
+// cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/gstats /DNDEBUG /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy
 /* GameSpy SDK, ~2005 snapshot (BFME 2) -- upstream C source with the retail CRT comparison spelling.
    Carrier: the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
