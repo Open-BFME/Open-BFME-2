@@ -205,11 +205,7 @@ void ArmySummaryEntry::ApplyWorldMapUpgrades() {
 // copy is the rowed BfmeFixedStorage128 copy constructor 0x0004548B, the AND/AND-NOT loops
 // are rowed Rva0040C598 0x0040C598/0x0040C5B1. The purpose and class name are inferred.
 #include "../../Include/Common/BfmeFixedStorage128.h"
-class Rva0040C804Target
-{
-public:
-	bool check();
-};
+#include "../../Include/Common/Rva0040C804Target.h"
 static inline bool anyBitSet(const BfmeFixedStorage128 &bits)
 {
 	for (unsigned i = 0; i < 32; ++i)

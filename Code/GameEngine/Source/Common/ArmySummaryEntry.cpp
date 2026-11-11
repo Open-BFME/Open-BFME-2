@@ -99,11 +99,7 @@ extern class ExperienceLevelSystem *TheExperienceLevelSystem;
 // are rowed Rva0040C598 0x0040C598/0x0040C5B1. The purpose and class name are inferred.
 #include "../../Include/Common/BfmeFixedStorage128.h"
 
-class Rva0040C804Target
-{
-public:
-	bool check();
-};
+#include "../../Include/Common/Rva0040C804Target.h"
 
 // Retail 0x0040C495 (54 bytes; WB twin 0x010920D0, callgraph), called once per
 // unit by ArmySummary::LoadArmyEntry (0x0040E534): the base CarryoverUnit

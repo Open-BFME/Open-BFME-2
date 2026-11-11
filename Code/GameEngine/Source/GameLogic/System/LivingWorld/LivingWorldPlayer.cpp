@@ -320,7 +320,7 @@ class Rva00318C32Ret;
 
 class Rva002E2504 {public:bool rva002E2504(Rva00318C32Ret*,_STL::vector<const ModuleData*>*);};
 
-class Rva0040C804Target {public:bool check();};
+#include "../../../../Include/Common/Rva0040C804Target.h"
 
 #include "../../../../Include/GameLogic/Rva004E0632.h"
 
