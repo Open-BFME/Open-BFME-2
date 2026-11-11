@@ -655,12 +655,7 @@ public:
 };
 
 // The two tail callees are rowed as Rva000E6FC8's rva000EA1F3 (0x000EA1F3) and rva000E6FC8 (0x000E6FC8).
-class Rva000E6FC8
-{
-public:
-	void rva000EA1F3();
-	void rva000E6FC8();
-};
+#include "../../../../GameEngine/Include/Common/Rva000E6FC8.h"
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 

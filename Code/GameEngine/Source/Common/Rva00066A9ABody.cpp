@@ -18,12 +18,7 @@ public:
 
 // The two tail callees are rowed as Rva000E6FC8's rva000EA1F3 (0x000EA1F3)
 // and rva000E6FC8 (0x000E6FC8).
-class Rva000E6FC8
-{
-public:
-	void rva000EA1F3();
-	void rva000E6FC8();
-};
+#include "../../Include/Common/Rva000E6FC8.h"
 
 // GeneralsMD's W3DShaderManager (W3DShaderManager.h); retail 0x00077F80 is
 // its static init (the W3DDisplay::init callee pinned at 0x00046F3B), which

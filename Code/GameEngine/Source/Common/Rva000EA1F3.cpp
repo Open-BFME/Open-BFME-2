@@ -6,12 +6,7 @@
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 
-class Rva000E6FC8
-{
-public:
-	void rva000E6D94(int value);
-	void rva000EA1F3();
-};
+#include "../../Include/Common/Rva000E6FC8.h"
 // The allocator 0x000E6D94 is rowed with an int argument
 // (Rva000E6D94AllocateBuffers.cpp).
 #include "../../Include/Common/Rva000EC9C6.h"
