@@ -657,11 +657,7 @@ extern const FieldParse g_rva005C47A8FieldParse[];
 // 0x00576FFE (table VA 0x00C6E8F0): the dword the rowed getter 0x0042D697
 // reads through the object the rowed getter 0x00328A83 (alias-pinned with
 // its pointer result) reaches from the +0x08 object's +0x04 member.
-class Rva0042D697PtrChaseField
-{
-public:
-	Int get() const;
-};
+#include "../../Include/Common/Rva0042D697PtrChaseField.h"
 
 class Rva00328A83
 {

@@ -130,11 +130,7 @@ void Rva0057557F::rva00575643(void *a, void *b)
 // chasing +0x0C -> +0x04 through the rowed 0x00328A83 and 0x0042D697 getters.
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
-class Rva0042D697PtrChaseField
-{
-public:
-	int get() const;										// 0x0042D697
-};
+#include "../../Include/Common/Rva0042D697PtrChaseField.h"
 
 struct Rva0057556DHolder
 {

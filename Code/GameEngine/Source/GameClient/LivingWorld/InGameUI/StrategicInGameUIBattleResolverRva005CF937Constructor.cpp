@@ -13,7 +13,7 @@
 // direct virtual-forwarding body; WB labels this ChecklistUI::FadeOut.
 // Original state/class names and unused virtual prototypes remain unknown.
 class Rva0057C394;class LivingWorldBattle;
-class Rva0042D697PtrChaseField{public:int get()const;};
+#include "../../../../Include/Common/Rva0042D697PtrChaseField.h"
 class Rva005CC208{public:virtual void rva005CC208();};
 struct Rva005CF937Owner{char pad[12];void*ui;char pad10[4];LivingWorldBattle*battle;};
 class Rva005CF872 {public:Rva005CF872(Rva005CF937Owner*o):owner(o){}virtual~Rva005CF872(){}virtual void Update(){}Rva005CF937Owner*owner;};
