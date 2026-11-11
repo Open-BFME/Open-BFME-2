@@ -135,11 +135,7 @@ Rva0053947D::Rva0053947D(EmitVtableTag *)
 // releases the ref at +0x40 and the pointer array at +0x2c. Its exact body is
 // blocked separately; the call site and its 59-byte boundary establish the
 // callee address, not the helper's identity.
-class Rva0052B23D
-{
-public:
-	void rva0052B23D();
-};
+#include "../../Include/Common/Rva0052B23D.h"
 
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);

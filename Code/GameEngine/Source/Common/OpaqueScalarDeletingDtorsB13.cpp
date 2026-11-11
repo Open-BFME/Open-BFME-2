@@ -400,7 +400,7 @@ public:
 private:
     char m_unmodelled04[16];
 };
-class Rva0052B23D { public: void rva0052B23D(); };
+#include "../../Include/Common/Rva0052B23D.h"
 
 // No tag constructor: the rowed destructor below stores this vptr, so the
 // unit emits the vftable and its deleting destructor without inlining the

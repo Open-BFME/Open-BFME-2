@@ -491,7 +491,7 @@ public:
     virtual int v13(); virtual void v14(); virtual void *v15(int);
     char unmodelled04[0x10];
 };
-class Rva0052B23D { public: void rva0052B23D(); };
+#include "../../Include/Common/Rva0052B23D.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct Rva003FE58ABuffer
