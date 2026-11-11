@@ -16,7 +16,7 @@ struct AptInputInst {char unknown00[0x10];AptNativeHash *hash;};
 #include "AptCIHClass.h"
 static __forceinline EAStringC *cihName(AptCIH *cih){return &cih->field08;}
 struct Rva006E3710Node;
-class Rva006E3710 {public:bool rva006E3710(Rva006E3710Node*);};
+#include "Rva006E3710.h"
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);

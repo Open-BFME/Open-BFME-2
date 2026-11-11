@@ -63,11 +63,7 @@ class AptValue;
 #include "AptActionQueueC.h"
 
 struct Rva006E3710Node;
-class Rva006E3710
-{
-public:
-	bool rva006E3710(Rva006E3710Node*);
-};
+#include "Rva006E3710.h"
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern AptValue *gpUndefinedValue;
