@@ -11,11 +11,7 @@ class Rva001E7053
 public:
 	void rva001e7053(unsigned int, unsigned int, float, float);
 };
-class Rva001E8C1B
-{
-public:
-	void rva001E8C1B(int a, int b, float c, float d);
-};
+#include "../../Include/GameLogic/Module/Rva001E8C1B.h"
 #include "../../Include/GameLogic/Module/Rva001E7C2B.h"
 class Rva001E9045
 {

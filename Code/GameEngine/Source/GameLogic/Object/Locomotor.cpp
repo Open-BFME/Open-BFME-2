@@ -270,10 +270,7 @@ struct Coord3D;
 
 class Object;
 
-class Rva001E8C1B {
-public:
-	void rva001E8C1B(int, int, float, float);
-};
+#include "../../../Include/GameLogic/Module/Rva001E8C1B.h"
 
 #include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 

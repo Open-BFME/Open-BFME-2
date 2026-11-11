@@ -1159,11 +1159,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 
-class Rva001E8C1B
-{
-public:
-	void rva001E8C1B(int obj, int goalPos, Real onPathDistToGoal, Real desiredSpeed);
-};
+#include "../../../Include/GameLogic/Module/Rva001E8C1B.h"
 
 class Rva001E7053
 {
