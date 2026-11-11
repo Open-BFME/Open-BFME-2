@@ -808,7 +808,7 @@ Code/GameEngine/Source/Common/DamageFX_mapEraseRange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DamageFX_pairConstruct.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Debug_recordCallsite.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DelayedLuaEventList.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/DestroyInstances.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/DestroyInstances.cpp,no,0,1,0,0,1
 Code/GameEngine/Source/Common/Dict.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DictPairClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DictRva00329CF0.cpp,yes,0,0,0,0,0
@@ -927,7 +927,7 @@ Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00205224.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022167C.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00221C15.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022CD2A.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022CFE6.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022CFE6.cpp,no,0,0,0,0,1
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022D214.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022D249.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva002544B5.cpp,yes,0,0,0,0,0
@@ -1052,7 +1052,7 @@ Code/GameEngine/Source/Common/FreeMemory.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FunctorBindCdeclInit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FunctorBindSingleInit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FunctorNotSetCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/FunctorRefInvoke005D388B.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/FunctorRefInvoke005D388B.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/GODupBase.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GadgetButtonSetAltSound.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GadgetListBoxSetListLength.cpp,yes,0,0,0,0,0
@@ -2478,10 +2478,7 @@ Code/GameEngine/Source/Common/Rva0020D583Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020D613Alloc.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020D638Insert.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020D98D.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0020DAE0.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0020DB91.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020DD50FieldSetter.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0020DFFBRegister.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020E3ADLevel.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020E449Add.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0020E449Scale.cpp,yes,0,0,0,0,0
@@ -2584,7 +2581,7 @@ Code/GameEngine/Source/Common/Rva0022CC67Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022CCB0Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022CD2ADtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022CD78Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0022CFE6Dtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva0022CFE6Dtor.cpp,no,0,1,0,0,1
 Code/GameEngine/Source/Common/Rva0022D01BDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D05FDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D094Dtor.cpp,yes,0,0,0,0,0
@@ -2593,7 +2590,7 @@ Code/GameEngine/Source/Common/Rva0022D214Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D249Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D27EDestroyThunks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D941Destroy.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0022D9B7Delete.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva0022D9B7Delete.cpp,no,0,0,0,0,1
 Code/GameEngine/Source/Common/Rva0022D9D3Destroy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022DB29Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022DB72Free.cpp,yes,0,0,0,0,0
@@ -9124,7 +9121,6 @@ Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp,yes,0,0
 Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit_Rva0020D86C.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva0056A83BParseAudioMap.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldCandidateRaySearch.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldLogicRemovePlayer.cpp,yes,0,0,0,0,0
@@ -9369,7 +9365,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorXf
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorModuleDataCtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorOnDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp,yes,0,0,0,0,0
@@ -9463,7 +9459,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstruc
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
@@ -10597,7 +10593,7 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp,ye
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerConstructorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp,yes,0,0,0,0,0
@@ -12546,7 +12542,7 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoR
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleChooseTargets.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleLeadership.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveCombatChainParse.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveLeadershipParse.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveLeadershipParse.cpp,no,0,0,0,0,1
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveResourceBonus.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveUnit.cpp,yes,0,0,0,0,0
@@ -12675,7 +12671,6 @@ Code/GameEngine/Source/GameLogic/System/RankInfo.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/RankInfoCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/RankInfoParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/System/Rva0020D7F9Family.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/Rva0023DC8EStringFlag.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/Rva002419AB.cpp,yes,0,0,0,0,0
@@ -13001,14 +12996,12 @@ Code/GameEngine/Source/GameNetwork/LANAPIGetMyName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/LANAPIOnNameChange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva00581641.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva005816E3.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva00582EB0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_OnAccept.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/LANAPI_OnPlayerJoin.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_handleGameOptions.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_handleGameStartTimer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_handleSetAccept.cpp,yes,0,0,0,0,0
