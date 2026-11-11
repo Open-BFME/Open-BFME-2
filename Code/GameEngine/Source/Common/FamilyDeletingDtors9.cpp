@@ -65,7 +65,7 @@ class Rva005282BA { public: ~Rva005282BA(); };
 void famgenDelete(Rva005282BA *sideCommandBarImpl) { delete sideCommandBarImpl; }
 
 // ??_GRva005D32D4@@QAEPAXI@Z @0x0057854E 28B: calls pinned ~Rva005D32D4 0x005D32D4
-class Rva005D32D4 { public: ~Rva005D32D4(); };
+#include "../../Include/Common/Rva005D32D4.h"
 void famgenDelete(Rva005D32D4 *regionStatsTray) { delete regionStatsTray; }
 
 // ??_GRva005D3C2B@@QAEPAXI@Z @0x00578586 28B: calls pinned ~Rva005D3C2B 0x005D3C2B

@@ -543,12 +543,7 @@ void Rva0052A76C::clear()
 	}
 }
 
-class Rva005D32D4
-{
-public:
-	// Retail calls this destructor thunk rather than its inlined clear helper.
-	__declspec(noinline) ~Rva005D32D4();
-};
+#include "../../Include/Common/Rva005D32D4.h"
 
 class Rva005786CD
 {

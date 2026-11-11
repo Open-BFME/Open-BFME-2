@@ -1,11 +1,7 @@
 // cl: /MD
 // ?rva005786AA@Rva005786AA@@QAEXPAVRva005D32D4@@@Z @0x005786AA 35B: setter with same-pointer early-out then explicit dtor plus global operator delete on old.
 // Evidence: callees pinned 0x005D32D4 ??1Rva005D32D4@@QAE@XZ and rowed 0x0002FD60 ??3@YAXPAX@Z; caller 0x00578803; same 35B shape as Rva0057866DSet precedent.
-class Rva005D32D4
-{
-public:
-	~Rva005D32D4();
-};
+#include "../../Include/Common/Rva005D32D4.h"
 
 #include <new>
 
