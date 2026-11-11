@@ -71,11 +71,7 @@ template <> __declspec(dllimport) __forceinline VectorClass<StringClass>::~Vecto
 extern bool Render_Obj_Exists(const char *name);
 extern int readLittleEndian0013A070(const unsigned char *bytes, int count);
 
-class Rva0050CBA2
-{
-public:
-	bool rva0050C9EF(Rva0013A820 *record, int unused);
-};
+#include "../../Include/Common/Rva0050CBA2.h"
 
 bool Rva0050CBA2::rva0050C9EF(Rva0013A820 *record, int unused)
 {

@@ -85,14 +85,7 @@ public:
     void rva0050C395(Rva0050C2E6 &other);
 };
 
-class Rva0050CBA2
-{
-public:
-    bool rva0050C91D(Rva0013A820 *record, ModuleInfo *modules,
-                     const void *thing, Rva000B4A9F *draw, int index);
-    bool rva0050C9EF(Rva0013A820 *record, int index);
-    bool rva0050CBA2(void *filename);
-};
+#include "../../Include/Common/Rva0050CBA2.h"
 
 bool Rva0050CBA2::rva0050C91D(Rva0013A820 *record, ModuleInfo *modules,
                               const void *thing, Rva000B4A9F *draw, int index)

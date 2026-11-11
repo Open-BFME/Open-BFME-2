@@ -66,14 +66,7 @@ extern const char *const BfmeThingClassNames[];
 
 // The rowed memberwise record copiers (Rva0050C2E6Copy.cpp): 0x0050C2E6
 // copies the argument into the receiver, 0x0050C395 the receiver into it.
-class Rva0050CBA2
-{
-public:
-    bool rva0050C91D(Rva0013A820 *record, ModuleInfo *modules,
-                     const void *thing, Rva000B4A9F *draw, int index);
-    bool rva0050C9EF(Rva0013A820 *record, int index);
-    bool rva0050CBA2(void *filename);
-};
+#include "../../Include/Common/Rva0050CBA2.h"
 
 // The stats writer's views. A thing template keeps its draw-module info at
 // +0x2F0 and the next template at +0x484; the factory's first template is

@@ -6,11 +6,7 @@
 // argument -- the compiler gives that local the argument's own stack slot --
 // and answers true. WorldBuilder's twin (0x00A96690) is unnamed.
 
-class Rva0050CBA2
-{
-public:
-	Rva0050CBA2(void *arg);
-};
+#include "../../../../GameEngine/Include/Common/Rva0050CBA2.h"
 
 class W3DFontLibrary
 {
