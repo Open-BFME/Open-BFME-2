@@ -2397,12 +2397,7 @@ class CommandSet;
 // defaults.
 // --- 0x00319A52 (78B): "Small" / "Medium" / "Large" select 1 / 2 / 3
 // (rowed 0x00318BC6).
-class Rva00318BC6Owner
-{
-public:
-	void rva00318BC6(int size);								// 0x00318BC6
-	void rva00319A52(const AsciiString &name);
-};
+#include "../../../Include/Common/Rva00318BC6Owner.h"
 
 // --- 0x003681DC (17B): false while +0x4B8 bit 0 is set, else the rowed
 // 0x002645FF.

@@ -182,12 +182,7 @@ Rva003F7209::Rva003F7209(int a) : GapWordBase04(a), m_08(9999.0f), m_0C(9999.0f)
 
 // --- 0x00319A52 (78B): "Small" / "Medium" / "Large" select 1 / 2 / 3
 // (rowed 0x00318BC6).
-class Rva00318BC6Owner
-{
-public:
-	void rva00318BC6(int size);								// 0x00318BC6
-	void rva00319A52(const AsciiString &name);
-};
+#include "../../Include/Common/Rva00318BC6Owner.h"
 
 void Rva00318BC6Owner::rva00319A52(const AsciiString &name)
 {

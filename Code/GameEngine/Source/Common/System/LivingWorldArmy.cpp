@@ -186,11 +186,7 @@ public:
 	unsigned char rva00318CA4();
 };
 
-class Rva00318BC6Owner
-{
-public:
-	void rva00318BC6(int v);
-};
+#include "../../../Include/Common/Rva00318BC6Owner.h"
 
 class Rva0031980CList
 {
