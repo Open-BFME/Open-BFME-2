@@ -3,7 +3,7 @@
 // execution path ends with one true return, preserving native shared false
 // branches instead of synthesizing SBB. The receiver and method remain neutral.
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /arch:SSE
-class Rva002A9BF2 { public: void *rva002A9BF2(); };
+#include "../../../Include/Common/Rva002A9BF2.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 class Rva002BA8F1Logic { public: char m_pad00[0xF4]; unsigned int m_bitIndex; int m_padF8; unsigned int m_frame; };
 extern GameLogic *TheGameLogic;

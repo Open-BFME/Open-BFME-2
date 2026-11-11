@@ -1,10 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 // ?rva0026EE30@UpgradeTemplate@@QAEHPAX0@Z @ 0x0026EE30 (112B) unlock: difficulty-gated cost factor via rowed Rva002A9BF2 plus pinned Rva002A8AB1 record plus float globals. Evidence: caller 0x005974B3 thiscall ecx=UpgradeTemplate proven by calcCostToBuild same edi; ret 8 two args; TheSkirmishAIManager plus literal 1.0f plus BfmeLogicFramesPerSecond; +0x30 factor; +0x854 limit.
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2();
-};
+#include "../../../Include/Common/Rva002A9BF2.h"
 
 struct Rva002A8AB1Record;
 #include "../../../Include/GameLogic/Rva002A8F24.h"

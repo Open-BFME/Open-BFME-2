@@ -55,11 +55,7 @@ public:
 	void *rva0029439D(); // 0x0029439D
 };
 
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2(); // 0x002A9BF2, called on the Player
-};
+#include "../../../Include/Common/Rva002A9BF2.h"
 
 #include "../../../Include/Common/Player.h"
 

@@ -9,12 +9,7 @@
 // Structural inference: the test is written ratio < 1.0f, which keeps the
 // 1.0 constant first in comiss and jumps to the pass tail on jbe as retail.
 
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2();
-	bool fromGate(Rva002A9BF2 *key);
-};
+#include "../../../Include/Common/Rva002A9BF2.h"
 
 struct AIDiffEntry
 {

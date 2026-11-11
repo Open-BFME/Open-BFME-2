@@ -166,11 +166,7 @@ private:
 	bool m_spellMakesAStructure; // +0x19
 };
 class Rva003A2BD4M08;
-class Rva002A9BF2
-{
-public:
-	bool fromGate(Rva002A9BF2 *key);
-};
+#include "../../../../Include/Common/Rva002A9BF2.h"
 class SpecialPowerModuleInterface;
 #include "../../../../Include/Common/Rva002AA22AByteField.h"
 struct Rva002A8AB1Record;

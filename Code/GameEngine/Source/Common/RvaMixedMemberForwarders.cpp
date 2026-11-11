@@ -52,14 +52,7 @@ public:
 	void rva004F2C14(Int a0);
 };
 
-class Rva002A9BF2
-{
-public:
-	void rva002A9DEC(Int a0);
-private:
-	char m_lead[0x2DC];
-	Rva004F2C14NullTarget *m_member;
-};
+#include "../../Include/Common/Rva002A9BF2.h"
 
 
 class Rva002C7474

@@ -203,11 +203,7 @@ public:
 // Honest-address name: owner unknown so Rva0037E6E8 class, void* void* args (PAX0 compression).
 #include "../../GameLogic/Object/object.h"
 
-class Rva002A9BF2
-{
-public:
-    void *rva002A9BF2();
-};
+#include "../../../Include/Common/Rva002A9BF2.h"
 
 class Rva003A2BD4M08;
 

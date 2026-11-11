@@ -188,11 +188,7 @@ typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::all
 
 #include "../../Include/Common/Player.h"
 
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2();
-};
+#include "../../Include/Common/Rva002A9BF2.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

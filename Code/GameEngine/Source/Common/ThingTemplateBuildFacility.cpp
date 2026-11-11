@@ -100,7 +100,7 @@ extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class Rva002A9BF2 {public:void *rva002A9BF2();};
+#include "../../Include/Common/Rva002A9BF2.h"
 struct Rva002A8AB1Record;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;

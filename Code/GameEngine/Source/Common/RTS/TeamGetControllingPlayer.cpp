@@ -310,11 +310,7 @@ public:
 	}
 };
 
-class Rva002A9BF2
-{
-public:
-	void *rva002A9BF2();
-};
+#include "../../../Include/Common/Rva002A9BF2.h"
 
 template<class OBJCLASS>
 class DLINK_ITERATOR

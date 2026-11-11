@@ -19,11 +19,7 @@ class Player;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class Rva002A9BF2
-{
-public:
-	void rva002A9CCA(int val);
-};
+#include "../../../Include/Common/Rva002A9BF2.h"
 
 // LINK: 0x2A9DEC and 0x2A9F35 are rowed on their own owner classes (Rva002A9DEC; Rva002A9F17 takes the
 // argument as a pointer); bind them through casts of the same player pointer.
