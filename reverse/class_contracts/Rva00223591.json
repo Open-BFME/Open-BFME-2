@@ -1,0 +1,99 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00223591",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 11,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 9
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "20": 4
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_unused00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00223591Free.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00223736Erase.cpp",
+    "Code/GameEngine/Source/GameClient/Rva002237C7.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0022494F.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00223591Free.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00223736Erase.cpp",
+    "Code/GameEngine/Source/GameClient/Rva002237C7.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0022494F.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00223591Free.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00223736Erase.cpp",
+    "Code/GameEngine/Source/GameClient/Rva002237C7.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0022494F.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva00223591Free.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00223736Erase.cpp",
+    "Code/GameEngine/Source/GameClient/Rva002237C7.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0022494F.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {}
+}

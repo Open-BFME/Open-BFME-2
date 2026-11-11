@@ -664,7 +664,7 @@ void AptPlayer::OnCustomRender(const char *name, int a, int b, int c, int d)
  reinterpret_cast<Rva0022297BRef *>(static_cast<char *>(node) + 8)->invoke(a, b, c, d);
 }
 
-class Rva00223591 { public: int rva00223736(const AsciiString *key); };
+#include "../../../Include/GameClient/Rva00223591.h"
 // WB B92650 names the indexed overload and asserts 14 levels. Native
 // 2245FF..22464C proves a copied key and the +DC table at stride 0x28.
 void AptPlayer::RemoveOverButtonHandler(int index, const AsciiString &key)

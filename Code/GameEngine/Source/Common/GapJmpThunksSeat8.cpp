@@ -114,12 +114,7 @@ public:
 	~Rva0021DB35();
 };
 
-class Rva00223591
-{
-public:
-	int rva00223736(const AsciiString *);
-	void rva0022380B();
-};
+#include "../../Include/GameClient/Rva00223591.h"
 
 class Rva00226856
 {

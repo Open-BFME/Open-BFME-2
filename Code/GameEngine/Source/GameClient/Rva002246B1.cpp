@@ -4,11 +4,7 @@
 // Evidence: chain lane calls rowed 0x00223736; retail add ecx 0x34 plus jmp.
 #include "ascii_string.h"
 
-class Rva00223591
-{
-public:
-	int rva00223736(const AsciiString *key);
-};
+#include "../../Include/GameClient/Rva00223591.h"
 
 class Rva002246B1
 {

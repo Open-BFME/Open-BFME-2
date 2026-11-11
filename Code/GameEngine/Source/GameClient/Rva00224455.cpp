@@ -4,11 +4,7 @@
 // Evidence: chain lane add ecx 0xC jmp to rowed ?rva00223736@Rva00223591; 11 callers.
 #include "ascii_string.h"
 
-class Rva00223591
-{
-public:
-	int rva00223736(const AsciiString *key);
-};
+#include "../../Include/GameClient/Rva00223591.h"
 
 class Rva00224455
 {

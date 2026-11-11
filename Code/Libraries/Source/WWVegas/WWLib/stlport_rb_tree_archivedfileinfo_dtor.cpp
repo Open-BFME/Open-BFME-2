@@ -7,11 +7,7 @@
 class AsciiString;
 class ArchivedFileInfo;
 
-class Rva00223591
-{
-public:
-	void rva0022380B();
-};
+#include "../../../../GameEngine/Include/GameClient/Rva00223591.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
