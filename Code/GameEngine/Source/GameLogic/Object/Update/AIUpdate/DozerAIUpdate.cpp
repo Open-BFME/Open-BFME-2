@@ -637,11 +637,7 @@ struct BfmePhantomObjectFields
 };
 
 // The player's rowed per-object unlock removal (0x002ACECC, placeholder name).
-class Rva002ACECC
-{
-public:
-	void rva002ACECC(Int id);				// 0x002ACECC
-};
+#include "../../../../../Include/GameLogic/Module/Rva002ACECC.h"
 
 // DozerAIUpdate::makePhantomStructureInert, retail 0x00489DE3 (75 bytes):
 // a phantom structure that still exists is marked effectively dead and

@@ -27,11 +27,7 @@ public:
 };
 
 // The Player member 0x002ACECC, rowed under its placeholder class.
-class Rva002ACECC
-{
-public:
-	void rva002ACECC(int id);
-};
+#include "../../Include/GameLogic/Module/Rva002ACECC.h"
 
 #include "../../Include/Common/Player.h"
 

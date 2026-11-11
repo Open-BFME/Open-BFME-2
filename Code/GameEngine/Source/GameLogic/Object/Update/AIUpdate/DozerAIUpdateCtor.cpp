@@ -2593,7 +2593,7 @@ StateReturnType DozerActionDoActionState::update()
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class ScoreKeeper { public: void addObjectBuilt(Object *, Int); };
-class Rva002ACECC { public: void rva002ACECC(Int); };
+#include "../../../../../Include/GameLogic/Module/Rva002ACECC.h"
 
 void DozerAIUpdate::destroyPhantomStructure()
 {
