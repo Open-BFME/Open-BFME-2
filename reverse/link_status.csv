@@ -1462,7 +1462,7 @@ Code/GameEngine/Source/Common/OpenAudioFile_setFileReady.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Out.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Overridable.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OverridableDeleteOverrides.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/OwnedPointerResets.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/OwnedPointerResets.cpp,no,0,0,1,0,1
 Code/GameEngine/Source/Common/OwnedPointerTransfer2B43E7.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OwnedRecordArray56Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/P8ZeroingCtors.cpp,yes,0,0,0,0,0
@@ -6950,7 +6950,7 @@ Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp,no,0,0,3,0,3
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp,no,0,0,2,0,2
 Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp,yes,0,0,0,0,0
@@ -7254,7 +7254,7 @@ Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapTitle.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMovieGameWindowInit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp,yes,0,0,0,0,0
@@ -7790,7 +7790,7 @@ Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadg
 Code/GameEngine/Source/GameClient/GUI/OnlineLoginIntegerRange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/OnlineLoginTextFilter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/OnlineQuickMatchWindowRef.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,no,0,0,0,0,1
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks_Rva00528AC3.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirRenderCallbacks.cpp,yes,0,0,0,0,0
@@ -9149,7 +9149,7 @@ Code/GameEngine/Source/GameLogic/Map/BuildListInfoParseStructure.cpp,yes,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/BuildListInfoXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/LibraryMapsParser.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/LibraryMapsParserParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp,yes,0,0,0,0,0
@@ -10593,7 +10593,7 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp,ye
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerConstructorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp,yes,0,0,0,0,0
