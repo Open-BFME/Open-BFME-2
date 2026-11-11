@@ -7,25 +7,7 @@
 // hidden-pointer ret 4 and AssetReference-style temp match the rowed
 // sharebuf/RefCount family. Ctor and class names are address-derived.
 
-class RefCountClass
-{
-public:
-    virtual void Delete();
-    int m_refCount;
-
-    void AddRef() { ++m_refCount; }
-    int Release() { return --m_refCount; }
-};
-
-// The constructor at 0x00152DE9 is FXShaderSetup's copy constructor (rowed in
-// fxshadersetup.cpp): the factory copies its own object.
-class FXShaderSetup : public RefCountClass
-{
-public:
-    FXShaderSetup(const FXShaderSetup &that);
-
-    char m_pad[0x2C];
-};
+#include "FXShaderSetup.h"
 
 class RefPtr
 {
@@ -36,7 +18,7 @@ public:
     RefPtr(const RefPtr &other) : m_ptr(other.m_ptr)
     {
         if (m_ptr)
-            m_ptr->AddRef();
+            m_ptr->Add_Ref();
     }
     // Release through the pointer already loaded: retail's one out-of-line
     // copy is 0x0007B724 (17 B, as MeshMatDescUniqueArrays.cpp builds it);
@@ -44,8 +26,8 @@ public:
     ~RefPtr()
     {
         RefCountClass *refCount = m_ptr;
-        if (refCount && refCount->Release() == 0)
-            refCount->Delete();
+        if (refCount)
+            refCount->Release_Ref();
     }
 };
 

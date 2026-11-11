@@ -7,8 +7,7 @@
 // the rowed 0x15148D getter, skips on zero +0x20, applies the rowed DX8
 // render-state changes, forwards (arg, +0x20) to the rowed 0x1514B2 chain,
 // then invokes vtable slot 0x104 on a fresh getter result. The +8 member
-// serves two rowed method families (getter + chain); the TU-local view
-// carries the chain spelling and casts for the getter (same +0 pointer).
+// serves two rowed method families (getter + chain).
 // Early exits are bare returns (retail leaves eax undefined there).
 
 class Rva0015148D
@@ -26,6 +25,7 @@ public:
 };
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+#include "../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 
 class Rva00151D1AVt
 {
@@ -98,35 +98,21 @@ public:
 	virtual void __stdcall v65() = 0;
 };
 
-class FXShaderSetup
-{
-public:
-	virtual void Delete_This();
-	virtual ~FXShaderSetup();
-	virtual bool Begin_Rendering(unsigned int *passes, int arg);
-	virtual void Begin_Pass(unsigned int pass);
-	virtual void UpdateDynamicParameterSet(unsigned int a);
-private:
-	char m_pad[4];
-	Rva001514B2 m_chain;
-	int m_20;
-};
-
 // ?UpdateDynamicParameterSet@FXShaderSetup@@UAEXI@Z
 void FXShaderSetup::UpdateDynamicParameterSet(unsigned int a)
 {
-	Rva0015148D *holder = (Rva0015148D *)&m_chain;
-	if (holder->m_ptr == 0) {
+	Rva0015148D *holder = reinterpret_cast<Rva0015148D *>(&field08);
+	if (field08 == 0) {
 		return;
 	}
 	if (holder->rva0015148D() == 0) {
 		return;
 	}
-	if (m_20 == 0) {
+	if (field20 == 0) {
 		return;
 	}
 	DX8Wrapper::Apply_Render_State_Changes();
-	m_chain.rva001514B2(a, m_20);
+	reinterpret_cast<Rva001514B2 *>(&field08)->rva001514B2(a, reinterpret_cast<int>(field20));
 	Rva00151D1AVt *vt = (Rva00151D1AVt *)holder->rva0015148D();
 	vt->v65();
 }

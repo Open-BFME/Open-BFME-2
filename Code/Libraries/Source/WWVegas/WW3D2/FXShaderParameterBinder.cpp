@@ -339,13 +339,7 @@ class Rva001514B2 { public: Rva001514B2Outer*root; void*get(); void apply(unsign
 
 #include "DX8WrapperClass.h"
 
-class FXShaderSetup {
- unsigned head[2];
- Rva001514B2 handle;
- unsigned middle[5];
- void*extra;
- public: void apply(unsigned);
-};
+#include "FXShaderSetup.h"
 
 struct Rva001530E9Parts {
     char m_name[64];
@@ -872,9 +866,10 @@ void Rva001514B2::apply(unsigned selector,void*p) {
 }
 
 void FXShaderSetup::apply(unsigned selector) {
- if(handle.root && handle.get() && extra) {
+ Rva001514B2 &handle = *reinterpret_cast<Rva001514B2 *>(&field08);
+ if(field08 && handle.get() && field20) {
   DX8Wrapper::Apply_Render_State_Changes();
-  handle.apply(selector,extra);
+  handle.apply(selector,const_cast<char *>(field20));
   void*p=handle.get();
   typedef void(__stdcall*Slot104)(void*);
   ((Slot104*)(*(void***)p))[65](p);
