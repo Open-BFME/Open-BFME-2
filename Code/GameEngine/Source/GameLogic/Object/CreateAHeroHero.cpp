@@ -386,7 +386,7 @@ void Rva0040707EUpdate(void *,void *,void *,Rva00406FBF *);
 void Rva004070B6Update(void *,void *,void *,Rva00406FBF *);
 void Rva0040718FForward(void *,const AsciiString &,int,Rva00407137 *);
 class Rva00407218 { public: void rva00407218(void *,void *); };
-class Rva00407E28 { public: bool rva00407E53(int); bool rva00407DE0(int,int); };
+#include "../../../Include/GameNetwork/Rva00407E28.h"
 class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); bool rva00408A55(); };
 #include "../../Common/debug.h"
 extern Debug *theDebug;

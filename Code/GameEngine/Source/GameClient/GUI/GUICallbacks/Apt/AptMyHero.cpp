@@ -12,7 +12,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
-class Rva00407E28 {public: int rva00407E28(int id);bool rva00407E53(int id);bool rva00407DE0(int id,int value);};
+#include "../../../../../Include/GameNetwork/Rva00407E28.h"
 class CreateAHeroHero
 {
 public:

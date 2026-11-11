@@ -206,11 +206,7 @@ extern unsigned char g_rva005B5C02Flag;
 // (87B): text callbacks writing one more than the indexed +0x174 record's
 // +0x08 / rowed-0x00407E28-mapped +0x00 / +0x0C value, and (after "0" unless
 // skipped) the indexed +0x180 record's +0x04 value.
-class Rva00407E28
-{
-public:
-	int rva00407E28(int key);								// 0x00407E28
-};
+#include "../../Include/GameNetwork/Rva00407E28.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(char const *); }

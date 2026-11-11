@@ -208,11 +208,7 @@ struct Rva005B0608Vector
 	Rva005B0608Record *m_storage;
 };
 
-class Rva00407E28
-{
-public:
-	int rva00407E28(int key);								// 0x00407E28
-};
+#include "../../Include/GameNetwork/Rva00407E28.h"
 
 class Rva005B0608
 {
