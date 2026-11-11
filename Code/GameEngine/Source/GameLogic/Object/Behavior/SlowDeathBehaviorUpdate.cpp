@@ -154,11 +154,7 @@ public:
 #include "../../../../Include/GameClient/Drawable.h"
 
 // The two-float drawable setter the slow death starts with (0.0f, -0.2f).
-class Rva00270644
-{
-public:
-	void rva00270644(Real a, Real b);
-};
+#include "../../../../Include/GameLogic/Module/Rva00270644.h"
 
 class PhysicsBehavior;
 // The +0x25C physics consumer that takes the fling force.

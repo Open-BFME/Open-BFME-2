@@ -1,0 +1,70 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00270644",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x380": {
+    "4": 1
+   },
+   "0xd8": {
+    "4": 1
+   },
+   "0xdc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "900": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00275376.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00275376.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 896,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00275376.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

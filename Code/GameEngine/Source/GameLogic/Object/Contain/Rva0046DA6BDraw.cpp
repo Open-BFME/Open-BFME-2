@@ -3,7 +3,7 @@
 // Evidence: Native46DA6B..46DB6B RET16; HordeContain-family interface at11C calls contain slot70 on secondary20 and reads owner8. Applies established Drawable272870 and two-float270644 to contained objects and ID-keyed tree at receiver54; optional rowed filter362437 and owner player28AFA9. Native frameC uses descriptor8 plus owner4; recomputing list endpoint avoids extra cached pointer. Full258 exact with all existing providers; method name and unconstrained types remain address-level inference.
 // stlport
 #include <map>
-class Rva00270644 {public:void rva00270644(float,float);};
+#include "../../../../Include/GameLogic/Module/Rva00270644.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Player;
 class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()const;};

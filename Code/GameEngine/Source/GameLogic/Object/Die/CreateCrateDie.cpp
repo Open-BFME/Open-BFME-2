@@ -132,11 +132,7 @@ private:
 #include "../../../../Include/GameClient/Drawable.h"
 
 // 0x00270644, setTerrainDecalFadeTarget, rowed under its own address class.
-class Rva00270644
-{
-public:
-	void rva00270644(Real target, Real rate);
-};
+#include "../../../../Include/GameLogic/Module/Rva00270644.h"
 
 #include "../../../../Include/Common/Geometry.h"
 
