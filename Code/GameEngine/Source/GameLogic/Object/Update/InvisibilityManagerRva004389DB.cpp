@@ -100,11 +100,7 @@ struct Rva004389DBTemplate
 };
 
 // The +0x94 holder's test (0x00331682), rowed under an address-derived name.
-class Rva00331682Holder
-{
-public:
-	bool test(const void *key) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 class Object
 {

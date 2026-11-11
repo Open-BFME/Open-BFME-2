@@ -96,11 +96,7 @@ public:
 
 #include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
-class Rva00331682Holder
-{
-public:
-	bool test(const void *key) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 struct Rva004393D6Entry
 {

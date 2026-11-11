@@ -52,11 +52,7 @@ class BfmeObject872Header
 public:
     __declspec(nothrow) BfmeObject872Header(const BfmeObject872Header &);
 };
-class Rva00331682Holder
-{
-public:
-    bool test(const void *other) const;
-};
+#include "../../Include/GameLogic/Module/Rva00331682Holder.h"
 bool Rva002634E0Equal(const void *a, const void *b);
 
 class Rva003317F9

@@ -14,7 +14,7 @@
 namespace _STL { template<unsigned int N> class _Base_bitset {
 public: bool _M_is_any() const; unsigned int words[N];
 }; }
-class Rva00331682Holder { public: bool test(const void*) const; };
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 class Rva00263546
 {
 public:

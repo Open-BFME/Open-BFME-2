@@ -61,11 +61,7 @@ private:
 	char m_318[4];
 };
 
-class Rva00331682Holder
-{
-public:
-	bool test(const void *key) const;
-};
+#include "../../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 class Object
 {

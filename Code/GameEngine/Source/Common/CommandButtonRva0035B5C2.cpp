@@ -57,11 +57,7 @@ public:
 
 #include "../../Include/Common/Rva0028B7AELeaGetter.h"
 
-class Rva00331682Holder
-{
-public:
-	bool test(const void *value) const;
-};
+#include "../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 struct Rva0035B5C2PointerRange
 {

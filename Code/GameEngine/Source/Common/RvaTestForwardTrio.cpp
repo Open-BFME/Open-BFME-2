@@ -15,11 +15,7 @@ public:
 	bool test(const void *other) const;
 };
 
-class Rva00331682Holder
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 class Rva0023D487Owner
 {

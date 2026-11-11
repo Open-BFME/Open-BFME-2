@@ -62,11 +62,7 @@ private:
 	int m_mask[19];
 };
 
-class Rva00331682Holder
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 // Object +0x370 (rowed out-of-line lea getter).
 #include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
