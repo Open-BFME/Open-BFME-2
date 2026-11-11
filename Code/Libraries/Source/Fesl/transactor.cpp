@@ -178,11 +178,7 @@ private:
 
 // ?rva00674BA0@Rva00674BA0@@QBEPAXXZ @0x00674BA0 11B: rowed lea-field getter
 // 0x0066D7D0 on the object at +0x0C of the object held at +0x08.
-class Rva0066D7D0LeaField
-{
-public:
-	void *get() const;
-};
+#include "Rva0066D7D0LeaField.h"
 
 struct Rva00674BA0Inner
 {

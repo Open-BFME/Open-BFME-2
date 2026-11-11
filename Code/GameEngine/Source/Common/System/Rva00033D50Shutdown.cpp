@@ -53,11 +53,7 @@ public:
 
 #include "../../../Include/Common/Rva00034C90.h"
 
-class Rva0066D7D0LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../../Libraries/Source/Fesl/Rva0066D7D0LeaField.h"
 
 // Canonical base fields used here: m_000 the active flag, m_440, the +0x448
 // descriptor sentinel m_448 with its first link m_448[7] (+0x464), m_468,
