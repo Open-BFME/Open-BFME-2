@@ -388,11 +388,7 @@ private:
 };
 namespace _STL { template <> inline void allocator<Rva004DFED8Entry4 *>::deallocate(Rva004DFED8Entry4 **__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); } }
 namespace _STL { template <> inline void allocator<Rva004DFED8Entry10 *>::deallocate(Rva004DFED8Entry10 **__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); } }
-class Rva002827F3
-{
-public:
-	void rva002827F3();
-};
+#include "../../../../Include/GameLogic/Rva002827F3.h"
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }

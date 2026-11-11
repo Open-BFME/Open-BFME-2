@@ -36,11 +36,7 @@ public:
 struct Rva00281A06;
 struct Rva00283081Entry4;
 
-class Rva002827F3
-{
-public:
-	void rva002827F3();
-};
+#include "../../Include/GameLogic/Rva002827F3.h"
 
 class Rva00283081
 {

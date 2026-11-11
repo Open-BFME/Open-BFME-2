@@ -496,11 +496,7 @@ public:
 private:
 	_STL::vector<Rva004DFCB0Element> m_values; // +0x04
 };
-class Rva002827F3
-{
-public:
-	void rva002827F3() throw();
-};
+#include "../../../Include/GameLogic/Rva002827F3.h"
 class Rva0028360CHost
 {
 public:
