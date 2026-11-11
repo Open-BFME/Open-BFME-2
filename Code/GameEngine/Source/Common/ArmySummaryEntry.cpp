@@ -11,11 +11,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
-class Rva004E0632
-{
-public:
-	int rva004E0632() const;
-};
+#include "../../Include/GameLogic/Rva004E0632.h"
 ArmySummaryEntry::ArmySummaryEntry() : CarryoverUnit(), Rva0007DF07()
 {
     m_b4 = 0;

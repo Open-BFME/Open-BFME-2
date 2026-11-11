@@ -322,7 +322,7 @@ class Rva002E2504 {public:bool rva002E2504(Rva00318C32Ret*,_STL::vector<const Mo
 
 class Rva0040C804Target {public:bool check();};
 
-class Rva004E0632 {public:int rva004E0632() const;};
+#include "../../../../Include/GameLogic/Rva004E0632.h"
 
 #include "../../../../Include/Common/ArmySummaryEntry.h"
 

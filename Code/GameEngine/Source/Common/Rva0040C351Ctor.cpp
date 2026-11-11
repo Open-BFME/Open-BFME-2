@@ -30,11 +30,7 @@ extern const FieldParse carryoverUnitFieldParse[3] = {
 	{ 0, 0, 0, 0 }
 };
 #include "../../Include/Common/INI/INI.h"
-class Rva004E0632
-{
-public:
-	int rva004E0632() const;
-};
+#include "../../Include/GameLogic/Rva004E0632.h"
 struct Rva0040C430Ret
 {
 	virtual void f0();

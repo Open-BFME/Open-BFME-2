@@ -418,11 +418,7 @@ public:
 	virtual Bool accepts(ArmySummaryEntry *entry);		// +0x04
 };
 
-class Rva004E0632
-{
-public:
-	Int rva004E0632() const;				// 0x004E0632
-};
+#include "../../../../Include/GameLogic/Rva004E0632.h"
 
 // The region: its armories through the rowed filter 0x003F28DB, its owning
 // player at +0x13C.

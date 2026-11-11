@@ -29,11 +29,7 @@ public:
 	} *m_keyPtr; // +0x28
 };
 
-class Rva004E0632
-{
-public:
-	int rva004E0632() const; // rowed 0x004E0632, declared only
-};
+#include "../../../Include/GameLogic/Rva004E0632.h"
 
 struct Rva003F287FEntry
 {

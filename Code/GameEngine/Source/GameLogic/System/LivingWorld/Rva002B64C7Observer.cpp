@@ -16,7 +16,7 @@ typedef bool Bool;
 #include "subsystem_interface.h"
 #include "../../../../Include/Common/LivingWorldObservers.h"
 class ModuleData;
-class Rva004E0632 { public: int rva004E0632() const; };
+#include "../../../../Include/GameLogic/Rva004E0632.h"
 struct RegionView { char pad[0x13c]; int player; int getPlayer() const { return player; } };
 struct BuildingView { char pad00[0x18]; int key; char pad1c[8]; RegionView *region; int getType() const { return ((const Rva004E0632*)this)->rva004E0632(); } };
 class Rva002E2903Player;

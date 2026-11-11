@@ -1018,3 +1018,4 @@ AttributeModifierUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/Attr
 TerrainTypeCollection,Code/GameEngine/Include/Common/TerrainTypeCollection.h,existing header; contract class_contracts/TerrainTypeCollection.json; 4/6 sampled units adopt
 BfmeTaintManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h,existing header; contract class_contracts/BfmeTaintManager.json; 5/8 sampled units adopt
 W3DBuffBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBuffBuffer.h,existing header; contract class_contracts/W3DBuffBuffer.json; 4/6 sampled units adopt
+Rva004E0632,Code/GameEngine/Include/GameLogic/Rva004E0632.h,existing header; contract class_contracts/Rva004E0632.json; 6/7 sampled units adopt
