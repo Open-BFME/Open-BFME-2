@@ -13,7 +13,7 @@ void __debugbreak();
 #include "AptValue.h"
 extern void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void *,unsigned int);
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
-class Rva006DB160 { public: void *allocBlock(int); };
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 extern Rva006DB270* g_pChainBlockAllocator;
 // Native6E3BA0..6E3BEA is this specialization's 74-byte destructor.
 // Timer6E4F60 uses the same 12-byte member at+14. Its FuncInfo VA D62AF8

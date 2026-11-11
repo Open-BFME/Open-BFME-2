@@ -374,11 +374,7 @@ private:
 // A named flag temporary retains native order across the zero stores.
 // The constructor assigns the registry value's prototype to hash__proto__,
 // retaining the measured AddRef/Release order. No original owner name claimed.
-class Rva006DB160
-{
-public:
-	void *allocBlock(int);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 class AptNativeHash {
 public:

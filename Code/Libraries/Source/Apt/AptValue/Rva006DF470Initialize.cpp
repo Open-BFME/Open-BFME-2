@@ -15,7 +15,7 @@
 // established AptNativeFunction context/count ABI prove entry/signature.
 #include <string.h>
 class AptValue{public:virtual void AddRef();virtual void Release();virtual void ForceDelete();virtual void *GetNativeHashVirtual(); unsigned mnLowBits:18;unsigned mnGCRootCount:7;unsigned mnType:7;};
-class Rva006DB160{public:void *allocBlock(int);};
+#include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006D2A60
 {

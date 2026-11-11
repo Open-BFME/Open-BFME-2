@@ -9,11 +9,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class Rva006DB160
-{
-public:
-    void *allocBlock(int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 extern class Rva006DB270 *g_pChainBlockAllocator;
 
 #include "AptBasePtrStack.h"

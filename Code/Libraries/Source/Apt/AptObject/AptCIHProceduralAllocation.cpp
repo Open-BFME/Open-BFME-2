@@ -15,7 +15,7 @@
 #pragma pop_macro("inline")
 #include <math.h>
 #include <string.h>
-class Rva006DB160 { public: void *allocBlock(int); };
+#include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 extern class Rva006DB270 *g_pChainBlockAllocator;
 enum PropertyAllocation { propertyAllocation };
 // ?operator new absent-from-retail

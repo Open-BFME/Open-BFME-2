@@ -249,11 +249,7 @@ public:
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../Include/Common/MiBase1.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 

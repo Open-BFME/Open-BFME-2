@@ -199,11 +199,7 @@ public:
 #include "../../../../../Include/GameLogic/Module/ContainModule.h"
 
 // The +0x25C behavior; 0x003909FA takes the kick.
-class Rva003909FAObj
-{
-public:
-	void consume(void *force, Int a, Int b);
-};
+#include "../../../../../Include/Common/Rva003909FAObj.h"
 
 class Object : public Thing
 {

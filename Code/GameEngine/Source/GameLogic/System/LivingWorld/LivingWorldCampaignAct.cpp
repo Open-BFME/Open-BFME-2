@@ -165,7 +165,7 @@ class Rva002E2903Player {public:char pad[0x40];AsciiString *template40;};
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva002B86AAKey; struct Rva002B86AAVal;
 class Rva002B86AA {public:bool rva002B86AA(Rva002B86AAKey*,Rva002B86AAVal*)const;};
-class Rva002104B6 {public:void *rva002104B6(void*);};
+#include "../../../../Include/Common/Rva002104B6.h"
 class Rva0020E89C;
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva002B6A04Player; struct LivingWorldArmy;

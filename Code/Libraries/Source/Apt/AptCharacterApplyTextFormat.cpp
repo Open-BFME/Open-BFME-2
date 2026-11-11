@@ -3,11 +3,7 @@
 // The format-state ABI comes from rowed6ECE30/6EB650 and AptTextFormat.cpp;
 // native copies the optional32B state then updates font/size/alignment flags
 // in the text instance. Callback name remains address-derived.
-class Rva006DB160
-{
-public:
-	void *allocBlock(int);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 class Rva006DB270;extern Rva006DB270 *g_pChainBlockAllocator;
 void Rva006D8680Free(void *,int);
 #include "EAStringC.h"

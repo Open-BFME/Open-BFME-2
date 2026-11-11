@@ -16,11 +16,7 @@
 class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *arg);
-};
+#include "../../Include/Common/Rva002104B6.h"
 
 class Rva002B5CFBField
 {

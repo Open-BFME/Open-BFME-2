@@ -17,7 +17,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class Rva006DB160 {public:void *allocBlock(int);};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 

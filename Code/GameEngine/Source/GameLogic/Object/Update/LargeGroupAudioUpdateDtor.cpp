@@ -18,11 +18,7 @@ private:
 	char m_pad04[8];
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/Common/MiBase1.h"
 
 class PrimaryP4AB8DC : public Rva0049B47C, public MiBase1
 {

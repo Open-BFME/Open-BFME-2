@@ -32,11 +32,7 @@ class Rva006DB270;
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int blockSize);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 
 #include "../../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 

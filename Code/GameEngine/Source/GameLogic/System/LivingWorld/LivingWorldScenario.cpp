@@ -32,7 +32,7 @@ class Rva002E1001; // Retained opaque parameter spelling for the defeat provider
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2903Player { public: char pad[0x34]; int team; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva002104B6 { public: void *rva002104B6(void *name); };
+#include "../../../../Include/Common/Rva002104B6.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 class LivingWorldRegion {
 public:

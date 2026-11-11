@@ -162,11 +162,7 @@ public:
 
 class PhysicsBehavior;
 // The +0x25C physics consumer that takes the fling force.
-class Rva003909FAObj
-{
-public:
-	void consume(void *force, int a, int b);
-};
+#include "../../../../Include/Common/Rva003909FAObj.h"
 
 namespace _STL
 {

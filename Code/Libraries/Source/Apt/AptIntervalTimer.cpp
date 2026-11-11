@@ -10,11 +10,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 // 0x00E176E8, the chain-block allocator singleton.
-class Rva006DB160
-{
-public:
-	void *allocBlock(int size);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 class Rva006DB270; extern Rva006DB270 *g_pChainBlockAllocator;
 

@@ -286,11 +286,7 @@ public:
  void rva00390629(bool);
  char pad[0x5c];bool blocked;
 };
-class Rva003909FAObj
-{
-public:
-	void consume(void*,int,int);
-};
+#include "../../../Include/Common/Rva003909FAObj.h"
 class ObjectCollisionAI {public:
  virtual void slot0();
  virtual void slot1();

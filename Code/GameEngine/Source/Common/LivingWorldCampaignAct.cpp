@@ -345,11 +345,7 @@ public:
 	void rva00564E43();
 };
 
-class Rva002104B6
-{
-public:
-    void *rva002104B6(void *name);
-};
+#include "../../Include/Common/Rva002104B6.h"
 
 class Rva002B2702
 {

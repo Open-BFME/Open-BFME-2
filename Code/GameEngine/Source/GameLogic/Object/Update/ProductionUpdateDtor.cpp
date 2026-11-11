@@ -52,11 +52,7 @@ public:
 	int m_pad[2];
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/Common/MiBase1.h"
 
 class PrimaryP : public Rva0049B47CFold, public MiBase1
 {

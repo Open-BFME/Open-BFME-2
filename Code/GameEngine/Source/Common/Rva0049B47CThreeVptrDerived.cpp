@@ -24,11 +24,7 @@ private:
 	char m_pad04[8];
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../Include/Common/MiBase1.h"
 
 // Shared intermediate: Rva0049B47C (padded to 0xC) plus the shared MiBase1 at
 // +0xC. The user empty destructor is load-bearing: it makes each middle share

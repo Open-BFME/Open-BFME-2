@@ -37,10 +37,7 @@ public:
 
 EAStringC *Rva0070B4F0GetString(int eSC);
 
-class Rva006DB160 {
-public:
-    void *allocBlock(int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 extern class Rva006DB270 *g_pChainBlockAllocator;
 

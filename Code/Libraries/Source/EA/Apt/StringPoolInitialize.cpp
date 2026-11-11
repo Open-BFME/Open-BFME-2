@@ -21,7 +21,7 @@
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "../../Apt/EAStringC.h"
-class Rva006DB160 { public: void *allocBlock(int); };
+#include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 class Rva006DB270; extern Rva006DB270 *g_pChainBlockAllocator;
 extern "C" EAStringC bfmeObjDAE[178];
 struct StringNode0070D9F0;

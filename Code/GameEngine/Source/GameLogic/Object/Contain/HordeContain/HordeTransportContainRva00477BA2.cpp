@@ -40,11 +40,7 @@ struct Rva00477BA2Vector;
 struct Rva00477BA2Vector {float x,y,z; Rva00477BA2Vector(float xx,float yy,float zz):x(xx),y(yy),z(zz){} void operator*=(float n){x*=n;y*=n;z*=n;} };
 #include "../../../../Common/Thing/thing.h"
 enum DamageType{DAMAGE=8}; enum DeathType{DEATH=0};
-class Rva003909FAObj
-{
-public:
-	void consume(void *,int,int);
-};
+#include "../../../../../Include/Common/Rva003909FAObj.h"
 class PhysicsBehavior
 {
 public:

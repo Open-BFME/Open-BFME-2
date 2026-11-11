@@ -24,11 +24,7 @@ class AptValue;
 extern AptValueVector *g_releaseVectorAtE17710;
 class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;
-class Rva006DB160
-{
-public:
-	void *allocBlock(int blockSize);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 // The real AptValue: its first three vftable slots are the rowed AddRef
 // (0x006DCAC0), Release (0x006DCB20) and ForceDelete (0x006CBCD0) that the

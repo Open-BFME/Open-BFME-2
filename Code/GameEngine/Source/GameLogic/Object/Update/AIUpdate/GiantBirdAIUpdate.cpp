@@ -108,7 +108,7 @@ private:
 	Bool m_5F; // +0x5F
 };
 // The pinned owner names of 0x003909FA and 0x00294D61.
-class Rva003909FAObj { public: void consume(void *force, Int a, Int b); };
+#include "../../../../../Include/Common/Rva003909FAObj.h"
 class Rva00294D61 { public: void report(Object *victim, Int flag); };
 class ModelConditionFlags
 {

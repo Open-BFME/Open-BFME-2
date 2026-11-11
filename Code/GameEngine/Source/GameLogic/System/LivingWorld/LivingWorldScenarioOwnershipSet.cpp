@@ -1,7 +1,7 @@
 // cl: /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 #include <algorithm>
-class Rva002104B6 { public: void *rva002104B6(void *); };
+#include "../../../../Include/Common/Rva002104B6.h"
 struct Rva0059E647Arg { char unknown00[0x40]; int value40; };
 // Native 0x002DFA43..0x002DFA7A RET4, called by OwnershipSet's building loop
 // and the existing template-store export helpers. The original predicate name

@@ -65,11 +65,7 @@ extern Rva006CEB10Playback *g_aptPlaybackCheckpoints;
 // ret 4; the owner and node identities are unproven, so both are
 // address-named.
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int blockSize);
-};
+#include "../../Include/Common/Rva006DB160.h"
 
 class Rva006DB270;
 

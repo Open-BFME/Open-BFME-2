@@ -17,11 +17,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
-class Rva006DB160
-{
-public:
-    void *allocBlock(int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
 #include "BfmeAptValue006DCD20.h"

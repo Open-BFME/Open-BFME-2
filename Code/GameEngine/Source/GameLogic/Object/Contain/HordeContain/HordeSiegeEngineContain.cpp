@@ -108,11 +108,7 @@ struct Rva0047CE0CVector
 	Rva0047CE0CVector(const Rva0047CE0CVector &other) : x(other.x), y(other.y), z(other.z) {}
 };
 
-class Rva003909FAObj
-{
-public:
-	void consume(void *vector, int first, int second);
-};
+#include "../../../../../Include/Common/Rva003909FAObj.h"
 
 struct Rva0047CE0COwner
 {

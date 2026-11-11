@@ -18,7 +18,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
  if(g_bfmeAptBreakOnAssertAtDDC01C){__debugbreak();}
 }
 #include "EAStringC.h"
-class Rva006DB160 {public:void *allocBlock(int);};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006DB270;extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};

@@ -11,11 +11,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *p);
-};
+#include "../../Include/Common/Rva002104B6.h"
 
 class Rva002BA8F1Logic
 {

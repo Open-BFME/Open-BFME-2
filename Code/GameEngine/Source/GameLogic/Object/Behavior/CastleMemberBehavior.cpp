@@ -34,11 +34,7 @@ private:
 	char m_pad04[8];
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/Common/MiBase1.h"
 
 // Shared intermediate: Rva0049B47C (padded to 0xC) plus MiBase1 at +0xC.
 // Empty dtor inlines into the derived so the derived restores PrimaryP's

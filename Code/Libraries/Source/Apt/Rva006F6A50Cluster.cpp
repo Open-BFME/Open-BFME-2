@@ -73,11 +73,7 @@ void __debugbreak();
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int size);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 class Rva006D2A60
 {

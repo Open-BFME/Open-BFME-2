@@ -30,11 +30,7 @@ struct StringNode0070D9F0;
 StringNode0070D9F0 *Rva0070DBB0Intern(const char *string);
 void Rva0070DDC0Remove(StringNode0070D9F0 *node);
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 // Native sized-delete cleanup calls the same22B pool-free owner at6D8680.

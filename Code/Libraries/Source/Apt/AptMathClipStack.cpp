@@ -80,7 +80,7 @@ void AptMath::ClipStackShutdown()
 // ABI follows both source and no-argument native callee. Native6DFFB0..6E001E
 // verifies the unsigned capacity argument, assertion, 96-byte stride and
 // 16-byte aligned allocation. Existing pool provider and storage are reused.
-class Rva006DB160 { public: void *allocBlock(int); };
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #pragma comment(linker, "/alternatename:?rva006dffa0@@YAXXZ=?ClipStackPushUnit@AptMath@@SAXXZ")
 void AptMath::ClipStackPushUnit()
 {

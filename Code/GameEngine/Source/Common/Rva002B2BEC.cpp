@@ -10,11 +10,7 @@ struct Rva002B2BECArg
 	void *m_2C;
 };
 
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *slot);
-};
+#include "../../Include/Common/Rva002104B6.h"
 
 class Rva002BF652
 {

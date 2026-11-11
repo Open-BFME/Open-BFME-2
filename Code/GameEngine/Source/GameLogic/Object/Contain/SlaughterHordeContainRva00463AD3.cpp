@@ -81,11 +81,7 @@ public:
 // WWMath Vector3 as the WorldBuilder twin uses it (vector3.h operator*=).
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class Rva003909FAObj
-{
-public:
-	void consume(void *force, int a, int b);
-};
+#include "../../../../Include/Common/Rva003909FAObj.h"
 
 struct Rva00463AD3Credit
 {

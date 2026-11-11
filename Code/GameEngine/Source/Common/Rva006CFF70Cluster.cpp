@@ -12,11 +12,7 @@
 // the owner's head. Every callee is rowed; the name is not, so it stays
 // address-derived.
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int blockSize);
-};
+#include "../../Include/Common/Rva006DB160.h"
 
 extern class Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
