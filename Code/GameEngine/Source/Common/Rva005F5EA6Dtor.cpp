@@ -2,10 +2,7 @@
 // ??1Rva005F5EA6@@UAE@XZ @0x005F5EA6 97B: dtor via rowed erase 0x002B7250 plus pinned 0x005E12D1; caller deleting dtor 0x005F5F0F
 class CreateAHeroData;
 
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 class Rva005E12D1 {
 public:

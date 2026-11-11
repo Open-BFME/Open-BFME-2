@@ -8,11 +8,7 @@ class Rva002BA8F1Logic;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *p);
-};
+#include "../../../Include/Common/Rva002B7250.h"
 class Rva002BA8F1Logic
 {
 public:

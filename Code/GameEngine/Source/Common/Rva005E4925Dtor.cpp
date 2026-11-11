@@ -25,11 +25,7 @@ private:
 typedef _STL::_Rb_tree<int, _STL::pair<const int, SBServer>, _STL::_Select1st<_STL::pair<const int, SBServer> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, SBServer> > > Rva005E4AE2Map;
 
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Rva005E4AE2Obj78
 {
 	char m_pad[4];

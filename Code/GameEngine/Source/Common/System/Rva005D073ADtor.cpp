@@ -16,11 +16,7 @@ public:
 	virtual ~Rva005D073ASecondBase() {}
 };
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *p);
-};
+#include "../../../Include/Common/Rva002B7250.h"
 
 class LivingWorldLogic
 {

@@ -12,11 +12,7 @@ struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 #include "../../Include/Common/Rva005CB265.h"
 

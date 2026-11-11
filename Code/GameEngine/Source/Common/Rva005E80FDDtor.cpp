@@ -9,11 +9,7 @@
 // Rva0056B126Dtor; secondary-base args (this+8 this+0xC) precedent Rva005D2111;
 // member layout (+0x20 holder +0x24 vector) from retail lea targets.
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Holder1C
 {
 	char m_pad[4];
