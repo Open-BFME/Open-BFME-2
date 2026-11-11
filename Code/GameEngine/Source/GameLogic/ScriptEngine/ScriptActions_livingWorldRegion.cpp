@@ -254,11 +254,7 @@ class Rva00318C32Ret;
 
 #include "../../../Include/GameLogic/Rva00318C79Owner.h"
 
-class Rva002B2702
-{
-public:
-	void rva002B2702(void *army, void *region, int arg);
-};
+#include "../../../Include/Common/Rva002B2702.h"
 
 class Rva00329EE9StringValue
 {

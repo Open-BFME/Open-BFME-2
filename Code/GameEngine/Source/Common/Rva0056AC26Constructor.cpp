@@ -55,7 +55,7 @@ Rva0056AC26::Rva0056AC26(Rva0056AC26Owner *owner):m_text(owner->rva003F855D()),m
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002B2702 { public: void rva002B2702(void*,void*,int); };
+#include "../../Include/Common/Rva002B2702.h"
 class Rva0056AC82:public Rva0056AC26 {
 public:virtual ~Rva0056AC82();
  Rva0056AC82(Rva0056AC26Owner *,void *,void *);

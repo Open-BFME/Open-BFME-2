@@ -45,7 +45,7 @@ class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};
 class Rva002E0A9FElem {public:int rva002E0A9F(void*);};
 #include "../../../../Include/GameLogic/Rva00318F42.h"
 class Rva002B4076 {public:void rva002B4076(void*,int,void*);};
-class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
+#include "../../../../Include/Common/Rva002B2702.h"
 class LivingWorldAI {public:
  void SubmitOrders();void rva004FB7B2();
 private:

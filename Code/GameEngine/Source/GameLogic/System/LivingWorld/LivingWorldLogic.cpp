@@ -3075,7 +3075,7 @@ class Rva0020E89C {public:
 class Rva00318C8DOwner {public:Rva0020E89C *rva00318C8D();};
 class Rva00319159 {public:UnicodeString GetHeroDisplayName();};
 class Rva002E0687 {public:bool rva002E0687()const;};
-class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
+#include "../../../../Include/Common/Rva002B2702.h"
 struct Rva003F7198Node {int key;};
 class __declspec(novtable) Rva003F7177Base {public:
  virtual float distance(int,int)=0;virtual float cost(int,int)=0;

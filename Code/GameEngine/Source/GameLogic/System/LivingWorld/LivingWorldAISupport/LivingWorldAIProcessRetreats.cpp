@@ -46,7 +46,7 @@ class Rva0020E89C {public:char m_pad[0x13c];int m_13c;};
 #include "../../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva002104B6 {public:void *rva002104B6(void*);};
 #include "../../../../../Include/GameLogic/Rva002E071E.h"
-class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
+#include "../../../../../Include/Common/Rva002B2702.h"
 class LivingWorldLogicView {public:char m_pad[0xb0];Rva0020EAF6View *m_manager;};
 int GetGameLogicRandomValue(int,int,char*,int);
 class Rva004FB600 {public:void rva004FB600();Rva002B85ECFilter *m_root;};
