@@ -47,15 +47,17 @@ public:
 	char m_pad5C[0x64 - 0x5C];
 };
 BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *pItem);
+class AptCIH;
+class AptValue;
 class BfmeQuery1279
 {
 public:
 	void bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem);
 	BfmeNestedBE *rva006F7D50(int nDepth);
 	int rva006F6CE0() const;
-
-private:
-	BfmeQueryNode1279 *m_root;
+	AptCIH *insert(AptCIH *pOldItem, AptCIH *pNewItem);
+	AptCIH *rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth);
+	BfmeQueryNode1279 *m_root; // +0x00
 };
 // Query provider rehomed to AptMovieFrameControls.cpp; public symbol preserved.
 

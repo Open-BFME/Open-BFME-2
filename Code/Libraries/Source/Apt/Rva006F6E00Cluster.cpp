@@ -32,13 +32,17 @@ public:
 	char m_storage[0x60];
 };
 
+class BfmeNestedBE;
+struct BfmeQueryNode1279;
 class BfmeQuery1279
 {
 public:
+	void bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem);
+	BfmeNestedBE *rva006F7D50(int nDepth);
+	int rva006F6CE0() const;
 	AptCIH *insert(AptCIH *pOldItem, AptCIH *pNewItem);
 	AptCIH *rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth);
-
-	AptCIH *m_root;
+	BfmeQueryNode1279 *m_root; // +0x00
 };
 
 AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth)
