@@ -1,0 +1,309 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0009C134Host",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x100": {
+    "4": 1
+   },
+   "0x104": {
+    "4": 1
+   },
+   "0x108": {
+    "4": 1
+   },
+   "0x10c": {
+    "4": 1
+   },
+   "0x110": {
+    "4": 1
+   },
+   "0x114": {
+    "4": 1
+   },
+   "0x11c": {
+    "4": 1
+   },
+   "0x134": {
+    "4": 1
+   },
+   "0x188": {
+    "4": 1
+   },
+   "0x198": {
+    "4": 3
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0xc0": {
+    "4": 2
+   },
+   "0xf8": {
+    "4": 2
+   },
+   "0xfc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 4,
+   "196": 1,
+   "412": 1,
+   "468": 1
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009C134HostCorners.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 396,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 400,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 404,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 408,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 460,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 464,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

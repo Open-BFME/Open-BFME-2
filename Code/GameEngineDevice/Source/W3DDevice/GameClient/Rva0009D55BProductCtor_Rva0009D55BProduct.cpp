@@ -201,7 +201,7 @@ class CameraClass { public: CameraClass(); void Set_Clip_Planes(float znear, flo
 class Rva0009AA0F { public: Rva0009AA0F(int owner); char m_data[0x10C]; };
 class LightClass { public: enum LightType { POINT = 0, DIRECTIONAL = 1 }; LightClass(LightType type); char m_data[0x120]; };
 class Matrix3D;
-class Rva0009C134Host { public: void setupSunRays(); void rva0009AACF(int obj, float opacity); void buildCameraTransform(Matrix3D &tm, float distance, float pitch); };
+#include "../../../Include/W3DDevice/GameClient/Rva0009C134Host.h"
 
 void Rva0009D55BProduct::rva0009D862()
 {

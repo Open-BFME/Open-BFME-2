@@ -192,7 +192,7 @@ void Rva0009D55BProduct::rva0009C784(unsigned int phase, unsigned int previous)
 class CameraClass { public: CameraClass(); void Set_Clip_Planes(float znear, float zfar); void Set_View_Plane(float hfov, float vfov); void Set_Viewport(const Vector2 &min, const Vector2 &max); void Set_Aspect_Ratio(float ratio); float Get_Aspect_Ratio() const; char m_data[0x3FC]; };
 class LightClass { public: enum LightType { POINT = 0, DIRECTIONAL = 1 }; LightClass(LightType type); char m_data[0x120]; };
 class Matrix3D;
-class Rva0009C134Host { public: void rva0009BAA4(); void setupSunRays(); void rva0009AACF(int obj, float opacity); void buildCameraTransform(Matrix3D &tm, float distance, float pitch); };
+#include "../../../Include/W3DDevice/GameClient/Rva0009C134Host.h"
 
 
 // ?rva0009DB5A@Rva0009D55BProduct@@UAEX_N@Z retail 0x0009DB5A (154 bytes,

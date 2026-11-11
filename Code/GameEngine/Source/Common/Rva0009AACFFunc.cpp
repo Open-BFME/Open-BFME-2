@@ -6,7 +6,7 @@
 
 class RenderObjClass;
 bool Rva0010E87A_SetOpacity(RenderObjClass *,float);
-class Rva0009C134Host { public: void rva0009AACF(int b, float a); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0009C134Host.h"
 
 // ?rva0009AACF@Rva0009C134Host@@QAEXHM@Z
 void Rva0009C134Host::rva0009AACF(int b, float a)

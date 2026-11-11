@@ -210,11 +210,7 @@ class Rva0009D55BProduct
 public:
 	void rva0009BAA4();
 };
-class Rva0009C134Host
-{
-public:
-	void rva0009C134();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0009C134Host.h"
 void Rva0009C134Host::rva0009C134()
 {
 	((Rva000B3FD0 *)this)->rva000B3FD0();

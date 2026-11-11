@@ -52,7 +52,7 @@ struct Rva0009C18AManagerView
 	unsigned char m_pad00[0x14];
 	Rva0009C18AMapView m_map;	// +0x14
 };
-class Rva0009C134Host { public: void rva0009B7EA(Coord3D *corners); };
+#include "../../../Include/W3DDevice/GameClient/Rva0009C134Host.h"
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
