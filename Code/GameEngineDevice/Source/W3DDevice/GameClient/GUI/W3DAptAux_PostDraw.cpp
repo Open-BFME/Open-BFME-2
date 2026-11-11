@@ -44,14 +44,7 @@ typedef int Int;
 void Rva00118990();					// 0x00118990
 
 // The renderer behind s_renderer, placeholder-named by its bracketing calls.
-class BfmeHub982
-{
-public:
-	void * __fastcall rva00111312(int count);
-	void rva001116E2();				// 0x001116E2
-	void bfmeBegin982C();				// 0x00111319
-	void bfmeEnd982C();				// 0x00110611
-};
+#include "../../../../Include/W3DDevice/GameClient/BfmeHub982.h"
 
 // g_Va00DB5FB0 is only an alias of the owned global g_00DB5FB0 (ledger names column); this unit reads the owner through its own view type.
 extern int g_00DB5FB0;

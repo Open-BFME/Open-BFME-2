@@ -892,12 +892,7 @@ Res004FCA0C *Sub0052BAC1::Rva004FCA0C(Rva0020E89C *key)
 	return (Res004FCA0C *)((Rva004FC9CE *)this)->rva004FC9CE(*(const Rva0059E2FD *)key);
 }
 
-class BfmeHub982
-{
-public:
-	void bfmeBegin982C();
-	void rva001116E2();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeHub982.h"
 
 void BfmeHub982::rva001116E2()
 {
