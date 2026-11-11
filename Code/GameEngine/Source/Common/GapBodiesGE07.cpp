@@ -262,7 +262,11 @@ void Made002CCB04::rva0050B4E2(void *a, Object *obj)
 
 // --- 0x0050E952 (56B): describe the +0x20 value into the buffer ("0"
 // first; "%d" unless only the default is wanted).
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src);
+// Retail calls the game's _mbscpy import thunk through REL32, so read
+// <mbstring.h> without dllimport.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 
 class Rva0050E952
 {
