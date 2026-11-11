@@ -168,7 +168,7 @@ template <> void vector<BfmePod172, allocator<BfmePod172> >::push_back(const Bfm
 namespace _STL { template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *); }
 struct Rva001EB8A4Elem;
 class Rva001EB8A4 { public: bool rva001EB8A4(const Rva001EB8A4Elem &e); };
-class Rva001EB3A6 { public: BfmeAssignRecord36 *rva001EB3A6(int index); };
+#include "../../../../Include/Common/Rva001EB3A6.h"
 class Slot0Receiver;
 class Rva001EBCD8
 {

@@ -24,7 +24,7 @@ struct BfmeAssignRecord36 {
  int field14;
  char unknown18[12];
 };
-class Rva001EB3A6 { public: BfmeAssignRecord36 *rva001EB3A6(int); };
+#include "../../../../Include/Common/Rva001EB3A6.h"
 AsciiString __cdecl Rva001EB2CCGetMapPath(const char *);
 #include "../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;

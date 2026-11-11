@@ -11,11 +11,7 @@ struct BfmeAssignRecord36
 	AsciiString s;
 	int a[8];
 };
-class Rva001EB3A6
-{
-public:
-	BfmeAssignRecord36 *rva001EB3A6(int i);
-};
+#include "../../Include/Common/Rva001EB3A6.h"
 class Rva001EB435
 {
 public:

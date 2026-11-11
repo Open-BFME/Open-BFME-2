@@ -44,11 +44,7 @@ struct BfmeAssignRecord36
 	int a[8];
 };
 
-class Rva001EB3A6
-{
-public:
-	BfmeAssignRecord36 *rva001EB3A6(int i);
-};
+#include "../../Include/Common/Rva001EB3A6.h"
 
 struct Rva001EB6A5Out
 {
