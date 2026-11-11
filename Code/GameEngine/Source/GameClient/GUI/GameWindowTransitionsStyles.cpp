@@ -733,12 +733,7 @@ public:
 };
 
 // 0x000B3FD0 is the shared one-byte empty `ret` body; its neutral row name.
-class Rva003FDD05Host
-{
-public:
-	void rva003FDD05();	// vtable 0x00C37DA0 slot 9
-	void rva003FDAEB();
-};
+#include "../../../Include/Common/Rva003FDD05Host.h"
 
 void Rva000A98BACleanup();
 

@@ -182,12 +182,7 @@ float Rva0025ED90Math::rva0025EDC3(float focalLength) { return focalLengthToFov(
 
 // 0x000B3FD0 is the shared one-byte empty `ret` body; its neutral row name.
 #include "../../Include/Common/Rva000B3FD0.h"
-class Rva003FDD05Host
-{
-public:
-	void rva003FDD05();	// vtable 0x00C37DA0 slot 9
-	void rva003FDAEB();
-};
+#include "../../Include/Common/Rva003FDD05Host.h"
 void Rva003FDD05Host::rva003FDD05()
 {
 	rva003FDAEB();

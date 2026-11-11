@@ -12,11 +12,7 @@ public:
 	void rva003FB7DB();
 };
 
-class Rva003FDD05Host
-{
-public:
-	void rva003FDAEB();
-};
+#include "../../Include/Common/Rva003FDD05Host.h"
 
 class Rva003FDC46
 {
