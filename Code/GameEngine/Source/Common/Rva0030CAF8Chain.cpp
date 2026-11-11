@@ -5,11 +5,7 @@
 
 #include "../../Include/Common/DataChunkOutput.h"
 
-class Rva00537EAD
-{
-public:
-	void rva00537EAD(DataChunkOutput *output);
-};
+#include "../../Include/GameLogic/Rva00537EAD.h"
 
 class Rva0030B2FE
 {

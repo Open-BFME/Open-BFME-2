@@ -273,7 +273,7 @@ private:
 
 struct Rva0007E394Element {unsigned opaque;bool operator<(const Rva0007E394Element&)const;bool operator==(const Rva0007E394Element&)const;};
 
-class Rva00537EAD { public: void rva00537EAD(DataChunkOutput *output); };
+#include "../../../Include/GameLogic/Rva00537EAD.h"
 
 class Rva0030B2FE { public: void rva0030B2FE(DataChunkOutput *output); };
 
