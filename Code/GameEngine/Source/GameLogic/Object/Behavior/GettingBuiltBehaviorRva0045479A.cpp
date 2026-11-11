@@ -46,7 +46,7 @@ public:
  virtual void slot4();virtual void slot5();virtual bool active();
 };
 // 0x00453124 is the matched BfmeThingE63::isValid (BfmeConv815.cpp); called on this.
-class BfmeThingE63 { public: bool isValid(); };
+#include "../../../../Include/GameLogic/Module/BfmeThingE63.h"
 class GettingBuiltBehavior {
 public:
  void rva00453D92();bool rva00453DCF();void rva0045479A();

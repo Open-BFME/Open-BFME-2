@@ -11,7 +11,7 @@ enum DeathType { DEATH_UNKNOWN = 0 };
 class ModuleData;
 class Thing;
 class Player;
-class BfmeThingE63 { public: bool isValid(); };
+#include "../../../../Include/GameLogic/Module/BfmeThingE63.h"
 	// 0x00453124, rowed under this name
 class Rva0039B795;
 class Rva0039B7AD;
