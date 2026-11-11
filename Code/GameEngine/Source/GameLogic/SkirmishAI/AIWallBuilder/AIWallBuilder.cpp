@@ -144,7 +144,7 @@ public:
 class BfmeMapObjectListHolder {public: MapObject *m_head;};
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 class Rva0030D4F2 {public:int rva0030D4F2();int rva0030D50C();};
-class Rva0030D808 {public:AsciiString rva0030D808();};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0030D808.h"
 class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
