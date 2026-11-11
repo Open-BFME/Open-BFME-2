@@ -104,7 +104,7 @@ private:
 	float m_58; // +0x58
 };
 
-class Rva005391A9 {public:void rva005391A9();};
+#include "../../Include/Common/Rva005391A9.h"
 
 // ?rva003FDE1A@Rva003FDE1AHelper@@QAEXH@Z @0x003FDE1A 54B: iterate [+0x2C,+0x30) forwarding int arg to rowed 0x0056B8F4 then tail virtual slot 0x20 with (byte from 0x003FDD29 row, 1). Evidence: retail push ebx esi edi loop push [esp+0x10] call row add 4 cmp jne then push 1 call 0x003FDD29 push eax call [esi+0x20] ret 4; caller 0x00318BDE passes int via Helper at +0x88.
 class Rva0056B8F4

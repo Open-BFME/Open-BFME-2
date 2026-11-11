@@ -61,7 +61,7 @@ public:
 
 struct AudioRefs0052 { char unknown[0x10]; OpaqueRefElement4 r10,r14,r18; };
 struct AudioID0052 { char unknown[0x18]; int id; };
-class Rva005391A9 { public: void rva005391A9(); };
+#include "../../Include/Common/Rva005391A9.h"
 class Rva0052B278 { public: void rva0052B003(bool); };
 struct Receiver0052 {
  char unknown00[0x14]; AudioRefs0052 *refs;

@@ -13,7 +13,7 @@
 struct Rva0059DF60EventSource { char pad[0x10]; OpaqueRefElement4 m_10,m_14; };
 struct Rva0059DF60Sequence { char pad[0x13c]; int m_13c; };
 struct Rva0059DF60Owner { char pad[0x1c]; Rva0059DF60Sequence *m_1c; };
-class Rva005391A9 { public: void rva005391A9(); };
+#include "../../Include/Common/Rva005391A9.h"
 class Rva0059DF60AudioView {
 public:
     virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();

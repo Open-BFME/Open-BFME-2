@@ -1,0 +1,119 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005391A9",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "4": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "v00()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "v10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "v11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "v12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "v13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "v14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "v15(int)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v03()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "v04()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "v05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "v06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "v07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "v08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "v09()"
+  }
+ }
+}
