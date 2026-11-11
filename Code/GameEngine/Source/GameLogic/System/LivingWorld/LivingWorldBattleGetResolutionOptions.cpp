@@ -20,7 +20,7 @@ class Rva00210C66CmpBoolField { public: bool get() const; };
 #include "../../../../Include/Common/Rva002B254F.h"
 class Rva002B256E { public: void *rva002B256E(); };
 class Rva003F44A9 { public: bool rva003F44ED(); };
-class Rva002E071E { public: int rva002E0BC0(int); };
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva0020E89C;
 class Rva0020EAF6View { public: Rva0020E89C *rva0020EAF6(int); };
 struct Rva003F4FD4LogicView {

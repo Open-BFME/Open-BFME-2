@@ -99,7 +99,7 @@ public: int rva003F4DAE(int);
  ArmySpawnBattleSide *first,*last;
  unsigned size()const{return unsigned(last-first);}
 };
-class Rva002E071E { public: int rva002E0BC0(int); };
+#include "../../../Include/GameLogic/Rva002E071E.h"
 struct ArmySpawnRegion { unsigned char unknown[0x13c]; int owner; int getOwner()const{return owner;} };
 class Rva0037F57E { public: Rva0037F57E(); virtual ~Rva0037F57E(); };
 

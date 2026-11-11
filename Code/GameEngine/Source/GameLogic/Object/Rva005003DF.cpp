@@ -53,11 +53,7 @@ extern unsigned int g_Va00E04544;
 
 // Rowed 0x002E0BC0 as Rva002E071E::rva002E0BC0(int) returning int
 // (Rva002E0BC0Find.cpp); this caller tests only its low byte.
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(int id);
-};
+#include "../../../Include/GameLogic/Rva002E071E.h"
 
 class Rva002E2903Player
 {

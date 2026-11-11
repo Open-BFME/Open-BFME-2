@@ -1808,12 +1808,7 @@ LivingWorldArmy *LivingWorldLogic::CreateEmptyGarrisonArmy(Rva002B6A04Player *pl
 // two players (WB asserts !newOwner->IsAllyOf(oldOwnerID) around it) and
 // 0x002E0BC0 tests a player id; 0x002B8A9F queues an army for destruction
 // (the +0x118 list processArmyDestroyList drains).
-class Rva002E071E
-{
-public:
-	bool rva002E071E(const Rva002E071E *other) const;	// 0x002E071E
-	Int rva002E0BC0(Int playerID);				// 0x002E0BC0
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva002B8A9F
 {
 public:

@@ -45,7 +45,7 @@ class Rva00318C32Ret {public:char m_pad[0x1a8];_STL::vector<RetreatEntry> entrie
 class Rva0020E89C {public:char m_pad[0x13c];int m_13c;};
 class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
 class Rva002104B6 {public:void *rva002104B6(void*);};
-class Rva002E071E {public:int rva002E0BC0(int);};
+#include "../../../../../Include/GameLogic/Rva002E071E.h"
 class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
 class LivingWorldLogicView {public:char m_pad[0xb0];Rva0020EAF6View *m_manager;};
 int GetGameLogicRandomValue(int,int,char*,int);

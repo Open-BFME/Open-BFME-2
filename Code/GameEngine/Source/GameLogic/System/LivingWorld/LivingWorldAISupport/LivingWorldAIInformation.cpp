@@ -76,7 +76,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic* TheLivingWorldLogic;
 class Rva002E2903Player;
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva002E071E {public:int rva002E0BC0(int);};
+#include "../../../../../Include/GameLogic/Rva002E071E.h"
 extern unsigned int g_Va00E04544;
 class Rva0050228B {
 public:

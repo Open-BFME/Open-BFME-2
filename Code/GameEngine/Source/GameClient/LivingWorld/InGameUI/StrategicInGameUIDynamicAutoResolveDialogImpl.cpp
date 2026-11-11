@@ -215,11 +215,7 @@ public:
 	Int m_id;			// +0x34
 };
 
-class Rva002E071E
-{
-public:
-	bool rva002E071E(const Rva002E071E *other) const;
-};
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 
 struct Rva002BA8F1Listener { char opaque[4]; };
 class Rva005A0B4CList

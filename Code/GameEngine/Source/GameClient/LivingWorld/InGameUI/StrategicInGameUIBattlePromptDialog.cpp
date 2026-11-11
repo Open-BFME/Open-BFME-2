@@ -57,7 +57,7 @@ RvaCloneResult<Rva005E982C> Rva005E9961Create(const Rva005E982C::Payload *src);
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../../../Include/GameClient/Image.h"
 struct FactionView { char prefix[0x20]; AsciiString icon; };
-class Rva002E071E { public: bool rva002E071E(const Rva002E071E *) const; };
+#include "../../../../Include/GameLogic/Rva002E071E.h"
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;

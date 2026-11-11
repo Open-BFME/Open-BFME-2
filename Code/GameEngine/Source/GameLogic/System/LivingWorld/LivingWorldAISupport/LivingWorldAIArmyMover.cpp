@@ -63,7 +63,7 @@ struct Rva002B488EResult {char pad[0x54];int owner;};
 class Rva002E2903Player {public:char pad14[0x14];int id;char pad18[0x1c];int faction;};
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva002E071E {public:int rva002E0BC0(int);};
+#include "../../../../../Include/GameLogic/Rva002E071E.h"
 struct ArmyMoverRegionInfo {int id,owner,m_08,m_0c;_STL::vector<int>m_10,m_1c,m_28,m_34,m_40;IntMap armies;};
 struct Rva004FF5B7Node:public _STL::_Rb_tree_node_base {int key;ArmyMoverRegionInfo region;};
 struct Rva004FF5B7Iter {Rva004FF5B7Node*m_ptr;};

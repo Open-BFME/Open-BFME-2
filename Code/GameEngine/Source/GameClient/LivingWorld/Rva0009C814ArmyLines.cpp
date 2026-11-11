@@ -82,11 +82,7 @@ struct Rva0009C814Owner
 	Int m_13C; // +0x13C
 };
 
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(Int index);
-};
+#include "../../../Include/GameLogic/Rva002E071E.h"
 
 struct Rva0009C814ArmyLine
 {

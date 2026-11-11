@@ -10,7 +10,7 @@
 // DFFB. WB sibling pairing swaps the latter labels and is not call proof.
 #include "ascii_string.h"
 class Rva002E2903Player;
-class Rva002E071E {public:bool rva002E071E(const Rva002E071E *) const;};
+#include "../../../Include/GameLogic/Rva002E071E.h"
 class Rva002BA8F1Logic {
 public:
  Rva002E2903Player *find(int,unsigned int *);
