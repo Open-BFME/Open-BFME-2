@@ -38,7 +38,7 @@ void Rva005C96A9::rva005C96A9(TreeHintRef00217D4C hint, int value)
 }
 
 // LINK: the open call binds the rowed owner at 0x00524D01 (MovieWindowPlayback::OpenMovie, Rva00524B7ACtor.cpp).
-class MovieWindowPlayback { public: void OpenMovie(const AsciiString &, int); };
+#include "../../../../GameEngine/Include/Common/MovieWindowPlayback.h"
 
 // The owner at 0x005C976F contains this same setter object at +0x218.
 // Native calls expose its vptr at +0 and state byte +0x24 while the
