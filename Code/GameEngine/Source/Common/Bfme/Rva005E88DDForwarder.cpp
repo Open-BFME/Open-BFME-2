@@ -2,11 +2,7 @@
 // ?rva005E88DD@Rva005E88DDNullTarget@@QAEXXZ @0x005E88DD 7B
 // Chain from 0x005E8892: null-target forwarder mov ecx,[ecx]; jmp rowed body.
 // Evidence: pin name; callers 0x005CE215 and rowed 0x005CE9F7 forwarder.
-class Rva005E888A
-{
-public:
-	void rva005E8892();
-};
+#include "../../../Include/Common/Rva005E888A.h"
 
 class Rva005E88DDNullTarget
 {

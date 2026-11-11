@@ -886,11 +886,7 @@ void Rva005E7FC8::clear()
 	}
 }
 
-class Rva005E888A
-{
-public:
-	~Rva005E888A();
-};
+#include "../../Include/Common/Rva005E888A.h"
 
 class Rva005E88EE
 {
