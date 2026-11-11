@@ -45,10 +45,7 @@ void Rva005CC342::rva005CC342()
 	return m_14->f7();
 }
 
-class Rva005E1160Flag {
-public:
-    void rva005E1160(bool flag);
-};
+#include "../../Include/Common/Rva005E1160Flag.h"
 class Rva005CC30B {
 public:
     void rva005CC30B();

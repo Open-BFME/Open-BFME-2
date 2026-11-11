@@ -176,7 +176,7 @@ TreeHintRef00217D4C StrategicInGameUI::QueueUnitButton::CreateHelp()
 // the native XMM0 return without an artificial vector return type.
 // The update's original class name is unproven; it holds region/unit/build
 // time at 20/28/2C and updates its button subobject at +8.
-class Rva005E1160Flag {public:void rva005E1160(bool);};
+#include "../../../../Include/Common/Rva005E1160Flag.h"
 class Rva005E1168 {public:void rva005E1168(int);};
 class Rva005E1178 {public:void ShowTimerOverlay(float);};
 class Rva005F8A7ESub;

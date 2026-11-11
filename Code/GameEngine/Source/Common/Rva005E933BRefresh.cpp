@@ -20,7 +20,7 @@ public:
 
 #include "../../Include/GameLogic/LivingWorldRegion.h"
 
-class Rva005E1160Flag { public: void rva005E1160(bool); };
+#include "../../Include/Common/Rva005E1160Flag.h"
 
 class Rva005E933BOwner
 {

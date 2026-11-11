@@ -6,11 +6,7 @@ class Rva00318F42;
 unsigned char Rva005E9137Check(Rva00318F42 *target);
 typedef bool (*Rva005E9137BoolFn)(Rva00318F42 *target);
 
-class Rva005E1160Flag
-{
-public:
-	void rva005E1160(bool value);
-};
+#include "../../Include/Common/Rva005E1160Flag.h"
 
 class Rva005E9163
 {
