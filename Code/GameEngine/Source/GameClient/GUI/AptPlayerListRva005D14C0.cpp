@@ -41,11 +41,7 @@ extern class MessageStream *TheMessageStream;
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
-class Rva005ED976
-{
-public:
-	void rva005ED5EB();
-};
+#include "../../../Include/GameClient/Rva005ED976.h"
 
 class Rva005D13C2DispatchTarget
 {

@@ -161,11 +161,7 @@ public:
 	};
 };
 
-class Rva005ED976
-{
-public:
-	void selectPlayer(int xfer);								// 0x005ED861
-};
+#include "../../Include/GameClient/Rva005ED976.h"
 
 class Rva005D1362 : public FXParticleSystem::EmissionVelocityInfo
 {

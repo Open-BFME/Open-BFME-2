@@ -6,11 +6,7 @@
 // the meaning of the virtual slot are structural inferences; class identity
 // is unknown and remains address-derived.
 
-class Rva005ED976
-{
-public:
-	void rva005ED5EB();
-};
+#include "../../../Include/GameClient/Rva005ED976.h"
 
 class Rva005D13C2DispatchTarget
 {

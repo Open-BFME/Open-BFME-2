@@ -82,18 +82,7 @@ public:
 class Rva005ED5BB {public:void rva005ED5BB(int,int);};
 class Rva005ED849 {public:void rva005ED849(int,int);};
 class Rva005ED851 {public:void rva005ED851(int,int);};
-class Rva005ED976
-{
-public:
-	void rva005ED976(const UnicodeString &text);
-	void rva005ED849(int index, int color);
-	void rva005ED851(int index, int value);
-	void SetUnitCount(int index, int value);
-	void selectPlayer(int row);
-	void setPlayerName(int index, const UnicodeString &name);
-	void SetRegionBonusText(int index, const UnicodeString &text);
-	void rva005ED5BB(int index, const Image *image);
-};
+#include "../../../Include/GameClient/Rva005ED976.h"
 
 #include "../../../Include/GameLogic/LivingWorldPlayer.h"
 
