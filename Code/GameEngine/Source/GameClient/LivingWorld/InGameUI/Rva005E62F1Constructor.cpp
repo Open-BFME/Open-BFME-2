@@ -32,7 +32,7 @@ class __declspec(novtable) Rva005E62F1ListenerBase {public:__forceinline Rva005E
 class Widget {public:virtual void s0();virtual void image(const void*);virtual void s2();virtual void range(int,int);virtual void s4();virtual void s5();virtual void ref(const Rva005773DB&);virtual void s7();virtual void refresh();};
 class PanelWidget {public:virtual void s0();virtual void entry(int,const void*);virtual void s2();virtual void factory(const void*);};
 class Rva0042D703PtrChaseField {public:int get()const;};
-class Rva0042D6B4PtrChaseField {public:int get()const;};
+#include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 class Rva0042D6FDPtrChaseField {public:int get()const;};
 class Rva0042D69DPtrChaseField {public:int get()const;};
 struct Rva005D2355In;class Image;

@@ -62,11 +62,7 @@ private:
 
 
 
-class Rva0042D6B4PtrChaseField
-{
-public:
-    int get() const;
-};
+#include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 
 class Rva001FF3A9
 {

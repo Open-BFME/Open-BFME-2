@@ -167,11 +167,7 @@ Int Rva002ABC76::rva002ABC76(char *buf)
 }
 
 // 0x0057433D: the rowed getter 0x0042D6B4 of the +0x08 object.
-class Rva0042D6B4PtrChaseField
-{
-public:
-	Int get() const;
-};
+#include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 class Rva0057433D
 {
 public:

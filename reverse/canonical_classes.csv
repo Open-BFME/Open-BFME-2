@@ -925,3 +925,4 @@ BfmeThing932E,Code/GameEngine/Include/Common/BfmeThing932E.h,existing header; co
 QuadStrip2D,Code/GameEngine/Include/Common/QuadStrip2D.h,existing header; contract class_contracts/QuadStrip2D.json; 7/9 sampled units adopt
 Rva005CCB5B,Code/GameEngine/Include/Common/Rva005CCB5B.h,existing header; contract class_contracts/Rva005CCB5B.json; 8/9 sampled units adopt
 TerrainRoadCollection,Code/GameEngine/Include/GameClient/TerrainRoadCollection.h,existing header; contract class_contracts/TerrainRoadCollection.json; 7/9 sampled units adopt
+Rva0042D6B4PtrChaseField,Code/GameEngine/Include/Common/Rva0042D6B4PtrChaseField.h,existing header; contract class_contracts/Rva0042D6B4PtrChaseField.json; 11/14 sampled units adopt

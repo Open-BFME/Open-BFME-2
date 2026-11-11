@@ -59,7 +59,7 @@ class Rva00318FBE { public: int rva00318FBE(); };
 class Rva00319B0AOwner { public: void rva00319B0A();void rva00319B31(); };
 class Rva0042D703PtrChaseField { public: int get() const; };
 class Rva0042D69DPtrChaseField { public: int get() const; };
-class Rva0042D6B4PtrChaseField { public: int get() const; };
+#include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 struct Rva005CF37DPortrait {
     virtual void slot0();
     virtual void setImage(const Image *);

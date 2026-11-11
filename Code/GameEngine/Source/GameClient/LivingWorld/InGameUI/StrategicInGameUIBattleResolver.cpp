@@ -28,7 +28,7 @@ public:
 class Object;
 #include "../../../../Include/Common/Rva00575674.h"
 class Rva0042D6BAPtrChaseField {public: int get() const;};
-class Rva0042D6B4PtrChaseField {public: int get() const;};
+#include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 class Rva0042D703PtrChaseField {public: int get() const;};
 class Rva0042D6FDPtrChaseField {public: int get() const;};
 

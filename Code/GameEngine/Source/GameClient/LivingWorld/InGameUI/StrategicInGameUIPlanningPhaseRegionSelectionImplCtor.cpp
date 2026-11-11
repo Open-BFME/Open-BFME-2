@@ -29,11 +29,7 @@ public:
 	void append(Rva002BA8F1Listener *listener);
 };
 
-class Rva0042D6B4PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 
 class Rva0042D6FDPtrChaseField
 {

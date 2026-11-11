@@ -100,7 +100,7 @@ void ArmyMemberTransferCallback::moveSelectedMembersToSource(){
 // in Keyboard.cpp. Context getters read node18/1C; pending registration uses40.
 #include "../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard*TheKeyboard;
-class Rva0042D6B4PtrChaseField {public:int get()const;};
+#include "../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 class Rva0042D6BAPtrChaseField {public:int get()const;};
 class Object;
 #include "../../../Include/Common/Rva00575674.h"
