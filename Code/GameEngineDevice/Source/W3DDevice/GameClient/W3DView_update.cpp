@@ -45,7 +45,7 @@ class Rva0007BB79Owner
 public:
 	Rva0008B689Element rva0007BB79();
 };
-class Rva0007D9B5Host{public:void rva0007D9B5(int);};
+#include "../../../Include/W3DDevice/GameClient/Rva0007D9B5Host.h"
 #include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 class Rva0007DA23ResourceManager;
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;

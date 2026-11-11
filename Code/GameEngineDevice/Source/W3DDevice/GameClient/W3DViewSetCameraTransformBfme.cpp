@@ -74,7 +74,7 @@ struct Rva0008B689Element {CameraClass *pointer; Rva0008B689Element():pointer(0)
 namespace _STL {template<> void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}
 class Rva0008B470:private _STL::_Vector_base<int,_STL::allocator<int> > {typedef _STL::_Vector_base<int,_STL::allocator<int> > Base;public:__forceinline Rva0008B470(const _STL::allocator<int>&a=_STL::allocator<int>()):Base(a){}~Rva0008B470();void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
 Rva0008B689Element Rva000897C8(CameraClass*);
-class Rva0007D9B5Host{public:void rva0007D9B5(int);};
+#include "../../../Include/W3DDevice/GameClient/Rva0007D9B5Host.h"
 class Rva0007BB79Owner
 {
 public:

@@ -206,11 +206,7 @@ struct Vector3_9A587
 	Vector3_9A587() {}
 };
 
-class Rva0007D9B5Host
-{
-public:
-	void rva0007D9CF(const int *p);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva0007D9B5Host.h"
 
 class W3DGameClientShadowShim
 {
