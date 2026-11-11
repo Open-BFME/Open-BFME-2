@@ -984,11 +984,7 @@ void Rva005E6884::rva005E6884()
     slot6();
 }
 
-class Rva005F327ARun
-{
-public:
-	void run();
-};
+#include "../../Include/Common/Rva005F327ARun.h"
 
 class Rva005F604C
 {

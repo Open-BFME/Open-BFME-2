@@ -22,11 +22,7 @@ public:
 	virtual void rva005E549E();
 };
 
-class Rva005F327ARun
-{
-public:
-	void run();
-};
+#include "../../Include/Common/Rva005F327ARun.h"
 
 class Rva005E5554
 {
