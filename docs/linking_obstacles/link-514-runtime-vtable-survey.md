@@ -2453,3 +2453,19 @@ blocked. The canonical base trial emits both full table extents and preserves
 the five derived destructors. The secondary slot 4 move refuses a parameter
 type change; three siblings also need distinct overrides. Trial results and
 retail targets are in `reverse/attempt_support/registry-acff-slot-contract.md`.
+
+AI upgrade heuristic helper, RVA 0x008765A0. Constructor 0x005DA64B
+installs this two-entry table. The factory calls slot 0 through its field
+at +0x38 as int(int) and stores the result at +0x40. Rva005DA64B now emits
+the zero-returning override at 0x005DAA6C (33 C0 C2 04 00); slot 1 retains
+the deleting destructor at 0x005DA663. Its unit verifies 5/5 rows and the
+preview retains 88/88 bytes against census 60189f9ced.
+
+The other emitter, Rva005DAA5A in V3PolyDeferredCopyCtors.cpp, and its
+sibling Rva005DAA48 at table 0x00876598 still need lifetime reconciliation.
+An inline Rva005DAA36(void*) base constructor preserved both 18-byte
+constructors, both slot targets and the 7-byte restores to VA 0x00C70B80.
+It duplicated the strong constructor from V3PolyCopyCtors.cpp (preview
+236 to 0). A shared inline definition alone removed the required standalone
+body from that owner. Both trials were reverted; the three units verify
+34/34 together. Await real-link provider selection for 0x008765A0.
