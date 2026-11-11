@@ -135,11 +135,7 @@ void Rva0023A039::clear()
 	}
 }
 
-class Rva004E668E
-{
-public:
-	__declspec(noinline) ~Rva004E668E();
-};
+#include "../../Include/Common/Rva004E668E.h"
 
 // Target identity: the reset methods below and the scalar deleting destructor
 // call 0x004E668E as this pointee's destructor. Its five-byte body tail-jumps

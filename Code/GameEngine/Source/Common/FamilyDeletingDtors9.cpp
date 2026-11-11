@@ -9,7 +9,7 @@
 // Owner identities and layouts are not recovered.
 
 // ??_GRva004E668E@@QAEPAXI@Z @0x0029B219 28B: calls pinned ~Rva004E668E 0x004E668E
-class Rva004E668E { public: ~Rva004E668E(); };
+#include "../../Include/Common/Rva004E668E.h"
 void famgenDelete(Rva004E668E *p) { delete p; }
 
 // ??_GInGameNotificationBoxMovieClip@@QAEPAXI@Z @0x0029B235 28B: calls pinned ~InGameNotificationBoxMovieClip 0x004E6A9B
