@@ -7219,10 +7219,10 @@ local,GetStr::t,GetStr::text,inferred,agree:nl-0c5182f124e1,Code/GameEngine/Sour
 local,InGameUI::createCommandHint::t,InGameUI::createCommandHint::messageType,inferred,agree:nl-a9cd788b2e61,Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp,0x002A3273
 local,size::n,size::count,inferred,agree:nl-e00e98162e36,Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp,
 param,Rva002A1B6FNativeList::a,Rva002A1B6FNativeList::allocator,inferred,agree:nl-f022d1f60554,Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp,
-local,Rva006E3410::rva006E3410::n,Rva006E3410::rva006E3410::count,inferred,agree:nl-7b898318ee05,Code/Libraries/Source/Apt/Rva006E3410.cpp,0x006E3410
-local,Rva006E3410::rva006E3410::p,Rva006E3410::rva006E3410::cursor,inferred,agree:nl-4ca868c6fe26,Code/Libraries/Source/Apt/Rva006E3410.cpp,0x006E3410
-local,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::target,inferred,agree:nl-bb120f6dec6a,Code/Libraries/Source/Apt/Rva006E3410.cpp,0x006E3410
-param,Rva006E3410::rva006E3410::v,Rva006E3410::rva006E3410::needle,inferred,agree:nl-eeb21b98a15e,Code/Libraries/Source/Apt/Rva006E3410.cpp,0x006E3410
+local,Rva006E3410::rva006E3410::n,Rva006E3410::rva006E3410::count,inferred,agree:nl-7b898318ee05,Code/Libraries/Source/Apt/AptAnimation.cpp,0x006E3410
+local,Rva006E3410::rva006E3410::p,Rva006E3410::rva006E3410::cursor,inferred,agree:nl-4ca868c6fe26,Code/Libraries/Source/Apt/AptAnimation.cpp,0x006E3410
+local,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::target,inferred,agree:nl-bb120f6dec6a,Code/Libraries/Source/Apt/AptAnimation.cpp,0x006E3410
+param,Rva006E3410::rva006E3410::v,Rva006E3410::rva006E3410::needle,inferred,agree:nl-eeb21b98a15e,Code/Libraries/Source/Apt/AptAnimation.cpp,0x006E3410
 param,FilterBlockBil_8_mmx::x,FilterBlockBil_8_mmx::xPhase,inferred,agree:nl-a21442bde2ed,Code/Libraries/Source/VP6/FilterBlockBil8Mmx.cpp,0x001D7200
 param,FilterBlockBil_8_mmx::y,FilterBlockBil_8_mmx::yPhase,inferred,agree:nl-0b5e3da45f8f,Code/Libraries/Source/VP6/FilterBlockBil8Mmx.cpp,0x001D7200
 param,S2PivotMatrix::Q,S2PivotMatrix::rotation,inferred,agree:nl-3a2eed26e864,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,

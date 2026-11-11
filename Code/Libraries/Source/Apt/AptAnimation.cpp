@@ -186,6 +186,13 @@ public:
 };
 #include "Rva006D0A30List.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
+#define G_Ready g_rva00891FA0Ready
+#define G_Value g_rva00891FA0Value
+#define G_Send Rva00891FA0SendRecord
+#define SLIDE(p) if(p) p=shift(p,delta)
+#define INDEX(v) ((Rva006E3410*)this)->rva006E3410(v)
+#define O objects[i]
+
 //
 // ?rva006E34D0@Rva006E34D0@@QAEXH@Z @0x006E34D0 88B
 // Bounded int append with consecutive-dup guard plus data-pointer notify:
@@ -197,16 +204,16 @@ public:
 // AptAnimationPoolDataBIL clearBIL/appendButtonToBIL; callback slots
 // 0x00A17740/44 are .data pointers per Rva00891FA0Diagnostics.
 extern int g_rva00891FA0Ready;
+
 extern int g_rva00891FA0Value;
+
 struct Rva00891FA0Record
 {
 	int value;
 	int kind;
 };
+
 extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *, int);
-#define G_Ready g_rva00891FA0Ready
-#define G_Value g_rva00891FA0Value
-#define G_Send Rva00891FA0SendRecord
 
 class Rva00893030Manager;
 
@@ -329,7 +336,223 @@ struct Rva006E34A0
 	void *rva006E34A0(unsigned int flag);
 };
 
-// tu-skeleton: 0x006E3410 70B ?rva006E3410@Rva006E3410@@QAEHH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3410.cpp (not merged yet)
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+
+class Rva006E3410
+{
+public:
+	int rva006E3410(int needle);
+	char m_pad00[0xC];
+private:
+	int m_count; // +0x0C
+	int *m_arr; // +0x10
+};
+
+// ?rva006E3710@Rva006E3710@@QAE_NPAURva006E3710Node@@@Z @0x006E3710 39B.
+// Walks a singly linked list via +0x48 looking for the pointer at this+0x9c.
+// Evidence: unlock lane packet; ret 4 with ecx use implies __thiscall method;
+// false when target null or found in list, true otherwise.
+struct Rva006E3710Node { char _pad[0x48]; Rva006E3710Node *m_next; };
+
+class Rva006E3710 {
+    char _lead[0x9c];
+    Rva006E3710Node *m_target;
+public:
+    bool rva006E3710(Rva006E3710Node *p);
+};
+
+// AptAnimation.cpp (BFME 2 1.03 assert path): rebases a loaded animation's object,
+// import and link pointers by delta and rebinds imported character slots.
+// ?rva006E5940@Rva006E5940@@QAEXH@Z @0x006E5940 1480B (RET4; 1436B code plus the
+// ten-entry jump table). Case 2 ends in continue: retail shares its +0x38 slide
+// tail with case 4 at the earlier copy, which a break-terminated case 2 inverts.
+extern "C" void __cdecl Rva006FD040(void*,void*,void*);
+
+class Rva0070EDC0 
+{
+ public:void rva0070EDC0(int,void*);
+ 
+}
+;
+
+extern void *g_aptFreeRenderingUnitSlot,*g_aptFreeSoundSlot,*g_aptFreeTextureSlot;
+
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
+
+int Rva006CFDF0DecRef(int*);
+
+void bfmeDropVGO(void*);
+
+struct Handle 
+{
+ int *p;
+ Handle(int *q):p(q)
+ {
+  
+ }
+ ~Handle()
+ {
+  if(p && !Rva006CFDF0DecRef(p))bfmeDropVGO(p);
+  
+ }
+ Handle &operator=(const Handle&x)
+ {
+  if(&x!=this)
+  {
+   if(p&&!Rva006CFDF0DecRef(p))bfmeDropVGO(p);
+   p=x.p;
+   if(p)++*p;
+   
+  }
+  return *this;
+  
+ }
+ 
+}
+;
+
+struct Import 
+{
+ char *p0,*p4;
+ int id;
+ Handle handle;
+ 
+}
+;
+
+struct Link 
+{
+ char *p;
+ int unused;
+ 
+}
+;
+
+struct Sub4 
+{
+ char *p[4];
+ 
+}
+;
+
+struct Record68 
+{
+ int a,b;
+ char pad[60];
+ 
+}
+;
+
+struct Record8 
+{
+ int a;
+ char *p;
+ 
+}
+;
+
+struct Record56 
+{
+ char pad[52];
+ char *p;
+ 
+}
+;
+
+struct Object 
+{
+ int kind,marker;
+ union
+ {
+  struct 
+  {
+   char *p8;
+   int count;
+   int *indices;
+   
+  }
+  t3;
+  struct
+  {
+   char pad[28];
+   char *p24,*p28;
+   int count;
+   Record68 *records;
+   int count8;
+   Record8 *records8;
+   Sub4 *sub;
+   
+  }
+  t4;
+  struct
+  {
+   char pad[44];
+   char *p34,*p38;
+   
+  }
+  t2;
+  struct
+  {
+   char pad[40];
+   int count;
+   Record56 *records;
+   
+  }
+  t10;
+  int words[14];
+  
+ }
+ ;
+ 
+}
+;
+
+class Rva006E5940 
+{
+ public:char pad0[12];
+ int count;
+ Object **objects;
+ char pad14[12];
+ int importCount;
+ Import *imports;
+ int linkCount;
+ Link *links;
+ void *gc;
+ void rva006E5940(int delta);
+ inline int importIndex(int value)
+ {
+  for(int j=0;j<importCount;++j)if(imports[j].id==value)return j;
+  return -1;
+  
+ }
+ 
+}
+;
+
+// ---- from Code/Libraries/Source/Apt/Rva006E3410.cpp
+
+int Rva006E3410::rva006E3410(int needle)
+{
+	int count = m_count;
+	int i = 0;
+	if (count > 0) {
+		int *cursor = m_arr;
+		int target = needle;
+		do {
+			if (*cursor == target)
+				return i;
+			++i;
+			++cursor;
+		} while (i < count);
+	}
+	g_bfmeAptAssertAtE17734("NOT_REACHED", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0xD2);
+	if (g_bfmeAptBreakOnAssertAtDDC01C)
+		__debugbreak();
+	return -1;
+}
+
+// ---- from Code/Libraries/Source/Apt/AptAnimation.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptAnimation.cpp
 
@@ -626,8 +849,6 @@ void Rva006E58D0::rva006E5050(void *pBase,void *pConstantFile,void *pLoadContext
  }
 }
 
-// tu-skeleton: 0x006E3490 11B ?rva006E3490@Rva006E3490@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/Rva006E34D0.cpp
 
 void Rva006E34D0::rva006E34D0(int entry)
@@ -678,11 +899,25 @@ void Rva006E34D0::rva006E3530(int a, int b, int c)
 	rva006E34D0(packed);
 }
 
+// tu-skeleton: 0x006E3490 11B ?rva006E3490@Rva006E3490@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp (not merged yet)
+
 // tu-skeleton: 0x006E3640 180B ?removeFromBIL@AptAnimationPoolData@@QAEXPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp (not merged yet)
 
 // tu-skeleton: 0x006E3700 13B ?set@Rva006E3700DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x006E3710 39B ?rva006E3710@Rva006E3710@@QAE_NPAURva006E3710Node@@@Z -- matched in Code/Libraries/Source/Apt/Rva006E3710Check.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/Rva006E3710Check.cpp
+
+bool Rva006E3710::rva006E3710(Rva006E3710Node *p)
+{
+    Rva006E3710Node *target = m_target;
+    if (!target)
+        return false;
+    for (Rva006E3710Node *q = p; q; q = q->m_next) {
+        if (q == target)
+            return false;
+    }
+    return true;
+}
 
 // tu-skeleton: 0x006E3740 195B ?rva006E3740@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
 
@@ -722,7 +957,133 @@ void Rva006E34D0::rva006E3530(int a, int b, int c)
 
 // tu-skeleton: 0x006E58D0 105B ?rva006E58D0Body@Rva006E58D0@@QAEXPAX00@Z -- matched in Code/Libraries/Source/Apt/Rva006E4FF0Cluster_Rva006E58D0Body.cpp (not merged yet)
 
-// tu-skeleton: 0x006E5940 1480B ?rva006E5940@Rva006E5940@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptAnimationRebase.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/AptAnimationRebase.cpp
+
+template<class T> inline T* shift(T*p,int delta)
+{
+ return (T*)((char*)p-delta);
+ 
+}
+
+void Rva006E5940::rva006E5940(int delta)
+{
+ void **g=&gc;
+ *g=0;
+ for(int i=0;i<count;++i)if(O && importIndex(i)==-1)
+ {
+  switch((O?O:O)->kind)
+  {
+   case 8:
+   {
+    O->words[0]=INDEX(O->words[0]);
+    O->words[1]=INDEX(O->words[1]);
+    break;
+    
+   }
+   case 4:
+   {
+    Sub4 *sub4=O->t4.sub;
+    if(sub4)
+    {
+     if(sub4->p[1])sub4->p[1]=(char*)INDEX((int)sub4->p[1]);
+     if(sub4->p[3])sub4->p[3]=(char*)INDEX((int)sub4->p[3]);
+     if(sub4->p[0])sub4->p[0]=(char*)INDEX((int)sub4->p[0]);
+     if(sub4->p[2])sub4->p[2]=(char*)INDEX((int)sub4->p[2]);
+     
+    }
+    SLIDE(O->t4.sub);
+    break;
+    
+   }
+   
+  }
+  
+ }
+ for(int i=0;i<count;++i)if(O && importIndex(i)==-1)
+ {
+  switch(O->kind)
+  {
+   case 5:((Rva0070EDC0*)((char*)O+8))->rva0070EDC0(delta,g);
+   break;
+   case 1:((void(__cdecl*)(int))g_aptFreeRenderingUnitSlot)(O->words[4]);
+   O->words[4]=i;
+   break;
+   case 4:SLIDE(O->t4.p24);
+   SLIDE(O->t4.p28);
+   for(int j=0;j<O->t4.count;++j)O->t4.records[j].b=INDEX(O->t4.records[j].b);
+   SLIDE(O->t4.records);
+   for(int j=0;j<O->t4.count8;++j)
+   {
+    Rva006FD040(O->t4.records8[j].p,(void*)delta,g);
+    SLIDE(O->t4.records8[j].p);
+    
+   }
+   SLIDE(O->t4.records8);
+   break;
+   case 3:SLIDE(O->t3.p8);
+   for(int j=0;j<O->t3.count;++j)O->t3.indices[j]=INDEX(O->t3.indices[j]);
+   SLIDE(O->t3.indices);
+   break;
+   case 6:((void(__cdecl*)(int))g_aptFreeSoundSlot)(O->words[0]);
+   O->words[0]=i;
+   break;
+   case 2:SLIDE(O->t2.p34);
+   SLIDE(O->t2.p38);
+   continue;
+   case 7:((void(__cdecl*)(int))g_aptFreeTextureSlot)(O->words[0]);
+   O->words[0]=i;
+   break;
+   case 9:((Rva0070EDC0*)((char*)O+8))->rva0070EDC0(delta,g);
+   if(i)
+   {
+    g_bfmeAptAssertAtE17734("i == 0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp",390);
+    if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+    
+   }
+   break;
+   case 10:for(int j=0;j<O->t10.count;++j)
+   {
+    SLIDE(O->t10.records[j].p);
+    
+   }
+   SLIDE(O->t10.records);
+   break;
+   
+  }
+  
+ }
+ for(int i=0;i<importCount;++i)
+ {
+  Handle null(0);
+  imports[i].handle=null;
+  objects[imports[i].id]=0;
+  
+ }
+ for(int i=0;i<count;++i)if(O)
+ {
+  O->marker=0x9876543;
+  SLIDE(O);
+  
+ }
+ SLIDE(objects);
+ for(int i=0;i<importCount;++i)
+ {
+  SLIDE(imports[i].p0);
+  SLIDE(imports[i].p4);
+  
+ }
+ for(int i=0;i<linkCount;++i)
+ {
+  SLIDE(links[i].p);
+  
+ }
+ SLIDE(imports);
+ SLIDE(links);
+ *g=0;
+ 
+}
+
+// Retail uses a direct cdecl call to 0x006FD040 and an ECX receiver at object + 8.
 
 // tu-skeleton: 0x006E5F10 186B ??0Rva008A2C80@@QAE@VRva008A2BA0Handle@@@Z -- matched in Code/GameEngine/Source/Common/Rva008A2C80Constructor.cpp (not merged yet)
 
@@ -733,8 +1094,6 @@ void Rva006E34D0::rva006E3530(int a, int b, int c)
 // tu-skeleton: 0x006E6060 865B ??0Rva006E6060Root@@QAE@PBURva00222343@@@Z -- matched in Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007A9180 8B uw_007a9180 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9188 10B __ehhandler$?rva006E5940@Rva006E5940@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptAnimationRebase.cpp (not merged yet)
 
 // tu-skeleton: 0x007A91A0 8B uw_007a91a0 -- matched in Code/GameEngine/Source/Common/Rva008A2C80Constructor.cpp (not merged yet)
 

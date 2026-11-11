@@ -58814,7 +58814,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006E32A0,36,code,Code/Libraries/Source/Apt/AptActionQueueC.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptActionQueueC.cpp noncontiguous,Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp
 0x006E32D0,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 0x006E32E0,303,code,,,-,,Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp
-0x006E3410,70,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp,Code/Libraries/Source/Apt/Rva006E3410.cpp
+0x006E3410,70,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x006E3460,39,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E3410..0x006E3490,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x006E3490,11,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E3410..0x006E34A0,Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp
 0x006E34A0,42,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E3410..0x006E34D0,Code/Libraries/Source/Apt/AptAnimation.cpp
@@ -58825,7 +58825,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006E35E0,81,code,,displaced,-,N=Code/Libraries/Source/Apt/AptAnimationPoolData.cpp,Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp
 0x006E3640,180,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp N=Code/Libraries/Source/Apt/AptAnimationPoolData.cpp,Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp
 0x006E3700,13,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E3640..0x006E3710,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
-0x006E3710,39,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E3640..0x006E3740,Code/Libraries/Source/Apt/Rva006E3710Check.cpp
+0x006E3710,39,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E3640..0x006E3740,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x006E3740,195,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp N=Code/Libraries/Source/Apt/AptActionQueueC.cpp,Code/Libraries/Source/Apt/Rva006E3230Validate.cpp
 0x006E3810,191,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp N=Code/Libraries/Source/Apt/AptActionQueueC.cpp,Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp
 0x006E38D0,73,code,Code/Libraries/Source/Apt/AptActionQueueC.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptActionQueueC.cpp noncontiguous,Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp
@@ -58861,7 +58861,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006E4FF0,86,code,Code/Libraries/Source/Apt/AptActionQueueC.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptActionQueueC.cpp noncontiguous,Code/Libraries/Source/Apt/Rva006E4FF0Cluster.cpp
 0x006E5050,2172,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp W=Code/Libraries/Source/Apt/AptAnimation.cpp,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x006E58D0,105,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp W=Code/Libraries/Source/Apt/AptAnimation.cpp,Code/Libraries/Source/Apt/Rva006E4FF0Cluster_Rva006E58D0Body.cpp
-0x006E5940,1480,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp W=Code/Libraries/Source/Apt/AptAnimation.cpp,Code/Libraries/Source/Apt/AptAnimationRebase.cpp
+0x006E5940,1480,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,F,F=Code/Libraries/Source/Apt/AptAnimation.cpp W=Code/Libraries/Source/Apt/AptAnimation.cpp,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x006E5F10,186,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E5940..0x006E5FD0,Code/GameEngine/Source/Common/Rva008A2C80Constructor.cpp
 0x006E5FD0,21,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E5940..0x006E5FF0,Code/GameEngine/Source/Common/R1GuardedReleaseHelpers.cpp
 0x006E5FF0,106,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,C,C=0x006E5940..0x006E6060,Code/GameEngine/Source/Common/Rva008A2C80RefDrop.cpp
@@ -91814,7 +91814,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A9168,8,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5050@FuncInfo0x00962B24,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x007A9170,10,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5050@FuncInfo0x00962B24,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x007A9180,8,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5940@FuncInfo0x00962B48,Code/gen_small/uw_gen_000.cpp
-0x007A9188,10,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5940@FuncInfo0x00962B48,Code/Libraries/Source/Apt/AptAnimationRebase.cpp
+0x007A9188,10,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5940@FuncInfo0x00962B48,Code/Libraries/Source/Apt/AptAnimation.cpp
 0x007A91A0,8,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5F10@FuncInfo0x00962B7C,Code/GameEngine/Source/Common/Rva008A2C80Constructor.cpp
 0x007A91A8,8,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5F10@FuncInfo0x00962B7C,Code/GameEngine/Source/Common/Rva008A2C80Constructor.cpp
 0x007A91B0,11,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E5F10@FuncInfo0x00962B7C,Code/GameEngine/Source/Common/Rva008A2C80Constructor.cpp
