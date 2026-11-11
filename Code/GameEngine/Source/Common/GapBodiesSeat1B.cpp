@@ -940,11 +940,7 @@ public:
 	void clear();											// 0x0023D2D8
 };
 
-class LivingWorldArmyLine
-{
-public:
-	void rva00539141();										// 0x00539141
-};
+#include "../../Include/Common/LivingWorldArmyLine.h"
 
 class Rva003182BC
 {

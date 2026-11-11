@@ -49,11 +49,7 @@ void Rva00538EF5::rva00538EF5(const Rva00318B5C &value, int key)
 
 // --- 0x00539152 (25B): a point count, no points yet, then the rowed
 // LivingWorldArmyLine::allocatePoints.
-class LivingWorldArmyLine
-{
-public:
-	void allocatePoints(unsigned count);					// 0x005390AE
-};
+#include "../../Include/Common/LivingWorldArmyLine.h"
 
 class Rva00539152
 {

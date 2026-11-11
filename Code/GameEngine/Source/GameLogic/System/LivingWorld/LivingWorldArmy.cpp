@@ -275,7 +275,7 @@ struct CtorArmyLastPair {float x,y; __forceinline CtorArmyLastPair():x(0),y(0){_
 
 class SpawnArmy {public: bool rva00319CED(); void *rva004E23C1(); char pad00[4]; AsciiString a04,a08; char pad0C[12]; AsciiString a18; char pad1C[12]; AsciiString a28; char pad2C[24]; float f44; char pad48[4]; int source4C; AsciiString a50; bool b54;};
 struct Rva002B6A04Player {char pad00[20];int id14;};
-class LivingWorldArmyLine {public:void rva00539141();};
+#include "../../../../Include/Common/LivingWorldArmyLine.h"
 struct Rva00318E8COut {float f;int i;};
 class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
 struct Rva003F0F13Elem {float x,y;};

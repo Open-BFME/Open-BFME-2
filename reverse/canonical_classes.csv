@@ -1035,3 +1035,4 @@ Rva0010E482,Code/GameEngine/Include/Common/Rva0010E482.h,existing header; contra
 Rva002E0CD4,Code/GameEngine/Include/Common/Rva002E0CD4.h,existing header; contract class_contracts/Rva002E0CD4.json; 6/7 sampled units adopt
 AggregateDefClass,Code/Libraries/Source/WWVegas/WW3D2/AggregateDefClass.h,existing header; contract class_contracts/AggregateDefClass.json; 4/5 sampled units adopt
 Rva00564DF2NameView,Code/GameEngine/Include/Common/Rva00564DF2NameView.h,existing header; contract class_contracts/Rva00564DF2NameView.json; 4/7 sampled units adopt
+LivingWorldArmyLine,Code/GameEngine/Include/Common/LivingWorldArmyLine.h,existing header; contract class_contracts/LivingWorldArmyLine.json; 4/5 sampled units adopt

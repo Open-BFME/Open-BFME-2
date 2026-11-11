@@ -261,11 +261,7 @@ public:
 	void rva003190BB(int *out);
 };
 
-class LivingWorldArmyLine
-{
-public:
-	void rva00538F6B(void *a, void *b, void *c, void *d);
-};
+#include "../../../Include/Common/LivingWorldArmyLine.h"
 
 // Native318FA1..318FBE,29B; WB102B5E0 independently preserves the
 // nullable getter, unsigned sixteen-byte record count and back lookup.
