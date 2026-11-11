@@ -79,7 +79,7 @@ public:
 	~W3DBibBuffer();
 	char data[68048]; // +0x00
 };
-class Rva000731AE { public: void rva000731AE(); };
+#include "../../../Include/W3DDevice/GameClient/Rva000731AE.h"
 class Rva000729CC { public: void rva000729CC(bool level); };
 class Rva00073C7A { public: void rva00073C7A(); };
 struct BfmeResetResource;

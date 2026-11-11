@@ -53,7 +53,7 @@ public:
 	void setMap(WorldHeightMap*);
 	char data[80]; // +0x00
 };
-class Rva000731AE { public: void rva000731AE(); };
+#include "../../../Include/W3DDevice/GameClient/Rva000731AE.h"
 
 class Rva000E3B41
 {
