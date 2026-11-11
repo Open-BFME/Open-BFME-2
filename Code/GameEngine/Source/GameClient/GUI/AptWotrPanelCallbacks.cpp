@@ -83,11 +83,7 @@ class Object;
 
 // The scroll bar's enable forwarder to its Impl (0x005D49CD, pinned by
 // address), as Rva005D498BVisible.cpp views the scroll bar.
-class Rva005D49CD
-{
-public:
-	void rva005D49CD(bool enabled);
-};
+#include "../../../Include/GameClient/Rva005D49CD.h"
 
 // The empty update folded onto the shared empty body 0x000B3FD0.
 class Rva000B3FD0Nop

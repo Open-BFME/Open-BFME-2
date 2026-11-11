@@ -38,12 +38,7 @@ class Rva005D4BC1
 public:
 	void rva005D4BC1(float v);
 };
-class Rva005D49CD
-{
-public:
-	void rva005D49CD(bool v);
-	void rva005D49D5(bool v);
-};
+#include "../../Include/GameClient/Rva005D49CD.h"
 
 // STLport rotate, rowed as its int* instantiation, and the icon slot list's
 // erase, rowed as vector<void*>'s (pointer elements fold with both).

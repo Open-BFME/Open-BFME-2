@@ -24,11 +24,7 @@ public:
 	void rva005D4BC1(float v);
 };
 
-class Rva005D49CD
-{
-public:
-	void rva005D49D5(bool v);
-};
+#include "../../../Include/GameClient/Rva005D49CD.h"
 
 // The checklist's items: sentinel node at +0x30. Only the next link is
 // read here; the item payload lives at node +8.
