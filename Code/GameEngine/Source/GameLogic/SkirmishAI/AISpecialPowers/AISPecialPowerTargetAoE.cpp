@@ -86,11 +86,7 @@ public:
 };
 }
 
-class Rva0035B2C3
-{
-public:
-	bool rva0035B2C3(void *source, int a, const Coord3D *pos, int b);
-};
+#include "../../../../Include/GameLogic/Rva0035B2C3.h"
 
 // The AoE special-power target picker (0x005EE8DD walks candidate points
 // round the target and keeps the first this accepts).

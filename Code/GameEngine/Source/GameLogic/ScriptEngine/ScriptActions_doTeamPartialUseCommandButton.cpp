@@ -67,11 +67,7 @@ extern ControlBar *TheControlBar;
 
 struct Coord3D;
 // The button's validity test keeps its address-derived row name and pointer ABI.
-class Rva0035B2C3
-{
-public:
-	bool rva0035B2C3(void *object, int other, const Coord3D *position, int source);
-};
+#include "../../../Include/GameLogic/Rva0035B2C3.h"
 
 #include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 

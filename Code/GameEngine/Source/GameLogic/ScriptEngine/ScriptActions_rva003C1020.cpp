@@ -32,10 +32,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/AIGroup.h"
 
 // LINK: the button check 0x0035B2C3 is rowed as Rva0035B2C3::rva0035B2C3 (Rva0035B2C3Audio.cpp); same four-slot ABI.
-class Rva0035B2C3 {
-public:
-	bool rva0035B2C3(void *a, int b, const Coord3D *c, int d);
-};
+#include "../../../Include/GameLogic/Rva0035B2C3.h"
 
 extern class ScriptEngine *TheScriptEngine;
 extern class AI *TheAI;

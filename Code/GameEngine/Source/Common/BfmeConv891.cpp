@@ -18,11 +18,7 @@
 // LINK: the check 0x0035B2C3 is rowed as bool Rva0035B2C3::rva0035B2C3(void*, int, Coord3D const*, int) (Rva0035B2C3Audio.cpp);
 // the old char-returning call shape stays through a member-pointer cast.
 struct Coord3D;
-class Rva0035B2C3
-{
-public:
-	bool rva0035B2C3(void *x, int a, const Coord3D *z, int y);
-};
+#include "../../Include/GameLogic/Rva0035B2C3.h"
 typedef char (Rva0035B2C3::*Rva0035B2C3CharShape)(void *, void *, int, void *);
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
