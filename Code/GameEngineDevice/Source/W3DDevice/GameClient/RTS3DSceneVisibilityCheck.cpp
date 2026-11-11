@@ -36,6 +36,7 @@
 // at 0x00071233, the COMDAT this TU emits just ahead of Visibility_Check, is the
 // 18-byte frameless body, which /Oy- turned into a 21-byte ebp-framed copy.
 #include <slist>
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SceneNodeSlist.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
