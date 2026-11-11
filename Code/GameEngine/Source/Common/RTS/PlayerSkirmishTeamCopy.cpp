@@ -41,11 +41,7 @@ private:
 #include "../../../Include/GameLogic/ScriptList.h"
 
 struct BfmeSubGE;
-class BfmeThingGE
-{
-public:
-	void rva003B89A7(BfmeSubGE *other);
-};
+#include "../../../Include/GameLogic/BfmeThingGE.h"
 
 class SidesInfo
 {

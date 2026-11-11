@@ -176,11 +176,7 @@ private:
 // ScriptList's merge of another list (WB 0xaa4840), rowed under its
 // address-era spelling.
 struct BfmeSubGE;
-class BfmeThingGE
-{
-public:
-	void rva003B89A7(BfmeSubGE *other);	// 0x003B89A7
-};
+#include "../../../Include/GameLogic/BfmeThingGE.h"
 
 class Dict;
 #include "../../../Include/Common/DataChunkOutput.h"
