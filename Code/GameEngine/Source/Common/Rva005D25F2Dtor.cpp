@@ -116,7 +116,7 @@ StrategicHUD::CommandUIImpl::~CommandUIImpl()
 
 class Rva002BED91 { public: void clear(); };
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };
-class Rva005C3E79 { public: void hide(); };
+#include "../../Include/Common/Rva005C3E79.h"
 class Rva005D2664 { public:
     void rva005D2664(int); void rva005D27BE(const char *);
     void rva005D28F4(const char *); void rva005D2A27(const char *);

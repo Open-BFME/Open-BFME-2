@@ -16,11 +16,7 @@ private:
 
 #include "../../Include/Common/Rva0057C22FByteChaseField.h"
 
-class Rva005C3E79
-{
-public:
-	void hide();
-};
+#include "../../Include/Common/Rva005C3E79.h"
 
 struct Elem005D2664
 {
