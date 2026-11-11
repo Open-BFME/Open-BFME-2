@@ -10,10 +10,7 @@ class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 class Coord2D;
 #include "../../Include/GameLogic/LivingWorldManager.h"
 
-class Rva003F409F {
-public:
-	void rva003F409F(bool b);
-};
+#include "../../Include/Common/Rva003F409F.h"
 
 struct Rva003F43D3Holder {
 	char m_pad[0x2C];

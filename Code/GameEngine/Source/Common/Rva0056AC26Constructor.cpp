@@ -67,7 +67,7 @@ Rva0056AC82::Rva0056AC82(Rva0056AC26Owner *owner,void *second,void *third):Rva00
 
 class LivingWorldPendingBattle;
 class PendingBattleVisitor { public:virtual bool Visit(LivingWorldPendingBattle *)=0; ~PendingBattleVisitor() {} };
-class Rva003F409F { public:void rva003F409F(bool); };
+#include "../../Include/Common/Rva003F409F.h"
 class Rva0056ACAEVisitor:public PendingBattleVisitor {
 public:
  // ?Rva0056ACAEVisitor::Rva0056ACAEVisitor present-unmatched

@@ -1201,3 +1201,4 @@ Rva00381D02,Code/GameEngine/Include/GameNetwork/Rva00381D02.h,existing header; c
 BridgeBehavior,Code/GameEngine/Include/GameLogic/Module/BridgeBehaviorClass.h,existing header; contract class_contracts/BridgeBehavior.json; 7/13 sampled units adopt
 Rva00800550Chain,Code/GameEngine/Include/GameNetwork/Rva00800550Chain.h,existing header; contract class_contracts/Rva00800550Chain.json; 5/6 sampled units adopt
 AptActionQueueC,Code/Libraries/Source/Apt/AptActionQueueC.h,existing header; contract class_contracts/AptActionQueueC.json; 6/12 sampled units adopt
+Rva003F409F,Code/GameEngine/Include/Common/Rva003F409F.h,existing header; contract class_contracts/Rva003F409F.json; 3/5 sampled units adopt
