@@ -453,6 +453,7 @@ class Rva006E9A40List{public:unsigned short count,capacity;AptCIH**items;void ad
 #include "Rva006E34D0.h"
 #define CHECK(c,s,l) if(!(c)){g_bfmeAptAssertAtE17734(s,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",l);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
 #include "Rva006D2A60.h"
+#pragma comment(linker, "/alternatename:?findInst@AptDisplayListState@@QAEXHPBVEAStringC@@PAPAVAptCIH@@1@Z=?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z")
 
 class Rva006F8060Head
 {
@@ -614,6 +615,12 @@ public:
 class BfmeNestedBE;
 
 struct BfmeQueryNode1279;
+
+// The canonical header keeps AptDisplayList opaque; this unit reads only its
+// state pointer at +0x00 through a local view.
+struct AptDisplayListStateView { AptDisplayListState *pState; };
+
+// ---- from Code/Libraries/Source/Apt/AptDisplayList.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptDisplayList.cpp
 
@@ -871,10 +878,6 @@ Rva006F8460 *famgenNew_Rva006F8460() { return new Rva006F8460(0); }
 
 void deleteRva006F8460(Rva006F8460 *p) { delete p; }
 
-// tu-skeleton: 0x006F6BB0 297B ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z -- matched in Code/Libraries/Source/Apt/AptMovieFrameControls.cpp (not merged yet)
-
-// tu-skeleton: 0x006F6D60 159B ?insert@BfmeQuery1279@@QAEPAVAptCIH@@PAV2@0@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/Rva006F6E00Cluster.cpp
 
 AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth)
@@ -892,6 +895,10 @@ AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem
 	return insert(pOldItem, node);
 }
 
+// tu-skeleton: 0x006F6BB0 297B ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAX0@Z -- matched in Code/Libraries/Source/Apt/AptMovieFrameControls.cpp (not merged yet)
+
+// tu-skeleton: 0x006F6D60 159B ?insert@BfmeQuery1279@@QAEPAVAptCIH@@PAV2@0@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
+
 // tu-skeleton: 0x006F6ED0 221B ?rva006F6ED0@BfmeQuery1279@@QAEPAVAptCIH@@HHPAX@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x006F6FB0 122B ?rva006F6FB0@BfmeQuery1279@@QAEXHPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
@@ -900,7 +907,21 @@ AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem
 
 // tu-skeleton: 0x006F7140 18B ??0Rva006F7140Derived@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp (not merged yet)
 
-// tu-skeleton: 0x006F72F0 62B ?removeClonedObject@AptDisplayList@@QAEXPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp
+
+// Native RemoveSprite dispatch calls this helper. Donor AptDisplayList.cpp
+// names removeClonedObject; retail proves depth signed17 bits at CIH+58,
+// query outputs and removeObject call. No full CIH layout claimed.
+
+// Donor removeObject is rowed as AptDisplayList::bfmeProcess1279 (0x006F7230); call it by that name.
+
+void AptDisplayList::removeClonedObject(AptCIH *object)
+{
+    AptCIH *cur=0;
+    AptCIH *prev;
+    ((AptDisplayListStateView *)this)->pState->findInst((int)(object->field58 << 15) >> 15,0,&prev,&cur);
+    bfmeProcess1279(cur);
+}
 
 // tu-skeleton: 0x006F7330 112B ?rva006F7330@@YAXPAVAptRenderingContext@@PAVAptCIH@@H@Z -- matched in Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp (not merged yet)
 

@@ -3023,7 +3023,7 @@ alternatename	Code/Libraries/Source/Apt/AptArray.cpp	?objectMemberSet@AptArray@@
 alternatename	Code/Libraries/Source/Apt/AptCIHJumpToFrame.cpp	??3AptPseudoDisplayList@@SAXPAXI@Z	1
 alternatename	Code/Libraries/Source/Apt/AptCIHJumpToFrame.cpp	?Destroy@AptPseudoDisplayList@@QAEPAV1@H@Z	1
 alternatename	Code/Libraries/Source/Apt/AptCIHJumpToFrame.cpp	?queueFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z	1
-alternatename	Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp	?findInst@AptDisplayListState@@QAEXHPBVEAStringC@@PAPAVAptCIH@@1@Z	1
+alternatename	Code/Libraries/Source/Apt/AptDisplayList.cpp	?findInst@AptDisplayListState@@QAEXHPBVEAStringC@@PAPAVAptCIH@@1@Z	1
 alternatename	Code/Libraries/Source/Apt/AptMathClipStack.cpp	?rva006dffa0@@YAXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptMovieFrameControls.cpp	?FindInst@AptPseudoDisplayList@@QAEXHPAPAUAptPseudoCIH_t@@0@Z	1
 alternatename	Code/Libraries/Source/Apt/AptMovieFrameControls.cpp	?IsSpriteInstBase@AptCIH@@QBE_NXZ	1
