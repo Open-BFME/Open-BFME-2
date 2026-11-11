@@ -5,11 +5,7 @@
 // Chain from deleting dtor 0x00328CDC plus rowed handle 0x00306D7B plus
 // global 0x00BC9574.
 // Evidence: EH prolog plus neg sbb and plus two handle calls plus ret.
-class Q1Forwardee0000871A
-{
-public:
-	void handle(int node);
-};
+#include "../../Include/GameLogic/Q1Forwardee0000871A.h"
 
 extern "C" int __identifier("??_7BfmeParserBindingBaseVE@@6B@");
 

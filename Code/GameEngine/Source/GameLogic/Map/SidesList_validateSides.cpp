@@ -130,11 +130,7 @@ public:
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
 // rowed under its address-era spelling.
-class Q1Forwardee0000871A
-{
-public:
-	void handle(int id); // 0x00306D7B
-};
+#include "../../../Include/GameLogic/Q1Forwardee0000871A.h"
 
 // The parser binding that registers "PlayerScriptsList" on construction and
 // unregisters itself on destruction; its base dtor is inline here (vtable

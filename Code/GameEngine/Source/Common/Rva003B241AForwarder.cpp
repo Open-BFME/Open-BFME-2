@@ -7,7 +7,7 @@
 // Namespace scope separates the external compatibility table declaration
 // from MSVC's synthetic class vtable declaration. The linker name is unchanged.
 namespace ParserBindingTable { extern "C" const void *const __identifier("??_7BfmeParserBindingBaseVE@@6B@")[]; }
-class Q1Forwardee0000871A {public: void handle(int);};
+#include "../../Include/GameLogic/Q1Forwardee0000871A.h"
 class BfmeParserBindingBaseVE {
 public: virtual ~BfmeParserBindingBaseVE(); virtual void bfmeSlot1()=0;
 private: Q1Forwardee0000871A *m_4; int m_8;

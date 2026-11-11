@@ -79,11 +79,7 @@ struct DataChunkInfo;
 
 #include "../../../../Include/Common/DataChunk.h"
 
-class Q1Forwardee0000871A
-{
-public:
-	void handle(int token);				// 0x00306D7B
-};
+#include "../../../../Include/GameLogic/Q1Forwardee0000871A.h"
 
 class DataChunkParser
 {

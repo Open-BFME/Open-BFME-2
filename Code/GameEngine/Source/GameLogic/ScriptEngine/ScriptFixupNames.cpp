@@ -141,7 +141,7 @@ struct ScriptGroupRecordView
 };
 
 class BfmeParserRegistryVE;
-class Q1Forwardee0000871A { public: void handle(int); };
+#include "../../../Include/GameLogic/Q1Forwardee0000871A.h"
 extern "C" const void *const __identifier("??_7BfmeParserBindingBaseVE@@6B@")[];
 
 class BfmeParserBindingBaseVE

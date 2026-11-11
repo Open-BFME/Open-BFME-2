@@ -537,11 +537,7 @@ public:
 // the rowed ?handle@Q1Forwardee0000871A@@QAEXH@Z 0x00306D7B.
 // Names address-derived.
 
-class Q1Forwardee0000871A
-{
-public:
-	void handle(int id); // 0x00306D7B
-};
+#include "../../../Include/GameLogic/Q1Forwardee0000871A.h"
 
 class Rva0032989FBase
 {

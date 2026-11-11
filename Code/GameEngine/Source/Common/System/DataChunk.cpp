@@ -142,11 +142,7 @@ public:
 	BfmeIntrusiveNode *m_next;				// +0x04
 	BfmeIntrusiveNode **m_prevNext;				// +0x08
 };
-class Q1Forwardee0000871A
-{
-public:
-	void handle(Int node);
-};
+#include "../../../Include/GameLogic/Q1Forwardee0000871A.h"
 struct BfmeE12 { float x, y, z; };
 namespace _STL {
 template <>

@@ -51,11 +51,7 @@ Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *us
 Bool ParseObjectsDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);	// 0x00302B06
 
 // DataChunkInput's parser unregistration, rowed under its address-era spelling.
-class Q1Forwardee0000871A
-{
-public:
-	void handle(int token);				// 0x00306D7B
-};
+#include "../../Include/GameLogic/Q1Forwardee0000871A.h"
 
 class BfmeParserRegistryVE;
 
