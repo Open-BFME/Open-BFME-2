@@ -1,0 +1,126 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva006C39F0Owner",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x478": {
+    "4": 2
+   },
+   "0x548": {
+    "4": 1
+   },
+   "0x554": {
+    "4": 1
+   },
+   "0x678": {
+    "4": 1
+   },
+   "0x680": {
+    "1": 1
+   },
+   "0x684": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "1660": 1,
+   "1680": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1144,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C3940RecordAlloc.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1352,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C3940RecordAlloc.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1356,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C3940RecordAlloc.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1360,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C3940RecordAlloc.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1364,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C3940RecordAlloc.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1656,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C3940RecordAlloc.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1664,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C39F0RecordRegister.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1668,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C39F0RecordRegister.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1672,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C39F0RecordRegister.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1676,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006C39F0RecordRegister.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -44,11 +44,7 @@ struct Rva006C2270Record {
 namespace EA { namespace Allocator {
 } }
 
-class Rva006C39F0Owner
-{
-public:
-	bool rva006C39F0(unsigned block, unsigned externalTotal, unsigned a, void *b);
-};
+#include "../../Include/Common/Rva006C39F0Owner.h"
 
 class GeneralAllocatorDebug
 {

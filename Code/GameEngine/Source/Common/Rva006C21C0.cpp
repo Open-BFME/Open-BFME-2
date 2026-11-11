@@ -77,7 +77,7 @@ bool Rva006C17B0::rva006C21C0(unsigned int len, void *buf)
 #include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
 } }
-class Rva006C39F0Owner { public: void *rva006C3940Alloc(unsigned int); };
+#include "../../Include/Common/Rva006C39F0Owner.h"
 
 class Rva00033B90Allocator
 {

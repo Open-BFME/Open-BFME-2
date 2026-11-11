@@ -80,11 +80,7 @@ public:
 	void rva006C1A50(int block);
 };
 
-class Rva006C39F0Owner
-{
-public:
-	void *rva006C3940Alloc(unsigned size);
-};
+#include "../../Include/Common/Rva006C39F0Owner.h"
 
 class GeneralAllocatorDebug
 {
