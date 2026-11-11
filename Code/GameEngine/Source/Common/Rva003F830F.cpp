@@ -10,12 +10,7 @@ class Rva003F7D86Inner;
 class PendingBattleVisitor;
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
 extern "C" const void *const __identifier("??_7Rva003F82E2@@6B@")[];
-class Rva003F81FDProxy
-{
-public:
-	Rva003F7D86Inner *rva003F81B0();
-	void rva003F830F(void *p);
-};
+#include "../../Include/Common/Rva003F81FDProxy.h"
 struct EmptyBase003F830F
 {
 	EmptyBase003F830F() {}

@@ -304,12 +304,7 @@ public:
 	void *rva002B256E();									// 0x002B256E
 };
 
-class Rva003F81FDProxy
-{
-public:
-	void rva003F8374();										// 0x003F8374
-	void rva003F8385();										// 0x003F8385
-};
+#include "../../Include/Common/Rva003F81FDProxy.h"
 
 class Rva00574423
 {

@@ -74,11 +74,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../Include/Common/Rva002B254F.h"
 
-class Rva003F81FDProxy
-{
-public:
-	void rva003F8361(const Matrix3D *transform);			// 0x003F8361
-};
+#include "../../Include/Common/Rva003F81FDProxy.h"
 
 class Rva002B256E
 {

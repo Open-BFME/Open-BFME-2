@@ -2835,7 +2835,7 @@ class LWUpdateCampaignDispatch {public:virtual void f00();virtual void f04();vir
 class Rva002B4FEB {public:void rva002B4FEB();};
 class Rva002B4D41 {public:void rva002B4D41();};
 class Rva002B8AEA {public:void rva002B8AEA();};
-class Rva003F81FDProxy {public:void rva003F9037();unsigned char rva003F85C6();};
+#include "../../../../Include/Common/Rva003F81FDProxy.h"
 class LWUpdateFPGuard {public:LWUpdateFPGuard(){reinterpret_cast<Rva0004224C*>(this)->rva0004224C();}~LWUpdateFPGuard(){if(TheGameLogic)((LivingWorldFPModeCount*)TheGameLogic)->m_count--;}};
 // LivingWorldLogic::rva002B768F, retail 0x002B768F: for each region of the local player's army set owned by the
 // local player, re-evaluate its module list. The owner id is read into a named local first (retail loads

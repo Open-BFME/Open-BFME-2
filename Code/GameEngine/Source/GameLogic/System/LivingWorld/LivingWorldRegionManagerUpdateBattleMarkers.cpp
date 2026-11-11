@@ -17,11 +17,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva003F81FDProxy
-{
-public:
-	void rva003F830F(void *p);
-};
+#include "../../../../Include/Common/Rva003F81FDProxy.h"
 
 class Rva002B256E
 {

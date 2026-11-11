@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
 #include "unicode_string.h"
 class Rva003F7D86Inner;
-class Rva003F81FDProxy {public:Rva003F7D86Inner *rva003F81B0();};
+#include "../../../Include/Common/Rva003F81FDProxy.h"
 class Rva003F8052 {public:UnicodeString rva003F8497();};
 class Rva0056AC26Owner {public:UnicodeString rva003F855D();};
 UnicodeString Rva0056AC26Owner::rva003F855D(){
