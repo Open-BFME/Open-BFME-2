@@ -31,7 +31,7 @@ template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C, allocator<TreeHintR
 #include "../../../../Include/Common/LivingWorldCampaignManager.h"
 class Rva003F812C { public: void rva003F812C(); };
 class Rva002B5522 { public: void rva002B5522(); };
-class Rva002B7B25 { public: void rva002B7B25(); };
+#include "../../../../Include/GameLogic/Rva002B7B25.h"
 #include "../../../../Include/GameLogic/Rva002B7B71.h"
 #include "../../../../Include/GameLogic/Rva0020EE29.h"
 #include "../../../../Include/Common/Glo012F1028Type.h"
