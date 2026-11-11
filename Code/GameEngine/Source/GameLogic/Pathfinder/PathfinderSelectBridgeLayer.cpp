@@ -87,11 +87,7 @@ struct RectCellInfo {char pad00[0x14];RectNode *reserved;char pad18[8];RectNode 
 static __forceinline RectCellInfo *cellInfo(const PathfindCell *cell) {return (RectCellInfo *)cell->m_info;}
 static __forceinline bool cellHasActual(const PathfindCell *cell) {RectCellInfo *i=cellInfo(cell);return i?i->actual!=0:false;}
 static __forceinline bool cellHasReserved(const PathfindCell *cell) {RectCellInfo *i=cellInfo(cell);return i?i->reserved!=0:false;}
-class Rva0052DB11
-{
-public:
-	bool rva0052DB11(int);
-};
+#include "../../../Include/GameLogic/Rva0052DB11.h"
 int __cdecl Rva002E9B31Get(void *p);
 struct IRegion2DV {ICoord2D lo,hi;};
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);

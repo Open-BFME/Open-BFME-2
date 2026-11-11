@@ -4880,7 +4880,7 @@ bool Pathfinder::adjustToPossibleDestination(Object *object,const LocomotorSet &
 // ZH AIPathfind.cpp snapClosestGoalPosition semantic guide; retail strings
 // name Pathfinder::SnapClosestGoalPosition. Native 002F2B88..002F2FA4 RET8.
 class Rva0052DB73 { public: bool rva0052DB73(int); };
-class Rva0052DB11 { public: bool rva0052DB11(int); };
+#include "../../../Include/GameLogic/Rva0052DB11.h"
 static __forceinline bool snapDestination(Pathfinder *pathfinder,Object *obj,int x,int y,int layer,int radius,bool center) {
  typedef unsigned char (Pathfinder::*Call)(Object *,int,int,int,int,bool);
  Call typed=reinterpret_cast<Call>(&Pathfinder::bfmeWrapE6E90);

@@ -15,11 +15,7 @@ class Object {public: signed char rva0028CE7B() const;};
 struct DiameterOccupant {DiameterOccupant *next; int unused; Object*object;};
 struct DiameterCellInfo {char unused[0x20]; DiameterOccupant *occupants;
  int unused24; int unused28; unsigned int flags;};
-class Rva0052DB11
-{
-public:
-	bool rva0052DB11(int);
-};
+#include "../../../Include/GameLogic/Rva0052DB11.h"
 #include "../../../Include/GameLogic/PathfindCell.h"
 static __forceinline DiameterCellInfo *cellInfo(const PathfindCell *cell) {return (DiameterCellInfo *)cell->m_info;}
 static __forceinline unsigned char cellObstacleFence(const PathfindCell *cell) {return cellInfo(cell)?(cellInfo(cell)->flags>>1)&1:0;}
