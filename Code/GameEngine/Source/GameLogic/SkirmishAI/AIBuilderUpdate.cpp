@@ -74,7 +74,7 @@ class Rva004E9378{public:bool rva004E9378();};
 #include "../../../Include/Common/AIBuildable.h"
 class AIUnitBuilder{public:Object*Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);};
 struct Rva005996FFArg;
-class Rva005996FF{public:void unRegisterDozer(Rva005996FFArg*,bool);};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva005996FF.h"
 #include "../../../Include/GameLogic/AIDozerManager.h"
 // 0x00599870 is rowed as Rva005997CD::rva00599870 (Rva005997CDNearestPick.cpp),
 // the nearest-entry pick over the dozer manager; called by that row's name.

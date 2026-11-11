@@ -64,11 +64,7 @@ struct Rva005996FFArg
 	int m_74;
 };
 
-class Rva005996FF
-{
-public:
-	void unRegisterDozer(Rva005996FFArg *arg, bool flag);
-};
+#include "Rva005996FF.h"
 
 #include "../../../../GameEngine/Include/GameLogic/AIDozerManager.h"
 

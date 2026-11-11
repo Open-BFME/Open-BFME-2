@@ -179,7 +179,7 @@ public:
 };
 
 struct Rva005996FFArg;
-class Rva005996FF { public: void unRegisterDozer(Rva005996FFArg *, bool); };
+#include "../../../../../../../Libraries/Source/WWVegas/WWLib/Rva005996FF.h"
 class AIDozerManager
 {
 public:

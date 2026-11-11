@@ -1484,3 +1484,4 @@ Rva00432AEB,Code/GameEngine/Include/GameClient/Rva00432AEB.h,existing header; co
 Rva00463509,Code/GameEngine/Include/GameLogic/Module/Rva00463509.h,existing header; contract class_contracts/Rva00463509.json; 3/4 sampled units adopt
 Rva0073A1C0FloatField,Code/GameEngine/Include/GameLogic/Module/Rva0073A1C0FloatField.h,existing header; contract class_contracts/Rva0073A1C0FloatField.json; 3/4 sampled units adopt
 Rva0044E6AE,Code/GameEngine/Include/GameLogic/Module/Rva0044E6AE.h,existing header; contract class_contracts/Rva0044E6AE.json; 3/4 sampled units adopt
+Rva005996FF,Code/Libraries/Source/WWVegas/WWLib/Rva005996FF.h,existing header; contract class_contracts/Rva005996FF.json; 3/4 sampled units adopt
