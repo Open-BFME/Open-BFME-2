@@ -574,11 +574,7 @@ struct Rva00112259DeviceLock
 	~Rva00112259DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-class Rva00111F0E
-{
-public:
-	void rva00111F0E();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00111F0E.h"
 
 class Rva00112259
 {

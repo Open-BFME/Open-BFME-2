@@ -25,7 +25,7 @@ class Rva00112291TerrainOwner{public:Rva00112291TerrainOwner();~Rva00112291Terra
 class Rva0011216CSlotQuartet{public:void rva00112197();};
 class Rva00113110Holder{public:void rva00113110(void*);};
 class RvaRef;
-class Rva00111F0E{public:void rva00111F6F(RvaRef*,int,int,int);};
+#include "../../../Include/W3DDevice/GameClient/Rva00111F0E.h"
 class Rva000E15D1{public:void rva000E14C4();void rva000E153A();
 char pad0[0x37c0];Rva000AD9AB*map;char pad1[0x3884-0x37c4];void**backup;Rva00112291TerrainOwner*tiles;int count,cols,rows;char pad2[0x3930-0x3898];bool flag;};
 // FlatHeightMap's override, slot 131 of retail's table 0x00BCE788. The vptr takes 4 bytes of the padding, so no field moves.

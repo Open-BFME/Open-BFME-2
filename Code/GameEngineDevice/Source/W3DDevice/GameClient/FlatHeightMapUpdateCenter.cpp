@@ -100,11 +100,7 @@ public:
 	unsigned char m_pad68[0xD4 - 0x68];
 };
 
-class Rva00111F0E
-{
-public:
-	Int rva00111FBC(unsigned char *culled);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00111F0E.h"
 
 class Rva00115DA7
 {
