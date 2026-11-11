@@ -110,11 +110,7 @@ public:
 
 #include "../../Include/Common/Rva00226856.h"
 
-class Rva002268B0
-{
-public:
-	~Rva002268B0();
-};
+#include "../../Include/Common/Rva002268B0.h"
 
 class Rva0022DB29
 {

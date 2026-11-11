@@ -11,11 +11,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva002268B0
-{
-public:
-	void rva002268B0(void *node);
-};
+#include "../../Include/Common/Rva002268B0.h"
 
 struct Rva002268B0Node
 {
