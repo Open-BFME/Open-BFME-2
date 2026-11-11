@@ -33,7 +33,7 @@ void famgenDelete(Rva00527CCE *helpBox) { delete helpBox; }
 void famgenDelete(Rva00527FA2 *planningModeUI) { delete planningModeUI; }
 
 // ??_GRva0057417E@@QAEPAXI@Z @0x0042C0BF 28B: calls pinned ~Rva0057417E 0x0057417E
-class Rva0057417E { public: ~Rva0057417E(); };
+#include "../../Include/Common/Rva0057417E.h"
 void famgenDelete(Rva0057417E *waitMessage) { delete waitMessage; }
 
 // ??_GRva00578C43@@QAEPAXI@Z @0x0042D4CF 28B: calls pinned ~Rva00578C43 0x00578C43

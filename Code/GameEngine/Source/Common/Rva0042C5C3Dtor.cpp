@@ -43,7 +43,7 @@ public:
 
 #include "../../Include/Common/Rva000AD6F4.h"
 
-class Rva0057417E { public: ~Rva0057417E(); };
+#include "../../Include/Common/Rva0057417E.h"
 #include <new>
 
 class Rva0042C1DF

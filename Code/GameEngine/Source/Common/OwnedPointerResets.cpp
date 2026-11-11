@@ -305,11 +305,7 @@ void Rva002D3931::clear()
 	}
 }
 
-class Rva0057417E
-{
-public:
-	~Rva0057417E();
-};
+#include "../../Include/Common/Rva0057417E.h"
 
 class Rva0042C1DF
 {
