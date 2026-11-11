@@ -29,7 +29,7 @@ StrategicHUD::RegionDetailsTerritoryMovieClip::~RegionDetailsTerritoryMovieClip(
 
 // Native005E3585 five-byte JMP to the owned provider; address-derived dtor
 // spelling is the existing deleting-caller pin, original class unknown.
-class Rva005E3585 { public: ~Rva005E3585(); };
+#include "../../Include/Common/Rva005E3585.h"
 Rva005E3585::~Rva005E3585()
 {
     reinterpret_cast<StrategicHUD::RegionDetailsTerritoryMovieClip *>(this)->StrategicHUD::RegionDetailsTerritoryMovieClip::~RegionDetailsTerritoryMovieClip();

@@ -6,11 +6,7 @@
 // caller 0x005E364D in ??1Rva005E362F@@UAE@XZ via member +0xC; LINK BONUS name.
 #include <new>
 
-class Rva005E3585
-{
-public:
-	~Rva005E3585();
-};
+#include "../../Include/Common/Rva005E3585.h"
 
 class Rva005E35DA
 {
