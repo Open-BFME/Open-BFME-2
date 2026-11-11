@@ -1134,6 +1134,22 @@ def _unrowed_resolution_view(lane, approval, request):
     return view, [(candidates[name][0], candidates[name][1]) for name in found], check
 
 
+def with_row(raw, row):
+    """`raw` plus one appended row, leaving every existing byte alone.
+
+    Never re-serialise the ledger to add a line. A csv.DictWriter pass over
+    every row rewrites each field with MINIMAL quoting, and 287 of the 2,363
+    committed rows carry evidence quoted more widely than that, so an admit
+    adding one line produced a 288-line diff: it hid the real change from
+    review and clobbered any row a concurrent worker had appended in the
+    meantime (re_attempts.log:101649). This is the primitive admit_agreed
+    already used for NAME_BASIS.
+    """
+    import rename          # deferred like every other use in this module
+    return rename.appended(raw, [rename.csv_line([row[field] for field in FIELDS])],
+                           header=','.join(FIELDS))
+
+
 def admit_agreed(record_id, symbol, model):
     """Admit an agreed unrowed global through the ordinary retail verifier.
 
@@ -1186,11 +1202,7 @@ def admit_agreed(record_id, symbol, model):
         raise rename.Refusal('model is required')
     row = dict(name=symbol, address=request['rva'], address_kind='rva', size=request['size'],
                section=section, source=source, status='matched', evidence=evidence, model=model)
-    existing = load()
-    out = io.StringIO()
-    writer = csv.DictWriter(out, FIELDS, lineterminator='\n')
-    writer.writeheader(); writer.writerows(existing + [row])
-    raw = out.getvalue().encode()
+    raw = with_row(lane.ctx.read(rename.DATA_ROWS), row)
     problems = []
     tracked = set(lane.git('ls-files', '--', 'Code').splitlines())
     check(raw, problems, sources_ok=tracked)

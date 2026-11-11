@@ -1172,3 +1172,60 @@ def test_defined_extent_overrides_coarse_inventory_span(tmp_path):
     (root/"reverse/data_ledger.csv").write_text("address,size,kind,name\n0x2000,32,global,coarse_alias\n")
     img=image_with(rdata=bytes(16)+b"OBJECT\0")
     assert data_rows.pointer_evidence_index(img,root)(BASE+0x2010)[:2]==("A","retail_string_start")
+
+
+# --- admit_agreed appends; it does not re-serialise ---------------------------
+#
+# A DictWriter pass over every row rewrites each field with minimal quoting, and
+# 287 of the committed rows carry evidence quoted more widely than that. So an
+# admit that added one line produced a 288-line diff, hid the real change from
+# review, and clobbered any row a concurrent worker had appended
+# (re_attempts.log:101649). These pin the property on the REAL ledger, because
+# the churn only exists against its actual bytes.
+
+import csv as _csv          # noqa: E402
+import inspect             # noqa: E402
+import io as _io            # noqa: E402
+
+LEDGER = Path(__file__).resolve().parents[2] / "reverse" / "data_rows.csv"
+PROBE = dict(name="?probeOnly@@3HA", address="0x00A00000", address_kind="rva", size="4",
+             section=".data", source="Code/probe.cpp", status="matched",
+             evidence='an evidence field with a comma, and a "quote"', model="test")
+
+
+def _appended():
+    """data_rows.with_row is what admit_agreed calls to build the new file."""
+    return data_rows.with_row(LEDGER.read_bytes(), PROBE)
+
+
+def test_appending_a_row_leaves_every_existing_byte_alone():
+    before = LEDGER.read_bytes()
+    raw = _appended()
+    assert raw.startswith(before)
+    assert raw[len(before):].decode().count("\n") == 1
+
+
+def test_the_appended_row_round_trips_through_csv():
+    rows = list(_csv.DictReader(_io.StringIO(_appended().decode())))
+    assert rows[-1]["name"] == PROBE["name"]
+    assert rows[-1]["evidence"] == PROBE["evidence"]      # comma and quote survive
+
+
+def test_admit_agreed_builds_the_new_file_with_with_row():
+    """Pins the call site, not just the helper: the bug lived in admit_agreed."""
+    source = inspect.getsource(data_rows.admit_agreed)
+    assert "with_row(" in source
+    assert "DictWriter" not in source.split("rename.NAME_BASIS")[0]
+
+
+def test_a_dictwriter_rewrite_would_not_leave_them_alone():
+    """The discriminator: without this the tests above pass against the bug."""
+    before = LEDGER.read_bytes()
+    out = _io.StringIO()
+    writer = _csv.DictWriter(out, data_rows.FIELDS, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(list(_csv.DictReader(_io.StringIO(before.decode()))) + [PROBE])
+    rewritten = out.getvalue().encode()
+    assert not rewritten.startswith(before)
+    churn = sum(a != b for a, b in zip(before.split(b"\n"), rewritten.split(b"\n")))
+    assert churn > 100, churn
