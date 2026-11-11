@@ -277,11 +277,7 @@ Rva00564DF2NameView *LivingWorldCampaignManager::rva003B8D4D(const AsciiString &
 }
 
 
-class LivingWorldRegionEffectsManager
-{
-public:
-    void rva003EF2FF();
-};
+#include "../../../../Include/Common/LivingWorldRegionEffectsManager.h"
 class Glo012F1024Item
 {
 public:

@@ -21,11 +21,7 @@ public:
 	Rva0020EA22Outer *m_B0;
 };
 
-class LivingWorldRegionEffectsManager
-{
-public:
-	void SyncRegion(int value);
-};
+#include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 

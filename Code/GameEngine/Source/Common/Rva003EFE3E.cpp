@@ -3,11 +3,7 @@
 // Store int at +0x140, if global g_009FE1C8->m_268 non-null call its
 // LivingWorldRegionEffectsManager::SyncRegion with this as int (pin takes int). Evidence: rowed
 // pin 0x003EF08B, callers 0x0057DC8D 0x0057DCC6 0x0057DD25, prev/next /O1 /MD.
-class LivingWorldRegionEffectsManager
-{
-public:
-	void SyncRegion(int value);
-};
+#include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 

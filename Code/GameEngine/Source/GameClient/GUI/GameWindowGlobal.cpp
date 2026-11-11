@@ -86,14 +86,7 @@ public:
 
 // vtable 0x00C363C8#0: SyncRegion 0x003EF08B (WorldBuilder name, its
 // __FUNCTION__ string "LivingWorldRegionEffectsManager::SyncRegion") on this with the first of three arguments.
-class LivingWorldRegionEffectsManager
-{
-public:
-	void rva003EF13E(Int value, Int, Int);
-	void SyncRegion(Int value);
-	void rva003EF1D9(const _STL::vector<Int> &vec);
-	void rva003EF2FF();
-};
+#include "../../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 // vtable 0x00BC57E0#18 and #19: hand the argument to two cdecl functions,
 // the second the ledger's Rva000A8F64Set.

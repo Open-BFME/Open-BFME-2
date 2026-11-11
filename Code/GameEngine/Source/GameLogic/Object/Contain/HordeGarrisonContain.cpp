@@ -569,11 +569,7 @@ public:
 	void rva003EF008();										// 0x003EF008
 };
 
-class LivingWorldRegionEffectsManager
-{
-public:
-	void rva003EF2FF();										// 0x003EF2FF
-};
+#include "../../../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 class Rva00210F27
 {

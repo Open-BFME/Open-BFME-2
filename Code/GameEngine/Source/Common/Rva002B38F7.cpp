@@ -87,11 +87,7 @@ public:
 };
 extern Mouse *TheMouse;
 
-class LivingWorldRegionEffectsManager
-{
-public:
-	void rva003EF2FF();
-};
+#include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 class Rva003EF041
 {

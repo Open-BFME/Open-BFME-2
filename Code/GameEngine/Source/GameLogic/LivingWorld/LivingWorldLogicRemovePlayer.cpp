@@ -50,7 +50,7 @@ class LivingWorldPlayer {public:char prefix[0x14];int id;char gap[0x1a0];_STL::v
 enum Rva002B7DE6ArmyID { Rva002B7DE6InvalidArmyID=-1 };
 class Rva003F2A8C {public:void rva003F2A8C(int);};  // rowed at 0x003F2A8C
 class LivingWorldRegion {public:char prefix[0x164];_STL::vector<Rva002B7DE6ArmyID> armyIDs;};
-class LivingWorldRegionEffectsManager {public:void SyncRegion(int);};
+#include "../../../Include/Common/LivingWorldRegionEffectsManager.h"
 class Rva00DFE1C8Host {public:char prefix[0x268];LivingWorldRegionEffectsManager*effects;};
 class LivingWorldManager;extern LivingWorldManager*TheLivingWorldManager;
 class LivingWorldLogic {public:void RemovePlayer(LivingWorldPlayer*);private:char prefix[0x8c];_STL::vector<LivingWorldPlayer*> players;char gap[0x18];Rva0020FD7F*regionManager;char gap2[0x58];_STL::vector<void*>objects;_STL::vector<Rva002B488EResult*>armies;};
