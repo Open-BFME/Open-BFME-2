@@ -20,8 +20,11 @@ extern "C" UnsignedInt theGameLogicSeed[6];
 static void *theLogicRandomLogFile;
 
 // The existing _fprintf owner at RVA 0x002CEC42 appends to a game object;
-// this is not the CRT stream operation declared by stdio.h.
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// this is not the CRT stream operation declared by stdio.h. Read <stdio.h>
+// without dllimport so the call goes straight to that thunk (REL32).
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 
 UnsignedInt __fastcall randomValue(UnsignedInt *seed);
 
@@ -37,7 +40,7 @@ Real GetGameLogicRandomValueReal(Real lo, Real hi, char *file, int line)
 	rval = ((Real)(randomValue(theGameLogicSeed)) * theMultFactor) * delta + lo;
 
 	if (theLogicRandomLogFile)
-		fprintf(theLogicRandomLogFile, "logicrandom = %f (%s, %i)\n", rval, strrchr(file, '\\') + 1, line);
+		fprintf((FILE *)theLogicRandomLogFile, "logicrandom = %f (%s, %i)\n", rval, strrchr(file, '\\') + 1, line);
 
 	return rval;
 }
