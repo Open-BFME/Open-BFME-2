@@ -36,11 +36,7 @@ private:
 
 // The shared AsciiString-keyed tree find worker (0x001F8437): the key's
 // node, or the header when it is absent.
-class Rva001F8437
-{
-public:
-	void *rva001F8437(const AsciiString &key);
-};
+#include "../../../../GameEngineDevice/Include/Rva001F8437.h"
 
 // Just enough of STLport's tree to name its insert_unique (0x00359032).
 namespace _STL

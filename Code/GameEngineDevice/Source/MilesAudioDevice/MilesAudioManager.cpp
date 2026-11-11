@@ -958,10 +958,7 @@ public:
     AudioEventInfo *&rva00059FBB(const AsciiString &name);
 };
 // Address-derived callee view for the tree lookup used at 0x0005B1C2.
-class Rva001F8437 {
-public:
-    void *rva001F8437(const AsciiString &key);
-};
+#include "../../Include/Rva001F8437.h"
 // Rowed at 0x0005F279 under its address-derived host.
 class Rva0005F279Host { public: void rva0005F279(void); };
 // MilesAudioManager's primary base: the vftable at +0x00 starts with the

@@ -14,11 +14,7 @@ class DisplayString;
 #include "../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
-class Rva001F8437
-{
-public:
-    void *rva001F8437(const AsciiString &key);
-};
+#include "../../../../GameEngineDevice/Include/Rva001F8437.h"
 struct Rva00056BC3Iter
 {
     explicit Rva00056BC3Iter(void *value) : node(value) {}
