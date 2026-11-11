@@ -23,11 +23,7 @@ struct Rva0050F041Inner
 // The rowed method name is donor-derived. This view exists only to make the
 // thiscall at 0x002AA231; the target pointer's class and the method's meaning
 // remain unproven here.
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 #include "../../../Include/Common/PlayerList.h"
 

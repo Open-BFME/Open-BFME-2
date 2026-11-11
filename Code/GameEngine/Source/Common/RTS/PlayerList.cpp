@@ -30,11 +30,7 @@ void Rva002D7B18LocalPlayerTaintCallback();
 extern TeamFactory *TheTeamFactory;
 //-----------------------------------------------------------------------------
 PlayerList *ThePlayerList = 0;
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 struct BfmeWorldRV
 {
 	unsigned char m_bfmeHead[0x210];	// BFME1 0x274

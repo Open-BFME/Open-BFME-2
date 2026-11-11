@@ -53,11 +53,7 @@ enum NameKeyType
 	NAMEKEY_MAX = 1 << 23
 };
 
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 class Player;
 

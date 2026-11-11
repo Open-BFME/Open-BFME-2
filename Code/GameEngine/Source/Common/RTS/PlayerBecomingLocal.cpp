@@ -39,7 +39,7 @@ public:bool isKindOf(KindOfType)const;Rva00373EC6 *rva0028F4BC();int getIndicato
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class BfmeMemberRV {public:bool bfmeAskRV();};
+#include "../../../Include/Common/BfmeMemberRV.h"
 struct BfmeResultA
 {
 public:

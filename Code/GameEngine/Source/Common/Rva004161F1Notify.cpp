@@ -57,11 +57,7 @@ void __cdecl Rva004161F1Notify(AsciiString playerName, UnicodeString message)
 	}
 }
 
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../Include/Common/BfmeMemberRV.h"
 
 #include "../../Include/Common/Player.h"
 

@@ -17,7 +17,7 @@ struct Rva0050F4D0PlayerList { char pad00[0x10]; Player *localPlayer; };
 extern class PlayerList *ThePlayerList;
 // The row at 0x002AA231 owns this address-derived spelling. Other objects
 // define conflicting Player::isPlayerActive copies, so call the verified owner.
-class BfmeMemberRV { public: bool bfmeAskRV(); };
+#include "../../../Include/Common/BfmeMemberRV.h"
 class Rva0050F041 { public: void rva0050FF1C(); };
 
 

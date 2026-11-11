@@ -11,11 +11,7 @@ enum Relationship
 	REL_ALLY = 2
 };
 class Player;
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../Include/Common/BfmeMemberRV.h"
 #include "../../Include/Common/PlayerList.h"
 class Rva00373EC6
 {

@@ -12,11 +12,7 @@ class Player;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
 
 struct Rva002D2EEFRecord
 {

@@ -239,7 +239,7 @@ struct CommandObjectView {
     char unknown08[0x250-8]; CommandContainView *contain;
 };
 
-class BfmeMemberRV { public: bool bfmeAskRV(); };
+#include "../../../../Include/Common/BfmeMemberRV.h"
 
 class PlayerList;
 

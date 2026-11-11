@@ -751,7 +751,7 @@ struct ShortcutCommandButtonView
     char unknown00[0x1C];
     unsigned int options;
 };
-class BfmeMemberRV { public: bool bfmeAskRV(); };
+#include "../../../../Include/Common/BfmeMemberRV.h"
 class PlayerList;
 struct ShortcutPlayerListView
 {

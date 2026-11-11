@@ -23,7 +23,7 @@ class Rva0039C190 { public: void rva0039D1D0(unsigned int); };
 class Player { public: bool rva002AA245() const; char opaque[0x94]; int money; };
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class BfmeMemberRV { public: bool bfmeAskRV(); };
+#include "../../../Include/Common/BfmeMemberRV.h"
 struct Rva002A8AB1Record;
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;

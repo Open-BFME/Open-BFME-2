@@ -3,11 +3,7 @@
 // Ally collector: seeds local player from ThePlayerList+0x10 then appends
 // relationship==2 players via rowed getNthPlayer 0x002A7A29 plus bfmeAskRV
 // 0x002AA231 plus getRelationship 0x002AC3E0; array stride 8 at +0x24 max 7.
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-};
+#include "../../Include/Common/BfmeMemberRV.h"
 
 enum Relationship
 {
