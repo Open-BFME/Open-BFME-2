@@ -67,7 +67,7 @@ struct HordeModelState {char pad[0x64];_STL::vector<HordeTexturePair> textures;}
 #include "../../../../../../GameEngine/Include/Common/Rva000B4A9F.h"
 #include "../../../../../../GameEngine/Include/Common/Rva000B4AB5.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva000BC9B1.h"
-class Rva000B3348 {public:void rva000B3348(Matrix3D*);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B3348.h"
 class Rva000788D3FloatField {public:float get()const;};
 struct Rva000C3886Range {int *begin,*end;};
 struct Rva000C3886Obj;

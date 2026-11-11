@@ -366,12 +366,7 @@ class Rva000C7699
 }
 ;
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B3C61.h"
-class Rva000B3348 
-{
- public:void rva000B3348(Matrix3D*);
- 
-}
-;
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B3348.h"
 class W3DScriptedModelDraw : public DrawModule, public Rva000B34D8, public Rva000BFB76Interface
 
 {

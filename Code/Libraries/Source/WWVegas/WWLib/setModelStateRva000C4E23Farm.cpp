@@ -287,7 +287,7 @@ namespace _STL
 {
 template <> Rva00079EA1Element *vector<Rva00079EA1Element, allocator<Rva00079EA1Element> >::erase(Rva00079EA1Element *first, Rva00079EA1Element *last);
 }
-class Rva000B3348 { public: void rva000B3348(Matrix3D *transform); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B3348.h"
 class W3DModelDraw { public: void rva000B7C24(); };
 struct SrcArg000C18E3;
 class Rva000C18E3 { public: void rva000C18E3(SrcArg000C18E3 *arg); };
