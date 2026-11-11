@@ -25,6 +25,16 @@ codecvt<char, char, mbstate_t>::do_out(mbstate_t &, const char *__from,
 }
 
 codecvt<char, char, mbstate_t>::result
+codecvt<char, char, mbstate_t>::do_in(mbstate_t &, const char *__from,
+                                      const char *, const char *&__from_next,
+                                      char *__to, char *, char *&__to_next) const
+{
+	__from_next = __from;
+	__to_next = __to;
+	return noconv;
+}
+
+codecvt<char, char, mbstate_t>::result
 codecvt<char, char, mbstate_t>::do_unshift(mbstate_t &, char *__to, char *,
                                            char *&__to_next) const
 {

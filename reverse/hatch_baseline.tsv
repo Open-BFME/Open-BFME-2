@@ -3551,7 +3551,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp	??0?$_
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp	??1Rva0023DAA5List@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp	?clear@Rva0023DAA5List@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_locale.cpp	?bfmeLocaleCtor@BfmeLocaleShim@@SAXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp	?do_in@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp	?do_in@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAG3AAPAG@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_locale_facet_subclass_dtors.cpp	?do_out@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBG1AAPBGPAD3AAPAD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_locale_global.cpp	?_M_acquire_lock@NodeAllocMutex@_STL@@QAEXXZ	1
