@@ -36,7 +36,7 @@ class Rva00289706 { public: ~Rva00289706(); };
 void famgenDelete(Rva00289706 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva004DDF3A@@QAEPAXI@Z @0x0028AB32 28B: calls ~Rva004DDF3A 0x004DDF3A
-class Rva004DDF3A { public: ~Rva004DDF3A(); };
+#include "../../Include/GameLogic/Module/Rva004DDF3A.h"
 void famgenDelete(Rva004DDF3A *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva004E9657@@QAEPAXI@Z @0x002A8A49 28B: calls ~Rva004E9657 0x004E9657

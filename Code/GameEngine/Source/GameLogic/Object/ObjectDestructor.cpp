@@ -81,7 +81,7 @@ class Rva002913EB { public: ~Rva002913EB(); unsigned char m_data[0xa0]; };
 class WeaponSet { public: virtual ~WeaponSet(); unsigned char m_data[0x68]; };
 class Rva001EB05E { public: ~Rva001EB05E(); unsigned char m_data[0x2c]; };
 class Rva001DB3E0List { public: ~Rva001DB3E0List(); };
-class Rva004DDF3A { public: ~Rva004DDF3A(); };
+#include "../../../Include/GameLogic/Module/Rva004DDF3A.h"
 struct CameraMarker;
 
 namespace _STL {

@@ -303,11 +303,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/PathfinderPosGoalManager.h"
 
-class Rva004DDF3A
-{
-public:
-	~Rva004DDF3A();
-};
+#include "../../../Include/GameLogic/Module/Rva004DDF3A.h"
 
 class Rva004DD7E3
 {
