@@ -114,11 +114,7 @@ extern AI *TheAI;
 
 int Rva002EDE5B(void *object, Coord3D *pos);
 
-class BfmeSub932C
-{
-public:
-	unsigned char bfmeQuery932C();
-};
+#include "../../../../Include/Common/BfmeSub932C.h"
 
 struct AIStateView
 {

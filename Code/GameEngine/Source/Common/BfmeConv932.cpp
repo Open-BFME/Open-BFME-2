@@ -1,8 +1,4 @@
-class BfmeSub932C
-{
-public:
-	unsigned char bfmeQuery932C();
-};
+#include "../../Include/Common/BfmeSub932C.h"
 
 class BfmeThing932C
 {

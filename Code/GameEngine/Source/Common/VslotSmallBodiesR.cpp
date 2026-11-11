@@ -104,11 +104,7 @@ Int Rva00222A19::rva00222D26(char *buf)
 
 // slot at 0x0033F504: the rowed BfmeSub932C query of the +0x20 object, 0
 // without one.
-class BfmeSub932C
-{
-public:
-	unsigned char bfmeQuery932C();
-};
+#include "../../Include/Common/BfmeSub932C.h"
 class Rva0033F504
 {
 public:

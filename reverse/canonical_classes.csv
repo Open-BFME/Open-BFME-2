@@ -1158,3 +1158,4 @@ H1F8167,Code/GameEngine/Include/Common/H1F8167.h,existing header; contract class
 Rva002AF6C5Element,Code/GameEngine/Include/Common/Rva002AF6C5Element.h,existing header; contract class_contracts/Rva002AF6C5Element.json; 4/8 sampled units adopt
 BfmeSubBGB,Code/GameEngine/Include/GameLogic/BfmeSubBGB.h,existing header; contract class_contracts/BfmeSubBGB.json; 4/5 sampled units adopt
 Rva0042C0DBDelegate,Code/GameEngine/Include/Common/Rva0042C0DBDelegate.h,existing header; contract class_contracts/Rva0042C0DBDelegate.json; 5/7 sampled units adopt
+BfmeSub932C,Code/GameEngine/Include/Common/BfmeSub932C.h,existing header; contract class_contracts/BfmeSub932C.json; 4/5 sampled units adopt

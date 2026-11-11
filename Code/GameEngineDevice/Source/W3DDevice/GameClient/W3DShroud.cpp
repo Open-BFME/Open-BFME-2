@@ -307,11 +307,7 @@ struct Rva00072F7CNode {
 
 // slot at 0x0033F504: the rowed BfmeSub932C query of the +0x20 object, 0
 // without one.
-class BfmeSub932C
-{
-public:
-	unsigned char bfmeQuery932C();
-};
+#include "../../../../GameEngine/Include/Common/BfmeSub932C.h"
 
 // slots at 0x003413A1 and 0x0034143C: virtual slot 11 (bool) resp. slot 6 of
 // the +0x24 object, false/nothing without one.
