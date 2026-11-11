@@ -17,7 +17,7 @@
 
 class Rva002189C5 { public: ~Rva002189C5(); };
 #include "../../Include/Common/SubsystemInterfaceList.h"
-class Rva00229487 { public: ~Rva00229487(); };
+#include "../../Include/Common/Rva00229487.h"
 class Rva0042C1B7Item { public: ~Rva0042C1B7Item(); };
 class Rva0023A128 { public: ~Rva0023A128(); };
 

@@ -10,11 +10,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva00229487
-{
-public:
-	~Rva00229487();
-};
+#include "../../../Include/Common/Rva00229487.h"
 
 struct Rva0022C8FBElem
 {

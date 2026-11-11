@@ -88,11 +88,7 @@ public:
 };
 
 #include "../../Include/GameLogic/LocomotorStore.h"
-class Rva00229487
-{
-public:
-	~Rva00229487();
-};
+#include "../../Include/Common/Rva00229487.h"
 struct VersionBlockEntry
 {
 public:
