@@ -646,12 +646,7 @@ int Rva00574910::rva00574910(void *msg)
 
 
 struct IRegion2D;
-class Rva005D1F45
-{
-public:
-	int rva005D1F45(IRegion2D *region, int value);
-	int rva005D1FD3(GameMessage *message);
-};
+#include "../../Include/Common/Rva005D1F45.h"
 // The +0x18 and +0x28 translators are rowed as
 // StrategicInGameUI::ManualPhaseEnder::Translate (0x005CD8F7) and
 // StrategicInGameUI::PlayerStatusDisplayer::rva005CD690 (0x005CD690).

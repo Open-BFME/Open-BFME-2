@@ -15,12 +15,7 @@ union GameMessageArgumentType
 	} pixelRegion;
 };
 #include "../../Include/Common/MessageStream.h"
-class Rva005D1F45
-{
-public:
-	int rva005D1F45(IRegion2D *region, int val);
-	int rva005D1FD3(GameMessage *msg);
-};
+#include "../../Include/Common/Rva005D1F45.h"
 int Rva005D1F45::rva005D1FD3(GameMessage *msg)
 {
 	if (msg->m_type != 0x1b)

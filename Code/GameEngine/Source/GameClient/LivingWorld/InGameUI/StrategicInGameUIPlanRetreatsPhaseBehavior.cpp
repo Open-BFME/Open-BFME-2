@@ -41,11 +41,7 @@ namespace StrategicInGameUI
 }
 
 // The retreat planner (rowed address-named, 0x005D1FD3).
-class Rva005D1F45
-{
-public:
-	int rva005D1FD3(GameMessage *msg);
-};
+#include "../../../../Include/Common/Rva005D1F45.h"
 
 namespace StrategicInGameUI
 {

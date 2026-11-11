@@ -10,7 +10,7 @@
 class GameMessage;
 class Rva005CDA3D { public:int rva005E5BF7(GameMessage*); };
 class Rva005E687F { public:unsigned char get()const; };
-class Rva005D1F45 { public:int rva005D1FD3(GameMessage*); };
+#include "../../Include/Common/Rva005D1F45.h"
 class Rva005CDE01 { public:virtual int rva005CDE01(GameMessage*);private:char prefix[0x1c];Rva005E687F*state; };
 int Rva005CDE01::rva005CDE01(GameMessage*msg){
  if(state && !state->get())return((Rva005CDA3D*)this)->rva005E5BF7(msg);
