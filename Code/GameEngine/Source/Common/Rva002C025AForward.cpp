@@ -8,7 +8,7 @@
 // the call. Names and the payload fields remain address-derived.
 // ?rva002C025A@Rva002C025AViewer@@QAEPAXPAXI_N@Z @0x002C025A 33B.
 struct Rva002C025APair { unsigned int m_00; unsigned char m_04; };
-class Rva005CBB0A {public: void *rva002C00E0(void *,const int *);};
+#include "../../Include/Common/Rva005CBB0A.h"
 class Rva002C025AViewer {
 public:
  void *rva002C025A(void *, unsigned int, bool);

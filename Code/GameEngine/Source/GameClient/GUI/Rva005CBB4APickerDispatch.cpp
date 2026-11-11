@@ -8,7 +8,7 @@
 // original receiver/method and record identities remain address-derived.
 // Named lookup-result locals reproduce target callback evaluation order.
 // The pointer-result ABI repair is verified in the canonical owner units.
-class Rva005CBB0A {public:void *rva005CBB0A(void *,const int*);};
+#include "../../../Include/Common/Rva005CBB0A.h"
 #include "../../../Include/GameLogic/Rva0020EE29.h"
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 struct PickerWorldView {char pad[0xb0];Rva0020EE29 *lookup;};

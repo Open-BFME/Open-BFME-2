@@ -32,13 +32,7 @@ public:
 	int m_b;
 	Rva005CBB0AObj(const int *src) : m_a(src[0]), m_b(src[1]) {}
 };
-class Rva005CBB0A
-{
-public:
-	void *rva002BFDE6(void *arg, void *obj);
-	void *rva005CBB0A(void *arg, const int *src);
-	void *rva002C00E0(void *arg, const int *src);
-};
+#include "../../Include/Common/Rva005CBB0A.h"
 void *Rva005CBB0A::rva005CBB0A(void *arg, const int *src)
 {
 	Rva005CBB0AObj obj(src);
