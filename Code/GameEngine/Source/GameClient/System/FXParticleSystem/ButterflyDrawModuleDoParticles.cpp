@@ -113,7 +113,7 @@ class Rva001F4E1BSlot {public:const RGBColor*get()const;};
 class Rva001F4DF9 {public:float rva001F4DF9();};
 struct ButterflyParticle {char prefix[16];Vector3 axis;Vector3 position;char gap[0x3c];ButterflyParticle*next;};
 class ButterflyParticleStorage {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual ButterflyParticle*getFirstParticle();};
-class Rva0004CABDSevenEight {public:int get()const;};
+#include "../../../../Include/GameClient/Rva0004CABDSevenEight.h"
 #include "../../../../Include/GameClient/ParticleSystemClass.h"
 struct ButterflyBox {Vector3 center,extent;};
 __forceinline float quadFabs(float x){unsigned n=*(unsigned*)&x;n&=0x7fffffff;return *(float*)&n;}

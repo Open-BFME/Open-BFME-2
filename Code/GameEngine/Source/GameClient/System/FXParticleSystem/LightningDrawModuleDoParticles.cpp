@@ -114,11 +114,7 @@ public:
 	virtual StreakParticle *getFirstParticle(); // slot 8 (+0x20)
 };
 
-class Rva0004CABDSevenEight
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/GameClient/Rva0004CABDSevenEight.h"
 
 #include "../../../../Include/GameClient/ParticleSystemClass.h"
 

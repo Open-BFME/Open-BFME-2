@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
-class Rva0004CABDSevenEight {public:int get()const;};
+#include "../../Include/GameClient/Rva0004CABDSevenEight.h"
 struct OldestHandle191 {ParticleSystem *system;void*prev,*next;ParticleSystem *operator->()const{return system?system:Make001FCBD7();}};
 struct OldestParticle191 {virtual void *destroy(unsigned flags);char pad[0x38];OldestHandle191 system;};
 class Rva001F48DF {

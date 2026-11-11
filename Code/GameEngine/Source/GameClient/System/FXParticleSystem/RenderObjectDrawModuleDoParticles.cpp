@@ -17,7 +17,7 @@ class RenderInfoClass;
 class RenderObjClass;
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
-class Rva0004CABDSevenEight {public:int get() const;};
+#include "../../../../Include/GameClient/Rva0004CABDSevenEight.h"
 class Rva001F4D4F {public:float rva001F4D4F();};
 class Rva001F4D76 {public:float rva001F4D76();};
 class Rva001F4D9D {public:float rva001F4D9D();};
