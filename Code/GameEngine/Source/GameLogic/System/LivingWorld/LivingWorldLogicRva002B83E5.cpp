@@ -51,11 +51,7 @@ class Rva002B7B71 { public: void rva002B7B71(); };
 class Rva00211589 { public: void rva002129B4(); };
 class Rva00211570 { public: void rva00211570(); };
 
-class Rva0022C4DF
-{
-public:
-	UnicodeString rva0022C4DF(void) const;
-};
+#include "../../../../Include/GameNetwork/Rva0022C4DF.h"
 
 class LivingWorldManager;
 class GameSpyStagingRoom;

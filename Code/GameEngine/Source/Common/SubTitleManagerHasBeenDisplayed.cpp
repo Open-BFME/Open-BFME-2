@@ -12,11 +12,7 @@
 
 void __cdecl _bfme_debugRecordCallsite(int x);
 
-class Rva0022C4DF
-{
-public:
-	UnicodeString rva0022C4DF() const;
-};
+#include "../../Include/GameNetwork/Rva0022C4DF.h"
 
 #include "debug.h"
 

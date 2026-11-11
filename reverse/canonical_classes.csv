@@ -1052,3 +1052,4 @@ Rva0054D2DDTarget,Code/GameEngine/Include/Common/Rva0054D2DDTarget.h,existing he
 Rva0023DC8E,Code/GameEngine/Include/GameLogic/Rva0023DC8E.h,existing header; contract class_contracts/Rva0023DC8E.json; 6/7 sampled units adopt
 EmotionNuggetTemplate,Code/GameEngine/Include/Common/EmotionNuggetTemplate.h,existing header; contract class_contracts/EmotionNuggetTemplate.json; 4/4 sampled units adopt
 AnimationAsset,Code/GameEngineDevice/Include/W3DDevice/GameClient/AnimationAsset.h,existing header; contract class_contracts/AnimationAsset.json; 4/4 sampled units adopt
+Rva0022C4DF,Code/GameEngine/Include/GameNetwork/Rva0022C4DF.h,existing header; contract class_contracts/Rva0022C4DF.json; 5/7 sampled units adopt

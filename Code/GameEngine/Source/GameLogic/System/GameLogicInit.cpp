@@ -2932,11 +2932,7 @@ public:
 
 #include "../../../Include/Common/RadarWindowOverrideSource.h"
 
-class Rva0022C4DF
-{
-public:
-	UnicodeString rva0022C4DF(void) const;
-};
+#include "../../../Include/GameNetwork/Rva0022C4DF.h"
 
 class GameSpyStagingRoom;
 

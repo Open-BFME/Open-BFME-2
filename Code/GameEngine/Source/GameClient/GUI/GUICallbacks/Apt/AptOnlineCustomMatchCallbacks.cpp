@@ -180,7 +180,7 @@ public:
 	void setMapSize(unsigned int size);  // rowed 0x00400F5A
 };
 
-class Rva0022C4DF { public: UnicodeString rva0022C4DF() const; };
+#include "../../../../../Include/GameNetwork/Rva0022C4DF.h"
 class Rva003821E2 { public: void assign(UnicodeString); };
 class Rva0059F322AsciiField { public: AsciiString get() const; };
 class Rva0059F2EB { public: void rva0059F2EB(AsciiString); };

@@ -1378,7 +1378,7 @@ class Rva00381CED { public: void rva00381CED(void*); };
 class Rva00382234 { public: void rva00382234(AsciiString); };
 class Rva003821E2 { public: void assign(UnicodeString); };
 class Rva00235A37 { public: Rva00235A37& operator=(const Rva00235A37&); };
-class Rva0022C4DF { public: UnicodeString rva0022C4DF()const; };
+#include "../../../Include/GameNetwork/Rva0022C4DF.h"
 AsciiString GameInfoToAsciiString(const GameInfo*,Bool);
 Bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,Bool);
 
