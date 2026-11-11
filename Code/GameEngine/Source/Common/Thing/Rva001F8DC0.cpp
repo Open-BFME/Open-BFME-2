@@ -3,10 +3,7 @@
 // Null-checked virtual slot 3 at +0 with int arg, then rowed Rva001F5D4F::rva001F5D4F on this+12.
 // Chain from 0x001F5D4F (same shape, member at +4 there); caller at 0x001F941B.
 // Honest Rva names.
-class Rva001F5D4F {
-public:
-    void rva001F5D4F(int);
-};
+#include "../../../Include/Common/Rva001F5D4F.h"
 class Helper001F8DC0 {
 public:
     virtual ~Helper001F8DC0();

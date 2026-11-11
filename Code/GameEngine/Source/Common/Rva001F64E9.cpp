@@ -1,9 +1,7 @@
 // cl: /MD /EHsc
 // ?rva001F64E9@Rva001F64E9@@QAEXH@Z 0x001F64E9 34B
 // Evidence: leaf via rowed 0x001F5D4F; null-checked virtual slot 3 at +0 with int arg then rowed Rva001F5D4F on this+4. Caller at 0x001F826D. Honest Rva names.
-struct Rva001F5D4F {
-    void rva001F5D4F(int);
-};
+#include "../../Include/Common/Rva001F5D4F.h"
 class Helper001F64E9 {
 public:
     virtual ~Helper001F64E9();

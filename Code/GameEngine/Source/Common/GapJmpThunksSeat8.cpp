@@ -53,11 +53,7 @@ public:
 	void rva001F5CF7();
 };
 
-class Rva001F5D4F
-{
-public:
-	void rva001F5D4F(int);
-};
+#include "../../Include/Common/Rva001F5D4F.h"
 
 #include "../../Include/Common/H1F8167.h"
 
