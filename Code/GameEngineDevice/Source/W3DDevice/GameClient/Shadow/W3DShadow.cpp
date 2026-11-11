@@ -72,11 +72,7 @@ private:
 	char body[0x274];
 };
 
-class Rva0007DA23ResourceManager
-{
-public:
-	Bool ReAcquireResources();
-};
+#include "../../../../../GameEngine/Include/Common/Rva0007DA23ResourceManager.h"
 
 // TheW3DVolumetricShadowManager: matched references place it at VA 0xdebcd8 (zero-filled .bss).
 W3DVolumetricShadowManager * TheW3DVolumetricShadowManager;

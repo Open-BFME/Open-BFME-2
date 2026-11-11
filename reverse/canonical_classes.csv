@@ -1188,3 +1188,4 @@ GameWindowTransitionsHandler,Code/GameEngine/Include/GameClient/GameWindowTransi
 Rva00538CEF,Code/GameEngine/Include/Common/Rva00538CEF.h,existing header; contract class_contracts/Rva00538CEF.json; 4/5 sampled units adopt
 Rva00376A62,Code/GameEngine/Include/GameLogic/Rva00376A62.h,existing header; contract class_contracts/Rva00376A62.json; 4/7 sampled units adopt
 Rva0036748E,Code/GameEngine/Include/GameLogic/Module/Rva0036748E.h,existing header; contract class_contracts/Rva0036748E.json; 4/5 sampled units adopt
+Rva0007DA23ResourceManager,Code/GameEngine/Include/Common/Rva0007DA23ResourceManager.h,existing header; contract class_contracts/Rva0007DA23ResourceManager.json; 4/7 sampled units adopt

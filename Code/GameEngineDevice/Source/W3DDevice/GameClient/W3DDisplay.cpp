@@ -510,7 +510,7 @@ class WaterRenderObjClass { public: bool IsReflectionVisible(void *); };
 
 class Rva0007F92AHost { public: void rva0007F92A(int, int); };
 
-class Rva0007DA23ResourceManager { public: void rva0007C18E(); void rva0007B6F3(); };
+#include "../../../../GameEngine/Include/Common/Rva0007DA23ResourceManager.h"
 
 #include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 

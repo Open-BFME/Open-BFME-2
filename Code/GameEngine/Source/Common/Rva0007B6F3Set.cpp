@@ -9,10 +9,6 @@ class FXShaderParameterSourceNamespaceSAS { public: void rva0014F7F2(int value);
 // defined here, nothing else defines it.
 FXShaderParameterSourceNamespaceSAS *g_00DF36B4 = 0;
 
-class Rva0007DA23ResourceManager
-{
-public:
-	void rva0007B6F3();
-};
+#include "../../Include/Common/Rva0007DA23ResourceManager.h"
 
 void Rva0007DA23ResourceManager::rva0007B6F3() { g_00DF36B4->rva0014F7F2(0); }

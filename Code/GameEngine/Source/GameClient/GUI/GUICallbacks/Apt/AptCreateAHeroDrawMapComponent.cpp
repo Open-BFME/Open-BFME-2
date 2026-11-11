@@ -59,12 +59,7 @@ extern Shell *TheShell;
 extern GlobalData *TheWritableGlobalData;
 
 // The manager at 0x00DE1FF8 (W3DShadowManagerReAcquire.cpp's view).
-class Rva0007DA23ResourceManager
-{
-public:
-	void rva0007C18E();
-	void rva0007B6F3();
-};
+#include "../../../../../Include/Common/Rva0007DA23ResourceManager.h"
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 
 
