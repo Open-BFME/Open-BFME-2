@@ -101,6 +101,21 @@ def test_pure_slot_is_pure_when_any_view_spells_it_pure(base_header, monkeypatch
     monkeypatch.setattr(lane, "_matched_index", lambda: {"?getKey@Derived@@": ["?getKey@Derived@@UBEHXZ"]})
     _, _, problems = declare(c, {"a.cpp": pure, "c.cpp": plain}, base_header)
     assert problems == ["slot2 getKey(): pure in a view, but a matched row defines it"]
+    # an overload the row may define is no contradiction: non-virtual, another arity, or one of several
+    for rows in (["?getKey@Derived@@QBEHH@Z"], ["?getKey@Derived@@UBEHH@Z"],
+                 ["?getKey@Derived@@UBEHXZ", "?getKey@Derived@@UBEHH@Z"]):
+        monkeypatch.setattr(lane, "_matched_index", lambda rows=rows: {"?getKey@Derived@@": rows})
+        own, _, problems = declare(c, {"a.cpp": pure, "c.cpp": plain}, base_header)
+        assert problems == [] and own == ["virtual NameKeyType getKey() const = 0;"]
+
+
+def test_a_pure_destructor_with_its_required_definition_stays_pure(monkeypatch):
+    monkeypatch.setattr(lane, "_matched_index", lambda: {"??1Solo@@": ["??1Solo@@UAE@XZ"]})
+    view = "class Solo {\npublic:\n    virtual ~Solo() = 0;\n};\n"
+    c = contract({0: "__vecDelDtor(uint)"}, bases=(), inherited=0)
+    c["class"] = "Solo"
+    own, _, problems = lane.slot_declarations(c, ["s.cpp"], read={"s.cpp": view}.__getitem__, known={})
+    assert problems == [] and own == ["virtual ~Solo() = 0;"]
 
 
 def test_rva00589079_e1_views_keep_the_pure_specifier(monkeypatch):

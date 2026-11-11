@@ -840,16 +840,80 @@ def test_special_members_keep_spelling_access_and_skip_what_another_part_declare
     assert sorted((c["role"], c["access"], c["text"]) for c in carried) == [
         ("assign", "public", "Pod &operator = (const Pod &);"), ("copy", "public", "Pod(const Pod &other);"),
         ("ctor", "private", "Pod(int a, int b);"), ("ctor", "public", "explicit Pod(float r);"),
-        ("default", "public", "Pod();")]
+        ("default", "public", "Pod();"), ("dtor", "public", "~Pod() {}")]
     contract = {"class": "Pod", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
                 "fields": [{"kind": "f4", "type": "float", "name": "m_r"}]}
     methods = {"Pod&operator=(const Pod&)": "Pod& operator=(const Pod &that);"}
     text = lane.generate(contract, "data+ctor+copy+methods", methods, None, None, carried)
     body = text[text.index("class Pod"):text.index("};")]
-    assert "Pod() {}" not in body and "Pod(const Pod &that);" not in body   # the views' own spellings win
+    assert "\n    Pod() {}" not in body and "Pod(const Pod &that);" not in body   # the views' own spellings win
     assert body.count("operator") == 1
-    assert body.index("private:") < body.index("Pod(int a, int b);")
+    assert body.index("~Pod() {}") < body.index("private:") < body.index("Pod(int a, int b);")
     assert "explicit Pod(float r);" in body.split("private:")[0]
+
+
+def test_inline_special_members_the_views_agree_on_are_carried_in_every_variant(monkeypatch):
+    # The implicit destructor would not call release(): beside the views' inline one
+    # (COMDAT ANY both) the linker may keep either body.
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    view = "class C {\npublic:\n    ~C() {\n        release();\n    }\n    void release();\n    int x;\n};\n"
+    carried, problems = special("C", {"a.cpp": view, "b.cpp": view})
+    assert problems == [] and [c["text"] for c in carried] == ["~C() {\n        release();\n    }"]
+    contract = {"class": "C", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
+                "fields": [{"kind": "i4", "type": "int", "name": "x"}]}
+    for variant in ("data", "data+ctor", "data+methods", "data+includes"):
+        assert "release();" in lane.generate(contract, variant, {}, None, None, carried)
+    other = "class C {\npublic:\n    ~C() { x = 0; }\n    int x;\n};\n"
+    carried, problems = special("C", {"a.cpp": view, "b.cpp": other})
+    assert problems == ["special ~C(): inline bodies differ (a.cpp, b.cpp)"] and carried == []
+
+
+def test_special_member_keys_keep_qualifiers_and_drop_names():
+    # C(C&) and C(const C&) are two constructors (two mangled names); a parameter's
+    # name, even inside a function-pointer declarator, is no part of the key.
+    view = "class C { public: C(C&); C(const C&); C& operator=(C&); C& operator=(const C&); int x; };\n"
+    carried, problems = special("C", {"a.cpp": view})
+    assert problems == [] and len(carried) == 4
+    carried, problems = special("C", {"a.cpp": "class C { public: C(void (*a)(int)); int x; };\n",
+                                      "b.cpp": "class C { public: C(void (*b)(int)); int x; };\n"})
+    assert problems == [] and len(carried) == 1
+
+
+def test_a_disputed_member_without_an_implicit_counterpart_is_left_out_not_held():
+    # Rva005F4096's views give its converting constructor two inline bodies; here also one
+    # out of line against one inline, and one under other access. Dropping such a member
+    # is safe: a unit that calls it no longer compiles and is queued.
+    carried, problems = special("C", {"a.cpp": "class C { public: C(int *p) : m(p) {} C(char); C(float); ~C(); "
+                                               "int *m; };\n",
+                                      "b.cpp": "class C { C(float); public: C(int *q) : m(0) {} C(char c) {} ~C(); "
+                                               "int *m; };\n"})
+    assert problems == [] and [c["text"] for c in carried] == ["~C();"]
+
+
+def test_defaulted_parameters_make_default_and_copy_constructors(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    view = "class C { public: C(int n = 0); C(const C &o, int flags = 0); int x; };\n"
+    carried, problems = special("C", {"a.cpp": view}, {"??0C@@": []})
+    assert problems == [] and sorted(c["role"] for c in carried) == ["copy", "default"]
+    contract = {"class": "C", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
+                "fields": [{"kind": "i4", "type": "int", "name": "x"}]}
+    body = lane.generate(contract, "data+ctor+copy", {}, None, None, carried)
+    assert "C() {}" not in body and "C(const C &that);" not in body     # no ambiguous second default
+
+
+def test_a_carried_declaration_keeps_its_string_literals():
+    carried, problems = special("C", {"a.cpp": 'class C { public: C(const char *s = "a  b"); int x; };\n'})
+    assert problems == [] and carried[0]["text"] == 'C(const char *s = "a  b");'
+
+
+def test_ledger_proof_reads_nested_scope_back_references():
+    index = {"??0ModuleTemplate@FXParticleSystem@@": ["??0ModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z"],
+             "??4ModuleTemplate@FXParticleSystem@@": [
+                 "??4ModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z"]}
+    for role in ("copy", "assign"):
+        assert lane.ledger_defines("FXParticleSystem::ModuleTemplate", role, index=index)
+        assert not lane.ledger_defines("ModuleTemplate", role, index={"??0ModuleTemplate@@": ["??0ModuleTemplate@@QAE@ABV1@@Z"]})
+    assert lane.ledger_defines("C", "copy", index={"??0C@@": ["??0C@@QAE@ABU0@@Z"]})
 
 
 @pytest.mark.parametrize("views,index,slotted,why", [
@@ -860,7 +924,9 @@ def test_special_members_keep_spelling_access_and_skip_what_another_part_declare
     ({"a.cpp": "class C { public: C(const C &); int x; };\n", "b.cpp": "class C { C(C const &); int x; };\n"},
      {}, (), "special C(const C &): access disagrees (private, public)"),
     ({"a.cpp": "class C { public: ~C(); int x; };\n", "b.cpp": "class C { public: int x; };\n"},
-     {}, (), "special ~C(): out of line in a.cpp, omitted by b.cpp and no matched row defines it"),
+     {}, (), "special ~C(): declared in a.cpp, omitted by b.cpp and no matched row defines it"),
+    ({"a.cpp": "class C { public: ~C() { Holder::release(m); } int m; };\n"},
+     {}, (), "special ~C(): names a type or default argument the header does not declare"),
 ])
 def test_views_that_disagree_on_a_special_member_hold_the_class(views, index, slotted, why):
     carried, problems = special("C", views, index, slotted=slotted)
@@ -874,7 +940,7 @@ def test_an_omitted_special_member_is_carried_when_the_ledger_defines_it():
     assert problems == [] and sorted(c["text"] for c in carried) == ["C();", "~C();"]
     # a copy constructor row proves no default constructor
     carried, problems = special("C", views, {"??1C@@": ["??1C@@QAE@XZ"], "??0C@@": ["??0C@@QAE@ABV0@@Z"]})
-    assert problems == ["special C(): out of line in a.cpp, omitted by b.cpp and no matched row defines it"]
+    assert problems == ["special C(): declared in a.cpp, omitted by b.cpp and no matched row defines it"]
     # a destructor the slot declarations emit (virtual through a base) is theirs
     carried, problems = special("C", {"a.cpp": "class C : public B { public: ~C(); };\n",
                                       "b.cpp": "class C : public B { public: virtual ~C(); };\n"}, {}, slotted={"~"})
