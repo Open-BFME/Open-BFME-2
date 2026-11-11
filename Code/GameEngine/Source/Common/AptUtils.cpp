@@ -77,11 +77,7 @@ public:
 
 #include "../../Include/GameClient/Image.h"
 
-class Rva000A4826
-{
-public:
-    void rva000A48C4(int a, float b, float c, float d, float e, float f, int g);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000A4826.h"
 
 class PlayerTemplateFlags
 {

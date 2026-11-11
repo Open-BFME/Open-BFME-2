@@ -1221,3 +1221,4 @@ Rva006C39F0Owner,Code/GameEngine/Include/Common/Rva006C39F0Owner.h,existing head
 Rva002E3766Holder,Code/GameEngine/Include/GameLogic/Module/Rva002E3766Holder.h,existing header; contract class_contracts/Rva002E3766Holder.json; 4/5 sampled units adopt
 Rva00399800,Code/Libraries/Source/WWVegas/WWLib/Rva00399800.h,existing header; contract class_contracts/Rva00399800.json; 4/6 sampled units adopt
 Rva00084C05System,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva00084C05System.h,existing header; contract class_contracts/Rva00084C05System.json; 4/5 sampled units adopt
+Rva000A4826,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000A4826.h,existing header; contract class_contracts/Rva000A4826.json; 4/5 sampled units adopt

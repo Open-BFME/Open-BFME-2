@@ -96,7 +96,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::DoSetSt
 
 class Display;
 extern Display *TheDisplay;
-class Rva000A4826 {public:void rva000A4875(float,float,float,float,float,int);};
+#include "../../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000A4826.h"
 // Ctor5F775E binds this receiver under _ProgressOverlay. Native101B RET16.
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::rva005F6899(const Coord2D *position,const Coord2D *size,void*,void*) {
  float progress;

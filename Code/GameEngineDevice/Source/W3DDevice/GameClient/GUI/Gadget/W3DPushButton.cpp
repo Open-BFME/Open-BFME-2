@@ -137,18 +137,7 @@ public:
 		Real lineWidth, Int color );
 };
 
-class Rva000A4826
-{
-public:
-	void rva000A4826( Real startX, Real startY, Real width, Real height,
-		Real percent, Int color );
-	void rva000A4875( Real startX, Real startY, Real width, Real height,
-		Real percent, Int color );
-	void rva000A47DE( Real startX, Real startY, Real width, Real height,
-		Int color );
-	void rva000A48C4( Int image, Real startX, Real startY, Real endX, Real endY,
-		Real percent, Int color );
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000A4826.h"
 
 // Render-state helpers bracketing the radial (masked) cameo draw.
 void Rva00118AC0( void );

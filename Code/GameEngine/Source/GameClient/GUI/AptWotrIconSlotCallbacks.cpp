@@ -38,11 +38,7 @@ struct Rva005EEE74AptMode
 class Display;
 extern Display *TheDisplay;
 
-class Rva000A4826
-{
-public:
-	void rva000A4875(float a, float b, float c, float d, float e, int f);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000A4826.h"
 
 #include "../../Common/RegionArmyIconSlotView.h"
 
