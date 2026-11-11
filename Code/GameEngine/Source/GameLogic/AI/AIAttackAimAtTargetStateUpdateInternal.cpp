@@ -63,11 +63,7 @@ struct Rva0028AC4EEntry;
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 // The vision-range reach test 0x0028F326, pinned under this view.
-class Rva0028F326Owner
-{
-public:
-	unsigned char rva0028F326(unsigned int victim, float range);
-};
+#include "../../../Include/GameLogic/Module/Rva0028F326Owner.h"
 class Object
 {
 public:

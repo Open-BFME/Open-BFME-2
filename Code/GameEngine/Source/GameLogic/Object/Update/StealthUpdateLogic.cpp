@@ -360,11 +360,7 @@ struct AsciiStringVector
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The range test 0x0028F326, pinned under an address-derived class.
-class Rva0028F326Owner
-{
-public:
-	unsigned char rva0028F326(UnsignedInt victim, Real range);
-};
+#include "../../../../Include/GameLogic/Module/Rva0028F326Owner.h"
 
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

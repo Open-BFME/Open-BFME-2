@@ -60,7 +60,7 @@ public:
     char pad278[0x454-0x278]; bool flag454;
     bool isEmotionTarget() const { return flag454; }
 };
-class Rva0028F326Owner { public: unsigned char rva0028F326(unsigned int, float); };
+#include "../../../../Include/GameLogic/Module/Rva0028F326Owner.h"
 class Rva2225E0Filter
 {
 public:

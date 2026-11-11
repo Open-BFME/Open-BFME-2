@@ -6,11 +6,7 @@
 // The helper's original operation name remains unknown; keep its admitted
 // address-derived spelling and four-byte argument representation.
 class Object;
-class Rva0028F326Owner
-{
-public:
- unsigned char rva0028F326(unsigned int value,float scalar);
-};
+#include "../../Include/GameLogic/Module/Rva0028F326Owner.h"
 class Rva00261513Filter
 {
 public:
