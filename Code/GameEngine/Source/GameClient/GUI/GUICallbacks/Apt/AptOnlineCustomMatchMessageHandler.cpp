@@ -317,12 +317,7 @@ struct AptOnlineCustomMatchOwner
 // Address-named views the buddy invite uses: the screen's state test
 // (0x0059EF33, state 6 or 12), the room's +0xFDC string (0x0059F340) and
 // the invite record's five-field setter (0x0059EF62).
-class Rva0059ECAD
-{
-public:
-	unsigned char rva0059EF33() const;
-	void rva0059ECAD(int password); // rowed 0x0059ECAD, the join request
-};
+#include "../../../../../Include/GameClient/Rva0059ECAD.h"
 
 UnicodeString GadgetTextEntryGetText(GameWindow *window); // rowed 0x00320AAB
 

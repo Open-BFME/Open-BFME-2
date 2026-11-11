@@ -67,11 +67,7 @@ struct BuddyRecordView
 	Int m_status;						// +0x10
 };
 
-class Rva0059ECAD
-{
-public:
-	unsigned char rva0059EF33() const;
-};
+#include "../../../../../Include/GameClient/Rva0059ECAD.h"
 
 extern int g_Va00E046BC;
 extern int g_currentAptOnlineCustomMatch;
