@@ -835,10 +835,9 @@ def test_special_members_keep_spelling_access_and_skip_what_another_part_declare
     other = ("class Pod {\npublic:\n    Pod(void);\n    Pod(Pod const &);\n    Pod& operator=(const Pod &that);\n"
              "    ~Pod() {}\n    float m_r;\n};\n")
     carried, problems = special("Pod", {"a.cpp": view, "b.cpp": other})
-    # Pod(const Coord3D &) names a type the header lacks; left out, a call to it could fall
-    # to another constructor, so the class is held
+    # Pod(const Coord3D &) names a type the header lacks: the class is held
     assert problems == ["special Pod(const Coord3D &where): names a type or default argument the header "
-                        "does not declare, and Pod(float) could take its calls"]
+                        "does not declare"]
     assert sorted((c["role"], c["access"], c["text"]) for c in carried) == [
         ("assign", "public", "Pod &operator = (const Pod &);"), ("copy", "public", "Pod(const Pod &other);"),
         ("ctor", "private", "Pod(int a, int b);"), ("ctor", "public", "explicit Pod(float r);"),
@@ -880,38 +879,44 @@ def test_special_member_keys_keep_qualifiers_and_drop_names():
                                       "b.cpp": "class C { public: C(void (*g)(int y)); int x; };\n"})
     assert problems == [] and len(carried) == 1
     assert lane.param_key("void (C::*pm)(int x, const char *s) const") == "void(C::*)(int,const char*)const"
+    for f, g in (("void (__cdecl *f)(int x)", "void (__cdecl *g)(int y)"),
+                 ("void (* const f)(int x)", "void (* const g)(int y)")):
+        assert lane.param_key(f) == lane.param_key(g) and "x" not in lane.param_key(f)
+    assert lane.param_key("void (__cdecl *f)(int)") != lane.param_key("void (*f)(int)")
 
 
-@pytest.mark.parametrize("a,b", [
-    ("C(int *p) : m(p) {}", "C(int *q) : m(0) {}"),      # Rva005F4096: two inline bodies
-    ("C(int *p);", "C(int *q) : m(0) {}"),                # out of line against inline
-    ("C(int *p);", "private: C(int *p); public:"),        # other access
-    ("C &operator=(int v);", "C &operator=(int v) { m = 0; return *this; }"),
+@pytest.mark.parametrize("a,b,why", [
+    # Rva005F4096: two inline bodies of a converting constructor
+    ("C(int *p) : m(p) {}", "C(int *q) : m(0) {}", "special C(int *p) : m(p): inline bodies differ (a.cpp, b.cpp)"),
+    ("C(int *p);", "C(int *q) : m(0) {}", "special C(int *p): out of line in a.cpp, inline in b.cpp"),
+    ("C(int *p);", "private: C(int *p); public:", "special C(int *p): access disagrees (private, public)"),
+    ("C &operator=(int v);", "C &operator=(int v) { m = 0; return *this; }",
+     "special C &operator=(int v): out of line in a.cpp, inline in b.cpp"),
+    # whatever else is carried beside it: an overload (C(long), C(long, int = 0), C(int, ...)),
+    # a converting constructor, or a copy member that takes a derived class's object
+    ("C(long); C(int);", "C(long); C(int) {}", "special C(int): out of line in a.cpp, inline in b.cpp"),
+    ("C(long, int f=0); C(int);", "C(long, int f); C(int) {}", "special C(int): out of line in a.cpp, inline in b.cpp"),
+    ("C(int, ...); C(int, int, int);", "C(int, ...); C(int, int, int) {}",
+     "special C(int, int, int): out of line in a.cpp, inline in b.cpp"),
+    ("C(int); C &operator=(int);", "C(int); C &operator=(int) { return *this; }",
+     "special C &operator=(int): out of line in a.cpp, inline in b.cpp"),
+    ("C(const C&); C(const D&);", "C(const C&); C(const D&) {}",
+     "special C(const D&): out of line in a.cpp, inline in b.cpp"),
 ])
-def test_a_disputed_member_without_an_implicit_counterpart_is_left_out_not_held(a, b):
-    # Dropping such a member is safe when no other overload could take its calls: a unit
-    # that calls it no longer compiles and is queued.
+def test_a_disputed_constructor_or_assignment_always_holds_the_class(a, b, why):
+    # No such member is left out: proving no other member could take its calls (an
+    # overload, a converting constructor, an implicit copy member) is not attempted.
     carried, problems = special("C", {"a.cpp": "class C { public: %s ~C(); int *m; };\n" % a,
-                                      "b.cpp": "class C { public: %s ~C(); int *m; };\n" % b})
-    assert problems == [] and [c["text"] for c in carried] == ["~C();"]
+                                      "b.cpp": "class C { public: %s ~C(); int *m; };\n" % b}, known=("D",))
+    assert problems == [why]
 
 
-def test_a_disputed_member_another_overload_could_absorb_holds_the_class():
-    # C t(1) would fall to C(long) silently if C(int) were left out.
-    carried, problems = special("C", {"a.cpp": "class C { public: C(long); C(int); int m; };\n",
-                                      "b.cpp": "class C { public: C(long); C(int) {} int m; };\n"})
-    assert problems == ["special C(int): the views disagree on it, and C(long) could take its calls"]
-    # c = 1 would fall to the copy assignment through the converting constructor
-    carried, problems = special("C", {"a.cpp": "class C { public: C(int); C &operator=(int); int m; };\n",
-                                      "b.cpp": "class C { public: C(int); C &operator=(int) { return *this; } "
-                                               "int m; };\n"})
-    assert problems == ["special C &operator=(int): the views disagree on it, and C(int) could take its calls"]
-    # only a carried overload takes calls: ICoord2D's converting constructor and assignment
-    # from a type the header lacks are both left out; the default and copy members take no
-    # one-argument call of their own (GroupOrder's holder constructor beside them)
-    carried, problems = special("C", {"a.cpp": "class C { public: C(); C(const C &); C(const Wire &w); "
-                                               "C &operator=(const Wire &w); int m; };\n"})
-    assert problems == [] and sorted(c["role"] for c in carried) == ["copy", "default"]
+@pytest.mark.parametrize("member", ["C(Holder *h);", "C(const Wire &w);", "C &operator=(const Wire &w);",
+                                    "C(int mode = MODE_ON);"])
+def test_a_constructor_or_assignment_the_header_cannot_spell_holds_the_class(member):
+    carried, problems = special("C", {"a.cpp": "class C { public: C(); C(const C &); %s int m; };\n" % member})
+    assert problems == ["special %s: names a type or default argument the header does not declare"
+                        % member.rstrip(";")]
 
 
 def test_copy_assignment_by_value_is_a_copy_assignment():

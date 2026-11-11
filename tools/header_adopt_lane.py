@@ -1310,12 +1310,16 @@ def param_key(param):
     `void (*fn)(int x)` -> `void(*)(int)`, `void (C::*pm)(int)` -> `void(C::*)(int)`."""
     param = re.sub(r"=.*$", "", param, flags=re.S)
     param = re.sub(r"\b(struct|class|enum)\b", "", param)
-    pointer = re.match(r"^(.*?)\(\s*((?:[A-Za-z_]\w*\s*::\s*)*[*&])\s*(?:[A-Za-z_]\w*)?\s*\)\s*\((.*)\)"
-                       r"\s*((?:const|volatile|\s)*)$", param, flags=re.S)
+    if param.strip() == "...":
+        return "..."
+    pointer = re.match(r"^(.*?)\(\s*((?:__cdecl|__stdcall|__fastcall|__thiscall)\s*)?"
+                       r"((?:[A-Za-z_]\w*\s*::\s*)*[*&])\s*((?:(?:const|volatile)\b\s*)*)"
+                       r"(?:[A-Za-z_]\w*)?\s*\)\s*\((.*)\)\s*((?:const|volatile|\s)*)$", param, flags=re.S)
     if pointer:                                  # a function pointer: its own parameters lose their names too
-        inner = ",".join(param_key(p) for p in param_list("(" + pointer.group(3) + ")"))
-        declarator = re.sub(r"\s+", "", pointer.group(2))
-        return f"{param_key(pointer.group(1))}({declarator})({inner}){' '.join(pointer.group(4).split())}"
+        inner = ",".join(param_key(p) for p in param_list("(" + pointer.group(5) + ")"))
+        declarator = " ".join(filter(None, [(pointer.group(2) or "").strip(), re.sub(r"\s+", "", pointer.group(3))]
+                                     + pointer.group(4).split()))
+        return f"{param_key(pointer.group(1))}({declarator})({inner}){' '.join(pointer.group(6).split())}"
     tokens = re.findall(r"[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*(?:\s*<[^()]*?>)?|[*&()\[\],]|\d+", param)
     tokens = [re.sub(r"\s+", "", t) for t in tokens]
     types = [t for t in tokens if re.match(r"[A-Za-z_]", t) and t not in CV_WORDS]
@@ -1430,15 +1434,14 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
     views' access: one declared without a body in its most common spelling, one with an
     inline body only when every view that declares it spells the same body. A virtual
     one belongs to the slot declarations; `slotted` names the members those already
-    emit (`~` for the destructor). For a member with an implicit counterpart
-    (destructor, default and copy constructor, copy assignment) the class is held (a
-    problem) when the views disagree: one declares it out of line and another inline,
-    virtual or with other access; inline bodies differ; another view's body omits it
-    and no matched ledger row defines it; or it names a type or default argument the
-    header does not declare. Any other constructor or `operator=` has no implicit
-    counterpart: on such a disagreement it is left out, and a unit that needs it is
-    queued by the byte gate, unless another overload could take its calls (absorbed),
-    which holds the class."""
+    emit (`~` for the destructor). The class is held (a problem) when the views disagree
+    on any of them: one declares it out of line and another inline, virtual or with
+    other access, or inline bodies differ; when one names a type or default argument
+    the header does not declare; or, for a member with an implicit counterpart
+    (destructor, default and copy constructor, copy assignment), when another view's
+    body omits it and no matched ledger row defines it. No such member is ever left
+    out: another overload, or an implicit copy member, could take its calls without a
+    unit failing to compile."""
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
     hump_id = re.compile(r"^[A-Z][A-Za-z0-9]*(?:_[A-Z][A-Za-z0-9]*)+$")
@@ -1463,25 +1466,6 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
     out, problems = [], []
     keys = sorted({k for found in views.values() for k, decls in found.items()
                    if any(role != "virtual" for role, _, _, _, _ in decls)})
-    roles, arity = collections.defaultdict(set), {}
-    for found in views.values():
-        for key, decls in found.items():
-            roles[key].update(d[0] for d in decls)
-            head = re.sub(r"\)\s*:.*$", ")", LITERAL.sub('""', decls[0][3]).split("{")[0], flags=re.S)
-            params = param_list(head[head.index("operator"):] if "operator" in head else head)
-            arity[key] = (sum("=" not in p for p in params), len(params))   # (fewest, most) arguments
-
-    def absorbed(key, role, carried):
-        """A carried overload that could take the calls of a member left out: a constructor
-        call falls to another non-copy constructor accepting as many arguments; an
-        assignment to another `operator=` or, through a converting constructor that
-        accepts one argument, to the copy assignment."""
-        fewest, most = arity[key] if role == "ctor" else (1, 1)
-        return sorted(k for k in carried if k != key and (
-            role == "operator=" and "operator=" in roles[k]
-            or roles[k] & {"ctor", "default"} and arity[k][0] <= most and fewest <= arity[k][1]))
-
-    left_out = []                     # (key, role, why): decided once every carried overload is known
     for key in keys:
         if key in slotted:
             continue                  # the slot declarations emit it as a virtual
@@ -1494,12 +1478,6 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         virtual = sorted({s for s, d in decls if d[0] == "virtual"})
         accesses = collections.Counter(d[1] for _, d in own)
         omitted = sorted(s for s, found in views.items() if key not in found)
-        if role not in IMPLICIT_ROLES and (outline and inline or virtual or len(accesses) > 1
-                                           or len({d[3] for _, d in inline}) > 1):
-            # No implicit counterpart: left out, a unit that calls it no longer compiles and
-            # is queued, unless another overload could take its calls silently.
-            left_out.append((key, role, f"special {what}: the views disagree on it"))
-            continue
         if outline and inline:
             problems.append(f"special {what}: out of line in {outline[0][0]}, inline in {inline[0][0]}")
             continue
@@ -1526,19 +1504,10 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         # an inline body may call a hump-underscore method (Release_Ref), as view_methods allows
         if any(w[0].isupper() and not (inline and hump_id.match(w)) for w in words) or \
                 re.search(r"=\s*(?!(?:true|false)\b)[A-Za-z_]", bare.split("{")[0].split("(", 1)[-1]):
-            why = f"special {what}: names a type or default argument the header does not declare"
-            if role in IMPLICIT_ROLES:
-                problems.append(why)
-            else:
-                left_out.append((key, role, why))
+            problems.append(f"special {what}: names a type or default argument the header does not declare")
             continue
         out.append({"role": role, "access": next(iter(accesses)), "sig": key,
                     "text": text if text.endswith((";", "}")) else text + ";"})
-    carried = {c["sig"] for c in out}
-    for key, role, why in left_out:
-        other = absorbed(key, role, carried)
-        if other:
-            problems.append(f"{why}, and {other[0]} could take its calls")
     return out, problems
 
 
