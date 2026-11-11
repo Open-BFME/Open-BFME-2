@@ -68,6 +68,11 @@ __get_string(MoneyGetCharIterator first, MoneyGetCharIterator last, char *text, 
 template <> pair<MoneyGetWideIterator, const wchar_t *> mismatch(
     MoneyGetWideIterator, MoneyGetWideIterator, const wchar_t *);
 }
+namespace _STL {
+// The long-double parser is provided by stlport_narrow_money_get_long_double.cpp.
+template <> MoneyGetCharIterator money_get<char, MoneyGetCharIterator>::do_get(
+    MoneyGetCharIterator, MoneyGetCharIterator, bool, ios_base &, int &, long double &) const;
+}
 template class _STL::money_get<char, _STL::istreambuf_iterator<char, _STL::char_traits<char> > >;
 template _STL::pair<_STL::MoneyGetWideIterator, bool> _STL::__get_string(
     _STL::MoneyGetWideIterator, _STL::MoneyGetWideIterator, const wchar_t *, const wchar_t *);
@@ -75,3 +80,5 @@ namespace _STL {
 template pair<MoneyGetCharIterator, bool> make_pair(const MoneyGetCharIterator &, const bool &);
 template pair<MoneyGetCharIterator, char *>::pair(const MoneyGetCharIterator &, char *const &);
 }
+// Keep the numeric_limits<long double>::max body used by the decimal parser.
+template bool _STL::__get_decimal_integer<char *, long double>(char *&, char *&, long double &);

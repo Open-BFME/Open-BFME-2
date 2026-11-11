@@ -1017,3 +1017,14 @@ rehoming that constructor, reconcile its consumer symbols, including the three
 existing constructor alternatenames in part_ldr. Keep the five-slot table intact.
 
 Bucket 0x007D3564 remains blocked. An effective /O1 reproduces the selected slot's verified COMDAT, but the regional flag proposal checks only the ordinary destructor. [Compiler comparison and admission result](../../reverse/attempt_support/bucket-dtor-profile-20261111.md).
+
+2026-11-11, narrow money_get table 0x007BB9D8: local provider replay with the
+three involved objects changes slot 2 (0x0000C000) from target-not-winning-provider
+to stlport_narrow_money_get_long_double.cpp. The earlier stlport_money_get.cpp
+declares that overload and instantiates the decimal parser so its existing
+numeric_limits<long double>::max row still matches. Scoped builds match 8/8
+and 1/1. Slot 1 (0x00011230) still has the earlier string parser. Declaring
+both overloads drops the neg_format row (0x00019690). An explicit instantiation
+of neg_format on the already specialized moneypunct<char,true> triggered MSVC
+7.1 C1001; the row still lacks an approved TU move. Full-link confirmation
+and the remaining table slots in the classic-locale queue are outstanding.
