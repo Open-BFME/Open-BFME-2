@@ -74,11 +74,7 @@ void Rva005E2439::rva005E2540()
 // when present else rowed free 0x005C95CA, forwarded to rowed 0x005F0CC1.
 // Evidence: WB ShowSelectionName branch structure + retail 120B; the d+0x28
 // label pointer is a retail load, not donor invention.
-class Rva002DF9E9
-{
-public:
-	UnicodeString rva002DF9E9();
-};
+#include "../../Include/Common/Rva002DF9E9.h"
 class Rva005F0CC1
 {
 public:
