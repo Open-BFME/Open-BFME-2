@@ -341,16 +341,7 @@ public:
 	int rva005CB26A();										// 0x005CB26A
 };
 
-class Rva0029B558
-{
-public:
-	virtual void rva0029B558();
-	virtual void rva0029B563();
-	virtual int rva0029B5D8();
-private:
-	char m_pad04[0x9BC - 4];
-	Rva001FF3A9 *m_target;									// +0x9BC
-};
+#include "../../Include/Common/Rva0029B558.h"
 
 // --- 0x0030B0A3 (64B): print through own slot 24 at the current column
 // (+0x04 plus the +0x14 margin) and line (+0x08), then advance them over
