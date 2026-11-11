@@ -2452,7 +2452,10 @@ Rva0056ACFF (RVA 0x0086D160, secondary; 0x0086D19C, primary) remains
 blocked. The canonical base trial emits both full table extents and preserves
 the five derived destructors. The secondary slot 4 move refuses a parameter
 type change; three siblings also need distinct overrides. Trial results and
-retail targets are in `reverse/attempt_support/registry-acff-slot-contract.md`.
+retail targets are in `reverse/attempt_support/registry-acff-slot-contract.md`. The B2DD sibling table at RVA
+0x0086D434 independently ties slot 4 to an army and destination region via
+tutorial task case 5. The base contract and its default row still use two
+integer parameters.
 
 AI upgrade heuristic helper, RVA 0x008765A0. Constructor 0x005DA64B
 installs this two-entry table. The factory calls slot 0 through its field

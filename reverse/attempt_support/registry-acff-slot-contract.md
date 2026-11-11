@@ -34,3 +34,23 @@ these non-default targets (slot numbers start at zero; destructors omitted):
 
 Restoring the original sources verifies 20/20 code rows and both data rows
 across the derived destructor, AF94 constructor and ABD6 method units.
+
+At fb267444e2, a second retail table supplies independent evidence for the
+two arguments of secondary slot 4. The little-endian word at
+RVA 0x0086D434 + 16 points to RVA 0x0056AB09. That row compares its two
+argument words with fields at +16 and +20. The secondary receiver starts at
++8 in Rva0056B2DD, so these are complete-object offsets +24 and +28.
+Rva0056B2DDConstructor.cpp stores its two arguments at exactly those offsets.
+In LivingWorldTutorial.cpp, SessionTask::create case 5 obtains them from
+getArmyParam(0) and getRegionParam(1), in that order. Case 9 constructs the
+ACFF task. Its secondary slot 4 at RVA 0x0086D160 + 16 points to
+0x0056ABD6, which independently passes the army and destination region to
+ValidateArmyRegionEntry. The pair comparison itself never dereferences either
+argument, so its int,int reconstruction is insufficient evidence of scalar
+parameters. Both overrides support an army followed by a region.
+
+The existing base contract emits slot4(int,int), including a ledgered
+default implementation. Reconcile the base contract and the default row
+together with the two overrides before adopting it in the derived unit.
+The region getter currently returns void * in its recovered declaration;
+these paths establish the roles and order, but not an original class name.
