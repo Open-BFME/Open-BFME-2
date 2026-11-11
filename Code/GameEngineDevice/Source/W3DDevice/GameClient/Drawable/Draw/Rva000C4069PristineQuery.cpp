@@ -85,7 +85,7 @@ public:
 	const Rva00774AA0DrawableBones *m_rva2F0Bones;		///< target +0x364
 };
 
-class Rva000BBDDF {public:void*rva000BBDDF(int,int*)const;};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000BBDDF.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
 #include "../../../../../../GameEngine/Include/Common/Rva000B4B23.h"
 struct Rva000C3886Range;struct Rva000C3886Obj;

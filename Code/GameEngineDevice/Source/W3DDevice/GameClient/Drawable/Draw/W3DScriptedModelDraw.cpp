@@ -70,11 +70,7 @@ int Rva000B2CBDGet();
 
 void setFPMode();
 
-class Rva000BBDDF
-{
-public:
-	void *rva000BBDDF(int key, int *index) const;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000BBDDF.h"
 
 #include "../../../../../../GameEngine/Include/Common/Rva000B4A9F.h"
 

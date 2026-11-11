@@ -17,11 +17,7 @@ template<> bool StringBase<char>::isEmpty() const;
 void setFPMode();
 int Rva000B2CBDGet();
 
-class Rva000BBDDF
-{
-public:
-	void *rva000BBDDF(int key, int *slot) const;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000BBDDF.h"
 
 struct Rva000BBE86Rec
 {
