@@ -20,13 +20,7 @@ struct WallCellInfo
 }
 ;
 struct Rva0052DFB1Arg;
-class Rva00366500 
-{
- public: Bool rva00366500(Int);
- Bool rva0036652D(Int);
- 
-}
-;
+#include "../../../Include/GameLogic/Rva00366500.h"
 class Rva0052E001 
 {
  public: Bool rva0052E001(Bool);

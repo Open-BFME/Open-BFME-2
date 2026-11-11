@@ -92,7 +92,7 @@ class Object{public:Drawable*getDrawable()const;const WallTemplate*getTemplate()
 #include "../../../Include/Common/Rva0036666B.h"
 class Rva0036658B{public:bool rva0036658B(void*,void*);};
 #include "../../../Include/GameLogic/PathfindLayer.h"
-class Rva00366500{public:bool rva00366500(int);bool rva0036652D(int);};
+#include "../../../Include/GameLogic/Rva00366500.h"
 class Rva0052E001{public:bool rva0052E001(bool);};
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 

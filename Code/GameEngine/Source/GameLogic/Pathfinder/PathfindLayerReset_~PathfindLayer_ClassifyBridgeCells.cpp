@@ -73,7 +73,7 @@ public:
 // are read from native stores and the already verified setter providers.
 // Native tests nonzero in the branch reached when the count is not positive.
 // Bitfield setter providers are already verified under their ledger owner.
-class Rva00366500 { public: bool rva00366500(int);bool rva0036652D(int);};
+#include "../../../Include/GameLogic/Rva00366500.h"
 // Native 00366CEA..00366DEC RET16; WB F29DE0 names ConnectsZones.
 // BFME1 clean source supplies the zone-walk semantics. Native accesses prove
 // cells4, dimensions8/C, destroyed30, zone flags10..15, and LocomotorSet10/15.

@@ -94,7 +94,7 @@ void PathfindLayer::rva003666FD(Xfer *xfer)
 // are read from native stores and the already verified setter providers.
 // Native tests nonzero in the branch reached when the count is not positive.
 // Bitfield setter providers are already verified under their ledger owner.
-class Rva00366500 { public: bool rva00366500(int);bool rva0036652D(int);};
+#include "../../../Include/GameLogic/Rva00366500.h"
 class Rva00366B30 { public: bool rva00366B30(const Coord3D*);};
 void PathfindLayer::ClassifyWallCells()
 {
