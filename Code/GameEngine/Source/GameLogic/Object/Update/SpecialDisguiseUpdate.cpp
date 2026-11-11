@@ -80,11 +80,7 @@ public:
 	unsigned char m_data[0x4C];
 };
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Rva001E431E
-{
-public:
-	void rva001E431E(const int *block);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 enum WeaponSetType
 {
 	WEAPONSET_NONE = 0

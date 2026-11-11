@@ -926,11 +926,7 @@ public:
 	Rva001E4912 *rva001E4912(int, unsigned, unsigned);
 	int bits[19];
 };
-class Rva001E431E
-{
-public:
-	void rva001E431E(const int *);
-};
+#include "../../../Include/GameLogic/Module/Rva001E431E.h"
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 // Retail 0x00392DC0: construction tiles, created-object relationships and payment.

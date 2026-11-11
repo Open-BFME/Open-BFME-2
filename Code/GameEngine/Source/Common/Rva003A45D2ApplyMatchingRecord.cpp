@@ -35,11 +35,7 @@ public:
 	bool rva00263546(const Rva00263546 *other) const;
 };
 
-class Rva001E431E
-{
-public:
-	void rva001E431E(const int *value);
-};
+#include "../../Include/GameLogic/Module/Rva001E431E.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

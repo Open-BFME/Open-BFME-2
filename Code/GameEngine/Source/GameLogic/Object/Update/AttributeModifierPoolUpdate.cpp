@@ -451,7 +451,7 @@ class Drawable;
 
 struct ModifierMask { int words[19]; };
 
-class Rva001E431E { public: void rva001E431E(const int *); };
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 
 struct ModifierFrameView { char prefix[0x40]; unsigned frame; };
 

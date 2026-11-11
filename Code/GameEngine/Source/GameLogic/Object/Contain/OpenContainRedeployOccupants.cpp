@@ -64,11 +64,7 @@ public:
     AsciiString rva00463235(Thing*);
 };
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Rva001E431E
-{
-public:
-    void rva001E431E(const int*);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 class Rva000B6253
 {
 public:

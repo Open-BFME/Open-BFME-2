@@ -249,10 +249,7 @@ class Rva001E4912 {
     unsigned bits[19];
 };
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Rva001E431E {
-  public:
-    void rva001E431E(const int *);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 struct Rva0028F59A {
     unsigned bits[19];
     Rva0028F59A(int, int);

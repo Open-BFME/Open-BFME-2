@@ -1076,7 +1076,7 @@ class Rva00468CB6A;
 // The rowed 0x0046D946 on the HordeContain base: the contained Object
 // closest to the argument.
 #include "../../../Common/RTS/XYDistanceCallView.h"
-class Rva001E431E { public: void rva001E431E(const int *slot); };
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 class Rva0046A024 { public: void rva0046A024(); };
 float ACos(float x);
 class Rva0046D946

@@ -173,7 +173,7 @@ struct Rva00263895Member {Rva00263895Member() throw(); char bytes[0x7c];};
 #include "../../../../Include/GameClient/Drawable.h"
 // Retail builds SPAWN_UPDATE_RATE right after this unit's Drawable.h copy (LINK-236).
 #include "../../../../Include/GameLogic/Module/SpawnUpdateRate.h"
-class Rva001E431E {public:void rva001E431E(const int*);};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 class BodyView {public:
  virtual void s00(); virtual void attemptHealing(Rva00263895Member*); virtual void s08();virtual void s0c(); virtual float getHealth() const;virtual void s14();virtual float getMaxHealth() const;
  virtual void bodyExtra00(); virtual void bodyExtra01(); virtual void bodyExtra02(); virtual void bodyExtra03();

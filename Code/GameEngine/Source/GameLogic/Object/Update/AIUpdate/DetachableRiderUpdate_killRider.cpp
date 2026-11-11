@@ -24,11 +24,7 @@ enum UpdateSleepTime
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class Rva001E431E
-{
-public:
-	void rva001E431E(const int *x);
-};
+#include "../../../../../Include/GameLogic/Module/Rva001E431E.h"
 
 struct Elem54
 {

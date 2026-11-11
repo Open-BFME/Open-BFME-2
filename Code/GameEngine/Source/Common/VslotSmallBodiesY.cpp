@@ -319,11 +319,7 @@ class ModelConditionFlags
 public:
 	bool rva000B3EB3() const;
 };
-class Rva001E431E
-{
-public:
-	void rva001E431E(const Int *flags);
-};
+#include "../../Include/GameLogic/Module/Rva001E431E.h"
 #include "../../Include/GameLogic/Module/Rva001E42F2.h"
 struct Rva004B65A5Data
 {

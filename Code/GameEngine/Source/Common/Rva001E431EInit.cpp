@@ -11,10 +11,7 @@
 
 #include "../GameLogic/Object/object.h"
 
-struct Rva001E431E
-{
-	void rva001E431E(const int *x);
-};
+#include "../../Include/GameLogic/Module/Rva001E431E.h"
 
 void Rva001E431E::rva001E431E(const int *x)
 {

@@ -199,7 +199,7 @@ namespace _STL { template<class Iterator> void sort(Iterator,Iterator); }
 struct AmoebaAIManager { unsigned char pad[0x10]; Pathfinder *pathfinder; };
 class AI; extern AI *TheAI;
 #include "../../../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Rva001E431E { public: void rva001E431E(const int *); };
+#include "../../../../../Include/GameLogic/Module/Rva001E431E.h"
 class Rva0058729D { public: bool rva0058729D(const ICoord2DBase &); };
 class AmoebaPositionProvider : public AmoebaSlots<38> { public: virtual void setLeader(Object *)=0; };
 ICoord2D *Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
