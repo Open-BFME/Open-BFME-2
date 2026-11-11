@@ -9,12 +9,7 @@
 // writer pin, noted but not adopted here. Owner and target identities are
 // unproven; the shared shape and adjacent member slots justify one owner
 // class with three methods.
-class Rva0021937DTarget
-{
-public:
-	void rva00407E94();
-	void rva004089C7(int a, int b);
-};
+#include "../../Include/GameLogic/Rva0021937DTarget.h"
 // The closing call 0x004074CF is the rowed
 // CreateAHeroData::WriteNamedHeroAtRva004074CF (CreateAHeroDataDtor.cpp).
 #include "../../Include/GameLogic/CreateAHeroData.h"

@@ -215,7 +215,7 @@ inline const int &(min)(const int &__a, const int &__b)
 // Reads the operand through a volatile view: retail reloads the bling id
 // from the map node on both arms of Update's id select.
 template<class T> static __forceinline T BlingOperand(const T &v) { return *(const volatile T *)&v; }
-class Rva0021937DTarget { public: void rva00407E94(); };
+#include "../../../Include/GameLogic/Rva0021937DTarget.h"
 class Rva00406E7D { public: int rva00406E7D(); };
 #include "../../../Include/GameLogic/Module/Rva00406E8F.h"
 struct BfmePod40;

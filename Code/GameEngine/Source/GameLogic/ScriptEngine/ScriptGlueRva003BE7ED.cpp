@@ -73,12 +73,7 @@ class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); };
 // primary name), defined with its initializer in Rva007ABB96AllocCtorInits_Rva007ABB96.cpp.
 extern unsigned int g_00DFE358[3];
 
-class Rva0021937DTarget
-{
-public:
-	void rva004089C7(int, int);
-	void rva004074CF();
-};
+#include "../../../Include/GameLogic/Rva0021937DTarget.h"
 
 class Object;
 class DamageInfo;

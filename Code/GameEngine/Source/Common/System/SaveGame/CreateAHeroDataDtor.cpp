@@ -259,7 +259,7 @@ extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
 // the same GameState provider as the verified writer. Native line buffer is
 // 1024 bytes; map50 receives trimmed key/value pairs before award refresh.
 // The real IAT symbol is used directly; no alternate name or address pin.
-class Rva0021937DTarget { public: void rva00407E94(); };
+#include "../../../../Include/GameLogic/Rva0021937DTarget.h"
 bool CreateAHeroData::rva00408A55()
 {
     if (reinterpret_cast<const StringBase<char> *>(&text4C)->isEmpty())
