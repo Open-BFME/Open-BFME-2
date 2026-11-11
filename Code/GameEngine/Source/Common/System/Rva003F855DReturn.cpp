@@ -3,7 +3,7 @@
 class Rva003F7D86Inner;
 #include "../../../Include/Common/Rva003F81FDProxy.h"
 class Rva003F8052 {public:UnicodeString rva003F8497();};
-class Rva0056AC26Owner {public:UnicodeString rva003F855D();};
+#include "../../../Include/Common/Rva0056AC26Owner.h"
 UnicodeString Rva0056AC26Owner::rva003F855D(){
  Rva003F7D86Inner *p=reinterpret_cast<Rva003F81FDProxy *>(this)->rva003F81B0();
  return p ? reinterpret_cast<Rva003F8052 *>(p)->rva003F8497() : UnicodeString::TheEmptyString;

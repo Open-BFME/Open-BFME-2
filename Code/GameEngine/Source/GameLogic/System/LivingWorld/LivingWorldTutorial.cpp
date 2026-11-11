@@ -41,30 +41,7 @@ struct TargetRef00217D4C;
 
 class Rva0056AC26;
 
-class Rva0056AC26Owner
-{
-
-
-public:
-
- void notifyTaskCreated(Rva0056AC26 *);
-
- void rva003F8814(Rva0056AC26 *);
-
- void rva003F8829(Rva0056AC26 *);
-
- void rva003F883E(Rva0056AC26 *);
-
- void rva003F8853(Rva0056AC26 *);
-
- void rva003F8868(Rva0056AC26 *);
-
- void rva003F887D(Rva0056AC26 *);
-
- void rva003F8892(Rva0056AC26 *);
-
-}
-;
+#include "../../../../Include/Common/Rva0056AC26Owner.h"
 
 class Rva002BED91
 {

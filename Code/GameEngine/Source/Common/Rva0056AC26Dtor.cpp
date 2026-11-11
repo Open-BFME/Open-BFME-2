@@ -13,11 +13,7 @@
 
 class Rva0056AC26;
 
-class Rva0056AC26Owner
-{
-public:
-	void rva003F88A7(Rva0056AC26 *entry);
-};
+#include "../../Include/Common/Rva0056AC26Owner.h"
 
 class Rva0056AC26Base1
 {
