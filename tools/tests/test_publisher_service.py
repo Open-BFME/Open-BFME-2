@@ -70,6 +70,11 @@ class World:
         (fixtures / "svc" / "ledger.sh").write_text("git ls-files | sort\n", newline="\n")
         (self.seat / ".githooks").mkdir()
         (self.seat / ".githooks" / "pre-push").write_text(FAKE_HOOK, newline="\n")
+        # Git runs only an executable hook and ignores one that is not, saying so
+        # on stderr: "'.githooks/pre-push' hook was ignored because it's not set
+        # as executable". Written 0644 this gate never ran, so every push the
+        # tests expect it to refuse succeeded instead.
+        (self.seat / ".githooks" / "pre-push").chmod(0o755)
         (self.seat / MODE_FILE).parent.mkdir(parents=True, exist_ok=True)
         (self.seat / MODE_FILE).write_text(mode + "\n")
         (self.seat / ".gitignore").write_text("__pycache__/\n")   # the hook imports tools/
@@ -147,6 +152,7 @@ def test_shadow_submission_failure_never_blocks_the_push(tmp_path):
     (w.origin / "hooks" / "pre-receive").write_text(
         "#!/bin/sh\nwhile read o n r; do case $r in refs/submit/*) "
         "echo no submissions here; exit 1;; esac; done\nexit 0\n", newline="\n")
+    (w.origin / "hooks" / "pre-receive").chmod(0o755)
     tip = w.commit("b.txt")
     got, _ = w.push()
     assert got.returncode == 0 and w.master() == tip
