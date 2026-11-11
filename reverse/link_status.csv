@@ -9149,7 +9149,7 @@ Code/GameEngine/Source/GameLogic/Map/BuildListInfoParseStructure.cpp,yes,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/BuildListInfoXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp,no,2,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/LibraryMapsParser.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/LibraryMapsParserParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp,yes,0,0,0,0,0
