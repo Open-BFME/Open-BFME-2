@@ -5,11 +5,7 @@
 // ?pop@FreelistPool@@QAEPAXXZ, stores the caller's pointed value into
 // the node at +8, and returns the node. Caller at 0x00239D06. No donor;
 // honest address name.
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 void *__stdcall Rva00239BD8Alloc(void **arg)
 {

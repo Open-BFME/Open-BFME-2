@@ -40,7 +40,7 @@ class Object;
 // Native Object-pointer nodes use the dedicated freelist provider
 // (retail 0x001EB9AC), not the header's generic allocator; emit that body so
 // this TU's copy is identical to the one Player.cpp provides.
-class FreelistPool { public: void *pop(); };
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 template <> inline __declspec(noinline)

@@ -21,7 +21,7 @@ private:
     void *m_object;
 };
 
-class PB_Iface1 { public: virtual void slot(); };
+#include "../../../../Include/Common/PB_Iface1.h"
 class EvacuateDamageInterface { public: virtual void slot() = 0; };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h

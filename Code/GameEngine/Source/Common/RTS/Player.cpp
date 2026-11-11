@@ -35,7 +35,7 @@ namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, si
 // generic STL allocator. Native 0x001EB9AC..0x001EB9C8 and its insertion
 // caller establish the 12-byte node, Object* value at +8 and pool address.
 class Object;
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 template <> inline __declspec(noinline)

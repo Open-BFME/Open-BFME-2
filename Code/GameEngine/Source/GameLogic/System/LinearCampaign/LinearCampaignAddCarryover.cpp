@@ -51,7 +51,7 @@ struct BfmePod172;
 namespace _STL { template <> void _Construct<BfmePod172, BfmePod172>(BfmePod172 *, const BfmePod172 &); }
 template<class T>class Rva001EB984PoolAllocator {};
 class FreelistProxyHead {public:void setup(const void*,void*);};
-class FreelistPool {public:void*pop();};
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 // Retail's Object-pointer node factory pops the dedicated freelist (0x001EB9AC); spelled as Player.cpp emits it.
 namespace _STL {

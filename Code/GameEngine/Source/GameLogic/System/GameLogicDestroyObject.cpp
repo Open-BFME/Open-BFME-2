@@ -18,7 +18,7 @@ class Object;
 // The kept Object-pointer node factory is retail's dedicated-freelist body
 // (0x001EB9AC), not the header's generic allocator. Emit that body so this
 // TU's copy is identical to the one Player.cpp provides.
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 template <> inline __declspec(noinline)

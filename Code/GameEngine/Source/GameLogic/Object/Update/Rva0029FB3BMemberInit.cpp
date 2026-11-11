@@ -15,11 +15,7 @@ public:
 	void setup(const void *alloc, void *head);
 };
 
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../../../Include/Common/FreelistPool.h"
 
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 

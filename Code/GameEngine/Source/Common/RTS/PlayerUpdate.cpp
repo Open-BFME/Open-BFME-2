@@ -56,7 +56,7 @@ struct PoolNode002ABAC0;
 class FreelistPool;
 extern FreelistPool g_freelistPool009BBD2C;
 #define g_00DBBD34 (*(PoolNode002ABAC0 **)((char *)&g_freelistPool009BBD2C + 8))
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool009BBD2C;
 namespace _STL {
 // The copied team list has the same sentinel pool as its native owner

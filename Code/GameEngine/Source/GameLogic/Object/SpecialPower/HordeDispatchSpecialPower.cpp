@@ -26,7 +26,7 @@ class Object {public:
  const BfmeVec3EJ *getPosition()const {return &position;}
  char p00[4];ThingTemplate *data;char p08[0x38-8];BfmeVec3EJ position;
 };
-class FreelistPool { public: void *pop(); };
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 

@@ -17,7 +17,7 @@ namespace _STL { template <> _List_base<Drawable *, allocator<Drawable *> >::~_L
 // list<Drawable *>'s base ctor is retail 0x00239BB0: its sentinel comes from the
 // 12-byte node pool at VA 0x00DBA5E0 (stlport_list_drawable_base_ctor.cpp states
 // the same specialization), so this unit's copy is retail's body.
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 
 extern FreelistPool g_freelistPool00DBA5E0;
 

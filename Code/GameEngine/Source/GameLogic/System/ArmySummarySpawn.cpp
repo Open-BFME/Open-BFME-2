@@ -32,7 +32,7 @@ public:
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
 class FreelistProxyHead {public:void setup(const void*,void*);};
-class FreelistPool {public:void*pop();};
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 // The visible constructor preserves the native unused-policy argument
 // placement. Its complete40B copy and every relocation match the exact strong

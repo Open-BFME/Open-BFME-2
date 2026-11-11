@@ -12,11 +12,7 @@ struct RvaListNode
 	const Object *m_data; // +0x08
 };
 
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 
 extern FreelistPool g_freelistPool00DB8FEC;	// Rva007AD348PoolInits.cpp
 

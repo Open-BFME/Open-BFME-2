@@ -249,7 +249,7 @@ class TeamPrototype;
 // Retail's team-list nodes (12 bytes) come from the node pool at 0x009BBD2C (rowed
 // FreelistPool::pop 0x002393E2) and go back onto its free list g_00DBBD34 inline:
 // the list-base ctor 0x002AC026, clear 0x002AAC74 and dtor 0x002ABB44.
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool009BBD2C;
 struct PoolNode002ABAC0;
 // The free-list head is the +8 member of the complete pool at VA 0xDBBD2C.

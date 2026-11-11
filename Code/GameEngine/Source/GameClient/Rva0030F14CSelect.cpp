@@ -26,7 +26,7 @@
 // it, so push_back's call reaches retail's body rather than a stock
 // allocator copy.
 class Drawable;
-class FreelistPool { public: void *pop(); };
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <> __declspec(noinline) _List_node<Drawable *> *

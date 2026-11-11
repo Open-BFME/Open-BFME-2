@@ -58,7 +58,7 @@ void Rva00030830GameFree(void*);
 
 namespace _STL {template<> __declspec(dllimport) __forceinline void allocator<unsigned>::deallocate(unsigned*p,size_t)const{if(p)Rva00030830GameFree(p);}}
 
-class FreelistPool {public:void*pop();};
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 
 extern FreelistPool g_freelistPool00DB8FEC;
 

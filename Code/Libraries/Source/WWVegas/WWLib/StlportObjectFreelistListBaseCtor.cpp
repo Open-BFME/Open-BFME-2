@@ -8,7 +8,7 @@ class Object;
 // Native DB8FEC freelist policy is distinct from the generic 41B allocator.
 template<class T>class Rva001EB984PoolAllocator {};
 class FreelistProxyHead {public:void setup(const void*,void*);};
-class FreelistPool {public:void*pop();};
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 template<class T>class allocator;

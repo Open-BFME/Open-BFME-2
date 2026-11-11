@@ -17,7 +17,7 @@ template <> _List_node<Object *> *list<Object *, allocator<Object *> >::_M_creat
 // comes from the Object-pointer node pool at VA 0x00DB8FEC (the pool the
 // out-of-line create_node 0x001EB9AC pops) instead of allocator<char>.
 // Same shape as list<Drawable *>'s base constructor 0x00239BB0.
-class FreelistPool { public: void *pop(); };
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 template <> __declspec(noinline)

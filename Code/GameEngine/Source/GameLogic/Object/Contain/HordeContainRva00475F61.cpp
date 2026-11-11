@@ -128,7 +128,7 @@ extern GameLogic *TheGameLogic;
 extern AI *TheAI;
 typedef _STL::list<Object *> MemberList;
 
-class FreelistPool { public: void *pop(); };
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 template<class T> class Rva001EB984PoolAllocator {
 public:

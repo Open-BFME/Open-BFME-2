@@ -273,11 +273,7 @@ class FreelistProxyHead
 public:
 	void setup(const void *alloc, void *data);
 };
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 
 namespace _STL

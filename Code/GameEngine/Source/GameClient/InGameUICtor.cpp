@@ -120,7 +120,7 @@ extern GameWindow *m_replayWindow;
 // constructor (0x00239BB0) takes its nodes from a pool of their own.
 class Drawable;
 
-class FreelistPool { public: void *pop(); };
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template<> __declspec(noinline) _List_base<Drawable*,allocator<Drawable*> >::_List_base(const allocator<Drawable*>&a)

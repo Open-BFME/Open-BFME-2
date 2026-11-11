@@ -12,7 +12,7 @@
 #include <list>
 
 class Drawable;
-class FreelistPool { public: void *pop(); };
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 #define g_pool00239BD8 g_freelistPool00DBA5E0
 // ^ g_pool00239BD8 is only an alias of the owned global g_freelistPool00DBA5E0 (ledger names column).

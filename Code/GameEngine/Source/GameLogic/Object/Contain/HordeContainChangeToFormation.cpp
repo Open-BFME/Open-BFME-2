@@ -216,7 +216,7 @@ public:
 
 class Object;
 class FreelistProxyHead {public:void setup(const void*,void*);};
-class FreelistPool {public:void*pop();};
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 // The destructor is the pinned 0x001EB769 body, emitted by HordeContainRva00475F61.cpp;

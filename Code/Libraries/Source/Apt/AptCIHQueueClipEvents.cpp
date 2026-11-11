@@ -128,12 +128,7 @@ public:
     void push(T *value);
     void pop();
 };
-struct AptActionSetup
-{
-    AptValue *context, *value;
-    const char *name;
-    int action;
-};
+#include "../../../GameEngine/Include/Common/AptActionSetup.h"
 struct AptActionInterpreter
 {
     char pad0[0x24];

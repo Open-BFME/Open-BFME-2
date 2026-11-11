@@ -158,8 +158,8 @@ struct Iface20 : public SlaughterHordeContain
  virtual const Coord3D *rva00464829();
 };
 struct Iface24 { virtual void f24(); };
-struct Iface28 { virtual void f28(); };
-struct Iface2C { virtual void f2C(); };
+#include "../../../../Include/Common/Iface28.h"
+#include "../../../../Include/Common/Iface2C.h"
 struct Iface30 { virtual bool isExitBusy() const = 0; };
 struct Iface34 { virtual void f34(); unsigned char m_pad[0x9E0 - 0x38]; };
 

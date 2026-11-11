@@ -135,8 +135,8 @@ struct Iface20 : public Rva00468657
 	virtual void rva004632E0(Object *obj) = 0;
 };
 struct Iface24 { virtual void f24(); };
-struct Iface28 { virtual void f28(); };
-struct Iface2C { virtual void f2C(); };
+#include "../../../../Include/Common/Iface28.h"
+#include "../../../../Include/Common/Iface2C.h"
 struct Iface30 { virtual void f30(); };
 struct Iface34 { virtual void f34(); unsigned char m_pad[0x11C - 0x38]; };
 

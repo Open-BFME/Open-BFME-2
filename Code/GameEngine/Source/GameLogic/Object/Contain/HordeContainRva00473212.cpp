@@ -231,12 +231,7 @@ class FreelistProxyHead
  
 }
 ;
-class FreelistPool 
-{
- public: void *pop();
- 
-}
-;
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 // The rowed Object-pointer factory uses this dedicated 12-byte-node pool.

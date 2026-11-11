@@ -57,11 +57,7 @@ class Rva006CD650 {
 public:
     void *rva006CD650();
 };
-struct AptActionSetup {
-    AptValue *context, *value;
-    const char *name;
-    int action;
-};
+#include "../../../GameEngine/Include/Common/AptActionSetup.h"
 class AptBasePtrStack {
 public:
     int count, capacity;

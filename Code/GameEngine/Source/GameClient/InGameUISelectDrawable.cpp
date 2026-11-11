@@ -30,7 +30,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 class Drawable;
-class FreelistPool { public: void *pop(); };
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 #define g_pool00239BD8 g_freelistPool00DBA5E0
 // ^ g_pool00239BD8 is only an alias of the owned global g_freelistPool00DBA5E0 (ledger names column).

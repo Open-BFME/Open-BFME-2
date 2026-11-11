@@ -17,11 +17,7 @@ public:
 	void setup(const void *alloc, void *head);
 };
 
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 
 class Rva001EB984Member
 {

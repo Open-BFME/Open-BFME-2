@@ -170,11 +170,7 @@ bool Rva001EB0EA::rva001EB0EA() const
 // --- 0x001EB118 (24B): push a block onto the object-list pool head; 0x001EB786
 // (24B): pop one from g_freelistPool00DB8FEC for a single element.
 
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../Include/Common/FreelistPool.h"
 
 extern FreelistPool g_freelistPool00DB8FEC;
 

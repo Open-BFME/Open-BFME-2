@@ -52,11 +52,7 @@ int Rva0022CC0EHook(int a, int b);
 // 0x002342C5 (16B): copies the first halfword out and returns 1.
 // --- 0x00239B11 (24B): one node from the freelist pool at VA 0x00DBA5E0
 // (rowed pop), none for a count above one; the second word is unused.
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 
 // --- 0x0023DB48 (16B): latches +0x38 into an unset +0x40 and returns it.

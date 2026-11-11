@@ -99,7 +99,7 @@ static inline bool operator!=(const _List_iterator<T, Traits> &a,
 // This VC7.1 STLport configuration uses the pre-member-template allocator
 // adapter: declare its rebind/create overloads before the first STL header.
 // Iterator identity depends on ObjectID, not on this allocator parameter.
-class FreelistPool { public: void *pop(); };
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
 // The free-list head is the +8 member of the complete pool at VA 0xDA60E8.
 class FreelistPool;

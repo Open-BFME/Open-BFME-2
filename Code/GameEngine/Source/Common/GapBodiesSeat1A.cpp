@@ -324,11 +324,7 @@ int Rva0023426A::rva002342C5(short *out) const
 
 // --- 0x00239B11 (24B): one node from the freelist pool at VA 0x00DBA5E0
 // (rowed pop), none for a count above one; the second word is unused.
-class FreelistPool
-{
-public:
-	void *pop();
-};
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 
 class Rva00239B11
