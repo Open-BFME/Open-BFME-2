@@ -272,11 +272,7 @@ public:
 // --- 0x000E4422 (12B): clears the dword at +0x2C and sets the flag at +0x9C.
 // --- 0x0010E4C6 (14B): runs the rowed ?rva0010E482@Rva0010E482@@QAEHH@Z
 // (0x0010E482) with 0 on the object at +0x94 and returns its result.
-class Rva0010E482
-{
-public:
-	int rva0010E482(int index);
-};
+#include "../../../Include/Common/Rva0010E482.h"
 
 // --- 0x001338A0 (7B): the float at +8 minus the float at +0.
 // --- 0x000FA927 (8B) / 0x000FA92F (6B): clear and read the shared dirty

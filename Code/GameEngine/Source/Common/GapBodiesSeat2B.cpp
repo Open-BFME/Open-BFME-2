@@ -166,11 +166,7 @@ void Rva000E4422::rva000E4422()
 
 // --- 0x0010E4C6 (14B): runs the rowed ?rva0010E482@Rva0010E482@@QAEHH@Z
 // (0x0010E482) with 0 on the object at +0x94 and returns its result.
-class Rva0010E482
-{
-public:
-	int rva0010E482(int index);
-};
+#include "../../Include/Common/Rva0010E482.h"
 
 class Rva0010E4C6
 {

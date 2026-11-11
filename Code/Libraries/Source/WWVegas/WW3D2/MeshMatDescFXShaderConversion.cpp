@@ -122,7 +122,7 @@ public:
 
 #include "FXShaderSetup.h"
 
-class Rva0010E482 { public: int rva0010E482(int pass); };
+#include "../../../../GameEngine/Include/Common/Rva0010E482.h"
 bool rva00199FA5(class Rva00199FA5Rec *model);
 
 #include "../WWLib/Rva0007BB16Record.h"

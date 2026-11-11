@@ -40,7 +40,7 @@ struct OpacityOwnedParameter {
 struct Rva00082EB8Rec;
 class Rva00082EB8 { public: void rva00082EB8(const Rva00082EB8Rec &); };
 class Rva00199FCC { public: void *rva00199FCC(const AsciiString &) throw(); };
-class Rva0010E482 { public: int rva0010E482(int); };
+#include "../../../../GameEngine/Include/Common/Rva0010E482.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 struct OpacityParameterView { int word0,type; };
 struct OpacitySetupView {
