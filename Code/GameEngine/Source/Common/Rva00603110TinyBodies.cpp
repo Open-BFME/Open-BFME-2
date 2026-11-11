@@ -69,7 +69,7 @@ void Rva003F934B::rva003F934B()
 }
 
 struct Vec3{float x,y,z;};
-class Rva003F936EHost{public:void rva003FB793(Vec3*);};
+#include "../../Include/Common/Rva003F936EHost.h"
 class Rva003FB7C7{public:void rva003FB7C7();};
 // ?rva003F92DA@Rva003F92DA@@QAEXXZ
 // Native113B resolves four4B names to four handles, snapshots coordinates

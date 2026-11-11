@@ -20,11 +20,7 @@ struct Vec3
 	void scale(float s) { x *= s; y *= s; z *= s; }
 };
 
-class Rva003F936EHost
-{
-public:
-	void rva003FB793(Vec3 *out);
-};
+#include "../../Include/Common/Rva003F936EHost.h"
 
 class Rva003FBB99Child
 {
