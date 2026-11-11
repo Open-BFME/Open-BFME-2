@@ -23,7 +23,7 @@ class SpawnArmy;
 class ArmySpawnerOrderView {public:
  virtual void slot0();virtual void slot4();virtual void slot8();virtual void slotC();virtual void slot10();virtual void slot14();virtual void spawn(const SpawnArmy*);
 };
-class Rva0020EEF4Outer {public:int rva0020EEF4(int);};
+#include "../../../../Include/GameLogic/Rva0020EEF4Outer.h"
 class Rva0020E89C;
 #include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva003F1C56Plot;struct Rva003F1BD3TemplateView;

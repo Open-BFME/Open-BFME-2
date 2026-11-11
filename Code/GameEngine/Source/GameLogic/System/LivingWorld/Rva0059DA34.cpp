@@ -106,11 +106,7 @@ struct Rva0059D90CRegion
 	Rva0059D90CTypeKey *m_type; // +0x28
 };
 
-class Rva0020EEF4Outer
-{
-public:
-	int rva0020EEF4(int id);
-};
+#include "../../../../Include/GameLogic/Rva0020EEF4Outer.h"
 
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;

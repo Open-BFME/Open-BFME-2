@@ -4,11 +4,7 @@
 // Null-gated forward: if id==0 return null else tail-jmp rowed
 // Rva0020EEF4Outer::rva0020EEF4 via this+0xB0. Identity via pin plus callers
 // 0x002DA20A 0x0040C470; prev/next share /O1 /MD.
-class Rva0020EEF4Outer
-{
-public:
-	int rva0020EEF4(int v);
-};
+#include "../../Include/GameLogic/Rva0020EEF4Outer.h"
 
 struct Rva002B2579Result;
 
