@@ -18,11 +18,7 @@ public:
 	void rva005B4C3C();
 };
 
-class Rva005B034ADwordSlot
-{
-public:
-	void set(int v);
-};
+#include "../../Include/Common/Rva005B034ADwordSlot.h"
 
 struct Rva005B4CC6Outer
 {

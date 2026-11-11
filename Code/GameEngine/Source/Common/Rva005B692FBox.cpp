@@ -9,7 +9,7 @@
 // Row spellings of the three callees.
 class CreateAHeroData;
 #include "../../Include/GameLogic/CreateAHeroManager.h"
-class Rva005B034ADwordSlot { public: void set(int v); };
+#include "../../Include/Common/Rva005B034ADwordSlot.h"
 class AptCreateAHero { public: class Manager { public: void PopulateHeroList(); }; };
 
 extern CreateAHeroManager *TheCreateAHeroManager;

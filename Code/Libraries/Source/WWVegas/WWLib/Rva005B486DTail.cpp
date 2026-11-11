@@ -1,11 +1,7 @@
 // cl: /MD /EHsc
 // Powers table C72F3C slot 3 points to this member.
 // Sets the holder's hero state, refreshes the grid and updates its Palantir buttons.
-class Rva005B034ADwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../../GameEngine/Include/Common/Rva005B034ADwordSlot.h"
 class Rva005B486DOwner
 {
 public:

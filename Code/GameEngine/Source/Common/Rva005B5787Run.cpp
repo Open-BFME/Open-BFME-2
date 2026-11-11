@@ -4,11 +4,7 @@
 // when the two cursor words at +0x414/+0x418 agree (0x005B54ED, thiscall with
 // three zero arguments), then tail-calls the condition-bit clearer 0x00407C17 on
 // the same slot. Owner layout views are neutral.
-class Rva005B034ADwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../Include/Common/Rva005B034ADwordSlot.h"
 
 #include "../../Include/Common/Rva004076EE.h"
 
