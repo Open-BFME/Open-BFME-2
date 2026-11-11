@@ -21,11 +21,7 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 		ReleaseTreeHintRef00217D4C(m_ptr);
 }
 
-class Rva0054D2DDTarget { public:
- void method(int,const UnicodeString &,const UnicodeString &,
-  TreeHintRef00217D4C,TreeHintRef00217D4C);
- void method(int,const UnicodeString &,const UnicodeString &);
-};
+#include "../../Include/Common/Rva0054D2DDTarget.h"
 
 // LINK: the two forwarded calls are rowed as Rva0054D2DDTarget::method(int, UnicodeString const&, UnicodeString const&) and
 // bool Rva0054D3E1Prompt::configure(int, UnicodeString const&, UnicodeString const&) on the same instance.

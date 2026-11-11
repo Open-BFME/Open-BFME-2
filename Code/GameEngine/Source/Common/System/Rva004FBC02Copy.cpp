@@ -32,7 +32,7 @@ struct TreeHintRef00217D4C : public Rva00579E47
 	TreeHintRef00217D4C(const TreeHintRef00217D4C &sourceRef) : Rva00579E47(sourceRef) { if (ptr) ++((int *)ptr)[1]; }
 	~TreeHintRef00217D4C();
 };
-class Rva0054D2DDTarget { public: void method(int, const UnicodeString &, const UnicodeString &, TreeHintRef00217D4C, TreeHintRef00217D4C); };
+#include "../../../Include/Common/Rva0054D2DDTarget.h"
 class AptStrategicMessageBox { private: static AptStrategicMessageBox *s_instance; public: static __forceinline AptStrategicMessageBox *get() { return s_instance; } };
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../Include/GameClient/Eva.h"

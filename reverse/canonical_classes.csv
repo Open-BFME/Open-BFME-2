@@ -1048,3 +1048,4 @@ NodeAllocMutex,Code/GameEngine/Include/Common/NodeAllocMutex.h,existing header; 
 Rva005E3DE8,Code/GameEngine/Include/Common/Rva005E3DE8.h,existing header; contract class_contracts/Rva005E3DE8.json; 5/7 sampled units adopt
 Gen_00489270,Code/GameEngine/Include/Common/Gen_00489270.h,existing header; contract class_contracts/Gen_00489270.json; 6/7 sampled units adopt
 BFME2FileSystemFacade,Code/GameEngine/Include/Common/BFME2FileSystemFacade.h,existing header; contract class_contracts/BFME2FileSystemFacade.json; 4/4 sampled units adopt
+Rva0054D2DDTarget,Code/GameEngine/Include/Common/Rva0054D2DDTarget.h,existing header; contract class_contracts/Rva0054D2DDTarget.json; 5/6 sampled units adopt

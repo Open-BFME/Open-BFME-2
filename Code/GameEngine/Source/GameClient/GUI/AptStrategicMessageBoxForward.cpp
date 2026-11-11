@@ -97,11 +97,7 @@ struct WaitMessageQuitMenuView
 
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class Rva0054D2DDTarget
-{
-public:
-	void method(int type, const UnicodeString &title, const UnicodeString &text);
-};
+#include "../../../Include/Common/Rva0054D2DDTarget.h"
 
 // Native574192..574251,191B; WB14CE250 names WaitMessage::Update and
 // its literal STRATEGICHUD:WaitMessage identifies the same delayed notice.

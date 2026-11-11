@@ -18,7 +18,7 @@ class Object;
 #include "../../../../Include/Common/Rva00575674.h"
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva0054D2DDTarget{public:void method(int,const UnicodeString&,const UnicodeString&);};
+#include "../../../../Include/Common/Rva0054D2DDTarget.h"
 class AptStrategicMessageBox{static AptStrategicMessageBox*s_instance;friend class Rva005D0643;};
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
