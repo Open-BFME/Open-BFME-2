@@ -27,11 +27,7 @@ public:
 extern Shell *TheShell;
 
 class ModuleData;
-class Rva00223CBD
-{
-public:
-	void rva00223CBD(const ModuleData *data);
-};
+#include "../../../Include/GameClient/Rva00223CBD.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // ?parchmentMapFadeLoadGame@@YAHH_N@Z

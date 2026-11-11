@@ -411,11 +411,7 @@ extern Shell *TheShell;
 
 class ModuleData;
 
-class Rva00223CBD
-{
-public:
-	void rva00223CBD(const ModuleData *data);
-};
+#include "../../../../../Include/GameClient/Rva00223CBD.h"
 
 class BfmeAptWindowManager : public Rva00223CBD {};
 

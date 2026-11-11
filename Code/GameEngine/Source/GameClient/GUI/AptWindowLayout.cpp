@@ -48,7 +48,7 @@ extern GameWindowManager *TheWindowManager;
 
 class ModuleData;
 
-class Rva00223CBD { public: void rva00223CBD(const ModuleData *); };
+#include "../../../Include/GameClient/Rva00223CBD.h"
 
 void Rva006CD6F0Get(void **,void **);
 

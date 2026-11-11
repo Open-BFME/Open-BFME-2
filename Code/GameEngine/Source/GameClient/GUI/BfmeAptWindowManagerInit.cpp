@@ -56,11 +56,7 @@ struct Rva00222343
 
 #include "../../../Include/GameClient/Rva002239B2.h"
 
-class Rva00223CBD
-{
-public:
-	void rva00223CBD(const ModuleData *p);
-};
+#include "../../../Include/GameClient/Rva00223CBD.h"
 
 void Rva006CC380Initialize(unsigned int, int, unsigned int, int);
 void Rva006CF230Initialize(const Rva00222343 *input);
