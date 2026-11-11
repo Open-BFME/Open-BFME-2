@@ -2022,11 +2022,7 @@ struct Rva002BC1DAArmy
 };
 // The unit's rowed checks: 0x003190A5 (Rva003190A5::query) and 0x00319A12
 // (Rva00319A12Owner::rva00319A12), both on the unit itself.
-class Rva003190A5
-{
-public:
-	bool query() const;
-};
+#include "../../../../Include/GameLogic/Rva003190A5.h"
 class Rva00319A12Owner
 {
 public:

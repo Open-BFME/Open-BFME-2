@@ -32,7 +32,7 @@ struct Rva003F4E07Summary { char pad00[0x40]; std::vector<Rva003F4E07SummaryPair
 struct LivingWorldArmy {
  public: char pad00[0x18]; StringBase<char> name; char pad1C[0x78-0x1C]; Rva003F4E07Summary*summary;
 };
-class Rva003190A5 { public: bool query() const; };
+#include "../../../../Include/GameLogic/Rva003190A5.h"
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct Rva002B488EResult { char pad00[0x54]; int playerID; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"

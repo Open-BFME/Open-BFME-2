@@ -28,7 +28,7 @@ class Rva0031979COwner {public:void rva0031979C(int);};
 #include "../../../../Include/GameClient/Rva00318FBE.h"
 struct LivingWorldArmy {public:void rva00319EA3(LivingWorldArmy*,ArmySummaryEntry*);};
 #include "../../../../Include/Common/Rva0037DCA5.h"
-class Rva003190A5 {public:bool query()const;};
+#include "../../../../Include/GameLogic/Rva003190A5.h"
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 class Rva0040DB0ERegistry {public:int rva0040DB0E(const AsciiString&);};
 class BfmeY1038 {public:int bfmeVal1038();};
