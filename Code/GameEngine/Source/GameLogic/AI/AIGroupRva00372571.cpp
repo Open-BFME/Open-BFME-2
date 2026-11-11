@@ -257,12 +257,7 @@ public:
 	FormationSlot *m_end;
 };
 
-class FormationAssistant
-{
-public:
-	Bool getValidObjectList(Rva001EB130Holder *members, Player *player, Rva001EB130Holder *valid);
-	Formation *rva00424E77(Int formationType, Rva001EB130Holder *objects, const Coord3D *pos);
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/FormationAssistant.h"
 
 class FreelistProxyHead
 {

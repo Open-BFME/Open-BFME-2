@@ -127,7 +127,7 @@ extern NameKeyGenerator*TheNameKeyGenerator;
 struct FormationPlacement {int kind;ObjectID id;char pad[0x10];float x,y;};
 class Formation {public:void rva0042245F(float);void optimizeUnits(const Coord3D*);FormationPlacement*start,*finish,*end;};
 class Rva001EB130Holder;
-class FormationAssistant {public:int rva00422D1C(int);Formation*rva00424E77(int,Rva001EB130Holder*,const Coord3D*);};
+#include "../../../../Libraries/Source/WWVegas/WWLib/FormationAssistant.h"
 class Rva0022AD10Subsystem;extern Rva0022AD10Subsystem*TheFormationAssistant;
 namespace _STL{template<class T>class char_traits;template<class T>class allocator;template<class T,class C,class A>class basic_string;}
 class Rva00423FBDThis {public:void Delete(_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> >*);};

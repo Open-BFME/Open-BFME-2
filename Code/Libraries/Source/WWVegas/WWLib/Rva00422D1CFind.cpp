@@ -13,7 +13,7 @@
 // emitted find/end/operator!=/less COMDATs that lost (first copy is the
 // speed-built stlport_map_int_int.obj). Direct _M_find plus header compare
 // reproduces retail's inlined find (!= end) shape (Rva005D62E8 precedent).
-class FormationAssistant {public:int rva00422D1C(int key);};
+#include "FormationAssistant.h"
 namespace _STL {
 template <class T1, class T2> struct pair
 {

@@ -189,11 +189,7 @@ public:
 	ObjectListNode *m_node;
 };
 
-class FormationAssistant
-{
-public:
-	Bool rva0042481E(FormationRowList *rows, const FormationTemplateRows *cells, FormationObjectList *objects);
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/FormationAssistant.h"
 
 Bool FormationAssistant::rva0042481E(FormationRowList *rows, const FormationTemplateRows *cells, FormationObjectList *objects)
 {

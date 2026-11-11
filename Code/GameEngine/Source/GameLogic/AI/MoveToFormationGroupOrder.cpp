@@ -82,7 +82,7 @@ class Rva001EB130Holder;
 
 class Formation{public:void rva0042245F(float);void optimizeUnits(const Coord3D*);Rva00424E77Slot*begin,*end;};
 
-class FormationAssistant{public:Formation*rva00424E77(int,Rva001EB130Holder*,const Coord3D*);};
+#include "../../../../Libraries/Source/WWVegas/WWLib/FormationAssistant.h"
 
 // The formation is released through the rowed thiscall 0x00423FBD with the
 // assistant in ECX, as AIGroupRva00372571.cpp spells it.
