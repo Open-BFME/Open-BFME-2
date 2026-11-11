@@ -38,7 +38,7 @@ private: TextureClass *ptr;
 #include "../../Include/Common/XferException.h"
 // Native3007F1/300854 use the existing game array allocation operators.
 #include <new>
-class Rva003006C4 { public: bool rva003006C4(const AsciiString &); };
+#include "../../Include/GameClient/Rva003006C4.h"
 static void copyFromBigToDir(const AsciiString &infile,const AsciiString &outfile) {
  File *file=TheFileSystem->openFile(infile.str(),0x41);
  if(!file) throw XferException(5,0);

@@ -5,11 +5,7 @@
 
 extern bool __stdcall Rva00600695Get(const char *);
 
-class Rva003006C4
-{
-public:
-	bool rva003006C4(const AsciiString &);
-};
+#include "../../Include/GameClient/Rva003006C4.h"
 
 bool Rva003006C4::rva003006C4(const AsciiString &value)
 {

@@ -163,7 +163,7 @@ private:
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
 static char statsDir[ 255 ] = "Stats\\";
-class Rva003006C4 { public: bool rva003006C4(const AsciiString &directory); };
+#include "../../Include/GameClient/Rva003006C4.h"
 class FileSystem;
 extern FileSystem *TheFileSystem;
 

@@ -379,11 +379,7 @@ public:
 extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;
-class Rva003006C4
-{
-public:
-	bool rva003006C4(const AsciiString &path);
-};
+#include "../../../Include/GameClient/Rva003006C4.h"
 
 // Rva0054F508 is CustomMatchPreferences; its getters are rowed by name.
 #include "../../../Include/Common/CustomMatchPreferencesClass.h"
