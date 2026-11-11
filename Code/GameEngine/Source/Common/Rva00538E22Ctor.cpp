@@ -124,10 +124,7 @@ public:
 	int command;
 };
 
-struct Rva00319F5A
-{
-	void rva0031A129(const Rva00318B5C &record);
-};
+#include "../../Include/Common/Rva00319F5A.h"
 
 // The range-erase callee used by 0x00538ED1 is already rowed for this 16-byte
 // element view. Its true payload identity is not established by the call.

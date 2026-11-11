@@ -23,11 +23,7 @@ private:
 // 0x00538D3B update on the same receiver.
 class Rva00318B5C;
 
-class Rva00319F5A
-{
-public:
-	void rva0031A129(const Rva00318B5C &value);				// 0x0031A129
-};
+#include "../../Include/Common/Rva00319F5A.h"
 
 #include "../../Include/Common/Rva00538CEF.h"
 

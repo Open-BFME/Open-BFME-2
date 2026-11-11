@@ -1346,3 +1346,4 @@ Rva002C940EByteField,Code/GameEngine/Include/GameLogic/Rva002C940EByteField.h,ex
 Rva003F936EHost,Code/GameEngine/Include/Common/Rva003F936EHost.h,existing header; contract class_contracts/Rva003F936EHost.json; 3/5 sampled units adopt
 Rva00318BC6Owner,Code/GameEngine/Include/Common/Rva00318BC6Owner.h,existing header; contract class_contracts/Rva00318BC6Owner.json; 3/4 sampled units adopt
 Rva0057CC15Ref,Code/GameEngine/Include/GameClient/Rva0057CC15Ref.h,existing header; contract class_contracts/Rva0057CC15Ref.json; 3/5 sampled units adopt
+Rva00319F5A,Code/GameEngine/Include/Common/Rva00319F5A.h,existing header; contract class_contracts/Rva00319F5A.json; 3/4 sampled units adopt

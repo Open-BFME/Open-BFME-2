@@ -251,7 +251,7 @@ public:
     virtual void xfer(Xfer *);
     MoveCoordView position; int region;
 };
-struct Rva00319F5A { void rva0031A129(const Rva00318B5C &); };
+#include "../../../../Include/Common/Rva00319F5A.h"
 
 class Rva00538E22 { public: void rva00538ED1(int); void rva00538F10(const _STL::vector<BfmeE16> &,int); };
 class Rva003195C9Owner { public: void rva003195C9(); };
