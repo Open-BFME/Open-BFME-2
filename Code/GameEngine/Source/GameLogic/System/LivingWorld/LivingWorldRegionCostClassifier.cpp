@@ -16,10 +16,7 @@ class Rva002E2903Player;
 class Rva00318C32Ret;
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva0020EAF6View {
-public:
-    Rva0020E89C *rva0020EAF6(int);
-};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

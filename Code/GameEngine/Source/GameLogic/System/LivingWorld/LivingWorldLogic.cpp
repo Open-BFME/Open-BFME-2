@@ -3083,7 +3083,7 @@ class Rva0020E89C {public:
  char pad000[0x12c];int id;char pad130[12];int owner;
  char pad140[0x1a8-0x140];_STL::vector<LivingWorldRegionConnection> connections;
 };
-class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva00318C8DOwner {public:Rva0020E89C *rva00318C8D();};
 class Rva00319159 {public:UnicodeString GetHeroDisplayName();};
 class Rva002E0687 {public:bool rva002E0687()const;};

@@ -348,7 +348,7 @@ class Rva003F468D;
 class Rva0020E89C;
 class Rva002E2903Player;
 #include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
-class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+#include "../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva002BA8F1Logic : public SystemBase, public Snapshot
 {
 public:

@@ -43,7 +43,7 @@ struct RetreatEntry {char m_pad[8];int id;char m_rest[12];};
 class Rva00318C32Ret {public:char m_pad[0x1a8];_STL::vector<RetreatEntry> entries;};
 #include "../../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva0020E89C {public:char m_pad[0x13c];int m_13c;};
-class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+#include "../../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva002104B6 {public:void *rva002104B6(void*);};
 #include "../../../../../Include/GameLogic/Rva002E071E.h"
 class Rva002B2702 {public:void rva002B2702(void*,void*,int);};

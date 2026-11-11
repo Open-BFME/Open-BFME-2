@@ -137,7 +137,7 @@ class Rva002E2903Player;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E067DDwordSlot {public: void set(int);};
 class Rva0020E89C {public:char pad[0x14]; AsciiString name;};
-class Rva0020EAF6View {public: Rva0020E89C *rva0020EAF6(int);};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class LivingWorldLogic {public:
  void ValidatePlayers(); void AddPlayer(Rva002BA8F1Input *,bool,int,Rva002BA8F1Slot *); char pad[0xb0]; Rva0020EAF6View *regions;
 };

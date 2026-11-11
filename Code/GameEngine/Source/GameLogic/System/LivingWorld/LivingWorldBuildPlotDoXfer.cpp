@@ -52,11 +52,7 @@ int __cdecl Rva003EFE82Get(struct Rva003EFE82Obj *obj, void *out);
 
 class LivingWorldRegion;
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int);
-};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 // The region table read through an inline call, as retail's caller did.

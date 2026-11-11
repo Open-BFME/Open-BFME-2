@@ -22,7 +22,7 @@ class Rva002B256E { public: void *rva002B256E(); };
 class Rva003F44A9 { public: bool rva003F44ED(); };
 #include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva0020E89C;
-class Rva0020EAF6View { public: Rva0020E89C *rva0020EAF6(int); };
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 struct Rva003F4FD4LogicView {
     char pad00[0x98];
     void *player;

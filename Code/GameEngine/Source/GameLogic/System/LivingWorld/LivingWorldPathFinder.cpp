@@ -219,7 +219,7 @@ bool Rva003EF8E1::Pathfind(LivingWorldSearchCallback *cb,int from,_STL::vector<O
 // models native constructor order without asserting original inheritance.
 struct Rva003F7198Node {int key;};
 class Rva0020E89C {public:char pad[0x13c];int owner;};
-class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 struct Rva003F7198LogicPrefix {char pad[0xb0];Rva0020EAF6View *regions;};
 class __declspec(novtable) Rva003F7177Base {
 public:

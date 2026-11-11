@@ -25,7 +25,7 @@ class ArmySpawnerOrderView {public:
 };
 class Rva0020EEF4Outer {public:int rva0020EEF4(int);};
 class Rva0020E89C;
-class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva003F1C56Plot;struct Rva003F1BD3TemplateView;
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 // Region selects Snapshot's slot-3 DoXfer spelling; keep SpawnArmy on that slot.

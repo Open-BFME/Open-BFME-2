@@ -100,7 +100,7 @@ public:
 };
 class Rva004FF9B6 {public:void*rva004FF9B6(int);};
 class Rva0020E89C;
-class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};
+#include "../../../../../Include/GameLogic/Rva0020EAF6View.h"
 int rva0050059A(int,int);int rva005009AA(int,int);
 struct StrategyRegion {int id,owner;};
 struct StrategyBonus {char gap00[0x14];int a,b,c;char gap20[12];_STL::vector<int> regions;};
