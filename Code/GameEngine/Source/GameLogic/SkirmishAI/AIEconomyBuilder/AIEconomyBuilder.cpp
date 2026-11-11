@@ -227,11 +227,7 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 
 int Rva004EA2C5Get();
 
-class Rva00573A00
-{
-public:
-	void rva00573A00(const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Rva00573A00.h"
 
 class Rva00596F18 : public Rva00573A00
 {

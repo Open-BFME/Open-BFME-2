@@ -64,11 +64,7 @@ public:
 
 #include "../../../../../../Include/Common/Rva00506FE9Hit.h"
 
-class Rva00573A00
-{
-public:
-	void rva00573A00(const Coord3D *point);
-};
+#include "../../../../../../Include/GameLogic/Rva00573A00.h"
 
 class Rva00573B23
 {

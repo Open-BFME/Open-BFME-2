@@ -397,10 +397,7 @@ public:
 	char m_pad29[0x40 - 0x29];
 };
 
-struct Rva00573A00
-{
-	void rva00573A00(const Coord3D *p);
-};
+#include "../../../../../../Include/GameLogic/Rva00573A00.h"
 
 struct Rva003A2FD4Proto{char pad[0x2CC];int m_2CC;char pad2D0[0x31C-0x2D0];bool m_31C;};
 class TeamPrototype;
