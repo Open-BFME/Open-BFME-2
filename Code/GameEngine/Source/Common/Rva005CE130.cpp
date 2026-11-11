@@ -16,11 +16,7 @@ public:
 	Rva003F1093 *m_24;
 };
 
-class Rva005E683EMid
-{
-public:
-	void fwd(int a, int b);
-};
+#include "../../Include/GameClient/Rva005E683EMid.h"
 
 class Rva005E67FE { public: virtual ~Rva005E67FE(); int m_04; };
 #include "../../Include/Common/LivingWorldObservers.h"

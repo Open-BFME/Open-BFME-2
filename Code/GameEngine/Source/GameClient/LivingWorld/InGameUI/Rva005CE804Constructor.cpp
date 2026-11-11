@@ -16,7 +16,7 @@
 // C77F44 (the four-slot building listener the LivingWorldLogic ctor/dtor and
 // the sibling ctor 5CE5B3 install), so it keeps a TU-scoped address name.
 class Rva005E67FE { public: Rva005E67FE(void *); virtual ~Rva005E67FE(); void *held; };
-class Rva005E683EMid { public: void fwd(int,int); };
+#include "../../../../Include/GameClient/Rva005E683EMid.h"
 class Rva005CE804Observer { public: virtual ~Rva005CE804Observer() {} virtual void onBuildingChanged() = 0; };
 // Use the complete owning destructor provided by ThrowingNewHelpers.cpp.
 // Its 26-byte retail body at5CE7EA matches this member's target unwind call.

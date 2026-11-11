@@ -40,11 +40,7 @@ public:
 	void *m_held;
 };
 
-class Rva005E683EMid
-{
-public:
-	void fwd(int a, int b);
-};
+#include "../../../../Include/GameClient/Rva005E683EMid.h"
 
 // The building-observer interface at +0x08.
 #include "../../../../Include/Common/LivingWorldObservers.h"
