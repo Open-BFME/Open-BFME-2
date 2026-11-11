@@ -86,6 +86,28 @@ print(f"{len(records)} false-reject records, {len(records) - len(live)} of them 
       f"retracted by a later void; {len(live)} stand")
 records = live
 
+# A record whose BOUNDARY now carries a resolution (converted/solved/mapped/landed)
+# is answered, whatever name did it. The ledger question below asks whether the
+# name the record WANTED owns the address, which misses every case where the work
+# landed under a different spelling -- a $L label renumbered, an alias adopted.
+# re_log already tracks the standing verdict per boundary, so ask it.
+import re_log                                                   # noqa: E402
+
+
+def resolved(rec):
+    if "sym" not in rec:
+        return False
+    try:
+        rva = int(rec["rva"], 16)
+    except ValueError:
+        return False
+    return re_log.standing_status(rec["sym"], rva) in re_log.RESOLVED_STATUSES
+
+
+answered = [rec for rec in records if resolved(rec)]
+records = [rec for rec in records if not resolved(rec)]
+print(f"{len(answered)} more carry a resolution at their boundary; {len(records)} stand")
+
 # --- classify ---------------------------------------------------------------
 # A record's symbol is sometimes annotated, e.g. `_$E2(LivingWorldEyeTower)`.
 bare = lambda s: re.sub(r"\(.*\)$", "", s).strip()

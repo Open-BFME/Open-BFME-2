@@ -1,5 +1,11 @@
 # 576 of the 927 false-reject records are already closed; the tooling lane is 351
 
+> **Corrected 2026-11-11: the open lane is 330, not 439.** The triage was
+> counting retracted records, counting retractions as records, and asking a
+> question that misses work landed under a different name. The three corrections
+> are in the 11-10/11-11 sections at the end; the numbers in the body above them
+> are the uncorrected ones, kept so the method is legible.
+
 Measured at `598687dc8dd`, 2026-11-09, over `reverse/re_attempts.log`.
 
 AGENTS.md gives a tooling seat one instruction for this lane: `rg "false-reject"
@@ -410,6 +416,52 @@ for, appended on the very next line.
 
 Corrected, the pile is **926 records, 881 standing, 403 open** -- not 941 and
 439. Of those 403, 17 more close against the data ledgers above.
+
+### It asked only whether the WANTED name owns the address
+
+The question sorts by the record's own spelling, so it misses every case where
+the work landed under a different one -- and that is the common case. A
+placeholder gets renamed (`?rva004071D7@...` -> `??0BfmeHeroElement005C39DE@...`,
+`?d_0030bea2@@YAXXZ` -> `?slot1@Rva0030C1FCOwner@@...`), a `$L` label is
+renumbered, an alias is adopted. The record's name never owns anything again.
+
+re_log already tracks the standing verdict per (symbol, rva), and a resolution
+there -- `converted`, `solved`, `mapped`, `landed` -- answers the record whatever
+name did it. Asking it retires **301 more**, of which 223 the ledger question
+agreed were closed anyway and **78 it did not see**:
+
+- 63 are a placeholder renamed, `matched` in the ledger at that address;
+- 15 are `tool:`/`ms-headers:` pseudo-symbols at 0x0 -- records about a tool
+  rather than an address, each already marked `solved` by whoever fixed it.
+
+Order is respected, so this does not over-close: `standing_status` returns the
+LATEST verdict, so a resolution followed by a fresh false reject still reads as
+blocked.
+
+**Corrected totals: 931 records, 886 standing after voids, 585 after
+resolutions, 330 open.** Against 941/439 before. `check_csv` alone goes from 17
+open to 6.
+
+### `$L` records are usually right about the body and wrong about the number
+
+Seven of the open `check_csv` records are one shape: a TU-local label collision
+where the address is now matched by a correctly-scoped label from *exactly the
+parent the record names*, under a different number.
+
+| record | wanted | the ledger has | parent |
+| --- | --- | --- | --- |
+| 50380 | `$L2598` @ 0x7A9D4F | `$L2597` | `?objectMemberLookup@AptSound@@…` |
+| 50381 | `$L2599` @ 0x7A9D40 | `$L2598` | same |
+| 50991 | `$L7227` @ 0x7776B1 | `$L7259` | `??1AptPalantir@@UAE@XZ` |
+| 53241, 53244 | `$L1697` @ 0x77F22A | `$L1729` | ArmyPlacer `PlaceObjects`, guard-bit-0 |
+| 53242, 53245 | `$L1698` @ 0x77F237 | `$L1730` | same, guard-bit-1 |
+
+Label numbering is per-TU and shifts with everything the compiler emitted
+before, so a worker's guess at the number is the fragile part; the parent and
+the body are what identify the funclet. All five boundaries are recorded
+`mapped`, not `void`: two of them carry an earlier `landed` row (L53238,
+L53239) that a void would delete along with the deferral. **Check what else
+sits at a boundary before voting it.**
 
 ### A record is stale the moment the fix lands, and nobody goes back
 
