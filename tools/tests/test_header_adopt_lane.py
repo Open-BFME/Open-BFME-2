@@ -876,7 +876,7 @@ private:
     records = lane.declaration_records(view, "K")
     assert {r["key"]: r["role"] for r in records} == {
         "operator const char*()const": "method", "operator()(int)const": "method", "operator[](int)": "method",
-        "template<classT>visit(T&)": "method", "instance()": "method", "static s_count": "static",
+        "template<class>visit(T0&)": "method", "instance()": "method", "static s_count": "static",
         "friend struct KFriend": "friend class", "friend operator==(const K&,const K&)": "friend",
         "operator<(const K&)const": "method", "operator<(const K&)": "method", "tick()": "virtual"}
     assert [r["pure"] for r in records if r["role"] == "virtual"] == [True]
@@ -884,6 +884,56 @@ private:
     carried, problems = special("K", {"a.cpp": view, "b.cpp": view})
     assert problems == [] and len(carried) == 10           # every one but the virtual (the slots' own)
     assert {c["access"] for c in carried} == {"public"}
+    # the generated header declares each carried member once, under the key it was carried by
+    contract = {"class": "K", "key": "class", "key_by": "bytes", "size": 8, "size_by": "zh", "bases": [],
+                "fields": [{"kind": "i4", "type": "int", "name": "m_x"}]}
+    for variant in ("data", "data+methods", "data+includes"):
+        keys = [r["key"] for r in lane.declaration_records(lane.generate(contract, variant, {}, None, None, carried),
+                                                           "K")]
+        assert sorted(keys) == sorted(c["sig"] for c in carried) and len(keys) == len(set(keys))
+
+
+@pytest.mark.parametrize("member,role,key", [
+    ("void (*cb)(int code);", None, None),                       # a pointer to function: data
+    ("int (*table)[4];", None, None),                            # a pointer to array: data
+    ("int pad[sizeof(int) / sizeof(int)];", None, None),         # parentheses in a bound: still data
+    ("char m_pad[0x48 - (0x20 + sizeof(int))];", None, None),
+    ("const static int count = 1;", "static", "static count"),   # `static` after `const`
+    ("static const int limit = sizeof(int);", "static", "static limit"),
+    ("void (*f())(int);", "complex", "complex void (*f())(int)"),
+    ("void f(), g();", "list", "list void f(), g()"),
+    ("static const int a = 1, b = 2;", "list", "list static const int a = 1, b = 2"),
+])
+def test_declarators_are_classified_by_their_top_level(member, role, key):
+    records = lane.declaration_records("class C { public: %s int m; };\n" % member, "C")
+    assert [(r["role"], r["key"]) for r in records] == ([] if role is None else [(role, key)])
+
+
+@pytest.mark.parametrize("a,b,why", [
+    # a grouped declaration is held, never cut to its first member; the scan sees it as one record
+    ("void f();", "void f(), g();", "member void f(), g(): a declaration of several members in b.cpp, which the "
+                                    "generator does not carry"),
+    ("void (*f())(int);", "void (*f())(int);", "member void (*f())(int): a declarator the generator does not parse "
+                                               "in a.cpp, which the generator does not carry"),
+    ("static int x[2];", "static int x[3];", "member static int x[2]: declarations differ (a.cpp, b.cpp)"),
+    ("void f(int x = 1);", "void f(int x = 2);", "member void f(int x = 1): declarations differ (a.cpp, b.cpp)"),
+])
+def test_review_four_cases_hold_the_class(a, b, why):
+    carried, problems = special("C", {"a.cpp": "class C { public: %s int m; };\n" % a,
+                                      "b.cpp": "class C { public: %s int m; };\n" % b})
+    assert why in problems
+
+
+@pytest.mark.parametrize("a,b", [
+    ("void f(int a[4]);", "void f(int b[4]);"),                  # an array parameter is a pointer, unnamed
+    ("void f(int);", "void f(const int);"),                      # top-level const is no part of the type
+    ("template<class T> void f(T);", "template<class U> void f(U);"),
+    ("void f(char *const p);", "void f(char *q);"),
+])
+def test_one_member_spelled_two_ways_is_carried_once(a, b):
+    carried, problems = special("C", {"a.cpp": "class C { public: %s int m; };\n" % a,
+                                      "b.cpp": "class C { public: %s int m; };\n" % b})
+    assert problems == [] and len(carried) == 1
 
 
 @pytest.mark.parametrize("a,b,why", [
@@ -914,6 +964,146 @@ def test_a_member_one_view_omits_is_carried_and_spellings_that_differ_only_cosme
                                       "b.cpp": "class C { public: bool operator == (C const &) const; int m; };\n",
                                       "c.cpp": "class C { public: int m; };\n"})
     assert problems == [] and [c["text"] for c in carried] == ["inline bool operator==(const C &that) const;"]
+
+
+# The header lane's report: a directive has no `;`, so it swallowed the member after it, and
+# SubsystemInterface's copy constructor and Region3D's destructor read as directives.
+SUBSYSTEM_LIKE = """class SubsystemInterface {
+public:
+    SubsystemInterface();
+    virtual ~SubsystemInterface();
+#ifdef BFME_SUBSYSTEM_SLOTS
+    virtual void init() = 0;
+#endif
+    // a comment between
+    SubsystemInterface(const SubsystemInterface &that);
+    SubsystemInterface &operator=(const SubsystemInterface &that);
+    void setName(int name);
+#ifdef BFME_SUBSYSTEM_GETNAME
+    int getName(void);
+#endif
+    bool m_flag;
+};
+"""
+REGION_LIKE = """struct Region3D {
+    float lo, hi;
+    Region3D() {}
+#ifdef BFME_REGION3D_COPY_CTOR_DECL
+    Region3D(const Region3D &that);
+#else
+    Region3D(const Region3D &that)
+    {
+        lo = that.lo; hi = that.hi;
+    }
+#endif
+    ~Region3D() {}
+};
+"""
+
+
+def test_a_directive_is_a_record_of_its_own_and_swallows_no_member():
+    records = lane.declaration_records(SUBSYSTEM_LIKE, "SubsystemInterface")
+    assert [(r["role"], r["key"]) for r in records if r["role"] != "directive"] == [
+        ("default", "SubsystemInterface()"), ("virtual", "~"), ("virtual", "init()"),
+        ("copy", "SubsystemInterface(const SubsystemInterface&)"), ("assign", "operator=(const SubsystemInterface&)"),
+        ("method", "setName(int)"), ("method", "getName()")]
+    assert [r["key"] for r in records if r["role"] == "directive"] == [
+        "directive #ifdef BFME_SUBSYSTEM_SLOTS", "directive #endif", "directive #ifdef BFME_SUBSYSTEM_GETNAME",
+        "directive #endif"]
+    records = lane.declaration_records(REGION_LIKE, "Region3D")
+    assert [(r["role"], r["inline"]) for r in records if r["role"] != "directive"] == [
+        ("default", True), ("copy", False), ("copy", True), ("dtor", True)]
+    assert len([r for r in records if r["role"] == "directive"]) == 3
+
+
+def test_a_continued_define_and_an_interrupted_declaration_stay_directives():
+    view = ("class C {\npublic:\n#define TWO(a, b) \\\n    a + b\n    void f();\n"
+            "    void g(int a,\n#ifdef X\n           int b,\n#endif\n           int c);\n    int m;\n};\n")
+    records = lane.declaration_records(view, "C")
+    assert [r["role"] for r in records][:2] == ["directive", "method"]
+    assert records[0]["key"].startswith("directive #define TWO(a, b)") and "a + b" in records[0]["text"]
+    assert records[1]["key"] == "f()"
+    assert "g(" in records[2]["text"] and records[2]["role"] == "directive"   # its declaration went with #ifdef
+
+
+COUNT_CONTRACT = {"class": "CountBase", "key": "struct", "key_by": "bytes", "size": 12, "size_by": "zh", "bases": [],
+                  "fields": [{"kind": "i4", "type": "int", "name": "m_count"},
+                             {"kind": "P", "type": "char*", "name": "m_name"},
+                             {"kind": "P", "type": "char*", "name": "m_fixed"}]}
+
+
+def counts(*views):
+    return {f"{i}.cpp": lane.field_records(v, "CountBase") for i, v in enumerate(views)}
+
+
+def test_field_qualifiers_the_views_agree_on_are_carried(monkeypatch):
+    # CountBase: the views say `volatile int m_count`; the generated header said `int m_count`
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    view = ("struct CountBase {\n    volatile int m_count;\n    const char *m_name;\n    char *const m_fixed;\n"
+            "    __forceinline CountBase() : m_count(0), m_fixed(0) {}\n};\n")
+    qualifiers, problems = lane.field_qualifiers(COUNT_CONTRACT, counts(view, view))
+    assert problems == [] and qualifiers == {"m_count": {"volatile@0"}, "m_name": {"const@0"},
+                                             "m_fixed": {"const@1"}}
+    special = [{"role": "qualifier", "access": None, "sig": f"qualifier {f}", "text": "", "field": f,
+                "qualifiers": sorted(q)} for f, q in qualifiers.items()]
+    for variant in ("data", "data+methods"):
+        text = lane.generate(COUNT_CONTRACT, variant, {}, None, None, special)
+        assert "volatile int m_count;" in text and "const char *m_name;" in text and "char * const m_fixed;" in text
+    assert "    int m_count;" in lane.generate(COUNT_CONTRACT, "data", {}, None, None, [])   # none: as before
+
+
+@pytest.mark.parametrize("a,b,why", [
+    ("volatile int m_count;", "int m_count;", "field m_count: qualifiers differ (0.cpp: volatile@0; 1.cpp: none)"),
+    ("volatile int m_counter;", "volatile int m_counter;",
+     "field volatile int m_counter;: qualified (volatile@0) in 0.cpp, and no contract field is named after it"),
+    ("mutable int m_count;", "int m_count;", "field m_count: qualifiers differ (0.cpp: mutable; 1.cpp: none)"),
+    ("int **const m_name;", "int **const m_name;", "field m_name: qualified beyond its contract type 'char*'"),
+])
+def test_field_qualifiers_the_views_dispute_hold_the_class(a, b, why):
+    _, problems = lane.field_qualifiers(COUNT_CONTRACT, counts("struct CountBase { %s };\n" % a,
+                                                               "struct CountBase { %s };\n" % b))
+    assert why in problems
+
+
+def test_special_members_reports_field_qualifiers(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    monkeypatch.setattr(lane, "_matched_index", lambda: {})
+    (tmp_path / "a.cpp").write_text("struct CountBase { volatile int m_count; };\n", encoding="utf-8")
+    (tmp_path / "b.cpp").write_text("struct CountBase { int m_count; };\n", encoding="utf-8")
+    _, problems = lane.special_members("CountBase", COUNT_CONTRACT, ["a.cpp"])
+    assert problems == []
+    carried, problems = lane.special_members("CountBase", COUNT_CONTRACT, ["a.cpp", "b.cpp"])
+    assert problems == ["field m_count: qualifiers differ (a.cpp: volatile@0; b.cpp: none)"]
+
+
+@pytest.mark.parametrize("member", [
+    "DECLARE_POOL_MEMBERS;",                    # an object-like macro's use declaring members
+    "DECLARE_POOL_MEMBERS\n    int m_a;",       # ... running into the field after it
+    "MEMORY_POOL_GLUE(C, \"C\")\n    int m_a;",  # a function-like macro's use running into a field
+])
+def test_a_macros_use_in_a_class_body_holds_the_class(member):
+    view = "class C {\npublic:\n    %s\n    int m;\n};\n" % member
+    assert [r["role"] for r in lane.declaration_records(view, "C")] == ["macro"]
+    _, problems = special("C", {"a.cpp": view})
+    assert len(problems) == 1 and "a macro's use in a.cpp" in problems[0]
+
+
+@pytest.mark.parametrize("member", ["unsigned int m_a;", "const unsigned char *m_p;", "static const long n;",
+                                    "volatile short m_s;", "void (*m_cb)(int);", "int f() const throw();",
+                                    "virtual void g() = 0;", "__declspec(nothrow) int h();"])
+def test_ordinary_members_are_no_macro(member):
+    assert "macro" not in [r["role"] for r in
+                           lane.declaration_records("class C { public: %s int m; };\n" % member, "C")]
+
+
+def test_a_nested_type_is_keyed_by_its_body():
+    # `struct N { void lost(); }` against `struct N {}` once compared equal, hiding the loss
+    lost = lane.declaration_records("class C { public: struct N { void lost(); }; int m; };\n", "C")
+    kept = lane.declaration_records("class C { public: struct N {}; int m; };\n", "C")
+    assert lost[0]["role"] == kept[0]["role"] == "nested" and lost[0]["key"] != kept[0]["key"]
+    assert lost[0]["key"] == lane.declaration_records("class C { public: struct N {  void lost();  };\n"
+                                                      "int m; };\n", "C")[0]["key"]
 
 
 def test_a_preprocessor_line_in_a_class_body_holds_the_class():
@@ -992,7 +1182,8 @@ def test_special_member_keys_keep_qualifiers_and_drop_names():
     # whatever else is carried beside it: an overload (C(long), C(long, int = 0), C(int, ...)),
     # a converting constructor, or a copy member that takes a derived class's object
     ("C(long); C(int);", "C(long); C(int) {}", "special C(int): out of line in a.cpp, inline in b.cpp"),
-    ("C(long, int f=0); C(int);", "C(long, int f); C(int) {}", "special C(int): out of line in a.cpp, inline in b.cpp"),
+    ("C(long, int f=0); C(int);", "C(long, int g = 0); C(int) {}",
+     "special C(int): out of line in a.cpp, inline in b.cpp"),
     ("C(int, ...); C(int, int, int);", "C(int, ...); C(int, int, int) {}",
      "special C(int, int, int): out of line in a.cpp, inline in b.cpp"),
     ("C(int); C &operator=(int);", "C(int); C &operator=(int) { return *this; }",

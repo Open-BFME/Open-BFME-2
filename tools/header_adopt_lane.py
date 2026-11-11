@@ -1244,11 +1244,31 @@ def spell_typedefs(text):
     return text
 
 
-def top_level_spans(shape, start, end):
+def top_level_spans(shape, start, end, raw=None):
     """(start, end) of each top-level member of `shape[start:end]`, split as split_members
-    splits; `shape` has its literals and comments blanked (masked)."""
+    splits; `shape` has its literals and comments blanked (masked), `raw` is the text it
+    masks (for a directive's line continuations). A preprocessor line outside every brace
+    is a member of its own, continuation lines included (it has no `;` to end it, so it once
+    swallowed the member after it); a declaration it interrupts goes with it."""
     out, begin, depth, index = [], start, 0, start
     while index < end:
+        if depth == 0 and (index == start or shape[index - 1] == "\n"):
+            first = index
+            while first < end and shape[first] in " \t":
+                first += 1
+            if first < end and shape[first] == "#":
+                stop = first
+                while True:
+                    stop = shape.find("\n", stop)
+                    stop = end if stop < 0 or stop > end else stop
+                    tail = raw[max(start, stop - 2):stop] if raw is not None else ""
+                    if stop < end and tail.rstrip("\r").endswith("\\"):
+                        stop += 1                # a continued line: masked() blanked its backslash
+                        continue
+                    break
+                out.append((begin if shape[begin:index].strip() else first, stop))
+                begin = index = stop
+                continue
         char = shape[index]
         if char == "{":
             depth += 1
@@ -1280,7 +1300,7 @@ def class_members(text, name):
         return None
     access = "public" if span[2] in ("struct", "union") else "private"
     out = []
-    for start, end in top_level_spans(shape, shape.index("{") + 1, shape.rindex("}")):
+    for start, end in top_level_spans(shape, shape.index("{") + 1, shape.rindex("}"), raw):
         member = code[start:end].strip()
         label = ACCESS_LABEL.match(member)
         while label:
@@ -1309,21 +1329,25 @@ def param_list(text):
     return [] if [p.strip() for p in out] in ([""], ["void"]) else [p.strip() for p in out]
 
 
-def param_key(param):
-    """One parameter's type, qualifiers kept and names dropped: `X const &o` -> `const X&`,
+def param_key(param, top=True):
+    """One parameter's type as the compiler sees it: qualifiers kept, names dropped, an array
+    adjusted to a pointer and top-level `const`/`volatile` ignored (`f(int)` and `f(const int)`
+    are one function): `X const &o` -> `const X&`, `int a[4]` -> `int*`, `const int n` -> `int`,
     `void (*fn)(int x)` -> `void(*)(int)`, `void (C::*pm)(int)` -> `void(C::*)(int)`."""
     param = re.sub(r"=.*$", "", param, flags=re.S)
-    param = re.sub(r"\b(struct|class|enum)\b", "", param)
-    if param.strip() == "...":
+    param = re.sub(r"\b(struct|class|enum)\b", "", param).strip()
+    if param == "...":
         return "..."
     pointer = re.match(r"^(.*?)\(\s*((?:__cdecl|__stdcall|__fastcall|__thiscall)\s*)?"
                        r"((?:[A-Za-z_]\w*\s*::\s*)*[*&])\s*((?:(?:const|volatile)\b\s*)*)"
                        r"(?:[A-Za-z_]\w*)?\s*\)\s*\((.*)\)\s*((?:const|volatile|\s)*)$", param, flags=re.S)
-    if pointer:                                  # a function pointer: its own parameters lose their names too
+    if pointer:                                  # a function pointer: its own parameters lose their names too,
         inner = ",".join(param_key(p) for p in param_list("(" + pointer.group(5) + ")"))
-        declarator = " ".join(filter(None, [(pointer.group(2) or "").strip(), re.sub(r"\s+", "", pointer.group(3))]
-                                     + pointer.group(4).split()))
-        return f"{param_key(pointer.group(1))}({declarator})({inner}){' '.join(pointer.group(6).split())}"
+        declarator = " ".join(filter(None, [(pointer.group(2) or "").strip(), re.sub(r"\s+", "", pointer.group(3))]))
+        return f"{param_key(pointer.group(1), False)}({declarator})({inner}){' '.join(pointer.group(6).split())}"
+    array = re.match(r"^([^\[]*?)\s*\[[^\]]*\](.*)$", param, flags=re.S)
+    if array:                                    # an array parameter is a pointer to its element
+        return param_key(array.group(1), False) + "*" + re.sub(r"\s+", "", array.group(2))
     tokens = re.findall(r"[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*(?:\s*<[^()]*?>)?|[*&()\[\],]|\d+", param)
     tokens = [re.sub(r"\s+", "", t) for t in tokens]
     types = [t for t in tokens if re.match(r"[A-Za-z_]", t) and t not in CV_WORDS]
@@ -1332,6 +1356,9 @@ def param_key(param):
         tokens = tokens[:-1]                     # the parameter's name
     if len(tokens) > 1 and tokens[1] in CV_WORDS and tokens[0] not in CV_WORDS:
         tokens[0], tokens[1] = tokens[1], tokens[0]
+    if top:                                      # top-level cv: after the last `*`/`&`, or on a plain type
+        last = max((i for i, t in enumerate(tokens) if t in ("*", "&")), default=-1)
+        tokens = [t for i, t in enumerate(tokens) if not (t in CV_WORDS and i > last)]
     return re.sub(r" ?([*&()\[\],]) ?", r"\1", " ".join(tokens))
 
 
@@ -1359,9 +1386,23 @@ def special_role(member, short):
 
 
 TEMPLATE_HEAD = re.compile(r"^template\s*<")
-FUNCTION_POINTER = re.compile(r"^[^(]*\(\s*(?:__(?:cdecl|stdcall|fastcall|thiscall)\s*)?(?:[A-Za-z_]\w*\s*::\s*)*[*&]")
-OPERATOR_NAME = re.compile(r"\boperator\b\s*(\(\s*\)|\[\s*\]|(?:new|delete)\b\s*(?:\[\s*\])?|[^\w\s(]+"
-                           r"|(?:[A-Za-z_][\w:]*(?:\s*<[^()]*?>)?[\s*&]*)+?)\s*\(")
+CALLING = r"(?:__(?:cdecl|stdcall|fastcall|thiscall)\s*)?"
+# `(*name)(...)`, `(C::*name)(...)` or `(*name)[n]`: a pointer data member, not a function
+POINTER_DATA = re.compile(r"^[^(]*\(\s*" + CALLING + r"(?:[A-Za-z_]\w*\s*::\s*)*[*&]\s*(?:(?:const|volatile)\s+)*"
+                          r"[A-Za-z_]\w*\s*(?:\[[^\]]*\]\s*)*\)\s*[(\[]")
+# a declarator that starts with `(*`: a function returning a pointer to function or array
+PAREN_DECLARATOR = re.compile(r"^[^(]*\(\s*" + CALLING + r"(?:[A-Za-z_]\w*\s*::\s*)*[*&]")
+OPERATOR_SYMBOL = re.compile(r"\boperator\b\s*(?:\(\s*\)|\[\s*\]|[^\w\s(]+)")
+# Roles the generator never carries: a view declaring one holds the class.
+UNCARRIED = {"nested": "a nested declaration", "directive": "a preprocessor line",
+             "list": "a declaration of several members", "complex": "a declarator the generator does not parse",
+             "macro": "a macro's use"}
+BUILTIN_WORDS = {"void", "bool", "char", "short", "int", "long", "float", "double", "wchar_t", "__int64",
+                 "unsigned", "signed"}
+# what may stand before a built-in type word in a declaration (anything else is a macro's use)
+SPECIFIER_WORDS = BUILTIN_WORDS | {"const", "volatile", "mutable", "static", "inline", "__forceinline", "virtual",
+                                   "explicit", "friend", "typedef", "extern", "register", "struct", "class",
+                                   "union", "enum", "typename"}
 
 
 def template_head(text):
@@ -1381,14 +1422,75 @@ def declaration_head(member):
     return re.sub(r"\)\s*:(?!:).*$", ")", LITERAL.sub('""', member).split("{")[0].strip(), flags=re.S)
 
 
+def top_level(text):
+    """`text`, the same length, with literals, an operator's own symbol (`<`, `()`, `[]`) and
+    everything inside (), [] and {} (and a template's <> at the top) blanked, the brackets
+    kept: what is left is the declaration's top level."""
+    code = OPERATOR_SYMBOL.sub(lambda m: "operator" + " " * (len(m.group()) - 8), masked(text))
+    pairs = {"(": ")", "[": "]", "{": "}", "<": ">"}
+    out, stack = [], []
+    for char in code:
+        while stack and stack[-1] == "<" and char in ")]}":
+            stack.pop()                          # a stray `<` (a comparison) closes with its brackets
+        if stack and char == pairs[stack[-1]]:
+            stack.pop()
+            out.append(" " if stack else char)
+        elif char in "([{" or (char == "<" and all(s == "<" for s in stack)):
+            out.append(" " if stack else char)
+            stack.append(char)
+        else:
+            out.append(" " if stack else char)
+    return "".join(out)
+
+
+def call_span(rest):
+    """(name start, `(`, `)`) of a function declarator's name and parameter list in `rest`
+    (no template prefix), by the top level; None without one."""
+    top = re.sub(r"__declspec\s*\(\s*\)", lambda m: " " * len(m.group()), top_level(rest))
+    paren = top.find("(")
+    close = top.find(")", paren + 1) if paren >= 0 else -1
+    if close < 0:
+        return None
+    before = top[:paren]
+    operator = list(re.finditer(r"\boperator\b", before))
+    if operator:
+        start = operator[-1].start()
+    else:
+        found = re.search(r"~?\s*[A-Za-z_]\w*\s*$", before)
+        if not found:
+            return None
+        start = found.start()
+    return start, paren, close
+
+
+def template_names(prefix):
+    """(canonical prefix, [parameter names]) of a `template <...>` prefix: `template<class
+    T, int N>` -> (`template<class,int>`, [T, N]), so renamed parameters are one template."""
+    if not prefix:
+        return "", []
+    inner = prefix[prefix.index("<") + 1:prefix.rindex(">")]
+    kinds, names = [], []
+    for part in param_list("(" + inner + ")"):
+        part = re.sub(r"=.*$", "", part, flags=re.S).strip()
+        found = re.search(r"([A-Za-z_]\w*)\s*$", part)
+        if found and len(part.split()) > 1:
+            names.append(found.group(1))
+            part = part[:found.start()]
+        kinds.append(re.sub(r"\btypename\b", "class", " ".join(part.split())))
+    return f"template<{','.join(kinds)}>", names
+
+
 def member_role(member, short):
     """What one class member declares: a special role (special_role), `virtual` for a virtual
     function, `method` for any other member function (named, operator, conversion operator,
-    `operator()`, `operator[]`, template, static), `static` for a static data member,
-    `friend class` for a befriended class, `friend` for a befriended function, `nested` for a
-    nested type, typedef, enum, using-declaration or other friend, `directive` for a member
-    a preprocessor line runs into, or None for a non-static data member or anonymous union
-    or struct (layout, which the contract decides)."""
+    `operator()`, `operator[]`, template, static), `static` for a static data member (`static`
+    anywhere among its specifiers), `friend class` for a befriended class, `friend` for a
+    befriended function, `nested` for a nested type, typedef, enum, using-declaration or other
+    friend, `directive` for a member a preprocessor line runs into, `list` for a declaration of
+    several functions or static members (`void f(), g();`), `complex` for a function declarator
+    the generator does not parse (one returning a pointer to function or array), or None for a
+    non-static data member, pointer data member or anonymous union or struct (layout, which the
+    contract decides). Parentheses inside an array bound or an initializer make no function."""
     if re.search(r"^[ \t]*#", member, flags=re.M):
         return "directive"
     head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
@@ -1398,7 +1500,7 @@ def member_role(member, short):
     if re.match(r"friend\s+(?:class|struct|union)\s+[A-Za-z_][\w:]*\s*;?$", rest):
         return "friend class"
     if re.match(r"friend\b", rest):
-        return "friend" if "(" in rest and not FUNCTION_POINTER.match(rest[6:].strip()) else "nested"
+        return "friend" if call_span(rest[6:].strip()) and not POINTER_DATA.match(rest[6:].strip()) else "nested"
     if re.match(r"(?:typedef|using)\b", rest):
         return "nested"
     if re.match(r"(?:class|struct|union|enum)\b", rest) and ("{" in LITERAL.sub("", member)
@@ -1406,71 +1508,107 @@ def member_role(member, short):
         return "nested"
     if prefix and not re.search(r"\(", rest):
         return "nested"                          # a member class template's declaration
+    rest = re.sub(r"^(?:class|struct|union|enum)\s+", "", rest)
+    top = top_level(rest)                        # an operator's own `=` is blanked: any `=` left starts
+    equals = top.find("=")                       # an initializer or `= 0`
+    declarator = top[:equals] if equals >= 0 else top
+    is_static = bool(re.search(r"\bstatic\b", declarator))
+    has_call = "(" in declarator
+    if re.fullmatch(r"\s*[A-Za-z_]\w*\s*;?\s*", rest):
+        return "macro"                           # a lone name: an object-like macro's use
+    words = re.findall(r"[A-Za-z_]\w*", declarator)
+    builtin = [i for i, w in enumerate(words) if w in BUILTIN_WORDS]
+    if not has_call and builtin and builtin[0] > 0 and words[builtin[0] - 1] not in SPECIFIER_WORDS:
+        return "macro"                           # `PADDING int m_a`: a macro's use runs into a field
+    span = call_span(rest) if has_call and not POINTER_DATA.match(rest) else None
+    if span and "," in top:
+        return "list"                            # `void f(), g();`: several declarators, no macro
+    if span:
+        tail = top_level(rest)[span[2] + 1:].split("=")[0]   # call_span's positions: the same length
+        if set(re.findall(r"[A-Za-z_]\w*", tail)) - {"const", "volatile", "throw"}:
+            return "macro"                       # `GLUE(X) int m_a`: a macro's use runs into a member
+    if has_call and POINTER_DATA.match(rest):
+        has_call = False                         # a pointer to function or array: data
+    elif has_call and PAREN_DECLARATOR.match(rest):
+        return "complex"
+    if (has_call or is_static) and "," in top:  # a top-level comma, before or after an initializer
+        return "list"
     role = special_role(member, short)
     if role is not None:
         return role
-    rest = re.sub(r"^(?:class|struct|union|enum)\s+", "", rest)
-    if "(" in rest and not FUNCTION_POINTER.match(re.sub(r"^static\s+", "", rest)):
-        return "virtual" if re.search(r"\bvirtual\b", rest.split("(")[0]) else "method"
-    return "static" if re.match(r"static\b", rest) else None
+    if has_call:
+        return "virtual" if re.search(r"\bvirtual\b", declarator.split("(")[0]) else "method"
+    return "static" if is_static else None
 
 
 def method_key(member, name):
-    """A member function's key across spellings: its template parameter list, its name
-    (`operator<`, `operator()`, `operator const char*` included), its parameters' types and
-    its cv-qualifiers; parameter names, defaults, `static`, `inline` and the return type are
-    no part of it (two overloads cannot differ only there)."""
+    """A member function's key across spellings: its template parameter kinds (parameters
+    renamed T0, T1 ...), its name (`operator<`, `operator()`, `operator const char*` included),
+    its parameters' types (param_key) and its cv-qualifiers; parameter names, defaults,
+    `static`, `inline` and the return type are no part of it (two overloads cannot differ only
+    there)."""
     head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
     prefix, rest = template_head(head)
-    prefix = re.sub(r"\s+", "", prefix)
-    found = OPERATOR_NAME.search(rest)
-    if found:
-        token = re.sub(r"\s+", " ", found.group(1)).strip().replace(" *", "*").replace(" &", "&")
+    prefix, names = template_names(prefix)
+    span = call_span(rest)
+    if not span:
+        return signature(member, name)
+    start, paren, close = span
+    spelled = " ".join(rest[start:paren].split())
+    if spelled.startswith("operator"):
+        token = spelled[8:].strip().replace(" *", "*").replace(" &", "&")
         if re.match(r"(?:new|delete)\b", token):
             what = "operator " + token.replace(" ", "")           # `operator new[]`
         elif re.match(r"[A-Za-z_]", token):
             what = "operator " + token                            # a conversion: `operator const char*`
         else:
             what = "operator" + token.replace(" ", "")            # `operator<`, `operator()`, `operator[]`
-        paren = found.end() - 1
     else:
-        found = re.search(r"(~?[A-Za-z_]\w*)\s*\(", rest)
-        if not found:
-            return signature(member, name)
-        what, paren = found.group(1), found.end() - 1
-    depth = 0
-    for close in range(paren, len(rest)):
-        depth += {"(": 1, ")": -1}.get(rest[close], 0)
-        if depth == 0:
-            break
+        what = spelled.replace(" ", "")
     params = ",".join(param_key(p) for p in param_list(rest[paren:close + 1]))
-    qualifiers = " ".join(w for w in re.findall(r"\b(?:const|volatile)\b", rest[close + 1:]))
-    return f"{prefix}{what}({params}){qualifiers}"
+    qualifiers = " ".join(re.findall(r"\b(?:const|volatile)\b", rest[close + 1:]))
+    body = f"{what}({params}){qualifiers}"
+    if names:                                    # one pass: a parameter named T1 cannot be renamed twice
+        rename = {old: f"T{index}" for index, old in enumerate(names)}
+        body = re.sub(r"\b(%s)\b" % "|".join(map(re.escape, names)), lambda m: rename[m.group(1)], body)
+    return prefix + body
 
 
 def declaration_identity(text, key):
     """What two spellings of one member (one key) must also share: everything before its
-    name, so its return type, `static`, `explicit` and the like (`int f()` and `bool f()`
-    mangle apart), without `inline`, `__forceinline`, `__declspec(...)` or whitespace."""
-    _, rest = template_head(re.sub(r"^\s*friend\s+", "", declaration_head(text)))
-    what = re.sub(r"^(?:friend\s+)?(?:template<[^>]*>)?", "", key.split("(")[0]).strip()
-    if what.startswith(("operator", "friend ")):
-        found = re.search(r"\boperator\b|\b(?:class|struct|union)\b", rest)
-    elif what == "~":
-        found = re.search(r"~", rest)
-    elif what.startswith("static "):
-        found = list(re.finditer(r"\b%s\b" % re.escape(what[7:]), rest))
-        found = found[-1] if found else None
+    name (return type, `static`, `explicit`: `int f()` and `bool f()` mangle apart), its
+    default arguments (a call that omits one takes it) and everything after its parameter list
+    or, for a static data member, after its name (`= 0`, `throw()`, array bounds, initializer);
+    without `inline`, `__forceinline`, `__declspec(...)`, parameter names or whitespace."""
+    head = re.sub(r"^(?:\s*(?:__declspec\(\w+\)|__forceinline|inline)\s+)*", "", declaration_head(text))
+    _, rest = template_head(re.sub(r"^\s*friend\s+", "", head))     # `explicit` stays: it is identity
+    tidy = lambda s: re.sub(r"\s*([*&,()\[\]=])\s*", r"\1", " ".join(s.split())).strip()  # noqa: E731
+    if key.startswith("static "):
+        found = list(re.finditer(r"\b%s\b" % re.escape(key[7:]), rest))
+        if not found:
+            return tidy(rest)
+        before, after, defaults = rest[:found[-1].start()], rest[found[-1].end():], []
+    elif key.startswith("friend ") and "(" not in key:
+        return tidy(rest)
     else:
-        found = re.search(r"\b%s\s*\(" % re.escape(what), rest) if what else None
-    prefix = rest[:found.start()] if found else rest
-    prefix = re.sub(r"__declspec\(\w+\)|\b(?:inline|__forceinline|friend)\b", " ", prefix)
-    return re.sub(r"\s*([*&])\s*", r"\1", " ".join(prefix.split())).strip()
+        span = call_span(rest)
+        if not span:
+            return tidy(rest)
+        start, paren, close = span
+        before, after = rest[:start], rest[close + 1:]
+        defaults = [p.split("=", 1)[1] if "=" in p else "" for p in param_list(rest[paren:close + 1])]
+    before = re.sub(r"__declspec\(\w+\)|\b(?:inline|__forceinline|friend)\b", " ", before)
+    return "|".join([tidy(before), ",".join(tidy(d) for d in defaults), tidy(after).rstrip(";")])
 
 
 def static_key(member):
-    """A static data member's key: `static ` and its name."""
-    found = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?:=.*)?;?\s*$", declaration_head(member), flags=re.S)
+    """A static data member's key: `static ` and its name (the last name before its array
+    bounds and initializer)."""
+    head = declaration_head(member)
+    top = top_level(head)
+    equals = top.find("=")
+    head = head[:equals] if equals >= 0 else head
+    found = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*;?\s*$", head, flags=re.S)
     return "static " + (found.group(1) if found else re.sub(r"\s+", " ", member))
 
 
@@ -1496,8 +1634,8 @@ def declaration_records(text, name):
             key = static_key(spelled_member)
         elif role == "friend class":
             key = head.rstrip(" ;")                  # `friend struct X`
-        elif role in ("nested", "directive"):
-            key = f"{role} {head}".rstrip(" ;")
+        elif role in UNCARRIED:                  # by its whole text: a nested type's body is part of it
+            key = f"{role} {' '.join(masked(spelled_member, keep_literals=True).split())}".rstrip(" ;")
         elif role == "friend":
             key = "friend " + method_key(re.sub(r"^\s*friend\s+", "", spelled_member), name)
         else:
@@ -1506,6 +1644,81 @@ def declaration_records(text, name):
                     "pure": bool(re.search(r"=\s*0\s*;?\s*$", declaration_head(member))),
                     "text": spelled_member})
     return out
+
+
+def field_records(text, name):
+    """[{name, qualifiers, text}] of the non-static data members the view of `name` in `text`
+    declares, or None when `text` has no body. `qualifiers` is the set of `mutable` and of
+    `const@k`/`volatile@k`, k the number of `*`/`&` before the qualifier (`volatile int n`
+    -> {volatile@0}, `char *const p` -> {const@1}); a parameter's qualifiers in a pointer to
+    function are no field's. `name` is None where the field cannot be read one by one (a
+    declaration list, an anonymous union or struct): its qualifiers are still reported."""
+    short = name.split("::")[-1]
+    members = class_members(text, name)
+    if members is None:
+        return None
+    out = []
+    for _, member in members:
+        if member_role(member, short) is not None:
+            continue
+        head = declaration_head(member) if "{" not in LITERAL.sub("", member) else member
+        top = top_level(head)
+        qualifiers, stars = set(), 0
+        for token in re.findall(r"[A-Za-z_]\w*|[*&]", top if "{" not in top else masked(member)):
+            if token in "*&":
+                stars += 1
+            elif token in CV_WORDS:
+                qualifiers.add(f"{token}@{stars}")
+            elif token == "mutable":
+                qualifiers.add("mutable")
+        found = re.search(r"([A-Za-z_]\w*)\s*(?:\[\s*\]\s*)*(?::[^:]*)?;?\s*$", re.sub(r"\[[^\]]*\]", "[]", top))
+        single = "," not in top and "{" not in top and found is not None
+        out.append({"name": found.group(1) if single else None, "qualifiers": qualifiers, "text": member})
+    return out
+
+
+def qualified_spelling(field, qualifiers):
+    """The contract field's declaration with `qualifiers` (field_records' form) applied."""
+    text = spelled(field["type"], field["name"])
+    lead = (["mutable"] if "mutable" in qualifiers else []) + [w for w in CV_WORDS if f"{w}@0" in qualifiers]
+    parts = text.split("*")
+    for k in range(1, len(parts)):
+        cv = [w for w in CV_WORDS if f"{w}@{k}" in qualifiers]
+        if cv:
+            parts[k] = " " + " ".join(cv) + " " + parts[k].lstrip()
+    return " ".join(lead + ["*".join(parts)])
+
+
+def field_qualifiers(contract, views):
+    """({contract field name: qualifiers}, [problem]) from the views' fields ({source:
+    field_records}). A field's qualifiers are carried when every view that names it agrees;
+    views that disagree, a qualified field no contract field is named after, or qualifiers
+    beyond the field's pointer depth hold the class: the contract's types carry none, so a
+    dropped `volatile` (CountBase's m_count) or `const` would change the class unseen."""
+    fields = {f["name"]: f for f in contract.get("fields", ()) if f.get("kind") != "VPTR"}
+    seen, problems = collections.defaultdict(dict), []
+    for source, records in sorted(views.items()):
+        for record in records:
+            if record["name"] in fields:
+                seen[record["name"]][source] = frozenset(record["qualifiers"])
+            elif record["qualifiers"]:
+                what = " ".join(record["text"].split())[:80]
+                problems.append(f"field {what}: qualified ({', '.join(sorted(record['qualifiers']))}) in {source}, "
+                                f"and no contract field is named after it")
+    out = {}
+    for field_name, by_source in sorted(seen.items()):
+        if len(set(by_source.values())) > 1:
+            shown = "; ".join(f"{s}: {', '.join(sorted(q)) or 'none'}" for s, q in sorted(by_source.items()))
+            problems.append(f"field {field_name}: qualifiers differ ({shown})")
+            continue
+        qualifiers = next(iter(by_source.values()))
+        stars = fields[field_name]["type"].count("*")
+        if any(q != "mutable" and int(q.split("@")[1]) > stars for q in qualifiers):
+            problems.append(f"field {field_name}: qualified beyond its contract type {fields[field_name]['type']!r}")
+            continue
+        if qualifiers:
+            out[field_name] = qualifiers
+    return out, problems
 
 
 def member_key(member, name):
@@ -1633,9 +1846,8 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         # a friend declaration's access label means nothing: it is declared public
         accesses = collections.Counter("public" if role.startswith("friend") else d[1] for _, d in own)
         omitted = sorted(s for s, found in views.items() if key not in found)
-        if role in ("nested", "directive"):
-            problems.append(f"member {what}: a {'nested declaration' if role == 'nested' else 'preprocessor line'}"
-                            f" in {own[0][0]}, which the generator does not carry")
+        if role in UNCARRIED:
+            problems.append(f"member {what}: {UNCARRIED[role]} in {own[0][0]}, which the generator does not carry")
             continue
         if outline and inline:
             problems.append(f"{label} {what}: out of line in {outline[0][0]}, inline in {inline[0][0]}")
@@ -1685,14 +1897,28 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
 def special_members(name, contract, sources, known=None):
     """special_declarations for a contract: the members its slot declarations emit are theirs.
     `known` defaults to what the header includes for every variant: its member aggregates'
-    registered headers (the tournament's `nested`), so the gate and the tournament agree."""
+    registered headers (the tournament's `nested`), so the gate and the tournament agree.
+    The fields' agreed qualifiers (field_qualifiers) ride along as `qualifier` entries, which
+    generate applies to the contract's fields; their problems hold the class like the rest."""
     if known is None:
         known = {f["kind"][2:] for f in contract.get("fields", ()) if f["kind"].startswith("S:")} & set(registered())
     slotted = set()
     if contract.get("vslots"):
         own, overrides, _ = slot_declarations(contract, sources)
         slotted = {member_key(text, name) for text in own + overrides}
-    return special_declarations(name, sources, known=known, slotted=slotted)
+    carried, problems = special_declarations(name, sources, known=known, slotted=slotted)
+    views = {}
+    for source in sources:
+        try:
+            records = field_records((ROOT / source).read_text(encoding="latin-1"), name)
+        except OSError:
+            continue
+        if records is not None:
+            views[source] = records
+    qualifiers, field_problems = field_qualifiers(contract, views)
+    carried += [{"role": "qualifier", "access": None, "sig": f"qualifier {field}", "text": "", "field": field,
+                 "qualifiers": sorted(found)} for field, found in sorted(qualifiers.items())]
+    return carried, problems + field_problems
 
 
 # ---------------------------------------------------------------- virtual slots
@@ -2008,10 +2234,11 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     lines.append(f"{key} {name}" + (f" : {bases}" if bases else "") + " {")
     if key == "class":
         lines.append("public:")
+    qualifiers = {s["field"]: s["qualifiers"] for s in special if s["role"] == "qualifier"}
     for field in contract["fields"]:
         if field["kind"] == "VPTR":
             continue
-        lines.append(f"    {spelled(field['type'], field['name'])};")
+        lines.append(f"    {qualified_spelling(field, qualifiers.get(field['name'], ()))};")
     if "ctor" in variant and "default" not in roles:
         lines.append(f"    {name}() {{}}")
     if "copy" in variant.split("+") and "copy" not in roles:
