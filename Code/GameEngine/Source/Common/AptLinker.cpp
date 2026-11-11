@@ -49,7 +49,7 @@ extern AptLinker *g_bfmeAptLinkerAtE176F8;
 
 extern int g_bfmeAptFlagAtE176D4;
 
-class Rva006CE660Vec {public:void updatePlaybackState(const EAStringC *,int,int,int);};
+#include "../../../Libraries/Source/Apt/Rva006CE660Vec.h"
 
 class Rva006CEB10Playback;
 

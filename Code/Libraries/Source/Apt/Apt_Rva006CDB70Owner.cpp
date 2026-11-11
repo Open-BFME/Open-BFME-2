@@ -249,7 +249,7 @@ public:
 };
 // The checkpoint container is the rowed Rva006CE660Vec (same 28-byte
 // layout); its 0x006CEB10 member is called through that view.
-class Rva006CE660Vec {public:void rva006CEB10(const EAStringC &);};
+#include "Rva006CE660Vec.h"
 class Rva006CEB10Playback {
 public:
  int size,capacity;PlaybackItem *items;PlaybackItem inlineItems[2];
