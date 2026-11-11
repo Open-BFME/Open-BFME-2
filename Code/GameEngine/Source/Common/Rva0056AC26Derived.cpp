@@ -48,6 +48,8 @@ class Rva0056ACC5 : public Rva0056AC26, public Rva0056ACC5_B1
 {
 public:
 	virtual ~Rva0056ACC5();
+	virtual bool ac26Slot1();
+	virtual void rva0056AB35(int id);
 };
 
 Rva0056ACC5::~Rva0056ACC5()

@@ -84,9 +84,16 @@ bool Rva0056ACAEVisitor::Visit(LivingWorldPendingBattle *livingWorldPendingBattl
 struct RegistryWorldView {char prefix[0xB0];LivingWorldRegionManager *regions;};
 class Rva0056ACC5:public Rva0056AC26 {
 public:virtual ~Rva0056ACC5();
+ virtual bool ac26Slot1();
+ virtual void rva0056AB35(int id);
  Rva0056ACC5(Rva0056AC26Owner *,LivingWorldPendingBattle *);
  LivingWorldPendingBattle *selected14;bool flag18;
 };
+bool Rva0056ACC5::ac26Slot1()
+{
+ return flag18;
+}
+
 Rva0056ACC5::Rva0056ACC5(Rva0056AC26Owner *owner,LivingWorldPendingBattle *selected):Rva0056AC26(owner),selected14(selected),flag18(false){
  Rva0056ACAEVisitor visit(selected);
  reinterpret_cast<RegistryWorldView *>(TheLivingWorldLogic)->regions->EnumeratePendingBattles(visit);

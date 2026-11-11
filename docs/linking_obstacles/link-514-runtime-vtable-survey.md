@@ -2526,3 +2526,13 @@ a relocation to that 41-byte method in the derived object. The to-class
 check verified the table and 19/19 functions in two units. With the
 constructor included, the link preview retains 378 of 378 bytes at
 60189f9ced. Remaining slots and the ACFF secondary contract remain open.
+
+ACC5 primary table, RVA 0x0086D0FC. Constructor 0x0056AEC6 clears
+the flag at +0x18. Slot 1 reads it at 0x004C9990 and slot 2 sets it at
+0x0056AB35 after the ID matches. Constructor and destructor objects each
+emit 12 bytes with DIR32 relocations to the flag getter and setter at
+offsets 4 and 8. Slots 3 and 4 of the retail five-entry table are still
+missing. The three changed units verify 49/49 functions and three float
+literals. Including the current ACDF provider in the link preview retains
+768/768 bytes across four units at census 60189f9ced. The separate ACFF
+secondary table remains open.

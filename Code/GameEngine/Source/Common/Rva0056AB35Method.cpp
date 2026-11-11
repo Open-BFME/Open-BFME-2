@@ -1,5 +1,5 @@
 // cl: /MD /O1 /arch:SSE /G7 /Oa
-// ?rva0056AB35@Rva0056ACC5@@QAEXH@Z @0x0056AB35 83B, slot 2 of the 0x0086D0FC vftable
+// ?rva0056AB35@Rva0056ACC5@@UAEXH@Z @0x0056AB35 83B, slot 2 of the 0x0086D0FC vftable
 // (class of the rowed ??1Rva0056ACC5@@UAE@XZ). Retail: if the +0x14 id equals the argument,
 // clear the byte at +0x20 of the +0x10 helper, pass a 2-float pair {0.380859375, 0.7213541865}
 // and the float 0.599609375 to the rowed Rva0029B187 member on TheInGameUI (0x009FEDF0), then
@@ -29,12 +29,14 @@ struct Rva0056AB35Helper {
 };
 
 class Rva0056ACC5 {
-	char m_pad[0x10];
+	char m_pad04[0x0C];
 public:
 	Rva0056AB35Helper *m_10;
 	int m_14;
 	unsigned char m_18;
-	void rva0056AB35(int id);
+	virtual ~Rva0056ACC5();
+	virtual bool ac26Slot1();
+	virtual void rva0056AB35(int id);
 };
 
 void Rva0056ACC5::rva0056AB35(int id)
