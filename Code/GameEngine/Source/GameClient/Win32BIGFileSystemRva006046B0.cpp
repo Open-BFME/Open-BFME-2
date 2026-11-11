@@ -41,11 +41,7 @@ public:
 };
 typedef _STL::map<const char *, BigArchiveMemberInfo, Rva006038D4Less> BigMemberMap;
 typedef _STL::map<const char *, BigMemberMap, Rva006038D4Less> BigFolderMap;
-class Rva006054AF
-{
-public:
- void *rva006054AF(const char *text);
-};
+#include "../../Include/Common/Rva006054AF.h"
 extern unsigned int g_Va00E06E60;
 
 class ArchiveFileSystem

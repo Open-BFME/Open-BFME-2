@@ -16,11 +16,7 @@ namespace _STL {
 template <> void deque<void *, allocator<void *> >::push_back(void *const &val);
 }
 
-class Rva006054AF
-{
-public:
-	void *rva006054AF(const char *text);
-};
+#include "../../../../Include/Common/Rva006054AF.h"
 
 void *Rva006054AF::rva006054AF(const char *text)
 {
