@@ -302,12 +302,7 @@ class Object: public Thing
 }
 ;
 
-class Rva0028E8D4 
-{
- public:void rva0028E8D4(float*)const;
- 
-}
-;
+#include "../../../../Include/GameLogic/Module/Rva0028E8D4.h"
 
 /** Do the collision */
 static const float HUGE_DAMAGE_AMOUNT=999999.0f;

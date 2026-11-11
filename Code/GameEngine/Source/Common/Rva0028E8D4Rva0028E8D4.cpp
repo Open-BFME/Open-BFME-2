@@ -39,11 +39,7 @@ struct Rva0028E8D4Matrix
 	float m[12];
 };
 
-class Rva0028E8D4
-{
-public:
-	void rva0028E8D4(float *out) const;
-};
+#include "../../Include/GameLogic/Module/Rva0028E8D4.h"
 
 void Rva0028E8D4::rva0028E8D4(float *out) const
 {

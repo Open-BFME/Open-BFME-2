@@ -31,7 +31,7 @@ public:
 };
 class Rva002722AA { public: void *get() const; };
 class Rva002722BD { public: void *get() const; };
-class Rva0028E8D4 { public: void rva0028E8D4(float *) const; };
+#include "../../Include/GameLogic/Module/Rva0028E8D4.h"
 class Rva001E434A { public: void *rva001E434A(); };
 class ModelConditionFlags
 {
