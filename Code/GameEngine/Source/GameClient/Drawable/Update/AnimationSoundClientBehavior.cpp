@@ -79,14 +79,7 @@ struct ModuleData { void*vptr; int unknown04; AnimationSoundTree tree; float cap
 
 class Rva00432F23Node;
 
-class AnimationSoundModuleManager
-{
-public:
-	void rva00432EC0(Rva00432F23Node*);
-	void rva00432E5D(Rva00432F23Node*);
-	void remove(Rva00432F23Node *node);
-	void rva00432F7D(Rva00432F23Node *node);
-};
+#include "../../../../Include/Common/AnimationSoundModuleManager.h"
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;
 

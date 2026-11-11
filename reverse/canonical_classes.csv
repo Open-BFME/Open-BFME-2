@@ -1116,3 +1116,4 @@ Rva0004CCFF,Code/Libraries/Source/WWVegas/WWLib/Rva0004CCFF.h,existing header; c
 AptConnectionScreen,Code/GameEngine/Include/GameClient/AptConnectionScreen.h,existing header; contract class_contracts/AptConnectionScreen.json; 3/6 sampled units adopt
 BfmeCopyElementA,Code/GameEngine/Include/Common/BfmeCopyElementA.h,existing header; contract class_contracts/BfmeCopyElementA.json; 4/7 sampled units adopt
 Rva002000D7Store,Code/GameEngine/Include/Common/Rva002000D7Store.h,existing header; contract class_contracts/Rva002000D7Store.json; 5/6 sampled units adopt
+AnimationSoundModuleManager,Code/GameEngine/Include/Common/AnimationSoundModuleManager.h,existing header; contract class_contracts/AnimationSoundModuleManager.json; 3/5 sampled units adopt

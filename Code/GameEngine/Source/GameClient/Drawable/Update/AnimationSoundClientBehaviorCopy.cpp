@@ -39,14 +39,7 @@ public:
 	Rva00432F23Node *m_prev; // +0x18
 };
 
-class AnimationSoundModuleManager
-{
-public:
-	void rva00432EC0(Rva00432F23Node*);
-	void rva00432E5D(Rva00432F23Node*);
-	void remove(Rva00432F23Node *node);
-	void rva00432F7D(Rva00432F23Node *node);
-};
+#include "../../../../Include/Common/AnimationSoundModuleManager.h"
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;
 
