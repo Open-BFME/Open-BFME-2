@@ -68,11 +68,7 @@ FakePathfindPortalBehaviour::~FakePathfindPortalBehaviour()
 class AI;
 extern AI *TheAI;
 
-class Rva002E9042
-{
-public:
-	void rva002E9042(void *arg);
-};
+#include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 
 #include "../../../../Include/Common/Rva004618D4Caller.h"
 

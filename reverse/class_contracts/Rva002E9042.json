@@ -1,0 +1,298 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002E9042",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x460": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 8,
+   "114356": 1
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_pf",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 1120,
+   "type": "char[1120]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1120,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1122,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1126,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 97132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 113136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 113140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114260,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114262,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114264,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114268,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114272,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114276,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114280,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114284,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114288,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114292,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114296,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114300,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114304,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114308,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114312,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114316,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114320,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114321,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114324,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114328,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114332,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114336,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114340,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114344,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114348,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114352,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 114356,
+ "size_by": "majority",
+ "vslots": {}
+}

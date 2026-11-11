@@ -43,12 +43,7 @@ class Matrix3D;
 #include "../../../../Include/GameLogic/Waypoint.h"
 static inline void setWaypointField44(Waypoint *way, Waypoint *next) { way->m_field44 = next; }
 
-class Rva002E9042
-{
-public:
-	void rva002E9042(void *arg);
-	void AddPortal(void *waypoint);
-};
+#include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 
 class AI
 {

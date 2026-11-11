@@ -268,7 +268,7 @@ public:
 };
 
 // Pathfinder::AddPortal (WB name lead) is still rowed under its placeholder.
-class Rva002E9042 { public: void AddPortal(void *portal); };
+#include "../../Include/GameLogic/Module/Rva002E9042.h"
 
 #include "../../Include/GameLogic/AIPathfind.h"
 

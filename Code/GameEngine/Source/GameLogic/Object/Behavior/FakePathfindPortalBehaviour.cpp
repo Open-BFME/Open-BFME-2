@@ -193,11 +193,7 @@ protected:
     unsigned char m_pad[0x20 - 0x14];
 };
 
-class Rva002E9042
-{
-public:
-	void AddPortal(void *p);
-};
+#include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 
 class AI
 {

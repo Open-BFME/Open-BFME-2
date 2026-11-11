@@ -78,12 +78,7 @@ public:
 	void remove(int value);
 	bool contains(int value);
 };
-class Rva002E9042
-{
-public:
-	void rva002E9042(void *portal);
-	void AddPortal(void *portal);
-};
+#include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 #include "../../../../Include/Common/Rva004618D4Caller.h"
 class AI { public: char pad[0x10]; Rva002E9042 *pathfinder; };
 extern AI *TheAI;

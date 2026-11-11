@@ -406,12 +406,7 @@ class AI;
 
 extern AI *TheAI;
 
-class Rva002E9042
-{
-public:
-	void rva002E9042(void *arg);
-	void AddPortal(void *waypoint);
-};
+#include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 
 // The pathfinder rebuild walk, rowed as Rva004618D4Caller::rva002E7023
 // (0x002E7023), called as a thiscall on the AI's pathfinder pointer.

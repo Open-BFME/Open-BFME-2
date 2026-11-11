@@ -208,11 +208,7 @@ Rva0036CB77::Rva0036CB77() : m_00(0), m_04(false), m_08(0), m_0C(0), m_10(0), m_
 class AI;
 extern AI *TheAI;
 
-class Rva002E9042
-{
-public:
-	void AddPortal(void *arg);							// 0x002E8FE5
-};
+#include "../../Include/GameLogic/Module/Rva002E9042.h"
 
 struct Rva00372DABAIView
 {
