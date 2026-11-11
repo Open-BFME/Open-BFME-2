@@ -691,14 +691,7 @@ extern float g_secondsPerLogicFrame;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 float GetGameLogicRandomValueReal(float,float,char*,int);
-class MineshaftPortalBehaviour
-
-{
- public:
- void addArrivingObject(void *obj);
- 
-}
-;
+#include "../../../Include/GameLogic/Module/MineshaftPortalBehaviour.h"
 void *Rva00372D3AFind(void *obj);
 Real normalizeAngle(Real angle);
 Real Cos(Real angle);

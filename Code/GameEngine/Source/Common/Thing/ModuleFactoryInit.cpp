@@ -330,7 +330,7 @@ class ManTheWallsSpecialPower { public: static Module *friend_newModuleInstance(
 class ManTheWallsSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class MaxHealthUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class MaxHealthUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class MineshaftPortalBehaviour { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/MineshaftPortalBehaviour.h"
 class MineshaftPortalBehaviourModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class MissileUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class MissileUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

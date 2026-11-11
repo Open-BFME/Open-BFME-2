@@ -256,11 +256,7 @@ extern AI *TheAI;
 // Existing data-ledger owner defined by ColdGlobalDwordGetters.cpp; initial value 5.
 extern int BfmeLogicFramesPerSecond; // logic frames per second
 
-class MineshaftPortalBehaviour
-{
-public:
-	void addArrivingObject(void *obj);
-};
+#include "../../../../Include/GameLogic/Module/MineshaftPortalBehaviour.h"
 
 void *Rva00372D3AFind(void *obj);
 

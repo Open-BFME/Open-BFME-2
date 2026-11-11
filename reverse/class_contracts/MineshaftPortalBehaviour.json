@@ -1,0 +1,424 @@
+{
+ "bases": [
+  "UpdateModule",
+  "MineshaftPortalInterfaceA",
+  "MineshaftPortalInterfaceB"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MineshaftPortalBehaviour",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 6,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x34": {
+    "4": 2
+   },
+   "0x38": {
+    "1": 2
+   },
+   "0x8": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x373096"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x817dd0",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 32,
+       "own_vftable": "0x817dc0",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x84ef80>",
+       "offset": 36,
+       "own_vftable": "0x817db0",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x373096"
+     ],
+     "value": 58
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x373096"
+     ],
+     "value": {
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       1
+      ],
+      "0x39": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x373096"
+     ],
+     "value": {
+      "0x28": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24b64c"
+     ],
+     "value": 60
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x373096"
+     ],
+     "value": {
+      "0x10": [
+       "0x817dc4"
+      ],
+      "0xc": [
+       "0x842b60"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x373096"
+     ],
+     "value": {
+      "0x0": "0x817dd0",
+      "0x20": "0x817dc0",
+      "0x24": "0x817db0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x817dd0"
+     ],
+     "value": {
+      "count": 13,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0037343B@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x373800"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?Rva003730F6Get@@YAHXZ",
+        "slot": 2,
+        "target": "0x3730f6"
+       },
+       {
+        "name": "?DoXfer@MineshaftPortalBehaviour@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x373a0f"
+       },
+       {
+        "name": "?getModuleNameKey@MineshaftPortalBehaviour@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x373109"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x817dd0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x817db0": {
+    "offset": 36,
+    "slots": {},
+    "stores": 1
+   },
+   "0x817dc0": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x817dd0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0037343B@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?Rva003730F6Get@@YAHXZ",
+     "3": "?DoXfer@MineshaftPortalBehaviour@@UAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@MineshaftPortalBehaviour@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "60": 3
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 57,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "12": 1
+   },
+   "class": "MineshaftPortalBehaviour"
+  }
+ ],
+ "size": 60,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "DoXfer(Xfer*)"
+  }
+ }
+}
