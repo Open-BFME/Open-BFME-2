@@ -268,6 +268,7 @@ class CreateCrateDie : public DieModule
 {
 public:
 	CreateCrateDie(Thing *thing, const ModuleData *moduleData);
+	virtual ~CreateCrateDie();
 	virtual NameKeyType getModuleNameKey() const;
 
 	virtual void onDie(const DamageInfo *damageInfo);
@@ -323,6 +324,15 @@ NameKeyType CreateCrateDie::getModuleNameKey() const
 // ??0CreateCrateDie@@QAE@PAVThing@@PBVModuleData@@@Z
 CreateCrateDie::CreateCrateDie(Thing *thing, const ModuleData *moduleData)
 	: DieModule(thing, moduleData)
+{
+}
+
+// ??1CreateCrateDie@@UAE@XZ @0x00485425 (25B): restores the three vptrs the
+// constructor installs (0x0084A748 at +0, 0x0084A650 at +0xC, 0x0084A744 at
+// +0x10) and tail-jumps to ~DieModule. Slot 0 of CreateCrateDie's own vftable
+// 0x0084A748 is the scalar deleting destructor 0x0048551A, which calls this
+// body.
+CreateCrateDie::~CreateCrateDie()
 {
 }
 

@@ -37,22 +37,6 @@ Rva0045CE6D::~Rva0045CE6D()
 {
 }
 
-class Rva00485425_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva00485425 : public DieModule, public MiBase1, public Rva00485425_B2
-{
-public:
-	virtual ~Rva00485425();
-};
-
-Rva00485425::~Rva00485425()
-{
-}
-
 class Rva0048593D_B2
 {
 public:
@@ -158,7 +142,6 @@ Rva004C227A::~Rva004C227A()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?f2@Rva0045CE6D_B2@@UAEXXZ=?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z")
-#pragma comment(linker, "/alternatename:?f2@Rva00485425_B2@@UAEXXZ=?onDie@CreateCrateDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004864AA_B2@@UAEXXZ=?onDie@DestroyDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva00486579_B2@@UAEXXZ=?onDie@FXListDie@@UAEXPBVDamageInfo@@@Z")
