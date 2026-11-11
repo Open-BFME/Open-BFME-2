@@ -49,3 +49,6 @@ not strict-current; this is not global object selection or image closure.
 Secondary tables, shared class composition, proposed TU placements and normal
 census/image confirmation remain open. See the linked packet's applied-recovery
 section and final-proof.json for the evidence and scope.
+## Squad getter and the Windows dependent-build limit, 2026-11-11
+
+The same Windows command-length failure reproduced for Squad's slot 2 on `471fc6303c`. The rename proved the slot and both edited units passed. The verifier could not launch the additional 1,436-source check. The transaction rolled back and the Squad bridge remains open. [Trial and remaining providers](../../reverse/attempt_support/squad-vtable-20261111.md)
