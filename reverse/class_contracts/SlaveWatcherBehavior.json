@@ -1,0 +1,269 @@
+{
+ "bases": [
+  "UpdateModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "SlaveWatcherBehavior",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 5,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 5,
+   "inherited_spans": [
+    [
+     0,
+     28
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4845cb"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x84a264",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4845cb"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4845cb"
+     ],
+     "value": {
+      "0x20": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4845cb"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ],
+      "0x24": [
+       "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24c64f"
+     ],
+     "value": 164
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4845cb"
+     ],
+     "value": {
+      "0x10": [
+       "0x84a258"
+      ],
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4845cb"
+     ],
+     "value": {
+      "0x0": "0x84a264"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84a264"
+     ],
+     "value": {
+      "count": 13,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GSlaveWatcherBehavior@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4848ca"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?Rva00484628Get@@YAHXZ",
+        "slot": 2,
+        "target": "0x484628"
+       },
+       {
+        "name": "?xfer@SlaveWatcherBehavior@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x484673"
+       },
+       {
+        "name": "?getModuleNameKey@SlaveWatcherBehavior@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x48462e"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x84a264"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x84a264": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GSlaveWatcherBehavior@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?Rva00484628Get@@YAHXZ",
+     "3": "?xfer@SlaveWatcherBehavior@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@SlaveWatcherBehavior@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "164": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehavior.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehavior.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 164,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -464,7 +464,7 @@ class SiegeEngineContain { public: static Module *friend_newModuleInstance(Thing
 class SiegeEngineContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SlaughterHordeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SlaughterHordeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class SlaveWatcherBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/SlaveWatcherBehavior.h"
 class SlaveWatcherBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SlavedUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SlavedUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

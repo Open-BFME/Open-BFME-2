@@ -316,11 +316,7 @@ inline OCUVector3 operator*(const OCUMatrix3D &A, const OCUVector3 &a)
 	return OCUVector3(x, y, z);
 }
 class ObjectCreationUpgrade;
-class SlaveWatcherBehavior
-{
-public:
-	void rva00484869(int objectID);
-};
+#include "../../../../Include/GameLogic/Module/SlaveWatcherBehavior.h"
 BFME_DISP8_BYTECHASE_GETTER(Rva004B4061ByteChase32Field, 0xC, 0x11C)
 BFME_DISP8_BYTECHASE_GETTER(Rva004B406BByteChase32Field, 0xC, 0x11D)
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
