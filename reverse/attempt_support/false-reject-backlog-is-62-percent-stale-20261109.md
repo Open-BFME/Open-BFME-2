@@ -611,3 +611,36 @@ than a number to argue about. **Try it first on any `$L` record.**
 A third of the whole backlog was these two shapes. The same test should be run
 against `name_lane` and `check_csv` label records before any of them is read as
 decomp work.
+
+## "Matched under a placeholder name" is not decomp work either
+
+The earlier split called the 190 records at a matched-but-placeholder address
+the lane's real shape, and treated them as naming work rather than tooling.
+Half of that was wrong, and for the same reason the `$L` ordinal is: the
+display NAME of a funclet row is not its identity.
+
+A row can be `matched`, carry a `uw_<rva>` or `?rva<rva>` display name, and
+still bind the exact compiler label a record was refused, through
+`object-symbol=`. That is the documented route (`build.ledger_object_symbol`).
+When it does, the record is closed and nothing is left to name:
+
+    0x0079724F  matched 11B  name uw_0079724f
+      gen-funclet;parent=??0Rva0056616B@@QAE@ABV0@@Z;object-symbol=$L1809
+
+`re_attempts.log:49814` names `$L1809` outright, and its parent `0x0052D555`
+is the one the row carries. **Test the notes, not the name.**
+
+That group is now 50, down from 190. What is left splits into bare `$L` rows
+with no alias whose parents do not agree, and records whose subject is a check
+rather than an address.
+
+### The parent test is noisy in both directions
+
+Matching the row's `parent=` RVA against hex in the record text is a useful
+filter and a bad judge. Records 51413 and 51414 failed it only because their
+text spells the neighbouring `23932B` and `238D97` rather than `239D7A`, while
+50669 and 50670 -- the same two boundaries, the same 11B cleanups -- name the
+parent outright. The generator refused both boundaries until they were read by
+hand.
+
+Use it to rank what to read. Do not let it vote.
