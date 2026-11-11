@@ -1652,9 +1652,7 @@ struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value
 // Null-checked virtual slot 3 at +0 with int arg, then rowed Rva001F42BA::call on this+4.
 // Sibling of 0x001F5D38 (same shape without args); callers at 0x001F6502 and
 // 0x001F8DD9, jmp-ins at 0x001F648D, 0x001F820E and 0x001F895B. Honest Rva names.
-struct Rva001F42BA {
-    void call(int);
-};
+#include "../../../Include/Common/Rva001F42BA.h"
 
 class Helper001F5D4F {
 public:

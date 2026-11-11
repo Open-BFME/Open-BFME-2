@@ -35,11 +35,7 @@ public:
 	void call();
 };
 
-class Rva001F42BA
-{
-public:
-	void call(int);
-};
+#include "../../Include/Common/Rva001F42BA.h"
 
 class Rva001F43BD
 {
