@@ -50,11 +50,7 @@ public:
 
 #include "../../Include/GameLogic/LivingWorldBattle.h"
 
-class Rva003F4DCA
-{
-public:
-	int rva003F4DCA(int side, int army);
-};
+#include "../../Include/GameLogic/Rva003F4DCA.h"
 
 class Rva005FFED5 { public: void rva005FFED5(int value); };
 class Rva005FFEDD { public: void rva005FFEDD(const TreeHintRef00217D4C &prompt); };

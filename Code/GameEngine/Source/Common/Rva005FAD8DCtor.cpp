@@ -41,11 +41,7 @@ public:
 
 #include "../../Include/GameLogic/LivingWorldBattle.h"
 
-class Rva003F4DCA
-{
-public:
-	int rva003F4DCA(int side, int army);
-};
+#include "../../Include/GameLogic/Rva003F4DCA.h"
 
 struct Rva002BA8F1Listener;
 

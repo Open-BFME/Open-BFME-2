@@ -2030,11 +2030,7 @@ void RetreatArmiesForPlayer(void*);bool rva003F4538();int rva003F45DF();void rva
 // WorldBuilder's LivingWorldBattle::AddArmy, 0x003F6DF9, rowed as
 // Rva003F6D35Owner::appendPayloadRva003F6DF9 (Rva003F6DF9AppendPayload.cpp).
 #include "../../../../Include/Common/Rva003F468D.h"
-class Rva003F4DCA
-{
-public:
-	Int rva003F4DCA(Int side, Int army);			// 0x003F4DCA
-};
+#include "../../../../Include/GameLogic/Rva003F4DCA.h"
 class Rva0020E6B7RegionManager
 {
 public:

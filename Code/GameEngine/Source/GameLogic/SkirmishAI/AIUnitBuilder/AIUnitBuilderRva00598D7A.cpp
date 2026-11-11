@@ -77,7 +77,7 @@ public:
     int rva003F4FAA(int,void *);
     int rva003F48FE(int,int,int);
 };
-class Rva003F4DCA {public: int rva003F4DCA(int,int);};
+#include "../../../../Include/GameLogic/Rva003F4DCA.h"
 struct Rva00598052Metadata {char unknown00[0x1C];int id;char unknown20[12];int state;};
 struct Rva00598052Entry {char unknown00[0x78]; Rva00598052Metadata *metadata;};
 

@@ -99,7 +99,7 @@ struct Rva0040F87ERegion { char pad00[0x1c]; };
 struct Rva0040F87EBattle { char pad00[0x18]; Rva0040F87ERegion *m_begin; Rva0040F87ERegion *m_end; };
 #include "../../../Include/Common/Rva003F468D.h"
 class Rva003F4ABBOwner { public: void *indexedCall(int region, int army); };
-class Rva003F4DCA { public: int rva003F4DCA(int region, int army); };
+#include "../../../Include/GameLogic/Rva003F4DCA.h"
 class LivingWorldBattle { public: int rva003F48FE(int region, int army, int unit); };
 
 struct Rva0040F87EArmy { char pad00[0x20]; int m_id; };

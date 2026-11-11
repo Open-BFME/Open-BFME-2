@@ -38,7 +38,7 @@ class ArmySummary {public:__forceinline int entryCount()const{return records.siz
 struct SummaryHolder {ArmySummary*value;__forceinline ArmySummary*Get()const{return value;}};
 class Rva002BC1DAUnit {public:char pad00[0x18];AsciiString name;char pad1C[0x78-0x1C];SummaryHolder summary;};
 struct Rva002BC1DAArmy {char bytes[0x38];};
-class Rva003F4DCA {public:int rva003F4DCA(int,int);};
+#include "../../../../Include/GameLogic/Rva003F4DCA.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
