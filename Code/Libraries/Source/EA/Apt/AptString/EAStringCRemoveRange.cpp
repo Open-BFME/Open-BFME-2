@@ -10,7 +10,7 @@
 
 #include "../../../Apt/EAStringC.h"
 
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 int EAStringC::rva006D54B0(int start, int count)
 {
@@ -18,15 +18,15 @@ int EAStringC::rva006D54B0(int start, int count)
 	if (count <= 0)
 	{
 		FreeData(data);
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 		return 0;
 	}
 	if (end <= 0)
 	{
 		FreeData(data);
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 		return 0;
 	}
 	if (start < 0)

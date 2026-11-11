@@ -8,14 +8,14 @@
 // Neighbour EAStringCase.cpp shares flags and ChangeBuffer/FreeData rows.
 #include "../../../Apt/EAStringC.h"
 
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 // Retail inlines these lifetime members in this unit; the header keeps them out of line.
 
 inline EAStringC::EAStringC()
 {
-	data = &g_eaEmptyStringData;
-	++g_eaEmptyStringData.m_uRefCount;
+	data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+	++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 }
 
 inline EAStringC::~EAStringC()

@@ -37,7 +37,7 @@ class Rva006DB160 {public:void *allocBlock(int blockSize);};
 // This proves the local string does not escape and lets cl preserve its data
 // pointer across the copy. Each helper independently retains its whole retail
 // body and relocations. SetSize keeps its original assertion barrier.
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 // Retail inlines these members in this unit; the header keeps them out of line.
 inline EAStringC::EAStringC(const char *text) : data(0)
@@ -59,7 +59,7 @@ __declspec(noinline) inline EAStringC::EAStringC(const EAStringC &other)
 {
 	StringDataC *otherData = other.data;
 	data = otherData;
-	if (otherData != &g_eaEmptyStringData) {
+	if (otherData != (EAStringC::StringDataC *)g_eaEmptyStringData) {
 		if (!(otherData->m_uRefCount <= 0xFFFE)) {
 			g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 			if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
@@ -76,8 +76,8 @@ __declspec(noinline) inline EAStringC::EAStringC(unsigned int nSize)
 		data->m_uHash = 0;
 		reinterpret_cast<char *>(data)[sizeof(StringDataC)] = 0;
 	} else {
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 	}
 }
 __declspec(noinline) inline void EAStringC::Reserve(int size)
@@ -207,7 +207,7 @@ static __forceinline void setSizeAndClearHash(EAStringC &eAStringC, unsigned int
 // operator= in EAStringCRefCount.
 static __forceinline void assignShared(EAStringC &self, const EAStringC &s)
 {
-	if (s.data != &g_eaEmptyStringData && s.data->m_uRefCount > 0xFFFE)
+	if (s.data != (EAStringC::StringDataC *)g_eaEmptyStringData && s.data->m_uRefCount > 0xFFFE)
 		aptAssert("m_pData->m_uRefCount <= 0xfffe", STRING_INL, 0xE1);
 	++s.data->m_uRefCount;
 	EAStringC::FreeData(self.data);

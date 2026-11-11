@@ -16,12 +16,12 @@ void __debugbreak();
 #include "../../../Apt/EAStringC.h"
 
 // Retail empty singleton at VA 0x00DDC020, defined in EAStringCRefCount.cpp.
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 void EAStringC::rva006D2E70()
 {
 	StringDataC *current = data;
-	if (current != &g_eaEmptyStringData && current->m_uRefCount > 0xFFFE) {
+	if (current != (EAStringC::StringDataC *)g_eaEmptyStringData && current->m_uRefCount > 0xFFFE) {
 		g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 		if (!g_bfmeAptBreakOnAssertAtDDC01C) {
 			this->data->m_uRefCount++;

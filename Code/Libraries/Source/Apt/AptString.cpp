@@ -20,7 +20,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 
 #include "EAStringC.h"
 
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 

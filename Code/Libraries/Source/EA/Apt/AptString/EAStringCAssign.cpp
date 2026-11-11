@@ -9,7 +9,7 @@ int __cdecl utf8EncodedLength(int c);
 
 #include "../../../Apt/EAStringC.h"
 
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 EAStringC &EAStringC::Assign(const EAStringC &other)
 {
@@ -28,8 +28,8 @@ EAStringC &EAStringC::Assign(const EAStringC &other)
 EAStringC &EAStringC::rva006D61E0(int c)
 {
 	FreeData(data);
-	data = &g_eaEmptyStringData;
-	++g_eaEmptyStringData.m_uRefCount;
+	data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+	++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 	int len = utf8EncodedLength(c);
 	unsigned int n = data->m_uSize;
 	if (n > (unsigned int)len)

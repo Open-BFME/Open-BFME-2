@@ -9,8 +9,8 @@
 // body, ICF-folded with rowed clear6D2F90 using the actual singleton owner.
 class AptNativeHash;
 #include "../EAStringC.h"
-extern EAStringC::StringDataC g_eaEmptyStringData;
-__declspec(noinline) inline EAStringC::EAStringC(){data=&g_eaEmptyStringData;++data->m_uRefCount;}
+extern char g_eaEmptyStringData[16];
+__declspec(noinline) inline EAStringC::EAStringC(){data=(EAStringC::StringDataC *)g_eaEmptyStringData;++data->m_uRefCount;}
 
 class AptValue {unsigned int flags;public:virtual void slot0();virtual void slot1();virtual void slot2();virtual AptNativeHash *GetNativeHashVirtual();bool getIsDefined()const{return (flags>>4)&1;}void toString(EAStringC &)const;EAStringC rva006ddde0();};
 struct AptHashItem {EAStringC key;AptValue *value;};

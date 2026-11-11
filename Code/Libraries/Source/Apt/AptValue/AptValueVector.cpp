@@ -35,7 +35,7 @@ extern class Rva006DB270 *g_pChainBlockAllocator;
 
 #include "../EAStringC.h"
 
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 #include "../AptValue.h"
 
@@ -186,8 +186,8 @@ int Rva008981E0Value::aptHasAll()
 
 __declspec(noinline) inline EAStringC::EAStringC()
 {
-	data = &g_eaEmptyStringData;
-	++g_eaEmptyStringData.m_uRefCount;
+	data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+	++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 }
 
 // The native26B named-entry constructor is emitted as a header-inline copy

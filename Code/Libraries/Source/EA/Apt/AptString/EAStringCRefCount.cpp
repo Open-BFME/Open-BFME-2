@@ -39,10 +39,13 @@ public:
 
 #include "../../../Apt/EAStringC.h"
 
-// Retail empty singleton at VA 0x00DDC020: the eight-byte StringDataC header
-// is { refCount=0x0101, size=0, maxSize=0, hash=0 } in game.dat. Callers use
-// this object as the immortal empty-string sentinel.
-EAStringC::StringDataC g_eaEmptyStringData = { 0x0101, 0, 0, 0 };
+// Retail empty singleton at VA 0x00DDC020, 16 bytes: an eight-byte StringDataC
+// header { refCount=0x0101, size=0, maxSize=0, hash=0 } followed by the empty
+// string's text, eight zero bytes. Code reads that text at data+8 (intern's
+// strcmp and hashLower), so the text belongs to the object. EA's assert
+// compares it as a byte pointer: "(char *)pData != s_EmptyInternalData".
+// Users take the header through a StringDataC view.
+char g_eaEmptyStringData[16] = { 0x01, 0x01 };
 
 // ?FreeData@EAStringC@@SAXPAVStringDataC@1@@Z
 void EAStringC::FreeData(StringDataC *current)
@@ -53,7 +56,7 @@ void EAStringC::FreeData(StringDataC *current)
 	}
 	if (--current->m_uRefCount != 0)
 		return;
-	if (current == &g_eaEmptyStringData) {
+	if ((char *)current == g_eaEmptyStringData) {
 		g_bfmeAptAssertAtE17734("(char *)pData != s_EmptyInternalData", ".\\string\\EAString.inl", 0xFD);
 		if (g_bfmeAptBreakOnAssertAtDDC01C) {__debugbreak();}
 	}
@@ -76,7 +79,7 @@ __declspec(noinline) inline EAStringC::EAStringC(const EAStringC &other)
 {
 	StringDataC *otherData = other.data;
 	data = otherData;
-	if (otherData != &g_eaEmptyStringData) {
+	if (otherData != (EAStringC::StringDataC *)g_eaEmptyStringData) {
 		if (!(otherData->m_uRefCount <= 0xFFFE)) {
 			g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 			if (g_bfmeAptBreakOnAssertAtDDC01C) {__debugbreak();}
@@ -93,7 +96,7 @@ __declspec(noinline) inline EAStringC::EAStringC(const EAStringC &other)
 EAStringC &EAStringC::operator=(const EAStringC &other)
 {
 	const EAStringC *src = &other;
-	if (src->data != &g_eaEmptyStringData) {
+	if (src->data != (EAStringC::StringDataC *)g_eaEmptyStringData) {
 		if (!(src->data->m_uRefCount <= 0xFFFE)) {
 			g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 			if (g_bfmeAptBreakOnAssertAtDDC01C) {__asm int 3}
@@ -112,8 +115,8 @@ EAStringC &EAStringC::operator=(const EAStringC &other)
 EAStringC &EAStringC::clear()
 {
 	EAStringC *self = this;
-	self->data = &g_eaEmptyStringData;
-	g_eaEmptyStringData.m_uRefCount++;
+	self->data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+	((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount++;
 	return *self;
 }
 
@@ -169,8 +172,8 @@ __declspec(noinline) inline EAStringC::EAStringC(unsigned int nSize)
 		data->m_uHash = 0;
 		reinterpret_cast<char *>(data)[sizeof(StringDataC)] = 0;
 	} else {
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 	}
 }
 
@@ -189,8 +192,8 @@ EAStringC::EAStringC(unsigned int fillChar, unsigned int nSize)
 		data->m_uHash = 0;
 		reinterpret_cast<char *>(data)[sizeof(StringDataC) + nSize] = 0;
 	} else {
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 	}
 }
 
@@ -207,7 +210,7 @@ int EAStringC::GetAt(int index) const
 // xor-then-sete shape is the canonical bool return.
 bool EAStringC::IsEmpty() const
 {
-	return data == &g_eaEmptyStringData;
+	return data == (EAStringC::StringDataC *)g_eaEmptyStringData;
 }
 
 // ?IsEqualTo@EAStringC@@QBE_NPBV1@@Z, retail 0x006D3090 (54B). Compares
@@ -241,8 +244,8 @@ void EAStringC::Assign(const char *text)
 		if (g_bfmeAptBreakOnAssertAtDDC01C) {__debugbreak();}
 	}
 	if (*text == 0) {
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 		return;
 	}
 	unsigned int length = strlen(text);
@@ -320,8 +323,8 @@ bool EAStringC::rva006D30D0(const EAStringC *other) const
 void EAStringC::rva006D3470()
 {
 	FreeData(data);
-	data = &g_eaEmptyStringData;
-	g_eaEmptyStringData.m_uRefCount++;
+	data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+	((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount++;
 }
 
 // ?rva006D3490@EAStringC@@QBE_NPBD@Z, retail 0x006D3490, 125 bytes.
@@ -372,8 +375,8 @@ void EAStringC::rva006D3C60()
 			_ReadWriteBarrier(); __debugbreak(); _ReadWriteBarrier();
 		}
 	}
-	data = &g_eaEmptyStringData;
-	++g_eaEmptyStringData.m_uRefCount;
+	data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+	++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 }
 
 // ?rva006D3CA0@EAStringC@@QAEXPBV1@@Z, retail 0x006D3CA0 (107B). EAStringC
@@ -393,7 +396,7 @@ void EAStringC::rva006D3CA0(const EAStringC *other)
 	}
 	StringDataC *src = other->data;
 	data = src;
-	if (src != &g_eaEmptyStringData) {
+	if (src != (EAStringC::StringDataC *)g_eaEmptyStringData) {
 		if (!(src->m_uRefCount <= 0xFFFE)) {
 			g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 			if (g_bfmeAptBreakOnAssertAtDDC01C) {
@@ -572,7 +575,7 @@ bool EAStringC::rva006D36F0(const EAStringC *other) const
 // Inline empty construction is shared by the native Left return path.
 inline EAStringC::EAStringC()
 {
-	data = &g_eaEmptyStringData;
+	data = (EAStringC::StringDataC *)g_eaEmptyStringData;
 	++data->m_uRefCount;
 }
 
@@ -597,8 +600,8 @@ EAStringC EAStringC::Left(int count) const
 // and receiver return, without a guessed constructor identity or new class.
 EAStringC *EAStringC::initializeEmpty_Rva006D2FA0(unsigned int)
 {
-    data = &g_eaEmptyStringData;
-    ++g_eaEmptyStringData.m_uRefCount;
+    data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+    ++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
     return this;
 }
 

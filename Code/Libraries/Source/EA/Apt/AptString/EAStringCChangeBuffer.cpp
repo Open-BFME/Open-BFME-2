@@ -18,7 +18,7 @@ void __debugbreak();
 
 #include "../../../Apt/EAStringC.h"
 
-extern EAStringC::StringDataC g_eaEmptyStringData; // 0x00DDC020
+extern char g_eaEmptyStringData[16]; // 0x00DDC020
 
 // ?ChangeBuffer@EAStringC@@AAEXIIIW4CBPushZero@1@I@Z
 void EAStringC::ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
@@ -56,8 +56,8 @@ void EAStringC::ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCo
 		if (ePushZero != CB_NO_PUSH_ZERO)
 			((char *)data + sizeof(StringDataC))[uInternalSize] = 0;
 	} else {
-		data = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
+		data = (EAStringC::StringDataC *)g_eaEmptyStringData;
+		++((EAStringC::StringDataC *)g_eaEmptyStringData)->m_uRefCount;
 	}
 
 	FreeData(oldData);

@@ -18,15 +18,8 @@ class Rva8D0D80String;
 class Rva8D0D80Value;
 
 #include "EAStringC.h"
-extern EAStringC::StringDataC g_eaEmptyStringData;
-// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
-// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
-// 0x00DDC020) and takes one reference. Keep the native call boundary.
-__declspec(noinline) inline EAStringC::EAStringC()
-{
-    data = &g_eaEmptyStringData;
-    ++data->m_uRefCount;
-}
+// setVariable calls EAStringC's default constructor (0x006D2F90, folded with
+// clear), declared in EAStringC.h; its rowed definition is AptValueUrlEncode.cpp's.
 
 #include "AptNativeHash.h"
 

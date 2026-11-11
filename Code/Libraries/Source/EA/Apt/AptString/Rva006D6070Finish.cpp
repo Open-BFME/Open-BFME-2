@@ -29,7 +29,7 @@ void *__cdecl rva006d4d40(void *pBuffer, int count);
 int __cdecl rva006d4ca0(const char *pBuffer);
 
 #include "../../../Apt/EAStringC.h"
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 
 int EAStringC::rva006d6070(const char *pStr, int count)
 {

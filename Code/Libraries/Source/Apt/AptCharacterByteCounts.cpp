@@ -26,13 +26,13 @@ struct AptCIHDepthBits
 static __forceinline AptCIHDepthBits &cihDepthBits(AptCIH *cih) { return *(AptCIHDepthBits *)&cih->field58; }
 
 #include "EAStringC.h"
-extern EAStringC::StringDataC g_eaEmptyStringData;
+extern char g_eaEmptyStringData[16];
 // Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
 // clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
 // 0x00DDC020) and takes one reference. Keep the native call boundary.
 __declspec(noinline) inline EAStringC::EAStringC()
 {
-    data = &g_eaEmptyStringData;
+    data = (EAStringC::StringDataC *)g_eaEmptyStringData;
     ++data->m_uRefCount;
 }
 
