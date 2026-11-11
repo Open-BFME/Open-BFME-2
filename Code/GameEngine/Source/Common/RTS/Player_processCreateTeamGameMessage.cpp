@@ -28,11 +28,7 @@ public:
 	void rva004D6C7C(const Object *obj);
 };
 
-class Rva002AA191
-{
-public:
-	void rva002AA1BF(void *arg);
-};
+#include "../../../Include/GameClient/Rva002AA191.h"
 
 #include "../../../Include/Common/Player.h"
 

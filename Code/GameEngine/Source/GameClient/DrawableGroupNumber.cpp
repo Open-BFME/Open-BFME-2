@@ -19,11 +19,7 @@ class Drawable;
 class Rva00273C47Host;
 class Thing;
 
-class Rva002AA191
-{
-public:
-	Int rva002AA191(const Object *object);
-};
+#include "../../Include/GameClient/Rva002AA191.h"
 
 #include "../../Include/Common/Player.h"
 

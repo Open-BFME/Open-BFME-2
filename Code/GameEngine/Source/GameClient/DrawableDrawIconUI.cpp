@@ -71,11 +71,7 @@ private:
 	unsigned char m_privateStatus;			// +0x438
 };
 
-class Rva002AA191
-{
-public:
-	Int rva002AA191(const Object *object);
-};
+#include "../../Include/GameClient/Rva002AA191.h"
 
 class Rva00276470Drawable
 {
