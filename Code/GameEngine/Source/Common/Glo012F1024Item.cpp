@@ -754,13 +754,7 @@ struct Rva0056612FVec
 	Rva004E1A04 *m_end;
 };
 
-class Rva004E366E
-{
-public:
-	void rva004E366E();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva004E366E.h"
 
 void __cdecl Rva0052CEF6Clear(Rva004E366E *first, Rva004E366E *last);
 

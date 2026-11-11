@@ -315,11 +315,7 @@ class Rva004E1A04
 public:
 	~Rva004E1A04();
 };
-class Rva004E366E
-{
-public:
-	void rva004E366E();
-};
+#include "../../Include/Common/Rva004E366E.h"
 class Rva005344C0
 {
 public:
