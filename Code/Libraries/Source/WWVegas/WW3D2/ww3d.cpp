@@ -276,11 +276,7 @@ struct WW3DZRangeView : public DX8Wrapper
 
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 
-class Rva00DF6F94GapFillerContext
-{
-public:
-	void rva174ba6();
-};
+#include "Rva00DF6F94GapFillerContext.h"
 
             // 0x00DF363C
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;

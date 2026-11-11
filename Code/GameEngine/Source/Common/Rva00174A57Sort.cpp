@@ -21,11 +21,7 @@ class FXShaderRenderer
 public:
 	void PerformRendering(int a, int b);
 };
-class Rva00DF6F94GapFillerContext
-{
-public:
-	void rva0017437D();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Rva00DF6F94GapFillerContext.h"
 class Rva00174A57
 {
 public:

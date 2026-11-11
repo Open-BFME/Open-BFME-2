@@ -3819,7 +3819,7 @@ BfmeWideTextHook bfmeData00DEDBDC = 0;
 BfmeVoidHook bfmeData00DEDBE0 = 0;
 void *bfmeData00DEDBE4 = 0;
 void *bfmeData00DEDBE8 = 0;
-class Rva00DF6F94GapFillerContext { public: ~Rva00DF6F94GapFillerContext(); };
+#include "Rva00DF6F94GapFillerContext.h"
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 // Registry's verified StringClass vector-deleting destructor takes this same
 // four-byte-entry callback at RVA 0x00065F5B. Use the real inline destructor

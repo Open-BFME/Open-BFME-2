@@ -263,7 +263,7 @@ private:
 
 #include "DX8WrapperClass.h"
 
-class Rva00DF6F94GapFillerContext { public: void rva00174350(); };
+#include "Rva00DF6F94GapFillerContext.h"
 
 class FXShaderRenderer
 {

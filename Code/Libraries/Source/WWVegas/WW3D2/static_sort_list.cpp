@@ -96,11 +96,7 @@ void DefaultStaticSortListClass::Add_To_List(RenderObjClass * robj, unsigned int
 // BFME 2 retail 0x001769B0 (121 bytes): the render hooks are gone, the mesh renderer is
 // reached through a pointer, and every level that rendered also flushes the FXShader
 // renderer (the gap-filler context at 0x00DF6F94, flush 0x00174BA6).
-class Rva00DF6F94GapFillerContext
-{
-public:
-	void rva174ba6();
-};
+#include "Rva00DF6F94GapFillerContext.h"
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 #include "DX8MeshRendererClass.h"
 extern DX8MeshRendererClass *TheDX8MeshRenderer;

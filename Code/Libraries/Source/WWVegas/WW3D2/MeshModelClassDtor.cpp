@@ -73,11 +73,7 @@ extern DX8MeshRendererClass *TheDX8MeshRenderer;
 // The helper takes the model on the stack and ignores its own this, but
 // the caller still passes the global through ecx, which is what proves
 // the thiscall shape.
-class Rva00DF6F94GapFillerContext
-{
-public:
-	void DeleteModelGapFiller(MeshModelClass *mmc);
-};
+#include "Rva00DF6F94GapFillerContext.h"
 
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 

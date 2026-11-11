@@ -60,11 +60,7 @@ class MeshModelClass;
 
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 
-class Rva00DF6F94GapFillerContext
-{
-public:
-	void DeleteModelGapFiller(MeshModelClass *mmc);
-};
+#include "Rva00DF6F94GapFillerContext.h"
 
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 

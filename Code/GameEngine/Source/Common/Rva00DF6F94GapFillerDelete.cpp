@@ -12,10 +12,7 @@ public:
   char m_pad[0xBC];
   Rva001732C6 *m_gapFiller;
 };
-class Rva00DF6F94GapFillerContext {
-public:
-  void DeleteModelGapFiller(MeshModelClass *mmc);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Rva00DF6F94GapFillerContext.h"
 void Rva00DF6F94GapFillerContext::DeleteModelGapFiller(MeshModelClass *mmc)
 {
   if (mmc->m_gapFiller != 0) {

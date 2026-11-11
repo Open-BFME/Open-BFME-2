@@ -33,10 +33,7 @@ private:
     void Free();
 };
 #include "DX8MeshRendererClass.h"
-class Rva00DF6F94GapFillerContext {
-public:
-    void DeleteModelGapFiller(MeshModelClass *model);
-};
+#include "Rva00DF6F94GapFillerContext.h"
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 // 0x00199FA5 is rowed as rva00199FA5 (Rva00199FA5Check.cpp); called by that name.
