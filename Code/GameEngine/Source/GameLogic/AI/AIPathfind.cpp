@@ -1004,11 +1004,7 @@ class Rva002E6AF3
 public:
 	int get() const;
 };
-class Rva002E6B06
-{
-public:
-	int rva002E6B06();
-};
+#include "../../../Include/GameLogic/Rva002E6B06.h"
 static __forceinline MixFileInfoBuffer *cellInfo(const PathfindCell *cell) { return (MixFileInfoBuffer *)cell->m_info; }
 static __forceinline Bool cellOpen(const PathfindCell *cell) { return (unsigned char)reinterpret_cast<const Rva002E6AF3 *>(cell)->get() != 0; }
 static __forceinline Bool cellClosed(PathfindCell *cell) { return (unsigned char)reinterpret_cast<Rva002E6B06 *>(cell)->rva002E6B06() != 0; }

@@ -81,7 +81,7 @@ extern Int TheMixFileInfoPool;
 void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
 class Rva002E6AF3 { public: Int get() const; };
-class Rva002E6B06 { public: Int rva002E6B06(); };
+#include "../../../Include/GameLogic/Rva002E6B06.h"
 class Rva002E6C79;
 struct Rva002E8BCFSrc;
 class Rva002E8BCF { public: Rva002E8BCF(){} Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool); Int surfaces;Bool field4,field5;Int maxLayer;Bool fieldC; };

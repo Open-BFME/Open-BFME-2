@@ -31,11 +31,7 @@ public:
 	int get() const;
 };
 
-class Rva002E6B06
-{
-public:
-	int rva002E6B06();
-};
+#include "../../Include/GameLogic/Rva002E6B06.h"
 
 #include "../../Include/GameLogic/PathfindCell.h"
 

@@ -364,11 +364,7 @@ class Rva002E6AF3
 public:
 	int get() const;
 };
-class Rva002E6B06
-{
-public:
-	int rva002E6B06();
-};
+#include "../../../Include/GameLogic/Rva002E6B06.h"
 class Rva003F69C0Object { public: void set(int *,int); };
 #include "../../../Include/GameLogic/Waypoint.h"
 struct PathChangeInfoView {
