@@ -480,7 +480,7 @@ class SpawnedModelConditionCreate { public: static Module *friend_newModuleInsta
 class SpawnedModelConditionCreateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 #include "../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-class SpecialDisguiseUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 class SpecialDisguiseUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SpecialEnemySenseUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpecialEnemySenseUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

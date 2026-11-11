@@ -896,3 +896,4 @@ Rva0040AAD5,Code/GameEngine/Include/GameClient/Rva0040AAD5.h,existing header; co
 DX8MeshRendererClass,Code/Libraries/Source/WWVegas/WW3D2/DX8MeshRendererClass.h,existing header; contract class_contracts/DX8MeshRendererClass.json; 9/16 sampled units adopt
 Rva0037E6E8,Code/GameEngine/Include/GameLogic/Rva0037E6E8.h,existing header; contract class_contracts/Rva0037E6E8.json; 8/12 sampled units adopt
 Rva002E071E,Code/GameEngine/Include/GameLogic/Rva002E071E.h,existing header; contract class_contracts/Rva002E071E.json; 36/40 sampled units adopt
+SpecialDisguiseUpdate,Code/GameEngine/Include/GameLogic/Module/SpecialDisguiseUpdate.h,existing header; contract class_contracts/SpecialDisguiseUpdate.json; 5/11 sampled units adopt

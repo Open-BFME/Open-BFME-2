@@ -1,0 +1,397 @@
+{
+ "bases": [
+  "Module"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "SpecialDisguiseUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 11,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4b0292"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0044EF5E",
+       "offset": 0,
+       "own_vftable": "0x856398",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b0292"
+     ],
+     "value": 145
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b0292"
+     ],
+     "value": {
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       1
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24f9c7"
+     ],
+     "value": 148
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4b0292"
+     ],
+     "value": {
+      "0x10": [
+       "0x84dee8"
+      ],
+      "0x20": [
+       "0x8552a4"
+      ],
+      "0x88": [
+       "0x8562c8"
+      ],
+      "0xc": [
+       "0x8562d8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4b0292"
+     ],
+     "value": {
+      "0x0": "0x856398"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x856398"
+     ],
+     "value": {
+      "count": 23,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004B0164@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4b02e7"
+       },
+       {
+        "name": "?rva00483CEF@Rva00483CEF@@QAEXXZ",
+        "slot": 1,
+        "target": "0x483cef"
+       },
+       {
+        "name": "?name@Rva004B01D3Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4b01d3"
+       },
+       {
+        "name": "?xfer@SpecialDisguiseUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4b01f4"
+       },
+       {
+        "name": "?getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4b018e"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?onExit@SpecialDisguiseUpdate@@MAEX_N0@Z",
+        "slot": 13,
+        "target": "0x4b0414"
+       },
+       {
+        "name": "?rva00450AE9@SpecialAbilityUpdate@@UAE_NXZ",
+        "slot": 14,
+        "target": "0x450ae9"
+       },
+       {
+        "name": "?startPreparation@SpecialAbilityUpdate@@UAEXXZ",
+        "slot": 15,
+        "target": "0x450d9a"
+       },
+       {
+        "name": "?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ",
+        "slot": 16,
+        "target": "0x4b01e6"
+       },
+       {
+        "name": "?triggerAbilityEffect@SpecialDisguiseUpdate@@UAEXXZ",
+        "slot": 17,
+        "target": "0x4b0653"
+       },
+       {
+        "name": "?clear@Rva004C12CBDwordClearer@@QAEXXZ",
+        "slot": 18,
+        "target": "0x4c12cb"
+       },
+       {
+        "name": "?finishAbility@SpecialAbilityUpdate@@UAEXXZ",
+        "slot": 19,
+        "target": "0x451b92"
+       },
+       {
+        "name": "?handlePackingProcessing@Rva004B0164@@UAE_NXZ",
+        "slot": 20,
+        "target": "0x4b0348"
+       },
+       {
+        "name": "?startPacking@SpecialAbilityUpdate@@UAEX_N@Z",
+        "slot": 21,
+        "target": "0x450635"
+       },
+       {
+        "name": "?startUnpacking@SpecialAbilityUpdate@@UAEXXZ",
+        "slot": 22,
+        "target": "0x4508b7"
+       }
+      ],
+      "table": "0x856398"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x856398": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004B0164@@UAEPAXI@Z",
+     "1": "?rva00483CEF@Rva00483CEF@@QAEXXZ",
+     "2": "?name@Rva004B01D3Named@@QBEPBDXZ",
+     "3": "?xfer@SpecialDisguiseUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "13": "?onExit@SpecialDisguiseUpdate@@MAEX_N0@Z",
+     "14": "?rva00450AE9@SpecialAbilityUpdate@@UAE_NXZ",
+     "15": "?startPreparation@SpecialAbilityUpdate@@UAEXXZ",
+     "16": "?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ",
+     "17": "?triggerAbilityEffect@SpecialDisguiseUpdate@@UAEXXZ",
+     "18": "?clear@Rva004C12CBDwordClearer@@QAEXXZ",
+     "19": "?finishAbility@SpecialAbilityUpdate@@UAEXXZ",
+     "20": "?handlePackingProcessing@Rva004B0164@@UAE_NXZ",
+     "21": "?startPacking@SpecialAbilityUpdate@@UAEX_N@Z",
+     "22": "?startUnpacking@SpecialAbilityUpdate@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "8": 1,
+   "148": 3
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['Module']": 1,
+    "['SpecialAbilityUpdate']": 1
+   },
+   "class": "SpecialDisguiseUpdate",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "SpecialDisguiseUpdate"
+  }
+ ],
+ "size": 148,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

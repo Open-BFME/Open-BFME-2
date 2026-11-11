@@ -26,7 +26,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Team;
 class Player;
-class SpecialDisguiseUpdate {public:void rva004B04B2(bool);};
+#include "../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 #include "../../../Include/Common/ThingTemplate.h"
 class ContainLocalView:public PlayerLocalSlots<20>{public:virtual void recalcApparent()=0;};
 class Rva00373EC6 {public:unsigned char pad[0x38];int playerIndex;unsigned disguise;};

@@ -107,11 +107,7 @@ private:
 	ExperienceTracker *m_experienceTracker;
 };
 
-class SpecialDisguiseUpdate
-{
-public:
-	void rva004B05F5(bool keep);
-};
+#include "../../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 

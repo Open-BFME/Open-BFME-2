@@ -395,7 +395,7 @@ extern InGameUI *TheInGameUI;
 extern MessageStream *TheMessageStream;
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
-class SpecialDisguiseUpdate { public: void rva004B05F5(bool); };
+#include "../../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch U: overrides reached through a secondary base, so

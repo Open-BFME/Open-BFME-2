@@ -230,7 +230,7 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-class SpecialDisguiseUpdate{public:void rva004B05F5(bool);};
+#include "../../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 
 class Rva00373EC6{public:void rva00374815(); char pad[0x31];bool oneRing;};
 
