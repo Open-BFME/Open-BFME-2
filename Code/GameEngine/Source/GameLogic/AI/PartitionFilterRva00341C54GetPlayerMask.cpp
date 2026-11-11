@@ -49,7 +49,7 @@ int Rva00341C54Filter::getPlayerMask()
 	return ThePlayerList->getPlayersWithRelationship(index, 4, false);
 }
 
-class Rva002F23A6{public:bool rva002F23A6(Object*,int,int,Coord3D*,Object*);};
+#include "../../../Include/GameLogic/Rva002F23A6.h"
 class AI{public:char pad[0x10];Rva002F23A6*pathfinder;};
 extern AI*TheAI;
 extern GameLogic*TheGameLogic;

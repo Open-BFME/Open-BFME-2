@@ -556,12 +556,7 @@ private:
 
 // The pathfinder's melee engagement-spot search (0x002F23A6), pinned under
 // this name.
-class Rva002F23A6
-{
-public:
-	Bool rva002F23A6(Object *source, int weapon, int locomotorSet, Coord3D *goalPos,
-		Object *victim);
-};
+#include "../../../Include/GameLogic/Rva002F23A6.h"
 
 // TheGameLogic's BFME debug level (+0x1B4), private padding in the shared
 // GameLogic view.

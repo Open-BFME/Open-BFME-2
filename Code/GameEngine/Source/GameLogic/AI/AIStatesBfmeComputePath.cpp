@@ -701,12 +701,7 @@ class Rva002C9B80Owner;
 extern int BfmeLogicFramesPerSecond;
 
 // Opaque callees, named by body address with their pinned signatures.
-class Rva002F23A6
-{
-public:
-	Bool rva002F23A6(Object *source, int weapon, int locomotorSet, Coord3D *goalPos,
-		Object *victim);
-};
+#include "../../../Include/GameLogic/Rva002F23A6.h"
 Bool rva00344EB2Gate(Object *source, Thing *victim);
 Bool rva003449C5(Coord3D *goalPos, Object *source, Object *victim);
 

@@ -4647,7 +4647,7 @@ struct SearchCoordinate:Coord3D {
  void scale(float f){x*=f;y*=f;z*=f;}
  void add(const Coord3D &p){x+=p.x;y+=p.y;z+=p.z;}
 };
-class Rva002F23A6 {public:bool rva002F23A6(Object *,int,int,Coord3D *,Object *);};
+#include "../../../Include/GameLogic/Rva002F23A6.h"
 typedef unsigned char (Pathfinder::*ProbeCall)(Object*,int,int,PathfindLayerEnum,int,bool);
 // ?rva002EEA8A@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAXH@Z
 Bool Pathfinder::rva002EEA8A(const ICoord2D *searchCenterCell, Int maxCells,
