@@ -42,7 +42,7 @@ extern GameTextInterface *TheGameText;
 class GlobalData;extern GlobalData *TheWritableGlobalData;
 struct SubtitleGlobalView {char at00[0x9A2];bool m_at9A2;};
 
-class Rva000543F5Record {public:~Rva000543F5Record();};
+#include "../../../GameEngine/Include/Common/Rva000543F5Record.h"
 struct BfmeStringRecord00054F57 {void *m_a;void *m_b;};
 class Rva00054AFA {
 public:Rva00054AFA(const AsciiString &,const UnicodeString &);

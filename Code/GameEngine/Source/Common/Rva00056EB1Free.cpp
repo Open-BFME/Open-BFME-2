@@ -6,10 +6,7 @@
 // buckets (begin+4/end+8) and passes each head; next at +0 read off that
 // caller. Stdcall per ret-4 with caller doing no cleanup.
 
-struct Rva000543F5Record
-{
-	~Rva000543F5Record();
-};
+#include "../../Include/Common/Rva000543F5Record.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

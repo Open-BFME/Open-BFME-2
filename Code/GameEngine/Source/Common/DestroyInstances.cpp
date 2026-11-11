@@ -124,11 +124,7 @@ struct Rva0073EEE0ListValue
 public:
 	~Rva0073EEE0ListValue();
 };
-struct Rva000543F5Record
-{
-public:
-	~Rva000543F5Record();
-};
+#include "../../Include/Common/Rva000543F5Record.h"
 struct Rva00111B25Record
 {
 public:
