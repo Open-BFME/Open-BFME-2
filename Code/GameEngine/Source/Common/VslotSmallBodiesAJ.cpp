@@ -7,7 +7,7 @@ extern GameLogic *TheGameLogic;
 class PlayerList;
 extern PlayerList *ThePlayerList;
 class Rva002A7DDEArg;
-class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
+#include "../../Include/Common/Rva002A7DDE.h"
 class Rva00005C357FPtrChaseField { public: int get() const; };
 class Rva00005C39A3PtrChaseField { public: int get() const; };
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };

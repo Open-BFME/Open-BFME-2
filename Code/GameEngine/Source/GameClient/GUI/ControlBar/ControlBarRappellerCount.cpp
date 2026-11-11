@@ -238,7 +238,7 @@ class Rva0029FCB4 { public: __declspec(noinline) inline ScienceVec rva0029FCB4()
 class Rva0028B7C1DwordField { public: Int get() const; };
 class Rva0035B164 { public: Int rva0035B164(Int cur); };
 #include "../../../../Include/Common/Rva0028F528.h"
-class Rva002A7DDE { public: Bool rva002A7DDE(Rva002A7DDEArg *arg); };
+#include "../../../../Include/Common/Rva002A7DDE.h"
 class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };
 
 class BfmeFixedStorage0004543D {

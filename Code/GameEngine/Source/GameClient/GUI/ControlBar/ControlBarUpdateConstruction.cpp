@@ -159,7 +159,7 @@ struct Rva0053E4B1Owner
 class Image;
 #include "../../../../Include/Common/ThingTemplate.h"
 class Rva002A7DDEArg;
-class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
+#include "../../../../Include/Common/Rva002A7DDE.h"
 class Rva0053B914 { public: void rva0053B914(); };
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;

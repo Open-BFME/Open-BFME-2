@@ -20,11 +20,7 @@ class PlayerList;
 extern PlayerList *ThePlayerList;
 // PlayerList's relationship check 0x002A7DDE (BfmeThreeHundredTwentyFour.cpp).
 class Rva002A7DDEArg;
-class Rva002A7DDE
-{
-public:
-	bool rva002A7DDE(Rva002A7DDEArg *arg);
-};
+#include "../../Include/Common/Rva002A7DDE.h"
 
 struct BfmeMsgDN;
 

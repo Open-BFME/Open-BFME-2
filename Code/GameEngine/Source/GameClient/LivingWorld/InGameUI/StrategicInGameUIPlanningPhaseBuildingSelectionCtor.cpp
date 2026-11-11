@@ -459,7 +459,7 @@ void GadgetCheckLikeButtonSetVisualCheck(GameWindow *, bool);
 void Rva003284ED(GameWindow *, int);
 void Rva003284B9(GameWindow *, int, int);
 class Rva002A7DDEArg;
-class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
+#include "../../../../Include/Common/Rva002A7DDE.h"
 class ControlBar;
 extern ControlBar *TheControlBar;
 class ControlBar {

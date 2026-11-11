@@ -8,7 +8,7 @@
 #include "GameLogicObjectLookupView.h"
 class GameWindow;
 class Rva002A7DDEArg;
-class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *h); };
+#include "../../Include/Common/Rva002A7DDE.h"
 #include "../../Include/GameClient/ControlBar.h"
 
 extern GameLogic *TheGameLogic;

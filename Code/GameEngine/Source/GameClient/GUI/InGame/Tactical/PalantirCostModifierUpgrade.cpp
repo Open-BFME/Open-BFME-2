@@ -16,7 +16,7 @@ struct ObjectCostTemplate {char unknown[0x108];unsigned char kindOf[0x14];};
 class Object {public: Player *getControllingPlayer() const;ObjectCostTemplate *getTemplate() const {return data;}protected:friend class Rva0052914B;Module *findModule(NameKeyType) const;void *vtable;ObjectCostTemplate *data;};
 class PlayerList;extern PlayerList *ThePlayerList;
 class Rva002A7DDEArg;
-class Rva002A7DDE {public:bool rva002A7DDE(Rva002A7DDEArg*);};
+#include "../../../../../Include/Common/Rva002A7DDE.h"
 class Rva00528C65 {public:AsciiString rva00528C65() const;int rva00528C85(Player*);void *vtable;struct Data {char unknown[0x128];bool percentage;};Data *data;};
 class Rva00528BDD {public:void rva00528BDD();};
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
