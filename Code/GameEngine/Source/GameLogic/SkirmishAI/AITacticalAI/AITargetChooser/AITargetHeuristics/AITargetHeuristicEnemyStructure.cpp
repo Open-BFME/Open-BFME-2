@@ -29,7 +29,7 @@ class Player;
 #include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
-class Rva005C4AD1LeaField { public: void *get() const; };
+#include "../../../../../../Include/Common/Rva005C4AD1LeaField.h"
 typedef _STL::vector<ObjectID> IdRange;
 struct Record { Rva005C4AD1LeaField *units; void *reserved; Rva005C4AD1LeaField *structures; };
 class Object { public: char pad[0x38]; Coord3D pos; char pad44[0x74 - 0x44]; ObjectID id; };

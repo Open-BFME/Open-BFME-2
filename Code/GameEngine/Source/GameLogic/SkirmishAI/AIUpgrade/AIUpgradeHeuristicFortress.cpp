@@ -15,7 +15,7 @@ struct Rva002A8AB1Record { char prefix[0x16c]; int mode; };
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern int BfmeLogicFramesPerSecond;
-class Rva005C4AD1LeaField { public: void *get() const; };
+#include "../../../../Include/Common/Rva005C4AD1LeaField.h"
 struct IdRange { ObjectID *begin,*end; };
 struct TemplateView { char prefix[0x120]; unsigned char flag120; };
 class Object { public: char prefix[4]; TemplateView *type; char pad8[0x38-8]; Coord3D pos; };

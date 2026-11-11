@@ -26,12 +26,7 @@ inline basic_ostream<C, T> &operator<<(basic_ostream<C, T> &os, char c)
 }
 }
 
-struct Vec001F8810
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../GameEngine/Include/Common/Vec001F8810.h"
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva001F8810Put(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,

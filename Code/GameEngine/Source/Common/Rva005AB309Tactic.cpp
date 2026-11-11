@@ -125,11 +125,7 @@ struct Rva005AB309IDs
 	ObjectID *m_end;
 };
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 
 struct Rva005AB309Holder
 {

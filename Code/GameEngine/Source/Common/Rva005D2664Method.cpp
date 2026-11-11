@@ -14,11 +14,7 @@ private:
 	void *m_ptr;
 };
 
-class Rva0057C22FByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva0057C22FByteChaseField.h"
 
 class Rva005C3E79
 {

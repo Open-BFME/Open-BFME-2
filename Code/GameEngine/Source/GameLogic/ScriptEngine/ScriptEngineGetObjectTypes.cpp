@@ -8,11 +8,7 @@
 // 0x003C449C pass ScriptEngine this, callee 0x005C4AD1 lea+4 is ObjectTypes name field and
 // 0x000069D6 is StringBase<char>::compare. Layout +0x1A4C8 from matched removeObjectTypes.
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../Include/Common/Rva005C4AD1LeaField.h"
 
 #include "ascii_string.h"
 #include <vector>

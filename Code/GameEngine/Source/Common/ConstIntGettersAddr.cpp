@@ -26,7 +26,7 @@ extern struct FallbackCtx g_gameSlotIndexKeys;
 extern struct FallbackCtx g_loginFieldLengthKeys;
 extern struct FallbackCtx g_externHandlerIndexKeys;
 
-struct LookupListRec { const char *name; int value; };
+#include "../../Include/Common/LookupListRec.h"
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 
 // Parser procs the tables below name; each is a rowed code owner.

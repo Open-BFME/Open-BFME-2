@@ -38,11 +38,7 @@ void Rva001F89C3Write(
 	unsigned int pad,
 	const char *key,
 	const bool *value);
-struct Vec001F8810 {
-	float x;
-	float y;
-	float z;
-};
+#include "../../Include/Common/Vec001F8810.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }

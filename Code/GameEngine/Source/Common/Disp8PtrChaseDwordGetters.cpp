@@ -143,7 +143,7 @@ void *Rva005FC745PtrChaseField::get() const
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
-struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+#include "../../Include/Common/Rva002D2CDCFields.h"
 Rva002D2CDCFields *Rva002D2CDCFields::clear() { byte0=0; return this; }
 
 // Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.

@@ -11,13 +11,13 @@
 // Shape follows CaveContainDtor plus GarrisonContainDtor precedent.
 
 class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
-class B1 { public: virtual void b1(); };
+#include "../../../../Include/Common/B1.h"
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); };
-class B4 { public: virtual void b4(); };
-class B5 { public: virtual void b5(); };
+#include "../../../../Include/Common/B4.h"
+#include "../../../../Include/Common/B5.h"
 class B6 { public: virtual void b6(); };
-class B7 { public: virtual void b7(); };
+#include "../../../../Include/Common/B7.h"
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
 
 class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8

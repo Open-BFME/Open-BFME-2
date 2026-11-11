@@ -171,7 +171,7 @@ virtual int load(AsciiString,AsciiString,int,int);
 class Rva004E67B3 {public:void rva004E67B3(unsigned);};
 class Rva002217EA;
 class Rva005045DBTree {public:Rva005045DBTree&self();};
-class Rva005C4AD1LeaField {public:void*get()const;};
+#include "../../../../Include/Common/Rva005C4AD1LeaField.h"
 class NetCommandList;
 class FrameData {public:NetCommandList*getCommandList();};
 class UpgradeTemplate;

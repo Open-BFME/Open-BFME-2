@@ -101,11 +101,7 @@ extern GameLogic *TheGameLogic;
 
 extern AI *TheAI;
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../../../../Include/Common/Rva005C4AD1LeaField.h"
 
 struct Rva005ACCE4Holder
 {

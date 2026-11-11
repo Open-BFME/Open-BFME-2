@@ -45,11 +45,7 @@ struct Rva005AC7E1IDs
 	ObjectID *m_begin;
 	ObjectID *m_end;
 };
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 namespace _STL
 {
 template <class T1, class T2> struct pair

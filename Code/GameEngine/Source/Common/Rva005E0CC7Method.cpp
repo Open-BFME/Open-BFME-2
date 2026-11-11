@@ -4,11 +4,7 @@
 // Unlock via rowed byte-chase get 0x0057C22F plus rowed setter 0x005C39AA.
 // Calls virtual slot2 on +4 member to get pointer then get then tail to setter.
 // Evidence: rowed callees plus caller jmp at 0x005E0D97 and unblocks 0x005E0D94.
-class Rva0057C22FByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva0057C22FByteChaseField.h"
 
 class Rva005C39AA
 {

@@ -48,11 +48,7 @@ protected:
 	Object *m_object; // +0x08
 };
 
-class B1
-{
-public:
-	virtual void b1();
-};
+#include "../../../../Include/Common/B1.h"
 
 class B2
 {
@@ -76,17 +72,9 @@ public:
 	virtual Player *rva004780E7(const Player *observing) = 0;
 };
 
-class B4
-{
-public:
-	virtual void b4();
-};
+#include "../../../../Include/Common/B4.h"
 
-class B5
-{
-public:
-	virtual void b5();
-};
+#include "../../../../Include/Common/B5.h"
 
 class B6
 {
@@ -94,11 +82,7 @@ public:
 	virtual void b6();
 };
 
-class B7
-{
-public:
-	virtual void b7();
-};
+#include "../../../../Include/Common/B7.h"
 
 class B8
 {

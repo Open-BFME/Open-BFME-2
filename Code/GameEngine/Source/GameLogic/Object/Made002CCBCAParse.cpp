@@ -10,7 +10,7 @@ class Made002CCBCA;
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
-struct LookupListRec { const char *name; int value; };
+#include "../../../Include/Common/LookupListRec.h"
 // The retail lookup list at RVA 0x00800698 (5 names and the null terminator).
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[6] = { { "PRIMARY", 0 }, { "SECONDARY", 1 }, { "TERTIARY", 2 }, { "QUATERNARY", 3 }, { "QUINARY", 4 }, { 0, 0 } };
 extern "C" {

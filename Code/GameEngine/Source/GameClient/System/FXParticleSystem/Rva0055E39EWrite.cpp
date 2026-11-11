@@ -69,11 +69,7 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
 { allocator<char>::deallocate(__p, __n); }
 }
-struct Vec001F8810 {
-    float x;
-    float y;
-    float z;
-};
+#include "../../../../Include/Common/Vec001F8810.h"
 int __cdecl Rva0055CCEFIsZero(const RGBColor &color);
 void Rva001F89E2Write(
     _STL::basic_ostream<char, _STL::char_traits<char> > &os,

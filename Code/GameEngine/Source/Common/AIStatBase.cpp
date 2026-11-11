@@ -120,11 +120,7 @@ struct Rva003ECB52Arg
 	void *m_vtbl;
 	Rva003ECB52Inner *m_ptr;
 };
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 #include "../GameLogic/Object/object.h"
 extern GameLogic *TheGameLogic;
 namespace _STL

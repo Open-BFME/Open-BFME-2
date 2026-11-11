@@ -48,11 +48,7 @@ extern GameLogic *TheGameLogic;
 
 struct EnemyHeuristicIds { ObjectID *first, *last, *limit; };
 
-class Rva005C4AD1LeaField
-{
-public:
-    void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 
 struct EnemyHeuristicRecord
 {

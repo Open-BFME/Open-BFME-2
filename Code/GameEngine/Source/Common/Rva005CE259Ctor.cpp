@@ -123,11 +123,7 @@ Rva0056773E::Rva0056773E(int a, int b)
 {
 }
 
-class Rva0057C22FByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva0057C22FByteChaseField.h"
 
 class Rva00567764Target
 {

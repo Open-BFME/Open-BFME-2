@@ -311,7 +311,7 @@ BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00495DC6PtrChaseField, 0x1C, 0x24)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
-struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+#include "../../../../Include/Common/Rva002D2CDCFields.h"
 
 class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
 {

@@ -48,7 +48,7 @@ typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-struct LookupListRec { const char *name; int value; };
+#include "../../Include/Common/LookupListRec.h"
 
 enum INILoadType { INI_LOAD_OVERWRITE=1 };
 

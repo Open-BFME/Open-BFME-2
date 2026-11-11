@@ -19,11 +19,7 @@ private: unsigned char storage[0x20-4];
 };
 #include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 
-class Rva00574AACAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva00574AACAddDwordField.h"
 
 class Rva005759A5Current
 {

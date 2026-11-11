@@ -14,7 +14,7 @@ class Object;
 #include "../../../../Include/GameLogic/RegionAwardDispute.h"
 #include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva0042D6BAPtrChaseField { public: int get() const; };
-class Rva0057C22FByteChaseField { public: unsigned char get() const; };
+#include "../../../../Include/Common/Rva0057C22FByteChaseField.h"
 class Rva005765D1 {
 public:
  Rva005765D1(void *,int,int);

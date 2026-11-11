@@ -15,12 +15,7 @@ public:
 };
 }
 
-struct Vec001F8810
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../GameEngine/Include/Common/Vec001F8810.h"
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva001F6951Pad(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,

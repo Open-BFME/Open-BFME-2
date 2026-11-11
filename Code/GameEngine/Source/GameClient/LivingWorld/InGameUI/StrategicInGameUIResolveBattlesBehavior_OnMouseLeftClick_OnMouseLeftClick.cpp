@@ -140,7 +140,7 @@ extern class LivingWorldManager *TheLivingWorldManager;
 #define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
 #include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
 class Rva0042D6BAPtrChaseField { public: int get() const; };
-class Rva0057C22FByteChaseField { public: unsigned char get() const; };
+#include "../../../../Include/Common/Rva0057C22FByteChaseField.h"
 struct Rva002B5C5EVal;
 class Rva002B5C5E { public: Rva002B5C5EVal *rva002B5C5E(int); };
 #include "../../../../Include/GameLogic/RegionAwardDispute.h"

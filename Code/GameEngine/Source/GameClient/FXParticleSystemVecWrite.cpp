@@ -16,12 +16,7 @@ public:
 };
 }
 
-struct Vec001F8810
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../Include/Common/Vec001F8810.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 

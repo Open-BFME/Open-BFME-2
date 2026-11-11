@@ -16,11 +16,7 @@ enum ObjectStatusTypes
 	STATUS_5E = 0x5e
 };
 #include "../../Include/GameLogic/Rva002A8F24.h"
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 #include "../GameLogic/Object/object.h"
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;

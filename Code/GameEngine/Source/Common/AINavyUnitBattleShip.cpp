@@ -63,11 +63,7 @@ struct Rva002A8AB1Record
 	void *rva002C6ACB();
 };
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 
 namespace _STL
 {

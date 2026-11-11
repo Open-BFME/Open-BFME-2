@@ -188,11 +188,7 @@ struct Rva002A8AB1Record
     int difficulty16c;
 };
 #include "../../../Include/Common/Upgrade.h"
-class Rva005C4AD1LeaField
-{
-public:
-    void *get() const;
-};
+#include "../../../Include/Common/Rva005C4AD1LeaField.h"
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;

@@ -27,7 +27,7 @@ class SubsystemLegend {public:
  char prefix[12];_STL::list<BfmePod72> entries;
 };
 extern SubsystemLegend *TheSubsystemLegend;
-struct LookupListRec {const char *name;int value;};
+#include "../../../Include/Common/LookupListRec.h"
 // The native lookup record contains pointer("STR") in the value word.
 // Preserve those observed bytes and donor transcription, without interpreting
 // that word as a normal loader enumeration value.

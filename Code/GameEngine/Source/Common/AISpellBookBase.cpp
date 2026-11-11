@@ -57,11 +57,7 @@ struct Rva005EEAC6Store
 
 extern GameLogic *TheGameLogic;
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 
 #include "../../Include/Common/Player.h"
 

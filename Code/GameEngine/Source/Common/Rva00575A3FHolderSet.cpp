@@ -43,11 +43,7 @@ private:
 
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
-class Rva00574AACAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva00574AACAddDwordField.h"
 
 class Rva00575A3FCurrent
 {

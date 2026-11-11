@@ -292,11 +292,7 @@ typedef int Int;
 template <typename T> struct BfmeStringData;
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
-struct LookupListRec
-{
-	const char *name;
-	int value;
-};
+#include "../../../Include/Common/LookupListRec.h"
 const float RADS_PER_DEGREE = 0.017453292f;
 class Rva00601BBCHelper
 {

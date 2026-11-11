@@ -18,7 +18,7 @@
 
 #include <windows.h>
 
-struct LookupListRec { const char *name; int value; };
+#include "../../../Include/Common/LookupListRec.h"
 
 #include "../../../Include/Common/INI/INI.h"
 
