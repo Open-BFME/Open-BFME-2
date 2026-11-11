@@ -8,11 +8,7 @@
 // with identical this (offset-0 overlap unproven); the reinterpret cast
 // documents it. Row 0x0059E2FD takes const Rva0059E2FD and row 0x0059E2AB
 // takes void star, so the key stays a const reference throughout.
-class Rva0059E2FD
-{
-public:
-	bool rva0059E31F(const Rva0059E2FD &o);
-};
+#include "../../Include/Common/Rva0059E2FD.h"
 
 class Rva0059E2AB
 {

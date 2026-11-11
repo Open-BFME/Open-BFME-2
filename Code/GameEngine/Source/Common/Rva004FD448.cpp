@@ -112,7 +112,7 @@ bool Rva004FD448::rva004FD656(int key) const
     return false;
 }
 
-class Rva0059E2FD { public: bool rva0059E31F(const Rva0059E2FD &o); };
+#include "../../Include/Common/Rva0059E2FD.h"
 class LivingWorldScenario::OwnershipSet { public: void getRegions(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *out); };
 #include "../../Include/Common/ModuleData.h"
 class Rva004FD699 {

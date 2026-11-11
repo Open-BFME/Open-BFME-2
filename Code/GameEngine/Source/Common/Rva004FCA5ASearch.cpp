@@ -37,11 +37,7 @@ void *Rva004FCA5A::rva004FCA5A(const Rva00376A62 &val)
 
 struct Rva0059E647Arg;
 class Rva002E2903Player;
-class Rva0059E2FD
-{
-public:
-	bool rva0059E31F(const Rva0059E2FD &other);
-};
+#include "../../Include/Common/Rva0059E2FD.h"
 
 #include "../../Include/Common/LivingWorldScenario.h"
 
