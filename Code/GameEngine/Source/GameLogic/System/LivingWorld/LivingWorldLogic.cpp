@@ -1784,11 +1784,7 @@ LivingWorldArmy *LivingWorldLogic::CreateEmptyGarrisonArmy(Rva002B6A04Player *pl
 // 0x002E0BC0 tests a player id; 0x002B8A9F queues an army for destruction
 // (the +0x118 list processArmyDestroyList drains).
 #include "../../../../Include/GameLogic/Rva002E071E.h"
-class Rva002B8A9F
-{
-public:
-	void rva002B8A9F(ModuleData *army);			// 0x002B8A9F
-};
+#include "../../../../Include/GameLogic/Rva002B8A9F.h"
 
 // LivingWorldLogic::OnRegionChangedOwnership, retail 0x002BA82B (198 bytes;
 // WB name, asserts lines 4865..4871; entered through the region observer

@@ -29,11 +29,7 @@ class Rva0040CF55Owner
 public:
 	Int sumUnflagged() const;				// 0x0040CF55
 };
-class Rva002B8A9F
-{
-public:
-	void rva002B8A9F(ModuleData *army);			// 0x002B8A9F
-};
+#include "../../../../Include/GameLogic/Rva002B8A9F.h"
 #include "../../../../Include/GameLogic/Rva003193EC.h"
 
 // The army visitor of retail's one-slot table 0x00BFE000 (constructor

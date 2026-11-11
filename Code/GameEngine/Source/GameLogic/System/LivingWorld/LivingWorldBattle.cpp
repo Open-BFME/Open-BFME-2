@@ -367,7 +367,7 @@ class LivingWorldAutoResolveBattle : public Rva004FA2E2 {public:LivingWorldAutoR
 #include "../../../../Include/Common/Rva004FA10FOwner.h"
 class Rva002B8644 {public:void rva002B8644(int);};
 class ModuleData;
-class Rva002B8A9F {public:void rva002B8A9F(ModuleData*);};
+#include "../../../../Include/GameLogic/Rva002B8A9F.h"
 struct RetreatSettings {char opaque00[0x58];int rounds58;};
 struct RetreatCampaign {char opaque00[8];RetreatSettings *settings08;};
 void LivingWorldBattle::RetreatArmiesForPlayer(void *player) {
