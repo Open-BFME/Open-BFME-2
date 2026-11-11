@@ -539,7 +539,7 @@ void CastleBehavior::teleportStragglersFromWallToGround(bool filter) {
 // remain exact; this move adds no recovered bytes.
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 class Player { char pad[0x3bc]; W3DBridge buildControl; public: W3DBridge* getBuildControl() { return &buildControl; } };
-class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
+#include "../../../Include/GameLogic/Rva00395A60.h"
 float Rva00395A60::rva00395A60() { float value=0.0f; void* data=field<void*>(this,4); if(data) value=field<float>(data,0x2c);return value; }
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic* TheTerrainLogic;

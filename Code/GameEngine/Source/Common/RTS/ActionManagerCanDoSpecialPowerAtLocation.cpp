@@ -101,7 +101,7 @@ public:
 };
 #include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"
-class Rva00395A60 { public: float rva00395A60(); };
+#include "../../../Include/GameLogic/Rva00395A60.h"
 class CastleBehavior { public: static NameKeyType rva0003955DA(); };
 #include "../../../Include/GameLogic/AIPathfind.h"
 class AI; extern AI *TheAI;

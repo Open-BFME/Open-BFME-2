@@ -702,7 +702,7 @@ class NetworkPartitionDispatch {public:virtual void v0();virtual void v1();virtu
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct NetworkObjectPrefix {char pad[0x88];AsciiString name;char pad8C[0xB8-0x8C];float radius,width;float getWidth()const{return width;}};
-class Rva00395A60 {public:float rva00395A60();};
+#include "../../../Include/GameLogic/Rva00395A60.h"
 class CastleBehavior {public:static NameKeyType rva0003955DA();};
 class GameInfo;
 extern GameInfo *TheGameInfo;

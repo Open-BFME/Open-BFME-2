@@ -124,7 +124,7 @@ bool Rva00261D2EFilter::allow(Object *other)
 // plus the filter radius; any other object passes when its own geometry
 // collides with a 20-unit cylinder of the filter radius at the point.
 class CastleBehavior { public: static NameKeyType rva0003955DA(); };
-class Rva00395A60 { public: float rva00395A60(); };
+#include "../../Include/GameLogic/Rva00395A60.h"
 class Rva00391667Filter {
 public:
  virtual void slot00();
