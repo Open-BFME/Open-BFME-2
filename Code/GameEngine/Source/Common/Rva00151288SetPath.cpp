@@ -13,10 +13,12 @@
 // follows string_base.h; frame sizes (buffer 0x204, ext/fname 0x100 each)
 // from the retail sub esp and lea immediates. Unlocks four callers.
 
-extern "C" {
-__declspec(dllimport) void __cdecl _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext);
-__declspec(dllimport) void __cdecl _makepath(char *path, const char *drive, const char *dir, const char *fname, const char *ext);
-}
+// msvcr71 _splitpath/_makepath come through the CRT import table (FF15), so
+// read <stdlib.h> with _CRTIMP redefined to dllimport for the include only.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdlib.h>
+#undef _CRTIMP
 
 template <typename T>
 class StringBase
