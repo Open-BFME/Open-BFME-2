@@ -286,11 +286,7 @@ struct Rva0026C4EBGate
 
 // Retail 0x0028B525 stores the pathfind layer at Object +0x40C.
 // Use the rowed displacement view without claiming an Object method name.
-class Rva0028B525DwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../../../Include/GameLogic/Module/Rva0028B525DwordSlot.h"
 
 class Object : public Thing
 {

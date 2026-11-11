@@ -474,7 +474,7 @@ private:
 #include "../../../../Include/Common/TeamBFME2.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
-class Rva0028B525DwordSlot { public: void set(Int); };
+#include "../../../../Include/GameLogic/Module/Rva0028B525DwordSlot.h"
 class Object : public Thing
 {
 public:

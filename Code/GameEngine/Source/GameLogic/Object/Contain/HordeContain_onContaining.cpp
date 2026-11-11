@@ -55,7 +55,7 @@ class Object:public Thing {public:
  void setStatus(ObjectStatusTypes,bool);void setProducer(Object*);
  int rva0028F4EF();void rva0029130C(int);Drawable*getDrawable()const;
 };
-class Rva0028B525DwordSlot {public:void set(int);};
+#include "../../../../Include/GameLogic/Module/Rva0028B525DwordSlot.h"
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 class OpenContain:public ContainModuleInterface {public:virtual void onContaining(Object*,bool);};
 struct Rva0046E6EAObject;struct Rva0046E6EACoord;
