@@ -649,10 +649,7 @@ typedef char CaveContainSizeMustBe10C[(sizeof(CaveContain) == 0x10C) ? 1 : -1];
 
 #include "../../../../Include/Common/ThingFactory.h"
 
-struct Rva001E0301Name
-{
-	int m_data;
-};
+#include "../../../../Include/Common/Rva001E0301Name.h"
 
 class Rva001E0301
 {

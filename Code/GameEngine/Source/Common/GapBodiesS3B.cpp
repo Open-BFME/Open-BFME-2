@@ -17,10 +17,7 @@ struct Coord3D;
 
 extern ThingFactory *TheThingFactory;
 
-struct Rva001E0301Name
-{
-	int m_data;
-};
+#include "../../Include/Common/Rva001E0301Name.h"
 
 class Rva001E0301
 {
