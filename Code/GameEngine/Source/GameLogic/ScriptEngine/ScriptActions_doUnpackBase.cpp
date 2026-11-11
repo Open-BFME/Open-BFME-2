@@ -46,11 +46,7 @@ protected:
 extern ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/GameLogic/Rva00395F57.h"
-class Rva00397F45
-{
-public:
-	bool isPlayerAllowedToPackOrUnpack(Player *pl, int v);
-};
+#include "../../../Include/GameClient/Rva00397F45.h"
 #include "../../../Include/GameLogic/Module/Rva0039718B.h"
 
 class ScriptActions

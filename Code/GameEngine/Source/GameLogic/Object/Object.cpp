@@ -448,7 +448,7 @@ public:
 
 class Rva0039567CCmpBoolField { public: bool get() const; };
 
-class Rva00397F45 { public: bool isPlayerAllowedToPackOrUnpack(Player *player, int cmdSource); };
+#include "../../../Include/GameClient/Rva00397F45.h"
 
 #include "../../../Include/GameLogic/Module/Rva0039718B.h"
 
