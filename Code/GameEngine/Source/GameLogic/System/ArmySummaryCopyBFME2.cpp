@@ -91,7 +91,7 @@ public:
 
 // The 4-byte vector's assignment is the rowed body at 0x0021C21B
 // (StlSweepW5Rva0021C21B.cpp); call it by that row's name.
-struct Rva0021C21BElement { char bytes[4]; };
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 
 namespace _STL
 {

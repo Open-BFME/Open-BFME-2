@@ -249,7 +249,7 @@ public:
     };
 };
 struct Rva0026F4F4Element { unsigned words[1]; bool operator<(const Rva0026F4F4Element&)const; bool operator==(const Rva0026F4F4Element&)const; };
-struct Rva0021C21BElement { char bytes[4]; };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 struct BfmeAsciiScalarValue8
 {
 public:

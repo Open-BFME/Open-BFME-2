@@ -35,7 +35,7 @@ namespace _STL { template <> void _Rb_tree<BfmeStringRecord0021A940,BfmeStringRe
 struct Rva0021C21BElement;
 namespace _STL { template <> vector<Rva0021C21BElement,allocator<Rva0021C21BElement> > & vector<Rva0021C21BElement,allocator<Rva0021C21BElement> >::operator=(vector<Rva0021C21BElement,allocator<Rva0021C21BElement> > const &); }
 
-struct Rva0021C21BElement { char bytes[4]; };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 struct Rva0021C33FElement
 {
     int words[1];

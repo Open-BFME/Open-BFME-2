@@ -34,7 +34,7 @@ typedef _STL::vector<int> IntVec;
 
 // The retail assignment target is the rowed four-byte record specialization
 // at 0x0021C21B. Keep the science vector's storage and call ABI unchanged.
-struct Rva0021C21BElement { char bytes[4]; };
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 typedef _STL::vector<Rva0021C21BElement> RetailAssignVector;
 
 #include "../../../Include/Common/BfmeGlob939D.h"

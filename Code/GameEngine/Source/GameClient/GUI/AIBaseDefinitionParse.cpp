@@ -32,7 +32,7 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 { if (_M_start) Rva00030830GameFree(_M_start); }
 }
 
-struct Rva0021C21BElement {char bytes[4];};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 void parseAIBaseDefinition(INI*);
 class ModuleData;
 class Rva0041E912Template;
