@@ -152,11 +152,11 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-#define FALSE false
-#define TRUE true
-
-struct _iobuf;
-typedef struct _iobuf FILE;
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
+#include <stdio.h>
 
 extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
 
