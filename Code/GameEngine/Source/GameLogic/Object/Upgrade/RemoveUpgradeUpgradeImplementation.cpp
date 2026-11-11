@@ -87,11 +87,7 @@ public:
 extern UpgradeCenter *TheUpgradeCenter;
 
 // The upgrade center's lookup of the first upgrade set in a mask (rowed 0x0026F0F0).
-class Rva0026F0F0
-{
-public:
-	void *rva0026F0F0(const void *mask);
-};
+#include "../../../../Include/GameLogic/Module/Rva0026F0F0.h"
 
 #include "../../../../Include/Common/Player.h"
 

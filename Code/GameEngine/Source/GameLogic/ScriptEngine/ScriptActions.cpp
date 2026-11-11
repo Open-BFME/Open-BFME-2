@@ -818,11 +818,7 @@ class SpecialPowerTemplate;
 #include "../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class Rva0026F0F0
-{
-public:
-	void *rva0026F0F0(const void *key);
-};
+#include "../../../Include/GameLogic/Module/Rva0026F0F0.h"
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;
 

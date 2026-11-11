@@ -164,7 +164,7 @@ public:
 };
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
-class Rva0026F0F0 {public:void *rva0026F0F0(const void *);};
+#include "../../../../Include/GameLogic/Module/Rva0026F0F0.h"
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../Common/GameLogicObjectLookupView.h"

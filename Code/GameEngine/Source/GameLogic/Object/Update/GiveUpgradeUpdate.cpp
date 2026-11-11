@@ -24,11 +24,7 @@ public:
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 // TheUpgradeCenter's lookup: the first upgrade whose bit the mask has.
-class Rva0026F0F0
-{
-public:
-	void *rva0026F0F0(const void *mask);	// 0x0026F0F0
-};
+#include "../../../../Include/GameLogic/Module/Rva0026F0F0.h"
 // TheUpgradeCenter is only an alias of the owned global TheUpgradeCenter (ledger names column); this unit reads the owner through its own view type.
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;

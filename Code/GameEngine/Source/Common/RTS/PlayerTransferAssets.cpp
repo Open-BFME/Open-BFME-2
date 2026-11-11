@@ -205,11 +205,7 @@ public:
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;
 
-class Rva0026F0F0
-{
-public:
-	void *rva0026F0F0(const void *mask);
-};
+#include "../../../Include/GameLogic/Module/Rva0026F0F0.h"
 
 class Rva0039B795;
 class Rva0039B7AD;

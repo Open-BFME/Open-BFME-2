@@ -408,7 +408,7 @@ public:
 class Rva0055A88BDwordField { public: int get() const; };
 class Rva00046827 { public: int rva00046827(); };
 class UpgradeTemplateView { public: char m_pad[8]; AsciiString m_name; char m_padC[0x38 - 0xC]; unsigned int m_bit; };
-class Rva0026F0F0 { public: void *rva0026F0F0(const void *mask); };
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva0026F0F0.h"
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 #include "../../../../GameEngine/Include/GameLogic/Rva002A7461.h"
 class Rva002A7389 { public: int get(int i); };

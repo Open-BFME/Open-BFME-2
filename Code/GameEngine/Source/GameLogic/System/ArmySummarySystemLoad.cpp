@@ -77,7 +77,7 @@ public:
 #include "../../../Include/Common/BfmeFixedStorage128.h"
 
 class Rva00046827 { public: int rva00046827(); };
-class Rva0026F0F0 { public: void *rva0026F0F0(const void *key); };
+#include "../../../Include/GameLogic/Module/Rva0026F0F0.h"
 
 class Rva002E2903Player
 {

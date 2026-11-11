@@ -353,10 +353,7 @@ class UpgradeCenter;
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-struct Rva0026F0F0
-{
-	void *rva0026F0F0(const void *mask);
-};
+#include "../../../../Include/GameLogic/Module/Rva0026F0F0.h"
 
 struct Rva00046827
 {
