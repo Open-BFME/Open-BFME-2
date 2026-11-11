@@ -434,11 +434,7 @@ Bool rva00344EB2Gate(Object *obj, Thing *other);
 
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/Common/Rva002C9407ByteField.h"
-class Rva002C940EByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/GameLogic/Rva002C940EByteField.h"
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 

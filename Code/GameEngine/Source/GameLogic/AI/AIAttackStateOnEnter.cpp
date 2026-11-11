@@ -42,7 +42,7 @@ public:
  char pad308[0x130]; unsigned char status438;
 };
 #include "../../../Include/Common/Rva002C9400ByteField.h"
-class Rva002C940EByteField { public: unsigned char get() const; };
+#include "../../../Include/GameLogic/Rva002C940EByteField.h"
 class Rva0028B7B5CmpBoolField { public: bool get() const; };
 struct CurrentStateIDView { char pad[4]; unsigned id; };
 #include "../../../Include/Common/StateMachineClass.h"

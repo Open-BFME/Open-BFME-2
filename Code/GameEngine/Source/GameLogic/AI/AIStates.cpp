@@ -456,11 +456,7 @@ class Rva002C9400ByteField
 public:
 	unsigned char get() const;
 };
-class Rva002C940EByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/GameLogic/Rva002C940EByteField.h"
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
