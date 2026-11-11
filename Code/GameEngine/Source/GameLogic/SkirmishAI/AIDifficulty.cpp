@@ -41,12 +41,7 @@ static __forceinline AIDiffEntry *skirmishDifficultyTable(Rva002A8F24 *manager)
 	return (AIDiffEntry *)manager->m_pad888;
 }
 
-class AIDifficulty
-{
-public:
-	bool allowEconomyUpgrade(Rva002A9BF2 *p);
-	bool allowOffensiveTactic(Rva002A9BF2 *p);
-};
+#include "../../../Include/GameLogic/AIDifficulty.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

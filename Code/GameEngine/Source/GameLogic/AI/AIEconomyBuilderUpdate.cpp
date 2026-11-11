@@ -13,7 +13,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "GameLogicObjectLookupView.h"
 class AIEconomyBuilder;
 class Rva002A9BF2;
-class AIDifficulty { public: bool allowEconomyUpgrade(Rva002A9BF2 *); };
+#include "../../../Include/GameLogic/AIDifficulty.h"
 int Rva0058AEB6Get();
 extern GameLogic *TheGameLogic;
 class Rva004E9378 { public: bool rva004E9378(); };

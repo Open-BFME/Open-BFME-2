@@ -148,11 +148,7 @@ int Rva0058AEB6Get();
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class AIDifficulty
-{
-public:
-	bool allowOffensiveTactic(class Rva002A9BF2 *arg);
-};
+#include "../../../../../Include/GameLogic/AIDifficulty.h"
 
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take
