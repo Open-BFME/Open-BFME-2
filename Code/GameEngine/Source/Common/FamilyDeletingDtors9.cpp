@@ -77,7 +77,7 @@ class Rva005D4FFC { public: ~Rva005D4FFC(); };
 void famgenDelete(Rva005D4FFC *panelFrame) { delete panelFrame; }
 
 // ??_GRva005E893E@@QAEPAXI@Z @0x005CE156 28B: calls pinned ~Rva005E893E 0x005E893E
-class Rva005E893E { public: ~Rva005E893E(); };
+#include "../../Include/Common/Rva005E893E.h"
 void famgenDelete(Rva005E893E *p) { delete p; }
 
 // Each retail call in this body reads an address the ledger already carries

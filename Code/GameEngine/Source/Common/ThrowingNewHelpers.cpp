@@ -187,7 +187,7 @@ class Image;struct Rva005D232DIn;
 namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D232DIn*); }
 struct Rva005E8C54Source;
 class Rva005E8CB0 {public:Rva005E8CB0(void*,int,void*,const Rva005E8C54Source*);void *m_p;};
-class Rva005E893E {public:__declspec(noinline) ~Rva005E893E();};
+#include "../../Include/Common/Rva005E893E.h"
 class Rva005CE236 {public:Rva005CE236():m_p(0){}__declspec(noinline) ~Rva005CE236();void reset(Rva005E893E*);Rva005E893E*m_p;};
 class Rva005CF07EListener {public:Rva005CF07EListener(){}virtual ~Rva005CF07EListener(){};};
 class Rva005CEE9F : public Rva005CE8F5,public Rva005CF07EListener {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();private:void *m_region;Rva005CE236 m_build;};

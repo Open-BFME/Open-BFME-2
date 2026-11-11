@@ -599,11 +599,7 @@ void Rva0057B9B6::clear()
 	}
 }
 
-class Rva005E893E
-{
-public:
-	__declspec(noinline) ~Rva005E893E();
-};
+#include "../../Include/Common/Rva005E893E.h"
 
 class Rva005CE21C
 {
