@@ -311,11 +311,7 @@ struct Rec00564C08
 class LivingWorldCampaignActEntry;
 
 // ?rva00564E43@Rva00564E43@@QAEXXZ @0x00564E43 125B: unlock loops 8B array at +8/+0xc setting local AsciiString from +4 then calling m_b0 ActivateRegion with 1. Evidence: calls rowed set releaseBuffer ActivateRegion EH_prolog; g_009FEF10; single caller call at 0x00566972; prev CDManager next GloItem.
-class Rva002104C7
-{
-public:
-	bool ActivateRegion(void *a1, void *a2);
-};
+#include "../../Include/Common/Rva002104C7.h"
 
 class Rva002BA8F1Logic
 {

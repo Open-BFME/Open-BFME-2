@@ -261,12 +261,7 @@ void *Rva0020EE29::rva0020FAB4(int a1, int a2)
 // member result is discarded). Evidence: retail pushes the lookup arg and
 // calls 0x002104B6 with the incoming ecx (thiscall on this, which reads
 // [ecx+8]); the (p, a2) push order puts the lookup result first.
-class Rva002104C7
-{
-public:
-	bool ActivateRegion(void *a1, void *a2);
-	void rva0020E374(void *a1, void *a2);
-};
+#include "../../../../GameEngine/Include/Common/Rva002104C7.h"
 
 class Rva00210390;
 class Rva002104B6
