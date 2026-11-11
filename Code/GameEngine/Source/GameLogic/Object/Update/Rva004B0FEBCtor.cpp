@@ -11,7 +11,7 @@ class Object {public:Player *getControllingPlayer()const;char pad[0x38];Coord3D 
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct BfmePointFD;
-class Rva00739830 {public:int rva00739830(const BfmePointFD *,int,unsigned)const;};// Global type follows the existing FXListDoFXPos provider.
+#include "../../../../Include/GameLogic/Module/Rva00739830.h"
 class PartitionManager;extern PartitionManager *TheShroudManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // Name: WorldBuilder twin 0x01230A20 EmotionTrackerUpdate::TauntPointFilter::Allow (call graph)

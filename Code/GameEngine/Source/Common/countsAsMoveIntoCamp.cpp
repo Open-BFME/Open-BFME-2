@@ -19,11 +19,7 @@ struct AudioSettings
 	unsigned int m_48;
 };
 extern AudioManager *TheAudio;
-class Rva00739830
-{
-public:
-	int rva00739830(const BfmePointFD *pt, int a, unsigned int b) const;
-};
+#include "../../Include/GameLogic/Module/Rva00739830.h"
 #define TheShroudManager (*(Rva00739830 **)&TheShroudManager)
 unsigned char __cdecl countsAsMoveIntoCamp(unsigned int a, const BfmePointFD *pt1, const BfmePointFD *pt2)
 {

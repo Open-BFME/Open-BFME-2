@@ -157,7 +157,7 @@ public:
 };
 #include "../../../../Include/Common/PlayerList.h"
 struct BfmePointFD;
-class Rva00739830 { public: int rva00739830(const BfmePointFD *,int,unsigned int) const; };
+#include "../../../../Include/GameLogic/Module/Rva00739830.h"
 class EmotionSystem { public: const _STL::vector<ObjectID> &getObjects() const { return objects; } char pad[0x24]; _STL::vector<ObjectID> objects; };
 class GlobalData;
 class TerrainLogic;
