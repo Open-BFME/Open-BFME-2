@@ -17,10 +17,10 @@ class Rva006E3410
 {
 public:
 	int rva006E3410(int needle);
+	char m_pad00[0xC];
 private:
-	char m_pad0[0xC];
-	int m_count;
-	int *m_arr;
+	int m_count; // +0x0C
+	int *m_arr; // +0x10
 };
 
 int Rva006E3410::rva006E3410(int needle)

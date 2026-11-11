@@ -11,12 +11,15 @@ class Rva0070EDC0
  
 }
 ;
-class Rva006E3410 
+class Rva006E3410
 {
- public:int rva006E3410(int);
- 
-}
-;
+public:
+	int rva006E3410(int needle);
+	char m_pad00[0xC];
+private:
+	int m_count; // +0x0C
+	int *m_arr; // +0x10
+};
 extern void *g_aptFreeRenderingUnitSlot,*g_aptFreeSoundSlot,*g_aptFreeTextureSlot;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

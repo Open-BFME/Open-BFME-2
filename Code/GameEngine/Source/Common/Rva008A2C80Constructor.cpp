@@ -8,7 +8,8 @@
 class Rva00894D90Accessor
 {
 public:
-    static unsigned int decrement(unsigned int *p);
+	static unsigned int decrement(unsigned int *p);
+	static unsigned int decrement(int *p);
 };
 #include "../../Include/Common/Rva00894D80Accessor.h"
 void bfmeDropVGO(void *p);

@@ -8,6 +8,7 @@
 class Rva00894D90Accessor
 {
 public:
+	static unsigned int decrement(unsigned int *p);
 	static unsigned int decrement(int *p);
 };
 
