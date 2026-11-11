@@ -11,12 +11,7 @@ struct RGBColor00271779
 	float m_b;
 };
 
-class Rva00271779
-{
-public:
-	void rva00271779(RGBColor00271779 color, int mode, int color0, int color1,
-		float a, float b);
-};
+#include "../../Include/GameClient/Rva00271779.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

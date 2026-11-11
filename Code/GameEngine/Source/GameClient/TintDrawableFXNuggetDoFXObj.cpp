@@ -10,12 +10,7 @@ struct RGBColor00271779 {
 	Real blue;
 };
 
-class Rva00271779
-{
-public:
-	void rva00271779(RGBColor00271779 color, int preColorTime,
-		int postColorTime, int sustainedColorTime, Real frequency, Real amplitude);
-};
+#include "../../Include/GameClient/Rva00271779.h"
 
 #include "../GameLogic/Object/object.h"
 #include "../../Include/GameClient/Drawable.h"

@@ -9,7 +9,7 @@
 // ZH ContainModule.h supplies contained-object list semantics; this debug
 // helper itself was not found in the ZH Pathfinder donor.
 struct RGBColor00271779 { float red,green,blue; };
-class Rva00271779 {public: void rva00271779(RGBColor00271779,int,int,int,float,float);};
+#include "../../../Include/GameClient/Rva00271779.h"
 #include "../../../Include/GameClient/Drawable.h"
 class Object;
 struct ContainedObjectListNode {ContainedObjectListNode *next,*prev;Object *obj;};
