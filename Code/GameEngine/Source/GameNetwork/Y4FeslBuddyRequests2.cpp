@@ -13,11 +13,7 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *key, void *value );
-};
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 
 class Rva007E8810Message
 {

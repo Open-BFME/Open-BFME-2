@@ -24,11 +24,7 @@ public:
 	char m_30;
 };
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *one, void *two );
-};
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 
 class Gen_007e86c0
 {

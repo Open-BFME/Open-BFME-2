@@ -29,11 +29,7 @@ public:
     void go(int key, unsigned char value);
 };
 
-class BfmeThingCIC
-{
-public:
-    void bfmeGoCIC(void *key, void *value);
-};
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 
 class Rva007E9310Identifier
 {

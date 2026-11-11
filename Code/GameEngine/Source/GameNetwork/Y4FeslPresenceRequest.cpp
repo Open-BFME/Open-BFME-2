@@ -22,11 +22,7 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *key, void *value );
-};
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 
 class Rva007E8810Message
 {

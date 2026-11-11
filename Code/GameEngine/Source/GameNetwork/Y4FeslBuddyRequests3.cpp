@@ -13,11 +13,7 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *key, void *value );
-};
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 
 // Class name is the claimed pin (ctor 0x007E8810).  Layout is the same object
 // V2FeslTxnRequests.cpp already recovered from reset()/add* stores.

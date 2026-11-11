@@ -426,11 +426,7 @@ struct Rva00674E90
 
 #include "../../../../GameEngine/Include/GameNetwork/BfmeThingCIB.h"
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *key, void *value );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeThingCIC.h"
 
 class Rva00657650LeaGetter
 {

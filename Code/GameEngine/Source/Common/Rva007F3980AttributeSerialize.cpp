@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
-class BfmeThingCIC { public: void bfmeGoCIC(void*, void*); };
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 class Rva007E8810Message { public: void addInt64(const char*, __int64); };
 

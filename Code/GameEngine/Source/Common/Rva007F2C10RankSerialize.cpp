@@ -10,11 +10,7 @@
 
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC(void *name, void *value);
-};
+#include "../../Include/GameNetwork/BfmeThingCIC.h"
 
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 
