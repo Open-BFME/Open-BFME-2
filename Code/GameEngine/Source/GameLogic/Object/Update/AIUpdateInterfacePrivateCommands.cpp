@@ -280,10 +280,7 @@ extern ScriptEngine *TheScriptEngine;
 
 // The global at 0x00E01DBC; loadPostProcess hands it the owner last
 // (0x00333E5B). Unnamed beyond the ledger's existing name.
-struct LuaDrawableState
-{
-	void rva00333E5B(Object *obj);
-};
+#include "../../../../Include/GameLogic/LuaDrawableState.h"
 
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;

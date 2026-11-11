@@ -20,11 +20,7 @@ struct Rva00287C21Other
 class Object;
 // Row spellings: 0x00333F37 is LuaDrawableState::rva00333F37(Object *),
 // 0x002A8F56 is Rva002A8F24::UnRegister(Object *).
-class LuaDrawableState
-{
-public:
-	void rva00333F37(Object *p);
-};
+#include "../../Include/GameLogic/LuaDrawableState.h"
 #include "../../Include/GameLogic/Rva002A8F24.h"
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class PartitionManager;

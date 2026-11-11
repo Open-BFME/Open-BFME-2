@@ -56,11 +56,7 @@ extern PlayerList *ThePlayerList;
 class Rva00625840 { public: void rva00625840(); };
 class Rva009A2350 { public: void init(); };
 
-struct LuaDrawableState
-{
-	void rva00333F37(Object *obj);	// 0x00333F37 (EH body over the Lua stack)
-	void rva00333E5B(Object *obj);
-};
+#include "../../../Include/GameLogic/LuaDrawableState.h"
 // g_rva00A01DBCLuaState is only an alias of the owned global TheLuaScriptEngine (ledger names column); this unit reads the owner through its own view type.
 extern class LuaScriptEngine *TheLuaScriptEngine;
 #define g_rva00A01DBCLuaState (*(LuaDrawableState * *)&TheLuaScriptEngine)
