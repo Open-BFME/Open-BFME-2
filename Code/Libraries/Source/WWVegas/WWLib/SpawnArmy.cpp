@@ -431,12 +431,7 @@ public:
 	~BfmePod88();
 	char m_body[88]; // +0x00
 };
-class Rva000C0513
-{
-public:
-	void rva004E38B9(unsigned int n);
-	void rva000C0513(unsigned int n, Coord3D val);
-};
+#include "../../../../GameEngine/Include/Common/Rva000C0513.h"
 // SplineCameraParseINIBlock's record is Rva004E32F2: native 0x004E3300 calls
 // its rowed ctor 0x004E32D5, appends it through the rowed 0x00566D7B and
 // destroys it inline (vptr 0x00C61F68, then the tree dtor 0x002B80CE), the

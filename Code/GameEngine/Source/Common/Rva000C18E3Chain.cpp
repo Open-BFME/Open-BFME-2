@@ -81,11 +81,7 @@ public:
 
 }
 
-class Rva000C0513
-{
-public:
-	void rva000C0513(unsigned int n, Coord3D val);
-};
+#include "../../Include/Common/Rva000C0513.h"
 
 struct SrcArg000C18E3
 {

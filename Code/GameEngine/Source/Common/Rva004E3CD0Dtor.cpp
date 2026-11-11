@@ -60,12 +60,7 @@ static __forceinline Rva003EEC63 *treePayloadContext() {
 
 #include "Lib/Coord3D.h"
 
-class Rva000C0513
-{
-public:
-    void rva004E38B9(unsigned int n);
-    void rva000C0513(unsigned int n, Coord3D val);
-};
+#include "../../Include/Common/Rva000C0513.h"
 
 class Rva004E3A6EObj
 {
