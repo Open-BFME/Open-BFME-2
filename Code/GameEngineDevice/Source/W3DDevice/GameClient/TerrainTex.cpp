@@ -112,7 +112,7 @@ extern "C" HRESULT __stdcall D3DXLoadSurfaceFromMemory(void *pDestSurface,
 
 // Zero Hour's TerrainTex.h has no updateFlatDXT1, so this TU declares
 // TerrainTextureClass itself instead of including that header.
-class Rva00111784DwordField { public: int get() const; };
+#include "../../../Include/W3DDevice/GameClient/Rva00111784DwordField.h"
 class TerrainTextureClass : public TextureClass
 {
 public:

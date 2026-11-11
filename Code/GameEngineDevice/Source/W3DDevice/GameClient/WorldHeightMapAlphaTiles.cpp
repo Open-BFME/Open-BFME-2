@@ -105,11 +105,7 @@ void Rva000AC6F9SetupAlphaTiles(void)
 // Retail supplies the fifth mode argument, optional tile copy at 111784,
 // source table +B0/4096 entries and RGB555-to-32-bit expansion instead of
 // the donor's 4BPP memcpy. Original BFME2 method name remains unknown.
-class Rva00111784DwordField
-{
-public:
-	Int get() const;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00111784DwordField.h"
 
 class Rva000ADDCEWorldHeightMapView
 {

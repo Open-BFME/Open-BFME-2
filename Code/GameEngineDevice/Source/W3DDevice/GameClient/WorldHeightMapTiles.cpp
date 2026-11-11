@@ -31,11 +31,7 @@ public:
 #include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
 // Rowed getter of the companion normal-map tile at TileData+0x2AB4.
-class Rva00111784DwordField
-{
-public:
-	Int get() const;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00111784DwordField.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

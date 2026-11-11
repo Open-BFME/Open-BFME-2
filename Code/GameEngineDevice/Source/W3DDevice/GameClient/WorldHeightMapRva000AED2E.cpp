@@ -25,11 +25,7 @@ struct TBlendTileInfo
 	Int m_data[4];
 };
 
-class Rva00111784DwordField
-{
-public:
-	Int get() const;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00111784DwordField.h"
 
 #include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
