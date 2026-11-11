@@ -115,7 +115,7 @@ class BfmeObjELB {public:char prefix[0xd1];bool disconnected;char pad[10];bool f
 extern BfmeObjELB *g_bfmeObjELB;
 struct Rva00416088 {int word0,word1;AsciiString text0,text1;__declspec(dllimport) __forceinline Rva00416088():text0(),text1(){}~Rva00416088();};
 class BuddyInviteGameInfo {public:int profile;Rva00416088 data;int word14;BuddyInviteGameInfo():profile(-1){data.word0=-1;data.word1=-1;word14=-1;}void LocationFromString(const AsciiString &);};
-struct Rva00517048 {void rva00517CC9(const BuddyInviteGameInfo &);};
+#include "../../../Include/Common/Rva00517048.h"
 extern Rva00517048 *g_Va00A04904;
 extern unsigned char g_Va00A0308C;extern unsigned char g_Va00A03094;
 extern int g_Va00A03090;extern int g_Va00A03098;

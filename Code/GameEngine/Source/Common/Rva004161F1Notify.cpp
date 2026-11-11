@@ -14,10 +14,7 @@ typedef unsigned short wchar_t;
 
 extern GameTextInterface *TheGameText;
 
-struct Rva00517048
-{
-	void rva00517048(const UnicodeString &text);
-};
+#include "../../Include/Common/Rva00517048.h"
 
 extern Rva00517048 *g_Va00A04904;
 extern unsigned char g_Va00A0308C;

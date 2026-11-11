@@ -1,0 +1,124 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00517048",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x274": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "632": 1,
+   "692": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 636,
+   "type": "char[636]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 692,
+ "size_by": "majority",
+ "vslots": {}
+}
