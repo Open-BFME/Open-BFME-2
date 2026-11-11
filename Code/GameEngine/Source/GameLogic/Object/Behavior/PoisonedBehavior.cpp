@@ -121,11 +121,7 @@ public:
 	int getDesiredGatherers();
 };
 
-class Rva00270619
-{
-public:
-	void Rva00270619Clear(int bit);
-};
+#include "../../../../Include/GameLogic/Module/Rva00270619.h"
 
 // The module classes spell the PoisonedBehavior.cpp TU's union view.
 class Xfer;

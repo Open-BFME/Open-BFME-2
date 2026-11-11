@@ -181,7 +181,7 @@ class Rva001E4A4E
 public:
 	bool rva001E4A4E(int);
 };
-class Rva00270619 {public:void Rva00270619Clear(int);};
+#include "../../../Include/GameLogic/Module/Rva00270619.h"
 class Object
 {
 public:

@@ -185,11 +185,7 @@ private:
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
-class Rva00270619
-{
-public:
-	void Rva00270619Clear(int bit);
-};
+#include "../../../../Include/GameLogic/Module/Rva00270619.h"
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
