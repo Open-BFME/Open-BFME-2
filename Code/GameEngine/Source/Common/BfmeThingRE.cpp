@@ -23,11 +23,7 @@ public:
 
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
 
-class Rva007E8980
-{
-public:
-    void go(int key, unsigned char value);
-};
+#include "../../Include/GameNetwork/Rva007E8980.h"
 
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
 

@@ -17,11 +17,7 @@ public:
 
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
 
-class Rva007E8980
-{
-public:
-	void go(int key, unsigned char value);
-};
+#include "../../Include/GameNetwork/Rva007E8980.h"
 
 struct Rva007F1800Owner
 {

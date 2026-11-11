@@ -26,11 +26,7 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
 
-class Rva007E8980
-{
-public:
-	void go( int key, unsigned char value );
-};
+#include "../../Include/GameNetwork/Rva007E8980.h"
 
 class Rva007E8810Message
 {
