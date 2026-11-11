@@ -25,14 +25,7 @@
 // 0x00E022E8).
 extern bool g_Va00E022E0;
 
-class AptGuiFX
-{
-public:
-	static void OnInitialized(const char *unused);
-	
-public:
-	static void Init();
-};
+#include "../../../Include/Common/AptGuiFX.h"
 
 // OnInitialized is defined and rowed in AptGuiFXCallbacks.cpp.
 

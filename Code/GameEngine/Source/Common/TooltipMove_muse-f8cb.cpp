@@ -33,11 +33,7 @@ public:
 	virtual void *getScale() = 0;
 };
 
-class AptGuiFX
-{
-public:
-	static void MoveToolTip(float x, float y);
-};
+#include "../../Include/Common/AptGuiFX.h"
 // WorldBuilder AptGuiFX::MoveToolTip, WB VA 0x00F659E0 (strings lead, score 1.0).
 void AptGuiFX::MoveToolTip(float x, float y)
 {

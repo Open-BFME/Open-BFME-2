@@ -1082,11 +1082,7 @@ extern int g_00E02EC4;
 void Rva0038072AClear();
 IMEManager *CreateIMEManagerInterface();
 LanguageFilter *createLanguageFilter();
-class AptGuiFX
-{
-public:
-	static void Init();
-};
+#include "../../Include/Common/AptGuiFX.h"
 void Rva00220DCDInit();
 void rva002210CF();
 void Rva002220DCInit();

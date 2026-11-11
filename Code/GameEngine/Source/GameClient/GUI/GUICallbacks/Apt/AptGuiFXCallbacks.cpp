@@ -10,13 +10,7 @@
 // Retail loader-zeroed ready byte; this callback unit is its sole owner.
 bool g_Va00E022E0 = false;
 
-class AptGuiFX
-{
-public:
-	static void OnInitialized(const char *unused);
-public:
-	static void ShowToolTip(void *text,class AsciiString *face,int size,int style,int color);
-};
+#include "../../../../../Include/Common/AptGuiFX.h"
 
 // Retail 0x003808E8, 8 bytes: "AptGuiFX::OnInitialized" marks the GuiFX
 // movie ready.

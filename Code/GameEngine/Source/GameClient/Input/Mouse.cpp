@@ -735,13 +735,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 
 typedef int BfmeColor;
 
-class AptGuiFX
-{
-public:
-	static void MoveToolTip(float x, float y);
-public:
-	static void ShowToolTip(void *tipText, AsciiString *fontName, int fontSize, int fontBold, int color);
-};
+#include "../../../Include/Common/AptGuiFX.h"
 
 // ?TheGlobalLanguageData triple and ScriptEngine/GlobalData bytes are read
 // through TU-local views: only the used slots are modeled.
