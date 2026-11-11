@@ -11,11 +11,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class MovieWindowPlayback
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/MovieWindowPlayback.h"
 
 class Rva00524BB4Ref
 {

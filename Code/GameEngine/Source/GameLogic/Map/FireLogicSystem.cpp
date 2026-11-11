@@ -262,11 +262,7 @@ class _bfme_AptGameWindow
 public:
 	int rva0051274F(int a, unsigned int b, unsigned int c);
 };
-class MovieWindowPlayback
-{
-public:
-	void clear();
-};
+#include "../../../Include/Common/MovieWindowPlayback.h"
 class XferSave
 {
 public:

@@ -347,11 +347,7 @@ protected:
 };
 #include "../../../../../Include/GameLogic/Rva00493009.h"
 #include "../../../../../Include/GameLogic/Module/Rva00507823.h"
-class MovieWindowPlayback
-{
-public:
-	void clear();
-};
+#include "../../../../../Include/Common/MovieWindowPlayback.h"
 class XferSave
 {
 public:
