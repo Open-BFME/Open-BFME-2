@@ -155,11 +155,7 @@ public:
 	RenderObjClass *m_primaryRObj; // +0x08
 };
 
-class Rva003FB9C8
-{
-public:
-	void rva003FB9EB(int a, int b);
-};
+#include "../../../Include/Common/Rva003FB9C8.h"
 
 class Rva003FD14D : public LivingWorldVisual
 {

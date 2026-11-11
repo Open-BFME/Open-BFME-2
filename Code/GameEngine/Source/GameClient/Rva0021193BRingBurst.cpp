@@ -57,11 +57,7 @@ public:
 	Real m_9C;			// +0x9C
 };
 
-class Rva003FB9C8
-{
-public:
-	void rva003FB9C8(int a, int b);
-};
+#include "../../Include/Common/Rva003FB9C8.h"
 
 template <class T> class BurstVectorView
 {
