@@ -76,7 +76,7 @@ namespace _STL {template<> vector<void*>::iterator vector<void*>::erase(iterator
 template<> inline __declspec(noinline) ParticleSystemID* __copy_ptrs<ParticleSystemID*,ParticleSystemID*>(ParticleSystemID*first,ParticleSystemID*last,ParticleSystemID*result,const __false_type&){ random_access_iterator_tag tag;return __copy(first,last,result,tag,static_cast<int*>(0));}
 template<> inline __declspec(noinline) vector<ParticleSystemID>::iterator vector<ParticleSystemID>::erase(iterator first,iterator last){_TrivialAss tag;iterator i=__copy_ptrs(last,this->_M_finish,first,tag);_Destroy(i,this->_M_finish);this->_M_finish=i;return first;}}
 class RvaVector {public:void**erase(void**,void**) throw();};
-class Rva00601941 {public:void rva00601941() throw();};
+#include "../../../Include/GameClient/Rva00601941.h"
 extern unsigned BfmeTacticalInterestZoneSerial;
 unsigned BfmeSkirmishAIResetState1;
 extern int Rva00A03D80;

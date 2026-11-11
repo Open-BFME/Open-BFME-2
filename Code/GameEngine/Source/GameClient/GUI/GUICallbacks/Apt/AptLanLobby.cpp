@@ -112,11 +112,7 @@ public:
 class ModuleData;
 // More views of the +0x668 object (rva00601941 resets it, rva00580B40 adds
 // an entry) and of the +0x288 panel (enable).
-class Rva00601941
-{
-public:
-	void rva00601941();
-};
+#include "../../../../../Include/GameClient/Rva00601941.h"
 class Rva00580B40
 {
 public:

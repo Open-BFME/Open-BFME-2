@@ -236,7 +236,7 @@ void GadgetListBoxReset(GameWindow *);
 void GadgetListBoxSetSelected(GameWindow *, int);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *, int);
 class ModuleData;
-class Rva00601941 { public: void rva00601941(); };
+#include "../../../../../Include/GameClient/Rva00601941.h"
 class Rva00580B40 { public: void rva00580B40(const ModuleData *); };
 class LANGameInfo;
 class Rva0058113D { public: LANGameInfo *rva0058113D(unsigned int); };
