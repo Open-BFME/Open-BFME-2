@@ -50,7 +50,7 @@ static __forceinline float rva005B80F2Inline(int side, float def, Rva005B8053 *s
 struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; };
 class Rva005DD822 : public BfmeStringRecord005DDD40 { public: Rva005DD822(unsigned int); };
 class Rva005DD8E0 : public BfmeStringRecord005DDD40 { public: Rva005DD8E0(float, float); };
-class Rva005DDE01 { public: void AddStat(unsigned int, unsigned int, const BfmeStringRecord005DDD40 &, bool); };
+#include "../../Include/Common/Rva005DDE01.h"
 
 struct Rva005B8116Map { Rva005B8053 m_tree; int m_pad[2]; };
 

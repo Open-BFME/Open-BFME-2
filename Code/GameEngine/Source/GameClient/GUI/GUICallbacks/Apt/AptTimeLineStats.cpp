@@ -170,7 +170,7 @@ struct BfmeStringRecord005DDD40 {UnicodeString text; float word;};
 class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned);};
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned);};
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
-class Rva005DDE01 {public:void AddStat(unsigned,unsigned,const BfmeStringRecord005DDD40&,bool);};
+#include "../../../../../Include/Common/Rva005DDE01.h"
 class GameStats {public:class Row;class StrategicEndGame;class RealTimeEndGame;};
 class Rva005DE9E3 {
 public:Rva005DE9E3(unsigned);virtual~Rva005DE9E3();

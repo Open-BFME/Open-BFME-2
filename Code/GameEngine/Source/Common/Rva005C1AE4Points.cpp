@@ -142,7 +142,7 @@ class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned i
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned int);};
 class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const UnicodeString&,float);};
-class Rva005DDE01{public:void AddStat(unsigned int,unsigned int,const BfmeStringRecord005DDD40&,bool);};
+#include "../../Include/Common/Rva005DDE01.h"
 class GameStats{public:class Persistent{public:void CalculateTotalColumn(float);};};
 static __forceinline float ScaleCounts(int first,int second){float sum=(float)first;sum+=(float)second;return sum*100.0f;}
 class Rva005C1860

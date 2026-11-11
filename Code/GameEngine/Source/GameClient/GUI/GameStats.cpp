@@ -185,7 +185,7 @@ struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; };
 class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned int);};
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned int);};
-class Rva005DDE01 {public:void AddStat(unsigned int,unsigned int,const BfmeStringRecord005DDD40&,bool);};
+#include "../../../Include/Common/Rva005DDE01.h"
 
 // ?rva005DDC6B@Rva005DDC6B@@QAEMII@Z, RVA 0x005DDC6B, 58B. Unlock lane: float
 // range-sum method over 8-byte elements; base pointer at +4 has a 4-byte
