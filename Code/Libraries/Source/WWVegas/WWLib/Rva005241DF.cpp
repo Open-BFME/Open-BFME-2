@@ -28,11 +28,7 @@ private:
 
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
 
-class Rva002244CA
-{
-public:
-	int RemoveExternHandler(const AsciiString *key);
-};
+#include "../../../../GameEngine/Include/GameClient/Rva002244CA.h"
 
 #include "../../../../GameEngine/Include/Common/Rva00222A8BTarget.h"
 

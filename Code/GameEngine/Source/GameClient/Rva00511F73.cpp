@@ -5,11 +5,7 @@
 #include <new>
 void __cdecl Rva00511730(int unused);
 #include "../../Include/Common/Rva00224455.h"
-class Rva002244CA
-{
-public:
-	int RemoveExternHandler(const AsciiString *key);
-};
+#include "../../Include/GameClient/Rva002244CA.h"
 class Rva00222A8BTarget;
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;

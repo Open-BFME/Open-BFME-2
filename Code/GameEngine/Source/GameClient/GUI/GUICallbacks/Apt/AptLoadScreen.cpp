@@ -56,11 +56,7 @@ public:
 	virtual void shutdown(bool);
 };
 
-class Rva002244CA
-{
-public:
-	int RemoveExternHandler(const AsciiString *);
-};
+#include "../../../../../Include/GameClient/Rva002244CA.h"
 
 #include "../../../../../Include/Common/Rva00223A94.h"
 

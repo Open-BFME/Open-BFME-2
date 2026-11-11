@@ -74,11 +74,7 @@ struct TreeHintOpaque0043671B
 	~TreeHintOpaque0043671B();
 };
 
-class Rva002244CA
-{
-public:
-	int RemoveExternHandler(const AsciiString *name);
-};
+#include "../../../../../Include/GameClient/Rva002244CA.h"
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 

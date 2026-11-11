@@ -322,11 +322,7 @@ void _bfme_closeAptScreen(const AsciiString &name);
 // The player's custom render (0x002246B1) and extern handler (0x002244CA)
 // removals, rowed under address-named views.
 #include "../../../../../Include/GameClient/Rva002246B1.h"
-class Rva002244CA
-{
-public:
-	int RemoveExternHandler(const AsciiString *name);
-};
+#include "../../../../../Include/GameClient/Rva002244CA.h"
 // The 0x00DFEF18 singleton (address-named view): the living-world map
 // view, reset through 0x002BED10 and two virtuals when +0x19 says it is up.
 class Rva002D3627Host

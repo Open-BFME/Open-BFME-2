@@ -959,3 +959,4 @@ Rva003F81FDProxy,Code/GameEngine/Include/Common/Rva003F81FDProxy.h,existing head
 BannerUI,Code/GameEngine/Include/GameClient/BannerUI.h,existing header; contract class_contracts/BannerUI.json; 5/9 sampled units adopt
 Rva00319B0AOwner,Code/GameEngine/Include/Common/Rva00319B0AOwner.h,existing header; contract class_contracts/Rva00319B0AOwner.json; 7/8 sampled units adopt
 Rva00368C7A,Code/GameEngine/Include/GameLogic/Module/Rva00368C7A.h,existing header; contract class_contracts/Rva00368C7A.json; 6/9 sampled units adopt
+Rva002244CA,Code/GameEngine/Include/GameClient/Rva002244CA.h,existing header; contract class_contracts/Rva002244CA.json; 7/8 sampled units adopt

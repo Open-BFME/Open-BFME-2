@@ -76,11 +76,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // AptPlayer::RemoveExternHandler (WorldBuilder name), rowed under its
 // address name: removes the handler registered under the name.
-class Rva002244CA
-{
-public:
-	int RemoveExternHandler(const AsciiString *name);
-};
+#include "../../../Include/GameClient/Rva002244CA.h"
 
 // Registers one extern handler for its own lifetime; keeps the name.
 class AptSingleExternHandlerAdder
