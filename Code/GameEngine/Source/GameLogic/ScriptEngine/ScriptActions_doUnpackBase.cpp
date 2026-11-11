@@ -51,11 +51,7 @@ class Rva00397F45
 public:
 	bool isPlayerAllowedToPackOrUnpack(Player *pl, int v);
 };
-class Rva0039718B
-{
-public:
-	bool rva0039718B(Player *pl);
-};
+#include "../../../Include/GameLogic/Module/Rva0039718B.h"
 
 class ScriptActions
 {

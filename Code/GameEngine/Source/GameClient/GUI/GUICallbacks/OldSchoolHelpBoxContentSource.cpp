@@ -169,11 +169,7 @@ public:
 
 #include "../../../../Include/GameLogic/Rva00395F57.h"
 
-class Rva0039718B
-{
-public:
-	int rva003970E7(Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva0039718B.h"
 
 class CastleBehavior
 {
