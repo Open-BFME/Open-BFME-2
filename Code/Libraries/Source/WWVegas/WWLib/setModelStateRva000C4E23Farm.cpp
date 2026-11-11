@@ -337,7 +337,7 @@ public:
 class Rva000B22B3StateView { public: int rva000B22B3() const; };
 class W3DShadowManager { public: Shadow *addShadow(RenderObjClass *robj, Shadow::ShadowTypeInfo *info, Drawable *draw); };
 extern W3DShadowManager *TheW3DShadowManager;
-class Rva000B4653 { public: void *rva000B4653(Int index); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B4653.h"
 class Rva0033A5F4 { public: void rva0033A5F4(Int *a, Real *b, Int *c, Real *d, Int *e); };
 class Rva000B3E82 { public: void rva000B3E82(unsigned char value); };
 #include "../../../../GameEngine/Include/Common/Rva00270260.h"

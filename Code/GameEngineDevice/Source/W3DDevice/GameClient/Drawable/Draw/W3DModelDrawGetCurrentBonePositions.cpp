@@ -141,7 +141,7 @@ private:
 class CreateAHeroManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct CreateAHeroManagerView { char m_pad000[0x184]; bool m_at184; };
-class Rva000B4653 { public: void *rva000B4653(int index); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B4653.h"
 class Rva00078AE3
 {
 public:

@@ -168,11 +168,7 @@ template <> void vector<BfmeStringRecord000B94D2>::resize(size_t);
 template <> basic_string<char> &basic_string<char>::operator=(const char *);
 }
 
-class Rva000B4653
-{
-public:
-	void *rva000B4653(int a);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B4653.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B8F5AOuter.h"
 

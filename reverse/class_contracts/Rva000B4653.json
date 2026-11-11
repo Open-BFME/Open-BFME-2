@@ -1,0 +1,71 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva000B4653",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "4": 3
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:TextureRecolorFlags",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_0",
+     "offset": 0,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "flags",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "TextureRecolorFlags",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "count": 1,
+    "flags.bits": 1,
+    "m_0": 1
+   },
+   "class": "Rva000B4653"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {}
+}
