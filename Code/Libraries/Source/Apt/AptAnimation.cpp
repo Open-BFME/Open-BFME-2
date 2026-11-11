@@ -186,6 +186,27 @@ public:
 };
 #include "Rva006D0A30List.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
+//
+// ?rva006E34D0@Rva006E34D0@@QAEXH@Z @0x006E34D0 88B
+// Bounded int append with consecutive-dup guard plus data-pointer notify:
+// if count>=cap return; if count>0 and arr[count-1]==v return;
+// arr[count]=v; ++count; if ready flag set build 8-byte {value, v} record
+// on the stack and call the slot function with (&record, 8).
+// Evidence: unlock lane, callers 0x006E3530 (packs 3 ints then passes
+// through ecx) and 0x006E3580 plus 0x006CEC90 and 0x006E4390; neighbour
+// AptAnimationPoolDataBIL clearBIL/appendButtonToBIL; callback slots
+// 0x00A17740/44 are .data pointers per Rva00891FA0Diagnostics.
+extern int g_rva00891FA0Ready;
+extern int g_rva00891FA0Value;
+struct Rva00891FA0Record
+{
+	int value;
+	int kind;
+};
+extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *, int);
+#define G_Ready g_rva00891FA0Ready
+#define G_Value g_rva00891FA0Value
+#define G_Send Rva00891FA0SendRecord
 
 class Rva00893030Manager;
 
@@ -310,6 +331,8 @@ struct Rva006E34A0
 
 // tu-skeleton: 0x006E3410 70B ?rva006E3410@Rva006E3410@@QAEHH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3410.cpp (not merged yet)
 
+// ---- from Code/Libraries/Source/Apt/AptAnimation.cpp
+
 // ---- from Code/GameEngine/Source/Common/Bfme5FiftyThree.cpp
 
 // ?bfmeIndexOf@Gen_008A06C0@@QBEHPAX@Z
@@ -337,8 +360,6 @@ int Gen_008A06C0::bfmeIndexOf(void *key) const
 	return -1;
 }
 
-// tu-skeleton: 0x006E3490 11B ?rva006E3490@Rva006E3490@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/Rva006E34A0.cpp
 
 // ?rva006E34A0@Rva006E34A0@@QAEPAXI@Z, retail 0x006E34A0 (42B).
@@ -356,42 +377,6 @@ void *Rva006E34A0::rva006E34A0(unsigned int flag)
 		g_pChainBlockAllocator->freeBlock(this, 0x14);
 	return this;
 }
-
-// tu-skeleton: 0x006E34D0 88B ?rva006E34D0@Rva006E34D0@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/Rva006E34D0.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3530 77B ?rva006E3530@Rva006E34D0@@QAEXHHH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3530Pack.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3580 31B ?rva006E3580@Rva006E34D0@@QAEXHH@Z -- matched in Code/Libraries/Source/Apt/Rva006E34D0.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3640 180B ?removeFromBIL@AptAnimationPoolData@@QAEXPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3700 13B ?set@Rva006E3700DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3710 39B ?rva006E3710@Rva006E3710@@QAE_NPAURva006E3710Node@@@Z -- matched in Code/Libraries/Source/Apt/Rva006E3710Check.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3740 195B ?rva006E3740@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3810 191B ?enqueueFront@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3920 114B ?rva006E3920@AptActionQueueC@@QAEPAURva006E3230Action@@H@Z -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
-
-// tu-skeleton: 0x006E39A0 246B ?rva006E39A0@AptActionQueueC@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3B20 123B ??0?$AptValuePtrStack@VAptValue@@@@QAE@H@Z -- matched in Code/Libraries/Source/Apt/AptIntervalTimerParams.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3BA0 74B ??1?$AptValuePtrStack@URva006FE9C0SetTargetElement@@@@QAE@XZ -- matched in Code/Libraries/Source/Apt/AptActionInterpreterDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3BF0 74B ??1Rva006E4F10@@QAE@XZ -- matched in Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3C40 5B ?get@Rva006E3C40WordIntField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispWordIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3C50 36B ?clear@Rva006E3C50Table@@QAEXXZ -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3C80 100B ?rva006E3C80@Rva006E3C80@@QAEHXZ -- matched in Code/Libraries/Source/Apt/Rva006E3C80.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3E20 456B ?rva006E3E20@Rva006E3E20Object@@QAEXPAX0@Z -- matched in Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp (not merged yet)
-
-// tu-skeleton: 0x006E3FF0 348B ?PreDestroy@AptAnimationPoolData@@QAEXXZ -- matched in Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/Apt/AptAnimation.cpp
 
@@ -640,6 +625,88 @@ void Rva006E58D0::rva006E5050(void *pBase,void *pConstantFile,void *pLoadContext
   aImports[i].movie=((Rva006D0A30List *)g_rva00893030Manager)->rva006D0B40(EAStringC(aImports[i].szFile));
  }
 }
+
+// tu-skeleton: 0x006E3490 11B ?rva006E3490@Rva006E3490@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Apt/Rva006E34D0.cpp
+
+void Rva006E34D0::rva006E34D0(int entry)
+{
+	if (m_field3C >= m_fieldAC)
+		return;
+	if (m_field3C > 0 && m_field40[m_field3C - 1] == entry)
+		return;
+	m_field40[m_field3C] = entry;
+	++m_field3C;
+	int ready = G_Ready;
+	if (ready) {
+		Rva00891FA0Record record;
+		record.value = G_Value;
+		record.kind = entry;
+		(*G_Send)(&record, 8);
+	}
+}
+
+// ?rva006E3580@Rva006E34D0@@QAEXHH@Z @0x006E3580 31B chain lane.
+// Two-arg packer into the same bounded buffer: v = ((a << 15) | (b & 0x7FFF))
+// << 2, appended via rva006E34D0 with ecx passed through (caller 0x006CC950
+// supplies this the same way as for 0x006E3530).
+void Rva006E34D0::rva006E3580(int high, int low)
+{
+	int packed = (high << 15) | (low & 0x7FFF);
+	packed <<= 2;
+	rva006E34D0(packed);
+}
+
+// ---- from Code/Libraries/Source/Apt/Rva006E3530Pack.cpp
+
+//
+// ?rva006E3530@Rva006E34D0@@QAEXHHH@Z @0x006E3530 77B
+// Packs three ints into one append value and passes it to rva006E34D0 through
+// the same ecx (this is not moved): when the third argument is 1 the value is
+// ((a<<7 | b&0x7F) << 10) | 5; otherwise ((((a<<7 | b&0x7F) << 8) | c&0xFF) << 2) | 1.
+// Evidence: retail stdcall-style ret 0xC after pushing one dword to 0x6E34D0.
+// Address-derived names: the meaning of the fields is not proven.
+
+void Rva006E34D0::rva006E3530(int a, int b, int c)
+{
+	int packed;
+	if (c == 1)
+		packed = ((((a << 7) | (b & 0x7f)) << 10) | 5);
+	else
+		packed = ((((((a << 7) | (b & 0x7f)) << 8) | (c & 0xff))) << 2) | 1;
+	rva006E34D0(packed);
+}
+
+// tu-skeleton: 0x006E3640 180B ?removeFromBIL@AptAnimationPoolData@@QAEXPAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3700 13B ?set@Rva006E3700DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3710 39B ?rva006E3710@Rva006E3710@@QAE_NPAURva006E3710Node@@@Z -- matched in Code/Libraries/Source/Apt/Rva006E3710Check.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3740 195B ?rva006E3740@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3810 191B ?enqueueFront@AptActionQueueC@@QAEXPAVAptValue@@00HH@Z -- matched in Code/Libraries/Source/Apt/Rva006E3810FrontEnqueue.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3920 114B ?rva006E3920@AptActionQueueC@@QAEPAURva006E3230Action@@H@Z -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
+
+// tu-skeleton: 0x006E39A0 246B ?rva006E39A0@AptActionQueueC@@QAEXXZ -- matched in Code/Libraries/Source/Apt/Rva006E3230Validate.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3B20 123B ??0?$AptValuePtrStack@VAptValue@@@@QAE@H@Z -- matched in Code/Libraries/Source/Apt/AptIntervalTimerParams.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3BA0 74B ??1?$AptValuePtrStack@URva006FE9C0SetTargetElement@@@@QAE@XZ -- matched in Code/Libraries/Source/Apt/AptActionInterpreterDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3BF0 74B ??1Rva006E4F10@@QAE@XZ -- matched in Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3C40 5B ?get@Rva006E3C40WordIntField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispWordIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3C50 36B ?clear@Rva006E3C50Table@@QAEXXZ -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3C80 100B ?rva006E3C80@Rva006E3C80@@QAEHXZ -- matched in Code/Libraries/Source/Apt/Rva006E3C80.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3E20 456B ?rva006E3E20@Rva006E3E20Object@@QAEXPAX0@Z -- matched in Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp (not merged yet)
+
+// tu-skeleton: 0x006E3FF0 348B ?PreDestroy@AptAnimationPoolData@@QAEXXZ -- matched in Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp (not merged yet)
 
 // tu-skeleton: 0x006E4610 135B ?rva008A1CF0@Rva008A1CF0@@QAEHH@Z -- matched in Code/Libraries/Source/Apt/AptMovieFrameControls.cpp (not merged yet)
 
