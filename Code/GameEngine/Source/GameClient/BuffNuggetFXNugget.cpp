@@ -16,7 +16,7 @@ class Object {public:Drawable*getDrawable()const;};
 class ThingTemplate;
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class Rva00271BCC {public:void rva00271BCC(int,int);};
+#include "../../Include/GameLogic/Module/Rva00271BCC.h"
 class Rva00271B5C {public:void rva00271B5C(int,void*,int,int,float);};
 struct BuffTemplateKindView {char prefix[0x108];unsigned flags[7];};
 class BuffNuggetFXNugget {public:

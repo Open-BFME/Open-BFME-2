@@ -34,11 +34,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class Rva00271BCC
-{
-public:
-	void rva00271BCC(int,int);
-};
+#include "../../../Include/GameLogic/Module/Rva00271BCC.h"
 
 class Object
 {

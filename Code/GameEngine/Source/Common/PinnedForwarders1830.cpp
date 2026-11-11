@@ -188,14 +188,7 @@ public:
 	void rva003626AD(int a, int b);
 };
 
-class Rva00271BCC
-{
-public:
-	void rva00271BCC(int a, int b);
-private:
-	unsigned char m_pad00[0x450];
-	Rva003626AD *m_450;
-};
+#include "../../Include/GameLogic/Module/Rva00271BCC.h"
 
 // Rva00271BCC::rva00271BCC is defined with its retail-matched body in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (0x00271BCC).
 
