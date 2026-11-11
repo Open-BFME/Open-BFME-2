@@ -32,7 +32,7 @@ class Rva003F1C56Plot;struct Rva003F1BD3TemplateView;
 #define xfer DoXfer
 #include "../../../../Include/Common/SpawnArmy.h"
 #undef xfer
-class Rva003F1093 {public:void rva003F1CFE(void*,bool);};
+#include "../../../../Include/Common/Rva003F1093.h"
 struct LivingWorldArmy;
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;

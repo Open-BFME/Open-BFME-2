@@ -3524,7 +3524,7 @@ struct DispatcherSlot {char pad00[0x34];AsciiString name;char pad38[0x4c-0x38];i
 class BfmeSelectionState {public:bool isSelectionLocked()const;};
 class Rva002B9349 {public:void rva002B9349(int,int);};
 class Rva002B9386 {public:void rva002B9386(ScienceType);};
-class Rva003F1093 {public:void rva003F1CA2(CreateAHeroData*,bool);};
+#include "../../../../Include/Common/Rva003F1093.h"
 class Rva003F1C56Plot;struct Rva003F1BD3TemplateView;
 class ArmorTemplate;
 class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};

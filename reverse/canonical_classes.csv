@@ -1008,3 +1008,4 @@ Rva007EAServiceList,Code/GameEngine/Include/GameNetwork/Rva007EAServiceList.h,ex
 AptFloat,Code/Libraries/Source/Apt/AptFloat.h,existing header; contract class_contracts/AptFloat.json; 4/7 sampled units adopt
 Rva003F2A8C,Code/GameEngine/Include/GameLogic/Rva003F2A8C.h,existing header; contract class_contracts/Rva003F2A8C.json; 6/6 sampled units adopt
 Rva006E1260,Code/Libraries/Source/Apt/Rva006E1260.h,existing header; contract class_contracts/Rva006E1260.json; 3/6 sampled units adopt
+Rva003F1093,Code/GameEngine/Include/Common/Rva003F1093.h,existing header; contract class_contracts/Rva003F1093.json; 6/8 sampled units adopt

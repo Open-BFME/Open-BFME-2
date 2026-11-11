@@ -1,0 +1,108 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003F1093",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x170": {
+    "4": 3
+   },
+   "0x174": {
+    "4": 2
+   },
+   "0x17c": {
+    "4": 1
+   },
+   "0x1a3": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "380": 1,
+   "420": 1
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 368,
+   "type": "char[368]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Rva003F1093Check.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 419,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Rva003F1093Check.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 6,
+    "380": 1,
+    "420": 1
+   },
+   "class": "Rva003F1093"
+  }
+ ],
+ "size": 368,
+ "size_by": "tie",
+ "vslots": {}
+}

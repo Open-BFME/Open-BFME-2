@@ -4,11 +4,7 @@
 
 class CreateAHeroData;
 
-class Rva003F1093
-{
-public:
-	CreateAHeroData *rva003F083A(void *arg);
-};
+#include "../../Include/Common/Rva003F1093.h"
 
 class Rva004E05F0
 {

@@ -10,11 +10,7 @@ public:
 	int m_20;
 };
 
-class Rva003F1093
-{
-public:
-	CreateAHeroData *rva003F083A(void *x);
-};
+#include "../../../Include/Common/Rva003F1093.h"
 
 class Rva003F08D7
 {
