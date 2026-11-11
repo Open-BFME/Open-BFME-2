@@ -7273,11 +7273,7 @@ bool Rva005F8417::rva005F8417() const
 // resolves to the rowed ?rva0033A674@Rva0033A674@@QAEPAXXZ (0x0033A674, 22B
 // fallback getter in Rva0033A674Getter.cpp); declared here (not defined) so
 // the tailcall is preserved.
-class Rva0033A674
-{
-public:
-	void *rva0033A674();
-};
+#include "../../Include/GameLogic/Rva0033A674.h"
 
 // ?rva004F5FB4@Rva004F5FB4@@QAEPAXXZ @0x004F5FB4 8B member forwarder to rowed
 // ?rva0033A674@Rva0033A674@@QAEPAXXZ (0x0033A674; sibling of the rowed

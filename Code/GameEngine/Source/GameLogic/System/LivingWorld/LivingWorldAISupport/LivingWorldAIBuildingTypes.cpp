@@ -48,7 +48,7 @@ struct StrengthenNugget {char gap[16];Rva003F751ANode*header;};
 #include "../../../../../Include/GameLogic/Rva003B8E89.h"
 #include "../../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 class BfmeY1038 {public:int bfmeVal1038();};
-class Rva0033A674 {public:void*rva0033A674();};
+#include "../../../../../Include/GameLogic/Rva0033A674.h"
 class ThingTemplate;class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};extern ThingFactory*TheThingFactory;
 struct TemplateView {char gap[0x5c4];int category;};
 struct SummaryView {char gap[0x40];_STL::vector<_STL::pair<int,int> >entries;};

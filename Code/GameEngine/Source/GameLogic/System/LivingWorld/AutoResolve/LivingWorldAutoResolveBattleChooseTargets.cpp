@@ -174,11 +174,7 @@ public:
 	bool rva00418EEB(void *priority, const void *type);
 };
 
-class Rva0033A674
-{
-public:
-	void *rva0033A674();
-};
+#include "../../../../../Include/GameLogic/Rva0033A674.h"
 
 class Rva002BED91
 {
