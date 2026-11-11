@@ -441,11 +441,7 @@ private:
 // The parent removal at467AB8..467D8E is726B RET4, WB1159EA0 names
 // TransportContain::onRemoving. Its consumed interface receiver stays neutral
 // until the parent's class declaration is reconciled. No local vtable emits.
-class Rva00463509
-{
-public:
-    void removeFromContain(Object *object, bool flag);
-};
+#include "../../../../../Include/GameLogic/Module/Rva00463509.h"
 
 class Rva00467AB8
 {

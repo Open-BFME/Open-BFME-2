@@ -371,10 +371,7 @@ extern "C" const void *const __identifier("??_7TunnelContainModuleData@@6B@")[];
 
 #include "../../../../Include/GameClient/Drawable.h"
 
-class Rva00463509 {
-public:
-	void removeFromContain(Object *object, bool flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva00463509.h"
 
 class Rva00479BA1
 {

@@ -35,7 +35,7 @@ extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 #include "../../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
-class Rva00463509 {public:void removeFromContain(Object*,bool);};
+#include "../../../../Include/GameLogic/Module/Rva00463509.h"
 class HordeTransportContain {public:virtual void exitObjectViaDoor(Object*,ExitDoorType);};
 template<int N>class ExitSlots:public ExitSlots<N-1>{public:virtual void gap(char(*)[N]);};template<>class ExitSlots<0>{};
 class ExitInterface:public ExitSlots<41>{public:virtual void remove(Object*,bool);};
