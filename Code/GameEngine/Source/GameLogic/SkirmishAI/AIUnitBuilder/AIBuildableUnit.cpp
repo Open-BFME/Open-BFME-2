@@ -218,11 +218,7 @@ public:
 	int get(int);
 };
 
-class Rva002A7461
-{
-public:
-	int rva002A7461();
-};
+#include "../../../../Include/GameLogic/Rva002A7461.h"
 
 struct MidData
 {

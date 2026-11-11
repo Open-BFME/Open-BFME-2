@@ -410,7 +410,7 @@ class Rva00046827 { public: int rva00046827(); };
 class UpgradeTemplateView { public: char m_pad[8]; AsciiString m_name; char m_padC[0x38 - 0xC]; unsigned int m_bit; };
 class Rva0026F0F0 { public: void *rva0026F0F0(const void *mask); };
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
-class Rva002A7461 { public: int rva002A7461(); int rva002A7548(int i); };
+#include "../../../../GameEngine/Include/GameLogic/Rva002A7461.h"
 class Rva002A7389 { public: int get(int i); };
 class Player { public: char m_pad[0x60]; Rva002A7461 m_commandPoints; };
 #include "../../../../GameEngine/Include/Common/PlayerList.h"

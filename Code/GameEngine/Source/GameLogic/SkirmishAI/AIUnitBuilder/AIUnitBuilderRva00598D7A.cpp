@@ -445,7 +445,7 @@ typename hashtable<V,K,H,X,E,A>::iterator hashtable<V,K,H,X,E,A>::find(const T &
 }
 }
 struct ArmyPercentageNodeView {void *next;NameKeyType key;float percentage;};
-class Rva002A7461 {public:int rva002A7461();int rva002A7548(int);};
+#include "../../../../Include/GameLogic/Rva002A7461.h"
 struct BuildableTemplateQuantityView {char pad[0x618];int quantity;};
 // Retail calls the canonical empty vector-header provider (BfmeE16 at211E58)
 // and the existing ModuleData pointer-vector push provider (4DFCB0).
