@@ -63,12 +63,7 @@ class Rva006EBD30
 public:
     void render(AptRenderingContext *ctx, void *arg, void *matrix); // 0x006EBD30
 };
-class AptAnimationPoolData
-{
-public:
-    void rva006F7720Sub(void *ctx, int arg);                    // 0x006F7720
-    void appendButtonToBIL(class AptCIH *cih, struct AptMatrix *matrix); // 0x006E35E0
-};
+#include "AptAnimationPoolData.h"
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 

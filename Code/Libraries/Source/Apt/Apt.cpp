@@ -128,7 +128,7 @@ struct TickState {char pad[0xc];TickMovie *movie;char pad10[0x20];unsigned remai
 struct TickNode {char pad[0x54];void *cih;};
 class Rva006E34D0 {public:void rva006E34D0(int);char pad[0x30];TickNode **nodes;char pad34[8];int count;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
-class AptAnimationPoolData {public:void tickIntervalTimers(int);void rva006E6540();void rva006FB910();};
+#include "AptAnimationPoolData.h"
 #include "AptDisplayList.h"
 class AptLinker {public:void rva006D17F0();void Load(const EAStringC &a,EAStringC b);};
 // VA 0x00E176F8 (RVA 0x00A176F8): the Apt linker this unit creates in its

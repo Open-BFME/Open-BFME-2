@@ -315,14 +315,7 @@ public:
 
 struct AptMatrix;
 
-class AptAnimationPoolData
-{
-public:
-	void rva006F7720Sub(void *ctx, int arg); // 0x006F7720
-	void appendButtonToBIL(class AptCIH *cih, struct AptMatrix *matrix); // 0x006E35E0
-	void removeFromBIL(AptCIH *);
-	void removeTimerFunctions(AptCIH *);
-};
+#include "AptAnimationPoolData.h"
 
 class BfmeObj4310;
 

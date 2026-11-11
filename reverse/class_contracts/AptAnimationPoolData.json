@@ -1,0 +1,431 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AptAnimationPoolData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 20,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x10": {
+    "4": 11
+   },
+   "0x14": {
+    "4": 5
+   },
+   "0x20": {
+    "2": 1
+   },
+   "0x22": {
+    "2": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "2": 1
+   },
+   "0x2a": {
+    "2": 1
+   },
+   "0x2c": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 11
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x3c": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 5
+   },
+   "0x48": {
+    "4": 3
+   },
+   "0x4c": {
+    "4": 3
+   },
+   "0x50": {
+    "4": 3
+   },
+   "0x54": {
+    "4": 3
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 2
+   },
+   "0x6c": {
+    "4": 6
+   },
+   "0x74": {
+    "4": 3
+   },
+   "0x78": {
+    "4": 3
+   },
+   "0x8": {
+    "2": 2,
+    "4": 1
+   },
+   "0xa": {
+    "2": 4
+   },
+   "0xa0": {
+    "4": 2
+   },
+   "0xc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 25,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 10,
+   "4": 1,
+   "8": 1,
+   "24": 1,
+   "48": 1,
+   "60": 1,
+   "112": 1,
+   "124": 2,
+   "164": 2
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "unaccessed",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "AptCIH**",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimationPoolData__tickNewInsts.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp",
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 10,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp",
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp",
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 26,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 34,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 42,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimation.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimation.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp",
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp",
+    "Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006F9FC0Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006F9FC0Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimation.cpp",
+    "Code/Libraries/Source/Apt/Rva006FB120InputDispatch.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 10,
+    "4": 1,
+    "8": 1,
+    "24": 1,
+    "48": 1,
+    "60": 1,
+    "112": 1,
+    "124": 2,
+    "164": 2
+   },
+   "class": "AptAnimationPoolData"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {}
+}

@@ -2743,7 +2743,7 @@ void AptActionInterpreter::_FunctionAptActionCallMethod(AptActionInterpreter *co
 // when the instance has no display-list parent; that second exit is what
 // gives retail's ESI save at entry (a nested if shrink-wraps it).
 class Rva006E3C80 { public: int rva006E3C80(); };
-class AptAnimationPoolData { public: void _tickNewInsts(); };
+#include "AptAnimationPoolData.h"
 #include "BfmeSubmitter1283.h"
 class BfmeQuery1279 { public: void bfmeQuery1279(int,int,void**,void**); };
 struct Rva007092F0Character { char prefix[0x2c]; int flag2c; };

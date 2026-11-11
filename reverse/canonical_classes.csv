@@ -1192,3 +1192,4 @@ Rva0007DA23ResourceManager,Code/GameEngine/Include/Common/Rva0007DA23ResourceMan
 Rva0039B709,Code/GameEngine/Include/Common/Rva0039B709.h,existing header; contract class_contracts/Rva0039B709.json; 4/5 sampled units adopt
 PoolMember,Code/GameEngine/Include/Common/PoolMember.h,existing header; contract class_contracts/PoolMember.json; 8/18 sampled units adopt
 Rva002AA191,Code/GameEngine/Include/GameClient/Rva002AA191.h,existing header; contract class_contracts/Rva002AA191.json; 3/5 sampled units adopt
+AptAnimationPoolData,Code/Libraries/Source/Apt/AptAnimationPoolData.h,existing header; contract class_contracts/AptAnimationPoolData.json; 10/20 sampled units adopt

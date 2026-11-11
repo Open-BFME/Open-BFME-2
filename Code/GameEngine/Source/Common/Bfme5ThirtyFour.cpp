@@ -643,11 +643,7 @@ public:
 	int get() const;
 };
 
-class AptAnimationPoolData
-{
-public:
-	void rva006E6540();
-};
+#include "../../../Libraries/Source/Apt/AptAnimationPoolData.h"
 
 class Rva004A9DF3Element
 {

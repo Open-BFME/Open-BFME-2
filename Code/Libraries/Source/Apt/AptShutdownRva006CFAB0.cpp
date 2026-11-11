@@ -22,7 +22,7 @@ extern unsigned char g_00E18348;
 #define CHECK(e,s,l) do{if(!(e)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}}while(0)
 
 class AptMath {public:static void ClipStackShutdown();};
-class AptAnimationPoolData {public:void PreDestroy();};
+#include "AptAnimationPoolData.h"
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 void rva006CE1C0(int);

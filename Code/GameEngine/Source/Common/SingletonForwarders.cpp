@@ -22,7 +22,7 @@ extern ScriptEngine *TheScriptEngine;
 
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
-class AptAnimationPoolData { public: void setValidFocusButton(); };
+#include "../../../Libraries/Source/Apt/AptAnimationPoolData.h"
 
 // ?rva002B298C@@YA_NXZ @0x002B298C: TheCampaignManager -> 0x003B8CAC
 bool rva002B298C()

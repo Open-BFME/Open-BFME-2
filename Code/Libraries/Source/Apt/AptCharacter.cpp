@@ -588,7 +588,7 @@ public:
 	bool isSpriteInstBase() const;
 };
 
-class AptAnimationPoolData {public:void _tickNewInsts();};
+#include "AptAnimationPoolData.h"
 
 class Rva006E34D0;
 
