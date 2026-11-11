@@ -64,6 +64,7 @@ class Rva0056ACDF : public Rva0056AC26, public Rva0056ACDF_B1
 {
 public:
 	virtual ~Rva0056ACDF();
+	virtual bool ac26Slot1();
 };
 
 Rva0056ACDF::~Rva0056ACDF()

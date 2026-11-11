@@ -6108,3 +6108,4 @@ __ehhandler$?getContentsAsAsciiString@Rva004D6806@@UAE?AVAsciiString@@XZ,0x00791
 ?g_eaEmptyStringData@@3VStringDataC@EAStringC@@A,0x009DC020,"Retyped to ?g_eaEmptyStringData@@3PADA (char [16], 16 B; P133): retail 0x00DDC020 is the 8-byte StringDataC header followed by the empty string's 8 text bytes; same identifier, address and owner unit."
 ?rva005E9163@Rva005E9163@@QAEXXZ,0x005E9163,"Renamed to ?rva005E9163@Rva005E91A9@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C77FF0 slot 1)"
 ?rva005E2126@Rva005E16A7@@QAEXPAVINI@@@Z,0x005E2126,"Renamed to ?rva005E2126@Rva005E9F7B@@UAEXPAVINI@@@Z by tools/rename.py (to-class: retail vftable 0x00C77AD8 slot 1)"
+?rva0056AB97@Rva0056AB97@@QAE_NXZ,0x0056AB97,"Renamed to ?ac26Slot1@Rva0056ACDF@@UAE_NXZ by tools/rename.py (to-class: retail vftable 0x00C6D14C slot 1)"

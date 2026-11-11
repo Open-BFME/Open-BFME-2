@@ -2518,3 +2518,11 @@ DIR32 relocation at offset four to the respective method. The five units
 verify 43/43 functions. The seven-unit link preview (including current
 providers for B17) retains 1,521 bytes against census 60189f9ced. Bridge
 retirement awaits a real link.
+
+The ACDF sibling of the ACFF tutorial task now overrides primary slot 1.
+The destructor at RVA 0x0056ACDF installs table 0x0086D14C, whose second
+word targets the guarded flag update at 0x0056AB97. The compiler now emits
+a relocation to that 41-byte method in the derived object. The to-class
+check verified the table and 19/19 functions in two units. With the
+constructor included, the link preview retains 378 of 378 bytes at
+60189f9ced. Remaining slots and the ACFF secondary contract remain open.
