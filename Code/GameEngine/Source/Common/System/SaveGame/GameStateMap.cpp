@@ -18,7 +18,7 @@ typedef bool Bool;
 #include "../../../GameLogic/AI/TeamInQueue.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
-class __declspec(novtable) GameStateMap { public: void clearScratchPadMaps(); };
+#include "../../../../Include/Common/GameStateMapClass.h"
 
 class Rva0041B790 : public SubsystemInterface, public Snapshot
 {

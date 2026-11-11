@@ -56,7 +56,7 @@ public:
 class Rva00248558Scope { public: Rva00248558Scope(); ~Rva00248558Scope(); };
 class Rva002DCCFB { public: bool rva002DCCFB(UnicodeString); };
 #include "../../../../Include/Common/Rva002DC74A.h"
-class GameStateMap { public: void clearScratchPadMaps(); };
+#include "../../../../Include/Common/GameStateMapClass.h"
 extern void *TheGameStateMap;
 class Snapshot;
 class AsciiString;
