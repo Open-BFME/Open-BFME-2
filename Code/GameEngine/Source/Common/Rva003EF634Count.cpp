@@ -12,7 +12,7 @@ struct Rva003EF634Node
 	struct Rva003EF634Node *m_next;
 };
 
-class Rva003EF8E1 { public: int Rva003EF634Count(Rva003EF634Node*); };
+#include "../../Include/Common/Rva003EF8E1.h"
 int Rva003EF8E1::Rva003EF634Count(struct Rva003EF634Node *p)
 {
 	int n = -1;

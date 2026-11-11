@@ -15,7 +15,7 @@ struct Rva003EF6D6Span
     Rva003EF6D6Entry **end;
 };
 
-class Rva003EF8E1 { public: bool contains(Rva003EF6D6Span *span, Rva003EF6D6Entry *value); };
+#include "../../Include/Common/Rva003EF8E1.h"
 
 bool Rva003EF8E1::contains(Rva003EF6D6Span *span, Rva003EF6D6Entry *value)
 {

@@ -14,7 +14,7 @@ struct Rva003EF6A0Span
     Rva003EF6A0Entry **end;
 };
 
-class Rva003EF8E1 { public: Rva003EF6A0Entry *rva003EF6A0(Rva003EF6A0Span *,int); };
+#include "../../Include/Common/Rva003EF8E1.h"
 
 Rva003EF6A0Entry *Rva003EF8E1::rva003EF6A0(Rva003EF6A0Span *span, int value)
 {

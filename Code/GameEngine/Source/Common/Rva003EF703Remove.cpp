@@ -23,7 +23,7 @@ public:
 };
 }
 
-class Rva003EF8E1 { public: void remove(Rva003C4CF0Span *span, int value); };
+#include "../../Include/Common/Rva003EF8E1.h"
 
 void Rva003EF8E1::remove(Rva003C4CF0Span *span, int value)
 {
