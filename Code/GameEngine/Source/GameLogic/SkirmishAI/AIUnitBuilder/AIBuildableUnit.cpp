@@ -212,11 +212,7 @@ private:
 	void *m_40; // +0x40
 };
 
-class Rva002A7389
-{
-public:
-	int get(int);
-};
+#include "../../../../Include/GameLogic/Rva002A7389.h"
 
 #include "../../../../Include/GameLogic/Rva002A7461.h"
 

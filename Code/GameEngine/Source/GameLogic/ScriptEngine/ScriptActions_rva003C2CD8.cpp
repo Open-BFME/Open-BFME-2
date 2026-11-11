@@ -14,12 +14,7 @@
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class Rva002A7389
-{
-public:
-	int get(int x);
-	int rva002A7548(int x);
-};
+#include "../../../Include/GameLogic/Rva002A7389.h"
 #include "../../../Include/GameLogic/Rva002A7461.h"
 
 class Player

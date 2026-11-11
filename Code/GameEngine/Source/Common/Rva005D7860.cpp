@@ -2,11 +2,7 @@
 // ?Rva005D7860Check@@YG_NPAVObject@@@Z @0x005D7860 101B via vtable slot 6 class Rva005D7855 gap between dtor and deleting dtor; callees rowed getControllingPlayer get rva002A7461; floats g_Va00BBB8D8 length_estimate_factor.
 class Player;
 #include "../GameLogic/Object/object.h"
-class Rva002A7389
-{
-public:
-	int get(int);
-};
+#include "../../Include/GameLogic/Rva002A7389.h"
 #include "../../Include/GameLogic/Rva002A7461.h"
 extern float g_Va00BBB8D8;
 // length_estimate_factor was the retail address alias (RVA 0x007BB8D4) of the pooled constant 0.25f; the literal is the source.

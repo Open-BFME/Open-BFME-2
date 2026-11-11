@@ -73,11 +73,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 
 extern float g_secondsPerLogicFrame;
 
-class Rva002A7389
-{
-public:
-	int get(int v);
-};
+#include "../../../../Include/GameLogic/Rva002A7389.h"
 
 #include "../../../../Include/GameLogic/Rva002A7461.h"
 

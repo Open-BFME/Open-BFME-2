@@ -411,7 +411,7 @@ class UpgradeTemplateView { public: char m_pad[8]; AsciiString m_name; char m_pa
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva0026F0F0.h"
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 #include "../../../../GameEngine/Include/GameLogic/Rva002A7461.h"
-class Rva002A7389 { public: int get(int i); };
+#include "../../../../GameEngine/Include/GameLogic/Rva002A7389.h"
 class Player { public: char m_pad[0x60]; Rva002A7461 m_commandPoints; };
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 class ScriptEngine { public: char m_pad[0x1A4C4]; int m_campaignAI; };
