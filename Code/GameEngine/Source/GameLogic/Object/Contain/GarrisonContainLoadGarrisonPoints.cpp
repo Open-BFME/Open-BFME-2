@@ -65,11 +65,7 @@ public:
 
 
 // OpenContain::getPassengerBoneName, address-named as rowed.
-class Rva00463235
-{
-public:
-	AsciiString rva00463235( Thing *thing );
-};
+#include "../../../../Include/GameLogic/Module/Rva00463235.h"
 
 #include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 

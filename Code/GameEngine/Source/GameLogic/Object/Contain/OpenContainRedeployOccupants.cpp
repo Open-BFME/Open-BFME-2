@@ -58,11 +58,7 @@ enum WhichTurretType
 };
 class Object;
 #include "../../../Common/Thing/thing.h"
-class Rva00463235
-{
-public:
-    AsciiString rva00463235(Thing*);
-};
+#include "../../../../Include/GameLogic/Module/Rva00463235.h"
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 #include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 class Rva000B6253

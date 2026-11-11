@@ -197,11 +197,7 @@ namespace _STL { template<> void vector<const ModuleData *>::push_back(const Mod
 // local, then copied memberwise into the Coord3D passed to the consumer.
 // The unit's /G7 /arch:SSE flags and WWMath headers come from the bank;
 // the three earlier bodies verify unchanged under them.
-class Rva00463235
-{
-public:
-	AsciiString rva00463235(Thing *);
-};
+#include "../../../../../Include/GameLogic/Module/Rva00463235.h"
 
 class PhysicsBehavior
 {

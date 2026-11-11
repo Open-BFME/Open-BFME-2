@@ -57,11 +57,7 @@ class Object: public Thing {public:
  char pad158[0x25C-0x158]; PhysicsBehavior*physics;
 };
 int GetGameLogicRandomValue(int,int,char*,int);
-class Rva00463235
-{
-public:
-	AsciiString rva00463235(Thing *);
-};
+#include "../../../../../Include/GameLogic/Module/Rva00463235.h"
 class OldContain {public:
 virtual void d0();
 virtual void d1();
