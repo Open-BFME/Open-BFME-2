@@ -126,6 +126,7 @@ public:
 	Rva005EB753(EmitVtableTag *);
 public:
 	virtual ~Rva005EB753();
+	virtual void veterancySlot04();
 };
 
 // ?<Rva005EB753::Rva005EB753> absent-from-retail

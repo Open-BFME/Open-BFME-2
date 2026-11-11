@@ -48,6 +48,7 @@ class Rva005EB753
 public:
 	Rva005EB753(void *a, void *b, void *c);
 	virtual ~Rva005EB753();
+	virtual void veterancySlot04();
 private:
 	void *m_04;
 };
@@ -63,6 +64,7 @@ class Rva005D06CB : public Rva005D06CBB1, public Rva005D06CBB2, public Rva005EB7
 public:
 	Rva005D06CB(Rva005D06CBOwner *owner, void *a, void *c);
 	virtual ~Rva005D06CB();
+	virtual void veterancySlot04();
 private:
 	bool m_14;
 };

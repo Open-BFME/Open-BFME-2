@@ -2506,3 +2506,12 @@ the deleting destructor at offset 0 and the parser at offset 4. The three
 units verify 18/18 code rows and 2/2 data rows; the preview retains 476
 bytes at census 60189f9ced. The other table name Rva005E2237 and real-link
 provider selection are outside this scoped check.
+Auto-resolve dialog base table, RVA 0x0087823C. Retail installs this table
+in the constructor and destructor. Its second slot targets the shared RET
+at RVA 0x000B3FD0. The derived table at RVA 0x00875540 overrides that
+slot with the existing battle resolver method at RVA 0x005D0F95. Both
+base COFF copies and both derived copies now contain eight bytes, with a
+DIR32 relocation at offset four to the respective method. The five units
+verify 43/43 functions. The seven-unit link preview (including current
+providers for B17) retains 1,521 bytes against census 60189f9ced. Bridge
+retirement awaits a real link.

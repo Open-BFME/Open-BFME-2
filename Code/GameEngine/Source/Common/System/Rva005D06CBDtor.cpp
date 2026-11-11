@@ -35,11 +35,13 @@ class Rva005EB753
 {
 public:
 	virtual ~Rva005EB753();
+	virtual void veterancySlot04();
 };
 class Rva005D06CB : public Rva005D06CBB1, public Rva005D06CBB2, public Rva005EB753
 {
 public:
 	virtual ~Rva005D06CB();
+	virtual void veterancySlot04();
 };
 Rva005D06CB::~Rva005D06CB()
 {

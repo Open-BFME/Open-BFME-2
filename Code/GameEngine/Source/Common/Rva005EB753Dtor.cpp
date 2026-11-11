@@ -31,6 +31,7 @@ class Rva005EB753
 public:
 	Rva005EB753(void *a, void *b, void *c);
 	virtual ~Rva005EB753();
+	virtual void veterancySlot04();
 
 private:
 	Rva005EB430 m_member04;
@@ -44,4 +45,10 @@ Rva005EB753::Rva005EB753(void *a, void *b, void *c)
 Rva005EB753::~Rva005EB753()
 {
 	m_member04.clear();
+}
+
+// The base table at C7823C points to a single RET here. The battle resolver
+// overrides this slot at 005D0F95 in its C75540 table.
+void Rva005EB753::veterancySlot04()
+{
 }
