@@ -11,7 +11,7 @@ public:
 };
 
 class DataChunkInput;
-class DataChunkParser { public: DataChunkParser(DataChunkInput *input, const AsciiString *label, const AsciiString *parentLabel); };
+#include "../../Include/Common/DataChunkParser.h"
 
 namespace ParserBindingTable { extern "C" const void *const __identifier("??_7BfmeParserBindingBaseVE@@6B@")[]; }
 

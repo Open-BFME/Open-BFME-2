@@ -16,7 +16,7 @@ public:
 };
 
 class DataChunkInput;
-class DataChunkParser { public: DataChunkParser(DataChunkInput *input, const AsciiString *label, const AsciiString *parentLabel); };
+#include "../../Include/Common/DataChunkParser.h"
 
 class __declspec(novtable) BfmeParserBindingBaseVE
 {
