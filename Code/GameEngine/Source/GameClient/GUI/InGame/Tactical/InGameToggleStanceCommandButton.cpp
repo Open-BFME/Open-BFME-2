@@ -84,7 +84,7 @@ void InGameToggleStanceCommandButton::Impl::onStancesBehaviorStanceChanged(Stanc
 // explicit representation views without asserting the old encoding names.
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Rva0035B232 {public:const AsciiString *rva0035B232(int);};
+#include "../../../../../Include/GameClient/Rva0035B232.h"
 class Rva0035B29E {public:const AsciiString *rva0035B29E(int);};
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

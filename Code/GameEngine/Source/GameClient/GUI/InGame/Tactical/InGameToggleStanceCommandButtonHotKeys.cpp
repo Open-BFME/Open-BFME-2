@@ -30,11 +30,7 @@ static inline const _STL::vector<int> &stanceList(const CommandButton *button)
 	return *reinterpret_cast<const _STL::vector<int> *>(&button->m_stancesBegin);
 }
 
-class Rva0035B232
-{
-public:
-	const AsciiString *rva0035B232(int index);
-};
+#include "../../../../../Include/GameClient/Rva0035B232.h"
 
 struct TargetRef00217D4C;
 struct TreeHintRef00217D4C;

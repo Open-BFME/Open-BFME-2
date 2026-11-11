@@ -40,7 +40,7 @@ struct Rva0021CB1FBinder {int key;__forceinline int GetKey() const{return key;} 
 struct Rva0021CB1FButton {char opaque00[0x18];Rva0021CB1FButton *next;};
 struct Rva0021CB1FControlBarView {char opaque00[0x2C];Rva0021CB1FButton *head;};
 class Rva0035B29E {public:const AsciiString *rva0035B29E(int);};
-class Rva0035B232 {public:const AsciiString *rva0035B232(int);};
+#include "../../../Include/GameClient/Rva0035B232.h"
 class Rva0040A82DDivAvgField {public:int get() const;};
 class Rva0040A85FDivAvgField {public:int get() const;};
 struct Rva0040A83AElement {char opaque00[0x10];AsciiString description,name;char opaque18[0x10];};
