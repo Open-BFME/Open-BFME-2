@@ -237,12 +237,7 @@ struct Rva003642DFNode;
 struct Rva003642DFResult;
 struct Rva00468C37Holder;
 // The AI's +0x140 path.
-class Rva003638BA
-{
-public:
-	bool rva003638BA();
-	bool rva00363AD7();
-};
+#include "../../../../Include/GameLogic/Module/Rva003638BA.h"
 // 0x00364521, the rowed Path member: the path point for the +0x1F0 member's
 // distance (returns the 16-byte node+position value of 0x003642DF).
 class Rva0008BB38FloatField;

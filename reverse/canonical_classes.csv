@@ -1138,3 +1138,4 @@ W3DShadowGeometryManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DS
 Rva0059E647World,Code/GameEngine/Include/Common/Rva0059E647World.h,existing header; contract class_contracts/Rva0059E647World.json; 4/6 sampled units adopt
 FXShaderRenderer,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.h,existing header; contract class_contracts/FXShaderRenderer.json; 3/5 sampled units adopt
 Rva005E1160Flag,Code/GameEngine/Include/Common/Rva005E1160Flag.h,existing header; contract class_contracts/Rva005E1160Flag.json; 4/6 sampled units adopt
+Rva003638BA,Code/GameEngine/Include/GameLogic/Module/Rva003638BA.h,existing header; contract class_contracts/Rva003638BA.json; 4/6 sampled units adopt

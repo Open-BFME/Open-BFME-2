@@ -143,11 +143,7 @@ class Path { public:
 #include "../../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
-class Rva003638BA
-{
-public:
-	void rva003638FD(const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Module/Rva003638BA.h"
 
 class PathfindServicesInterface
 {

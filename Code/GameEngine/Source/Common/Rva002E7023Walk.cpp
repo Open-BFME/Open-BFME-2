@@ -11,11 +11,7 @@
 // identities unproven beyond the call shapes.
 
 class Object;
-class Rva003638BA
-{
-public:
-	bool rva00363AD7();
-};
+#include "../../Include/GameLogic/Module/Rva003638BA.h"
 
 // 0x00269566 is rowed as AIUpdateInterface::NotifyPathHasInvalidPortals.
 #include "../../Include/GameLogic/Module/AIUpdate.h"
