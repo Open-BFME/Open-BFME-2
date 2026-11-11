@@ -175,14 +175,7 @@ void **vector<void*>::end()
 #include "../../Include/Common/BfmePoolRef10.h"
 struct Rva005C8876Position;
 struct Rva005C8876Grid;
-class LargeGroupAudioGridCell
-{
-public:
-	Rva005C8876Position getPreferredAudioPosition(Rva005C8876Grid*);
-	void update(Rva005C8876Grid*);
-	void addToWeight(unsigned short weight);
-	void subtractFromWeight(unsigned short weight);
-};
+#include "../../Include/Common/LargeGroupAudioGridCell.h"
 class HostClass005C8E0A
 {
 public:

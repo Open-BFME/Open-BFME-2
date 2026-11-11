@@ -135,11 +135,7 @@ private:
 	char m_pad47[0x1];
 };
 
-class LargeGroupAudioGridCell
-{
-public:
-	void setOverlappedLocking(bool flag);
-};
+#include "../../Include/Common/LargeGroupAudioGridCell.h"
 
 struct Element005C8E0A;
 

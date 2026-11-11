@@ -27,11 +27,7 @@ __declspec(noinline) BfmePoolRef10 &BfmePoolRef10::operator=(const BfmePoolRef10
 	return *this;
 }
 
-class LargeGroupAudioGridCell
-{
-public:
-	void setOverlappedLocking(bool flag);
-};
+#include "../../Include/Common/LargeGroupAudioGridCell.h"
 
 class TargetObj005C8DBF : public LargeGroupAudioGridCell
 {
