@@ -1,0 +1,50 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0020EAF6View",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 35,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 30,
+   "12": 4
+  },
+  "views": 34,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva003EE900Forward.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D13E2.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EAF6IndexLookup.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
