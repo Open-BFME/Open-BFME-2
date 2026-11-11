@@ -308,12 +308,7 @@ public:
 struct NAT;
 extern NAT *TheNAT;
 
-class AptConnectionScreen
-{
-public:
-	void RedrawGrid(const char *);
-	static int GetPingImageEnum(Elem005DB98E *ping); // rowed 0x005DB37C
-};
+#include "../../../../../Include/GameClient/AptConnectionScreen.h"
 
 int Rva005DB335Get(int ping); // rowed 0x005DB335
 

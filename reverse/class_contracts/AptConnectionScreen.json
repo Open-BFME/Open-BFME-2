@@ -1,0 +1,199 @@
+{
+ "bases": [
+  "Rva005248D0",
+  "Rva0059EB41"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptConnectionScreen",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 6,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 1,
+   "inherited_spans": [
+    [
+     4,
+     88
+    ],
+    [
+     88,
+     92
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x60": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5db6e2"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva005248D0",
+       "offset": 0,
+       "own_vftable": "0x876798",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva0059EB66",
+       "offset": 88,
+       "own_vftable": "0x87678c",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5db6e2"
+     ],
+     "value": 96
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5db6e2"
+     ],
+     "value": {
+      "0x5c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5db6e2"
+     ],
+     "value": {
+      "0x0": [
+       "?rva005DB630@AptConnectionScreen@@QAEXXZ"
+      ],
+      "0x4": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5db6e2"
+     ],
+     "value": {
+      "0x0": "0x876798",
+      "0x58": "0x87678c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x876798"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptConnectionScreen@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5db7f2"
+       }
+      ],
+      "table": "0x876798"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x87678c": {
+    "offset": 88,
+    "slots": {},
+    "stores": 1
+   },
+   "0x876798": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptConnectionScreen@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "4": 1,
+   "96": 2
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreen.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "96:A": 1
+   },
+   "class": "AptConnectionScreen"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": "decided by majority",
+    "96": "retail allocates"
+   },
+   "class": "AptConnectionScreen",
+   "why": "the decided size is below both the bytes retail's constructor writes and an allocation retail makes"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
