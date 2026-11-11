@@ -1025,3 +1025,4 @@ Rva002E6ECA,Code/GameEngine/Include/GameLogic/Rva002E6ECA.h,existing header; con
 ResourceGatheringManager,Code/GameEngine/Include/Common/ResourceGatheringManagerClass.h,existing header; contract class_contracts/ResourceGatheringManager.json; 4/6 sampled units adopt
 LuaDrawableState,Code/GameEngine/Include/GameLogic/LuaDrawableState.h,existing header; contract class_contracts/LuaDrawableState.json; 4/6 sampled units adopt
 Rva003EF14A,Code/GameEngine/Include/Common/Rva003EF14A.h,existing header; contract class_contracts/Rva003EF14A.json; 6/7 sampled units adopt
+Gen_0054EC80,Code/GameEngine/Include/Common/Gen_0054EC80.h,existing header; contract class_contracts/Gen_0054EC80.json; 5/7 sampled units adopt

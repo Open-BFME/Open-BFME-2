@@ -725,7 +725,7 @@ private:
 	Rva005532D6 m_00;
 };
 class Gen_0054EC50 { public: bool bfmeDiffers(const Gen_0054EC50 &other) const; };
-class Gen_0054EC80 { public: bool bfmeDiffers(const Gen_0054EC80 &other) const; };
+#include "../../Include/Common/Gen_0054EC80.h"
 class Rva0056FA50 { public: bool rva0056FA50(const Rva0056FA50 &other) const; };
 class Rva0056FA72 { public: bool rva0056FA72(const Rva0056FA72 &other) const; };
 // ?rva0056FCC7@Rva0056FCC7@@QBE_NABVGen_0054EC50@@@Z @0x0056FCC7 5B: Gen_0054EC50::bfmeDiffers on the member at +0.
