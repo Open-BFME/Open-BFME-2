@@ -1289,11 +1289,7 @@ public:
 	~Rva0008B470();
 };
 
-class Rva0008B4CD
-{
-public:
-	void rva0008B4CD();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0008B4CD.h"
 
 template void _STL::vector<Rva0008B4AFElement>::_M_clear();
 

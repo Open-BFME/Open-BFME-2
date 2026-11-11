@@ -1,0 +1,58 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0008B4CD",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "12": 3,
+   "16": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva0008B470",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_data",
+     "offset": 0,
+     "size": 12,
+     "type": "void*[12]"
+    }
+   ],
+   "name": "m_vector",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Rva0008B470",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}

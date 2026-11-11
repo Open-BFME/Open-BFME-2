@@ -366,11 +366,7 @@ private:
 	void *m_data[4];
 };
 
-struct Rva0008B4CD
-{
-	~Rva0008B4CD() {}
-	Rva0008B470 m_vector;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0008B4CD.h"
 
 class Rva000EDA94 : public Rva000E6AC0
 {

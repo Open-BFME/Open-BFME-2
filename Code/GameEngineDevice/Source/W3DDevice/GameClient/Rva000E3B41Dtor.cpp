@@ -29,11 +29,7 @@ struct Rva0008B470
     char m_header[12];
 };
 
-struct Rva0008B4CD
-{
-    ~Rva0008B4CD() {}
-    Rva0008B470 m_vector;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0008B4CD.h"
 
 void __cdecl Rva00030830GameFree(void *);
 struct RvaE3VecBase
