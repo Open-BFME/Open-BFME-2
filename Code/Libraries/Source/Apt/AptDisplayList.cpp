@@ -146,18 +146,14 @@ public:
 };
 #include "AptValue.h"
 #include "AptCIHClass.h"
-class AptDisplayListState
-{
-public:
-	void DisplayListItem(void *arg);
-
-private:
-	BfmeQueryNode1279 *m_root;
-};
+#include "AptDisplayListState.h"
+// The canonical header keeps AptDisplayListState opaque; DisplayListItem reads
+// only the list head at +0x00 through a local view.
+struct AptDisplayListStateRootView { BfmeQueryNode1279 *m_root; };
 void AptDisplayListState::DisplayListItem(void *arg)
 {
 	(void)arg;
-	BfmeQueryNode1279 *node = m_root;
+	BfmeQueryNode1279 *node = ((AptDisplayListStateRootView *)this)->m_root;
 	if (node == 0)
 		return;
 	do {
