@@ -184,14 +184,7 @@ struct Coord3D;
 
 #include "../../../../Include/Common/Rva001E0301Name.h"
 
-class Rva001E0301
-{
-public:
-	virtual void rva001E0301(int assetList, int b);
-private:
-	char m_pad04[0x148 - 4];
-	Rva001E0301Name m_templateName;							// +0x148
-};
+#include "../../../../Include/Common/Rva001E0301.h"
 
 // --- 0x00210F27 (22B): run the +0x25C effects manager's rowed 0x003EF008 and
 // 0x003EF2FF passes.
