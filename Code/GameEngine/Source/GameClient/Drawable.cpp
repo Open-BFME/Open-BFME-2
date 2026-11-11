@@ -2210,11 +2210,7 @@ struct Rva0087DC00Vec
 	int y;
 	int z;
 };
-class Rva0087DC00
-{
-public:
-	void get(Rva0087DC00Vec *out);
-};
+#include "../../Include/GameClient/Rva0087DC00.h"
 struct Rva00270FEEInner;
 class BfmeFloatModule;
 class Rva00276470Drawable

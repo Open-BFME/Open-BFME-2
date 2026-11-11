@@ -1913,7 +1913,7 @@ struct TerrainTreeBounds {Coord3D lo,hi;};
 
 struct Rva0087DC00Vec {int x,y,z;};
 
-class Rva0087DC00 {public:void get(Rva0087DC00Vec*);};
+#include "../../../Include/GameClient/Rva0087DC00.h"
 
 struct TerrainTreeRecord {Coord3D position;int key;char pad10[8];bool flag18;char pad19[15];int amount;bool flag2c,flag2d;short next; bool isF18() const {return flag18;}};
 
