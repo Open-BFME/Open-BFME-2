@@ -89,11 +89,7 @@ struct UnitArray
 
 struct Out00418CC8 { int m_lo, m_hi; };
 
-class LivingWorldAutoResolveCombatChain
-{
-public:
-	bool getHighestPriorityTarget(Out00418CC8 *);
-};
+#include "../../../../../Include/GameLogic/LivingWorldAutoResolveCombatChain.h"
 
 class Rva004FF8DA
 {

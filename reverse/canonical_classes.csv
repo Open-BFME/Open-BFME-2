@@ -1159,3 +1159,4 @@ Rva002AF6C5Element,Code/GameEngine/Include/Common/Rva002AF6C5Element.h,existing 
 BfmeSubBGB,Code/GameEngine/Include/GameLogic/BfmeSubBGB.h,existing header; contract class_contracts/BfmeSubBGB.json; 4/5 sampled units adopt
 Rva0042C0DBDelegate,Code/GameEngine/Include/Common/Rva0042C0DBDelegate.h,existing header; contract class_contracts/Rva0042C0DBDelegate.json; 5/7 sampled units adopt
 BfmeSub932C,Code/GameEngine/Include/Common/BfmeSub932C.h,existing header; contract class_contracts/BfmeSub932C.json; 4/5 sampled units adopt
+LivingWorldAutoResolveCombatChain,Code/GameEngine/Include/GameLogic/LivingWorldAutoResolveCombatChain.h,existing header; contract class_contracts/LivingWorldAutoResolveCombatChain.json; 3/4 sampled units adopt

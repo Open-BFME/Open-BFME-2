@@ -166,11 +166,7 @@ public:
 	bool m_compare;
 };
 
-class LivingWorldAutoResolveCombatChain
-{
-public:
-	bool getHighestPriorityTarget(Out00418CC8 *out);
-};
+#include "../../../../../Include/GameLogic/LivingWorldAutoResolveCombatChain.h"
 
 class Rva00418EEB
 {
