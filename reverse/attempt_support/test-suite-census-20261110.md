@@ -159,3 +159,63 @@ when drained or synthesize fixtures is that lane's call; it is recorded in
 file alone. No `-x`, no `-k`, no plugins (none are installed, and there is no
 `conftest.py` or pytest config in the repo, so collection order is the argument
 order and the full run is alphabetical).
+
+## Re-measured 2026-11-12: 30 red, and 12 of them are new
+
+`python3 -m pytest tools/tests/ -q -p no:cacheprovider`, 19m54s:
+**30 failed, 12,068 passed, 177 skipped, 506 subtests passed.** The suite has
+grown by ~300 tests since 11-10.
+
+The 18 from the first census are all still red, exactly as left. None of their
+five files has a commit since 11-10 (`nightly_measure.py`,
+`publisher_service.py`, `boot_smoke.py`, `doc_lint.py`), `reverse/reloc_names.csv`
+still holds 0 rows, and nightly_measure still copies with `write_bytes` under
+"Copy bytes, never links or Git metadata". So the diagnoses stand.
+
+| file | failed | what it is |
+| --- | ---: | --- |
+| `test_name_lane.py` | 10 | **mine, fixed at `88fda10ed73`** (below) |
+| `test_nightly_measure.py` | 9 | the binding conflict, blocked on its owner |
+| `test_reloc_names.py` | 3 | no specimens left in the data |
+| `test_boot_smoke_profile.py` | 3 | maintainer-gated |
+| `test_publisher_service.py` | 2 | the publisher lane |
+| `test_doc_lint.py` | 1 | documentation content debt |
+| `test_progress.py` | 1 | the README badge flatters (below) |
+| `test_cl_flags.py` | 1 | **fixed at `8e424be0bf9`**: a stale count floor |
+
+### The 10 were mine, and the census is what caught them
+
+`66e3867c704` replaced `admit_agreed`'s whole-file rewrite with an append and
+deleted `existing = load()` with it. `existing` is read again 50 lines further
+down by the unrowed-resolution Resolver, so every unrowed admission raised
+`NameError` from the moment that landed.
+
+Two things let it through, and the second is this note's whole point:
+
+- I read the lines around the edit and not the rest of the function.
+- The tests I wrote pinned the call site by reading `admit_agreed`'s SOURCE for
+  `with_row(`, which a `NameError` 50 lines later passes happily. The tests
+  that EXECUTE the function are in `test_name_lane.py` -- a file I had no
+  reason to open, and which nothing runs at commit time.
+
+**When you change a function, run the tests of its callers, not its own file.**
+`grep -rl '<function>' tools/tests/` costs a second.
+
+### `test_cl_flags.py`: a floor the project walked through
+
+`assert len(listing) > 60` over tracked `.asm`/`.ASM`. The tree held 72 on
+2026-11-04 and 11 by 11-10 -- converting assembler to C++ is the point, so the
+floor failed because the lanes succeeded. It names two hand-written CRT stubs
+now, which still catches a broken `ls-files` without going stale downward.
+
+### `test_progress.py`: the badge is two days stale, not wrong
+
+`docs/progress.svg` claims 99.31% linking where `progress.py` computes 99.28%,
+and the test's rule is that the badge "may lag, never flatter". The badge was
+last written on 11-10 (`4e53b16f544`); `reverse/link_census_history.csv` shows
+the census running several times a day and moving either way
+(7,627,698 -> 7,622,235 -> 7,618,639 -> 7,625,714 linked bytes over 11-11
+alone). So this is ordinary census variation against a stale card, not a
+regression. **Left for whoever runs the daily `docs: update README progress
+card` commit** -- regenerating it publishes a changed public figure, which is
+that routine's call and not a test-fixing seat's.
