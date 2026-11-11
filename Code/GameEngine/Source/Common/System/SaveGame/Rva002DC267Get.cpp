@@ -43,11 +43,7 @@ public:
 
 #include "../../../../Include/Common/Rva002DC74A.h"
 
-class BFME2FileSystemFacade
-{
-public:
-	bool doesWideFileExist(const WideChar *path);
-};
+#include "../../../../Include/Common/BFME2FileSystemFacade.h"
 
 #define TheFileSystem (*(BFME2FileSystemFacade **)&TheFileSystem)
 

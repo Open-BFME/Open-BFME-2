@@ -267,11 +267,7 @@ public:
 	bool rva002DCCFB(UnicodeString filename);
 };
 
-class BFME2FileSystemFacade
-{
-public:
-	bool doesWideFileExist(const unsigned short *path);
-};
+#include "../../../../../Include/Common/BFME2FileSystemFacade.h"
 
 extern class FileSystem *TheFileSystem;
 

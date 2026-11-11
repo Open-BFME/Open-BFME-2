@@ -24,7 +24,7 @@ inline BFME2WideConcatPair operator+(const UnicodeString& a,const UnicodeString&
     return BFME2WideConcatPair(a,b);
 }
 #include "../../Include/Common/GlobalData.h"
-class BFME2FileSystemFacade { public: bool doesWideFileExist(const Wide*); };
+#include "../../Include/Common/BFME2FileSystemFacade.h"
 extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;

@@ -592,11 +592,7 @@ struct Pair8Ctor
 	int a, b;
 };
 
-class BFME2FileSystemFacade
-{
-public:
-	bool doesWideFileExist(const unsigned short *path);
-};
+#include "../../Include/Common/BFME2FileSystemFacade.h"
 
 typedef float Real;
 
