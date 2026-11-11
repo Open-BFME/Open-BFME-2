@@ -12,7 +12,7 @@ typedef unsigned char UnsignedByte;
 typedef int Int;
 typedef bool Bool;
 class ThingTemplate; class ModuleData;
-class Rva0033C8E8 {public: bool removeModuleInfo(const AsciiString &,AsciiString &);};
+#include "../../../Include/Common/Rva0033C8E8.h"
 struct BfmeStringRecord002CF4C6 {
  AsciiString text0,text1; unsigned int word0,word1; unsigned char flag0,flag1;
  BfmeStringRecord002CF4C6(const AsciiString &,const AsciiString &,unsigned int,unsigned int,unsigned char);

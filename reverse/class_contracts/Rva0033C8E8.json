@@ -1,0 +1,133 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0033C8E8",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2e4": {
+    "4": 1
+   },
+   "0x2f0": {
+    "4": 1
+   },
+   "0x2fc": {
+    "4": 1
+   },
+   "0x308": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "788": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 740,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 744,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 748,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 756,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 760,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 764,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 768,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 772,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 776,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 780,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 784,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Rva0033C8E8Chain.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

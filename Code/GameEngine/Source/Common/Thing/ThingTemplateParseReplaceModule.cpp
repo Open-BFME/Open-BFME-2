@@ -33,7 +33,7 @@ enum ModuleParseMode
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Rva0033C8E8 { public: bool removeModuleInfo(const AsciiString &,AsciiString &); };
+#include "../../../Include/Common/Rva0033C8E8.h"
 
 
 // ?parseReplaceModule@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z
