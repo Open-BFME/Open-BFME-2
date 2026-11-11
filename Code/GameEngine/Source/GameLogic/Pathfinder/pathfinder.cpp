@@ -562,7 +562,7 @@ struct GeometryShape {
 };
 #include "../../../Include/Common/Geometry.h"
 struct ICoord2DBase { int x,y; };
-class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
+#include "../../../Include/GameLogic/Rva002E9D09.h"
 class Rva002E7C99 {
 public:
     void *rva002E7C99(int,int,int,unsigned char,int,unsigned char,int);

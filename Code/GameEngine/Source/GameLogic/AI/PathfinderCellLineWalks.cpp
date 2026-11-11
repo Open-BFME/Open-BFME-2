@@ -92,7 +92,7 @@ public:
 	Int rva002E7E26( Object *cell, Int cellX, Int cellY );
 };
 
-class Rva002E9D09 {public:Int rva002E9D09(Object*,Int,Int);};
+#include "../../../Include/GameLogic/Rva002E9D09.h"
 class Rva004DD9E3 {public:Int rva004DD9E3(Int,Int,Int);};
 
 struct Rva002E8145Info { int opaque; int skipX; int skipY; };

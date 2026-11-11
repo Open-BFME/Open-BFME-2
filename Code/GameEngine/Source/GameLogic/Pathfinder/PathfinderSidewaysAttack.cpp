@@ -262,7 +262,7 @@ Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
 int Rva002E6E8AGet(int layer);
 #include "ascii_string.h"
 struct ICoord2DBase { int x,y; };
-class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
+#include "../../../Include/GameLogic/Rva002E9D09.h"
 #include "../../../Include/Common/Rva0006E009DwordField.h"
 void rva002E79A8(int,unsigned char,int,int,int);
 union PathfinderCheckCoordinates {
