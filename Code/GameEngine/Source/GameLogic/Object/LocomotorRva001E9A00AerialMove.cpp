@@ -119,11 +119,7 @@ public:
 
 class BfmeVec3EJ;
 #include "../../../Include/GameLogic/Module/Gen_000E5A50.h"
-class Rva001E438B
-{
-public:
-	void rva001E438B(float *dst, const float *src);
-};
+#include "../../../Include/GameLogic/Module/Rva001E438B.h"
 class Rva0030A3E4
 {
 public:

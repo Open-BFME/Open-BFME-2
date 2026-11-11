@@ -82,7 +82,7 @@ enum PathfindLayerEnum { LAYER_UNKNOWN0 = 0 };
 extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/Common/ThingTemplate.h"
-class Rva001E438B { public: float *rva00261988(float *, Rva001E438B *); };
+#include "../../../Include/GameLogic/Module/Rva001E438B.h"
 enum DamageType { DAMAGE_UNKNOWN8 = 8 };
 enum DeathType { DEATH_UNKNOWN0 = 0 };
 

@@ -31,7 +31,7 @@ typedef float Real;
 
 
 // Existing native object-position delta provider at RVA0x261988.
-class Rva001E438B { public: float *rva00261988(float *, Rva001E438B *); };
+#include "../../../Include/GameLogic/Module/Rva001E438B.h"
 // BFME stores this filter's object pointer at +0x08.
 class Object
 {

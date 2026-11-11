@@ -171,11 +171,7 @@ private:
 
 #include "../../../Include/Common/Geometry.h"
 
-class Rva001E438B
-{
-public:
-	void rva001E438B(float *out, const float *pos);
-};
+#include "../../../Include/GameLogic/Module/Rva001E438B.h"
 
 class Object
 {
