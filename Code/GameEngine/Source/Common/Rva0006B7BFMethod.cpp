@@ -1,4 +1,4 @@
-// cl: /D_OPERATOR_NEW_DEFINED_ /MD /EHsc /Ireference/shims/bfme2_ascii /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /D_OPERATOR_NEW_DEFINED_ /MD /EHsc /Ireference/shims/bfme2_ascii /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep /ICode/GameEngineDevice/Include
 // stlport
 // ?rva0006B7BF@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@M@Z @0x0006B7BF 69B
 // Wrapper over rowed 0x000E6135: loads Rva000E6135* from this+0x3860 and forwards
@@ -22,12 +22,12 @@ public:
 	void rva000E6135(const Rva0055A88BDwordField *idSrc, const StringBase<char> &name, float value);
 };
 
-#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
+#include "W3DDevice/GameClient/WorldHeightMap.h"
 
 // Use the canonical RefCountClass instead of the donor refcount.h.
 #define REFCOUNT_H
 
-#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
+#include "W3DDevice/GameClient/BaseHeightMap.h"
 
 void BaseHeightMapRenderObjClass::rva0006B7BF(const Rva0055A88BDwordField *id, StringBase<char> name, float value)
 {
