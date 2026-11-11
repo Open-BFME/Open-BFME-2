@@ -25,11 +25,7 @@ void *&vector<void*>::operator[](size_t __n)
 { return *(begin() + __n); }
 }
 
-class Rva002E21D1
-{
-public:
-	void rva002E21D1();
-};
+#include "../../Include/GameLogic/Rva002E21D1.h"
 
 class Rva002B7B25
 {

@@ -39,7 +39,7 @@ class ModuleData;
 struct Rva0020FD7FFilter;
 class Rva0020FD7F {public:void rva0020FD7F(Rva0020FD7FFilter*,_STL::vector<const ModuleData*>*);};
 class Rva002E1F88 {public:void markLost();};
-class Rva002E21D1 {public:void rva002E21D1();};
+#include "../../../Include/GameLogic/Rva002E21D1.h"
 class Rva002E0687;
 class Rva002B4E83 {public:void rva002B4E83(Rva002E0687*);};
 struct ArmyEntry {unsigned a,b;};

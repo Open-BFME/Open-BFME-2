@@ -446,7 +446,7 @@ class Rva002E1E51Listener {public:virtual void slot0(void*);virtual void slot1(v
 
 class Rva002E1E51List {public:void forEach(void(Rva002E1E51Listener::*)(void*),void*);};
 
-class Rva002E21D1 {public:void rva002E21D1();};
+#include "../../../../Include/GameLogic/Rva002E21D1.h"
 
 extern Rva002E18C3Lookup *TheLivingWorldAITemplateStore;
 
