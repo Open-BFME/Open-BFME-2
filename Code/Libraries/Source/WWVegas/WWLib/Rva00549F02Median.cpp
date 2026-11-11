@@ -12,9 +12,7 @@ struct Foo00549DCB {
 	int unk0;
 	Bar00549DCB *bar;
 };
-struct Rva00549DCB {
-	bool rva00549DCB(Foo00549DCB * const &a, Foo00549DCB * const &b) const;
-};
+#include "Rva00549DCB.h"
 Foo00549DCB * const &Rva00549F02Median(Foo00549DCB * const &a, Foo00549DCB * const &b, Foo00549DCB * const &c, Rva00549DCB comp)
 {
 	if (comp.rva00549DCB(a, b)) {

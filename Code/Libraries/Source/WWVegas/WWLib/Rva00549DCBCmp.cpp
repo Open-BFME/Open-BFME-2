@@ -13,9 +13,7 @@ struct Foo00549DCB {
 	int unk0;
 	Bar00549DCB *bar;
 };
-struct Rva00549DCB {
-	bool rva00549DCB(Foo00549DCB * const &lhs, Foo00549DCB * const &rhs) const;
-};
+#include "Rva00549DCB.h"
 bool Rva00549DCB::rva00549DCB(Foo00549DCB * const &lhs, Foo00549DCB * const &rhs) const
 {
 	return lhs->bar->key < rhs->bar->key;

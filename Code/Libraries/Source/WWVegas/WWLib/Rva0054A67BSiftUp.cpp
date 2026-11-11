@@ -55,7 +55,7 @@ int Rva0054A82C::nextWithNumeric(int *out)
 // emitter-view constraints, not original source qualifiers or concurrency.
 __forceinline BfmeE8 *Rva0054A708Cur(const DequeE8CIter &it){return *reinterpret_cast<BfmeE8 *const volatile *>(&it._M_cur);}
 struct Foo00549DCB;
-struct Rva00549DCB {bool rva00549DCB(Foo00549DCB *const &,Foo00549DCB *const &)const;};
+#include "Rva00549DCB.h"
 struct Comp0054A0D8 {int dummy;unsigned char cmp(void *,void *);};
 void Rva0054A708PushHeap(DequeE8CIter first,int hole,int top,BfmeE8 value,Rva00549DCB comp){
  int parent=(hole-1)/2;

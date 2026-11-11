@@ -62,10 +62,7 @@ struct BfmeCopyRecord8CmpDescending
 
 // The ascending key order: the compare is the rowed member at 0x00549DCB, called
 // on the comparator object.
-struct Rva00549DCB
-{
-	bool rva00549DCB(Foo00549DCB * const &a, Foo00549DCB * const &b) const;
-};
+#include "Rva00549DCB.h"
 
 struct BfmeCopyRecord8CmpKey : Rva00549DCB
 {
