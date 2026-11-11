@@ -321,7 +321,7 @@ void _STLP_alloc_proxy<ScienceType *, ScienceType, allocator<ScienceType> >::dea
 { __stl_alloc_rebind(__STATIC_CAST(_Base&, *this),(ScienceType*)0).deallocate(__p, __n); }
 }
 class Rva0029FCB4 { public: _STL::vector<ScienceType> rva0029FCB4(); };
-class Rva0023C6A4 { public: bool rva00200084(); };
+#include "../../../../Include/Common/Rva0023C6A4.h"
 class GameLogic; extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/Player.h"
 class Rva0037EE4C { public: int rva0037EE4C(const ThingTemplate *,int,int); };

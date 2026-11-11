@@ -98,11 +98,7 @@ struct Rva0006EE7A : public BitFlags<69>
 
 #include "../Common/Thing/thing.h"
 
-class Rva0023C6A4
-{
-public:
-	bool rva00200084();
-};
+#include "../../Include/Common/Rva0023C6A4.h"
 
 #define TheGameLogic (*(Rva0023C6A4 **)&TheGameLogic)
 

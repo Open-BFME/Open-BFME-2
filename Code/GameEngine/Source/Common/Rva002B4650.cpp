@@ -8,7 +8,7 @@
 //   inc eax; pop esi; ret; fail: xor eax,eax; pop esi; ret
 // Boundary: Ghidra FUN_006b3db2-adjacent 30B; successor 0x2B466E opens with
 // push ebp. Names are address-derived.
-class Rva0023C6A4 {public: bool rva0023C6A4();};
+#include "../../Include/Common/Rva0023C6A4.h"
 #include "../../Include/Common/Rva002B254F.h"
 extern class GameLogic *TheGameLogic;
 extern class GameInfo *TheGameInfo;

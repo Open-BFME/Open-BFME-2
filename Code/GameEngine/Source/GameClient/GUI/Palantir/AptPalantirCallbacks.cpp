@@ -231,11 +231,7 @@ extern GameLogic *TheGameLogic;
 
 // TheGameLogic's rowed bool query 0x00200084 (Rva0023C6A4Check.cpp's
 // class) and its game mode at +0x110.
-class Rva0023C6A4
-{
-public:
-	bool rva00200084();
-};
+#include "../../../../Include/Common/Rva0023C6A4.h"
 
 struct AptPalantirGameLogic
 {

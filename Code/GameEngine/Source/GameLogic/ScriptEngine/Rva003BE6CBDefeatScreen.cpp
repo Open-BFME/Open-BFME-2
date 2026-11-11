@@ -19,11 +19,7 @@
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Rva0023C6A4
-{
-public:
-	bool rva00200084();
-};
+#include "../../../Include/Common/Rva0023C6A4.h"
 
 #include "../../../Include/Common/Rva003BBAD3.h"
 

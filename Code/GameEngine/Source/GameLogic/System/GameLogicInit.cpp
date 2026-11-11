@@ -3243,11 +3243,7 @@ public:
 	int m_13c;                                                           // +0x13C
 };
 
-class Rva0023C6A4
-{
-public:
-	bool rva00200084(void);
-};
+#include "../../../Include/Common/Rva0023C6A4.h"
 
 class Rva0020DXXX
 {

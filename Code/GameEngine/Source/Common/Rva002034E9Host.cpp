@@ -11,11 +11,7 @@
 
 typedef bool Bool;
 
-class Rva0023C6A4
-{
-public:
-	Bool rva0023C6A4();
-};
+#include "../../Include/Common/Rva0023C6A4.h"
 
 class Rva002034E9Host
 {

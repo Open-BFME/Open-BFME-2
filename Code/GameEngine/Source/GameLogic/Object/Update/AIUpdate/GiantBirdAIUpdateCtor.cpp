@@ -163,7 +163,7 @@ private:
 #include "../../../../../Include/Common/Player.h"
 struct GiantBirdObjectView { unsigned char m_pad000[0x74]; Int m_id; };
 #include "../../object.h"
-class Rva0023C6A4 { public: Bool rva00200084(); };
+#include "../../../../../Include/Common/Rva0023C6A4.h"
 class GameLogic;
 extern GameLogic *TheGameLogic;
 enum NameKeyType { NAMEKEY_INVALID = 0 };

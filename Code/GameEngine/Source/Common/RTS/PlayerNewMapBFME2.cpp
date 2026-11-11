@@ -74,7 +74,7 @@ class Rva002E2903Player;
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva0023C6A4 { public: bool rva00200084(); };
+#include "../../../Include/Common/Rva0023C6A4.h"
 class Player {
 public:
  char pad0[0x34]; PlayerTemplate *playerTemplate;

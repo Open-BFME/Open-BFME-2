@@ -202,7 +202,7 @@ struct Rva00420388GlobalData { char pad[0x110C]; float m_110C; };
 extern int BfmeLogicFramesPerSecond;
 #include "../../../Include/Common/RecorderClass.h"
 extern RecorderClass *TheRecorder;
-class Rva0023C6A4 { public: Bool rva00200084(); };
+#include "../../../Include/Common/Rva0023C6A4.h"
 #include "../../../Include/Common/Rva0023C666.h"
 #include "../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 class PlayerTemplate { public: char pad[0x1BC]; Bool m_1bc; };
