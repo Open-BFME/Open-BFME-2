@@ -7,6 +7,7 @@
 class Rva00589079_E1 {
 public:
     virtual void fe();
+    virtual bool isSpecialAbility() const = 0;
 };
 
 #endif // CANONICAL_RVA00589079_E1_H

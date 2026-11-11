@@ -94,6 +94,7 @@ class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
 {
 public:
 	DeflectSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual bool isSpecialAbility() const;
 	virtual ~DeflectSpecialPower();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
@@ -280,6 +281,11 @@ NameKeyType DeflectSpecialPower::getModuleNameKey() const
 	static NameKeyType TheDeflectSpecialPowerPoolKey =
 		TheNameKeyGenerator->nameToKey("DeflectSpecialPower");
 	return TheDeflectSpecialPowerPoolKey;
+}
+
+bool DeflectSpecialPower::isSpecialAbility() const
+{
+	return false;
 }
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv1752.cpp

@@ -22,3 +22,5 @@ DeflectSpecialPower.cpp and SupplyCenterDockUpdateConstructor.cpp OK
 (census touches: only the old thunk and its definer), so its present-unmatched
 definition in `SupplyCenterDockUpdateConstructor.cpp` is removed (1/1 row,
 LINKS 49 -> 49 B; one hatch line retired).
+
+The separate +0x20 table at RVA 0x0085D98C has nine retail entries. Both installer views now declare its second entry, isSpecialAbility, and the concrete override returns false at RVA 0x0047A699. [Native slot evidence](../../reverse/attempt_support/deflect-secondary-slot-004c5551.md).

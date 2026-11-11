@@ -14,6 +14,7 @@
   "retail_layout": {},
   "retail_member_rows": 0,
   "retail_vtables": {},
+  "secondary_slot_witness": "DeflectSpecialPower constructor and destructor install RVA 0x0085D98C at +0x20. Slot 0 takes five dwords (ret 20); slot 1 at RVA 0x0047A699 returns false. SpecialPowerUpdateInterface.h documents the independent caller evidence for slot 1.",
   "view_errors": 0,
   "view_sizes": {
    "4": 5
@@ -47,6 +48,10 @@
   "0": {
    "decided_by": "bytes",
    "member": "fe()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "isSpecialAbility() const"
   }
  }
 }
