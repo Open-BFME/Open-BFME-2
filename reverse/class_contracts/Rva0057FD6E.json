@@ -34,6 +34,10 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_inline_members": {
+  "reason": "The calling view (AptMpGameSetup.cpp at d3e31e008f^) declared rva0057FFB9() as this inline forwarder to the rowed AptMpChat::OnInit; the header from d3e31e008f kept a bodiless declaration, so AptMpGameSetup.cpp's call became an unresolved external (?rva0057FFB9@Rva0057FD6E@@QAEXXZ, LNK2019 on the real link at c501bf16b5; P138). The header declares it with the view's declspecs; the body names AptMpChat, which has no canonical header and a full private class in AptMpChat.cpp (an includer), so it is defined inline in AptMpGameSetup.cpp, the one unit that calls it, right after its AptMpChat view and this header.",
+  "rva0057FFB9": "/* the rowed AptMpChat::OnInit */ __declspec(dllimport) __forceinline void rva0057FFB9() { ((AptMpChat *)this)->OnInit(); }"
+ },
  "outliers": [
   {
    "offset": 100,

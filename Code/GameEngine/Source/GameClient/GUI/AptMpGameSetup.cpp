@@ -338,6 +338,9 @@ class AptMpChat { public: void OnInit(); };
 
 #include "../../../Include/GameClient/Rva0057FD6E.h"
 
+// The forwarder this unit's view declared in class before the canonical header (d3e31e008f^).
+/* the rowed AptMpChat::OnInit */ __forceinline void Rva0057FD6E::rva0057FFB9() { ((AptMpChat *)this)->OnInit(); }
+
 // A panel member rowed under its own address-named class (0x0043DBE0).
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
 void Rva00446A67Set(unsigned char value);
