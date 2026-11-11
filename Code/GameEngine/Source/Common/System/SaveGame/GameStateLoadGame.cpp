@@ -119,7 +119,7 @@ public:
  virtual void v8();virtual void v9();virtual void slot10();
 };
 class AI; extern AI *TheAI;
-class Rva002E713FOwner { public: void rva002E713F(); };
+#include "../../../../Include/GameLogic/Rva002E713FOwner.h"
 struct GameLoadAIView { char opaque[0x10]; Rva002E713FOwner *owner; };
 class Display;extern Display *TheDisplay;
 struct GameLoadDisplayView { char opaque[0x114]; bool flag; };

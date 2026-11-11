@@ -1110,3 +1110,4 @@ Rva0073F4F3,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0073F4F3.h,exi
 Rva002BBBE7,Code/GameEngine/Include/GameLogic/Rva002BBBE7.h,existing header; contract class_contracts/Rva002BBBE7.json; 5/7 sampled units adopt
 Rva000C3886,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000C3886.h,existing header; contract class_contracts/Rva000C3886.json; 5/7 sampled units adopt
 GiantBirdSlowDeathBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GiantBirdSlowDeathBehaviorModuleData.h,existing header; contract class_contracts/GiantBirdSlowDeathBehaviorModuleData.json; 3/6 sampled units adopt
+Rva002E713FOwner,Code/GameEngine/Include/GameLogic/Rva002E713FOwner.h,existing header; contract class_contracts/Rva002E713FOwner.json; 5/7 sampled units adopt

@@ -25,11 +25,7 @@ public:
 	bool rva0052E0CE(bool value);
 };
 
-class Rva002E713FOwner
-{
-public:
-	void rva0052F294();
-};
+#include "../../../Include/GameLogic/Rva002E713FOwner.h"
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 

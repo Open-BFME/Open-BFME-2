@@ -187,7 +187,7 @@ struct QueueObjectView {char pad00[0x258];AIUpdateInterface *ai;};
 class PathfindCell;
 class PathfindLayer;
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Rva002E713FOwner {public:void rva0052F294();};
+#include "../../../Include/GameLogic/Rva002E713FOwner.h"
 class Rva002EAC7CPool {public:void *rva002EAC7C();bool empty()const {return head==tail;}void *items[0x200];int head,tail;};
 extern TerrainLogic *TheTerrainLogic;
 extern GlobalData *TheWritableGlobalData;

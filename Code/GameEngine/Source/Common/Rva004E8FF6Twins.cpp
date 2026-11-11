@@ -25,11 +25,7 @@ private:
 	void rva004992D5(bool open, bool flag);	// and 0x004992D5
 };
 
-class Rva002E713FOwner
-{
-public:
-	void rva002E713F();
-};
+#include "../../Include/GameLogic/Rva002E713FOwner.h"
 
 class AI;
 extern AI *TheAI;	// 0x009FF0F8, AI/ai.cpp's global
