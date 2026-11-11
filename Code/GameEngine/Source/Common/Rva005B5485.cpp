@@ -71,12 +71,4 @@ class ModuleData;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class Rva005B566B {
-public:
-    void rva005B54ED(unsigned, unsigned, bool);
-private:
-    char pad[4];
-    ClassScreenPrefix *screen;
-    char gap[0x1C - 8];
-    Rva00423A68 heroes;
-};
+#include "../../Include/Common/Rva005B566B.h"

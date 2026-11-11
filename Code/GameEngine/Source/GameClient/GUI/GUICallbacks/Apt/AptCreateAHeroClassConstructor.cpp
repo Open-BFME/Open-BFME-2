@@ -60,11 +60,7 @@ struct Rva005B3676Owner
 	AptCommandMapAdder m_adder; // +0x21C
 	char m_externs[1];
 };
-class Rva005B566B
-{
-public:
-	void rva005B566B();
-};
+#include "../../../../../Include/Common/Rva005B566B.h"
 
 class Rva0040A530
 {

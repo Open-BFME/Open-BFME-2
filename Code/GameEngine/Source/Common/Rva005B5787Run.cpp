@@ -8,11 +8,7 @@
 
 #include "../../Include/Common/Rva004076EE.h"
 
-class Rva005B566B
-{
-public:
-	void rva005B54ED(unsigned int, unsigned int, bool);	// row 0x005B54ED (on Rva005B566B)
-};
+#include "../../Include/Common/Rva005B566B.h"
 
 class Rva005B5787Owner
 {
