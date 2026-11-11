@@ -232,11 +232,7 @@ struct Rva004FFE89
 {
 	~Rva004FFE89();
 };
-class Rva0050174A
-{
-public:
-	~Rva0050174A();
-};
+#include "../../Include/Common/Rva0050174A.h"
 struct Rva005017AC
 {
 	~Rva005017AC();

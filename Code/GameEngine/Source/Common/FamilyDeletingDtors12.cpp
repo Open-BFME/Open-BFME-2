@@ -25,7 +25,7 @@ class Rva005011B4 { public: ~Rva005011B4(); };
 void famgenDelete(Rva005011B4 *m_objectToDelete) { delete m_objectToDelete; }
 
 // ??_GRva0050174A@@QAEPAXI@Z @0x00501D7A 28B: calls ~Rva0050174A 0x0050174A
-class Rva0050174A { public: ~Rva0050174A(); };
+#include "../../Include/Common/Rva0050174A.h"
 void famgenDelete(Rva0050174A *m_objectToDelete) { delete m_objectToDelete; }
 
 // ??_GRva005BEA22@@QAEPAXI@Z @0x0051E2DF 28B: calls ~Rva005BEA22 0x005BEA22

@@ -2,10 +2,7 @@
 // ?rva005025DB@Rva005025DB@@QAEXPAX@Z @0x005025DB 53B
 // Evidence: Rb-node clear recursing on +0x0C then walking +0x08 with value dtor 0x0050174A at +0x10 and free 0x00030830; self-call at 0x005025ED; caller clear 0x00502787; neighbours stlport_map_int_vector_vector_pod88 and stlport_tree_erase_00502610.
 #include <stdlib.h>
-struct Rva0050174A
-{
-	~Rva0050174A();
-};
+#include "../../../../GameEngine/Include/Common/Rva0050174A.h"
 
 struct Rva005025DBNode
 {
