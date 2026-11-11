@@ -54,7 +54,7 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-class Rva005F22D2 { public: void rva005F2295(int); };
+#include "../../../../Include/GameClient/Rva005F22D2.h"
 #include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {
 public:

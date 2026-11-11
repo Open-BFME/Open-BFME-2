@@ -28,11 +28,7 @@ public:
 	void rva005CB260();
 };
 
-class Rva005F22D2
-{
-public:
-	void rva005F22D2();
-};
+#include "../../Include/GameClient/Rva005F22D2.h"
 
 class Rva005F20C5
 {

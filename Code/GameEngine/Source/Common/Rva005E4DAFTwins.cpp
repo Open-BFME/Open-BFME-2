@@ -18,11 +18,7 @@ struct Rva005F3F41Outer
 {
 	void set(unsigned char v);
 };
-class Rva005F22D2
-{
-public:
-	void rva005F2295(int v);
-};
+#include "../../Include/GameClient/Rva005F22D2.h"
 class Rva005F2406
 {
 public:

@@ -36,7 +36,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 class Rva005E39AE { public: void rva005E3AAA(int); };
-class Rva005F22D2 { public: void rva005F2295(int); };
+#include "../../../../Include/GameClient/Rva005F22D2.h"
 class ArmySummary;
 namespace StrategicInGameUI {
 class ArmyDetailsPanel {

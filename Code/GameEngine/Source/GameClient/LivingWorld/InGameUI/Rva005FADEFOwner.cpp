@@ -47,7 +47,7 @@ public:
     virtual void slot03(const TreeHintRef00217D4C &);
     virtual void slot04();
 };
-class Rva005F22D2 { public: void rva005F22D2(); };
+#include "../../../../Include/GameClient/Rva005F22D2.h"
 
 void Rva005FAF9FOwner::rva005FADEF(Rva005FED59 *child)
 {

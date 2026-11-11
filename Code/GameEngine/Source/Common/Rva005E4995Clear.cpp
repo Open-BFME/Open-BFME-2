@@ -14,11 +14,7 @@ struct SBServer
 	void *m_handle;
 };
 
-class Rva005F22D2
-{
-public:
-	void rva005F22D2();
-};
+#include "../../Include/GameClient/Rva005F22D2.h"
 
 class CreateAHeroData;
 
