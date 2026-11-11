@@ -111,11 +111,7 @@ public:
 			Rva00030830GameFree(m_data);
 	}
 };
-class QuadStrip2D
-{
-public:
-	void parse(DataChunkInput &file, Int flag);
-};
+#include "../../../Include/Common/QuadStrip2D.h"
 struct Rva005386B7;
 
 class Rva0030C1C8 { public: void rva0030C1C8(Int index, const StringBase<char> &name); };

@@ -9,7 +9,7 @@ struct Coord3D;
 class ArmySummarySystem;
 class Rva003B24C7 { public: void rva003B24C7(bool val); };
 #include "../../Include/GameLogic/AIBaseBuilder.h"
-class QuadStrip2D { public: void rva0053892C(unsigned int count); };
+#include "../../Include/Common/QuadStrip2D.h"
 class Rva005382A6 { public: void *rva005382A6(int i, int off); };
 class Rva005D40A6 { public: void Update(); };
 class Rva004E7B0CHolder { public: void rva004E7B0C(); void rva004E7D1D(); };

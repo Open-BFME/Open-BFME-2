@@ -96,11 +96,7 @@ extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
 
 // The quad strip at +0x68: rowed constructor 0x005388AB (Rva005388ABCtor.cpp)
 // and reserve 0x0053892C (rowed on QuadStrip2D).
-class QuadStrip2D
-{
-public:
-	void rva0053892C(unsigned int count);
-};
+#include "../../Include/Common/QuadStrip2D.h"
 
 class Rva005388AB
 {

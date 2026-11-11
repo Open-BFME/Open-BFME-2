@@ -362,7 +362,7 @@ class Rva003B24C7 { public: void rva003B24C7(bool val); };
 
 class AIBaseBuilder { public: void rva00506B96(const Coord3D *point); bool rva00506C39(void *arg); };
 
-class QuadStrip2D { public: void rva0053892C(unsigned int count); };
+#include "../../../Include/Common/QuadStrip2D.h"
 
 class Rva005382A6 { public: void *rva005382A6(int i, int off); };
 

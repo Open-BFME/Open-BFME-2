@@ -1,0 +1,170 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "QuadStrip2D",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 6
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "1": 6
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5388c2"
+     ],
+     "value": {
+      "0x0": [
+       "Rva005386F5"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 10,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 6,
+   "12": 1,
+   "36": 1
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_vec._M_start",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "BfmeE16*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp",
+    "Code/GameEngine/Source/Common/Rva0030BE41.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp",
+    "Code/GameEngine/Source/Common/Rva0030BE41.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/QuadStrip2D.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_start": 1,
+    "m_vec._M_start": 1
+   },
+   "class": "QuadStrip2D"
+  },
+  {
+   "attribute": "nested@0x0",
+   "candidates": {
+    "m_vec._M_start": 2
+   },
+   "class": "QuadStrip2D"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 6,
+    "12": 1,
+    "36": 1
+   },
+   "class": "QuadStrip2D"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {}
+}

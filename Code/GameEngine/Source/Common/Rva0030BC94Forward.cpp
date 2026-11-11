@@ -10,11 +10,7 @@ struct Rva0053841CArg;
 class Matrix3D;
 
 // The leaf is QuadStrip2D's transform (Rva0053841CTransform.cpp); the argument is its Matrix3D.
-class QuadStrip2D
-{
-public:
-	void rva0053841C(const Matrix3D &mtx);
-};
+#include "../../Include/Common/QuadStrip2D.h"
 
 class Rva0030BC94
 {

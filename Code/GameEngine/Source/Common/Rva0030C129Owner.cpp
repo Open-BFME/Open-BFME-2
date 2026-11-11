@@ -2,11 +2,7 @@
 // ?rva0030C157@Rva0030C129Owner@@QAEXPAURva005386B7@@@Z
 // Retail 0x0030C129 and 0x0030C157, 46B each: update the +0x68 holder, then slot +0x28 when Rva0030C114 holds.
 
-class QuadStrip2D
-{
-public:
-	QuadStrip2D &rva005388F7(const QuadStrip2D &other);
-};
+#include "../../Include/Common/QuadStrip2D.h"
 
 struct Rva005386B7
 {

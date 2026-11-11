@@ -16,11 +16,7 @@ struct BfmeE8
 	float y;
 };
 
-class QuadStrip2D
-{
-public:
-	void rva005382F4(const BfmeE8 &offset);					// 0x005382F4
-};
+#include "../../Include/Common/QuadStrip2D.h"
 
 class Rva0030BE5D
 {
