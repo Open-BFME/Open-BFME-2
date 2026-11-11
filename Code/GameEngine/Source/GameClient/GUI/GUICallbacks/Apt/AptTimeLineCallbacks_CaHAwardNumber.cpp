@@ -32,11 +32,7 @@ struct BfmePod40
 };
 
 // The award store (0x00E02F74) and its rowed lookup by id 0x0040AAD5.
-class Rva0040AAD5
-{
-public:
-	BfmePod40 *rva0040AAD5(int id);
-};
+#include "../../../../../Include/GameClient/Rva0040AAD5.h"
 
 extern class Rva0040AAD5 *TheAwardSystemManager;
 

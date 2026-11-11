@@ -118,11 +118,7 @@ int Rva005B0207::rva005B021C(int index) const
 struct BfmePod40;
 class CreateAHeroAward;
 
-class Rva0040AAD5
-{
-public:
-	BfmePod40 *rva0040AAD5(int id);							// 0x0040AAD5
-};
+#include "../../Include/GameClient/Rva0040AAD5.h"
 
 extern Rva0040AAD5 *TheAwardSystemManager;
 

@@ -664,11 +664,7 @@ namespace _STL { template <> void vector<ScienceType>::push_back(ScienceType con
 // Retail calls the shared push_back at 0x002E01C6; keep its growth helper there.
 namespace _STL { template <> void vector<ScienceType>::push_back(const ScienceType &); }
 struct BfmePod40;
-class Rva0040AAD5
-{
-public:
-	struct BfmePod40 *rva0040AAD5(int key);
-};
+#include "../../../../../Include/GameClient/Rva0040AAD5.h"
 extern class Rva0040AAD5 *TheAwardSystemManager;
 struct Pair0051E31A
 {

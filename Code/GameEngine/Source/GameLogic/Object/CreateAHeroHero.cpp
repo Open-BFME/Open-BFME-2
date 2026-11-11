@@ -219,7 +219,7 @@ class Rva0021937DTarget { public: void rva00407E94(); };
 class Rva00406E7D { public: int rva00406E7D(); };
 class Rva00406E8F { public: int rva00406E8F(unsigned int); };
 struct BfmePod40;
-class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(int); };
+#include "../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 class InGameUI
 {

@@ -163,10 +163,7 @@ public:
 class Rva0040B6D4 : public Rva0040B77E {public:Rva0040B6D4();};
 struct BfmePod40 {int words[10];};
 struct Rva0040C0C7Element;
-class Rva0040AAD5 {public:
- BfmePod40 *rva0040AAD5(int);
- bool rva0040C0FE(const Rva0040C0C7Element &);
-};
+#include "../../Include/GameClient/Rva0040AAD5.h"
 // .data 0x00A02F74, just ahead of this unit's instance pointer 0x00A02F78 below:
 // GameEngine::init 0x0022FBE0 hands its address to initSubsystem with the
 // "TheAwardSystemManager" literal and the object 0x0040BF17 constructs.

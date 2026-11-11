@@ -117,7 +117,7 @@ private:
 class Rva004076EE { public: Object *rva004076EE(); };
 struct HeroAwardNameView { char pad[8]; UnicodeString name; };
 struct BfmePod40;
-class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(int); };
+#include "../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 struct HeroAwardRecordView { char pad[0x10]; AsciiString label; unsigned word14; AsciiString image; };
 #include "../../Include/GameClient/Image.h"

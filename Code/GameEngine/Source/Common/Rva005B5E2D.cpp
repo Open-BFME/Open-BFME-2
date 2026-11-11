@@ -23,11 +23,7 @@ struct BfmePod40
 {
     int a[10];
 };
-class Rva0040AAD5
-{
-public:
-    BfmePod40 *rva0040AAD5(int key);
-};
+#include "../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 extern const unsigned short g_00BC26DC[];
 

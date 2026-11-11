@@ -578,11 +578,7 @@ struct BfmePod40;
 
 #include "../../Include/GameLogic/Module/Rva0040BAD0.h"
 
-class Rva0040AAD5 : public Rva0040BAD0
-{
-public:
-	BfmePod40 *rva0040AAD5(int key);
-};
+#include "../../Include/GameClient/Rva0040AAD5.h"
 
 extern Rva0040AAD5 *TheAwardSystemManager;
 

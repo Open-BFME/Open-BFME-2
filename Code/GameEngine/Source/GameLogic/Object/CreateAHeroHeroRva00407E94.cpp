@@ -38,7 +38,7 @@ private:
 
 struct BfmePod40;
 class CreateAHeroAward;
-class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(int key); };	// 0x0040AAD5
+#include "../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 #include "../../../Include/Common/Rva00406E7D.h"
 class Rva00406E8F { public: int rva00406E8F(unsigned int i); };	// 0x00406E8F

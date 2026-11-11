@@ -71,7 +71,7 @@ public:
 	_STL::vector<Int> m_upgradeKeys;			// +0x04
 };
 struct BfmePod40;
-class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(Int awardId); };
+#include "../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 #include "../../../Include/Common/Rva00406E7D.h"
 class Rva00406E8F { public: Int rva00406E8F(UnsignedInt index); };
