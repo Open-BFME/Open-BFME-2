@@ -148,13 +148,7 @@ public:
 
 struct Rva002BA8F1Listener;
 
-class Rva004E0B60
-{
-public:
-	void rva004E0CB6();
-	void rva004E0CA3();
-	bool rva004E0CCB();
-};
+#include "../../../../Include/Common/Rva004E0B60.h"
 
 class Rva004FC21AOwner
 {

@@ -475,11 +475,7 @@ void Rva0043D15FUpdate()
 		aptSpellStore->rva0043CD3C();
 }
 
-class Rva004E0B60
-{
-public:
-	void rva004E0D19(int a);
-};
+#include "../../Include/Common/Rva004E0B60.h"
 
 class Rva004FC176
 {

@@ -31,11 +31,7 @@ struct Rva004EFour
 	int d;
 };
 
-class Rva004E0B60
-{
-public:
-	void rva004E0B60(Rva004EFour f, int e);
-};
+#include "../../Include/Common/Rva004E0B60.h"
 
 class CreateAHeroData;
 
