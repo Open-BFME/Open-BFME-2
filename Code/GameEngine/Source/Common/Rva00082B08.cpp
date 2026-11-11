@@ -3,11 +3,7 @@
 // ?rva00082B08@Rva00082B08@@QAEXXZ @0x00082B08 127B: triple conditional Rva002B7250 erase plus two vector range erases plus conditional tail to WaterTracksRenderSystem move drain. Evidence: three Rva002B7250 row calls plus two 0x819EC vector erase row calls plus tail jmp to 0xFE188 row plus caller 0x91CF2.
 #include <vector>
 class CreateAHeroData { public: void *m_p; };
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 // Retail's erase is the rowed copy in Rva004F92E3Rva004F92E3.cpp.
 namespace _STL { template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C, allocator<TreeHintRef00217D4C> >::erase(TreeHintRef00217D4C *, TreeHintRef00217D4C *); }

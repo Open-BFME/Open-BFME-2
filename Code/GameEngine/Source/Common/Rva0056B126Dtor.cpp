@@ -3,10 +3,7 @@
 // Dtor with three vptrs unregistering via rowed erase 0x002B7250 then base dtor 0x0056AC26.
 // Evidence: caller at 0x0056B3D9 is deleting dtor; sibling shape of 0x0056B0BF with holder at parent+4.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Parent0056B126 {
     char pad[4];
     Rva002B7250 holder;

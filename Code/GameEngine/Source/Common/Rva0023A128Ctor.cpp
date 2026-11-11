@@ -51,11 +51,7 @@ extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Listener;
 class CreateAHeroData;
 // The list's erase (0x002B7250) is rowed under its own address-named class.
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *who);
-};
+#include "../../Include/Common/Rva002B7250.h"
 class Rva005A0B4CList : public Rva002B7250
 {
 public:

@@ -21,11 +21,7 @@ struct Rva002BA8F1Listener;
 #include "../../Include/Common/Rva005A0B4CList.h"
 namespace StrategicHUD { class HUD { public: void Show(); }; }
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *who);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 class LivingWorldLogic
 {

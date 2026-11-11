@@ -4,10 +4,7 @@
 // Evidence: caller at 0x0056B359 is deleting dtor; sibling shape of 0x00575E4E
 // with extra base; [edi] restore is 0x007ED658 same family as prior Base2.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Parent0056B0BF {
     char pad[8];
     Rva002B7250 holder;
