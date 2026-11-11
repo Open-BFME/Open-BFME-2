@@ -13,7 +13,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct FxPlayTimeNode {FxPlayTimeNode *next,*previous;unsigned frame;};
 class IntFrameList {public:FxPlayTimeNode *head;};
-class Rva0005548FNativeList {public:void append(void *const &);};
+#include "../../Include/GameClient/Rva0005548FNativeList.h"
 class FXList {
 public:bool rva001E2EF1()const;
 private:

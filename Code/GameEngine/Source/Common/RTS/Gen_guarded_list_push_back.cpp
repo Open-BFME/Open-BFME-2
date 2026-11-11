@@ -23,7 +23,7 @@
 // This external ABI view names only the observed 4-byte element append.
 // The complete 26-byte provider is already rowed as list<int>::push_back;
 // its native insert target differs from the other pointer-list instance.
-class Rva0005548FNativeList { public: void append(void *const &value); };
+#include "../../../Include/GameClient/Rva0005548FNativeList.h"
 #pragma comment(linker, "/alternatename:?append@Rva0005548FNativeList@@QAEXABQAX@Z=?push_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z")
 
 // ?m@Gen_00581350@@QAEXPAX@Z  -- list at this+0x08

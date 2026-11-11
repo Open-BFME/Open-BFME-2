@@ -14,7 +14,7 @@ class Rva000B3F15 {public:
  Rva000B3F15 &operator=(const Rva000B3F15 &);
  Rva000B3F15Payload *value;
 };
-class Rva0005548FNativeList {public:void append(void *const &);};
+#include "../../Include/GameClient/Rva0005548FNativeList.h"
 struct FxNode {FxNode *next,*previous;void *nugget;};
 class FXList {public:char opaque00[4];FxNode *head04;};
 #include "../../Include/GameClient/FXListStore.h"
