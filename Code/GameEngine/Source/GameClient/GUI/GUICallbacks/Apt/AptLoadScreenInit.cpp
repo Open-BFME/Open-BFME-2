@@ -114,11 +114,7 @@ struct GameSpyPlayerInfoView
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 // The rank image tables (Rva00559AC1.cpp) by their ledger names.
-class Rva00559AC1
-{
-public:
-	const Image *rva00559C25(int side, int rank);
-};
+#include "../../../../../Include/GameClient/Rva00559AC1.h"
 
 // The two rank-weight tables at VA 0x00E05FCC / VA 0x00E06000, defined (with the
 // layout Rva00559A11.cpp proves) in the unit whose arg-ctor bodies fill them,

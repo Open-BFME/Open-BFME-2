@@ -106,7 +106,7 @@ AptStats::AptStats(void*host):GameStats::Persistent(7),owner(host),m_word1c(0)
 // [005DD029,005DD06D),RET12. Its address is taken by the faction-level
 // registration at005DD2D3. Target virtual slots1/2 supply thresholds/points.
 // The rank-progress dependency has independently proven entry and thiscall ABI.
-class Rva00559AC1 {public:float PercentDoneUntilNextRank(int);int rva00559AC1(int);int rva00559ADC(int);};
+#include "../../../../../Include/GameClient/Rva00559AC1.h"
 void AptStats::NextRankExtern(int faction,char*out,bool lvalue)
 {
  if(lvalue)return;

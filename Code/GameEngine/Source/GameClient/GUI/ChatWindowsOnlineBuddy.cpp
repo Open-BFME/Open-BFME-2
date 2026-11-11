@@ -89,7 +89,7 @@ template<> class Rva005D58E6Slots<0> {};
 class Rva005D58E6SpyView : public Rva005D58E6Slots<90> {
 public: virtual bool didPlayerPreorder(int) const;
 };
-class Rva00559AC1 { public: const Image *rva00559C25(int,int); };
+#include "../../../Include/GameClient/Rva00559AC1.h"
 class Rva00559D0CRankWeights;
 extern Rva00559D0CRankWeights g_00E06000;
 struct Rva005D58E6Player {
