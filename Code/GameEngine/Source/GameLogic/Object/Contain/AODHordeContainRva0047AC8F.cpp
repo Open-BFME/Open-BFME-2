@@ -129,11 +129,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class Rva0046ACF6
-{
- public:
- int rva0046ACF6(int id);
-};
+#include "../../../../Include/GameLogic/Module/Rva0046ACF6.h"
 
 struct AODOffsetRecord
 {

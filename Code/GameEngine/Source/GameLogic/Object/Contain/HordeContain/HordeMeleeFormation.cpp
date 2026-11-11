@@ -74,7 +74,7 @@ class FormationListProvider : public FormationSlots<70> { public: virtual void f
 
 struct FormationHeld { unsigned char pad[0x120]; bool active; };
 
-class Rva0046ACF6 { public: int rva0046ACF6(int); };
+#include "../../../../../Include/GameLogic/Module/Rva0046ACF6.h"
 
 struct BfmeE8 { int a,b; };
 

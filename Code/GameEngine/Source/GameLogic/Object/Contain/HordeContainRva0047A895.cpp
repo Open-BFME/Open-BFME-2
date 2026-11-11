@@ -268,11 +268,7 @@ struct Rva0047A895Data
 };
 
 
-class Rva0046ACF6
-{
-public:
-	int rva0046ACF6(int id);			// 0x0046ACF6
-};
+#include "../../../../Include/GameLogic/Module/Rva0046ACF6.h"
 
 class HordeContain
 {

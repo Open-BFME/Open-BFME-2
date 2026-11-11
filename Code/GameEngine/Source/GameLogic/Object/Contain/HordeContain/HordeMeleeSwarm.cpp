@@ -67,7 +67,7 @@ struct SwarmRange {
 };
 class SwarmListProvider : public SwarmSlots<70> { public: virtual void fill(SwarmRange *)=0; };
 struct SwarmHeld { unsigned char pad[0x120]; bool active; };
-class Rva0046ACF6 { public: int rva0046ACF6(int); };
+#include "../../../../../Include/GameLogic/Module/Rva0046ACF6.h"
 class Rva005D6FE5 { public: unsigned char rva005D6FE5(); };
 enum PathfindLayerEnum
 {

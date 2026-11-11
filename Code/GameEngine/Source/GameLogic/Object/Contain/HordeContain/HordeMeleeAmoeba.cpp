@@ -89,7 +89,7 @@ struct AmoebaRange {
 };
 class AmoebaListProvider : public AmoebaSlots<70> { public: virtual void fill(AmoebaRange *)=0; };
 struct AmoebaHeld { unsigned char pad[0x120]; bool active; };
-class Rva0046ACF6 { public: int rva0046ACF6(int); };
+#include "../../../../../Include/GameLogic/Module/Rva0046ACF6.h"
 
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"
 // Keep the shared view conversion inline without a competing external copy.

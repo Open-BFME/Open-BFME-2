@@ -7330,11 +7330,7 @@ void *rva004DD886()
 // resolves to the rowed ?rva0046ACF6@Rva0046ACF6@@QAEHH@Z (0x0046ACF6, 34B map
 // lookup in HordeContainIface11CSlots.cpp); declared here (not defined) so
 // the tailcall is preserved.
-class Rva0046ACF6
-{
-public:
-	int rva0046ACF6(int key);
-};
+#include "../../Include/GameLogic/Module/Rva0046ACF6.h"
 
 // ?rva00583D4C@Rva00583D4C@@QAEHH@Z @0x00583D4C 8B member forwarder to rowed
 // ?rva0046ACF6@Rva0046ACF6@@QAEHH@Z (0x0046ACF6; int arg passes through the

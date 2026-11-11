@@ -328,10 +328,7 @@ extern Eva *TheEva;
 #include "../../../../Include/GameLogic/AI.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Rva0046ACF6 {
-  public:
-    int rva0046ACF6(int);
-};
+#include "../../../../Include/GameLogic/Module/Rva0046ACF6.h"
 class Rva00471464Controller {
   public:
     virtual void s00();
