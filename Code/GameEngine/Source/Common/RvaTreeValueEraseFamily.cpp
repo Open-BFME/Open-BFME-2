@@ -888,10 +888,7 @@ void Rva0060126D::rva006012C4()
 }
 
 // owner Rva00500804: erase 0x00500804 (value ??1Rva004FFE89@@QAE@XZ), clear 0x00500ACF
-struct Rva004FFE89
-{
-	~Rva004FFE89();
-};
+#include "../../Include/Common/Rva004FFE89.h"
 class Rva00500804
 {
 public:

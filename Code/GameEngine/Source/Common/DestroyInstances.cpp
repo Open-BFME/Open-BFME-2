@@ -212,10 +212,7 @@ struct Rva004FFE39
 {
 	~Rva004FFE39();
 };
-struct Rva004FFE89
-{
-	~Rva004FFE89();
-};
+#include "../../Include/Common/Rva004FFE89.h"
 #include "../../Include/Common/Rva0050174A.h"
 struct Rva005017AC
 {
