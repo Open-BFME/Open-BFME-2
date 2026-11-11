@@ -15,18 +15,14 @@ public:
 };
 struct ArmySummaryEntryRef { Rva004F6093Holder holder; };
 #include "../../Include/GameLogic/ArmySummary.h"
-struct LivingWorldArmy {
-public:
- void rva00319EF9(LivingWorldArmy *source,int key);
- char pad00[0x20]; int owner20; char pad24[0x78-0x24]; ArmySummary *summary78;
-};
+#include "../../Include/GameLogic/LivingWorldArmy.h"
 // WorldBuilder MoveArmyMember, WB VA 0x00D90830 (callgraph lead, score 2.0).
 static __declspec(noinline) void MoveArmyMember(LivingWorldArmy *source,int key,LivingWorldArmy *target) {
- ArmySummaryEntryRef entry=source->summary78->GetEntry(key);
+ ArmySummaryEntryRef entry=source->field78->GetEntry(key);
  if(entry.holder.entry) {
   if(entry.holder.entry->m_b8) {
-   if(entry.holder.entry->m_b8==target->owner20)entry.holder.entry->m_b8=0;
-  } else entry.holder.entry->m_b8=source->owner20;
+   if(entry.holder.entry->m_b8==target->field20)entry.holder.entry->m_b8=0;
+  } else entry.holder.entry->m_b8=source->field20;
   target->rva00319EF9(source,key);
  }
 }

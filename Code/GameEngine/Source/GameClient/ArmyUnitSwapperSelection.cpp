@@ -30,7 +30,12 @@ typedef _STL::set<int> SelectedMemberSet;
 struct Rva005F56B0Selection {char prefix[0x10]; SelectedMemberSet members;};
 #include "../../Include/Common/ArmySummaryEntry.h"
 #include "../../Include/Common/Rva0040CB3AIndexedField.h"
-struct LivingWorldArmy {char prefix[0x20]; int id; char pad24[0x78-0x24]; Rva0040CB3AIndexedField *summary;};
+#include "../../Include/GameLogic/LivingWorldArmy.h"
+static inline Rva0040CB3AIndexedField *armySummaryIndex(LivingWorldArmy *army)
+{
+    return reinterpret_cast<Rva0040CB3AIndexedField *>(army->field78);
+}
+
 struct Arg54;
 #include "../../Include/Common/Rva002B280C.h"
 struct Rva002B488EResult;
@@ -51,7 +56,7 @@ namespace StrategicInGameUI {
 static bool CanCancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
  if(!TheLivingWorldLogic || TheLivingWorldLogic->fieldF4 || !reinterpret_cast<Rva002B280C*>(TheLivingWorldLogic)->rva002B280C(reinterpret_cast<Arg54*>(army)))return false;
  if(selection->members.size()) {
-  Rva0040CB3AIndexedField *summary=army->summary;
+  Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
@@ -69,19 +74,19 @@ static bool CanCancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army)
 namespace StrategicInGameUI {
 static void CancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
  if(selection->members.size()) {
-  Rva0040CB3AIndexedField *summary=army->summary;
+  Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
    if(entry->m_b8) {
     GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_LW_CANCEL_ARMY_MEMBER_MOVE);
-    message->appendIntegerArgument(army->id);
+    message->appendIntegerArgument(army->field20);
     message->appendIntegerArgument(*it);
    }
   }
  }else if(reinterpret_cast<Rva00318F42*>(army)->rva00318F42()) {
   GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_LW_CANCEL_ARMY_MOVE_REQUEST);
-  message->appendIntegerArgument(army->id);
+  message->appendIntegerArgument(army->field20);
  }
 }
 }
@@ -98,7 +103,7 @@ bool CanDisbandArmyMember(LivingWorldArmy*,int);
 namespace StrategicInGameUI {
 static bool ShouldEnableButton(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
  if(!TheLivingWorldLogic || TheLivingWorldLogic->fieldF4 || !selection->members.size())return false;
- Rva0040CB3AIndexedField *summary=army->summary;
+ Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
  SelectedMemberSet::iterator it=selection->members.begin();
  bool state=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it))->m_c4;
  if(!state && !CanDisbandArmyMember(army,*it))return false;
@@ -114,7 +119,7 @@ static bool ShouldEnableButton(Rva005F56B0Selection *selection,LivingWorldArmy *
 // WorldBuilder StrategicInGameUI::DisbandArmyMembers, WB VA 0x0162BA80 (callgraph lead, score 2.0).
 namespace StrategicInGameUI {
 static void DisbandArmyMembers(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
- Rva0040CB3AIndexedField *summary=army->summary;
+ Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
  SelectedMemberSet::iterator end=selection->members.end();
  for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
   ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
@@ -123,7 +128,7 @@ static void DisbandArmyMembers(LivingWorldArmy *army,Rva005F56B0Selection *selec
   else if(CanDisbandArmyMember(army,*it))type=GameMessage::MSG_LW_DISBAND_ARMY_MEMBER;
   else continue;
   GameMessage *message=TheMessageStream->appendMessage(type);
-  message->appendIntegerArgument(army->id);
+  message->appendIntegerArgument(army->field20);
   message->appendIntegerArgument(*it);
  }
 }
@@ -151,7 +156,7 @@ bool StrategicInGameUI::CanUpgradeAny(LivingWorldArmy *army,Rva005F56B0Selection
  int upgradeableCount,countB;
  TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(region,reinterpret_cast<Rva002B2B66*>(TheLivingWorldLogic)->rva002B2B66(),&upgradeableCount,&countB);
  if(upgradeableCount<=0)return false;
- Rva0040CB3AIndexedField *summary=army->summary;
+ Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
  SelectedMemberSet::iterator end=selection->members.end();
  for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
   ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
@@ -160,7 +165,7 @@ bool StrategicInGameUI::CanUpgradeAny(LivingWorldArmy *army,Rva005F56B0Selection
  return false;
 }
 bool StrategicInGameUI::CanCancelAnyUpgrades(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
- Rva0040CB3AIndexedField *summary=army->summary;
+ Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
  _STL::_Rb_tree_node_base *header=*reinterpret_cast<_STL::_Rb_tree_node_base**>(&selection->members);
  for(_STL::_Rb_tree_node_base *node=header->_M_left;node!=header;node=_STL::_Rb_global<bool>::_M_increment(node)) {
   if(reinterpret_cast<ArmySummaryEntry*>(summary->get(*reinterpret_cast<int*>(reinterpret_cast<char*>(node)+16)))->hasUpgrade())return true;
@@ -182,7 +187,7 @@ static __declspec(noinline) int Rva005F5A32(LivingWorldArmy *army,Rva005F56B0Sel
 // image; the anchor below only forces cl to emit it in that convention.
 // Identity unproven; address-derived names.
 static __declspec(noinline) int Rva005E39E6(LivingWorldArmy *army,int entryID) {
- return army->summary->get(entryID);
+ return armySummaryIndex(army)->get(entryID);
 }
 // ?Rva005E39E6Anchor absent-from-retail
 int Rva005E39E6Anchor(LivingWorldArmy *army,int entryID) {
@@ -197,13 +202,13 @@ void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Sel
  int upgradeableCount,countB;
  TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(region,reinterpret_cast<Rva002B2B66*>(TheLivingWorldLogic)->rva002B2B66(),&upgradeableCount,&countB);
  if(upgradeableCount>0) {
-  Rva0040CB3AIndexedField *summary=army->summary;
+  Rva0040CB3AIndexedField *summary=armySummaryIndex(army);
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
    if(!entry->m_bc && TheLivingWorldLogic->GetArmoryToUpgradeTroop(entry,army,region)) {
     GameMessage *message=TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x6BF));
-    message->appendIntegerArgument(army->id);
+    message->appendIntegerArgument(army->field20);
     message->appendIntegerArgument(*it);
     if(--upgradeableCount<=0)break;
    }

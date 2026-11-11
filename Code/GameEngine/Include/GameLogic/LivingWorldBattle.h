@@ -28,17 +28,7 @@ class Xfer;
 #error LivingWorldBattle requires the registered Snapshot name and reference-transfer slot surface.
 #endif
 
-class Rva00330757Member
-{
-public:
-    Rva00330757Member() throw();
-    ~Rva00330757Member() throw();
-
-    void *field00;
-    void *field04;
-    void *field08;
-    int field0C;
-};
+#include "../Common/Rva00330757Member.h"
 
 struct LivingWorldBattleArmyView;
 struct LivingWorldBattlePlayerView;

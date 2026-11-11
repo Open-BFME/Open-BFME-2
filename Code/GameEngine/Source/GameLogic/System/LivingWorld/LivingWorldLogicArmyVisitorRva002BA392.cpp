@@ -18,21 +18,8 @@ class ArmySummary;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-#include "string_base.h"
-
-struct LivingWorldArmy
-{
-	unsigned char m_pad00[0x18];
-	StringBase<char> m_name;				// +0x18
-	unsigned char m_pad1C[0x54 - 0x1C];
-	Int m_ownerPlayer;					// +0x54
-	unsigned char m_pad58[0x75 - 0x58];
-	Bool m_field75;						// +0x75
-	unsigned char m_pad76[0x78 - 0x76];
-	ArmySummary *m_summary;					// +0x78
-};
-
 #include "../../../../Include/GameLogic/LivingWorldBattle.h"
+#include "../../../../Include/GameLogic/LivingWorldArmy.h"
 
 // Rowed receivers under placeholder names (LivingWorldLogic.cpp views).
 #include "../../../../Include/Common/Rva003F468D.h"
@@ -65,13 +52,13 @@ bool Rva002B29D8::visit(LivingWorldArmy *army)
 	if (battle->field38 >= 0)
 	{
 		Rva002E071E *winner = (Rva002E071E *)((Rva003F468D *)battle)->rva003F468D(battle->field38, 0);
-		if (!(unsigned char)winner->rva002E0BC0(army->m_ownerPlayer))
+		if (!(unsigned char)winner->rva002E0BC0(army->m_54))
 		{
-			if (!(army->m_summary && ((const Rva0040CF55Owner *)army->m_summary)->sumUnflagged())
-				&& army->m_name.isEmpty())
+			if (!(army->field78 && ((const Rva0040CF55Owner *)army->field78)->sumUnflagged())
+				&& army->field18.isEmpty())
 				((Rva002B8A9F *)TheLivingWorldLogic)->rva002B8A9F((ModuleData *)army);
 		}
-		if (!army->m_field75)
+		if (!army->field75)
 			((Rva003193EC *)army)->rva003192B1();
 	}
 	return true;

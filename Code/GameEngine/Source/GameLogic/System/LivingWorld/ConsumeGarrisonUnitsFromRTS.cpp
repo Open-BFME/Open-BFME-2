@@ -26,7 +26,7 @@ class Rva00319028;
 class Rva00319924 {public:int count(const AsciiString&);};
 class Rva0031979COwner {public:void rva0031979C(int);};
 #include "../../../../Include/GameClient/Rva00318FBE.h"
-struct LivingWorldArmy {public:void rva00319EA3(LivingWorldArmy*,ArmySummaryEntry*);};
+#include "../../../../Include/GameLogic/LivingWorldArmy.h"
 #include "../../../../Include/Common/Rva0037DCA5.h"
 #include "../../../../Include/GameLogic/Rva003190A5.h"
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
