@@ -112,12 +112,7 @@ public:
 	static ModuleData *friend_newModuleData(INI *ini);
 };
 
-class RepairSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-};
+#include "../../../../Include/GameLogic/Module/RepairSpecialPowerModuleData.h"
 
 class HordeDispatchSpecialPowerModuleData
 {

@@ -422,7 +422,7 @@ class RemoveUpgradeUpgradeModuleData { public: static ModuleData *friend_newModu
 class RepairDockUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RepairDockUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RepairSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class RepairSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/RepairSpecialPowerModuleData.h"
 class ReplaceObjectUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ReplaceObjectUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ReplaceSelfUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

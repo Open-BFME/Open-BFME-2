@@ -75,11 +75,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class RepairSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/RepairSpecialPowerModuleData.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp
 
