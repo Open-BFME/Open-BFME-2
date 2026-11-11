@@ -1518,3 +1518,4 @@ AIDifficulty,Code/GameEngine/Include/GameLogic/AIDifficulty.h,existing header; c
 Rva0088A1F0Owner,Code/Libraries/Source/WWVegas/WWDebug/Rva0088A1F0Owner.h,existing header; contract class_contracts/Rva0088A1F0Owner.json; 3/4 sampled units adopt
 Refresh0023FA80Primary,Code/GameEngine/Include/GameLogic/Refresh0023FA80Primary.h,existing header; contract class_contracts/Refresh0023FA80Primary.json; 3/3 sampled units adopt
 Rva00170EBC,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva00170EBC.h,existing header; contract class_contracts/Rva00170EBC.json; 3/4 sampled units adopt
+Rva00288CFA,Code/GameEngine/Include/Common/Rva00288CFA.h,existing header; contract class_contracts/Rva00288CFA.json; 3/4 sampled units adopt

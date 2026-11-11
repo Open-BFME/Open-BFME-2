@@ -35,11 +35,7 @@ private:
 	int m_slot;
 };
 
-class Rva00288CFA
-{
-public:
-	bool rva00288CFA(int value);
-};
+#include "../../Include/Common/Rva00288CFA.h"
 
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;

@@ -22,11 +22,7 @@ enum KindOfType
 #include "../GameLogic/Object/object.h"
 // 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
 // 0x00288CFA accepts the argument's +0x264 word.
-class Rva00288CFA
-{
-public:
-	bool rva00288CFA(Int a);
-};
+#include "../../Include/Common/Rva00288CFA.h"
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 struct Rva00260E44Arg

@@ -173,11 +173,7 @@ class INI;
 // The address-derived singleton view at 0x288CFA is called by the matched
 // ExperienceTracker forwarder at 0x39ABFF. Its direct call to
 // FindExperienceLevelList at 0x288C34 supports the shared store layout.
-class Rva00288CFA
-{
-public:
-	bool rva00288CFA(Int value);
-};
+#include "../../../Include/Common/Rva00288CFA.h"
 extern const void *__stdcall Rva00288940Find(const void *arg);
 // The retail callsite supplies an otherwise-dead ECX=this as well as the list
 // argument. This member-function view preserves that register while resolving
