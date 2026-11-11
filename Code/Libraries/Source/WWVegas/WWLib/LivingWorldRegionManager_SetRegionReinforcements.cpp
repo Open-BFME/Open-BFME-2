@@ -2,11 +2,7 @@
 // ?SetRegionReinforcements@LivingWorldRegionManager@@QAEXHHHHHHH@Z @0x0020EEC8 44B
 // Index lookup then 6-arg forward: runs rowed 0x0020EAF6(idx) on this (passthrough this), returns on null, else runs pinned 0x003F1AB9(a2-a7) on the result. 7 int args keep HHHHHHH mangling; thiscall ret 0x1C.
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int index);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0020EAF6View.h"
 class Rva003F1AB9
 {
 public:

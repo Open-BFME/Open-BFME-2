@@ -2,11 +2,7 @@
 // ?GetRegionUiPopupPoint@LivingWorldRegionManager@@QAE_NHPAX@Z @0x0020F2A2 79B
 // Bool dispatch via rowed EAF6: null false; AB set runs rowed 0x20E493 copy via exact Out0020E493 types then int-copy to out and true; else rowed F27E bool. Int copy avoids x87; void out keeps PAX.
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int index);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0020EAF6View.h"
 struct Out0020E493
 {
 	float m_f;

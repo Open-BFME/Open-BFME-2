@@ -60,11 +60,7 @@ extern GameLogic *TheGameLogic;
 
 struct Rva002B3740Item;
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int index);
-};
+#include "../../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 void Rva002BA8F1Logic::rva002B36F3()

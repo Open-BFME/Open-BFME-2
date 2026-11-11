@@ -62,11 +62,7 @@ public:
 	int id;
 };
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int);
-};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../../Include/GameLogic/Rva0020EE29.h"
 struct RegionCampaignView
 {

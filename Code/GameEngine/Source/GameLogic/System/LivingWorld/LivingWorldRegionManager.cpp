@@ -37,7 +37,7 @@ struct Out0020E493 : public Coord2D
 
 class Rva0020E89C;
 // The region by ID, 0x0020EAF6, rowed under Rva0020EAF6View.
-class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva0020E89C
 {
 public:
