@@ -344,10 +344,7 @@ struct LVITEMA
 
 Debug &operator<<(Debug &dbg, const DebugStackwalk::Signature &sig);
 
-struct Rva0088A1F0Owner
-{
-	void broadcast();
-};
+#include "../WWVegas/WWDebug/Rva0088A1F0Owner.h"
 
 // One entry of the crash attachment list packed into the report blob.
 struct DebugTypedLog

@@ -72,10 +72,7 @@ public:
 
 // The same body as the BFME1 Rva0088A1F0 donor: pushes the current output to
 // every I/O target and flushes them.
-struct Rva0088A1F0Owner
-{
-	void broadcast();
-};
+#include "Rva0088A1F0Owner.h"
 
 class Debug
 {
