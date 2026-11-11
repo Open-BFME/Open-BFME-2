@@ -58,7 +58,7 @@ param,Rva003EE9D7::rva003EE9D7::arg,Rva003EE9D7::rva003EE9D7::region,inferred,ag
 param,Rva00271BCC::rva00271BCC::a1,Rva00271BCC::rva00271BCC::immediate,inferred,agree:nl-2fb181b2bb24,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,0x00271BCC
 function,?Rva00663700Handler@@YAXPAVBfmeDictESI@@PAVBfmeHostESI@@@Z,?kickHandler@@YAXPAVBfmeDictESI@@PAVBfmeHostESI@@@Z,inferred,agree:nl-97f4df335a20,Code/GameEngine/Source/GameNetwork/BfmeThingDGDRva007F8400.cpp,0x00663700
 function,?Rva00663710Handler@@YAXHPAVBfmeThingVJK@@@Z,?pingHandler@@YAXHPAVBfmeThingVJK@@@Z,inferred,agree:nl-78a272430ea3,Code/GameEngine/Source/GameNetwork/BfmeThingDGDRva007F8400.cpp,0x00663710
-function,?rva006F7600@Rva006F7600@@QAEXH@Z,?remove@Rva006F7600@@QAEXH@Z,inferred,agree:nl-e58f37cd1d25,Code/Libraries/Source/Apt/Rva006F7600Remove.cpp,0x006F7600
+function,?rva006F7600@Rva006F7600@@QAEXH@Z,?remove@Rva006F7600@@QAEXH@Z,inferred,agree:nl-e58f37cd1d25,Code/Libraries/Source/Apt/AptDisplayList.cpp,0x006F7600
 function,?Rva001DA980Parse@@YAXPAVINI@@@Z,?parseMusicTrackDefinition@@YAXPAVINI@@@Z,canonical:iniblock,retail INI block MusicTrack (reverse/ini_blocks.tsv),Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,0x001DA980
 function,?Rva0041EC73Load@@YAXPAVINI@@@Z,?parseAIBaseDefinition@@YAXPAVINI@@@Z,canonical:iniblock,retail INI block AIBase (reverse/ini_blocks.tsv),Code/GameEngine/Source/GameClient/GUI/AIBaseDefinitionParse_Rva0041EC73Load.cpp,0x0041EC73
 function,?Rva00200FE3Parse@@YAXPAVINI@@@Z,?parseAerialPathfindNoFlyZoneDefinition@@YAXPAVINI@@@Z,canonical:iniblock,retail INI block AerialPathfindNoFlyZone (reverse/ini_blocks.tsv),Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers.cpp,0x00200FE3
@@ -2476,7 +2476,7 @@ param,MakeBinding::f,MakeBinding::callbackMethod,inferred,agree:nl-b5fa299bed18,
 member,Rva004BDB37::m_20,Rva004BDB37::m_curDamageState,inferred,agree:nl-9dc73ace9f50,Code/GameEngine/Source/GameClient/Rva004BDB37Finish.cpp,
 class,Rva0014D887Inner,ID3DXEffectVtbl,inferred,agree:nl-2fc9af9871ef,Code/GameEngine/Source/Common/Rva0014D887Init.cpp,
 param,Rva002F57E6Query::rva002F57E6::b,Rva002F57E6Query::rva002F57E6::locomotorSet,inferred,agree:nl-2bed03229087,Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustCandidate.cpp,0x002F57E6
-function,?rva006F7660@Rva006F7600@@QAEPAXH@Z,?getMask@Rva006F7600@@QAEPAXH@Z,inferred,agree:nl-a9268ecf4c14,Code/Libraries/Source/Apt/Rva006F7600Remove.cpp,0x006F7660
+function,?rva006F7660@Rva006F7600@@QAEPAXH@Z,?getMask@Rva006F7600@@QAEPAXH@Z,inferred,agree:nl-a9268ecf4c14,Code/Libraries/Source/Apt/AptDisplayList.cpp,0x006F7660
 member,Rva0042CA4B::m_10,Rva0042CA4B::m_turnPhase,inferred,agree:nl-293de055502f,Code/GameEngine/Source/Common/Rva0042C936.cpp,
 param,Rva005F2A52AptCall::pF1,Rva005F2A52AptCall::xPos,inferred,agree:nl-4fb8614def3b,Code/GameEngine/Source/Common/Rva005F2FEFApt.cpp,0x005F2A52
 param,Rva005F2A52AptCall::pF2,Rva005F2A52AptCall::yPos,inferred,agree:nl-49d22e724c0e,Code/GameEngine/Source/Common/Rva005F2FEFApt.cpp,0x005F2A52

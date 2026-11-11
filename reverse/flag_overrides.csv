@@ -84,7 +84,6 @@ Code/GameEngine/Source/Common/BfmeHostABD_bfmeAllocABD.cpp,,1,1,region default l
 Code/GameEngine/Source/Common/BfmeObjZHSetZH.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeOneHundredSixtyNine.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp,,5,1,region default loses rows
-Code/GameEngine/Source/Common/BfmePackedColors1280.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeResultSourceA.cpp,-O2,3,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeS1155.cpp,-Od,12,12,region default loses rows
 Code/GameEngine/Source/Common/BfmeSlot1173.cpp,,2,2,region default loses rows
@@ -414,6 +413,7 @@ Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp,-O2,2,2,region default lose
 Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptDateConstructor.cpp,-O2 -G6,1,1,region default loses rows
+Code/Libraries/Source/Apt/AptDisplayList.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptInput.cpp,-O2,3,3,region default loses rows
 Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp,-O2 -G6,4,2,region default loses rows
 Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp,-O2,17,3,region default loses rows

@@ -59106,7 +59106,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006F7030,96,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp N=Code/Libraries/Source/Apt/BfmeQuery1279.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7090,171,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F7140,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp
-0x006F7160,204,code,,,-,,Code/GameEngine/Source/Common/BfmePackedColors1280.cpp
+0x006F7160,204,code,,,-,,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F7230,96,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,U,N=Code/GameEngine/Source/Common/AptDisplayList.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeQueryProcess1279.cpp
 0x006F7290,45,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,U,N=Code/GameEngine/Source/Common/AptDisplayList.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeQueryForward1279.cpp
 0x006F72C0,47,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,U,N=Code/GameEngine/Source/Common/AptDisplayList.cpp noncontiguous,Code/GameEngine/Source/Common/BfmeQueryForward1279.cpp
@@ -59114,13 +59114,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006F7330,112,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F72F0..0x006F73A0,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F73A0,395,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F72F0..0x006F7530,Code/Libraries/Source/Apt/AptMathClipStack.cpp
 0x006F7530,13,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F72F0..0x006F7540,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
-0x006F7540,45,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/GameEngine/Source/Common/Rva006F7540Cluster.cpp
-0x006F7570,137,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F7600Remove.cpp
-0x006F7600,95,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F7600Remove.cpp
-0x006F7660,62,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F7600..0x006F76A0,Code/Libraries/Source/Apt/Rva006F7600Remove.cpp
+0x006F7540,45,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
+0x006F7570,137,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
+0x006F7600,95,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
+0x006F7660,62,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F7600..0x006F76A0,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F76A0,7,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F7600..0x006F76B0,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 0x006F76B0,100,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
-0x006F7720,643,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp N=Code/Libraries/Source/Apt/AptAnimationPoolData.cpp,Code/Libraries/Source/Apt/Rva006F7600Remove.cpp
+0x006F7720,643,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp N=Code/Libraries/Source/Apt/AptAnimationPoolData.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F79B0,126,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7A30,127,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7AB0,13,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
@@ -59129,23 +59129,23 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006F7B20,153,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,U,N=Code/Libraries/Source/Apt/BfmeQuery1279.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp noncontiguous,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7BC0,65,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp N=Code/Libraries/Source/Apt/BfmeQuery1279.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7C10,83,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F7BC0..0x006F7C70,Code/Libraries/Source/Apt/Rva006F7C10Clear.cpp
-0x006F7C70,215,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F7C70Free.cpp
+0x006F7C70,215,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp W=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F7D50,39,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,U,N=Code/Libraries/Source/Apt/BfmeQuery1279.cpp noncontiguous,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F7D80,27,code,,,-,,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7DA0,27,code,,,-,,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F7DC0,35,code,,,-,,Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp
 0x006F7DF0,5,code,,,-,,Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp
-0x006F7E00,494,code,,,-,,Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp
+0x006F7E00,494,code,,,-,,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F7FF0,103,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
-0x006F8060,91,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F8060Assert.cpp
+0x006F8060,91,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F80C0,205,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F8190,142,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F8220,346,code,,,-,,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F8380,101,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp noncontiguous,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp
 0x006F83F0,49,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp noncontiguous,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp
 0x006F8430,43,code,Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptPseudoDisplayList.cpp noncontiguous,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp
-0x006F8460,37,code,,,-,,Code/GameEngine/Source/Common/Rva006F8460Dtor.cpp
-0x006F8490,35,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva006F8460.cpp
+0x006F8460,37,code,,,-,,Code/Libraries/Source/Apt/AptDisplayList.cpp
+0x006F8490,35,code,,,-,,Code/Libraries/Source/Apt/AptDisplayList.cpp
 0x006F84C0,35,code,,,-,,Code/GameEngine/Source/Common/Rva006F84C0DeletingDtor.cpp
 0x006F84F0,93,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDisplayList.cpp N=Code/Libraries/Source/Apt/AptDisplayList.cpp,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
 0x006F8550,134,code,Code/Libraries/Source/Apt/AptDisplayList.cpp,approved,C,C=0x006F84F0..0x006F85E0,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp
