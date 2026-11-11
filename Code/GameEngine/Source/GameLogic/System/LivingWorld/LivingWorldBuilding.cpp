@@ -137,10 +137,7 @@ int __cdecl Rva003EFE82Get(struct Rva003EFE82Obj *obj, void *out);
 
 struct Rva0059E647Entry;
 
-struct Rva0059E647Factory
-{
-	Rva0059E647Entry *Lookup(int *);
-};
+#include "../../../../Include/GameLogic/Rva0059E647Factory.h"
 
 class LivingWorldBuildingTemplate;
 

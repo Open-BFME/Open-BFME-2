@@ -1840,10 +1840,7 @@ struct Rva002B99F8Request
 // the captured placement, thiscall spelling of its stdcall row) except
 // WorldBuilder's LivingWorldRegion::BuildBuilding (0x003F1C56); see the
 // LivingWorldRegion view above.
-struct Rva0059E647Factory
-{
-	Rva0059E647Entry *Lookup(Int *token);			// 0x002B931C
-};
+#include "../../../../Include/GameLogic/Rva0059E647Factory.h"
 class Rva0022C0CDSubsystem;
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 

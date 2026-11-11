@@ -59,10 +59,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 static inline Rva0020EAF6View *livingWorldRegions() { return (Rva0020EAF6View *)TheLivingWorldLogic->fieldB0; }
 
 struct Rva0059E647Entry;
-struct Rva0059E647Factory
-{
-	Rva0059E647Entry *Lookup(int *);
-};
+#include "../../../../Include/GameLogic/Rva0059E647Factory.h"
 class LivingWorldBuildingTemplate;
 class LivingWorldBuildingTemplateStore
 {
