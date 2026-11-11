@@ -99,11 +99,7 @@ public:
 
 // The region predicate is rowed as Rva003F02E4::rva003F036E (int); retail's
 // caller tests al.
-class Rva003F02E4
-{
-public:
-	int rva003F036E();
-};
+#include "../../../Include/GameLogic/Rva003F02E4.h"
 
 struct LivingWorldRegionView
 {

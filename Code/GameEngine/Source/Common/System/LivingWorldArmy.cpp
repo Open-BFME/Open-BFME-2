@@ -546,11 +546,7 @@ private:
 	Rva0031912EInner *m_78; // +0x78
 };
 
-class Rva003F02E4
-{
-public:
-	bool rva003F02E4();
-};
+#include "../../../Include/GameLogic/Rva003F02E4.h"
 
 class Rva003F2739
 {

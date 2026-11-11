@@ -485,7 +485,7 @@ LivingWorldRegionManager::~LivingWorldRegionManager()
 // The existing delayed-victory ABI spells its player word int; preserve the
 // pointer bits here, as both native images pass the player object itself.
 class Rva002E2903Player { public: char pad00[0x44]; int field44; };
-class Rva003F02E4 { public: bool rva003F02E4(); bool rva003F0336(const Rva002E071E *); };
+#include "../../../../Include/GameLogic/Rva003F02E4.h"
 class Rva003F287F;
 struct Rva002B488EResult;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"

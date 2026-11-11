@@ -1303,3 +1303,4 @@ Rva00785FD0Renderer,Code/GameEngine/Include/Common/Rva00785FD0Renderer.h,existin
 Rva002294D0,Code/GameEngine/Include/Common/Rva002294D0.h,existing header; contract class_contracts/Rva002294D0.json; 3/5 sampled units adopt
 Rva00226856,Code/GameEngine/Include/Common/Rva00226856.h,existing header; contract class_contracts/Rva00226856.json; 3/6 sampled units adopt
 Rva004D0545,Code/GameEngine/Include/Common/Rva004D0545.h,existing header; contract class_contracts/Rva004D0545.json; 3/6 sampled units adopt
+Rva003F02E4,Code/GameEngine/Include/GameLogic/Rva003F02E4.h,existing header; contract class_contracts/Rva003F02E4.json; 3/5 sampled units adopt
