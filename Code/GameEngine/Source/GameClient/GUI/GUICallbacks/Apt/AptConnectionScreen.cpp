@@ -29,7 +29,7 @@ public:
 };
 // Bind the existing NAT datum and its retry pass; retain this unit's access
 // view for the grid state.
-struct NAT { void rva005A6D47(); };
+#include "../../../../../Include/GameNetwork/NATClass.h"
 extern NAT *TheNAT;
 #include "ascii_string.h"
 #include "unicode_string.h"

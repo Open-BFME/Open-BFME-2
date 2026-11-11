@@ -74,7 +74,7 @@ struct GameSpySlotView
 enum SlotState { SLOT_PLAYER = 6 };
 // Retail passes a zero DWORD and zero port WORD to GameSlot::setState.
 #include "../../../../../Include/GameNetwork/GameSlotConnectInfo.h"
-struct NAT { public: void processPlayerLeave(int); };
+#include "../../../../../Include/GameNetwork/NATClass.h"
 
 class GameSlot
 {

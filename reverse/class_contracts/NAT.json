@@ -1,0 +1,270 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "NAT",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x14": {
+    "2": 1,
+    "4": 8
+   },
+   "0x18": {
+    "4": 12
+   },
+   "0x20": {
+    "4": 3
+   },
+   "0x24": {
+    "1": 1
+   },
+   "0x25": {
+    "1": 1
+   },
+   "0x28": {
+    "4": 5
+   },
+   "0x8": {
+    "4": 15
+   },
+   "0x90c": {
+    "4": 2
+   },
+   "0x92c": {
+    "4": 1
+   },
+   "0x934": {
+    "4": 1
+   },
+   "0x936": {
+    "2": 5
+   },
+   "0x938": {
+    "4": 1
+   },
+   "0x942": {
+    "1": 1,
+    "4": 1
+   },
+   "0x943": {
+    "1": 1
+   },
+   "0x944": {
+    "4": 1
+   },
+   "0x948": {
+    "4": 1
+   },
+   "0x94c": {
+    "4": 6
+   },
+   "0x950": {
+    "4": 4
+   },
+   "0x95c": {
+    "4": 1
+   },
+   "0x960": {
+    "4": 1
+   },
+   "0x964": {
+    "4": 1
+   },
+   "0x970": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 32,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 5,
+   "45": 1,
+   "2348": 1,
+   "2420": 1
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NAT.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2276,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2284,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2316,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2371,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2372,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2376,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2380,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2384,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2412,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2416,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NATSendNegotiationRequests.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 5,
+    "45": 1,
+    "2348": 1,
+    "2420": 1
+   },
+   "class": "NAT"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {}
+}

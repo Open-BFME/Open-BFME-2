@@ -102,7 +102,7 @@ struct GameSlotConnectInfo
 	unsigned int nat;
 	unsigned short port;
 };
-struct NAT { void processPlayerLeave(int); };
+#include "../../../../../Include/GameNetwork/NATClass.h"
 
 class GameSlot
 {
