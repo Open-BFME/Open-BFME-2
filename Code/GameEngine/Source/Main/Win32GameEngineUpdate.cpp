@@ -15,6 +15,7 @@
 typedef bool Bool;
 
 // platformsdk
+#define NO_STRICT // Match WinMain.cpp's HWND type for ApplicationHWnd.
 #include <windows.h>
 #undef near
 #undef far

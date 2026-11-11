@@ -1105,3 +1105,13 @@ helpers are native (7B/29B); its compiler table is now the complete native
 The owning header tool retires the final row; no queued users remain for this
 class. Runtime producer recovery and actual-image confirmation remain open.
 [Whole-object proof and code-generation boundary](../../reverse/attempt_support/gpu-info-destructor-adopt-20261109/README.md).
+
+### Win32GameEngine::update and the application window handle
+
+Real link 43074823094 at 24e8e2300e reported LNK2019 for
+`?ApplicationHWnd@@3PAUHWND__@@A` in Win32GameEngineUpdate.cpp. WinMain.cpp
+defines the handle using the Platform SDK's `NO_STRICT` mode. Its owned symbol
+at RVA 0x009DE024 is `?ApplicationHWnd@@3PAXA`. Using the same SDK mode in
+the consumer preserves both matched functions and both named imports. At census
+60189f9ced the unit's link preview changes from unresolved (0 bytes) to linking
+(171 bytes). Confirmation on the next full image link is pending.
