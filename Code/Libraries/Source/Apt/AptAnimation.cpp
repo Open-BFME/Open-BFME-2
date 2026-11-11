@@ -208,7 +208,7 @@ public:
   return *this;
  }
 };
-class Rva006D0A30List {public:Rva006D07E0Key rva006D0B40(const EAStringC &);};
+#include "Rva006D0A30List.h"
 class Rva00893030Manager;
 extern Rva00893030Manager *g_rva00893030Manager;
 void Rva006FD060Forward(void *,void *,void *,void *);

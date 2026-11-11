@@ -99,7 +99,7 @@ AptValueNameEntry *__cdecl resizeArray(AptValueNameEntry *old,int oldCount,int w
 unsigned __cdecl bfmeDecVGO(unsigned *);
 void __cdecl bfmeDropVGO(void *);
 class Rva006D07E0Key {public: unsigned *m_object; __declspec(dllimport) __forceinline ~Rva006D07E0Key(){if(m_object && bfmeDecVGO(m_object)==0)bfmeDropVGO(m_object);}};
-class Rva006D0A30List {public:Rva006D07E0Key findSpecial(const EAStringC *);};
+#include "../Rva006D0A30List.h"
 class Rva00893030Manager;
 extern Rva00893030Manager *g_rva00893030Manager;
 __forceinline void appendPlaybackItem(Rva006CE660Vec &buffer,const AptValueNameEntry &value,Rva006CDD50Iterator &position) {

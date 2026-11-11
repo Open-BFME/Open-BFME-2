@@ -117,12 +117,7 @@ public:
 
 class Gen_00895650 { public: BfmeHolderDB bfmeGet() const; };
 
-class Rva006D0A30List
-{
-public:
-	Rva006D07E0Key findSpecial(const EAStringC *);
-	Rva006D07E0Key rva006D0B40(const EAStringC &);
-};
+#include "Rva006D0A30List.h"
 class Rva00893030Manager;
 extern Rva00893030Manager *g_rva00893030Manager;
 
