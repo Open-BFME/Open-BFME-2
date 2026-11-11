@@ -54,7 +54,7 @@ class Rva002B4CED { public: void rva002B753B(); };
 class Rva002B7B25 { public: void rva002B7B25(); };
 #include "../../../../Include/Common/Rva002B6900.h"
 class Rva002B7B71 { public: void rva002B7B71(); };
-class Glo012F1028Type { public: void rva002B7D91(); };
+#include "../../../../Include/Common/Glo012F1028Type.h"
 
 class Rva002B964FRegions
 {

@@ -35,7 +35,7 @@ void XferLivingWorldPlayerID(Xfer*,int*);
 class Rva002BBA45{public:unsigned int rva002BBA45(Xfer*);};
 class Rva002BB5DD{public:void rva002BB5DD(Xfer*);};
 #include "../../../../Include/Common/Rva002B7C74.h"
-class Glo012F1028Type{public:void rva002B7D03();};
+#include "../../../../Include/Common/Glo012F1028Type.h"
 class Rva002B6AA2{public:void rva002B6AA2();};
 #include "../../../../Include/Common/Rva002BED10.h"
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;

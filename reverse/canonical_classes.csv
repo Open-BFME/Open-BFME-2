@@ -935,3 +935,4 @@ Rva0038201D,Code/GameEngine/Include/Common/Rva0038201D.h,existing header; contra
 AptOnlineLogin,Code/GameEngine/Include/GameClient/AptOnlineLogin.h,existing header; contract class_contracts/AptOnlineLogin.json; 6/12 sampled units adopt
 Rva003FF0E7DwordSlot,Code/GameEngine/Include/GameNetwork/Rva003FF0E7DwordSlot.h,existing header; contract class_contracts/Rva003FF0E7DwordSlot.json; 8/9 sampled units adopt
 Rva005F22D2,Code/GameEngine/Include/GameClient/Rva005F22D2.h,existing header; contract class_contracts/Rva005F22D2.json; 7/9 sampled units adopt
+Glo012F1028Type,Code/GameEngine/Include/Common/Glo012F1028Type.h,existing header; contract class_contracts/Glo012F1028Type.json; 6/9 sampled units adopt

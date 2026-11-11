@@ -523,11 +523,7 @@ public:
 	void j_00019c36(BfmeSubA &name, int flag);
 };
 
-class Glo012F1028Type
-{
-public:
-	void j_00008c0b(void);
-};
+#include "../../Include/Common/Glo012F1028Type.h"
 
 				// 0x012F1028
 

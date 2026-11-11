@@ -130,7 +130,7 @@ class Xfer;
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0052BB28DivAvgField, 0x04, 0x00, 0x28)
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
-class Glo012F1028Type {public: void rva002B7D91();};
+#include "../../../../Include/Common/Glo012F1028Type.h"
 struct Rva002BA8F1Input;
 struct Rva002BA8F1Slot;
 class Rva002E2903Player;
