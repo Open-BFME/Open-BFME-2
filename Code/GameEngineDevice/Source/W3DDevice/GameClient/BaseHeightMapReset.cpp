@@ -48,13 +48,7 @@ public:
 	char data[80]; // +0x00
 };
 #include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
-class W3DFloorBuffer
-{
-public:
-	void rva000E473F();
-	void allocateFloorBuffers();
-	void rva000E598B();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DFloorBuffer.h"
 enum DrawableID
 {
 	INVALID_DRAWABLE_ID = 0,

@@ -320,11 +320,7 @@ private:
 class AsciiString;
 
 class Gen_uw_000e5033;
-class W3DFloorBuffer
-{
-public:
-	Gen_uw_000e5033 *addFloor(Int a0, AsciiString *a1, AsciiString *a2, bool a3, bool a4);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DFloorBuffer.h"
 
 class BaseHeightMapRenderObjClass
 {

@@ -45,11 +45,7 @@ public:
 	TextureClass *m_texture;
 };
 
-class W3DFloorBuffer
-{
-public:
-	void rva000E473F();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DFloorBuffer.h"
 
 class Rva000E59D3Base
 {

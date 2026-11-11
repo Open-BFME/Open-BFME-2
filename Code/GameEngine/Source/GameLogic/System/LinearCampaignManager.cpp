@@ -476,11 +476,7 @@ private:
 
 class Gen_uw_000e5033;
 
-class W3DFloorBuffer
-{
-public:
-	Gen_uw_000e5033 *addFloor(Int a0, AsciiString *a1, AsciiString *a2, bool a3, bool a4);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DFloorBuffer.h"
 
 // LinearCampaign::beginCampaign: WB AF7DE0 names the function and retail
 // 1ECDB3..1ECE98 is its complete229B RET0 body. The original campaign input

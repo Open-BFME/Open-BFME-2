@@ -78,13 +78,7 @@ public:
 	char data[80]; // +0x00
 };
 
-class W3DFloorBuffer
-{
-public:
-	void rva000E473F();
-	void allocateFloorBuffers();
-	void rva000E598B();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DFloorBuffer.h"
 
 // 0x000B3FD0 is the one-byte empty body the toolchain folds many empties into.
 #include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"

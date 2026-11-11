@@ -949,3 +949,4 @@ Rva000B4BED,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000B4BED.h,exi
 W3DGameClientShadowShim,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DGameClientShadowShim.h,existing header; contract class_contracts/W3DGameClientShadowShim.json; 5/7 sampled units adopt
 Rva0046ACF6,Code/GameEngine/Include/GameLogic/Module/Rva0046ACF6.h,existing header; contract class_contracts/Rva0046ACF6.json; 8/9 sampled units adopt
 Rva0004CABDSevenEight,Code/GameEngine/Include/GameClient/Rva0004CABDSevenEight.h,existing header; contract class_contracts/Rva0004CABDSevenEight.json; 7/8 sampled units adopt
+W3DFloorBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DFloorBuffer.h,existing header; contract class_contracts/W3DFloorBuffer.json; 5/7 sampled units adopt

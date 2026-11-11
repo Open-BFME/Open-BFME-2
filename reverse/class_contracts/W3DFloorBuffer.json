@@ -1,0 +1,116 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DFloorBuffer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 5,
+   "36": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 33,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 34,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
