@@ -7,7 +7,7 @@
 // independently. No fuller campaign class layout or original enum is claimed.
 #include "ascii_string.h"
 #include "../../../Include/Common/LivingWorldCampaignManager.h"
-class Rva0052BAB2 { public: int rva0052BAB2() const; };
+#include "../../../Include/GameLogic/Rva0052BAB2.h"
 class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
 #include "../../../Include/GameLogic/LivingWorldRegionManager.h"
 class Rva0052C036 {public: void rva0052C161();};

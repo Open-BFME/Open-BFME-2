@@ -720,7 +720,7 @@ extern class Rva00E02D6C *TheCampaignManager;
 #define g_00E02D6C (*(LivingWorldCampaignManager * *)&TheCampaignManager)
 // ^ g_00E02D6C is only an alias of the owned global TheCampaignManager (ledger names column).
 class Rva003B8B2A {public:int rva003B8B2A();};
-class Rva0052BAB2 {public:int rva0052BAB2() const;};
+#include "../../../../../Include/GameLogic/Rva0052BAB2.h"
 enum Rva004FD8B8RegionID { Rva004FD8B8RegionID_Representation = 0 };
 #include "../../../../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::Scenario {public:void getDefaultStartSpots(const AsciiString &,_STL::vector<Rva004FD8B8RegionID> &);};

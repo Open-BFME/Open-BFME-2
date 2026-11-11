@@ -30,11 +30,7 @@ public:
 };
 // The campaign's 15-byte const getter 0x0052BAB2 (rowed under an int return)
 // supplies the name SelectCampaign takes.
-class Rva0052BAB2
-{
-public:
-	int rva0052BAB2() const;
-};
+#include "../../../../Include/GameLogic/Rva0052BAB2.h"
 class LivingWorldRegionManager;
 // The campaign's regions (+0x2C vector of region pointers): each region's id
 // at +0x12C and, at +0x198, the object whose +0x10 point the region manager
