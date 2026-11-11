@@ -3558,7 +3558,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_locomotor_map_copy.cpp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_gen004e9fd0.cpp	??1Gen_004E9FD0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_copy.cpp	?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp	?bfmeStepBVA@BfmeThingBVA@@QAEXPAV1@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp	?do_close@_Messages@_STL@@UBEXH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_dtors.cpp	?do_curr_symbol@?$moneypunct@D$00@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_dtors.cpp	?do_curr_symbol@?$moneypunct@D$0A@@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_dtors.cpp	?do_curr_symbol@?$moneypunct@G$0A@@_STL@@MBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ	1

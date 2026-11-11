@@ -40,11 +40,8 @@ public:
 messages<char>::~messages() { if (_M_impl && _M_impl->_M_delete) delete _M_impl; }
 messages<wchar_t>::~messages() { if (_M_impl && _M_impl->_M_delete) delete _M_impl; }
 int _Messages::do_open(const string&, const locale&) const { return -1; }
+void _Messages::do_close(int) const {}
 // ??1_Messages@_STL@@UAE@XZ present-unmatched
 _Messages::~_Messages() {}
 }
 
-// do_close has no row of its own: retail folds it onto an empty body, and every
-// vftable that holds it has that function in the slot (vftable addresses from
-// matched vptr stores). Bind it to the row at that function.
-#pragma comment(linker, "/alternatename:?do_close@_Messages@_STL@@UBEXH@Z=?imbue@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEXABVlocale@2@@Z")
