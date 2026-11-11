@@ -1019,12 +1019,7 @@ extern ThingFactory *TheThingFactory;
 
 // The target army's room for an entry: rowed 0x00319413.
 #include "../../../../Include/Common/Rva0037DCA5.h"
-class Rva003193EC
-{
-public:
-	bool rva00319413(Rva0037DCA5 *entry);
-    void rva00319904(Rva003193EC *other);			// 0x00319413
-};
+#include "../../../../Include/GameLogic/Rva003193EC.h"
 
 
 

@@ -34,11 +34,7 @@ namespace _STL { template<class T> class allocator; template<class T, class A> c
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 
-class Rva003193EC
-{
-public:
-	bool rva003193EC(int v);
-};
+#include "../../Include/GameLogic/Rva003193EC.h"
 
 #include "../../Include/GameClient/Rva002B6C9F.h"
 

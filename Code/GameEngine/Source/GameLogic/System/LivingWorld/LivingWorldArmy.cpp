@@ -116,7 +116,7 @@ struct ArmySummaryView {
 };
 class Rva00318C32Ret;
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
-class Rva003193EC { public: void rva003198B8(Rva003193EC *); void rva003190E7(bool); void rva003191B1(); };
+#include "../../../../Include/GameLogic/Rva003193EC.h"
 #include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder { public: ArmySummaryEntry *entry; };
 

@@ -47,11 +47,7 @@ class Rva002B8A9F
 public:
 	void rva002B8A9F(ModuleData *army);			// 0x002B8A9F
 };
-class Rva003193EC
-{
-public:
-	void rva003192B1();					// 0x003192B1
-};
+#include "../../../../Include/GameLogic/Rva003193EC.h"
 
 // The army visitor of retail's one-slot table 0x00BFE000 (constructor
 // 0x002B29D8 in RvaSmallVtableCtors.cpp).
