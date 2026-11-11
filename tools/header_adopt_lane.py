@@ -1949,18 +1949,28 @@ def _rekey_unit_receipt(root, rel):
     if not build.compile_is_current(source, obj, strict=True, inventory_cache=_REKEY_INVENTORY_CACHE):
         return None, ("its object is not proven current: the source, the compile command, a dependency or an "
                       "include search directory changed since it was built, or its receipt has no inventory")
-    if meta.get("version") == 2:
-        roots = meta.get("search_roots")
-        if not isinstance(roots, list) or not all(isinstance(r, str) for r in roots):
-            return None, "its receipt records no include search roots"
-    elif meta["deps"]:
+    if meta.get("version") != 2 and meta["deps"]:
         return None, "its receipt is not census-grade (version 2) yet lists dependencies"
-    else:
-        roots = []                                       # a header-free unit: nothing to search
-    # build.py's own search order, as the compile recorded it (_include_search_roots, retry roots added).
-    roots = [os.path.normpath(r if os.path.isabs(r) else os.path.join(str(ROOT), r)) for r in roots]
-    command, _ = build.compiler_command(source, obj)
-    forced = [tok[3:] for tok in command if tok[:1] in "-/" and tok[1:3] == "FI" and len(tok) > 3]
+    # The compiler's own search order: the -I roots in command-line order, then INCLUDE in order, with the
+    # receipt's retry roots appended to both, as build.py's retry and compile_is_current append them. Not
+    # _include_search_roots or the receipt's search_roots: that is a sorted set, and it holds the unit's
+    # directory, which only a quoted include searches (first).
+    command, env = build.compiler_command(source, obj)
+    flags, forced, tokens = [], [], iter(command)
+    for token in tokens:
+        if token in ("-I", "/I"):
+            flags.append(next(tokens, ""))
+        elif token[:1] in "-/" and token[1:3] == "FI":
+            forced.append(token[3:] or next(tokens, ""))
+        elif token[:1] in "-/" and token[1:2] == "I":
+            flags.append(token[2:])
+    retry = [str(ROOT / d) for d in (meta.get("retry_dirs") or [])] if meta.get("version") == 2 else []
+    include = [r for r in env.get("INCLUDE", "").split(";") if r]
+    roots = []
+    for raw in flags + retry + include + retry:
+        host = build._host_path(raw)
+        path = host if host is not None else raw
+        roots.append(os.path.normpath(path if os.path.isabs(path) else os.path.join(str(ROOT), path)))
     why = _rekey_receipt_gaps(ROOT, rel, meta["deps"], roots, forced, build._case_resolve)
     if why:
         return None, why
@@ -1981,13 +1991,14 @@ def _rekey_donor_units(root, name, key):
     file under reference/ (outside reference/shims/) defining NAME is listed with its object's old-key
     spellings of NAME (empty: harmless as built)."""
     defines = re.compile(r"\b(?:struct|class)\s+" + re.escape(name) + r"\b\s*(?::[^;{]*)?\{")
-    defines_at, donor_units, unverified = {}, {}, {}
+    defines_at, donor_units, unverified, verified = {}, {}, {}, []
     _REKEY_INVENTORY_CACHE.clear()
     for rel in _rekey_units(root):
         deps, why = _rekey_unit_receipt(root, rel)
         if why:
             unverified[rel] = why
             continue
+        verified.append(rel)
         donors = []
         for dep in deps:
             if dep.startswith("reference/") and not dep.startswith("reference/shims/"):
@@ -2001,6 +2012,15 @@ def _rekey_donor_units(root, name, key):
                     donors.append(dep)
         if donors:
             donor_units[rel] = (donors, _rekey_unit_object(root, rel, name, key))
+    # The strict checks share one inventory cache: a search directory that changed after a unit warmed it
+    # would pass every later cached check. Re-take the cached directories; any change voids the scan.
+    if _REKEY_INVENTORY_CACHE:
+        import build
+        if not build._inventory_cache_still_current(_REKEY_INVENTORY_CACHE):
+            for rel in verified:
+                unverified[rel] = ("an include search directory changed during the scan, so no cached strict "
+                                   "check proves anything; run the plan again")
+            donor_units = {}
     return donor_units, unverified
 
 class RekeyRefused(Exception):

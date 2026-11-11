@@ -264,3 +264,14 @@ a cast to another type.
   fold-proven pins where retail folded them. This is planned in the lane's `element-types.md`, after the Coord3D members
   trial, which rests on the same retail facts.
 - Rejected units, and what a typed fix needs: `reverse/attempt_support/link-018-collisions-typed-fix-20261110.md`.
+
+**2026-11-11 rekey donor-header defect fixed (swarm Link lane).** The rekey tool landed in ef6df9b299 with a known
+defect: it missed units that compile Coord3D from a donor header, so after the flip 41 units would still emit 175 old-key
+names (the members trial). The fix lands with this note, in four reviewed commits (GPT Sol, APPROVE after four rounds).
+- The plan reads what every ledger unit compiled from build.py's own receipt, proven with
+  `compile_is_current(strict=True)`. The shared inventory cache is re-checked after the scan.
+- Direct includes resolve in the compiler's own search order.
+- A unit that reaches a donor definition is refused if its object spells the old key. Anything unproven is refused as
+  unverified.
+- Consequence: the flip's plan needs a census-grade build. In an ordinary checkout, 392 of 17,807 ledger units pass.
+- Record: sweeps/link-018/rekey-donor-defect.md.

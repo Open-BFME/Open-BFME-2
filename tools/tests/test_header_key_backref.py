@@ -742,7 +742,8 @@ def receipt_build(tmp_path, monkeypatch, meta, *, strict_ok, command=()):
     stub = types.SimpleNamespace(
         obj_path=lambda source: str(obj), _root_key=lambda source: "Code/U.cpp",
         compile_is_current=compile_is_current, compiler_command=lambda source, output: (list(command), {}),
-        _case_resolve=lambda path: path if os.path.isfile(path) else None)
+        _case_resolve=lambda path: path if os.path.isfile(path) else None, _host_path=lambda raw: raw,
+        _inventory_cache_still_current=lambda cache: True)
     monkeypatch.setitem(sys.modules, "build", stub)
     monkeypatch.setattr(hal, "ROOT", tmp_path)
     return calls
@@ -779,7 +780,6 @@ def test_a_header_resolved_through_a_retry_root_in_the_receipt_passes(tmp_path, 
 
 
 @pytest.mark.parametrize("meta,want", [
-    (dict(V2, deps={"Code/Outer.h": "x"}), "records no include search roots"),
     ({"cmd": "c", "source": "s", "deps": {"Code/Outer.h": "x"}}, "not census-grade"),
 ])
 def test_a_receipt_without_build_search_roots_is_unverified(tmp_path, monkeypatch, meta, want):
@@ -789,3 +789,66 @@ def test_a_receipt_without_build_search_roots_is_unverified(tmp_path, monkeypatc
     receipt_build(tmp_path, monkeypatch, meta, strict_ok=True)
     deps, why = hal._rekey_unit_receipt(tmp_path, "Code/U.cpp")
     assert deps is None and want in why
+
+
+# Review round 3: the compiler's search order. The -I roots keep their command-line order (not a sorted set),
+# INCLUDE follows, the receipt's retry roots are appended to both, and the unit's directory is searched first
+# for a quoted include only.
+def order_tree(tmp_path, files):
+    for rel, text in files.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text)
+
+
+@pytest.mark.parametrize("files,deps,retry,command", [
+    # /Izfirst /Ialater both hold H.h: the compiler, and the receipt, take zfirst/H.h
+    ({"Code/U.cpp": "#include <H.h>\n", "zfirst/H.h": "", "alater/H.h": ""}, {"zfirst/H.h": "x"}, [],
+     ("-Izfirst", "-Ialater")),
+    # an angled <windows.h> skips the unit's own Code/windows.h and reaches the retry root
+    ({"Code/U.cpp": "#include <windows.h>\n", "Code/windows.h": "", "reference/shims/sweep/windows.h": ""},
+     {"reference/shims/sweep/windows.h": "x"}, ["reference/shims/sweep"], ()),
+    # a quoted "windows.h" still takes the unit's directory first
+    ({"Code/U.cpp": '#include "windows.h"\n', "Code/windows.h": "", "reference/shims/sweep/windows.h": ""},
+     {"Code/windows.h": "x"}, ["reference/shims/sweep"], ()),
+])
+def test_includes_resolve_in_the_compilers_own_search_order(tmp_path, monkeypatch, files, deps, retry, command):
+    order_tree(tmp_path, files)
+    meta = dict(V2, deps=deps, retry_dirs=retry, search_roots=sorted({"Code", "alater", "zfirst"}))
+    receipt_build(tmp_path, monkeypatch, meta, strict_ok=True, command=command)
+    assert hal._rekey_unit_receipt(tmp_path, "Code/U.cpp") == (sorted(deps), None)
+
+
+def test_a_search_directory_that_changes_after_the_cache_is_warm_voids_the_scan(tmp_path, monkeypatch):
+    # Two units search inc/. The first strict check caches inc/'s inventory; inc/Inner.h then appears ahead
+    # of the recorded late/Inner.h. The second unit's cached check passes, an uncached one would refuse, and
+    # the re-check after the scan must void both.
+    import types
+    import hashlib as hashlib_
+    order_tree(tmp_path, {"Code/A.cpp": "void a();\n", "Code/B.cpp": "void b();\n", "inc/.keep": "", "late/Inner.h": ""})
+    listing = lambda: sorted(os.listdir(tmp_path / "inc"))
+    built = listing()
+    for unit in ("A", "B"):
+        obj = tmp_path / f"obj/{unit}.obj"
+        obj.parent.mkdir(parents=True, exist_ok=True)
+        obj.write_bytes(unit.encode())
+        obj.with_suffix(".deps.json").write_text(json.dumps(dict(V2, deps={}, path=f"Code/{unit}.cpp",
+                                                                 object=hashlib_.md5(unit.encode()).hexdigest())))
+
+    def compile_is_current(source, output, strict=False, inventory_cache=None):
+        inventory_cache.setdefault("inc", listing())
+        current = inventory_cache["inc"] == built
+        (tmp_path / "inc/Inner.h").write_text("")       # the shadow lands after the first check
+        return current
+
+    stub = types.SimpleNamespace(
+        obj_path=lambda source: str(tmp_path / f"obj/{Path(source).stem}.obj"),
+        _root_key=lambda source: Path(source).relative_to(tmp_path).as_posix(),
+        compile_is_current=compile_is_current, compiler_command=lambda source, output: ([], {}),
+        _case_resolve=lambda path: path if os.path.isfile(path) else None, _host_path=lambda raw: raw,
+        _inventory_cache_still_current=lambda cache: cache["inc"] == listing())
+    monkeypatch.setitem(sys.modules, "build", stub)
+    monkeypatch.setattr(hal, "ROOT", tmp_path)
+    monkeypatch.setattr(hal, "_rekey_units", lambda root: ["Code/A.cpp", "Code/B.cpp"])
+    donor_units, unverified = hal._rekey_donor_units(tmp_path, "Coord3D", "class")
+    assert donor_units == {} and set(unverified) == {"Code/A.cpp", "Code/B.cpp"}
+    assert all("changed during the scan" in why for why in unverified.values())
