@@ -21,7 +21,7 @@ ParticleSystem *Make001FCBD7();
 class Rva001F4D4F {public:float rva001F4D4F();};
 class Rva001F4D76 {public:float rva001F4D76();};
 class Rva001F4D9D {public:float rva001F4D9D();};
-class Rva001F4DC4 {public:float rva001F4DC4();};
+#include "../../../../Include/GameClient/Rva001F4DC4.h"
 class Rva001F4DE6 {public:int rva001F4DE6();};
 class Rva001F4DF9 {public:float rva001F4DF9();};
 class Rva001F4E1BSlot {public:const RGBColor *get() const;};

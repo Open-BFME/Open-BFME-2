@@ -107,7 +107,7 @@ friend class FXParticleSystem::ButterflyDrawModule;protected:static unsigned ren
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva001F4E2D {public:bool rva001F4E2D();};
 class Rva001F4D2D {public:float rva001F4D2D();};
-class Rva001F4DC4 {public:float rva001F4DC4();};
+#include "../../../../Include/GameClient/Rva001F4DC4.h"
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 class Rva001F4E1BSlot {public:const RGBColor*get()const;};
 class Rva001F4DF9 {public:float rva001F4DF9();};

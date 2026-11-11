@@ -88,7 +88,7 @@ namespace FXParticleSystem {class QuadDrawModule;}
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva001F4E2D {public:bool rva001F4E2D();};
 class Rva001F4D2D {public:float rva001F4D2D();};
-class Rva001F4DC4 {public:float rva001F4DC4();};
+#include "../../../../Include/GameClient/Rva001F4DC4.h"
 class Rva001F4DE6 {public:int rva001F4DE6();};
 #include "RGBColor.h"
 class Rva001F4E1BSlot {public:const RGBColor*get()const;};

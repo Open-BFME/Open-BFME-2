@@ -126,7 +126,7 @@ template<> RvaSmartPtr12 *_STL::vector<RvaSmartPtr12>::erase(RvaSmartPtr12 *, Rv
 
 class Rva001F4D2D { public: Real rva001F4D2D(); };		// 0x001F4D2D
 class Rva001F4E1BSlot { public: const RGBColor *get() const; };	// 0x001F4E1B
-class Rva001F4DC4 { public: Real rva001F4DC4(); };		// 0x001F4DC4
+#include "../../../../GameEngine/Include/GameClient/Rva001F4DC4.h"
 class Rva001F4DF9 { public: Real rva001F4DF9(); };		// 0x001F4DF9
 
 class Particle

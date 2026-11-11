@@ -113,7 +113,7 @@ namespace FXParticleSystem { class CPUParticle { public: bool rva001F4E2D(); }; 
 class Rva001F4D2D { public: float rva001F4D2D(); };
 class Rva001F4E1BSlot { public: const RGBColor *get() const; };
 class Rva001F4DF9 { public: float rva001F4DF9(); };
-class Rva001F4DC4 { public: float rva001F4DC4(); };
+#include "../../../../Include/GameClient/Rva001F4DC4.h"
 
 struct StreakParticle
 {
