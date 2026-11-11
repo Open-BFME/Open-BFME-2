@@ -610,7 +610,7 @@ namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *
 struct LivingWorldBattleArmyView;
 struct LivingWorldBattlePlayerView;
 struct LivingWorldBattleCoord;
-class Rva003F468D { public: int rva003F4DAE(int); };
+#include "../../../../Include/Common/Rva003F468D.h"
 // WorldBuilder's LivingWorldBattle::AddArmy 0x003F6DF9, rowed as Rva003F6D35Owner::appendPayloadRva003F6DF9.
 class LivingWorldBattle {
 public:

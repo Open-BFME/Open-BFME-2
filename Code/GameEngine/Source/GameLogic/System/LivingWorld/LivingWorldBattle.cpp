@@ -37,7 +37,7 @@ class Rva003190A5 { public: bool query() const; };
 struct Rva002B488EResult { char pad00[0x54]; int playerID; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
-class Rva003F468D { public: int rva003F4DAE(int); };
+#include "../../../../Include/Common/Rva003F468D.h"
 struct Rva003F4E07Player { char pad00[0x14];int id; };
 struct Rva003F4E07Record { char pad00[0x30];int playerID; };
 struct Rva003F4E07ArmyIndex { char pad00[0x30];int index; };

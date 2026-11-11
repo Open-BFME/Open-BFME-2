@@ -2034,12 +2034,7 @@ void RetreatArmiesForPlayer(void*);bool rva003F4538();int rva003F45DF();void rva
 };
 // WorldBuilder's LivingWorldBattle::AddArmy, 0x003F6DF9, rowed as
 // Rva003F6D35Owner::appendPayloadRva003F6DF9 (Rva003F6DF9AppendPayload.cpp).
-class Rva003F468D
-{
-public:
-	Int rva003F468D(Int side, Int army);			// 0x003F468D
-	Int rva003F4DAE(Int side);				// 0x003F4DAE
-};
+#include "../../../../Include/Common/Rva003F468D.h"
 class Rva003F4DCA
 {
 public:
