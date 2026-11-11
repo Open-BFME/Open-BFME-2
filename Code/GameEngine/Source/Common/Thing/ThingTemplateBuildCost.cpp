@@ -54,7 +54,7 @@ struct Rva002A8AB1Record;
 // Reuse the data-ledger provider, defined by Rva005EEA20Find.cpp.
 extern Rva002A8F24* TheSkirmishAIManager;
 class Overridable;
-class Rva0033A68A { public: Overridable* rva0033A68A(); };
+#include "../../../Include/Common/Rva0033A68A.h"
 #include "../../../Include/Common/ThingTemplate.h"
 int ThingTemplate::rva0033A69A(const Player*player,int builderAddress,int price) const
 {

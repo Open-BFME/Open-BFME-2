@@ -5262,11 +5262,7 @@ class Rva0028CBFD
 public:
 	void rva0028CBFD(void);
 };
-class Rva0033A68A
-{
-public:
-	Overridable *rva0033A68A(void);
-};
+#include "../../../Include/Common/Rva0033A68A.h"
 static __forceinline const ThingTemplate *finalOverride(const ThingTemplate *tt)
 {
 	return (const ThingTemplate *)((Rva0033A68A *)tt)->rva0033A68A();

@@ -6,11 +6,7 @@
 // Opaque Rva name: the Overridable subclass behind this is unproven.
 #include "../../Include/Common/Overridable.h"
 
-class Rva0033A68A
-{
-public:
-	Overridable *rva0033A68A();
-};
+#include "../../Include/Common/Rva0033A68A.h"
 
 Overridable *Rva0033A68A::rva0033A68A()
 {

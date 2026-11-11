@@ -75,7 +75,7 @@ static inline const float &buildMin(const float &a,const float &b){return a<b?a:
 static inline float buildFloor(float f){return (float)floor(f);}
 class ThingTemplate; class Player; class GlobalData; class GameLogic;
 class Overridable;
-class Rva0033A68A {public: Overridable *rva0033A68A();};
+#include "../../Include/Common/Rva0033A68A.h"
 class Handicap {public: enum HandicapType {BUILDCOST,BUILDTIME}; float getHandicap(HandicapType,const ThingTemplate*)const; char opaque[16];};
 class Rva002AE98B {public: float rva002AE98B(const class AsciiString*);};
 #include "../../Include/Common/EnergyClass.h"
