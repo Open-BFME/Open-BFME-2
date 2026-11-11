@@ -1016,3 +1016,4 @@ BfmeObjF9,Code/GameEngine/Include/GameLogic/Module/BfmeObjF9.h,existing header; 
 Rva0057FD6E,Code/GameEngine/Include/GameClient/Rva0057FD6E.h,existing header; contract class_contracts/Rva0057FD6E.json; 6/9 sampled units adopt
 AttributeModifierUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/AttributeModifierUpgradeModuleData.h,existing header; contract class_contracts/AttributeModifierUpgradeModuleData.json; 4/7 sampled units adopt
 TerrainTypeCollection,Code/GameEngine/Include/Common/TerrainTypeCollection.h,existing header; contract class_contracts/TerrainTypeCollection.json; 4/6 sampled units adopt
+BfmeTaintManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h,existing header; contract class_contracts/BfmeTaintManager.json; 5/8 sampled units adopt

@@ -38,11 +38,7 @@ public:
 	void rva00073CC0(Int a, Int b, unsigned char c, Bool d);
 };
 
-class BfmeTaintManager
-{
-public:
-	unsigned char rva006C0840(Int x, Int y);
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeTaintManager.h"
 extern BfmeTaintManager *TheTaintManager;
 
 // Retail 0x000731F4 (rowed in W3DShroudCtor.cpp) and the render-object notify

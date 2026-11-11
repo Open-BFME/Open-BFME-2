@@ -149,12 +149,7 @@ struct BfmePointFC
 {
 	float x, y;
 };
-class BfmeTaintManager
-{
-public:
-	void bfmeApplyCircleWorld(const BfmePointFC *point, float radius,
-		int amount, bool absolute, int mode);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h"
 #define PARTITIONMANAGER_VIEW_REGION_FACADES
 #include "../../Common/PartitionRangeQueryCallView.h"
 #define BFME_STRINGBASE_PUBLIC_DTOR

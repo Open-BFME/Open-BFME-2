@@ -102,11 +102,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 extern AttributeModifierStore *TheAttributeModifierStore;
 
-class BfmeTaintManager
-{
-public:
-	int rva006C0850(const BfmePointFC *pos, int *owner);
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h"
 
 extern BfmeTaintManager *TheTaintManager;
 

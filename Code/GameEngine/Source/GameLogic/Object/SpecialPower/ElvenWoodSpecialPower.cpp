@@ -464,11 +464,7 @@ public:
 	void create( void *primaryObj, void *primary, void *secondary, int createOwner );
 };
 
-class BfmeTaintManager
-{
-public:
-	void bfmeApplyCircleWorld( const BfmePointFC *point, Real radius, int amount, bool absolute, int owner );
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h"
 
 extern BfmeTaintManager *TheTaintManager;
 

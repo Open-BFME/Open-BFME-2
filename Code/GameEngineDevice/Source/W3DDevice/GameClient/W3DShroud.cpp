@@ -370,11 +370,7 @@ typedef unsigned char UnsignedByte;
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 
-class BfmeTaintManager
-{
-public:
-	UnsignedByte rva006C0840(int x, int y);
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeTaintManager.h"
 
 extern BfmeTaintManager *TheTaintManager;
 
