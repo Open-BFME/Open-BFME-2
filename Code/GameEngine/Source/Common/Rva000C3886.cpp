@@ -25,13 +25,7 @@ struct Rva000C3886Obj
 	unsigned char m_flags;
 };
 
-class Rva000C3886
-{
-public:
-	void rva000BE245(void *first, float value, Rva000C3886Obj *obj, void *last);
-	void rva000C3886(void *first, float value, Rva000C3886Range *range,
-		Rva000C3886Obj *obj, void *last);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000C3886.h"
 
 void Rva000C3886::rva000C3886(void *first, float value, Rva000C3886Range *range,
 	Rva000C3886Obj *obj, void *last)

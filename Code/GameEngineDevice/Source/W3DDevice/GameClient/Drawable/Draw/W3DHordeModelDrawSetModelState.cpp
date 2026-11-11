@@ -71,7 +71,7 @@ class Rva000B3348 {public:void rva000B3348(Matrix3D*);};
 class Rva000788D3FloatField {public:float get()const;};
 struct Rva000C3886Range {int *begin,*end;};
 struct Rva000C3886Obj;
-class Rva000C3886 {public:void rva000C3886(void*,float,Rva000C3886Range*,Rva000C3886Obj*,void*);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000C3886.h"
 class W3DModelDraw {public:void rva000B7C24();};
 class Rva00270260
 {

@@ -285,7 +285,7 @@ void Rva000B5179Apply(void *state, void *arg, void *renderObject);
 class Rva000788D3FloatField { public: Real get() const; };
 struct Rva000C3886Range;
 struct Rva000C3886Obj;
-class Rva000C3886 { public: void rva000C3886(void *renderObject, Real scale, Rva000C3886Range *range, Rva000C3886Obj *arg, void *index); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000C3886.h"
 struct Rva00079EA1Element { int m_00; };
 namespace _STL
 {
