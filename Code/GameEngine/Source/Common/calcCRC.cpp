@@ -8,7 +8,11 @@ class File;
 #include "../../Include/Common/File.h"
 extern FileSystem *TheFileSystem;
 unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
+// Retail calls the game's _mbscpy import thunk through REL32, so read
+// <mbstring.h> without dllimport.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 unsigned int __cdecl calcCRC(AsciiString a, AsciiString fileName)
 {
 	char buf1[260];
@@ -17,7 +21,7 @@ unsigned int __cdecl calcCRC(AsciiString a, AsciiString fileName)
 	AsciiString path;
 	char *t = *(char * const *)&fileName;
 	const char *s = t ? t + 8 : "";
-	_mbscpy(buf1, s);
+	_mbscpy((unsigned char *)buf1, (const unsigned char *)s);
 	unsigned int len = strlen(buf1);
 	if ((int)len >= 4) {
 		memset(buf2, 0, 260);
