@@ -31,11 +31,7 @@ public:
 	int rva005C9B31(int v, int, int extra);
 };
 
-class Rva005C9BE3Call
-{
-public:
-	int rva005C9BE3(void *arg);
-};
+#include "../../../Include/GameClient/Rva005C9BE3Call.h"
 
 int Rva005C9BE3Call::rva005C9BE3(void *arg)
 {

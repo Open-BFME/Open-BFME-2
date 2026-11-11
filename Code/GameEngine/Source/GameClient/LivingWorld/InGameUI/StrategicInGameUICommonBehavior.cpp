@@ -51,11 +51,7 @@ class Rva005CC26E
 public:
 	int rva005CC26E(void *msg);
 };
-class Rva005C9BE3Call
-{
-public:
-	int rva005C9BE3(void *msg);
-};
+#include "../../../../Include/GameClient/Rva005C9BE3Call.h"
 
 // Member destructors named by the retail calls.
 class Rva005C9B76 { public: Rva005C9B76(void *arg); virtual ~Rva005C9B76(); char m_data[0x1C]; };

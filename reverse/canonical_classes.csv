@@ -1587,3 +1587,4 @@ Rva0021C21BElement,Code/Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h,gene
 Rva002A9140,Code/Libraries/Source/WWVegas/WWLib/Rva002A9140.h,existing header; contract class_contracts/Rva002A9140.json; 3/3 sampled units adopt
 Rva005E893E,Code/GameEngine/Include/Common/Rva005E893E.h,existing header; contract class_contracts/Rva005E893E.json; 3/3 sampled units adopt
 Rva0066D7D0LeaField,Code/Libraries/Source/Fesl/Rva0066D7D0LeaField.h,existing header; contract class_contracts/Rva0066D7D0LeaField.json; 3/3 sampled units adopt
+Rva005C9BE3Call,Code/GameEngine/Include/GameClient/Rva005C9BE3Call.h,existing header; contract class_contracts/Rva005C9BE3Call.json; 3/3 sampled units adopt

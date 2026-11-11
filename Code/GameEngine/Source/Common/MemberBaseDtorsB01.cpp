@@ -617,11 +617,7 @@ public:
 	virtual int gap1();
 	virtual int check(void *arg);
 };
-class Rva005C9BE3Call
-{
-public:
-	int rva005C9BE3(void *arg);
-};
+#include "../../Include/GameClient/Rva005C9BE3Call.h"
 class Rva00574910
 {
 public:
