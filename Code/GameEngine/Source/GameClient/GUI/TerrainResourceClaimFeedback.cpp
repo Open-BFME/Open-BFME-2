@@ -29,11 +29,7 @@ typedef float Real;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Rva004E7A76
-{
-public:
-	void rva004E7A76();
-};
+#include "../../../Include/Common/Rva004E7A76.h"
 
 class Shadow
 {

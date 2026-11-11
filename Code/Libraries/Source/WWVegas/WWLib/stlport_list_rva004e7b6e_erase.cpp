@@ -4,11 +4,7 @@
 // +0 and Prev at +4; destroys value at +8 via rowed 0x004E7A76;
 // frees node via rowed _free 0x00030830; stores Next into *out.
 // Callers 0x004E7B98 and 0x004E7FCA; prev list insert 0x004E7B49.
-class Rva004E7A76
-{
-public:
-	void rva004E7A76();
-};
+#include "../../../../GameEngine/Include/Common/Rva004E7A76.h"
 
 struct Rva004E7B6ENode
 {

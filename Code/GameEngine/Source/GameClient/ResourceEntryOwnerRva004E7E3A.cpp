@@ -6,11 +6,7 @@
 #include <list>
 #include "ascii_string.h"
 
-class Rva004E7A76
-{
-public:
-	void rva004E7A76();
-};
+#include "../../Include/Common/Rva004E7A76.h"
 
 struct Rva004E7E3AEntry
 {

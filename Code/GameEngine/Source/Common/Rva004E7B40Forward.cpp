@@ -6,11 +6,7 @@
 // +8), the shape of an STLport _Destroy(T*) over a type whose destructor is
 // that body (twin of rowed _Destroy<QueuedDownload> 0x005BC6F5). Its
 // element type and name are not established.
-class Rva004E7A76
-{
-public:
-	void rva004E7A76();
-};
+#include "../../Include/Common/Rva004E7A76.h"
 
 void Rva004E7B40(Rva004E7A76 *p)
 {
