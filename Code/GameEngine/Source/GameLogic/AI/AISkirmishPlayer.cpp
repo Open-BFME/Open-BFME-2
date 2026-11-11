@@ -45,11 +45,7 @@ enum PlayerType
 	PLAYER_HUMAN = 0
 };
 // Player::getCurrentEnemy 0x002A9BBD is rowed under an address name.
-class Rva002A9BBD
-{
-public:
-	void *rva002A9BBD();
-};
+#include "../../../Include/GameLogic/Rva002A9BBD.h"
 class Player
 {
 public:

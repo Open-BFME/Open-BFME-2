@@ -24,11 +24,7 @@ typedef int Int;
 class PolygonTrigger;
 
 // The rowed getter at 0x002A9BBD keeps its address-derived spelling.
-class Rva002A9BBD
-{
-public:
-	void *rva002A9BBD();
-};
+#include "../../../Include/GameLogic/Rva002A9BBD.h"
 
 #include "../../../Include/Common/Player.h"
 // Zero Hour's inline Player accessors, as unit-local helpers over the header's members.

@@ -10,11 +10,7 @@
 // current player is ScriptEngine+0x1A130, the player type Player+0x5C.
 
 // The rowed getter at 0x002A9BBD keeps its address-derived spelling.
-class Rva002A9BBD
-{
-public:
-	void *rva002A9BBD();
-};
+#include "../../../Include/GameLogic/Rva002A9BBD.h"
 
 class Player
 {
