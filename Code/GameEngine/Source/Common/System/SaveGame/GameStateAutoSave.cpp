@@ -147,11 +147,7 @@ private:
 	char m_pad04[0x20 - 4];
 };
 
-class XferLoad
-{
-public:
-	bool Open(Rva0060C3C3Stream *stream, int *version);
-};
+#include "../../../../Include/Common/XferLoadClass.h"
 
 class Rva0060C45E
 {

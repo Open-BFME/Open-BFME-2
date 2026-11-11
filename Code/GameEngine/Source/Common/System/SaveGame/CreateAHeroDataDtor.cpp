@@ -212,7 +212,7 @@ struct RGBAColorInt;
 #include "../../../../Include/Common/BfmeXfer.h"
 struct Rva0060C3C3Stream;
 class Rva0060C5FA : public Xfer { public: Rva0060C5FA(void *a1, void *a2, void *a3); private: char m_pad04[0x20 - 4];  public: virtual int BeginBlock(const char *name); virtual void EndBlock(); virtual void SkipBlock(const char *name); virtual Xfer &operator==(const char *const &value); protected: virtual void XferData(unsigned int type, void *data, unsigned int size);};
-class XferLoad { public: bool Open(Rva0060C3C3Stream *stream, int *version); };
+#include "../../../../Include/Common/XferLoadClass.h"
 class Rva0060C45E { public: void clear(); };
 class Rva00406EBF { public: void rva00406EBF(Xfer *x); };
 class HeroFile { public: virtual ~HeroFile(); virtual bool open(const char *name, int access); virtual void close(); };

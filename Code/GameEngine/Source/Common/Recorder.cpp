@@ -152,7 +152,7 @@ File*createMemoryReadFile(char*,int);
 
 struct Rva0060C3C3Stream;
 
-struct XferLoad {bool Open(Rva0060C3C3Stream*,int*);};
+#include "../../Include/Common/XferLoadClass.h"
 
 class Rva0060C5FA : public Xfer {public:Rva0060C5FA(void*,void*,void*);char tail[28]; public: virtual int BeginBlock(const char *name); virtual void EndBlock(); virtual void SkipBlock(const char *name); virtual Xfer &operator==(const char *const &value); protected: virtual void XferData(unsigned int type, void *data, unsigned int size);};
 

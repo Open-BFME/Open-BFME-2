@@ -88,7 +88,7 @@ protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size);
 };
 struct Rva0060C3C3Stream;
-class XferLoad { public: bool Open(Rva0060C3C3Stream*,int*); };
+#include "../../../../Include/Common/XferLoadClass.h"
 class Rva0060C45E { public: void clear(); };
 class LoadFileView {
 public:

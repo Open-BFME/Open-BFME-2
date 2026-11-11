@@ -1,0 +1,49 @@
+{
+ "bases": [
+  "Xfer"
+ ],
+ "bases_by": "zh",
+ "class": "XferLoad",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 39,
+   "inherited_spans": [
+    [
+     0,
+     32
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "28": 1,
+   "32": 1
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/XferLoad.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

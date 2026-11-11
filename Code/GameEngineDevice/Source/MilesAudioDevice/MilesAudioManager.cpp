@@ -5369,7 +5369,7 @@ protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size);
 };
 struct Rva0060C3C3Stream;
-class XferLoad { public: bool Open(Rva0060C3C3Stream *stream, int *version); };
+#include "../../../GameEngine/Include/Common/XferLoadClass.h"
 class Rva0060C45E { public: void clear(); };
 #include "../../../GameEngine/Include/Common/File.h"
 #include "../../../GameEngine/Include/GameClient/Drawable.h"
