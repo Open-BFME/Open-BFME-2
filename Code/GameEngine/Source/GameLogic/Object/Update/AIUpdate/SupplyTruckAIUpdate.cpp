@@ -373,13 +373,7 @@ public:
 	float rva004A6FBF();
 };
 
-class ResourceGatheringManager
-{
-public:
-	Object *findBestSupplyWarehouse(Object *queryObject);
-	Object *findBestSupplyCenter(Object *queryObject);
-	bool rva004F5A67(Object *queryObject, Coord3D *pos);
-};
+#include "../../../../../Include/Common/ResourceGatheringManagerClass.h"
 
 // The AI module pointer is read as a member: an inline getAIUpdateInterface
 // here would emit a COMDAT under the name the Zero Hour-header units define

@@ -1,0 +1,172 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ResourceGatheringManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xc": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4f5b63"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4f5b63"
+     ],
+     "value": {
+      "0x4": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x8": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4f5b63"
+     ],
+     "value": {
+      "0x0": "0x86327c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86327c"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GResourceGatheringManager@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4f5f2e"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@ResourceGatheringManager@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4f5baa"
+       },
+       {
+        "name": "?xfer@ResourceGatheringManager@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4f5f4a"
+       }
+      ],
+      "table": "0x86327c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 8,
+  "retail_vtables": {
+   "0x86327c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GResourceGatheringManager@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@ResourceGatheringManager@@QBEPBDXZ",
+     "3": "?xfer@ResourceGatheringManager@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "12": 2
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ResourceGatheringManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -142,11 +142,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class ResourceGatheringManager
-{
-public:
-	bool rva004F5A67(Object *obj, Coord3D *pos);
-};
+#include "../../../../Include/Common/ResourceGatheringManagerClass.h"
 
 class Rva0044E6AE
 {

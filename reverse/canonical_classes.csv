@@ -1022,3 +1022,4 @@ Rva004E0632,Code/GameEngine/Include/GameLogic/Rva004E0632.h,existing header; con
 LivingWorldRegionCampaign,Code/GameEngine/Include/GameLogic/LivingWorldRegionCampaign.h,existing header; contract class_contracts/LivingWorldRegionCampaign.json; 4/6 sampled units adopt
 Rva0022B3F6Subsystem,Code/GameEngine/Include/Common/Rva0022B3F6Subsystem.h,existing header; contract class_contracts/Rva0022B3F6Subsystem.json; 6/7 sampled units adopt
 Rva002E6ECA,Code/GameEngine/Include/GameLogic/Rva002E6ECA.h,existing header; contract class_contracts/Rva002E6ECA.json; 5/8 sampled units adopt
+ResourceGatheringManager,Code/GameEngine/Include/Common/ResourceGatheringManagerClass.h,existing header; contract class_contracts/ResourceGatheringManager.json; 4/6 sampled units adopt

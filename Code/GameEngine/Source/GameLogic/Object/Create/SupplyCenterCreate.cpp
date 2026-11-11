@@ -18,11 +18,7 @@ enum NameKeyType
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;
 class ModuleData;
-class ResourceGatheringManager
-{
-public:
-	void rva004F5C44(Object *obj);
-};
+#include "../../../../Include/Common/ResourceGatheringManagerClass.h"
 #include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

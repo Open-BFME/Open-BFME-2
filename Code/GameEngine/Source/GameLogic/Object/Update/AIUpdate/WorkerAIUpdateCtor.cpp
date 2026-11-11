@@ -518,11 +518,7 @@ public:
 	UnsignedInt withdraw(UnsignedInt amount, Rva0039B795 *stats, Bool flag);
 };
 
-class ResourceGatheringManager
-{
-public:
-	Object *findBestSupplyWarehouse(Object *forWhom);
-};
+#include "../../../../../Include/Common/ResourceGatheringManagerClass.h"
 
 enum PlayerType
 {
