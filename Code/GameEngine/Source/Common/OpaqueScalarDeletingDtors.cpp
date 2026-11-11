@@ -321,11 +321,7 @@ void Rva00F2ECB_Anchor(W3DVolumetricShadowManager *object)
 	delete object;
 }
 
-class Rva0007BAD6
-{
-public:
-	~Rva0007BAD6();	// row 0x0007C0F5 in Rva0007BAD6Dtor.cpp
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0007BAD6.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GRva0007BAD6 (it
 // calls out to the destructor row); the destructor is only declared here.

@@ -187,13 +187,7 @@ public:
 	~Rva0009A200();
 };
 
-class Rva0007BAD6
-{
-public:
-	void rva0007BAD6();
-public:
-	~Rva0007BAD6();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva0007BAD6.h"
 
 class __declspec(novtable) Rva009A500
 {

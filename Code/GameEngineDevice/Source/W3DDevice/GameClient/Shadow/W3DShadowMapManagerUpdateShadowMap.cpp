@@ -203,11 +203,7 @@ public:
 	int rva00132784() const;
 };
 
-class Rva0007BAD6
-{
-public:
-	void rva0007BAD6();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva0007BAD6.h"
 
 class Rva0007DA23ResourceManager
 {
