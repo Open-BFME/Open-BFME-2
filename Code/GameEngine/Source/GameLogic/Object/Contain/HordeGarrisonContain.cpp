@@ -558,26 +558,7 @@ public:
 #include "../../../../Include/Common/Rva00210F27.h"
 
 // --- 0x0029ACFB (23B): the +0x5C4 object's slot 15, or 0 when unset.
-class Rva0029ACFBTarget
-{
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void s8();
-	virtual void s9();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual int s15();
-};
+#include "../../../../Include/Common/Rva0029ACFBTarget.h"
 
 #include "../../../../Include/Common/Rva0029ACFB.h"
 
