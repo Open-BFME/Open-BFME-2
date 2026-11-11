@@ -12823,7 +12823,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001DD670,125,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,S,S=Code/GameEngine/Source/GameClient/Eva.cpp N=Code/GameEngine/Source/GameClient/Eva.cpp W=Code/GameEngine/Source/GameClient/Eva.cpp,Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp
 0x001DD6ED,34,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD70F,Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp
 0x001DD70F,45,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD73C,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
-0x001DD73C,9,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD745,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_erase.cpp
+0x001DD73C,9,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD745,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DD745,45,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD772,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 0x001DD772,34,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD794,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_node_rva001dd1b3.cpp
 0x001DD794,45,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD7C1,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp
@@ -12832,19 +12832,19 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001DD81C,42,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD846,Code/Libraries/Source/WWVegas/WWLib/Rva00382A02Init.cpp
 0x001DD846,41,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD86F,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x001DD86F,37,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD894,Code/Libraries/Source/WWVegas/WWLib/stlport_list_float4_469c61_insert.cpp
-0x001DD894,53,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD8C9,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_erase.cpp
+0x001DD894,53,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD8C9,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DD8C9,37,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD8EE,Code/GameEngine/Source/Common/Rva001DD8C9Alloc.cpp
 0x001DD8EE,136,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD976,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_insert_rva001dd1b3.cpp
 0x001DD976,34,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD998,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp
 0x001DD998,30,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD9B6,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_clone.cpp
 0x001DD9B6,5,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD9BB,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x001DD9BB,56,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DD9F3,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
-0x001DD9F3,41,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDA1C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_erase.cpp
+0x001DD9F3,41,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDA1C,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DDA1C,59,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDA57,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_insert_equal_rva001dd1b3.cpp
 0x001DDA57,115,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDACA,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_clone.cpp
 0x001DDACA,18,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDADC,Code/Libraries/Source/WWVegas/WWLib/stlport_set_record_001dd3bc_insert.cpp
 0x001DDADC,5,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDAE1,Code/Libraries/Source/WWVegas/WWLib/stlport_set_record_001dd3bc_insert.cpp
-0x001DDAE1,173,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDB8E,Code/GameEngine/Source/GameClient/EvaLocationQueueRva001DDAE1.cpp
+0x001DDAE1,173,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDB8E,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DDB8E,56,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDBC6,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_dtor.cpp
 0x001DDBC6,25,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDBDF,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DDBC6.cpp
 0x001DDBDF,20,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DD670..0x001DDBF3,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_insert_equal_rva001dd1b3.cpp
@@ -12861,26 +12861,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001DE156,388,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Eva.cpp S=Code/GameEngine/Source/GameClient/Eva.cpp N=Code/GameEngine/Source/GameClient/Eva.cpp W=Code/GameEngine/Source/GameClient/Eva.cpp,Code/GameEngine/Source/GameClient/EvaUpdate.cpp
 0x001DE2DA,247,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,S,S=Code/GameEngine/Source/GameClient/Eva.cpp N=Code/GameEngine/Source/GameClient/Eva.cpp W=Code/GameEngine/Source/GameClient/Eva.cpp,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DE3D1,18,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE3E3,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_assign.cpp
-0x001DE3E3,31,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE402,Code/GameEngine/Source/Common/Rva001DE3E3Guard.cpp
+0x001DE3E3,31,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE402,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DE402,189,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE4BF,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp
 0x001DE4BF,151,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE556,Code/Libraries/Source/WWVegas/WWLib/stlport_set_record_001dd3bc_insert.cpp
 0x001DE556,124,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE5D2,Code/Libraries/Source/WWVegas/WWLib/Rva001DE556Insert.cpp
 0x001DE5D2,225,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE6B3,Code/Libraries/Source/WWVegas/WWLib/stlport_pod52_fill_insert_1de5d2.cpp
 0x001DE6B3,18,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE6C5,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_copyctor.cpp
 0x001DE6C5,28,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE6E1,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva00414BDB.cpp
-0x001DE6E1,70,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE727,Code/Libraries/Source/WWVegas/WWLib/Rva001DE6E1Ctor.cpp
+0x001DE6E1,70,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE727,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DE727,85,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE77C,Code/Libraries/Source/WWVegas/WWLib/Rva001DE727Assign.cpp
 0x001DE77C,18,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE2DA..0x001DE78E,Code/GameEngine/Source/Common/GapBodiesGE49.cpp
 0x001DE78E,39,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,S,S=Code/GameEngine/Source/GameClient/Eva.cpp N=Code/GameEngine/Source/GameClient/Eva.cpp,Code/GameEngine/Source/GameClient/EvaRva001DE78E.cpp
 0x001DE7B5,35,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE7D8,Code/Libraries/Source/WWVegas/WWLib/stlport_set_record_001dd3bc_insert.cpp
 0x001DE7D8,55,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE80F,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp
-0x001DE80F,64,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE84F,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001DE80F.cpp
+0x001DE80F,64,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE84F,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DE84F,36,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE873,Code/Libraries/Source/WWVegas/WWLib/Rva001DE84FReserveInsert.cpp
 0x001DE873,5,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE878,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DE878,113,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE8E9,Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp
-0x001DE8E9,29,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE906,Code/Libraries/Source/WWVegas/WWLib/Rva001DE906Copy.cpp
-0x001DE906,50,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE938,Code/Libraries/Source/WWVegas/WWLib/Rva001DE906Copy.cpp
-0x001DE938,50,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE96A,Code/Libraries/Source/WWVegas/WWLib/Rva001DE906Copy.cpp
+0x001DE8E9,29,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE906,Code/GameEngine/Source/GameClient/Eva.cpp
+0x001DE906,50,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE938,Code/GameEngine/Source/GameClient/Eva.cpp
+0x001DE938,50,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE96A,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DE96A,9,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE973,Code/GameEngine/Source/GameLogic/Object/Rva00414B40Dtor.cpp
 0x001DE973,81,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DE78E..0x001DE9C4,Code/GameEngine/Source/Common/INI/Rva004255F0ParseRecordIntoMap.cpp
 0x001DE9C4,161,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,S,S=Code/GameEngine/Source/GameClient/Eva.cpp N=Code/GameEngine/Source/GameClient/Eva.cpp W=Code/GameEngine/Source/GameClient/Eva.cpp,Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp
@@ -12896,7 +12896,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001DEDD4,38,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEDFA,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
 0x001DEDFA,37,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEE1F,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
 0x001DEE1F,29,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEE3C,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
-0x001DEE3C,29,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEE59,Code/Libraries/Source/WWVegas/WWLib/Rva001DEE3CRangeForward.cpp
+0x001DEE3C,29,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEE59,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DEE59,27,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEE74,Code/Libraries/Source/WWVegas/WWLib/Rva001DEE59Fill.cpp
 0x001DEE74,30,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEE92,Code/GameEngine/Source/Common/INI/INIThinFieldParsers.cpp
 0x001DEE92,33,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEEB3,Code/GameEngine/Source/GameClient/Eva.cpp
@@ -12904,7 +12904,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001DEEE0,25,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEEF9,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva00414BDB.cpp
 0x001DEEF9,63,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEF38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferred.cpp
 0x001DEF38,51,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEF6B,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
-0x001DEF6B,30,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEF89,Code/Libraries/Source/WWVegas/WWLib/Rva001DEF6BDtorFinish.cpp
+0x001DEF6B,30,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DEF89,Code/GameEngine/Source/GameClient/Eva.cpp
 0x001DEF89,206,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,C,C=0x001DEC48..0x001DF057,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DEF89.cpp
 0x001DF057,154,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Eva.cpp S=Code/GameEngine/Source/GameClient/Eva.cpp N=Code/GameEngine/Source/Common/Eva.cpp,Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp
 0x001DF0F1,8,code,,displaced,-,N=Code/GameEngine/Source/Common/Eva.cpp,Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp
@@ -66327,8 +66327,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076998B,10,code,,,-,,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp
 0x00769995,8,code,,,-,,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x0076999D,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_dtor.cpp
-0x007699A7,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001DE80F.cpp
-0x007699B2,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001DE80F.cpp
+0x007699A7,11,code,,,-,,Code/GameEngine/Source/GameClient/Eva.cpp
+0x007699B2,10,code,,,-,,Code/GameEngine/Source/GameClient/Eva.cpp
 0x007699BC,8,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,P,P=0x001DDD85@FuncInfo0x0090EB90,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_copyctor.cpp
 0x007699C4,10,code,Code/GameEngine/Source/GameClient/Eva.cpp,approved,P,P=0x001DDD85@FuncInfo0x0090EB90,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme001DD3BC_copyctor.cpp
 0x007699CE,11,code,,,-,,Code/GameEngine/Source/Common/Rva00414BDBElementDtor.cpp

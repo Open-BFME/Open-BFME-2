@@ -1783,7 +1783,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00174A8AAdapter.cpp	?rva0017480C@
 alternatename	Code/GameEngine/Source/Common/Rva001DBBAD.cpp	?regainFocus@@YAXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001DD0A0Copy.cpp	??0BfmePod52@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001DD8C9Alloc.cpp	?rva001DD8C9@Rva001DE556@@QAEPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva001DE3E3Guard.cpp	?rva001DDCC5@Rva001DDCC5@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001E42F2Init.cpp	?rva001E42F2@Object@@QAEXPBH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001E431EInit.cpp	?rva001E431E@Object@@QAEXPBH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva004FF630Member@@QAE@XZ	1
@@ -2295,6 +2294,9 @@ alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundCl
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1VoiceSlot@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp	?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z	1
+alternatename	Code/GameEngine/Source/GameClient/Eva.cpp	?Rva001DEE3CRangeCallee@@YAPAURva001DEE3COutput@@PAURva001DEE3CInput@@0PAU1@ABURva001DEE3CIteratorTag@@PAH@Z	1
+alternatename	Code/GameEngine/Source/GameClient/Eva.cpp	?__destroy_aux@_STL@@YAXPAURva00414BDBElement@@0@Z	1
+alternatename	Code/GameEngine/Source/GameClient/Eva.cpp	?rva001DDCC5@Rva001DDCC5@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??0RenderObjectDrawCategoryBase@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??1Rva0002B8C8TailBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
@@ -3391,8 +3393,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	??1Rva001
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?assign@Rva00151248String@@QAEXPBD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?clear@Rva00151248String@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00174A8ADefaultResize.cpp	??0Rva0017480CRecord@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DEE3CRangeForward.cpp	?Rva001DEE3CRangeCallee@@YAPAURva001DEE3COutput@@PAURva001DEE3CInput@@0PAU1@ABURva001DEE3CIteratorTag@@PAH@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DEF6BDtorFinish.cpp	?__destroy_aux@_STL@@YAXPAURva00414BDBElement@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DF88CValueVectorResize.cpp	??0Rva001DF88CEntry@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DF88CValueVectorResize.cpp	??1Rva001DF88CEntry@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DF88CValueVectorResize.cpp	?_M_fill_insert@?$vector@URva001DF88CEntry@@V?$allocator@URva001DF88CEntry@@@_STL@@@_STL@@QAEXPAURva001DF88CEntry@@IABU3@@Z	1
