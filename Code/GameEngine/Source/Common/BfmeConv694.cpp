@@ -13,11 +13,7 @@ class AsciiString;
 struct Coord;
 struct Rva002120C2Entry;
 
-class Rva002120A4
-{
-public:
-	Rva002120C2Entry *rva002120C2(const AsciiString &key);
-};
+#include "../../Include/Common/Rva002120A4.h"
 
 class Rva003FD690
 {

@@ -27,11 +27,7 @@ struct Rva002120C2Entry
 	void *m_value;
 };
 
-class Rva002120A4
-{
-public:
-	Rva002120C2Entry *rva002120C2(const AsciiString &name);
-};
+#include "../../Include/Common/Rva002120A4.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 

@@ -64,11 +64,7 @@ public:
 
 struct Rva002120C2Entry;
 
-class Rva002120A4
-{
-public:
-	Rva002120C2Entry *rva002120C2(const AsciiString &name);	// 0x002120C2
-};
+#include "../../../Include/Common/Rva002120A4.h"
 
 class Rva003FD690
 {

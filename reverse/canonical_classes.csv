@@ -1509,3 +1509,4 @@ Rva00056CF8,Code/GameEngine/Include/Common/Rva00056CF8.h,existing header; contra
 Rva005FA854,Code/GameEngine/Include/Common/Rva005FA854.h,existing header; contract class_contracts/Rva005FA854.json; 3/4 sampled units adopt
 Font3DInstanceClass,Code/Libraries/Source/WWVegas/WW3D2/Font3DInstanceClass.h,existing header; contract class_contracts/Font3DInstanceClass.json; 3/3 sampled units adopt
 Rva005FBEBA,Code/GameEngine/Include/Common/Rva005FBEBA.h,existing header; contract class_contracts/Rva005FBEBA.json; 3/4 sampled units adopt
+Rva002120A4,Code/GameEngine/Include/Common/Rva002120A4.h,existing header; contract class_contracts/Rva002120A4.json; 3/7 sampled units adopt
