@@ -3,11 +3,7 @@
 #include "../../Include/Common/Rva005CCB3EByteChaseField.h"
 
 class TextureClass;
-class Font3DInstanceClass
-{
-public:
-	TextureClass *Peek_Texture();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Font3DInstanceClass.h"
 
 class Rva005CCB63
 {

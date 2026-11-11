@@ -1507,3 +1507,4 @@ Rva005E4DAF,Code/GameEngine/Include/Common/Rva005E4DAF.h,existing header; contra
 BucketAlloc,Code/GameEngine/Include/Common/BucketAlloc.h,existing header; contract class_contracts/BucketAlloc.json; 3/3 sampled units adopt
 Rva00056CF8,Code/GameEngine/Include/Common/Rva00056CF8.h,existing header; contract class_contracts/Rva00056CF8.json; 4/9 sampled units adopt
 Rva005FA854,Code/GameEngine/Include/Common/Rva005FA854.h,existing header; contract class_contracts/Rva005FA854.json; 3/4 sampled units adopt
+Font3DInstanceClass,Code/Libraries/Source/WWVegas/WW3D2/Font3DInstanceClass.h,existing header; contract class_contracts/Font3DInstanceClass.json; 3/3 sampled units adopt
