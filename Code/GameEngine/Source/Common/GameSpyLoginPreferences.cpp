@@ -75,11 +75,7 @@ list<AsciiString, allocator<AsciiString> >::erase(iterator);
 }
 // Retail 4EC36C allocates the 12-byte sentinel through the shared byte
 // allocator. Keep the constructor visible so caller stack homes stay exact.
-class BucketAlloc
-{
-public:
-    static void *allocate(unsigned int bytes, const void *hint);
-};
+#include "../../Include/Common/BucketAlloc.h"
 namespace _STL {
 template <> inline _List_base<AsciiString, allocator<AsciiString> >::_List_base(const allocator_type &a)
     : _M_node(_STLP_CONVERT_ALLOCATOR(a, _Node), (_Node *)0)

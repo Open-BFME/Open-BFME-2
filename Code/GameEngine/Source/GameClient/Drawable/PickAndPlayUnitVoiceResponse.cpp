@@ -234,10 +234,7 @@ struct NameKeyEqualInt
 {
 	bool operator()(int a, int b) const { return a == b; }
 };
-struct BucketAlloc
-{
-	static void *allocate(unsigned int n, const void *hint);
-};
+#include "../../../Include/Common/BucketAlloc.h"
 namespace _STL
 {
 template <class Element>

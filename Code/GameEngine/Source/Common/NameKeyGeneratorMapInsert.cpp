@@ -43,10 +43,7 @@ struct NameKeyHashInt
 	unsigned operator()(int x) const { return (unsigned)x; }
 };
 
-struct BucketAlloc
-{
-	static void *allocate(unsigned int n, const void *hint);
-};
+#include "../../Include/Common/BucketAlloc.h"
 
 namespace _STL
 {
