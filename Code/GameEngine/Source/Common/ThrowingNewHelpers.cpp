@@ -240,7 +240,7 @@ Rva005CEE9F::~Rva005CEE9F(){
  ((const Rva004E0750*)m_region)->rva004E0750();
 }
 
-class Rva004FC275 {public:void rva004FC2A6();};
+#include "../../Include/Common/Rva004FC275.h"
 Rva005CEF2F::~Rva005CEF2F(){
  ((Rva002B7250*)((char*)selection+8))->rva002B7250((CreateAHeroData*)static_cast<Rva0023A128Link*>(this));
  void *view=m_owner->m_view10;

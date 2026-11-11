@@ -82,7 +82,7 @@ public:
     Rva005CF22CBig *m_owner;
 };
 // Existing one-vptr observer-base view: its emitted vtable is retail C3702C.
-class Rva004FC275 {public:void rva004FC299();};
+#include "../../Include/Common/Rva004FC275.h"
 struct Rva005D23BBSelection;
 namespace StrategicInGameUI {const Image *__cdecl GetSelectionPortrait(const Rva005D23BBSelection *);}
 class Rva005CED37 {

@@ -607,7 +607,7 @@ class Rva004E071D {public:void rva004E071D(Bool);};
 struct LocalCampaignRegions2C {char pad2c[0x2c];_STL::vector<Rva003F287F*>regions;};
 struct LocalPlayerId14 {char pad14[0x14];Int id;};
 struct LocalRegionOwner13C {char pad13c[0x13c];Int owner;};
-class Rva004FC275 {public:void rva004FC275(unsigned char);};
+#include "../../../../Include/Common/Rva004FC275.h"
 struct LocalRegionPlots170 {char pad13c[0x13c];Int owner;char pad140[0x170-0x140];_STL::vector<Parent00575EEA*>plots;};
 struct TurnPhasePairView {void *begin,*end;bool empty()const{return begin==end;}};
 struct Parent00575E4E;
