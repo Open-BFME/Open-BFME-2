@@ -26,7 +26,7 @@ class Rva0054103E { public: int m_field0; Region2D m_region; Rva0054103E(); Rva0
 
 #include "../../Include/Common/Rva00330757Member.h"
 
-class Rva0054034A { public: void rva00540A26(); };
+#include "../../Include/Common/Rva0054034A.h"
 
 class Rva00540B03
 {

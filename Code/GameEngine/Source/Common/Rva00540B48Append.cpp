@@ -86,11 +86,7 @@ private:
 	unsigned int m_index;
 };
 
-class Rva0054034A
-{
-public:
-	bool rva0054034A(int key);
-};
+#include "../../Include/Common/Rva0054034A.h"
 
 class Rva00540B48
 {

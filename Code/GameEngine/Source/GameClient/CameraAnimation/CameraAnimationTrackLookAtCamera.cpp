@@ -90,11 +90,7 @@ public:
 	int m_00;
 	char m_04[0x20];
 };
-class Rva0054034A
-{
-public:
-	bool rva0054034A(int frame);
-};
+#include "../../../Include/Common/Rva0054034A.h"
 Rva0053FDE6 Rva0053FE64Get(float t, Rva0053FDE6 *a, int ta, Rva0053FDE6 *b, int tb,
 	Rva0053FDE6 *c, int tc, Rva0053FDE6 *d, int td);
 
