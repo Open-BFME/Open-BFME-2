@@ -1019,18 +1019,7 @@ BFME_DISP_BYTE_SETTER(Rva004BF8CBByteSlot, 0xB5)
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-struct RvaCoords
-{
-	Coord3D *m_start;
-	Coord3D *m_finish;
-	Coord3D *m_end;
-
-	~RvaCoords()
-	{
-		if (m_start)
-			free(m_start);
-	}
-};
+#include "../../../../Include/Common/RvaCoords.h"
 
 struct AICommandParms
 {

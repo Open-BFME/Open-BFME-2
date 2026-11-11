@@ -31,18 +31,7 @@ class Waypoint;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-struct RvaCoords
-{
-	Coord3D *m_start;
-	Coord3D *m_finish;
-	Coord3D *m_end;
-
-	~RvaCoords()
-	{
-		if (m_start)
-			free(m_start);
-	}
-};
+#include "../../Include/Common/RvaCoords.h"
 
 struct AICommandParms
 {

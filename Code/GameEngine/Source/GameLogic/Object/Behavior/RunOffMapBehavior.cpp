@@ -128,18 +128,7 @@ struct RunOffMapBehaviorModuleData {char pad00[0x10];bool m_10;AsciiString waypo
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct RvaCoords
-{
-	Coord3D *m_start;
-	Coord3D *m_finish;
-	Coord3D *m_end;
-
-	~RvaCoords()
-	{
-		if (m_start)
-			free(m_start);
-	}
-};
+#include "../../../../Include/Common/RvaCoords.h"
 
 struct AICommandParms
 {

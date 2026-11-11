@@ -24,18 +24,7 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
-struct RvaCoords
-{
-	Coord3D *m_start;
-	Coord3D *m_finish;
-	Coord3D *m_end;
-
-	~RvaCoords()
-	{
-		if (m_start)
-			free(m_start);
-	}
-};
+#include "../../../Include/Common/RvaCoords.h"
 
 struct AICommandParms
 {
