@@ -60,11 +60,7 @@ Rva0057EE5C::~Rva0057EE5C()
 class UnicodeString;
 #include "../../Include/Common/MpGameRules.h"
 
-class AptMpGameRules
-{
-public:
-	void rva0057EF18();
-};
+#include "../../Include/Common/AptMpGameRules.h"
 
 void Rva0057EE5C::rva0057F002(int arg)
 {

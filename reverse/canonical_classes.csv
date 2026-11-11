@@ -963,3 +963,4 @@ Rva002244CA,Code/GameEngine/Include/GameClient/Rva002244CA.h,existing header; co
 StatusBitsUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/StatusBitsUpgradeModuleData.h,existing header; contract class_contracts/StatusBitsUpgradeModuleData.json; 5/9 sampled units adopt
 Rva00406E8F,Code/GameEngine/Include/GameLogic/Module/Rva00406E8F.h,existing header; contract class_contracts/Rva00406E8F.json; 7/8 sampled units adopt
 Rva00226883,Code/GameEngine/Include/Common/Rva00226883.h,existing header; contract class_contracts/Rva00226883.json; 6/12 sampled units adopt
+AptMpGameRules,Code/GameEngine/Include/Common/AptMpGameRules.h,existing header; contract class_contracts/AptMpGameRules.json; 4/8 sampled units adopt

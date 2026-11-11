@@ -874,17 +874,7 @@ private:
 };
 // --- 0x0057E779 (40B): store a rule value, notify slot 1 and refresh its
 // gadget (rowed AptMpGameRules::UpdateRuleGadget).
-class AptMpGameRules
-{
-public:
-	virtual void slot00();
-	virtual void slot04(int rule, int flag);
-	void UpdateRuleGadget(int rule);						// 0x0057E5B5
-	void rva0057E779(int rule, int value);
-private:
-	char m_pad[0x8C - 4];
-	int m_rules[1];											// +0x8C
-};
+#include "../../Include/Common/AptMpGameRules.h"
 // --- 0x0057EF0A (14B) / 0x0058A193 (14B): resize a pointer / id vector
 // (rowed resize 0x000E6D39, 0x005839A7) with null / invalid fill.
 class Drawable;

@@ -840,11 +840,7 @@ void Rva00359E13::rva0035AA3E()
 	((Rva0035A1D8 *)this)->rva0035A1D8();
 }
 
-class AptMpGameRules
-{
-public:
-	void rva0057E6C1();
-};
+#include "../../Include/Common/AptMpGameRules.h"
 
 class Rva0057EE5C
 {

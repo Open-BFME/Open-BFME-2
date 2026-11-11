@@ -299,7 +299,7 @@ class Rva0057DFFB { public: bool rva0057DFFB(bool flag); };
 
 // The member at +0xD0 (destroyed through ??1Rva0057EE5C); its 0x0057EA0F
 // (158 bytes) is unrowed and pinned.
-class AptMpGameRules { public: void rva0057F0AA(); bool rva0057E707(int msg, GameWindow *window, int data2); };
+#include "../../../Include/Common/AptMpGameRules.h"
 
 class Rva0057EE5C
 {
