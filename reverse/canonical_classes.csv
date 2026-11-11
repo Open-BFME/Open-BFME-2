@@ -933,3 +933,4 @@ XferLoad,Code/GameEngine/Include/Common/XferLoadClass.h,existing header; contrac
 Rva001E11F8,Code/GameEngine/Include/Common/Rva001E11F8.h,existing header; contract class_contracts/Rva001E11F8.json; 10/11 sampled units adopt
 Rva0038201D,Code/GameEngine/Include/Common/Rva0038201D.h,existing header; contract class_contracts/Rva0038201D.json; 7/13 sampled units adopt
 AptOnlineLogin,Code/GameEngine/Include/GameClient/AptOnlineLogin.h,existing header; contract class_contracts/AptOnlineLogin.json; 6/12 sampled units adopt
+Rva003FF0E7DwordSlot,Code/GameEngine/Include/GameNetwork/Rva003FF0E7DwordSlot.h,existing header; contract class_contracts/Rva003FF0E7DwordSlot.json; 8/9 sampled units adopt

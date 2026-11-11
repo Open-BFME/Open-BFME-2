@@ -211,11 +211,7 @@ public:
 };
 
 // Rowed setter of the slot's last hero word (+0x5C).
-class Rva003FF0E7DwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 
 // AsciiString view whose text compare is declared nonthrowing, so a
 // temporary compared through it needs no unwind state (retail registers none

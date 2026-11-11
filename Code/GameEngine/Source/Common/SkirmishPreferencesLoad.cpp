@@ -18,7 +18,7 @@ class UnicodeString;
 class GameSlot;
 #include "../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
-class Rva003FF0E7DwordSlot {public:void set(int);};
+#include "../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,bool);
 struct SkirmishStringDataView{char header[8];char text[1];};
 __forceinline const char *skirmishText(const AsciiString&asciiString){

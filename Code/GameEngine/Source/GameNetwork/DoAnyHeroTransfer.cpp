@@ -19,7 +19,7 @@ class CreateAHeroData;
 #include "../../Include/Common/Rva0040A3F9.h"
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
-class Rva003FF0E7DwordSlot {public:void set(int);};
+#include "../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 struct HeroTransferDataStats {char before[0xC];int first,second;};
 class GameSlot {public:
  bool isOccupied() const;

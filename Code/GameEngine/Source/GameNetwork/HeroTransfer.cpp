@@ -24,7 +24,7 @@ template <> inline void vector<unsigned int>::_M_clear() {
 class CreateAHeroData;
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
-class Rva003FF0E7DwordSlot {public:void set(int);};
+#include "../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 #include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../Include/Common/PlayerTemplate.h"

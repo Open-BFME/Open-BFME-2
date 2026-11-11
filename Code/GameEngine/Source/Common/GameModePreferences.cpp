@@ -31,11 +31,7 @@ template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, alloca
 class GameSlot;
 #include "../../Include/Common/GameModePreferences.h"
 #include "../../Include/GameNetwork/GameInfo.h"
-class Rva003FF0E7DwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 #include "../../Include/GameLogic/CreateAHeroData.h"
 #include "../../Include/Common/Rva0040A3F9.h"
 #include "../../Include/GameLogic/CreateAHeroManager.h"

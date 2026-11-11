@@ -227,11 +227,7 @@ public:
 };
 
 // The slot's +0x5C setter, rowed as a Disp8 dword setter.
-class Rva003FF0E7DwordSlot
-{
-public:
-	void set( Int value );
-};
+#include "../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 
 // The LAN slot's serial (+0x1C8) getter and setter, rowed as an AsciiString
 // RVO getter and its abutting setter.

@@ -233,7 +233,7 @@ inline __declspec(noinline) char *__cdecl Rva0044796CReadU16(char *src, unsigned
 }
 void Rva0056BDA5Split(unsigned char,char,char,unsigned char*,unsigned char*);
 AsciiString _Rva00621350GameInfoMapPath(const AsciiString&,bool);
-class Rva003FF0E7DwordSlot { public: void set(int); };
+#include "../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 // The admitted GameInfo address-named setter reproduces native map-mask +4C.
 
 #include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
