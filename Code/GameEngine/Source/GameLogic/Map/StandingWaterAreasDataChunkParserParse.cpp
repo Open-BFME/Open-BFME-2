@@ -71,11 +71,7 @@ public:
 	void parse(DataChunkInput &file, void *userData);
 };
 
-class Rva005CB283
-{
-public:
-	void rva005CB283(const Rva0030B9DD *polygon);
-};
+#include "../../../Include/GameLogic/Rva005CB283.h"
 
 
 struct StandingWaterPoints

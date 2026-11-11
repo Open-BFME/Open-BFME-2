@@ -24,11 +24,7 @@ public:
 	char m_pad08[0x2C - 8];
 };
 #include "../../../Include/Common/ElevatedAreaPolygon.h"
-class Rva005CB283
-{
-public:
-	void rva005CB283(const Rva0030B9DD *polygon);
-};
+#include "../../../Include/GameLogic/Rva005CB283.h"
 #include "../../../Include/GameLogic/WaterArea.h"
 // The wave area as Rva0030CAA9OwnerCtor.cpp lays it out.
 class VBase00C6EE28

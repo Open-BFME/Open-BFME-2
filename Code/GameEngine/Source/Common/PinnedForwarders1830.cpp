@@ -492,11 +492,7 @@ void Rva004FC176::rva004FC176(int a)
 		m_20->rva004E0D19(a);
 }
 
-class Rva005CB283
-{
-public:
-	void rva005CB283();
-};
+#include "../../Include/GameLogic/Rva005CB283.h"
 
 class Rva005CCB16
 {
