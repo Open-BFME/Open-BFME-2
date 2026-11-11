@@ -117,7 +117,7 @@ float Rva00503E17::rva00503E17()
 {
 	return Rva00503D26Evaluate(0.0f, g_Va00863BFC, 0.5f, 1.0f - m_14);
 }
-struct Rva002BE7DBValue { float x, y, z; };
+#include "../../Include/Common/Rva002BE7DBValue.h"
 class Rva002BE7DB { public: Rva002BE7DBValue &rva002BE7DB(Rva002BE7DBValue &out) const; };
 class Rva000643C0Value { public: Rva000643C0Value(void *); private: char m_data[0x1C]; };
 class Rva00504112 { public: void *rva00504112(void *rec); };

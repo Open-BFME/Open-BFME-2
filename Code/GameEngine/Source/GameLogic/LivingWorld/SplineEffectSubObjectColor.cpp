@@ -50,7 +50,7 @@ struct SplineGeometry
     _STL::vector<Rva004E34B1Color> colors;
 };
 
-struct Rva002BE7DBValue { float x,y,z; };
+#include "../../../Include/Common/Rva002BE7DBValue.h"
 class Rva002BE7DB {public:
     Rva002BE7DBValue &rva002BE7DB(Rva002BE7DBValue &) const;
 };

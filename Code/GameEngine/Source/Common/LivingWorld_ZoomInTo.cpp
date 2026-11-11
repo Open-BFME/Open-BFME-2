@@ -33,12 +33,7 @@ public:
 	void *rva00504138(int n);
 };
 
-struct Rva002BE7DBValue
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../Include/Common/Rva002BE7DBValue.h"
 
 class Rva002BE7DB
 {

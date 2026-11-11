@@ -7,12 +7,7 @@
 // eax (out) as source; caller 0x003FD584 fills [ebp-0x0c] from [ebp-0x28]
 // then reads [eax]/[eax+4]; frameless ret-4 with float needs /O1.
 
-struct Rva002BE7DBValue
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../Include/Common/Rva002BE7DBValue.h"
 
 class Rva002BE7DB
 {

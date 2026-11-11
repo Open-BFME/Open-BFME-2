@@ -24,12 +24,7 @@ struct Rva003FD584GlobalData
 	bool m_flag88; // +0x88
 };
 
-struct Rva002BE7DBValue
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../Include/Common/Rva002BE7DBValue.h"
 
 class Rva002BE7DB
 {

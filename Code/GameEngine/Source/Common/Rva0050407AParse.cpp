@@ -18,12 +18,7 @@ typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
 #include "../../Include/Common/INI/INI.h"
 
-struct Rva002BE7DBValue
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../Include/Common/Rva002BE7DBValue.h"
 
 class Rva002BE7DB
 {
