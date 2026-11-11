@@ -89,7 +89,7 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *,void *,const char *,const char *);
-class Rva005C39C4 { public: TreeHintRef00217D4C rva005C39C4(int); };
+#include "../../Include/Common/Rva005C39C4.h"
 class Rva005C3B3EUpdateView { public: virtual void unknown0(); virtual void update(); };
 // Native005C3B3E..005C3C0B EH RET0: requested fading dispatches
 // FadeOut through the existing AptCall wrapper; each populated source

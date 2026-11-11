@@ -17,11 +17,7 @@ struct Rva002BED91
 	TargetRef00217D4C *m_ptr;
 	void clear();
 };
-class Rva005C39C4
-{
-public:
-	TreeHintRef00217D4C rva005C39C4(int x);
-};
+#include "../../Include/Common/Rva005C39C4.h"
 struct Elem005F8484
 {
 	TreeHintRef00217D4C m_ref00;

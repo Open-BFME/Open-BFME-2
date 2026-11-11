@@ -30,7 +30,7 @@ private:
 struct TargetRef00217D4C {virtual void*destroy(unsigned);virtual void slot1();int references;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct TreeHintRef00217D4C {TargetRef00217D4C*m_ptr;TreeHintRef00217D4C(const TreeHintRef00217D4C&);TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}};
-class Rva005C39C4 {public:TreeHintRef00217D4C rva005C39C4(int);};
+#include "../../../../../Include/Common/Rva005C39C4.h"
 class Rva002BED91 {public:void clear();TargetRef00217D4C*ptr;};
 
 class BfmeAptWindowManager;extern BfmeAptWindowManager*g_bfmeAptWindowManager;
