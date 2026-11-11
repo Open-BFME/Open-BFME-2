@@ -59,11 +59,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 #include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-class Rva0081D520Owner
-{
-public:
-	void broadcast(int h, float a, float b, float c, float d);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0081D520Owner.h"
 
 // The window manager singleton at 0x009FE4CC and the transition/audio cell at
 // 0x009FDC14: each is only entered through its virtual slot +0x30.

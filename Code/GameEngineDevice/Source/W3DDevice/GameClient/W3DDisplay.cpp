@@ -514,7 +514,7 @@ class Rva0007F92AHost { public: void rva0007F92A(int, int); };
 
 #include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
 
-class Rva0081D520Owner { public: void broadcast(int, float, float, float, float); };
+#include "../../../Include/W3DDevice/GameClient/Rva0081D520Owner.h"
 
 #include "../../../../GameEngine/Include/Common/BfmeSelectionState.h"
 

@@ -474,11 +474,7 @@ public:
 	virtual void v65(int a, float b, float c, float d, float e, int f);
 };
 
-class Rva0081D520Owner
-{
-public:
-	void broadcast(int value, float x0, float y0, float x1, float y1);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0081D520Owner.h"
 
 class SlotOwner
 {
