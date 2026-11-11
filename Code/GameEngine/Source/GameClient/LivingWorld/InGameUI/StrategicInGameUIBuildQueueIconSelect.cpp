@@ -274,7 +274,7 @@ class SpawnArmy { public:
  virtual ~SpawnArmy();
  char pad04[0x2c-4]; AsciiString name; char pad30[0x48-0x30]; int m_48; char pad4C[0x58-0x4c];
 };
-class Rva003B8E89 { public: void *rva003B8E89(void *); };
+#include "../../../../Include/GameLogic/Rva003B8E89.h"
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 struct Rva005E72B4Production { int *begin,*end,*capacity; };
 class Rva005E72B4Queue { public:

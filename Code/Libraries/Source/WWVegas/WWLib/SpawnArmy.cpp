@@ -209,11 +209,7 @@ private:
 	unsigned char m_00[0x2C];
 	AsciiString m_2C;
 };
-class Rva003B8E89
-{
-public:
-	void *rva003B8E89(void *key);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva003B8E89.h"
 class BfmeY1038
 {
 public:

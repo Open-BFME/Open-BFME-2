@@ -45,7 +45,7 @@ struct Rva003F751ANode {char gap[0x18];int value;};
 class Rva003F751A {public:Rva003F751ANode*rva003F751A(const int*);};
 struct StrengthenKey {int minCount;float weaponBonus,armorBonus,experienceBonus;};
 struct StrengthenNugget {char gap[16];Rva003F751ANode*header;};
-class Rva003B8E89 {public:void*rva003B8E89(void*);};
+#include "../../../../../Include/GameLogic/Rva003B8E89.h"
 #include "../../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 class BfmeY1038 {public:int bfmeVal1038();};
 class Rva0033A674 {public:void*rva0033A674();};

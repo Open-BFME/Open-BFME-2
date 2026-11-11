@@ -123,7 +123,7 @@ struct Rva0059D90CSource
 	_STL::vector<int> m_ids40; // +0x40
 };
 
-class Rva003B8E89 { public: void *rva003B8E89(void *); };
+#include "../../../../Include/GameLogic/Rva003B8E89.h"
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
