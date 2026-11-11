@@ -166,11 +166,7 @@ namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_
 
 namespace _STL { template <> void vector<bool, allocator<bool> >::_M_insert_aux(_Bit_iter<_Bit_reference, _Bit_reference *>, bool); }
 
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *mask);
-};
+#include "../../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class

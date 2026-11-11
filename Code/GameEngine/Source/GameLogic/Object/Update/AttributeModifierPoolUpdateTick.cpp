@@ -20,7 +20,7 @@ namespace _STL { template <> unsigned int const & max<unsigned int>(unsigned int
 // bfme link decl-only end
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
 extern GameLogic *TheGameLogic;
-class Rva001E42F2 {public:void rva001E42F2(const int *);};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 class Object {public:void rva00293077(const void *);};
 class Rva00297360Element {public:
  ~Rva00297360Element();

@@ -231,7 +231,7 @@ public:
 	RespawnUpdateModuleData *m_helper;
 	Rva004AFB01Context *m_context;
 };
-class Rva001E42F2 { public: void rva001E42F2(const int *); };
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 struct RespawnUpdateData004AF182 {
     unsigned char before0C[0xC];
     int conditions0C[19];

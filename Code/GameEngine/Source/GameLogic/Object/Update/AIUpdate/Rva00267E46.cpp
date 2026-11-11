@@ -12,11 +12,7 @@ private:
 	unsigned int m_bits[19];
 };
 
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *x);
-};
+#include "../../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 class AIUpdateInterface
 {

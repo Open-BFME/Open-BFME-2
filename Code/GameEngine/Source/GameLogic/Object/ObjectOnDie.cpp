@@ -43,10 +43,7 @@ struct Rva0028F59A : public Rva00265254
 
 // The Object member 0x001E42F2 that takes the bit set's words, rowed as
 // Rva001E42F2::rva001E42F2.
-struct Rva001E42F2
-{
-	void rva001E42F2(const int *x);
-};
+#include "../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 struct ObjectStatusBits
 {

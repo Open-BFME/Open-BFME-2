@@ -149,7 +149,7 @@ public:
  Rva00265254(unsigned int,unsigned int,unsigned int,unsigned int);
  int bits[19];
 };
-class Rva001E42F2 { public: void rva001E42F2(const int *); };
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 struct FacingDirection : Coord3D {
  FacingDirection(float a,float b,float c) { x=a;y=b;z=c; }

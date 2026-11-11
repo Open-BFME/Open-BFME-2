@@ -375,7 +375,7 @@ struct ModifierObjectView {
     char pad[0x254]; ModifierBodyInterfaceView *body;
 };
 
-class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/GameClient/Drawable.h"

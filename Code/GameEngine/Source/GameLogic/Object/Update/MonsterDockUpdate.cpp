@@ -151,7 +151,7 @@ class MonsterDockUpdateModuleData { public: char m_pad00[0x14]; unsigned int m_a
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva001E42F2 {public: void rva001E42F2(const int *);};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 // tu-skeleton: 0x004A137F 27B ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 

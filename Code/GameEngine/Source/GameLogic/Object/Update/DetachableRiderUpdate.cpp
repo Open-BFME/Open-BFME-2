@@ -37,7 +37,7 @@ enum CommandSourceType{SOURCE2=2};
 enum UpdateSleepTime{FOREVER=0x3fffffff};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class BfmeSubBGB {public:bool rva00298893();};
-class Rva001E42F2 {public:void rva001E42F2(const int*);};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 template<int N>class VGap:public VGap<N-1>{public:virtual void gap(char(*)[N]);};
 template<>class VGap<0>{};
 class RiderInterface:public VGap<14>{public:virtual void release(Object*);};

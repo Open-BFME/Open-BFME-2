@@ -428,7 +428,7 @@ public:
  int bits[19];
 };
 
-class Rva001E42F2 { public: void rva001E42F2(const int *); };
+#include "../../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 #include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 

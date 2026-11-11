@@ -14,11 +14,7 @@
 
 #include "../../../../../Include/GameClient/Drawable.h"
 
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *x);
-};
+#include "../../../../../Include/GameLogic/Module/Rva001E42F2.h"
 
 class Rva00459864
 {

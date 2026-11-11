@@ -79,11 +79,7 @@ public:
 	WeaponTemplateSetHead(const WeaponTemplateSetHead &other); // 0x00045455
 	unsigned char m_data[0x4C];
 };
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *block);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 class Rva001E431E
 {
 public:
