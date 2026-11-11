@@ -41,11 +41,7 @@ public:
 	virtual void Remove_Render_Object(RenderObjClass *object);
 };
 
-class Gen0003AC38
-{
-public:
-	void handle(void *object);
-};
+#include "../../../../../../GameEngine/Include/Common/Gen0003AC38.h"
 
 // The scene the debris render object leaves is W3DDisplay's 3D scene.
 class RTS3DScene : public SceneClass

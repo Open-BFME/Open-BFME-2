@@ -55,11 +55,7 @@ void Rva003FB7C7::rva003FB7C7()
 		m_ptr->slot113(1);
 }
 
-class Gen0003AC38
-{
-public:
-	void handle(void *object);
-};
+#include "../../Include/Common/Gen0003AC38.h"
 
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
 

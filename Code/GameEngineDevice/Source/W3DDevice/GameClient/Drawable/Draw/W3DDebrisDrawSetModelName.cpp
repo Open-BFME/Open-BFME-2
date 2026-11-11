@@ -102,11 +102,7 @@ public:
 	};
 };
 
-class Gen0003AC38
-{
-public:
-	void handle(void *object);
-};
+#include "../../../../../../GameEngine/Include/Common/Gen0003AC38.h"
 
 class W3DShadowManager
 {

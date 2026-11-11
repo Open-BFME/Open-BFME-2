@@ -30,11 +30,7 @@ public:
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
-class Gen0003AC38
-{
-public:
-	void rva0009A338();
-};
+#include "../../Include/Common/Gen0003AC38.h"
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
 
 // ?update@W3DTerrainVisual@@UAEXXZ

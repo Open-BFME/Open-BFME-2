@@ -37,11 +37,7 @@ void *&vector<void *>::operator[](size_t __n) { return *(begin() + __n); }
 // pinned member `?handle@Gen0003AC38@@QAEXPAX@Z` gives exactly that shape:
 // Rva000518E0Thunk.cpp binds the two names with an /alternatename, and
 // reverse/symbols.csv pins this one at 0x000518E0.
-class Gen0003AC38
-{
-public:
-	void handle(void *p);
-};
+#include "../../../GameEngine/Include/Common/Gen0003AC38.h"
 
 class Gen0003AC38;
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
