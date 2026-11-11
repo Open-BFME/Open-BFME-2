@@ -21,7 +21,9 @@ and whitespace normalisation outside literals) is moved, not introduced: a TU me
 which git rarely rates as a rename. Each deleted unit's body credits at most
 one staged unit, and an edited body gets no credit. Enclosing namespace/class paths must also
 match, with anonymous namespaces recorded as `(anonymous)`. Ambiguous preprocessing,
-raw strings and alternative brace/bracket tokens receive no move credit.
+raw strings and alternative brace/bracket tokens receive no move credit; includes,
+pragmas, #undef and object-like #defines that cannot form a scope do not void it
+(scope_code), though a class that uses a name the unit #defines gets none.
 
 A unit that genuinely needs its own layout for a registered class (a
 deliberately different codegen view, proved by its bytes) can say so on any
@@ -393,19 +395,114 @@ def proven_scope_statement(statement):
         r'(?:\[[^;{}]*\]\s*)*(?:\([^;{}]*\)\s*)?(?:=[^;{}]*)?', statement) is not None
 
 
+# A directive at a line start, or after a form feed or vertical tab (an
+# implementation may treat either as a line break), up to the end of its line.
+DIRECTIVE = re.compile(r'(?:^|[\f\v])[ \t\f\v]*(?P<directive>(?:#|%:)[^\n]*)', re.M)
+NEUTRAL_INCLUDE = re.compile(r'(?:#|%:)[ \t]*include\b.*')
+NEUTRAL_PRAGMA = re.compile(r'#[ \t]*pragma\b.*')
+NEUTRAL_UNDEF = re.compile(r'#[ \t]*undef[ \t]+(?P<name>[A-Za-z_]\w*)')
+NEUTRAL_DEFINE = re.compile(r'#[ \t]*define[ \t]+(?P<name>[A-Za-z_]\w*)(?:[ \t\f\v]+(?P<body>.*))?')
+# Every C++ and MSVC keyword: the scope proof reads these as keywords, so a
+# unit that redefines one (or `defined`) cannot be read lexically at all.
+KEYWORDS = frozenset("""
+    alignas alignof and and_eq asm auto bitand bitor bool break case catch char char8_t
+    char16_t char32_t class compl concept const consteval constexpr constinit const_cast
+    continue co_await co_return co_yield decltype default defined delete do double
+    dynamic_cast else enum explicit export extern false float for friend goto if inline int
+    long mutable namespace new noexcept not not_eq nullptr operator or or_eq private
+    protected public register reinterpret_cast requires return short signed sizeof static
+    static_assert static_cast struct switch template this thread_local throw true try
+    typedef typeid typename union unsigned using virtual void volatile wchar_t while xor
+    xor_eq __asm __based __cdecl __declspec __except __fastcall __finally __forceinline
+    __if_exists __if_not_exists __inline __int8 __int16 __int32 __int64 __interface
+    __leave __pragma __ptr32 __ptr64 __restrict __stdcall __thiscall __try __unaligned
+    __uuidof __w64 _Pragma
+""".split())
+
+
+def scope_code(text):
+    """(`text` masked for the scope scan, names its directives bind), or None.
+
+    Literals and comments are blanked with offsets kept. A unit earns move
+    credit only when every directive in it is provably scope-neutral, and each
+    accepted directive line is then blanked, since none of them is code:
+    - `#include` (or `%:include`): it adds declarations, never braces here;
+    - `#pragma`: it produces no tokens;
+    - `#undef NAME`;
+    - an object-like `#define NAME replacement` whose replacement holds no
+      `{`, `}`, `;`, `#`, digraph, trigraph or splice and balances its
+      parentheses and brackets: its expansion adds no brace or semicolon, so
+      the braces and semicolons this scan sees are exactly the compiler's.
+    Everything else returns None: conditionals (#if, #ifdef, #ifndef, #elif,
+    #else, #endif) can condition a scope, a function-like macro or a body with
+    `{`/`;` can manufacture one, and a `%:` directive other than an include,
+    #line, #error and anything unrecognised are not proven neutral. So does a
+    #define or #undef of a keyword, which this scan relies on, a directive line
+    ending in a splice, and a block comment that starts in a directive and
+    runs past its line (translation phase 3 turns it into one space, so the
+    directive would continue on a line this scan reads as code).
+
+    The names a #define or #undef binds are returned so moved_bodies can refuse
+    credit to a class whose head, body or enclosing path uses one: an
+    object-like macro cannot open a scope, but it can rename a class or
+    namespace, or change what a moved body's tokens mean.
+    """
+    code = LITERAL.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
+    spanning = [m.start() for m in LITERAL.finditer(text)
+                if m.group().startswith('/*') and '\n' in m.group()]
+    names = set()
+    blanks = []
+    for match in DIRECTIVE.finditer(code):
+        start, end = match.span('directive')
+        directive = match.group('directive').rstrip()
+        raw = text[start:end]
+        if (re.search(r'\\[ \t\f\v\r]*$', raw) or '??' in raw
+                or any(start <= pos < end for pos in spanning)):
+            return None
+        define = NEUTRAL_DEFINE.fullmatch(directive)
+        undef = NEUTRAL_UNDEF.fullmatch(directive)
+        if define:
+            body = define.group('body') or ''
+            if (re.search(r'[{};#\\]|%:|<%|%>|<:|:>', body)
+                    or not _balanced(body)):
+                return None
+            names.add(define.group('name'))
+        elif undef:
+            names.add(undef.group('name'))
+        elif not (NEUTRAL_INCLUDE.fullmatch(directive) or NEUTRAL_PRAGMA.fullmatch(directive)):
+            return None
+        blanks.append((start, end))
+    if names & KEYWORDS:
+        return None
+    for start, end in blanks:
+        code = code[:start] + ' ' * (end - start) + code[end:]
+    return code, names
+
+
+def _balanced(body):
+    """Whether `body`'s parentheses and brackets nest and close."""
+    stack = []
+    for char in re.findall(r'[()\[\]]', body):
+        if char in '([':
+            stack.append(char)
+        elif not stack or stack.pop() != '(['[char == ']']:
+            return False
+    return not stack
+
+
 def scoped_move_spans(text):
     """(name, start, end, enclosing path), or [] if scope proof is ambiguous.
 
     Unknown brace scopes cannot enclose a credited class. A bare macro before
     a scope head is likewise not evidence of global/namespace/class scope.
-    Includes are accepted; other directives can manufacture or condition scope
+    Includes, pragmas, #undef and scope-neutral object-like #defines are
+    accepted (scope_code); other directives can manufacture or condition scope
     and are refused. Check the whole unit's balance, not only a class's prefix.
     """
-    code = LITERAL.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
-    if re.search(r'^[ \t\f\v]*(?:#|%:)(?![ \t]*include\b)', code, re.M):
+    scanned = scope_code(text)
+    if scanned is None:
         return []
-    code = re.sub(r'^[ \t]*#[ \t]*include\b[^\n]*',
-                  lambda m: ' ' * len(m.group()), code, flags=re.M)
+    code = scanned[0]
     heads = {m.end() - 1: m for m in MOVE_HEAD.finditer(code)}
     namespaces = {m.end() - 1: m for m in MOVE_NAMESPACE.finditer(code)}
     linkage = {m.end() - 1 for m in class_layouts.LINKAGE.finditer(text)
@@ -462,6 +559,10 @@ def moved_bodies(text):
     if (re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
             or re.search(r"\?\?[=/'()!<>-]", text)):
         return {}
+    scanned = scope_code(text)
+    if scanned is None:
+        return {}
+    code, macros = scanned
     found, seen = {}, set()
     for name, start, end, scope in scoped_move_spans(text):
         # Unqualified keys cannot prove which of multiple bodies moved.
@@ -469,6 +570,10 @@ def moved_bodies(text):
         if name in seen:
             return {}
         seen.add(name)
+        # A name the unit #defines or #undefs may rename this class or an
+        # enclosing scope, or change what the body's tokens mean.
+        if macros & (set(re.findall(r'[A-Za-z_]\w*', code[start:end])) | set(scope)):
+            continue
         body = normalised_body(text[start:end])
         if body is not None:
             found[name] = (scope, body)

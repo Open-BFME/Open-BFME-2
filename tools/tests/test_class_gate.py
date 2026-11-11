@@ -499,6 +499,84 @@ def test_tu_merge_beside_a_template_still_refuses_an_edited_body(repo, capsys):
     assert rc == 1 and '`X`' in err
 
 
+# Directives that cannot form a scope no longer void a unit's move credit
+# (re_attempts.log: the AIStates.cpp and EntEnragedUpdate merges, whose seeds
+# carry an unrelated #define and #pragma, were refused as new private copies).
+NEUTRAL_DIRECTIVES = '#define X_FRAMES 30\n#pragma intrinsic(_ReadWriteBarrier)\n#undef Y_OLD\n#define EXPORT\n'
+
+
+@pytest.mark.parametrize('side', ['donor', 'destination', 'both'])
+def test_tu_merge_beside_neutral_directives_credits_the_moved_body(repo, capsys, side):
+    assert class_gate.moved_bodies(NEUTRAL_DIRECTIVES + X_BODY) == class_gate.moved_bodies(X_BODY)
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    old = (NEUTRAL_DIRECTIVES if side in ('donor', 'both') else '') + X_BODY
+    new = (NEUTRAL_DIRECTIVES if side in ('destination', 'both') else '') + X_BODY
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    # The scope-qualified identity reader (class_layouts) still cannot read a
+    # #define; in shadow mode it only reports, so the name check decides.
+    assert rc == 0
+    assert all('[shadow]' in line for line in err.splitlines())
+
+
+def test_tu_merge_beside_neutral_directives_still_refuses_an_edited_body(repo, capsys):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, X_BODY + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + NEUTRAL_DIRECTIVES + X_BODY.replace('int a;', 'int b;') + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+@pytest.mark.parametrize('ambiguous', [
+    '#define OPEN namespace A {\n' + X_BODY,
+    '#define OPEN }\n' + X_BODY,
+    '#define DECL int a;\n' + X_BODY,
+    '#define HASH #\n' + X_BODY,
+    '#define BRACE <%\n' + X_BODY,
+    '#define PAREN (\n' + X_BODY,
+    '#if 1\n' + X_BODY + '#endif\n',
+    '#ifdef A\n' + X_BODY + '#endif\n',
+    '#ifndef A\n#else\n' + X_BODY + '#endif\n',
+    '#define OPEN(a) namespace a {\n' + X_BODY,
+    '#define F(a) a\n' + X_BODY,
+    '%:define N 1\n' + X_BODY,
+    '%:pragma once\n' + X_BODY,
+    '#line 10\n' + X_BODY,
+    '#error no\n' + X_BODY,
+    '#\n' + X_BODY,
+    '#define int long\n' + X_BODY,
+    '#undef class\n' + X_BODY,
+    '#define N 1 /* the define\n continues */ {\n' + X_BODY + '}\n',
+    '#define T int\nclass X { T a; };\n',
+    '#define X Y\n' + X_BODY,
+    '#define S A\n' + scoped_x('namespace S'),
+    '#define S A\n' + scoped_x('class S'),
+])
+@pytest.mark.parametrize('side', ['donor', 'destination'])
+def test_scope_forming_directive_gets_no_move_credit(repo, capsys, ambiguous, side):
+    assert class_gate.moved_bodies(ambiguous) == {}
+    old, new = (ambiguous, X_BODY) if side == 'donor' else (X_BODY, ambiguous)
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+def test_macro_use_refuses_only_the_class_that_uses_it():
+    # An object-like macro cannot open a scope, so a class that does not use it keeps credit.
+    text = '#define T int\nclass Y { T b; };\n' + X_BODY
+    found = class_gate.moved_bodies(text)
+    assert found['X'] == class_gate.moved_bodies(X_BODY)['X']
+    assert 'Y' not in found
+
+
 def test_template_body_of_a_registered_class_is_never_credited(repo, capsys):
     # The donor's X is a template; a plain X in the merged unit is new.
     repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
