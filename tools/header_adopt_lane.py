@@ -1274,7 +1274,8 @@ def top_level_spans(shape, start, end, raw=None):
             depth += 1
         elif char == "}":
             depth -= 1
-            if depth == 0 and re.match(r"\s*(?:(?:public|private|protected)\s*:\s*)*(?:typedef\s+)?"
+            if depth == 0 and re.match(r"\s*(?:(?:public|private|protected)\s*:\s*)*"
+                                       r"(?:(?:typedef|const|volatile|mutable|static)\s+)*"
                                        r"(?:class|struct|union|enum)\b", shape[begin:index]):
                 pass                             # a type's definition runs to its `;` (`struct {...} s;`)
             elif depth == 0:
@@ -1347,11 +1348,14 @@ def param_key(param, top=True):
     if pointer:                                  # its own cv is top-level (ignored); names go, inner ones too
         declarator = " ".join(filter(None, [(pointer["calling"] or "").strip(),
                                             re.sub(r"\s+", "", pointer["scope"] + pointer["star"])]))
+        bounds = [re.sub(r"\s+", "", b) for b in re.findall(r"\[[^\]]*\]", pointer["bounds"])]
+        if top and bounds:                       # an array of pointers as a parameter is a pointer to one:
+            declarator, bounds = declarator + "*", bounds[1:]       # `(*p[2])[4]` -> `(**)[4]`
+        declarator += "".join(bounds)            # a field keeps them: `(*cb[2])(int)` -> `(*[2])(int)`
         base = param_key(pointer["base"], False)
         rest = pointer["rest"]
         if rest.startswith("["):
-            bounds, dims = re.sub(r"\s+", "", pointer["bounds"]), re.sub(r"\s+", "", rest)
-            return f"{base}({declarator}{bounds}){dims}"
+            return f"{base}({declarator}){re.sub(r'[ ]+', '', rest)}"
         close = rest.rindex(")")
         inner = ",".join(param_key(p) for p in param_list(rest[:close + 1]))
         return f"{base}({declarator})({inner}){' '.join(rest[close + 1:].split())}"
@@ -1549,8 +1553,8 @@ def member_role(member, short):
         return "directive"
     head = SPECIAL_QUALIFIERS.sub("", declaration_head(member))
     prefix, rest = template_head(head)
-    if re.match(r"(?:class|struct|union)\s*$", rest) or re.match(r"(?:struct|union)\s*$", head):
-        return None                              # an anonymous union or struct: layout
+    if re.match(r"(?:(?:const|volatile|mutable)\s+)*(?:class|struct|union)\s*$", rest):
+        return None                              # an anonymous union or struct, or an unnamed one's member: layout
     if re.match(r"friend\s+(?:class|struct|union)\s+[A-Za-z_][\w:]*\s*;?$", rest):
         return "friend class"
     if re.match(r"friend\b", rest):
@@ -1591,6 +1595,10 @@ def member_role(member, short):
         specifiers = first[:start.start()] if start else first
     if len(type_names(specifiers)) >= 2:
         return "macro"
+    if "," in top:                               # a list with a function in it (`void (*cb)(int), f();`)
+        shared, declarators = split_declarators(declaration_head(rest))
+        if any("(" in top_level(shared + d) and not pointer_declarator(shared + d) for d in declarators):
+            return "list"
     if has_call and POINTER_DATA.match(rest):
         has_call = False                         # a pointer to function or array: data
     elif has_call and PAREN_DECLARATOR.match(rest):
@@ -1786,8 +1794,18 @@ def data_member_fields(member, short):
             if part and member_role(part, short) is None:
                 out += data_member_fields(part, short)
         return out
-    head = declaration_head(member).strip()
-    pieces = split_top_commas(head)
+    specifiers, declarators = split_declarators(declaration_head(member))
+    out = []
+    for declarator in declarators:
+        name, qualifiers, shape = field_declarator(specifiers, declarator)
+        out.append({"name": name, "qualifiers": qualifiers, "shape": shape, "text": member})
+    return out
+
+
+def split_declarators(head):
+    """(shared specifiers, [declarator]) of one declaration without a body: `float x, *y` ->
+    (`float `, [`x`, ` *y`]); `const char *(*get)(int)` -> (`const char *`, [`(*get)(int)`])."""
+    pieces = split_top_commas(head.strip())
     pointer = pointer_declarator(pieces[0])
     found = DECLARATOR_START.search(top_level(pieces[0]))
     if pointer and pointer["name"]:              # `const char *(*get)(int)`: the declarator is the `(`
@@ -1797,12 +1815,7 @@ def data_member_fields(member, short):
     else:
         name = FIELD_NAME.search(top_level(pieces[0]))
         cut = name.start() if name else len(pieces[0])
-    specifiers = pieces[0][:cut]
-    out = []
-    for declarator in [pieces[0][cut:]] + pieces[1:]:
-        name, qualifiers, shape = field_declarator(specifiers, declarator)
-        out.append({"name": name, "qualifiers": qualifiers, "shape": shape, "text": member})
-    return out
+    return pieces[0][:cut], [pieces[0][cut:]] + pieces[1:]
 
 
 def split_top_commas(text):

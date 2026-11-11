@@ -1166,6 +1166,40 @@ def test_field_records_read_every_declarator(member, fields):
     assert [(r["name"], r["qualifiers"], r["shape"]) for r in records] == fields
 
 
+# Round 3 of GPT Sol's review: bounds of pointer declarators, mixed lists, qualified unnamed types.
+
+def test_an_array_of_function_pointers_keeps_its_bounds():
+    _, problems = special("C", {"a.cpp": "class C { public: static void (*cb[2])(int); int m; };\n",
+                                "b.cpp": "class C { public: static void (*cb[3])(int); int m; };\n"})
+    assert len(problems) == 1 and "declarations differ" in problems[0]
+    shapes = [r["shape"] for member in ("void (*cb[2])(int);", "void (*cb)(int);")
+              for r in lane.field_records("class C { public: %s };\n" % member, "C")]
+    assert shapes == ["void(*[2])(int)", "void(*)(int)"]
+
+
+@pytest.mark.parametrize("a,b,same", [
+    ("void f(int (*p[2])[4]);", "void f(int (*q[3])[4]);", True),    # the outer array decays: one function
+    ("void f(void (*p[2])(int));", "void f(void (*p)(int));", False),  # a pointer to pointers is not one
+])
+def test_parameter_declarators_adjust_their_outer_array(a, b, same):
+    key = lambda member: lane.declaration_records("class C { public: %s };\n" % member, "C")[0]["key"]  # noqa: E731
+    assert (key(a) == key(b)) is same
+    assert key("void f(int (*p[2])[4]);") == "f(int(**)[4])"
+
+
+def test_a_list_mixing_a_field_and_a_function_holds():
+    view = "struct C { void (*cb)(int), f(); int m; };\n"
+    assert [r["role"] for r in lane.declaration_records(view, "C")] == ["list"]
+    _, problems = special("C", {"a.cpp": view})
+    assert len(problems) == 1 and "a declaration of several members" in problems[0]
+
+
+def test_a_qualified_unnamed_struct_member_is_one_field():
+    view = "struct C { const struct { int a; } s; int m; };\n"
+    assert lane.declaration_records(view, "C") == []
+    assert [(r["name"], r["qualifiers"]) for r in lane.field_records(view, "C")] == [("s", {"const@0"}), ("m", set())]
+
+
 def test_a_function_pointer_fields_qualifier_is_carried_or_held():
     contract = {"class": "C", "key": "struct", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
                 "fields": [{"kind": "P", "type": "void*", "name": "cb"}]}
