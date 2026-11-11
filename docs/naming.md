@@ -1398,6 +1398,14 @@ two review rounds set where the evidence ends:
   that element's rowed destructor to `??_L` or `??_M`, and the rebuilt row must bind that
   destructor at each push and the iterator at each call. Its spellings swap the element and
   nothing else. The one entry is Render2DSentenceClass's renderer vector (P104).
+  A map rowed on a stand-in struct where retail's key is a builtin is a `StandInScalarKeyFamily`: no class
+  exists to prove it, so retail's own handling of the key does. A member reached from the family's copy by a
+  chain of calls copies the key as one load and one store of the builtin's width. A row that calls a family row
+  and a member compares the key at that width and branches with the builtin's signedness. Each spelling swaps
+  the struct for the builtin and nothing else, compared on decoded trees (the back-references renumber). The
+  members are the same map's rows elsewhere, over the value type the respelled copy builds. A pin's fact may
+  also lie in the row at another of the family's pins (a call the pinned body makes). Only `unsigned int` is a
+  key this route proves; the one entry is the pathfinder's map<unsigned int,int> copy (P139).
 - **code identity** (`--identity`): a placeholder-typed operator, special member
   or template member whose bytes match while its calls bind the wrong
   instantiation. A callee's class does not prove the caller's (`mov

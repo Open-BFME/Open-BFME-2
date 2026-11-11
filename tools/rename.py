@@ -4773,6 +4773,58 @@ def stand_in_element_problem(ctx, rows, family):
     return None
 
 
+def scalar_key_problem(ctx, rows, family):
+    """Why the ledger does not tie a StandInScalarKeyFamily to its key, or None. The stand-in is neither registered
+    nor has a constructor or destructor row of its own. Each member is rowed (matched) at its address under exactly
+    that name. Each row is the one row of its name at its address, with every fact inside it. Each fact a path or a
+    key fact states lies in the matched row its (row, fact) pair names. Each pin's facts lie in a family row, in the
+    row at the pin, or in the row at another of the family's pins (a call the pinned body makes). No respelling
+    changes an operator or identifier."""
+    import retail_identity
+    registered = {r.get("class") for r in ctx.dicts(CANONICAL_CLASSES)}
+    if family.old in registered:
+        return f"{family.old} is registered: a stand-in key is a placeholder no header owns"
+    own = sorted(r["name"] for r in rows if r["name"].startswith((f"??0{family.old}@@", f"??1{family.old}@@")))
+    if own:
+        return f"{family.old} has a constructor or destructor row of its own ({own[0]}): it is no size-only stand-in"
+    matched_at = {}
+    for r in rows:
+        if r.get("status") == "matched" and _rva(r.get("target_rva")) is not None:
+            matched_at.setdefault(_rva(r.get("target_rva")), []).append(r)
+
+    def inside(fact, start, size):
+        return start <= fact.site and fact.site + len(retail_identity.expected(fact)) <= start + size
+
+    def in_row_at(fact, at):
+        return any(inside(fact, at, int(r["target_size"])) for r in matched_at.get(at, ()))
+
+    for at, name in sorted(family.members.items()):
+        if [r["name"] for r in matched_at.get(at, ())].count(name) != 1:
+            return f"{name} is not rowed at 0x{at:08X}: the key's own instantiation is what ties the proof to it"
+    extents = []
+    for at, (old_name, facts) in sorted(family.rows.items()):
+        found = [r for r in matched_at.get(at, ()) if r["name"] == old_name]
+        if len(found) != 1:
+            return f"the row {old_name} is not the one matched row at 0x{at:08X}"
+        size = int(found[0]["target_size"])
+        outside = [f for f in facts if not inside(f, at, size)]
+        if outside:
+            return f"0x{outside[0].site:08X} is outside {old_name}'s row"
+        extents.append((at, size))
+    for at, fact in family.located():
+        if not in_row_at(fact, at):
+            return f"0x{fact.site:08X} ({fact.kind}) is in no matched row at 0x{at:08X}"
+    for at, (old_name, facts) in sorted(family.pins.items()):
+        for fact in facts:
+            if not (any(inside(fact, start, size) for start, size in extents) or in_row_at(fact, at)
+                    or any(in_row_at(fact, other) for other in family.pins if other != at)):
+                return f"0x{fact.site:08X}, a fact of the pin {old_name}, is in no row of the family or at its pins"
+    for old_name, new_name in sorted(family.spellings.items()):
+        if identity_head(old_name) != identity_head(new_name):
+            return f"{new_name} changes the operator or identifier of {old_name}"
+    return None
+
+
 def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(),
                         forced_moves=(), evidence="", max_files=25):
     """--respell --identity --basis retail: the whole family tools/retail_identity.py spells out, from
@@ -4801,8 +4853,13 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     no_table = isinstance(family, retail_identity.BodyFamily)
     slot_kind = isinstance(family, retail_identity.SlotOperandFamily)
     stand_in = isinstance(family, retail_identity.StandInElementFamily)
+    scalar_key = isinstance(family, retail_identity.StandInScalarKeyFamily)
     if slot_kind:
         problem = slot_operand_problem(rows, family)
+        if problem:
+            raise Refusal(problem)
+    elif scalar_key:
+        problem = scalar_key_problem(ctx, rows, family)
         if problem:
             raise Refusal(problem)
     elif stand_in:
@@ -5061,7 +5118,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         plan.identity.update(forced=forced, units_before=units_before)
     if slot_kind:
         plan.identity["operands"] = slot_operand_bindings(family, source_of[family.copy], primary["new"])
-    elif no_table or stand_in:
+    elif no_table or stand_in or scalar_key:
         by_rva = {e["rva"]: e["new"] for e in entries}
         plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
         plan.identity["retired"] = sorted((name, at, family.members[at]) for at, (name, _f) in retired.items())

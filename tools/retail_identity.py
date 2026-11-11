@@ -36,7 +36,9 @@ IMAGE_BASE = 0x00400000
 # kind: stores (a dword store of `value` through opcode `code`), calls or jumps (E8/E9 rel32
 # to `value`), stride or offset (the instruction `code`, whose operand is `value`), slot (one word of a
 # vftable: `site` is the word, `value` the VA it holds, `code` (table VA, index, slot count); build it with slot()),
-# word (one word of a vftable, its length not stated; build it with word()).
+# word (one word of a vftable, its length not stated; build it with word()), copy (the instructions `code`, a load
+# and a store of one `value`-byte key), compare (the instructions `code`, a compare of the key with the field at
+# +`value` and the branch on it).
 Fact = collections.namedtuple("Fact", "kind site value code", defaults=(None,))
 # mov dword ptr [reg], imm32: the opcodes that write an object's first word, its vftable pointer
 VPTR_STORES = ("c700", "c701", "c702", "c703", "c706", "c707")
@@ -53,7 +55,7 @@ def expected(fact):
     if fact.kind in ("calls", "jumps"):
         opcode = b"\xe8" if fact.kind == "calls" else b"\xe9"
         return opcode + struct.pack("<i", fact.value - (fact.site + 5))
-    if fact.kind in ("stride", "offset"):
+    if fact.kind in ("stride", "offset", "copy", "compare"):
         return bytes.fromhex(fact.code)
     if fact.kind in ("slot", "word"):
         return struct.pack("<I", fact.value)
@@ -194,7 +196,7 @@ def facts_problems(facts):
 
 
 def _value(fact):
-    return f"{fact.value}" if fact.kind in ("stride", "offset") else f"0x{fact.value:08X}"
+    return f"{fact.value}" if fact.kind in ("stride", "offset", "copy", "compare") else f"0x{fact.value:08X}"
 
 
 def record(facts):
@@ -398,6 +400,184 @@ class StandInElementFamily:
     def facts(self):
         return [f for _name, facts in [*self.rows.values(), *self.duplicates.values(), *self.pins.values(),
                                        *self.retired.values()] for f in facts]
+
+    def evidence(self):
+        return record(self.rows[self.copy][1])
+
+
+# The builtin keys a StandInScalarKeyFamily may prove, by mangling code: the key's width in bytes, and the short jcc
+# opcodes a compare of the key may branch on. Only unsigned int (P139); another key is another reviewed entry.
+SCALAR_KEYS = {"I": (4, frozenset((0x72, 0x73, 0x76, 0x77)))}        # jb, jae, jbe, ja
+
+
+def scalar_swap(tree, old, code):
+    """`tree` (a rename.type_tree) with each struct `old` replaced by the builtin `code`: the whole respelling a
+    stand-in key allows. Back-references are resolved in the tree, so their renumbering is no difference."""
+    if tree == ("C", "U", ("Q", (("N", old),))):
+        return ("B", code)
+    if isinstance(tree, tuple):
+        return tuple(scalar_swap(node, old, code) for node in tree)
+    return tree
+
+
+def _subtrees(tree):
+    yield tree
+    if isinstance(tree, tuple):
+        for node in tree:
+            yield from _subtrees(node)
+
+
+def _whole(code):
+    """The instructions `code` decodes to, all of it, with operand details; ValueError if any byte is left over."""
+    from capstone import CS_ARCH_X86, CS_MODE_32, Cs
+    md = Cs(CS_ARCH_X86, CS_MODE_32)
+    md.detail = True
+    raw = bytes.fromhex(code)
+    out = list(md.disasm(raw, 0))
+    if sum(ins.size for ins in out) != len(raw):
+        raise ValueError(f"{code} does not decode whole")
+    return out
+
+
+def key_copy_problem(fact, width):
+    """Why `fact` is not one load and one store of a `width`-byte key through the same register, or None."""
+    from capstone.x86 import X86_OP_MEM, X86_OP_REG
+    try:
+        load, store, *rest = _whole(fact.code)
+    except ValueError as error:
+        return str(error)
+    ops = [list(load.operands), list(store.operands)]
+    if rest or load.mnemonic != "mov" or store.mnemonic != "mov" or any(len(o) != 2 for o in ops):
+        return f"{fact.code} is not one mov load and one mov store"
+    (dst, src), (mem, reg) = ops
+    if not (dst.type == X86_OP_REG and src.type == X86_OP_MEM and mem.type == X86_OP_MEM and reg.type == X86_OP_REG
+            and dst.reg == reg.reg):
+        return f"{fact.code} does not load a register from memory and store that register"
+    if {dst.size, src.size, mem.size, reg.size} != {width} or fact.value != width:
+        return f"{fact.code} moves {sorted({dst.size, src.size, mem.size, reg.size})} bytes, not the key's {width}"
+    return None
+
+
+def key_compare_problem(fact, width, branches):
+    """Why `fact` is not a `width`-byte compare with the field at +value, branched on by one of `branches`, or None."""
+    from capstone.x86 import X86_OP_MEM
+    try:
+        cmp, jcc, *rest = _whole(fact.code)
+    except ValueError as error:
+        return str(error)
+    if rest or cmp.mnemonic != "cmp" or len(cmp.operands) != 2:
+        return f"{fact.code} is not one cmp and one branch"
+    fields = [op for op in cmp.operands if op.type == X86_OP_MEM]
+    if len(fields) != 1 or fields[0].mem.disp != fact.value or {op.size for op in cmp.operands} != {width}:
+        return f"{fact.code} does not compare {width} bytes with the field at +{fact.value}"
+    if jcc.size != 2 or jcc.bytes[0] not in branches:
+        return f"{fact.code} branches with {jcc.mnemonic}, not with the key's signedness"
+    return None
+
+
+class StandInScalarKeyFamily:
+    """A map's helpers rowed on a size-only stand-in struct where retail's key is a builtin (P139). There is no class
+    to prove it, so retail's own handling of the key does, on the tree the family's copy builds:
+    - `key_copy` (row rva, copy fact): retail copies the key as one load and one store of the builtin's width. The
+      row is a member, reached from the family's `copy` along `copy_path`: (row rva, calls fact) pairs, the first in
+      `copy`, each call reaching the next pair's row and the last the copy fact's row.
+    - `key_compare` (row rva, compare fact): retail compares the key with the builtin's width and branches with its
+      signedness (SCALAR_KEYS). `compare_path`'s calls, all in that same row, reach a row of the family and a member.
+    `members` {rva: name} are rows instantiated over the value type the respelled copy builds (`pair<const key, V>`).
+    `rows`, `pins`, `spellings` and `bindings` are a StandInElementFamily's. Each spelling is scalar_swap of the old
+    one, compared on decoded trees. There are no duplicates or retired pins."""
+
+    def __init__(self, old, new, code, copy, spellings, members, bindings, rows, pins, key_copy, copy_path,
+                 key_compare, compare_path):
+        import rename                                  # lazily: rename imports this module inside its functions too
+        if code not in SCALAR_KEYS:
+            raise ValueError(f"{code!r} is no builtin key this route proves")
+        width, branches = SCALAR_KEYS[code]
+        for label, value in (("members", members), ("bindings", bindings), ("rows", rows),
+                             ("copy path", copy_path), ("compare path", compare_path)):
+            if not value:
+                raise ValueError(f"a scalar key family still needs its {label}")
+        if copy not in rows:
+            raise ValueError(f"0x{copy:08X} is not a row of the family")
+        claimed = [*rows.values(), *pins.values()]
+        if set(spellings) != {old_name for old_name, _facts in claimed}:
+            raise ValueError("every spelling is a row's or pin's and every row and pin has one")
+
+        def tree(name):
+            try:
+                return rename.type_tree(name)
+            except rename.Unparsed as error:
+                raise ValueError(f"{name} cannot be decoded: {error}") from None
+        for old_name, _facts in claimed:
+            if f"U{old}@@" not in old_name:
+                raise ValueError(f"{old_name} does not spell the stand-in {old}")
+            before, after = tree(old_name), tree(spellings[old_name])
+            if scalar_swap(before, old, code) != after or before == after:
+                raise ValueError(f"{old_name} must respell by the scalar swap alone ({old} to the builtin {code})")
+        key = ("CV", "$$CB", ("B", code))
+        value_types = {node for node in _subtrees(tree(spellings[rows[copy][0]]))
+                       if isinstance(node, tuple) and node[:2] == ("T", "pair") and node[2][:1] == (key,)}
+        if len(value_types) != 1:
+            raise ValueError(f"the respelled copy names {len(value_types)} value types over the key, not one")
+        value_type = next(iter(value_types))
+        for at, name in members.items():
+            if value_type not in set(_subtrees(tree(name))):
+                raise ValueError(f"member 0x{at:08X} {name} is no instantiation over the copy's value type")
+        if copy_path[0][0] != copy:
+            raise ValueError("the copy path starts in the family's copy")
+        hops = [*(at for at, _fact in copy_path[1:]), key_copy[0]]
+        for (at, fact), target in zip(copy_path, hops):
+            if fact.kind != "calls" or fact.value != target:
+                raise ValueError(f"0x{fact.site:08X} in 0x{at:08X} does not call 0x{target:08X}, the path's next row")
+        if key_copy[0] not in members:
+            raise ValueError(f"the key's copy at 0x{key_copy[0]:08X} is in no member")
+        if key_copy[1].kind != "copy":
+            raise ValueError("the key's copy must be a copy fact")
+        problem = key_copy_problem(key_copy[1], width)
+        if problem:
+            raise ValueError(f"the key's copy: {problem}")
+        if key_compare[1].kind != "compare":
+            raise ValueError("the key's compare must be a compare fact")
+        problem = key_compare_problem(key_compare[1], width, branches)
+        if problem:
+            raise ValueError(f"the key's compare: {problem}")
+        if any(at != key_compare[0] or fact.kind != "calls" for at, fact in compare_path):
+            raise ValueError("the compare path is calls in the compare's own row")
+        reached = {fact.value for _at, fact in compare_path}
+        if not reached & set(rows) or not reached & set(members):
+            raise ValueError("the compare's row must reach a row of the family and a member")
+        named = dict(members)
+        named.update({at: spellings[name] for at, (name, _facts) in [*rows.items(), *pins.items()]})
+        reach = set(members) | set(rows) | set(pins)
+        for at, (old_name, facts) in rows.items():
+            if not any(f.kind == "calls" and f.value in reach for f in facts):
+                raise ValueError(f"0x{at:08X} {old_name} reaches no member or row of the family by a call")
+        for at, offset, target in bindings:
+            if at not in rows:
+                raise ValueError(f"binding 0x{at:08X} is no row of the family")
+            fact = next((f for f in rows[at][1] if f.kind == "calls" and f.site == at + offset - 1), None)
+            if fact is None:
+                raise ValueError(f"0x{at:08X}+{offset} is not one of the row's own calls")
+            if named.get(fact.value) != target:
+                raise ValueError(f"0x{at:08X}+{offset} calls 0x{fact.value:08X}, which is not {target}")
+        if set(rows) - {at for at, _offset, _target in bindings}:
+            raise ValueError("every row needs a binding: a row with nothing to bind cannot show its key survived")
+        self.old, self.new, self.code, self.copy, self.spellings = old, new, code, copy, spellings
+        self.members, self.bindings, self.rows, self.pins = dict(members), tuple(bindings), rows, pins
+        self.key_copy, self.copy_path = key_copy, tuple(copy_path)
+        self.key_compare, self.compare_path = key_compare, tuple(compare_path)
+        self.value_type, self.duplicates, self.retired = value_type, {}, {}
+
+    def respell(self, name):
+        return self.spellings.get(name, name)
+
+    def located(self):
+        """[(row rva, fact)] for every fact a row other than the family's own holds: the paths and the key facts."""
+        return [*self.copy_path, self.key_copy, *self.compare_path, self.key_compare]
+
+    def facts(self):
+        return ([f for _name, facts in [*self.rows.values(), *self.pins.values()] for f in facts]
+                + [fact for _at, fact in self.located()])
 
     def evidence(self):
         return record(self.rows[self.copy][1])
@@ -739,7 +919,87 @@ SCORED_KILL_TRACKER_VECTOR = StandInElementFamily(
         0x00414793: (_SKT_RETIRED[0x00414793], (C("calls", 0x00414890, 0x00414793),)),
         0x0007E364: (_SKT_RETIRED[0x0007E364], (C("calls", 0x004148A0, 0x0007E364),)),
     })
-FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR)
+_UI_OLD = "Rva00534581Element"
+_UI_TREE_OLD = ("?$_Rb_tree@URva00534581Element@@U?$pair@$$CBURva00534581Element@@H@_STL@@U?$_Select1st@U?$pair@$$CB"
+                "URva00534581Element@@H@_STL@@@3@U?$less@URva00534581Element@@@3@V?$allocator@U?$pair@$$CB"
+                "URva00534581Element@@H@_STL@@@3@@_STL@@")
+_UI_TREE = ("?$_Rb_tree@IU?$pair@$$CBIH@_STL@@U?$_Select1st@U?$pair@$$CBIH@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@"
+            "$$CBIH@_STL@@@2@@_STL@@")
+_UI_PAIR_OLD, _UI_PAIR = "U?$pair@$$CBURva00534581Element@@H@_STL@@", "U?$pair@$$CBIH@_STL@@"
+# the node type as a tree member spells it, where _STL is the back-reference 2
+_UI_NODE_OLD, _UI_NODE = f"?$_Rb_tree_node@{_UI_PAIR_OLD}@2@", f"?$_Rb_tree_node@{_UI_PAIR}@2@"
+_UI_SPELLINGS = {
+    # rows
+    f"??0{_UI_TREE_OLD}QAE@ABV01@@Z": f"??0{_UI_TREE}QAE@ABV01@@Z",
+    ("??0?$map@URva00534581Element@@HU?$less@URva00534581Element@@@_STL@@V?$allocator@U?$pair@$$CBURva00534581Element"
+     "@@H@_STL@@@3@@_STL@@QAE@ABV01@@Z"): "??0?$map@IHU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIH@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+    f"??0Rva005344C0@@QAE@PBHABV{_UI_TREE_OLD}@Z": f"??0Rva005344C0@@QAE@PBHABV{_UI_TREE}@Z",
+    # pins
+    (f"?get_allocator@?$_Rb_tree_base@{_UI_PAIR_OLD}V?$allocator@{_UI_PAIR_OLD}@2@@_STL@@QBE?AV?$allocator@"
+     f"{_UI_PAIR_OLD}@2@XZ"):
+        f"?get_allocator@?$_Rb_tree_base@{_UI_PAIR}V?$allocator@{_UI_PAIR}@2@@_STL@@QBE?AV?$allocator@{_UI_PAIR}@2@XZ",
+    f"??0?$_Rb_tree_base@{_UI_PAIR_OLD}V?$allocator@{_UI_PAIR_OLD}@2@@_STL@@QAE@ABV?$allocator@{_UI_PAIR_OLD}@1@@Z":
+        f"??0?$_Rb_tree_base@{_UI_PAIR}V?$allocator@{_UI_PAIR}@2@@_STL@@QAE@ABV?$allocator@{_UI_PAIR}@1@@Z",
+    f"?_M_copy@{_UI_TREE_OLD}AAEPAU{_UI_NODE_OLD}PAU32@0@Z": f"?_M_copy@{_UI_TREE}AAEPAU{_UI_NODE}PAU32@0@Z",
+    ("??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBURva00534581Element@@H@_STL@@@_STL@@U12@V?$allocator@U?$"
+     "_Rb_tree_node@U?$pair@$$CBURva00534581Element@@H@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$"
+     "pair@$$CBURva00534581Element@@H@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBURva00534581Element@@H@_STL@@@1@@Z"):
+        ("??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBIH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$"
+         "pair@$$CBIH@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBIH@_STL@@@_STL@@@1@PAU?$"
+         "_Rb_tree_node@U?$pair@$$CBIH@_STL@@@1@@Z"),
+}
+_UI_ROW_NAMES = {0x00534581: f"??0{_UI_TREE_OLD}QAE@ABV01@@Z",
+                 0x0053462F: next(n for n in _UI_SPELLINGS if n.startswith("??0?$map@")),
+                 0x005346BC: f"??0Rva005344C0@@QAE@PBHABV{_UI_TREE_OLD}@Z"}
+_UI_PIN_NAMES = {0x0021983A: next(n for n in _UI_SPELLINGS if n.startswith("?get_allocator@")),
+                 0x001F0534: next(n for n in _UI_SPELLINGS if n.startswith("??0?$_Rb_tree_base@")),
+                 0x005344C8: next(n for n in _UI_SPELLINGS if n.startswith("?_M_copy@")),
+                 0x0014F3C4: next(n for n in _UI_SPELLINGS if n.startswith("??0?$_STLP_alloc_proxy@"))}
+
+# The pathfinder's map<unsigned int,int> copy (P139). Its copy chain was rowed on Rva00534581Element, a struct
+# holding one short, so the link copied and compared the key at 16 bits. No class can prove a builtin, so retail's
+# handling of the key does. _Construct, which the copy reaches through _M_copy, _M_clone_node and _M_create_node, moves
+# the key as one dword. subscript, which builds its pair through the family's 0x005346BC and looks the key up through
+# the map's rowed _M_lower_bound, compares it as an unsigned dword (jae). The members are PathDoXfer.cpp's rows of the
+# same map.
+MAP_UINT_INT_COPY = StandInScalarKeyFamily(
+    old=_UI_OLD, new="unsigned int", code="I", copy=0x00534581, spellings=dict(_UI_SPELLINGS),
+    members={
+        0x00382B7F: f"?_M_create_node@{_UI_TREE}IAEPAU{_UI_NODE}ABU?$pair@$$CBIH@2@@Z",
+        0x0060C9D9: "??$_Construct@U?$pair@$$CBIH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBIH@0@ABU10@@Z",
+        0x004FF3B6: f"?_M_lower_bound@{_UI_TREE}ABEPAU{_UI_NODE}ABI@Z",
+    },
+    bindings=(
+        (0x00534581, 0x1E, _UI_SPELLINGS[_UI_PIN_NAMES[0x0021983A]]),
+        (0x00534581, 0x26, _UI_SPELLINGS[_UI_PIN_NAMES[0x001F0534]]),
+        (0x00534581, 0x5C, _UI_SPELLINGS[_UI_PIN_NAMES[0x005344C8]]),
+        (0x0053462F, 0x08, _UI_SPELLINGS[_UI_ROW_NAMES[0x00534581]]),
+        (0x005346BC, 0x13, _UI_SPELLINGS[_UI_ROW_NAMES[0x00534581]]),
+    ),
+    rows={
+        # the tree's copy: get_allocator, the base constructor, then _M_copy of the source's root
+        0x00534581: (_UI_ROW_NAMES[0x00534581], (C("calls", 0x0053459E, 0x0021983A), C("calls", 0x005345A6, 0x001F0534),
+                                                 C("calls", 0x005345DC, 0x005344C8))),
+        # the map's copy and the pair's two-argument constructor copy the tree
+        0x0053462F: (_UI_ROW_NAMES[0x0053462F], (C("calls", 0x00534636, 0x00534581),)),
+        0x005346BC: (_UI_ROW_NAMES[0x005346BC], (C("calls", 0x005346CE, 0x00534581),)),
+    },
+    pins={
+        0x0021983A: (_UI_PIN_NAMES[0x0021983A], (C("calls", 0x0053459E, 0x0021983A),)),
+        0x001F0534: (_UI_PIN_NAMES[0x001F0534], (C("calls", 0x005345A6, 0x001F0534),)),
+        0x005344C8: (_UI_PIN_NAMES[0x005344C8], (C("calls", 0x005345DC, 0x005344C8),)),
+        # the base constructor's body builds its node allocator's proxy
+        0x0014F3C4: (_UI_PIN_NAMES[0x0014F3C4], (C("calls", 0x001F053F, 0x0014F3C4),)),
+    },
+    copy_path=((0x00534581, C("calls", 0x005345DC, 0x005344C8)), (0x005344C8, C("calls", 0x005344D5, 0x0053444F)),
+               (0x0053444F, C("calls", 0x00534458, 0x00382B7F)), (0x00382B7F, C("calls", 0x00382B93, 0x0060C9D9))),
+    # mov edx,[ecx]; mov [eax],edx: the key, one dword
+    key_copy=(0x0060C9D9, C("copy", 0x0060C9E5, 4, "8b118910")),
+    # cmp eax,[esi+10h]; jae: the key against the node's, unsigned
+    key_compare=(0x00534A2A, C("compare", 0x00534A4D, 0x10, "3b46107348")),
+    compare_path=((0x00534A2A, C("calls", 0x00534A40, 0x004FF3B6)), (0x00534A2A, C("calls", 0x00534A63, 0x005346BC))))
+FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR,
+            MAP_UINT_INT_COPY)
 
 # One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
 # treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at
