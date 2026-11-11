@@ -8,11 +8,7 @@
 // Tail refreshes via pinned 0x5A061B, snapshots timeGetTime, stamps m_4AC.
 
 #include <windows.h>
-class Rva00580172
-{
-public:
-	bool rva00580172();
-};
+#include "../../Include/GameNetwork/Rva00580172.h"
 
 #include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 

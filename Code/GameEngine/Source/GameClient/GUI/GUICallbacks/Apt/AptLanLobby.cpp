@@ -128,11 +128,7 @@ public:
 	void enable();
 };
 #include "../../../../../Include/GameClient/BfmeAptGameWindow.h"
-class Rva00580172
-{
-public:
-	bool rva00580172();
-};
+#include "../../../../../Include/GameNetwork/Rva00580172.h"
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

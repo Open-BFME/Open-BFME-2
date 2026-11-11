@@ -167,7 +167,7 @@ private:
 };
 
 // The existing state-change provider has the same receiver and field layout.
-class Rva00580172 { public: void rva00580182(int); };
+#include "../../Include/GameNetwork/Rva00580172.h"
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSorterDestructor.cpp
 
