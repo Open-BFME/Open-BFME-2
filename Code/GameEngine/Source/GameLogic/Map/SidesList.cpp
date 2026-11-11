@@ -308,11 +308,7 @@ public:
 	const char * name() const;
 };
 #include "../../../Include/Common/Rva005E39E0Named.h"
-class AIBuildable
-{
-public:
-	void addNeed(int a);
-};
+#include "../../../Include/Common/AIBuildable.h"
 #include "../../../Include/Common/Rva00420B2AZeroSetter.h"
 class Rva005FD8C1
 {

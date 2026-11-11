@@ -71,7 +71,7 @@ extern GameLogic*TheGameLogic;
 class Rva004E9378{public:bool rva004E9378();};
 #include "../../../Include/GameLogic/Rva00506B1B.h"
 class Rva0055ADD8{public:int failBuild(int);};
-class AIBuildable{public:int doCanMake(Player*);bool doBuild(Player*);};
+#include "../../../Include/Common/AIBuildable.h"
 class AIUnitBuilder{public:Object*Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);};
 struct Rva005996FFArg;
 class Rva005996FF{public:void unRegisterDozer(Rva005996FFArg*,bool);};

@@ -178,11 +178,7 @@ public:
 #include "../../../../../../GameEngine/Include/Common/Rva005E717ENamed.h"
 #include "../../../../../../GameEngine/Include/Common/Rva005CC5DFNamed.h"
 #include "../../../../../../GameEngine/Include/Common/Rva005E39E0Named.h"
-class AIBuildable
-{
-public:
-	void addNeed(int a);
-};
+#include "../../../../../../GameEngine/Include/Common/AIBuildable.h"
 #include "../../../../../../GameEngine/Include/Common/Overridable.h"
 
 // ?getModuleNameKey@W3DQuadrupedDraw@@UBE?AW4NameKeyType@@XZ @0xCA0CE

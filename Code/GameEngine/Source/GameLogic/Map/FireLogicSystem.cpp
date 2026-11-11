@@ -283,11 +283,7 @@ public:
 #include "../../../Include/Common/Rva005E717ENamed.h"
 #include "../../../Include/Common/Rva005CC5DFNamed.h"
 #include "../../../Include/Common/Rva005E39E0Named.h"
-class AIBuildable
-{
-public:
-	void addNeed(int a);
-};
+#include "../../../Include/Common/AIBuildable.h"
 #include "../../../Include/Common/Overridable.h"
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4Obje:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

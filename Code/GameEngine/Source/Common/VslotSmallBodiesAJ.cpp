@@ -292,11 +292,7 @@ public:
 
 #include "../../Include/Common/Rva005E39E0Named.h"
 
-class AIBuildable
-{
-public:
-	void addNeed(int a);
-};
+#include "../../Include/Common/AIBuildable.h"
 
 #include "../../Include/Common/Overridable.h"
 
