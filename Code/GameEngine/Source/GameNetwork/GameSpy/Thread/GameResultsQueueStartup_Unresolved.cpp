@@ -180,11 +180,7 @@ public:
 	BfmeNarrowRecord0041A5D2 *_M_last; // +0x08
 	BfmeNarrowRecord0041A5D2 **_M_node; // +0x0C
 };
-class Rva0041A3F7
-{
-public:
-	void rva0041A4A7();	// 0x0041A4A7, response pop_front
-};
+#include "../../../../Include/GameNetwork/Rva0041A3F7.h"
 
 class Rva0041A644 : public GameResultsInterface
 {

@@ -190,11 +190,7 @@ class Rva0041A3C4
 public:
 	void rva0041A486();	// 0x0041A486, request pop_front
 };
-class Rva0041A3F7
-{
-public:
-	void rva0041A4A7();	// 0x0041A4A7, response pop_front
-};
+#include "../../../../Include/GameNetwork/Rva0041A3F7.h"
 
 class Rva0041A644 : public GameResultsInterface
 {
