@@ -2476,3 +2476,14 @@ tables at 0x008172A8 and 0x007F8FE4 still need identity reconciliation.
 Both fold dry runs reject the shared base restore at 0x0049C38A.
 See `reverse/attempt_support/partition-filter-constructors-3674bd.md` for
 the two slot maps, proposed signatures and reproduction commands.
+
+CastleMemberBehaviorModuleData, RVA 0x0081A380. The 41-byte constructor
+and 58-byte destructor now share a declaration on the canonical ModuleData
+base. The compiler installs the table in the constructor and emits identical
+124-byte tables with 31 DIR32 relocations in both units. Thirty entries
+resolve to retail's words using the ledgers and the object's weak deleting
+destructor default. Entry 14 references ModuleData::slot14(int) const;
+retail calls 0x000B69A1. This shared identity is still open. Verification:
+8/8 code rows, link preview 277/277 bytes at census 60189f9ced. The three
+CastleMemberBehavior tables belong to the behavior object itself and remain
+open. Real-link selection and runtime behavior await a new image.
