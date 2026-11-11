@@ -1,0 +1,351 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "AggregateDefClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 3
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x48": {
+    "1": 1,
+    "4": 2
+   },
+   "0x58": {
+    "4": 8
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x5c": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1a3be0",
+      "0x1a3ed0",
+      "0x1a3f60"
+     ],
+     "value": 92
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1a3be0",
+      "0x1a3ed0",
+      "0x1a3f60"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       1
+      ],
+      "0x15": [
+       1
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1a3be0",
+      "0x1a3ed0",
+      "0x1a3f60"
+     ],
+     "value": {
+      "0x0": [
+       "??4AggregateDefClass@@QAEABV0@ABV0@@Z",
+       "?Initialize@AggregateDefClass@@QAEXAAVRenderObjClass@@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x1a3be0",
+      "0x1a3ed0",
+      "0x1a3f60"
+     ],
+     "value": {
+      "0x8": [
+       "0x7d6c3c"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1a3be0",
+      "0x1a3ed0",
+      "0x1a3f60"
+     ],
+     "value": {
+      "0x0": "0x7d6c70"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d6c70"
+     ],
+     "value": {
+      "count": 17,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAggregateDefClass@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1a3f40"
+       },
+       {
+        "name": "?Load_W3D@AggregateDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+        "slot": 1,
+        "target": "0x1a3350"
+       },
+       {
+        "name": "?Save_W3D@AggregateDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+        "slot": 2,
+        "target": "0x1a35a0"
+       },
+       {
+        "name": "?Read_Header@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+        "slot": 3,
+        "target": "0x1a3400"
+       },
+       {
+        "name": "?Read_Info@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+        "slot": 4,
+        "target": "0x1a3460"
+       },
+       {
+        "name": "?Read_Subobject@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+        "slot": 5,
+        "target": "0x1a34d0"
+       },
+       {
+        "name": "?Read_Class_Info@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+        "slot": 6,
+        "target": "0x1a3560"
+       },
+       {
+        "name": "?Save_Header@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z",
+        "slot": 7,
+        "target": "0x1a35f0"
+       },
+       {
+        "name": "?Save_Info@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z",
+        "slot": 8,
+        "target": "0x1a3960"
+       },
+       {
+        "name": "?Save_Subobject@AggregateDefClass@@MAE_NAAVChunkSaveClass@@PAUW3dAggregateSubobjectStruct@@@Z",
+        "slot": 9,
+        "target": "0x1a3670"
+       },
+       {
+        "name": "?Save_Class_Info@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z",
+        "slot": 10,
+        "target": "0x1a3690"
+       },
+       {
+        "name": "?Attach_Subobjects@AggregateDefClass@@MAEXAAVRenderObjClass@@@Z",
+        "slot": 11,
+        "target": "0x1a3880"
+       },
+       {
+        "name": "?Find_Subobject@AggregateDefClass@@MAEPAVRenderObjClass@@AAV2@QAY0CA@$$CBD1@Z",
+        "slot": 12,
+        "target": "0x1a3190"
+       },
+       {
+        "name": "?Free_Subobject_List@AggregateDefClass@@MAEXXZ",
+        "slot": 13,
+        "target": "0x1a3830"
+       },
+       {
+        "name": "?Add_Subobject@AggregateDefClass@@MAEXABUW3dAggregateSubobjectStruct@@@Z",
+        "slot": 14,
+        "target": "0x1a3e20"
+       },
+       {
+        "name": "?Is_Object_In_List@AggregateDefClass@@MAE_NPBDAAV?$DynamicVectorClass@PAVRenderObjClass@@@@@Z",
+        "slot": 15,
+        "target": "0x1a38e0"
+       },
+       {
+        "name": "?Build_Subobject_List@AggregateDefClass@@MAEXAAVRenderObjClass@@0@Z",
+        "slot": 16,
+        "target": "0x1a4010"
+       }
+      ],
+      "table": "0x7d6c70"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x7d6c70": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAggregateDefClass@@UAEPAXI@Z",
+     "1": "?Load_W3D@AggregateDefClass@@UAE_NAAVChunkLoadClass@@@Z",
+     "2": "?Save_W3D@AggregateDefClass@@UAE_NAAVChunkSaveClass@@@Z",
+     "3": "?Read_Header@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+     "4": "?Read_Info@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+     "5": "?Read_Subobject@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+     "6": "?Read_Class_Info@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z",
+     "7": "?Save_Header@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z",
+     "8": "?Save_Info@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z",
+     "9": "?Save_Subobject@AggregateDefClass@@MAE_NAAVChunkSaveClass@@PAUW3dAggregateSubobjectStruct@@@Z",
+     "10": "?Save_Class_Info@AggregateDefClass@@MAE_NAAVChunkSaveClass@@@Z",
+     "11": "?Attach_Subobjects@AggregateDefClass@@MAEXAAVRenderObjClass@@@Z",
+     "12": "?Find_Subobject@AggregateDefClass@@MAEPAVRenderObjClass@@AAV2@QAY0CA@$$CBD1@Z",
+     "13": "?Free_Subobject_List@AggregateDefClass@@MAEXXZ",
+     "14": "?Add_Subobject@AggregateDefClass@@MAEXABUW3dAggregateSubobjectStruct@@@Z",
+     "15": "?Is_Object_In_List@AggregateDefClass@@MAE_NPBDAAV?$DynamicVectorClass@PAVRenderObjClass@@@@@Z",
+     "16": "?Build_Subobject_List@AggregateDefClass@@MAEXAAVRenderObjClass@@0@Z"
+    },
+    "stores": 3
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 2,
+   "92": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/agg_def.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 92,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slotLoad(ChunkLoadClass*)"
+  }
+ }
+}

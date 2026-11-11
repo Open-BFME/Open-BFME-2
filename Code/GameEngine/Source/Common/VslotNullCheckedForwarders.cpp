@@ -246,11 +246,7 @@ Int Rva0018036CNullForwarder::rva0018036C()
 }
 
 // rowed as ?rva001A3930@AggregateDefClass@@QBEHXZ (AggregateDefRva001A3930.cpp)
-class AggregateDefClass
-{
-public:
-	Int rva001A3930() const;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/AggregateDefClass.h"
 
 class Rva00180AA6NullForwarder
 {

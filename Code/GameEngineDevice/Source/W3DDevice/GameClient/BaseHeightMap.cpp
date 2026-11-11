@@ -576,11 +576,7 @@ public:
 };
 
 // rowed as ?rva001A3930@AggregateDefClass@@QBEHXZ (AggregateDefRva001A3930.cpp)
-class AggregateDefClass
-{
-public:
-	Int rva001A3930() const;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/AggregateDefClass.h"
 
 // ConnectionManager methods rowed under their real names (ConnectionManager*.cpp,
 // ConnectionManagerLocalSlot.cpp) that the Network forwarders below reach.

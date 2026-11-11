@@ -13,11 +13,7 @@
 // The callee at 0x1A3140 is AggregateDefClass::Create (agg_def.cpp); only that
 // member is declared here.
 class RenderObjClass;
-class AggregateDefClass
-{
-public:
-    RenderObjClass *Create(void);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/AggregateDefClass.h"
 
 class Rva00180AD6HelperOwner
 {

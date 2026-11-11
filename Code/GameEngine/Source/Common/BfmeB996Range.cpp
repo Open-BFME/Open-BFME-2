@@ -238,11 +238,7 @@ private:
 // member is declared here.
 class RenderObjClass;
 
-class AggregateDefClass
-{
-public:
-    RenderObjClass *Create(void);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/AggregateDefClass.h"
 
 //
 // Ported from Open-BFME-1 GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp
