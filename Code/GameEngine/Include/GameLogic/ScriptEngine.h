@@ -81,6 +81,7 @@ class Rva00355950Arr;
 class Script;
 class ScriptAction;
 struct ScriptCounter;
+struct ScriptFlagKeyNode;
 class SequentialScript;
 class Team;
 class TeamPrototype;
@@ -298,9 +299,17 @@ private:
 	unsigned char m_opaque134[0x1A138 - 0x1A134];		// +0x1A134
 public:
 	TFade m_fade;										// +0x1A138: setFade 0x0020378C, updateFades 0x0020376E
-private:
-	unsigned char m_opaque13C[0x1A15C - 0x1A13C];		// +0x1A13C: fade flag, fade values and frame counts
-public:
+	// The rest of the camera-fade block (Zero Hour's names; the active flag is
+	// BFME2's): setFade 0x00203777 stores every field, updateFades 0x002036CC
+	// reads them back.
+	Bool m_fadeActive;									// +0x1A13C: setFade 0x00203855, updateFades 0x002036DF
+	float m_minFade;									// +0x1A140: setFade 0x002037DD, updateFades 0x002036EC
+	float m_maxFade;									// +0x1A144: setFade 0x002037F3, updateFades 0x002036FA
+	float m_curFadeValue;								// +0x1A148: setFade 0x00203848, updateFades 0x00203722
+	int m_curFadeFrame;									// +0x1A14C: setFade 0x002037C6, updateFades 0x002036D2
+	int m_fadeFramesIncrease;							// +0x1A150: setFade 0x00203809, updateFades 0x002036CC
+	int m_fadeFramesHold;								// +0x1A154: setFade 0x0020381F, updateFades 0x00203712
+	int m_fadeFramesDecrease;							// +0x1A158: setFade 0x0020383C, updateFades 0x0020372C
 	unsigned int m_frameObjectCountChanged;				// +0x1A15C: ctor 0x00208509
 private:
 	unsigned char m_opaque160[0x1A258 - 0x1A160];		// +0x1A160: object counts, completed-video list
@@ -312,8 +321,9 @@ public:
 	unsigned char m_opaque258[0x1A260 - 0x1A258];		// +0x1A258
 #endif
 private:
-	unsigned char m_opaque260[0x1A268 - 0x1A260];		// +0x1A260: interaction lists
+	unsigned char m_opaque260[0x1A264 - 0x1A260];		// +0x1A260: interaction list
 public:
+	ScriptFlagKeyNode *m_flagKeys;						// +0x1A264: list head of flag-name CRCs, evaluateFlag 0x002093E3
 	// The ctor builds 20 of each array (0x00208584..0x002085F0).
 #ifdef _STLP_INTERNAL_LIST_H
 	std::list<BfmeSpecialPowerTimer8> m_triggeredSpecialPowers[20];	// +0x1A268: rva00357E7B 0x00357E9C, rva003571B8 0x003571CC

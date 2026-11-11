@@ -182,58 +182,10 @@ public:
  unsigned char m_24;
  SequentialScript *m_28;
 };
-class ScriptEngine
-{
-public:
- void appendSequentialScript(const SequentialScript *script);
-	AsciiString getStats( Real *curTimePtr, Real *script1Time, Real *script2Time );
-	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
-	bool evaluateTimer(Condition *condition);
-	bool evaluateFlag(Condition *condition);
-
-protected:
-    enum TFade { FADE_NONE, FADE_SUBTRACT, FADE_ADD, FADE_SATURATE, FADE_MULTIPLY };
-    // ?setFade@ScriptEngine@@IAEXPAVScriptAction@@@Z, retail 0x00203777 (232B),
-    // and the per-frame ?updateFades@ScriptEngine@@IAEXXZ at 0x002036CC.
-    void setFade(ScriptAction *action);
-    void updateFades();
-	bool evaluateCounter(Condition *pCondition);	// 0x00208F61
-	bool evaluateCondition(Condition *pCondition);
-	void setSway(ScriptAction *pAction);
-	ScriptCounter *bfmeCounter(AsciiString name);
-	bool *bfmeFlagForWrite(AsciiString name);		// 0x002088A0
-	void setTimer(ScriptAction *action, bool millisecondTimer, bool random);
-	void pauseTimer(ScriptAction *action);
-	void restartTimer(ScriptAction *action);
-	void adjustTimer(ScriptAction *action, bool millisecondTimer, bool add);
-
-private:
-	unsigned char m_unreconstructed[0x10];
- _STL::vector<const ModuleData*> m_sequentialScripts;
- unsigned char m_unreconstructed1c[0x17604 - 0x1c];
-	BreezeInfo m_breezeInfo;
-	unsigned char m_unreconstructed17620[0x1a110 - 0x17620];
-	Team *m_callingTeam;						// +0x1A110
-	unsigned char m_unreconstructed1A114[0x1a130 - 0x1a114];
-	Player *m_currentPlayer;					// +0x1A130
-	char m_pad1A134[4];					// +0x1A134
-	// The camera-fade block: the fade setter 0x00203777 writes it and the
-	// per-frame updateFades 0x002036CC walks the increase/hold/decrease
-	// frame counts. Layout and field order are read from the retail bytes.
-	int m_fade;					// +0x1A138, TFade
-	bool m_fadeActive;				// +0x1A13C
-	float m_minFade;				// +0x1A140
-	float m_maxFade;				// +0x1A144
-	float m_curFadeValue;				// +0x1A148
-	int m_curFadeFrame;				// +0x1A14C
-	int m_fadeFramesIncrease;			// +0x1A150
-	int m_fadeFramesHold;				// +0x1A154
-	int m_fadeFramesDecrease;			// +0x1A158
-	unsigned char m_unreconstructed1A15C[0x1a264 - 0x1a15c];
-	ScriptFlagKeyNode *m_flagKeys;				// +0x1A264, list header
-};
-// GLOBALS (ZH ScriptEngine.cpp:143, the one definition in the game's ZH source)
-extern ScriptEngine *TheScriptEngine;
+// The engine is the canonical class (ZH ScriptEngine.cpp:143 defines
+// TheScriptEngine); the fade block, flag-key list and sequential-script
+// vector these bodies use are typed there.
+#include "../../../Include/GameLogic/ScriptEngine.h"
 // 0x00203693, the engine's current mode mask (2 or 1), is rowed as
 // Rva00203693Host::rva00203693; evaluateCondition calls it through a view of
 // the engine.
@@ -1716,8 +1668,8 @@ void ScriptEngine::appendSequentialScript(const SequentialScript *script) {
  reinterpret_cast<Rva003B24C7*>(created->m_14.m_count0+0x10)->rva003B24C7(true);
  created->m_28=0;
  created->m_14.m_index0=-1;
- for(_STL::vector<const ModuleData*>::iterator it=m_sequentialScripts.begin();it!=m_sequentialScripts.end();++it) {
-  SequentialScript *current=reinterpret_cast<SequentialScript*>(const_cast<ModuleData*>(*it));
+ for(VecSequentialScriptPtrIt it=m_sequentialScripts.begin();it!=m_sequentialScripts.end();++it) {
+  SequentialScript *current=*it;
   if(!current) continue;
   if((script->m_08 && script->m_08==current->m_08) || (script->m_04 && script->m_04==current->m_04)) {
    while(current->m_28) current=current->m_28;
@@ -1725,7 +1677,9 @@ void ScriptEngine::appendSequentialScript(const SequentialScript *script) {
    return;
   }
  }
- m_sequentialScripts.push_back(reinterpret_cast<const ModuleData* const&>(created));
+ // The append goes through the pointer vector's ModuleData instantiation,
+ // the growth body retail calls (see the vector view note above).
+ reinterpret_cast<_STL::vector<const ModuleData*>&>(m_sequentialScripts).push_back(reinterpret_cast<const ModuleData* const&>(created));
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva002039B6Host.cpp
