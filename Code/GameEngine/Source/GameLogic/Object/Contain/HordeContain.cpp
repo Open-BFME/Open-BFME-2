@@ -552,11 +552,7 @@ public:
 	_STL::map<int, int> m_map;
 };
 
-class BfmeSubBIC
-{
-public:
-	int bfmeAskBIC();
-};
+#include "../../../../Include/GameClient/BfmeSubBIC.h"
 
 class ThingTemplate;
 

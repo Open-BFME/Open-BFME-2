@@ -12,11 +12,7 @@ extern int BfmeLogicFramesPerSecond;
 
 #include "../../../../Include/Common/Rva001E3591.h"
 
-class BfmeSubBIC
-{
-public:
-	int bfmeAskBIC();
-};
+#include "../../../../Include/GameClient/BfmeSubBIC.h"
 
 class Rva00265173
 {

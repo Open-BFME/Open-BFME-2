@@ -51,11 +51,7 @@ public:
 	virtual void slot00(Rva00297612Entry *entry);
 };
 #include "../../../Include/GameClient/Drawable.h"
-class BfmeSubBIC
-{
-public:
-	int bfmeAskBIC();
-};
+#include "../../../Include/GameClient/BfmeSubBIC.h"
 
 class Object
 {

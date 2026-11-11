@@ -29,11 +29,7 @@ struct Rva000B508ATemplate
 
 #include "../../Include/GameClient/Drawable.h"
 
-class BfmeSubBIC
-{
-public:
-	int bfmeAskBIC();
-};
+#include "../../Include/GameClient/BfmeSubBIC.h"
 
 class Rva000B508AInterface
 {

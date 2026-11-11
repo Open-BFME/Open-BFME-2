@@ -90,11 +90,7 @@ public:
     virtual void slotE0(); virtual void slotE4();
 };
 
-class BfmeSubBIC
-{
-public:
-    int bfmeAskBIC();
-};
+#include "../../Include/GameClient/BfmeSubBIC.h"
 
 // ?rva002754E3@Drawable@@QAEXXZ @0x002754E3 98B
 // Evidence: unlock lane, Drawable +0xFC Object, TheGameClient +0xB8, slots 0x3C/0xE4, rows rva0028C197/isLocallyControlled/rva00272BAB, pin bfmeAskBIC.
