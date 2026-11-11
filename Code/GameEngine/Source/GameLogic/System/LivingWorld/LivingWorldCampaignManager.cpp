@@ -16,7 +16,7 @@ typedef unsigned int UnsignedInt;
 // Address-only view of the receiver returned by the native active-entry lookup.
 // Its 27-byte folded getter copies the +4 AsciiString through the hidden result.
 // Neither the record class nor the getter's original identity is established.
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+#include "../../../../Include/Common/Rva00564DF2NameView.h"
 
 #include "../../../../Include/Common/GlobalData.h"
 

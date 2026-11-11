@@ -631,11 +631,7 @@ public:
 // record lookup by name 0x003B8D4D, the record's by-value name getter
 // 0x00564DF2, and the shared empty RET 4 0x0047A69C that TheLivingWorldLogic
 // receives the act name through (as CallActSubroutine 0x003B8D71 does).
-class Rva00564DF2NameView
-{
-public:
-	AsciiString rva00564DF2(void) const;
-};
+#include "../../Include/Common/Rva00564DF2NameView.h"
 
 #include "../../Include/Common/LivingWorldCampaignManager.h"
 

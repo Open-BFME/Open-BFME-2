@@ -266,7 +266,7 @@ class Rva0032A46C { public: void rva0032A46C(AsciiString s); };
 
 // The by-value getter of the AsciiString at +0x04, folded with other classes'
 // name getters at 0x00564DF2.
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+#include "../../../Include/Common/Rva00564DF2NameView.h"
 
 class BuildListInfo
 {

@@ -349,7 +349,7 @@ public:
 };
 
 // The building name is the folded by-value copy of +4, rowed under this view.
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+#include "../../../Include/Common/Rva00564DF2NameView.h"
 
 class Player
 {
