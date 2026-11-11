@@ -339,11 +339,7 @@ public:
 	}
 	UnsignedInt m_words[4];
 };
-class Rva00331682Holder
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 // The Object+0x370 address getter 0x0028B7AE.
 #include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 

@@ -11,11 +11,7 @@
 // Evidence: packet callees all rowed, prev/next Rva003743CF/Rva00373EC6
 // show BehaviorModule layout +4/+8, ThePlayerList and g_Va00BBB8D8 names
 // from packet externs in use.
-class Rva00331682Holder
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 class Player;
 #include "../../../../Include/GameClient/Drawable.h"
