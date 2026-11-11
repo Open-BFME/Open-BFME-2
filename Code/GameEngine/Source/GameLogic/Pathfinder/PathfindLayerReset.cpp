@@ -146,7 +146,7 @@ enum PathfindLayerEnum{LAYER_INVALID=-1,LAYER_GROUND=1,LAYER_FIRST_BRIDGE=16};
 int isGroundOrBridgeLayer(int);
 class LocomotorSet{public:char pad0[0x10];int m_surfaces;char pad14;unsigned char m_15;int getValidSurfaces()const{return m_surfaces;}};
 struct PathfindMovementProfile{int m_surfaces;bool m_crusher,m_terrainOnly;char pad6[2];int m_layer;unsigned char m_C;PathfindMovementProfile(int s):m_surfaces(s),m_crusher(false),m_terrainOnly(false),m_layer(-1){} };
-class Rva002E99F9Sub460{public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
+#include "../../../Include/GameLogic/Rva002E99F9Sub460.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"

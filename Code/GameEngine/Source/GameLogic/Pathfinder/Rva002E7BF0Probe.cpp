@@ -28,12 +28,7 @@ enum PathfindLayerEnum
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class Rva002E99F9Sub460
-{
-public:
-	unsigned short rva0053241F(void *locomotor, unsigned short zone);
-	unsigned short rva00531FD4(void *locomotor, unsigned short zone);
-};
+#include "../../../Include/GameLogic/Rva002E99F9Sub460.h"
 
 // pathfinder.cpp's cell-centre helper 0x002E79A8: it returns the centre by
 // value through the caller's temporary (whose address comes back in EAX).

@@ -793,14 +793,7 @@ private:
  Int iterateCellsAlongLine(const ICoord2D *, const ICoord2D *, PathfindLayerEnum, struct Rva002E85ADInfo *);
 };
 
-class Rva002E99F9Sub460
-{
-public:
-	unsigned short rva0053241F(void *, unsigned short);
- unsigned short rva00532041(Int,Int,Int,struct Rva00532041Record **);
- bool rva005318DB(void *,void *,void *);
-	unsigned short rva00531FD4(void *, unsigned short);
-};
+#include "../../../Include/GameLogic/Rva002E99F9Sub460.h"
 
 // The 0x002E8045 walk calls this ABI view. The callback at 0x002E7261
 // writes its result key at +8 and cell coordinates at +0xC/+0x10.

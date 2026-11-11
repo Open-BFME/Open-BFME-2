@@ -27,14 +27,7 @@ private:
 struct PathfindZoneParams;
 // WB12D2AB0/12D2C50 and native531757/5317D7 establish predicate owners.
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Rva002E99F9Sub460
-{
-public:
-	__declspec(noinline) unsigned short rva0053241F(void *s, unsigned short w);
-	unsigned short rva00531FD4(void *s, unsigned short w);
-	unsigned short rva00531FE6(bool force, void *item, unsigned short value);
-	bool rva005318DB(void *item, void *first, void *second);
-};
+#include "../../../Include/GameLogic/Rva002E99F9Sub460.h"
 struct Rva002E99F9Arg1
 {
 	char m_pad0[0x10];

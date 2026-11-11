@@ -20,12 +20,7 @@ struct Rva002E7261Info {Pathfinder *pathfinder;int structure;int zone;int x,y;};
 enum PathfindLayerEnum {OBSERVED_LAYER=1};
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Rva002E99F9Sub460
-{
-public:
-	unsigned short rva0053241F(void *locomotor, unsigned short zone);
-	unsigned short rva00531FD4(void *locomotor, unsigned short zone);
-};
+#include "../../../Include/GameLogic/Rva002E99F9Sub460.h"
 class Pathfinder {
 public:
 private:

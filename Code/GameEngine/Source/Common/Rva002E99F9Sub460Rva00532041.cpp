@@ -20,13 +20,7 @@ struct Rva00532041Record
 	char m_suffix[6];
 };
 
-class Rva002E99F9Sub460
-{
-public:
-	unsigned short rva00531FE6(bool mode, void *context, unsigned short value);	// row 0x00531FE6 spelling
-	unsigned short rva00532041(int context, int tableIndex, int recordIndex,
-		Rva00532041Record **records);
-};
+#include "../../Include/GameLogic/Rva002E99F9Sub460.h"
 
 unsigned short Rva002E99F9Sub460::rva00532041(
 	int context, int tableIndex, int recordIndex, Rva00532041Record **records)
