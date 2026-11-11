@@ -51,11 +51,7 @@ class CreateAHeroData;
 
 #include "../../../../GameEngine/Include/GameLogic/Rva002A8F24.h"
 
-class Rva004DFB55
-{
-public:
-	void rva004DFB55(CreateAHeroData *p);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva004DFB55.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

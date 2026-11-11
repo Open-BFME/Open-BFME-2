@@ -62,7 +62,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 class Xfer;
 
-class Rva004DFB55 { public: void rva004DFB55(CreateAHeroData *); };
+#include "../../../../Include/GameLogic/Rva004DFB55.h"
 
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take

@@ -271,11 +271,7 @@ public:
 
 class CreateAHeroData;
 
-class Rva004DFB55
-{
-public:
-	void rva004DFB55(CreateAHeroData *p);
-};
+#include "../../../../../Include/GameLogic/Rva004DFB55.h"
 
 class Elem
 {
