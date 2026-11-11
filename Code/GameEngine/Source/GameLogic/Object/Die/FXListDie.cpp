@@ -28,7 +28,7 @@ NameKeyType FXListDie::rva000486598()
 
 // tu-skeleton: 0x004865DD 42B ??0FXListDie@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/FXListDieConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00486607 28B ??_GRva00486579@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+// tu-skeleton: 0x00486607 28B ??_GFXListDie@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/FXListDieConstructor.cpp (moved out of DieModuleDerived.cpp)
 
 // tu-skeleton: 0x00486623 100B ?onDie@FXListDie@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/FXListDieOnDie.cpp (not merged yet)
 
