@@ -120,11 +120,7 @@ class Rva001E41D3
  
 }
 ;
-class Rva001E434A
-{
-public:
-	void *rva001E434A();
-};
+#include "../../../Include/GameLogic/Module/Rva001E434A.h"
 #include "../../../Include/GameLogic/Module/Rva0028E8D4.h"
 #include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 float __stdcall Rva001E40D9Get(float,float);

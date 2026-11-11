@@ -971,11 +971,7 @@ inline void Coord3D::normalize()
         z *= scale;
     }
 }
-class Rva001E434A
-{
-public:
-	void *rva001E434A();
-};
+#include "../../../Include/GameLogic/Module/Rva001E434A.h"
 static __forceinline void rva6007Clear(Object *obj,unsigned bit)
 {
  if(obj->m_flags10C.test(bit)){obj->m_flags10C.reset(bit);obj->rva0028AE6D();}
