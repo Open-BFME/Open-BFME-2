@@ -82,11 +82,7 @@ struct Rva002A8AB1Record;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva0050F041
-{
-public:
-	void rva0050F041(int v, const UnicodeString &s);
-};
+#include "../../../Include/Common/Rva0050F041.h"
 
 class Rva0050F0AB
 {

@@ -87,11 +87,7 @@ struct Rva0050FC54PlayerView
 };
 
 // The row's display and gadget helpers, rowed under their own views.
-class Rva0050F041
-{
-public:
-	void rva0050F041(int field, const UnicodeString &text);	// 0x0050F041
-};
+#include "../../../../../Include/Common/Rva0050F041.h"
 
 class Rva0050F0AB
 {

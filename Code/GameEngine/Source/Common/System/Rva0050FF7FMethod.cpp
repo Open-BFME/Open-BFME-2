@@ -18,7 +18,7 @@ extern class PlayerList *ThePlayerList;
 // The row at 0x002AA231 owns this address-derived spelling. Other objects
 // define conflicting Player::isPlayerActive copies, so call the verified owner.
 #include "../../../Include/Common/BfmeMemberRV.h"
-class Rva0050F041 { public: void rva0050FF1C(); };
+#include "../../../Include/Common/Rva0050F041.h"
 
 
 class Rva0050F0AB
