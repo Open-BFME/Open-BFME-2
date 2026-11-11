@@ -4,11 +4,7 @@ class AsciiString;
 
 // The 0x0056B7E4 init is the rowed base ctor
 // ??0Rva0056B7E4@@QAE@ABVAsciiString@@@Z (Rva0056B7E4Ctor.cpp).
-class Rva0056B7E4
-{
-public:
-	Rva0056B7E4(const AsciiString &name);
-};
+#include "../../Include/Common/Rva0056B7E4.h"
 
 extern "C" const void *const __identifier("??_7Rva003F9FE6@@6B@")[];
 

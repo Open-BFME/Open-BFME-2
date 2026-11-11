@@ -8,11 +8,7 @@ class AsciiString;
 
 // The 0x0056B7E4 init is the rowed base ctor
 // ??0Rva0056B7E4@@QAE@ABVAsciiString@@@Z (Rva0056B7E4Ctor.cpp).
-class Rva0056B7E4
-{
-public:
-	Rva0056B7E4(const AsciiString &name);
-};
+#include "../../Include/Common/Rva0056B7E4.h"
 
 // The retail table at RVA 0x0083789C: 1 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
