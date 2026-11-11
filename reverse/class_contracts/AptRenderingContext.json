@@ -1,0 +1,151 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AptRenderingContext",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x3b8": {
+    "4": 7
+   },
+   "0x3bc": {
+    "4": 6
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "960": 1
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "curCXForm.scale",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 16,
+   "type": "float[16]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 952,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 956,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptRenderingContext.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "nested@0x0",
+   "candidates": {
+    "curCXForm.scale": 1
+   },
+   "class": "AptRenderingContext"
+  }
+ ],
+ "size": 960,
+ "size_by": "majority",
+ "vslots": {}
+}

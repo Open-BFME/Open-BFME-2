@@ -44,14 +44,7 @@ public:
 };
 #include "AptNativeHash.h"
 
-class AptRenderingContext
-{
-public:
-    void pushVertexMatrix();    // 0x0070E4E0
-    void popVertexMatrix();     // 0x0070E550
-    void pushColourTransform(); // 0x0070E330
-    void popColourTransform();  // 0x0070E390
-};
+#include "AptRenderingContext.h"
 class BfmeThingDXH
 {
 public:

@@ -952,3 +952,4 @@ Rva0004CABDSevenEight,Code/GameEngine/Include/GameClient/Rva0004CABDSevenEight.h
 W3DFloorBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DFloorBuffer.h,existing header; contract class_contracts/W3DFloorBuffer.json; 5/7 sampled units adopt
 Rva001F4DC4,Code/GameEngine/Include/GameClient/Rva001F4DC4.h,existing header; contract class_contracts/Rva001F4DC4.json; 7/8 sampled units adopt
 Rva0038204A,Code/GameEngine/Include/Common/Rva0038204A.h,existing header; contract class_contracts/Rva0038204A.json; 7/13 sampled units adopt
+AptRenderingContext,Code/Libraries/Source/Apt/AptRenderingContext.h,existing header; contract class_contracts/AptRenderingContext.json; 4/7 sampled units adopt

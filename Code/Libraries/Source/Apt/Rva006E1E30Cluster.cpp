@@ -29,12 +29,7 @@ struct BfmeM1208
 
 void __cdecl bfmeMul1208(const BfmeM1208 *a, const BfmeM1208 *b, BfmeM1208 *out);
 
-class AptRenderingContext
-{
-public:
-	void pushVertexMatrix();
-	void popVertexMatrix();
-};
+#include "AptRenderingContext.h"
 
 class BfmeThingDXH
 {

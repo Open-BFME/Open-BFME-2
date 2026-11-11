@@ -5,7 +5,7 @@
 // and balanced pops. CIH colour24/matrixC/parent48 are target access facts.
 // Existing rendering stack identities come from APT release PDB evidence;
 // the callback's original name remains unknown. No return is consumed.
-class AptRenderingContext {public:void pushColourTransform();void popColourTransform();void pushVertexMatrix();void popVertexMatrix();};
+#include "AptRenderingContext.h"
 struct BfmeS1209;
 class BfmeA1209 {public:void bfmeOp1209(const BfmeS1209*);};
 class BfmeThingDXH {public:void bfmeGoDXH(void*);};

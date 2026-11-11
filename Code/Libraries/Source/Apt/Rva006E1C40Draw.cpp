@@ -9,12 +9,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 void Rva006CC110Log(int level, const char *message, ...);
-class AptRenderingContext
-{
-public:
-	void pushVertexMatrix(void);
-	void popVertexMatrix(void);
-};
+#include "AptRenderingContext.h"
 class BfmeThingDXH
 {
 public:
