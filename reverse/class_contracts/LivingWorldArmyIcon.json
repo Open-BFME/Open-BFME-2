@@ -1,0 +1,169 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldArmyIcon",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 3
+   },
+   "0x1c": {
+    "4": 3
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 4
+   },
+   "0x54": {
+    "4": 4
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x5c": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 12,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "92": 1,
+   "93": 1,
+   "96": 1
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

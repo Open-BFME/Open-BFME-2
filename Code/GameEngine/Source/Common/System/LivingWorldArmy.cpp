@@ -511,13 +511,7 @@ private:
 	int m_48;
 };
 
-class LivingWorldArmyIcon
-{
-public:
-	void rva003FDEAD();
-public:
-	void rva003FDE8C(unsigned char v);
-};
+#include "../../../Include/Common/LivingWorldArmyIcon.h"
 
 class Rva003193D1
 {

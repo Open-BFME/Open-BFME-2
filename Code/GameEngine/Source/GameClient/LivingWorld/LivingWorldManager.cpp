@@ -18,7 +18,7 @@ public:
 };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class LivingWorldArmyIcon {public:void rva003FDF1B();void rva003FDF8B();void rva003FDFFB();};
+#include "../../../Include/Common/LivingWorldArmyIcon.h"
 struct ArmyMemberRangeView {
  void **first,**last,**capacity;
  bool empty()const{return first==last;}

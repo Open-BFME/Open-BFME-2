@@ -220,7 +220,7 @@ void Rva0009C134Host::rva0009C134()
 	((Rva000B3FD0 *)this)->rva000B3FD0();
 	((Rva0009D55BProduct *)this)->rva0009BAA4();
 }
-class LivingWorldArmyIcon { public: void rva003FE342(); };	// rowed 0x003FE342
+#include "../../Include/Common/LivingWorldArmyIcon.h"
 class Rva0053947D { public: virtual void rva005392EC(); };	// rowed 0x005392EC (vtable slot)
 class Rva003FE402Host { public: void rva003FE402(); };	// vtable 0x00C37E48 slot 7
 void Rva003FE402Host::rva003FE402()

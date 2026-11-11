@@ -14,7 +14,7 @@ public:
 	Rva0020EAF6View *m_B0;
 };
 
-class LivingWorldArmyIcon {public:void rva003FDD41(int,int,int);void rva003FDE8C(unsigned char);};
+#include "../../../Include/Common/LivingWorldArmyIcon.h"
 class Rva003FDE50 {public:void rva003FDE50(unsigned int);};
 struct Position00538D3B {float x,y,z; Position00538D3B(float a,float b,float c):x(a),y(b),z(c){} };
 class Vector3;
