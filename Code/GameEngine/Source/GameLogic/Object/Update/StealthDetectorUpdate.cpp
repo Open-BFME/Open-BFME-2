@@ -258,7 +258,7 @@ struct Rva001F3C43Arg;
 
 class Rva001F3C43Slot{public:void set(const Rva001F3C43Arg*);};
 
-class Rva002D9C2F{public:OpaqueRefElement4 &rva002D9C2F(const OpaqueRefElement4&);};
+#include "../../../../Include/GameLogic/Module/Rva002D9C2F.h"
 
 #include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 

@@ -373,7 +373,7 @@ public:
 };
 // Audio event setters rowed by address: 0x002D9C2F assigns the sound
 // reference, 0x002D9531 the Object ID.
-class Rva002D9C2F { public: OpaqueRefElement4 &rva002D9C2F(const OpaqueRefElement4 &other); };
+#include "../../../../Include/GameLogic/Module/Rva002D9C2F.h"
 #include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;

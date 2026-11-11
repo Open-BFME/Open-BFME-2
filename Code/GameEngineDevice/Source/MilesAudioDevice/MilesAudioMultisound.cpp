@@ -257,7 +257,7 @@ class MilesAudioManager {public:
  char pad9D8[0xa14-0x9d8];_STL::set<AsciiString>mutedNames[3];
  char padA38[8];_STL::list<PlayingAudioRef> playing2D,playing3D;char padA48[0xb6c-0xa48];ResumeHandles resumeHandles;char padB78[0x14];AudioFileCache*fileCache;
 };
-class Rva002D9C2F {public:OpaqueRefElement4&rva002D9C2F(const OpaqueRefElement4&);};
+#include "../../../GameEngine/Include/GameLogic/Module/Rva002D9C2F.h"
 class Rva002D9AD4 {public:BfmePoolRef10&rva002D9AD4(const BfmePoolRef10&);};
 int GetGameAudioRandomValue(int,int,char*,int);
 #define MILES_AUDIO_MANAGER_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\MilesAudioDevice\\MilesAudioManager.cpp"
