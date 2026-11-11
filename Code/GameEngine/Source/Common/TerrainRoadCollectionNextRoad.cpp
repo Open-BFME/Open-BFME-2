@@ -7,11 +7,7 @@
 // (an ICF fold), which is why the body sits away from TerrainRoads.cpp.
 #include "../../Include/GameClient/TerrainRoadType.h"
 
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *nextRoad( TerrainRoadType *road );
-};
+#include "../../Include/GameClient/TerrainRoadCollection.h"
 
 TerrainRoadType *TerrainRoadCollection::nextRoad( TerrainRoadType *road )
 {

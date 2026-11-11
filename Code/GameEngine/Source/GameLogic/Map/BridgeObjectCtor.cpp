@@ -204,11 +204,7 @@ extern ThingFactory *TheThingFactory;
 
 #include "../../../Include/GameClient/TerrainRoadType.h"
 
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
+#include "../../../Include/GameClient/TerrainRoadCollection.h"
 extern TerrainRoadCollection *TheTerrainRoads;
 
 class BridgeBehaviorInterface

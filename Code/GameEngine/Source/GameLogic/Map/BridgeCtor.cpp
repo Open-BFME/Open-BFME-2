@@ -113,11 +113,7 @@ private:
 extern ThingFactory *TheThingFactory;
 
 class TerrainRoadType;
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
+#include "../../../Include/GameClient/TerrainRoadCollection.h"
 extern TerrainRoadCollection *TheTerrainRoads;
 
 class Bridge

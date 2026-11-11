@@ -13,14 +13,7 @@ struct FieldParse;
 #include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/GameClient/TerrainRoadType.h"
-class TerrainRoadCollection
-{
-public:
-    TerrainRoadType *newRoad(AsciiString name);
-    TerrainRoadType *newBridge(AsciiString name);
-    TerrainRoadType *findRoad(AsciiString name);
-    TerrainRoadType *findBridge(AsciiString name);
-};
+#include "../../../Include/GameClient/TerrainRoadCollection.h"
 extern TerrainRoadCollection *TheTerrainRoads;
 
 void INI::parseTerrainRoadDefinition(INI *ini)

@@ -49,11 +49,7 @@ private:
 
 #include "../../../../Include/Common/TerrainType.h"
 
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
+#include "../../../../Include/GameClient/TerrainRoadCollection.h"
 extern TerrainRoadCollection *TheTerrainRoads;
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"

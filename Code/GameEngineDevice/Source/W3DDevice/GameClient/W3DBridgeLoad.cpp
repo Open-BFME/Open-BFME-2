@@ -207,11 +207,7 @@ public:
 
 #include "../../../../GameEngine/Include/GameClient/TerrainRoadType.h"
 
-class TerrainRoadCollection
-{
-public:
-	TerrainRoadType *findBridge(AsciiString name);
-};
+#include "../../../../GameEngine/Include/GameClient/TerrainRoadCollection.h"
 
 extern TerrainRoadCollection *TheTerrainRoads;
 
