@@ -463,11 +463,7 @@ public:
 // The rowed 0x003971BF view of the same CastleBehavior module (an ObjectID
 // range check over its +0x50/+0x74 lists, called with no argument).
 struct Arg3971BF;
-class Rva003971BF
-{
-public:
-	bool rva003971BF(Arg3971BF *arg);
-};
+#include "../../../Include/GameLogic/Rva003971BF.h"
 
 // FoundationAIUpdate's second base at +0x20 (vftable 0x00C1A690, as in the
 // rowed FoundationAIUpdateSlots unit); slot 3 is an unnamed bool query.

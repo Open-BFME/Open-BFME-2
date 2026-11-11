@@ -700,11 +700,7 @@ class CastleBehavior : public Rva00395686
 struct Arg3971BF
 {
 };
-class Rva003971BF
-{
-public:
-	bool rva003971BF(Arg3971BF *arg);
-};
+#include "../../../Include/GameLogic/Rva003971BF.h"
 class Waypoint
 {
 public:

@@ -84,11 +84,7 @@ public:
 
 // The rowed and pinned address-named views of the same CastleBehavior module.
 struct Arg3971BF;
-class Rva003971BF
-{
-public:
-	bool rva003971BF(Arg3971BF *arg);
-};
+#include "../../../Include/GameLogic/Rva003971BF.h"
 
 class Rva003980BF
 {
