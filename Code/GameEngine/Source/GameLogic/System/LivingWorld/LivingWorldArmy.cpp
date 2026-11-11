@@ -281,7 +281,7 @@ class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
 struct Rva003F0F13Elem {float x,y;};
 
 class Rva002104B6 {public:void*rva002104B6(void*);};
-class Rva00319AA0 {public:void rva00319AA0(const Coord2D*);};
+#include "../../../../Include/GameLogic/Rva00319AA0.h"
 class Rva00318F64 {public:void rva00318F64();};
 
 struct CtorArmyScalar {float x;__forceinline CtorArmyScalar(float v):x(v){} };

@@ -2880,7 +2880,7 @@ void LivingWorldLogic::update(){
 // constructor31A372 is an existing unprovided link dependency, not a
 // separately recovered body. Direct KindOf bit90 testing preserves retail's
 // byte113 mask; converting through a Boolean helper adds four bytes.
-class Rva00319AA0 {public:void rva00319AA0(const Coord2D *);};
+#include "../../../../Include/GameLogic/Rva00319AA0.h"
 LivingWorldArmy *LivingWorldLogic::spawnArmy(SpawnArmy *spawn,Rva002B6A04Player *player,Bool bypass)
 {
  if(spawn->flagged())return 0;

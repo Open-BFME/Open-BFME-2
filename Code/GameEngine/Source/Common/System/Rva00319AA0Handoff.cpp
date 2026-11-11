@@ -31,11 +31,7 @@ class Vector3;
 #include "../../../Include/Common/Rva002BF4F3.h"
 
 // The gate 0x003197B7, rowed as Rva00319AA0::rva003197B7.
-class Rva00319AA0
-{
-public:
-	void rva003197B7();
-};
+#include "../../../Include/GameLogic/Rva00319AA0.h"
 
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class Rva002D3627Host;
