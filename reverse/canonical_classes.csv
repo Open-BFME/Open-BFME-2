@@ -996,3 +996,4 @@ Rva002E6B06,Code/GameEngine/Include/GameLogic/Rva002E6B06.h,existing header; con
 Rva0030812E,Code/GameEngine/Include/Common/Rva0030812E.h,existing header; contract class_contracts/Rva0030812E.json; 7/7 sampled units adopt
 Energy,Code/GameEngine/Include/Common/EnergyClass.h,existing header; contract class_contracts/Energy.json; 4/8 sampled units adopt
 Rva00390533,Code/GameEngine/Include/GameLogic/Rva00390533.h,existing header; contract class_contracts/Rva00390533.json; 6/7 sampled units adopt
+Rva005EEA20,Code/GameEngine/Include/GameLogic/Rva005EEA20.h,existing header; contract class_contracts/Rva005EEA20.json; 7/7 sampled units adopt

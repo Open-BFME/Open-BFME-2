@@ -215,11 +215,7 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class Rva005EEA20
-{
-public:
-	Object *findUnitInCombat(Player *player, bool a, bool b);	// 0x005EEA20
-};
+#include "../../../../Include/GameLogic/Rva005EEA20.h"
 
 // The AoE special-power target picker (AISPecialPowerTargetAoE.cpp holds
 // 0x005EE816 and 0x005EE8DD).

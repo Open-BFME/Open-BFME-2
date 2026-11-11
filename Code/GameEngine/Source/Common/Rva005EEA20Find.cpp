@@ -57,11 +57,7 @@ struct IdRange
 	ObjectID *m_end;
 };
 
-class Rva005EEA20
-{
-public:
-	Object *findUnitInCombat(Player *player, bool skipStealth, bool skipVictimCheck);
-};
+#include "../../Include/GameLogic/Rva005EEA20.h"
 
 Object *Rva005EEA20::findUnitInCombat(Player *player, bool skipStealth, bool skipVictimCheck)
 {

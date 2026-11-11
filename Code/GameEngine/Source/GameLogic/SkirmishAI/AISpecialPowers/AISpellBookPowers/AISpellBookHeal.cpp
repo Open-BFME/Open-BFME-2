@@ -45,12 +45,7 @@ public:
 	float m_c;
 };
 
-class Rva005EEA20
-{
-public:
-	Object *findUnitInCombat(Player *player, Bool a, Bool b);
-	void getStatsInCombatRange(Rva005EE9CE *stats, Object *unit, float range);
-};
+#include "../../../../../Include/GameLogic/Rva005EEA20.h"
 #include "../../../../../Include/GameLogic/AISpellBookBase.h"
 
 #include "../../../../../Include/Common/Rva005EE816.h"

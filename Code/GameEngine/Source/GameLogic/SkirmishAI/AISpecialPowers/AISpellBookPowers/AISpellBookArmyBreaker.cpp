@@ -94,10 +94,7 @@ public:
     unsigned int m_08;
     float m_0c;
 };
-class Rva005EEA20 {
-public:
-    Object *findUnitInCombat(Player *, bool, bool);
-};
+#include "../../../../../Include/GameLogic/Rva005EEA20.h"
 #include "../../../../../Include/GameLogic/AISpellBookBase.h"
 #include "../../../../../Include/Common/Rva005EE816.h"
 

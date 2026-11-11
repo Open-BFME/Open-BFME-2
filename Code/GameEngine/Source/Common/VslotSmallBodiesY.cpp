@@ -279,11 +279,7 @@ void AISpecialPowerTargetEnemy::activate(Object *obj)
 // 0x005D7AEC: the +0x28 finder's pick for the argument's controlling player;
 // unless its +0x04 object has bit 2 of +0x113 set, the pinned 0x005EE8DD
 // with the pick's +0x38 position and the argument.
-class Rva005EEA20
-{
-public:
-	Object *findUnitInCombat(Player *player, bool a, bool b);
-};
+#include "../../Include/GameLogic/Rva005EEA20.h"
 // The special-power base: shouldActivate is slot 6 of each power's 7-slot
 // vftable (0x00C75E44 here, installed by 0x005D7AB3/0x005D7AC5), so the
 // override is virtual and the vptr sits at +0.
