@@ -276,12 +276,7 @@ extern BitFlags<116>KINDOFMASK_NONE;
 // WB lead identifies ProcessOnlineGameResults. ZH ScoreScreen.cpp is the
 // wins/losses reference spine. Native5C062E..5C1860 supplies BFME2 conditions,
 // member offsets, record types and call ordering; donor9cbfb551fe20.
-class StatsReporter
-{
-public:
-	static void ProcessOnlineGameResults(Player*);
-	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);
-};
+#include "../../Include/Common/StatsReporter.h"
 
 // tu-skeleton: 0x005BFD35 2297B ?ProcessStrategicSinglePlayerGame@StatsReporter@@SAXPAVLivingWorldPlayer@@@Z -- matched in Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp (not merged yet)
 

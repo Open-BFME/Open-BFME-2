@@ -67,12 +67,7 @@ extern BitFlags<116>KINDOFMASK_NONE; // 0x009FEFA4, defined by ThingIsAnyKindOf.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class Player;
-class StatsReporter
-{
-public:
-	static void ProcessOnlineGameResults(Player*);
-	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);
-};
+#include "../../Include/Common/StatsReporter.h"
 template<class T>inline const T&counterMax(const T&a,const T&b){return a>b?a:b;}
 inline bool isLost(const LivingWorldPlayer*player){return player->field3C4;}
 inline bool isGuarded(const LivingWorldPlayer*player){return player->field3C5;}

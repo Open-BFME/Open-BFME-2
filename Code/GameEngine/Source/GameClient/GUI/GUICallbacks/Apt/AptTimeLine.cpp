@@ -1139,12 +1139,7 @@ class Rva002E1046
 public:
 	bool rva002E1046();
 };
-class StatsReporter
-{
-public:
-	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer *player);
-	static void ProcessOnlineGameResults(class Player *player);
-};
+#include "../../../../../Include/Common/StatsReporter.h"
 // The caller's second argument: its display name is at +0x30.
 class Rva00520923Source
 {
