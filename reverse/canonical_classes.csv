@@ -879,3 +879,4 @@ Rva00382077,Code/GameEngine/Include/Common/Rva00382077.h,existing header; contra
 LivingWorldRegionEffectsManager,Code/GameEngine/Include/Common/LivingWorldRegionEffectsManager.h,existing header; contract class_contracts/LivingWorldRegionEffectsManager.json; 13/19 sampled units adopt
 BfmeMemberRV,Code/GameEngine/Include/Common/BfmeMemberRV.h,existing header; contract class_contracts/BfmeMemberRV.json; 24/31 sampled units adopt
 Rva00223591,Code/GameEngine/Include/GameClient/Rva00223591.h,existing header; contract class_contracts/Rva00223591.json; 7/11 sampled units adopt
+Rva0037DCA5,Code/GameEngine/Include/Common/Rva0037DCA5.h,existing header; contract class_contracts/Rva0037DCA5.json; 18/25 sampled units adopt
