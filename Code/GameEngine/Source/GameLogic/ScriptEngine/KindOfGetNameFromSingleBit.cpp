@@ -10,12 +10,7 @@
 // The bound comes from the array's own size, keeping the unsigned `jae`
 // comparison retail uses rather than a signed literal.
 
-class KindOfMaskType
-{
-public:
-	static const char **getBitNames();
-	static const char *getNameFromSingleBit(int bitIndex);
-};
+#include "../../../Include/GameLogic/KindOfMaskType.h"
 
 // Target table VA 0x00DBBE18: 218 named entries followed by a null sentinel.
 // ZH Common/System/KindOf.cpp establishes the name-list structure; BFME2

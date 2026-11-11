@@ -15,11 +15,7 @@ typedef float Real;
 
 enum { COORD3D = 0x10, KIND_OF_PARAM = 0x1B };
 
-class KindOfMaskType
-{
-public:
-	static const char *getNameFromSingleBit(int bitIndex);
-};
+#include "../../../Include/GameLogic/KindOfMaskType.h"
 
 #include "ascii_string.h"
 

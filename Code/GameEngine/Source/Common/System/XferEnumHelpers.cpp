@@ -751,11 +751,7 @@ void XferArmySummaryEntryID(Xfer *xfer, void *value)
 // uses a free cdecl return, LightCRC enum dispatch, and no version prefix.
 // These declarations use the existing 26-byte and 54-byte providers only.
 enum KindOfType { KINDOF_INVALID = -1 };
-class KindOfMaskType
-{
-public:
- static const char *getNameFromSingleBit(int bit);
-};
+#include "../../../Include/GameLogic/KindOfMaskType.h"
 template<int Bits> class BitFlags
 {
 public:

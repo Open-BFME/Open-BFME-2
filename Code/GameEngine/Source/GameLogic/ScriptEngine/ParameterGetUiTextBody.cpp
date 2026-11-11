@@ -21,11 +21,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class KindOfMaskType
-{
-public:
-	static const char *getNameFromSingleBit(int bitIndex);
-};
+#include "../../../Include/GameLogic/KindOfMaskType.h"
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
