@@ -527,11 +527,7 @@ struct BfmeKey1279
 {
 	EAStringC m_str;
 };
-class Rva0070B380
-{
-public:
-	void *lookup(const EAStringC &key);
-};
+#include "../../../GameEngine/Include/Common/Rva0070B380.h"
 class BfmeNestedBE;
 BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *item);
 class BfmeProvider1279
