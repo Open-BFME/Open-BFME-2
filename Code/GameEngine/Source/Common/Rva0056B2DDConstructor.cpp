@@ -28,11 +28,7 @@ public:
 	virtual ~Rva0056B2DDB2() {}
 };
 
-class Rva003EE91A
-{
-public:
-	void rva003EE91A(int v);
-};
+#include "../../Include/Common/Rva003EE91A.h"
 
 class Rva0021294A
 {

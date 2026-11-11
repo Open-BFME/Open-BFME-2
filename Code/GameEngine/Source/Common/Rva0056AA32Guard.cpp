@@ -31,7 +31,7 @@ int Rva0056AA32::rva0056AA32(const Rva004E0625 *arg)
 class Rva0056AAF4 {public:int rva0056AAF4();private:char unknown00[0x18];Rva00318FA1MainOwner *owner18;int bits1C;};
 int Rva0056AAF4::rva0056AAF4(){return owner18->rva00318FA1()==bits1C;}
 class Rva003EE966 {public:void rva003EE966(int);};
-class Rva003EE91A {public:void rva003EE91A(int);};
+#include "../../Include/Common/Rva003EE91A.h"
 class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;
 struct Manager268View {char unknown00[0x268];void *word268;};
 class Rva0056AABF {public:void rva0056AABF(Rva00318FA1MainOwner *);private:char unknown00[8];int bits08;};

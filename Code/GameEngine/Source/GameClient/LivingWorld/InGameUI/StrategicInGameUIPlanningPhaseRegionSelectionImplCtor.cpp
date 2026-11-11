@@ -63,11 +63,7 @@ public:
 	void rva005CB84A(int value);
 };
 
-class Rva003EE91A
-{
-public:
-	void rva003EE91A(int value);
-};
+#include "../../../../Include/Common/Rva003EE91A.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 
