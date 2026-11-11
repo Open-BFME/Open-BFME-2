@@ -759,7 +759,7 @@ private:
 // Bare tail jumps to a rowed member of the object at +0.
 #include "../../../Include/Common/Rva0038201D.h"
 
-class Rva0038204A { public: void rva003828DF(); };
+#include "../../../Include/Common/Rva0038204A.h"
 
 #include "../../../Include/Common/Rva00382077.h"
 

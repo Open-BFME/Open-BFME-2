@@ -697,7 +697,7 @@ private:
 // destructor (or reset member) of the pointee.
 // Bare tail jumps to a rowed member of the object at +0.
 #include "../../Include/Common/Rva0038201D.h"
-class Rva0038204A { public: void rva003828DF(); };
+#include "../../Include/Common/Rva0038204A.h"
 #include "../../Include/Common/Rva00382077.h"
 class Rva005532D6 { public: void rva005532D6(); };
 // ?rva0055381C@Rva0055381C@@QAEXXZ @0x0055381C 5B: Rva0038201D::rva003828B6 on the member at +0.
