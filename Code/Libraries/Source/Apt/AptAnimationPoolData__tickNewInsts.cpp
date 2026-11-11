@@ -20,11 +20,7 @@ void __debugbreak();
 
 #include "AptCIHClass.h"
 
-class Rva006E3C80
-{
-public:
-	int rva006E3C80();
-};
+#include "Rva006E3C80.h"
 
 class AptAnimationPoolData
 {

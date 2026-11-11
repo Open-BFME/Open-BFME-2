@@ -2742,7 +2742,7 @@ void AptActionInterpreter::_FunctionAptActionCallMethod(AptActionInterpreter *co
 // default as an immediate. WorldBuilder's twin (0x0175E270) returns early
 // when the instance has no display-list parent; that second exit is what
 // gives retail's ESI save at entry (a nested if shrink-wraps it).
-class Rva006E3C80 { public: int rva006E3C80(); };
+#include "Rva006E3C80.h"
 #include "AptAnimationPoolData.h"
 #include "BfmeSubmitter1283.h"
 class BfmeQuery1279 { public: void bfmeQuery1279(int,int,void**,void**); };
