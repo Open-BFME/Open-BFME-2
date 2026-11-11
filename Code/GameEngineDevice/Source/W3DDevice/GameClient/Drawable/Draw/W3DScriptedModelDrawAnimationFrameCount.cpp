@@ -856,7 +856,7 @@ class Rva000B7539 {public:~Rva000B7539();AsciiString previous,transition,animati
 class Rva000B4926 {public:const AsciiString&rva000B4926()const;};
 class HTreeClass;
 class Rva000BE027Anim {public:HTreeClass*rva000BE027(const AsciiString&,const AsciiString&,bool,int);};
-class Rva000B9A0E {public:void rva000B9A0E(void*,int,int);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B9A0E.h"
 class Rva000B49F9 {public:unsigned char rva000B49F9();};
 class AnimConditionInfo {public:int rva000B495B();int pickRandomAnimation(int,int);};
 float GetGameClientRandomValueReal(float,float,char*,int);

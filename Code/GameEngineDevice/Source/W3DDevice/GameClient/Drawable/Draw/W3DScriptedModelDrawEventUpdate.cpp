@@ -92,7 +92,7 @@ template<class T,class A>__declspec(noinline) inline _STL::_List_iterator<T,_STL
 namespace _STL {
  template<class T,class A=allocator<T> >class vector {public:void push_back(const T&);};
 }
-class Rva000B9A0E {public:void rva000B9A0E(void*,int,int);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B9A0E.h"
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:

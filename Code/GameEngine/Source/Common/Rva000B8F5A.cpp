@@ -504,7 +504,7 @@ int W3DScriptedModelDraw::rva000B83A7()
 extern int g_bfmeDisplayAnimationSyncClock;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000BC9B1.h"
 class Rva000B2EB5 {public:float rva000B2EB5();};
-class Rva000B9A0E {public:void rva000B9A0E(void*,int,int);};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B9A0E.h"
 // Full nativeBF9FC..BFB51 RET12: WB931DE0 animation-state transition.
 // Reference W3DModelDraw state/animation sequence is semantic context only;
 // target owns added state callbacks, effects, tick synchronization and vectors.
