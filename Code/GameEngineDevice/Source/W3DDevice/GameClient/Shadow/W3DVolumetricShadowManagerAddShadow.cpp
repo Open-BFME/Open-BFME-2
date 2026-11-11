@@ -128,11 +128,7 @@ private:
 };
 
 class HAnimClass;
-class HAnimManagerClass
-{
-public:
-	HAnimClass *Get_Anim(const char *name);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h"
 
 class W3DShadowGeometry;
 class W3DShadowGeometryManager

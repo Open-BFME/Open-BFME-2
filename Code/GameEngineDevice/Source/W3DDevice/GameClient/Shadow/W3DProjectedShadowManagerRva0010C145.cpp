@@ -172,13 +172,7 @@ class ShroudFilter : public _STL::ios_base
 ;
 #include "../../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 class HAnimClass;
-class HAnimManagerClass
-{
- public: HAnimClass *Get_Anim(const char*);
- bool Add_Anim(HAnimClass*);
-
-}
-;
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h"
 class Rva007AE680Name
 {
  public: void setName(const char*);

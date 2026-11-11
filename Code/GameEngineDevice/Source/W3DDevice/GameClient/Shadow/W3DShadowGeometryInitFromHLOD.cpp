@@ -279,12 +279,7 @@ int W3DShadowGeometry::initFromHLOD(RenderObjClass *robj)
 // rowed HAnimManagerClass::Peek_Anim (0x000F0B81) and Add_Anim (0x000F0BAB) bodies
 // (same hash-table lookup/insert code); Load_Geom calls those rows.
 class HAnimClass;
-class HAnimManagerClass
-{
-public:
-    HAnimClass *Peek_Anim(const char *name);
-    bool Add_Anim(HAnimClass *anim);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h"
 
 class W3DShadowGeometryManager
 {

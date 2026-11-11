@@ -15,12 +15,7 @@ private:
 	int m_refs;
 };
 
-class HAnimManagerClass
-{
-public:
-	HAnimClass *Peek_Anim(const char *name);
-	HAnimClass *Get_Anim(const char *name);
-};
+#include "HAnimManagerClass.h"
 
 HAnimClass *HAnimManagerClass::Get_Anim(const char *name)
 {
