@@ -35,11 +35,7 @@ public:
 	float m_boundingCircleRadius;		// +0xBC
 };
 
-class Rva002C9BC3Owner
-{
-public:
-	float rva002C9BC3(void *source, void *targetPos); // retail 0x002C9BC3
-};
+#include "../../../Include/GameLogic/Module/Rva002C9BC3Owner.h"
 
 class BfmeRangedWeaponTemplate;
 class Rva002C9B80Owner

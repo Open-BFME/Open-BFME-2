@@ -206,11 +206,7 @@ public:
 	unsigned char m_deadFlags; // +0x438
 };
 
-class Rva002C9BC3Owner
-{
-public:
-	Real rva002C9BC3(void *source, void *pos);
-};
+#include "../../../Include/GameLogic/Module/Rva002C9BC3Owner.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
