@@ -20,11 +20,7 @@ public:
 	void rva00596074();
 };
 
-class Rva0025C010
-{
-public:
-	void rva0025C010();
-};
+#include "../../Include/Common/Rva0025C010.h"
 
 class Rva004DF95DOwner
 {

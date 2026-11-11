@@ -806,11 +806,7 @@ void Rva005C6CC7Call::rva005C6CC7()
 	((Rva005C6C7B *)this)->reset();
 }
 
-class Rva0025C010
-{
-public:
-	void rva0025C010();
-};
+#include "../../Include/Common/Rva0025C010.h"
 
 class Rva00596074
 {

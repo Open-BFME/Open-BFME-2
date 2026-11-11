@@ -68,11 +68,7 @@ private:
 };
 // Rva0010BA61::rva0010BA61 is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva0010BA61.cpp (0x0010BA61).
 
-class Rva0025C010
-{
-public:
-	void rva0025C010();
-};
+#include "../../Include/Common/Rva0025C010.h"
 class Rva005962E7 : public Rva005961D6
 {
 public:
