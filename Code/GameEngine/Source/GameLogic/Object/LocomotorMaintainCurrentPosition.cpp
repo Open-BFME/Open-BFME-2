@@ -23,11 +23,7 @@ public:
  char unknown44[0x10C-0x44]; unsigned condition[19];
  char unknown158[0x25C-0x158]; void *physics;
 };
-class Rva001E6516
-{
-public:
-	void rva001E6516(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/Rva001E6516.h"
 bool Locomotor::locoUpdate_maintainCurrentPosition(Object *obj)
 {
  if(!obj) return false;

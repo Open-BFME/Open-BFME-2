@@ -27,11 +27,7 @@ private:
 	unsigned char m_pad000[0x10C];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
-class Rva001E6516
-{
-public:
-	void rva001E6516(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/Rva001E6516.h"
 void Rva001E6516::rva001E6516(Object *obj)
 {
 	obj->clearModelConditionState((ModelConditionFlagType)(1 * 32 + 29));
