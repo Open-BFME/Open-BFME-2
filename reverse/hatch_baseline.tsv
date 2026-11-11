@@ -3533,8 +3533,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bod
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??4BfmeAssignRecord24@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??4BfmeStringHeadRecord184@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??4BfmeStringTailRecord144@@QAEAAU0@ABU0@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?_M_decr@_Locale_impl@_STL@@UAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?_M_incr@_Locale_impl@_STL@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp	??1stdio_istreambuf@_SgI@@UAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp	??1stdio_ostreambuf@_SgI@@UAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp	??RBfmeCopyRecord8KeyAscending@@QBE_NABUBfmeCopyRecord8@@0@Z	1

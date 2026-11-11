@@ -303,6 +303,11 @@ public:
 	string name;
 };
 
+// Retail's classic locale never counts references: both virtuals are the
+// shared one-byte RET at 0x0069E440 (vftable 0x007BBBB0 slots 1 and 2).
+void _Locale_impl::_M_incr() {}
+void _Locale_impl::_M_decr() {}
+
 extern "C" { _Stl_aligned_buffer<_Locale_impl> _S_classic_locale; }
 
 static _Stl_aligned_buffer<collate<char> > _S_collate_char;
@@ -451,12 +456,6 @@ template <> basic_string<wchar_t, char_traits<wchar_t>, allocator<wchar_t> > & b
 template <> ostreambuf_iterator<wchar_t, char_traits<wchar_t> > num_put<wchar_t, ostreambuf_iterator<wchar_t, char_traits<wchar_t> > >::do_put(ostreambuf_iterator<wchar_t, char_traits<wchar_t> >, ios_base &, wchar_t, const void *) const;
 template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &);
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?_M_incr@_Locale_impl@_STL@@UAEXXZ=?DX8_Assert@@YAXXZ")
-#pragma comment(linker, "/alternatename:?_M_decr@_Locale_impl@_STL@@UAEXXZ=?DX8_Assert@@YAXXZ")
 
 // Keep the C-linkage storage visible to the data sizeof probe.
 using _STL::_S_classic_locale;
