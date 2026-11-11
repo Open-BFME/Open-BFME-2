@@ -205,11 +205,7 @@ private:
 };
 }
 // The help box's per-frame update, rowed at 0x005279DD.
-class InGameHelpBoxMovieClip
-{
-public:
-	void Update();
-};
+#include "../../Include/Common/InGameHelpBoxMovieClip.h"
 // The stats display and the new-turn indicator have empty updates, which
 // fold onto the shared empty body 0x000B3FD0.
 class Rva000B3FD0Nop

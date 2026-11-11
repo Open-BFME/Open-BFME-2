@@ -838,12 +838,7 @@ class AptInGameSideCommandBar
 public:
 	void Update();
 };
-class InGameHelpBoxMovieClip
-{
-public:
-	void Move(int down);
-	void Update();
-};
+#include "../../../../Include/Common/InGameHelpBoxMovieClip.h"
 class Rva002D5711
 {
 public:
