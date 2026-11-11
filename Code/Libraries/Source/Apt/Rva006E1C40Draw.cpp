@@ -10,11 +10,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 void Rva006CC110Log(int level, const char *message, ...);
 #include "AptRenderingContext.h"
-class BfmeThingDXH
-{
-public:
-	void bfmeGoDXH(void *p);
-};
+#include "BfmeThingDXH.h"
 class BfmeThingXS
 {
 public:

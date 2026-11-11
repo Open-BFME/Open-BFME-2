@@ -31,11 +31,7 @@ void __cdecl bfmeMul1208(const BfmeM1208 *a, const BfmeM1208 *b, BfmeM1208 *out)
 
 #include "AptRenderingContext.h"
 
-class BfmeThingDXH
-{
-public:
-	void bfmeGoDXH(void *a);
-};
+#include "BfmeThingDXH.h"
 
 #include "AptCIHClass.h"
 

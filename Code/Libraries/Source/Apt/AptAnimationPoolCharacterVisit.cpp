@@ -8,7 +8,7 @@
 #include "AptRenderingContext.h"
 struct BfmeS1209;
 class BfmeA1209 {public:void bfmeOp1209(const BfmeS1209*);};
-class BfmeThingDXH {public:void bfmeGoDXH(void*);};
+#include "BfmeThingDXH.h"
 #include "BfmeAptValue006DCD20.h"
 class Rva006E1260 {public:void call(void*);};
 class Rva006E15C0 {public:void call(void*,void*,int);};

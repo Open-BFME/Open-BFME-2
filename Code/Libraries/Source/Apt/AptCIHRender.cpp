@@ -45,11 +45,7 @@ public:
 #include "AptNativeHash.h"
 
 #include "AptRenderingContext.h"
-class BfmeThingDXH
-{
-public:
-    void bfmeGoDXH(void *matrix); // 0x0070E6C0
-};
+#include "BfmeThingDXH.h"
 struct BfmeS1209;
 class BfmeA1209
 {
