@@ -957,3 +957,4 @@ Rva001F4E1BSlot,Code/GameEngine/Include/GameClient/Rva001F4E1BSlot.h,existing he
 Rva002AC6B1PlayerTimers,Code/GameEngine/Include/GameLogic/Module/Rva002AC6B1PlayerTimers.h,existing header; contract class_contracts/Rva002AC6B1PlayerTimers.json; 7/8 sampled units adopt
 Rva003F81FDProxy,Code/GameEngine/Include/Common/Rva003F81FDProxy.h,existing header; contract class_contracts/Rva003F81FDProxy.json; 7/9 sampled units adopt
 BannerUI,Code/GameEngine/Include/GameClient/BannerUI.h,existing header; contract class_contracts/BannerUI.json; 5/9 sampled units adopt
+Rva00319B0AOwner,Code/GameEngine/Include/Common/Rva00319B0AOwner.h,existing header; contract class_contracts/Rva00319B0AOwner.json; 7/8 sampled units adopt

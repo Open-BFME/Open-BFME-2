@@ -56,11 +56,7 @@ public:
 	void rva005CB84A(int value);
 };
 
-class Rva00319B0AOwner
-{
-public:
-	void rva00319B0A();
-};
+#include "../../Include/Common/Rva00319B0AOwner.h"
 
 class Rva00318C32Ret;
 #include "../../Include/GameLogic/Rva00318C79Owner.h"

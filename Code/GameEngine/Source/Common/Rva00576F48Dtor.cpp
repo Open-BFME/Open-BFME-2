@@ -36,11 +36,7 @@ public:
 	int get() const;
 };
 
-class Rva00319B0AOwner
-{
-public:
-	void rva00319B31();
-};
+#include "../../Include/Common/Rva00319B0AOwner.h"
 
 class Rva00576F48Target
 {

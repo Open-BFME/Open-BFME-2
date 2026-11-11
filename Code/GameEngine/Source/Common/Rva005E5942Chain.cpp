@@ -8,12 +8,7 @@ template <typename T> class StringBase
 	void validate() const;
 };
 
-class Rva00319B0AOwner
-{
-public:
-	void rva00319B0A();
-	void rva00319B31();
-};
+#include "../../Include/Common/Rva00319B0AOwner.h"
 
 struct Rva005E5942Inner
 {

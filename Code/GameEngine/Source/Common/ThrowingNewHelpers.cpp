@@ -56,7 +56,7 @@ struct Rva005D2355In;
 namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D2355In *); }
 int GetMaxCommandPoints(void *);
 class Rva00318FBE { public: int rva00318FBE(); };
-class Rva00319B0AOwner { public: void rva00319B0A();void rva00319B31(); };
+#include "../../Include/Common/Rva00319B0AOwner.h"
 class Rva0042D703PtrChaseField { public: int get() const; };
 class Rva0042D69DPtrChaseField { public: int get() const; };
 #include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
