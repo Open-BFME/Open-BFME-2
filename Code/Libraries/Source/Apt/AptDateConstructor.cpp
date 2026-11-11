@@ -21,11 +21,7 @@ struct AptSysClock
     int Year;
     int Hundredths;
 };
-class AptDate
-{
-public:
-    void setDates(AptSysClock *, AptSysClock *, int);
-};
+#include "AptDate.h"
 void (__cdecl *g_aptSysClockCallback)(AptSysClock *, int);
 class Rva006FBF90 : public AptValueWithHash, public Rva006DBits
 {

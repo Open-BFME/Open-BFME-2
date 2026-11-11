@@ -58,7 +58,7 @@ class Rva006E6430Delete {public:~Rva006E6430Delete(){((Rva006E6060Root *)this)->
 
 void AptValueShutdown(int);
 class AptArray { public: static void CleanNativeFunctions(void); };
-class AptDate {public:static void CleanNativeFunctions();};
+#include "AptDate.h"
 void rva008A4630ReleaseGlobals();
 void rva008A47B0ReleaseGlobals();
 void bfmeGo1062B();

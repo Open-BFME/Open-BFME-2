@@ -6,11 +6,7 @@
 // AptDate::CleanNativeFunctions and the bfmeGo/d_ forwarders) and ends with
 // a tail call to 0x006E97A0. Address-derived name; every callee is rowed.
 class AptArray { public: static void CleanNativeFunctions(void); };
-class AptDate
-{
-public:
-	static void CleanNativeFunctions();
-};
+#include "AptDate.h"
 void rva008A4630ReleaseGlobals();
 void rva008A47B0ReleaseGlobals();
 void bfmeGo1062B();
