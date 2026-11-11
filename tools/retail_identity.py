@@ -322,6 +322,87 @@ class BodyFamily:
         return record(self.rows[self.copy][1])
 
 
+def stand_in_swap(name, old, new):
+    """`name` with the stand-in struct `old` read as the class `new`: its `U<old>@@` fragments become `V<new>@@`, an
+    operator scoped in it (`??4<old>@@`) is scoped in `new`, and the pointer and reference back-references that
+    name a struct (`PAU1@`, `ABU0@`) name a class. That is the whole respelling a stand-in element allows."""
+    name = name.replace(f"??4{old}@@", f"??4{new}@@").replace(f"U{old}@@", f"V{new}@@")
+    return re.sub(r"(PA|PB|AA|AB)U(\d)@", r"\1V\2@", name)
+
+
+class StandInElementFamily:
+    """STL helper instantiations over a registered element class, rowed under a size-only stand-in struct that has no
+    constructor of its own, so no store of a table can prove the element (P134). Retail proves it through the class's
+    own rows instead: `members` {rva: name} are rows of `new` (scoped in it or instantiated over it), and every row of
+    the family reaches a member or another row of the family by a direct call in its own facts.
+
+    `rows` and `pins` are Family's. `spellings` {old: new} writes each new name out, and each must be stand_in_swap of
+    the old one. `stride` is the element size every stride fact states; the plan holds it to the registered header's
+    sizeof assertion. `duplicates` {rva: (old name, facts)} are stand-in rows at an address `members` already rows
+    under exactly the respelled name: they are retired, never respelled into a second row. `retired` {rva: (old name,
+    facts)} are stand-in pins on an address `members` rows: they go. `bindings` [(row rva, offset, target name)] are
+    the REL32s each rebuilt row must hold; each is one of that row's own call facts, to a member or a respelled row
+    or pin at the call's target. `copy` is the row the plan is keyed on."""
+
+    def __init__(self, old, new, copy, stride, spellings, members, bindings, rows, pins, duplicates, retired):
+        for label, value in (("members", members), ("bindings", bindings), ("rows", rows)):
+            if not value:
+                raise ValueError(f"a stand-in element family still needs its {label}")
+        if copy not in rows:
+            raise ValueError(f"0x{copy:08X} is not a row of the family")
+        claimed = [*rows.values(), *pins.values(), *duplicates.values(), *retired.values()]
+        for old_name, _facts in claimed:
+            if f"{old}@@" not in old_name:
+                raise ValueError(f"{old_name} does not spell the stand-in {old}")
+            if spellings.get(old_name) != stand_in_swap(old_name, old, new) or spellings[old_name] == old_name:
+                raise ValueError(f"{old_name} must respell by the stand-in swap alone, to {stand_in_swap(old_name, old, new)}")
+        if set(spellings) != {old_name for old_name, _facts in claimed}:
+            raise ValueError("every spelling is a row's or pin's and every row and pin has one")
+        for at, name in members.items():
+            if not re.search(rf"(?:[VU@]|\?\?[0-9]){re.escape(new)}@@", name):
+                raise ValueError(f"member 0x{at:08X} {name} is no row of {new}")
+        for at, (old_name, _facts) in duplicates.items():
+            if members.get(at) != spellings[old_name]:
+                raise ValueError(f"duplicate 0x{at:08X} is retired only onto {new}'s own row of its respelling")
+        if set(retired) - set(members):
+            raise ValueError("only a pin on an address the new class rows is retired")
+        if set(duplicates) & set(rows) or set(pins) & set(retired):
+            raise ValueError("a row is respelled or retired, a pin respelled or retired, never both")
+        named = dict(members)
+        named.update({at: spellings[name] for at, (name, _facts) in [*rows.items(), *pins.items()]})
+        reach = set(members) | set(rows) | set(pins)
+        for at, (old_name, facts) in [*rows.items(), *duplicates.items()]:
+            calls = [f for f in facts if f.kind == "calls"]
+            if not any(f.value in reach for f in calls):
+                raise ValueError(f"0x{at:08X} {old_name} reaches no member or row of the family by a call")
+            for f in facts:
+                if f.kind == "stride" and f.value != stride:
+                    raise ValueError(f"0x{f.site:08X} states a stride of {f.value}, not the element's {stride}")
+        for at, offset, target in bindings:
+            if at not in rows:
+                raise ValueError(f"binding 0x{at:08X} is no row of the family")
+            fact = next((f for f in rows[at][1] if f.kind == "calls" and f.site == at + offset - 1), None)
+            if fact is None:
+                raise ValueError(f"0x{at:08X}+{offset} is not one of the row's own calls")
+            if named.get(fact.value) != target:
+                raise ValueError(f"0x{at:08X}+{offset} calls 0x{fact.value:08X}, which is not {target}")
+        if set(rows) - {at for at, _offset, _target in bindings}:
+            raise ValueError("every row needs a binding: a row with nothing to bind cannot show its element survived")
+        self.old, self.new, self.copy, self.stride, self.spellings = old, new, copy, stride, spellings
+        self.members, self.bindings = dict(members), tuple(bindings)
+        self.rows, self.pins, self.duplicates, self.retired = rows, pins, duplicates, retired
+
+    def respell(self, name):
+        return self.spellings.get(name, name)
+
+    def facts(self):
+        return [f for _name, facts in [*self.rows.values(), *self.duplicates.values(), *self.pins.values(),
+                                       *self.retired.values()] for f in facts]
+
+    def evidence(self):
+        return record(self.rows[self.copy][1])
+
+
 # The CRT's vector iterators (ehvecctr.cpp, ehvecdtr.cpp): the only calls a SlotOperandFamily's operand may feed.
 ITERATOR_NAMES = ("??_L@YGXPAXIHP6EX0@Z1@Z", "??_M@YGXPAXIHP6EX0@Z@Z")
 
@@ -571,7 +652,94 @@ RENDERER_VECTOR = SlotOperandFamily(
         # the copy pushes its own handler
         0x00766EDC: ("__ehhandler$" + _resize(_ENUM), (C("stores", 0x00155698, 0x00B66EDC, "68"),)),
     })
-FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR)
+_SKT_OLD, _SKT = "BfmeAssignRecord44", "ScoredKillTracker"
+_SKT_VEC = f"?$vector@U{_SKT_OLD}@@V?$allocator@U{_SKT_OLD}@@@_STL@@@_STL@@"
+_SKT_STAND_IN = {
+    # the vector of trackers' helpers, rowed on a 44-byte stand-in with no constructor of its own
+    0x0055AC1F: f"??4{_SKT_OLD}@@QAEAAU0@ABU0@@Z",
+    0x004143A4: f"??$__copy@PAU{_SKT_OLD}@@PAU1@H@_STL@@YAPAU{_SKT_OLD}@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    0x00414760: f"?erase@{_SKT_VEC}QAEPAU{_SKT_OLD}@@PAU3@0@Z",
+    0x004149B4: f"?clear@{_SKT_VEC}QAEXXZ",
+    0x004146E2: f"??1{_SKT_VEC}QAE@XZ",
+    0x0041484C: f"?reserve@{_SKT_VEC}QAEXI@Z",
+}
+_SKT_PINS = {
+    0x004143D6: f"??$_M_allocate_and_copy@PAU{_SKT_OLD}@@@{_SKT_VEC}IAEPAU{_SKT_OLD}@@IPAU2@0@Z",
+    0x00414403: f"??$__copy_ptrs@PAU{_SKT_OLD}@@PAU1@@_STL@@YAPAU{_SKT_OLD}@@PAU1@00ABU__false_type@0@@Z",
+}
+_SKT_DUPLICATES = {
+    0x00414793: f"?_M_clear@{_SKT_VEC}IAEXXZ",
+    0x004144F0: f"??$_Destroy@PAU{_SKT_OLD}@@@_STL@@YAXPAU{_SKT_OLD}@@0@Z",
+}
+_SKT_RETIRED = {
+    0x00414793: f"?_M_clear@{_SKT_VEC}IAEXXZ",
+    0x0007E364: f"?allocate@?$allocator@U{_SKT_OLD}@@@_STL@@QBEPAU{_SKT_OLD}@@IPBX@Z",
+}
+
+
+def _skt(name):
+    return stand_in_swap(name, _SKT_OLD, _SKT)
+
+
+# ScoredKillTracker's vector (P134). Its helpers were rowed on BfmeAssignRecord44, a 44-byte struct three units laid
+# out as an AsciiString, so the link kept a _Destroy and a ~vector that release a tracker's vftable as a string. The
+# stand-in has no constructor, so no table store proves the element; the class's own rows do. The assignment calls
+# rva0055A91A and hookToKeeper on this, the copy steps 0x2C and calls that assignment, and erase, clear, the
+# destructor and reserve reach the class's rowed _Destroy, _M_clear and allocate.
+SCORED_KILL_TRACKER_VECTOR = StandInElementFamily(
+    old=_SKT_OLD, new=_SKT, copy=0x0055AC1F, stride=0x2C,
+    spellings={name: _skt(name) for name in [*_SKT_STAND_IN.values(), *_SKT_PINS.values(),
+                                              *_SKT_DUPLICATES.values(), *_SKT_RETIRED.values()]},
+    members={
+        0x0055A91A: "?rva0055A91A@ScoredKillTracker@@QAEXXZ",
+        0x0055A93C: "?hookToKeeper@ScoredKillTracker@@QAEXPAVRva0039BCF8@@@Z",
+        0x004144F0: "??$_Destroy@PAVScoredKillTracker@@@_STL@@YAXPAVScoredKillTracker@@0@Z",
+        0x0041445C: "??$__destroy_aux@PAVScoredKillTracker@@@_STL@@YAXPAVScoredKillTracker@@0ABU__false_type@0@@Z",
+        0x00414793: "?_M_clear@?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@IAEXXZ",
+        0x0007E364: "?allocate@?$allocator@VScoredKillTracker@@@_STL@@QBEPAVScoredKillTracker@@IPBX@Z",
+        0x00414359: ("??$__uninitialized_copy@PAVScoredKillTracker@@PAV1@@_STL@@YAPAVScoredKillTracker@@PAV1@00"
+                     "ABU__false_type@0@@Z"),
+    },
+    bindings=(
+        (0x0055AC1F, 0x0F, "?rva0055A91A@ScoredKillTracker@@QAEXXZ"),
+        (0x0055AC1F, 0x4D, "?hookToKeeper@ScoredKillTracker@@QAEXPAVRva0039BCF8@@@Z"),
+        (0x004143A4, 0x1D, _skt(_SKT_STAND_IN[0x0055AC1F])),
+        (0x00414760, 0x15, _skt(_SKT_PINS[0x00414403])),
+        (0x00414760, 0x20, "??$_Destroy@PAVScoredKillTracker@@@_STL@@YAXPAVScoredKillTracker@@0@Z"),
+        (0x004149B4, 0x06, _skt(_SKT_STAND_IN[0x00414760])),
+        (0x004146E2, 0x1B, "??$_Destroy@PAVScoredKillTracker@@@_STL@@YAXPAVScoredKillTracker@@0@Z"),
+        (0x0041484C, 0x3B, _skt(_SKT_PINS[0x004143D6])),
+        (0x0041484C, 0x45, "?_M_clear@?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@IAEXXZ"),
+        (0x0041484C, 0x55, "?allocate@?$allocator@VScoredKillTracker@@@_STL@@QBEPAVScoredKillTracker@@IPBX@Z"),
+    ),
+    rows={
+        # mov ebx,ecx; call rva0055A91A (ecx still this); ...; mov ecx,ebx; call hookToKeeper
+        0x0055AC1F: (_SKT_STAND_IN[0x0055AC1F], (C("offset", 0x0055AC25, 0, "8bd9"), C("calls", 0x0055AC2D, 0x0055A91A),
+                                                 C("offset", 0x0055AC69, 0, "8bcb"), C("calls", 0x0055AC6B, 0x0055A93C))),
+        0x004143A4: (_SKT_STAND_IN[0x004143A4], (C("stride", 0x004143AD, 0x2C, "6a2c"), C("calls", 0x004143C0, 0x0055AC1F),
+                                                 C("stride", 0x004143C5, 0x2C, "8345082c"))),
+        0x00414760: (_SKT_STAND_IN[0x00414760], (C("calls", 0x00414774, 0x00414403), C("calls", 0x0041477F, 0x004144F0))),
+        0x004149B4: (_SKT_STAND_IN[0x004149B4], (C("calls", 0x004149B9, 0x00414760),)),
+        0x004146E2: (_SKT_STAND_IN[0x004146E2], (C("calls", 0x004146FC, 0x004144F0),)),
+        0x0041484C: (_SKT_STAND_IN[0x0041484C], (C("stride", 0x00414860, 0x2C, "6a2c"), C("calls", 0x00414886, 0x004143D6),
+                                                 C("calls", 0x00414890, 0x00414793), C("calls", 0x004148A0, 0x0007E364),
+                                                 C("stride", 0x004148A5, 0x2C, "6bdb2c"))),
+    },
+    pins={
+        # reserve's copy helper, whose body fills through the class's rowed __uninitialized_copy
+        0x004143D6: (_SKT_PINS[0x004143D6], (C("calls", 0x00414886, 0x004143D6), C("calls", 0x004143F4, 0x00414359))),
+        # erase's backward move, whose body calls the family's __copy
+        0x00414403: (_SKT_PINS[0x00414403], (C("calls", 0x00414774, 0x00414403), C("calls", 0x00414416, 0x004143A4))),
+    },
+    duplicates={
+        0x00414793: (_SKT_DUPLICATES[0x00414793], (C("calls", 0x0041479B, 0x004144F0),)),
+        0x004144F0: (_SKT_DUPLICATES[0x004144F0], (C("calls", 0x004144FE, 0x0041445C),)),
+    },
+    retired={
+        0x00414793: (_SKT_RETIRED[0x00414793], (C("calls", 0x00414890, 0x00414793),)),
+        0x0007E364: (_SKT_RETIRED[0x0007E364], (C("calls", 0x004148A0, 0x0007E364),)),
+    })
+FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR)
 
 # One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
 # treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at
