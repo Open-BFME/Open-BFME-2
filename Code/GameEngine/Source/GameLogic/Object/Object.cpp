@@ -1995,13 +1995,7 @@ public:
 // sizeof(Object) is 0x4D8: `push 0x4D8; call operator new` at 0x0023CAF2 before Object::Object.
 typedef char ObjectSizeIs0x4D8[sizeof(Object) == 0x4D8 ? 1 : -1];
 
-class Rva004076EE
-{
-public:
-	Object *rva004076EE();
-	void rva00407BC3();
-	void rva00407C17();
-};
+#include "../../../Include/Common/Rva004076EE.h"
 
 BFME_DISP32_FLOAT_GETTER(Rva0028BB86FloatField, 0x1B8)
 

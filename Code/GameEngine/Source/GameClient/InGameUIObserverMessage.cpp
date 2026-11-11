@@ -114,7 +114,7 @@ private:
  void *m_vtable;
  ThingTemplate *m_template;
 };
-class Rva004076EE { public: Object *rva004076EE(); };
+#include "../../Include/Common/Rva004076EE.h"
 struct HeroAwardNameView { char pad[8]; UnicodeString name; };
 struct BfmePod40;
 #include "../../Include/GameClient/Rva0040AAD5.h"

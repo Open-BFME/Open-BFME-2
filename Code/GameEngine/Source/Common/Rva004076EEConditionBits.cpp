@@ -49,13 +49,7 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 		object->rva0028AE6D();
 	}
 }
-class Rva004076EE
-{
-public:
-	Object *rva004076EE();
-	void rva00407BC3();
-	void rva00407C17();
-};
+#include "../../Include/Common/Rva004076EE.h"
 void Rva004076EE::rva00407BC3()
 {
 	Object *object = rva004076EE();

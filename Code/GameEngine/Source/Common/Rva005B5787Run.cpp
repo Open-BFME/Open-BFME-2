@@ -10,11 +10,7 @@ public:
 	void set(int value);
 };
 
-class Rva004076EE
-{
-public:
-	void rva00407C17();
-};
+#include "../../Include/Common/Rva004076EE.h"
 
 class Rva005B566B
 {

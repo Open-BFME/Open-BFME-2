@@ -944,3 +944,4 @@ Rva00224455,Code/GameEngine/Include/Common/Rva00224455.h,existing header; contra
 Rva0039B20C,Code/GameEngine/Include/GameLogic/Module/Rva0039B20C.h,existing header; contract class_contracts/Rva0039B20C.json; 8/9 sampled units adopt
 Rva000421FD,Code/GameEngine/Include/GameLogic/Rva000421FD.h,existing header; contract class_contracts/Rva000421FD.json; 7/8 sampled units adopt
 AptMessageBox,Code/GameEngine/Include/Common/AptMessageBox.h,existing header; contract class_contracts/AptMessageBox.json; 5/8 sampled units adopt
+Rva004076EE,Code/GameEngine/Include/Common/Rva004076EE.h,existing header; contract class_contracts/Rva004076EE.json; 6/9 sampled units adopt

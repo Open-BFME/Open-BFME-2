@@ -24,10 +24,7 @@ public:
 	float b; // +0x04
 };
 class Object;
-class Rva004076EE {
-	public:
-	Object *rva004076EE();
-};
+#include "../../../../../Include/Common/Rva004076EE.h"
 struct Rva005B0473View
 {
 public:

@@ -10,11 +10,7 @@ extern IMEManager *TheIMEManager;
 
 #include "../../Include/Common/CreateAHeroHero.h"
 
-class Rva004076EE
-{
-public:
-	void rva00407BC3();
-};
+#include "../../Include/Common/Rva004076EE.h"
 
 class Rva005B4BDB
 {
