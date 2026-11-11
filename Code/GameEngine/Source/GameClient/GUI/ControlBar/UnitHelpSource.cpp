@@ -57,11 +57,7 @@ struct ExperienceLevelHandle
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-class Rva005CB9FF
-{
-public:
-	bool rva005CB9FF(int a);
-};
+#include "../../../../Include/Common/Rva005CB9FF.h"
 
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 

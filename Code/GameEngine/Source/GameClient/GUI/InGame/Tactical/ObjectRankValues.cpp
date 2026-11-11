@@ -45,11 +45,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 #include "../../../../../Include/GameLogic/ExperienceLevelStore.h"
 
-class Rva005CB9FF
-{
-public:
-	bool rva005CB9FF(Int arg);
-};
+#include "../../../../../Include/Common/Rva005CB9FF.h"
 
 #include "../../../../../Include/GameLogic/ExperienceTracker.h"
 

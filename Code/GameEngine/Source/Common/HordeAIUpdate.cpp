@@ -482,11 +482,7 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
 #include "../../Include/GameClient/Rva0050B5F1.h"
 
-class Rva005CB9FF
-{
-public:
-	bool rva005CB9FF(int a);
-};
+#include "../../Include/Common/Rva005CB9FF.h"
 
 // The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
 

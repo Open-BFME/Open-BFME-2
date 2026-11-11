@@ -52,11 +52,7 @@ bool Rva0050B5F1::rva0050B5F1(int unusedArgument1, int unusedArgument2)
 	return false;
 }
 
-class Rva005CB9FF
-{
-public:
-	bool rva005CB9FF(int unusedArgument);
-};
+#include "../../Include/Common/Rva005CB9FF.h"
 
 bool Rva005CB9FF::rva005CB9FF(int unusedArgument)
 {
