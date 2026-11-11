@@ -29,11 +29,7 @@ struct BfmeThingELAb
 
 
 class BfmeObjELB;
-class AptOnlineLogin
-{
-public:
-	void rva0057179D(bool);
-};
+#include "../../Include/GameClient/AptOnlineLogin.h"
 
 extern BfmeObjELB *g_bfmeObjELB;
 

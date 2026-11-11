@@ -1,0 +1,775 @@
+{
+ "bases": [
+  "Rva0056DC6B"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptOnlineLogin",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 12,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 1,
+   "inherited_spans": [
+    [
+     4,
+     88
+    ]
+   ]
+  },
+  "retail_access": {
+   "0xa4": {
+    "4": 1
+   },
+   "0xa8": {
+    "4": 1
+   },
+   "0xac": {
+    "4": 3
+   },
+   "0xb0": {
+    "4": 2
+   },
+   "0xce": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xe0": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x572885"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0056DC4C",
+       "offset": 0,
+       "own_vftable": "0x86dbbc",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x572885"
+     ],
+     "value": 221
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x572885"
+     ],
+     "value": {
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       1
+      ],
+      "0xc5": [
+       1
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       1
+      ],
+      "0xcd": [
+       1
+      ],
+      "0xce": [
+       1
+      ],
+      "0xcf": [
+       1
+      ],
+      "0xd2": [
+       1
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x572885"
+     ],
+     "value": {
+      "0x0": [
+       "?rva0056EE5F@Rva0056EE5F@@QAEEXZ"
+      ],
+      "0x4": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ],
+      "0x60": [
+       "??0GameSpyLoginPreferences@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x572885"
+     ],
+     "value": {
+      "0x0": "0x86dbbc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86dbbc"
+     ],
+     "value": {
+      "count": 10,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptOnlineLogin@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x56ee43"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 2,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00571C60@Rva00571C60@@QAEXXZ",
+        "slot": 3,
+        "target": "0x571c60"
+       },
+       {
+        "name": "?rva0056DDC1@AptOnlineLogin@@UAEHPAXIII@Z",
+        "slot": 4,
+        "target": "0x56ddc1"
+       },
+       {
+        "name": "?rva0057166C@AptOnlineLogin@@UAEHPAXI00@Z",
+        "slot": 5,
+        "target": "0x57166c"
+       },
+       {
+        "name": "?rva00571C9D@AptOnlineLogin@@QAEXXZ",
+        "slot": 6,
+        "target": "0x571c9d"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 7,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 8,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       }
+      ],
+      "table": "0x86dbbc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x86dbbc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptOnlineLogin@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "??1Region2D@@QAE@XZ",
+     "3": "?rva00571C60@Rva00571C60@@QAEXXZ",
+     "4": "?rva0056DDC1@AptOnlineLogin@@UAEHPAXIII@Z",
+     "5": "?rva0057166C@AptOnlineLogin@@UAEHPAXI00@Z",
+     "6": "?rva00571C9D@AptOnlineLogin@@QAEXXZ",
+     "7": "?IsCRC@Xfer@@UBE_NXZ",
+     "8": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 2,
+   "176": 1,
+   "208": 1,
+   "220": 1,
+   "224": 3
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "owner",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AptOnlineLoginOwner*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:GameSpyLoginPreferences",
+   "name": "m_login",
+   "name_by": "tie",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 68,
+   "type": "GameSpyLoginPreferences",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:SkirmishFindMap",
+   "members": [
+    {
+     "kind": "P",
+     "name": "head",
+     "offset": 0,
+     "size": 4,
+     "type": "SkirmishFindNode*"
+    },
+    {
+     "kind": "A",
+     "name": "remainder",
+     "offset": 4,
+     "size": 8,
+     "type": "uchar[8]"
+    }
+   ],
+   "name": "loginPreferences",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 12,
+   "type": "SkirmishFindMap",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_a4",
+   "name_by": "tie",
+   "offset": 164,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_a8",
+   "name_by": "tie",
+   "offset": 168,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_ac",
+   "name_by": "tie",
+   "offset": 172,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_b0",
+   "name_by": "tie",
+   "offset": 176,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_B4",
+   "name_by": "majority",
+   "offset": 180,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_pendingButtonState",
+   "name_by": "tie",
+   "offset": 188,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_fieldMask",
+   "name_by": "tie",
+   "offset": 192,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "loggedIn",
+   "name_by": "tie",
+   "offset": 196,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "needsRefresh",
+   "name_by": "tie",
+   "offset": 197,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "loginStartTime",
+   "name_by": "tie",
+   "offset": 200,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ulong",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_tabListRegistered",
+   "name_by": "tie",
+   "offset": 204,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "loginEnabled",
+   "name_by": "tie",
+   "offset": 205,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_ce",
+   "name_by": "tie",
+   "offset": 206,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "registerEnabled",
+   "name_by": "tie",
+   "offset": 207,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "closeLocale",
+   "name_by": "majority",
+   "offset": 208,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "responseFailed",
+   "name_by": "majority",
+   "offset": 209,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_D2",
+   "name_by": "majority",
+   "offset": 210,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "locale",
+   "name_by": "tie",
+   "offset": 212,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 216,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "accountDeleted",
+   "name_by": "tie",
+   "offset": 220,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['Rva0056DC4C']": 1,
+    "['Rva0056DC6B']": 1
+   },
+   "class": "AptOnlineLogin",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "name@0x60",
+   "candidates": {
+    "m_login": 1,
+    "m_preferences": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xa4",
+   "candidates": {
+    "email": 1,
+    "m_A4": 1,
+    "m_a4": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xa8",
+   "candidates": {
+    "m_A8": 1,
+    "m_a8": 1,
+    "nickname": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xac",
+   "candidates": {
+    "m_AC": 1,
+    "m_ac": 1,
+    "m_combo": 1,
+    "password": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xb0",
+   "candidates": {
+    "m_B0": 1,
+    "m_b0": 1,
+    "remember": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "field@0xb8",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xbc",
+   "candidates": {
+    "m_BC": 1,
+    "m_pendingButtonState": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xc0",
+   "candidates": {
+    "m_C0": 1,
+    "m_fieldMask": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xc4",
+   "candidates": {
+    "loggedIn": 1,
+    "m_C4": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xc5",
+   "candidates": {
+    "m_C5": 1,
+    "needsRefresh": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xc8",
+   "candidates": {
+    "loginStartTime": 1,
+    "m_C8": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xcc",
+   "candidates": {
+    "m_CC": 1,
+    "m_tabListRegistered": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xcd",
+   "candidates": {
+    "loginEnabled": 1,
+    "m_CD": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xce",
+   "candidates": {
+    "gadgetsReady": 1,
+    "m_CE": 1,
+    "m_ce": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xcf",
+   "candidates": {
+    "m_CF": 1,
+    "registerEnabled": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xd4",
+   "candidates": {
+    "locale": 1,
+    "m_D4": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xd8",
+   "candidates": {
+    "m_D8.m_text": 1,
+    "m_deleteNickname.m_text": 1,
+    "m_name.m_text": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "name@0xdc",
+   "candidates": {
+    "accountDeleted": 1,
+    "m_DC": 1
+   },
+   "class": "AptOnlineLogin"
+  },
+  {
+   "attribute": "straddle@0x64",
+   "candidates": {},
+   "class": "AptOnlineLogin"
+  }
+ ],
+ "size": 224,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "rva0057166C(void*,uint,void*,void*)"
+  }
+ }
+}

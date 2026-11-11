@@ -939,7 +939,7 @@ private:
 };
 // ?rva005709CC@Rva005709CC@@QAE_NXZ @0x005709CC 5B: the rowed
 // AptOnlineLogin::rva005706D4 0x005706D4 on the member at +0.
-class AptOnlineLogin { public: bool rva005706D4(); };
+#include "../../../../../Include/GameClient/AptOnlineLogin.h"
 class Rva005709CC
 {
 public:
