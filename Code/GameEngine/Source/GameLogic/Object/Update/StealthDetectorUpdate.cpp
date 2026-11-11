@@ -252,7 +252,7 @@ class Rva001F3899Slot{public:void set(const Rva001F3899Arg&);};
 
 class Rva0055A88BDwordField;
 
-class Rva001F3C20Slot{public:void set(const Rva0055A88BDwordField*);};
+#include "../../../../Include/GameLogic/Module/Rva001F3C20Slot.h"
 
 struct Rva001F3C43Arg;
 

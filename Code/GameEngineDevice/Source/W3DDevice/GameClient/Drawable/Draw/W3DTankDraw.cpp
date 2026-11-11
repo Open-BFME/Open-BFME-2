@@ -233,7 +233,7 @@ public:
 enum { FALSE = 0, TRUE = 1 };
 class ParticleSystemTemplate;
 class Rva0055A88BDwordField;
-class Rva001F3C20Slot { public: void set(const Rva0055A88BDwordField *) throw(); };
+#include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3C20Slot.h"
 struct Rva001F3C43Arg;
 
 typedef float Real;
