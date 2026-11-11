@@ -96,6 +96,7 @@ void *Rva006F7600::getMask(int i)
 // that class name. Field and class names are structural inferences; the
 // method name is address-derived.
 extern unsigned int g_bfmeExtra1282Flags;
+#include "AptAnimationPoolData.h"
 #include "BfmeAptValue006DCD20.h"
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 struct AptMaskInfo { int unknown00; int clipDepth; };
@@ -137,15 +138,12 @@ void rva006F7330(void *context, void *item, int mode);
 void *rva006F73A0(void *context, void *item, int mode);
 typedef void (__cdecl *AptDisplayVisitor)(void *, void *, int);
 struct AptDisplayHead { AptDisplayNode *head; };
-class AptAnimationPoolData
-{
-public:
-    AptDisplayHead *list;
-    void rva006F7720Sub(void *context, int mode);
-};
+// The canonical header keeps AptAnimationPoolData opaque; this unit reads only
+// its display-list head at +0x00 through a local view.
+struct AptAnimationPoolDataListView { AptDisplayHead *list; };
 void AptAnimationPoolData::rva006F7720Sub(void *context, int mode)
 {
-    AptDisplayNode *item = list->head->next;
+    AptDisplayNode *item = ((AptAnimationPoolDataListView *)this)->list->head->next;
     Rva006F7540 masks;
     // The clip visitor's pointer result is discarded by this visitor type.
     AptDisplayVisitor visit;
