@@ -88,7 +88,7 @@ private:
     _STL::vector<void *> holders;
 };
 class Rva0027CE80 { public: void rva0027CE80(void); };
-class Rva00283002 { public: void rva00283002(void); };
+#include "../../../Include/GameLogic/Rva00283002.h"
 #include "../../../Include/GameLogic/Rva002827F3.h"
 class W3DTerrainLogic
 {

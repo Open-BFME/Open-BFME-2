@@ -72,7 +72,7 @@ void Rva0023C4A1::rva0023C4A1()
 // the skeleton of ??1PlayerPosition 0x0022D920. Stack arguments pass
 // through; each callee keeps its ledger spelling.
 #include "../../Include/Common/RvaSmartPtr12.h"
-class Rva00283002 { public: void rva00283002(); };	// 0x00283002 (list clear)
+#include "../../Include/GameLogic/Rva00283002.h"
 enum ScienceType { };
 #include "../../Include/Common/Player.h"
 class DataChunkInput;

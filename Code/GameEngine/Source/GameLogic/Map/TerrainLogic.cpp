@@ -879,10 +879,7 @@ struct Rva00283401Node {
 };
 void *__stdcall Rva00282FE0CreateNode(void const *src);
 // ?rva00283426@Rva00283426@@QAEXXZ @0x00283426 23B: list teardown calling clear 0x00283002 then freeing sentinel via 0x00030830. Evidence: chain from just-landed 0x00283002; abuts Insert 0x00283401; callers at 0x0028420E plus 0x00283C92.
-class Rva00283002 {
-public:
-	void rva00283002();
-};
+#include "../../../Include/GameLogic/Rva00283002.h"
 class Rva00283426 {
 public:
 	__declspec(noinline) void rva00283426();
