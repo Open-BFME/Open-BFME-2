@@ -806,11 +806,7 @@ struct BFMEObjectFormationField
 
 // The voice lines the movement and attack commands answer with. The vendored
 // AIUpdate.h declares neither.
-class BFMEMoveVoiceAI
-{
-public:
-	void playMoveVoiceResponse( const Coord3D *position );	///< retail ILT 0x000462ea
-};
+#include "../../../../Include/GameLogic/Module/BFMEMoveVoiceAI.h"
 
 class BFMEAttackVoiceAI
 {
