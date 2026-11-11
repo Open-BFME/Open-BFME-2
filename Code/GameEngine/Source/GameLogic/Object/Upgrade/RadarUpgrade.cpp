@@ -85,11 +85,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
 
-class AttributeModifierUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierUpgradeModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/DoCommandUpgradeModuleData.h"
 

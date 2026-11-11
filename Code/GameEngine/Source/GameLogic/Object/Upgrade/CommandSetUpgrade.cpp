@@ -123,11 +123,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 #include "../../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
-class AttributeModifierUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierUpgradeModuleData.h"
 #include "../../../../Include/GameLogic/Module/DoCommandUpgradeModuleData.h"
 #include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 // ArmorUpgrade own table (retail VA 0x00DBA870, 16-byte entries

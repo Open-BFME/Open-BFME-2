@@ -67,7 +67,7 @@ class AttachUpdateModuleData { public: static ModuleData *friend_newModuleData(I
 #include "../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class AttributeModifierUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class AttributeModifierUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/AttributeModifierUpgradeModuleData.h"
 class AudioLoopUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AudioLoopUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
