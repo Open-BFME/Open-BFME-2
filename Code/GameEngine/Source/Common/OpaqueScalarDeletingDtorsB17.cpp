@@ -100,12 +100,14 @@ Rva005E9F3F::Rva005E9F3F(EmitVtableTag *)
 {
 }
 
+class INI;
 class Rva005E9F7B
 {
 public:
 	Rva005E9F7B(EmitVtableTag *);
 public:
 	virtual ~Rva005E9F7B();
+	virtual void rva005E2126(INI *ini);
 };
 
 // ?<Rva005E9F7B::Rva005E9F7B> absent-from-retail

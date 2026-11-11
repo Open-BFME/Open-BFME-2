@@ -76,13 +76,19 @@ class Rva005E16A7
 {
 public:
 	void rva005E16A7(INI *ini);
-	void rva005E2126(INI *ini);
+};
+
+class Rva005E9F7B
+{
+public:
+	virtual ~Rva005E9F7B();
+	virtual void rva005E2126(INI *ini);
 };
 void Rva005E16A7::rva005E16A7(INI *ini)
 {
 	ini->initFromINI(this, g_rva005E16A7FieldParse);
 }
-void Rva005E16A7::rva005E2126(INI *ini)
+void Rva005E9F7B::rva005E2126(INI *ini)
 {
 	ini->initFromINI(this, g_rva005E2126FieldParse);
 }

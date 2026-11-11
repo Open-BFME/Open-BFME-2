@@ -28,11 +28,13 @@ private:
 	void *m_at4;
 };
 
+class INI;
 class Rva005E9F7B : public Rva0022167C
 {
 public:
 	Rva005E9F7B();
 	virtual ~Rva005E9F7B();
+	virtual void rva005E2126(INI *ini);
 
 private:
 	unsigned int m_at8; // 0x80FFFFFF

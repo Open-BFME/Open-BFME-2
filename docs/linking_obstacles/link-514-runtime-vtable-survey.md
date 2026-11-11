@@ -2496,3 +2496,13 @@ override 0x005E586B. StrategicInGameUI.obj retains that override and the
 next method at 0x005E57A2. All three units pass byte verification and the
 link preview retains 3,037 bytes against census 60189f9ced. Await the real
 link before retiring the bridge.
+
+RegionDetailsPanelStructuresPage, RVA 0x00877AD8. The constructor at
+0x005E2237 installs the two-slot table. Slot 1 reads ProgressOverlayColor
+using INI::initFromINI and the field table at VA 0x00C77A98. The official
+to-class move assigned its existing 18-byte row at 0x005E2126 to
+Rva005E9F7B. The constructor and B17 objects both emit eight bytes with
+the deleting destructor at offset 0 and the parser at offset 4. The three
+units verify 18/18 code rows and 2/2 data rows; the preview retains 476
+bytes at census 60189f9ced. The other table name Rva005E2237 and real-link
+provider selection are outside this scoped check.
