@@ -5,12 +5,8 @@
 // 4D990E scans Object244 modules for a movement-sensitive template and feeds
 // the name-based resolver. Original owner and method names remain unknown.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-class Rva002390CB { public:
-    Rva002390CB();
-    Rva002390CB(const Rva002390CB&);
-    ~Rva002390CB() { if(ref) ref->Release_Ref(); }
-    int id; OpaqueRefCounted *ref;
-};
+#include "../../Include/Common/Rva002390CB.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 struct Rva002C99FB { int id; OpaqueRefCounted *ref; };
 inline const Rva002C99FB &asStruct(const Rva002390CB &v) {return *(const Rva002C99FB*)&v;}
 class Rva004D977D { public: void rva004D977D(const Rva002C99FB&,const Rva002C99FB&); };

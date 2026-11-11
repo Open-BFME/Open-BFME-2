@@ -3,12 +3,8 @@
 // Tree erase256FB5 calls this body; original record identity is unknown.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class Rva002390CB {
-    void *m_unknown;
-    OpaqueRefCounted *m_owner;
-public:
-    ~Rva002390CB() { if (m_owner) m_owner->Release_Ref(); }
-};
+#include "../../Include/Common/Rva002390CB.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 struct BfmeStringRecord002CF550 { AsciiString text; Rva002390CB ref; ~BfmeStringRecord002CF550(); };
 inline BfmeStringRecord002CF550::~BfmeStringRecord002CF550() {}
 

@@ -11,7 +11,10 @@
 #pragma comment(linker, "/alternatename:??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ=??3@YAXPAX@Z")
 #include "../../../../Include/Common/INI/FieldParse.h"
 class INI {public:const char*getNextSubToken(const char*);const char*getNextToken(const char*);const char*getNextTokenOrNull(const char*);float scanReal(const char*);char pad[0x420];const char *separators;};
-class Rva0036CA00Str {public:Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(object)object->Release_Ref();}OpaqueRefCounted *object;};
+#include "../../../../Include/Common/Rva002390CB.h"
+#include "../../../../Include/Common/Rva0036CA00Str.h"
+#include "../../../../Include/Common/Rva002390CBInlines.h"
+
 template<int N>class LookupSlots:public LookupSlots<N-1>{public:virtual void gap(char(*)[N]);};
 template<>class LookupSlots<0>{};
 class SoundLookupView:public LookupSlots<75>{public:virtual Rva0036CA00Str lookup(const AsciiString&);};
@@ -255,13 +258,6 @@ class Rva004C9E33Iface
 public:
     virtual void rva004C9E33() = 0;
     virtual void rva004C9E48() = 0;
-};
-
-class Rva002390CB {
-    void *unknown00;
-    OpaqueRefCounted *owner04;
-public:
-    ~Rva002390CB();
 };
 
 // Retail RVA 0x004C9FBF, 33 bytes.
@@ -591,9 +587,6 @@ void AnimationSoundClientBehavior::updateAnimationSounds()
 
 // ---- from Code/GameEngine/Source/Common/Rva002390CBDtor.cpp
 
-inline Rva002390CB::~Rva002390CB() {
-    if (owner04) owner04->Release_Ref();
-}
 
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. The anchor keeps this
@@ -649,7 +642,7 @@ void Rva004CA798Parse(INI *ini,void *data,void*)
  AsciiString soundName(ini->getNextSubToken(soundTag));
  if(soundName.isEmpty())throw INIException(3,"AnimationSound line: sound name cannot empty");
  Rva0036CA00Str sound=((SoundLookupView*)TheAudio)->lookup(soundName);
- if(!sound.object)throw INIException(3,"AnimationSound line: unknown sound '%s'",soundName.str());
+ if(!sound.m_item)throw INIException(3,"AnimationSound line: unknown sound '%s'",soundName.str());
  const char *token=ini->getNextTokenOrNull(ini->separators);
  WeaponTemplateSetHead required((WeaponTemplateSetHead::BfmeNoInitAnim())),excluded((WeaponTemplateSetHead::BfmeNoInitAnim()));
  memset(&required,0,sizeof(required));memset(&excluded,0,sizeof(excluded));

@@ -21,12 +21,8 @@ struct FieldParse;
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-class Rva002390CB {
-public:
- Rva002390CB();
- ~Rva002390CB() { if (ref) ref->Release_Ref(); }
- int unknown0; OpaqueRefCounted *ref;
-};
+#include "../../../Include/Common/Rva002390CB.h"
+#include "../../../Include/Common/Rva002390CBInlines.h"
 struct BfmeStringRecord002CF550 {
  AsciiString text; Rva002390CB sound;
  BfmeStringRecord002CF550(const BfmeStringRecord002CF550 &);

@@ -432,13 +432,9 @@ public:
 
 #include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 
-class Rva0036CA00Str {
-public:
- OpaqueRefCounted *referent;
- ~Rva0036CA00Str() { if(referent) referent->Release_Ref(); }
-};
-
-class Rva002390CB { public: int id; Rva0036CA00Str ref; };
+#include "../../../../../Include/Common/Rva002390CB.h"
+#include "../../../../../Include/Common/Rva0036CA00Str.h"
+#include "../../../../../Include/Common/Rva002390CBInlines.h"
 
 #include "../../../../../Include/GameClient/Drawable.h"
 
@@ -655,7 +651,7 @@ void DeployStyleAIUpdate::rva0048EB53(DeployStateTypes stateID)
   m_4B8=*reinterpret_cast<const unsigned int *>(reinterpret_cast<const char *>(getModuleData())+0x64);
   if(draw) {
    draw->setAnimationLoopDuration(m_4B8);
-   BfmeAudioEventPrefix136 sound(reinterpret_cast<const OpaqueRefElement4 &>(draw->rva00274CD8(AsciiString("Deploy")).ref),0);
+   BfmeAudioEventPrefix136 sound(reinterpret_cast<const OpaqueRefElement4 &>(draw->rva00274CD8(AsciiString("Deploy")).m_04),0);
    reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531((int)self->getID());
    TheAudio->addAudioEvent(&sound);
   }
@@ -669,7 +665,7 @@ void DeployStyleAIUpdate::rva0048EB53(DeployStateTypes stateID)
   m_4B8=*reinterpret_cast<const unsigned int *>(reinterpret_cast<const char *>(getModuleData())+0x68);
   if(draw) {
    draw->setAnimationLoopDuration(m_4B8);
-   BfmeAudioEventPrefix136 sound(reinterpret_cast<const OpaqueRefElement4 &>(draw->rva00274CD8(AsciiString("Undeploy")).ref),0);
+   BfmeAudioEventPrefix136 sound(reinterpret_cast<const OpaqueRefElement4 &>(draw->rva00274CD8(AsciiString("Undeploy")).m_04),0);
    reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531((int)self->getID());
    TheAudio->addAudioEvent(&sound);
   }

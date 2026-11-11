@@ -665,15 +665,7 @@ private:
 	_STL::map<int, int> m_map;
 };
 // The 8-byte record slot 137 hands back by value.
-class Rva002390CB
-{
-	void *m_00;
-	void *m_04;
-public:
-	Rva002390CB();
-	__declspec(nothrow) Rva002390CB(const Rva002390CB &other);
-	~Rva002390CB();
-};
+#include "../../../../Include/Common/Rva002390CB.h"
 // A module data +0x198 entry: found by its leading name, carries the record
 // slot 137 copies out at +8.
 struct Rva0046D158Record

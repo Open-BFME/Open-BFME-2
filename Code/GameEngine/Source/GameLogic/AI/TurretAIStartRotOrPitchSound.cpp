@@ -18,22 +18,9 @@
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str(const Rva0036CA00Str &other);
-	~Rva0036CA00Str() { if (m_ref) m_ref->Release_Ref(); }
-	OpaqueRefCounted *m_ref;
-};
-
-class Rva002390CB
-{
-public:
-	Rva002390CB();
-	Rva002390CB(const Rva002390CB &other);
-	int m_0;
-	Rva0036CA00Str m_4;
-};
+#include "../../../Include/Common/Rva002390CB.h"
+#include "../../../Include/Common/Rva0036CA00Str.h"
+#include "../../../Include/Common/Rva002390CBInlines.h"
 
 #include "../../../Include/GameClient/Drawable.h"
 
@@ -86,7 +73,7 @@ void TurretAI::startRotOrPitchSound()
 		Drawable *drawable = m_owner->getDrawable();
 		if (drawable)
 		{
-			BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&drawable->rva00274CD8(AsciiString("TurretMoveLoop")).m_4, 0);
+			BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&drawable->rva00274CD8(AsciiString("TurretMoveLoop")).m_04, 0);
 			reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531(m_owner->getID());
 			m_turretRotOrPitchHandle = TheAudio->addAudioEvent(&sound);
 		}

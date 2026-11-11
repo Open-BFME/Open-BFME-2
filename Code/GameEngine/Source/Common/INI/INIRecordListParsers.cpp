@@ -49,18 +49,8 @@ struct BfmeStringRecord00395E75
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-class Rva002390CB
-{
-public:
-	Rva002390CB();
-	~Rva002390CB()
-	{
-		if (m_ref)
-			m_ref->Release_Ref();
-	}
-	int m_index;
-	OpaqueRefCounted *m_ref;
-};
+#include "../../../Include/Common/Rva002390CB.h"
+#include "../../../Include/Common/Rva002390CBInlines.h"
 
 struct Rva0039A48EElement
 {
