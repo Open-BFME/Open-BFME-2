@@ -52,7 +52,7 @@ public:
 // Region views (placeholder-rowed members of the region at +0x18).
 #include "../../../../Include/Common/Rva004E0625.h"
 class Rva004E05F0 { public: CreateAHeroData *rva004E05F0(); };
-class Rva004E0741 { public: void rva004E0741() const; };
+#include "../../../../Include/Common/Rva004E0741.h"
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *listener); };
 

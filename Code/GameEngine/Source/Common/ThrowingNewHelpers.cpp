@@ -172,7 +172,7 @@ void Rva005CF703Owner::rva005CF703(int x)
 	m_a->m_sub.rva00575674((Object *)selectionHelper);
 }
 
-class Rva004E0741 {public:void rva004E0741()const;};
+#include "../../Include/Common/Rva004E0741.h"
 class CreateAHeroData;
 class Rva004E05F0 {public:CreateAHeroData *rva004E05F0();};
 #include "../../Include/Common/Rva0042D6E6PtrChaseField.h"

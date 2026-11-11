@@ -14,11 +14,7 @@ class Rva004E0750
 public:
 	void rva004E0750() const;
 };
-class Rva004E0741
-{
-public:
-	void rva004E0741() const;
-};
+#include "../../Include/Common/Rva004E0741.h"
 class StrategicInGameUI::PlanningPhaseBuildingSelection
 {
 public:
