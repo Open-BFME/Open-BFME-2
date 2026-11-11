@@ -3888,7 +3888,7 @@ void LivingWorldLogic::rva0047A69C(const AsciiString &name)
 // Keep the existing callers' address-derived ABI spelling; the receiver
 // borrows this unit's established LivingWorldLogic layout, with no copy.
 class Rva002B32CE {public:bool rva002B32CE();};
-class Rva002B5EB5 {public:bool IsLocalPlayerAllowedToEndPhase();};
+#include "../../../../Include/Common/Rva002B5EB5.h"
 
 bool Rva002B5EB5::IsLocalPlayerAllowedToEndPhase()
 {

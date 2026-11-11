@@ -117,7 +117,7 @@ class Rva005CCEB6 { public: void rva005CCEB6(); };
 class Rva005CD708 { public: void rva005CD708(); };
 class Rva005D14AB { public: void rva005D14AB(); };
 #include "../../../../Include/Common/Rva000AD6F4.h"
-class Rva002B5EB5 { public: bool IsLocalPlayerAllowedToEndPhase(); };
+#include "../../../../Include/Common/Rva002B5EB5.h"
 #include "../../../../Include/Common/Rva0042D6AEPtrChaseField.h"
 class ResolveUpdateAction {
 public:

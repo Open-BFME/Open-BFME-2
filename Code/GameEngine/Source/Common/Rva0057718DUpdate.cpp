@@ -32,11 +32,7 @@ public:
 
 #include "../../Include/Common/Rva000B3FD0.h"
 
-class Rva002B5EB5
-{
-public:
-	bool IsLocalPlayerAllowedToEndPhase();
-};
+#include "../../Include/Common/Rva002B5EB5.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

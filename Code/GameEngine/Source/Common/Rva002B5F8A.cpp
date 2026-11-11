@@ -27,11 +27,7 @@ struct Rva002B5F8AHolder98
 	int m_14; // +0x14
 };
 
-class Rva002B5EB5
-{
-public:
-	bool IsLocalPlayerAllowedToEndPhase();
-};
+#include "../../Include/Common/Rva002B5EB5.h"
 
 class Rva002B5F8A
 {
