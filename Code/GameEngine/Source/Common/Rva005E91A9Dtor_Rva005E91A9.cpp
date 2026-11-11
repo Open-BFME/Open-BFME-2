@@ -42,12 +42,14 @@ class Rva005F5C77Base0 : public Rva005E91A9Base
 {
 public:
     virtual ~Rva005F5C77Base0() {}
+    virtual void rva005E9163() = 0;
 };
 class Rva005E91A9 : public Rva005F5C77Base0, public Rva005E12D1
 {
 public:
     Rva005E91A9(unsigned int owner, void *record);
     virtual ~Rva005E91A9();
+    virtual void rva005E9163();
 private:
     unsigned int m_state;
 };

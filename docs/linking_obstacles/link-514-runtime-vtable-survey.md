@@ -2436,3 +2436,14 @@ two slots. The secondary table has 15 slots in the constructor unit and one
 in the destructor unit. Adopting Base2 in the latter alone introduced an
 extra secondary vptr store during destruction and failed byte verification.
 The bridge remains open pending reconciliation of the base destructor.
+
+Cancel-army-move button (base c96dacc181). Slot 1 in the two-entry
+Rva005F5C77Base0 table at RVA 0x0087A630 targets __purecall. The
+Rva005E91A9 constructor and destructor install the derived primary table
+at RVA 0x00877FF0, whose slot 1 targets 0x005E9163. The compiler now emits
+both base entries and both derived entries. Both installers' derived COFF
+tables relocate offset 4 to the same virtual override. The original 23-byte
+method retains its ledger coverage under the derived class. Verification:
+14/14 matched rows across three sources; link preview at census 60189f9ced
+retains 333/333 bytes. Other names sharing 0x0087A630 and the secondary
+table at 0x00877FD0 remain separate work. Await the real link for bridge counts.
