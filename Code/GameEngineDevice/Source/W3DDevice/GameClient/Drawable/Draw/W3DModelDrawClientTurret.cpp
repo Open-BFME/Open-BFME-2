@@ -95,7 +95,7 @@ class TurretRenderView {public:
 };
 struct TurretInfoView {int angleName,pitchName;float artAngle,artPitch;int angleBone,pitchBone;};
 struct TurretStateView {char pad[0xd0];struct TurretVector {TurretInfoView *first,*last,*limit;unsigned size()const{return last-first;}const TurretInfoView &operator[](unsigned n)const{return first[n];}} turrets;char padDC[0xf5-0xdc];bool validTurrets;bool hasRecoil[6];};
-class Rva000B304B {public:void setMuzzleFlashHidden(void*,bool);};
+#include "../../../../../../GameEngine/Include/Common/Rva000B304B.h"
 struct BarrelView {int recoilBone,fireBone,muzzleFlashBone;char rest[0x3c-12];};
 struct RecoilView {int state;float shift,rate;};
 template<class T>struct RecoilVectorView {T*first,*last,*limit;unsigned size()const{return last-first;}T*begin()const{return first;}T&operator[](int n)const{return *(begin()+n);}};
