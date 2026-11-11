@@ -92,13 +92,7 @@ public:
 // The shell's rowed 0x0035BD3F (its own address class).
 #include "../../../../../Include/Common/Rva0035BD3F.h"
 
-class GameWindowTransitionsHandler
-{
-public:
-	void setGroup(AsciiString name, bool immediate);
-	bool isFinished();
-	void reverse(AsciiString groupName);
-};
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 

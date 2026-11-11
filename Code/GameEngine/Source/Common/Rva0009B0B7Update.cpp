@@ -21,11 +21,7 @@
 
 extern GameLogic *TheGameLogic;
 
-class GameWindowTransitionsHandler
-{
-public:
-	bool isFinished();
-};
+#include "../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 class LivingWorldManager;

@@ -11,12 +11,7 @@
 // second TheTransitionHandler call (0x0000F1FF) the rowed
 // Rva001DBB82OneSetter::enable (sets a flag byte at +0x55).
 
-class GameWindowTransitionsHandler
-{
-public:
-	bool isFinished();
-	void setGroup(AsciiString name, bool immediate);
-};
+#include "../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 // The flag poke is the rowed Rva001DBB82OneSetter::enable.
 #include "../../../Include/GameClient/Rva001DBB82OneSetter.h"

@@ -281,11 +281,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 extern ScriptEngine *TheScriptEngine;
 
-class GameWindowTransitionsHandler
-{
-public:
-	bool isFinished();
-};
+#include "../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 

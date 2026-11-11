@@ -68,13 +68,7 @@ struct AptMainMenuMiscAudio
 #include "../../../../../Include/GameClient/Shell.h"
 
 // The shell's rowed 0x0035BD3F (its own address class).
-class GameWindowTransitionsHandler
-{
-public:
-	void setGroup(AsciiString name, bool immediate);
-	bool isFinished();
-	void reverse(AsciiString groupName);
-};
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 

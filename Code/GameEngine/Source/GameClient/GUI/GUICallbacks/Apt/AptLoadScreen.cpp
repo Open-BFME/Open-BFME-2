@@ -104,11 +104,7 @@ class GameTextInterface;
 
 extern GameTextInterface *TheGameText;
 
-class GameWindowTransitionsHandler
-{
-public:
-	void reverse(AsciiString);
-};
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 

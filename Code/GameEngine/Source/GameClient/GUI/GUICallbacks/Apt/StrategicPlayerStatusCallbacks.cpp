@@ -15,7 +15,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../Include/Common/Rva0023C902.h"
 #include "../../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class GameWindowTransitionsHandler { public: bool isFinished(); };
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Include/GameClient/Display.h"
 class Mouse

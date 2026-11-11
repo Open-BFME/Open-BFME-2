@@ -792,12 +792,7 @@ void Rva003284B9(GameWindow *,int,int);
 #include "../../../../Include/Common/Player.h"
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-class GameWindowTransitionsHandler
-{
-public:
-	void setGroup(AsciiString groupName, bool immediate);
-	void remove(AsciiString groupName, bool skipPending);
-};
+#include "../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 #include "Lib/Coord3D.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"

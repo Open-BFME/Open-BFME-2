@@ -165,11 +165,7 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
-class GameWindowTransitionsHandler
-{
-public:
-	bool isFinished();
-};
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 

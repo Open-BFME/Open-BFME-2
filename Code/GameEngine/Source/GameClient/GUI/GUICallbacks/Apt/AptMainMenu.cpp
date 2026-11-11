@@ -390,13 +390,7 @@ typedef bool Bool;
 // Target string "PreParchmentMapFade_StartNew" and matching BFME1 reference
 // function rva0051E280PreParchmentMapFadeStartNew establish this callback's
 // identity. Retail uses the BFME2 WindowManager owner and a shifted audio slot.
-class GameWindowTransitionsHandler
-{
-public:
-	void setGroup(AsciiString name, bool immediate);
-	bool isFinished();
-	void reverse(AsciiString groupName);
-};
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 

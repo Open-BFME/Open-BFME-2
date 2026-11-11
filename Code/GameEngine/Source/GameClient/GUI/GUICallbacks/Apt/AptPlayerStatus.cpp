@@ -243,11 +243,7 @@ public:
 	int m_1a104; // +0x1A104, negative when no script holds the screen
 };
 extern ScriptEngine *TheScriptEngine;
-class GameWindowTransitionsHandler
-{
-public:
-	bool isFinished();
-};
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 // TheDisplay's vslots 87 and 88 (a movie or a letterbox up).
 

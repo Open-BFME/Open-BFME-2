@@ -32,11 +32,7 @@ extern GameLogic *TheGameLogic;
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class GameWindowTransitionsHandler
-{
-public:
-	void setGroup(AsciiString groupName, bool immediate);
-};
+#include "../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 #include "../../Include/GameLogic/VictoryConditionsClass.h"
 
