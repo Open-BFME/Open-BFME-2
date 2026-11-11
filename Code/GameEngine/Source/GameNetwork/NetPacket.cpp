@@ -759,16 +759,7 @@ extern View *TheTacticalView;
 // --- 0x00570405 / 0x0057041B / 0x00570455 / 0x00570469: this-returning
 // forwarders of a referenced value to the class's rowed setters.
 #include "../../Include/Common/Rva0056FCDB.h"
-class Rva0056FAA5
-{
-public:
-	void rva0056FD14(int value);							// 0x0056FD14
-	void rva0056FD2D(int value);							// 0x0056FD2D
-	void rva0056FD46(short value);							// 0x0056FD46
-	Rva0056FAA5 *rva0057041B(const int &value);
-	Rva0056FAA5 *rva00570455(const int &value);
-	Rva0056FAA5 *rva00570469(const short &value);
-};
+#include "../../Include/Common/Rva0056FAA5.h"
 // --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
 // +0x04 cleared, +0x08 = 1.0f.
 template <class T> struct GapClassVector

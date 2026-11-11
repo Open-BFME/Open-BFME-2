@@ -405,13 +405,7 @@ int Rva0056FA94::rva0056FD7B()
 // (0x0056FCDB, 0x0056FD14, 0x0056FD2D, 0x0056FD46); the receiver is answered.
 #include "../../Include/Common/Rva0056FCDB.h"
 
-class Rva0056FAA5
-{
-public:
-	void rva0056FD14(int value);							// 0x0056FD14
-	void rva0056FD2D(int value);							// 0x0056FD2D
-	void rva0056FD46(short value);							// 0x0056FD46
-};
+#include "../../Include/Common/Rva0056FAA5.h"
 
 class Rva0056FD88 : public Rva0056FCDB
 {
