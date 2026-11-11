@@ -219,7 +219,7 @@ Rva003FAFB9::Rva003FAFB9(const AsciiString &name) : m_name(name), m_zoom(g_00E02
 // Each body is independently byte-verified.
 // Names are address-derived (see the symbols.csv pins).
 
-class Rva003FAB93 { public: void rva003FAB93(); };
+#include "../../../Include/Common/Rva003FAB93.h"
 #include "../../../Include/Common/Rva003FAC3F.h"
 
 class Rva003FAC83

@@ -14,10 +14,7 @@
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
 
-class Rva003FAB93 {
-public:
-    void rva003FAB93();
-};
+#include "../../Include/Common/Rva003FAB93.h"
 
 class Rva003FAFB9 : public Snapshot {
 public:

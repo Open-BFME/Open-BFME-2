@@ -10,11 +10,7 @@ class Xfer;
 // already pinned at those addresses in reverse/symbols.csv. The donor's own
 // stubs predate the BFME 2 addresses.
 // LINK: the two helpers are rowed under their retail names.
-class Rva003FAB93
-{
-public:
-	void rva003FAB93();
-};
+#include "../../../Include/Common/Rva003FAB93.h"
 #include "../../../Include/Common/Rva003FAC3F.h"
 
 class LivingWorldSoundThunkCall
