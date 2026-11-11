@@ -321,11 +321,7 @@ void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets>
 void _bfme_closeAptScreen(const AsciiString &name);
 // The player's custom render (0x002246B1) and extern handler (0x002244CA)
 // removals, rowed under address-named views.
-class Rva002246B1
-{
-public:
-	int RemoveCustomRender(const AsciiString *name);
-};
+#include "../../../../../Include/GameClient/Rva002246B1.h"
 class Rva002244CA
 {
 public:

@@ -352,11 +352,7 @@ public:
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class Rva002246B1
-{
-public:
-	int RemoveCustomRender(const AsciiString *name);
-};
+#include "../../../../../Include/GameClient/Rva002246B1.h"
 
 class AptPlayer;
 

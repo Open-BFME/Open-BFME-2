@@ -556,11 +556,7 @@ public:
 class AptCampaignMenu { public: static bool OpenScreen(); };
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-class Rva002246B1
-{
-public:
-	int RemoveCustomRender(const AsciiString *key);
-};
+#include "../../../../../Include/GameClient/Rva002246B1.h"
 class Rva0052493F
 {
 public:

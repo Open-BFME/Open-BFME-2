@@ -919,3 +919,4 @@ Rva002DC74A,Code/GameEngine/Include/Common/Rva002DC74A.h,existing header; contra
 AptPlayerTribute,Code/GameEngine/Include/GameClient/AptPlayerTribute.h,existing header; contract class_contracts/AptPlayerTribute.json; 9/9 sampled units adopt
 Rva00331682Holder,Code/GameEngine/Include/GameLogic/Module/Rva00331682Holder.h,existing header; contract class_contracts/Rva00331682Holder.json; 14/17 sampled units adopt
 DynamicPortalBehaviour,Code/GameEngine/Include/GameLogic/Module/DynamicPortalBehaviour.h,existing header; contract class_contracts/DynamicPortalBehaviour.json; 8/15 sampled units adopt
+Rva002246B1,Code/GameEngine/Include/GameClient/Rva002246B1.h,existing header; contract class_contracts/Rva002246B1.json; 8/9 sampled units adopt

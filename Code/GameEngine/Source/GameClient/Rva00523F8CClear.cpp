@@ -19,11 +19,7 @@ public:
 };
 
 
-class Rva002246B1
-{
-public:
-	int RemoveCustomRender(const AsciiString *key);
-};
+#include "../../Include/GameClient/Rva002246B1.h"
 
 class Rva002244CA
 {

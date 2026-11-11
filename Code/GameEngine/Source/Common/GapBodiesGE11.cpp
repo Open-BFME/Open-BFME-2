@@ -58,7 +58,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva00224455 { public: int RemoveCommandMap(const AsciiString *name); };
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"
-class Rva002246B1 { public: int RemoveCustomRender(const AsciiString *name); };
+#include "../../Include/GameClient/Rva002246B1.h"
 class Rva00224705 { public: int rva00224705(const AsciiString *name); };
 
 class Rva0052416D : public Rva003769C2StringVector

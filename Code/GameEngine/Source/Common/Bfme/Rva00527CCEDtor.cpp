@@ -13,11 +13,7 @@
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
-class Rva002246B1
-{
-public:
-	int RemoveCustomRender(const AsciiString *name);
-};
+#include "../../../Include/GameClient/Rva002246B1.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

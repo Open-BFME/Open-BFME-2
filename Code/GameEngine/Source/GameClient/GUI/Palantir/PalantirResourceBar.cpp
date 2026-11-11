@@ -16,7 +16,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../Include/Common/Rva00222A8BTarget.h"
 class Rva00223A94 {public:int rva00223A94(const AsciiString *);};
-class Rva002246B1 {public:int RemoveCustomRender(const AsciiString *);};
+#include "../../../../Include/GameClient/Rva002246B1.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __single_inheritance ResourceDrawTarget {};
