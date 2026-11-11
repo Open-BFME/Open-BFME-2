@@ -25,11 +25,7 @@ public:
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(int id);
-};
+#include "../../Include/GameLogic/Rva002E071E.h"
 
 // Re-read on every test: the id callee may change the list.
 struct Rva004FB382Range

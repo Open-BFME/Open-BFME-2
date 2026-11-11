@@ -77,14 +77,7 @@ void parseStaticGameLODLevel(INI *ini, void *instance, void *store, const void *
 }
 
 // --- 0x0020E312 (17B): the negation of the rowed 0x002E071E test.
-class Rva002E071E
-{
-public:
-	bool rva002E071E(const Rva002E071E *other) const;	// 0x002E071E
-	bool rva0020E312(const Rva002E071E *other) const;
-	int rva002E0BC0(int id);							// 0x002E0BC0
-	bool rva0020E301(int id);
-};
+#include "../../Include/GameLogic/Rva002E071E.h"
 
 // --- 0x0020E301 (17B): the negation of the rowed 0x002E0BC0 id test. That
 // row is spelled int but its callers read only AL, so the byte is negated.

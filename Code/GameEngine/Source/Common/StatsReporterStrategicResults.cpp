@@ -41,7 +41,7 @@ class LivingWorldSideView {public:char beforeName[4];AsciiString name;const Asci
 #include "../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva002E071E {public:bool rva002E071E(const Rva002E071E*)const;};
+#include "../../Include/GameLogic/Rva002E071E.h"
 class Rva0009AAA4DwordField {public:int get()const;};
 class Rva0021937DTarget;
 class Rva0021937D

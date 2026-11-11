@@ -454,11 +454,7 @@ struct Rva004E08A9World
 
 // The native provider normalizes its bool result with movzx eax,al at
 // 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(int v);
-};
+#include "../../Include/GameLogic/Rva002E071E.h"
 
 class Rva0052B10F
 {

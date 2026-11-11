@@ -9,10 +9,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002E071E {
-public:
-    int rva002E0BC0(int value);
-};
+#include "../../Include/GameLogic/Rva002E071E.h"
 
 class Rva00318CA4Global {
 public:

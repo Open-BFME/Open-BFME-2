@@ -18,12 +18,7 @@ class Rva002E2903Player;
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class Rva002E071E
-{
-public:
-	bool rva002E071E(const Rva002E071E *other) const;
-	int rva002E0BC0(int id);
-};
+#include "../../Include/GameLogic/Rva002E071E.h"
 
 // ?rva002E0BC0@Rva002E071E@@QAEHH@Z
 int Rva002E071E::rva002E0BC0(int id)

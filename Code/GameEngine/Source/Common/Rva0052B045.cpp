@@ -35,7 +35,7 @@ struct Rva002BED91
 	}
 };
 class Rva004E06FBPtrChase32Field { public: int get() const; };
-class Rva002E071E { public: int rva002E0BC0(int id); };
+#include "../../Include/GameLogic/Rva002E071E.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

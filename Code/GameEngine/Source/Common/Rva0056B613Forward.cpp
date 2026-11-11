@@ -24,11 +24,7 @@ private:
 	unsigned char m_56;	// +0x56, gates the helper getter
 };
 
-class Rva002E071E
-{
-public:
-	int rva002E0BC0(int value);
-};
+#include "../../Include/GameLogic/Rva002E071E.h"
 
 class Rva0056B613
 {
