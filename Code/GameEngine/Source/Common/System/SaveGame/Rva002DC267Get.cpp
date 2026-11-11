@@ -41,11 +41,7 @@ public:
 	bool rva002DC7C1(const UnicodeString &path) const;
 };
 
-class Rva002DC74A
-{
-public:
-	UnicodeString rva002DC74A(const UnicodeString &leaf) const;
-};
+#include "../../../../Include/Common/Rva002DC74A.h"
 
 class BFME2FileSystemFacade
 {

@@ -915,3 +915,4 @@ Rva001E42F2,Code/GameEngine/Include/GameLogic/Module/Rva001E42F2.h,existing head
 Member0C00739C70,Code/Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h,existing header; contract class_contracts/Member0C00739C70.json; 11/14 sampled units adopt
 Rva00219251,Code/GameEngine/Include/Common/Rva00219251.h,existing header; contract class_contracts/Rva00219251.json; 9/10 sampled units adopt
 Rva001E431E,Code/GameEngine/Include/GameLogic/Module/Rva001E431E.h,existing header; contract class_contracts/Rva001E431E.json; 14/17 sampled units adopt
+Rva002DC74A,Code/GameEngine/Include/Common/Rva002DC74A.h,existing header; contract class_contracts/Rva002DC74A.json; 9/9 sampled units adopt

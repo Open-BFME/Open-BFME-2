@@ -198,7 +198,7 @@ public:
  AsciiString portableMapPathToRealMapPath(const AsciiString&)const;
  char prefix[0x24];S6SaveMapRecord saveGameInfo;
 };
-class Rva002DC74A {public:UnicodeString rva002DC74A(const UnicodeString&)const;};
+#include "../../Include/Common/Rva002DC74A.h"
 class Rva002DC7C1 {public:bool rva002DC7C1(const UnicodeString&)const;};
 #include "../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;

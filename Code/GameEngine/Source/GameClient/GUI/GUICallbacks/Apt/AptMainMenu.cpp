@@ -190,11 +190,7 @@ public:
 	AptCustomRenderAdder m_customRenders; // +0x34
 };
 
-class Rva002DC74A
-{
-public:
-	UnicodeString rva002DC74A(const UnicodeString &src) const;
-};
+#include "../../../../../Include/Common/Rva002DC74A.h"
 
 class GameState;
 

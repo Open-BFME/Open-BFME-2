@@ -310,11 +310,7 @@ void Rva002D62AB::updateButtonFlash()
 // rowed 229811/229840/22D106 constructors and destructor, not ZH's layout.
 #include "unicode_string.h"
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"
-class Rva002DC74A
-{
-public:
-    UnicodeString rva002DC74A(const UnicodeString &) const;
-};
+#include "../../Include/Common/Rva002DC74A.h"
 class GameState
 {
 public:

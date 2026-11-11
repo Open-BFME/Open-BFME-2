@@ -251,11 +251,7 @@ void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 
 UnicodeString __cdecl Rva0037D55EGet();
 
-class Rva002DC74A
-{
-public:
-	UnicodeString rva002DC74A(const UnicodeString &fileName) const;
-};
+#include "../../../../../Include/Common/Rva002DC74A.h"
 
 class GameState;
 

@@ -160,9 +160,7 @@ void Rva0021B7B6::rva0021B7B6(INI *ini, void *extra)
 
 class GameState;
 extern GameState *TheGameState;
-class Rva002DC74A {
-public: UnicodeString rva002DC74A(const UnicodeString &) const;
-};
+#include "../../../../Include/Common/Rva002DC74A.h"
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
 struct _iobuf;
 extern "C" {

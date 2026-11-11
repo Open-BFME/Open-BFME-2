@@ -184,11 +184,7 @@ class Rva002DC267
 public:
 	UnicodeString rva002DC267() const;
 };
-class Rva002DC74A
-{
-public:
-	UnicodeString rva002DC74A(const UnicodeString &leaf) const;
-};
+#include "../../Include/Common/Rva002DC74A.h"
 
 // See the header comment: original name unknown.
 // Native command-line option passed as the third save-transfer Open argument.

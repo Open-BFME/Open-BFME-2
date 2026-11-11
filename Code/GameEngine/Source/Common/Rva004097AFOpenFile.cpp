@@ -21,11 +21,7 @@ class File;
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
-class Rva002DC74A
-{
-public:
-	UnicodeString rva002DC74A(const UnicodeString &src) const;
-};
+#include "../../Include/Common/Rva002DC74A.h"
 
 class GameState;
 extern GameState *TheGameState;
