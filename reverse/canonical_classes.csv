@@ -1190,3 +1190,4 @@ Rva00376A62,Code/GameEngine/Include/GameLogic/Rva00376A62.h,existing header; con
 Rva0036748E,Code/GameEngine/Include/GameLogic/Module/Rva0036748E.h,existing header; contract class_contracts/Rva0036748E.json; 4/5 sampled units adopt
 Rva0007DA23ResourceManager,Code/GameEngine/Include/Common/Rva0007DA23ResourceManager.h,existing header; contract class_contracts/Rva0007DA23ResourceManager.json; 4/7 sampled units adopt
 Rva0039B709,Code/GameEngine/Include/Common/Rva0039B709.h,existing header; contract class_contracts/Rva0039B709.json; 4/5 sampled units adopt
+PoolMember,Code/GameEngine/Include/Common/PoolMember.h,existing header; contract class_contracts/PoolMember.json; 8/18 sampled units adopt

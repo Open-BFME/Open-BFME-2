@@ -26,7 +26,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 
 
-class PoolMember { public: void Rva0050ED3(); };
+#include "../../../../GameEngine/Include/Common/PoolMember.h"
 class BfmePoolRef08 {
 	PoolMember *m_target;
 public:

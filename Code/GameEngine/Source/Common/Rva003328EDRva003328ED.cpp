@@ -37,11 +37,7 @@ public:
 	void appendIfAbsent(void *value) throw();
 };
 
-class PoolMember
-{
-public:
-	void Rva00268902() throw();
-};
+#include "../../Include/Common/PoolMember.h"
 
 #include "../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 

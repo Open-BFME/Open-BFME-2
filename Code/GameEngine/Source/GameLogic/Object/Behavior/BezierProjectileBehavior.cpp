@@ -382,11 +382,7 @@ public:
 	virtual bool rva0045BF06(Object *victim) = 0;
 };
 
-class PoolMember
-{
-public:
-	void Rva00268902() throw();
-};
+#include "../../../../Include/Common/PoolMember.h"
 
 struct Rva0029FB3BAlloc
 {

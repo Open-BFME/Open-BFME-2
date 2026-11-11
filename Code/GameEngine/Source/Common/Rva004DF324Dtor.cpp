@@ -9,14 +9,7 @@
 // PoolMember at +0x24 whose method resolves to the pin at 0x00268902.
 // Owner identity unproven (opaque Rva name).
 
-class PoolMember
-{
-public:
-	void Rva00268902();
-
-private:
-	unsigned char m_pad[16];
-};
+#include "../../Include/Common/PoolMember.h"
 
 // Base dtor resolves to the opaque pin at 0x004DF7C2 (same 12B layout as
 // the Rva004DF7C2Derived family TU: vptr + 8 pad).

@@ -18,11 +18,7 @@
 #include "ascii_string.h"
 #include <new.h>
 
-class PoolMember
-{
-public:
-	void Rva0050ED3();
-};
+#include "../../../Include/Common/PoolMember.h"
 
 // Nullable owning handle: the inline dtor reproduces the conditional
 // teardown (test/je/call) at +0x7C without a new pin.

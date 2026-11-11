@@ -136,10 +136,7 @@ private:
 
 struct QuantityModifier;
 
-struct PoolMember
-{
-	void Rva0050ED3();
-};
+#include "../../../../Include/Common/PoolMember.h"
 
 // Nullable Release_Ref holder at +0x48. Inline dtor keeps the null check and
 // the release call inline under state 3.

@@ -311,11 +311,7 @@ std::vector<AsciiString>	debrisModelNamesGlobalHack;
 //-------------------------------------------------------------------------------------------------
 class AssetList;
 
-class PoolMember
-{
-public:
-	void Rva0050ED3();
-};
+#include "../../../Include/Common/PoolMember.h"
 
 // Nullable owning handle: the inline dtor reproduces the conditional
 // teardown (test/je/call) at +0x7C of the nugget.
