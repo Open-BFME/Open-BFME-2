@@ -20,12 +20,7 @@ public:
 };
 }
 
-struct Rva00383B39Key
-{
-	int word;
-	bool operator<(const Rva00383B39Key &b) const { return word < b.word; }
-	bool operator==(const Rva00383B39Key &b) const { return word == b.word; }
-};
+#include "../../../../Include/Common/Rva00383B39Key.h"
 
 #include "../../../../Include/Common/Rva00387568Element.h"
 bool operator<(const Rva00387568Element &a, const Rva00387568Element &b);

@@ -23,6 +23,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 
-struct Rva00383B39Key { int word; bool operator<(const Rva00383B39Key&b)const{return word<b.word;} bool operator==(const Rva00383B39Key&b)const{return word==b.word;} };
+#include "../../../../GameEngine/Include/Common/Rva00383B39Key.h"
 // Instantiate the recovered member; retain only its required template dependencies.
 template _STL::_Rb_tree_node<Rva00383B39Key> * _STL::_Rb_tree<Rva00383B39Key, Rva00383B39Key, _STL::_Identity<Rva00383B39Key>, _STL::less<Rva00383B39Key>, _STL::allocator<Rva00383B39Key> >::_M_copy(_STL::_Rb_tree_node<Rva00383B39Key> *, _STL::_Rb_tree_node<Rva00383B39Key> *);
