@@ -82,11 +82,7 @@ public:
 	Rva002390CB rva00239435(int index) throw();
 };
 
-class Rva001D98BD
-{
-public:
-	bool rva001D9781();
-};
+#include "../../../GameEngineDevice/Include/Rva001D98BD.h"
 
 class BfmeRetBWF;
 class Rva0030D631

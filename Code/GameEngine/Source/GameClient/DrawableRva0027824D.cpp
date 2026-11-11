@@ -87,7 +87,7 @@ void Drawable::rva002781DA(Rva0010F149Handle info)
  reinterpret_cast<Rva004EC166 *>(info.referent)->rva00433403(name);
 }
 
-class Rva001D98BD { public: bool rva001D9781(); };
+#include "../../../GameEngineDevice/Include/Rva001D98BD.h"
 template<int N> class DrawableAudioSlots : public DrawableAudioSlots<N-1>
 { public: virtual void unused(char (*)[N])=0; };
 template<> class DrawableAudioSlots<0> {};

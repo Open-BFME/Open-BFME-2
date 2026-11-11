@@ -5441,7 +5441,7 @@ struct AudioEventInfoTableNode
     AudioEventInfo *m_info;
 };
 
-class Rva001D98BD { public: bool rva001D98BD(int type); };
+#include "../../Include/Rva001D98BD.h"
 
 // Look direction from the camera to the first corner, in the WB shape (a copy of
 // the camera position, the corner subtracted in place, then the squared length):

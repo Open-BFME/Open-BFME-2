@@ -62,11 +62,7 @@ struct OpaqueRefElement4
 };
 
 // isPermanentSound-like query (0x001D9781); the caller stores al.
-class Rva001D98BD
-{
-public:
-	bool rva001D9781();
-};
+#include "../../../../GameEngineDevice/Include/Rva001D98BD.h"
 
 // Override setters on the dynamic info; each ORs its bit into +0xC4.
 class Rva00433434 { public: void rva00433434(bool value); };
