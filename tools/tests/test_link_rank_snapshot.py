@@ -48,6 +48,19 @@ def test_known_unit_is_labelled_as_historical(snapshot, capsys):
     assert "Census blockers: 2026-10-24 02:54 at measured" in output
     assert "Provider index updated 2026-10-24 10:28 at refreshed" in output
     assert "current objects have not been checked" in output
+    # The scoped-naming handoff is switched off until the rebuilt game reaches
+    # the menu (AGENTS.md; name_scoped.RELATED_WORK_HANDOFF is False), so
+    # link_rank prints none. Asserting it unconditionally when it was added left
+    # this file red ever since; the test below covers it for when it is enabled.
+    assert "--files Code/known.cpp" not in output
+    assert "Name locals/parameters while inspecting this unit" not in output
+
+
+def test_a_known_unit_offers_the_naming_handoff_once_it_is_enabled(snapshot, capsys, monkeypatch):
+    import name_scoped
+    monkeypatch.setattr(name_scoped, "RELATED_WORK_HANDOFF", True)
+    assert link_rank.main(["--file", "Code/known.cpp"]) == 0
+    output = capsys.readouterr().out
     assert "--files Code/known.cpp" in output
     assert "Name locals/parameters while inspecting this unit" in output
 

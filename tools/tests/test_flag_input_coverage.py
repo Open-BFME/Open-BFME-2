@@ -139,7 +139,14 @@ def test_actual_hook_retains_eh_and_replay_after_global_selection(bound_hooked):
     assert sorted(p.decode() for p in (root/'eh-selected.bin').read_bytes().split(b'\0') if p)==sorted([SOURCE,DATA_SOURCE])
     assert (root/'replay-called.txt').read_text().startswith('--shadow --range ')
 
-def test_missing_data_object_refuses_selector(repo):
+def test_missing_data_object_refuses_selector(repo,monkeypatch):
+    # memoised() answers from ledger_cache, which is keyed on the BLOB id and
+    # stored in the real checkout's git common dir -- shared by every worktree
+    # and kept between runs. DATA's blob id is the same every time, so once any
+    # run cached it this test could never reach git again: deleting the loose
+    # object changed nothing and the refusal stopped being exercised. Caching is
+    # not what is under test here, so switch it off for this one.
+    monkeypatch.setattr(fd.ledger_cache,'folder',lambda:None)
     root,base=repo;write(root,fd.DATA_ROWS,DATA);tip=commit(root)
     oid=git(root,'rev-parse',tip+':'+fd.DATA_ROWS);(root/'.git/objects'/oid[:2]/oid[2:]).unlink()
     with pytest.raises(fd.SnapshotError,match='Git failed'):fd.select(base,tip)
