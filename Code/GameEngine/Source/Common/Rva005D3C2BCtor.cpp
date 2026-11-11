@@ -99,7 +99,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 struct Rva005D2FD0Outer;
 namespace StrategicHUD { void __cdecl SetCommandPointsString(int level, Rva005D2FD0Outer *name, int used, int max); }
 
-class Rva005D3A91 { public: void rva005D3C07(int); };
+#include "../../Include/Common/Rva005D3A91.h"
 #include "../../Include/Common/Rva005D3AF2.h"
 
 struct TargetRef00217D4CHolder

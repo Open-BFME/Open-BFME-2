@@ -7,11 +7,7 @@ class SelectionUIImpl;
 
 // Native calls target RVA 0x5D3A91 with the unadjusted selection pointer.
 // Use the existing verified worker view (fields +0x18/+0x1C/+0x24).
-class Rva005D3A91
-{
-public:
-	void rva005D3A91();
-};
+#include "../../Include/Common/Rva005D3A91.h"
 
 class Rva005D3CA6
 {
