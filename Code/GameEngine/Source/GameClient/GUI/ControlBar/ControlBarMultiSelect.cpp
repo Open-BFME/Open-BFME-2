@@ -29,7 +29,7 @@ class Image;
 class Rva0053DB02 { public: void rva0053DB02(); };
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-class Rva002D363EOwner { public: void rva002D363E(int); };
+#include "../../../../Include/GameClient/Rva002D363EOwner.h"
 class Rva0053ED1A { public: void rva0053EF2E(); };
 
 
