@@ -1,0 +1,77 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva001F553F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x17c": {
+    "4": 1
+   },
+   "0x1c0": {
+    "4": 2
+   },
+   "0x1c4": {
+    "4": 1
+   },
+   "0x1c8": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "460": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 448,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 452,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 456,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -144,7 +144,7 @@ struct RGBColorKeyframe
 
 // Rowed ParticleSystem methods under address-derived classes.
 class Rva001F5300 { public: void rva001F5300(float *out); };
-class Rva001F553F { public: float rva001F534C(); };
+#include "../../Include/GameClient/Rva001F553F.h"
 class Rva001F5373 { public: void rva001F5373(Vec2001F5373 *out); };
 class Rva001F53AASlot { public: const RGBColor *get() const; };
 class Rva001F53BCSlot { public: const RGBColor *get() const; };

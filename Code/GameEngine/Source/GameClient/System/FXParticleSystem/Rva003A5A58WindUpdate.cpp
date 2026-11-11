@@ -82,13 +82,7 @@ public:
 	int rva001F53F0();
 };
 
-class Rva001F553F
-{
-public:
-	float rva001F53CE();
-	float rva001F5401();
-	float rva001F5423();
-};
+#include "../../../../Include/GameClient/Rva001F553F.h"
 
 class Rva001F385A
 {

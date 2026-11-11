@@ -142,12 +142,7 @@ struct Rva003AFA0BVector
 
 #include "../../../../Include/GameClient/ParticleSystemClass.h"
 
-class Rva001F553F
-{
-public:
-	Real rva001F5445();
-	Coord3D *rva001F553F(Coord3D *result, UnsignedInt a, UnsignedInt b);
-};
+#include "../../../../Include/GameClient/Rva001F553F.h"
 
 class BfmeParticleSystemPtr
 {
