@@ -67,7 +67,7 @@ Rva00082EF5::Rva00082EF5(void *mgr)
 }
 
 class CreateAHeroData;
-class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
+#include "../../../../Include/Common/Rva002B7250.h"
 // Native81C7F..81CDF96B is the primary-base destructor required by both
 // native water constructors. It unregisters its +8 listener then tears down
 // vector14 and both base vptrs; the owner name remains address-derived.

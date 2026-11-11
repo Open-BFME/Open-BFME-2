@@ -241,11 +241,7 @@ struct LivingWorldLogicDialogView
 // The same observer list's rowed remover (its spelling carries an unrelated
 // parameter type; the receiver is TheLivingWorldLogic + 0x2C).
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *observer);
-};
+#include "../../../../Include/Common/Rva002B7250.h"
 struct LivingWorldLogicObserverView
 {
 	unsigned char m_pad00[0x2C];

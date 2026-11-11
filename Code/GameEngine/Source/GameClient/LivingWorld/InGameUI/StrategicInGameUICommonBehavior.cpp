@@ -80,7 +80,7 @@ class CreateAHeroData;
 class Rva00574A8A;
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *p); };
-class Rva002B7250 { public: void rva002B7250(CreateAHeroData *); };
+#include "../../../../Include/Common/Rva002B7250.h"
 struct Rva002BED91;
 class Rva0042D6FDPtrChaseField { public: int get() const; };
 // An owner whose observer list sits at +4.

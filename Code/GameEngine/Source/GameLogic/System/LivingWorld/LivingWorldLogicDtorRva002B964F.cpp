@@ -45,13 +45,7 @@ typedef bool Bool;
 
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *listener);
-
-	unsigned char m_pad[0x10];
-};
+#include "../../../../Include/Common/Rva002B7250.h"
 extern Rva002B7250 g_00E04424;
 extern Rva002B7250 g_registryAtE02E88;
 

@@ -4,7 +4,7 @@
 #include "../../../../Include/Common/Rva003FA62B.h"
 
 class CreateAHeroData;
-class Rva002B7250 { public: void rva002B7250(CreateAHeroData *); };
+#include "../../../../Include/Common/Rva002B7250.h"
 struct Rva003FA62BOwner {
     unsigned char m_pad00[0x1C];
     Rva002B7250 m_listeners1C;

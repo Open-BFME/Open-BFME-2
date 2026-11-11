@@ -451,11 +451,7 @@ Rva0021030E::~Rva0021030E()
 // The primary name slot identifies LivingWorldRegionManager; the two
 // secondary callbacks use the shared turn-observer interface.
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *observer);
-};
+#include "../../../../Include/Common/Rva002B7250.h"
 struct RegionLogicObserverPrefix
 {
 	unsigned char m_pad00[0x1C];

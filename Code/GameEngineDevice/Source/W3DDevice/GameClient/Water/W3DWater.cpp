@@ -115,7 +115,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 #include "../../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 template<int N> class WaterAreaObserver {public: virtual ~WaterAreaObserver(){} };
 class CreateAHeroData;
-class Rva002B7250 {public: void rva002B7250(CreateAHeroData*);};
+#include "../../../../../GameEngine/Include/Common/Rva002B7250.h"
 struct WaterTextureHandle { TextureBaseClass *ptr; WaterTextureHandle():ptr(0){} ~WaterTextureHandle(){if(ptr)ptr->Release_Ref();} };
 struct WaterCountedRef {
  RefCountClass *ptr;

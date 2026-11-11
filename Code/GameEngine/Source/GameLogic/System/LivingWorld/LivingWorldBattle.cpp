@@ -12,7 +12,7 @@ typedef int Int;
 
 class CreateAHeroData;
 class Rva003F4DCA { public: int rva003F4DCA(int,int); };
-class Rva002B7250 { public: void rva002B7250(CreateAHeroData*); };
+#include "../../../../Include/Common/Rva002B7250.h"
 struct Rva003B8B61Elem { virtual void destroy(int); char pad04[0x68-4]; };
 namespace _STL {
  template<> void** vector<void*,allocator<void*> >::erase(void**);

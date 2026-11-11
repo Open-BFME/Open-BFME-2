@@ -4,10 +4,7 @@
 // ??1Rva005F5819@@UAE@XZ, retail 0x005f5819, 97 bytes. Banked partial (score 0.95) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 class Rva005E12D1 {
 public:
     virtual ~Rva005E12D1();

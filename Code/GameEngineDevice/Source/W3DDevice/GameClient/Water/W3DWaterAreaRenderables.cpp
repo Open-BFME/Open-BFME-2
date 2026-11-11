@@ -88,7 +88,7 @@ template <class T> struct AreaSetEntry
 };
 
 class CreateAHeroData;
-class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
+#include "../../../../../GameEngine/Include/Common/Rva002B7250.h"
 
 template <class T> class AreaSet
 {

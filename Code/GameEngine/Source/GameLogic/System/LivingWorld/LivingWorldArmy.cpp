@@ -166,11 +166,7 @@ public:
 };
 
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *data);
-};
+#include "../../../../Include/Common/Rva002B7250.h"
 
 class LivingWorldRegion
 {
