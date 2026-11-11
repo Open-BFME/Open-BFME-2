@@ -70,11 +70,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 
 #include "../../../Include/GameLogic/Rva00318F42.h"
 
-class Rva00318FA1MainOwner
-{
-public:
-	Int rva00318FA1();
-};
+#include "../../../Include/Common/Rva00318FA1MainOwner.h"
 
 struct Rva0009C814Owner
 {

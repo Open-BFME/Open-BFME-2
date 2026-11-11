@@ -247,11 +247,7 @@ private:
 // current pair, then forward both pairs and regions to the owned323B
 // line-path worker538F6B at receiver+90. Use the recovered pointer-return
 // region getter318C32; the original army receiver spelling remains unknown.
-class Rva00318FA1MainOwner
-{
-public:
-	int rva00318FA1();
-};
+#include "../../../Include/Common/Rva00318FA1MainOwner.h"
 
 class Rva00318C32Ret;
 
