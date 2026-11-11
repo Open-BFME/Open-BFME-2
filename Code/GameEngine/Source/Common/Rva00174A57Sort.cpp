@@ -16,11 +16,7 @@ namespace _STL {
 template <class RandomIt, class Compare> void sort(RandomIt first, RandomIt last, Compare comp);
 }
 typedef bool (*BfmeAssignRecord32Less)(const BfmeAssignRecord32 &, const BfmeAssignRecord32 &);
-class FXShaderRenderer
-{
-public:
-	void PerformRendering(int a, int b);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/Rva00DF6F94GapFillerContext.h"
 class Rva00174A57
 {

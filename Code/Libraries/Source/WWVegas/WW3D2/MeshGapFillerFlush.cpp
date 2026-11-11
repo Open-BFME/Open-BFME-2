@@ -25,7 +25,7 @@ public:
 class Rva001748B3 { public: void rva001748B3(); };
 // 0x001748E8 is rowed as FXShaderRenderer::FlushSoftwareSkinnedRenderingTasks
 // (FXShaderRendererSkin.cpp); this context is that renderer.
-class FXShaderRenderer { public: void FlushSoftwareSkinnedRenderingTasks(); };
+#include "FXShaderRenderer.h"
 class Rva00DF6F94GapFillerContext
 {
 public:

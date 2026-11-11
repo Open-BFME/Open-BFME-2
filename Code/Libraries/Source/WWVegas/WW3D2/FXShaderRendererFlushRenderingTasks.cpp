@@ -42,7 +42,7 @@ unsigned Rva001736A7Compare(const Rva0017368ATask &lhs, const Rva0017368ATask &r
 // name or complete renderer layout is claimed for this receiver view.
 // 0x00174870 is rowed as the STLport sort over these 32-byte records with a
 // function-pointer comparator; declared only, so the call keeps that name.
-class FXShaderRenderer {public:void PerformRendering(int,int);};
+#include "FXShaderRenderer.h"
 struct BfmeAssignRecord32 {char unknown[32];};
 #include "../../../../../vendor/stlport/stl/_alloc.h"
 namespace _STL {
