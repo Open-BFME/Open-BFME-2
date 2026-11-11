@@ -20,11 +20,7 @@ struct Rva003F1BD3TemplateView
     char unknown[0x2C];
     CreateAHeroData *key;
 };
-class Rva003F11EC
-{
-public:
-    int rva003F11EC(CreateAHeroData *key);
-};
+#include "../../../../Include/GameLogic/Rva003F11EC.h"
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 bool LivingWorldRegion::rva003F1BD3(NameKeyType name, int *reason)

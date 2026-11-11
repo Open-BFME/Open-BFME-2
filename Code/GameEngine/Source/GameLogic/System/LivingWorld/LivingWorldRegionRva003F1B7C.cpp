@@ -18,11 +18,7 @@ class Rva003F07E5
 public:
     bool CanBuildBuilding(CreateAHeroData *hero, int *reason);
 };
-class Rva003F11EC
-{
-public:
-    int rva003F11EC(CreateAHeroData *key);
-};
+#include "../../../../Include/GameLogic/Rva003F11EC.h"
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 bool LivingWorldRegion::rva003F1B7C(CreateAHeroData *hero,

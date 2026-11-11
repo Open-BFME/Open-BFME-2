@@ -2,11 +2,7 @@
 // ?rva003F1C22@Rva003F1C22@@QAE_NPAVCreateAHeroData@@PAH@Z, retail 0x003F1C22, 52 bytes.
 class CreateAHeroData;
 
-class Rva003F11EC
-{
-public:
-	int rva003F11EC(CreateAHeroData *val);
-};
+#include "../../../Include/GameLogic/Rva003F11EC.h"
 
 struct Rva003F1C22Vec4
 {
