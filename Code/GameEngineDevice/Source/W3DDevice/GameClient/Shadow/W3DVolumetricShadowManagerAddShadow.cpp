@@ -131,11 +131,7 @@ class HAnimClass;
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h"
 
 class W3DShadowGeometry;
-class W3DShadowGeometryManager
-{
-public:
-	int Load_Geom(RenderObjClass *robj, const char *name);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometryManager.h"
 
 class W3DVolumetricShadowManager;
 

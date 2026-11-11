@@ -281,11 +281,7 @@ int W3DShadowGeometry::initFromHLOD(RenderObjClass *robj)
 class HAnimClass;
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h"
 
-class W3DShadowGeometryManager
-{
-public:
-    int Load_Geom(RenderObjClass *robj, const char *name);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometryManager.h"
 
 // Zero Hour donor W3DShadowGeometryManager::Load_Geom with BFME2's target
 // class id and per-mesh helper calls. The target direct-call addresses below
