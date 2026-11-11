@@ -29,12 +29,7 @@ public:
 	bool rva003F07CE();
 };
 
-class Rva005F8427
-{
-public:
-	int rva005F8408() const;
-	void rva005F8427();
-};
+#include "../../Include/Common/Rva005F8427.h"
 
 class Rva005F884D
 {

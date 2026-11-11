@@ -58,13 +58,7 @@ struct Rva005F888CRef
 };
 
 // The member's rowed count and forwarders, spelled on this address class.
-class Rva005F8427
-{
-public:
-	void rva005F88CE(const Rva005F888CRef &ref);
-	int rva005F8408() const;
-	void rva005F841F();
-};
+#include "../../Include/Common/Rva005F8427.h"
 
 // The three-word value the record copies; its constructor is rowed at
 // 0x005CC49A under WWMath's ICoord3D, which this body shares.

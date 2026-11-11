@@ -4,11 +4,7 @@
 // Rva005E888A (int key at +0, member at +4). Evidence: frameless push esi/edi,
 // lea edi,[esi+4] reused for both member calls; rowed callees 0x005F8427,
 // 0x005F88D6, 0x005F83F4; caller 0x005E88DD jmp.
-class Rva005F8427
-{
-public:
-	void rva005F8427();
-};
+#include "../../../Include/Common/Rva005F8427.h"
 
 int __cdecl Rva005F88D6Get(int arg);
 

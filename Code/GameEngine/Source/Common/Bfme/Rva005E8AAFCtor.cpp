@@ -58,13 +58,7 @@ struct Rva005F888CRef
 
 class Rva005F86FE;
 
-class Rva005F8427
-{
-public:
-	void rva005F88CE(const Rva005F888CRef &ref);
-	int rva005F8408() const;
-	void rva005F841F();
-};
+#include "../../../Include/Common/Rva005F8427.h"
 
 // Complete physical view of the rowed 0x38-byte button from005F8D5C:
 // counted prefix8, holder20 and record base28. No original class name inferred.
