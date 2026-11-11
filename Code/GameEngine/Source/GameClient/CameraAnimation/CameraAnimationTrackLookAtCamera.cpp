@@ -73,11 +73,7 @@ class Rva00541579
 public:
 	bool rva00541579(int frame);
 };
-class Rva005418CB
-{
-public:
-	bool rva00541641(int frame);
-};
+#include "../../../Include/Common/Rva005418CB.h"
 
 // The free camera's 0x24-byte frame (rowed copy constructor 0x0053FF5F),
 // its pinned locator 0x0054034A and the rowed evaluator 0x0053FE64, which

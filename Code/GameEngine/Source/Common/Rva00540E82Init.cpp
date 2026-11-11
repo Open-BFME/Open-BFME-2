@@ -241,7 +241,7 @@ bool Rva00542225::read(DataChunkInput *file,DataChunkInfo *info) {
 
 class Rva0054103E {public:char bytes[20];Rva0054103E(const Rva0054103E&);Rva0054103E&operator=(const Rva0054103E&);};
 namespace _STL {template<>Rva0054103E *vector<Rva0054103E>::insert(Rva0054103E*,const Rva0054103E&);template<>Rva0054103E *vector<Rva0054103E>::erase(Rva0054103E*,Rva0054103E*);template<>void vector<Rva0054103E>::reserve(unsigned);}
-class Rva005418CB {public:bool rva00541641(int);};
+#include "../../Include/Common/Rva005418CB.h"
 class Rva00540CB2 {public:bool rva00540CB2(DataChunkInput*,DataChunkInfo*);};
 class Rva005422CF:public Rva005414E5List {public:
 __declspec(noinline) void rva005420AD(int,const Region2D&);
