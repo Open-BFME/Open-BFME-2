@@ -207,7 +207,7 @@ const
 }
 }
 class Rva00599534 {public: void rva00599534(int);};
-class Rva00598149 {public: void rva00598149(void *);};
+#include "../../../Include/GameLogic/Rva00598149.h"
 void *Rva00486687Find(void *);
 struct Rva005996FFArg;
 class AIBuilderOrder

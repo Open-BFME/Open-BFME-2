@@ -205,11 +205,7 @@ public:
 	void registerUnitFactory(ObjectID id);				// 0x00598431
 };
 
-class Rva00598149
-{
-public:
-	void rva00598149(void *p);							// 0x00598149
-};
+#include "../../Include/GameLogic/Rva00598149.h"
 
 class Rva004EC062
 {
