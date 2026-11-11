@@ -5,11 +5,7 @@
 // Native 0x0052A65A, 16B: run 0x0052A4B5 on this, then set +0x0C. The
 // stack argument is unused. The callee is rowed as a member of the owner
 // class Rva0052A470 (Rva0052A470Dtor.cpp).
-class Rva0052A470
-{
-public:
-	void rva0052A4B5();
-};
+#include "../../Include/Common/Rva0052A470.h"
 
 class Rva0052A4B5
 {
