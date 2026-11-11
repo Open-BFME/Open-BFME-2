@@ -6,11 +6,7 @@
 // names are address-derived.
 // No // cl: line (defaults match the frameless shape).
 
-class Rva003F44A9
-{
-public:
-	void *rva003F44A9();
-};
+#include "Rva003F44A9.h"
 
 struct Rva003F4ABBEntry
 {

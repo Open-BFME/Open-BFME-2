@@ -76,10 +76,7 @@ public:
     Rva003F4CC0Inner *rva003F4CC0(int id);
 };
 
-class Rva003F44A9 {
-public:
-    void *rva003F44A9();
-};
+#include "Rva003F44A9.h"
 
 void LivingWorldBattle::rva003F498A(Rva003F498ACallback* cb)
 {

@@ -19,7 +19,7 @@ extern SkirmishGameInfo *TheSkirmishGameInfo;
 class Rva00210C66CmpBoolField { public: bool get() const; };
 #include "../../../../Include/Common/Rva002B254F.h"
 class Rva002B256E { public: void *rva002B256E(); };
-class Rva003F44A9 { public: bool rva003F44ED(); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003F44A9.h"
 #include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva0020E89C;
 #include "../../../../Include/GameLogic/Rva0020EAF6View.h"
