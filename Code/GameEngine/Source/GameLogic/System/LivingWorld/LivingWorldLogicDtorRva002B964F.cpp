@@ -50,7 +50,7 @@ extern Rva002B7250 g_00E04424;
 extern Rva002B7250 g_registryAtE02E88;
 
 #include "../../../../Include/Common/Rva002B7C74.h"
-class Rva002B4CED { public: void rva002B753B(); };
+#include "../../../../Include/GameLogic/Rva002B4CED.h"
 class Rva002B7B25 { public: void rva002B7B25(); };
 #include "../../../../Include/Common/Rva002B6900.h"
 class Rva002B7B71 { public: void rva002B7B71(); };

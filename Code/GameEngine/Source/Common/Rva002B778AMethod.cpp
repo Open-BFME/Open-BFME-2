@@ -12,11 +12,7 @@ class Rva002B68AA
 public:
 	FindElem002B68AA *rva002B68AA(const AsciiString &name);
 };
-class Rva002B4CED
-{
-public:
-	void rva002B4CED(void *p);
-};
+#include "../../Include/GameLogic/Rva002B4CED.h"
 class Rva002B778A
 {
 public:

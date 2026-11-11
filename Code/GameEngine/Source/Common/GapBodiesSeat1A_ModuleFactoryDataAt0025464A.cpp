@@ -672,15 +672,7 @@ struct Rva002B4E6DArg
 	bool m_14;
 };
 
-class Rva002B4CED
-{
-public:
-	void rva002B4CED(void *arg);							// 0x002B4CED
-	void rva002B4E6D(Rva002B4E6DArg *arg);
-private:
-	char m_pad00[0xC8];
-	bool m_C8;
-};
+#include "../../Include/GameLogic/Rva002B4CED.h"
 
 
 // --- 0x002B685D (24B): the rowed 0x002B5B55 on the rowed 0x002B488E result.

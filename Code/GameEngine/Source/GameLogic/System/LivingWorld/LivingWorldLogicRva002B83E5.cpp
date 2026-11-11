@@ -42,7 +42,7 @@ template <> Gen_p12pod *vector<Gen_p12pod, allocator<Gen_p12pod> >::erase(Gen_p1
 
 #include "../../../../Include/GameLogic/Rva0020EE29.h"
 #include "../../../../Include/Common/Rva002B7C74.h"
-class Rva002B4CED { public: void rva002B753B(); };
+#include "../../../../Include/GameLogic/Rva002B4CED.h"
 class Rva002B7B25 { public: void rva002B7B25(); };
 #include "../../../../Include/Common/Rva002B6900.h"
 class Rva002B7B71 { public: void rva002B7B71(); };
