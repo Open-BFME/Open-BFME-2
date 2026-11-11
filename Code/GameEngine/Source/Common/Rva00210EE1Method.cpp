@@ -3,11 +3,7 @@
 // Thunk that tail-calls LivingWorldEyeTower::rva003F9B5A (rowed 0x003F9B5A)
 // on the member at +0x2c4 when non-null. Evidence: callers 0x005655D4,
 // callee row LivingWorldEyeTowerProcessItems.cpp, no vtable.
-class LivingWorldEyeTower
-{
-public:
-	void rva003F9B5A();
-};
+#include "../../Include/Common/LivingWorldEyeTower.h"
 
 class Rva00210EE1
 {

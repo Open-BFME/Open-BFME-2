@@ -59,10 +59,7 @@ private:
 	Rva003FB793Inner *m_p08;
 };
 
-class LivingWorldEyeTower
-{
-    void rva003F936E(Rva003F936EHost *host, float *f);
-};
+#include "../../Include/Common/LivingWorldEyeTower.h"
 
 // tu-skeleton: 0x003F935A 20B ?rva003F935A@LivingWorldEyeTower@@AAEXPAVU4Target0060C2C0@@PAX@Z -- matched in Code/GameEngine/Source/Common/U4GlobalGuardedNotifies.cpp (not merged yet)
 

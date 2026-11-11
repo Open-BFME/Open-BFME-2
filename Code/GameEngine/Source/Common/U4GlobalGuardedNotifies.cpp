@@ -27,11 +27,7 @@ private:
  unsigned char unknown0[8]; RenderObjClass *primary; unsigned char unknownC[8]; RenderObjClass *secondary;
 };
 
-class LivingWorldEyeTower
-{
-private:
-	void rva003F935A(U4Target0060C2C0 *target, void *payload);
-};
+#include "../../Include/Common/LivingWorldEyeTower.h"
 
 // Both retail callers reload ECX with the eye tower, then pass target and payload.
 // The receiver is unused; native3F935A..3F936E remains20B RET8.
