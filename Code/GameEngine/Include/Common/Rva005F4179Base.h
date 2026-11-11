@@ -7,6 +7,7 @@
 class Rva005F4179Base {
 public:
     int m_04;
+    Rva005F4179Base() : m_04(0) {}
     virtual ~Rva005F4179Base() {}
 };
 

@@ -6,6 +6,7 @@
 
 class Rva0056C3E5 {
 public:
+    ~Rva0056C3E5();
 };
 
 #endif // CANONICAL_RVA0056C3E5_H

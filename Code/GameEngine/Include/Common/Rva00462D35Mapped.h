@@ -6,6 +6,7 @@
 
 struct Rva00462D35Mapped {
     unsigned int m_bits;
+    Rva00462D35Mapped() : m_bits(0) {}
 };
 
 #endif // CANONICAL_RVA00462D35MAPPED_H

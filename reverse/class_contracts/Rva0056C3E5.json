@@ -30,6 +30,10 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_special_members": {
+  "destructor": "~Rva0056C3E5();",
+  "reason": "The views of Rva0056C3E5 declare these special members (destructor), which tool lane 2's fixed generator (69350ebbc2..74fba365ae, impact-r5.tsv) carries into a generated header; the header registered before that fix declared none of them. Without the declaration an includer that needs the member emits an implicit one beside the matched out-of-line row, or compiles a different body (P137's family). Declared here as the views declare them, at the generator's placement (repair batch R1, sweep-header 2026-11-11)."
+ },
  "outliers": [],
  "queue": [],
  "size": 1,

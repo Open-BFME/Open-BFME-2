@@ -66,6 +66,12 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_special_members": {
+  "constructors": [
+   "FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);"
+  ],
+  "reason": "The views of FreelistPool declare these special members (constructors), which tool lane 2's fixed generator (69350ebbc2..74fba365ae, impact-r5.tsv) carries into a generated header; the header registered before that fix declared none of them. Without the declaration an includer that needs the member emits an implicit one beside the matched out-of-line row, or compiles a different body (P137's family). Declared here as the views declare them, at the generator's placement (repair batch R1, sweep-header 2026-11-11)."
+ },
  "outliers": [
   {
    "offset": 4,

@@ -8,6 +8,7 @@ class Rva0040AEE3 {
 public:
     _STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> > m_0000;
     int m_000C;
+    Rva0040AEE3(const Rva0040AEE3 &other);
     Rva0040AEE3 &operator=(const Rva0040AEE3 &other);
 };
 

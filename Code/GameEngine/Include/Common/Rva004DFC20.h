@@ -7,6 +7,7 @@
 class Rva004DFC20 {
 public:
     void clear();
+    ~Rva004DFC20();
 };
 
 #endif // CANONICAL_RVA004DFC20_H
