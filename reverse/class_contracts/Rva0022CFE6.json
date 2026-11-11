@@ -55,6 +55,10 @@
  "ledger_keys": {
   "class": 2
  },
+ "native_special_members": {
+  "destructor": "~Rva0022CFE6();",
+  "reason": "All three views this header replaced (DestroyInstances.cpp, FamilyDeletingDtors_Rva0022CFE6.cpp and Rva0022D9B7Delete.cpp at 2a5da69f56^) declared the out-of-line ~Rva0022CFE6(); retail defines it at 0x0022CFE6 (row ??1Rva0022CFE6@@QAE@XZ in Rva0022CFE6Dtor.cpp). The generator carries no special member, so the generated header declared none, and DestroyInstances.cpp's explicit _Destroy<Rva0022CFE6> emitted the implicit destructor under the same name: LNK2005 and no image on the real link (P137). Declared here as the views declared it; the generator fix is tracked separately."
+ },
  "outliers": [
   {
    "offset": 4,

@@ -9,6 +9,7 @@
 class Rva0022CFE6 {
 public:
     AsciiString m_head;
+    ~Rva0022CFE6();
 };
 
 #endif // CANONICAL_RVA0022CFE6_H
