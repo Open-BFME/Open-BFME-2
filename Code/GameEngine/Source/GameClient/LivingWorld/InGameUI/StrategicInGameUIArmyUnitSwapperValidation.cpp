@@ -47,7 +47,7 @@ template<> inline __declspec(noinline) int *__uninitialized_copy(Rva005E59FCKeyI
 enum ScienceType { SCIENCE_NONE=0 };
 
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva002B6C9F {public:bool rva002B6C9F(int,int,int);};
+#include "../../../../Include/GameClient/Rva002B6C9F.h"
 class Rva002B6D18 {public:bool rva002B6D18(int,int,int,int);};
 namespace StrategicInGameUI {
 static __declspec(noinline) bool CanSwapArmyMembers(Rva005FArmyView*source,const Rva005FSelectionView*first,Rva005FArmyView*target,const Rva005FSelectionView*second){

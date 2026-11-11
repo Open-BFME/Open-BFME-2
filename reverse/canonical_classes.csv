@@ -1057,3 +1057,4 @@ Rva001D98BD,Code/GameEngineDevice/Include/Rva001D98BD.h,existing header; contrac
 BFMEWeaponSetOwner,Code/GameEngine/Include/GameLogic/Module/BFMEWeaponSetOwner.h,existing header; contract class_contracts/BFMEWeaponSetOwner.json; 4/4 sampled units adopt
 Rva005DB004,Code/GameEngine/Include/Common/Rva005DB004.h,existing header; contract class_contracts/Rva005DB004.json; 5/6 sampled units adopt
 BFMEMoveVoiceAI,Code/GameEngine/Include/GameLogic/Module/BFMEMoveVoiceAI.h,existing header; contract class_contracts/BFMEMoveVoiceAI.json; 4/4 sampled units adopt
+Rva002B6C9F,Code/GameEngine/Include/GameClient/Rva002B6C9F.h,existing header; contract class_contracts/Rva002B6C9F.json; 6/6 sampled units adopt

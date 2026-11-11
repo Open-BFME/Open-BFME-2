@@ -35,7 +35,7 @@ struct Arg54;
 class Rva002B280C {public: bool rva002B280C(Arg54*);};
 struct Rva002B488EResult;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva002B6C9F {public: bool rva002B8019(int,int,int);};
+#include "../../Include/GameClient/Rva002B6C9F.h"
 class Rva003F287F; class Rva004E0632;
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;

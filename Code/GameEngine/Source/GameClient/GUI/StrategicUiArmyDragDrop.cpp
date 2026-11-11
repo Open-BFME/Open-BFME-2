@@ -60,7 +60,7 @@ struct Rva005E59FCKeyIterator {_STL::_Rb_tree_node_base*node;};
 enum ScienceType { SCIENCE_NONE=0 };
 namespace _STL {template<>class vector<ScienceType,allocator<ScienceType> > {public:void reserve(unsigned);};}
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva002B6C9F {public:bool rva002B6C9F(int,int,int);};
+#include "../../../Include/GameClient/Rva002B6C9F.h"
 // WorldBuilder StrategicInGameUI::CanMoveArmyMembers, WB VA 0x01628580 (callgraph lead, score 1.0).
 namespace StrategicInGameUI {
 static __declspec(noinline) bool CanMoveArmyMembers(const Rva005FSelectionView*first,Rva005FArmyView*source,Rva005FArmyView*target){

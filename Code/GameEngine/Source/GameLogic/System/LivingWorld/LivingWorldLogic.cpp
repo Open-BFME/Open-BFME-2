@@ -381,11 +381,7 @@ public:
 	void rva002B5B55(Rva002B5B55Arg *army);
 };
 // 0x002B8019, the army-member move check (rowed Rva002B6C9F::rva002B8019, called on this).
-class Rva002B6C9F
-{
-public:
-	Bool rva002B8019(Int army, Int entry, Int target);
-};
+#include "../../../../Include/GameClient/Rva002B6C9F.h"
 
 
 // The same global as LivingWorldCampaignManager.cpp's view: its generic

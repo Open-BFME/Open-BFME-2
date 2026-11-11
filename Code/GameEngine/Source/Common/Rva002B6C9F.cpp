@@ -40,13 +40,7 @@ public:
 	bool rva003193EC(int v);
 };
 
-class Rva002B6C9F
-{
-public:
-	bool rva002B6C9F(int army, int a2, int target);
-	bool rva002B6CE5(int army, int a2, int target);
-	bool rva002B8019(int army, int entry, int target);
-};
+#include "../../Include/GameClient/Rva002B6C9F.h"
 
 bool Rva002B6C9F::rva002B6C9F(int army, int a2, int target)
 {

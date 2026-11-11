@@ -40,7 +40,7 @@ private:
     int *end_of_storage;
 };
 }
-class Rva002B6C9F {public: bool rva002B6CE5(int,int,int);};
+#include "../../../Include/GameClient/Rva002B6C9F.h"
 class Rva0020E89C;
 #include "../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva002E2903Player;
