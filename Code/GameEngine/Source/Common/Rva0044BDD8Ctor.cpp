@@ -16,11 +16,7 @@ extern const void *const g_00C3EDFC[2] = {
 	(const void *)&__identifier("?rva0044BDF7@Rva0044BDF7@@QAEXH@Z"), // slot 1 0x0044BDF7
 };
 
-struct Rva004C5DD0Ref
-{
-	int m_00;
-	int m_refs;
-};
+#include "../../Include/Common/Rva004C5DD0Ref.h"
 
 #include "../../Include/Common/Rva004C5DD0Pair.h"
 

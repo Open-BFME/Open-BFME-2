@@ -74,7 +74,7 @@ struct Rva004F6986Member {
  Rva004F6986Member(const Rva004F6986Member &other):ptr(other.ptr){if(ptr)++ptr->references;}
  ~Rva004F6986Member(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
-struct Rva004C5DD0Ref {int m_00,m_refs;};
+#include "../../../../../Include/Common/Rva004C5DD0Ref.h"
 class Rva004C5DD0 {
 public:
  Rva004C5DD0(const Rva004C5DD0 &other);

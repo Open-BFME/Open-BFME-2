@@ -1,10 +1,6 @@
 // cl: /Ob0
 
-struct Rva004C5DD0Ref
-{
-	int m_00;
-	int m_refs;
-};
+#include "../../Include/Common/Rva004C5DD0Ref.h"
 
 #include "../../Include/Common/Rva004C5DD0Pair.h"
 

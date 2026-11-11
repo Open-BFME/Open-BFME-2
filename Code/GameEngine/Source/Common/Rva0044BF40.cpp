@@ -10,11 +10,7 @@
 // holder in the argument slot. Model and flags mirror Rva0044BF77.cpp.
 // Caller 0x0044C060; target evidence for the ctor identity is the call-site
 // shape (receiver slot first, pair copied inline after it).
-struct Rva004C5DD0Ref
-{
-	int m_00;
-	int m_refs;
-};
+#include "../../Include/Common/Rva004C5DD0Ref.h"
 
 #include "../../Include/Common/Rva004C5DD0Pair.h"
 

@@ -65,11 +65,7 @@ Rva0044BEE6 *Rva0044BEE6::rva0044BEE6(const Rva0051732A &arg)
 // Rva0044BD34 ctor (0x0044BD34 31B): new 16B, forward the holder as pointer
 // to that ctor, store into +0, AddRef at +4, return this. Rowed operator new
 // 0x0002FDA0. Caller 0x0044BF55; landing unblocks 0x0044BF40.
-struct Rva004C5DD0Ref
-{
-	int m_00;
-	int m_refs;
-};
+#include "../../Include/Common/Rva004C5DD0Ref.h"
 
 #include "../../Include/Common/Rva004C5DD0Pair.h"
 
