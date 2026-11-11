@@ -343,11 +343,7 @@ void Rva003B3371Call(int value);									   // rowed 0x003B3371
 void _bfme_closeAptScreen(const AsciiString &name);
 
 // The screen's full object, as the placeholder row 0x0059F950 names it.
-class Rva0059F950
-{
-public:
-	void rva0059F950();
-};
+#include "../../../../../Include/GameClient/Rva0059F950.h"
 
 // The +0x70 game setup panel: PlayerTemplate enables it after a host
 // change (rowed 0x0043DB47: bytes +0x2B9 and +0x2BA) and UpdatePings sets
