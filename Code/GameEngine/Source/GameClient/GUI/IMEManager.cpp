@@ -1,5 +1,6 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfmealloc /Ireference/shims/sweep /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /EHsc
 // stlport
+// platformsdk
 //
 // BFME2 IMEManager (retail block 0x00232D7B-0x00233E8B). Source carried from
 // Zero Hour's GameClient/GUI/IMEManager.cpp
@@ -28,114 +29,26 @@ typedef unsigned int UnsignedInt;
 typedef char Char;
 typedef unsigned short WideChar;
 
-// string.h declares _strcmpi without dllimport because this TU builds with
-// /D_CRTIMP=; rename that declaration away so the import declaration below is
-// the only one the TU sees.
 // STLport frees through a C++-linkage free; its decoration is what keeps the
 // unwind state store retail has ahead of the keyboard-layout vector's free.
 #define free bfmeUnusedCRTFree
 #include <stdlib.h>
 #undef free
 void free(void *);
-#define _strcmpi _stlport_hides_strcmpi
+// Retail calls msvcr71!_strcmpi through the IAT at 0x00BBA518.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
 #include <vector>
 #include <utility>
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "unicode_string.h"
-// Retail builds with STRICT handles: the keyboard-layout vector's members are
-// instantiated over HKL__ *, not over the void * the sweep windows.h spells
-// HKL with (vector<void *>'s own constructor is a different body, 0x00026AB0).
-#define HKL SweepHKL
-#define GetKeyboardLayout SweepGetKeyboardLayout
 #include <windows.h>
-#undef GetKeyboardLayout
-#undef HKL
-#include <string.h>
-#include <vector>
+#include <imm.h>
 #include <algorithm>
-#undef _strcmpi
-
-// msvcr71!_strcmpi through the IAT (retail slot 0x00BBA518).
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
-
-// What this unit needs from winuser.h and imm.h, which the sweep windows.h
-// does not carry. The imm32 entry points are reached through the image's
-// import thunks (0x0065560A-0x0065564C), so they are declared without
-// dllimport; the user32 ones go through the IAT.
-struct HKL__ { int unused; };
-typedef HKL__ *HKL;
-typedef void *HIMC;
-
-#define WM_CHAR						0x0102
-#define WM_INPUTLANGCHANGEREQUEST	0x0050
-#define INPUTLANGCHANGE_BACKWARD	0x0004
-#define WM_IME_STARTCOMPOSITION		0x010D
-#define WM_IME_ENDCOMPOSITION		0x010E
-#define WM_IME_COMPOSITION			0x010F
-#define WM_IME_SETCONTEXT			0x0281
-#define WM_IME_NOTIFY				0x0282
-#define WM_IME_COMPOSITIONFULL		0x0284
-#define WM_IME_SELECT				0x0285
-#define WM_IME_CHAR					0x0286
-
-#define GCS_COMPSTR					0x0008
-#define GCS_CURSORPOS				0x0080
-#define GCS_RESULTSTR				0x0800
-#define NI_COMPOSITIONSTR			0x0015
-#define CPS_CANCEL					0x0004
-#define IGP_PROPERTY				0x00000004
-#define IME_PROP_CANDLIST_START_FROM_1	0x00040000
-#define IME_PROP_UNICODE			0x00080000
-#define ISC_SHOWUICOMPOSITIONWINDOW	0x80000000
-#define IME_CAND_UNKNOWN			0x0000
-#define IME_CAND_READ				0x0002
-
-#define IMN_CLOSESTATUSWINDOW		0x0001
-#define IMN_OPENSTATUSWINDOW		0x0002
-#define IMN_CHANGECANDIDATE			0x0003
-#define IMN_CLOSECANDIDATE			0x0004
-#define IMN_OPENCANDIDATE			0x0005
-#define IMN_SETCONVERSIONMODE		0x0006
-#define IMN_SETSENTENCEMODE			0x0007
-#define IMN_SETOPENSTATUS			0x0008
-#define IMN_SETCANDIDATEPOS			0x0009
-#define IMN_SETCOMPOSITIONFONT		0x000A
-#define IMN_SETCOMPOSITIONWINDOW	0x000B
-#define IMN_SETSTATUSWINDOWPOS		0x000C
-#define IMN_GUIDELINE				0x000D
-#define IMN_PRIVATE					0x000E
-
-typedef struct tagCANDIDATELIST
-{
-	DWORD dwSize;
-	DWORD dwStyle;
-	DWORD dwCount;
-	DWORD dwSelection;
-	DWORD dwPageStart;
-	DWORD dwPageSize;
-	DWORD dwOffset[1];
-} CANDIDATELIST, *LPCANDIDATELIST;
-
-extern "C" {
-__declspec(dllimport) HKL WINAPI GetKeyboardLayout(DWORD);
-__declspec(dllimport) BOOL WINAPI IsWindowUnicode(HWND);
-__declspec(dllimport) LRESULT WINAPI DefWindowProcW(HWND, UINT, WPARAM, LPARAM);
-__declspec(dllimport) int WINAPI GetKeyboardLayoutList(int, HKL *);
-
-HIMC WINAPI ImmCreateContext(void);
-BOOL WINAPI ImmDestroyContext(HIMC);
-HIMC WINAPI ImmGetContext(HWND);
-BOOL WINAPI ImmReleaseContext(HWND, HIMC);
-HIMC WINAPI ImmAssociateContext(HWND, HIMC);
-BOOL WINAPI ImmSetOpenStatus(HIMC, BOOL);
-BOOL WINAPI ImmNotifyIME(HIMC, DWORD, DWORD, DWORD);
-LONG WINAPI ImmGetCompositionStringW(HIMC, DWORD, LPVOID, DWORD);
-DWORD WINAPI ImmGetProperty(HKL, DWORD);
-DWORD WINAPI ImmGetCandidateListW(HIMC, DWORD, LPCANDIDATELIST, DWORD);
-DWORD WINAPI ImmGetCandidateListCountW(HIMC, LPDWORD);
-UINT WINAPI ImmGetIMEFileNameA(HKL, LPSTR, UINT);
-}
 
 #include "../../../Include/GameClient/GameFontClass.h"
 
@@ -184,7 +97,7 @@ public:
 extern GameWindowManager *TheWindowManager;
 extern Display *TheDisplay;
 extern NameKeyGenerator *TheNameKeyGenerator;
-extern HWND ApplicationHWnd;
+extern void *ApplicationHWnd;
 
 enum
 {
@@ -264,19 +177,19 @@ IMEManager::~IMEManager()
 	}
 
 	IMEManager::detatch();
-	ImmAssociateContext(ApplicationHWnd, m_oldContext);
-	ImmReleaseContext(ApplicationHWnd, m_oldContext);
+	ImmAssociateContext(static_cast<HWND>(ApplicationHWnd), static_cast<HIMC>(m_oldContext));
+	ImmReleaseContext(static_cast<HWND>(ApplicationHWnd), static_cast<HIMC>(m_oldContext));
 
 	if (m_context)
 	{
-		ImmDestroyContext(m_context);
+		ImmDestroyContext(static_cast<HIMC>(m_context));
 	}
 }
 
 void IMEManager::init(void)
 {
 	m_context = ImmCreateContext();
-	m_oldContext = ImmGetContext(ApplicationHWnd);
+	m_oldContext = ImmGetContext(static_cast<HWND>(ApplicationHWnd));
 	m_disabled = 0;
 
 	m_candidateWindow = TheWindowManager->winCreateFromScript(AsciiString("IMECandidateWindow.wnd"), NULL, NULL);
@@ -342,8 +255,8 @@ void IMEManager::attach(GameWindow *window)
 
 		if (m_disabled == 0)
 		{
-			ImmSetOpenStatus(m_context, TRUE);
-			ImmAssociateContext(ApplicationHWnd, m_context);
+			ImmSetOpenStatus(static_cast<HIMC>(m_context), TRUE);
+			ImmAssociateContext(static_cast<HWND>(ApplicationHWnd), static_cast<HIMC>(m_context));
 		}
 
 		m_window = window;
@@ -354,11 +267,11 @@ void IMEManager::detatch(void)
 {
 	if (m_context)
 	{
-		ImmNotifyIME(m_context, NI_COMPOSITIONSTR, CPS_CANCEL, 0);
-		ImmSetOpenStatus(m_context, FALSE);
+		ImmNotifyIME(static_cast<HIMC>(m_context), NI_COMPOSITIONSTR, CPS_CANCEL, 0);
+		ImmSetOpenStatus(static_cast<HIMC>(m_context), FALSE);
 	}
 
-	ImmAssociateContext(ApplicationHWnd, NULL);
+	ImmAssociateContext(static_cast<HWND>(ApplicationHWnd), NULL);
 	m_composing = FALSE;
 
 	if (m_window && (m_window->winGetStatus() & 0x02))
@@ -741,14 +654,14 @@ void IMEManager::enable(void)
 	if (m_disabled <= 0)
 	{
 		m_disabled = 0;
-		ImmAssociateContext(ApplicationHWnd, m_context);
+		ImmAssociateContext(static_cast<HWND>(ApplicationHWnd), static_cast<HIMC>(m_context));
 	}
 }
 
 void IMEManager::disable(void)
 {
 	m_disabled++;
-	ImmAssociateContext(ApplicationHWnd, NULL);
+	ImmAssociateContext(static_cast<HWND>(ApplicationHWnd), NULL);
 }
 
 Bool IMEManager::isEnabled(void)
@@ -808,12 +721,12 @@ void IMEManager::updateCompositionString(void)
 
 	if (m_context)
 	{
-		LONG result = ImmGetCompositionStringW(m_context, GCS_COMPSTR, m_compositionString, MAX_COMPSTRINGLEN);
+		LONG result = ImmGetCompositionStringW(static_cast<HIMC>(m_context), GCS_COMPSTR, m_compositionString, MAX_COMPSTRINGLEN);
 
 		if (result >= 0)
 		{
 			m_compositionStringLength = result / 2;
-			m_compositionCursorPos = (ImmGetCompositionStringW(m_context, GCS_CURSORPOS, NULL, 0) & 0xffff);
+			m_compositionCursorPos = (ImmGetCompositionStringW(static_cast<HIMC>(m_context), GCS_CURSORPOS, NULL, 0) & 0xffff);
 		}
 	}
 
@@ -828,7 +741,7 @@ void IMEManager::getResultsString(void)
 
 	if (m_context)
 	{
-		LONG result = ImmGetCompositionStringW(m_context, GCS_RESULTSTR, m_resultsString, MAX_COMPSTRINGLEN);
+		LONG result = ImmGetCompositionStringW(static_cast<HIMC>(m_context), GCS_RESULTSTR, m_resultsString, MAX_COMPSTRINGLEN);
 
 		if (result >= 0)
 		{
@@ -955,7 +868,7 @@ void IMEManager::updateCandidateList(Int candidateFlags)
 		if (candidateFlags & candidate)
 		{
 			unsigned long listCount = 0;
-			Int size = ImmGetCandidateListCountW(m_context, &listCount);
+			Int size = ImmGetCandidateListCountW(static_cast<HIMC>(m_context), &listCount);
 
 			Char *buffer = new Char[size];
 
@@ -967,9 +880,9 @@ void IMEManager::updateCandidateList(Int candidateFlags)
 			memset(buffer, 0, size);
 
 			CANDIDATELIST *clist = (CANDIDATELIST *)buffer;
-			Int bytesCopied = ImmGetCandidateListW(m_context, i, clist, size);
+			Int bytesCopied = ImmGetCandidateListW(static_cast<HIMC>(m_context), i, clist, size);
 
-			if (bytesCopied != 0 && bytesCopied <= size && clist->dwStyle != IME_CAND_UNKNOWN && clist->dwStyle != IME_CAND_READ)
+			if (bytesCopied != 0 && bytesCopied <= size && clist->dwStyle != IME_CAND_UNKNOWN && clist->dwStyle != IME_CAND_CODE)
 			{
 				if ((clist->dwPageStart > clist->dwSelection) ||
 					(clist->dwSelection >= clist->dwPageStart + clist->dwPageSize))
