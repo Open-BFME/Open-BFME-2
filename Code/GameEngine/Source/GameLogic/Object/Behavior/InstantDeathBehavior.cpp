@@ -73,21 +73,12 @@ template <> __declspec(dllimport) __forceinline void vector<Rva0005A084Element>:
 // behavior instance factory rowed at 0x24B1DB news 0x34 with this ctor as
 // sole raw caller).
 //
-// Shape: frameless single-base ctor over the pinned DieModule base 0x45CEBD
-// with three explicit vtable stores at +0/+0xC/+0x10 via byte-wise pointer
-// casts (StopSpecialPower precedent: explicit stores, no virtuals declared
-// anywhere so no vtable is emitted here; all three immediates are
-// DIR32-masked in comparison). Zero new pins (base resolves via the
-// existing DieModule pin).
-
-extern "C" const void *const __identifier("??_7CreateCrateDie@@6BBehaviorModuleInterface@@@")[];
-
-  // folded vftable 0x00C4A650 (21 classes), by its data-ledger name
-
-extern "C" const void *const __identifier("??_7Rva0045CE6D@@6BRva0045CE6D_B2@@@")[];
-
-  // vftable 0x00C41E44
-extern "C" const void *const __identifier("??_7Rva0045CE6D@@6BDieModule@@@")[];
+// Shape: frameless single-base ctor over the pinned DieModule base 0x45CEBD.
+// The class copy now declares onDie and the dtor, so the compiler installs
+// the three vptrs itself (0x00841E48 at +0, 0x0084A650 at +0xC, 0x00841E44 at
+// +0x10) after the base call; the manual-store shape the landing needed while
+// the copy declared no virtuals is retired with the DieModuleDerived exit.
+// Zero new pins (base resolves via the existing DieModule pin).
 
 // vector<int>/char destruction otherwise instantiates per-TU allocator
 // deallocate COMDATs (one byte shape per TU flags); explicit
@@ -122,6 +113,7 @@ class InstantDeathBehavior : public DieModule
 public:
 	static NameKeyType rva00045CF10();
 	InstantDeathBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~InstantDeathBehavior();
 	virtual void onDie(const DamageInfo*);
 };
 
@@ -180,9 +172,15 @@ NameKeyType InstantDeathBehavior::rva00045CF10()
 InstantDeathBehavior::InstantDeathBehavior(Thing *thing, const ModuleData *moduleData) :
 	DieModule(thing, moduleData)
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva0045CE6D@@6BDieModule@@@"));
-	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7CreateCrateDie@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva0045CE6D@@6BRva0045CE6D_B2@@@"));
+}
+
+// ??1InstantDeathBehavior@@UAE@XZ @0x0045CE6D (25B): restores the three vptrs
+// the constructor installs (0x00841E48 at +0, 0x0084A650 at +0xC, 0x00841E44
+// at +0x10) and tail-jumps to ~DieModule. Slot 0 of InstantDeathBehavior's own
+// vftable 0x00841E48 is the scalar deleting destructor 0x0045CF7F, which calls
+// this body.
+InstantDeathBehavior::~InstantDeathBehavior()
+{
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataCtor.cpp
@@ -271,8 +269,6 @@ void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
     parse.add(DieMuxData::getFieldParse(), 8);
     parse.add(dataFieldParse);
 }
-
-// tu-skeleton: 0x0045CF7F 28B ??_GRva0045CE6D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x0045CF9B 412B ?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
 

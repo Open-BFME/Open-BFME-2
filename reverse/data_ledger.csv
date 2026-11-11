@@ -12454,8 +12454,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00841DE0,24,.rdata,vtable,??_7BezierProjectileBehavior@@6BBezierProjectileBehaviorSecondaryBase0@@@,,literal,,0,2
 0x00841DF8,12,.rdata,vtable,??_7BezierProjectileBehavior@@6BUpdateModule@@@,,literal,,0,2
 0x00841E04,64,.rdata,vtable,??_7BezierProjectileBehavior@@6BObjectModule@@@,,literal,,0,2
-0x00841E44,4,.rdata,vtable,??_7Rva0045CE6D@@6BRva0045CE6D_B2@@@,,literal,,0,2
-0x00841E48,48,.rdata,vtable,??_7Rva0045CE6D@@6BDieModule@@@,,literal,,0,2
+0x00841E44,4,.rdata,vtable,??_7InstantDeathBehavior@@6B@,,literal,??_7InstantDeathBehavior@@6B@;??_7Rva0045CE6D@@6BRva0045CE6D_B2@@@,0,2
+0x00841E48,48,.rdata,vtable,??_7InstantDeathBehavior@@6BObjectModule@@@,,literal,??_7InstantDeathBehavior@@6BObjectModule@@@;??_7Rva0045CE6D@@6BDieModule@@@,0,2
 0x00841E78,48,.rdata,vtable,??_7DieModule@@6BObjectModule@@@,,literal,,0,1
 0x00841EA8,16,.rdata,string,??_C@_09FGIFCMMA@DieModule?$AA@,,literal,,0,1
 0x00841EB8,112,.rdata,string,??_C@_0GK@MKDOHILL@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
