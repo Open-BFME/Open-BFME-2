@@ -25,11 +25,7 @@ typedef unsigned int UnsignedInt;
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../Common/Thing/thing.h"
 
-class BfmeSubBGB
-{
-public:
-	bool rva00298893();
-};
+#include "../../../Include/GameLogic/BfmeSubBGB.h"
 
 enum DisabledType { DISABLED_NATIVE_1 = 1 };
 class Rva00346BC0 { public: unsigned int words[4]; };

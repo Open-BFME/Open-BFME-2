@@ -1,8 +1,4 @@
-class BfmeSubBGB
-{
-public:
-	void bfmeDoBGB(int one, int two);
-};
+#include "../../Include/GameLogic/BfmeSubBGB.h"
 
 int bfmeGoBGB(BfmeSubBGB *sub)
 {

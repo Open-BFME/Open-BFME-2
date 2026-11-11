@@ -29,11 +29,7 @@ public:
 	Slot62Iface *m_250; // +0x250
 };
 
-class BfmeSubBGB
-{
-public:
-	bool rva00298893();
-};
+#include "../../../Include/GameLogic/BfmeSubBGB.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
