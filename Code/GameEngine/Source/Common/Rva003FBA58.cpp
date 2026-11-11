@@ -5,11 +5,7 @@
 // same layout +0x2C +0x34 +0x3C +0x40 +0x44 +0x48 +0x50 +0x54 float.
 // Calls rowed Rva003FB9C8/Rva003FB9EB/Rva003FBA0E helpers and slot 0x30
 // with 0; float vs BfmeZeroRange; clears +0x2C via and in zero branch.
-class Rva003FBA0E
-{
-public:
-	void rva003FBA0E(int a, int b, int c, int d, int e, float f);
-};
+#include "../../Include/Common/Rva003FBA0E.h"
 
 #include "../../Include/Common/Rva003FB9C8.h"
 

@@ -92,7 +92,7 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
 template <int N> class DoomVSlots : public DoomVSlots<N - 1> { public: virtual void gap(char (*)[N]) = 0; };
 template <> class DoomVSlots<0> { };
 class DoomPrimaryView : public DoomVSlots<101> { public: virtual void setHidden(int); };
-class Rva003FBA0E { public: void rva003FBA0E(int,int,int,int,int,float); };
+#include "../../../Include/Common/Rva003FBA0E.h"
 struct Rva002BFFD4Template;
 #include "../../../Include/Common/Rva002BFF5A.h"
 struct Rva00459E05Entry;

@@ -22,11 +22,7 @@ public:
 	float m_val4C; // +0x4C
 };
 
-class Rva003FBA0E
-{
-public:
-	void rva003FBA0E(int a, int b, int c, int d, int e, float f);
-};
+#include "../../Include/Common/Rva003FBA0E.h"
 
 #include "../../Include/Common/Rva003FB9C8.h"
 
