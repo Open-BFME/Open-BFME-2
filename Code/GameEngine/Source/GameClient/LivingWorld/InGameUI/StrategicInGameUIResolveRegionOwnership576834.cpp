@@ -13,7 +13,7 @@ class Object;
 #include "../../../../Include/Common/Rva00575674.h"
 #include "../../../../Include/GameLogic/RegionAwardDispute.h"
 #include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
-class Rva0042D6BAPtrChaseField { public: int get() const; };
+#include "../../../../Include/GameClient/Rva0042D6BAPtrChaseField.h"
 #include "../../../../Include/Common/Rva0057C22FByteChaseField.h"
 class Rva005765D1 {
 public:

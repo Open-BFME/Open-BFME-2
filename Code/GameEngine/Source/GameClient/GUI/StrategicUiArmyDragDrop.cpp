@@ -101,7 +101,7 @@ void ArmyMemberTransferCallback::moveSelectedMembersToSource(){
 #include "../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard*TheKeyboard;
 #include "../../../Include/Common/Rva0042D6B4PtrChaseField.h"
-class Rva0042D6BAPtrChaseField {public:int get()const;};
+#include "../../../Include/GameClient/Rva0042D6BAPtrChaseField.h"
 class Object;
 #include "../../../Include/Common/Rva00575674.h"
 struct Rva005E626DOwner;class Rva0057C394;struct Rva005E626DListOwner;
