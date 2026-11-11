@@ -431,7 +431,14 @@ def test_assembler_bytes_must_be_ascii():
 def test_every_master_assembler_source_is_inside_the_grammar():
     listing = subprocess.run(["git", "-C", str(build.ROOT), "ls-files", "*.asm", "*.ASM"],
                              capture_output=True, text=True).stdout.split()
-    assert len(listing) > 60
+    # The guard is that the scan FOUND the tree's assembler, so the assertion
+    # below is not vacuous -- not that the tree still holds a given number of
+    # it. A count floor runs the wrong way here: converting assembler to C++ is
+    # the point, and 72 sources on 2026-11-04 were 11 by 11-10, so `> 60`
+    # started failing because the project succeeded. Name files instead; each
+    # is a hand-written stub the conversion lanes do not consume.
+    assert {"Code/Libraries/Source/CRT/RuntimeRelativeDispatchCores.asm",
+            "Code/Libraries/Source/CRT/RuntimeRelativeDispatchEntries.asm"} <= set(listing), listing
     assert {p: cl_flags.asm_refusals((build.ROOT / p).read_bytes()) for p in listing
             if cl_flags.asm_refusals((build.ROOT / p).read_bytes())} == {}
 
