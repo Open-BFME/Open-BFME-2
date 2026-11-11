@@ -14,7 +14,7 @@ public:
 };
 #include "../../../Libraries/Source/Apt/AptBoolean.h"
 #include "../../Include/Common/AptInteger.h"
-class AptFloat { public: static void ClearPool(); };
+#include "../../../Libraries/Source/Apt/AptFloat.h"
 void Rva0070B590Drain();	// 0x0070B590, the temporary string pool drain
 void __cdecl Rva006CC110Log(int,const char *,...);
 extern AptValueVector *g_releaseVectorAtE17710;

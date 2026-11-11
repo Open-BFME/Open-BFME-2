@@ -37,7 +37,7 @@ public:
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 
-class AptFloat { public: static void ClearPool(); };
+#include "AptFloat.h"
 
 void Rva0070B590Drain();
 

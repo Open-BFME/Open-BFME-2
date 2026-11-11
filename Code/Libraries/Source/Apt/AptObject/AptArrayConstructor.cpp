@@ -306,7 +306,7 @@ AptValue *AptArray::sMethod_splice(AptValue *pThis,int nParams) {
 }
 
 class AptBoolean : public AptValue { public: bool GetBool() const; };
-class AptFloat : public AptValue { public: float GetFloat() const; };
+#include "../AptFloat.h"
 class AptDate : public AptObject { public: void toString(EAStringC &); };
 class AptError : public AptObject { public: EAStringC msMessage; };
 struct AptActionInterpreter { static void getName(AptCIH *,EAStringC &); };
