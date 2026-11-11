@@ -27,11 +27,6 @@ struct DynamicPortalLink : public _STL::_Vector_base<BfmeE16, _STL::allocator<Bf
 	~DynamicPortalLink() throw();
 };
 
-class Rva003F3AB5
-{
-public:
-	void rva003F3AB5(unsigned index, DynamicPortalLink value);
-	void rva003F3B28(unsigned n);
-};
+#include "../../Include/Common/Rva003F3AB5.h"
 
 void Rva003F3AB5::rva003F3B28(unsigned n) { rva003F3AB5(n, DynamicPortalLink()); }

@@ -101,7 +101,7 @@ struct Pair8;
 // The rowed 0x20FAEA finder (Rva0020EE29 view) and the rowed 0x3F3B28
 // vector-resize owner (Rva003F3AB5 view) spellings.
 #include "../../Include/GameLogic/Rva0020EE29.h"
-class Rva003F3AB5 { public: void rva003F3B28(unsigned int); };
+#include "../../Include/Common/Rva003F3AB5.h"
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
