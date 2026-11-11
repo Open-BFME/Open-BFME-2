@@ -10,7 +10,7 @@
 class Rva002141D1 { public: void rva002141D1(); };
 // LINK: calls bind the rowed owners at the same addresses (Rva0021237E::rva002126BB, Rva002115EC::rva002115EC).
 class Rva002115EC { public: void rva002115EC(); };
-class Rva00211589 { public: void rva002129B4(); };
+#include "../../../Include/GameClient/Rva00211589.h"
 #include "../../../Include/GameClient/Rva00213A85.h"
 class Rva0021237E { public: void rva0021237E(); void rva002126BB(); };
 #include "../../Common/GameLogicObjectLookupView.h"

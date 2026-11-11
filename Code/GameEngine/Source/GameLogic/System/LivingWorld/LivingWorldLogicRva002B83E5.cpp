@@ -48,7 +48,7 @@ class Rva002B7B25 { public: void rva002B7B25(); };
 class Rva002B7B71 { public: void rva002B7B71(); };
 #include "../../../../Include/Common/Rva002B296F.h"
 #include "../../../../Include/Common/Glo012F1028Type.h"
-class Rva00211589 { public: void rva002129B4(); };
+#include "../../../../Include/GameClient/Rva00211589.h"
 class Rva00211570 { public: void rva00211570(); };
 
 #include "../../../../Include/GameNetwork/Rva0022C4DF.h"

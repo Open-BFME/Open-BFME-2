@@ -75,11 +75,7 @@ extern GlobalData *TheWritableGlobalData;
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class Rva00211589
-{
-public:
-	void rva002110DF(int value);
-};
+#include "../../Include/GameClient/Rva00211589.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;

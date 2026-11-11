@@ -47,7 +47,7 @@ private:
 
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
-class Rva00211589 { public: void rva002110DF(int value); };
+#include "../../../Include/GameClient/Rva00211589.h"
 #include "../../../Include/GameClient/Rva00213A85.h"
 // 0x0047A69C is the ICF-folded empty `ret 4` body; its rowed bool spelling.
 #include "../../../Include/GameLogic/AIGroup.h"
