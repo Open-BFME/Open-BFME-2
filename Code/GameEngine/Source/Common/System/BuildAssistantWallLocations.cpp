@@ -357,11 +357,7 @@ class Rva002A7461
 public:
 	bool rva002A7557(Rva002A7557In *p, int unused);
 };
-class Rva0037E6E8
-{
-public:
-	Int rva0037E649(Int index, Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0037E6E8.h"
 class Rva0037E421
 {
 public:

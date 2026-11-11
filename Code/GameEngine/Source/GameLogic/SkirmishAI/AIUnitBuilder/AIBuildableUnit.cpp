@@ -16,7 +16,7 @@ class Rva0037EE4C
 public:
 	Int rva0037EE4C(const ThingTemplate *unitType, Int a, Int b);	// 0x0037EE4C
 };
-class Rva0037E6E8 { public: int rva0037E649(int index,Object *builder); };
+#include "../../../../Include/GameLogic/Rva0037E6E8.h"
 class Rva0037E787 { public: int rva0037E787(void *index,void *builder); };
 class Player
 {

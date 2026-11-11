@@ -577,13 +577,7 @@ class Rva002D9531 { public: void rva002D9531(int); };
 class Rva002AE98B { public: float rva002AE98B(const AsciiString *); };
 struct Rva002A7557In;
 class Rva002A7461 { public: bool rva002A7557(Rva002A7557In *,int); };
-class Rva0037E6E8
-{
-public:
-	int rva0037E649(int,Object *);
-	float rva0037E815(int,Object *);
-	int rva0037E6E8(void *extra, void *object);
-};
+#include "../../../../Include/GameLogic/Rva0037E6E8.h"
 class Rva0037E421
 {
 public:

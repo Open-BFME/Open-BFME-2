@@ -718,13 +718,7 @@ class AsciiString;
 
 #include "../../../../Include/Common/Upgrade.h"
 
-class Rva0037E6E8
-{
-public:
-	int rva0037E649(int,Object *);
-	float rva0037E815(int,Object *);
-	int rva0037E6E8(void *extra, void *object);
-};
+#include "../../../../Include/GameLogic/Rva0037E6E8.h"
 
 class Rva0049CD4FArg
 {

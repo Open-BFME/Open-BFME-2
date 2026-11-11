@@ -83,11 +83,7 @@ class Rva0037EE4C
 public:
 	Int rva0037EE4C(const ThingTemplate *thing, Int a, Int b);
 };
-class Rva0037E6E8
-{
-public:
-	Int rva0037E649(Int index, Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0037E6E8.h"
 
 enum ScienceType { SCIENCE_INVALID = -1 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };

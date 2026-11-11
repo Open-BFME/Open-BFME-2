@@ -243,11 +243,7 @@ public:
 	void *rva0037E421(int index);
 };
 
-class Rva0037E6E8
-{
-public:
-	int rva0037E649(int index, Object *obj);
-};
+#include "../../../../Include/GameLogic/Rva0037E6E8.h"
 
 #include "../../../../Include/Common/Overridable.h"
 
