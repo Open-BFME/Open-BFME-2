@@ -796,7 +796,7 @@ Rva006F7DA0::Rva006F7DA0()
     m_10 = 0;
     *(const void **)this = g_00CED364;
 }
-class Rva006EBFF0 {public:void rva006EBE60(AptValue*);};
+#include "Rva006EBFF0.h"
 struct TextInst {const void*vtable;int value;int frame;AptCharacter*character;char unknown10[8];EAStringC text,variable;char unknown20[0x6c-0x20];int flags;};
 #include "Rva006E34D0.h"
 extern Rva006E34D0*g_bfmeAptPtrAtE176D0;

@@ -83,7 +83,7 @@ struct AptAllocateStringParams
 	int fmt10, fmt14, fmt18, fmt1c;
 };
 
-class Rva006EBFF0 { public: void rva006EBFF0(AptValue *parent); };
+#include "Rva006EBFF0.h"
 
 class AptCharacterTextInst
 {
