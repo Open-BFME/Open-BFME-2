@@ -25,7 +25,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
 class Rva0020E89C;
-class Rva0020EAF6View { public: Rva0020E89C *rva0020EAF6(int); };
+#include "../../Include/GameLogic/Rva0020EAF6View.h"
 struct DefeatWorldLogicView {
     char pad[0xB0];
     Rva0020EAF6View *regionManager;

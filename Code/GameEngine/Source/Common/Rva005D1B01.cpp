@@ -11,7 +11,7 @@
 class Rva000B3FD0Empty {public:void rva000B3FD0Empty();};
 class Rva005CCB5B {public:void rva005CCB5B();};
 class Rva0020E89C;
-class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};
+#include "../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
 #include "../../Include/Common/Rva002BF4F3.h"

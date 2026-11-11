@@ -274,11 +274,7 @@ void Rva0043DDD3::rva0043DDDA(int value)
 // --- 0x004FC91D (13B): raise the out value to +0x10 (first two arguments
 // unused); 0x004FC92D (42B): the logic's +0xFC less the region's +0x134.
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int id);						// 0x0020EAF6
-};
+#include "../../Include/GameLogic/Rva0020EAF6View.h"
 
 struct Rva004FC92DLogic
 {

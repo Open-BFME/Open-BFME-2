@@ -169,11 +169,7 @@ public:
 	AsciiString m_name;
 };
 
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(Int id);
-};
+#include "../../../Include/GameLogic/Rva0020EAF6View.h"
 
 class Rva002E2903Player
 {

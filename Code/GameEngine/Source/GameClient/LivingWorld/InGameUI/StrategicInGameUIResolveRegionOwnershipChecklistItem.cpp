@@ -28,7 +28,7 @@ class GameTextInterface;
 extern GameTextInterface*TheGameText;
 class RetreatGameText {public:virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14();virtual void s18();virtual void s1c();virtual void s20();virtual void s24();virtual void s28();virtual void s2c();virtual void s30();virtual void s34();virtual void s38();virtual UnicodeString fetch(const char*,bool*);};
 
-class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};
+#include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 struct OwnershipWorldView {char unknown[0xb0];Rva0020EAF6View*regions;};
 static const char *const resolveOwnershipLabels[]={"STRATEGICHUD:ResolveRegionOwnershipChecklistItem","STRATEGICHUD:ResolveRegionOwnershipAfterBattleChecklistItem"};
 struct OwnershipDisputeView {int unknown;int regionID;};

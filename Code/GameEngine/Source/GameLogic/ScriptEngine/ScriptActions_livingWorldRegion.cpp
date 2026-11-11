@@ -95,11 +95,7 @@ public:
 	void rva0020FD42(void *region, void *ids);
 };
 
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int index);
-};
+#include "../../../Include/GameLogic/Rva0020EAF6View.h"
 
 // The region predicate is rowed as Rva003F02E4::rva003F036E (int); retail's
 // caller tests al.

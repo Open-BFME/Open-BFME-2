@@ -42,11 +42,7 @@ private:
 }
 class Rva002B6C9F {public: bool rva002B6CE5(int,int,int);};
 class Rva0020E89C;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int id);
-};
+#include "../../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva002E2903Player;
 struct Rva002B488EResult;
 class Rva002BA8F1Logic

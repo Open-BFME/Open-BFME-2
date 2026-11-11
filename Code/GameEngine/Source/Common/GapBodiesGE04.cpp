@@ -13,11 +13,7 @@ class AsciiString;
 // of the region the region manager (TheLivingWorldLogic +0xB0) finds by id.
 class Rva0020E89C;
 
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int id);						// 0x0020EAF6
-};
+#include "../../Include/GameLogic/Rva0020EAF6View.h"
 
 struct Rva004FD87ALogic
 {

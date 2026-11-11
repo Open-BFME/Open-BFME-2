@@ -6,11 +6,7 @@
 // 0x002B3669 0x002B3740 in Rva002BA8F1Logic methods; prev/next share /O1.
 class Rva0020E89C;
 
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int index);
-};
+#include "../../Include/GameLogic/Rva0020EAF6View.h"
 
 struct Rva002B3740Item;
 

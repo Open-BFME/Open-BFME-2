@@ -12,11 +12,7 @@ public:
 #include "../../Include/GameNetwork/GameInfo.h"
 class Rva0020E89C;
 class Rva00376A62;
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int i);
-};
+#include "../../Include/GameLogic/Rva0020EAF6View.h"
 class Rva004FCA5A
 {
 public:
