@@ -6,11 +6,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 void __cdecl XferObjectID(Xfer *xfer, ObjectID *objectID);
-class Rva00406FBF
-{
-public:
-	void rva00406FBF(unsigned char *data);
-};
+#include "../../Include/Common/Rva00406FBF.h"
 void __cdecl Rva00407099Update(Xfer *xfer, ObjectID *objectID, void *a3_unused, Rva00406FBF *a4)
 {
 	XferObjectID(xfer, objectID);

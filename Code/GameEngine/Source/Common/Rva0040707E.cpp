@@ -1,10 +1,6 @@
 // cl: /MD
 // ?Rva0040707EUpdate@@YAXPAX00PAVRva00406FBF@@@Z @0x0040707E 27B: free cdecl 4-arg helper calling virtual slot 0x78 on arg1 with arg2 then Rva00406FBF::rva00406FBF(arg2) with this=arg4 arg3 unused. Evidence: chain via 0x00406FBF now ready; caller 0x00407279 pushes 4 args add esp 16; retail mov ecx/push/call [eax+0x78] then push/mov ecx/call 0x406FBF.
-class Rva00406FBF
-{
-public:
-	void rva00406FBF(unsigned char *data);
-};
+#include "../../Include/Common/Rva00406FBF.h"
 class Rva0040707EObj
 {
 public:
