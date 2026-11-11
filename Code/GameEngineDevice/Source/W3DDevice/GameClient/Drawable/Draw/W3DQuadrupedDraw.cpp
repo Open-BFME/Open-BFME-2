@@ -515,7 +515,7 @@ class LargeGroupAudioKeyMap;
 // The rowed +404B6C forwarder proves the receiver ABI: VictorySystem::reset
 // and VictorySystem::newMap both call it on their own this. Method and field
 // names are unknown.
-class CellGrid { public: void rva0056C065(); };
+#include "../../../../../../GameEngine/Include/Common/CellGrid.h"
 
 #include "../../../../../../GameEngine/Include/Common/Rva0056C3E5.h"
 

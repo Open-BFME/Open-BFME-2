@@ -109,11 +109,7 @@ public:
 private:
 	char bytes[168];
 };
-class CellGrid
-{
-public:
-	Bool rva0056C50E(Xfer *);
-};
+#include "../../../Include/Common/CellGrid.h"
 // xfer is slot 3 of the Snapshot vftable 0x008388C4; its this is the
 // Snapshot subobject (+0x0C), so member offsets come out twelve less.
 class VictorySystem : public SubsystemInterface, public Snapshot
