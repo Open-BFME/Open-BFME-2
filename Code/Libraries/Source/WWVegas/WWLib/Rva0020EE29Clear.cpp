@@ -475,11 +475,7 @@ void LivingWorldRegionManager::loadPostProcess()
 // a frame. Element identities are unproven (address-derived views).
 #include "../../../../GameEngine/Include/Common/Rva003EF14A.h"
 
-class Rva003F3F27
-{
-public:
-	void rva003F3F27();
-};
+#include "../../../../GameEngine/Include/Common/Rva003F3F27.h"
 
 void Rva0020EE29::rva0020F795()
 {

@@ -76,7 +76,7 @@ extern const FieldParse Rva003F3F03Table[] =
 	{ 0, 0, 0, 0 }
 };
 
-class Rva003F3F27 { public: void rva003F3B4F(); };
+#include "../../Include/Common/Rva003F3F27.h"
 class Rva003F3F03
 {
 public:

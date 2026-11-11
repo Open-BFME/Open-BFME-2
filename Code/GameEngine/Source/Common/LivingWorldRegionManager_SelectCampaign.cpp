@@ -5,7 +5,7 @@
 // identity remains unresolved. The receiver is
 // LivingWorldRegionManager::SelectCampaign per WorldBuilder.
 #include "string_base.h"
-class Rva003F3F27 { public: void rva003F3F27(); };
+#include "../../Include/Common/Rva003F3F27.h"
 template<class T> struct Rva0020F1F3Vector
 {
  T *begin;
