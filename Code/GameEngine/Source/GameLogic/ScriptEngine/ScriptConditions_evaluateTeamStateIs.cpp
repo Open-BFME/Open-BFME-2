@@ -627,11 +627,7 @@ extern InGameUI *TheInGameUI;
 
 // ObjectTypes::isInSet(const ThingTemplate *) (the template's name; null is
 // false), rowed at 0x00376A84 under its address name.
-class Rva00376A62
-{
-public:
-	bool rva00376A84(const void *thing);
-};
+#include "../../../Include/GameLogic/Rva00376A62.h"
 
 class ObjectTypes
 {

@@ -347,11 +347,7 @@ private:
 	unsigned char m_pad00[0x08];
 	_STL::vector<AsciiString> m_objectTypes;
 };
-class Rva00376A62
-{
-public:
-	Bool rva00376A84(const void *tmpl);
-};
+#include "../../../Include/GameLogic/Rva00376A62.h"
 
 struct TeamTemplateInfo
 {

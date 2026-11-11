@@ -143,11 +143,7 @@ extern ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
 
-class Rva00376A62
-{
-public:
-	Bool rva00376A84(const void *thing);
-};
+#include "../../../Include/GameLogic/Rva00376A62.h"
 
 class ObjectTypes
 {
