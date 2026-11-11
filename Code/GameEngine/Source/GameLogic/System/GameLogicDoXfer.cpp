@@ -158,11 +158,7 @@ static __forceinline Snapshot *snapshotAt(void *p, int off) { return p ? (Snapsh
 
 class GameLogic;
 extern GameLogic *TheGameLogic;
-class Rva000421FD
-{
-public:
-	void rva000421FD(void);
-};
+#include "../../../Include/GameLogic/Rva000421FD.h"
 struct LogicFPView { char opaque[0x1B4]; int depth; };
 class Rva0004224C
 {

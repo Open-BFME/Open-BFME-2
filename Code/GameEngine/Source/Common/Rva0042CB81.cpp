@@ -260,7 +260,7 @@ void Rva0042CBB6::rva0042D068()
 // early-exit unwind beside them, as in retail.
 class Rva0023C748 { public: char rva0023C748(); };
 class Rva002B34E5 { public: void rva002B34E5(bool); };
-class Rva000421FD { public: void rva000421FD(); };
+#include "../../Include/GameLogic/Rva000421FD.h"
 class Rva0004224C {
 public:
  Rva0004224C() { if(TheGameLogic) reinterpret_cast<Rva000421FD *>(TheGameLogic)->rva000421FD(); }

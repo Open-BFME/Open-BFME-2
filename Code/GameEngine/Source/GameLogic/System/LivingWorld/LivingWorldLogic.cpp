@@ -2471,7 +2471,7 @@ void LivingWorldLogic::rva002BD544(Int campaign)
 // increments nesting through 0x000421FD; the target unwind map and normal
 // return both decrement GameLogic+0x1B4. Seeing the empty guard's ctor and
 // dtor lets MSVC reuse the campaign argument's slot, as in GameLogic::reset.
-class Rva000421FD { public: void rva000421FD(); };
+#include "../../../../Include/GameLogic/Rva000421FD.h"
 struct LivingWorldFPModeCount
 {
     unsigned char m_pad[0x1b4];

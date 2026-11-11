@@ -7,11 +7,7 @@
 
 extern class GameLogic *TheGameLogic;
 
-class Rva000421FD
-{
-public:
-	void rva000421FD();
-};
+#include "../../Include/GameLogic/Rva000421FD.h"
 
 #define TheCounter (*(Rva000421FD **)&TheGameLogic)
 

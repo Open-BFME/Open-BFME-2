@@ -27,7 +27,7 @@ template<> void vector<BfmeE8>::push_back(const BfmeE8&);
 #include "../../../Include/Common/BfmeXfer.h"
 class GameLogic;extern GameLogic *TheGameLogic;
 struct TowerGameLogicView {char pad[0x110];int mode;char gap[0x1b4-0x114];int fpDepth;};
-class Rva000421FD {public:void rva000421FD();};
+#include "../../../Include/GameLogic/Rva000421FD.h"
 class Rva0004224C {public:
  __declspec(noinline) Rva0004224C *rva0004224C(){if(TheGameLogic)((Rva000421FD*)TheGameLogic)->rva000421FD();return this;}
  __declspec(noinline) Rva0004224C(){if(TheGameLogic)((Rva000421FD*)TheGameLogic)->rva000421FD();}

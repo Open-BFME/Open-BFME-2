@@ -81,11 +81,7 @@ extern GameLogic *TheGameLogic;
 // GameLogic +0x1B4: the FP-mode guard nesting depth the guard below decrements.
 struct GameLogicDepthView { char m_unreconstructed_000[0x1B4]; Int m_logicDepth; };
 
-class Rva000421FD
-{
-public:
-	void rva000421FD();
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000421FD.h"
 
 // The FP-mode logic guard: 0x0004224C enters, the out-of-line destructor
 // 0x00042262 leaves.

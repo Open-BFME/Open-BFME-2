@@ -911,11 +911,7 @@ extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
 // count-down (0x00042212) is expanded at scope exit. Both are defined in the
 // class: 0x00248558 keeps the guard in its parameter slot, which MSVC 7.1
 // does only for an empty class whose constructor and destructor it can see.
-class Rva000421FD
-{
-public:
-	void rva000421FD(void);
-};
+#include "../../../Include/GameLogic/Rva000421FD.h"
 
 class Rva0004224C
 {

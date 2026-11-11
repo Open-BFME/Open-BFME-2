@@ -942,3 +942,4 @@ NAT,Code/GameEngine/Include/GameNetwork/NATClass.h,existing header; contract cla
 Rva005CCB7B,Code/GameEngine/Include/Common/Rva005CCB7B.h,existing header; contract class_contracts/Rva005CCB7B.json; 7/8 sampled units adopt
 Rva00224455,Code/GameEngine/Include/Common/Rva00224455.h,existing header; contract class_contracts/Rva00224455.json; 7/9 sampled units adopt
 Rva0039B20C,Code/GameEngine/Include/GameLogic/Module/Rva0039B20C.h,existing header; contract class_contracts/Rva0039B20C.json; 8/9 sampled units adopt
+Rva000421FD,Code/GameEngine/Include/GameLogic/Rva000421FD.h,existing header; contract class_contracts/Rva000421FD.json; 7/8 sampled units adopt
