@@ -95,11 +95,7 @@ Int BfmeAptValue006DCD20::rva006E0510() const
 
 // 0x006E3490: the rowed AptDisplayList 0x006F80C0(false) on the +0x24
 // member.
-class AptDisplayList
-{
-public:
-	void clear(bool b);
-};
+#include "../../../Libraries/Source/Apt/AptDisplayList.h"
 class Rva006E3490
 {
 public:

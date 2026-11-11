@@ -1245,7 +1245,7 @@ void AptActionInterpreter::_FunctionAptActionWith(AptActionInterpreter *const in
 // Keep direct accessor-expression bitfield assignment: a temporary changes MSVC codegen.
 class AptMovie { public: int labelToFrame(const EAStringC *) const; void runFrameActions(AptCIH *,int); };
 struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
-class AptDisplayList { public: void removeClonedObject(AptCIH *); };
+#include "AptDisplayList.h"
 struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; void *clipActions; AptDisplayList displayList; };
 #include "AptCIHClass.h"
 static __forceinline AptSpriteInstBase *cihGetCharacterInst(const AptCIH *cih) {

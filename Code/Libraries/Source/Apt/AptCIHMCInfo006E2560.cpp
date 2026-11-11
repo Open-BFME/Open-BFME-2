@@ -62,7 +62,7 @@ class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
 // 0x006E44F0 is rowed as AptAnimationPoolData::removeTimerFunctions.
 class AptAnimationPoolData {public:void removeFromBIL(AptCIH *);void removeTimerFunctions(AptCIH *);};
 #include "Rva006CD650.h"
-class AptDisplayList {public:void clear(bool);};
+#include "AptDisplayList.h"
 class Rva008981E0Value {public:int aptHasAll();};
 class Rva006DBDB0DwordOrSetter {public:void apply();};
 #include "AptValueVector.h"

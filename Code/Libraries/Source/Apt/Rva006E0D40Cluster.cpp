@@ -43,11 +43,7 @@ extern void (__cdecl *g_00E17774)(void *p, int v);
 extern char g_00DDC2E0;
 #pragma intrinsic(__debugbreak)
 
-class AptDisplayList
-{
-public:
-	void rva006F76B0();
-};
+#include "AptDisplayList.h"
 
 #include "Rva006CFCD0.h"
 

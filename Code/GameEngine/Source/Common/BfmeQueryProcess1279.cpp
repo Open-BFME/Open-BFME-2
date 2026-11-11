@@ -45,11 +45,7 @@ class BfmeNestedBE;
 
 BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *item);
 
-class AptDisplayList
-{
-public:
-	void bfmeProcess1279(void *value);
-};
+#include "../../../Libraries/Source/Apt/AptDisplayList.h"
 
 // ?bfmeProcess1279@AptDisplayList@@QAEXPAX@Z
 void AptDisplayList::bfmeProcess1279(void *value)

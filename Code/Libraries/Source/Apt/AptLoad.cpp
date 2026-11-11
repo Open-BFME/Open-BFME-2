@@ -245,7 +245,7 @@ class AptLinker;
 #include "BfmeAptValue006DCD20.h"
 
 #include "AptNativeHash.h"
-class AptDisplayList { public: void bfmeProcess1279(void *); };
+#include "AptDisplayList.h"
 class AptCIH;
 class BfmeSubmitter1283
 {

@@ -384,11 +384,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 // Rowed at 0x006F85E0 (Rva006F6A50Cluster.cpp) under its real signature;
 // the submit forwards its raw words through unchanged.
 struct AptCharacter;
-class AptDisplayList
-{
-public:
-    void instantiateCharacter(int, AptCharacter *, EAStringC *, AptCIH *, int, int, AptCIH **, int *);
-};
+#include "AptDisplayList.h"
 
 class BfmeSubmitter1283
 {

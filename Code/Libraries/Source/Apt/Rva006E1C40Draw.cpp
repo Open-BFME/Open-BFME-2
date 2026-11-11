@@ -25,11 +25,7 @@ class BfmeThingXS
 public:
 	void bfmeApplyXS(void *p, void *q);
 };
-class AptDisplayList
-{
-public:
-	void rva006F79B0(void *p, void *q);
-};
+#include "AptDisplayList.h"
 class Rva006EBD30
 {
 public:

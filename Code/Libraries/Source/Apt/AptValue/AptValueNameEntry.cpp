@@ -212,11 +212,7 @@ public:
 
 // 0x006E3490: the rowed AptDisplayList 0x006F80C0(false) on the +0x24
 // member.
-class AptDisplayList
-{
-public:
-	void clear(bool b);
-};
+#include "../AptDisplayList.h"
 
 class Rva006E3490
 {

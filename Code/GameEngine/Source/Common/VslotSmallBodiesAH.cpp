@@ -37,11 +37,7 @@ Int Rva00656A30::rva00656A30()
 
 // 0x006EBE50 and 0x00711AB0: the rowed AptDisplayList 0x006F8190 on the
 // +0x24 (resp. +0x1C) member.
-class AptDisplayList
-{
-public:
-	void rva006F8190();
-};
+#include "../../../Libraries/Source/Apt/AptDisplayList.h"
 class Rva006EBE50
 {
 public:
