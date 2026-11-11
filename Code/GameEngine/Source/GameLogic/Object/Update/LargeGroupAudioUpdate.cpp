@@ -51,13 +51,7 @@
 class Object;
 class Player;
 class LargeGroupAudioUpdate;
-class Rva0020DXXX
-{
-public:
-	void registerSubject(int v);
-	void rva0020D959(int v);
-	void updateSubject(int slot);
-};
+#include "../../../../Include/Common/Rva0020DXXX.h"
 class Rva0020D959Host;
 class LargeGroupAudio;
  extern LargeGroupAudio *TheLargeGroupAudio;

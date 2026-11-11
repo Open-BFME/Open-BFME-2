@@ -5,7 +5,7 @@ class Rva0020D8F1Host
 public:
 	void updateSubject(Rva002856CFHost *o);
 };
-class Rva0020DXXX { public: void updateSubject(int v); }; // rowed 0x0020D8F1 void(int)
+#include "../../Include/Common/Rva0020DXXX.h"
 struct Rva00DFE1A8
 {
 	unsigned char m_pad[0x3C];

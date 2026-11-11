@@ -42,13 +42,7 @@ public:
 
 
 
-class Rva0020DXXX
-{
-public:
-	void registerSubject(int v);
-	void rva0020D959(int v);
-	void updateSubject(int slot);
-};
+#include "../../../../Include/Common/Rva0020DXXX.h"
 
 struct HostClock
 {

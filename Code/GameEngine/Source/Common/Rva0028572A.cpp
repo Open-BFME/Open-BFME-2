@@ -6,11 +6,7 @@ public:
 };
 class LargeGroupAudio; extern LargeGroupAudio *TheLargeGroupAudio;
 // The ledger row at 0x0020D959 is Rva0020DXXX::rva0020D959(int).
-class Rva0020DXXX
-{
-public:
-	void rva0020D959(int v);
-};
+#include "../../Include/Common/Rva0020DXXX.h"
 
 class Rva0028572AHost
 {

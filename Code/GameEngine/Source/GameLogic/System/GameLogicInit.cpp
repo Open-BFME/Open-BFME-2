@@ -3241,11 +3241,7 @@ public:
 
 #include "../../../Include/Common/Rva0023C6A4.h"
 
-class Rva0020DXXX
-{
-public:
-	void rva0020D7F9(void);
-};
+#include "../../../Include/Common/Rva0020DXXX.h"
 
 class Rva002872BA : public SubsystemInterface
 {
