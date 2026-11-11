@@ -190,7 +190,7 @@ void Rva00084C05System::init(SceneClass *newScene) {
 }
 
 class Rva00084024 { public: void rva00084024(); };
-class Rva00083E5C { public: void rva00083E5C(); };
+#include "../../../Include/W3DDevice/GameClient/Rva00083E5C.h"
 // Donor setDetail: TerrainTracksRenderObjClassSystem.cpp at ba7ddda7e8f.
 // Complete native 00084055..00084096 and WB 008C2510 agree on the two
 // cleanup calls and global+110/+114/+118 -> system+1C/+20/+24 copies.

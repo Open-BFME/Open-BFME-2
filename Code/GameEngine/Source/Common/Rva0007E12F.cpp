@@ -7,11 +7,7 @@ void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
-class Rva00083E5C
-{
-public:
-	void rva00083E5C();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00083E5C.h"
 class Rva0007E12F
 {
 public:
