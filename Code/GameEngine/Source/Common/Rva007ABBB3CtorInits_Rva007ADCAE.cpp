@@ -71,7 +71,7 @@ public:
 	RefCountPtr();
 };
 
-class Rva0023C641 { public: Rva0023C641(); };
+#include "../../Include/GameLogic/Rva0023C641.h"
 class Rva0023DBF9
 {
 public:

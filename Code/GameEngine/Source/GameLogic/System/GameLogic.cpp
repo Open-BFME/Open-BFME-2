@@ -2226,11 +2226,7 @@ struct GameLogicObjectListView
 	unsigned char m_pad00[0xAC];
 	Object *m_firstObject; // +0xAC
 };
-class Rva0023C641
-{
-public:
-	void rva0023C641(const char *line);
-};
+#include "../../../Include/GameLogic/Rva0023C641.h"
 class Rva00382AA0
 {
 public:

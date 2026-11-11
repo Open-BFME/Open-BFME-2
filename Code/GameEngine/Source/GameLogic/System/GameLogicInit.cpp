@@ -2922,11 +2922,7 @@ public:
 	void rva006C0820(void);
 };
 
-class Rva0023C641
-{
-public:
-	void rva0023D494(void);	// 0x0023D494 (Rva0023C641Write.cpp)
-};
+#include "../../../Include/GameLogic/Rva0023C641.h"
 
 #include "../../../Include/Common/BfmeMemberRV.h"
 
