@@ -91,11 +91,7 @@ class Rva002D6AE2Forwarder
 public:
 	void rva002D6AE2();
 };
-class W3DProjectedShadow
-{
-public:
-	void rva00108951();
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DProjectedShadowClass.h"
 #include "../../../../../../GameEngine/Include/GameNetwork/GameInfo.h"
 #include "../../../../../../GameEngine/Include/Common/Rva0030BBE5.h"
 #include "../../../../../../GameEngine/Include/Common/CommandList.h"

@@ -2,11 +2,7 @@
 // ?rva0010959E@Rva0010959E@@QAEXXZ @0x0010959E 20B
 // Calls rowed W3DProjectedShadow::rva00108951 at +0x58 then tail-jmps it at
 // +0x5C; caller at 0x0010BA18; chain from 0x00108951.
-class W3DProjectedShadow
-{
-public:
-	void rva00108951();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DProjectedShadowClass.h"
 class Rva0010959E
 {
 public:
