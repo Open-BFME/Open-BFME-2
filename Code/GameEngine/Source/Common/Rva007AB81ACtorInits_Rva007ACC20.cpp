@@ -13,11 +13,7 @@
 #include <stdlib.h>
 namespace ATL
 {
-	class CAtlWinModule
-	{
-	public:
-		CAtlWinModule();
-	};
+#include "../../Include/Common/CAtlWinModule.h"
 }
 
 class SortingRenderStateStruct

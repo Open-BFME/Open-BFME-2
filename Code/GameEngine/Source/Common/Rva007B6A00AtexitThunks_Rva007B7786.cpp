@@ -17,11 +17,7 @@
 
 namespace ATL
 {
-	class CAtlWinModule
-	{
-	public:
-		void Term();
-	};
+#include "../../Include/Common/CAtlWinModule.h"
 }
 
 class Rva0023DBC3

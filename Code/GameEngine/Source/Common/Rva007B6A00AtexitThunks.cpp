@@ -17,11 +17,7 @@ void __cdecl rva007B9B0A();
 
 namespace ATL
 {
-	class CAtlWinModule
-	{
-	public:
-		void Term();
-	};
+#include "../../Include/Common/CAtlWinModule.h"
 
 	class CImage
 	{

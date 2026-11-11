@@ -11,11 +11,7 @@
 #include <stdlib.h>
 namespace ATL
 {
-	class CAtlWinModule
-	{
-	public:
-		CAtlWinModule();
-	};
+#include "../../Include/Common/CAtlWinModule.h"
 }
 
 class Rva00019EB0VTableInstall
