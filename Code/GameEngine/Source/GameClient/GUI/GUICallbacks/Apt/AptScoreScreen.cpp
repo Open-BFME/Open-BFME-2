@@ -357,11 +357,7 @@ public:
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class AptCampaignReview
-{
-public:
-    static bool OpenScreen();
-};
+#include "../../../../../Include/GameClient/AptCampaignReview.h"
 
 void Rva0051BF47Run();
 

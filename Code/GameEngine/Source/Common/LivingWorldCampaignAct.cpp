@@ -31,7 +31,7 @@ class Rva002B778A { public: void rva002B778A(const AsciiString&); };
 
 class GameWindow;
 
-class AptCampaignReview { public: void rva000D1407(const char*,void*,GameWindow*); };
+#include "../../Include/GameClient/AptCampaignReview.h"
 
 // ?get@Rva00564E28AsciiField@@QBE?AVAsciiString@@XZ, RVA 0x00564E28 size 27.
 // Target: a by-value AsciiString copy of +0x18; its only caller is

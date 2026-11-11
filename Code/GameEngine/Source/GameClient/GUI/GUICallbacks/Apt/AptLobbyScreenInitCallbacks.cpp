@@ -89,12 +89,7 @@ private:
 	bool m_initialized; // +0x284
 };
 
-class AptCampaignReview
-{
-public:
-	void Continue(const char *unused);
-	void playerSideType(int query, char *result, bool skip);
-};
+#include "../../../../../Include/GameClient/AptCampaignReview.h"
 
 // Retail 0x00511540, 27 bytes: "AptMessenger::OnInitialized".
 void AptMessenger::OnInitialized(const char *unused)

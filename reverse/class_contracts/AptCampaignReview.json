@@ -1,0 +1,235 @@
+{
+ "bases": [
+  "_bfme_AptGameWindow"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptCampaignReview",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 5,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 11,
+   "inherited_spans": [
+    [
+     0,
+     633
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x512ac8"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "_bfme_AptGameWindow",
+       "offset": 0,
+       "own_vftable": "0x865a54",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x512ac8"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x512ac8"
+     ],
+     "value": {
+      "0x0": [
+       "?DisplayVictoryLevel@AptCampaignReview@@QAEXXZ"
+      ],
+      "0x21c": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ],
+      "0x228": [
+       "?AddExternHandler@AptExternHandlerAdder@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x2d1eb6"
+     ],
+     "value": 636
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x512ac8"
+     ],
+     "value": {
+      "0x218": [
+       "0x865a50"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x512ac8"
+     ],
+     "value": {
+      "0x0": "0x865a54"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x865a54"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptCampaignReview@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x512aac"
+       },
+       {
+        "name": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+        "slot": 1,
+        "target": "0x5748ad"
+       },
+       {
+        "name": "?rva005127F3@Rva005127F3@@QAEHHII@Z",
+        "slot": 2,
+        "target": "0x5127f3"
+       },
+       {
+        "name": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+        "slot": 3,
+        "target": "0xa12f8"
+       },
+       {
+        "name": "?rva00444680@Rva00444680@@QAEHHH@Z",
+        "slot": 4,
+        "target": "0x444680"
+       },
+       {
+        "name": "?Create@GameFileClass@@UAEHXZ",
+        "slot": 5,
+        "target": "0x910fb"
+       },
+       {
+        "name": "?vslot6@GameWindow@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x313913"
+       },
+       {
+        "name": "?Rva00512C82Get@@YAHXZ",
+        "slot": 7,
+        "target": "0x512c82"
+       },
+       {
+        "name": "?vslot8@GameWindow@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x31393a"
+       },
+       {
+        "name": "?vslot9@GameWindow@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x8ff78"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 11,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 13,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x865a54"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x865a54": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptCampaignReview@@UAEPAXI@Z",
+     "1": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+     "2": "?rva005127F3@Rva005127F3@@QAEHHII@Z",
+     "3": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+     "4": "?rva00444680@Rva00444680@@QAEHHH@Z",
+     "5": "?Create@GameFileClass@@UAEHXZ",
+     "6": "?vslot6@GameWindow@@UBE_NXZ",
+     "7": "?Rva00512C82Get@@YAHXZ",
+     "8": "?vslot8@GameWindow@@UBE_NXZ",
+     "9": "?vslot9@GameWindow@@UBE_NXZ",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "11": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "636": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 636,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
