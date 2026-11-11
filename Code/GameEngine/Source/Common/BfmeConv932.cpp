@@ -20,13 +20,7 @@ int BfmeThing932C::bfmeGo932C()
 	return 0;
 }
 
-class BfmeThing932E
-{
-public:
-	void bfmeGo932E();
-	int bfmeTest932E();
-	void bfmeTail932E();
-};
+#include "../../Include/Common/BfmeThing932E.h"
 
 void BfmeThing932E::bfmeGo932E()
 {

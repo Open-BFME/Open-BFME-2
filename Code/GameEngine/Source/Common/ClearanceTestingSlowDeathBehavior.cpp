@@ -117,11 +117,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 };
-class BfmeThing932E
-{
-public:
-	void bfmeTail932E();
-};
+#include "../../Include/Common/BfmeThing932E.h"
 class AIPickUpCrateState
 {
 public:
