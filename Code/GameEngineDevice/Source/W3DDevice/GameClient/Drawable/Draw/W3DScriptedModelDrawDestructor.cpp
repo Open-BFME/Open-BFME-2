@@ -358,12 +358,7 @@ class Rva000BFB76Interface
  virtual void rva000BFB76(const ModelConditionFlags &, bool, int);
 };
 int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);
-class Rva000BC9B1 
-{
- public:void rva000BC9B1(bool);
- 
-}
-;
+#include "../../../../../Include/W3DDevice/GameClient/Rva000BC9B1.h"
 class Rva000C7699 
 {
  public:void rva000C7699();

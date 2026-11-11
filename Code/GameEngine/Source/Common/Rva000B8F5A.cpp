@@ -502,7 +502,7 @@ int W3DScriptedModelDraw::rva000B83A7()
 }
 
 extern int g_bfmeDisplayAnimationSyncClock;
-class Rva000BC9B1 {public:void rva000BC9B1(bool);};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000BC9B1.h"
 class Rva000B2EB5 {public:float rva000B2EB5();};
 class Rva000B9A0E {public:void rva000B9A0E(void*,int,int);};
 // Full nativeBF9FC..BFB51 RET12: WB931DE0 animation-state transition.

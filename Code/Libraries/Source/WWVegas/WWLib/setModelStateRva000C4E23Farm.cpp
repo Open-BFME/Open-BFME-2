@@ -280,7 +280,7 @@ RenderObjClass *Rva00137364CreateRenderObj(const char *name, Real scale, const R
 
 // --- rowed callees, declared under their ledger spellings -------------------
 class Rva002793AF { public: void rva002793AF(const AsciiString &name); };
-class Rva000BC9B1 { public: void rva000BC9B1(bool flag); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000BC9B1.h"
 void Rva000B5179Apply(void *state, void *arg, void *renderObject);
 class Rva000788D3FloatField { public: Real get() const; };
 struct Rva000C3886Range;
