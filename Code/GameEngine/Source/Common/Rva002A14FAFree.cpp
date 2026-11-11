@@ -3,10 +3,7 @@
 // Free wrapper around rowed dtor 0x0029E00D plus rowed _free 0x00030830.
 // Calls dtor on p+4 unconditionally then frees p when non-null.
 // Caller 0x002A1D23; prev vector reserve; unblocks 0x002A1D02.
-struct Rva0029E00D
-{
-	~Rva0029E00D();
-};
+#include "../../Include/Common/Rva0029E00D.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

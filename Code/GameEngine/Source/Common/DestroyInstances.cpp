@@ -158,11 +158,7 @@ typedef _STL::pair<const ScriptStringKey,AsciiString> ScriptStringValue;
 template <> ScriptStringValue::~pair();
 typedef ScriptStringValue Rva00204686;
 #include "../../Include/Common/RvaSmartPtr12.h"
-struct Rva0029E00D
-{
-public:
-	~Rva0029E00D();
-};
+#include "../../Include/Common/Rva0029E00D.h"
 class Rva001EB63C
 {
 public:
