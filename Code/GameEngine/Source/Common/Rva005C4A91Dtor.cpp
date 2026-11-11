@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DBFME_STRINGBASE_PUBLIC_DTOR
 // stlport
 // Native005C4A91..005C4ACD (60B): same verified Rva004FA830 base
 // vptr C633A0 after vector cleanup; member vector<AsciiString> at+C calls
@@ -7,6 +7,7 @@
 // no-argument vector push_back candidate as the structural queue suggests.
 #include "ascii_string.h"
 #include <vector>
+#include "Rva004FA830.h"
 
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
@@ -16,10 +17,6 @@ template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
-class Rva004FA830 {
-public: virtual ~Rva004FA830();
-private: AsciiString m_s;
-};
 inline Rva004FA830::~Rva004FA830() {}
 class __declspec(novtable) Rva005C4A91:public Rva004FA830 {
 public: virtual ~Rva005C4A91(); void *rva005C4A75(unsigned int);

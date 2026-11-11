@@ -23,3 +23,19 @@ build verifies 14 functions and three data rows across the provider and
 callers. The local preview resolves both call sites and still flags the
 same two selected COMDATs under census ordering. The next real-link receipt
 is needed to confirm the effect on the game link.
+
+### Follow-up on the three field parsers
+
+The real-link report at `8083760844` no longer lists this unit as unresolved.
+Retail's base constructor at `0x004FA815` installs the four-slot table at
+RVA `0x008633A0`. Its fourth slot points to the empty `ret 4` body at
+`0x0047A69C`, the direct call target in all three derived parser builders.
+They now call the verified `Rva004FA830::buildFieldParse` implementation
+and its old forwarding pin is retired.
+
+The constructor and three destructor emitters now agree on the 16-byte
+table and all four COFF relocations. Scoped verification passes 40 code
+rows, three data rows and both EH graphs. The preview on index `9e00ac9b87`
+preserves all five clean peers. The texture predicate at `0x00130FCE`
+still blocks this unit in the preview. Real-link bridge confirmation is
+pending, including the separate `Rva005C4758Base` spelling.

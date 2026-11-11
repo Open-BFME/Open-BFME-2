@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DBFME_STRINGBASE_PUBLIC_DTOR
 //
 // ??1Rva004FAC21@@UAE@XZ, retail 0x004FADB8 (60 bytes).
 // Derived dtor of the rowed Rva004FAC21 ctor class (vtable 0x008633B0,
@@ -9,21 +9,11 @@
 // Its ??_G 0x004FAD9C is slot 0 of vtable 0x008633B0. Evidence: vtable
 // store 0x00C633A0 plus callers/callees in the packet; layout from the
 // rowed ctor TU Rva004FAC21Ctor.cpp.
-#include "ascii_string.h"
+#include "Rva004FA830.h"
 
 struct Rva004FABE2
 {
 	~Rva004FABE2();
-};
-
-class Rva004FA830
-{
-public:
-	virtual ~Rva004FA830();
-	Rva004FA830(const StringBase<char> &s);
-
-private:
-	AsciiString m_s;
 };
 
 inline Rva004FA830::~Rva004FA830()

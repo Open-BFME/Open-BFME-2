@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // Split from VslotSmallBodiesAG.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 //
@@ -103,12 +103,6 @@ void Rva0023DAF7::rva0023DAF7(Real a, Int b)
 
 // Slots 3 and 4 of the retail table at VA 0x00C7A448 call the empty base
 // member at 0x0047A69C. The out-of-line definition preserves both calls.
-class Rva0059BB50
-{
-public:
-	void rva0047A69C(int value);
-};
-
 #include "../../Include/Common/Gen_003bcb40.h"
 struct Rva005FEEC7Info
 {
@@ -139,13 +133,12 @@ void Rva005FEEC7::rva005FEEE6(Int index)
 		m_08->m_24 = 7;
 }
 
-// 0x005C4352 and 0x005C4553 (tables VA 0x00C745E0/0x00C746D8): field-parse
-// builders: the shared empty base slot 0x0047A69C (alias-pinned here as a
-// buildFieldParse), then the pinned MultiIniFieldParse::add of the table at
-// VA 0x00C74540 (resp. 0x00C74630) with offset 0.
+// The three derived field parsers call the base implementation at
+// 0x0047A69C, then add their own field tables at offset 0.
 struct FieldParse;
 #include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
+#include "Rva004FA830.h"
 
 // Native table bytes establish the names, offsets and parser pointers.
 // Keep the existing opaque global spellings; no original owner type is inferred.
@@ -174,12 +167,7 @@ extern const FieldParse g_rva005C47A8FieldParse[] = {
     { "UpgradeableUnits", &INI::parseAsciiStringVectorAppend, 0, 0x0C },
     { 0, 0, 0, 0 }
 };
-class Rva005C4352Base
-{
-public:
-	__declspec(noinline) void buildFieldParse(MultiIniFieldParse &p) { ((Rva0059BB50 *)this)->rva0047A69C((int)&p); }
-};
-class Rva005C4352 : public Rva005C4352Base
+class Rva005C4352 : public Rva004FA830
 {
 public:
 	void rva005C4553(MultiIniFieldParse &p);
@@ -195,18 +183,18 @@ public:
 };
 void Rva005C44A3::rva005C4352(MultiIniFieldParse &multiIniFieldParse)
 {
-	((Rva005C4352Base *)(void *)this)->buildFieldParse(multiIniFieldParse);
+	reinterpret_cast<Rva004FA830 *>(this)->Rva004FA830::buildFieldParse(multiIniFieldParse);
 	multiIniFieldParse.add(g_rva005C4352FieldParse, 0);
 }
 void Rva005C4352::rva005C4553(MultiIniFieldParse &multiIniFieldParse)
 {
-	buildFieldParse(multiIniFieldParse);
+	Rva004FA830::buildFieldParse(multiIniFieldParse);
 	multiIniFieldParse.add(g_rva005C4553FieldParse, 0);
 }
 // 0x005C47A8: the same builder over the table at VA 0x00C74704.
 void Rva005C4352::rva005C47A8(MultiIniFieldParse &multiIniFieldParse)
 {
-	buildFieldParse(multiIniFieldParse);
+	Rva004FA830::buildFieldParse(multiIniFieldParse);
 	multiIniFieldParse.add(g_rva005C47A8FieldParse, 0);
 }
 

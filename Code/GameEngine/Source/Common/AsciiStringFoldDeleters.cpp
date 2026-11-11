@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DBFME_STRINGBASE_PUBLIC_DTOR
 //
 // Opaque single-member destructors that tail-call the folded AsciiString
 // member destructor at 0x0036410, the same shape as Bucket::~Bucket (vtable
@@ -9,6 +9,7 @@
 // every destructor keeps its verified cleanup call to the 0x36410 worker.
 
 #include "ascii_string.h"
+#include "Rva004FA830.h"
 
 // GameFont: FontLibrary::rva0021857E (0x0021857E) news this 0x20-byte font,
 // installs vtable 0x00BE5AAC (slot 0 the deleting dtor 0x00217545) and
@@ -71,15 +72,6 @@ private:
 __declspec(noinline) inline Rva004E194E::~Rva004E194E()
 {
 }
-
-class Rva004FA830
-{
-public:
-	virtual ~Rva004FA830();
-
-private:
-	AsciiString m_member04;
-};
 
 inline Rva004FA830::~Rva004FA830()
 {
