@@ -6,6 +6,17 @@ Completed: canonical AptValue adoption in the donor; owning acceptance retires o
 Remaining / next check: reconcile AptScriptFunction.h's private AptValue with the canonical header, then Rva00709B80's Rva006D6470Owner/Rva006D6360 base and method views; current tu_skeleton merge accepts no donor.
 Clearance: donor header debt only; no merge, source-file reduction or census gain claimed.
 Evidence: [scoped checks and rejected merge](../../reverse/attempt_support/apt-script-gc-donor-20261103-codex3/README.md).
+
+**2026-11-11, APT destructor at 0x006D6470.** On `86d46df848`, the
+0x006D6360 base constructor builds AptNativeHash at +8 and the derived
+constructor 0x006D6410 sets flags at +0x1C. The destructor now uses that
+same 0x14-byte hash and calls its destructor at 0x0070A840. All four rows
+byte-match. Together with the constructor and hash provider the link
+preview preserves 3,990 bytes (index `60189f9ced`). The bridge at RVA
+0x008EA264 remains open. The class-fold dry run for Rva006D6470Owner into
+AptObject refuses the third table name, Rva006DE6C0. Trace that name's
+installer before retrying the fold or updating the shared virtual slots.
+
 Publication recovery: [upstream ID collision and correction](../../reverse/attempt_support/preparation-recovery-publication-20261104-codex3.md).
 2026-11-04: the same shared-root conflict also blocks AptMiscObjects.cpp's AptCIH adoption; four other consumers now pass nine header acceptances and preserve their link previews ([evidence](../../reverse/attempt_support/aptcih-header-adoption-20261104.md)).
 2026-11-04: shared-root reconciliation byte-matches 27/28 sources but AptActionInterpreter.cpp loses two rows to an esi/edi tie-break; reverted, next is removing that TU's private BfmeAptValue006DCD20 view ([evidence](../../reverse/attempt_support/aptvalue-root-reconcile-20261104.md)).
