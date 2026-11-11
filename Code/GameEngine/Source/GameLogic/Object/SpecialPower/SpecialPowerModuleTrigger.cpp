@@ -71,7 +71,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
-class Rva002D9531 { public: void rva002D9531(int v); };
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 class Rva002D9508 { public: void rva002D9508(const void *p); };
 #include "../../../../Include/Common/Rva0033F15DDwordSlot.h"
 

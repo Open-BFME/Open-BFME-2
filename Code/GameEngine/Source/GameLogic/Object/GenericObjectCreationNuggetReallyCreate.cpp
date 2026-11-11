@@ -230,11 +230,7 @@ struct AIView
 };
 
 // The audio event's owner-ID setter 0x002D9531, rowed under an address name.
-class Rva002D9531
-{
-public:
-	void rva002D9531(Int objID);
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 
 #include "../../../Include/Common/GameAudio.h"
 

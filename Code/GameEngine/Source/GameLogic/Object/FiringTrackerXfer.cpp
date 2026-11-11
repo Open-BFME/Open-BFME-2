@@ -240,11 +240,7 @@ private:
 };
 
 // AudioEventRTS::setObjectID (honest address name).
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 
 // pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
 // is a plain list<Drawable *>: retail destroys it with the base destructor

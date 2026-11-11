@@ -20,11 +20,7 @@ typedef bool Bool;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v); // AudioEventRTS::setObjectID
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 template <int N> class VSlots : public VSlots<N - 1>
 {

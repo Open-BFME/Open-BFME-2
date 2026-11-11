@@ -46,11 +46,7 @@ public:
 #include "../../../../Include/GameClient/Drawable.h"
 class Object { public: Drawable *getDrawable() const; bool addAttributeModifierToPool(const AsciiString &, int); int getID() const { return *reinterpret_cast<const int *>(reinterpret_cast<const char *>(this)+0x74); } };
 struct Rva00464D02Object { char unknown00[0x74]; int id74; };
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v); // AudioEventRTS::setObjectID
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 // The 0x000B6253 initializer is rowed as a this-returning member
 // (Rva000B6253::rva000B6253), so it is called on an uninitialized temporary.
 class Rva000B6253 { public: Rva000B6253() {} Rva000B6253 *rva000B6253(int,unsigned,unsigned,unsigned,unsigned,unsigned); unsigned words[19]; };

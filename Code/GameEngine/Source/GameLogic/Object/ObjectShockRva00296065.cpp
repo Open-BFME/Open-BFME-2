@@ -42,11 +42,7 @@ struct Rva00297612Entry
 struct DamageInfo;
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 #include "../../../Include/GameClient/Drawable.h"
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 class Rva00294D61 { public: void report(Object *, int); };
 
 template<int N> class ShockSlots : public ShockSlots<N - 1>

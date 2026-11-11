@@ -37,11 +37,7 @@ extern GameLogic *TheGameLogic;
 extern AudioManager *TheAudio;
 
 // AudioEventRTS::setObjectID (honest address name).
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 // ?startDefectionTimer@ObjectDefectionHelper@@QAEXI_N@Z, RVA 0x004DF725, 73 bytes.
 // ObjectDefectionHelper method over the rowed ObjectHelper base (0x20 bytes,

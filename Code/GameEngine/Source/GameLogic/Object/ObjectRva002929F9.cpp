@@ -40,11 +40,7 @@ public:
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 
 #define SLOT(N) virtual void slot##N();
 #include "../../../Include/Common/GameAudio.h"

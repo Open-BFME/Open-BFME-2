@@ -5,11 +5,7 @@
 class Rva002390CB {public:Rva002390CB(const Rva002390CB&);__forceinline operator const OpaqueRefElement4&()const{return value;}private:void*unknown;OpaqueRefElement4 value;};
 #include "../../../../Include/GameClient/Drawable.h"
 class Object {public:Drawable*getDrawable()const;char pad[0x74];int id;};
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v); // AudioEventRTS::setObjectID
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager*TheAudio;
 #include "../../../../Include/GameLogic/Module/ContainModule.h"

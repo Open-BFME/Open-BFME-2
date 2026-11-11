@@ -165,11 +165,7 @@ public:
 	virtual const VeterancyMiscAudioView *getMiscAudio();
 };
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
