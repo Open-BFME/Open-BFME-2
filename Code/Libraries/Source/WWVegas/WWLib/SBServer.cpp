@@ -274,11 +274,7 @@ public:
 	void rva005F3F6B();
 };
 
-class Rva005E39AE
-{
-public:
-	void rva005E3AAA(int a);
-};
+#include "../../../../GameEngine/Include/Common/Rva005E39AE.h"
 
 class Rva005E3E41Inner
 {

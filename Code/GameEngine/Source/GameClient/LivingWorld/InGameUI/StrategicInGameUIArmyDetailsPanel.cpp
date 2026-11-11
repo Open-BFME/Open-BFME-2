@@ -35,7 +35,7 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-class Rva005E39AE { public: void rva005E3AAA(int); };
+#include "../../../../Include/Common/Rva005E39AE.h"
 #include "../../../../Include/GameClient/Rva005F22D2.h"
 class ArmySummary;
 namespace StrategicInGameUI {
