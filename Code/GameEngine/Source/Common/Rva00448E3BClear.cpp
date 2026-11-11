@@ -4,11 +4,7 @@
 // root m_00->m_04 via rowed 0x00448D96 with same this; m_00->m_08=m_00;
 // m_00->m_04=0; m_00->m_0c=m_00; m_04=0. Evidence: cmp je push call mov mov
 // and mov and sequence; unblocks 0x00448FA6; chain from free walk.
-class Rva00448089
-{
-public:
-	~Rva00448089();
-};
+#include "../../Include/Common/Rva00448089.h"
 struct Rva00448D96Node
 {
 	int m_00;

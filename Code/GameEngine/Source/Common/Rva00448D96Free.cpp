@@ -4,11 +4,7 @@
 // this; destroy Rva00448089 value at +0x10 via rowed dtor 0x00448089; free node
 // via rowed _free 0x00030830; loop via m_08. Evidence: push ebx esi edi test
 // je recursion call dtor free test jne; unblocks 0x00448E3B; chain from dtor.
-class Rva00448089
-{
-public:
-	~Rva00448089();
-};
+#include "../../Include/Common/Rva00448089.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
