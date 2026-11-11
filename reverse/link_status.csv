@@ -808,7 +808,7 @@ Code/GameEngine/Source/Common/DamageFX_mapEraseRange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DamageFX_pairConstruct.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Debug_recordCallsite.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DelayedLuaEventList.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/DestroyInstances.cpp,no,0,1,0,0,1
+Code/GameEngine/Source/Common/DestroyInstances.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Dict.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DictPairClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/DictRva00329CF0.cpp,yes,0,0,0,0,0
@@ -927,7 +927,7 @@ Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00205224.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022167C.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00221C15.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022CD2A.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022CFE6.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022CFE6.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022D214.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0022D249.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva002544B5.cpp,yes,0,0,0,0,0
@@ -2581,7 +2581,7 @@ Code/GameEngine/Source/Common/Rva0022CC67Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022CCB0Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022CD2ADtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022CD78Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0022CFE6Dtor.cpp,no,0,1,0,0,1
+Code/GameEngine/Source/Common/Rva0022CFE6Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D01BDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D05FDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D094Dtor.cpp,yes,0,0,0,0,0
@@ -2590,7 +2590,7 @@ Code/GameEngine/Source/Common/Rva0022D214Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D249Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D27EDestroyThunks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D941Destroy.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0022D9B7Delete.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/Common/Rva0022D9B7Delete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022D9D3Destroy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022DB29Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0022DB72Free.cpp,yes,0,0,0,0,0
@@ -7254,7 +7254,7 @@ Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapTitle.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMovieGameWindowInit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp,yes,0,0,0,0,0
@@ -12542,7 +12542,7 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoR
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleChooseTargets.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleLeadership.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveCombatChainParse.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveLeadershipParse.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveLeadershipParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveResourceBonus.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveUnit.cpp,yes,0,0,0,0,0
@@ -16441,7 +16441,6 @@ Code/Libraries/Source/WWVegas/WWLib/StlportDequeHolderForwarders.cpp,yes,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportDequeIntAux.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportDestroyRva0041445C.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportDestroyRva00414476.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/StlportDestroyRva004144F0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportDestroyRva00414508.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportDestroyRva00555D17.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,yes,0,0,0,0,0
@@ -16687,7 +16686,7 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_heap_s4sortelem8_desc.cpp,yes
 Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_heap_s4sortelem8_score.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_find.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp,no,0,0,6,0,6
+Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_deferred.cpp,no,0,0,2,0,2
 Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_assign_record84_00586BC9.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ifstream_char_default_ctor.cpp,yes,0,0,0,0,0
