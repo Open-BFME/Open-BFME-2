@@ -7,11 +7,7 @@
 // not (TextureClass*)1 return 1; else store 1 at +0x04 and return 0.
 // Evidence: table slot 0x0087500C neighbours; same shape as stdcall sibling
 // ?Rva005CD762Get@@YGEPAX@Z in Rva005CD762.cpp; callees all rowed; ret 4.
-class Rva005CCB3EByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva005CCB3EByteChaseField.h"
 
 class TextureClass;
 class Font3DInstanceClass

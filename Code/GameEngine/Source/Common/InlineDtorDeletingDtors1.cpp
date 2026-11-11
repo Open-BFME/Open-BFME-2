@@ -202,11 +202,7 @@ class Rva005CCB4CCall
 public:
 	bool rva005CCB4C();
 };
-class Rva005CCB3EByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva005CCB3EByteChaseField.h"
 #include "../../Include/Common/Rva005CCB5B.h"
 #include "../../Include/Common/Rva005CCB7B.h"
 
