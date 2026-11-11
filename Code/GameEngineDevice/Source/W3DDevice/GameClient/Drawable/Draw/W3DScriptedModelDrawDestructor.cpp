@@ -365,12 +365,7 @@ class Rva000C7699
  
 }
 ;
-class Rva000B3C61 
-{
- public:void rva000B3C61(int);
- 
-}
-;
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B3C61.h"
 class Rva000B3348 
 {
  public:void rva000B3348(Matrix3D*);

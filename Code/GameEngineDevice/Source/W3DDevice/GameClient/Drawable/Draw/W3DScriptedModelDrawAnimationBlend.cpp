@@ -3,7 +3,7 @@
 // ZH adjustAnimation establishes purpose; BFME2 three-lane blending is target-specific.
 class HAnimClass;
 class RefCounted{public:virtual void v0();int ref;};
-class Rva000B3C61 {public:void rva000B3BCF(int,RefCounted*,unsigned char,int,float,float,float,unsigned char,int);void rva000B3C61(int);void rva000B3CCF(int,int);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B3C61.h"
 class Rva000B3BA8Arg;
 class Rva000B3BA8 {public:void rva000B3BA8(Rva000B3BA8Arg*);};
 class HAnimClass:public RefCounted{public:virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual int frameCount();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual void v11();virtual void v12();virtual unsigned signature();};

@@ -747,7 +747,7 @@ static __declspec(noinline) bool Rva000B2E4CComplete(RenderAnimationObj*obj,Anim
 }
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
 class Rva0027532F{public:bool rva0027532F(bool);};
-class Rva000B3C61{public:void rva000B3C61(int);void rva000B3CCF(int,int);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B3C61.h"
 class Rva000B3A68{public:unsigned char rva000B3A68();};
 struct Arg000B5A72;
 // BFE24 calls the recovered distance-opacity provider at B5A72. Its existing
