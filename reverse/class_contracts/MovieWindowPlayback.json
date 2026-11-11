@@ -1,0 +1,514 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MovieWindowPlayback",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 19,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "1": 4
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 9
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x524b7a"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x867dfc",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x524b7a"
+     ],
+     "value": 60
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x524b7a"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x524b7a"
+     ],
+     "value": {
+      "0x0": "0x867dfc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x867dfc"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00524BB4@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x524bff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00524AE2@Rva00524AE2@@QAEXXZ",
+        "slot": 9,
+        "target": "0x524ae2"
+       },
+       {
+        "name": "?update@Rva00524B7A@@UAEXXZ",
+        "slot": 10,
+        "target": "0x524ae7"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?draw@MovieWindowPlayback@@UAEXXZ",
+        "slot": 12,
+        "target": "0x524973"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x867dfc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x867dfc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00524BB4@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?rva00524AE2@Rva00524AE2@@QAEXXZ",
+     "10": "?update@Rva00524B7A@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "?draw@MovieWindowPlayback@@UAEXXZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 12,
+  "view_sizes": {
+   "1": 2,
+   "40": 2,
+   "60": 3
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_basePad",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 8,
+   "type": "char[8]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 9
+   },
+   "size": 4,
+   "type": "Rva00524A4CInterface*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "m_flags",
+   "name_by": "tie",
+   "offset": 36,
+   "retail_widths": {
+    "1": 4
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_34",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x24",
+   "candidates": {
+    "m_24": 2,
+    "m_b0": 1,
+    "m_b1": 1,
+    "m_b2": 1,
+    "m_flags": 2
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "draw()": 1,
+    "unusedSlot0()": 1,
+    "v00()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "unusedSlot1()": 1,
+    "v04()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "unusedSlot2()": 1,
+    "v08()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "unusedSlot3()": 1,
+    "v0C()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "unusedSlot4()": 1,
+    "v10()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "unusedSlot5()": 1,
+    "v14()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "unusedSlot6()": 1,
+    "v18()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "unusedSlot7()": 1,
+    "v1C()": 1
+   },
+   "class": "MovieWindowPlayback"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "unusedSlot8()": 1,
+    "v20()": 1
+   },
+   "class": "MovieWindowPlayback"
+  }
+ ],
+ "size": 60,
+ "size_by": "majority",
+ "vslots": {
+  "10": {
+   "decided_by": "bytes",
+   "member": "advance()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "stop()"
+  }
+ }
+}
