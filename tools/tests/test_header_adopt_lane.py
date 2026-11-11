@@ -1206,6 +1206,16 @@ def test_a_qualified_named_nested_type_holds():
     assert [r["role"] for r in lane.declaration_records(view, "C")] == ["nested"]
     _, problems = special("C", {"a.cpp": view})
     assert len(problems) == 1 and "a nested declaration" in problems[0]
+    for nested in ("struct D : public B { int b; };", "enum E { A, B };", "class X;"):
+        assert [r["role"] for r in lane.declaration_records("struct C { %s int m; };\n" % nested, "C")] == ["nested"]
+
+
+@pytest.mark.parametrize("member", ["const struct N *f() { return 0; }", "struct N *f() { return 0; }",
+                                    "struct N *f();"])
+def test_a_method_returning_an_elaborated_type_is_a_method(member):
+    # the brace of a method's body is no type's definition
+    records = lane.declaration_records("struct C { %s int m; };\n" % member, "C")
+    assert [(r["role"], r["key"]) for r in records] == [("method", "f()")]
 
 
 def test_a_qualified_unnamed_struct_member_is_one_field():

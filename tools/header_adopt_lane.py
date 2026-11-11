@@ -1564,12 +1564,13 @@ def member_role(member, short):
         return "friend" if call_span(rest[6:].strip()) and not POINTER_DATA.match(rest[6:].strip()) else "nested"
     if re.match(r"(?:typedef|using)\b", rest):
         return "nested"
-    if re.match(r"(?:class|struct|union|enum)\b", rest) and ("{" in LITERAL.sub("", member)
-                                                             or re.match(r"\w+\s+\w+\s*;?$", rest)):
+    # A named type defined here (`struct N { ... };`, `const struct N : B { ... } s;`): the body's `{`
+    # follows the type's name or base clause, unlike a method returning one (`struct N *f() { ... }`).
+    # A forward declaration (`class X;`) is nested too.
+    if re.match(r"(?:(?:const|volatile|mutable|static)\s+)*(?:class|struct|union|enum)\s+"
+                r"(?:__declspec\([^)]*\)\s*)*[A-Za-z_]\w*\s*(?::[^;(){}]*)?$", rest) \
+            and "{" in LITERAL.sub("", member) or re.match(r"(?:class|struct|union|enum)\s+\w+\s*;?$", rest):
         return "nested"
-    if re.match(r"(?:(?:const|volatile|mutable|static)\s+)+(?:class|struct|union|enum)\b", rest) \
-            and "{" in LITERAL.sub("", member):
-        return "nested"                          # `const struct N { ... } s;`: a named type defined here
     if prefix and not re.search(r"\(", rest):
         return "nested"                          # a member class template's declaration
     rest = re.sub(r"^(?:class|struct|union|enum)\s+", "", rest)
