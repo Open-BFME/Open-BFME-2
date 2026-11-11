@@ -27,7 +27,7 @@ template<int N>class BitFlags {unsigned words[7];};
 #include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../Include/Common/Rva004EE35D.h"
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
-class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+#include "../../Include/Common/Rva004EE3F9.h"
 #include "../../Include/Common/Rva004EE447.h"
 class Rva004EE485 {public:int rva004EE485();};
 class Rva004EE4C3 {public:int rva004EE4C3();};

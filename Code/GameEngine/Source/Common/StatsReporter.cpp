@@ -197,7 +197,7 @@ class Rva0039BF39 {public:int rva0039BF39(const Rva00045411BitSet&,const Rva0004
 
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 
-class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+#include "../../Include/Common/Rva004EE3F9.h"
 
 class LivingWorldScoreKeeper {public:int GetBuildingsOfTypeBuilt(int);int rva004EE33B();int rva004EE043();char pad0[0x34];_STL::vector<unsigned>v34;_STL::vector<unsigned>v40;char pad4c[0x48];int value94,value98;char pad9c[0xc];int valueA8,valueAC,valueB0;char padB4[0x24];int valueD8,valueDC,valueE0,valueE4,valueE8,valueEC,valueF0;int getD8()const{return valueD8;}int getDC()const{return valueDC;}int getE0()const{return valueE0;}int getE4()const{return valueE4;}int getA8()const{return valueA8;}int getAC()const{return valueAC;}};
 
