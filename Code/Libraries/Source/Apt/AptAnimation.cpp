@@ -98,14 +98,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 // The event word being dispatched (retail VA 0x00E18328, right after the
 // interpreter's 72 bytes); AptKey decodes it (key >> 17, controller >> 2).
 extern unsigned int Rva008A5250LastKey;
-class Rva006E34D0 {
-public:
-    char unknown[0x68];
-    AptValue *value68;
-    char unknown6C[0xa8 - 0x6c];
-    int maxIntervalTimers;
-    int getMaxIntervalTimers() const { return maxIntervalTimers; }
-};
+#include "Rva006E34D0.h"
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 struct Rva006E3230Action {
     int type, flags, event;
@@ -447,7 +440,7 @@ void AptAnimationPoolData::rva006E6540()
                 unsigned flags = ((unsigned)p->event >> 10) & 0x7f;
                 if (p->nArgs > 0 && (flags & 7)) {
                     if (p->nArgs > 1)
-                        g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20 *)g_bfmeAptPtrAtE176D0->value68);
+                        g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20 *)g_bfmeAptPtrAtE176D0->m_field68);
                     if (flags == 4)
                         g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20 *)AptInteger::Create(-key));
                     else
@@ -484,7 +477,7 @@ void AptAnimationPoolData::rva006E6540()
 void AptAnimationPoolData::tickIntervalTimers(int interval)
 {
     int left = activeTimers;
-    for (int i = 0; i < g_bfmeAptPtrAtE176D0->getMaxIntervalTimers(); i++) {
+    for (int i = 0; i < g_bfmeAptPtrAtE176D0->m_fieldA8; i++) {
         if (!timers[i].active)
             continue;
         timers[i].remaining -= interval;
@@ -529,7 +522,7 @@ void AptAnimationPoolData::removeTimerFunctions(AptCIH *cih)
     int left = activeTimers;
     if (left == 0)
         return;
-    for (int i = 0; i < g_bfmeAptPtrAtE176D0->getMaxIntervalTimers(); i++) {
+    for (int i = 0; i < g_bfmeAptPtrAtE176D0->m_fieldA8; i++) {
         if (!timers[i].active)
             continue;
         if (cih->CharacterInst() && (unsigned char)timers[i].func->isScriptFunction()) {
