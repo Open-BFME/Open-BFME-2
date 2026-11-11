@@ -41,7 +41,7 @@ class VictoryConditionsInterface {public:
  virtual void v11();
  virtual bool isLocalAlliedVictory();virtual bool isLocalAlliedDefeat();
 };
-class Rva0039B709 {public:unsigned int rva0039B718();};
+#include "../../Include/Common/Rva0039B709.h"
 struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int);};
 template<int N>class BitFlags {unsigned words[7];};
 class Rva0039BF22 {public:int rva0039BF22(const Rva00045411BitSet&,const Rva00045411BitSet&);};

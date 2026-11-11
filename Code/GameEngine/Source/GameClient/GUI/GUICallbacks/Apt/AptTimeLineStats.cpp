@@ -267,7 +267,7 @@ public:
  int words[0x328/4];_STL::vector<int> fortresses;
 };
 class Player {public:char beforeScore[0x3BC];ScoreKeeper score;};
-class Rva0039B709 {public:unsigned rva0039B6EE();unsigned rva0039B709();int rva0039B9D1();};
+#include "../../../../../Include/Common/Rva0039B709.h"
 // Existing seven-word kind-mask initializer2618FA supplies the favorite-unit
 // filter. The full39BDB8 selection worker and23B39BE95 wrapper are verified.
 class Rva002618A2 {public:unsigned words[7];Rva002618A2*rva002618FA(int,int,int,int,int,int);};

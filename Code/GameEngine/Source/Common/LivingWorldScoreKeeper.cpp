@@ -389,11 +389,7 @@ public:
 private:
 	unsigned char m_bytes[4];
 };
-class Rva0039B709
-{
-public:
-	unsigned int rva0039B718();
-};
+#include "../../Include/Common/Rva0039B709.h"
 extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
 #include "../../Include/Common/Player.h"
 //

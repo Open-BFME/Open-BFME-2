@@ -58,7 +58,7 @@ int __stdcall Rva0039B95FCount(int *outFirst)
 // Native39BB0A and39BC85 supply ECX=the established ScoreKeeper ABI view.
 // This member has no receiver access and folds exactly with the existing114B
 // stdcall operation; donor575ba2 ScoreKeeperScoring supplies its purpose.
-class Rva0039B709 { public: int countMissionObjectives(int *outFirst); };
+#include "../../Include/Common/Rva0039B709.h"
 int Rva0039B709::countMissionObjectives(int *outFirst)
 {
 	int countThree = 0;
