@@ -534,11 +534,7 @@ public:
 };
 
 struct Rva0039BAD2Input;
-class Rva0039BAD2
-{
-public:
-	void rva0039BAD2(Rva0039BAD2Input *in, int amount);
-};
+#include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 class DieModuleInterface

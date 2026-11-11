@@ -100,11 +100,7 @@ public:
 extern InGameUI *TheInGameUI;
 class Rva0039B795;
 struct Rva0039BAD2Input;
-class Rva0039BAD2
-{
-public:
-	void rva0039BAD2(Rva0039BAD2Input *what, int cost);
-};
+#include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 class Rva0039B795 : public Rva0039BAD2
 {
 };

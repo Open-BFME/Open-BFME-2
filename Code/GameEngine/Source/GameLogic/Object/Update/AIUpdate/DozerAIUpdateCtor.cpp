@@ -1928,11 +1928,7 @@ class Rva0039B7AD;
 struct Rva0039BAD2Input;
 
 // The player's +0x3BC member, under its two rowed spellings.
-class Rva0039BAD2
-{
-public:
-	void rva0039BAD2(Rva0039BAD2Input *what, Int cost);
-};
+#include "../../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 
 class Rva0039B795 : public Rva0039BAD2
 {
