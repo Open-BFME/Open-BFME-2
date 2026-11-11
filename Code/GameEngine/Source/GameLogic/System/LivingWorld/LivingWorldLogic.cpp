@@ -2608,7 +2608,7 @@ void LivingWorldLogic::spawnCity(SpawnArmy *city)
 }
 
 #include "../../../../Include/Common/Rva002B2405.h"
-class Rva002B4650 {public:int GetTimeRemainingForCurrentPhaseInFrames();};
+#include "../../../../Include/Common/Rva002B4650.h"
 class Rva0020E72A {public:bool rva0020E72A(void *);};
 class Rva002B4C09 {public:bool rva002B3621();void rva002B6875();};
 class Rva002B5F8A {public:bool rva002B5F8A();};

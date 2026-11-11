@@ -23,12 +23,7 @@ public:
 	virtual void v18();
 };
 
-class Rva002B4650
-{
-public:
-	bool rva002B2BAA();										// 0x002B2BAA
-	int rva002B3DD0();										// 0x002B3DD0
-};
+#include "../../Include/Common/Rva002B4650.h"
 
 struct Rva005742CDLogicView
 {

@@ -18,7 +18,7 @@ class Rva005CB852 { public: void rva005CB852(); };
 class Rva005C9B76 { public: void rva005C9AB4(); };
 class Rva005CC2C5 { public: void rva005CC2DC(); };
 class Rva0042D71A { public: int get() const; };
-class Rva002B4650 { public: bool rva002B2BAA(); int rva002B3DD0(); };
+#include "../../Include/Common/Rva002B4650.h"
 void __fastcall Rva005745D8Get(void *object);
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"

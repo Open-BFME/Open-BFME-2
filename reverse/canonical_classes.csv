@@ -1352,3 +1352,4 @@ Rva004FB0C7Registry,Code/GameEngine/Include/GameLogic/Rva004FB0C7Registry.h,exis
 Rva0052710C,Code/GameEngine/Include/GameClient/Rva0052710C.h,existing header; contract class_contracts/Rva0052710C.json; 4/5 sampled units adopt
 Rva002B5B55,Code/GameEngine/Include/Common/Rva002B5B55.h,existing header; contract class_contracts/Rva002B5B55.json; 3/4 sampled units adopt
 Rva003195C9Owner,Code/GameEngine/Include/GameLogic/Rva003195C9Owner.h,existing header; contract class_contracts/Rva003195C9Owner.json; 3/5 sampled units adopt
+Rva002B4650,Code/GameEngine/Include/Common/Rva002B4650.h,existing header; contract class_contracts/Rva002B4650.json; 3/4 sampled units adopt
