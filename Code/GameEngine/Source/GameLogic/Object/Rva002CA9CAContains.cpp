@@ -83,11 +83,7 @@ public:
 	virtual void v3c();
 };
 
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(int a, int b);
-};
+#include "../../../Include/Common/Rva001E11F8.h"
 
 class Rva002CAC6ENotify
 {

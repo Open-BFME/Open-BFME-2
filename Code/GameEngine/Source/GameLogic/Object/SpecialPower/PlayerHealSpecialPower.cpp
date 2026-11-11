@@ -132,11 +132,7 @@ public:
 public:
 	void rva001F0410(void *a, void *b);
 };
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(int a, int b);
-};
+#include "../../../../Include/Common/Rva001E11F8.h"
 struct Rva004C7EC7Holder
 {
 	char m_pad[0xA4];

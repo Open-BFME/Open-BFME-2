@@ -68,11 +68,7 @@ bool Rva003F424F::invoke(int entry)
 
 // slots at VA 0x00C644C4, 0x00C64544 and 0x00C645AC: forward both arguments
 // to a rowed method of the +0x134 (resp. +0x128) object when it is set.
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(Int a, Int b);
-};
+#include "../../Include/Common/Rva001E11F8.h"
 #include "../../Include/Common/Rva002CA9CA.h"
 class ObjectCreationList
 {

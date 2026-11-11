@@ -5,11 +5,7 @@
 
 #include "ascii_string.h"
 
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(int a, int b);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva001E11F8.h"
 
 class AssetList
 {

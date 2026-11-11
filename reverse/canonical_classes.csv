@@ -930,3 +930,4 @@ Rva0070A5C0,Code/Libraries/Source/Apt/Rva0070A5C0.h,existing header; contract cl
 BfmeParserRegistryVE,Code/GameEngine/Include/Common/BfmeParserRegistryVE.h,existing header; contract class_contracts/BfmeParserRegistryVE.json; 11/11 sampled units adopt
 BfmeSubmitter1283,Code/Libraries/Source/Apt/BfmeSubmitter1283.h,existing header; contract class_contracts/BfmeSubmitter1283.json; 6/8 sampled units adopt
 XferLoad,Code/GameEngine/Include/Common/XferLoadClass.h,existing header; contract class_contracts/XferLoad.json; 7/9 sampled units adopt
+Rva001E11F8,Code/GameEngine/Include/Common/Rva001E11F8.h,existing header; contract class_contracts/Rva001E11F8.json; 10/11 sampled units adopt

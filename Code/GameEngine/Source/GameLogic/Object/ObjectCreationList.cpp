@@ -781,11 +781,7 @@ public:
 	AssetList &operator<<(const AsciiString &s);
 };
 
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(int assets, int context);
-};
+#include "../../../Include/Common/Rva001E11F8.h"
 
 extern ThingFactory *TheThingFactory;
 

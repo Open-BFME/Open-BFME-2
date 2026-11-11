@@ -9,11 +9,7 @@ public:
 	void rva001F0410(void *a, void *b);
 };
 
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(int a, int b);
-};
+#include "../../../../Include/Common/Rva001E11F8.h"
 
 void __cdecl Rva004A452BUpdate(void *p, void *a, void *b)
 {

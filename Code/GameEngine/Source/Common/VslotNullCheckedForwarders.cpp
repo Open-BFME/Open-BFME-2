@@ -30,7 +30,7 @@ public:
 };
 class Gen009794F0 { public: Int handle(); };				// 0x0019C0A0
 class Rva00149F20Holder { public: Int get() const; };			// 0x00149F20
-class Rva001E11F8 { public: void rva001E11F8(Int firstValue, Int secondValue); };	// 0x001E11F8
+#include "../../Include/Common/Rva001E11F8.h"
 class Rva001EB3D1 { public: void rva001EB3D1(); };			// 0x001EB3D1
 #include "../../Include/Common/Rva002CA9CA.h"
 class Rva004CFC81 { public: unsigned int rva004CFC81() const; };	// 0x004CFC81

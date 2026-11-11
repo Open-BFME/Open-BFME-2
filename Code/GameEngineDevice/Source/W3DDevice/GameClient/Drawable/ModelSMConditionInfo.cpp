@@ -26,7 +26,7 @@ bool Render_Obj_Exists(const char*);
 
 class Rva000B2D4D {public:void rva000B2D4D(int,int);};
 
-class Rva001E11F8 {public:void rva001E11F8(int,int);};
+#include "../../../../../GameEngine/Include/Common/Rva001E11F8.h"
 
 struct BfmeModelAssetNode {BfmeModelAssetNode* next;BfmeModelAssetNode* prev;char value[0x14];};
 

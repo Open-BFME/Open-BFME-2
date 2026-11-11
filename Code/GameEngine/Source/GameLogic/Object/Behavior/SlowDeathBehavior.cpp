@@ -304,11 +304,7 @@ public:
 	void rva001F0410(void *a1, void *a2);
 };
 
-class Rva001E11F8
-{
-public:
-	void rva001E11F8(int a, int b);
-};
+#include "../../../../Include/Common/Rva001E11F8.h"
 
 #include "../../../../Include/Common/Rva002CA9CA.h"
 
