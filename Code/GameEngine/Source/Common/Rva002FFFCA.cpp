@@ -11,11 +11,7 @@
 #include "Lib/Coord3D.h"
 class Object;
 class Rva00003702CoordEqualityView { public: bool equals(const Coord3D&) const; };
-class Rva002FFFCA {
-public:
-    void* rva002FFFCA(Object*,const Coord3D*,float,unsigned int,int,int,int);
-    void* rva002FF07B(Object*,const Coord3D*,float,unsigned int,int,int,int);
-};
+#include "../../Include/GameLogic/Rva002FFFCA.h"
 void* Rva002FFFCA::rva002FFFCA(Object* object,const Coord3D* targetPosition,float radius,unsigned int flags,int a,int b,int c) {
     const Coord3D* position=(const Coord3D*)((const char*)object+0x38);
     if(!((const Rva00003702CoordEqualityView*)targetPosition)->equals(*position)) flags|=0x100;

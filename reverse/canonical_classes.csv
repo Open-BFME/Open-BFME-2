@@ -1082,3 +1082,4 @@ StandingWaterArea,Code/GameEngine/Include/GameLogic/StandingWaterArea.h,existing
 Rva000E6FC8,Code/GameEngine/Include/Common/Rva000E6FC8.h,existing header; contract class_contracts/Rva000E6FC8.json; 5/5 sampled units adopt
 Rva0009C134Host,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0009C134Host.h,existing header; contract class_contracts/Rva0009C134Host.json; 5/8 sampled units adopt
 RespawnUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/RespawnUpdateModuleData.h,existing header; contract class_contracts/RespawnUpdateModuleData.json; 3/6 sampled units adopt
+Rva002FFFCA,Code/GameEngine/Include/GameLogic/Rva002FFFCA.h,existing header; contract class_contracts/Rva002FFFCA.json; 5/5 sampled units adopt

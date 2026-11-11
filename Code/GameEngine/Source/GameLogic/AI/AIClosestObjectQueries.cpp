@@ -300,11 +300,7 @@ int AI::rva002FEEAD(Object *me, float range, unsigned int qualifiers)
 		&filterObvious, 0).size();
 }
 
-class Rva002FFFCA
-{
-public:
-	void *rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned int qualifiers, int info, int optionalFilter, int bfmeArg);
-};
+#include "../../../Include/GameLogic/Rva002FFFCA.h"
 
 Object *AI::findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
 	const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int bfmeArg)

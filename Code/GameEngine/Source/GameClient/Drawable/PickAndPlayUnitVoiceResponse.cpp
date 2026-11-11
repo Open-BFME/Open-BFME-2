@@ -566,11 +566,7 @@ public:
 	Pathfinder *m_pathfinder;
 };
 extern AI *TheAI;
-class Rva002FFFCA
-{
-public:
-	void *rva002FFFCA(Object *me, const Coord3D *pos, float range, unsigned int qualifiers, int a, int b, int c);
-};
+#include "../../../Include/GameLogic/Rva002FFFCA.h"
 
 extern unsigned char g_00E01EA8;
 

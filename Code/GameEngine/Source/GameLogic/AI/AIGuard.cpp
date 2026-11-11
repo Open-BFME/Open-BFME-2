@@ -237,12 +237,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/TAiData.h"
 
-class Rva002FFFCA
-{
-public:
-	void *rva002FFFCA(Object *obj, const Coord3D *pos, Real range, UnsignedInt flags,
-		Int attackInfo, Int a, Int b);
-};
+#include "../../../Include/GameLogic/Rva002FFFCA.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

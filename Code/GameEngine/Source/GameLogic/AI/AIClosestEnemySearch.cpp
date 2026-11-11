@@ -303,11 +303,7 @@ __forceinline BfmeWideResult::BfmeWideResult(const BfmeWideResult &other)
 }
 __forceinline const float &MaxPriority(const float &left, const float &right) { return left > right ? left : right; }
 
-class Rva002FFFCA
-{
-public:
-	void *rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned int qualifiers, int info, int optionalFilter, int bfmeArg);
-};
+#include "../../../Include/GameLogic/Rva002FFFCA.h"
 
 void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned qualifiers,
 	int infoAddress, int optionalAddress, int victimIndex)
