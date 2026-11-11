@@ -215,11 +215,7 @@ private:
 
 #include "../../../../../Include/Common/XferVersion.h"
 
-class Rva004CE56D
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../../../Include/Common/Rva004CE56D.h"
 
 struct CrateCollideSlots
 {

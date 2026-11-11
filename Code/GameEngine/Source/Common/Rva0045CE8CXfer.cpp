@@ -21,10 +21,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 
-class Rva004CE56D {
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../Include/Common/Rva004CE56D.h"
 
 class Rva0045CE8C {
 public:

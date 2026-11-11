@@ -69,14 +69,7 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/XferVersion.h"
-class Rva004CE56D
-{
-public:
-	virtual void b0();
-	virtual void b1();
-	virtual void b2();
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004CE56D.h"
 typedef bool Bool;
 typedef float Real;
 typedef unsigned int UnsignedInt;

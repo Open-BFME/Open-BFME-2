@@ -32,10 +32,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
-class Rva004CE56D {
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../Include/Common/Rva004CE56D.h"
 
 void Rva004CE56D::xfer(Xfer *xfer)
 {

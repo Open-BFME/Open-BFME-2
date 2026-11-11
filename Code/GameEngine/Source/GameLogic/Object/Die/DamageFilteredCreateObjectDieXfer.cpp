@@ -34,15 +34,7 @@ class Object;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class Rva004CE56D
-{
-public:
-	virtual void baseAnchor();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad[0x14 - 4];
-};
+#include "../../../../Include/Common/Rva004CE56D.h"
 
 //
 // DamageFilteredCreateObjectDie's +0x14 damage-module interface overrides

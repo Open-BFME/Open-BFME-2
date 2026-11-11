@@ -201,11 +201,7 @@ template <typename T> struct BfmeStringData;
 		m_counter &= MASK; \
 	}
 #include "../../../../Include/Common/XferVersion.h"
-class Rva004CE56D
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004CE56D.h"
 void XferParticleSystemID(Xfer *xfer, int *id);
 // ?getModuleNameKey@TransitionDamageFX@@UBE?AW4NameKeyType@@XZ @0x4BA437
 // (69B): cached pool-name key for TransitionDamageFX. The class

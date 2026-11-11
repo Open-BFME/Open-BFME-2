@@ -98,12 +98,7 @@ private:
 	int m_trackingTimeSpan; // +0x14
 };
 
-class Rva004CE56D
-{
-public:
-	virtual void baseAnchor();
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004CE56D.h"
 
 enum CommandSourceType
 {
