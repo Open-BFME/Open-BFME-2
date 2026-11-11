@@ -159,12 +159,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 struct Rva0039B24FInput;
 
-class Rva0039B24F
-{
-public:
-	void rva0039B24F(Rva0039B24FInput *level, bool count, bool flag);	// 0x0039B24F
-	void rva0039B4B8(const AsciiString &name, bool flag);
-};
+#include "../../Include/Common/Rva0039B24F.h"
 
 // --- 0x0044F7EA (52B): the first object of the +0x64 id list (rowed
 // GameLogic::findObjectByID) whose +0x78 equals the other object's +0x74.

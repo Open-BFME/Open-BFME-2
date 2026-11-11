@@ -47,11 +47,7 @@ struct Rva003C4570Object
 
 struct Rva0039B24FInput;
 
-class Rva0039B24F
-{
-public:
-	void rva0039B24F(Rva0039B24FInput *input, bool a, bool b);
-};
+#include "../../../Include/Common/Rva0039B24F.h"
 
 #include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 
