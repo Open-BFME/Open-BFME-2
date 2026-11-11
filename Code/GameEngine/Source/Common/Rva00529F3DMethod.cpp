@@ -64,11 +64,7 @@ inline Rva004E7392::~Rva004E7392() {}
 #include "../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class BfmeThingGX;
-class Rva00405A50
-{
-public:
-	void rva00405C04(BfmeThingGX *thing);
-};
+#include "../../Include/Common/Rva00405A50.h"
 
 class Rva00529F3D
 {

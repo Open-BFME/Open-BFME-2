@@ -343,7 +343,7 @@ class TooltipRecord: public TooltipBase { public:
 struct BfmeMsgDN;
 class BfmeThingGX;
 #include "../../Include/GameClient/ControlBar.h"
-class Rva00405A50 { public: void rva00405C04(BfmeThingGX*); };
+#include "../../Include/Common/Rva00405A50.h"
 extern ControlBar* TheControlBar;
 bool CanSelectDrawable(const Drawable*,bool);
 

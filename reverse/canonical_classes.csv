@@ -1294,3 +1294,4 @@ Rva005B034ADwordSlot,Code/GameEngine/Include/Common/Rva005B034ADwordSlot.h,exist
 Rva001F5D4F,Code/GameEngine/Include/Common/Rva001F5D4F.h,existing header; contract class_contracts/Rva001F5D4F.json; 3/5 sampled units adopt
 Rva004E05E9DwordField,Code/GameEngine/Include/GameNetwork/Rva004E05E9DwordField.h,existing header; contract class_contracts/Rva004E05E9DwordField.json; 4/4 sampled units adopt
 Rva003F3F27,Code/GameEngine/Include/Common/Rva003F3F27.h,existing header; contract class_contracts/Rva003F3F27.json; 3/5 sampled units adopt
+Rva00405A50,Code/GameEngine/Include/Common/Rva00405A50.h,existing header; contract class_contracts/Rva00405A50.json; 3/5 sampled units adopt

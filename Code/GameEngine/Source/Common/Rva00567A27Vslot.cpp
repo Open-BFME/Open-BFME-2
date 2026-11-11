@@ -38,11 +38,7 @@ struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 
 class BfmeThingGX;
-class Rva00405A50
-{
-public:
-	void rva00405C04(BfmeThingGX *thing);
-};
+#include "../../Include/Common/Rva00405A50.h"
 
 struct Rva00567A27Holder
 {
