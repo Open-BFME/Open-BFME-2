@@ -23,11 +23,7 @@ public:
 	void rva005CB84A(int value);
 };
 
-class Rva005E88DDNullTarget
-{
-public:
-	void rva005E88DD();
-};
+#include "../../Include/Common/Rva005E88DDNullTarget.h"
 
 namespace StrategicInGameUI { class PlanningPhaseBuildingSelection; }
 class StrategicInGameUI::PlanningPhaseBuildingSelection

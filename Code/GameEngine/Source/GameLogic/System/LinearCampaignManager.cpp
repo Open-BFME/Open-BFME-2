@@ -387,11 +387,7 @@ class Rva005E58ED
 public:
 	void rva005E58ED();
 };
-class Rva005E88DDNullTarget
-{
-public:
-	void rva005E88DD();
-};
+#include "../../../Include/Common/Rva005E88DDNullTarget.h"
 class Rva005E8F49Owner
 {
 public:

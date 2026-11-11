@@ -173,11 +173,7 @@ void Rva005CDD25NullForwarder::rva005CDD25()
 		m_member->rva005E58ED();
 }
 
-class Rva005E88DDNullTarget
-{
-public:
-	void rva005E88DD();
-};
+#include "../../Include/Common/Rva005E88DDNullTarget.h"
 
 class Rva005CE9F7NullForwarder
 {
