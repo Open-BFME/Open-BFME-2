@@ -10187,10 +10187,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0015AB00,49,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE43.cpp
 0x0015AB40,10,code,,,-,,Code/GameEngine/Source/Common/Disp8ShlDwordFieldGetters.cpp
 0x0015AB50,175,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassVertexMaterialCopyCtor.cpp
-0x0015AC00,141,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva0015AC00Siblings.cpp
+0x0015AC00,141,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp
 0x0015AC90,29,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp
 0x0015ACB0,175,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/sharebuf_refcount_pointer_copy_ctor.cpp
-0x0015AD60,141,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva0015AC00Siblings.cpp
+0x0015AD60,141,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp
 0x0015ADF0,29,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescOpaqueBuffer.cpp
 0x0015AE10,284,code,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,approved,E,"E=0x007671EB..0x00767270@0x0015A1B0,0x0015B300",Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassTextureCopyCtor.cpp
 0x0015AF30,195,code,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassBase.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassBase.cpp,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassBaseCtor.cpp
