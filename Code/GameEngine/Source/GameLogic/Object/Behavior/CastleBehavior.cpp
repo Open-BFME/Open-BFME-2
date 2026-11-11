@@ -38,7 +38,7 @@ struct RvaPair0039973B { AsciiString m_key; int m_value; ~RvaPair0039973B() {} }
 struct Rva00395D77 { unsigned char m_bytes[12]; ~Rva00395D77(); };
 struct FXBoneInfo { AsciiString m_boneName; const void *m_particleSystemTemplate; };
 class Rva0039597C;
-class Rva00399800 { public: Rva0039597C *rva003997CD(Rva0039597C *, Rva0039597C *); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva00399800.h"
 namespace _STL {
 template <> vector<FXBoneInfo>::iterator vector<FXBoneInfo>::erase(iterator, iterator);
 template <> inline void vector<RvaPair0039973B>::clear()

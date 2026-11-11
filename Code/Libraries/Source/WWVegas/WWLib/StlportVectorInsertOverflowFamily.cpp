@@ -327,7 +327,7 @@ struct Rva0046800B { void rva0046800B(); };
 struct ConnectionVec { void Rva00565A24_ScrapStorage(); };
 class Rva001DEF6B { public: ~Rva001DEF6B(); };
 class Rva00308C13 { public: ~Rva00308C13(); };
-class Rva00399800 { public: ~Rva00399800(); };
+#include "Rva00399800.h"
 class Rva0026E5B9 { public: ~Rva0026E5B9(); };
 struct Rva005F120F { void rva005F120F(); };
 struct Rva0032E7E2 { void rva0032E7E2(); };

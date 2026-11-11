@@ -614,7 +614,7 @@ struct BfmeStringRecord00426A5B;
 class CameraMarker;
 struct Rva002BB6BE20Rec;
 class Rva0026E5B9 { public: ~Rva0026E5B9(); };
-class Rva00399800 { public: ~Rva00399800(); };
+#include "Rva00399800.h"
 struct Rva005F120F { void rva005F120F(); };
 template <> void _STL::vector<Rva005F8F96>::_M_clear();
 template <> void _STL::vector<BfmeStringRecord00426A5B>::_M_clear();
