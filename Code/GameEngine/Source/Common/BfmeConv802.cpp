@@ -8,11 +8,7 @@
 // family names on unclaimed ground.
 
 // LINK: the owner call binds the rowed 0x0046094C (DynamicPortalBehaviour::rva0046094C, DynamicPortalBehaviour.cpp).
-class DynamicPortalBehaviour
-{
-public:
-	void rva0046094C();
-};
+#include "../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 
 struct BfmeThingEBC
 {

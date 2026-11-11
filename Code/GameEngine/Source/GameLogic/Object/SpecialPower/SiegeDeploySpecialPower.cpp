@@ -312,14 +312,7 @@ protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
 // LINK: the owner call binds the rowed 0x0046094C (DynamicPortalBehaviour::rva0046094C, DynamicPortalBehaviour.cpp).
-class DynamicPortalBehaviour
-{
-public:
-	static Module *rva004608E0(Object *obj);
-	void rva0046094C();
-	void createWaypoints();
-	bool IsEndPortalAboveWall(Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 class ModuleData;
 //
 // ??0SiegeDeploySpecialPowerModuleData@@QAE@XZ, retail 0x004C5815 (70 bytes).

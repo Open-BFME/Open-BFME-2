@@ -4610,7 +4610,7 @@ class BfmeTripleRC;
 class Gen_003D5670 {public:Gen_003D5670(int,int,int,int,int,int,unsigned char,unsigned char,int,int,BfmeTripleRC*,unsigned char);unsigned char storage[0x3c];};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class DynamicPortalBehaviour {public:static Module *rva004608E0(Object*);};
+#include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 class Rva004C5772CmpBoolField {public:bool get()const;};
 // Native 0x002EEA8A..0x002EED41, RET 20; WB 0x00D69640 and its
 // IterateCircular3 diagnostic prove this expanding-ring search. The callback

@@ -36,14 +36,7 @@ enum UpdateSleepTime
 
 class Object;
 class Module;
-class DynamicPortalBehaviour
-{
-public:
-	static Module *rva004608E0(Object *obj);
-	void rva0046094C();
-	void createWaypoints();
-	bool IsEndPortalAboveWall(Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class SiegeDeployAIHead
 {

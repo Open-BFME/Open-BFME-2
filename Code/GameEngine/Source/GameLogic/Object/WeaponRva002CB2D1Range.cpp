@@ -70,11 +70,7 @@ public:
 	Rva002CB35CAI *m_258;				// +0x258
 };
 
-class DynamicPortalBehaviour
-{
-public:
-	static Module *rva004608E0(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

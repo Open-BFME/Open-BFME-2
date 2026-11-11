@@ -1,0 +1,424 @@
+{
+ "bases": [
+  "UpgradeModule",
+  "DynamicPortalExtraA",
+  "DynamicPortalExtraB"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "DynamicPortalBehaviour",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 15,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x24": {
+    "4": 1
+   },
+   "0x3c": {
+    "1": 2
+   },
+   "0x3d": {
+    "1": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x460b6c"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpgradeModule",
+       "offset": 0,
+       "own_vftable": "0x8428c4",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 28,
+       "own_vftable": "0x8427b8",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x84ef80>",
+       "offset": 32,
+       "own_vftable": "0x8427a8",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x460b6c"
+     ],
+     "value": 62
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x460b6c"
+     ],
+     "value": {
+      "0x3c": [
+       1
+      ],
+      "0x3d": [
+       1
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24b4a2"
+     ],
+     "value": 64
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x460b6c"
+     ],
+     "value": {
+      "0x10": [
+       "0x8427c0"
+      ],
+      "0x18": [
+       "0x858790"
+      ],
+      "0xc": [
+       "0x842808"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x460b6c"
+     ],
+     "value": {
+      "0x0": "0x8428c4",
+      "0x1c": "0x8427b8",
+      "0x20": "0x8427a8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8428c4"
+     ],
+     "value": {
+      "count": 12,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GDynamicPortalBehaviour@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x460dda"
+       },
+       {
+        "name": "?loadPostProcess@DynamicPortalBehaviour@@MAEXXZ",
+        "slot": 1,
+        "target": "0x461274"
+       },
+       {
+        "name": "?Rva00460BCDGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x460bcd"
+       },
+       {
+        "name": "?xfer@DynamicPortalBehaviour@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4609bc"
+       },
+       {
+        "name": "?getModuleNameKey@DynamicPortalBehaviour@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x460bd3"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       }
+      ],
+      "table": "0x8428c4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x8427a8": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8427b8": {
+    "offset": 28,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8428c4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GDynamicPortalBehaviour@@MAEPAXI@Z",
+     "1": "?loadPostProcess@DynamicPortalBehaviour@@MAEXXZ",
+     "2": "?Rva00460BCDGet@@YAHXZ",
+     "3": "?xfer@DynamicPortalBehaviour@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@DynamicPortalBehaviour@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 8,
+   "12": 1,
+   "32": 1,
+   "64": 5
+  },
+  "views": 15,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 61,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "DynamicPortalBehaviour"
+  },
+  {
+   "attribute": "inherited@0x14",
+   "candidates": {
+    "1:i1": 1,
+    "4:i4": 1
+   },
+   "class": "DynamicPortalBehaviour"
+  },
+  {
+   "attribute": "inherited@0x18",
+   "candidates": {
+    "4:VPTR": 1,
+    "4:i4": 1
+   },
+   "class": "DynamicPortalBehaviour"
+  },
+  {
+   "attribute": "inherited@0x1c",
+   "candidates": {
+    "4:VPTR": 1,
+    "4:i4": 1
+   },
+   "class": "DynamicPortalBehaviour"
+  },
+  {
+   "attribute": "inherited@0x20",
+   "candidates": {
+    "4:VPTR": 1,
+    "4:i4": 1
+   },
+   "class": "DynamicPortalBehaviour"
+  }
+ ],
+ "size": 64,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -23,11 +23,7 @@ public:
 	Module **m_modules;
 };
 
-class DynamicPortalBehaviour
-{
-public:
-	static Module *rva004608E0(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 
 Module *DynamicPortalBehaviour::rva004608E0(Object *obj)
 {

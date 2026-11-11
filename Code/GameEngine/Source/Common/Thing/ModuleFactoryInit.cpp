@@ -193,7 +193,7 @@ class DozerAIUpdate { public: static Module *friend_newModuleInstance(Thing *,co
 class DozerAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DualWeaponBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DualWeaponBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class DynamicPortalBehaviour { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 class DynamicPortalBehaviourModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DynamicShroudClearingRangeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DynamicShroudClearingRangeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

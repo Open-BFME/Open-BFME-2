@@ -892,12 +892,7 @@ Bool AIMoveToStateSA::computePath()
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class DynamicPortalBehaviour
-{
-public:
-	static Module *rva004608E0(Object *obj);
-	Bool IsEndPortalAboveWall(Coord3D *pos);
-};
+#include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 class Rva004C5772CmpBoolField
 {
 public:
