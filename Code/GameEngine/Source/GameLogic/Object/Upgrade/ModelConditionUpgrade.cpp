@@ -44,11 +44,7 @@ template<int N> class BitFlags
 public:
     int count() const;
 };
-class Rva000B937E
-{
-public:
-    void rva000B937E(INI *, void *);
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B937E.h"
 struct INIException
 {
     INIException(int, const char *, ...);

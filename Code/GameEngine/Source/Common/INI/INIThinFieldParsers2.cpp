@@ -120,11 +120,7 @@ public:
 	void rva002D02FD();
 };
 
-class Rva000B937E
-{
-public:
-	void rva000B937E(INI *ini, void *extra);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B937E.h"
 
 struct Rva004FCB23IntList
 {

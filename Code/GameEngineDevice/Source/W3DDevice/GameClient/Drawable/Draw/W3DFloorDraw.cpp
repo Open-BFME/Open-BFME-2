@@ -96,7 +96,7 @@ struct BfmePod76 { int a[19]; };
 namespace _STL {
 template <> void vector<BfmePod76, allocator<BfmePod76> >::push_back(const BfmePod76 &);
 }
-class Rva000B937E { public: void rva000B937E(INI *ini, void *userData); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B937E.h"
 class Rva000CF713Owner
 {
 public:

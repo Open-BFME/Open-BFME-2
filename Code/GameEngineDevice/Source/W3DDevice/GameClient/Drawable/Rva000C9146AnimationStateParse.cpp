@@ -33,11 +33,7 @@ class INI;
 
 #include "../../../../../GameEngine/Include/Common/INI/INI.h"
 
-class Rva000B937E
-{
-public:
-	void rva000B937E(INI *ini, void *unused);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva000B937E.h"
 
 struct Rva000C9146Flags
 {

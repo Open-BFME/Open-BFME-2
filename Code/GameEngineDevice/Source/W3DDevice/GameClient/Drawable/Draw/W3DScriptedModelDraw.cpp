@@ -236,7 +236,7 @@ extern const FieldParse TheScriptedModelConditionStateFieldParse[] =
 };
 
 // The 0x4C-byte condition bit set.
-class Rva000B937E { public: void rva000B937E(INI *ini, void *description); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B937E.h"
 
 bool Rva00045473Equal(const void *a, const void *b);
 
