@@ -39,3 +39,9 @@ rows, three data rows and both EH graphs. The preview on index `9e00ac9b87`
 preserves all five clean peers. The texture predicate at `0x00130FCE`
 still blocks this unit in the preview. Real-link bridge confirmation is
 pending, including the separate `Rva005C4758Base` spelling.
+
+The texture predicate's prepared canonical `bool` body and both caller
+tail jumps match in isolated experiments. The slot respell rejects the
+return type change before building the live sources. The
+[texture evidence](../../reverse/attempt_support/vslot-texture-predicate-20261111.md)
+records the native slot, compiler controls and next verification step.
