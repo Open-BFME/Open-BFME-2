@@ -179,11 +179,7 @@ public:
 
 typedef _STL::deque<int> Q1Queue009F1510;
 
-class Rva00624130
-{
-public:
-	void rva00624130();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00624130.h"
 
 class Q1Receiver0134FAAC
 {

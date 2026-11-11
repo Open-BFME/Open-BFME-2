@@ -190,11 +190,7 @@ public:
 	void m009F19E0(int value);
 };
 
-class Rva00624130
-{
-public:
-	void rva00624130();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00624130.h"
 
 typedef _STL::hash_map<int, int> GenHashMap0C;
 typedef _STL::hash_map<int, int> GenHashMap44;

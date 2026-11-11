@@ -60,11 +60,7 @@ Int Rva00709BC0::rva00709BC0() const
 // Tail-jump slots over unrowed callees, pinned in reverse/symbols.csv under
 // address-derived names (argument counts from each callee's ret).
 
-class Rva00624130
-{
-public:
-	void rva00624130();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00624130.h"
 class Rva0061EF80
 {
 public:
