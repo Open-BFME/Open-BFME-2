@@ -917,3 +917,4 @@ Rva00219251,Code/GameEngine/Include/Common/Rva00219251.h,existing header; contra
 Rva001E431E,Code/GameEngine/Include/GameLogic/Module/Rva001E431E.h,existing header; contract class_contracts/Rva001E431E.json; 14/17 sampled units adopt
 Rva002DC74A,Code/GameEngine/Include/Common/Rva002DC74A.h,existing header; contract class_contracts/Rva002DC74A.json; 9/9 sampled units adopt
 AptPlayerTribute,Code/GameEngine/Include/GameClient/AptPlayerTribute.h,existing header; contract class_contracts/AptPlayerTribute.json; 9/9 sampled units adopt
+Rva00331682Holder,Code/GameEngine/Include/GameLogic/Module/Rva00331682Holder.h,existing header; contract class_contracts/Rva00331682Holder.json; 14/17 sampled units adopt
