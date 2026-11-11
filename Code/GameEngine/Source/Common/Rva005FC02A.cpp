@@ -6,11 +6,7 @@
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class Rva005FBEBA
-{
-public:
-	void rva005FBEBA();
-};
+#include "../../Include/Common/Rva005FBEBA.h"
 
 struct Rva005FC02AInner
 {

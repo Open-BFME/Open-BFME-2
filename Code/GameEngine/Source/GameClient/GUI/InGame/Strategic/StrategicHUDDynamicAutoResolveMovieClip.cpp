@@ -220,7 +220,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 
-class Rva005FBEBA { public: void rva005FBEBA(); };
+#include "../../../../../Include/Common/Rva005FBEBA.h"
 class Rva005FC1CA { public: void clear(); };
 
 namespace StrategicHUD {

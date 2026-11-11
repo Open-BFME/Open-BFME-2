@@ -3,11 +3,7 @@
 // Non-virtual dtor: audio remove-event helper 0x005FBEBA (handle at +0x24) then members +0x10 Rva0052413E +0x0C UnicodeString +0x08 AsciiString in reverse. Callers in OpaqueScalarDeletingDtors use it for clear and deleting dtor.
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Rva005FBEBA
-{
-public:
-	void rva005FBEBA();
-};
+#include "../../Include/Common/Rva005FBEBA.h"
 #include "../../Include/Common/Rva0052413E.h"
 class Rva005FBF97Elem
 {
