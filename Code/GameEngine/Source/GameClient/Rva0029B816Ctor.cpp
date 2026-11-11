@@ -5,16 +5,7 @@
 
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
-class DisplayString {
-public:
-	virtual void s00();
-	virtual void s01(UnicodeString s);
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 #include "../../Include/GameClient/DisplayStringManager.h"
 
@@ -47,10 +38,10 @@ Rva0029B816::Rva0029B816(int p1, int p2, bool b1, bool b2, bool b3, const AsciiS
 	: m_4(0), m_8(0), m_c(color), m_10(tmpl), m_18(p1), m_1c(p2), m_20(b1), m_21(b2), m_22(b3), m_23(false)
 {
 	m_4 = TheDisplayStringManager->newDisplayString();
-	m_4->s05();
-	m_4->s01(UnicodeString(UnicodeString::TheEmptyString));
+	m_4->reset();
+	m_4->setText(UnicodeString(UnicodeString::TheEmptyString));
 	m_8 = TheDisplayStringManager->newDisplayString();
-	m_8->s05();
-	m_8->s01(UnicodeString(UnicodeString::TheEmptyString));
+	m_8->reset();
+	m_8->setText(UnicodeString(UnicodeString::TheEmptyString));
 	((SuperweaponInfo *)this)->setFont(font, point, bold);
 }

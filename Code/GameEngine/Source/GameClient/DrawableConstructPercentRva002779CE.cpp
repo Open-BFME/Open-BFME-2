@@ -32,20 +32,7 @@ typedef unsigned int Color;
 
 class GameFont;
 
-class DisplayString
-{
-public:
-	virtual void slot00();
-	virtual void setText(UnicodeString text); // +0x04
-	virtual void slot02(); virtual void slot03(); virtual void slot04(); virtual void slot05();
-	virtual void setFont(GameFont *font); // +0x18
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void setColor(Color color, Color dropColor); // +0x28
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void draw(Int x, Int y, Int scaleX, Int scaleY); // +0x38
-	virtual void slot15();
-	virtual Int getWidth(Int line); // +0x40
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 #include "../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
@@ -180,7 +167,7 @@ void Rva002779CEHost::drawConstructPercent()
 	if (TheTacticalView->worldToScreenTriReturn(&pos, &screen) == 0)
 	{
 		screen.x += m_constructDisplayString->getWidth(-1) / -2;
-		m_constructDisplayString->setColor(0xffffffff, 0xff000000);
+		m_constructDisplayString->setColors(0xffffffff, 0xff000000);
 		m_constructDisplayString->draw(screen.x, screen.y, 1, 1);
 	}
 }

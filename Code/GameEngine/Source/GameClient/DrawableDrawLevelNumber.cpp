@@ -22,18 +22,7 @@ typedef bool Bool;
 #include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 
-class DisplayString
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09();
-	virtual void setColor(Int color, Int dropColor); // +0x28
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void draw(Int x, Int y, Int xOffset, Int yOffset); // +0x38
-	virtual void slot15(); virtual void slot16();
-	virtual void setScale(Real x, Real y); // +0x44
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {
@@ -99,13 +88,13 @@ void Drawable::rva002778E1()
 	if (string == 0)
 		return;
 
-	string->setScale(2.0f, 1.5f);
+	string->slot17(2.0f, 1.5f);
 	Int color;
 	if ((TheGameClient->getFrame() + count) & 0xA)
 		color = obj->getControllingPlayer()->getPlayerColor();
 	else
 		color = -1;
-	string->setColor(color, 0xFF000000);
+	string->setColors(color, 0xFF000000);
 	string->draw(screen.x, screen.y, TheDrawGroupInfo->m_dropShadowOffsetX, TheDrawGroupInfo->m_dropShadowOffsetY);
-	string->setScale(1.0f, 1.0f);
+	string->slot17(1.0f, 1.0f);
 }

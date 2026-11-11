@@ -108,17 +108,7 @@ public:
 };
 extern DrawGroupInfo *TheDrawGroupInfo;
 
-class DisplayString
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09();
-	virtual void setColor(Int color, Int dropColor);
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void draw(Int x, Int y, Int xOffset, Int yOffset);
-	virtual void getTextExtents(Int *width, Int *height);
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {
@@ -192,9 +182,9 @@ void Rva00273C47Host::rva00273C47()
 
 	DisplayString *string = TheDisplayStringManager->getNumeralString(groupNumber);
 	GroupTextExtentValues extents;
-	string->getTextExtents(&extents.width, &extents.height);
+	string->getSize(&extents.width, &extents.height);
 	Int drawX = x - extents.width;
 	Int drawY = y - extents.height;
-	string->setColor(color, TheDrawGroupInfo->m_colorForTextDropShadow);
+	string->setColors(color, TheDrawGroupInfo->m_colorForTextDropShadow);
 	string->draw(drawX, drawY, TheDrawGroupInfo->m_dropShadowOffsetX, TheDrawGroupInfo->m_dropShadowOffsetY);
 }

@@ -23,17 +23,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameFont;
 #include "../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
-class DisplayString {public:
-virtual void v0();
-virtual void setText(UnicodeString);
-virtual void v2();
-virtual void v3();
-virtual void v4();
-virtual void v5();
-virtual void setFont(GameFont *);
- virtual void v7(); virtual void setWordWrap(int); virtual void slot9(bool); virtual void slot10(int,int);
- virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void getSize(int*,int*);
-};
+#include "../../../Include/GameClient/DisplayString.h"
 class Rva0043FC20 {public:
  Rva0043FC20(const Rva0043FC20 &);
  AsciiString m_00; int m_04; bool m_08; char pad[3]; int m_0C;
@@ -47,7 +37,7 @@ __declspec(noinline) static void Rva0056C790(DisplayString *str,const Rva0043FC2
  float factor;
  if(scale->y>scale->x) factor=scale->x; else factor=scale->y;
  GameFont *f=TheFontLibrary->getFont(&font->m_00,(float)font->m_04*factor,font->m_08);
- str->slot10(font->m_0C,0);str->slot9(true);str->setFont(f);
+ str->setColors(font->m_0C,0);str->setWordWrapCentered(true);str->setFont(f);
 }
 class Rva0056D3FD;
 #include "../../../Include/GameClient/ImageClass.h"

@@ -54,27 +54,7 @@ void GameGetColorComponents(Color color, UnsignedByte *red, UnsignedByte *green,
 
 #include "../../Include/GameClient/GameFontClass.h"
 
-class DisplayString
-{
-public:
-	virtual ~DisplayString();
-	virtual void setText(UnicodeString text);	// slot 1
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void setFont(GameFont *font);		// slot 6
-	virtual GameFont *getFont();				// slot 7
-	virtual void slot08();
-	virtual void slot09();
-	virtual void setColors(Color color, Color dropColor);	// slot 10
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void drawAtOffsets(Int x, Int y, Int xDrop, Int yDrop);	// slot 14
-	virtual void getSize(Int *width, Int *height);	// slot 15
-	virtual Int getWidth(Int charPos);			// slot 16
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 #include "../../Include/GameClient/Display.h"
 extern Display *TheDisplay;
@@ -285,7 +265,7 @@ void InGameUI::postDraw()
 				Color dropColor = GameMakeColor(0, 0, 0, a);
 				// draw the text
 				displayString->setColors(m_uiMessages[i].color, dropColor);
-				displayString->drawAtOffsets(drawX, y, 1, 1);
+				displayString->draw(drawX, y, 1, 1);
 				// increment text spot to next location
 				y += displayString->getFont()->height;
 			}
@@ -473,14 +453,14 @@ void InGameUI::postDraw()
 							m_namedTimerLastFlashFrame = TheGameLogic->getFrame();
 						}
 						info->displayString->setColors((m_namedTimerUsedFlashColor) ? info->color : m_namedTimerFlashColor, bgColor);
-						info->displayString->drawAtOffsets(drawX, startY, 1, 1);
+						info->displayString->draw(drawX, startY, 1, 1);
 					} else {
 						info->displayString->setColors(info->color, bgColor);
-						info->displayString->drawAtOffsets(drawX, startY, 1, 1);
+						info->displayString->draw(drawX, startY, 1, 1);
 					}
 				} else {
 					info->displayString->setColors(info->color, bgColor);
-					info->displayString->drawAtOffsets(drawX, startY, 1, 1);
+					info->displayString->draw(drawX, startY, 1, 1);
 				}
 
 				// increment text spot to next location

@@ -56,26 +56,7 @@ class VideoBuffer;
 // BFME DisplayString slots: setText +0x04, getTextLength +0x0C, setFont +0x18,
 // getFont +0x1C, setWordWrap +0x20, setWordWrapCentered +0x24, setTextColor
 // +0x28, draw +0x38, getSize +0x3C.
-class DisplayString
-{
-public:
-	virtual void unused00();
-	virtual void setText( UnicodeString text );
-	virtual void unused02();
-	virtual Int getTextLength( void );
-	virtual void unused04();
-	virtual void unused05();
-	virtual void setFont( GameFont *font );
-	virtual GameFont *getFont( void );
-	virtual void setWordWrap( Int wordWrap );
-	virtual void setWordWrapCentered( Bool isCentered );
-	virtual void setTextColor( Color color, Color dropColor );
-	virtual void unused11();
-	virtual void unused12();
-	virtual void unused13();
-	virtual void draw( Int x, Int y, Int xDrop, Int yDrop );
-	virtual void getSize( Int *width, Int *height );
-};
+#include "../../../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 // Only the members these bodies touch; the offsets are BFME2 retail's.
 class WinInstanceData
@@ -302,7 +283,7 @@ static void drawButtonText( GameWindow *window, WinInstanceData *instData )
 	textPos.y = origin.y + (size.y / 2) - (height / 2);
 
 	// draw it
-	text->setTextColor( textColor, dropColor );
+	text->setColors( textColor, dropColor );
 	text->draw( textPos.x, textPos.y, 1, 1 );
 
 }  // end drawButtonText
@@ -560,7 +541,7 @@ void Rva000A52AEDrawNumber( GameWindow *window, WinInstanceData *instData,
 
 	Int textX = size.x * 0.5f - width * 0.5f + origin.x;
 	Int textY = origin.y + size.y - height;
-	text->setTextColor( textColor, dropColor );
+	text->setColors( textColor, dropColor );
 	text->draw( textX, textY, 1, 1 );
 
 }  // end Rva000A52AEDrawNumber

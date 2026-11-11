@@ -62,33 +62,7 @@ public:
 // getFont +0x1C, setTextColor +0x28, a two-coordinate draw with the colours
 // already set +0x34, draw +0x38, getSize +0x3C, getWidth +0x40,
 // setClipRegion +0x50 and appendChar +0x58.
-class DisplayString
-{
-public:
-	virtual void unused00();
-	virtual void setText( UnicodeString text );
-	virtual void unused02();
-	virtual Int getTextLength( void );
-	virtual void unused04();
-	virtual void unused05();
-	virtual void setFont( GameFont *font );
-	virtual GameFont *getFont( void );
-	virtual void unused08();
-	virtual void unused09();
-	virtual void setTextColor( Color color, Color dropColor );
-	virtual void unused11();
-	virtual void unused12();
-	virtual void drawAt( Int x, Int y );
-	virtual void draw( Int x, Int y, Int xDrop, Int yDrop );
-	virtual void getSize( Int *width, Int *height );
-	virtual Int getWidth( Int charPos = -1 );
-	virtual void unused17();
-	virtual void unused18();
-	virtual void unused19();
-	virtual void setClipRegion( IRegion2D *region );
-	virtual void unused21();
-	virtual void appendChar( WideChar c );
-};
+#include "../../../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 // Only the members these bodies touch; the offsets are BFME2 retail's.
 class WinInstanceData
@@ -304,7 +278,7 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 		Int width = text->getWidth( selStart );
 		region.hi.x = min( clipRegion.hi.x, x + width );
 		text->setClipRegion( &region );
-		text->setTextColor( textColor, textDropColor );
+		text->setColors( textColor, textDropColor );
 		text->draw( x, y, 1, 1 );
 		x += width;
 		cursorPos += width;
@@ -314,7 +288,7 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 	if( entryData->constructText->getTextLength() > 0 && charPos == selStart )
 	{
 		entryData->constructText->setClipRegion( &clipRegion );
-		entryData->constructText->setTextColor( compositeColor, compositeDropColor );
+		entryData->constructText->setColors( compositeColor, compositeDropColor );
 		entryData->constructText->draw( x, y, 1, 1 );
 		cursorPos += entryData->constructText->getWidth( compositeCursorPos );
 		x += entryData->constructText->getWidth();
@@ -345,8 +319,8 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 		region.lo.x = max( clipRegion.lo.x, x );
 		region.hi.x = min( clipRegion.hi.x, x + width );
 		text->setClipRegion( &region );
-		text->setTextColor( 0xFF000000, Rva0009FE01Get( textDropColor ) );
-		text->drawAt( x - text->getWidth( selStart ), y );
+		text->setColors( 0xFF000000, Rva0009FE01Get( textDropColor ) );
+		text->draw( x - text->getWidth( selStart ), y );
 		x += width;
 
 		// the cursor sits at the end of the selection
@@ -356,7 +330,7 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 			if( entryData->constructText->getTextLength() > 0 )
 			{
 				Int compositeWidth = entryData->constructText->getWidth( compositeCursorPos );
-				entryData->constructText->setTextColor( compositeColor, compositeDropColor );
+				entryData->constructText->setColors( compositeColor, compositeDropColor );
 				entryData->constructText->draw( x, y, 1, 1 );
 				cursorPos += entryData->constructText->getWidth( compositeCursorPos );
 				x += entryData->constructText->getWidth();
@@ -384,7 +358,7 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 		region.hi.x = clipRegion.hi.x;
 		Int width = text->getWidth( selEnd );
 		text->setClipRegion( &region );
-		text->setTextColor( textColor, textDropColor );
+		text->setColors( textColor, textDropColor );
 		text->draw( x - width, y, 1, 1 );
 	}
 

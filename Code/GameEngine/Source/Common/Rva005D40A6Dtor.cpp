@@ -33,14 +33,7 @@ extern "C" { static float __cdecl floorf(float); }
 
 struct FloatPair { float x,y; };
 class GameFont;
-class DisplayString { public:
- virtual ~DisplayString(); virtual void setText(UnicodeString); virtual void slot08();
- virtual void slot0C(); virtual void slot10(); virtual void slot14();
- virtual void setFont(GameFont *); virtual void slot1C(); virtual void setWordWrap(int);
- virtual void slot24(); virtual void setColor(unsigned int,unsigned int);
- virtual void slot2C(); virtual void slot30(); virtual void draw(int,int);
- virtual void slot38(); virtual void getSize(int *,int *);
-};
+#include "../../Include/GameClient/DisplayString.h"
 struct ChecklistFontDesc { AsciiString name; int size; bool bold; };
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
@@ -169,7 +162,7 @@ Rva005D40A6::Rva005D40A6(int level,const AsciiString &name,const ChecklistFontDe
   const FloatPair &scale=*(const FloatPair *)g_bfmeAptWindowManager->vslot15();
   float maxScale=scale.x<scale.y?scale.x:scale.y;
   GameFont *font=TheFontLibrary->getFont(&fontDesc.name,fontDesc.size*maxScale,fontDesc.bold);
-  m_24->setColor(m_color2C,0); m_24->setFont(font);
+  m_24->setColors(m_color2C,0); m_24->setFont(font);
  } catch(...) { TheDisplayStringManager->freeDisplayString(m_24); throw; }
 }
 void Rva005D40A6::OnClicked(const char *) { if(!g_bfmeAptWindowManager->field318) rva000B3FD0Slot08(); }

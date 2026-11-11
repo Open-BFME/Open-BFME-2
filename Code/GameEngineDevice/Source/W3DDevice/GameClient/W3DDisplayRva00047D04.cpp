@@ -51,24 +51,7 @@ extern void *ApplicationHWnd;
 
 class GameFont;
 
-class DisplayString
-{
-public:
-	virtual void v00();
-	virtual void setText(UnicodeString text);	// +0x04
-	virtual void v08();
-	virtual void v0C();
-	virtual void v10();
-	virtual void v14();
-	virtual void setFont(GameFont *font);		// +0x18
-	virtual void v1C();
-	virtual void v20();
-	virtual void v24();
-	virtual void slot28(int a, int b);		// +0x28
-	virtual void v2C();
-	virtual void v30();
-	virtual void draw(int x, int y);		// +0x34
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 #include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
@@ -199,7 +182,7 @@ void W3DDisplay::rva00047D04(int mode)
 					AsciiString fontName("FixedSys");
 					frameString->setFont(TheFontLibrary->getFont(&fontName, 12.0f, false));
 				}
-				frameString->slot28(-1, 0);
+				frameString->setColors(-1, 0);
 			}
 			UnicodeString text;
 			text.format(L"Frame %d", m_38->getFrame());

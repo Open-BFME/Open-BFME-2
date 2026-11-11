@@ -83,32 +83,7 @@ enum ErrorCode
 
 class GameFont;
 
-class DisplayString
-{
-public:
-	virtual void slot00() = 0;
-	virtual void setText( UnicodeString text ) = 0;
-	virtual UnicodeString getText() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void reset() = 0;
-	virtual void setFont( GameFont *font ) = 0;
-#define SLOT(N) virtual void slot##N() = 0;
-	SLOT(07) SLOT(08) SLOT(09)
-#undef SLOT
-	virtual void setColors( Color textColor, Color dropColor ) = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void draw( int x, int y, int w, int h ) = 0;
-	virtual void getSize( int *width, int *height ) = 0;
-#define SLOT(N) virtual void slot##N() = 0;
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20)
-#undef SLOT
-	virtual void clearText() = 0;
-	virtual void appendChar( WideChar c ) = 0;
-	virtual void appendText( const UnicodeString &text ) = 0;
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 #include "../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
@@ -605,8 +580,8 @@ void InGameUI::updateMilitarySubtitle()
 	else if( m_militarySubtitle->nextCharTime < m_militarySubtitle->elapsed )
 	{
 		WideChar ch = m_militarySubtitle->subtitle.getCharAt( m_militarySubtitle->index );
-		m_militarySubtitle->displayStrings[ m_militarySubtitle->currentDisplayString ]->appendText( m_militarySubtitle->wordString->getText() );
-		m_militarySubtitle->wordString->clearText();
+		m_militarySubtitle->displayStrings[ m_militarySubtitle->currentDisplayString ]->appendString( m_militarySubtitle->wordString->getText() );
+		m_militarySubtitle->wordString->removeLastChar();
 		while( ch == L' ' )
 		{
 			m_militarySubtitle->displayStrings[ m_militarySubtitle->currentDisplayString ]->appendChar( ch );
