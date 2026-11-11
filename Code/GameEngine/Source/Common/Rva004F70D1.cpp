@@ -5,10 +5,7 @@
 // finish at this+4, callers 0x005E1C6F 0x002B5BBA 0x004F9C8E.
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct Rva005F8FCC
-{
-	void *rva005F8FCC(unsigned int flags);
-};
+#include "../../Include/Common/Rva005F8FCC.h"
 
 namespace _STL
 {

@@ -873,3 +873,4 @@ ObjectLookupMap,Code/GameEngine/Include/Common/ObjectLookupMap.h,existing header
 Rva00318F42,Code/GameEngine/Include/GameLogic/Rva00318F42.h,existing header; contract class_contracts/Rva00318F42.json; 8/10 sampled units adopt
 Rva0040BAD0,Code/GameEngine/Include/GameLogic/Module/Rva0040BAD0.h,existing header; contract class_contracts/Rva0040BAD0.json; 8/10 sampled units adopt
 MovieWindowPlayback,Code/GameEngine/Include/Common/MovieWindowPlayback.h,existing header; contract class_contracts/MovieWindowPlayback.json; 13/19 sampled units adopt
+Rva005F8FCC,Code/GameEngine/Include/Common/Rva005F8FCC.h,existing header; contract class_contracts/Rva005F8FCC.json; 7/10 sampled units adopt

@@ -128,7 +128,7 @@ struct Rva004F87BCElement {
 // Native27B range destruction4F72ED calls the existing34B reference-slot
 // deleting cleanup with flags0 for every4B slot. The tag is unused; its
 // cdecl spelling leaves stack cleanup to the caller just as retail does.
-struct Rva005F8FCC {void *rva005F8FCC(unsigned);};
+#include "../../../../GameEngine/Include/Common/Rva005F8FCC.h"
 namespace _STL {
 template<> __declspec(noinline) inline void __destroy_aux<Rva004F87BCElement *>(Rva004F87BCElement *first,Rva004F87BCElement *last,const __false_type &)
 {

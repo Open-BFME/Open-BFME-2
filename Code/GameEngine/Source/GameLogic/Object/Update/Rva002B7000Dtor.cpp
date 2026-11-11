@@ -13,7 +13,7 @@ private:
 	char m_pad[4];
 };
 
-struct Rva005F8FCC { void *rva005F8FCC(unsigned); };
+#include "../../../../Include/Common/Rva005F8FCC.h"
 namespace _STL {
 template<> __declspec(noinline) inline void __destroy_aux<Rva002B7000Element *>(Rva002B7000Element *first, Rva002B7000Element *last, const __false_type &)
 {

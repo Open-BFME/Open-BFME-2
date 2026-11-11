@@ -79,7 +79,7 @@ template <> template <class Iterator> void vector<Rva004F87BCElement, allocator<
 template void UnitVector::insert<Rva004F87BCElement *>(Rva004F87BCElement *,Rva004F87BCElement *,Rva004F87BCElement *);
 
 class Rva004F7DF9Vector {public: void reserve(unsigned);};
-struct Rva005F8FCC {void *rva005F8FCC(unsigned);};
+#include "../../../../../Include/Common/Rva005F8FCC.h"
 // Entry lifetime: native 4F9C8E binds factory4F6A1A and ctor4F6318
 // to the existing destructor4F69C3. Keep its one type name in all three.
 // Visible outlined copy/entry constructors preserve the counted pointer

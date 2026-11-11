@@ -28,7 +28,7 @@ namespace _STL {
 // Range cleanup: retail's 24B _Destroy forwarder 0x005F97BC into the 27B
 // __destroy_aux 0x004F72ED, which calls the 34B reference-slot cleanup
 // 0x005F8FCC with flags 0 for every 4B slot (as Rva002B7000Dtor.cpp).
-struct Rva005F8FCC {void *rva005F8FCC(unsigned);};
+#include "../../../../../Include/Common/Rva005F8FCC.h"
 namespace _STL {
 template<> __declspec(noinline) inline void __destroy_aux<Rva005FA197Element *>(Rva005FA197Element *first,Rva005FA197Element *last,const __false_type &)
 {

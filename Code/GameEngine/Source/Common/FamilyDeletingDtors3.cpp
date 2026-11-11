@@ -71,11 +71,7 @@ class Rva00577914
 public:
     void rva00577914();
 };
-class Rva005F8FCC
-{
-public:
-    void *rva005F8FCC(unsigned int flags);
-};
+#include "../../Include/Common/Rva005F8FCC.h"
 class AptRadialMenuImpl
 {
 public:
