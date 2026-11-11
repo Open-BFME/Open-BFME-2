@@ -572,7 +572,7 @@ public:
 	void _setTransformMatrix(const Matrix3D *mtx);
 };
 struct Obj254V { virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03(); virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07(); virtual int s08(); };
-class Rva00368C7A { public: unsigned char rva00368271(); };
+#include "../../../Include/GameLogic/Module/Rva00368C7A.h"
 struct Obj258Holder
 {
 #define V(n) virtual void q##n();

@@ -1,0 +1,137 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00368C7A",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1f0": {
+    "4": 2
+   },
+   "0x4c8": {
+    "4": 2
+   },
+   "0x4ec": {
+    "1": 1
+   },
+   "0x51c": {
+    "4": 1
+   },
+   "0x530": {
+    "4": 2
+   },
+   "0x534": {
+    "1": 1
+   },
+   "0x544": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 4
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "1360": 2
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1224,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1260,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1328,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1332,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1344,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1348,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1352,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1356,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva003681F2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

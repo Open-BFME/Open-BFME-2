@@ -39,11 +39,7 @@ extern GameLogic *TheGameLogic;
 
 class BfmeVec3EJ;
 #include "../../../Include/GameLogic/Module/Gen_000E5A50.h"
-class Rva00368C7A
-{
-public:
-	void rva00368C7A(float amount, const Coord3D *position, bool argument);
-};
+#include "../../../Include/GameLogic/Module/Rva00368C7A.h"
 #include "../../Common/Thing/thing.h"
 
 class Rva0010CBits

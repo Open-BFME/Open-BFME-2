@@ -58,13 +58,7 @@ public:
 	void rva00368654(Bool value);
 };
 
-class Rva00368C7A
-{
-public:
-	void rva00368C7A(Real amount, const Coord3D *position, Bool argument);
-	void rva003681F2(const Coord3D *position, const unsigned char *mask,
-		const Coord3D *lookAhead, Bool noLookAhead);
-};
+#include "../../../../../Include/GameLogic/Module/Rva00368C7A.h"
 
 #include "../../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

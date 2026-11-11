@@ -117,7 +117,7 @@ public:
 	virtual void s07();
 	virtual int s08();
 };
-class Rva00368C7A { public: unsigned char rva00368271(); };
+#include "../../Include/GameLogic/Module/Rva00368C7A.h"
 struct Obj258Holder
 {
 	virtual void s00();
