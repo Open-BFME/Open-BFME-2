@@ -14,11 +14,7 @@
 // +0xA4 tail). Original names unknown so address-derived Rva names are used.
 #include <vector>
 
-class Rva001F4206
-{
-public:
-    void rva001F4206();
-};
+#include "../../../Include/Common/Rva001F4206.h"
 struct Rva001F41AFHelper;
 class Rva001F41AF
 {

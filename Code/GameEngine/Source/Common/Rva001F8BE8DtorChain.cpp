@@ -8,11 +8,7 @@
 // 001FA5BB; 001FB829 -> 001FA5F6; 001FB98A -> 001FAB1E; 001FB9C5 -> 001FB829;
 // 001FBB29 -> 001FB98A; 001FBB64 -> 001FB9C5; 001FBCDC -> 001FBB29; 001FBEB7 -> 001FBB64.
 // Original game class names are unknown so address-derived Rva names are used.
-class Rva001F4206
-{
-public:
-    void rva001F4206();
-};
+#include "../../Include/Common/Rva001F4206.h"
 class Rva001F8BE8Hold
 {
 public:

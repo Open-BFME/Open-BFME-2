@@ -6,11 +6,7 @@
 // The first base owns one pointer and calls the verified 001F4206 cleanup.
 // Target caller Sub005CD540Outer (001FA95A) establishes the existing donor
 // address-derived Rva005C9D30 spelling. Original game class names are unknown.
-class Rva001F4206
-{
-public:
-    void rva001F4206();
-};
+#include "../../Include/Common/Rva001F4206.h"
 class BigChainO1Hold
 {
 public:
