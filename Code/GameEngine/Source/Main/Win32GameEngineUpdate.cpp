@@ -13,12 +13,11 @@
 // (isInInternetGame, isInLanGame), read at GameLogic+0x110.
 
 typedef bool Bool;
-typedef void *HWND;
 
-extern "C" {
-__declspec(dllimport) int __stdcall IsIconic(HWND hWnd);
-__declspec(dllimport) void __stdcall Sleep(unsigned long ms);
-}
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 
 #define BFME_VSLOT(n) virtual void slot##n();
 
