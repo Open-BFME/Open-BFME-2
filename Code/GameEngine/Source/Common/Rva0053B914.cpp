@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva0053B914@Rva0053B914@@QAEXXZ 50B @0x0053B914: hide-all loop over this+0xDC window array with global 8B inventory entry clear. Clears two dwords per slot and hides present windows via rowed winHide. Evidence: rowed winHide at 0x00313C64 plus callers at 0x0031EAAE 0x0053D375 0x0053E7AC.
 #include "../../Include/GameClient/Bfme2GameWindow.h"
-struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
+#include "../../Include/Common/ControlBarInventoryEntry.h"
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 class Rva0053B914
 {

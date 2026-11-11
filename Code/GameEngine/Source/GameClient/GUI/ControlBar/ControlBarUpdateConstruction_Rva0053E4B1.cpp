@@ -148,7 +148,7 @@ class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
 // Reuse the existing lookup provider's eight-byte table-cell ABI. Native
 // inventory callbacks store a window word followed by its contained ObjectID.
-struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
+#include "../../../../Include/Common/ControlBarInventoryEntry.h"
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 const Image *getButtonImage(ThingTemplate *, Object *);
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);

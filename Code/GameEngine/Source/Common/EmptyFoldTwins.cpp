@@ -11,11 +11,7 @@
 // no calls to any of them. Rows are added with add_match --icf-owner
 // against the rowed 1B bodies (same sanctioned pattern as the
 // StaticNameKey::key and ShellMenuSchemeManager::update twins).
-class Rva000B3FD0Empty
-{
-public:
-	void rva000B3FD0Empty();
-};
+#include "../../Include/Common/Rva000B3FD0Empty.h"
 
 void Rva000B3FD0Empty::rva000B3FD0Empty()
 {

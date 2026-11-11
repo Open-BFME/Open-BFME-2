@@ -15,7 +15,7 @@ enum CommandSourceType { CMD_FROM_AI=2 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/ThingTemplate.h"
 class Thing { public: virtual ~Thing(); };
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 class BfmeObjectDlinkBase {
 public: Object *dlink_next_TeamMemberList() const; const ThingTemplate *m_template; unsigned char m_pad[0x60];

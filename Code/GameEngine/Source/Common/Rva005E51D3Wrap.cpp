@@ -9,11 +9,7 @@ public:
 	int m_virtualBaseOffset;
 };
 
-class Rva000B3FD0Empty
-{
-public:
-	void rva000B3FD0Empty();
-};
+#include "../../Include/Common/Rva000B3FD0Empty.h"
 
 // API-only declaration: the +4 owner pointer is passed unchanged to the
 // now-owned ArmyDetailsPanel callback. No owner layout is asserted here.

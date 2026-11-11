@@ -7,7 +7,7 @@ class Object;
 class GameWindow;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
+#include "../../../../Include/Common/ControlBarInventoryEntry.h"
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 #include "../../../../Include/GameClient/ControlBar.h"
 Object *ControlBar::rva0053E754(GameWindow *window)

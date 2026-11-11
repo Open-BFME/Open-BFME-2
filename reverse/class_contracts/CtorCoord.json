@@ -1,0 +1,41 @@
+{
+ "bases": [
+  "ICoord2D"
+ ],
+ "bases_by": "majority",
+ "class": "CtorCoord",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 7,
+   "inherited_slots": 0,
+   "inherited_spans": [
+    [
+     0,
+     8
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "8": 7
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}

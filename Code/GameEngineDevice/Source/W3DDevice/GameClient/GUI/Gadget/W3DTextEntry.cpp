@@ -221,10 +221,7 @@ extern IMEManager *TheIMEManager;
 Color Rva0009FE01Get( Color color );
 
 // Coordinates with an empty default constructor; see W3DCheckBox.cpp.
-struct CtorCoord : ICoord2D
-{
-	CtorCoord() {}
-};
+#include "../../../../../../GameEngine/Include/Common/CtorCoord.h"
 
 // drawTextEntryText ==========================================================
 /** Draw the text of a text entry: the part before the selection, the IME

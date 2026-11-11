@@ -85,7 +85,7 @@ public:
 	void rva00294759(int level);
 };
 
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 class BfmeObjectDlinkBase { public: Object *dlink_next_TeamMemberList() const;
  const ThingTemplate *m_template;

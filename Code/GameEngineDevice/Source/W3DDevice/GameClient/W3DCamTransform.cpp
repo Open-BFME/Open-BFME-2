@@ -290,7 +290,7 @@ extern CameraShakeSystemClass CameraShakerSystem;
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class Rva00358752Opaque {public:Object *lookupUnitByValue(AsciiString);};
-class Rva002B224BDwordField {public:int get()const;};
+#include "../../../../GameEngine/Include/Common/Rva002B224BDwordField.h"
 class Drawable;
 class Thing {public:Drawable *getDrawable() const;};
 class ObjectDrawInterface {public:virtual void slot0();virtual void slot1();virtual bool boneTransform(const AsciiString &,Matrix3D *)const;};

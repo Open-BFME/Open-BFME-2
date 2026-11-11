@@ -1,10 +1,6 @@
 // cl: /Ob0
 
-struct Rva00468520Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva00468520Obj.h"
 
 class Rva00468520
 {

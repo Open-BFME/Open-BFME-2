@@ -249,10 +249,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 
 // Coordinates with an empty default constructor; see W3DCheckBox.cpp.
-struct CtorCoord : ICoord2D
-{
-	CtorCoord() {}
-};
+#include "../../../../../../GameEngine/Include/Common/CtorCoord.h"
 
 // getButtonTextColors ========================================================
 /** Pick the text and drop colours for the window's state */

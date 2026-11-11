@@ -18,7 +18,7 @@ enum CommandSourceType { CMD_FROM_AI=2 };
 #include "../../../Include/Common/ThingTemplate.h"
 static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t) { return (((const unsigned char *)tmpl->m_kindof)[t>>3]&(1<<(t&7)))!=0; }
 class Thing { public: virtual ~Thing(); };
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 class BfmeObjectDlinkBase {
 public: Object *dlink_next_TeamMemberList() const; const ThingTemplate *m_template; unsigned char m_pad[0x60];

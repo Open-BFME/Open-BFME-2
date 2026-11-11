@@ -40,7 +40,7 @@ void famgenDelete(BfmeOwnVVE *p) { delete p; }
 // ??1Rva00180EA0@@UAE@XZ @0x180ea0: the complete dtor lives here too, so the
 // /O2 deleting dtor is emitted beside it (moved from the /O1
 // OpaqueSingleInheritanceDtors.cpp, whose 28 B copy was not retail's).
-class Rva0061ED80 { public: virtual ~Rva0061ED80(); };
+#include "../../../../GameEngine/Include/Common/Rva0061ED80.h"
 class Rva00180EA0 : public Rva0061ED80 { public: virtual ~Rva00180EA0(); };
 Rva00180EA0::~Rva00180EA0() {}
 

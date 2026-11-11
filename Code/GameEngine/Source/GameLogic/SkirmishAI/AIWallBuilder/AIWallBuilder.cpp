@@ -132,7 +132,7 @@ bool __cdecl Rva004EAB9FCmp(const void *, const void *);
 // rowed owner. No constructor, destructor or vtable definition is added here.
 // Node slot0 and size5C are independently proven by its rowed provider and
 // native ::delete call (scalar flags0 then global operator delete).
-class BfmeRetBWF {public:float x,y,z;};
+#include "../../../../Include/Common/BfmeRetBWF.h"
 class MapObject {
 public:
     void *unknown00;

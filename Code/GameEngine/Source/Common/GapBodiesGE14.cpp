@@ -23,11 +23,7 @@ int Rva00525479::compareRecords(Rva00525119 *a, Rva00525119 *b)
 
 // --- 0x00525489 / 0x005254A7 (30B each): vtables 0x00C6ECB4 / 0x00C67E80
 // over a cleared word and a copied pair.
-struct GapPair
-{
-	int a;
-	int b;
-};
+#include "../../Include/Common/GapPair.h"
 
 #define GAP_VTABLE_PAIR_CTOR(NAME) \
 	class NAME \

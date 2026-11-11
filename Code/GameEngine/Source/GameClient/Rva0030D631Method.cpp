@@ -3,13 +3,7 @@
 // Gap between 0x0030D606 and 0x0030D773: thiscall returning BfmeRetBWF pointer.
 // Null holder returns +0x08 source; else BfmeCalcBWF at holder+0xa0 transforms +0x08 into +0x48 via rowed 0x006BD900 and returns +0x48.
 // Evidence: packet disasm plus rowed bfmeCalcBWF plus callers 0x000921F7 0x000DD4E5 plus prev/next cl lines.
-class BfmeRetBWF
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../Include/Common/BfmeRetBWF.h"
 
 class BfmeCalcBWF
 {

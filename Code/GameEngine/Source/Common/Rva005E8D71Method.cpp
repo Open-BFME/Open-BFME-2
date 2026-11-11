@@ -8,7 +8,7 @@
 // consistent with native calls. Thiscall256E ignores ECX in its11B body.
 // No new pin or class-layout claim is added.
 #include "../../Include/Common/Rva002B254F.h"
-class Rva002B256E { public: void* rva002B256E(); };
+#include "../../Include/Common/Rva002B256E.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva005E1160Flag { public: void rva005E1160(bool); };
 class Rva005E8CF8QueryInterface { public:

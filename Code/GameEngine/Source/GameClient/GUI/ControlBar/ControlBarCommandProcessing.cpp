@@ -340,7 +340,7 @@ CommandAvailability getCommandAvailability(const CommandButton*,GameWindow*,Obje
  std::vector<BfmeE8> contextStack;
 };
 extern ControlBar *TheControlBar;
-struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
+#include "../../../../Include/Common/ControlBarInventoryEntry.h"
 extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 namespace _STL {
 template <> void vector<BfmeE8,allocator<BfmeE8> >::push_back(const BfmeE8&);

@@ -7,11 +7,7 @@
 // 0x00153A39 and 0x004F7130 in FUN_008f711c which allocates 0x10 and inits
 // at +8.
 
-struct Rva00468520Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva00468520Obj.h"
 
 class Rva00468520
 {

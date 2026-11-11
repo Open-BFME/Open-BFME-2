@@ -15,11 +15,7 @@ public:
 
 inline StringClass::~StringClass() { Free_String(); }
 
-class Rva0061ED80
-{
-public:
-	virtual ~Rva0061ED80();
-};
+#include "../../Include/Common/Rva0061ED80.h"
 
 class Rva001805E0 : public Rva0061ED80
 {

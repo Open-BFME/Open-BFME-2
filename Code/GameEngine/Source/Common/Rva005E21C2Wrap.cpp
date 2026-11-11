@@ -3,11 +3,7 @@
 // Calls empty 0x00B3FD0 (pinned empty), then checks +0x28 vs +0x10 getter
 // 0x005CB265 (pinned UAEHXZ) and tail-jmps to rowed 0x005CB260 on match.
 // Address-derived; same shape as 0x005E0D9C plus leading empty call.
-class Rva000B3FD0Empty
-{
-public:
-	void rva000B3FD0Empty();
-};
+#include "../../Include/Common/Rva000B3FD0Empty.h"
 
 #include "../../Include/Common/Rva005CB265.h"
 

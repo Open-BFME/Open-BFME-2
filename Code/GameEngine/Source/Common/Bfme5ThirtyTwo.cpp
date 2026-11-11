@@ -39,19 +39,9 @@ public:
 	BfmeThingCX *m_bfmeThing;				// +0x00
 };
 
-class BfmeSlotCZ
-{
-public:
-	int *m_bfmePointer;					// +0x00
-	int m_bfmeTag;						// +0x04
-};
+#include "../../Include/Common/BfmeSlotCZ.h"
 
-class BfmeVecCZ
-{
-public:
-	BfmeSlotCZ *m_bfmeStart;				// +0x00
-	int m_bfmeCount;					// +0x04
-};
+#include "../../Include/Common/BfmeVecCZ.h"
 
 // The out-of-range slot stays null and is read anyway, which is what puts the
 // load in both paths.

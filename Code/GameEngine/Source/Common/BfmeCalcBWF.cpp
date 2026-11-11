@@ -1,6 +1,6 @@
 // BFME coordinate transform at RVA 0x0087E0D0; callers carry the angle as float bits.
 #include <math.h>
-class BfmeRetBWF { public: float x; float y; float z; };
+#include "../../Include/Common/BfmeRetBWF.h"
 class BfmeCalcBWF
 {
 public:

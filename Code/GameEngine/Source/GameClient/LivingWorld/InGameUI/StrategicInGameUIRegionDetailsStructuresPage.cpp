@@ -242,7 +242,7 @@ private: Impl *m_impl;
 class Rva002BED91 { public: TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
 struct TreeHintRef00217D4C;
 class Rva001FF3A9 { public: void rva001FF3A9(const TreeHintRef00217D4C &); };
-class Rva000B3FD0Empty { public: void rva000B3FD0Empty(); };
+#include "../../../../Include/Common/Rva000B3FD0Empty.h"
 namespace StrategicInGameUI {
 void RegionDetailsStructuresPage::Impl::slot01()
 {

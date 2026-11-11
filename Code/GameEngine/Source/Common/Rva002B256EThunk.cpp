@@ -19,11 +19,7 @@ void *Rva002B256EGet(void)
 	return TheRva00E02D6C->rva003B8BAA();
 }
 
-class Rva002B256E
-{
-public:
-	void *rva002B256E();
-};
+#include "../../Include/Common/Rva002B256E.h"
 
 // ICF-folded twin of Rva002B256EGet above (same 11 bytes at 0x002B256E):
 // the member spelling ignores its own receiver exactly like the free

@@ -20,19 +20,9 @@
 // Rva00801EC0FeslFill.cpp and calls measure through the ledger; defining it
 // here would capture that call locally instead of at its ledger address.
 
-class BfmeSlotCZ
-{
-public:
-	int *m_bfmePointer;
-	int m_bfmeTag;
-};
+#include "../../Include/Common/BfmeSlotCZ.h"
 
-class BfmeVecCZ
-{
-public:
-	BfmeSlotCZ *m_bfmeStart;
-	int m_bfmeCount;
-};
+#include "../../Include/Common/BfmeVecCZ.h"
 
 class Rva00801670Host
 {

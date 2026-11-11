@@ -26,19 +26,9 @@ public:
 	int m_size;
 };
 
-class BfmeSlotCZ
-{
-public:
-	int *m_bfmePointer;
-	int m_bfmeTag;
-};
+#include "../../Include/Common/BfmeSlotCZ.h"
 
-class BfmeVecCZ
-{
-public:
-	BfmeSlotCZ *m_bfmeStart;
-	int m_bfmeCount;
-};
+#include "../../Include/Common/BfmeVecCZ.h"
 
 class Rva00801670Host
 {

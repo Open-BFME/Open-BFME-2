@@ -13,11 +13,7 @@ public:
 	static ParticleEmitterClass *Create_From_Definition(const ParticleEmitterDefClass &def);
 };
 
-class Rva0061ED80
-{
-public:
-	virtual ~Rva0061ED80();
-};
+#include "../../Include/Common/Rva0061ED80.h"
 
 class Rva001805E0 : public Rva0061ED80
 {

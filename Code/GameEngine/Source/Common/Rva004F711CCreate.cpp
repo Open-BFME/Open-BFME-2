@@ -5,11 +5,7 @@
 // bytes left uninitialized (pad). Evidence: single caller at 0x005CCED9 in
 // FUN_009cced5; __stdcall ret 4 matches retail.
 
-struct Rva00468520Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva00468520Obj.h"
 
 class Rva00468520
 {

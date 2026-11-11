@@ -22,10 +22,7 @@ public:
 
 #include "../../../../Include/GameClient/Drawable.h"
 
-class Rva002B224BDwordField {
-public:
-    int get() const;
-};
+#include "../../../../Include/Common/Rva002B224BDwordField.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
