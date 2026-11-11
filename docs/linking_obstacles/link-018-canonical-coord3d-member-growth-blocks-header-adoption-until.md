@@ -295,3 +295,27 @@ with the existing Coord3D push_back unit the preview retains 3,604 bytes at
 1380d51e2c. Migrating the assignment owner at 0x002CD098 and the distinct
 12-byte families remains open. This change clears the element identity for
 this vector only.
+
+**WeaponTemplate assignment at 0x002CD098, 2026-11-11.** The
+[prepared source patch](../../reverse/attempt_support/weapon-linear-target-assign-20261111/typed-assign.patch)
+applies to 6a26907cd0 with `git apply --unidiff-zero`. It uses the parser's WeaponLinearTarget for both the
+vector and its helpers, and keeps the separate Coord3D capacity provider.
+Comparing the resulting COFF to retail gives 209 bytes equal outside the
+five REL32 operands. Retail resolves those operands, in order, to allocate
+and copy (0x000E016A), free (0x00030830), copy twice (0x002CA86E), and
+uninitialized copy (0x00346C2D). The generic element-copy loop with implicit
+assignment emits 48 bytes. Assigning x, y and delay individually reproduces
+all 60 bytes at 0x002C97AC. Using the vendored algobase reference-tag
+overload also restores both calls to the wrapper; the bfmealloc value-tag
+overload inlined it and produced 211 bytes. The 1170-byte caller's byte
+verifier reports the new vector assignment as its unresolved call.
+
+On this revision, rename.py function --respell --identity --basis retail
+--dry-run refuses this RVA because it is outside the registered families
+in tools/retail_identity.py. The inferred-identity lane protects canonical
+Coord3D. Next step for the tooling lane is a reviewed retail-identity family
+proving the parser, member offset and assignment call on the original image.
+Then verify the typed helper bindings, submit the prepared sources through
+the identity transaction and run the affected-unit link audit. The scoped
+source build with the old ledger still fails on the new names. No retail
+export or production source changed in this attempt.

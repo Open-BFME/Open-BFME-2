@@ -1,0 +1,120 @@
+diff --git a/Code/GameEngine/Include/GameLogic/WeaponLinearTarget.h b/Code/GameEngine/Include/GameLogic/WeaponLinearTarget.h
+index 1ef16d2b51..9ba0502270 100644
+--- a/Code/GameEngine/Include/GameLogic/WeaponLinearTarget.h
++++ b/Code/GameEngine/Include/GameLogic/WeaponLinearTarget.h
+@@ -9,0 +10,7 @@ struct WeaponLinearTarget
++    WeaponLinearTarget &operator=(const WeaponLinearTarget &other)
++    {
++        x = other.x;
++        y = other.y;
++        delay = other.delay;
++        return *this;
++    }
+diff --git a/Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp b/Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp
+index a14ece92f7..e443ed78d5 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/WeaponTemplateAssignRva002CD67C.cpp
+@@ -41,6 +41,5 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+-#include "../../../../../reference/shims/bfme_coord3d_construct_link/coord3d_construct_link.h"
+-// bfme link decl-only begin
+-namespace _STL { template <> vector<Coord3D, allocator<Coord3D> > & vector<Coord3D, allocator<Coord3D> >::operator=(vector<Coord3D, allocator<Coord3D> > const &); }
+-namespace _STL { template <> unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const; }
+-// bfme link decl-only end
++#include "../../../Include/GameLogic/WeaponLinearTarget.h"
++namespace _STL {
++template <> vector<WeaponLinearTarget> &vector<WeaponLinearTarget>::operator=(const vector &);
++}
++
+@@ -83 +82 @@ WeaponTemplate &WeaponTemplate::operator=(const WeaponTemplate &other)
+-	*(_STL::vector<Coord3D> *)m_field4C = *(const _STL::vector<Coord3D> *)other.m_field4C;
++	*(_STL::vector<WeaponLinearTarget> *)m_field4C = *(const _STL::vector<WeaponLinearTarget> *)other.m_field4C;
+diff --git a/Code/Libraries/Source/WWVegas/WWLib/StlportVectorAssignCoord3D.cpp b/Code/Libraries/Source/WWVegas/WWLib/StlportVectorAssignCoord3D.cpp
+index ea29260019..49c820f6ee 100644
+--- a/Code/Libraries/Source/WWVegas/WWLib/StlportVectorAssignCoord3D.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/StlportVectorAssignCoord3D.cpp
+@@ -1 +1 @@
+-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
++// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ivendor /Ireference/shims/bfmealloc
+@@ -3,11 +3,2 @@
+-//
+-// ??4?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x002CD098 209B
+-// STLport 4.5.3 vector<Coord3D>::operator=: the trivially destructible
+-// three-path 209B body of the rowed vector<BfmeE12> assign at 0x004BF4CE
+-// (stlport_vector_e12_assign.cpp, whose flags and minimal vector model
+-// these are), except that retail passes the source vector's non-const
+-// storage pointers: __uninitialized_copy<Coord3D *> is rowed at 0x00346C2D and
+-// the allocate-and-copy at 0x000E016A is already rowed with Coord3D *
+-// parameters; the __copy_ptrs at 0x002CA86E and that allocate-and-copy are
+-// pinned under their STLport spellings from this body's REL32s. Caller
+-// 0x002CD700.
++#include <stlport/stl/_algobase.h>
++#include <vector>
+@@ -15,4 +6,2 @@
+-#include <stdlib.h>
+-struct BfmeE12;
+-// The allocate-and-copy at 0x000E016A is rowed under this name.
+-#include "../../../../GameEngine/Include/GameLogic/Module/Rva000E016A.h"
++#include "../../../../GameEngine/Include/GameLogic/WeaponLinearTarget.h"
++
+@@ -20,19 +9,2 @@ namespace _STL {
+-struct __false_type { __false_type() {} };
+-template <class Type> class allocator {};
+-template <class Type, class Allocator> class vector {
+-public:
+-	typedef Type *pointer;
+-	typedef unsigned int size_type;
+-	vector &operator=(const vector &x);
+-	size_type size() const { return size_type(m_finish - m_start); }
+-	size_type capacity() const { return size_type(m_endOfStorage - m_start); }
+-private:
+-	pointer m_start;
+-	pointer m_finish;
+-	pointer m_endOfStorage;
+-};
+-template <class InputIter, class OutputIter> OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
+-template <class InputIter, class OutputIter> OutputIter __uninitialized_copy(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
+-}
+-template <class Type, class Allocator>
+-_STL::vector<Type, Allocator> &_STL::vector<Type, Allocator>::operator=(const vector &x)
++template <>
++vector<WeaponLinearTarget> &vector<WeaponLinearTarget>::operator=(const vector &source)
+@@ -40,17 +12,18 @@ _STL::vector<Type, Allocator> &_STL::vector<Type, Allocator>::operator=(const ve
+-	if (&x != this) {
+-		size_type xsize = x.size();
+-		if (xsize > capacity()) {
+-			pointer tmp = (pointer)((Rva000E016A *)this)->rva000E016A(xsize, x.m_start, x.m_finish);
+-			if (m_start)
+-				free(m_start);
+-			m_start = tmp;
+-			m_endOfStorage = tmp + xsize;
+-		} else if (size() >= xsize) {
+-			_STL::__copy_ptrs(x.m_start, x.m_finish, m_start, _STL::__false_type());
+-		} else {
+-			_STL::__copy_ptrs(x.m_start, x.m_start + size(), m_start, _STL::__false_type());
+-			_STL::__uninitialized_copy(x.m_start + size(), x.m_finish, m_finish, _STL::__false_type());
+-		}
+-		m_finish = m_start + xsize;
+-	}
+-	return *this;
++    if (&source != this) {
++        const size_type count = source.size();
++        if (count > capacity()) {
++            pointer replacement = _M_allocate_and_copy(count, source._M_start, source._M_finish);
++            _M_clear();
++            _M_start = replacement;
++            _M_end_of_storage._M_data = replacement + count;
++        } else if (size() >= count) {
++            __copy_ptrs(source._M_start, source._M_finish, _M_start, __false_type());
++        } else {
++            __copy_ptrs(source._M_start, source._M_start + size(), _M_start, __false_type());
++            __uninitialized_copy(source._M_start + size(), source._M_finish, _M_finish, __false_type());
++        }
++        _M_finish = _M_start + count;
++    }
++    return *this;
++}
++template vector<Coord3D>::size_type vector<Coord3D>::capacity() const;
+@@ -58,2 +30,0 @@ _STL::vector<Type, Allocator> &_STL::vector<Type, Allocator>::operator=(const ve
+-template _STL::vector<Coord3D, _STL::allocator<Coord3D> > &
+-_STL::vector<Coord3D, _STL::allocator<Coord3D> >::operator=(const _STL::vector<Coord3D, _STL::allocator<Coord3D> > &);
