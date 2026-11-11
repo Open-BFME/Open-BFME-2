@@ -24,7 +24,7 @@ class Object { public: char pad[0x74]; ObjectID id; char pad78[0x258-0x78]; AIUp
 #include "../../../Include/Common/ThingFactory.h"
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class Rva0055ADD8 { public: int failBuild(int); };
+#include "../../../Include/GameLogic/Rva0055ADD8.h"
 class AIBuildableStructure {
 public:
 #define SLOT(n) virtual void s##n();

@@ -70,7 +70,7 @@ class Player;class Object{public:char pad[0x74];ObjectID id;};
 extern GameLogic*TheGameLogic;
 class Rva004E9378{public:bool rva004E9378();};
 #include "../../../Include/GameLogic/Rva00506B1B.h"
-class Rva0055ADD8{public:int failBuild(int);};
+#include "../../../Include/GameLogic/Rva0055ADD8.h"
 #include "../../../Include/Common/AIBuildable.h"
 class AIUnitBuilder{public:Object*Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);};
 struct Rva005996FFArg;

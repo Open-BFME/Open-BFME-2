@@ -86,11 +86,7 @@ public:
 class Rva00A027B8;
 class BuildAssistant;
 extern BuildAssistant *TheBuildAssistant;
-class Rva0055ADD8
-{
-public:
-    int failBuild(int ignored);
-};
+#include "../../../../Include/GameLogic/Rva0055ADD8.h"
 class AIBuildableStructure
 {
 public:
