@@ -12,11 +12,7 @@
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva005FA854
-{
-public:
-	bool rva005FA854();
-};
+#include "../../Include/Common/Rva005FA854.h"
 
 #include "../../Include/GameClient/StrategicVeterancy.h"
 

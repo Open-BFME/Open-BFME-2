@@ -10,11 +10,7 @@ struct Rva005E9601M0C
 	int m_pad;
 };
 
-class Rva005FA854
-{
-public:
-	bool rva005FA854();
-};
+#include "../../Include/Common/Rva005FA854.h"
 
 class Rva005F977D
 {

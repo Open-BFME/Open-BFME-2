@@ -5,11 +5,7 @@
 #include "../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva005FA854
-{
-public:
-	bool rva005FA854();
-};
+#include "../../Include/Common/Rva005FA854.h"
 class Rva005EB825
 {
 public:
