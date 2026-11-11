@@ -125,13 +125,7 @@ void MilesStreamRef::rva000A8AC0()
 		m_stream->rva0010FB64();
 }
 
-class LinearCampaign
-{
-public:
-	void restartCurrentCampaignMission();
-	void rva001EB6FE();
-	void onMissionComplete();
-};
+#include "../../Include/Common/LinearCampaign.h"
 
 class Rva0023D607Holder
 {

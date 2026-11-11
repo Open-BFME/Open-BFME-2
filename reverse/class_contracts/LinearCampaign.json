@@ -1,0 +1,456 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LinearCampaign",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 3
+   },
+   "0xa4": {
+    "4": 1
+   },
+   "0xb0": {
+    "4": 2
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 3
+   },
+   "0xc0": {
+    "1": 1,
+    "4": 1
+   },
+   "0xc2": {
+    "1": 1
+   },
+   "0xc3": {
+    "1": 3,
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 7,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "192": 1,
+   "196": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_00",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char[4]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_04",
+   "name_by": "tie",
+   "offset": 4,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "Rva001EB3A6*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_08",
+   "name_by": "tie",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char[4]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0C",
+   "name_by": "tie",
+   "offset": 12,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_sciencesBegin",
+     "offset": 0,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "m_sciencesEnd",
+     "offset": 4,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "enum*"
+    }
+   ],
+   "name": "sciences",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Bits1024",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_upgrades",
+     "offset": 0,
+     "size": 128,
+     "type": "uint[128]"
+    }
+   ],
+   "name": "upgrades",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 128,
+   "type": "Bits1024",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_A0",
+   "name_by": "tie",
+   "offset": 160,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<BfmePod172,_STL::allocator<BfmePod172> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_unitsBegin",
+     "offset": 0,
+     "size": 4,
+     "type": "CarryoverUnit*"
+    },
+    {
+     "kind": "P",
+     "name": "m_unitsEnd",
+     "offset": 4,
+     "size": 4,
+     "type": "CarryoverUnit*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "BfmePod172*"
+    }
+   ],
+   "name": "units",
+   "name_by": "majority",
+   "offset": 164,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<BfmePod172,_STL::allocator<BfmePod172> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numFlaggedCarryovers",
+   "name_by": "majority",
+   "offset": 176,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<BfmeAssignRecord172,_STL::allocator<BfmeAssignRecord172> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "BfmeAssignRecord172*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "BfmeAssignRecord172*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "BfmeAssignRecord172*"
+    }
+   ],
+   "name": "m_used",
+   "name_by": "majority",
+   "offset": 180,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<BfmeAssignRecord172,_STL::allocator<BfmeAssignRecord172> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_C0",
+   "name_by": "tie",
+   "offset": 192,
+   "retail_widths": {
+    "1": 1,
+    "4": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "restarting",
+   "name_by": "majority",
+   "offset": 193,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_C2",
+   "name_by": "majority",
+   "offset": 194,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "char",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_C3",
+   "name_by": "tie",
+   "offset": 195,
+   "retail_widths": {
+    "1": 3,
+    "4": 2
+   },
+   "size": 1,
+   "type": "char",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_00": 1,
+    "p0": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "m_04": 1,
+    "m_campaign": 1,
+    "m_missions": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "m_08": 1,
+    "p08": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xc",
+   "candidates": {
+    "m_0C": 1,
+    "m_0c": 1,
+    "m_missionIndex": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "field@0x10",
+   "candidates": {
+    "176:A": 1,
+    "4:f4": 1,
+    "4:i4": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0x14",
+   "candidates": {
+    "m_sciencesBegin": 1,
+    "sciences._M_start": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0x18",
+   "candidates": {
+    "m_sciencesEnd": 1,
+    "sciences._M_finish": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0x20",
+   "candidates": {
+    "m_upgrades": 1,
+    "upgrades.words": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xa0",
+   "candidates": {
+    "m_A0": 1,
+    "valueA0": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xa4",
+   "candidates": {
+    "m_unitsBegin": 1,
+    "units._M_start": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xa8",
+   "candidates": {
+    "m_unitsEnd": 1,
+    "units._M_finish": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xb4",
+   "candidates": {
+    "m_used._M_start": 1,
+    "used._M_start": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xb8",
+   "candidates": {
+    "m_used._M_finish": 1,
+    "used._M_finish": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xbc",
+   "candidates": {
+    "m_used._M_end_of_storage._M_data": 1,
+    "used._M_end_of_storage._M_data": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xc0",
+   "candidates": {
+    "m_C0": 1,
+    "won": 1
+   },
+   "class": "LinearCampaign"
+  },
+  {
+   "attribute": "name@0xc3",
+   "candidates": {
+    "advanced": 1,
+    "m_C3": 1
+   },
+   "class": "LinearCampaign"
+  }
+ ],
+ "size": 196,
+ "size_by": "majority",
+ "vslots": {}
+}

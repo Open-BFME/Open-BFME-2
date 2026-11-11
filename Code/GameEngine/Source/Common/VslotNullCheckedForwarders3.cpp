@@ -91,11 +91,7 @@ public:
 	void rva0027006C(Int a0);
 };
 
-class LinearCampaign
-{
-public:
-	void addCarryoverStuffToMap();
-};
+#include "../../Include/Common/LinearCampaign.h"
 
 class Rva0023D6D5Callee
 {

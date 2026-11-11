@@ -5,11 +5,7 @@
 // Evidence: tail call to just-landed row, caller 0x00521560, prev Rva001EB73CCheck
 // same null-wrapper shape.
 struct Rva001EB6A5Out;
-class LinearCampaign
-{
-public:
-	bool fillCampaignMenuContent(Rva001EB6A5Out *out);
-};
+#include "../../Include/Common/LinearCampaign.h"
 
 class Rva001EB74B
 {
