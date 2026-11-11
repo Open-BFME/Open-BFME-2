@@ -320,7 +320,7 @@ class Rva0029FCB4 { public: _STL::vector<ScienceType> rva0029FCB4(); };
 #include "../../../../Include/Common/Rva0023C6A4.h"
 class GameLogic; extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/Player.h"
-class Rva0037EE4C { public: int rva0037EE4C(const ThingTemplate *,int,int); };
+#include "../../../../Include/GameLogic/Rva0037EE4C.h"
 class Image; class ModuleData;
 class Rva0037EDC6 { public: const Image *rva0037EDC6(int); };
 #include "../../../../Include/GameLogic/Module/Rva0037E421.h"

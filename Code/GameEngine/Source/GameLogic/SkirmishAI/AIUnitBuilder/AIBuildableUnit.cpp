@@ -11,11 +11,7 @@ enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_
 class Player;
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
-class Rva0037EE4C
-{
-public:
-	Int rva0037EE4C(const ThingTemplate *unitType, Int a, Int b);	// 0x0037EE4C
-};
+#include "../../../../Include/GameLogic/Rva0037EE4C.h"
 #include "../../../../Include/GameLogic/Rva0037E6E8.h"
 class Rva0037E787 { public: int rva0037E787(void *index,void *builder); };
 class Player

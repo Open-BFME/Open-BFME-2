@@ -207,11 +207,7 @@ public:
 
 class Object;
 enum BodyDamageType { BODY_PRISTINE = 0 };
-class Rva0037EE4C
-{
-public:
-	Int rva0037EE4C(const ThingTemplate *thing, Int a, Int b);
-};
+#include "../../../Include/GameLogic/Rva0037EE4C.h"
 class Rva0037E6E8
 {
 public:

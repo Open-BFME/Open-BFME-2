@@ -341,7 +341,7 @@ int AIUnitBuilder::getHeroIndex()
 
 
 class ThingTemplate;
-class Rva0037EE4C { public: int rva0037EE4C(const ThingTemplate *,int,int); };
+#include "../../../../Include/GameLogic/Rva0037EE4C.h"
 class Rva00A027B8 {
 public:
 #define SLOT(n) virtual void s##n();
