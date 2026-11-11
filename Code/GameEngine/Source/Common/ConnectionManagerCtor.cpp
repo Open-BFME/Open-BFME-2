@@ -33,11 +33,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-class Rva004D04C9
-{
-public:
-    void *rva004D04E0(int);
-};
+#include "../../Include/Common/Rva004D04C9.h"
 
 struct CommandHistory
 {

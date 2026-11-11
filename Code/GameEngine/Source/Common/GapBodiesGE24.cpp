@@ -276,11 +276,7 @@ void Rva004CFAEB::rva004CFAEB()
 }
 
 // --- 0x004D0F27 (18B): run the rowed 0x004D04E0 and answer the receiver.
-class Rva004D04C9
-{
-public:
-	void *rva004D04E0(int value);							// 0x004D04E0
-};
+#include "../../Include/Common/Rva004D04C9.h"
 
 class Rva004D0F27 : public Rva004D04C9
 {
