@@ -227,7 +227,7 @@ class PlayerList;
 extern GameLogic *TheGameLogic;
 extern PlayerList *ThePlayerList;
 struct FeedbackPlayerIndexView { char pad[0x54]; int index; };
-class TerrainResourceManager { public: float rva00359A0C(float x, float y, float radius, bool flag, int playerIndex); };
+#include "../../../Include/GameClient/TerrainResourceManager.h"
 // WB1324880 and retail4E6295..4E630C: local player INDEX is an int,
 // not the pointer view in the prior bank. The final claim-fraction helper
 // at359A0C consumes five arguments and ends RET20; original name unknown.

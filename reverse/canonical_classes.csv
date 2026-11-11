@@ -972,3 +972,4 @@ Rva00116680,Code/Libraries/Source/WWVegas/WW3D2/Rva00116680.h,existing header; c
 Rva0057C2CC,Code/GameEngine/Include/Common/Rva0057C2CC.h,existing header; contract class_contracts/Rva0057C2CC.json; 6/8 sampled units adopt
 Gen_007e86c0,Code/GameEngine/Include/GameNetwork/Gen_007e86c0.h,existing header; contract class_contracts/Gen_007e86c0.json; 6/8 sampled units adopt
 Rva001E3511,Code/GameEngine/Include/GameLogic/Module/Rva001E3511.h,existing header; contract class_contracts/Rva001E3511.json; 7/8 sampled units adopt
+TerrainResourceManager,Code/GameEngine/Include/GameClient/TerrainResourceManager.h,existing header; contract class_contracts/TerrainResourceManager.json; 5/6 sampled units adopt

@@ -48,11 +48,7 @@ private:
 	_STL::list<Rva004E7E3AEntry> *m_entries;
 };
 
-class TerrainResourceManager
-{
-public:
-	void enumerateRegisteredClaimants(int playerMask, Cb00359D42 *callback);
-};
+#include "../../Include/GameClient/TerrainResourceManager.h"
 
 class GameLogicView
 {

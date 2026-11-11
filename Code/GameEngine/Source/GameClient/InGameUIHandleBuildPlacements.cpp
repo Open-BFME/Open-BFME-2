@@ -158,11 +158,7 @@ public:
 };
 
 class Cb00359D42;
-class TerrainResourceManager
-{
-public:
-    void enumerateRegisteredClaimants(int, Cb00359D42*);
-};
+#include "../../Include/GameClient/TerrainResourceManager.h"
 
 #include "../Common/GameLogicObjectLookupView.h"
 

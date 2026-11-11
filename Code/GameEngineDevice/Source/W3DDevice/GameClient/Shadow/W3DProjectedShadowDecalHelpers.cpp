@@ -728,7 +728,7 @@ struct ScanDelta10C841
 };
 
 struct ShadowGridOverlay10C841 { char m_pad[0x3c]; Real m_cellSize; };
-class TerrainResourceManager { public: void rva0035A61F(UnsignedInt *diffuse, Int x, Int y, Int playerIndex); };
+#include "../../../../../GameEngine/Include/GameClient/TerrainResourceManager.h"
 class GameLogic;
 extern GameLogic *TheGameLogic;
 struct GameLogicView10C841 { char m_pad[0x170]; TerrainResourceManager *m_terrainResources; };
