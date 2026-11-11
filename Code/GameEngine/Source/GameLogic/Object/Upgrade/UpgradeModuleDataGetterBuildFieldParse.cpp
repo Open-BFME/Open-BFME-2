@@ -44,11 +44,7 @@ int Rva004CE29DGet();
 
 
 
-class StatusBitsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
 
 class AttributeModifierUpgradeModuleData
 {

@@ -499,7 +499,7 @@ class StancesBehaviorModuleData { public: static ModuleData *friend_newModuleDat
 class StatusBitsUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StatusBitsUpgradeIfEldestKindof { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StatusBitsUpgradeIfEldestKindofModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class StatusBitsUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
 class StealthDetectorUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StealthDetectorUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/StealthUpdate.h"

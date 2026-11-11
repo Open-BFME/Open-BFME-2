@@ -54,11 +54,7 @@ extern const FieldParse g_00C579B4[] = {
 };
 
 
-class StatusBitsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
 
 class StatusBitsUpgradeIfEldestKindofModuleData
 {

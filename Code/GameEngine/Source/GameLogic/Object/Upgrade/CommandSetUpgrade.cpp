@@ -122,11 +122,7 @@ class RadarUpgradeModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-class StatusBitsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
 class AttributeModifierUpgradeModuleData
 {
 public:

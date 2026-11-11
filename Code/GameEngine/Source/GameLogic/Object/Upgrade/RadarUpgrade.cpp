@@ -83,11 +83,7 @@ public:
 	bool m_isDisableProof; // +0x118
 };
 
-class StatusBitsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/StatusBitsUpgradeModuleData.h"
 
 class AttributeModifierUpgradeModuleData
 {
