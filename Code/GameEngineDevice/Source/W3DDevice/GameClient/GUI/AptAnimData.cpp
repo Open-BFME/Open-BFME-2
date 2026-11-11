@@ -39,7 +39,7 @@ extern FileSystem*TheFileSystem;
 
 class Object;
 
-class ObjectLookupMap {public:Object **findSlot(int*);};
+#include "../../../../../GameEngine/Include/Common/ObjectLookupMap.h"
 
 // The enumerator reads the directory at +0; createRenderData addresses its
 // lookup table at +8. Only those observed members are represented here.

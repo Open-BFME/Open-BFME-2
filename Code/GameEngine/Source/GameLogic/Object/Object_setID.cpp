@@ -12,12 +12,7 @@ enum ObjectID
 
 class Object;
 
-class ObjectLookupMap
-{
-public:
-	class Object **findSlot( int *id );
-	void eraseSlot( int *id );
-};
+#include "../../../Include/Common/ObjectLookupMap.h"
 
 class GameLogic
 {

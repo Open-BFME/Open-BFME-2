@@ -146,7 +146,7 @@ private:
 
 class Object;
 
-class ObjectLookupMap {public:Object **findSlot(int *);};
+#include "../../../../../GameEngine/Include/Common/ObjectLookupMap.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

@@ -97,11 +97,7 @@ private:
 
 class Object;
 
-class ObjectLookupMap
-{
-public:
-	Object **findSlot(int *key);
-};
+#include "../../../Include/Common/ObjectLookupMap.h"
 
 void ThreatFinderManager::remove(const AsciiString &name, void *unused)
 {

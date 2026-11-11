@@ -452,11 +452,7 @@ public:
 	bool Register(void *holder);
 	bool UnRegister(void *holder);
 };
-class ObjectLookupMap
-{
-public:
-	Object **findSlot(int *key);
-};
+#include "../../../../Include/Common/ObjectLookupMap.h"
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,

@@ -48,7 +48,7 @@ namespace rts { template <> __declspec(dllimport) __forceinline size_t hash<Name
 extern NameKeyGenerator *TheNameKeyGenerator;
 class ModuleData;
 class Object;
-class ObjectLookupMap { public: Object **findSlot(int *key); void eraseSlot(int *key); };
+#include "../../../Include/Common/ObjectLookupMap.h"
 namespace _STL {
 template <> void vector<const ModuleData *>::push_back(const ModuleData * const &);
 template <> vector<void *>::iterator vector<void *>::erase(iterator first, iterator last);
