@@ -101,7 +101,7 @@ class NewTurn {public:virtual bool update();virtual void play(int);};
 class TurnDisplay {public:virtual void s0();virtual void s1();virtual void s2();virtual void phase(int);};
 class Rva0057416B {public:Rva0057416B();char data[8];};
 class Rva0057417E;
-class Rva00574192 {public:void rva00574192();};
+#include "../../../../Include/Common/Rva00574192.h"
 class Rva0042C1DF {public:void clear();};
 class Rva0042C1BC {public:void reset(Rva0057417E*);};
 

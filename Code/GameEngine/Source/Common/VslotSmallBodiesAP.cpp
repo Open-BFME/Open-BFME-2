@@ -440,11 +440,7 @@ void Rva005CEA35::rva005CEA35()
 	m_08->rva005CEA1C();
 }
 
-class Rva00574192
-{
-public:
-	void rva00574192();
-};
+#include "../../Include/Common/Rva00574192.h"
 class Rva005CF8DB
 {
 public:

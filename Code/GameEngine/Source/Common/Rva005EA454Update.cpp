@@ -9,10 +9,7 @@
 // to 0x005EA125. These nested object roles are structural inferences; retain
 // the address-derived owner name.
 
-struct Rva00574192
-{
-	void rva00574192();
-};
+#include "../../Include/Common/Rva00574192.h"
 
 struct Rva005EA183
 {
