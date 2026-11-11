@@ -295,11 +295,7 @@ FIELD_PROC(ThreatFinderUpdateModuleData, BfmeThreatFinderUpdateFields, DefaultRa
 // OCLHitGround, DelayFromGroundToFinalDeath, CrashAvoidKindOfs). The base
 // call resolves to the rowed SlowDeath proc in this same TU; factory
 // 0x24B5D1 pushes this proc VA.
-class GiantBirdSlowDeathBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/GiantBirdSlowDeathBehaviorModuleData.h"
 
 // Chained proc: ?buildFieldParse@ClearanceTestingSlowDeathBehaviorModuleData@@,
 // retail 0x00483C1A, 27 bytes. Calls the rowed SlowDeath base proc above,

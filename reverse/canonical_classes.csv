@@ -1109,3 +1109,4 @@ BoneFXUpdate,Code/GameEngine/Include/GameLogic/Module/BoneFXUpdateClass.h,existi
 Rva0073F4F3,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0073F4F3.h,existing header; contract class_contracts/Rva0073F4F3.json; 4/7 sampled units adopt
 Rva002BBBE7,Code/GameEngine/Include/GameLogic/Rva002BBBE7.h,existing header; contract class_contracts/Rva002BBBE7.json; 5/7 sampled units adopt
 Rva000C3886,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000C3886.h,existing header; contract class_contracts/Rva000C3886.json; 5/7 sampled units adopt
+GiantBirdSlowDeathBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GiantBirdSlowDeathBehaviorModuleData.h,existing header; contract class_contracts/GiantBirdSlowDeathBehaviorModuleData.json; 3/6 sampled units adopt

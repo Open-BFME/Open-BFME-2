@@ -1255,11 +1255,7 @@ FIELD_PROC(BezierProjectileBehaviorModuleData, (unsigned int)&g_00C41B58, Rva004
 // OCLHitGround, DelayFromGroundToFinalDeath, CrashAvoidKindOfs). The base
 // call resolves to the rowed SlowDeath proc in this same TU; factory
 // 0x24B5D1 pushes this proc VA.
-class GiantBirdSlowDeathBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/GiantBirdSlowDeathBehaviorModuleData.h"
 
 void GiantBirdSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

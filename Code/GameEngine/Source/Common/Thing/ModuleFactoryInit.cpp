@@ -259,7 +259,7 @@ class GettingBuiltBehavior { public: static Module *friend_newModuleInstance(Thi
 class GiantBirdAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GiantBirdAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GiantBirdSlowDeathBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class GiantBirdSlowDeathBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/GiantBirdSlowDeathBehaviorModuleData.h"
 class GiveOrRestoreUpgradeSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GiveOrRestoreUpgradeSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GiveUpgradeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
