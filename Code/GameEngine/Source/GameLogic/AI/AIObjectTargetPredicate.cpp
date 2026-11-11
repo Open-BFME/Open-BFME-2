@@ -17,7 +17,7 @@ class Weapon {public:bool isWithinAttackRange(const Object*,const Object*,float,
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/ThingTemplate.h"
-class Rva004C5772CmpBoolField {public:bool get()const;};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 class Rva0028F326Owner {public:unsigned char rva0028F326(unsigned,float);};
 class Object {public:
  bool testStatus(ObjectStatusTypes)const;int rva0028B511()const;float getVisionRange()const;

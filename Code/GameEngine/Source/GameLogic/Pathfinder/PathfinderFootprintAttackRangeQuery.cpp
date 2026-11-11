@@ -37,7 +37,7 @@ protected:
  Module *findModule(NameKeyType)const;
 };
 class Rva00460C73FloatChase32Field {public:float get()const;};
-class Rva004C5772CmpBoolField {public:bool get()const;};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 #include "../../Common/Thing/thing.h"
 class DynamicPortalBehaviourModuleData {public:char pad[0x144];Coord3D m_144;};
 class DynamicPortalBehaviour {public:static Module *rva004608E0(Object*);void rva00460CBA(Coord3D*);void *m_vptr;const DynamicPortalBehaviourModuleData *m_moduleData;Object *m_object;};

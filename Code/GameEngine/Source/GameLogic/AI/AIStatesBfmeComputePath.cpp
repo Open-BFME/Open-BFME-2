@@ -893,11 +893,7 @@ Bool AIMoveToStateSA::computePath()
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
-class Rva004C5772CmpBoolField
-{
-public:
-	Bool get() const;
-};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 
 class AIAttackMeleeApproachState : public AIInternalMoveToState
 {

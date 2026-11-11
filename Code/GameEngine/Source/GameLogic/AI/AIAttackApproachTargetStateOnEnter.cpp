@@ -186,11 +186,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 
 // The SiegeDeploySpecialPower module's rowed bool getter (0x004C5772).
-class Rva004C5772CmpBoolField
-{
-public:
-	Bool get() const;
-};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 
 class PolygonTrigger;
 class AttackPriorityInfo;

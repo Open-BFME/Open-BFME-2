@@ -51,11 +51,7 @@ class Weapon;
 class Rva002C9B80Owner;
 class LocomotorSet;
 
-class Rva004C5772CmpBoolField
-{
-public:
-	bool get() const;
-};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

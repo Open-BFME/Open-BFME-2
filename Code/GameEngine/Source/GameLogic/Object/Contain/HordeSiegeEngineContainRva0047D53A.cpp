@@ -34,7 +34,7 @@ class Object:public Thing {protected:friend class HordeSiegeEngineContain;Module
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
-class Rva004C5772CmpBoolField {public:bool get() const;};
+#include "../../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 class Rva00463509 {public:void removeFromContain(Object*,bool);};
 class HordeTransportContain {public:virtual void exitObjectViaDoor(Object*,ExitDoorType);};
 template<int N>class ExitSlots:public ExitSlots<N-1>{public:virtual void gap(char(*)[N]);};template<>class ExitSlots<0>{};

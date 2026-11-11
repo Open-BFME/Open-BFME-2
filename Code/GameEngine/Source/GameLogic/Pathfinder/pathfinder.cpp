@@ -4611,7 +4611,7 @@ class Gen_003D5670 {public:Gen_003D5670(int,int,int,int,int,int,unsigned char,un
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
-class Rva004C5772CmpBoolField {public:bool get()const;};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 // Native 0x002EEA8A..0x002EED41, RET 20; WB 0x00D69640 and its
 // IterateCircular3 diagnostic prove this expanding-ring search. The callback
 // first validates a cell, then ranks successful cells by squared distance.

@@ -482,11 +482,7 @@ enum NameKeyType
 class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva004C5772CmpBoolField
-{
-public:
-    bool get() const;
-};
+#include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 #include "../../../Include/Common/Module.h"
 class ScriptConditions;
 class Parameter

@@ -203,7 +203,7 @@ struct AICommandParms {
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/Common/ThingTemplate.h"
-class Rva004C5772CmpBoolField {public:bool get()const;};
+#include "../../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 class ModelConditionFlags {public:
  unsigned int test(unsigned int bit)const{return m_words[bit>>5]&(1U<<(bit&0x1f));}
  void clear(unsigned int bit){m_words[bit>>5]&=~(1U<<(bit&0x1f));}
