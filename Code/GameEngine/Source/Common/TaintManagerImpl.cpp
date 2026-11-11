@@ -251,7 +251,7 @@ private:
 
 // 0x002B2964: [ecx+0xB0] -> Rva0020E3D6::rva0020E3D6(void *), passing the
 // one stack argument through to the callee's ret 4.
-class Rva0020E3D6 { public: void rva0020E3D6(void *arg); };
+#include "../../Include/Common/Rva0020E3D6.h"
 
 BFME_LITERAL_NAME_GETTER(Rva006C0990Named, "TaintManager")
 

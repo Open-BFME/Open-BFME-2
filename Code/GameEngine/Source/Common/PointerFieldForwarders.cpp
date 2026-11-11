@@ -72,7 +72,7 @@ bool Rva00262377Owner::rva00262377() const { return m_target->isContactWeapon();
 
 // 0x002B2964: [ecx+0xB0] -> Rva0020E3D6::rva0020E3D6(void *), passing the
 // one stack argument through to the callee's ret 4.
-class Rva0020E3D6 { public: void rva0020E3D6(void *arg); };
+#include "../../Include/Common/Rva0020E3D6.h"
 class Rva002B2964Owner
 {
 public:

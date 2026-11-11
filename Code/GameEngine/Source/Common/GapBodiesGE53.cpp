@@ -121,11 +121,7 @@ public:
 	void rva003F15A1(void *value);							// 0x003F15A1
 };
 
-class Rva0020E3D6
-{
-public:
-	void rva0020E3D6(void *value);
-};
+#include "../../Include/Common/Rva0020E3D6.h"
 
 void Rva0020E3D6::rva0020E3D6(void *value)
 {
