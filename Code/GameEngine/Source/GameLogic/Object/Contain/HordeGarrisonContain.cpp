@@ -620,42 +620,7 @@ public:
 // --- 0x0030B0A3 (64B): print through own slot 24 at the current column
 // (+0x04 plus the +0x14 margin) and line (+0x08), then advance them over
 // the text.
-class Rva0030B0A3
-{
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void s8();
-	virtual void s9();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual void s19();
-	virtual void s20();
-	virtual void s21();
-	virtual void s22();
-	virtual void s23();
-	virtual void s24(int x, int y, const char *text);
-	virtual void print(const char *text);
-private:
-	int m_col;												// +0x04
-	int m_line;												// +0x08
-	int m_0C;
-	int m_10;
-	int m_margin;											// +0x14
-};
+#include "../../../../Include/Common/Rva0030B0A3.h"
 
 // --- 0x003ADE15 (29B): clone into a fresh 0x18-byte copy (rowed copy ctor
 // 0x003ADE32).

@@ -1,0 +1,212 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0030B0A3",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 4,
+  "view_sizes": {
+   "24": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_col",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_line",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_margin",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 24,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "s0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "s1()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "s10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "s11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "s12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "s13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "s14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "s15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "s16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "s17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "s18()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "s19()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "s2()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "s20()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "s21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "s22()"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "s23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "s24(int,int,char*)"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "print(char*)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "s3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "s4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "s5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "s6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "s7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "s8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "s9()"
+  }
+ }
+}
