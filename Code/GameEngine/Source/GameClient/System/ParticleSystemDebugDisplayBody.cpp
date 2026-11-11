@@ -48,7 +48,7 @@ static inline FXParticleSystem::ParticleSystemTemplate *getTemplate(const Partic
 static inline int getParticleCount(const ParticleSystem *system) { return ((Rva001FA04BParticleModule *)system->m_A4)->getCount(); }
 static inline float getCost(const ParticleSystem *system) { return system->m_AC; }
 #include "../../../Include/Common/RvaSmartPtr12.h"
-class Rva0004CCFF {public:void *destroyDelete(unsigned int);};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0004CCFF.h"
 namespace _STL {static __forceinline void _Destroy(RvaSmartPtr12 *p){((Rva0004CCFF *)p)->destroyDelete(0);}}
 #include <list>
 // Compare typed nodes locally; retail inlines these comparisons.

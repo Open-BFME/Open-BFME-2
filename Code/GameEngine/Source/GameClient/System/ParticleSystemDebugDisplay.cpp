@@ -40,7 +40,7 @@ struct Rva001FA04BParticleModule {
 #include "../../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make001FCBD7();
 #include "../../../Include/Common/RvaSmartPtr12.h"
-class Rva0004CCFF {public:void *destroyDelete(unsigned int);};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0004CCFF.h"
 // Native list clear1F65AF destroys the12B value through4CCFF(flags0).
 // Keep this observed cleanup ABI without claiming a virtual pointer layout.
 namespace _STL {static __forceinline void _Destroy(RvaSmartPtr12 *p){((Rva0004CCFF *)p)->destroyDelete(0);}}

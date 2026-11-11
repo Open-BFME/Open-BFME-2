@@ -2,11 +2,7 @@
 // ?Rva001F63C9Erase@@YGXPAPAXPAURva001F63C9Node@@@Z @0x001F63C9 44B
 // Evidence: unlink via Next at +0 Prev at +4 destroys 12B value at +8 via rowed destroyDelete 0x0004CCFF with flags 0 frees node via rowed _free 0x00030830 stores Next into *out; caller 0x001F8144 passes list plus node; shape from Rva004168D3Erase plus EraseTargetListNode0073EFFC.
 #include <stdlib.h>
-class Rva0004CCFF
-{
-public:
-	void *destroyDelete(unsigned int flags);
-};
+#include "Rva0004CCFF.h"
 
 struct Rva001F63C9Node
 {
