@@ -7,7 +7,12 @@
 // lane; callees strncpy IAT 0x00BBA620 strlen thunk 0x00629170 _mbscpy thunk
 // 0x00629176 rowed; caller at 0x00447D3F; neighbours share flags.
 #include <string.h>
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
+// Retail reaches _mbscpy through its direct-call import thunk.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 
 // WorldBuilder NetworkBufferAppend, WB VA 0x014A7E60 (align lead, score 1.0).
 char *__cdecl NetworkBufferAppend(char *dst, const char *src, char *limit)
@@ -23,7 +28,8 @@ char *__cdecl NetworkBufferAppend(char *dst, const char *src, char *limit)
 			return limit;
 		}
 	} else {
-		_mbscpy(dst, src);
+		_mbscpy(reinterpret_cast<unsigned char *>(dst),
+			reinterpret_cast<const unsigned char *>(src));
 	}
 	return dst + strlen(src) + 1;
 }
