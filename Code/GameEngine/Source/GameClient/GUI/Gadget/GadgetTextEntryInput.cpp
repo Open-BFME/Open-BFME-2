@@ -117,11 +117,7 @@ enum
 
 // Native calls at the documented setter sites target the already rowed
 // Rva00432AEB provider (same thiscall int(int) ABI); use its linker identity.
-class Rva00432AEB
-{
-public:
-	Int rva00432AEB(Int value);
-};
+#include "../../../../Include/GameClient/Rva00432AEB.h"
 
 struct EntryData
 {

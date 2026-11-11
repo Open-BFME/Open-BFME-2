@@ -96,7 +96,7 @@ protected:
 // Pinned 0x0054C99A (unrowed; closes the box) names this view of the same
 // object; Show passes its own this.
 class Rva0054C99AImpl : public Rva0054CFB8Target { public: void rva0054C99A(int); };
-class Rva00432AEB { public: int rva00432AEB(int); };
+#include "../../../../../Include/GameClient/Rva00432AEB.h"
 #include "../../../../../Include/GameClient/Rva0057CC15Ref.h"
 // The Apt delegates the box ctor 0x0054CC35 binds by name (retail literals
 // "_OnButtonOk".."_OnHidden", in this address order); WB names the four
