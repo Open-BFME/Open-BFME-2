@@ -3233,7 +3233,7 @@ struct Rva002BB15FCoord3D {float x,y,z;};
 class Vector3; class Rva002BF4F3 {public: bool rva002BF5B0(const Vector3 *,Vector3 *);};
 class Eva;extern Eva *TheEva;
 #include "../../../../Include/GameClient/Eva.h"
-class LivingWorldRegionEffectsManager {public: void SyncRegion(int);};
+#include "../../../../Include/Common/LivingWorldRegionEffectsManager.h"
 struct LivingWorldManagerEffectsView {char pad000[0x268];LivingWorldRegionEffectsManager *effects;};
 class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;
 struct Rva002B37B4P1;struct Rva002B37B4P2;
