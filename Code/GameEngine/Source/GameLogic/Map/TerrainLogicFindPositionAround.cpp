@@ -22,8 +22,8 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-#define TRUE true
-#define FALSE false
+// platformsdk
+#include <windows.h>
 #define TWO_PI 6.28318530718f
 #define RANDOM_START_ANGLE -99999.9f
 
@@ -60,10 +60,13 @@ extern TerrainLogic *TheTerrainLogic;
 
 extern GameLogic *TheGameLogic;
 
-typedef void FILE;
+// <stdio.h> without dllimport: retail calls the game's own _fprintf thunk
+// (0x002CEC42) through REL32, not the CRT stream import.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern "C" FILE *theLogicRandomLogFile;
 extern bool g_bfmeDockingTraceActive;
-extern "C" int fprintf( FILE *, const char *, ... );
 #define bfmeRetailCritterDesyncLog fprintf
 
 static Real ringSpacing = 5.0f;
