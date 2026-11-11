@@ -2,7 +2,11 @@
 
 typedef unsigned long UnsignedInt;
 
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void *criticalSection);
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
+#include <time.h>
 
 class WatchdogCriticalSection
 {
@@ -82,7 +86,7 @@ Watchdog::Watchdog(int timeout, int warningInterval, int warningDelay) :
 	{
 		m_timeout = 1;
 	}
-	InitializeCriticalSection(&m_criticalSection);
+	InitializeCriticalSection((CRITICAL_SECTION *)&m_criticalSection);
 }
 
 // Counter suppression and heartbeat refresh (0x00225476, 0x00225492,
