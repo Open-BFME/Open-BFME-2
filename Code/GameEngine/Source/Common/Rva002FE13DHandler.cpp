@@ -9,11 +9,7 @@ enum Relationship
 
 class Object;
 class Player;
-class Rva00390533
-{
-public:
-	bool rva00390533();
-};
+#include "../../Include/GameLogic/Rva00390533.h"
 
 struct FlagBlock
 {

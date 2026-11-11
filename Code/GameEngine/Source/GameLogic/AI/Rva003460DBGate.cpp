@@ -14,10 +14,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_11 = 0x11
 };
 
-struct Rva00390533
-{
-	bool rva00390533();
-};
+#include "../../../Include/GameLogic/Rva00390533.h"
 
 struct Rva003460DBFlags
 {

@@ -834,11 +834,7 @@ private:
 };
 
 // Physics flag-pair check (0x00390533), pinned under this name.
-class Rva00390533
-{
-public:
-	Bool rva00390533();
-};
+#include "../../../Include/GameLogic/Rva00390533.h"
 
 Bool Rva0034311ECheck(Object *obj);
 Bool rva003430A3(Object *source, Object *victim, Weapon *weapon);

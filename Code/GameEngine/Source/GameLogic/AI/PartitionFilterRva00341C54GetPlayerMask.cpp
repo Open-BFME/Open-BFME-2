@@ -14,7 +14,7 @@ struct FilterCoordCopy : Coord3D
 {
  __forceinline FilterCoordCopy(const Coord3D &p) { x=p.x; y=p.y; z=p.z; }
 };
-class Rva00390533{public:bool rva00390533();};
+#include "../../../Include/GameLogic/Rva00390533.h"
 class Object
 {
 public:
