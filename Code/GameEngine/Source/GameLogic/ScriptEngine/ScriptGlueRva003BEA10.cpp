@@ -47,11 +47,7 @@ struct Rva00372571Params
 };
 
 #include "../../../Include/GameLogic/AIGroup.h"
-class BfmeC986
-{
-public:
-	void groupGatherAndMoveInFormationToPosition(int pos, int a, int b, int c);
-};
+#include "../../../Include/GameLogic/BfmeC986.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

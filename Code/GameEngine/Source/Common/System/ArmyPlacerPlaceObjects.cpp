@@ -120,7 +120,7 @@ struct Rva00372571Params;
 #include "../../../Include/GameLogic/AIGroup.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI*TheAI;
-class BfmeC986 {public:void bfmeGo986C(int,int,int,int);};
+#include "../../../Include/GameLogic/BfmeC986.h"
 enum NameKeyType{NAMEKEY_INVALID=0};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;

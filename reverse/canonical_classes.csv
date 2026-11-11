@@ -937,3 +937,4 @@ Rva003FF0E7DwordSlot,Code/GameEngine/Include/GameNetwork/Rva003FF0E7DwordSlot.h,
 Rva005F22D2,Code/GameEngine/Include/GameClient/Rva005F22D2.h,existing header; contract class_contracts/Rva005F22D2.json; 7/9 sampled units adopt
 Glo012F1028Type,Code/GameEngine/Include/Common/Glo012F1028Type.h,existing header; contract class_contracts/Glo012F1028Type.json; 6/9 sampled units adopt
 Rva004C5772CmpBoolField,Code/GameEngine/Include/GameLogic/Rva004C5772CmpBoolField.h,existing header; contract class_contracts/Rva004C5772CmpBoolField.json; 9/9 sampled units adopt
+BfmeC986,Code/GameEngine/Include/GameLogic/BfmeC986.h,existing header; contract class_contracts/BfmeC986.json; 6/8 sampled units adopt

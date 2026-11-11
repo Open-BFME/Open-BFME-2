@@ -154,7 +154,7 @@ class AITactic;
 
 #include "../../../../../Include/GameLogic/AIGroup.h"
 
-class BfmeC986 { public: void groupGatherAndAttackInFormationToPosition(int, int, int, int); };
+#include "../../../../../Include/GameLogic/BfmeC986.h"
 
 #include "../../../../../Include/GameLogic/AI.h"
 

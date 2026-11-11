@@ -32,11 +32,7 @@ class Object;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class BfmeC986
-{
-public:
-	void groupGatherAndAttackInFormationToPosition(int a, int b, int c, int d);
-};
+#include "../../../Include/GameLogic/BfmeC986.h"
 
 enum CommandSourceType
 {

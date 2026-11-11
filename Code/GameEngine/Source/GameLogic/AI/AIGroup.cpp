@@ -1019,11 +1019,7 @@ Object *&list<Object*>::front() { return ((_Node *)this->_M_node._M_data->_M_nex
 
 #include "../../../Include/Common/Rva00295A0FCommands.h"
 
-class BfmeC986
-{
-public:
-	char privateGatherAndMoveInFormationToPosition(int pos, int a, int b, int c, int d);
-};
+#include "../../../Include/GameLogic/BfmeC986.h"
 
 //
 // ??_GAIGroup@@MAEPAXI@Z, retail 0x0036E8EA (28 bytes): slot 0
