@@ -24,10 +24,7 @@ public:
 };
 }
 
-struct Rva00281A06
-{
-	~Rva00281A06();
-};
+#include "../../Include/GameLogic/Rva00281A06.h"
 
 class Rva002827F3
 {

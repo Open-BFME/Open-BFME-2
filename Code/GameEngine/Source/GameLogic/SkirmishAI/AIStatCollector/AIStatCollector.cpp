@@ -323,7 +323,7 @@ bool vector<void*>::empty() const { return this->_M_start == this->_M_finish; }
 template <> __declspec(dllimport) __forceinline
 void vector<void*>::clear() { erase(begin(), end()); }
 }
-class Rva00281A06 { public: ~Rva00281A06(); };
+#include "../../../../Include/GameLogic/Rva00281A06.h"
 class Rva00281A76;
 class Rva004E02D7Owner
 {

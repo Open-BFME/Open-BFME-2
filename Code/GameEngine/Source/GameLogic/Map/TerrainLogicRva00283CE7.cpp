@@ -194,7 +194,7 @@ class CreateAHeroData;
 namespace _STL {
 template <> CreateAHeroData **find(CreateAHeroData **, CreateAHeroData **, CreateAHeroData *const&);
 }
-class Rva00281A06 { public: ~Rva00281A06(); };
+#include "../../../Include/GameLogic/Rva00281A06.h"
 class Rva00283114 { public: void rva00283114(void *value); };
 // The pointer search folds to the existing CreateAHeroData registry provider.
 // Only its pointer-equality ABI is reused; this does not identify these records
