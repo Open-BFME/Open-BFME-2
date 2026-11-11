@@ -32,11 +32,7 @@ struct Rva002A8AB1Record
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AITargetHeuristicEnemyStructure
-{
-public:
-	int isValidTarget(Thing *thing, void *owner);
-};
+#include "../../Include/Common/AITargetHeuristicEnemyStructure.h"
 
 int AITargetHeuristicEnemyStructure::isValidTarget(Thing *thing, void *owner)
 {

@@ -30,11 +30,7 @@ struct Rva002A8AB1Record
 // class key matches the data ledger primary ?TheSkirmishAIManager@@3PAVRva002A8F24@@A (Rva005EEA20Find.cpp).
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
-class AITargetHeuristicEnemyStructure
-{
-public:
-	int isValidTarget(Thing *thing, void *owner);
-};
+#include "../../Include/Common/AITargetHeuristicEnemyStructure.h"
 // WB 015025E0 names this body and independently corroborates both loops.
 // Target helper 572C95 is already rowed; its legacy int result is tested
 // through the low byte witnessed by the target and debug caller.

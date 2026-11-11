@@ -35,12 +35,7 @@ struct Record { Rva005C4AD1LeaField *units; void *reserved; Rva005C4AD1LeaField 
 class Object { public: char pad[0x38]; Coord3D pos; char pad44[0x74 - 0x44]; ObjectID id; };
 struct Thing;
 #include "../../../../../../Include/GameLogic/AITarget.h"
-class AITargetHeuristicEnemyStructure
-{
-public:
-	int isValidTarget(Thing *, void *);
-	void findBestTarget(AITarget *, Player *, Player *);
-};
+#include "../../../../../../Include/Common/AITargetHeuristicEnemyStructure.h"
 
 void AITargetHeuristicEnemyStructure::findBestTarget(AITarget *target, Player *attacker, Player *defender)
 {
