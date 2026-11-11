@@ -381,11 +381,7 @@ void Rva0042D87D::clear()
 	}
 }
 
-class Rva004E6935
-{
-public:
-	~Rva004E6935();
-};
+#include "../../Include/Common/Rva004E6935.h"
 
 class Rva004E6A1D
 {

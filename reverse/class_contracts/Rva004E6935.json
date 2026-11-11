@@ -1,0 +1,139 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004E6935",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "16": 1,
+   "36": 2
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "m_text",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6935Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6935Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6935Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "m_text.m_data": 1,
+    "text.m_data": 1,
+    "title.m_data": 1
+   },
+   "class": "Rva004E6935"
+  }
+ ],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {}
+}
