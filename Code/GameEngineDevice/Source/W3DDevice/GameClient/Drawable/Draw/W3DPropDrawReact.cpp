@@ -46,11 +46,7 @@ enum DrawableID
 
 // Drawable::getScale (+0x200) and Drawable::getID are the folded field getters rowed at
 // 0x000788D3 and 0x0055A88B under opaque holder names; the calls use those rows.
-class Rva000788D3FloatField
-{
-public:
-	Real get( void ) const;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000788D3FloatField.h"
 class Rva0055A88BDwordField
 {
 public:

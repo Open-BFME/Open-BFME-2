@@ -278,7 +278,7 @@ RenderObjClass *Rva00137364CreateRenderObj(const char *name, Real scale, const R
 class Rva002793AF { public: void rva002793AF(const AsciiString &name); };
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000BC9B1.h"
 void Rva000B5179Apply(void *state, void *arg, void *renderObject);
-class Rva000788D3FloatField { public: Real get() const; };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000788D3FloatField.h"
 struct Rva000C3886Range;
 struct Rva000C3886Obj;
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000C3886.h"

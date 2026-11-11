@@ -204,7 +204,7 @@ public:
 
 class Object { public: int getIndicatorColor() const; };
 #include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
-class Rva000788D3FloatField { public: float get() const; };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000788D3FloatField.h"
 
 class Drawable
 {

@@ -174,11 +174,7 @@ public:
 
 // Drawable::getScale is ICF-folded onto the matched +0x200 float getter row
 // at 0x000788D3 (DispFloatFieldGetters.cpp); called here by that row name.
-class Rva000788D3FloatField
-{
-public:
-	float get() const;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000788D3FloatField.h"
 
 class Drawable
 {

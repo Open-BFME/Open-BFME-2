@@ -266,11 +266,7 @@ struct TBuffSlot
 };
 // Source argument views: +0x441 flag, float getter 0x000788D3 (+0x200), position getter
 // 0x002763E6 (rowed under the address-derived Drawable name).
-class Rva000788D3FloatField
-{
-public:
-	float get() const;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000788D3FloatField.h"
 #include "../../../Include/GameClient/Drawable.h"
 int g_012F801C;	// 0x009EBC38 (live-instance counter bumped by the ctor)
 struct TBuffSource
