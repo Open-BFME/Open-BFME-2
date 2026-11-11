@@ -30,7 +30,7 @@ static __forceinline bool cihASChanged(const AptCIH *cih){return (((const unsign
 static __forceinline int cihType(const AptCIH *cih){return ((const Rva006DBB30SarDwordField *)cih)->get();}
 static __forceinline AptCharacterInst *cihInst(const AptCIH *cih){return (AptCharacterInst *)cih->field4C;}
 static __forceinline AptCharacterInst *cihSpriteInstBase(const AptCIH *cih){if(!cih->IsSpriteInstBase()){g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}return (AptCharacterInst *)cih->field4C;}
-class BfmeSubmitter1283 {public:void bfmeSubmitColors1283(int,int,int,int,int,int,int,const unsigned int*,int,int,int);};
+#include "BfmeSubmitter1283.h"
 struct AptDisplayListState {AptCIH *head;};
 class AptPseudoDisplayList {public:AptPseudoCIH_t *head;AptCIH *parent;};
 class AptDisplayList {public:AptDisplayListState *state;AptCIH *rva006F91F0(AptPseudoCIH_t*,AptCIH*);__declspec(noinline) AptCIH *AddToDisplayList(AptNativeHash*,AptPseudoCIH_t*,AptCIH*);void bfmeProcess1279(void*);__declspec(noinline) void rva006F9350(AptNativeHash*,AptCIH*,AptPseudoCIH_t*,AptCIH*);void mergeState(AptPseudoDisplayList*,AptNativeHash*,bool);};

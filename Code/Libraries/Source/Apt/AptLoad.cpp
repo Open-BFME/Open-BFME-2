@@ -247,11 +247,7 @@ class AptLinker;
 #include "AptNativeHash.h"
 #include "AptDisplayList.h"
 class AptCIH;
-class BfmeSubmitter1283
-{
-public:
-	void *bfmeSubmit1283(AptCIH *, int, int, int, int, int, int, float *, int, int, int, int);
-};
+#include "BfmeSubmitter1283.h"
 class Rva006CFCD0 { public: bool isSpriteInstBase() const; };
 class BfmeNestedBE;
 BfmeNestedBE *__cdecl bfmeUnlinkNestedBE(BfmeNestedBE *);

@@ -2744,7 +2744,7 @@ void AptActionInterpreter::_FunctionAptActionCallMethod(AptActionInterpreter *co
 // gives retail's ESI save at entry (a nested if shrink-wraps it).
 class Rva006E3C80 { public: int rva006E3C80(); };
 class AptAnimationPoolData { public: void _tickNewInsts(); };
-class BfmeSubmitter1283 { public: void *bfmeSubmit1283(AptCIH*,int,int,int,int,int,int,float*,int,int,int,int); };
+#include "BfmeSubmitter1283.h"
 class BfmeQuery1279 { public: void bfmeQuery1279(int,int,void**,void**); };
 struct Rva007092F0Character { char prefix[0x2c]; int flag2c; };
 void AptActionInterpreter::rva007092F0(AptCIH *context,AptValue *with,AptValue *source,AptValue *target,int depth,AptValue *init)

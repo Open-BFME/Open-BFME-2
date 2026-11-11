@@ -386,12 +386,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 struct AptCharacter;
 #include "AptDisplayList.h"
 
-class BfmeSubmitter1283
-{
-public:
-    void *bfmeSubmit1283(AptCIH *item, int a1, int pCharacter, int a3, int a4, int a5, int a6,
-        float *copy0, int copy1, int v9, int v10, int hash);
-};
+#include "BfmeSubmitter1283.h"
 
 struct BfmeSubmitCopy8
 {
