@@ -110,11 +110,7 @@ public:
 	void set(UnsignedShort value);	// word at +0x1C
 };
 
-class Rva004D632D
-{
-public:
-	AsciiString rva004D632D() const;	// the real file name
-};
+#include "../../Include/GameNetwork/Rva004D632D.h"
 
 class NetFileCommandMsg : public NetCommandMsg
 {

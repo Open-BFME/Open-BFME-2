@@ -41,11 +41,7 @@ inline void NetCommandMsg::setID(unsigned short id)
 }
 
 // ZH's setRealFilename(AsciiString).
-class Rva004D632D
-{
-public:
-	void rva004D6250(AsciiString filename);
-};
+#include "../../Include/GameNetwork/Rva004D632D.h"
 
 // Ledger names of the folded field setters.
 class Rva004D5978WordSlot

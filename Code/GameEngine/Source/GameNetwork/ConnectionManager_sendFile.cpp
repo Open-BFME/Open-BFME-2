@@ -45,11 +45,7 @@ private:
 };
 
 // ZH's setRealFilename(AsciiString).
-class Rva004D632D
-{
-public:
-	void rva004D6250(AsciiString filename);
-};
+#include "../../Include/GameNetwork/Rva004D632D.h"
 
 class NetFileCommandMsg
 {
