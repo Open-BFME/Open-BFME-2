@@ -43,7 +43,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 
 
 
-class Rva00226856 { public: ~Rva00226856(); };
+#include "../../../../GameEngine/Include/Common/Rva00226856.h"
 struct Rva0022CCEFRecord {Rva0022CCEFRecord();Rva0022CCEFRecord(const Rva0022CCEFRecord&);// Destruction is the rowed ??1Rva00226856, reached by a qualified call.
 __declspec(dllimport) __forceinline ~Rva0022CCEFRecord() { ((Rva00226856 *)this)->Rva00226856::~Rva00226856(); }Rva0022CCEFRecord&operator=(const Rva0022CCEFRecord&);char bytes[1];};
 // Instantiate only the tree's node eraser, whose node destruction emits the rowed

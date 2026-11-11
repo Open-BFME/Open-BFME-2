@@ -108,11 +108,7 @@ public:
 
 #include "../../Include/GameClient/Rva00223591.h"
 
-class Rva00226856
-{
-public:
-	~Rva00226856();
-};
+#include "../../Include/Common/Rva00226856.h"
 
 class Rva002268B0
 {
