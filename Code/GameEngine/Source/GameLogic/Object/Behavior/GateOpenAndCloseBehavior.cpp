@@ -168,11 +168,7 @@ public:
 	unsigned char m_pad[4];
 };
 
-class BfmeObjF9
-{
-public:
-	void setFlag(const BfmeStrF9 &name, char flag);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjF9.h"
 
 // The object's template as this unit reads it: +0xB0 the gate's cylinder
 // radius, +0x108 the flag byte the rowed test 0x00498B8B masks with 4.

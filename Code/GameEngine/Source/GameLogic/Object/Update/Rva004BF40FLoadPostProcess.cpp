@@ -42,11 +42,7 @@ private:
 	BfmeObjE15 m_shapes; // +0xA8
 };
 class BfmeStrF9;
-class BfmeObjF9
-{
-public:
-	void rva0087FA50(const BfmeStrF9 &name, char flag);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjF9.h"
 class UpdateModule
 {
 protected:

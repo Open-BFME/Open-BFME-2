@@ -736,7 +736,7 @@ template <> void __unguarded_insertion_sort_aux<S4SortElem20 *, S4SortElem20, S4
 template void __final_insertion_sort<S4SortElem20 *, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4Cmp002EB8E0);
 }
 class BfmeStrF9 { public: void *m_data; };
-class BfmeObjF9 { public: void setFlag(const BfmeStrF9 &name, char flag); };
+#include "../../../Include/GameLogic/Module/BfmeObjF9.h"
 namespace _STL
 {
 

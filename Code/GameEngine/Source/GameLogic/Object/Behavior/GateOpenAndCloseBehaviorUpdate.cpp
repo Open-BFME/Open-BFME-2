@@ -68,11 +68,7 @@ public:
 	unsigned char m_pad[4];
 };
 
-class BfmeObjF9
-{
-public:
-	void setFlag(const BfmeStrF9 &name, char flag);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjF9.h"
 
 class Rva0028BD17Owner
 {

@@ -1897,11 +1897,7 @@ public:
 
 class BfmeStrF9;
 
-class BfmeObjF9
-{
-public:
-	void setFlag(const BfmeStrF9 &name, char flag);
-};
+#include "../../../Include/GameLogic/Module/BfmeObjF9.h"
 
 class Rva004DC1BF
 {

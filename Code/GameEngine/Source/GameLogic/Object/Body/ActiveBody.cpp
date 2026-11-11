@@ -234,11 +234,7 @@ public:
 	BfmeShapeE15 *m_finish;			// +0x30
 };
 class BfmeStrF9;
-class BfmeObjF9
-{
-public:
-	void rva0087FA50(const BfmeStrF9 &name, char flag);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjF9.h"
 struct BfmeCopyElementA;
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
