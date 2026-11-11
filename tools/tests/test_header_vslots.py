@@ -84,14 +84,42 @@ def test_inherited_slot_is_not_re_emitted(base_header):
     assert not any("xfer" in d or "s00" in d for d in own)
 
 
-def test_pure_slot_keeps_its_purity_by_majority(base_header):
+def test_pure_slot_is_pure_when_any_view_spells_it_pure(base_header, monkeypatch):
+    monkeypatch.setattr(lane, "_matched_index", lambda: {})
     pure = "class Derived : public Base { public: virtual NameKeyType getKey() const = 0; };\n"
     plain = "class Derived : public Base { public: virtual NameKeyType getKey() const; };\n"
+    inline = "class Derived : public Base { public: virtual NameKeyType getKey() const { return 0; } };\n"
     c = contract({2: "getKey()"})
-    own, _, problems = declare(c, {"a.cpp": pure, "b.cpp": pure, "c.cpp": plain}, base_header)
-    assert problems == [] and own == ["virtual NameKeyType getKey() const = 0;"]
+    for views in ({"a.cpp": pure, "b.cpp": pure, "c.cpp": plain}, {"a.cpp": pure, "c.cpp": plain},
+                  {"a.cpp": pure, "b.cpp": plain, "c.cpp": plain}):
+        own, _, problems = declare(c, views, base_header)
+        assert problems == [] and own == ["virtual NameKeyType getKey() const = 0;"]
+    # a pure spelling beside an inline body contradicts it: the class is held
+    _, _, problems = declare(c, {"a.cpp": pure, "b.cpp": inline, "c.cpp": inline}, base_header)
+    assert problems == ["slot2 getKey(): pure in one view, an inline body in another"]
+    # a matched row defines the member: `= 0` would put _purecall in its slot
+    monkeypatch.setattr(lane, "_matched_index", lambda: {"?getKey@Derived@@": ["?getKey@Derived@@UBEHXZ"]})
     _, _, problems = declare(c, {"a.cpp": pure, "c.cpp": plain}, base_header)
-    assert problems == ["slot2 getKey(): spellings tie"]
+    assert problems == ["slot2 getKey(): pure in a view, but a matched row defines it"]
+
+
+def test_rva00589079_e1_views_keep_the_pure_specifier(monkeypatch):
+    # The four views cd45be6a0c adopted (read at its parent): DeflectSpecialPower.cpp spells
+    # `= 0`, the other three leave it out. The majority vote declared `virtual void fe();`,
+    # an undefined virtual the link stubbed (round 13's stubbed.tsv).
+    monkeypatch.setattr(lane, "_matched_index", lambda: {})
+    pure = "class Rva00589079_E1\n{\npublic:\n\tvirtual void fe() = 0;\n};\n"
+    plain = "class Rva00589079_E1\n{\npublic:\n\tvirtual void fe();\n};\n"
+    views = {"DeflectSpecialPower.cpp": pure, "SiegeDeployHordeSpecialPowerXfer.cpp": plain,
+             "SiegeDeploySpecialPower.cpp": plain, "WeaponModeSpecialPowerUpdateBase.cpp": plain}
+    c = {"class": "Rva00589079_E1", "key": "class", "key_by": "majority", "size": 4, "size_by": "majority",
+         "bases": [], "fields": [{"kind": "VPTR", "name": "__vfptr", "offset": 0, "size": 4, "type": "void*"}],
+         "vslots": {"0": {"member": "fe()", "decided_by": "bytes"}}, "evidence": {}, "queue": []}
+    own, overrides, problems = lane.slot_declarations(c, sorted(views), read=views.__getitem__, known={})
+    assert problems == [] and own == ["virtual void fe() = 0;"]
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    for variant in ("data", "data+ctor", "data+methods", "data+includes"):
+        assert "virtual void fe() = 0;" in lane.generate(c, variant, {}, None, (own, overrides))
 
 
 @pytest.mark.parametrize("vslots,queue,expected", [

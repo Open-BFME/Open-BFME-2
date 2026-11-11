@@ -794,6 +794,114 @@ def test_generated_header_orders_destructor_last():
     assert text.index("Delete_This") < text.rindex("~RefCountClass")
 
 
+# The three views 2a5da69f56 adopted, read at its parent. The generated header
+# dropped their out-of-line destructor, so DestroyInstances.cpp emitted ??1 as a
+# COMDAT ANY copy beside retail's out-of-line one: P137's LNK2005.
+P137_VIEWS = {
+    "DestroyInstances.cpp": "class Rva0022304A\n{\npublic:\n\t~Rva0022304A();\n};\n"
+                            "class Rva0022CFE6\n{\npublic:\n\t~Rva0022CFE6();\n};\n",
+    "FamilyDeletingDtors_Rva0022CFE6.cpp": "class Rva0022CFE6 { public: ~Rva0022CFE6(); };\n"
+                                           "void famgenDelete(Rva0022CFE6 *p) { delete p; }\n",
+    "Rva0022D9B7Delete.cpp": "class Rva0022CFE6\n{\npublic:\n\t~Rva0022CFE6();\n};\n",
+}
+P137_CONTRACT = {"class": "Rva0022CFE6", "key": "class", "key_by": "bytes", "size": 8, "size_by": "majority",
+                 "bases": [], "vslots": {}, "queue": [],
+                 "fields": [{"kind": "S:AsciiString", "name": "m_head", "offset": 0, "size": 4,
+                             "type": "AsciiString"}]}
+
+
+def special(name, views, index=None, **kwargs):
+    return lane.special_declarations(name, sorted(views), read=views.__getitem__, index=index or {}, **kwargs)
+
+
+def test_rva0022cfe6_views_keep_their_out_of_line_destructor(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    carried, problems = special("Rva0022CFE6", P137_VIEWS)
+    assert problems == []
+    assert carried == [{"role": "dtor", "access": "public", "sig": "~", "text": "~Rva0022CFE6();"}]
+    methods = {"void clear()": "void clear() {}"}
+    for variant in ("data", "data+ctor", "data+methods", "data+includes", "data+ctor+copy"):
+        text = lane.generate(P137_CONTRACT, variant, methods, None, None, carried)
+        body = text[text.index("class Rva0022CFE6"):text.index("};")]
+        assert body.count("~Rva0022CFE6();") == 1
+        assert body.rstrip().endswith("~Rva0022CFE6();")       # the destructor stays last
+
+
+def test_special_members_keep_spelling_access_and_skip_what_another_part_declares(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    view = ("class Pod {\npublic:\n    explicit Pod(Real r);\n    Pod();\n    Pod(const Pod &other);\n"
+            "    Pod(const Coord3D &where);\n    Pod &operator = (const Pod &);\n    void setMode(int m = MODE_ON);\n"
+            "    ~Pod() {}\nprivate:\n    Pod(int a, int b);\n    float m_r;\n};\n")
+    other = ("class Pod {\npublic:\n    Pod(void);\n    Pod(Pod const &);\n    Pod& operator=(const Pod &that);\n"
+             "    ~Pod() {}\n    float m_r;\n};\n")
+    carried, problems = special("Pod", {"a.cpp": view, "b.cpp": other})
+    assert problems == []
+    # Pod(const Coord3D &) names a type the header lacks and has no implicit counterpart: left out
+    assert sorted((c["role"], c["access"], c["text"]) for c in carried) == [
+        ("assign", "public", "Pod &operator = (const Pod &);"), ("copy", "public", "Pod(const Pod &other);"),
+        ("ctor", "private", "Pod(int a, int b);"), ("ctor", "public", "explicit Pod(float r);"),
+        ("default", "public", "Pod();")]
+    contract = {"class": "Pod", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
+                "fields": [{"kind": "f4", "type": "float", "name": "m_r"}]}
+    methods = {"Pod&operator=(const Pod&)": "Pod& operator=(const Pod &that);"}
+    text = lane.generate(contract, "data+ctor+copy+methods", methods, None, None, carried)
+    body = text[text.index("class Pod"):text.index("};")]
+    assert "Pod() {}" not in body and "Pod(const Pod &that);" not in body   # the views' own spellings win
+    assert body.count("operator") == 1
+    assert body.index("private:") < body.index("Pod(int a, int b);")
+    assert "explicit Pod(float r);" in body.split("private:")[0]
+
+
+@pytest.mark.parametrize("views,index,slotted,why", [
+    ({"a.cpp": "class C { public: ~C(); int x; };\n", "b.cpp": "class C { public: ~C() {} int x; };\n"},
+     {}, (), "special ~C(): out of line in a.cpp, inline in b.cpp"),
+    ({"a.cpp": "class C { public: ~C(); int x; };\n", "b.cpp": "class C { public: virtual ~C(); int x; };\n"},
+     {}, (), "special ~C(): virtual in b.cpp only, not in a.cpp"),
+    ({"a.cpp": "class C { public: C(const C &); int x; };\n", "b.cpp": "class C { C(C const &); int x; };\n"},
+     {}, (), "special C(const C &): access disagrees (private, public)"),
+    ({"a.cpp": "class C { public: ~C(); int x; };\n", "b.cpp": "class C { public: int x; };\n"},
+     {}, (), "special ~C(): out of line in a.cpp, omitted by b.cpp and no matched row defines it"),
+])
+def test_views_that_disagree_on_a_special_member_hold_the_class(views, index, slotted, why):
+    carried, problems = special("C", views, index, slotted=slotted)
+    assert problems == [why] and carried == []
+
+
+def test_an_omitted_special_member_is_carried_when_the_ledger_defines_it():
+    views = {"a.cpp": "class C { public: ~C(); C(); int x; };\n", "b.cpp": "class C { public: int x; };\n"}
+    index = {"??1C@@": ["??1C@@QAE@XZ"], "??0C@@": ["??0C@@QAE@XZ"]}
+    carried, problems = special("C", views, index)
+    assert problems == [] and sorted(c["text"] for c in carried) == ["C();", "~C();"]
+    # a copy constructor row proves no default constructor
+    carried, problems = special("C", views, {"??1C@@": ["??1C@@QAE@XZ"], "??0C@@": ["??0C@@QAE@ABV0@@Z"]})
+    assert problems == ["special C(): out of line in a.cpp, omitted by b.cpp and no matched row defines it"]
+    # a destructor the slot declarations emit (virtual through a base) is theirs
+    carried, problems = special("C", {"a.cpp": "class C : public B { public: ~C(); };\n",
+                                      "b.cpp": "class C : public B { public: virtual ~C(); };\n"}, {}, slotted={"~"})
+    assert problems == [] and carried == []
+
+
+def test_run_refuses_views_that_disagree_on_a_special_member(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane.class_contract, "ROOT", tmp_path)
+    monkeypatch.setattr(lane.class_contract, "CONTRACTS", tmp_path / "contracts")
+    monkeypatch.setattr(lane.class_contract, "census", lambda name: ["a.cpp", "b.cpp"])
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    monkeypatch.setattr(lane, "_matched_index", lambda: {})
+    (tmp_path / "a.cpp").write_text("class C { public: ~C(); int x; };\n", encoding="utf-8")
+    (tmp_path / "b.cpp").write_text("class C { public: int x; };\n", encoding="utf-8")
+    path = lane.class_contract.contract_path("C")
+    path.parent.mkdir()
+    path.write_text(json.dumps({"class": "C", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh",
+                                "bases": [], "fields": [], "vslots": {}, "queue": []}), encoding="utf-8")
+    args = SimpleNamespace(name="C", header="C.h", generate=True, sample=None, seed=1, jobs=1, variants="data",
+                           apply=False)
+    monkeypatch.setattr(lane, "tournament", lambda *a, **k: pytest.fail("generated despite a disagreement"))
+    assert lane.run(args) == 2
+    assert "special-undeclarable" in lane.DECIDABLE         # repair_queue serves the held class
+
+
 def preview(source, before, after, clean=True):
     return (f"{source}: {'LINKS' if clean else 'does not link'}  "
             f"LINKED {before:,} -> {after:,} bytes (census 2026-10-27 at bf3dd31211; "

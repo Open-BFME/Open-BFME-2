@@ -13,6 +13,9 @@ PIPELINE (per class, in DEPENDENCY_ORDER):
   1. contract   tools/class_contract.py decides the ABI (rule order bytes ->
                 retail access -> retail vtable -> ZH -> majority; ties queue).
   2. header     generated from the contract, or the class's registered header.
+                Every variant declares the special members the views declare
+                out of line (special_declarations); views that disagree on one
+                hold the class.
   3. tournament 2-4 header variants (data only, + user default ctor, + the
                 views' non-special methods) are each gated against every unit;
                 the variant with the most passes is frozen. Byte-equivalent is
@@ -1198,6 +1201,193 @@ def view_methods(name, sources, known=()):
     return {sig: max(spellings, key=lambda m: ("{" in m, spellings[m])) for sig, spellings in seen.items()}
 
 
+# ---------------------------------------------------------------- special members
+#
+# A destructor, constructor or copy assignment that the views declare out of
+# line must be in the header. The byte gate cannot see one dropped: a unit that
+# destroys an instance compiles the implicit destructor and calls it at the
+# same place, so its rows match, but it now emits `??1C@@` as a COMDAT ANY copy
+# beside retail's out-of-line definition (COMDAT NODUPLICATES), and the link
+# stops on LNK2005 (P137). `??0` and `??4` carry the same risk. An inline
+# special member is no link risk (it is COMDAT ANY like the implicit one) and
+# stays out, as before. Views that disagree on a special member hold the class.
+
+ACCESS_LABEL = re.compile(r"^\s*(public|private|protected)\s*:(?!:)\s*")
+SPECIAL_QUALIFIERS = re.compile(r"^(?:(?:__declspec\(\w+\)|__forceinline|inline|explicit)\s+)*")
+# Roles with an implicit counterpart: dropping one of these is what the byte gate cannot see.
+IMPLICIT_ROLES = ("dtor", "default", "copy", "assign")
+
+
+def class_members(text, name):
+    """[(access, member)] of the top-level members the view of `name` in `text` declares,
+    comments stripped, each with the access label in force; None when `text` has no body."""
+    span = body_span(text, name)
+    if not span:
+        return None
+    code = re.sub(r"//[^\n]*|/\*.*?\*/", "", text[span[0]:span[1]], flags=re.S)
+    if "{" not in code:
+        return None
+    access = "public" if span[2] in ("struct", "union") else "private"
+    out = []
+    for member in split_members(code[code.index("{") + 1:code.rindex("}")]):
+        label = ACCESS_LABEL.match(member)
+        while label:
+            access, member = label.group(1), member[label.end():]
+            label = ACCESS_LABEL.match(member)
+        if member.strip():
+            out.append((access, member.strip()))
+    return out
+
+
+def special_role(member, short):
+    """The special-member role of a declaration (`dtor`, `default`, `copy`, `ctor`, `assign`,
+    `operator=`), `virtual` for a virtual one, or None for any other member."""
+    head = re.sub(r"\)\s*:.*$", ")", member.split("{")[0], flags=re.S)
+    head = SPECIAL_QUALIFIERS.sub("", head.strip())
+    if re.match(r"virtual\b", head):
+        return "virtual" if re.search(r"(~\s*%s|\boperator\s*=)\s*\(" % re.escape(short), head) else None
+    if re.match(r"~\s*%s\s*\(" % re.escape(short), head):
+        return "dtor"
+    if re.match(r"%s\s*\(" % re.escape(short), head):
+        types = param_types(head)
+        return "default" if not types else "copy" if types == [short + "&"] else "ctor"
+    if re.search(r"\boperator\s*=\s*\(", head):
+        return "assign" if param_types(head[head.index("operator"):]) == [short + "&"] else "operator="
+    return None
+
+
+def member_key(member, name):
+    """What one member is known by across its spellings: `~` for the destructor, a
+    constructor or `operator=` by its parameter types (`const X &o` and `X const&` are
+    one), any other member by its signature."""
+    short = name.split("::")[-1]
+    head = re.sub(r"\)\s*:.*$", ")", member.split("{")[0], flags=re.S)
+    head = SPECIAL_QUALIFIERS.sub("", re.sub(r"^(?:(?:__forceinline|inline)\s+)?virtual\s+", "",
+                                             SPECIAL_QUALIFIERS.sub("", head.strip())))
+    if "~" in head.split("(")[0]:
+        return "~"
+    if re.match(r"%s\s*\(" % re.escape(short), head):
+        return f"{short}({','.join(param_types(head))})"
+    assign = re.search(r"\boperator\s*=\s*\(", head)
+    if assign:
+        return f"operator=({','.join(param_types(head[assign.start():]))})"
+    return signature(member, name)
+
+
+def _matched_index():
+    """{`?member@Scope@@` prefix: [name]} of the matched ledger rows, read once per ledger state."""
+    try:
+        stat = LEDGER.stat()
+        state = (stat.st_mtime_ns, stat.st_size)
+    except OSError:
+        return {}
+    if _matched_index.cache[0] != state:
+        index = collections.defaultdict(list)
+        for row in class_contract.ledger_rows():
+            if "@@" in row["name"]:
+                index[row["name"][:row["name"].index("@@") + 2]].append(row["name"])
+        _matched_index.cache = (state, index)
+    return _matched_index.cache[1]
+
+
+_matched_index.cache = (None, {})
+
+
+def ledger_defines(name, role, member=None, index=None):
+    """Whether a matched ledger row defines `name`'s special member `role` (or method `member`)."""
+    scope = "@".join(reversed(name.split("::")))
+    prefix = {"dtor": "??1", "default": "??0", "copy": "??0", "assign": "??4"}.get(role)
+    key = f"{prefix}{scope}@@" if prefix else f"?{member}@{scope}@@"
+    names = (_matched_index() if index is None else index).get(key, ())
+    if role == "default":
+        return any(n.endswith("@XZ") for n in names)
+    if role in ("copy", "assign"):
+        return any(re.search(r"@A[AB][UV]0@@Z$", n) for n in names)
+    return bool(names)
+
+
+def special_declarations(name, sources, read=None, known=(), slotted=(), index=None):
+    """([{role, access, text, sig}] special members to declare out of line, [problem]).
+
+    A destructor, constructor or `operator=` some view declares without a body is
+    carried, spelled as most views spell it and with the views' access. A virtual one
+    belongs to the slot declarations; `slotted` names the members those already emit
+    (`~` for the destructor). The class is held (a problem) when the views disagree:
+    one declares the member out of line and another inline, virtual or with other
+    access, or, for a member with an implicit counterpart (destructor, default and
+    copy constructor, copy assignment), another view's body omits it and no matched
+    ledger row defines it. A constructor naming a type the header does not declare
+    cannot be spelled; it has no implicit counterpart, so it is left out."""
+    short = name.split("::")[-1]
+    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
+    views = {}
+    for source in sources:
+        try:
+            members = class_members(read(source), name)
+        except OSError:
+            continue
+        if members is None:
+            continue
+        found = collections.defaultdict(list)
+        for access, member in members:
+            role = special_role(member, short)
+            if role is None:
+                continue
+            spelled_member = member
+            for typedef, spelling in TYPEDEFS.items():
+                spelled_member = re.sub(r"\b%s\b" % typedef, spelling, spelled_member)
+            key = member_key(spelled_member, name)
+            found[key].append((role, access, "{" in member, re.sub(r"\s+", " ", spelled_member).strip()))
+        views[source] = found
+    out, problems = [], []
+    keys = sorted({k for found in views.values() for k, decls in found.items()
+                   if any(role != "virtual" for role, _, _, _ in decls)})
+    for key in keys:
+        if key in slotted:
+            continue                  # the slot declarations emit it as a virtual
+        decls = [(source, d) for source, found in views.items() for d in found.get(key, ())]
+        role = next(r for _, (r, _, _, _) in decls if r != "virtual")
+        outline = [(s, d) for s, d in decls if d[0] != "virtual" and not d[2]]
+        if not outline:
+            continue                  # inline everywhere: COMDAT ANY like the implicit member
+        what = outline[0][1][3].rstrip(" ;")
+        inline =sorted({s for s, d in decls if d[0] != "virtual" and d[2]})
+        virtual = sorted({s for s, d in decls if d[0] == "virtual"})
+        accesses = collections.Counter(d[1] for _, d in outline)
+        omitted = sorted(s for s, found in views.items() if key not in found)
+        if inline:
+            problems.append(f"special {what}: out of line in {outline[0][0]}, inline in {inline[0]}")
+            continue
+        if virtual:
+            problems.append(f"special {what}: virtual in {virtual[0]} only, not in {outline[0][0]}")
+            continue
+        if len(accesses) > 1:
+            problems.append(f"special {what}: access disagrees ({', '.join(sorted(accesses))})")
+            continue
+        if role in IMPLICIT_ROLES and omitted and not ledger_defines(name, role, index=index):
+            problems.append(f"special {what}: out of line in {outline[0][0]}, omitted by {omitted[0]} "
+                            f"and no matched row defines it")
+            continue
+        text = collections.Counter(d[3] for _, d in outline).most_common(1)[0][0]
+        if role not in IMPLICIT_ROLES:
+            words = set(re.findall(r"[A-Za-z_]\w*", text)) - PRIMITIVE_WORDS - {name, short} - set(known)
+            if any(w[0].isupper() for w in words) or re.search(r"=\s*(?!(?:true|false)\b)[A-Za-z_]",
+                                                                text.split("(", 1)[-1]):
+                continue              # names a type or default argument the header does not declare
+        out.append({"role": role, "access": next(iter(accesses)), "sig": key,
+                    "text": text if text.endswith(";") else text + ";"})
+    return out, problems
+
+
+def special_members(name, contract, sources, known=()):
+    """special_declarations for a contract: the members its slot declarations emit are theirs."""
+    slotted = set()
+    if contract.get("vslots"):
+        own, overrides, _ = slot_declarations(contract, sources)
+        slotted = {member_key(text, name) for text in own + overrides}
+    return special_declarations(name, sources, known=known, slotted=slotted)
+
+
 # ---------------------------------------------------------------- virtual slots
 #
 # A polymorphic class's layout includes its vtable, so the header must declare
@@ -1326,19 +1516,38 @@ def declaration_key(text):
 
 
 def pick_declaration(spellings):
-    """The majority declaration among `spellings` (Counter of text), or None on a tie.
+    """The majority declaration among `spellings` (Counter of text), or None on a tie or
+    when its views contradict each other's purity.
 
-    Votes are on the signature with purity; an inline body beats a bare
-    declaration of the same signature (units that inline it need the body)."""
+    Votes are on the signature. Purity is not voted: a view that spells `= 0` says the
+    member has no body, and a view that omits it only left the specifier out (dropping
+    it leaves an undefined virtual the link stubs), so the slot is pure when any view of
+    the winning signature spells it pure; one that also gives it an inline body
+    contradicts that. An inline body beats a bare declaration of the same signature
+    (units that inline it need the body)."""
     votes = collections.Counter()
     for text, count in spellings.items():
-        votes[declaration_key(text)] += count
+        votes[declaration_key(text)[0]] += count
     top = votes.most_common(2)
     if not top or (len(top) > 1 and top[0][1] == top[1][1]):
         return None
-    winners = {t: n for t, n in spellings.items() if declaration_key(t) == top[0][0]}
-    best = max(winners, key=lambda t: ("{" in t, winners[t], -len(t)))
+    winners = {t: n for t, n in spellings.items() if declaration_key(t)[0] == top[0][0]}
+    pure = {t: n for t, n in winners.items() if declaration_key(t)[1]}
+    if pure and any("{" in t for t in winners):
+        return None
+    best = max(pure or winners, key=lambda t: ("{" in t, winners[t], -len(t)))
     return best if best.endswith(("}", ";")) else best + ";"
+
+
+def slot_conflict(spellings):
+    """Why pick_declaration refused `spellings`: a tie, or a pure spelling beside an inline body."""
+    votes = collections.Counter()
+    for text, count in spellings.items():
+        votes[declaration_key(text)[0]] += count
+    top = votes.most_common(2)
+    if len(top) > 1 and top[0][1] == top[1][1]:
+        return "spellings tie"
+    return "pure in one view, an inline body in another"
 
 
 def base_slot_names(contract, known=None):
@@ -1359,13 +1568,14 @@ def rename_destructor(text, short):
     return re.sub(r"~\s*[A-Za-z_]\w*", "~" + short, text, count=1)
 
 
-def slot_declarations(contract, sources, read=None, known=None):
+def slot_declarations(contract, sources, read=None, known=None, index=None):
     """([own slot declaration, emit order], [override declaration], [problem]) for the contract's vslots.
 
     Own slots are the ones the contract decided (a derived contract holds only
     its introductions); a base's slots are never re-emitted, and a view's
     virtual whose name a registered base header declares is an override,
-    spelled by majority like an own slot."""
+    spelled by majority like an own slot. A pure own slot that a matched
+    ledger row defines (`index`: _matched_index's shape) is a problem."""
     name = contract["class"]
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
@@ -1392,9 +1602,13 @@ def slot_declarations(contract, sources, read=None, known=None):
         spellings = collections.Counter(text for found in views.values() for text in matching(found, want, member))
         text = pick_declaration(spellings)
         if text is None:
-            problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings else "spellings tie"))
+            problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings
+                                                        else slot_conflict(spellings)))
             continue
-        decided[slot] = (want[0], rename_destructor(text, short) if want[0] == "~" else text)
+        if declaration_key(text)[1] and ledger_defines(name, "dtor" if want[0] == "~" else None, want[0], index):
+            problems.append(f"slot{slot} {member}: pure in a view, but a matched row defines it")
+            continue
+        decided[slot] =(want[0], rename_destructor(text, short) if want[0] == "~" else text)
     # MSVC lays an overload group out at its first declaration in REVERSE
     # declaration order (tools/class_layouts.py, "THE TRAP"): emit each run of
     # same-name slots reversed. A name split across non-adjacent slots cannot
@@ -1467,8 +1681,11 @@ def nested_includes(contract, header, slots=None):
     return lines + [""] if lines else []
 
 
-def generate(contract, variant, methods, header=None, slots=None):
+def generate(contract, variant, methods, header=None, slots=None, special=()):
+    """The header text of `variant`. `special` (special_declarations) is declared in every
+    variant: a dropped out-of-line special member is a link fault the byte gate cannot see."""
     name, key = contract["class"], contract["key"]
+    roles = {s["role"] for s in special}
     guard = re.sub(r"\W", "_", f"CANONICAL_{name}_H").upper()
     lines = [f"// {name}: canonical layout, generated by tools/header_adopt_lane.py from",
              f"// {class_contract.contract_path(name).relative_to(ROOT).as_posix()}"
@@ -1487,11 +1704,13 @@ def generate(contract, variant, methods, header=None, slots=None):
         if field["kind"] == "VPTR":
             continue
         lines.append(f"    {spelled(field['type'], field['name'])};")
-    if "ctor" in variant:
+    if "ctor" in variant and "default" not in roles:
         lines.append(f"    {name}() {{}}")
-    if "copy" in variant.split("+"):
+    if "copy" in variant.split("+") and "copy" not in roles:
         # an out-of-line copy constructor: retail calls one (a matched ??0X@@QAE@ABU0@@Z row)
         lines.append(f"    {name}(const {name} &that);")
+    public = [s["text"] for s in special if s["access"] == "public" and s["role"] != "dtor"]
+    lines += ["    " + text for text in public]
     if slots is not None:
         # The vtable is layout: every variant declares the decided slots in
         # slot order, then the overrides of the bases' slots the views spell.
@@ -1503,10 +1722,16 @@ def generate(contract, variant, methods, header=None, slots=None):
     if "methods" in variant:
         # A leading destructor would put the delete-dtor in earlier vtable
         # slots: every non-destructor method must precede it.
-        members = list(methods.values())
+        carried = {s["sig"] for s in special}
+        members = [v for v in methods.values() if member_key(v, name) not in carried]
         members.sort(key=lambda m: 1 if re.match(r"^\s*(?:\w+\s+)*~\w*\s*\(", m) else 0)
         for member in members:
             lines.append("    " + member.replace("\n", "\n    "))
+    # The destructor stays last among the public members; other access follows under its label.
+    lines += ["    " + s["text"] for s in special if s["access"] == "public" and s["role"] == "dtor"]
+    for access in ("protected", "private"):
+        held = [s["text"] for s in special if s["access"] == access]
+        lines += [f"{access}:"] + ["    " + text for text in held] if held else []
     lines += ["};", "", f"#endif // {guard}", ""]
     return "\n".join(lines)
 
@@ -3086,14 +3311,15 @@ def tournament(name, contract, sources, header, variants, jobs, fixed_header=Fal
     if not fixed_header and contract.get("vslots"):
         own, overrides, _ = slot_declarations(contract, sources)
         slots = (own, overrides)
+    special = special_members(name, contract, sources, nested)[0] if not fixed_header else []
     results = {}
     keep = (ROOT / header).read_bytes() if (ROOT / header).exists() else None
     try:
         for variant in variants:
             if not fixed_header:
                 (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
-                (ROOT / header).write_text(generate(contract, variant, methods, header, slots), encoding="utf-8",
-                                           newline="\n")
+                (ROOT / header).write_text(generate(contract, variant, methods, header, slots, special),
+                                           encoding="utf-8", newline="\n")
             started = time.time()
             dependencies = {}
             got = try_units(sources, strip, header, contract["key"], jobs, dependency_plan=dependencies)
@@ -3598,7 +3824,12 @@ def run(args):
         if problems:
             print(f"  {len(problems)} virtual slot(s) cannot be declared; refusing to generate: {problems}")
             return 2
-    variants = args.variants.split(",") if not fixed else ["registered"]
+    if not fixed:
+        _, problems = special_members(name, contract, sources)
+        if problems:
+            print(f"  {len(problems)} special member(s) the views disagree on; refusing to generate: {problems}")
+            return 2
+    variants =args.variants.split(",") if not fixed else ["registered"]
     results = tournament(name, contract, sources, header, variants, args.jobs, fixed_header=fixed)
     winner = max(variants, key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()), -variants.index(v)))
     best = results[winner]
@@ -4143,7 +4374,7 @@ BULK_DONE = ("adopted", "queued")     # --resume skips these; "claimed", "waitin
 TRANSIENT_KINDS = ("claimed", "base-unheadered")   # blockers that clear on their own, not a settled decision
 # Kinds a seat can act on; the picker serves these. `claimed` is transient (the holder
 # is working on it) and `base-unheadered` is served through the base's own record.
-DECIDABLE = ("undecided", "slot-undeclarable", "no-destination", "no-unit-adopts", "link-regression",
+DECIDABLE = ("undecided", "slot-undeclarable", "special-undeclarable", "no-destination", "no-unit-adopts", "link-regression",
              "commit-refused", "error")
 
 
@@ -4331,6 +4562,12 @@ def bulk_prepare(name, ctx):
                                        + "; ".join(problems[:3]),
                                        [{"attribute": p.split()[0], "why": p} for p in problems], **evidence),
                     "contract": contract}
+    _, problems = special_members(name, contract, sources)
+    if problems:
+        return {"record": decision(name, "special-undeclarable", f"{len(problems)} special member(s) the views "
+                                   "disagree on: " + "; ".join(problems[:3]),
+                                   [{"attribute": "special", "why": p} for p in problems], **evidence),
+                "contract": contract}
     if ctx["dry_run"]:
         return {"would": {"class": name, "header": header, "units": len(sources), "contract": contract_rel},
                 "contract": contract}
