@@ -193,7 +193,7 @@ class Rva0039BF0B {public:int rva0039BF0B(const Rva00045411BitSet&,const Rva0004
 
 class Rva0039BF39 {public:int rva0039BF39(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 
-class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+#include "../../Include/Common/Rva004EE35D.h"
 
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 

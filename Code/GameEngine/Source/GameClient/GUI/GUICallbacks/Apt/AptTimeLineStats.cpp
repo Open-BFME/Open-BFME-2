@@ -192,7 +192,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 // The full44B constructor only clears 28 bytes and sets one bit. Native
 // static initialization has no unwind state at this call: it cannot throw.
 #include "../../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
-class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+#include "../../../../../Include/Common/Rva004EE35D.h"
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 #include "../../../../../Include/Common/Rva004EE447.h"
