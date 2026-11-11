@@ -406,7 +406,7 @@ public:
 	char m_pad100[0x258 - 0x100]; unsigned int m_conditionBits[20];
 };
 class Rva0055A88BDwordField { public: int get() const; };
-class Rva00046827 { public: int rva00046827(); };
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva00046827.h"
 class UpgradeTemplateView { public: char m_pad[8]; AsciiString m_name; char m_padC[0x38 - 0xC]; unsigned int m_bit; };
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva0026F0F0.h"
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"

@@ -59,11 +59,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
 
 // The mask's set-bit count (rowed 0x00046827).
-class Rva00046827
-{
-public:
-	int rva00046827();
-};
+#include "../../../../Include/GameLogic/Module/Rva00046827.h"
 
 class UpgradeTemplate
 {

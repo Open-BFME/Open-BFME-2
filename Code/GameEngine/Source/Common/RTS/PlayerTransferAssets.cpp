@@ -196,11 +196,7 @@ private:
 // rowed 0x00046827).
 #include "../../../Include/Common/BfmeFixedStorage128.h"
 
-class Rva00046827
-{
-public:
-	Int rva00046827();
-};
+#include "../../../Include/GameLogic/Module/Rva00046827.h"
 
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;

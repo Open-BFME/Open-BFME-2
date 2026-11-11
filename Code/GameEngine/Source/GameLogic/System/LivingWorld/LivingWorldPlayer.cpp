@@ -355,10 +355,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 
 #include "../../../../Include/GameLogic/Module/Rva0026F0F0.h"
 
-struct Rva00046827
-{
-	int rva00046827();
-};
+#include "../../../../Include/GameLogic/Module/Rva00046827.h"
 
 // WBDE3C90 names GetConflictResolveType at LivingWorldPlayer.cpp368;
 // native2E0699..2E06B8 preserves the type44 switch and case0 field2B4.

@@ -1062,3 +1062,4 @@ Rva005E6817Mid,Code/GameEngine/Include/Common/Rva005E6817Mid.h,existing header; 
 Rva005CCB73,Code/GameEngine/Include/GameClient/Rva005CCB73.h,existing header; contract class_contracts/Rva005CCB73.json; 5/6 sampled units adopt
 Rva001DBB82OneSetter,Code/GameEngine/Include/GameClient/Rva001DBB82OneSetter.h,existing header; contract class_contracts/Rva001DBB82OneSetter.json; 6/6 sampled units adopt
 HAnimManagerClass,Code/Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h,existing header; contract class_contracts/HAnimManagerClass.json; 4/4 sampled units adopt
+Rva00046827,Code/GameEngine/Include/GameLogic/Module/Rva00046827.h,existing header; contract class_contracts/Rva00046827.json; 5/6 sampled units adopt
