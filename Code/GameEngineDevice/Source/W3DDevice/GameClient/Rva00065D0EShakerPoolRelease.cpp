@@ -12,7 +12,7 @@
 // pairs of the MultiListNode, GridLink and HAnimComboData pools do.
 // The pool's allocate and free are the rowed BFME bodies 658DB and 65964.
 class CameraShakeSystemClass { public: class CameraShakerClass; };
-struct Rva00065964ObjectPool { void *rva000658DB(); void FreeObject(void *); };
+#include "../../../../GameEngine/Include/GameLogic/Rva00065964ObjectPool.h"
 template<class T, int BLOCK_SIZE> class ObjectPoolClass {
 public:
     __forceinline T *Allocate_Object_Memory()

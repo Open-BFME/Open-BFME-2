@@ -118,7 +118,7 @@
 // rowed 0x00065964 body (BFME's locked free); routing it there keeps this
 // unit's AutoPoolClass operator delete (reached from Add_Camera_Shake's
 // unwind) identical to retail's 0x00065D0E.
-class Rva00065964ObjectPool { public: void *rva000658DB(); void FreeObject(void *); };
+#include "../../../../GameEngine/Include/GameLogic/Rva00065964ObjectPool.h"
 template <> __declspec(dllimport) __forceinline CameraShakeSystemClass::CameraShakerClass *
 ObjectPoolClass<CameraShakeSystemClass::CameraShakerClass, 256>::Allocate_Object_Memory()
 { return (CameraShakeSystemClass::CameraShakerClass *)((Rva00065964ObjectPool *)this)->rva000658DB(); }

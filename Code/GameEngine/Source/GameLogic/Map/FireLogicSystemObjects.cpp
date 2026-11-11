@@ -56,11 +56,7 @@ __forceinline long FloatToLong(float f)
 	return i;
 }
 
-struct Rva00065964ObjectPool
-{
-	void *rva00285A3B();
-	void *rva00285AC4();
-};
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 extern Rva00065964ObjectPool g_pool00286136;
 extern Rva00065964ObjectPool g_pool00286116;
 void Rva00286116Free(void *node);

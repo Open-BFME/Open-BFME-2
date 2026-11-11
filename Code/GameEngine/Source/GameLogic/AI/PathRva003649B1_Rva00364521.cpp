@@ -24,11 +24,7 @@ struct Rva003642DFNode;
 
 #include "../../../Include/GameLogic/PathNode.h"
 
-class Rva00065964ObjectPool
-{
-public:
-	void *rva002635C2() throw();
-};
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 
 // g_pathNodePool: matched references place it at VA 0xe01e94 (zero-filled; a plain-data view).
 extern Rva00065964ObjectPool g_pathNodePool;
