@@ -74,11 +74,7 @@ public:
 	virtual void gap74(); virtual void gap75(); virtual void gap76(); virtual void gap77();
 	virtual const MoneyCrateMiscView *getMiscAudio();	// slot 78
 };
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v);	// 0x002D9531 (AudioEventRTS::setObjectID)
-};
+#include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 struct MoneyCrateCollideModuleData
 {
 	char m_pad00[0x5C];

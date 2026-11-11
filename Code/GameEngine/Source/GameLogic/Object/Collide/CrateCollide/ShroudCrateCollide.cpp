@@ -139,7 +139,7 @@ extern PartitionManager *TheShroudManager;
 
 class Rva00739780 { public: void rva00739780(int); };
 
-class Rva002D9531 { public: void rva002D9531(int); };
+#include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 enum NameKeyType
 {

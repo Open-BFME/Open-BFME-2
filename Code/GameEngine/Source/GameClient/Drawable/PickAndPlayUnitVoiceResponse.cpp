@@ -693,11 +693,7 @@ public:
 
 extern AudioManager *TheAudio;
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int id);
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;

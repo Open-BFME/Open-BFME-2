@@ -171,11 +171,7 @@ public:
 	virtual void slot77();
 	virtual const UnitCrateMiscView *getMiscAudio();
 };
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v);	// 0x002D9531
-};
+#include "../../../../../Include/GameLogic/Module/Rva002D9531.h"
 class CrateCollideModuleData
 {
 public:

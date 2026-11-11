@@ -39,11 +39,7 @@ public:
 
 #include "../Object/object.h"
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int objectID);			// 0x002D9531, AudioEventRTS::setObjectID
-};
+#include "../../../Include/GameLogic/Module/Rva002D9531.h"
 
 template <int N> class TurretAudioSlots : public TurretAudioSlots<N - 1>
 {

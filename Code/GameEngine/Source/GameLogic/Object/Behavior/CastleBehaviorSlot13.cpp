@@ -10,11 +10,7 @@
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 #include "../../../../Include/Common/GameAudio.h"
 

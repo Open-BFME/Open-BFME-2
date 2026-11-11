@@ -8,11 +8,7 @@
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int objectID);
-};
+#include "../../Include/GameLogic/Module/Rva002D9531.h"
 
 struct BfmeAudioEventPrefix136;
 class Xfer;

@@ -226,11 +226,7 @@ public:
 };
 
 // The audio event's object-id setter, address-named as rowed.
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

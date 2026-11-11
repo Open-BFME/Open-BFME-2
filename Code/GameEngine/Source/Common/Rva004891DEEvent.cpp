@@ -40,11 +40,7 @@ public:
 	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *evt);
 };
 
-class Rva002D9531
-{
-public:
-	void rva002D9531(int value);
-};
+#include "../../Include/GameLogic/Module/Rva002D9531.h"
 
 struct Rva004891DEArg
 {
