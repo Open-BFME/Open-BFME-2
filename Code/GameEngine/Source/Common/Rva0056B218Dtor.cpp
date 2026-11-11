@@ -4,10 +4,7 @@
 // Evidence: deleting-dtor caller at 0x0056B47F; extends sibling 0x0056B0BF
 // with a second holder at +0x1C; both nulled after erase.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Parent0056B218 {
     char pad[8];
     Rva002B7250 holder;

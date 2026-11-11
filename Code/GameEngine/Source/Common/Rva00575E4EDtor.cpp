@@ -5,10 +5,7 @@
 // retail sets two vtables, calls parent+8 erase with second base as arg,
 // then sets two vtables (base restores) with no further calls.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList : public Rva002B7250 {
 public:

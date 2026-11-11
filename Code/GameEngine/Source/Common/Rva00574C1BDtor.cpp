@@ -8,11 +8,7 @@
 
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *who);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 struct Rva00574C1BOwner
 {

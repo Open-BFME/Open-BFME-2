@@ -5,10 +5,7 @@
 // sibling of 0x00575E4E (same shape same base restore 0x0086E60C); retail sets
 // two vtables calls parent+8 erase with second base as arg then restores bases.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList : public Rva002B7250 {
 public:

@@ -6,11 +6,7 @@
 // Evidence: vtable stores 0x00C6E4C4 then 0x00C6E4C0 then 0x00C6E360; rowed erase 0x002B7250 with this=second arg+4 and arg=sub at +0x10; pinned base dtor 0x005746D2; caller 0x00574E6D deleting dtor; neighbours share /O1. Honest Rva name.
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *p);
-};
+#include "../../Include/Common/Rva002B7250.h"
 class Rva005746AF
 {
 public:

@@ -20,11 +20,7 @@
 // Base and member identities are not established.
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *who);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 struct Rva0057Owner
 {

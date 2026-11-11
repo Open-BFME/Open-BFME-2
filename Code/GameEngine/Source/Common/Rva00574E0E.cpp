@@ -3,11 +3,7 @@
 // 0x002B7250 with null-guarded this and clears holder at +0x64; sibling of
 // Rva00574E2E (+0x68 guard -0xC) with holder +0x64 guard -8.
 class CreateAHeroData;
-class Rva002B7250
-{
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Holder002B7250
 {
     char m_pad[4];

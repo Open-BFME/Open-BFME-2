@@ -4,10 +4,7 @@
 // then base dtor 0x0056AC26. Evidence: deleting-dtor caller at 0x0056B49B;
 // extends sibling 0x0056B0BF with the TheLivingWorldManager guard and int member +0x1C.
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *v);
-};
+#include "../../Include/Common/Rva002B7250.h"
 struct Parent0056B2DD {
     char pad[8];
     Rva002B7250 holder;

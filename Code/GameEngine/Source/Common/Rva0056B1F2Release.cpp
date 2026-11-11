@@ -6,11 +6,7 @@
 // neg/sbb/and select), then null the slot. Honest address-derived names.
 class CreateAHeroData;
 
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *other);
-};
+#include "../../Include/Common/Rva002B7250.h"
 
 class Rva0056B1F2
 {
