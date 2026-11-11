@@ -166,12 +166,12 @@ Rva0056AC82(Rva0056AC26Owner *,void *,void *);
 }
 ;
 
-class Rva0056ADF1:public Rva0056AC26
+class Rva0056AE4A:public Rva0056AC26
 {
 
 public:
 virtual bool ac26Slot1();
-Rva0056ADF1(void *,int);
+Rva0056AE4A(void *,int);
 
 private:
 int storage14;
@@ -388,7 +388,7 @@ void LivingWorldTutorial::SessionTask::create()
 			if(m_params.size()!=1)break;
 			float duration=(float)rva003F83D9(0);
 			if(duration<0.0f)break;
-			task=new Rva0056ADF1(m_owner,(int)scaledTutorialDuration(duration));
+			task=new Rva0056AE4A(m_owner,(int)scaledTutorialDuration(duration));
 			break;
 		}
 		case 12:{

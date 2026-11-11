@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ??0Rva0056ADF1@@QAE@PAXH@Z @0x0056ADF1 53B.
+// ??0Rva0056AE4A@@QAE@PAXH@Z @0x0056ADF1 53B.
 // Constructor: run the pinned 0x0056AD80 initializer, null +0x14, install
 // the 0x00C6D23C vftable at +0 and the 0x00C6D200 vftable at +8, then set
 // +0x14 to the global-int at g_00DFEF10[0x100] plus the int argument.
@@ -59,13 +59,13 @@ struct Rva0056ADF1Glob
 	int m_100;
 };
 
-class Rva0056ADF1
+class Rva0056AE4A
 {
 public:
-	Rva0056ADF1(void *owner, int arg2);
+	Rva0056AE4A(void *owner, int arg2);
 };
 
-Rva0056ADF1::Rva0056ADF1(void *owner, int arg2)
+Rva0056AE4A::Rva0056AE4A(void *owner, int arg2)
 {
 	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)owner);
 	*(int *)((char *)this + 0x14) = 0;

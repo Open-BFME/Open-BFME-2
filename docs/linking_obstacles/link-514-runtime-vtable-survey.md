@@ -2589,3 +2589,10 @@ and its constructor object defines that name. Both affected units verify
 The current destructor object still emits 2 of 5 primary entries and
 1 of 15 secondary entries. Secondary slot 14 must target 0x0056ACF1
 when adopting the full tables in the shared ACFF/ACDF destructor unit.
+
+The tutorial now constructs Rva0056AE4A at 0x0056ADF1. Its primary table
+at VA 0x00C6D23C starts with the deleting destructor at RVA 0x0056AE2E.
+The second table at VA 0x00C6D200 starts with the adjustor at 0x0056AE26.
+The class fold verifies 19/19 functions and both data rows across the three
+affected units. The same 19-unit preview retains 3,845 bytes at 60189f9ced.
+Both tables still use the explicit arrays in Rva0056ADF1Ctor.cpp.

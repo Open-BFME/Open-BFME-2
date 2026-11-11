@@ -4,7 +4,7 @@
 // Constructor: run the pinned EH 0x0056AD80 initializer with the first
 // arg, store the second/third args at +0x14/+0x18, then install the
 // 0x00C6D14C vftable at +0 and the 0x00C6D110 vftable at +8. Follows the
-// landed Rva0056ACFF/Rva0056ADF1 recipe (standalone address-derived class,
+// landed Rva0056ACFF/Rva0056AE4A recipe (standalone address-derived class,
 // base via cast, vtbls via externs). Honest address-derived name.
 
 // 0x0056AD80 is matched as the constructor Rva0056AC26(Rva0056AC26Owner *).
