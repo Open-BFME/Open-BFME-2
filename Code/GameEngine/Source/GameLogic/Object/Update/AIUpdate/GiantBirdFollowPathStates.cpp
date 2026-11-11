@@ -52,11 +52,7 @@ template <> class GiantBirdPathSlots<0>
 #include "../../../../Common/Thing/thing.h"
 class BfmeVec3EJ;
 #include "../../../../../Include/GameLogic/Module/Gen_000E5A50.h"
-class Rva0036748E
-{
-public:
-	void rva00368654(Bool value);
-};
+#include "../../../../../Include/GameLogic/Module/Rva0036748E.h"
 
 #include "../../../../../Include/GameLogic/Module/Rva00368C7A.h"
 

@@ -172,12 +172,7 @@ void Rva00362461::rva0037ADA4(int value)
 }
 
 // --- 0x003685C1 (14B): the rowed 0x0036748E for slot 6.
-class Rva0036748E
-{
-public:
-	void rva0036748E(int slot, bool value);					// 0x0036748E
-	void rva003685C1(bool value);
-};
+#include "../../Include/GameLogic/Module/Rva0036748E.h"
 
 void Rva0036748E::rva003685C1(bool value)
 {

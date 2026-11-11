@@ -135,7 +135,7 @@ int Rva00368C7A::rva00368B51(float amount, bool argument)
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 template<int N> class FollowSlots:public FollowSlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class FollowSlots<0>{};
-class Rva0036748E{public:void rva0036C897(bool);};
+#include "../../../../../Include/GameLogic/Module/Rva0036748E.h"
 class FollowAI:public FollowSlots<142>{public:virtual void chooseLocomotorSet(int)=0;char pad4[0x1f0-4];Rva00368C7AMetrics*metrics;char pad1f4[0x4b8-0x1f4];unsigned flags;char pad4bc[8];ObjectID victim;char pad4c8[0x4ec-0x4c8];bool success;char pad4ed[0x558-0x4ed];bool follow;char pad559[3];int mode;bool test(int bit)const{return (flags>>bit)&1;}};
 class FollowFlags{public:unsigned words[19];unsigned test(int bit)const{return words[bit>>5]&(1u<<(bit&31));}void set(int bit){words[bit>>5]|=1u<<(bit&31);}void reset(int bit){words[bit>>5]&=~(1u<<(bit&31));}};
 class Object{public:void rva0028AE6D();char pad0[0x38];Coord3D position;char pad44[0x10c-0x44];FollowFlags flags;char pad158[0x258-0x158];FollowAI*ai;char pad25c[0x438-0x25c];unsigned char status;__forceinline void clear(int bit){if(flags.test(bit)){flags.reset(bit);rva0028AE6D();}}__forceinline void set(int bit){if(!flags.test(bit)){flags.set(bit);rva0028AE6D();}}};

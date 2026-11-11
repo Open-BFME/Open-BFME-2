@@ -235,11 +235,7 @@ public:
 };
 
 // The AI flag-bit setter chain (0x0036940A clears or sets AI flag bit 5).
-class Rva0036748E
-{
-public:
-	void rva0036940A(bool flag);
-};
+#include "../../../../../Include/GameLogic/Module/Rva0036748E.h"
 
 class BfmeVec3EJ;
 class Gen_000E5A50
