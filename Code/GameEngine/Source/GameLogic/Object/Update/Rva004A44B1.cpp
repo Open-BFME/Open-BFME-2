@@ -22,11 +22,7 @@ class NameKeyGenerator;
 
 #include "../../../../Include/Common/Module.h"
 
-class BoneFXUpdate : public Module
-{
-public:
-	void stopAllBoneFX();
-};
+#include "../../../../Include/GameLogic/Module/BoneFXUpdateClass.h"
 
 class StructureCollapseUpdate;
 class Object

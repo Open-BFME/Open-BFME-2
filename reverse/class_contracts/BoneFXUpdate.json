@@ -1,0 +1,406 @@
+{
+ "bases": [
+  "UpdateModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BoneFXUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "UpdateModule"
+   ]
+  },
+  "census": 6,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 13,
+   "inherited_spans": [
+    [
+     0,
+     32
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x62c": {
+    "4": 6
+   },
+   "0x8": {
+    "4": 4
+   },
+   "0xac": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4878e6"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x84b170",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4878e6"
+     ],
+     "value": 1589
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4878e6"
+     ],
+     "value": {
+      "0x12c": [
+       4
+      ],
+      "0x1ac": [
+       4
+      ],
+      "0x1b0": [
+       4
+      ],
+      "0x1b4": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x32c": [
+       4
+      ],
+      "0x330": [
+       4
+      ],
+      "0x334": [
+       4
+      ],
+      "0x4ac": [
+       4
+      ],
+      "0x4b0": [
+       4
+      ],
+      "0x4b4": [
+       4
+      ],
+      "0x62c": [
+       4
+      ],
+      "0x634": [
+       1
+      ],
+      "0xac": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4878e6"
+     ],
+     "value": {
+      "0x20": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24cc73"
+     ],
+     "value": 1592
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4878e6"
+     ],
+     "value": {
+      "0x10": [
+       "0x84b164"
+      ],
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4878e6"
+     ],
+     "value": {
+      "0x0": "0x84b170"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84b170"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBoneFXUpdate@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x487dd2"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?name@Rva00487A5ENamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x487a5e"
+       },
+       {
+        "name": "?xfer@BoneFXUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x487c75"
+       },
+       {
+        "name": "?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x487a19"
+       },
+       {
+        "name": "?onObjectCreated@BoneFXUpdate@@MAEXXZ",
+        "slot": 5,
+        "target": "0x48707a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?resolveBoneLocations@BoneFXUpdate@@MAEXXZ",
+        "slot": 13,
+        "target": "0x487634"
+       }
+      ],
+      "table": "0x84b170"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x84b170": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBoneFXUpdate@@MAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?name@Rva00487A5ENamed@@QBEPBDXZ",
+     "3": "?xfer@BoneFXUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "?onObjectCreated@BoneFXUpdate@@MAEXXZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "13": "?resolveBoneLocations@BoneFXUpdate@@MAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "8": 1,
+   "1592": 2
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BoneFXUpdate.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 428,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 812,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1580,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1584,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1588,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['Module']": 1,
+    "['UpdateModule']": 1
+   },
+   "class": "BoneFXUpdate",
+   "why": "views that agree with the retail base layout spell it differently"
+  }
+ ],
+ "size": 1592,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "resolveBoneLocations()"
+  }
+ }
+}

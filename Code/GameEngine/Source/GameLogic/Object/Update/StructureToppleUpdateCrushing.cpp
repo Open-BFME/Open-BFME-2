@@ -371,11 +371,7 @@ class ParticleSystemTemplate;
 extern ParticleSystemManager *TheParticleSystemManager;
 
 
-class BoneFXUpdate
-{
-public:
-	void stopAllBoneFX();
-};
+#include "../../../../Include/GameLogic/Module/BoneFXUpdateClass.h"
 
 typedef UnsignedInt PlayerMaskType;
 const PlayerMaskType PLAYERMASK_ALL = 0xfffff;

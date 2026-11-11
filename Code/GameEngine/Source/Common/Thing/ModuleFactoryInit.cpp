@@ -92,7 +92,7 @@ class BezierProjectileBehavior { public: static Module *friend_newModuleInstance
 class BloodthirstyUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BloodthirstyUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BoneFXDamage { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class BoneFXUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/BoneFXUpdateClass.h"
 class BoneFXUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BoredUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BoredUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
