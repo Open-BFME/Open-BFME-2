@@ -7,10 +7,7 @@ struct FieldParse;
 
 #include "../../Include/Common/INI/INI.h"
 
-struct Gen_00489270
-{
-	void m( int value );
-};
+#include "../../Include/Common/Gen_00489270.h"
 
 class GameWindow;
 class Rva001DBAA4

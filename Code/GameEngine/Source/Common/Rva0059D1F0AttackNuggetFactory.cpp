@@ -24,10 +24,7 @@ extern const FieldParse s4TableRva0059D1F0[] = {
 	{ 0, 0, 0, 0 }
 };
 
-struct Gen_00489270
-{
-	void m(int a);
-};
+#include "../../Include/Common/Gen_00489270.h"
 
 class Rva001DBAA4 { public: Rva001DBAA4(); };
 class Rva00489210

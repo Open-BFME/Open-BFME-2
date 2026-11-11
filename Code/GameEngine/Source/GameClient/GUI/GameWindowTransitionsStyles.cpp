@@ -485,11 +485,7 @@ private:
 // as the gen-shim setter Gen_00489270::m (game/gen_small/fun_003.cpp,
 // RVA 0x00489270). Reuse that landed callee rather than pinning the wrong
 // (real, 106-byte) addObjectCreationNugget.
-struct Gen_00489270
-{
-public:
-	void m(int a);
-};
+#include "../../../Include/Common/Gen_00489270.h"
 typedef char ScoreScaleUpTransitionSizeMatchesRetail[(sizeof(ScoreScaleUpTransition) == 0x34) ? 1 : -1];
 class Rva0035D6F9Holder
 {

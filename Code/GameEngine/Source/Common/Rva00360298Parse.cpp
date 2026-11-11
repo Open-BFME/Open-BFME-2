@@ -52,11 +52,7 @@ typedef char Rva00360243SizeMatchesRetail[(sizeof(Rva00360243) == 0x38) ? 1 : -1
 class Rva00360298Holder;
 
 // The holder's store at 0x005F69CE is rowed as Gen_00489270::m(int).
-class Gen_00489270
-{
-public:
-	void m(int val);
-};
+#include "../../Include/Common/Gen_00489270.h"
 
 void __cdecl Rva00360298Parse(INI *ini, Rva00360298Holder *holder)
 {

@@ -5,7 +5,7 @@
 class INI;
 #include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
-struct Gen_00489270 { void m(int); };
+#include "../../Include/Common/Gen_00489270.h"
 
 class Rva001DBAA4
 {
