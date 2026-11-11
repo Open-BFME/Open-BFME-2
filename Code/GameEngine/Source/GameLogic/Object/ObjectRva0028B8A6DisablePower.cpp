@@ -42,13 +42,7 @@ public:
 #include "../../../Include/Common/Player.h"
 
 class Object;
-class Energy
-{
-public:
-	void objectEnteringInfluence(Object *obj);
-	void objectLeavingInfluence(Object *obj);
-	void adjustPower(int amount, bool incoming);
-};
+#include "../../../Include/Common/EnergyClass.h"
 
 #include "object.h"
 

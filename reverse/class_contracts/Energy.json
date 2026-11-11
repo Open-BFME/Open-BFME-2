@@ -1,0 +1,186 @@
+{
+ "bases": [
+  "PrototypeClass"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Energy",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "Snapshot"
+   ]
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 4
+   },
+   "0xc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x38": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x674870"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "PrototypeClass",
+       "offset": 0,
+       "own_vftable": "0x8e0f20",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x674870"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x674870"
+     ],
+     "value": {
+      "0x0": "0x8e0f20"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8e0f20"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBfmeMsgVJH@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x663430"
+       }
+      ],
+      "table": "0x8e0f20"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 8,
+  "retail_vtables": {
+   "0x8e0f20": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBfmeMsgVJH@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "4": 1,
+   "12": 1,
+   "20": 2
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Energy.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/EnergyConstructorThunk.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/EnergyConstructorThunk.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/EnergyConstructorThunk.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/EnergyConstructorThunk.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -51,13 +51,7 @@ namespace _STL
   unsigned long _M_w[32];
  };
 }
-class Energy
-{
-public:
-	void objectEnteringInfluence(Object *obj);
-	void objectLeavingInfluence(Object *obj);
-	void adjustPower(int amount, bool incoming);
-};
+#include "../../../Include/Common/EnergyClass.h"
 struct Rva00293DACNode
 {
 	Rva00293DACNode *m_next;

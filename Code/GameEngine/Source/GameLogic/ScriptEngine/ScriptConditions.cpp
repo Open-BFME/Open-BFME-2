@@ -1010,11 +1010,7 @@ int __stdcall bfmeGo939D(char);
 
 class UnitRevivalTracker;
 
-class Energy
-{
-public:
-	float getEnergySupplyRatio() const;
-};
+#include "../../../Include/Common/EnergyClass.h"
 
 enum ScienceType
 {

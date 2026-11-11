@@ -78,7 +78,7 @@ class Overridable;
 class Rva0033A68A {public: Overridable *rva0033A68A();};
 class Handicap {public: enum HandicapType {BUILDCOST,BUILDTIME}; float getHandicap(HandicapType,const ThingTemplate*)const; char opaque[16];};
 class Rva002AE98B {public: float rva002AE98B(const class AsciiString*);};
-class Energy {public: float getEnergySupplyRatio()const;};
+#include "../../Include/Common/EnergyClass.h"
 struct PlayerBuildView {char before[0x3c];Handicap handicap; char after[0x1bc-0x4c];Energy energy;};
 #include "../../Include/Common/Player.h"
 class Object {public:void *rva0028BC94();};
