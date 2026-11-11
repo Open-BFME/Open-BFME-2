@@ -217,11 +217,7 @@ bool Rva00508F1E::rva00508F1E(const void *weapon, Object *target)
 	return true;
 }
 
-class Rva002CA9CA
-{
-public:
-	bool rva002CAA59(int target, const void *arg);
-};
+#include "../../Include/Common/Rva002CA9CA.h"
 
 class Rva005092D4 : public Rva00507823
 {

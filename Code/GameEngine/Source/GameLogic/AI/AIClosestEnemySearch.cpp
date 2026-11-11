@@ -227,7 +227,7 @@ enum ObjectStatusTypes { STATUS23 = 23, STATUS37 = 37, STATUS38 = 38, STATUS79 =
 enum Relationship { ENEMY = 0, NEUTRAL = 1, ALLY = 2 };
 enum WeaponSlotType { PRIMARY = 0 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class Rva002CA9CA { public: float getProjectileNuggetRadiusIfAlliesAffected(const void *); };
+#include "../../../Include/Common/Rva002CA9CA.h"
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 class Weapon { public: char pad0[4]; Rva002CA9CA *info; };

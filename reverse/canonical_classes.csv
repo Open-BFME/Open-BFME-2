@@ -889,3 +889,4 @@ BfmeObjectDlinkBase,Code/GameEngine/Include/Common/BfmeObjectDlinkBase.h,existin
 Rva000EC9C6,Code/GameEngine/Include/Common/Rva000EC9C6.h,existing header; contract class_contracts/Rva000EC9C6.json; 6/10 sampled units adopt
 Rva00065964ObjectPool,Code/GameEngine/Include/GameLogic/Rva00065964ObjectPool.h,existing header; contract class_contracts/Rva00065964ObjectPool.json; 8/20 sampled units adopt
 SelectionDetailsUIImpl,Code/GameEngine/Include/Common/SelectionDetailsUIImpl.h,existing header; contract class_contracts/SelectionDetailsUIImpl.json; 12/15 sampled units adopt
+Rva002CA9CA,Code/GameEngine/Include/Common/Rva002CA9CA.h,existing header; contract class_contracts/Rva002CA9CA.json; 12/16 sampled units adopt

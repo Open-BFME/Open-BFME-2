@@ -310,11 +310,7 @@ public:
 	void rva001E11F8(int a, int b);
 };
 
-class Rva002CA9CA
-{
-public:
-	void rva002CAC6E(int a, int b);
-};
+#include "../../../../Include/Common/Rva002CA9CA.h"
 
 template <class T> struct Rva0045D7E0Vector
 {

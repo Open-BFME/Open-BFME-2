@@ -36,11 +36,7 @@ enum ModuleType
 
 void Rva0033B5B8Build(ModuleInfo *info, ModuleType type, int a1, int a2);
 
-class Rva002CA9CA
-{
-public:
-	void rva002CAC6E(int a1, int a2);
-};
+#include "../../../Include/Common/Rva002CA9CA.h"
 
 #include "../../../Include/Common/Rva0031D5F8.h"
 

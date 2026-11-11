@@ -176,11 +176,7 @@ public:
 	void rva001E42F2(const int *mask);
 };
 class Weapon;
-class Rva002CA9CA
-{
-public:
-	bool rva002CA9CA(int id, const void *arg);
-};
+#include "../../../Include/Common/Rva002CA9CA.h"
 enum WeaponChoiceCriteria
 {
  PREFER_MOST_DAMAGE=0, PREFER_LONGEST_RANGE=1, PREFER_SPECIAL=2,

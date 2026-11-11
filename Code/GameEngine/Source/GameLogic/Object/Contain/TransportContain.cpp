@@ -329,11 +329,7 @@ extern ThingFactory *TheThingFactory;
 
 void __cdecl ModuleFactoryHookAt00467564(void *owner, int value, void *context);
 
-class Rva002CA9CA
-{
-public:
-	void rva002CAC6E(int value, int context);
-};
+#include "../../../../Include/Common/Rva002CA9CA.h"
 
 struct ModuleFactoryStringListNode
 {

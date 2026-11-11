@@ -693,11 +693,7 @@ void *Rva002EEA5A::rva002EEA72(unsigned int count, const void *)
 }
 
 // --- 0x002FD661 (10B): the +4 object's rowed 0x002CACD7 of this.
-class Rva002CA9CA
-{
-public:
-	float getProjectileNuggetRadiusIfAlliesAffected(const void *other);					// 0x002CACD7
-};
+#include "../../Include/Common/Rva002CA9CA.h"
 
 class Rva002FD661
 {

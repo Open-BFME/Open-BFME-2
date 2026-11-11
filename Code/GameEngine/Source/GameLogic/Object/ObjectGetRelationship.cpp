@@ -46,12 +46,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Rva002CA9CA
-{
-public:
-	bool rva002CA9CA(int id, const void *arg);
-	bool rva002CAD8B();
-};
+#include "../../../Include/Common/Rva002CA9CA.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

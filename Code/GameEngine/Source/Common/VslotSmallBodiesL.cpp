@@ -77,11 +77,7 @@ class Rva001E11F8
 public:
 	void rva001E11F8(Int a, Int b);
 };
-class Rva002CA9CA
-{
-public:
-	void rva002CAC6E(Int a, Int b);
-};
+#include "../../Include/Common/Rva002CA9CA.h"
 class ObjectCreationList
 {
 public:

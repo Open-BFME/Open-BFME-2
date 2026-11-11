@@ -69,12 +69,7 @@ int __cdecl Rva00507552Get();
 typedef bool Bool;
 typedef int Int;
 typedef float Real;
-class Rva002CA9CA
-{
-public:
-	Bool rva002CAA59(Int arg, const void *obj);		// 0x002CAA59
-	void rva002CAC6E(int a, int b);		// 0x002CAC6E
-};
+#include "../../Include/Common/Rva002CA9CA.h"
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0

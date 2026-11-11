@@ -1,0 +1,186 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002CA9CA",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 16,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x17c": {
+    "4": 9
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0xb8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 8,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 12,
+   "384": 4
+  },
+  "views": 16,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CA9CAContains.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
