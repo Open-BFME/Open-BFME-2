@@ -16,14 +16,7 @@
 
 #include "../../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class Rva0007E971
-{
-public:
-	unsigned int rva00082536(const int &key);
-
-private:
-	unsigned char m_pad[0x0C];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/Rva0007E971.h"
 
 class Rva00082C88Host
 {

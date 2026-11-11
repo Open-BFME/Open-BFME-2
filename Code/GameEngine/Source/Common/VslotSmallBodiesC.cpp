@@ -125,11 +125,7 @@ private:
 };
 void Rva00080256::rva00080256(Int a0, Int a1) { m_function08(a0, a1); }
 
-class Rva0007E971
-{
-public:
-	~Rva0007E971();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva0007E971.h"
 
 class Rva00080266
 {

@@ -155,11 +155,7 @@ private:
 	char m_pad00[0x08];
 	void (__cdecl *m_function08)(Int, Int);
 };
-class Rva0007E971
-{
-public:
-	~Rva0007E971();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0007E971.h"
 class Rva00080266
 {
 public:

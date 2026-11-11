@@ -40,13 +40,7 @@ typedef _STL::_Rb_tree<int, _STL::pair<const int, void *>, _STL::_Select1st<_STL
 typedef _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<const int, int> >,
 	_STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > IntIntTree;
 
-class Rva0007E971
-{
-public:
-	void rva0007FAC1();
-	void eraseRange(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva00082536(const int &x);
-};
+#include "Rva0007E971.h"
 
 
 

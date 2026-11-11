@@ -1,0 +1,105 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0007E971",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 4,
+   "8": 2,
+   "12": 2
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:RvaTreeFamilyHolder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_header",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RvaTreeFamilyHolder",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp",
+    "Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00082EF5Ctor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00082EF5Ctor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "_M_t._M_header._M_data": 1,
+    "m_00Head": 1,
+    "m_header.m_ptr": 1
+   },
+   "class": "Rva0007E971"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 4,
+    "8": 2,
+    "12": 2
+   },
+   "class": "Rva0007E971"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {}
+}
