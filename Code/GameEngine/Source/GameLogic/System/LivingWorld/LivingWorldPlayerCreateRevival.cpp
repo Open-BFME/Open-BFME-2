@@ -138,7 +138,7 @@ extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 class Rva002E02F0 {public: void rva002E02F0(int,std::vector<ScienceType>*);};
 class Rva002B6498 {public: ArmorTemplate *rva002B6498(NameKeyType);};
 class BuildingNuggetView;
-class LivingWorldBuildingTemplate {public: BuildingNuggetView *findNugget(const AsciiString &) const;};
+#include "../../../../Include/GameLogic/LivingWorldBuildingTemplate.h"
 #include "../../../../Include/Common/SpawnArmy.h"
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct SpawnArmyRecordView {char unknown00[0x4C]; int key; char unknown50[8];};

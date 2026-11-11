@@ -1011,3 +1011,4 @@ Rva006E1260,Code/Libraries/Source/Apt/Rva006E1260.h,existing header; contract cl
 Rva003F1093,Code/GameEngine/Include/Common/Rva003F1093.h,existing header; contract class_contracts/Rva003F1093.json; 6/8 sampled units adopt
 LivingWorldArmyIcon,Code/GameEngine/Include/Common/LivingWorldArmyIcon.h,existing header; contract class_contracts/LivingWorldArmyIcon.json; 4/7 sampled units adopt
 Rva0006653B,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva0006653B.h,existing header; contract class_contracts/Rva0006653B.json; 5/9 sampled units adopt
+LivingWorldBuildingTemplate,Code/GameEngine/Include/GameLogic/LivingWorldBuildingTemplate.h,existing header; contract class_contracts/LivingWorldBuildingTemplate.json; 4/7 sampled units adopt

@@ -33,7 +33,7 @@ private:
 };
 
 class Rva002DF9E9 {public:UnicodeString rva002DF9E9();};
-class LivingWorldBuildingTemplate {public:UnicodeString rva002DFE36();};
+#include "../../Include/GameLogic/LivingWorldBuildingTemplate.h"
 struct Helper0056BB8CEntry {char unknown00[0x28];Rva002DF9E9 *label;};
 RvaF6Ret Helper0056BB8C(int v)
 {

@@ -40,7 +40,7 @@ class Rva002E02F0 {public:void rva002E02F0(int,_STL::vector<ScienceType>*);};
 class Rva002E2903Player {public:char gap[0x40];int score;};
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class BuildingNuggetView {public:char gap[8];int type;int amount;};
-class LivingWorldBuildingTemplate {public:BuildingNuggetView*findNugget(const AsciiString&)const;};
+#include "../../../../../Include/GameLogic/LivingWorldBuildingTemplate.h"
 struct Rva003F751ANode {char gap[0x18];int value;};
 class Rva003F751A {public:Rva003F751ANode*rva003F751A(const int*);};
 struct StrengthenKey {int minCount;float weaponBonus,armorBonus,experienceBonus;};

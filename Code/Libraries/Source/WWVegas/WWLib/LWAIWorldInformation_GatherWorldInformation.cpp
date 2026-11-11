@@ -183,11 +183,7 @@ public:
 	int m_type;    // +0x08
 };
 
-class LivingWorldBuildingTemplate
-{
-public:
-	BuildingNuggetView *findNugget(const AsciiString &name) const;
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldBuildingTemplate.h"
 
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldRegion.h"
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldBuilding.h"
