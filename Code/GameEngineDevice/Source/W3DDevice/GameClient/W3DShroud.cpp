@@ -95,7 +95,7 @@ class ShroudTexture { public: ShroudFilter *getFilter(); };
 class W3DRadarResetSurface {public: void *m_surface; ~W3DRadarResetSurface();};
 struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
 class Rva001166E0 { public: void *rva001166E0(int*,int,int,int,int); };
-class Member0C00739C70 {public: void clear();};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 class Rva00116680;
 class Rva00072B3A {public: void rva00072E84(unsigned char,Rva00116680*);};
 class Rva000729CC;

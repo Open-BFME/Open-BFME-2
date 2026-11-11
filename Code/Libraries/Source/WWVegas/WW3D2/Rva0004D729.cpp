@@ -10,11 +10,7 @@ class Rva001166E0
 public:
 	void *rva001166E0(int *pitchOut, int left, int top, int right, int bottom);
 };
-class Member0C00739C70
-{
-public:
-	void clear();
-};
+#include "Member0C00739C70.h"
 class Rva0004D729
 {
 public:

@@ -62,7 +62,7 @@ struct Rva00156540Param;
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 class Rva00116680 { public: void *rva00116680(int *,bool); };
-class Member0C00739C70 { public: void clear(); };
+#include "Member0C00739C70.h"
 
 class BfmeSurfaceResource
 {

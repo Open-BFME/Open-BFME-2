@@ -22,7 +22,7 @@ void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 class Rva00116680 { public: void *rva00116680(int *,bool); };
-class Member0C00739C70 { public: void clear(); };
+#include "Member0C00739C70.h"
 
 // Donor BFME1 9cbfb551fe20 Render2DSentenceClass_Allocate_New_Surface.cpp.
 // BFME2 native 158C60..158E87/551B: no leading Unlock; spacing uses loadCharacterData.

@@ -26,11 +26,7 @@ void bfmeAnchorBfmeResetTextureRefClear(BfmeResetTextureRef *p)
 }
 
 
-class Member0C00739C70
-{
-public:
-	void clear();
-};
+#include "Member0C00739C70.h"
 
 class Rva0004D754
 {

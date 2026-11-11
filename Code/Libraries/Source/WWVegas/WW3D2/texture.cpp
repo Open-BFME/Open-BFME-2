@@ -197,11 +197,7 @@ class Rva00116680
 
 };
 
-class Member0C00739C70
-{
- public:void clear();
-
-};
+#include "Member0C00739C70.h"
 
 struct TextureRecolorSurfaceLock
 {

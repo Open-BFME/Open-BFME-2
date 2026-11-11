@@ -52,7 +52,7 @@ class W3DRadarResetSurface {public:void *ptr;~W3DRadarResetSurface();};
 struct CursorTextureSlot {W3DRadarResetSurface Get_Surface_Level();};
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 class Rva001166E0 {public:void *rva001166E0(int *,int,int,int,int);};
-class Member0C00739C70 {public:void clear();};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 struct ColorSurfaceLock {
  W3DRadarResetSurface *surface;
  __forceinline ColorSurfaceLock(W3DRadarResetSurface &w3DRadarResetSurface,int *pitch,int left,int top,int right,int bottom,void *&pixels):surface(&w3DRadarResetSurface) {pixels=((Rva001166E0*)&w3DRadarResetSurface)->rva001166E0(pitch,left,top,right,bottom);}

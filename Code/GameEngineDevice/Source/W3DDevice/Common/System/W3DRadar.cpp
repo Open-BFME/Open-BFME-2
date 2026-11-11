@@ -518,7 +518,7 @@ inline const int &(min)(const int &__a, const int &__b)
 
 typedef int Int;
 
-class Member0C00739C70 { public: void clear(); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 
 class Rva0004D729 {
 public:

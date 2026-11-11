@@ -74,11 +74,7 @@ public:
 	void *rva00116680(int *pitch, bool discard);
 };
 
-class Member0C00739C70
-{
-public:
-	void clear();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 
 class Rva00072B3A
 {

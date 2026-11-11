@@ -40,7 +40,7 @@ typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 
 
-class Member0C00739C70 { public: void clear(); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 class Rva0004D729 {
 public:
 	Rva0004D729(void *surface, void **bits, int *pitch, int left, int top, int right, int bottom) {
