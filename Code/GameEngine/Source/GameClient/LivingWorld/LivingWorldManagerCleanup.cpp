@@ -29,7 +29,7 @@ public:
     __forceinline bool enabled() const { return active18; }
 };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class Rva003EF14A { public: void rva003EF1B8(); };
+#include "../../../Include/Common/Rva003EF14A.h"
 
 // Additional target evidence for 2142EA..214407 RET0: the +48 AsciiString
 // selects a template, a 12-byte tracking handle plus ID makes a 16-byte record,

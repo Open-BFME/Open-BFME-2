@@ -8,7 +8,7 @@
 // Owner identities and layouts are not recovered.
 
 // ??_GRva003EF14A@@QAEPAXI@Z @0x003EF20F 28B: calls rowed ~Rva003EF14A 0x003EF14A
-class Rva003EF14A { public: ~Rva003EF14A(); };
+#include "../../Include/Common/Rva003EF14A.h"
 void famgenDelete(Rva003EF14A *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva004703E0@@QAEPAXI@Z @0x004704AC 28B: calls rowed ~Rva004703E0 0x004703E0

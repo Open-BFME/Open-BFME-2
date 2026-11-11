@@ -481,11 +481,7 @@ void LivingWorldRegionManager::loadPostProcess()
 // block strength reduction); the member zeroes before the inner check with
 // the +0x8 null store running on both paths; ebp used as a saved zero, not
 // a frame. Element identities are unproven (address-derived views).
-class Rva003EF14A
-{
-public:
-	void rva003EF1B8();
-};
+#include "../../../../GameEngine/Include/Common/Rva003EF14A.h"
 
 class Rva003F3F27
 {

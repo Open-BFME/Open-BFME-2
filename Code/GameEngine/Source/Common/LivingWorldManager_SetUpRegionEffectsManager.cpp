@@ -14,10 +14,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva003EF14A {
-public:
-	void rva003EF1B8();
-};
+#include "../../Include/Common/Rva003EF14A.h"
 
 class Rva003EF328 {
 public:

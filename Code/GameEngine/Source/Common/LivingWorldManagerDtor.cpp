@@ -126,11 +126,7 @@ public:
 	~Rva003FA26F();
 };
 
-class Rva003EF14A
-{
-public:
-	void rva003EF1B8();
-};
+#include "../../Include/Common/Rva003EF14A.h"
 
 #include "../../Include/Common/Rva002B7250.h"
 

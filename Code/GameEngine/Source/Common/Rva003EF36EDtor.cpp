@@ -17,7 +17,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 #include "subsystem_interface.h"
-class Rva003EF14A {public:~Rva003EF14A();};
+#include "../../Include/Common/Rva003EF14A.h"
 #include <vector>
 // bfme link decl-only begin
 namespace _STL { template <> void *& vector<void *, allocator<void *> >::operator[](unsigned int); }
