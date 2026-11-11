@@ -31169,8 +31169,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FEC80,4,.data,global,?g_Va00DFEC80@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFECxx.cpp,provisional,?$S1@?1??rva002862C9@Rva002862C9@@QAEPAVLargeGroupAudioKeyMap@@XZ@4IA;?g_Va00DFEC80@@3IA,1,2
 0x009FEC84,12,.data,global,?s_pending@?DJ@??update@FireLogicSystem@@UAEXXZ@4V?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@A,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,owned,,1,7
 0x009FEC90,4,.data,global,?$S2@?DJ@??update@FireLogicSystem@@UAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,owned,,1,2
-0x009FEC94,20,.data,global,?g_pool00286116@@3URva00065964ObjectPool@@A,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,owned,,1,4
-0x009FECA8,28,.data,global,?g_pool00286136@@3URva00065964ObjectPool@@A,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,owned,,1,4
+0x009FEC94,20,.data,global,?g_pool00286116@@3VRva00065964ObjectPool@@A,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,owned,,1,4
+0x009FECA8,28,.data,global,?g_pool00286136@@3VRva00065964ObjectPool@@A,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,owned,,1,4
 0x009FECC4,4,.data,global,?TheExperienceLevelSystem@@3PAVExperienceLevelSystem@@A,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,owned,,1,92
 0x009FECC8,1,.data,global,_g_Va00DFECC8,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,owned,,1,4
 0x009FECC9,3,.data,global,_g_Va00DFECC9,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,owned,,1,3

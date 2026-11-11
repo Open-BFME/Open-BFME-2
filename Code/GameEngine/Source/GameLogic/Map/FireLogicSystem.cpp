@@ -60,18 +60,7 @@ class PolygonTrigger;
 // Retail's pools are 0x14 bytes (0x009FEC94 and 0x009FECA8): the allocators read the free list at +0,
 // the block list at +4, the counts at +8 and +0xC, and lock +0x10. No constructor: retail's storage is
 // zero-filled and only the atexit destructor thunks (0x007B781A, 0x007B7824) touch it outside the users.
-struct Rva00065964ObjectPool
-{
-	void FreeObject(void *obj);
-	void *rva00285A3B();	// 0x00285A3B
-	void *rva00285AC4();	// 0x00285AC4
-
-	void *m_freeListHead;
-	void *m_blockListHead;
-	int m_freeObjectCount;
-	int m_totalObjectCount;
-	BFMEPoolCriticalSection m_lock10;
-};
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 // g_pool00286116: matched references place it at VA 0xdfec94 (zero-filled).
 Rva00065964ObjectPool g_pool00286116;
 // g_pool00286136: matched references place it at VA 0xdfeca8 (zero-filled).

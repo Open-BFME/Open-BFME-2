@@ -7092,8 +7092,8 @@ void __cdecl rva007B6B73()
 	return receiver->~Rva002859EADtor();
 }
 
-// 0x009FEC94: defined elsewhere as ?g_pool00286116@@3URva00065964ObjectPool@@A.
-struct Rva00065964ObjectPool;
+// 0x009FEC94: defined elsewhere as ?g_pool00286116@@3VRva00065964ObjectPool@@A.
+class Rva00065964ObjectPool;
 extern Rva00065964ObjectPool g_pool00286116;
 
 // ?rva007B781A@@YAXXZ @ 0x007B781A (10B). Global dtor thunk: ecx=&g_pool00286116 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
@@ -7103,8 +7103,8 @@ void __cdecl rva007B781A()
 	return receiver->~Rva002859EADtor();
 }
 
-// 0x009FECA8: defined elsewhere as ?g_pool00286136@@3URva00065964ObjectPool@@A.
-struct Rva00065964ObjectPool;
+// 0x009FECA8: defined elsewhere as ?g_pool00286136@@3VRva00065964ObjectPool@@A.
+class Rva00065964ObjectPool;
 extern Rva00065964ObjectPool g_pool00286136;
 
 // ?rva007B7824@@YAXXZ @ 0x007B7824 (10B). Global dtor thunk: ecx=&g_pool00286136 then tail-jmp to pinned ??1Rva002859EADtor@@QAE@XZ (0x002859EA). No callers. Honest address name.
