@@ -670,14 +670,7 @@ public:
 
 #include "../../../../Include/Common/LivingWorldRegionEffectsManager.h"
 
-class Rva00210F27
-{
-public:
-	virtual void rva00210F27();
-private:
-	char m_pad04[0x25C - 4];
-	LivingWorldRegionEffectsManager *m_effects;				// +0x25C
-};
+#include "../../../../Include/Common/Rva00210F27.h"
 
 // --- 0x0029ACFB (23B): the +0x5C4 object's slot 15, or 0 when unset.
 class Rva0029ACFBTarget
