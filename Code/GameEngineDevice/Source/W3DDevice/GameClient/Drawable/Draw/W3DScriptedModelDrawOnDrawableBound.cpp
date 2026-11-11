@@ -42,7 +42,7 @@ public:
 struct ModelConditionInfo;
 #include "../../../../../../GameEngine/Include/Common/Rva000B4B23.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B4BED.h"
-class Rva000B8F5AOuter { public: bool rva000BF9FC(void *boneState, bool force, int options); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B8F5AOuter.h"
 
 class W3DScriptedModelDrawModuleData
 {

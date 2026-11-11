@@ -238,7 +238,7 @@ class Rva000BAC53DrawView : public Rva000BAC53Slots<49> {
 public: virtual Rva000BAC53RenderView *rva000BAC53Render() = 0;	// +0xC4
 };
 class PolygonTrigger;
-class Rva000B8F5AOuter { public: int rva000B89E9(int mesh, float *out); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B8F5AOuter.h"
 struct Rva000BAC53ModuleDataView
 {
  char unknown00[0x10C];

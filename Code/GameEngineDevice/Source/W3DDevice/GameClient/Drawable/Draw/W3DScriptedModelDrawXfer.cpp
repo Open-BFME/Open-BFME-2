@@ -174,11 +174,7 @@ public:
 	void *rva000B4653(int a);
 };
 
-class Rva000B8F5AOuter
-{
-public:
-	void rva000BFB51(float value);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B8F5AOuter.h"
 
 class ObjectModule
 {

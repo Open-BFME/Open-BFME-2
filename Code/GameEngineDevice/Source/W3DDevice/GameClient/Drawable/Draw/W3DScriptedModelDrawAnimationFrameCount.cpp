@@ -757,7 +757,7 @@ class Rva000B7074{public:void rva000B7074();};
 struct ModelStateView{int pad;ModelConditionFlags flags;char rest[0x5c-0x50];unsigned stateFlags;};
 struct ModelDataView{char pad[0x6b];bool requirePower;};
 __forceinline unsigned char Flag(unsigned value){return (value>>5)&1;}
-class Rva000B8F5AOuter{public:bool rva000BF9FC(void*,bool,int);void adjustAnimation(void*,float,bool,bool,bool);};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000B8F5AOuter.h"
 class HAnimClass;
 // Field view of the draw module for processAnimations (offsets from retail).
 class ScriptedDrawView{public:__forceinline Rva0027532F*GetDrawable(){return drawable;}
