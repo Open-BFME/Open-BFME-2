@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI /Ireference/open-bfme-1/game/GameEngine/Include/GameClient
 #include "../../../Include/GameClient/BfmeAptScreenBaseLayout.h"
 //
 // AptCampaignReview destructor, retail 0x00512894 (125 bytes); BFME 1

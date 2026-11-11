@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI /Ireference/open-bfme-1/game/GameEngine/Include/GameClient
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
