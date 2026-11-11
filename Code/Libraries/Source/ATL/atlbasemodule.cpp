@@ -14,8 +14,8 @@
 
 #define _ATL_VER 0x0710
 
-// Linker-provided image base; _vcclrit.h also defines managed CRT startup state.
-extern "C" IMAGE_DOS_HEADER __ImageBase;
+// Linker-provided image base, from the real <_vcclrit.h>.
+#include <_vcclrit.h>
 
 namespace ATL
 {
