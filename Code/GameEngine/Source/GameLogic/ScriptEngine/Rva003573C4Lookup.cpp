@@ -18,11 +18,7 @@ private:
 	AsciiString m_name;
 };
 
-class BfmeOwnZC
-{
-public:
-	void *bfmeCallZC( const BfmeRoomZC &name, void *extra );
-};
+#include "../../../Include/GameLogic/BfmeOwnZC.h"
 
 struct Rva002048A2
 {

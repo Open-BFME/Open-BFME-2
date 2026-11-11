@@ -37,11 +37,7 @@ private:
 };
 
 class BfmeRoomZC;
-class BfmeOwnZC
-{
-public:
-	void *bfmeCallZC(const BfmeRoomZC &name, void *outScope);	// 0x00357130 (rowed)
-};
+#include "../../../Include/GameLogic/BfmeOwnZC.h"
 
 class Xfer;
 class SequentialScript

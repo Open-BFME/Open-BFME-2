@@ -17,12 +17,7 @@ private:
 	AsciiString m_name;
 };
 
-class BfmeOwnZC
-{
-public:
-	void *bfmeCallZC( const BfmeRoomZC &name, void *extra );
-	void *bfmeRunZC( BfmeRoomZC name, void *extra );
-};
+#include "../../Include/GameLogic/BfmeOwnZC.h"
 
 void *BfmeOwnZC::bfmeCallZC( const BfmeRoomZC &name, void *extra )
 {
