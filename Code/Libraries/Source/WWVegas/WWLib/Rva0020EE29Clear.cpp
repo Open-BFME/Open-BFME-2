@@ -335,11 +335,7 @@ void *Rva002104B6::rva002104B6(void *a1)
 // first stack slot as its object and the second as its argument, discarding
 // this. Evidence: retail pushes [esp+8] then moves the other [esp+8] to ecx
 // (the slot shift after the push); callee-clean ret 8.
-class Rva003EFDF5Host
-{
-public:
-	void rva003EFDF5(void *a);
-};
+#include "Rva003EFDF5Host.h"
 
 void Rva002104C7::rva0020E374(void *a1, void *a2)
 {

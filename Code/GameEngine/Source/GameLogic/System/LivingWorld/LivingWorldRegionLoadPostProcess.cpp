@@ -16,11 +16,7 @@ public:
 	void rva003F012F();
 };
 
-class Rva003EFDF5Host
-{
-public:
-	void rva003EFDF5(void *a);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003EFDF5Host.h"
 
 class Xfer;
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"

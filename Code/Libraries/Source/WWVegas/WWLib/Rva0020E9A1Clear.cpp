@@ -8,11 +8,7 @@
 // vector reproduces; raw pointer spellings load start first.
 #include <vector>
 
-class Rva003EFDF5Host
-{
-public:
-	void rva003EFDF5(void *v);
-};
+#include "Rva003EFDF5Host.h"
 
 struct Rva0020E9A1Inner
 {
