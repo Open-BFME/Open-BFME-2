@@ -202,15 +202,7 @@ struct Rva00421263Vec
 	const ModuleData **m_end;
 };
 
-class LightPointSystem
-{
-public:
-	const ModuleData *rva00421263(const Rva00421263Vec *vec, const StringBase<char> &key) const;	// 0x00421263
-	const ModuleData *rva00421392(const StringBase<char> &key) const;
-private:
-	char m_pad[0x0C];
-	Rva00421263Vec m_levels;								// +0x0C
-};
+#include "../../Include/Common/LightPointSystem.h"
 
 // --- 0x00422035 (18B): a deque-of-pointers cursor advanced in place.
 // --- 0x0042304A (18B): copy of a holder of the rowed 0x004220CD vector.

@@ -106,11 +106,7 @@ public:
 	static void parseLargeGroupAudioMapDefinition(INI *);
 	static void parseLargeGroupAudioUnusedKnownKeysDefinition(INI *);
 };
-class LightPointSystem
-{
-public:
-	static void friend_parseLightPointLevelDefinition(INI *);
-};
+#include "../../../Include/Common/LightPointSystem.h"
 class LivingWorldAutoResolveArmorStore
 {
 public:

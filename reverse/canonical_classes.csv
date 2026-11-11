@@ -1206,3 +1206,4 @@ Gen_00943CF0,Code/Libraries/Source/WWVegas/WW3D2/Gen_00943CF0.h,existing header;
 FormationAssistant,Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.h,existing header; contract class_contracts/FormationAssistant.json; 5/9 sampled units adopt
 Rva000B8F5AOuter,Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva000B8F5AOuter.h,existing header; contract class_contracts/Rva000B8F5AOuter.json; 4/6 sampled units adopt
 Rva0046E6EA,Code/GameEngine/Include/GameLogic/Module/Rva0046E6EA.h,existing header; contract class_contracts/Rva0046E6EA.json; 4/5 sampled units adopt
+LightPointSystem,Code/GameEngine/Include/Common/LightPointSystem.h,existing header; contract class_contracts/LightPointSystem.json; 3/7 sampled units adopt
