@@ -25,11 +25,7 @@ struct ArmyIconMapHeader
 	char m_00[8];
 	ArmyIconMapNode *m_leftmost;
 };
-class Rva005F2278
-{
-public:
-	bool rva005F2278(int v) const;
-};
+#include "../../Include/GameClient/Rva005F2278.h"
 class Rva005E4DAF
 {
 public:

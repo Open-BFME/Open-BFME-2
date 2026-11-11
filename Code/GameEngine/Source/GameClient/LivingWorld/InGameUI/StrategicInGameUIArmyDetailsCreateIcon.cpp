@@ -172,7 +172,7 @@ public:
  Rva005E3C90(Rva005E39F3Arg*,void*,int,UnitView*);
  virtual void DoUpdate();
 };
-class Rva005F2278 {public:bool rva005F2278(int) const;};
+#include "../../../../Include/GameClient/Rva005F2278.h"
 
 namespace StrategicInGameUI {
 class ArmyDetailsPanel {
