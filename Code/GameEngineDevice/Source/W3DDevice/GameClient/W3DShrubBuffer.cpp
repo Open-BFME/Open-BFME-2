@@ -436,11 +436,7 @@ public:
 	using RefCountPtr<HierarchyPrototype>::operator=;
 	const TextureBaseClass *texture() const { return (const TextureBaseClass *)this; }
 };
-class Rva00170EBC
-{
-public:
-	void rva00170EBC(Bool shadow);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00170EBC.h"
 class Rva00171583
 {
 public:

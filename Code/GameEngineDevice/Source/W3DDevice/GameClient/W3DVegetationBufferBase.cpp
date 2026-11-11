@@ -127,11 +127,7 @@ bool BFME_DX8_Thread_Assert(void);
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
-class Rva00170EBC
-{
-public:
-	void rva00170EBC(bool b);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00170EBC.h"
 
 #include "../../../../GameEngine/Include/Common/GameEngine.h"
 

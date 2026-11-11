@@ -913,7 +913,7 @@ public:
 	int rva00132784() const;
 };
 
-class Rva00170EBC { public: void rva00170EBC(bool); };
+#include "../../../Include/W3DDevice/GameClient/Rva00170EBC.h"
 
 class Rva00171583 { public: bool rva00171583(const unsigned int &key, Vec2 *outSize, Vec2 *outPos); };
 
