@@ -41,7 +41,7 @@ protected:
 #include "RGBColor.h"
 
 // Rowed ParticleSystem methods under address-derived classes.
-class Rva001F385A { public: void rva001F385A(void *p); };
+#include "../../Include/GameClient/Rva001F385A.h"
 #include "../../Include/Common/Rva001F510D.h"
 class Rva001F512FSlot { public: const RGBColor *get() const; };
 class Rva001F3828 { public: bool rva001F3828(int a, int b); };

@@ -84,11 +84,7 @@ public:
 
 #include "../../../../Include/GameClient/Rva001F553F.h"
 
-class Rva001F385A
-{
-public:
-	void rva001F385A(void *out);
-};
+#include "../../../../Include/GameClient/Rva001F385A.h"
 
 #include "../../../../Include/GameClient/Rva001F4D2D.h"
 

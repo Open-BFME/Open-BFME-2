@@ -79,11 +79,7 @@ void FXGate::rva00563F34()
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 
-class Rva001F385A
-{
-public:
-	void rva001F385A(void *out);
-};
+#include "../../../../Include/GameClient/Rva001F385A.h"
 
 struct Rva0056405CSystemView
 {
