@@ -23,11 +23,7 @@ struct Rva00223124Node
 	_STL::pair<const AsciiString, AsciiString> _M_val;
 };
 
-class Rva00223124
-{
-public:
-	void *rva00223124(const void *obj);
-};
+#include "../../Include/GameClient/Rva00223124.h"
 
 void *Rva00223124::rva00223124(const void *obj)
 {

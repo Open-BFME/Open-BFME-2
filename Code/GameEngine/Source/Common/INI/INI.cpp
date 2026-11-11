@@ -924,11 +924,7 @@ typedef _STL::hashtable<RvaRehashPrimePair,NameKeyType,rts::hash<NameKeyType>,
 // computes its full size, or reads the unnamed payload following the key.
 struct Rva0002C7FDNodePrefix { Rva0002C7FDNodePrefix *next; AsciiString key; };
 
-class Rva00223124
-{
-public:
-	void *rva00223124(const void *obj);
-};
+#include "../../../Include/GameClient/Rva00223124.h"
 
 struct Pair0002CA72
 {

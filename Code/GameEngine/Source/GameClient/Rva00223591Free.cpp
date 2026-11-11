@@ -29,11 +29,7 @@ template <class T1, class T2> struct pair
 
 #include "../../Include/GameLogic/Rva000427195.h"
 
-class Rva00223124
-{
-public:
-	void *rva00223124(const void *obj);
-};
+#include "../../Include/GameClient/Rva00223124.h"
 
 class Rva00223591
 {
