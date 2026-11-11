@@ -65,11 +65,7 @@ void Rva005D1CAF::rva005D1CAF()
 	((Rva005CCB7B *)this)->rva005CCB7B(m_14 == 0 || m_14->rva0056A989());
 }
 
-class Rva00318F42
-{
-public:
-	bool rva00318F42();
-};
+#include "../../Include/GameLogic/Rva00318F42.h"
 
 class Rva005D20C1
 {

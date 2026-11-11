@@ -11,11 +11,7 @@ class Mbr002E0B30
 };
 
 // LINK: the predicate at 0x00318F42 is rowed as ?rva00318F42@Rva00318F42@@QAE_NXZ (bool).
-class Rva00318F42
-{
-public:
-	bool rva00318F42();
-};
+#include "../../Include/GameLogic/Rva00318F42.h"
 
 class Rva002B3288
 {

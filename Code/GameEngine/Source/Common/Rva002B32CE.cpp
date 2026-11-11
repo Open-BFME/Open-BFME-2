@@ -7,11 +7,7 @@
 #include <vector>
 
 // The element test 0x00318F42 is rowed as Rva00318F42::rva00318F42.
-class Rva00318F42
-{
-public:
-	bool rva00318F42();
-};
+#include "../../Include/GameLogic/Rva00318F42.h"
 class Mbr002E0B30
 {
 public:

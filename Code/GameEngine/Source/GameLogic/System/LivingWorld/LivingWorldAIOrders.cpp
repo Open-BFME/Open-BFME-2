@@ -43,7 +43,7 @@ class Rva0022C0CDSubsystem;extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTe
 enum NameKeyType{NAMEKEY_INVALID=0};class ArmorTemplate;
 class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};
 class Rva002E0A9FElem {public:int rva002E0A9F(void*);};
-class Rva00318F42 {public:bool rva00318F42();};
+#include "../../../../Include/GameLogic/Rva00318F42.h"
 class Rva002B4076 {public:void rva002B4076(void*,int,void*);};
 class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
 class LivingWorldAI {public:

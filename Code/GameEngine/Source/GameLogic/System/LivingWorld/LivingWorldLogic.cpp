@@ -2750,7 +2750,7 @@ void LivingWorldLogic::UpdateTurnPhase(){
 // Existing neutral callee spellings preserve their unresolved original
 // type identities; ModuleData is the owned allocation provider's wire ABI.
 struct Rva00538CEFPair {int a,b;};
-class Rva00318F42 {public:bool rva00318F42();void rva0031986B(const Rva00538CEFPair*,int);};
+#include "../../../../Include/GameLogic/Rva00318F42.h"
 class Rva00318FA1MainOwner {public:int rva00318FA1();};
 struct Rva003F26AAPair {int a,b;};
 class LivingWorldRegionConnection {public:bool rva003F26AA(const ModuleData *,Rva003F26AAPair *);char pad00[8];int regionID;char pad0c[12];};

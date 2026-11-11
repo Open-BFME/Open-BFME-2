@@ -68,11 +68,7 @@ struct Rva0009C814ManagerView
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
-class Rva00318F42
-{
-public:
-	bool rva00318F42();
-};
+#include "../../../Include/GameLogic/Rva00318F42.h"
 
 class Rva00318FA1MainOwner
 {

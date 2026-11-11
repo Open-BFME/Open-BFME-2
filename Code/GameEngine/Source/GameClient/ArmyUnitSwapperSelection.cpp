@@ -39,7 +39,7 @@ class Rva002B6C9F {public: bool rva002B8019(int,int,int);};
 class Rva003F287F; class Rva004E0632;
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva00318F42 {public: bool rva00318F42();};
+#include "../../Include/GameLogic/Rva00318F42.h"
 class Rva005E1008 {public: void rva005E0E99(bool);};
 class Rva005E1160Flag {public: __declspec(noinline) void rva005E1160(bool); char prefix[8]; Rva005E1008 *inner;};
 void Rva005E1160Flag::rva005E1160(bool enabled){inner->rva005E0E99(enabled);}

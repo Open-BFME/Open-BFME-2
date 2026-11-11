@@ -136,7 +136,7 @@ public:
 // The rowed predicate ?rva00318F42@Rva00318F42 at 0x00318F42. Native and WB
 // identify the receiver as an element of m_armyVec; its original method is
 // unknown.
-class Rva00318F42 { public: bool rva00318F42(); };
+#include "../../../../Include/GameLogic/Rva00318F42.h"
 
 // Three-word RGB copies are proven by the native color setter and the
 // recovered MultiplayerColorDefinition constructor. Reference getNumColors
