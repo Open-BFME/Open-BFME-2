@@ -21,9 +21,6 @@ typedef unsigned short wchar_t;
 #define _DLL
 #include <stdio.h>
 
-// Retail imports this four-argument C++ overload, not the C _vsnwprintf export.
-__declspec(dllimport) int __cdecl vswprintf(
-    unsigned short *, unsigned int, const unsigned short *, char *);
 #include <string.h>
 
 #include "string_base.h"
