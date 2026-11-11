@@ -116,7 +116,7 @@ template <> __declspec(dllimport) __forceinline unsigned short StringBase<unsign
 
 // 0x003140AB, rowed by address: true when the argument is this window or
 // one of its descendants.
-class Rva003140AB { public: bool rva003140AB(Rva003140AB *window); };
+#include "../../../../Include/GameClient/Rva003140AB.h"
 
 #include "../../../../Include/GameClient/DisplayString.h"
 

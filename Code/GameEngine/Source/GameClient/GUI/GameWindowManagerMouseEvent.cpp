@@ -40,7 +40,7 @@ enum WindowMsgHandledType { MSG_IGNORED=0, MSG_HANDLED=1 };
 class GameWindow;
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 class Rva002C027B { public: void *rva002C027B(); };
-class Rva003140AB { public: bool rva003140AB(Rva003140AB*); };
+#include "../../../Include/GameClient/Rva003140AB.h"
 class ModalWindow
 {
 public:

@@ -42,11 +42,7 @@ void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int colu
 void GadgetListBoxSetSelected(GameWindow *listbox, int index);
 
 // Rowed 0x003140AB: is the given window this window or one of its children.
-class Rva003140AB
-{
-public:
-	bool rva003140AB(Rva003140AB *other);
-};
+#include "../../../../../Include/GameClient/Rva003140AB.h"
 
 // Only vslot 51 (the grab window, vtable+0xCC) is called here.
 #include "../../../../../Include/GameClient/GameWindowManager.h"
