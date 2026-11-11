@@ -538,9 +538,7 @@ private:
 
 extern class GlobalData *TheWritableGlobalData;
 
-struct Rva00116680 {
-  void *rva00116680(int *pitchOut, bool discard);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Rva00116680.h"
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintReAcquire.cpp
 

@@ -3,9 +3,7 @@
 // BFME1 W3DRadarAlphaBlob6x6.cpp provides the related one-pointer lock-guard
 // semantics; retail calls the owned bool-discard SurfaceClass lock view.
 // The historical guard name is unknown; use an address-qualified operation.
-class Rva00116680 {
-public: void *rva00116680(int *pitchOut,bool discard);
-};
+#include "Rva00116680.h"
 class Rva00130FFC {
  Rva00116680 *surface;
 public:

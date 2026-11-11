@@ -191,11 +191,7 @@ class W3DRadarResetSurface
 
 };
 
-class Rva00116680
-{
- public:void *rva00116680(int *,bool);
-
-};
+#include "Rva00116680.h"
 
 #include "Member0C00739C70.h"
 

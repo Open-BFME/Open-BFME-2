@@ -16,11 +16,7 @@ public:
 	void *m_surface;
 };
 
-class Rva00116680
-{
-public:
-	void *rva00116680(int *pitchOut, bool discard);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Rva00116680.h"
 
 #include "../../Include/Common/Rva000724AE.h"
 

@@ -21,7 +21,7 @@ template <> DynamicVectorClass<Render2DClass *>::~DynamicVectorClass();
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-class Rva00116680 { public: void *rva00116680(int *,bool); };
+#include "Rva00116680.h"
 #include "Member0C00739C70.h"
 
 // Donor BFME1 9cbfb551fe20 Render2DSentenceClass_Allocate_New_Surface.cpp.

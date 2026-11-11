@@ -68,11 +68,7 @@ public:
 
 // Surface lock/unlock under their ledger names (0x00116680 returns the bits
 // and the pitch; 0x00116760 unlocks).
-class Rva00116680
-{
-public:
-	void *rva00116680(int *pitch, bool discard);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Rva00116680.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 
