@@ -109,6 +109,16 @@ def test_pure_slot_is_pure_when_any_view_spells_it_pure(base_header, monkeypatch
         assert problems == [] and own == ["virtual NameKeyType getKey() const = 0;"]
 
 
+def test_a_pure_slot_with_parameters_is_never_contradicted_by_a_same_arity_row(monkeypatch):
+    # f(int) pure, f(double) defined: one virtual row of that name and arity is no proof.
+    monkeypatch.setattr(lane, "_matched_index", lambda: {"?f@Solo@@": ["?f@Solo@@UAEXN@Z"]})
+    view = "class Solo {\npublic:\n    virtual void f(int a) = 0;\n};\n"
+    c = contract({0: "f(int)"}, bases=(), inherited=0)
+    c["class"] = "Solo"
+    own, _, problems = lane.slot_declarations(c, ["s.cpp"], read={"s.cpp": view}.__getitem__, known={})
+    assert problems == [] and own == ["virtual void f(int a) = 0;"]
+
+
 def test_a_pure_destructor_with_its_required_definition_stays_pure(monkeypatch):
     monkeypatch.setattr(lane, "_matched_index", lambda: {"??1Solo@@": ["??1Solo@@UAE@XZ"]})
     view = "class Solo {\npublic:\n    virtual ~Solo() = 0;\n};\n"

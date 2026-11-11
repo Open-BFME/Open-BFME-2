@@ -835,8 +835,10 @@ def test_special_members_keep_spelling_access_and_skip_what_another_part_declare
     other = ("class Pod {\npublic:\n    Pod(void);\n    Pod(Pod const &);\n    Pod& operator=(const Pod &that);\n"
              "    ~Pod() {}\n    float m_r;\n};\n")
     carried, problems = special("Pod", {"a.cpp": view, "b.cpp": other})
-    assert problems == []
-    # Pod(const Coord3D &) names a type the header lacks and has no implicit counterpart: left out
+    # Pod(const Coord3D &) names a type the header lacks; left out, a call to it could fall
+    # to another constructor, so the class is held
+    assert problems == ["special Pod(const Coord3D &where): names a type or default argument the header "
+                        "does not declare, and Pod(float) could take its calls"]
     assert sorted((c["role"], c["access"], c["text"]) for c in carried) == [
         ("assign", "public", "Pod &operator = (const Pod &);"), ("copy", "public", "Pod(const Pod &other);"),
         ("ctor", "private", "Pod(int a, int b);"), ("ctor", "public", "explicit Pod(float r);"),
@@ -874,20 +876,51 @@ def test_special_member_keys_keep_qualifiers_and_drop_names():
     view = "class C { public: C(C&); C(const C&); C& operator=(C&); C& operator=(const C&); int x; };\n"
     carried, problems = special("C", {"a.cpp": view})
     assert problems == [] and len(carried) == 4
-    carried, problems = special("C", {"a.cpp": "class C { public: C(void (*a)(int)); int x; };\n",
-                                      "b.cpp": "class C { public: C(void (*b)(int)); int x; };\n"})
+    carried, problems = special("C", {"a.cpp": "class C { public: C(void (*f)(int x)); int x; };\n",
+                                      "b.cpp": "class C { public: C(void (*g)(int y)); int x; };\n"})
     assert problems == [] and len(carried) == 1
+    assert lane.param_key("void (C::*pm)(int x, const char *s) const") == "void(C::*)(int,const char*)const"
 
 
-def test_a_disputed_member_without_an_implicit_counterpart_is_left_out_not_held():
-    # Rva005F4096's views give its converting constructor two inline bodies; here also one
-    # out of line against one inline, and one under other access. Dropping such a member
-    # is safe: a unit that calls it no longer compiles and is queued.
-    carried, problems = special("C", {"a.cpp": "class C { public: C(int *p) : m(p) {} C(char); C(float); ~C(); "
-                                               "int *m; };\n",
-                                      "b.cpp": "class C { C(float); public: C(int *q) : m(0) {} C(char c) {} ~C(); "
-                                               "int *m; };\n"})
+@pytest.mark.parametrize("a,b", [
+    ("C(int *p) : m(p) {}", "C(int *q) : m(0) {}"),      # Rva005F4096: two inline bodies
+    ("C(int *p);", "C(int *q) : m(0) {}"),                # out of line against inline
+    ("C(int *p);", "private: C(int *p); public:"),        # other access
+    ("C &operator=(int v);", "C &operator=(int v) { m = 0; return *this; }"),
+])
+def test_a_disputed_member_without_an_implicit_counterpart_is_left_out_not_held(a, b):
+    # Dropping such a member is safe when no other overload could take its calls: a unit
+    # that calls it no longer compiles and is queued.
+    carried, problems = special("C", {"a.cpp": "class C { public: %s ~C(); int *m; };\n" % a,
+                                      "b.cpp": "class C { public: %s ~C(); int *m; };\n" % b})
     assert problems == [] and [c["text"] for c in carried] == ["~C();"]
+
+
+def test_a_disputed_member_another_overload_could_absorb_holds_the_class():
+    # C t(1) would fall to C(long) silently if C(int) were left out.
+    carried, problems = special("C", {"a.cpp": "class C { public: C(long); C(int); int m; };\n",
+                                      "b.cpp": "class C { public: C(long); C(int) {} int m; };\n"})
+    assert problems == ["special C(int): the views disagree on it, and C(long) could take its calls"]
+    # c = 1 would fall to the copy assignment through the converting constructor
+    carried, problems = special("C", {"a.cpp": "class C { public: C(int); C &operator=(int); int m; };\n",
+                                      "b.cpp": "class C { public: C(int); C &operator=(int) { return *this; } "
+                                               "int m; };\n"})
+    assert problems == ["special C &operator=(int): the views disagree on it, and C(int) could take its calls"]
+    # only a carried overload takes calls: ICoord2D's converting constructor and assignment
+    # from a type the header lacks are both left out; the default and copy members take no
+    # one-argument call of their own (GroupOrder's holder constructor beside them)
+    carried, problems = special("C", {"a.cpp": "class C { public: C(); C(const C &); C(const Wire &w); "
+                                               "C &operator=(const Wire &w); int m; };\n"})
+    assert problems == [] and sorted(c["role"] for c in carried) == ["copy", "default"]
+
+
+def test_copy_assignment_by_value_is_a_copy_assignment():
+    views = {"a.cpp": "class C { public: C &operator=(C other); int m; };\n", "b.cpp": "class C { public: int m; };\n"}
+    carried, problems = special("C", views)
+    assert problems == ["special C &operator=(C other): declared in a.cpp, omitted by b.cpp and no matched row "
+                        "defines it"]
+    carried, problems = special("C", views, {"??4C@@": ["??4C@@QAEAAV0@V0@@Z"]})
+    assert problems == [] and [c["role"] for c in carried] == ["assign"]
 
 
 def test_defaulted_parameters_make_default_and_copy_constructors(monkeypatch):
@@ -904,6 +937,10 @@ def test_defaulted_parameters_make_default_and_copy_constructors(monkeypatch):
 def test_a_carried_declaration_keeps_its_string_literals():
     carried, problems = special("C", {"a.cpp": 'class C { public: C(const char *s = "a  b"); int x; };\n'})
     assert problems == [] and carried[0]["text"] == 'C(const char *s = "a  b");'
+    # comment markers and braces inside a literal are text, not comments or members
+    view = 'class C {\npublic:\n    ~C() { log("a/*  b  */c}"); } // gone\n    void log(const char *);\n};\n'
+    carried, problems = special("C", {"a.cpp": view, "b.cpp": view})
+    assert problems == [] and [c["text"] for c in carried] == ['~C() { log("a/*  b  */c}"); }']
 
 
 def test_ledger_proof_reads_nested_scope_back_references():

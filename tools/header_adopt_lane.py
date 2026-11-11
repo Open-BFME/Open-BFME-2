@@ -1240,18 +1240,44 @@ def spell_typedefs(text):
     return text
 
 
+def top_level_spans(shape, start, end):
+    """(start, end) of each top-level member of `shape[start:end]`, split as split_members
+    splits; `shape` has its literals and comments blanked (masked)."""
+    out, begin, depth, index = [], start, 0, start
+    while index < end:
+        char = shape[index]
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                out.append((begin, index + 1))
+                while index + 1 < end and shape[index + 1] in " \t\r\n;":
+                    index += 1
+                begin = index + 1
+        elif char == ";" and depth == 0:
+            out.append((begin, index + 1))
+            begin = index + 1
+        index += 1
+    out.append((begin, end))
+    return [(a, b) for a, b in out if shape[a:b].strip()]
+
+
 def class_members(text, name):
     """[(access, member)] of the top-level members the view of `name` in `text` declares,
-    comments stripped, each with the access label in force; None when `text` has no body."""
+    comments blanked and literals kept, each with the access label in force; None when
+    `text` has no body. Braces and semicolons inside literals and comments split nothing."""
     span = body_span(text, name)
     if not span:
         return None
-    code = re.sub(r"//[^\n]*|/\*.*?\*/", "", text[span[0]:span[1]], flags=re.S)
-    if "{" not in code:
+    raw = text[span[0]:span[1]]
+    code, shape = masked(raw, keep_literals=True), masked(raw)
+    if "{" not in shape:
         return None
     access = "public" if span[2] in ("struct", "union") else "private"
     out = []
-    for member in split_members(code[code.index("{") + 1:code.rindex("}")]):
+    for start, end in top_level_spans(shape, shape.index("{") + 1, shape.rindex("}")):
+        member = code[start:end].strip()
         label = ACCESS_LABEL.match(member)
         while label:
             access, member = label.group(1), member[label.end():]
@@ -1281,10 +1307,15 @@ def param_list(text):
 
 def param_key(param):
     """One parameter's type, qualifiers kept and names dropped: `X const &o` -> `const X&`,
-    `void (*fn)(int)` -> `void(*)(int)`."""
+    `void (*fn)(int x)` -> `void(*)(int)`, `void (C::*pm)(int)` -> `void(C::*)(int)`."""
     param = re.sub(r"=.*$", "", param, flags=re.S)
     param = re.sub(r"\b(struct|class|enum)\b", "", param)
-    param = re.sub(r"\(\s*([*&])\s*[A-Za-z_]\w*\s*\)", r"(\1)", param)
+    pointer = re.match(r"^(.*?)\(\s*((?:[A-Za-z_]\w*\s*::\s*)*[*&])\s*(?:[A-Za-z_]\w*)?\s*\)\s*\((.*)\)"
+                       r"\s*((?:const|volatile|\s)*)$", param, flags=re.S)
+    if pointer:                                  # a function pointer: its own parameters lose their names too
+        inner = ",".join(param_key(p) for p in param_list("(" + pointer.group(3) + ")"))
+        declarator = re.sub(r"\s+", "", pointer.group(2))
+        return f"{param_key(pointer.group(1))}({declarator})({inner}){' '.join(pointer.group(4).split())}"
     tokens = re.findall(r"[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*(?:\s*<[^()]*?>)?|[*&()\[\],]|\d+", param)
     tokens = [re.sub(r"\s+", "", t) for t in tokens]
     types = [t for t in tokens if re.match(r"[A-Za-z_]", t) and t not in CV_WORDS]
@@ -1314,7 +1345,8 @@ def special_role(member, short):
         first = param_types(f"({params[0]})")
         return "copy" if first == [short + "&"] and all("=" in p for p in params[1:]) else "ctor"
     if re.search(r"\boperator\s*=\s*\(", head):
-        return "assign" if param_types(head[head.index("operator"):]) == [short + "&"] else "operator="
+        copy = param_types(head[head.index("operator"):]) in ([short + "&"], [short])   # X& or by value
+        return "assign" if copy else "operator="
     return None
 
 
@@ -1360,7 +1392,7 @@ def ledger_defines(name, role, index=None):
 
     MSVC spells the class in a copy constructor's or assignment's parameter by
     back-reference to the names of its own scope (`ABV0@@` for `X`, `ABV01@@` for
-    `A::X`)."""
+    `A::X`); a copy assignment may take it by value (`V0@@`)."""
     scopes = name.split("::")
     prefix = {"dtor": "??1", "default": "??0", "copy": "??0", "assign": "??4"}[role]
     names = (_matched_index() if index is None else index).get(f"{prefix}{'@'.join(reversed(scopes))}@@", ())
@@ -1368,22 +1400,27 @@ def ledger_defines(name, role, index=None):
         return any(n.endswith("@XZ") for n in names)
     if role in ("copy", "assign"):
         refs = "".join(str(i) for i in range(len(scopes)))
-        return any(re.search(r"@A[AB][UV]%s@@Z$" % refs, n) for n in names)
+        by = "A[AB]" if role == "copy" else "(?:A[AB])?"
+        return any(re.search(r"@%s[UV]%s@@Z$" % (by, refs), n) for n in names)
     return bool(names)
 
 
 def pure_contradicted(name, member, args, index=None):
     """Whether a matched row defines the virtual `name::member` a view spells pure.
 
-    Only an unambiguous row counts: the one row of that name, virtual (`U`, `M`, `E`
-    after the scope) and of the slot's arity class (no parameters ends `XZ`). A pure
-    destructor is never contradicted: C++ requires its definition."""
+    Only a row whose identity is plain counts: a slot with no parameters, and the one
+    row of that name, virtual (`U`, `M`, `E` after the scope) and taking none (`XZ`).
+    With parameters an unrowed pure overload could share the name and arity, so no
+    contradiction is reported. A pure destructor is never contradicted: C++ requires
+    its definition."""
+    if args:
+        return False
     scope = "@".join(reversed(name.split("::")))
     prefix = f"?{member}@{scope}@@"
     rows = (_matched_index() if index is None else index).get(prefix, ())
     if len(rows) != 1 or rows[0][len(prefix):len(prefix) + 1] not in ("U", "M", "E"):
         return False
-    return rows[0].endswith("XZ") == (args == 0)
+    return rows[0].endswith("XZ")
 
 
 def special_declarations(name, sources, read=None, known=(), slotted=(), index=None):
@@ -1400,7 +1437,8 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
     and no matched ledger row defines it; or it names a type or default argument the
     header does not declare. Any other constructor or `operator=` has no implicit
     counterpart: on such a disagreement it is left out, and a unit that needs it is
-    queued by the byte gate."""
+    queued by the byte gate, unless another overload could take its calls (absorbed),
+    which holds the class."""
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
     hump_id = re.compile(r"^[A-Z][A-Za-z0-9]*(?:_[A-Z][A-Za-z0-9]*)+$")
@@ -1419,11 +1457,31 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
                 continue
             spelled_member = outside_literals(member, spell_typedefs)
             norm = outside_literals(spelled_member, lambda part: re.sub(r"\s+", " ", part)).strip()
-            found[member_key(spelled_member, name)].append((role, access, "{" in member, norm, spelled_member))
+            inline = "{" in LITERAL.sub("", member)
+            found[member_key(spelled_member, name)].append((role, access, inline, norm, spelled_member))
         views[source] = found
     out, problems = [], []
     keys = sorted({k for found in views.values() for k, decls in found.items()
                    if any(role != "virtual" for role, _, _, _, _ in decls)})
+    roles, arity = collections.defaultdict(set), {}
+    for found in views.values():
+        for key, decls in found.items():
+            roles[key].update(d[0] for d in decls)
+            head = re.sub(r"\)\s*:.*$", ")", LITERAL.sub('""', decls[0][3]).split("{")[0], flags=re.S)
+            params = param_list(head[head.index("operator"):] if "operator" in head else head)
+            arity[key] = (sum("=" not in p for p in params), len(params))   # (fewest, most) arguments
+
+    def absorbed(key, role, carried):
+        """A carried overload that could take the calls of a member left out: a constructor
+        call falls to another non-copy constructor accepting as many arguments; an
+        assignment to another `operator=` or, through a converting constructor that
+        accepts one argument, to the copy assignment."""
+        fewest, most = arity[key] if role == "ctor" else (1, 1)
+        return sorted(k for k in carried if k != key and (
+            role == "operator=" and "operator=" in roles[k]
+            or roles[k] & {"ctor", "default"} and arity[k][0] <= most and fewest <= arity[k][1]))
+
+    left_out = []                     # (key, role, why): decided once every carried overload is known
     for key in keys:
         if key in slotted:
             continue                  # the slot declarations emit it as a virtual
@@ -1438,7 +1496,10 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         omitted = sorted(s for s, found in views.items() if key not in found)
         if role not in IMPLICIT_ROLES and (outline and inline or virtual or len(accesses) > 1
                                            or len({d[3] for _, d in inline}) > 1):
-            continue                  # no implicit counterpart: dropped, a unit that needs it is queued
+            # No implicit counterpart: left out, a unit that calls it no longer compiles and
+            # is queued, unless another overload could take its calls silently.
+            left_out.append((key, role, f"special {what}: the views disagree on it"))
+            continue
         if outline and inline:
             problems.append(f"special {what}: out of line in {outline[0][0]}, inline in {inline[0][0]}")
             continue
@@ -1465,11 +1526,19 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
         # an inline body may call a hump-underscore method (Release_Ref), as view_methods allows
         if any(w[0].isupper() and not (inline and hump_id.match(w)) for w in words) or \
                 re.search(r"=\s*(?!(?:true|false)\b)[A-Za-z_]", bare.split("{")[0].split("(", 1)[-1]):
+            why = f"special {what}: names a type or default argument the header does not declare"
             if role in IMPLICIT_ROLES:
-                problems.append(f"special {what}: names a type or default argument the header does not declare")
-            continue                  # no implicit counterpart: a unit that needs it is queued
+                problems.append(why)
+            else:
+                left_out.append((key, role, why))
+            continue
         out.append({"role": role, "access": next(iter(accesses)), "sig": key,
                     "text": text if text.endswith((";", "}")) else text + ";"})
+    carried = {c["sig"] for c in out}
+    for key, role, why in left_out:
+        other = absorbed(key, role, carried)
+        if other:
+            problems.append(f"{why}, and {other[0]} could take its calls")
     return out, problems
 
 
