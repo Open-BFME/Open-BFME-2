@@ -5016,6 +5016,19 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(f"{src} holds only retired duplicates: it is deleted, not prepared")
         plan.before.setdefault(src, ctx.read(src))
         plan.removed.append(src)
+    # the class's own row at each retired duplicate's address is what serves its callers from now on: its unit is
+    # rebuilt and its body held to retail's after the build (survivors); no unit outside the rewrite may still
+    # reference a duplicate's stand-in spelling (an implicit instantiation names it without spelling it in text)
+    survivors = []
+    for _name, at, _src in sorted(retired_rows):
+        twin = next(r for r in rows if r["name"] == family.members[at] and _rva(r.get("target_rva")) == at)
+        survivors.append((twin["source"], twin["name"], at, int(twin["target_size"])))
+    if retired_rows:
+        rebuilt = {e["source"] for e in entries} | set(prepared) | set(emptied) | {s for s, _n, _a, _z in survivors}
+        problems, _count = pin_consumers(ctx, sorted({n for n, _at, _s in retired_rows}), [family.old], rebuilt)
+        if problems:
+            raise Refusal(f"the stand-in duplicate(s) cannot be retired: {problems[0]}"
+                          + (f" (and {len(problems) - 1} more)" if len(problems) > 1 else ""))
     for old_name in ([e["old"] for e in entries] + [name for name, _f in family.pins.values()]
                      + [name for name, _f in retired.values()] + [name for name, _at, _s in retired_rows]):
         left = sorted(rel for rel, data in plan.after.items()
@@ -5026,7 +5039,8 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         if elsewhere:
             raise Refusal(f"{', '.join(elsewhere[:4])} still spells {old_name}: prepare every unit that names it")
     owner_sources = {e["source"] for e in entries}
-    verify = (set(prepared) | owner_sources | {src for _n, _at, src in retired_rows}) - set(emptied)
+    verify = (set(prepared) | owner_sources | {src for _n, _at, src in retired_rows}
+              | {src for src, _n, _a, _z in survivors}) - set(emptied)
     verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
     verify |= {m["dest"] for m in forced}
     plan.verify = sorted(v for v in verify if not is_generated(v))
@@ -5053,6 +5067,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         plan.identity["retired"] = sorted((name, at, family.members[at]) for at, (name, _f) in retired.items())
         if stand_in:
             plan.identity["duplicates"] = sorted(retired_rows)
+            plan.identity["survivors"] = survivors
     else:
         plan.identity.update(table_name=family.table_name, copy_store=family.copy_store,
                              leaves={at: (source_of[at], family.respell(family.rows[at][0])) for at in leaves},
@@ -5086,6 +5101,20 @@ def object_symbol_relocs(ctx, source, name):
         return list(build.read_object_symbol_bytes(build.obj_path(ctx.path(source)), name, code_only=True)[1])
     except (OSError, SystemExit, ValueError, KeyError, IndexError):
         return []
+
+
+def object_symbol_body(ctx, source, name):
+    """(bytes, [(offset, type, target)]) of `name`'s body in `source`'s rebuilt object, or None when it cannot be
+    read. Tests replace this through ctx.object_symbol_body."""
+    hook = getattr(ctx, "object_symbol_body", None)
+    if hook:
+        return hook(source, name)
+    import build
+    try:
+        code, relocs = build.read_object_symbol_bytes(build.obj_path(ctx.path(source)), name, code_only=True)[:2]
+    except (OSError, SystemExit, ValueError, KeyError, IndexError):
+        return None
+    return bytes(code), list(relocs)
 
 
 def object_symbol_relocs_or_none(ctx, source, name):
@@ -5232,6 +5261,19 @@ def retail_identity_problems(ctx, identity):
         gone = sorted({name for name, _at, _source in identity.get("duplicates", ())})
         if gone:
             problems += object_pin_references(source_objects(ctx, identity["sources"]), gone)
+        # the class's row that now serves each retired duplicate's callers: retail's whole body, every
+        # relocation a row of its own symbol at retail's target
+        if identity.get("survivors"):
+            written = ctx.path(FUNCTIONS).read_bytes().decode("utf-8", "surrogateescape")
+            rows_now = list(csv.DictReader(io.StringIO(written)))
+            for source, name, at, size in identity["survivors"]:
+                body = object_symbol_body(ctx, source, name)
+                if body is None:
+                    problems.append(f"{name} (0x{at:08X}), which replaces a retired duplicate, cannot be read ({source})")
+                    continue
+                why = retail_body_problem(name, at, size, body[0], body[1], rows_now)
+                if why:
+                    problems.append(f"0x{at:08X}'s surviving row is not retail's: {why}")
     else:
         relocs = object_symbol_relocs(ctx, identity["copy_source"], identity["copy_name"])
         if (identity["copy_store"], DIR32, identity["table_name"]) not in relocs:

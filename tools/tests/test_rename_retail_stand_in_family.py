@@ -3,6 +3,7 @@
 test writes. The stand-in has no constructor, so no table proves the element: the class's own rows do, every row
 reaches one by a call, every stride is the registered size, duplicates of the class's own rows are retired, and the
 rebuilt rows must bind what retail's calls reach."""
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -49,6 +50,9 @@ def image(monkeypatch):
     for fact in F.facts():
         for i, byte in enumerate(R.expected(fact)):
             bytes_at[fact.site + i] = byte
+    for at in F.duplicates:                           # the surviving bodies are read whole
+        for i in range(SIZES[at]):
+            bytes_at.setdefault(at + i, 0x90)
 
     def read(rva, size):
         return bytes(bytes_at[rva + i] for i in range(size))
@@ -115,11 +119,22 @@ for _at, _offset, _target in F.bindings:
     GOOD_RELOCS.setdefault(F.respell(F.rows[_at][0]), []).append((_offset, rename.REL32, _target))
 
 
-def context(root, refs=(), relocs=None):
+# each survivor's one call: _Destroy reaches __destroy_aux at +0xF, _M_clear reaches _Destroy at +9
+SURVIVOR_CALLS = {0x004144F0: (0x0F, F.members[0x0041445C]), 0x00414793: (0x09, F.members[0x004144F0])}
+
+
+def good_bodies():
+    """Each survivor rebuilt as retail has it (read from the test's image), its one call relocated."""
+    return {F.members[at]: (R.read_retail(at, SIZES[at]), [(offset, rename.REL32, target)])
+            for at, (offset, target) in SURVIVOR_CALLS.items()}
+
+
+def context(root, refs=(), relocs=None, bodies=None):
     ctx = rename.Context(root, object_scan=False)
-    state = {"refs": list(refs), "relocs": GOOD_RELOCS if relocs is None else relocs}
+    state = {"refs": list(refs), "relocs": GOOD_RELOCS if relocs is None else relocs, "bodies": bodies}
     ctx.identity_refs = lambda sources: [r for r in state["refs"] if r["source"] in sources]
     ctx.object_symbol_relocs = lambda source, name: state["relocs"].get(name, [])
+    ctx.object_symbol_body = lambda source, name: (good_bodies() if state["bodies"] is None else state["bodies"]).get(name)
     return ctx, state
 
 
@@ -132,8 +147,13 @@ def plan(ctx, **overrides):
 
 @pytest.fixture(autouse=True)
 def objects(monkeypatch):
-    state = {"consumers": [], "referenced": set()}
-    monkeypatch.setattr(rename, "pin_consumers", lambda ctx, names, words, rebuilt: (list(state["consumers"]), 0))
+    """`consumers` {name: problem}: an object outside the rewrite that still references that name."""
+    state = {"consumers": {}, "referenced": set(), "asked": []}
+
+    def consumers(ctx, names, words, rebuilt):
+        state["asked"].append((list(names), set(rebuilt)))
+        return [state["consumers"][n] for n in names if n in state["consumers"]], 0
+    monkeypatch.setattr(rename, "pin_consumers", consumers)
     monkeypatch.setattr(rename, "object_pin_references",
                         lambda objects, names: [f"an object names {n}" for n in names if n in state["referenced"]])
     monkeypatch.setattr(rename, "source_objects", lambda ctx, sources: {})
@@ -322,10 +342,30 @@ def test_a_pin_fact_in_no_row_refuses(tree):
 
 
 def test_a_consumer_of_the_retired_pins_refuses(tree, objects):
-    objects["consumers"] = ["Code/Lib/Other.cpp binds it"]
+    objects["consumers"] = {F.retired[0x0007E364][0]: "Code/Lib/Other.cpp binds it"}
     ctx, _ = context(tree)
-    with pytest.raises(Refusal, match="cannot be retired"):
+    with pytest.raises(Refusal, match="pin.s. cannot be retired"):
         plan(ctx)
+
+
+@pytest.mark.parametrize("at", sorted(F.duplicates))
+def test_a_consumer_of_a_retired_duplicate_refuses(tree, objects, at):
+    """An untouched unit can instantiate the stand-in's helper without spelling its name: its object is read."""
+    objects["consumers"] = {F.duplicates[at][0]: "Code/Lib/Other.cpp references it"}
+    ctx, _ = context(tree)
+    # 0x00414793's stand-in row and retired pin share one spelling, so the pin scan may refuse it first
+    shared = at in F.retired and F.retired[at][0] == F.duplicates[at][0]
+    with pytest.raises(Refusal, match="(duplicate|pin)\\(s\\) cannot be retired" if shared else "duplicate.s. cannot be retired"):
+        plan(ctx)
+
+
+def test_the_duplicate_scan_skips_only_the_rewrite(tree, objects):
+    ctx, _ = context(tree)
+    got = plan(ctx)
+    names, rebuilt = next((n, r) for n, r in objects["asked"] if F.duplicates[0x004144F0][0] in n)
+    assert sorted(names) == sorted(old for old, _f in F.duplicates.values())
+    assert EMPTIED in rebuilt and "Code/Lib/Announcer.cpp" in rebuilt and "Code/Lib/Other.cpp" not in rebuilt
+    assert "Code/Lib/Announcer.cpp" in got.verify          # the survivors' unit is rebuilt and checked
 
 
 def test_a_unit_still_spelling_a_duplicate_refuses(tree):
@@ -381,6 +421,38 @@ def test_a_rebuilt_row_not_binding_its_target_is_undone(tree, label, change):
         with pytest.raises(VerifyFailed, match="does not bind"):
             land(ctx, plan(ctx), state, relocs={**GOOD_RELOCS, name: change(GOOD_RELOCS[name])})
         assert OLD_COPY in (tree / "reverse/functions.csv").read_text() and (tree / EMPTIED).exists()
+
+
+def flipped(code, offset):
+    return code[:offset] + bytes([code[offset] ^ 0xFF]) + code[offset + 1:]
+
+
+@pytest.mark.parametrize("at", sorted(F.duplicates))
+@pytest.mark.parametrize("label, change, message", [
+    ("a byte that differs", lambda body, offset: (flipped(body[0], 1), body[1]), "differ from retail"),
+    ("a byte past the call", lambda body, offset: (flipped(body[0], offset + 4), body[1]), "differ from retail"),
+    ("a call to the stand-in's copy", lambda body, offset: (body[0], [(offset, rename.REL32,
+                                                                       "?Rva0041445CDestroy@@YAXPAURva0041445CElement@@0H@Z")]),
+     "no row of that name"),
+    ("a call that moved", lambda body, offset: (body[0], [(offset + 1, rename.REL32, body[1][0][2])]), "no row of that name"),
+    ("a body cut short", lambda body, offset: (body[0][:-2], body[1]), "is 2. bytes, its row"),
+])
+def test_a_survivor_that_is_not_retails_is_undone(tree, at, label, change, message):
+    """The class's row at a retired duplicate's address serves its callers: the same size is not enough."""
+    bodies = good_bodies()
+    name = F.members[at]
+    bodies[name] = change(bodies[name], SURVIVOR_CALLS[at][0])
+    ctx, state = context(tree, bodies=bodies)
+    with pytest.raises(VerifyFailed, match="surviving row is not retail's") as error:
+        land(ctx, plan(ctx), state)
+    assert re.search(message, str(error.value))
+    assert (tree / EMPTIED).exists() and OLD_COPY in (tree / "reverse/functions.csv").read_text()
+
+
+def test_an_unreadable_survivor_is_undone(tree):
+    ctx, state = context(tree, bodies={})
+    with pytest.raises(VerifyFailed, match="replaces a retired duplicate, cannot be read"):
+        land(ctx, plan(ctx), state)
 
 
 def test_a_rebuilt_object_naming_a_retired_duplicate_is_undone(tree, objects):
