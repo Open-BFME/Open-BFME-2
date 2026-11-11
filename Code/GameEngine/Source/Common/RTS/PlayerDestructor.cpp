@@ -22,8 +22,8 @@
 #include <vector>
 #include <list>
 
-void __cdecl operator delete(void *p);
-void __cdecl free(void *p);
+#include <new>
+#include <stdlib.h>
 
 class Rva002AAC74PoolList
 {
