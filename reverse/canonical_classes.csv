@@ -1209,3 +1209,4 @@ Rva0046E6EA,Code/GameEngine/Include/GameLogic/Module/Rva0046E6EA.h,existing head
 LightPointSystem,Code/GameEngine/Include/Common/LightPointSystem.h,existing header; contract class_contracts/LightPointSystem.json; 3/7 sampled units adopt
 Rva0052E001,Code/GameEngine/Include/GameLogic/Rva0052E001.h,existing header; contract class_contracts/Rva0052E001.json; 4/5 sampled units adopt
 Rva00238E1B,Code/GameEngine/Include/GameClient/Rva00238E1B.h,existing header; contract class_contracts/Rva00238E1B.json; 4/6 sampled units adopt
+Rva005D3FE4,Code/GameEngine/Include/GameClient/Rva005D3FE4.h,existing header; contract class_contracts/Rva005D3FE4.json; 4/5 sampled units adopt

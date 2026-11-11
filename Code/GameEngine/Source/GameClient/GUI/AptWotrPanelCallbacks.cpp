@@ -632,7 +632,7 @@ void Rva0057AD26::rva0057AD26()
 // are item pointers; the existing list/iterator storage is at +0x30/+0x34.
 class Rva0057A24A {public: float rva0057A24A() const;};
 extern unsigned int g_Va00E06360[9];
-class Rva005D3FE4 {public:void rva005D3FE4(float);};
+#include "../../../Include/GameClient/Rva005D3FE4.h"
 struct ChecklistSortItem {char prefix[0x38];float height;char pad3c[0x58-0x3c];int priority;bool enabled;int rank()const{return priority*2+(enabled?1:0);}};
 // ?SortItems@ChecklistUIImpl@StrategicHUD@@QAEXXZ @0x0057B217 273B: renamed
 // from placeholder rva0057B217 — the WorldBuilder twin names

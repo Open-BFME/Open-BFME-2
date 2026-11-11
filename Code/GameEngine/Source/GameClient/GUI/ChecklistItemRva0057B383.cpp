@@ -68,11 +68,7 @@ public:
 	Real get() const;
 };
 
-class Rva005D3FE4
-{
-public:
-	void rva005D3FE4(Real value);
-};
+#include "../../../Include/GameClient/Rva005D3FE4.h"
 
 class Rva0057AD26;
 struct ChecklistSelectObserver

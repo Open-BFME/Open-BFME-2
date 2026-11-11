@@ -14,11 +14,7 @@ public:
 	float get() const;
 };
 
-class Rva005D3FE4
-{
-public:
-	void rva005D3FE4(float value);
-};
+#include "../../../../../Include/GameClient/Rva005D3FE4.h"
 
 namespace StrategicHUD
 {
