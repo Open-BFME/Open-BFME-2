@@ -62,11 +62,7 @@ static __forceinline float pcaNormalize(const char *text)
     return static_cast<float>(atof(text)/255.0);
 }
 class Rva00308DF0Ref;
-class Rva00308DF0
-{
-    public:
-    Rva00308DF0Ref *rva00308DF0();
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00308DF0.h"
 struct Rva00199FCCRec
 {
     AsciiString key;

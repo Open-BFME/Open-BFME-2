@@ -18,7 +18,7 @@ public:
 };
 extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
 class Rva00308DF0Ref {public:char unknown00[0x1c];int kind;};
-class Rva00308DF0 {public:Rva00308DF0Ref *rva00308DF0();};
+#include "../../../../Include/W3DDevice/GameClient/Rva00308DF0.h"
 class Rva0007FD89Entry {
 public:char unknown00[0x40];Rva00308DF0 *owner;
  bool rva0007FB85(void *input);

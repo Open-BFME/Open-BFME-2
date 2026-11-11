@@ -260,11 +260,7 @@ private:
 // The rowed 0x00308DF0: the standing water area's (lazily reloaded) FX
 // shader setup.
 class Rva00308DF0Ref;
-class Rva00308DF0
-{
-public:
-	Rva00308DF0Ref *rva00308DF0();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00308DF0.h"
 
 // The rowed 0x001007D5: a counted copy of a raw shader pointer.
 class Rva001007D5Model;
