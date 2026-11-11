@@ -47,6 +47,28 @@ Use `mapped` when the address is accounted for (it supersedes without deleting),
 you fixed the tool. The vocabulary is closed: `correction` and friends are
 refused.
 
+### Audit of the closures (2026-11-12)
+
+187 closure rows were appended over this work. Re-checked against the ledger
+afterwards rather than trusted:
+
+| state at the closed record's address | rows |
+| --- | ---: |
+| a ledger row is present and `matched` | 167 |
+| present and `owned` / `literal` | 17 |
+| no row at the address | 2 |
+| subject is a tool at 0x0, no address to check | 1 |
+
+Both "no row" cases are the two closed as INTERIOR addresses, and each holds:
+0x00791BAD is the last byte of the matched 25B `?rva00791b95@@YAXXZ`
+(0x00791B95+25 = 0x00791BAE), and 0x005AA7EB is inside the matched 79B
+`??0Rva005AA735@@QAE@XZ` (0x005AA7DF+79 = 0x005AA82E). A separate row at either
+would overlap, which is why none exists.
+
+Zero closures land on an address the ledger does not account for. Re-run this
+check after any batch -- it is a dozen lines of Python over two CSVs and it is
+the only thing standing between a fast method and a quietly wrong one.
+
 ### Four traps, each of which cost real time
 
 - **A matched row is not a closed record.** 267 of 324 open records sat at a
