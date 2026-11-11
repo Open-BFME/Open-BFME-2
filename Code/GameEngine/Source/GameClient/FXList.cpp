@@ -1,39 +1,6 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfmelist /ICode/GameEngine/Include /ICode/Libraries/Include
 // stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameClient/FXList.cpp); this unit had no counterpart under Code/.
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// FILE: FXList.cpp ///////////////////////////////////////////////////////////////////////////////
-// Author: Steven Johnson, December 2001
-// Desc:   FXList descriptions
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-// BFME 2's GameClientRandomVariable (default constructor 0x000B4979, which the particle
-// nugget's constructor runs) stands in place of Zero Hour's ClientRandomValue.h class.
+// TU Code/GameEngine/Source/GameClient/FXList.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include "../../Include/GameClient/GameClientRandomVariableInlines.h"
 #define _CLIENT_RANDOM_VALUE_H_
 extern int GetGameClientRandomValue( int lo, int hi, char *file, int line );
@@ -50,7 +17,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <list>
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -58,9 +24,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 #include "GameClient/FXList.h"
-
 #include "Common/DrawModule.h"
 #include "Common/GameAudio.h"
 #include "Common/INI.h"
@@ -69,7 +33,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "Common/RandomValue.h"
 #include "Common/ThingTemplate.h"
 #include "Common/ThingFactory.h"
-
 #include "GameLogic/Object.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/TerrainLogic.h"
@@ -99,44 +62,26 @@ namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?_M_insert@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum NameKeyType; class FXList;
+enum NameKeyType;
+ class FXList;
 namespace _STL { template <> pair<NameKeyType const ,FXList> & hashtable<pair<NameKeyType const ,FXList>,NameKeyType,rts::hash<NameKeyType>,_Select1st<pair<NameKeyType const ,FXList> >,rts::equal_to<NameKeyType>,allocator<pair<NameKeyType const ,FXList> > >::_M_insert(pair<NameKeyType const ,FXList> const &); }
-// Suppress this TU's non-retail copy of ?resize@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash@W4Na:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum NameKeyType; class FXList;
 namespace _STL { template <> void hashtable<pair<NameKeyType const ,FXList>,NameKeyType,rts::hash<NameKeyType>,_Select1st<pair<NameKeyType const ,FXList> >,rts::equal_to<NameKeyType>,allocator<pair<NameKeyType const ,FXList> > >::resize(unsigned int); }
-// Suppress this TU's non-retail copy of ?_M_next_size@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$has:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum NameKeyType; class FXList;
 namespace _STL { template <> unsigned int hashtable<pair<NameKeyType const ,FXList>,NameKeyType,rts::hash<NameKeyType>,_Select1st<pair<NameKeyType const ,FXList> >,rts::equal_to<NameKeyType>,allocator<pair<NameKeyType const ,FXList> > >::_M_next_size(unsigned int) const; }
-// Suppress this TU's non-retail copy of ?_M_new_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$hash:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum NameKeyType; class FXList;
 namespace _STL { template <> _Hashtable_node<pair<NameKeyType const ,FXList> > * hashtable<pair<NameKeyType const ,FXList>,NameKeyType,rts::hash<NameKeyType>,_Select1st<pair<NameKeyType const ,FXList> >,rts::equal_to<NameKeyType>,allocator<pair<NameKeyType const ,FXList> > >::_M_new_node(pair<NameKeyType const ,FXList> const &); }
-// Suppress this TU's non-retail copy of ??$_Construct@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4Nam:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum NameKeyType; class FXList;
 namespace _STL { template <> void _Construct<pair<NameKeyType const ,FXList>,pair<NameKeyType const ,FXList> >(pair<NameKeyType const ,FXList> *,pair<NameKeyType const ,FXList> const &); }
 // Suppress this TU's non-retail copy of ??0?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAE@ABV?$allocator@PA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class FXNugget;
 namespace _STL { template <> _List_base<FXNugget *,allocator<FXNugget *> >::_List_base(allocator<FXNugget *> const &); }
-// Suppress this TU's non-retail copy of ??0?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@QAE@ABU01@@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum NameKeyType; class FXList;
 namespace _STL { template <> pair<NameKeyType const ,FXList>::pair(pair<NameKeyType const ,FXList> const &); }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
 
-FXListStore *TheFXListStore = NULL;					///< the FXList store definition
+#endif
+FXListStore *TheFXListStore = NULL;
+					///< the FXList store definition
 
 //-------------------------------------------------------------------------------------------------
 // Zero Hour's helper is static; here it is select-any: DynamicDecalFXNuggetDoFXPos.cpp calls it,
@@ -155,7 +100,6 @@ __declspec(noinline) inline void adjustVector(Coord3D *vec, const Matrix3D* mtx)
 		*vec = *reinterpret_cast<const Coord3D *>(&vectmp);
 	}
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PRIVATE CLASSES ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +114,6 @@ void FXNugget::doFXObj(const Object* primary, const Object* secondary) const
 	const Coord3D* s = secondary ? secondary->getPosition() : NULL;
 	doFXPos(p, mtx, speed, s);
 }
-
 //-------------------------------------------------------------------------------------------------
 class __declspec(novtable) SoundFXNugget : public FXNugget
 {
@@ -212,9 +155,9 @@ private:
 	AsciiString		m_soundName;
 public:
 	SoundFXNugget();
-};  
+};
+  
 EMPTY_DTOR(SoundFXNugget)
-
 //-------------------------------------------------------------------------------------------------
 static Real calcDist(const Coord3D& src, const Coord3D& dst)
 {
@@ -223,7 +166,6 @@ static Real calcDist(const Coord3D& src, const Coord3D& dst)
   Real dz = dst.z - src.z;
   return sqrt(dx*dx + dy*dy + dz*dz);
 }
-
 //-------------------------------------------------------------------------------------------------
 class TracerFXNugget : public FXNugget
 {
@@ -324,9 +266,9 @@ private:
 	Real						m_width;
 	RGBColor				m_color;
 	Real						m_probability;
-};  
+};
+  
 EMPTY_DTOR(TracerFXNugget)
-
 //-------------------------------------------------------------------------------------------------
 class __declspec(novtable) RayEffectFXNugget : public FXNugget
 {
@@ -378,9 +320,9 @@ private:
 	AsciiString			m_templateName;
 	Coord3D					m_primaryOffset;
 	Coord3D					m_secondaryOffset;
-};  
+};
+  
 EMPTY_DTOR(RayEffectFXNugget)
-
 //-------------------------------------------------------------------------------------------------
 class LightPulseFXNugget : public FXNugget
 {
@@ -411,9 +353,9 @@ private:
 	Real					m_boundingCirclePct;
 	UnsignedInt		m_increaseFrames;
 	UnsignedInt		m_decreaseFrames;
-};  
+};
+  
 EMPTY_DTOR(LightPulseFXNugget)
-
 //-------------------------------------------------------------------------------------------------
 class ViewShakeFXNugget : public FXNugget
 {
@@ -456,9 +398,9 @@ protected:
 private:
 	View::CameraShakeType m_shake;
 
-};  
+};
+  
 EMPTY_DTOR(ViewShakeFXNugget)
-
 //-------------------------------------------------------------------------------------------------
 class TerrainScorchFXNugget : public FXNugget
 {
@@ -506,11 +448,115 @@ protected:
 private:
 	Int		m_scorch;
 	Real	m_radius;
-};  
+};
+  
 EMPTY_DTOR(TerrainScorchFXNugget)
+#include "../../Include/GameClient/Rva001DFEAABase.h"
+template <> void _STL::_List_base<int, _STL::allocator<int> >::clear();
+class Rva001E2747
+{
+public:
+	virtual ~Rva001E2747();
+
+protected:
+	_STL::list<int> m_list; // +0x04
+	unsigned char m_pad08[0x28 - 8];
+};
+#include "../../Include/Common/Rva0007DF07.h"
 
 //-------------------------------------------------------------------------------------------------
-#include "../../Include/GameClient/Rva001DFEAABase.h"
+class FXListAtBonePosFXNugget : public FXNugget
+{
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(FXListAtBonePosFXNugget, "FXListAtBonePosFXNugget")		
+public:
+
+	FXListAtBonePosFXNugget()
+	{
+		m_fx = NULL;
+    m_boneName.clear();
+    m_orientToBone = true;
+	}
+
+	virtual void doFXPos(const Coord3D *primary, const Matrix3D* primaryMtx, const Real /*primarySpeed*/, const Coord3D * /*secondary*/, const Real /*overrideRadius*/ ) const
+	{
+		DEBUG_CRASH(("You must use the object form for this effect"));
+	}
+
+	virtual void doFXObj(const Object* primary, const Object* /*secondary*/) const;
+
+	static void parse(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)
+	{
+		static const FieldParse myFieldParse[] = 
+		{
+			{ "FX",								  	INI::parseFXList,			    NULL, offsetof( FXListAtBonePosFXNugget, m_fx ) },
+			{ "BoneName",							INI::parseAsciiString,		NULL, offsetof( FXListAtBonePosFXNugget, m_boneName ) },
+			{ "OrientToBone",					INI::parseBool,					  NULL, offsetof( FXListAtBonePosFXNugget, m_orientToBone ) },
+			{ 0, 0, 0, 0 }
+		};
+
+		FXListAtBonePosFXNugget* nugget = newInstance( FXListAtBonePosFXNugget );	
+		ini->initFromINI(nugget, myFieldParse);
+		((FXList*)instance)->addFXNugget(nugget);
+	}
+
+protected:
+
+	// Rowed in FXListAtBonePosFXNugget_doFxAtBones.cpp (0x001E2DD6); this unit only calls it.
+	void doFxAtBones(const Object* obj, Int start) const;
+
+private:
+
+	enum { MAX_BONE_POINTS = 40 };
+
+	const FXList*		m_fx;
+  AsciiString     m_boneName;
+  Bool            m_orientToBone;
+};
+
+  
+EMPTY_DTOR(FXListAtBonePosFXNugget)
+
+// Retail 0x001E11A6 calls vtable slot 0 with a zero flag, then passes its
+// returned allocation to operator delete. This is only that call-site ABI
+// view; target bytes do not establish the slot's C++ class name.
+class Rva001E11A6DeleteSlot0
+{
+public:
+	virtual void *deleteInstance(int flags);
+};
+
+class Rva001E2906 : public Rva001E2747, public Rva0007DF07
+{
+public:
+	virtual ~Rva001E2906();
+};
+
+//
+// ?doFXPos@ParticleSystemFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z
+// retail 0x001E19CE, 26 bytes (formerly rowed under the donor's free-function
+// spelling ?bfmeGoFHG@@YGXPAX000@Z, the same bytes). Dedicated TU ported from the Open-BFME-1
+// donor game/GameEngine/Source/Common/BfmeConv897.cpp. Recompiled /Os the
+// donor body is byte-identical to retail once relocations are masked (unique
+// hit on unclaimed .text). Only the placed body is defined here; the donor's
+// other definitions are omitted.
+//
+// The callee is retail's REL32 at 0x001E19E0 (next-instruction 0x001E19E5
+// plus 0x00000003): 0x001E19E8, the rowed ParticleSystemFXNugget::reallyDoFX.
+// Target identity (retail evidence, independent of the donor): the
+// ParticleSystemFXNugget vtable at VA 0x00BDD908 holds 0x001E10CE (rowed
+// deleting dtor), 0x001E19CE (this body) and 0x001E24DC (rowed doFXObj) in
+// slots 0..2; CursorParticleSystemFXNugget's table at 0x00BDD91C holds its
+// rowed doFXPos(const Coord3D*, const Matrix3D*, Real, const Coord3D*) in slot
+// 1. The body leaves ECX untouched and returns RET 0x10, so it is the
+// thiscall slot-1 override forwarding `this` to the rowed reallyDoFX 0x001E19E8.
+struct Coord3D;
+
+class Matrix3D;
+
+class Object;
+
+typedef float Real;
+
 // BFME 2's particle-system nugget (vftable 0x00BDD908): five slots, ??_G, doFXPos, doFXObj,
 // slot 3 (rowed 0x001E0C77 under a placeholder) and the base's rva001DFF5D.
 class ParticleSystemFXNugget : public Rva001DFEAABase
@@ -579,6 +625,97 @@ private:
 	Coord3D m_targetOffset; // +0x1B0
 };
 
+// tu-skeleton: 0x001DFAE0 33B ?buildFieldParse@SoundFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001DFB01 33B ?buildFieldParse@RayEffectFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001DFB22 33B ?buildFieldParse@LightPulseFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001DFCF4 33B ?buildFieldParse@FXListAtBonePosFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001DFD15 33B ?buildFieldParse@ParticleSystemFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001DFD57 255B ?parseCullingInfo@FXList@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E00A3 32B ??0SoundFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/SoundFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E00C3 107B ?doFXPos@SoundFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z -- matched in Code/GameEngine/Source/GameClient/SoundFXNuggetSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x001E012E 132B ?doFXObj@SoundFXNugget@@UBEXPBVObject@@0@Z -- matched in Code/GameEngine/Source/GameClient/SoundFXNuggetSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x001E01B2 123B ??0RayEffectFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/RayEffectFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E022D 212B ?doFXPos@RayEffectFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z -- matched in Code/GameEngine/Source/GameClient/RayEffectFXNuggetDoFXPos.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0301 32B ?rva001E0301@Rva001E0301@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0321 82B ??0LightPulseFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/LightPulseFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0373 65B ?doFXPos@LightPulseFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z -- matched in Code/GameEngine/Source/GameClient/FXNuggetSlotBodies.cpp (not merged yet)
+
+// tu-skeleton: 0x001E03B4 117B ?doFXObj@LightPulseFXNugget@@UBEXPBVObject@@0@Z -- matched in Code/GameEngine/Source/GameClient/LightPulseFXNuggetEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x001E07DF 35B ??0ViewShakeFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/ViewShakeFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0802 39B ?doFXPos@ViewShakeFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z -- matched in Code/GameEngine/Source/GameClient/FXNuggetSlotBodies.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0829 33B ?buildFieldParse@ViewShakeFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E08D9 60B ??0TerrainScorchFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/TerrainScorchFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0915 80B ?doFXPos@TerrainScorchFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z -- matched in Code/GameEngine/Source/GameClient/TerrainScorchFXNuggetDoFXPos.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0965 33B ?buildFieldParse@TerrainScorchFXNugget@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0A3B 28B ??_GRva001E009E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0A57 78B ??0FXListAtBonePosFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0AA5 74B ?rva001E0AA5@Rva001E125D@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001E125DCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/FXList.cpp
+
+// Ported verbatim from the Generals Zero Hour reference
+// (GameEngine/Source/GameClient/FXList.cpp); this unit had no counterpart under Code/.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: FXList.cpp ///////////////////////////////////////////////////////////////////////////////
+// Author: Steven Johnson, December 2001
+// Desc:   FXList descriptions
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+// BFME 2's GameClientRandomVariable (default constructor 0x000B4979, which the particle
+// nugget's constructor runs) stands in place of Zero Hour's ClientRandomValue.h class.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//-------------------------------------------------------------------------------------------------
+
 ParticleSystemFXNugget::ParticleSystemFXNugget()
 {
 	m_name.clear();
@@ -604,56 +741,6 @@ ParticleSystemFXNugget::ParticleSystemFXNugget()
 }
 
 //-------------------------------------------------------------------------------------------------
-class FXListAtBonePosFXNugget : public FXNugget
-{
-	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(FXListAtBonePosFXNugget, "FXListAtBonePosFXNugget")		
-public:
-
-	FXListAtBonePosFXNugget()
-	{
-		m_fx = NULL;
-    m_boneName.clear();
-    m_orientToBone = true;
-	}
-
-	virtual void doFXPos(const Coord3D *primary, const Matrix3D* primaryMtx, const Real /*primarySpeed*/, const Coord3D * /*secondary*/, const Real /*overrideRadius*/ ) const
-	{
-		DEBUG_CRASH(("You must use the object form for this effect"));
-	}
-
-	virtual void doFXObj(const Object* primary, const Object* /*secondary*/) const;
-
-	static void parse(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)
-	{
-		static const FieldParse myFieldParse[] = 
-		{
-			{ "FX",								  	INI::parseFXList,			    NULL, offsetof( FXListAtBonePosFXNugget, m_fx ) },
-			{ "BoneName",							INI::parseAsciiString,		NULL, offsetof( FXListAtBonePosFXNugget, m_boneName ) },
-			{ "OrientToBone",					INI::parseBool,					  NULL, offsetof( FXListAtBonePosFXNugget, m_orientToBone ) },
-			{ 0, 0, 0, 0 }
-		};
-
-		FXListAtBonePosFXNugget* nugget = newInstance( FXListAtBonePosFXNugget );	
-		ini->initFromINI(nugget, myFieldParse);
-		((FXList*)instance)->addFXNugget(nugget);
-	}
-
-protected:
-
-	// Rowed in FXListAtBonePosFXNugget_doFxAtBones.cpp (0x001E2DD6); this unit only calls it.
-	void doFxAtBones(const Object* obj, Int start) const;
-
-private:
-
-	enum { MAX_BONE_POINTS = 40 };
-
-	const FXList*		m_fx;
-  AsciiString     m_boneName;
-  Bool            m_orientToBone;
-};  
-EMPTY_DTOR(FXListAtBonePosFXNugget)
-
-//-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -670,15 +757,6 @@ FXList::~FXList()
 {
 	clear();
 }
-
-// Retail 0x001E11A6 calls vtable slot 0 with a zero flag, then passes its
-// returned allocation to operator delete. This is only that call-site ABI
-// view; target bytes do not establish the slot's C++ class name.
-class Rva001E11A6DeleteSlot0
-{
-public:
-	virtual void *deleteInstance(int flags);
-};
 
 //-------------------------------------------------------------------------------------------------
 // The unique BFME1 donor placement supplies the clear name. Retail bytes at
@@ -752,3 +830,154 @@ void FXListAtBonePosFXNugget::doFXObj(const Object* primary, const Object* /*sec
 		DEBUG_CRASH(("You must have a primary source for this effect"));
 	}
 }
+
+// tu-skeleton: 0x001E0C77 25B ?rva001E0C77@Rva001E0C77@@QAEPAVParticleSystemTemplate@@HH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp (not merged yet)
+
+// tu-skeleton: 0x001E0E07 60B ??1SoundFXNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/SoundFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E1096 56B ??1FXListAtBonePosFXNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E10EA 104B ??1ParticleSystemFXNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E129B 18B ?rva001E129B@Rva001E129BNullForwarder@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x001E1329 124B ?parse@SoundFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E13A5 124B ?parse@RayEffectFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E1421 124B ?parse@LightPulseFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E1611 124B ?parse@ViewShakeFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E171C 124B ?parse@TerrainScorchFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E1814 124B ?parse@FXListAtBonePosFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E1890 318B ?Rva001E1890Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001E1890Parse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ParticleSystemFXNugget_doFXPos.cpp
+
+void ParticleSystemFXNugget::doFXPos(const Coord3D *primary, const Matrix3D *primaryMtx, const Real /*primarySpeed*/, const Coord3D * /*secondary*/) const
+{
+	if (primary)
+		reallyDoFX(primary, primaryMtx, 0, 0);
+}
+
+// tu-skeleton: 0x001E19E8 2804B ?reallyDoFX@ParticleSystemFXNugget@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetReallyDoFX.cpp (not merged yet)
+
+// tu-skeleton: 0x001E264F 124B ?parse@ParticleSystemFXNugget@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E281A 71B ?findFXList@FXListStore@@QBEPBVFXList@@PBD@Z -- matched in Code/GameEngine/Source/GameClient/FXListStoreFindFXList.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2861 30B ?erase@?$hash_map@W4NameKeyType@@VArmorTemplate@@U?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@6@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ArmorHashMapErase.cpp (not merged yet)
+
+// tu-skeleton: 0x001E287F 57B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x001E28B8 42B ??0Rva001E28B8@@QAE@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListRva001E28B8Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
+
+// ??1Rva001E2906@@UAE@XZ retail 0x001E2906 76B
+// Two-base dtor: own vptrs BDD978 at +0 and BDD974 at +0x28; under EH state 1
+// the body empties the inherited list<int> at +4 through the rowed
+// ?clear@?$_List_base@H... 0x0023DAA5; the second base (vtable BC6F20,
+// Rva0007DF07) is restored inline and the first base dtor
+// ??1Rva001E2747@@UAE@XZ 0x001E27C6 is called. Caller: rowed ??_G 0x001E28EA
+// (vtable 0x00BDD978). Names address-derived.
+
+Rva001E2906::~Rva001E2906()
+{
+	m_list.clear();
+}
+
+// tu-skeleton: 0x001E2952 28B ??_GRva001E2747@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E296E 170B ?doFXPos@FXList@@QBEXPBUCoord3D@@PBVMatrix3D@@M0@Z -- matched in Code/GameEngine/Source/GameClient/FXListDoFXPos.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2A18 188B ?doFXObj@FXList@@QBEXPBVObject@@0@Z -- matched in Code/GameEngine/Source/GameClient/FXListDoFXPos.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2AD4 5B ?cleanup@Rva001E2AD4CleanupForward@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreHashStorage.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2AD9 215B ??1Rva001E2AD9@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2BB0 226B ?rva001E2BB0@Rva001E2BB0@@QAE?AVRva000B3F15@@PBD@Z -- matched in Code/GameEngine/Source/GameClient/FXListStoreClone.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2C92 28B ??_GRva001E2AD9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2CAE 261B ?parseFXListDefinition@FXListStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListStoreParse.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2DD6 283B ?doFxAtBones@FXListAtBonePosFXNugget@@IBEXPBVObject@@H@Z -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget_doFxAtBones.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2EF1 157B ?rva001E2EF1@FXList@@QBE_NXZ -- matched in Code/GameEngine/Source/GameClient/FXListReadiness.cpp (not merged yet)
+
+// tu-skeleton: 0x001E2F8E 64B ??0?$hashtable@U?$pair@$$CBHURva001E2F8EElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001E2F8EElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001E2F8EElement@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001E2F8EElement@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001E2F8E.cpp (not merged yet)
+
+// tu-skeleton: 0x001E3386 31B ??0?$hash_map@W4NameKeyType@@VFXList@@U?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E33A5 68B ??0FXListStore@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769BA8 11B $L1510 -- matched in Code/GameEngine/Source/GameClient/SoundFXNuggetSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00769BB3 10B __ehhandler$?doFXObj@SoundFXNugget@@UBEXPBVObject@@0@Z -- matched in Code/GameEngine/Source/GameClient/SoundFXNuggetSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00769C1D 8B Unwind@00b69c1d -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769C25 14B Unwind@00b69c25 -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769C33 10B __ehhandler$??0FXListAtBonePosFXNugget@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769C3D 8B $L1228 -- matched in Code/GameEngine/Source/Common/Rva001E125DCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769C45 10B __ehhandler$?rva001E0AA5@Rva001E125D@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva001E125DCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769CBD 8B Unwind@00b69cbd -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769CC5 14B $L372 -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769CD3 14B $L373 -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769CE1 14B $L374 -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769CEF 10B __ehhandler$??1ParticleSystemFXNugget@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769D0D 10B uw_00769d0d -- matched in Code/GameEngine/Source/GameClient/Rva001E1890Parse.cpp (not merged yet)
+
+// tu-skeleton: 0x00769D17 8B $L4728 -- matched in Code/GameEngine/Source/GameClient/Rva001E1890Parse.cpp (not merged yet)
+
+// tu-skeleton: 0x00769D1F 10B __ehhandler$?Rva001E1890Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001E1890Parse.cpp (not merged yet)
+
+// tu-skeleton: 0x00769D29 8B Unwind@00b69d29 -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetReallyDoFX.cpp (not merged yet)
+
+// tu-skeleton: 0x00769D31 10B __ehhandler$?reallyDoFX@ParticleSystemFXNugget@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetReallyDoFX.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DA1 8B $L4842 -- matched in Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DA9 11B uw_00769da9 -- matched in Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DB4 11B $L5828 -- matched in Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DBF 10B __ehhandler$??1Rva001E2AD9@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DC9 25B ?rva00769DC9@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DE2 10B uw_00769de2 -- matched in Code/GameEngine/Source/GameClient/FXListStoreClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769DEC 25B ?rva00769DEC@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E05 8B $L1301 -- matched in Code/GameEngine/Source/GameClient/FXListStoreClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E0D 10B __ehhandler$?rva001E2BB0@Rva001E2BB0@@QAE?AVRva000B3F15@@PBD@Z -- matched in Code/GameEngine/Source/GameClient/FXListStoreClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E17 10B uw_00769e17 -- matched in Code/GameEngine/Source/GameClient/FXListStoreParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E21 25B ?rva00769E21@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E3A 10B __ehhandler$?parseFXListDefinition@FXListStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameClient/FXListStoreParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E44 22B ?rva00769e44@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget_doFxAtBones.cpp (not merged yet)
+
+// tu-skeleton: 0x00769E5A 10B __ehhandler$?doFxAtBones@FXListAtBonePosFXNugget@@IBEXPBVObject@@H@Z -- matched in Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget_doFxAtBones.cpp (not merged yet)
+
+// tu-skeleton: 0x00769F76 8B $L34237 -- matched in Code/GameEngine/Source/GameClient/FXListStoreCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769F7E 10B __ehhandler$??0FXListStore@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/FXListStoreCtor.cpp (not merged yet)

@@ -13017,7 +13017,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E1798,124,code,Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp,proposed,U,N=Code/GameEngine/Source/GameClient/TintDrawableFXNugget.cpp noncontiguous,Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp
 0x001E1814,124,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget.cpp,Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp
 0x001E1890,318,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E1814..0x001E19CE,Code/GameEngine/Source/GameClient/Rva001E1890Parse.cpp
-0x001E19CE,26,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/Common/ParticleSystemFXNugget.cpp W=Code/GameEngine/Source/GameClient/FXList.cpp,Code/GameEngine/Source/Common/ParticleSystemFXNugget_doFXPos.cpp
+0x001E19CE,26,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/Common/ParticleSystemFXNugget.cpp W=Code/GameEngine/Source/GameClient/FXList.cpp,Code/GameEngine/Source/GameClient/FXList.cpp
 0x001E19E8,2804,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp W=Code/GameEngine/Source/GameClient/FXList.cpp,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetReallyDoFX.cpp
 0x001E24DC,371,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/FXList.cpp
 0x001E264F,124,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp
@@ -13028,9 +13028,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E2861,30,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E287F,Code/GameEngine/Source/GameLogic/Object/ArmorHashMapErase.cpp
 0x001E287F,57,code-unledgered,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E28B8,
 0x001E28B8,42,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E28E2,Code/GameEngine/Source/GameClient/FXListRva001E28B8Ctor.cpp
-0x001E28E2,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E28EA,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
-0x001E28EA,28,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E2906,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
-0x001E2906,76,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E2952,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
+0x001E28E2,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E28EA,Code/GameEngine/Source/GameClient/FXList.cpp
+0x001E28EA,28,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E2906,Code/GameEngine/Source/GameClient/FXList.cpp
+0x001E2906,76,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E2952,Code/GameEngine/Source/GameClient/FXList.cpp
 0x001E2952,28,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E281A..0x001E296E,Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp
 0x001E296E,170,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/FXList.cpp,Code/GameEngine/Source/GameClient/FXListDoFXPos.cpp
 0x001E2A18,188,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/FXList.cpp,Code/GameEngine/Source/GameClient/FXListDoFXPos.cpp
@@ -66423,9 +66423,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00769D5C,10,code,,,-,,Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp
 0x00769D66,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001E2F8E.cpp
 0x00769D71,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001E2F8E.cpp
-0x00769D7B,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2906@FuncInfo0x0090F0D4,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
-0x00769D83,20,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2906@FuncInfo0x0090F0D4,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
-0x00769D97,10,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2906@FuncInfo0x0090F0D4,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp
+0x00769D7B,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2906@FuncInfo0x0090F0D4,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769D83,20,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2906@FuncInfo0x0090F0D4,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769D97,10,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2906@FuncInfo0x0090F0D4,Code/GameEngine/Source/GameClient/FXList.cpp
 0x00769DA1,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2AD9@FuncInfo0x0090F108,Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp
 0x00769DA9,11,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2AD9@FuncInfo0x0090F108,Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp
 0x00769DB4,11,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E2AD9@FuncInfo0x0090F108,Code/GameEngine/Source/GameClient/FXListStoreLifecycle.cpp
