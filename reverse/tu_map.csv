@@ -11522,7 +11522,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00196370,40,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x001963A0,Code/Libraries/Source/WWVegas/WWMath/Rva00196370Cluster.cpp
 0x001963A0,201,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x00196470,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboDataPoolAllocateObjectMemory.cpp
 0x00196470,39,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x001964A0,Code/Libraries/Source/WWVegas/WWLib/multilist.cpp
-0x001964A0,75,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x001964F0,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp
+0x001964A0,75,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x001964F0,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x001964F0,45,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x00196520,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp
 0x00196520,53,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196310..0x00196560,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp
 0x00196560,110,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/NamedPivotMapClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp
@@ -11545,15 +11545,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001968F0,10,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196900,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp
 0x00196900,20,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196920,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp
 0x00196920,63,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196960,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp
-0x00196960,94,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x001969C0,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp
+0x00196960,94,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x001969C0,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x001969C0,40,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x001969F0,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp
 0x001969F0,38,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196A20,Code/Libraries/Source/WWVegas/WWLib/msgloop.cpp
-0x00196A20,71,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196A70,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp
+0x00196A20,71,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196A70,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x00196A70,45,code-unledgered,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196760..0x00196AA0,
 0x00196AA0,81,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/NamedPivotMapClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x00196B00,55,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/PivotMapClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x00196B40,8,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/PivotMapClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
-0x00196B50,45,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196B40..0x00196B80,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp
+0x00196B50,45,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00196B40..0x00196B80,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x00196B80,214,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HAnimComboClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp
 0x00196C60,63,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/HAnimComboDataClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/promoted__Reset_HAnimComboClass_QAEXXZ_00974DC0.cpp
 0x00196CA0,1173,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HAnimComboClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp
@@ -11565,7 +11565,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00197270,375,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00197190..0x001973F0,Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_resize.cpp
 0x001973F0,30,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00197190..0x00197410,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x00197410,93,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00197190..0x00197470,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp
-0x00197470,30,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00197190..0x00197490,Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp
+0x00197470,30,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,C,C=0x00197190..0x00197490,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x00197490,62,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/PivotMapClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x001974D0,344,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HAnimComboDataClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp
 0x00197630,30,code,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/PivotMapClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
