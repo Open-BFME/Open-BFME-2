@@ -1330,11 +1330,7 @@ void Rva005CE236::reset(Rva005E893E *owned)
 	}
 }
 
-class Rva005D3731
-{
-public:
-	~Rva005D3731();
-};
+#include "../../Include/Common/Rva005D3731.h"
 
 class Rva00578701
 {
