@@ -717,3 +717,75 @@ def test_receipt_gaps_accepts_a_receipt_listing_each_direct_include_at_its_first
 def test_receipt_gaps_refuses_what_it_cannot_prove(tmp_path, unit, deps, forced, want):
     roots, find = gaps_tree(tmp_path, unit)
     assert want in (hal._rekey_receipt_gaps(tmp_path, "Code/U.cpp", deps, roots, forced, find) or "")
+
+
+# Review round 2: the receipt must be proven current in build.py's strict (inventory) mode. These model the
+# reviewer's three nested cases, which only the search inventory can see: a header added ahead of a recorded
+# one inside the closure (inc/Inner.h before late/Inner.h, reached through Outer.h), the same through
+# /FIOuter.h, and a macro include inside Outer.h. In each, the default mode accepts the object and the strict
+# mode does not; the tool must side with strict.
+def receipt_build(tmp_path, monkeypatch, meta, *, strict_ok, command=()):
+    import types
+    import hashlib as hashlib_
+    unit = tmp_path / "Code/U.cpp"
+    obj = tmp_path / "obj/U.obj"
+    obj.parent.mkdir(parents=True, exist_ok=True)
+    obj.write_bytes(b"object")
+    meta = dict(meta, path="Code/U.cpp", object=hashlib_.md5(b"object").hexdigest())
+    obj.with_suffix(".deps.json").write_text(json.dumps(meta))
+    calls = []
+
+    def compile_is_current(source, output, strict=False, inventory_cache=None):
+        calls.append(strict)
+        return strict_ok if strict else True            # the default mode never sees the search directories
+
+    stub = types.SimpleNamespace(
+        obj_path=lambda source: str(obj), _root_key=lambda source: "Code/U.cpp",
+        compile_is_current=compile_is_current, compiler_command=lambda source, output: (list(command), {}),
+        _case_resolve=lambda path: path if os.path.isfile(path) else None)
+    monkeypatch.setitem(sys.modules, "build", stub)
+    monkeypatch.setattr(hal, "ROOT", tmp_path)
+    return calls
+
+
+V2 = {"version": 2, "cmd": "c", "source": "s", "inventory": {}, "retry_dirs": []}
+
+
+@pytest.mark.parametrize("unit,outer,command", [
+    ('#include "Outer.h"\n', '#include "Inner.h"\n', ()),        # inc/Inner.h ahead of late/Inner.h, via Outer.h
+    ("void f();\n", '#include "Inner.h"\n', ("-FIOuter.h",)),    # the same, through a forced include
+    ('#include "Outer.h"\n', '#define INNER "Inner.h"\n#include INNER\n', ()),   # a macro include inside Outer.h
+])
+def test_a_receipt_the_strict_inventory_rejects_is_unverified(tmp_path, monkeypatch, unit, outer, command):
+    files = {"Code/U.cpp": unit, "Code/Outer.h": outer, "late/Inner.h": "", "inc/Inner.h": ""}
+    for rel, text in files.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text)
+    meta = dict(V2, deps={"Code/Outer.h": "x", "late/Inner.h": "x"}, search_roots=["inc", "late"])
+    calls = receipt_build(tmp_path, monkeypatch, meta, strict_ok=False, command=command)
+    deps, why = hal._rekey_unit_receipt(tmp_path, "Code/U.cpp")
+    assert deps is None and "not proven current" in why and calls == [True]
+
+
+def test_a_header_resolved_through_a_retry_root_in_the_receipt_passes(tmp_path, monkeypatch):
+    # The six windows.h units: build.py's retry adds the sweep roots, and the receipt's search_roots carry them.
+    for rel, text in {"Code/U.cpp": "#include <windows.h>\n", "reference/shims/sweep/windows.h": ""}.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text)
+    meta = dict(V2, deps={"reference/shims/sweep/windows.h": "x"}, retry_dirs=["reference/shims/sweep"],
+                search_roots=["vendor/stlport", "reference/shims/sweep"])
+    receipt_build(tmp_path, monkeypatch, meta, strict_ok=True)
+    assert hal._rekey_unit_receipt(tmp_path, "Code/U.cpp") == (["reference/shims/sweep/windows.h"], None)
+
+
+@pytest.mark.parametrize("meta,want", [
+    (dict(V2, deps={"Code/Outer.h": "x"}), "records no include search roots"),
+    ({"cmd": "c", "source": "s", "deps": {"Code/Outer.h": "x"}}, "not census-grade"),
+])
+def test_a_receipt_without_build_search_roots_is_unverified(tmp_path, monkeypatch, meta, want):
+    for rel, text in {"Code/U.cpp": '#include "Outer.h"\n', "Code/Outer.h": ""}.items():
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text(text)
+    receipt_build(tmp_path, monkeypatch, meta, strict_ok=True)
+    deps, why = hal._rekey_unit_receipt(tmp_path, "Code/U.cpp")
+    assert deps is None and want in why

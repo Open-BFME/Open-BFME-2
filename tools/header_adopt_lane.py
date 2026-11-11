@@ -1876,6 +1876,7 @@ REKEY_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*([<"])([^">\n]+)[">]', r
 REKEY_ANY_INCLUDE = re.compile(r"^[ \t]*#[ \t]*include\b", re.MULTILINE)
 REKEY_COMMENT = re.compile(r"/\*.*?\*/|//[^\n]*", re.DOTALL)
 REKEY_UNIT_SUFFIXES = (".cpp", ".c", ".cc", ".cxx")
+_REKEY_INVENTORY_CACHE = {}                       # build.search_inventory's cache, one per scan
 
 
 def _rekey_units(root):
@@ -1942,22 +1943,24 @@ def _rekey_unit_receipt(root, rel):
         return None, f"its receipt describes {meta.get('path')}, not this source"
     if meta.get("object") != hashlib.md5(obj.read_bytes()).hexdigest():
         return None, "its receipt describes another object than the one on disk (stale)"
-    if not build.compile_is_current(source, obj):
-        return None, "its object is stale: the source, the compile command or a dependency changed since it was built"
-    command, env = build.compiler_command(source, obj)
-    roots, forced, i = [], [], 0
-    while i < len(command):
-        token = command[i]
-        for flag, out in (("I", roots), ("FI", forced)):
-            if token[:1] in "-/" and token[1:1 + len(flag)] == flag and (flag == "FI" or token[1:3] != "FI"):
-                value = token[1 + len(flag):] or (command[i + 1] if i + 1 < len(command) else "")
-                if not token[1 + len(flag):]:
-                    i += 1
-                out.append(value)
-                break
-        i += 1
+    # strict: the census-grade proof. The include search directories, retry roots included, must still be
+    # what the compile saw (a header added ahead of a recorded one anywhere in the closure), so only a
+    # version-2 receipt with its inventory proves a unit that includes anything.
+    if not build.compile_is_current(source, obj, strict=True, inventory_cache=_REKEY_INVENTORY_CACHE):
+        return None, ("its object is not proven current: the source, the compile command, a dependency or an "
+                      "include search directory changed since it was built, or its receipt has no inventory")
+    if meta.get("version") == 2:
+        roots = meta.get("search_roots")
+        if not isinstance(roots, list) or not all(isinstance(r, str) for r in roots):
+            return None, "its receipt records no include search roots"
+    elif meta["deps"]:
+        return None, "its receipt is not census-grade (version 2) yet lists dependencies"
+    else:
+        roots = []                                       # a header-free unit: nothing to search
+    # build.py's own search order, as the compile recorded it (_include_search_roots, retry roots added).
     roots = [os.path.normpath(r if os.path.isabs(r) else os.path.join(str(ROOT), r)) for r in roots]
-    roots += [build._host_path(r) for r in env.get("INCLUDE", "").split(";") if r]
+    command, _ = build.compiler_command(source, obj)
+    forced = [tok[3:] for tok in command if tok[:1] in "-/" and tok[1:3] == "FI" and len(tok) > 3]
     why = _rekey_receipt_gaps(ROOT, rel, meta["deps"], roots, forced, build._case_resolve)
     if why:
         return None, why
@@ -1979,6 +1982,7 @@ def _rekey_donor_units(root, name, key):
     spellings of NAME (empty: harmless as built)."""
     defines = re.compile(r"\b(?:struct|class)\s+" + re.escape(name) + r"\b\s*(?::[^;{]*)?\{")
     defines_at, donor_units, unverified = {}, {}, {}
+    _REKEY_INVENTORY_CACHE.clear()
     for rel in _rekey_units(root):
         deps, why = _rekey_unit_receipt(root, rel)
         if why:
