@@ -94,7 +94,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002B2405 {public:int rva002B2405();};
 struct WorldView {char pad[0x98];Rva002B2405 *localPlayer;char pad9C[0xF4-0x9C];int phase;char padF8[0x168-0xF8];bool closing;};
 class Rva0042D6C0PtrChaseField {public:int get()const;};
-class Rva0042D71A {public:int get()const;};
+#include "../../../../Include/Common/Rva0042D71A.h"
 class Rva005750C7 {public:void rva005750C7();char data[4];};
 namespace StrategicHUD {class HUD {public:void FadeOut();void rva0042D5D6();void *impl;};}
 class NewTurn {public:virtual bool update();virtual void play(int);};

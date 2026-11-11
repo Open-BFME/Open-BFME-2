@@ -31,12 +31,7 @@ struct Rva005742CDLogicView
 	int m_FC;
 };
 
-class Rva0042D71A
-{
-public:
-	int get() const;										// 0x0042D71A
-	void rva005742CD();
-};
+#include "../../Include/Common/Rva0042D71A.h"
 
 void Rva0042D71A::rva005742CD()
 {

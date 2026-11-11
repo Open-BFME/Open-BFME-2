@@ -17,7 +17,7 @@ class Rva005748F2 { public: void rva005748F2(); };
 class Rva005CB852 { public: void rva005CB852(); };
 class Rva005C9B76 { public: void rva005C9AB4(); };
 class Rva005CC2C5 { public: void rva005CC2DC(); };
-class Rva0042D71A { public: int get() const; };
+#include "../../Include/Common/Rva0042D71A.h"
 #include "../../Include/Common/Rva002B4650.h"
 void __fastcall Rva005745D8Get(void *object);
 
