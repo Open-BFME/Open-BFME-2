@@ -81,6 +81,7 @@ class UpgradeDie : public DieModule
 {
 public:
 	UpgradeDie(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpgradeDie();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie(const DamageInfo *damageInfo);
 	const UpgradeDieModuleData *getUpgradeDieModuleData() const
@@ -110,7 +111,14 @@ UpgradeDie::UpgradeDie( Thing *thing, const ModuleData *moduleData )
 {
 }
 
-// tu-skeleton: 0x00486BE4 28B ??_GRva00486B56@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+// ??1UpgradeDie@@UAE@XZ @0x00486B56 (25B): restores the three vptrs the
+// constructor installs (0x0084AEBC at +0, 0x0084A650 at +0xC, 0x0084AEB8 at
+// +0x10) and tail-jumps to ~DieModule. Slot 0 of UpgradeDie's own vftable
+// 0x0084AEBC is the scalar deleting destructor 0x00486BE4, which calls this
+// body.
+UpgradeDie::~UpgradeDie()
+{
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp
 

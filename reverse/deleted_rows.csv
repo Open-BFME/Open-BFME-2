@@ -6131,3 +6131,5 @@ __ehhandler$?rva00111DB6@Rva00111DB6@@QAEXXZ,0x00764A2D,"Renamed to __ehhandler$
 ??_GRva004864AA@@UAEPAXI@Z,0x00486538,"Renamed to ??_GDestroyDie@@UAEPAXI@Z: slot 0 of DestroyDie's vftable 0x0084ACC8 installed by ctor 0x0048650E"
 ??1Rva00486579@@UAE@XZ,0x00486579,"Renamed to ??1FXListDie@@UAE@XZ: slot 0 of FXListDie's vftable 0x0084AD04 (ctor 0x004865DD) is the deleting dtor 0x00486607 that calls this body"
 ??_GRva00486579@@UAEPAXI@Z,0x00486607,"Renamed to ??_GFXListDie@@UAEPAXI@Z: slot 0 of FXListDie's vftable 0x0084AD04 installed by ctor 0x004865DD"
+??1Rva00486B56@@UAE@XZ,0x00486B56,"Renamed to ??1UpgradeDie@@UAE@XZ: slot 0 of UpgradeDie's vftable 0x0084AEBC (ctor 0x00486BBA) is the deleting dtor 0x00486BE4 that calls this body"
+??_GRva00486B56@@UAEPAXI@Z,0x00486BE4,"Renamed to ??_GUpgradeDie@@UAEPAXI@Z: slot 0 of UpgradeDie's vftable 0x0084AEBC installed by ctor 0x00486BBA"
