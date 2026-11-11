@@ -293,11 +293,7 @@ public:
 	virtual void v00();
 	virtual void v01(Rva00541F02 *o);
 };
-class Rva00541F02
-{
-public:
-	void rva00541F02(Rva00541F02Visitor *visitor);
-};
+#include "../../Include/Common/Rva00541F02.h"
 void Rva00541F02::rva00541F02(Rva00541F02Visitor *visitor)
 {
 	visitor->v01(this);

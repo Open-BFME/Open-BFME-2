@@ -244,11 +244,7 @@ public:
 	virtual void v01(Rva00541F02 *o);
 };
 
-class Rva00541F02
-{
-public:
-	void rva00541F02(Rva00541F02Visitor *visitor);
-};
+#include "../../../Include/Common/Rva00541F02.h"
 
 // 0x005450B5 and 0x005451F3: clear model-condition bit 256 (resp. 257) of
 // the object reached through +0x18/+0x14 (the word array at Object+0x10C, as
