@@ -1028,3 +1028,10 @@ both overloads drops the neg_format row (0x00019690). An explicit instantiation
 of neg_format on the already specialized moneypunct<char,true> triggered MSVC
 7.1 C1001; the row still lacks an approved TU move. Full-link confirmation
 and the remaining table slots in the classic-locale queue are outstanding.
+
+**2026-11-12, AptValue base table 0x008EAED0.** The provider repair in
+`fbfc9a8e06` precedes the constructor work. Replacing the shortened base
+views in six constructors preserved their bytes and exception graphs but
+introduced a non-retail winning AptValue constructor. The trial was reverted.
+The [constructor comparison](../../reverse/attempt_support/aptvalue-ui-base-ctors-20261112.md)
+records the control, both trials and the out-of-line owner to investigate.
