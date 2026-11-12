@@ -415,11 +415,11 @@ vptr store the walk reaches, in walk order.
   `VectorClass<Vector3>` (#223), the Rva0056AC26 registry family 0x0086D160/19C/200/23C (#243), Rva005D3C2B,
   Rva005E3AE1 and `VectorClass<int>` (#246). Not reached: `money_get`, the Rva003AE03D/Rva003A59C3 FX tables,
   Rva0056B63E, the four registration tables, Rva0056DC4C, `type_info`, `_com_error`.
-- The real runtime defects on the walk are zero vptr stores the bridge cannot see (inventory kind `zero`; 65 rows, one per
+- The real runtime defects on the walk are zero vptr stores the bridge cannot see (inventory kind `zero`; 56 rows, one per
   storing function and table, after this pass's repairs): the
   UpgradeModule/UpgradeMux base ctors (#77, overwritten by every derived ctor), then the module factory's leaf ctors
   (CastleMemberBehavior, HealContain, HordeTransportContain, RiderChangeContain,
-  CitadelSlaughterHordeContain, AnnounceBirthAndDeathBehavior, Rva00490D3F/ToggleHidden +0x20, ToggleMounted,
+  CitadelSlaughterHordeContain, AnnounceBirthAndDeathBehavior, DozerAIUpdate/DominateEnemy +0x20, ToggleMounted,
   DelayedDeathBody, InvisibilitySpecialPower, SpecialPowerTimerRefresh, EvaAnnounceClientCreate, W3DDefaultDraw,
   W3DTreeDraw), the one-byte `char` "vftables" of State-derived ctors (StateDerivedCtors_muse-a7a4.cpp's six, State
   itself, StateDerivedCtorRva004D7B70.cpp, the GiantBird states; retail tables have 17 slots).
@@ -433,14 +433,15 @@ vptr store the walk reaches, in walk order.
   the +0x10 UpdateModuleInterface tables of RampageBehavior (0x00C40D9C) and EnragedBehavior (0x00C40FB0) ("Give
   Rampage and Enraged behaviors their real update-interface tables"). Bytes, bridge plan and link verdicts
   unchanged in each.
-- Lead, not done: eleven units store a TU-local zero at +0x20 where retail stores 0x00C552A4, SpecialAbilityUpdate's
-  9-slot SpecialPowerUpdateInterface table (DominateEnemySpecialPower, DozerAIUpdateCtor, OCLUpdateCtor,
-  Rva00490D3FCtor, Rva00492179Ctor, SpawnPointProductionExitUpdateCtor, SupplyCenterDockUpdateCtor,
-  FellBeastSwoopPowerCtor, FlingPassengerSpecialAbilityUpdateCtor, ReplaceObjectUpdateCtor,
-  ToggleHiddenSpecialAbilityUpdateCtor). Their views derive from the placeholder Rva0044EF5E, whose
-  `??_7Rva0044EF5E@@6BRva0044EF5EIface20@@@` (SpecialAbilityUpdate.cpp, bridged at 9 slots) is bound at that
-  address, as is the already-correct `??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@`. One batch can
-  store the base's table by name (LINK-514 recipe) once each unit is checked for C2373.
+- Repaired (nine of eleven): units that stored a TU-local zero at +0x20 where retail stores 0x00C552A4,
+  SpecialAbilityUpdate's 9-slot SpecialPowerUpdateInterface table ("Store SpecialAbilityUpdate's interface table at
+  +0x20 in nine special-power ctors"): TeleportToCasterSpecialPower (OCLUpdateCtor.cpp), CurseSpecialPower
+  (SpawnPointProductionExitUpdateCtor.cpp), EvacuateGarrisonSpecialPower (SupplyCenterDockUpdateCtor.cpp),
+  Rva00490D3F, Rva00492179, FlingPassenger, ReplaceObject (all now naming the already-correct
+  `??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@`), FellBeastSwoopPower and ToggleHidden (their own
+  placeholders' bridged tables at that address). Open: DozerAIUpdateCtor.cpp (claimed by another seat at the time)
+  and DominateEnemySpecialPower.cpp (includes canonical SpecialAbilityUpdate.h, which owns that name; C2373
+  expected), same store.
 - Also repaired, from the newest real link's blockers: `?f3@DBaseM3@@UAEXXZ` ("Declare DeployStyleAIUpdate's AI
   command slot so ?f3@DBaseM3 stops dangling"). The other new blocker, `??1Rva0056AC26A/B@@UAE@XZ` in
   OpaqueScalarDeletingDtorsB12.cpp, is held by nleigh; its cause and two-line fix are in LINK-660.
