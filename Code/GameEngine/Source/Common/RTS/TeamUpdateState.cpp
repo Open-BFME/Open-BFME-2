@@ -116,7 +116,7 @@ public:
 	unsigned char m_carrier[4];
 };
 
-class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+#include "../../../Include/Common/BfmeObjectVtbl.h"
 
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
 

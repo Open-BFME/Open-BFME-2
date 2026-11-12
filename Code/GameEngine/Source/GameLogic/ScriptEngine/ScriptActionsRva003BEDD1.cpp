@@ -7,7 +7,7 @@ class Team;
 class Object;
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
-class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+#include "../../../Include/Common/BfmeObjectVtbl.h"
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
 class BfmeObjectDlinkPad { public: unsigned char m_pad[0x64]; };
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase, public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier { public: unsigned char m_tail[0x40]; };
