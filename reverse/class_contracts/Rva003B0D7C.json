@@ -1,0 +1,97 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003B0D7C",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 38,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 16,
+   "4": 6,
+   "8": 8,
+   "12": 8
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PillageModuleRva00484FE2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Made002CCB67.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPowerAction.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doSetMoney.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIMoneyLender.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Made002CCB67.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 16,
+    "4": 6,
+    "8": 8,
+    "12": 8
+   },
+   "class": "Rva003B0D7C"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
