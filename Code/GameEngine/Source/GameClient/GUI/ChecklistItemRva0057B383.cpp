@@ -62,11 +62,7 @@ struct ChecklistSelectionOwnerView
 	ChecklistIteratorView current; // +0x34
 };
 
-class Rva004987FEFloatField
-{
-public:
-	Real get() const;
-};
+#include "../../../Include/GameClient/Rva004987FEFloatField.h"
 
 #include "../../../Include/GameClient/Rva005D3FE4.h"
 

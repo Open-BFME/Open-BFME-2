@@ -8,11 +8,7 @@
 // class keeps its address-derived name. Codegen: the item pointer is a named
 // local read twice (get() and the setter receiver), which gives retail's
 // mov eax,[esi+8]; lea ebx,[eax+8] instead of a load straight into ebx.
-class Rva004987FEFloatField
-{
-public:
-	float get() const;
-};
+#include "../../../../../Include/GameClient/Rva004987FEFloatField.h"
 
 #include "../../../../../Include/GameClient/Rva005D3FE4.h"
 

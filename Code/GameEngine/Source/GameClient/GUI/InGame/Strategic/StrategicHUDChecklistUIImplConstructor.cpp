@@ -139,7 +139,7 @@ class ChecklistUIItemView : public Rva005D1A6C, public Rva005D40A6 {};
 #include "../../../../../Include/Common/Rva005D1A79DwordCounter.h"
 class RefCountClass {public:void Release_Ref();};
 #include "../../../../../Include/GameClient/Rva005D3FE4.h"
-class Rva004987FEFloatField {public:float get() const;};
+#include "../../../../../Include/GameClient/Rva004987FEFloatField.h"
 struct RetObj {char m_pad[4];float m_4;};
 struct GlobalObj {virtual ~GlobalObj() {} virtual void *d1(); virtual void *d2(); virtual void *d3(); virtual void *d4(); virtual void *d5(); virtual void *d6(); virtual void *d7(); virtual void *d8(); virtual void *d9(); virtual void *d10(); virtual void *d11(); virtual void *d12(); virtual void *d13(); virtual void *d14(); virtual RetObj *slot15();};
 // Native57A24A..57A260 RET0: shared item spacing, the window manager's slot15
