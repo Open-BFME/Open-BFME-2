@@ -3,6 +3,9 @@ Status: Open. One instance repaired (the language buffer, below); the rest need 
 halilkkaya-lk103; consolidation dry runs by halilkkaya-cs96 at `4710051788e` and halilkkaya-cs99 at `11483448e79`, below); base `36e2968e498`, census
 index `c31795c94c`.
 
+halilkkaya-lk103; consolidation dry runs by halilkkaya-cs96 at `4710051788e` and halilkkaya-cs97, and two ScriptEngine.cpp
+merges by halilkkaya-cs98 at `6effbe82406`, below); base `36e2968e498`, census index `c31795c94c`.
+
 Evidence / affected units: the survey in LINK-627's 2026-11-12 lk103 section (walker plus a relocation resolver);
 `?Get_Sorting_Struct@@YAPAVSortingNodeStruct@@XZ` 0x0012FD80 in `reverse/re_attempts.log`.
 
@@ -141,3 +144,42 @@ Measured, in order:
   while the seed's `vector3_len_link.h` shim (`WWINLINE Vector3(void) {}`, force-inlined) constructs nothing. So
   the merge also needs one Vector3 view that keeps the seed's 64 rows and gives this body its out-of-line default
   constructor; that is a prerequisite ahead of the temp-numbering re-check above.
+
+**2026-11-12 third consolidation pass (seat halilkkaya-cs98, base `6effbe82406`, census index `c6bfa84ddc`).** The
+four boot-order merges above were not retried. Rows in `reverse/re_attempts.log` under `tu-merge:<path>`:
+- **ScriptEngine.cpp (CanAppContinue latches 0x00DFE15C/D, `st_CurrentFrame` 0x00DFE160).** Merged
+  ("Merge 19 files into ScriptEngine.cpp", 195 rows, -18 files; it needs the cs98 adoption commits for
+  ThingTemplate in ScriptEngineSetPriorityDefault.cpp and BfmeOwnZC in ScriptEngineEnableDisable.cpp and
+  ScriptEngineRva0020C3BBCallScript.cpp to land in an earlier push). At the base the same merge was refused by
+  class_gate (false reject recorded): the merged unit gets no move credit because the seed's
+  `#pragma comment(linker, "/alternatename:??1Rva00207E26Vector...")` trips `scope_code`'s blanket `'??' in raw`
+  test, though `??1` is no trigraph. Putting the three donors on the canonical headers removed every private
+  registered class from the merged text instead. The latch split is **not ended yet**. Object symbols after the
+  merge: ScriptEngine.cpp defines `?g_00DFE15D@@3EA` and relocates `?g_00DFE15C@@3EA`;
+  ScriptEngine_ctor.cpp still defines statics `_st_CurrentFrame`, `_scriptLastFrame`,
+  `_scriptLogicContinuationLatch` and `_scriptClientContinuationLatch`, and the appendMessage forwarder a second
+  `_st_CurrentFrame`. ScriptEngine_rva002047CF.cpp and ScriptEngine_updateClientDebugFrame.cpp (the latches'
+  external halves) now read canonical ScriptEngine.h (`m_1A4D9`); a second merge ("Merge 2 files into
+  ScriptEngine.cpp", 196 rows) took _rva002047CF.cpp, so the external writer of `?g_00DFE15D@@3EA` (0x002047CF)
+  now sits in the unit that defines and reads it. ProviderGuard refuses _updateClientDebugFrame.cpp (beside its `g_00DFE15C` definition the merged
+  copy of `?g_00DFE168@@3EA` differs).
+  Prerequisite left: ScriptEngine_ctor.cpp, rejected C2504 `Rva002075F3`: its private view spells the whole
+  object (templates, eight map headers, attack array, 20-player arrays) where canonical ScriptEngine.h is opaque
+  from +0x1C to +0x19100; the ctor needs those members typed in the canonical header first. Then one static per
+  latch in the TU, and the forwarder's `st_CurrentFrame` with it.
+- **LivingWorldLogic.cpp** (not a LINK-661 split; consolidation queue). The first dry run of this TU accepts
+  the seed plus 27 donors (211/211 exact), but class_gate refuses three verbatim-moved registered classes for the
+  same `??` cause, here BfmeFiveArgCtorWI.cpp's `/alternatename:??1AsciiStringWI...` pragma. False reject
+  recorded; the two adoptions that would avoid it (WindModuleInfo, Rva004F6093Holder) fail on bytes in the
+  header queue. A tooling fix (refuse only the real trigraphs `??[=/'()!<>-]`, as `moved_bodies` already does)
+  lands it as it is (-27 files).
+- **W3DVolumetricShadow.cpp (`lastActiveVertexBuffer`).** Blocked on TU approval, not source: every user's main
+  body is only proposed (renderShadows 0x000EFC7A Z, RenderMeshVolume 0x000F200A Z, RenderDynamicMeshVolume
+  0x000F3D23/0x000F42FF/0x000F4AB7 Z and 0x000F2F5A/0x000F4003 C); only their funclets are approved.
+- **W3DProjectedShadow.cpp (`drawEdge`/`drawStart`).** The reader W3DProjectedShadowDecalHelpers.cpp is mixed
+  (0x001089EA proposed N for W3DDualProjectedShadow.cpp), so no merge takes it; the last dry run
+  (re_attempts.log:103197) rejected the seed under every merged flag set. Prerequisite: place 0x001089EA.
+- **MapUtil.cpp (`m_mapDX`/`m_mapDY`).** Not merged: the writer loadMap 0x00302F2B (MapUtilLoadMap.cpp) and the
+  `extern "C"` definer (MapUtil_unk_...cpp, 0x00302E87/0x00302F1B) are only proposed, by C, for
+  PlayerPosition.cpp; MapCacheAddMap.cpp (a reader) is approved for MapUtil.cpp but would bring an `extern "C"`
+  declaration of the name MapUtil.cpp keeps static.
