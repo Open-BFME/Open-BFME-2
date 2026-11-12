@@ -660,12 +660,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 // base (0x00750610 for a callback, 0x009FD3E0 for a delegate); retail rows
 // their out-of-line copies 0x00080221 and 0x00579E47 under the two
 // placeholder classes chained here.
-class Rva00080221
-{
-public:
-	Rva00080221(const int *callback);
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../../../GameEngine/Include/Common/Rva00080221.h"
 
 class Rva00579E47 : public Rva00080221
 {

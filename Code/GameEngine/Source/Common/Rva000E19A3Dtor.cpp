@@ -117,13 +117,7 @@ public:
  Rva0057BC63FunctorHolder(const FunctorBinding &binding);
  void *m_ptr;
 };
-class Rva00080221
-{
-public:
- Rva00080221(const int *callback);
-
- void *m_ptr;
-};
+#include "../../Include/Common/Rva00080221.h"
 
 struct TreeHintRef00217D4C : public Rva00080221
 {

@@ -126,12 +126,7 @@ struct TargetRef00217D4C
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 // The rowed ctor 0x00080221 (Rva00080221Ctor.cpp), spelled as its row.
-class Rva00080221
-{
-public:
-	Rva00080221(const int *arg);
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../Include/Common/Rva00080221.h"
 
 struct TreeHintRef00217D4C : public Rva00080221
 {

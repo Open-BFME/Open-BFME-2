@@ -158,12 +158,7 @@ typedef void (*Rva001F73D5Callback)(ID3DXEffect *effect, D3DXHANDLE handle);
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class Rva00080221
-{
-public:
-	Rva00080221(const int *arg);
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../Include/Common/Rva00080221.h"
 
 
 class FXShaderParameterBinder
