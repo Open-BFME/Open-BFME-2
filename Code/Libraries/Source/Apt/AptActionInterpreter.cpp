@@ -224,7 +224,11 @@ public:
     {
         if (!(count-nPos>0)) {
             g_bfmeAptAssertAtE17734("m_nElements - nPos > 0", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x10A);
-            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+            if (g_bfmeAptBreakOnAssertAtDDC01C) {
+                _ReadWriteBarrier();
+                __debugbreak();
+                _ReadWriteBarrier();
+            }
         }
         return items[count-nPos-1];
     }
