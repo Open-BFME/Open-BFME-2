@@ -502,6 +502,7 @@ class GiantBirdGuardOuterState : public State
 public:
 	GiantBirdGuardOuterState(StateMachine *machine);
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
