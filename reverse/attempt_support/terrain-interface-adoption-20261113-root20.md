@@ -65,3 +65,18 @@ and finds all 121 emitted COMDAT byte/relocation fingerprints unchanged,
 with no additions or removals. Thus this adoption does not change those
 bindings; their underlying identity debt is not cleared. The comparison is
 recorded in `terrain-interface-floor-identity-20261113-root20.json`.
+
+## Parsed-path record follows the interface adoption
+
+After publication at `fb393fdfc5d`, the same binder source adopts the existing
+Rva001530E9Path header. The old view's 72-byte name prefix was opaque storage
+covering the canonical 64-byte name, two flags, padding and index. Both views
+have size 76 and m_rest at +0x48; callers keep the name at +0 and the remainder
+at +0x48. No parser, shared header or body changes. All 31 rows and all 72
+emitted COMDAT byte/relocation fingerprints remain unchanged. Normal and
+strict verification pass, and the owning tool retires this file's path row.
+
+The earlier publication's broader link audit was INCONCLUSIVE: after rebase,
+the outgoing FloorBuffer object lacked a current audit receipt. The scoped
+preservation results above do not replace that missing evidence or establish
+a new full link result.

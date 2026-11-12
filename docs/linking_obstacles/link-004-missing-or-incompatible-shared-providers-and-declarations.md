@@ -1168,3 +1168,10 @@ canonical-argument trial retains the parent's 169-byte length and all calls
 but swaps the first copy's ECX/ESP materialization and saved-ESP store, also
 failing its restore funclet. No near match is landed and that queue entry
 remains. [Exact residual, rejected variants and retained trial](../../reverse/attempt_support/terrain-interface-adoption-20261113-root20.md).
+
+The binder then adopts the canonical Rva001530E9Path record: 76 bytes, with
+the name at +0 and remainder pointer at +0x48. The former oversized name
+prefix covered the now-declared flags and index. All 31 rows and 72 COMDAT
+fingerprints remain unchanged; strict verification and owning-tool acceptance
+retire its path queue row. The preceding push audit remains INCONCLUSIVE for
+the post-rebase FloorBuffer receipt; no full-link or runtime result is implied.

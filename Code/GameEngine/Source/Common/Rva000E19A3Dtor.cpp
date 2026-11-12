@@ -145,11 +145,7 @@ public:
 
 // Output of the rowed path parser 0x001530E9: the leading component, then
 // the remainder the terrain dispatcher hands to a sub-binder.
-struct Rva001530E9Path
-{
-	char m_name[0x48];
-	const char *m_rest;
-};
+#include "../../Include/Common/Rva001530E9Path.h"
 
 void Rva000E2B00CloudTexture(ID3DXEffect *effect, D3DXHANDLE handle);
 void Rva000E2BEEScaleUVOffsetPerSecondUV(ID3DXEffect *effect, D3DXHANDLE handle);
