@@ -5373,7 +5373,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007FA304,28,.rdata,string,??_C@_0BJ@JBGOPJMB@Locomotor?5?$CFs?5not?5found?$CB?6?$AA@,,literal,,0,1
 0x007FA320,56,.rdata,string,??_C@_0DD@BPJNIAO@re?9specifying?5a?5LocomotorSet?5is?5@,,literal,,0,1
 0x007FA358,76,.rdata,string,??_C@_0EK@OEAPMBCC@Attempted?5to?5specify?5a?5locomotor@,,literal,,0,1
-0x007FA3A4,1,.rdata,global,?Rva0026E7C8DataAnchor@@3EA,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Ctor.cpp,owned,,1,1
+0x007FA3A4,1,.rdata,global,?Rva0026E7C8DataAnchor@@3QBQBXB,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Ctor.cpp,owned,,1,1
 0x007FA3B4,12,.rdata,string,??_C@_0L@JEJJCIC@LuaSpyData?$AA@,,literal,,0,1
 0x007FA3C0,188,.rdata,vtable,??_7SupplyTruckAIUpdate@@6BBehaviorModuleInterface@@@,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp,provisional,??_7AIUpdateInterface@@6BBehaviorModuleInterface@@@;??_7AnimalAIUpdate@@6BRva0026E836_M1@@@;??_7AssaultTransportAIUpdate@@6BBehaviorModuleInterface@@@;??_7AssaultTransportAIUpdate@@6BRva0026E836_M1@@@;??_7DeployStyleAIUpdate@@6BDBaseM1@@@;??_7DozerAIUpdate@@6BBehaviorModuleInterface@@@;??_7GiantBirdAIUpdate@@6BBehaviorModuleInterface@@@;??_7SiegeAIUpdate@@6BBehaviorModuleInterface@@@;??_7SiegeAIUpdate@@6BRva0026E836_M1@@@;??_7SupplyTruckAIUpdate@@6BBehaviorModuleInterface@@@;??_7TransportAIUpdate@@6BBehaviorModuleInterface@@@;??_7TransportAIUpdate@@6BRva0026E836_M1@@@;??_7WanderAIUpdate@@6BBehaviorModuleInterface@@@;??_7WanderAIUpdate@@6BRva0026E836_M1@@@;??_7WorkerAIUpdate@@6BBehaviorModuleInterface@@@;??_7WorkerAIUpdate@@6BDBaseM1@@@,0,22
 0x007FA480,616,.rdata,vtable,??_7AIUpdateInterface@@6BObjectModule@@@,,literal,,0,2

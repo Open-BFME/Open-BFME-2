@@ -37,12 +37,27 @@ private:
 	_STL::vector<BfmeE16> m_vec;
 };
 
-extern unsigned char Rva0026E7C8DataAnchor;
-// Rva0026E7C8DataAnchor: matched references place it at VA 0xbfa3a4 (retail .rdata value 26).
-unsigned char Rva0026E7C8DataAnchor = 26;
+// Rva0026E7C8DataAnchor: retail table 0x00BFA3A4 (4 slots, followed by the
+// "LuaSpyData" string), stored by the constructor below. Own the complete
+// initialized table instead of its one-byte first-byte stand-in
+// (Rva004DF324Dtor.cpp s_10 precedent): each slot names a matched row at
+// retail's slot target, taken by address and never called through these
+// erased signatures.
+extern "C" {
+void __identifier("??_GRva0026E7EA@@UAEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+void __identifier("?name@Rva0026E7E4Named@@QBEPBDXZ")();
+void __identifier("?rva00332975@Rva0026E7C8Ctor@@QAEXPAVXfer@@@Z")();
+}
+extern const void *const Rva0026E7C8DataAnchor[4] = {
+	(const void *)&__identifier("??_GRva0026E7EA@@UAEPAXI@Z"), //  0 0x0026E81A
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?name@Rva0026E7E4Named@@QBEPBDXZ"), //  2 0x0026E7E4
+	(const void *)&__identifier("?rva00332975@Rva0026E7C8Ctor@@QAEXPAVXfer@@@Z")  //  3 0x00332975
+};
 
 // ??0Rva0026E7EA@@QAE@XZ @0x0026E7C8
 Rva0026E7EA::Rva0026E7EA() :
-	m_unk0(&Rva0026E7C8DataAnchor)
+	m_unk0((void *)Rva0026E7C8DataAnchor)
 {
 }
